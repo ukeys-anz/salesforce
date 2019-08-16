@@ -1,0 +1,19 @@
+{
+  "orgName": "ANZx Scratch Org",
+  "country": "AU",
+  "edition": "Enterprise",
+  "description": "Contains a baseline setup of Financial Services Cloud.",
+  "hasSampleData": false,
+  "language": "en_AU",
+  "features": [
+    "ContactsToMultipleAccounts",
+    "PersonAccounts"
+  ],
+  "settings": {
+    "orgPreferenceSettings": {
+      "s1DesktopEnabled": true,
+      "enhancedEmailEnabled": true,
+      "chatterEnabled": true
+    }
+  }
+}
