@@ -1,9 +1,10 @@
 steps:
-- id: 'Hello'
-  name: 'gcr.io/cloud-builders/kubectl'
-  entrypoint: 'bash'
-  args: [
-    '-c', 'echo hello']
+- name: 'anzx-docker.artifactory.gcp.anz/sfdx-cli:7.20.1'
+  id: 'sfdx-version'
+  args: [ '--version' ]
+
+- name: 'anzx-docker.artifactory.gcp.anz/sfdx-cli:7.20.1'
+  id: 'sfdx-help'
 
 options:
   workerPool: 'anz-cx-cloudbuild-dev-5ef683/custom-workers-dev-pool'
