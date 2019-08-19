@@ -3,6 +3,8 @@
 # Exit the script if any statement returns a non-true return value.
 set -e
 
+export SFDX_DOMAIN_RETRY=0
+
 ALL_START_TIME=$(date +%s)
 
 echo "$(date): Create scratch org..."
