@@ -3,6 +3,8 @@
 # Exit the script if any statement returns a non-true return value.
 set -e
 
+# Bypass the Lightning Experience custom domain check entirely, wich takes very long when connected to ANZ network
+# TODO Consider a switch to bypass it when connected elsewhere (e.g. from GCB)
 export SFDX_DOMAIN_RETRY=0
 
 ALL_START_TIME=$(date +%s)

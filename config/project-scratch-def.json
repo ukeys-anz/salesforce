@@ -14,6 +14,10 @@
       "s1DesktopEnabled": true,
       "enhancedEmailEnabled": true,
       "chatterEnabled": true
+    },
+    "nameSettings": {
+      "enableMiddleName": true,
+      "enableNameSuffix": true
     }
   }
 }
