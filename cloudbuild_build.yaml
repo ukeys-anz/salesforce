@@ -1,10 +1,29 @@
 steps:
-- name: 'anzx-docker.artifactory.gcp.anz/sfdx-cli:7.20.1'
-  id: 'sfdx-version'
-  args: [ '--version' ]
+- id: 'Code Quality (Sonarqube)'
+  name: 'gcr.io/cloud-builders/docker'
+  args: [
+    'run', '-v', '/workspace:/root/src',
+      'hub.artifactory.gcp.anz/newtmitch/sonar-scanner',
+        '-Dsonar.projectKey=salesforce',
+        '-Dsonar.projectName=Salesforce',
+        '-Dsonar.sources=.',
+        '-Dsonar.host.url=https://sonarqube.services.anzx.gcpnp.anz',
+        '-Dsonar.login=280ee81e19bf95d66c9da0b6022afa49dfd2819a'
+  ]
 
-- name: 'anzx-docker.artifactory.gcp.anz/sfdx-cli:7.20.1'
-  id: 'sfdx-help'
+- id: 'Code Quality (PMD)'
+  name: 'gcr.io/cloud-builders/docker'
+  args: [ 'run',  '-v', '/workspace:/workdir', 'hub.artifactory.gcp.anz/jamesmoriarty/pmd',
+    'pmd',
+      '-R', 'rulesets/apex/ruleset.xml',
+      '-d', '.',
+      '-l', 'apex',
+      '-f', 'textcolor'
+  ]
+
+- id: 'Test sfdx-version'
+  name: 'anzx-docker.artifactory.gcp.anz/sfdx-cli:7.20.1'
+  args: [ '--version' ]
 
 options:
   workerPool: 'anz-cx-cloudbuild-dev-5ef683/custom-workers-dev-pool'
