@@ -2,12 +2,12 @@ steps:
 - id: 'Code Quality (Sonarqube)'
   name: 'gcr.io/cloud-builders/docker'
   args: [
-    'run', '-v', '/workspace:/root/src',
-      'hub.artifactory.gcp.anz/newtmitch/sonar-scanner',
+    'run', '-v', '/workspace:/usr/src',
+      'hub.artifactory.gcp.anz/newtmitch/sonar-scanner:4.0.0',
         '-Dsonar.projectKey=salesforce',
         '-Dsonar.projectName=Salesforce',
         '-Dsonar.sources=.',
-        '-Dsonar.host.url=https://sonarqube.services.anzx.gcpnp.anz',
+        '-Dsonar.host.url=http://sonarqube.services.anzx.gcpnp.anz',
         '-Dsonar.login=280ee81e19bf95d66c9da0b6022afa49dfd2819a'
   ]
 
