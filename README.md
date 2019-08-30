@@ -1,6 +1,6 @@
 # Salesforce
 
-[![Maintainability Rating](https://sonarqube.services.anzx.gcpnp.anz/api/project_badges/measure?project=salesforce&metric=sqale_rating)](https://sonarqube.services.anzx.gcpnp.anz/dashboard?id=salesforce)
+[![Maintainability Rating](https://sonarqube.services.anzx.gcpnp.anz/api/project_badges/measure?project=salesforce&metric=sqale_rating)](https://sonarqube.services.anzx.gcpnp.anz/dashboard?id=salesforce) [![Security Rating](https://sonarqube.services.anzx.gcpnp.anz/api/project_badges/measure?project=salesforce&metric=security_rating)](https://sonarqube.services.anzx.gcpnp.anz/dashboard?id=salesforce)
 
 Repository for the Salesforce Customer Relationship Management platform
 
