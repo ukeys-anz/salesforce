@@ -15,10 +15,10 @@ sfdx force:org:create -f config/project-scratch-def.json -a FscScratchOrg --setd
 JOB_END_TIME=$(date +%s)
 echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
 
-echo "$(date): Install FSC v220.6.0..."
+echo "$(date): Install FSC v220.8.0..."
 # http://industries.force.com/financialservicescloud
 JOB_START_TIME=$(date +%s)
-sfdx force:package:install --package 04t1E000000y9ew -w 20 --securitytype AllUsers
+sfdx force:package:install --package 04t1E000000y9lo -w 20 --securitytype AllUsers
 JOB_END_TIME=$(date +%s)
 echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
 
