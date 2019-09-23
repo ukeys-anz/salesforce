@@ -1,0 +1,13 @@
+# This file is used to automatically request reviews on PRs.
+
+# These owners will be the default owners for everything in
+# the repo, unless a match on a later line takes precedence.
+# The below will request review from some members of the
+# salesforce team.
+*                       @saiero @zhengj9 @rachono
+
+# The below will request a review from members of the platform 
+# engineering team for changes to CI/CD files
+*.yaml                  @ANZx/platform-engineering
+Dockerfile              @ANZx/platform-engineering
+keys/cli-key.pem.enc    @ANZx/platform-engineering

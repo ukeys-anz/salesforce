@@ -41,3 +41,6 @@ mdapi-source/
 .tern-project
 .settings
 IlluminatedCloud/
+
+# Unencrypted keys should not be committed
+*.pem

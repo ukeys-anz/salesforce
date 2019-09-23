@@ -1,3 +1,0 @@
-# Unencrypted keys should not be committed
-*.pem
-
