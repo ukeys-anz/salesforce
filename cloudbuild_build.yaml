@@ -44,7 +44,7 @@ steps:
 - id: 'Code Quality (PMD)'
   waitFor: [ '-' ]
   name: 'gcr.io/cloud-builders/docker'
-  args: [ 'run',  '-v', '/workspace:/workdir', 'hub.artifactory.gcp.anz/jamesmoriarty/pmd',
+  args: [ 'run',  '-v', '/workspace:/workdir', 'hub.artifactory.gcp.anz/jamesmoriarty/pmd:6.18.0',
     'pmd',
       '-R', 'rulesets/apex/ruleset.xml',
       '-d', '.',
