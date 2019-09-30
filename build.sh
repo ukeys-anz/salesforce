@@ -114,10 +114,10 @@ function setup {
   JOB_END_TIME=$(date +%s)
   pp "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
 
-  pp "$(date): Install FSC v220.6.0..."
+  pp "$(date): Install FSC v220.8.0..."
   # http://industries.force.com/financialservicescloud
   JOB_START_TIME=$(date +%s)
-  sfdx force:package:install --package 04t1E000000y9ew -w 20 --securitytype AllUsers 
+  sfdx force:package:install --package 04t1E000000y9lo -w 20 --securitytype AllUsers 
   JOB_END_TIME=$(date +%s)
   pp "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
 
@@ -153,8 +153,8 @@ function setup {
 
 
 function run_tests {
-  pp "$(date): Run apex tests..."
-  sfdx force:apex:test:run -r json > "$TMPDIR/test_result.json";
+  pp "$(date): Run apex tests and retrieve code coverage results..."
+  sfdx force:apex:test:run -c -r json > "$TMPDIR/test_result.json";
   # TODO: Save test_result somewhere
   cat "$TMPDIR/test_result.json"
   JOB_END_TIME=$(date +%s)
