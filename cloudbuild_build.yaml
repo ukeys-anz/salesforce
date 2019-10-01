@@ -21,7 +21,8 @@ steps:
   - ci_pre_setup
   - setup
   - run_tests
-  - ci_test_status_exit
+  - ci_test_status
+  - ci_coverage_status
   env:
   - "CONSUMER_KEY=3MVG9LYo_0A0MtgGa1jC8NYSa4WuSg3ndmj3q_chvURy1vwz02QUKoebiTEyEJDETwGJ42eU3x5p38E5sPZwo"
   - "HUB_USERNAME=tech.gcb@anzx.com"
