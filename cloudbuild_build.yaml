@@ -29,19 +29,6 @@ steps:
   - "INSTANCE_URL=https://anz.my.salesforce.com"
   - "JWT_KEY_FILE=/workspace/keys/cli-key.pem"
 
-- id: 'Code Quality (Sonarqube)'
-  waitFor: [ '-' ]
-  name: 'gcr.io/cloud-builders/docker'
-  args: [
-    'run', '-v', '/workspace:/usr/src',
-      'hub.artifactory.gcp.anz/newtmitch/sonar-scanner:4.0.0',
-        '-Dsonar.projectKey=salesforce',
-        '-Dsonar.projectName=Salesforce',
-        '-Dsonar.sources=.',
-        '-Dsonar.host.url=http://sonarqube.services.anzx.gcpnp.anz',
-        '-Dsonar.login=280ee81e19bf95d66c9da0b6022afa49dfd2819a'
-  ]
-
 - id: 'Code Quality (PMD)'
   waitFor: [ '-' ]
   name: 'gcr.io/cloud-builders/docker'
