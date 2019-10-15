@@ -45,10 +45,14 @@ ${bold}COMMANDS${reset}
 
     run_tests
         1. Run APEX test
-        2. Return success/fail based on test result
+        2. Retrieve code coverage results
+        3. Return success/fail based on test result
 
-    ci_test_status_exit
-        Exit with non-zero exit status if test result does not equal "Passed"
+    ci_test_status
+        Assess whether tests passed or not
+
+    ci_coverage_status
+        Assess whether code coverage is sufficient
 
 ${bold}EXAMPLES${reset}
     build.sh help
