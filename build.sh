@@ -232,7 +232,7 @@ function deploy_package() {
     # Tests will be excuted and code coverage will be calculated. Deployment will be rolled back if tests fail or if code coverage requirement isn't met
     # Use -c or --checkonly for a dry run
     #sfdx force:mdapi:deploy --zipfile package.zip --targetusername "${SBX_USERNAME}" --testlevel RunLocalTests --wait 20 --checkonly
-    sfdx force:mdapi:deploy --deploydir "${PWD}/package" --targetusername "${SBX_USERNAME}" --testlevel RunLocalTests --wait 20 --checkonly
+    sfdx force:mdapi:deploy --deploydir "${PWD}/package" --targetusername "${SBX_USERNAME}" --testlevel RunLocalTests --wait 20
 }
 
 # Save results and logs in tempdir (save elsewhere where needed)
