@@ -54,6 +54,17 @@ ${bold}COMMANDS${reset}
     ci_coverage_status
         Assess whether code coverage is sufficient
 
+    cd_setup
+        1. Validate parameters
+        2. Authenticate using JWT key
+
+    create_package
+        1. Convert code from SFDX top MDAPI format
+        2. Zip the code
+
+    deploy_package
+        Deploy the previousy created zip, with an option to run tests and check coverage before committing the deployment.
+
 ${bold}EXAMPLES${reset}
     build.sh help
     build.sh setup
@@ -183,6 +194,47 @@ function ci_coverage_status() {
     fi
 }
 
+function cd_setup() {
+    missing_required=0
+    if [ -z "${CONSUMER_KEY+x}" ]; then
+        pp "${red}CONSUMER_KEY environment variable must be set for cd_setup action"
+        missing_required=1
+    fi
+    if [ -z "${SBX_USERNAME+x}" ]; then
+        pp "${red}SBX_USERNAME environment variable must be set for cd_setup action"
+        missing_required=1
+    fi
+    if [ -z "${JWT_KEY_FILE+x}" ]; then
+        pp "${red}JWT_KEY_FILE environment variable must be set for cd_setup action"
+        missing_required=1
+    fi
+    if [ -z "${INSTANCE_URL+x}" ]; then
+        pp "${red}INSTANCE_URL environment variable must be set for cd_setup action"
+        missing_required=1
+    fi
+    if [ "$missing_required" -eq 0 ]; then
+        export SFDX_AUDIENCE_URL=https://test.salesforce.com/
+        sfdx force:auth:jwt:grant --clientid="${CONSUMER_KEY}" --username="${SBX_USERNAME}" --setdefaultusername --jwtkeyfile="${JWT_KEY_FILE}" --instanceurl="${INSTANCE_URL}"
+    fi
+}
+
+function create_package() {
+    # Convert source
+    sfdx force:source:convert --rootdir force-app --outputdir package
+    # Create package
+    #FIXME: /workspace/build.sh: line 210: zip: command not found
+    #zip -r -X package.zip package
+    #rm -rf package
+}
+
+function deploy_package() {
+    # https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_mdapi.htm#cli_reference_deploy
+    # Tests will be excuted and code coverage will be calculated. Deployment will be rolled back if tests fail or if code coverage requirement isn't met
+    # Use -c or --checkonly for a dry run
+    #sfdx force:mdapi:deploy --zipfile package.zip --targetusername "${SBX_USERNAME}" --testlevel RunLocalTests --wait 20 --checkonly
+    sfdx force:mdapi:deploy --deploydir "${PWD}/package" --targetusername "${SBX_USERNAME}" --testlevel RunLocalTests --wait 20 --checkonly
+}
+
 # Save results and logs in tempdir (save elsewhere where needed)
 TMPDIR=$(mktemp -d)
 trap 'rm -rf $TMPDIR' EXIT
@@ -228,6 +280,18 @@ while [[ $# -gt 0 ]]; do
         ;;
     ci_coverage_status)
         ci_coverage_status
+        shift
+        ;;
+    cd_setup)
+        cd_setup
+        shift
+        ;;
+    create_package)
+        create_package
+        shift
+        ;;
+    deploy_package)
+        deploy_package
         shift
         ;;
     *)

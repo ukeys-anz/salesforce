@@ -1,10 +1,45 @@
 steps:
-- id: 'Hello'
-  name: 'gcr.io/cloud-builders/kubectl'
-  entrypoint: 'bash'
-  args: [
-    '-c', 'echo hello']
+- id: 'Curl Salesforce'
+  name: 'gcr.io/cloud-builders/curl'
+  args:
+  - -v
+  - https://anz.my.salesforce.com/
+
+- id: 'Decrypt the SFDX Key Using gcloud KMS'
+  name: gcr.io/cloud-builders/gcloud
+  args:
+  - kms
+  - decrypt
+  - --ciphertext-file=keys/cli-key.pem.enc
+  - --plaintext-file=keys/cli-key.pem
+  - --location=global
+  - --keyring=cloudbuild-keyring
+  - --key=salesforce-cli-authentication-key
+
+- id: 'Deploy with Tests'
+  name: 'anzx-docker.artifactory.gcp.anz/salesforce/salesforce-builder:latest'
+  args:
+  - cd_setup
+  - create_package
+  - deploy_package
+  env:
+  - "CONSUMER_KEY=3MVG9sJgqz9F5RxNqnfCNPP1r8QKa_l4E.JovXfHbtx5ZT1txCcp.lXb2FU.GA6_GBa3ezxzRpdPtbZAYy_zY"
+  - "SBX_USERNAME=tech.gcb@anzx.com.dev01"
+  - "INSTANCE_URL=https://anz--dev01.my.salesforce.com"
+  - "JWT_KEY_FILE=/workspace/keys/cli-key.pem"
+
+- id: 'Code Quality (PMD)'
+  waitFor: [ '-' ]
+  name: 'gcr.io/cloud-builders/docker'
+  args: [ 'run',  '-v', '/workspace:/workdir', 'hub.artifactory.gcp.anz/jamesmoriarty/pmd:6.18.0',
+    'pmd',
+      '-R', 'rulesets/apex/quickstart.xml',
+      '-d', '.',
+      '-l', 'apex',
+      '-f', 'textcolor'
+  ]
 
 options:
   workerPool: 'anz-cx-cloudbuild-dev-5ef683/custom-workers-dev-pool'
 
+timeout: 45m

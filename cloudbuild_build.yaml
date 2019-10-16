@@ -1,11 +1,12 @@
 steps:
-- name: 'gcr.io/cloud-builders/curl'
-  id: 'curl-salesforce'
+- id: 'Curl Salesforce Dev Hub'
+  name: 'gcr.io/cloud-builders/curl'
   args:
   - -v
   - https://anz.my.salesforce.com
 
-- name: gcr.io/cloud-builders/gcloud
+- id: 'Decrypt the SFDX Key Using gcloud KMS'
+  name: gcr.io/cloud-builders/gcloud
   args:
   - kms
   - decrypt
@@ -15,7 +16,7 @@ steps:
   - --keyring=cloudbuild-keyring
   - --key=salesforce-cli-authentication-key
 
-- id: 'Test code in scratch environment'
+- id: 'Test Code in Scratch Environment'
   name: 'anzx-docker.artifactory.gcp.anz/salesforce/salesforce-builder:latest'
   args:
   - ci_pre_setup
