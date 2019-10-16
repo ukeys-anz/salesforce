@@ -7,20 +7,25 @@
     "language": "en_AU",
     "features": [
         "ContactsToMultipleAccounts",
-        "PersonAccounts"
+        "PersonAccounts",
+        "FinancialServicesUser:10"
     ],
     "settings": {
-        "orgPreferenceSettings": {
-            "s1DesktopEnabled": true,
-            "chatterEnabled": true,
-            "networksEnabled": false
-        },
         "nameSettings": {
             "enableMiddleName": true,
             "enableNameSuffix": true
         },
         "entitlementSettings": {
             "enableEntitlements": false
+        },
+        "lightningExperienceSettings": {
+            "enableS1DesktopEnabled": true
+        },
+        "chatterSettings": {
+            "enableChatter": true
+        },
+        "communitiesSettings": {
+            "enableNetworksEnabled": false
         }
     }
 }
