@@ -44,3 +44,8 @@ IlluminatedCloud/
 
 # Unencrypted keys should not be committed
 *.pem
+
+# cicd working directory
+/tmp
+/keys/*.txt
+!/keys/*.encrypted.txt

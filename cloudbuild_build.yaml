@@ -1,34 +1,55 @@
+options:
+  workerPool: 'anz-cx-cloudbuild-dev-5ef683/custom-workers-dev-pool'
+
 steps:
-- id: 'Curl Salesforce Dev Hub'
-  name: 'gcr.io/cloud-builders/curl'
+- id: git_init
+  name: 'gcr.io/cloud-builders/git'
+  waitFor: ['-']
+  entrypoint: bash
   args:
-  - -v
-  - https://anz.my.salesforce.com
+  - -c
+  - |
+    # Attempt to fetch all tags
+    git fetch --unshallow
+    git branch -a
 
 - id: 'Decrypt the SFDX Key Using gcloud KMS'
   name: gcr.io/cloud-builders/gcloud
+  entrypoint: bash
   args:
-  - kms
-  - decrypt
-  - --ciphertext-file=keys/cli-key.pem.enc
-  - --plaintext-file=keys/cli-key.pem
-  - --location=global
-  - --keyring=cloudbuild-keyring
-  - --key=salesforce-cli-authentication-key
+  - -c
+  - |
+    if [[ '$BRANCH_NAME' == develop || '$BRANCH_NAME' == feature/* ]]; then
+      ENV='systest'
+    elif [[ '$BRANCH_NAME' == master || '$BRANCH_NAME' == release/* ]]; then
+      ENV='staging'
+    fi
+    if [[ -n $${ENV+x} ]]; then
+      gcloud kms decrypt \
+        --ciphertext-file=keys/sfdx-auth-url-"$$ENV".encrypted.txt \
+        --plaintext-file=keys/sfdx-auth-url-"$$ENV".txt \
+        --location=global \
+        --keyring=cloudbuild-keyring \
+        --key=salesforce-cli-authentication-key
+    fi
 
-- id: 'Test Code in Scratch Environment'
-  name: 'anzx-docker.artifactory.gcp.anz/salesforce/salesforce-builder:latest'
+- id: 'Deploy to environment'
+  name: 'anzx-docker.artifactory.gcp.anz/salesforce/salesforce-builder:new'
+  entrypoint: bash
   args:
-  - ci_pre_setup
-  - setup
-  - run_tests
-  - ci_test_status
-  - ci_coverage_status
-  env:
-  - "CONSUMER_KEY=3MVG9LYo_0A0MtgGa1jC8NYSa4WuSg3ndmj3q_chvURy1vwz02QUKoebiTEyEJDETwGJ42eU3x5p38E5sPZwo"
-  - "HUB_USERNAME=tech.gcb@anzx.com"
-  - "INSTANCE_URL=https://anz.my.salesforce.com"
-  - "JWT_KEY_FILE=/workspace/keys/cli-key.pem"
+  - -c
+  - |
+    # The value of USERNAME does not matter, as long as the alias is aligned between the deploy
+    # command and the sfdx credential store.
+    USERNAME='ASDF'
+    if [[ '$BRANCH_NAME' == develop || '$BRANCH_NAME' == feature/* ]]; then
+      sfdx force:auth:sfdxurl:store --sfdxurlfile 'keys/sfdx-auth-url-systest.txt' --setalias "$$USERNAME" --json
+    elif [[ '$BRANCH_NAME' == master || '$BRANCH_NAME' == release/* ]]; then
+      sfdx force:auth:sfdxurl:store --sfdxurlfile 'keys/sfdx-auth-url-staging.txt' --setalias "$$USERNAME" --json
+    fi
+    exec /workspace/scripts/cicd.sh \
+      --branch '${BRANCH_NAME}' \
+      --username "$$USERNAME"
 
 - id: 'Code Quality (PMD)'
   waitFor: [ '-' ]
@@ -40,8 +61,3 @@ steps:
       '-l', 'apex',
       '-f', 'textcolor'
   ]
-
-options:
-  workerPool: 'anz-cx-cloudbuild-dev-5ef683/custom-workers-dev-pool'
-
-timeout: 45m
