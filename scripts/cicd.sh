@@ -16,7 +16,7 @@ source "$CONTAINING_DIR"/functions.sh
 # Parse arguments and derive configuration from git
 unset BRANCH
 unset USERNAME
-unset GIT_TAG_PREFIX
+unset PRODUCTION_TAG_PREFIX
 while (( $#>0 )); do
     KEY=$1
     case "$KEY" in
@@ -30,9 +30,9 @@ while (( $#>0 )); do
             USERNAME=$1
             shift
         ;;
-        --git-tag-prefix)
+        --production-tag-prefix)
             shift
-            GIT_TAG_PREFIX=$1
+            PRODUCTION_TAG_PREFIX=$1
             shift
         ;;
         *)
@@ -57,10 +57,13 @@ if [[ -z ${BRANCH+x} ]]; then
         exit 1
     fi
 fi
-if [[ -n ${GIT_TAG_PREFIX+x} ]]; then
+if [[ -n ${PRODUCTION_TAG_PREFIX+x} ]]; then
   # TODO implement logic for production deployments...
   if [[ ${BRANCH} != master ]]; then
-    1>&2 echo "flag --branch should be master because --git-tag-prefix is set, implying production deployments"
+    1>&2 echo "flag --branch should be master because --production-tag-prefix is set, implying production deployments"
+  fi
+  if [[ ${PRODUCTION_TAG_PREFIX} == 'systest-' || ${PRODUCTION_TAG_PREFIX} == 'staging-' || ${PRODUCTION_TAG_PREFIX} != -* ]]; then
+    1>&2 echo "production tag prefix must not be 'systest-' or 'staging-' and should end with a hyphen"
   fi
   1>&2 echo "logic for production deployments is not fully implemented yet"
   exit 1
@@ -74,24 +77,38 @@ fi
 # branch).
 # 2. If a deployment on develop fails then it's commit will not be considered.
 # Similarly, if a deployment on the master branch fails then it's commit will not be considered.
+unset TAG_PREFIX
 case "$BRANCH" in
   feature/*)
-    DIFF_COMMITISH='develop'
+    DEPLOY_MODE='validate'
+    DIFF_COMMITISH='remotes/origin/develop'
   ;;
   develop)
-    DIFF_COMMITISH='HEAD^1'
+    DEPLOY_MODE='deploy'
+    TAG_PREFIX='systest-'
   ;;
   release/*)
-    DIFF_COMMITISH='master'
+    DEPLOY_MODE='validate'
+    DIFF_COMMITISH='remotes/origin/master'
   ;;
   master)
-    DIFF_COMMITISH='HEAD^1'
+    DEPLOY_MODE='deploy'
+    if [[ -n ${PRODUCTION_TAG_PREFIX} ]]; then
+      TAG_PREFIX=${PRODUCTION_TAG_PREFIX}
+    else
+      TAG_PREFIX='staging-'
+    fi
   ;;
   *)
     1>&2 echo "value of --branch must be \"develop\" or \"master\" or start with \"feature/\" or \"release/\""
     exit 1
   ;;
 esac
+if [[ -n ${TAG_PREFIX+x} ]]; then
+  DIFF_COMMITISH=$(getLatestTag "$TAG_PREFIX")
+fi
+
+echo "delta: from '${BRANCH}' to '${DIFF_COMMITISH}'"
 
 # When rerunning on local, delete files from any previous run
 rm -rf tmp
@@ -120,7 +137,7 @@ else
 fi
 
 # Add deleted files to the deployment package for metadata API
-echo "copying deletes ${SOURCE_DIR} files to staging area, to create destructiveChanges.xml"
+echo "copying deleted ${SOURCE_DIR} files to staging area, to create destructiveChanges.xml"
 setBranchDiffCommand true true
 "${DIFFSTARTCOMMAND[@]}" > tmp/stdout.txt
 if [[ -s tmp/stdout.txt ]]; then
@@ -155,7 +172,7 @@ if [[ ! -e tmp/package-deploy-md/package.xml ]]; then
 </Package>' > tmp/package-deploy-md/package.xml
 fi
 
-case "$BUILD_COMMAND" in
+case "$DEPLOY_MODE" in
     validate)
         echo "validating metadata API package"
         sfdx force:mdapi:deploy -c -d tmp/package-deploy-md -l RunLocalTests -w -1 --loglevel debug --targetusername "${USERNAME}" 
@@ -163,9 +180,12 @@ case "$BUILD_COMMAND" in
     deploy)
         echo "deploying metadata API package"
         sfdx force:mdapi:deploy -d tmp/package-deploy-md -l RunLocalTests -w -1 --loglevel debug --targetusername "${USERNAME}"
+        TAG="${TAG_PREFIX}$(date '+%s')"
+        git tag "$TAG"
+        git push origin "$TAG"
     ;;
     *)
-        1>&2 echo "unknown BUILD_COMMAND, please fix this script"
+        1>&2 echo "unknown DEPLOY_MODE, please fix this script"
         exit 1
     ;;
 esac

@@ -59,7 +59,4 @@ steps:
     # command and the sfdx credential store.
     USERNAME='ASDF'
     sfdx force:auth:sfdxurl:store --sfdxurlfile 'keys/sfdx-auth-url-production.txt' --setalias "$$USERNAME" --json
-    /workspace/scripts/cicd.sh --branch '${BRANCH_NAME}' --username "$$USERNAME" --git-tag-prefix '${_GIT_TAG_PREFIX}' 
-    git tag '${_GIT_TAG_PREFIX}'"$(date '+%s')"
-    # TODO create production gitsync (or update it) configuration to have sync_tags: true
-    git push origin --tags
+    exec /workspace/scripts/cicd.sh --branch '${BRANCH_NAME}' --username "$$USERNAME" --git-tag-prefix '${_GIT_TAG_PREFIX}' 

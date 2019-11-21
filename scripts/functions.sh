@@ -3,7 +3,9 @@ function copyMandatoryFilesToPackage(){
 }
 
 function getLatestTag() {
-  if git describe --abbrev=0 --tags --match "${GIT_TAG_PREFIX}*" 2>tmp/stderr; then
+  local TAG_PREFIX
+  TAG_PREFIX=$1
+  if git describe --abbrev=0 --tags --match "${TAG_PREFIX}*" 2>tmp/stderr; then
     return 0
   fi
   # Ignore tag not found errors
@@ -22,42 +24,13 @@ function setBranchDiffCommand() {
     ISCHECKCOUNT=$2
     if [[ $ISDESTRUCTIVE = false ]]; then
         DIFFENDCOMMAND=(xargs -0 git archive -o tmp/tmp.zip HEAD)
-        if [[ -z "${DIFF_COMMITISH}" && "${BRANCH}" = "master" ]]; then
-            echo "delta: from HEAD to last master tag"
-            local TAG
-            # If the tag does not exist then TAG is empty.
-            TAG=$(getLatestTag)
-            DIFFSTARTCOMMAND=(git diff -z --name-only --diff-filter=d "${TAG}"..HEAD "${SOURCE_DIR}"/)
-        else
-            echo "delta: from branch ${BRANCH} to ${DIFF_COMMITISH}"
-            DIFFSTARTCOMMAND=(git diff -z --name-only --diff-filter=d remotes/origin/"${DIFF_COMMITISH}"..remotes/origin/"${BRANCH}" "${SOURCE_DIR}"/)
-        fi
+        DIFFSTARTCOMMAND=(git diff -z --name-only --diff-filter=d "${DIFF_COMMITISH}"..remotes/origin/"${BRANCH}" "${SOURCE_DIR}"/)
     elif [[ $ISCHECKCOUNT = true ]]; then
-        if [[ -z "${DIFF_COMMITISH}" && "${BRANCH}" = "master" ]]; then
-            echo "delta: from HEAD to last master tag"
-            local TAG
-            # If the tag does not exist then TAG is empty.
-            TAG=$(getLatestTag)
-            DIFFSTARTCOMMAND=(git diff -z --diff-filter=D --no-renames --name-only "${TAG}"..HEAD "${SOURCE_DIR}"/)
-            DIFFENDCOMMAND=(xargs -0 git archive -o tmp/tmp.zip "${TAG}")
-        else
-            echo "delta: from branch ${BRANCH} to ${DIFF_COMMITISH}"
-            DIFFSTARTCOMMAND=(git diff -z --diff-filter=D --no-renames --name-only remotes/origin/"${DIFF_COMMITISH}"..remotes/origin/"${BRANCH}" "${SOURCE_DIR}"/)
-            DIFFENDCOMMAND=(xargs -0 git archive -o tmp/tmp.zip remotes/origin/"${DIFF_COMMITISH}")
-        fi
+        DIFFSTARTCOMMAND=(git diff -z --diff-filter=D --no-renames --name-only "${DIFF_COMMITISH}"..remotes/origin/"${BRANCH}" "${SOURCE_DIR}"/)
+        DIFFENDCOMMAND=(xargs -0 git archive -o tmp/tmp.zip "${DIFF_COMMITISH}")
     else
-        if [[ -z "${DIFF_COMMITISH}" && "${BRANCH}" = "master" ]]; then
-            echo "delta: from HEAD to last master tag"
-            local TAG
-            # If the tag does not exist then TAG is empty.
-            TAG=$(getLatestTag)
-            DIFFSTARTCOMMAND=(git diff -z --diff-filter=D --no-renames --name-only "${TAG}"..HEAD "${SOURCE_DIR}"/)
-            DIFFENDCOMMAND=(xargs -0 git archive -o tmp/tmp.zip "${TAG}")
-        else
-            echo "delta: from branch ${BRANCH} to ${DIFF_COMMITISH}"
-            DIFFSTARTCOMMAND=(git diff -z --diff-filter=D --no-renames --name-only remotes/origin/"${DIFF_COMMITISH}"..remotes/origin/"${BRANCH}" "${SOURCE_DIR}"/)
-            DIFFENDCOMMAND=(xargs -0 git archive -o tmp/tmp.zip remotes/origin/"${DIFF_COMMITISH}")
-        fi
+        DIFFSTARTCOMMAND=(git diff -z --diff-filter=D --no-renames --name-only "${DIFF_COMMITISH}"..remotes/origin/"${BRANCH}" "${SOURCE_DIR}"/)
+        DIFFENDCOMMAND=(xargs -0 git archive -o tmp/tmp.zip "${DIFF_COMMITISH}")
     fi
 }
 
