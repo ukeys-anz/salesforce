@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Exit the script if any statement returns a non-true return value.
-set -e
-
 # Bypass the Lightning Experience custom domain check entirely, wich takes very long when connected to ANZ network
 # TODO Consider a switch to bypass it when connected elsewhere (e.g. from GCB)
 export SFDX_DOMAIN_RETRY=0
@@ -11,30 +8,9 @@ ALL_START_TIME=$(date +%s)
 
 echo "$(date): Create scratch org..."
 JOB_START_TIME=$(date +%s)
-sfdx force:org:create -f config/project-scratch-def.json -a FscScratchOrg --setdefaultusername --durationdays 30
+sfdx force:org:create -f config/snapshot-scratch-def-template.json -d 30 --setdefaultusername -w 10
 JOB_END_TIME=$(date +%s)
 echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
-
-echo "$(date): Install FSC v220.8.0..."
-# http://industries.force.com/financialservicescloud
-JOB_START_TIME=$(date +%s)
-sfdx force:package:install --package 04t1E000000y9lo --wait 20 --securitytype AllUsers
-JOB_END_TIME=$(date +%s)
-echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
-
-# echo "$(date): Install FSC Extensions 218.1..."
-# # http://industries.force.com/financialservicescloudextension
-# JOB_START_TIME=$(date +%s)
-# sfdx force:package:install --package 04t1E000001Iql5 --wait 20 --securitytype AllUsers
-# JOB_END_TIME=$(date +%s)
-# echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
-
-# echo "$(date): Install Intelligent Need-Based Referrals and Scoring 218.1..."
-# # http://industries.force.com/financialservicescloudextensionrb
-# JOB_START_TIME=$(date +%s)
-# sfdx force:package:install --package 04t80000000lTp4 --wait 20 --securitytype AllUsers
-# JOB_END_TIME=$(date +%s)
-# echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
 
 echo "$(date): Assign Pset..."
 JOB_START_TIME=$(date +%s)
@@ -48,9 +24,9 @@ sfdx force:source:push
 JOB_END_TIME=$(date +%s)
 echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
 
-echo "$(date): Execute post-install scripts..."
+echo "$(date): Setup custom settings..."
 JOB_START_TIME=$(date +%s)
-sfdx force:apex:execute -f config/post-install.apex
+sfdx force:data:tree:import -p data/Post-Plan.json
 JOB_END_TIME=$(date +%s)
 echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
 

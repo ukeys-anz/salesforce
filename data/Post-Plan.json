@@ -1,0 +1,10 @@
+[
+    {
+        "sobject": "FinServ__UsePersonAccount__c",
+        "saveRefs": true,
+        "resolveRefs": false,
+        "files": [
+            "FinServ__UsePersonAccount__cs.json"
+        ]
+    }
+]
