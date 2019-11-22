@@ -13,7 +13,19 @@ steps:
     git fetch --unshallow
     git branch -a
 
-- id: 'Decrypt the SFDX Key Using gcloud KMS'
+- id: 'code_quality_pmd'
+  waitFor: [ '-' ]
+  name: 'hub.artifactory.gcp.anz/jamesmoriarty/pmd:6.18.0'
+  args: [
+    'pmd',
+    '-R', '/workspace/rulesets/apex/quickstart.xml',
+    '-d', '.',
+    '-l', 'apex',
+    '-f', 'textcolor'
+  ]
+
+- id: 'decrypt_key'
+  waitFor: [ '-' ]
   name: gcr.io/cloud-builders/gcloud
   entrypoint: bash
   args:
@@ -34,6 +46,7 @@ steps:
     fi
 
 - id: 'Deploy to environment'
+  waitFor: ['git_init', 'decrypt_key', 'code_quality_pmd']
   name: 'anzx-docker.artifactory.gcp.anz/salesforce/salesforce-builder:new'
   entrypoint: bash
   args:
@@ -50,14 +63,3 @@ steps:
     exec /workspace/scripts/cicd.sh \
       --branch '${BRANCH_NAME}' \
       --username "$$USERNAME"
-
-- id: 'Code Quality (PMD)'
-  waitFor: [ '-' ]
-  name: 'gcr.io/cloud-builders/docker'
-  args: [ 'run',  '-v', '/workspace:/workdir', 'hub.artifactory.gcp.anz/jamesmoriarty/pmd:6.18.0',
-    'pmd',
-      '-R', 'rulesets/apex/quickstart.xml',
-      '-d', '.',
-      '-l', 'apex',
-      '-f', 'textcolor'
-  ]

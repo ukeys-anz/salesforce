@@ -6,17 +6,6 @@ options:
   workerPool: 'anz-cx-cloudbuild-dev-5ef683/custom-workers-dev-pool'
 
 steps:
-- id: 'Code Quality (PMD)'
-  waitFor: [ '-' ]
-  name: 'gcr.io/cloud-builders/docker'
-  args: [ 'run',  '-v', '/workspace:/workdir', 'hub.artifactory.gcp.anz/jamesmoriarty/pmd:6.18.0',
-    'pmd',
-      '-R', 'rulesets/apex/quickstart.xml',
-      '-d', '.',
-      '-l', 'apex',
-      '-f', 'textcolor'
-  ]
-
 - id: git_init
   name: 'gcr.io/cloud-builders/git'
   waitFor: ['-']
@@ -24,20 +13,22 @@ steps:
   args:
   - -c
   - |
-    # Tags are required by scripts/cicd.sh
-    git fetch --tags
-    # Ensure git authentication succeeds when pushing tags.
-    ACTIVE_ACCOUNT=$$(gcloud auth list --filter=status:ACTIVE --format='value(account)')
-    git config user.email "$$ACTIVE_ACCOUNT"
-    git config user.name "GCP Cloud Build"
+    # Attempt to fetch all tags
+    git fetch --unshallow
+    git branch -a
 
-- id: 'Curl Salesforce'
-  name: 'gcr.io/cloud-builders/curl'
-  args:
-  - -v
-  - https://anz.my.salesforce.com/
+- id: 'code_quality_pmd'
+  waitFor: [ '-' ]
+  name: 'hub.artifactory.gcp.anz/jamesmoriarty/pmd:6.18.0'
+  args: [
+    'pmd',
+    '-R', '/workspace/rulesets/apex/quickstart.xml',
+    '-d', '.',
+    '-l', 'apex',
+    '-f', 'textcolor'
+  ]
 
-- id: 'Decrypt the SFDX Key Using gcloud KMS'
+- id: 'decrypt_key'
   name: gcr.io/cloud-builders/gcloud
   args:
   - kms
@@ -50,6 +41,7 @@ steps:
   - --key=salesforce-prod-authentication-key
 
 - id: 'Deploy to production'
+  waitFor: ['git_init', 'decrypt_key', 'code_quality_pmd']
   name: 'anzx-docker.artifactory.gcp.anz/salesforce/salesforce-builder:new'
   entrypoint: bash
   args:
