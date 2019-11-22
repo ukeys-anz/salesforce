@@ -111,9 +111,11 @@ mkdir tmp
 if [[ -n ${TAG_PREFIX+x} ]]; then
   DIFF_COMMITISH=$(getLatestTag "$TAG_PREFIX")
 fi
-
-echo "delta: from '${BRANCH}' to '${DIFF_COMMITISH}'"
-
+if [[ -z ${DIFF_COMMITISH} ]]; then
+  echo "delta: everything, because there is no tag yet starting with $TAG_PREFIX"
+else
+  echo "delta: from '${BRANCH}' to '${DIFF_COMMITISH}'"
+fi
 # Add added or updated files to the deployment package for metadata API
 echo "copying added or updated ${SOURCE_DIR} files to staging area, to be passed to \"sfdx force:source:convert -d tmp/package-deploy-md ...\""
 setBranchDiffCommand false false

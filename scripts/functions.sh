@@ -23,14 +23,24 @@ function setBranchDiffCommand() {
     ISDESTRUCTIVE=$1
     ISCHECKCOUNT=$2
     if [[ $ISDESTRUCTIVE = false ]]; then
-        DIFFENDCOMMAND=(xargs -0 git archive -o tmp/tmp.zip HEAD)
-        DIFFSTARTCOMMAND=(git diff -z --name-only --diff-filter=d "${DIFF_COMMITISH}"..remotes/origin/"${BRANCH}" "${SOURCE_DIR}"/)
-    elif [[ $ISCHECKCOUNT = true ]]; then
-        DIFFSTARTCOMMAND=(git diff -z --diff-filter=D --no-renames --name-only "${DIFF_COMMITISH}"..remotes/origin/"${BRANCH}" "${SOURCE_DIR}"/)
-        DIFFENDCOMMAND=(xargs -0 git archive -o tmp/tmp.zip "${DIFF_COMMITISH}")
+        DIFFENDCOMMAND=(xargs -0 git archive -o tmp/tmp.zip remotes/origin/"${BRANCH}")
+        if [[ -z $DIFF_COMMITISH ]]; then
+            DIFFSTARTCOMMAND=(git ls-tree -z --name-only -r remotes/origin/"${BRANCH}" "${SOURCE_DIR}"/)
+        else
+            DIFFSTARTCOMMAND=(git diff -z --name-only --diff-filter=d "${DIFF_COMMITISH}"..remotes/origin/"${BRANCH}" "${SOURCE_DIR}"/)
+        fi
+    elif [[ -z $DIFF_COMMITISH ]]; then
+      # There are no deletions from the first commit onwards to BRANCH, so use the dummy true command. 
+      DIFFSTARTCOMMAND=(:)
+      DIFFENDCOMMAND=(:)
     else
-        DIFFSTARTCOMMAND=(git diff -z --diff-filter=D --no-renames --name-only "${DIFF_COMMITISH}"..remotes/origin/"${BRANCH}" "${SOURCE_DIR}"/)
-        DIFFENDCOMMAND=(xargs -0 git archive -o tmp/tmp.zip "${DIFF_COMMITISH}")
+        if [[ $ISCHECKCOUNT = true ]]; then
+            DIFFSTARTCOMMAND=(git diff -z --diff-filter=D --no-renames --name-only "${DIFF_COMMITISH}"..remotes/origin/"${BRANCH}" "${SOURCE_DIR}"/)
+            DIFFENDCOMMAND=(xargs -0 git archive -o tmp/tmp.zip "${DIFF_COMMITISH}")
+        else
+            DIFFSTARTCOMMAND=(git diff -z --diff-filter=D --no-renames --name-only "${DIFF_COMMITISH}"..remotes/origin/"${BRANCH}" "${SOURCE_DIR}"/)
+            DIFFENDCOMMAND=(xargs -0 git archive -o tmp/tmp.zip "${DIFF_COMMITISH}")
+        fi
     fi
 }
 
