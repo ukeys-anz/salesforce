@@ -103,15 +103,16 @@ case "$BRANCH" in
     DIFF_COMMITISH='remotes/origin/develop'
   ;;
 esac
+
+# When rerunning on local, delete files from any previous run
+rm -rf tmp
+mkdir tmp
+
 if [[ -n ${TAG_PREFIX+x} ]]; then
   DIFF_COMMITISH=$(getLatestTag "$TAG_PREFIX")
 fi
 
 echo "delta: from '${BRANCH}' to '${DIFF_COMMITISH}'"
-
-# When rerunning on local, delete files from any previous run
-rm -rf tmp
-mkdir tmp
 
 # Add added or updated files to the deployment package for metadata API
 echo "copying added or updated ${SOURCE_DIR} files to staging area, to be passed to \"sfdx force:source:convert -d tmp/package-deploy-md ...\""
