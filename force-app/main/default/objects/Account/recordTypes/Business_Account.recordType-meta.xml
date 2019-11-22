@@ -10,15 +10,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer Event</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Employee Referral</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Google AdWords</fullName>
+            <fullName>External Referral</fullName>
             <default>false</default>
         </values>
         <values>
@@ -30,7 +26,15 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Purchased List</fullName>
+            <fullName>Public Relations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Seminar - Internal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Seminar - Partner</fullName>
             <default>false</default>
         </values>
         <values>
@@ -38,11 +42,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Webinar</fullName>
+            <fullName>Web</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Website</fullName>
+            <fullName>Word of mouth</fullName>
             <default>false</default>
         </values>
     </picklistValues>
