@@ -79,15 +79,11 @@ fi
 # Similarly, if a deployment on the master branch fails then it's commit will not be considered.
 unset TAG_PREFIX
 case "$BRANCH" in
-  feature/*)
-    DEPLOY_MODE='validate'
-    DIFF_COMMITISH='remotes/origin/develop'
-  ;;
   develop)
     DEPLOY_MODE='deploy'
     TAG_PREFIX='systest-'
   ;;
-  release/*)
+  release/*|hotfix/*)
     DEPLOY_MODE='validate'
     DIFF_COMMITISH='remotes/origin/master'
   ;;
@@ -100,8 +96,11 @@ case "$BRANCH" in
     fi
   ;;
   *)
-    1>&2 echo "value of --branch must be \"develop\" or \"master\" or start with \"feature/\" or \"release/\""
-    exit 1
+    if [[ $BRANCH != feature/* && $BRANCH != fix/* ]]; then
+      1>&2 echo "value of --branch '$BRANCH' does not match feature/*, fix/*, release/*, hotfix/*, master and develop => treating branch as a feature branch"
+    fi
+    DEPLOY_MODE='validate'
+    DIFF_COMMITISH='remotes/origin/develop'
   ;;
 esac
 if [[ -n ${TAG_PREFIX+x} ]]; then
