@@ -2,29 +2,29 @@
 <StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <sorted>false</sorted>
     <standardValue>
-        <fullName>Advertisement</fullName>
+        <fullName>Analyst</fullName>
         <default>false</default>
-        <label>Advertisement</label>
+        <label>Analyst</label>
     </standardValue>
     <standardValue>
-        <fullName>Customer Event</fullName>
+        <fullName>Competitor</fullName>
         <default>false</default>
-        <label>Customer Event</label>
+        <label>Competitor</label>
     </standardValue>
     <standardValue>
-        <fullName>Employee Referral</fullName>
+        <fullName>Customer</fullName>
         <default>false</default>
-        <label>Employee Referral</label>
+        <label>Customer</label>
     </standardValue>
     <standardValue>
-        <fullName>Google AdWords</fullName>
+        <fullName>Integrator</fullName>
         <default>false</default>
-        <label>Google AdWords</label>
+        <label>Integrator</label>
     </standardValue>
     <standardValue>
-        <fullName>Other</fullName>
+        <fullName>Investor</fullName>
         <default>false</default>
-        <label>Other</label>
+        <label>Investor</label>
     </standardValue>
     <standardValue>
         <fullName>Partner</fullName>
@@ -32,23 +32,23 @@
         <label>Partner</label>
     </standardValue>
     <standardValue>
-        <fullName>Purchased List</fullName>
+        <fullName>Press</fullName>
         <default>false</default>
-        <label>Purchased List</label>
+        <label>Press</label>
     </standardValue>
     <standardValue>
-        <fullName>Trade Show</fullName>
+        <fullName>Prospect</fullName>
         <default>false</default>
-        <label>Trade Show</label>
+        <label>Prospect</label>
     </standardValue>
     <standardValue>
-        <fullName>Webinar</fullName>
+        <fullName>Reseller</fullName>
         <default>false</default>
-        <label>Webinar</label>
+        <label>Reseller</label>
     </standardValue>
     <standardValue>
-        <fullName>Website</fullName>
+        <fullName>Other</fullName>
         <default>false</default>
-        <label>Website</label>
+        <label>Other</label>
     </standardValue>
 </StandardValueSet>
