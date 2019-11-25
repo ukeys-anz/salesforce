@@ -63,3 +63,14 @@ steps:
     exec /workspace/scripts/cicd.sh \
       --branch '${BRANCH_NAME}' \
       --username "$$USERNAME"
+
+- id: 'push_tag'
+  waitFor: ['deploy_to_environment']
+  name: 'gcr.io/cloud-builders/git'
+  args:
+  - -c
+  - |
+    [[ -e tag.txt ]] || exit
+    TAG=$$(cat tag.txt)
+    git tag "$$TAG"
+    git push origin "$$TAG"
