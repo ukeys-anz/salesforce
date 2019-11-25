@@ -45,7 +45,7 @@ steps:
         --key=salesforce-cli-authentication-key
     fi
 
-- id: 'Deploy to environment'
+- id: 'deploy_to_environment'
   waitFor: ['git_init', 'decrypt_key', 'code_quality_pmd']
   name: 'anzx-docker.artifactory.gcp.anz/salesforce/salesforce-builder:new'
   entrypoint: bash

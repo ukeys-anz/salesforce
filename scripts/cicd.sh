@@ -183,8 +183,7 @@ case "$DEPLOY_MODE" in
         echo "deploying metadata API package"
         sfdx force:mdapi:deploy -d tmp/package-deploy-md -l RunLocalTests -w -1 --loglevel debug --targetusername "${USERNAME}"
         TAG="${TAG_PREFIX}$(date '+%s')"
-        git tag "$TAG"
-        git push origin "$TAG"
+        echo -n "$TAG" > tag.txt
     ;;
     *)
         1>&2 echo "unknown DEPLOY_MODE, please fix this script"
