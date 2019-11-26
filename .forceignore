@@ -14,7 +14,7 @@ package.xml
 # Avoid weird conflicts and deployment errors
 **appMenu
 **appSwitcher
-**profiles
+force-app/main/default/profiles/Admin.profile-meta.xml
 
 # SFDX based permissions that are only available in Production
 force-app/main/default/permissionsets/SFDX_Full_Dev_Hub_Access.permissionset

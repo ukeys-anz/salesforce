@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Profile xmlns="http://soap.sforce.com/2006/04/metadata">
-    <classAccesses>
-        <apexClass>UTIL_Access</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>UTIL_Access_TEST</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
     <custom>true</custom>
     <description>Base profile for all ANZ Salesforce users</description>
     <recordTypeVisibilities>
@@ -111,10 +103,6 @@
     <userPermissions>
         <enabled>true</enabled>
         <name>EmailSingle</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>true</enabled>
-        <name>EnableCommunityAppLauncher</name>
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
