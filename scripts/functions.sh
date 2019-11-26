@@ -60,10 +60,12 @@ function copyMetaFilesToPackage(){
             if [[ $DIR = staticresources ]]; then
                 FILE=${FILE%%.*}.resource
             fi
-            if [[ $FILE != "${FILE%-meta.xml}" ]]; then
+            if [[ $FILE != "${FILE%-meta.xml}" ]] && [[ ! -d $FILE ]]; then
                 continue
             fi
-            cp "${SOURCE_DIR}/main/default/$DIR/${FILE}-meta.xml" "tmp/package-add-or-update/${SOURCE_DIR}/main/default/${DIR}"
+            if test -f "${SOURCE_DIR}/main/default/$DIR/${FILE}-meta.xml"; then
+                cp "${SOURCE_DIR}/main/default/$DIR/${FILE}-meta.xml" "tmp/package-add-or-update/${SOURCE_DIR}/main/default/${DIR}"
+            fi
         done
     done
     # Copy full Aura and LWC directories where at least one change has been made
