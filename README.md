@@ -1,3 +1,5 @@
+[![Status](https://ghe-statuses-from-cloud-build.apps.omni.service.test/api/v1/repos/github.service.anz/anzx/salesforce/badges/status/svg?branch=develop)](https://ghe-statuses-from-cloud-build.apps.omni.service.test/api/v1/repos/github.service.anz/anzx/salesforce/badges/status/redirect?branch=develop)
+
 # Salesforce
 
 Repository for the Salesforce Customer Relationship Management platform
