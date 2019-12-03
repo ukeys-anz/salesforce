@@ -46,6 +46,7 @@ IlluminatedCloud/
 *.pem
 
 # cicd working directory
+stderr
 /tmp
 /keys/*.txt
 !/keys/*.encrypted.txt

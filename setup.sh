@@ -6,9 +6,17 @@ export SFDX_DOMAIN_RETRY=0
 
 ALL_START_TIME=$(date +%s)
 
+#read -p "Enter Scratch Org Alias: " scratchorgname
+
 echo "$(date): Create scratch org..."
 JOB_START_TIME=$(date +%s)
-sfdx force:org:create -f config/snapshot-scratch-def-template.json -d 30 --setdefaultusername -w 10
+sfdx force:org:create -f config/snapshot-scratch-def-template.json -d 30 --setdefaultusername -w 10 2>stderr
+if [[ $(cat stderr) == *'Some commands may not work as expected until the My Domain DNS propagation'* ]]; then
+    echo $(cat stderr)
+elif [[ $(cat stderr) == *'ERROR'* ]]; then
+    echo $(cat stderr)
+    exit 0
+fi    
 JOB_END_TIME=$(date +%s)
 echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
 
