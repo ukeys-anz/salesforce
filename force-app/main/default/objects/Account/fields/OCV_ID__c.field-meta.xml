@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OCV_ID__c</fullName>
+    <caseSensitive>false</caseSensitive>
+    <description>Customer Master will employ the use of database sequence while assigning a &#39;One Customer ID&#39; when a new party is created in the Customer Master.</description>
+    <externalId>true</externalId>
+    <inlineHelpText>One Customer View ID</inlineHelpText>
+    <label>OCV ID</label>
+    <length>50</length>
+    <required>true</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>
