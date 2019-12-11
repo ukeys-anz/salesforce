@@ -2,31 +2,6 @@
 <Profile xmlns="http://soap.sforce.com/2006/04/metadata">
     <custom>true</custom>
     <description>Baseline profile for integration users, AKA service accounts. Shall be extended with permission sets according to the least privilege principle,</description>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>AccountContactRelation.Relationship_Strength__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Opportunity.Budget_Confirmed__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Opportunity.Discovery_Completed__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Opportunity.Loss_Reason__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Opportunity.ROI_Analysis_Completed__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
     <recordTypeVisibilities>
         <default>true</default>
         <recordType>Account.Business_Account</recordType>
@@ -60,5 +35,9 @@
     <userPermissions>
         <enabled>true</enabled>
         <name>ViewHelpLink</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>EnforceMutualAuthentication</name>
     </userPermissions>
 </Profile>
