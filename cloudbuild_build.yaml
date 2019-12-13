@@ -31,10 +31,11 @@ steps:
   args:
   - -c
   - |
-    if [[ '$BRANCH_NAME' == develop || '$BRANCH_NAME' == feature/* ]]; then
-      ENV='systest'
-    elif [[ '$BRANCH_NAME' == master || '$BRANCH_NAME' == release/* ]]; then
+    # Make sure that hotfix/* release/* and master goes to staging, and the rest to systest
+    if [[ '$BRANCH_NAME' == master || '$BRANCH_NAME' == release/* || '$BRANCH_NAME' == hotfix/* ]]; then
       ENV='staging'
+    else
+      ENV='systest'
     fi
     if [[ -n $${ENV+x} ]]; then
       gcloud kms decrypt \
@@ -57,10 +58,11 @@ steps:
     # The value of USERNAME does not matter, as long as the alias is aligned between the deploy
     # command and the sfdx credential store.
     USERNAME='ASDF'
-    if [[ '$BRANCH_NAME' == develop || '$BRANCH_NAME' == feature/* ]]; then
-      sfdx force:auth:sfdxurl:store --sfdxurlfile 'keys/sfdx-auth-url-systest.txt' --setalias "$$USERNAME" --json
-    elif [[ '$BRANCH_NAME' == master || '$BRANCH_NAME' == release/* ]]; then
+    # Make sure that hotfix/* release/* and master goes to staging, and the rest to systest
+    if [[ '$BRANCH_NAME' == master || '$BRANCH_NAME' == release/* || '$BRANCH_NAME' == hotfix/* ]]; then
       sfdx force:auth:sfdxurl:store --sfdxurlfile 'keys/sfdx-auth-url-staging.txt' --setalias "$$USERNAME" --json
+    else
+      sfdx force:auth:sfdxurl:store --sfdxurlfile 'keys/sfdx-auth-url-systest.txt' --setalias "$$USERNAME" --json
     fi
     exec /workspace/scripts/cicd.sh \
       --branch '${BRANCH_NAME}' \
