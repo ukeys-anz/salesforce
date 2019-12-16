@@ -14,6 +14,13 @@ package.xml
 # Avoid weird conflicts and deployment errors
 **appMenu
 **appSwitcher
+**profileSessionSettings
+**profilePasswordPolicies
+
+# Profiles not to pull nor push
+# 2 entries per profile as per https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_exclude_source.htm
+force-app/main/default/profiles/Trial Customer Portal User.profile-meta.xml
+Trial Customer Portal User.profile
 #force-app/main/default/profiles/Admin.profile-meta.xml
 
 # SFDX based permissions that are only available in Production

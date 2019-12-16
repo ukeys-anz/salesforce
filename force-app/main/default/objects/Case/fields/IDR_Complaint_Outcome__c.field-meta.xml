@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_Complaint_Outcome__c</fullName>
+    <description>The outcome of the complaint.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The outcome of the complaint.</inlineHelpText>
+    <label>Complaint Outcome</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>1</fullName>
+                <default>false</default>
+                <label>1=In favour of complainant in full</label>
+            </value>
+            <value>
+                <fullName>2</fullName>
+                <default>false</default>
+                <label>2=In favour of complainant in part</label>
+            </value>
+            <value>
+                <fullName>3</fullName>
+                <default>false</default>
+                <label>3=In favour of entity</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

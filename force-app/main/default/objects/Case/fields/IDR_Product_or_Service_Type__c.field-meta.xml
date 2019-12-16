@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_Product_or_Service_Type__c</fullName>
+    <description>The individual product or service that the complaint is about.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The individual product or service that the complaint is about.</inlineHelpText>
+    <label>Product or Service Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>IDR_Product_or_Service_Category__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Dependent Service Type</fullName>
+                <default>false</default>
+                <label>Dependent Service Type</label>
+            </value>
+            <value>
+                <fullName>Business credit card</fullName>
+                <default>false</default>
+                <label>Business credit card</label>
+            </value>
+            <value>
+                <fullName>Business Loans</fullName>
+                <default>false</default>
+                <label>Business Loans</label>
+            </value>
+            <value>
+                <fullName>Commercial bills</fullName>
+                <default>false</default>
+                <label>Commercial bills</label>
+            </value>
+            <value>
+                <fullName>Hire purchase/lease</fullName>
+                <default>false</default>
+                <label>Hire purchase/lease</label>
+            </value>
+            <value>
+                <fullName>Letter of credit</fullName>
+                <default>false</default>
+                <label>Letter of credit</label>
+            </value>
+            <value>
+                <fullName>Line of credit/overdraft</fullName>
+                <default>false</default>
+                <label>Line of credit/overdraft</label>
+            </value>
+            <value>
+                <fullName>Non-financial services provider debt</fullName>
+                <default>false</default>
+                <label>Non-financial services provider debt</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Annuity policy</controllingFieldValue>
+            <controllingFieldValue>Approved deposit fund</controllingFieldValue>
+            <controllingFieldValue>Corporate fund</controllingFieldValue>
+            <controllingFieldValue>Industry fund</controllingFieldValue>
+            <controllingFieldValue>Life policy fund</controllingFieldValue>
+            <controllingFieldValue>Public sector fund</controllingFieldValue>
+            <controllingFieldValue>Retail fund</controllingFieldValue>
+            <controllingFieldValue>Retirement savings account</controllingFieldValue>
+            <controllingFieldValue>Small APRA fund</controllingFieldValue>
+            <controllingFieldValue>General advice</controllingFieldValue>
+            <controllingFieldValue>Professional indemnity</controllingFieldValue>
+            <controllingFieldValue>Personal advice</controllingFieldValue>
+            <controllingFieldValue>Small business and farm insurance</controllingFieldValue>
+            <controllingFieldValue>Digital financial product advice</controllingFieldValue>
+            <controllingFieldValue>Derivatives and hedging</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <controllingFieldValue>Managed investments</controllingFieldValue>
+            <controllingFieldValue>Real property</controllingFieldValue>
+            <controllingFieldValue>Securities</controllingFieldValue>
+            <controllingFieldValue>Superannuation – Non-trustee related</controllingFieldValue>
+            <controllingFieldValue>Income stream risk</controllingFieldValue>
+            <controllingFieldValue>Non-income stream risk</controllingFieldValue>
+            <controllingFieldValue>Direct transfer</controllingFieldValue>
+            <controllingFieldValue>Consumer credit</controllingFieldValue>
+            <controllingFieldValue>Guarantees</controllingFieldValue>
+            <controllingFieldValue>Margin loans</controllingFieldValue>
+            <controllingFieldValue>Current accounts</controllingFieldValue>
+            <controllingFieldValue>Safe custody</controllingFieldValue>
+            <controllingFieldValue>Savings account</controllingFieldValue>
+            <controllingFieldValue>Domestic insurance</controllingFieldValue>
+            <controllingFieldValue>Extended warranty</controllingFieldValue>
+            <controllingFieldValue>Non-cash</controllingFieldValue>
+            <controllingFieldValue>Estate management and planning</controllingFieldValue>
+            <valueName>Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business finance</controllingFieldValue>
+            <valueName>Dependent Service Type</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business finance</controllingFieldValue>
+            <valueName>Business credit card</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business finance</controllingFieldValue>
+            <valueName>Business Loans</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business finance</controllingFieldValue>
+            <valueName>Commercial bills</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business finance</controllingFieldValue>
+            <valueName>Hire purchase/lease</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business finance</controllingFieldValue>
+            <valueName>Letter of credit</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business finance</controllingFieldValue>
+            <valueName>Line of credit/overdraft</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business finance</controllingFieldValue>
+            <valueName>Non-financial services provider debt</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

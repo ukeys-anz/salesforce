@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_Systemic_Issue_Category__c</fullName>
+    <externalId>false</externalId>
+    <label>Systemic Issue Category</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>1=System Issue</fullName>
+                <default>false</default>
+                <label>1=System Issue</label>
+            </value>
+            <value>
+                <fullName>2=Process Issue</fullName>
+                <default>false</default>
+                <label>2=Process Issue</label>
+            </value>
+            <value>
+                <fullName>3=Terms and Conditions</fullName>
+                <default>false</default>
+                <label>3=Terms and Conditions</label>
+            </value>
+            <value>
+                <fullName>4=Policy</fullName>
+                <default>false</default>
+                <label>4=Policy</label>
+            </value>
+            <value>
+                <fullName>5=Other/Not Sure</fullName>
+                <default>false</default>
+                <label>5=Other/Not Sure</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

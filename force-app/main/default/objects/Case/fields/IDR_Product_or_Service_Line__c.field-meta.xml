@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_Product_or_Service_Line__c</fullName>
+    <description>The financial sector for the product or service category.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The financial sector for the product or service category.</inlineHelpText>
+    <label>Product or Service Line</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Credit</fullName>
+                <default>false</default>
+                <label>Credit</label>
+            </value>
+            <value>
+                <fullName>Deposit taking</fullName>
+                <default>false</default>
+                <label>Deposit taking</label>
+            </value>
+            <value>
+                <fullName>General insurance</fullName>
+                <default>false</default>
+                <label>General insurance</label>
+            </value>
+            <value>
+                <fullName>Investments</fullName>
+                <default>false</default>
+                <label>Investments</label>
+            </value>
+            <value>
+                <fullName>Life insurance</fullName>
+                <default>false</default>
+                <label>Life insurance</label>
+            </value>
+            <value>
+                <fullName>Payment systems</fullName>
+                <default>false</default>
+                <label>Payment systems</label>
+            </value>
+            <value>
+                <fullName>Traditional trustee services</fullName>
+                <default>false</default>
+                <label>Traditional trustee services</label>
+            </value>
+            <value>
+                <fullName>Superannuation</fullName>
+                <default>false</default>
+                <label>Superannuation</label>
+            </value>
+            <value>
+                <fullName>Financial advice</fullName>
+                <default>false</default>
+                <label>Financial advice</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

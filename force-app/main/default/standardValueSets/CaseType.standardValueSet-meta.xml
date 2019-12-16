@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sorted>false</sorted>
+    <standardValue>
+        <fullName>1</fullName>
+        <default>false</default>
+        <label>1=Advice</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2</fullName>
+        <default>false</default>
+        <label>2=Charges</label>
+    </standardValue>
+    <standardValue>
+        <fullName>3</fullName>
+        <default>false</default>
+        <label>3=Disclosure</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4</fullName>
+        <default>false</default>
+        <label>4=Financial difficulty</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5</fullName>
+        <default>false</default>
+        <label>5=Financial service provider decision</label>
+    </standardValue>
+    <standardValue>
+        <fullName>6</fullName>
+        <default>false</default>
+        <label>6=Instructions</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7</fullName>
+        <default>false</default>
+        <label>7=Insurance claims</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8</fullName>
+        <default>false</default>
+        <label>8=Privacy and confidentiality</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9</fullName>
+        <default>false</default>
+        <label>9=Service and/or administration</label>
+    </standardValue>
+    <standardValue>
+        <fullName>10</fullName>
+        <default>false</default>
+        <label>10=Transactions</label>
+    </standardValue>
+    <standardValue>
+        <fullName>11</fullName>
+        <default>false</default>
+        <label>11=Other</label>
+    </standardValue>
+</StandardValueSet>
