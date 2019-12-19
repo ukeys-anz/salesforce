@@ -1,0 +1,10 @@
+[
+    {
+        "sobject": "Case",
+        "saveRefs": true,
+        "resolveRefs": false,
+        "files": [
+            "idr-cases-Cases.json"
+        ]
+    }
+]
