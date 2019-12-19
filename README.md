@@ -47,3 +47,27 @@ TODO
 - Creating or opening scratch orgs will take a long time
   - Successfully created org with ID: 00D5P0000008d78UAA and name: test-gi7dcuukd39u@example.com. However, the My Domain URL <https://saas-momentum-9000.cs152.my.salesforce.com/> has not finished propagating. Some commands may not work as expected until the My Domain DNS propagation is complete.
   - Waiting to resolve the Lightning Experience-enabled custom domain......
+
+## Updating/recycling secrets
+### Non-prod
+Ensure you have gcloud SDK installed and that you have encrypt permissions on the key `salesforce-cli-authentication-key` (keyring `cloudbuild-keyring`, location `global`, GCP project `anz-anzx-build-np-f11b9e`).
+In an interactive bash session do the following:
+1. Change the working directory to the root of this repository.
+1. Set the variable `ENV` to either `systest` or `staging`, identifying the systest and staging environments, respectively. `ENV` identifies the environment for which the secret is to be updated.
+1. Generate a sfdx auth URL for the environment identified by `ENV`. It should look something like this:
+    ```bash
+    force://PlatformCLI::********@anz--staging.my.salesforce.com
+    ```
+1. Run the following commands, making sure to use the sfdx auth URL in place of `********`:
+    ```bash
+    gcloud config set core/project 'anz-anzx-build-np-f11b9e'
+    gcloud kms encrypt \
+      --plaintext-file=<(echo -n ‘********’) \
+      --ciphertext-file=keys/sfdx-auth-url-"$ENV".encrypted.txt \
+      --keyring='cloudbuild-keyring' \
+      --key='salesforce-cli-authentication-key' \
+      --location='global'
+    ```
+
+### Prod
+The process is the same as non-prod, but requires access to a different keyring that is yet to be defined.

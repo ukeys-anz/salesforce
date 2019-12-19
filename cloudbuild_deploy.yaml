@@ -52,7 +52,7 @@ steps:
     # The value of USERNAME does not matter, as long as the alias is aligned between the deploy
     # command and the sfdx credential store.
     USERNAME='ASDF'
-    sfdx force:auth:sfdxurl:store --sfdxurlfile 'keys/sfdx-auth-url-production.txt' --setalias "$$USERNAME" --json
+    sfdx force:auth:sfdxurl:store --sfdxurlfile 'keys/sfdx-auth-url-production.txt' --setalias "$$USERNAME"
     exec /workspace/scripts/cicd.sh --branch '${BRANCH_NAME}' --username "$$USERNAME" --git-tag-prefix '${_GIT_TAG_PREFIX}' 
 
 - id: 'push_tag'

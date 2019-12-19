@@ -8,7 +8,7 @@
     </standardValue>
     <standardValue>
         <fullName>2</fullName>
-        <default>false</default>
+        <default>true</default>
         <label>Recorded Voice call</label>
     </standardValue>
     <standardValue>

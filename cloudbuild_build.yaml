@@ -60,9 +60,9 @@ steps:
     USERNAME='ASDF'
     # Make sure that hotfix/* release/* and master goes to staging, and the rest to systest
     if [[ '$BRANCH_NAME' == master || '$BRANCH_NAME' == release/* || '$BRANCH_NAME' == hotfix/* ]]; then
-      sfdx force:auth:sfdxurl:store --sfdxurlfile 'keys/sfdx-auth-url-staging.txt' --setalias "$$USERNAME" --json
+      sfdx force:auth:sfdxurl:store --sfdxurlfile 'keys/sfdx-auth-url-staging.txt' --setalias "$$USERNAME"
     else
-      sfdx force:auth:sfdxurl:store --sfdxurlfile 'keys/sfdx-auth-url-systest.txt' --setalias "$$USERNAME" --json
+      sfdx force:auth:sfdxurl:store --sfdxurlfile 'keys/sfdx-auth-url-systest.txt' --setalias "$$USERNAME"
     fi
     exec /workspace/scripts/cicd.sh \
       --branch '${BRANCH_NAME}' \

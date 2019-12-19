@@ -113,13 +113,23 @@
             </componentInstanceProperties>
             <componentInstanceProperties>
                 <name>titleFieldName</name>
-                <value>Complainant (placeholder for the LWC)</value>
+                <value>Complainant Information</value>
             </componentInstanceProperties>
             <componentInstanceProperties>
                 <name>updateQuickActionName</name>
                 <value>Case.LwcPlaceholder</value>
             </componentInstanceProperties>
             <componentName>console:relatedRecord</componentName>
+            <visibilityRule>
+                <criteria>
+                    <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                    <operator>EQUAL</operator>
+                    <rightValue>Customer_Complaint</rightValue>
+                </criteria>
+            </visibilityRule>
+        </componentInstances>
+        <componentInstances>
+            <componentName>runtime_sales_activities:activityPanel</componentName>
         </componentInstances>
         <mode>Replace</mode>
         <name>sidebar</name>
