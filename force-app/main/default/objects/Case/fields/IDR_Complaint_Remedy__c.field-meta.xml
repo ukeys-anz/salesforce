@@ -17,12 +17,12 @@
             <value>
                 <fullName>1</fullName>
                 <default>false</default>
-                <label>1=Financial remedy</label>
+                <label>Financial remedy</label>
             </value>
             <value>
                 <fullName>2</fullName>
                 <default>false</default>
-                <label>2=Non-financial remedy</label>
+                <label>Non-financial remedy</label>
             </value>
         </valueSetDefinition>
     </valueSet>

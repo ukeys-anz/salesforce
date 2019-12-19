@@ -17,17 +17,17 @@
             <value>
                 <fullName>1</fullName>
                 <default>false</default>
-                <label>1=Individual</label>
+                <label>Individual</label>
             </value>
             <value>
                 <fullName>2</fullName>
                 <default>false</default>
-                <label>2=Small business</label>
+                <label>Small business</label>
             </value>
             <value>
                 <fullName>9</fullName>
                 <default>false</default>
-                <label>9=Not stated/unknown</label>
+                <label>Not stated/unknown</label>
             </value>
         </valueSetDefinition>
     </valueSet>

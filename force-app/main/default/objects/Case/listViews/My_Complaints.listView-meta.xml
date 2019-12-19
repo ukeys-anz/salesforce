@@ -10,7 +10,7 @@
     <filters>
         <field>CASES.RECORDTYPE</field>
         <operation>equals</operation>
-        <value>Case.Complaint</value>
+        <value>Case.Customer_Complaint,Case.Non_Customer_Complaint</value>
     </filters>
     <label>My Complaints</label>
 </ListView>

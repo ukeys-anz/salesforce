@@ -4,31 +4,31 @@
     <standardValue>
         <fullName>1</fullName>
         <default>false</default>
-        <label>1=Face to Face</label>
+        <label>Face to Face</label>
     </standardValue>
     <standardValue>
         <fullName>2</fullName>
         <default>false</default>
-        <label>2=Recorded Voice call</label>
+        <label>Recorded Voice call</label>
     </standardValue>
     <standardValue>
         <fullName>3</fullName>
         <default>false</default>
-        <label>3=Secure Mail</label>
+        <label>Secure Mail</label>
     </standardValue>
     <standardValue>
         <fullName>4</fullName>
         <default>false</default>
-        <label>4=Social Media host page</label>
+        <label>Social Media host page</label>
     </standardValue>
     <standardValue>
         <fullName>5</fullName>
         <default>false</default>
-        <label>5=Letter</label>
+        <label>Letter</label>
     </standardValue>
     <standardValue>
         <fullName>6</fullName>
         <default>false</default>
-        <label>6=Internal Referred</label>
+        <label>Internal Referred</label>
     </standardValue>
 </StandardValueSet>

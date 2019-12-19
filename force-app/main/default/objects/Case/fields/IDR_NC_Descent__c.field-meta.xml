@@ -17,22 +17,22 @@
             <value>
                 <fullName>1</fullName>
                 <default>false</default>
-                <label>1=No</label>
+                <label>No</label>
             </value>
             <value>
                 <fullName>2</fullName>
                 <default>false</default>
-                <label>2=Yes, Aboriginal</label>
+                <label>Yes, Aboriginal</label>
             </value>
             <value>
                 <fullName>3</fullName>
                 <default>false</default>
-                <label>3=Yes, Torres Strait Islander</label>
+                <label>Yes, Torres Strait Islander</label>
             </value>
             <value>
                 <fullName>9</fullName>
                 <default>false</default>
-                <label>9=Not stated/unknown</label>
+                <label>Not stated/unknown</label>
             </value>
         </valueSetDefinition>
     </valueSet>

@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>IDR_Complaint_Outcome__c</fullName>
-    <description>The outcome of the complaint.</description>
+    <fullName>IDR_AFCA_Status__c</fullName>
     <externalId>false</externalId>
-    <inlineHelpText>The outcome of the complaint.</inlineHelpText>
-    <label>Complaint Outcome</label>
+    <label>AFCA Status</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
@@ -17,17 +15,12 @@
             <value>
                 <fullName>1</fullName>
                 <default>false</default>
-                <label>In favour of complainant in full</label>
+                <label>Yes</label>
             </value>
             <value>
                 <fullName>2</fullName>
                 <default>false</default>
-                <label>In favour of complainant in part</label>
-            </value>
-            <value>
-                <fullName>3</fullName>
-                <default>false</default>
-                <label>In favour of entity</label>
+                <label>No</label>
             </value>
         </valueSetDefinition>
     </valueSet>

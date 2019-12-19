@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Complaint</fullName>
+    <fullName>Non_Customer_Complaint</fullName>
     <active>true</active>
     <businessProcess>Complaint Support Process</businessProcess>
     <compactLayoutAssignment>Complaint</compactLayoutAssignment>
-    <description>Record a new complaint.</description>
-    <label>Complaint</label>
+    <description>Record a new complaint, for a non existing customer.</description>
+    <label>Non-Customer Complaint</label>
+    <picklistValues>
+        <picklist>IDR_AFCA_Status__c</picklist>
+        <values>
+            <fullName>1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
     <picklistValues>
         <picklist>IDR_Complainant_Type__c</picklist>
         <values>

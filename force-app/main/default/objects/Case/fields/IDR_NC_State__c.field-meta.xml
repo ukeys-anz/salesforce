@@ -17,52 +17,52 @@
             <value>
                 <fullName>1</fullName>
                 <default>false</default>
-                <label>1=NSW</label>
+                <label>NSW</label>
             </value>
             <value>
                 <fullName>2</fullName>
                 <default>false</default>
-                <label>2=Vic.</label>
+                <label>Vic.</label>
             </value>
             <value>
                 <fullName>3</fullName>
                 <default>false</default>
-                <label>3=Qld</label>
+                <label>Qld</label>
             </value>
             <value>
                 <fullName>4</fullName>
                 <default>false</default>
-                <label>4=SA</label>
+                <label>SA</label>
             </value>
             <value>
                 <fullName>5</fullName>
                 <default>false</default>
-                <label>5=WA</label>
+                <label>WA</label>
             </value>
             <value>
                 <fullName>6</fullName>
                 <default>false</default>
-                <label>6=Tas.</label>
+                <label>Tas.</label>
             </value>
             <value>
                 <fullName>7</fullName>
                 <default>false</default>
-                <label>7=NT</label>
+                <label>NT</label>
             </value>
             <value>
                 <fullName>8</fullName>
                 <default>false</default>
-                <label>8=ACT</label>
+                <label>ACT</label>
             </value>
             <value>
                 <fullName>9</fullName>
                 <default>false</default>
-                <label>9=Other territories</label>
+                <label>Other territories</label>
             </value>
             <value>
                 <fullName>10</fullName>
                 <default>false</default>
-                <label>10=Overseas</label>
+                <label>Overseas</label>
             </value>
         </valueSetDefinition>
     </valueSet>

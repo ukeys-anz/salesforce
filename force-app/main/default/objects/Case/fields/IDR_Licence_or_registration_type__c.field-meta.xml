@@ -15,22 +15,22 @@
             <value>
                 <fullName>1</fullName>
                 <default>false</default>
-                <label>1=AFS licence</label>
+                <label>AFS licence</label>
             </value>
             <value>
                 <fullName>2</fullName>
                 <default>false</default>
-                <label>2=Credit licence</label>
+                <label>Credit licence</label>
             </value>
             <value>
                 <fullName>3</fullName>
                 <default>false</default>
-                <label>3=RSE licence</label>
+                <label>RSE licence</label>
             </value>
             <value>
                 <fullName>8</fullName>
                 <default>false</default>
-                <label>8=Not applicable</label>
+                <label>Not applicable</label>
             </value>
         </valueSetDefinition>
     </valueSet>

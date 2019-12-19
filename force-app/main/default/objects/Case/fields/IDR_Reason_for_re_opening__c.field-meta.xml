@@ -17,17 +17,17 @@
             <value>
                 <fullName>1</fullName>
                 <default>false</default>
-                <label>1=Referred back from AFCA</label>
+                <label>Referred back from AFCA</label>
             </value>
             <value>
                 <fullName>2</fullName>
                 <default>false</default>
-                <label>2=Additional information received/known</label>
+                <label>Additional information received/known</label>
             </value>
             <value>
                 <fullName>3</fullName>
                 <default>false</default>
-                <label>3=Other</label>
+                <label>Other</label>
             </value>
         </valueSetDefinition>
     </valueSet>

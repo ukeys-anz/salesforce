@@ -4,7 +4,7 @@
     <description>Capture this only if complainant is not found in MAUD/CAP-CIS.</description>
     <externalId>false</externalId>
     <inlineHelpText>Capture this only if complainant is not found in MAUD/CAP-CIS.</inlineHelpText>
-    <label>Complainant Age</label>
+    <label>Age</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
@@ -17,42 +17,42 @@
             <value>
                 <fullName>1</fullName>
                 <default>false</default>
-                <label>1=Less than 18 years</label>
+                <label>Less than 18 years</label>
             </value>
             <value>
                 <fullName>2</fullName>
                 <default>false</default>
-                <label>2=18 - 24 years</label>
+                <label>18 - 24 years</label>
             </value>
             <value>
                 <fullName>3</fullName>
                 <default>false</default>
-                <label>3=25 - 34 years</label>
+                <label>25 - 34 years</label>
             </value>
             <value>
                 <fullName>4</fullName>
                 <default>false</default>
-                <label>4=35 - 44 years</label>
+                <label>35 - 44 years</label>
             </value>
             <value>
                 <fullName>5</fullName>
                 <default>false</default>
-                <label>5=45 - 54 years</label>
+                <label>45 - 54 years</label>
             </value>
             <value>
                 <fullName>6</fullName>
                 <default>false</default>
-                <label>6=55 - 64 years</label>
+                <label>55 - 64 years</label>
             </value>
             <value>
                 <fullName>7</fullName>
                 <default>false</default>
-                <label>7=Greater than 65 years</label>
+                <label>Greater than 65 years</label>
             </value>
             <value>
                 <fullName>8</fullName>
                 <default>false</default>
-                <label>8=Not known</label>
+                <label>Not known</label>
             </value>
         </valueSetDefinition>
     </valueSet>

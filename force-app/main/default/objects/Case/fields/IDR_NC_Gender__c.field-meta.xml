@@ -4,7 +4,7 @@
     <description>Capture this only if complainant is not found in MAUD/CAP-CIS.</description>
     <externalId>false</externalId>
     <inlineHelpText>Capture this only if complainant is not found in MAUD/CAP-CIS.</inlineHelpText>
-    <label>Complainant Gender</label>
+    <label>Gender</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
@@ -17,27 +17,27 @@
             <value>
                 <fullName>1</fullName>
                 <default>false</default>
-                <label>1=Male</label>
+                <label>Male</label>
             </value>
             <value>
                 <fullName>2</fullName>
                 <default>false</default>
-                <label>2=Female</label>
+                <label>Female</label>
             </value>
             <value>
                 <fullName>3</fullName>
                 <default>false</default>
-                <label>3=Other</label>
+                <label>Other</label>
             </value>
             <value>
                 <fullName>8</fullName>
                 <default>false</default>
-                <label>8=Not applicable (Small business)</label>
+                <label>Not applicable (Small business)</label>
             </value>
             <value>
                 <fullName>9</fullName>
                 <default>false</default>
-                <label>9=Not stated/unknown</label>
+                <label>Not stated/unknown</label>
             </value>
         </valueSetDefinition>
     </valueSet>

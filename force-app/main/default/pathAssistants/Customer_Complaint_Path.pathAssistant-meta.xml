@@ -3,11 +3,11 @@
     <active>true</active>
     <entityName>Case</entityName>
     <fieldName>Status</fieldName>
-    <masterLabel>Complaint Path</masterLabel>
+    <masterLabel>Customer Complaint Path</masterLabel>
     <pathAssistantSteps>
         <fieldNames>IDR_Complaint_Outcome__c</fieldNames>
         <fieldNames>IDR_Complaint_Remedy__c</fieldNames>
         <picklistValueName>Closed</picklistValueName>
     </pathAssistantSteps>
-    <recordTypeName>Complaint</recordTypeName>
+    <recordTypeName>Customer_Complaint</recordTypeName>
 </PathAssistant>

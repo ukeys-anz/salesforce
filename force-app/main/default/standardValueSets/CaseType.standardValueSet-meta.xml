@@ -4,47 +4,47 @@
     <standardValue>
         <fullName>1</fullName>
         <default>false</default>
-        <label>1=Advice</label>
+        <label>Advice</label>
     </standardValue>
     <standardValue>
         <fullName>2</fullName>
         <default>false</default>
-        <label>2=Charges</label>
+        <label>Charges</label>
     </standardValue>
     <standardValue>
         <fullName>3</fullName>
         <default>false</default>
-        <label>3=Disclosure</label>
+        <label>Disclosure</label>
     </standardValue>
     <standardValue>
         <fullName>4</fullName>
         <default>false</default>
-        <label>4=Financial difficulty</label>
+        <label>Financial difficulty</label>
     </standardValue>
     <standardValue>
         <fullName>5</fullName>
         <default>false</default>
-        <label>5=Financial service provider decision</label>
+        <label>Financial service provider decision</label>
     </standardValue>
     <standardValue>
         <fullName>6</fullName>
         <default>false</default>
-        <label>6=Instructions</label>
+        <label>Instructions</label>
     </standardValue>
     <standardValue>
         <fullName>7</fullName>
         <default>false</default>
-        <label>7=Insurance claims</label>
+        <label>Insurance claims</label>
     </standardValue>
     <standardValue>
         <fullName>8</fullName>
         <default>false</default>
-        <label>8=Privacy and confidentiality</label>
+        <label>Privacy and confidentiality</label>
     </standardValue>
     <standardValue>
         <fullName>9</fullName>
         <default>false</default>
-        <label>9=Service and/or administration</label>
+        <label>Service and/or administration</label>
     </standardValue>
     <standardValue>
         <fullName>10</fullName>
