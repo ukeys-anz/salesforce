@@ -11,7 +11,7 @@ ALL_START_TIME=$(date +%s)
 echo "$(date): Create scratch org..."
 JOB_START_TIME=$(date +%s)
 sfdx force:org:create -f config/snapshot-scratch-def-template.json -d 30 --setdefaultusername -w 10 2>&1 | tee stderr
-if [[($(cat stderr) == *'ERROR'* ) && ( $(cat stderr) != *'Some commands may not work as expected until the My Domain DNS propagation'* )]]; then
+if [[ ($(cat stderr) == *'ERROR'* ) && ( $(cat stderr) != *'Some commands may not work as expected until the My Domain DNS propagation'* ) ]]; then
     exit 1
 fi    
 JOB_END_TIME=$(date +%s)
@@ -20,7 +20,7 @@ echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
 echo "$(date): Assign Pset..."
 JOB_START_TIME=$(date +%s)
 sfdx force:user:permset:assign -n FinancialServicesCloudStandard 2>&1 | tee stderr
-if [[($(cat stderr) == *'ERROR'* )]]; then
+if [[ ($(cat stderr) == *'ERROR'* ) ]]; then
     exit 1
 fi 
 JOB_END_TIME=$(date +%s)
@@ -29,16 +29,17 @@ echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
 echo "$(date): Push metadata..."
 JOB_START_TIME=$(date +%s)
 sfdx force:source:push 2>&1 | tee stderr
-if [[($(cat stderr) == *'ERROR'* )]]; then
+if [[ ($(cat stderr) == *'ERROR'* ) ]]; then
     exit 1
 fi 
 JOB_END_TIME=$(date +%s)
 echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
 
-echo "$(date): Setup custom settings..."
+echo "$(date): Import custom settings and sample records..."
 JOB_START_TIME=$(date +%s)
 sfdx force:data:tree:import -p data/Post-Plan.json 2>&1 | tee stderr
-if [[($(cat stderr) == *'ERROR'* )]]; then
+sfdx force:data:tree:import -p data/IDR-Case-Plan.json 2>&1 | tee stderr
+if [[ ($(cat stderr) == *'ERROR'* ) ]]; then
     exit 1
 fi 
 JOB_END_TIME=$(date +%s)

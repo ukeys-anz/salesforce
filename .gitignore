@@ -50,6 +50,3 @@ stderr
 /tmp
 /keys/*.txt
 !/keys/*.encrypted.txt
-
-# Local Scratch org settings not to be committed
-Security.settings-meta.xml
