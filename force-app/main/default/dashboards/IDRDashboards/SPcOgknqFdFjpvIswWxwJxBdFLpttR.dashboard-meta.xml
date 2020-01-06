@@ -25,16 +25,15 @@
                 <drillToDetailEnabled>false</drillToDetailEnabled>
                 <enableHover>false</enableHover>
                 <expandOthers>true</expandOthers>
-                <groupingColumn>HSTATUS</groupingColumn>
+                <groupingColumn>STATUS</groupingColumn>
                 <groupingSortProperties>
                     <groupingSorts>
                         <groupingLevel>g1</groupingLevel>
                         <sortOrder>a</sortOrder>
                     </groupingSorts>
                 </groupingSortProperties>
-                <header>IDR Case Lifecycle Report</header>
+                <header>Complaints by Status</header>
                 <legendPosition>Right</legendPosition>
-                <maxValuesDisplayed>6</maxValuesDisplayed>
                 <report>IDRReports/IDR_Case_Lifecycle_Report_BGm</report>
                 <showPercentage>true</showPercentage>
                 <showTotal>true</showTotal>
@@ -70,7 +69,7 @@
                         <sortOrder>a</sortOrder>
                     </groupingSorts>
                 </groupingSortProperties>
-                <header>Case by Issue Type</header>
+                <header>Complaints by Issue Type</header>
                 <legendPosition>Bottom</legendPosition>
                 <report>IDRReports/Case_by_Issue_Type_Tdi</report>
                 <showPercentage>false</showPercentage>

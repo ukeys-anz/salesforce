@@ -49,11 +49,11 @@
     <standardValue>
         <fullName>10</fullName>
         <default>false</default>
-        <label>10=Transactions</label>
+        <label>Transactions</label>
     </standardValue>
     <standardValue>
         <fullName>11</fullName>
         <default>false</default>
-        <label>11=Other</label>
+        <label>Other</label>
     </standardValue>
 </StandardValueSet>

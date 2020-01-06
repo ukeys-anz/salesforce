@@ -13,27 +13,27 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>1=System Issue</fullName>
+                <fullName>1</fullName>
                 <default>false</default>
                 <label>System Issue</label>
             </value>
             <value>
-                <fullName>2=Process Issue</fullName>
+                <fullName>2</fullName>
                 <default>false</default>
                 <label>Process Issue</label>
             </value>
             <value>
-                <fullName>3=Terms and Conditions</fullName>
+                <fullName>3</fullName>
                 <default>false</default>
                 <label>Terms and Conditions</label>
             </value>
             <value>
-                <fullName>4=Policy</fullName>
+                <fullName>4</fullName>
                 <default>false</default>
                 <label>Policy</label>
             </value>
             <value>
-                <fullName>5=Other/Not Sure</fullName>
+                <fullName>5</fullName>
                 <default>false</default>
                 <label>Other/Not Sure</label>
             </value>

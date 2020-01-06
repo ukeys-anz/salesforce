@@ -4,7 +4,7 @@
     <active>true</active>
     <businessProcess>Complaint Support Process</businessProcess>
     <compactLayoutAssignment>Complaint</compactLayoutAssignment>
-    <description>Record a new complaint for an existing ANZ customer</description>
+    <description>Record a new complaint for an existing ANZ customer.</description>
     <label>Customer Complaint</label>
     <picklistValues>
         <picklist>IDR_AFCA_Status__c</picklist>
@@ -1449,23 +1449,23 @@
     <picklistValues>
         <picklist>IDR_Systemic_Issue_Category__c</picklist>
         <values>
-            <fullName>1%3DSystem Issue</fullName>
+            <fullName>1</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>2%3DProcess Issue</fullName>
+            <fullName>2</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>3%3DTerms and Conditions</fullName>
+            <fullName>3</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>4%3DPolicy</fullName>
+            <fullName>4</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>5%3DOther%2FNot Sure</fullName>
+            <fullName>5</fullName>
             <default>false</default>
         </values>
     </picklistValues>
