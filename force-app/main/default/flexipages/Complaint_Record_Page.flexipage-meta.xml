@@ -103,23 +103,7 @@
     </flexiPageRegions>
     <flexiPageRegions>
         <componentInstances>
-            <componentInstanceProperties>
-                <name>createQuickActionName</name>
-                <value>NewCase</value>
-            </componentInstanceProperties>
-            <componentInstanceProperties>
-                <name>lookupFieldName</name>
-                <value>Id</value>
-            </componentInstanceProperties>
-            <componentInstanceProperties>
-                <name>titleFieldName</name>
-                <value>Complainant Information</value>
-            </componentInstanceProperties>
-            <componentInstanceProperties>
-                <name>updateQuickActionName</name>
-                <value>Case.LwcPlaceholder</value>
-            </componentInstanceProperties>
-            <componentName>console:relatedRecord</componentName>
+            <componentName>customerInformation</componentName>
             <visibilityRule>
                 <criteria>
                     <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
