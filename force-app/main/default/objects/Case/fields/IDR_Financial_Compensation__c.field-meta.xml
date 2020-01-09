@@ -3,7 +3,6 @@
     <fullName>IDR_Financial_Compensation__c</fullName>
     <description>Amount of financial compensation that was paid.</description>
     <externalId>false</externalId>
-    <inlineHelpText>Amount of financial compensation that was paid.</inlineHelpText>
     <label>Financial Compensation</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>

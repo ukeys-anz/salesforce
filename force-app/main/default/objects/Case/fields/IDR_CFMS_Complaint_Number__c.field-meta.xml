@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_CFMS_Complaint_Number__c</fullName>
-    <description>CFMS Complaint Number</description>
+    <description>CFMS Complaint Number, potentially useful to relate cases between SF and CFMS.</description>
     <externalId>true</externalId>
-    <inlineHelpText>CFMS Complaint Number</inlineHelpText>
     <label>CFMS Complaint Number</label>
     <length>20</length>
     <required>false</required>

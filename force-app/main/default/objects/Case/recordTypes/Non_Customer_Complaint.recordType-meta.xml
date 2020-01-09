@@ -33,17 +33,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>IDR_Complaint_Escalation_Reason__c</picklist>
-        <values>
-            <fullName>Financial hardship</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>VIP</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>IDR_Complaint_Outcome__c</picklist>
         <values>
             <fullName>1</fullName>
@@ -66,6 +55,44 @@
         </values>
         <values>
             <fullName>2</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IDR_Escalated_to__c</picklist>
+        <values>
+            <fullName>APRA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CRC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Advocate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>None</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IDR_Escalation_Reason__c</picklist>
+        <values>
+            <fullName>Above Banker discretion</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Remediation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Systemic Issue</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -222,7 +249,7 @@
         </values>
         <values>
             <fullName>Australia</fullName>
-            <default>false</default>
+            <default>true</default>
         </values>
         <values>
             <fullName>Austria</fullName>
@@ -1082,7 +1109,7 @@
         </values>
         <values>
             <fullName>United States</fullName>
-            <default>true</default>
+            <default>false</default>
         </values>
         <values>
             <fullName>Uruguay</fullName>
@@ -1499,16 +1526,16 @@
     <picklistValues>
         <picklist>Priority</picklist>
         <values>
-            <fullName>High</fullName>
+            <fullName>Financial Hardship</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Low</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Medium</fullName>
+            <fullName>None</fullName>
             <default>true</default>
+        </values>
+        <values>
+            <fullName>Vulnerable Customer</fullName>
+            <default>false</default>
         </values>
     </picklistValues>
     <picklistValues>

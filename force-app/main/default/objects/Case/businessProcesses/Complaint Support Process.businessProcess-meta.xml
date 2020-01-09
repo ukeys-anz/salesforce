@@ -8,6 +8,10 @@
         <default>false</default>
     </values>
     <values>
+        <fullName>Escalated</fullName>
+        <default>false</default>
+    </values>
+    <values>
         <fullName>New</fullName>
         <default>true</default>
     </values>
@@ -17,6 +21,10 @@
     </values>
     <values>
         <fullName>Withdrawn</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Working</fullName>
         <default>false</default>
     </values>
 </BusinessProcess>

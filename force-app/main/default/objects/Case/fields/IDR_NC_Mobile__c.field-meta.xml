@@ -3,7 +3,6 @@
     <fullName>IDR_NC_Mobile__c</fullName>
     <description>Capture this only if complainant is not found in MAUD/CAP-CIS.</description>
     <externalId>false</externalId>
-    <inlineHelpText>Capture this only if complainant is not found in MAUD/CAP-CIS.</inlineHelpText>
     <label>Mobile</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>

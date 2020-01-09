@@ -1,6 +1,6 @@
 @isTest
 private class TestCaseProcess {
-    @isTest private static void testCaseNumberCopy() {
+    @isTest static void testCaseNumberCopy() {
         // GIVEN cases are created
         Case[] newCases = new List<Case>();
         for(Integer i=0; i<Integer.valueOf(Label.Test_Bulk_Size); i++) {
@@ -12,7 +12,7 @@ private class TestCaseProcess {
         Case c = [SELECT CaseNumber, CaseNumber__c FROM Case WHERE id=:newCases[0].id];
         System.assertEquals(c.CaseNumber, c.CaseNumber__c, 'CaseNumber__c should be equal to CaseNumber.');
     }
-    @isTest private static void testCaseNumberNoCopy() {
+    @isTest static void testCaseNumberNoCopy() {
         // GIVEN cases which already have their case number copied
         Case[] casesWithCopiedCaseNumber = new List<Case>();
         for(Integer i=0; i<Integer.valueOf(Label.Test_Bulk_Size); i++) {
@@ -25,7 +25,7 @@ private class TestCaseProcess {
         System.assertNotEquals(c.CaseNumber, c.CaseNumber__c, 'CaseNumber should not have been copied.');
         System.assertEquals('123', c.CaseNumber__c, 'CaseNumber__c should not have changed.');
     }
-    @isTest private static void testCaseCardNumberMasking() {
+    @isTest static void testCaseCardNumberMasking() {
         // GIVEN cases relate to a account/card/policy
         Case[] casesWithACPNumber = new List<Case>();
         for(Integer i=0; i<Integer.valueOf(Label.Test_Bulk_Size); i++) {
@@ -36,5 +36,58 @@ private class TestCaseProcess {
         // THEN IDR_Account_Card_Policy_Number__c is masked, showing only the last four digits
         Case c =[SELECT IDR_Account_Card_Policy_Number__c FROM Case WHERE id=:casesWithACPNumber[0].id];
         System.assertEquals('*****1234', c.IDR_Account_Card_Policy_Number__c, 'IDR_Account_Card_Policy_Number__c should be masked.');
+    }
+
+    @isTest
+    static void testIsCaseEscalated() {
+         // GIVEN cases are created
+        Case[] newCasesWithStatus = new List<Case>();
+        for(Integer i=0; i<Integer.valueOf(Label.Test_Bulk_Size); i++) {
+            newCasesWithStatus.add(new Case(Status='Escalated',IDR_Escalation_Reason__c='Above Banker discretion'));
+        }
+        // WHEN they are inserted
+        insert newCasesWithStatus;
+        // THEN check if IsEscalated is true
+        Case c = [SELECT CaseNumber, IsEscalated FROM Case WHERE id=:newCasesWithStatus[0].id];
+        System.assert(c.IsEscalated, 'IsEscalated is true');
+
+        Case[] newCases = new List<Case>();
+        for(Integer i=0; i<Integer.valueOf(Label.Test_Bulk_Size); i++) {
+            newCases.add(new Case());
+        }
+        insert newCases;
+         // THEN check if IsEscalated is false
+        c = [SELECT CaseNumber, IsEscalated FROM Case WHERE id=:newCases[0].id];
+        System.assert(!c.IsEscalated, 'IsEscalated is false');
+
+        for(Integer i=0; i<newCases.size(); i++) {
+            newCases[i].Status = 'Escalated';
+            newCases[i].IDR_Escalation_Reason__c = 'Above Banker discretion';
+        }
+        update newCases;
+          // THEN check if IsEscalated is true
+        c = [SELECT CaseNumber, IsEscalated FROM Case WHERE id=:newCases[0].id];
+        System.assert(c.IsEscalated, 'IsEscalated is true');
+    }
+
+
+    @isTest 
+    static void testDateWhenCaseIsReopend() {
+        Case[] newCases = new List<Case>();
+        for(Integer i=0; i<Integer.valueOf(Label.Test_Bulk_Size); i++) {
+            newCases.add(new Case());
+        }
+         insert newCases;
+         // THEN check if date is null
+        Case c = [SELECT CaseNumber, IDR_Date_Re_Opened__c FROM Case WHERE id=:newCases[0].id];
+        System.assertEquals(null,c.IDR_Date_Re_Opened__c, 'Date is null');
+        for(Integer i=0; i<newCases.size(); i++) {
+            newCases[i].Status = 'Re-opened';
+            newCases[i].IDR_Reason_for_re_opening__c = '1';
+        }
+        update newCases;
+        // THEN check if date is todays date
+        c = [SELECT CaseNumber, IDR_Date_Re_Opened__c FROM Case WHERE id=:newCases[0].id];
+        System.assertEquals(System.today(),c.IDR_Date_Re_Opened__c, 'Date is null');
     }
 }

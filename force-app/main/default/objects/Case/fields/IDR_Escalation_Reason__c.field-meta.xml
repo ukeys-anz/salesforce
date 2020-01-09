@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>IDR_Complaint_Escalation_Reason__c</fullName>
-    <description>Why is this Complaint escalated to the CRC Team.</description>
+    <fullName>IDR_Escalation_Reason__c</fullName>
     <externalId>false</externalId>
-    <inlineHelpText>Why is this Complaint escalated to the CRC Team.</inlineHelpText>
     <label>Complaint Escalation Reason</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>
@@ -15,14 +13,24 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Financial hardship</fullName>
+                <fullName>Above Banker discretion</fullName>
                 <default>false</default>
-                <label>Financial hardship</label>
+                <label>Above Banker discretion</label>
             </value>
             <value>
-                <fullName>VIP</fullName>
+                <fullName>Customer Request</fullName>
                 <default>false</default>
-                <label>VIP</label>
+                <label>Customer Request</label>
+            </value>
+            <value>
+                <fullName>Systemic Issue</fullName>
+                <default>false</default>
+                <label>Systemic Issue</label>
+            </value>
+            <value>
+                <fullName>Remediation</fullName>
+                <default>false</default>
+                <label>Remediation</label>
             </value>
         </valueSetDefinition>
     </valueSet>

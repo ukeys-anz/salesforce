@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_NC_Country__c</fullName>
+    <description>Complainant&#39;s country of residence.</description>
     <externalId>false</externalId>
-    <inlineHelpText>Complainant&#39;s country of residence.</inlineHelpText>
     <label>Country</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>

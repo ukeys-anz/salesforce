@@ -14,9 +14,9 @@
         <closed>false</closed>
     </standardValue>
     <standardValue>
-        <fullName>Re-opened</fullName>
+        <fullName>Working</fullName>
         <default>false</default>
-        <label>Re-opened</label>
+        <label>Working</label>
         <closed>false</closed>
     </standardValue>
     <standardValue>
@@ -42,5 +42,11 @@
         <default>false</default>
         <label>Closed</label>
         <closed>true</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Re-opened</fullName>
+        <default>false</default>
+        <label>Re-opened</label>
+        <closed>false</closed>
     </standardValue>
 </StandardValueSet>

@@ -3,7 +3,6 @@
     <fullName>IDR_NC_State__c</fullName>
     <description>Complainant&#39;s residential address: State. Capture this only if complainant is not found in MAUD/CAP-CIS.</description>
     <externalId>false</externalId>
-    <inlineHelpText>Complainant&#39;s residential address: State. Capture this only if complainant is not found in MAUD/CAP-CIS.</inlineHelpText>
     <label>State</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>
@@ -22,12 +21,12 @@
             <value>
                 <fullName>2</fullName>
                 <default>false</default>
-                <label>Vic.</label>
+                <label>VIC</label>
             </value>
             <value>
                 <fullName>3</fullName>
                 <default>false</default>
-                <label>Qld</label>
+                <label>QLD</label>
             </value>
             <value>
                 <fullName>4</fullName>
@@ -42,7 +41,7 @@
             <value>
                 <fullName>6</fullName>
                 <default>false</default>
-                <label>Tas.</label>
+                <label>TAS</label>
             </value>
             <value>
                 <fullName>7</fullName>
@@ -57,12 +56,12 @@
             <value>
                 <fullName>9</fullName>
                 <default>false</default>
-                <label>Other territories</label>
+                <label>OTHER TERRITORIES</label>
             </value>
             <value>
                 <fullName>10</fullName>
                 <default>false</default>
-                <label>Overseas</label>
+                <label>OVERSEAS</label>
             </value>
         </valueSetDefinition>
     </valueSet>

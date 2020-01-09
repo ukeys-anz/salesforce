@@ -3,7 +3,6 @@
     <fullName>IDR_NC_Postcode__c</fullName>
     <description>Complainant&#39;s residential address: Postcode. Capture this only if complainant is not found in MAUD/CAP-CIS.</description>
     <externalId>false</externalId>
-    <inlineHelpText>Complainant&#39;s residential address: Postcode. Capture this only if complainant is not found in MAUD/CAP-CIS.</inlineHelpText>
     <label>Postcode</label>
     <length>255</length>
     <required>false</required>

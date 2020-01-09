@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>IDR_Complaint_Outcome__c</fullName>
+    <fullName>IDR_Escalated_to__c</fullName>
     <externalId>false</externalId>
-    <label>Complaint Outcome</label>
+    <label>Escalated to</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
@@ -13,19 +13,24 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>1</fullName>
-                <default>false</default>
-                <label>In favour of complainant in full</label>
+                <fullName>None</fullName>
+                <default>true</default>
+                <label>None</label>
             </value>
             <value>
-                <fullName>2</fullName>
+                <fullName>CRC</fullName>
                 <default>false</default>
-                <label>In favour of complainant in part</label>
+                <label>CRC</label>
             </value>
             <value>
-                <fullName>3</fullName>
+                <fullName>Customer Advocate</fullName>
                 <default>false</default>
-                <label>In favour of entity</label>
+                <label>Customer Advocate</label>
+            </value>
+            <value>
+                <fullName>APRA</fullName>
+                <default>false</default>
+                <label>APRA</label>
             </value>
         </valueSetDefinition>
     </valueSet>

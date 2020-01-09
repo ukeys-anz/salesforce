@@ -1,6 +1,6 @@
 @SuppressWarnings('PMD')
 @isTest
-public class TestProcessBuilderNoAction {
+private class TestProcessBuilderNoAction {
     static testMethod void executeCode() {
         ProcessBuilderNoAction.DoNothing();
     }

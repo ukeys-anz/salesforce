@@ -3,7 +3,6 @@
     <fullName>IDR_Complaint_Remedy__c</fullName>
     <description>Detail if the complaint remedy included any financial component.</description>
     <externalId>false</externalId>
-    <inlineHelpText>Detail if the complaint remedy included any financial component.</inlineHelpText>
     <label>Complaint Remedy</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>

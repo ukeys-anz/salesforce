@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_Reason_for_re_opening__c</fullName>
-    <description>Reason for re-opening</description>
     <externalId>false</externalId>
-    <inlineHelpText>Reason for re-opening</inlineHelpText>
     <label>Reason for re-opening</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>
