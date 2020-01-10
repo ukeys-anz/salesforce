@@ -50,3 +50,11 @@ stderr
 /tmp
 /keys/*.txt
 !/keys/*.encrypted.txt
+
+# LWC VSCode autocomplete
+jsconfig.json
+# LWC Jest coverage reports
+coverage/
+
+# Eslint
+.eslintrc.json

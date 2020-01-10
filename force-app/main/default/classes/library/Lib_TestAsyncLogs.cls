@@ -2,7 +2,7 @@
 public class Lib_TestAsyncLogs {
   @isTest
   static void testApplicationLoggingEvent() {
-    // GIVEN a process throws an application log
+    // GIVEN a process throws an application log.
     lib_SystemLog sfLog = new lib_SystemLog(
       'ApplicationLogging_Event_Test',
       'testApplicationLogging_Event()'

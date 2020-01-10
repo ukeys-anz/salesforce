@@ -44,8 +44,11 @@ public class Lib_TestSyncLogs {
       SELECT Id, Request_Body__c
       FROM Application_Log__c
     ];
-    System.assertEquals(1, appLog.size(),'Matches the log record size');
-    System.assert(applog[0].Request_Body__c.length() > 0, 'Request body has content');
+    System.assertEquals(1, appLog.size(), 'Matches the log record size');
+    System.assert(
+      applog[0].Request_Body__c.length() > 0,
+      'Request body has content'
+    );
   }
 
   @isTest
@@ -102,13 +105,13 @@ public class Lib_TestSyncLogs {
     }
 
     log.insertLog();
-    System.debug(LoggingLevel.DEBUG,log.Log[0]);
+    System.debug(LoggingLevel.DEBUG, log.Log[0]);
     errorCode = log.getLogErrorCode();
 
     Test.stopTest();
 
     // THEN an application log record should be created
     List<Application_Log__c> appLog = [SELECT Id FROM Application_Log__c];
-    System.assertEquals(1, appLog.size(),'Matches the log record size');
+    System.assertEquals(1, appLog.size(), 'Matches the log record size');
   }
 }

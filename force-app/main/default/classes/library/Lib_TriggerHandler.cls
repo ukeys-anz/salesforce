@@ -13,8 +13,8 @@
  * Martin Fowler, EAA Patterns
  * http://martinfowler.com/eaaCatalog/domainModel.html
  *
- * @example 
- * 
+ * @example
+ *
  *   public with sharing class ContactTriggerHandler extends Lib_TriggerHandler{
  *
  *              public ContactTriggerHandler() {
@@ -25,9 +25,8 @@
  *              }
  *          }
  */
- @SuppressWarnings('PMD.EmptyStatementBlock')
+@SuppressWarnings('PMD.EmptyStatementBlock')
 public virtual with sharing class Lib_TriggerHandler {
-  
   /**
    * @description Provides access to the data represented by this domain class
    */
@@ -92,37 +91,32 @@ public virtual with sharing class Lib_TriggerHandler {
       }
     }
   }
-  
+
   /**
    * @description Handle the before trigger calls
    */
   private void handleBeforeTriggers() {
     if (Trigger.isInsert == true) {
-          handleBeforeInsert();
-        }
-        else if (Trigger.isUpdate == true) {
-          handleBeforeUpdate(Trigger.oldMap);
-        }
-        else if (Trigger.isDelete == true) {
-          handleBeforeDelete();
-        }
+      handleBeforeInsert();
+    } else if (Trigger.isUpdate == true) {
+      handleBeforeUpdate(Trigger.oldMap);
+    } else if (Trigger.isDelete == true) {
+      handleBeforeDelete();
+    }
   }
   /**
-   * @description Handle after trigger calls 
+   * @description Handle after trigger calls
    */
   private void handleAfterTriggers() {
     if (Trigger.isInsert == true) {
-          handleAfterInsert();
-        }
-        else if (Trigger.isUpdate == true) {
-          handleAfterUpdate(Trigger.oldMap);
-        }
-        else if (Trigger.isDelete == true) {
-          handleAfterDelete();
-        }
-        else if (Trigger.isUndelete == true) {
-          handleAfterUndelete();
-        }
+      handleAfterInsert();
+    } else if (Trigger.isUpdate == true) {
+      handleAfterUpdate(Trigger.oldMap);
+    } else if (Trigger.isDelete == true) {
+      handleAfterDelete();
+    } else if (Trigger.isUndelete == true) {
+      handleAfterUndelete();
+    }
   }
   /**
    * @description Base handler for the Apex Trigger event Before Insert, calls the onApplyDefaults method, followed by onBeforeInsert
@@ -174,49 +168,59 @@ public virtual with sharing class Lib_TriggerHandler {
   /**
    * @description Override this to apply defaults to the records, this is called by the handleBeforeInsert method
    **/
-  protected virtual void onApplyDefaults(){}
+  protected virtual void onApplyDefaults() {
+  }
   /**
    * @description Override this to apply general validation to be performed during insert or update, called by the handleAfterInsert and handleAfterUpdate methods
    **/
-  protected virtual void onValidate(){}
+  protected virtual void onValidate() {
+  }
   /**
    * @description Override this to apply validation to be performed during update, called by the handleAfterUpdate method
    * @param oldMap Trigger's oldMap
    **/
-  protected virtual void onValidate(Map<Id, SObject> oldMap){}
+  protected virtual void onValidate(Map<Id, SObject> oldMap) {
+  }
   /**
    * @description Override this to perform processing during the before insert phase, this is called by the handleBeforeInsert method
    **/
-  protected virtual void onBeforeInsert(){}
+  protected virtual void onBeforeInsert() {
+  }
   /**
    * @description Override this to perform processing during the before update phase, this is called by the handleBeforeUpdate method
    * @param oldMap Trigger's oldMap
    **/
-  protected virtual void onBeforeUpdate(Map<Id, SObject> oldMap){}
+  protected virtual void onBeforeUpdate(Map<Id, SObject> oldMap) {
+  }
   /**
    * @description Override this to perform processing during the before delete phase, this is called by the handleBeforeDelete method
    **/
-  protected virtual void onBeforeDelete(){}
+  protected virtual void onBeforeDelete() {
+  }
   /**
    * @description Override this to perform processing during the after insert phase, this is called by the handleAfterInsert method
    **/
-  protected virtual void onAfterInsert(){}
+  protected virtual void onAfterInsert() {
+  }
   /**
    * @description Override this to perform processing during the after update phase, this is called by the handleAfterUpdate method
    * @param oldMap Trigger's oldMap
    **/
-  protected virtual void onAfterUpdate(Map<Id, SObject> oldMap){}
+  protected virtual void onAfterUpdate(Map<Id, SObject> oldMap) {
+  }
   /**
    * @description Override this to perform processing during the after delete phase, this is called by the handleAfterDelete method
    **/
-  protected virtual void onAfterDelete(){}
+  protected virtual void onAfterDelete() {
+  }
   /**
    * @description Override this to perform processing during the after undelete phase, this is called by the handleAfterDelete method
    **/
-  protected virtual void onAfterUndelete(){}
+  protected virtual void onAfterUndelete() {
+  }
 
   /**
-   * @description Validate if the Disable_Triggers__c is turned on/off for the given user 
+   * @description Validate if the Disable_Triggers__c is turned on/off for the given user
    * @return `Boolean` returns true if the Disable_Triggers__c is true for the user
    */
   private static Boolean validateDisableTriggers() {

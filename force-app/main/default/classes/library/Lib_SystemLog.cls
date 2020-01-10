@@ -1,17 +1,17 @@
 /**
- * 
- * @author 
+ *
+ * @author
  * @since 2019
  * @group Logging
  * @description This class handle Exception log and can be use for trigger batch or anything in the code that need to handle proper errors
- * @example 
+ * @example
  * Database.SaveResult[] results = Database.update(contactToUpdate, false);
- * 
+ *
  * lib_systemLog log = new lib_systemLog('ContactService','Contact','upgradeContact');
- * 
+ *
  * log.addDatabaseSaveResult(results, 'Contact', contactToUpdate);
  */
- @SuppressWarnings('PMD.ExcessiveParameterList')
+@SuppressWarnings('PMD.ExcessiveParameterList')
 public without sharing class Lib_SystemLog {
   public enum Severity {
     INFO,
@@ -19,9 +19,9 @@ public without sharing class Lib_SystemLog {
     ERROR,
     FATAL
   }
- /**
-  * @description The function name which is being logged.
-  */
+  /**
+   * @description The function name which is being logged.
+   */
   public String functionName { get; set; }
   /**
    * @description The Process Name name which is being logged.
@@ -40,10 +40,10 @@ public without sharing class Lib_SystemLog {
    */
   public List<Application_Log__c> log { get; private set; }
 
- /**
-  * @description This generates the unique ID as the error identifier
-  * @return `String` which is error Identifier
-  */
+  /**
+   * @description This generates the unique ID as the error identifier
+   * @return `String` which is error Identifier
+   */
   private static String generateLogGuid() {
     return EncodingUtil.convertToHex(
       Crypto.generateDigest(
@@ -53,10 +53,10 @@ public without sharing class Lib_SystemLog {
     );
   }
 
- /**
-  * @description Constructor
-  * @param proccessName Process name used to generate the log
-  */
+  /**
+   * @description Constructor
+   * @param proccessName Process name used to generate the log
+   */
   public Lib_SystemLog(String proccessName) {
     this(proccessName, null, null);
   }
@@ -70,12 +70,12 @@ public without sharing class Lib_SystemLog {
     this(processName, functionName, null);
   }
 
- /**
-  * @description Constructor
-  * @param processName Process name used to generate the log.
-  * @param functionName Name of the funtion to generate the log.
-  * @param batchId BatchId for generating the log.
-  */
+  /**
+   * @description Constructor
+   * @param processName Process name used to generate the log.
+   * @param functionName Name of the funtion to generate the log.
+   * @param batchId BatchId for generating the log.
+   */
   public Lib_SystemLog(
     String processName,
     String functionName,
@@ -84,13 +84,13 @@ public without sharing class Lib_SystemLog {
     this(processName, functionName, batchId, generateLogGuid());
   }
 
-/**
- * @description Constructor
- * @param processName Process name used to generate the log.
- * @param functionName Name of the funtion to generate the log.
- * @param batchId BatchId for generating the log.
- * @param errorIdentifier Error Identifier for the log.
- */
+  /**
+   * @description Constructor
+   * @param processName Process name used to generate the log.
+   * @param functionName Name of the funtion to generate the log.
+   * @param batchId BatchId for generating the log.
+   * @param errorIdentifier Error Identifier for the log.
+   */
   public Lib_SystemLog(
     String processName,
     String functionName,
@@ -103,14 +103,14 @@ public without sharing class Lib_SystemLog {
     this.batchId = batchId;
     this.errorCode = errorIdentifier;
   }
- /**
-  * @description The method is used to create a single log record in Application_Log__c object
-  * @param processName Process name used to generate the log.
-  * @param functionName Function name used to generate the log.
-  * @param errorNo Error code used to create the log record.
-  * @param errorDescription Error description used to create the log record.
-  * @param severity Error Severity used to create the log record.
-  */
+  /**
+   * @description The method is used to create a single log record in Application_Log__c object
+   * @param processName Process name used to generate the log.
+   * @param functionName Function name used to generate the log.
+   * @param errorNo Error code used to create the log record.
+   * @param errorDescription Error description used to create the log record.
+   * @param severity Error Severity used to create the log record.
+   */
   public static void createSingleLog(
     String processName,
     String functionName,
@@ -123,13 +123,13 @@ public without sharing class Lib_SystemLog {
     sfLog.insertLog();
   }
 
- /**
-  * @description  The method addMessage is used to add a record to log list. We can add multiple logs by calling this method and at the end the caller should call {@link insertLog()} method
-  * to create record/records in Application_Log__c object
-  * @param errorNo Error code used to create the log record.
-  * @param errorDescription Error description used to create the log record.
-  * @param severity Error Severity used to create the log record.
-  */
+  /**
+   * @description  The method addMessage is used to add a record to log list. We can add multiple logs by calling this method and at the end the caller should call {@link insertLog()} method
+   * to create record/records in Application_Log__c object
+   * @param errorNo Error code used to create the log record.
+   * @param errorDescription Error description used to create the log record.
+   * @param severity Error Severity used to create the log record.
+   */
   public void addMessage(
     String errorNo,
     String errorDescription,
@@ -149,7 +149,7 @@ public without sharing class Lib_SystemLog {
   }
 
   /**
-   * @description  The method addMessageWithRequestResponse is used to add a record to log list which is specifically for request response integration pattern 
+   * @description  The method addMessageWithRequestResponse is used to add a record to log list which is specifically for request response integration pattern
    * which logs request body and response body. We can add multiple logs by calling this method and at the end the caller should call {@link insertLog()} method
    * to create record/records in Application_Log__c object
    * @param errorNo Error code used to create the log record.
@@ -180,16 +180,16 @@ public without sharing class Lib_SystemLog {
     );
   }
 
- /**
-  * @description  The method addObjectMessage is used to add a record to log list which is specific for an Object
-  * We can add multiple logs by calling this method and at the end the caller should call {@link insertLog()} method
-  * to create record/records in Application_Log__c object
-  * @param objectName The name of the object used to create the log record.
-  * @param recordId The record Id of the record of a Object to be logged.
-  * @param errorNo Error code used to create the log record.
-  * @param errorDescription Error description used to create the log record.
-  * @param severity Error Severity used to create the log record.
-  */
+  /**
+   * @description  The method addObjectMessage is used to add a record to log list which is specific for an Object
+   * We can add multiple logs by calling this method and at the end the caller should call {@link insertLog()} method
+   * to create record/records in Application_Log__c object
+   * @param objectName The name of the object used to create the log record.
+   * @param recordId The record Id of the record of a Object to be logged.
+   * @param errorNo Error code used to create the log record.
+   * @param errorDescription Error description used to create the log record.
+   * @param severity Error Severity used to create the log record.
+   */
   public void addObjectMessage(
     String objectName,
     String recordId,
@@ -218,7 +218,7 @@ public without sharing class Lib_SystemLog {
    * to create record/records in Application_Log__c object
    * @param objectName The name of the object used to create the log record.
    * @param results List of save results which will be evaluated for logging.
-   * @param records actual records which are used for DML insert/update. 
+   * @param records actual records which are used for DML insert/update.
    */
   public void addDatabaseSaveResult(
     String objectName,
@@ -252,12 +252,12 @@ public without sharing class Lib_SystemLog {
     }
   }
 
-/**
- * @description  The method publishEvent is used for creating a platform event for Async logging
- * The Lib_SystemLog object needs to be created with required fields  before calling this method
- * The information used to create the object is serialized as JSON and published as platform event.
- * The trigger {@link Lib_ApplicationLoggingEvents} will listen to these events and inserts the data to Application_Log__c object
- */
+  /**
+   * @description  The method publishEvent is used for creating a platform event for Async logging
+   * The Lib_SystemLog object needs to be created with required fields  before calling this method
+   * The information used to create the object is serialized as JSON and published as platform event.
+   * The trigger {@link Lib_ApplicationLoggingEvents} will listen to these events and inserts the data to Application_Log__c object
+   */
   public void publishEvent() {
     List<Application_Logging__e> logEvents = new List<Application_Logging__e>();
     logEvents.add(new Application_Logging__e(sfLog__c = JSON.serialize(this)));
@@ -266,19 +266,19 @@ public without sharing class Lib_SystemLog {
     List<Database.SaveResult> results = EventBus.publish(logEvents);
   }
 
- /**
-  * @description The method logAPIError is used for creating a platform event for Async logging
-  * specifically for api calls using request response integration patterns.
-  * The trigger {@link Lib_ApplicationLoggingEvents} will listen to these events and inserts the data to Application_Log__c object
-  * The caller should call {@link insertLog()} method
-  * @param processName Process name used to generate the log.
-  * @param functionName Name of the funtion to generate the log.
-  * @param errorDescription Error description used to create the log record.
-  * @param errorNo Error code used to create the log record.
-  * @param errorIdentifier Error Identifier for the log.
-  * @param request Request body in the request response integration pattern
-  * @param response Response body in the request response integration pattern
-  */
+  /**
+   * @description The method logAPIError is used for creating a platform event for Async logging
+   * specifically for api calls using request response integration patterns.
+   * The trigger {@link Lib_ApplicationLoggingEvents} will listen to these events and inserts the data to Application_Log__c object
+   * The caller should call {@link insertLog()} method
+   * @param processName Process name used to generate the log.
+   * @param functionName Name of the funtion to generate the log.
+   * @param errorDescription Error description used to create the log record.
+   * @param errorNo Error code used to create the log record.
+   * @param errorIdentifier Error Identifier for the log.
+   * @param request Request body in the request response integration pattern
+   * @param response Response body in the request response integration pattern
+   */
   public static void logAPIError(
     String processName,
     String functionName,
@@ -306,7 +306,7 @@ public without sharing class Lib_SystemLog {
 
   /**
    * @description  The method add is used for adding Application_Log__c to list of Application_Log__c logs.
-   * The caller should call {@link Lib_SystemLog.insertLog} method 
+   * The caller should call {@link Lib_SystemLog.insertLog} method
    * @param exc record object to be added to the list of log records to be inserted
    */
   public void add(Application_Log__c exc) {
@@ -317,15 +317,18 @@ public without sharing class Lib_SystemLog {
    *  @description  The method insertLog is used creating/inserting log records in Application_Log__c object.
    */
   public void insertLog() {
-    if (!log.isEmpty() && Application_Log__c.sObjectType.getDescribe().isCreateable()) {
+    if (
+      !log.isEmpty() &&
+      Application_Log__c.sObjectType.getDescribe().isCreateable()
+    ) {
       insert log;
     }
   }
 
- /**
-  * @description  The method getLogErrorCode is used retrun the Error_Code__c value of the first object in the list
-  * @return `String` retrun the Error_Code__c value of the first object in the list
-  */
+  /**
+   * @description  The method getLogErrorCode is used retrun the Error_Code__c value of the first object in the list
+   * @return `String` retrun the Error_Code__c value of the first object in the list
+   */
   public String getLogErrorCode() {
     if (!log.isEmpty() && log[0].Error_Code__c != null) {
       return log[0].Error_Code__c;
