@@ -5,9 +5,6 @@
  * @description  GetCustomerInformation is a class that handles all the information of the customer related to a case in IDR.
  */
 public with sharing class GetCustomerInformation {
-  //TODO remove this once actual service is up
-  private final static String MOCK_RESPONSE = '{"profile": {"complainant_type": "Small Business","businessname":"Smith Co.","firstname": "John","lastname": "Smith","mobile": "0411 222 333","phone":"0411 222 333","middlename":"","gender":"Male","aboriginal":"No","email":"john.smith@abc123.com.au","age":"55","suburb":"Hoppers Crossing","street":"1 West Street","state":"VIC","postcode":"3029","country":"Australia"}}';
-
   /**
    * @description Currently the Case record page has a lwc which needs to fetch the customer information on demand on a case record page based on CAP SIS ID.
    * This api call is made to mulesoft to fetch the required customer information.
@@ -26,19 +23,14 @@ public with sharing class GetCustomerInformation {
     if (String.isNotBlank(capId)) {
       HttpRequest request = new HttpRequest();
       //TODO change this to real endpoint
-      request.setEndpoint('callout:My_Named_Credential/some_path');
+      request.setEndpoint('callout:Mulesoft/mocking/api/v1/links/6f90e38d-c748-4cb7-8af7-d43f1d267001/customers/123');
       request.setMethod('GET');
+      //Todo mocked for now need to change based on mulesoft api
+      request.setHeader('x-consumer-id', '12344');
       HTTPResponse response = null;
       try {
         Http http = new Http();
-        //TODO remove the IsRunningTest line once we have a real endpoint and remove mocking
-        if (Test.IsRunningTest()) {
-          response = http.send(request);
-        } else {
-          response = new HttpResponse();
-          response.setStatusCode(200);
-          response.setBody(MOCK_RESPONSE);
-        }
+        response = http.send(request);
         if (response.getStatusCode() == 200) {
           responseBody = response.getBody();
         } else {
