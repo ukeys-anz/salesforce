@@ -1,6 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
     <flexiPageRegions>
+        <componentInstances>
+            <componentInstanceProperties>
+                <name>decorate</name>
+                <value>true</value>
+            </componentInstanceProperties>
+            <componentInstanceProperties>
+                <name>eager</name>
+                <type>decorator</type>
+                <value>false</value>
+            </componentInstanceProperties>
+            <componentInstanceProperties>
+                <name>height</name>
+                <type>decorator</type>
+                <value>480</value>
+            </componentInstanceProperties>
+            <componentInstanceProperties>
+                <name>icon</name>
+                <type>decorator</type>
+                <value>advertising</value>
+            </componentInstanceProperties>
+            <componentInstanceProperties>
+                <name>label</name>
+                <type>decorator</type>
+                <value>Privacy Script</value>
+            </componentInstanceProperties>
+            <componentInstanceProperties>
+                <name>richTextValue</name>
+                <value>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b&gt;If the complainant is NOT an ANZ customer, please read the following script out and request consent BEFORE recording.&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;i&gt;Note: If complainant doesn&#39;t consent, then record the complaint anonymously (leave first/middle/last name fields empty)&lt;/i&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b&gt;------------------------&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;So we can provide you with the best possible outcome, we need to collect some personal details from you. ANZ uses the information provided by you to respond to your query which may not be possible without these details.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;ANZ&#39;s Privacy Policy explains how ANZ handles personal information and explains how you may access and seek correction of the information ANZ holds about you or raise a concern about how ANZ has handled your information.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;For a copy of ANZ’s privacy policy please visit www.anz.com.au/privacy&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Are you happy to proceed on this basis?&lt;/p&gt;</value>
+            </componentInstanceProperties>
+            <componentInstanceProperties>
+                <name>scrollable</name>
+                <type>decorator</type>
+                <value>true</value>
+            </componentInstanceProperties>
+            <componentInstanceProperties>
+                <name>width</name>
+                <type>decorator</type>
+                <value>420</value>
+            </componentInstanceProperties>
+            <componentName>flexipage:richText</componentName>
+        </componentInstances>
         <name>utilityItems</name>
         <type>Region</type>
     </flexiPageRegions>

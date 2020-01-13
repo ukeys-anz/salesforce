@@ -7,6 +7,7 @@
             },
             "Description": "Non-Customer visited branch to advise receiving mail for customer. Address on personal accounts was updated but not business accounts. Business account correspondence continues to be sent to address where customer no longer resides.",
             "IDR_Complainant_Desired_Outcome__c": "Contact customer and update address for all accounts",
+            "IDR_NC_Is_Consent_Obtained__c": true,
             "IDR_Complainant_Type__c": "2",
             "IDR_Complaint_Outcome__c": "1",
             "IDR_Complaint_Remedy__c": "2",
