@@ -67,6 +67,17 @@ function copyMetaFilesToPackage(){
                 cp "${SOURCE_DIR}/main/default/$DIR/${FILE}-meta.xml" "tmp/package-add-or-update/${SOURCE_DIR}/main/default/${DIR}"
             fi
         done
+        if [[ $DIR == "classes" ]]; then
+            for subdirectory in `find "tmp/package-add-or-update/${SOURCE_DIR}/main/default/$DIR" -type d -maxdepth 1 -mindepth 1`; do
+                subDir=classes/`basename "${subdirectory}"`
+                for filename in tmp/package-add-or-update/${SOURCE_DIR}/main/default/${subDir}/*; do
+                    filename=`basename "$filename"`
+                    [[ $filename == *.xml ]] && continue
+                    echo "Copying ${SOURCE_DIR}/main/default/${subDir}/$filename-meta.xml"
+                    cp ${SOURCE_DIR}/main/default/${subDir}/$filename-meta.xml "tmp/package-add-or-update/${SOURCE_DIR}/main/default/${subDir}" || true
+                done
+            done
+        fi
     done
     # Copy full Aura and LWC directories where at least one change has been made
     for COMPONENT_DIR in "${COMPONENT_DIRS[@]}"; do
