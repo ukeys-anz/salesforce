@@ -3,7 +3,6 @@
     <fullName>IDR_Product_or_Service_Line__c</fullName>
     <description>The financial sector for the product or service category.</description>
     <externalId>false</externalId>
-    <inlineHelpText>The financial sector for the product or service category.</inlineHelpText>
     <label>Product or Service Line</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>
@@ -15,47 +14,47 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Credit</fullName>
+                <fullName>1</fullName>
                 <default>false</default>
                 <label>Credit</label>
             </value>
             <value>
-                <fullName>Deposit taking</fullName>
+                <fullName>2</fullName>
                 <default>false</default>
                 <label>Deposit taking</label>
             </value>
             <value>
-                <fullName>General insurance</fullName>
+                <fullName>3</fullName>
                 <default>false</default>
                 <label>General insurance</label>
             </value>
             <value>
-                <fullName>Investments</fullName>
+                <fullName>4</fullName>
                 <default>false</default>
                 <label>Investments</label>
             </value>
             <value>
-                <fullName>Life insurance</fullName>
+                <fullName>5</fullName>
                 <default>false</default>
                 <label>Life insurance</label>
             </value>
             <value>
-                <fullName>Payment systems</fullName>
+                <fullName>6</fullName>
                 <default>false</default>
                 <label>Payment systems</label>
             </value>
             <value>
-                <fullName>Traditional trustee services</fullName>
+                <fullName>7</fullName>
                 <default>false</default>
                 <label>Traditional trustee services</label>
             </value>
             <value>
-                <fullName>Superannuation</fullName>
+                <fullName>8</fullName>
                 <default>false</default>
                 <label>Superannuation</label>
             </value>
             <value>
-                <fullName>Financial advice</fullName>
+                <fullName>9</fullName>
                 <default>false</default>
                 <label>Financial advice</label>
             </value>
