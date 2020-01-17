@@ -301,7 +301,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.Is_Related_to_Representative__c</field>
+        <field>Case.IDR_Is_Related_to_Representative__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -229,7 +229,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Is_Related_to_Representative__c</field>
+                <field>IDR_Is_Related_to_Representative__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
