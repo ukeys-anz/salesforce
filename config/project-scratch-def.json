@@ -9,7 +9,8 @@
         "ContactsToMultipleAccounts",
         "FinancialServicesUser:10",
         "PersonAccounts",
-        "RetainFieldHistory"
+        "RetainFieldHistory",
+        "LightningScheduler"
     ],
     "settings": {
         "chatterSettings": {
