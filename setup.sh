@@ -1,16 +1,22 @@
 #!/bin/bash
 
+# Any subsequent(*) commands which fail will cause the shell script to exit immediately
+set -e
+
 # Bypass the Lightning Experience custom domain check entirely, wich takes very long when connected to ANZ network
 # TODO Consider a switch to bypass it when connected elsewhere (e.g. from GCB)
 export SFDX_DOMAIN_RETRY=0
 
-ALL_START_TIME=$(date +%s)
+read -rp "Enter scratch org alias (optional): " scratchorgalias
 
-#read -p "Enter Scratch Org Alias: " scratchorgname
+ALL_START_TIME=$(date +%s)
 
 echo "$(date): Create scratch org..."
 JOB_START_TIME=$(date +%s)
-sfdx force:org:create -f config/snapshot-scratch-def-template.json -d 30 --setdefaultusername -w 10 2>&1 | tee stderr
+if [ -n "$scratchorgalias" ]
+    then sfdx force:org:create -f config/snapshot-scratch-def-template.json -d 30 --setdefaultusername -w 10 --setalias "$scratchorgalias" 2>&1 | tee stderr
+    else sfdx force:org:create -f config/snapshot-scratch-def-template.json -d 30 --setdefaultusername -w 10 2>&1 | tee stderr
+fi
 if [[ ($(cat stderr) == *'ERROR'* ) && ( $(cat stderr) != *'Some commands may not work as expected until the My Domain DNS propagation'* ) ]]; then
     exit 1
 fi    
