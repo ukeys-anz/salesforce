@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>IDR_NC_State__c</fullName>
-    <description>State in which the complainant is a resident.</description>
+    <fullName>IDR_Auth_Agent_State__c</fullName>
     <externalId>false</externalId>
-    <label>State</label>
+    <label>Authorised 3rd party state</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
-        <controllingField>IDR_NC_Country__c</controllingField>
+        <controllingField>IDR_Auth_Agent_Country__c</controllingField>
         <restricted>true</restricted>
         <valueSetName>States</valueSetName>
         <valueSettings>
