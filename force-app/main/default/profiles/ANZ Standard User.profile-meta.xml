@@ -8523,6 +8523,34 @@
     <field>WorkerCompCoverageClass.WorkerLocationId</field>
     <readable>false</readable>
   </fieldPermissions>
+  <layoutAssignments>
+    <layout>Case-Complaint Layout</layout>
+    <recordType>Case.Customer_Complaint</recordType>
+  </layoutAssignments>
+  <layoutAssignments>
+    <layout>Case-Non-Customer Complaint Layout</layout>
+    <recordType>Case.Non_Customer_Complaint</recordType>
+  </layoutAssignments>
+  <layoutAssignments>
+    <layout>PersonAccount-Person Account Layout ANZX</layout>
+    <recordType>PersonAccount.PersonAccount</recordType>
+  </layoutAssignments>
+  <layoutAssignments>
+    <layout>ServiceAppointment-ANZ Service Appointment Layout</layout>
+  </layoutAssignments>
+  <layoutAssignments>
+    <layout>ServiceResource-ANZ Service Resource Layout</layout>
+  </layoutAssignments>
+  <layoutAssignments>
+    <layout>ServiceTerritory-Branch Layout</layout>
+    <recordType>ServiceTerritory.Branch</recordType>
+  </layoutAssignments>
+  <layoutAssignments>
+    <layout>WorkType-ANZ Work Type Layout</layout>
+  </layoutAssignments>
+  <layoutAssignments>
+    <layout>WorkTypeGroup-ANZ Work type Group Layout</layout>
+  </layoutAssignments>
   <objectPermissions>
     <allowCreate>false</allowCreate>
     <allowDelete>false</allowDelete>

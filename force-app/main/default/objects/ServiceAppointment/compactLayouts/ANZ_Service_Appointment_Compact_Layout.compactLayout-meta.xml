@@ -5,8 +5,8 @@
     <fields>AccountId</fields>
     <fields>WorkTypeId</fields>
     <fields>Status</fields>
-    <fields>Appointment_Application_Time__c</fields>
+    <fields>SchedStartTime</fields>
+    <fields>SchedEndTime</fields>
     <fields>AppointmentType</fields>
-    <fields>Duration</fields>
     <label>ANZ Service Appointment Compact Layout</label>
 </CompactLayout>
