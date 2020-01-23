@@ -23,6 +23,9 @@
     <navType>Standard</navType>
     <tabs>standard-Account</tabs>
     <tabs>standard-Contact</tabs>
+    <tabs>standard-ServiceAppointment</tabs>
+    <tabs>standard-ServiceResource</tabs>
+    <tabs>standard-Event</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Coach_App_UtilityBar</utilityBar>
 </CustomApplication>
