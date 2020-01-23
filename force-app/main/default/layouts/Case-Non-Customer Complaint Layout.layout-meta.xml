@@ -14,7 +14,7 @@
                 <field>IDR_NC_Is_Consent_Obtained__c</field>
             </layoutItems>
         </layoutColumns>
-        <style>TwoColumnsTopToBottom</style>
+        <style>TwoColumnsLeftToRight</style>
     </layoutSections>
     <layoutSections>
         <customLabel>true</customLabel>
@@ -111,11 +111,11 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
-                <field>IDR_Product_or_Service_Line__c</field>
+                <field>Type</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
-                <field>IDR_Product_or_Service_Type__c</field>
+                <field>IDR_Product_or_Service_Category__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -123,6 +123,10 @@
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>IDR_Office__c</field>
+            </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
                 <field>Status</field>
@@ -133,18 +137,18 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
-                <field>Type</field>
+                <field>IDR_Product_or_Service_Line__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
-                <field>IDR_Product_or_Service_Category__c</field>
+                <field>IDR_Product_or_Service_Type__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>IDR_Escalated_to__c</field>
             </layoutItems>
         </layoutColumns>
-        <style>TwoColumnsTopToBottom</style>
+        <style>TwoColumnsLeftToRight</style>
     </layoutSections>
     <layoutSections>
         <customLabel>false</customLabel>
@@ -389,7 +393,7 @@
                 <field>ContactId</field>
             </layoutItems>
         </layoutColumns>
-        <style>TwoColumnsTopToBottom</style>
+        <style>TwoColumnsLeftToRight</style>
     </layoutSections>
     <layoutSections>
         <customLabel>false</customLabel>
@@ -403,6 +407,11 @@
     </layoutSections>
     <platformActionList>
         <actionListContext>Record</actionListContext>
+        <platformActionListItems>
+            <actionName>Edit</actionName>
+            <actionType>StandardButton</actionType>
+            <sortOrder>0</sortOrder>
+        </platformActionListItems>
         <platformActionListItems>
             <actionName>CloseCase</actionName>
             <actionType>StandardButton</actionType>
@@ -457,11 +466,6 @@
             <actionName>NewTask</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>11</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
-            <actionName>Edit</actionName>
-            <actionType>StandardButton</actionType>
-            <sortOrder>0</sortOrder>
         </platformActionListItems>
     </platformActionList>
     <relatedContent>
