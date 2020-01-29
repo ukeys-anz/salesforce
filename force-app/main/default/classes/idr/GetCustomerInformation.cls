@@ -23,7 +23,7 @@ public with sharing class GetCustomerInformation {
     if (String.isNotBlank(capId)) {
       HttpRequest request = new HttpRequest();
       //TODO change this to real endpoint
-      request.setEndpoint('callout:Mulesoft/mocking/api/v1/links/c892886f-b855-4281-9a5e-77a5035e86be/v1/customers/123');
+      request.setEndpoint('callout:Mulesoft/mocking/api/v1/links/e3ac1ca7-74dc-4a4b-9ddb-1da78569a1b7/v1/customers/123');
       request.setMethod('GET');
       //Todo mocked for now need to change based on mulesoft api
       request.setHeader('x-consumer-id', '12344');

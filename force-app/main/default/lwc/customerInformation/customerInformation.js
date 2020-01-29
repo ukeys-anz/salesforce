@@ -4,6 +4,7 @@ import { getRecord } from 'lightning/uiRecordApi';
 import CAP_ID_FIELD from '@salesforce/schema/Case.IDR_Customer_Number__c';
 
 export default class CustomerInformation extends LightningElement {
+    @track loaded = false;
     @track customerInfo;
     @api recordId;
     @wire(getRecord, { recordId: '$recordId', fields: [CAP_ID_FIELD] })
@@ -52,13 +53,16 @@ export default class CustomerInformation extends LightningElement {
                     customerData.street = responseData.street;
                     customerData.suburb = responseData.suburb;
                     // adding data object to show in UI
+                    this.loaded = true;
                     this.customerInfo = customerData;
                 }).catch(err => {
+                    this.loaded = true;
                     this.error = err;
                     this.record = undefined;
                 })
         }
         else if (error) {
+            this.loaded = true;
             this.error = error;
             this.record = undefined;
         }

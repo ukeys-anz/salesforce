@@ -1,6 +1,6 @@
 <template>
-    <lightning-card title="Customer Information" icon-name="standard:people">  
-        <template if:true={customerInfo}>    
+    <lightning-card title="Customer Information" icon-name="standard:people"> 
+        <template if:true={customerInfo}>
             <div class="slds-p-around_medium">
                     <ul class="slds-list--vertical slds-has-dividers--bottom-space">
                         <li class="slds-list__item" title="Complainant Type">Complainant Type : {customerInfo.complainant_type}</li>
@@ -18,9 +18,13 @@
                         <li class="slds-list__item" title="State">State : {customerInfo.state}</li>
                         <li class="slds-list__item" title="Postcode">Postcode : {customerInfo.postcode}</li>
                         <li class="slds-list__item" title="Country">Country : {customerInfo.country}</li>
-                        
                     </ul>
-            </div>
+                    </div>
+        </template>
+        <template if:false={loaded}>
+          <div class="spinner"> 
+            <lightning-spinner size="small" alternative-text="Loading" variant="brand"></lightning-spinner>
+           </div> 
         </template>
     </lightning-card>
 </template>
