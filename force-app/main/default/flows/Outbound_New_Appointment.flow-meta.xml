@@ -3,8 +3,8 @@
     <actionCalls>
         <name>Save_Appointment</name>
         <label>Save Appointment</label>
-        <locationX>1047</locationX>
-        <locationY>365</locationY>
+        <locationX>1436</locationX>
+        <locationY>479</locationY>
         <actionName>saveAppointment</actionName>
         <actionType>saveAppointment</actionType>
         <connector>
@@ -25,10 +25,34 @@
         </outputParameters>
     </actionCalls>
     <assignments>
+        <description>Assign the service territory id from Service Territory Member to Service Appointment</description>
+        <name>Assign_Service_Territory_ID</name>
+        <label>Assign Service Territory ID</label>
+        <locationX>912</locationX>
+        <locationY>389</locationY>
+        <assignmentItems>
+            <assignToReference>ServiceAppointment.ServiceTerritoryId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>ServiceTerritoryMember.ServiceTerritoryId</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Flow.CurrentStage</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>TimeSlotStage</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>TimeSlotScreen</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>SetAppointmentStage</name>
         <label>Set Appointment Stage</label>
-        <locationX>467</locationX>
-        <locationY>19</locationY>
+        <locationX>436</locationX>
+        <locationY>266</locationY>
         <assignmentItems>
             <assignToReference>$Flow.CurrentStage</assignToReference>
             <operator>Assign</operator>
@@ -43,8 +67,8 @@
     <assignments>
         <name>SetCandidateStage</name>
         <label>Set Candidate Stage</label>
-        <locationX>644</locationX>
-        <locationY>270</locationY>
+        <locationX>1169</locationX>
+        <locationY>38</locationY>
         <assignmentItems>
             <assignToReference>$Flow.CurrentStage</assignToReference>
             <operator>Assign</operator>
@@ -59,8 +83,8 @@
     <assignments>
         <name>SetConfirmationStage</name>
         <label>Set Confirmation Stage</label>
-        <locationX>1184</locationX>
-        <locationY>271</locationY>
+        <locationX>1577</locationX>
+        <locationY>379</locationY>
         <assignmentItems>
             <assignToReference>$Flow.CurrentStage</assignToReference>
             <operator>Assign</operator>
@@ -75,8 +99,8 @@
     <assignments>
         <name>SetInitialValues</name>
         <label>Set Initial Values</label>
-        <locationX>180</locationX>
-        <locationY>15</locationY>
+        <locationX>172</locationX>
+        <locationY>270</locationY>
         <assignmentItems>
             <assignToReference>ServiceAppointment.ParentRecordId</assignToReference>
             <operator>Assign</operator>
@@ -147,8 +171,8 @@
     <assignments>
         <name>SetLocationStage</name>
         <label>Set Location Stage</label>
-        <locationX>606</locationX>
-        <locationY>19</locationY>
+        <locationX>761</locationX>
+        <locationY>23</locationY>
         <assignmentItems>
             <assignToReference>$Flow.CurrentStage</assignToReference>
             <operator>Assign</operator>
@@ -163,8 +187,8 @@
     <assignments>
         <name>SetReviewStage</name>
         <label>Set Review Stage</label>
-        <locationX>906</locationX>
-        <locationY>268</locationY>
+        <locationX>1267</locationX>
+        <locationY>401</locationY>
         <assignmentItems>
             <assignToReference>$Flow.CurrentStage</assignToReference>
             <operator>Assign</operator>
@@ -179,8 +203,8 @@
     <assignments>
         <name>SetTimeSlotStage</name>
         <label>Set Time Slot Stage</label>
-        <locationX>774</locationX>
-        <locationY>267</locationY>
+        <locationX>1097</locationX>
+        <locationY>409</locationY>
         <assignmentItems>
             <assignToReference>$Flow.CurrentStage</assignToReference>
             <operator>Assign</operator>
@@ -195,8 +219,8 @@
     <assignments>
         <name>SetTopicStage</name>
         <label>Set Topic Stage</label>
-        <locationX>327</locationX>
-        <locationY>18</locationY>
+        <locationX>302</locationX>
+        <locationY>268</locationY>
         <assignmentItems>
             <assignToReference>$Flow.CurrentStage</assignToReference>
             <operator>Assign</operator>
@@ -216,10 +240,51 @@
         </value>
     </constants>
     <decisions>
+        <description>Change the flow based on appointment type</description>
+        <name>Appointment_Type_Decision</name>
+        <label>Appointment Type Decision</label>
+        <locationX>693</locationX>
+        <locationY>384</locationY>
+        <defaultConnector>
+            <targetReference>SetLocationStage</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Appointment_Type</name>
+            <conditionLogic>(1 OR 2) AND 3 AND 4</conditionLogic>
+            <conditions>
+                <leftValueReference>ServiceAppointment.AppointmentType</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Call</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>ServiceAppointment.AppointmentType</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Video</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>serviceResourceId</leftValueReference>
+                <operator>NotEqualTo</operator>
+            </conditions>
+            <conditions>
+                <leftValueReference>ServiceTerritoryMember.ServiceTerritoryId</leftValueReference>
+                <operator>NotEqualTo</operator>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Service_Territory_ID</targetReference>
+            </connector>
+            <label>Appointment Type</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>ResourceDecision</name>
         <label>Resource Decision</label>
-        <locationX>755</locationX>
-        <locationY>129</locationY>
+        <locationX>951</locationX>
+        <locationY>114</locationY>
         <defaultConnector>
             <targetReference>SetTimeSlotStage</targetReference>
         </defaultConnector>
@@ -240,7 +305,7 @@
             <label>Find Resource</label>
         </rules>
     </decisions>
-    <description>Outbound Appointment creation flow.</description>
+    <description>Outbound Appointment creation flow modified based on Appointment type</description>
     <interviewLabel>Outbound Flow {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Outbound New Appointment</label>
     <processMetadataValues>
@@ -250,16 +315,45 @@
         </value>
     </processMetadataValues>
     <processType>Appointments</processType>
+    <recordLookups>
+        <description>Get Service Territory Id from Service Territory Member object based on Service Resource ID</description>
+        <name>GetServiceTerritoryId</name>
+        <label>GetServiceTerritoryId</label>
+        <locationX>571</locationX>
+        <locationY>392</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Appointment_Type_Decision</targetReference>
+        </connector>
+        <filters>
+            <field>ServiceResourceId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>serviceResourceId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>TerritoryType</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>P</stringValue>
+            </value>
+        </filters>
+        <object>ServiceTerritoryMember</object>
+        <outputReference>ServiceTerritoryMember</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>ServiceTerritoryId</queriedFields>
+    </recordLookups>
     <screens>
         <name>AppointmentTypeScreen</name>
         <label>Appointment Type Screen</label>
-        <locationX>467</locationX>
-        <locationY>129</locationY>
+        <locationX>427</locationX>
+        <locationY>472</locationY>
         <allowBack>true</allowBack>
         <allowFinish>false</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>SetLocationStage</targetReference>
+            <targetReference>GetServiceTerritoryId</targetReference>
         </connector>
         <fields>
             <name>flowApptType</name>
@@ -283,8 +377,8 @@
     <screens>
         <name>AttendeesScreen</name>
         <label>Attendees Screen</label>
-        <locationX>180</locationX>
-        <locationY>128</locationY>
+        <locationX>171</locationX>
+        <locationY>470</locationY>
         <allowBack>true</allowBack>
         <allowFinish>false</allowFinish>
         <allowPause>false</allowPause>
@@ -353,8 +447,8 @@
     <screens>
         <name>CandidateScreen</name>
         <label>Candidate Screen</label>
-        <locationX>642</locationX>
-        <locationY>359</locationY>
+        <locationX>1160</locationX>
+        <locationY>161</locationY>
         <allowBack>true</allowBack>
         <allowFinish>false</allowFinish>
         <allowPause>false</allowPause>
@@ -415,8 +509,8 @@
     <screens>
         <name>ConfirmationScreen</name>
         <label>Confirmation Screen</label>
-        <locationX>1185</locationX>
-        <locationY>371</locationY>
+        <locationX>1578</locationX>
+        <locationY>528</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -432,8 +526,8 @@
     <screens>
         <name>LocationScreen</name>
         <label>Location Screen</label>
-        <locationX>607</locationX>
-        <locationY>130</locationY>
+        <locationX>801</locationX>
+        <locationY>167</locationY>
         <allowBack>true</allowBack>
         <allowFinish>false</allowFinish>
         <allowPause>false</allowPause>
@@ -544,8 +638,8 @@
     <screens>
         <name>ReviewScreen</name>
         <label>Review Screen</label>
-        <locationX>909</locationX>
-        <locationY>361</locationY>
+        <locationX>1276</locationX>
+        <locationY>513</locationY>
         <allowBack>true</allowBack>
         <allowFinish>false</allowFinish>
         <allowPause>false</allowPause>
@@ -680,8 +774,8 @@
     <screens>
         <name>TimeSlotScreen</name>
         <label>Time Slot Screen</label>
-        <locationX>776</locationX>
-        <locationY>359</locationY>
+        <locationX>1103</locationX>
+        <locationY>537</locationY>
         <allowBack>true</allowBack>
         <allowFinish>false</allowFinish>
         <allowPause>false</allowPause>
@@ -752,8 +846,8 @@
     <screens>
         <name>TopicScreen</name>
         <label>Topic Screen</label>
-        <locationX>325</locationX>
-        <locationY>127</locationY>
+        <locationX>298</locationX>
+        <locationY>474</locationY>
         <allowBack>true</allowBack>
         <allowFinish>false</allowFinish>
         <allowPause>false</allowPause>
@@ -863,7 +957,13 @@
         <label>Select Topic</label>
         <stageOrder>10</stageOrder>
     </stages>
-    <startElementReference>SetInitialValues</startElementReference>
+    <start>
+        <locationX>43</locationX>
+        <locationY>342</locationY>
+        <connector>
+            <targetReference>SetInitialValues</targetReference>
+        </connector>
+    </start>
     <status>Active</status>
     <variables>
         <name>locationDistance</name>
@@ -946,6 +1046,14 @@
         <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>ServiceTerritoryMember</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>ServiceTerritoryMember</objectType>
     </variables>
     <variables>
         <name>startDate</name>
