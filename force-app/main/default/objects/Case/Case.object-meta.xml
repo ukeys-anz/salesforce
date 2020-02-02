@@ -146,8 +146,10 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>NewCase</actionName>
+        <content>NewComplaintFlowWrapper</content>
         <formFactor>Large</formFactor>
-        <type>Default</type>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>LightningComponent</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>NewCase</actionName>

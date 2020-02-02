@@ -44,6 +44,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>NewComplaintFlowWrapperController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>ProcessBuilderNoAction</apexClass>
         <enabled>true</enabled>
     </classAccesses>

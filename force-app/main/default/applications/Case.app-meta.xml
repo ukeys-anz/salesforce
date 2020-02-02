@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <brand>
+        <headerColor>#0070D2</headerColor>
+        <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
+    </brand>
+    <description>Workaround for &quot;Entity of type &#39;CustomApplication&#39; named &#39;Case&#39; cannot be found&quot; when New action is overriden.</description>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <label>Case</label>
+    <navType>Standard</navType>
+    <uiType>Lightning</uiType>
+    <utilityBar>Case_UtilityBar</utilityBar>
+</CustomApplication>
