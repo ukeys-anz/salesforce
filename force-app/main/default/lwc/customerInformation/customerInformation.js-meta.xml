@@ -4,5 +4,11 @@
     <isExposed>true</isExposed>
     <targets>
       <target>lightning__RecordPage</target>
+       <target>lightning__FlowScreen</target>
     </targets>
+    <targetConfigs>
+      <targetConfig targets="lightning__FlowScreen">
+        <property name="customerId" type="String" role="inputOnly"/>
+      </targetConfig>
+    </targetConfigs>
 </LightningComponentBundle>

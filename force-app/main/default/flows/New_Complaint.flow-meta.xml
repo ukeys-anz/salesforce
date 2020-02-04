@@ -1327,9 +1327,15 @@
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
-            <name>Customer_Info_LWC</name>
-            <extensionName>c:customerInformationflow</extensionName>
+            <name>Customer_Info_lwc_new</name>
+            <extensionName>c:customerInformation</extensionName>
             <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>customerId</name>
+                <value>
+                    <elementReference>Customer_Number_Text</elementReference>
+                </value>
+            </inputParameters>
             <isRequired>true</isRequired>
         </fields>
         <fields>

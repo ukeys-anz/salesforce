@@ -21,6 +21,13 @@
                     </ul>
                     </div>
         </template>
+        <template if:true={error}>
+            <div class="slds-p-around_medium">
+                <ul class="slds-list--vertical slds-has-dividers--bottom-space">
+                    <li class="slds-list__item" title="Complainant Type">Error : {error} </li>         
+                </ul>
+            </div>
+        </template>
         <template if:false={loaded}>
           <div class="spinner"> 
             <lightning-spinner size="small" alternative-text="Loading" variant="brand"></lightning-spinner>
