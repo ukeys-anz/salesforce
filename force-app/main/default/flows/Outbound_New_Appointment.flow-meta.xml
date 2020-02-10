@@ -49,6 +49,22 @@
         </connector>
     </assignments>
     <assignments>
+        <name>Set_Composite_Stage</name>
+        <label>Set Composite Stage</label>
+        <locationX>1257</locationX>
+        <locationY>110</locationY>
+        <assignmentItems>
+            <assignToReference>$Flow.CurrentStage</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>CompositeStage</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Resource_Time_Slot_Screen</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>SetAppointmentStage</name>
         <label>Set Appointment Stage</label>
         <locationX>436</locationX>
@@ -62,22 +78,6 @@
         </assignmentItems>
         <connector>
             <targetReference>AppointmentTypeScreen</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
-        <name>SetCandidateStage</name>
-        <label>Set Candidate Stage</label>
-        <locationX>1169</locationX>
-        <locationY>38</locationY>
-        <assignmentItems>
-            <assignToReference>$Flow.CurrentStage</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>CandidateStage</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>CandidateScreen</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -300,12 +300,12 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>SetCandidateStage</targetReference>
+                <targetReference>Set_Composite_Stage</targetReference>
             </connector>
             <label>Find Resource</label>
         </rules>
     </decisions>
-    <description>Outbound Appointment creation flow modified based on Appointment type</description>
+    <description>Outbound Appointment creation flow modified to select Service Resource and Time Slot in Single Page</description>
     <interviewLabel>Outbound Flow {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Outbound New Appointment</label>
     <processMetadataValues>
@@ -445,68 +445,6 @@
         <showHeader>true</showHeader>
     </screens>
     <screens>
-        <name>CandidateScreen</name>
-        <label>Candidate Screen</label>
-        <locationX>1160</locationX>
-        <locationY>161</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>false</allowFinish>
-        <allowPause>false</allowPause>
-        <connector>
-            <targetReference>SetTimeSlotStage</targetReference>
-        </connector>
-        <fields>
-            <name>flowCandidate</name>
-            <extensionName>runtime_appointmentbooking:flowCandidate</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>parentRecordId</name>
-                <value>
-                    <elementReference>ServiceAppointment.ParentRecordId</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>serviceTerritoryId</name>
-                <value>
-                    <elementReference>ServiceAppointment.ServiceTerritoryId</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>workTypeGroupId</name>
-                <value>
-                    <elementReference>workTypeGroupId</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>selectedServiceResourceId</name>
-                <value>
-                    <elementReference>serviceResourceId</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>validationErrors</name>
-                <value>
-                    <elementReference>validationErrors</elementReference>
-                </value>
-            </inputParameters>
-            <isRequired>true</isRequired>
-            <outputParameters>
-                <assignToReference>workTypeGroupId</assignToReference>
-                <name>workTypeGroupId</name>
-            </outputParameters>
-            <outputParameters>
-                <assignToReference>serviceResourceId</assignToReference>
-                <name>selectedServiceResourceId</name>
-            </outputParameters>
-            <outputParameters>
-                <assignToReference>validationErrors</assignToReference>
-                <name>validationErrors</name>
-            </outputParameters>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
-    </screens>
-    <screens>
         <name>ConfirmationScreen</name>
         <label>Confirmation Screen</label>
         <locationX>1578</locationX>
@@ -634,6 +572,99 @@
         </fields>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <description>Screen to select the Service Resource and Time Slot</description>
+        <name>Resource_Time_Slot_Screen</name>
+        <label>Resource Time Slot Screen</label>
+        <locationX>1260</locationX>
+        <locationY>240</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>SetReviewStage</targetReference>
+        </connector>
+        <fields>
+            <name>flowResourceTimeSlot</name>
+            <extensionName>runtime_appointmentbooking:resourceSlot</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>parentRecordId</name>
+                <value>
+                    <elementReference>ServiceAppointment.ParentRecordId</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>selectedEndTime</name>
+                <value>
+                    <elementReference>ServiceAppointment.SchedEndTime</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>selectedStartTime</name>
+                <value>
+                    <elementReference>ServiceAppointment.SchedStartTime</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>serviceResourceId</name>
+                <value>
+                    <elementReference>serviceResourceId</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>serviceTerritoryId</name>
+                <value>
+                    <elementReference>ServiceAppointment.ServiceTerritoryId</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>currStartDate</name>
+                <value>
+                    <elementReference>startDate</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>validationErrors</name>
+                <value>
+                    <elementReference>validationErrors</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>workTypeGroupId</name>
+                <value>
+                    <elementReference>workTypeGroupId</elementReference>
+                </value>
+            </inputParameters>
+            <isRequired>true</isRequired>
+            <outputParameters>
+                <assignToReference>startDate</assignToReference>
+                <name>currStartDate</name>
+            </outputParameters>
+            <outputParameters>
+                <assignToReference>validationErrors</assignToReference>
+                <name>validationErrors</name>
+            </outputParameters>
+            <outputParameters>
+                <assignToReference>workTypeGroupId</assignToReference>
+                <name>workTypeGroupId</name>
+            </outputParameters>
+            <outputParameters>
+                <assignToReference>ServiceAppointment.SchedEndTime</assignToReference>
+                <name>selectedEndTime</name>
+            </outputParameters>
+            <outputParameters>
+                <assignToReference>ServiceAppointment.SchedStartTime</assignToReference>
+                <name>selectedStartTime</name>
+            </outputParameters>
+            <outputParameters>
+                <assignToReference>serviceResourceId</assignToReference>
+                <name>serviceResourceId</name>
+            </outputParameters>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
     </screens>
     <screens>
         <name>ReviewScreen</name>
@@ -926,6 +957,12 @@
         <isActive>true</isActive>
         <label>Select Candidate</label>
         <stageOrder>40</stageOrder>
+    </stages>
+    <stages>
+        <name>CompositeStage</name>
+        <isActive>true</isActive>
+        <label>CompositeStage</label>
+        <stageOrder>51</stageOrder>
     </stages>
     <stages>
         <name>ConfirmationStage</name>
