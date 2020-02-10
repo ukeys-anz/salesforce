@@ -253,5 +253,5 @@
         <searchResultsAdditionalFields>PC_BIRTHDATE</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>FinServ__ShippingAddress__pc</searchResultsAdditionalFields>
     </searchLayouts>
-    <sharingModel>Private</sharingModel>
+    <sharingModel>Read</sharingModel>
 </CustomObject>
