@@ -1063,7 +1063,7 @@
     <picklistValues>
         <picklist>IDR_Escalated_to__c</picklist>
         <values>
-            <fullName>APRA</fullName>
+            <fullName>AFCA</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1073,10 +1073,6 @@
         <values>
             <fullName>Customer Advocate</fullName>
             <default>false</default>
-        </values>
-        <values>
-            <fullName>None</fullName>
-            <default>true</default>
         </values>
     </picklistValues>
     <picklistValues>

@@ -141,28 +141,42 @@
             <assignToReference>Complaint.IDR_NC_Age__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Age2</elementReference>
+                <elementReference>Age_Anon</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>Complaint.IDR_NC_Descent__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>ATSI_Choice_Set</elementReference>
+                <elementReference>ATSI_Anon</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>Complaint.IDR_NC_Country__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>State_and_Country2.topValue</elementReference>
+                <elementReference>State_and_Country_Anon.topValue</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>Complaint.IDR_NC_State__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>State_and_Country2.middleValue</elementReference>
+                <elementReference>State_and_Country_Anon.middleValue</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Complaint.IDR_Complainant_Type__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Complainant_Type_Anon</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Complaint.IDR_NC_Gender__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Gender_Anon</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -213,21 +227,21 @@
             <assignToReference>Complaint.IDR_NC_Age__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Age_Choice_Set</elementReference>
+                <elementReference>Age</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>Complaint.IDR_NC_Gender__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Gender_Choice_Set</elementReference>
+                <elementReference>Gender</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>Complaint.IDR_NC_Descent__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>ATSI_Choice_Set</elementReference>
+                <elementReference>ATSI_NC</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -392,14 +406,14 @@
             <assignToReference>Complaint.Origin</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Origin_Choice_Set</elementReference>
+                <elementReference>Channel_Received</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>Complaint.Type</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Type_Choice_Set</elementReference>
+                <elementReference>Complaint_Issue</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -488,6 +502,22 @@
             <stringValue>None</stringValue>
         </value>
     </choices>
+    <choices>
+        <name>Complainant_Agrees_Choice</name>
+        <choiceText>Complainant Agrees</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>true</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Complainant_Disagrees_Choice</name>
+        <choiceText>Complainant Disagrees</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>false</stringValue>
+        </value>
+    </choices>
     <decisions>
         <name>Agreed</name>
         <label>Agreed?</label>
@@ -495,10 +525,10 @@
         <locationY>78</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
-            <name>isAccepted</name>
+            <name>isAgreed</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>Complainant_Accepts</leftValueReference>
+                <leftValueReference>Complainant_Decision_Radio</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -507,13 +537,13 @@
             <connector>
                 <targetReference>Update_Case_Privacy_Yes</targetReference>
             </connector>
-            <label>Accepted</label>
+            <label>Agreed</label>
         </rules>
         <rules>
-            <name>isNotAccepted</name>
+            <name>isDisagreed</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>Complainant_Accepts</leftValueReference>
+                <leftValueReference>Complainant_Decision_Radio</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -522,7 +552,7 @@
             <connector>
                 <targetReference>Update_Case_Anonymous</targetReference>
             </connector>
-            <label>Not Accepted</label>
+            <label>Diagreed</label>
         </rules>
     </decisions>
     <decisions>
@@ -693,7 +723,23 @@
             <targetReference>Update_Case_Anonymous_Details</targetReference>
         </connector>
         <fields>
-            <name>Age2</name>
+            <name>Complainant_Type_Anon</name>
+            <choiceReferences>Complainant_Type_Choice_Set</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Complainant Type</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Gender_Anon</name>
+            <choiceReferences>Gender_Choice_Set</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Gender</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Age_Anon</name>
             <choiceReferences>Age_Choice_Set</choiceReferences>
             <dataType>String</dataType>
             <fieldText>Age</fieldText>
@@ -701,7 +747,7 @@
             <isRequired>true</isRequired>
         </fields>
         <fields>
-            <name>Aboriginal_or_Torres_Strait_Islander_Descent2</name>
+            <name>ATSI_Anon</name>
             <choiceReferences>ATSI_Choice_Set</choiceReferences>
             <dataType>String</dataType>
             <fieldText>Aboriginal or Torres Strait Islander Descent</fieldText>
@@ -709,7 +755,7 @@
             <isRequired>true</isRequired>
         </fields>
         <fields>
-            <name>State_and_Country2</name>
+            <name>State_and_Country_Anon</name>
             <extensionName>flowruntime:dependentPicklists</extensionName>
             <fieldType>ComponentInstance</fieldType>
             <inputParameters>
@@ -846,7 +892,7 @@
             <isRequired>true</isRequired>
         </fields>
         <fields>
-            <name>Aboriginal_or_Torres_Strait_Islander_Descent</name>
+            <name>ATSI_NC</name>
             <choiceReferences>ATSI_Choice_Set</choiceReferences>
             <dataType>String</dataType>
             <fieldText>Aboriginal or Torres Strait Islander Descent</fieldText>
@@ -1588,7 +1634,7 @@
         <name>Privacy_Script_Screen</name>
         <label>Privacy Script Screen</label>
         <locationX>380</locationX>
-        <locationY>52</locationY>
+        <locationY>51</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -1597,15 +1643,32 @@
         </connector>
         <fields>
             <name>Privacy_Script_Text</name>
-            <fieldText>&lt;p&gt;So we can provide you with the best possible outcome, we need to collect some personal details from you. ANZ uses the information provided by you to respond to your query which may not be possible without these details.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;ANZ&#39;s Privacy Policy explains how ANZ handles personal information and explains how you may access and seek correction of the information ANZ holds about you or raise a concern about how ANZ has handled your information.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;For a copy of ANZ’s privacy policy please visit&amp;nbsp;&lt;a href=&quot;http://www.anz.com.au/privacy&quot; target=&quot;_blank&quot;&gt;www.anz.com.au/privacy&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Are you happy to proceed on this basis?&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;In order to assist you further, we need to collect some personal details such as your name and contact details from you. ANZ uses the information provided by you to respond to your query which may not be possible without these details.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Your personal information will not be disclosed outside the ANZ group (which may include our contact centres located overseas).&amp;nbsp;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;ANZ&#39;s Privacy Policy explains how ANZ handles personal information and explains how you may access and seek correction of the information ANZ holds about you or raise a concern about how ANZ has handled your information.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;For a copy of ANZ’s privacy policy please visit www.anz.com.au/privacy&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
-            <name>Complainant_Accepts</name>
-            <dataType>Boolean</dataType>
-            <fieldText>Complainant Accepts</fieldText>
-            <fieldType>InputField</fieldType>
+            <name>Complainant_Decision_Radio</name>
+            <choiceReferences>Complainant_Agrees_Choice</choiceReferences>
+            <choiceReferences>Complainant_Disagrees_Choice</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Complainant Decision</fieldText>
+            <fieldType>RadioButtons</fieldType>
             <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Privacy_Script_2_Text</name>
+            <fieldText>&lt;p&gt;Complaints made anonymously may limit our ability to obtain relevant information about the complaint. If you make a complaint anonymously or use a pseudonym and do not provide enough information to identify you and / or enable us to contact you, we may not be able to apply all of our complaints management processes. We may only be able to provide a generic response.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>Complainant_Disagrees_Choice</leftValueReference>
+                    <operator>WasSelected</operator>
+                    <rightValue>
+                        <booleanValue>true</booleanValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>

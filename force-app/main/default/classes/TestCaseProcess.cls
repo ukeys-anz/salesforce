@@ -89,6 +89,7 @@ private class TestCaseProcess {
       newCasesWithStatus.add(
         new Case(
           Status = 'Escalated',
+          IDR_Escalated_to__c = 'CRC',
           IDR_Escalation_Reason__c = 'Above Banker discretion',
           RecordTypeId = CUSTOMER_COMPLAINT_RT_ID
         )
@@ -118,6 +119,7 @@ private class TestCaseProcess {
     // GIVEN cases siwtch to escalated
     for (Integer i = 0; i < newCases.size(); i++) {
       newCases[i].Status = 'Escalated';
+      newCases[i].IDR_Escalated_to__c = 'CRC';
       newCases[i].IDR_Escalation_Reason__c = 'Above Banker discretion';
     }
     // WHEN they are updated
