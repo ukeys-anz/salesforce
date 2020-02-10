@@ -1078,19 +1078,23 @@
     <picklistValues>
         <picklist>IDR_Escalation_Reason__c</picklist>
         <values>
-            <fullName>Above Banker discretion</fullName>
+            <fullName>1</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer Request</fullName>
+            <fullName>2</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Remediation</fullName>
+            <fullName>3</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Systemic Issue</fullName>
+            <fullName>4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5</fullName>
             <default>false</default>
         </values>
     </picklistValues>
