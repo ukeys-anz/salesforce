@@ -3257,7 +3257,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>2</fullName>
+            <fullName>Phone</fullName>
             <default>true</default>
         </values>
         <values>
@@ -3277,7 +3277,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>7</fullName>
+            <fullName>Email</fullName>
             <default>false</default>
         </values>
         <values>
