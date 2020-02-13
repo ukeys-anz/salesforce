@@ -1,4 +1,4 @@
-<aura:component controller="NewComplaintFlowWrapperController"
+<aura:component controller="NewCaseFlowWrapperController"
                 implements="lightning:isUrlAddressable, force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction,lightning:actionOverride"
                 access="global">
     <lightning:workspaceAPI aura:id="workspace" />

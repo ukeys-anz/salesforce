@@ -49,7 +49,7 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>NewComplaintFlowWrapperController</apexClass>
+        <apexClass>NewCaseFlowWrapperController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>

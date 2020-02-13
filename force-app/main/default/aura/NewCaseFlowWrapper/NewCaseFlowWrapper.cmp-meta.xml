@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<AuraDefinitionBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>47.0</apiVersion>
+    <description>This component is instanciated as part of the New Case action override, after a record type was selected. Then, based on the selected RT, it'll either redirect to the appropriate flow or to the standard New Case record page.
+    </description>
+</AuraDefinitionBundle>

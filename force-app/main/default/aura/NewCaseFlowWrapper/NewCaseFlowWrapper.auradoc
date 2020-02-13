@@ -1,0 +1,6 @@
+<aura:documentation>
+	<aura:description>Documentation</aura:description>
+	<aura:example name="ExampleName" ref="exampleComponentName" label="Label">
+		This component is instanciated as part of the New Case action override, after a record type was selected. Then, based on the selected RT, it'll either redirect to the appropriate flow or to the standard New Case record page.
+	</aura:example>
+</aura:documentation>
