@@ -20,6 +20,12 @@
         <closed>false</closed>
     </standardValue>
     <standardValue>
+        <fullName>Under Investigation</fullName>
+        <default>false</default>
+        <label>Under Investigation</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
         <fullName>On Hold</fullName>
         <default>false</default>
         <label>On Hold</label>
@@ -35,6 +41,12 @@
         <fullName>Withdrawn</fullName>
         <default>false</default>
         <label>Withdrawn</label>
+        <closed>true</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Resolved</fullName>
+        <default>false</default>
+        <label>Resolved</label>
         <closed>true</closed>
     </standardValue>
     <standardValue>

@@ -20,6 +20,14 @@
         <default>false</default>
     </values>
     <values>
+        <fullName>Resolved</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Under Investigation</fullName>
+        <default>false</default>
+    </values>
+    <values>
         <fullName>Withdrawn</fullName>
         <default>false</default>
     </values>
