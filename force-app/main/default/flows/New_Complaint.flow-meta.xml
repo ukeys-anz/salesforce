@@ -1657,7 +1657,7 @@
         </fields>
         <fields>
             <name>Privacy_Script_2_Text</name>
-            <fieldText>&lt;p&gt;Complaints made anonymously may limit our ability to obtain relevant information about the complaint. If you make a complaint anonymously or use a pseudonym and do not provide enough information to identify you and / or enable us to contact you, we may not be able to apply all of our complaints management processes. We may only be able to provide a generic response.&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;ANZ supports your decision to remain anonymous and appreciates your feedback.&lt;/p&gt;&lt;p&gt;&amp;nbsp;__&amp;nbsp;&lt;/p&gt;&lt;p&gt;Just so you know, complaints made anonymously or using a pseudonym may limit our ability to manage some complaints effectively and may mean we can only provide a generic response.&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
             <visibilityRule>
                 <conditionLogic>and</conditionLogic>
