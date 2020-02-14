@@ -4,7 +4,7 @@
         <application>Coach_App</application>
         <visible>true</visible>
     </applicationVisibilities>
-    <description>Should only have required permissions to operate as a Coach</description>
+    <description>Should only have required permissions to view Custom related information.</description>
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.BillingAddress</field>
@@ -61,7 +61,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
-    <label>Coach</label>
+    <label>Customer Read-Only</label>
     <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
