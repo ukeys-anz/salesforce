@@ -1063,15 +1063,15 @@
     <picklistValues>
         <picklist>IDR_Escalated_to__c</picklist>
         <values>
-            <fullName>AFCA</fullName>
+            <fullName>1</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>CRC</fullName>
+            <fullName>2</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer Advocate</fullName>
+            <fullName>3</fullName>
             <default>false</default>
         </values>
     </picklistValues>

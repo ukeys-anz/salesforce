@@ -12,17 +12,17 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>CRC</fullName>
+                <fullName>1</fullName>
                 <default>false</default>
                 <label>CRC</label>
             </value>
             <value>
-                <fullName>Customer Advocate</fullName>
+                <fullName>2</fullName>
                 <default>false</default>
                 <label>Customer Advocate</label>
             </value>
             <value>
-                <fullName>AFCA</fullName>
+                <fullName>3</fullName>
                 <default>false</default>
                 <label>AFCA</label>
             </value>
