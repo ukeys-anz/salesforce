@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>IDR_Auth_Agent_Postcode__c</fullName>
+    <fullName>IDR_3rdParty_Mobile__c</fullName>
     <externalId>false</externalId>
-    <label>Authorised 3rd party postcode</label>
-    <length>255</length>
+    <label>Nominated 3rd party mobile</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
-    <type>Text</type>
-    <unique>false</unique>
+    <type>Phone</type>
 </CustomField>

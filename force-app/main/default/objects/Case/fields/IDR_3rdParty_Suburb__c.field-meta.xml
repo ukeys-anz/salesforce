@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>IDR_Auth_Agent_Email__c</fullName>
+    <fullName>IDR_3rdParty_Suburb__c</fullName>
     <externalId>false</externalId>
-    <label>Authorised 3rd party email address</label>
+    <label>Nominated 3rd party suburb</label>
+    <length>255</length>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
-    <type>Email</type>
+    <type>Text</type>
     <unique>false</unique>
 </CustomField>

@@ -181,47 +181,47 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.IDR_Auth_Agent_Country__c</field>
+        <field>Case.IDR_3rdParty_Country__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.IDR_Auth_Agent_Email__c</field>
+        <field>Case.IDR_3rdParty_Email__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.IDR_Auth_Agent_Mobile__c</field>
+        <field>Case.IDR_3rdParty_Mobile__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.IDR_Auth_Agent_Name__c</field>
+        <field>Case.IDR_3rdParty_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.IDR_Auth_Agent_Phone__c</field>
+        <field>Case.IDR_3rdParty_Phone__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.IDR_Auth_Agent_Postcode__c</field>
+        <field>Case.IDR_3rdParty_Postcode__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.IDR_Auth_Agent_State__c</field>
+        <field>Case.IDR_3rdParty_State__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.IDR_Auth_Agent_Street__c</field>
+        <field>Case.IDR_3rdParty_Street__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.IDR_Auth_Agent_Suburb__c</field>
+        <field>Case.IDR_3rdParty_Suburb__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -296,17 +296,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.IDR_Is_Related_to_Representative__c</field>
+        <field>Case.IDR_AuthRep_Is_Related_to_Representative__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.IDR_Licence_Number__c</field>
+        <field>Case.IDR_AuthRep_Licence_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.IDR_Licence_or_registration_type__c</field>
+        <field>Case.IDR_AuthRep_Licence_or_registration_type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -421,7 +421,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.IDR_Representative_Number__c</field>
+        <field>Case.IDR_AuthRep_Representative_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

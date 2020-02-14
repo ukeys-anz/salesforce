@@ -2580,7 +2580,7 @@
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
-    <field>Case.IDR_Auth_Agent_Name__c</field>
+    <field>Case.IDR_3rdParty_Name__c</field>
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
@@ -2655,12 +2655,12 @@
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
-    <field>Case.IDR_Licence_Number__c</field>
+    <field>Case.IDR_AuthRep_Licence_Number__c</field>
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
-    <field>Case.IDR_Licence_or_registration_type__c</field>
+    <field>Case.IDR_AuthRep_Licence_or_registration_type__c</field>
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
@@ -2765,7 +2765,7 @@
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
-    <field>Case.IDR_Representative_Number__c</field>
+    <field>Case.IDR_AuthRep_Representative_Number__c</field>
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
