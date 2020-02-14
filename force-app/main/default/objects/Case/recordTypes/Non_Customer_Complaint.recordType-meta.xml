@@ -3257,10 +3257,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Phone</fullName>
-            <default>true</default>
-        </values>
-        <values>
             <fullName>3</fullName>
             <default>false</default>
         </values>
@@ -3277,12 +3273,16 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>8</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Email</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>8</fullName>
-            <default>false</default>
+            <fullName>Phone</fullName>
+            <default>true</default>
         </values>
     </picklistValues>
     <picklistValues>
@@ -3335,6 +3335,10 @@
         </values>
         <values>
             <fullName>11</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>12</fullName>
             <default>false</default>
         </values>
         <values>

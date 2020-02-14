@@ -2,14 +2,39 @@
 <StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <sorted>false</sorted>
     <standardValue>
-        <fullName>1</fullName>
+        <fullName>9</fullName>
         <default>false</default>
-        <label>Advice</label>
+        <label>Service Quality</label>
     </standardValue>
     <standardValue>
         <fullName>2</fullName>
         <default>false</default>
-        <label>Charges</label>
+        <label>Rates, Fees and Charges</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4</fullName>
+        <default>false</default>
+        <label>Financial Difficulty</label>
+    </standardValue>
+    <standardValue>
+        <fullName>6</fullName>
+        <default>false</default>
+        <label>Product</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5</fullName>
+        <default>false</default>
+        <label>Process</label>
+    </standardValue>
+    <standardValue>
+        <fullName>10</fullName>
+        <default>false</default>
+        <label>Transaction and Payments</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8</fullName>
+        <default>false</default>
+        <label>Privacy and Confidentiality</label>
     </standardValue>
     <standardValue>
         <fullName>3</fullName>
@@ -17,39 +42,19 @@
         <label>Disclosure</label>
     </standardValue>
     <standardValue>
-        <fullName>4</fullName>
+        <fullName>1</fullName>
         <default>false</default>
-        <label>Financial difficulty</label>
-    </standardValue>
-    <standardValue>
-        <fullName>5</fullName>
-        <default>false</default>
-        <label>Financial service provider decision</label>
-    </standardValue>
-    <standardValue>
-        <fullName>6</fullName>
-        <default>false</default>
-        <label>Instructions</label>
+        <label>Advice</label>
     </standardValue>
     <standardValue>
         <fullName>7</fullName>
         <default>false</default>
-        <label>Insurance claims</label>
+        <label>Insurance Claims</label>
     </standardValue>
     <standardValue>
-        <fullName>8</fullName>
+        <fullName>12</fullName>
         <default>false</default>
-        <label>Privacy and confidentiality</label>
-    </standardValue>
-    <standardValue>
-        <fullName>9</fullName>
-        <default>false</default>
-        <label>Service and/or administration</label>
-    </standardValue>
-    <standardValue>
-        <fullName>10</fullName>
-        <default>false</default>
-        <label>Transactions</label>
+        <label>About ANZ</label>
     </standardValue>
     <standardValue>
         <fullName>11</fullName>
