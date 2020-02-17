@@ -1,7 +1,8 @@
 @SuppressWarnings('PMD')
 @isTest
 private class TestProcessBuilderNoAction {
-  static testMethod void executeCode() {
+  @isTest
+  static void executeCode() {
     ProcessBuilderNoAction.DoNothing();
   }
 }
