@@ -9,7 +9,7 @@
         "ContactsToMultipleAccounts",
         "FinancialServicesUser:10",
         "PersonAccounts",
-        "RetainFieldHistory",
+        "FieldAuditTrail",
         "LightningScheduler"
     ],
     "settings": {
