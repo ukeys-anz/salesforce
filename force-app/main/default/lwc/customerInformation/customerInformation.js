@@ -48,11 +48,9 @@ export default class CustomerInformation extends LightningElement {
                  first_name: '',
                  last_name: '',
                  middlename:'',
-                 phone: '',
                  mobile: '',
                  businessname:'',
                  gender:'',
-                 aboriginal:'',
                  email:'',
                  age:'',
                  suburb:'',
@@ -68,10 +66,8 @@ export default class CustomerInformation extends LightningElement {
              customerData.first_name = responseData.firstname;
              customerData.last_name = responseData.lastname;
              customerData.middlename = responseData.middlename;
-             customerData.phone = responseData.phone;
              customerData.mobile = responseData.mobile; 
              customerData.businessname = responseData.businessname;
-             customerData.aboriginal = responseData.aboriginal;
              customerData.age = responseData.age;
              customerData.country = responseData.country;
              customerData.email = responseData.email;
