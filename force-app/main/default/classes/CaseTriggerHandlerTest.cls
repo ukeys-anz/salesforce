@@ -1,12 +1,5 @@
 @isTest
-private class TestCaseProcess {
-  static final Id CUSTOMER_COMPLAINT_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get('Customer_Complaint')
-    .getRecordTypeId();
-  static final Id NON_CUSTOMER_COMPLAINT_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get('Non_Customer_Complaint')
-    .getRecordTypeId();
-
+private class CaseTriggerHandlerTest {
   @isTest
   static void testCaseNumberCopy() {
     // GIVEN cases are created
@@ -62,7 +55,7 @@ private class TestCaseProcess {
       casesWithACPNumber.add(
         new Case(
           IDR_Account_Card_Policy_Number__c = '000001234',
-          RecordTypeId = CUSTOMER_COMPLAINT_RT_ID
+          RecordTypeId = CaseTriggerHandler.CUSTOMER_COMPLAINT_RT_ID
         )
       );
     }
@@ -91,7 +84,7 @@ private class TestCaseProcess {
           Status = 'Escalated',
           IDR_Escalated_to__c = '1',
           IDR_Escalation_Reason__c = '1',
-          RecordTypeId = CUSTOMER_COMPLAINT_RT_ID
+          RecordTypeId = CaseTriggerHandler.CUSTOMER_COMPLAINT_RT_ID
         )
       );
     }
@@ -108,7 +101,7 @@ private class TestCaseProcess {
     // GIVEN cases are created as not escalated
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(new Case(RecordTypeId = CUSTOMER_COMPLAINT_RT_ID));
+      newCases.add(new Case(RecordTypeId = CaseTriggerHandler.CUSTOMER_COMPLAINT_RT_ID));
     }
     // WHEN they are inserted
     insert newCases;
@@ -134,7 +127,7 @@ private class TestCaseProcess {
     // GIVEN cases are created as not re-openened
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(new Case(RecordTypeId = CUSTOMER_COMPLAINT_RT_ID));
+      newCases.add(new Case(RecordTypeId = CaseTriggerHandler.CUSTOMER_COMPLAINT_RT_ID));
     }
     // WHEN they are insterted
     insert newCases;
@@ -174,7 +167,7 @@ private class TestCaseProcess {
       newCases.add(
         new Case(
           IDR_NC_Is_Consent_Obtained__c = false,
-          RecordTypeId = NON_CUSTOMER_COMPLAINT_RT_ID
+          RecordTypeId = CaseTriggerHandler.NON_CUSTOMER_COMPLAINT_RT_ID
         )
       );
     }
@@ -212,7 +205,7 @@ private class TestCaseProcess {
     // GIVEN complaints are created
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(new Case(RecordTypeId = CUSTOMER_COMPLAINT_RT_ID));
+      newCases.add(new Case(RecordTypeId = CaseTriggerHandler.CUSTOMER_COMPLAINT_RT_ID));
     }
     // WHEN they are inserted
     insert newCases;
@@ -258,6 +251,27 @@ private class TestCaseProcess {
       idrUser.Division,
       c.IDR_Office__c,
       'Office is new owner\'s division'
+    );
+  }
+
+  @istest
+  static void testNotifications() {
+    Case[] newCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = CaseTriggerHandler.CUSTOMER_COMPLAINT_RT_ID,
+          Status = 'Escalated',
+          IDR_Escalated_to__c = '1',
+          IDR_Escalation_Reason__c = '1'
+        )
+      );
+    }
+    insert newCases;
+    System.assert(
+      CaseTriggerHandler.idrNotifications.size() ==
+      Integer.valueOf(Label.Test_Bulk_Size),
+      'Matching no of events'
     );
   }
 }
