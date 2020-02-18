@@ -29,7 +29,9 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     'Under Investigation',
     'Escalated',
     'Re-opened',
-    'Closed'
+    'Closed',
+    'Resolved',
+    'Withdrawn'
   };
 
   //Length of the field IDR_Account_Card_Policy_Number__c which doesn't need to be masked.
