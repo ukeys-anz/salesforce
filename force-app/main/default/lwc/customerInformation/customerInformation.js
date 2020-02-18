@@ -62,17 +62,17 @@ export default class CustomerInformation extends LightningElement {
              // retrieving the response data
              let responseData = result.profile;
              // adding data object by reading from JSON
-             customerData.complainant_type = responseData.complainant_type;
-             customerData.first_name = responseData.firstname;
-             customerData.last_name = responseData.lastname;
-             customerData.middlename = responseData.middlename;
+             customerData.complainant_type = responseData.complainantType;
+             customerData.first_name = responseData.firstName;
+             customerData.last_name = responseData.lastName;
+             customerData.middlename = responseData.middleName;
              customerData.mobile = responseData.mobile; 
-             customerData.businessname = responseData.businessname;
+             customerData.businessname = responseData.businessName;
              customerData.age = responseData.age;
              customerData.country = responseData.country;
              customerData.email = responseData.email;
              customerData.gender = responseData.gender;
-             customerData.postcode = responseData.postcode;
+             customerData.postcode = responseData.postCode;
              customerData.state = responseData.state;
              customerData.street = responseData.street;
              customerData.suburb = responseData.suburb;
