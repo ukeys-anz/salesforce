@@ -24,7 +24,7 @@ public with sharing class GetCustomerInformation {
       HttpRequest request = new HttpRequest();
       //TODO change this to real endpoint
       request.setEndpoint(
-        'callout:Mulesoft/mocking/api/v1/links/e3ac1ca7-74dc-4a4b-9ddb-1da78569a1b7/v1/customers/123'
+        'callout:Mulesoft' + Label.MS_Get_Customer + capId
       );
       request.setMethod('GET');
       //Todo mocked for now need to change based on mulesoft api

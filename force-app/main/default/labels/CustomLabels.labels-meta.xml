@@ -17,6 +17,14 @@
         <value>005</value>
     </labels>
     <labels>
+        <fullName>MS_Get_Customer</fullName>
+        <categories>IDR</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_Customer</shortDescription>
+        <value>/cap-system-api/v1/customers/</value>
+    </labels>
+    <labels>
         <fullName>Test_Bulk_Size</fullName>
         <categories>Technical</categories>
         <language>en_US</language>
