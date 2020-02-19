@@ -3,8 +3,7 @@
     <fullName>IDR_AuthRep_Representative_Number__c</fullName>
     <description>Authorised representative or credit representative identifier number</description>
     <externalId>false</externalId>
-    <inlineHelpText>Authorised representative or credit representative identifier number</inlineHelpText>
-    <label>Representative Number</label>
+    <label>Representative/Credit Identifier Number</label>
     <length>42</length>
     <required>false</required>
     <trackHistory>false</trackHistory>

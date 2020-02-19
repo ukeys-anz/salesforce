@@ -296,6 +296,10 @@
                 <behavior>Edit</behavior>
                 <field>IDR_Systemic_Issue_Category__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Required</behavior>
+                <field>IDR_Is_Written_Resp_Requested__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -305,6 +309,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>IDR_Systemic_Issue_Description__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Required</behavior>
+                <field>IDR_Is_Written_Resp_Required__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -508,7 +516,7 @@
     <showRunAssignmentRulesCheckbox>true</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>true</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2N000000YJOl</masterLabel>
+        <masterLabel>00h2N000000YYT1</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>
