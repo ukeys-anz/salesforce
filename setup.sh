@@ -23,9 +23,10 @@ fi
 JOB_END_TIME=$(date +%s)
 echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
 
-echo "$(date): Assign Pset..."
+echo "$(date): Assign Pset and deploy settings..."
 JOB_START_TIME=$(date +%s)
 sfdx force:user:permset:assign -n FinancialServicesCloudStandard 2>&1 | tee stderr
+sfdx force:source:deploy -p force-app/main/default/settings 2>&1 | tee stderr
 if [[ ($(cat stderr) == *'ERROR'* ) ]]; then
     exit 1
 fi 

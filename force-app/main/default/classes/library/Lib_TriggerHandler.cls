@@ -142,7 +142,7 @@ public virtual with sharing class Lib_TriggerHandler {
    * @description Base handler for the Apex Trigger event After Insert, calls the onValidate and onAfterInsert methods
    **/
   protected virtual void handleAfterInsert() {
-    //onValidate();
+    onValidate();
     onAfterInsert();
   }
   /**

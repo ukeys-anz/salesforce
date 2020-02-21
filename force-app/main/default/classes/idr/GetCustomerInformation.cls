@@ -23,9 +23,7 @@ public with sharing class GetCustomerInformation {
     if (String.isNotBlank(capId)) {
       HttpRequest request = new HttpRequest();
       //TODO change this to real endpoint
-      request.setEndpoint(
-        'callout:Mulesoft' + Label.MS_Get_Customer + capId
-      );
+      request.setEndpoint('callout:Mulesoft' + Label.MS_Get_Customer + capId);
       request.setMethod('GET');
       //Todo mocked for now need to change based on mulesoft api
       request.setHeader('x-consumer-id', '12344');
