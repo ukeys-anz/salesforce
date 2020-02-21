@@ -83,21 +83,13 @@
             </componentInstanceProperties>
             <componentName>flexipage:tabset</componentName>
         </componentInstances>
-        <name>leftsidebar</name>
-        <type>Region</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
         <name>main</name>
-        <type>Region</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <name>rightsidebar</name>
         <type>Region</type>
     </flexiPageRegions>
     <masterLabel>Person Account Lightning Page - ANZ</masterLabel>
     <sobjectType>Account</sobjectType>
     <template>
-        <name>flexipage:recordHomeThreeColHeaderTemplateDesktop</name>
+        <name>flexipage:recordHomeSimpleViewTemplate</name>
     </template>
     <type>RecordPage</type>
 </FlexiPage>

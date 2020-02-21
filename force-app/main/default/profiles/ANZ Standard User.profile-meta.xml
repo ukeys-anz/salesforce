@@ -3189,7 +3189,7 @@
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
+    <editable>false</editable>
     <field>Contact.FinServ__HomePhoneVerified__c</field>
     <readable>true</readable>
   </fieldPermissions>
@@ -3199,22 +3199,22 @@
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
+    <editable>false</editable>
     <field>Contact.FinServ__IndividualType__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
+    <editable>false</editable>
     <field>Contact.FinServ__LanguagesSpoken__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
+    <editable>false</editable>
     <field>Contact.FinServ__LastFourDigitSSN__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
+    <editable>false</editable>
     <field>Contact.FinServ__LinkedIn__c</field>
     <readable>true</readable>
   </fieldPermissions>
@@ -3224,47 +3224,47 @@
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
+    <editable>false</editable>
     <field>Contact.FinServ__MaritalStatus__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
+    <editable>false</editable>
     <field>Contact.FinServ__MarketingOptOut__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
+    <editable>false</editable>
     <field>Contact.FinServ__MobileVerified__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
+    <editable>false</editable>
     <field>Contact.FinServ__MostUsedChannel__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
+    <editable>false</editable>
     <field>Contact.FinServ__MotherMaidenName__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
+    <editable>false</editable>
     <field>Contact.FinServ__NextLifeEvent__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
+    <editable>false</editable>
     <field>Contact.FinServ__NumberOfChildren__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
+    <editable>false</editable>
     <field>Contact.FinServ__NumberOfDependents__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
+    <editable>false</editable>
     <field>Contact.FinServ__Occupation__c</field>
     <readable>true</readable>
   </fieldPermissions>
@@ -3274,37 +3274,37 @@
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
+    <editable>false</editable>
     <field>Contact.FinServ__PreferredName__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
+    <editable>false</editable>
     <field>Contact.FinServ__PrimaryAddressIsBilling__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
+    <editable>false</editable>
     <field>Contact.FinServ__PrimaryAddressIsMailing__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
+    <editable>false</editable>
     <field>Contact.FinServ__PrimaryAddressIsOther__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
+    <editable>false</editable>
     <field>Contact.FinServ__PrimaryAddressIsShipping__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
+    <editable>false</editable>
     <field>Contact.FinServ__PrimaryCitizenship__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
+    <editable>false</editable>
     <field>Contact.FinServ__PrimaryLanguage__c</field>
     <readable>true</readable>
   </fieldPermissions>
@@ -3314,22 +3314,22 @@
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
+    <editable>false</editable>
     <field>Contact.FinServ__ReferredByUser__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
+    <editable>false</editable>
     <field>Contact.FinServ__ReferrerScore__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
+    <editable>false</editable>
     <field>Contact.FinServ__SecondaryCitizenship__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
+    <editable>false</editable>
     <field>Contact.FinServ__SecondaryLanguage__c</field>
     <readable>true</readable>
   </fieldPermissions>
@@ -3339,27 +3339,27 @@
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
+    <editable>false</editable>
     <field>Contact.FinServ__SourceSystemId__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
+    <editable>false</editable>
     <field>Contact.FinServ__TaxBracket__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
+    <editable>false</editable>
     <field>Contact.FinServ__TaxId__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
+    <editable>false</editable>
     <field>Contact.FinServ__Twitter__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
+    <editable>false</editable>
     <field>Contact.FinServ__WeddingAnniversary__c</field>
     <readable>true</readable>
   </fieldPermissions>
@@ -3384,42 +3384,42 @@
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
+    <editable>false</editable>
     <field>Contact.LeadSource</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
+    <editable>false</editable>
     <field>Contact.MailingAddress</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
+    <editable>false</editable>
     <field>Contact.MobilePhone</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
+    <editable>false</editable>
     <field>Contact.OtherAddress</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
+    <editable>false</editable>
     <field>Contact.OtherPhone</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
+    <editable>false</editable>
     <field>Contact.Phone</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
+    <editable>false</editable>
     <field>Contact.ReportsToId</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
+    <editable>false</editable>
     <field>Contact.Title</field>
     <readable>true</readable>
   </fieldPermissions>

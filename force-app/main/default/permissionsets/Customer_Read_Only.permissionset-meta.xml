@@ -32,6 +32,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.Preferred_Phone__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.Secondary_Home_Telephone__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -53,6 +58,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Contact.FinServ__MaritalStatus__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Contact.HomePhone</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
