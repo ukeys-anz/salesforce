@@ -472,6 +472,13 @@
                 <elementReference>Is_Written_Response_Required_Radio</elementReference>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Complaint.IDR_Account_Card_Policy_Number__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Account_Card_Policy_Number</elementReference>
+            </value>
+        </assignmentItems>
         <connector>
             <targetReference>Create_Case</targetReference>
         </connector>
@@ -962,6 +969,23 @@
             </inputParameters>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <fields>
+            <name>Account_Card_Policy_Number</name>
+            <dataType>String</dataType>
+            <fieldText>Account/Card/Policy Number</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>Customer_Number_Text</leftValueReference>
+                    <operator>IsNull</operator>
+                    <rightValue>
+                        <booleanValue>false</booleanValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
         </fields>
         <fields>
             <name>Subject</name>
