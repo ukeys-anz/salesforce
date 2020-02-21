@@ -1082,7 +1082,7 @@
             <defaultValue>
                 <booleanValue>false</booleanValue>
             </defaultValue>
-            <fieldText>Complainant wishes to be represented by an authorised third party?</fieldText>
+            <fieldText>Does Complainant wish to be represented by a nominated third party?</fieldText>
             <fieldType>InputField</fieldType>
             <isRequired>true</isRequired>
         </fields>
@@ -1254,7 +1254,7 @@
             <inputParameters>
                 <name>topLabel</name>
                 <value>
-                    <stringValue>Country</stringValue>
+                    <stringValue>Third Party Country</stringValue>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -1272,7 +1272,7 @@
             <inputParameters>
                 <name>middleLabel</name>
                 <value>
-                    <stringValue>State</stringValue>
+                    <stringValue>Third Party State</stringValue>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -1504,7 +1504,7 @@
             <defaultValue>
                 <booleanValue>false</booleanValue>
             </defaultValue>
-            <fieldText>Complainant wishes to be represented by an authorised third party?</fieldText>
+            <fieldText>Does Complainant wish to be represented by a nominated third party?</fieldText>
             <fieldType>InputField</fieldType>
             <isRequired>true</isRequired>
         </fields>
@@ -1676,7 +1676,7 @@
             <inputParameters>
                 <name>topLabel</name>
                 <value>
-                    <stringValue>Country</stringValue>
+                    <stringValue>Third Party Country</stringValue>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -1694,7 +1694,7 @@
             <inputParameters>
                 <name>middleLabel</name>
                 <value>
-                    <stringValue>State</stringValue>
+                    <stringValue>Third Party State</stringValue>
                 </value>
             </inputParameters>
             <inputParameters>

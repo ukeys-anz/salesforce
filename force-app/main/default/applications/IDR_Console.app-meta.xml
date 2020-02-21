@@ -27,7 +27,7 @@
     <formFactors>Large</formFactors>
     <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
-    <label>IDR Console</label>
+    <label>Complaint Mgt</label>
     <navType>Console</navType>
     <tabs>standard-home</tabs>
     <tabs>standard-Case</tabs>
