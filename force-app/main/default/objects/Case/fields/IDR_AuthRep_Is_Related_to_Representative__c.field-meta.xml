@@ -6,7 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Does the complaint relate to the authorised representative of an AFS licensee or an authorised credit representative?</inlineHelpText>
     <label>Is Related to a Representative/Credit?</label>
-    <trackHistory>false</trackHistory>
+    <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

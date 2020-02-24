@@ -4,8 +4,7 @@
     <defaultValue>false</defaultValue>
     <externalId>false</externalId>
     <label>Is a REAL form required?</label>
-    <trackFeedHistory>false</trackFeedHistory>
-    <trackHistory>false</trackHistory>
+    <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

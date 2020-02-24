@@ -7,7 +7,7 @@
     <label>Account/Card/Policy Number</label>
     <length>42</length>
     <required>false</required>
-    <trackHistory>false</trackHistory>
+    <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>
