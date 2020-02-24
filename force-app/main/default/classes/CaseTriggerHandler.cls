@@ -33,7 +33,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       updateCaseList.add(caseToBeUpdated);
     }
     IDRCaseActions.afterInsert(records);
-    CommonCaseActions.copyCaseNumber(records, updateCaseList);
+    CaseCommonActions.copyCaseNumber(records, updateCaseList);
   }
 
   /**
@@ -49,7 +49,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       }
     }
     IDRCaseActions.afterUpdate(oldMap, records, updateCaseList);
-    CommonCaseActions.copyCaseNumber(records, updateCaseList);
+    CaseCommonActions.copyCaseNumber(records, updateCaseList);
   }
 
   /**
@@ -62,7 +62,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       update updateCaseList;
     }
     IDRCaseActions.completeAfterActions();
-    CommonCaseActions.completeAfterInsertActions();
+    CaseCommonActions.completeAfterInsertActions();
   }
 
   /**

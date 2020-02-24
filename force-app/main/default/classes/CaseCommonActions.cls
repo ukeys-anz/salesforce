@@ -1,12 +1,11 @@
 /**
- * 
+ *
  * @author Pavan Kumar Ananta
  * @since 02/2020
- * @description Common Case Action methods 
+ * @description Common Case Action methods
  */
 
-public with sharing class CommonCaseActions {
-
+public with sharing class CaseCommonActions {
   /**
    * @description completeAfterInsertActions is called after onAfterInsert is finished to complete any pending actions
    * <p>
@@ -15,7 +14,7 @@ public with sharing class CommonCaseActions {
    */
   public static void completeAfterInsertActions() {
     //It is improtant to clear the CheckRecursive Set of Ids here as the onAfterInsert has already updated its records above
-    //and shouldn't interfere with the records which are meant for update DML. 
+    //and shouldn't interfere with the records which are meant for update DML.
     CheckRecursive.setOfIDs.clear();
   }
 

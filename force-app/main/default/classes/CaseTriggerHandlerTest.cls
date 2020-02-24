@@ -27,7 +27,6 @@ private class CaseTriggerHandlerTest {
       c.CaseNumber__c,
       'CaseNumber__c should be equal to CaseNumber.'
     );
-
   }
   @isTest
   static void testCaseNumberNoCopy() {
@@ -130,6 +129,33 @@ private class CaseTriggerHandlerTest {
     // THEN check if IsEscalated is true
     c = [SELECT CaseNumber, IsEscalated FROM Case WHERE id = :newCases[0].id];
     System.assert(c.IsEscalated, 'IsEscalated is true');
+  }
+
+  @isTest
+  static void testComplaintEscalationStatus() {
+    // GIVEN cases are created as not escalated
+    Case[] newCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
+          IsEscalated = true,
+          IDR_Escalated_to__c = '2',
+          IDR_Escalation_Reason__c = '1',
+          OwnerId = IDRCaseActions.queue.Id
+        )
+      );
+    }
+    // WHEN they are inserted
+    insert newCases;
+    // THEN check if IsEscalated is false
+    Case c = [
+      SELECT CaseNumber, IDR_Escalated_to__c, Status, IsEscalated
+      FROM Case
+      WHERE id = :newCases[0].id
+    ];
+    System.assert(c.Status == 'Escalated', 'Status is Escalated ');
+    System.assert(c.IDR_Escalated_to__c == '1', 'Escalated is changed to CRC');
   }
 
   @isTest
@@ -284,6 +310,27 @@ private class CaseTriggerHandlerTest {
     insert newCases;
     System.assert(
       IDRCaseActions.idrNotifications.size() ==
+      Integer.valueOf(Label.Test_Bulk_Size),
+      'Matching no of events'
+    );
+  }
+
+  @istest
+  static void testCFMSEscalation() {
+    Case[] newCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
+          Status = 'Escalated',
+          IDR_Escalated_to__c = '1',
+          IDR_Escalation_Reason__c = '1'
+        )
+      );
+    }
+    insert newCases;
+    System.assert(
+      IDRCaseActions.idrCaseEscalations.size() ==
       Integer.valueOf(Label.Test_Bulk_Size),
       'Matching no of events'
     );

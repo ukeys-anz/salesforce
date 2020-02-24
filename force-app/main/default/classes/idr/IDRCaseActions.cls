@@ -30,6 +30,10 @@ public with sharing class IDRCaseActions {
     'Withdrawn'
   };
 
+  private static final String ESCALATED_STATUS = 'Escalated';
+
+  private static final String REOPENED_STATUS = 'Re-opened';
+
   //Length of the field IDR_Account_Card_Policy_Number__c which doesn't need to be masked.
   private static final Integer ACCOUNT_UNMASK_LENGTH = 4;
 
@@ -39,11 +43,24 @@ public with sharing class IDRCaseActions {
     (ACCOUNT_UNMASK_LENGTH + 1) +
     ',}';
 
+  private static final String MASK_CHARACTERS = '*****';
+
+  private static final String ESCALATED_TO_CRC_API_NAME = '1';
+
+  private static final String YES_VALUE = 'Yes';
+
+  private static final String CRC_QUEUE_DEVELOPER_NAME = 'CRC_Team';
+
+  private static final String QUEUE_TYPE = 'Queue';
+
   private static Pattern accountPattern = Pattern.compile(REGEX_PATTERN);
 
   //IDR_Notification_Event__e for sending notifications to Notification Broker based on status.
   @TestVisible
   private static List<IDR_Notification_Event__e> idrNotifications;
+
+  @TestVisible
+  private static List<IDR_CRC_Escalation_Event__e> idrCaseEscalations;
 
   //Case Owner Id's for getting the Division to be copied in IDR_Office__c.
   private static Set<ID> caseOwnerIds = new Set<Id>();
@@ -57,9 +74,18 @@ public with sharing class IDRCaseActions {
   //Only the cases if they are new and is one of NOTIFICATION_STATUS statuses
   private static List<Case> notificationCaseList = new List<Case>();
 
+  private static List<Case> caseEscalationList = new List<Case>();
+
   //User Map to get the User Division for IDR_Office__c as we dont want to query everytime
   //We query all the caseOwnerIds for the case records.
   private static Map<ID, User> userMap = new Map<Id, User>();
+
+  @TestVisible
+  private static Group queue = [
+    SELECT id
+    FROM group
+    WHERE developername = :CRC_QUEUE_DEVELOPER_NAME AND Type = :QUEUE_TYPE
+  ];
 
   /**
    * @description applyDefaults is called onBeforeInsert to set the following values as defaults
@@ -96,6 +122,7 @@ public with sharing class IDRCaseActions {
       if (NOTIFICATION_STATUS.contains(record.Status)) {
         notificationCaseList.add(record);
       }
+      checkForCRCEscalation(record);
     }
   }
 
@@ -124,11 +151,13 @@ public with sharing class IDRCaseActions {
           ((Case) oldMap.get(records.get(i).id)).OwnerId
         );
         if (
-          records.get(i).Status != ((Case) oldMap.get(records.get(i).id)).Status &&
-          NOTIFICATION_STATUS.contains(records.get(i).Status)
+          records.get(i).Status != ((Case) oldMap.get(records.get(i).id)).Status
         ) {
           handleCaseStatusChanges(records.get(i), caseToBeChanged.get(i));
-          notificationCaseList.add(records.get(i));
+          if (NOTIFICATION_STATUS.contains(records.get(i).Status)) {
+            notificationCaseList.add(records.get(i));
+          }
+          checkForCRCEscalation(records.get(i));
         }
       }
       //calling handleOfficeAssignment for all case records for which the IDR_Office__c needs to be updated.
@@ -137,10 +166,26 @@ public with sharing class IDRCaseActions {
   }
 
   /**
+   * @description Check if this case record needs to be sent for CRC escalation
+   * @param record case record
+   */
+  private static void checkForCRCEscalation(Case record) {
+    if (
+      record.Status == ESCALATED_STATUS &&
+      (record.IDR_Escalated_to__c == ESCALATED_TO_CRC_API_NAME ||
+      (record.OwnerId.getSobjectType() == Group.SobjectType &&
+      record.OwnerId == queue.Id))
+    ) {
+      caseEscalationList.add(record);
+    }
+  }
+
+  /**
    * @description completeAfterActions() is called post onAfterInsert and onAfterUpdate
    */
   public static void completeAfterActions() {
     sendNotifications(notificationCaseList);
+    escalateToCFMS(caseEscalationList);
   }
 
   /**
@@ -156,7 +201,7 @@ public with sharing class IDRCaseActions {
     String oldOwnerId
   ) {
     if (
-      ((String) originalRecord.OwnerId).startsWith(Label.ID_Prefix_User) &&
+      originalRecord.OwnerId.getSobjectType() == User.SobjectType &&
       originalRecord.OwnerId != oldOwnerId
     ) {
       caseOwnerIds.add(originalRecord.OwnerId);
@@ -200,7 +245,7 @@ public with sharing class IDRCaseActions {
         .matches()
     ) {
       caseToBeChanged.IDR_Account_Card_Policy_Number__c =
-        '*****' +
+        MASK_CHARACTERS +
         originalRecord.IDR_Account_Card_Policy_Number__c.right(
           ACCOUNT_UNMASK_LENGTH
         );
@@ -218,11 +263,77 @@ public with sharing class IDRCaseActions {
     Case originalRecord,
     Case caseToBeChanged
   ) {
-    if (originalRecord.Status == 'Escalated') {
+    if (
+      originalRecord.Status == ESCALATED_STATUS && !originalRecord.IsEscalated
+    ) {
       caseToBeChanged.IsEscalated = true;
-    } else if (originalRecord.Status == 'Re-opened') {
+    }
+    if (originalRecord.Status == REOPENED_STATUS) {
       caseToBeChanged.IDR_Date_Re_Opened__c = System.today();
     }
+    if (
+      originalRecord.IsEscalated && caseToBeChanged.Status != ESCALATED_STATUS
+    ) {
+      if (
+        originalRecord.OwnerId.getSobjectType() == Group.SobjectType &&
+        originalRecord.OwnerId == queue.Id
+      ) {
+        caseToBeChanged.IDR_Escalated_to__c = ESCALATED_TO_CRC_API_NAME;
+      }
+      caseToBeChanged.Status = ESCALATED_STATUS;
+    }
+  }
+
+  /**
+   * @description Escalate the list of Records to CRC by publishing a platform event.
+   * @param recordsToBeEscalated
+   */
+  private static void escalateToCFMS(List<Case> recordsToBeEscalated) {
+    if (recordsToBeEscalated.isEmpty()) {
+      return;
+    }
+    idrCaseEscalations = new List<IDR_CRC_Escalation_Event__e>();
+    for (Case c : recordsToBeEscalated) {
+      idrCaseEscalations.add(
+        new IDR_CRC_Escalation_Event__e(
+          Account_Number__c = c.IDR_Account_Card_Policy_Number__c,
+          Address_Line1__c = c.IDR_NC_Street__c,
+          AFCA_Date__c = c.IDR_AFCA_Date__c,
+          AFCA_Number__c = c.IDR_AFCA_Number__c,
+          Age__c = c.IDR_NC_Age__c,
+          Agent_License_Number__c = c.IDR_AuthRep_Licence_Number__c,
+          Agent_License_Type__c = c.IDR_AuthRep_Licence_or_registration_type__c,
+          ANZ_Received_Date__c = c.IDR_Date_Received__c,
+          Case_Number__c = c.CaseNumber,
+          Complainant_Name__c = c.IDR_NC_First_Name__c,
+          Complainant_Type__c = c.IDR_Complainant_Type__c,
+          Complaint_Description__c = c.Description,
+          Complaint_Desired_Outcome__c = c.IDR_Description_of_Outcome__c,
+          Complaint_Issue__c = c.Type,
+          Country__c = c.IDR_NC_Country__c,
+          Customer_Number__c = c.IDR_Customer_Number__c,
+          Email__c = c.IDR_NC_Email__c,
+          Gender__c = c.IDR_NC_Gender__c,
+          Is_Written_Response_Requested__c = c.IDR_Is_Written_Resp_Requested__c ==
+            YES_VALUE
+            ? true
+            : false,
+          Is_Written_Response_Required__c = c.IDR_Is_Written_Resp_Required__c ==
+            YES_VALUE
+            ? true
+            : false,
+          Mobile__c = c.IDR_NC_Mobile__c,
+          Phone__c = c.IDR_NC_Phone__c,
+          Post_Code__c = c.IDR_NC_Postcode__c,
+          Remedy__c = c.IDR_Complaint_Remedy__c,
+          State__c = c.IDR_NC_State__c
+        )
+      );
+    }
+    if (!idrCaseEscalations.isEmpty()) {
+      List<Database.SaveResult> results = EventBus.publish(idrCaseEscalations);
+    }
+    //Todo handle errors if needed.
   }
 
   /**
@@ -242,21 +353,23 @@ public with sharing class IDRCaseActions {
           AuthorisedMobile__c = c.IDR_3rdParty_Mobile__c,
           CAP_CIS_ID__c = c.IDR_Customer_Number__c,
           Case_ID__c = c.ID,
-          Case_Number__c = c.CaseNumber__c,
+          Case_Number__c = c.CaseNumber,
           Case_Status__c = c.Status,
           Case_Status_Change_Date__c = System.now(),
           ComplainantEmail__c = c.IDR_NC_Email__c,
           ComplainantFirstName__c = c.IDR_NC_First_Name__c,
           ComplainantMobile__c = c.IDR_NC_Mobile__c,
           EmailFlag__c = true,
-          EmailTemplate__c = 'emailTemplate', //Todo change when actual template id is stored and retrieved 
+          EmailTemplate__c = 'emailTemplate', //Todo change when actual template id is stored and retrieved
           MessageID__c = '' + c.ID + Datetime.now().millisecond(),
           SMSFlag__c = true,
           SMSTemplate__c = 'DeviceReg' //Todo change when actual template id is stored and retrieved
         )
       );
     }
-    List<Database.SaveResult> results = EventBus.publish(idrNotifications);
+    if (!idrNotifications.isEmpty()) {
+      List<Database.SaveResult> results = EventBus.publish(idrNotifications);
+    }
     //Todo handle errors if needed.
   }
   /**
