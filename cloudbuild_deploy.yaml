@@ -69,3 +69,14 @@ steps:
       git tag "$$TAG"
       git push origin "$$TAG"
     fi
+
+- id: 'apex_docs'
+  waitFor: ['deploy_to_production']
+  name: 'gcr.io/cloud-builders/git'
+  entrypoint: bash
+  args:
+  - -xeuo
+  - pipefail
+  - -c
+  - |
+    exec /workspace/scripts/apexdoc.sh
