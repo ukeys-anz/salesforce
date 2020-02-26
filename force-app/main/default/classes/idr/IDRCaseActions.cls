@@ -353,7 +353,7 @@ public with sharing class IDRCaseActions {
           AuthorisedMobile__c = c.IDR_3rdParty_Mobile__c,
           CAP_CIS_ID__c = c.IDR_Customer_Number__c,
           Case_ID__c = c.ID,
-          Case_Number__c = c.CaseNumber,
+          Case_Number__c = IDRCaseActions.getFormattedCaseNumberToNotify(c),
           Case_Status__c = c.Status,
           Case_Status_Change_Date__c = System.now(),
           ComplainantEmail__c = c.IDR_NC_Email__c,
@@ -419,5 +419,19 @@ public with sharing class IDRCaseActions {
         record.IDR_Office__c = ((User) userMap.get(record.OwnerId)).Division;
       }
     }
+  }
+
+  /**
+   * @description In notifications, use Use CaseNumber__c if available, CaseNumber otherwise. Also, remove the trailing zeros.
+   * @param c Case to get the number from
+   * @return the Case number, ready to be inserted in a nofification's body
+   */
+  @TestVisible
+  private static String getFormattedCaseNumberToNotify(Case c) {
+    return String.valueOf(
+      Integer.valueOf(
+        String.isNotBlank(c.CaseNumber__c) ? c.CaseNumber__c : c.CaseNumber
+      )
+    );
   }
 }
