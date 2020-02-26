@@ -8,14 +8,25 @@
 public with sharing class CaseCommonActions {
   /**
    * @description completeAfterInsertActions is called after onAfterInsert is finished to complete any pending actions
+   * @param updateCaseList updateCaseList to be cleared after insert
    * <p>
    * <b>Note:</b> It is important to clear {@link CheckRecursive.#setOfIDs setOfIDs} as we are updating the same object (Case) in onAfterInsert
    * and we don't want the update to interfere with the update DML if it were in same transaction.
    */
-  public static void completeAfterInsertActions() {
+  public static void completeAfterInsertActions(List<Case> updateCaseList) {
     //It is improtant to clear the CheckRecursive Set of Ids here as the onAfterInsert has already updated its records above
     //and shouldn't interfere with the records which are meant for update DML.
     CheckRecursive.setOfIDs.clear();
+    updateCaseList.clear();
+  }
+
+  /**
+   * @description completeAfterUpdateActions method is called after finishing all the necessary steps for update. So, clear the list if
+   * something needs to be done in same transaction
+   * @param updateCaseList list that needs to be cleared
+   */
+  public static void completeAfterUpdateActions(List<Case> updateCaseList) {
+    updateCaseList.clear();
   }
 
   /**

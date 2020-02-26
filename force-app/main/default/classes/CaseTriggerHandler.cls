@@ -62,7 +62,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       update updateCaseList;
     }
     IDRCaseActions.completeAfterActions();
-    CaseCommonActions.completeAfterInsertActions();
+    CaseCommonActions.completeAfterInsertActions(updateCaseList);
   }
 
   /**
@@ -76,5 +76,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       update updateCaseList;
     }
     IDRCaseActions.completeAfterActions();
+    CaseCommonActions.completeAfterUpdateActions(updateCaseList);
   }
 }

@@ -159,6 +159,7 @@ public with sharing class IDRCaseActions {
           }
           checkForCRCEscalation(records.get(i));
         }
+        handleCaseEscalationRules(records.get(i), caseToBeChanged.get(i));
       }
       //calling handleOfficeAssignment for all case records for which the IDR_Office__c needs to be updated.
       handleOfficeAssignment(changeOfficeCaseList);
@@ -186,6 +187,8 @@ public with sharing class IDRCaseActions {
   public static void completeAfterActions() {
     sendNotifications(notificationCaseList);
     escalateToCFMS(caseEscalationList);
+    notificationCaseList.clear();
+    caseEscalationList.clear();
   }
 
   /**
@@ -252,6 +255,21 @@ public with sharing class IDRCaseActions {
     }
   }
 
+  private static void handleCaseEscalationRules(
+    Case originalRecord,
+    Case caseToBeChanged
+  ) {
+    if (
+      originalRecord.IsEscalated &&
+      originalRecord.Status != ESCALATED_STATUS &&
+      originalRecord.OwnerId.getSobjectType() == Group.SobjectType &&
+      originalRecord.OwnerId == queue.Id
+    ) {
+      caseToBeChanged.IDR_Escalated_to__c = ESCALATED_TO_CRC_API_NAME;
+      caseToBeChanged.Status = ESCALATED_STATUS;
+    }
+  }
+
   /**
    * @description  handleCaseStatusChanges method is used to handle the case status changes as follows
    * 1. when a case is escalated mark the case's IsEscalated value to true and
@@ -263,24 +281,16 @@ public with sharing class IDRCaseActions {
     Case originalRecord,
     Case caseToBeChanged
   ) {
-    if (
-      originalRecord.Status == ESCALATED_STATUS && !originalRecord.IsEscalated
-    ) {
-      caseToBeChanged.IsEscalated = true;
+    if (originalRecord.Status == ESCALATED_STATUS) {
+      if (!originalRecord.IsEscalated) {
+        caseToBeChanged.IsEscalated = true;
+      }
+      if (originalRecord.IDR_Escalated_to__c == ESCALATED_TO_CRC_API_NAME) {
+        caseToBeChanged.OwnerId = queue.Id;
+      }
     }
     if (originalRecord.Status == REOPENED_STATUS) {
       caseToBeChanged.IDR_Date_Re_Opened__c = System.today();
-    }
-    if (
-      originalRecord.IsEscalated && caseToBeChanged.Status != ESCALATED_STATUS
-    ) {
-      if (
-        originalRecord.OwnerId.getSobjectType() == Group.SobjectType &&
-        originalRecord.OwnerId == queue.Id
-      ) {
-        caseToBeChanged.IDR_Escalated_to__c = ESCALATED_TO_CRC_API_NAME;
-      }
-      caseToBeChanged.Status = ESCALATED_STATUS;
     }
   }
 
@@ -304,7 +314,9 @@ public with sharing class IDRCaseActions {
           Agent_License_Number__c = c.IDR_AuthRep_Licence_Number__c,
           Agent_License_Type__c = c.IDR_AuthRep_Licence_or_registration_type__c,
           ANZ_Received_Date__c = c.IDR_Date_Received__c,
-          Case_Number__c = c.CaseNumber,
+          Case_Number__c = String.isNotBlank(c.CaseNumber__c)
+            ? c.CaseNumber__c
+            : c.CaseNumber,
           Complainant_Name__c = c.IDR_NC_First_Name__c,
           Complainant_Type__c = c.IDR_Complainant_Type__c,
           Complaint_Description__c = c.Description,
@@ -360,7 +372,7 @@ public with sharing class IDRCaseActions {
           ComplainantFirstName__c = c.IDR_NC_First_Name__c,
           ComplainantMobile__c = c.IDR_NC_Mobile__c,
           EmailFlag__c = true,
-          EmailTemplate__c = 'emailTemplate', //Todo change when actual template id is stored and retrieved
+          EmailTemplate__c = 'DeviceReg', //Todo change when actual template id is stored and retrieved
           MessageID__c = '' + c.ID + Datetime.now().millisecond(),
           SMSFlag__c = true,
           SMSTemplate__c = 'DeviceReg' //Todo change when actual template id is stored and retrieved
