@@ -1,0 +1,19 @@
+<aura:component
+  controller="NewCaseFlowWrapperController"
+  implements="lightning:isUrlAddressable, force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction,lightning:actionOverride"
+  access="global"
+>
+  <lightning:workspaceAPI aura:id="workspace" />
+  <aura:attribute name="showComponent" type="Boolean" default="false" />
+  <aura:attribute name="recordTypeId" type="String" />
+  <aura:attribute name="recordTypeDevName" type="String" />
+  <aura:handler name="init" value="{!this}" action="{!c.init}" />
+
+  <aura:renderIf isTrue="{!v.showComponent}">
+    <c:createComplaintLWC
+      recordTypeId="{!v.recordTypeId}"
+      recordTypeDevName="{!v.recordTypeDevName}"
+      onnavigaterecord="{!c.handleNavigateRecord}"
+    />
+  </aura:renderIf>
+</aura:component>

@@ -1,0 +1,7 @@
+<aura:documentation>
+	<aura:description>Documentation</aura:description>
+	<aura:example name="NewCaseAuraWrapper" ref="NewCaseAuraWrapper" label="Label">
+		This is the wrapper Aura component to launch the LWC component when creating an IDR Complaint.
+		The New button override only supports Aura for now so this acts as a wrapper for the LWC.
+	</aura:example>
+</aura:documentation>

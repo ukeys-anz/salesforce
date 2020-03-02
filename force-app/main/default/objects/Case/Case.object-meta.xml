@@ -146,7 +146,7 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>NewCase</actionName>
-        <content>NewCaseFlowWrapper</content>
+        <content>NewCaseAuraWrapper</content>
         <formFactor>Large</formFactor>
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>LightningComponent</type>

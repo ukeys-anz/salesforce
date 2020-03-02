@@ -214,7 +214,7 @@ public with sharing class IDRCaseActions {
   }
 
   /**
-   * @description handleAnonymousNames is used to handle when the complainant does not accept the concent and wants to remain anonymous.
+   * @description handleAnonymousNames is used to handle when the complainant does not accept the consent and wants to remain anonymous.
    * So we note their name as Anonymous in the case.
    * @param originalRecord The actual case record
    * @param caseToBeChanged The record that needs to be changed
