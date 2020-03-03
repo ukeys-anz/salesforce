@@ -113,6 +113,7 @@
               <div class="slds-grid">
                 <div class="slds-col slds-size_1-of-4">
                   <lightning-input-field
+                    variant="label-stacked"
                     required
                     field-name={CapCisID}
                     onchange={handleCustomerNumberChange}
@@ -134,6 +135,7 @@
               <template if:true={displayCustomerInfo}>
                 <c-customer-information
                   customer-id={customerId}
+                  show-as-grid="true"
                   class="slds-m-top_large "
                 >
                 </c-customer-information>
@@ -144,6 +146,7 @@
               <div class="slds-grid slds-wrap">
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
+                    variant="label-stacked"
                     required
                     onchange={handleComplaintTypeChange}
                     field-name={complaintType}
@@ -154,6 +157,7 @@
                   class="slds-col slds-size_1-of-4 slds-m-right_large"
                 >
                   <lightning-input-field
+                    variant="label-stacked"
                     field-name={businessName}
                   ></lightning-input-field>
                 </div>
@@ -162,6 +166,7 @@
                   class="slds-col slds-size_1-of-4 slds-m-right_large"
                 >
                   <lightning-input-field
+                    variant="label-stacked"
                     required={consentValue}
                     field-name={firstName}
                   ></lightning-input-field>
@@ -171,6 +176,7 @@
                   class="slds-col slds-size_1-of-4 slds-m-right_large"
                 >
                   <lightning-input-field
+                    variant="label-stacked"
                     field-name={middleNames}
                   ></lightning-input-field>
                 </div>
@@ -179,24 +185,28 @@
                   class="slds-col slds-size_1-of-4 slds-m-right_large"
                 >
                   <lightning-input-field
+                    variant="label-stacked"
                     required={consentValue}
                     field-name={lastName}
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
+                    variant="label-stacked"
                     required
                     field-name={age}
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
+                    variant="label-stacked"
                     required
                     field-name={gender}
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
+                    variant="label-stacked"
                     required
                     field-name={decent}
                   ></lightning-input-field>
@@ -206,6 +216,7 @@
                   class="slds-col slds-size_1-of-4 slds-m-right_large"
                 >
                   <lightning-input-field
+                    variant="label-stacked"
                     field-name={email}
                   ></lightning-input-field>
                 </div>
@@ -213,15 +224,21 @@
                   if:true={consentValue}
                   class="slds-col slds-size_1-of-4 slds-m-right_large"
                 >
-                  <lightning-input-field
-                    field-name={mobile}
-                  ></lightning-input-field>
+                  <div class="slds-form-element__control">
+                    <lightning-input-field
+                      variant="label-stacked"
+                      field-name={mobile}
+                    >
+                    </lightning-input-field>
+                    <div class="slds-form-element__help">ex: 61474977148</div>
+                  </div>
                 </div>
                 <div
                   if:true={consentValue}
                   class="slds-col slds-size_1-of-4 slds-m-right_large"
                 >
                   <lightning-input-field
+                    variant="label-stacked"
                     field-name={phone}
                   ></lightning-input-field>
                 </div>
@@ -230,6 +247,7 @@
                   class="slds-col slds-size_1-of-4 slds-m-right_large"
                 >
                   <lightning-input-field
+                    variant="label-stacked"
                     field-name={street}
                   ></lightning-input-field>
                 </div>
@@ -238,6 +256,7 @@
                   class="slds-col slds-size_1-of-4 slds-m-right_large"
                 >
                   <lightning-input-field
+                    variant="label-stacked"
                     field-name={suburb}
                   ></lightning-input-field>
                 </div>
@@ -246,17 +265,20 @@
                   class="slds-col slds-size_1-of-4 slds-m-right_large"
                 >
                   <lightning-input-field
+                    variant="label-stacked"
                     field-name={postcode}
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
+                    variant="label-stacked"
                     required
                     field-name={country}
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
+                    variant="label-stacked"
                     required
                     field-name={state}
                   ></lightning-input-field>
@@ -265,73 +287,85 @@
             </template>
 
             <!-- Nominated Third party details -->
-            <label class="slds-checkbox_toggle slds-grid slds-m-top_large ">
-              <span class="slds-form-element__label slds-m-bottom_none"
-                >Does Complainant wish to be represented by a nominated third
-                party?</span
-              >
-              <input
-                type="checkbox"
-                name="checkbox-toggle-17"
-                value="checkbox-toggle-17"
-                aria-describedby="checkbox-toggle-17"
-                onchange={handle3rdPartyToggleChange}
-              />
-              <span
-                id="checkbox-toggle-17"
-                class="slds-checkbox_faux_container"
-                aria-live="assertive"
-              >
-                <span class="slds-checkbox_faux"></span>
-                <span class="slds-checkbox_on">Yes</span>
-                <span class="slds-checkbox_off">No</span>
-              </span>
-            </label>
+            <template if:true={consentValue}>
+              <label class="slds-checkbox_toggle slds-grid slds-m-top_large ">
+                <span class="slds-form-element__label slds-m-bottom_none"
+                  >Does Complainant wish to be represented by a nominated third
+                  party?</span
+                >
+                <input
+                  type="checkbox"
+                  name="checkbox-toggle-17"
+                  value="checkbox-toggle-17"
+                  aria-describedby="checkbox-toggle-17"
+                  onchange={handle3rdPartyToggleChange}
+                />
+                <span
+                  id="checkbox-toggle-17"
+                  class="slds-checkbox_faux_container"
+                  aria-live="assertive"
+                >
+                  <span class="slds-checkbox_faux"></span>
+                  <span class="slds-checkbox_on">Yes</span>
+                  <span class="slds-checkbox_off">No</span>
+                </span>
+              </label>
+            </template>
             <template if:true={hasNominatedThirdParty}>
               <div class="slds-grid slds-wrap">
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
+                    variant="label-stacked"
+                    required
                     field-name={thirdPartyName}
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
+                    variant="label-stacked"
                     field-name={thirdPartyEmail}
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
+                    variant="label-stacked"
                     field-name={thirdPartyMobile}
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
+                    variant="label-stacked"
                     field-name={thirdPartyPhone}
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
+                    variant="label-stacked"
                     field-name={thirdPartyStreet}
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
+                    variant="label-stacked"
                     field-name={thirdPartySuburb}
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
+                    variant="label-stacked"
                     field-name={thirdPartyPostcode}
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
+                    variant="label-stacked"
                     required={hasNominatedThirdParty}
                     field-name={thirdPartyCountry}
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
+                    variant="label-stacked"
                     required={hasNominatedThirdParty}
                     field-name={thirdPartyState}
                   ></lightning-input-field>
@@ -341,55 +375,32 @@
           </lightning-accordion-section>
 
           <lightning-accordion-section name="B" label="Complaint Details">
-            <div if:true={showComplianceFields} class="slds-m-bottom_medium">
-              Compliance Checks
-            </div>
             <div class="slds-grid slds-wrap">
-              <template if:true={showComplianceFields}>
-                <div class="slds-col slds-size_1-of-4">
-                  <lightning-radio-group
-                    required
-                    name="writtenResponseGroup"
-                    label="Is the complainant requesting a written response?"
-                    onchange={handleWrittenResponseChange}
-                    options={writtenresponseoptions}
-                    value={writtenResponseValue}
-                    type="button"
-                  >
-                  </lightning-radio-group>
-                </div>
-                <div class="slds-col slds-size_3-of-4 slds-m-bottom_large">
-                  <lightning-radio-group
-                    required
-                    name="writtenRequiredGroup"
-                    label="Is the complaint relating to hardship, a declined insurance claim, the value of an insurance claim or a decision of a superannuation trustee?"
-                    onchange={handleWrittenRequiredChange}
-                    options={writtenrequiredoptions}
-                    value={writtenRequiredValue}
-                    type="button"
-                  ></lightning-radio-group>
-                </div>
-              </template>
               <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                 <lightning-input-field
+                  variant="label-stacked"
                   required
                   field-name={Priority}
                 ></lightning-input-field>
               </div>
               <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                 <lightning-input-field
+                  variant="label-stacked"
                   required
                   field-name={ChannelReceived}
                 ></lightning-input-field>
               </div>
               <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                 <lightning-input-field
+                  variant="label-stacked"
+                  placeholder="Select"
                   required
                   field-name={complaintIssue}
                 ></lightning-input-field>
               </div>
               <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                 <lightning-input-field
+                  variant="label-stacked"
                   required
                   field-name={ProductorServiceLine}
                 ></lightning-input-field>
@@ -402,6 +413,7 @@
               </div>
               <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                 <lightning-input-field
+                  variant="label-stacked"
                   required
                   field-name={ProductorServiceType}
                 ></lightning-input-field>
@@ -409,6 +421,7 @@
               <template if:true={isCustomerComplaint}>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
+                    variant="label-stacked"
                     required
                     field-name={accountOrPolicyNumber}
                   ></lightning-input-field>
@@ -416,19 +429,153 @@
               </template>
               <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                 <lightning-input-field
+                  variant="label-stacked"
                   required
                   field-name={DescriptionofIssue}
                 ></lightning-input-field>
               </div>
               <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                 <lightning-input-field
+                  variant="label-stacked"
                   required
                   field-name={ComplainantDesiredOutcome}
                 ></lightning-input-field>
               </div>
+              
             </div>
           </lightning-accordion-section>
-        </template>
+       
+        <lightning-accordion-section name="C" label="Resolution Information">
+          <div if:true={showComplianceFields} class="slds-m-bottom_medium">
+            Compliance Checks
+          </div>
+          <div class="slds-grid slds-wrap">
+            <template if:true={showComplianceFields}>
+              <div class="slds-col slds-size_1-of-4">
+                <lightning-radio-group
+                  required
+                  name="writtenResponseGroup"
+                  label="Is the complainant requesting a written response?"
+                  onchange={handleWrittenResponseChange}
+                  options={writtenresponseoptions}
+                  value={writtenResponseValue}
+                  type="button"
+                >
+                </lightning-radio-group>
+              </div>
+              <div class="slds-col slds-size_3-of-4 slds-m-bottom_large">
+                <lightning-radio-group
+                  required
+                  name="writtenRequiredGroup"
+                  label="Is the complaint relating to hardship, a declined insurance claim, the value of an insurance claim or a decision of a superannuation trustee?"
+                  onchange={handleWrittenRequiredChange}
+                  options={writtenrequiredoptions}
+                  value={writtenRequiredValue}
+                  type="button"
+                ></lightning-radio-group>
+              </div>
+            </template>
+            <!--Systemic issuss-->
+            <label class="slds-col slds-size_1-of-4 slds-checkbox_toggle slds-m-top_large ">
+              <span class="slds-form-element__label slds-m-bottom_none"
+                >Is this a common complaint?</span
+              >
+              <input
+                type="checkbox"
+                name="checkbox-toggle-17"
+                value="checkbox-toggle-17"
+                aria-describedby="checkbox-toggle-17"
+                onchange={handleCommonComplaint}
+              />
+              <span
+                id="toggle-common-complaint"
+                class="slds-checkbox_faux_container"
+                aria-live="assertive"
+              >
+                <span class="slds-checkbox_faux"></span>
+                <span class="slds-checkbox_on">Yes</span>
+                <span class="slds-checkbox_off">No</span>
+              </span>
+            </label>
+
+            <label class=" slds-col slds-size_1-of-4  slds-checkbox_toggle slds-m-top_large ">
+              <span class="slds-form-element__label slds-m-bottom_none"
+                >Is a REAL form required?</span
+              >
+              <input
+                type="checkbox"
+                name="checkbox-toggle-17"
+                value="checkbox-toggle-17"
+                aria-describedby="checkbox-toggle-17"
+                onchange={handleRealFormNeeded}
+              />
+              <span
+                id="toggle-realform"
+                class="slds-checkbox_faux_container"
+                aria-live="assertive"
+              >
+                <span class="slds-checkbox_faux"></span>
+                <span class="slds-checkbox_on">Yes</span>
+                <span class="slds-checkbox_off">No</span>
+              </span>
+            </label>
+
+            <!-- Complaint Resolution-->
+            <label class="slds-col slds-size_1-of-4 slds-checkbox_toggle slds-m-top_large ">
+              <span class="slds-form-element__label slds-m-bottom_none"
+                >Is this complaint Resolved?</span
+              >
+              <input
+                type="checkbox"
+                name="checkbox-toggle-17"
+                value="checkbox-toggle-17"
+                aria-describedby="checkbox-toggle-17"
+                onchange={handleComplaintResolved}
+              />
+              <span
+                id="checkbox-toggle-resolve"
+                class="slds-checkbox_faux_container"
+                aria-live="assertive"
+              >
+                <span class="slds-checkbox_faux"></span>
+                <span class="slds-checkbox_on">Yes</span>
+                <span class="slds-checkbox_off">No</span>
+              </span>
+            </label>
+
+            <template if:true={isComplaintResolved}>
+              <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                <lightning-input-field
+                  variant="label-stacked"
+                  required={isComplaintResolved}
+                  field-name={complaintOutcome}
+                ></lightning-input-field>
+              </div>
+              <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                <lightning-input-field
+                  variant="label-stacked"
+                  required={isComplaintResolved}
+                  field-name={complaintRemedy}
+                ></lightning-input-field>
+              </div>
+              <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                <lightning-input-field
+                  variant="label-stacked"
+                  required={isComplaintResolved}
+                  field-name={financialCompensation}
+                ></lightning-input-field>
+              </div>
+              <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                <lightning-input-field
+                  variant="label-stacked"
+                  required={isComplaintResolved}
+                  field-name={outcomeDescription}
+                ></lightning-input-field>
+              </div>
+            </template>
+          </div>
+        </lightning-accordion-section>
+      </template>
       </lightning-accordion>
 
       <template if:true={loading}>

@@ -8,6 +8,7 @@ export default class CustomerInformation extends LightningElement {
     @track customerInfo;
     @api recordId;
     @track error;
+    @api showAsGrid;
     @api
     get customerId() {
         return this._customerId;

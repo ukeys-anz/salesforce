@@ -52,11 +52,24 @@ import ACCOUNT_POLICY_FIELD from "@salesforce/schema/Case.IDR_Account_Card_Polic
 import DESCRIPTION_FIELD from "@salesforce/schema/Case.Description";
 import DESIRED_OUTCOME_FIELD from "@salesforce/schema/Case.IDR_Complainant_Desired_Outcome__c";
 
+//complaint resolution fields
+
+import COMPLAINT_OUTCOME from "@salesforce/schema/Case.IDR_Complaint_Outcome__c";
+import COMPLAINT_REMEDY from "@salesforce/schema/Case.IDR_Complaint_Remedy__c";
+import FINANCIAL_COMPENSATION from "@salesforce/schema/Case.IDR_Financial_Compensation__c";
+import OUTCOME_DESCRIPTION from "@salesforce/schema/Case.IDR_Description_of_Outcome__c";
+import STATUS_FIELD from "@salesforce/schema/Case.Status";
+
+//Systemic issue fields
+import IS_COMMON_COMPLAINT_FIELD from "@salesforce/schema/Case.IDR_Is_Common__c";
+import IS_REAL_FORM_NEED_FIELD from "@salesforce/schema/Case.IDR_Real_Form_Req__c";
+
 const ERROR = "error";
 const ERROR_TITLE = "Please complete all required fields.";
 const SUCCESS = "success";
 const SUCCESS_TITLE = "Complaint has been created successfully.";
 const BUSINESS_TYPE_API = 2;
+const RESOLVED_STATUS_API_NAME = "Resolved";
 
 export default class CreateComplaintLWC extends NavigationMixin(
   LightningElement
@@ -111,34 +124,47 @@ export default class CreateComplaintLWC extends NavigationMixin(
   writtenResponseRequested = WRITTEN_RESPONSE_REQUESTED_FIELD;
   writtenResponseRequired = WRITTEN_RESPONSE_REQUIRED_FIELD;
 
-  @track hasNominatedThirdParty = false;
-  @track activeSections = ["A", "B"];
+  //complaint resolution fields
+  complaintOutcome = COMPLAINT_OUTCOME;
+  complaintRemedy = COMPLAINT_REMEDY;
+  financialCompensation = FINANCIAL_COMPENSATION;
+  outcomeDescription = OUTCOME_DESCRIPTION;
+
+  //systemic fields
+  commonComplaint = IS_COMMON_COMPLAINT_FIELD;
+  isRealFormNeeded = IS_REAL_FORM_NEED_FIELD;
+
   @api recordTypeId;
   @api recordTypeDevName;
-  @track displayCustomerInfo = false;
-  @track customerId = "";
-  @track writtenResponseValue;
-  @track writtenRequiredValue;
-  @track loading = false;
-  @track isCustomerComplaint;
-  @track consentValue = true; //start with true with an intention to capture non anz complainant details
-  @track consentOptionValue;
-  @track isBusiness = false;
-  @track recordType;
-  @track showComplianceFields;
-  @track showSections;
 
-  @track consentOptions = [
+  hasNominatedThirdParty = false;
+  activeSections = ["A", "B", "C"];
+  displayCustomerInfo = false;
+  customerId = "";
+  writtenResponseValue;
+  writtenRequiredValue;
+  loading = false;
+  isCustomerComplaint;
+  consentValue = true; //start with true with an intention to capture non anz complainant details
+  consentOptionValue;
+  isBusiness = false;
+  recordType;
+  showComplianceFields;
+  showSections;
+  isComplaintResolved;
+  isCommonComplaint;
+  isRealFormNeeded;
+  consentOptions = [
     { label: "Agrees", value: "Agrees" },
     { label: "Disagrees", value: "Disagrees" }
   ];
 
-  @track writtenresponseoptions = [
+  writtenresponseoptions = [
     { label: "Yes", value: "Yes" },
     { label: "No", value: "No" }
   ];
 
-  @track writtenrequiredoptions = [
+  writtenrequiredoptions = [
     { label: "Yes", value: "Yes" },
     { label: "No", value: "No" }
   ];
@@ -158,6 +184,18 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   handle3rdPartyToggleChange(event) {
     this.hasNominatedThirdParty = event.target.checked;
+  }
+
+  handleCommonComplaint(event) {
+    this.isCommonComplaint = event.target.checked;
+  }
+
+  handleRealFormNeeded(event) {
+    this.isRealFormNeeded = event.target.checked;
+  }
+
+  handleComplaintResolved(event) {
+    this.isComplaintResolved = event.target.checked;
   }
 
   handleSectionToggle(event) {}
@@ -196,6 +234,16 @@ export default class CreateComplaintLWC extends NavigationMixin(
     ] = this.writtenRequiredValue;
     fields[CONSENT_OBTAINED.fieldApiName] = this.consentValue;
     fields[RECORDTYPE_FIELD.fieldApiName] = this.recordType;
+    if (this.isComplaintResolved) {
+      fields[STATUS_FIELD.fieldApiName] = RESOLVED_STATUS_API_NAME;
+    }
+    if (this.isRealFormNeeded) {
+      fields[IS_REAL_FORM_NEED_FIELD.fieldApiName] = true;
+    }
+    if (this.isCommonComplaint) {
+      fields[IS_COMMON_COMPLAINT_FIELD.fieldApiName] = true;
+    }
+    console.log("@@pavan" + JSON.stringify(fields));
     let valid = this.checkRequiredFields(fields);
     if (valid) {
       this.loading = true;
@@ -203,6 +251,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       createRecord(recordInput)
         .then(response => {
           if (response) {
+            console.log("@@pavan" + JSON.stringify(response));
             let caseId = response.id;
             this.template.querySelector(".saveButton").disabled = false;
             this.handleCaseSuccess(caseId);
