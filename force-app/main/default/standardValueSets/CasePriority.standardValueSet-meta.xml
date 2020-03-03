@@ -24,11 +24,11 @@
     <standardValue>
         <fullName>Financial Hardship</fullName>
         <default>false</default>
-        <label>Financial Hardship</label>
+        <label>Complainant experiencing financial hardship</label>
     </standardValue>
     <standardValue>
         <fullName>Vulnerable Customer</fullName>
         <default>false</default>
-        <label>Vulnerable Customer</label>
+        <label>Complainant experiencing vulnerability</label>
     </standardValue>
 </StandardValueSet>
