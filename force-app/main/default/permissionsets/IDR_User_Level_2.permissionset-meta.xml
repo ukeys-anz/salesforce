@@ -4,7 +4,11 @@
         <application>IDR_Console</application>
         <visible>true</visible>
     </applicationVisibilities>
-    <description>The IDR user permission which will be used by customer service operators for complaints</description>
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>IDR_Level_2</name>
+    </customPermissions>
+    <description>The IDR user Level 2 permission which will be used by Team Lead or Area Managers in call centers and branches</description>
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.AccountId</field>
@@ -331,13 +335,13 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
-        <field>Case.Origin</field>
+        <editable>false</editable>
+        <field>Case.Is_Owner_s_Line_Manager_Me__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>Case.Is_Owner_s_Line_Manager_Me__c</field>
+        <editable>true</editable>
+        <field>Case.Origin</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -361,7 +365,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
-    <label>IDR User Level 1</label>
+    <label>IDR User Level 2</label>
     <objectPermissions>
         <allowCreate>true</allowCreate>
         <allowDelete>false</allowDelete>
