@@ -335,4 +335,25 @@ private class CaseTriggerHandlerTest {
       'Matching no of events'
     );
   }
+  @istest
+  static void testIDRCaseDelete() {
+    Case[] newCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID
+        )
+      );
+    }
+    insert newCases;
+
+    try {
+      delete newCases;
+    } catch (DMLexception e) {
+      system.assert(
+        e.getMessage().contains('You cannot delete cases'),
+        'Cases Cannot be deleted'
+      );
+    }
+  }
 }

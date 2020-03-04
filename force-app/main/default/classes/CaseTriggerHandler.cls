@@ -53,6 +53,13 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
   }
 
   /**
+   * @description onBeforeDelete
+   */
+  public override void onBeforeDelete() {
+    IDRCaseActions.onBeforeDelete(records);
+  }
+
+  /**
    * @description onAfterInsert to update the list of records which were identified in onValidate() method
    */
   public override void onAfterInsert() {

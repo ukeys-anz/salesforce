@@ -53,6 +53,8 @@ public with sharing class IDRCaseActions {
 
   private static final String QUEUE_TYPE = 'Queue';
 
+  private static final String DELETE_ERROR = 'You cannot delete cases';
+
   private static Pattern accountPattern = Pattern.compile(REGEX_PATTERN);
 
   //IDR_Notification_Event__e for sending notifications to Notification Broker based on status.
@@ -189,6 +191,19 @@ public with sharing class IDRCaseActions {
     escalateToCFMS(caseEscalationList);
     notificationCaseList.clear();
     caseEscalationList.clear();
+  }
+
+  /**
+   * @description onBeforeDelete of IDR Case records. FOr complaints no user is allowed to delete a complaint.
+   * Check if its IDR record type and prevent deleteing for anzx can handle other scenarios
+   * @param records
+   */
+  public static void onBeforeDelete(List<Case> records) {
+    for (Case record : records) {
+      if (isIDRComplaintType(record)) {
+        record.addError(DELETE_ERROR);
+      }
+    }
   }
 
   /**
