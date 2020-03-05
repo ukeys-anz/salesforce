@@ -25,3 +25,7 @@ Trial Customer Portal User.profile
 
 # SFDX based permissions that are only available in Production
 force-app/main/default/permissionsets/SFDX_Full_Dev_Hub_Access.permissionset
+
+# Ignoring the sharing rule for now until the dx issue is fixed https://github.com/forcedotcom/cli/issues/136
+# The sharing rule calculations makes scratch org creation to timeout with error sharing operation already in progress
+force-app/main/default/sharingRules/Case.sharingRules-meta.xml
