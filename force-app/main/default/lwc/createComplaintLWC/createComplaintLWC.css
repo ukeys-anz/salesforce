@@ -14,13 +14,3 @@
   border-radius: 5px;
   display: flex;
 }
-.slds-icon-text-default {
-  fill: #004165;
-}
-.THIS
-  lightning-icon.chat-indicator
-  > lightning-primitive-icon
-  > svg
-  > use.slds-icon-text-default {
-  fill: #004165;
-}

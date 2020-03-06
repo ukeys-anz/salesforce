@@ -70,6 +70,7 @@ const SUCCESS = "success";
 const SUCCESS_TITLE = "Complaint has been created successfully.";
 const BUSINESS_TYPE_API = 2;
 const RESOLVED_STATUS_API_NAME = "Resolved";
+const YES_VALUE = 'Yes';
 
 export default class CreateComplaintLWC extends NavigationMixin(
   LightningElement
@@ -154,6 +155,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   isComplaintResolved;
   isCommonComplaint;
   isRealFormNeeded;
+  isAddressRequired;
   consentOptions = [
     { label: "Agrees", value: "Agrees" },
     { label: "Disagrees", value: "Disagrees" }
@@ -175,6 +177,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.isCustomerComplaint = this.recordTypeDevName === "Customer_Complaint";
     this.showComplianceFields = this.isCustomerComplaint || this.consentValue;
     this.showSections = this.isCustomerComplaint;
+    this.isAddressRequired = false;
   }
 
   handleComplaintTypeChange(event) {
@@ -216,10 +219,12 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   handleWrittenResponseChange(event) {
     this.writtenResponseValue = event.detail.value;
+    this.isAddressRequired = this.writtenResponseValue == YES_VALUE || (this.writtenRequiredValue != null && this.writtenRequiredValue == YES_VALUE );
   }
 
   handleWrittenRequiredChange(event) {
     this.writtenRequiredValue = event.detail.value;
+    this.isAddressRequired = this.writtenRequiredValue == YES_VALUE || (this.writtenResponseValue != null && this.writtenResponseValue == YES_VALUE );
   }
 
   handleSubmit(event) {
