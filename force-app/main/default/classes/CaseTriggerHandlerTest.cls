@@ -164,7 +164,10 @@ private class CaseTriggerHandlerTest {
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
-        new Case(RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID)
+        new Case(RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
+        Status = 'Closed',
+        IDR_Complaint_Outcome__c = '1',
+        IDR_Description_of_Outcome__c ='test')
       );
     }
     // WHEN they are insterted
