@@ -7,8 +7,7 @@
     <inlineHelpText>Date received, may not be the record&#39;s created date in SF (data import, replication delays, ...). Leave blank for TODAY.</inlineHelpText>
     <label>Date Received</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
-    <trackHistory>false</trackHistory>
+    <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Date</type>
 </CustomField>
