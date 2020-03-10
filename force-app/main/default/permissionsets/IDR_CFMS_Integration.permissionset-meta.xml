@@ -60,4 +60,8 @@
         <recordType>Case.Non_Customer_Complaint</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>EditCaseComments</name>
+    </userPermissions>
 </PermissionSet>
