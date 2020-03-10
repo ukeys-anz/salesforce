@@ -10,7 +10,8 @@
         "FinancialServicesUser:10",
         "PersonAccounts",
         "FieldAuditTrail",
-        "LightningScheduler"
+        "LightningScheduler",
+        "EventLogFile"
     ],
     "settings": {
         "chatterSettings": {
