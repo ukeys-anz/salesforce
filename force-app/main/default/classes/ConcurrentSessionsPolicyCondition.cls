@@ -1,5 +1,5 @@
 /**
- * @description ConcurrentSessionsPolicyCondition is a class to check if the user has concurrent sessions and if yes block the user from logging in as there is an existing session
+ * @description ConcurrentSessionsPolicyCondition is a class to check if the user has concurrent sessions and if yes block the user from logging in as there is an existing session which is logged in as UI
  * @author Pavan Kumar Ananta
  * @since 03/2020
  */
@@ -71,7 +71,10 @@ public without sharing class ConcurrentSessionsPolicyCondition implements TxnSec
       sessions = [
         SELECT Id, CreatedDate, LastModifiedDate, NumSecondsValid, SessionType
         FROM AuthSession
-        WHERE UsersId = :loginEvent.UserId AND ParentId = null
+        WHERE
+          UsersId = :loginEvent.UserId
+          AND SessionType = 'UI'
+          AND ParentId = null
       ];
     }
     if (sessions.isEmpty()) {
