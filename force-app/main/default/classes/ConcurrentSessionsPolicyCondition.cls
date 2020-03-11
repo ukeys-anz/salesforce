@@ -7,7 +7,6 @@ public without sharing class ConcurrentSessionsPolicyCondition implements TxnSec
   // Change the MAX SESSIONS limit values as needed for your org.
   public static final Integer MAX_ADMIN_USER_SESSIONS = 1;
   public static final Integer MAX_USER_SESSIONS = 1;
-  public static final Integer MAX_INTEGRATION_USER_SESSIONS = 3;
   public static final String ADMIN_PROFILE_NAME = 'System Administrator';
   public static final String INTEGRATION_PROFILE_NAME = 'Integration User';
 
@@ -35,6 +34,7 @@ public without sharing class ConcurrentSessionsPolicyCondition implements TxnSec
   /**
    * @description Evaluate login event based on users and their profile.
    * Control the max sessions of user and admin MAX_ADMIN_USER_SESSIONS and MAX_USER_SESSIONS
+   * We want to keep unlimited sessions for Integration user as this is used both by cloud build and mulesoft
    * @param loginEvent
    * @return `boolean` If true block the user from loggin in.
    */
@@ -95,7 +95,7 @@ public without sharing class ConcurrentSessionsPolicyCondition implements TxnSec
     if (profileName.equals(ADMIN_PROFILE_NAME)) {
       return evaluateMaxSession(sessions, MAX_ADMIN_USER_SESSIONS);
     } else if (profileName.equals(INTEGRATION_PROFILE_NAME)) {
-      return evaluateMaxSession(sessions, MAX_INTEGRATION_USER_SESSIONS);
+      return false;
     } else {
       return evaluateMaxSession(sessions, MAX_USER_SESSIONS);
     }
