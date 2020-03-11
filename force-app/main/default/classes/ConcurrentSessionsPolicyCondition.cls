@@ -7,6 +7,9 @@ public without sharing class ConcurrentSessionsPolicyCondition implements TxnSec
   // Change the MAX SESSIONS limit values as needed for your org.
   public static final Integer MAX_ADMIN_USER_SESSIONS = 1;
   public static final Integer MAX_USER_SESSIONS = 1;
+  public static final Integer MAX_INTEGRATION_USER_SESSIONS = 3;
+  public static final String ADMIN_PROFILE_NAME = 'System Administrator';
+  public static final String INTEGRATION_PROFILE_NAME = 'Integration User';
 
   /**
    * @description evaluate method to check if the action needs to be executed. The action here is Block.
@@ -74,13 +77,25 @@ public without sharing class ConcurrentSessionsPolicyCondition implements TxnSec
     if (sessions.isEmpty()) {
       return false;
     }
-    /*
-     * Since Admins and users have different session limits, check the maximum
-     * number of sessions according to user type, and return whether or not
-     * they are over the limit.
-     */
-    if (profileName.equals('System Administrator')) {
+    return evaluateSessionBasedOnProfile(profileName, sessions);
+  }
+
+  /**
+   * @description Since Integration users and platform users have different session limits, check the maximum
+   * number of sessions according to user type, and return whether or not
+   * they are over the limit.
+   * @param profileName
+   * @param sessions
+   * @return `boolean`
+   */
+  private boolean evaluateSessionBasedOnProfile(
+    String profileName,
+    List<AuthSession> sessions
+  ) {
+    if (profileName.equals(ADMIN_PROFILE_NAME)) {
       return evaluateMaxSession(sessions, MAX_ADMIN_USER_SESSIONS);
+    } else if (profileName.equals(INTEGRATION_PROFILE_NAME)) {
+      return evaluateMaxSession(sessions, MAX_INTEGRATION_USER_SESSIONS);
     } else {
       return evaluateMaxSession(sessions, MAX_USER_SESSIONS);
     }
