@@ -4,7 +4,7 @@
         <application>IDR_Console</application>
         <visible>true</visible>
     </applicationVisibilities>
-    <description>Read only access to all cases, view only the fields in use for Complaint Mgt. release 1, export data. May be assigned to EDW and Reporting Analyst users.</description>
+    <description>Permission set for Mulesoft to extract complaints on behalf of EDW. Read only access to all cases, view only the fields in use for Complaint Mgt.</description>
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.CaseNumber__c</field>
@@ -336,7 +336,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
-    <label>IDR Reporting Analyst</label>
+    <label>IDR EDW Integration</label>
     <license>Salesforce</license>
     <objectPermissions>
         <allowCreate>false</allowCreate>
