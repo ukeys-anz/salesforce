@@ -191,7 +191,7 @@ private class CaseTriggerHandlerTest {
     update newCases;
     // THEN check if date is todays date
     c = [
-      SELECT CaseNumber, IDR_Date_Re_Opened__c
+      SELECT CaseNumber, IDR_Date_Re_Opened__c, IsEscalated
       FROM Case
       WHERE id = :newCases[0].id
     ];
@@ -200,6 +200,7 @@ private class CaseTriggerHandlerTest {
       c.IDR_Date_Re_Opened__c,
       'Date is current date'
     );
+    System.assert(!c.IsEscalated, 'IsEscalated is false');
   }
 
   @istest

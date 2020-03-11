@@ -306,6 +306,7 @@ public with sharing class IDRCaseActions {
     }
     if (originalRecord.Status == REOPENED_STATUS) {
       caseToBeChanged.IDR_Date_Re_Opened__c = System.today();
+      caseToBeChanged.IsEscalated = false;
     }
   }
 

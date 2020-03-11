@@ -38,7 +38,11 @@ CASE(Text(PRIORVALUE(Status)),
      &quot;Re-opened&quot;, 1,
      0),
 &quot;Re-opened&quot;, CASE(Text(Status),
-     &quot;Open&quot;, 0,
+     &quot;Under Investigation&quot;, 1,
+     &quot;Escalated&quot;,1,
+     &quot;Withdrawn&quot;,1,
+     &quot;Closed&quot;,1,
+     &quot;Resolved&quot;,1,
      0),     
 1)=0, true, false)</errorConditionFormula>
     <errorDisplayField>Status</errorDisplayField>
