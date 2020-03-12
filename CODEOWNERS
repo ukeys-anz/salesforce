@@ -4,7 +4,9 @@
 # the repo, unless a match on a later line takes precedence.
 # The below will request review from some members of the
 # salesforce team.
-*                       @saiero @kumarp47 @rachono @dawsond1 @warnakuw
+*                       @ANZx/bs-salesforce
+/workflows/**           @kumarp47 @dawsond1 @patels27
+/flows/**               @kumarp47 @dawsond1 @patels27
 
 # The below will request a review from members of the platform 
 # engineering team for changes to CI/CD files
