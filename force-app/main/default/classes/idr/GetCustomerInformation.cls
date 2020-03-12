@@ -25,8 +25,7 @@ public with sharing class GetCustomerInformation {
       //TODO change this to real endpoint
       request.setEndpoint('callout:Mulesoft' + Label.MS_Get_Customer + capId);
       request.setMethod('GET');
-      //Todo mocked for now need to change based on mulesoft api
-      request.setHeader('x-consumer-id', '12344');
+      request.setHeader('x-mule-clientId', 'salesforce-cap');
       HTTPResponse response = null;
       try {
         Http http = new Http();

@@ -33,7 +33,7 @@ private class CaseTriggerHandlerTest {
     // GIVEN cases which already have their case number copied
     Case[] casesWithCopiedCaseNumber = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      casesWithCopiedCaseNumber.add(new Case(CaseNumber__c = '123'));
+      casesWithCopiedCaseNumber.add(new Case(CaseNumber__c = '123' + i));
     }
     // WHEN they are inserted
     insert casesWithCopiedCaseNumber;
@@ -49,7 +49,7 @@ private class CaseTriggerHandlerTest {
       'CaseNumber should not have been copied.'
     );
     System.assertEquals(
-      '123',
+      '1230',
       c.CaseNumber__c,
       'CaseNumber__c should not have changed.'
     );
