@@ -21,6 +21,10 @@
         <visible>true</visible>
     </applicationVisibilities>
     <classAccesses>
+        <apexClass>CaseCommentsTriggerHandler</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>CaseCommonActions</apexClass>
         <enabled>true</enabled>
     </classAccesses>
