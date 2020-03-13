@@ -141,6 +141,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   hasNominatedThirdParty = false;
   activeSections = ["A", "B", "C"];
   displayCustomerInfo = false;
+  customerIdValue = "";
   customerId = "";
   writtenResponseValue;
   writtenRequiredValue;
@@ -212,9 +213,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   handleSearch(event) {
     this.displayCustomerInfo = true;
+    this.customerId = this.customerIdValue;
   }
   handleCustomerNumberChange(event) {
-    this.customerId = event.target.value;
+    this.customerIdValue = event.target.value;
   }
 
   handleWrittenResponseChange(event) {

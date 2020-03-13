@@ -16,14 +16,12 @@ export default class CustomerInformation extends LightningElement {
 
     set customerId(customerId = '') {
         this._customerId = customerId;
-    }
-
-    connectedCallback() {
-        if(this.customerId) {
+        if (this.customerId) {
+            this.loaded = false;
+            this.customerInfo = null;
             this.custData(this.customerId);
         }
     }
-
 
     @wire(getRecord, { recordId: '$recordId', fields: [CAP_ID_FIELD] })
     wiredProject({ error, data }) {
@@ -32,16 +30,13 @@ export default class CustomerInformation extends LightningElement {
             this.custData(this.record.fields.IDR_Customer_Number__c.value);
         }
         else if (error) {
-            this.loaded = true;
-            this.error = error;
-            this.record = undefined;
+            this.handleError(error);
         }
     }
 
     custData(customerId) {
          // calling apex class method to make callout
-         if (!this.loading){
-         this.loading = true;    
+         if (!this.loaded){    
          getCustomerData({ capId: customerId})
          .then(result => {
              let customerData = {
@@ -79,15 +74,20 @@ export default class CustomerInformation extends LightningElement {
              customerData.suburb = responseData.suburb;
              // adding data object to show in UI
              this.loaded = true;
-             this.loading = false; 
              this.customerInfo = customerData;
-         }).catch(err => {
-             this.loaded = true;
-             this.loading = false; 
-             this.error = err.body.message;
-             this.record = undefined;
+         }).catch(error => {
+            handleError(error);
          })
-        }
-        
+        } 
+    }
+    handleError(err) {
+        this.loaded = true;
+        if (Array.isArray(err.body)) {
+             this.error = err.body.map(e => e.message).join(", "); 
+        } else if (typeof err.body.message === "string") {
+             this.error = err.body.message; 
+        } 
+        this.error = "Unknown error"; 
+        this.record = undefined; 
     }
 }

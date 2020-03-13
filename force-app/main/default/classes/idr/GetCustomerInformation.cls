@@ -22,7 +22,6 @@ public with sharing class GetCustomerInformation {
     String responseBody = null;
     if (String.isNotBlank(capId)) {
       HttpRequest request = new HttpRequest();
-      //TODO change this to real endpoint
       request.setEndpoint('callout:Mulesoft' + Label.MS_Get_Customer + capId);
       request.setMethod('GET');
       request.setHeader('x-mule-clientId', 'salesforce-cap');
@@ -33,14 +32,15 @@ public with sharing class GetCustomerInformation {
         if (response.getStatusCode() == 200) {
           responseBody = response.getBody();
         } else {
-          throw new CalloutException(response.getBody());
+          AuraHandledException e = new AuraHandledException(response.getBody());
+          e.setMessage(response.getBody());
+          throw e;
         }
         if (!String.isBlank(responseBody)) {
           customerData = (map<String, Object>) JSON.deserializeUntyped(
             responseBody
           );
         }
-
         if (!customerData.isEmpty()) {
           return customerData;
         }
@@ -55,7 +55,6 @@ public with sharing class GetCustomerInformation {
           response != null ? response.getBody() : null
         );
       }
-
       return null;
     } else {
       return null;

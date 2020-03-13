@@ -65,7 +65,7 @@ private with sharing class TestGetCustomerInformation {
       );
     } catch (Exception e) {
       System.Assert(
-        e instanceof CalloutException,
+        e instanceof AuraHandledException,
         'When a status code is not 200 it throws callout exception'
       );
     }
