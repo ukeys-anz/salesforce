@@ -77,7 +77,7 @@
             <value>
                 <fullName>13</fullName>
                 <default>false</default>
-                <label>Home loans’</label>
+                <label>Home loans</label>
             </value>
             <value>
                 <fullName>14</fullName>
@@ -277,7 +277,7 @@
             <value>
                 <fullName>53</fullName>
                 <default>false</default>
-                <label>Teravel</label>
+                <label>Travel</label>
             </value>
             <value>
                 <fullName>54</fullName>
