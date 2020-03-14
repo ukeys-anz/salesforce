@@ -24,7 +24,7 @@
             <value>
                 <fullName>3</fullName>
                 <default>false</default>
-                <label>In favour of entity</label>
+                <label>In favour of ANZ</label>
             </value>
         </valueSetDefinition>
     </valueSet>

@@ -111,7 +111,7 @@
           <lightning-accordion-section name="A" label="Complainant Details">
             <template if:true={isCustomerComplaint}>
               <div class="slds-grid">
-                <div class="slds-col slds-size_1-of-4">
+                <div class="slds-col slds-size_2-of-12">
                   <lightning-input-field
                     variant="label-stacked"
                     required
@@ -119,7 +119,7 @@
                     onchange={handleCustomerNumberChange}
                   ></lightning-input-field>
                 </div>
-                <div class="slds-col slds-size_1-of-4">
+                <div class="slds-col slds-size_1-of-12 slds-m-right_large">
                   <div class="searchButtonDiv">
                     <lightning-button
                       type="button"
@@ -130,6 +130,21 @@
                     ></lightning-button>
                   </div>
                 </div>
+                <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                  <lightning-input-field
+                    variant="label-stacked"
+                    required
+                    field-name={complaintType}
+                  ></lightning-input-field>
+                </div>
+                <div class="slds-col slds-size_1-of-4">
+                  <lightning-input-field
+                    variant="label-stacked"
+                    required
+                    field-name={decent}
+                  ></lightning-input-field>
+                </div>
+
               </div>
 
               <template if:true={displayCustomerInfo}>
@@ -484,11 +499,39 @@
                 ></lightning-radio-group>
               </div>
             </template>
+            <template if:true={isAddressRequired}>
+              <div class="slds-col slds-size_2-of-4 ">
+              <div
+              class="slds-form-element__row slds-m-top_small slds-m-bottom_small bordered-box"
+            >
+              <div
+                class="slds-media__figure slds-p-top_medium slds-p-left_medium"
+              >
+                <lightning-icon
+                  class="slds-current-color"
+                  icon-name="utility:chat"
+                  alternative-text=""
+                  size="medium"
+                ></lightning-icon>
+              </div>
+              <div class="slds-box slds-text-heading--small script-style">
+                <p>
+                  If Yes, the case must be Escalated
+                </p>
+                <br />
+              </div>
+            </div>
+          </div>
+          <div class="slds-col slds-size_2-of-4 "></div>
+            </template>
             <!--Systemic issuss-->
             <label class="slds-col slds-size_1-of-4 slds-checkbox_toggle slds-m-top_large ">
               <span class="slds-form-element__label slds-m-bottom_none"
                 >Is this a common complaint?</span
               >
+              <lightning-helptext
+              content="Does the issue affect more than one customer and is it of a compliance nature?”">
+              </lightning-helptext>
               <input
                 type="checkbox"
                 name="checkbox-toggle-17"

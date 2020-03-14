@@ -250,6 +250,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
     if (this.isCommonComplaint) {
       fields[IS_COMMON_COMPLAINT_FIELD.fieldApiName] = true;
     }
+    if (!this.hasNominatedThirdParty) {
+      fields[THIRD_PARTY_COUNTRY_FIELD.fieldApiName] = "";
+    }
     console.log("@@pavan" + JSON.stringify(fields));
     let valid = this.checkRequiredFields(fields);
     if (valid) {
