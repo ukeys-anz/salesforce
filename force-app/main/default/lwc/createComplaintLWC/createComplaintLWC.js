@@ -70,7 +70,7 @@ const SUCCESS = "success";
 const SUCCESS_TITLE = "Complaint has been created successfully.";
 const BUSINESS_TYPE_API = 2;
 const RESOLVED_STATUS_API_NAME = "Resolved";
-const YES_VALUE = 'Yes';
+const YES_VALUE = "Yes";
 
 export default class CreateComplaintLWC extends NavigationMixin(
   LightningElement
@@ -182,8 +182,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   }
 
   handleComplaintTypeChange(event) {
-    this.isBusiness =
-      this.consentValue && event.detail.value == BUSINESS_TYPE_API;
+    this.isBusiness = event.detail.value == BUSINESS_TYPE_API;
   }
 
   handle3rdPartyToggleChange(event) {
@@ -221,12 +220,18 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   handleWrittenResponseChange(event) {
     this.writtenResponseValue = event.detail.value;
-    this.isAddressRequired = this.writtenResponseValue == YES_VALUE || (this.writtenRequiredValue != null && this.writtenRequiredValue == YES_VALUE );
+    this.isAddressRequired =
+      this.writtenResponseValue == YES_VALUE ||
+      (this.writtenRequiredValue != null &&
+        this.writtenRequiredValue == YES_VALUE);
   }
 
   handleWrittenRequiredChange(event) {
     this.writtenRequiredValue = event.detail.value;
-    this.isAddressRequired = this.writtenRequiredValue == YES_VALUE || (this.writtenResponseValue != null && this.writtenResponseValue == YES_VALUE );
+    this.isAddressRequired =
+      this.writtenRequiredValue == YES_VALUE ||
+      (this.writtenResponseValue != null &&
+        this.writtenResponseValue == YES_VALUE);
   }
 
   handleSubmit(event) {
@@ -253,7 +258,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
     if (!this.hasNominatedThirdParty) {
       fields[THIRD_PARTY_COUNTRY_FIELD.fieldApiName] = "";
     }
-    console.log("@@pavan" + JSON.stringify(fields));
     let valid = this.checkRequiredFields(fields);
     if (valid) {
       this.loading = true;
@@ -261,7 +265,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
       createRecord(recordInput)
         .then(response => {
           if (response) {
-            console.log("@@pavan" + JSON.stringify(response));
             let caseId = response.id;
             this.template.querySelector(".saveButton").disabled = false;
             this.handleCaseSuccess(caseId);

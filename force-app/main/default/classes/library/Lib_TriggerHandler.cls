@@ -35,6 +35,16 @@ public virtual with sharing class Lib_TriggerHandler {
    * @description Disables the triggers based on Custom Settings
    */
   public Boolean disableTriggers { get; private set; }
+
+  /**
+   * @description Disables the delete trigger on the object based on Custom Settings
+   */
+  public Boolean bypassDelete { get; private set; }
+
+  /**
+   * @description Disables the edit trigger on the object based on Custom Settings
+   */
+  public Boolean bypassUpdate { get; private set; }
   /**
    * @description Derived from the records provided during construction, provides the native describe for the standard or custom object
    */
@@ -69,8 +79,18 @@ public virtual with sharing class Lib_TriggerHandler {
       UserInfo.getUserId()
     );
 
+    Salesforce_Bypass_Trigger_Actions__c bypassActions = Salesforce_Bypass_Trigger_Actions__c.getInstance(
+      UserInfo.getUserId()
+    );
+
     this.objectType = records.getSObjectType();
     this.objectDescribe = objectType.getDescribe();
+    this.bypassDelete =
+      bypassActions.Object_API_Name__c == objectDescribe.getName() &&
+      bypassActions.Bypass_Delete__c;
+    this.bypassUpdate =
+      bypassActions.Object_API_Name__c == objectDescribe.getName() &&
+      bypassActions.Bypass_Update__c;
     this.objectRecordTypes = objectDescribe.getRecordTypeInfosByName();
     this.disableTriggers = settings.Disable_Triggers__c;
     this.log = new lib_SystemLog(objectType + ' Trigger');
@@ -98,9 +118,9 @@ public virtual with sharing class Lib_TriggerHandler {
   private void handleBeforeTriggers() {
     if (Trigger.isInsert == true) {
       handleBeforeInsert();
-    } else if (Trigger.isUpdate == true) {
+    } else if (Trigger.isUpdate == true && !bypassUpdate) {
       handleBeforeUpdate(Trigger.oldMap);
-    } else if (Trigger.isDelete == true) {
+    } else if (Trigger.isDelete == true && !bypassDelete) {
       handleBeforeDelete();
     }
   }
@@ -110,9 +130,9 @@ public virtual with sharing class Lib_TriggerHandler {
   private void handleAfterTriggers() {
     if (Trigger.isInsert == true) {
       handleAfterInsert();
-    } else if (Trigger.isUpdate == true) {
+    } else if (Trigger.isUpdate == true && !bypassUpdate) {
       handleAfterUpdate(Trigger.oldMap);
-    } else if (Trigger.isDelete == true) {
+    } else if (Trigger.isDelete == true && !bypassDelete) {
       handleAfterDelete();
     } else if (Trigger.isUndelete == true) {
       handleAfterUndelete();

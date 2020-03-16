@@ -8,7 +8,7 @@
         <customLabel>true</customLabel>
         <detailHeading>true</detailHeading>
         <editHeading>true</editHeading>
-        <label>Customer Information</label>
+        <label>Customer Details</label>
         <layoutColumns>
             <layoutItems>
                 <behavior>Required</behavior>
