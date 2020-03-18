@@ -300,9 +300,6 @@ public with sharing class IDRCaseActions {
       if (!originalRecord.IsEscalated) {
         caseToBeChanged.IsEscalated = true;
       }
-      if (originalRecord.IDR_Escalated_to__c == ESCALATED_TO_CRC_API_NAME) {
-        caseToBeChanged.OwnerId = queue.Id;
-      }
     }
     if (originalRecord.Status == REOPENED_STATUS) {
       caseToBeChanged.IDR_Date_Re_Opened__c = System.today();
