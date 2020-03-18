@@ -43,7 +43,7 @@ private with sharing class TestGetCustomerInformation {
   @isTest
   static void testCustomerDataWithBlankCapId() {
     Map<String, Object> info = GetCustomerInformation.getCustomerData('');
-    System.assertEquals(null, info, 'Matches null when CAP id is blank');
+    System.assertEquals(new Map<String, Object>(), info, 'Response matches empty object when CAP id is blank');
   }
 
   /**
@@ -99,8 +99,8 @@ private with sharing class TestGetCustomerInformation {
       );
     } catch (Exception e) {
       System.Assert(
-        e.getMessage().contains('Test Exception'),
-        'Exception is thrown correctly'
+        e.getMessage().equals('Test Exception'),
+        'Exception thrown: ' + e.getMessage()
       );
     }
     Test.stopTest();
@@ -119,20 +119,25 @@ private with sharing class TestGetCustomerInformation {
    */
   @isTest
   static void testCustomerDataWithEmptyResponse() {
-    // Set mock callout class
-    //Empty response body test
-    Test.setMock(HttpCalloutMock.class, new MockHttpCapService(200, null));
-    Map<String, Object> info = GetCustomerInformation.getCustomerData('12345');
-    System.assertEquals(null, info, 'Matches null when response body is null');
-    //Empty JSON response test
+    Map<String, Object> custInfo = new Map<String, Object>();
+    // Set mock callout class: Empty JSON response test
     Test.setMock(HttpCalloutMock.class, new MockHttpCapService(200, '{}'));
-    Map<String, Object> custInfo = GetCustomerInformation.getCustomerData(
-      '12345'
-    );
+    custInfo = GetCustomerInformation.getCustomerData('12345');
     System.assertEquals(
-      null,
+      new Map<String, Object>(),
       custInfo,
-      'Matches null profile when empy response is returned'
+      'Matches empty object when empty response is returned'
     );
+    // Set mock callout class: Empty response body test
+    Test.setMock(HttpCalloutMock.class, new MockHttpCapService(200, null));
+    try {
+      custInfo = GetCustomerInformation.getCustomerData('12345');
+    } catch (Exception e) {
+      System.assertEquals(
+        new Map<String, Object>(),
+        custInfo,
+        'Matches empty object when response body is null'
+      );
+    }
   }
 }

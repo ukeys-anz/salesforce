@@ -32,9 +32,7 @@ public with sharing class GetCustomerInformation {
         if (response.getStatusCode() == 200) {
           responseBody = response.getBody();
         } else {
-          AuraHandledException e = new AuraHandledException(response.getBody());
-          e.setMessage(response.getBody());
-          throw e;
+          throw new CalloutException(response.getBody());
         }
         if (!String.isBlank(responseBody)) {
           customerData = (map<String, Object>) JSON.deserializeUntyped(
@@ -54,10 +52,14 @@ public with sharing class GetCustomerInformation {
           null,
           response != null ? response.getBody() : null
         );
+        //throw new AuraHandledException(e.getMessage());
+        AuraHandledException ahe = new AuraHandledException(e.getMessage());
+        ahe.setMessage(e.getMessage());
+        throw ahe;
       }
-      return null;
+      return customerData;
     } else {
-      return null;
+      return customerData;
     }
   }
 }
