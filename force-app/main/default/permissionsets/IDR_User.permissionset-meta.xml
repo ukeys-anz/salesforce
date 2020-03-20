@@ -126,6 +126,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.IDR_CFMS_Complaint_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.IDR_Complainant_Desired_Outcome__c</field>
         <readable>true</readable>
