@@ -4,12 +4,12 @@
 # the repo, unless a match on a later line takes precedence.
 # The below will request review from some members of the
 # salesforce team.
-*                       @ANZx/bs-salesforce
-/workflows/**           @kumarp47 @dawsond1 @patels27
-/flows/**               @kumarp47 @dawsond1 @patels27
+*                       @anzx/help-crm
+/workflows/**           @pavankumarananta @dawsond1x @patelsu
+/flows/**               @pavankumarananta @dawsond1x @patelsu
 
 # The below will request a review from members of the platform 
 # engineering team for changes to CI/CD files
-*.yaml                  @ANZx/platform-engineering
-scripts/Dockerfile      @ANZx/platform-engineering
-keys/*                  @ANZx/platform-engineering
+*.yaml                  @pavankumarananta @dawsond1x @patelsu
+Dockerfile              @pavankumarananta @dawsond1x @patelsu
+ci/**                   @pavankumarananta @dawsond1x @patelsu
