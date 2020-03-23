@@ -13,20 +13,4 @@ private with sharing class TestIDRCaseActions {
       'Use CaseNumber__c instead of CaseNumber, and remove trailing zeros'
     );
   }
-
-  @isTest
-  static void testTemplateIDBasedOnStatus() {
-    System.assertEquals(
-      'AgCaseReopen',
-      IDRCaseActions.getTemplateIdBasedOnStatus('Re-opened')
-    );
-    System.assertEquals(
-      'AgCaseUdInvest',
-      IDRCaseActions.getTemplateIdBasedOnStatus('Under Investigation')
-    );
-    System.assertEquals(
-      'AgCaseEsclt',
-      IDRCaseActions.getTemplateIdBasedOnStatus('Escalated')
-    );
-  }
 }

@@ -38,6 +38,18 @@ public with sharing class IDRCaseActions {
     WITHDRAWN_STATUS
   };
 
+  //These templates ids are email and sms template ids which are setup on notification broker.
+  //These templates is used in platform events to send it to mulesoft which inturn invokes notification broker.
+  private static final Map<String, String> TEMPLATE_ID_MAP = new Map<String, String>{
+    OPEN_STATUS => 'AgCaseOpen',
+    UNDER_INVESTIGATION_STATUS => 'AgCaseUdInvest',
+    ESCALATED_STATUS => 'AgCaseEsclt',
+    REOPENED_STATUS => 'AgCaseReopen',
+    CLOSED_STATUS => 'AgCaseClosed',
+    RESOLVED_STATUS => 'AgCaseRslvd',
+    WITHDRAWN_STATUS => 'AgCaseWthdrwn'
+  };
+
   //Length of the field IDR_Account_Card_Policy_Number__c which doesn't need to be masked.
   private static final Integer ACCOUNT_UNMASK_LENGTH = 4;
 
@@ -389,12 +401,10 @@ public with sharing class IDRCaseActions {
           ComplainantFirstName__c = c.IDR_NC_First_Name__c,
           ComplainantMobile__c = c.IDR_NC_Mobile__c,
           EmailFlag__c = true,
-          EmailTemplate__c = IDRCaseActions.getTemplateIdBasedOnStatus(
-            c.Status
-          ),
+          EmailTemplate__c = TEMPLATE_ID_MAP.get(c.Status),
           MessageID__c = '' + c.ID + Datetime.now().millisecond(),
           SMSFlag__c = true,
-          SMSTemplate__c = IDRCaseActions.getTemplateIdBasedOnStatus(c.Status)
+          SMSTemplate__c = TEMPLATE_ID_MAP.get(c.Status)
         )
       );
     }
@@ -464,33 +474,5 @@ public with sharing class IDRCaseActions {
         String.isNotBlank(c.CaseNumber__c) ? c.CaseNumber__c : c.CaseNumber
       )
     );
-  }
-
-  /**
-   * @description This method returns the template ID based on the case status.
-   * These templates ids are email and sms template ids which are setup on notification broker.
-   * These templates is used in platform events to send it to mulesoft which inturn invokes notification broker.
-   * @param status Case Status
-   * @return `String` TemplateID as per the case status setup in Notification Broker
-   */
-  @TestVisible
-  private static String getTemplateIdBasedOnStatus(String status) {
-    if (status == OPEN_STATUS) {
-      return 'AgCaseOpen';
-    } else if (status == UNDER_INVESTIGATION_STATUS) {
-      return 'AgCaseUdInvest';
-    } else if (status == ESCALATED_STATUS) {
-      return 'AgCaseEsclt';
-    } else if (status == WITHDRAWN_STATUS) {
-      return 'AgCaseWthdrwn';
-    } else if (status == RESOLVED_STATUS) {
-      return 'AgCaseRslvd';
-    } else if (status == CLOSED_STATUS) {
-      return 'AgCaseClosed';
-    } else if (status == REOPENED_STATUS) {
-      return 'AgCaseReopen';
-    } else {
-      return '';
-    }
   }
 }
