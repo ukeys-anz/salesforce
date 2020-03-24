@@ -19,20 +19,36 @@ public with sharing class IDRCaseActions {
     .get('Non_Customer_Complaint')
     .getRecordTypeId();
 
+  private static final String OPEN_STATUS = 'Open';
+  private static final String UNDER_INVESTIGATION_STATUS = 'Under Investigation';
+  private static final String ESCALATED_STATUS = 'Escalated';
+  private static final String REOPENED_STATUS = 'Re-opened';
+  private static final String CLOSED_STATUS = 'Closed';
+  private static final String RESOLVED_STATUS = 'Resolved';
+  private static final String WITHDRAWN_STATUS = 'Withdrawn';
+
   // IDR Case Status for which notifications needs to be sent.
   private static final Set<String> NOTIFICATION_STATUS = new Set<String>{
-    'Open',
-    'Under Investigation',
-    'Escalated',
-    'Re-opened',
-    'Closed',
-    'Resolved',
-    'Withdrawn'
+    OPEN_STATUS,
+    UNDER_INVESTIGATION_STATUS,
+    ESCALATED_STATUS,
+    REOPENED_STATUS,
+    CLOSED_STATUS,
+    RESOLVED_STATUS,
+    WITHDRAWN_STATUS
   };
 
-  private static final String ESCALATED_STATUS = 'Escalated';
-
-  private static final String REOPENED_STATUS = 'Re-opened';
+  //These templates ids are email and sms template ids which are setup on notification broker.
+  //These templates is used in platform events to send it to mulesoft which inturn invokes notification broker.
+  private static final Map<String, String> TEMPLATE_ID_MAP = new Map<String, String>{
+    OPEN_STATUS => 'AgCaseOpen',
+    UNDER_INVESTIGATION_STATUS => 'AgCaseUdInvest',
+    ESCALATED_STATUS => 'AgCaseEsclt',
+    REOPENED_STATUS => 'AgCaseReopen',
+    CLOSED_STATUS => 'AgCaseClosed',
+    RESOLVED_STATUS => 'AgCaseRslvd',
+    WITHDRAWN_STATUS => 'AgCaseWthdrwn'
+  };
 
   //Length of the field IDR_Account_Card_Policy_Number__c which doesn't need to be masked.
   private static final Integer ACCOUNT_UNMASK_LENGTH = 4;
@@ -385,10 +401,10 @@ public with sharing class IDRCaseActions {
           ComplainantFirstName__c = c.IDR_NC_First_Name__c,
           ComplainantMobile__c = c.IDR_NC_Mobile__c,
           EmailFlag__c = true,
-          EmailTemplate__c = 'DeviceReg', //Todo change when actual template id is stored and retrieved
+          EmailTemplate__c = TEMPLATE_ID_MAP.get(c.Status),
           MessageID__c = '' + c.ID + Datetime.now().millisecond(),
           SMSFlag__c = true,
-          SMSTemplate__c = 'DeviceReg' //Todo change when actual template id is stored and retrieved
+          SMSTemplate__c = TEMPLATE_ID_MAP.get(c.Status)
         )
       );
     }
