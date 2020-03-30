@@ -27,7 +27,7 @@ echo "$(date): Assign Pset and deploy settings..."
 JOB_START_TIME=$(date +%s)
 sfdx force:user:permset:assign -n FinancialServicesCloudStandard 2>&1 | tee stderr
 sfdx force:source:deploy -p force-app/main/default/settings 2>&1 | tee stderr
-sfdx force:source:deploy -p force-app/main/default/certs/Salesfoce_Mulesoft_CA_Certificate.crt-meta.xml 2>&1 | tee stderr
+sfdx force:mdapi:deploy -d certs-artefact -w -1 2>&1 | tee stderr
 if [[ ($(cat stderr) == *'ERROR'* ) ]]; then
     exit 1
 fi 
