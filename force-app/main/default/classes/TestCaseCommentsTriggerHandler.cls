@@ -37,26 +37,26 @@ public with sharing class TestCaseCommentsTriggerHandler {
     Salesforce_Bypass_Trigger_Actions__c setting = new Salesforce_Bypass_Trigger_Actions__c();
     setting.Object_API_Name__c = 'CaseComment';
     setting.Bypass_Delete__c = true;
-    insert setting; 
+    insert setting;
     Case c = new Case();
-      insert c;
-      CaseComment[] newCaseComments = new List<CaseComment>();
-      for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-        newCaseComments.add(
-          new CaseComment(CommentBody = 'Test', ParentId = c.id)
-        );
-      }
-      insert newCaseComments;
+    insert c;
+    CaseComment[] newCaseComments = new List<CaseComment>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCaseComments.add(
+        new CaseComment(CommentBody = 'Test', ParentId = c.id)
+      );
+    }
+    insert newCaseComments;
 
-      //when the user tries to delete
-      delete newCaseComments;
+    //when the user tries to delete
+    delete newCaseComments;
 
-      //then delete is possible
-      CaseComment[] deletedComments = [
-        SELECT CommentBody
-        FROM CaseComment
-        WHERE ParentId = :c.id
-      ];
-      System.assert(deletedComments.size() == 0);
+    //then delete is possible
+    CaseComment[] deletedComments = [
+      SELECT CommentBody
+      FROM CaseComment
+      WHERE ParentId = :c.id
+    ];
+    System.assert(deletedComments.size() == 0);
   }
 }

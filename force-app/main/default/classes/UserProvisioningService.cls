@@ -62,12 +62,13 @@ public with sharing class UserProvisioningService {
     List<User> records,
     Set<String> federationIds
   ) {
-    
     Set<String> managerUUIDs = new Set<String>();
 
     Map<String, String> managerMap = new Map<String, String>();
 
-    Map<String, User_Provisioning_Request__c> uprMap = getUPRRecords(federationIds);
+    Map<String, User_Provisioning_Request__c> uprMap = getUPRRecords(
+      federationIds
+    );
 
     for (User_Provisioning_Request__c upr : uprMap.values()) {
       if (String.isNotBlank(upr.Manager_UUID__c)) {
@@ -169,11 +170,12 @@ public with sharing class UserProvisioningService {
     List<User> records,
     Set<String> businessFuncAndRoles
   ) {
-
-    Map<String, User_Provisioning_Setting__mdt> businessFunctionMap = getBusinesFunctionAndRoles(businessFuncAndRoles);
+    Map<String, User_Provisioning_Setting__mdt> businessFunctionMap = getBusinesFunctionAndRoles(
+      businessFuncAndRoles
+    );
 
     if (!businessFunctionMap.isEmpty()) {
-      Map<String, Profile> profileMap  = getAllProfileMap();
+      Map<String, Profile> profileMap = getAllProfileMap();
       Map<String, UserRole> userRoleMap = getAllUserRoleMap();
 
       for (User record : (List<User>) records) {
@@ -301,12 +303,13 @@ public with sharing class UserProvisioningService {
     List<User> records,
     Set<String> businessFuncAndRoles
   ) {
-
     List<PermissionSetAssignment> psetAssignmentList = new List<PermissionSetAssignment>();
 
     List<GroupMember> groupMemberList = new List<GroupMember>();
 
-    Map<String, User_Provisioning_Setting__mdt> businessFunctionMap = getBusinesFunctionAndRoles(businessFuncAndRoles);
+    Map<String, User_Provisioning_Setting__mdt> businessFunctionMap = getBusinesFunctionAndRoles(
+      businessFuncAndRoles
+    );
 
     if (!businessFunctionMap.isEmpty()) {
       Map<String, PermissionSet> pSetMap = getAllPSetMap();
@@ -314,21 +317,15 @@ public with sharing class UserProvisioningService {
       Map<String, Group> publicGroupMap = getAllPublicGroupMap();
 
       for (User record : records) {
-        psetAssignmentList.addAll(assignPermissionSet(
-          record,
-          businessFunctionMap,
-          pSetMap
-        ));
-        psetAssignmentList.addAll(assignPermissionSetGroup(
-          record,
-          businessFunctionMap,
-          pSetGroupMap
-        ));
-        groupMemberList.addAll(assignPublicGroup(
-          record,
-          businessFunctionMap,
-          publicGroupMap
-        ));
+        psetAssignmentList.addAll(
+          assignPermissionSet(record, businessFunctionMap, pSetMap)
+        );
+        psetAssignmentList.addAll(
+          assignPermissionSetGroup(record, businessFunctionMap, pSetGroupMap)
+        );
+        groupMemberList.addAll(
+          assignPublicGroup(record, businessFunctionMap, publicGroupMap)
+        );
       }
     }
 
@@ -516,7 +513,6 @@ public with sharing class UserProvisioningService {
     List<Id> userIds,
     Set<String> oldBusinessFuncAndRoles
   ) {
-
     List<PermissionSetAssignment> deletePsetList = new List<PermissionSetAssignment>();
 
     List<GroupMember> deleteGroupMemberList = new List<GroupMember>();
@@ -586,7 +582,7 @@ public with sharing class UserProvisioningService {
   private static List<User_Provisioning_Setting__mdt> getOldRecordBusinessFunctions(
     Set<String> oldBusinessFuncAndRoles
   ) {
-    List<User_Provisioning_Setting__mdt> businessFunctionList = New List<User_Provisioning_Setting__mdt>(); 
+    List<User_Provisioning_Setting__mdt> businessFunctionList = new List<User_Provisioning_Setting__mdt>();
     businessFunctionList = [
       SELECT
         Id,
