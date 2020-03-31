@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "outDir": "cypress-build/",
+    "strict": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "baseUrl": "../node_modules",
+    "types": ["cypress", "node"],
+    "target": "es6"
+  },
+  "include": ["Cypress/**/*.ts", "Cypress/**/*.js", "Cypress/**/*.d.ts"]
+}
