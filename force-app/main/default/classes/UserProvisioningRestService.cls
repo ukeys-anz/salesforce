@@ -56,7 +56,7 @@ global with sharing class UserProvisioningRestService {
    * @param uprRecord User Provisioning Request record
    * @return `Boolean` true if the record is valid. Otherwise return false.
    */
-  public static Boolean isValidRecordForProcessing(
+  private static Boolean isValidRecordForProcessing(
     UserProvisioningRequest uprRecord
   ) {
     if (
