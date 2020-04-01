@@ -57,3 +57,7 @@ coverage/
 
 # Eslint
 .eslintrc.json
+
+# Cypress
+cypress.json
+cypress-build/
