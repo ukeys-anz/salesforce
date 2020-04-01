@@ -22,7 +22,7 @@
         <operation>equals</operation>
         <value>0</value>
     </filters>
-    <label>My Direct Report&#39;s Complaints</label>
+    <label>My Direct Reports&#39; Complaints</label>
     <sharedTo>
         <group>Complaint_Line_Managers</group>
     </sharedTo>
