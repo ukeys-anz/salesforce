@@ -34,26 +34,24 @@ jobs:
           fetch-depth: 0
 
       - name: "Generate package"
+        id: package
         shell: bash
         run: |
           git fetch --tags 
           ci/package.sh
 
-      - name: "Deploy Changes"
-        id: deploy
-        shell: bash
-        run: |
-          ci/deploy.sh
-          if [ -d ./artefact/ ]; then ARTEFACT_GENERATED='true' ; fi
-        env:
-          DEPLOY_ROOT: ./artefact/
-          BUILD_COMMAND: deploy
-
       - uses: actions/upload-artifact@v1
-        if: ${{ steps.deploy.outputs.ARTEFACT_GENERATED }}
+        if: ${{ steps.package.outputs.ARTEFACT_GENERATED }}
         with:
           name: package
           path: ./artefact/
+
+      - name: "Deploy Changes"
+        shell: bash
+        run: ci/deploy.sh
+        env:
+          DEPLOY_ROOT: ./artefact/
+          BUILD_COMMAND: deploy
 
       - name: "Tag Release"
         shell: bash

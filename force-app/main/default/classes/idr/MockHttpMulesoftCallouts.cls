@@ -3,27 +3,27 @@
  * @author Pavan Kuamr Ananta
  * @since 2020
  * @group IDR(Internal Dispute Resolution)
- * @description MockHttpCapService is a CAP mock service which is used to send mock responses for
+ * @description MockHttpMulesoftCallouts is a CAP mock service which is used to send mock responses for
  * various test scenarios for Customer Profile Information HTTP callout.
  */
-public class MockHttpCapService implements HttpCalloutMock {
+public class MockHttpMulesoftCallouts implements HttpCalloutMock {
   Exception callException = null;
   Integer statusCode = null;
   String responseBody = null;
   /**
-   * @description MockHttpCapService constructor
+   * @description MockHttpMulesoftCallouts constructor
    * @param statusCode
    * @param responseBody
    */
-  public MockHttpCapService(Integer statusCode, String responseBody) {
+  public MockHttpMulesoftCallouts(Integer statusCode, String responseBody) {
     this.statusCode = statusCode;
     this.responseBody = responseBody;
   }
   /**
-   * @description MockHttpCapService constructor
+   * @description MockHttpMulesoftCallouts constructor
    * @param callException
    */
-  public MockHttpCapService(Exception callException) {
+  public MockHttpMulesoftCallouts(Exception callException) {
     this.callException = callException;
   }
   /**

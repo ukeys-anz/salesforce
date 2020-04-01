@@ -47,13 +47,15 @@ CURRENT_DIR=$(pwd)
 if [ "${CHANGED_FILES}" -gt "0" ]; then
     cd ${DEPLOY_DIR}
     sfdx force:source:convert -r ./force-app -d ${CURRENT_DIR}/artefact --loglevel debug
+    echo "::set-output name=ARTEFACT_GENERATED::true"
     # Return to working DIR
-    cd ../../
+    cd ${CURRENT_DIR}
 fi
 
 if [ "${DELETED_FILES}" -gt "0" ]; then
     cd ${DESTRUCTIVE_DIR}
     sfdx force:source:convert -r ./force-app -d tmp/ --loglevel debug
+    echo "::set-output name=ARTEFACT_GENERATED::true"
     echo "Creating destroy manifest"
     cd ./tmp/
     mv package.xml ${CURRENT_DIR}/artefact/destructiveChanges.xml

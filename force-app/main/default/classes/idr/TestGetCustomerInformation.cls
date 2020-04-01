@@ -20,7 +20,7 @@ private with sharing class TestGetCustomerInformation {
     // Set mock callout class
     Test.setMock(
       HttpCalloutMock.class,
-      new MockHttpCapService(200, SUCCESS_RESPONSE_BODY)
+      new MockHttpMulesoftCallouts(200, SUCCESS_RESPONSE_BODY)
     );
 
     // Call method to test.
@@ -43,7 +43,11 @@ private with sharing class TestGetCustomerInformation {
   @isTest
   static void testCustomerDataWithBlankCapId() {
     Map<String, Object> info = GetCustomerInformation.getCustomerData('');
-    System.assertEquals(new Map<String, Object>(), info, 'Response matches empty object when CAP id is blank');
+    System.assertEquals(
+      new Map<String, Object>(),
+      info,
+      'Response matches empty object when CAP id is blank'
+    );
   }
 
   /**
@@ -55,7 +59,7 @@ private with sharing class TestGetCustomerInformation {
     // Set mock callout class
     Test.setMock(
       HttpCalloutMock.class,
-      new MockHttpCapService(400, SUCCESS_RESPONSE_BODY)
+      new MockHttpMulesoftCallouts(400, SUCCESS_RESPONSE_BODY)
     );
     // Start test to ensure the events are pushed by {@link Lib_SystemLog} when an exception happens
     Test.startTest();
@@ -89,7 +93,7 @@ private with sharing class TestGetCustomerInformation {
     // Set mock callout class
     Test.setMock(
       HttpCalloutMock.class,
-      new MockHttpCapService(new JSONException('Test Exception'))
+      new MockHttpMulesoftCallouts(new JSONException('Test Exception'))
     );
     // Start test to ensure the events are pushed by {@link Lib_SystemLog} when an exception happens
     Test.startTest();
@@ -121,7 +125,10 @@ private with sharing class TestGetCustomerInformation {
   static void testCustomerDataWithEmptyResponse() {
     Map<String, Object> custInfo = new Map<String, Object>();
     // Set mock callout class: Empty JSON response test
-    Test.setMock(HttpCalloutMock.class, new MockHttpCapService(200, '{}'));
+    Test.setMock(
+      HttpCalloutMock.class,
+      new MockHttpMulesoftCallouts(200, '{}')
+    );
     custInfo = GetCustomerInformation.getCustomerData('12345');
     System.assertEquals(
       new Map<String, Object>(),
@@ -129,7 +136,10 @@ private with sharing class TestGetCustomerInformation {
       'Matches empty object when empty response is returned'
     );
     // Set mock callout class: Empty response body test
-    Test.setMock(HttpCalloutMock.class, new MockHttpCapService(200, null));
+    Test.setMock(
+      HttpCalloutMock.class,
+      new MockHttpMulesoftCallouts(200, null)
+    );
     try {
       custInfo = GetCustomerInformation.getCustomerData('12345');
     } catch (Exception e) {
