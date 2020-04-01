@@ -40,13 +40,17 @@ jobs:
           ci/package.sh
 
       - name: "Deploy Changes"
+        id: deploy
         shell: bash
-        run: ci/deploy.sh
+        run: |
+          ci/deploy.sh
+          if [ -d ./artefact/ ]; then ARTEFACT_GENERATED='true' ; fi
         env:
           DEPLOY_ROOT: ./artefact/
           BUILD_COMMAND: deploy
 
       - uses: actions/upload-artifact@v1
+        if: ${{ steps.deploy.outputs.ARTEFACT_GENERATED }}
         with:
           name: package
           path: ./artefact/
