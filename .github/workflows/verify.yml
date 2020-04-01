@@ -34,8 +34,17 @@ jobs:
         run: ci/package.sh
 
       - name: "Validate Package"
+        id: validate
         shell: bash
-        run: ci/deploy.sh
+        run: |
+          ci/deploy.sh
+          if [ -d ./artefact/ ]; then ARTEFACT_GENERATED='true' ; fi
         env:
           DEPLOY_ROOT: ./artefact/
           BUILD_COMMAND: validate
+
+      - uses: actions/upload-artifact@v1
+        if: ${{ steps.validate.outputs.ARTEFACT_GENERATED }}
+        with:
+          name: package
+          path: ./artefact/
