@@ -8,6 +8,14 @@
     {
       "files": "*.{cmp,page,component}",
       "options": { "parser": "html" }
+    },
+    {
+      "files": "*.{trigger,cls}",
+      "options": { "parser": "apex" }
+    },
+    {
+      "files": "*.{ts}",
+      "options": { "parser": "typescript" }
     }
   ]
 }

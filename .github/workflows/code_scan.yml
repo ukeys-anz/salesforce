@@ -1,0 +1,19 @@
+# This workflow scans a salesforce project against PMD rulesets
+name: Scan
+
+# This workflow will only run on Pull Requests against develop
+on:
+  pull_request:
+    branches: [develop]
+
+jobs:
+  pmd:
+    runs-on: ubuntu-latest
+    container: ddawson235/sfdx:latest
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v1
+
+      - name: "Run PMD"
+        run: pmd -d . -R ./rulesets/apex/quickstart.xml -l apex -f textcolor
