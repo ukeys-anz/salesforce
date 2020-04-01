@@ -34,10 +34,17 @@ jobs:
           fetch-depth: 0
 
       - name: "Generate package"
+        id: package
         shell: bash
         run: |
           git fetch --tags 
           ci/package.sh
+
+      - uses: actions/upload-artifact@v1
+        if: ${{ steps.package.outputs.ARTEFACT_GENERATED }}
+        with:
+          name: package
+          path: ./artefact/
 
       - name: "Deploy Changes"
         shell: bash

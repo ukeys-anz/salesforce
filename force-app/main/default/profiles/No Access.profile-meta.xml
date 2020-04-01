@@ -45,7 +45,7 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>MockHttpCapService</apexClass>
+        <apexClass>MockHttpMulesoftCallouts</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>

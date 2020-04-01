@@ -30,8 +30,15 @@ jobs:
 
       - uses: actions/checkout@v1
       - name: "Generate package"
+        id: package
         shell: bash
         run: ci/package.sh
+
+      - uses: actions/upload-artifact@v1
+        if: ${{ steps.package.outputs.ARTEFACT_GENERATED }}
+        with:
+          name: package
+          path: ./artefact/
 
       - name: "Validate Package"
         shell: bash
