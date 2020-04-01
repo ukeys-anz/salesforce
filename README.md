@@ -1,73 +1,116 @@
-[![Status](https://ghe-statuses-from-cloud-build.apps.omni.service.test/api/v1/repos/github.service.anz/anzx/salesforce/badges/status/svg?branch=develop)](https://ghe-statuses-from-cloud-build.apps.omni.service.test/api/v1/repos/github.service.anz/anzx/salesforce/badges/status/redirect?branch=develop)
+![Deploy](https://github.com/anzx/salesforce/workflows/Deploy/badge.svg)
+<a href="#badge"><img alt="code style: prettier" src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square"></a>
 
 # Salesforce
 
 Repository for the Salesforce Customer Relationship Management platform
 
-## Dev, Build and Test
+## Setting up locally
 
-### Prerequisites
+<details>
+  <summary>Click to see setup steps</summary>
 
-- Setup macBook for ANZ corporate network <https://confluence.service.anz/display/ABT/How+to+get+setup+your+laptop+for+Salesforce+development>
-- Install SFDX CLI
-- Strongly recommended:
-  - Install Visual Studio Code (VSC) and use it :)
-  - Install "Salesforce Extension Pack" VSC extension
-  - Install "gitflow" VSC extension
+### 1. Cloning the repository
 
-### How-to
+To clone this repository locally, you need to ensure you add your username into the HTTPS URL. So instead of getting the HTTPS link and entering
 
-- Clone the project
-- Open in VSC. At some point it'll recognize it as a Salesforce project...
-- Authorize a dev hub and set an org
-- Open VSC's terminal pane and type ./setup.sh create a Scratch Org to start developing
-  - Note this script currently only works OFF the ANZ network because it does a DNS Lookup which fails.
+```bash
+git clone https://github.com/org/repo.git
+```
 
-### Git Practices
+you will need to add your username
 
-- We are currently using gitflow with pull requests to merge into develop and master.
-- Develop and test in your own Scratch orgs and then commit the changes into a feature branch
-- Create your feature branches in `feature` e.g `feature/ABT-71-Add-git-documentation`
-- Branch naming conventions: Structure your branch names with a JiraID prefix followed by a short hyphenated description
-- The `develop` will be deployed to an integration test environment (CI/CD Pending)
-- The `master` branch will be deployed to production (CI/CD Pending)
-- More details here <https://confluence.service.anz/display/ABT/How+to+get+started+with+git%2C+Github%2C+and+SFDX>
+```bash
+git clone https://USERNAME@github.com/org/repo.git
+```
 
-## Resources
+### 2. Setting up tooling
 
-- Refer to the [Technical Knowledge Base](https://confluence.service.anz/display/ABT/Technical+Knowledge+Base)
-- Refer to [Issues] for help <https://confluence.service.anz/display/ABT/Salesforce+CLI+%28SFDX%29+Help>
+It is not recommended to run Salesforce on WLAN, as most features do not work. You are better off switching to MOBILITY to run Salesforce CLI. To setup local tooling:
 
-## Description of Files and Directories
+1. Download and install Node.js (and NPM)
+2. Setup Salesforce CLI, Typescript (used for Cypress) & Prettier by running
 
-TODO
+```bash
+npm i -g sfdx-cli prettier prettier-plugin-apex typescript
+```
 
-## Issues
+3. Download and install [PMD](https://pmd.github.io/) (use the Quickstart section on the home page)
+4. You can use any Text Editor or IDE you choose so long as they run locally. VS Code is recommended by Salesforce and there are several handy plugins found in the VS Code marketplace for syntax highlighter and SFDX CLI integration
+5. We use Production as our DevHub, and a DevHub is required in Salesforce CLI to generate scratch orgs. First you need to get your Production credentials setup, then execute
 
-- Creating or opening scratch orgs will take a long time
-  - Successfully created org with ID: 00D5P0000008d78UAA and name: test-gi7dcuukd39u@example.com. However, the My Domain URL <https://saas-momentum-9000.cs152.my.salesforce.com/> has not finished propagating. Some commands may not work as expected until the My Domain DNS propagation is complete.
-  - Waiting to resolve the Lightning Experience-enabled custom domain......
+```bash
+sfdx force:auth:web:login -r https://anz.my.salesforce.com -a DevHub -d
+```
 
-## Updating/recycling secrets
-### Non-prod
-Ensure you have gcloud SDK installed and that you have encrypt permissions on the key `salesforce-cli-authentication-key` (keyring `cloudbuild-keyring`, location `global`, GCP project `anz-anzx-build-np-f11b9e`).
-In an interactive bash session do the following:
-1. Change the working directory to the root of this repository.
-1. Set the variable `ENV` to either `systest` or `staging`, identifying the systest and staging environments, respectively. `ENV` identifies the environment for which the secret is to be updated.
-1. Generate a sfdx auth URL for the environment identified by `ENV`. It should look something like this:
-    ```bash
-    force://PlatformCLI::********@anz--staging.my.salesforce.com
-    ```
-1. Run the following commands, making sure to use the sfdx auth URL in place of `********`:
-    ```bash
-    gcloud config set core/project 'anz-anzx-build-np-f11b9e'
-    gcloud kms encrypt \
-      --plaintext-file=<(echo -n ‘********’) \
-      --ciphertext-file=keys/sfdx-auth-url-"$ENV".encrypted.txt \
-      --keyring='cloudbuild-keyring' \
-      --key='salesforce-cli-authentication-key' \
-      --location='global'
-    ```
+### 3. Creating a scrarch org
 
-### Prod
-The process is the same as non-prod, but requires access to a different keyring that is yet to be defined.
+There is a pre-written shell script, so to create a scratch org run:
+
+```bash
+./setup.sh
+```
+
+</details>
+
+## Development Expectations
+
+During the development phase, there are several things to keep in mind:
+
+1. All code that is committed should be _production read_.
+2. All code must comply to the Prettier styling standards.
+3. All cost must comply to the PMD Quickstart ruleset.
+4. Any changes that are critical path must have Cypress integration tests written for them **before** merging.
+5. Any broken Cypress test cases as a result of any changes must be resolved by updating the test cases.
+6. All features must have unit tests written before merging.
+
+## Release Process
+
+We use GitHub Actions to enable our CICD workflow. The complete CICD solution is documented [here](https://github.com/anzx/documents/blob/design-docs/github-actions-salesforce.md).
+
+To summarise the workflows there are two events:
+
+### Pull Request
+
+When you raise a PR against develop or master, the following three jobs run:
+
+1. **Package and Verify**
+   This will build a package that only contains your changes and runs a deployment to systest (develop) or staging (master) with the _check only_ flag set to `TRUE`. This ensures your changes will deploy successfully, and it runs all local tests to ensure we remain compliant in regards to minimum required test coverage.
+2. **Lint**
+   This step lints all of the files within our project and ensures they are compliant to the Prettier styling convention. This includes LWC, Aura and through the Apex Plugin it also lints apex files. This ensures consistency in the way we write code, makes PRs easier to read and extinguishes disagreements over coding styles and formats.
+3. **Scan**
+   PMD is used to run a code scan to detect poorly written or vulnerable code, as well as ensuring our code conforms to the ApexDoc code documentation specs.
+
+### Merge
+
+When you merge to develop or master, the following runs:
+
+1. **Package and Deploy**
+   This will build a package that only contains your changes and runs a deployment to systest (develop) or staging (master) with the _check only_ flag set to `FALSE`. This deploys the changes merged as well as running all tests.
+
+### Other Controls
+
+As part of the PR process, we use CODEOWNERS to enforce that each PR must be reviewed by a CODEOWNER.
+
+Any changes to the org can be reviewed by any member of the team, with a few exceptions. The following changes must be approved by a Lead Engineer or the Chapter Lead:
+
+- Any changes/additions/deletions in the flows and workflows directories
+- Changes to the GitHub workflows, including:
+  - YAML files
+  - Dockerfile
+  - Any of the shell scripts within `ci/`
+
+## Feature Traceability
+
+All cards must be linked to the relevant JIRA card number. Following the convention required by the JIRA integration, you must put the JIRA ticket in square brackets in the PR title. Example `[JIRA-1234] Updates to the Admin Profile`.
+
+## Branch Naming Convention
+
+Please follow the naming convention for all branches:
+
+| Branch type    | Description                                                | Branched off | Merged to | Naming Convention      |
+| -------------- | ---------------------------------------------------------- | ------------ | --------- | ---------------------- |
+| Feature Branch | Used to create an initial feature                          | `develop`    | `develop` | `feature/feature-name` |
+| Develop Branch | Persistent Branch, represents systest                      | N/A          | N/A       | `develop`              |
+| Release Branch | Created at the start of each sprint. Represents a release. | `master`     | `master`  | `release/release-name` |
+| Master Branch  | Persistent Branch, represents Staging & Production         | N/A          | N/A       | `master`               |

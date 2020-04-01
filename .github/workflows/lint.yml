@@ -18,7 +18,7 @@ jobs:
       - name: "Lint project"
         shell: bash
         run: |
-          npm install
+          npm i --only=dev
           npx prettier --write .prettierrc --plugin=prettier-plugin-apex
           echo "Linting Trigger and Classes"
           npx prettier -c force-app/main/default/**/*.{trigger,cls} --parser apex --with-node-modules
