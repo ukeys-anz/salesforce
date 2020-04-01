@@ -18,7 +18,7 @@ public with sharing class CaseCommentsTriggerHandler extends Lib_TriggerHandler 
    */
   public override void onBeforeDelete() {
     for (CaseComment record : (List<CaseComment>) records) {
-        record.addError(DELETE_ERROR);
+      record.addError(DELETE_ERROR);
     }
   }
 
@@ -28,7 +28,7 @@ public with sharing class CaseCommentsTriggerHandler extends Lib_TriggerHandler 
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     for (CaseComment record : (List<CaseComment>) records) {
-        record.addError(EDIT_ERROR);
+      record.addError(EDIT_ERROR);
     }
   }
 }

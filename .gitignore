@@ -31,7 +31,6 @@ $RECYCLE.BIN/
 *~
 
 # Misc.
-mdapi-source/
 .vscode/settings.json
 .classpath
 .project
@@ -58,3 +57,7 @@ coverage/
 
 # Eslint
 .eslintrc.json
+
+# Cypress
+cypress.json
+cypress-build/

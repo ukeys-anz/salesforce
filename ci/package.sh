@@ -1,0 +1,63 @@
+#!/bin/bash -e
+
+# Access the helper methods
+source ci/helper.sh
+
+# Set run variables
+SOURCE_DIR="./force-app"
+DEPLOY_DIR="./tmp/deploy"
+DESTRUCTIVE_DIR="./tmp/destructive"
+artefact_DIR="./tmp/artefact"
+META_DIR=(classes components pages triggers 'email/unfiled$public' staticresources)
+COMPONENT_DIR=(aura lwc)
+
+## Make a deploy and destroy directories to start building artefacts
+mkdir -p tmp
+mkdir ${DEPLOY_DIR}
+mkdir ${DESTRUCTIVE_DIR}
+
+# If any files have changed/been added that require a deployment, generate an artefact
+setBranchDiffCommand false false
+echo "Dif statement: ${DIFFSTARTCOMMAND} | ${DIFFENDCOMMAND}"
+CHANGED_FILES=$($DIFFSTARTCOMMAND | wc -w)
+echo "Number of changed files: ${CHANGED_FILES}"
+if [ "${CHANGED_FILES}" -gt "0" ]; then
+    $($DIFFSTARTCOMMAND | $DIFFENDCOMMAND)
+    echo "unzipping"
+    unzipDeployPackageandCopyMetaFiles
+fi
+
+# If any files have been deleted that need to be deleted, generate an artefact
+setBranchDiffCommand true true
+DELETED_FILES=$($DIFFSTARTCOMMAND | wc -l)
+echo "Number of deleted files: ${DELETED_FILES}"
+if [ "${DELETED_FILES}" -gt "0" ]; then
+    setBranchDiffCommand true false
+    $($DIFFSTARTCOMMAND | $DIFFENDCOMMAND)
+    unzipDestructivePackage
+fi
+
+#copy project file and ignore file
+copyMandatoryFilesToPackage ${DEPLOY_DIR}
+copyMandatoryFilesToPackage ${DESTRUCTIVE_DIR}
+
+# Convert the DX project to a metadata api package and commit the changes to the artefact
+CURRENT_DIR=$(pwd)
+
+# Only generate artefacts where files are found
+if [ "${CHANGED_FILES}" -gt "0" ]; then
+    cd ${DEPLOY_DIR}
+    sfdx force:source:convert -r ./force-app -d ${CURRENT_DIR}/artefact --loglevel debug
+    # Return to working DIR
+    cd ../../../
+fi
+
+if [ "${DELETED_FILES}" -gt "0" ]; then
+    cd ${DESTRUCTIVE_DIR}
+    sfdx force:source:convert -r ./force-app -d tmp/ --loglevel debug
+    echo "Creating destroy manifest"
+    cd ./tmp/
+    mv package.xml ${CURRENT_DIR}/artefact/destructiveChanges.xml
+    # Return to working DIR
+    cd ${CURRENT_DIR}
+fi
