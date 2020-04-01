@@ -14,7 +14,7 @@ global with sharing class UserProvisioningRestService {
   global static void doPost(List<UserProvisioningRequest> uprRecords) {
     List<User_Provisioning_Request__c> uprList = new List<User_Provisioning_Request__c>();
     List<UserProvisioningResponse> finalResponseList = new List<UserProvisioningResponse>();
-    Integer finalStatusCode = 500;
+    Integer finalStatusCode = 400;
 
     if (!uprRecords.isEmpty()) {
       for (UserProvisioningRequest uprRecord : uprRecords) {
@@ -27,12 +27,12 @@ global with sharing class UserProvisioningRestService {
 
       if (!uprList.isEmpty()) {
         //DML OPERATION
-        List<Database.SaveResult> insertRequests = Database.insert(
+        List<Database.SaveResult> insertResults = Database.insert(
           uprList,
           false
         );
 
-        for (Database.SaveResult insertResult : insertRequests) {
+        for (Database.SaveResult insertResult : insertResults) {
           finalResponseList.add(generateFinalResponse(insertResult));
         }
       }
@@ -41,6 +41,7 @@ global with sharing class UserProvisioningRestService {
     for (UserProvisioningResponse finalResponse : finalResponseList) {
       if (finalResponse.statusCode == 200) {
         finalStatusCode = 200;
+        break;
       }
     }
 
@@ -107,7 +108,7 @@ global with sharing class UserProvisioningRestService {
     UserProvisioningResponse result = new UserProvisioningResponse();
     result.errorFields = new List<String>();
     result.success = false;
-    result.statusCode = 500;
+    result.statusCode = 400;
     result.errorMessage = 'Mandatory Fields are Missing';
     if (String.isBlank(uprRecord.requestorUUID)) {
       result.errorFields.add('requestorUUID');
@@ -115,11 +116,13 @@ global with sharing class UserProvisioningRestService {
     if (String.isBlank(uprRecord.requestType)) {
       result.errorFields.add('requestType');
     }
-    if (String.isBlank(uprRecord.businessFunction)) {
-      result.errorFields.add('businessFunction');
-    }
-    if (String.isBlank(uprRecord.businessRole)) {
-      result.errorFields.add('businessRole');
+    if (uprRecord.requestType == 'Grant' || uprRecord.requestType == 'Modify') {
+      if (String.isBlank(uprRecord.businessFunction)) {
+        result.errorFields.add('businessFunction');
+      }
+      if (String.isBlank(uprRecord.businessRole)) {
+        result.errorFields.add('businessRole');
+      }
     }
     return result;
   }
@@ -138,7 +141,7 @@ global with sharing class UserProvisioningRestService {
     if (insertResult.success == true) {
       result.statusCode = 200;
     } else {
-      result.statusCode = 500;
+      result.statusCode = 400;
     }
     for (Database.Error error : insertResult.errors) {
       result.errorStatusCode = error.getStatusCode();
