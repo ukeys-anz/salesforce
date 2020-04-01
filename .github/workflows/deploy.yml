@@ -46,6 +46,11 @@ jobs:
           DEPLOY_ROOT: ./artefact/
           BUILD_COMMAND: deploy
 
+      - uses: actions/upload-artifact@v1
+        with:
+          name: package
+          path: ./artefact/
+
       - name: "Tag Release"
         shell: bash
         run: |

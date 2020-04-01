@@ -54,7 +54,7 @@ function unzipDeployPackageandCopyMetaFiles() {
 }
 
 # Unzip destructive changes and remove the archive
-function unzipdestructivePackage() {
+function unzipDestructivePackage() {
     echo "Destructive changes"
     unzip destructivePackage.zip -d ${DESTRUCTIVE_DIR}
     # Remove tmp package

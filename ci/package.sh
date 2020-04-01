@@ -7,7 +7,6 @@ source ci/helper.sh
 SOURCE_DIR="./force-app"
 DEPLOY_DIR="./tmp/deploy"
 DESTRUCTIVE_DIR="./tmp/destructive"
-artefact_DIR="./tmp/artefact"
 META_DIR=(classes components pages triggers 'email/unfiled$public' staticresources)
 COMPONENT_DIR=(aura lwc)
 
@@ -49,7 +48,7 @@ if [ "${CHANGED_FILES}" -gt "0" ]; then
     cd ${DEPLOY_DIR}
     sfdx force:source:convert -r ./force-app -d ${CURRENT_DIR}/artefact --loglevel debug
     # Return to working DIR
-    cd ../../../
+    cd ../../
 fi
 
 if [ "${DELETED_FILES}" -gt "0" ]; then
