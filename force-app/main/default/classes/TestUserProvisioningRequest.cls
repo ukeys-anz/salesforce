@@ -28,18 +28,25 @@ public class TestUserProvisioningRequest {
 
     List<UserProvisioningRestService.UserProvisioningRequest> uprList = new List<UserProvisioningRestService.UserProvisioningRequest>();
 
+    //Fetch business function and role from the backend to avoid Restricted picklist error in future.
+    Schema.DescribeFieldResult businessFunctionResult = User_Provisioning_Request__c.Business_Function__c.getDescribe();
+    List<Schema.PicklistEntry> pleBusinessFunction = businessFunctionResult.getPicklistValues();
+
+    Schema.DescribeFieldResult businessRoleResult = User_Provisioning_Request__c.Business_Role__c.getDescribe();
+    List<Schema.PicklistEntry> pleBusinessRole = businessRoleResult.getPicklistValues();
+
     //Prepare Grant User provisioning request test data
     UserProvisioningRestService.UserProvisioningRequest uprGrant = new UserProvisioningRestService.UserProvisioningRequest();
     uprGrant.businessFunction = 'Test BusinessFunction';
-    uprGrant.businessRole = 'Business Role';
+    uprGrant.businessRole = pleBusinessRole[0].getValue();
     uprGrant.requestorUUID = faker.randomString(5);
     uprGrant.requestType = 'Grant';
     uprList.add(uprGrant);
 
     //Prepare Modify User provisioning request test data
     UserProvisioningRestService.UserProvisioningRequest uprModify = new UserProvisioningRestService.UserProvisioningRequest();
-    uprModify.businessFunction = 'Test Business Function';
-    uprModify.businessRole = 'Business Role';
+    uprModify.businessFunction = pleBusinessFunction[0].getValue();
+    uprModify.businessRole = pleBusinessRole[0].getValue();
     uprModify.requestorUUID = 'Tester';
     uprModify.managerUUID = 'Manager';
     uprModify.requestType = 'Modify';
@@ -79,16 +86,16 @@ public class TestUserProvisioningRequest {
 
     Test.stopTest();
 
-    User_Provisioning_Request__c uprRecord = [
+    List<User_Provisioning_Request__c> uprRecordList = [
       SELECT Id, Business_Function__c
       FROM User_Provisioning_Request__c
-      WHERE Type__c = 'Modify'
-      LIMIT 1
     ];
     //check if UPR record is created with same business function from request record.
     System.assertEquals(
-      'Test Business Function',
-      uprRecord.Business_Function__c
+      pleBusinessFunction[0].getValue(),
+      uprRecordList[0].Business_Function__c
     );
+    //check if the size of inserted User provisioning requests is 2.
+    System.assertEquals(2, uprRecordList.size());
   }
 }
