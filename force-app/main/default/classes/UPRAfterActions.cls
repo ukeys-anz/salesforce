@@ -5,8 +5,8 @@
  */
 public with sharing class UPRAfterActions {
   /**
-   * @description This function is called to update User object with Business Function, Business Role and Manager id for Modify Request type. 
-   * Used as a future method to avoid Mixed_DML_Operation error 
+   * @description This function is called to update User object with Business Function, Business Role and Manager id for Modify Request type.
+   * Used as a future method to avoid Mixed_DML_Operation error
    * @param uprModifyList List of JSON serialized User provisioning records from trigger
    */
   @future
@@ -113,7 +113,7 @@ public with sharing class UPRAfterActions {
 
   /**
    * @description This function is called to identify and deactivate users for Revoke User Provisioning Requests.
-   * Used as a future method to avoid Mixed_DML_Operation error 
+   * Used as a future method to avoid Mixed_DML_Operation error
    * @param uprRevokeIds Set of Requestor UUIDs from UPR request
    */
   @SuppressWarnings('PMD.ApexCRUDViolation')
