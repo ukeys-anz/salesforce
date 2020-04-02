@@ -13,15 +13,18 @@ global with sharing class UserProvisioningRestService {
   @HttpPost
   global static void doPost(List<UserProvisioningRequest> uprRecords) {
     List<User_Provisioning_Request__c> uprList = new List<User_Provisioning_Request__c>();
-    List<UserProvisioningResponse> finalResponseList = new List<UserProvisioningResponse>();
+    List<UserProvisioningResponse> finalResponseList = new List<UserProvisioningResponse>(
+      uprRecords.size()
+    );
+
     Integer finalStatusCode = 400;
 
     if (!uprRecords.isEmpty()) {
-      for (UserProvisioningRequest uprRecord : uprRecords) {
-        if (isValidRecordForProcessing(uprRecord)) {
-          uprList.add(generateUPRRecord(uprRecord));
+      for (Integer i = 0; i < uprRecords.size(); i++) {
+        if (isValidRecordForProcessing(uprRecords.get(i))) {
+          uprList.add(generateUPRRecord(uprRecords.get(i)));
         } else {
-          finalResponseList.add(generateErrorResponse(uprRecord));
+          finalResponseList.add(i, generateErrorResponse(uprRecords.get(i)));
         }
       }
 
@@ -31,9 +34,15 @@ global with sharing class UserProvisioningRestService {
           uprList,
           false
         );
-
-        for (Database.SaveResult insertResult : insertResults) {
-          finalResponseList.add(generateFinalResponse(insertResult));
+        Integer resultCount = 0;
+        for (Integer i = 0; i < finalResponseList.size(); i++) {
+          if (finalResponseList.get(i) == null) {
+            finalResponseList.add(
+              i,
+              generateFinalResponse(insertResults.get(resultCount))
+            );
+            resultCount++;
+          }
         }
       }
     }
