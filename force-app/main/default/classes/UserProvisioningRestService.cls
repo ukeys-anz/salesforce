@@ -12,37 +12,33 @@ global with sharing class UserProvisioningRestService {
    */
   @HttpPost
   global static void doPost(List<UserProvisioningRequest> uprRecords) {
-    List<User_Provisioning_Request__c> uprList = new List<User_Provisioning_Request__c>();
-    List<UserProvisioningResponse> finalResponseList = new List<UserProvisioningResponse>(
-      uprRecords.size()
-    );
+    Map<Integer, User_Provisioning_Request__c> uprMap = new Map<Integer, User_Provisioning_Request__c>();
+    List<UserProvisioningResponse> finalResponseList = new List<UserProvisioningResponse>();
 
     Integer finalStatusCode = 400;
 
     if (!uprRecords.isEmpty()) {
       for (Integer i = 0; i < uprRecords.size(); i++) {
         if (isValidRecordForProcessing(uprRecords.get(i))) {
-          uprList.add(generateUPRRecord(uprRecords.get(i)));
+          uprMap.put(i, generateUPRRecord(uprRecords.get(i)));
         } else {
-          finalResponseList.add(i, generateErrorResponse(uprRecords.get(i)));
+          finalResponseList.add(generateErrorResponse(uprRecords.get(i), i));
         }
       }
 
-      if (!uprList.isEmpty()) {
+      if (!uprMap.isEmpty()) {
         //DML OPERATION
         List<Database.SaveResult> insertResults = Database.insert(
-          uprList,
+          uprMap.values(),
           false
         );
         Integer resultCount = 0;
-        for (Integer i = 0; i < finalResponseList.size(); i++) {
-          if (finalResponseList.get(i) == null) {
-            finalResponseList.add(
-              i,
-              generateFinalResponse(insertResults.get(resultCount))
-            );
-            resultCount++;
-          }
+        Set<Integer> keys = uprMap.keySet();
+        for (Integer order : keys) {
+          finalResponseList.add(
+            generateFinalResponse(insertResults.get(resultCount), order)
+          );
+          resultCount++;
         }
       }
     }
@@ -55,6 +51,7 @@ global with sharing class UserProvisioningRestService {
     }
 
     //Generate Response based on the results
+    finalResponseList.sort();
     String jsonRes = JSON.serialize(finalResponseList);
     RestContext.response.addHeader('Content-Type', 'application/json');
     RestContext.response.responseBody = Blob.valueOf(jsonRes);
@@ -107,14 +104,16 @@ global with sharing class UserProvisioningRestService {
 
   /**
    * @description Method to generate error response if the required field is missing
-   * @param uprRecord User Provisioning Request record
-   * @return 'UserProvisioningResponse'
+   * @param uprRecord
+   * @param order Order of response
+   * @return `UserProvisioningResponse`
    */
-
   private static UserProvisioningResponse generateErrorResponse(
-    UserProvisioningRequest uprRecord
+    UserProvisioningRequest uprRecord,
+    Integer order
   ) {
     UserProvisioningResponse result = new UserProvisioningResponse();
+    result.index = order;
     result.errorFields = new List<String>();
     result.success = false;
     result.statusCode = 400;
@@ -139,12 +138,15 @@ global with sharing class UserProvisioningRestService {
   /**
    * @description Method to generate final response based on DML insert result
    * @param insertResult inserted record result from Database.Insert
-   * @return 'UserProvisioningResponse'
+   * @param order Order of response
+   * @return `UserProvisioningResponse`
    */
   private static UserProvisioningResponse generateFinalResponse(
-    Database.SaveResult insertResult
+    Database.SaveResult insertResult,
+    Integer order
   ) {
     UserProvisioningResponse result = new UserProvisioningResponse();
+    result.index = order;
     result.success = insertResult.success;
     result.sfdcId = insertResult.getId();
     if (insertResult.success == true) {
@@ -190,7 +192,11 @@ global with sharing class UserProvisioningRestService {
   /**
    * @description Wrapper class to store the User Provisioning Response parameters
    */
-  global class UserProvisioningResponse {
+  global class UserProvisioningResponse implements Comparable {
+    /**
+     * @description order of the response
+     */
+    public transient Integer index { get; set; }
     /**
      * @description Response result (true or false)
      */
@@ -215,5 +221,21 @@ global with sharing class UserProvisioningRestService {
      * @description SFDC error status code
      */
     public StatusCode errorStatusCode { get; set; }
+
+    /**
+     * @description Compare to sort list in ascending order
+     * @param compareTo Object to compare
+     * @return `Integer`
+     */
+    global Integer compareTo(Object compareTo) {
+      UserProvisioningResponse compareToResponse = (UserProvisioningResponse) compareTo;
+      if (index == compareToResponse.index) {
+        return 0;
+      }
+      if (index > compareToResponse.index) {
+        return 1;
+      }
+      return -1;
+    }
   }
 }
