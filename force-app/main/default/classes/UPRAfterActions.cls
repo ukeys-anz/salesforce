@@ -80,18 +80,18 @@ public with sharing class UPRAfterActions {
    * @param managerMap manager user map
    * @return 'List<User>'
    */
-  @SuppressWarnings('PMD.ApexCRUDViolation')
   private static List<User> getModifyUserList(
     Map<String, User_Provisioning_Request__c> uprModifyMap,
     Map<String, String> managerMap
   ) {
     List<User> modifyUserList = new List<User>();
-
-    modifyUserList = [
-      SELECT Id, Business_Function__c, Business_Role__c, FederationIdentifier
-      FROM User
-      WHERE FederationIdentifier IN :uprModifyMap.keySet() AND isActive = true
-    ];
+    if (Schema.sObjectType.User.isQueryable()) {
+      modifyUserList = [
+        SELECT Id, Business_Function__c, Business_Role__c, FederationIdentifier
+        FROM User
+        WHERE FederationIdentifier IN :uprModifyMap.keySet() AND isActive = true
+      ];
+    }
 
     for (User usr : modifyUserList) {
       usr.Business_Function__c = uprModifyMap.get(usr.FederationIdentifier)
@@ -116,26 +116,25 @@ public with sharing class UPRAfterActions {
    * Used as a future method to avoid Mixed_DML_Operation error
    * @param uprRevokeIds Set of Requestor UUIDs from UPR request
    */
-  @SuppressWarnings('PMD.ApexCRUDViolation')
   @future
   public static void revokeUserAccess(Set<String> uprRevokeIds) {
-    List<User> revokeUserList = new List<user>();
+    List<User> userList = new List<user>();
 
-    if (!uprRevokeIds.isEmpty()) {
-      List<User> userList = [
-        SELECT Id, Business_Function__c, Business_Role__c, FederationIdentifier
+    if (Schema.sObjectType.User.isQueryable()) {
+      userList = [
+        SELECT Id, FederationIdentifier, isActive
         FROM User
         WHERE FederationIdentifier IN :uprRevokeIds AND isActive = true
       ];
-
-      for (User usr : userList) {
-        usr.IsActive = false;
-        revokeUserList.add(usr);
-      }
     }
-    if (!revokeUserList.isEmpty()) {
+
+    for (User usr : userList) {
+      usr.IsActive = false;
+    }
+
+    if (!userList.isEmpty()) {
       List<Database.SaveResult> updateUserList = Database.update(
-        revokeUserList,
+        userList,
         false
       );
     }
