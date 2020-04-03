@@ -102,6 +102,9 @@
     </flexiPageRegions>
     <flexiPageRegions>
         <componentInstances>
+            <componentName>accountTable</componentName>
+        </componentInstances>
+        <componentInstances>
             <componentInstanceProperties>
                 <name>parentFieldApiName</name>
                 <value>Account.Id</value>
