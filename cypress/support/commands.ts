@@ -33,7 +33,7 @@ declare namespace Cypress {
   interface Chainable<Subject> {
     login(): void;
     connect(): any;
-    loadComplaintApp(): void;
+    loadApp(appName: string): void;
   }
 }
 
@@ -114,11 +114,11 @@ Cypress.Commands.add("connect", (): void => {
   });
 });
 
-Cypress.Commands.add("loadComplaintApp", (): void => {
+Cypress.Commands.add("loadApp", (appName: string): void => {
   //Check if we are already on the Complaint Mgt App
   cy.get("div.slds-context-bar__item > div > span").then(span => {
     let title = span.text();
-    if (title === "Complaint Mgt") {
+    if (title === appName) {
       return true;
     }
 
@@ -133,13 +133,13 @@ Cypress.Commands.add("loadComplaintApp", (): void => {
       .shadowFind("one-app-launcher-search-bar")
       .shadowFind("lightning-input")
       .shadowFind('input[type="search"]')
-      .shadowType("Complaint Mgt");
+      .shadowType(`${appName}`);
 
     cy.shadowGet("one-app-launcher-menu")
       .shadowFind("one-app-launcher-menu-item")
       .shadowFind("lightning-formatted-rich-text")
       .shadowFind("p.slds-truncate")
-      .shadowContains("Complaint Mgt")
+      .shadowContains(`${appName}`)
       .shadowClick();
 
     cy.wait(5000);
