@@ -115,7 +115,7 @@ Cypress.Commands.add("connect", (): void => {
 });
 
 Cypress.Commands.add("loadApp", (appName: string): void => {
-  //Check if we are already on the Complaint Mgt App
+  //Check if we are already on the requested App
   cy.get("div.slds-context-bar__item > div > span").then(span => {
     let title = span.text();
     if (title === appName) {
