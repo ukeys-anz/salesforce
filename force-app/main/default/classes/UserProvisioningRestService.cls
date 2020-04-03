@@ -202,7 +202,7 @@ global with sharing class UserProvisioningRestService {
      */
     public Boolean success { get; set; }
     /**
-     * @description Response code. 200 for success. 500 for failure.
+     * @description Response code. 200 for success. 400 for failure.
      */
     public Integer statusCode { get; set; }
     /**
