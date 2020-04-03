@@ -84,28 +84,41 @@ public with sharing class UPRAfterActions {
     Map<String, User_Provisioning_Request__c> uprModifyMap,
     Map<String, String> managerMap
   ) {
+    String uprBusinessFunction;
+    String uprBusinessRole;
+    String uprManagerUUID;
+
     List<User> modifyUserList = new List<User>();
     if (Schema.sObjectType.User.isQueryable()) {
       modifyUserList = [
-        SELECT Id, Business_Function__c, Business_Role__c, FederationIdentifier
+        SELECT
+          Id,
+          Business_Function__c,
+          Business_Role__c,
+          FederationIdentifier,
+          ManagerId
         FROM User
         WHERE FederationIdentifier IN :uprModifyMap.keySet() AND isActive = true
       ];
     }
 
     for (User usr : modifyUserList) {
-      usr.Business_Function__c = uprModifyMap.get(usr.FederationIdentifier)
+      uprBusinessFunction = uprModifyMap.get(usr.FederationIdentifier)
         .Business_Function__c;
-      usr.Business_Role__c = uprModifyMap.get(usr.FederationIdentifier)
+      uprBusinessRole = uprModifyMap.get(usr.FederationIdentifier)
         .Business_Role__c;
-      if (
-        managerMap.containskey(
-          uprModifyMap.get(usr.FederationIdentifier).Manager_UUID__c
-        )
-      ) {
-        usr.ManagerId = managerMap.get(
-          uprModifyMap.get(usr.FederationIdentifier).Manager_UUID__c
-        );
+      uprManagerUUID = uprModifyMap.get(usr.FederationIdentifier)
+        .Manager_UUID__c;
+      if (usr.Business_Function__c != uprBusinessFunction) {
+        usr.Business_Function__c = uprBusinessFunction;
+      }
+      if (usr.Business_Role__c != uprBusinessRole) {
+        usr.Business_Role__c = uprBusinessRole;
+      }
+      if (managerMap.containskey(uprManagerUUID)) {
+        if (usr.ManagerId != managerMap.get(uprManagerUUID)) {
+          usr.ManagerId = managerMap.get(uprManagerUUID);
+        }
       }
     }
     return modifyUserList;
