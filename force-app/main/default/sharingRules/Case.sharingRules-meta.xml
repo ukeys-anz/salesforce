@@ -3,7 +3,7 @@
     <sharingCriteriaRules>
         <fullName>CRI_RT_Complaints_PG_AllIDRUsers_RW</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All the cases records owned by All IDR Users public group needs to be shared with</description>
+        <description>All the cases records owned by All IDR Users public group needs to be shared with.</description>
         <label>CRI_RT-Complaints_PG-AllIDRUsers-RW</label>
         <sharedTo>
             <group>All_IDR_Users</group>
