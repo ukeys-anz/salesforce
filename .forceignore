@@ -34,8 +34,5 @@ force-app/main/default/permissionsets/SFDX_Full_Dev_Hub_Access.permissionset
 # The sharing rule calculations makes scratch org creation to timeout with error sharing operation already in progress
 force-app/main/default/sharingRules/Case.sharingRules-meta.xml
 
-# Don't push because delegated authenticaton (and therefore IsSsoEnabled permission) cannot currently be enabled in scratch orgs
-force-app/main/default/permissionsets/SSO_Only.permissionset-meta.xml
-
 # Don't push Transaction security policy as it needs a user id for notification and also we dont want to turn off concurrent sessions in scratch org
 force-app/main/default/transactionSecurityPolicies/ConcurrentSessionsConditions.transactionSecurityPolicy-meta.xml
