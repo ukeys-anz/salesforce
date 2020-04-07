@@ -2,7 +2,6 @@
   init: function(component, event, helper) {
     // If there is only one recordtype assigned to the user take him to default case creation
     if (!component.get("v.pageReference").state.recordTypeId) {
-      console.log("@Pavan navigating to default record type");
       helper.goToNewCaseWithDefaultRecordType();
       return;
     }
