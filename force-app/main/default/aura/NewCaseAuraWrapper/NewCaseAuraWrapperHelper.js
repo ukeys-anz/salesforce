@@ -33,5 +33,12 @@
       slideDevName: "detail"
     });
     navEvt.fire();
+  },
+  goToNewCaseWithDefaultRecordType: function() {
+    var newCaseRecord = $A.get("e.force:createRecord");
+    newCaseRecord.setParams({
+      entityApiName: "Case"
+    });
+    newCaseRecord.fire();
   }
 });
