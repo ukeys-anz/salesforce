@@ -1,5 +1,10 @@
 ({
   init: function(component, event, helper) {
+    // If there is only one recordtype assigned to the user take him to default case creation
+    if (!component.get("v.pageReference").state.recordTypeId) {
+      helper.goToNewCaseWithDefaultRecordType();
+      return;
+    }
     // Get the selected record type dev name
     helper.getRtDevName(component, function(rt) {
       if (rt == "Non_Customer_Complaint" || rt == "Customer_Complaint") {
