@@ -13,8 +13,34 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
+                <fullName>Trailblazer</fullName>
+                <default>false</default>
+                <label>Trailblazer</label>
+            </value>
+            <value>
+                <fullName>Data Analyst</fullName>
+                <default>false</default>
+                <label>Data Analyst</label>
+            </value>
+            <value>
+                <fullName>Customer Resolution</fullName>
+                <default>false</default>
+                <label>Customer Resolution</label>
+            </value>
+            <value>
+                <fullName>Manager</fullName>
+                <default>false</default>
+                <label>Manager</label>
+            </value>
+            <value>
+                <fullName>Banker</fullName>
+                <default>false</default>
+                <label>Banker</label>
+            </value>
+            <value>
                 <fullName>Business Role</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>Business Role</label>
             </value>
         </valueSetDefinition>
