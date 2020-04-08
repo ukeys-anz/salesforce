@@ -32,19 +32,21 @@ public with sharing class UserTriggerHandler extends Lib_TriggerHandler {
       }
     }
     if (!FederationIds.isEmpty()) {
-      UserProvisioningService.checkUserProvisioingRequest(
+      UserProvisioningBeforeActions.checkUserProvisioingRequest(
         records,
         federationIds
       );
     }
 
     for (User record : (List<User>) records) {
-      if (UserProvisioningService.isValidRecordForProcessing(record)) {
-        businessFuncAndRoles.add(UserProvisioningService.generateKey(record));
+      if (UserProvisioningCommonActions.isValidRecordForProcessing(record)) {
+        businessFuncAndRoles.add(
+          UserProvisioningCommonActions.generateKey(record)
+        );
       }
     }
     if (!businessFuncAndRoles.isEmpty()) {
-      UserProvisioningService.assignProfileAndRole(
+      UserProvisioningBeforeActions.assignProfileAndRole(
         records,
         businessFuncAndRoles
       );
@@ -56,9 +58,11 @@ public with sharing class UserTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onValidate() {
     for (User record : (List<User>) records) {
-      if (UserProvisioningService.isValidRecordForProcessing(record)) {
+      if (UserProvisioningCommonActions.isValidRecordForProcessing(record)) {
         userList.add(record);
-        businessFuncAndRoles.add(UserProvisioningService.generateKey(record));
+        businessFuncAndRoles.add(
+          UserProvisioningCommonActions.generateKey(record)
+        );
       }
     }
   }
@@ -68,7 +72,10 @@ public with sharing class UserTriggerHandler extends Lib_TriggerHandler {
 
   public override void onAfterInsert() {
     if (!businessFuncAndRoles.isEmpty()) {
-      UserProvisioningService.assignMembership(userList, businessFuncAndRoles);
+      UserProvisioningAfterActions.assignMembership(
+        userList,
+        businessFuncAndRoles
+      );
     }
   }
 
@@ -81,15 +88,17 @@ public with sharing class UserTriggerHandler extends Lib_TriggerHandler {
     for (User record : (List<User>) records) {
       User oldRecord = (User) oldMap.get(record.id);
       if (
-        UserProvisioningService.isValidRecordForProcessing(record) &&
-        UserProvisioningService.isValidRecordForUpdate(record, oldRecord)
+        UserProvisioningCommonActions.isValidRecordForProcessing(record) &&
+        UserProvisioningCommonActions.isValidRecordForUpdate(record, oldRecord)
       ) {
-        businessFuncAndRoles.add(UserProvisioningService.generateKey(record));
+        businessFuncAndRoles.add(
+          UserProvisioningCommonActions.generateKey(record)
+        );
       }
     }
 
     if (!businessFuncAndRoles.isEmpty()) {
-      UserProvisioningService.assignProfileAndRole(
+      UserProvisioningBeforeActions.assignProfileAndRole(
         records,
         businessFuncAndRoles
       );
@@ -105,17 +114,21 @@ public with sharing class UserTriggerHandler extends Lib_TriggerHandler {
       User oldRecord = (User) oldMap.get(record.id);
       if (
         !CheckRecursive.SetOfIDs.contains(record.Id) &&
-        UserProvisioningService.isValidRecordForProcessing(record) &&
-        UserProvisioningService.isValidRecordForUpdate(record, oldRecord)
+        UserProvisioningCommonActions.isValidRecordForProcessing(record) &&
+        UserProvisioningCommonActions.isValidRecordForUpdate(record, oldRecord)
       ) {
         userIds.add(record.Id);
-        if (UserProvisioningService.isValidRecordForProcessing(oldRecord)) {
+        if (
+          UserProvisioningCommonActions.isValidRecordForProcessing(oldRecord)
+        ) {
           oldBusinessFuncAndRoles.add(
-            UserProvisioningService.generateKey(oldRecord)
+            UserProvisioningCommonActions.generateKey(oldRecord)
           );
         }
         userList.add(record);
-        businessFuncAndRoles.add(UserProvisioningService.generateKey(record));
+        businessFuncAndRoles.add(
+          UserProvisioningCommonActions.generateKey(record)
+        );
         CheckRecursive.setOfIDs.add(record.ID);
       }
     }
@@ -127,14 +140,17 @@ public with sharing class UserTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
     if (!oldBusinessFuncAndRoles.isEmpty()) {
-      UserProvisioningService.revokeMembership(
+      UserProvisioningAfterActions.revokeMembership(
         userIds,
         oldBusinessFuncAndRoles
       );
     }
 
     if (!businessFuncAndRoles.isEmpty()) {
-      UserProvisioningService.assignMembership(userList, businessFuncAndRoles);
+      UserProvisioningAfterActions.assignMembership(
+        userList,
+        businessFuncAndRoles
+      );
     }
   }
 }
