@@ -77,7 +77,9 @@ public with sharing class UserProvisioningAfterActions {
     Map<String, User_Provisioning_Setting__mdt> businessFunctionMap,
     Map<String, PermissionSet> pSetMap
   ) {
-    String businessFunctionRoleKey = UserProvisioningCommonActions.generateKey(record);
+    String businessFunctionRoleKey = UserProvisioningCommonActions.generateKey(
+      record
+    );
     String pSetNames;
     List<PermissionSetAssignment> psetAssignmentList = new List<PermissionSetAssignment>();
 
@@ -112,7 +114,9 @@ public with sharing class UserProvisioningAfterActions {
     Map<String, User_Provisioning_Setting__mdt> businessFunctionMap,
     Map<String, PermissionSetGroup> pSetGroupMap
   ) {
-    String businessFunctionRoleKey = UserProvisioningCommonActions.generateKey(record);
+    String businessFunctionRoleKey = UserProvisioningCommonActions.generateKey(
+      record
+    );
     String pSetGroupNames;
     List<PermissionSetAssignment> psetAssignmentList = new List<PermissionSetAssignment>();
 
@@ -146,7 +150,9 @@ public with sharing class UserProvisioningAfterActions {
     Map<String, User_Provisioning_Setting__mdt> businessFunctionMap,
     Map<String, Group> publicGroupMap
   ) {
-    String businessFunctionRoleKey = UserProvisioningCommonActions.generateKey(record);
+    String businessFunctionRoleKey = UserProvisioningCommonActions.generateKey(
+      record
+    );
     String groupNames;
     List<GroupMember> groupMemberList = new List<GroupMember>();
 

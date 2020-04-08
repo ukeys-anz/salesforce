@@ -132,7 +132,9 @@ public with sharing class UserProvisioningBeforeActions {
     Map<String, Profile> profileMap
   ) {
     String profileName;
-    String businessFunctionRoleKey = UserProvisioningCommonActions.generateKey(record);
+    String businessFunctionRoleKey = UserProvisioningCommonActions.generateKey(
+      record
+    );
     if (businessFunctionMap.containskey(businessFunctionRoleKey)) {
       profileName = businessFunctionMap.get(businessFunctionRoleKey)
         .Profile_Name__c;
@@ -155,7 +157,9 @@ public with sharing class UserProvisioningBeforeActions {
     Map<String, UserRole> userRoleMap
   ) {
     String roleName;
-    String businessFunctionRoleKey = UserProvisioningCommonActions.generateKey(record);
+    String businessFunctionRoleKey = UserProvisioningCommonActions.generateKey(
+      record
+    );
     if (businessFunctionMap.containskey(businessFunctionRoleKey)) {
       roleName = businessFunctionMap.get(businessFunctionRoleKey).Role_Name__c;
     }
