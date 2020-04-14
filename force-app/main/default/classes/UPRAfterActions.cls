@@ -42,7 +42,9 @@ public with sharing class UPRAfterActions {
     }
 
     if (!managerUUIDs.isEmpty()) {
-      managerMap = getManagerUsers(managerUUIDs);
+      managerMap = UserProvisioningCommonActions.getManagerRecords(
+        managerUUIDs
+      );
     }
 
     if (!uprModifyMap.isEmpty()) {
@@ -54,24 +56,6 @@ public with sharing class UPRAfterActions {
         false
       );
     }
-  }
-
-  /**
-   * @description Method to get manager user id by passing manager UUID from User provisioning request
-   * @param managerUUIDs from User provisioning request
-   * @return 'Map<String, String>'
-   */
-  private static Map<String, String> getManagerUsers(Set<String> managerUUIDs) {
-    Map<String, String> managerMap = new Map<String, String>();
-
-    for (User managerUser : [
-      SELECT Id, FederationIdentifier
-      FROM User
-      WHERE FederationIdentifier IN :managerUUIDs AND isActive = true
-    ]) {
-      managerMap.put(managerUser.FederationIdentifier, managerUser.Id);
-    }
-    return managerMap;
   }
 
   /**
