@@ -1140,6 +1140,11 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Case.General_Inquiry</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
         <default>true</default>
         <recordType>FinServ__ReciprocalRole__c.FinServ__AccountRole</recordType>
         <visible>true</visible>
