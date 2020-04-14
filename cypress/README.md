@@ -21,9 +21,15 @@ Once you have configured your proxy settings. Simply clone this repo and run `np
 
 **These tests rely on having a scratch org set up locally and set as the default org in order to work correctly.**
 
-The `cypress.json` file will need to be created in the root of the project to contain the configuration information. You can use the configuration that currently exists in the `cypress.example.json` file which is also located in the root of the project. The `cypress.json` file is ignored as it contains the configuration information for the Cypress project and could potentially contain sensitive data we do not want visible.
+```bash
+npm install
 
-All tests are run from a `cypress-build` folder, which is not included. After successfully cloning and installing typescript globally, you can build by running `tsc`/`tsc --build` or use `tsc --watch`.
+tsc --build
+
+mv cypress.example.json cypress.json
+```
+
+All tests are run from a `cypress-build` folder, which is not included. After successfully cloning and installing TypeScript globally, yhe folder is built by running `tsc`/`tsc --build` or alternatively you can use `tsc --watch` if you are making changes to the TypeScript files.
 
 The build folder will be created and Cypress will use that folder to run all tests. This folder is ignored by git so you don't have to worry about committing it.
 
