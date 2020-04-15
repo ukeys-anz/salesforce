@@ -398,7 +398,9 @@ public with sharing class IDRCaseActions {
           Case_Status__c = c.Status,
           Case_Status_Change_Date__c = System.now(),
           ComplainantEmail__c = c.IDR_NC_Email__c,
-          ComplainantFirstName__c = c.IDR_NC_First_Name__c,
+          ComplainantFirstName__c = c.IDR_NC_Is_Consent_Obtained__c == false
+            ? ''
+            : c.IDR_NC_First_Name__c,
           ComplainantMobile__c = c.IDR_NC_Mobile__c,
           EmailFlag__c = true,
           EmailTemplate__c = TEMPLATE_ID_MAP.get(c.Status),
