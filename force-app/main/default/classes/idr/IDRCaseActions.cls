@@ -390,7 +390,9 @@ public with sharing class IDRCaseActions {
       idrNotifications.add(
         new IDR_Notification_Event__e(
           AuthorisedEmail__c = c.IDR_3rdParty_Email__c,
-          AuthorisedFirstName__c = c.IDR_3rdParty_Name__c,
+          AuthorisedFirstName__c = c.IDR_NC_Is_Consent_Obtained__c == false
+            ? ''
+            : c.IDR_3rdParty_Name__c,
           AuthorisedMobile__c = c.IDR_3rdParty_Mobile__c,
           CAP_CIS_ID__c = c.IDR_Customer_Number__c,
           Case_ID__c = c.ID,
