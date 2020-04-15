@@ -1,12 +1,12 @@
 ({
-  init: function (component, event, helper) {
+  init: function(component, event, helper) {
     // If there is only one recordtype assigned to the user take him to default case creation
     if (!component.get("v.pageReference").state.recordTypeId) {
       helper.goToNewCaseWithDefaultRecordType(component);
       return;
     }
     // Get the selected record type dev name
-    helper.getRtDevName(component, function (rt) {
+    helper.getRtDevName(component, function(rt) {
       if (rt == "Non_Customer_Complaint" || rt == "Customer_Complaint") {
         component.set(
           "v.recordTypeId",
@@ -18,9 +18,9 @@
       } else {
         //workaround for console because the new case form opens in a new tab, so need to close the previous one
         var workspaceAPI = component.find("workspace");
-        workspaceAPI.isConsoleNavigation().then(function (response) {
+        workspaceAPI.isConsoleNavigation().then(function(response) {
           if (response == true) {
-            workspaceAPI.getFocusedTabInfo().then(function (response) {
+            workspaceAPI.getFocusedTabInfo().then(function(response) {
               var firstTabId = response.tabId;
               workspaceAPI
                 .openConsoleURL({
@@ -29,7 +29,7 @@
                     component.get("v.pageReference").state.recordTypeId,
                   focus: true
                 })
-                .then(function (activeTabId) {
+                .then(function(activeTabId) {
                   workspaceAPI.closeTab({ tabId: firstTabId });
                 });
             });
@@ -40,19 +40,19 @@
       }
     });
   },
-  handleNavigateRecord: function (component, event) {
+  handleNavigateRecord: function(component, event) {
     var caseId = event.getParam("caseId");
     var workspaceAPI = component.find("workspace");
-    workspaceAPI.isConsoleNavigation().then(function (response) {
+    workspaceAPI.isConsoleNavigation().then(function(response) {
       if (response == true) {
-        workspaceAPI.getFocusedTabInfo().then(function (response) {
+        workspaceAPI.getFocusedTabInfo().then(function(response) {
           var firstTabId = response.tabId;
           workspaceAPI
             .openConsoleURL({
               url: "/lightning/r/Case/" + caseId + "/view",
               focus: true
             })
-            .then(function (activeTabId) {
+            .then(function(activeTabId) {
               workspaceAPI.closeTab({ tabId: firstTabId });
             });
         });
