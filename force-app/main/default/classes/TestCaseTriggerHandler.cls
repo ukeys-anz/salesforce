@@ -1,5 +1,5 @@
 @isTest
-private class CaseTriggerHandlerTest {
+private class TestCaseTriggerHandler {
   @isTest
   static void testCaseNumberCopy() {
     // GIVEN cases are created
@@ -358,6 +358,33 @@ private class CaseTriggerHandlerTest {
         e.getMessage().contains('You cannot delete cases'),
         'Cases Cannot be deleted'
       );
+    }
+  }
+
+  @isTest
+  static void testParentCaseValidation() {
+    // create 2 parent cases
+    List<Case> parentCaseList = new List<Case>();
+    for (Integer i = 0; i < 2; i++) {
+      parentCaseList.add(
+        new Case(RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID)
+      );
+    }
+    insert parentCaseList;
+
+    // create a child case
+    Case childCase = new Case(
+      ParentId = parentCaseList[0].Id,
+      RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID
+    );
+    insert childCase;
+
+    // Update parent case to throw error
+    try {
+      parentCaseList[0].ParentId = parentCaseList[1].Id;
+      update parentCaseList;
+    } catch (DmlException e) {
+      system.assertEquals(Label.Msg_Parent_Case_Validation, e.getDmlMessage(0));
     }
   }
 }
