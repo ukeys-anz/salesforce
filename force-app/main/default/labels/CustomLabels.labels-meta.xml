@@ -32,6 +32,14 @@
         <value>/cap-system-api-sit/api/v1/public/customers/</value>
     </labels>
     <labels>
+        <fullName>Msg_Parent_Case_Validation</fullName>
+        <categories>GetHelp</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Msg Parent Case Validation</shortDescription>
+        <value>You can&#39;t add parent case. This case is associated with child cases.</value>
+    </labels>
+    <labels>
         <fullName>Test_Bulk_Size</fullName>
         <categories>Technical</categories>
         <language>en_US</language>
