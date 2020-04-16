@@ -8,7 +8,7 @@
             <operation>equals</operation>
             <value/>
         </filterItems>
-        <infoMessage>To stop creating grant parent or grant child cases</infoMessage>
+        <infoMessage>To stop creating grand parent or grand child cases</infoMessage>
         <isOptional>false</isOptional>
     </lookupFilter>
     <securityClassification>Confidential</securityClassification>
