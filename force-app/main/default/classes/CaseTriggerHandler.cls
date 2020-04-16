@@ -98,6 +98,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       Case oldRecord = (Case) oldMap.get(record.id);
       if (
         String.isNotBlank(record.ParentId) &&
+        record.RecordTypeId == GetHelpCaseActions.GENERAL_INQUIRY_RT_ID &&
         record.ParentId != oldRecord.ParentId
       ) {
         caseIds.add(record.id);
