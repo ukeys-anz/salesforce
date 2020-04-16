@@ -367,7 +367,9 @@ public with sharing class IDRCaseActions {
           Phone__c = c.IDR_NC_Phone__c,
           Post_Code__c = c.IDR_NC_Postcode__c,
           Remedy__c = c.IDR_Complaint_Remedy__c,
-          State__c = c.IDR_NC_State__c
+          State__c = c.IDR_NC_State__c,
+          Suburb__c = c.IDR_NC_Suburb__c,
+          Priority__c = c.Priority
         )
       );
     }
