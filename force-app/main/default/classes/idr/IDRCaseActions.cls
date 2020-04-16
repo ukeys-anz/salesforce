@@ -331,44 +331,6 @@ public with sharing class IDRCaseActions {
     if (recordsToBeEscalated.isEmpty()) {
       return;
     }
-
-    // Send picklist labels instead of values
-    Schema.DescribeFieldResult priorityPicklist = Case.Priority.getDescribe();
-    Map<String, String> priorityMap = new Map<String, String>();
-    for (Schema.PicklistEntry f : priorityPicklist.getPicklistValues()) {
-      priorityMap.put(f.getValue(), f.getLabel());
-    }
-
-    Schema.DescribeFieldResult statePicklist = Case.IDR_NC_State__c.getDescribe();
-    Map<String, String> stateMap = new Map<String, String>();
-    for (Schema.PicklistEntry f : statePicklist.getPicklistValues()) {
-      priorityMap.put(f.getValue(), f.getLabel());
-    }
-
-    Schema.DescribeFieldResult remedyPicklist = Case.IDR_Complaint_Remedy__c.getDescribe();
-    Map<String, String> remedyMap = new Map<String, String>();
-    for (Schema.PicklistEntry f : remedyPicklist.getPicklistValues()) {
-      priorityMap.put(f.getValue(), f.getLabel());
-    }
-
-    Schema.DescribeFieldResult lTypePicklist = Case.IDR_AuthRep_Licence_or_registration_type__c.getDescribe();
-    Map<String, String> lTypeMap = new Map<String, String>();
-    for (Schema.PicklistEntry f : lTypePicklist.getPicklistValues()) {
-      priorityMap.put(f.getValue(), f.getLabel());
-    }
-
-    Schema.DescribeFieldResult cTypePicklist = Case.IDR_Complainant_Type__c.getDescribe();
-    Map<String, String> cTypeMap = new Map<String, String>();
-    for (Schema.PicklistEntry f : cTypePicklist.getPicklistValues()) {
-      priorityMap.put(f.getValue(), f.getLabel());
-    }
-
-    Schema.DescribeFieldResult issuePicklist = Case.Type.getDescribe();
-    Map<String, String> issueMap = new Map<String, String>();
-    for (Schema.PicklistEntry f : issuePicklist.getPicklistValues()) {
-      priorityMap.put(f.getValue(), f.getLabel());
-    }
-
     idrCaseEscalations = new List<IDR_CRC_Escalation_Event__e>();
     for (Case c : recordsToBeEscalated) {
       idrCaseEscalations.add(
@@ -379,18 +341,16 @@ public with sharing class IDRCaseActions {
           AFCA_Number__c = c.IDR_AFCA_Number__c,
           Age__c = c.IDR_NC_Age__c,
           Agent_License_Number__c = c.IDR_AuthRep_Licence_Number__c,
-          Agent_License_Type__c = lTypeMap.get(
-            c.IDR_AuthRep_Licence_or_registration_type__c
-          ),
+          Agent_License_Type__c = c.IDR_AuthRep_Licence_or_registration_type__c,
           ANZ_Received_Date__c = c.IDR_Date_Received__c,
           Case_Number__c = String.isNotBlank(c.CaseNumber__c)
             ? c.CaseNumber__c
             : c.CaseNumber,
           Complainant_Name__c = c.IDR_NC_First_Name__c,
-          Complainant_Type__c = cTypeMap.get(c.IDR_Complainant_Type__c),
+          Complainant_Type__c = c.IDR_Complainant_Type__c,
           Complaint_Description__c = c.Description,
           Complaint_Desired_Outcome__c = c.IDR_Description_of_Outcome__c,
-          Complaint_Issue__c = issueMap.get(c.Type),
+          Complaint_Issue__c = c.Type,
           Country__c = c.IDR_NC_Country__c,
           Customer_Number__c = c.IDR_Customer_Number__c,
           Email__c = c.IDR_NC_Email__c,
@@ -406,10 +366,10 @@ public with sharing class IDRCaseActions {
           Mobile__c = c.IDR_NC_Mobile__c,
           Phone__c = c.IDR_NC_Phone__c,
           Post_Code__c = c.IDR_NC_Postcode__c,
-          Remedy__c = remedyMap.get(c.IDR_Complaint_Remedy__c),
-          State__c = stateMap.get(c.IDR_NC_State__c),
+          Remedy__c = c.IDR_Complaint_Remedy__c,
+          State__c = c.IDR_NC_State__c,
           Suburb__c = c.IDR_NC_Suburb__c,
-          Priority__c = priorityMap.get(c.Priority)
+          Priority__c = c.Priority
         )
       );
     }
