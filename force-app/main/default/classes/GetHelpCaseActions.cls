@@ -7,7 +7,7 @@
 public with sharing class GetHelpCaseActions {
   // General Inquiry Record Type Id
   @TestVisible
-  static final Id GENERAL_INQUIRY_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+  public static final Id GENERAL_INQUIRY_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('General_Inquiry')
     .getRecordTypeId();
 
@@ -21,25 +21,23 @@ public with sharing class GetHelpCaseActions {
     List<Case> validateCaseList
   ) {
     Set<Id> parentCaseIds = new Set<Id>();
-    List<Case> parentCaseList = new List<Case>();
+    //to store list of cases where the current record is parent case for other case records
+    List<Case> childCaseList = new List<Case>();
 
     if (Schema.sObjectType.Case.isQueryable()) {
-      parentCaseList = [
+      childCaseList = [
         SELECT Id, ParentId
         FROM Case
         WHERE ParentId IN :caseIds
       ];
     }
 
-    for (Case parentCase : parentCaseList) {
-      parentCaseIds.add(parentCase.ParentId);
+    for (Case childCase : childCaseList) {
+      parentCaseIds.add(childCase.ParentId);
     }
 
     for (Case record : validateCaseList) {
-      if (
-        record.RecordTypeId == GENERAL_INQUIRY_RT_ID &&
-        parentCaseIds.contains(record.id)
-      ) {
+      if (parentCaseIds.contains(record.id)) {
         record.addError(Label.Msg_Parent_Case_Validation);
       }
     }
