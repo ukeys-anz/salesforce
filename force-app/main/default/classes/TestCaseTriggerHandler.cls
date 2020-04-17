@@ -384,7 +384,10 @@ private class TestCaseTriggerHandler {
       parentCaseList[0].ParentId = parentCaseList[1].Id;
       update parentCaseList;
     } catch (DmlException e) {
-      system.assertEquals(Label.Msg_Parent_Case_Validation, e.getDmlMessage(0));
+      system.assertEquals(
+        'You cannot add parent case. This case is associated with child cases',
+        e.getDmlMessage(0)
+      );
     }
   }
 }

@@ -11,6 +11,9 @@ public with sharing class GetHelpCaseActions {
     .get('General_Inquiry')
     .getRecordTypeId();
 
+  // Parent Case validation error message
+  private static final String PARENT_CASE_ERROR = 'You cannot add parent case. This case is associated with child cases';
+
   /**
    * @description validateParentCase method is called before updating the case record to check and throw error if the record is having child cases
    * @param caseIds list of case ids from the trigger
@@ -38,7 +41,7 @@ public with sharing class GetHelpCaseActions {
 
     for (Case record : validateCaseList) {
       if (parentCaseIds.contains(record.id)) {
-        record.addError(Label.Msg_Parent_Case_Validation);
+        record.addError(PARENT_CASE_ERROR);
       }
     }
   }
