@@ -119,6 +119,10 @@
                 <value>AccountId</value>
             </componentInstanceProperties>
             <componentInstanceProperties>
+                <name>titleFieldName</name>
+                <value>Customer Details</value>
+            </componentInstanceProperties>
+            <componentInstanceProperties>
                 <name>updateQuickActionName</name>
                 <value>Account.Customer_Details</value>
             </componentInstanceProperties>
