@@ -13,4 +13,13 @@ private with sharing class TestIDRCaseActions {
       'Use CaseNumber__c instead of CaseNumber, and remove trailing zeros'
     );
   }
+
+  @isTest
+  static void testPicklistLabelFromValue() {
+    System.assertEquals(
+      'VIC',
+      IDRCaseActions.getPicklistLabel(Case.IDR_NC_State__c, '2'),
+      'Key=2, Value=VIC'
+    );
+  }
 }
