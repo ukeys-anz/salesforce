@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_Office__c</fullName>
+    <description>Office the complaint is being worked in. Taken from User.Division and to me mapped to AD&#39;s Office attribute.</description>
+    <externalId>false</externalId>
+    <label>Office</label>
+    <length>42</length>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

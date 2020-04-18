@@ -1,0 +1,37 @@
+{
+    "orgName": "ANZx",
+    "country": "AU",
+    "edition": "Enterprise",
+    "description": "Contains a baseline setup of Financial Services Cloud.",
+    "hasSampleData": false,
+    "language": "en_AU",
+    "features": [
+        "ContactsToMultipleAccounts",
+        "FinancialServicesUser:10",
+        "PersonAccounts",
+        "FieldAuditTrail",
+        "LightningScheduler",
+        "EventLogFile"
+    ],
+    "settings": {
+        "chatterSettings": {
+            "enableChatter": true
+        },
+        "communitiesSettings": {
+            "enableNetworksEnabled": false
+        },
+        "entitlementSettings": {
+            "enableEntitlements": false
+        },
+        "lightningExperienceSettings": {
+            "enableS1DesktopEnabled": true
+        },
+        "nameSettings": {
+            "enableMiddleName": true,
+            "enableNameSuffix": true
+        },
+        "pathAssistantSettings": {
+            "pathAssistantEnabled": true
+        }
+    }
+}

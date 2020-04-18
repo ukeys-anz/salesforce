@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Services__c</fullName>
+    <description>Gives the services provided by a particular Bank branch based on the Services Code.</description>
+    <externalId>false</externalId>
+    <label>Services</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <controllingField>Services_Code__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Branch</fullName>
+                <default>false</default>
+                <label>Branch</label>
+            </value>
+            <value>
+                <fullName>Full branch services</fullName>
+                <default>false</default>
+                <label>Full branch services</label>
+            </value>
+            <value>
+                <fullName>Investments</fullName>
+                <default>false</default>
+                <label>Investments</label>
+            </value>
+            <value>
+                <fullName>Transaction accounts</fullName>
+                <default>false</default>
+                <label>Transaction accounts</label>
+            </value>
+            <value>
+                <fullName>Financial planning</fullName>
+                <default>false</default>
+                <label>Financial planning</label>
+            </value>
+            <value>
+                <fullName>Insurances</fullName>
+                <default>false</default>
+                <label>Insurances</label>
+            </value>
+            <value>
+                <fullName>Home and investment loans</fullName>
+                <default>false</default>
+                <label>Home and investment loans</label>
+            </value>
+            <value>
+                <fullName>Sales only branch</fullName>
+                <default>false</default>
+                <label>Sales only branch</label>
+            </value>
+            <value>
+                <fullName>New products and loans</fullName>
+                <default>false</default>
+                <label>New products and loans</label>
+            </value>
+            <value>
+                <fullName>Fast deposit box (non-cash)</fullName>
+                <default>false</default>
+                <label>Fast deposit box (non-cash)</label>
+            </value>
+            <value>
+                <fullName>No telling/no cash transactions available</fullName>
+                <default>false</default>
+                <label>No telling/no cash transactions available</label>
+            </value>
+            <value>
+                <fullName>Sales Only - International</fullName>
+                <default>false</default>
+                <label>Sales Only - International</label>
+            </value>
+            <value>
+                <fullName>Account Openings</fullName>
+                <default>false</default>
+                <label>Account Openings</label>
+            </value>
+            <value>
+                <fullName>Account Enquires</fullName>
+                <default>false</default>
+                <label>Account Enquires</label>
+            </value>
+            <value>
+                <fullName>Loans</fullName>
+                <default>false</default>
+                <label>Loans</label>
+            </value>
+            <value>
+                <fullName>Financial Advice</fullName>
+                <default>false</default>
+                <label>Financial Advice</label>
+            </value>
+            <value>
+                <fullName>Agent</fullName>
+                <default>false</default>
+                <label>Agent</label>
+            </value>
+            <value>
+                <fullName>Deposits</fullName>
+                <default>false</default>
+                <label>Deposits</label>
+            </value>
+            <value>
+                <fullName>Withdrawals</fullName>
+                <default>false</default>
+                <label>Withdrawals</label>
+            </value>
+            <value>
+                <fullName>Limited Services</fullName>
+                <default>false</default>
+                <label>Limited Services</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>0</controllingFieldValue>
+            <valueName>Branch</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>1</controllingFieldValue>
+            <valueName>Full branch services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>1</controllingFieldValue>
+            <controllingFieldValue>5</controllingFieldValue>
+            <valueName>Investments</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>1</controllingFieldValue>
+            <controllingFieldValue>5</controllingFieldValue>
+            <valueName>Transaction accounts</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>1</controllingFieldValue>
+            <controllingFieldValue>5</controllingFieldValue>
+            <valueName>Financial planning</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>1</controllingFieldValue>
+            <controllingFieldValue>5</controllingFieldValue>
+            <valueName>Insurances</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>1</controllingFieldValue>
+            <controllingFieldValue>5</controllingFieldValue>
+            <valueName>Home and investment loans</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>5</controllingFieldValue>
+            <valueName>Sales only branch</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>5</controllingFieldValue>
+            <valueName>New products and loans</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>5</controllingFieldValue>
+            <valueName>Fast deposit box (non-cash)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>5</controllingFieldValue>
+            <valueName>No telling/no cash transactions available</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>8</controllingFieldValue>
+            <valueName>Sales Only - International</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>8</controllingFieldValue>
+            <valueName>Account Openings</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>8</controllingFieldValue>
+            <valueName>Account Enquires</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>8</controllingFieldValue>
+            <valueName>Loans</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>8</controllingFieldValue>
+            <valueName>Financial Advice</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>92</controllingFieldValue>
+            <valueName>Agent</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>92</controllingFieldValue>
+            <valueName>Deposits</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>92</controllingFieldValue>
+            <valueName>Withdrawals</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>92</controllingFieldValue>
+            <valueName>Limited Services</valueName>
+        </valueSettings>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

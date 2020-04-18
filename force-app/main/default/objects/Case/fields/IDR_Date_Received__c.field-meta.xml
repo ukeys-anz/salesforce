@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_Date_Received__c</fullName>
+    <defaultValue>TODAY()</defaultValue>
+    <description>Date received, may not be the record&#39;s created date in SF (data import, replication delays, ...). Leave blank for TODAY.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Date received, may not be the record&#39;s created date in SF (data import, replication delays, ...). Leave blank for TODAY.</inlineHelpText>
+    <label>Date Received</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>Anonymous_Complainant</fullName>
+        <categories>IDR</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Anonymous Complainant</shortDescription>
+        <value>Anonymous</value>
+    </labels>
+    <labels>
+        <fullName>ID_Prefix_User</fullName>
+        <categories>Technical</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ID Prefix User</shortDescription>
+        <value>005</value>
+    </labels>
+    <labels>
+        <fullName>MS_Account_Table</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Account_Table</shortDescription>
+        <value>/account-details-api-sandbox/api/accountbalance?ocvid=</value>
+    </labels>
+    <labels>
+        <fullName>MS_Get_Customer</fullName>
+        <categories>IDR</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_Customer</shortDescription>
+        <value>/cap-system-api-sit/api/v1/public/customers/</value>
+    </labels>
+    <labels>
+        <fullName>Test_Bulk_Size</fullName>
+        <categories>Technical</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Test Bulk Size</shortDescription>
+        <value>2</value>
+    </labels>
+</CustomLabels>

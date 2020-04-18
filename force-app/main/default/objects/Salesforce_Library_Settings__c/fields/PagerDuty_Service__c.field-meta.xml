@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagerDuty_Service__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>If true, the ApplicationLog to PagerDuty integration will be active.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>If true, the ApplicationLog to PagerDuty integration will be active.</inlineHelpText>
+    <label>PagerDuty Service</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Branch</fullName>
+    <active>true</active>
+    <description>Creating ANZ Branches</description>
+    <label>Branch</label>
+    <picklistValues>
+        <picklist>Services_Code__c</picklist>
+        <values>
+            <fullName>0</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>8</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>92</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Services__c</picklist>
+        <values>
+            <fullName>Account Enquires</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Account Openings</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Agent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Branch</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Deposits</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fast deposit box %28non-cash%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial Advice</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial planning</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Full branch services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home and investment loans</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Insurances</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Investments</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Limited Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Loans</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New products and loans</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No telling%2Fno cash transactions available</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales Only - International</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales only branch</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transaction accounts</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Withdrawals</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

@@ -1,0 +1,138 @@
+<template>
+  <lightning-card title="Customer Information" icon-name="standard:people">
+    <template if:true={customerInfo}>
+      <template if:true={showAsGrid}>
+        <div class="slds-grid slds-wrap slds-m-left_medium">
+          <div
+            class="slds-col slds-size_1-of-4 slds-text-body_regular slds-m-right_large slds-m-bottom_large slds-border_bottom"
+          >
+            Complainant Type : {customerInfo.complainant_type}
+          </div>
+          <div
+            class="slds-col slds-size_1-of-4 slds-text-body_regular slds-m-right_large slds-m-bottom_large slds-border_bottom"
+          >
+            First Name : {customerInfo.first_name}
+          </div>
+          <div
+            class="slds-col slds-size_1-of-4 slds-text-body_regular slds-m-right_large slds-m-bottom_large slds-border_bottom"
+          >
+            Last Name : {customerInfo.last_name}
+          </div>
+          <div
+            class="slds-col slds-size_1-of-4 slds-text-body_regular slds-m-right_large slds-m-bottom_large slds-border_bottom"
+          >
+            Middle Names : {customerInfo.middlename}
+          </div>
+          <div
+            class="slds-col slds-size_1-of-4 slds-text-body_regular slds-m-right_large slds-m-bottom_large slds-border_bottom"
+          >
+            Gender : {customerInfo.gender}
+          </div>
+          <div
+            class="slds-col slds-size_1-of-4 slds-text-body_regular slds-m-right_large slds-m-bottom_large slds-border_bottom"
+          >
+            Age : {customerInfo.age}
+          </div>
+          <div
+            class="slds-col slds-size_1-of-4 slds-text-body_regular slds-m-right_large slds-m-bottom_large slds-border_bottom"
+          >
+            Email : {customerInfo.email}
+          </div>
+          <div
+            class="slds-col slds-size_1-of-4 slds-text-body_regular slds-m-right_large slds-m-bottom_large slds-border_bottom"
+          >
+            Mobile : {customerInfo.mobile}
+          </div>
+          <div
+            class="slds-col slds-size_1-of-4 slds-text-body_regular slds-m-right_large slds-m-bottom_large slds-border_bottom"
+          >
+            Street : {customerInfo.street}
+          </div>
+          <div
+            class="slds-col slds-size_1-of-4 slds-text-body_regular slds-m-right_large slds-m-bottom_large slds-border_bottom"
+          >
+            Suburb : {customerInfo.suburb}
+          </div>
+          <div
+            class="slds-col slds-size_1-of-4 slds-text-body_regular slds-m-right_large slds-m-bottom_large slds-border_bottom"
+          >
+            State : {customerInfo.state}
+          </div>
+          <div
+            class="slds-col slds-size_1-of-4 slds-text-body_regular slds-m-right_large slds-m-bottom_large slds-border_bottom"
+          >
+            Postcode : {customerInfo.postcode}
+          </div>
+          <div
+            class="slds-col slds-size_1-of-4 slds-text-body_regular slds-m-right_large slds-m-bottom_large slds-border_bottom"
+          >
+            Country : {customerInfo.country}
+          </div>
+        </div>
+      </template>
+      <template if:false={showAsGrid}>
+        <div class="slds-p-around_medium">
+          <ul class="slds-list--vertical slds-has-dividers--bottom-space">
+            <li class="slds-list__item" title="Complainant Type">
+              Complainant Type : {customerInfo.complainant_type}
+            </li>
+            <li class="slds-list__item" title="First Name">
+              First Name : {customerInfo.first_name}
+            </li>
+            <li class="slds-list__item" title="Middle Names">
+              Middle Names : {customerInfo.middlename}
+            </li>
+            <li class="slds-list__item" title="Last Name">
+              Last Name : {customerInfo.last_name}
+            </li>
+            <li class="slds-list__item" title="Gender">
+              Gender : {customerInfo.gender}
+            </li>
+            <li class="slds-list__item" title="Age">
+              Age : {customerInfo.age}
+            </li>
+            <li class="slds-list__item" title="Email">
+              Email : {customerInfo.email}
+            </li>
+            <li class="slds-list__item" title="Mobile">
+              Mobile : {customerInfo.mobile}
+            </li>
+            <li class="slds-list__item" title="Street">
+              Street : {customerInfo.street}
+            </li>
+            <li class="slds-list__item" title="Suburb">
+              Suburb : {customerInfo.suburb}
+            </li>
+            <li class="slds-list__item" title="State">
+              State : {customerInfo.state}
+            </li>
+            <li class="slds-list__item" title="Postcode">
+              Postcode : {customerInfo.postcode}
+            </li>
+            <li class="slds-list__item" title="Country">
+              Country : {customerInfo.country}
+            </li>
+          </ul>
+        </div>
+      </template>
+    </template>
+    <template if:true={error}>
+      <div class="slds-p-around_medium">
+        <ul class="slds-list--vertical slds-has-dividers--bottom-space">
+          <li class="slds-list__item" title="Complainant Type">
+            Error : {error}
+          </li>
+        </ul>
+      </div>
+    </template>
+    <template if:false={loaded}>
+      <div class="spinner">
+        <lightning-spinner
+          size="small"
+          alternative-text="Loading"
+          variant="brand"
+        ></lightning-spinner>
+      </div>
+    </template>
+  </lightning-card>
+</template>

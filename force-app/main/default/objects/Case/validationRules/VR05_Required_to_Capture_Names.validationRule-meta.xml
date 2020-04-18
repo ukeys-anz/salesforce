@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR05_Required_to_Capture_Names</fullName>
+    <active>true</active>
+    <description>If complainant consented to data collection, his/her names should be captured.</description>
+    <errorConditionFormula>AND(
+	$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+	RecordType.DeveloperName = &#39;Non_Customer_Complaint&#39;,
+	IDR_NC_Is_Consent_Obtained__c = true,
+	OR(
+		ISBLANK(IDR_NC_First_Name__c ),
+		IDR_NC_First_Name__c = $Label.Anonymous_Complainant,
+		ISBLANK(IDR_NC_Last_Name__c ),
+		IDR_NC_Last_Name__c = $Label.Anonymous_Complainant
+	)
+)</errorConditionFormula>
+    <errorMessage>Please record complainant&#39;s first, middle (if any), and last names.</errorMessage>
+</ValidationRule>

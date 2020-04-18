@@ -1,0 +1,48 @@
+# This workflow deploys changes to a Salesforce project to a Salesforce org with the check only flag
+name: Verify
+
+# This workflow will only run on Pull Reqeusts against master and develop
+on:
+  pull_request:
+    branches:
+      - master
+      - develop
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    container: ddawson235/sfdx:latest
+
+    env:
+      BASE_BRANCH: ${{ github.base_ref }}
+
+    steps:
+      - name: "Create auth files with SFDX_URL secret"
+        shell: bash
+        run: |
+          echo ${{ secrets.SYSTEST}} > ./SFDX_URL_SYSTEST.txt
+          echo ${{ secrets.STAGING}} > ./SFDX_URL_STAGING.txt
+
+      - name: "Authenticate all orgs in SFDX CLI"
+        run: |
+          sfdx force:auth:sfdxurl:store -a staging --sfdxurlfile=./SFDX_URL_STAGING.txt
+          sfdx force:auth:sfdxurl:store -a systest --sfdxurlfile=./SFDX_URL_SYSTEST.txt
+
+      - uses: actions/checkout@v1
+      - name: "Generate package"
+        id: package
+        shell: bash
+        run: ci/package.sh
+
+      - uses: actions/upload-artifact@v1
+        if: ${{ steps.package.outputs.ARTEFACT_GENERATED }}
+        with:
+          name: package
+          path: ./artefact/
+
+      - name: "Validate Package"
+        shell: bash
+        run: ci/deploy.sh
+        env:
+          DEPLOY_ROOT: ./artefact/
+          BUILD_COMMAND: validate

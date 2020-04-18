@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BusinessHoursSettings xmlns="http://soap.sforce.com/2006/04/metadata">
+    <businessHours>
+        <active>true</active>
+        <default>false</default>
+        <fridayEndTime>00:00:00.000Z</fridayEndTime>
+        <fridayStartTime>00:00:00.000Z</fridayStartTime>
+        <mondayEndTime>00:00:00.000Z</mondayEndTime>
+        <mondayStartTime>00:00:00.000Z</mondayStartTime>
+        <name>Case Business Hours</name>
+        <thursdayEndTime>00:00:00.000Z</thursdayEndTime>
+        <thursdayStartTime>00:00:00.000Z</thursdayStartTime>
+        <timeZoneId>Australia/Brisbane</timeZoneId>
+        <tuesdayEndTime>00:00:00.000Z</tuesdayEndTime>
+        <tuesdayStartTime>00:00:00.000Z</tuesdayStartTime>
+        <wednesdayEndTime>00:00:00.000Z</wednesdayEndTime>
+        <wednesdayStartTime>00:00:00.000Z</wednesdayStartTime>
+    </businessHours>
+    <businessHours>
+        <active>true</active>
+        <default>true</default>
+        <fridayEndTime>00:00:00.000Z</fridayEndTime>
+        <fridayStartTime>00:00:00.000Z</fridayStartTime>
+        <mondayEndTime>00:00:00.000Z</mondayEndTime>
+        <mondayStartTime>00:00:00.000Z</mondayStartTime>
+        <name>Default</name>
+        <saturdayEndTime>00:00:00.000Z</saturdayEndTime>
+        <saturdayStartTime>00:00:00.000Z</saturdayStartTime>
+        <sundayEndTime>00:00:00.000Z</sundayEndTime>
+        <sundayStartTime>00:00:00.000Z</sundayStartTime>
+        <thursdayEndTime>00:00:00.000Z</thursdayEndTime>
+        <thursdayStartTime>00:00:00.000Z</thursdayStartTime>
+        <timeZoneId>America/Los_Angeles</timeZoneId>
+        <tuesdayEndTime>00:00:00.000Z</tuesdayEndTime>
+        <tuesdayStartTime>00:00:00.000Z</tuesdayStartTime>
+        <wednesdayEndTime>00:00:00.000Z</wednesdayEndTime>
+        <wednesdayStartTime>00:00:00.000Z</wednesdayStartTime>
+    </businessHours>
+    <holidays>
+        <activityDate>2020-04-25</activityDate>
+        <businessHours>Case Business Hours</businessHours>
+        <description>Anzac Day</description>
+        <isRecurring>false</isRecurring>
+        <name>Anzac Day</name>
+    </holidays>
+    <holidays>
+        <activityDate>2020-01-27</activityDate>
+        <description>Australia Day</description>
+        <isRecurring>false</isRecurring>
+        <name>Australia Day</name>
+    </holidays>
+    <holidays>
+        <activityDate>2020-12-28</activityDate>
+        <businessHours>Case Business Hours</businessHours>
+        <description>Boxing Day</description>
+        <isRecurring>false</isRecurring>
+        <name>Boxing Day</name>
+    </holidays>
+    <holidays>
+        <activityDate>2020-12-25</activityDate>
+        <businessHours>Case Business Hours</businessHours>
+        <description>Christmas Day</description>
+        <isRecurring>false</isRecurring>
+        <name>Christmas Day</name>
+    </holidays>
+    <holidays>
+        <activityDate>2020-04-13</activityDate>
+        <businessHours>Case Business Hours</businessHours>
+        <description>Easter Monday</description>
+        <isRecurring>false</isRecurring>
+        <name>Easter Monday</name>
+    </holidays>
+    <holidays>
+        <activityDate>2020-04-10</activityDate>
+        <businessHours>Case Business Hours</businessHours>
+        <description>Good Friday</description>
+        <isRecurring>false</isRecurring>
+        <name>Good Friday</name>
+    </holidays>
+    <holidays>
+        <activityDate>2020-01-01</activityDate>
+        <businessHours>Case Business Hours</businessHours>
+        <description>New Year&#39;s Day</description>
+        <isRecurring>false</isRecurring>
+        <name>New Year&#39;s Day</name>
+    </holidays>
+</BusinessHoursSettings>

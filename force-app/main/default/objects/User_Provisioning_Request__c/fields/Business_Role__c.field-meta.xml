@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Business_Role__c</fullName>
+    <description>Business Role of the user which will be used in User trigger to provide permissions</description>
+    <externalId>false</externalId>
+    <label>Business Role</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Trailblazer</fullName>
+                <default>false</default>
+                <label>Trailblazer</label>
+            </value>
+            <value>
+                <fullName>Data Analyst</fullName>
+                <default>false</default>
+                <label>Data Analyst</label>
+            </value>
+            <value>
+                <fullName>Customer Resolution</fullName>
+                <default>false</default>
+                <label>Customer Resolution</label>
+            </value>
+            <value>
+                <fullName>Manager</fullName>
+                <default>false</default>
+                <label>Manager</label>
+            </value>
+            <value>
+                <fullName>Banker</fullName>
+                <default>false</default>
+                <label>Banker</label>
+            </value>
+            <value>
+                <fullName>Business Role</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Business Role</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

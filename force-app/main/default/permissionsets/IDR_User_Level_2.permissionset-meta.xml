@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <applicationVisibilities>
+        <application>IDR_Console</application>
+        <visible>true</visible>
+    </applicationVisibilities>
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>IDR_Level_2</name>
+    </customPermissions>
+    <description>The IDR user Level 2 permission which will be used by Team Lead or Area Managers in call centers and branches</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>IDR User Level 2</label>
+</PermissionSet>
