@@ -41,4 +41,29 @@
         <default>false</default>
         <label>anz.com</label>
     </standardValue>
+    <standardValue>
+        <fullName>Chat</fullName>
+        <default>false</default>
+        <label>Chat</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Voice Call</fullName>
+        <default>false</default>
+        <label>Voice Call</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Video Call</fullName>
+        <default>false</default>
+        <label>Video Call</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Appointment</fullName>
+        <default>false</default>
+        <label>Appointment</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Store</fullName>
+        <default>false</default>
+        <label>Store</label>
+    </standardValue>
 </StandardValueSet>
