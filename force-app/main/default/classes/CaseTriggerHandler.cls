@@ -85,4 +85,29 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     IDRCaseActions.completeAfterActions();
     CaseCommonActions.completeAfterUpdateActions(updateCaseList);
   }
+
+  /**
+   * @description onBeforeUpdate to handle after update trigger actions.
+   * @param oldMap old trigger values
+   */
+  public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    List<Id> caseIds = new List<Id>();
+    List<Case> validateCaseList = new List<Case>();
+
+    for (Case record : (List<Case>) records) {
+      Case oldRecord = (Case) oldMap.get(record.id);
+      if (
+        String.isNotBlank(record.ParentId) &&
+        record.RecordTypeId == GetHelpCaseActions.GENERAL_INQUIRY_RT_ID &&
+        record.ParentId != oldRecord.ParentId
+      ) {
+        caseIds.add(record.id);
+        validateCaseList.add(record);
+      }
+    }
+
+    if (!caseIds.isEmpty()) {
+      GetHelpCaseActions.validateParentCase(caseIds, validateCaseList);
+    }
+  }
 }

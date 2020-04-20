@@ -57,7 +57,7 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>CaseTriggerHandlerTest</apexClass>
+        <apexClass>TestCaseTriggerHandler</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
