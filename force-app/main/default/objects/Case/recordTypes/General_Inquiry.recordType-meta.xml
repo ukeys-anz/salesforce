@@ -3278,36 +3278,24 @@
     <picklistValues>
         <picklist>Origin</picklist>
         <values>
-            <fullName>1</fullName>
+            <fullName>Appointment</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>3</fullName>
+            <fullName>Chat</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>4</fullName>
+            <fullName>Store</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>5</fullName>
+            <fullName>Video Call</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>6</fullName>
+            <fullName>Voice Call</fullName>
             <default>false</default>
-        </values>
-        <values>
-            <fullName>8</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Email</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Phone</fullName>
-            <default>true</default>
         </values>
     </picklistValues>
     <picklistValues>
