@@ -21,6 +21,14 @@
         <visible>true</visible>
     </applicationVisibilities>
     <classAccesses>
+        <apexClass>AccountTableServerController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>AccountTableServerControllerTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>CaseCommentsTriggerHandler</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -33,10 +41,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>TestCaseTriggerHandler</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>CheckRecursive</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -45,7 +49,99 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>ConcurrentSessionsPolicyConditionTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>Faker</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FakerAddressProvider</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FakerAddressProviderTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FakerBase</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FakerBaseTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FakerExampleFactory</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FakerFactory</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FakerFactoryBase</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FakerFactoryInterface</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FakerFactoryTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FakerInternetProvider</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FakerInternetProviderTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FakerPersonProvider</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FakerPersonProviderTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FakerTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FakerTextProvider</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FakerTextProviderTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FakerUsAddressProvider</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FakerUsPersonProvider</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FakerUsTextProvider</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FakerUserFactory</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>GetCustomerInformation</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>GetHelpCaseActions</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -85,7 +181,19 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>TestCaseCommentsTriggerHandler</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TestCaseTriggerHandler</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TestGetCustomerInformation</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TestIDRCaseActions</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -97,19 +205,7 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>UserProvisioningCommonActions</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>UserProvisioningBeforeActions</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>UserProvisioningAfterActions</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>UserTriggerHandler</apexClass>
+        <apexClass>TestUserProvisioningRequest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -117,94 +213,123 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>FakerUserFactory</apexClass>
+        <apexClass>UPRAfterActions</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>UserProvisioningAfterActions</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>UserProvisioningBeforeActions</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>UserProvisioningCommonActions</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>UserProvisioningRequestHandler</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>UserProvisioningRestService</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>UserTriggerHandler</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <custom>false</custom>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Account.KYC_Verification_Level__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Account.Legal_Entitlements__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Account.Preferred_Phone__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Account.Secondary_Home_Telephone__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Application_Log__c.Batch_Id__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Application_Log__c.Error_Code__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Application_Log__c.Error_Description__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Application_Log__c.Error_No__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Application_Log__c.Function_Name__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Application_Log__c.Object_Name__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Application_Log__c.PagerDuty_Service_Email__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Application_Log__c.Process_Name__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Application_Log__c.Record_Id__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Application_Log__c.Request_Body__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Application_Log__c.Response_Body__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Application_Log__c.Severity__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Application_Logging__e.sfLog__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.AccountId</field>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -213,7 +338,27 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Auto_Created__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.BusinessHoursId</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.CaseNumber__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.ClosedDate</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.ClosedOnCreate</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -517,7 +662,17 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
+        <field>Case.IsClosedOnCreate</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IsEscalated</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Is_Owner_s_Line_Manager_Me__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -652,217 +807,232 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>IDR_CRC_Escalation_Event__e.AFCA_Date__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>IDR_CRC_Escalation_Event__e.AFCA_Number__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>IDR_CRC_Escalation_Event__e.ANZ_Received_Date__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>IDR_CRC_Escalation_Event__e.Account_Number__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>IDR_CRC_Escalation_Event__e.Address_Line1__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>IDR_CRC_Escalation_Event__e.Age__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>IDR_CRC_Escalation_Event__e.Agent_License_Number__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>IDR_CRC_Escalation_Event__e.Agent_License_Type__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>IDR_CRC_Escalation_Event__e.Case_Number__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
+        <field>IDR_CRC_Escalation_Event__e.Channel_Received__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>IDR_CRC_Escalation_Event__e.Complainant_Name__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>IDR_CRC_Escalation_Event__e.Complainant_Type__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>IDR_CRC_Escalation_Event__e.Complaint_Description__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>IDR_CRC_Escalation_Event__e.Complaint_Desired_Outcome__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>IDR_CRC_Escalation_Event__e.Complaint_Issue__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>IDR_CRC_Escalation_Event__e.Country__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>IDR_CRC_Escalation_Event__e.Customer_Number__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>IDR_CRC_Escalation_Event__e.Email__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>IDR_CRC_Escalation_Event__e.Gender__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>IDR_CRC_Escalation_Event__e.Is_Written_Response_Requested__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>IDR_CRC_Escalation_Event__e.Is_Written_Response_Required__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>IDR_CRC_Escalation_Event__e.Mobile__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>IDR_CRC_Escalation_Event__e.Phone__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>IDR_CRC_Escalation_Event__e.Post_Code__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
+        <field>IDR_CRC_Escalation_Event__e.Priority__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>IDR_CRC_Escalation_Event__e.Remedy__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>IDR_CRC_Escalation_Event__e.State__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
+        <field>IDR_CRC_Escalation_Event__e.Suburb__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>IDR_Notification_Event__e.AuthorisedEmail__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>IDR_Notification_Event__e.AuthorisedFirstName__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>IDR_Notification_Event__e.AuthorisedMobile__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>IDR_Notification_Event__e.CAP_CIS_ID__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>IDR_Notification_Event__e.Case_ID__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>IDR_Notification_Event__e.Case_Number__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>IDR_Notification_Event__e.Case_Status_Change_Date__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>IDR_Notification_Event__e.Case_Status__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>IDR_Notification_Event__e.ComplainantEmail__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>IDR_Notification_Event__e.ComplainantFirstName__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>IDR_Notification_Event__e.ComplainantMobile__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>IDR_Notification_Event__e.EmailFlag__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>IDR_Notification_Event__e.EmailTemplate__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>IDR_Notification_Event__e.SMSFlag__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>IDR_Notification_Event__e.SMSTemplate__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>ServiceAppointment.Appointment_Application_Time__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>ServiceAppointment.Branch_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>ServiceAppointment.Branch_Phone2__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -887,9 +1057,9 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>ServiceAppointment.Phone__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -963,6 +1133,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>User_Provisioning_Request__c.Manager_UUID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>User_Provisioning_Request__c.Requestor_UUID__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -978,28 +1153,23 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>User_Provisioning_Request__c.Manager_UUID__c</field>
+        <field>User_Provisioning_Setting__mdt.Permission_Set_Groups__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>User_Provisioning_Setting__mdt.Permission_Set_Groups__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>User_Provisioning_Setting__mdt.Permission_Sets__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>User_Provisioning_Setting__mdt.Public_Groups__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>User_Provisioning_Setting__mdt.Role_Name__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <layoutAssignments>
         <layout>Application_Log__c-Application Log Layout</layout>
@@ -1027,12 +1197,6 @@
         <recordType>ServiceTerritory.Branch</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>WorkType-ANZ Work Type Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>WorkTypeGroup-ANZ Work type Group Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
         <layout>User-User Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -1040,6 +1204,12 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>User_Provisioning_Setting__mdt-User Provisioning Setting Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>WorkType-ANZ Work Type Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>WorkTypeGroup-ANZ Work type Group Layout</layout>
     </layoutAssignments>
     <objectPermissions>
         <allowCreate>true</allowCreate>
@@ -1057,6 +1227,15 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
         <object>Application_Logging__e</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>Case</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
@@ -1115,27 +1294,8 @@
     </objectPermissions>
     <recordTypeVisibilities>
         <default>true</default>
-        <personAccountDefault>false</personAccountDefault>
         <recordType>Account.Business_Account</recordType>
         <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
-        <default>false</default>
-        <personAccountDefault>false</personAccountDefault>
-        <recordType>Account.FinServ__IndustriesBusiness</recordType>
-        <visible>false</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
-        <default>false</default>
-        <personAccountDefault>false</personAccountDefault>
-        <recordType>Account.FinServ__IndustriesHousehold</recordType>
-        <visible>false</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
-        <default>false</default>
-        <personAccountDefault>false</personAccountDefault>
-        <recordType>Account.FinServ__IndustriesIndividual</recordType>
-        <visible>false</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <default>true</default>
@@ -1144,12 +1304,12 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <default>false</default>
-        <recordType>Case.Non_Customer_Complaint</recordType>
+        <recordType>Case.General_Inquiry</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <default>false</default>
-        <recordType>Case.General_Inquiry</recordType>
+        <recordType>Case.Non_Customer_Complaint</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
