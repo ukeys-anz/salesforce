@@ -68,6 +68,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     ) {
       update updateCaseList;
     }
+    CaseCommonActions.generateCaseDurationList((List<Case>) Trigger.New);
     IDRCaseActions.completeAfterActions();
     CaseCommonActions.completeAfterInsertActions(updateCaseList);
   }
@@ -82,6 +83,13 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     ) {
       update updateCaseList;
     }
+
+    CaseCommonActions.handleCaseDurationGeneration(
+      Trigger.new,
+      Trigger.newMap,
+      oldMap
+    );
+
     IDRCaseActions.completeAfterActions();
     CaseCommonActions.completeAfterUpdateActions(updateCaseList);
   }

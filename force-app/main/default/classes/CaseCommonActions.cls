@@ -6,6 +6,8 @@
  */
 
 public with sharing class CaseCommonActions {
+  public static final long TIME_TO_HOUR = 60 * 60 * 1000;
+  public static final long TIME_TO_MIN = 60 * 1000;
   /**
    * @description completeAfterInsertActions is called after onAfterInsert is finished to complete any pending actions
    * @param updateCaseList updateCaseList to be cleared after insert
@@ -42,6 +44,110 @@ public with sharing class CaseCommonActions {
       if (String.isBlank(records.get(i).CaseNumber__c)) {
         caseToBeChanged.get(i).CaseNumber__c = records.get(i).CaseNumber;
       }
+    }
+  }
+
+  /**
+   * @description general method to handle case duration record generation and update
+   * @param newList new trigger list values
+   * @param newMap new trigger values
+   * @param oldMap old trigger values
+   */
+  public static void handleCaseDurationGeneration(
+    List<SObject> newList,
+    Map<Id, SObject> newMap,
+    Map<Id, SObject> oldMap
+  ) {
+    List<Case> caseToInsertDurations = new List<Case>();
+    List<Id> caseToUpdateDurations = new List<Id>();
+
+    for (Case c : (List<Case>) newList) {
+      Case oldCase = (Case) oldMap.get(c.Id);
+      if (oldCase.Status != c.Status) {
+        if (oldCase.Status != 'Closed') {
+          caseToUpdateDurations.add(c.Id);
+        }
+        if (c.Status != 'Closed') {
+          caseToInsertDurations.add(c);
+        }
+      }
+    }
+    if (!caseToInsertDurations.isEmpty()) {
+      generateCaseDurationList(caseToInsertDurations);
+    }
+    if (!caseToUpdateDurations.isEmpty()) {
+      updateCaseDurationList(
+        caseToUpdateDurations,
+        (Map<Id, Case>) newMap,
+        (Map<Id, Case>) oldMap
+      );
+    }
+  }
+
+  /**
+   * @description generate initial case duration record
+   * @param caseList The related case list to generatee case durations
+   */
+  public static void generateCaseDurationList(List<Case> caseList) {
+    List<Case_Duration__c> cdToCreateList = new List<Case_Duration__c>();
+    for (Case c : caseList) {
+      Case_Duration__c cd = new Case_Duration__c();
+      cd.Initial_Status__c = c.Status;
+      cd.Start_Time__c = DateTime.now();
+      cd.Case__c = c.Id;
+
+      cdToCreateList.add(cd);
+    }
+    if (Case_Duration__c.sObjectType.getDescribe().isCreateable()) {
+      insert cdToCreateList;
+    }
+  }
+
+  /**
+   * @description generate initial case duration record
+   * @param relatedCaseList The related case list to update case durations
+   * @param caseMap the trigger new map
+   * @param oldCaseMap the trigger old map
+   */
+  public static void updateCaseDurationList(
+    List<String> relatedCaseList,
+    Map<Id, Case> caseMap,
+    Map<Id, Case> oldCaseMap
+  ) {
+    List<Case_Duration__c> cdRelatedList = [
+      SELECT
+        Id,
+        Initial_Status__c,
+        End_Time__c,
+        Start_Time__c,
+        End_Status__c,
+        Case__c,
+        Case__r.BusinessHoursId
+      FROM Case_Duration__c
+      WHERE Case__c IN :relatedCaseList AND End_Time__c = null
+    ];
+
+    for (Case_Duration__c cd : cdRelatedList) {
+      String oldStatus = oldCaseMap.get(cd.Case__c).Status;
+      if (oldStatus == cd.Initial_Status__c) {
+        cd.End_Status__c = caseMap.get(cd.Case__c).Status;
+        cd.End_Time__c = DateTime.now();
+        long businessMilliSeconds = BusinessHours.diff(
+          cd.Case__r.BusinessHoursId,
+          cd.Start_Time__c,
+          cd.End_Time__c
+        );
+
+        cd.Business_Hours_Age_Hours__c = businessMilliSeconds / TIME_TO_HOUR;
+        cd.Business_Hours_Age_Minutes__c = (long) (Math.Mod(
+          BusinessMilliSeconds,
+          TIME_TO_HOUR
+        ) / TIME_TO_MIN);
+      }
+    }
+
+    if (Case_Duration__c.sObjectType.getDescribe().isUpdateable()) {
+      update cdRelatedList;
     }
   }
 }
