@@ -8,6 +8,10 @@
         <application>IDR_Console</application>
         <visible>true</visible>
     </applicationVisibilities>
+    <customMetadataTypeAccesses>
+        <enabled>true</enabled>
+        <name>User_Provisioning_Setting__mdt</name>
+    </customMetadataTypeAccesses>
     <description>Read Only Admin for users on systest and staging for viewing all the data but no modify access. This should be used along with no access profile.</description>
     <fieldPermissions>
         <editable>true</editable>
