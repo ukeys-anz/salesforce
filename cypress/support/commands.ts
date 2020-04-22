@@ -34,6 +34,19 @@ declare namespace Cypress {
     login(): void;
     connect(): any;
     loadApp(appName: string): void;
+    loadTab(appName: string): void;
+
+    selectDropdown(
+      dropdownname: string,
+      selval: number
+    ): Cypress.Chainable<any>;
+
+    typeLabel(
+      labelname: string,
+      labeltype: string,
+      inputval: string
+    ): Cypress.Chainable<any>;
+    clickLabel(labelname: string): Cypress.Chainable<any>;
   }
 }
 
@@ -64,13 +77,16 @@ Cypress.Commands.add("login", (): void => {
       myBase.setAccessToken(accessToken);
       myBase.setInstanceUrl(instanceUrl);
     });
-  }
-  cy.log("Logging in...").then(() => {
-    cy.request(
-      `${myBase.InstanceUrl}/secur/frontdoor.jsp?sid=${myBase.AccessToken}`
-    );
+
+    cy.log("Logging in...").then(() => {
+      cy.request(
+        `${myBase.InstanceUrl}/secur/frontdoor.jsp?sid=${myBase.AccessToken}`
+      );
+      cy.visit(`${myBase.InstanceUrl}/lightning`);
+    });
+  } else {
     cy.visit(`${myBase.InstanceUrl}/lightning`);
-  });
+  }
 });
 
 Cypress.Commands.add("connect", (): void => {
@@ -122,11 +138,6 @@ Cypress.Commands.add("loadApp", (appName: string): void => {
       return true;
     }
 
-    // cy.shadowGet("one-appnav")
-    //   .shadowFind("one-app-launcher-header")
-    //   .shadowFind("button.slds-button")
-    //   .shadowClick();
-
     cy.get("nav.appLauncher").click();
 
     cy.shadowGet("one-app-launcher-menu")
@@ -144,4 +155,49 @@ Cypress.Commands.add("loadApp", (appName: string): void => {
 
     cy.wait(5000);
   });
+});
+
+Cypress.Commands.add("loadTab", (tabName: string): void => {
+  cy.get(".oneAppNavMenu", { timeout: 10000 })
+    .should("be.visible")
+    .click()
+    .get('a[title="' + tabName + '"]')
+    .last()
+    .click();
+  cy.wait(3000);
+});
+
+Cypress.Commands.add("selectDropdown", (dropdownname, selval) => {
+  cy.get(".uiInput--select")
+    .contains(dropdownname)
+    .parent()
+    .parent()
+    .find(".select")
+    .click();
+  cy.get('ul[role="presentation"]')
+    .last()
+    .within(() => {
+      cy.get("li")
+        .eq(selval)
+        .click();
+    });
+});
+
+Cypress.Commands.add("typeLabel", (labelname, labeltype, inputval) => {
+  cy.get("label")
+    .contains(labelname)
+    .parent()
+    .parent()
+    .find(labeltype)
+    .clear()
+    .type(inputval, { force: true });
+});
+
+Cypress.Commands.add("clickLabel", labelname => {
+  cy.get("label")
+    .contains(labelname)
+    .parent()
+    .parent()
+    .find("input")
+    .click();
 });

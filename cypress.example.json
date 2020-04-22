@@ -1,6 +1,6 @@
 {
   "viewportWidth": 1300,
-  "viewportHeight": 660,
+  "viewportHeight": 1200,
   "testFiles": "**/*.js",
   "pluginsFile": "cypress/plugins/index.js",
   "supportFile": "cypress/support/index.ts",

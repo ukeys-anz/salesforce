@@ -83,10 +83,12 @@ export default class CustomerInformation extends LightningElement {
   handleError(err) {
     this.loaded = true;
     this.error = "Unknown error";
-    if (Array.isArray(err.body)) {
-      this.error = err.body.map(e => e.message).join(", ");
-    } else if (typeof err.body.message === "string") {
-      this.error = err.body.message;
+    if (err.body) {
+      if (Array.isArray(err.body)) {
+        this.error = err.body.map(e => e.message).join(", ");
+      } else if (typeof err.body.message === "string") {
+        this.error = err.body.message;
+      }
     }
     this.record = undefined;
   }

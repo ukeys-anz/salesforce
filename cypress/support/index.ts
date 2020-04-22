@@ -15,6 +15,7 @@
 
 // Import commands.js using ES2015 syntax:
 import "./commands";
+import "./lwcCommands";
 import "cypress-shadow-dom";
 import "faker";
 // Alternatively you can use CommonJS syntax:
