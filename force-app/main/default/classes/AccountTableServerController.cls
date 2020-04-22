@@ -55,7 +55,17 @@ public class AccountTableServerController {
       ahe.setMessage(e.getMessage());
       throw ahe;
     }
-    return accInfoListwrapper.account_list;
+    List<AccountInfo> returnedAccountList = accInfoListwrapper.account_list;
+    for (AccountInfo accInfo : returnedAccountList) {
+      DateTime balanceDate = (DateTime) Json.deserialize(
+        '"' +
+        accInfo.balance_valid_asof +
+        '"',
+        DateTime.class
+      );
+      accInfo.balance_valid_asof = balanceDate.format();
+    }
+    return returnedAccountList;
   }
 
   /**
