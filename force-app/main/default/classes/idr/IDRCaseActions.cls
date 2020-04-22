@@ -390,7 +390,11 @@ public with sharing class IDRCaseActions {
             c.IDR_NC_State__c
           ),
           Suburb__c = c.IDR_NC_Suburb__c,
-          Priority__c = c.Priority
+          Priority__c = c.Priority,
+          Channel_Received__c = IDRCaseActions.getPicklistLabel(
+            Case.Origin,
+            c.Origin
+          )
         )
       );
     }
