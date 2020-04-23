@@ -1023,6 +1023,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Knowledge__kav.Answer__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Knowledge__kav.Question__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>ServiceAppointment.Appointment_Application_Time__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1177,6 +1187,10 @@
     <layoutAssignments>
         <layout>Case-Complaint Layout</layout>
         <recordType>Case.Customer_Complaint</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-General Inquiry Layout</layout>
+        <recordType>Case.General_Inquiry</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Case-Non-Customer Complaint Layout</layout>
