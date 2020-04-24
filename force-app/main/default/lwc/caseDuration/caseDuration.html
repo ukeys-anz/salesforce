@@ -1,0 +1,14 @@
+<template>
+  <article class="slds-card">
+    <template if:true={durationTime}>
+      <div>
+        Duration Hours:
+        <span class="durationData">&nbsp;{durationTime.durationHours}</span>
+      </div>
+      <div>
+        Duration Minutes:
+        <span class="durationData">&nbsp;{durationTime.durationMins}</span>
+      </div>
+    </template>
+  </article>
+</template>

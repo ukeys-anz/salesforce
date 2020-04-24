@@ -13,4 +13,7 @@
         <value>Case.Non_Customer_Complaint</value>
     </filters>
     <label>All Non-Customer Complaints</label>
+    <sharedTo>
+        <group>All_IDR_Users</group>
+    </sharedTo>
 </ListView>
