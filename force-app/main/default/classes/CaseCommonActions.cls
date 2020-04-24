@@ -6,8 +6,6 @@
  */
 
 public with sharing class CaseCommonActions {
-  public static final long TIME_TO_HOUR = 60 * 60 * 1000;
-  public static final long TIME_TO_MIN = 60 * 1000;
   /**
    * @description completeAfterInsertActions is called after onAfterInsert is finished to complete any pending actions
    * @param updateCaseList updateCaseList to be cleared after insert
@@ -132,17 +130,15 @@ public with sharing class CaseCommonActions {
       if (oldStatus == cd.Initial_Status__c) {
         cd.End_Status__c = caseMap.get(cd.Case__c).Status;
         cd.End_Time__c = DateTime.now();
-        long businessMilliSeconds = BusinessHours.diff(
-          cd.Case__r.BusinessHoursId,
+        Decimal timeDifferenceInHours = DateTimeUtils.calculateHoursBetween(
           cd.Start_Time__c,
-          cd.End_Time__c
+          cd.End_Time__c,
+          cd.Case__r.BusinessHoursId
         );
-
-        cd.Business_Hours_Age_Hours__c = businessMilliSeconds / TIME_TO_HOUR;
-        cd.Business_Hours_Age_Minutes__c = (long) (Math.Mod(
-          BusinessMilliSeconds,
-          TIME_TO_HOUR
-        ) / TIME_TO_MIN);
+        cd.Business_Hours_Age_Hours__c = timeDifferenceInHours.intValue();
+        cd.Business_Hours_Age_Minutes__c =
+          (timeDifferenceInHours - cd.Business_Hours_Age_Hours__c) *
+          SFConstants.MIN_IN_HOUR;
       }
     }
 
