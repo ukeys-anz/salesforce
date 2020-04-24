@@ -10,14 +10,14 @@
         <name>Case Business Hours</name>
         <thursdayEndTime>00:00:00.000Z</thursdayEndTime>
         <thursdayStartTime>00:00:00.000Z</thursdayStartTime>
-        <timeZoneId>Australia/Brisbane</timeZoneId>
+        <timeZoneId>Australia/Sydney</timeZoneId>
         <tuesdayEndTime>00:00:00.000Z</tuesdayEndTime>
         <tuesdayStartTime>00:00:00.000Z</tuesdayStartTime>
         <wednesdayEndTime>00:00:00.000Z</wednesdayEndTime>
         <wednesdayStartTime>00:00:00.000Z</wednesdayStartTime>
     </businessHours>
     <businessHours>
-        <active>true</active>
+        <active>false</active>
         <default>false</default>
         <fridayEndTime>00:00:00.000Z</fridayEndTime>
         <fridayStartTime>00:00:00.000Z</fridayStartTime>
