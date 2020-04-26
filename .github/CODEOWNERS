@@ -4,7 +4,7 @@
 # the repo, unless a match on a later line takes precedence.
 # The below will request review from some members of the
 # salesforce team.
-*                       @anzx/help-crm
+*                                   @anzx/help-crm
 force-app/main/default/workflows/** @pavankumarananta @dawsond1x @patelsu
 force-app/main/default/flows/**     @pavankumarananta @dawsond1x @patelsu
 
@@ -13,3 +13,4 @@ force-app/main/default/flows/**     @pavankumarananta @dawsond1x @patelsu
 *.yaml                              @pavankumarananta @dawsond1x @patelsu
 Dockerfile                          @pavankumarananta @dawsond1x @patelsu
 ci/**                               @pavankumarananta @dawsond1x @patelsu
+.github/**                          @pavankumarananta @dawsond1x @patelsu
