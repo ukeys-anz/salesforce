@@ -33,9 +33,6 @@
     </flexiPageRegions>
     <flexiPageRegions>
         <componentInstances>
-            <componentName>caseDuration</componentName>
-        </componentInstances>
-        <componentInstances>
             <componentName>force:detailPanel</componentName>
         </componentInstances>
         <name>Facet-c5555b3a-d749-466c-9dcb-dfc3867ce671</name>
@@ -183,6 +180,9 @@
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <componentInstances>
+            <componentName>caseDuration</componentName>
+        </componentInstances>
         <componentInstances>
             <componentInstanceProperties>
                 <name>lookupFieldName</name>
