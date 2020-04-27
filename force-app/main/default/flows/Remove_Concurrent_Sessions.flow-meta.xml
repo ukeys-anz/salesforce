@@ -134,7 +134,7 @@
             <targetReference>Get_Auth_Session_Records</targetReference>
         </connector>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <variables>
         <description>Auth Session Records for the currently Logged in user</description>
         <name>AuthSessionRecords</name>
