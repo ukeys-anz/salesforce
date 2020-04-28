@@ -60,7 +60,7 @@ if [ "${DELETED_FILES}" -gt "0" ]; then
     cd ./tmp/
     if [ ! -d ${CURRENT_DIR}/artefact ]; then
         mkdir ${CURRENT_DIR}/artefact
-        echo "<?xml version="1.0" encoding="UTF-8"?><Package xmlns="http://soap.sforce.com/2006/04/metadata"><version>48.0</version></Package>" > ${CURRENT_DIR}/artefact.package.xml
+        echo "<?xml version="1.0" encoding="UTF-8"?><Package xmlns="http://soap.sforce.com/2006/04/metadata"><version>48.0</version></Package>" > ${CURRENT_DIR}/artefact/package.xml
     fi
     mv package.xml ${CURRENT_DIR}/artefact/destructiveChanges.xml
     # Return to working DIR
