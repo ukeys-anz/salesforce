@@ -58,7 +58,10 @@ if [ "${DELETED_FILES}" -gt "0" ]; then
     echo "::set-output name=ARTEFACT_GENERATED::true"
     echo "Creating destroy manifest"
     cd ./tmp/
-    cp package.xml ${CURRENT_DIR}/artefact/destructiveChanges.xml
+    if [ ! -d ${CURRENT_DIR}/artefact ]; then
+        mkdir ${CURRENT_DIR}/artefact
+    fi
+    mv package.xml ${CURRENT_DIR}/artefact/destructiveChanges.xml
     # Return to working DIR
     cd ${CURRENT_DIR}
 fi
