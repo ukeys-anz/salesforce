@@ -18,19 +18,9 @@
                 <label>App Support</label>
             </value>
             <value>
-                <fullName>My Security</fullName>
+                <fullName>Bug Report &amp; Feature</fullName>
                 <default>false</default>
-                <label>My Security</label>
-            </value>
-            <value>
-                <fullName>Transaction &amp; Savings enquiry</fullName>
-                <default>false</default>
-                <label>Transaction &amp; Savings enquiry</label>
-            </value>
-            <value>
-                <fullName>Dispute</fullName>
-                <default>false</default>
-                <label>Dispute</label>
+                <label>Bug Report &amp; Feature</label>
             </value>
             <value>
                 <fullName>Card</fullName>
@@ -38,24 +28,9 @@
                 <label>Card</label>
             </value>
             <value>
-                <fullName>Product Information</fullName>
-                <default>false</default>
-                <label>Product Information</label>
-            </value>
-            <value>
-                <fullName>Customer Update &amp; Details</fullName>
-                <default>false</default>
-                <label>Customer Update &amp; Details</label>
-            </value>
-            <value>
                 <fullName>Coaching</fullName>
                 <default>false</default>
                 <label>Coaching</label>
-            </value>
-            <value>
-                <fullName>Join / KYC</fullName>
-                <default>false</default>
-                <label>Join / KYC</label>
             </value>
             <value>
                 <fullName>Customer Feedback (NPS)</fullName>
@@ -63,14 +38,39 @@
                 <label>Customer Feedback (NPS)</label>
             </value>
             <value>
-                <fullName>Bug Report &amp; Feature</fullName>
+                <fullName>Customer Update &amp; Details</fullName>
                 <default>false</default>
-                <label>Bug Report &amp; Feature</label>
+                <label>Customer Update &amp; Details</label>
+            </value>
+            <value>
+                <fullName>Dispute</fullName>
+                <default>false</default>
+                <label>Dispute</label>
             </value>
             <value>
                 <fullName>General Enquiries</fullName>
                 <default>false</default>
                 <label>General Enquiries</label>
+            </value>
+            <value>
+                <fullName>Join / KYC</fullName>
+                <default>false</default>
+                <label>Join / KYC</label>
+            </value>
+            <value>
+                <fullName>My Security</fullName>
+                <default>false</default>
+                <label>My Security</label>
+            </value>
+            <value>
+                <fullName>Product Information</fullName>
+                <default>false</default>
+                <label>Product Information</label>
+            </value>
+            <value>
+                <fullName>Transaction &amp; Savings enquiry</fullName>
+                <default>false</default>
+                <label>Transaction &amp; Savings enquiry</label>
             </value>
         </valueSetDefinition>
     </valueSet>
