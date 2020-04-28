@@ -61,4 +61,64 @@
         <default>false</default>
         <label>Other</label>
     </standardValue>
+    <standardValue>
+        <fullName>App Support</fullName>
+        <default>false</default>
+        <label>App Support</label>
+    </standardValue>
+    <standardValue>
+        <fullName>My Security</fullName>
+        <default>false</default>
+        <label>My Security</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Transaction &amp; Savings enquiry </fullName>
+        <default>false</default>
+        <label>Transaction &amp; Savings enquiry </label>
+    </standardValue>
+    <standardValue>
+        <fullName>Dispute</fullName>
+        <default>false</default>
+        <label>Dispute</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Card</fullName>
+        <default>false</default>
+        <label>Card</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Product Information</fullName>
+        <default>false</default>
+        <label>Product Information</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Customer Update &amp; Details </fullName>
+        <default>false</default>
+        <label>Customer Update &amp; Details </label>
+    </standardValue>
+    <standardValue>
+        <fullName>Coaching</fullName>
+        <default>false</default>
+        <label>Coaching</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Join / KYC</fullName>
+        <default>false</default>
+        <label>Join / KYC</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Customer Feedback (NPS)</fullName>
+        <default>false</default>
+        <label>Customer Feedback (NPS)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Bug Report &amp; Feature</fullName>
+        <default>false</default>
+        <label>Bug Report &amp; Feature</label>
+    </standardValue>
+    <standardValue>
+        <fullName>General Enquiries</fullName>
+        <default>false</default>
+        <label>General Enquiries</label>
+    </standardValue>
 </StandardValueSet>
