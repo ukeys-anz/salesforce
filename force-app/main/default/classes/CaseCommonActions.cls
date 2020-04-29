@@ -146,4 +146,25 @@ public with sharing class CaseCommonActions {
       update cdRelatedList;
     }
   }
+  /**
+  * @description validate the selected additional types
+  * @param caseList The case list to validate the additional types on
+  */
+  public static void validateAdditionalTypes(List<Case> caseList) {
+    for (Case singleCase : caseList) {
+      if (String.isNotBlank(singleCase.Additional_Type__c)) {
+        List<String> additionalTypes = singleCase.Additional_Type__c.split(';');
+        
+        if (additionalTypes.size() > 2) {
+          singleCase.addError('You cannot select more than two Additional Types.');
+        }
+
+        for (String additionalType : additionalTypes) {
+          if (additionalType == singleCase.Type) {
+            singleCase.addError('You cannot select a value in Additional Type that is already selected as the Primary Type.');
+          }
+        }
+      }
+    }
+  }
 }

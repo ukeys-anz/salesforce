@@ -34,6 +34,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     }
     IDRCaseActions.afterInsert(records);
     CaseCommonActions.copyCaseNumber(records, updateCaseList);
+    CaseCommonActions.validateAdditionalTypes(records);
   }
 
   /**
@@ -50,6 +51,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     }
     IDRCaseActions.afterUpdate(oldMap, records, updateCaseList);
     CaseCommonActions.copyCaseNumber(records, updateCaseList);
+    CaseCommonActions.validateAdditionalTypes(records);
   }
 
   /**
