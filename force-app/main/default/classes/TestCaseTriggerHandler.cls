@@ -399,12 +399,12 @@ private class TestCaseTriggerHandler {
       newCases.add(
         new Case(
           RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
-      		Type = 'Card',
-      		Additional_Type__c = 'App Support;Card;'
+          Type = 'Card',
+          Additional_Type__c = 'App Support;Card;'
         )
       );
-    }  
-      
+    }
+
     try {
       insert newCases;
     } catch (DMLexception e) {
@@ -426,11 +426,11 @@ private class TestCaseTriggerHandler {
       newCases.add(
         new Case(
           RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
-      		Additional_Type__c = 'App Support;Card;Coaching'
+          Additional_Type__c = 'App Support;Card;Coaching'
         )
       );
-    } 
-   
+    }
+
     try {
       insert newCases;
     } catch (DMLexception e) {

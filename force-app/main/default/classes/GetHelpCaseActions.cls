@@ -51,7 +51,10 @@ public with sharing class GetHelpCaseActions {
    */
   public static void validateAdditionalTypes(List<Case> caseList) {
     for (Case singleCase : caseList) {
-      if (singleCase.RecordTypeId == GENERAL_INQUIRY_RT_ID && String.isNotBlank(singleCase.Additional_Type__c)) {
+      if (
+        singleCase.RecordTypeId == GENERAL_INQUIRY_RT_ID &&
+        String.isNotBlank(singleCase.Additional_Type__c)
+      ) {
         List<String> additionalTypes = singleCase.Additional_Type__c.split(';');
 
         if (additionalTypes.size() > 2) {
