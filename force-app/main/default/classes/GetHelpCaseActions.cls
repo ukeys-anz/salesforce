@@ -58,7 +58,8 @@ public with sharing class GetHelpCaseActions {
     for (Integer i = 0; i < caseList.size(); i++) {
       if (
         caseList.get(0).RecordTypeId == GENERAL_INQUIRY_RT_ID &&
-        (oldCaseList.isEmpty() || (caseList.get(0).Type != oldCaseList.get(0).Type ||
+        (oldCaseList.isEmpty() ||
+        (caseList.get(0).Type != oldCaseList.get(0).Type ||
         caseList.get(0).Additional_Type__c !=
         oldCaseList.get(0).Additional_Type__c)) &&
         String.isNotBlank(caseList.get(0).Additional_Type__c)
