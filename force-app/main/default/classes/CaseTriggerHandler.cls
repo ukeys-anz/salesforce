@@ -114,7 +114,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       }
 
       if (
-        record.id == oldRecord.id &&
         record.RecordTypeId == GetHelpCaseActions.GENERAL_INQUIRY_RT_ID &&
         (record.Type != oldRecord.Type ||
         record.Additional_Type__c != oldRecord.Additional_Type__c)
@@ -133,7 +132,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
   }
 
   public override void onBeforeInsert() {
-    List<Case> records = new List<Case>();
     GetHelpCaseActions.validateAdditionalTypes(records);
   }
 }
