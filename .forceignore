@@ -37,7 +37,3 @@ force-app/main/default/sharingRules/User.sharingRules-meta.xml
 
 # Don't pull because delegated authenticaton (and therefore IsSsoEnabled permission) cannot currently be enabled in scratch orgs
 Enforce_SSO.permissionset
-
-#Temporary force ignore to make the build successful due to known issues of deleting flow or processbuilder. This will be removed in next PR
-force-app/main/default/flows/Case.flow-meta.xml
-force-app/main/default/flows/New_Complaint.flow-meta.xml
