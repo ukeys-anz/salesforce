@@ -12,4 +12,40 @@
             <group>All_IDR_Users</group>
         </sharedFrom>
     </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Grant_Read_Access_on_Coach_User_Records_for_Coaches</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Rule to provide &apos;Read&apos; access to all Coach User records for Coaches.</description>
+        <label>Grant Read Access on Coach User Records for Coaches</label>
+        <sharedTo>
+            <role>Coach</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>Coach</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Grant_Read_Access_on_Coach_User_Records_for_Managers</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Rule to provide &apos;Read&apos; access to all Coach User records for Managers.</description>
+        <label>Grant Read Access on Coach User Records for Managers</label>
+        <sharedTo>
+            <role>Manager</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>Coach</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Grant_Read_Access_on_Manager_User_Records_for_Coaches</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Rule to provide &apos;Read&apos; access to all Manager User records for Coaches.</description>
+        <label>Grant Read Access on Manager User Records for Coaches</label>
+        <sharedTo>
+            <role>Coach</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>Manager</role>
+        </sharedFrom>
+    </sharingOwnerRules>
 </SharingRules>

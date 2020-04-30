@@ -3,11 +3,11 @@
     <fullName>My_Team_s_Cases</fullName>
     <booleanFilter>(1 OR 2) AND 3</booleanFilter>
     <columns>CASES.CASE_NUMBER</columns>
-    <columns>NAME</columns>
+    <columns>ACCOUNT.NAME</columns>
     <columns>CASES.SUBJECT</columns>
     <columns>CASES.STATUS</columns>
     <columns>CASES.PRIORITY</columns>
-    <columns>CORE.USERS.ALIAS</columns>
+    <columns>OWNER_NAME</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>Is_Owner_s_Line_Manager_Me__c</field>

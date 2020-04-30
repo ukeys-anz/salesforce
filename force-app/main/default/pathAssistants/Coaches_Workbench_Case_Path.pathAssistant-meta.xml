@@ -8,7 +8,6 @@
         <fieldNames>AccountId</fieldNames>
         <fieldNames>CaseNumber</fieldNames>
         <fieldNames>OwnerId</fieldNames>
-        <fieldNames>Comments</fieldNames>
         <fieldNames>ClosedDate</fieldNames>
         <picklistValueName>Closed</picklistValueName>
     </pathAssistantSteps>
@@ -16,7 +15,6 @@
         <fieldNames>AccountId</fieldNames>
         <fieldNames>CaseNumber</fieldNames>
         <fieldNames>OwnerId</fieldNames>
-        <fieldNames>Comments</fieldNames>
         <fieldNames>Reason</fieldNames>
         <picklistValueName>Escalated</picklistValueName>
     </pathAssistantSteps>
@@ -25,14 +23,12 @@
         <fieldNames>CaseNumber</fieldNames>
         <fieldNames>OwnerId</fieldNames>
         <fieldNames>Reason</fieldNames>
-        <fieldNames>Comments</fieldNames>
         <picklistValueName>On Hold</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
         <fieldNames>AccountId</fieldNames>
         <fieldNames>CaseNumber</fieldNames>
         <fieldNames>OwnerId</fieldNames>
-        <fieldNames>Comments</fieldNames>
         <fieldNames>Reason</fieldNames>
         <picklistValueName>Open</picklistValueName>
     </pathAssistantSteps>
@@ -40,7 +36,6 @@
         <fieldNames>AccountId</fieldNames>
         <fieldNames>CaseNumber</fieldNames>
         <fieldNames>OwnerId</fieldNames>
-        <fieldNames>Comments</fieldNames>
         <fieldNames>IDR_Date_Re_Opened__c</fieldNames>
         <picklistValueName>Re-opened</picklistValueName>
     </pathAssistantSteps>
@@ -48,7 +43,6 @@
         <fieldNames>AccountId</fieldNames>
         <fieldNames>CaseNumber</fieldNames>
         <fieldNames>OwnerId</fieldNames>
-        <fieldNames>Comments</fieldNames>
         <fieldNames>Reason</fieldNames>
         <picklistValueName>Under Investigation</picklistValueName>
     </pathAssistantSteps>
