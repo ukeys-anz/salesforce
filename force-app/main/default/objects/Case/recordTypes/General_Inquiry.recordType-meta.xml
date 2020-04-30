@@ -6,57 +6,6 @@
     <description>ANZx General Case Record Type</description>
     <label>General Inquiry</label>
     <picklistValues>
-        <picklist>Additional_Type_2__c</picklist>
-        <values>
-            <fullName>App Support</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Bug Report %26 Feature</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Card</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Coaching</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Customer Feedback %28NPS%29</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Customer Update %26 Details</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Dispute</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>General Enquiries</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Join %2F KYC</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>My Security</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Product Information</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Transaction %26 Savings enquiry</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>Additional_Type__c</picklist>
         <values>
             <fullName>App Support</fullName>
