@@ -394,14 +394,19 @@ private class TestCaseTriggerHandler {
   //Tests if Additional Types selected contain the selected value of Type
   @isTest
   static void testDuplicateAdditionalTypeValidation() {
-    Case newCase = new Case(
-      RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
-      Type = 'Card',
-      Additional_Type__c = 'App Support;Card;'
-    );
-
+    Case[] newCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
+      		Type = 'Card',
+      		Additional_Type__c = 'App Support;Card;'
+        )
+      );
+    }  
+      
     try {
-      insert newCase;
+      insert newCases;
     } catch (DMLexception e) {
       system.assert(
         e.getMessage()
@@ -416,13 +421,18 @@ private class TestCaseTriggerHandler {
   //Tests if more than 2 Additional Types have been selected
   @isTest
   static void testAdditionalTypesValidation() {
-    Case newCase = new Case(
-      RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
-      Additional_Type__c = 'App Support;Card;Coaching'
-    );
-
+    Case[] newCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
+      		Additional_Type__c = 'App Support;Card;Coaching'
+        )
+      );
+    } 
+   
     try {
-      insert newCase;
+      insert newCases;
     } catch (DMLexception e) {
       system.assert(
         e.getMessage()
