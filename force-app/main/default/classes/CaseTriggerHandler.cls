@@ -101,7 +101,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     List<Id> caseIds = new List<Id>();
     List<Case> validateCaseList = new List<Case>();
-    List<Case> caseListRecords = new List<Case>();
     for (Case record : (List<Case>) records) {
       Case oldRecord = (Case) oldMap.get(record.id);
       if (
@@ -117,7 +116,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
         (Map<Id, Case>) oldMap
       );
     }
-
     if (!caseIds.isEmpty()) {
       GetHelpCaseActions.validateParentCase(caseIds, validateCaseList);
     }
