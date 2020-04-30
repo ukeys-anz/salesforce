@@ -101,7 +101,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     List<Id> caseIds = new List<Id>();
     List<Case> validateCaseList = new List<Case>();
-
+    List<Case> caseListRecords = new List<Case>();
     for (Case record : (List<Case>) records) {
       Case oldRecord = (Case) oldMap.get(record.id);
       if (
@@ -112,12 +112,24 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
         caseIds.add(record.id);
         validateCaseList.add(record);
       }
+
+      if (
+        record.id == oldRecord.id &&
+        record.RecordTypeId == GetHelpCaseActions.GENERAL_INQUIRY_RT_ID &&
+        (record.Type != oldRecord.Type ||
+        record.Additional_Type__c != oldRecord.Additional_Type__c)
+      ) {
+        caseListRecords.add(record);
+      }
     }
 
     if (!caseIds.isEmpty()) {
       GetHelpCaseActions.validateParentCase(caseIds, validateCaseList);
     }
-    GetHelpCaseActions.validateAdditionalTypes(records);
+
+    if (!caseListRecords.isEmpty()) {
+      GetHelpCaseActions.validateAdditionalTypes(records);
+    }
   }
 
   public override void onBeforeInsert() {
