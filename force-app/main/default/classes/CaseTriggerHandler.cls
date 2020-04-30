@@ -114,7 +114,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       }
       GetHelpCaseActions.validateAdditionalTypes(
         (List<Case>) records,
-        (List<Case>) oldMap.values()
+        (Map<Id,Case>) oldMap
       );
     }
 

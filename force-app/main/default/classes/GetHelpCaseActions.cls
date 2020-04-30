@@ -48,20 +48,20 @@ public with sharing class GetHelpCaseActions {
   /**
    * @description validate the selected additional types
    * @param caseList The case list to validate the additional types on
-   * @param oldCaseList old case list
+   * @param oldCaseMap old case map
    */
   public static void validateAdditionalTypes(
     List<Case> caseList,
-    List<Case> oldCaseList
+    Map<Id, Case> oldCaseMap
   ) {
     List<Case> additionalTypeCheckCases = new List<Case>();
     for (Integer i = 0; i < caseList.size(); i++) {
       if (
         caseList.get(i).RecordTypeId == GENERAL_INQUIRY_RT_ID &&
-        (oldCaseList == null ||
-        (caseList.get(i).Type != oldCaseList.get(i).Type ||
+        (oldCaseMap == null ||
+        (caseList.get(i).Type != oldCaseMap.get(caseList.get(i).Id).Type ||
         caseList.get(i).Additional_Type__c !=
-        oldCaseList.get(i).Additional_Type__c)) &&
+        oldCaseMap.get(caseList.get(i).Id).Additional_Type__c)) &&
         String.isNotBlank(caseList.get(i).Additional_Type__c)
       ) {
         additionalTypeCheckCases.add(caseList.get(i));
