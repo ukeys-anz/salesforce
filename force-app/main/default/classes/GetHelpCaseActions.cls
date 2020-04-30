@@ -72,6 +72,11 @@ public with sharing class GetHelpCaseActions {
     }
   }
 
+  /**
+   * @description  This method checks if Additional_Type__c has more than 2 values selected or 
+   * if the Type value is same as one of the additional values
+   * @param caseList The caseList for which Additional_Type__c needs to be checked
+   */
   private static void checkAdditionalTypes(List<Case> caseList) {
     for (Case singleCase : caseList) {
       List<String> additionalTypes = singleCase.Additional_Type__c.split(';');
