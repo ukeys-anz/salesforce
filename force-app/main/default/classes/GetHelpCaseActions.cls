@@ -57,14 +57,14 @@ public with sharing class GetHelpCaseActions {
     List<Case> additionalTypeCheckCases = new List<Case>();
     for (Integer i = 0; i < caseList.size(); i++) {
       if (
-        caseList.get(0).RecordTypeId == GENERAL_INQUIRY_RT_ID &&
+        caseList.get(i).RecordTypeId == GENERAL_INQUIRY_RT_ID &&
         (oldCaseList == null ||
-        (caseList.get(0).Type != oldCaseList.get(0).Type ||
-        caseList.get(0).Additional_Type__c !=
-        oldCaseList.get(0).Additional_Type__c)) &&
-        String.isNotBlank(caseList.get(0).Additional_Type__c)
+        (caseList.get(i).Type != oldCaseList.get(i).Type ||
+        caseList.get(i).Additional_Type__c !=
+        oldCaseList.get(i).Additional_Type__c)) &&
+        String.isNotBlank(caseList.get(i).Additional_Type__c)
       ) {
-        additionalTypeCheckCases.add(caseList.get(0));
+        additionalTypeCheckCases.add(caseList.get(i));
       }
     }
     if (!additionalTypeCheckCases.isEmpty()) {
