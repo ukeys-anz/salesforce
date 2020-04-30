@@ -117,11 +117,11 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     if (!caseIds.isEmpty()) {
       GetHelpCaseActions.validateParentCase(caseIds, validateCaseList);
     }
-      CaseCommonActions.validateAdditionalTypes(records);
+    CaseCommonActions.validateAdditionalTypes(records);
   }
-    
+
   public override void onBeforeInsert() {
-      List<Case> records = new List<Case>();
-      CaseCommonActions.validateAdditionalTypes(records);
+    List<Case> records = new List<Case>();
+    CaseCommonActions.validateAdditionalTypes(records);
   }
 }
