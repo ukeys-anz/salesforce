@@ -8541,7 +8541,7 @@
     <recordType>Case.Non_Customer_Complaint</recordType>
   </layoutAssignments>
   <layoutAssignments>
-    <layout>PersonAccount-Person Account Layout ANZX</layout>
+    <layout>PersonAccount-Customer View Layout</layout>
     <recordType>PersonAccount.PersonAccount</recordType>
   </layoutAssignments>
   <layoutAssignments>
