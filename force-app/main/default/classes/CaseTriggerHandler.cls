@@ -127,7 +127,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     }
 
     if (!caseListRecords.isEmpty()) {
-      GetHelpCaseActions.validateAdditionalTypes(records);
+      GetHelpCaseActions.validateAdditionalTypes(caseListRecords);
     }
   }
 
