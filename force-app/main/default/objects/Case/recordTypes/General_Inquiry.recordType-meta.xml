@@ -3403,7 +3403,7 @@
     <picklistValues>
         <picklist>Priority</picklist>
         <values>
-            <fullName>Financial Hardship</fullName>
+            <fullName>Critical</fullName>
             <default>false</default>
         </values>
         <values>
@@ -3417,14 +3417,6 @@
         <values>
             <fullName>Medium</fullName>
             <default>true</default>
-        </values>
-        <values>
-            <fullName>None</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Vulnerable Customer</fullName>
-            <default>false</default>
         </values>
     </picklistValues>
     <picklistValues>

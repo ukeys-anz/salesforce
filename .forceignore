@@ -37,6 +37,3 @@ force-app/main/default/sharingRules/User.sharingRules-meta.xml
 
 # Don't pull because delegated authenticaton (and therefore IsSsoEnabled permission) cannot currently be enabled in scratch orgs
 Enforce_SSO.permissionset
-
-# Don't push Transaction security policy as it needs a user id for notification and also we dont want to turn off concurrent sessions in scratch org
-force-app/main/default/transactionSecurityPolicies/ConcurrentSessionsConditions.transactionSecurityPolicy-meta.xml
