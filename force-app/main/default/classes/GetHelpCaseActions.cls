@@ -45,4 +45,55 @@ public with sharing class GetHelpCaseActions {
       }
     }
   }
+  /**
+   * @description validate the selected additional types
+   * @param caseList The case list to validate the additional types on
+   * @param oldCaseMap old case map
+   */
+  public static void validateAdditionalTypes(
+    List<Case> caseList,
+    Map<Id, Case> oldCaseMap
+  ) {
+    List<Case> additionalTypeCheckCases = new List<Case>();
+    for (Integer i = 0; i < caseList.size(); i++) {
+      if (
+        caseList.get(i).RecordTypeId == GENERAL_INQUIRY_RT_ID &&
+        (oldCaseMap == null ||
+        (caseList.get(i).Type != oldCaseMap.get(caseList.get(i).Id).Type ||
+        caseList.get(i).Additional_Type__c !=
+        oldCaseMap.get(caseList.get(i).Id).Additional_Type__c)) &&
+        String.isNotBlank(caseList.get(i).Additional_Type__c)
+      ) {
+        additionalTypeCheckCases.add(caseList.get(i));
+      }
+    }
+    if (!additionalTypeCheckCases.isEmpty()) {
+      checkAdditionalTypes(additionalTypeCheckCases);
+    }
+  }
+
+  /**
+   * @description  This method checks if Additional_Type__c has more than 2 values selected or
+   * if the Type value is same as one of the additional values
+   * @param caseList The caseList for which Additional_Type__c needs to be checked
+   */
+  private static void checkAdditionalTypes(List<Case> caseList) {
+    for (Case singleCase : caseList) {
+      List<String> additionalTypes = singleCase.Additional_Type__c.split(';');
+
+      if (additionalTypes.size() > 2) {
+        singleCase.addError(
+          'You cannot select more than two Additional Types.'
+        );
+      }
+
+      for (String additionalType : additionalTypes) {
+        if (additionalType == singleCase.Type) {
+          singleCase.addError(
+            'You cannot select a value in Additional Type that is already selected as the Primary Type.'
+          );
+        }
+      }
+    }
+  }
 }

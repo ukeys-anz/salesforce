@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sub_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Sub Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <controllingField>Type</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Add/Edit Details</fullName>
+                <default>false</default>
+                <label>Add/Edit Details</label>
+            </value>
+            <value>
+                <fullName>Add Life Event</fullName>
+                <default>false</default>
+                <label>Add Life Event</label>
+            </value>
+            <value>
+                <fullName>App Guide</fullName>
+                <default>false</default>
+                <label>App Guide</label>
+            </value>
+            <value>
+                <fullName>App security</fullName>
+                <default>false</default>
+                <label>App security</label>
+            </value>
+            <value>
+                <fullName>Bug Report</fullName>
+                <default>false</default>
+                <label>Bug Report</label>
+            </value>
+            <value>
+                <fullName>Cancel a Dispute</fullName>
+                <default>false</default>
+                <label>Cancel a Dispute</label>
+            </value>
+            <value>
+                <fullName>Card Enquiry</fullName>
+                <default>false</default>
+                <label>Card Enquiry</label>
+            </value>
+            <value>
+                <fullName>Card Issue</fullName>
+                <default>false</default>
+                <label>Card Issue</label>
+            </value>
+            <value>
+                <fullName>Card Lost/Stolen</fullName>
+                <default>false</default>
+                <label>Card Lost/Stolen</label>
+            </value>
+            <value>
+                <fullName>Coaching/Needs based Discussion</fullName>
+                <default>false</default>
+                <label>Coaching/Needs based Discussion</label>
+            </value>
+            <value>
+                <fullName>Device Support</fullName>
+                <default>false</default>
+                <label>Device Support</label>
+            </value>
+            <value>
+                <fullName>Feature Request</fullName>
+                <default>false</default>
+                <label>Feature Request</label>
+            </value>
+            <value>
+                <fullName>Fees &amp; Charges</fullName>
+                <default>false</default>
+                <label>Fees &amp; Charges</label>
+            </value>
+            <value>
+                <fullName>Fraud</fullName>
+                <default>false</default>
+                <label>Fraud</label>
+            </value>
+            <value>
+                <fullName>Hoax Email/SMS</fullName>
+                <default>false</default>
+                <label>Hoax Email/SMS</label>
+            </value>
+            <value>
+                <fullName>KYC</fullName>
+                <default>false</default>
+                <label>KYC</label>
+            </value>
+            <value>
+                <fullName>New Dispute</fullName>
+                <default>false</default>
+                <label>New Dispute</label>
+            </value>
+            <value>
+                <fullName>Overdraft</fullName>
+                <default>false</default>
+                <label>Overdraft</label>
+            </value>
+            <value>
+                <fullName>Product Info</fullName>
+                <default>false</default>
+                <label>Product Info</label>
+            </value>
+            <value>
+                <fullName>Re-Identification</fullName>
+                <default>false</default>
+                <label>Re-Identification</label>
+            </value>
+            <value>
+                <fullName>Re-Joining</fullName>
+                <default>false</default>
+                <label>Re-Joining</label>
+            </value>
+            <value>
+                <fullName>Round Ups</fullName>
+                <default>false</default>
+                <label>Round Ups</label>
+            </value>
+            <value>
+                <fullName>Savings Goals</fullName>
+                <default>false</default>
+                <label>Savings Goals</label>
+            </value>
+            <value>
+                <fullName>Transaction</fullName>
+                <default>false</default>
+                <label>Transaction</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Card</controllingFieldValue>
+            <valueName>Card Enquiry</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Card</controllingFieldValue>
+            <valueName>Card Issue</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Card</controllingFieldValue>
+            <valueName>Card Lost/Stolen</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Information</controllingFieldValue>
+            <valueName>Fees &amp; Charges</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Information</controllingFieldValue>
+            <valueName>Product Info</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Update &amp; Details </controllingFieldValue>
+            <valueName>Add/Edit Details</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Update &amp; Details </controllingFieldValue>
+            <valueName>Add Life Event</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Coaching</controllingFieldValue>
+            <valueName>Coaching/Needs based Discussion</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Join / KYC</controllingFieldValue>
+            <valueName>KYC</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Join / KYC</controllingFieldValue>
+            <valueName>Re-Identification</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Join / KYC</controllingFieldValue>
+            <valueName>Re-Joining</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Bug Report &amp; Feature</controllingFieldValue>
+            <valueName>Bug Report</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Bug Report &amp; Feature</controllingFieldValue>
+            <valueName>Feature Request</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>App Support</controllingFieldValue>
+            <valueName>App Guide</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>App Support</controllingFieldValue>
+            <valueName>Device Support</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>My Security</controllingFieldValue>
+            <valueName>App security</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>My Security</controllingFieldValue>
+            <valueName>Fraud</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>My Security</controllingFieldValue>
+            <valueName>Hoax Email/SMS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transaction &amp; Savings enquiry </controllingFieldValue>
+            <valueName>Overdraft</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transaction &amp; Savings enquiry </controllingFieldValue>
+            <valueName>Round Ups</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transaction &amp; Savings enquiry </controllingFieldValue>
+            <valueName>Savings Goals</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transaction &amp; Savings enquiry </controllingFieldValue>
+            <valueName>Transaction</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dispute</controllingFieldValue>
+            <valueName>Cancel a Dispute</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dispute</controllingFieldValue>
+            <valueName>New Dispute</valueName>
+        </valueSettings>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>
