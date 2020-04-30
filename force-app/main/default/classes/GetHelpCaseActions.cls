@@ -48,27 +48,45 @@ public with sharing class GetHelpCaseActions {
   /**
    * @description validate the selected additional types
    * @param caseList The case list to validate the additional types on
+   * @param oldCaseList old case list
    */
-  public static void validateAdditionalTypes(List<Case> caseList) {
-    for (Case singleCase : caseList) {
+  public static void validateAdditionalTypes(
+    List<Case> caseList,
+    List<Case> oldCaseList
+  ) {
+    List<Case> additionalTypeCheckCases = new List<Case>();
+    for (Integer i = 0; i < caseList.size(); i++) {
       if (
-        singleCase.RecordTypeId == GENERAL_INQUIRY_RT_ID &&
-        String.isNotBlank(singleCase.Additional_Type__c)
+        caseList.get(0).RecordTypeId == GENERAL_INQUIRY_RT_ID &&
+        (!oldCaseList.isEmpty() &&
+        (caseList.get(0).Type != oldCaseList.get(0).Type ||
+        caseList.get(0).Additional_Type__c !=
+        oldCaseList.get(0).Additional_Type__c)) &&
+        String.isNotBlank(caseList.get(0).Additional_Type__c)
       ) {
-        List<String> additionalTypes = singleCase.Additional_Type__c.split(';');
+        additionalTypeCheckCases.add(caseList.get(0));
+      }
+    }
+    if (!additionalTypeCheckCases.isEmpty()) {
+      checkAdditionalTypes(additionalTypeCheckCases);
+    }
+  }
 
-        if (additionalTypes.size() > 2) {
+  private static void checkAdditionalTypes(List<Case> caseList) {
+    for (Case singleCase : caseList) {
+      List<String> additionalTypes = singleCase.Additional_Type__c.split(';');
+
+      if (additionalTypes.size() > 2) {
+        singleCase.addError(
+          'You cannot select more than two Additional Types.'
+        );
+      }
+
+      for (String additionalType : additionalTypes) {
+        if (additionalType == singleCase.Type) {
           singleCase.addError(
-            'You cannot select more than two Additional Types.'
+            'You cannot select a value in Additional Type that is already selected as the Primary Type.'
           );
-        }
-
-        for (String additionalType : additionalTypes) {
-          if (additionalType == singleCase.Type) {
-            singleCase.addError(
-              'You cannot select a value in Additional Type that is already selected as the Primary Type.'
-            );
-          }
         }
       }
     }

@@ -112,26 +112,18 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
         caseIds.add(record.id);
         validateCaseList.add(record);
       }
-
-      if (
-        record.RecordTypeId == GetHelpCaseActions.GENERAL_INQUIRY_RT_ID &&
-        (record.Type != oldRecord.Type ||
-        record.Additional_Type__c != oldRecord.Additional_Type__c)
-      ) {
-        caseListRecords.add(record);
-      }
+      GetHelpCaseActions.validateAdditionalTypes(
+        (List<Case>) records,
+        (List<Case>) oldMap.values()
+      );
     }
 
     if (!caseIds.isEmpty()) {
       GetHelpCaseActions.validateParentCase(caseIds, validateCaseList);
     }
-
-    if (!caseListRecords.isEmpty()) {
-      GetHelpCaseActions.validateAdditionalTypes(caseListRecords);
-    }
   }
 
   public override void onBeforeInsert() {
-    GetHelpCaseActions.validateAdditionalTypes(records);
+    GetHelpCaseActions.validateAdditionalTypes(records, null);
   }
 }
