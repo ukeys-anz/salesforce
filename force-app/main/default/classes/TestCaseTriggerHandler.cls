@@ -390,4 +390,41 @@ private class TestCaseTriggerHandler {
       );
     }
   }
+  
+  //Tests if Additional Types selected contain the selected value of Type
+  @isTest
+  static void testDuplicateAdditionalTypeValidation() {
+    Case newCase = new Case(
+      RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
+      Type = 'Card',
+      Additional_Type__c = 'App Support;Card;'
+    );
+      
+    try {
+		insert newCase;
+    } catch (DMLexception e) {
+      system.assert(
+        e.getMessage().contains('You cannot select a value in Additional Type that is already selected as the Primary Type.'),
+        e.getDmlMessage(0)
+      );
+    }
+  }  
+    
+  //Tests if more than 2 Additional Types have been selected
+  @isTest
+  static void testAdditionalTypesValidation() {
+    Case newCase = new Case(
+      RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
+      Additional_Type__c = 'App Support;Card;Coaching'
+    );
+      
+    try {
+		insert newCase;
+    } catch (DMLexception e) {
+      system.assert(
+        e.getMessage().contains('You cannot select more than two Additional Types.'),
+        e.getDmlMessage(0)
+      );
+    }
+  }
 }
