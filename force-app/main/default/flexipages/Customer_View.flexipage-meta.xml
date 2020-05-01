@@ -16,6 +16,13 @@
             </componentInstanceProperties>
             <componentName>force:highlightsPanel</componentName>
         </componentInstances>
+        <componentInstances>
+            <componentInstanceProperties>
+                <name>LifeMilestoneTypes</name>
+                <value>[&quot;Graduation&quot;,&quot;Marriage&quot;,&quot;Relocation&quot;,&quot;Baby&quot;,&quot;Diagnosis&quot;,&quot;Retirement&quot;]</value>
+            </componentInstanceProperties>
+            <componentName>builder_industries_insurance:lifeEvents</componentName>
+        </componentInstances>
         <name>header</name>
         <type>Region</type>
     </flexiPageRegions>
