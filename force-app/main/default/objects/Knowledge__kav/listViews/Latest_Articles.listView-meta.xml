@@ -15,7 +15,7 @@
         <value>2</value>
     </filters>
     <filters>
-        <field>CREATED_DATE</field>
+        <field>LAST_PUBLISHED_DATE</field>
         <operation>greaterOrEqual</operation>
         <value>LAST_WEEK</value>
     </filters>
