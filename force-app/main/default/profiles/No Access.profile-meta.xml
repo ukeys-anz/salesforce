@@ -1995,7 +1995,7 @@
         <name>ViewHealthCheck</name>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
         <name>ViewHelpLink</name>
     </userPermissions>
     <userPermissions>
