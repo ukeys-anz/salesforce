@@ -1869,6 +1869,10 @@
     </userPermissions>
     <userPermissions>
         <enabled>false</enabled>
+        <name>EditReports</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>false</enabled>
         <name>ScheduleJob</name>
     </userPermissions>
     <userPermissions>
