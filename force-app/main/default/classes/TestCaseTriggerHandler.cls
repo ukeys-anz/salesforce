@@ -446,7 +446,7 @@ private class TestCaseTriggerHandler {
   @isTest
   static void testPopulateCaseSubject() {
     Case[] newCases = new List<Case>();
-    for (Integer i = 0; i < 2; i++) {
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
           RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
