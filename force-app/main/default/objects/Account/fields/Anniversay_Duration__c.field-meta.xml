@@ -2,12 +2,10 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Anniversay_Duration__c</fullName>
     <externalId>false</externalId>
-    <formula>Today() -  Anniversary_Date__c</formula>
+    <formula>Text(Today() -  Anniversary_Date__c) &amp; &quot; Days&quot;</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Anniversay Duration</label>
-    <precision>18</precision>
     <required>false</required>
-    <scale>0</scale>
-    <type>Number</type>
+    <type>Text</type>
     <unique>false</unique>
 </CustomField>
