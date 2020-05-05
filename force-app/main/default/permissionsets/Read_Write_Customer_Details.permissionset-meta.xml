@@ -3,6 +3,15 @@
     <description>Permission set to be used by integration users (Mulesoft) to read/write customer details.</description>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Account.Anniversary_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <field>Account.Anniversay_Duration__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Account.BillingAddress</field>
         <readable>true</readable>
     </fieldPermissions>

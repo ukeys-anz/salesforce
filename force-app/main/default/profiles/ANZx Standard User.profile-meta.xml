@@ -1345,6 +1345,15 @@
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
+    <field>Account.Anniversary_Date__c</field>
+    <readable>true</readable>
+  </fieldPermissions>
+  <fieldPermissions>
+    <field>Account.Anniversay_Duration__c</field>
+    <readable>true</readable>
+  </fieldPermissions>
+  <fieldPermissions>
+    <editable>false</editable>
     <field>Account.AnnualRevenue</field>
     <readable>false</readable>
   </fieldPermissions>
@@ -1762,6 +1771,11 @@
     <editable>false</editable>
     <field>Account.FinServ__WalletShare__c</field>
     <readable>false</readable>
+  </fieldPermissions>
+  <fieldPermissions>
+    <editable>true</editable>
+    <field>Account.Has_Customer_Provided_TFN__c</field>
+    <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
