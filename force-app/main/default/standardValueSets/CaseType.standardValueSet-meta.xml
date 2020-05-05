@@ -87,9 +87,9 @@
         <label>Customer Feedback (NPS)</label>
     </standardValue>
     <standardValue>
-        <fullName>Customer Update &amp; Details </fullName>
+        <fullName>Customer Update &amp; Details</fullName>
         <default>false</default>
-        <label>Customer Update &amp; Details </label>
+        <label>Customer Update &amp; Details</label>
     </standardValue>
     <standardValue>
         <fullName>Dispute</fullName>

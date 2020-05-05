@@ -441,4 +441,32 @@ private class TestCaseTriggerHandler {
       );
     }
   }
+
+  //Tests if the Case Subject is populated correctly based on case type and additional type.
+  @isTest
+  static void testPopulateCaseSubject() {
+    Case[] newCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
+          Type = 'Card',
+          Additional_Type__c = 'App Support;Coaching'
+        )
+      );
+    }
+
+    insert newCases;
+
+    newCases[0].Type = 'Dispute';
+    newCases[0].Additional_Type__c = 'My Security;Product Information';
+    update newCases;
+
+    newCases = [SELECT Subject FROM Case WHERE id = :newCases[0].id];
+
+    system.assertEquals(
+      'Dispute, My Security, Product Information',
+      newCases[0].Subject
+    );
+  }
 }

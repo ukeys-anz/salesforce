@@ -96,4 +96,48 @@ public with sharing class GetHelpCaseActions {
       }
     }
   }
+
+  /**
+   * @description  This method validates Case Type and Additional Type to populate Case Subject.
+   * @param caseList list of cases from the trigger
+   * @param oldCaseMap old case map
+   */
+  public static void validateCaseType(
+    List<Case> caseList,
+    Map<Id, Case> oldCaseMap
+  ) {
+    List<Case> additionalTypeCheckCases = new List<Case>();
+    for (Case record : caseList) {
+      if (
+        record.RecordTypeId == GENERAL_INQUIRY_RT_ID &&
+        (String.isNotBlank(record.Type) ||
+        String.isNotBlank(record.Additional_Type__c)) &&
+        (oldCaseMap == null ||
+        (record.Type != oldCaseMap.get(record.Id).Type ||
+        record.Additional_Type__c !=
+        oldCaseMap.get(record.Id).Additional_Type__c))
+      ) {
+        populateCaseSubject(record);
+      }
+    }
+  }
+
+  /**
+   * @description  This method populates Case subject based on Case type and additional type values
+   * @param record Case record from trigger
+   */
+  public static void populateCaseSubject(Case record) {
+    List<String> caseTypeList = new List<String>();
+
+    if (String.isNotBlank(record.Type)) {
+      caseTypeList.add(record.Type);
+    }
+    if (String.isNotBlank(record.Additional_Type__c)) {
+      caseTypeList.addAll(record.Additional_Type__c.split(';'));
+    }
+    //populate case subject
+    if (!caseTypeList.isEmpty()) {
+      record.Subject = String.join(caseTypeList, ', ');
+    }
+  }
 }

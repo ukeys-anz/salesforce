@@ -111,17 +111,25 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
         caseIds.add(record.id);
         validateCaseList.add(record);
       }
-      GetHelpCaseActions.validateAdditionalTypes(
-        (List<Case>) records,
-        (Map<Id, Case>) oldMap
-      );
     }
+    GetHelpCaseActions.validateAdditionalTypes(
+      (List<Case>) records,
+      (Map<Id, Case>) oldMap
+    );
+    GetHelpCaseActions.validateCaseType(
+      (List<Case>) records,
+      (Map<Id, Case>) oldMap
+    );
     if (!caseIds.isEmpty()) {
       GetHelpCaseActions.validateParentCase(caseIds, validateCaseList);
     }
   }
 
+  /**
+   * @description onBeforeInsert to handle before insert trigger actions.
+   */
   public override void onBeforeInsert() {
     GetHelpCaseActions.validateAdditionalTypes(records, null);
+    GetHelpCaseActions.validateCaseType(records, null);
   }
 }
