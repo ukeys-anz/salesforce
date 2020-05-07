@@ -1358,6 +1358,17 @@
         <recordType>ServiceTerritory.Branch</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>FinServ__FinancialAccount__c.FinServ__BankingAccount</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>true</default>
+        <personAccountDefault>true</personAccountDefault>
+        <recordType>FinServ__FinancialAccount__c.FinServ__SavingsAccount</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
     <tabVisibilities>
         <tab>FinServ__ReciprocalRole__c</tab>
         <visibility>DefaultOn</visibility>
