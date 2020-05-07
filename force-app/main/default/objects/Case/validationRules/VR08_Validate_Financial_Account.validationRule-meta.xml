@@ -7,7 +7,8 @@
     $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
     RecordType.DeveloperName = &#39;General_Inquiry&#39;,
     NOT(ISBLANK(FinServ__FinancialAccount__c)),
-    FinServ__FinancialAccount__r.FinServ__PrimaryOwner__c  &lt;&gt;  AccountId
+    FinServ__FinancialAccount__r.FinServ__PrimaryOwner__c  &lt;&gt;  AccountId,
+    FinServ__FinancialAccount__r.FinServ__JointOwner__c  &lt;&gt;  AccountId
 )</errorConditionFormula>
     <errorDisplayField>FinServ__FinancialAccount__c</errorDisplayField>
     <errorMessage>Please select a financial account associated with the same account you selected</errorMessage>
