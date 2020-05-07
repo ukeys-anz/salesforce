@@ -137,10 +137,12 @@ public with sharing class IDRCaseActions {
    */
   public static void afterInsert(List<Case> records) {
     for (Case record : records) {
-      if (NOTIFICATION_STATUS.contains(record.Status)) {
-        notificationCaseList.add(record);
+      if (isIDRComplaintType(record)) {
+        if (NOTIFICATION_STATUS.contains(record.Status)) {
+          notificationCaseList.add(record);
+        }
+        checkForCRCEscalation(record);
       }
-      checkForCRCEscalation(record);
     }
   }
 
