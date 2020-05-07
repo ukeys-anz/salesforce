@@ -40,10 +40,9 @@ describe("Escalate Complaint", function() {
       .shadowFind('div[title="Escalate"]')
       .shadowClick();
 
-    // value: "Customer Advocate"
-    cy.selectDropdown("Escalated to", 2);
-    // value: "Customer Request"
-    cy.selectDropdown("Complaint Escalation Reason", 2);
+    cy.selectDropdown("Escalated to", "Customer Advocate");
+
+    cy.selectDropdown("Complaint Escalation Reason", "Customer Request");
 
     cy.get(".uiButton")
       .last()

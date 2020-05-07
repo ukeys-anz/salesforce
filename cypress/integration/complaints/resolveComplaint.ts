@@ -39,14 +39,14 @@ describe("Resolved Complaint", function() {
       .shadowFind("force-highlights2")
       .shadowFind('div[title="Resolve"]')
       .shadowClick();
-    // value: "Resolved"
-    cy.selectDropdown("Status", 5);
-    // value: "In favour of complainant in full"
-    cy.selectDropdown("Complaint Outcome", 1);
-    // value: "Financial remedy"
-    cy.selectDropdown("Complaint Remedy", 1);
-    // value: "1–49"
-    cy.selectDropdown("Financial Compensation", 1);
+
+    cy.selectDropdown("Status", "Resolved");
+
+    cy.selectDropdown("Complaint Outcome", "In favour of complainant in full");
+
+    cy.selectDropdown("Complaint Remedy", "Financial remedy");
+
+    cy.selectDropdown("Financial Compensation", "1–49");
 
     cy.typeLabel("Description of Outcome", "textarea", "Outcome description");
 

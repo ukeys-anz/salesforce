@@ -31,7 +31,7 @@ declare namespace Cypress {
     selectLightningDropdown(
       appname: string,
       dropdownname: string,
-      selval: number
+      selval: string
     ): Cypress.Chainable<any>;
     saveLightningButton(appname: string): Cypress.Chainable<any>;
     typeLightningText(
@@ -74,7 +74,8 @@ Cypress.Commands.add(
       .shadowFind("lightning-combobox")
       .shadowFind("lightning-base-combobox")
       .shadowFind("lightning-base-combobox-item")
-      .shadowEq(selval)
+      //.shadowEq(selval) to select index
+      .shadowFind('span[title="' + selval + '"]')
       .shadowClick();
   }
 );

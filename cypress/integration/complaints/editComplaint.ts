@@ -71,50 +71,49 @@ describe("Anonymous Complaint Edit Page", function() {
       "input",
       faker.phone.phoneNumber("03########")
     );
-    // value: "Australia"
-    cy.selectDropdown("Nominated 3rd party country", 13);
-    // value: "VIC"
-    cy.selectDropdown("Nominated 3rd party state", 2);
+
+    cy.selectDropdown("Nominated 3rd party country", "Australia");
+
+    cy.selectDropdown("Nominated 3rd party state", "VIC");
 
     cy.typeLabel("Office", "input", "dockland");
-    // value: "Customer Request"
-    cy.selectDropdown("Complaint Escalation Reason", 2);
-    // value: "Customer Advocate"
-    cy.selectDropdown("Escalated to", 2);
+
+    cy.selectDropdown("Complaint Escalation Reason", "Customer Request");
+
+    cy.selectDropdown("Escalated to", "Customer Advocate");
 
     cy.typeLabel("Case Notes", "textarea", "Escalation notes");
 
-    // value: "In favour of complainant in full"
-    cy.selectDropdown("Complaint Outcome", 1);
-    // value: "Financial remedy"
-    cy.selectDropdown("Complaint Remedy", 1);
-    // value: "1–49"
-    cy.selectDropdown("Financial Compensation", 1);
+    cy.selectDropdown("Complaint Outcome", "In favour of complainant in full");
+
+    cy.selectDropdown("Complaint Remedy", "Financial remedy");
+
+    cy.selectDropdown("Financial Compensation", "1–49");
 
     cy.typeLabel("Description of Outcome", "textarea", faker.lorem.text());
 
     cy.typeLabel("Date Re-Opened", "input", "16/03/2020");
     cy.typeLabel("Date closed after re-opening", "input", "16/03/2020");
-    // value: "Referred back from AFCA"
-    cy.selectDropdown("Reason for re-opening", 1);
+
+    cy.selectDropdown("Reason for re-opening", "Referred back from AFCA");
 
     cy.clickLabel("Is this a common complaint?");
     cy.clickLabel("Is a REAL form required?");
 
     cy.typeLabel("Systemic Issue Description", "textarea", faker.lorem.text());
-    // value: "System Issue"
-    cy.selectDropdown("Systemic Issue Category", 1);
-    // value: "Yes"
-    cy.selectDropdown("Is a Written Response Requested?", 1);
-    // value: "Yes"
-    cy.selectDropdown("Is a Written Response Required?", 1);
+
+    cy.selectDropdown("Systemic Issue Category", "System Issue");
+
+    cy.selectDropdown("Is a Written Response Requested?", "Yes");
+
+    cy.selectDropdown("Is a Written Response Required?", "Yes");
 
     cy.typeLabel("AFCA Number", "input", faker.random.number().toString());
     cy.typeLabel("AFCA Date", "input", "16/03/2020");
-    // value: "Yes"
-    cy.selectDropdown("AFCA Status", 1);
-    // value: "AFS licence"
-    cy.selectDropdown("Licence or registration type", 1);
+
+    cy.selectDropdown("AFCA Status", "Yes");
+
+    cy.selectDropdown("Licence or registration type", "AFS licence");
 
     cy.typeLabel("Licence Number", "input", faker.random.number().toString());
     cy.typeLabel(

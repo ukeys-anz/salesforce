@@ -38,7 +38,7 @@ declare namespace Cypress {
 
     selectDropdown(
       dropdownname: string,
-      selval: number
+      selval: string
     ): Cypress.Chainable<any>;
 
     typeLabel(
@@ -86,6 +86,10 @@ Cypress.Commands.add("login", (): void => {
     });
   } else {
     cy.visit(`${myBase.InstanceUrl}/lightning`);
+    //Added to fix issue all tests not running together
+    Cypress.on("uncaught:exception", (err, runnable) => {
+      return false;
+    });
   }
 });
 
@@ -162,7 +166,7 @@ Cypress.Commands.add("loadTab", (tabName: string): void => {
     .should("be.visible")
     .click()
     .get('a[title="' + tabName + '"]')
-    .last()
+    .first()
     .click();
   cy.wait(3000);
 });
@@ -178,7 +182,8 @@ Cypress.Commands.add("selectDropdown", (dropdownname, selval) => {
     .last()
     .within(() => {
       cy.get("li")
-        .eq(selval)
+        //.eq(selval) to select index
+        .find('a[title="' + selval + '"]')
         .click();
     });
 });

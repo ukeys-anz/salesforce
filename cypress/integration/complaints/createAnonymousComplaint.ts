@@ -27,12 +27,13 @@ describe("Anonymous Customer Complaint Page", function() {
       .shadowFind("lightning-radio-group")
       .shadowFind('input[value="Disagrees"]')
       .shadowClick();
-    // value: "Individual"
+
     cy.selectLightningDropdown(
       "c-create-complaint-l-w-c",
       "IDR_Complainant_Type__c",
-      1
+      "Individual"
     );
+
     cy.typeLightningText(
       "c-create-complaint-l-w-c",
       "IDR_NC_First_Name__c",
@@ -68,45 +69,49 @@ describe("Anonymous Customer Complaint Page", function() {
       "IDR_NC_Postcode__c",
       faker.address.zipCode("####")
     );
-    // value: "25 - 34 years"
-    cy.selectLightningDropdown("c-create-complaint-l-w-c", "IDR_NC_Age__c", -6);
-    // value: "Male"
+
+    cy.selectLightningDropdown(
+      "c-create-complaint-l-w-c",
+      "IDR_NC_Age__c",
+      "25 - 34 years"
+    );
+
     cy.selectLightningDropdown(
       "c-create-complaint-l-w-c",
       "IDR_NC_Gender__c",
-      -5
+      "Male"
     );
-    // value: "No"
+
     cy.selectLightningDropdown(
       "c-create-complaint-l-w-c",
       "IDR_NC_Descent__c",
-      -4
+      "No"
     );
-    // value: "VIC"
+
     cy.selectLightningDropdown(
       "c-create-complaint-l-w-c",
       "IDR_NC_State__c",
-      -8
+      "VIC"
     );
-    // value: "About ANZ"
-    cy.selectLightningDropdown("c-create-complaint-l-w-c", "Type", -2);
-    // value: "Superannuation"
+
+    cy.selectLightningDropdown("c-create-complaint-l-w-c", "Type", "About ANZ");
+
     cy.selectLightningDropdown(
       "c-create-complaint-l-w-c",
       "IDR_Product_or_Service_Line__c",
-      -2
+      "Superannuation"
     );
-    // value: "Retirement savings account"
+
     cy.selectLightningDropdown(
       "c-create-complaint-l-w-c",
       "IDR_Product_or_Service_Category__c",
-      -2
+      "Retirement savings account"
     );
-    // value: "Total and permanent disability (Retirement savings account)"
+
     cy.selectLightningDropdown(
       "c-create-complaint-l-w-c",
       "IDR_Product_or_Service_Type__c",
-      -2
+      "Total and permanent disability (Retirement savings account)"
     );
     cy.selectLightningCheckbox(
       "c-create-complaint-l-w-c",

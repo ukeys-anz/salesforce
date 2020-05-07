@@ -27,17 +27,17 @@ describe("Customer Complaint Page", function() {
       "IDR_Customer_Number__c",
       "12345"
     );
-    // value: "Individual"
+
     cy.selectLightningDropdown(
       "c-create-complaint-l-w-c",
       "IDR_Complainant_Type__c",
-      1
+      "Small business"
     );
-    // value: "No"
+
     cy.selectLightningDropdown(
       "c-create-complaint-l-w-c",
       "IDR_NC_Descent__c",
-      -4
+      "No"
     );
     cy.selectLightningCheckbox(
       "c-create-complaint-l-w-c",
@@ -64,26 +64,30 @@ describe("Customer Complaint Page", function() {
     cy.selectLightningDropdown(
       "c-create-complaint-l-w-c",
       "IDR_3rdParty_State__c",
-      -8
+      "VIC"
     );
-    // value: "Superannuation"
-    cy.selectLightningDropdown("c-create-complaint-l-w-c", "Type", -2);
+
+    cy.selectLightningDropdown(
+      "c-create-complaint-l-w-c",
+      "Type",
+      "Rates, Fees and Charges"
+    );
     cy.selectLightningDropdown(
       "c-create-complaint-l-w-c",
       "IDR_Product_or_Service_Line__c",
-      -2
+      "Superannuation"
     );
-    // value: "Retirement savings account"
+
     cy.selectLightningDropdown(
       "c-create-complaint-l-w-c",
       "IDR_Product_or_Service_Category__c",
-      -2
+      "Retirement savings account"
     );
-    // value: "Total and permanent disability (Retirement savings account)"
+
     cy.selectLightningDropdown(
       "c-create-complaint-l-w-c",
       "IDR_Product_or_Service_Type__c",
-      -2
+      "Total and permanent disability (Retirement savings account)"
     );
     cy.typeLightningText(
       "c-create-complaint-l-w-c",
