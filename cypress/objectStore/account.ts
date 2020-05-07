@@ -1,7 +1,8 @@
 import * as faker from "faker";
 interface IAccount {
   RecordTypeId: String;
-  Name: String;
+  FirstName: String;
+  LastName: String;
   FinServ__Status__c: String;
   FinServ__ClientCategory__c: String;
   FinServ__MarketingSegment__c: String;
@@ -37,7 +38,8 @@ export async function createAccountList(
     for (var i = 0; i < amount; i++) {
       let account: IAccount = {
         RecordTypeId: recTypeId,
-        Name: faker.name.firstName() + " " + faker.name.lastName(),
+        FirstName: faker.name.firstName(),
+        LastName: faker.name.lastName(),
         FinServ__Status__c: faker.random.arrayElement([
           "Active",
           "Closed",
@@ -133,6 +135,7 @@ export async function createAccountList(
       if (err) {
         return console.log("error", err);
       }
+
       //Loop through the result to create a list of ids
       result.forEach((item: any, index: any) => {
         idList.push(item.id);
