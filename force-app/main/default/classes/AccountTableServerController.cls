@@ -31,7 +31,7 @@ public class AccountTableServerController {
    * @return `List<AccountInfo>`
    * @exception AuraHandledException
    */
-  @AuraEnabled(cacheable=true)
+  @AuraEnabled(cacheable=false)
   public static List<AccountInfo> getAccInfo() {
     AccountInfoWrapper accInfoListwrapper = new AccountInfoWrapper();
     String resp = '';
