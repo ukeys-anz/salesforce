@@ -97,9 +97,9 @@
         <label>Dispute</label>
     </standardValue>
     <standardValue>
-        <fullName>General Enquiries</fullName>
+        <fullName>Other Enquiries</fullName>
         <default>false</default>
-        <label>General Enquiries</label>
+        <label>Other Enquiries</label>
     </standardValue>
     <standardValue>
         <fullName>Join / KYC</fullName>
