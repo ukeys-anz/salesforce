@@ -97,11 +97,6 @@
         <label>Dispute</label>
     </standardValue>
     <standardValue>
-        <fullName>Other Enquiries</fullName>
-        <default>false</default>
-        <label>Other Enquiries</label>
-    </standardValue>
-    <standardValue>
         <fullName>Join / KYC</fullName>
         <default>false</default>
         <label>Join / KYC</label>
@@ -110,6 +105,11 @@
         <fullName>My Security</fullName>
         <default>false</default>
         <label>My Security</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Other Enquiries</fullName>
+        <default>false</default>
+        <label>Other Enquiries</label>
     </standardValue>
     <standardValue>
         <fullName>Product Information</fullName>
