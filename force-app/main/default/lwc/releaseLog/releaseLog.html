@@ -16,33 +16,59 @@
             <div class="slds-timeline__actions slds-timeline__actions_inline">
               <p class="slds-timeline__date">{release.Release_Date__c}</p>
             </div>
-            <article
-              class="slds-box new-box slds-timeline__item_details slds-m-top_x-small slds-m-horizontal_xx-small slds-p-around_medium"
-              aria-hidden="false"
-            >
-              <div>
-                <span class="slds-text-title new-text-title">New</span>
-                <p class="slds-p-top_x-small">{release.Additions__c}</p>
-              </div>
-            </article>
-            <article
-              class="slds-box change-box slds-timeline__item_details slds-m-top_x-small slds-m-horizontal_xx-small slds-p-around_medium"
-              aria-hidden="false"
-            >
-              <div>
-                <span class="slds-text-title change-text-title">Changes</span>
-                <p class="slds-p-top_x-small">{release.Changes__c}</p>
-              </div>
-            </article>
-            <article
-              class="slds-box fix-box slds-timeline__item_details slds-m-top_x-small slds-m-horizontal_xx-small slds-p-around_medium"
-              aria-hidden="false"
-            >
-              <div>
-                <span class="slds-text-title fix-text-title">Fixes</span>
-                <p class="slds-p-top_x-small">{release.Fixes__c}</p>
-              </div>
-            </article>
+
+            <template if:true={release.Additions__c}>
+              <article
+                class="slds-box new-box slds-timeline__item_details slds-m-top_x-small slds-m-horizontal_xx-small slds-p-around_medium"
+                aria-hidden="false"
+              >
+                <div>
+                  <span class="slds-text-title new-text-title">New</span>
+                  <ul class="slds-list_dotted">
+                    <template
+                      for:each={release.Additions__c}
+                      for:item="addition"
+                    >
+                      <li key={addition} class="slds-p-top_x-small">
+                        {addition}
+                      </li>
+                    </template>
+                  </ul>
+                </div>
+              </article>
+            </template>
+
+            <template if:true={release.Changes__c}>
+              <article
+                class="slds-box change-box slds-timeline__item_details slds-m-top_x-small slds-m-horizontal_xx-small slds-p-around_medium"
+                aria-hidden="false"
+              >
+                <div>
+                  <span class="slds-text-title change-text-title">Changes</span>
+                  <ul class="slds-list_dotted">
+                    <template for:each={release.Changes__c} for:item="change">
+                      <li key={change} class="slds-p-top_x-small">{change}</li>
+                    </template>
+                  </ul>
+                </div>
+              </article>
+            </template>
+
+            <template if:true={release.Fixes__c}>
+              <article
+                class="slds-box fix-box slds-timeline__item_details slds-m-top_x-small slds-m-horizontal_xx-small slds-p-around_medium"
+                aria-hidden="false"
+              >
+                <div>
+                  <span class="slds-text-title fix-text-title">Fixes</span>
+                  <ul class="slds-list_dotted">
+                    <template for:each={release.Fixes__c} for:item="fix">
+                      <li key={fix} class="slds-p-top_x-small">{fix}</li>
+                    </template>
+                  </ul>
+                </div>
+              </article>
+            </template>
           </div>
         </div>
       </template>

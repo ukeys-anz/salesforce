@@ -1,5 +1,7 @@
 import { LightningElement, wire, track } from "lwc";
+
 import getReleases from "@salesforce/apex/ReleaseLogServerController.getReleases";
+
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
 export default class ReleaseLog extends LightningElement {
@@ -8,8 +10,12 @@ export default class ReleaseLog extends LightningElement {
   connectedCallback() {
     getReleases()
       .then(result => {
+        for (let i = 0; i < result.length; i++) {
+          result[i].Changes__c = result[i].Changes__c.split("\n");
+          result[i].Additions__c = result[i].Additions__c.split("\n");
+          result[i].Fixes__c = result[i].Fixes__c.split("\n");
+        }
         this.releases = result;
-        console.log(result);
       })
       .catch(error => {
         let errorMessage = "Failed to load release log";
