@@ -1,0 +1,31 @@
+.slds-timeline__actions {
+  align-items: flex-start;
+}
+
+.slds-media:not(:last-child) {
+  margin-bottom: 25px;
+}
+
+.new-box {
+  border-color: green;
+}
+
+.change-box {
+  border-color: orange;
+}
+
+.fix-box {
+  border-color: grey;
+}
+
+.new-text-title {
+  color: green;
+}
+
+.change-text-title {
+  color: orange;
+}
+
+.fix-text-title {
+  color: grey;
+}

@@ -1,0 +1,51 @@
+<template>
+  <ul class="slds-timeline">
+    <template if:true={releases}>
+      <template for:each={releases} for:item="release">
+        <div class="slds-media" key={release.Id}>
+          <div class="slds-media__body">
+            <div
+              class="slds-grid slds-grid_vertical-align-center slds-truncate_container_75 slds-no-space"
+            >
+              <h3 class="slds-truncate" title="Release Name Goes Here">
+                <a href="javascript:void(0);">
+                  <strong>Release - {release.Name}</strong>
+                </a>
+              </h3>
+            </div>
+            <div class="slds-timeline__actions slds-timeline__actions_inline">
+              <p class="slds-timeline__date">{release.Release_Date__c}</p>
+            </div>
+            <article
+              class="slds-box new-box slds-timeline__item_details slds-m-top_x-small slds-m-horizontal_xx-small slds-p-around_medium"
+              aria-hidden="false"
+            >
+              <div>
+                <span class="slds-text-title new-text-title">New</span>
+                <p class="slds-p-top_x-small">{release.Additions__c}</p>
+              </div>
+            </article>
+            <article
+              class="slds-box change-box slds-timeline__item_details slds-m-top_x-small slds-m-horizontal_xx-small slds-p-around_medium"
+              aria-hidden="false"
+            >
+              <div>
+                <span class="slds-text-title change-text-title">Changes</span>
+                <p class="slds-p-top_x-small">{release.Changes__c}</p>
+              </div>
+            </article>
+            <article
+              class="slds-box fix-box slds-timeline__item_details slds-m-top_x-small slds-m-horizontal_xx-small slds-p-around_medium"
+              aria-hidden="false"
+            >
+              <div>
+                <span class="slds-text-title fix-text-title">Fixes</span>
+                <p class="slds-p-top_x-small">{release.Fixes__c}</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </template>
+    </template>
+  </ul>
+</template>
