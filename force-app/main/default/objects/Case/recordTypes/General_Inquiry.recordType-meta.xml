@@ -36,15 +36,15 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>General Enquiries</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Join %2F KYC</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>My Security</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other Enquiries</fullName>
             <default>false</default>
         </values>
         <values>
@@ -3521,15 +3521,15 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>General Enquiries</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Join %2F KYC</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>My Security</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other Enquiries</fullName>
             <default>false</default>
         </values>
         <values>
