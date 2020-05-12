@@ -14,7 +14,7 @@
     <applicationVisibilities>
         <application>IDR_Console</application>
         <default>true</default>
-        <visible>false</visible>
+        <visible>true</visible>
     </applicationVisibilities>
     <applicationVisibilities>
         <application>standard__LightningScheduler</application>
