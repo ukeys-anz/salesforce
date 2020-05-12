@@ -9,7 +9,7 @@
     <dashboardColorPalette>justice</dashboardColorPalette>
     <dashboardGridLayout>
         <dashboardGridComponents>
-            <colSpan>5</colSpan>
+            <colSpan>8</colSpan>
             <columnIndex>0</columnIndex>
             <dashboardComponent>
                 <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
@@ -29,40 +29,7 @@
                         <type>detail</type>
                     </flexTableColumn>
                     <flexTableColumn>
-                        <reportColumn>OWNER</reportColumn>
-                        <showSubTotal>false</showSubTotal>
-                        <showTotal>false</showTotal>
-                        <type>detail</type>
-                    </flexTableColumn>
-                    <flexTableColumn>
-                        <reportColumn>CREATED_DATE</reportColumn>
-                        <showSubTotal>false</showSubTotal>
-                        <showTotal>false</showTotal>
-                        <type>detail</type>
-                    </flexTableColumn>
-                    <flexTableSortInfo>
-                        <sortColumn>CREATED_DATE</sortColumn>
-                        <sortOrder>1</sortOrder>
-                    </flexTableSortInfo>
-                    <hideChatterPhotos>true</hideChatterPhotos>
-                </flexComponentProperties>
-                <groupingSortProperties/>
-                <header>All Open Cases</header>
-                <report>Coach_Reports/All_Open_Cases_xGg</report>
-            </dashboardComponent>
-            <rowIndex>0</rowIndex>
-            <rowSpan>8</rowSpan>
-        </dashboardGridComponents>
-        <dashboardGridComponents>
-            <colSpan>4</colSpan>
-            <columnIndex>5</columnIndex>
-            <dashboardComponent>
-                <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
-                <componentType>FlexTable</componentType>
-                <flexComponentProperties>
-                    <decimalPrecision>-1</decimalPrecision>
-                    <flexTableColumn>
-                        <reportColumn>SUBJECT</reportColumn>
+                        <reportColumn>ACCOUNT.NAME</reportColumn>
                         <showSubTotal>false</showSubTotal>
                         <showTotal>false</showTotal>
                         <type>detail</type>
@@ -93,8 +60,38 @@
             <rowSpan>8</rowSpan>
         </dashboardGridComponents>
         <dashboardGridComponents>
-            <colSpan>3</colSpan>
-            <columnIndex>9</columnIndex>
+            <colSpan>4</colSpan>
+            <columnIndex>8</columnIndex>
+            <dashboardComponent>
+                <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
+                <chartSummary>
+                    <axisBinding>y</axisBinding>
+                    <column>RowCount</column>
+                </chartSummary>
+                <componentType>Gauge</componentType>
+                <decimalPrecision>-1</decimalPrecision>
+                <displayUnits>Auto</displayUnits>
+                <gaugeMax>100.0</gaugeMax>
+                <gaugeMin>0.0</gaugeMin>
+                <groupingSortProperties/>
+                <header>Open Cases</header>
+                <indicatorBreakpoint1>33.0</indicatorBreakpoint1>
+                <indicatorBreakpoint2>67.0</indicatorBreakpoint2>
+                <indicatorHighColor>#FF2600</indicatorHighColor>
+                <indicatorLowColor>#2E9051</indicatorLowColor>
+                <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
+                <report>Coach_Reports/Open_Cases_By_Status_FcQ</report>
+                <showPercentage>false</showPercentage>
+                <showRange>false</showRange>
+                <showTotal>true</showTotal>
+                <showValues>false</showValues>
+            </dashboardComponent>
+            <rowIndex>0</rowIndex>
+            <rowSpan>8</rowSpan>
+        </dashboardGridComponents>
+        <dashboardGridComponents>
+            <colSpan>4</colSpan>
+            <columnIndex>0</columnIndex>
             <dashboardComponent>
                 <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
                 <chartAxisRange>Auto</chartAxisRange>
@@ -116,16 +113,92 @@
                         <sortOrder>a</sortOrder>
                     </groupingSorts>
                 </groupingSortProperties>
-                <header>Cases by Stage</header>
+                <header>Open Cases by Status</header>
                 <legendPosition>Right</legendPosition>
-                <report>Coach_Reports/Cases_By_Stage_lvI</report>
+                <report>Coach_Reports/Open_Cases_By_Status_FcQ</report>
                 <showPercentage>false</showPercentage>
                 <showTotal>true</showTotal>
                 <showValues>true</showValues>
                 <sortBy>RowLabelAscending</sortBy>
                 <useReportChart>false</useReportChart>
             </dashboardComponent>
-            <rowIndex>0</rowIndex>
+            <rowIndex>8</rowIndex>
+            <rowSpan>8</rowSpan>
+        </dashboardGridComponents>
+        <dashboardGridComponents>
+            <colSpan>4</colSpan>
+            <columnIndex>4</columnIndex>
+            <dashboardComponent>
+                <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
+                <chartAxisRange>Auto</chartAxisRange>
+                <chartSummary>
+                    <axisBinding>y</axisBinding>
+                    <column>RowCount</column>
+                </chartSummary>
+                <componentType>Bar</componentType>
+                <decimalPrecision>-1</decimalPrecision>
+                <displayUnits>Auto</displayUnits>
+                <drillEnabled>false</drillEnabled>
+                <drillToDetailEnabled>false</drillToDetailEnabled>
+                <enableHover>false</enableHover>
+                <expandOthers>false</expandOthers>
+                <groupingColumn>PRIORITY</groupingColumn>
+                <groupingSortProperties>
+                    <groupingSorts>
+                        <groupingLevel>g1</groupingLevel>
+                        <sortOrder>a</sortOrder>
+                    </groupingSorts>
+                </groupingSortProperties>
+                <header>Open Cases by Priority</header>
+                <legendPosition>Bottom</legendPosition>
+                <report>Coach_Reports/Open_Cases_By_Status_FcQ</report>
+                <showPercentage>false</showPercentage>
+                <showPicturesOnCharts>false</showPicturesOnCharts>
+                <showValues>true</showValues>
+                <sortBy>RowLabelAscending</sortBy>
+                <useReportChart>false</useReportChart>
+            </dashboardComponent>
+            <rowIndex>8</rowIndex>
+            <rowSpan>8</rowSpan>
+        </dashboardGridComponents>
+        <dashboardGridComponents>
+            <colSpan>4</colSpan>
+            <columnIndex>8</columnIndex>
+            <dashboardComponent>
+                <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
+                <chartAxisRange>Auto</chartAxisRange>
+                <chartSummary>
+                    <axisBinding>y</axisBinding>
+                    <column>RowCount</column>
+                </chartSummary>
+                <componentType>ColumnStacked</componentType>
+                <decimalPrecision>-1</decimalPrecision>
+                <displayUnits>Auto</displayUnits>
+                <drillEnabled>false</drillEnabled>
+                <drillToDetailEnabled>false</drillToDetailEnabled>
+                <enableHover>false</enableHover>
+                <expandOthers>false</expandOthers>
+                <groupingColumn>ORIGIN</groupingColumn>
+                <groupingColumn>STATUS</groupingColumn>
+                <groupingSortProperties>
+                    <groupingSorts>
+                        <groupingLevel>g1</groupingLevel>
+                        <sortOrder>a</sortOrder>
+                    </groupingSorts>
+                    <groupingSorts>
+                        <groupingLevel>g2</groupingLevel>
+                        <sortOrder>a</sortOrder>
+                    </groupingSorts>
+                </groupingSortProperties>
+                <header>Open Cases by Support Channel</header>
+                <legendPosition>Right</legendPosition>
+                <report>Coach_Reports/Open_Cases_By_Status_FcQ</report>
+                <showPercentage>false</showPercentage>
+                <showValues>false</showValues>
+                <sortBy>RowLabelAscending</sortBy>
+                <useReportChart>false</useReportChart>
+            </dashboardComponent>
+            <rowIndex>8</rowIndex>
             <rowSpan>8</rowSpan>
         </dashboardGridComponents>
         <numberOfColumns>12</numberOfColumns>
