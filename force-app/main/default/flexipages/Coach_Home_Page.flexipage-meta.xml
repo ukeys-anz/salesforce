@@ -3,6 +3,74 @@
     <flexiPageRegions>
         <componentInstances>
             <componentInstanceProperties>
+                <name>enableInlineEdit</name>
+                <value>false</value>
+            </componentInstanceProperties>
+            <componentInstanceProperties>
+                <name>entityName</name>
+                <value>Case</value>
+            </componentInstanceProperties>
+            <componentInstanceProperties>
+                <name>filterName</name>
+                <value>MyOpenCases</value>
+            </componentInstanceProperties>
+            <componentInstanceProperties>
+                <name>hideActionBar</name>
+                <value>true</value>
+            </componentInstanceProperties>
+            <componentInstanceProperties>
+                <name>hideSearchBar</name>
+                <value>false</value>
+            </componentInstanceProperties>
+            <componentInstanceProperties>
+                <name>pageSize</name>
+                <value>5</value>
+            </componentInstanceProperties>
+            <componentName>flexipage:filterListCard</componentName>
+            <visibilityRule>
+                <criteria>
+                    <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
+                    <operator>NE</operator>
+                    <rightValue>Manager</rightValue>
+                </criteria>
+            </visibilityRule>
+        </componentInstances>
+        <componentInstances>
+            <componentInstanceProperties>
+                <name>enableInlineEdit</name>
+                <value>false</value>
+            </componentInstanceProperties>
+            <componentInstanceProperties>
+                <name>entityName</name>
+                <value>Case</value>
+            </componentInstanceProperties>
+            <componentInstanceProperties>
+                <name>filterName</name>
+                <value>My_Team_s_Cases</value>
+            </componentInstanceProperties>
+            <componentInstanceProperties>
+                <name>hideActionBar</name>
+                <value>true</value>
+            </componentInstanceProperties>
+            <componentInstanceProperties>
+                <name>hideSearchBar</name>
+                <value>false</value>
+            </componentInstanceProperties>
+            <componentInstanceProperties>
+                <name>pageSize</name>
+                <value>5</value>
+            </componentInstanceProperties>
+            <componentName>flexipage:filterListCard</componentName>
+            <visibilityRule>
+                <criteria>
+                    <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
+                    <operator>EQUAL</operator>
+                    <rightValue>Manager</rightValue>
+                </criteria>
+            </visibilityRule>
+        </componentInstances>
+        <componentInstances>
+            <componentInstanceProperties>
                 <name>dashboardName</name>
                 <value>Coach_Home</value>
             </componentInstanceProperties>
@@ -13,6 +81,14 @@
             <componentName>desktopDashboards:embeddedDashboard</componentName>
         </componentInstances>
         <name>top</name>
+        <type>Region</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <name>bottomLeft</name>
+        <type>Region</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <name>bottomRight</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -87,82 +163,6 @@
                 <value>Facet-c96430c3-eb94-4699-b773-f51ab74d1e23</value>
             </componentInstanceProperties>
             <componentName>flexipage:tabset</componentName>
-        </componentInstances>
-        <name>bottomLeft</name>
-        <type>Region</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <name>bottomRight</name>
-        <type>Region</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <componentInstances>
-            <componentInstanceProperties>
-                <name>enableInlineEdit</name>
-                <value>false</value>
-            </componentInstanceProperties>
-            <componentInstanceProperties>
-                <name>entityName</name>
-                <value>Case</value>
-            </componentInstanceProperties>
-            <componentInstanceProperties>
-                <name>filterName</name>
-                <value>MyOpenCases</value>
-            </componentInstanceProperties>
-            <componentInstanceProperties>
-                <name>hideActionBar</name>
-                <value>true</value>
-            </componentInstanceProperties>
-            <componentInstanceProperties>
-                <name>hideSearchBar</name>
-                <value>false</value>
-            </componentInstanceProperties>
-            <componentInstanceProperties>
-                <name>pageSize</name>
-                <value>5</value>
-            </componentInstanceProperties>
-            <componentName>flexipage:filterListCard</componentName>
-            <visibilityRule>
-                <criteria>
-                    <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
-                    <operator>NE</operator>
-                    <rightValue>Manager</rightValue>
-                </criteria>
-            </visibilityRule>
-        </componentInstances>
-        <componentInstances>
-            <componentInstanceProperties>
-                <name>enableInlineEdit</name>
-                <value>false</value>
-            </componentInstanceProperties>
-            <componentInstanceProperties>
-                <name>entityName</name>
-                <value>Case</value>
-            </componentInstanceProperties>
-            <componentInstanceProperties>
-                <name>filterName</name>
-                <value>My_Team_s_Cases</value>
-            </componentInstanceProperties>
-            <componentInstanceProperties>
-                <name>hideActionBar</name>
-                <value>true</value>
-            </componentInstanceProperties>
-            <componentInstanceProperties>
-                <name>hideSearchBar</name>
-                <value>false</value>
-            </componentInstanceProperties>
-            <componentInstanceProperties>
-                <name>pageSize</name>
-                <value>5</value>
-            </componentInstanceProperties>
-            <componentName>flexipage:filterListCard</componentName>
-            <visibilityRule>
-                <criteria>
-                    <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
-                    <operator>EQUAL</operator>
-                    <rightValue>Manager</rightValue>
-                </criteria>
-            </visibilityRule>
         </componentInstances>
         <name>sidebar</name>
         <type>Region</type>
