@@ -5,26 +5,21 @@
         <div class="slds-media__body">
           <div class="slds-grid slds-grid_vertical-align-center slds-no-space">
             <h3 class="slds-truncate" title={release.Name}>
-              <!-- <span class="slds-badge slds-theme_info">{release.Name}</span> -->
               <template if:true={release.Release_Notes__c}>
                 <a href={release.Release_Notes__c} target="_blank">
                   <strong>{release.Name}</strong>
-                  <!-- <lightning-icon icon-name="utility:link" alternative-text="Connected" size="x-small"
-                    title="Change Log" style="margin-left:10px"></lightning-icon> -->
                 </a>
               </template>
               <template if:false={release.Release_Notes__c}>
                 <strong>{release.Name}</strong>
-                <!-- <lightning-icon icon-name="utility:link" alternative-text="Connected" size="x-small"
-                    title="Change Log" style="margin-left:10px"></lightning-icon> -->
               </template>
             </h3>
-            <strong style="margin-left:auto"
+            <strong style="margin-left: auto;"
               >Version: {release.Version__c}</strong
             >
           </div>
           <div class="slds-timeline__actions slds-timeline__actions_inline">
-            <p class="slds-timeline__date" style="margin-left:auto">
+            <p class="slds-timeline__date" style="margin-left: auto;">
               {release.Release_Date__c}
             </p>
           </div>

@@ -63,7 +63,7 @@ hr {
 .horizontal-line-fix {
   height: 1px;
   position: relative;
-  top: 10px;
+  top: 11px;
   z-index: 0;
   width: 20%;
 }
