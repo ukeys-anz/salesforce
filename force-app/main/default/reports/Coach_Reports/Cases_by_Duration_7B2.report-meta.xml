@@ -31,6 +31,12 @@
             <operator>equals</operator>
             <value>Case.General_Inquiry</value>
         </criteriaItems>
+        <criteriaItems>
+            <column>STATUS</column>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Closed</value>
+        </criteriaItems>
     </filter>
     <format>Tabular</format>
     <name>Cases by Duration</name>
