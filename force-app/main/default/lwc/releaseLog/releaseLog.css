@@ -30,6 +30,8 @@
 
 .slds-box {
   position: relative;
+  padding-bottom: 20px;
+  padding-top: 20px;
 }
 
 hr {
@@ -37,30 +39,6 @@ hr {
   border-top: unset;
   height: unset;
 }
-
-/* .slds-box:after,
-.slds-box:before {
-  right: 100%;
-  top: 50%;
-  border: solid transparent;
-  content: "";
-  height: 0;
-  width: 0;
-  position: absolute;
-  pointer-events: none;
-}
-
-.slds-box:after {
-  border-right-color: #ffffff;
-  border-width: 10px;
-  margin-top: -10px;
-}
-
-.slds-box:before {
-  border-right-color: inherit;
-  border-width: 11px;
-  margin-top: -11px;
-} */
 
 .slds-icon {
   width: 20px;
@@ -121,6 +99,6 @@ hr {
   z-index: 0;
   left: 10px;
   top: 30px;
-  height: 100%;
-  border-left: 3px #03844b solid;
+  height: 99%;
+  border-left: 1px solid #dddbda;
 }
