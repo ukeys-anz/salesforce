@@ -10378,7 +10378,6 @@
       <name>ViewPublicReports</name>
   </userPermissions>
   <userPermissions>
-  <userPermissions>
     <enabled>false</enabled>
     <name>ViewSetup</name>
   </userPermissions>
