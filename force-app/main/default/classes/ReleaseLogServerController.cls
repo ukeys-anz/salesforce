@@ -9,6 +9,7 @@ public with sharing class ReleaseLogServerController {
    * @description The Release Log component uses this to fetch the records to display.
    *
    * @param recordLimit the amount of records to retrieve
+   * @return List<Release__c>
    */
   @AuraEnabled
   public static List<Release__c> getReleases(Integer recordLimit) {
@@ -39,7 +40,7 @@ public with sharing class ReleaseLogServerController {
 
   /**
    * @description The Release Log component uses this retrieve a total count of all records.
-   *
+   * @return Interger
    */
   @AuraEnabled
   public static Integer countTotalRecords() {
