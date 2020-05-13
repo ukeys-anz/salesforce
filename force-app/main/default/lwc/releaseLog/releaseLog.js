@@ -20,30 +20,32 @@ export default class ReleaseLog extends LightningElement {
     let recordCount = RECORDS_PER_PAGE * this.currentPage;
     getReleases({ recordLimit: recordCount })
       .then(result => {
-        for (let i = 0; i < result.length; i++) {
-          //Split the text area fields into an array by new lines
-          //and filter out any null elements from the array that we created
-          //in case someone enters two new lines back to back
-          if (result[i].Changes__c) {
-            result[i].Changes__c = result[i].Changes__c.split("\n").filter(
-              el => {
-                return el != false;
-              }
-            );
-          }
+        if (result) {
+          for (let i = 0; i < result.length; i++) {
+            //Split the text area fields into an array by new lines
+            //and filter out any null elements from the array that we created
+            //in case someone enters two new lines back to back
+            if (result[i].Changes__c) {
+              result[i].Changes__c = result[i].Changes__c.split("\n").filter(
+                el => {
+                  return el != false;
+                }
+              );
+            }
 
-          if (result[i].Additions__c) {
-            result[i].Additions__c = result[i].Additions__c.split("\n").filter(
-              el => {
+            if (result[i].Additions__c) {
+              result[i].Additions__c = result[i].Additions__c.split(
+                "\n"
+              ).filter(el => {
                 return el != false;
-              }
-            );
-          }
+              });
+            }
 
-          if (result[i].Fixes__c) {
-            result[i].Fixes__c = result[i].Fixes__c.split("\n").filter(el => {
-              return el != false;
-            });
+            if (result[i].Fixes__c) {
+              result[i].Fixes__c = result[i].Fixes__c.split("\n").filter(el => {
+                return el != false;
+              });
+            }
           }
         }
         this.releases = result;

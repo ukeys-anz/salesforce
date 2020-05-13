@@ -1,4 +1,7 @@
 <template>
+  <template if:false={releases}>
+    <strong>No releases</strong>
+  </template>
   <template if:true={releases}>
     <template for:each={releases} for:item="release">
       <div class="slds-media" key={release.Id}>
