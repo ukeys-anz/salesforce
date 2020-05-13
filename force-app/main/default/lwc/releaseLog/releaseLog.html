@@ -1,6 +1,5 @@
 <template>
   <template if:true={releases}>
-    {releases.totalPages}
     <template for:each={releases} for:item="release">
       <div class="slds-media" key={release.Id}>
         <div class="slds-media__body">
