@@ -249,6 +249,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Account.FinServ__KYCDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Account.KYC_Verification_Level__c</field>
         <readable>true</readable>
     </fieldPermissions>

@@ -2,7 +2,9 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Anniversay_Duration__c</fullName>
     <externalId>false</externalId>
-    <formula>Text(Today() -  Anniversary_Date__c) &amp; &quot; Days&quot;</formula>
+    <formula>if((Today() -  Anniversary_Date__c) &gt;= 1, 
+Text(Today() -  Anniversary_Date__c) &amp; &quot; Day(s)&quot;,
+&quot;&quot;)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Anniversay Duration</label>
     <required>false</required>
