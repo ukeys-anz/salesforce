@@ -88,41 +88,15 @@
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>bottomRight</name>
+        <type>Region</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
         <componentInstances>
             <componentName>releaseLog</componentName>
         </componentInstances>
-        <name>Facet-0a46f0dc-1291-4134-986e-a7f103a4eb26</name>
+        <name>Facet-46aca572-804f-4650-a021-c06bef0d36fa</name>
         <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <componentInstances>
-            <componentInstanceProperties>
-                <name>active</name>
-                <value>true</value>
-            </componentInstanceProperties>
-            <componentInstanceProperties>
-                <name>body</name>
-                <value>Facet-0a46f0dc-1291-4134-986e-a7f103a4eb26</value>
-            </componentInstanceProperties>
-            <componentInstanceProperties>
-                <name>title</name>
-                <value>Release Log</value>
-            </componentInstanceProperties>
-            <componentName>flexipage:tab</componentName>
-        </componentInstances>
-        <name>Facet-99ebf679-3a0a-4cba-bdaf-ebaefe128f25</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <componentInstances>
-            <componentInstanceProperties>
-                <name>tabs</name>
-                <value>Facet-99ebf679-3a0a-4cba-bdaf-ebaefe128f25</value>
-            </componentInstanceProperties>
-            <componentName>flexipage:tabset</componentName>
-        </componentInstances>
-        <name>bottomRight</name>
-        <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
         <componentInstances>
@@ -171,6 +145,17 @@
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <componentInstances>
+            <componentInstanceProperties>
+                <name>body</name>
+                <value>Facet-46aca572-804f-4650-a021-c06bef0d36fa</value>
+            </componentInstanceProperties>
+            <componentInstanceProperties>
+                <name>title</name>
+                <value>Release Notes</value>
+            </componentInstanceProperties>
+            <componentName>flexipage:tab</componentName>
+        </componentInstances>
         <componentInstances>
             <componentInstanceProperties>
                 <name>active</name>
