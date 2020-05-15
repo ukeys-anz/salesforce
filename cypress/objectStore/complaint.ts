@@ -105,7 +105,7 @@ export function createCaseList(
   });
 }
 
-async function getRecordTypeID(connection: any, devname: String) {
+export async function getRecordTypeID(connection: any, devname: String) {
   return new Promise<String>(resolve => {
     //Todo make this query better using JSforce methods if possible
     connection.query(

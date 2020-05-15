@@ -136,6 +136,25 @@ Cypress.Commands.add("connect", (): void => {
 
 Cypress.Commands.add("loadApp", (appName: string): void => {
   //Check if we are already on the requested App
+  cy.get("one-appnav")
+    .shadowFind("one-app-launcher-header")
+    .shadowFind("span")
+    .shadowClick();
+
+  cy.shadowGet("one-app-launcher-menu")
+    .shadowFind("one-app-launcher-search-bar")
+    .shadowFind("lightning-input")
+    .shadowFind('input[type="search"]')
+    .shadowType(`${appName}`);
+
+  cy.shadowGet("one-app-launcher-menu")
+    .shadowFind("one-app-launcher-menu-item")
+    .shadowFind("lightning-formatted-rich-text")
+    .shadowFind("p.slds-truncate")
+    .shadowContains(`${appName}`)
+    .shadowClick();
+  cy.wait(5000);
+  /*
   cy.get("div.slds-context-bar__item > div > span").then(span => {
     let title = span.text();
     if (title === appName) {
@@ -159,16 +178,59 @@ Cypress.Commands.add("loadApp", (appName: string): void => {
 
     cy.wait(5000);
   });
+  */
 });
 
 Cypress.Commands.add("loadTab", (tabName: string): void => {
-  cy.get(".oneAppNavMenu", { timeout: 10000 })
-    .should("be.visible")
-    .click()
+  /*
+  cy.get("one-appnav")
     .get('a[title="' + tabName + '"]')
-    .first()
     .click();
+
+  cy.shadowGet("one-appnav")
+    .shadowFind("one-app-nav-bar")
+    .shadowFind("nav")
+    .shadowFind("one-app-nav-bar-item-root")
+    //.shadowFind(`a[title=${tabName}]`)
+    .shadowFind("span")
+    .shadowContains(`${tabName}`)
+    .shadowClick();
+
+  cy.shadowGet("one-appnav")
+    .shadowFind("one-app-nav-bar")
+    .shadowFind("nav")
+    .shadowFind("div")
+    .shadowFind("one-app-nav-bar-item-root")
+    .shadowFind('a[title="potato"]')
+    //.shadowFind("a")
+    //.shadowFind("span")
+    //.shadowContains(`${tabName}`)
+    .shadowClick({ force: true });
+*/
+  cy.get("one-appnav")
+    .shadowFind("one-app-nav-bar")
+    .shadowFind("nav")
+    .shadowFind("div")
+    .shadowFind("one-app-nav-bar-item-root")
+    .shadowFind("a")
+    .shadowFind("span")
+    .shadowContains(`${tabName}`);
+  //.shadowClick();
   cy.wait(3000);
+  /*
+  if (cy.get("one-appnav").contains('a[title="' + tabName + '"]')) {
+    cy.get("one-appnav")
+      .contains('a[title="' + tabName + '"]')
+      .click();
+  } else {
+    cy.get(".oneAppNavMenu", { timeout: 10000 })
+      .should("be.visible")
+      .click()
+      .get('a[title="' + tabName + '"]')
+      .first()
+      .click();
+  }
+  */
 });
 
 Cypress.Commands.add("selectDropdown", (dropdownname, selval) => {

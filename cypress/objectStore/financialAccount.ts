@@ -27,22 +27,22 @@ export async function createFinAccountList(
   var ownerId: String = "";
   var ownerName: String = "";
   connection.query(
-    "SELECT Id, Name FROM Account WHERE RecordType.DeveloperName = 'PersonAccount' LIMIT 1",
+    "SELECT Id, Name FROM Account WHERE RecordType.DeveloperName = 'PersonAjccount' LIMIT 1",
     async function(err: any, result: any) {
       if (err) {
         return console.error(err);
       }
 
-      ownerId = result.records[0].Id;
-      ownerName = result.records[0].Name;
-
-      if (!ownerId) {
+      if (result.records.length > 0) {
+        ownerId = result.records[0].Id;
+        ownerName = result.records[0].Name;
+      } else {
         // insert an account and use the retrieved id
         var accountList: any = await createAccountList(connection, 1);
         ownerId = accountList[0].Id;
         ownerName = accountList[0].Name;
       }
-      return new Promise(async resolve => {
+      return new Promise<String>(async resolve => {
         var finAccounts = [];
         var idList: any = [];
         var recTypeId = await getRecordTypeID(connection, recordType);
@@ -88,6 +88,8 @@ export async function createFinAccountList(
                   return console.log("error", err);
                 }
                 resolve(result);
+                console.log(result[0].Id);
+                console.log(result[0].FinServ__PrimaryOwner__c);
               });
           });
       });
