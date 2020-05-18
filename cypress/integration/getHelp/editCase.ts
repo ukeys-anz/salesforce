@@ -21,8 +21,8 @@ describe("Anonymous Complaint Edit Page", function() {
   });
 
   it("Update case", function() {
-    //cy.loadApp("Coaches Workbench");
-    cy.loadTab("Cases");
+    cy.loadApp("Coaches Workbench", "Standard");
+    cy.loadTab("Cases", "Standard");
     cy.wait(3000);
   });
 });
