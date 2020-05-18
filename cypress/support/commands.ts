@@ -33,8 +33,8 @@ declare namespace Cypress {
   interface Chainable<Subject> {
     login(): void;
     connect(): any;
-    loadApp(appName: string): void;
-    loadTab(appName: string): void;
+    loadApp(appName: string, view: string): void;
+    loadTab(appName: string, view: string): void;
 
     selectDropdown(
       dropdownname: string,
@@ -134,12 +134,24 @@ Cypress.Commands.add("connect", (): void => {
   });
 });
 
-Cypress.Commands.add("loadApp", (appName: string): void => {
-  //Check if we are already on the requested App
-  cy.get("one-appnav")
-    .shadowFind("one-app-launcher-header")
-    .shadowFind("span")
-    .shadowClick();
+Cypress.Commands.add("loadApp", (appName, view): void => {
+  switch (view) {
+    case "Standard":
+      //Check if we are already on the requested App
+      cy.get("one-appnav")
+        .shadowFind("one-app-launcher-header")
+        .shadowFind("span")
+        .shadowClick();
+      break;
+    case "Console":
+      cy.get("div.slds-context-bar__item > div > span").then(span => {
+        let title = span.text();
+        if (title === appName) {
+          return true;
+        }
+      });
+      break;
+  }
 
   cy.shadowGet("one-app-launcher-menu")
     .shadowFind("one-app-launcher-search-bar")
@@ -153,84 +165,31 @@ Cypress.Commands.add("loadApp", (appName: string): void => {
     .shadowFind("p.slds-truncate")
     .shadowContains(`${appName}`)
     .shadowClick();
+
   cy.wait(5000);
-  /*
-  cy.get("div.slds-context-bar__item > div > span").then(span => {
-    let title = span.text();
-    if (title === appName) {
-      return true;
-    }
-
-    cy.get("nav.appLauncher").click();
-
-    cy.shadowGet("one-app-launcher-menu")
-      .shadowFind("one-app-launcher-search-bar")
-      .shadowFind("lightning-input")
-      .shadowFind('input[type="search"]')
-      .shadowType(`${appName}`);
-
-    cy.shadowGet("one-app-launcher-menu")
-      .shadowFind("one-app-launcher-menu-item")
-      .shadowFind("lightning-formatted-rich-text")
-      .shadowFind("p.slds-truncate")
-      .shadowContains(`${appName}`)
-      .shadowClick();
-
-    cy.wait(5000);
-  });
-  */
 });
 
-Cypress.Commands.add("loadTab", (tabName: string): void => {
-  /*
-  cy.get("one-appnav")
-    .get('a[title="' + tabName + '"]')
-    .click();
-
-  cy.shadowGet("one-appnav")
-    .shadowFind("one-app-nav-bar")
-    .shadowFind("nav")
-    .shadowFind("one-app-nav-bar-item-root")
-    //.shadowFind(`a[title=${tabName}]`)
-    .shadowFind("span")
-    .shadowContains(`${tabName}`)
-    .shadowClick();
-
-  cy.shadowGet("one-appnav")
-    .shadowFind("one-app-nav-bar")
-    .shadowFind("nav")
-    .shadowFind("div")
-    .shadowFind("one-app-nav-bar-item-root")
-    .shadowFind('a[title="potato"]')
-    //.shadowFind("a")
-    //.shadowFind("span")
-    //.shadowContains(`${tabName}`)
-    .shadowClick({ force: true });
-*/
-  cy.get("one-appnav")
-    .shadowFind("one-app-nav-bar")
-    .shadowFind("nav")
-    .shadowFind("div")
-    .shadowFind("one-app-nav-bar-item-root")
-    .shadowFind("a")
-    .shadowFind("span")
-    .shadowContains(`${tabName}`);
-  //.shadowClick();
-  cy.wait(3000);
-  /*
-  if (cy.get("one-appnav").contains('a[title="' + tabName + '"]')) {
-    cy.get("one-appnav")
-      .contains('a[title="' + tabName + '"]')
-      .click();
-  } else {
-    cy.get(".oneAppNavMenu", { timeout: 10000 })
-      .should("be.visible")
-      .click()
-      .get('a[title="' + tabName + '"]')
-      .first()
-      .click();
+Cypress.Commands.add("loadTab", (tabName, view): void => {
+  switch (view) {
+    case "Standard":
+      cy.get("one-appnav")
+        .shadowFind("one-app-nav-bar")
+        .shadowFind("one-app-nav-bar-item-root")
+        .shadowFind(`a[title="${tabName}"]`)
+        .shadowFind("span")
+        .shadowContains(`${tabName}`)
+        .shadowClick();
+      break;
+    case "Console":
+      cy.get(".oneAppNavMenu", { timeout: 10000 })
+        .should("be.visible")
+        .click()
+        .get('a[title="' + tabName + '"]')
+        .first()
+        .click();
+      break;
   }
-  */
+  cy.wait(3000);
 });
 
 Cypress.Commands.add("selectDropdown", (dropdownname, selval) => {

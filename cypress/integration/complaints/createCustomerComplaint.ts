@@ -3,8 +3,8 @@ import * as faker from "faker";
 describe("Customer Complaint Page", function() {
   before(function() {
     cy.login();
-    cy.loadApp("Complaint Mgt");
-    cy.loadTab("Cases");
+    cy.loadApp("Complaint Mgt", "Console");
+    cy.loadTab("Cases", "Console");
   });
 
   it("Creates new case", function() {

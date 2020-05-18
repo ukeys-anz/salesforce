@@ -11,8 +11,8 @@ describe("Resolved Complaint", function() {
       });
       cy.log(response);
     });
-    cy.loadApp("Complaint Mgt");
-    cy.loadTab("Cases");
+    cy.loadApp("Complaint Mgt", "Console");
+    cy.loadTab("Cases", "Console");
   });
 
   it("Resolved Complaint", function() {

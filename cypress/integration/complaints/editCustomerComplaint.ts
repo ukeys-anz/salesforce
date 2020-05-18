@@ -13,8 +13,8 @@ describe("Customer Complaint Edit Page", function() {
       });
       cy.log(response);
     });
-    cy.loadApp("Complaint Mgt");
-    cy.loadTab("Cases");
+    cy.loadApp("Complaint Mgt", "Console");
+    cy.loadTab("Cases", "Console");
   });
 
   it("Update complaint", function() {

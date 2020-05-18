@@ -12,8 +12,8 @@ describe("Anonymous Complaint Edit Page", function() {
         caseid = cases[0].CaseNumber;
       });
     });
-    cy.loadApp("Complaint Mgt");
-    cy.loadTab("Cases");
+    cy.loadApp("Complaint Mgt", "Console");
+    cy.loadTab("Cases", "Console");
   });
 
   it("Update complaint", function() {
