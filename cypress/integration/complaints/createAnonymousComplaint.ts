@@ -3,7 +3,7 @@ import * as faker from "faker";
 describe("Anonymous Customer Complaint Page", function() {
   before(function() {
     cy.login();
-    cy.loadApp("Complaint Mgt", "Console");
+    cy.loadApp("Complaint Mgt");
     cy.loadTab("Cases", "Console");
   });
 

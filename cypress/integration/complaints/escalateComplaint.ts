@@ -11,7 +11,7 @@ describe("Escalate Complaint", function() {
       });
       cy.log(response);
     });
-    cy.loadApp("Complaint Mgt", "Console");
+    cy.loadApp("Complaint Mgt");
     cy.loadTab("Cases", "Console");
   });
 
