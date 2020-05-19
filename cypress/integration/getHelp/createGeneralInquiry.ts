@@ -1,16 +1,42 @@
 import * as faker from "faker";
 import { createFinAccountList } from "../../objectStore/financialAccount";
-var caseid: String;
-var fsid: String;
-var accOwnerId: String;
+import { doesNotMatch } from "assert";
+var accId: String;
+var accName: String;
+var finAccName: String;
+var fsRecordType: String = "SavingsAccount";
 var recordType: String = "General_Inquiry";
 
 describe("Anonymous Complaint Edit Page", function() {
   before(function() {
     cy.login();
-    cy.loadApp("Coaches Workbench", "Standard");
+
+    cy.connect().then((connection: any) => {
+      cy.log("Creating FS Account...");
+      createFinAccountList(connection, 1, fsRecordType).then(
+        (finAccounts: any) => {
+          console.log(finAccounts);
+          finAccName = finAccounts[0].Name;
+          accId = finAccounts[0].FinServ__PrimaryOwner__c;
+          connection.query(
+            "SELECT Id, Name FROM Account WHERE Id = '" + accId + "' LIMIT 1",
+            async function(err: any, result: any) {
+              if (err) {
+                return console.error(err);
+              }
+
+              if (result.records.length > 0) {
+                console.log(accId);
+                accName = result.records[0].Name;
+              }
+            }
+          );
+        }
+      );
+    });
+
+    cy.loadApp("Coaches Workbench");
     cy.loadTab("Cases", "Standard");
-    cy.wait(3000);
   });
 
   it("Update case", function() {
@@ -29,13 +55,15 @@ describe("Anonymous Complaint Edit Page", function() {
 
     cy.typeLabel("Description of Issue", "textarea", faker.lorem.text());
 
-    cy.typeLabel("Account Name", "input", "Thomas Shelby").click();
+    cy.selectLookup("Account Name", "input", accName.toString());
 
     cy.selectDropdown("Status", "Open");
 
     cy.selectDropdown("Type", "Coaching");
 
     cy.selectDropdown("Channel Received", "Chat");
+
+    cy.selectLookup("Financial Account", "input", finAccName.toString());
 
     cy.get(".uiButton")
       .last()
