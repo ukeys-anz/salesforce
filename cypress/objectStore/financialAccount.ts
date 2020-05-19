@@ -30,8 +30,6 @@ export async function createFinAccountList(
     var idList: any = [];
     var recTypeId = await getRecordTypeID(connection, recordType);
     var accountList: any = await getPersonAccount(connection);
-    //ownerId = accountList[0].id;
-    //ownerName = accountList[0].Name;
     console.log("accList", accountList[0].Id, accountList[0].Name);
     for (var i = 0; i < amount; i++) {
       let finAccount: IFinAccount = {

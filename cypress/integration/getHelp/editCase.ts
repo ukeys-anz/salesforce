@@ -19,10 +19,12 @@ describe("Anonymous Complaint Edit Page", function() {
           "case final",
           cases[0].Id,
           cases[0].AccountId,
-          cases[0].FinServ__FinancialAccount__c
+          cases[0].FinServ__FinancialAccount__c,
+          cases[0].ParentId
         );
       });
     });
+
     cy.wait(3000);
   });
   it("Update case", function() {
@@ -31,8 +33,8 @@ describe("Anonymous Complaint Edit Page", function() {
     //  cy.loadTab("Cases", "Stanard");
     //   }
     //});
-    //cy.loadTab("Cases", "Standard");
-    cy.loadApp("coaches workbench").loadTab("cases");
-    cy.wait(3000);
+    //cy.loadApp("coaches workbench").loadTab("cases");
+    cy.wait(5000);
+    cy.loadTab("Cases", "Standard");
   });
 });
