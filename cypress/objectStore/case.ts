@@ -1,8 +1,6 @@
 import * as faker from "faker";
 import { getRecordTypeID } from "./complaint";
-import { createAccountList } from "./account";
 import { createFinAccountList } from "./financialAccount";
-import { any } from "bluebird";
 
 interface ICase {
   Description: String;
@@ -29,48 +27,8 @@ export function createCaseList(
   amount: number = 1,
   recordType: String = "General_Inquiry"
 ) {
-  // Check if there are existing person accounts, if not create new ones
-  var accOwnerId: String = "";
-  /*
-  connection.query(
-    "SELECT Id FROM Account WHERE RecordType.DeveloperName = 'PersondAccount' LIMIT 1",
-    async function(err: any, result: any) {
-      if (err) {
-        return console.error(err);
-      }
-
-      if (result.records.length > 0) {
-        accOwnerId = result.records[0].Id;
-      } else {
-        // insert an account and use the retrieved id
-        var accountList: any = await createAccountList(connection, 1);
-        accOwnerId = accountList[0].Id;
-      }
-    }
-  );
-  */
-  // Check if there are existing financial accounts, if not create new ones
-  var finAccOwnerId: String = "";
-  connection.query(
-    "SELECT Id, FinServ__PrimaryOwner__c FROM FinServ__FinancialAccount__c WHERE RecordType.DeveloperName = 'SavingshAccount' LIMIT 1",
-    async function(err: any, result: any) {
-      if (err) {
-        return console.error(err);
-      }
-      if (result.records.length > 0) {
-        finAccOwnerId = result.records[0].Id;
-        accOwnerId = result.records[0].FinServ__PrimaryOwner__c;
-      } else {
-        // insert an account and use the retrieved id
-        console.log(
-          await createFinAccountList(connection, 1, "SavingsAccount")
-        );
-        //finAccOwnerId = accountList[0].Id;
-        //accOwnerId = accountList[0].FinServ__PrimaryOwner__c;
-      }
-    }
-  );
   return new Promise(async resolve => {
+    var finAccountList: any = await getFinAccount(connection);
     var cases: ICase[] = [];
 
     var idList: any = [];
@@ -84,8 +42,8 @@ export function createCaseList(
         Origin: "Phone",
         Priority: "Medium",
         RecordTypeId: await getRecordTypeID(connection, recordType),
-        AccountId: accOwnerId,
-        FinServ__FinancialAccount__c: finAccOwnerId
+        AccountId: finAccountList[0].FinServ__PrimaryOwner__c,
+        FinServ__FinancialAccount__c: finAccountList[0].Id
       };
       cases.push(caseRecord);
     }
@@ -109,5 +67,29 @@ export function createCaseList(
         resolve(result);
       });
     });
+  });
+}
+
+async function getFinAccount(connection: any) {
+  // Check if there are existing person accounts, if not create new ones
+  return new Promise<String>(resolve => {
+    connection.query(
+      "SELECT Id, FinServ__PrimaryOwner__c FROM FinServ__FinancialAccount__c WHERE RecordType.DeveloperName = 'SavingsAccount' LIMIT 1",
+      async function(err: any, result: any) {
+        if (err) {
+          return console.error(err);
+        }
+        if (result.records.length > 0) {
+          resolve(result.records);
+        } else {
+          var finAccountList: any = await createFinAccountList(
+            connection,
+            1,
+            "SavingsAccount"
+          );
+          resolve(finAccountList);
+        }
+      }
+    );
   });
 }
