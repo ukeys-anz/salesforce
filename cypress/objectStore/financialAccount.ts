@@ -30,7 +30,6 @@ export async function createFinAccountList(
     var idList: any = [];
     var recTypeId = await getRecordTypeID(connection, recordType);
     var accountList: any = await getPersonAccount(connection);
-    console.log("accList", accountList[0].Id, accountList[0].Name);
     for (var i = 0; i < amount; i++) {
       let finAccount: IFinAccount = {
         RecordTypeId: recTypeId,
@@ -75,8 +74,6 @@ export async function createFinAccountList(
               return console.log("error", err);
             }
             resolve(result);
-            //console.log(result[0].Id);
-            //console.log(result[0].FinServ__PrimaryOwner__c);
           });
       });
   });
