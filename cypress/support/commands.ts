@@ -33,12 +33,18 @@ declare namespace Cypress {
   interface Chainable<Subject> {
     login(): void;
     connect(): any;
-    loadApp(appName: string, view: string): void;
+    loadApp(appName: string): any;
     loadTab(appName: string, view: string): void;
 
     selectDropdown(
       dropdownname: string,
       selval: string
+    ): Cypress.Chainable<any>;
+
+    selectLookup(
+      labelname: string,
+      labeltype: string,
+      lookupName: string
     ): Cypress.Chainable<any>;
 
     typeLabel(
@@ -134,6 +140,7 @@ Cypress.Commands.add("connect", (): void => {
   });
 });
 
+/*
 Cypress.Commands.add("loadApp", (appName, view): void => {
   switch (view) {
     case "Standard":
@@ -166,6 +173,135 @@ Cypress.Commands.add("loadApp", (appName, view): void => {
     .shadowContains(`${appName}`)
     .shadowClick();
 
+  cy.wait(5000);
+  
+  cy.wait(5000);
+  cy.get("body").then($body => {
+    if ($body.find("div.desktop").hasClass("lafStandardLayoutContainer")) {
+      cy.log("Standard View");
+      cy.get("one-appnav")
+        .shadowFind("div")
+        .shadowFind("div")
+        .shadowFind("div")
+        .shadowFind("span.appName")
+        .then(span => {
+          let title = span.text();
+          if (title === appName) {
+            cy.log("Already on app");
+          } else {
+            cy.get("one-appnav")
+              .shadowFind("div")
+              .shadowFind("div")
+              .shadowFind("div")
+              .shadowFind("nav.appLauncher")
+              // .shadowFind("one-app-launcher-header")
+              // .shadowFind("span")
+              .shadowClick({ force: true });
+            cy.shadowGet("one-app-launcher-menu")
+              .shadowFind("one-app-launcher-search-bar")
+              .shadowFind("lightning-input")
+              .shadowFind('input[type="search"]')
+              .shadowType(`${appName}`);
+            cy.shadowGet("one-app-launcher-menu")
+              .shadowFind("one-app-launcher-menu-item")
+              .shadowFind("lightning-formatted-rich-text")
+              .shadowFind("p.slds-truncate")
+              .shadowContains(`${appName}`)
+              .shadowClick();
+          }
+        });
+    } else if (
+      $body.find("div.desktop").hasClass("oneConsoleLayoutContainer2")
+    ) {
+      cy.log("Console View");
+      cy.get("div.appName").then(span => {
+        let title = span.text();
+        if (title == appName) {
+          cy.log("Already on app");
+        } else {
+          cy.get("nav.appLauncher").click();
+          cy.shadowGet("one-app-launcher-menu")
+            .shadowFind("one-app-launcher-search-bar")
+            .shadowFind("lightning-input")
+            .shadowFind('input[type="search"]')
+            .shadowType(`${appName}`);
+          cy.shadowGet("one-app-launcher-menu")
+            .shadowFind("one-app-launcher-menu-item")
+            .shadowFind("lightning-formatted-rich-text")
+            .shadowFind("p.slds-truncate")
+            .shadowContains(`${appName}`)
+            .shadowClick();
+        }
+      });
+    }
+  });
+  cy.wait(8000);
+});
+*/
+
+Cypress.Commands.add("loadApp", (appName): any => {
+  cy.wait(5000);
+  cy.get("body").then($body => {
+    if ($body.find("div.desktop").hasClass("lafStandardLayoutContainer")) {
+      cy.log("Standard View");
+      cy.get("one-appnav")
+        .shadowFind("div")
+        .shadowFind("div")
+        .shadowFind("div")
+        .shadowFind("span.appName")
+        .then(span => {
+          let title = span.text();
+          if (title === appName) {
+            cy.log("Already on app");
+          } else {
+            cy.get("one-appnav")
+              .shadowFind("div")
+              .shadowFind("div")
+              .shadowFind("div")
+              .shadowFind("nav.appLauncher")
+              // .shadowFind("one-app-launcher-header")
+              // .shadowFind("span")
+              .shadowClick({ force: true });
+            cy.shadowGet("one-app-launcher-menu")
+              .shadowFind("one-app-launcher-search-bar")
+              .shadowFind("lightning-input")
+              .shadowFind('input[type="search"]')
+              .shadowType(`${appName}`);
+            cy.shadowGet("one-app-launcher-menu")
+              .shadowFind("one-app-launcher-menu-item")
+              .shadowFind("lightning-formatted-rich-text")
+              .shadowFind("p.slds-truncate")
+              .shadowContains(`${appName}`)
+              .shadowClick();
+            return true;
+          }
+        });
+    } else if (
+      $body.find("div.desktop").hasClass("oneConsoleLayoutContainer2")
+    ) {
+      cy.log("Console View");
+      cy.get("div.appName").then(span => {
+        let title = span.text();
+        if (title == appName) {
+          cy.log("Already on app");
+        } else {
+          cy.get("nav.appLauncher").click();
+          cy.shadowGet("one-app-launcher-menu")
+            .shadowFind("one-app-launcher-search-bar")
+            .shadowFind("lightning-input")
+            .shadowFind('input[type="search"]')
+            .shadowType(`${appName}`);
+          cy.shadowGet("one-app-launcher-menu")
+            .shadowFind("one-app-launcher-menu-item")
+            .shadowFind("lightning-formatted-rich-text")
+            .shadowFind("p.slds-truncate")
+            .shadowContains(`${appName}`)
+            .shadowClick();
+        }
+      });
+      return true;
+    }
+  });
   cy.wait(5000);
 });
 
@@ -207,6 +343,21 @@ Cypress.Commands.add("selectDropdown", (dropdownname, selval) => {
         .find('a[title="' + selval + '"]')
         .click();
     });
+});
+
+Cypress.Commands.add("selectLookup", (labelname, labeltype, lookupName) => {
+  cy.get("label")
+    .contains(labelname)
+    .parent()
+    .parent()
+    .find(labeltype)
+    .clear()
+    .type(lookupName, { force: true });
+
+  cy.get('ul[role="presentation"]')
+    .find('div[title="' + lookupName + '"]')
+    .first()
+    .click({ force: true });
 });
 
 Cypress.Commands.add("typeLabel", (labelname, labeltype, inputval) => {
