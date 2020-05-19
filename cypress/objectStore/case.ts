@@ -37,8 +37,8 @@ export function createCaseList(
       finAccountList[0].FinServ__PrimaryOwner__c
     );
     var cases: ICase[] = [];
-
     var idList: any = [];
+
     for (var i = 0; i < amount; i++) {
       let caseRecord: ICase = {
         Description: faker.lorem.text(),
