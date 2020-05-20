@@ -6,4 +6,9 @@
     <sharedTo>
         <group>All_IDR_Users</group>
     </sharedTo>
+    <folderShares>
+        <accessLevel>View</accessLevel>
+        <sharedTo>All_IDR_Users</sharedTo>
+        <sharedToType>Group</sharedToType>
+    </folderShares>
 </ReportFolder>

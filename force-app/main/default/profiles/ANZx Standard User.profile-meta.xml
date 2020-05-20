@@ -1480,7 +1480,7 @@
   <fieldPermissions>
     <editable>false</editable>
     <field>Account.FinServ__KYCDate__c</field>
-    <readable>false</readable>
+    <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
@@ -10368,6 +10368,14 @@
   <userPermissions>
     <enabled>true</enabled>
     <name>ViewRoles</name>
+  </userPermissions>
+  <userPermissions>
+      <enabled>false</enabled>
+      <name>ViewPublicDashboards</name>
+  </userPermissions>
+  <userPermissions>
+      <enabled>false</enabled>
+      <name>ViewPublicReports</name>
   </userPermissions>
   <userPermissions>
     <enabled>false</enabled>

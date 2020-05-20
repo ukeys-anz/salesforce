@@ -1,139 +1,108 @@
 import * as faker from "faker";
-
-interface ICase {
-  IDR_Complainant_Type__c: String;
-  IDR_NC_First_Name__c: String;
-  IDR_NC_Last_Name__c: String;
-  IDR_NC_Email__c: String;
-  IDR_NC_Mobile__c: String;
-  IDR_NC_Street__c: String;
-  IDR_NC_Suburb__c: String;
-  IDR_NC_Postcode__c: String;
-  IDR_NC_Age__c: String;
-  IDR_NC_Gender__c: String;
-  IDR_NC_Descent__c: String;
-  IDR_NC_State__c: String;
-  Type: String;
-  IDR_Product_or_Service_Line__c: String;
-  IDR_Product_or_Service_Category__c: String;
-  IDR_Product_or_Service_Type__c: String;
-  IDR_Is_Common__c: Boolean;
-  Description: String;
-  IDR_Complainant_Desired_Outcome__c: String;
+import { createAccountList } from "./account";
+import { getRecordTypeID } from "./util";
+interface IFinAccount {
   RecordTypeId: String;
-  IDR_Customer_Number__c: String;
+  Name: String;
+  FinServ__FinancialAccountType__c: String;
+  FinServ__Status__c: String;
+  FinServ__Ownership__c: String;
+  FinServ__Balance__c: Number;
+  FinServ__OpenDate__c: Date;
+  FinServ__FinancialAccountNumber__c: String;
+  FinServ__PrimaryOwner__c: String;
 }
-
 /**
- * @description Creates a new case records depending on the amount passed and record type.
+ * @description Creates new Financial Account records depending on the amount passed and record type.
  * By default creates Non_Customer_Complaint record type complaint
  * @param connection  JSForce connection
- * @param amount  Number of cases to be created
- * @param recordType Record Type of the case
+ * @param amount  Number of Fin. Accounts to be created
+ * @param recordType Record Type of the Fin. Account
  */
-export function createCaseList(
+export async function createFinAccountList(
   connection: any,
   amount: number = 1,
-  recordType: String = "Non_Customer_Complaint"
+  recordType: String = "SavingsAccount"
 ) {
-  return new Promise(async resolve => {
-    var cases: ICase[] = [];
-
+  return new Promise<String>(async resolve => {
+    var ownerId: String = "";
+    var ownerName: String = "";
+    var finAccounts = [];
     var idList: any = [];
+    var recTypeId = await getRecordTypeID(
+      connection,
+      "FinServ__FinancialAccount__c",
+      recordType
+    );
+    var accountList: any = await getPersonAccount(connection);
     for (var i = 0; i < amount; i++) {
-      let mockCase: ICase = {
-        IDR_Complainant_Type__c: "1",
-        Type: "2",
-        IDR_Product_or_Service_Line__c: "1",
-        IDR_Product_or_Service_Category__c: "1",
-        IDR_Product_or_Service_Type__c: "2",
-        IDR_Is_Common__c: faker.random.boolean(),
-        Description: faker.lorem.text(),
-        IDR_Complainant_Desired_Outcome__c: faker.lorem.text(),
-        RecordTypeId: await getRecordTypeID(connection, recordType),
-        IDR_NC_First_Name__c: "",
-        IDR_NC_Last_Name__c: "",
-        IDR_NC_Email__c: "",
-        IDR_NC_Mobile__c: "",
-        IDR_NC_Street__c: "",
-        IDR_NC_Suburb__c: "",
-        IDR_NC_Postcode__c: "",
-        IDR_NC_Age__c: "",
-        IDR_NC_Gender__c: "",
-        IDR_NC_Descent__c: "1",
-        IDR_NC_State__c: "",
-        IDR_Customer_Number__c: ""
+      let finAccount: IFinAccount = {
+        RecordTypeId: recTypeId,
+        Name: accountList[0].Name + " Savings",
+        FinServ__FinancialAccountType__c: faker.random.arrayElement([
+          "Savings"
+        ]),
+        FinServ__Status__c: faker.random.arrayElement([
+          "Open",
+          "Closed",
+          "On Hold",
+          "Pending"
+        ]),
+        FinServ__Ownership__c: faker.random.arrayElement(["Individual"]),
+        FinServ__Balance__c: parseFloat(faker.commerce.price(99, 9999, 2)),
+        FinServ__OpenDate__c: faker.date.past(2),
+        FinServ__FinancialAccountNumber__c: faker.finance.account(9),
+        FinServ__PrimaryOwner__c: accountList[0].Id
       };
-
-      if (recordType === "Customer_Complaint") {
-        mockCase.IDR_Customer_Number__c = faker.finance.account(10).toString();
-      } // future record types have else if or switch
-      else {
-        mockCase.IDR_NC_First_Name__c = faker.name.firstName();
-        mockCase.IDR_NC_Last_Name__c = faker.name.lastName();
-        mockCase.IDR_NC_Email__c = faker.internet.email();
-        mockCase.IDR_NC_Mobile__c = faker.phone.phoneNumber("04########");
-        mockCase.IDR_NC_Street__c = faker.address.streetName();
-        mockCase.IDR_NC_Suburb__c = faker.address.city();
-        mockCase.IDR_NC_Postcode__c = faker.address.zipCode("####");
-        mockCase.IDR_NC_Age__c = "2";
-        mockCase.IDR_NC_Gender__c = "1";
-        mockCase.IDR_NC_State__c = "2";
-      }
-      cases.push(mockCase);
+      finAccounts.push(finAccount);
     }
-
     //Use the connection passed as a param to create the accounts
-    connection.sobject("Case").create(cases, (err: any, result: any) => {
-      if (err) {
-        return console.error("error", err);
-      }
-      //Loop through the result to create a list of ids
-      result.forEach((item: any) => {
-        if (item.success) {
-          idList.push(item.id);
-        }
-      });
-      //Retrieve the new accounts using the created id list and return the results
-      connection.sobject("Case").retrieve(idList, (err: any, result: any) => {
+    connection
+      .sobject("FinServ__FinancialAccount__c")
+      .create(finAccounts, (err: any, result: any) => {
         if (err) {
           return console.log("error", err);
+        } else if (!result[0].success) {
+          return console.log("error", result[0].errors[0].message);
         }
-        resolve(result);
+        //Loop through the result to create a list of ids
+        result.forEach((item: any) => {
+          if (item.success) {
+            idList.push(item.id);
+          }
+        });
+        //Retrieve the new Financial Accounts using the created id list and return the results
+        connection
+          .sobject("FinServ__FinancialAccount__c")
+          .retrieve(idList, (err: any, result: any) => {
+            if (err) {
+              return console.log("error", err);
+            }
+            resolve(result);
+          });
       });
-    });
   });
 }
 
-export async function getRecordTypeID(connection: any, devname: String) {
+async function getPersonAccount(connection: any) {
+  // Check if there are existing person accounts, if not create new ones
   return new Promise<String>(resolve => {
-    //Todo make this query better using JSforce methods if possible
     connection.query(
-      "SELECT Id FROM RecordType WHERE IsActive = TRUE AND sObjectType= 'Case' AND DeveloperName='" +
-        devname +
-        "'",
-      (err: any, result: any) => {
-        if (err) {
-          return console.error("error", err);
-        }
-        resolve(result.records[0].Id);
-      }
-    );
-  });
-}
-//This will be used for new scenario
-export const getCase = (connection: any, devname: String) => {
-  return new Promise<string>(resolve => {
-    connection.query(
-      "SELECT Max(CaseNumber) ID FROM Case where Status='Open' and RecordTypeId IN (SELECT Id FROM RecordType WHERE IsActive = TRUE AND sObjectType='Case' AND DeveloperName='" +
-        devname +
-        "')",
-      (err: any, result: any) => {
+      "SELECT Id, Name FROM Account WHERE RecordType.DeveloperName = 'PersonAccount' LIMIT 1",
+      async function(err: any, result: any) {
         if (err) {
           return console.error(err);
         }
-        resolve(result.records[0].ID);
+
+        if (result.records.length > 0) {
+          resolve(result.records);
+        } else {
+          // insert an account and use the retrieved id
+          var accountList: any = await createAccountList(connection, 1);
+
+          resolve(accountList);
+        }
       }
     );
   });
-};
+}

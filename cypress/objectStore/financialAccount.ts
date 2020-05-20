@@ -1,5 +1,6 @@
 import * as faker from "faker";
 import { createAccountList } from "./account";
+import { getRecordTypeID } from "./util";
 interface IFinAccount {
   RecordTypeId: String;
   Name: String;
@@ -28,7 +29,11 @@ export async function createFinAccountList(
     var ownerName: String = "";
     var finAccounts = [];
     var idList: any = [];
-    var recTypeId = await getRecordTypeID(connection, recordType);
+    var recTypeId = await getRecordTypeID(
+      connection,
+      "FinServ__FinancialAccount__c",
+      recordType
+    );
     var accountList: any = await getPersonAccount(connection);
     for (var i = 0; i < amount; i++) {
       let finAccount: IFinAccount = {
@@ -76,23 +81,6 @@ export async function createFinAccountList(
             resolve(result);
           });
       });
-  });
-}
-
-async function getRecordTypeID(connection: any, devName: String) {
-  return new Promise<String>(resolve => {
-    //Todo make this query better using JSforce methods if possible
-    connection.query(
-      "SELECT Id FROM RecordType WHERE IsActive = TRUE AND sObjectType= 'FinServ__FinancialAccount__c' AND DeveloperName='" +
-        devName +
-        "'",
-      (err: any, result: any) => {
-        if (err) {
-          return console.error("error", err);
-        }
-        resolve(result.records[0].Id);
-      }
-    );
   });
 }
 
