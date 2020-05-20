@@ -1,4 +1,5 @@
 import * as faker from "faker";
+import { getRecordTypeID } from "./util";
 
 interface ICase {
   IDR_Complainant_Type__c: String;
@@ -50,7 +51,7 @@ export function createCaseList(
         IDR_Is_Common__c: faker.random.boolean(),
         Description: faker.lorem.text(),
         IDR_Complainant_Desired_Outcome__c: faker.lorem.text(),
-        RecordTypeId: await getRecordTypeID(connection, recordType),
+        RecordTypeId: await getRecordTypeID(connection, "Case", recordType),
         IDR_NC_First_Name__c: "",
         IDR_NC_Last_Name__c: "",
         IDR_NC_Email__c: "",
@@ -105,22 +106,6 @@ export function createCaseList(
   });
 }
 
-export async function getRecordTypeID(connection: any, devname: String) {
-  return new Promise<String>(resolve => {
-    //Todo make this query better using JSforce methods if possible
-    connection.query(
-      "SELECT Id FROM RecordType WHERE IsActive = TRUE AND sObjectType= 'Case' AND DeveloperName='" +
-        devname +
-        "'",
-      (err: any, result: any) => {
-        if (err) {
-          return console.error("error", err);
-        }
-        resolve(result.records[0].Id);
-      }
-    );
-  });
-}
 //This will be used for new scenario
 export const getCase = (connection: any, devname: String) => {
   return new Promise<string>(resolve => {

@@ -1,5 +1,5 @@
 import * as faker from "faker";
-import { getRecordTypeID } from "./complaint";
+import { getRecordTypeID } from "./util";
 import { createFinAccountList } from "./financialAccount";
 
 interface ICase {
@@ -30,7 +30,11 @@ export function createCaseList(
 ) {
   return new Promise(async resolve => {
     var finAccountList: any = await getFinAccount(connection);
-    var recordTypeId: String = await getRecordTypeID(connection, recordType);
+    var recordTypeId: String = await getRecordTypeID(
+      connection,
+      "Case",
+      recordType
+    );
     var parentCaseList: any = await getParentCase(
       connection,
       recordTypeId,
