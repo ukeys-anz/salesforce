@@ -4,7 +4,7 @@ describe("Customer Complaint Page", function() {
   before(function() {
     cy.login();
     cy.loadApp("Complaint Mgt");
-    cy.loadTab("Cases", "Console");
+    cy.loadTab("Cases");
   });
 
   it("Creates new case", function() {

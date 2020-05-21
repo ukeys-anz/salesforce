@@ -14,7 +14,7 @@ describe("Customer Complaint Edit Page", function() {
       cy.log(response);
     });
     cy.loadApp("Complaint Mgt");
-    cy.loadTab("Cases", "Console");
+    cy.loadTab("Cases");
   });
 
   it("Update complaint", function() {
