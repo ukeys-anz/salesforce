@@ -1,6 +1,11 @@
 import * as faker from "faker";
 import { getRecordTypeID } from "../../objectStore/util";
-import { getParentCase, getFinAccount } from "../../objectStore/case";
+import {
+  getParentCase,
+  getFinAccount,
+  createBlankCase
+} from "../../objectStore/case";
+var caseNumber: String;
 var parentCaseNumber: String;
 var accId: String;
 var accName: String;
@@ -8,9 +13,18 @@ var finAccName: String;
 var recordType: String = "General_Inquiry";
 var recordTypeId: String;
 
-describe("Create New General Inquiry Case", function() {
+describe("Edit General Inquiry Case", function() {
   before(function() {
     cy.login();
+
+    cy.connect().then((connection: any) => {
+      cy.log("Create New Case...");
+      createBlankCase(connection, 1, recordType).then((cases: any) => {
+        caseNumber = cases[0].CaseNumber;
+      });
+      cy.wait(5000);
+    });
+
     cy.connect().then((connection: any) => {
       cy.log("Get FS Account...");
       getFinAccount(connection).then((finAccounts: any) => {
@@ -52,16 +66,14 @@ describe("Create New General Inquiry Case", function() {
   });
 
   it("Update case", function() {
-    cy.get(".forceActionLink[title=New]", { timeout: 10000 })
+    cy.get('.forceOutputLookup[title="' + caseNumber + '"]', {
+      timeout: 10000
+    }).click({ force: true });
+
+    cy.get(".forceActionLink[title=Edit]", { timeout: 10000 })
       .should("be.visible")
       .click({ force: true });
 
-    cy.get(".slds-form-element__label")
-      .contains("General Inquiry")
-      .click();
-    cy.get(".uiButton", { timeout: 10000 })
-      .contains("Next")
-      .click({ force: true });
     //Add explicit wait for modal to show up as url doesnt change cypress doesnt wait for it.
     cy.wait(3000);
 
@@ -103,7 +115,7 @@ describe("Create New General Inquiry Case", function() {
         "Join / KYC",
         "My Security",
         "Product Information",
-        "Transaction & Savings enquiry"
+        "Transaction & Savings enquiry "
       ])
     );
 
@@ -132,7 +144,7 @@ describe("Create New General Inquiry Case", function() {
       .click();
 
     cy.get(".forceToastMessage")
-      .contains("created.")
+      .contains("Case was saved.")
       .should("be.visible");
   });
 });
