@@ -52,7 +52,7 @@ describe("Create New General Inquiry Case", function() {
     cy.loadTab("Cases");
   });
 
-  it("Create case", function() {
+  it("Creates case", function() {
     cy.get(".forceActionLink[title=New]", { timeout: 10000 })
       .should("be.visible")
       .click({ force: true });
