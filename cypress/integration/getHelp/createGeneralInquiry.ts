@@ -23,10 +23,7 @@ describe("Create New General Inquiry Case", function() {
             if (err) {
               return console.error(err);
             }
-
-            if (result.records.length > 0) {
-              accName = result.records[0].Name;
-            }
+            accName = result.records[0].Name;
           }
         );
       });
