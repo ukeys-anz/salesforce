@@ -212,8 +212,6 @@ Cypress.Commands.add("loadApp", (appName): any => {
     return false;
   });
   cy.wait(5000);
-  cy.reload(true);
-  cy.wait(5000);
 });
 
 Cypress.Commands.add("loadTab", (tabName): void => {

@@ -18,7 +18,7 @@ describe("Create New General Inquiry Case", function() {
     cy.loadTab("Cases");
   });
 
-  it("Update case", function() {
+  it("Resolves case", function() {
     cy.get('.forceOutputLookup[title="' + caseNumber + '"]', {
       timeout: 10000
     }).click({ force: true });

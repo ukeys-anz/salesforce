@@ -1,6 +1,7 @@
 import * as faker from "faker";
 import { getRecordTypeID } from "../../objectStore/util";
-import { getParentCase, getFinAccount } from "../../objectStore/case";
+import { getParentCase } from "../../objectStore/case";
+import { getFinAccount } from "../../objectStore/financialAccount";
 var parentCaseNumber: String;
 var accId: String;
 var accName: String;
@@ -51,7 +52,7 @@ describe("Create New General Inquiry Case", function() {
     cy.loadTab("Cases");
   });
 
-  it("Update case", function() {
+  it("Create case", function() {
     cy.get(".forceActionLink[title=New]", { timeout: 10000 })
       .should("be.visible")
       .click({ force: true });

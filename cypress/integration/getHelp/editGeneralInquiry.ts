@@ -1,10 +1,7 @@
 import * as faker from "faker";
 import { getRecordTypeID } from "../../objectStore/util";
-import {
-  getParentCase,
-  getFinAccount,
-  createBlankCase
-} from "../../objectStore/case";
+import { getParentCase, createBlankCase } from "../../objectStore/case";
+import { getFinAccount } from "../../objectStore/financialAccount";
 var caseNumber: String;
 var parentCaseNumber: String;
 var accId: String;

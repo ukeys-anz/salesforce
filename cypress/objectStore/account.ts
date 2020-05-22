@@ -27,6 +27,14 @@ interface IAccount {
   BillingPostalCode: String;
   BillingCountry: String;
 }
+
+/**
+ * @description Creates a new account depending on the amount passed and record type.
+ * creates PersonAccount record type account
+ * @param connection  JSForce connection
+ * @param amount  Number of accounts to be created
+ * @param recordType Record Type of the account
+ */
 export async function createAccountList(
   connection: any,
   amount: number = 1,
@@ -151,5 +159,32 @@ export async function createAccountList(
           resolve(result);
         });
     });
+  });
+}
+
+/**
+ * @description extracts person account record if is already in the system or creates new one.
+ * @param connection  JSForce connection
+ */
+export async function getPersonAccount(connection: any) {
+  // Check if there are existing person accounts, if not create new ones
+  return new Promise<String>(resolve => {
+    connection.query(
+      "SELECT Id, Name FROM Account WHERE RecordType.DeveloperName = 'PersonAccount' LIMIT 1",
+      async function(err: any, result: any) {
+        if (err) {
+          return console.error(err);
+        }
+
+        if (result.records.length > 0) {
+          resolve(result.records);
+        } else {
+          // insert an account and use the retrieved id
+          var accountList: any = await createAccountList(connection, 1);
+
+          resolve(accountList);
+        }
+      }
+    );
   });
 }

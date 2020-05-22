@@ -1,6 +1,6 @@
 import * as faker from "faker";
 import { getRecordTypeID } from "./util";
-import { createFinAccountList } from "./financialAccount";
+import { getFinAccount } from "./financialAccount";
 
 interface ICase {
   Description: String;
@@ -107,34 +107,6 @@ export function createCaseList(
         resolve(result);
       });
     });
-  });
-}
-
-/**
- * @description extracts financial account record if is already in the system or creates new one.
- * @param connection  JSForce connection
- */
-export async function getFinAccount(connection: any) {
-  // Check if there are existing financial accounts, if not create new ones
-  return new Promise<String>(resolve => {
-    connection.query(
-      "SELECT Id, Name, FinServ__PrimaryOwner__c FROM FinServ__FinancialAccount__c WHERE RecordType.DeveloperName = 'SavingsAccount' LIMIT 1",
-      async function(err: any, result: any) {
-        if (err) {
-          return console.error(err);
-        }
-        if (result.records.length > 0) {
-          resolve(result.records);
-        } else {
-          var finAccountList: any = await createFinAccountList(
-            connection,
-            1,
-            "SavingsAccount"
-          );
-          resolve(finAccountList);
-        }
-      }
-    );
   });
 }
 
