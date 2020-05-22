@@ -8,7 +8,7 @@ describe("Create New General Inquiry Case", function() {
     cy.login();
 
     cy.connect().then((connection: any) => {
-      cy.log("Get Parent Case...");
+      cy.log("Create New Case...");
       createCaseList(connection, 1, recordType).then((cases: any) => {
         caseNumber = cases[0].CaseNumber;
       });

@@ -18,7 +18,7 @@ describe("Edit General Inquiry Case", function() {
     cy.login();
 
     cy.connect().then((connection: any) => {
-      cy.log("Create New Case...");
+      cy.log("Create New Blank Case...");
       createBlankCase(connection, 1, recordType).then((cases: any) => {
         caseNumber = cases[0].CaseNumber;
       });
