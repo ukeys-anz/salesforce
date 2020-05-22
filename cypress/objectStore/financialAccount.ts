@@ -1,5 +1,5 @@
 import * as faker from "faker";
-import { createAccountList } from "./account";
+import { getPersonAccount } from "./account";
 import { getRecordTypeID } from "./util";
 interface IFinAccount {
   RecordTypeId: String;
@@ -84,23 +84,28 @@ export async function createFinAccountList(
   });
 }
 
-async function getPersonAccount(connection: any) {
-  // Check if there are existing person accounts, if not create new ones
+/**
+ * @description extracts financial account record if is already in the system or creates new one.
+ * @param connection  JSForce connection
+ */
+export async function getFinAccount(connection: any) {
+  // Check if there are existing financial accounts, if not create new ones
   return new Promise<String>(resolve => {
     connection.query(
-      "SELECT Id, Name FROM Account WHERE RecordType.DeveloperName = 'PersonAccount' LIMIT 1",
+      "SELECT Id, Name, FinServ__PrimaryOwner__c FROM FinServ__FinancialAccount__c WHERE RecordType.DeveloperName = 'SavingsAccount' LIMIT 1",
       async function(err: any, result: any) {
         if (err) {
           return console.error(err);
         }
-
         if (result.records.length > 0) {
           resolve(result.records);
         } else {
-          // insert an account and use the retrieved id
-          var accountList: any = await createAccountList(connection, 1);
-
-          resolve(accountList);
+          var finAccountList: any = await createFinAccountList(
+            connection,
+            1,
+            "SavingsAccount"
+          );
+          resolve(finAccountList);
         }
       }
     );

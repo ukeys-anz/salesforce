@@ -33,13 +33,21 @@ declare namespace Cypress {
   interface Chainable<Subject> {
     login(): void;
     connect(): any;
-    loadApp(appName: string): void;
-    loadTab(appName: string): void;
+    loadApp(appName: string): any;
+    loadTab(tabName: string): void;
 
     selectDropdown(
       dropdownname: string,
       selval: string
     ): Cypress.Chainable<any>;
+
+    selectLookup(
+      labelname: string,
+      labeltype: string,
+      lookupName: string
+    ): Cypress.Chainable<any>;
+
+    multiSelect(labelname: string, selval: string): Cypress.Chainable<any>;
 
     typeLabel(
       labelname: string,
@@ -134,41 +142,104 @@ Cypress.Commands.add("connect", (): void => {
   });
 });
 
-Cypress.Commands.add("loadApp", (appName: string): void => {
-  //Check if we are already on the requested App
-  cy.get("div.slds-context-bar__item > div > span").then(span => {
-    let title = span.text();
-    if (title === appName) {
-      return true;
+Cypress.Commands.add("loadApp", (appName): any => {
+  cy.wait(5000);
+  cy.get("body").then($body => {
+    if ($body.find("div.desktop").hasClass("lafStandardLayoutContainer")) {
+      cy.log("Standard View");
+      cy.get("one-appnav")
+        .shadowFind("div")
+        .shadowFind("div")
+        .shadowFind("div")
+        .shadowFind("span.appName")
+        .then(span => {
+          let title = span.text();
+          if (title === appName) {
+            cy.log("Already on app");
+          } else {
+            cy.get("one-appnav")
+              .shadowFind("div")
+              .shadowFind("div")
+              .shadowFind("div")
+              .shadowFind("nav.appLauncher")
+              .shadowFind("one-app-launcher-header")
+              .shadowFind("span")
+              .shadowClick({
+                force: true
+              });
+            cy.shadowGet("one-app-launcher-menu")
+              .shadowFind("one-app-launcher-search-bar")
+              .shadowFind("lightning-input")
+              .shadowFind('input[type="search"]')
+              .shadowType(`${appName}`);
+            cy.shadowGet("one-app-launcher-menu")
+              .shadowFind("one-app-launcher-menu-item")
+              .shadowFind("lightning-formatted-rich-text")
+              .shadowFind("p.slds-truncate")
+              .shadowContains(`${appName}`)
+              .wait(1000)
+              .shadowClick();
+          }
+        });
+    } else if (
+      $body.find("div.desktop").hasClass("oneConsoleLayoutContainer2")
+    ) {
+      cy.log("Console View");
+      cy.get("div.appName").then(span => {
+        let title = span.text();
+        if (title == appName) {
+          cy.log("Already on app");
+        } else {
+          cy.get("nav.appLauncher").click();
+          cy.shadowGet("one-app-launcher-menu")
+            .shadowFind("one-app-launcher-search-bar")
+            .shadowFind("lightning-input")
+            .shadowFind('input[type="search"]')
+            .shadowType(`${appName}`);
+          cy.shadowGet("one-app-launcher-menu")
+            .shadowFind("one-app-launcher-menu-item")
+            .shadowFind("lightning-formatted-rich-text")
+            .shadowFind("p.slds-truncate")
+            .shadowContains(`${appName}`)
+            .wait(1000)
+            .shadowClick();
+        }
+      });
     }
-
-    cy.get("nav.appLauncher").click();
-
-    cy.shadowGet("one-app-launcher-menu")
-      .shadowFind("one-app-launcher-search-bar")
-      .shadowFind("lightning-input")
-      .shadowFind('input[type="search"]')
-      .shadowType(`${appName}`);
-
-    cy.shadowGet("one-app-launcher-menu")
-      .shadowFind("one-app-launcher-menu-item")
-      .shadowFind("lightning-formatted-rich-text")
-      .shadowFind("p.slds-truncate")
-      .shadowContains(`${appName}`)
-      .shadowClick();
-
-    cy.wait(5000);
   });
+  //Added to fix issue all tests not running together
+  Cypress.on("uncaught:exception", (err, runnable) => {
+    return false;
+  });
+  cy.wait(5000);
 });
 
-Cypress.Commands.add("loadTab", (tabName: string): void => {
-  cy.get(".oneAppNavMenu", { timeout: 10000 })
-    .should("be.visible")
-    .click()
-    .get('a[title="' + tabName + '"]')
-    .first()
-    .click();
-  cy.wait(3000);
+Cypress.Commands.add("loadTab", (tabName): void => {
+  cy.get("body").then($body => {
+    if ($body.find("div.desktop").hasClass("lafStandardLayoutContainer")) {
+      cy.shadowGet("one-appnav")
+        .shadowFind("one-app-nav-bar.slds-grid")
+        .shadowFind('nav[role="navigation"]')
+        .shadowFind('div[role="list"]')
+        .shadowFind("one-app-nav-bar-item-root")
+        .shadowFind(`a[title="${tabName}"]`)
+        .shadowFind("span")
+        .shadowContains(`${tabName}`)
+        .shadowClick();
+    } else if (
+      $body.find("div.desktop").hasClass("oneConsoleLayoutContainer2")
+    ) {
+      cy.get(".oneAppNavMenu", {
+        timeout: 10000
+      })
+        .should("be.visible")
+        .click()
+        .get('a[title="' + tabName + '"]')
+        .first()
+        .click();
+    }
+    cy.wait(3000);
+  });
 });
 
 Cypress.Commands.add("selectDropdown", (dropdownname, selval) => {
@@ -186,6 +257,38 @@ Cypress.Commands.add("selectDropdown", (dropdownname, selval) => {
         .find('a[title="' + selval + '"]')
         .click();
     });
+});
+
+Cypress.Commands.add("selectLookup", (labelname, labeltype, lookupName) => {
+  cy.get("label")
+    .contains(labelname)
+    .parent()
+    .parent()
+    .find(labeltype)
+    .clear()
+    .type(lookupName, { force: true });
+
+  cy.get('ul[role="presentation"]')
+    .find('div[title="' + lookupName + '"]')
+    .first()
+    .click({ force: true });
+});
+
+Cypress.Commands.add("multiSelect", (labelname, selval) => {
+  cy.get("lightning-picklist")
+    .shadowContains(labelname)
+    .shadowContains("Available")
+    .shadowFind("ul")
+    .shadowFind('li[role="presentation"]')
+    .shadowFind('div[data-value="' + selval + '"]')
+    .shadowClick();
+
+  cy.get("lightning-picklist")
+    .shadowFind("lightning-dual-listbox")
+    .shadowFind("div")
+    .shadowFind("lightning-button-icon")
+    .shadowFind('button[title="Move selection to Chosen"]')
+    .shadowClick();
 });
 
 Cypress.Commands.add("typeLabel", (labelname, labeltype, inputval) => {

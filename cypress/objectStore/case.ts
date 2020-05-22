@@ -1,6 +1,6 @@
 import * as faker from "faker";
 import { getRecordTypeID } from "./util";
-import { createFinAccountList } from "./financialAccount";
+import { getFinAccount } from "./financialAccount";
 
 interface ICase {
   Description: String;
@@ -51,7 +51,6 @@ export function createCaseList(
           "Under Investigation",
           "On Hold",
           "Escalated",
-          "Closed",
           "Re-opened"
         ]),
         Type: "App Support",
@@ -66,7 +65,7 @@ export function createCaseList(
           "Join / KYC",
           "My Security",
           "Product Information",
-          "Transaction & Savings enquiry "
+          "Transaction & Savings enquiry"
         ]),
         Origin: faker.random.arrayElement([
           "Chat",
@@ -112,40 +111,12 @@ export function createCaseList(
 }
 
 /**
- * @description extracts financial account record if is already in the system or creates new one.
- * @param connection  JSForce connection
- */
-async function getFinAccount(connection: any) {
-  // Check if there are existing financial accounts, if not create new ones
-  return new Promise<String>(resolve => {
-    connection.query(
-      "SELECT Id, FinServ__PrimaryOwner__c FROM FinServ__FinancialAccount__c WHERE RecordType.DeveloperName = 'SavingsAccount' LIMIT 1",
-      async function(err: any, result: any) {
-        if (err) {
-          return console.error(err);
-        }
-        if (result.records.length > 0) {
-          resolve(result.records);
-        } else {
-          var finAccountList: any = await createFinAccountList(
-            connection,
-            1,
-            "SavingsAccount"
-          );
-          resolve(finAccountList);
-        }
-      }
-    );
-  });
-}
-
-/**
  * @description extracts parent case record if is already in the system or creates new one.
  * @param connection  JSForce connection
  * @param recordtypeId case general inquirty record type id
  * @param accoundId Account id from previous func
  */
-async function getParentCase(
+export async function getParentCase(
   connection: any,
   recordTypeId: any,
   accountId: any
@@ -232,5 +203,54 @@ async function getParentCase(
         }
       }
     );
+  });
+}
+
+/**
+ * @description Creates a blank general inquiry case. This will be used to test edit case functionality.
+ * @param connection  JSForce connection
+ * @param amount  Number of cases to be created
+ * @param recordType Record Type of the case
+ */
+export async function createBlankCase(
+  connection: any,
+  amount: number = 1,
+  recordType: String
+) {
+  return new Promise(async resolve => {
+    var recordTypeId: String = await getRecordTypeID(
+      connection,
+      "Case",
+      recordType
+    );
+    var cases: any = [];
+    var idList: any = [];
+
+    for (var i = 0; i < amount; i++) {
+      let caseRecord = {
+        RecordTypeId: recordTypeId
+      };
+      cases.push(caseRecord);
+    }
+
+    //Use the connection passed as a param to create the cases
+    connection.sobject("Case").create(cases, (err: any, result: any) => {
+      if (err) {
+        return console.log("error", err);
+      } else if (!result[0].success) {
+        return console.log("error", result[0].errors[0].message);
+      }
+      //Loop through the result to create a list of ids
+      result.forEach((item: any, index: any) => {
+        idList.push(item.id);
+      });
+      //Retrieve the new cases using the created id list and return the results
+      connection.sobject("Case").retrieve(idList, (err: any, result: any) => {
+        if (err) {
+          return console.log("error", err);
+        }
+        resolve(result);
+      });
+    });
   });
 }
