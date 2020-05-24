@@ -164,10 +164,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Product__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>IDR_Escalation_Reason__c</field>
             </layoutItems>
         </layoutColumns>
@@ -186,7 +182,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
-                <field>IDR_Product_or_Service_Line__c</field>
+                <field>Product__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -425,6 +421,11 @@
     <platformActionList>
         <actionListContext>Record</actionListContext>
         <platformActionListItems>
+            <actionName>Edit</actionName>
+            <actionType>StandardButton</actionType>
+            <sortOrder>0</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
             <actionName>Case.Escalate_Complaint</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>1</sortOrder>
@@ -453,11 +454,6 @@
             <actionName>Share</actionName>
             <actionType>StandardButton</actionType>
             <sortOrder>6</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
-            <actionName>Edit</actionName>
-            <actionType>StandardButton</actionType>
-            <sortOrder>0</sortOrder>
         </platformActionListItems>
     </platformActionList>
     <relatedContent>

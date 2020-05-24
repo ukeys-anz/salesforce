@@ -411,21 +411,8 @@
                 <lightning-input-field
                   variant="label-stacked"
                   required
-                  field-name={ProductorServiceLine}
-                ></lightning-input-field>
-              </div>
-              <div class="slds-col slds-size_1-of-4 slds-m-right_large">
-                <lightning-input-field
-                  variant="label-stacked"
-                  required
-                  field-name={ProductorServiceCategory}
-                ></lightning-input-field>
-              </div>
-              <div class="slds-col slds-size_1-of-4 slds-m-right_large">
-                <lightning-input-field
-                  variant="label-stacked"
-                  required
-                  field-name={ProductorServiceType}
+                  field-name={Product}
+                  onchange={handleProductChange}
                 ></lightning-input-field>
               </div>
               <template if:true={isCustomerComplaint}>

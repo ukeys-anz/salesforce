@@ -45,9 +45,7 @@ import WRITTEN_RESPONSE_REQUIRED_FIELD from "@salesforce/schema/Case.IDR_Is_Writ
 import PRIORITY from "@salesforce/schema/Case.Priority";
 import CHANNEL_RECEIVED from "@salesforce/schema/Case.Origin";
 import COMPLAINT_ISSUE from "@salesforce/schema/Case.Type";
-import PRODUCT_LINE_FIELD from "@salesforce/schema/Case.IDR_Product_or_Service_Line__c";
-import PRODUCT_CATEGORY_FIELD from "@salesforce/schema/Case.IDR_Product_or_Service_Category__c";
-import PRODUCT_TYPE_FIELD from "@salesforce/schema/Case.IDR_Product_or_Service_Type__c";
+import PRODUCT_LOOKUP_FIELD from "@salesforce/schema/Case.Product__c";
 import ACCOUNT_POLICY_FIELD from "@salesforce/schema/Case.IDR_Account_Card_Policy_Number__c";
 import DESCRIPTION_FIELD from "@salesforce/schema/Case.Description";
 import DESIRED_OUTCOME_FIELD from "@salesforce/schema/Case.IDR_Complainant_Desired_Outcome__c";
@@ -81,9 +79,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   Priority = PRIORITY;
   ChannelReceived = CHANNEL_RECEIVED;
   complaintIssue = COMPLAINT_ISSUE;
-  ProductorServiceLine = PRODUCT_LINE_FIELD;
-  ProductorServiceCategory = PRODUCT_CATEGORY_FIELD;
-  ProductorServiceType = PRODUCT_TYPE_FIELD;
+  Product = PRODUCT_LOOKUP_FIELD;
   DescriptionofIssue = DESCRIPTION_FIELD;
   ComplainantDesiredOutcome = DESIRED_OUTCOME_FIELD;
 
@@ -143,6 +139,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   displayCustomerInfo = false;
   customerIdValue = "";
   customerId = "";
+  productId = "";
   writtenResponseValue;
   writtenRequiredValue;
   loading = false;
@@ -214,6 +211,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.displayCustomerInfo = true;
     this.customerId = this.customerIdValue;
   }
+
   handleCustomerNumberChange(event) {
     this.customerIdValue = event.target.value;
   }
@@ -234,10 +232,16 @@ export default class CreateComplaintLWC extends NavigationMixin(
         this.writtenResponseValue == YES_VALUE);
   }
 
+  handleProductChange(event) {
+    this.productId = event.detail.value[0];
+    console.log("Selected product: " + this.productId);
+  }
+
   handleSubmit(event) {
     event.preventDefault(); // stop the form from submitting
     this.template.querySelector(".saveButton").disabled = true;
     const fields = event.detail.fields;
+    fields[PRODUCT_LOOKUP_FIELD.fieldApiName] = this.productId;
     fields[
       WRITTEN_RESPONSE_REQUESTED_FIELD.fieldApiName
     ] = this.writtenResponseValue;

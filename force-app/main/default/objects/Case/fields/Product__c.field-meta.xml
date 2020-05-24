@@ -5,7 +5,7 @@
     <externalId>false</externalId>
     <label>Product</label>
     <lookupFilter>
-        <active>true</active>
+        <active>false</active>
         <filterItems>
             <field>Product2.IsActive</field>
             <operation>equals</operation>
