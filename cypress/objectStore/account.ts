@@ -1,4 +1,5 @@
 import * as faker from "faker";
+import { getRecordTypeID } from "./util";
 interface IAccount {
   RecordTypeId: String;
   FirstName: String;
@@ -26,6 +27,14 @@ interface IAccount {
   BillingPostalCode: String;
   BillingCountry: String;
 }
+
+/**
+ * @description Creates a new account depending on the amount passed and record type.
+ * creates PersonAccount record type account
+ * @param connection  JSForce connection
+ * @param amount  Number of accounts to be created
+ * @param recordType Record Type of the account
+ */
 export async function createAccountList(
   connection: any,
   amount: number = 1,
@@ -34,7 +43,7 @@ export async function createAccountList(
   return new Promise(async resolve => {
     var accounts = [];
     var idList: any = [];
-    var recTypeId = await getRecordTypeID(connection, recordType);
+    var recTypeId = await getRecordTypeID(connection, "Account", recordType);
     for (var i = 0; i < amount; i++) {
       let account: IAccount = {
         RecordTypeId: recTypeId,
@@ -152,18 +161,29 @@ export async function createAccountList(
     });
   });
 }
-async function getRecordTypeID(connection: any, devName: String) {
+
+/**
+ * @description extracts person account record if is already in the system or creates new one.
+ * @param connection  JSForce connection
+ */
+export async function getPersonAccount(connection: any) {
+  // Check if there are existing person accounts, if not create new ones
   return new Promise<String>(resolve => {
-    //Todo make this query better using JSforce methods if possible
     connection.query(
-      "SELECT Id FROM RecordType WHERE IsActive = TRUE AND sObjectType= 'Account' AND DeveloperName='" +
-        devName +
-        "'",
-      (err: any, result: any) => {
+      "SELECT Id, Name FROM Account WHERE RecordType.DeveloperName = 'PersonAccount' LIMIT 1",
+      async function(err: any, result: any) {
         if (err) {
-          return console.error("error", err);
+          return console.error(err);
         }
-        resolve(result.records[0].Id);
+
+        if (result.records.length > 0) {
+          resolve(result.records);
+        } else {
+          // insert an account and use the retrieved id
+          var accountList: any = await createAccountList(connection, 1);
+
+          resolve(accountList);
+        }
       }
     );
   });
