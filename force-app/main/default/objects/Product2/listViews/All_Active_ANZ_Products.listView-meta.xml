@@ -2,9 +2,9 @@
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>All_Active_ANZ_Products</fullName>
     <columns>PRODUCT2.NAME</columns>
-    <columns>PRODUCT2.CUSTOMER_PRODUCT_ID</columns>
-    <columns>PRODUCT2.DESCRIPTION</columns>
-    <columns>PRODUCT2.FAMILY</columns>
+    <columns>IDR_Product_or_Service_Line__c</columns>
+    <columns>IDR_Product_or_Service_Category__c</columns>
+    <columns>IDR_Product_or_Service_Type__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>PRODUCT2.ACTIVE</field>
