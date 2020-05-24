@@ -1,0 +1,131 @@
+Name,ANZ_Product_Code__c,IDR_Product_or_Service_Line__c,IDR_Product_or_Service_Category__c,IDR_Product_or_Service_Type__c,IsActive
+ANZ Business Black,ANZ Business Black,1,1,1,TRUE
+ANZ Business 55 Days Interest Free,ANZ Business 55 Days Interest Free,1,1,1,TRUE
+ANZ Business Rewards Options,ANZ Business Rewards Options,1,1,1,TRUE
+ANZ Business Low Rate,ANZ Business Low Rate,1,1,1,TRUE
+ANZ Visa Purchasing Card,ANZ Visa Purchasing Card,1,1,1,TRUE
+ANZ Virtual Card,ANZ Virtual Card,1,1,1,TRUE
+ANZ Travel Account,ANZ Travel Account,1,1,1,TRUE
+ANZ Corporate Card,ANZ Corporate Card,1,1,1,TRUE
+AGRI Finance Loan,AGRI Finance Loan,1,1,2,TRUE
+ANZ Business Loan (ABL) for Personal Investment,ANZ Business Loan (ABL) for Personal Investment,1,1,2,TRUE
+ANZ Business Loan (ABL),ANZ Business Loan (ABL),1,1,2,TRUE
+ANZ Business Mortgage Loan (BML),ANZ Business Mortgage Loan (BML),1,1,2,TRUE
+ANZ Business Saver Loan,ANZ Business Saver Loan,1,1,2,TRUE
+Investment Property Loan (GF),Investment Property Loan (GF),1,1,2,TRUE
+Tailored Commercial Facility (TCF) - VARIABLE INT,Tailored Commercial Facility (TCF) - VARIABLE INT,1,1,3,TRUE
+Tailored Commercial Facility (TCF) - RANGE INT,Tailored Commercial Facility (TCF) - RANGE INT,1,1,3,TRUE
+Tailored Commercial Facility (TCF) - FIXED INT,Tailored Commercial Facility (TCF) - FIXED INT,1,1,3,TRUE
+Tailored Commercial Facility (TCF) - FIX INT IN ADV,Tailored Commercial Facility (TCF) - FIX INT IN ADV,1,1,3,TRUE
+Tailored Commercial Facility (TCF) - CAPPED INT,Tailored Commercial Facility (TCF) - CAPPED INT,1,1,3,TRUE
+Tailored Commercial Facility (TCF),Tailored Commercial Facility (TCF),1,1,3,TRUE
+ANZ Tailored Business Facility,ANZ Tailored Business Facility,1,1,3,TRUE
+Chattel Mortgage,Chattel Mortgage,1,1,4,TRUE
+Finance Lease,Finance Lease,1,1,4,TRUE
+Novated Lease,Novated Lease,1,1,4,TRUE
+Luxury Asset Lease,Luxury Asset Lease,1,1,4,TRUE
+Offer to Hire,Offer to Hire,1,1,4,TRUE
+ANZ Revolving AGRI Line overdraft,ANZ Revolving AGRI Line overdraft,1,1,6,TRUE
+Business Credit Facility,Business Credit Facility,1,1,6,TRUE
+Business Advantage Overdraft,Business Advantage Overdraft,1,1,6,TRUE
+Agri Finance Offset Account,Agri Finance Offset Account,1,1,8,TRUE
+ANZ Business Offset,ANZ Business Offset,1,1,8,TRUE
+BML Offset Account - wth Chq Book,BML Offset Account - wth Chq Book,1,1,8,TRUE
+ANZ First,ANZ First,1,2,9,TRUE
+ANZ Platinum,ANZ Platinum,1,2,9,TRUE
+ANZ First (for Students),ANZ First (for Students),1,2,9,TRUE
+ANZ Low Rate,ANZ Low Rate,1,2,9,TRUE
+ANZ Rewards Black,ANZ Rewards Black,1,2,9,TRUE
+ANZ Rewards Travel Adventures,ANZ Rewards Travel Adventures,1,2,9,TRUE
+ANZ Rewards Platinum,ANZ Rewards Platinum,1,2,9,TRUE
+ANZ Rewards,ANZ Rewards,1,2,9,TRUE
+ANZ Frequent Flyer,ANZ Frequent Flyer,1,2,9,TRUE
+ANZ Frequent Flyer Platinum,ANZ Frequent Flyer Platinum,1,2,9,TRUE
+ANZ Frequent Flyer Black,ANZ Frequent Flyer Black,1,2,9,TRUE
+Travel Money,Travel Money,1,2,9,TRUE
+ANZ Travel Card (Multi Currency),ANZ Travel Card (Multi Currency),1,2,9,TRUE
+ANZ Breakfree Package,ANZ Breakfree Package,1,2,13,TRUE
+ANZ Standard Variable,ANZ Standard Variable,1,2,13,TRUE
+ANZ Fixed,ANZ Fixed,1,2,13,TRUE
+ANZ Simplicity Plus,ANZ Simplicity Plus,1,2,13,TRUE
+ANZ Equity Manager,ANZ Equity Manager,1,2,13,TRUE
+ANZ Assured,ANZ Assured,1,2,16,TRUE
+ANZ Personal Overdraft,ANZ Personal Overdraft,1,2,16,TRUE
+ANZ Variable Rate Loan,ANZ Variable Rate Loan,1,2,18,TRUE
+ANZ Fixed Rate Loan,ANZ Fixed Rate Loan,1,2,18,TRUE
+Cash Covered Facility Account,Cash Covered Facility Account,1,3,20,TRUE
+Cash Cover Indemnity Guarantee,Cash Cover Indemnity Guarantee,1,3,20,TRUE
+Indemnity Guarantee Facility,Indemnity Guarantee Facility,1,3,20,TRUE
+Business Classic Account,Business Classic Account,2,5,24,TRUE
+GST Payment Account,GST Payment Account,2,5,24,TRUE
+Business Extra 50 Account,Business Extra 50 Account,2,5,24,TRUE
+Business Extra Account,Business Extra Account,2,5,24,TRUE
+Negotiator Account,Negotiator Account,2,5,24,TRUE
+Business Preimum Saver Account,Business Preimum Saver Account,2,5,24,TRUE
+Negotiator Investor Account,Negotiator Investor Account,2,5,24,TRUE
+Statutory Trust Account,Statutory Trust Account,2,5,24,TRUE
+Business Advantage Account,Business Advantage Account,2,5,24,TRUE
+Security Deposit Account,Security Deposit Account,2,5,24,TRUE
+Farm Management Deposit Account,Farm Management Deposit Account,2,5,24,TRUE
+ANZ One Offset Account,ANZ One Offset Account,2,5,26,TRUE
+ANZ Access Select,ANZ Access Select,2,5,28,TRUE
+ANZ Everyday Visa Debit,ANZ Everyday Visa Debit,2,5,28,TRUE
+ANZ V2Plus (Retail),ANZ V2Plus (Retail),2,5,28,TRUE
+ANZ First Home Saver,ANZ First Home Saver,2,5,28,TRUE
+ANZ Cash Management Account,ANZ Cash Management Account,2,5,28,TRUE
+ANZ Passbook Pensioner Advantage,ANZ Passbook Pensioner Advantage,2,5,28,TRUE
+ANZ Passbook Savings ,ANZ Passbook Savings ,2,5,28,TRUE
+ANZ Access Advantage,ANZ Access Advantage,2,5,28,TRUE
+ANZ Pensioner Advantage,ANZ Pensioner Advantage,2,5,28,TRUE
+ANZ Access Basic,ANZ Access Basic,2,5,28,TRUE
+Staff Cheque Account ,Staff Cheque Account ,2,5,28,TRUE
+Retired Officers Cheque Account,Retired Officers Cheque Account,2,5,28,TRUE
+Security Deposit,Security Deposit,2,5,28,TRUE
+ANZ Access Limited,ANZ Access Limited,2,5,28,TRUE
+V2 Plus,V2 Plus,2,5,28,TRUE
+V2 Plus Broking,V2 Plus Broking,2,5,28,TRUE
+V2 Plus including Margin Lending,V2 Plus including Margin Lending,2,5,28,TRUE
+V2 Plus Intermediary,V2 Plus Intermediary,2,5,28,TRUE
+Custodial Services,Custodial Services,2,6,29,TRUE
+ANZ Premium Cash Management Account,ANZ Premium Cash Management Account,2,7,31,TRUE
+ANZ Cash Investment Account,ANZ Cash Investment Account,2,7,31,TRUE
+Investor Cash Hub,Investor Cash Hub,2,7,31,TRUE
+SMSF Cash Hub,SMSF Cash Hub,2,7,31,TRUE
+ANZ Cash Advantage,ANZ Cash Advantage,2,7,31,TRUE
+Prime Cash Management Account,Prime Cash Management Account,2,7,31,TRUE
+Prime CMA - Pension,Prime CMA - Pension,2,7,31,TRUE
+Business Premium Saver Account,Business Premium Saver Account,2,7,31,TRUE
+ANZ Online Saver,ANZ Online Saver,2,7,33,TRUE
+ANZ Progress Saver,ANZ Progress Saver,2,7,33,TRUE
+Business Online Saver Account,Business Online Saver Account,2,7,33,TRUE
+ANZ Term Deposit,ANZ Term Deposit,2,7,34,TRUE
+ANZ Advance Notice Term Deposit,ANZ Advance Notice Term Deposit,2,7,34,TRUE
+OnePath Life Term Deposit,OnePath Life Term Deposit,2,7,34,TRUE
+ANZ Farm Management Deposit,ANZ Farm Management Deposit,2,7,34,TRUE
+Seniors Term Deposit,Seniors Term Deposit,2,7,34,TRUE
+ANZ Business Notice Term Deposit,ANZ Business Notice Term Deposit,2,7,34,TRUE
+ANZ Term Deposit via External Platforms & Oasis Wrap,ANZ Term Deposit via External Platforms & Oasis Wrap,2,7,34,TRUE
+ANZ Credit Card Insurance,ANZ Credit Card Insurance,3,8,35,TRUE
+ANZ Loan Protection Insurance,ANZ Loan Protection Insurance,3,8,35,TRUE
+ANZ Mortgage Protection Insurance,ANZ Mortgage Protection Insurance,3,8,35,TRUE
+ANZ Home Insurance,ANZ Home Insurance,3,8,37,TRUE
+ANZ Landlord Insurance,ANZ Landlord Insurance,3,8,37,TRUE
+ANZ Car Insurance (Comprehensive),ANZ Car Insurance (Comprehensive),3,8,38,TRUE
+ANZ Car Insurance (Third Party Fire & Theft),ANZ Car Insurance (Third Party Fire & Theft),3,8,39,TRUE
+ANZ Car Insurance (Third Party Theft),ANZ Car Insurance (Third Party Theft),3,8,40,TRUE
+ANZ Travel Insurance,ANZ Travel Insurance,3,8,53,TRUE
+ANZ Share Investment Loan,ANZ Share Investment Loan,4,15,103,TRUE
+White-Label ANZ Share Investing Service,White-Label ANZ Share Investing Service,4,15,103,TRUE
+ANZ Accident Cover Plus,ANZ Accident Cover Plus,5,17,118,TRUE
+ANZ Critical Illness Cover,ANZ Critical Illness Cover,5,17,118,TRUE
+ANZ Income Cover,ANZ Income Cover,5,17,118,TRUE
+ANZ Income Protection,ANZ Income Protection,5,17,118,TRUE
+ANZ 50+ Life Cover,ANZ 50+ Life Cover,5,18,121,TRUE
+ANZ Life Insurance,ANZ Life Insurance,5,18,123,TRUE
+ANZ Recover Well,ANZ Recover Well,5,18,124,TRUE
+ANZ Credit Cover Plus,ANZ Credit Cover Plus,5,18,124,TRUE
+ANZ Credit Cover,ANZ Credit Cover,5,18,124,TRUE
+ANZ Smart Choice Super for Employers and their Employees,ANZ Smart Choice Super for Employers and their Employees,8,24,154,TRUE
+ANZ Smart Choice Super & Pension (Pension),ANZ Smart Choice Super & Pension (Pension),8,28,177,TRUE
+ANZ Smart Choice Super & Pension (Superannuation account),ANZ Smart Choice Super & Pension (Superannuation account),8,28,178,TRUE
+ANZ Lenders Mortgage Insurance,ANZ Lenders Mortgage Insurance,9,34,197,TRUE
