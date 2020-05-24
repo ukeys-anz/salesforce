@@ -41,12 +41,7 @@
         <detailHeading>false</detailHeading>
         <editHeading>false</editHeading>
         <label>Description Information</label>
-        <layoutColumns>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Description</field>
-            </layoutItems>
-        </layoutColumns>
+        <layoutColumns/>
         <style>OneColumn</style>
     </layoutSections>
     <layoutSections>
@@ -79,16 +74,12 @@
         <style>CustomLinks</style>
     </layoutSections>
     <relatedLists>
-        <relatedList>RelatedStandardPriceList</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <relatedList>RelatedPricebookEntryList</relatedList>
-    </relatedLists>
-    <relatedLists>
         <fields>CASES.CASE_NUMBER</fields>
         <fields>CASES.SUBJECT</fields>
-        <fields>CASES.CREATED_DATE</fields>
+        <fields>CASES.STATUS</fields>
         <fields>CASES.PRIORITY</fields>
+        <fields>IDR_Date_Received__c</fields>
+        <fields>OWNER_NAME</fields>
         <relatedList>Case.Product__c</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
