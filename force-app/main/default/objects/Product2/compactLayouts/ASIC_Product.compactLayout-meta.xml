@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ASIC_Product</fullName>
+    <fields>Name</fields>
+    <fields>IDR_Product_or_Service_Line__c</fields>
+    <fields>IDR_Product_or_Service_Category__c</fields>
+    <fields>IDR_Product_or_Service_Type__c</fields>
+    <fields>IsActive</fields>
+    <label>ASIC Product</label>
+</CompactLayout>
