@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>VR02_Customer_Number_Read_Only</fullName>
+    <fullName>VR09_Customer_Number_Read_Only</fullName>
     <active>true</active>
     <description>Ensure that once a complaint is created in CMoS, for an existing customer, the Customer Number field can no longer be edited. The field will become Read only to all users at all access levels.</description>
     <errorConditionFormula>AND(
