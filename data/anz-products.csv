@@ -74,11 +74,11 @@ ANZ V2Plus (Retail),ANZ V2Plus (Retail),2,5,28,TRUE
 ANZ First Home Saver,ANZ First Home Saver,2,5,28,TRUE
 ANZ Cash Management Account,ANZ Cash Management Account,2,5,28,TRUE
 ANZ Passbook Pensioner Advantage,ANZ Passbook Pensioner Advantage,2,5,28,TRUE
-ANZ Passbook Savings ,ANZ Passbook Savings ,2,5,28,TRUE
+ANZ Passbook Savings,ANZ Passbook Savings,2,5,28,TRUE
 ANZ Access Advantage,ANZ Access Advantage,2,5,28,TRUE
 ANZ Pensioner Advantage,ANZ Pensioner Advantage,2,5,28,TRUE
 ANZ Access Basic,ANZ Access Basic,2,5,28,TRUE
-Staff Cheque Account ,Staff Cheque Account ,2,5,28,TRUE
+Staff Cheque Account,Staff Cheque Account,2,5,28,TRUE
 Retired Officers Cheque Account,Retired Officers Cheque Account,2,5,28,TRUE
 Security Deposit,Security Deposit,2,5,28,TRUE
 ANZ Access Limited,ANZ Access Limited,2,5,28,TRUE
@@ -111,8 +111,8 @@ ANZ Mortgage Protection Insurance,ANZ Mortgage Protection Insurance,3,8,35,TRUE
 ANZ Home Insurance,ANZ Home Insurance,3,8,37,TRUE
 ANZ Landlord Insurance,ANZ Landlord Insurance,3,8,37,TRUE
 ANZ Car Insurance (Comprehensive),ANZ Car Insurance (Comprehensive),3,8,38,TRUE
-ANZ Car Insurance (Third Party Fire & Theft),ANZ Car Insurance (Third Party Fire & Theft),3,8,39,TRUE
-ANZ Car Insurance (Third Party Theft),ANZ Car Insurance (Third Party Theft),3,8,40,TRUE
+"ANZ Car Insurance (Third Party Property Damage, Fire and Theft)","ANZ Car Insurance (Third Party Property Damage, Fire and Theft)",3,8,39,TRUE
+ANZ Car Insurance (Third Party Property Damage),ANZ Car Insurance (Third Party Property Damage),3,8,40,TRUE
 ANZ Travel Insurance,ANZ Travel Insurance,3,8,53,TRUE
 ANZ Share Investment Loan,ANZ Share Investment Loan,4,15,103,TRUE
 White-Label ANZ Share Investing Service,White-Label ANZ Share Investing Service,4,15,103,TRUE
@@ -126,6 +126,6 @@ ANZ Recover Well,ANZ Recover Well,5,18,124,TRUE
 ANZ Credit Cover Plus,ANZ Credit Cover Plus,5,18,124,TRUE
 ANZ Credit Cover,ANZ Credit Cover,5,18,124,TRUE
 ANZ Smart Choice Super for Employers and their Employees,ANZ Smart Choice Super for Employers and their Employees,8,24,154,TRUE
-ANZ Smart Choice Super & Pension (Pension),ANZ Smart Choice Super & Pension (Pension),8,28,177,TRUE
-ANZ Smart Choice Super & Pension (Superannuation account),ANZ Smart Choice Super & Pension (Superannuation account),8,28,178,TRUE
+ANZ Smart Choice Pension,ANZ Smart Choice Pension,8,28,177,TRUE
+ANZ Smart Choice Super,ANZ Smart Choice Super,8,28,178,TRUE
 ANZ Lenders Mortgage Insurance,ANZ Lenders Mortgage Insurance,9,34,197,TRUE
