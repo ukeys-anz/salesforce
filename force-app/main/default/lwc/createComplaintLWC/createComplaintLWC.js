@@ -176,6 +176,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.showComplianceFields = this.isCustomerComplaint || this.consentValue;
     this.showSections = this.isCustomerComplaint;
     this.isAddressRequired = false;
+    this.productId = this.getProductId() || "";
   }
 
   handleComplaintTypeChange(event) {
@@ -234,7 +235,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   handleProductChange(event) {
     this.productId = event.detail.value[0];
-    console.log("Selected product: " + this.productId);
   }
 
   handleSubmit(event) {
@@ -320,5 +320,11 @@ export default class CreateComplaintLWC extends NavigationMixin(
       detail: { caseId: event }
     });
     this.dispatchEvent(selectEvent);
+  }
+
+  // Returns productId when case is created from the Cases related list of a product, null otherwise
+  getProductId() {
+    let urlParams = new URL(window.location.href).searchParams; //CF00N2O000001cbI3=ANZ+Business+Black&CF00N2O000001cbI3_lkid=01t2O000000VLue&
+    return urlParams.get("additionalParams").match(/01t[a-z0-9]+/i);
   }
 }
