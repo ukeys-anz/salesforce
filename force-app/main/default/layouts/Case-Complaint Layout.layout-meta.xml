@@ -97,16 +97,12 @@
                 <field>Type</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Required</behavior>
-                <field>IDR_Product_or_Service_Category__c</field>
-            </layoutItems>
-            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>IDR_Account_Card_Policy_Number__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>IDR_Escalated_to__c</field>
+                <field>IDR_Escalation_Reason__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -124,15 +120,11 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
-                <field>IDR_Product_or_Service_Line__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Required</behavior>
-                <field>IDR_Product_or_Service_Type__c</field>
+                <field>Product__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>IDR_Escalation_Reason__c</field>
+                <field>IDR_Escalated_to__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -461,7 +453,7 @@
     <showRunAssignmentRulesCheckbox>true</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>true</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2N000000ZeDC</masterLabel>
+        <masterLabel>00h2N000000cm16</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

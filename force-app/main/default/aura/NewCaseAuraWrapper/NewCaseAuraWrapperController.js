@@ -39,6 +39,8 @@
         });
       }
     });
+    // Get the product id fronm the URL, if any
+    component.set("v.productId", helper.getProductId(component));
   },
   handleNavigateRecord: function(component, event) {
     var caseId = event.getParam("caseId");
