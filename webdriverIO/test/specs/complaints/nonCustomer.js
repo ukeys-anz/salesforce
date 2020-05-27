@@ -1,4 +1,4 @@
-import { nonCustomer } from "../../../pages/complaints";
+import { nonCustomer } from "../../../pages/complaintMgt";
 
 describe("Salesforce test", () => {
   it("should nav through sf", () => {
