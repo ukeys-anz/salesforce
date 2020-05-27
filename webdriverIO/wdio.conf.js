@@ -96,7 +96,7 @@ exports.config = {
   // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
   // gets prepended directly.
   baseUrl:
-    "https://momentum-momentum-5064.cs115.my.salesforce.com/secur/frontdoor.jsp?sid=00D2N00000099bG!AQUAQHXvNzl8.9C.ku_EE0K5uAncUqieCQnRruC25WTXzBBTWYyhkdpQ9.T9eBg40P1QapqeanS47agEiZpEEHb3N1JmwlWM",
+    "https://momentum-momentum-5064.cs115.my.salesforce.com/secur/frontdoor.jsp?sid=00D2N00000099bG!AQUAQFARdRJhOSW32xCknjSt0ycoXUxECp9FMrm_64fgr8K3Sp_t4aNm2Zb3e6QJT5Zvh3qyKdGH8P1F4FCQ0rV_zwx9H_lg",
   //
   // Default timeout for all waitFor* commands.
   waitforTimeout: 10000,
@@ -210,47 +210,45 @@ exports.config = {
     });
 
     browser.addCommand("loadApp", appName => {
-      const appSelector = $("nav.appLauncher");
-      appSelector.click();
-      const appSearch = $(
-        "/html/body/div[4]/div[2]/div[2]/div[1]/div[1]/one-app-launcher-menu/div/one-app-launcher-search-bar/lightning-input/div/input"
-      );
-      appSearch.setValue(appName);
-      const result = $(
-        "/html/body/div[4]/div[2]/div[2]/div[1]/div[1]/one-app-launcher-menu/div/div[1]"
-      );
-      result.click();
-      browser.pause(5000);
-    });
+      const view = browser.execute(() => {
+        if (document.querySelectorAll("div.lafStandardLayoutContainer")) {
+          return "standard";
+        } else if (
+          document.querySelectorAll("div.oneConsoleLayoutContainer2")
+        ) {
+          return "console";
+        }
+      });
 
-    browser.addCommand("lightningDropdown", (name, value) => {
-      browser
-        .$("c-create-complaint-l-w-c")
-        .shadow$("lightning-record-edit-form")
-        .$("lightning-accordion")
-        .$("lightning-accordion-section")
-        .$("lightning-input-field")
-        .shadow$("lightning-picklist")
-        .shadow$("lightning-combobox")
-        .shadow$("lightning-base-combobox")
-        .shadow$(`input[name=${name}]`)
-        .click();
-
-      browser.pause(2000);
-
-      // browser.$("c-create-complaint-l-w-c")
-      // .shadow$('lightning-record-edit-form')
-      // .$('lightning-accordion')
-      // .$('lightning-accordion-section')
-      // .$("lightning-input-field")
-      // .shadow$("lightning-picklist")
-      // .shadow$("lightning-combobox")
-      // .shadow$("lightning-base-combobox")
-      // .shadow$("lightning-base-combobox-item")
-      // .shadow$('span.slds-media__body').click();
-      // .$(`span=${value}`)
-      // .$(`=${value}`)
-      // .click();
+      switch (view) {
+        case "console":
+          $("nav.appLauncher").click();
+          $(
+            "/html/body/div[4]/div[2]/div[2]/div[1]/div[1]/one-app-launcher-menu/div/one-app-launcher-search-bar/lightning-input/div/input"
+          ).click();
+          $(
+            "/html/body/div[4]/div[2]/div[2]/div[1]/div[1]/one-app-launcher-menu/div/div[1]"
+          ).click();
+          browser.pause(5000);
+          break;
+        case "standard":
+          browser
+            .$("one-appnav")
+            .shadow$("nav.appLauncher")
+            .click();
+          $(
+            "/html/body/div[4]/div[2]/div/div[1]/div[1]/one-app-launcher-menu/div/one-app-launcher-search-bar/lightning-input/div/input"
+          ).setValue(appName);
+          $(
+            "/html/body/div[4]/div[2]/div/div[1]/div[1]/one-app-launcher-menu/div/div[1]/one-app-launcher-menu-item"
+          ).click();
+          // /html/body/div[4]/div[2]/div/div[1]/div[1]/one-app-launcher-menu/div/div[1]/one-app-launcher-menu-item
+          browser.pause(5000);
+          break;
+        default:
+          console.error("Invalid view");
+          break;
+      }
     });
   },
   /**
