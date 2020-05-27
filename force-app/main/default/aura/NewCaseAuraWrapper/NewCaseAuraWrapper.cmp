@@ -14,6 +14,7 @@
     <c:createComplaintLWC
       recordTypeId="{!v.recordTypeId}"
       recordTypeDevName="{!v.recordTypeDevName}"
+      productId="{!v.productId}"
       onnavigaterecord="{!c.handleNavigateRecord}"
     />
   </aura:renderIf>
