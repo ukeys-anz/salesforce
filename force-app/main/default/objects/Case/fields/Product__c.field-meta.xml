@@ -3,7 +3,7 @@
     <fullName>Product__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <externalId>false</externalId>
-    <label>Product</label>
+    <label>Product or Service Name</label>
     <lookupFilter>
         <active>false</active>
         <filterItems>
