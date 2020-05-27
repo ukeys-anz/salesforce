@@ -95,11 +95,5 @@
       return context.attributes.recordId;
     }
     return null;
-  },
-  // Returns productId when case is created from the Cases related list of a product, null otherwise
-  getProductId: function(component) {
-    var id = this.getContextRecordId(component);
-    if (id && id.match(/01t[a-z0-9]+/i)) return id;
-    return null;
   }
 });

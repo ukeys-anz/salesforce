@@ -4,6 +4,7 @@ import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { NavigationMixin } from "lightning/navigation";
 import CASE_OBJECT from "@salesforce/schema/Case";
 import CAP_CIS_ID_FIELD from "@salesforce/schema/Case.IDR_Customer_Number__c";
+
 //3rd Party Fields
 import THIRD_PARTY_NAME_FIELD from "@salesforce/schema/Case.IDR_3rdParty_Name__c";
 import THIRD_PARTY_EMAIL_FIELD from "@salesforce/schema/Case.IDR_3rdParty_Email__c";
@@ -36,12 +37,10 @@ import STATE_FIELD from "@salesforce/schema/Case.IDR_NC_State__c";
 import CONSENT_OBTAINED from "@salesforce/schema/Case.IDR_NC_Is_Consent_Obtained__c";
 
 //Is written Response Needed Fields
-
 import WRITTEN_RESPONSE_REQUESTED_FIELD from "@salesforce/schema/Case.IDR_Is_Written_Resp_Requested__c";
 import WRITTEN_RESPONSE_REQUIRED_FIELD from "@salesforce/schema/Case.IDR_Is_Written_Resp_Required__c";
 
 //other details
-
 import PRIORITY from "@salesforce/schema/Case.Priority";
 import CHANNEL_RECEIVED from "@salesforce/schema/Case.Origin";
 import COMPLAINT_ISSUE from "@salesforce/schema/Case.Type";
@@ -51,7 +50,6 @@ import DESCRIPTION_FIELD from "@salesforce/schema/Case.Description";
 import DESIRED_OUTCOME_FIELD from "@salesforce/schema/Case.IDR_Complainant_Desired_Outcome__c";
 
 //complaint resolution fields
-
 import COMPLAINT_OUTCOME from "@salesforce/schema/Case.IDR_Complaint_Outcome__c";
 import COMPLAINT_REMEDY from "@salesforce/schema/Case.IDR_Complaint_Remedy__c";
 import FINANCIAL_COMPENSATION from "@salesforce/schema/Case.IDR_Financial_Compensation__c";
@@ -133,13 +131,13 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   @api recordTypeId;
   @api recordTypeDevName;
+  @api contextRecordId;
 
   hasNominatedThirdParty = false;
   activeSections = ["A", "B", "C"];
   displayCustomerInfo = false;
   customerIdValue = "";
   customerId = "";
-  productId = "";
   writtenResponseValue;
   writtenRequiredValue;
   loading = false;
@@ -148,6 +146,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   consentOptionValue;
   isBusiness = false;
   recordType;
+  product;
   showComplianceFields;
   showSections;
   isComplaintResolved;
@@ -172,11 +171,14 @@ export default class CreateComplaintLWC extends NavigationMixin(
   //initialize components
   connectedCallback() {
     this.recordType = this.recordTypeId;
+    this.product =
+      this.contextRecordId && this.contextRecordId.match(/01t[a-z0-9]+/i)
+        ? this.contextRecordId
+        : "";
     this.isCustomerComplaint = this.recordTypeDevName === "Customer_Complaint";
     this.showComplianceFields = this.isCustomerComplaint || this.consentValue;
     this.showSections = this.isCustomerComplaint;
     this.isAddressRequired = false;
-    this.productId = this.getProductId() || "";
   }
 
   handleComplaintTypeChange(event) {
@@ -234,14 +236,14 @@ export default class CreateComplaintLWC extends NavigationMixin(
   }
 
   handleProductChange(event) {
-    this.productId = event.detail.value[0];
+    this.product = event.detail.value[0];
   }
 
   handleSubmit(event) {
     event.preventDefault(); // stop the form from submitting
     this.template.querySelector(".saveButton").disabled = true;
     const fields = event.detail.fields;
-    fields[PRODUCT_LOOKUP_FIELD.fieldApiName] = this.productId;
+    fields[PRODUCT_LOOKUP_FIELD.fieldApiName] = this.product;
     fields[
       WRITTEN_RESPONSE_REQUESTED_FIELD.fieldApiName
     ] = this.writtenResponseValue;
@@ -320,11 +322,5 @@ export default class CreateComplaintLWC extends NavigationMixin(
       detail: { caseId: event }
     });
     this.dispatchEvent(selectEvent);
-  }
-
-  // Returns productId when case is created from the Cases related list of a product, null otherwise
-  getProductId() {
-    let urlParams = new URL(window.location.href).searchParams; //CF00N2O000001cbI3=ANZ+Business+Black&CF00N2O000001cbI3_lkid=01t2O000000VLue&
-    return urlParams.get("additionalParams").match(/01t[a-z0-9]+/i);
   }
 }
