@@ -62,3 +62,7 @@ coverage/
 # Cypress
 cypress.json
 cypress-build/
+
+#Webdriver IO
+webdriverIO/all-logs/
+webdriverIO/driver-logs/
