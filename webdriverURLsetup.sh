@@ -6,4 +6,4 @@ getUrl()
 url=$(getUrl)
 
 #Use ~ instead of / as URL contains / and is flagged as bad flag
-sed -i -e "s~baseUrl:.*~baseUrl: '${url}',~" webdriverio/wdio.conf.js
+sed -i -e "s~BASE_URL=.*~BASE_URL='${url}'~" .env

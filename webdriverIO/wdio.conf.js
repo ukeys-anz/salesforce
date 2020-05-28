@@ -1,4 +1,5 @@
 const video = require("wdio-video-reporter");
+require("dotenv").config();
 
 exports.config = {
   //
@@ -96,8 +97,7 @@ exports.config = {
   // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
   // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
   // gets prepended directly.
-  baseUrl:
-    "https://momentum-momentum-5064.cs115.my.salesforce.com/secur/frontdoor.jsp?sid=00D2N00000099bG!AQUAQFKZ7fBjuuva5OyzCybEokablbnHXfgrYTcvHCwsoWzihgGxF0xplDE3piaEcpo6wZm1ho7XPqFjw0lgyX_heMfBan9h",
+  baseUrl: process.env.BASE_URL,
   //
   // Default timeout for all waitFor* commands.
   waitforTimeout: 10000,
