@@ -1,21 +1,18 @@
 import { nonCustomer } from "../../../pages/complaintMgt";
 
-describe("Salesforce test", () => {
-  it("should nav through sf", () => {
+describe("Non Customer Record Creation", () => {
+  it("should create a non customer case record", () => {
     browser.login();
     browser.loadApp("Complaint Mgt");
     $('button[title="Show Navigation Menu"]').click();
     $("=Cases").click();
-    // browser.pause(2000);
+
     $("=New").click();
-    // browser.pause(2000);
 
     $("span=Non-Customer Complaint").click();
     $("span=Next").click();
-    // browser.pause(2000)
 
     $("span=Agrees").click();
-    // browser.pause(2000);
 
     $(nonCustomer.dropdown.complainantType.selector).click();
     $(nonCustomer.dropdown.complainantType.individualValue).click();
@@ -70,13 +67,7 @@ describe("Salesforce test", () => {
 
     $(nonCustomer.button.create).click();
 
-    // const elem = $('.forceToastMessage')
-    // expect(elem).toHaveText('Complaint has been created successfully.')
-
-    // browser.debug();
-    browser.pause(1500);
-    expect(".toastContainer").toBeVisible();
+    const toastMessage = $(".forceToastMessage");
+    expect(toastMessage).toBeVisible();
   });
 });
-//toastContainer slds-notify_container slds-is-relative
-// slds-theme--success slds-notify--toast slds-notify slds-notify--toast forceToastMessage

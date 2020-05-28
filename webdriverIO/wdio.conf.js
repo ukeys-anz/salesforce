@@ -52,14 +52,13 @@ exports.config = {
       // 5 instances get started at a time.
       maxInstances: 5,
       //
-      // browserName: "chrome",
-      // "goog:chromeOptions": {
-      //   // to run chrome headless the following flags are required
-      //   // (see https://developers.google.com/web/updates/2017/04/headless-chrome)
-      //   // args: ['--headless', '--disable-gpu'],
-      // }
+      browserName: "chrome",
+      "goog:chromeOptions": {
+        // to run chrome headless the following flags are required
+        // (see https://developers.google.com/web/updates/2017/04/headless-chrome)
+        // args: ['--headless', '--disable-gpu'],
+      }
       // browserName: "firefox"
-      browserName: "chrome"
       // If outputDir is provided WebdriverIO can capture driver session logs
       // it is possible to configure which logTypes to include/exclude.
       // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
@@ -98,7 +97,7 @@ exports.config = {
   // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
   // gets prepended directly.
   baseUrl:
-    "https://momentum-momentum-5064.cs115.my.salesforce.com/secur/frontdoor.jsp?sid=00D2N00000099bG!AQUAQFARdRJhOSW32xCknjSt0ycoXUxECp9FMrm_64fgr8K3Sp_t4aNm2Zb3e6QJT5Zvh3qyKdGH8P1F4FCQ0rV_zwx9H_lg",
+    "https://momentum-momentum-5064.cs115.my.salesforce.com/secur/frontdoor.jsp?sid=00D2N00000099bG!AQUAQFKZ7fBjuuva5OyzCybEokablbnHXfgrYTcvHCwsoWzihgGxF0xplDE3piaEcpo6wZm1ho7XPqFjw0lgyX_heMfBan9h",
   //
   // Default timeout for all waitFor* commands.
   waitforTimeout: 10000,
