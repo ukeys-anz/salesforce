@@ -40,11 +40,10 @@ public class CaseDurationCalculationTest {
     System.assertEquals(2, cdList.size());
 
     Case updatedCase = [
-      SELECT Duration_Hours__c, Duration_Minutes__c
+      SELECT Status_Change_Duration__c
       FROM Case
       WHERE Id = :newCase.Id
     ];
-    System.assertEquals(0, updatedCase.Duration_Hours__c);
-    System.assertNotEquals(null, updatedCase.Duration_Minutes__c);
+    System.assertEquals(0, updatedCase.Status_Change_Duration__c);
   }
 }
