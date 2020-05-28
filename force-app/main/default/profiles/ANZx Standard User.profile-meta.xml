@@ -1364,6 +1364,11 @@
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
+    <field>Account.Customer_Belongs_To__c</field>
+    <readable>true</readable>
+  </fieldPermissions>
+  <fieldPermissions>
+    <editable>false</editable>
     <field>Account.Description</field>
     <readable>false</readable>
   </fieldPermissions>

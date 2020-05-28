@@ -5,7 +5,9 @@
       helper.goToNewCaseWithDefaultRecordType(component);
       return;
     }
-    // Get the selected record type dev name
+    //Make the context record id available to the wrapped LWC
+    component.set("v.contextRecordId", helper.getContextRecordId(component));
+    // Get the selected record type dev name and either show the LWC or redirect to the standard from
     helper.getRtDevName(component, function(rt) {
       if (rt == "Non_Customer_Complaint" || rt == "Customer_Complaint") {
         component.set(
