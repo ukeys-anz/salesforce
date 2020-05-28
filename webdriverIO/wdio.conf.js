@@ -18,7 +18,7 @@ exports.config = {
   // NPM script (see https://docs.npmjs.com/cli/run-script) then the current working
   // directory is where your package.json resides, so `wdio` will be called from there.
   //
-  specs: ["./test/specs/**/*.js"],
+  specs: ["./webdriverIO/test/specs/**/*.js"],
   // Patterns to exclude.
   exclude: [
     // 'path/to/excluded/files'
@@ -56,7 +56,7 @@ exports.config = {
       "goog:chromeOptions": {
         // to run chrome headless the following flags are required
         // (see https://developers.google.com/web/updates/2017/04/headless-chrome)
-        // args: ['--headless', '--disable-gpu'],
+        args: ["--headless", "--disable-gpu"]
       }
       // browserName: "firefox"
       // If outputDir is provided WebdriverIO can capture driver session logs
@@ -213,12 +213,16 @@ exports.config = {
 
     browser.addCommand("loadApp", appName => {
       const view = browser.execute(() => {
-        if (document.querySelectorAll("div.lafStandardLayoutContainer")) {
+        if (
+          document.querySelectorAll("div.lafStandardLayoutContainer").length > 0
+        ) {
           return "standard";
         } else if (
-          document.querySelectorAll("div.oneConsoleLayoutContainer2")
+          document.querySelectorAll("div.oneConsoleLayoutContainer2").length > 0
         ) {
           return "console";
+        } else {
+          return "error";
         }
       });
 
@@ -227,7 +231,7 @@ exports.config = {
           $("nav.appLauncher").click();
           $(
             "/html/body/div[4]/div[2]/div[2]/div[1]/div[1]/one-app-launcher-menu/div/one-app-launcher-search-bar/lightning-input/div/input"
-          ).click();
+          ).setValue(appName);
           $(
             "/html/body/div[4]/div[2]/div[2]/div[1]/div[1]/one-app-launcher-menu/div/div[1]"
           ).click();
@@ -244,7 +248,6 @@ exports.config = {
           $(
             "/html/body/div[4]/div[2]/div/div[1]/div[1]/one-app-launcher-menu/div/div[1]/one-app-launcher-menu-item"
           ).click();
-          // /html/body/div[4]/div[2]/div/div[1]/div[1]/one-app-launcher-menu/div/div[1]/one-app-launcher-menu-item
           browser.pause(5000);
           break;
         default:
