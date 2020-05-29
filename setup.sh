@@ -45,9 +45,10 @@ echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
 
 echo "$(date): Import custom settings and sample records..."
 JOB_START_TIME=$(date +%s)
-sfdx force:data:bulk:upsert --sobjecttype Product2 --csvfile data/anz-products.csv --externalid ANZ_Product_Code__c --wait 2 2>&1 | tee stderr
 sfdx force:data:tree:import -p data/Post-Plan.json 2>&1 | tee stderr
-sfdx force:data:tree:import -p data/IDR-Case-Plan.json 2>&1 | tee stderr
+# Uncomment the next line (and comment the next) to import products without their related cases
+#sfdx force:data:bulk:upsert --sobjecttype Product2 --csvfile data/anz-products.csv --externalid ANZ_Product_Code__c --wait 2 2>&1 | tee stderr
+sfdx force:data:tree:import -p data/IDR-Product2-Case-plan.json 2>&1 | tee stderr
 if [[ ($(cat stderr) == *'ERROR'* ) ]]; then
     exit 1
 fi 
