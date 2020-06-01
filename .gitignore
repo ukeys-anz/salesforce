@@ -66,5 +66,6 @@ cypress-build/
 #Webdriver IO
 webdriverIO/all-logs/
 webdriverIO/driver-logs/
+webdriverIO-build/
 
 .env
