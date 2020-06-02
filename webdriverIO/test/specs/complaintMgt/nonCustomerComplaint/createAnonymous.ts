@@ -12,7 +12,7 @@ describe("Non Customer Record Creation", () => {
     $("span=Non-Customer Complaint").click();
     $("span=Next").click();
 
-    $("span=Agrees").click();
+    $("span=Disagrees").click();
 
     NonCustomerComplaint.complainantType.click();
     $("span.slds-truncate=Individual").click();
@@ -64,9 +64,6 @@ describe("Non Customer Record Creation", () => {
     NonCustomerComplaint.desiredOutcome.setValue(
       "This is a test desired outcome from webdriverIO"
     );
-
-    NonCustomerComplaint.writtenResponseNo.click();
-    NonCustomerComplaint.complaintRelatingNo.click();
 
     NonCustomerComplaint.create.click();
 
