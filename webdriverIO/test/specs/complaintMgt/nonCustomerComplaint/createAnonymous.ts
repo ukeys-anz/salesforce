@@ -1,7 +1,8 @@
-import NonCustomerComplaint from "../../../../pages/complaints/nonCustomerComplaint";
+/*** BASE IMPORTS ***/
+import NonCustomerComplaint from "../../../../pages/complaints/create/nonCustomerComplaint";
 
-describe("Non Customer Record Creation", () => {
-  it("should create a non customer case record", () => {
+describe("Anonymous Non Customer Record Creation", () => {
+  it("should create an anonymous non customer case record", () => {
     NonCustomerComplaint.login();
     NonCustomerComplaint.loadApp("Complaint Mgt");
     $('button[title="Show Navigation Menu"]').click();

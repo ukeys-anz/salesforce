@@ -1,6 +1,6 @@
-import Base from "../base";
+import Base from "../../base";
 /**
- * Handles the Non Customer Complaint record type fields on Complaints Mgt
+ * Handles the Customer Complaint record type fields on Complaints Mgt during creation
  */
 class CustomerComplaint extends Base {
   /****** TEXT INPUTS ******/

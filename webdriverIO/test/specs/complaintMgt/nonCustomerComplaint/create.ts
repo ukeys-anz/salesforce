@@ -1,4 +1,5 @@
-import NonCustomerComplaint from "../../../../pages/complaints/nonCustomerComplaint";
+/*** BASE IMPORTS ***/
+import NonCustomerComplaint from "../../../../pages/complaints/create/nonCustomerComplaint";
 
 describe("Non Customer Record Creation", () => {
   it("should create a non customer case record", () => {

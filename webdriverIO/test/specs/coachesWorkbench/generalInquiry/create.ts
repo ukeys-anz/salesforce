@@ -2,8 +2,10 @@
 import CoachesWorkbench from "../../../../pages/getHelp/coachesWorkbench";
 import GeneralInquiry from "../../../../pages/getHelp/generalInquiry";
 
-/*** JSFORCE IMPORTS ***/
+/*** UTILITIES IMPORTS ***/
 import { jsForce } from "../../../../utilities/jsforce";
+
+/*** OBJECT STORE IMPORTS ***/
 import { getFinAccount } from "../../../../objectStore/financialAccount";
 
 /*** DECLARATIONS ***/

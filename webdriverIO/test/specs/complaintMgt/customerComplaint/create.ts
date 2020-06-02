@@ -1,4 +1,5 @@
-import CustomerComplaint from "../../../../pages/complaints/customerComplaint";
+/*** BASE IMPORTS ***/
+import CustomerComplaint from "../../../../pages/complaints/create/customerComplaint";
 
 describe("Customer Complaint Record Creation", () => {
   it("should create a customer complaint case record", () => {
