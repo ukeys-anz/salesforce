@@ -1,0 +1,31 @@
+/**
+ * @description TextUtils class contains static utility methods to take some actions related to text.
+ * @author Pavan Kumar Ananta
+ * @since 01/06/2020
+ */
+public without sharing class TextUtils {
+  private static final String ACCOUNT_OR_CARD_REGEX_PATTERN = '(\\d[\\s-]*){8,}';
+  private static final Integer UNMASK_LENGTH = 4;
+  private static Pattern accountOrCardPattern = Pattern.compile(
+    ACCOUNT_OR_CARD_REGEX_PATTERN
+  );
+
+  /**
+   * @description maskData(input) method is used to mask if there are any card numbers in the text.
+   * This method masks numbers which are 8 digits or more with spaces or dashes example 4564-6742-8732-8763 is masked as ******8763
+   * @param input Input string that needs to be masked if needed
+   * @return `String` masked string
+   */
+  public static String maskData(String input) {
+    Matcher matchingPattern = accountOrCardPattern.matcher(input);
+    while (String.isNotEmpty(input) && matchingPattern.find()) {
+      String stringToMask = matchingPattern.group(0).trim();
+      input = input.replaceFirst(
+        stringToMask,
+        '******' + stringToMask.substring(stringToMask.length() - UNMASK_LENGTH)
+      );
+      matchingPattern = accountOrCardPattern.matcher(input);
+    }
+    return input;
+  }
+}
