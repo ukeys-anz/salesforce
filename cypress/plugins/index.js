@@ -31,3 +31,7 @@ module.exports = on => {
 
   on("file:preprocessor", browserify(options));
 };
+
+module.exports = (on, config) => {
+  require("cypress-plugin-retries/lib/plugin")(on);
+};

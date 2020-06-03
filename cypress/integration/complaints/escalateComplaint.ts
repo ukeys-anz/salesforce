@@ -24,29 +24,35 @@ describe("Escalate Complaint", function() {
     }).click({ force: true });
     //Add explicit wait for page to appear  as cypress unable to find element.
     cy.wait(3000);
-    cy.shadowGet("one-record-home-flexipage2")
+
+    cy.get('.uiButton[title="Create new..."]', { timeout: 10000 })
       .last()
-      .shadowFind(
-        "forcegenerated-flexipage_complaint_record_page_case__view_js"
-      )
-      .shadowFind("flexipage-record-page-decorator")
-      .shadowFind("flexipage-record-home-template-desktop2")
-      .shadowFind("flexipage-component2")
-      .shadowFind("force-progressive-renderer")
-      .shadowFind("records-lwc-highlights-panel")
-      .shadowFind("records-lwc-record-layout")
-      .shadowFind(".forcegenerated-record-layout2")
-      .shadowFind("force-highlights2")
-      .shadowFind('div[title="Escalate"]')
-      .shadowClick();
+      .should("be.visible")
+      .click({ force: true });
+    cy.wait(3000);
+    // cy.shadowGet("one-record-home-flexipage2")
+    //   .last()
+    //   .shadowFind(
+    //     "forcegenerated-flexipage_complaint_record_page_case__view_js"
+    //   )
+    //   .shadowFind("flexipage-record-page-decorator")
+    //   .shadowFind("flexipage-record-home-template-desktop2")
+    //   .shadowFind("flexipage-component2")
+    //   .shadowFind("force-progressive-renderer")
+    //   .shadowFind("records-lwc-highlights-panel")
+    //   .shadowFind("records-lwc-record-layout")
+    //   .shadowFind(".forcegenerated-record-layout2")
+    //   .shadowFind("force-highlights2")
+    //   .shadowFind('div[title="Escalate"]')
+    //   .shadowClick();
 
     cy.selectDropdown("Escalated to", "Customer Advocate");
 
     cy.selectDropdown("Complaint Escalation Reason", "Customer Request");
-
+    cy.wait(3000);
     cy.get(".uiButton")
       .last()
-      .click();
+      .click({ force: true });
 
     cy.get(".forceToastMessage")
       .contains("Escalated!")

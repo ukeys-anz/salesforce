@@ -248,7 +248,7 @@ Cypress.Commands.add("selectDropdown", (dropdownname, selval) => {
     .parent()
     .parent()
     .find(".select")
-    .click();
+    .click({ force: true });
   cy.get('ul[role="presentation"]')
     .last()
     .within(() => {
@@ -297,7 +297,7 @@ Cypress.Commands.add("typeLabel", (labelname, labeltype, inputval) => {
     .parent()
     .parent()
     .find(labeltype)
-    .clear()
+    .clear({ force: true })
     .type(inputval, { force: true });
 });
 

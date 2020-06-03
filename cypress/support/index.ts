@@ -18,6 +18,7 @@ import "./commands";
 import "./lwcCommands";
 import "cypress-shadow-dom";
 import "faker";
+require("cypress-plugin-retries");
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 Cypress.Commands.overwrite("shadowClick", (originalFn, subject, options) => {

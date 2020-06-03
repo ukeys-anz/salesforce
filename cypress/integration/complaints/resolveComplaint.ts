@@ -19,12 +19,17 @@ describe("Resolved Complaint", function() {
     cy.get("a[title=Cases]", { timeout: 10000 })
       .should("be.visible")
       .click({ force: true });
+    cy.wait(3000);
     cy.get('.forceOutputLookup[title="' + caseid + '"]', {
       timeout: 10000
     }).click({ force: true });
     //Add explicit wait for page to appear  as cypress unable to find element.
     cy.wait(3000);
-    cy.shadowGet("one-record-home-flexipage2")
+    cy.get("a[title=Resolve]", { timeout: 10000 })
+      .last()
+      .should("be.visible")
+      .click({ force: true });
+    /*  cy.shadowGet("one-record-home-flexipage2")
       .last()
       .shadowFind(
         "forcegenerated-flexipage_complaint_record_page_case__view_js"
@@ -38,7 +43,7 @@ describe("Resolved Complaint", function() {
       .shadowFind(".forcegenerated-record-layout2")
       .shadowFind("force-highlights2")
       .shadowFind('div[title="Resolve"]')
-      .shadowClick();
+      .shadowClick(); */
 
     cy.selectDropdown("Status", "Resolved");
 
@@ -52,7 +57,7 @@ describe("Resolved Complaint", function() {
 
     cy.get(".uiButton")
       .last()
-      .click();
+      .click({ force: true });
 
     cy.get(".forceToastMessage")
       .contains("Resolved!")

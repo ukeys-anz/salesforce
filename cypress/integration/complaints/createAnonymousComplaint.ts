@@ -133,5 +133,15 @@ describe("Anonymous Customer Complaint Page", function() {
     cy.get(".forceToastMessage")
       .contains("Complaint has been created successfully.")
       .should("be.visible");
+
+    cy.wait(5000);
+
+    cy.get(".actionsContainer")
+      .last()
+      .find("a")
+      .click({ force: true });
+    cy.get('a[title="New"]').click({ force: true });
+    cy.get("textarea").type("Case Comments");
+    cy.get('.forceActionButton[title="Save"]').click({ force: true });
   });
 });
