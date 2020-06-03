@@ -105,12 +105,10 @@ export function createCaseList(
 }
 
 //This will be used for new scenario
-export const getCase = (devname: String) => {
+export const getCase = (devName: String) => {
   return new Promise<string>(resolve => {
     jsForce.query(
-      "SELECT Max(CaseNumber) ID FROM Case where Status='Open' and RecordTypeId IN (SELECT Id FROM RecordType WHERE IsActive = TRUE AND sObjectType='Case' AND DeveloperName='" +
-        devname +
-        "')",
+      `SELECT Max(CaseNumber) ID FROM Case where Status='Open' and RecordTypeId IN (SELECT Id FROM RecordType WHERE IsActive = TRUE AND sObjectType='Case' AND DeveloperName='${devName}')`,
       (err: any, result: any) => {
         if (err) {
           return console.error(err);
