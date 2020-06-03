@@ -19,7 +19,7 @@ exports.config = {
   // NPM script (see https://docs.npmjs.com/cli/run-script) then the current working
   // directory is where your package.json resides, so `wdio` will be called from there.
   //
-  specs: ["./webdriverIO/test/specs/**/*.js"],
+  specs: ["./webdriverIO-build/test/specs/**/*.js"],
   // Patterns to exclude.
   exclude: [
     // 'path/to/excluded/files'
@@ -157,9 +157,22 @@ exports.config = {
   //
   // Options to be passed to Mocha.
   // See the full list at http://mochajs.org/
+  // mochaOpts: {
+  //   ui: "bdd",
+  //   timeout: 60000,
+  //   require: 'ts-node/register',
+  //       compilers: [
+  //           // optional
+  //           'tsconfig-paths/register'
+  //       ]
+  // },
   mochaOpts: {
     ui: "bdd",
-    timeout: 60000
+    timeout: 60000,
+    compilers: [
+      // 'ts-node/register',
+      "tsconfig-paths/register"
+    ]
   },
   //
   // =====
@@ -204,57 +217,6 @@ exports.config = {
    */
   before: function(capabilities, specs) {
     require("@babel/register");
-    browser.addCommand("login", () => {
-      browser.url("");
-      const body = $("body.desktop");
-      body.waitForExist();
-      browser.pause(5000);
-    });
-
-    browser.addCommand("loadApp", appName => {
-      const view = browser.execute(() => {
-        if (
-          document.querySelectorAll("div.lafStandardLayoutContainer").length > 0
-        ) {
-          return "standard";
-        } else if (
-          document.querySelectorAll("div.oneConsoleLayoutContainer2").length > 0
-        ) {
-          return "console";
-        } else {
-          return "error";
-        }
-      });
-
-      switch (view) {
-        case "console":
-          $("nav.appLauncher").click();
-          $(
-            "/html/body/div[4]/div[2]/div[2]/div[1]/div[1]/one-app-launcher-menu/div/one-app-launcher-search-bar/lightning-input/div/input"
-          ).setValue(appName);
-          $(
-            "/html/body/div[4]/div[2]/div[2]/div[1]/div[1]/one-app-launcher-menu/div/div[1]"
-          ).click();
-          browser.pause(5000);
-          break;
-        case "standard":
-          browser
-            .$("one-appnav")
-            .shadow$("nav.appLauncher")
-            .click();
-          $(
-            "/html/body/div[4]/div[2]/div/div[1]/div[1]/one-app-launcher-menu/div/one-app-launcher-search-bar/lightning-input/div/input"
-          ).setValue(appName);
-          $(
-            "/html/body/div[4]/div[2]/div/div[1]/div[1]/one-app-launcher-menu/div/div[1]/one-app-launcher-menu-item"
-          ).click();
-          browser.pause(5000);
-          break;
-        default:
-          console.error("Invalid view");
-          break;
-      }
-    });
   },
   /**
    * Runs before a WebdriverIO command gets executed.

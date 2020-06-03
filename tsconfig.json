@@ -1,12 +1,22 @@
 {
   "compilerOptions": {
-    "outDir": "cypress-build/",
+    "outDir": "webdriverIO-build/",
     "strict": true,
     "allowJs": true,
     "skipLibCheck": true,
     "baseUrl": "../node_modules",
-    "types": ["cypress", "node"],
+    "types": [
+      "node",
+      "mocha",
+      "@wdio/mocha-framework",
+      "@wdio/sync",
+      "expect-webdriverio"
+    ],
     "target": "es6"
   },
-  "include": ["Cypress/**/*.ts", "Cypress/**/*.js", "Cypress/**/*.d.ts"]
+  "include": [
+    "webdriverIO/**/*.ts",
+    "webdriverIO/**/*.js",
+    "webdriverIO/**/*.d.ts"
+  ]
 }
