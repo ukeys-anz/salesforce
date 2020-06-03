@@ -2,7 +2,7 @@
 import NonCustomerComplaint from "../../../../pages/complaints/create/nonCustomerComplaint";
 
 describe("Anonymous Non Customer Record Creation", () => {
-  it("should create an anonymous non customer case record", () => {
+  it("should create an anonymous non customer complaint case record", () => {
     NonCustomerComplaint.login();
     NonCustomerComplaint.loadApp("Complaint Mgt");
     $('button[title="Show Navigation Menu"]').click();

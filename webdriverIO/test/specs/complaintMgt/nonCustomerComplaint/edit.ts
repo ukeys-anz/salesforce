@@ -15,7 +15,7 @@ describe("Non Customer Record Edit", () => {
     });
   });
 
-  it("should edit a non customer case record", () => {
+  it("should edit a non customer complaint case record", () => {
     NonCustomerComplaint.login();
     NonCustomerComplaint.loadApp("Complaint Mgt");
     $('button[title="Show Navigation Menu"]').click();
