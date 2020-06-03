@@ -112,9 +112,7 @@ export async function getParentCase(recordTypeId: any, accountId: any) {
   // Check if there are existing parent case, if not create new ones
   return new Promise<String>(resolve => {
     jsForce.query(
-      "SELECT Id, CaseNumber FROM Case WHERE RecordTypeId = '" +
-        recordTypeId +
-        "' and ParentId = null LIMIT 1",
+      `SELECT Id, CaseNumber FROM Case WHERE RecordTypeId = '${recordTypeId}' and ParentId = null LIMIT 1`,
       async function(err: any, result: any) {
         if (err) {
           return console.error(err);

@@ -8,11 +8,7 @@ import { jsForce } from "../utilities/jsforce";
 export async function getRecordTypeID(sObject: String, devName: String) {
   return new Promise<String>(resolve => {
     jsForce.query(
-      "SELECT Id FROM RecordType WHERE IsActive = TRUE AND sObjectType= '" +
-        sObject +
-        "' AND DeveloperName='" +
-        devName +
-        "'",
+      `SELECT Id FROM RecordType WHERE IsActive = TRUE AND sObjectType= '${sObject}' AND DeveloperName='${devName}'`,
       (err: any, result: any) => {
         if (err) {
           return console.error("error", err);
