@@ -30,6 +30,15 @@ public class CaseDurationCalculationTest {
     newCase.Status = 'Open';
     insert newCase;
 
+    //update start time to 2 hours earlier than the current time
+    List<Case_Duration__c> cd = [
+      SELECT Id, Start_Time__c
+      FROM Case_Duration__c
+      WHERE Case__c = :newCase.Id
+    ];
+    cd[0].Start_Time__c = DateTime.now().addHours(-2);
+    update cd;
+
     newCase.Status = 'Under Investigation';
     update newCase;
 
@@ -44,6 +53,6 @@ public class CaseDurationCalculationTest {
       FROM Case
       WHERE Id = :newCase.Id
     ];
-    System.assertEquals(0, updatedCase.Status_Change_Duration__c);
+    System.assertEquals(2.00, updatedCase.Status_Change_Duration__c);
   }
 }
