@@ -16,7 +16,7 @@ public with sharing class CaseDurationServerController {
     List<Case> caseList;
     if (Case.sObjectType.getDescribe().isQueryable()) {
       caseList = [
-        SELECT Id, Duration_Hours__c, Duration_Minutes__c, BusinessHoursId
+        SELECT Id, Status_Change_Duration__c, BusinessHoursId
         FROM Case
         WHERE Id = :caseId
       ];
@@ -59,42 +59,34 @@ public with sharing class CaseDurationServerController {
     List<Case> caseList,
     List<Case_Duration__c> relatedCdList
   ) {
-    long durationHours = (long) (caseList[0].Duration_Hours__c != null
-      ? caseList[0].Duration_Hours__c
-      : 0);
-    long durationMinutes = (long) (caseList[0].Duration_Minutes__c != null
-      ? caseList[0].Duration_Minutes__c
+    decimal statusChangeDurationHours = (decimal) (caseList[0]
+        .Status_Change_Duration__c != null
+      ? caseList[0].Status_Change_Duration__c
       : 0);
 
-    long tillNowDurationMins = 0;
-    long tillNowDurationHours = 0;
+    Decimal timeDifferenceInHours = 0;
+
     if (!relatedCdList.isEmpty()) {
-      Decimal timeDifferenceInHours = DateTimeUtils.calculateHoursBetween(
+      timeDifferenceInHours = DateTimeUtils.calculateHoursBetween(
         relatedCdList[0].Start_Time__c,
         DateTime.now(),
         caseList[0].BusinessHoursId
       );
-      tillNowDurationHours = timeDifferenceInHours.longValue();
-      tillNowDurationMins = ((timeDifferenceInHours - tillNowDurationHours) *
-        SFConstants.MIN_IN_HOUR)
-        .longValue();
     }
-
+    Decimal finalDurationHours =
+      statusChangeDurationHours + timeDifferenceInHours;
     DurationTime returnedData = new DurationTime();
-    returnedData.durationHours = durationHours + tillNowDurationHours;
-    returnedData.durationMins = durationMinutes + tillNowDurationMins;
-
-    if (returnedData.durationMins >= 60) {
-      returnedData.durationHours += 1;
-      returnedData.durationMins -= 60;
-    }
+    returnedData.durationHours = finalDurationHours.longValue();
+    returnedData.durationMins = ((finalDurationHours -
+      returnedData.durationHours) * SFConstants.MIN_IN_HOUR)
+      .longValue();
 
     return returnedData;
   }
 
   /**
-		@description wrapper class of the duration time
-	  */
+@description wrapper class of the duration time
+*/
   public class DurationTime {
     @AuraEnabled
     public long durationHours;
