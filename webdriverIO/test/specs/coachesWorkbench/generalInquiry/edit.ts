@@ -1,25 +1,32 @@
 /*** BASE IMPORTS ***/
 import CoachesWorkbench from "../../../../pages/getHelp/coachesWorkbench";
-import GeneralInquiry from "../../../../pages/getHelp/create/generalInquiry";
+import GeneralInquiry from "../../../../pages/getHelp/edit/generalInquiry";
 
 /*** UTILITIES IMPORTS ***/
 import { jsForce } from "../../../../utilities/jsforce";
 
 /*** OBJECT STORE IMPORTS ***/
 import { getFinAccount } from "../../../../objectStore/financialAccount";
+import { createBlankCase } from "../../../../objectStore/case";
 
 /*** DECLARATIONS ***/
+var caseNumber: String;
 var accountId: String;
 var accountName: String;
 var financialAccountName: String;
+var recordType: String = "General_Inquiry";
 
-describe("General Inquiry Record Creation", () => {
+describe("General Inquiry Record Edit", () => {
   before(() => {
+    createBlankCase(1, recordType).then((cases: any) => {
+      caseNumber = cases[0].CaseNumber;
+    });
+
     getFinAccount().then((finAccounts: any) => {
       financialAccountName = finAccounts[0].Name;
       accountId = finAccounts[0].FinServ__PrimaryOwner__c;
       jsForce.query(
-        "SELECT Id, Name FROM Account WHERE Id = '" + accountId + "' LIMIT 1",
+        `SELECT Id, Name FROM Account WHERE Id = '${accountId}' LIMIT 1`,
         async function(err: any, result: any) {
           if (err) {
             return console.error(err);
@@ -30,35 +37,21 @@ describe("General Inquiry Record Creation", () => {
     });
   });
 
-  it("should create a general inquiry case record", () => {
+  it("should edit a general inquiry case record", () => {
     CoachesWorkbench.login();
     CoachesWorkbench.loadApp("Coaches Workbench");
     CoachesWorkbench.navCases.click();
-    $("=New").click();
+    $(`.forceOutputLookup[title="${caseNumber}"]`).click();
+    $("=Edit").click();
 
-    browser.pause(2000);
-
-    $("span=General Inquiry").click();
-    $("span=Next").click();
-
-    browser.pause(3000);
-
-    GeneralInquiry.subject.setValue("Test Subject");
-    GeneralInquiry.description.setValue("Test Description");
+    GeneralInquiry.subject.setValue("Edited Value");
+    GeneralInquiry.description.setValue("Edited Description");
 
     GeneralInquiry.accountName.setValue(accountName.toString());
     $(`div=${accountName}`).click();
 
-    GeneralInquiry.status.click();
-    $("=Under Investigation").click();
-
     GeneralInquiry.type.click();
     $("=App Support").click();
-
-    $("span=App Guide").click();
-    GeneralInquiry.subTypeAdd.click();
-    $("span=Device Support").click();
-    GeneralInquiry.subTypeAdd.click();
 
     $("span=Bug Report & Feature").scrollIntoView();
     $("span=Bug Report & Feature").click();

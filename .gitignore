@@ -59,10 +59,6 @@ coverage/
 # Eslint
 .eslintrc.json
 
-# Cypress
-cypress.json
-cypress-build/
-
 #Webdriver IO
 webdriverIO/all-logs/
 webdriverIO/driver-logs/

@@ -105,10 +105,14 @@ export function createCaseList(
 
 /**
  * @description extracts parent case record if is already in the system or creates new one.
- * @param recordtypeId case general inquirty record type id
- * @param accoundId Account id from previous func
+ * @param recordTypeId case general inquiry record type id
+ * @param accountId Account id from previous func
  */
 export async function getParentCase(recordTypeId: any, accountId: any) {
+  if (!recordTypeId || !accountId) {
+    console.error("Record Type ID or Account ID is null");
+    return null;
+  }
   // Check if there are existing parent case, if not create new ones
   return new Promise<String>(resolve => {
     jsForce.query(
