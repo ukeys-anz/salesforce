@@ -59,6 +59,11 @@ class CustomerComplaint extends Base {
       "/html/body/div[4]/div[2]/div[1]/div[2]/div/div[2]/div/article/div[3]/div/div[3]/div/div/div[10]/div/div/div/div/textarea"
     );
   }
+  get descriptionOfOutcome() {
+    return $(
+      "/html/body/div[4]/div[2]/div[1]/div[2]/div/div[2]/div/article/div[3]/div/div[4]/div/div/div[3]/div/div/div/div/textarea"
+    );
+  }
 
   /****** DROPDOWNS ******/
   get complainantType() {
@@ -94,6 +99,21 @@ class CustomerComplaint extends Base {
   get escalatedTo() {
     return $(
       "/html/body/div[4]/div[2]/div[1]/div[2]/div/div[2]/div/article/div[3]/div/div[3]/div/div/div[7]/div[1]/div/div/div/div"
+    );
+  }
+  get complaintOutcome() {
+    return $(
+      "/html/body/div[4]/div[2]/div[1]/div[2]/div/div[2]/div/article/div[3]/div/div[4]/div/div/div[1]/div[1]/div/div/div/div"
+    );
+  }
+  get complaintRemedy() {
+    return $(
+      "/html/body/div[4]/div[2]/div[1]/div[2]/div/div[2]/div/article/div[3]/div/div[4]/div/div/div[1]/div[2]/div/div/div/div"
+    );
+  }
+  get financialCompensation() {
+    return $(
+      "/html/body/div[4]/div[2]/div[1]/div[2]/div/div[2]/div/article/div[3]/div/div[4]/div/div/div[2]/div[1]/div/div/div/div"
     );
   }
 
