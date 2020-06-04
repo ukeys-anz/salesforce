@@ -34,20 +34,7 @@ describe("Customer Complaint Record Creation", () => {
     ).click();
 
     CustomerComplaint.caseType.click();
-    $(
-      `span.slds-truncate=${faker.random.arrayElement([
-        "Service Quality",
-        "Rates, Fees and Charges",
-        "Financial Difficulty",
-        "Product",
-        "Process",
-        "Transaction and Payments",
-        "Privacy and Confidentiality",
-        "Disclosure",
-        "Advice",
-        "Insurance Claims"
-      ])}`
-    ).click();
+    $("span.slds-truncate=Product").click();
 
     CustomerComplaint.productServiceLine.click();
     $("span.slds-truncate=Credit").click();

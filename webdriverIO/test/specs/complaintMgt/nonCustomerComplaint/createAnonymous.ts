@@ -86,19 +86,7 @@ describe("Anonymous Non Customer Record Creation", () => {
     ).click();
 
     NonCustomerComplaint.caseType.click();
-    $(
-      `span.slds-truncate=${faker.random.arrayElement([
-        "Service Quality",
-        "Rates, Fees and Charges",
-        "Financial Difficulty",
-        "Transaction and Payments",
-        "Privacy and Confidentiality",
-        "Disclosure",
-        "Advice",
-        "Insurance Claims",
-        "Other"
-      ])}`
-    ).click();
+    $("span.slds-truncate=Product").click();
 
     NonCustomerComplaint.productServiceLine.click();
     $("span.slds-truncate=Credit").click();
