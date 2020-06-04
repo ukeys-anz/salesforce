@@ -4,6 +4,7 @@ import GeneralInquiry from "../../../../pages/getHelp/create/generalInquiry";
 
 /*** UTILITIES IMPORTS ***/
 import { jsForce } from "../../../../utilities/jsforce";
+import * as faker from "faker";
 
 /*** OBJECT STORE IMPORTS ***/
 import { getFinAccount } from "../../../../objectStore/financialAccount";
@@ -43,14 +44,23 @@ describe("General Inquiry Record Creation", () => {
 
     browser.pause(3000);
 
-    GeneralInquiry.subject.setValue("Test Subject");
-    GeneralInquiry.description.setValue("Test Description");
+    GeneralInquiry.subject.setValue(faker.lorem.text());
+    GeneralInquiry.description.setValue(faker.lorem.text());
 
     GeneralInquiry.accountName.setValue(accountName.toString());
     $(`div=${accountName}`).click();
 
     GeneralInquiry.status.click();
-    $("=Under Investigation").click();
+    $(
+      `=${faker.random.arrayElement([
+        "Open",
+        "Under Investigation",
+        "On Hold",
+        "Escalated",
+        "Closed",
+        "Re-opened"
+      ])}`
+    ).click();
 
     GeneralInquiry.type.click();
     $("=App Support").click();
@@ -65,10 +75,26 @@ describe("General Inquiry Record Creation", () => {
     GeneralInquiry.additionalTypeAdd.click();
 
     GeneralInquiry.channelReceived.click();
-    $("=Voice Call").click();
+    $(
+      `=${faker.random.arrayElement([
+        "Chat",
+        "Voice Call",
+        "Video Call",
+        "Appointment",
+        "Store"
+      ])}`
+    ).click();
 
     GeneralInquiry.caseReason.click();
-    $("=Existing problem").click();
+    $(
+      `=${faker.random.arrayElement([
+        "User didn't attend training",
+        "Complex functionality",
+        "Existing problem",
+        "Instructions not clear",
+        "New problem"
+      ])}`
+    ).click();
 
     GeneralInquiry.priority.click();
     $("=Low").click();

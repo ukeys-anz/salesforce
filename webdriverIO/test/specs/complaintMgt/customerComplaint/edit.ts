@@ -1,6 +1,9 @@
 /*** BASE IMPORTS ***/
 import CustomerComplaint from "../../../../pages/complaints/edit/customerComplaint";
 
+/*** UTILITIES IMPORTS ***/
+import * as faker from "faker";
+
 /*** OBJECT STORE IMPORTS ***/
 import { createCaseList } from "../../../../objectStore/complaint";
 
@@ -24,17 +27,24 @@ describe("Customer Record Edit", () => {
     $(`.forceOutputLookup[title="${caseId}"]`).click();
     $("=Edit").click();
 
-    CustomerComplaint.nominatedThirdName.setValue("John Smith");
-    CustomerComplaint.nominatedThirdEmail.setValue("johnsmith@test.com");
-    CustomerComplaint.nominatedThirdStreet.setValue("86 That St");
-    CustomerComplaint.nominatedThirdSuburb.setValue("Suburbian Suburb");
-    CustomerComplaint.nominatedThirdPostcode.setValue("3323");
+    CustomerComplaint.nominatedThirdName.setValue(
+      faker.name.firstName() + " " + faker.name.lastName()
+    );
+    CustomerComplaint.nominatedThirdEmail.setValue(faker.internet.email());
+    CustomerComplaint.nominatedThirdStreet.setValue(faker.address.streetName());
+    CustomerComplaint.nominatedThirdSuburb.setValue(faker.address.city());
+    CustomerComplaint.nominatedThirdPostcode.setValue(
+      faker.address.zipCode("####")
+    );
+    CustomerComplaint.nominatedThirdMobile.setValue(
+      faker.phone.phoneNumber("04########")
+    );
+    CustomerComplaint.nominatedThirdPhone.setValue(
+      faker.phone.phoneNumber("97######")
+    );
 
-    CustomerComplaint.nominatedThirdMobile.setValue("0410000300");
-    CustomerComplaint.nominatedThirdPhone.setValue("97058888");
-
-    CustomerComplaint.description.setValue("Edited description");
-    CustomerComplaint.desiredOutcome.setValue("Edited outcome");
+    CustomerComplaint.description.setValue(faker.lorem.text());
+    CustomerComplaint.desiredOutcome.setValue(faker.lorem.text());
 
     CustomerComplaint.save.click();
 
