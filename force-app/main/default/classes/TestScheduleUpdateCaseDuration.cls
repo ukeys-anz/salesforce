@@ -38,7 +38,12 @@ private class TestScheduleUpdateCaseDuration {
 
     Test.startTest();
 
-    String jobId = ScheduleUpdateCaseDuration.scheduleMe();
+    ScheduleUpdateCaseDuration sc = new ScheduleUpdateCaseDuration();
+    String jobId = System.schedule(
+      'Test Batch Update Case Duration',
+      '0 0 * * * ?',
+      sc
+    );
 
     //Executing the batch seperately to make sure it finishes in Test.stopTest()
     BatchUpdateCaseDuration b = new BatchUpdateCaseDuration();
