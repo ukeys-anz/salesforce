@@ -5,9 +5,7 @@
     <externalId>false</externalId>
     <label>Product or Service Category</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
-    <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
         <controllingField>IDR_Product_or_Service_Line__c</controllingField>

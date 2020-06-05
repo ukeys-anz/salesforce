@@ -96,21 +96,15 @@ public with sharing class CaseDurationTriggerHandler extends Lib_TriggerHandler 
   ) {
     List<Case> caseToUpdateList = new List<Case>();
     for (Id caseId : caseToDurationMap.keySet()) {
-      long durationHours = 0;
-      long durationMinutes = 0;
+      decimal statusChangeDuration = 0;
       for (Case_Duration__c cd : caseToDurationMap.get(caseId)) {
-        durationMinutes += (long) cd.Business_Hours_Age_Minutes__c;
-        durationHours += (long) cd.Business_Hours_Age_Hours__c;
-      }
-      if (durationMinutes >= 60) {
-        long hoursToAdd = durationMinutes / 60;
-        durationMinutes = Math.Mod(durationMinutes, 60);
-        durationHours += hoursToAdd;
+        statusChangeDuration += (decimal) (cd.Business_Hours_Age_Hours__c +
+          (cd.Business_Hours_Age_Minutes__c / 60))
+          .setScale(2, RoundingMode.HALF_UP);
       }
       Case c = new Case();
       c.Id = caseId;
-      c.Duration_Minutes__c = durationMinutes;
-      c.Duration_Hours__c = durationHours;
+      c.Status_Change_Duration__c = statusChangeDuration;
       caseToUpdateList.add(c);
     }
     if (Case.sObjectType.getDescribe().isUpdateable()) {

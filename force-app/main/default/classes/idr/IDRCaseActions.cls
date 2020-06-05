@@ -286,6 +286,18 @@ public with sharing class IDRCaseActions {
           ACCOUNT_UNMASK_LENGTH
         );
     }
+    caseToBeChanged.Description = TextUtils.maskData(
+      originalRecord.Description
+    );
+    caseToBeChanged.IDR_Complainant_Desired_Outcome__c = TextUtils.maskData(
+      originalRecord.IDR_Complainant_Desired_Outcome__c
+    );
+    caseToBeChanged.IDR_Description_of_Outcome__c = TextUtils.maskData(
+      originalRecord.IDR_Description_of_Outcome__c
+    );
+    caseToBeChanged.IDR_Systemic_Issue_Description__c = TextUtils.maskData(
+      originalRecord.IDR_Systemic_Issue_Description__c
+    );
   }
 
   private static void handleCaseEscalationRules(

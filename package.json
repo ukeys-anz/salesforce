@@ -43,6 +43,8 @@
     "tsconfig-paths": "^3.9.0"
   },
   "devDependencies": {
+    "cypress-plugin-retries": "^1.5.2",
+    "mochawesome": "^6.1.1",
     "prettier": "^1.19.1",
     "prettier-plugin-apex": "^1.3.0",
     "typescript": "^3.8.3"

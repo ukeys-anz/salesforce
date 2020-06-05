@@ -23,6 +23,16 @@ public with sharing class CaseCommentsTriggerHandler extends Lib_TriggerHandler 
   }
 
   /**
+   * @description  Mask the comments where applicable.
+   * This is implemented for project Augur however as this is APRA requirements this will be same for ANZx.
+   */
+  public override void onApplyDefaults() {
+    for (CaseComment record : (List<CaseComment>) records) {
+      record.CommentBody = TextUtils.maskData(record.CommentBody);
+    }
+  }
+
+  /**
    * @description onBeforeUpdate to prevent case comments to be modified
    * @param oldMap
    */
