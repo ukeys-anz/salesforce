@@ -9,9 +9,9 @@ import { jsForce } from "../../../../utilities/jsforce";
 import { getFinAccount } from "../../../../objectStore/financialAccount";
 
 /*** DECLARATIONS ***/
-var accountId: String;
-var accountName: String;
-var financialAccountName: String;
+let accountId: String;
+let accountName: String;
+let financialAccountName: String;
 
 describe("General Inquiry Record Creation", () => {
   before(() => {

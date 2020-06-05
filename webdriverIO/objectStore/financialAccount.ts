@@ -25,16 +25,16 @@ export async function createFinAccountList(
   recordType: String = "SavingsAccount"
 ) {
   return new Promise<String>(async resolve => {
-    var ownerId: String = "";
-    var ownerName: String = "";
-    var finAccounts = [];
-    var idList: any = [];
-    var recTypeId = await getRecordTypeID(
+    let ownerId: String = "";
+    let ownerName: String = "";
+    let finAccounts = [];
+    let idList: any = [];
+    let recTypeId = await getRecordTypeID(
       "FinServ__FinancialAccount__c",
       recordType
     );
-    var accountList: any = await getPersonAccount();
-    for (var i = 0; i < amount; i++) {
+    let accountList: any = await getPersonAccount();
+    for (let i = 0; i < amount; i++) {
       let finAccount: IFinAccount = {
         RecordTypeId: recTypeId,
         Name: accountList[0].Name + " Savings",
@@ -98,7 +98,7 @@ export async function getFinAccount() {
         if (result.records.length > 0) {
           resolve(result.records);
         } else {
-          var finAccountList: any = await createFinAccountList(
+          let finAccountList: any = await createFinAccountList(
             1,
             "SavingsAccount"
           );

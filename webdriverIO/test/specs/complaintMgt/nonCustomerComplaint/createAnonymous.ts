@@ -32,10 +32,10 @@ describe("Anonymous Non Customer Record Creation", () => {
     $("span.slds-truncate=No").click();
 
     NonCustomerComplaint.email.setValue("peter.charalambous@anz.com");
-    NonCustomerComplaint.mobile.setValue("0410493503");
-    NonCustomerComplaint.phone.setValue("0410493503");
-    NonCustomerComplaint.street.setValue("733 Glasscocks Rd");
-    NonCustomerComplaint.suburb.setValue("Narre Warren South");
+    NonCustomerComplaint.mobile.setValue("0410000000");
+    NonCustomerComplaint.phone.setValue("0410000000");
+    NonCustomerComplaint.street.setValue("733 That Rd");
+    NonCustomerComplaint.suburb.setValue("Warren Narre");
     NonCustomerComplaint.postcode.setValue("3805");
 
     NonCustomerComplaint.country.click();
