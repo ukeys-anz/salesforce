@@ -29,7 +29,7 @@ git clone https://USERNAME@github.com/org/repo.git
 It is not recommended to run Salesforce on WLAN, as most features do not work. You are better off switching to MOBILITY to run Salesforce CLI. To setup local tooling:
 
 1. Download and install Node.js (and NPM)
-2. Setup Salesforce CLI, Typescript (used for Cypress) & Prettier by running
+2. Setup Salesforce CLI, Typescript (used for WebdriverIO) & Prettier by running
 
 ```bash
 npm i -g sfdx-cli prettier prettier-plugin-apex typescript
@@ -60,8 +60,8 @@ During the development phase, there are several things to keep in mind:
 1. All code that is committed should be _production read_.
 2. All code must comply to the Prettier styling standards.
 3. All cost must comply to the PMD Quickstart ruleset.
-4. Any changes that are critical path must have Cypress integration tests written for them **before** merging.
-5. Any broken Cypress test cases as a result of any changes must be resolved by updating the test cases.
+4. Any changes that are critical path must have WebdriverIO integration tests written for them **before** merging.
+5. Any broken WebdriverIO test cases as a result of any changes must be resolved by updating the test cases.
 6. All features must have unit tests written before merging.
 
 ## Release Process
