@@ -15,5 +15,5 @@ java -jar apexdoc/apexdoc.jar -s force-app/main/default/classes -t apexdoc/ -a a
 mv apexdoc/ApexDocumentation/* .
 rm -r apexdoc/ApexDocumentation
 git add .
-git commit -m "Documentation updated"
+git commit --no-verify -m "Documentation updated"
 git push
