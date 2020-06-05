@@ -1,8 +1,14 @@
 /*** BASE IMPORTS ***/
-import NonCustomerComplaint from "../../../../pages/complaints/edit/nonCustomerComplaint";
+import NonCustomerComplaint from "../../../../pages/complaintMgt/edit/nonCustomerComplaint";
+
+/*** UTILITIES IMPORTS ***/
+import * as faker from "faker";
 
 /*** OBJECT STORE IMPORTS ***/
 import { createCaseList } from "../../../../objectStore/complaint";
+
+/*** COMMON VALUE IMPORTS ***/
+import { descent } from "../../../../pages/complaintMgt/common/nonCustomerComplaint";
 
 /*** DECLARATIONS ***/
 let caseId: any;
@@ -25,16 +31,27 @@ describe("Non Customer Record Edit", () => {
     $("=Edit").click();
 
     NonCustomerComplaint.descent.click();
-    $("=Not stated/unknown").click();
-    NonCustomerComplaint.phone.setValue("0410000000");
+    $(`a[role="menuitemradio"]=${faker.random.arrayElement(descent)}`).click();
 
-    NonCustomerComplaint.nominatedThirdName.setValue("Test Party Name");
-    NonCustomerComplaint.nominatedThirdEmail.setValue("test@test.com");
-    NonCustomerComplaint.nominatedThirdStreet.setValue("1234 Test Street");
-    NonCustomerComplaint.nominatedThirdSuburb.setValue("Suburbian Suburb");
-    NonCustomerComplaint.nominatedThirdPostcode.setValue("7755");
-    NonCustomerComplaint.nominatedThirdMobile.setValue("0410000001");
-    NonCustomerComplaint.nominatedThirdPhone.setValue("97050000");
+    NonCustomerComplaint.phone.setValue(faker.phone.phoneNumber("04########"));
+
+    NonCustomerComplaint.nominatedThirdName.setValue(
+      faker.name.firstName() + " " + faker.name.lastName()
+    );
+    NonCustomerComplaint.nominatedThirdEmail.setValue(faker.internet.email());
+    NonCustomerComplaint.nominatedThirdStreet.setValue(
+      faker.address.streetName()
+    );
+    NonCustomerComplaint.nominatedThirdSuburb.setValue(faker.address.city());
+    NonCustomerComplaint.nominatedThirdPostcode.setValue(
+      faker.address.zipCode("####")
+    );
+    NonCustomerComplaint.nominatedThirdMobile.setValue(
+      faker.phone.phoneNumber("04########")
+    );
+    NonCustomerComplaint.nominatedThirdPhone.setValue(
+      faker.phone.phoneNumber("97######")
+    );
 
     NonCustomerComplaint.writtenResponseRequested.click();
     $("=Yes").click();

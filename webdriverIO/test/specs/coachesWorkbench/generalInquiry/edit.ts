@@ -1,13 +1,21 @@
 /*** BASE IMPORTS ***/
-import CoachesWorkbench from "../../../../pages/getHelp/coachesWorkbench";
-import GeneralInquiry from "../../../../pages/getHelp/edit/generalInquiry";
+import CoachesWorkbench from "../../../../pages/coachesWorkbench/coachesWorkbench";
+import GeneralInquiry from "../../../../pages/coachesWorkbench/edit/generalInquiry";
 
 /*** UTILITIES IMPORTS ***/
 import { jsForce } from "../../../../utilities/jsforce";
+import * as faker from "faker";
 
 /*** OBJECT STORE IMPORTS ***/
 import { getFinAccount } from "../../../../objectStore/financialAccount";
 import { createBlankCase } from "../../../../objectStore/case";
+
+/*** COMMON VALUE IMPORTS ***/
+import {
+  status,
+  channelReceived,
+  caseReason
+} from "../../../../pages/coachesWorkbench/common/generalInquiry";
 
 /*** DECLARATIONS ***/
 let caseNumber: String;
@@ -44,11 +52,14 @@ describe("General Inquiry Record Edit", () => {
     $(`.forceOutputLookup[title="${caseNumber}"]`).click();
     $("=Edit").click();
 
-    GeneralInquiry.subject.setValue("Edited Value");
-    GeneralInquiry.description.setValue("Edited Description");
+    GeneralInquiry.subject.setValue(faker.lorem.text());
+    GeneralInquiry.description.setValue(faker.lorem.text());
 
     GeneralInquiry.accountName.setValue(accountName.toString());
     $(`div=${accountName}`).click();
+
+    GeneralInquiry.status.click();
+    $(`a[role="menuitemradio"]=${faker.random.arrayElement(status)}`).click();
 
     GeneralInquiry.type.click();
     $("=App Support").click();
@@ -58,13 +69,10 @@ describe("General Inquiry Record Edit", () => {
     GeneralInquiry.additionalTypeAdd.click();
 
     GeneralInquiry.channelReceived.click();
-    $("=Voice Call").click();
+    $(`=${faker.random.arrayElement(channelReceived)}`).click();
 
     GeneralInquiry.caseReason.click();
-    $("=Existing problem").click();
-
-    GeneralInquiry.priority.click();
-    $("=Low").click();
+    $(`=${faker.random.arrayElement(caseReason)}`).click();
 
     GeneralInquiry.financialAccount.setValue(financialAccountName.toString());
     $(`div=${financialAccountName}`).click();

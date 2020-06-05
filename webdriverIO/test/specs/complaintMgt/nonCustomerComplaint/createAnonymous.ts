@@ -1,5 +1,16 @@
 /*** BASE IMPORTS ***/
-import NonCustomerComplaint from "../../../../pages/complaints/create/nonCustomerComplaint";
+import NonCustomerComplaint from "../../../../pages/complaintMgt/create/nonCustomerComplaint";
+
+/*** UTILITIES IMPORTS ***/
+import * as faker from "faker";
+
+/*** COMMON VALUE IMPORTS ***/
+import {
+  state,
+  age,
+  gender,
+  priority
+} from "../../../../pages/complaintMgt/common/nonCustomerComplaint";
 
 describe("Anonymous Non Customer Record Creation", () => {
   it("should create an anonymous non customer complaint case record", () => {
@@ -18,34 +29,34 @@ describe("Anonymous Non Customer Record Creation", () => {
     NonCustomerComplaint.complainantType.click();
     $("span.slds-truncate=Individual").click();
 
-    NonCustomerComplaint.firstName.setValue("Peter");
-    NonCustomerComplaint.middleName.setValue("James");
-    NonCustomerComplaint.lastName.setValue("Charalambous");
+    NonCustomerComplaint.firstName.setValue(faker.name.firstName());
+    NonCustomerComplaint.middleName.setValue(faker.name.firstName());
+    NonCustomerComplaint.lastName.setValue(faker.name.lastName());
 
     NonCustomerComplaint.age.click();
-    $("span.slds-truncate=18 - 24 years").click();
+    $(`span.slds-truncate=${faker.random.arrayElement(age)}`).click();
 
     NonCustomerComplaint.gender.click();
-    $("span.slds-truncate=Male").click();
+    $(`span.slds-truncate=${faker.random.arrayElement(gender)}`).click();
 
     NonCustomerComplaint.descent.click();
     $("span.slds-truncate=No").click();
 
-    NonCustomerComplaint.email.setValue("peter.charalambous@anz.com");
-    NonCustomerComplaint.mobile.setValue("0410000000");
-    NonCustomerComplaint.phone.setValue("0410000000");
-    NonCustomerComplaint.street.setValue("733 That Rd");
-    NonCustomerComplaint.suburb.setValue("Warren Narre");
-    NonCustomerComplaint.postcode.setValue("3805");
+    NonCustomerComplaint.email.setValue(faker.internet.email());
+    NonCustomerComplaint.mobile.setValue(faker.phone.phoneNumber("04########"));
+    NonCustomerComplaint.phone.setValue(faker.phone.phoneNumber("97######"));
+    NonCustomerComplaint.street.setValue(faker.address.streetName());
+    NonCustomerComplaint.suburb.setValue(faker.address.city());
+    NonCustomerComplaint.postcode.setValue(faker.address.zipCode("####"));
 
     NonCustomerComplaint.country.click();
     $("span.slds-truncate=Australia").click();
 
     NonCustomerComplaint.state.click();
-    $("span.slds-truncate=VIC").click();
+    $(`span.slds-truncate=${faker.random.arrayElement(state)}`).click();
 
     NonCustomerComplaint.priority.click();
-    $("span.slds-truncate=None").click();
+    $(`span.slds-truncate=${faker.random.arrayElement(priority)}`).click();
 
     NonCustomerComplaint.caseType.click();
     $("span.slds-truncate=Product").click();
@@ -59,12 +70,8 @@ describe("Anonymous Non Customer Record Creation", () => {
     NonCustomerComplaint.productServiceType.click();
     $("span.slds-truncate=Letter of credit").click();
 
-    NonCustomerComplaint.description.setValue(
-      "This is a test description from webdriverIO"
-    );
-    NonCustomerComplaint.desiredOutcome.setValue(
-      "This is a test desired outcome from webdriverIO"
-    );
+    NonCustomerComplaint.description.setValue(faker.lorem.text());
+    NonCustomerComplaint.desiredOutcome.setValue(faker.lorem.text());
 
     NonCustomerComplaint.create.click();
 

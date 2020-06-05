@@ -1,12 +1,20 @@
 /*** BASE IMPORTS ***/
-import CoachesWorkbench from "../../../../pages/getHelp/coachesWorkbench";
-import GeneralInquiry from "../../../../pages/getHelp/create/generalInquiry";
+import CoachesWorkbench from "../../../../pages/coachesWorkbench/coachesWorkbench";
+import GeneralInquiry from "../../../../pages/coachesWorkbench/create/generalInquiry";
 
 /*** UTILITIES IMPORTS ***/
 import { jsForce } from "../../../../utilities/jsforce";
+import * as faker from "faker";
 
 /*** OBJECT STORE IMPORTS ***/
 import { getFinAccount } from "../../../../objectStore/financialAccount";
+
+/*** COMMON VALUE IMPORTS ***/
+import {
+  status,
+  channelReceived,
+  caseReason
+} from "../../../../pages/coachesWorkbench/common/generalInquiry";
 
 /*** DECLARATIONS ***/
 let accountId: String;
@@ -43,14 +51,14 @@ describe("General Inquiry Record Creation", () => {
 
     browser.pause(3000);
 
-    GeneralInquiry.subject.setValue("Test Subject");
-    GeneralInquiry.description.setValue("Test Description");
+    GeneralInquiry.subject.setValue(faker.lorem.text());
+    GeneralInquiry.description.setValue(faker.lorem.text());
 
     GeneralInquiry.accountName.setValue(accountName.toString());
     $(`div=${accountName}`).click();
 
     GeneralInquiry.status.click();
-    $("=Under Investigation").click();
+    $(`=${faker.random.arrayElement(status)}`).click();
 
     GeneralInquiry.type.click();
     $("=App Support").click();
@@ -65,10 +73,10 @@ describe("General Inquiry Record Creation", () => {
     GeneralInquiry.additionalTypeAdd.click();
 
     GeneralInquiry.channelReceived.click();
-    $("=Voice Call").click();
+    $(`=${faker.random.arrayElement(channelReceived)}`).click();
 
     GeneralInquiry.caseReason.click();
-    $("=Existing problem").click();
+    $(`=${faker.random.arrayElement(caseReason)}`).click();
 
     GeneralInquiry.priority.click();
     $("=Low").click();
