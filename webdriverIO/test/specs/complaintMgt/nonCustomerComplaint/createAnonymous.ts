@@ -1,8 +1,8 @@
 /*** BASE IMPORTS ***/
 import NonCustomerComplaint from "../../../../pages/complaints/create/nonCustomerComplaint";
 
-describe("Non Customer Record Creation", () => {
-  it("should create a non customer complaint case record", () => {
+describe("Anonymous Non Customer Record Creation", () => {
+  it("should create an anonymous non customer complaint case record", () => {
     NonCustomerComplaint.login();
     NonCustomerComplaint.loadApp("Complaint Mgt");
     $('button[title="Show Navigation Menu"]').click();
@@ -13,7 +13,7 @@ describe("Non Customer Record Creation", () => {
     $("span=Non-Customer Complaint").click();
     $("span=Next").click();
 
-    $("span=Agrees").click();
+    $("span=Disagrees").click();
 
     NonCustomerComplaint.complainantType.click();
     $("span.slds-truncate=Individual").click();
@@ -65,9 +65,6 @@ describe("Non Customer Record Creation", () => {
     NonCustomerComplaint.desiredOutcome.setValue(
       "This is a test desired outcome from webdriverIO"
     );
-
-    NonCustomerComplaint.writtenResponseNo.click();
-    NonCustomerComplaint.complaintRelatingNo.click();
 
     NonCustomerComplaint.create.click();
 

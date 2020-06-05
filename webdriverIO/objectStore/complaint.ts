@@ -24,6 +24,8 @@ interface ICase {
   IDR_Complainant_Desired_Outcome__c: String;
   RecordTypeId: String;
   IDR_Customer_Number__c: String;
+  IDR_Is_Written_Resp_Requested__c: String;
+  IDR_Is_Written_Resp_Required__c: String;
 }
 
 /**
@@ -37,10 +39,10 @@ export function createCaseList(
   recordType: String = "Non_Customer_Complaint"
 ) {
   return new Promise(async resolve => {
-    var cases: ICase[] = [];
+    let cases: ICase[] = [];
 
-    var idList: any = [];
-    for (var i = 0; i < amount; i++) {
+    let idList: any = [];
+    for (let i = 0; i < amount; i++) {
       let mockCase: ICase = {
         IDR_Complainant_Type__c: "1",
         Type: "2",
@@ -62,7 +64,9 @@ export function createCaseList(
         IDR_NC_Gender__c: "",
         IDR_NC_Descent__c: "1",
         IDR_NC_State__c: "",
-        IDR_Customer_Number__c: ""
+        IDR_Customer_Number__c: "",
+        IDR_Is_Written_Resp_Requested__c: "No",
+        IDR_Is_Written_Resp_Required__c: "No"
       };
 
       if (recordType === "Customer_Complaint") {

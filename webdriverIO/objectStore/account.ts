@@ -41,10 +41,10 @@ export async function createAccountList(
   recordType: String = "PersonAccount"
 ) {
   return new Promise(async resolve => {
-    var accounts = [];
-    var idList: any = [];
-    var recTypeId = await getRecordTypeID("Account", recordType);
-    for (var i = 0; i < amount; i++) {
+    let accounts = [];
+    let idList: any = [];
+    let recTypeId = await getRecordTypeID("Account", recordType);
+    for (let i = 0; i < amount; i++) {
       let account: IAccount = {
         RecordTypeId: recTypeId,
         FirstName: faker.name.firstName(),
@@ -178,7 +178,7 @@ export async function getPersonAccount() {
           resolve(result.records);
         } else {
           // insert an account and use the retrieved id
-          var accountList: any = await createAccountList(1);
+          let accountList: any = await createAccountList(1);
 
           resolve(accountList);
         }

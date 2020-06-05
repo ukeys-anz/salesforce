@@ -26,5 +26,5 @@ jobs:
           npx prettier -c force-app/main/default/lwc/**/*.{js,html,css}
           echo "Linting Aura Components"
           npx prettier -c force-app/main/default/aura/**/*.{js,html,css}
-          echo "Lint Cypress project files"
-          npx prettier -c cypress/**/*.{ts,js}
+          echo "Lint WebdriverIO project files"
+          npx prettier -c webdriverIO/**/*.{ts,js}

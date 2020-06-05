@@ -1,6 +1,6 @@
-import Base from "../base";
+import Base from "../../base";
 /**
- * Handles the General Inquiry record type fields on Coaches Workbench
+ * Handles the General Inquiry record type fields on Coaches Workbench during create
  */
 class GeneralInquiry extends Base {
   /****** TEXT INPUTS ******/

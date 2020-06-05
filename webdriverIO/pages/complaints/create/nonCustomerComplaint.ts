@@ -1,6 +1,6 @@
-import Base from "../base";
+import Base from "../../base";
 /**
- * Handles the Non Customer Complaint record type fields on Complaints Mgt
+ * Handles the Non Customer Complaint record type fields on Complaints Mgt during creation
  */
 class NonCustomerComplaint extends Base {
   /****** TEXT INPUTS ******/
@@ -125,7 +125,6 @@ class NonCustomerComplaint extends Base {
   }
 
   /****** RADIO ******/
-  //TODO Add yes and no radios
   get writtenResponseNo() {
     return $(
       "/html/body/div[4]/div[1]/div[2]/div[2]/div/div/div/section/div/div[2]/div/div/div/div/c-create-complaint-l-w-c/div/lightning-record-edit-form/form/slot/lightning-accordion/slot/lightning-accordion-section[3]/section/div[2]/slot/div[2]/div[1]/lightning-radio-group/fieldset/div/div/span[2]/label/span"

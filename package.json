@@ -1,7 +1,7 @@
 {
   "name": "salesforce",
   "version": "1.0.0",
-  "description": "Salesforce automation testing with Cypress",
+  "description": "Salesforce automation testing with WebdriverIO",
   "main": "index.js",
   "scripts": {
     "test": "node webdriverURLsetup.js && npx tsc && npx wdio webdriverIO-build/wdio.conf.js"
