@@ -353,6 +353,42 @@
         "type": "Product2",
         "referenceId": "Product2Ref30"
       },
+      "Name": "Agri Finance Offset Account",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "30",
+      "IDR_Product_or_Service_Category__c": "5",
+      "IDR_Product_or_Service_Line__c": "2",
+      "IDR_Product_or_Service_Type__c": "24"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref31"
+      },
+      "Name": "ANZ Business Offset",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "31",
+      "IDR_Product_or_Service_Category__c": "5",
+      "IDR_Product_or_Service_Line__c": "2",
+      "IDR_Product_or_Service_Type__c": "24"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref32"
+      },
+      "Name": "BML Offset Account - with Cheque Book",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "32",
+      "IDR_Product_or_Service_Category__c": "5",
+      "IDR_Product_or_Service_Line__c": "2",
+      "IDR_Product_or_Service_Type__c": "24"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref33"
+      },
       "Name": "ANZ First",
       "IsActive": true,
       "ANZ_Product_Code__c": "33",
@@ -363,7 +399,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref31"
+        "referenceId": "Product2Ref34"
       },
       "Name": "ANZ Platinum",
       "IsActive": true,
@@ -375,7 +411,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref32"
+        "referenceId": "Product2Ref35"
       },
       "Name": "ANZ First (for Students)",
       "IsActive": true,
@@ -387,7 +423,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref33"
+        "referenceId": "Product2Ref36"
       },
       "Name": "ANZ Low Rate",
       "IsActive": true,
@@ -399,7 +435,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref34"
+        "referenceId": "Product2Ref37"
       },
       "Name": "ANZ Rewards Black",
       "IsActive": true,
@@ -411,7 +447,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref35"
+        "referenceId": "Product2Ref38"
       },
       "Name": "ANZ Rewards Travel Adventures",
       "IsActive": true,
@@ -423,7 +459,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref36"
+        "referenceId": "Product2Ref39"
       },
       "Name": "ANZ Rewards Platinum",
       "IsActive": true,
@@ -435,7 +471,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref37"
+        "referenceId": "Product2Ref40"
       },
       "Name": "ANZ Rewards",
       "IsActive": true,
@@ -447,7 +483,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref38"
+        "referenceId": "Product2Ref41"
       },
       "Name": "ANZ Frequent Flyer",
       "IsActive": true,
@@ -459,7 +495,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref39"
+        "referenceId": "Product2Ref42"
       },
       "Name": "ANZ Frequent Flyer Platinum",
       "IsActive": true,
@@ -471,7 +507,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref40"
+        "referenceId": "Product2Ref43"
       },
       "Name": "ANZ Frequent Flyer Black",
       "IsActive": true,
@@ -483,7 +519,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref41"
+        "referenceId": "Product2Ref44"
       },
       "Name": "Travel Money",
       "IsActive": true,
@@ -495,19 +531,19 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref42"
+        "referenceId": "Product2Ref45"
       },
       "Name": "ANZ Travel Card (Multi Currency)",
       "IsActive": true,
       "ANZ_Product_Code__c": "45",
-      "IDR_Product_or_Service_Category__c": "2",
-      "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "9"
+      "IDR_Product_or_Service_Category__c": "20",
+      "IDR_Product_or_Service_Line__c": "6",
+      "IDR_Product_or_Service_Type__c": "139"
     },
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref43"
+        "referenceId": "Product2Ref46"
       },
       "Name": "ANZ Breakfree Package",
       "IsActive": true,
@@ -519,9 +555,9 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref44"
+        "referenceId": "Product2Ref47"
       },
-      "Name": "ANZ Standard Variable",
+      "Name": "ANZ Standard Variable Home Loan",
       "IsActive": true,
       "ANZ_Product_Code__c": "47",
       "IDR_Product_or_Service_Category__c": "2",
@@ -531,9 +567,9 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref45"
+        "referenceId": "Product2Ref48"
       },
-      "Name": "ANZ Fixed",
+      "Name": "ANZ Fixed Home Loan",
       "IsActive": true,
       "ANZ_Product_Code__c": "48",
       "IDR_Product_or_Service_Category__c": "2",
@@ -543,9 +579,9 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref46"
+        "referenceId": "Product2Ref49"
       },
-      "Name": "ANZ Simplicity Plus",
+      "Name": "ANZ Simplicity Plus Home Loan",
       "IsActive": true,
       "ANZ_Product_Code__c": "49",
       "IDR_Product_or_Service_Category__c": "2",
@@ -555,19 +591,19 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref47"
+        "referenceId": "Product2Ref50"
       },
       "Name": "ANZ Equity Manager",
       "IsActive": true,
       "ANZ_Product_Code__c": "50",
       "IDR_Product_or_Service_Category__c": "2",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "13"
+      "IDR_Product_or_Service_Type__c": "16"
     },
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref48"
+        "referenceId": "Product2Ref51"
       },
       "Name": "ANZ Assured",
       "IsActive": true,
@@ -579,7 +615,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref49"
+        "referenceId": "Product2Ref52"
       },
       "Name": "ANZ Personal Overdraft",
       "IsActive": true,
@@ -591,7 +627,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref50"
+        "referenceId": "Product2Ref53"
       },
       "Name": "ANZ Variable Rate Loan",
       "IsActive": true,
@@ -603,7 +639,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref51"
+        "referenceId": "Product2Ref54"
       },
       "Name": "ANZ Fixed Rate Loan",
       "IsActive": true,
@@ -615,7 +651,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref52"
+        "referenceId": "Product2Ref55"
       },
       "Name": "Cash Covered Facility Account",
       "IsActive": true,
@@ -627,7 +663,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref53"
+        "referenceId": "Product2Ref56"
       },
       "Name": "Cash Cover Indemnity Guarantee",
       "IsActive": true,
@@ -639,7 +675,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref54"
+        "referenceId": "Product2Ref57"
       },
       "Name": "Indemnity Guarantee Facility",
       "IsActive": true,
@@ -651,7 +687,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref55"
+        "referenceId": "Product2Ref58"
       },
       "Name": "Business Classic Account",
       "IsActive": true,
@@ -663,7 +699,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref56"
+        "referenceId": "Product2Ref59"
       },
       "Name": "GST Payment Account",
       "IsActive": true,
@@ -675,7 +711,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref57"
+        "referenceId": "Product2Ref60"
       },
       "Name": "Business Extra 50 Account",
       "IsActive": true,
@@ -687,7 +723,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref58"
+        "referenceId": "Product2Ref61"
       },
       "Name": "Business Extra Account",
       "IsActive": true,
@@ -699,7 +735,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref59"
+        "referenceId": "Product2Ref62"
       },
       "Name": "Negotiator Account",
       "IsActive": true,
@@ -711,9 +747,9 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref60"
+        "referenceId": "Product2Ref63"
       },
-      "Name": "Business Preimum Saver Account",
+      "Name": "Business Premium Saver Account",
       "IsActive": true,
       "ANZ_Product_Code__c": "63",
       "IDR_Product_or_Service_Category__c": "5",
@@ -723,7 +759,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref61"
+        "referenceId": "Product2Ref64"
       },
       "Name": "Negotiator Investor Account",
       "IsActive": true,
@@ -735,7 +771,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref62"
+        "referenceId": "Product2Ref65"
       },
       "Name": "Statutory Trust Account",
       "IsActive": true,
@@ -747,7 +783,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref63"
+        "referenceId": "Product2Ref66"
       },
       "Name": "Business Advantage Account",
       "IsActive": true,
@@ -759,7 +795,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref64"
+        "referenceId": "Product2Ref67"
       },
       "Name": "Security Deposit Account",
       "IsActive": true,
@@ -771,7 +807,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref65"
+        "referenceId": "Product2Ref68"
       },
       "Name": "Farm Management Deposit Account",
       "IsActive": true,
@@ -783,7 +819,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref66"
+        "referenceId": "Product2Ref69"
       },
       "Name": "ANZ One Offset Account",
       "IsActive": true,
@@ -795,7 +831,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref67"
+        "referenceId": "Product2Ref70"
       },
       "Name": "ANZ Access Select",
       "IsActive": true,
@@ -807,7 +843,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref68"
+        "referenceId": "Product2Ref71"
       },
       "Name": "ANZ Everyday Visa Debit",
       "IsActive": true,
@@ -819,7 +855,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref69"
+        "referenceId": "Product2Ref72"
       },
       "Name": "ANZ V2Plus (Retail)",
       "IsActive": true,
@@ -831,7 +867,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref70"
+        "referenceId": "Product2Ref73"
       },
       "Name": "ANZ First Home Saver",
       "IsActive": true,
@@ -843,7 +879,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref71"
+        "referenceId": "Product2Ref74"
       },
       "Name": "ANZ Cash Management Account",
       "IsActive": true,
@@ -855,7 +891,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref72"
+        "referenceId": "Product2Ref75"
       },
       "Name": "ANZ Passbook Pensioner Advantage",
       "IsActive": true,
@@ -867,7 +903,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref73"
+        "referenceId": "Product2Ref76"
       },
       "Name": "ANZ Passbook Savings",
       "IsActive": true,
@@ -879,7 +915,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref74"
+        "referenceId": "Product2Ref77"
       },
       "Name": "ANZ Access Advantage",
       "IsActive": true,
@@ -891,7 +927,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref75"
+        "referenceId": "Product2Ref78"
       },
       "Name": "ANZ Pensioner Advantage",
       "IsActive": true,
@@ -903,7 +939,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref76"
+        "referenceId": "Product2Ref79"
       },
       "Name": "ANZ Access Basic",
       "IsActive": true,
@@ -915,7 +951,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref77"
+        "referenceId": "Product2Ref80"
       },
       "Name": "Staff Cheque Account",
       "IsActive": true,
@@ -927,7 +963,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref78"
+        "referenceId": "Product2Ref81"
       },
       "Name": "Retired Officers Cheque Account",
       "IsActive": true,
@@ -939,7 +975,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref79"
+        "referenceId": "Product2Ref82"
       },
       "Name": "Security Deposit",
       "IsActive": true,
@@ -951,7 +987,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref80"
+        "referenceId": "Product2Ref83"
       },
       "Name": "ANZ Access Limited",
       "IsActive": true,
@@ -963,7 +999,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref81"
+        "referenceId": "Product2Ref84"
       },
       "Name": "V2 Plus",
       "IsActive": true,
@@ -975,7 +1011,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref82"
+        "referenceId": "Product2Ref85"
       },
       "Name": "V2 Plus Broking",
       "IsActive": true,
@@ -987,7 +1023,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref83"
+        "referenceId": "Product2Ref86"
       },
       "Name": "V2 Plus including Margin Lending",
       "IsActive": true,
@@ -999,7 +1035,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref84"
+        "referenceId": "Product2Ref87"
       },
       "Name": "V2 Plus Intermediary",
       "IsActive": true,
@@ -1011,7 +1047,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref85"
+        "referenceId": "Product2Ref88"
       },
       "Name": "Custodial Services",
       "IsActive": true,
@@ -1023,7 +1059,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref86"
+        "referenceId": "Product2Ref89"
       },
       "Name": "ANZ Premium Cash Management Account",
       "IsActive": true,
@@ -1035,7 +1071,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref87"
+        "referenceId": "Product2Ref90"
       },
       "Name": "ANZ Cash Investment Account",
       "IsActive": true,
@@ -1047,7 +1083,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref88"
+        "referenceId": "Product2Ref91"
       },
       "Name": "Investor Cash Hub",
       "IsActive": true,
@@ -1059,9 +1095,9 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref89"
+        "referenceId": "Product2Ref92"
       },
-      "Name": "SMSF Cash Hub",
+      "Name": "ANZ SMSF Cash Hub",
       "IsActive": true,
       "ANZ_Product_Code__c": "92",
       "IDR_Product_or_Service_Category__c": "7",
@@ -1071,7 +1107,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref90"
+        "referenceId": "Product2Ref93"
       },
       "Name": "ANZ Cash Advantage",
       "IsActive": true,
@@ -1083,7 +1119,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref91"
+        "referenceId": "Product2Ref94"
       },
       "Name": "Prime Cash Management Account",
       "IsActive": true,
@@ -1095,7 +1131,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref92"
+        "referenceId": "Product2Ref95"
       },
       "Name": "Prime CMA - Pension",
       "IsActive": true,
@@ -1107,19 +1143,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref93"
-      },
-      "Name": "Business Premium Saver Account",
-      "IsActive": true,
-      "ANZ_Product_Code__c": "96",
-      "IDR_Product_or_Service_Category__c": "7",
-      "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "31"
-    },
-    {
-      "attributes": {
-        "type": "Product2",
-        "referenceId": "Product2Ref94"
+        "referenceId": "Product2Ref96"
       },
       "Name": "ANZ Online Saver",
       "IsActive": true,
@@ -1131,7 +1155,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref95"
+        "referenceId": "Product2Ref97"
       },
       "Name": "ANZ Progress Saver",
       "IsActive": true,
@@ -1143,7 +1167,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref96"
+        "referenceId": "Product2Ref98"
       },
       "Name": "Business Online Saver Account",
       "IsActive": true,
@@ -1155,7 +1179,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref97"
+        "referenceId": "Product2Ref99"
       },
       "Name": "ANZ Term Deposit",
       "IsActive": true,
@@ -1167,7 +1191,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref98"
+        "referenceId": "Product2Ref100"
       },
       "Name": "ANZ Advance Notice Term Deposit",
       "IsActive": true,
@@ -1179,7 +1203,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref99"
+        "referenceId": "Product2Ref101"
       },
       "Name": "OnePath Life Term Deposit",
       "IsActive": true,
@@ -1191,7 +1215,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref100"
+        "referenceId": "Product2Ref102"
       },
       "Name": "ANZ Farm Management Deposit",
       "IsActive": true,
@@ -1203,7 +1227,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref101"
+        "referenceId": "Product2Ref103"
       },
       "Name": "Seniors Term Deposit",
       "IsActive": true,
@@ -1215,7 +1239,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref102"
+        "referenceId": "Product2Ref104"
       },
       "Name": "ANZ Business Notice Term Deposit",
       "IsActive": true,
@@ -1227,7 +1251,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref103"
+        "referenceId": "Product2Ref105"
       },
       "Name": "ANZ Term Deposit via External Platforms & Oasis Wrap",
       "IsActive": true,
@@ -1239,7 +1263,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref104"
+        "referenceId": "Product2Ref106"
       },
       "Name": "ANZ Credit Card Insurance",
       "IsActive": true,
@@ -1251,7 +1275,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref105"
+        "referenceId": "Product2Ref107"
       },
       "Name": "ANZ Loan Protection Insurance",
       "IsActive": true,
@@ -1263,7 +1287,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref106"
+        "referenceId": "Product2Ref108"
       },
       "Name": "ANZ Mortgage Protection Insurance",
       "IsActive": true,
@@ -1275,31 +1299,19 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref107"
-      },
-      "Name": "ANZ Home Insurance",
-      "IsActive": true,
-      "ANZ_Product_Code__c": "110",
-      "IDR_Product_or_Service_Category__c": "8",
-      "IDR_Product_or_Service_Line__c": "3",
-      "IDR_Product_or_Service_Type__c": "37"
-    },
-    {
-      "attributes": {
-        "type": "Product2",
-        "referenceId": "Product2Ref108"
+        "referenceId": "Product2Ref109"
       },
       "Name": "ANZ Landlord Insurance",
       "IsActive": true,
       "ANZ_Product_Code__c": "111",
       "IDR_Product_or_Service_Category__c": "8",
       "IDR_Product_or_Service_Line__c": "3",
-      "IDR_Product_or_Service_Type__c": "37"
+      "IDR_Product_or_Service_Type__c": "36"
     },
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref109"
+        "referenceId": "Product2Ref110"
       },
       "Name": "ANZ Car Insurance (Comprehensive)",
       "IsActive": true,
@@ -1311,7 +1323,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref110"
+        "referenceId": "Product2Ref111"
       },
       "Name": "ANZ Car Insurance (Third Party Property Damage, Fire and Theft)",
       "IsActive": true,
@@ -1323,7 +1335,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref111"
+        "referenceId": "Product2Ref112"
       },
       "Name": "ANZ Car Insurance (Third Party Property Damage)",
       "IsActive": true,
@@ -1335,7 +1347,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref112"
+        "referenceId": "Product2Ref113"
       },
       "Name": "ANZ Travel Insurance",
       "IsActive": true,
@@ -1347,7 +1359,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref113"
+        "referenceId": "Product2Ref114"
       },
       "Name": "ANZ Share Investment Loan",
       "IsActive": true,
@@ -1359,7 +1371,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref114"
+        "referenceId": "Product2Ref115"
       },
       "Name": "White-Label ANZ Share Investing Service",
       "IsActive": true,
@@ -1371,7 +1383,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref115"
+        "referenceId": "Product2Ref116"
       },
       "Name": "ANZ Accident Cover Plus",
       "IsActive": true,
@@ -1383,7 +1395,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref116"
+        "referenceId": "Product2Ref117"
       },
       "Name": "ANZ Critical Illness Cover",
       "IsActive": true,
@@ -1395,7 +1407,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref117"
+        "referenceId": "Product2Ref118"
       },
       "Name": "ANZ Income Cover",
       "IsActive": true,
@@ -1407,7 +1419,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref118"
+        "referenceId": "Product2Ref119"
       },
       "Name": "ANZ Income Protection",
       "IsActive": true,
@@ -1419,7 +1431,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref119"
+        "referenceId": "Product2Ref120"
       },
       "Name": "ANZ 50+ Life Cover",
       "IsActive": true,
@@ -1431,7 +1443,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref120"
+        "referenceId": "Product2Ref121"
       },
       "Name": "ANZ Life Insurance",
       "IsActive": true,
@@ -1443,7 +1455,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref121"
+        "referenceId": "Product2Ref122"
       },
       "Name": "ANZ Recover Well",
       "IsActive": true,
@@ -1455,7 +1467,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref122"
+        "referenceId": "Product2Ref123"
       },
       "Name": "ANZ Credit Cover Plus",
       "IsActive": true,
@@ -1467,7 +1479,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref123"
+        "referenceId": "Product2Ref124"
       },
       "Name": "ANZ Credit Cover",
       "IsActive": true,
@@ -1479,7 +1491,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref124"
+        "referenceId": "Product2Ref125"
       },
       "Name": "ANZ Smart Choice Super for Employers and their Employees",
       "IsActive": true,
@@ -1491,7 +1503,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref125"
+        "referenceId": "Product2Ref126"
       },
       "Name": "ANZ Smart Choice Pension",
       "IsActive": true,
@@ -1503,7 +1515,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref126"
+        "referenceId": "Product2Ref127"
       },
       "Name": "ANZ Smart Choice Super",
       "IsActive": true,
@@ -1515,14 +1527,536 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref127"
+        "referenceId": "Product2Ref128"
       },
       "Name": "ANZ Lenders Mortgage Insurance",
       "IsActive": true,
       "ANZ_Product_Code__c": "130",
-      "IDR_Product_or_Service_Category__c": "34",
+      "IDR_Product_or_Service_Category__c": "8",
+      "IDR_Product_or_Service_Line__c": "3",
+      "IDR_Product_or_Service_Type__c": "35"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref129"
+      },
+      "Name": "Asset Finance",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "131",
+      "IDR_Product_or_Service_Category__c": "1",
+      "IDR_Product_or_Service_Line__c": "1",
+      "IDR_Product_or_Service_Type__c": "4"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref130"
+      },
+      "Name": "ANZ Low Rate Platinum",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "132",
+      "IDR_Product_or_Service_Category__c": "2",
+      "IDR_Product_or_Service_Line__c": "1",
+      "IDR_Product_or_Service_Type__c": "9"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref131"
+      },
+      "Name": "ANZ Fixed Investment Property Loan",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "133",
+      "IDR_Product_or_Service_Category__c": "2",
+      "IDR_Product_or_Service_Line__c": "1",
+      "IDR_Product_or_Service_Type__c": "15"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref132"
+      },
+      "Name": "ANZ Simplicity Plus Investment Property Loan",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "134",
+      "IDR_Product_or_Service_Category__c": "2",
+      "IDR_Product_or_Service_Line__c": "1",
+      "IDR_Product_or_Service_Type__c": "15"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref133"
+      },
+      "Name": "ANZ Standard Variable Investment Property Loan",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "135",
+      "IDR_Product_or_Service_Category__c": "2",
+      "IDR_Product_or_Service_Line__c": "1",
+      "IDR_Product_or_Service_Type__c": "15"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref134"
+      },
+      "Name": "Margin Lending",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "136",
+      "IDR_Product_or_Service_Category__c": "4",
+      "IDR_Product_or_Service_Line__c": "1",
+      "IDR_Product_or_Service_Type__c": "23"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref135"
+      },
+      "Name": "ANZ Business Visa Debit card (ABVD)",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "137",
+      "IDR_Product_or_Service_Category__c": "5",
+      "IDR_Product_or_Service_Line__c": "2",
+      "IDR_Product_or_Service_Type__c": "24"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref136"
+      },
+      "Name": "Missing Funds",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "138",
+      "IDR_Product_or_Service_Category__c": "5",
+      "IDR_Product_or_Service_Line__c": "2",
+      "IDR_Product_or_Service_Type__c": "24"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref137"
+      },
+      "Name": "ANZ Access Visa Debit card (AAVD)",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "139",
+      "IDR_Product_or_Service_Category__c": "5",
+      "IDR_Product_or_Service_Line__c": "2",
+      "IDR_Product_or_Service_Type__c": "28"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref138"
+      },
+      "Name": "ANZ Home and Contents Insurance",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "140",
+      "IDR_Product_or_Service_Category__c": "8",
+      "IDR_Product_or_Service_Line__c": "3",
+      "IDR_Product_or_Service_Type__c": "36"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref139"
+      },
+      "Name": "ANZ Contents Insurance",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "141",
+      "IDR_Product_or_Service_Category__c": "8",
+      "IDR_Product_or_Service_Line__c": "3",
+      "IDR_Product_or_Service_Type__c": "37"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref140"
+      },
+      "Name": "ANZ ATM",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "142",
+      "IDR_Product_or_Service_Category__c": "19",
+      "IDR_Product_or_Service_Line__c": "6",
+      "IDR_Product_or_Service_Type__c": "127"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref141"
+      },
+      "Name": "Bank Drafts",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "143",
+      "IDR_Product_or_Service_Category__c": "19",
+      "IDR_Product_or_Service_Line__c": "6",
+      "IDR_Product_or_Service_Type__c": "128"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref142"
+      },
+      "Name": "Cheque",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "144",
+      "IDR_Product_or_Service_Category__c": "19",
+      "IDR_Product_or_Service_Line__c": "6",
+      "IDR_Product_or_Service_Type__c": "129"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref143"
+      },
+      "Name": "Branch Transaction",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "145",
+      "IDR_Product_or_Service_Category__c": "19",
+      "IDR_Product_or_Service_Line__c": "6",
+      "IDR_Product_or_Service_Type__c": "130"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref144"
+      },
+      "Name": "Direct Debit",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "146",
+      "IDR_Product_or_Service_Category__c": "19",
+      "IDR_Product_or_Service_Line__c": "6",
+      "IDR_Product_or_Service_Type__c": "131"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref145"
+      },
+      "Name": "EFTPOS Transaction",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "147",
+      "IDR_Product_or_Service_Category__c": "19",
+      "IDR_Product_or_Service_Line__c": "6",
+      "IDR_Product_or_Service_Type__c": "132"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref146"
+      },
+      "Name": "Cash Pack",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "148",
+      "IDR_Product_or_Service_Category__c": "19",
+      "IDR_Product_or_Service_Line__c": "6",
+      "IDR_Product_or_Service_Type__c": "134"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref147"
+      },
+      "Name": "Foreign Currency Transaction",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "149",
+      "IDR_Product_or_Service_Category__c": "19",
+      "IDR_Product_or_Service_Line__c": "6",
+      "IDR_Product_or_Service_Type__c": "134"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref148"
+      },
+      "Name": "FOREX",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "150",
+      "IDR_Product_or_Service_Category__c": "19",
+      "IDR_Product_or_Service_Line__c": "6",
+      "IDR_Product_or_Service_Type__c": "134"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref149"
+      },
+      "Name": "International payments",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "151",
+      "IDR_Product_or_Service_Category__c": "19",
+      "IDR_Product_or_Service_Line__c": "6",
+      "IDR_Product_or_Service_Type__c": "134"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref150"
+      },
+      "Name": "Merchant services",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "152",
+      "IDR_Product_or_Service_Category__c": "19",
+      "IDR_Product_or_Service_Line__c": "6",
+      "IDR_Product_or_Service_Type__c": "135"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref151"
+      },
+      "Name": "Telegraphic Transfer",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "153",
+      "IDR_Product_or_Service_Category__c": "19",
+      "IDR_Product_or_Service_Line__c": "6",
+      "IDR_Product_or_Service_Type__c": "136"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref152"
+      },
+      "Name": "ANZ Reward Points",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "154",
+      "IDR_Product_or_Service_Category__c": "20",
+      "IDR_Product_or_Service_Line__c": "6",
+      "IDR_Product_or_Service_Type__c": "137"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref153"
+      },
+      "Name": "Qantas Frequent Flyer Points",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "155",
+      "IDR_Product_or_Service_Category__c": "20",
+      "IDR_Product_or_Service_Line__c": "6",
+      "IDR_Product_or_Service_Type__c": "137"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref154"
+      },
+      "Name": "ANZ App",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "156",
+      "IDR_Product_or_Service_Category__c": "20",
+      "IDR_Product_or_Service_Line__c": "6",
+      "IDR_Product_or_Service_Type__c": "138"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref155"
+      },
+      "Name": "ANZ Cashactive Virtual",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "157",
+      "IDR_Product_or_Service_Category__c": "20",
+      "IDR_Product_or_Service_Line__c": "6",
+      "IDR_Product_or_Service_Type__c": "138"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref156"
+      },
+      "Name": "ANZ FX Online",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "158",
+      "IDR_Product_or_Service_Category__c": "20",
+      "IDR_Product_or_Service_Line__c": "6",
+      "IDR_Product_or_Service_Type__c": "138"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref157"
+      },
+      "Name": "ANZ IB4B - Internet Banking for Business",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "159",
+      "IDR_Product_or_Service_Category__c": "20",
+      "IDR_Product_or_Service_Line__c": "6",
+      "IDR_Product_or_Service_Type__c": "138"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref158"
+      },
+      "Name": "ANZ Internet Banking",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "160",
+      "IDR_Product_or_Service_Category__c": "20",
+      "IDR_Product_or_Service_Line__c": "6",
+      "IDR_Product_or_Service_Type__c": "138"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref159"
+      },
+      "Name": "ANZ Private FX Online",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "161",
+      "IDR_Product_or_Service_Category__c": "20",
+      "IDR_Product_or_Service_Line__c": "6",
+      "IDR_Product_or_Service_Type__c": "138"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref160"
+      },
+      "Name": "ANZ Transactive",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "162",
+      "IDR_Product_or_Service_Category__c": "20",
+      "IDR_Product_or_Service_Line__c": "6",
+      "IDR_Product_or_Service_Type__c": "138"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref161"
+      },
+      "Name": "Currency by ANZ (app)",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "163",
+      "IDR_Product_or_Service_Category__c": "20",
+      "IDR_Product_or_Service_Line__c": "6",
+      "IDR_Product_or_Service_Type__c": "138"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref162"
+      },
+      "Name": "Power of Attorney",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "164",
+      "IDR_Product_or_Service_Category__c": "21",
+      "IDR_Product_or_Service_Line__c": "7",
+      "IDR_Product_or_Service_Type__c": "141"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref163"
+      },
+      "Name": "Wills",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "165",
+      "IDR_Product_or_Service_Category__c": "21",
+      "IDR_Product_or_Service_Line__c": "7",
+      "IDR_Product_or_Service_Type__c": "142"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref164"
+      },
+      "Name": "Direct Investments",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "166",
+      "IDR_Product_or_Service_Category__c": "31",
       "IDR_Product_or_Service_Line__c": "9",
-      "IDR_Product_or_Service_Type__c": "197"
+      "IDR_Product_or_Service_Type__c": "194"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref165"
+      },
+      "Name": "IPO & Capital Raising Campaigns",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "167",
+      "IDR_Product_or_Service_Category__c": "31",
+      "IDR_Product_or_Service_Line__c": "9",
+      "IDR_Product_or_Service_Type__c": "194"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref166"
+      },
+      "Name": "ANZ OneAnswer",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "168",
+      "IDR_Product_or_Service_Category__c": "32",
+      "IDR_Product_or_Service_Line__c": "9",
+      "IDR_Product_or_Service_Type__c": "195"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref167"
+      },
+      "Name": "BT Wrap",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "169",
+      "IDR_Product_or_Service_Category__c": "32",
+      "IDR_Product_or_Service_Line__c": "9",
+      "IDR_Product_or_Service_Type__c": "195"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref168"
+      },
+      "Name": "Netwealth",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "170",
+      "IDR_Product_or_Service_Category__c": "32",
+      "IDR_Product_or_Service_Line__c": "9",
+      "IDR_Product_or_Service_Type__c": "195"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref169"
+      },
+      "Name": "OneAnswer Frontier",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "171",
+      "IDR_Product_or_Service_Category__c": "32",
+      "IDR_Product_or_Service_Line__c": "9",
+      "IDR_Product_or_Service_Type__c": "195"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref170"
+      },
+      "Name": "Self Managed Super Fund (SMSF)",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "172",
+      "IDR_Product_or_Service_Category__c": "32",
+      "IDR_Product_or_Service_Line__c": "9",
+      "IDR_Product_or_Service_Type__c": "195"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref171"
+      },
+      "Name": "Open Banking/Data Sharing",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "173"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref172"
+      },
+      "Name": "N/A",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "999"
     }
   ]
 }

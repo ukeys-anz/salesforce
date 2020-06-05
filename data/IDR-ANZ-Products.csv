@@ -28,9 +28,9 @@ Offer to Hire,26,1,1,4,TRUE
 ANZ Revolving AGRI Line overdraft,27,1,1,6,TRUE
 Business Credit Facility,28,1,1,6,TRUE
 Business Advantage Overdraft,29,1,1,6,TRUE
-Agri Finance Offset Account,30,1,1,8,TRUE
-ANZ Business Offset,31,1,1,8,TRUE
-BML Offset Account - wth Chq Book,32,1,1,8,TRUE
+Agri Finance Offset Account,30,2,5,24,TRUE
+ANZ Business Offset,31,2,5,24,TRUE
+BML Offset Account - with Cheque Book,32,2,5,24,TRUE
 ANZ First,33,1,2,9,TRUE
 ANZ Platinum,34,1,2,9,TRUE
 ANZ First (for Students),35,1,2,9,TRUE
@@ -43,12 +43,12 @@ ANZ Frequent Flyer,41,1,2,9,TRUE
 ANZ Frequent Flyer Platinum,42,1,2,9,TRUE
 ANZ Frequent Flyer Black,43,1,2,9,TRUE
 Travel Money,44,1,2,9,TRUE
-ANZ Travel Card (Multi Currency),45,1,2,9,TRUE
+ANZ Travel Card (Multi Currency),45,6,20,139,TRUE
 ANZ Breakfree Package,46,1,2,13,TRUE
-ANZ Standard Variable,47,1,2,13,TRUE
-ANZ Fixed,48,1,2,13,TRUE
-ANZ Simplicity Plus,49,1,2,13,TRUE
-ANZ Equity Manager,50,1,2,13,TRUE
+ANZ Standard Variable Home Loan,47,1,2,13,TRUE
+ANZ Fixed Home Loan,48,1,2,13,TRUE
+ANZ Simplicity Plus Home Loan,49,1,2,13,TRUE
+ANZ Equity Manager,50,1,2,16,TRUE
 ANZ Assured,51,1,2,16,TRUE
 ANZ Personal Overdraft,52,1,2,16,TRUE
 ANZ Variable Rate Loan,53,1,2,18,TRUE
@@ -61,7 +61,7 @@ GST Payment Account,59,2,5,24,TRUE
 Business Extra 50 Account,60,2,5,24,TRUE
 Business Extra Account,61,2,5,24,TRUE
 Negotiator Account,62,2,5,24,TRUE
-Business Preimum Saver Account,63,2,5,24,TRUE
+Business Premium Saver Account,63,2,5,24,TRUE
 Negotiator Investor Account,64,2,5,24,TRUE
 Statutory Trust Account,65,2,5,24,TRUE
 Business Advantage Account,66,2,5,24,TRUE
@@ -90,11 +90,10 @@ Custodial Services,88,2,6,29,TRUE
 ANZ Premium Cash Management Account,89,2,7,31,TRUE
 ANZ Cash Investment Account,90,2,7,31,TRUE
 Investor Cash Hub,91,2,7,31,TRUE
-SMSF Cash Hub,92,2,7,31,TRUE
+ANZ SMSF Cash Hub,92,2,7,31,TRUE
 ANZ Cash Advantage,93,2,7,31,TRUE
 Prime Cash Management Account,94,2,7,31,TRUE
 Prime CMA - Pension,95,2,7,31,TRUE
-Business Premium Saver Account,96,2,7,31,TRUE
 ANZ Online Saver,97,2,7,33,TRUE
 ANZ Progress Saver,98,2,7,33,TRUE
 Business Online Saver Account,99,2,7,33,TRUE
@@ -108,8 +107,7 @@ ANZ Term Deposit via External Platforms & Oasis Wrap,106,2,7,34,TRUE
 ANZ Credit Card Insurance,107,3,8,35,TRUE
 ANZ Loan Protection Insurance,108,3,8,35,TRUE
 ANZ Mortgage Protection Insurance,109,3,8,35,TRUE
-ANZ Home Insurance,110,3,8,37,TRUE
-ANZ Landlord Insurance,111,3,8,37,TRUE
+ANZ Landlord Insurance,111,3,8,36,TRUE
 ANZ Car Insurance (Comprehensive),112,3,8,38,TRUE
 "ANZ Car Insurance (Third Party Property Damage, Fire and Theft)",113,3,8,39,TRUE
 ANZ Car Insurance (Third Party Property Damage),114,3,8,40,TRUE
@@ -128,4 +126,48 @@ ANZ Credit Cover,126,5,18,124,TRUE
 ANZ Smart Choice Super for Employers and their Employees,127,8,24,154,TRUE
 ANZ Smart Choice Pension,128,8,28,177,TRUE
 ANZ Smart Choice Super,129,8,28,178,TRUE
-ANZ Lenders Mortgage Insurance,130,9,34,197,TRUE
+ANZ Lenders Mortgage Insurance,130,3,8,35,TRUE
+Asset Finance,131,1,1,4,TRUE
+ANZ Low Rate Platinum,132,1,2,9,TRUE
+ANZ Fixed Investment Property Loan,133,1,2,15,TRUE
+ANZ Simplicity Plus Investment Property Loan,134,1,2,15,TRUE
+ANZ Standard Variable Investment Property Loan,135,1,2,15,TRUE
+Margin Lending,136,1,4,23,TRUE
+ANZ Business Visa Debit card (ABVD),137,2,5,24,TRUE
+Missing Funds,138,2,5,24,TRUE
+ANZ Access Visa Debit card (AAVD),139,2,5,28,TRUE
+ANZ Home and Contents Insurance,140,3,8,36,TRUE
+ANZ Contents Insurance,141,3,8,37,TRUE
+ANZ ATM,142,6,19,127,TRUE
+Bank Drafts,143,6,19,128,TRUE
+Cheque,144,6,19,129,TRUE
+Branch Transaction,145,6,19,130,TRUE
+Direct Debit,146,6,19,131,TRUE
+EFTPOS Transaction,147,6,19,132,TRUE
+Cash Pack,148,6,19,134,TRUE
+Foreign Currency Transaction,149,6,19,134,TRUE
+FOREX,150,6,19,134,TRUE
+International payments,151,6,19,134,TRUE
+Merchant services,152,6,19,135,TRUE
+Telegraphic Transfer,153,6,19,136,TRUE
+ANZ Reward Points,154,6,20,137,TRUE
+Qantas Frequent Flyer Points,155,6,20,137,TRUE
+ANZ App,156,6,20,138,TRUE
+ANZ Cashactive Virtual,157,6,20,138,TRUE
+ANZ FX Online,158,6,20,138,TRUE
+ANZ IB4B - Internet Banking for Business,159,6,20,138,TRUE
+ANZ Internet Banking,160,6,20,138,TRUE
+ANZ Private FX Online,161,6,20,138,TRUE
+ANZ Transactive,162,6,20,138,TRUE
+Currency by ANZ (app),163,6,20,138,TRUE
+Power of Attorney,164,7,21,141,TRUE
+Wills,165,7,21,142,TRUE
+Direct Investments,166,9,31,194,TRUE
+IPO & Capital Raising Campaigns,167,9,31,194,TRUE
+ANZ OneAnswer,168,9,32,195,TRUE
+BT Wrap,169,9,32,195,TRUE
+Netwealth,170,9,32,195,TRUE
+OneAnswer Frontier,171,9,32,195,TRUE
+Self Managed Super Fund (SMSF),172,9,32,195,TRUE
+Open Banking/Data Sharing,173,,,,TRUE
+N/A,999,"","","",TRUE
