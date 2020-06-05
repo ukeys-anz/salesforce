@@ -17,10 +17,6 @@
         <field>Case.Duration_Hours__c</field>
     </columns>
     <columns>
-        <aggregateTypes>Sum</aggregateTypes>
-        <field>Case.Duration_Minutes__c</field>
-    </columns>
-    <columns>
         <field>CREATED_DATE</field>
     </columns>
     <description>Cases by duration</description>
