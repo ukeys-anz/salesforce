@@ -55,7 +55,6 @@
                 <groupingSortProperties/>
                 <header>Cases by Duration</header>
                 <report>Coach_Reports/Cases_by_Duration_7B2</report>
-                <title>Updated every one hour</title>
             </dashboardComponent>
             <rowIndex>0</rowIndex>
             <rowSpan>8</rowSpan>
