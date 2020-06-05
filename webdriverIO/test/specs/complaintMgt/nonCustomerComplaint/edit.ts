@@ -1,11 +1,14 @@
 /*** BASE IMPORTS ***/
-import NonCustomerComplaint from "../../../../pages/complaints/edit/nonCustomerComplaint";
+import NonCustomerComplaint from "../../../../pages/complaintMgt/edit/nonCustomerComplaint";
 
 /*** UTILITIES IMPORTS ***/
 import * as faker from "faker";
 
 /*** OBJECT STORE IMPORTS ***/
 import { createCaseList } from "../../../../objectStore/complaint";
+
+/*** COMMON VALUE IMPORTS ***/
+import { descent } from "../../../../pages/complaintMgt/common/nonCustomerComplaint";
 
 /*** DECLARATIONS ***/
 let caseId: any;
@@ -28,14 +31,7 @@ describe("Non Customer Record Edit", () => {
     $("=Edit").click();
 
     NonCustomerComplaint.descent.click();
-    $(
-      `a[role="menuitemradio"]=${faker.random.arrayElement([
-        "No",
-        "Yes, Aboriginal",
-        "Yes, Torres Strait Islander",
-        "Not stated/unknown"
-      ])}`
-    ).click();
+    $(`a[role="menuitemradio"]=${faker.random.arrayElement(descent)}`).click();
 
     NonCustomerComplaint.phone.setValue(faker.phone.phoneNumber("04########"));
 

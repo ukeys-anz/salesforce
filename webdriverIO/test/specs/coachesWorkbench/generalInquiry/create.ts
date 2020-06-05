@@ -1,6 +1,6 @@
 /*** BASE IMPORTS ***/
-import CoachesWorkbench from "../../../../pages/getHelp/coachesWorkbench";
-import GeneralInquiry from "../../../../pages/getHelp/create/generalInquiry";
+import CoachesWorkbench from "../../../../pages/coachesWorkbench/coachesWorkbench";
+import GeneralInquiry from "../../../../pages/coachesWorkbench/create/generalInquiry";
 
 /*** UTILITIES IMPORTS ***/
 import { jsForce } from "../../../../utilities/jsforce";
@@ -8,6 +8,13 @@ import * as faker from "faker";
 
 /*** OBJECT STORE IMPORTS ***/
 import { getFinAccount } from "../../../../objectStore/financialAccount";
+
+/*** COMMON VALUE IMPORTS ***/
+import {
+  status,
+  channelReceived,
+  caseReason
+} from "../../../../pages/coachesWorkbench/common/generalInquiry";
 
 /*** DECLARATIONS ***/
 let accountId: String;
@@ -51,16 +58,7 @@ describe("General Inquiry Record Creation", () => {
     $(`div=${accountName}`).click();
 
     GeneralInquiry.status.click();
-    $(
-      `=${faker.random.arrayElement([
-        "Open",
-        "Under Investigation",
-        "On Hold",
-        "Escalated",
-        "Closed",
-        "Re-opened"
-      ])}`
-    ).click();
+    $(`=${faker.random.arrayElement(status)}`).click();
 
     GeneralInquiry.type.click();
     $("=App Support").click();
@@ -75,26 +73,10 @@ describe("General Inquiry Record Creation", () => {
     GeneralInquiry.additionalTypeAdd.click();
 
     GeneralInquiry.channelReceived.click();
-    $(
-      `=${faker.random.arrayElement([
-        "Chat",
-        "Voice Call",
-        "Video Call",
-        "Appointment",
-        "Store"
-      ])}`
-    ).click();
+    $(`=${faker.random.arrayElement(channelReceived)}`).click();
 
     GeneralInquiry.caseReason.click();
-    $(
-      `=${faker.random.arrayElement([
-        "User didn't attend training",
-        "Complex functionality",
-        "Existing problem",
-        "Instructions not clear",
-        "New problem"
-      ])}`
-    ).click();
+    $(`=${faker.random.arrayElement(caseReason)}`).click();
 
     GeneralInquiry.priority.click();
     $("=Low").click();

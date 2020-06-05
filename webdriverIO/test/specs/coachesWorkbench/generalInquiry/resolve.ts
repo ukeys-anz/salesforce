@@ -1,6 +1,6 @@
 /*** BASE IMPORTS ***/
-import CoachesWorkbench from "../../../../pages/getHelp/coachesWorkbench";
-import GeneralInquiry from "../../../../pages/getHelp/edit/generalInquiry";
+import CoachesWorkbench from "../../../../pages/coachesWorkbench/coachesWorkbench";
+import GeneralInquiry from "../../../../pages/coachesWorkbench/edit/generalInquiry";
 
 /*** OBJECT STORE IMPORTS ***/
 import { createCaseList } from "../../../../objectStore/case";

@@ -1,5 +1,5 @@
 /*** BASE IMPORTS ***/
-import CustomerComplaint from "../../../../pages/complaints/edit/customerComplaint";
+import CustomerComplaint from "../../../../pages/complaintMgt/edit/customerComplaint";
 
 /*** OBJECT STORE IMPORTS ***/
 import { createCaseList } from "../../../../objectStore/complaint";

@@ -1,8 +1,16 @@
 /*** BASE IMPORTS ***/
-import NonCustomerComplaint from "../../../../pages/complaints/create/nonCustomerComplaint";
+import NonCustomerComplaint from "../../../../pages/complaintMgt/create/nonCustomerComplaint";
 
 /*** UTILITIES IMPORTS ***/
 import * as faker from "faker";
+
+/*** COMMON VALUE IMPORTS ***/
+import {
+  state,
+  age,
+  gender,
+  priority
+} from "../../../../pages/complaintMgt/common/nonCustomerComplaint";
 
 describe("Non Customer Record Creation", () => {
   it("should create a non customer complaint case record", () => {
@@ -26,27 +34,10 @@ describe("Non Customer Record Creation", () => {
     NonCustomerComplaint.lastName.setValue(faker.name.lastName());
 
     NonCustomerComplaint.age.click();
-    $(
-      `span.slds-truncate=${faker.random.arrayElement([
-        "Less than 18 years",
-        "18 - 24 years",
-        "25 - 34 years",
-        "35 - 44 years",
-        "45 - 54 years",
-        "55 - 64 years",
-        "Greater than 65 years",
-        "Not known"
-      ])}`
-    ).click();
+    $(`span.slds-truncate=${faker.random.arrayElement(age)}`).click();
 
     NonCustomerComplaint.gender.click();
-    $(
-      `span.slds-truncate=${faker.random.arrayElement([
-        "Male",
-        "Female",
-        "Other"
-      ])}`
-    ).click();
+    $(`span.slds-truncate=${faker.random.arrayElement(gender)}`).click();
 
     NonCustomerComplaint.descent.click();
     $("span.slds-truncate=No").click();
@@ -62,28 +53,10 @@ describe("Non Customer Record Creation", () => {
     $("span.slds-truncate=Australia").click();
 
     NonCustomerComplaint.state.click();
-    $(
-      `span.slds-truncate=${faker.random.arrayElement([
-        "NSW",
-        "VIC",
-        "QLD",
-        "SA",
-        "WA",
-        "TAS",
-        "NT",
-        "ACT",
-        "OTHER TERRITORIES"
-      ])}`
-    ).click();
+    $(`span.slds-truncate=${faker.random.arrayElement(state)}`).click();
 
     NonCustomerComplaint.priority.click();
-    $(
-      `span.slds-truncate=${faker.random.arrayElement([
-        "None",
-        "Complainant experiencing financial hardship",
-        "Complainant experiencing vulnerability"
-      ])}`
-    ).click();
+    $(`span.slds-truncate=${faker.random.arrayElement(priority)}`).click();
 
     NonCustomerComplaint.caseType.click();
     $("span.slds-truncate=Product").click();
