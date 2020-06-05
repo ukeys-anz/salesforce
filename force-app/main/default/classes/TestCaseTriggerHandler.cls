@@ -56,28 +56,59 @@ private class TestCaseTriggerHandler {
   }
   @isTest
   static void testComplaintCardNumberMasking() {
-    // GIVEN cases relate to a account/card/policy
-    Case[] casesWithACPNumber = new List<Case>();
+    // GIVEN cases relate to a account/card/policy, description etc with numbers greater than 8 digits
+    Case[] casesWithNumberText = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      casesWithACPNumber.add(
+      casesWithNumberText.add(
         new Case(
           IDR_Account_Card_Policy_Number__c = '000001234',
+          Description = 'Test decription 1234-5678-9101 check mask',
+          IDR_Complainant_Desired_Outcome__c = 'Test decription 1234 5678 9101 check mask',
+          IDR_Description_of_Outcome__c = 'Test decription 123456789101 check mask',
+          IDR_Systemic_Issue_Description__c = 'Test decription 1234-5678-9101 check mask',
           RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID
         )
       );
     }
+
     // WHEN they are inserted
-    insert casesWithACPNumber;
-    // THEN IDR_Account_Card_Policy_Number__c is masked, showing only the last four digits
+    insert casesWithNumberText;
+    // THEN IDR_Account_Card_Policy_Number__c is masked along with description etc fields, showing only the last four digits
     Case c = [
-      SELECT IDR_Account_Card_Policy_Number__c
+      SELECT
+        IDR_Account_Card_Policy_Number__c,
+        Description,
+        IDR_Complainant_Desired_Outcome__c,
+        IDR_Description_of_Outcome__c,
+        IDR_Reason_for_re_opening__c,
+        IDR_Systemic_Issue_Description__c
       FROM Case
-      WHERE id = :casesWithACPNumber[0].id
+      WHERE id = :casesWithNumberText[0].id
     ];
     System.assertEquals(
       '*****1234',
       c.IDR_Account_Card_Policy_Number__c,
       'IDR_Account_Card_Policy_Number__c should be masked.'
+    );
+    System.assertEquals(
+      'Test decription ******9101 check mask',
+      c.Description,
+      'Description should be masked.'
+    );
+    System.assertEquals(
+      'Test decription ******9101 check mask',
+      c.IDR_Complainant_Desired_Outcome__c,
+      'IDR_Complainant_Desired_Outcome__c should be masked.'
+    );
+    System.assertEquals(
+      'Test decription ******9101 check mask',
+      c.IDR_Description_of_Outcome__c,
+      'IDR_Description_of_Outcome__c should be masked.'
+    );
+    System.assertEquals(
+      'Test decription ******9101 check mask',
+      c.IDR_Systemic_Issue_Description__c,
+      'IDR_Systemic_Issue_Description__c should be masked.'
     );
   }
 

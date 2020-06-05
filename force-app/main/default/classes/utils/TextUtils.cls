@@ -17,14 +17,17 @@ public without sharing class TextUtils {
    * @return `String` masked string
    */
   public static String maskData(String input) {
-    Matcher matchingPattern = accountOrCardPattern.matcher(input);
-    while (String.isNotEmpty(input) && matchingPattern.find()) {
-      String stringToMask = matchingPattern.group(0).trim();
-      input = input.replaceFirst(
-        stringToMask,
-        '******' + stringToMask.substring(stringToMask.length() - UNMASK_LENGTH)
-      );
-      matchingPattern = accountOrCardPattern.matcher(input);
+    if (String.isNotBlank(input)) {
+      Matcher matchingPattern = accountOrCardPattern.matcher(input);
+      while (matchingPattern.find()) {
+        String stringToMask = matchingPattern.group(0).trim();
+        input = input.replaceFirst(
+          stringToMask,
+          '******' +
+          stringToMask.substring(stringToMask.length() - UNMASK_LENGTH)
+        );
+        matchingPattern = accountOrCardPattern.matcher(input);
+      }
     }
     return input;
   }
