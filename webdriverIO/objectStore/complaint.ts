@@ -39,10 +39,10 @@ export function createCaseList(
   recordType: String = "Non_Customer_Complaint"
 ) {
   return new Promise(async resolve => {
-    var cases: ICase[] = [];
+    let cases: ICase[] = [];
 
-    var idList: any = [];
-    for (var i = 0; i < amount; i++) {
+    let idList: any = [];
+    for (let i = 0; i < amount; i++) {
       let mockCase: ICase = {
         IDR_Complainant_Type__c: "1",
         Type: "2",

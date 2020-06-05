@@ -6,8 +6,8 @@ import GeneralInquiry from "../../../../pages/getHelp/edit/generalInquiry";
 import { createCaseList } from "../../../../objectStore/case";
 
 /*** DECLARATIONS ***/
-var caseNumber: String;
-var recordType: String = "General_Inquiry";
+let caseNumber: String;
+let recordType: String = "General_Inquiry";
 
 describe("General Inquiry Record Resolved", () => {
   before(() => {

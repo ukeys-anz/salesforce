@@ -8,8 +8,8 @@ import * as faker from "faker";
 import { createCaseList } from "../../../../objectStore/complaint";
 
 /*** DECLARATIONS ***/
-var caseId: any;
-var recordType: String = "Non_Customer_Complaint";
+let caseId: any;
+let recordType: String = "Non_Customer_Complaint";
 
 describe("Non Customer Record Edit", () => {
   before(() => {

@@ -28,16 +28,16 @@ export function createCaseList(
   recordType: String = "General_Inquiry"
 ) {
   return new Promise(async resolve => {
-    var finAccountList: any = await getFinAccount();
-    var recordTypeId: String = await getRecordTypeID("Case", recordType);
-    var parentCaseList: any = await getParentCase(
+    let finAccountList: any = await getFinAccount();
+    let recordTypeId: String = await getRecordTypeID("Case", recordType);
+    let parentCaseList: any = await getParentCase(
       recordTypeId,
       finAccountList[0].FinServ__PrimaryOwner__c
     );
-    var cases: ICase[] = [];
-    var idList: any = [];
+    let cases: ICase[] = [];
+    let idList: any = [];
 
-    for (var i = 0; i < amount; i++) {
+    for (let i = 0; i < amount; i++) {
       let caseRecord: ICase = {
         Description: faker.lorem.text(),
         Status: faker.random.arrayElement([
@@ -124,8 +124,8 @@ export async function getParentCase(recordTypeId: any, accountId: any) {
         if (result.records.length > 0) {
           resolve(result.records);
         } else {
-          var cases: ICase[] = [];
-          var idList: any = [];
+          let cases: ICase[] = [];
+          let idList: any = [];
           let caseRecord: ICase = {
             Description: faker.lorem.text(),
             Status: faker.random.arrayElement([
@@ -203,11 +203,11 @@ export async function getParentCase(recordTypeId: any, accountId: any) {
  */
 export async function createBlankCase(amount: number = 1, recordType: String) {
   return new Promise(async resolve => {
-    var recordTypeId: String = await getRecordTypeID("Case", recordType);
-    var cases: any = [];
-    var idList: any = [];
+    let recordTypeId: String = await getRecordTypeID("Case", recordType);
+    let cases: any = [];
+    let idList: any = [];
 
-    for (var i = 0; i < amount; i++) {
+    for (let i = 0; i < amount; i++) {
       let caseRecord = {
         RecordTypeId: recordTypeId
       };

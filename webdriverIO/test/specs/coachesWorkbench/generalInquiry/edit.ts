@@ -11,11 +11,11 @@ import { getFinAccount } from "../../../../objectStore/financialAccount";
 import { createBlankCase } from "../../../../objectStore/case";
 
 /*** DECLARATIONS ***/
-var caseNumber: String;
-var accountId: String;
-var accountName: String;
-var financialAccountName: String;
-var recordType: String = "General_Inquiry";
+let caseNumber: String;
+let accountId: String;
+let accountName: String;
+let financialAccountName: String;
+let recordType: String = "General_Inquiry";
 
 describe("General Inquiry Record Edit", () => {
   before(() => {
