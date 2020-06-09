@@ -86,7 +86,7 @@ private class TestCaseTriggerHandler {
       WHERE id = :casesWithNumberText[0].id
     ];
     System.assertEquals(
-      '*****1234',
+      '******1234',
       c.IDR_Account_Card_Policy_Number__c,
       'IDR_Account_Card_Policy_Number__c should be masked.'
     );

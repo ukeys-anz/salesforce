@@ -50,17 +50,6 @@ public with sharing class IDRCaseActions {
     WITHDRAWN_STATUS => 'AgCaseWthdrwn'
   };
 
-  //Length of the field IDR_Account_Card_Policy_Number__c which doesn't need to be masked.
-  private static final Integer ACCOUNT_UNMASK_LENGTH = 4;
-
-  //Regex to check if the field IDR_Account_Card_Policy_Number__c is digits and atleast 5 digits for masking.
-  private static final String REGEX_PATTERN =
-    '([^\\d]*\\d){' +
-    (ACCOUNT_UNMASK_LENGTH + 1) +
-    ',}';
-
-  private static final String MASK_CHARACTERS = '*****';
-
   private static final String ESCALATED_TO_CRC_API_NAME = '1';
 
   private static final String YES_VALUE = 'Yes';
@@ -70,8 +59,6 @@ public with sharing class IDRCaseActions {
   private static final String QUEUE_TYPE = 'Queue';
 
   private static final String DELETE_ERROR = 'You cannot delete cases';
-
-  private static Pattern accountPattern = Pattern.compile(REGEX_PATTERN);
 
   //IDR_Notification_Event__e for sending notifications to Notification Broker based on status.
   @TestVisible
@@ -275,17 +262,9 @@ public with sharing class IDRCaseActions {
    * @param caseToBeChanged The record that needs to be changed
    */
   private static void handleMasking(Case originalRecord, Case caseToBeChanged) {
-    if (
-      String.isNotBlank(originalRecord.IDR_Account_Card_Policy_Number__c) &&
-      accountPattern.matcher(originalRecord.IDR_Account_Card_Policy_Number__c)
-        .matches()
-    ) {
-      caseToBeChanged.IDR_Account_Card_Policy_Number__c =
-        MASK_CHARACTERS +
-        originalRecord.IDR_Account_Card_Policy_Number__c.right(
-          ACCOUNT_UNMASK_LENGTH
-        );
-    }
+    caseToBeChanged.IDR_Account_Card_Policy_Number__c = TextUtils.maskData(
+      originalRecord.IDR_Account_Card_Policy_Number__c
+    );
     caseToBeChanged.Description = TextUtils.maskData(
       originalRecord.Description
     );
