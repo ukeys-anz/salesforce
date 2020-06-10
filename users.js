@@ -31,28 +31,28 @@ switch (argv.profile.toLowerCase()) {
 
   case "content author":
     permSets = ["Content_Author_PSG"];
-    alias = "Content Author";
+    alias = "ContAuth";
     profileName = "ANZx Standard User";
     email = faker.name.firstName() + lastName + "@anzxtesting.com";
     break;
 
   case "idr level 1":
     permSets = ["IDR_Level_1"];
-    alias = "IDR Level 1";
+    alias = "IDRLvl1";
     profileName = "ANZ Standard User";
     email = faker.name.firstName() + lastName + "@anzxtesting.com";
     break;
 
   case "idr level 2":
     permSets = ["IDR_Level_2"];
-    alias = "IDR Level 2";
+    alias = "IDRLvl 2";
     profileName = "ANZ Standard User";
     email = faker.name.firstName() + lastName + "@anzxtesting.com";
     break;
 
   case "idr level 3":
     permSets = ["IDR_Level_3"];
-    alias = "IDR Level 3";
+    alias = "IDRLvl3";
     profileName = "ANZ Standard User";
     email = faker.name.firstName() + lastName + "@anzxtesting.com";
     break;
@@ -78,7 +78,7 @@ console.log("Assigning email:", email);
 console.log("Assigning last name:", lastName);
 
 exec(
-  `sfdx force:user:create --setalias qa-user --definitionfile config/user-def.json permsets=${permSets} Alias=${alias} profileName=${profileName} Username=${email} Email=${email} LastName=${lastName}`,
+  `sfdx force:user:create --setalias qa-user --definitionfile config/user-def.json permsets=${permSets} Alias="${alias}" profileName="${profileName}" Username=${email} Email=${email} LastName=${lastName}`,
   (err, stdout, stderr) => {
     if (err) {
       console.log(`error: ${err.message}`);
