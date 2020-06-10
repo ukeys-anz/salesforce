@@ -73,12 +73,12 @@ switch (argv.profile.toLowerCase()) {
 console.log("Assigning permset:", permSets);
 console.log("Assigning alias:", alias);
 console.log("Assigning profile name:", profileName);
-console.log("Assigning username:", email);
 console.log("Assigning email:", email);
 console.log("Assigning last name:", lastName);
 
+//Assigning a username for some reason prevents the alias from being set. So we use a auto generated username from SF
 exec(
-  `sfdx force:user:create --setalias qa-user --definitionfile config/user-def.json permsets=${permSets} Alias="${alias}" profileName="${profileName}" Username=${email} Email=${email} LastName=${lastName}`,
+  `sfdx force:user:create --setalias "${alias.toLowerCase()}" --definitionfile config/user-def.json permsets=${permSets} Alias="${alias}" profileName="${profileName}" Email=${email} LastName=${lastName}`,
   (err, stdout, stderr) => {
     if (err) {
       console.log(`error: ${err.message}`);
