@@ -43,6 +43,9 @@ describe("Customer Record Edit", () => {
       faker.phone.phoneNumber("97######")
     );
 
+    $('input[title="Search Products"]').setValue("Netwealth");
+    $("mark=Netwealth").click();
+
     CustomerComplaint.description.setValue(faker.lorem.text());
     CustomerComplaint.desiredOutcome.setValue(faker.lorem.text());
 

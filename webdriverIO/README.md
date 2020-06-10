@@ -29,6 +29,8 @@ tsc --build
 mv .env.example .env
 ```
 
+**Note you may need to run `npm install chromedriver --detect_chromedriver_version` to install the correct chrome driver version**
+
 To correctly set the values in the `.env` file, run `node webdriverURLsetup.js`. This will overwrite the current values in the `.env` to get the most recent session details for your salesforce org.
 
 All tests are run from a `webdriverIO-build` folder, which is not included. After successfully cloning and installing TypeScript globally, the folder is built by running `tsc`/`tsc --build` or alternatively you can use `tsc --watch` if you are making changes to the TypeScript files.

@@ -28,6 +28,9 @@ describe("Customer Record Escalation", () => {
     CustomerComplaint.status.click();
     $('a[role="menuitemradio"]=Resolved').click();
 
+    $('input[title="Search Products"]').setValue("Netwealth");
+    $("mark=Netwealth").click();
+
     CustomerComplaint.complaintOutcome.click();
     $("=In favour of complainant in full").click();
     CustomerComplaint.complaintRemedy.click();
