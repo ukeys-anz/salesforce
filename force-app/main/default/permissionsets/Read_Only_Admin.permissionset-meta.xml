@@ -5,6 +5,10 @@
         <visible>true</visible>
     </applicationVisibilities>
     <applicationVisibilities>
+        <application>Content_Workbench</application>
+        <visible>true</visible>
+    </applicationVisibilities>
+    <applicationVisibilities>
         <application>IDR_Console</application>
         <visible>true</visible>
     </applicationVisibilities>
