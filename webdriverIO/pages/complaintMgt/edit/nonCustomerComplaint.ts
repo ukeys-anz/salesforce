@@ -141,21 +141,6 @@ class NonCustomerComplaint extends Base {
       "/html/body/div[4]/div[2]/div[1]/div[2]/div/div[2]/div/article/div[3]/div/div[4]/div/div/div[4]/div[1]/div/div/div/div"
     );
   }
-  get productServiceLine() {
-    return $(
-      "/html/body/div[4]/div[2]/div[1]/div[2]/div/div[2]/div/article/div[3]/div/div[4]/div/div/div[4]/div[2]/div/div/div/div"
-    );
-  }
-  get productServiceCategory() {
-    return $(
-      "/html/body/div[4]/div[2]/div[1]/div[2]/div/div[2]/div/article/div[3]/div/div[4]/div/div/div[5]/div[1]/div/div/div/div"
-    );
-  }
-  get productServiceType() {
-    return $(
-      "/html/body/div[4]/div[2]/div[1]/div[2]/div/div[2]/div/article/div[3]/div/div[4]/div/div/div[5]/div[2]/div/div/div/div"
-    );
-  }
   get nominatedThirdCountry() {
     return $(
       "/html/body/div[4]/div[2]/div[1]/div[2]/div/div[2]/div/article/div[3]/div/div[3]/div/div/div[3]/div[2]/div/div/div/div"

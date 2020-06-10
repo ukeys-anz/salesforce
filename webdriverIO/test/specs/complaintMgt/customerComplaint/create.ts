@@ -33,14 +33,8 @@ describe("Customer Complaint Record Creation", () => {
     CustomerComplaint.caseType.click();
     $("span.slds-truncate=Product").click();
 
-    CustomerComplaint.productServiceLine.click();
-    $("span.slds-truncate=Credit").click();
-
-    CustomerComplaint.productServiceCategory.click();
-    $("span.slds-truncate=Business finance").click();
-
-    CustomerComplaint.productServiceType.click();
-    $("span.slds-truncate=Business credit card").click();
+    CustomerComplaint.productServiceName.setValue("Netwealth");
+    $("strong=Netwealth").click();
 
     CustomerComplaint.accountCardPolicyNumber.setValue("12345");
 

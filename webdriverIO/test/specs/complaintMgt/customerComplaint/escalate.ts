@@ -27,6 +27,10 @@ describe("Customer Record Escalation", () => {
     CustomerComplaint.status.scrollIntoView();
     CustomerComplaint.status.click();
     $('a[role="menuitemradio"]=Escalated').click();
+
+    $('input[title="Search Products"]').setValue("Netwealth");
+    $("mark=Netwealth").click();
+
     CustomerComplaint.escalatedReason.click();
     $("=Above Banker Discretion").click();
     CustomerComplaint.escalatedTo.click();
