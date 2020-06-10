@@ -53,6 +53,9 @@ describe("Non Customer Record Edit", () => {
       faker.phone.phoneNumber("97######")
     );
 
+    $('input[title="Search Products"]').setValue("Netwealth");
+    $("mark=Netwealth").click();
+
     NonCustomerComplaint.writtenResponseRequested.click();
     $("=Yes").click();
     NonCustomerComplaint.writtenResponseRequired.click();

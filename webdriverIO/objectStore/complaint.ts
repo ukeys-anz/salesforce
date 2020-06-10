@@ -16,9 +16,6 @@ interface ICase {
   IDR_NC_Descent__c: String;
   IDR_NC_State__c: String;
   Type: String;
-  IDR_Product_or_Service_Line__c: String;
-  IDR_Product_or_Service_Category__c: String;
-  IDR_Product_or_Service_Type__c: String;
   IDR_Is_Common__c: Boolean;
   Description: String;
   IDR_Complainant_Desired_Outcome__c: String;
@@ -46,9 +43,6 @@ export function createCaseList(
       let mockCase: ICase = {
         IDR_Complainant_Type__c: "1",
         Type: "2",
-        IDR_Product_or_Service_Line__c: "1",
-        IDR_Product_or_Service_Category__c: "1",
-        IDR_Product_or_Service_Type__c: "2",
         IDR_Is_Common__c: faker.random.boolean(),
         Description: faker.lorem.text(),
         IDR_Complainant_Desired_Outcome__c: faker.lorem.text(),
@@ -89,7 +83,7 @@ export function createCaseList(
 
     jsForce.sobject("Case").create(cases, (err: any, result: any) => {
       if (err) {
-        return console.error("error", err);
+        return console.log("error", err);
       }
       //Loop through the result to create a list of ids
       result.forEach((item: any) => {

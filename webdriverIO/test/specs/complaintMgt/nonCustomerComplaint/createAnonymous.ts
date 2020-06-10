@@ -61,14 +61,8 @@ describe("Anonymous Non Customer Record Creation", () => {
     NonCustomerComplaint.caseType.click();
     $("span.slds-truncate=Product").click();
 
-    NonCustomerComplaint.productServiceLine.click();
-    $("span.slds-truncate=Credit").click();
-
-    NonCustomerComplaint.productServiceCategory.click();
-    $("span.slds-truncate=Business finance").click();
-
-    NonCustomerComplaint.productServiceType.click();
-    $("span.slds-truncate=Letter of credit").click();
+    NonCustomerComplaint.productServiceName.setValue("Netwealth");
+    $("strong=Netwealth").click();
 
     NonCustomerComplaint.description.setValue(faker.lorem.text());
     NonCustomerComplaint.desiredOutcome.setValue(faker.lorem.text());
