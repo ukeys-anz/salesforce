@@ -1,76 +1,84 @@
 const faker = require("faker");
 const { exec } = require("child_process");
+const argv = require("minimist")(process.argv.slice(2));
 
-const email1 = faker.internet.email();
-// const email2 = faker.internet.email();
-// const email3 = faker.internet.email();
-// const email4 = faker.internet.email();
+let permSets, alias, profileName, email, lastName;
+lastName = faker.name.lastName();
 
-// const users = [
-//   {
-//     "Username": email1,
-//     "LastName": faker.name.lastName(),
-//     "Email": email1,
-//     "Alias": "Coach",
-//     "profileName": "ANZx Standard User",
-//     "permsets": ["Coach"],
-//     "TimeZoneSidKey": "Australia/Sydney",
-//     "LocaleSidKey": "en_US",
-//     "EmailEncodingKey": "UTF-8",
-//     "LanguageLocaleKey": "en_US"
-//   },
-//   {
-//     "Username": email2,
-//     "LastName": faker.name.lastName(),
-//     "Email": email2,
-//     "Alias": "Content Author",
-//     "profileName": "ANZx Standard User",
-//     "permsets": ["Content_Author_PSG"],
-//     "TimeZoneSidKey": "Australia/Sydney",
-//     "LocaleSidKey": "en_US",
-//     "EmailEncodingKey": "UTF-8",
-//     "LanguageLocaleKey": "en_US"
-//   },
-//   {
-//     "Username": email2,
-//     "LastName": faker.name.lastName(),
-//     "Email": email2,
-//     "Alias": "IDR Level 1",
-//     "profileName": "ANZ Standard User",
-//     "permsets": ["IDR_Level_1"],
-//     "TimeZoneSidKey": "Australia/Sydney",
-//     "LocaleSidKey": "en_US",
-//     "EmailEncodingKey": "UTF-8",
-//     "LanguageLocaleKey": "en_US"
-//   },
-//   {
-//     "Username": email3,
-//     "LastName": faker.name.lastName(),
-//     "Email": email3,
-//     "Alias": "IDR Level 2",
-//     "profileName": "ANZ Standard User",
-//     "permsets": ["IDR_Level_2"],
-//     "TimeZoneSidKey": "Australia/Sydney",
-//     "LocaleSidKey": "en_US",
-//     "EmailEncodingKey": "UTF-8",
-//     "LanguageLocaleKey": "en_US"
-//   },
-//   {
-//     "Username": email4,
-//     "LastName": faker.name.lastName(),
-//     "Email": email4,
-//     "Alias": "IDR Level 3",
-//     "profileName": "ANZ Standard User",
-//     "permsets": ["IDR_Level_3"],
-//     "TimeZoneSidKey": "Australia/Sydney",
-//     "LocaleSidKey": "en_US",
-//     "EmailEncodingKey": "UTF-8",
-//     "LanguageLocaleKey": "en_US"
-//   }
-// ];
+if (argv.help) {
+  console.log(
+    "This script creates a user based on the profile you would like."
+  );
+  console.log("You can use 'node users.js --profile <profile>'");
+  console.log("The supported profiles are listed below:");
+  console.log(
+    "Coach\n",
+    "Content Author\n",
+    "IDR Level 1\n",
+    "IDR Level 2\n",
+    "IDR Level 3"
+  );
+  process.exit();
+}
+
+switch (argv.profile.toLowerCase()) {
+  case "coach":
+    permSets = ["Coach"];
+    alias = "Coach";
+    profileName = "ANZx Standard User";
+    email = faker.name.firstName() + lastName + "@anzxtesting.com";
+    break;
+
+  case "content author":
+    permSets = ["Content_Author_PSG"];
+    alias = "Content Author";
+    profileName = "ANZx Standard User";
+    email = faker.name.firstName() + lastName + "@anzxtesting.com";
+    break;
+
+  case "idr level 1":
+    permSets = ["IDR_Level_1"];
+    alias = "IDR Level 1";
+    profileName = "ANZ Standard User";
+    email = faker.name.firstName() + lastName + "@anzxtesting.com";
+    break;
+
+  case "idr level 2":
+    permSets = ["IDR_Level_2"];
+    alias = "IDR Level 2";
+    profileName = "ANZ Standard User";
+    email = faker.name.firstName() + lastName + "@anzxtesting.com";
+    break;
+
+  case "idr level 3":
+    permSets = ["IDR_Level_3"];
+    alias = "IDR Level 3";
+    profileName = "ANZ Standard User";
+    email = faker.name.firstName() + lastName + "@anzxtesting.com";
+    break;
+  default:
+    console.error(
+      "Invalid profile provided. Please enter one of the following:"
+    );
+    console.error(
+      "Coach\n",
+      "Content Author\n",
+      "IDR Level 1\n",
+      "IDR Level 2\n",
+      "IDR Level 3"
+    );
+    process.exit();
+}
+
+console.log("Assigning permset:", permSets);
+console.log("Assigning alias:", alias);
+console.log("Assigning profile name:", profileName);
+console.log("Assigning username:", email);
+console.log("Assigning email:", email);
+console.log("Assigning last name:", lastName);
 
 exec(
-  `sfdx force:user:create --setalias qa-user --definitionfile config/user-def.json permsets="Coach" Username=${email1} Email=${email1} LastName=${faker.name.lastName()}`,
+  `sfdx force:user:create --setalias qa-user --definitionfile config/user-def.json permsets=${permSets} Alias=${alias} profileName=${profileName} Username=${email} Email=${email} LastName=${lastName}`,
   (err, stdout, stderr) => {
     if (err) {
       console.log(`error: ${err.message}`);
