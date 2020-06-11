@@ -22,6 +22,7 @@
     <navType>Standard</navType>
     <tabs>standard-home</tabs>
     <tabs>Knowledge__kav</tabs>
+    <tabs>standard-report</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Content_Workbench_UtilityBar</utilityBar>
 </CustomApplication>
