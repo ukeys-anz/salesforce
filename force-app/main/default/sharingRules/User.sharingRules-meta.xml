@@ -48,4 +48,40 @@
             <role>Manager</role>
         </sharedFrom>
     </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Grant_Read_Access_on_Content_Manager_User_Records_for_Content_Writers</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Rule to provide ‘Read’ access to all Content Manager User records for Content Writers.</description>
+        <label>Grant Read Access on Content Manager User Records for Content Writers</label>
+        <sharedTo>
+            <role>Content_Writer</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>Content_Manager</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Grant_Read_Access_on_Content_Writer_User_Records_for_Content_Managers</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Rule to provide &apos;Read&apos; access to all Content Writer User records for Content Managers.</description>
+        <label>Grant Read Access on Content Writer User Records for Content Managers</label>
+        <sharedTo>
+            <role>Content_Manager</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>Content_Writer</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Grant_Read_Access_on_Content_Writer_User_Records_for_Content_Writers</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Rule to provide ‘Read’ access to all Content Writer User records for Content Writers.</description>
+        <label>Grant Read Access on Content Writer User Records for Content Writers</label>
+        <sharedTo>
+            <role>Content_Writer</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>Content_Writer</role>
+        </sharedFrom>
+    </sharingOwnerRules>
 </SharingRules>
