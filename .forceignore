@@ -39,4 +39,4 @@ force-app/main/default/sharingRules/User.sharingRules-meta.xml
 Enforce_SSO.permissionset
 
 # Add this report because this will cause unexpected error in scratch orgs
-# force-app/main/default/reports/Knowledge_Reports/New_Knowledge_Article_with_Votes_I9l.report-meta.xml
+force-app/main/default/reports/Knowledge_Reports/New_Knowledge_Article_with_Votes_I9l.report-meta.xml
