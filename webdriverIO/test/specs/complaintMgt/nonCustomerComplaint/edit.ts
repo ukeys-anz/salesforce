@@ -22,7 +22,7 @@ describe("Non Customer Record Edit", () => {
   });
 
   it("should edit a non customer complaint case record", () => {
-    NonCustomerComplaint.login();
+    NonCustomerComplaint.login("idrlvl3");
     NonCustomerComplaint.loadApp("Complaint Mgt");
     $('button[title="Show Navigation Menu"]').click();
     $("=Cases").click();

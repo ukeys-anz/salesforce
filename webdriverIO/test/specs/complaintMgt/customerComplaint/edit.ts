@@ -19,7 +19,7 @@ describe("Customer Record Edit", () => {
   });
 
   it("should edit a customer complaint case record", () => {
-    CustomerComplaint.login();
+    CustomerComplaint.login("idrlvl3");
     CustomerComplaint.loadApp("Complaint Mgt");
     $('button[title="Show Navigation Menu"]').click();
     $("=Cases").click();

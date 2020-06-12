@@ -46,7 +46,7 @@ describe("General Inquiry Record Edit", () => {
   });
 
   it("should edit a general inquiry case record", () => {
-    CoachesWorkbench.login();
+    CoachesWorkbench.login("coach");
     CoachesWorkbench.loadApp("Coaches Workbench");
     CoachesWorkbench.navCases.click();
     $(`.forceOutputLookup[title="${caseNumber}"]`).click();

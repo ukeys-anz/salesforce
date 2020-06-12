@@ -14,7 +14,7 @@ import {
 
 describe("Non Customer Record Creation", () => {
   it("should create a non customer complaint case record", () => {
-    NonCustomerComplaint.login();
+    NonCustomerComplaint.login("idrlvl3");
     NonCustomerComplaint.loadApp("Complaint Mgt");
     $('button[title="Show Navigation Menu"]').click();
     $("=Cases").click();

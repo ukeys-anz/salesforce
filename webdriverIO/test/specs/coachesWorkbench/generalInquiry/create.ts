@@ -39,18 +39,16 @@ describe("General Inquiry Record Creation", () => {
   });
 
   it("should create a general inquiry case record", () => {
-    CoachesWorkbench.login();
+    CoachesWorkbench.login("coach");
     CoachesWorkbench.loadApp("Coaches Workbench");
     CoachesWorkbench.navCases.click();
     $("=New").click();
 
-    browser.pause(2000);
-
+    $("span=General Inquiry").waitForExist();
     $("span=General Inquiry").click();
     $("span=Next").click();
 
-    browser.pause(3000);
-
+    GeneralInquiry.subject.waitForExist();
     GeneralInquiry.subject.setValue(faker.lorem.text());
     GeneralInquiry.description.setValue(faker.lorem.text());
 

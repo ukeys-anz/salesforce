@@ -1,12 +1,14 @@
+import userList from "../utilities/userList.json";
+
 /**
  * Contains shared functions. Each class should extend this base class
  */
 export default class Base {
-  login() {
-    browser.url("");
-    const body = $("body.desktop");
-    body.waitForExist();
-    browser.pause(5000);
+  login(alias: string) {
+    let user: any = userList.find(data => data.alias === alias);
+
+    browser.url(user.url);
+    $("header.slds-global-header_container").waitForExist();
   }
 
   loadApp(appName: string) {

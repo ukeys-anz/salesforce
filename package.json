@@ -4,7 +4,7 @@
   "description": "Salesforce automation testing with WebdriverIO",
   "main": "index.js",
   "scripts": {
-    "test": "node webdriverURLsetup.js && npx tsc && npx wdio webdriverIO-build/wdio.conf.js"
+    "test": "node webdriverURLsetup.js && node createUserJsonList.js && npx tsc && npx wdio webdriverIO-build/wdio.conf.js"
   },
   "repository": {
     "type": "git",
