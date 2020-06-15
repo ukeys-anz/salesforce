@@ -21,7 +21,6 @@ describe("Customer Record Resolve", () => {
     $('button[title="Show Navigation Menu"]').click();
     $("=Cases").click();
 
-    // $(`.forceOutputLookup[title="${caseId}"]`).click();
     $("a[title='Select List View']").click();
     $("span=My Open Cases").click();
     $(`=${caseId}`).click();

@@ -44,12 +44,6 @@ describe("General Inquiry Record Creation", () => {
     CoachesWorkbench.navCases.click();
     $("=New").click();
 
-    // $("span=General Inquiry").waitForExist();
-    // $("span=General Inquiry").click();
-    // $("span=Next").click();
-
-    // GeneralInquiry.subject.waitForExist();
-    // GeneralInquiry.subject.setValue(faker.lorem.text());
     GeneralInquiry.description.setValue(faker.lorem.text());
 
     GeneralInquiry.accountName.setValue(accountName.toString());
@@ -72,9 +66,6 @@ describe("General Inquiry Record Creation", () => {
 
     GeneralInquiry.channelReceived.click();
     $(`=${faker.random.arrayElement(channelReceived)}`).click();
-
-    // GeneralInquiry.caseReason.click();
-    // $(`=${faker.random.arrayElement(caseReason)}`).click();
 
     GeneralInquiry.priority.click();
     $("=Low").click();

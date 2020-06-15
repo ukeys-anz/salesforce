@@ -27,7 +27,6 @@ describe("Customer Record Edit", () => {
     $("a[title='Select List View']").click();
     $("span=My Open Cases").click();
     $(`=${caseId}`).click();
-    // $(`.forceOutputLookup[title="${caseId}"]`).click();
     $("=Edit").click();
 
     CustomerComplaint.nominatedThirdName.setValue(
