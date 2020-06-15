@@ -288,7 +288,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   handleCustomerNumberOnblur(event) {
     let capCisfield = this.template.querySelector(".inputCapCisId");
-    if (!this.customerIdValue.match("^[0-9]{10}")) {
+    if (!this.customerIdValue.match("^\\d+$")) {
       //set an error
       capCisfield.setCustomValidity(
         "Customer number can only be numbers and atleast 10 digits"
