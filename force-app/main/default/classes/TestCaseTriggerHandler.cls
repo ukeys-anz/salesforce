@@ -86,27 +86,27 @@ private class TestCaseTriggerHandler {
       WHERE id = :casesWithNumberText[0].id
     ];
     System.assertEquals(
-      '******1234',
+      '*****1234',
       c.IDR_Account_Card_Policy_Number__c,
       'IDR_Account_Card_Policy_Number__c should be masked.'
     );
     System.assertEquals(
-      'Test decription ******9101 check mask',
+      'Test decription ********9101 check mask',
       c.Description,
       'Description should be masked.'
     );
     System.assertEquals(
-      'Test decription ******9101 check mask',
+      'Test decription ********9101 check mask',
       c.IDR_Complainant_Desired_Outcome__c,
       'IDR_Complainant_Desired_Outcome__c should be masked.'
     );
     System.assertEquals(
-      'Test decription ******9101 check mask',
+      'Test decription ********9101 check mask',
       c.IDR_Description_of_Outcome__c,
       'IDR_Description_of_Outcome__c should be masked.'
     );
     System.assertEquals(
-      'Test decription ******9101 check mask',
+      'Test decription ********9101 check mask',
       c.IDR_Systemic_Issue_Description__c,
       'IDR_Systemic_Issue_Description__c should be masked.'
     );
