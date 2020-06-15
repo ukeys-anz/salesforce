@@ -11,7 +11,7 @@ let recordType: String = "General_Inquiry";
 
 describe("General Inquiry Record Resolved", () => {
   before(() => {
-    createCaseList(1, recordType).then((cases: any) => {
+    createCaseList(1, recordType, "Coach").then((cases: any) => {
       caseNumber = cases[0].CaseNumber;
     });
   });

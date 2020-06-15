@@ -15,6 +15,7 @@ interface ICase {
   AccountId: String;
   FinServ__FinancialAccount__c: String;
   ParentId: String;
+  OwnerId?: string;
 }
 
 /**
@@ -25,7 +26,8 @@ interface ICase {
  */
 export function createCaseList(
   amount: number = 1,
-  recordType: String = "General_Inquiry"
+  recordType: String = "General_Inquiry",
+  alias: string
 ) {
   return new Promise(async resolve => {
     let finAccountList: any = await getFinAccount();
@@ -36,6 +38,7 @@ export function createCaseList(
     );
     let cases: ICase[] = [];
     let idList: any = [];
+    let user: any = await getUserByAlias(alias);
 
     for (let i = 0; i < amount; i++) {
       let caseRecord: ICase = {
@@ -77,7 +80,8 @@ export function createCaseList(
         RecordTypeId: recordTypeId,
         AccountId: finAccountList[0].FinServ__PrimaryOwner__c,
         FinServ__FinancialAccount__c: finAccountList[0].Id,
-        ParentId: parentCaseList[0].Id
+        ParentId: parentCaseList[0].Id,
+        OwnerId: user.Id
       };
       cases.push(caseRecord);
     }
