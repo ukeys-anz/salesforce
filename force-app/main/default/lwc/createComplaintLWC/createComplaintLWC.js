@@ -291,7 +291,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     if (!this.customerIdValue.match("^\\d+$")) {
       //set an error
       capCisfield.setCustomValidity(
-        "Customer number can only be numbers and atleast 10 digits"
+        "Customer number must be numbers and at least 10 digits long"
       );
       capCisfield.reportValidity();
     } else {
