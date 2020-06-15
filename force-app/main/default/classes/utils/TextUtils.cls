@@ -4,7 +4,7 @@
  * @since 01/06/2020
  */
 public without sharing class TextUtils {
-  private static final String ACCOUNT_OR_CARD_REGEX_PATTERN = '(\\d[\\s-]*){8,}';
+  private static final String ACCOUNT_OR_CARD_REGEX_PATTERN = '[0-9][^a-zA-Z]+[0-9]';
   private static final Integer UNMASK_LENGTH = 4;
   private static Pattern accountOrCardPattern = Pattern.compile(
     ACCOUNT_OR_CARD_REGEX_PATTERN
@@ -21,12 +21,16 @@ public without sharing class TextUtils {
       Matcher matchingPattern = accountOrCardPattern.matcher(input);
       while (matchingPattern.find()) {
         String stringToMask = matchingPattern.group(0).trim();
-        input = input.replaceFirst(
-          stringToMask,
-          '******' +
-          stringToMask.substring(stringToMask.length() - UNMASK_LENGTH)
-        );
-        matchingPattern = accountOrCardPattern.matcher(input);
+        String digits = stringToMask.replaceAll('[^0-9]', '');
+        if (digits.length() >= 8) {
+          String masked = '';
+          for (Integer i = 0; i < digits.length() - UNMASK_LENGTH; i++) {
+            masked = masked + '*';
+          }
+          masked = masked + digits.substring(digits.length() - UNMASK_LENGTH);
+          input = input.replaceFirst(stringToMask, masked);
+          matchingPattern = accountOrCardPattern.matcher(input);
+        }
       }
     }
     return input;
