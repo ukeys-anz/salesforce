@@ -1,4 +1,4 @@
-import { LightningElement, track, api } from "lwc";
+import { LightningElement, api } from "lwc";
 import { createRecord } from "lightning/uiRecordApi";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { NavigationMixin } from "lightning/navigation";
@@ -283,6 +283,21 @@ export default class CreateComplaintLWC extends NavigationMixin(
         });
     } else {
       this.handleError();
+    }
+  }
+
+  handleCustomerNumberOnblur(event) {
+    let capCisfield = this.template.querySelector(".inputCapCisId");
+    if (!this.customerIdValue.match("^[0-9]{10}")) {
+      //set an error
+      capCisfield.setCustomValidity(
+        "Customer number can only be numbers and atleast 10 digits"
+      );
+      capCisfield.reportValidity();
+    } else {
+      //reset an error
+      capCisfield.setCustomValidity("");
+      capCisfield.reportValidity();
     }
   }
 
