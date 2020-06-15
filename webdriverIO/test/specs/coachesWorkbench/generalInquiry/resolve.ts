@@ -20,7 +20,9 @@ describe("General Inquiry Record Resolved", () => {
     CoachesWorkbench.login("coach");
     CoachesWorkbench.loadApp("Coaches Workbench");
     CoachesWorkbench.navCases.click();
-    $(`.forceOutputLookup[title="${caseNumber}"]`).click();
+    $("a[title='Select List View']").click();
+    $("=My Open Cases").click();
+    $(`=${caseNumber}`).click();
     $("=Edit").click();
 
     GeneralInquiry.status.click();

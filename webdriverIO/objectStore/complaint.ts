@@ -1,6 +1,6 @@
 import { jsForce } from "../utilities/jsforce";
 import * as faker from "faker";
-import { getRecordTypeID } from "./util";
+import { getRecordTypeID, getUserByAlias } from "./util";
 
 interface ICase {
   IDR_Complainant_Type__c: String;
@@ -23,6 +23,8 @@ interface ICase {
   IDR_Customer_Number__c: String;
   IDR_Is_Written_Resp_Requested__c: String;
   IDR_Is_Written_Resp_Required__c: String;
+  IDR_NC_Is_Consent_Obtained__c: Boolean;
+  OwnerId?: String;
 }
 
 /**
@@ -33,10 +35,12 @@ interface ICase {
  */
 export function createCaseList(
   amount: number = 1,
-  recordType: String = "Non_Customer_Complaint"
+  recordType: String = "Non_Customer_Complaint",
+  alias: string
 ) {
   return new Promise(async resolve => {
     let cases: ICase[] = [];
+    let user: any = await getUserByAlias(alias);
 
     let idList: any = [];
     for (let i = 0; i < amount; i++) {
@@ -60,7 +64,9 @@ export function createCaseList(
         IDR_NC_State__c: "",
         IDR_Customer_Number__c: "",
         IDR_Is_Written_Resp_Requested__c: "No",
-        IDR_Is_Written_Resp_Required__c: "No"
+        IDR_Is_Written_Resp_Required__c: "No",
+        IDR_NC_Is_Consent_Obtained__c: true,
+        OwnerId: user.Id
       };
 
       if (recordType === "Customer_Complaint") {
@@ -82,8 +88,8 @@ export function createCaseList(
     }
 
     jsForce.sobject("Case").create(cases, (err: any, result: any) => {
-      if (err) {
-        return console.log("error", err);
+      if (!result[0].success) {
+        return console.log("error", result[0].errors);
       }
       //Loop through the result to create a list of ids
       result.forEach((item: any) => {

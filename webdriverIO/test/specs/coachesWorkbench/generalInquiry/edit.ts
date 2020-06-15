@@ -22,11 +22,10 @@ let caseNumber: String;
 let accountId: String;
 let accountName: String;
 let financialAccountName: String;
-let recordType: String = "General_Inquiry";
 
 describe("General Inquiry Record Edit", () => {
   before(() => {
-    createBlankCase(1, recordType).then((cases: any) => {
+    createBlankCase(1, "General_Inquiry", "Coach").then((cases: any) => {
       caseNumber = cases[0].CaseNumber;
     });
 
@@ -48,11 +47,13 @@ describe("General Inquiry Record Edit", () => {
   it("should edit a general inquiry case record", () => {
     CoachesWorkbench.login("coach");
     CoachesWorkbench.loadApp("Coaches Workbench");
+
     CoachesWorkbench.navCases.click();
-    $(`.forceOutputLookup[title="${caseNumber}"]`).click();
+    $("a[title='Select List View']").click();
+    $("=My Open Cases").click();
+    $(`=${caseNumber}`).click();
     $("=Edit").click();
 
-    GeneralInquiry.subject.setValue(faker.lorem.text());
     GeneralInquiry.description.setValue(faker.lorem.text());
 
     GeneralInquiry.accountName.setValue(accountName.toString());
@@ -70,9 +71,6 @@ describe("General Inquiry Record Edit", () => {
 
     GeneralInquiry.channelReceived.click();
     $(`=${faker.random.arrayElement(channelReceived)}`).click();
-
-    GeneralInquiry.caseReason.click();
-    $(`=${faker.random.arrayElement(caseReason)}`).click();
 
     GeneralInquiry.financialAccount.setValue(financialAccountName.toString());
     $(`div=${financialAccountName}`).click();

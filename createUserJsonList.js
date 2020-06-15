@@ -20,7 +20,7 @@ exec("sfdx force:user:list --json", (err, stdout, stderr) => {
   result.forEach(el => {
     if (el.alias) {
       exec(
-        `sfdx force:org:open -u "${el.alias}" -r --json`,
+        `sfdx force:user:display -u "${el.alias}" --json`,
         (err, stdout, stderr) => {
           if (err) {
             console.log(`error: ${err.message}`);
@@ -31,9 +31,12 @@ exec("sfdx force:user:list --json", (err, stdout, stderr) => {
             return;
           }
           let user = JSON.parse(stdout).result;
+
           let userDetails = {
             alias: el.alias,
-            url: user.url
+            url: `${user.instanceUrl}/secur/frontdoor.jsp?sid=${user.accessToken}`,
+            accessToken: user.accessToken,
+            instanceUrl: user.instanceUrl
           };
           users.push(userDetails);
           fs.writeFile(

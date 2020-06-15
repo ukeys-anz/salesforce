@@ -18,3 +18,17 @@ export async function getRecordTypeID(sObject: String, devName: String) {
     );
   });
 }
+
+export async function getUserByAlias(alias: string) {
+  return new Promise<any>(resolve => {
+    jsForce.query(
+      `SELECT Id, Name FROM User WHERE Alias = '${alias}' AND IsActive = true LIMIT 1`,
+      (err: any, result: any) => {
+        if (err) {
+          return console.error(err);
+        }
+        resolve(result.records[0]);
+      }
+    );
+  });
+}

@@ -1,6 +1,6 @@
 import { jsForce } from "../utilities/jsforce";
 import * as faker from "faker";
-import { getRecordTypeID } from "./util";
+import { getRecordTypeID, getUserByAlias } from "./util";
 import { getFinAccount } from "./financialAccount";
 
 interface ICase {
@@ -201,20 +201,26 @@ export async function getParentCase(recordTypeId: any, accountId: any) {
  * @param amount  Number of cases to be created
  * @param recordType Record Type of the case
  */
-export async function createBlankCase(amount: number = 1, recordType: String) {
+export async function createBlankCase(
+  amount: number = 1,
+  recordType: String,
+  alias: string
+) {
   return new Promise(async resolve => {
     let recordTypeId: String = await getRecordTypeID("Case", recordType);
+    let user: any = await getUserByAlias(alias);
     let cases: any = [];
     let idList: any = [];
 
     for (let i = 0; i < amount; i++) {
       let caseRecord = {
-        RecordTypeId: recordTypeId
+        RecordTypeId: recordTypeId,
+        OwnerId: user.Id
       };
       cases.push(caseRecord);
     }
 
-    jsForce.sobject("Case").create(cases, (err: any, result: any) => {
+    jsForce.sobject("Case").insert(cases, (err: any, result: any) => {
       if (err) {
         return console.log("error", err);
       } else if (!result[0].success) {

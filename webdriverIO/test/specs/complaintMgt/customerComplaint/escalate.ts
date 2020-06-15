@@ -10,7 +10,7 @@ let recordType: String = "Customer_Complaint";
 
 describe("Customer Record Escalation", () => {
   before(() => {
-    createCaseList(1, recordType).then((cases: any) => {
+    createCaseList(1, recordType, "idrlvl3").then((cases: any) => {
       caseId = cases[0].CaseNumber;
     });
   });
@@ -21,7 +21,11 @@ describe("Customer Record Escalation", () => {
     $('button[title="Show Navigation Menu"]').click();
     $("=Cases").click();
 
-    $(`.forceOutputLookup[title="${caseId}"]`).click();
+    // $(`.forceOutputLookup[title="${caseId}"]`).click();
+    $("a[title='Select List View']").click();
+    $("span=My Open Cases").click();
+    $(`=${caseId}`).click();
+
     $("=Edit").click();
 
     CustomerComplaint.status.scrollIntoView();
