@@ -47,13 +47,6 @@
     </flexiPageRegions>
     <flexiPageRegions>
         <componentInstances>
-            <componentName>forceKnowledge:articleVersionHistory</componentName>
-        </componentInstances>
-        <name>Facet-5ca68d96-0ef2-4aad-8a3e-3a67b8c49823</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <componentInstances>
             <componentInstanceProperties>
                 <name>active</name>
                 <value>true</value>
@@ -80,17 +73,6 @@
             <componentInstanceProperties>
                 <name>title</name>
                 <value>Standard.Tab.relatedLists</value>
-            </componentInstanceProperties>
-            <componentName>flexipage:tab</componentName>
-        </componentInstances>
-        <componentInstances>
-            <componentInstanceProperties>
-                <name>body</name>
-                <value>Facet-5ca68d96-0ef2-4aad-8a3e-3a67b8c49823</value>
-            </componentInstanceProperties>
-            <componentInstanceProperties>
-                <name>title</name>
-                <value>Versions</value>
             </componentInstanceProperties>
             <componentName>flexipage:tab</componentName>
         </componentInstances>
@@ -121,7 +103,7 @@
         <name>sidebar</name>
         <type>Region</type>
     </flexiPageRegions>
-    <masterLabel>Knowledge Page</masterLabel>
+    <masterLabel>Knowledge Page - Coach</masterLabel>
     <sobjectType>Knowledge__kav</sobjectType>
     <template>
         <name>flexipage:recordHomeTemplateDesktop</name>
