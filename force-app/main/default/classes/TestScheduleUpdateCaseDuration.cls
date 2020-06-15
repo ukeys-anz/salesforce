@@ -58,13 +58,26 @@ private class TestScheduleUpdateCaseDuration {
     ];
 
     Case updatedCase = [
-      SELECT Duration_Hours__c, Duration_Minutes__c
+      SELECT Duration_Hours__c, Duration_Minutes__c, BusinessHoursId
       FROM Case
       WHERE Id = :newCases[0].Id
     ];
 
+    Decimal expectedDuration = DateTimeUtils.calculateHoursBetween(
+      cd[0].Start_Time__c,
+      DateTime.now(),
+      updatedCase.BusinessHoursId
+    );
+    long expectedDurationHours = expectedDuration.longValue();
+    long expectedDurationMinutes = ((expectedDuration - expectedDurationHours) *
+      SFConstants.MIN_IN_HOUR)
+      .longValue();
+
     system.assertEquals(ScheduleUpdateCaseDuration.cronExp, ct.CronExpression);
-    system.assertEquals(2, updatedCase.Duration_Hours__c);
-    system.assertEquals(30, updatedCase.Duration_Minutes__c);
+    system.assertEquals(expectedDurationHours, updatedCase.Duration_Hours__c);
+    system.assertEquals(
+      expectedDurationMinutes,
+      updatedCase.Duration_Minutes__c
+    );
   }
 }
