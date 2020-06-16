@@ -86,24 +86,30 @@ export function createCaseList(
       cases.push(caseRecord);
     }
 
-    jsForce.sobject("Case").create(cases, (err: any, result: any) => {
-      if (err) {
-        return console.log("error", err);
-      } else if (!result[0].success) {
-        return console.log("error", result[0].errors[0].message);
-      }
-      //Loop through the result to create a list of ids
-      result.forEach((item: any, index: any) => {
-        idList.push(item.id);
-      });
-      //Retrieve the new cases using the created id list and return the results
-      jsForce.sobject("Case").retrieve(idList, (err: any, result: any) => {
-        if (err) {
-          return console.log("error", err);
+    jsForce
+      .sobject("Case")
+      .create(
+        cases,
+        { headers: { "SForce-Auto-Assign": false } },
+        (err: any, result: any) => {
+          if (err) {
+            return console.log("error", err);
+          } else if (!result[0].success) {
+            return console.log("error", result[0].errors[0].message);
+          }
+          //Loop through the result to create a list of ids
+          result.forEach((item: any, index: any) => {
+            idList.push(item.id);
+          });
+          //Retrieve the new cases using the created id list and return the results
+          jsForce.sobject("Case").retrieve(idList, (err: any, result: any) => {
+            if (err) {
+              return console.log("error", err);
+            }
+            resolve(result);
+          });
         }
-        resolve(result);
-      });
-    });
+      );
   });
 }
 
@@ -174,26 +180,32 @@ export async function getParentCase(recordTypeId: any, accountId: any) {
           };
           cases.push(caseRecord);
 
-          jsForce.sobject("Case").create(cases, (err: any, result: any) => {
-            if (err) {
-              return console.log("error", err);
-            } else if (!result[0].success) {
-              return console.log("error", result[0].errors[0].message);
-            }
-            //Loop through the result to create a list of ids
-            result.forEach((item: any, index: any) => {
-              idList.push(item.id);
-            });
-            //Retrieve the new cases using the created id list and return the results
-            jsForce
-              .sobject("Case")
-              .retrieve(idList, (err: any, result: any) => {
+          jsForce
+            .sobject("Case")
+            .create(
+              cases,
+              { headers: { "SForce-Auto-Assign": false } },
+              (err: any, result: any) => {
                 if (err) {
                   return console.log("error", err);
+                } else if (!result[0].success) {
+                  return console.log("error", result[0].errors[0].message);
                 }
-                resolve(result);
-              });
-          });
+                //Loop through the result to create a list of ids
+                result.forEach((item: any, index: any) => {
+                  idList.push(item.id);
+                });
+                //Retrieve the new cases using the created id list and return the results
+                jsForce
+                  .sobject("Case")
+                  .retrieve(idList, (err: any, result: any) => {
+                    if (err) {
+                      return console.log("error", err);
+                    }
+                    resolve(result);
+                  });
+              }
+            );
         }
       }
     );
@@ -224,25 +236,31 @@ export async function createBlankCase(
       cases.push(caseRecord);
     }
 
-    jsForce.sobject("Case").insert(cases, (err: any, result: any) => {
-      if (err) {
-        return console.log("error", err);
-      } else if (!result[0].success) {
-        return console.log("error", result[0].errors[0].message);
-      }
+    jsForce
+      .sobject("Case")
+      .insert(
+        cases,
+        { headers: { "SForce-Auto-Assign": false } },
+        (err: any, result: any) => {
+          if (err) {
+            return console.log("error", err);
+          } else if (!result[0].success) {
+            return console.log("error", result[0].errors[0].message);
+          }
 
-      //Loop through the result to create a list of ids
-      result.forEach((item: any, index: any) => {
-        idList.push(item.id);
-      });
+          //Loop through the result to create a list of ids
+          result.forEach((item: any, index: any) => {
+            idList.push(item.id);
+          });
 
-      //Retrieve the new cases using the created id list and return the results
-      jsForce.sobject("Case").retrieve(idList, (err: any, result: any) => {
-        if (err) {
-          return console.log("error", err);
+          //Retrieve the new cases using the created id list and return the results
+          jsForce.sobject("Case").retrieve(idList, (err: any, result: any) => {
+            if (err) {
+              return console.log("error", err);
+            }
+            resolve(result);
+          });
         }
-        resolve(result);
-      });
-    });
+      );
   });
 }

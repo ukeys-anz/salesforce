@@ -87,24 +87,30 @@ export function createCaseList(
       cases.push(mockCase);
     }
 
-    jsForce.sobject("Case").create(cases, (err: any, result: any) => {
-      if (!result[0].success) {
-        return console.log("error", result[0].errors);
-      }
-      //Loop through the result to create a list of ids
-      result.forEach((item: any) => {
-        if (item.success) {
-          idList.push(item.id);
+    jsForce
+      .sobject("Case")
+      .create(
+        cases,
+        { headers: { "SForce-Auto-Assign": false } },
+        (err: any, result: any) => {
+          if (!result[0].success) {
+            return console.log("error", result[0].errors);
+          }
+          //Loop through the result to create a list of ids
+          result.forEach((item: any) => {
+            if (item.success) {
+              idList.push(item.id);
+            }
+          });
+          //Retrieve the new accounts using the created id list and return the results
+          jsForce.sobject("Case").retrieve(idList, (err: any, result: any) => {
+            if (err) {
+              return console.log("error", err);
+            }
+            resolve(result);
+          });
         }
-      });
-      //Retrieve the new accounts using the created id list and return the results
-      jsForce.sobject("Case").retrieve(idList, (err: any, result: any) => {
-        if (err) {
-          return console.log("error", err);
-        }
-        resolve(result);
-      });
-    });
+      );
   });
 }
 
