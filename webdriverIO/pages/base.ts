@@ -11,7 +11,8 @@ export default class Base {
   login(alias: string) {
     let user: any = userList.find(data => data.alias === alias);
     browser.url(user.url);
-    $("header.slds-global-header_container").waitForExist();
+    $("body.desktop").waitForExist();
+    browser.pause(5000);
   }
 
   loadApp(appName: string) {

@@ -48,9 +48,7 @@ describe("General Inquiry Record Edit", () => {
     CoachesWorkbench.login("coach");
     CoachesWorkbench.loadApp("Coaches Workbench");
 
-    CoachesWorkbench.navCases.click();
-    $("a[title='Select List View']").click();
-    $("=My Open Cases").click();
+    CoachesWorkbench.navHome.click();
     $(`=${caseNumber}`).click();
     $("=Edit").click();
 
