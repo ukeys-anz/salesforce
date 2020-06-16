@@ -9,7 +9,7 @@ if (argv.help) {
   console.log(
     "This script creates a user based on the profile you would like."
   );
-  console.log("You can use 'node createUsers.js --profile <profile>'");
+  console.log("You can use 'node createUser.js --profile <profile>'");
   console.log("The supported profiles are listed below:");
   console.log(
     "Coach\n",
