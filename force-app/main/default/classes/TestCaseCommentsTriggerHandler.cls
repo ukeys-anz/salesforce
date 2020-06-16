@@ -53,7 +53,7 @@ public with sharing class TestCaseCommentsTriggerHandler {
     ];
 
     System.assertEquals(
-      'Test comment ******9101 check mask',
+      'Test comment ********9101 check mask',
       maskedComments[0].CommentBody,
       'Comment should be masked.'
     );
