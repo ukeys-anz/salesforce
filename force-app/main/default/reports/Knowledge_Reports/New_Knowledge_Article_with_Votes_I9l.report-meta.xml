@@ -4,19 +4,15 @@
         <field>KnowledgeArticle$Title</field>
     </columns>
     <columns>
-        <aggregateTypes>Sum</aggregateTypes>
         <field>KnowledgeArticle.VoteStats$ThumbDownCount</field>
     </columns>
     <columns>
-        <aggregateTypes>Sum</aggregateTypes>
         <field>KnowledgeArticle.VoteStats$ThumbUpCount</field>
     </columns>
     <columns>
-        <aggregateTypes>Sum</aggregateTypes>
         <field>KnowledgeArticle.VoteStats$WeightedCount</field>
     </columns>
     <columns>
-        <aggregateTypes>Sum</aggregateTypes>
         <field>KnowledgeArticle$IsLatestVersion</field>
     </columns>
     <columns>

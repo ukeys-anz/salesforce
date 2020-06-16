@@ -2,7 +2,7 @@
  *
  * @author Lance Shi
  * @since 2020
- * @description AccountTableServerController is apex side controller for AccountTable LWC
+ * @description AccountTableServerController is the apex side controller for AccountTable LWC
  */
 @SuppressWarnings('PMD.FieldNamingConventions')
 public class AccountTableServerController {

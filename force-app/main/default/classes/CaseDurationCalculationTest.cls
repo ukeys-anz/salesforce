@@ -49,10 +49,20 @@ public class CaseDurationCalculationTest {
     System.assertEquals(2, cdList.size());
 
     Case updatedCase = [
-      SELECT Status_Change_Duration__c
+      SELECT Status_Change_Duration__c, BusinessHoursId
       FROM Case
       WHERE Id = :newCase.Id
     ];
-    System.assertEquals(2.00, updatedCase.Status_Change_Duration__c);
+
+    Decimal expectedDuration = DateTimeUtils.calculateHoursBetween(
+      cd[0].Start_Time__c,
+      DateTime.now(),
+      updatedCase.BusinessHoursId
+    );
+
+    System.assertEquals(
+      expectedDuration,
+      updatedCase.Status_Change_Duration__c
+    );
   }
 }
