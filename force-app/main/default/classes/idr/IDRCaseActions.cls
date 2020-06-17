@@ -348,6 +348,7 @@ public with sharing class IDRCaseActions {
           Customer_First_Name__c = c.IDR_NC_First_Name__c,
           Customer_Middle_Names__c = c.IDR_NC_Middle_Names__c,
           Customer_Last_Name__c = c.IDR_NC_Last_Name__c,
+          Customer_Business_Name__c = c.IDR_NC_Business_Name__c,
           Complainant_Type__c = IDRCaseActions.getPicklistLabel(
             Case.IDR_Complainant_Type__c,
             c.IDR_Complainant_Type__c

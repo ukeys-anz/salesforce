@@ -1441,6 +1441,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>IDR_CRC_Escalation_Event__e.Customer_Business_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>IDR_CRC_Escalation_Event__e.Complainant_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
