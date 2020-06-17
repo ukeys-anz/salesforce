@@ -3,12 +3,8 @@ name: Typescript Build
 
 # This workflow will only run on Pull Requests against develop
 on:
-  # pull_request:
-  #   branches: [develop]
-
-  push:
-    branches:
-      - feature/ABT-10684-typescript-build-check
+  pull_request:
+    branches: [develop]
 
 jobs:
   typescript:
