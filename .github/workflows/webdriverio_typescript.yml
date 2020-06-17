@@ -1,5 +1,5 @@
 # This workflow builds the webdriverIO tests with typescript
-name: WebDriverIO / Typescript Build
+name: WebDriverIO
 
 # This workflow will only run on Pull Requests against develop
 on:
@@ -7,7 +7,7 @@ on:
     branches: [develop]
 
 jobs:
-  typescript:
+  typescript-build:
     runs-on: ubuntu-latest
 
     steps:
