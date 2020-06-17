@@ -12,7 +12,7 @@ interface IFinAccount {
   FinServ__Balance__c: Number;
   FinServ__OpenDate__c: Date;
   FinServ__FinancialAccountNumber__c: String;
-  FinServ__PrimaryOwner__c: String;
+  // FinServ__PrimaryOwner__c: String;
 }
 /**
  * @description Creates new Financial Account records depending on the amount passed and record type.

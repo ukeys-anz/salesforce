@@ -1,0 +1,25 @@
+# This workflow builds the webdriverIO tests with typescript
+name: Typescript Build
+
+# This workflow will only run on Pull Requests against develop
+on:
+  # pull_request:
+  #   branches: [develop]
+
+  push:
+    branches:
+      - feature/ABT-10684-typescript-build-check
+
+jobs:
+  prettier:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v1
+
+      - name: "Install NPM Packages"
+        run: npm i
+
+      - name: "Build Typescript"
+        run: npx tsc
