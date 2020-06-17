@@ -5,6 +5,16 @@
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <componentInstances>
+            <componentName>runtime_approval_process:pendingApprovalCard</componentName>
+            <visibilityRule>
+                <criteria>
+                    <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
+                    <operator>EQUAL</operator>
+                    <rightValue>Content_Manager</rightValue>
+                </criteria>
+            </visibilityRule>
+        </componentInstances>
         <name>bottomLeft</name>
         <type>Region</type>
     </flexiPageRegions>
