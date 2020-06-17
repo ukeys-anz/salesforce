@@ -24,5 +24,7 @@
     <enableHistory>false</enableHistory>
     <label>Knowledge</label>
     <pluralLabel>Knowledge</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts>
+        <excludedStandardButtons>MassPublishKnowledgeArticleVersion</excludedStandardButtons>
+    </searchLayouts>
 </CustomObject>
