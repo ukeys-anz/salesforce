@@ -1,5 +1,5 @@
 # This workflow builds the webdriverIO tests with typescript
-name: Typescript Build
+name: WebDriverIO / Typescript Build
 
 # This workflow will only run on Pull Requests against develop
 on:
