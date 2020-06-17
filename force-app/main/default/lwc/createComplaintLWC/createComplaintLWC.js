@@ -244,6 +244,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.template.querySelector(".saveButton").disabled = true;
     const fields = event.detail.fields;
     fields[PRODUCT_LOOKUP_FIELD.fieldApiName] = this.product;
+    fields[CAP_CIS_ID_FIELD.fieldApiName] = this.customerIdValue;
     fields[
       WRITTEN_RESPONSE_REQUESTED_FIELD.fieldApiName
     ] = this.writtenResponseValue;
