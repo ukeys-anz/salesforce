@@ -11,7 +11,7 @@ on:
       - feature/ABT-10684-typescript-build-check
 
 jobs:
-  prettier:
+  typescript:
     runs-on: ubuntu-latest
 
     steps:
