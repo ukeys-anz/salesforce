@@ -1122,7 +1122,23 @@
     <picklistValues>
         <picklist>Identification_Type__c</picklist>
         <values>
+            <fullName>ABN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ABN_RAW</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>ACM ID</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ACN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ACN_RAW</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1142,11 +1158,23 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>ANZ Staff Employee number</fullName>
+            <fullName>ANZ Person Identifier</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>ANZCAP ID</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ARBN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ARBN_RAW</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ARSN_RAW</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1158,27 +1186,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>An identifier for Person which is unique and immutable%2E%C2%A0ForgeRock%C2%A0is the Master of this attribute%2E</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Audit Analytics</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Australian Business Number</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Australian Business Number - Value as provided from source system</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Australian Company Number</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Australian Company Number - Value as provided from source system</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1190,19 +1198,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Australian Registered Business Number</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Australian Registered Business Number - Value as provided from source system</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Australian Registered Scheme Number %28ARSN%29</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Australian Registered Scheme Number%C2%A0 - Value as provided from source system</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1366,6 +1362,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>CRN</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>CU%2FNCUA number</fullName>
             <default>false</default>
         </values>
@@ -1394,7 +1394,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Centrelink Card Reference Number</fullName>
+            <fullName>Centrelink Card</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1418,7 +1418,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Coface Serviços Portugal number</fullName>
+            <fullName>Coface Servicos Portugal number</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1467,10 +1467,6 @@
         </values>
         <values>
             <fullName>Crefo number</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Customer Registration Number</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1523,6 +1519,10 @@
         </values>
         <values>
             <fullName>Ellisphère number</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Employee Number</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1646,7 +1646,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Government Identifier</fullName>
+            <fullName>Government</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1850,11 +1850,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>National ID</fullName>
+            <fullName>NZBN_RAW</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>New Zealand Business Number - Value as provided from source system</fullName>
+            <fullName>National ID</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1882,7 +1882,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>One Customer Identifier</fullName>
+            <fullName>One Customer ID</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1918,7 +1918,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Passport Number</fullName>
+            <fullName>Passport</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1930,7 +1930,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Personal Tax Number %28Foreign%29</fullName>
+            <fullName>Personal Tax Number</fullName>
             <default>false</default>
         </values>
         <values>
@@ -2174,7 +2174,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Veteran Affairs Card Reference Number%C2%A0</fullName>
+            <fullName>Veterans Card</fullName>
             <default>false</default>
         </values>
         <values>
@@ -2325,6 +2325,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Unknown</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Utilities</fullName>
             <default>false</default>
         </values>
@@ -2332,19 +2336,23 @@
     <picklistValues>
         <picklist>KYC_Verification_Level__c</picklist>
         <values>
-            <fullName>Divorced</fullName>
+            <fullName>ES</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Married%2FDefacto</fullName>
+            <fullName>NM</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Separated</fullName>
+            <fullName>NO VERIFICATION LEVEL ISSUED</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Single</fullName>
+            <fullName>NV</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RR</fullName>
             <default>false</default>
         </values>
         <values>
@@ -2352,7 +2360,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Widowed</fullName>
+            <fullName>VE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>VM</fullName>
             <default>false</default>
         </values>
     </picklistValues>
