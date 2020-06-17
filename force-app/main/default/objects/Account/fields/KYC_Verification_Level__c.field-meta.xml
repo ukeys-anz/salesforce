@@ -39,6 +39,41 @@
                 <default>false</default>
                 <label>Unknown</label>
             </value>
+            <value>
+                <fullName>NO VERIFICATION LEVEL ISSUED</fullName>
+                <default>false</default>
+                <label>NO VERIFICATION LEVEL ISSUED</label>
+            </value>
+            <value>
+                <fullName>ES</fullName>
+                <default>false</default>
+                <label>Escalate</label>
+            </value>
+            <value>
+                <fullName>NM</fullName>
+                <default>false</default>
+                <label>Non Verified Migrated</label>
+            </value>
+            <value>
+                <fullName>NV</fullName>
+                <default>false</default>
+                <label>Non Verified</label>
+            </value>
+            <value>
+                <fullName>RR</fullName>
+                <default>false</default>
+                <label>Re-verification Required</label>
+            </value>
+            <value>
+                <fullName>VE</fullName>
+                <default>false</default>
+                <label>Verified</label>
+            </value>
+            <value>
+                <fullName>VM</fullName>
+                <default>false</default>
+                <label>Verified Migrated</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
