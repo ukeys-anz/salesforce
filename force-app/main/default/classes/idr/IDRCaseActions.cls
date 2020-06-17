@@ -345,7 +345,9 @@ public with sharing class IDRCaseActions {
           Case_Number__c = String.isNotBlank(c.CaseNumber__c)
             ? c.CaseNumber__c
             : c.CaseNumber,
-          Complainant_Name__c = c.IDR_NC_First_Name__c,
+          Customer_First_Name__c = c.IDR_NC_First_Name__c,
+          Customer_Middle_Names__c = c.IDR_NC_Middle_Names__c,
+          Customer_Last_Name__c = c.IDR_NC_Last_Name__c,
           Complainant_Type__c = IDRCaseActions.getPicklistLabel(
             Case.IDR_Complainant_Type__c,
             c.IDR_Complainant_Type__c
