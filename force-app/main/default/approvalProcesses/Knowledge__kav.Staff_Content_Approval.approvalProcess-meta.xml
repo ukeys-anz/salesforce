@@ -46,7 +46,7 @@
             <value>Content Writer</value>
         </criteriaItems>
     </entryCriteria>
-    <finalApprovalRecordLock>true</finalApprovalRecordLock>
+    <finalApprovalRecordLock>false</finalApprovalRecordLock>
     <finalRejectionRecordLock>false</finalRejectionRecordLock>
     <label>Staff Content Approval</label>
     <recordEditability>AdminOnly</recordEditability>
