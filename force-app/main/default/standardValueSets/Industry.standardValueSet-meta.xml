@@ -1,0 +1,2989 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sorted>false</sorted>
+    <standardValue>
+        <fullName>0087</fullName>
+        <default>false</default>
+        <label>ANZ - AUSTRALIA SUBSIDIARY</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0088</fullName>
+        <default>false</default>
+        <label>ANZ - AUSTRALIA</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0089</fullName>
+        <default>false</default>
+        <label>ANZ - OFFSHORE</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0090</fullName>
+        <default>false</default>
+        <label>ANZ - OFFSHORE SUBSIDIARY</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0108</fullName>
+        <default>false</default>
+        <label>Berry Fruit Growing</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0109</fullName>
+        <default>false</default>
+        <label>Citrus Growing</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0110</fullName>
+        <default>false</default>
+        <label>Horticulture Glasshouses</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0111</fullName>
+        <default>false</default>
+        <label>PLANT NURSERIES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0112</fullName>
+        <default>false</default>
+        <label>CUT FLOWER &amp; FLOWER SEED GROWING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0113</fullName>
+        <default>false</default>
+        <label>VEGETABLE GROWING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0114</fullName>
+        <default>false</default>
+        <label>GRAPE GROWING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0115</fullName>
+        <default>false</default>
+        <label>APPLE &amp; PEAR GROWING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0116</fullName>
+        <default>false</default>
+        <label>STONE FRUIT GROWING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0117</fullName>
+        <default>false</default>
+        <label>KIWI FRUIT GROWING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0118</fullName>
+        <default>false</default>
+        <label>CITRUS FRUIT GROWING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0119</fullName>
+        <default>false</default>
+        <label>FRUIT GROWING  n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0121</fullName>
+        <default>false</default>
+        <label>Intensive Cropping</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0122</fullName>
+        <default>false</default>
+        <label>Grain Growing With Some Finishing Stock</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0123</fullName>
+        <default>false</default>
+        <label>Sheep - High Country South Island</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0124</fullName>
+        <default>false</default>
+        <label>Sheep/Beef Hill Country Breeding/ Predominantly Store</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0125</fullName>
+        <default>false</default>
+        <label>Sheep/Beef Hill Country Breeding/Predominantly Finishing</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0126</fullName>
+        <default>false</default>
+        <label>Sheep - Intensive Finishing</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0127</fullName>
+        <default>false</default>
+        <label>Beef Farming - Breeding/Finishing/Trade</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0130</fullName>
+        <default>false</default>
+        <label>DAIRY CATTLE FARMING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0131</fullName>
+        <default>false</default>
+        <label>Dairy Farming Town Milk/Winter Contract</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0132</fullName>
+        <default>false</default>
+        <label>Share Milking (Own Herd)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0133</fullName>
+        <default>false</default>
+        <label>Dairy Farming - Seasonal Supply</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0134</fullName>
+        <default>false</default>
+        <label>Contract Milking</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0141</fullName>
+        <default>false</default>
+        <label>POULTRY FARMING (MEAT)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0142</fullName>
+        <default>false</default>
+        <label>POULTRY FARMING (EGGS)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0151</fullName>
+        <default>false</default>
+        <label>PIG FARMING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0152</fullName>
+        <default>false</default>
+        <label>HORSE FARMING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0153</fullName>
+        <default>false</default>
+        <label>DEER FARMING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0154</fullName>
+        <default>false</default>
+        <label>Bee Keeping</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0155</fullName>
+        <default>false</default>
+        <label>Goat Farming</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0159</fullName>
+        <default>false</default>
+        <label>LIVESTOCK FARMING n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0161</fullName>
+        <default>false</default>
+        <label>SUGAR CANE GROWING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0162</fullName>
+        <default>false</default>
+        <label>Cotton Growing</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0163</fullName>
+        <default>false</default>
+        <label>DRY LAND COTTON GROWING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0164</fullName>
+        <default>false</default>
+        <label>IRRIGATED COTTON GROWING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0165</fullName>
+        <default>false</default>
+        <label>COTTON GROWING n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0166</fullName>
+        <default>false</default>
+        <label>TOBACCO GROWING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0169</fullName>
+        <default>false</default>
+        <label>CROP &amp; PLANT GROWING n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0171</fullName>
+        <default>false</default>
+        <label>GRAIN GROWING (EXCEPT WHEAT)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0172</fullName>
+        <default>false</default>
+        <label>WHEAT GROWING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0173</fullName>
+        <default>false</default>
+        <label>GRAIN-SHEEP &amp; GRAIN- BEEF CATTLE FARMING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0174</fullName>
+        <default>false</default>
+        <label>SHEEP-BEEF CATTLE  FARMING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0175</fullName>
+        <default>false</default>
+        <label>SHEEP FARMING FOR WOOL</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0176</fullName>
+        <default>false</default>
+        <label>SHEEP FARMING FOR MEAT</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0177</fullName>
+        <default>false</default>
+        <label>SHEEP FARMING (EXCEPT FOR WOOL OR MEAT)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0178</fullName>
+        <default>false</default>
+        <label>BEEF CATTLE FARMING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0211</fullName>
+        <default>false</default>
+        <label>COTTON GINNING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0212</fullName>
+        <default>false</default>
+        <label>SHEARING SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0213</fullName>
+        <default>false</default>
+        <label>AERIAL AGRICULTURAL SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0214</fullName>
+        <default>false</default>
+        <label>Kiwifruit - Packhouse/Coolstore Only</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0215</fullName>
+        <default>false</default>
+        <label>Other Horticultural Packhouse/Coolstore</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0216</fullName>
+        <default>false</default>
+        <label>Agricultural Contract Services</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0217</fullName>
+        <default>false</default>
+        <label>Horticultural Contract Services</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0218</fullName>
+        <default>false</default>
+        <label>Grain Drying And Seed Dressing</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0219</fullName>
+        <default>false</default>
+        <label>SERVICES TO AGRICULTURE n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0220</fullName>
+        <default>false</default>
+        <label>HUNTING &amp; TRAPPING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0301</fullName>
+        <default>false</default>
+        <label>FORESTRY</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0302</fullName>
+        <default>false</default>
+        <label>LOGGING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0303</fullName>
+        <default>false</default>
+        <label>SERVICES TO FORESTRY</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0411</fullName>
+        <default>false</default>
+        <label>ROCK LOBSTER FISHING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0412</fullName>
+        <default>false</default>
+        <label>PRAWN FISHING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0413</fullName>
+        <default>false</default>
+        <label>Finfish Trawling</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0414</fullName>
+        <default>false</default>
+        <label>SQUID JIGGING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0415</fullName>
+        <default>false</default>
+        <label>LINE FISHING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0416</fullName>
+        <default>false</default>
+        <label>TUNA FISHING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0417</fullName>
+        <default>false</default>
+        <label>FINFISH FISHING (EXCEPT TUNA)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0418</fullName>
+        <default>false</default>
+        <label>Oyster Fishing</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0419</fullName>
+        <default>false</default>
+        <label>MARINE FISHING n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0420</fullName>
+        <default>false</default>
+        <label>AQUACULTURE</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0421</fullName>
+        <default>false</default>
+        <label>Oyster Farming</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0422</fullName>
+        <default>false</default>
+        <label>Mussel Farming</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0423</fullName>
+        <default>false</default>
+        <label>Prawn Farming</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0424</fullName>
+        <default>false</default>
+        <label>Salmon And Trout Farming</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0429</fullName>
+        <default>false</default>
+        <label>Aquaculture N.E.C.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>1101</fullName>
+        <default>false</default>
+        <label>BLACK COAL MINING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>1102</fullName>
+        <default>false</default>
+        <label>BROWN COAL MINING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>1200</fullName>
+        <default>false</default>
+        <label>OIL &amp; GAS EXTRACTION</label>
+    </standardValue>
+    <standardValue>
+        <fullName>1311</fullName>
+        <default>false</default>
+        <label>IRON ORE MINING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>1312</fullName>
+        <default>false</default>
+        <label>BAUXITE MINING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>1313</fullName>
+        <default>false</default>
+        <label>COPPER ORE MINING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>1314</fullName>
+        <default>false</default>
+        <label>GOLD ORE MINING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>1315</fullName>
+        <default>false</default>
+        <label>MINERAL SAND MINING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>1316</fullName>
+        <default>false</default>
+        <label>NICKEL ORE MINING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>1317</fullName>
+        <default>false</default>
+        <label>SILVER/LEAD/ZINC ORE MINING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>1319</fullName>
+        <default>false</default>
+        <label>METAL ORE MINING n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>1411</fullName>
+        <default>false</default>
+        <label>GRAVEL &amp; SAND  QUARRYING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>1412</fullName>
+        <default>false</default>
+        <label>Limestone Quarrying</label>
+    </standardValue>
+    <standardValue>
+        <fullName>1419</fullName>
+        <default>false</default>
+        <label>CONSTRUCTION MATERIAL  MINING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>1420</fullName>
+        <default>false</default>
+        <label>MINING n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>1511</fullName>
+        <default>false</default>
+        <label>PETROLEUM EXPLORATION (OWN ACCOUNT)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>1512</fullName>
+        <default>false</default>
+        <label>PETROLEUM EXPLORATION  SERVICE</label>
+    </standardValue>
+    <standardValue>
+        <fullName>1513</fullName>
+        <default>false</default>
+        <label>MINERAL  EXPLORATION (OWN ACCOUNT)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>1514</fullName>
+        <default>false</default>
+        <label>MINERAL EXPLORATION SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>1520</fullName>
+        <default>false</default>
+        <label>OTHER MINING SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2111</fullName>
+        <default>false</default>
+        <label>MEAT PROCESSING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2112</fullName>
+        <default>false</default>
+        <label>POULTRY PROCESSING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2113</fullName>
+        <default>false</default>
+        <label>BACON  HAM &amp; SMALLGOOD MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2121</fullName>
+        <default>false</default>
+        <label>MILK &amp; CREAM PROCESSING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2122</fullName>
+        <default>false</default>
+        <label>ICE CREAM MANUFACTURING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2123</fullName>
+        <default>false</default>
+        <label>Cheese Manufacturing</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2129</fullName>
+        <default>false</default>
+        <label>DAIRY PRODUCTS MFG n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2130</fullName>
+        <default>false</default>
+        <label>FRUIT &amp; VEGETABLE PROCESSING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2140</fullName>
+        <default>false</default>
+        <label>OIL &amp; FAT  MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2151</fullName>
+        <default>false</default>
+        <label>FLOUR MILL PRODUCT MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2152</fullName>
+        <default>false</default>
+        <label>CEREAL FOOD &amp; BAKING MIX MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2161</fullName>
+        <default>false</default>
+        <label>BREAD MANUFACTURING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2162</fullName>
+        <default>false</default>
+        <label>CAKE &amp; PASTRY MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2163</fullName>
+        <default>false</default>
+        <label>BISCUIT MANUFACTURING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2171</fullName>
+        <default>false</default>
+        <label>SUGAR MANUFACTURING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2172</fullName>
+        <default>false</default>
+        <label>CONFECTIONERY MANUFACTURING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2173</fullName>
+        <default>false</default>
+        <label>SEAFOOD PROCESSING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2174</fullName>
+        <default>false</default>
+        <label>PREPARED ANIMAL &amp; BIRD FEED MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2179</fullName>
+        <default>false</default>
+        <label>FOOD MFG n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2181</fullName>
+        <default>false</default>
+        <label>SOFT DRINK  CORDIAL &amp; SYRUP MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2182</fullName>
+        <default>false</default>
+        <label>BEER &amp; MALT MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2183</fullName>
+        <default>false</default>
+        <label>WINE MANUFACTURING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2184</fullName>
+        <default>false</default>
+        <label>SPIRIT MANUFACTURING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2190</fullName>
+        <default>false</default>
+        <label>TOBACCO PRODUCTS MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2211</fullName>
+        <default>false</default>
+        <label>WOOL SCOURING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2212</fullName>
+        <default>false</default>
+        <label>SYNTHETIC FIBRE TEXTILE MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2213</fullName>
+        <default>false</default>
+        <label>COTTON TEXTILE MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2214</fullName>
+        <default>false</default>
+        <label>WOOL TEXTILE MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2215</fullName>
+        <default>false</default>
+        <label>TEXTILE FINISHING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2221</fullName>
+        <default>false</default>
+        <label>MADE-UP TEXTILE PRODUCT MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2222</fullName>
+        <default>false</default>
+        <label>TEXTILE FLOOR COVERING MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2223</fullName>
+        <default>false</default>
+        <label>ROPE  CORDAGE &amp; TWINE MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2229</fullName>
+        <default>false</default>
+        <label>TEXTILE PRODUCT MFG n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2231</fullName>
+        <default>false</default>
+        <label>HOSIERY MANUFACTURING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2232</fullName>
+        <default>false</default>
+        <label>CARDIGAN &amp; PULLOVER MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2239</fullName>
+        <default>false</default>
+        <label>KNITTING MILL PRODUCT MFG n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2241</fullName>
+        <default>false</default>
+        <label>MEN&apos;S &amp; BOY&apos;S WEAR MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2242</fullName>
+        <default>false</default>
+        <label>WOMEN&apos;S &amp; GIRL&apos;S WEAR MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2243</fullName>
+        <default>false</default>
+        <label>SLEEPWEAR UNDERWEAR &amp; INFANT CLOTHING MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2249</fullName>
+        <default>false</default>
+        <label>CLOTHING MFG n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2250</fullName>
+        <default>false</default>
+        <label>FOOTWEAR MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2261</fullName>
+        <default>false</default>
+        <label>LEATHER TANNING &amp; FUR DRESSING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2262</fullName>
+        <default>false</default>
+        <label>LEATHER &amp; LEATHER SUBSTITUTE PRODUCT MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2311</fullName>
+        <default>false</default>
+        <label>LOG SAWMILLING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2312</fullName>
+        <default>false</default>
+        <label>WOOD CHIPPING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2313</fullName>
+        <default>false</default>
+        <label>TIMBER RESAWING &amp; DRESSING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2321</fullName>
+        <default>false</default>
+        <label>PLYWOOD &amp; VENEER MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2322</fullName>
+        <default>false</default>
+        <label>FABRICATED WOOD MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2323</fullName>
+        <default>false</default>
+        <label>WOODEN STRUCTURAL COMPONENT MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2329</fullName>
+        <default>false</default>
+        <label>WOOD PRODUCT MFG n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2331</fullName>
+        <default>false</default>
+        <label>PULP  PAPER &amp; PAPERBOARD MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2332</fullName>
+        <default>false</default>
+        <label>SOLID PAPERBOARD CONTAINER MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2333</fullName>
+        <default>false</default>
+        <label>CORRUGATED PAPERBOARD CONTAINER MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2334</fullName>
+        <default>false</default>
+        <label>PAPER BAG &amp; SACK MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2339</fullName>
+        <default>false</default>
+        <label>PAPER PRODUCT MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2411</fullName>
+        <default>false</default>
+        <label>PAPER STATIONERY MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2412</fullName>
+        <default>false</default>
+        <label>PRINTING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2413</fullName>
+        <default>false</default>
+        <label>SERVICES TO PRINTING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2421</fullName>
+        <default>false</default>
+        <label>NEWSPAPER PRINTING OR PUBLISHING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2422</fullName>
+        <default>false</default>
+        <label>OTHER PERIODICAL PUBLISHING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2423</fullName>
+        <default>false</default>
+        <label>BOOK &amp; OTHER PUBLISHING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2430</fullName>
+        <default>false</default>
+        <label>RECORDED MEDIA MFG &amp; PUBLISHING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2510</fullName>
+        <default>false</default>
+        <label>PETROLEUM REFINING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2520</fullName>
+        <default>false</default>
+        <label>PETROLEUM &amp; COAL PRODUCT MFG n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2531</fullName>
+        <default>false</default>
+        <label>FERTILIZER MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2532</fullName>
+        <default>false</default>
+        <label>INDUSTRIAL GAS MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2533</fullName>
+        <default>false</default>
+        <label>SYNTHETIC RESIN MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2534</fullName>
+        <default>false</default>
+        <label>ORGANIC INDUSTRIAL CHEMICAL MFG n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2535</fullName>
+        <default>false</default>
+        <label>INORGANIC INDUSTRIAL CHEMICAL MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2541</fullName>
+        <default>false</default>
+        <label>EXPLOSIVE MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2542</fullName>
+        <default>false</default>
+        <label>PAINT MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2543</fullName>
+        <default>false</default>
+        <label>MEDICINAL &amp; PHARMACEUTICAL PRODUCT MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2544</fullName>
+        <default>false</default>
+        <label>PESTICIDE MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2545</fullName>
+        <default>false</default>
+        <label>SOAP &amp; OTHER DETERGENT MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2546</fullName>
+        <default>false</default>
+        <label>COSMETIC &amp; TOILETRY PREPARATION MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2547</fullName>
+        <default>false</default>
+        <label>INK MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2549</fullName>
+        <default>false</default>
+        <label>CHEMICAL PRODUCT MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2551</fullName>
+        <default>false</default>
+        <label>RUBBER TYRE MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2559</fullName>
+        <default>false</default>
+        <label>RUBBER PRODUCT MFG n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2561</fullName>
+        <default>false</default>
+        <label>PLASTIC BLOW MOULDED PRODUCT MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2562</fullName>
+        <default>false</default>
+        <label>PLASTIC EXTRUDED PRODUCT  MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2563</fullName>
+        <default>false</default>
+        <label>PLASTIC BAG &amp; FILM MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2564</fullName>
+        <default>false</default>
+        <label>PLASTIC PROD RIGID FIBRE REINFORCED MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2565</fullName>
+        <default>false</default>
+        <label>PLASTIC FOAM PRODUCT MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2566</fullName>
+        <default>false</default>
+        <label>PLASTIC INJECTION MOULDED PRODUCT MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2610</fullName>
+        <default>false</default>
+        <label>GLASS &amp; GLASS PRODUCT MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2621</fullName>
+        <default>false</default>
+        <label>CLAY BRICK MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2622</fullName>
+        <default>false</default>
+        <label>CERAMIC PRODUCT MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2623</fullName>
+        <default>false</default>
+        <label>CERAMIC TILE &amp; PIPE MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2629</fullName>
+        <default>false</default>
+        <label>CERAMIC PRODUCT MFG neg</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2631</fullName>
+        <default>false</default>
+        <label>CEMENT &amp; LIME MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2632</fullName>
+        <default>false</default>
+        <label>PLASTER PRODUCT MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2633</fullName>
+        <default>false</default>
+        <label>CONCRETE SLURRY MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2634</fullName>
+        <default>false</default>
+        <label>CONCRETE PIPE &amp; BOX CULVERT MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2635</fullName>
+        <default>false</default>
+        <label>CONCRETE PRODUCT MFG n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2640</fullName>
+        <default>false</default>
+        <label>NON-METALLIC MINERAL PRODUCT MFG n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2711</fullName>
+        <default>false</default>
+        <label>BASIC IRON &amp; STEEL MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2712</fullName>
+        <default>false</default>
+        <label>IRON &amp; STEEL CASTING &amp; FORGING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2713</fullName>
+        <default>false</default>
+        <label>STEEL PIPE &amp; TUBE MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2721</fullName>
+        <default>false</default>
+        <label>ALUMINA PRODUCTION</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2722</fullName>
+        <default>false</default>
+        <label>ALUMINIUM SMELTING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2723</fullName>
+        <default>false</default>
+        <label>COPPER SILVER LEAD &amp; ZINC SMELTING REFINING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2729</fullName>
+        <default>false</default>
+        <label>BASIC NON-FERROUS METAL MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2731</fullName>
+        <default>false</default>
+        <label>ALUMINIUM ROLLING  DRAWING  EXTRUDING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2732</fullName>
+        <default>false</default>
+        <label>NON-FERROUS METAL  ROLLING  DRAWING  EXTRUDING nec</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2733</fullName>
+        <default>false</default>
+        <label>NON-FERROUS METAL CASTING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2741</fullName>
+        <default>false</default>
+        <label>STRUCTURAL STEEL FABRICATING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2742</fullName>
+        <default>false</default>
+        <label>ARCHITECTURAL ALUMINIUM PRODUCT MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2749</fullName>
+        <default>false</default>
+        <label>STRUCTURAL METAL PRODUCT MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2751</fullName>
+        <default>false</default>
+        <label>METAL CONTAINER MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2759</fullName>
+        <default>false</default>
+        <label>SHEET METAL PRODUCT MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2761</fullName>
+        <default>false</default>
+        <label>HAND TOOL &amp; GENERAL HARDWARE MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2762</fullName>
+        <default>false</default>
+        <label>SPRING &amp; WIRE PRODUCT MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2763</fullName>
+        <default>false</default>
+        <label>NUT  BOLT  SCREW &amp; RIVET MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2764</fullName>
+        <default>false</default>
+        <label>METAL COATING &amp; FINISHING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2765</fullName>
+        <default>false</default>
+        <label>NON-FERROUS PIPE FITTING MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2769</fullName>
+        <default>false</default>
+        <label>FABRICATED METAL PRODUCT MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2811</fullName>
+        <default>false</default>
+        <label>MOTOR VEHICLE MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2812</fullName>
+        <default>false</default>
+        <label>MOTOR VEHICLE BODY MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2813</fullName>
+        <default>false</default>
+        <label>AUTOMOTIVE ELECTRICAL &amp; INSTRUMENT MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2819</fullName>
+        <default>false</default>
+        <label>AUTOMOTIVE COMPONENT MFG n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2821</fullName>
+        <default>false</default>
+        <label>SHIPBUILDING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2822</fullName>
+        <default>false</default>
+        <label>BOATBUILDING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2823</fullName>
+        <default>false</default>
+        <label>RAILWAY EQUIPMENTMENT MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2824</fullName>
+        <default>false</default>
+        <label>AIRCRAFT MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2829</fullName>
+        <default>false</default>
+        <label>TRANSPORT EQUIPMENTMENT MFG n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2831</fullName>
+        <default>false</default>
+        <label>PHOTOGRAPHIC &amp; OPTICAL GOODS MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2832</fullName>
+        <default>false</default>
+        <label>MEDICAL &amp; SURGICAL EQUIPMENTMENT MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2839</fullName>
+        <default>false</default>
+        <label>PROFESSIONAL &amp; SCIENTIFIC EQUIPMENT MFG  n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2841</fullName>
+        <default>false</default>
+        <label>COMPUTER &amp; BUSINESS MACHINE MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2842</fullName>
+        <default>false</default>
+        <label>TELECOMMUNICATION  BROADCASTING &amp; TRANSCEIVING  EQUIPMENTMENT MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2849</fullName>
+        <default>false</default>
+        <label>ELECTRONIC EQUIPMENTMENT MFG  n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2851</fullName>
+        <default>false</default>
+        <label>HOUSEHOLD APPLIANCE  MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2852</fullName>
+        <default>false</default>
+        <label>ELECTRIC CABLE &amp; WIRE MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2853</fullName>
+        <default>false</default>
+        <label>BATTERY MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2854</fullName>
+        <default>false</default>
+        <label>ELECTRIC LIGHT &amp; SIGN  MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2859</fullName>
+        <default>false</default>
+        <label>ELECTRICAL &amp; EQUIPMENT MFG  n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2861</fullName>
+        <default>false</default>
+        <label>AGRICULTURAL MACHINERY MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2862</fullName>
+        <default>false</default>
+        <label>MINING &amp; CONSTRUCTION  MACHINERY MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2863</fullName>
+        <default>false</default>
+        <label>FOOD PROCESSING MACHINERY MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2864</fullName>
+        <default>false</default>
+        <label>MACHINE TOOL &amp; PART MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2865</fullName>
+        <default>false</default>
+        <label>LIFTING &amp; MATERIAL HANDLING EQUIPMENT MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2866</fullName>
+        <default>false</default>
+        <label>PUMP &amp; COMPRESSOR MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2867</fullName>
+        <default>false</default>
+        <label>COMMERCIAL SPACE HEATING &amp; COOLING EQUIPMENT MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2869</fullName>
+        <default>false</default>
+        <label>INDUSTRIAL MACHINERY  EQUIPMENT MFG  n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2911</fullName>
+        <default>false</default>
+        <label>PREFABRICATED METAL BUILDING MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2919</fullName>
+        <default>false</default>
+        <label>PREFABRICATED BUILDING MFG n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2921</fullName>
+        <default>false</default>
+        <label>WOOD FURNITURE &amp; UPHOLSTERED SEAT MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2922</fullName>
+        <default>false</default>
+        <label>SHEET METAL FURNITURE MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2923</fullName>
+        <default>false</default>
+        <label>MATTRESS MFG (EXCEPT RUBBER)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2929</fullName>
+        <default>false</default>
+        <label>FURNITURE MFG n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2941</fullName>
+        <default>false</default>
+        <label>JEWELLERY &amp; SILVERWEAR MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2942</fullName>
+        <default>false</default>
+        <label>TOY &amp; SPORTING GOODS MFG</label>
+    </standardValue>
+    <standardValue>
+        <fullName>2949</fullName>
+        <default>false</default>
+        <label>MANUFACTURING n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>3611</fullName>
+        <default>false</default>
+        <label>ELECTRICITY GENERATION</label>
+    </standardValue>
+    <standardValue>
+        <fullName>3612</fullName>
+        <default>false</default>
+        <label>ELECTRICITY DISTRIBUTION</label>
+    </standardValue>
+    <standardValue>
+        <fullName>3613</fullName>
+        <default>false</default>
+        <label>ELECTRICITY SUPPLY</label>
+    </standardValue>
+    <standardValue>
+        <fullName>3620</fullName>
+        <default>false</default>
+        <label>GAS SUPPLY</label>
+    </standardValue>
+    <standardValue>
+        <fullName>3701</fullName>
+        <default>false</default>
+        <label>WATER SUPPLY</label>
+    </standardValue>
+    <standardValue>
+        <fullName>3702</fullName>
+        <default>false</default>
+        <label>SEWERAGE &amp; DRAINAGE  SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4111</fullName>
+        <default>false</default>
+        <label>HOUSE CONSTRUCTION</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4112</fullName>
+        <default>false</default>
+        <label>RESIDENTIAL BUILDING CONSTRUCTION n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4113</fullName>
+        <default>false</default>
+        <label>NON-RESIDENTIAL BUILDING CONSTRUCTION</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4121</fullName>
+        <default>false</default>
+        <label>ROAD &amp; BRIDGE CONSTRUCTION</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4122</fullName>
+        <default>false</default>
+        <label>NON-BUILDING CONSTRUCTION</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4210</fullName>
+        <default>false</default>
+        <label>SITE PREPARATION SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4211</fullName>
+        <default>false</default>
+        <label>Earthmoving</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4221</fullName>
+        <default>false</default>
+        <label>CONCRETING SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4222</fullName>
+        <default>false</default>
+        <label>BRICKLAYING SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4223</fullName>
+        <default>false</default>
+        <label>ROOFING SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4224</fullName>
+        <default>false</default>
+        <label>STRUCTURAL STEEL ERECTION SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4231</fullName>
+        <default>false</default>
+        <label>PLUMBING SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4232</fullName>
+        <default>false</default>
+        <label>ELECTRICAL SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4233</fullName>
+        <default>false</default>
+        <label>AIR CONDITIONING &amp;  HEATING SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4234</fullName>
+        <default>false</default>
+        <label>FIRE &amp; SECURITY SYSTEM  SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4241</fullName>
+        <default>false</default>
+        <label>PLASTERING &amp; CEILING  SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4242</fullName>
+        <default>false</default>
+        <label>CARPENTRY SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4243</fullName>
+        <default>false</default>
+        <label>TILING &amp; CARPETING SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4244</fullName>
+        <default>false</default>
+        <label>PAINTING &amp; DECORATING  SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4245</fullName>
+        <default>false</default>
+        <label>GLAZING SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4251</fullName>
+        <default>false</default>
+        <label>LANDSCAPING SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4259</fullName>
+        <default>false</default>
+        <label>CONSTRUCTION SERVICES n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4511</fullName>
+        <default>false</default>
+        <label>WOOL WHOLESALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4512</fullName>
+        <default>false</default>
+        <label>CEREAL GRAIN  WHOLESALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4513</fullName>
+        <default>false</default>
+        <label>COMMODITY TRADING COMPANIES – AGRI &amp; SOFTS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4519</fullName>
+        <default>false</default>
+        <label>FARM PRODUCE &amp; SUPPLIES WHOLESALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4521</fullName>
+        <default>false</default>
+        <label>PETROLEUM PRODUCT WHOLESALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4522</fullName>
+        <default>false</default>
+        <label>METAL &amp; MINERAL  WHOLESALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4523</fullName>
+        <default>false</default>
+        <label>CHEMICAL WHOLESALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4525</fullName>
+        <default>false</default>
+        <label>COMMODITY TRADING COMPANIES – ENERGY</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4526</fullName>
+        <default>false</default>
+        <label>COMMODITY TRADING COMPANIES – METALS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4531</fullName>
+        <default>false</default>
+        <label>TIMBER WHOLESALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4539</fullName>
+        <default>false</default>
+        <label>BUILDING SUPPLIES WHOLESALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4611</fullName>
+        <default>false</default>
+        <label>FARM &amp; CONSTRUCTION  MACHINERY WHOLESALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4612</fullName>
+        <default>false</default>
+        <label>PROFESSIONAL EQUIPMENTMENT WHOLESALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4613</fullName>
+        <default>false</default>
+        <label>COMPUTER WHOLESALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4614</fullName>
+        <default>false</default>
+        <label>BUSINESS MACHINE WHOLESALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4615</fullName>
+        <default>false</default>
+        <label>ELECTRICAL &amp; ELECTRONIC EQUIPMENT WHOLESALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4619</fullName>
+        <default>false</default>
+        <label>MACHINERY &amp; EQUIPMENTMENT WHOLESALING n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4621</fullName>
+        <default>false</default>
+        <label>CAR WHOLESALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4622</fullName>
+        <default>false</default>
+        <label>COMMERCIAL VEHICLE WHOLESALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4623</fullName>
+        <default>false</default>
+        <label>MOTOR VEHICLE NEW PART  DEALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4624</fullName>
+        <default>false</default>
+        <label>MOTOR VEHICLE DISMANTLING &amp; USED PART DEALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4711</fullName>
+        <default>false</default>
+        <label>MEAT WHOLESALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4712</fullName>
+        <default>false</default>
+        <label>POULTRY &amp; SMALLGOOD WHOLESALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4713</fullName>
+        <default>false</default>
+        <label>DAIRY PRODUCE WHOLESALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4714</fullName>
+        <default>false</default>
+        <label>FISH WHOLESALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4715</fullName>
+        <default>false</default>
+        <label>FRUIT &amp; VEGETABLE  WHOLESALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4716</fullName>
+        <default>false</default>
+        <label>CONFECTIONERY &amp; SOFT DRINK WHOLESALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4717</fullName>
+        <default>false</default>
+        <label>LIQUOR WHOLESALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4718</fullName>
+        <default>false</default>
+        <label>TOBACCO PRODUCT WHOLESALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4719</fullName>
+        <default>false</default>
+        <label>GROCERY WHOLESALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4721</fullName>
+        <default>false</default>
+        <label>TEXTILE PRODUCT  WHOLESALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4722</fullName>
+        <default>false</default>
+        <label>CLOTHING WHOLESALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4723</fullName>
+        <default>false</default>
+        <label>FOOTWEAR WHOLESALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4731</fullName>
+        <default>false</default>
+        <label>HOUSEHOLD APPLIANCE  WHOLESALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4732</fullName>
+        <default>false</default>
+        <label>FURNITURE WHOLESALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4733</fullName>
+        <default>false</default>
+        <label>FLOOR COVERING WHOLESALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4739</fullName>
+        <default>false</default>
+        <label>HOUSEHOLD GOODS WHOLESALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4791</fullName>
+        <default>false</default>
+        <label>PHOTOGRAPHIC EQUIPMENTMENT WHOLESALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4792</fullName>
+        <default>false</default>
+        <label>JEWELLERY &amp; WATCH WHOLESALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4793</fullName>
+        <default>false</default>
+        <label>TOY &amp; SPORTING GOOD WHOLESALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4794</fullName>
+        <default>false</default>
+        <label>BOOK &amp; MAGAZINE WHOLESALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4795</fullName>
+        <default>false</default>
+        <label>PAPER PRODUCT  WHOLESALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4796</fullName>
+        <default>false</default>
+        <label>PHARMACEUTICAL  TOILETRY WHOLESALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>4799</fullName>
+        <default>false</default>
+        <label>WHOLESALING n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5110</fullName>
+        <default>false</default>
+        <label>SUPERMARKET &amp; GROCERY STORES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5111</fullName>
+        <default>false</default>
+        <label>Supermarkets</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5112</fullName>
+        <default>false</default>
+        <label>Grocery Stores</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5113</fullName>
+        <default>false</default>
+        <label>Dairies</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5121</fullName>
+        <default>false</default>
+        <label>FRESH MEAT  FISH &amp; POULTRY RETAILING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5122</fullName>
+        <default>false</default>
+        <label>FRUIT &amp; VEGETABLE RETAILING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5123</fullName>
+        <default>false</default>
+        <label>LIQUOR RETAILING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5124</fullName>
+        <default>false</default>
+        <label>BREAD &amp; CAKE RETAILING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5125</fullName>
+        <default>false</default>
+        <label>TAKEAWAY FOOD RETAILING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5126</fullName>
+        <default>false</default>
+        <label>MILK VENDING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5129</fullName>
+        <default>false</default>
+        <label>SPECIALISED FOOD RETAILING n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5210</fullName>
+        <default>false</default>
+        <label>DEPARTMENT STORE</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5221</fullName>
+        <default>false</default>
+        <label>CLOTHING RETAILING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5222</fullName>
+        <default>false</default>
+        <label>FOOTWEAR RETAILING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5223</fullName>
+        <default>false</default>
+        <label>FABRICS &amp; OTHER SOFT GOODS RETAILING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5231</fullName>
+        <default>false</default>
+        <label>FURNITURE RETAILING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5232</fullName>
+        <default>false</default>
+        <label>FLOOR COVERING RETAILING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5233</fullName>
+        <default>false</default>
+        <label>DOMESTIC HARDWARE &amp; HOUSEWARE RETAILING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5234</fullName>
+        <default>false</default>
+        <label>DOMESTIC APPLIANCE RETAILING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5235</fullName>
+        <default>false</default>
+        <label>RECORDED MUSIC RETAILING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5241</fullName>
+        <default>false</default>
+        <label>SPORT &amp; CAMPING EQUIPMENTMENT RETAILING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5242</fullName>
+        <default>false</default>
+        <label>TOY &amp; GAME RETAILING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5243</fullName>
+        <default>false</default>
+        <label>NEWSPAPER  BOOK &amp;  STATIONERY RETAILING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5244</fullName>
+        <default>false</default>
+        <label>PHOTOGRAPHIC EQUIPMENTMENT RETAILING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5245</fullName>
+        <default>false</default>
+        <label>MARINE EQUIPMENTMENT RETAILING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5251</fullName>
+        <default>false</default>
+        <label>PHARMACEUTICAL COSMETIC &amp; TOILETRY RETAILING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5252</fullName>
+        <default>false</default>
+        <label>ANTIQUE &amp; USED GOODS  RETAILING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5253</fullName>
+        <default>false</default>
+        <label>GARDEN SUPPLIES RETAILING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5254</fullName>
+        <default>false</default>
+        <label>FLOWER RETAILING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5255</fullName>
+        <default>false</default>
+        <label>WATCH &amp; JEWELLERY RETAILING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5256</fullName>
+        <default>false</default>
+        <label>Used Goods Retailing</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5257</fullName>
+        <default>false</default>
+        <label>Firewood And Coal Retailing</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5258</fullName>
+        <default>false</default>
+        <label>Farm Equipment Retailing</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5259</fullName>
+        <default>false</default>
+        <label>RETAILING n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5261</fullName>
+        <default>false</default>
+        <label>HOUSEHOLD EQUIPMENT REPAIR SERVICES (ELECTRICAL)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5269</fullName>
+        <default>false</default>
+        <label>HOUSEHOLD EQUIPMENT REPAIR SERVICES n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5311</fullName>
+        <default>false</default>
+        <label>CAR RETAILING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5312</fullName>
+        <default>false</default>
+        <label>MOTOR CYCLE DEALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5313</fullName>
+        <default>false</default>
+        <label>TRAILER &amp; CARAVAN  DEALING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5314</fullName>
+        <default>false</default>
+        <label>Tractor Retailing</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5321</fullName>
+        <default>false</default>
+        <label>AUTOMOTIVE FUEL  RETAILING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5322</fullName>
+        <default>false</default>
+        <label>AUTOMOTIVE ELECTRICAL  SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5323</fullName>
+        <default>false</default>
+        <label>SMASH REPAIRING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5324</fullName>
+        <default>false</default>
+        <label>TYRE RETAILING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5325</fullName>
+        <default>false</default>
+        <label>Auto Trimming/Car Painting</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5329</fullName>
+        <default>false</default>
+        <label>AUTOMOTIVE REPAIR &amp;  SERVICES n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5711</fullName>
+        <default>false</default>
+        <label>HOTEL ACCOMMODATION (3STAR AND BELOW)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5712</fullName>
+        <default>false</default>
+        <label>HOTEL ACCOMMODATION (4 STAR AND ABOVE)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5713</fullName>
+        <default>false</default>
+        <label>MOTEL ACCOMMODATION</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5714</fullName>
+        <default>false</default>
+        <label>RESORT ACCOMMODATION</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5715</fullName>
+        <default>false</default>
+        <label>Camping Grounds</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5716</fullName>
+        <default>false</default>
+        <label>Backpackers/Hostels</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5719</fullName>
+        <default>false</default>
+        <label>OTHER ACCOMMODATION</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5721</fullName>
+        <default>false</default>
+        <label>PUBS/TAVERNS/BARS/HOTELS WITH GAMING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5722</fullName>
+        <default>false</default>
+        <label>PUBS/TAVERNS/BARS/HOTELS WITHOUT GAMING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5723</fullName>
+        <default>false</default>
+        <label>NIGHT CLUBS &amp; DISCOS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5724</fullName>
+        <default>false</default>
+        <label>HOTELS - MAINLY DRINKING PLACES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5725</fullName>
+        <default>false</default>
+        <label>NIGHT CLUBS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5729</fullName>
+        <default>false</default>
+        <label>DRINKING PLACES n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5730</fullName>
+        <default>false</default>
+        <label>CAFES &amp; RESTAURANTS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5732</fullName>
+        <default>false</default>
+        <label>Coffee Shops/Lunch Bars</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5741</fullName>
+        <default>false</default>
+        <label>LICENSED CLUBS WITH GAMBLING FACILITIES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5742</fullName>
+        <default>false</default>
+        <label>LICENSED CLUBS WITHOUT GAMBLING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>5749</fullName>
+        <default>false</default>
+        <label>HOSPITALITY CLUBS n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>6110</fullName>
+        <default>false</default>
+        <label>ROAD FREIGHT TRANSPORT</label>
+    </standardValue>
+    <standardValue>
+        <fullName>6111</fullName>
+        <default>false</default>
+        <label>Refrigerated Road Freight</label>
+    </standardValue>
+    <standardValue>
+        <fullName>6112</fullName>
+        <default>false</default>
+        <label>Road Freight (Logging)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>6113</fullName>
+        <default>false</default>
+        <label>Road Freight (Livestock And Rural)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>6119</fullName>
+        <default>false</default>
+        <label>Road Freight N.E.C</label>
+    </standardValue>
+    <standardValue>
+        <fullName>6121</fullName>
+        <default>false</default>
+        <label>LONG DISTANCE BUS  TRANSPORT</label>
+    </standardValue>
+    <standardValue>
+        <fullName>6122</fullName>
+        <default>false</default>
+        <label>SHORT DISTANCE BUS TRANSPORT (INC TRAMWAYS)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>6123</fullName>
+        <default>false</default>
+        <label>TAXI &amp; OTHER ROAD  PASSENGER TRANSPORT</label>
+    </standardValue>
+    <standardValue>
+        <fullName>6200</fullName>
+        <default>false</default>
+        <label>RAIL TRANSPORT</label>
+    </standardValue>
+    <standardValue>
+        <fullName>6301</fullName>
+        <default>false</default>
+        <label>INTERNATIONAL SEA  TRANSPORT</label>
+    </standardValue>
+    <standardValue>
+        <fullName>6302</fullName>
+        <default>false</default>
+        <label>COASTAL WATER  TRANSPORT</label>
+    </standardValue>
+    <standardValue>
+        <fullName>6303</fullName>
+        <default>false</default>
+        <label>INLAND WATER TRANSPORT</label>
+    </standardValue>
+    <standardValue>
+        <fullName>6401</fullName>
+        <default>false</default>
+        <label>SCHEDULED  INTERNATIONAL AIR TRANSPORT</label>
+    </standardValue>
+    <standardValue>
+        <fullName>6402</fullName>
+        <default>false</default>
+        <label>SCHEDULED DOMESTIC AIR TRANSPORT</label>
+    </standardValue>
+    <standardValue>
+        <fullName>6403</fullName>
+        <default>false</default>
+        <label>NON-SCHEDULED AIR &amp;  SPACE TRANSPORT</label>
+    </standardValue>
+    <standardValue>
+        <fullName>6501</fullName>
+        <default>false</default>
+        <label>PIPELINE TRANSPORT</label>
+    </standardValue>
+    <standardValue>
+        <fullName>6509</fullName>
+        <default>false</default>
+        <label>TRANSPORT n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>6611</fullName>
+        <default>false</default>
+        <label>PARKING SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>6619</fullName>
+        <default>false</default>
+        <label>SERVICES TO ROAD  TRANSPORT n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>6621</fullName>
+        <default>false</default>
+        <label>STEVEDORING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>6622</fullName>
+        <default>false</default>
+        <label>WATER TRANSPORT  TERMINALS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>6623</fullName>
+        <default>false</default>
+        <label>PORT OPERATORS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>6629</fullName>
+        <default>false</default>
+        <label>SERVICES TO WATER  TRANSPORT n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>6630</fullName>
+        <default>false</default>
+        <label>SERVICES TO AIR  TRANSPORT</label>
+    </standardValue>
+    <standardValue>
+        <fullName>6641</fullName>
+        <default>false</default>
+        <label>TRAVEL AGENCY SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>6642</fullName>
+        <default>false</default>
+        <label>ROAD FREIGHT  FORWARDING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>6643</fullName>
+        <default>false</default>
+        <label>FREIGHT FORWARDING  (EXCEPT  ROAD)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>6644</fullName>
+        <default>false</default>
+        <label>CUSTOMS AGENCY SERVICE</label>
+    </standardValue>
+    <standardValue>
+        <fullName>6649</fullName>
+        <default>false</default>
+        <label>SERVICES TO TRANSPORT  n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>6701</fullName>
+        <default>false</default>
+        <label>GRAIN STORAGE</label>
+    </standardValue>
+    <standardValue>
+        <fullName>6702</fullName>
+        <default>false</default>
+        <label>Cool/Cold Storage</label>
+    </standardValue>
+    <standardValue>
+        <fullName>6709</fullName>
+        <default>false</default>
+        <label>STORAGE n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7111</fullName>
+        <default>false</default>
+        <label>POSTAL SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7112</fullName>
+        <default>false</default>
+        <label>COURIER SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7120</fullName>
+        <default>false</default>
+        <label>TELECOMMUNICATIONS  SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7310</fullName>
+        <default>false</default>
+        <label>CENTRAL BANKS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7326</fullName>
+        <default>false</default>
+        <label>NZ Banks (M3)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7330</fullName>
+        <default>false</default>
+        <label>Other Financiers</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7331</fullName>
+        <default>false</default>
+        <label>TERMINATING BUILDING SOCIETIES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7332</fullName>
+        <default>false</default>
+        <label>CO-OPERATIVE HOUSING SOCIETIES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7339</fullName>
+        <default>false</default>
+        <label>FINANCIERS n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7341</fullName>
+        <default>false</default>
+        <label>HOLDING COMPANY OPERATION</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7342</fullName>
+        <default>false</default>
+        <label>FRIENDLY SOCIETY OPERATION</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7349</fullName>
+        <default>false</default>
+        <label>SMSF &amp; PERSONAL NON-PROPERTY INVESTORS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7351</fullName>
+        <default>false</default>
+        <label>MERCHANT BANKS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7352</fullName>
+        <default>false</default>
+        <label>BANKS - AUSTRALASIAN &amp; OECD</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7353</fullName>
+        <default>false</default>
+        <label>BANKS - NON-OECD</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7354</fullName>
+        <default>false</default>
+        <label>BANKS n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7355</fullName>
+        <default>false</default>
+        <label>AUTHORISED MONEY MARKET DEALERS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7356</fullName>
+        <default>false</default>
+        <label>MONEY MARKET DEALERS n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7357</fullName>
+        <default>false</default>
+        <label>BUILDING SOCIETIES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7358</fullName>
+        <default>false</default>
+        <label>CREDIT UNIONS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7359</fullName>
+        <default>false</default>
+        <label>DEPOSIT TAKING FINANCIERS  n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7411</fullName>
+        <default>false</default>
+        <label>LIFE INSURANCE</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7412</fullName>
+        <default>false</default>
+        <label>SUPERANNUATION FUNDS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7421</fullName>
+        <default>false</default>
+        <label>HEALTH INSURANCE</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7422</fullName>
+        <default>false</default>
+        <label>GENERAL INSURANCE</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7511</fullName>
+        <default>false</default>
+        <label>FINANCIAL ASSET BROKING SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7512</fullName>
+        <default>false</default>
+        <label>FUND MANAGERS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7513</fullName>
+        <default>false</default>
+        <label>PROPERTY TRUST MANAGERS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7518</fullName>
+        <default>false</default>
+        <label>Deceased Estates</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7519</fullName>
+        <default>false</default>
+        <label>SERVICES TO FINANCE &amp; INVESTMENT n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7520</fullName>
+        <default>false</default>
+        <label>SERVICES TO INSURANCE</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7713</fullName>
+        <default>false</default>
+        <label>RETIREMENT VILLAGE OPERATORS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7714</fullName>
+        <default>false</default>
+        <label>RESIDENTIAL PROPERTY OPERATORS (EXCEPT RETIREMENT VILLAGES)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7715</fullName>
+        <default>false</default>
+        <label>RETIREMENT VILLAGE DEVELOPERS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7716</fullName>
+        <default>false</default>
+        <label>COMMERCIAL PROPERTY OPERATORS (EXC. RETIREMENT VILLAGES)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7720</fullName>
+        <default>false</default>
+        <label>REAL ESTATE AGENTS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7730</fullName>
+        <default>false</default>
+        <label>NON-FINANCIAL ASSET INVESTORS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7741</fullName>
+        <default>false</default>
+        <label>MOTOR VEHICLE HIRING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7742</fullName>
+        <default>false</default>
+        <label>OTHER TRANSPORT EQUIPMENTMENT LEASING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7743</fullName>
+        <default>false</default>
+        <label>PLANT HIRING OR LEASING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7810</fullName>
+        <default>false</default>
+        <label>SCIENTIFIC RESEARCH</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7821</fullName>
+        <default>false</default>
+        <label>ARCHITECTURAL SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7822</fullName>
+        <default>false</default>
+        <label>SURVEYING SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7823</fullName>
+        <default>false</default>
+        <label>CONSULTANT ENGINEERING SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7829</fullName>
+        <default>false</default>
+        <label>TECHNICAL SERVICES n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7831</fullName>
+        <default>false</default>
+        <label>DATA PROCESSING SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7832</fullName>
+        <default>false</default>
+        <label>INFORMATION STORAGE &amp;  RETRIEVAL SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7833</fullName>
+        <default>false</default>
+        <label>COMPUTER MAINTENANCE SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7834</fullName>
+        <default>false</default>
+        <label>COMPUTER CONSULTANCY SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7841</fullName>
+        <default>false</default>
+        <label>LEGAL SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7842</fullName>
+        <default>false</default>
+        <label>ACCOUNTANCY SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7851</fullName>
+        <default>false</default>
+        <label>ADVERTISING SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7852</fullName>
+        <default>false</default>
+        <label>COMMERCIAL ART &amp; DISPLAY SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7853</fullName>
+        <default>false</default>
+        <label>MARKET RESEARCH SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7854</fullName>
+        <default>false</default>
+        <label>BUSINESS ADMINISTRATIVE SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7855</fullName>
+        <default>false</default>
+        <label>BUSINESS MANAGEMENT SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7860</fullName>
+        <default>false</default>
+        <label>Interior Decorating Service</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7861</fullName>
+        <default>false</default>
+        <label>EMPLOYMENT PLACEMENT SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7862</fullName>
+        <default>false</default>
+        <label>CONTRACT STAFF SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7863</fullName>
+        <default>false</default>
+        <label>SECRETARIAL SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7864</fullName>
+        <default>false</default>
+        <label>SECURITY &amp; INVEST SERVICES (EXC POLICE)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7865</fullName>
+        <default>false</default>
+        <label>PEST CONTROL SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7866</fullName>
+        <default>false</default>
+        <label>CLEANING SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7867</fullName>
+        <default>false</default>
+        <label>CONTRACT PACKING SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7868</fullName>
+        <default>false</default>
+        <label>Credit Bureau/Debt Collecting Service</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7869</fullName>
+        <default>false</default>
+        <label>BUSINESS SERVICES n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8111</fullName>
+        <default>false</default>
+        <label>CENTRAL GOVERNMENT ADMINISTRATION</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8112</fullName>
+        <default>false</default>
+        <label>STATE GOVERNMENT ADMINISTRATION</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8113</fullName>
+        <default>false</default>
+        <label>LOCAL GOVERNMENT ADMINISTRATION</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8120</fullName>
+        <default>false</default>
+        <label>JUSTICE</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8130</fullName>
+        <default>false</default>
+        <label>FOREIGN GOVERNMENT REPRESENTATION</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8200</fullName>
+        <default>false</default>
+        <label>DEFENCE</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8410</fullName>
+        <default>false</default>
+        <label>PRE-SCHOOL EDUCATION</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8424</fullName>
+        <default>false</default>
+        <label>Special School Education</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8425</fullName>
+        <default>false</default>
+        <label>Intermediate Education</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8431</fullName>
+        <default>false</default>
+        <label>HIGHER EDUCATION</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8432</fullName>
+        <default>false</default>
+        <label>TECHNICAL &amp; FURTHER EDUCATION</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8440</fullName>
+        <default>false</default>
+        <label>OTHER EDUCATION</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8451</fullName>
+        <default>false</default>
+        <label>PRIVATE PRIMARY EDUCATION</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8452</fullName>
+        <default>false</default>
+        <label>PUBLIC PRIMARY  EDUCATION</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8453</fullName>
+        <default>false</default>
+        <label>PRIVATE SECONDARY EDUCATION</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8454</fullName>
+        <default>false</default>
+        <label>PUBLIC SECONDARY EDUCATION</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8455</fullName>
+        <default>false</default>
+        <label>PRIVATE COMBINED PRIMARY &amp; SECONDARY EDUCATION</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8456</fullName>
+        <default>false</default>
+        <label>PUBLIC COMBINED PRIMARY &amp; SECONDARY EDUCATION</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8459</fullName>
+        <default>false</default>
+        <label>OTHER SCHOOL EDUCATION</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8621</fullName>
+        <default>false</default>
+        <label>GENERAL PRACTICE MEDICAL SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8622</fullName>
+        <default>false</default>
+        <label>SPECIALIST MEDICAL SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8623</fullName>
+        <default>false</default>
+        <label>DENTAL SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8631</fullName>
+        <default>false</default>
+        <label>PATHOLOGY SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8632</fullName>
+        <default>false</default>
+        <label>OPTOMETRY &amp; OPTICAL DISPENSING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8633</fullName>
+        <default>false</default>
+        <label>AMBULANCE SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8634</fullName>
+        <default>false</default>
+        <label>COMMUNITY HEALTH CENTRES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8635</fullName>
+        <default>false</default>
+        <label>PHYSIOTHERAPY SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8636</fullName>
+        <default>false</default>
+        <label>CHIROPRACTIC SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8639</fullName>
+        <default>false</default>
+        <label>HEALTH SERVICES n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8640</fullName>
+        <default>false</default>
+        <label>VETERINARY SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8651</fullName>
+        <default>false</default>
+        <label>PUBLIC HOSPITALS (EXCEPT PSYCHIATRIC)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8652</fullName>
+        <default>false</default>
+        <label>PRIVATE HOSPITALS (EXC RELIGIOUS  CHARITABLE OR PSYCHIATRIC)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8653</fullName>
+        <default>false</default>
+        <label>PUBLIC PSYCHIATRIC HOSPITALS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8654</fullName>
+        <default>false</default>
+        <label>PRIVATE PSYCHIATRIC HOSPITALS (EXC RELIGIOUS OR CHARITABLE)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8655</fullName>
+        <default>false</default>
+        <label>RELIGIOUS &amp; CHARITABLE HOSPITAL (EXC PYSCHIATRIC)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8656</fullName>
+        <default>false</default>
+        <label>RELIGIOUS &amp; CHARITABLE PSYCHIATRIC HOSPITALS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8661</fullName>
+        <default>false</default>
+        <label>PUBLIC NURSING HOMES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8662</fullName>
+        <default>false</default>
+        <label>PRIVATE NURSING HOMES (EXC RELIGIOUS OR CHARITABLE)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8663</fullName>
+        <default>false</default>
+        <label>RELIGIOUS &amp; CHARITABLE NURSING HOMES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8710</fullName>
+        <default>false</default>
+        <label>CHILD CARE SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8722</fullName>
+        <default>false</default>
+        <label>RESIDENTIAL CARE SERVICES  n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8723</fullName>
+        <default>false</default>
+        <label>PUBLIC ACCOMMODATION FOR THE AGED</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8724</fullName>
+        <default>false</default>
+        <label>PRIVATE ACCOMMODATION FOR AGED (EXC RELIGIOUS OR CHARITABLE)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8725</fullName>
+        <default>false</default>
+        <label>RELIG &amp; CHARITABLE ACCT FOR THE AGED</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8726</fullName>
+        <default>false</default>
+        <label>WELFARE &amp; CHARITABLE ORGANISATIONS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>8729</fullName>
+        <default>false</default>
+        <label>NON-RESIDENTIAL CARE SERVICES n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9111</fullName>
+        <default>false</default>
+        <label>FILM &amp; VIDEO PRODUCTION</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9112</fullName>
+        <default>false</default>
+        <label>FILM &amp; VIDEO DISTRIBUTION</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9113</fullName>
+        <default>false</default>
+        <label>MOTION PICTURE EXHIBITION</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9121</fullName>
+        <default>false</default>
+        <label>RADIO SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9122</fullName>
+        <default>false</default>
+        <label>TELEVISION SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9210</fullName>
+        <default>false</default>
+        <label>LIBRARIES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9220</fullName>
+        <default>false</default>
+        <label>MUSEUMS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9231</fullName>
+        <default>false</default>
+        <label>ZOOLOGICAL &amp; BOTANIC GARDENS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9239</fullName>
+        <default>false</default>
+        <label>RECREATIONAL PARKS &amp; GARDENS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9241</fullName>
+        <default>false</default>
+        <label>MUSIC &amp; THEATRE PRODUCTIONS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9242</fullName>
+        <default>false</default>
+        <label>CREATIVE ARTS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9251</fullName>
+        <default>false</default>
+        <label>SOUND RECORDING STUDIOS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9252</fullName>
+        <default>false</default>
+        <label>PERFORMING ARTS VENUES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9259</fullName>
+        <default>false</default>
+        <label>SERVICES TO THE ARTS n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9311</fullName>
+        <default>false</default>
+        <label>HORSE &amp; DOG RACING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9312</fullName>
+        <default>false</default>
+        <label>SPORTS GROUNDS &amp; FACILITIES  n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9313</fullName>
+        <default>false</default>
+        <label>GOLF COURSES n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9314</fullName>
+        <default>false</default>
+        <label>GYMNASIUM</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9319</fullName>
+        <default>false</default>
+        <label>SPORTS &amp; SERVICES TO SPORTS n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9321</fullName>
+        <default>false</default>
+        <label>LOTTERIES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9322</fullName>
+        <default>false</default>
+        <label>CASINOS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9329</fullName>
+        <default>false</default>
+        <label>GAMBLING SERVICES n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9330</fullName>
+        <default>false</default>
+        <label>OTHER RECREATION SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9331</fullName>
+        <default>false</default>
+        <label>THEME PARK</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9332</fullName>
+        <default>false</default>
+        <label>MARINA OPERATION (MAINLY LEISURE)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9333</fullName>
+        <default>false</default>
+        <label>Tourist Operation N.E.C.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9339</fullName>
+        <default>false</default>
+        <label>RECREATION SERVICES n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9511</fullName>
+        <default>false</default>
+        <label>VIDEO HIRE OUTLETS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9519</fullName>
+        <default>false</default>
+        <label>PERSONAL &amp; HOUSEHOLD GOODS HIRING n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9521</fullName>
+        <default>false</default>
+        <label>LAUNDRIES &amp; DRY CLEANERS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9522</fullName>
+        <default>false</default>
+        <label>PHOTOGRAPHIC FILM PROCESSING</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9523</fullName>
+        <default>false</default>
+        <label>PHOTOGRAPHIC STUDIOS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9524</fullName>
+        <default>false</default>
+        <label>FUNERAL DIRECTOR CREMATORIA &amp; CEMETERIES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9525</fullName>
+        <default>false</default>
+        <label>GARDENING SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9526</fullName>
+        <default>false</default>
+        <label>HAIRDRESSING &amp; BEAUTY SALONS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9529</fullName>
+        <default>false</default>
+        <label>PERSONAL SERVICES n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9610</fullName>
+        <default>false</default>
+        <label>RELIGIOUS ORGANISATIONS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9611</fullName>
+        <default>false</default>
+        <label>CHURCH  TEMPLE OR SYNAGOGUE OPERATION</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9619</fullName>
+        <default>false</default>
+        <label>RELIGIOUS ORGANISATION OPERATION n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9621</fullName>
+        <default>false</default>
+        <label>BUSINESS &amp; PROFESSIONAL ASSOCIATIONS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9622</fullName>
+        <default>false</default>
+        <label>LABOUR ASSOCIATIONS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9623</fullName>
+        <default>false</default>
+        <label>Social Clubs</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9624</fullName>
+        <default>false</default>
+        <label>Flatting Situation (Flatmates)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9629</fullName>
+        <default>false</default>
+        <label>INTEREST GROUPS n.e.c.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9631</fullName>
+        <default>false</default>
+        <label>POLICE SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9632</fullName>
+        <default>false</default>
+        <label>CORRECTIVE CENTRES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9633</fullName>
+        <default>false</default>
+        <label>FIRE BRIGADE SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9634</fullName>
+        <default>false</default>
+        <label>WASTE DISPOSAL SERVICES</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9635</fullName>
+        <default>false</default>
+        <label>Recycling</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9700</fullName>
+        <default>false</default>
+        <label>PRIVATE HOUSEHOLDS EMPLOYING STAFF</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9810</fullName>
+        <default>false</default>
+        <label>CONSUMER - HOUSING MORTGAGE</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9820</fullName>
+        <default>false</default>
+        <label>CONSUMER - RIPL</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9830</fullName>
+        <default>false</default>
+        <label>CONSUMER - OTHER</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9860</fullName>
+        <default>false</default>
+        <label>HOUSING (BUSINESS RELATED)-SECURED BY MORT</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9880</fullName>
+        <default>false</default>
+        <label>HOUSING (BUSINESS RELATED) - UNSECURED</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9888</fullName>
+        <default>false</default>
+        <label>CONSUMER HOUSING (BUSINESS RELATED) - TRUSTS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9889</fullName>
+        <default>false</default>
+        <label>CONSUMER HOUSING (BUSINESS RELATED)-NON RESIDENTIAL</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9890</fullName>
+        <default>false</default>
+        <label>CONSUMER (BUSINESS RELATED)-NOT CLASSIFIED</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9990</fullName>
+        <default>false</default>
+        <label>Family Trust (Household)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9865</fullName>
+        <default>false</default>
+        <label>HOUSING FINANCE OTHER</label>
+    </standardValue>
+    <standardValue>
+        <fullName>0</fullName>
+        <default>false</default>
+        <label>UNKNOWN</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7347</fullName>
+        <default>false</default>
+        <label>PERSONAL NON-PROPERTY INVEST FL LIQ</label>
+    </standardValue>
+    <standardValue>
+        <fullName>7348</fullName>
+        <default>false</default>
+        <label>PERSONAL NON-PROPERTY INVESTORS – CORPORATE</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Unknown</fullName>
+        <default>false</default>
+        <label>Unknown</label>
+    </standardValue>
+</StandardValueSet>
