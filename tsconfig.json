@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "webdriverIO-build/",
+    "moduleResolution": "Node",
     "strict": true,
     "allowJs": true,
     "skipLibCheck": true,
