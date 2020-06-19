@@ -8,6 +8,8 @@
     <columns>LAST_UPDATE</columns>
     <columns>LANGUAGE</columns>
     <columns>LAST_PUBLISHED_DATE</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>CREATED_DATE</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>PUBLISH_STATUS</field>

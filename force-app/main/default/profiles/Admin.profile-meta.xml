@@ -1621,6 +1621,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Knowledge__kav.Reason_for_Change__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Product2.ANZ_Product_Code__c</field>
         <readable>true</readable>
     </fieldPermissions>
