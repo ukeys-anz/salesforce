@@ -27,7 +27,7 @@ public without sharing class TextUtils {
           masked = masked + '*';
         }
         masked = masked + digits.substring(digits.length() - UNMASK_LENGTH);
-        input = input.replaceFirst(stringToMask, masked);
+        input = input.replace(stringToMask, masked);
         matchingPattern = accountOrCardPattern.matcher(input);
       }
     }
