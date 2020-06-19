@@ -62,7 +62,6 @@ coverage/
 #Webdriver IO
 webdriverIO/all-logs/
 webdriverIO/driver-logs/
-webdriverIO/utilities/userList.json
 webdriverIO-build/
 
 .env
