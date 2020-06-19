@@ -63,6 +63,9 @@ coverage/
 webdriverIO/all-logs/
 webdriverIO/driver-logs/
 webdriverIO-build/
-allure-results
+
+#Allure reporting
+allure-results/*
+!allure-results/categories.json
 allure-report
 .env
