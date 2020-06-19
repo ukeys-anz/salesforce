@@ -56,10 +56,10 @@ JOB_END_TIME=$(date +%s)
 echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
 
 echo "Creating Coach user"
-node createUser.js --profile "Coach"
+node createUser.js --profile "coach"
 
 echo "Creating IDR user"
-node createUser.js --profile "IDR Level 3"
+node createUser.js --profile "idr level 3"
 
 #Create users json for webdriverIO
 node createUserJsonList.js

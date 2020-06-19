@@ -12,11 +12,11 @@ if (argv.help) {
   console.log("You can use 'node createUser.js --profile <profile>'");
   console.log("The supported profiles are listed below:");
   console.log(
-    "Coach\n",
-    "Content Author\n",
-    "IDR Level 1\n",
-    "IDR Level 2\n",
-    "IDR Level 3"
+    "coach\n",
+    "content author\n",
+    "idr level 1\n",
+    "idr level 2\n",
+    "idr level 3"
   );
   process.exit();
 }
@@ -61,11 +61,11 @@ switch (argv.profile.toLowerCase()) {
       "Invalid profile provided. Please enter one of the following:"
     );
     console.error(
-      "Coach\n",
-      "Content Author\n",
-      "IDR Level 1\n",
-      "IDR Level 2\n",
-      "IDR Level 3"
+      "coach\n",
+      "content author\n",
+      "idr level 1\n",
+      "idr level 2\n",
+      "idr level 3"
     );
     process.exit();
 }
