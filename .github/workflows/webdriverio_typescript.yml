@@ -1,0 +1,21 @@
+# This workflow builds the webdriverIO tests with typescript
+name: WebDriverIO
+
+# This workflow will only run on Pull Requests against develop
+on:
+  pull_request:
+    branches: [develop]
+
+jobs:
+  typescript-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v1
+
+      - name: "Install NPM Packages"
+        run: npm i
+
+      - name: "Build Typescript"
+        run: npx tsc

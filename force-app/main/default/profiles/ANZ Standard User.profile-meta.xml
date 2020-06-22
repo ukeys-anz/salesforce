@@ -1433,7 +1433,22 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>IDR_CRC_Escalation_Event__e.Complainant_Name__c</field>
+        <field>IDR_CRC_Escalation_Event__e.Customer_First_Name__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>IDR_CRC_Escalation_Event__e.Customer_Middle_Names__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>IDR_CRC_Escalation_Event__e.Customer_Last_Name__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>IDR_CRC_Escalation_Event__e.Customer_Business_Name__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
