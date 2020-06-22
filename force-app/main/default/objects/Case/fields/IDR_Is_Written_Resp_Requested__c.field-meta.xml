@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_Is_Written_Resp_Requested__c</fullName>
     <externalId>false</externalId>
-    <inlineHelpText>Has the complainant requested a written response?</inlineHelpText>
+    <inlineHelpText>Has the customer requested a written response?</inlineHelpText>
     <label>Is a Written Response Requested?</label>
     <required>false</required>
     <trackHistory>true</trackHistory>

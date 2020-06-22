@@ -30,8 +30,8 @@ export const state = [
 
 export const priority = [
   "None",
-  "Complainant experiencing financial hardship",
-  "Complainant experiencing vulnerability"
+  "Customer experiencing financial hardship",
+  "Customer experiencing vulnerability"
 ];
 
 export const descent = [

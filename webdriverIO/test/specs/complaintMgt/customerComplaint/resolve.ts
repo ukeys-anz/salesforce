@@ -34,7 +34,7 @@ describe("Customer Record Resolve", () => {
     $("mark=Netwealth").click();
 
     CustomerComplaint.complaintOutcome.click();
-    $("=In favour of complainant in full").click();
+    $("=In favour of customer in full").click();
     CustomerComplaint.complaintRemedy.click();
     $("=Non-financial remedy").click();
 

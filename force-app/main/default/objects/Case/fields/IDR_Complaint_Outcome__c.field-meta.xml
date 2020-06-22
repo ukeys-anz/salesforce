@@ -14,12 +14,12 @@
             <value>
                 <fullName>1</fullName>
                 <default>false</default>
-                <label>In favour of complainant in full</label>
+                <label>In favour of customer in full</label>
             </value>
             <value>
                 <fullName>2</fullName>
                 <default>false</default>
-                <label>In favour of complainant in part</label>
+                <label>In favour of customer in part</label>
             </value>
             <value>
                 <fullName>3</fullName>
