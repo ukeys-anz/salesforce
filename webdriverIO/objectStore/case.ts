@@ -1,6 +1,6 @@
 import { jsForce } from "../utilities/jsforce";
 import * as faker from "faker";
-import { getRecordTypeID } from "./util";
+import { getRecordTypeID, getUserByAlias } from "./util";
 import { getFinAccount } from "./financialAccount";
 
 interface ICase {
@@ -15,6 +15,7 @@ interface ICase {
   AccountId: String;
   FinServ__FinancialAccount__c: String;
   ParentId: String;
+  OwnerId?: string;
 }
 
 /**
@@ -25,7 +26,8 @@ interface ICase {
  */
 export function createCaseList(
   amount: number = 1,
-  recordType: String = "General_Inquiry"
+  recordType: String = "General_Inquiry",
+  alias: string
 ) {
   return new Promise(async resolve => {
     let finAccountList: any = await getFinAccount();
@@ -36,6 +38,7 @@ export function createCaseList(
     );
     let cases: ICase[] = [];
     let idList: any = [];
+    let user: any = await getUserByAlias(alias);
 
     for (let i = 0; i < amount; i++) {
       let caseRecord: ICase = {
@@ -77,29 +80,39 @@ export function createCaseList(
         RecordTypeId: recordTypeId,
         AccountId: finAccountList[0].FinServ__PrimaryOwner__c,
         FinServ__FinancialAccount__c: finAccountList[0].Id,
-        ParentId: parentCaseList[0].Id
+        ParentId: parentCaseList[0].Id,
+        OwnerId: user.Id
       };
       cases.push(caseRecord);
     }
 
-    jsForce.sobject("Case").create(cases, (err: any, result: any) => {
-      if (err) {
-        return console.log("error", err);
-      } else if (!result[0].success) {
-        return console.log("error", result[0].errors[0].message);
-      }
-      //Loop through the result to create a list of ids
-      result.forEach((item: any, index: any) => {
-        idList.push(item.id);
-      });
-      //Retrieve the new cases using the created id list and return the results
-      jsForce.sobject("Case").retrieve(idList, (err: any, result: any) => {
+    //Include headers so we can assign the user as owner of case
+    jsForce.sobject("Case").create(
+      cases,
+      {
+        headers: {
+          "SForce-Auto-Assign": false
+        }
+      },
+      (err: any, result: any) => {
         if (err) {
           return console.log("error", err);
+        } else if (!result[0].success) {
+          return console.log("error", result[0].errors[0].message);
         }
-        resolve(result);
-      });
-    });
+        //Loop through the result to create a list of ids
+        result.forEach((item: any, index: any) => {
+          idList.push(item.id);
+        });
+        //Retrieve the new cases using the created id list and return the results
+        jsForce.sobject("Case").retrieve(idList, (err: any, result: any) => {
+          if (err) {
+            return console.log("error", err);
+          }
+          resolve(result);
+        });
+      }
+    );
   });
 }
 
@@ -170,26 +183,35 @@ export async function getParentCase(recordTypeId: any, accountId: any) {
           };
           cases.push(caseRecord);
 
-          jsForce.sobject("Case").create(cases, (err: any, result: any) => {
-            if (err) {
-              return console.log("error", err);
-            } else if (!result[0].success) {
-              return console.log("error", result[0].errors[0].message);
-            }
-            //Loop through the result to create a list of ids
-            result.forEach((item: any, index: any) => {
-              idList.push(item.id);
-            });
-            //Retrieve the new cases using the created id list and return the results
-            jsForce
-              .sobject("Case")
-              .retrieve(idList, (err: any, result: any) => {
-                if (err) {
-                  return console.log("error", err);
-                }
-                resolve(result);
+          //Include headers so we can assign the user as owner of case
+          jsForce.sobject("Case").create(
+            cases,
+            {
+              headers: {
+                "SForce-Auto-Assign": false
+              }
+            },
+            (err: any, result: any) => {
+              if (err) {
+                return console.log("error", err);
+              } else if (!result[0].success) {
+                return console.log("error", result[0].errors[0].message);
+              }
+              //Loop through the result to create a list of ids
+              result.forEach((item: any, index: any) => {
+                idList.push(item.id);
               });
-          });
+              //Retrieve the new cases using the created id list and return the results
+              jsForce
+                .sobject("Case")
+                .retrieve(idList, (err: any, result: any) => {
+                  if (err) {
+                    return console.log("error", err);
+                  }
+                  resolve(result);
+                });
+            }
+          );
         }
       }
     );
@@ -201,38 +223,53 @@ export async function getParentCase(recordTypeId: any, accountId: any) {
  * @param amount  Number of cases to be created
  * @param recordType Record Type of the case
  */
-export async function createBlankCase(amount: number = 1, recordType: String) {
+export async function createBlankCase(
+  amount: number = 1,
+  recordType: String,
+  alias: string
+) {
   return new Promise(async resolve => {
     let recordTypeId: String = await getRecordTypeID("Case", recordType);
+    let user: any = await getUserByAlias(alias);
     let cases: any = [];
     let idList: any = [];
 
     for (let i = 0; i < amount; i++) {
       let caseRecord = {
-        RecordTypeId: recordTypeId
+        RecordTypeId: recordTypeId,
+        OwnerId: user.Id
       };
       cases.push(caseRecord);
     }
 
-    jsForce.sobject("Case").create(cases, (err: any, result: any) => {
-      if (err) {
-        return console.log("error", err);
-      } else if (!result[0].success) {
-        return console.log("error", result[0].errors[0].message);
-      }
-
-      //Loop through the result to create a list of ids
-      result.forEach((item: any, index: any) => {
-        idList.push(item.id);
-      });
-
-      //Retrieve the new cases using the created id list and return the results
-      jsForce.sobject("Case").retrieve(idList, (err: any, result: any) => {
+    //Include headers so we can assign the user as owner of case
+    jsForce.sobject("Case").insert(
+      cases,
+      {
+        headers: {
+          "SForce-Auto-Assign": false
+        }
+      },
+      (err: any, result: any) => {
         if (err) {
           return console.log("error", err);
+        } else if (!result[0].success) {
+          return console.log("error", result[0].errors[0].message);
         }
-        resolve(result);
-      });
-    });
+
+        //Loop through the result to create a list of ids
+        result.forEach((item: any, index: any) => {
+          idList.push(item.id);
+        });
+
+        //Retrieve the new cases using the created id list and return the results
+        jsForce.sobject("Case").retrieve(idList, (err: any, result: any) => {
+          if (err) {
+            return console.log("error", err);
+          }
+          resolve(result);
+        });
+      }
+    );
   });
 }

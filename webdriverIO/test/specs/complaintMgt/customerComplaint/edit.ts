@@ -13,18 +13,20 @@ let recordType: String = "Customer_Complaint";
 
 describe("Customer Record Edit", () => {
   before(() => {
-    createCaseList(1, recordType).then((cases: any) => {
+    createCaseList(1, recordType, "idrlvl3").then((cases: any) => {
       caseId = cases[0].CaseNumber;
     });
   });
 
   it("should edit a customer complaint case record", () => {
-    CustomerComplaint.login();
+    CustomerComplaint.login("idrlvl3");
     CustomerComplaint.loadApp("Complaint Mgt");
     $('button[title="Show Navigation Menu"]').click();
     $("=Cases").click();
 
-    $(`.forceOutputLookup[title="${caseId}"]`).click();
+    $("a[title='Select List View']").click();
+    $("span=My Open Cases").click();
+    $(`=${caseId}`).click();
     $("=Edit").click();
 
     CustomerComplaint.nominatedThirdName.setValue(

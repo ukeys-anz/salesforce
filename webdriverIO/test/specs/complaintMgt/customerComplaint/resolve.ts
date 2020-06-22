@@ -8,20 +8,22 @@ import { createCaseList } from "../../../../objectStore/complaint";
 let caseId: any;
 let recordType: String = "Customer_Complaint";
 
-describe("Customer Record Escalation", () => {
+describe("Customer Record Resolve", () => {
   before(() => {
-    createCaseList(1, recordType).then((cases: any) => {
+    createCaseList(1, recordType, "idrlvl3").then((cases: any) => {
       caseId = cases[0].CaseNumber;
     });
   });
 
-  it("should escalate a customer complaint case record", () => {
-    CustomerComplaint.login();
+  it("should resolve a customer complaint case record", () => {
+    CustomerComplaint.login("idrlvl3");
     CustomerComplaint.loadApp("Complaint Mgt");
     $('button[title="Show Navigation Menu"]').click();
     $("=Cases").click();
 
-    $(`.forceOutputLookup[title="${caseId}"]`).click();
+    $("a[title='Select List View']").click();
+    $("span=My Open Cases").click();
+    $(`=${caseId}`).click();
     $("=Edit").click();
 
     CustomerComplaint.status.scrollIntoView();

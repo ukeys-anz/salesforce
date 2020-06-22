@@ -9,7 +9,7 @@ import { priority } from "../../../../pages/complaintMgt/common/customerComplain
 
 describe("Customer Complaint Record Creation", () => {
   it("should create a customer complaint case record", () => {
-    CustomerComplaint.login();
+    CustomerComplaint.login("idrlvl3");
     CustomerComplaint.loadApp("Complaint Mgt");
     $('button[title="Show Navigation Menu"]').click();
     $("=Cases").click();

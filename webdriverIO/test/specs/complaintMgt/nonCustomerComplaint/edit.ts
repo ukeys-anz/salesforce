@@ -16,18 +16,21 @@ let recordType: String = "Non_Customer_Complaint";
 
 describe("Non Customer Record Edit", () => {
   before(() => {
-    createCaseList(1, recordType).then((cases: any) => {
+    createCaseList(1, recordType, "idrlvl3").then((cases: any) => {
       caseId = cases[0].CaseNumber;
     });
   });
 
   it("should edit a non customer complaint case record", () => {
-    NonCustomerComplaint.login();
+    NonCustomerComplaint.login("idrlvl3");
     NonCustomerComplaint.loadApp("Complaint Mgt");
     $('button[title="Show Navigation Menu"]').click();
     $("=Cases").click();
 
-    $(`.forceOutputLookup[title="${caseId}"]`).click();
+    $("a[title='Select List View']").click();
+    $("span=My Open Cases").click();
+    $(`=${caseId}`).click();
+
     $("=Edit").click();
 
     NonCustomerComplaint.descent.click();

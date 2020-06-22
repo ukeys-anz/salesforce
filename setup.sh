@@ -55,6 +55,15 @@ fi
 JOB_END_TIME=$(date +%s)
 echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
 
+echo "Creating Coach user"
+node createUser.js --profile "coach"
+
+echo "Creating IDR user"
+node createUser.js --profile "idr level 3"
+
+#Create users json for webdriverIO
+node createUserJsonList.js
+
 ALL_END_TIME=$(date +%s)
 echo "$(date): All done in $((ALL_END_TIME - ALL_START_TIME)) s."
 echo "Open scratch org..."

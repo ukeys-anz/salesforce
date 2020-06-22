@@ -4,7 +4,7 @@ const fs = require("fs");
 //Execute sfdx command to get default org as json format
 exec("sfdx force:org:display --json", (err, stdout, stderr) => {
   if (err) {
-    console.log(`error: ${error.message}`);
+    console.log(`error: ${err.message}`);
     return;
   }
   if (stderr) {

@@ -39,19 +39,11 @@ describe("General Inquiry Record Creation", () => {
   });
 
   it("should create a general inquiry case record", () => {
-    CoachesWorkbench.login();
+    CoachesWorkbench.login("coach");
     CoachesWorkbench.loadApp("Coaches Workbench");
     CoachesWorkbench.navCases.click();
     $("=New").click();
 
-    browser.pause(2000);
-
-    $("span=General Inquiry").click();
-    $("span=Next").click();
-
-    browser.pause(3000);
-
-    GeneralInquiry.subject.setValue(faker.lorem.text());
     GeneralInquiry.description.setValue(faker.lorem.text());
 
     GeneralInquiry.accountName.setValue(accountName.toString());
@@ -74,9 +66,6 @@ describe("General Inquiry Record Creation", () => {
 
     GeneralInquiry.channelReceived.click();
     $(`=${faker.random.arrayElement(channelReceived)}`).click();
-
-    GeneralInquiry.caseReason.click();
-    $(`=${faker.random.arrayElement(caseReason)}`).click();
 
     GeneralInquiry.priority.click();
     $("=Low").click();
