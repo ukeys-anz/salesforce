@@ -1,11 +1,17 @@
+import userList from "../utilities/userList.json";
+
 /**
  * Contains shared functions. Each class should extend this base class
  */
 export default class Base {
-  login() {
-    browser.url("");
-    const body = $("body.desktop");
-    body.waitForExist();
+  get searchBar() {
+    return $("//header/div[2]/div[2]/div/div[2]/div/div[2]/div[2]/div/input");
+  }
+
+  login(alias: string) {
+    let user: any = userList.find(data => data.alias === alias);
+    browser.url(user.url);
+    $("body.desktop").waitForExist();
     browser.pause(5000);
   }
 
