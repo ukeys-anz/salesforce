@@ -294,7 +294,7 @@
         <enabled>false</enabled>
     </classAccesses>
     <custom>true</custom>
-    <description>This profile will be used for External Applications like Splunk and Twilio who connect via Basic Auth and require an IP Range Restriction to provide additional security controls. This one profile will contain all of the IPs of external apps, as opposed to</description>
+    <description>This profile will be used for External Applications like Splunk and Twilio who connect via Basic Auth and require an IP Range Restrictions. This profile will contain all IPs of external apps, as opposed to one profile per app</description>
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.Anniversary_Date__c</field>
