@@ -9,6 +9,9 @@
         <field>Title</field>
         <field>Owner</field>
         <field>VersionNumber</field>
+        <field>Reason_for_Change__c</field>
+        <field>Question__c</field>
+        <field>Answer__c</field>
     </approvalPageFields>
     <approvalStep>
         <allowDelegate>false</allowDelegate>
