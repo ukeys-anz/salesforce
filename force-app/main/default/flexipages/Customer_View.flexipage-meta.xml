@@ -36,32 +36,6 @@
     <flexiPageRegions>
         <componentInstances>
             <componentInstanceProperties>
-                <name>fieldSet</name>
-                <value>FSC_Banker_Profile_Fin_Acct_Summary</value>
-            </componentInstanceProperties>
-            <componentName>FinServ:financialSummary</componentName>
-        </componentInstances>
-        <componentInstances>
-            <componentInstanceProperties>
-                <name>faFieldSet</name>
-                <value>WM_Client_BankingAccount</value>
-            </componentInstanceProperties>
-            <componentInstanceProperties>
-                <name>iconName</name>
-                <value>custom:custom16</value>
-            </componentInstanceProperties>
-            <componentInstanceProperties>
-                <name>recordTypeNames</name>
-                <value>FinServ__BankingAccount</value>
-            </componentInstanceProperties>
-            <componentInstanceProperties>
-                <name>title</name>
-                <value>Bank Accounts</value>
-            </componentInstanceProperties>
-            <componentName>FinServ:financialAccountList</componentName>
-        </componentInstances>
-        <componentInstances>
-            <componentInstanceProperties>
                 <name>faFieldSet</name>
                 <value>FSC_Client_SavingsAccount</value>
             </componentInstanceProperties>
