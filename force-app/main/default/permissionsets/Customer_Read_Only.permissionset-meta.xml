@@ -227,6 +227,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>FinServ__FinancialAccount__c.FinServ__OwnerType__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>FinServ__FinancialAccount__c.FinServ__Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -278,10 +283,6 @@
         <object>FinServ__FinancialAccount__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
-    <recordTypeVisibilities>
-        <recordType>FinServ__FinancialAccount__c.FinServ__BankingAccount</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>FinServ__FinancialAccount__c.FinServ__SavingsAccount</recordType>
         <visible>true</visible>
