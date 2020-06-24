@@ -1,7 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SecuritySettings xmlns="http://soap.sforce.com/2006/04/metadata">
+    <canUsersGrantLoginAccess>true</canUsersGrantLoginAccess>
+    <enableAuditFieldsInactiveOwner>false</enableAuditFieldsInactiveOwner>
+    <enableAuraSecureEvalPref>true</enableAuraSecureEvalPref>
+    <enableRequireHttpsConnection>true</enableRequireHttpsConnection>
+    <isTLSv12Required>false</isTLSv12Required>
+    <isTLSv12RequiredCommunities>false</isTLSv12RequiredCommunities>
+    <networkAccess/>
+    <passwordPolicies>
+        <complexity>SpecialCharacters</complexity>
+        <enableSetPasswordInApi>true</enableSetPasswordInApi>
+        <expiration>NinetyDays</expiration>
+        <historyRestriction>3</historyRestriction>
+        <lockoutInterval>ThirtyMinutes</lockoutInterval>
+        <maxLoginAttempts>ThreeAttempts</maxLoginAttempts>
+        <minimumPasswordLength>8</minimumPasswordLength>
+        <minimumPasswordLifetime>true</minimumPasswordLifetime>
+        <obscureSecretAnswer>true</obscureSecretAnswer>
+        <questionRestriction>DoesNotContainPassword</questionRestriction>
+    </passwordPolicies>
     <sessionSettings>
+        <allowUserAuthenticationByCertificate>false</allowUserAuthenticationByCertificate>
+        <canConfirmEmailChangeInLightningCommunities>false</canConfirmEmailChangeInLightningCommunities>
+        <disableTimeoutWarning>false</disableTimeoutWarning>
+        <enableCSPOnEmail>true</enableCSPOnEmail>
+        <enableCSRFOnGet>true</enableCSRFOnGet>
+        <enableCSRFOnPost>true</enableCSRFOnPost>
+        <enableCacheAndAutocomplete>true</enableCacheAndAutocomplete>
+        <enableClickjackNonsetupSFDC>true</enableClickjackNonsetupSFDC>
+        <enableClickjackNonsetupUser>true</enableClickjackNonsetupUser>
+        <enableClickjackNonsetupUserHeaderless>true</enableClickjackNonsetupUserHeaderless>
+        <enableClickjackSetup>true</enableClickjackSetup>
+        <enableContentSniffingProtection>true</enableContentSniffingProtection>
+        <enableLightningLogin>true</enableLightningLogin>
+        <enableLightningLoginOnlyWithUserPerm>false</enableLightningLoginOnlyWithUserPerm>
+        <enablePostForSessions>false</enablePostForSessions>
+        <enableSMSIdentity>true</enableSMSIdentity>
+        <enableU2F>false</enableU2F>
+        <enableUpgradeInsecureRequests>true</enableUpgradeInsecureRequests>
+        <enableXssProtection>true</enableXssProtection>
+        <enforceIpRangesEveryRequest>true</enforceIpRangesEveryRequest>
+        <forceLogoutOnSessionTimeout>true</forceLogoutOnSessionTimeout>
+        <forceRelogin>true</forceRelogin>
+        <hasRetainedLoginHints>false</hasRetainedLoginHints>
+        <hasUserSwitching>true</hasUserSwitching>
+        <hstsOnForcecomSites>true</hstsOnForcecomSites>
+        <identityConfirmationOnEmailChange>true</identityConfirmationOnEmailChange>
+        <identityConfirmationOnTwoFactorRegistrationEnabled>true</identityConfirmationOnTwoFactorRegistrationEnabled>
+        <lockSessionsToDomain>true</lockSessionsToDomain>
+        <lockSessionsToIp>false</lockSessionsToIp>
+        <lockerServiceCSP>true</lockerServiceCSP>
+        <redirectionWarning>true</redirectionWarning>
+        <referrerPolicy>true</referrerPolicy>
         <requireHttpOnly>true</requireHttpOnly>
+        <requireHttps>true</requireHttps>
+        <securityCentralKillSession>true</securityCentralKillSession>
         <sessionTimeout>ThirtyMinutes</sessionTimeout>
     </sessionSettings>
+    <singleSignOnSettings>
+        <enableMultipleSamlConfigs>true</enableMultipleSamlConfigs>
+        <enableSamlJitProvisioning>false</enableSamlJitProvisioning>
+        <enableSamlLogin>true</enableSamlLogin>
+    </singleSignOnSettings>
 </SecuritySettings>
