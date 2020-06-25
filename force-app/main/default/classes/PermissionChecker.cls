@@ -39,9 +39,8 @@ public with sharing class PermissionChecker {
         WITH SECURITY_ENFORCED
       ];
     } else {
-      system.assert(
-        false,
-        'The running user does not have access to the PermissionSetAssigned and ObjectPermission SObjects.'
+      throw new Exception(
+        'The running user does not have access to the PermissionSetAssignment and the ObjectPermissions SObjects.'
       );
     }
 
