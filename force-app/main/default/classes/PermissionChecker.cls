@@ -16,22 +16,34 @@ public with sharing class PermissionChecker {
     Id userId
   ) {
     PermissionReport report = new PermissionReport();
-    List<PermissionSetAssignment> permSetAssignments = [
-      SELECT
-        Assignee.Name,
-        PermissionSet.Id,
-        PermissionSet.isOwnedByProfile,
-        PermissionSet.Profile.Name,
-        PermissionSet.Label
-      FROM PermissionSetAssignment
-      WHERE
-        PermissionSetId IN (
-          SELECT ParentId
-          FROM ObjectPermissions
-          WHERE SObjectType IN :sObjectList AND PermissionsRead = true
-        )
-        AND Assignee.Id = :userId
-    ];
+    if (
+      PermissionSetAssignment.SObjectType.getDescribe().isAccessible() &&
+      ObjectPermissions.SObjectType.getDescribe().isAccessible()
+    ) {
+      List<PermissionSetAssignment> permSetAssignments = [
+        SELECT
+          Assignee.Name,
+          PermissionSet.Id,
+          PermissionSet.isOwnedByProfile,
+          PermissionSet.Profile.Name,
+          PermissionSet.Label
+        FROM PermissionSetAssignment
+        WHERE
+          PermissionSetId IN (
+            SELECT ParentId
+            FROM ObjectPermissions
+            WHERE SObjectType IN :sObjectList AND PermissionsRead = true
+            WITH SECURITY_ENFORCED
+          )
+          AND Assignee.Id = :userId
+        WITH SECURITY_ENFORCED
+      ];
+    } else {
+      system.assert(
+        false,
+        'The running user does not have access to the PermissionSetAssigned and ObjectPermission SObjects.'
+      );
+    }
 
     report.hasPermission = permSetAssignments.size() > 0;
 
