@@ -33,13 +33,11 @@ public with sharing class PermissionChecker {
             SELECT ParentId
             FROM ObjectPermissions
             WHERE SObjectType IN :sObjectList AND PermissionsRead = true
-            WITH SECURITY_ENFORCED
           )
           AND Assignee.Id = :userId
-        WITH SECURITY_ENFORCED
       ];
     } else {
-      throw new Exception(
+      throw new CheckerException(
         'The running user does not have access to the PermissionSetAssignment and the ObjectPermissions SObjects.'
       );
     }
@@ -75,5 +73,11 @@ public with sharing class PermissionChecker {
      * @description Getter/Setter for the name of the profile or permission set granting access
      */
     public String label { get; set; }
+  }
+
+  /**
+   * @description Extends the Exception class to throw custom exceptions
+   */
+  public class CheckerException extends Exception {
   }
 }
