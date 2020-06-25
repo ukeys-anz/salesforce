@@ -16,11 +16,12 @@ public with sharing class PermissionChecker {
     Id userId
   ) {
     PermissionReport report = new PermissionReport();
+    List<PermissionSetAssignment> permSetAssignments;
     if (
       PermissionSetAssignment.SObjectType.getDescribe().isAccessible() &&
       ObjectPermissions.SObjectType.getDescribe().isAccessible()
     ) {
-      List<PermissionSetAssignment> permSetAssignments = [
+      permSetAssignments = [
         SELECT
           Assignee.Name,
           PermissionSet.Id,
