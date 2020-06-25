@@ -23,17 +23,21 @@ public class RBACPermissionCheckTest {
       PermissionSetId = ps.Id
     );
 
+    //The commented objects are currently not available in our org.
+    //Once available they will be uncommented.
     String[] objectList = new List<String>{
       'Asset',
       'Campaign',
       'Opportunity',
       'Lead',
       'Order',
-      'Product2',
       'PriceBook2',
-      'Entitlement',
       'Quote',
       'ServiceContract'
+      /*'SalesContract',
+      'Solution',
+      'WorkOrder',
+      'EmployeeWorkOrder'*/
     };
 
     PermissionChecker.PermissionReport pReport = PermissionChecker.HasReadAllPermission(
