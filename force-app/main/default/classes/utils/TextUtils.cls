@@ -22,13 +22,15 @@ public without sharing class TextUtils {
       while (matchingPattern.find()) {
         String stringToMask = matchingPattern.group(0).trim();
         String digits = stringToMask.replaceAll('[^0-9]', '');
-        String masked = '';
-        for (Integer i = 0; i < digits.length() - UNMASK_LENGTH; i++) {
-          masked = masked + '*';
+        if (digits.length() >= 8) {
+          String masked = '';
+          for (Integer i = 0; i < digits.length() - UNMASK_LENGTH; i++) {
+            masked = masked + '*';
+          }
+          masked = masked + digits.substring(digits.length() - UNMASK_LENGTH);
+          input = input.replace(stringToMask, masked);
+          matchingPattern = accountOrCardPattern.matcher(input);
         }
-        masked = masked + digits.substring(digits.length() - UNMASK_LENGTH);
-        input = input.replace(stringToMask, masked);
-        matchingPattern = accountOrCardPattern.matcher(input);
       }
     }
     return input;
