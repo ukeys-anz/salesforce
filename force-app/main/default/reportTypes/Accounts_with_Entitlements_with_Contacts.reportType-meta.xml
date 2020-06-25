@@ -1107,11 +1107,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>CanAllowPortalSelfReg</field>
-            <table>Account.Entitlements.EntitlementContacts</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>CreatedBy</field>
             <table>Account.Entitlements.EntitlementContacts</table>
         </columns>
