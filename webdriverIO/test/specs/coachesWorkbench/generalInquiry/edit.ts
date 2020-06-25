@@ -13,15 +13,14 @@ import { createBlankCase } from "../../../../objectStore/case";
 /*** COMMON VALUE IMPORTS ***/
 import {
   status,
-  channelReceived,
-  caseReason
+  channelReceived
 } from "../../../../pages/coachesWorkbench/common/generalInquiry";
 
 /*** DECLARATIONS ***/
-let caseNumber: String;
-let accountId: String;
-let accountName: String;
-let financialAccountName: String;
+let caseNumber: string;
+let accountId: string;
+let accountName: string;
+let financialAccountName: string;
 
 describe("General Inquiry Record Edit", () => {
   before(() => {

@@ -3,31 +3,31 @@ import * as faker from "faker";
 import { getRecordTypeID } from "./util";
 
 interface IAccount {
-  RecordTypeId: String;
-  FirstName: String;
-  LastName: String;
-  FinServ__Status__c: String;
-  FinServ__ClientCategory__c: String;
-  FinServ__MarketingSegment__c: String;
-  FinServ__PersonalInterests__c: String;
-  FinServ__FinancialInterests__c: String;
-  OCV_ID__c: Number;
-  FinServ__ServiceModel__c: String;
-  FinServ__ReviewFrequency__c: String;
+  RecordTypeId: string;
+  FirstName: string;
+  LastName: string;
+  FinServ__Status__c: string;
+  FinServ__ClientCategory__c: string;
+  FinServ__MarketingSegment__c: string;
+  FinServ__PersonalInterests__c: string;
+  FinServ__FinancialInterests__c: string;
+  OCV_ID__c: number;
+  FinServ__ServiceModel__c: string;
+  FinServ__ReviewFrequency__c: string;
   FinServ__LastReview__c: Date;
   FinServ__NextReview__c: Date;
   FinServ__LastInteraction__c: Date;
   FinServ__NextInteraction__c: Date;
-  FinServ__InvestmentExperience__c: String;
-  FinServ__InvestmentObjectives__c: String;
-  FinServ__TimeHorizon__c: String;
-  FinServ__RiskTolerance__c: String;
-  FinServ__NetWorth__c: String;
-  BillingStreet: String;
-  BillingCity: String;
-  BillingState: String;
-  BillingPostalCode: String;
-  BillingCountry: String;
+  FinServ__InvestmentExperience__c: string;
+  FinServ__InvestmentObjectives__c: string;
+  FinServ__TimeHorizon__c: string;
+  FinServ__RiskTolerance__c: string;
+  FinServ__NetWorth__c: string;
+  BillingStreet: string;
+  BillingCity: string;
+  BillingState: string;
+  BillingPostalCode: string;
+  BillingCountry: string;
 }
 
 /**
@@ -38,7 +38,7 @@ interface IAccount {
  */
 export async function createAccountList(
   amount: number = 1,
-  recordType: String = "PersonAccount"
+  recordType: string = "PersonAccount"
 ) {
   return new Promise(async resolve => {
     let accounts = [];
@@ -166,7 +166,7 @@ export async function createAccountList(
  */
 export async function getPersonAccount() {
   // Check if there are existing person accounts, if not create new ones
-  return new Promise<String>(resolve => {
+  return new Promise<string>(resolve => {
     jsForce.query(
       "SELECT Id, Name FROM Account WHERE RecordType.DeveloperName = 'PersonAccount' LIMIT 1",
       async function(err: any, result: any) {

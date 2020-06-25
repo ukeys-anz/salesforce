@@ -3,28 +3,28 @@ import * as faker from "faker";
 import { getRecordTypeID, getUserByAlias } from "./util";
 
 interface ICase {
-  IDR_Complainant_Type__c: String;
-  IDR_NC_First_Name__c: String;
-  IDR_NC_Last_Name__c: String;
-  IDR_NC_Email__c: String;
-  IDR_NC_Mobile__c: String;
-  IDR_NC_Street__c: String;
-  IDR_NC_Suburb__c: String;
-  IDR_NC_Postcode__c: String;
-  IDR_NC_Age__c: String;
-  IDR_NC_Gender__c: String;
-  IDR_NC_Descent__c: String;
-  IDR_NC_State__c: String;
-  Type: String;
-  IDR_Is_Common__c: Boolean;
-  Description: String;
-  IDR_Complainant_Desired_Outcome__c: String;
-  RecordTypeId: String;
-  IDR_Customer_Number__c: String;
-  IDR_Is_Written_Resp_Requested__c: String;
-  IDR_Is_Written_Resp_Required__c: String;
-  IDR_NC_Is_Consent_Obtained__c: Boolean;
-  OwnerId?: String;
+  IDR_Complainant_Type__c: string;
+  IDR_NC_First_Name__c: string;
+  IDR_NC_Last_Name__c: string;
+  IDR_NC_Email__c: string;
+  IDR_NC_Mobile__c: string;
+  IDR_NC_Street__c: string;
+  IDR_NC_Suburb__c: string;
+  IDR_NC_Postcode__c: string;
+  IDR_NC_Age__c: string;
+  IDR_NC_Gender__c: string;
+  IDR_NC_Descent__c: string;
+  IDR_NC_State__c: string;
+  Type: string;
+  IDR_Is_Common__c: boolean;
+  Description: string;
+  IDR_Complainant_Desired_Outcome__c: string;
+  RecordTypeId: string;
+  IDR_Customer_Number__c: string;
+  IDR_Is_Written_Resp_Requested__c: string;
+  IDR_Is_Written_Resp_Required__c: string;
+  IDR_NC_Is_Consent_Obtained__c: boolean;
+  OwnerId?: string;
 }
 
 /**
@@ -35,7 +35,7 @@ interface ICase {
  */
 export function createCaseList(
   amount: number = 1,
-  recordType: String = "Non_Customer_Complaint",
+  recordType: string = "Non_Customer_Complaint",
   alias: string
 ) {
   return new Promise(async resolve => {
@@ -118,7 +118,7 @@ export function createCaseList(
 }
 
 //This will be used for new scenario
-export const getCase = (devName: String) => {
+export const getCase = (devName: string) => {
   return new Promise<string>(resolve => {
     jsForce.query(
       `SELECT Max(CaseNumber) ID FROM Case where Status='Open' and RecordTypeId IN (SELECT Id FROM RecordType WHERE IsActive = TRUE AND sObjectType='Case' AND DeveloperName='${devName}')`,

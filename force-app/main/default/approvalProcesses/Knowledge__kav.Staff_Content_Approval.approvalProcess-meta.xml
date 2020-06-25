@@ -20,6 +20,10 @@
                 <name>Publish_Article</name>
                 <type>KnowledgePublish</type>
             </action>
+            <action>
+                <name>Update_Status_to_Approved</name>
+                <type>FieldUpdate</type>
+            </action>
         </approvalActions>
         <assignedApprover>
             <approver>
@@ -31,6 +35,12 @@
         <description>Approval step for content managers</description>
         <label>Content Manager Approval</label>
         <name>Content_Manager_Approval</name>
+        <rejectionActions>
+            <action>
+                <name>Update_Status_to_Rejected</name>
+                <type>FieldUpdate</type>
+            </action>
+        </rejectionActions>
     </approvalStep>
     <description>Approval process for content users to review and approve knowledge articles</description>
     <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
@@ -51,6 +61,12 @@
     </entryCriteria>
     <finalApprovalRecordLock>false</finalApprovalRecordLock>
     <finalRejectionRecordLock>false</finalRejectionRecordLock>
+    <initialSubmissionActions>
+        <action>
+            <name>Update_Status_to_Submitted</name>
+            <type>FieldUpdate</type>
+        </action>
+    </initialSubmissionActions>
     <label>Staff Content Approval</label>
     <recordEditability>AdminOnly</recordEditability>
     <showApprovalHistory>false</showApprovalHistory>

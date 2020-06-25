@@ -6,7 +6,7 @@ import { createCaseList } from "../../../../objectStore/complaint";
 
 /*** DECLARATIONS ***/
 let caseId: any;
-let recordType: String = "Customer_Complaint";
+let recordType: string = "Customer_Complaint";
 
 describe("Customer Record Escalation", () => {
   before(() => {

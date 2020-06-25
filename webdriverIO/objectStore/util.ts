@@ -5,8 +5,8 @@ import { jsForce } from "../utilities/jsforce";
  * @param sObject Object api name
  * @param devName Record type developer name
  */
-export async function getRecordTypeID(sObject: String, devName: String) {
-  return new Promise<String>(resolve => {
+export async function getRecordTypeID(sObject: string, devName: string) {
+  return new Promise<string>(resolve => {
     jsForce.query(
       `SELECT Id FROM RecordType WHERE IsActive = TRUE AND sObjectType= '${sObject}' AND DeveloperName='${devName}'`,
       (err: any, result: any) => {

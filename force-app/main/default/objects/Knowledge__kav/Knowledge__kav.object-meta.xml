@@ -25,6 +25,13 @@
     <label>Knowledge</label>
     <pluralLabel>Knowledge</pluralLabel>
     <searchLayouts>
+        <customTabListAdditionalFields>TITLE</customTabListAdditionalFields>
         <excludedStandardButtons>MassPublishKnowledgeArticleVersion</excludedStandardButtons>
+        <searchResultsAdditionalFields>TITLE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ABSTRACT</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ARTICLE_NUMBER</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>PUBLISH_STATUS</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CREATEDBY_USER</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CREATED_DATE</searchResultsAdditionalFields>
     </searchLayouts>
 </CustomObject>

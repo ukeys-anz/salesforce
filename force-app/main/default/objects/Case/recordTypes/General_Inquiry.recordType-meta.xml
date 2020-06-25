@@ -2387,10 +2387,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Financial Hardship</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>High</fullName>
             <default>false</default>
         </values>
@@ -2401,11 +2397,7 @@
         <values>
             <fullName>Medium</fullName>
             <default>true</default>
-        </values>
-        <values>
-            <fullName>Vulnerable Customer</fullName>
-            <default>false</default>
-        </values>
+        </values> 
     </picklistValues>
     <picklistValues>
         <picklist>Reason</picklist>
