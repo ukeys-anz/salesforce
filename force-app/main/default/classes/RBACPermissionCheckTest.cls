@@ -40,10 +40,10 @@ public class RBACPermissionCheckTest {
       'EmployeeWorkOrder'*/
     };
 
-    PermissionChecker.PermissionReport pReport = PermissionChecker.HasReadAllPermission(
+    PermissionChecker.PermissionReport pReport = PermissionChecker.hasReadAllPermission(
       objectList,
       idrUser.id
     );
-    System.assertEquals(false, pReport.HasPermission);
+    System.assertEquals(false, pReport.hasPermission);
   }
 }

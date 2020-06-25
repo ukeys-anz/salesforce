@@ -4,8 +4,14 @@
  * @since 06/2020
  * @description Report whether a given user has 'Read' permission on a particular type of sObject
  */
-public class PermissionChecker {
-  public static PermissionReport HasReadAllPermission(
+public with sharing class PermissionChecker {
+  /**
+   * @description check if user has permissions to sobjects
+   * @param sObjectList array of sObjects
+   * @param userId Id of user to check permissions against
+   * @return Permission Report
+   */
+  public static PermissionReport hasReadAllPermission(
     String[] sObjectList,
     Id userId
   ) {
@@ -27,22 +33,36 @@ public class PermissionChecker {
         AND Assignee.Id = :userId
     ];
 
-    report.HasPermission = permSetAssignments.size() > 0;
+    report.hasPermission = permSetAssignments.size() > 0;
 
-    if (report.HasPermission) {
+    if (report.hasPermission) {
       PermissionSetAssignment permSetAssignment = permSetAssignments[0];
-      report.IsProfile = permSetAssignment.PermissionSet.isOwnedByProfile;
-      report.Label = report.IsProfile
+      report.isProfile = permSetAssignment.PermissionSet.isOwnedByProfile;
+      report.label = report.isProfile
         ? permSetAssignment.PermissionSet.Profile.Name
-        : permSetAssignment.PermissionSet.Label;
+        : permSetAssignment.PermissionSet.label;
     }
 
     return report;
   }
 
+  /**
+   * @description Report on users permission
+   */
   public class PermissionReport {
-    public boolean HasPermission { get; set; } // true if have permission via profile or permission set
-    public boolean IsProfile { get; set; } // true if profile, false if permission set
-    public String Label { get; set; } // the name of the profile or permission set granting access
+    /**
+     * @description Getter/Setter for whether or not user has permission
+     */
+    public boolean hasPermission { get; set; }
+
+    /**
+     * @description Getter/Setter for whether or not users permissions are from profile
+     */
+    public boolean isProfile { get; set; }
+
+    /**
+     * @description Getter/Setter for the name of the profile or permission set granting access
+     */
+    public String label { get; set; }
   }
 }
