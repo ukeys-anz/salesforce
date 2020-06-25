@@ -20,6 +20,12 @@ exports.config = {
   // directory is where your package.json resides, so `wdio` will be called from there.
   //
   specs: ["./webdriverIO-build/test/specs/**/*.js"],
+  suites: {
+    coachesWorkbench: [
+      "./webdriverIO-build/test/specs/coachesWorkbench/**/*.js"
+    ],
+    complaintMgt: ["./webdriverIO-build/test/specs/complaintMgt/**/*.js"]
+  },
   // Patterns to exclude.
   exclude: [
     // 'path/to/excluded/files'
@@ -144,12 +150,21 @@ exports.config = {
   // The only one supported by default is 'dot'
   // see also: https://webdriver.io/docs/dot-reporter.html
   reporters: [
-    "spec",
     [
-      video,
+      "spec",
+      [
+        video,
+        {
+          saveAllVideos: false,
+          videoSlowdownMultiplier: 3 // Higher to get slower videos, lower for faster videos [Value 1-100]
+        }
+      ]
+    ],
+    [
+      "allure",
       {
-        saveAllVideos: false, // If true, also saves videos for successful test cases
-        videoSlowdownMultiplier: 3 // Higher to get slower videos, lower for faster videos [Value 1-100]
+        outputDir: "allure-results",
+        disableWebdriverScreenshotsReporting: false
       }
     ]
   ],
@@ -251,8 +266,15 @@ exports.config = {
   /**
    * Function to be executed after a test (in Mocha/Jasmine).
    */
-  // afterTest: function(test, context, { error, result, duration, passed, retries }) {
-  // },
+  afterTest: function(
+    test,
+    context,
+    { error, result, duration, passed, retries }
+  ) {
+    if (error !== undefined) {
+      browser.takeScreenshot();
+    }
+  }
 
   /**
    * Hook that gets executed after the suite has ended
@@ -276,11 +298,11 @@ exports.config = {
    * @param {Array.<Object>} capabilities list of capabilities details
    * @param {Array.<String>} specs List of spec file paths that ran
    */
-  after: function(result, capabilities, specs) {
-    if (result === 1) {
-      browser.debug();
-    }
-  }
+  // after: function (result, capabilities, specs) {
+  //   if (result === 1) {
+  //     browser.debug();
+  //   }
+  // }
   /**
    * Gets executed right after terminating the webdriver session.
    * @param {Object} config wdio configuration object
