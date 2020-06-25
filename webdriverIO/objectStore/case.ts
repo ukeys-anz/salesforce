@@ -4,17 +4,17 @@ import { getRecordTypeID, getUserByAlias } from "./util";
 import { getFinAccount } from "./financialAccount";
 
 interface ICase {
-  Description: String;
-  Status: String;
-  Type: String;
-  Sub_Type__c: String;
-  Additional_Type__c: String;
-  Origin: String;
-  Priority: String;
-  RecordTypeId: String;
-  AccountId: String;
-  FinServ__FinancialAccount__c: String;
-  ParentId: String;
+  Description: string;
+  Status: string;
+  Type: string;
+  Sub_Type__c: string;
+  Additional_Type__c: string;
+  Origin: string;
+  Priority: string;
+  RecordTypeId: string;
+  AccountId: string;
+  FinServ__FinancialAccount__c: string;
+  ParentId: string;
   OwnerId?: string;
 }
 
@@ -26,12 +26,12 @@ interface ICase {
  */
 export function createCaseList(
   amount: number = 1,
-  recordType: String = "General_Inquiry",
+  recordType: string = "General_Inquiry",
   alias: string
 ) {
   return new Promise(async resolve => {
     let finAccountList: any = await getFinAccount();
-    let recordTypeId: String = await getRecordTypeID("Case", recordType);
+    let recordTypeId: string = await getRecordTypeID("Case", recordType);
     let parentCaseList: any = await getParentCase(
       recordTypeId,
       finAccountList[0].FinServ__PrimaryOwner__c
@@ -127,7 +127,7 @@ export async function getParentCase(recordTypeId: any, accountId: any) {
     return null;
   }
   // Check if there are existing parent case, if not create new ones
-  return new Promise<String>(resolve => {
+  return new Promise<string>(resolve => {
     jsForce.query(
       `SELECT Id, CaseNumber FROM Case WHERE RecordTypeId = '${recordTypeId}' and ParentId = null LIMIT 1`,
       async function(err: any, result: any) {
@@ -225,11 +225,11 @@ export async function getParentCase(recordTypeId: any, accountId: any) {
  */
 export async function createBlankCase(
   amount: number = 1,
-  recordType: String,
+  recordType: string,
   alias: string
 ) {
   return new Promise(async resolve => {
-    let recordTypeId: String = await getRecordTypeID("Case", recordType);
+    let recordTypeId: string = await getRecordTypeID("Case", recordType);
     let user: any = await getUserByAlias(alias);
     let cases: any = [];
     let idList: any = [];

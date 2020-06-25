@@ -12,14 +12,13 @@ import { getFinAccount } from "../../../../objectStore/financialAccount";
 /*** COMMON VALUE IMPORTS ***/
 import {
   status,
-  channelReceived,
-  caseReason
+  channelReceived
 } from "../../../../pages/coachesWorkbench/common/generalInquiry";
 
 /*** DECLARATIONS ***/
-let accountId: String;
-let accountName: String;
-let financialAccountName: String;
+let accountId: string;
+let accountName: string;
+let financialAccountName: string;
 
 describe("General Inquiry Record Creation", () => {
   before(() => {

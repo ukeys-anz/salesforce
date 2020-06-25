@@ -4,16 +4,17 @@ import { getPersonAccount } from "./account";
 import { getRecordTypeID } from "./util";
 
 interface IFinAccount {
-  RecordTypeId: String;
-  Name: String;
-  FinServ__FinancialAccountType__c: String;
-  FinServ__Status__c: String;
-  FinServ__Ownership__c: String;
-  FinServ__Balance__c: Number;
+  RecordTypeId: string;
+  Name: string;
+  FinServ__FinancialAccountType__c: string;
+  FinServ__Status__c: string;
+  FinServ__Ownership__c: string;
+  FinServ__Balance__c: number;
   FinServ__OpenDate__c: Date;
-  FinServ__FinancialAccountNumber__c: String;
-  FinServ__PrimaryOwner__c: String;
+  FinServ__FinancialAccountNumber__c: string;
+  FinServ__PrimaryOwner__c: string;
 }
+
 /**
  * @description Creates new Financial Account records depending on the amount passed and record type.
  * By default creates Non_Customer_Complaint record type complaint
@@ -22,11 +23,11 @@ interface IFinAccount {
  */
 export async function createFinAccountList(
   amount: number = 1,
-  recordType: String = "SavingsAccount"
+  recordType: string = "SavingsAccount"
 ) {
-  return new Promise<String>(async resolve => {
-    let ownerId: String = "";
-    let ownerName: String = "";
+  return new Promise<string>(async resolve => {
+    let ownerId: string = "";
+    let ownerName: string = "";
     let finAccounts = [];
     let idList: any = [];
     let recTypeId = await getRecordTypeID(
@@ -88,7 +89,7 @@ export async function createFinAccountList(
  */
 export async function getFinAccount() {
   // Check if there are existing financial accounts, if not create new ones
-  return new Promise<String>(resolve => {
+  return new Promise<string>(resolve => {
     jsForce.query(
       "SELECT Id, Name, FinServ__PrimaryOwner__c FROM FinServ__FinancialAccount__c WHERE RecordType.DeveloperName = 'SavingsAccount' LIMIT 1",
       async function(err: any, result: any) {
