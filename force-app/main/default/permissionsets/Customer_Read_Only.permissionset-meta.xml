@@ -197,6 +197,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>FinServ__FinancialAccount__c.FinServ__CurrentPostedBalance__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__FinancialAccount__c.FinServ__FinancialAccountNumber__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>FinServ__FinancialAccount__c.FinServ__FinancialAccountType__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -217,12 +227,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>FinServ__FinancialAccount__c.FinServ__OwnerType__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>FinServ__FinancialAccount__c.FinServ__Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>FinServ__FinancialAccount__c.FinServ__Type__c</field>
+        <field>FinServ__FinancialAccount__c.Interest_Accrued__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
@@ -264,7 +279,7 @@
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <recordTypeVisibilities>
-        <recordType>FinServ__FinancialAccount__c.FinServ__BankingAccount</recordType>
+        <recordType>FinServ__FinancialAccount__c.FinServ__CheckingAccount</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>

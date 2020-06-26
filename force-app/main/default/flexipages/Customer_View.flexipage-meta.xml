@@ -36,15 +36,8 @@
     <flexiPageRegions>
         <componentInstances>
             <componentInstanceProperties>
-                <name>fieldSet</name>
-                <value>FSC_Banker_Profile_Fin_Acct_Summary</value>
-            </componentInstanceProperties>
-            <componentName>FinServ:financialSummary</componentName>
-        </componentInstances>
-        <componentInstances>
-            <componentInstanceProperties>
                 <name>faFieldSet</name>
-                <value>WM_Client_BankingAccount</value>
+                <value>FSC_Client_EverydayAccount</value>
             </componentInstanceProperties>
             <componentInstanceProperties>
                 <name>iconName</name>
@@ -52,30 +45,11 @@
             </componentInstanceProperties>
             <componentInstanceProperties>
                 <name>recordTypeNames</name>
-                <value>FinServ__BankingAccount</value>
+                <value>FinServ__CheckingAccount</value>
             </componentInstanceProperties>
             <componentInstanceProperties>
                 <name>title</name>
-                <value>Bank Accounts</value>
-            </componentInstanceProperties>
-            <componentName>FinServ:financialAccountList</componentName>
-        </componentInstances>
-        <componentInstances>
-            <componentInstanceProperties>
-                <name>faFieldSet</name>
-                <value>FSC_Client_SavingsAccount</value>
-            </componentInstanceProperties>
-            <componentInstanceProperties>
-                <name>iconName</name>
-                <value>custom:custom16</value>
-            </componentInstanceProperties>
-            <componentInstanceProperties>
-                <name>recordTypeNames</name>
-                <value>FinServ__SavingsAccount</value>
-            </componentInstanceProperties>
-            <componentInstanceProperties>
-                <name>title</name>
-                <value>Savings Account</value>
+                <value>Everyday Account</value>
             </componentInstanceProperties>
             <componentName>FinServ:financialAccountList</componentName>
         </componentInstances>
