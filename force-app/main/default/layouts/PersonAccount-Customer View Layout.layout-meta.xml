@@ -278,13 +278,22 @@
         <fields>FinServ__StartDate__c</fields>
         <relatedList>FinServ__FinancialAccountRole__c.FinServ__RelatedAccount__c</relatedList>
     </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>Financial_Account__c</fields>
+        <fields>FinServ__TargetValue__c</fields>
+        <fields>CREATED_DATE</fields>
+        <fields>FinServ__TargetDate__c</fields>
+        <fields>FinServ__ActualValue__c</fields>
+        <relatedList>FinServ__FinancialGoal__c.FinServ__PrimaryOwner__c</relatedList>
+    </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>true</showHighlightsPanel>
     <showInteractionLogPanel>true</showInteractionLogPanel>
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2N000000gGge</masterLabel>
+        <masterLabel>00h2N000000hXV2</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>
