@@ -196,6 +196,10 @@
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <recordTypeVisibilities>
+        <recordType>FinServ__FinancialAccount__c.FinServ__CheckingAccount</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
         <recordType>FinServ__FinancialAccount__c.FinServ__SavingsAccount</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
