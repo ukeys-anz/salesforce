@@ -37,7 +37,7 @@
         <componentInstances>
             <componentInstanceProperties>
                 <name>faFieldSet</name>
-                <value>FSC_Client_SavingsAccount</value>
+                <value>FSC_Client_EverydayAccount</value>
             </componentInstanceProperties>
             <componentInstanceProperties>
                 <name>iconName</name>
@@ -45,11 +45,11 @@
             </componentInstanceProperties>
             <componentInstanceProperties>
                 <name>recordTypeNames</name>
-                <value>FinServ__SavingsAccount</value>
+                <value>FinServ__CheckingAccount</value>
             </componentInstanceProperties>
             <componentInstanceProperties>
                 <name>title</name>
-                <value>Savings Account</value>
+                <value>Everyday Account</value>
             </componentInstanceProperties>
             <componentName>FinServ:financialAccountList</componentName>
         </componentInstances>
