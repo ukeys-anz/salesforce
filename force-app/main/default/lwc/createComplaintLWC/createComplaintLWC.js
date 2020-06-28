@@ -266,7 +266,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
     if (!this.hasNominatedThirdParty) {
       fields[THIRD_PARTY_COUNTRY_FIELD.fieldApiName] = "";
     }
-    let valid = this.checkRequiredFields(fields);
+    let valid =
+      this.checkRequiredFields(fields) &&
+      (!this.isCustomerComplaint || this.checkCustomerNumberFormat());
     if (valid) {
       this.loading = true;
       const recordInput = { apiName: CASE_OBJECT.objectApiName, fields };
@@ -286,7 +288,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     }
   }
 
-  handleCustomerNumberOnblur(event) {
+  checkCustomerNumberFormat(event) {
     let capCisfield = this.template.querySelector(".inputCapCisId");
     if (!this.customerIdValue.match("^[1-9]\\d{9,15}$")) {
       //set an error
@@ -294,10 +296,12 @@ export default class CreateComplaintLWC extends NavigationMixin(
         "Must be a number between 10 and 16 digits long."
       );
       capCisfield.reportValidity();
+      return false;
     } else {
       //reset an error
       capCisfield.setCustomValidity("");
       capCisfield.reportValidity();
+      return true;
     }
   }
 
