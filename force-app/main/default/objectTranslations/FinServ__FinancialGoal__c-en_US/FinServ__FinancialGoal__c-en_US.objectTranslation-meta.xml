@@ -1,18 +1,3 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fieldSets>
-        <label><!-- Financial Goal --></label>
-        <name>WM_Client_FinancialGoal</name>
-    </fieldSets>
-    <fieldSets>
-        <label><!-- Financial Goal --></label>
-        <name>WM_Household_FinancialGoal</name>
-    </fieldSets>
-    <layouts>
-        <layout>Financial Goal Layout</layout>
-        <sections>
-            <label><!-- Goal Progress Tracking --></label>
-            <section>Goal Progress Tracking</section>
-        </sections>
-    </layouts>
 </CustomObjectTranslation>
