@@ -27,9 +27,9 @@ public class RBACPermissionCheckTest {
     //Once available they will be uncommented.
     String[] objectList = new List<String>{
       'Asset',
-      // 'Campaign',
+      'Campaign',
       'Opportunity',
-      // 'Lead',
+      'Lead',
       'Order',
       'PriceBook2',
       'Quote',
