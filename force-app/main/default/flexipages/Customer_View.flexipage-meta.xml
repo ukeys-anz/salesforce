@@ -36,15 +36,8 @@
     <flexiPageRegions>
         <componentInstances>
             <componentInstanceProperties>
-                <name>fieldSet</name>
-                <value>FSC_Banker_Profile_Fin_Acct_Summary</value>
-            </componentInstanceProperties>
-            <componentName>FinServ:financialSummary</componentName>
-        </componentInstances>
-        <componentInstances>
-            <componentInstanceProperties>
                 <name>faFieldSet</name>
-                <value>WM_Client_BankingAccount</value>
+                <value>FSC_Client_EverydayAccount</value>
             </componentInstanceProperties>
             <componentInstanceProperties>
                 <name>iconName</name>
@@ -52,34 +45,45 @@
             </componentInstanceProperties>
             <componentInstanceProperties>
                 <name>recordTypeNames</name>
-                <value>FinServ__BankingAccount</value>
+                <value>FinServ__CheckingAccount</value>
             </componentInstanceProperties>
             <componentInstanceProperties>
                 <name>title</name>
-                <value>Bank Accounts</value>
-            </componentInstanceProperties>
-            <componentName>FinServ:financialAccountList</componentName>
-        </componentInstances>
-        <componentInstances>
-            <componentInstanceProperties>
-                <name>faFieldSet</name>
-                <value>FSC_Client_SavingsAccount</value>
-            </componentInstanceProperties>
-            <componentInstanceProperties>
-                <name>iconName</name>
-                <value>custom:custom16</value>
-            </componentInstanceProperties>
-            <componentInstanceProperties>
-                <name>recordTypeNames</name>
-                <value>FinServ__SavingsAccount</value>
-            </componentInstanceProperties>
-            <componentInstanceProperties>
-                <name>title</name>
-                <value>Savings Account</value>
+                <value>Everyday Account</value>
             </componentInstanceProperties>
             <componentName>FinServ:financialAccountList</componentName>
         </componentInstances>
         <name>Facet-38542d18-173f-433f-9c89-ca29567d4672</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <componentInstances>
+            <componentName>FinServ:goalDetailList</componentName>
+        </componentInstances>
+        <componentInstances>
+            <componentInstanceProperties>
+                <name>parentFieldApiName</name>
+                <value>Account.Id</value>
+            </componentInstanceProperties>
+            <componentInstanceProperties>
+                <name>relatedListApiName</name>
+                <value>FinServ__ClientFinancialGoals__r</value>
+            </componentInstanceProperties>
+            <componentInstanceProperties>
+                <name>relatedListComponentOverride</name>
+                <value>ADVGRID</value>
+            </componentInstanceProperties>
+            <componentInstanceProperties>
+                <name>rowsToDisplay</name>
+                <value>10</value>
+            </componentInstanceProperties>
+            <componentInstanceProperties>
+                <name>showActionBar</name>
+                <value>false</value>
+            </componentInstanceProperties>
+            <componentName>force:relatedListSingleContainer</componentName>
+        </componentInstances>
+        <name>Facet-e3e78d13-0098-4017-a4ca-fffb1d2f8ebe</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -110,6 +114,17 @@
             <componentInstanceProperties>
                 <name>title</name>
                 <value>Financial Accounts</value>
+            </componentInstanceProperties>
+            <componentName>flexipage:tab</componentName>
+        </componentInstances>
+        <componentInstances>
+            <componentInstanceProperties>
+                <name>body</name>
+                <value>Facet-e3e78d13-0098-4017-a4ca-fffb1d2f8ebe</value>
+            </componentInstanceProperties>
+            <componentInstanceProperties>
+                <name>title</name>
+                <value>Goals</value>
             </componentInstanceProperties>
             <componentName>flexipage:tab</componentName>
         </componentInstances>
