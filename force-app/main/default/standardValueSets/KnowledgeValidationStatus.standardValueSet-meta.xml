@@ -3,7 +3,7 @@
     <sorted>false</sorted>
     <standardValue>
         <fullName>Submitted</fullName>
-        <default>true</default>
+        <default>false</default>
         <label>Submitted</label>
     </standardValue>
     <standardValue>
@@ -15,5 +15,15 @@
         <fullName>Rejected</fullName>
         <default>false</default>
         <label>Rejected</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Validated</fullName>
+        <default>false</default>
+        <label>Validated</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Not Validated</fullName>
+        <default>true</default>
+        <label>Not Validated</label>
     </standardValue>
 </StandardValueSet>
