@@ -5,6 +5,7 @@ import GeneralInquiry from "../../../../pages/coachesWorkbench/create/generalInq
 /*** UTILITIES IMPORTS ***/
 import { jsForce } from "../../../../utilities/jsforce";
 import * as faker from "faker";
+import CustomError from "../../../../utilities/customErrorHandler";
 
 /*** OBJECT STORE IMPORTS ***/
 import { getFinAccount } from "../../../../objectStore/financialAccount";
@@ -14,7 +15,6 @@ import {
   status,
   channelReceived
 } from "../../../../pages/coachesWorkbench/common/generalInquiry";
-import CustomError from "../../../../utilities/customErrorHandler";
 
 /*** DECLARATIONS ***/
 let accountId: string;
