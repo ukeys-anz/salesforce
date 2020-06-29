@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_Account_Card_Policy_Number__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Trusted</complianceGroup>
     <description>Account/Card/Policy the complaint relates to. Contents will be automatically masked leaving last 4 digits identifiable.</description>
     <externalId>false</externalId>
     <inlineHelpText>Account/Card/Policy the complaint relates to. Contents will be automatically masked leaving last 4 digits identifiable.</inlineHelpText>
     <label>Account/Card/Policy Number</label>
     <length>42</length>
+    <securityClassification>Confidential</securityClassification>
     <required>false</required>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
