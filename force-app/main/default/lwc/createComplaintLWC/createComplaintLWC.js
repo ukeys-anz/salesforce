@@ -213,7 +213,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   handleSearch(event) {
     this.displayCustomerInfo = true;
-    this.customerId = this.customerIdValue;
+    this.customerId = this.customerIdValue.replace(/^0+/, "");
   }
 
   handleCustomerNumberChange(event) {
