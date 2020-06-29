@@ -2,6 +2,7 @@ import { jsForce } from "../utilities/jsforce";
 import * as faker from "faker";
 import { getRecordTypeID, getUserByAlias } from "./util";
 import { getFinAccount } from "./financialAccount";
+import CustomError from "../utilities/customErrorHandler";
 
 interface ICase {
   Description: string;
@@ -96,9 +97,12 @@ export function createCaseList(
       },
       (err: any, result: any) => {
         if (err) {
-          return console.log("error", err);
+          throw new CustomError("Failed to create Case record", err);
         } else if (!result[0].success) {
-          return console.log("error", result[0].errors[0].message);
+          throw new CustomError(
+            "Failed to create new Case record",
+            result[0].errors[0].message
+          );
         }
         //Loop through the result to create a list of ids
         result.forEach((item: any, index: any) => {
@@ -107,7 +111,7 @@ export function createCaseList(
         //Retrieve the new cases using the created id list and return the results
         jsForce.sobject("Case").retrieve(idList, (err: any, result: any) => {
           if (err) {
-            return console.log("error", err);
+            throw new CustomError("Failed to retrieve Case record", err);
           }
           resolve(result);
         });
@@ -123,8 +127,7 @@ export function createCaseList(
  */
 export async function getParentCase(recordTypeId: any, accountId: any) {
   if (!recordTypeId || !accountId) {
-    console.error("Record Type ID or Account ID is null");
-    return null;
+    throw new CustomError("Record Type ID or Account ID is null");
   }
   // Check if there are existing parent case, if not create new ones
   return new Promise<string>(resolve => {
@@ -132,7 +135,7 @@ export async function getParentCase(recordTypeId: any, accountId: any) {
       `SELECT Id, CaseNumber FROM Case WHERE RecordTypeId = '${recordTypeId}' and ParentId = null LIMIT 1`,
       async function(err: any, result: any) {
         if (err) {
-          return console.error(err);
+          throw new CustomError("Failed to query case", err);
         }
         if (result.records.length > 0) {
           resolve(result.records);
@@ -193,9 +196,12 @@ export async function getParentCase(recordTypeId: any, accountId: any) {
             },
             (err: any, result: any) => {
               if (err) {
-                return console.log("error", err);
+                throw new CustomError("Failed to create Case record", err);
               } else if (!result[0].success) {
-                return console.log("error", result[0].errors[0].message);
+                throw new CustomError(
+                  "Failed to create new Case record",
+                  result[0].errors[0].message
+                );
               }
               //Loop through the result to create a list of ids
               result.forEach((item: any, index: any) => {
@@ -206,7 +212,7 @@ export async function getParentCase(recordTypeId: any, accountId: any) {
                 .sobject("Case")
                 .retrieve(idList, (err: any, result: any) => {
                   if (err) {
-                    return console.log("error", err);
+                    throw new CustomError("Failed to retrieve case", err);
                   }
                   resolve(result);
                 });
@@ -252,9 +258,12 @@ export async function createBlankCase(
       },
       (err: any, result: any) => {
         if (err) {
-          return console.log("error", err);
+          throw new CustomError("Failed to insert Case record", err);
         } else if (!result[0].success) {
-          return console.log("error", result[0].errors[0].message);
+          throw new CustomError(
+            "Failed to insert new Case record",
+            result[0].errors[0].message
+          );
         }
 
         //Loop through the result to create a list of ids
@@ -265,7 +274,7 @@ export async function createBlankCase(
         //Retrieve the new cases using the created id list and return the results
         jsForce.sobject("Case").retrieve(idList, (err: any, result: any) => {
           if (err) {
-            return console.log("error", err);
+            throw new CustomError("Failed to retrieve case record", err);
           }
           resolve(result);
         });

@@ -1,6 +1,7 @@
 import { jsForce } from "../utilities/jsforce";
 import * as faker from "faker";
 import { getRecordTypeID, getUserByAlias } from "./util";
+import CustomError from "../utilities/customErrorHandler";
 
 interface ICase {
   IDR_Complainant_Type__c: string;
@@ -97,7 +98,7 @@ export function createCaseList(
       },
       (err: any, result: any) => {
         if (!result[0].success) {
-          return console.log("error", result[0].errors);
+          throw new CustomError("Failed to create case", result[0].errors);
         }
         //Loop through the result to create a list of ids
         result.forEach((item: any) => {
@@ -108,7 +109,7 @@ export function createCaseList(
         //Retrieve the new accounts using the created id list and return the results
         jsForce.sobject("Case").retrieve(idList, (err: any, result: any) => {
           if (err) {
-            return console.log("error", err);
+            throw new CustomError("Failed to retrieve case", err);
           }
           resolve(result);
         });
@@ -124,7 +125,7 @@ export const getCase = (devName: string) => {
       `SELECT Max(CaseNumber) ID FROM Case where Status='Open' and RecordTypeId IN (SELECT Id FROM RecordType WHERE IsActive = TRUE AND sObjectType='Case' AND DeveloperName='${devName}')`,
       (err: any, result: any) => {
         if (err) {
-          return console.error(err);
+          throw new CustomError("Failed to get case", err);
         }
         resolve(result.records[0].ID);
       }

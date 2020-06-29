@@ -1,6 +1,7 @@
 import { jsForce } from "../utilities/jsforce";
 import * as faker from "faker";
 import { getRecordTypeID } from "./util";
+import CustomError from "../utilities/customErrorHandler";
 
 interface IAccount {
   RecordTypeId: string;
@@ -142,7 +143,7 @@ export async function createAccountList(
 
     jsForce.sobject("Account").create(accounts, (err: any, result: any) => {
       if (err) {
-        return console.log("error", err);
+        throw new CustomError("Failed to create Account", err);
       }
 
       //Loop through the result to create a list of ids
@@ -153,7 +154,7 @@ export async function createAccountList(
       //Retrieve the new accounts using the created id list and return the results
       jsForce.sobject("Account").retrieve(idList, (err: any, result: any) => {
         if (err) {
-          return console.log("error", err);
+          throw new CustomError("Failed to retrieve Account", err);
         }
         resolve(result);
       });
@@ -171,7 +172,7 @@ export async function getPersonAccount() {
       "SELECT Id, Name FROM Account WHERE RecordType.DeveloperName = 'PersonAccount' LIMIT 1",
       async function(err: any, result: any) {
         if (err) {
-          return console.error(err);
+          throw new CustomError("Failed to query Record Type", err);
         }
 
         if (result.records.length > 0) {

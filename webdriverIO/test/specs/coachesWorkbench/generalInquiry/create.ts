@@ -14,6 +14,7 @@ import {
   status,
   channelReceived
 } from "../../../../pages/coachesWorkbench/common/generalInquiry";
+import CustomError from "../../../../utilities/customErrorHandler";
 
 /*** DECLARATIONS ***/
 let accountId: string;
@@ -29,7 +30,7 @@ describe("General Inquiry Record Creation", () => {
         "SELECT Id, Name FROM Account WHERE Id = '" + accountId + "' LIMIT 1",
         async function(err: any, result: any) {
           if (err) {
-            return console.error(err);
+            throw new CustomError("Failed to retrieve Account", err);
           }
           accountName = result.records[0].Name;
         }

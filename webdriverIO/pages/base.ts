@@ -1,4 +1,5 @@
 import userList from "../utilities/userList.json";
+import CustomError from "../utilities/customErrorHandler.js";
 
 /**
  * Contains shared functions. Each class should extend this base class
@@ -55,7 +56,7 @@ export default class Base {
         browser.pause(5000);
         break;
       default:
-        console.error("Invalid view");
+        throw new CustomError("Invalid view");
         break;
     }
   }
