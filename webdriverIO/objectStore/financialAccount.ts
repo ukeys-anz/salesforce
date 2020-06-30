@@ -11,6 +11,8 @@ interface IFinAccount {
   FinServ__Status__c: string;
   FinServ__Ownership__c: string;
   FinServ__Balance__c: number;
+  FinServ__CurrentPostedBalance__c: number;
+  Interest_Accrued__c: number;
   FinServ__OpenDate__c: Date;
   FinServ__FinancialAccountNumber__c: string;
   FinServ__PrimaryOwner__c: string;
@@ -24,7 +26,7 @@ interface IFinAccount {
  */
 export async function createFinAccountList(
   amount: number = 1,
-  recordType: string = "SavingsAccount"
+  recordType: string = "CheckingAccount"
 ) {
   return new Promise<string>(async resolve => {
     let ownerId: string = "";
@@ -51,6 +53,10 @@ export async function createFinAccountList(
         ]),
         FinServ__Ownership__c: faker.random.arrayElement(["Individual"]),
         FinServ__Balance__c: parseFloat(faker.commerce.price(99, 9999, 2)),
+        FinServ__CurrentPostedBalance__c: parseFloat(
+          faker.commerce.price(99, 5999, 2)
+        ),
+        Interest_Accrued__c: parseFloat(faker.commerce.price(10, 999, 2)),
         FinServ__OpenDate__c: faker.date.past(2),
         FinServ__FinancialAccountNumber__c: faker.finance.account(9),
         FinServ__PrimaryOwner__c: accountList[0].Id
