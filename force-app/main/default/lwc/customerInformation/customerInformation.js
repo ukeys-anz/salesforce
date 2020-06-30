@@ -19,7 +19,7 @@ export default class CustomerInformation extends LightningElement {
     if (this.customerId) {
       this.loaded = false;
       this.customerInfo = null;
-      this.custData(this.customerId);
+      this.custData(this.customerId.replace(/^0+/, ""));
     }
   }
 
@@ -27,7 +27,9 @@ export default class CustomerInformation extends LightningElement {
   wiredProject({ error, data }) {
     if (data && this.record !== data) {
       this.record = data;
-      this.custData(this.record.fields.IDR_Customer_Number__c.value);
+      this.custData(
+        this.record.fields.IDR_Customer_Number__c.value.replace(/^0+/, "")
+      );
     } else if (error) {
       this.handleError(error);
     }
