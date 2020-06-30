@@ -2,6 +2,7 @@ import { jsForce } from "../utilities/jsforce";
 import * as faker from "faker";
 import { getPersonAccount } from "./account";
 import { getRecordTypeID } from "./util";
+import CustomError from "../utilities/customErrorHandler";
 
 interface IFinAccount {
   RecordTypeId: string;
@@ -61,9 +62,12 @@ export async function createFinAccountList(
       .sobject("FinServ__FinancialAccount__c")
       .create(finAccounts, (err: any, result: any) => {
         if (err) {
-          return console.log("error", err);
+          throw new CustomError("Failed to create Financial Account", err);
         } else if (!result[0].success) {
-          return console.log("error", result[0].errors[0].message);
+          throw new CustomError(
+            "Failed to create new Financial Account",
+            result[0].errors[0].message
+          );
         }
         //Loop through the result to create a list of ids
         result.forEach((item: any) => {
@@ -76,7 +80,10 @@ export async function createFinAccountList(
           .sobject("FinServ__FinancialAccount__c")
           .retrieve(idList, (err: any, result: any) => {
             if (err) {
-              return console.log("error", err);
+              throw new CustomError(
+                "Failed to retrieve Financial Account",
+                err
+              );
             }
             resolve(result);
           });
@@ -94,7 +101,7 @@ export async function getFinAccount() {
       "SELECT Id, Name, FinServ__PrimaryOwner__c FROM FinServ__FinancialAccount__c WHERE RecordType.DeveloperName = 'SavingsAccount' LIMIT 1",
       async function(err: any, result: any) {
         if (err) {
-          return console.error(err);
+          throw new CustomError("Failed to query Financial Account", err);
         }
         if (result.records.length > 0) {
           resolve(result.records);

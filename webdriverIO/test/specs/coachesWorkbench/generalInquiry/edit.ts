@@ -5,6 +5,7 @@ import GeneralInquiry from "../../../../pages/coachesWorkbench/edit/generalInqui
 /*** UTILITIES IMPORTS ***/
 import { jsForce } from "../../../../utilities/jsforce";
 import * as faker from "faker";
+import CustomError from "../../../../utilities/customErrorHandler";
 
 /*** OBJECT STORE IMPORTS ***/
 import { getFinAccount } from "../../../../objectStore/financialAccount";
@@ -35,7 +36,7 @@ describe("General Inquiry Record Edit", () => {
         `SELECT Id, Name FROM Account WHERE Id = '${accountId}' LIMIT 1`,
         async function(err: any, result: any) {
           if (err) {
-            return console.error(err);
+            throw new CustomError("Failed to retrieve Account", err);
           }
           accountName = result.records[0].Name;
         }
