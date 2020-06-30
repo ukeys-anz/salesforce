@@ -16,27 +16,31 @@ public with sharing class PermissionChecker {
     Id userId
   ) {
     PermissionReport report = new PermissionReport();
+    report.sObjectAccess = new Set<String>();
     List<PermissionSetAssignment> permSetAssignments;
+
     if (
       PermissionSetAssignment.SObjectType.getDescribe().isAccessible() &&
       ObjectPermissions.SObjectType.getDescribe().isAccessible()
     ) {
-      permSetAssignments = [
-        SELECT
-          Assignee.Name,
-          PermissionSet.Id,
-          PermissionSet.isOwnedByProfile,
-          PermissionSet.Profile.Name,
-          PermissionSet.Label
-        FROM PermissionSetAssignment
-        WHERE
-          PermissionSetId IN (
-            SELECT ParentId
-            FROM ObjectPermissions
-            WHERE SObjectType IN :sObjectList AND PermissionsRead = true
-          )
-          AND Assignee.Id = :userId
-      ];
+      permSetAssignments = new List<PermissionSetAssignment>(
+        [
+          SELECT
+            Assignee.Name,
+            PermissionSetId,
+            PermissionSet.isOwnedByProfile,
+            PermissionSet.Profile.Name,
+            PermissionSet.Label
+          FROM PermissionSetAssignment
+          WHERE
+            PermissionSetId IN (
+              SELECT ParentId
+              FROM ObjectPermissions
+              WHERE SObjectType IN :sObjectList AND PermissionsRead = true
+            )
+            AND Assignee.Id = :userId
+        ]
+      );
     } else {
       throw new CheckerException(
         'The running user does not have access to the PermissionSetAssignment and the ObjectPermissions SObjects.'
@@ -51,6 +55,16 @@ public with sharing class PermissionChecker {
       report.label = report.isProfile
         ? permSetAssignment.PermissionSet.Profile.Name
         : permSetAssignment.PermissionSet.label;
+      for (ObjectPermissions op : [
+        SELECT SObjectType
+        FROM ObjectPermissions
+        WHERE
+          SObjectType IN :sObjectList
+          AND PermissionsRead = true
+          AND ParentId = :permSetAssignment.PermissionSetId
+      ]) {
+        report.sObjectAccess.add(op.SObjectType);
+      }
     }
 
     return report;
@@ -74,6 +88,11 @@ public with sharing class PermissionChecker {
      * @description Getter/Setter for the name of the profile or permission set granting access
      */
     public String label { get; set; }
+
+    /**
+     * @description A collection of the names of objects the user has access to
+     */
+    public Set<String> sObjectAccess { get; set; }
   }
 
   /**

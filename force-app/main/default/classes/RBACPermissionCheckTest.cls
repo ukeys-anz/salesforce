@@ -40,10 +40,15 @@ public class RBACPermissionCheckTest {
       'EmployeeWorkOrder'*/
     };
 
-    PermissionChecker.PermissionReport pReport = PermissionChecker.hasReadAllPermission(
+    PermissionChecker.PermissionReport report = PermissionChecker.hasReadAllPermission(
       objectList,
       idrUser.id
     );
-    System.assertEquals(false, pReport.hasPermission);
+    System.assertEquals(
+      false,
+      report.hasPermission,
+      'User has access to ' +
+      String.join(new List<String>(report.sObjectAccess), ', ')
+    );
   }
 }
