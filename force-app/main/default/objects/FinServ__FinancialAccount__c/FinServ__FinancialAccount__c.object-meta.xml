@@ -144,7 +144,7 @@
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <deprecated>false</deprecated>
-    <description>A client&#39;s financial account, such as an investment account, bank account, or insurance policy.</description>
+    <description>A client&apos;s financial account, such as an investment account, bank account, or insurance policy.</description>
     <enableActivities>true</enableActivities>
     <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
@@ -157,7 +157,7 @@
     <label>Financial Account</label>
     <nameField>
         <label>Financial Account Name</label>
-        <trackHistory>false</trackHistory>
+        <trackHistory>true</trackHistory>
         <type>Text</type>
     </nameField>
     <pluralLabel>Financial Accounts</pluralLabel>

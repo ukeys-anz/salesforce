@@ -61,7 +61,8 @@ import IS_COMMON_COMPLAINT_FIELD from "@salesforce/schema/Case.IDR_Is_Common__c"
 import IS_REAL_FORM_NEED_FIELD from "@salesforce/schema/Case.IDR_Real_Form_Req__c";
 
 const ERROR = "error";
-const ERROR_TITLE = "Please complete all required fields.";
+const ERROR_REQUIRED_TITLE = "Please complete all required fields.";
+const ERROR_UNKNOWN_TITLE = "An error has occurred.";
 const SUCCESS = "success";
 const SUCCESS_TITLE = "Complaint has been created successfully.";
 const BUSINESS_TYPE_API = 2;
@@ -212,7 +213,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   handleSearch(event) {
     this.displayCustomerInfo = true;
-    this.customerId = this.customerIdValue;
+    this.customerId = this.customerIdValue.replace(/^0+/, "");
   }
 
   handleCustomerNumberChange(event) {
@@ -278,12 +279,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
           }
         })
         .catch(error => {
-          let errormsg = error.body;
-          console.log(errormsg);
-          this.handleError();
+          this.handleError(error.body);
         });
     } else {
-      this.handleError();
+      this.handleError(ERROR_REQUIRED_TITLE);
     }
   }
 
@@ -317,11 +316,13 @@ export default class CreateComplaintLWC extends NavigationMixin(
     return isValid;
   }
 
-  handleError() {
+  handleError(errormsg) {
+    console.log(errormsg);
+    let msg = errormsg ? errormsg : ERROR_UNKNOWN_TITLE;
     this.loading = false;
     this.template.querySelector(".saveButton").disabled = false;
     const evt = new ShowToastEvent({
-      title: ERROR_TITLE,
+      title: msg,
       variant: ERROR
     });
     this.dispatchEvent(evt);
