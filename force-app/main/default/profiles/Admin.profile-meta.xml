@@ -186,6 +186,14 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>KnowledgeTrigggerHandler</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>KnowledgeTrigggerHandlerTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>MockHttpMulesoftCallouts</apexClass>
         <enabled>true</enabled>
     </classAccesses>
