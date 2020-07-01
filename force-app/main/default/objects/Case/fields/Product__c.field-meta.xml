@@ -6,15 +6,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <externalId>false</externalId>
     <label>Product or Service Name</label>
-    <lookupFilter>
-        <active>false</active>
-        <filterItems>
-            <field>Product2.IsActive</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </filterItems>
-        <isOptional>false</isOptional>
-    </lookupFilter>
     <referenceTo>Product2</referenceTo>
     <relationshipLabel>Cases</relationshipLabel>
     <relationshipName>Cases</relationshipName>
