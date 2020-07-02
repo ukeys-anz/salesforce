@@ -141,6 +141,17 @@
                     ></lightning-button>
                   </div>
                 </div>
+              </div>
+
+              <template if:true={displayCustomerInfo}>
+                <c-customer-information
+                  customer-id={customerId}
+                  show-as-grid="true"
+                  class="slds-m-top_large"
+                >
+                </c-customer-information>
+              </template>
+              <div class="slds-grid slds-wrap" tabindex="0">
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
                     variant="label-stacked"
@@ -158,11 +169,7 @@
                     field-name={businessName}
                   ></lightning-input-field>
                 </div>
-                <div
-                  if:true={isBusiness}
-                  class="slds-col slds-size_3-of-4 slds-m-right_large"
-                ></div>
-                <div class="slds-col slds-size_1-of-4">
+                <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
                     variant="label-stacked"
                     required
@@ -170,15 +177,6 @@
                   ></lightning-input-field>
                 </div>
               </div>
-
-              <template if:true={displayCustomerInfo}>
-                <c-customer-information
-                  customer-id={customerId}
-                  show-as-grid="true"
-                  class="slds-m-top_large"
-                >
-                </c-customer-information>
-              </template>
             </template>
 
             <template if:false={isCustomerComplaint}>
