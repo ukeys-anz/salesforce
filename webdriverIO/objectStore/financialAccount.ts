@@ -41,7 +41,7 @@ export async function createFinAccountList(
     for (let i = 0; i < amount; i++) {
       let finAccount: IFinAccount = {
         RecordTypeId: recTypeId,
-        Name: accountList[0].Name + " Savings",
+        Name: accountList[0].Name + " Everyday Account",
         FinServ__FinancialAccountType__c: faker.random.arrayElement([
           "Savings"
         ]),
@@ -104,7 +104,7 @@ export async function getFinAccount() {
   // Check if there are existing financial accounts, if not create new ones
   return new Promise<string>(resolve => {
     jsForce.query(
-      "SELECT Id, Name, FinServ__PrimaryOwner__c FROM FinServ__FinancialAccount__c WHERE RecordType.DeveloperName = 'SavingsAccount' LIMIT 1",
+      "SELECT Id, Name, FinServ__PrimaryOwner__c FROM FinServ__FinancialAccount__c WHERE RecordType.DeveloperName = 'CheckingAccount' LIMIT 1",
       async function(err: any, result: any) {
         if (err) {
           throw new CustomError("Failed to query Financial Account", err);
@@ -114,7 +114,7 @@ export async function getFinAccount() {
         } else {
           let finAccountList: any = await createFinAccountList(
             1,
-            "SavingsAccount"
+            "CheckingAccount"
           );
           resolve(finAccountList);
         }
