@@ -8,12 +8,12 @@
         <isRequired>false</isRequired>
     </displayedFields>
     <displayedFields>
-        <field>FinServ__Status__c</field>
+        <field>FinServ__FinancialAccountType__c</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
     </displayedFields>
     <displayedFields>
-        <field>FinServ__OwnerType__c</field>
+        <field>FinServ__FinancialAccountNumber__c</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
     </displayedFields>
