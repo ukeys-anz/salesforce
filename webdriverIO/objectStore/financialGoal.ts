@@ -17,36 +17,48 @@ interface IFinGoal {
  * @description Creates new Financial Goal records depending on the count passed.
  * @param amount  Number of Fin. Goals to be created
  */
-export async function createFinGoalList(amount: number = 1) {
+export async function createFinGoalList(
+  amount: number = 1,
+  availFinAccList: any[]
+) {
   return new Promise<string>(async resolve => {
     let finGoals = [];
     let idList: any = [];
-    let finAccountList: any = await getFinAccount();
-    for (let i = 0; i < amount; i++) {
-      let finGoal: IFinGoal = {
-        Name: faker.random.arrayElement([
-          "Buy New Car",
-          "Build a Home",
-          "Buy a Home",
-          "Vaccation",
-          "Overseas Trip",
-          "Cruise Ship Tour",
-          "Buy a Caravan",
-          "Save for Retirement",
-          "Euro Trip"
-        ]),
-        Financial_Account__c: finAccountList[0].Id,
-        Start_Date__c: faker.date.past(2),
-        FinServ__TargetDate__c: faker.date.future(2),
-        FinServ__ActualValue__c: parseFloat(
-          faker.commerce.price(999, 49999, 2)
-        ),
-        FinServ__TargetValue__c: parseFloat(
-          faker.commerce.price(55000, 80000, 2)
-        ),
-        FinServ__PrimaryOwner__c: finAccountList[0].FinServ__PrimaryOwner__c
-      };
-      finGoals.push(finGoal);
+    let finAccountList: any = [];
+
+    if (availFinAccList && availFinAccList.length > 0) {
+      finAccountList = availFinAccList;
+    } else {
+      finAccountList = await getFinAccount();
+    }
+
+    for (let j = 0; j < finAccountList.length; j++) {
+      for (let i = 0; i < amount; i++) {
+        let finGoal: IFinGoal = {
+          Name: faker.random.arrayElement([
+            "Buy New Car",
+            "Build a Home",
+            "Buy a Home",
+            "Vaccation",
+            "Overseas Trip",
+            "Cruise Ship Tour",
+            "Buy a Caravan",
+            "Save for Retirement",
+            "Euro Trip"
+          ]),
+          Financial_Account__c: finAccountList[j].Id,
+          Start_Date__c: faker.date.past(2),
+          FinServ__TargetDate__c: faker.date.future(2),
+          FinServ__ActualValue__c: parseFloat(
+            faker.commerce.price(999, 49999, 2)
+          ),
+          FinServ__TargetValue__c: parseFloat(
+            faker.commerce.price(55000, 80000, 2)
+          ),
+          FinServ__PrimaryOwner__c: finAccountList[0].FinServ__PrimaryOwner__c
+        };
+        finGoals.push(finGoal);
+      }
     }
 
     jsForce
@@ -94,7 +106,7 @@ export async function getFinGoal() {
         if (result.records.length > 0) {
           resolve(result.records);
         } else {
-          let finGoalList: any = await createFinGoalList(1);
+          let finGoalList: any = await createFinGoalList(1, []);
           resolve(finGoalList);
         }
       }
