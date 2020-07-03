@@ -9,19 +9,27 @@ public class RBACPermissionCheckTest {
   @isTest
   static void testPermission() {
     Profile p = [SELECT Id FROM Profile WHERE Name = 'ANZ Standard User'];
-    PermissionSet ps = [
-      SELECT Id, Name
-      FROM PermissionSet
-      WHERE Name = 'IDR_Level_3'
-    ];
+    List<PermissionSet> pSets = new List<PermissionSet>(
+      [
+        SELECT Id, Name
+        FROM PermissionSet
+        WHERE Name = 'IDR_User_Level_3' OR Name = 'IDR_User'
+      ]
+    );
     //Create IDR User
     User idrUser = (User) FakerFactory.make(new FakerUserFactory());
     idrUser.ProfileId = p.Id;
     insert idrUser;
-    insert new PermissionSetAssignment(
-      AssigneeId = idrUser.id,
-      PermissionSetId = ps.Id
-    );
+    List<PermissionSetAssignment> pSetAssignments = new List<PermissionSetAssignment>();
+    for (PermissionSet ps : pSets) {
+      pSetAssignments.add(
+        new PermissionSetAssignment(
+          AssigneeId = idrUser.id,
+          PermissionSetId = ps.Id
+        )
+      );
+    }
+    insert pSetAssignments;
 
     //The commented objects are currently not available in our org.
     //Once available they will be uncommented.
