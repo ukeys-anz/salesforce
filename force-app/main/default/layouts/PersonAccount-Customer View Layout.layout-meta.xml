@@ -262,6 +262,15 @@
         </relatedContentItems>
     </relatedContent>
     <relatedLists>
+        <fields>NAME</fields>
+        <fields>FinServ__TargetValue__c</fields>
+        <fields>FinServ__ActualValue__c</fields>
+        <fields>Balance_Remaining__c</fields>
+        <fields>Start_Date__c</fields>
+        <fields>FinServ__TargetDate__c</fields>
+        <relatedList>FinServ__FinancialGoal__c.FinServ__PrimaryOwner__c</relatedList>
+    </relatedLists>
+    <relatedLists>
         <excludeButtons>MassChangeOwner</excludeButtons>
         <fields>CASES.CASE_NUMBER</fields>
         <fields>CASES.SUBJECT</fields>
@@ -278,7 +287,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2N000000iHRi</masterLabel>
+        <masterLabel>00h2N000000iTac</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>
