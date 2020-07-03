@@ -43,6 +43,3 @@ force-app/main/default/reports/Knowledge_Reports/New_Knowledge_Article_with_Vote
 
 # Obscure setting that is introduced each time a Health Check (Baseline Hardening) is run and actioned
 SingleSignOn.settings
-
-# TMP test RBAC
-permissionSets
