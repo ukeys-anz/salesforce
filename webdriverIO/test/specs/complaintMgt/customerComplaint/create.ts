@@ -19,7 +19,7 @@ describe("Customer Complaint Record Creation", () => {
     $("span=Customer Complaint").click();
     $("span=Next").click();
 
-    CustomerComplaint.customerNumber.setValue("12345");
+    CustomerComplaint.customerNumber.setValue("1234567891");
 
     CustomerComplaint.complainantType.click();
     $("span.slds-truncate=Individual").click();
