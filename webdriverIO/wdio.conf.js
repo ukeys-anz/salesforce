@@ -230,7 +230,7 @@ exports.config = {
    * @param {Array.<Object>} capabilities list of capabilities details
    * @param {Array.<String>} specs List of spec file paths that are to be run
    */
-  before: function(capabilities, specs) {
+  before: function (capabilities, specs) {
     require("@babel/register");
   },
   /**
@@ -266,7 +266,7 @@ exports.config = {
   /**
    * Function to be executed after a test (in Mocha/Jasmine).
    */
-  afterTest: function(
+  afterTest: function (
     test,
     context,
     { error, result, duration, passed, retries }

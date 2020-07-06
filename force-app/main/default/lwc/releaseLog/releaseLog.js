@@ -19,7 +19,7 @@ export default class ReleaseLog extends LightningElement {
     //and the initial records per page
     let recordCount = RECORDS_PER_PAGE * this.currentPage;
     getReleases({ recordLimit: recordCount })
-      .then(result => {
+      .then((result) => {
         if (result) {
           for (let i = 0; i < result.length; i++) {
             //Split the text area fields into an array by new lines
@@ -27,7 +27,7 @@ export default class ReleaseLog extends LightningElement {
             //in case someone enters two new lines back to back
             if (result[i].Changes__c) {
               result[i].Changes__c = result[i].Changes__c.split("\n").filter(
-                el => {
+                (el) => {
                   return el != false;
                 }
               );
@@ -36,21 +36,23 @@ export default class ReleaseLog extends LightningElement {
             if (result[i].Additions__c) {
               result[i].Additions__c = result[i].Additions__c.split(
                 "\n"
-              ).filter(el => {
+              ).filter((el) => {
                 return el != false;
               });
             }
 
             if (result[i].Fixes__c) {
-              result[i].Fixes__c = result[i].Fixes__c.split("\n").filter(el => {
-                return el != false;
-              });
+              result[i].Fixes__c = result[i].Fixes__c.split("\n").filter(
+                (el) => {
+                  return el != false;
+                }
+              );
             }
           }
         }
         this.releases = result;
       })
-      .catch(error => {
+      .catch((error) => {
         let errorMessage = "Failed to load release log";
         if (error.body && error.body.message) {
           errorMessage = error.body.message;
@@ -61,7 +63,7 @@ export default class ReleaseLog extends LightningElement {
     //Retrieve count of total records to determine the total pages
     //available. Only needs to be done once
     if (!this.totalPages) {
-      countTotalRecords().then(total => {
+      countTotalRecords().then((total) => {
         if (total <= 2) {
           this.loadMore = false;
         }

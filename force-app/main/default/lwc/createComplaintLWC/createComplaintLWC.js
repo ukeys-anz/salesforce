@@ -271,14 +271,14 @@ export default class CreateComplaintLWC extends NavigationMixin(
       this.loading = true;
       const recordInput = { apiName: CASE_OBJECT.objectApiName, fields };
       createRecord(recordInput)
-        .then(response => {
+        .then((response) => {
           if (response) {
             let caseId = response.id;
             this.template.querySelector(".saveButton").disabled = false;
             this.handleCaseSuccess(caseId);
           }
         })
-        .catch(error => {
+        .catch((error) => {
           this.handleError(error.body);
         });
     } else {

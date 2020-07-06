@@ -56,9 +56,9 @@ public with sharing class CaseDurationTriggerHandler extends Lib_TriggerHandler 
           Business_Hours_Age_Minutes__c
         FROM Case_Duration__c
         WHERE
-          Business_Hours_Age_Hours__c != null
+          Business_Hours_Age_Hours__c != NULL
           AND Case__c IN :relatedCaseIdList
-          AND Business_Hours_Age_Minutes__c != null
+          AND Business_Hours_Age_Minutes__c != NULL
           AND Initial_Status__c != 'On Hold'
           AND Initial_Status__c != 'Closed'
       ];

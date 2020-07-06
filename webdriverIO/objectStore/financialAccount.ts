@@ -28,7 +28,7 @@ export async function createFinAccountList(
   amount: number = 1,
   recordType: string = "CheckingAccount"
 ) {
-  return new Promise<string>(async resolve => {
+  return new Promise<string>(async (resolve) => {
     let ownerId: string = "";
     let ownerName: string = "";
     let finAccounts = [];
@@ -102,10 +102,10 @@ export async function createFinAccountList(
  */
 export async function getFinAccount() {
   // Check if there are existing financial accounts, if not create new ones
-  return new Promise<string>(resolve => {
+  return new Promise<string>((resolve) => {
     jsForce.query(
       "SELECT Id, Name, FinServ__PrimaryOwner__c FROM FinServ__FinancialAccount__c WHERE RecordType.DeveloperName = 'CheckingAccount' LIMIT 1",
-      async function(err: any, result: any) {
+      async function (err: any, result: any) {
         if (err) {
           throw new CustomError("Failed to query Financial Account", err);
         }

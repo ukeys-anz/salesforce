@@ -40,7 +40,7 @@ public with sharing class CaseDurationServerController {
           Case__c = :caseId
           AND Initial_Status__c != 'On Hold'
           AND Initial_Status__c != 'Closed'
-          AND End_Time__c = null
+          AND End_Time__c = NULL
         ORDER BY CreatedDate DESC
       ]; // Should only have 0 or 1 record
     }
