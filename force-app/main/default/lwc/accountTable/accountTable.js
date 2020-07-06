@@ -7,10 +7,10 @@ export default class AccountTable extends LightningElement {
 
   connectedCallback() {
     getAccInfo()
-      .then(result => {
+      .then((result) => {
         this.accounts = result;
       })
-      .catch(error => {
+      .catch((error) => {
         let errorMessage = "Call account service failed. Please retry.";
         if (error.body.message) {
           errorMessage = error.body.message;
