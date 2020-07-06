@@ -10,7 +10,7 @@ export default class Base {
   }
 
   login(alias: string) {
-    let user: any = userList.find(data => data.alias === alias);
+    let user: any = userList.find((data) => data.alias === alias);
     browser.url(user.url);
     $("body.desktop").waitForExist();
     browser.pause(5000);
@@ -43,10 +43,7 @@ export default class Base {
         browser.pause(5000);
         break;
       case "standard":
-        browser
-          .$("one-appnav")
-          .shadow$("nav.appLauncher")
-          .click();
+        browser.$("one-appnav").shadow$("nav.appLauncher").click();
         $(
           "/html/body/div[4]/div[2]/div/div[1]/div[1]/one-app-launcher-menu/div/one-app-launcher-search-bar/lightning-input/div/input"
         ).setValue(appName);

@@ -34,7 +34,7 @@ describe("General Inquiry Record Edit", () => {
       accountId = finAccounts[0].FinServ__PrimaryOwner__c;
       jsForce.query(
         `SELECT Id, Name FROM Account WHERE Id = '${accountId}' LIMIT 1`,
-        async function(err: any, result: any) {
+        async function (err: any, result: any) {
           if (err) {
             throw new CustomError("Failed to retrieve Account", err);
           }

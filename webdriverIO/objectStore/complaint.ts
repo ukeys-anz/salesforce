@@ -39,7 +39,7 @@ export function createCaseList(
   recordType: string = "Non_Customer_Complaint",
   alias: string
 ) {
-  return new Promise(async resolve => {
+  return new Promise(async (resolve) => {
     let cases: ICase[] = [];
     let user: any = await getUserByAlias(alias);
 
@@ -120,7 +120,7 @@ export function createCaseList(
 
 //This will be used for new scenario
 export const getCase = (devName: string) => {
-  return new Promise<string>(resolve => {
+  return new Promise<string>((resolve) => {
     jsForce.query(
       `SELECT Max(CaseNumber) ID FROM Case where Status='Open' and RecordTypeId IN (SELECT Id FROM RecordType WHERE IsActive = TRUE AND sObjectType='Case' AND DeveloperName='${devName}')`,
       (err: any, result: any) => {
