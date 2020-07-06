@@ -1,6 +1,6 @@
 import { jsForce } from "../utilities/jsforce";
 import * as faker from "faker";
-import { getFinAccount } from "./financialAccount";
+import { createFinAccountList } from "./financialAccount";
 import CustomError from "../utilities/customErrorHandler";
 
 interface IFinGoal {
@@ -17,77 +17,72 @@ interface IFinGoal {
  * @description Creates new Financial Goal records depending on the count passed.
  * @param amount  Number of Fin. Goals to be created
  */
-export async function createFinGoalList(
-  amount: number = 1,
-  availFinAccList: any[]
-) {
+export async function createFinGoalList(amount: number = 1, primaryOwner: any) {
   return new Promise<string>(async (resolve) => {
-    let finGoals = [];
+    let finGoals: any = [];
     let idList: any = [];
-    let finAccountList: any = [];
 
-    if (availFinAccList && availFinAccList.length > 0) {
-      finAccountList = availFinAccList;
-    } else {
-      finAccountList = await getFinAccount();
-    }
-
-    for (let j = 0; j < finAccountList.length; j++) {
-      for (let i = 0; i < amount; i++) {
-        let finGoal: IFinGoal = {
-          Name: faker.random.arrayElement([
-            "Buy New Car",
-            "Build a Home",
-            "Buy a Home",
-            "Vaccation",
-            "Overseas Trip",
-            "Cruise Ship Tour",
-            "Buy a Caravan",
-            "Save for Retirement",
-            "Euro Trip"
-          ]),
-          Financial_Account__c: finAccountList[j].Id,
-          Start_Date__c: faker.date.past(2),
-          FinServ__TargetDate__c: faker.date.future(2),
-          FinServ__ActualValue__c: parseFloat(
-            faker.commerce.price(999, 49999, 2)
-          ),
-          FinServ__TargetValue__c: parseFloat(
-            faker.commerce.price(55000, 80000, 2)
-          ),
-          FinServ__PrimaryOwner__c: finAccountList[0].FinServ__PrimaryOwner__c
-        };
-        finGoals.push(finGoal);
-      }
-    }
-
-    jsForce
-      .sobject("FinServ__FinancialGoal__c")
-      .create(finGoals, (err: any, result: any) => {
-        if (err) {
-          throw new CustomError("Failed to create Financial Goal", err);
-        } else if (!result[0].success) {
-          throw new CustomError(
-            "Failed to create new Financial Goal",
-            result[0].errors[0].message
-          );
+    // Create Savings Accounts to map to new Goals being created
+    createFinAccountList(amount, "SavingsAccount", primaryOwner).then(
+      (savingsAccList: any) => {
+        for (let i = 0; i < savingsAccList.length; i++) {
+          let finGoal: IFinGoal = {
+            Name: faker.random.arrayElement([
+              "Buy New Car",
+              "Build a Home",
+              "Buy a Home",
+              "Vaccation",
+              "Overseas Trip",
+              "Cruise Ship Tour",
+              "Buy a Caravan",
+              "Save for Retirement",
+              "Euro Trip"
+            ]),
+            Financial_Account__c: savingsAccList[i].Id,
+            Start_Date__c: faker.date.past(2),
+            FinServ__TargetDate__c: faker.date.future(2),
+            FinServ__ActualValue__c:
+              savingsAccList[i].FinServ__CurrentPostedBalance__c,
+            FinServ__TargetValue__c: parseFloat(
+              faker.commerce.price(55000, 80000, 2)
+            ),
+            FinServ__PrimaryOwner__c: primaryOwner.Id
+          };
+          finGoals.push(finGoal);
         }
-        //Loop through the result to create a list of ids
-        result.forEach((item: any) => {
-          if (item.success) {
-            idList.push(item.id);
-          }
-        });
-        //Retrieve the new Financial Goals using the created id list and return the results
+
         jsForce
           .sobject("FinServ__FinancialGoal__c")
-          .retrieve(idList, (err: any, result: any) => {
+          .create(finGoals, (err: any, result: any) => {
             if (err) {
-              throw new CustomError("Failed to retrieve Financial Goals", err);
+              throw new CustomError("Failed to create Financial Goal", err);
+            } else if (!result[0].success) {
+              throw new CustomError(
+                "Failed to create new Financial Goal",
+                result[0].errors[0].message
+              );
             }
-            resolve(result);
+            //Loop through the result to create a list of ids
+            result.forEach((item: any) => {
+              if (item.success) {
+                idList.push(item.id);
+              }
+            });
+            //Retrieve the new Financial Goals using the created id list and return the results
+            jsForce
+              .sobject("FinServ__FinancialGoal__c")
+              .retrieve(idList, (err: any, result: any) => {
+                if (err) {
+                  throw new CustomError(
+                    "Failed to retrieve Financial Goals",
+                    err
+                  );
+                }
+                resolve(result);
+              });
           });
-      });
+      }
+    );
   });
 }
 
@@ -106,7 +101,7 @@ export async function getFinGoal() {
         if (result.records.length > 0) {
           resolve(result.records);
         } else {
-          let finGoalList: any = await createFinGoalList(1, []);
+          let finGoalList: any = await createFinGoalList(1, null);
           resolve(finGoalList);
         }
       }

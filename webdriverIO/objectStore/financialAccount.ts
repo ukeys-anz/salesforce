@@ -26,9 +26,10 @@ interface IFinAccount {
  */
 export async function createFinAccountList(
   amount: number = 1,
-  recordType: string = "CheckingAccount"
+  recordType: string = "CheckingAccount",
+  owner: any
 ) {
-  return new Promise<string>(async (resolve) => {
+  return new Promise(async (resolve) => {
     let ownerId: string = "";
     let ownerName: string = "";
     let finAccounts = [];
@@ -37,14 +38,24 @@ export async function createFinAccountList(
       "FinServ__FinancialAccount__c",
       recordType
     );
-    let accountList: any = await getPersonAccount();
+
+    let accountList: any = [];
+    if (owner) {
+      accountList.push(owner);
+    } else {
+      accountList = await getPersonAccount();
+    }
+
     for (let i = 0; i < amount; i++) {
       let finAccount: IFinAccount = {
         RecordTypeId: recTypeId,
-        Name: accountList[0].Name + " Everyday Account",
-        FinServ__FinancialAccountType__c: faker.random.arrayElement([
-          "Savings"
-        ]),
+        Name:
+          accountList[0].Name +
+          (recordType == "CheckingAccount"
+            ? " Everyday Account"
+            : " Savings Account"),
+        FinServ__FinancialAccountType__c:
+          recordType == "CheckingAccount" ? "Checking" : " Savings",
         FinServ__Status__c: faker.random.arrayElement([
           "Open",
           "Closed",
@@ -104,7 +115,7 @@ export async function getFinAccount() {
   // Check if there are existing financial accounts, if not create new ones
   return new Promise<string>((resolve) => {
     jsForce.query(
-      "SELECT Id, Name, FinServ__PrimaryOwner__c FROM FinServ__FinancialAccount__c WHERE RecordType.DeveloperName = 'CheckingAccount' LIMIT 1",
+      "SELECT Id, Name, FinServ__PrimaryOwner__c FROM FinServ__FinancialAccount__c WHERE RecordType.DeveloperName = 'CheckingAccount' ORDER BY CreatedDate LIMIT 1",
       async function (err: any, result: any) {
         if (err) {
           throw new CustomError("Failed to query Financial Account", err);
@@ -114,7 +125,8 @@ export async function getFinAccount() {
         } else {
           let finAccountList: any = await createFinAccountList(
             1,
-            "CheckingAccount"
+            "CheckingAccount",
+            null
           );
           resolve(finAccountList);
         }
