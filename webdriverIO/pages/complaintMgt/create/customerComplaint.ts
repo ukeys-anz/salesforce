@@ -6,7 +6,7 @@ class CustomerComplaint extends Base {
   /****** TEXT INPUTS ******/
   get customerNumber() {
     return $(
-      "//lightning-accordion-section[1]/section/div[2]/slot/div/div[1]/lightning-input-field/lightning-input/div[1]/input"
+      "//lightning-accordion-section[1]/section/div[2]/slot/div[1]/div[1]/lightning-input/div[1]/input"
     );
   }
 
@@ -31,13 +31,13 @@ class CustomerComplaint extends Base {
   /****** DROPDOWNS ******/
   get complainantType() {
     return $(
-      "//lightning-accordion-section[1]/section/div[2]/slot/div/div[3]/lightning-input-field/lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[1]/input"
+      "//lightning-accordion-section[1]/section/div[2]/slot/div[2]/div[1]/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div/input"
     );
   }
 
   get descent() {
     return $(
-      "//lightning-accordion-section[1]/section/div[2]/slot/div/div[4]/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[1]/input"
+      "//lightning-accordion-section[1]/section/div[2]/slot/div[2]/div[2]/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div/input"
     );
   }
 

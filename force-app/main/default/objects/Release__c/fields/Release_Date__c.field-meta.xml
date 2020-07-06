@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Release_Date__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Uncontrolled</complianceGroup>
     <externalId>false</externalId>
     <label>Release Date</label>
     <required>true</required>
+    <securityClassification>Internal</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Date</type>
 </CustomField>
