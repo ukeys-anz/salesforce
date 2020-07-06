@@ -170,7 +170,7 @@ export async function getPersonAccount() {
   return new Promise<string>((resolve) => {
     jsForce.query(
       "SELECT Id, Name FROM Account WHERE RecordType.DeveloperName = 'PersonAccount' ORDER BY CreatedDate LIMIT 1",
-      async function(err: any, result: any) {
+      async function (err: any, result: any) {
         if (err) {
           throw new CustomError("Failed to query Record Type", err);
         }

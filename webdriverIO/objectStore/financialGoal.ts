@@ -18,7 +18,7 @@ interface IFinGoal {
  * @param amount  Number of Fin. Goals to be created
  */
 export async function createFinGoalList(amount: number = 1, primaryOwner: any) {
-  return new Promise<string>(async resolve => {
+  return new Promise<string>(async (resolve) => {
     let finGoals: any = [];
     let idList: any = [];
 
