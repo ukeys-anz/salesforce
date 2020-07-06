@@ -36,7 +36,7 @@ public with sharing class PermissionChecker {
             PermissionSetId IN (
               SELECT ParentId
               FROM ObjectPermissions
-              WHERE SObjectType IN :sObjectList AND PermissionsRead = true
+              WHERE SObjectType IN :sObjectList AND PermissionsRead = TRUE
             )
             AND Assignee.Id = :userId
         ]
@@ -60,7 +60,7 @@ public with sharing class PermissionChecker {
         FROM ObjectPermissions
         WHERE
           SObjectType IN :sObjectList
-          AND PermissionsRead = true
+          AND PermissionsRead = TRUE
           AND ParentId = :permSetAssignment.PermissionSetId
       ]) {
         report.sObjectAccess.add(op.SObjectType);
