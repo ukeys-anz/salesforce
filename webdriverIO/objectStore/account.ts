@@ -169,7 +169,7 @@ export async function getPersonAccount() {
   // Check if there are existing person accounts, if not create new ones
   return new Promise<string>(resolve => {
     jsForce.query(
-      "SELECT Id, Name FROM Account WHERE RecordType.DeveloperName = 'PersonAccount' LIMIT 1",
+      "SELECT Id, Name FROM Account WHERE RecordType.DeveloperName = 'PersonAccount' ORDER BY CreatedDate LIMIT 1",
       async function(err: any, result: any) {
         if (err) {
           throw new CustomError("Failed to query Record Type", err);
