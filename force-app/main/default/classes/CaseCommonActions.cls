@@ -122,7 +122,7 @@ public with sharing class CaseCommonActions {
         Case__c,
         Case__r.BusinessHoursId
       FROM Case_Duration__c
-      WHERE Case__c IN :relatedCaseList AND End_Time__c = null
+      WHERE Case__c IN :relatedCaseList AND End_Time__c = NULL
     ];
 
     for (Case_Duration__c cd : cdRelatedList) {

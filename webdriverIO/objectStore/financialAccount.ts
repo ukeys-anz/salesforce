@@ -113,7 +113,7 @@ export async function createFinAccountList(
  */
 export async function getFinAccount() {
   // Check if there are existing financial accounts, if not create new ones
-  return new Promise<string>(resolve => {
+  return new Promise<string>((resolve) => {
     jsForce.query(
       "SELECT Id, Name, FinServ__PrimaryOwner__c FROM FinServ__FinancialAccount__c WHERE RecordType.DeveloperName = 'CheckingAccount' ORDER BY CreatedDate LIMIT 1",
       async function(err: any, result: any) {

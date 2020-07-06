@@ -82,7 +82,7 @@ public with sharing class UPRAfterActions {
           FederationIdentifier,
           ManagerId
         FROM User
-        WHERE FederationIdentifier IN :uprModifyMap.keySet() AND isActive = true
+        WHERE FederationIdentifier IN :uprModifyMap.keySet() AND isActive = TRUE
       ];
     }
 
@@ -121,7 +121,7 @@ public with sharing class UPRAfterActions {
       userList = [
         SELECT Id, FederationIdentifier, isActive
         FROM User
-        WHERE FederationIdentifier IN :uprRevokeIds AND isActive = true
+        WHERE FederationIdentifier IN :uprRevokeIds AND isActive = TRUE
       ];
     }
 

@@ -41,7 +41,7 @@ export async function createAccountList(
   amount: number = 1,
   recordType: string = "PersonAccount"
 ) {
-  return new Promise(async resolve => {
+  return new Promise(async (resolve) => {
     let accounts = [];
     let idList: any = [];
     let recTypeId = await getRecordTypeID("Account", recordType);
@@ -167,7 +167,7 @@ export async function createAccountList(
  */
 export async function getPersonAccount() {
   // Check if there are existing person accounts, if not create new ones
-  return new Promise<string>(resolve => {
+  return new Promise<string>((resolve) => {
     jsForce.query(
       "SELECT Id, Name FROM Account WHERE RecordType.DeveloperName = 'PersonAccount' ORDER BY CreatedDate LIMIT 1",
       async function(err: any, result: any) {

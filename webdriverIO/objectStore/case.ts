@@ -30,7 +30,7 @@ export function createCaseList(
   recordType: string = "General_Inquiry",
   alias: string
 ) {
-  return new Promise(async resolve => {
+  return new Promise(async (resolve) => {
     let finAccountList: any = await getFinAccount();
     let recordTypeId: string = await getRecordTypeID("Case", recordType);
     let parentCaseList: any = await getParentCase(
@@ -130,10 +130,10 @@ export async function getParentCase(recordTypeId: any, accountId: any) {
     throw new CustomError("Record Type ID or Account ID is null");
   }
   // Check if there are existing parent case, if not create new ones
-  return new Promise<string>(resolve => {
+  return new Promise<string>((resolve) => {
     jsForce.query(
       `SELECT Id, CaseNumber FROM Case WHERE RecordTypeId = '${recordTypeId}' and ParentId = null LIMIT 1`,
-      async function(err: any, result: any) {
+      async function (err: any, result: any) {
         if (err) {
           throw new CustomError("Failed to query case", err);
         }
@@ -234,7 +234,7 @@ export async function createBlankCase(
   recordType: string,
   alias: string
 ) {
-  return new Promise(async resolve => {
+  return new Promise(async (resolve) => {
     let recordTypeId: string = await getRecordTypeID("Case", recordType);
     let user: any = await getUserByAlias(alias);
     let cases: any = [];

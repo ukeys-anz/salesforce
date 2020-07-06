@@ -91,10 +91,10 @@ export async function createFinGoalList(amount: number = 1, primaryOwner: any) {
  */
 export async function getFinGoal() {
   // Check if there are existing financial goals, if not create new ones
-  return new Promise<string>(resolve => {
+  return new Promise<string>((resolve) => {
     jsForce.query(
       "SELECT Id, Name, Financial_Account__c, Start_Date__c, FinServ__TargetDate__c, FinServ__ActualValue__c, FinServ__TargetValue__c, FinServ__PrimaryOwner__c FROM FinServ__FinancialGoal__c LIMIT 1",
-      async function(err: any, result: any) {
+      async function (err: any, result: any) {
         if (err) {
           throw new CustomError("Failed to query Financial Goal", err);
         }

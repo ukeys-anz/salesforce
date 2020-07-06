@@ -39,7 +39,7 @@ export default class CustomerInformation extends LightningElement {
     // calling apex class method to make callout
     if (!this.loaded) {
       getCustomerData({ capId: customerId })
-        .then(result => {
+        .then((result) => {
           let customerData = {
             complainant_type: "",
             first_name: "",
@@ -77,7 +77,7 @@ export default class CustomerInformation extends LightningElement {
           this.loaded = true;
           this.customerInfo = customerData;
         })
-        .catch(error => {
+        .catch((error) => {
           this.handleError(error);
         });
     }
@@ -87,7 +87,7 @@ export default class CustomerInformation extends LightningElement {
     this.error = "Unknown error";
     if (err.body) {
       if (Array.isArray(err.body)) {
-        this.error = err.body.map(e => e.message).join(", ");
+        this.error = err.body.map((e) => e.message).join(", ");
       } else if (typeof err.body.message === "string") {
         this.error = err.body.message;
       }

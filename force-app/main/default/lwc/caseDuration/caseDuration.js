@@ -8,10 +8,10 @@ export default class CaseDuration extends LightningElement {
 
   connectedCallback() {
     getCaseDurationTime({ caseId: this.recordId })
-      .then(result => {
+      .then((result) => {
         this.durationTime = result;
       })
-      .catch(error => {
+      .catch((error) => {
         let errorMessage = "Failed to load case duration";
         if (error.body && error.body.message) {
           errorMessage = error.body.message;
