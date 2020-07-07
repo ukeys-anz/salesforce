@@ -38,5 +38,8 @@ force-app/main/default/sharingRules/User.sharingRules-meta.xml
 # Don't pull because delegated authenticaton (and therefore IsSsoEnabled permission) cannot currently be enabled in scratch orgs
 Enforce_SSO.permissionset
 
-# Don't push Transaction security policy as it needs a user id for notification and also we dont want to turn off concurrent sessions in scratch org
-force-app/main/default/transactionSecurityPolicies/ConcurrentSessionsConditions.transactionSecurityPolicy-meta.xml
+# Add this report because this will cause unexpected error in scratch orgs
+force-app/main/default/reports/Knowledge_Reports/New_Knowledge_Article_with_Votes_I9l.report-meta.xml
+
+# Obscure setting that is introduced each time a Health Check (Baseline Hardening) is run and actioned
+SingleSignOn.settings

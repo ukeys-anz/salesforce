@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataCategoryGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <dataCategory>
+        <dataCategory>
+            <dataCategory>
+                <label>ANZx</label>
+                <name>ANZx</name>
+            </dataCategory>
+            <label>About Us</label>
+            <name>About_Us</name>
+        </dataCategory>
+        <dataCategory>
+            <dataCategory>
+                <label>Fees, Rates, Charges, Interest</label>
+                <name>Fees_Rates_Charges_Interest</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Balance</label>
+                <name>Balance</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Savings Features</label>
+                <name>Savings_Features</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Closure</label>
+                <name>Closure</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Statement</label>
+                <name>Statement</name>
+            </dataCategory>
+            <label>Account</label>
+            <name>Account</name>
+        </dataCategory>
+        <dataCategory>
+            <dataCategory>
+                <label>Digital Wallet</label>
+                <name>Digital_Wallet</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Device</label>
+                <name>Device</name>
+            </dataCategory>
+            <dataCategory>
+                <label>PIN</label>
+                <name>PIN_Appsupport</name>
+            </dataCategory>
+            <label>App Support</label>
+            <name>App_Support</name>
+        </dataCategory>
+        <dataCategory>
+            <dataCategory>
+                <label>Replacement</label>
+                <name>Replacement</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Declined</label>
+                <name>Declined</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Activate</label>
+                <name>Activate</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Pin</label>
+                <name>Pin_Card</name>
+            </dataCategory>
+            <label>Card</label>
+            <name>Card</name>
+        </dataCategory>
+        <dataCategory>
+            <dataCategory>
+                <label>Complaint</label>
+                <name>Complaint</name>
+            </dataCategory>
+            <label>Feedback</label>
+            <name>Feedback</name>
+        </dataCategory>
+        <dataCategory>
+            <dataCategory>
+                <label>Goals</label>
+                <name>Goals</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Coach</label>
+                <name>Coach</name>
+            </dataCategory>
+            <label>Financial Wellbeing</label>
+            <name>Financial_Wellbeing</name>
+        </dataCategory>
+        <dataCategory>
+            <dataCategory>
+                <label>Access</label>
+                <name>Access</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Verify ID</label>
+                <name>Verify_ID</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Personal Details and Preferences</label>
+                <name>Personal_Details_and_Preferences</name>
+            </dataCategory>
+            <label>Join ANZx</label>
+            <name>Join_ANZx</name>
+        </dataCategory>
+        <dataCategory>
+            <dataCategory>
+                <label>Phone</label>
+                <name>Phone</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Card</label>
+                <name>Card_LS</name>
+            </dataCategory>
+            <label>Lost/Stolen</label>
+            <name>Lost_Stolen</name>
+        </dataCategory>
+        <dataCategory>
+            <dataCategory>
+                <label>Upcoming Expenses</label>
+                <name>Upcoming_Expenses</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Dispute</label>
+                <name>Dispute</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Payment or Transfer</label>
+                <name>Payment_or_Transfer</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Direct Debit</label>
+                <name>Direct_Debit</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Transaction</label>
+                <name>Transaction</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Limit</label>
+                <name>Limit</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Transfer</label>
+                <name>Transfer</name>
+            </dataCategory>
+            <dataCategory>
+                <label>International</label>
+                <name>International</name>
+            </dataCategory>
+            <dataCategory>
+                <label>PayID</label>
+                <name>PayID</name>
+            </dataCategory>
+            <dataCategory>
+                <label>OSKO</label>
+                <name>OSKO</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Cheques</label>
+                <name>Cheques</name>
+            </dataCategory>
+            <label>Payments, Transactions, Transfers</label>
+            <name>Payments_Transactions_Transfers</name>
+        </dataCategory>
+        <dataCategory>
+            <dataCategory>
+                <label>Marketing</label>
+                <name>Marketing</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Personal Information</label>
+                <name>Personal_Information</name>
+            </dataCategory>
+            <label>Privacy</label>
+            <name>Privacy</name>
+        </dataCategory>
+        <dataCategory>
+            <dataCategory>
+                <label>Joint Account</label>
+                <name>Joint_Account</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Business</label>
+                <name>Business</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Credit Card</label>
+                <name>Credit_Card</name>
+            </dataCategory>
+            <label>Product</label>
+            <name>Product</name>
+        </dataCategory>
+        <label>All</label>
+        <name>All</name>
+    </dataCategory>
+    <description>Data Category Group for Get Help</description>
+    <label>Get Help</label>
+    <objectUsage>
+        <object>KnowledgeArticleVersion</object>
+    </objectUsage>
+</DataCategoryGroup>

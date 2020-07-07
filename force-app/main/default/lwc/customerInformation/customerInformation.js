@@ -19,7 +19,7 @@ export default class CustomerInformation extends LightningElement {
     if (this.customerId) {
       this.loaded = false;
       this.customerInfo = null;
-      this.custData(this.customerId);
+      this.custData(this.customerId.replace(/^0+/, ""));
     }
   }
 
@@ -27,7 +27,9 @@ export default class CustomerInformation extends LightningElement {
   wiredProject({ error, data }) {
     if (data && this.record !== data) {
       this.record = data;
-      this.custData(this.record.fields.IDR_Customer_Number__c.value);
+      this.custData(
+        this.record.fields.IDR_Customer_Number__c.value.replace(/^0+/, "")
+      );
     } else if (error) {
       this.handleError(error);
     }
@@ -37,7 +39,7 @@ export default class CustomerInformation extends LightningElement {
     // calling apex class method to make callout
     if (!this.loaded) {
       getCustomerData({ capId: customerId })
-        .then(result => {
+        .then((result) => {
           let customerData = {
             complainant_type: "",
             first_name: "",
@@ -75,7 +77,7 @@ export default class CustomerInformation extends LightningElement {
           this.loaded = true;
           this.customerInfo = customerData;
         })
-        .catch(error => {
+        .catch((error) => {
           this.handleError(error);
         });
     }
@@ -83,10 +85,12 @@ export default class CustomerInformation extends LightningElement {
   handleError(err) {
     this.loaded = true;
     this.error = "Unknown error";
-    if (Array.isArray(err.body)) {
-      this.error = err.body.map(e => e.message).join(", ");
-    } else if (typeof err.body.message === "string") {
-      this.error = err.body.message;
+    if (err.body) {
+      if (Array.isArray(err.body)) {
+        this.error = err.body.map((e) => e.message).join(", ");
+      } else if (typeof err.body.message === "string") {
+        this.error = err.body.message;
+      }
     }
     this.record = undefined;
   }

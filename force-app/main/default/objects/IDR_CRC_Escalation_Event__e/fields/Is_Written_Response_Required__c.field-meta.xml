@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Is_Written_Response_Required__c</fullName>
     <defaultValue>false</defaultValue>
-    <description>Is Written Response Requested by Complainant</description>
+    <description>Is Written Response Requested by Customer</description>
     <externalId>false</externalId>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>

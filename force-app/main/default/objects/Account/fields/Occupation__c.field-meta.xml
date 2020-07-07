@@ -1,0 +1,664 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Occupation__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Trusted</complianceGroup>
+    <description>Occupation</description>
+    <externalId>false</externalId>
+    <label>Occupation</label>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>99910</fullName>
+                <default>false</default>
+                <label>Student</label>
+            </value>
+            <value>
+                <fullName>99920</fullName>
+                <default>false</default>
+                <label>Child/baby</label>
+            </value>
+            <value>
+                <fullName>99900</fullName>
+                <default>false</default>
+                <label>Pensioner</label>
+            </value>
+            <value>
+                <fullName>99950</fullName>
+                <default>false</default>
+                <label>House wife/husband</label>
+            </value>
+            <value>
+                <fullName>99960</fullName>
+                <default>false</default>
+                <label>Retired</label>
+            </value>
+            <value>
+                <fullName>99970</fullName>
+                <default>false</default>
+                <label>Unemployed</label>
+            </value>
+            <value>
+                <fullName>99980</fullName>
+                <default>false</default>
+                <label>Self-Employed</label>
+            </value>
+            <value>
+                <fullName>111111</fullName>
+                <default>false</default>
+                <label>Chief Executive or Managing Director</label>
+            </value>
+            <value>
+                <fullName>111200</fullName>
+                <default>false</default>
+                <label>General Managers</label>
+            </value>
+            <value>
+                <fullName>111212</fullName>
+                <default>false</default>
+                <label>Defence Force Senior Officer</label>
+            </value>
+            <value>
+                <fullName>111311</fullName>
+                <default>false</default>
+                <label>Local Government Legislator</label>
+            </value>
+            <value>
+                <fullName>111312</fullName>
+                <default>false</default>
+                <label>Member of Parliament</label>
+            </value>
+            <value>
+                <fullName>111399</fullName>
+                <default>false</default>
+                <label>Legislators nec</label>
+            </value>
+            <value>
+                <fullName>111900</fullName>
+                <default>false</default>
+                <label>Ambassador and Consulate General</label>
+            </value>
+            <value>
+                <fullName>121000</fullName>
+                <default>false</default>
+                <label>Farmers and Farm Managers</label>
+            </value>
+            <value>
+                <fullName>131000</fullName>
+                <default>false</default>
+                <label>Advertising, Public Relations and Sales Managers</label>
+            </value>
+            <value>
+                <fullName>132000</fullName>
+                <default>false</default>
+                <label>Business Administration Managers</label>
+            </value>
+            <value>
+                <fullName>133000</fullName>
+                <default>false</default>
+                <label>Construction, Distribution and Production Managers</label>
+            </value>
+            <value>
+                <fullName>134000</fullName>
+                <default>false</default>
+                <label>Education, Health and Welfare Services Managers</label>
+            </value>
+            <value>
+                <fullName>139111</fullName>
+                <default>false</default>
+                <label>Commissioned Defence Force Officer</label>
+            </value>
+            <value>
+                <fullName>139112</fullName>
+                <default>false</default>
+                <label>Commissioned Fire Officer</label>
+            </value>
+            <value>
+                <fullName>139113</fullName>
+                <default>false</default>
+                <label>Commissioned Police Officer</label>
+            </value>
+            <value>
+                <fullName>139211</fullName>
+                <default>false</default>
+                <label>Senior Non-commissioned Defence Force Member</label>
+            </value>
+            <value>
+                <fullName>139800</fullName>
+                <default>false</default>
+                <label>Gov&apos;t/ Public Service - Management</label>
+            </value>
+            <value>
+                <fullName>139900</fullName>
+                <default>false</default>
+                <label>Other Specialist Managers</label>
+            </value>
+            <value>
+                <fullName>140000</fullName>
+                <default>false</default>
+                <label>Other Hospitality, Retail and Service Managers</label>
+            </value>
+            <value>
+                <fullName>142112</fullName>
+                <default>false</default>
+                <label>Antique Dealer</label>
+            </value>
+            <value>
+                <fullName>142113</fullName>
+                <default>false</default>
+                <label>Betting Agency Manager</label>
+            </value>
+            <value>
+                <fullName>142115</fullName>
+                <default>false</default>
+                <label>Post Office Manager</label>
+            </value>
+            <value>
+                <fullName>142116</fullName>
+                <default>false</default>
+                <label>Travel Agency Manager</label>
+            </value>
+            <value>
+                <fullName>210000</fullName>
+                <default>false</default>
+                <label>Arts and Media Professionals</label>
+            </value>
+            <value>
+                <fullName>212400</fullName>
+                <default>false</default>
+                <label>Journalists and Other Writers</label>
+            </value>
+            <value>
+                <fullName>221100</fullName>
+                <default>false</default>
+                <label>Accountants</label>
+            </value>
+            <value>
+                <fullName>221200</fullName>
+                <default>false</default>
+                <label>Auditors, Company Secretaries and Corporate Treasurers</label>
+            </value>
+            <value>
+                <fullName>222000</fullName>
+                <default>false</default>
+                <label>Financial Brokers and Dealers, Investment Advisers and Insurance</label>
+            </value>
+            <value>
+                <fullName>223000</fullName>
+                <default>false</default>
+                <label>Human Resource and Training Professionals</label>
+            </value>
+            <value>
+                <fullName>224000</fullName>
+                <default>false</default>
+                <label>Information and Organisation Professionals</label>
+            </value>
+            <value>
+                <fullName>224913</fullName>
+                <default>false</default>
+                <label>Migration Agent (Aus) \ Immigration Consultant (NZ)</label>
+            </value>
+            <value>
+                <fullName>225000</fullName>
+                <default>false</default>
+                <label>Sales, Marketing and Public Relations Professionals</label>
+            </value>
+            <value>
+                <fullName>231000</fullName>
+                <default>false</default>
+                <label>Air and Marine Transport Professionals</label>
+            </value>
+            <value>
+                <fullName>232000</fullName>
+                <default>false</default>
+                <label>Architects, Designers, Planners and Surveyors</label>
+            </value>
+            <value>
+                <fullName>233000</fullName>
+                <default>false</default>
+                <label>Engineering Professionals</label>
+            </value>
+            <value>
+                <fullName>234000</fullName>
+                <default>false</default>
+                <label>Natural and Physical Science Professionals</label>
+            </value>
+            <value>
+                <fullName>241100</fullName>
+                <default>false</default>
+                <label>Early Childhood (Pre-primary School) Teacher</label>
+            </value>
+            <value>
+                <fullName>241200</fullName>
+                <default>false</default>
+                <label>Primary School Teacher</label>
+            </value>
+            <value>
+                <fullName>241400</fullName>
+                <default>false</default>
+                <label>Secondary School Teacher</label>
+            </value>
+            <value>
+                <fullName>242100</fullName>
+                <default>false</default>
+                <label>University Lecturers and Tutors</label>
+            </value>
+            <value>
+                <fullName>242200</fullName>
+                <default>false</default>
+                <label>Vocational Education Teachers (Aus) \ Polytechnic Teachers (NZ)</label>
+            </value>
+            <value>
+                <fullName>249200</fullName>
+                <default>false</default>
+                <label>Private Tutors and Teachers</label>
+            </value>
+            <value>
+                <fullName>251000</fullName>
+                <default>false</default>
+                <label>Health Diagnostic and Promotion Professionals</label>
+            </value>
+            <value>
+                <fullName>251900</fullName>
+                <default>false</default>
+                <label>Other Health Diagnostic and Promotion Professionals</label>
+            </value>
+            <value>
+                <fullName>252000</fullName>
+                <default>false</default>
+                <label>Other Health Therapy Professionals</label>
+            </value>
+            <value>
+                <fullName>252312</fullName>
+                <default>false</default>
+                <label>Dentist</label>
+            </value>
+            <value>
+                <fullName>253000</fullName>
+                <default>false</default>
+                <label>Medical Practitioners</label>
+            </value>
+            <value>
+                <fullName>254000</fullName>
+                <default>false</default>
+                <label>Midwifery and Nursing Professionals</label>
+            </value>
+            <value>
+                <fullName>261100</fullName>
+                <default>false</default>
+                <label>ICT Business and Systems Analysts</label>
+            </value>
+            <value>
+                <fullName>261200</fullName>
+                <default>false</default>
+                <label>Multimedia Specialists and Web Developers</label>
+            </value>
+            <value>
+                <fullName>261300</fullName>
+                <default>false</default>
+                <label>Software and Applications Programmers</label>
+            </value>
+            <value>
+                <fullName>271000</fullName>
+                <default>false</default>
+                <label>Other Legal Professionals</label>
+            </value>
+            <value>
+                <fullName>271111</fullName>
+                <default>false</default>
+                <label>Barrister</label>
+            </value>
+            <value>
+                <fullName>271211</fullName>
+                <default>false</default>
+                <label>Judge</label>
+            </value>
+            <value>
+                <fullName>271212</fullName>
+                <default>false</default>
+                <label>Magistrate</label>
+            </value>
+            <value>
+                <fullName>271311</fullName>
+                <default>false</default>
+                <label>Solicitor</label>
+            </value>
+            <value>
+                <fullName>272000</fullName>
+                <default>false</default>
+                <label>Social and Welfare Professionals</label>
+            </value>
+            <value>
+                <fullName>311000</fullName>
+                <default>false</default>
+                <label>Agricultural, Medical and Science Technicians</label>
+            </value>
+            <value>
+                <fullName>321200</fullName>
+                <default>false</default>
+                <label>Motor Mechanics</label>
+            </value>
+            <value>
+                <fullName>323000</fullName>
+                <default>false</default>
+                <label>Mechanical Engineering Trades Workers</label>
+            </value>
+            <value>
+                <fullName>323312</fullName>
+                <default>false</default>
+                <label>Gunsmith</label>
+            </value>
+            <value>
+                <fullName>330000</fullName>
+                <default>false</default>
+                <label>Construction Trades Workers</label>
+            </value>
+            <value>
+                <fullName>340000</fullName>
+                <default>false</default>
+                <label>Electrotechnology and Telecommunications Trades Workers</label>
+            </value>
+            <value>
+                <fullName>350000</fullName>
+                <default>false</default>
+                <label>Food Trades Workers</label>
+            </value>
+            <value>
+                <fullName>390000</fullName>
+                <default>false</default>
+                <label>Other Technicians and Trades Workers</label>
+            </value>
+            <value>
+                <fullName>399411</fullName>
+                <default>false</default>
+                <label>Jeweller</label>
+            </value>
+            <value>
+                <fullName>410000</fullName>
+                <default>false</default>
+                <label>Health and Welfare Support Workers</label>
+            </value>
+            <value>
+                <fullName>420000</fullName>
+                <default>false</default>
+                <label>Carers and Aides</label>
+            </value>
+            <value>
+                <fullName>431111</fullName>
+                <default>false</default>
+                <label>Bar Attendant</label>
+            </value>
+            <value>
+                <fullName>431311</fullName>
+                <default>false</default>
+                <label>Gaming Worker</label>
+            </value>
+            <value>
+                <fullName>431511</fullName>
+                <default>false</default>
+                <label>Waiter</label>
+            </value>
+            <value>
+                <fullName>431900</fullName>
+                <default>false</default>
+                <label>Other Hospitality Workers</label>
+            </value>
+            <value>
+                <fullName>440000</fullName>
+                <default>false</default>
+                <label>Protective Service Workers</label>
+            </value>
+            <value>
+                <fullName>441111</fullName>
+                <default>false</default>
+                <label>Defence Force Member - Other Ranks</label>
+            </value>
+            <value>
+                <fullName>441312</fullName>
+                <default>false</default>
+                <label>Police Officer</label>
+            </value>
+            <value>
+                <fullName>451600</fullName>
+                <default>false</default>
+                <label>Tourism and Travel Advisers</label>
+            </value>
+            <value>
+                <fullName>451800</fullName>
+                <default>false</default>
+                <label>Other Personal Service Workers</label>
+            </value>
+            <value>
+                <fullName>451813</fullName>
+                <default>false</default>
+                <label>Sex Worker or Escort</label>
+            </value>
+            <value>
+                <fullName>451816</fullName>
+                <default>false</default>
+                <label>Religious Assistant</label>
+            </value>
+            <value>
+                <fullName>452000</fullName>
+                <default>false</default>
+                <label>Sports and Fitness Workers</label>
+            </value>
+            <value>
+                <fullName>521000</fullName>
+                <default>false</default>
+                <label>Personal Assistants and Secretaries</label>
+            </value>
+            <value>
+                <fullName>530000</fullName>
+                <default>false</default>
+                <label>General Clerical Workers</label>
+            </value>
+            <value>
+                <fullName>540000</fullName>
+                <default>false</default>
+                <label>Inquiry Clerks and Receptionists</label>
+            </value>
+            <value>
+                <fullName>551111</fullName>
+                <default>false</default>
+                <label>Accounts Clerk</label>
+            </value>
+            <value>
+                <fullName>551211</fullName>
+                <default>false</default>
+                <label>Bookkeeper</label>
+            </value>
+            <value>
+                <fullName>551311</fullName>
+                <default>false</default>
+                <label>Payroll Clerk</label>
+            </value>
+            <value>
+                <fullName>552111</fullName>
+                <default>false</default>
+                <label>Bank Worker</label>
+            </value>
+            <value>
+                <fullName>561100</fullName>
+                <default>false</default>
+                <label>Betting Clerks</label>
+            </value>
+            <value>
+                <fullName>561200</fullName>
+                <default>false</default>
+                <label>Couriers and Postal Deliverers</label>
+            </value>
+            <value>
+                <fullName>561900</fullName>
+                <default>false</default>
+                <label>Other Clerical and Office Support Workers</label>
+            </value>
+            <value>
+                <fullName>591100</fullName>
+                <default>false</default>
+                <label>Purchasing and Supply Logistics Clerks</label>
+            </value>
+            <value>
+                <fullName>599100</fullName>
+                <default>false</default>
+                <label>Conveyancers and Legal Executives</label>
+            </value>
+            <value>
+                <fullName>611300</fullName>
+                <default>false</default>
+                <label>Sales Representatives</label>
+            </value>
+            <value>
+                <fullName>612112</fullName>
+                <default>false</default>
+                <label>Property Manager</label>
+            </value>
+            <value>
+                <fullName>612113</fullName>
+                <default>false</default>
+                <label>Real Estate Agency Principal (Aus) \ Real Estate Agency Licensee (NZ)</label>
+            </value>
+            <value>
+                <fullName>612114</fullName>
+                <default>false</default>
+                <label>Real Estate Agent</label>
+            </value>
+            <value>
+                <fullName>621000</fullName>
+                <default>false</default>
+                <label>Sales Assistants and Salespersons</label>
+            </value>
+            <value>
+                <fullName>631000</fullName>
+                <default>false</default>
+                <label>Checkout Operators and Office Cashiers</label>
+            </value>
+            <value>
+                <fullName>700000</fullName>
+                <default>false</default>
+                <label>OTHER MACHINERY OPERATORS AND DRIVERS</label>
+            </value>
+            <value>
+                <fullName>731112</fullName>
+                <default>false</default>
+                <label>Taxi Driver</label>
+            </value>
+            <value>
+                <fullName>731211</fullName>
+                <default>false</default>
+                <label>Bus Driver</label>
+            </value>
+            <value>
+                <fullName>810000</fullName>
+                <default>false</default>
+                <label>Cleaners and Laundry Workers</label>
+            </value>
+            <value>
+                <fullName>820000</fullName>
+                <default>false</default>
+                <label>Construction and Mining Labourers</label>
+            </value>
+            <value>
+                <fullName>830000</fullName>
+                <default>false</default>
+                <label>Factory Process Workers</label>
+            </value>
+            <value>
+                <fullName>841000</fullName>
+                <default>false</default>
+                <label>Farm, Forestry and Garden Workers</label>
+            </value>
+            <value>
+                <fullName>850000</fullName>
+                <default>false</default>
+                <label>Food Preparation Assistants</label>
+            </value>
+            <value>
+                <fullName>890000</fullName>
+                <default>false</default>
+                <label>Other Labourers</label>
+            </value>
+            <value>
+                <fullName>14</fullName>
+                <default>false</default>
+                <label>SPECIALIST EXECUTIVE CONSULTANT</label>
+            </value>
+            <value>
+                <fullName>Unknown</fullName>
+                <default>false</default>
+                <label>Unknown</label>
+            </value>
+            <value>
+                <fullName>15</fullName>
+                <default>false</default>
+                <label>OTHER PROFESSIONAL</label>
+            </value>
+            <value>
+                <fullName>28</fullName>
+                <default>false</default>
+                <label>OTHER TECHNICAL</label>
+            </value>
+            <value>
+                <fullName>34</fullName>
+                <default>false</default>
+                <label>KEY PUNCH OPERATOR</label>
+            </value>
+            <value>
+                <fullName>54</fullName>
+                <default>false</default>
+                <label>TAILOR</label>
+            </value>
+            <value>
+                <fullName>60</fullName>
+                <default>false</default>
+                <label>WAREHOUSEMAN</label>
+            </value>
+            <value>
+                <fullName>64</fullName>
+                <default>false</default>
+                <label>BEAUTICIAN</label>
+            </value>
+            <value>
+                <fullName>65</fullName>
+                <default>false</default>
+                <label>HAIRDRESSER</label>
+            </value>
+            <value>
+                <fullName>67</fullName>
+                <default>false</default>
+                <label>DENTAL ASSISTANT</label>
+            </value>
+            <value>
+                <fullName>70</fullName>
+                <default>false</default>
+                <label>USHER</label>
+            </value>
+            <value>
+                <fullName>71</fullName>
+                <default>false</default>
+                <label>PORTER</label>
+            </value>
+            <value>
+                <fullName>75</fullName>
+                <default>false</default>
+                <label>OTHER SERVICE WORKER</label>
+            </value>
+            <value>
+                <fullName>84</fullName>
+                <default>false</default>
+                <label>OTHER</label>
+            </value>
+            <value>
+                <fullName>86</fullName>
+                <default>false</default>
+                <label>SMALL BUSINESS PROPRIETOR</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

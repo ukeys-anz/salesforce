@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_Is_Written_Resp_Requested__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate</complianceGroup>
     <externalId>false</externalId>
-    <inlineHelpText>Has the complainant requested a written response?</inlineHelpText>
+    <inlineHelpText>Has the customer requested a written response?</inlineHelpText>
     <label>Is a Written Response Requested?</label>
     <required>false</required>
+    <securityClassification>Internal</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>

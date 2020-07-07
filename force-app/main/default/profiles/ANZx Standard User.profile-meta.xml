@@ -8,6 +8,11 @@
     <visible>true</visible>
   </applicationVisibilities>
   <applicationVisibilities>
+    <application>Content_Workbench</application>
+    <default>false</default>
+    <visible>false</visible>
+  </applicationVisibilities>
+  <applicationVisibilities>
     <application>FinServ__BankingConsoleFinancialServicesCloud</application>
     <default>false</default>
     <visible>false</visible>
@@ -1321,7 +1326,7 @@
     <enabled>false</enabled>
   </classAccesses>
   <classAccesses>
-    <apexClass>CaseTriggerHandlerTest</apexClass>
+    <apexClass>TestCaseTriggerHandler</apexClass>
     <enabled>false</enabled>
   </classAccesses>
   <classAccesses>
@@ -1345,6 +1350,15 @@
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
+    <field>Account.Anniversary_Date__c</field>
+    <readable>true</readable>
+  </fieldPermissions>
+  <fieldPermissions>
+    <field>Account.Anniversay_Duration__c</field>
+    <readable>true</readable>
+  </fieldPermissions>
+  <fieldPermissions>
+    <editable>false</editable>
     <field>Account.AnnualRevenue</field>
     <readable>false</readable>
   </fieldPermissions>
@@ -1352,6 +1366,11 @@
     <editable>false</editable>
     <field>Account.BillingAddress</field>
     <readable>false</readable>
+  </fieldPermissions>
+  <fieldPermissions>
+    <editable>false</editable>
+    <field>Account.Customer_Belongs_To__c</field>
+    <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
@@ -1471,7 +1490,7 @@
   <fieldPermissions>
     <editable>false</editable>
     <field>Account.FinServ__KYCDate__c</field>
-    <readable>false</readable>
+    <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
@@ -1762,6 +1781,11 @@
     <editable>false</editable>
     <field>Account.FinServ__WalletShare__c</field>
     <readable>false</readable>
+  </fieldPermissions>
+  <fieldPermissions>
+    <editable>true</editable>
+    <field>Account.Has_Customer_Provided_TFN__c</field>
+    <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
@@ -2736,21 +2760,6 @@
   <fieldPermissions>
     <editable>false</editable>
     <field>Case.IDR_NC_Suburb__c</field>
-    <readable>false</readable>
-  </fieldPermissions>
-  <fieldPermissions>
-    <editable>false</editable>
-    <field>Case.IDR_Product_or_Service_Category__c</field>
-    <readable>false</readable>
-  </fieldPermissions>
-  <fieldPermissions>
-    <editable>false</editable>
-    <field>Case.IDR_Product_or_Service_Line__c</field>
-    <readable>false</readable>
-  </fieldPermissions>
-  <fieldPermissions>
-    <editable>false</editable>
-    <field>Case.IDR_Product_or_Service_Type__c</field>
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
@@ -8541,7 +8550,7 @@
     <recordType>Case.Non_Customer_Complaint</recordType>
   </layoutAssignments>
   <layoutAssignments>
-    <layout>PersonAccount-Person Account Layout ANZX</layout>
+    <layout>PersonAccount-Customer View Layout</layout>
     <recordType>PersonAccount.PersonAccount</recordType>
   </layoutAssignments>
   <layoutAssignments>
@@ -10184,7 +10193,7 @@
   </tabVisibilities>
   <tabVisibilities>
     <tab>standard-report</tab>
-    <visibility>DefaultOff</visibility>
+    <visibility>DefaultOn</visibility>
   </tabVisibilities>
   <userLicense>Salesforce</userLicense>
   <userPermissions>
@@ -10354,6 +10363,14 @@
   <userPermissions>
     <enabled>true</enabled>
     <name>ViewRoles</name>
+  </userPermissions>
+  <userPermissions>
+      <enabled>false</enabled>
+      <name>ViewPublicDashboards</name>
+  </userPermissions>
+  <userPermissions>
+      <enabled>false</enabled>
+      <name>ViewPublicReports</name>
   </userPermissions>
   <userPermissions>
     <enabled>false</enabled>

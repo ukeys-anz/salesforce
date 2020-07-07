@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR01_ChangeReason_Should_Not_Be_Empty</fullName>
+    <active>true</active>
+    <description>Reason for change field should not be empty if it is not the first version</description>
+    <errorConditionFormula>And (
+!IsNew(),
+ISBLANK( Reason_for_Change__c ) ,
+!ISBLANK(LastPublishedDate )
+)</errorConditionFormula>
+	<errorDisplayField>Reason_for_Change__c</errorDisplayField>
+    <errorMessage>Reason for Change is required before publishing</errorMessage>
+</ValidationRule>

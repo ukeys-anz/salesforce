@@ -2,7 +2,7 @@
 FROM node:alpine
 
 # install zip, unzip and jq
-RUN apk add --update zip unzip jq bash git openjdk8-jre wget
+RUN apk add --update zip unzip jq bash git openjdk8-jre wget curl 
 
 ENV JAVA_HOME="/usr/lib/jvm/java-1.8-openjdk"
 ENV PATH="$JAVA_HOME/bin:${PATH}"
@@ -18,15 +18,20 @@ ENV PMD_VERSION 6.22.0
 
 RUN mkdir -p /opt
 
-RUN cd /opt &&
-      wget -nc -O pmd.zip https://github.com/pmd/pmd/releases/download/pmd_releases/${PMD_VERSION}/pmd-bin-${PMD_VERSION}.zip &&
-      unzip pmd.zip &&
-      rm -f pmd.zip &&
+RUN cd /opt && \
+      wget -nc -O pmd.zip https://github.com/pmd/pmd/releases/download/pmd_releases/${PMD_VERSION}/pmd-bin-${PMD_VERSION}.zip && \
+      unzip pmd.zip && \
+      rm -f pmd.zip && \
       mv pmd-bin-${PMD_VERSION} pmd
 
-COPY pmd /usr/bin/pmd
-COPY cpd /usr/bin/cpd
+
+COPY pmdscripts/pmd /usr/bin/pmd
+COPY pmdscripts/cpd /usr/bin/cpd
 RUN chmod +x /usr/bin/pmd /usr/bin/cpd
+
+RUN apk add --update tar
+RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+RUN apk add hub
 
 RUN mkdir /src
 VOLUME /src

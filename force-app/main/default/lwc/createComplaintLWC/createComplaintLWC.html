@@ -39,8 +39,8 @@
                   <br />
                   <p>
                     Your personal information will not be disclosed outside the
-                    ANZ group (which may include our contact centres located
-                    overseas).
+                    ANZ group, which may include our contact centres located
+                    overseas.
                   </p>
                   <br />
                   <p>
@@ -109,14 +109,26 @@
         <template if:true={showSections}>
           <lightning-accordion-section name="A" label="Customer Details">
             <template if:true={isCustomerComplaint}>
-              <div class="slds-grid slds-wrap">
-                <div class="slds-col slds-size_1-of-6">
-                  <lightning-input-field
-                    variant="label-stacked"
+              <div class="slds-grid slds-wrap" tabindex="0">
+                <div class="slds-col slds-size_1-of-6" tabindex="0">
+                  <label class="slds-form-element__label" for="text-input-id-1">
+                    <abbr class="slds-required" title="required">* </abbr
+                    >Customer Number</label
+                  >
+                  <lightning-helptext
+                    content="Also known as Customer CAP CIS ID. Copy and paste this from MAUD"
+                  >
+                  </lightning-helptext>
+                  <lightning-input
+                    class="input inputCapCisId"
+                    variant="label-hidden"
                     required
-                    field-name={CapCisID}
+                    minlength="10"
+                    maxlength="16"
                     onchange={handleCustomerNumberChange}
-                  ></lightning-input-field>
+                    onblur={handleCustomerNumberOnblur}
+                  >
+                  </lightning-input>
                 </div>
                 <div class="slds-col slds-size_1-of-12 slds-m-right_large">
                   <div class="searchButtonDiv">
@@ -129,10 +141,22 @@
                     ></lightning-button>
                   </div>
                 </div>
+              </div>
+
+              <template if:true={displayCustomerInfo}>
+                <c-customer-information
+                  customer-id={customerId}
+                  show-as-grid="true"
+                  class="slds-m-top_large"
+                >
+                </c-customer-information>
+              </template>
+              <div class="slds-grid slds-wrap" tabindex="0">
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
                     variant="label-stacked"
                     required
+                    aria-labelledby="Dropdown Customer Type"
                     onchange={handleComplaintTypeChange}
                     field-name={complaintType}
                   ></lightning-input-field>
@@ -146,27 +170,15 @@
                     field-name={businessName}
                   ></lightning-input-field>
                 </div>
-                <div
-                  if:true={isBusiness}
-                  class="slds-col slds-size_3-of-4 slds-m-right_large"
-                ></div>
-                <div class="slds-col slds-size_1-of-4">
+                <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
                     variant="label-stacked"
+                    aria-labelledby="Dropdown Aboriginal or Torres Strait Islander"
                     required
                     field-name={decent}
                   ></lightning-input-field>
                 </div>
               </div>
-
-              <template if:true={displayCustomerInfo}>
-                <c-customer-information
-                  customer-id={customerId}
-                  show-as-grid="true"
-                  class="slds-m-top_large"
-                >
-                </c-customer-information>
-              </template>
             </template>
 
             <template if:false={isCustomerComplaint}>
@@ -175,6 +187,7 @@
                   <lightning-input-field
                     variant="label-stacked"
                     required
+                    aria-labelledby="Dropdown Customer Type"
                     onchange={handleComplaintTypeChange}
                     field-name={complaintType}
                   ></lightning-input-field>
@@ -211,6 +224,7 @@
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
                     variant="label-stacked"
+                    aria-labelledby="Dropdown Age"
                     required
                     field-name={age}
                   ></lightning-input-field>
@@ -219,6 +233,7 @@
                   <lightning-input-field
                     variant="label-stacked"
                     required
+                    aria-labelledby="Dropdown Gender"
                     field-name={gender}
                   ></lightning-input-field>
                 </div>
@@ -226,6 +241,7 @@
                   <lightning-input-field
                     variant="label-stacked"
                     required
+                    aria-labelledby="Dropdown Aboriginal or Torres Strait Islander"
                     field-name={decent}
                   ></lightning-input-field>
                 </div>
@@ -292,6 +308,7 @@
                   <lightning-input-field
                     variant="label-stacked"
                     required
+                    aria-labelledby="Dropdown Country"
                     field-name={country}
                   ></lightning-input-field>
                 </div>
@@ -299,6 +316,7 @@
                   <lightning-input-field
                     variant="label-stacked"
                     required
+                    aria-labelledby="Dropdown State"
                     field-name={state}
                   ></lightning-input-field>
                 </div>
@@ -369,6 +387,7 @@
                   <lightning-input-field
                     variant="label-stacked"
                     required={hasNominatedThirdParty}
+                    aria-labelledby="Dropdown Nominated 3rd party country"
                     field-name={thirdPartyCountry}
                   ></lightning-input-field>
                 </div>
@@ -376,6 +395,7 @@
                   <lightning-input-field
                     variant="label-stacked"
                     required={hasNominatedThirdParty}
+                    aria-labelledby="Dropdown Nominated 3rd party state"
                     field-name={thirdPartyState}
                   ></lightning-input-field>
                 </div>
@@ -388,6 +408,7 @@
               <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                 <lightning-input-field
                   variant="label-stacked"
+                  aria-labelledby="Dropdown Priority"
                   required
                   field-name={Priority}
                 ></lightning-input-field>
@@ -396,6 +417,7 @@
                 <lightning-input-field
                   variant="label-stacked"
                   required
+                  aria-labelledby="Dropdown Channel Received"
                   field-name={ChannelReceived}
                 ></lightning-input-field>
               </div>
@@ -403,6 +425,7 @@
                 <lightning-input-field
                   variant="label-stacked"
                   placeholder="Select"
+                  aria-labelledby="Dropdown Case Type"
                   required
                   field-name={complaintIssue}
                 ></lightning-input-field>
@@ -411,21 +434,10 @@
                 <lightning-input-field
                   variant="label-stacked"
                   required
-                  field-name={ProductorServiceLine}
-                ></lightning-input-field>
-              </div>
-              <div class="slds-col slds-size_1-of-4 slds-m-right_large">
-                <lightning-input-field
-                  variant="label-stacked"
-                  required
-                  field-name={ProductorServiceCategory}
-                ></lightning-input-field>
-              </div>
-              <div class="slds-col slds-size_1-of-4 slds-m-right_large">
-                <lightning-input-field
-                  variant="label-stacked"
-                  required
-                  field-name={ProductorServiceType}
+                  aria-labelledby="Autocomplete Product or Service Name"
+                  field-name={Product}
+                  value={product}
+                  onchange={handleProductChange}
                 ></lightning-input-field>
               </div>
               <template if:true={isCustomerComplaint}>
@@ -513,7 +525,7 @@
 
               <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                 <lightning-helptext
-                  content="Does the issue affect more than one customer and is it of a compliance nature?"
+                  content="Issues which may impact more than one customer AND are of a compliance nature. E.g. ANZ systems or processes not working properly or non-compliance with terms and conditions"
                 >
                 </lightning-helptext>
                 <lightning-input
@@ -557,6 +569,7 @@
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
                     variant="label-stacked"
+                    aria-labelledby="Dropdown Complaint Outcome"
                     required={isComplaintResolved}
                     field-name={complaintOutcome}
                   ></lightning-input-field>
@@ -564,6 +577,7 @@
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
                     variant="label-stacked"
+                    aria-labelledby="Dropdown Complaint Remedy"
                     required={isComplaintResolved}
                     field-name={complaintRemedy}
                   ></lightning-input-field>
@@ -571,6 +585,7 @@
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
                     variant="label-stacked"
+                    aria-labelledby="Dropdown Financial Compensation"
                     required={isComplaintResolved}
                     field-name={financialCompensation}
                   ></lightning-input-field>

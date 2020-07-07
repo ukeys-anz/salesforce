@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <assignments>
+        <description>No of records of Auth Sessions</description>
+        <name>AuthSession_Count</name>
+        <label>AuthSession Count</label>
+        <locationX>373</locationX>
+        <locationY>54</locationY>
+        <assignmentItems>
+            <assignToReference>AuthSessions_Records_Size</assignToReference>
+            <operator>AssignCount</operator>
+            <value>
+                <elementReference>AuthSessionRecords</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Is_Valid_for_Session_Delete</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Remove the most recent session from the list of Auth Sessions</description>
+        <name>Remove_Most_Recent_Session_From_List</name>
+        <label>Remove Most Recent Session From List</label>
+        <locationX>519</locationX>
+        <locationY>355</locationY>
+        <assignmentItems>
+            <assignToReference>AuthSessionRecords</assignToReference>
+            <operator>RemovePosition</operator>
+            <value>
+                <numberValue>1.0</numberValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Delete_Other_Auth_Sessions</targetReference>
+        </connector>
+    </assignments>
+    <constants>
+        <description>Session Type which is UI</description>
+        <name>UI_SESSION_TYPE</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>UI</stringValue>
+        </value>
+    </constants>
+    <decisions>
+        <description>Check if there are more than 1 session for the logged in user if so delete the older one</description>
+        <name>Is_Valid_for_Session_Delete</name>
+        <label>Is Valid for Session Delete</label>
+        <locationX>598</locationX>
+        <locationY>98</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>More_Than_one_Session</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>AuthSessions_Records_Size</leftValueReference>
+                <operator>GreaterThan</operator>
+                <rightValue>
+                    <numberValue>1.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Remove_Most_Recent_Session_From_List</targetReference>
+            </connector>
+            <label>More Than one Session</label>
+        </rules>
+    </decisions>
+    <description>Remove concurrent sessions of the user who is currently logged in. As per the security requirement salesforce should only have one session at a time. So if a user logs in to a different browser or into other system the previous sessions are ended and user will be logged in with the current active session and will always have only one session for a user in salesforce.</description>
+    <interviewLabel>Remove Concurrent Sessions {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Remove Concurrent Sessions</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordDeletes>
+        <description>Remove other auth sessions except the current one</description>
+        <name>Delete_Other_Auth_Sessions</name>
+        <label>Delete Other Auth Sessions</label>
+        <locationX>277</locationX>
+        <locationY>394</locationY>
+        <inputReference>AuthSessionRecords</inputReference>
+    </recordDeletes>
+    <recordLookups>
+        <description>Get the Auth Sessions related to the logged in User</description>
+        <name>Get_Auth_Session_Records</name>
+        <label>Get Auth Session Records</label>
+        <locationX>180</locationX>
+        <locationY>53</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>AuthSession_Count</targetReference>
+        </connector>
+        <filters>
+            <field>ParentId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue/>
+            </value>
+        </filters>
+        <filters>
+            <field>SessionType</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>UI_SESSION_TYPE</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>UsersId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>LoginFlow_UserId</elementReference>
+            </value>
+        </filters>
+        <object>AuthSession</object>
+        <outputReference>AuthSessionRecords</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>CreatedDate</queriedFields>
+        <sortField>CreatedDate</sortField>
+        <sortOrder>Desc</sortOrder>
+    </recordLookups>
+    <start>
+        <locationX>21</locationX>
+        <locationY>53</locationY>
+        <connector>
+            <targetReference>Get_Auth_Session_Records</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <description>Auth Session Records for the currently Logged in user</description>
+        <name>AuthSessionRecords</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>AuthSession</objectType>
+    </variables>
+    <variables>
+        <description>Size of Auth Sessions records for the current logged in user</description>
+        <name>AuthSessions_Records_Size</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+    </variables>
+    <variables>
+        <description>Login Flow User Id</description>
+        <name>LoginFlow_UserId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

@@ -1,0 +1,1365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Identification_Type__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate</complianceGroup>
+    <description>Reference data type and value for Identification type</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Reference data value for Identification type</inlineHelpText>
+    <label>Identification Type</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Centrelink Card</fullName>
+                <default>false</default>
+                <label>Centrelink Card Reference Number</label>
+            </value>
+            <value>
+                <fullName>Drivers License</fullName>
+                <default>false</default>
+                <label>Drivers License</label>
+            </value>
+            <value>
+                <fullName>Passport</fullName>
+                <default>false</default>
+                <label>Passport Number</label>
+            </value>
+            <value>
+                <fullName>Employee Number</fullName>
+                <default>false</default>
+                <label>ANZ Staff Employee number</label>
+            </value>
+            <value>
+                <fullName>Veterans Card</fullName>
+                <default>false</default>
+                <label>Veteran Affairs Card Reference Number </label>
+            </value>
+            <value>
+                <fullName>CRN</fullName>
+                <default>false</default>
+                <label>Customer Registration Number</label>
+            </value>
+            <value>
+                <fullName>ABN</fullName>
+                <default>false</default>
+                <label>Australian Business Number</label>
+            </value>
+            <value>
+                <fullName>ACN</fullName>
+                <default>false</default>
+                <label>Australian Company Number</label>
+            </value>
+            <value>
+                <fullName>ARBN</fullName>
+                <default>false</default>
+                <label>Australian Registered Business Number</label>
+            </value>
+            <value>
+                <fullName>One Customer ID</fullName>
+                <default>false</default>
+                <label>One Customer Identifier</label>
+            </value>
+            <value>
+                <fullName>ANZ Person Identifier</fullName>
+                <default>false</default>
+                <label>An identifier for Person which is unique and immutable. ForgeRock is the Master of this attribute.</label>
+            </value>
+            <value>
+                <fullName>Australian Driver&apos;s Licence</fullName>
+                <default>false</default>
+                <label>Australian Driver&apos;s Licence</label>
+            </value>
+            <value>
+                <fullName>Foreign Driver&apos;s Licence</fullName>
+                <default>false</default>
+                <label>Foreign Driver&apos;s Licence</label>
+            </value>
+            <value>
+                <fullName>Government</fullName>
+                <default>false</default>
+                <label>Government Identifier</label>
+            </value>
+            <value>
+                <fullName>Personal Tax Number</fullName>
+                <default>false</default>
+                <label>Personal Tax Number (Foreign)</label>
+            </value>
+            <value>
+                <fullName>National ID</fullName>
+                <default>false</default>
+                <label>National ID</label>
+            </value>
+            <value>
+                <fullName>BVD ID</fullName>
+                <default>false</default>
+                <label>BVD ID</label>
+            </value>
+            <value>
+                <fullName>CBIG ID</fullName>
+                <default>false</default>
+                <label>CBIG ID</label>
+            </value>
+            <value>
+                <fullName>OASIS ID</fullName>
+                <default>false</default>
+                <label>OASIS ID</label>
+            </value>
+            <value>
+                <fullName>PEOPLESOFT ID</fullName>
+                <default>false</default>
+                <label>PEOPLESOFT ID</label>
+            </value>
+            <value>
+                <fullName>UCI</fullName>
+                <default>false</default>
+                <label>UCI</label>
+            </value>
+            <value>
+                <fullName>Vision+ Merchant ID</fullName>
+                <default>false</default>
+                <label>Vision+ Merchant ID</label>
+            </value>
+            <value>
+                <fullName>CCBIS ID</fullName>
+                <default>false</default>
+                <label>CCBIS ID</label>
+            </value>
+            <value>
+                <fullName>Vision+ ID</fullName>
+                <default>false</default>
+                <label>Vision+ ID</label>
+            </value>
+            <value>
+                <fullName>Pacer ID</fullName>
+                <default>false</default>
+                <label>Pacer ID</label>
+            </value>
+            <value>
+                <fullName>CACHE Account ID</fullName>
+                <default>false</default>
+                <label>CACHE Account ID</label>
+            </value>
+            <value>
+                <fullName>Other/Unknown Identifier</fullName>
+                <default>false</default>
+                <label>Other/Unknown Identifier</label>
+            </value>
+            <value>
+                <fullName>CAP NZ ID</fullName>
+                <default>false</default>
+                <label>CAP NZ ID</label>
+            </value>
+            <value>
+                <fullName>ESANDA ID</fullName>
+                <default>false</default>
+                <label>ESANDA ID</label>
+            </value>
+            <value>
+                <fullName>GOLDTIER ID</fullName>
+                <default>false</default>
+                <label>GOLDTIER ID</label>
+            </value>
+            <value>
+                <fullName>LOAN IQ ID</fullName>
+                <default>false</default>
+                <label>LOAN IQ ID</label>
+            </value>
+            <value>
+                <fullName>CACHE Key</fullName>
+                <default>false</default>
+                <label>CACHE Key</label>
+            </value>
+            <value>
+                <fullName>ICIS ID</fullName>
+                <default>false</default>
+                <label>ICIS ID</label>
+            </value>
+            <value>
+                <fullName>RIS ID</fullName>
+                <default>false</default>
+                <label>RIS ID</label>
+            </value>
+            <value>
+                <fullName>SYSTEMATICS ID</fullName>
+                <default>false</default>
+                <label>SYSTEMATICS ID</label>
+            </value>
+            <value>
+                <fullName>MUREX ID</fullName>
+                <default>false</default>
+                <label>MUREX ID</label>
+            </value>
+            <value>
+                <fullName>TPOS Policy ID</fullName>
+                <default>false</default>
+                <label>TPOS Policy ID</label>
+            </value>
+            <value>
+                <fullName>KYC (SIEBEL AU) ID</fullName>
+                <default>false</default>
+                <label>KYC (SIEBEL AU) ID</label>
+            </value>
+            <value>
+                <fullName>TRAM ID</fullName>
+                <default>false</default>
+                <label>TRAM ID</label>
+            </value>
+            <value>
+                <fullName>GATEKEEPER ID</fullName>
+                <default>false</default>
+                <label>GATEKEEPER ID</label>
+            </value>
+            <value>
+                <fullName>EVOLVE ID</fullName>
+                <default>false</default>
+                <label>EVOLVE ID</label>
+            </value>
+            <value>
+                <fullName>FELIX ID</fullName>
+                <default>false</default>
+                <label>FELIX ID</label>
+            </value>
+            <value>
+                <fullName>LIQ External Customer ID</fullName>
+                <default>false</default>
+                <label>LIQ External Customer ID</label>
+            </value>
+            <value>
+                <fullName>International Group Code</fullName>
+                <default>false</default>
+                <label>International Group Code</label>
+            </value>
+            <value>
+                <fullName>CAP Key</fullName>
+                <default>false</default>
+                <label>CAP Key</label>
+            </value>
+            <value>
+                <fullName>CACHE ID</fullName>
+                <default>false</default>
+                <label>CACHE ID</label>
+            </value>
+            <value>
+                <fullName>RAZOR ID</fullName>
+                <default>false</default>
+                <label>RAZOR ID</label>
+            </value>
+            <value>
+                <fullName>DLD ID</fullName>
+                <default>false</default>
+                <label>DLD ID</label>
+            </value>
+            <value>
+                <fullName>GTSS ID</fullName>
+                <default>false</default>
+                <label>GTSS ID</label>
+            </value>
+            <value>
+                <fullName>CIP NORKOM ID</fullName>
+                <default>false</default>
+                <label>CIP NORKOM ID</label>
+            </value>
+            <value>
+                <fullName>MANTEC ID</fullName>
+                <default>false</default>
+                <label>MANTEC ID</label>
+            </value>
+            <value>
+                <fullName>ANZCAP ID</fullName>
+                <default>false</default>
+                <label>ANZCAP ID</label>
+            </value>
+            <value>
+                <fullName>CAP CLG ID</fullName>
+                <default>false</default>
+                <label>CAP CLG ID</label>
+            </value>
+            <value>
+                <fullName>ACM ID</fullName>
+                <default>false</default>
+                <label>ACM ID</label>
+            </value>
+            <value>
+                <fullName>FELIX Policy ID</fullName>
+                <default>false</default>
+                <label>FELIX Policy ID</label>
+            </value>
+            <value>
+                <fullName>Wallstreet ID</fullName>
+                <default>false</default>
+                <label>Wallstreet ID</label>
+            </value>
+            <value>
+                <fullName>FINACLE 7 ID</fullName>
+                <default>false</default>
+                <label>FINACLE 7 ID</label>
+            </value>
+            <value>
+                <fullName>FX Online ID</fullName>
+                <default>false</default>
+                <label>FX Online ID</label>
+            </value>
+            <value>
+                <fullName>UDC ID</fullName>
+                <default>false</default>
+                <label>UDC ID</label>
+            </value>
+            <value>
+                <fullName>CCMS ID</fullName>
+                <default>false</default>
+                <label>CCMS ID</label>
+            </value>
+            <value>
+                <fullName>RO ID</fullName>
+                <default>false</default>
+                <label>RO ID</label>
+            </value>
+            <value>
+                <fullName>CLOAS Policy ID</fullName>
+                <default>false</default>
+                <label>CLOAS Policy ID</label>
+            </value>
+            <value>
+                <fullName>Evolve Policy ID</fullName>
+                <default>false</default>
+                <label>Evolve Policy ID</label>
+            </value>
+            <value>
+                <fullName>ICBS ID</fullName>
+                <default>false</default>
+                <label>ICBS ID</label>
+            </value>
+            <value>
+                <fullName>Misys ID</fullName>
+                <default>false</default>
+                <label>Misys ID</label>
+            </value>
+            <value>
+                <fullName>CAP Account ID</fullName>
+                <default>false</default>
+                <label>CAP Account ID</label>
+            </value>
+            <value>
+                <fullName>CAP ID</fullName>
+                <default>false</default>
+                <label>CAP ID</label>
+            </value>
+            <value>
+                <fullName>CBS ID</fullName>
+                <default>false</default>
+                <label>CBS ID</label>
+            </value>
+            <value>
+                <fullName>MUREX 3.1 ID</fullName>
+                <default>false</default>
+                <label>MUREX 3.1 ID</label>
+            </value>
+            <value>
+                <fullName>OTL ID</fullName>
+                <default>false</default>
+                <label>OTL ID</label>
+            </value>
+            <value>
+                <fullName>AMBIT ID</fullName>
+                <default>false</default>
+                <label>AMBIT ID</label>
+            </value>
+            <value>
+                <fullName>TPOS ID</fullName>
+                <default>false</default>
+                <label>TPOS ID</label>
+            </value>
+            <value>
+                <fullName>MIDANZ ID</fullName>
+                <default>false</default>
+                <label>MIDANZ ID</label>
+            </value>
+            <value>
+                <fullName>FINACLE 10 ID</fullName>
+                <default>false</default>
+                <label>FINACLE 10 ID</label>
+            </value>
+            <value>
+                <fullName>ANZ Global ID</fullName>
+                <default>false</default>
+                <label>ANZ Global ID</label>
+            </value>
+            <value>
+                <fullName>CU/NCUA number</fullName>
+                <default>false</default>
+                <label>CU/NCUA number</label>
+            </value>
+            <value>
+                <fullName>ESCB Investment fund ID</fullName>
+                <default>false</default>
+                <label>ESCB Investment fund ID</label>
+            </value>
+            <value>
+                <fullName>FATCA AVOX ID</fullName>
+                <default>false</default>
+                <label>FATCA AVOX ID</label>
+            </value>
+            <value>
+                <fullName>Tax Number</fullName>
+                <default>false</default>
+                <label>Tax Number</label>
+            </value>
+            <value>
+                <fullName>Banco Registrato Numero</fullName>
+                <default>false</default>
+                <label>Banco Registrato Numero</label>
+            </value>
+            <value>
+                <fullName>Bundesanstalt fur Finanzdienstleistungsaufsicht</fullName>
+                <default>false</default>
+                <label>Bundesanstalt fur Finanzdienstleistungsaufsicht</label>
+            </value>
+            <value>
+                <fullName>Global Intermediary Identification Number (GIIN)</fullName>
+                <default>false</default>
+                <label>Global Intermediary Identification Number (GIIN)</label>
+            </value>
+            <value>
+                <fullName>Business ID</fullName>
+                <default>false</default>
+                <label>Business ID</label>
+            </value>
+            <value>
+                <fullName>Industrial license</fullName>
+                <default>false</default>
+                <label>Industrial license</label>
+            </value>
+            <value>
+                <fullName>MBS</fullName>
+                <default>false</default>
+                <label>MBS</label>
+            </value>
+            <value>
+                <fullName>OGRN</fullName>
+                <default>false</default>
+                <label>OGRN</label>
+            </value>
+            <value>
+                <fullName>Trade register number</fullName>
+                <default>false</default>
+                <label>Trade register number</label>
+            </value>
+            <value>
+                <fullName>CUIT</fullName>
+                <default>false</default>
+                <label>CUIT</label>
+            </value>
+            <value>
+                <fullName>NIT</fullName>
+                <default>false</default>
+                <label>NIT</label>
+            </value>
+            <value>
+                <fullName>International Securities Identification Number (ISIN)</fullName>
+                <default>false</default>
+                <label>International Securities Identification Number (ISIN)</label>
+            </value>
+            <value>
+                <fullName>Statistical number</fullName>
+                <default>false</default>
+                <label>Statistical number</label>
+            </value>
+            <value>
+                <fullName>GEMI number</fullName>
+                <default>false</default>
+                <label>GEMI number</label>
+            </value>
+            <value>
+                <fullName>Commodity Futures Trading Commission</fullName>
+                <default>false</default>
+                <label>Commodity Futures Trading Commission</label>
+            </value>
+            <value>
+                <fullName>Company ID</fullName>
+                <default>false</default>
+                <label>Company ID</label>
+            </value>
+            <value>
+                <fullName>Legal Entity Identifier (LEI)</fullName>
+                <default>false</default>
+                <label>Legal Entity Identifier (LEI)</label>
+            </value>
+            <value>
+                <fullName>NZBN</fullName>
+                <default>false</default>
+                <label>NZBN</label>
+            </value>
+            <value>
+                <fullName>Federal Reserve</fullName>
+                <default>false</default>
+                <label>Federal Reserve</label>
+            </value>
+            <value>
+                <fullName>Charity number</fullName>
+                <default>false</default>
+                <label>Charity number</label>
+            </value>
+            <value>
+                <fullName>CVR-nummer</fullName>
+                <default>false</default>
+                <label>CVR-nummer</label>
+            </value>
+            <value>
+                <fullName>RCCM number</fullName>
+                <default>false</default>
+                <label>RCCM number</label>
+            </value>
+            <value>
+                <fullName>SIRET number</fullName>
+                <default>false</default>
+                <label>SIRET number</label>
+            </value>
+            <value>
+                <fullName>UEN</fullName>
+                <default>false</default>
+                <label>UEN</label>
+            </value>
+            <value>
+                <fullName>UID</fullName>
+                <default>false</default>
+                <label>UID</label>
+            </value>
+            <value>
+                <fullName>AFM</fullName>
+                <default>false</default>
+                <label>AFM</label>
+            </value>
+            <value>
+                <fullName>NIF</fullName>
+                <default>false</default>
+                <label>NIF</label>
+            </value>
+            <value>
+                <fullName>NIU</fullName>
+                <default>false</default>
+                <label>NIU</label>
+            </value>
+            <value>
+                <fullName>RFC</fullName>
+                <default>false</default>
+                <label>RFC</label>
+            </value>
+            <value>
+                <fullName>CUCI number</fullName>
+                <default>false</default>
+                <label>CUCI number</label>
+            </value>
+            <value>
+                <fullName>NIN</fullName>
+                <default>false</default>
+                <label>NIN</label>
+            </value>
+            <value>
+                <fullName>Business number</fullName>
+                <default>false</default>
+                <label>Business number</label>
+            </value>
+            <value>
+                <fullName>SWIFT code</fullName>
+                <default>false</default>
+                <label>SWIFT code</label>
+            </value>
+            <value>
+                <fullName>ASIC</fullName>
+                <default>false</default>
+                <label>ASIC</label>
+            </value>
+            <value>
+                <fullName>BRN</fullName>
+                <default>false</default>
+                <label>BRN</label>
+            </value>
+            <value>
+                <fullName>Financial Services Agency</fullName>
+                <default>false</default>
+                <label>Financial Services Agency</label>
+            </value>
+            <value>
+                <fullName>Business Registration Number</fullName>
+                <default>false</default>
+                <label>Business Registration Number</label>
+            </value>
+            <value>
+                <fullName>Chamber of commerce number</fullName>
+                <default>false</default>
+                <label>Chamber of commerce number</label>
+            </value>
+            <value>
+                <fullName>CH-number</fullName>
+                <default>false</default>
+                <label>CH-number</label>
+            </value>
+            <value>
+                <fullName>CIK</fullName>
+                <default>false</default>
+                <label>CIK</label>
+            </value>
+            <value>
+                <fullName>Corporate registered number</fullName>
+                <default>false</default>
+                <label>Corporate registered number</label>
+            </value>
+            <value>
+                <fullName>Entreprise code</fullName>
+                <default>false</default>
+                <label>Entreprise code</label>
+            </value>
+            <value>
+                <fullName>Matricula de Comercio</fullName>
+                <default>false</default>
+                <label>Matricula de Comercio</label>
+            </value>
+            <value>
+                <fullName>Patente</fullName>
+                <default>false</default>
+                <label>Patente</label>
+            </value>
+            <value>
+                <fullName>P-nummer</fullName>
+                <default>false</default>
+                <label>P-nummer</label>
+            </value>
+            <value>
+                <fullName>RGD number</fullName>
+                <default>false</default>
+                <label>RGD number</label>
+            </value>
+            <value>
+                <fullName>SIREN number</fullName>
+                <default>false</default>
+                <label>SIREN number</label>
+            </value>
+            <value>
+                <fullName>UCN</fullName>
+                <default>false</default>
+                <label>UCN</label>
+            </value>
+            <value>
+                <fullName>Corporate Number</fullName>
+                <default>false</default>
+                <label>Corporate Number</label>
+            </value>
+            <value>
+                <fullName>JIB</fullName>
+                <default>false</default>
+                <label>JIB</label>
+            </value>
+            <value>
+                <fullName>RUT</fullName>
+                <default>false</default>
+                <label>RUT</label>
+            </value>
+            <value>
+                <fullName>TIN</fullName>
+                <default>false</default>
+                <label>TIN</label>
+            </value>
+            <value>
+                <fullName>USt-IdNr.</fullName>
+                <default>false</default>
+                <label>USt-IdNr.</label>
+            </value>
+            <value>
+                <fullName>EDRPOU code</fullName>
+                <default>false</default>
+                <label>EDRPOU code</label>
+            </value>
+            <value>
+                <fullName>MBO</fullName>
+                <default>false</default>
+                <label>MBO</label>
+            </value>
+            <value>
+                <fullName>NOC</fullName>
+                <default>false</default>
+                <label>NOC</label>
+            </value>
+            <value>
+                <fullName>RSSD ID</fullName>
+                <default>false</default>
+                <label>RSSD ID</label>
+            </value>
+            <value>
+                <fullName>NAIC number</fullName>
+                <default>false</default>
+                <label>NAIC number</label>
+            </value>
+            <value>
+                <fullName>Commercial register number</fullName>
+                <default>false</default>
+                <label>Commercial register number</label>
+            </value>
+            <value>
+                <fullName>Corporation Number</fullName>
+                <default>false</default>
+                <label>Corporation Number</label>
+            </value>
+            <value>
+                <fullName>EIN</fullName>
+                <default>false</default>
+                <label>EIN</label>
+            </value>
+            <value>
+                <fullName>GER number</fullName>
+                <default>false</default>
+                <label>GER number</label>
+            </value>
+            <value>
+                <fullName>Location number</fullName>
+                <default>false</default>
+                <label>Location number</label>
+            </value>
+            <value>
+                <fullName>NCR number</fullName>
+                <default>false</default>
+                <label>NCR number</label>
+            </value>
+            <value>
+                <fullName>NRC number</fullName>
+                <default>false</default>
+                <label>NRC number</label>
+            </value>
+            <value>
+                <fullName>RCS number</fullName>
+                <default>false</default>
+                <label>RCS number</label>
+            </value>
+            <value>
+                <fullName>CNPJ</fullName>
+                <default>false</default>
+                <label>CNPJ</label>
+            </value>
+            <value>
+                <fullName>Codice fiscale</fullName>
+                <default>false</default>
+                <label>Codice fiscale</label>
+            </value>
+            <value>
+                <fullName>Partita IVA</fullName>
+                <default>false</default>
+                <label>Partita IVA</label>
+            </value>
+            <value>
+                <fullName>RUC</fullName>
+                <default>false</default>
+                <label>RUC</label>
+            </value>
+            <value>
+                <fullName>Ticker</fullName>
+                <default>false</default>
+                <label>Ticker</label>
+            </value>
+            <value>
+                <fullName>ICE</fullName>
+                <default>false</default>
+                <label>ICE</label>
+            </value>
+            <value>
+                <fullName>Certificate of Incorporation</fullName>
+                <default>false</default>
+                <label>Certificate of Incorporation</label>
+            </value>
+            <value>
+                <fullName>Company Registration Number</fullName>
+                <default>false</default>
+                <label>Company Registration Number</label>
+            </value>
+            <value>
+                <fullName>Securities &amp; Exchange Commission</fullName>
+                <default>false</default>
+                <label>Securities &amp; Exchange Commission</label>
+            </value>
+            <value>
+                <fullName>Belgian company number</fullName>
+                <default>false</default>
+                <label>Belgian company number</label>
+            </value>
+            <value>
+                <fullName>NINEA</fullName>
+                <default>false</default>
+                <label>NINEA</label>
+            </value>
+            <value>
+                <fullName>SEC registration number</fullName>
+                <default>false</default>
+                <label>SEC registration number</label>
+            </value>
+            <value>
+                <fullName>INN</fullName>
+                <default>false</default>
+                <label>INN</label>
+            </value>
+            <value>
+                <fullName>OIB</fullName>
+                <default>false</default>
+                <label>OIB</label>
+            </value>
+            <value>
+                <fullName>Unified social credit code</fullName>
+                <default>false</default>
+                <label>Unified social credit code</label>
+            </value>
+            <value>
+                <fullName>VAT number</fullName>
+                <default>false</default>
+                <label>VAT number</label>
+            </value>
+            <value>
+                <fullName>Unique Customer Identifer (UCI)</fullName>
+                <default>false</default>
+                <label>Unique Customer Identifer (UCI)</label>
+            </value>
+            <value>
+                <fullName>OeNB number</fullName>
+                <default>false</default>
+                <label>OeNB number</label>
+            </value>
+            <value>
+                <fullName>ESCB Financial Vehicle Corporation ID</fullName>
+                <default>false</default>
+                <label>ESCB Financial Vehicle Corporation ID</label>
+            </value>
+            <value>
+                <fullName>ESCB Monetary Financial Institution ID</fullName>
+                <default>false</default>
+                <label>ESCB Monetary Financial Institution ID</label>
+            </value>
+            <value>
+                <fullName>Australian Financial Services License Number (AFSL)</fullName>
+                <default>false</default>
+                <label>Australian Financial Services License Number (AFSL)</label>
+            </value>
+            <value>
+                <fullName>Australian Registered Scheme Number (ARSN)</fullName>
+                <default>false</default>
+                <label>Australian Registered Scheme Number (ARSN)</label>
+            </value>
+            <value>
+                <fullName>Securities &amp; Investments Commission</fullName>
+                <default>false</default>
+                <label>Securities &amp; Investments Commission</label>
+            </value>
+            <value>
+                <fullName>Central Bank of Ireland</fullName>
+                <default>false</default>
+                <label>Central Bank of Ireland</label>
+            </value>
+            <value>
+                <fullName>Regulatory Identifier</fullName>
+                <default>false</default>
+                <label>Regulatory Identifier</label>
+            </value>
+            <value>
+                <fullName>Regulatory Identifier Type</fullName>
+                <default>false</default>
+                <label>Regulatory Identifier Type</label>
+            </value>
+            <value>
+                <fullName>Swiss Financial Market Supervisory Authority</fullName>
+                <default>false</default>
+                <label>Swiss Financial Market Supervisory Authority</label>
+            </value>
+            <value>
+                <fullName>CoC-number</fullName>
+                <default>false</default>
+                <label>CoC-number</label>
+            </value>
+            <value>
+                <fullName>Establishment number</fullName>
+                <default>false</default>
+                <label>Establishment number</label>
+            </value>
+            <value>
+                <fullName>IDNO</fullName>
+                <default>false</default>
+                <label>IDNO</label>
+            </value>
+            <value>
+                <fullName>IMO number</fullName>
+                <default>false</default>
+                <label>IMO number</label>
+            </value>
+            <value>
+                <fullName>NIPT</fullName>
+                <default>false</default>
+                <label>NIPT</label>
+            </value>
+            <value>
+                <fullName>REGON number</fullName>
+                <default>false</default>
+                <label>REGON number</label>
+            </value>
+            <value>
+                <fullName>FDIC Certificate Number</fullName>
+                <default>false</default>
+                <label>FDIC Certificate Number</label>
+            </value>
+            <value>
+                <fullName>FDIC Unique Number</fullName>
+                <default>false</default>
+                <label>FDIC Unique Number</label>
+            </value>
+            <value>
+                <fullName>RNC</fullName>
+                <default>false</default>
+                <label>RNC</label>
+            </value>
+            <value>
+                <fullName>Autorite des Marches Financiers</fullName>
+                <default>false</default>
+                <label>Autorite des Marches Financiers</label>
+            </value>
+            <value>
+                <fullName>Banco de Espana</fullName>
+                <default>false</default>
+                <label>Banco de Espana</label>
+            </value>
+            <value>
+                <fullName>Company Registration Document</fullName>
+                <default>false</default>
+                <label>Company Registration Document</label>
+            </value>
+            <value>
+                <fullName>BIN</fullName>
+                <default>false</default>
+                <label>BIN</label>
+            </value>
+            <value>
+                <fullName>Broj obrtnice</fullName>
+                <default>false</default>
+                <label>Broj obrtnice</label>
+            </value>
+            <value>
+                <fullName>CCIAA number</fullName>
+                <default>false</default>
+                <label>CCIAA number</label>
+            </value>
+            <value>
+                <fullName>CIN</fullName>
+                <default>false</default>
+                <label>CIN</label>
+            </value>
+            <value>
+                <fullName>Enterprise number</fullName>
+                <default>false</default>
+                <label>Enterprise number</label>
+            </value>
+            <value>
+                <fullName>Kennitala</fullName>
+                <default>false</default>
+                <label>Kennitala</label>
+            </value>
+            <value>
+                <fullName>Mersis number</fullName>
+                <default>false</default>
+                <label>Mersis number</label>
+            </value>
+            <value>
+                <fullName>NSSO code</fullName>
+                <default>false</default>
+                <label>NSSO code</label>
+            </value>
+            <value>
+                <fullName>PIN</fullName>
+                <default>false</default>
+                <label>PIN</label>
+            </value>
+            <value>
+                <fullName>Registarski broj</fullName>
+                <default>false</default>
+                <label>Registarski broj</label>
+            </value>
+            <value>
+                <fullName>NIP</fullName>
+                <default>false</default>
+                <label>NIP</label>
+            </value>
+            <value>
+                <fullName>PAN</fullName>
+                <default>false</default>
+                <label>PAN</label>
+            </value>
+            <value>
+                <fullName>RIF</fullName>
+                <default>false</default>
+                <label>RIF</label>
+            </value>
+            <value>
+                <fullName>OKPO</fullName>
+                <default>false</default>
+                <label>OKPO</label>
+            </value>
+            <value>
+                <fullName>CFAR-number</fullName>
+                <default>false</default>
+                <label>CFAR-number</label>
+            </value>
+            <value>
+                <fullName>FATCA Legal Entity ID</fullName>
+                <default>false</default>
+                <label>FATCA Legal Entity ID</label>
+            </value>
+            <value>
+                <fullName>Business Inland Revenue Number (Business IRD)</fullName>
+                <default>false</default>
+                <label>Business Inland Revenue Number (Business IRD)</label>
+            </value>
+            <value>
+                <fullName>Registered Co-operative ID</fullName>
+                <default>false</default>
+                <label>Registered Co-operative ID</label>
+            </value>
+            <value>
+                <fullName>Financial Conduct Authority</fullName>
+                <default>false</default>
+                <label>Financial Conduct Authority</label>
+            </value>
+            <value>
+                <fullName>NIRE</fullName>
+                <default>false</default>
+                <label>NIRE</label>
+            </value>
+            <value>
+                <fullName>Organization number</fullName>
+                <default>false</default>
+                <label>Organization number</label>
+            </value>
+            <value>
+                <fullName>RBN</fullName>
+                <default>false</default>
+                <label>RBN</label>
+            </value>
+            <value>
+                <fullName>RC number</fullName>
+                <default>false</default>
+                <label>RC number</label>
+            </value>
+            <value>
+                <fullName>RCI number</fullName>
+                <default>false</default>
+                <label>RCI number</label>
+            </value>
+            <value>
+                <fullName>UIC</fullName>
+                <default>false</default>
+                <label>UIC</label>
+            </value>
+            <value>
+                <fullName>European VAT number</fullName>
+                <default>false</default>
+                <label>European VAT number</label>
+            </value>
+            <value>
+                <fullName>RSIN</fullName>
+                <default>false</default>
+                <label>RSIN</label>
+            </value>
+            <value>
+                <fullName>Uniform invoice number</fullName>
+                <default>false</default>
+                <label>Uniform invoice number</label>
+            </value>
+            <value>
+                <fullName>Corporate Board Member ID</fullName>
+                <default>false</default>
+                <label>Corporate Board Member ID</label>
+            </value>
+            <value>
+                <fullName>Equifax number</fullName>
+                <default>false</default>
+                <label>Equifax number</label>
+            </value>
+            <value>
+                <fullName>FactSet ID</fullName>
+                <default>false</default>
+                <label>FactSet ID</label>
+            </value>
+            <value>
+                <fullName>Finar ID</fullName>
+                <default>false</default>
+                <label>Finar ID</label>
+            </value>
+            <value>
+                <fullName>Thomson Reuters RIC</fullName>
+                <default>false</default>
+                <label>Thomson Reuters RIC</label>
+            </value>
+            <value>
+                <fullName>Value Line</fullName>
+                <default>false</default>
+                <label>Value Line</label>
+            </value>
+            <value>
+                <fullName>Audit Analytics</fullName>
+                <default>false</default>
+                <label>Audit Analytics</label>
+            </value>
+            <value>
+                <fullName>Avention OneSource ID</fullName>
+                <default>false</default>
+                <label>Avention OneSource ID</label>
+            </value>
+            <value>
+                <fullName>Cortera LINK ID</fullName>
+                <default>false</default>
+                <label>Cortera LINK ID</label>
+            </value>
+            <value>
+                <fullName>Market Location ID</fullName>
+                <default>false</default>
+                <label>Market Location ID</label>
+            </value>
+            <value>
+                <fullName>Marketline (Datamonitor) ID</fullName>
+                <default>false</default>
+                <label>Marketline (Datamonitor) ID</label>
+            </value>
+            <value>
+                <fullName>S&amp;P Capital IQ</fullName>
+                <default>false</default>
+                <label>S&amp;P Capital IQ</label>
+            </value>
+            <value>
+                <fullName>Telekurs ID</fullName>
+                <default>false</default>
+                <label>Telekurs ID</label>
+            </value>
+            <value>
+                <fullName>WIN</fullName>
+                <default>false</default>
+                <label>WIN</label>
+            </value>
+            <value>
+                <fullName>CMIE number</fullName>
+                <default>false</default>
+                <label>CMIE number</label>
+            </value>
+            <value>
+                <fullName>Coface Servicos Portugal number</fullName>
+                <default>false</default>
+                <label>Coface Serviços Portugal number</label>
+            </value>
+            <value>
+                <fullName>Factiva-FDS ID</fullName>
+                <default>false</default>
+                <label>Factiva-FDS ID</label>
+            </value>
+            <value>
+                <fullName>Morningstar ID</fullName>
+                <default>false</default>
+                <label>Morningstar ID</label>
+            </value>
+            <value>
+                <fullName>Revere Data ID</fullName>
+                <default>false</default>
+                <label>Revere Data ID</label>
+            </value>
+            <value>
+                <fullName>S&amp;P/MSCI GICS ID</fullName>
+                <default>false</default>
+                <label>S&amp;P/MSCI GICS ID</label>
+            </value>
+            <value>
+                <fullName>Teledata ID</fullName>
+                <default>false</default>
+                <label>Teledata ID</label>
+            </value>
+            <value>
+                <fullName>Teledata number</fullName>
+                <default>false</default>
+                <label>Teledata number</label>
+            </value>
+            <value>
+                <fullName>Bloomberg ID</fullName>
+                <default>false</default>
+                <label>Bloomberg ID</label>
+            </value>
+            <value>
+                <fullName>Dun &amp; Bradstreet DUNS ID</fullName>
+                <default>false</default>
+                <label>Dun &amp; Bradstreet DUNS ID</label>
+            </value>
+            <value>
+                <fullName>Quantum ID</fullName>
+                <default>false</default>
+                <label>Quantum ID</label>
+            </value>
+            <value>
+                <fullName>S&amp;P Ratings Issuer ID</fullName>
+                <default>false</default>
+                <label>S&amp;P Ratings Issuer ID</label>
+            </value>
+            <value>
+                <fullName>Autoriteit Financiele Markten ID</fullName>
+                <default>false</default>
+                <label>Autoriteit Financiele Markten ID</label>
+            </value>
+            <value>
+                <fullName>Crefo number</fullName>
+                <default>false</default>
+                <label>Crefo number</label>
+            </value>
+            <value>
+                <fullName>DIS number</fullName>
+                <default>false</default>
+                <label>DIS number</label>
+            </value>
+            <value>
+                <fullName>Ellisphère number</fullName>
+                <default>false</default>
+                <label>Ellisphère number</label>
+            </value>
+            <value>
+                <fullName>Fitch Ratings Issuer ID</fullName>
+                <default>false</default>
+                <label>Fitch Ratings Issuer ID</label>
+            </value>
+            <value>
+                <fullName>NICE company code</fullName>
+                <default>false</default>
+                <label>NICE company code</label>
+            </value>
+            <value>
+                <fullName>Reuters number</fullName>
+                <default>false</default>
+                <label>Reuters number</label>
+            </value>
+            <value>
+                <fullName>WVB number</fullName>
+                <default>false</default>
+                <label>WVB number</label>
+            </value>
+            <value>
+                <fullName>BoardEx ID</fullName>
+                <default>false</default>
+                <label>BoardEx ID</label>
+            </value>
+            <value>
+                <fullName>Cedar Rose number</fullName>
+                <default>false</default>
+                <label>Cedar Rose number</label>
+            </value>
+            <value>
+                <fullName>Equifax ID</fullName>
+                <default>false</default>
+                <label>Equifax ID</label>
+            </value>
+            <value>
+                <fullName>IBISWorld ID</fullName>
+                <default>false</default>
+                <label>IBISWorld ID</label>
+            </value>
+            <value>
+                <fullName>Informes Mexico ID Unico</fullName>
+                <default>false</default>
+                <label>Informes Mexico ID Unico</label>
+            </value>
+            <value>
+                <fullName>MSCI Barra Beta ID</fullName>
+                <default>false</default>
+                <label>MSCI Barra Beta ID</label>
+            </value>
+            <value>
+                <fullName>Teikoku number</fullName>
+                <default>false</default>
+                <label>Teikoku number</label>
+            </value>
+            <value>
+                <fullName>Alacra ID</fullName>
+                <default>false</default>
+                <label>Alacra ID</label>
+            </value>
+            <value>
+                <fullName>BVD bank index number</fullName>
+                <default>false</default>
+                <label>BVD bank index number</label>
+            </value>
+            <value>
+                <fullName>CUSIP ID</fullName>
+                <default>false</default>
+                <label>CUSIP ID</label>
+            </value>
+            <value>
+                <fullName>Informa Colombia ID</fullName>
+                <default>false</default>
+                <label>Informa Colombia ID</label>
+            </value>
+            <value>
+                <fullName>Jordans internal ID</fullName>
+                <default>false</default>
+                <label>Jordans internal ID</label>
+            </value>
+            <value>
+                <fullName>Markit-RED Code ID</fullName>
+                <default>false</default>
+                <label>Markit-RED Code ID</label>
+            </value>
+            <value>
+                <fullName>Mergent ID</fullName>
+                <default>false</default>
+                <label>Mergent ID</label>
+            </value>
+            <value>
+                <fullName>Perfect Information ID</fullName>
+                <default>false</default>
+                <label>Perfect Information ID</label>
+            </value>
+            <value>
+                <fullName>AMBest ID</fullName>
+                <default>false</default>
+                <label>AMBest ID</label>
+            </value>
+            <value>
+                <fullName>Bureau van Dijk ID</fullName>
+                <default>false</default>
+                <label>Bureau van Dijk ID</label>
+            </value>
+            <value>
+                <fullName>Company Watch ID</fullName>
+                <default>false</default>
+                <label>Company Watch ID</label>
+            </value>
+            <value>
+                <fullName>Dealogic ID</fullName>
+                <default>false</default>
+                <label>Dealogic ID</label>
+            </value>
+            <value>
+                <fullName>ABN_RAW</fullName>
+                <default>false</default>
+                <label>Australian Business Number - Value as provided from source system</label>
+            </value>
+            <value>
+                <fullName>ACN_RAW</fullName>
+                <default>false</default>
+                <label>Australian Company Number - Value as provided from source system</label>
+            </value>
+            <value>
+                <fullName>ARBN_RAW</fullName>
+                <default>false</default>
+                <label>Australian Registered Business Number - Value as provided from source system</label>
+            </value>
+            <value>
+                <fullName>ARSN_RAW</fullName>
+                <default>false</default>
+                <label>Australian Registered Scheme Number  - Value as provided from source system</label>
+            </value>
+            <value>
+                <fullName>NZBN_RAW</fullName>
+                <default>false</default>
+                <label>New Zealand Business Number - Value as provided from source system</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

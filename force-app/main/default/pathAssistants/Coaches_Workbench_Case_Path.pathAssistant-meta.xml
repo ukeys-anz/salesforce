@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>Case</entityName>
+    <fieldName>Status</fieldName>
+    <masterLabel>Coaches Workbench Case Path</masterLabel>
+    <pathAssistantSteps>
+        <fieldNames>AccountId</fieldNames>
+        <fieldNames>CaseNumber</fieldNames>
+        <fieldNames>OwnerId</fieldNames>
+        <fieldNames>ClosedDate</fieldNames>
+        <picklistValueName>Closed</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>AccountId</fieldNames>
+        <fieldNames>CaseNumber</fieldNames>
+        <fieldNames>OwnerId</fieldNames>
+        <fieldNames>Reason</fieldNames>
+        <picklistValueName>Escalated</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>AccountId</fieldNames>
+        <fieldNames>CaseNumber</fieldNames>
+        <fieldNames>OwnerId</fieldNames>
+        <fieldNames>Reason</fieldNames>
+        <picklistValueName>On Hold</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>AccountId</fieldNames>
+        <fieldNames>CaseNumber</fieldNames>
+        <fieldNames>OwnerId</fieldNames>
+        <fieldNames>Reason</fieldNames>
+        <picklistValueName>Open</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>AccountId</fieldNames>
+        <fieldNames>CaseNumber</fieldNames>
+        <fieldNames>OwnerId</fieldNames>
+        <fieldNames>IDR_Date_Re_Opened__c</fieldNames>
+        <picklistValueName>Re-opened</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>AccountId</fieldNames>
+        <fieldNames>CaseNumber</fieldNames>
+        <fieldNames>OwnerId</fieldNames>
+        <fieldNames>Reason</fieldNames>
+        <picklistValueName>Under Investigation</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>General_Inquiry</recordTypeName>
+</PathAssistant>

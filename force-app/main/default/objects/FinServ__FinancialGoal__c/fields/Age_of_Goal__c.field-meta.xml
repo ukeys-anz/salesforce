@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Age_of_Goal__c</fullName>
+    <description>Age of the Goal from Start Date to Today</description>
+    <externalId>false</externalId>
+    <formula>TODAY() -  Start_Date__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Age of the Goal from Start Date to Today</inlineHelpText>
+    <label>Age of Goal</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

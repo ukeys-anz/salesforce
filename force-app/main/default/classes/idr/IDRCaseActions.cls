@@ -50,17 +50,6 @@ public with sharing class IDRCaseActions {
     WITHDRAWN_STATUS => 'AgCaseWthdrwn'
   };
 
-  //Length of the field IDR_Account_Card_Policy_Number__c which doesn't need to be masked.
-  private static final Integer ACCOUNT_UNMASK_LENGTH = 4;
-
-  //Regex to check if the field IDR_Account_Card_Policy_Number__c is digits and atleast 5 digits for masking.
-  private static final String REGEX_PATTERN =
-    '([^\\d]*\\d){' +
-    (ACCOUNT_UNMASK_LENGTH + 1) +
-    ',}';
-
-  private static final String MASK_CHARACTERS = '*****';
-
   private static final String ESCALATED_TO_CRC_API_NAME = '1';
 
   private static final String YES_VALUE = 'Yes';
@@ -70,8 +59,6 @@ public with sharing class IDRCaseActions {
   private static final String QUEUE_TYPE = 'Queue';
 
   private static final String DELETE_ERROR = 'You cannot delete cases';
-
-  private static Pattern accountPattern = Pattern.compile(REGEX_PATTERN);
 
   //IDR_Notification_Event__e for sending notifications to Notification Broker based on status.
   @TestVisible
@@ -137,10 +124,12 @@ public with sharing class IDRCaseActions {
    */
   public static void afterInsert(List<Case> records) {
     for (Case record : records) {
-      if (NOTIFICATION_STATUS.contains(record.Status)) {
-        notificationCaseList.add(record);
+      if (isIDRComplaintType(record)) {
+        if (NOTIFICATION_STATUS.contains(record.Status)) {
+          notificationCaseList.add(record);
+        }
+        checkForCRCEscalation(record);
       }
-      checkForCRCEscalation(record);
     }
   }
 
@@ -273,17 +262,21 @@ public with sharing class IDRCaseActions {
    * @param caseToBeChanged The record that needs to be changed
    */
   private static void handleMasking(Case originalRecord, Case caseToBeChanged) {
-    if (
-      String.isNotBlank(originalRecord.IDR_Account_Card_Policy_Number__c) &&
-      accountPattern.matcher(originalRecord.IDR_Account_Card_Policy_Number__c)
-        .matches()
-    ) {
-      caseToBeChanged.IDR_Account_Card_Policy_Number__c =
-        MASK_CHARACTERS +
-        originalRecord.IDR_Account_Card_Policy_Number__c.right(
-          ACCOUNT_UNMASK_LENGTH
-        );
-    }
+    caseToBeChanged.IDR_Account_Card_Policy_Number__c = TextUtils.maskData(
+      originalRecord.IDR_Account_Card_Policy_Number__c
+    );
+    caseToBeChanged.Description = TextUtils.maskData(
+      originalRecord.Description
+    );
+    caseToBeChanged.IDR_Complainant_Desired_Outcome__c = TextUtils.maskData(
+      originalRecord.IDR_Complainant_Desired_Outcome__c
+    );
+    caseToBeChanged.IDR_Description_of_Outcome__c = TextUtils.maskData(
+      originalRecord.IDR_Description_of_Outcome__c
+    );
+    caseToBeChanged.IDR_Systemic_Issue_Description__c = TextUtils.maskData(
+      originalRecord.IDR_Systemic_Issue_Description__c
+    );
   }
 
   private static void handleCaseEscalationRules(
@@ -352,7 +345,10 @@ public with sharing class IDRCaseActions {
           Case_Number__c = String.isNotBlank(c.CaseNumber__c)
             ? c.CaseNumber__c
             : c.CaseNumber,
-          Complainant_Name__c = c.IDR_NC_First_Name__c,
+          Customer_First_Name__c = c.IDR_NC_First_Name__c,
+          Customer_Middle_Names__c = c.IDR_NC_Middle_Names__c,
+          Customer_Last_Name__c = c.IDR_NC_Last_Name__c,
+          Customer_Business_Name__c = c.IDR_NC_Business_Name__c,
           Complainant_Type__c = IDRCaseActions.getPicklistLabel(
             Case.IDR_Complainant_Type__c,
             c.IDR_Complainant_Type__c
@@ -390,7 +386,11 @@ public with sharing class IDRCaseActions {
             c.IDR_NC_State__c
           ),
           Suburb__c = c.IDR_NC_Suburb__c,
-          Priority__c = c.Priority
+          Priority__c = c.Priority,
+          Channel_Received__c = IDRCaseActions.getPicklistLabel(
+            Case.Origin,
+            c.Origin
+          )
         )
       );
     }

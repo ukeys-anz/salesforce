@@ -1,3 +1,7 @@
-trigger CaseCommentsTrigger on CaseComment(before delete, before update) {
+trigger CaseCommentsTrigger on CaseComment(
+  before delete,
+  before insert,
+  before update
+) {
   CaseCommentsTriggerHandler handler = new CaseCommentsTriggerHandler();
 }

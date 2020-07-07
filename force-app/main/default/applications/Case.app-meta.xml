@@ -10,6 +10,33 @@
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
     <label>Case</label>
     <navType>Standard</navType>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Customer_View</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Account</pageOrSobjectType>
+        <recordType>PersonAccount.PersonAccount</recordType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Customer_View</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Account</pageOrSobjectType>
+        <recordType>PersonAccount.PersonAccount</recordType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Customer_View</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Account</pageOrSobjectType>
+        <recordType>PersonAccount.PersonAccount</recordType>
+        <type>Flexipage</type>
+        <profile>ANZ Standard User</profile>
+    </profileActionOverrides>
     <uiType>Lightning</uiType>
     <utilityBar>Case_UtilityBar</utilityBar>
 </CustomApplication>

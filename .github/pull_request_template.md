@@ -3,7 +3,7 @@
 - Change 1
 - Change 2
 
-### Any tech debt acrued?
+### Any tech debt accrued?
 
 ### Code review checklist
 
