@@ -5,7 +5,6 @@ name: Deploy
 on:
   push:
     branches:
-      - master
       - develop
 
 jobs:
@@ -90,7 +89,7 @@ jobs:
       - name: Install plugin
         working-directory: plugin
         shell: bash
-        run: |        
+        run: |
           yarn install
           yarn prepack
 
@@ -131,16 +130,16 @@ jobs:
       - name: Create new branch on anzx/salesforce-docs
         uses: EndBug/add-and-commit@v4
         with:
-          add: 'docs/static docs/governance'
+          add: "docs/static docs/governance"
           author_name: github-actions
-          message: 'Update salesforce documentation'
-          ref: 'doc/plugin-update'
+          message: "Update salesforce documentation"
+          ref: "doc/plugin-update"
         env:
           GITHUB_TOKEN: ${{ secrets.ORG_GITHUB_TOKEN }}
 
       - name: Create a PR on anzx/salesforce-docs
         shell: bash
         run: |
-          hub pull-request -b master -h doc/plugin-update --no-edit -m "${GITHUB_REF##*/}-${GITHUB_RUN_ID} Release Update" -m "An automated PR to update access and schema documentation from https://github.com/anzx/salesforce/releases/tag/${GITHUB_REF##*/}-${GITHUB_RUN_ID}" 
+          hub pull-request -b master -h doc/plugin-update --no-edit -m "${GITHUB_REF##*/}-${GITHUB_RUN_ID} Release Update" -m "An automated PR to update access and schema documentation from https://github.com/anzx/salesforce/releases/tag/${GITHUB_REF##*/}-${GITHUB_RUN_ID}"
         env:
           GITHUB_TOKEN: ${{ secrets.ORG_GITHUB_TOKEN }}
