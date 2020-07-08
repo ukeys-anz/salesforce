@@ -41,8 +41,7 @@ export async function createFinGoalList(amount: number = 1, primaryOwner: any) {
             Financial_Account__c: savingsAccList[i].Id,
             Start_Date__c: faker.date.past(2),
             FinServ__TargetDate__c: faker.date.future(2),
-            FinServ__ActualValue__c:
-              savingsAccList[i].FinServ__CurrentPostedBalance__c,
+            FinServ__ActualValue__c: savingsAccList[i].FinServ__Balance__c,
             FinServ__TargetValue__c: parseFloat(
               faker.commerce.price(55000, 80000, 2)
             ),
