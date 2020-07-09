@@ -8,62 +8,72 @@
             "name" : "Coach",
             "profile" : "ANZx Standard User",
             "permissionsetgroups" : ["Coach"],
-            "permissionsets" : []
+            "permissionsets" : [],
+            "type": "user"
         },
         {
             "name" : "Content Author",
             "profile" : "ANZx Standard User",
             "permissionsetgroups" : ["Content_Author_PSG"],
-            "permissionsets" : []
+            "permissionsets" : [],
+            "type": "user"
         },
         {
             "name" : "Read Only Administrator",
             "profile" : "No Access",
             "permissionsetgroups" : [],
-            "permissionsets" : ["Read_Only_Admin"]
+            "permissionsets" : ["Read_Only_Admin"],
+            "type": "user"
         },
         {
             "name" : "System Administrator",
             "profile" : "Admin",
             "permissionsetgroups" : [],
-            "permissionsets" : []
+            "permissionsets" : [],
+            "type": "user"
         },
         {
             "name" : "Engineer",
             "profile" : "No Access",
             "permissionsetgroups" : [],
             "permissionsets" : ["SFDX_Snapshots"],
-            "note" : "SFDX_Full_Dev_Hub_Access is not in org"
+            "note" : "SFDX_Full_Dev_Hub_Access is not in org",
+            "type": "user"
         },
         {
             "name" : "IDR Level 1",
             "profile" : "ANZ Standard User",
             "permissionsetgroups" : ["IDR_Level_1"],
-            "permissionsets" : []
+            "permissionsets" : [],
+            "type": "user"
         },
         {
             "name" : "IDR Level 2",
             "profile" : "ANZ Standard User",
             "permissionsetgroups" : ["IDR_Level_2"],
-            "permissionsets" : []
+            "permissionsets" : [],
+            "type": "user"
         },
         {
             "name" : "IDR Level 3",
             "profile" : "ANZ Standard User",
             "permissionsetgroups" : ["IDR_Level_3"],
-            "permissionsets" : []
+            "permissionsets" : [],
+            "type": "user"
         },
         {
             "name" : "Deployment User",
             "profile" : "No Access",
             "permissionsetgroups" : [],
-            "permissionsets" : ["SFDX_GCB"]
+            "permissionsets" : ["SFDX_GCB"],
+            "type": "system"
         },
         {
             "name" : "OCV Integration User",
             "profile" : "Integration User",
             "permissionsetgroups" : [],
-            "permissionsets" : ["Read_Write_Customer_Details"]
+            "permissionsets" : ["Read_Write_Customer_Details"],
+            "type": "system"
         }
     ]
 }
