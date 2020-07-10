@@ -230,7 +230,7 @@
     </layoutAssignments>
     <loginIpRanges>
         <description>Splunk Prod</description>
-        <endAddress>203.110.235.24</endAddress>
+        <endAddress>203.110.235.255</endAddress>
         <startAddress>203.110.235.0</startAddress>
     </loginIpRanges>
     <loginIpRanges>
