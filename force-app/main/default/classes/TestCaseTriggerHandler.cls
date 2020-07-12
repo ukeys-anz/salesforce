@@ -113,7 +113,7 @@ private class TestCaseTriggerHandler {
   }
 
   @isTest
-  static void testIsComplaintEscalated() {
+  static void testIsComplaintEscalatedInsert() {
     // GIVEN cases are created as escalated
     Case[] newCasesWithStatus = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
@@ -135,7 +135,10 @@ private class TestCaseTriggerHandler {
       WHERE id = :newCasesWithStatus[0].id
     ];
     System.assert(c.IsEscalated, 'IsEscalated is true');
+  }
 
+  @isTest
+  static void testIsComplaintEscalatedUpdate() {
     // GIVEN cases are created as not escalated
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
@@ -146,10 +149,14 @@ private class TestCaseTriggerHandler {
     // WHEN they are inserted
     insert newCases;
     // THEN check if IsEscalated is false
-    c = [SELECT CaseNumber, IsEscalated FROM Case WHERE id = :newCases[0].id];
+    Case c = [
+      SELECT CaseNumber, IsEscalated
+      FROM Case
+      WHERE id = :newCases[0].id
+    ];
     System.assert(!c.IsEscalated, 'IsEscalated is false');
 
-    // GIVEN cases siwtch to escalated
+    // GIVEN cases switch to escalated
     for (Integer i = 0; i < newCases.size(); i++) {
       newCases[i].Status = 'Escalated';
       newCases[i].IDR_Escalated_to__c = '1';
