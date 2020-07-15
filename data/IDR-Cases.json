@@ -9,7 +9,7 @@
       "Status": "Closed",
       "Origin": "2",
       "Subject": "Assured Monthly Fee",
-      "Priority": "None",
+      "Priority": "Standard",
       "Description": "Customer unhappy with monthly fee being charged when new customers on same product do not get charged this fee.",
       "IsEscalated": false,
       "CaseNumber__c": "00001016",
