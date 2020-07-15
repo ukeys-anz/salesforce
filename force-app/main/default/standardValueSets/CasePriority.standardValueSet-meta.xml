@@ -22,9 +22,9 @@
         <label>Low</label>
     </standardValue>
     <standardValue>
-        <fullName>None</fullName>
+        <fullName>Standard</fullName>
         <default>false</default>
-        <label>None</label>
+        <label>Standard</label>
     </standardValue>
     <standardValue>
         <fullName>Financial Hardship</fullName>
