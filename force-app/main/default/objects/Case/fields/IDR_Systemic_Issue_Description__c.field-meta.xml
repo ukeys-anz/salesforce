@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate</complianceGroup>
     <externalId>false</externalId>
+    <inlineHelpText>Describe why this complaint is likely to impact more than one customer</inlineHelpText>
     <label>Systemic Issue Description</label>
     <length>32768</length>
     <securityClassification>Internal</securityClassification>
