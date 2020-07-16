@@ -44,6 +44,7 @@ import WRITTEN_RESPONSE_REQUIRED_FIELD from "@salesforce/schema/Case.IDR_Is_Writ
 import PRIORITY from "@salesforce/schema/Case.Priority";
 import CHANNEL_RECEIVED from "@salesforce/schema/Case.Origin";
 import COMPLAINT_ISSUE from "@salesforce/schema/Case.Type";
+import COMPLAINT_SUBSEQUENT_ISSUE from "@salesforce/schema/Case.IDR_Subsequent_Issue__c";
 import PRODUCT_LOOKUP_FIELD from "@salesforce/schema/Case.Product__c";
 import ACCOUNT_POLICY_FIELD from "@salesforce/schema/Case.IDR_Account_Card_Policy_Number__c";
 import DESCRIPTION_FIELD from "@salesforce/schema/Case.Description";
@@ -78,6 +79,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   Priority = PRIORITY;
   ChannelReceived = CHANNEL_RECEIVED;
   complaintIssue = COMPLAINT_ISSUE;
+  complaintSubIssue = COMPLAINT_SUBSEQUENT_ISSUE;
   Product = PRODUCT_LOOKUP_FIELD;
   DescriptionofIssue = DESCRIPTION_FIELD;
   ComplainantDesiredOutcome = DESIRED_OUTCOME_FIELD;
