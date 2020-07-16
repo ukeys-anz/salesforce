@@ -9,6 +9,7 @@
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
+        <controllingField>Type</controllingField>
         <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
@@ -292,6 +293,582 @@
                 <default>false</default>
                 <label>Marketing campaigns</label>
             </value>
+            <value>
+                <fullName>1 = None</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>1 = None</label>
+            </value>
+            <value>
+                <fullName>10 = Other</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>10 = Other</label>
+            </value>
+            <value>
+                <fullName>11 = Account/Profile set up</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>11 = Account/Profile set up</label>
+            </value>
+            <value>
+                <fullName>12 = Account/Profile Maintenance</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>12 = Account/Profile Maintenance</label>
+            </value>
+            <value>
+                <fullName>13 = Incorrect or insufficient explanation or disclosure</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>13 = Incorrect or insufficient explanation or disclosure</label>
+            </value>
+            <value>
+                <fullName>14 = Fee or interest dispute</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>14 = Fee or interest dispute</label>
+            </value>
+            <value>
+                <fullName>15 = Fee waiver or interest benefit not received</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>15 = Fee waiver or interest benefit not received</label>
+            </value>
+            <value>
+                <fullName>16 = Rewards points not applied / unable to be redeemed</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>16 = Rewards points not applied / unable to be redeemed</label>
+            </value>
+            <value>
+                <fullName>17 = Foreign exchange amount/rate dispute</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>17 = Foreign exchange amount/rate dispute</label>
+            </value>
+            <value>
+                <fullName>18 = Rate not competitive</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>18 = Rate not competitive</label>
+            </value>
+            <value>
+                <fullName>19 = Change to fees/rates/rewards structure</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>19 = Change to fees/rates/rewards structure</label>
+            </value>
+            <value>
+                <fullName>2 = Branch</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>2 = Branch</label>
+            </value>
+            <value>
+                <fullName>20 = Request for financial assistance</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>20 = Request for financial assistance</label>
+            </value>
+            <value>
+                <fullName>21 = Failure to respond or process request for assistance</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>21 = Failure to respond or process request for assistance</label>
+            </value>
+            <value>
+                <fullName>22 = Declines financial assistance</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>22 = Declines financial assistance</label>
+            </value>
+            <value>
+                <fullName>23 = Arrangement considered unsuitable</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>23 = Arrangement considered unsuitable</label>
+            </value>
+            <value>
+                <fullName>24 = Inappropriate or excessive contact</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>24 = Inappropriate or excessive contact</label>
+            </value>
+            <value>
+                <fullName>25 = Pledged or blocked account</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>25 = Pledged or blocked account</label>
+            </value>
+            <value>
+                <fullName>26 = Disputed debt</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>26 = Disputed debt</label>
+            </value>
+            <value>
+                <fullName>27 = Collector/agent conduct</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>27 = Collector/agent conduct</label>
+            </value>
+            <value>
+                <fullName>28 = Information/correspondence incorrect/not provided</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>28 = Information/correspondence incorrect/not provided</label>
+            </value>
+            <value>
+                <fullName>29 = Incorrect set up</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>29 = Incorrect set up</label>
+            </value>
+            <value>
+                <fullName>3 = Call queues / wait time</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>3 = Call queues / wait time</label>
+            </value>
+            <value>
+                <fullName>30 = Title/encumbrance lodgement or release issue</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>30 = Title/encumbrance lodgement or release issue</label>
+            </value>
+            <value>
+                <fullName>31 = Valuation outcome or delay</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>31 = Valuation outcome or delay</label>
+            </value>
+            <value>
+                <fullName>32 = Loan disbursement issue/error</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>32 = Loan disbursement issue/error</label>
+            </value>
+            <value>
+                <fullName>33 = Response not provided, delayed, incomplete or inconsistent</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>33 = Response not provided, delayed, incomplete or inconsistent</label>
+            </value>
+            <value>
+                <fullName>34 = Delayed or incomplete lodgement of documents</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>34 = Delayed or incomplete lodgement of documents</label>
+            </value>
+            <value>
+                <fullName>35 = Unexpected/unadvised shortfall</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>35 = Unexpected/unadvised shortfall</label>
+            </value>
+            <value>
+                <fullName>36 = Response timeframe/SLAs not met or inadequate</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>36 = Response timeframe/SLAs not met or inadequate</label>
+            </value>
+            <value>
+                <fullName>37 = Loan repayment set up error</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>37 = Loan repayment set up error</label>
+            </value>
+            <value>
+                <fullName>38 = Inappropriate lending/maladministration</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>38 = Inappropriate lending/maladministration</label>
+            </value>
+            <value>
+                <fullName>39 = Application outcome</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>39 = Application outcome</label>
+            </value>
+            <value>
+                <fullName>4 = Trading hours/location/closures</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>4 = Trading hours/location/closures</label>
+            </value>
+            <value>
+                <fullName>40 = Response not provided, delayed, incomplete, inconsistent</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>40 = Response not provided, delayed, incomplete, inconsistent</label>
+            </value>
+            <value>
+                <fullName>41 = Lost/incomplete documents</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>41 = Lost/incomplete documents</label>
+            </value>
+            <value>
+                <fullName>42 = Default listing dispute</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>42 = Default listing dispute</label>
+            </value>
+            <value>
+                <fullName>43 = Credit file enquiry dispute</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>43 = Credit file enquiry dispute</label>
+            </value>
+            <value>
+                <fullName>44 = Processing time</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>44 = Processing time</label>
+            </value>
+            <value>
+                <fullName>45 = Payment system down time</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>45 = Payment system down time</label>
+            </value>
+            <value>
+                <fullName>46 = Failed payments</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>46 = Failed payments</label>
+            </value>
+            <value>
+                <fullName>47 = Direct Debit / Re-occuring payment</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>47 = Direct Debit / Re-occuring payment</label>
+            </value>
+            <value>
+                <fullName>48 = Processing error</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>48 = Processing error</label>
+            </value>
+            <value>
+                <fullName>49 = Unauthorised Information disclosure</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>49 = Unauthorised Information disclosure</label>
+            </value>
+            <value>
+                <fullName>5 = Design/layout/content</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>5 = Design/layout/content</label>
+            </value>
+            <value>
+                <fullName>50 = Data Breach</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>50 = Data Breach</label>
+            </value>
+            <value>
+                <fullName>51 = Customer Authentication</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>51 = Customer Authentication</label>
+            </value>
+            <value>
+                <fullName>52 = Incorrect Advice</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>52 = Incorrect Advice</label>
+            </value>
+            <value>
+                <fullName>53 = No Advice</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>53 = No Advice</label>
+            </value>
+            <value>
+                <fullName>54 = About ANZ</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>54 = About ANZ</label>
+            </value>
+            <value>
+                <fullName>55 = Media releases</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>55 = Media releases</label>
+            </value>
+            <value>
+                <fullName>56 = Marketing campaigns</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>56 = Marketing campaigns</label>
+            </value>
+            <value>
+                <fullName>6 = System fault/outage</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>6 = System fault/outage</label>
+            </value>
+            <value>
+                <fullName>7 = Merchant terminal issue</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>7 = Merchant terminal issue</label>
+            </value>
+            <value>
+                <fullName>8 = Contact Centre</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>8 = Contact Centre</label>
+            </value>
+            <value>
+                <fullName>9 = Digital</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>9 = Digital</label>
+            </value>
         </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>7</controllingFieldValue>
+            <controllingFieldValue>3</controllingFieldValue>
+            <controllingFieldValue>15</controllingFieldValue>
+            <controllingFieldValue>16</controllingFieldValue>
+            <controllingFieldValue>12</controllingFieldValue>
+            <controllingFieldValue>14</controllingFieldValue>
+            <controllingFieldValue>9</controllingFieldValue>
+            <valueName>1</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>11</controllingFieldValue>
+            <controllingFieldValue>4</controllingFieldValue>
+            <controllingFieldValue>17</controllingFieldValue>
+            <controllingFieldValue>6</controllingFieldValue>
+            <controllingFieldValue>5</controllingFieldValue>
+            <controllingFieldValue>19</controllingFieldValue>
+            <controllingFieldValue>10</controllingFieldValue>
+            <controllingFieldValue>13</controllingFieldValue>
+            <controllingFieldValue>18</controllingFieldValue>
+            <controllingFieldValue>2</controllingFieldValue>
+            <controllingFieldValue>1</controllingFieldValue>
+            <valueName>10</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>11</controllingFieldValue>
+            <valueName>54</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>11</controllingFieldValue>
+            <valueName>55</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>11</controllingFieldValue>
+            <valueName>56</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>4</controllingFieldValue>
+            <valueName>20</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>4</controllingFieldValue>
+            <valueName>21</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>4</controllingFieldValue>
+            <valueName>22</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>4</controllingFieldValue>
+            <valueName>23</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>17</controllingFieldValue>
+            <valueName>24</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>17</controllingFieldValue>
+            <valueName>25</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>17</controllingFieldValue>
+            <valueName>26</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>17</controllingFieldValue>
+            <valueName>27</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>17</controllingFieldValue>
+            <valueName>28</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>6</controllingFieldValue>
+            <valueName>29</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>6</controllingFieldValue>
+            <valueName>30</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>6</controllingFieldValue>
+            <valueName>31</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>6</controllingFieldValue>
+            <valueName>32</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>6</controllingFieldValue>
+            <valueName>33</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>6</controllingFieldValue>
+            <valueName>34</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>6</controllingFieldValue>
+            <valueName>35</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>6</controllingFieldValue>
+            <valueName>36</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>6</controllingFieldValue>
+            <valueName>37</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>5</controllingFieldValue>
+            <valueName>38</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>5</controllingFieldValue>
+            <valueName>39</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>5</controllingFieldValue>
+            <valueName>40</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>5</controllingFieldValue>
+            <valueName>41</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>19</controllingFieldValue>
+            <valueName>42</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>19</controllingFieldValue>
+            <valueName>43</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>10</controllingFieldValue>
+            <valueName>44</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>10</controllingFieldValue>
+            <valueName>45</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>10</controllingFieldValue>
+            <valueName>46</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>10</controllingFieldValue>
+            <valueName>47</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>10</controllingFieldValue>
+            <valueName>48</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>13</controllingFieldValue>
+            <valueName>2</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>13</controllingFieldValue>
+            <valueName>3</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>13</controllingFieldValue>
+            <valueName>4</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>13</controllingFieldValue>
+            <valueName>5</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>13</controllingFieldValue>
+            <valueName>6</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>13</controllingFieldValue>
+            <valueName>7</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>13</controllingFieldValue>
+            <valueName>8</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>13</controllingFieldValue>
+            <valueName>9</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>18</controllingFieldValue>
+            <valueName>11</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>18</controllingFieldValue>
+            <valueName>12</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>2</controllingFieldValue>
+            <valueName>13</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>2</controllingFieldValue>
+            <valueName>14</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>2</controllingFieldValue>
+            <valueName>15</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>2</controllingFieldValue>
+            <valueName>16</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>2</controllingFieldValue>
+            <valueName>17</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>2</controllingFieldValue>
+            <valueName>18</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>2</controllingFieldValue>
+            <valueName>19</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>8</controllingFieldValue>
+            <valueName>49</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>8</controllingFieldValue>
+            <valueName>50</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>8</controllingFieldValue>
+            <valueName>51</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>1</controllingFieldValue>
+            <valueName>52</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>1</controllingFieldValue>
+            <valueName>53</valueName>
+        </valueSettings>
     </valueSet>
 </CustomField>
