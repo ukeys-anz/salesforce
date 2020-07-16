@@ -115,7 +115,7 @@
                 <field>Status</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Required</behavior>
                 <field>Priority</field>
             </layoutItems>
             <layoutItems>
