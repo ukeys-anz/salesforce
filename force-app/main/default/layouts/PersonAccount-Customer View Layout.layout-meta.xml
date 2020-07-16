@@ -259,6 +259,14 @@
         </relatedContentItems>
     </relatedContent>
     <relatedLists>
+        <fields>NAME</fields>
+        <fields>Card_Activation_Status__c</fields>
+        <fields>Card_Delivery_Status__c</fields>
+        <fields>Pin_Set__c</fields>
+        <fields>Temporary_Lock__c</fields>
+        <relatedList>FinServ__Card__c.FinServ__AccountHolder__c</relatedList>
+    </relatedLists>
+    <relatedLists>
         <excludeButtons>MassChangeOwner</excludeButtons>
         <fields>CASES.CASE_NUMBER</fields>
         <fields>CASES.SUBJECT</fields>
@@ -275,7 +283,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2N000000iTac</masterLabel>
+        <masterLabel>00h2N000000kbbd</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>
