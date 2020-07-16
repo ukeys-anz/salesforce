@@ -160,14 +160,12 @@
         <trackHistory>false</trackHistory>
         <type>AutoNumber</type>
     </nameField>
-    <pluralLabel>Customer Feedbacks</pluralLabel>
+    <pluralLabel>Customer Feedback</pluralLabel>
     <searchLayouts>
         <searchResultsAdditionalFields>Account_Name__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Feedback_Type__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Verbatim__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Advocacy_Rating__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>Store_Location__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>CREATED_DATE</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>CREATEDBY_USER</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
