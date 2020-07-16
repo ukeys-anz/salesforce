@@ -68,6 +68,6 @@
     </objectPermissions>
     <tabSettings>
         <tab>Customer_Feedback__c</tab>
-        <visibility>Available</visibility>
+        <visibility>Visible</visibility>
     </tabSettings>
 </PermissionSet>

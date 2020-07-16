@@ -2229,6 +2229,10 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <tabVisibilities>
+        <tab>Customer_Feedback__c</tab>
+        <visibility>DefaultOn</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
         <tab>FinServ__FinancialAccount__c</tab>
         <visibility>DefaultOn</visibility>
     </tabVisibilities>
