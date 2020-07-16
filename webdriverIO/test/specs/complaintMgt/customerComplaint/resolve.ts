@@ -36,12 +36,13 @@ describe("Customer Record Resolve", () => {
     CustomerComplaint.complaintOutcome.click();
     $("=In favour of customer in full").click();
     CustomerComplaint.complaintRemedy.click();
-    $("=Non-financial remedy").click();
+    $("=Financial remedy").click();
 
-    CustomerComplaint.financialCompensation.click();
-    $('a[role="menuitemradio"]=None').click();
+    CustomerComplaint.financialCompensation.setValue(123.22);
 
-    CustomerComplaint.descriptionOfOutcome.setValue("No compensation awarded");
+    CustomerComplaint.descriptionOfOutcome.setValue(
+      "Financial compensation awarded"
+    );
 
     CustomerComplaint.save.click();
 

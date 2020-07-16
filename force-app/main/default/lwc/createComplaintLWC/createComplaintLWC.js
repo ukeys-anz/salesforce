@@ -209,7 +209,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
   }
 
   handleComplaintRemedy(event) {
-    console.log("Afreen11" + event.detail.value);
     if (event.detail.value == COMPLAINT_REMEDY_FIN_VALUE) {
       this.isFinancialComplaintRemedy = true;
       this.isNonFinancialComplaintRemedy = false;
@@ -217,8 +216,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
       this.isFinancialComplaintRemedy = false;
       this.isNonFinancialComplaintRemedy = true;
     }
-
-    console.log("Afreeb" + this.isFinancialComplaintRemedy);
   }
 
   handleSectionToggle(event) {}
