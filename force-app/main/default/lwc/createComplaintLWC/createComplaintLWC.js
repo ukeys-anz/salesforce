@@ -158,6 +158,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   showSections;
   isComplaintResolved;
   isFinancialComplaintRemedy;
+  isNonFinancialComplaintRemedy;
   isCommonComplaint;
   isRealFormNeeded;
   isAddressRequired;
@@ -212,8 +213,13 @@ export default class CreateComplaintLWC extends NavigationMixin(
   handleComplaintRemedy(event) {
     if (event.detail.value == COMPLAINT_REMEDY_FIN_VALUE) {
       this.isFinancialComplaintRemedy = true;
+      this.isNonFinancialComplaintRemedy = false;
     } else if (event.detail.value == COMPLAINT_REMEDY_NON_FIN_VALUE) {
       this.isFinancialComplaintRemedy = false;
+      this.isNonFinancialComplaintRemedy = true;
+    } else {
+      this.isFinancialComplaintRemedy = false;
+      this.isNonFinancialComplaintRemedy = false;
     }
   }
 

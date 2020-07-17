@@ -600,7 +600,7 @@
                       field-name={financialCompensation}
                     ></lightning-input-field>
                   </template>
-                  <template if:false={isFinancialComplaintRemedy}>
+                  <template if:true={isNonFinancialComplaintRemedy}>
                     <lightning-input-field
                       variant="label-stacked"
                       required
