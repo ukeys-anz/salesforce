@@ -336,6 +336,7 @@ public with sharing class IDRCaseActions {
             Case.IDR_NC_Age__c,
             c.IDR_NC_Age__c
           ),
+          Non_Financial_Remedy__c = c.IDR_Non_Financial_Remedy__c,
           Agent_License_Number__c = c.IDR_AuthRep_Licence_Number__c,
           Agent_License_Type__c = IDRCaseActions.getPicklistLabel(
             Case.IDR_AuthRep_Licence_or_registration_type__c,
