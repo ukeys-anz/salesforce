@@ -589,15 +589,24 @@
                     aria-labelledby="Dropdown Complaint Remedy"
                     required={isComplaintResolved}
                     field-name={complaintRemedy}
+                    onchange={handleComplaintRemedy}
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
-                  <lightning-input-field
-                    variant="label-stacked"
-                    aria-labelledby="Dropdown Financial Compensation"
-                    required={isComplaintResolved}
-                    field-name={financialCompensation}
-                  ></lightning-input-field>
+                  <template if:true={isFinancialComplaintRemedy}>
+                    <lightning-input-field
+                      variant="label-stacked"
+                      required
+                      field-name={financialCompensation}
+                    ></lightning-input-field>
+                  </template>
+                  <template if:false={isFinancialComplaintRemedy}>
+                    <lightning-input-field
+                      variant="label-stacked"
+                      required
+                      field-name={nonFinancialRemedy}
+                    ></lightning-input-field>
+                  </template>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field

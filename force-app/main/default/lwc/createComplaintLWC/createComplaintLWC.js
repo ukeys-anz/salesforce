@@ -54,6 +54,7 @@ import DESIRED_OUTCOME_FIELD from "@salesforce/schema/Case.IDR_Complainant_Desir
 import COMPLAINT_OUTCOME from "@salesforce/schema/Case.IDR_Complaint_Outcome__c";
 import COMPLAINT_REMEDY from "@salesforce/schema/Case.IDR_Complaint_Remedy__c";
 import FINANCIAL_COMPENSATION from "@salesforce/schema/Case.IDR_Financial_Compensation__c";
+import NON_FINANCIAL_REMEDY from "@salesforce/schema/Case.IDR_Non_Financial_Remedy__c";
 import OUTCOME_DESCRIPTION from "@salesforce/schema/Case.IDR_Description_of_Outcome__c";
 import STATUS_FIELD from "@salesforce/schema/Case.Status";
 
@@ -69,6 +70,8 @@ const SUCCESS_TITLE = "Complaint has been created successfully.";
 const BUSINESS_TYPE_API = 2;
 const RESOLVED_STATUS_API_NAME = "Resolved";
 const YES_VALUE = "Yes";
+const COMPLAINT_REMEDY_FIN_VALUE = "1";
+const COMPLAINT_REMEDY_NON_FIN_VALUE = "2";
 
 export default class CreateComplaintLWC extends NavigationMixin(
   LightningElement
@@ -127,6 +130,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   complaintRemedy = COMPLAINT_REMEDY;
   financialCompensation = FINANCIAL_COMPENSATION;
   outcomeDescription = OUTCOME_DESCRIPTION;
+  nonFinancialRemedy = NON_FINANCIAL_REMEDY;
 
   //systemic fields
   commonComplaint = IS_COMMON_COMPLAINT_FIELD;
@@ -153,6 +157,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   showComplianceFields;
   showSections;
   isComplaintResolved;
+  isFinancialComplaintRemedy;
   isCommonComplaint;
   isRealFormNeeded;
   isAddressRequired;
@@ -202,6 +207,14 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   handleComplaintResolved(event) {
     this.isComplaintResolved = event.target.checked;
+  }
+
+  handleComplaintRemedy(event) {
+    if (event.detail.value == COMPLAINT_REMEDY_FIN_VALUE) {
+      this.isFinancialComplaintRemedy = true;
+    } else if (event.detail.value == COMPLAINT_REMEDY_NON_FIN_VALUE) {
+      this.isFinancialComplaintRemedy = false;
+    }
   }
 
   handleSectionToggle(event) {}
