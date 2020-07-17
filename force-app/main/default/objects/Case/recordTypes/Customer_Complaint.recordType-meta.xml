@@ -2339,7 +2339,7 @@
         <picklist>IDR_Subsequent_Issue__c</picklist>
         <values>
             <fullName>1</fullName>
-            <default>true</default>
+            <default>false</default>
         </values>
         <values>
             <fullName>10</fullName>
