@@ -15,42 +15,42 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Customer details updated</fullName>
+                <fullName>4</fullName>
                 <default>false</default>
                 <label>Customer details updated</label>
             </value>
             <value>
-                <fullName>Educated customer on Policy/procedure</fullName>
+                <fullName>5</fullName>
                 <default>false</default>
                 <label>Educated customer on Policy/procedure</label>
             </value>
             <value>
-                <fullName>Apology</fullName>
+                <fullName>1</fullName>
                 <default>false</default>
                 <label>Apology</label>
             </value>
             <value>
-                <fullName>Feedback passed to internal stakeholder</fullName>
+                <fullName>6</fullName>
                 <default>false</default>
                 <label>Feedback passed to internal stakeholder</label>
             </value>
             <value>
-                <fullName>Provision of assistance/support</fullName>
+                <fullName>7</fullName>
                 <default>false</default>
                 <label>Provision of assistance/support</label>
             </value>
             <value>
-                <fullName>Updated terms of contract</fullName>
+                <fullName>8</fullName>
                 <default>false</default>
                 <label>Updated terms of contract</label>
             </value>
             <value>
-                <fullName>Ceased legal or other action</fullName>
+                <fullName>2</fullName>
                 <default>false</default>
                 <label>Ceased legal or other action</label>
             </value>
             <value>
-                <fullName>Corrected incorrect or out of date records</fullName>
+                <fullName>3</fullName>
                 <default>false</default>
                 <label>Corrected incorrect or out of date records</label>
             </value>
