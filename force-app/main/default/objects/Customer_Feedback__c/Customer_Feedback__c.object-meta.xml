@@ -167,6 +167,6 @@
         <searchResultsAdditionalFields>Verbatim__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Advocacy_Rating__c</searchResultsAdditionalFields>
     </searchLayouts>
-    <sharingModel>ReadWrite</sharingModel>
+    <sharingModel>Read</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>
