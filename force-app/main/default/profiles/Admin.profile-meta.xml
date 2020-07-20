@@ -704,6 +704,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.IDR_Non_Financial_Remedy__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.IDR_Office__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -715,6 +720,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.IDR_Reason_for_re_opening__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_Subsequent_Issue__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

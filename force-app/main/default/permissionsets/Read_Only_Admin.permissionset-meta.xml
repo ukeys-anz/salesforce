@@ -339,6 +339,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.IDR_Subsequent_Issue__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.IDR_Systemic_Issue_Category__c</field>
         <readable>true</readable>
     </fieldPermissions>
