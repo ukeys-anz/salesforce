@@ -3,5 +3,9 @@
     <fullName>Description</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate</complianceGroup>
+    <description>Description of the ANZ product code related to the Case. Automatically filled based on the code selected.
+
+Text description for the ANZ product, from Zafin.</description>
     <securityClassification>Public</securityClassification>
+    <trackHistory>false</trackHistory>
 </CustomField>

@@ -3,12 +3,15 @@
     <fullName>IDR_NC_Phone__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted</complianceGroup>
-    <description>Capture this only if customer is not found in MAUD/CAP-CIS.</description>
+    <description>Phone number of Complainant.
+
+Capture this only if customer is not found in MAUD/CAP-CIS.</description>
     <externalId>false</externalId>
     <inlineHelpText>Capture this only if mobile is unavailable.</inlineHelpText>
     <label>Phone</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Phone</type>

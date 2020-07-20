@@ -3,8 +3,10 @@
     <fullName>Priority</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted</complianceGroup>
+    <description>Priority of the case as per ANZ process guidelines.</description>
     <inlineHelpText>For more information on how to support customers experiencing vulnerability, visit Max</inlineHelpText>
     <securityClassification>Confidential</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>

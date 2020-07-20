@@ -3,6 +3,7 @@
     <fullName>ParentId</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted</complianceGroup>
+    <description>Identification number of case that was first initiated and relates to this case.</description>
     <lookupFilter>
         <active>true</active>
         <filterItems>

@@ -3,6 +3,7 @@
     <fullName>Case__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted</complianceGroup>
+    <description>Represents the case that this duration object is tracking time for</description>
     <externalId>false</externalId>
     <label>Case</label>
     <referenceTo>Case</referenceTo>

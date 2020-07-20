@@ -3,10 +3,12 @@
     <fullName>IDR_Date_closed_after_re_opening__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate</complianceGroup>
+    <description>Date Complaint is closed after being re-opened</description>
     <externalId>false</externalId>
     <label>Date closed after re-opening</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Date</type>

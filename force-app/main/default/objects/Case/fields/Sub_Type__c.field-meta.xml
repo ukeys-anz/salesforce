@@ -3,6 +3,7 @@
     <fullName>Sub_Type__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate</complianceGroup>
+    <description>Based on the type of case, the sub type provides a more detailed categorisation of the case.</description>
     <externalId>false</externalId>
     <label>Sub Type</label>
     <required>false</required>

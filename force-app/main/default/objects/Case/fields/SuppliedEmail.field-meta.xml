@@ -3,6 +3,7 @@
     <fullName>SuppliedEmail</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted</complianceGroup>
+    <description>Email details supplied when case is first raised</description>
     <securityClassification>Confidential</securityClassification>
     <trackTrending>false</trackTrending>
 </CustomField>
