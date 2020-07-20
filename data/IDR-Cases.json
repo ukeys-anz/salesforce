@@ -6,6 +6,7 @@
         "referenceId": "CaseRef1"
       },
       "Type": "2",
+      "IDR_Subsequent_Issue__c": "10",
       "Status": "Closed",
       "Origin": "2",
       "Subject": "Assured Monthly Fee",
@@ -38,6 +39,7 @@
         "referenceId": "CaseRef2"
       },
       "Type": "7",
+      "IDR_Subsequent_Issue__c": "1",
       "Status": "Re-opened",
       "Origin": "2",
       "Subject": "Car insurance claim review request",
@@ -51,6 +53,7 @@
       "IDR_Complainant_Desired_Outcome__c": "bb",
       "IDR_Complainant_Type__c": "1",
       "IDR_Complaint_Remedy__c": "1",
+      "IDR_Financial_Compensation__c": "1500.25",
       "IDR_Customer_Number__c": "1234567890",
       "IDR_Date_Re_Opened__c": "2020-05-29",
       "IDR_Date_Received__c": "2019-12-16",
@@ -71,6 +74,7 @@
         "referenceId": "CaseRef3"
       },
       "Type": "9",
+      "IDR_Subsequent_Issue__c": "1",
       "Status": "Open",
       "Origin": "2",
       "Subject": "Life Insurance Policy Cancellation",
@@ -99,6 +103,7 @@
         "referenceId": "CaseRef4"
       },
       "Type": "9",
+      "IDR_Subsequent_Issue__c": "1",
       "Status": "Re-opened",
       "Origin": "1",
       "Subject": "Frequent Flyer Reward Point Allocation",
@@ -115,6 +120,7 @@
       "IDR_Complainant_Type__c": "9",
       "IDR_Complaint_Outcome__c": "2",
       "IDR_Complaint_Remedy__c": "2",
+      "IDR_Non_Financial_Remedy__c": "4",
       "IDR_Customer_Number__c": "5678901234",
       "IDR_Date_Re_Opened__c": "2020-05-29",
       "IDR_Date_Received__c": "2019-12-18",
@@ -136,6 +142,7 @@
         "referenceId": "CaseRef5"
       },
       "Type": "9",
+      "IDR_Subsequent_Issue__c": "1",
       "Status": "Closed",
       "Origin": "5",
       "Subject": "Mail being sent to incorrect address despite being notified",
@@ -150,6 +157,7 @@
       "IDR_Complainant_Type__c": "2",
       "IDR_Complaint_Outcome__c": "1",
       "IDR_Complaint_Remedy__c": "2",
+      "IDR_Non_Financial_Remedy__c": "3",
       "IDR_Customer_Number__c": "12233442345",
       "IDR_Date_Received__c": "2019-12-18",
       "IDR_Description_of_Outcome__c": "Address updated. Verbal confirmation provided to non-customer of actions taken.",
