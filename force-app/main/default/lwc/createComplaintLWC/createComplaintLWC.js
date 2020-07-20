@@ -177,10 +177,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
     { label: "No", value: "No" }
   ];
 
-  //form validation fields.
-  missingDataField;
-  dataValid;
-
   //initialize components
   connectedCallback() {
     this.recordType = this.recordTypeId;
@@ -265,103 +261,35 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.product = event.detail.value[0];
   }
 
-  validateFields(event) {
-    //event.preventDefault();
-    this.loading = true;
-    let fieldsValid = this.CheckAllFields();
-    if (!fieldsValid) {
-      this.dataValid = false;
-      this.handleError("Please fill the fields: " + this.missingDataField);
-      this.missingDataField = null;
-    } else {
-      this.dataValid = true;
-    }
-  }
-
-  CheckAllFields() {
-    let requiredField = [];
-    requiredField.CustomerType = "Customer Type";
-    requiredField.descOfIssue = "Description of Issue";
-    requiredField.custOutCome = "Customer Desired Outcome";
-    requiredField.priority = "Priority";
-    requiredField.ChannelReceived = "Channel Received";
-    requiredField.issueType = "Issue Type";
-    requiredField.product = "Product";
-    requiredField.accPolicyNum = "Account or Policy Number";
-
-    let isfieldValid = [
-      ...this.template.querySelectorAll("lightning-input-field")
-    ].reduce((validSoFar, inputCmp) => {
-      if (inputCmp.id) {
-        //console.log("inputCmp.Id:" + inputCmp.id);
-        var getId = inputCmp.id.split("-");
-        if (requiredField[getId[0]] && !inputCmp.value) {
-          validSoFar = false;
-          if (!this.missingDataField) {
-            this.missingDataField = requiredField[getId[0]];
-          } else {
-            this.missingDataField =
-              this.missingDataField + " , " + requiredField[getId[0]];
-          }
-        }
-      }
-      return validSoFar;
-    }, true);
-
-    if (!this.writtenResponseValue) {
-      isfieldValid = false;
-      if (!this.missingDataField) {
-        this.missingDataField = "Written Response ?";
-      } else {
-        this.missingDataField =
-          this.missingDataField + " , " + "Written Response ?";
-      }
-    }
-
-    if (!this.writtenRequiredValue) {
-      isfieldValid = false;
-      if (!this.missingDataField) {
-        this.missingDataField =
-          "Is the complaint relating to hardship, a declined insurance claim, the value of an insurance claim or a decision of a superannuation trustee?";
-      } else {
-        this.missingDataField =
-          this.missingDataField +
-          " , " +
-          "Is the complaint relating to hardship, a declined insurance claim, the value of an insurance claim or a decision of a superannuation trustee?";
-      }
-    }
-    return isfieldValid;
-  }
-
   handleSubmit(event) {
     event.preventDefault(); // stop the form from submitting
-    let valid = this.checkRequiredFields();
-    console.log("this.datavalid:" + this.dataValid + " valid:" + valid);
-    if (this.dataValid && valid) {
-      this.template.querySelector(".saveButton").disabled = true;
-      const fields = event.detail.fields;
-      fields[PRODUCT_LOOKUP_FIELD.fieldApiName] = this.product;
-      fields[CAP_CIS_ID_FIELD.fieldApiName] = this.customerIdValue;
-      fields[
-        WRITTEN_RESPONSE_REQUESTED_FIELD.fieldApiName
-      ] = this.writtenResponseValue;
-      fields[
-        WRITTEN_RESPONSE_REQUIRED_FIELD.fieldApiName
-      ] = this.writtenRequiredValue;
-      fields[CONSENT_OBTAINED.fieldApiName] = this.consentValue;
-      fields[RECORDTYPE_FIELD.fieldApiName] = this.recordType;
-      if (this.isComplaintResolved) {
-        fields[STATUS_FIELD.fieldApiName] = RESOLVED_STATUS_API_NAME;
-      }
-      if (this.isRealFormNeeded) {
-        fields[IS_REAL_FORM_NEED_FIELD.fieldApiName] = true;
-      }
-      if (this.isCommonComplaint) {
-        fields[IS_COMMON_COMPLAINT_FIELD.fieldApiName] = true;
-      }
-      if (!this.hasNominatedThirdParty) {
-        fields[THIRD_PARTY_COUNTRY_FIELD.fieldApiName] = "";
-      }
+    this.template.querySelector(".saveButton").disabled = true;
+    const fields = event.detail.fields;
+    fields[PRODUCT_LOOKUP_FIELD.fieldApiName] = this.product;
+    fields[CAP_CIS_ID_FIELD.fieldApiName] = this.customerIdValue;
+    fields[
+      WRITTEN_RESPONSE_REQUESTED_FIELD.fieldApiName
+    ] = this.writtenResponseValue;
+    fields[
+      WRITTEN_RESPONSE_REQUIRED_FIELD.fieldApiName
+    ] = this.writtenRequiredValue;
+    fields[CONSENT_OBTAINED.fieldApiName] = this.consentValue;
+    fields[RECORDTYPE_FIELD.fieldApiName] = this.recordType;
+    if (this.isComplaintResolved) {
+      fields[STATUS_FIELD.fieldApiName] = RESOLVED_STATUS_API_NAME;
+    }
+    if (this.isRealFormNeeded) {
+      fields[IS_REAL_FORM_NEED_FIELD.fieldApiName] = true;
+    }
+    if (this.isCommonComplaint) {
+      fields[IS_COMMON_COMPLAINT_FIELD.fieldApiName] = true;
+    }
+    if (!this.hasNominatedThirdParty) {
+      fields[THIRD_PARTY_COUNTRY_FIELD.fieldApiName] = "";
+    }
+    let valid = this.checkRequiredFields(fields);
+    if (valid) {
+      this.loading = true;
       const recordInput = { apiName: CASE_OBJECT.objectApiName, fields };
       createRecord(recordInput)
         .then((response) => {
@@ -374,6 +302,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
         .catch((error) => {
           this.handleError(error.body);
         });
+    } else {
+      this.handleError(ERROR_REQUIRED_TITLE);
     }
   }
 
