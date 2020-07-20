@@ -159,6 +159,7 @@
                     aria-labelledby="Dropdown Customer Type"
                     onchange={handleComplaintTypeChange}
                     field-name={complaintType}
+                    id="CustomerType-id"
                   ></lightning-input-field>
                 </div>
                 <div
@@ -190,6 +191,7 @@
                     aria-labelledby="Dropdown Customer Type"
                     onchange={handleComplaintTypeChange}
                     field-name={complaintType}
+                    id="customerType2-id"
                   ></lightning-input-field>
                 </div>
                 <div
@@ -411,6 +413,7 @@
                   aria-labelledby="Dropdown Priority"
                   required
                   field-name={Priority}
+                  id="priority-id"
                 ></lightning-input-field>
               </div>
               <div class="slds-col slds-size_1-of-4 slds-m-right_large">
@@ -419,6 +422,7 @@
                   required
                   aria-labelledby="Dropdown Channel Received"
                   field-name={ChannelReceived}
+                  id="ChannelReceived-id"
                 ></lightning-input-field>
               </div>
               <div class="slds-col slds-size_1-of-4 slds-m-right_large">
@@ -428,6 +432,7 @@
                   aria-labelledby="Dropdown Case Type"
                   required
                   field-name={complaintIssue}
+                  id="issueType-id"
                 ></lightning-input-field>
               </div>
               <div class="slds-col slds-size_1-of-4 slds-m-right_large">
@@ -438,6 +443,7 @@
                   field-name={Product}
                   value={product}
                   onchange={handleProductChange}
+                  id="product-id"
                 ></lightning-input-field>
               </div>
               <template if:true={isCustomerComplaint}>
@@ -446,6 +452,7 @@
                     variant="label-stacked"
                     required
                     field-name={accountOrPolicyNumber}
+                    id="accPolicyNum-id"
                   ></lightning-input-field>
                 </div>
               </template>
@@ -454,6 +461,7 @@
                   variant="label-stacked"
                   required
                   field-name={DescriptionofIssue}
+                  id="descOfIssue-id"
                 ></lightning-input-field>
               </div>
               <div class="slds-col slds-size_1-of-4 slds-m-right_large">
@@ -572,6 +580,7 @@
                     aria-labelledby="Dropdown Complaint Outcome"
                     required={isComplaintResolved}
                     field-name={complaintOutcome}
+                    id="custOutCome-id"
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
@@ -624,6 +633,7 @@
           <lightning-button
             variant="brand"
             type="submit"
+            onclick={validateFields}
             class="saveButton"
             name="save"
             label="Create Case"
