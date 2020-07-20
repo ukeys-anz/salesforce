@@ -3,7 +3,7 @@
     <fullName>Identification_Type__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate</complianceGroup>
-    <description>Reference data type and value for Identification type</description>
+    <description>The type of identification document the customer has used during KYC. List of values (eg: &quot;ABN&quot;, &quot;Drivers License&quot; etc.)</description>
     <externalId>false</externalId>
     <inlineHelpText>Reference data value for Identification type</inlineHelpText>
     <label>Identification Type</label>

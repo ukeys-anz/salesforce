@@ -3,6 +3,9 @@
     <fullName>AccountId</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted</complianceGroup>
+    <description>The account identification of the customer who has raised an issue.
+
+Salesforce database Id</description>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>

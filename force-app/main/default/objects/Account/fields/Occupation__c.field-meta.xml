@@ -3,7 +3,7 @@
     <fullName>Occupation__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted</complianceGroup>
-    <description>Occupation</description>
+    <description>Occupation of the customer</description>
     <externalId>false</externalId>
     <label>Occupation</label>
     <required>false</required>

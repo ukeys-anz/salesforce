@@ -3,6 +3,7 @@
     <fullName>Severity__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate</complianceGroup>
+    <description>Severity of the exception</description>
     <externalId>false</externalId>
     <label>Severity</label>
     <required>false</required>

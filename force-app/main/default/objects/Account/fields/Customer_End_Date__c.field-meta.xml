@@ -3,7 +3,9 @@
     <fullName>Customer_End_Date__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate</complianceGroup>
-    <description>Customer End Date</description>
+    <description>The date at which the customer/business closes their account.
+
+Deletion event received from OCV, account needs to be removed (it is made inactive and the end date is added)</description>
     <externalId>false</externalId>
     <label>Customer End Date</label>
     <required>false</required>

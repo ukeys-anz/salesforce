@@ -3,5 +3,10 @@
     <fullName>Industry</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted</complianceGroup>
+    <description>The industry the business falls within. Not relevant for individual customer.
+
+Industry of the customer, values from OCV master: https://confluence.service.anz/display/DASV/Customer+Master+-+Reference+Data#CustomerMaster-ReferenceData-CDINDUSTRYTP</description>
     <securityClassification>Confidential</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Picklist</type>
 </CustomField>

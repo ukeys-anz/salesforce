@@ -3,10 +3,12 @@
     <fullName>IDR_AuthRep_Licence_or_registration_type__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted</complianceGroup>
+    <description>The type of licence or registration. List of values=AFS licensee or authorised credit representative</description>
     <externalId>false</externalId>
     <label>Licence or registration type</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
