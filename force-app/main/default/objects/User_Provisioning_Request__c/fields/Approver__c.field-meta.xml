@@ -7,15 +7,6 @@
     <description>User who approves the request from another user</description>
     <externalId>false</externalId>
     <label>Approver</label>
-    <lookupFilter>
-        <active>true</active>
-        <filterItems>
-            <field>User.Id</field>
-            <operation>notEqual</operation>
-            <valueField>$User.Id</valueField>
-        </filterItems>
-        <isOptional>true</isOptional>
-    </lookupFilter>
     <referenceTo>User</referenceTo>
     <relationshipName>User_Provisioning_Approval_Requests</relationshipName>
     <required>false</required>
