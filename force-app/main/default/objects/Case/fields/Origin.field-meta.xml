@@ -3,11 +3,7 @@
     <fullName>Origin</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate</complianceGroup>
-    <description>What channel did the case originate from (In person, Phone, Secure Mail, Social Media, Letter, Email, Internal Referred, anz.com)
-
-Phone and Email are SF standard keys and values and may not be overwritten.
-
-Phone is the default value.</description>
+    <description>What channel did the case originate from (In person, Phone, Secure Mail, Social Media, Letter, Email, Internal Referred, anz.com)</description>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>

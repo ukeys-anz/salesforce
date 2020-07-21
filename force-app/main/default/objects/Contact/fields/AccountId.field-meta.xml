@@ -3,9 +3,7 @@
     <fullName>AccountId</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted</complianceGroup>
-    <description>Identification number of the customer/business account.
-
-Salesforce Database Id, foreign key to the account table</description>
+    <description>Identification number of the customer/business account.</description>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <type>Lookup</type>
