@@ -12,7 +12,7 @@ export default class CustomError {
     Object.defineProperty(error, "message", {
       get() {
         return providedError
-          ? customMessage + "\n" + JSON.stringify(providedError)
+          ? customMessage + "\n" + providedError
           : customMessage;
       }
     });
