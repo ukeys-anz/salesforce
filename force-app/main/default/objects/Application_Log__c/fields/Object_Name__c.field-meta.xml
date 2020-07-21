@@ -3,6 +3,7 @@
     <fullName>Object_Name__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate</complianceGroup>
+    <description>Application object name that is referred to in the error application log</description>
     <externalId>false</externalId>
     <label>Object Name</label>
     <length>100</length>

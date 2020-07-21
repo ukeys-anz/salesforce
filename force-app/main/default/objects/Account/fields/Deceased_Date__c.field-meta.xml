@@ -3,9 +3,9 @@
     <fullName>Deceased_Date__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted</complianceGroup>
-    <description>Deceased Date</description>
+    <description>The date at which the customer dies</description>
     <externalId>false</externalId>
-    <inlineHelpText>Deceased Date</inlineHelpText>
+    <inlineHelpText>The date at which the customer dies</inlineHelpText>
     <label>Deceased Date</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

@@ -3,7 +3,7 @@
     <fullName>Preferred_Phone__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted</complianceGroup>
-    <description>Customer Preferred Phone</description>
+    <description>Preferred phone number of the customer owning the account for ANZ to use when contacting the customer. Defaults to the Phone</description>
     <externalId>false</externalId>
     <label>Preferred Phone</label>
     <required>false</required>

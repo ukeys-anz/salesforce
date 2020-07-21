@@ -3,10 +3,12 @@
     <fullName>IDR_Description_of_Outcome__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted</complianceGroup>
+    <description>Description of Complaint Outcome</description>
     <externalId>false</externalId>
     <label>Description of Outcome</label>
     <length>32768</length>
     <securityClassification>Confidential</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>

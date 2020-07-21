@@ -3,6 +3,7 @@
     <fullName>Anniversary_Date__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate</complianceGroup>
+    <description>Date customer joined</description>
     <externalId>false</externalId>
     <inlineHelpText>Customer Joining Date</inlineHelpText>
     <label>Anniversary Date</label>

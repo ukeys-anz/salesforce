@@ -3,6 +3,7 @@
     <fullName>Release_Date__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Uncontrolled</complianceGroup>
+    <description>Date of the specified release</description>
     <externalId>false</externalId>
     <label>Release Date</label>
     <required>true</required>

@@ -3,10 +3,12 @@
     <fullName>IDR_Complainant_Desired_Outcome__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate</complianceGroup>
+    <description>Free text explaining the desired outcome of the complaint raised</description>
     <externalId>false</externalId>
     <label>Customer Desired Outcome</label>
     <length>4000</length>
     <securityClassification>Confidential</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
