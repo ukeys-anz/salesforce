@@ -1,8 +1,20 @@
 [
   {
-    "alias": "",
-    "url": "",
-    "accessToken": "",
-    "instanceUrl": ""
+    "alias": "IDR1071",
+    "url": "https://connect-efficiency-6114.cs115.my.salesforce.com//secur/frontdoor.jsp?sid=00D2N0000009YxH!AQEAQAHKE.HU_WnlJnzckrD9Tlwqua06djOwoQzUaO23eESliJ2xohrA.8qkuklrIZyq6fLJ79NJgG49iPzlfluOu19uMB2l",
+    "accessToken": "00D2N0000009YxH!AQEAQAHKE.HU_WnlJnzckrD9Tlwqua06djOwoQzUaO23eESliJ2xohrA.8qkuklrIZyq6fLJ79NJgG49iPzlfluOu19uMB2l",
+    "instanceUrl": "https://connect-efficiency-6114.cs115.my.salesforce.com/"
+  },
+  {
+    "alias": "coach",
+    "url": "https://connect-efficiency-6114.cs115.my.salesforce.com/secur/frontdoor.jsp?sid=00D2N0000009YxH!AQEAQChzbe2MxyEd72UcV2NzQXj1a5w0Iaf9o9yQA34hM.V1jLzLtRoEQLVB1_YuYqgqAP7lmJ66Oinb5lQ4KHnMe.IrwX6F",
+    "accessToken": "00D2N0000009YxH!AQEAQChzbe2MxyEd72UcV2NzQXj1a5w0Iaf9o9yQA34hM.V1jLzLtRoEQLVB1_YuYqgqAP7lmJ66Oinb5lQ4KHnMe.IrwX6F",
+    "instanceUrl": "https://connect-efficiency-6114.cs115.my.salesforce.com"
+  },
+  {
+    "alias": "idrlvl3",
+    "url": "https://connect-efficiency-6114.cs115.my.salesforce.com/secur/frontdoor.jsp?sid=00D2N0000009YxH!AQEAQIDqAYX3TbB5RqmuveEXnYDnncTnmcuQKl56W6nQQqoL6SYi6Vs.RT370hYELAVxfAVLA7xouL2w1wyZDIq9xhO1HNq2",
+    "accessToken": "00D2N0000009YxH!AQEAQIDqAYX3TbB5RqmuveEXnYDnncTnmcuQKl56W6nQQqoL6SYi6Vs.RT370hYELAVxfAVLA7xouL2w1wyZDIq9xhO1HNq2",
+    "instanceUrl": "https://connect-efficiency-6114.cs115.my.salesforce.com"
   }
 ]
