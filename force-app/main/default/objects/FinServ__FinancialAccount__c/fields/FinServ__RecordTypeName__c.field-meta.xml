@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>FinServ__Balance__c</fullName>
+    <fullName>FinServ__RecordTypeName__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Highly Trusted</complianceGroup>
     <deprecated>false</deprecated>
     <externalId>false</externalId>
-    <label>Balance</label>
-    <precision>18</precision>
+    <formula>RecordType.Name</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Record Type</label>
     <required>false</required>
-    <scale>2</scale>
-    <securityClassification>Confidential</securityClassification>
+    <securityClassification>Internal</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
-    <type>Currency</type>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>
