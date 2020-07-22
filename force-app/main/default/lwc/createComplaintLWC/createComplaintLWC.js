@@ -179,7 +179,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   //form validation fields.
   missingDataField;
-  dataValid;
+  dataValid = false;
 
   //initialize components
   connectedCallback() {
@@ -336,9 +336,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   handleSubmit(event) {
     event.preventDefault(); // stop the form from submitting
-    let valid = this.checkRequiredFields();
-    console.log("this.datavalid:" + this.dataValid + " valid:" + valid);
-    if (this.dataValid && valid) {
+    //let valid = this.checkRequiredFields();
+    // console.log("this.datavalid:" + this.dataValid + " valid:" + valid);
+    if (this.dataValid) {
       this.template.querySelector(".saveButton").disabled = true;
       const fields = event.detail.fields;
       fields[PRODUCT_LOOKUP_FIELD.fieldApiName] = this.product;
