@@ -26,23 +26,23 @@ interface ICase {
  * @param recordType Record Type of the case
  */
 export function createCaseList(
-  amount: number = 1,
-  recordType: string = "General_Inquiry",
+  amount = 1,
+  recordType = "General_Inquiry",
   alias: string
-) {
+): Promise<any> {
   return new Promise(async (resolve) => {
-    let finAccountList: any = await getFinAccount();
-    let recordTypeId: string = await getRecordTypeID("Case", recordType);
-    let parentCaseList: any = await getParentCase(
+    const finAccountList: any = await getFinAccount();
+    const recordTypeId: string = await getRecordTypeID("Case", recordType);
+    const parentCaseList: any = await getParentCase(
       recordTypeId,
       finAccountList[0].FinServ__PrimaryOwner__c
     );
-    let cases: ICase[] = [];
-    let idList: any = [];
-    let user: any = await getUserByAlias(alias);
+    const cases: ICase[] = [];
+    const idList: any = [];
+    const user: any = await getUserByAlias(alias);
 
     for (let i = 0; i < amount; i++) {
-      let caseRecord: ICase = {
+      const caseRecord: ICase = {
         Description: faker.lorem.text(),
         Status: faker.random.arrayElement([
           "Open",
@@ -105,7 +105,7 @@ export function createCaseList(
           );
         }
         //Loop through the result to create a list of ids
-        result.forEach((item: any, index: any) => {
+        result.forEach((item: any) => {
           idList.push(item.id);
         });
         //Retrieve the new cases using the created id list and return the results
@@ -125,7 +125,10 @@ export function createCaseList(
  * @param recordTypeId case general inquiry record type id
  * @param accountId Account id from previous func
  */
-export async function getParentCase(recordTypeId: any, accountId: any) {
+export async function getParentCase(
+  recordTypeId: string,
+  accountId: string
+): Promise<any> {
   if (!recordTypeId || !accountId) {
     throw new CustomError("Record Type ID or Account ID is null");
   }
@@ -140,9 +143,9 @@ export async function getParentCase(recordTypeId: any, accountId: any) {
         if (result.records.length > 0) {
           resolve(result.records);
         } else {
-          let cases: ICase[] = [];
-          let idList: any = [];
-          let caseRecord: ICase = {
+          const cases: ICase[] = [];
+          const idList: any = [];
+          const caseRecord: ICase = {
             Description: faker.lorem.text(),
             Status: faker.random.arrayElement([
               "Open",
@@ -204,7 +207,7 @@ export async function getParentCase(recordTypeId: any, accountId: any) {
                 );
               }
               //Loop through the result to create a list of ids
-              result.forEach((item: any, index: any) => {
+              result.forEach((item: any) => {
                 idList.push(item.id);
               });
               //Retrieve the new cases using the created id list and return the results
@@ -230,18 +233,18 @@ export async function getParentCase(recordTypeId: any, accountId: any) {
  * @param recordType Record Type of the case
  */
 export async function createBlankCase(
-  amount: number = 1,
+  amount = 1,
   recordType: string,
   alias: string
-) {
+): Promise<any> {
   return new Promise(async (resolve) => {
-    let recordTypeId: string = await getRecordTypeID("Case", recordType);
-    let user: any = await getUserByAlias(alias);
-    let cases: any = [];
-    let idList: any = [];
+    const recordTypeId: string = await getRecordTypeID("Case", recordType);
+    const user: any = await getUserByAlias(alias);
+    const cases: any = [];
+    const idList: any = [];
 
     for (let i = 0; i < amount; i++) {
-      let caseRecord = {
+      const caseRecord = {
         RecordTypeId: recordTypeId,
         OwnerId: user.Id
       };
@@ -267,7 +270,7 @@ export async function createBlankCase(
         }
 
         //Loop through the result to create a list of ids
-        result.forEach((item: any, index: any) => {
+        result.forEach((item: any) => {
           idList.push(item.id);
         });
 

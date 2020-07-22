@@ -13,18 +13,41 @@ jobs:
 
     steps:
       - name: "Checkout"
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
 
-      - name: "Lint project"
+      - name: "Install NPM Packages"
+        run: npm i --only=dev
+
+      - name: "Enforce Style Guidelines"
         shell: bash
         run: |
-          npm i --only=dev
           npx prettier --write .prettierrc --plugin=prettier-plugin-apex
-          echo "Linting Trigger and Classes"
+          echo "Checking Trigger and Class files"
           npx prettier -c force-app/main/default/**/*.{trigger,cls} --parser apex --with-node-modules
-          echo "Linting Lightning Web Components"
+          echo "Checking Lightning Web Components"
           npx prettier -c force-app/main/default/lwc/**/*.{js,html,css}
-          echo "Linting Aura Components"
+          echo "Checking Aura Components"
           npx prettier -c force-app/main/default/aura/**/*.{js,css}
-          echo "Lint WebdriverIO project files"
+          echo "Checking WebdriverIO project files"
           npx prettier -c webdriverIO/**/*.{ts,js}
+
+  eslint:
+    runs-on: ubuntu-latest
+    container: ddawson235/sfdx:latest
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v2
+
+      - name: "Install NPM Packages"
+        run: |
+          npm i --only=dev
+          npm i lodash
+
+      - name: "Lint LWC and TypeScript files"
+        shell: bash
+        run: |
+          echo "Linting Lightning Web Components"
+          npx eslint force-app/main/default/lwc/**/*.js -c .lwc-eslintrc.json
+          echo "Linting TypeScript files"
+          npx eslint webdriverIO/**/*.ts -c .ts-eslintrc.json

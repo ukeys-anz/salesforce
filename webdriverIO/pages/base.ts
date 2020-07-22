@@ -5,18 +5,18 @@ import CustomError from "../utilities/customErrorHandler.js";
  * Contains shared functions. Each class should extend this base class
  */
 export default class Base {
-  get searchBar() {
+  get searchBar(): WebdriverIO.Element {
     return $("//header/div[2]/div[2]/div/div[2]/div/div[2]/div[2]/div/input");
   }
 
-  login(alias: string) {
-    let user: any = userList.find((data) => data.alias === alias);
+  login(alias: string): void {
+    const user: any = userList.find((data) => data.alias === alias);
     browser.url(user.url);
     $("body.desktop").waitForExist();
     browser.pause(5000);
   }
 
-  loadApp(appName: string) {
+  loadApp(appName: string): void {
     const view: any = browser.execute(() => {
       if (
         document.querySelectorAll("div.lafStandardLayoutContainer").length > 0

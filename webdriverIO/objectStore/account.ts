@@ -38,15 +38,15 @@ interface IAccount {
  * @param recordType Record Type of the account
  */
 export async function createAccountList(
-  amount: number = 1,
-  recordType: string = "PersonAccount"
-) {
+  amount = 1,
+  recordType = "PersonAccount"
+): Promise<any> {
   return new Promise(async (resolve) => {
-    let accounts = [];
-    let idList: any = [];
-    let recTypeId = await getRecordTypeID("Account", recordType);
+    const accounts = [];
+    const idList: any = [];
+    const recTypeId = await getRecordTypeID("Account", recordType);
     for (let i = 0; i < amount; i++) {
-      let account: IAccount = {
+      const account: IAccount = {
         RecordTypeId: recTypeId,
         FirstName: faker.name.firstName(),
         LastName: faker.name.lastName(),
@@ -147,7 +147,7 @@ export async function createAccountList(
       }
 
       //Loop through the result to create a list of ids
-      result.forEach((item: any, index: any) => {
+      result.forEach((item: any) => {
         idList.push(item.id);
       });
 
@@ -165,7 +165,7 @@ export async function createAccountList(
 /**
  * @description extracts person account record if is already in the system or creates new one.
  */
-export async function getPersonAccount() {
+export async function getPersonAccount(): Promise<any> {
   // Check if there are existing person accounts, if not create new ones
   return new Promise<string>((resolve) => {
     jsForce.query(
@@ -179,7 +179,7 @@ export async function getPersonAccount() {
           resolve(result.records);
         } else {
           // insert an account and use the retrieved id
-          let accountList: any = await createAccountList(1);
+          const accountList: any = await createAccountList(1);
 
           resolve(accountList);
         }
