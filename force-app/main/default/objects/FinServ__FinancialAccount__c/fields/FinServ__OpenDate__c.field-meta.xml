@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>FinServ__Balance__c</fullName>
+    <fullName>FinServ__OpenDate__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Highly_Trusted</complianceGroup>
+    <complianceGroup>Integrity_Accurate</complianceGroup>
     <deprecated>false</deprecated>
     <externalId>false</externalId>
-    <label>Balance</label>
-    <precision>18</precision>
+    <label>Date Opened</label>
     <required>false</required>
-    <scale>2</scale>
     <securityClassification>Internal</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
-    <type>Currency</type>
+    <type>Date</type>
 </CustomField>
