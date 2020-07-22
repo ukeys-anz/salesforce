@@ -271,7 +271,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
     const fields = event.detail.fields;
     fields[PRODUCT_LOOKUP_FIELD.fieldApiName] = this.product;
     fields[CAP_CIS_ID_FIELD.fieldApiName] = this.customerIdValue;
-    fields[FINANCIAL_COMPENSATION.fieldApiName] = this.financialCompensation;
     fields[
       WRITTEN_RESPONSE_REQUESTED_FIELD.fieldApiName
     ] = this.writtenResponseValue;
@@ -282,6 +281,11 @@ export default class CreateComplaintLWC extends NavigationMixin(
     fields[RECORDTYPE_FIELD.fieldApiName] = this.recordType;
     if (this.isComplaintResolved) {
       fields[STATUS_FIELD.fieldApiName] = RESOLVED_STATUS_API_NAME;
+      if (this.isFinancialComplaintRemedy) {
+        fields[
+          FINANCIAL_COMPENSATION.fieldApiName
+        ] = this.financialCompensation;
+      }
     }
     if (this.isRealFormNeeded) {
       fields[IS_REAL_FORM_NEED_FIELD.fieldApiName] = true;
@@ -305,7 +309,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
           }
         })
         .catch((error) => {
-          this.handleError(error.body);
+          this.handleError(error);
         });
     } else {
       this.handleError(ERROR_REQUIRED_TITLE);
@@ -342,9 +346,18 @@ export default class CreateComplaintLWC extends NavigationMixin(
     return isValid;
   }
 
-  handleError(errormsg) {
-    console.log(errormsg);
-    let msg = errormsg ? errormsg : ERROR_UNKNOWN_TITLE;
+  handleError(error) {
+    console.log(error);
+    let msg = ERROR_UNKNOWN_TITLE;
+    if (typeof error === "string") {
+      msg = error;
+    } else if (error.body) {
+      if (Array.isArray(error.body)) {
+        msg = error.body.map((e) => e.message).join(", ");
+      } else if (typeof error.body.message === "string") {
+        msg = error.body.message;
+      }
+    }
     this.loading = false;
     this.template.querySelector(".saveButton").disabled = false;
     const evt = new ShowToastEvent({
