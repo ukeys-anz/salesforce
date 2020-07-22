@@ -21,19 +21,16 @@ interface IFinCard {
  * @description Creates new Financial Card records depending on the count passed.
  * @param amount  Number of Fin. Cards to be created
  */
-export async function createFinCardsList(
-  amount: number = 1,
-  primaryOwner: any
-) {
+export async function createFinCardsList(amount = 1, primaryOwner: any) {
   return new Promise<string>(async (resolve) => {
-    let finCards: any = [];
-    let idList: any = [];
+    const finCards: any = [];
+    const idList: any = [];
 
     // Create Savings Accounts to map to new cards being created
     createFinAccountList(amount, "SavingsAccount", primaryOwner).then(
       (savingsAccList: any) => {
         for (let i = 0; i < savingsAccList.length; i++) {
-          let finCard: IFinCard = {
+          const finCard: IFinCard = {
             Name: faker.random.arrayElement([
               "ANZ Rewards Black",
               "ANZ Rewards Platinum",
@@ -125,7 +122,7 @@ export async function getFinCard() {
         if (result.records.length > 0) {
           resolve(result.records);
         } else {
-          let finCardsList: any = await createFinCardsList(1, null);
+          const finCardsList: any = await createFinCardsList(1, null);
           resolve(finCardsList);
         }
       }
