@@ -305,7 +305,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
           }
         })
         .catch((error) => {
-          this.handleError(error.body);
+          this.handleError(error);
         });
     } else {
       this.handleError(ERROR_REQUIRED_TITLE);
@@ -342,9 +342,18 @@ export default class CreateComplaintLWC extends NavigationMixin(
     return isValid;
   }
 
-  handleError(errormsg) {
-    console.log(errormsg);
-    let msg = errormsg ? errormsg : ERROR_UNKNOWN_TITLE;
+  handleError(error) {
+    console.log(error);
+    let msg = ERROR_UNKNOWN_TITLE;
+    if (typeof error === "string") {
+      msg = error;
+    } else if (error.body) {
+      if (Array.isArray(error.body)) {
+        msg = error.body.map((e) => e.message).join(", ");
+      } else if (typeof error.body.message === "string") {
+        msg = error.body.message;
+      }
+    }
     this.loading = false;
     this.template.querySelector(".saveButton").disabled = false;
     const evt = new ShowToastEvent({
