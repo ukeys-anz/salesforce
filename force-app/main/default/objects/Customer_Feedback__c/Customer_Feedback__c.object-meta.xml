@@ -166,6 +166,7 @@
         <searchResultsAdditionalFields>Feedback_Type__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Verbatim__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Advocacy_Rating__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Feedback_Received_Date_Time__c</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>Read</sharingModel>
     <visibility>Public</visibility>
