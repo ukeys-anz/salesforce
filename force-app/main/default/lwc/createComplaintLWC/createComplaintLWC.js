@@ -271,7 +271,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
     const fields = event.detail.fields;
     fields[PRODUCT_LOOKUP_FIELD.fieldApiName] = this.product;
     fields[CAP_CIS_ID_FIELD.fieldApiName] = this.customerIdValue;
-    fields[FINANCIAL_COMPENSATION.fieldApiName] = this.financialCompensation;
     fields[
       WRITTEN_RESPONSE_REQUESTED_FIELD.fieldApiName
     ] = this.writtenResponseValue;
@@ -282,6 +281,11 @@ export default class CreateComplaintLWC extends NavigationMixin(
     fields[RECORDTYPE_FIELD.fieldApiName] = this.recordType;
     if (this.isComplaintResolved) {
       fields[STATUS_FIELD.fieldApiName] = RESOLVED_STATUS_API_NAME;
+      if (this.isFinancialComplaintRemedy) {
+        fields[
+          FINANCIAL_COMPENSATION.fieldApiName
+        ] = this.financialCompensation;
+      }
     }
     if (this.isRealFormNeeded) {
       fields[IS_REAL_FORM_NEED_FIELD.fieldApiName] = true;
