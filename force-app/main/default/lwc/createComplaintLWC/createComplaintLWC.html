@@ -606,7 +606,7 @@
                       variant="label-hidden"
                       required
                       step="0.01"
-                      pattern="(([1-9])(\d{0,6})(?:\.\d{0,2}))|([0])(?:\.[1-9]{0,2})"
+                      pattern="^(([1-9])(\d{0,6})(?:\.\d{0,2}))$|^([0])(?:\.[1-9]{0,2})$"
                       formatter="currency"
                       type="number"
                       onchange={handleFinancialCompensation}
