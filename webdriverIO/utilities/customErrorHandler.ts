@@ -1,5 +1,5 @@
 export default class CustomError {
-  constructor(customMessage: string, providedError?: any) {
+  constructor(customMessage: string, providedError = null) {
     const error = Error(customMessage);
 
     // set immutable object properties

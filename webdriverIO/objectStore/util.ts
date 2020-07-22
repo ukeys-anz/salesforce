@@ -6,7 +6,10 @@ import CustomError from "../utilities/customErrorHandler";
  * @param sObject Object api name
  * @param devName Record type developer name
  */
-export async function getRecordTypeID(sObject: string, devName: string) {
+export async function getRecordTypeID(
+  sObject: string,
+  devName: string
+): Promise<string> {
   return new Promise<string>((resolve) => {
     jsForce.query(
       `SELECT Id FROM RecordType WHERE IsActive = TRUE AND sObjectType= '${sObject}' AND DeveloperName='${devName}'`,
@@ -20,7 +23,7 @@ export async function getRecordTypeID(sObject: string, devName: string) {
   });
 }
 
-export async function getUserByAlias(alias: string) {
+export async function getUserByAlias(alias: string): Promise<any> {
   return new Promise<any>((resolve) => {
     jsForce.query(
       `SELECT Id, Name FROM User WHERE Alias = '${alias}' AND IsActive = true LIMIT 1`,
