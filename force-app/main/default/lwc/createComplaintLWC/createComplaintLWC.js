@@ -288,6 +288,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     requiredField.issueType = "Issue Type";
     requiredField.product = "Product";
     requiredField.accPolicyNum = "Account or Policy Number";
+    requiredField.subsequentIssue = "Subsequent Issue Type";
 
     let isfieldValid = [
       ...this.template.querySelectorAll("lightning-input-field")
