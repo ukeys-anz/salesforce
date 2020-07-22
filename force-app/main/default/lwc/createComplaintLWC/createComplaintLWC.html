@@ -594,11 +594,24 @@
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <template if:true={isFinancialComplaintRemedy}>
-                    <lightning-input-field
-                      variant="label-stacked"
+                    <!--<lightning-formatted-text value="Financial Compensation" ></lightning-formatted-text>-->
+                    <label
+                      class="slds-form-element__label"
+                      for="text-input-id-149"
+                    >
+                      <abbr class="slds-required" title="required">* </abbr
+                      >Financial Compensation</label
+                    >
+                    <lightning-input
+                      variant="label-hidden"
                       required
-                      field-name={financialCompensation}
-                    ></lightning-input-field>
+                      step="any"
+                      pattern="^[1-9]\d{0,6}(\.\d{1,2})?$|^0\.(?!0+$)[0-9]{1,2}$"
+                      formatter="currency"
+                      type="number"
+                      onchange={handleFinancialCompensation}
+                      message-when-pattern-mismatch="Must be a positive value with up to 7 whole digits and 2 decimal digits"
+                    ></lightning-input>
                   </template>
                   <template if:true={isNonFinancialComplaintRemedy}>
                     <lightning-input-field
