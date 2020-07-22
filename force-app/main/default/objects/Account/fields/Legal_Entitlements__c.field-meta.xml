@@ -3,6 +3,9 @@
     <fullName>Legal_Entitlements__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted</complianceGroup>
+    <description>List of values (eg: &quot;PCH, PCC&quot; etc.)
+
+Information borrowed from OCV, for a given account represents customers entitlement/involvement with a financial account</description>
     <externalId>false</externalId>
     <label>Legal Entitlements</label>
     <required>false</required>

@@ -3,5 +3,7 @@
     <fullName>IsActive</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate</complianceGroup>
+    <description>Flag to identify whether the product of the case is still active.</description>
     <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
 </CustomField>

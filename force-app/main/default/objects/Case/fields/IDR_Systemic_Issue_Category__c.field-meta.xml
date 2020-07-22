@@ -3,8 +3,9 @@
     <fullName>IDR_Systemic_Issue_Category__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate</complianceGroup>
+    <description>Identifies if and what type of systematic issue led to the complaint.</description>
     <externalId>false</externalId>
-    <label>Systemic Issue Category</label>
+    <label>Possible Systemic Issue Category</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

@@ -3,12 +3,13 @@
     <fullName>IDR_Office__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate</complianceGroup>
-    <description>Office the complaint is being worked in. Taken from User.Division and to me mapped to AD&#39;s Office attribute.</description>
+    <description>Office the complaint is being worked in. Taken from User.Division and to me mapped to AD&apos;s Office attribute.</description>
     <externalId>false</externalId>
     <label>Office</label>
     <length>42</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

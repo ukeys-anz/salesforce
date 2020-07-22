@@ -3,7 +3,7 @@
     <fullName>OCV_Event_Version__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate</complianceGroup>
-    <description>OCV Event Version</description>
+    <description>Refers to the event version number of the latest information sent from OCV to update Salesforce</description>
     <externalId>false</externalId>
     <label>OCV Event Version</label>
     <precision>5</precision>

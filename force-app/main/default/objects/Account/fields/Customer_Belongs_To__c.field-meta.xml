@@ -3,6 +3,7 @@
     <fullName>Customer_Belongs_To__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted</complianceGroup>
+    <description>To identify if a customer is AR&amp;C and/or ANZx</description>
     <externalId>false</externalId>
     <inlineHelpText>To identify if a customer is AR&amp;C and/or ANZx</inlineHelpText>
     <label>Customer Belongs To</label>

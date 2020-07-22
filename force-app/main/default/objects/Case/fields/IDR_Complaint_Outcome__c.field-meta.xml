@@ -3,10 +3,12 @@
     <fullName>IDR_Complaint_Outcome__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted</complianceGroup>
+    <description>Free text explaining the outcome of the complaint</description>
     <externalId>false</externalId>
     <label>Complaint Outcome</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>

@@ -3,6 +3,7 @@
     <fullName>ClosedDate</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate</complianceGroup>
+    <description>Closed Date</description>
     <securityClassification>Internal</securityClassification>
     <trackTrending>false</trackTrending>
 </CustomField>

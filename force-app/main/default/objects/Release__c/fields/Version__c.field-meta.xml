@@ -3,12 +3,13 @@
     <fullName>Version__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Uncontrolled</complianceGroup>
+    <description>Version number that this specific release record describes</description>
     <externalId>false</externalId>
     <label>Version</label>
     <precision>18</precision>
     <required>true</required>
-    <securityClassification>Internal</securityClassification>
     <scale>2</scale>
+    <securityClassification>Internal</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Number</type>
     <unique>false</unique>

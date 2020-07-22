@@ -3,5 +3,7 @@
     <fullName>Name</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate</complianceGroup>
+    <description>Name of the ANZ product related to the case.</description>
     <securityClassification>Public</securityClassification>
+    <trackHistory>false</trackHistory>
 </CustomField>

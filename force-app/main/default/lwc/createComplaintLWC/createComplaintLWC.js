@@ -191,7 +191,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   }
 
   handleComplaintTypeChange(event) {
-    this.isBusiness = event.detail.value == BUSINESS_TYPE_API;
+    this.isBusiness = event.detail.value === BUSINESS_TYPE_API;
   }
 
   handle3rdPartyToggleChange(event) {
@@ -211,10 +211,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
   }
 
   handleComplaintRemedy(event) {
-    if (event.detail.value == COMPLAINT_REMEDY_FIN_VALUE) {
+    if (event.detail.value === COMPLAINT_REMEDY_FIN_VALUE) {
       this.isFinancialComplaintRemedy = true;
       this.isNonFinancialComplaintRemedy = false;
-    } else if (event.detail.value == COMPLAINT_REMEDY_NON_FIN_VALUE) {
+    } else if (event.detail.value === COMPLAINT_REMEDY_NON_FIN_VALUE) {
       this.isFinancialComplaintRemedy = false;
       this.isNonFinancialComplaintRemedy = true;
     } else {
@@ -227,7 +227,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.financialCompensation = event.target.value;
   }
 
-  handleSectionToggle(event) {}
+  handleSectionToggle() {}
 
   handleConsentChange(event) {
     this.consentOptionValue = event.detail.value;
@@ -236,7 +236,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.showSections = true;
   }
 
-  handleSearch(event) {
+  handleSearch() {
     this.displayCustomerInfo = true;
     this.customerId = this.customerIdValue;
   }
@@ -248,17 +248,17 @@ export default class CreateComplaintLWC extends NavigationMixin(
   handleWrittenResponseChange(event) {
     this.writtenResponseValue = event.detail.value;
     this.isAddressRequired =
-      this.writtenResponseValue == YES_VALUE ||
+      this.writtenResponseValue === YES_VALUE ||
       (this.writtenRequiredValue != null &&
-        this.writtenRequiredValue == YES_VALUE);
+        this.writtenRequiredValue === YES_VALUE);
   }
 
   handleWrittenRequiredChange(event) {
     this.writtenRequiredValue = event.detail.value;
     this.isAddressRequired =
-      this.writtenRequiredValue == YES_VALUE ||
+      this.writtenRequiredValue === YES_VALUE ||
       (this.writtenResponseValue != null &&
-        this.writtenResponseValue == YES_VALUE);
+        this.writtenResponseValue === YES_VALUE);
   }
 
   handleProductChange(event) {
@@ -292,7 +292,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     if (!this.hasNominatedThirdParty) {
       fields[THIRD_PARTY_COUNTRY_FIELD.fieldApiName] = "";
     }
-    let valid = this.checkRequiredFields(fields);
+    let valid = this.checkRequiredFields();
     if (valid) {
       this.loading = true;
       const recordInput = { apiName: CASE_OBJECT.objectApiName, fields };
@@ -312,7 +312,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     }
   }
 
-  handleCustomerNumberOnblur(event) {
+  handleCustomerNumberOnblur() {
     let capCisfield = this.template.querySelector(".inputCapCisId");
     if (!this.customerIdValue.match("^\\d+$")) {
       //set an error
@@ -327,7 +327,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     }
   }
 
-  checkRequiredFields(fields) {
+  checkRequiredFields() {
     let isValid = true;
     if (this.isCustomerComplaint || this.consentValue) {
       if (

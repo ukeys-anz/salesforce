@@ -4,9 +4,12 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted</complianceGroup>
     <defaultValue>false</defaultValue>
+    <description>Is a REAL form required? Yes or No response required. 
+Checkbox for: &quot;Does this complaint relate/create a COR event/Compliance Incident&quot;</description>
     <externalId>false</externalId>
     <label>Is a REAL form required?</label>
     <securityClassification>Confidential</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

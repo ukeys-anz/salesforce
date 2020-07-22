@@ -3,6 +3,8 @@
     <fullName>ManagerId</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate</complianceGroup>
+    <description>Identification code of the user&apos;s manager (another User).</description>
     <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
     <type>Hierarchy</type>
 </CustomField>

@@ -35,17 +35,17 @@ interface ICase {
  * @param recordType Record Type of the case
  */
 export function createCaseList(
-  amount: number = 1,
-  recordType: string = "Non_Customer_Complaint",
+  amount = 1,
+  recordType = "Non_Customer_Complaint",
   alias: string
-) {
+): any {
   return new Promise(async (resolve) => {
-    let cases: ICase[] = [];
-    let user: any = await getUserByAlias(alias);
+    const cases: ICase[] = [];
+    const user: any = await getUserByAlias(alias);
 
-    let idList: any = [];
+    const idList: any = [];
     for (let i = 0; i < amount; i++) {
-      let mockCase: ICase = {
+      const mockCase: ICase = {
         IDR_Complainant_Type__c: "1",
         Type: "2",
         IDR_Is_Common__c: faker.random.boolean(),
@@ -119,7 +119,7 @@ export function createCaseList(
 }
 
 //This will be used for new scenario
-export const getCase = (devName: string) => {
+export const getCase = (devName: string): any => {
   return new Promise<string>((resolve) => {
     jsForce.query(
       `SELECT Max(CaseNumber) ID FROM Case where Status='Open' and RecordTypeId IN (SELECT Id FROM RecordType WHERE IsActive = TRUE AND sObjectType='Case' AND DeveloperName='${devName}')`,

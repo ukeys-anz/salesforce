@@ -3,6 +3,7 @@
     <fullName>Comments</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted</complianceGroup>
+    <description>Field to store text comments about a case</description>
     <securityClassification>Confidential</securityClassification>
     <trackTrending>false</trackTrending>
 </CustomField>
