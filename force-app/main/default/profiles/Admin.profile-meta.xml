@@ -846,6 +846,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Customer_Feedback__c.Coach_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Customer_Feedback__c.Coach_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -857,6 +862,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Customer_Feedback__c.Feedback_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Customer_Feedback__c.Related_Case__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1961,6 +1971,9 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Case_Duration__c-Case Duration Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Customer_Feedback__c-Customer Feedback Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Knowledge__kav-Knowledge Layout</layout>
