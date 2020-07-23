@@ -269,6 +269,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.product = event.detail.value[0];
   }
 
+  //form validation.
   validateFields() {
     this.loading = true;
     let fieldsValid = this.CheckAllFields();
@@ -363,6 +364,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
       }
       return validSoFar;
     }, true);
+
+    // ensure data in the financial compensation field is correct if this complaint has financial remedy
     let finCompValid = true;
     if (this.isFinancialComplaintRemedy) {
       finCompValid = this.validateFinancialCompensation();
@@ -372,6 +375,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   handleSubmit(event) {
     event.preventDefault(); // stop the form from submitting
+
+    //create case if form validation was successful
     if (this.dataValid) {
       this.template.querySelector(".saveButton").disabled = true;
       const fields = event.detail.fields;
@@ -447,6 +452,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     return isValid;
   }*/
 
+  // add all the required fields for this complaint.
   getRequiredFields() {
     let requiredField = [];
     if (this.isCustomerComplaint) {
