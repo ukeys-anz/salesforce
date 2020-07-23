@@ -415,7 +415,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.template.querySelector(".saveButton").disabled = false;
     const evt = new ShowToastEvent({
       title: msg,
-      variant: ERROR
+      variant: ERROR,
+      mode: "sticky"
     });
     this.dispatchEvent(evt);
   }
