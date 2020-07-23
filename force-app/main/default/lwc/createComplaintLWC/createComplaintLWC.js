@@ -306,9 +306,12 @@ export default class CreateComplaintLWC extends NavigationMixin(
     if (!this.writtenResponseValue) {
       isfieldValid = false;
       if (!this.missingDataField) {
-        this.missingDataField = ERROR_REQUIRED_TITLE + "Written Response?";
+        this.missingDataField =
+          ERROR_REQUIRED_TITLE +
+          "Is the customer requesting a written response?";
       } else {
-        this.missingDataField += ", Written Response?";
+        this.missingDataField +=
+          ", Is the customer requesting a written response?";
       }
     }
     if (!this.writtenRequiredValue) {
