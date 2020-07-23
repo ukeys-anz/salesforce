@@ -25,7 +25,7 @@ import MIDDLE_NAME_FIELD from "@salesforce/schema/Case.IDR_NC_Middle_Names__c";
 import LAST_NAME_FIELD from "@salesforce/schema/Case.IDR_NC_Last_Name__c";
 import AGE_FIELD from "@salesforce/schema/Case.IDR_NC_Age__c";
 import GENDER_FIELD from "@salesforce/schema/Case.IDR_NC_Gender__c";
-import DECENT_FIELD from "@salesforce/schema/Case.IDR_NC_Descent__c";
+import DESCENT_FIELD from "@salesforce/schema/Case.IDR_NC_Descent__c";
 import EMAIL_FIELD from "@salesforce/schema/Case.IDR_NC_Email__c";
 import MOBILE_FIELD from "@salesforce/schema/Case.IDR_NC_Mobile__c";
 import PHONE_FIELD from "@salesforce/schema/Case.IDR_NC_Phone__c";
@@ -99,7 +99,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   lastName = LAST_NAME_FIELD;
   age = AGE_FIELD;
   gender = GENDER_FIELD;
-  decent = DECENT_FIELD;
+  descent = DESCENT_FIELD;
   email = EMAIL_FIELD;
   mobile = MOBILE_FIELD;
   phone = PHONE_FIELD;
@@ -178,7 +178,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   ];
 
   //form validation fields.
-  missingDataField;
+  missingDataField = "";
   dataValid = false;
 
   //initialize components
@@ -275,8 +275,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
     let fieldsValid = this.CheckAllFields();
     if (!fieldsValid) {
       this.dataValid = false;
-      this.handleError(this.missingDataField);
-      this.missingDataField = null;
+      this.handleError(this.missingDataField.replace(/^,\s/, ""));
+      this.missingDataField = "";
     } else {
       this.dataValid = true;
     }
@@ -285,45 +285,32 @@ export default class CreateComplaintLWC extends NavigationMixin(
   CheckAllFields() {
     let requiredField = this.getRequiredFields();
     // validate the all the required field data has been provided.
-    let isfieldValid = [
+    let isFieldValid = [
       ...this.template.querySelectorAll("lightning-input-field")
-    ].reduce((validSoFar, inputCmp) => {
+    ].reduce((isValidSoFar, inputCmp) => {
       if (inputCmp.id) {
         let getId = inputCmp.id.split("-");
         if (requiredField[getId[0]] && !inputCmp.value) {
-          validSoFar = false;
-          if (!this.missingDataField) {
-            this.missingDataField =
-              ERROR_REQUIRED_TITLE + requiredField[getId[0]];
-          } else {
-            this.missingDataField += ", " + requiredField[getId[0]];
-          }
+          isValidSoFar = false;
+          this.missingDataField += requiredField[getId[0]] + ", ";
         }
       }
-      return validSoFar;
+      return isValidSoFar;
     }, true);
 
     if (!this.writtenResponseValue) {
-      isfieldValid = false;
-      if (!this.missingDataField) {
-        this.missingDataField =
-          ERROR_REQUIRED_TITLE +
-          "Is the customer requesting a written response?";
-      } else {
-        this.missingDataField +=
-          ", Is the customer requesting a written response?";
-      }
+      isFieldValid = false;
+      this.missingDataField +=
+        "Is the customer requesting a written response?, ";
     }
     if (!this.writtenRequiredValue) {
-      isfieldValid = false;
-      if (!this.missingDataField) {
-        this.missingDataField =
-          ERROR_REQUIRED_TITLE +
-          "Is the complaint relating to hardship, a declined insurance claim, the value of an insurance claim or a decision of a superannuation trustee?";
-      } else {
-        this.missingDataField +=
-          ", Is the complaint relating to hardship, a declined insurance claim, the value of an insurance claim or a decision of a superannuation trustee?";
-      }
+      isFieldValid = false;
+      this.missingDataField +=
+        "Is the complaint relating to hardship, a declined insurance claim, the value of an insurance claim or a decision of a superannuation trustee?, ";
+    }
+    if (this.missingDataField !== "") {
+      this.missingDataField =
+        ERROR_REQUIRED_TITLE + this.missingDataField.replace(/,\s$/, ". ");
     }
 
     // validate the data in customer number is as expected.
@@ -331,19 +318,14 @@ export default class CreateComplaintLWC extends NavigationMixin(
       this.isCustomerComplaint &&
       !this.customerIdValue.match("^[0-9]{10,}$")
     ) {
-      isfieldValid = false;
-      if (!this.missingDataField) {
-        this.missingDataField =
-          "Customer number must be numbers and at least 10 digits long ";
-      } else {
-        this.missingDataField +=
-          ",  Customer number must be numbers and at least 10 digits long";
-      }
+      isFieldValid = false;
+      this.missingDataField +=
+        "Customer number must be numbers and at least 10 digits long. ";
     }
     // validate the data in email address fields is correct.
-    let emaiValid = [
+    let isEmailValid = [
       ...this.template.querySelectorAll("lightning-input-field")
-    ].reduce((validSoFar, inputCmp) => {
+    ].reduce((isValidSoFar, inputCmp) => {
       if (inputCmp.id) {
         let getId = inputCmp.id.split("-");
         if (
@@ -352,28 +334,22 @@ export default class CreateComplaintLWC extends NavigationMixin(
           inputCmp.value
         ) {
           let emailRegex =
-            "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+).([a-zA-Z]{2,5})$";
+            '^(([^<>()\\[\\]\\.,;:\\s@"]+(\\.+[^<>()\\[\\]\\.,;:\\s@"]+)*)|(".+"))@(([^<>()[\\]\\.,;:\\s@"]+\\.)+[^<>()[\\]\\.,;:\\s@"]{2,})$';
           if (!inputCmp.value.match(emailRegex)) {
-            validSoFar = false;
-            if (!this.missingDataField) {
-              this.missingDataField =
-                "Invalid Email Address: " + requiredField[getId[0]];
-            } else {
-              this.missingDataField +=
-                ", Invalid Email Address: " + requiredField[getId[0]];
-            }
+            isValidSoFar = false;
+            this.missingDataField += requiredField[getId[0]] + " is invalid. ";
           }
         }
       }
-      return validSoFar;
+      return isValidSoFar;
     }, true);
 
     // ensure data in the financial compensation field is correct if this complaint has financial remedy
-    let finCompValid = true;
+    let isFinCompValid = true;
     if (this.isFinancialComplaintRemedy) {
-      finCompValid = this.validateFinancialCompensation();
+      isFinCompValid = this.validateFinancialCompensation();
     }
-    return isfieldValid && emaiValid && finCompValid;
+    return isFieldValid && isEmailValid && isFinCompValid;
   }
 
   handleSubmit(event) {
@@ -460,11 +436,12 @@ export default class CreateComplaintLWC extends NavigationMixin(
     let requiredField = [];
     if (this.isCustomerComplaint) {
       requiredField.CustomerType = "Customer Type";
+      requiredField.descent = "Aboriginal or Torres Strait Islander";
     } else {
       requiredField.customerType2 = "Customer Type";
       requiredField.age = "Age";
       requiredField.gender = "Gender";
-      requiredField.decent2 = "Decent";
+      requiredField.descent2 = "Aboriginal or Torres Strait Islander";
 
       if (this.consentValue) {
         requiredField.firstName = "First Name";
@@ -475,10 +452,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
       if (this.isAddressRequired) {
         requiredField.street = "Street";
         requiredField.suburb = "Suburb";
-        requiredField.postcode = "postcode";
+        requiredField.postcode = "Postcode";
       }
       requiredField.country = "Country";
-      requiredField.state = "state";
+      requiredField.state = "State";
     }
 
     if (this.hasNominatedThirdParty) {
@@ -520,14 +497,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
       !(this.financialCompensation > 0.0)
     ) {
       isValid = false;
-      if (!this.missingDataField) {
-        this.missingDataField =
-          "Financial Compensation must be a positive value with up to 7 whole digits and 2 decimal digits";
-      } else {
-        this.missingDataField +=
-          " , " +
-          "Financial Compensation Must be a positive value with up to 7 whole digits and 2 decimal digits";
-      }
+      this.missingDataField +=
+        "Financial Compensation must be a positive value with up to 7 whole digits and 2 decimal digits. ";
       fincomp.setCustomValidity(
         "must be a positive value with up to 7 whole digits and 2 decimal digits"
       );
