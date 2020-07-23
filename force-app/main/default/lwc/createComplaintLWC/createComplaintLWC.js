@@ -269,8 +269,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.product = event.detail.value[0];
   }
 
-  validateFields(event) {
-    //event.preventDefault();
+  validateFields() {
     this.loading = true;
     let fieldsValid = this.CheckAllFields();
     if (!fieldsValid) {
@@ -285,37 +284,56 @@ export default class CreateComplaintLWC extends NavigationMixin(
   CheckAllFields() {
     let requiredField = this.getRequiredFields();
     // validate the all the required field data has been provided.
-    let isCustNumValid = true;
     let isfieldValid = [
       ...this.template.querySelectorAll("lightning-input-field")
     ].reduce((validSoFar, inputCmp) => {
       if (inputCmp.id) {
-        var getId = inputCmp.id.split("-");
+        let getId = inputCmp.id.split("-");
         if (requiredField[getId[0]] && !inputCmp.value) {
           validSoFar = false;
           if (!this.missingDataField) {
             this.missingDataField =
               ERROR_REQUIRED_TITLE + requiredField[getId[0]];
           } else {
-            this.missingDataField += " , " + requiredField[getId[0]];
+            this.missingDataField += ", " + requiredField[getId[0]];
           }
         }
       }
       return validSoFar;
     }, true);
 
-    // validate the data in customer number is as.
+    if (!this.writtenResponseValue) {
+      isfieldValid = false;
+      if (!this.missingDataField) {
+        this.missingDataField = ERROR_REQUIRED_TITLE + "Written Response?";
+      } else {
+        this.missingDataField += ", Written Response?";
+      }
+    }
+    if (!this.writtenRequiredValue) {
+      isfieldValid = false;
+      if (!this.missingDataField) {
+        this.missingDataField =
+          ERROR_REQUIRED_TITLE +
+          "Is the complaint relating to hardship, a declined insurance claim, the value of an insurance claim or a decision of a superannuation trustee?";
+      } else {
+        this.missingDataField +=
+          ", Is the complaint relating to hardship, a declined insurance claim, the value of an insurance claim or a decision of a superannuation trustee?";
+      }
+    }
+
+    // validate the data in customer number is as expected.
     if (
       this.isCustomerComplaint &&
       !this.customerIdValue.match("^[0-9]{10,}$")
     ) {
-      isCustNumValid = false;
+      isfieldValid = false;
       if (!this.missingDataField) {
         this.missingDataField =
           "Customer number must be numbers and at least 10 digits long ";
       } else {
         this.missingDataField +=
-          " , " + "Customer number must be numbers and at least 10 digits long";
+          ",  Customer number must be numbers and at least 10 digits long";
       }
     }
     // validate the data in email address fields is correct.
@@ -323,7 +341,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       ...this.template.querySelectorAll("lightning-input-field")
     ].reduce((validSoFar, inputCmp) => {
       if (inputCmp.id) {
-        var getId = inputCmp.id.split("-");
+        let getId = inputCmp.id.split("-");
         if (
           getId[0].includes("email") &&
           requiredField[getId[0]] &&
@@ -338,38 +356,18 @@ export default class CreateComplaintLWC extends NavigationMixin(
                 "Invalid Email Address: " + requiredField[getId[0]];
             } else {
               this.missingDataField +=
-                " , " + "Invalid Email Address: " + requiredField[getId[0]];
+                ", Invalid Email Address: " + requiredField[getId[0]];
             }
           }
         }
       }
       return validSoFar;
     }, true);
-    if (!this.writtenResponseValue) {
-      isfieldValid = false;
-      if (!this.missingDataField) {
-        this.missingDataField = ERROR_REQUIRED_TITLE + "Written Response?";
-      } else {
-        this.missingDataField += " , " + "Written Response?";
-      }
-    }
-    if (!this.writtenRequiredValue) {
-      isfieldValid = false;
-      if (!this.missingDataField) {
-        this.missingDataField =
-          ERROR_REQUIRED_TITLE +
-          "Is the complaint relating to hardship, a declined insurance claim, the value of an insurance claim or a decision of a superannuation trustee?";
-      } else {
-        this.missingDataField +=
-          " , " +
-          "Is the complaint relating to hardship, a declined insurance claim, the value of an insurance claim or a decision of a superannuation trustee?";
-      }
-    }
     let finCompValid = true;
     if (this.isFinancialComplaintRemedy) {
       finCompValid = this.validateFinancialCompensation();
     }
-    return isCustNumValid && isfieldValid && emaiValid && finCompValid;
+    return isfieldValid && emaiValid && finCompValid;
   }
 
   handleSubmit(event) {
