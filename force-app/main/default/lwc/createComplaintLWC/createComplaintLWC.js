@@ -195,7 +195,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   }
 
   handleComplaintTypeChange(event) {
-    this.isBusiness = event.detail.value == BUSINESS_TYPE_API;
+    this.isBusiness = event.detail.value === BUSINESS_TYPE_API;
   }
 
   handle3rdPartyToggleChange(event) {
@@ -215,10 +215,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
   }
 
   handleComplaintRemedy(event) {
-    if (event.detail.value == COMPLAINT_REMEDY_FIN_VALUE) {
+    if (event.detail.value === COMPLAINT_REMEDY_FIN_VALUE) {
       this.isFinancialComplaintRemedy = true;
       this.isNonFinancialComplaintRemedy = false;
-    } else if (event.detail.value == COMPLAINT_REMEDY_NON_FIN_VALUE) {
+    } else if (event.detail.value === COMPLAINT_REMEDY_NON_FIN_VALUE) {
       this.isFinancialComplaintRemedy = false;
       this.isNonFinancialComplaintRemedy = true;
     } else {
@@ -227,7 +227,11 @@ export default class CreateComplaintLWC extends NavigationMixin(
     }
   }
 
-  handleSectionToggle(event) {}
+  handleFinancialCompensation(event) {
+    this.financialCompensation = event.target.value;
+  }
+
+  handleSectionToggle() {}
 
   handleConsentChange(event) {
     this.consentOptionValue = event.detail.value;
@@ -236,7 +240,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.showSections = true;
   }
 
-  handleSearch(event) {
+  handleSearch() {
     this.displayCustomerInfo = true;
     this.customerId = this.customerIdValue;
   }
@@ -248,17 +252,17 @@ export default class CreateComplaintLWC extends NavigationMixin(
   handleWrittenResponseChange(event) {
     this.writtenResponseValue = event.detail.value;
     this.isAddressRequired =
-      this.writtenResponseValue == YES_VALUE ||
+      this.writtenResponseValue === YES_VALUE ||
       (this.writtenRequiredValue != null &&
-        this.writtenRequiredValue == YES_VALUE);
+        this.writtenRequiredValue === YES_VALUE);
   }
 
   handleWrittenRequiredChange(event) {
     this.writtenRequiredValue = event.detail.value;
     this.isAddressRequired =
-      this.writtenRequiredValue == YES_VALUE ||
+      this.writtenRequiredValue === YES_VALUE ||
       (this.writtenResponseValue != null &&
-        this.writtenResponseValue == YES_VALUE);
+        this.writtenResponseValue === YES_VALUE);
   }
 
   handleProductChange(event) {
@@ -353,6 +357,11 @@ export default class CreateComplaintLWC extends NavigationMixin(
       fields[RECORDTYPE_FIELD.fieldApiName] = this.recordType;
       if (this.isComplaintResolved) {
         fields[STATUS_FIELD.fieldApiName] = RESOLVED_STATUS_API_NAME;
+        if (this.isFinancialComplaintRemedy) {
+          fields[
+            FINANCIAL_COMPENSATION.fieldApiName
+          ] = this.financialCompensation;
+        }
       }
       if (this.isRealFormNeeded) {
         fields[IS_REAL_FORM_NEED_FIELD.fieldApiName] = true;
@@ -373,12 +382,12 @@ export default class CreateComplaintLWC extends NavigationMixin(
           }
         })
         .catch((error) => {
-          this.handleError(error.body);
+          this.handleError(error);
         });
     }
   }
 
-  handleCustomerNumberOnblur(event) {
+  handleCustomerNumberOnblur() {
     let capCisfield = this.template.querySelector(".inputCapCisId");
     if (!this.customerIdValue.match("^\\d+$")) {
       //set an error
@@ -393,7 +402,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     }
   }
 
-  checkRequiredFields(fields) {
+  checkRequiredFields() {
     let isValid = true;
     if (this.isCustomerComplaint || this.consentValue) {
       if (
@@ -408,9 +417,18 @@ export default class CreateComplaintLWC extends NavigationMixin(
     return isValid;
   }
 
-  handleError(errormsg) {
-    console.log(errormsg);
-    let msg = errormsg ? errormsg : ERROR_UNKNOWN_TITLE;
+  handleError(error) {
+    console.log(error);
+    let msg = ERROR_UNKNOWN_TITLE;
+    if (typeof error === "string") {
+      msg = error;
+    } else if (error.body) {
+      if (Array.isArray(error.body)) {
+        msg = error.body.map((e) => e.message).join(", ");
+      } else if (typeof error.body.message === "string") {
+        msg = error.body.message;
+      }
+    }
     this.loading = false;
     this.template.querySelector(".saveButton").disabled = false;
     const evt = new ShowToastEvent({
