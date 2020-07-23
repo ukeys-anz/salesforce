@@ -1,7 +1,7 @@
 /**
  * @author Boobalakrishnan Duraisamy
  * @since  07/2020
- * @description This class will be called in User Provisioning Request Trigger to update User Object based on the Request Type.
+ * @description This class is called in Customer Feedback Trigger Handler to perform customer feedback actions.
  */
 public with sharing class CustomerFeedbackActions {
   // Invalid OCV ID Error Message
