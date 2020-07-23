@@ -482,7 +482,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     }
 
     if (this.hasNominatedThirdParty) {
-      requiredField.thridPartyName = "Nominated 3rd party name";
+      requiredField.thirdPartyName = "Nominated 3rd party name";
       requiredField.thirdPartyemail = "Nominated 3rd party email address";
       requiredField.thirdPartyMobile = "Nominated 3rd party mobile";
       requiredField.thirdPartyCountry = "Nominated 3rd party country";
