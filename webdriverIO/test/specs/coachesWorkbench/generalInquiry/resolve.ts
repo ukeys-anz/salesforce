@@ -7,7 +7,7 @@ import { createCaseList } from "../../../../objectStore/case";
 
 /*** DECLARATIONS ***/
 let caseNumber: string;
-let recordType: string = "General_Inquiry";
+const recordType = "General_Inquiry";
 
 describe("General Inquiry Record Resolved", () => {
   before(() => {

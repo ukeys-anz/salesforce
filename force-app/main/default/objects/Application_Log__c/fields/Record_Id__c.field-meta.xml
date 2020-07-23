@@ -3,7 +3,7 @@
     <fullName>Record_Id__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted</complianceGroup>
-    <description>Id of the record.</description>
+    <description>Identification number of the record in the application log</description>
     <externalId>false</externalId>
     <label>Record Id</label>
     <length>18</length>

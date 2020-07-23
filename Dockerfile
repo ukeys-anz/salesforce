@@ -2,14 +2,15 @@
 FROM node:alpine
 
 # install zip, unzip and jq
-RUN apk add --update zip unzip jq bash git openjdk8-jre wget curl 
+RUN apk add --update zip unzip jq bash git openjdk8-jre wget curl python make g++
 
+# setup java
 ENV JAVA_HOME="/usr/lib/jvm/java-1.8-openjdk"
 ENV PATH="$JAVA_HOME/bin:${PATH}"
 RUN java -version
 
-# install latest sfdx from npm
-RUN npm install sfdx-cli prettier prettier-plugin-apex --global
+# install latest sfdx and typescript from npm
+RUN npm install sfdx-cli typescript --global
 RUN sfdx --version
 RUN sfdx plugins --core
 

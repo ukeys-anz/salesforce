@@ -3,7 +3,9 @@
     <fullName>Display_Name__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted</complianceGroup>
-    <description>Display name</description>
+    <description>The name the customer prefers to be displayed online which defaults to FinServ_PreferredName_pc unless blank, and if the latter, uses the Name.
+
+Display name is pushed from OCV, and is first+last</description>
     <externalId>false</externalId>
     <label>Display Name</label>
     <length>50</length>

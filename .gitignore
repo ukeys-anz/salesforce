@@ -72,3 +72,4 @@ allure-results/*
 !allure-results/categories.json
 allure-report
 .env
+.env.example.original

@@ -7,6 +7,57 @@
     <description>Record a new complaint for an existing ANZ customer.</description>
     <label>Customer Complaint</label>
     <picklistValues>
+        <picklist>Additional_Type__c</picklist>
+        <values>
+            <fullName>App Support</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bug Report %26 Feature</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Card</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Coaching</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Feedback %28NPS%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Update %26 Details</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dispute</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Join %2F KYC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>My Security</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other Enquiries</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product Information</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transaction %26 Savings enquiry</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>IDR_3rdParty_Country__c</picklist>
         <values>
             <fullName>Afghanistan</fullName>
@@ -1118,57 +1169,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>IDR_Financial_Compensation__c</picklist>
-        <values>
-            <fullName>1</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>10</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>11</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>12</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>2</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>3</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>4</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>5</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>6</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>7</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>8</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>9</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>IDR_Is_Written_Resp_Requested__c</picklist>
         <values>
             <fullName>No</fullName>
@@ -2270,6 +2270,41 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>IDR_Non_Financial_Remedy__c</picklist>
+        <values>
+            <fullName>1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>6</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>7</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>8</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>IDR_Reason_for_re_opening__c</picklist>
         <values>
             <fullName>1</fullName>
@@ -2281,6 +2316,233 @@
         </values>
         <values>
             <fullName>3</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IDR_Subsequent_Issue__c</picklist>
+        <values>
+            <fullName>1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>10</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>11</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>12</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>13</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>14</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>15</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>16</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>17</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>18</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>19</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>20</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>21</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>22</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>23</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>24</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>26</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>27</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>28</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>30</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>31</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>32</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>33</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>34</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>35</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>36</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>37</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>38</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>39</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>40</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>41</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>42</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>43</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>44</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>45</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>46</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>47</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>48</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>49</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>50</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>51</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>52</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>53</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>54</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>55</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>56</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>6</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>7</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>8</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>9</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -2349,7 +2611,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>None</fullName>
+            <fullName>Standard</fullName>
             <default>true</default>
         </values>
         <values>
@@ -2381,6 +2643,105 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Sub_Type__c</picklist>
+        <values>
+            <fullName>Add Life Event</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Add%2FEdit Details</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>App Guide</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>App security</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bug Report</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cancel a Dispute</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Card Enquiry</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Card Issue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Card Lost%2FStolen</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Coaching%2FNeeds based Discussion</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Device Support</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Feature Request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fees %26 Charges</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fraud</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hoax Email%2FSMS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>KYC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Dispute</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Overdraft</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product Info</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Re-Identification</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Re-Joining</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Round Ups</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Savings Goals</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transaction</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Type</picklist>
         <values>
             <fullName>1</fullName>
@@ -2396,6 +2757,34 @@
         </values>
         <values>
             <fullName>12</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>13</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>14</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>15</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>16</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>17</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>18</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>19</fullName>
             <default>false</default>
         </values>
         <values>

@@ -44,6 +44,7 @@ import WRITTEN_RESPONSE_REQUIRED_FIELD from "@salesforce/schema/Case.IDR_Is_Writ
 import PRIORITY from "@salesforce/schema/Case.Priority";
 import CHANNEL_RECEIVED from "@salesforce/schema/Case.Origin";
 import COMPLAINT_ISSUE from "@salesforce/schema/Case.Type";
+import COMPLAINT_SUBSEQUENT_ISSUE from "@salesforce/schema/Case.IDR_Subsequent_Issue__c";
 import PRODUCT_LOOKUP_FIELD from "@salesforce/schema/Case.Product__c";
 import ACCOUNT_POLICY_FIELD from "@salesforce/schema/Case.IDR_Account_Card_Policy_Number__c";
 import DESCRIPTION_FIELD from "@salesforce/schema/Case.Description";
@@ -53,6 +54,7 @@ import DESIRED_OUTCOME_FIELD from "@salesforce/schema/Case.IDR_Complainant_Desir
 import COMPLAINT_OUTCOME from "@salesforce/schema/Case.IDR_Complaint_Outcome__c";
 import COMPLAINT_REMEDY from "@salesforce/schema/Case.IDR_Complaint_Remedy__c";
 import FINANCIAL_COMPENSATION from "@salesforce/schema/Case.IDR_Financial_Compensation__c";
+import NON_FINANCIAL_REMEDY from "@salesforce/schema/Case.IDR_Non_Financial_Remedy__c";
 import OUTCOME_DESCRIPTION from "@salesforce/schema/Case.IDR_Description_of_Outcome__c";
 import STATUS_FIELD from "@salesforce/schema/Case.Status";
 
@@ -65,9 +67,11 @@ const ERROR_REQUIRED_TITLE = "Please complete all required fields.";
 const ERROR_UNKNOWN_TITLE = "An error has occurred.";
 const SUCCESS = "success";
 const SUCCESS_TITLE = "Complaint has been created successfully.";
-const BUSINESS_TYPE_API = 2;
+const BUSINESS_TYPE_API = "2";
 const RESOLVED_STATUS_API_NAME = "Resolved";
 const YES_VALUE = "Yes";
+const COMPLAINT_REMEDY_FIN_VALUE = "1";
+const COMPLAINT_REMEDY_NON_FIN_VALUE = "2";
 
 export default class CreateComplaintLWC extends NavigationMixin(
   LightningElement
@@ -78,6 +82,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   Priority = PRIORITY;
   ChannelReceived = CHANNEL_RECEIVED;
   complaintIssue = COMPLAINT_ISSUE;
+  complaintSubIssue = COMPLAINT_SUBSEQUENT_ISSUE;
   Product = PRODUCT_LOOKUP_FIELD;
   DescriptionofIssue = DESCRIPTION_FIELD;
   ComplainantDesiredOutcome = DESIRED_OUTCOME_FIELD;
@@ -125,6 +130,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   complaintRemedy = COMPLAINT_REMEDY;
   financialCompensation = FINANCIAL_COMPENSATION;
   outcomeDescription = OUTCOME_DESCRIPTION;
+  nonFinancialRemedy = NON_FINANCIAL_REMEDY;
 
   //systemic fields
   commonComplaint = IS_COMMON_COMPLAINT_FIELD;
@@ -151,6 +157,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
   showComplianceFields;
   showSections;
   isComplaintResolved;
+  isFinancialComplaintRemedy;
+  isNonFinancialComplaintRemedy;
   isCommonComplaint;
   isRealFormNeeded;
   isAddressRequired;
@@ -183,7 +191,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   }
 
   handleComplaintTypeChange(event) {
-    this.isBusiness = event.detail.value == BUSINESS_TYPE_API;
+    this.isBusiness = event.detail.value === BUSINESS_TYPE_API;
   }
 
   handle3rdPartyToggleChange(event) {
@@ -202,7 +210,24 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.isComplaintResolved = event.target.checked;
   }
 
-  handleSectionToggle(event) {}
+  handleComplaintRemedy(event) {
+    if (event.detail.value === COMPLAINT_REMEDY_FIN_VALUE) {
+      this.isFinancialComplaintRemedy = true;
+      this.isNonFinancialComplaintRemedy = false;
+    } else if (event.detail.value === COMPLAINT_REMEDY_NON_FIN_VALUE) {
+      this.isFinancialComplaintRemedy = false;
+      this.isNonFinancialComplaintRemedy = true;
+    } else {
+      this.isFinancialComplaintRemedy = false;
+      this.isNonFinancialComplaintRemedy = false;
+    }
+  }
+
+  handleFinancialCompensation(event) {
+    this.financialCompensation = event.target.value;
+  }
+
+  handleSectionToggle() {}
 
   handleConsentChange(event) {
     this.consentOptionValue = event.detail.value;
@@ -211,7 +236,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.showSections = true;
   }
 
-  handleSearch(event) {
+  handleSearch() {
     this.displayCustomerInfo = true;
     this.customerId = this.customerIdValue;
   }
@@ -223,17 +248,17 @@ export default class CreateComplaintLWC extends NavigationMixin(
   handleWrittenResponseChange(event) {
     this.writtenResponseValue = event.detail.value;
     this.isAddressRequired =
-      this.writtenResponseValue == YES_VALUE ||
+      this.writtenResponseValue === YES_VALUE ||
       (this.writtenRequiredValue != null &&
-        this.writtenRequiredValue == YES_VALUE);
+        this.writtenRequiredValue === YES_VALUE);
   }
 
   handleWrittenRequiredChange(event) {
     this.writtenRequiredValue = event.detail.value;
     this.isAddressRequired =
-      this.writtenRequiredValue == YES_VALUE ||
+      this.writtenRequiredValue === YES_VALUE ||
       (this.writtenResponseValue != null &&
-        this.writtenResponseValue == YES_VALUE);
+        this.writtenResponseValue === YES_VALUE);
   }
 
   handleProductChange(event) {
@@ -256,6 +281,11 @@ export default class CreateComplaintLWC extends NavigationMixin(
     fields[RECORDTYPE_FIELD.fieldApiName] = this.recordType;
     if (this.isComplaintResolved) {
       fields[STATUS_FIELD.fieldApiName] = RESOLVED_STATUS_API_NAME;
+      if (this.isFinancialComplaintRemedy) {
+        fields[
+          FINANCIAL_COMPENSATION.fieldApiName
+        ] = this.financialCompensation;
+      }
     }
     if (this.isRealFormNeeded) {
       fields[IS_REAL_FORM_NEED_FIELD.fieldApiName] = true;
@@ -266,7 +296,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     if (!this.hasNominatedThirdParty) {
       fields[THIRD_PARTY_COUNTRY_FIELD.fieldApiName] = "";
     }
-    let valid = this.checkRequiredFields(fields);
+    let valid = this.checkRequiredFields();
     if (valid) {
       this.loading = true;
       const recordInput = { apiName: CASE_OBJECT.objectApiName, fields };
@@ -279,14 +309,14 @@ export default class CreateComplaintLWC extends NavigationMixin(
           }
         })
         .catch((error) => {
-          this.handleError(error.body);
+          this.handleError(error);
         });
     } else {
       this.handleError(ERROR_REQUIRED_TITLE);
     }
   }
 
-  handleCustomerNumberOnblur(event) {
+  handleCustomerNumberOnblur() {
     let capCisfield = this.template.querySelector(".inputCapCisId");
     if (!this.customerIdValue.match("^\\d+$")) {
       //set an error
@@ -301,7 +331,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     }
   }
 
-  checkRequiredFields(fields) {
+  checkRequiredFields() {
     let isValid = true;
     if (this.isCustomerComplaint || this.consentValue) {
       if (
@@ -316,9 +346,18 @@ export default class CreateComplaintLWC extends NavigationMixin(
     return isValid;
   }
 
-  handleError(errormsg) {
-    console.log(errormsg);
-    let msg = errormsg ? errormsg : ERROR_UNKNOWN_TITLE;
+  handleError(error) {
+    console.log(error);
+    let msg = ERROR_UNKNOWN_TITLE;
+    if (typeof error === "string") {
+      msg = error;
+    } else if (error.body) {
+      if (Array.isArray(error.body)) {
+        msg = error.body.map((e) => e.message).join(", ");
+      } else if (typeof error.body.message === "string") {
+        msg = error.body.message;
+      }
+    }
     this.loading = false;
     this.template.querySelector(".saveButton").disabled = false;
     const evt = new ShowToastEvent({

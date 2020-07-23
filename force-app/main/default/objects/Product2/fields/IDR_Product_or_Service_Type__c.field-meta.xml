@@ -3,7 +3,9 @@
     <fullName>IDR_Product_or_Service_Type__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate</complianceGroup>
-    <description>The individual product or service that the complaint is about.</description>
+    <description>The individual product or service type that the complaint is about.
+
+Keys and values match ASIC specifications (refer to ASIC&apos;s &quot;Internal dispute resolution data dictionary&quot; PDF)</description>
     <externalId>false</externalId>
     <label>Product or Service Type</label>
     <required>false</required>

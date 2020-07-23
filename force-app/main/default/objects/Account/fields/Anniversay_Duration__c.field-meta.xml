@@ -3,6 +3,7 @@
     <fullName>Anniversay_Duration__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate</complianceGroup>
+    <description>Length of being a customer</description>
     <externalId>false</externalId>
     <formula>if((Today() -  Anniversary_Date__c) &gt;= 1, 
 Text(Today() -  Anniversary_Date__c) &amp; &quot; Day(s)&quot;,

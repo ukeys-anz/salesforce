@@ -4,6 +4,9 @@
     <businessStatus>Active</businessStatus>
     <caseSensitive>false</caseSensitive>
     <complianceGroup>Integrity - Accurate</complianceGroup>
+    <description>Code identifying the ANZ product related to the Case.
+
+Unique identifier for the ANZ product, from Zafin</description>
     <externalId>true</externalId>
     <label>Code</label>
     <length>255</length>
