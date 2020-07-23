@@ -13,6 +13,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Customer_Feedback__c.Coach_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Customer_Feedback__c.Coach_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -29,6 +34,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Customer_Feedback__c.OCV_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Customer_Feedback__c.Related_Case__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
