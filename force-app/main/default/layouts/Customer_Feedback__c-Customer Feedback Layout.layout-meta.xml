@@ -27,6 +27,10 @@
                 <behavior>Edit</behavior>
                 <field>Verbatim__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Related_Case__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -36,6 +40,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Store_Location__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Coach_Name__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
