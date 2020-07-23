@@ -25,16 +25,14 @@ interface IFinAccount {
  * @param recordType Record Type of the Fin. Account
  */
 export async function createFinAccountList(
-  amount: number = 1,
-  recordType: string = "CheckingAccount",
-  owner: any
-) {
+  amount = 1,
+  recordType = "CheckingAccount",
+  owner = null
+): Promise<any> {
   return new Promise(async (resolve) => {
-    let ownerId: string = "";
-    let ownerName: string = "";
-    let finAccounts = [];
-    let idList: any = [];
-    let recTypeId = await getRecordTypeID(
+    const finAccounts = [];
+    const idList: any = [];
+    const recTypeId = await getRecordTypeID(
       "FinServ__FinancialAccount__c",
       recordType
     );
@@ -47,7 +45,7 @@ export async function createFinAccountList(
     }
 
     for (let i = 0; i < amount; i++) {
-      let finAccount: IFinAccount = {
+      const finAccount: IFinAccount = {
         RecordTypeId: recTypeId,
         Name:
           accountList[0].Name +
@@ -111,7 +109,7 @@ export async function createFinAccountList(
 /**
  * @description extracts financial account record if is already in the system or creates new one.
  */
-export async function getFinAccount() {
+export async function getFinAccount(): Promise<any> {
   // Check if there are existing financial accounts, if not create new ones
   return new Promise<string>((resolve) => {
     jsForce.query(
@@ -123,7 +121,7 @@ export async function getFinAccount() {
         if (result.records.length > 0) {
           resolve(result.records);
         } else {
-          let finAccountList: any = await createFinAccountList(
+          const finAccountList: any = await createFinAccountList(
             1,
             "CheckingAccount",
             null

@@ -3,6 +3,7 @@
     <fullName>Release_Notes__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Uncontrolled</complianceGroup>
+    <description>A URL to extended release notes</description>
     <externalId>false</externalId>
     <inlineHelpText>A URL to extended release notes.</inlineHelpText>
     <label>Release Notes</label>

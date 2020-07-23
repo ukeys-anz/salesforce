@@ -3,6 +3,7 @@
     <fullName>Error_Code__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate</complianceGroup>
+    <description>Error code in application logs</description>
     <externalId>false</externalId>
     <label>Error Code</label>
     <length>100</length>

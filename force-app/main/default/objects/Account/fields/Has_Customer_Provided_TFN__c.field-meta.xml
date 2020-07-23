@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted</complianceGroup>
     <defaultValue>false</defaultValue>
+    <description>To identify whether the customer has provided a TFN number or not.</description>
     <externalId>false</externalId>
     <label>Has Customer Provided TFN</label>
     <securityClassification>Internal</securityClassification>

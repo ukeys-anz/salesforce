@@ -3,6 +3,7 @@
     <fullName>Function_Name__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate</complianceGroup>
+    <description>Application function name that is referred to in the error application log</description>
     <externalId>false</externalId>
     <label>Function Name</label>
     <required>false</required>

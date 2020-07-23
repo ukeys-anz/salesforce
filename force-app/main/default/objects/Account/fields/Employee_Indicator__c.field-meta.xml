@@ -4,7 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted</complianceGroup>
     <defaultValue>false</defaultValue>
-    <description>Employee Indicator</description>
+    <description>Checkbox if the person is an employee</description>
     <externalId>false</externalId>
     <label>Employee Indicator</label>
     <securityClassification>Confidential</securityClassification>

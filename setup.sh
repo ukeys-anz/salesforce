@@ -8,6 +8,7 @@ set -e
 export SFDX_DOMAIN_RETRY=0
 
 read -rp "Enter scratch org alias (optional): " scratchorgalias
+read -rp "Is test data needed for this scratch org (y/n)? " testdata
 
 ALL_START_TIME=$(date +%s)
 
@@ -40,31 +41,45 @@ sfdx force:source:push 2>&1 | tee stderr
 if [[ ($(cat stderr) == *'ERROR'* ) ]]; then
     exit 1
 fi 
-JOB_END_TIME=$(date +%s)
-echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
-
-echo "$(date): Import custom settings and sample records..."
-JOB_START_TIME=$(date +%s)
 sfdx force:data:tree:import -p data/Post-Plan.json 2>&1 | tee stderr
-# Uncomment the next line (and comment the next) to import products without their related cases
-#sfdx force:data:bulk:upsert --sobjecttype Product2 --csvfile data/IDR-ANZ-Products.csv --externalid ANZ_Product_Code__c --wait 2 2>&1 | tee stderr
-sfdx force:data:tree:import -p data/IDR-Product2-Case-plan.json 2>&1 | tee stderr
-if [[ ($(cat stderr) == *'ERROR'* ) ]]; then
-    exit 1
-fi 
-JOB_END_TIME=$(date +%s)
-echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
+case ${testdata:0:1} in
+    y|Y )
+        echo "$(date): Import custom settings and sample records..."
+        JOB_START_TIME=$(date +%s)
+        tsc --build
+        cp .env.example .env.example.original
+        mv .env.example .env
+        node webdriverURLsetup.js
+        #Add all the scripts to load data below
+        node salesforce-scripts/generateTestData/loadFinancialGoals.js 2>&1 | tee stderr
+        # Uncomment the next line (and comment the next) to import products without their related cases
+        #sfdx force:data:bulk:upsert --sobjecttype Product2 --csvfile data/IDR-ANZ-Products.csv --externalid ANZ_Product_Code__c --wait 2 2>&1 | tee stderr
+        sfdx force:data:tree:import -p data/IDR-Product2-Case-plan.json 2>&1 | tee stderr
+        if [[ ($(cat stderr) == *'ERROR'* ) ]]; then
+            mv .env.example.original .env.example
+            exit 1
+        fi 
+        rm .env
+        mv .env.example.original .env.example
+        JOB_END_TIME=$(date +%s)
+        echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
+        
+        echo "Creating Coach user"
+        node createUser.js --profile "coach"
 
-echo "Creating Coach user"
-node createUser.js --profile "coach"
+        echo "Creating IDR user"
+        node createUser.js --profile "idr level 3"
 
-echo "Creating IDR user"
-node createUser.js --profile "idr level 3"
+        #Create users json for webdriverIO
+        node createUserJsonList.js
 
-#Create users json for webdriverIO
-node createUserJsonList.js
+        ALL_END_TIME=$(date +%s)
+        echo "$(date): All done in $((ALL_END_TIME - ALL_START_TIME)) s."
+    ;;* )
+        JOB_END_TIME=$(date +%s)
+        echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
+        ;;
+esac
 
-ALL_END_TIME=$(date +%s)
-echo "$(date): All done in $((ALL_END_TIME - ALL_START_TIME)) s."
 echo "Open scratch org..."
 sfdx force:org:open

@@ -3,10 +3,12 @@
     <fullName>Question__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate</complianceGroup>
+    <description>Article Text</description>
     <externalId>false</externalId>
     <label>Question</label>
     <length>2000</length>
     <securityClassification>Public</securityClassification>
+    <trackHistory>false</trackHistory>
     <type>LongTextArea</type>
     <visibleLines>25</visibleLines>
 </CustomField>

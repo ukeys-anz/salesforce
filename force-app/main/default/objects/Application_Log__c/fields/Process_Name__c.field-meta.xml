@@ -3,6 +3,7 @@
     <fullName>Process_Name__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate</complianceGroup>
+    <description>Application process name that is referred to in the error application log</description>
     <externalId>false</externalId>
     <label>Executed In Process Name</label>
     <required>false</required>

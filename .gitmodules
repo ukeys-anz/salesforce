@@ -1,0 +1,4 @@
+[submodule "salesforce-scripts"]
+	path = salesforce-scripts
+	url = git@github.com:anzx/salesforce-scripts.git
+	branch = master

@@ -3,6 +3,7 @@
     <fullName>KYC_Verification_Level__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted</complianceGroup>
+    <description>Level of robustness of the verification provided.</description>
     <externalId>false</externalId>
     <label>KYC Verification Level</label>
     <required>false</required>

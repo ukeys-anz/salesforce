@@ -3,9 +3,9 @@
     <fullName>Contact_Category__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted</complianceGroup>
-    <description>Contact method category</description>
+    <description>Types of contact method (social media, email, phone)</description>
     <externalId>false</externalId>
-    <inlineHelpText>Contact method category</inlineHelpText>
+    <inlineHelpText>Types of contact method (social media, email, phone)</inlineHelpText>
     <label>Contact Category</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
