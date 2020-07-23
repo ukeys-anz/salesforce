@@ -3,11 +3,14 @@
     <fullName>IDR_NC_Gender__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate</complianceGroup>
-    <description>Capture this only if customer is not found in MAUD/CAP-CIS.</description>
+    <description>Gender of Complainant.
+
+Capture this only if customer is not found in MAUD/CAP-CIS.</description>
     <externalId>false</externalId>
     <label>Gender</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>

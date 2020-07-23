@@ -3,5 +3,7 @@
     <fullName>MobilePhone</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted</complianceGroup>
+    <description>Mobile Phone number of the customer owning the account</description>
     <securityClassification>Confidential</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
 </CustomField>

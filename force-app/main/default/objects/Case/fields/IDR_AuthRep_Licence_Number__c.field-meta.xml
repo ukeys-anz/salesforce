@@ -3,11 +3,13 @@
     <fullName>IDR_AuthRep_Licence_Number__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted</complianceGroup>
+    <description>Licence Number of an authorised representative of an AFS licensee or an authorised credit representative</description>
     <externalId>false</externalId>
     <label>Licence Number</label>
     <length>42</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

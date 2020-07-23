@@ -3,12 +3,15 @@
     <fullName>IDR_NC_Middle_Names__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted</complianceGroup>
-    <description>Capture this only if customer is not found in MAUD/CAP-CIS.</description>
+    <description>Middle Names of Complainant.
+
+Capture this only if customer is not found in MAUD/CAP-CIS.</description>
     <externalId>false</externalId>
     <label>Middle Names</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

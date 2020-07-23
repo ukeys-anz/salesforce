@@ -3,6 +3,7 @@
     <fullName>Changes__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Uncontrolled</complianceGroup>
+    <description>Changes in this release</description>
     <externalId>false</externalId>
     <label>Changes</label>
     <length>32768</length>

@@ -3,12 +3,13 @@
     <fullName>Business_Hours_Age_Minutes__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted</complianceGroup>
+    <description>Number of business minutes that the case is opened</description>
     <externalId>false</externalId>
     <label>Business Hours Age Minutes</label>
     <precision>18</precision>
     <required>false</required>
-    <securityClassification>Internal</securityClassification>
     <scale>0</scale>
+    <securityClassification>Internal</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Number</type>
     <unique>false</unique>

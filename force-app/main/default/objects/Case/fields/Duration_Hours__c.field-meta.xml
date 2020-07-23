@@ -3,12 +3,14 @@
     <fullName>Duration_Hours__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate</complianceGroup>
+    <description>The number of hours since the issue was raised by the customer until the case is closed. System generated content.</description>
     <externalId>false</externalId>
     <label>Duration Hours</label>
     <precision>18</precision>
     <required>false</required>
-    <securityClassification>Internal</securityClassification>
     <scale>0</scale>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Number</type>

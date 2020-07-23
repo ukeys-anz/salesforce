@@ -3,6 +3,7 @@
     <fullName>Fixes__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Uncontrolled</complianceGroup>
+    <description>Bug fixes in this release</description>
     <externalId>false</externalId>
     <label>Fixes</label>
     <length>32768</length>

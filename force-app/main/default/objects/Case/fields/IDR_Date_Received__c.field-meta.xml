@@ -4,12 +4,13 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate</complianceGroup>
     <defaultValue>TODAY()</defaultValue>
-    <description>Date received, may not be the record&#39;s created date in SF (data import, replication delays, ...). Leave blank for TODAY.</description>
+    <description>Date received, may not be the record&apos;s created date in SF (data import, replication delays, ...). Leave blank for TODAY.</description>
     <externalId>false</externalId>
-    <inlineHelpText>Date received, may not be the record&#39;s created date in SF (data import, replication delays, ...). Leave blank for TODAY.</inlineHelpText>
+    <inlineHelpText>Date received, may not be the record&apos;s created date in SF (data import, replication delays, ...). Leave blank for TODAY.</inlineHelpText>
     <label>Date Received</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Date</type>

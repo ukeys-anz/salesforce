@@ -3,6 +3,7 @@
     <fullName>Additions__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Uncontrolled</complianceGroup>
+    <description>Features added in this release</description>
     <externalId>false</externalId>
     <label>Additions</label>
     <length>32768</length>

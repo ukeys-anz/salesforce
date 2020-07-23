@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted</complianceGroup>
     <defaultValue>false</defaultValue>
+    <description>To identify whether a close is closed.</description>
     <externalId>false</externalId>
     <label>isClosed</label>
     <securityClassification>Internal</securityClassification>

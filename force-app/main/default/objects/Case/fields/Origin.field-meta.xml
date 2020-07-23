@@ -3,7 +3,9 @@
     <fullName>Origin</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate</complianceGroup>
+    <description>What channel did the case originate from (In person, Phone, Secure Mail, Social Media, Letter, Email, Internal Referred, anz.com)</description>
     <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>

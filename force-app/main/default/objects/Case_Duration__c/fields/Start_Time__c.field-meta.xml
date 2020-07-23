@@ -3,6 +3,7 @@
     <fullName>Start_Time__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted</complianceGroup>
+    <description>Time in hours and minutes when the Case was set to a given Status</description>
     <externalId>false</externalId>
     <label>Start Time</label>
     <required>false</required>

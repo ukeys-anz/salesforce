@@ -3,6 +3,7 @@
     <fullName>Batch_Id__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate</complianceGroup>
+    <description>Batch Id for log generation</description>
     <externalId>false</externalId>
     <label>Batch Id</label>
     <length>18</length>
