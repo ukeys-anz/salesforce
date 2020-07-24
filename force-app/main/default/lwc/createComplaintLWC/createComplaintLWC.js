@@ -25,7 +25,7 @@ import MIDDLE_NAME_FIELD from "@salesforce/schema/Case.IDR_NC_Middle_Names__c";
 import LAST_NAME_FIELD from "@salesforce/schema/Case.IDR_NC_Last_Name__c";
 import AGE_FIELD from "@salesforce/schema/Case.IDR_NC_Age__c";
 import GENDER_FIELD from "@salesforce/schema/Case.IDR_NC_Gender__c";
-import DECENT_FIELD from "@salesforce/schema/Case.IDR_NC_Descent__c";
+import DESCENT_FIELD from "@salesforce/schema/Case.IDR_NC_Descent__c";
 import EMAIL_FIELD from "@salesforce/schema/Case.IDR_NC_Email__c";
 import MOBILE_FIELD from "@salesforce/schema/Case.IDR_NC_Mobile__c";
 import PHONE_FIELD from "@salesforce/schema/Case.IDR_NC_Phone__c";
@@ -63,7 +63,7 @@ import IS_COMMON_COMPLAINT_FIELD from "@salesforce/schema/Case.IDR_Is_Common__c"
 import IS_REAL_FORM_NEED_FIELD from "@salesforce/schema/Case.IDR_Real_Form_Req__c";
 
 const ERROR = "error";
-const ERROR_REQUIRED_TITLE = "Please complete all required fields.";
+const ERROR_REQUIRED_TITLE = "Please complete all required fields: ";
 const ERROR_UNKNOWN_TITLE = "An error has occurred.";
 const SUCCESS = "success";
 const SUCCESS_TITLE = "Complaint has been created successfully.";
@@ -99,7 +99,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   lastName = LAST_NAME_FIELD;
   age = AGE_FIELD;
   gender = GENDER_FIELD;
-  decent = DECENT_FIELD;
+  descent = DESCENT_FIELD;
   email = EMAIL_FIELD;
   mobile = MOBILE_FIELD;
   phone = PHONE_FIELD;
@@ -128,7 +128,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   //complaint resolution fields
   complaintOutcome = COMPLAINT_OUTCOME;
   complaintRemedy = COMPLAINT_REMEDY;
-  financialCompensation = FINANCIAL_COMPENSATION;
+  financialCompensation = "";
   outcomeDescription = OUTCOME_DESCRIPTION;
   nonFinancialRemedy = NON_FINANCIAL_REMEDY;
 
@@ -176,6 +176,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
     { label: "Yes", value: "Yes" },
     { label: "No", value: "No" }
   ];
+
+  //form validation fields.
+  missingDataField = "";
+  dataValid = false;
 
   //initialize components
   connectedCallback() {
@@ -265,40 +269,123 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.product = event.detail.value[0];
   }
 
+  //form validation.
+  validateFields() {
+    this.loading = true;
+    let fieldsValid = this.CheckAllFields();
+    if (!fieldsValid) {
+      this.dataValid = false;
+      this.handleError(this.missingDataField.replace(/^,\s/, ""));
+      this.missingDataField = "";
+    } else {
+      this.dataValid = true;
+    }
+  }
+
+  CheckAllFields() {
+    let requiredField = this.getRequiredFields();
+    // validate the all the required field data has been provided.
+    let isFieldValid = [
+      ...this.template.querySelectorAll("lightning-input-field")
+    ].reduce((isValidSoFar, inputCmp) => {
+      if (inputCmp.id) {
+        let getId = inputCmp.id.split("-");
+        if (requiredField[getId[0]] && !inputCmp.value) {
+          isValidSoFar = false;
+          this.missingDataField += requiredField[getId[0]] + ", ";
+        }
+      }
+      return isValidSoFar;
+    }, true);
+
+    if (!this.writtenResponseValue) {
+      isFieldValid = false;
+      this.missingDataField +=
+        "Is the customer requesting a written response?, ";
+    }
+    if (!this.writtenRequiredValue) {
+      isFieldValid = false;
+      this.missingDataField +=
+        "Is the complaint relating to hardship, a declined insurance claim, the value of an insurance claim or a decision of a superannuation trustee?, ";
+    }
+    if (this.missingDataField !== "") {
+      this.missingDataField =
+        ERROR_REQUIRED_TITLE + this.missingDataField.replace(/,\s$/, ". ");
+    }
+
+    // validate the data in customer number is as expected.
+    if (
+      this.isCustomerComplaint &&
+      !this.customerIdValue.match("^[0-9]{10,}$")
+    ) {
+      isFieldValid = false;
+      this.missingDataField +=
+        "Customer number must be numbers and at least 10 digits long. ";
+    }
+    // validate the data in email address fields is correct.
+    let isEmailValid = [
+      ...this.template.querySelectorAll("lightning-input-field")
+    ].reduce((isValidSoFar, inputCmp) => {
+      if (inputCmp.id) {
+        let getId = inputCmp.id.split("-");
+        if (
+          getId[0].includes("email") &&
+          requiredField[getId[0]] &&
+          inputCmp.value
+        ) {
+          let emailRegex =
+            '^(([^<>()\\[\\]\\.,;:\\s@"]+(\\.+[^<>()\\[\\]\\.,;:\\s@"]+)*)|(".+"))@(([^<>()[\\]\\.,;:\\s@"]+\\.)+[^<>()[\\]\\.,;:\\s@"]{2,})$';
+          if (!inputCmp.value.match(emailRegex)) {
+            isValidSoFar = false;
+            this.missingDataField += requiredField[getId[0]] + " is invalid. ";
+          }
+        }
+      }
+      return isValidSoFar;
+    }, true);
+
+    // ensure data in the financial compensation field is correct if this complaint has financial remedy
+    let isFinCompValid = true;
+    if (this.isFinancialComplaintRemedy) {
+      isFinCompValid = this.validateFinancialCompensation();
+    }
+    return isFieldValid && isEmailValid && isFinCompValid;
+  }
+
   handleSubmit(event) {
     event.preventDefault(); // stop the form from submitting
-    this.template.querySelector(".saveButton").disabled = true;
-    const fields = event.detail.fields;
-    fields[PRODUCT_LOOKUP_FIELD.fieldApiName] = this.product;
-    fields[CAP_CIS_ID_FIELD.fieldApiName] = this.customerIdValue;
-    fields[
-      WRITTEN_RESPONSE_REQUESTED_FIELD.fieldApiName
-    ] = this.writtenResponseValue;
-    fields[
-      WRITTEN_RESPONSE_REQUIRED_FIELD.fieldApiName
-    ] = this.writtenRequiredValue;
-    fields[CONSENT_OBTAINED.fieldApiName] = this.consentValue;
-    fields[RECORDTYPE_FIELD.fieldApiName] = this.recordType;
-    if (this.isComplaintResolved) {
-      fields[STATUS_FIELD.fieldApiName] = RESOLVED_STATUS_API_NAME;
-      if (this.isFinancialComplaintRemedy) {
-        fields[
-          FINANCIAL_COMPENSATION.fieldApiName
-        ] = this.financialCompensation;
+
+    //create case if form validation was successful
+    if (this.dataValid) {
+      this.template.querySelector(".saveButton").disabled = true;
+      const fields = event.detail.fields;
+      fields[PRODUCT_LOOKUP_FIELD.fieldApiName] = this.product;
+      fields[CAP_CIS_ID_FIELD.fieldApiName] = this.customerIdValue;
+      fields[
+        WRITTEN_RESPONSE_REQUESTED_FIELD.fieldApiName
+      ] = this.writtenResponseValue;
+      fields[
+        WRITTEN_RESPONSE_REQUIRED_FIELD.fieldApiName
+      ] = this.writtenRequiredValue;
+      fields[CONSENT_OBTAINED.fieldApiName] = this.consentValue;
+      fields[RECORDTYPE_FIELD.fieldApiName] = this.recordType;
+      if (this.isComplaintResolved) {
+        fields[STATUS_FIELD.fieldApiName] = RESOLVED_STATUS_API_NAME;
+        if (this.isFinancialComplaintRemedy) {
+          fields[
+            FINANCIAL_COMPENSATION.fieldApiName
+          ] = this.financialCompensation;
+        }
       }
-    }
-    if (this.isRealFormNeeded) {
-      fields[IS_REAL_FORM_NEED_FIELD.fieldApiName] = true;
-    }
-    if (this.isCommonComplaint) {
-      fields[IS_COMMON_COMPLAINT_FIELD.fieldApiName] = true;
-    }
-    if (!this.hasNominatedThirdParty) {
-      fields[THIRD_PARTY_COUNTRY_FIELD.fieldApiName] = "";
-    }
-    let valid = this.checkRequiredFields();
-    if (valid) {
-      this.loading = true;
+      if (this.isRealFormNeeded) {
+        fields[IS_REAL_FORM_NEED_FIELD.fieldApiName] = true;
+      }
+      if (this.isCommonComplaint) {
+        fields[IS_COMMON_COMPLAINT_FIELD.fieldApiName] = true;
+      }
+      if (!this.hasNominatedThirdParty) {
+        fields[THIRD_PARTY_COUNTRY_FIELD.fieldApiName] = "";
+      }
       const recordInput = { apiName: CASE_OBJECT.objectApiName, fields };
       createRecord(recordInput)
         .then((response) => {
@@ -311,14 +398,12 @@ export default class CreateComplaintLWC extends NavigationMixin(
         .catch((error) => {
           this.handleError(error);
         });
-    } else {
-      this.handleError(ERROR_REQUIRED_TITLE);
     }
   }
 
   handleCustomerNumberOnblur() {
     let capCisfield = this.template.querySelector(".inputCapCisId");
-    if (!this.customerIdValue.match("^\\d+$")) {
+    if (!this.customerIdValue.match("^[0-9]{10,}$")) {
       //set an error
       capCisfield.setCustomValidity(
         "Customer number must be numbers and at least 10 digits long"
@@ -331,7 +416,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     }
   }
 
-  checkRequiredFields() {
+  /* checkRequiredFields() {
     let isValid = true;
     if (this.isCustomerComplaint || this.consentValue) {
       if (
@@ -342,6 +427,82 @@ export default class CreateComplaintLWC extends NavigationMixin(
       } else {
         isValid = false;
       }
+    }
+    return isValid;
+  }*/
+
+  // add all the required fields for this complaint.
+  getRequiredFields() {
+    let requiredField = [];
+    if (this.isCustomerComplaint) {
+      requiredField.CustomerType = "Customer Type";
+      requiredField.descent = "Aboriginal or Torres Strait Islander";
+    } else {
+      requiredField.customerType2 = "Customer Type";
+      requiredField.age = "Age";
+      requiredField.gender = "Gender";
+      requiredField.descent2 = "Aboriginal or Torres Strait Islander";
+
+      if (this.consentValue) {
+        requiredField.firstName = "First Name";
+        requiredField.lastName = "Last Name";
+        requiredField.email = "Email";
+        requiredField.mobileinput = "Mobile";
+      }
+      if (this.isAddressRequired) {
+        requiredField.street = "Street";
+        requiredField.suburb = "Suburb";
+        requiredField.postcode = "Postcode";
+      }
+      requiredField.country = "Country";
+      requiredField.state = "State";
+    }
+
+    if (this.hasNominatedThirdParty) {
+      requiredField.thirdPartyName = "Nominated 3rd party name";
+      requiredField.thirdPartyemail = "Nominated 3rd party email address";
+      requiredField.thirdPartyMobile = "Nominated 3rd party mobile";
+      requiredField.thirdPartyCountry = "Nominated 3rd party country";
+      requiredField.thirdPartyState = "Nominated 3rd party state";
+    }
+
+    requiredField.descOfIssue = "Description of Issue";
+    requiredField.custOutCome = "Customer Desired Outcome";
+    requiredField.priority = "Priority";
+    requiredField.ChannelReceived = "Channel Received";
+    requiredField.issueType = "Issue Type";
+    requiredField.product = "Product";
+    requiredField.accPolicyNum = "Account or Policy Number";
+    requiredField.subsequentIssue = "Subsequent Issue Type";
+
+    if (this.isComplaintResolved) {
+      requiredField.compOutCome = "Complaint Outcome";
+      requiredField.compRemedy = "Complaint Remedy";
+      requiredField.descOutcome = "Description of Outcome";
+    }
+
+    if (this.isNonFinancialComplaintRemedy) {
+      requiredField.nonFinancialRemedy = "Non-Financial Remedy";
+    }
+    return requiredField;
+  }
+
+  validateFinancialCompensation() {
+    let isValid = true;
+    console.log("this.financialCompensation:" + this.financialCompensation);
+    let fincomp = this.template.querySelector(".inputFinCompensation");
+    const regex = "^[1-9]d{0,6}(.d{1,2})?$|^0.(?!0+$)[0-9]{1,2}$";
+    if (
+      !this.financialCompensation.match(regex) ||
+      !(this.financialCompensation > 0.0)
+    ) {
+      isValid = false;
+      this.missingDataField +=
+        "Financial Compensation must be a positive value with up to 7 whole digits and 2 decimal digits. ";
+      fincomp.setCustomValidity(
+        "must be a positive value with up to 7 whole digits and 2 decimal digits"
+      );
+      fincomp.reportValidity();
     }
     return isValid;
   }
@@ -362,7 +523,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.template.querySelector(".saveButton").disabled = false;
     const evt = new ShowToastEvent({
       title: msg,
-      variant: ERROR
+      variant: ERROR,
+      mode: "sticky"
     });
     this.dispatchEvent(evt);
   }
