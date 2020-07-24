@@ -489,7 +489,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   validateFinancialCompensation() {
     let isValid = true;
-    const regex = "^[1-9]\\d{0,6}(\\.\\d{1,2})?$|^0\\.(?!0+$)[0-9]{1,2}$";
+    const regex = "^[1-9]\\d{0,6}(\\.\\d{1,2})?$|^0\\.(?!0+$)\\d{1,2}$";
     if (!this.financialCompensation.match(regex)) {
       isValid = false;
       this.missingDataField +=
