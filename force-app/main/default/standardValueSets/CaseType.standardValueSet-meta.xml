@@ -57,11 +57,6 @@
         <label>Credit reporting</label>
     </standardValue>
     <standardValue>
-        <fullName>12</fullName>
-        <default>false</default>
-        <label>Organisation structure</label>
-    </standardValue>
-    <standardValue>
         <fullName>10</fullName>
         <default>false</default>
         <label>Transactions &amp; payments</label>
@@ -90,6 +85,11 @@
         <fullName>3</fullName>
         <default>false</default>
         <label>Disclosure</label>
+    </standardValue>
+    <standardValue>
+        <fullName>12</fullName>
+        <default>false</default>
+        <label>Organisational Structure &amp; Marketing</label>
     </standardValue>
     <standardValue>
         <fullName>11</fullName>

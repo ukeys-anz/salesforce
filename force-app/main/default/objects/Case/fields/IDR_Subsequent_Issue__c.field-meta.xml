@@ -62,11 +62,6 @@
                 <label>Digital</label>
             </value>
             <value>
-                <fullName>10</fullName>
-                <default>false</default>
-                <label>Other</label>
-            </value>
-            <value>
                 <fullName>11</fullName>
                 <default>false</default>
                 <label>Account/Profile set up</label>
@@ -296,6 +291,11 @@
                 <default>false</default>
                 <label>Marketing campaigns</label>
             </value>
+            <value>
+                <fullName>10</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>7</controllingFieldValue>
@@ -306,6 +306,18 @@
             <controllingFieldValue>14</controllingFieldValue>
             <controllingFieldValue>9</controllingFieldValue>
             <valueName>1</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>11</controllingFieldValue>
+            <valueName>54</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>11</controllingFieldValue>
+            <valueName>55</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>11</controllingFieldValue>
+            <valueName>56</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>11</controllingFieldValue>
@@ -320,18 +332,6 @@
             <controllingFieldValue>2</controllingFieldValue>
             <controllingFieldValue>1</controllingFieldValue>
             <valueName>10</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>11</controllingFieldValue>
-            <valueName>54</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>11</controllingFieldValue>
-            <valueName>55</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>11</controllingFieldValue>
-            <valueName>56</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>4</controllingFieldValue>
