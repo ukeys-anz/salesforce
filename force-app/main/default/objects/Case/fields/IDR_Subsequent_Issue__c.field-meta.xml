@@ -52,11 +52,6 @@
                 <label>Merchant terminal issue</label>
             </value>
             <value>
-                <fullName>8</fullName>
-                <default>false</default>
-                <label>Contact Centre</label>
-            </value>
-            <value>
                 <fullName>9</fullName>
                 <default>false</default>
                 <label>Digital</label>
@@ -474,10 +469,6 @@
         <valueSettings>
             <controllingFieldValue>13</controllingFieldValue>
             <valueName>7</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>13</controllingFieldValue>
-            <valueName>8</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>13</controllingFieldValue>
