@@ -491,7 +491,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     let isValid = true;
     console.log("this.financialCompensation:" + this.financialCompensation);
     let fincomp = this.template.querySelector(".inputFinCompensation");
-    const regex = "^[1-9]d{0,6}(.d{1,2})?$|^0.(?!0+$)[0-9]{1,2}$";
+    const regex = "^[1-9]\\d{0,6}(\\.\\d{1,2})?$|^0\\.(?!0+$)[0-9]{1,2}$";
     if (
       !this.financialCompensation.match(regex) ||
       !(this.financialCompensation > 0.0)
