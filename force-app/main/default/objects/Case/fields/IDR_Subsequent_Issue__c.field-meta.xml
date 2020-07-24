@@ -298,39 +298,29 @@
             </value>
         </valueSetDefinition>
         <valueSettings>
-            <controllingFieldValue>7</controllingFieldValue>
             <controllingFieldValue>3</controllingFieldValue>
             <controllingFieldValue>15</controllingFieldValue>
             <controllingFieldValue>16</controllingFieldValue>
-            <controllingFieldValue>12</controllingFieldValue>
             <controllingFieldValue>14</controllingFieldValue>
             <controllingFieldValue>9</controllingFieldValue>
+            <controllingFieldValue>7</controllingFieldValue>
             <valueName>1</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>11</controllingFieldValue>
+            <controllingFieldValue>12</controllingFieldValue>
             <valueName>54</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>11</controllingFieldValue>
+            <controllingFieldValue>12</controllingFieldValue>
             <valueName>55</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>11</controllingFieldValue>
+            <controllingFieldValue>12</controllingFieldValue>
             <valueName>56</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>12</controllingFieldValue>
             <controllingFieldValue>11</controllingFieldValue>
-            <controllingFieldValue>4</controllingFieldValue>
-            <controllingFieldValue>17</controllingFieldValue>
-            <controllingFieldValue>6</controllingFieldValue>
-            <controllingFieldValue>5</controllingFieldValue>
-            <controllingFieldValue>19</controllingFieldValue>
-            <controllingFieldValue>10</controllingFieldValue>
-            <controllingFieldValue>13</controllingFieldValue>
-            <controllingFieldValue>18</controllingFieldValue>
-            <controllingFieldValue>2</controllingFieldValue>
-            <controllingFieldValue>1</controllingFieldValue>
             <valueName>10</valueName>
         </valueSettings>
         <valueSettings>
@@ -450,6 +440,18 @@
             <valueName>48</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>8</controllingFieldValue>
+            <valueName>49</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>8</controllingFieldValue>
+            <valueName>50</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>8</controllingFieldValue>
+            <valueName>51</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>13</controllingFieldValue>
             <valueName>2</valueName>
         </valueSettings>
@@ -516,18 +518,6 @@
         <valueSettings>
             <controllingFieldValue>2</controllingFieldValue>
             <valueName>19</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>8</controllingFieldValue>
-            <valueName>49</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>8</controllingFieldValue>
-            <valueName>50</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>8</controllingFieldValue>
-            <valueName>51</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>1</controllingFieldValue>
