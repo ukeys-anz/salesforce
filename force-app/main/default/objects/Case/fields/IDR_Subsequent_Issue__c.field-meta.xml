@@ -24,7 +24,7 @@
             <value>
                 <fullName>2</fullName>
                 <default>false</default>
-                <label>Branch</label>
+                <label>Branch queues / wait time</label>
             </value>
             <value>
                 <fullName>3</fullName>
@@ -229,7 +229,7 @@
             <value>
                 <fullName>44</fullName>
                 <default>false</default>
-                <label>Processing time</label>
+                <label>Payment Clearance Timeframes</label>
             </value>
             <value>
                 <fullName>45</fullName>
@@ -244,7 +244,7 @@
             <value>
                 <fullName>47</fullName>
                 <default>false</default>
-                <label>Direct Debit / Re-occuring payment</label>
+                <label>Direct Debit/Credit set up, change or cancellation</label>
             </value>
             <value>
                 <fullName>48</fullName>
