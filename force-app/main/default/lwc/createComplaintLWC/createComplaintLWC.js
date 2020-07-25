@@ -301,12 +301,12 @@ export default class CreateComplaintLWC extends NavigationMixin(
       isFieldValid = false;
       this.missingDataFields += "Customer Decision";
     } else {
-      if (!this.writtenResponseValue) {
+      if (this.consentValue && !this.writtenResponseValue) {
         isFieldValid = false;
         this.missingDataFields +=
           "Is the customer requesting a written response?, ";
       }
-      if (!this.writtenRequiredValue) {
+      if (this.consentValue && !this.writtenRequiredValue) {
         isFieldValid = false;
         this.missingDataFields +=
           "Is the complaint relating to hardship, a declined insurance claim, the value of an insurance claim or a decision of a superannuation trustee?, ";
