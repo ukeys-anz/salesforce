@@ -121,7 +121,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   thirdPartyCountry = THIRD_PARTY_COUNTRY_FIELD;
   thirdPartyState = THIRD_PARTY_STATE_FIELD;
 
-  //written consent fields
+  //written response fields
   writtenResponseRequested = WRITTEN_RESPONSE_REQUESTED_FIELD;
   writtenResponseRequired = WRITTEN_RESPONSE_REQUIRED_FIELD;
 
@@ -153,7 +153,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   consentOptionValue;
   isBusiness = false;
   recordType;
-  product;
+  productValue;
   showComplianceFields;
   showSections;
   isComplaintResolved;
@@ -178,13 +178,13 @@ export default class CreateComplaintLWC extends NavigationMixin(
   ];
 
   //form validation fields.
-  missingDataField = "";
-  dataValid = false;
+  missingDataFields = "";
+  isDataValid = false;
 
   //initialize components
   connectedCallback() {
     this.recordType = this.recordTypeId;
-    this.product =
+    this.productValue =
       this.contextRecordId && this.contextRecordId.match(/01t[a-z0-9]+/i)
         ? this.contextRecordId
         : "";
@@ -266,51 +266,56 @@ export default class CreateComplaintLWC extends NavigationMixin(
   }
 
   handleProductChange(event) {
-    this.product = event.detail.value[0];
+    this.productValue = event.detail.value[0];
   }
 
   //form validation.
   validateFields() {
     this.loading = true;
-    let fieldsValid = this.CheckAllFields();
-    if (!fieldsValid) {
-      this.dataValid = false;
-      this.handleError(this.missingDataField.replace(/^,\s/, ""));
-      this.missingDataField = "";
+    if (!this.checkAllFields()) {
+      this.isDataValid = false;
+      this.handleError(this.missingDataFields.replace(/^,\s/, ""));
+      this.missingDataFields = "";
     } else {
-      this.dataValid = true;
+      this.isDataValid = true;
     }
   }
 
-  CheckAllFields() {
-    let requiredField = this.getRequiredFields();
+  checkAllFields() {
+    let requiredFields = this.getRequiredFields();
     // validate the all the required field data has been provided.
     let isFieldValid = [
       ...this.template.querySelectorAll("lightning-input-field")
     ].reduce((isValidSoFar, inputCmp) => {
       if (inputCmp.id) {
         let getId = inputCmp.id.split("-");
-        if (requiredField[getId[0]] && !inputCmp.value) {
+        if (requiredFields[getId[0]] && !inputCmp.value) {
           isValidSoFar = false;
-          this.missingDataField += requiredField[getId[0]] + ", ";
+          this.missingDataFields += requiredFields[getId[0]] + ", ";
         }
       }
       return isValidSoFar;
     }, true);
 
-    if (!this.writtenResponseValue) {
+    if (!this.isCustomerComplaint && !this.showSections) {
       isFieldValid = false;
-      this.missingDataField +=
-        "Is the customer requesting a written response?, ";
+      this.missingDataFields += "Customer Decision";
+    } else {
+      if (!this.writtenResponseValue) {
+        isFieldValid = false;
+        this.missingDataFields +=
+          "Is the customer requesting a written response?, ";
+      }
+      if (!this.writtenRequiredValue) {
+        isFieldValid = false;
+        this.missingDataFields +=
+          "Is the complaint relating to hardship, a declined insurance claim, the value of an insurance claim or a decision of a superannuation trustee?, ";
+      }
     }
-    if (!this.writtenRequiredValue) {
-      isFieldValid = false;
-      this.missingDataField +=
-        "Is the complaint relating to hardship, a declined insurance claim, the value of an insurance claim or a decision of a superannuation trustee?, ";
-    }
-    if (this.missingDataField !== "") {
-      this.missingDataField =
-        ERROR_REQUIRED_TITLE + this.missingDataField.replace(/,\s$/, ". ");
+
+    if (this.missingDataFields !== "") {
+      this.missingDataFields =
+        ERROR_REQUIRED_TITLE + this.missingDataFields.replace(/,\s$/, ". ");
     }
 
     // validate the data in customer number is as expected.
@@ -319,7 +324,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       !this.customerIdValue.match("^[0-9]{10,}$")
     ) {
       isFieldValid = false;
-      this.missingDataField +=
+      this.missingDataFields +=
         "Customer number must be numbers and at least 10 digits long. ";
     }
     // validate the data in email address fields is correct.
@@ -330,14 +335,15 @@ export default class CreateComplaintLWC extends NavigationMixin(
         let getId = inputCmp.id.split("-");
         if (
           getId[0].includes("email") &&
-          requiredField[getId[0]] &&
+          requiredFields[getId[0]] &&
           inputCmp.value
         ) {
           let emailRegex =
             '^(([^<>()\\[\\]\\.,;:\\s@"]+(\\.+[^<>()\\[\\]\\.,;:\\s@"]+)*)|(".+"))@(([^<>()[\\]\\.,;:\\s@"]+\\.)+[^<>()[\\]\\.,;:\\s@"]{2,})$';
           if (!inputCmp.value.match(emailRegex)) {
             isValidSoFar = false;
-            this.missingDataField += requiredField[getId[0]] + " is invalid. ";
+            this.missingDataFields +=
+              requiredFields[getId[0]] + " is invalid. ";
           }
         }
       }
@@ -356,10 +362,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
     event.preventDefault(); // stop the form from submitting
 
     //create case if form validation was successful
-    if (this.dataValid) {
+    if (this.isDataValid) {
       this.template.querySelector(".saveButton").disabled = true;
       const fields = event.detail.fields;
-      fields[PRODUCT_LOOKUP_FIELD.fieldApiName] = this.product;
+      fields[PRODUCT_LOOKUP_FIELD.fieldApiName] = this.productValue;
       fields[CAP_CIS_ID_FIELD.fieldApiName] = this.customerIdValue;
       fields[
         WRITTEN_RESPONSE_REQUESTED_FIELD.fieldApiName
@@ -416,86 +422,68 @@ export default class CreateComplaintLWC extends NavigationMixin(
     }
   }
 
-  /* checkRequiredFields() {
-    let isValid = true;
-    if (this.isCustomerComplaint || this.consentValue) {
-      if (
-        this.writtenRequiredValue != null &&
-        this.writtenResponseValue != null
-      ) {
-        isValid = true;
-      } else {
-        isValid = false;
-      }
-    }
-    return isValid;
-  }*/
-
   // add all the required fields for this complaint.
   getRequiredFields() {
-    let requiredField = [];
-    if (this.isCustomerComplaint) {
-      requiredField.CustomerType = "Customer Type";
-      requiredField.descent = "Aboriginal or Torres Strait Islander";
-    } else {
-      requiredField.customerType2 = "Customer Type";
-      requiredField.age = "Age";
-      requiredField.gender = "Gender";
-      requiredField.descent2 = "Aboriginal or Torres Strait Islander";
+    let requiredFields = {};
+    // mandatory fields
+    requiredFields.descOfIssue = "Description of Issue";
+    requiredFields.custOutCome = "Customer Desired Outcome";
+    requiredFields.priority = "Priority";
+    requiredFields.channelReceived = "Channel Received";
+    requiredFields.issueType = "Issue Type";
+    requiredFields.product = "Product or Service Name";
+    requiredFields.accPolicyNum = "Account or Policy Number";
+    requiredFields.subsequentIssue = "Subsequent Issue Type";
 
+    // conditionnally required fields
+    if (this.isCustomerComplaint) {
+      requiredFields.customerType = "Customer Type";
+      requiredFields.descent = "Aboriginal or Torres Strait Islander";
+    } else {
+      requiredFields.customerType2 = "Customer Type";
+      requiredFields.age = "Age";
+      requiredFields.gender = "Gender";
+      requiredFields.descent2 = "Aboriginal or Torres Strait Islander";
       if (this.consentValue) {
-        requiredField.firstName = "First Name";
-        requiredField.lastName = "Last Name";
-        requiredField.email = "Email";
-        requiredField.mobileinput = "Mobile";
+        requiredFields.firstName = "First Name";
+        requiredFields.lastName = "Last Name";
+        requiredFields.email = "Email";
+        requiredFields.mobileinput = "Mobile";
       }
       if (this.isAddressRequired) {
-        requiredField.street = "Street";
-        requiredField.suburb = "Suburb";
-        requiredField.postcode = "Postcode";
+        requiredFields.street = "Street";
+        requiredFields.suburb = "Suburb";
+        requiredFields.postcode = "Postcode";
       }
-      requiredField.country = "Country";
-      requiredField.state = "State";
+      requiredFields.country = "Country";
+      requiredFields.state = "State";
     }
-
     if (this.hasNominatedThirdParty) {
-      requiredField.thirdPartyName = "Nominated 3rd party name";
-      requiredField.thirdPartyemail = "Nominated 3rd party email address";
-      requiredField.thirdPartyMobile = "Nominated 3rd party mobile";
-      requiredField.thirdPartyCountry = "Nominated 3rd party country";
-      requiredField.thirdPartyState = "Nominated 3rd party state";
+      requiredFields.thirdPartyName = "Nominated 3rd party name";
+      requiredFields.thirdPartyEmail = "Nominated 3rd party email address";
+      requiredFields.thirdPartyMobile = "Nominated 3rd party mobile";
+      requiredFields.thirdPartyCountry = "Nominated 3rd party country";
+      requiredFields.thirdPartyState = "Nominated 3rd party state";
     }
-
-    requiredField.descOfIssue = "Description of Issue";
-    requiredField.custOutCome = "Customer Desired Outcome";
-    requiredField.priority = "Priority";
-    requiredField.ChannelReceived = "Channel Received";
-    requiredField.issueType = "Issue Type";
-    requiredField.product = "Product";
-    requiredField.accPolicyNum = "Account or Policy Number";
-    requiredField.subsequentIssue = "Subsequent Issue Type";
-
     if (this.isComplaintResolved) {
-      requiredField.compOutCome = "Complaint Outcome";
-      requiredField.compRemedy = "Complaint Remedy";
-      requiredField.descOutcome = "Description of Outcome";
+      requiredFields.compOutCome = "Complaint Outcome";
+      requiredFields.compRemedy = "Complaint Remedy";
+      requiredFields.descOutcome = "Description of Outcome";
     }
-
     if (this.isNonFinancialComplaintRemedy) {
-      requiredField.nonFinancialRemedy = "Non-Financial Remedy";
+      requiredFields.nonFinancialRemedy = "Non-Financial Remedy";
     }
-    return requiredField;
+    return requiredFields;
   }
 
   validateFinancialCompensation() {
-    let isValid = true;
     const regex = "^[1-9]\\d{0,6}(\\.\\d{1,2})?$|^0\\.(?!0+$)\\d{1,2}$";
     if (!this.financialCompensation.match(regex)) {
-      isValid = false;
-      this.missingDataField +=
+      this.missingDataFields +=
         "Financial Compensation must be a positive value with up to 7 whole digits and 2 decimal digits. ";
+      return false;
     }
-    return isValid;
+    return true;
   }
 
   handleError(error) {
