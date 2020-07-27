@@ -5,7 +5,7 @@
  */
 public with sharing class CustomerFeedbackActions {
   // Invalid OCV ID Error Message
-  private static final String INVALID_OCV_ID_ERROR = 'OCV_ID__c is not present in Salesforce';
+  private static final String INVALID_OCV_ID_ERROR = 'Provided OCV ID could not be found in Salesforce';
 
   /**
    * @description This function is called to get the Account Id based on OCV ID received from qualtrics.

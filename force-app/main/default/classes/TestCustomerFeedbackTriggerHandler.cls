@@ -49,5 +49,9 @@ private class TestCustomerFeedbackTriggerHandler {
     ];
 
     system.assertEquals(testAcc.Id, insertedCFs[0].Account_Name__c);
+    system.assertEquals(
+      'Provided OCV ID could not be found in Salesforce',
+      results[1].errors[0].getMessage()
+    );
   }
 }
