@@ -6,7 +6,7 @@
         "referenceId": "CaseRef1"
       },
       "Type": "2",
-      "IDR_Subsequent_Issue__c": "10",
+      "IDR_Subsequent_Issue__c": "14",
       "Status": "Closed",
       "Origin": "2",
       "Subject": "Assured Monthly Fee",
@@ -74,7 +74,7 @@
         "referenceId": "CaseRef3"
       },
       "Type": "9",
-      "IDR_Subsequent_Issue__c": "1",
+      "IDR_Subsequent_Issue__c": "61",
       "Status": "Open",
       "Origin": "2",
       "Subject": "Life Insurance Policy Cancellation",
@@ -103,7 +103,7 @@
         "referenceId": "CaseRef4"
       },
       "Type": "9",
-      "IDR_Subsequent_Issue__c": "1",
+      "IDR_Subsequent_Issue__c": "58",
       "Status": "Re-opened",
       "Origin": "1",
       "Subject": "Frequent Flyer Reward Point Allocation",
@@ -142,7 +142,7 @@
         "referenceId": "CaseRef5"
       },
       "Type": "9",
-      "IDR_Subsequent_Issue__c": "1",
+      "IDR_Subsequent_Issue__c": "61",
       "Status": "Closed",
       "Origin": "5",
       "Subject": "Mail being sent to incorrect address despite being notified",
