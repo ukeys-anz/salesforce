@@ -8,8 +8,8 @@
     <externalId>false</externalId>
     <label>Account Name</label>
     <referenceTo>Account</referenceTo>
-    <relationshipLabel>Customer Feedbacks</relationshipLabel>
-    <relationshipName>Customer_Feedbacks</relationshipName>
+    <relationshipLabel>Customer Feedback</relationshipLabel>
+    <relationshipName>Customer_Feedback</relationshipName>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackHistory>false</trackHistory>
