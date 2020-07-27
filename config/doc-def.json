@@ -13,7 +13,8 @@
     "User",
     "User_Provisioning_Request__c",
     "FinServ__FinancialAccount__c",
-    "FinServ__FinancialAccountRole__c"
+    "FinServ__FinancialAccountRole__c",
+    "Customer_Feedback__c"
   ],
   "usermap": [
     {
@@ -85,6 +86,13 @@
       "profile": "Integration User",
       "permissionsetgroups": [],
       "permissionsets": ["Read_Write_Customer_Details"],
+      "type": "system"
+    },
+    {
+      "name": "Qualtrics Integration User",
+      "profile": "Integration User (External Apps)",
+      "permissionsetgroups": [],
+      "permissionsets": ["Customer_Feedback_Read_Write"],
       "type": "system"
     }
   ]
