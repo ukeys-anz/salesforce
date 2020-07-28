@@ -22,8 +22,8 @@ export async function createFinGoalList(
   primaryOwner: any
 ): Promise<any> {
   return new Promise<string>(async (resolve) => {
-    const finGoals: any = [];
-    const idList: any = [];
+    const finGoals: IFinGoal[] = [];
+    const idList: string[] = [];
 
     // Create Savings Accounts to map to new Goals being created
     createFinAccountList(amount, "SavingsAccount", primaryOwner).then(

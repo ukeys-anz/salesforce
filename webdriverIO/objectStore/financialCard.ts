@@ -24,7 +24,7 @@ interface IFinCard {
 export async function createFinCardsList(amount = 1, primaryOwner: any) {
   return new Promise<string>(async (resolve) => {
     const finCards: any = [];
-    const idList: any = [];
+    const idList: string[] = [];
 
     // Create Savings Accounts to map to new cards being created
     createFinAccountList(amount, "SavingsAccount", primaryOwner).then(

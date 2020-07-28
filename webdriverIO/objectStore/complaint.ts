@@ -26,6 +26,7 @@ interface ICase {
   IDR_Is_Written_Resp_Required__c: string;
   IDR_NC_Is_Consent_Obtained__c: boolean;
   OwnerId?: string;
+  Id?: string;
 }
 
 /**
@@ -43,7 +44,7 @@ export function createCaseList(
     const cases: ICase[] = [];
     const user: any = await getUserByAlias(alias);
 
-    const idList: any = [];
+    const idList: string[] = [];
     for (let i = 0; i < amount; i++) {
       const mockCase: ICase = {
         IDR_Complainant_Type__c: "1",
@@ -103,7 +104,7 @@ export function createCaseList(
         //Loop through the result to create a list of ids
         result.forEach((item: any) => {
           if (item.success) {
-            idList.push(item.id);
+            idList.push(item.Id);
           }
         });
         //Retrieve the new accounts using the created id list and return the results

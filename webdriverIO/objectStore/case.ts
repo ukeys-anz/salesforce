@@ -1,7 +1,7 @@
 import { jsForce } from "../utilities/jsforce";
 import * as faker from "faker";
 import { getRecordTypeID, getUserByAlias } from "./util";
-import { getFinAccount } from "./financialAccount";
+import IFinAccount, { getFinAccount } from "./financialAccount";
 import CustomError from "../utilities/customErrorHandler";
 
 interface ICase {
@@ -17,6 +17,7 @@ interface ICase {
   FinServ__FinancialAccount__c: string;
   ParentId: string;
   OwnerId?: string;
+  Id?: string;
 }
 
 /**
@@ -31,14 +32,14 @@ export function createCaseList(
   alias: string
 ): Promise<any> {
   return new Promise(async (resolve) => {
-    const finAccountList: any = await getFinAccount();
+    const finAccountList: IFinAccount[] = await getFinAccount();
     const recordTypeId: string = await getRecordTypeID("Case", recordType);
     const parentCaseList: any = await getParentCase(
       recordTypeId,
       finAccountList[0].FinServ__PrimaryOwner__c
     );
     const cases: ICase[] = [];
-    const idList: any = [];
+    const idList: string[] = [];
     const user: any = await getUserByAlias(alias);
 
     for (let i = 0; i < amount; i++) {
@@ -80,7 +81,7 @@ export function createCaseList(
         ]),
         RecordTypeId: recordTypeId,
         AccountId: finAccountList[0].FinServ__PrimaryOwner__c,
-        FinServ__FinancialAccount__c: finAccountList[0].Id,
+        FinServ__FinancialAccount__c: finAccountList[0].Id!,
         ParentId: parentCaseList[0].Id,
         OwnerId: user.Id
       };
@@ -105,8 +106,8 @@ export function createCaseList(
           );
         }
         //Loop through the result to create a list of ids
-        result.forEach((item: any) => {
-          idList.push(item.id);
+        result.forEach((item: ICase) => {
+          idList.push(item.Id!);
         });
         //Retrieve the new cases using the created id list and return the results
         jsForce.sobject("Case").retrieve(idList, (err: any, result: any) => {
@@ -144,7 +145,7 @@ export async function getParentCase(
           resolve(result.records);
         } else {
           const cases: ICase[] = [];
-          const idList: any = [];
+          const idList: string[] = [];
           const caseRecord: ICase = {
             Description: faker.lorem.text(),
             Status: faker.random.arrayElement([
@@ -207,8 +208,8 @@ export async function getParentCase(
                 );
               }
               //Loop through the result to create a list of ids
-              result.forEach((item: any) => {
-                idList.push(item.id);
+              result.forEach((item: ICase) => {
+                idList.push(item.Id!);
               });
               //Retrieve the new cases using the created id list and return the results
               jsForce
@@ -241,7 +242,7 @@ export async function createBlankCase(
     const recordTypeId: string = await getRecordTypeID("Case", recordType);
     const user: any = await getUserByAlias(alias);
     const cases: any = [];
-    const idList: any = [];
+    const idList: string[] = [];
 
     for (let i = 0; i < amount; i++) {
       const caseRecord = {
@@ -270,8 +271,8 @@ export async function createBlankCase(
         }
 
         //Loop through the result to create a list of ids
-        result.forEach((item: any) => {
-          idList.push(item.id);
+        result.forEach((item: ICase) => {
+          idList.push(item.Id!);
         });
 
         //Retrieve the new cases using the created id list and return the results

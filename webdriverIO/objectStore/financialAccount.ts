@@ -16,6 +16,7 @@ interface IFinAccount {
   FinServ__OpenDate__c: Date;
   FinServ__FinancialAccountNumber__c: string;
   FinServ__PrimaryOwner__c: string;
+  Id?: string;
 }
 
 /**
@@ -31,7 +32,7 @@ export async function createFinAccountList(
 ): Promise<any> {
   return new Promise(async (resolve) => {
     const finAccounts = [];
-    const idList: any = [];
+    const idList: string[] = [];
     const recTypeId = await getRecordTypeID(
       "FinServ__FinancialAccount__c",
       recordType
@@ -132,3 +133,5 @@ export async function getFinAccount(): Promise<any> {
     );
   });
 }
+
+export default IFinAccount;

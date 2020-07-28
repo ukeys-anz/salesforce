@@ -29,6 +29,7 @@ interface IAccount {
   BillingState: string;
   BillingPostalCode: string;
   BillingCountry: string;
+  Id?: string;
 }
 
 /**
@@ -43,7 +44,7 @@ export async function createAccountList(
 ): Promise<any> {
   return new Promise(async (resolve) => {
     const accounts = [];
-    const idList: any = [];
+    const idList: string[] = [];
     const recTypeId = await getRecordTypeID("Account", recordType);
     for (let i = 0; i < amount; i++) {
       const account: IAccount = {
@@ -147,8 +148,8 @@ export async function createAccountList(
       }
 
       //Loop through the result to create a list of ids
-      result.forEach((item: any) => {
-        idList.push(item.id);
+      result.forEach((item: IAccount) => {
+        idList.push(item.Id!);
       });
 
       //Retrieve the new accounts using the created id list and return the results
@@ -167,7 +168,7 @@ export async function createAccountList(
  */
 export async function getPersonAccount(): Promise<any> {
   // Check if there are existing person accounts, if not create new ones
-  return new Promise<string>((resolve) => {
+  return new Promise<any>((resolve) => {
     jsForce.query(
       "SELECT Id, Name FROM Account WHERE RecordType.DeveloperName = 'PersonAccount' ORDER BY CreatedDate LIMIT 1",
       async function (err: any, result: any) {
@@ -179,7 +180,7 @@ export async function getPersonAccount(): Promise<any> {
           resolve(result.records);
         } else {
           // insert an account and use the retrieved id
-          const accountList: any = await createAccountList(1);
+          const accountList: IAccount[] = await createAccountList(1);
 
           resolve(accountList);
         }
