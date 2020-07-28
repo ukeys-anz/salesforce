@@ -247,19 +247,9 @@
                 <label>Processing error</label>
             </value>
             <value>
-                <fullName>49</fullName>
-                <default>false</default>
-                <label>Unauthorised Information disclosure</label>
-            </value>
-            <value>
                 <fullName>50</fullName>
                 <default>false</default>
                 <label>Data Breach</label>
-            </value>
-            <value>
-                <fullName>51</fullName>
-                <default>false</default>
-                <label>Customer Authentication</label>
             </value>
             <value>
                 <fullName>52</fullName>
@@ -447,6 +437,36 @@
                 <label>Outcome not in customer&apos;s favour</label>
             </value>
             <value>
+                <fullName>89</fullName>
+                <default>false</default>
+                <label>Card Scheme Disputes</label>
+            </value>
+            <value>
+                <fullName>90</fullName>
+                <default>false</default>
+                <label>ATM Disputes</label>
+            </value>
+            <value>
+                <fullName>91</fullName>
+                <default>false</default>
+                <label>NPP/Pay Anyone Disputes</label>
+            </value>
+            <value>
+                <fullName>92</fullName>
+                <default>false</default>
+                <label>Mistaken Internet Payment</label>
+            </value>
+            <value>
+                <fullName>49</fullName>
+                <default>false</default>
+                <label>Unauthorised Information disclosure</label>
+            </value>
+            <value>
+                <fullName>51</fullName>
+                <default>false</default>
+                <label>Customer Authentication</label>
+            </value>
+            <value>
                 <fullName>88</fullName>
                 <default>false</default>
                 <label>Third Party receiving mail</label>
@@ -619,6 +639,22 @@
             <valueName>41</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>20</controllingFieldValue>
+            <valueName>89</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>20</controllingFieldValue>
+            <valueName>90</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>20</controllingFieldValue>
+            <valueName>91</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>20</controllingFieldValue>
+            <valueName>92</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>19</controllingFieldValue>
             <valueName>42</valueName>
         </valueSettings>
@@ -676,11 +712,11 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>8</controllingFieldValue>
-            <valueName>49</valueName>
+            <valueName>50</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>8</controllingFieldValue>
-            <valueName>50</valueName>
+            <valueName>49</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>8</controllingFieldValue>
