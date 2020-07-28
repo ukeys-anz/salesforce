@@ -222,19 +222,14 @@
                 <label>Credit file enquiry dispute</label>
             </value>
             <value>
-                <fullName>45</fullName>
-                <default>false</default>
-                <label>Payment system down time</label>
-            </value>
-            <value>
                 <fullName>46</fullName>
                 <default>false</default>
-                <label>Failed payments</label>
+                <label>Telegraphic Transfer failed/rejected/delayed</label>
             </value>
             <value>
-                <fullName>48</fullName>
+                <fullName>45</fullName>
                 <default>false</default>
-                <label>Processing error</label>
+                <label>Cheque dishonour/honour process or policy</label>
             </value>
             <value>
                 <fullName>44</fullName>
@@ -247,14 +242,19 @@
                 <label>Deposit or withdrawal incorrect or not actioned</label>
             </value>
             <value>
-                <fullName>47</fullName>
+                <fullName>48</fullName>
                 <default>false</default>
-                <label>Direct Debit/Credit set up, change or cancellation</label>
+                <label>Garnishee order</label>
             </value>
             <value>
                 <fullName>50</fullName>
                 <default>false</default>
-                <label>Data Breach</label>
+                <label>Payment system fault/outage</label>
+            </value>
+            <value>
+                <fullName>47</fullName>
+                <default>false</default>
+                <label>Direct Debit/Credit set up, change or cancellation</label>
             </value>
             <value>
                 <fullName>52</fullName>
@@ -668,15 +668,11 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>10</controllingFieldValue>
-            <valueName>45</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>10</controllingFieldValue>
             <valueName>46</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>10</controllingFieldValue>
-            <valueName>48</valueName>
+            <valueName>45</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>10</controllingFieldValue>
@@ -685,6 +681,14 @@
         <valueSettings>
             <controllingFieldValue>10</controllingFieldValue>
             <valueName>58</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>10</controllingFieldValue>
+            <valueName>48</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>10</controllingFieldValue>
+            <valueName>50</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>10</controllingFieldValue>
@@ -713,10 +717,6 @@
         <valueSettings>
             <controllingFieldValue>14</controllingFieldValue>
             <valueName>87</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>8</controllingFieldValue>
-            <valueName>50</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>8</controllingFieldValue>
