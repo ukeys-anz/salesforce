@@ -64,7 +64,12 @@
     <standardValue>
         <fullName>14</fullName>
         <default>false</default>
-        <label>Fraud &amp; disputes</label>
+        <label>Fraud &amp; Scams</label>
+    </standardValue>
+    <standardValue>
+        <fullName>20</fullName>
+        <default>false</default>
+        <label>Transaction Disputes</label>
     </standardValue>
     <standardValue>
         <fullName>8</fullName>
