@@ -62,7 +62,7 @@ import STATUS_FIELD from "@salesforce/schema/Case.Status";
 import IS_COMMON_COMPLAINT_FIELD from "@salesforce/schema/Case.IDR_Is_Common__c";
 import IS_REAL_FORM_NEED_FIELD from "@salesforce/schema/Case.IDR_Real_Form_Req__c";
 
-const ERROR_REQUIRED_TITLE = "* Please complete all required fields:\n";
+const ERROR_REQUIRED_TITLE = "Please complete all required fields:\n";
 const ERROR_UNKNOWN_TITLE = "An error has occurred.";
 const SUCCESS = "success";
 const SUCCESS_TITLE = "Complaint has been created successfully.";
@@ -282,7 +282,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   checkAllFields() {
     let requiredFields = this.getRequiredFields();
-    // validate the all the required field data has been provided.
+    // validate that all the required field data has been provided.
     let isFieldValid = [
       ...this.template.querySelectorAll("lightning-input-field")
     ].reduce((isValidSoFar, inputCmp) => {
@@ -324,7 +324,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     ) {
       isFieldValid = false;
       this.missingDataFields +=
-        "* Customer number must be numbers and at least 10 digits long. ";
+        "Customer number must be numbers and at least 10 digits long. ";
     }
     // validate the data in email address fields is correct.
     let isEmailValid = [
@@ -342,7 +342,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
           if (!inputCmp.value.match(emailRegex)) {
             isValidSoFar = false;
             this.missingDataFields +=
-              "* " + requiredFields[getId[0]] + " is invalid. ";
+              requiredFields[getId[0]] + " is invalid. ";
           }
         }
       }
@@ -479,28 +479,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
     const regex = "^[1-9]\\d{0,6}(\\.\\d{1,2})?$|^0\\.(?!0+$)\\d{1,2}$";
     if (!this.financialCompensation.match(regex)) {
       this.missingDataFields +=
-        "* Financial Compensation must be a positive value with up to 7 whole digits and 2 decimal digits. ";
+        "Financial Compensation must be a positive value with up to 7 whole digits and 2 decimal digits. ";
       return false;
     }
     return true;
-  }
-
-  handleError(error) {
-    console.log(error);
-    let msg = ERROR_UNKNOWN_TITLE;
-    if (typeof error === "string") {
-      msg = error.replace(/\.\s?/gm, ".\n");
-    } else if (error.body) {
-      if (Array.isArray(error.body)) {
-        msg = error.body.map((e) => e.message).join(", ");
-      } else if (typeof error.body.message === "string") {
-        msg = error.body.message;
-      }
-    }
-    this.loading = false;
-    this.template.querySelector(".saveButton").disabled = false;
-    /* eslint-disable no-alert */
-    alert(msg);
   }
 
   handleCaseSuccess(event) {
@@ -514,5 +496,37 @@ export default class CreateComplaintLWC extends NavigationMixin(
       detail: { caseId: event }
     });
     this.dispatchEvent(selectEvent);
+  }
+
+  handleError(error) {
+    console.log(error);
+    let msg = ERROR_UNKNOWN_TITLE;
+    if (typeof error === "string") {
+      msg = error.replace(/\.\s?/gm, ".<br><br>");
+    } else if (error.body) {
+      if (Array.isArray(error.body)) {
+        msg = error.body.map((e) => e.message).join(", ");
+      } else if (typeof error.body.message === "string") {
+        msg = error.body.message;
+      }
+    }
+    this.loading = false;
+    this.template.querySelector(".saveButton").disabled = false;
+    this.openModal(msg);
+  }
+
+  showModal = false;
+  modalMessage = ERROR_UNKNOWN_TITLE;
+  modalHeader = "Error";
+
+  openModal(msg) {
+    this.template.querySelector(".slds-card").classList.add("slds-hide");
+    this.modalMessage = msg;
+    this.showModal = true;
+  }
+
+  closeModal() {
+    this.template.querySelector(".slds-hide").classList.remove("slds-hide");
+    this.showModal = false;
   }
 }
