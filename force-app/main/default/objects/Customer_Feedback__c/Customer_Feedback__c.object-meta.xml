@@ -155,10 +155,9 @@
     <enableStreamingApi>true</enableStreamingApi>
     <label>Customer Feedback</label>
     <nameField>
-        <displayFormat>CF-{000000}</displayFormat>
         <label>Customer Feedback Name</label>
         <trackHistory>false</trackHistory>
-        <type>AutoNumber</type>
+        <type>Text</type>
     </nameField>
     <pluralLabel>Customer Feedback</pluralLabel>
     <searchLayouts>
