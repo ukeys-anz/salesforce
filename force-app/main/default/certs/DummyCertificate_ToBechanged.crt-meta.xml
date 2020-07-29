@@ -4,6 +4,6 @@
     <encryptedWithPlatformEncryption>false</encryptedWithPlatformEncryption>
     <expirationDate>2022-02-10T12:00:00.000Z</expirationDate>
     <keySize>2048</keySize>
-    <masterLabel>Salesfoce-Mulesoft CA Certificate</masterLabel>
+    <masterLabel>DummyCertificate_ToBechanged</masterLabel>
     <privateKeyExportable>true</privateKeyExportable>
 </Certificate>

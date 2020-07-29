@@ -114,3 +114,7 @@ Please follow the naming convention for all branches:
 | Develop Branch | Persistent Branch, represents systest                      | N/A          | N/A       | `develop`              |
 | Release Branch | Created at the start of each sprint. Represents a release. | `master`     | `master`  | `release/release-name` |
 | Master Branch  | Persistent Branch, represents Staging & Production         | N/A          | N/A       | `master`               |
+
+##### Integration
+
+- Please use the following [readme](./force-app/main/default/certs/README.md) to configure certificates on salesforce in scratchorgs for integration with Mulesoft **Dev** environment to work.

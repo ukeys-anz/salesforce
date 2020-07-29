@@ -37,7 +37,6 @@ echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
 echo "$(date): Deploy settings..."
 JOB_START_TIME=$(date +%s)
 sfdx force:source:deploy -p force-app/main/default/settings 2>&1 | tee stderr
-sfdx force:mdapi:deploy -d mdapi-source/app-config -w -1 2>&1 | tee stderr
 if [[ ($(cat stderr) == *'ERROR'*) ]]; then
     exit 1
 fi
@@ -70,6 +69,8 @@ y | Y)
     cp .env.example .env.example.original
     mv .env.example .env
     node webdriverURLsetup.js
+    #below will fetch the latest changes from the remote master branch as its the branch specified in salesforce-scripts submodule
+    git submodule update --init --remote
     #Add all the scripts to load data below
     node salesforce-scripts/generateTestData/loadFinancialGoals.js 2>&1 | tee stderr
     # Uncomment the next line (and comment the next) to import products without their related cases
@@ -94,7 +95,7 @@ y | Y)
     JOB_END_TIME=$(date +%s)
     echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
     ;;
-*) ;;
+*) echo "Skipping test data creation" ;;
 esac
 
 ALL_END_TIME=$(date +%s)
