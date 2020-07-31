@@ -162,7 +162,6 @@
     <pluralLabel>Customer Feedback</pluralLabel>
     <searchLayouts>
         <searchResultsAdditionalFields>Account_Name__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>Feedback_Type__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Verbatim__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Advocacy_Rating__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Feedback_Received_Date_Time__c</searchResultsAdditionalFields>

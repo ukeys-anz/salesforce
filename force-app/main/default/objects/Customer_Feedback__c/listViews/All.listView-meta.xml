@@ -3,7 +3,6 @@
     <fullName>All</fullName>
     <columns>NAME</columns>
     <columns>Account_Name__c</columns>
-    <columns>Feedback_Type__c</columns>
     <columns>Verbatim__c</columns>
     <columns>Advocacy_Rating__c</columns>
     <columns>Feedback_Received_Date_Time__c</columns>
