@@ -1,6 +1,7 @@
 @isTest
 private class TestCustomerFeedbackTriggerHandler {
-  //Tests if the Account Id is populated correctly based on OCV ID during Customer Feedback insert
+  //GIVEN a feedback record with existing OCV ID WHEN the record is inserted THEN corresponding account Id is inserted in record.
+  //GIVEN a feedback record with non existing OCV ID WHEN the record is inserted THEN insert will fail with error message.
   @isTest
   static void testCustomerFeedbackInsert() {
     Faker faker = new Faker('AU');
