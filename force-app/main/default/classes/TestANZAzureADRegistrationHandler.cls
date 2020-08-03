@@ -7,8 +7,9 @@
 private class TestANZAzureADRegistrationHandler {
   /**
    * @description This method is used to test createUser and updateUser methods from ANZAzureADRegistrationHandler
+   * GIVEN a user record of existing user WHEN the createUser method is called THEN the corresponding user detail is returned.
+   * GIVEN a user record of non existing user WHEN the createUser method is called THEN null value is returned.
    */
-
   static testMethod void testCreateAndUpdateUser() {
     Profile p = [SELECT Id FROM Profile WHERE Name = 'Standard User'];
 
