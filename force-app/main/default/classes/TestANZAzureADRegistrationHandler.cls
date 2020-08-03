@@ -10,7 +10,8 @@ private class TestANZAzureADRegistrationHandler {
    * GIVEN a user record of existing user WHEN the createUser method is called THEN the corresponding user detail is returned.
    * GIVEN a user record of non existing user WHEN the createUser method is called THEN null value is returned.
    */
-  static testMethod void testCreateAndUpdateUser() {
+  @isTest
+  static void testCreateAndUpdateUser() {
     Profile p = [SELECT Id FROM Profile WHERE Name = 'Standard User'];
 
     ANZAzureADRegistrationHandler handler = new ANZAzureADRegistrationHandler();
@@ -29,6 +30,8 @@ private class TestANZAzureADRegistrationHandler {
       new Map<String, String>{ 'unique_name' => 'testFedId' }
     );
 
+    Test.startTest();
+
     //Returns null as there is no user with Federation Id - testFedId
     User u = handler.createUser(null, sampleData);
 
@@ -43,6 +46,8 @@ private class TestANZAzureADRegistrationHandler {
 
     //dummy call to updateUser for code coverage
     handler.updateUser(testUser.Id, null, sampleData);
+
+    Test.stopTest();
 
     System.assertEquals(null, u);
     System.assertEquals(testUser.Id, u1.Id);
