@@ -51,6 +51,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.Fabric_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.FinServ__KYCStatus__c</field>
         <readable>true</readable>
     </fieldPermissions>
