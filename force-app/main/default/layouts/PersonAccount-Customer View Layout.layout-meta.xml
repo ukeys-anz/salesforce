@@ -277,13 +277,22 @@
         <sortField>CASES.CREATED_DATE_DATE_ONLY</sortField>
         <sortOrder>Desc</sortOrder>
     </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>Feedback_Received_Date_Time__c</fields>
+        <fields>Verbatim__c</fields>
+        <fields>Advocacy_Rating__c</fields>
+        <relatedList>Customer_Feedback__c.Account_Name__c</relatedList>
+        <sortField>Feedback_Received_Date_Time__c</sortField>
+        <sortOrder>Desc</sortOrder>
+    </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>true</showHighlightsPanel>
     <showInteractionLogPanel>true</showInteractionLogPanel>
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2N000000kbbd</masterLabel>
+        <masterLabel>00h2N000000eCBs</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

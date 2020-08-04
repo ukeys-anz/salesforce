@@ -10,15 +10,6 @@
         <pageOrSobjectType>Case</pageOrSobjectType>
     </actionOverrides>
     <actionOverrides>
-        <actionName>View</actionName>
-        <comment>Action override created by Lightning App Builder during activation.</comment>
-        <content>Person_Account_Lightning_Page_ANZX</content>
-        <formFactor>Large</formFactor>
-        <skipRecordTypeSelect>false</skipRecordTypeSelect>
-        <type>Flexipage</type>
-        <pageOrSobjectType>Account</pageOrSobjectType>
-    </actionOverrides>
-    <actionOverrides>
         <actionName>Tab</actionName>
         <content>Coach_Home_Page</content>
         <formFactor>Large</formFactor>
@@ -34,6 +25,15 @@
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>Flexipage</type>
         <pageOrSobjectType>Knowledge__kav</pageOrSobjectType>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>Person_Account_Lightning_Page_ANZX</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>Account</pageOrSobjectType>
     </actionOverrides>
     <brand>
         <headerColor>#004165</headerColor>
@@ -81,6 +81,7 @@
     <tabs>Knowledge__kav</tabs>
     <tabs>standard-report</tabs>
     <tabs>standard-Dashboard</tabs>
+    <tabs>Customer_Feedback__c</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Coach_App_UtilityBar</utilityBar>
 </CustomApplication>
