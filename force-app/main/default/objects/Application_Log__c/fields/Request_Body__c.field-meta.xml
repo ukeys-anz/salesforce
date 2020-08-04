@@ -3,6 +3,7 @@
     <fullName>Request_Body__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted</complianceGroup>
+    <description>Body containing failed request details</description>
     <externalId>false</externalId>
     <label>Request Body</label>
     <length>32768</length>

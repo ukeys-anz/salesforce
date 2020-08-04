@@ -89,9 +89,7 @@ jobs:
       - name: Install plugin
         working-directory: plugin
         shell: bash
-        run: |
-          yarn install
-          yarn prepack
+        run: yarn install
 
       - name: "Create auth files with SFDX_URL secret"
         shell: bash
@@ -99,6 +97,11 @@ jobs:
 
       - name: "Authenticate all orgs in SFDX CLI"
         run: sfdx force:auth:sfdxurl:store -a staging --sfdxurlfile=./SFDX_URL_STAGING.txt
+
+      - name: Reindex sidebar
+        run: |
+          npm i lodash@4.17.19
+          node reindex
 
       - name: Generate schema and access docs
         working-directory: salesforce
@@ -130,7 +133,7 @@ jobs:
       - name: Create new branch on anzx/salesforce-docs
         uses: EndBug/add-and-commit@v4
         with:
-          add: "docs/static docs/governance"
+          add: "docs/static docs/governance sidebars.js"
           author_name: github-actions
           message: "Update salesforce documentation"
           ref: "doc/plugin-update"

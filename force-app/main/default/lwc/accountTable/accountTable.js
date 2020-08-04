@@ -1,4 +1,4 @@
-import { LightningElement, track, wire } from "lwc";
+import { LightningElement, track } from "lwc";
 import getAccInfo from "@salesforce/apex/accountTableServerController.getAccInfo";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 

@@ -238,6 +238,16 @@
         <endAddress>59.154.134.109</endAddress>
         <startAddress>59.154.134.109</startAddress>
     </loginIpRanges>
+    <loginIpRanges>
+        <description>Qualtrics</description>
+        <endAddress>139.60.152.22</endAddress>
+        <startAddress>139.60.152.0</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Qualtrics</description>
+        <endAddress>162.247.216.22</endAddress>
+        <startAddress>162.247.216.0</startAddress>
+    </loginIpRanges>
     <recordTypeVisibilities>
         <default>true</default>
         <recordType>Account.Business_Account</recordType>

@@ -17,16 +17,19 @@ interface IFinGoal {
  * @description Creates new Financial Goal records depending on the count passed.
  * @param amount  Number of Fin. Goals to be created
  */
-export async function createFinGoalList(amount: number = 1, primaryOwner: any) {
+export async function createFinGoalList(
+  amount = 1,
+  primaryOwner: any
+): Promise<any> {
   return new Promise<string>(async (resolve) => {
-    let finGoals: any = [];
-    let idList: any = [];
+    const finGoals: IFinGoal[] = [];
+    const idList: string[] = [];
 
     // Create Savings Accounts to map to new Goals being created
     createFinAccountList(amount, "SavingsAccount", primaryOwner).then(
       (savingsAccList: any) => {
         for (let i = 0; i < savingsAccList.length; i++) {
-          let finGoal: IFinGoal = {
+          const finGoal: IFinGoal = {
             Name: faker.random.arrayElement([
               "Buy New Car",
               "Build a Home",
@@ -41,8 +44,7 @@ export async function createFinGoalList(amount: number = 1, primaryOwner: any) {
             Financial_Account__c: savingsAccList[i].Id,
             Start_Date__c: faker.date.past(2),
             FinServ__TargetDate__c: faker.date.future(2),
-            FinServ__ActualValue__c:
-              savingsAccList[i].FinServ__CurrentPostedBalance__c,
+            FinServ__ActualValue__c: savingsAccList[i].FinServ__Balance__c,
             FinServ__TargetValue__c: parseFloat(
               faker.commerce.price(55000, 80000, 2)
             ),
@@ -89,7 +91,7 @@ export async function createFinGoalList(amount: number = 1, primaryOwner: any) {
 /**
  * @description extracts financial Goal record if it is already in the system or creates new one.
  */
-export async function getFinGoal() {
+export async function getFinGoal(): Promise<any> {
   // Check if there are existing financial goals, if not create new ones
   return new Promise<string>((resolve) => {
     jsForce.query(
@@ -101,7 +103,7 @@ export async function getFinGoal() {
         if (result.records.length > 0) {
           resolve(result.records);
         } else {
-          let finGoalList: any = await createFinGoalList(1, null);
+          const finGoalList: any = await createFinGoalList(1, null);
           resolve(finGoalList);
         }
       }

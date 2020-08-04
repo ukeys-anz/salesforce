@@ -3,6 +3,7 @@
     <fullName>End_Time__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted</complianceGroup>
+    <description>Time in hours and minutes that the case left a given Status</description>
     <externalId>false</externalId>
     <label>End Time</label>
     <required>false</required>

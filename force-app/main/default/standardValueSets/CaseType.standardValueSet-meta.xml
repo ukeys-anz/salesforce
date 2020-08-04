@@ -4,42 +4,77 @@
     <standardValue>
         <fullName>9</fullName>
         <default>false</default>
-        <label>Service Quality</label>
+        <label>Service quality</label>
+    </standardValue>
+    <standardValue>
+        <fullName>13</fullName>
+        <default>false</default>
+        <label>Channel accessibility</label>
+    </standardValue>
+    <standardValue>
+        <fullName>18</fullName>
+        <default>false</default>
+        <label>Account set-up &amp; maintenance</label>
     </standardValue>
     <standardValue>
         <fullName>2</fullName>
         <default>false</default>
-        <label>Rates, Fees and Charges</label>
+        <label>Fees, interest, rewards</label>
     </standardValue>
     <standardValue>
         <fullName>4</fullName>
         <default>false</default>
-        <label>Financial Difficulty</label>
+        <label>Financial difficulty &amp; hardship</label>
+    </standardValue>
+    <standardValue>
+        <fullName>17</fullName>
+        <default>false</default>
+        <label>Collections</label>
     </standardValue>
     <standardValue>
         <fullName>6</fullName>
         <default>false</default>
-        <label>Product</label>
+        <label>Lending fulfilment</label>
+    </standardValue>
+    <standardValue>
+        <fullName>15</fullName>
+        <default>false</default>
+        <label>Product features, offers, sales</label>
+    </standardValue>
+    <standardValue>
+        <fullName>16</fullName>
+        <default>false</default>
+        <label>Closure process</label>
     </standardValue>
     <standardValue>
         <fullName>5</fullName>
         <default>false</default>
-        <label>Process</label>
+        <label>Credit assessment</label>
+    </standardValue>
+    <standardValue>
+        <fullName>19</fullName>
+        <default>false</default>
+        <label>Credit reporting</label>
     </standardValue>
     <standardValue>
         <fullName>10</fullName>
         <default>false</default>
-        <label>Transaction and Payments</label>
+        <label>Transactions &amp; payments</label>
+    </standardValue>
+    <standardValue>
+        <fullName>14</fullName>
+        <default>false</default>
+        <label>Fraud &amp; Scams</label>
+    </standardValue>
+    <standardValue>
+        <fullName>20</fullName>
+        <default>false</default>
+        <label>Transaction Disputes</label>
     </standardValue>
     <standardValue>
         <fullName>8</fullName>
         <default>false</default>
         <label>Privacy and Confidentiality</label>
-    </standardValue>
-    <standardValue>
-        <fullName>3</fullName>
-        <default>false</default>
-        <label>Disclosure</label>
     </standardValue>
     <standardValue>
         <fullName>1</fullName>
@@ -52,9 +87,14 @@
         <label>Insurance Claims</label>
     </standardValue>
     <standardValue>
+        <fullName>3</fullName>
+        <default>false</default>
+        <label>Disclosure</label>
+    </standardValue>
+    <standardValue>
         <fullName>12</fullName>
         <default>false</default>
-        <label>About ANZ</label>
+        <label>Organisational Structure &amp; Marketing</label>
     </standardValue>
     <standardValue>
         <fullName>11</fullName>

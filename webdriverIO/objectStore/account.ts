@@ -29,6 +29,7 @@ interface IAccount {
   BillingState: string;
   BillingPostalCode: string;
   BillingCountry: string;
+  Id?: string;
 }
 
 /**
@@ -38,15 +39,15 @@ interface IAccount {
  * @param recordType Record Type of the account
  */
 export async function createAccountList(
-  amount: number = 1,
-  recordType: string = "PersonAccount"
-) {
+  amount = 1,
+  recordType = "PersonAccount"
+): Promise<any> {
   return new Promise(async (resolve) => {
-    let accounts = [];
-    let idList: any = [];
-    let recTypeId = await getRecordTypeID("Account", recordType);
+    const accounts = [];
+    const idList: string[] = [];
+    const recTypeId = await getRecordTypeID("Account", recordType);
     for (let i = 0; i < amount; i++) {
-      let account: IAccount = {
+      const account: IAccount = {
         RecordTypeId: recTypeId,
         FirstName: faker.name.firstName(),
         LastName: faker.name.lastName(),
@@ -147,8 +148,8 @@ export async function createAccountList(
       }
 
       //Loop through the result to create a list of ids
-      result.forEach((item: any, index: any) => {
-        idList.push(item.id);
+      result.forEach((item: IAccount) => {
+        idList.push(item.Id!);
       });
 
       //Retrieve the new accounts using the created id list and return the results
@@ -165,9 +166,9 @@ export async function createAccountList(
 /**
  * @description extracts person account record if is already in the system or creates new one.
  */
-export async function getPersonAccount() {
+export async function getPersonAccount(): Promise<any> {
   // Check if there are existing person accounts, if not create new ones
-  return new Promise<string>((resolve) => {
+  return new Promise<any>((resolve) => {
     jsForce.query(
       "SELECT Id, Name FROM Account WHERE RecordType.DeveloperName = 'PersonAccount' ORDER BY CreatedDate LIMIT 1",
       async function (err: any, result: any) {
@@ -179,7 +180,7 @@ export async function getPersonAccount() {
           resolve(result.records);
         } else {
           // insert an account and use the retrieved id
-          let accountList: any = await createAccountList(1);
+          const accountList: IAccount[] = await createAccountList(1);
 
           resolve(accountList);
         }

@@ -12,7 +12,7 @@ import { descent } from "../../../../pages/complaintMgt/common/nonCustomerCompla
 
 /*** DECLARATIONS ***/
 let caseId: any;
-let recordType: string = "Non_Customer_Complaint";
+const recordType = "Non_Customer_Complaint";
 
 describe("Non Customer Record Edit", () => {
   before(() => {

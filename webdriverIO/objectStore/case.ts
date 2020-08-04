@@ -1,7 +1,7 @@
 import { jsForce } from "../utilities/jsforce";
 import * as faker from "faker";
 import { getRecordTypeID, getUserByAlias } from "./util";
-import { getFinAccount } from "./financialAccount";
+import IFinAccount, { getFinAccount } from "./financialAccount";
 import CustomError from "../utilities/customErrorHandler";
 
 interface ICase {
@@ -17,6 +17,7 @@ interface ICase {
   FinServ__FinancialAccount__c: string;
   ParentId: string;
   OwnerId?: string;
+  Id?: string;
 }
 
 /**
@@ -26,23 +27,23 @@ interface ICase {
  * @param recordType Record Type of the case
  */
 export function createCaseList(
-  amount: number = 1,
-  recordType: string = "General_Inquiry",
+  amount = 1,
+  recordType = "General_Inquiry",
   alias: string
-) {
+): Promise<any> {
   return new Promise(async (resolve) => {
-    let finAccountList: any = await getFinAccount();
-    let recordTypeId: string = await getRecordTypeID("Case", recordType);
-    let parentCaseList: any = await getParentCase(
+    const finAccountList: IFinAccount[] = await getFinAccount();
+    const recordTypeId: string = await getRecordTypeID("Case", recordType);
+    const parentCaseList: any = await getParentCase(
       recordTypeId,
       finAccountList[0].FinServ__PrimaryOwner__c
     );
-    let cases: ICase[] = [];
-    let idList: any = [];
-    let user: any = await getUserByAlias(alias);
+    const cases: ICase[] = [];
+    const idList: string[] = [];
+    const user: any = await getUserByAlias(alias);
 
     for (let i = 0; i < amount; i++) {
-      let caseRecord: ICase = {
+      const caseRecord: ICase = {
         Description: faker.lorem.text(),
         Status: faker.random.arrayElement([
           "Open",
@@ -80,7 +81,7 @@ export function createCaseList(
         ]),
         RecordTypeId: recordTypeId,
         AccountId: finAccountList[0].FinServ__PrimaryOwner__c,
-        FinServ__FinancialAccount__c: finAccountList[0].Id,
+        FinServ__FinancialAccount__c: finAccountList[0].Id!,
         ParentId: parentCaseList[0].Id,
         OwnerId: user.Id
       };
@@ -105,8 +106,8 @@ export function createCaseList(
           );
         }
         //Loop through the result to create a list of ids
-        result.forEach((item: any, index: any) => {
-          idList.push(item.id);
+        result.forEach((item: ICase) => {
+          idList.push(item.Id!);
         });
         //Retrieve the new cases using the created id list and return the results
         jsForce.sobject("Case").retrieve(idList, (err: any, result: any) => {
@@ -125,7 +126,10 @@ export function createCaseList(
  * @param recordTypeId case general inquiry record type id
  * @param accountId Account id from previous func
  */
-export async function getParentCase(recordTypeId: any, accountId: any) {
+export async function getParentCase(
+  recordTypeId: string,
+  accountId: string
+): Promise<any> {
   if (!recordTypeId || !accountId) {
     throw new CustomError("Record Type ID or Account ID is null");
   }
@@ -140,9 +144,9 @@ export async function getParentCase(recordTypeId: any, accountId: any) {
         if (result.records.length > 0) {
           resolve(result.records);
         } else {
-          let cases: ICase[] = [];
-          let idList: any = [];
-          let caseRecord: ICase = {
+          const cases: ICase[] = [];
+          const idList: string[] = [];
+          const caseRecord: ICase = {
             Description: faker.lorem.text(),
             Status: faker.random.arrayElement([
               "Open",
@@ -204,8 +208,8 @@ export async function getParentCase(recordTypeId: any, accountId: any) {
                 );
               }
               //Loop through the result to create a list of ids
-              result.forEach((item: any, index: any) => {
-                idList.push(item.id);
+              result.forEach((item: ICase) => {
+                idList.push(item.Id!);
               });
               //Retrieve the new cases using the created id list and return the results
               jsForce
@@ -230,18 +234,18 @@ export async function getParentCase(recordTypeId: any, accountId: any) {
  * @param recordType Record Type of the case
  */
 export async function createBlankCase(
-  amount: number = 1,
+  amount = 1,
   recordType: string,
   alias: string
-) {
+): Promise<any> {
   return new Promise(async (resolve) => {
-    let recordTypeId: string = await getRecordTypeID("Case", recordType);
-    let user: any = await getUserByAlias(alias);
-    let cases: any = [];
-    let idList: any = [];
+    const recordTypeId: string = await getRecordTypeID("Case", recordType);
+    const user: any = await getUserByAlias(alias);
+    const cases: any = [];
+    const idList: string[] = [];
 
     for (let i = 0; i < amount; i++) {
-      let caseRecord = {
+      const caseRecord = {
         RecordTypeId: recordTypeId,
         OwnerId: user.Id
       };
@@ -267,8 +271,8 @@ export async function createBlankCase(
         }
 
         //Loop through the result to create a list of ids
-        result.forEach((item: any, index: any) => {
-          idList.push(item.id);
+        result.forEach((item: ICase) => {
+          idList.push(item.Id!);
         });
 
         //Retrieve the new cases using the created id list and return the results

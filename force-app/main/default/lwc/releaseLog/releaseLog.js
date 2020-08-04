@@ -28,7 +28,7 @@ export default class ReleaseLog extends LightningElement {
             if (result[i].Changes__c) {
               result[i].Changes__c = result[i].Changes__c.split("\n").filter(
                 (el) => {
-                  return el != false;
+                  return el !== false;
                 }
               );
             }
@@ -37,14 +37,14 @@ export default class ReleaseLog extends LightningElement {
               result[i].Additions__c = result[i].Additions__c.split(
                 "\n"
               ).filter((el) => {
-                return el != false;
+                return el !== false;
               });
             }
 
             if (result[i].Fixes__c) {
               result[i].Fixes__c = result[i].Fixes__c.split("\n").filter(
                 (el) => {
-                  return el != false;
+                  return el !== false;
                 }
               );
             }
@@ -72,7 +72,7 @@ export default class ReleaseLog extends LightningElement {
     }
 
     //Hide the view more button if we've run out of pages to load
-    if (this.currentPage == this.totalPages) {
+    if (this.currentPage === this.totalPages) {
       this.loadMore = false;
     }
   }

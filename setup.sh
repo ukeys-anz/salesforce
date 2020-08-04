@@ -8,63 +8,99 @@ set -e
 export SFDX_DOMAIN_RETRY=0
 
 read -rp "Enter scratch org alias (optional): " scratchorgalias
+read -rp "Is test data needed for this scratch org (y/n)? " testdata
 
 ALL_START_TIME=$(date +%s)
 
 echo "$(date): Create scratch org..."
 JOB_START_TIME=$(date +%s)
-if [ -n "$scratchorgalias" ]
-    then sfdx force:org:create -f config/snapshot-scratch-def-template.json -d 30 --setdefaultusername -w 10 --setalias "$scratchorgalias" 2>&1 | tee stderr
-    else sfdx force:org:create -f config/snapshot-scratch-def-template.json -d 30 --setdefaultusername -w 10 2>&1 | tee stderr
+if [ -n "$scratchorgalias" ]; then
+    sfdx force:org:create -f config/snapshot-scratch-def-template.json -d 30 --setdefaultusername -w 10 --setalias "$scratchorgalias" 2>&1 | tee stderr
+else
+    sfdx force:org:create -f config/snapshot-scratch-def-template.json -d 30 --setdefaultusername -w 10 2>&1 | tee stderr
 fi
-if [[ ($(cat stderr) == *'ERROR'* ) && ( $(cat stderr) != *'Some commands may not work as expected until the My Domain DNS propagation'* ) ]]; then
+if [[ ($(cat stderr) == *'ERROR'*) && ($(cat stderr) != *'Some commands may not work as expected until the My Domain DNS propagation'*) ]]; then
     exit 1
-fi    
+fi
 JOB_END_TIME=$(date +%s)
 echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
 
-echo "$(date): Assign Pset and deploy settings..."
+echo "$(date): Assign Pset..."
 JOB_START_TIME=$(date +%s)
 sfdx force:user:permset:assign -n FinancialServicesCloudStandard 2>&1 | tee stderr
-sfdx force:source:deploy -p force-app/main/default/settings 2>&1 | tee stderr
-sfdx force:mdapi:deploy -d mdapi-source/app-config -w -1 2>&1 | tee stderr
-if [[ ($(cat stderr) == *'ERROR'* ) ]]; then
+if [[ ($(cat stderr) == *'ERROR'*) ]]; then
     exit 1
-fi 
+fi
+JOB_END_TIME=$(date +%s)
+echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
+
+echo "$(date): Deploy settings..."
+JOB_START_TIME=$(date +%s)
+sfdx force:source:deploy -p force-app/main/default/settings 2>&1 | tee stderr
+if [[ ($(cat stderr) == *'ERROR'*) ]]; then
+    exit 1
+fi
 JOB_END_TIME=$(date +%s)
 echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
 
 echo "$(date): Push metadata..."
 JOB_START_TIME=$(date +%s)
 sfdx force:source:push 2>&1 | tee stderr
-if [[ ($(cat stderr) == *'ERROR'* ) ]]; then
+if [[ ($(cat stderr) == *'ERROR'*) ]]; then
     exit 1
-fi 
+fi
 JOB_END_TIME=$(date +%s)
 echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
 
-echo "$(date): Import custom settings and sample records..."
+echo "$(date): Import post-deployment plan..."
 JOB_START_TIME=$(date +%s)
 sfdx force:data:tree:import -p data/Post-Plan.json 2>&1 | tee stderr
-# Uncomment the next line (and comment the next) to import products without their related cases
-#sfdx force:data:bulk:upsert --sobjecttype Product2 --csvfile data/IDR-ANZ-Products.csv --externalid ANZ_Product_Code__c --wait 2 2>&1 | tee stderr
-sfdx force:data:tree:import -p data/IDR-Product2-Case-plan.json 2>&1 | tee stderr
-if [[ ($(cat stderr) == *'ERROR'* ) ]]; then
+if [[ ($(cat stderr) == *'ERROR'*) ]]; then
     exit 1
-fi 
+fi
 JOB_END_TIME=$(date +%s)
 echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
 
-echo "Creating Coach user"
-node createUser.js --profile "coach"
+case ${testdata:0:1} in
+y | Y)
+    echo "$(date): Import test data and users..."
+    JOB_START_TIME=$(date +%s)
+    tsc --build
+    cp .env.example .env.example.original
+    mv .env.example .env
+    node webdriverURLsetup.js
+    #below will fetch the latest changes from the remote master branch as its the branch specified in salesforce-scripts submodule
+    git submodule update --init --remote
+    #Add all the scripts to load data below
+    sfdx force:user:permset:assign -n Read_Write_Customer_Details
+    node salesforce-scripts/generateTestData/loadFinancialGoals.js 2>&1 | tee stderr
+    # Uncomment the next line (and comment the next) to import products without their related cases
+    #sfdx force:data:bulk:upsert --sobjecttype Product2 --csvfile data/IDR-ANZ-Products.csv --externalid ANZ_Product_Code__c --wait 2 2>&1 | tee stderr
+    sfdx force:data:tree:import -p data/IDR-Product2-Case-plan.json 2>&1 | tee stderr
+    if [[ ($(cat stderr) == *'ERROR'*) ]]; then
+        mv .env.example.original .env.example
+        exit 1
+    fi
+    rm .env
+    mv .env.example.original .env.example
 
-echo "Creating IDR user"
-node createUser.js --profile "idr level 3"
+    echo "Creating Coach user"
+    node createUser.js --profile "coach"
 
-#Create users json for webdriverIO
-node createUserJsonList.js
+    echo "Creating IDR user"
+    node createUser.js --profile "idr level 3"
+
+    echo "Create users json for webdriverIO"
+    node createUserJsonList.js
+
+    JOB_END_TIME=$(date +%s)
+    echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
+    ;;
+*) echo "Skipping test data creation" ;;
+esac
 
 ALL_END_TIME=$(date +%s)
 echo "$(date): All done in $((ALL_END_TIME - ALL_START_TIME)) s."
+
 echo "Open scratch org..."
 sfdx force:org:open

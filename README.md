@@ -77,7 +77,7 @@ When you raise a PR against develop or master, the following three jobs run:
 1. **Package and Verify**
    This will build a package that only contains your changes and runs a deployment to systest (develop) or staging (master) with the _check only_ flag set to `TRUE`. This ensures your changes will deploy successfully, and it runs all local tests to ensure we remain compliant in regards to minimum required test coverage.
 2. **Lint**
-   This step lints all of the files within our project and ensures they are compliant to the Prettier styling convention. This includes LWC, Aura and through the Apex Plugin it also lints apex files. This ensures consistency in the way we write code, makes PRs easier to read and extinguishes disagreements over coding styles and formats.
+   This step lints all of the files within our project and ensures they are compliant to the Prettier styling convention & ESLint coding rules. For Prettier this includes LWC, Aura and through the Apex Plugin it also lints apex files and for ESLint it is LWC and TypScript files. This ensures consistency and best practise in the way we write code, makes PRs easier to read and extinguishes disagreements over coding styles and formats.
 3. **Scan**
    PMD is used to run a code scan to detect poorly written or vulnerable code, as well as ensuring our code conforms to the ApexDoc code documentation specs.
 
@@ -114,3 +114,7 @@ Please follow the naming convention for all branches:
 | Develop Branch | Persistent Branch, represents systest                      | N/A          | N/A       | `develop`              |
 | Release Branch | Created at the start of each sprint. Represents a release. | `master`     | `master`  | `release/release-name` |
 | Master Branch  | Persistent Branch, represents Staging & Production         | N/A          | N/A       | `master`               |
+
+##### Integration
+
+- Please use the following [readme](./force-app/main/default/certs/README.md) to configure certificates on salesforce in scratchorgs for integration with Mulesoft **Dev** environment to work.

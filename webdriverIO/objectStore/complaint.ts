@@ -26,6 +26,7 @@ interface ICase {
   IDR_Is_Written_Resp_Required__c: string;
   IDR_NC_Is_Consent_Obtained__c: boolean;
   OwnerId?: string;
+  Id?: string;
 }
 
 /**
@@ -35,17 +36,17 @@ interface ICase {
  * @param recordType Record Type of the case
  */
 export function createCaseList(
-  amount: number = 1,
-  recordType: string = "Non_Customer_Complaint",
+  amount = 1,
+  recordType = "Non_Customer_Complaint",
   alias: string
-) {
+): any {
   return new Promise(async (resolve) => {
-    let cases: ICase[] = [];
-    let user: any = await getUserByAlias(alias);
+    const cases: ICase[] = [];
+    const user: any = await getUserByAlias(alias);
 
-    let idList: any = [];
+    const idList: string[] = [];
     for (let i = 0; i < amount; i++) {
-      let mockCase: ICase = {
+      const mockCase: ICase = {
         IDR_Complainant_Type__c: "1",
         Type: "2",
         IDR_Is_Common__c: faker.random.boolean(),
@@ -103,7 +104,7 @@ export function createCaseList(
         //Loop through the result to create a list of ids
         result.forEach((item: any) => {
           if (item.success) {
-            idList.push(item.id);
+            idList.push(item.Id);
           }
         });
         //Retrieve the new accounts using the created id list and return the results
@@ -119,7 +120,7 @@ export function createCaseList(
 }
 
 //This will be used for new scenario
-export const getCase = (devName: string) => {
+export const getCase = (devName: string): any => {
   return new Promise<string>((resolve) => {
     jsForce.query(
       `SELECT Max(CaseNumber) ID FROM Case where Status='Open' and RecordTypeId IN (SELECT Id FROM RecordType WHERE IsActive = TRUE AND sObjectType='Case' AND DeveloperName='${devName}')`,

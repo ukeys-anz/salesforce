@@ -336,6 +336,7 @@ public with sharing class IDRCaseActions {
             Case.IDR_NC_Age__c,
             c.IDR_NC_Age__c
           ),
+          Non_Financial_Remedy__c = c.IDR_Non_Financial_Remedy__c,
           Agent_License_Number__c = c.IDR_AuthRep_Licence_Number__c,
           Agent_License_Type__c = IDRCaseActions.getPicklistLabel(
             Case.IDR_AuthRep_Licence_or_registration_type__c,
@@ -396,8 +397,18 @@ public with sharing class IDRCaseActions {
     }
     if (!idrCaseEscalations.isEmpty()) {
       List<Database.SaveResult> results = EventBus.publish(idrCaseEscalations);
+      Lib_SystemLog log = new Lib_SystemLog(
+        IDRCaseActions.class.getName(),
+        'escalateToCFMS'
+      );
+      log.addDatabaseSaveResult(
+        'IDR_CRC_Escalation_Event__e',
+        results,
+        idrCaseEscalations
+      );
+      log.insertLog();
     }
-    //Todo handle errors if needed.
+    //Todo handle errors further if needed.
   }
 
   /**
@@ -435,9 +446,20 @@ public with sharing class IDRCaseActions {
     }
     if (!idrNotifications.isEmpty()) {
       List<Database.SaveResult> results = EventBus.publish(idrNotifications);
+      Lib_SystemLog log = new Lib_SystemLog(
+        IDRCaseActions.class.getName(),
+        'sendNotifications'
+      );
+      log.addDatabaseSaveResult(
+        'IDR_Notification_Event__e',
+        results,
+        idrNotifications
+      );
+      log.insertLog();
     }
-    //Todo handle errors if needed.
+    //Todo handle errors further if needed.
   }
+
   /**
    * @description isIDRComplaintType check if record type is of IDR type.
    * As this Trigger will be used across various teams we identify case record based on IDR record Type.
