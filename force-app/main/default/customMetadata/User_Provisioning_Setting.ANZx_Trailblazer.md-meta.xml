@@ -4,15 +4,15 @@
     <protected>false</protected>
     <values>
         <field>Permission_Set_Groups__c</field>
-        <value xsi:type="xsd:string">MyTrailhead_Learner;</value>
+        <value xsi:nil="true"/>
     </values>
     <values>
         <field>Permission_Sets__c</field>
-        <value xsi:type="xsd:string">Enforce_SSO;Trailblazer;</value>
+        <value xsi:type="xsd:string">Enforce_SSO;</value>
     </values>
     <values>
         <field>Profile_Name__c</field>
-        <value xsi:type="xsd:string">ANZx Standard User</value>
+        <value xsi:type="xsd:string">No Access</value>
     </values>
     <values>
         <field>Public_Groups__c</field>
