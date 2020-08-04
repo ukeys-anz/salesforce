@@ -12,7 +12,7 @@
     </values>
     <values>
         <field>Profile_Name__c</field>
-        <value xsi:type="xsd:string">ANZ Standard User</value>
+        <value xsi:type="xsd:string">No Access</value>
     </values>
     <values>
         <field>Public_Groups__c</field>
