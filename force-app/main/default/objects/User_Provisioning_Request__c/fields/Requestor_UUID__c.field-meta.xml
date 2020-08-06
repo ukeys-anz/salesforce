@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Requestor_UUID__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate</complianceGroup>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information</complianceGroup>
     <description>External ID field to store the Federation ID of the requested user</description>
     <externalId>true</externalId>
     <label>Requestor UUID</label>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_NC_Email__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate</complianceGroup>
     <description>Email of Complainant.
 
 Capture this only if customer is not found in MAUD/CAP-CIS.</description>
@@ -16,3 +15,4 @@ Capture this only if customer is not found in MAUD/CAP-CIS.</description>
     <type>Email</type>
     <unique>false</unique>
 </CustomField>
+    <complianceGroup>Integrity - Accurate;Privacy - Personal Information</complianceGroup>

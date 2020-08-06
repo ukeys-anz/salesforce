@@ -3,8 +3,8 @@
     <fullName>OCV_ID__c</fullName>
     <businessStatus>Active</businessStatus>
     <caseSensitive>false</caseSensitive>
-    <complianceGroup>Integrity - Trusted</complianceGroup>
     <description>Customer Master will employ the use of database sequence while assigning a &#39;One Customer ID&#39; when a new party is created in the Customer Master.</description>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information</complianceGroup>
     <externalId>true</externalId>
     <inlineHelpText>One Customer View ID</inlineHelpText>
     <label>OCV ID</label>

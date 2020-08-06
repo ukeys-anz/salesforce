@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_NC_Business_Name__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate</complianceGroup>
     <description>Where customer complaint relates to a business customer, business name is input.
 
 Business name, for a business account (input for non customers)</description>
@@ -17,3 +16,4 @@ Business name, for a business account (input for non customers)</description>
     <type>Text</type>
     <unique>false</unique>
 </CustomField>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information</complianceGroup>

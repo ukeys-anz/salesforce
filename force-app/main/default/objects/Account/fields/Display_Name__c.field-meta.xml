@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Display_Name__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Trusted</complianceGroup>
     <description>The name the customer prefers to be displayed online which defaults to FinServ_PreferredName_pc unless blank, and if the latter, uses the Name.
 
 Display name is pushed from OCV, and is first+last</description>
@@ -15,3 +14,4 @@ Display name is pushed from OCV, and is first+last</description>
     <type>Text</type>
     <unique>false</unique>
 </CustomField>
+    <complianceGroup>Integrity - Trusted;Privacy - Personal Information</complianceGroup>

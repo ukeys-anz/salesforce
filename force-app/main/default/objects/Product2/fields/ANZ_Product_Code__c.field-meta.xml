@@ -3,7 +3,6 @@
     <fullName>ANZ_Product_Code__c</fullName>
     <businessStatus>Active</businessStatus>
     <caseSensitive>false</caseSensitive>
-    <complianceGroup>Integrity - Accurate</complianceGroup>
     <description>Code identifying the ANZ product related to the Case.
 
 Unique identifier for the ANZ product, from Zafin</description>
@@ -16,3 +15,4 @@ Unique identifier for the ANZ product, from Zafin</description>
     <type>Text</type>
     <unique>true</unique>
 </CustomField>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information</complianceGroup>
