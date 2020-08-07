@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Account_Whitelist__c</fullName>
-    <description>A new line delimited set of Accounts to be whitelisted in DML operations</description>
+    <description>A comma delimited set of Accounts to be whitelisted in DML operations</description>
     <externalId>false</externalId>
-    <inlineHelpText>A new line delimited set of Accounts to be whitelisted in DML operations</inlineHelpText>
+    <inlineHelpText>A comma delimited set of Accounts to be whitelisted in DML operations</inlineHelpText>
     <label>Account Whitelist</label>
     <required>false</required>
     <trackTrending>false</trackTrending>

@@ -1,7 +1,7 @@
 @isTest
 private class TestAccountTriggerHandler {
   @isTest
-  static void testCaseNumberCopy() {
+  static void testAccountWhitelist() {
     Faker faker = new Faker('AU');
     List<String> companyNames = faker.text.realWords(2);
 
