@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Comments</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Trusted</complianceGroup>
+    <complianceGroup>Integrity - Trusted;Privacy - Personal Information</complianceGroup>
     <description>Field to store text comments about a case</description>
     <securityClassification>Confidential</securityClassification>
     <trackTrending>false</trackTrending>

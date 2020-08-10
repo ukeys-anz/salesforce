@@ -2,8 +2,8 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Identification_Type__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate</complianceGroup>
     <description>The type of identification document the customer has used during KYC. List of values (eg: &quot;ABN&quot;, &quot;Drivers License&quot; etc.)</description>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information</complianceGroup>
     <externalId>false</externalId>
     <inlineHelpText>Reference data value for Identification type</inlineHelpText>
     <label>Identification Type</label>

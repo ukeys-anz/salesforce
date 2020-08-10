@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Release_Date__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Uncontrolled</complianceGroup>
+    <complianceGroup>Integrity - Uncontrolled;Privacy - Non Personal Information</complianceGroup>
     <description>Date of the specified release</description>
     <externalId>false</externalId>
     <label>Release Date</label>

@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Release_Notes__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Uncontrolled</complianceGroup>
+    <complianceGroup>Integrity - Uncontrolled;Privacy - Non Personal Information</complianceGroup>
     <description>A URL to extended release notes</description>
     <externalId>false</externalId>
     <inlineHelpText>A URL to extended release notes.</inlineHelpText>

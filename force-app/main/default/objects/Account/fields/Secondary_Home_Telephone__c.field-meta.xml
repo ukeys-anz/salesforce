@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Secondary_Home_Telephone__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Trusted</complianceGroup>
+    <complianceGroup>Integrity - Trusted;Privacy - Personal Information</complianceGroup>
     <description>Secondary Home Telephone</description>
     <externalId>false</externalId>
     <inlineHelpText>Secondary Home Telephone</inlineHelpText>

@@ -2,8 +2,8 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_Office__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate</complianceGroup>
     <description>Office the complaint is being worked in. Taken from User.Division and to me mapped to AD&apos;s Office attribute.</description>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information</complianceGroup>
     <externalId>false</externalId>
     <label>Office</label>
     <length>42</length>

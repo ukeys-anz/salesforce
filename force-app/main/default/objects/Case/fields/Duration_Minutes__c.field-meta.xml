@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Duration_Minutes__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate</complianceGroup>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information</complianceGroup>
     <description>The number of minutes since the issue was raised by the customer until the case is closed. System generated content</description>
     <externalId>false</externalId>
     <label>Duration Minutes</label>
