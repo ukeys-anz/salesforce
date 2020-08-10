@@ -2,6 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Legal_Entitlements__c</fullName>
     <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information</complianceGroup>
     <description>List of values (eg: &quot;PCH, PCC&quot; etc.)
 
 Information borrowed from OCV, for a given account represents customers entitlement/involvement with a financial account</description>
@@ -242,4 +243,3 @@ Information borrowed from OCV, for a given account represents customers entitlem
         </valueSetDefinition>
     </valueSet>
 </CustomField>
-    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information</complianceGroup>

@@ -2,10 +2,10 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Description</fullName>
     <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information</complianceGroup>
     <description>Description of the ANZ product code related to the Case. Automatically filled based on the code selected.
 
 Text description for the ANZ product, from Zafin.</description>
     <securityClassification>Public</securityClassification>
     <trackHistory>false</trackHistory>
 </CustomField>
-    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information</complianceGroup>

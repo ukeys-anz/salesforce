@@ -2,6 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Industry</fullName>
     <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information</complianceGroup>
     <description>The industry the business falls within. Not relevant for individual customer.
 
 Industry of the customer, values from OCV master list</description>
@@ -9,4 +10,3 @@ Industry of the customer, values from OCV master list</description>
     <trackFeedHistory>false</trackFeedHistory>
     <type>Picklist</type>
 </CustomField>
-    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information</complianceGroup>
