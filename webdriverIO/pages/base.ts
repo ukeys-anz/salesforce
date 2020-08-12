@@ -19,7 +19,7 @@ export default class Base {
   loadApp(appName: string): void {
     const view: any = browser.execute(() => {
       if (
-        document.querySelectorAll("div.lafStandardLayoutContainer").length > 0
+        document.querySelectorAll("div.navexDesktopLayoutContainer").length > 0
       ) {
         return "standard";
       } else if (
@@ -33,7 +33,7 @@ export default class Base {
 
     switch (view) {
       case "console":
-        $("nav.appLauncher").click();
+        $("div.appLauncher").click();
         $(
           "/html/body/div[4]/div[2]/div[2]/div[1]/div[1]/one-app-launcher-menu/div/one-app-launcher-search-bar/lightning-input/div/input"
         ).setValue(appName);
@@ -43,7 +43,7 @@ export default class Base {
         browser.pause(5000);
         break;
       case "standard":
-        browser.$("one-appnav").shadow$("nav.appLauncher").click();
+        browser.$("one-appnav").shadow$("div.appLauncher").click();
         $(
           "/html/body/div[4]/div[2]/div/div[1]/div[1]/one-app-launcher-menu/div/one-app-launcher-search-bar/lightning-input/div/input"
         ).setValue(appName);
