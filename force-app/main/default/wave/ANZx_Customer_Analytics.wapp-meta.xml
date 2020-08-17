@@ -4,12 +4,12 @@
     <masterLabel>ANZx Customer Analytics</masterLabel>
     <shares>
         <accessLevel>View</accessLevel>
-        <sharedTo>AllInternalUsers</sharedTo>
-        <sharedToType>Organization</sharedToType>
+        <sharedTo>Coach</sharedTo>
+        <sharedToType>Role</sharedToType>
     </shares>
     <shares>
-        <accessLevel>Manage</accessLevel>
-        <sharedTo>test-ke5hhlnj9saz@example.com</sharedTo>
-        <sharedToType>User</sharedToType>
+        <accessLevel>View</accessLevel>
+        <sharedTo>Manager</sharedTo>
+        <sharedToType>Role</sharedToType>
     </shares>
 </WaveApplication>
