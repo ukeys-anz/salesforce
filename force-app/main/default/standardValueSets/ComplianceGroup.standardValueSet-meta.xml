@@ -36,4 +36,34 @@
         <default>false</default>
         <label>Privacy - Non Personal Information</label>
     </standardValue>
+    <standardValue>
+        <fullName>Source_Caps</fullName>
+        <default>false</default>
+        <label>Source - CAPS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Source_Zafin</fullName>
+        <default>false</default>
+        <label>Source - Zafin</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Source_CTM</fullName>
+        <default>false</default>
+        <label>Source - CTM</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Source_BTR_CIS</fullName>
+        <default>false</default>
+        <label>Source - BTR-CIS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Source_COSMOS</fullName>
+        <default>false</default>
+        <label>Source - COSMOS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Source_OCV</fullName>
+        <default>false</default>
+        <label>Source - OCV</label>
+    </standardValue>
 </StandardValueSet>
