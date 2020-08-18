@@ -78,7 +78,7 @@
       "name": "Deployment User",
       "profile": "No Access",
       "permissionsetgroups": [],
-      "permissionsets": ["SFDX_GCB"],
+      "permissionsets": ["SFDX_GCB", "EinsteinAnalyticsPlusAdmin"],
       "type": "system"
     },
     {
