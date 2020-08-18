@@ -589,7 +589,7 @@
 
               <!-- Complaint Resolution-->
 
-              <div
+              <!--  <div
                 class="slds-col slds-size_1-of-4 slds-m-right_large slds-m-top_large"
               >
                 <lightning-input
@@ -597,9 +597,20 @@
                   label="Is this complaint Resolved?"
                   onchange={handleComplaintResolved}
                   message-toggle-active="Yes"
-                  message-toggle-inactive="No"
-                >
-                </lightning-input>
+                  message-toggle-inactive="No"  
+             >
+             </lightning-input>
+            -->
+              <div>
+                <lightning-combobox
+                  name="ComplaintStatus"
+                  label="Complaint Status"
+                  aria-label="Dropdown Complaint Status"
+                  value={caseStatus}
+                  options={statusOptions}
+                  onchange={handleStatusChange}
+                  id="caseStatus-id"
+                ></lightning-combobox>
               </div>
               <template if:true={isComplaintResolved}>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">

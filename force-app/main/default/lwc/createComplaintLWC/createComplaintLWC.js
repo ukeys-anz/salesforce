@@ -67,7 +67,12 @@ const ERROR_UNKNOWN_TITLE = "An error has occurred.";
 const SUCCESS = "success";
 const SUCCESS_TITLE = "Complaint has been created successfully.";
 const BUSINESS_TYPE_API = "2";
+const OPEN_STATUS_API_NAME = "Open";
+const ONHOLD_STATUS_API_NAME = "On Hold";
+const ESCALATED_STATUS_API_NAME = "Escalated";
+const UNDERINVESTIGATION_STATUS_API_NAME = "Under Investigation";
 const RESOLVED_STATUS_API_NAME = "Resolved";
+const CLOSED_STATUS_API_NAME = "Closed";
 const YES_VALUE = "Yes";
 const COMPLAINT_REMEDY_FIN_VALUE = "1";
 const COMPLAINT_REMEDY_NON_FIN_VALUE = "2";
@@ -179,7 +184,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   //form validation fields.
   missingDataFields = "";
   isDataValid = false;
-
+  caseStatus = OPEN_STATUS_API_NAME;
   //initialize components
   connectedCallback() {
     this.recordType = this.recordTypeId;
@@ -193,6 +198,19 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.isAddressRequired = false;
   }
 
+  get statusOptions() {
+    return [
+      { label: OPEN_STATUS_API_NAME, value: OPEN_STATUS_API_NAME },
+      {
+        label: UNDERINVESTIGATION_STATUS_API_NAME,
+        value: UNDERINVESTIGATION_STATUS_API_NAME
+      },
+      { label: ONHOLD_STATUS_API_NAME, value: ONHOLD_STATUS_API_NAME },
+      { label: ESCALATED_STATUS_API_NAME, value: ESCALATED_STATUS_API_NAME },
+      { label: RESOLVED_STATUS_API_NAME, value: RESOLVED_STATUS_API_NAME },
+      { label: CLOSED_STATUS_API_NAME, value: CLOSED_STATUS_API_NAME }
+    ];
+  }
   handleComplaintTypeChange(event) {
     this.isBusiness = event.detail.value === BUSINESS_TYPE_API;
   }
@@ -208,9 +226,22 @@ export default class CreateComplaintLWC extends NavigationMixin(
   handleRealFormNeeded(event) {
     this.isRealFormNeeded = event.target.checked;
   }
-
-  handleComplaintResolved(event) {
-    this.isComplaintResolved = event.target.checked;
+  handleStatusChange(event) {
+    this.caseStatus = event.target.value;
+    try {
+      switch (this.caseStatus) {
+        case "Resolved":
+          this.isComplaintResolved = true;
+          break;
+        case "On Hold":
+          this.isComplaintOnhold = true;
+          break;
+        case "Escalated":
+          this.iscomplaintEscalated = true;
+      }
+    } catch (error) {
+      console.log("error:" + error.message);
+    }
   }
 
   handleComplaintRemedy(event) {
