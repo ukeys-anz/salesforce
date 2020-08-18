@@ -55,6 +55,11 @@
                 <default>false</default>
                 <label>Corrected incorrect or out of date records</label>
             </value>
+            <value>
+                <fullName>9</fullName>
+                <default>false</default>
+                <label>Declined Request</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>2</controllingFieldValue>
@@ -87,6 +92,10 @@
         <valueSettings>
             <controllingFieldValue>2</controllingFieldValue>
             <valueName>3</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>2</controllingFieldValue>
+            <valueName>9</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>
