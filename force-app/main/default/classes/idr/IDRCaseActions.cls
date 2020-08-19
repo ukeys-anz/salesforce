@@ -26,6 +26,7 @@ public with sharing class IDRCaseActions {
   private static final String CLOSED_STATUS = 'Closed';
   private static final String RESOLVED_STATUS = 'Resolved';
   private static final String WITHDRAWN_STATUS = 'Withdrawn';
+  private static final string ESCALATION_REASON = '6';
 
   // IDR Case Status for which notifications needs to be sent.
   private static final Set<String> NOTIFICATION_STATUS = new Set<String>{
@@ -291,6 +292,7 @@ public with sharing class IDRCaseActions {
     ) {
       caseToBeChanged.IDR_Escalated_to__c = ESCALATED_TO_CRC_API_NAME;
       caseToBeChanged.Status = ESCALATED_STATUS;
+      caseTobeChanged.IDR_Escalation_Reason__c = ESCALATION_REASON;
     }
   }
 
