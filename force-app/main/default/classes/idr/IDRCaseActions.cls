@@ -293,7 +293,7 @@ public with sharing class IDRCaseActions {
       caseToBeChanged.IDR_Escalated_to__c = ESCALATED_TO_CRC_API_NAME;
       caseToBeChanged.Status = ESCALATED_STATUS;
       caseTobeChanged.IDR_Escalation_Reason__c = ESCALATION_REASON;
-      caseTobeChanged.IDR_Is_Written_Resp_Required__c = 'Yes';
+      caseTobeChanged.IDR_Is_Written_Resp_Required__c = true;
     }
   }
 
