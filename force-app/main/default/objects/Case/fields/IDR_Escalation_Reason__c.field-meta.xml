@@ -41,6 +41,11 @@
                 <default>false</default>
                 <label>Outside Process</label>
             </value>
+            <value>
+                <fullName>6</fullName>
+                <default>false</default>
+                <label>Written Response Required</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
