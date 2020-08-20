@@ -174,7 +174,7 @@ public with sharing class UserProvisioningCommonActions {
     for (Group publicGroup : [
       SELECT Id, DeveloperName
       FROM Group
-      WHERE Type = 'Regular'
+      WHERE Type IN ('Regular', 'Queue')
     ]) {
       publicGroupMap.put(publicGroup.DeveloperName, publicGroup);
     }
