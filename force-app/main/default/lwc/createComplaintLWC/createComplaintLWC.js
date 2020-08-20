@@ -145,7 +145,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   isRealFormNeeded = IS_REAL_FORM_NEED_FIELD;
 
   // escalation fields
-  escalatedTo = ESCALTED_TO;
+  escalatedTo = ESCALATED_TO;
   escalationReason = ESCALATION_REASON;
 
   @api recordTypeId;
@@ -169,7 +169,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   showComplianceFields;
   showSections;
   isComplaintResolved;
-  iscomplaintEscalated;
+  isComplaintEscalated;
   // future use: isComplaintOnhold;
   isFinancialComplaintRemedy;
   isNonFinancialComplaintRemedy;
@@ -209,13 +209,13 @@ export default class CreateComplaintLWC extends NavigationMixin(
   }
 
   get statusOptions() {
+    //future use:  { label: ONHOLD_STATUS_API_NAME, value: ONHOLD_STATUS_API_NAME },
     return [
       { label: OPEN_STATUS_API_NAME, value: OPEN_STATUS_API_NAME },
       {
         label: UNDERINVESTIGATION_STATUS_API_NAME,
         value: UNDERINVESTIGATION_STATUS_API_NAME
       },
-      //future use:  { label: ONHOLD_STATUS_API_NAME, value: ONHOLD_STATUS_API_NAME },
       { label: ESCALATED_STATUS_API_NAME, value: ESCALATED_STATUS_API_NAME },
       { label: RESOLVED_STATUS_API_NAME, value: RESOLVED_STATUS_API_NAME },
       { label: CLOSED_STATUS_API_NAME, value: CLOSED_STATUS_API_NAME }
@@ -237,6 +237,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.isRealFormNeeded = event.target.checked;
   }
   handleStatusChange(event) {
+    console.log("event.target.value:" + event.target.value);
     this.caseStatus = event.target.value;
     this.isComplaintEscalated = false;
     this.isComplaintResolved = false;
@@ -250,7 +251,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
           this.isComplaintResolved = true;
           break;
         case "Escalated":
-          this.iscomplaintEscalated = true;
+          this.isComplaintEscalated = true;
       }
     } catch (error) {
       console.log("error:" + error.message);
@@ -512,6 +513,11 @@ export default class CreateComplaintLWC extends NavigationMixin(
       requiredFields.compOutCome = "Complaint Outcome";
       requiredFields.compRemedy = "Complaint Remedy";
       requiredFields.descOutcome = "Description of Outcome";
+    }
+
+    if (this.isComplaintEscalated) {
+      requiredFields.escalatedTo = "Escalated To";
+      requiredFields.escalationReason = "Complaint Escalation Reason";
     }
     if (this.isNonFinancialComplaintRemedy) {
       requiredFields.nonFinancialRemedy = "Non-Financial Remedy";
