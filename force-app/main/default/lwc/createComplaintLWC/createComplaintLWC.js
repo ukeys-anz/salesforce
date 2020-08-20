@@ -62,13 +62,17 @@ import STATUS_FIELD from "@salesforce/schema/Case.Status";
 import IS_COMMON_COMPLAINT_FIELD from "@salesforce/schema/Case.IDR_Is_Common__c";
 import IS_REAL_FORM_NEED_FIELD from "@salesforce/schema/Case.IDR_Real_Form_Req__c";
 
+//Is Escalated fields
+import ESCALATED_TO from "@salesforce/schema/Case.IDR_Escalated_to__c";
+import ESCALATION_REASON from "@salesforce/schema/Case.IDR_Escalation_Reason__c";
+
 const ERROR_REQUIRED_TITLE = "Please complete all required fields:\n";
 const ERROR_UNKNOWN_TITLE = "An error has occurred.";
 const SUCCESS = "success";
 const SUCCESS_TITLE = "Complaint has been created successfully.";
 const BUSINESS_TYPE_API = "2";
 const OPEN_STATUS_API_NAME = "Open";
-const ONHOLD_STATUS_API_NAME = "On Hold";
+// Future use : const ONHOLD_STATUS_API_NAME = "On Hold";
 const ESCALATED_STATUS_API_NAME = "Escalated";
 const UNDERINVESTIGATION_STATUS_API_NAME = "Under Investigation";
 const RESOLVED_STATUS_API_NAME = "Resolved";
@@ -140,6 +144,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
   commonComplaint = IS_COMMON_COMPLAINT_FIELD;
   isRealFormNeeded = IS_REAL_FORM_NEED_FIELD;
 
+  // escalation fields
+  escalatedTo = ESCALTED_TO;
+  escalationReason = ESCALATION_REASON;
+
   @api recordTypeId;
   @api recordTypeDevName;
   @api contextRecordId;
@@ -161,6 +169,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
   showComplianceFields;
   showSections;
   isComplaintResolved;
+  iscomplaintEscalated;
+  // future use: isComplaintOnhold;
   isFinancialComplaintRemedy;
   isNonFinancialComplaintRemedy;
   isCommonComplaint;
@@ -205,7 +215,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
         label: UNDERINVESTIGATION_STATUS_API_NAME,
         value: UNDERINVESTIGATION_STATUS_API_NAME
       },
-      { label: ONHOLD_STATUS_API_NAME, value: ONHOLD_STATUS_API_NAME },
+      //future use:  { label: ONHOLD_STATUS_API_NAME, value: ONHOLD_STATUS_API_NAME },
       { label: ESCALATED_STATUS_API_NAME, value: ESCALATED_STATUS_API_NAME },
       { label: RESOLVED_STATUS_API_NAME, value: RESOLVED_STATUS_API_NAME },
       { label: CLOSED_STATUS_API_NAME, value: CLOSED_STATUS_API_NAME }
@@ -228,13 +238,16 @@ export default class CreateComplaintLWC extends NavigationMixin(
   }
   handleStatusChange(event) {
     this.caseStatus = event.target.value;
+    this.isComplaintEscalated = false;
+    this.isComplaintResolved = false;
+    //future use: this.isComplaintonHold = false;
     try {
+      /* Future use : case "On Hold":
+          this.isComplaintOnhold = true;
+          break;*/
       switch (this.caseStatus) {
         case "Resolved":
           this.isComplaintResolved = true;
-          break;
-        case "On Hold":
-          this.isComplaintOnhold = true;
           break;
         case "Escalated":
           this.iscomplaintEscalated = true;
