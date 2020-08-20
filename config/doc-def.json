@@ -94,6 +94,13 @@
       "permissionsetgroups": [],
       "permissionsets": ["Customer_Feedback_Read_Write"],
       "type": "system"
+    },
+    {
+      "name": "WebdriverIO Integration User",
+      "profile": "Minimum Access - Salesforce",
+      "permissionsetgroups": [],
+      "permissionsets": ["API_Only", "SFDX_Full_Dev_Hub_Access"],
+      "type": "system"
     }
   ]
 }
