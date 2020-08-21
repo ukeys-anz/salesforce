@@ -252,6 +252,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
           break;
         case "Escalated":
           this.isComplaintEscalated = true;
+          break;
+        case "Closed":
+          this.isComplaintResolved = true;
       }
     } catch (error) {
       console.log("error:" + error.message);
@@ -419,8 +422,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
       ] = this.writtenRequiredValue;
       fields[CONSENT_OBTAINED.fieldApiName] = this.consentValue;
       fields[RECORDTYPE_FIELD.fieldApiName] = this.recordType;
+      fields[STATUS_FIELD.fieldApiName] = this.caseStatus;
       if (this.isComplaintResolved) {
-        fields[STATUS_FIELD.fieldApiName] = RESOLVED_STATUS_API_NAME;
+        // fields[STATUS_FIELD.fieldApiName] = RESOLVED_STATUS_API_NAME;
         if (this.isFinancialComplaintRemedy) {
           fields[
             FINANCIAL_COMPENSATION.fieldApiName
