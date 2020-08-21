@@ -62,12 +62,21 @@ import STATUS_FIELD from "@salesforce/schema/Case.Status";
 import IS_COMMON_COMPLAINT_FIELD from "@salesforce/schema/Case.IDR_Is_Common__c";
 import IS_REAL_FORM_NEED_FIELD from "@salesforce/schema/Case.IDR_Real_Form_Req__c";
 
+//Is Escalated fields
+import ESCALATED_TO from "@salesforce/schema/Case.IDR_Escalated_to__c";
+import ESCALATION_REASON from "@salesforce/schema/Case.IDR_Escalation_Reason__c";
+
 const ERROR_REQUIRED_TITLE = "Please complete all required fields:\n";
 const ERROR_UNKNOWN_TITLE = "An error has occurred.";
 const SUCCESS = "success";
 const SUCCESS_TITLE = "Complaint has been created successfully.";
 const BUSINESS_TYPE_API = "2";
+const OPEN_STATUS_API_NAME = "Open";
+// Future use : const ONHOLD_STATUS_API_NAME = "On Hold";
+const ESCALATED_STATUS_API_NAME = "Escalated";
+const UNDERINVESTIGATION_STATUS_API_NAME = "Under Investigation";
 const RESOLVED_STATUS_API_NAME = "Resolved";
+const CLOSED_STATUS_API_NAME = "Closed";
 const YES_VALUE = "Yes";
 const COMPLAINT_REMEDY_FIN_VALUE = "1";
 const COMPLAINT_REMEDY_NON_FIN_VALUE = "2";
@@ -135,6 +144,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
   commonComplaint = IS_COMMON_COMPLAINT_FIELD;
   isRealFormNeeded = IS_REAL_FORM_NEED_FIELD;
 
+  // escalation fields
+  escalatedTo = ESCALATED_TO;
+  escalationReason = ESCALATION_REASON;
+
   @api recordTypeId;
   @api recordTypeDevName;
   @api contextRecordId;
@@ -156,6 +169,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
   showComplianceFields;
   showSections;
   isComplaintResolved;
+  isComplaintEscalated;
+  // future use: isComplaintOnhold;
   isFinancialComplaintRemedy;
   isNonFinancialComplaintRemedy;
   isCommonComplaint;
@@ -179,7 +194,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   //form validation fields.
   missingDataFields = "";
   isDataValid = false;
-
+  caseStatus = OPEN_STATUS_API_NAME;
   //initialize components
   connectedCallback() {
     this.recordType = this.recordTypeId;
@@ -193,6 +208,19 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.isAddressRequired = false;
   }
 
+  get statusOptions() {
+    //future use:  { label: ONHOLD_STATUS_API_NAME, value: ONHOLD_STATUS_API_NAME },
+    return [
+      { label: OPEN_STATUS_API_NAME, value: OPEN_STATUS_API_NAME },
+      {
+        label: UNDERINVESTIGATION_STATUS_API_NAME,
+        value: UNDERINVESTIGATION_STATUS_API_NAME
+      },
+      { label: ESCALATED_STATUS_API_NAME, value: ESCALATED_STATUS_API_NAME },
+      { label: RESOLVED_STATUS_API_NAME, value: RESOLVED_STATUS_API_NAME },
+      { label: CLOSED_STATUS_API_NAME, value: CLOSED_STATUS_API_NAME }
+    ];
+  }
   handleComplaintTypeChange(event) {
     this.isBusiness = event.detail.value === BUSINESS_TYPE_API;
   }
@@ -208,11 +236,29 @@ export default class CreateComplaintLWC extends NavigationMixin(
   handleRealFormNeeded(event) {
     this.isRealFormNeeded = event.target.checked;
   }
-
-  handleComplaintResolved(event) {
-    this.isComplaintResolved = event.target.checked;
+  handleStatusChange(event) {
+    console.log("event.target.value:" + event.target.value);
+    this.caseStatus = event.target.value;
+    this.isComplaintEscalated = false;
+    this.isComplaintResolved = false;
+    //future use: this.isComplaintonHold = false;
+    /* Future use : case "On Hold":
+          this.isComplaintOnhold = true;
+          break;*/
+    switch (this.caseStatus) {
+      case "Resolved":
+        this.isComplaintResolved = true;
+        break;
+      case "Escalated":
+        this.isComplaintEscalated = true;
+        break;
+      case "Closed":
+        this.isComplaintResolved = true;
+        break;
+      default:
+        this.caseStatus = OPEN_STATUS_API_NAME;
+    }
   }
-
   handleComplaintRemedy(event) {
     if (event.detail.value === COMPLAINT_REMEDY_FIN_VALUE) {
       this.isFinancialComplaintRemedy = true;
@@ -374,8 +420,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
       ] = this.writtenRequiredValue;
       fields[CONSENT_OBTAINED.fieldApiName] = this.consentValue;
       fields[RECORDTYPE_FIELD.fieldApiName] = this.recordType;
+      fields[STATUS_FIELD.fieldApiName] = this.caseStatus;
       if (this.isComplaintResolved) {
-        fields[STATUS_FIELD.fieldApiName] = RESOLVED_STATUS_API_NAME;
         if (this.isFinancialComplaintRemedy) {
           fields[
             FINANCIAL_COMPENSATION.fieldApiName
@@ -468,6 +514,11 @@ export default class CreateComplaintLWC extends NavigationMixin(
       requiredFields.compOutCome = "Complaint Outcome";
       requiredFields.compRemedy = "Complaint Remedy";
       requiredFields.descOutcome = "Description of Outcome";
+    }
+
+    if (this.isComplaintEscalated) {
+      requiredFields.escalatedTo = "Escalated To";
+      requiredFields.escalationReason = "Complaint Escalation Reason";
     }
     if (this.isNonFinancialComplaintRemedy) {
       requiredFields.nonFinancialRemedy = "Non-Financial Remedy";

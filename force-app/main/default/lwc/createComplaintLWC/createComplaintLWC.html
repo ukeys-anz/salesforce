@@ -586,21 +586,36 @@
                 >
                 </lightning-input>
               </div>
-
-              <!-- Complaint Resolution-->
-
-              <div
-                class="slds-col slds-size_1-of-4 slds-m-right_large slds-m-top_large"
-              >
-                <lightning-input
-                  type="toggle"
-                  label="Is this complaint Resolved?"
-                  onchange={handleComplaintResolved}
-                  message-toggle-active="Yes"
-                  message-toggle-inactive="No"
-                >
-                </lightning-input>
+              <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                <lightning-combobox
+                  name="ComplaintStatus"
+                  label="Complaint Status"
+                  aria-label="Dropdown Complaint Status"
+                  value={caseStatus}
+                  options={statusOptions}
+                  onchange={handleStatusChange}
+                  id="caseStatus-id"
+                ></lightning-combobox>
               </div>
+              <template if:true={isComplaintEscalated}>
+                <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                  <lightning-input-field
+                    variant="label-stacked"
+                    required={isComplaintEscalated}
+                    field-name={escalatedTo}
+                    id="escalatedTo-id"
+                  ></lightning-input-field>
+                </div>
+                <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                  <lightning-input-field
+                    variant="label-stacked"
+                    aria-label="Dropdown Complaint Escalation Reason"
+                    required={isComplaintEscalated}
+                    field-name={escalationReason}
+                    id="escalationReason-id"
+                  ></lightning-input-field>
+                </div>
+              </template>
               <template if:true={isComplaintResolved}>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
