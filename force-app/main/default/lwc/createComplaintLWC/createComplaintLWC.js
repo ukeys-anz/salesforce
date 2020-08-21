@@ -254,9 +254,11 @@ export default class CreateComplaintLWC extends NavigationMixin(
         break;
       case "Closed":
         this.isComplaintResolved = true;
+        break;
+      default:
+        this.caseStatus = OPEN_STATUS_API_NAME;
     }
   }
-
   handleComplaintRemedy(event) {
     if (event.detail.value === COMPLAINT_REMEDY_FIN_VALUE) {
       this.isFinancialComplaintRemedy = true;
@@ -420,7 +422,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
       fields[RECORDTYPE_FIELD.fieldApiName] = this.recordType;
       fields[STATUS_FIELD.fieldApiName] = this.caseStatus;
       if (this.isComplaintResolved) {
-        // fields[STATUS_FIELD.fieldApiName] = RESOLVED_STATUS_API_NAME;
         if (this.isFinancialComplaintRemedy) {
           fields[
             FINANCIAL_COMPENSATION.fieldApiName
