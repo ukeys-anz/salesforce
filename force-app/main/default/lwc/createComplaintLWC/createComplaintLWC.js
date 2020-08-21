@@ -242,22 +242,18 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.isComplaintEscalated = false;
     this.isComplaintResolved = false;
     //future use: this.isComplaintonHold = false;
-    try {
-      /* Future use : case "On Hold":
+    /* Future use : case "On Hold":
           this.isComplaintOnhold = true;
           break;*/
-      switch (this.caseStatus) {
-        case "Resolved":
-          this.isComplaintResolved = true;
-          break;
-        case "Escalated":
-          this.isComplaintEscalated = true;
-          break;
-        case "Closed":
-          this.isComplaintResolved = true;
-      }
-    } catch (error) {
-      console.log("error:" + error.message);
+    switch (this.caseStatus) {
+      case "Resolved":
+        this.isComplaintResolved = true;
+        break;
+      case "Escalated":
+        this.isComplaintEscalated = true;
+        break;
+      case "Closed":
+        this.isComplaintResolved = true;
     }
   }
 
