@@ -11,5 +11,5 @@
         LEN(Description) &gt; 3000
 	)</errorConditionFormula>
     <errorDisplayField>Description</errorDisplayField>
-    <errorMessage>Description must be less than 3,000 characters.</errorMessage>
+    <errorMessage>Description must be less than or equal to 3,000 characters long.</errorMessage>
 </ValidationRule>
