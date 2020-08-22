@@ -92,7 +92,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
   complaintIssue = COMPLAINT_ISSUE;
   complaintSubIssue = COMPLAINT_SUBSEQUENT_ISSUE;
   Product = PRODUCT_LOOKUP_FIELD;
-  DescriptionofIssue = DESCRIPTION_FIELD;
   ComplainantDesiredOutcome = DESIRED_OUTCOME_FIELD;
 
   //Customer complaint details
@@ -314,6 +313,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.productValue = event.detail.value[0];
   }
 
+  handleDescriptionChange(event) {
+    this.description = event.detail.value;
+  }
+
   //form validation.
   validateFields() {
     this.loading = true;
@@ -410,6 +413,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     if (this.isDataValid) {
       this.template.querySelector(".saveButton").disabled = true;
       const fields = event.detail.fields;
+      fields[DESCRIPTION_FIELD.fieldApiName] = this.description;
       fields[PRODUCT_LOOKUP_FIELD.fieldApiName] = this.productValue;
       fields[CAP_CIS_ID_FIELD.fieldApiName] = this.customerIdValue;
       fields[
