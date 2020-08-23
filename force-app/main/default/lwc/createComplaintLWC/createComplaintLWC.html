@@ -484,12 +484,12 @@
                 </div>
               </template>
               <div class="slds-col slds-size_1-of-4 slds-m-right_large">
-                <lightning-input-field
-                  variant="label-stacked"
+                <lightning-textarea
                   required
-                  field-name={DescriptionofIssue}
-                  id="descOfIssue-id"
-                ></lightning-input-field>
+                  label="Description of Issue"
+                  maxlength="3000"
+                  onchange={handleDescriptionChange}
+                ></lightning-textarea>
               </div>
               <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                 <lightning-input-field
