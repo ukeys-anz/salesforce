@@ -38,6 +38,7 @@ export default class CustomerInformation extends LightningElement {
   custData(customerId) {
     // calling apex class method to make callout
     if (!this.loaded) {
+      this.error = null;
       getCustomerData({ capId: customerId })
         .then((result) => {
           let customerData = {
