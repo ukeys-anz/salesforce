@@ -25,7 +25,7 @@ jobs:
 
       - name: "Authenticate all orgs in SFDX CLI"
         run: |
-          sfdx force:auth:sfdxurl:store -a cmosdev --sfdxurlfile=./SFDX_URL_CMOSDEV=n30.txt
+          sfdx force:auth:sfdxurl:store -a cmosdev --sfdxurlfile=./SFDX_URL_CMOSDEV.txt
           sfdx force:auth:sfdxurl:store -a systest --sfdxurlfile=./SFDX_URL_SYSTEST.txt
 
       - uses: actions/checkout@v2
