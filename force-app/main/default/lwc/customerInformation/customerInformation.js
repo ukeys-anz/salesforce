@@ -3,9 +3,6 @@ import getCustomerData from "@salesforce/apex/GetCustomerInformation.getCustomer
 import { getRecord } from "lightning/uiRecordApi";
 import CAP_ID_FIELD from "@salesforce/schema/Case.IDR_Customer_Number__c";
 
-const Data_Not_Found =
-  '{ "message": "No data found for the given customerId" }';
-
 export default class CustomerInformation extends LightningElement {
   @track loaded = false;
   @track customerInfo;
@@ -98,7 +95,7 @@ export default class CustomerInformation extends LightningElement {
     }
     // if the customer Id couldnt be validated against CAP at the moment throw this event so that case can be created.
     console.log("this.error:" + this.error);
-    if (this.error !== Data_Not_Found) {
+    if (!this.error.includes("No data found for the given customerId")) {
       this.dispatchEvent(new CustomEvent("custinfochecked"));
     }
     this.record = undefined;
