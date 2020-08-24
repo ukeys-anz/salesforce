@@ -357,7 +357,7 @@ public with sharing class IDRCaseActions {
             c.IDR_Complainant_Type__c
           ),
           Complaint_Description__c = c.Description,
-          Complaint_Desired_Outcome__c = c.IDR_Description_of_Outcome__c,
+          Complaint_Desired_Outcome__c = c.IDR_Complainant_Desired_Outcome__c,
           Complaint_Issue__c = IDRCaseActions.getPicklistLabel(
             Case.Type,
             c.Type
