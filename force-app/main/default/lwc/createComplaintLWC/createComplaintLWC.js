@@ -194,6 +194,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   missingDataFields = "";
   isDataValid = false;
   caseStatus = OPEN_STATUS_API_NAME;
+  isCustNumValidated = false;
   //initialize components
   connectedCallback() {
     this.recordType = this.recordTypeId;
@@ -374,6 +375,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
       isFieldValid = false;
       this.missingDataFields +=
         "Customer number must be numbers and at least 10 digits long. ";
+    } else if (this.isCustomerComplaint && !this.isCustNumValidated) {
+      isFieldValid = false;
+      this.missingDataFields +=
+        "Please validate the customer number by clicking on the search button";
     }
     // validate the data in email address fields is correct.
     let isEmailValid = [
@@ -538,6 +543,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
       return false;
     }
     return true;
+  }
+
+  handleCustNumValidated(event) {
+    this.isCustNumValidated = true;
   }
 
   handleCaseSuccess(event) {
