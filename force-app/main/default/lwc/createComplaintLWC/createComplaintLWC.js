@@ -378,7 +378,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     } else if (this.isCustomerComplaint && !this.isCustNumValidated) {
       isFieldValid = false;
       this.missingDataFields +=
-        "Customer number is not valid or has not been validated click on the search button to validate";
+        "Customer number is not valid or has not been validated check the number and try again";
     }
     // validate the data in email address fields is correct.
     let isEmailValid = [
