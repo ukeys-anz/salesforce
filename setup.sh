@@ -28,7 +28,8 @@ echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
 echo "$(date): Assign Pset..."
 JOB_START_TIME=$(date +%s)
 sfdx force:user:permset:assign -n FinancialServicesCloudStandard 2>&1 | tee stderr
-if [[ ($(cat stderr) == *'ERROR'*) ]]; then
+sfdx force:user:permset:assign -n EinsteinAnalyticsPlusAdmin 2>&1 | tee stderr
+if [[ ($(cat stderr) == *'ERROR'*) && ($(cat stderr) != *'Duplicate PermissionSetAssignment'*)]]; then
     exit 1
 fi
 JOB_END_TIME=$(date +%s)

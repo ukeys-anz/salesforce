@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>KYC_Verification_Level__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Trusted</complianceGroup>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information</complianceGroup>
     <description>Level of robustness of the verification provided.</description>
     <externalId>false</externalId>
     <label>KYC Verification Level</label>

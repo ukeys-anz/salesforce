@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_Escalation_Reason__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate</complianceGroup>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information</complianceGroup>
     <description>Complaint Escalation Reason</description>
     <externalId>false</externalId>
     <label>Complaint Escalation Reason</label>
@@ -40,6 +40,11 @@
                 <fullName>5</fullName>
                 <default>false</default>
                 <label>Outside Process</label>
+            </value>
+            <value>
+                <fullName>6</fullName>
+                <default>false</default>
+                <label>Written Response Required</label>
             </value>
         </valueSetDefinition>
     </valueSet>

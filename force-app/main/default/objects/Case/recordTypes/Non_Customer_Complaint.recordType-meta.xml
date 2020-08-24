@@ -1167,6 +1167,10 @@
             <fullName>5</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>6</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>IDR_Is_Written_Resp_Requested__c</picklist>
@@ -2301,6 +2305,10 @@
         </values>
         <values>
             <fullName>8</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>9</fullName>
             <default>false</default>
         </values>
     </picklistValues>

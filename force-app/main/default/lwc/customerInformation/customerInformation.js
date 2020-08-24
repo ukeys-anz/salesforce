@@ -38,6 +38,7 @@ export default class CustomerInformation extends LightningElement {
   custData(customerId) {
     // calling apex class method to make callout
     if (!this.loaded) {
+      this.error = null;
       getCustomerData({ capId: customerId })
         .then((result) => {
           let customerData = {
@@ -76,6 +77,7 @@ export default class CustomerInformation extends LightningElement {
           // adding data object to show in UI
           this.loaded = true;
           this.customerInfo = customerData;
+          this.dispatchEvent(new CustomEvent("custinfochecked"));
         })
         .catch((error) => {
           this.handleError(error);
@@ -91,6 +93,11 @@ export default class CustomerInformation extends LightningElement {
       } else if (typeof err.body.message === "string") {
         this.error = err.body.message;
       }
+    }
+    // if the customer Id couldnt be validated against CAP at the moment throw this event so that case can be created.
+    console.log("this.error:" + this.error);
+    if (!this.error.includes("No data found for the given customerId")) {
+      this.dispatchEvent(new CustomEvent("custinfochecked"));
     }
     this.record = undefined;
   }

@@ -6,7 +6,7 @@
     <description>Free text explaining the desired outcome of the complaint raised</description>
     <externalId>false</externalId>
     <label>Customer Desired Outcome</label>
-    <length>4000</length>
+    <length>3000</length>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>

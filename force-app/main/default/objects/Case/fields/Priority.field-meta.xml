@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Priority</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Trusted</complianceGroup>
+    <complianceGroup>Integrity - Trusted;Privacy - Personal Information</complianceGroup>
     <description>Priority of the case as per ANZ process guidelines.</description>
     <inlineHelpText>For more information on how to support customers experiencing vulnerability, visit Max</inlineHelpText>
     <securityClassification>Confidential</securityClassification>

@@ -2,8 +2,8 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_NC_Country__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Trusted</complianceGroup>
     <description>Customer&apos;s country of residence.</description>
+    <complianceGroup>Integrity - Trusted;Privacy - Personal Information</complianceGroup>
     <externalId>false</externalId>
     <label>Country</label>
     <required>false</required>

@@ -26,6 +26,7 @@ public with sharing class IDRCaseActions {
   private static final String CLOSED_STATUS = 'Closed';
   private static final String RESOLVED_STATUS = 'Resolved';
   private static final String WITHDRAWN_STATUS = 'Withdrawn';
+  private static final string ESCALATION_REASON = '6';
 
   // IDR Case Status for which notifications needs to be sent.
   private static final Set<String> NOTIFICATION_STATUS = new Set<String>{
@@ -291,6 +292,7 @@ public with sharing class IDRCaseActions {
     ) {
       caseToBeChanged.IDR_Escalated_to__c = ESCALATED_TO_CRC_API_NAME;
       caseToBeChanged.Status = ESCALATED_STATUS;
+      caseTobeChanged.IDR_Escalation_Reason__c = ESCALATION_REASON;
     }
   }
 
@@ -355,7 +357,7 @@ public with sharing class IDRCaseActions {
             c.IDR_Complainant_Type__c
           ),
           Complaint_Description__c = c.Description,
-          Complaint_Desired_Outcome__c = c.IDR_Description_of_Outcome__c,
+          Complaint_Desired_Outcome__c = c.IDR_Complainant_Desired_Outcome__c,
           Complaint_Issue__c = IDRCaseActions.getPicklistLabel(
             Case.Type,
             c.Type

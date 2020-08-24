@@ -4,7 +4,7 @@ name: WebDriverIO
 # This workflow will only run on Pull Requests against develop
 on:
   pull_request:
-    branches: [develop]
+    branches: [develop, master]
 
 jobs:
   typescript-build:
