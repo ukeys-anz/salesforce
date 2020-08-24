@@ -3,6 +3,9 @@ import getCustomerData from "@salesforce/apex/GetCustomerInformation.getCustomer
 import { getRecord } from "lightning/uiRecordApi";
 import CAP_ID_FIELD from "@salesforce/schema/Case.IDR_Customer_Number__c";
 
+const Data_Not_Found =
+  '{ "message": "No data found for the given customerId" }';
+
 export default class CustomerInformation extends LightningElement {
   @track loaded = false;
   @track customerInfo;
@@ -76,6 +79,7 @@ export default class CustomerInformation extends LightningElement {
           // adding data object to show in UI
           this.loaded = true;
           this.customerInfo = customerData;
+          this.dispatchEvent(new CustomEvent("custinfochecked"));
         })
         .catch((error) => {
           this.handleError(error);
@@ -91,6 +95,11 @@ export default class CustomerInformation extends LightningElement {
       } else if (typeof err.body.message === "string") {
         this.error = err.body.message;
       }
+    }
+    // if the customer Id couldnt be validated against CAP at the moment throw this event so that case can be created.
+    console.log("this.error:" + this.error);
+    if (this.error != Data_Not_Found) {
+      this.dispatchEvent(new CustomEvent("custinfochecked"));
     }
     this.record = undefined;
   }
