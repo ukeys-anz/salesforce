@@ -16,8 +16,8 @@ fi
    BRANCH=${SOURCE_BRANCH} ||
    BRANCH=${BASE_BRANCH}
 [ "$BRANCH" = "master" ] &&
-   ORG_NAME="staging" ||
-   ORG_NAME="systest"
+   ORG_NAME="systest" ||
+   ORG_NAME="cmosdev"
 
 # Only run this step if there is an artifact
 if [ -d "artefact" ]; then

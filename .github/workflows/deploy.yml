@@ -6,6 +6,7 @@ on:
   push:
     branches:
       - develop
+      - master
 
 jobs:
   build_and_deploy:
@@ -20,11 +21,11 @@ jobs:
         shell: bash
         run: |
           echo ${{ secrets.SYSTEST}} > ./SFDX_URL_SYSTEST.txt
-          echo ${{ secrets.STAGING}} > ./SFDX_URL_STAGING.txt
+          echo ${{ secrets.CMOSDEV}} > ./SFDX_URL_CMOSDEV.txt
 
       - name: "Authenticate all orgs in SFDX CLI"
         run: |
-          sfdx force:auth:sfdxurl:store -a staging --sfdxurlfile=./SFDX_URL_STAGING.txt
+          sfdx force:auth:sfdxurl:store -a cmosdev --sfdxurlfile=./SFDX_URL_CMOSDEV=n30.txt
           sfdx force:auth:sfdxurl:store -a systest --sfdxurlfile=./SFDX_URL_SYSTEST.txt
 
       - uses: actions/checkout@v2
@@ -93,10 +94,10 @@ jobs:
 
       - name: "Create auth files with SFDX_URL secret"
         shell: bash
-        run: echo ${{ secrets.STAGING}} > ./SFDX_URL_STAGING.txt
+        run: echo ${{ secrets.SYSTEST}} > ./SFDX_URL_SYSTEST.txt
 
       - name: "Authenticate all orgs in SFDX CLI"
-        run: sfdx force:auth:sfdxurl:store -a staging --sfdxurlfile=./SFDX_URL_STAGING.txt
+        run: sfdx force:auth:sfdxurl:store -a systest --sfdxurlfile=./SFDX_URL_SYSTEST.txt
 
       - name: Reindex sidebar
         run: |
@@ -107,8 +108,8 @@ jobs:
         working-directory: salesforce
         shell: bash
         run: |
-          ../plugin/bin/run doc:schema -f config/doc-def.json -u staging
-          ../plugin/bin/run doc:access -f config/doc-def.json -u staging
+          ../plugin/bin/run doc:schema -f config/doc-def.json -u systest
+          ../plugin/bin/run doc:access -f config/doc-def.json -u systest
 
       - name: Copy docs
         run: |
