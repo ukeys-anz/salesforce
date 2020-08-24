@@ -255,6 +255,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
       case "Closed":
         this.isComplaintResolved = true;
         break;
+      case "Under Investigation":
+        break;
       default:
         this.caseStatus = OPEN_STATUS_API_NAME;
     }
