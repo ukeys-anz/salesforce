@@ -147,11 +147,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>Customer_Feedback__c.Account_Name__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>true</editable>
         <field>FinServ__FinancialAccount__c.FinServ__Balance__c</field>
         <readable>true</readable>
