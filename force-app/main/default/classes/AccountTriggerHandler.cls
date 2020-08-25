@@ -26,5 +26,6 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onValidate(Map<Id, SObject> oldMap) {
     AccountCommonActions.enforceNonProdAccountWhitelist(records);
+    AccountCommonActions.checkForAccountDeletion(records);
   }
 }
