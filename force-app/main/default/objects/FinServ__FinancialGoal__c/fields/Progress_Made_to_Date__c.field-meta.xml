@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Progress_Made_to_Date__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Highly_Trusted</complianceGroup>
     <description>Progress made to date as a percentage</description>
     <externalId>false</externalId>
     <formula>IF(
@@ -18,6 +20,7 @@
     <precision>18</precision>
     <required>false</required>
     <scale>0</scale>
+    <securityClassification>Confidential</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Percent</type>
 </CustomField>

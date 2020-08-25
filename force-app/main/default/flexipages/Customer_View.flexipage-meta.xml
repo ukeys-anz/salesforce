@@ -65,35 +65,25 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentInstanceProperties>
-                    <name>faFieldSet</name>
-                    <value>FSC_Client_EverydayAccount</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>iconName</name>
-                    <value>custom:custom16</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>recordTypeNames</name>
-                    <value>FinServ__CheckingAccount</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>title</name>
-                    <value>Everyday Account</value>
-                </componentInstanceProperties>
-                <componentName>FinServ:financialAccountList</componentName>
+                <componentName>accountsAndGoalsRefresh</componentName>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>totalBalance</componentName>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>everydayAccount</componentName>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>financialGoals</componentName>
             </componentInstance>
         </itemInstances>
         <name>Facet-38542d18-173f-433f-9c89-ca29567d4672</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentName>FinServ:goalDetailList</componentName>
-            </componentInstance>
-        </itemInstances>
-        <name>Facet-e3e78d13-0098-4017-a4ca-fffb1d2f8ebe</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -127,19 +117,6 @@
                 <componentInstanceProperties>
                     <name>title</name>
                     <value>Financial Accounts</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:tab</componentName>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-e3e78d13-0098-4017-a4ca-fffb1d2f8ebe</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>title</name>
-                    <value>Goals</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
             </componentInstance>

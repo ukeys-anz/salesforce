@@ -1,0 +1,25 @@
+<template>
+  <div class="progress">
+    <svg class="progress-circle" width="200px" height="200px">
+      <circle
+        class="progress-circle-back"
+        cx="80"
+        cy="80"
+        r={ringSize}
+      ></circle>
+      <circle
+        class="progress-circle-prog"
+        cx="80"
+        cy="80"
+        r={ringSize}
+        stroke-dasharray={progressStyle}
+      ></circle>
+    </svg>
+    <template if:true={emoticon}>
+      <div class="emoticon">{emoticon}</div>
+    </template>
+    <template if:false={emoticon}>
+      <div class="progress-text" data-progress={progress}>{progress}%</div>
+    </template>
+  </div>
+</template>
