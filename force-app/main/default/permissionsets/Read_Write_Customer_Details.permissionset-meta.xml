@@ -38,6 +38,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Account.Deleted_in_OCV__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Account.Display_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -140,6 +145,11 @@
         <editable>true</editable>
         <field>Contact.MobilePhone</field>
         <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Customer_Feedback__c.Account_Name__c</field>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
