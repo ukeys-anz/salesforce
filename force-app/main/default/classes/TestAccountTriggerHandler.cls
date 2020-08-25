@@ -42,4 +42,103 @@ private class TestAccountTriggerHandler {
       'The testAccount should have been given a Salesforce ID upon insertion.'
     );
   }
+
+  @isTest
+  static void testAccountDeletionPositiveFlow() {
+    Faker faker = new Faker('AU');
+    List<String> companyNames = faker.text.realWords(2);
+    Case[] newCases = new List<Case>();
+
+    // GIVEN Account with related case records
+    Account testAccount = new Account(
+      Name = companyNames[0].capitalize() + companyNames[1].capitalize(),
+      OCV_ID__c = faker.randomString(10)
+    );
+    insert testAccount;
+
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
+          AccountId = testAccount.Id,
+          Type = 'Card',
+          Additional_Type__c = 'App Support;Coaching'
+        )
+      );
+    }
+    insert newCases;
+
+    Test.startTest();
+
+    // WHEN an Account is updated with Deleted_In_OCV__c flag to true
+    testAccount.Deleted_In_OCV__c = true;
+    update testAccount;
+
+    Test.stopTest();
+
+    List<Account> accList = [SELECT Id FROM Account WHERE Id = :testAccount.Id];
+    List<Case> caseList = [
+      SELECT Id
+      FROM Case
+      WHERE AccountId = :testAccount.Id
+    ];
+
+    // THEN the account and related case records will be deleted
+    system.assertEquals(0, accList.size());
+    system.assertEquals(0, caseList.size());
+  }
+
+  @isTest
+  static void testAccountDeletionNegativeFlow() {
+    Faker faker = new Faker('AU');
+    List<String> companyNames = faker.text.realWords(2);
+    Account[] newAccounts = new List<Account>();
+    Case[] newCases = new List<Case>();
+
+    // GIVEN list of Account records
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newAccounts.add(
+        new Account(
+          Name = companyNames[0].capitalize() + companyNames[1].capitalize(),
+          OCV_ID__c = faker.randomString(10)
+        )
+      );
+    }
+    insert newAccounts;
+
+    // WHEN Deleted_In_OCV__c flag marked as true in bulk transaction
+    newAccounts[0].Deleted_In_OCV__c = true;
+    List<Database.SaveResult> results = Database.Update(newAccounts, false);
+
+    // THEN Record update will fail with custom error message
+    system.assertEquals(
+      'Multiple records are passed in single transaction to delete inactive customers',
+      results[0].errors[0].getMessage()
+    );
+
+    // GIVEN Account with related Financial Account
+    Account testAccount = newAccounts[0];
+
+    FinServ__FinancialAccount__c finAccount = new FinServ__FinancialAccount__c(
+      FinServ__PrimaryOwner__c = testAccount.Id
+    );
+    insert finAccount;
+
+    Test.startTest();
+
+    // WHEN an Account is updated with Deleted_In_OCV__c flag to true
+    testAccount.Deleted_In_OCV__c = true;
+    update testAccount;
+
+    Test.stopTest();
+
+    List<Application_Log__c> logList = [
+      SELECT Id, Error_No__c
+      FROM Application_Log__c
+      WHERE Record_Id__c = :testAccount.Id
+    ];
+
+    // THEN the account deletion will fail and failure result will be added to application logs
+    system.assertEquals('DELETE_FAILED', logList[0].Error_No__c);
+  }
 }
