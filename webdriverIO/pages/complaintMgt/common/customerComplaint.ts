@@ -4,7 +4,7 @@
  */
 
 export const priority = [
-  "None",
+  "Standard",
   "Customer experiencing financial hardship",
   "Customer experiencing vulnerability"
 ];
