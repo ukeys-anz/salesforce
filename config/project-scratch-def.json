@@ -13,7 +13,8 @@
     "LightningScheduler",
     "EventLogFile",
     "DevelopmentWave",
-    "AnalyticsAdminPerms"
+    "AnalyticsAdminPerms",
+    "CascadeDelete"
   ],
   "settings": {
     "chatterSettings": {
