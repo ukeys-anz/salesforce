@@ -8,6 +8,18 @@
         <apexClass>AccountTableServerController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>EverydayAccountController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FinancialGoalsComponentController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TotalBalanceController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <description>Should only have required permissions to view Custom related information.</description>
     <fieldPermissions>
         <editable>false</editable>
