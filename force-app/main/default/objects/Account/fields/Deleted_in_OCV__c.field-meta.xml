@@ -7,7 +7,7 @@
     <description>Flag to mark a customer record to be deleted</description>
     <externalId>false</externalId>
     <label>Deleted in OCV</label>
-    <securityClassification>Confidential</securityClassification>
+    <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <type>Checkbox</type>
 </CustomField>
