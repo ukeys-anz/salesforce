@@ -3,6 +3,11 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentName>notes:utilityBarNoteList</componentName>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentInstanceProperties>
                     <name>eager</name>
                     <type>decorator</type>
@@ -21,7 +26,7 @@
                 <componentInstanceProperties>
                     <name>label</name>
                     <type>decorator</type>
-                    <value>Chat</value>
+                    <value>Twilio</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>scrollable</name>
