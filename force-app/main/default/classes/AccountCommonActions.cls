@@ -40,17 +40,18 @@ public with sharing class AccountCommonActions {
     List<Account> accList = new List<Account>();
 
     for (Account acc : records) {
-      if (acc.Deleted_In_OCV__c == true && records.size() == 1) {
+      if (acc.Deleted_In_OCV__c == true) {
         accList.add(acc);
-      } else if (acc.Deleted_In_OCV__c == true && records.size() > 1) {
-        acc.addError(
-          'Multiple records are passed in single transaction to delete inactive customers'
-        );
       }
     }
-
     if (accList.size() == 1) {
       System.enqueuejob(new QueueAccountDeletion(accList[0]));
+    } else if (accList.size() > 1) {
+      for (Account acc : accList) {
+        acc.addError(
+          'having multiple records with the Deleted_In_OCV__C flag set in a single transaction is not supported'
+        );
+      }
     }
   }
 }

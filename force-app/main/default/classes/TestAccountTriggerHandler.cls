@@ -84,8 +84,12 @@ private class TestAccountTriggerHandler {
     ];
 
     // THEN the account and related case records will be deleted
-    system.assertEquals(0, accList.size());
-    system.assertEquals(0, caseList.size());
+    system.assertEquals(0, accList.size(), 'Account deletion is not sucessful');
+    system.assertEquals(
+      0,
+      caseList.size(),
+      'Related cases deletion is not sucessful'
+    );
   }
 
   @isTest
@@ -108,11 +112,12 @@ private class TestAccountTriggerHandler {
 
     // WHEN Deleted_In_OCV__c flag marked as true in bulk transaction
     newAccounts[0].Deleted_In_OCV__c = true;
+    newAccounts[1].Deleted_In_OCV__c = true;
     List<Database.SaveResult> results = Database.Update(newAccounts, false);
 
     // THEN Record update will fail with custom error message
     system.assertEquals(
-      'Multiple records are passed in single transaction to delete inactive customers',
+      'having multiple records with the Deleted_In_OCV__C flag set in a single transaction is not supported',
       results[0].errors[0].getMessage()
     );
 

@@ -4,7 +4,7 @@
  * @description Queueable apex class to delete Account and their related records asynchronously
  */
 public class QueueAccountDeletion implements Queueable {
-  Account accountToDelete = new Account();
+  Account accountToDelete;
 
   //call application log function to log results incase of failure
   lib_systemLog log = new lib_systemLog(
@@ -28,8 +28,8 @@ public class QueueAccountDeletion implements Queueable {
     //delete releted case records
     List<Case> deleteCaseList = getRelatedRecordIds(
       accountToDelete.Id,
-      'Case',
-      'AccountId'
+      Case.SobjectType,
+      Case.AccountId.getDescribe().getSObjectField()
     );
 
     if (!deleteCaseList.isEmpty()) {
@@ -64,16 +64,16 @@ public class QueueAccountDeletion implements Queueable {
    */
   private static List<SObject> getRelatedRecordIds(
     String recordId,
-    String objectAPIName,
-    String fieldAPIName
+    SObjectType objectAPIType,
+    SObjectField field
   ) {
     List<SObject> relatedRecordIds = new List<SObject>();
 
     String query =
       'SELECT Id FROM ' +
-      objectAPIName +
+      objectAPIType +
       ' WHERE ' +
-      fieldAPIName +
+      field +
       '= :recordId';
     relatedRecordIds = Database.query(query);
 
