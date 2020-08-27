@@ -1,0 +1,40 @@
+.slds-badge {
+  margin-left: 10px;
+}
+
+.everydayAccount {
+  border: 1px solid #dddbda !important;
+}
+
+.main-title,
+.slds-card__body {
+  padding: 10px !important;
+}
+
+.slds-list_horizontal .slds-item_label {
+  width: unset;
+}
+
+.slds-card__footer {
+  border: unset;
+}
+
+.lastUpdated {
+  float: right;
+  font-size: 12px;
+  position: relative;
+  bottom: 7px;
+  right: 10px;
+}
+
+.refresh-icon {
+  float: right;
+  cursor: pointer;
+  position: relative;
+  bottom: 25px;
+  right: 20px;
+}
+
+.slds-item_label {
+  font-size: 24px;
+}

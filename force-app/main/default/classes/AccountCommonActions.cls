@@ -31,4 +31,27 @@ public with sharing class AccountCommonActions {
       }
     }
   }
+
+  /**
+   * @description checkForAccountDeletion is called to check if the Deleted_In_OCV__c flag is updated for deletion
+   * @param records The Account records passed from Trigger.new()
+   */
+  public static void checkForAccountDeletion(List<Account> records) {
+    List<Account> accList = new List<Account>();
+
+    for (Account acc : records) {
+      if (acc.Deleted_In_OCV__c == true) {
+        accList.add(acc);
+      }
+    }
+    if (accList.size() == 1) {
+      System.enqueuejob(new QueueAccountDeletion(accList[0]));
+    } else if (accList.size() > 1) {
+      for (Account acc : accList) {
+        acc.addError(
+          'having multiple records with the Deleted_In_OCV__C flag set in a single transaction is not supported'
+        );
+      }
+    }
+  }
 }

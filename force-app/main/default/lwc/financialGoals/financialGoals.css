@@ -1,0 +1,97 @@
+.ring__1 {
+  position: absolute;
+  left: 80%;
+  top: 50%;
+}
+
+.ring__2,
+.ring__3 {
+  position: relative;
+  padding: 10px;
+  margin: 50px;
+}
+
+.field-padding__1,
+.field-padding__2 {
+  padding: 30px;
+}
+
+.field-padding__1:last-child {
+  margin-left: 60px;
+}
+
+.field-padding__3 {
+  padding: 20px;
+}
+
+.refresh-icon {
+  float: right;
+  cursor: pointer;
+  position: relative;
+  bottom: 25px;
+  right: 20px;
+}
+
+.goals {
+  border: 1px solid #dddbda !important;
+}
+
+.slds-card__footer {
+  border: unset;
+}
+
+.main-title,
+.padded-card {
+  padding: 10px !important;
+}
+
+.header-column {
+  max-width: 75px;
+}
+
+.lastUpdated {
+  float: right;
+  font-size: 12px;
+  position: relative;
+  bottom: 7px;
+  right: 10px;
+}
+
+.slds-list_horizontal .slds-item_label {
+  width: unset;
+}
+
+.icon-background {
+  height: 70px;
+  width: 70px;
+  background-color: #ebebeb;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 4px;
+  margin-left: 40px;
+}
+
+.icon {
+  font-size: 45px;
+  position: absolute;
+  left: 13px;
+}
+
+.slds-item_label {
+  font-size: 20px;
+}
+
+.grid-content__1 {
+  justify-content: flex-start;
+  margin-left: 35px;
+}
+
+.grid-content__2 {
+  justify-content: space-around;
+}
+
+.tooltip {
+  position: relative;
+  bottom: 81px;
+  left: 100px;
+}

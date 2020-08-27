@@ -54,7 +54,7 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^7.5.0",
     "mochawesome": "^6.1.1",
-    "prettier": "^2.0.5",
+    "prettier": "^2.1.0",
     "prettier-plugin-apex": "^1.6.0",
     "typescript": "^3.9.7"
   },

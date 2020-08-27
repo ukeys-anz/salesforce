@@ -137,13 +137,13 @@ jobs:
           add: "docs/static docs/governance sidebars.js"
           author_name: github-actions
           message: "Update salesforce documentation"
-          ref: "doc/plugin-update"
+          ref: ${{ github.run_id }}
         env:
           GITHUB_TOKEN: ${{ secrets.ORG_GITHUB_TOKEN }}
 
       - name: Create a PR on anzx/salesforce-docs
         shell: bash
         run: |
-          hub pull-request -b master -h doc/plugin-update --no-edit -m "${GITHUB_REF##*/}-${GITHUB_RUN_ID} Release Update" -m "An automated PR to update access and schema documentation from https://github.com/anzx/salesforce/releases/tag/${GITHUB_REF##*/}-${GITHUB_RUN_ID}"
+          hub pull-request -b master -h ${GITHUB_RUN_ID} --no-edit -m "${GITHUB_REF##*/}-${GITHUB_RUN_ID} Release Update" -m "An automated PR to update access and schema documentation from https://github.com/anzx/salesforce/releases/tag/${GITHUB_REF##*/}-${GITHUB_RUN_ID}"
         env:
           GITHUB_TOKEN: ${{ secrets.ORG_GITHUB_TOKEN }}
