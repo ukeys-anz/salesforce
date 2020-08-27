@@ -58,8 +58,8 @@ public class QueueAccountDeletion implements Queueable {
   /**
    * @description Generic method to query and get related records id's dynamically
    * @param recordId Salesforce record Id
-   * @param objectAPIName object API Name
-   * @param fieldAPIName field API Name
+   * @param objectAPIType object API Name
+   * @param field API Name
    * @return List<SObject> returns list of Sobject with related record id's
    */
   private static List<SObject> getRelatedRecordIds(
