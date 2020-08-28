@@ -2,7 +2,7 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>VR01_Restrict_Active_Customer_Deletion</fullName>
     <active>true</active>
-    <description>Restrict active customer record from getting deleted when mulesoft sends deleted from OCV flag.</description>
+    <description>@Description: Restrict active customer record from getting deleted when mulesoft sends deleted from OCV flag.</description>
     <errorConditionFormula>AND(
 $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
 Deleted_in_OCV__c = true,
