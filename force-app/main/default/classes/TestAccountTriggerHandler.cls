@@ -72,6 +72,7 @@ private class TestAccountTriggerHandler {
 
     // WHEN an Account is updated with Deleted_In_OCV__c flag to true
     testAccount.Deleted_In_OCV__c = true;
+    testAccount.FinServ__Status__c = 'Inactive';
     update testAccount;
 
     Test.stopTest();
@@ -104,7 +105,8 @@ private class TestAccountTriggerHandler {
       newAccounts.add(
         new Account(
           Name = companyNames[0].capitalize() + companyNames[1].capitalize(),
-          OCV_ID__c = faker.randomString(10)
+          OCV_ID__c = faker.randomString(10),
+          FinServ__Status__c = 'Inactive'
         )
       );
     }
