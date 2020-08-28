@@ -72,6 +72,8 @@ private class TestAccountTriggerHandler {
 
     // WHEN an Account is updated with Deleted_In_OCV__c flag to true
     testAccount.Deleted_In_OCV__c = true;
+    // Update Status to Inactive to avoid validation rule from firing to prevent a record being flagged for deletion while it is still active
+    testAccount.FinServ__Status__c = 'Inactive';
     update testAccount;
 
     Test.stopTest();
@@ -99,12 +101,13 @@ private class TestAccountTriggerHandler {
     Account[] newAccounts = new List<Account>();
     Case[] newCases = new List<Case>();
 
-    // GIVEN list of Account records
+    // GIVEN list of Inactive Account records
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newAccounts.add(
         new Account(
           Name = companyNames[0].capitalize() + companyNames[1].capitalize(),
-          OCV_ID__c = faker.randomString(10)
+          OCV_ID__c = faker.randomString(10),
+          FinServ__Status__c = 'Inactive'
         )
       );
     }
