@@ -1,0 +1,58 @@
+<template>
+  <div style="width: 320px">
+    <nav class="slds-nav-vertical slds-m-right_small" aria-label="Sub page">
+      <div class="slds-nav-vertical__section">
+        <div
+          class="slds-grid slds-border_bottom slds-p-bottom_small slds-border_top slds-p-top_small"
+        >
+          <button
+            class="slds-button slds-m-right_medium slds-m-left_small"
+            onclick={handleCancelFilterPanel}
+          >
+            Cancel
+          </button>
+          <button
+            class="slds-button slds-button_brand"
+            onclick={handleSaveFilterPanel}
+          >
+            Save
+          </button>
+        </div>
+        <ul aria-describedby="entity-header">
+          <div class="slds-m-top_small slds-m-bottom_small">
+            Matching all of these filters
+          </div>
+          <div class="slds-form-element slds-m-bottom_small">
+            <div class="slds-form-element__control">
+              <lightning-combobox
+                name="addfilter"
+                label="Add Filter"
+                value={filterField}
+                placeholder="Add Filter"
+                options={fieldList}
+                onchange={handleAddFilter}
+              >
+              </lightning-combobox>
+            </div>
+          </div>
+          <template if:true={showAddFilter}>
+            <c-transaction-history-add-filter
+              related-field={relatedField}
+              onaddfiltercancel={handleCancelAdd}
+              onapplyaddfilter={handleApplyAdd}
+            >
+            </c-transaction-history-add-filter>
+          </template>
+          <template for:each={filterList} for:item="filterItem">
+            <c-transaction-history-search-item
+              key={filterItem.index}
+              filter-item={filterItem}
+              onclosefilteritem={handleCloseItem}
+            >
+            </c-transaction-history-search-item>
+          </template>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</template>

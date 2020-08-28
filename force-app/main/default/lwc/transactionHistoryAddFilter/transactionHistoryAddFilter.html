@@ -1,0 +1,55 @@
+<template>
+  <article class="slds-card slds-card_boundary slds-m-bottom_small">
+    <div class="slds-grid slds-form-element__label slds-m-left_small">
+      Filter by {relatedField}
+    </div>
+    <div class="slds-grid slds-m-left_small slds-m-bottom_small">
+      <div
+        class="slds-form-element slds-m-bottom_small filter-operator slds-m-right_x-small"
+      >
+        <lightning-combobox
+          name="Operator"
+          label="Operator"
+          value={operator}
+          placeholder=""
+          options={operatorList}
+          onchange={handleOperatorChange}
+        >
+        </lightning-combobox>
+      </div>
+    </div>
+    <template if:true={normalInput}>
+      <div
+        class="slds-grid slds-m-left_small slds-m-bottom_small slds-m-right_x-small"
+      >
+        <input
+          type="text"
+          class="slds-input"
+          value={filterValue}
+          onchange={handleFilterValueChange}
+        />
+      </div>
+    </template>
+    <template if:true={isDate}>
+      <div
+        class="slds-grid slds-m-left_small slds-m-bottom_small slds-m-right_x-small"
+      >
+        <lightning-input
+          class="date-input"
+          type="date"
+          name="input1"
+          value={dateValue}
+          onchange={handleDateChange}
+        ></lightning-input>
+      </div>
+    </template>
+    <div class="slds-grid slds-m-left_small slds-m-bottom_small">
+      <button class="slds-button slds-m-right_medium" onclick={handleCancelAdd}>
+        Cancel
+      </button>
+      <button class="slds-button slds-button_brand" onclick={handleApply}>
+        Apply
+      </button>
+    </div>
+  </article>
+</template>
