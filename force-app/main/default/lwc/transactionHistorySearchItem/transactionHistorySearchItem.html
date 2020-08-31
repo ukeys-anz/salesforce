@@ -1,0 +1,29 @@
+<template>
+  <template if:true={filterItem}>
+    <article class="slds-card slds-card_boundary slds-m-bottom_small">
+      <lightning-icon
+        class="close-button slds-m-right_xx-small slds-m-top_xx-small"
+        icon-name="utility:close"
+        alternative-text="close"
+        title="close"
+        onclick={handleCloseItem}
+        size="x-small"
+      >
+      </lightning-icon>
+      <div class="slds-grid slds-form-element__label slds-m-left_small">
+        {filterItem.field}
+      </div>
+      <div class="slds-grid slds-m-left_small slds-m-bottom_small">
+        {operatorLabel}
+        <template if:true={normalValue}>
+          &nbsp;{filterItem.filtervalue}
+        </template>
+        <template if:true={amountValue}>
+          &nbsp;$<lightning-formatted-number
+            value={filterItem.filtervalue}
+          ></lightning-formatted-number>
+        </template>
+      </div>
+    </article>
+  </template>
+</template>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Related_Customer__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <deleteConstraint>Cascade</deleteConstraint>
+    <description>Link to the related customer record</description>
+    <externalId>false</externalId>
+    <label>Related Customer</label>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Chat Topics</relationshipLabel>
+    <relationshipName>Chat_Topics</relationshipName>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

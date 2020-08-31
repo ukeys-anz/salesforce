@@ -1,0 +1,19 @@
+.transaction-header {
+  cursor: pointer;
+}
+
+.positive-amount {
+  color: green;
+}
+
+.negative-amount {
+  color: red;
+}
+
+.logo-image {
+  max-width: 60%;
+}
+
+img {
+  max-width: 60%;
+}

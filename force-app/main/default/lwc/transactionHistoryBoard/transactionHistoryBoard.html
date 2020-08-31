@@ -1,0 +1,70 @@
+<template>
+  <div class="slds-text-title_bold slds-m-bottom_medium">
+    Transaction History
+  </div>
+  <div class="slds-grid slds-m-bottom_medium">
+    <div class="slds-col slds-size--1-of-3">
+      <lightning-icon
+        class="filter-button"
+        icon-name="utility:filterList"
+        alternative-text="filter"
+        title="filter"
+        onclick={handleSearchFilterToggle}
+        size="small"
+      >
+      </lightning-icon>
+    </div>
+    <div class="slds-col slds-size--1-of-3"></div>
+    <div class="slds-col slds-size--1-of-3">
+      <div class="slds-form-element">
+        <label class="slds-form-element__label" for="text-input-id-1">
+          Search
+        </label>
+        <div class="slds-form-element__control">
+          <input
+            type="text"
+            id="text-input-id-1"
+            placeholder="Search Text"
+            required=""
+            class="slds-input"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slds-grid">
+    <template if:true={showSearchBar}>
+      <div class="slds-col">
+        <c-transaction-history-search-bar
+          saved-filter-list={filterList}
+          oncancelfilter={handleCancelFilter}
+          onsavefilter={handleSaveFilter}
+          saved-max-index={savedMaxIndex}
+        >
+        </c-transaction-history-search-bar>
+      </div>
+    </template>
+    <div class="slds-col">
+      <template if:true={transactionList}>
+        <template for:each={transactionList} for:item="transRecord">
+          <c-transaction-history-record
+            key={transRecord.TransactionID}
+            transaction-record={transRecord}
+          ></c-transaction-history-record>
+        </template>
+      </template>
+      <template if:true={showLoadMore}>
+        <article
+          class="slds-card slds-card_boundary slds-m-bottom_small slds-align_absolute-center"
+        >
+          <a
+            href="javascript:void(0);"
+            onclick={handleLoadMore}
+            class="load-more-link"
+            >Load More</a
+          >
+        </article>
+      </template>
+    </div>
+  </div>
+</template>

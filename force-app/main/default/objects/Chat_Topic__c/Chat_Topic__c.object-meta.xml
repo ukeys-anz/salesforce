@@ -128,14 +128,11 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
-        <comment>Action override created by Lightning App Builder during activation.</comment>
-        <content>Financial_Account_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <skipRecordTypeSelect>false</skipRecordTypeSelect>
-        <type>Flexipage</type>
+        <type>Default</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
+        <formFactor>Large</formFactor>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
@@ -146,41 +143,25 @@
     <allowInChatterGroups>false</allowInChatterGroups>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
-    <deprecated>false</deprecated>
-    <description>A client&apos;s financial account, such as an investment account, bank account, or insurance policy.</description>
-    <enableActivities>true</enableActivities>
+    <description>This will be used to cache Twilio Channel information in Salesforce. 
+The intention is to use this cached Channel info (e.g. ID) to view/fetch chat transcripts in the future.</description>
+    <enableActivities>false</enableActivities>
     <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
-    <enableHistory>true</enableHistory>
+    <enableHistory>false</enableHistory>
     <enableLicensing>false</enableLicensing>
-    <enableReports>true</enableReports>
-    <enableSearch>true</enableSearch>
+    <enableReports>false</enableReports>
+    <enableSearch>false</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <externalSharingModel>Private</externalSharingModel>
-    <label>Financial Account</label>
+    <label>Chat Topic</label>
     <nameField>
-        <label>Financial Account Name</label>
-        <trackHistory>true</trackHistory>
+        <label>Chat Topic Name</label>
         <type>Text</type>
     </nameField>
-    <pluralLabel>Financial Accounts</pluralLabel>
-    <recordTypeTrackHistory>false</recordTypeTrackHistory>
-    <searchLayouts>
-        <customTabListAdditionalFields>FinServ__Status__c</customTabListAdditionalFields>
-        <customTabListAdditionalFields>FinServ__FinancialAccountNumber__c</customTabListAdditionalFields>
-        <customTabListAdditionalFields>FinServ__Balance__c</customTabListAdditionalFields>
-        <customTabListAdditionalFields>FinServ__OpenDate__c</customTabListAdditionalFields>
-        <lookupDialogsAdditionalFields>FinServ__Status__c</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>FinServ__FinancialAccountNumber__c</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>FinServ__Balance__c</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>FinServ__OpenDate__c</lookupDialogsAdditionalFields>
-        <searchResultsAdditionalFields>FinServ__Status__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>FinServ__FinancialAccountNumber__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>FinServ__Balance__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>FinServ__OpenDate__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>FinServ__PrimaryOwner__c</searchResultsAdditionalFields>
-    </searchLayouts>
-    <sharingModel>Read</sharingModel>
+    <pluralLabel>Chat Topics</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>
