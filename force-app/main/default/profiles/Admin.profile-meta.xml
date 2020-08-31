@@ -855,6 +855,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Chat_Topic__c.Related_Customer__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Customer_Feedback__c.Account_Name__c</field>
         <readable>true</readable>
@@ -2018,6 +2023,9 @@
         <layout>Case_Duration__c-Case Duration Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Chat_Topic__c-Chat Topic Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Customer_Feedback__c-Customer Feedback Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -2096,6 +2104,15 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
         <object>Case_Duration__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>Chat_Topic__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
