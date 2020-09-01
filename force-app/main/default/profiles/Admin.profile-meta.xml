@@ -1001,6 +1001,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>FinServ__FinancialAccount__c.Branch_Code__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>FinServ__FinancialAccount__c.FinServ__APY__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2021,6 +2026,10 @@
         <layout>Customer_Feedback__c-Customer Feedback Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>FinServ__FinancialAccount__c-Financial Account %28Staging Account%29 Layout</layout>
+        <recordType>FinServ__FinancialAccount__c.Staging_Account</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Knowledge__kav-Knowledge Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -2284,6 +2293,11 @@
     <recordTypeVisibilities>
         <default>false</default>
         <recordType>FinServ__FinancialAccount__c.FinServ__TreasuryService</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>FinServ__FinancialAccount__c.Staging_Account</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
