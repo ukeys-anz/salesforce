@@ -114,11 +114,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Chat_Topic__c.Related_Customer__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Application_Logging__e.sfLog__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -232,9 +227,6 @@
     <layoutAssignments>
         <layout>Case-Complaint Layout</layout>
         <recordType>Case.Non_Customer_Complaint</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Chat_Topic__c-Chat Topic Layout</layout>
     </layoutAssignments>
     <recordTypeVisibilities>
         <default>true</default>

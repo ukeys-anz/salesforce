@@ -3188,11 +3188,6 @@
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
-    <field>Chat_Topic__c.Related_Customer__c</field>
-    <readable>true</readable>
-  </fieldPermissions>
-  <fieldPermissions>
     <editable>false</editable>
     <field>Contact.FinServ__Gender__c</field>
     <readable>false</readable>
@@ -8573,9 +8568,6 @@
   <layoutAssignments>
     <layout>Case-Non-Customer Complaint Layout</layout>
     <recordType>Case.Non_Customer_Complaint</recordType>
-  </layoutAssignments>
-  <layoutAssignments>
-    <layout>Chat_Topic__c-Chat Topic Layout</layout>
   </layoutAssignments>
   <layoutAssignments>
     <layout>PersonAccount-Customer View Layout</layout>
