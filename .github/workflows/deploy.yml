@@ -99,11 +99,6 @@ jobs:
       - name: "Authenticate all orgs in SFDX CLI"
         run: sfdx force:auth:sfdxurl:store -a systest --sfdxurlfile=./SFDX_URL_SYSTEST.txt
 
-      - name: Reindex sidebar
-        run: |
-          npm i lodash@4.17.19
-          node reindex
-
       - name: Generate schema and access docs
         working-directory: salesforce
         shell: bash
@@ -130,6 +125,11 @@ jobs:
           rm -rf ./docs/static/ApexDocumentation
           mkdir -p ./docs/static/
           cp -r salesforce/apexdoc/ApexDocumentation ./docs/static/
+
+      - name: Reindex sidebar
+        run: |
+          npm i lodash@4.17.19
+          node reindex
 
       - name: Create new branch on anzx/salesforce-docs
         uses: EndBug/add-and-commit@v4
