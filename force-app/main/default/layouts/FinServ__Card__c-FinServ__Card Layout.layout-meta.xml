@@ -17,6 +17,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>Card_Number__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>Card_Delivery_Status__c</field>
             </layoutItems>
             <layoutItems>
@@ -42,10 +46,6 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Card_Status__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Card_Number__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
