@@ -1,6 +1,7 @@
 import { LightningElement, api, track, wire } from "lwc";
 
 import getTotalBalance from "@salesforce/apex/TotalBalanceController.getTotalBalance";
+import getTotalSaved from "@salesforce/apex/TotalBalanceController.getTotalSaved";
 
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
@@ -10,8 +11,8 @@ import TriggerLoading from "@salesforce/messageChannel/FinancialAccountsTriggerL
 
 export default class TotalBalance extends LightningElement {
   @api recordId;
-  acc;
   @track totalBalance;
+  @track totalSaved;
   @track timestamp;
   @track loading = true;
 
@@ -36,11 +37,12 @@ export default class TotalBalance extends LightningElement {
       UpdateAccountsAndGoals,
       (message) => {
         if (message.update) {
-          this.acc = null;
+          this.totalSaved = null;
+          this.totalBalance = null;
           this.getTotal();
           this.setTimestamp();
 
-          if (this.acc) {
+          if (this.totalBalance || this.totalSaved) {
             this.loading = false;
           }
         }
@@ -86,16 +88,40 @@ export default class TotalBalance extends LightningElement {
       ownerId: this.recordId
     })
       .then((result) => {
-        this.acc = result;
-        this.totalBalance = new Intl.NumberFormat("en-AU", {
-          style: "currency",
-          currency: "AUD"
-        }).format(this.acc.FinServ__TotalFinAcctsPrimaryOwner__c);
+        this.totalBalance = result.totalBalance
+          ? new Intl.NumberFormat("en-AU", {
+              style: "currency",
+              currency: "AUD"
+            }).format(result.totalBalance)
+          : "N/A";
+
         this.loading = false;
       })
       .catch((error) => {
         this.loading = false;
         let errorMessage = "Failed to load total balance";
+        if (error.body && error.body.message) {
+          errorMessage = error.body.message;
+        }
+        this.showToast("Total Balance Load Failed", errorMessage, error);
+      });
+
+    getTotalSaved({
+      ownerId: this.recordId
+    })
+      .then((result) => {
+        this.totalSaved = result.totalSaved
+          ? new Intl.NumberFormat("en-AU", {
+              style: "currency",
+              currency: "AUD"
+            }).format(result.totalSaved)
+          : "N/A";
+
+        this.loading = false;
+      })
+      .catch((error) => {
+        this.loading = false;
+        let errorMessage = "Failed to load total saved";
         if (error.body && error.body.message) {
           errorMessage = error.body.message;
         }
