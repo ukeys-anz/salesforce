@@ -15,11 +15,11 @@ public with sharing class GetAccountsAndGoals {
    *
    * @param ocvId Ocv id for which accounts and goals needs to be fetched
    * @param fabricId Temporary solution to pass Fabric Id till the time ForgeRock is ready according to the document https://confluence.service.anz/display/ABT/Fabric+ID+as+an+interim+solution+till+ForgeRock+is+available
-   * -- Todo -- please add what is needed to be returned.. change from void to List of objects or Map with account number and value as the account object with or without goal
+   * @return String
    * @exception CalloutException
    */
   @AuraEnabled(cacheable=false)
-  public static void getAccounts(String ocvId, String fabricId) {
+  public static String getAccounts(String ocvId, String fabricId) {
     String responseBody = null;
     if (String.isNotBlank(fabricId)) {
       HttpRequest request = new HttpRequest();
@@ -57,12 +57,14 @@ public with sharing class GetAccountsAndGoals {
         throw ahe;
       }
     }
+
+    return responseBody;
   }
 
   private static String createSerializedJWT(String fabricId) {
     Map<String, String> claims = new Map<String, String>();
     // Add fabric id to the custom claims
-    claims.put('fabricId', fabricId);
+    claims.put('fabricid', fabricId);
     Auth.JWT jwt = new Auth.JWT();
     jwt.setIss('salesforce');
     jwt.setAud('mulesoft');
