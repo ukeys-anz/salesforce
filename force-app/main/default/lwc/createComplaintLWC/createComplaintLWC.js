@@ -464,21 +464,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
     }
   }
 
-  handleCustomerNumberOnblur() {
-    let capCisfield = this.template.querySelector(".inputCapCisId");
-    if (!this.customerIdValue.match("^[0-9]{10,}$")) {
-      //set an error
-      capCisfield.setCustomValidity(
-        "Customer number must be numbers and at least 10 digits long"
-      );
-      capCisfield.reportValidity();
-    } else {
-      //reset an error
-      capCisfield.setCustomValidity("");
-      capCisfield.reportValidity();
-    }
-  }
-
   // add all the required fields for this complaint.
   getRequiredFields() {
     let requiredFields = {};
