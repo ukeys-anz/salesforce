@@ -17,14 +17,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>FinServ__ValidUntil__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>FinServ__BinNumber__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>Card_Delivery_Status__c</field>
             </layoutItems>
             <layoutItems>
@@ -60,10 +52,6 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>FinServ__OwnershipType__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>FinServ__Active__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
