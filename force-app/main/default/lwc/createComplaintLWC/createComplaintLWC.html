@@ -125,8 +125,9 @@
                     required
                     minlength="10"
                     maxlength="15"
+                    pattern="\d{10,15}"
+                    message-when-pattern-mismatch="Customer number must be numbers and at least 10 digits long"
                     onchange={handleCustomerNumberChange}
-                    onblur={handleCustomerNumberOnblur}
                   >
                   </lightning-input>
                 </div>
