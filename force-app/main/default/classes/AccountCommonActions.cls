@@ -16,8 +16,9 @@ public with sharing class AccountCommonActions {
    */
   public static void enforceNonProdAccountWhitelist(List<Account> records) {
     if (
-      (SFConstants.IS_SANDBOX || Test.isRunningTest()) &&
-      NON_PROD_SETTINGS.Enable_Account_Whitelisting__c
+      (SFConstants.IS_SANDBOX ||
+      SFConstants.IS_SCRATCH_ORG ||
+      Test.isRunningTest()) && NON_PROD_SETTINGS.Enable_Account_Whitelisting__c
     ) {
       List<String> whitelist = NON_PROD_SETTINGS.Account_Whitelist__c.split(
         ','

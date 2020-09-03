@@ -5,3 +5,11 @@
 .slds-item_label {
   font-size: 24px;
 }
+
+.lastUpdated {
+  float: right;
+  position: relative;
+  font-size: 12px;
+  bottom: 7px;
+  right: 10px;
+}

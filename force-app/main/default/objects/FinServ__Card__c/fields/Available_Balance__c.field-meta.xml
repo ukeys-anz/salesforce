@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Available_Balance__c</fullName>
+    <complianceGroup>Integrity - Accurate</complianceGroup>
+    <description>The balance remaining until daily spending limit is reached</description>
+    <externalId>false</externalId>
+    <label>Available Limit</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <securityClassification>Confidential</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>
