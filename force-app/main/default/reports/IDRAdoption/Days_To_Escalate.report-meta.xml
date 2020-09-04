@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>OWNER</field>
+    </columns>
+    <columns>
+        <field>CASE_NUMBER</field>
+    </columns>
+    <columns>
+        <field>OPEN</field>
+    </columns>
+    <columns>
+        <field>CLOSED</field>
+    </columns>
+    <columns>
+        <field>CREATED</field>
+    </columns>
+    <columns>
+        <field>HOWNERNAME</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>HLAST_UPDATE</field>
+    </columns>
+    <customDetailFormulas>
+        <calculatedFormula>IF(CREATED == HOWNERNAME,
+IF (DATEVALUE(HLAST_UPDATE) - DATEVALUE(CREATED_DATE)==0,&apos;Immediately&apos;,
+IF (DATEVALUE(HLAST_UPDATE) - DATEVALUE(CREATED_DATE) &gt;0 &amp;&amp; (DATEVALUE(HLAST_UPDATE) - DATEVALUE(CREATED_DATE) &lt; 3) ,&apos;&lt; 3 days&apos;,
+If (DATEVALUE(HLAST_UPDATE) - DATEVALUE(CREATED_DATE)&gt;= 3&amp;&amp; (DATEVALUE(HLAST_UPDATE) - DATEVALUE(CREATED_DATE) &lt; 5), &apos; &gt;= 3 days&apos;,&apos;&gt;= 5 Day&apos;))),&apos;Other&apos;)</calculatedFormula>
+        <dataType>Text</dataType>
+        <developerName>CDF1</developerName>
+        <label>DaysToEscalate</label>
+        <scale>2</scale>
+    </customDetailFormulas>
+    <filter>
+        <criteriaItems>
+            <column>HSTATUS</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Escalated</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>RECORDTYPE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Case.Customer_Complaint,Case.Non_Customer_Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>CDF1</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Other</value>
+        </criteriaItems>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>CDF1</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>IDR : Days To Escalate</name>
+    <params>
+        <name>units</name>
+        <value>d</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CaseHistory</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>
