@@ -34,6 +34,10 @@
                 <behavior>Edit</behavior>
                 <field>Public_Groups__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Permission_Set_Licences__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

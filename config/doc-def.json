@@ -103,6 +103,20 @@
       "type": "user"
     },
     {
+      "name": "Trailblazer",
+      "profile": "ANZx Trailblazer User",
+      "permissionsetgroups": ["MyTrailhead_Learner"],
+      "permissionsets": [],
+      "type": "user"
+    },
+    {
+      "name": "TrailTracker Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": ["API_Only", "Th_Badge_Admin"],
+      "type": "system"
+    },
+    {
       "name": "WebdriverIO Integration User",
       "profile": "Minimum Access - Salesforce",
       "permissionsetgroups": [],

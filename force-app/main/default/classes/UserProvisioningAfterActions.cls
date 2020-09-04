@@ -4,6 +4,7 @@
  * @description UserProvisioningAfterActions class is called in UserTriggerHandler to assign Permission set, Permission Set Group
  * and Public group automatically based on Buesiness Function and Role combinations in User Provisioning Custom Metadata object.
  */
+@SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class UserProvisioningAfterActions {
   /**
    * @description This method is called in OnAfterInsert & OnAfterUpdate to assign Permission sets, Permission set groups and public groups to user record.
@@ -17,6 +18,7 @@ public with sharing class UserProvisioningAfterActions {
     Set<String> businessFuncAndRoles
   ) {
     List<PermissionSetAssignment> psetAssignmentList = new List<PermissionSetAssignment>();
+    List<PermissionSetLicenseAssign> psetLicenseAssignmentList = new List<PermissionSetLicenseAssign>();
 
     List<GroupMember> groupMemberList = new List<GroupMember>();
 
@@ -27,9 +29,17 @@ public with sharing class UserProvisioningAfterActions {
     if (!businessFunctionMap.isEmpty()) {
       Map<String, PermissionSet> pSetMap = UserProvisioningCommonActions.getAllPSetMap();
       Map<String, PermissionSetGroup> pSetGroupMap = UserProvisioningCommonActions.getAllPsetGroupMap();
+      Map<String, PermissionSetLicense> pSetLicenseMap = UserProvisioningCommonActions.getAllPSetLicenseMap();
       Map<String, Group> publicGroupMap = UserProvisioningCommonActions.getAllPublicGroupMap();
 
       for (User record : records) {
+        psetLicenseAssignmentList.addAll(
+          assignPermissionSetLicences(
+            record,
+            businessFunctionMap,
+            pSetLicenseMap
+          )
+        );
         psetAssignmentList.addAll(
           assignPermissionSet(record, businessFunctionMap, pSetMap)
         );
@@ -43,6 +53,16 @@ public with sharing class UserProvisioningAfterActions {
     }
 
     //no logic written to check if the user is already having that membership, Database.insert(list,false) is used to handle those records.
+    if (!psetLicenseAssignmentList.isEmpty()) {
+      List<Database.SaveResult> psetLicenseAssign = Database.insert(
+        psetLicenseAssignmentList,
+        false
+      );
+      system.debug(
+        System.LoggingLevel.INFO,
+        'Permission Set License Assignments Save Results:' + psetLicenseAssign
+      );
+    }
     if (!psetAssignmentList.isEmpty()) {
       List<Database.SaveResult> psetAssingment = Database.insert(
         psetAssignmentList,
@@ -136,6 +156,46 @@ public with sharing class UserProvisioningAfterActions {
       }
     }
     return psetAssignmentList;
+  }
+
+  /**
+   * @description This method is called in assignMembership to assign Permission set licences to user record.
+   * @param record User record from trigger
+   * @param businessFunctionMap Business Function and Role combinations
+   * @param pSetLicenseMap Permission Set License Map with permission set licence name as a key
+   * @return `List<PermissionSetLicenseAssign>` List of permission set license assignment for insert
+   */
+  private static List<PermissionSetLicenseAssign> assignPermissionSetLicences(
+    User record,
+    Map<String, User_Provisioning_Setting__mdt> businessFunctionMap,
+    Map<String, PermissionSetLicense> pSetLicenseMap
+  ) {
+    String businessFunctionRoleKey = UserProvisioningCommonActions.generateKey(
+      record
+    );
+    String pSetLicenseNames;
+    List<PermissionSetLicenseAssign> psetLicenseAssignmentList = new List<PermissionSetLicenseAssign>();
+
+    if (businessFunctionMap.containskey(businessFunctionRoleKey)) {
+      pSetLicenseNames = businessFunctionMap.get(businessFunctionRoleKey)
+        .Permission_Set_Licences__c;
+    }
+    if (String.isNotBlank(pSetLicenseNames)) {
+      List<String> pSetLicenseList = pSetLicenseNames.deleteWhitespace()
+        .split(';');
+      for (String pSetLicenseName : pSetLicenseList) {
+        PermissionSetLicenseAssign assignPsetLicense = new PermissionSetLicenseAssign();
+        assignPsetLicense.AssigneeId = record.id;
+        if (pSetLicenseMap.containskey(pSetLicenseName)) {
+          assignPsetLicense.PermissionSetLicenseId = pSetLicenseMap.get(
+              pSetLicenseName
+            )
+            .Id;
+          psetLicenseAssignmentList.add(assignPsetLicense);
+        }
+      }
+    }
+    return psetLicenseAssignmentList;
   }
 
   /**
