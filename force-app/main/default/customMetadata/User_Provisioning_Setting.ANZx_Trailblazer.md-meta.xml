@@ -7,6 +7,10 @@
         <value xsi:type="xsd:string">MyTrailhead_Learner;</value>
     </values>
     <values>
+        <field>Permission_Set_Licences__c</field>
+        <value xsi:type="xsd:string">MyTrailheadPSL</value>
+    </values>
+    <values>
         <field>Permission_Sets__c</field>
         <value xsi:type="xsd:string">Enforce_SSO;Trailblazer;</value>
     </values>
