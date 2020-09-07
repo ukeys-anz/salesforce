@@ -290,6 +290,7 @@
                 <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
                 <report>IDRAdoption/Time_to_Resolve_by_Channel</report>
                 <showRange>false</showRange>
+                <title>In Days</title>
             </dashboardComponent>
             <rowIndex>12</rowIndex>
             <rowSpan>4</rowSpan>
