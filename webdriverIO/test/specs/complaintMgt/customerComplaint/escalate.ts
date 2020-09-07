@@ -5,17 +5,22 @@ import CustomerComplaint from "../../../../pages/complaintMgt/edit/customerCompl
 import { createCaseList } from "../../../../objectStore/complaint";
 
 /*** DECLARATIONS ***/
-let caseId: any;
+var caseId: any;
 const recordType = "Customer_Complaint";
 
 describe("Customer Record Escalation", () => {
-  before(() => {
-    createCaseList(1, recordType, "idrlvl3").then((cases: any) => {
-      caseId = cases[0].CaseNumber;
-    });
+  before(async () => {
+    console.log("Before execution start");
+    const cases: any = await createCaseList(1, recordType, "idrlvl3");
+    /* createCaseList(1, recordType, "idrlvl3").then((cases: any) => {*/
+    console.log("result:" + JSON.stringify(cases[0].CaseNumber));
+    caseId = JSON.stringify(cases[0].CaseNumber);
+    console.log("caseId:" + caseId);
+    /* });*/
   });
 
   it("should escalate a customer complaint case record", () => {
+    console.log("after:" + caseId);
     CustomerComplaint.login("idrlvl3");
     CustomerComplaint.loadApp("Complaint Mgt");
     $('button[title="Show Navigation Menu"]').click();
@@ -23,7 +28,10 @@ describe("Customer Record Escalation", () => {
 
     $("a[title='Select List View']").click();
     $("span=My Open Cases").click();
-    $(`=${caseId}`).click();
+    $("span=Case Number").click();
+    $("span=Case Number").click();
+
+    $("a[title=" + caseId + "]").click();
 
     $("=Edit").click();
 
@@ -35,9 +43,10 @@ describe("Customer Record Escalation", () => {
     $("mark=Netwealth").click();
 
     CustomerComplaint.escalatedReason.click();
-    $("=Above Banker Discretion").click();
+    $('a[role="menuitemradio"]=Remediation').click();
+
     CustomerComplaint.escalatedTo.click();
-    $("=CRC").click();
+    $('a[role="menuitemradio"]=CRC').click();
 
     CustomerComplaint.save.click();
 

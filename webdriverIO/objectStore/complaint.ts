@@ -27,6 +27,8 @@ interface ICase {
   IDR_NC_Is_Consent_Obtained__c: boolean;
   OwnerId?: string;
   Id?: string;
+  IDR_Subsequent_Issue__c: string;
+  CaseNumber?: string;
 }
 
 /**
@@ -43,12 +45,11 @@ export function createCaseList(
   return new Promise(async (resolve) => {
     const cases: ICase[] = [];
     const user: any = await getUserByAlias(alias);
-
     const idList: string[] = [];
     for (let i = 0; i < amount; i++) {
       const mockCase: ICase = {
         IDR_Complainant_Type__c: "1",
-        Type: "2",
+        Type: "17",
         IDR_Is_Common__c: faker.random.boolean(),
         Description: faker.lorem.text(),
         IDR_Complainant_Desired_Outcome__c: faker.lorem.text(),
@@ -68,6 +69,8 @@ export function createCaseList(
         IDR_Is_Written_Resp_Requested__c: "No",
         IDR_Is_Written_Resp_Required__c: "No",
         IDR_NC_Is_Consent_Obtained__c: true,
+        // new required fields
+        IDR_Subsequent_Issue__c: "26",
         OwnerId: user.Id
       };
 
@@ -99,17 +102,19 @@ export function createCaseList(
       },
       (err: any, result: any) => {
         if (!result[0].success) {
+          console.log("Failed to create case" + result[0].errors);
           throw new CustomError("Failed to create case", result[0].errors);
         }
         //Loop through the result to create a list of ids
         result.forEach((item: any) => {
           if (item.success) {
-            idList.push(item.Id);
+            idList.push(item.id);
           }
         });
         //Retrieve the new accounts using the created id list and return the results
         jsForce.sobject("Case").retrieve(idList, (err: any, result: any) => {
           if (err) {
+            console.log("Failed to retrieve case" + err);
             throw new CustomError("Failed to retrieve case", err);
           }
           resolve(result);

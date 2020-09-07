@@ -58,10 +58,10 @@ class CustomerComplaint extends Base {
     return $("//div/div[3]/div/div/div[2]/div[2]/div/div/div/div");
   }
   get escalatedReason() {
-    return $("//div/div[3]/div/div/div[6]/div[1]/div/div/div/div");
+    return $("//div/div[3]/div/div/div[6]/div[2]/div/div/div/div");
   }
   get escalatedTo() {
-    return $("//div/div[3]/div/div/div[5]/div[2]/div/div/div/div");
+    return $("//div/div[3]/div/div/div[6]/div[1]/div/div/div/div");
   }
   get complaintOutcome() {
     return $(
