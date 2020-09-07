@@ -515,22 +515,12 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>HasSelfServiceComments</field>
-            <table>User.Case$CreatedById</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Owner</field>
             <table>User.Case$CreatedById</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>IsClosedOnCreate</field>
-            <table>User.Case$CreatedById</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>IsSelfServiceClosed</field>
             <table>User.Case$CreatedById</table>
         </columns>
         <columns>
