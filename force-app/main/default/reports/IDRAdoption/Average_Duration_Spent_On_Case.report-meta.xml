@@ -13,7 +13,13 @@
     <columns>
         <field>CLOSED</field>
     </columns>
-    <description>Average handle time of all cases per rep</description>
+    <columns>
+        <field>ACCOUNT.NAME</field>
+    </columns>
+    <columns>
+        <field>CASE_NUMBER</field>
+    </columns>
+    <description>Average handle time of all cases per rep for the current FQ</description>
     <filter>
         <criteriaItems>
             <column>OWNER</column>
@@ -29,11 +35,18 @@
             <operator>equals</operator>
             <value>Case.Customer_Complaint,Case.Non_Customer_Complaint</value>
         </criteriaItems>
+        <criteriaItems>
+            <column>DURATION</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>greaterOrEqual</operator>
+            <value>1</value>
+        </criteriaItems>
     </filter>
     <format>Summary</format>
     <groupingsDown>
         <dateGranularity>Day</dateGranularity>
-        <field>OWNER</field>
+        <field>HOWNERNAME</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
     <name>IDR:Average Duration Spent On Case</name>
@@ -47,9 +60,9 @@
     </params>
     <reportType>CaseHistory</reportType>
     <scope>organization</scope>
-    <showDetails>false</showDetails>
+    <showDetails>true</showDetails>
     <showGrandTotal>true</showGrandTotal>
-    <showSubTotals>true</showSubTotals>
+    <showSubTotals>false</showSubTotals>
     <timeFrameFilter>
         <dateColumn>HLAST_UPDATE</dateColumn>
         <interval>INTERVAL_CUSTOM</interval>
