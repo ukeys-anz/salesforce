@@ -36,9 +36,6 @@
         <titleSize>18</titleSize>
     </chart>
     <columns>
-        <field>ACCOUNT.NAME</field>
-    </columns>
-    <columns>
         <field>OWNER</field>
     </columns>
     <columns>

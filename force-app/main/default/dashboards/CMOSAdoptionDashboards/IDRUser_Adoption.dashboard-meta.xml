@@ -288,9 +288,9 @@
                 <indicatorHighColor>#00716B</indicatorHighColor>
                 <indicatorLowColor>#C23934</indicatorLowColor>
                 <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
+                <metricLabel>in days</metricLabel>
                 <report>IDRAdoption/Time_to_Resolve_by_Channel</report>
                 <showRange>false</showRange>
-                <title>In Days</title>
             </dashboardComponent>
             <rowIndex>12</rowIndex>
             <rowSpan>4</rowSpan>
@@ -301,9 +301,8 @@
             <dashboardComponent>
                 <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
                 <chartSummary>
-                    <aggregate>Average</aggregate>
                     <axisBinding>y</axisBinding>
-                    <column>DURATION</column>
+                    <column>FORMULA1</column>
                 </chartSummary>
                 <componentType>Gauge</componentType>
                 <decimalPrecision>-1</decimalPrecision>
@@ -317,11 +316,12 @@
                 <indicatorHighColor>#C23934</indicatorHighColor>
                 <indicatorLowColor>#00716B</indicatorLowColor>
                 <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
-                <report>IDRAdoption/Average_Duration_Spent_On_Case</report>
+                <report>IDRAdoption/IDR_Case_Complaint_Handling_Time</report>
                 <showPercentage>false</showPercentage>
                 <showRange>false</showRange>
                 <showTotal>true</showTotal>
                 <showValues>false</showValues>
+                <title>In Days</title>
             </dashboardComponent>
             <rowIndex>16</rowIndex>
             <rowSpan>8</rowSpan>
