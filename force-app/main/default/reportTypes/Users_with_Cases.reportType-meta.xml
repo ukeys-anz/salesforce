@@ -515,11 +515,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>HasCommentsUnreadByOwner</field>
-            <table>User.Case$CreatedById</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>HasSelfServiceComments</field>
             <table>User.Case$CreatedById</table>
         </columns>
