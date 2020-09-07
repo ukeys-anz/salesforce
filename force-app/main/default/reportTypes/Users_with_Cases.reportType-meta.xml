@@ -485,11 +485,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>IsVisibleInSelfService</field>
-            <table>User.Case$CreatedById</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Subject</field>
             <table>User.Case$CreatedById</table>
         </columns>
