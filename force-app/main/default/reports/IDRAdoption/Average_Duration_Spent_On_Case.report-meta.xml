@@ -13,10 +13,7 @@
     <columns>
         <field>CLOSED</field>
     </columns>
-    <columns>
-        <field>ACCOUNT.NAME</field>
-    </columns>
-    <description>Average handle time of all cases per rep for the current FQ</description>
+    <description>Average handle time of all cases per rep</description>
     <filter>
         <criteriaItems>
             <column>OWNER</column>
