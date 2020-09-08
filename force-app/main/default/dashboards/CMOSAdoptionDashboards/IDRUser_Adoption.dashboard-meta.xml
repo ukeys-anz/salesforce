@@ -210,13 +210,13 @@
                 <decimalPrecision>-1</decimalPrecision>
                 <displayUnits>Auto</displayUnits>
                 <groupingSortProperties/>
-                <header>Total Cases Created</header>
-                <indicatorBreakpoint1>21.0</indicatorBreakpoint1>
-                <indicatorBreakpoint2>67.0</indicatorBreakpoint2>
+                <header>IDR Case Statistics</header>
+                <indicatorBreakpoint1>100.0</indicatorBreakpoint1>
+                <indicatorBreakpoint2>125.0</indicatorBreakpoint2>
                 <indicatorHighColor>#00716B</indicatorHighColor>
                 <indicatorLowColor>#C23934</indicatorLowColor>
                 <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
-                <report>IDRAdoption/Users_With_Cases_Status</report>
+                <report>IDRAdoption/IDR_Case_Statistics</report>
                 <showRange>false</showRange>
             </dashboardComponent>
             <rowIndex>8</rowIndex>
@@ -228,19 +228,19 @@
             <dashboardComponent>
                 <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
                 <chartSummary>
-                    <column>FORMULA2</column>
+                    <column>FORMULA1</column>
                 </chartSummary>
                 <componentType>Metric</componentType>
                 <decimalPrecision>-1</decimalPrecision>
                 <displayUnits>Auto</displayUnits>
                 <groupingSortProperties/>
-                <header>Closed Case Percentage</header>
-                <indicatorBreakpoint1>33.0</indicatorBreakpoint1>
-                <indicatorBreakpoint2>67.0</indicatorBreakpoint2>
+                <header>IDR Case Statistics</header>
+                <indicatorBreakpoint1>45.0</indicatorBreakpoint1>
+                <indicatorBreakpoint2>75.0</indicatorBreakpoint2>
                 <indicatorHighColor>#00716B</indicatorHighColor>
                 <indicatorLowColor>#C23934</indicatorLowColor>
                 <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
-                <report>IDRAdoption/Users_With_Cases_Status</report>
+                <report>IDRAdoption/IDR_Case_Statistics</report>
                 <showRange>false</showRange>
             </dashboardComponent>
             <rowIndex>8</rowIndex>
@@ -252,19 +252,19 @@
             <dashboardComponent>
                 <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
                 <chartSummary>
-                    <column>FORMULA1</column>
+                    <column>FORMULA2</column>
                 </chartSummary>
                 <componentType>Metric</componentType>
                 <decimalPrecision>-1</decimalPrecision>
                 <displayUnits>Auto</displayUnits>
                 <groupingSortProperties/>
-                <header>Escalated Case Percentage</header>
-                <indicatorBreakpoint1>33.0</indicatorBreakpoint1>
-                <indicatorBreakpoint2>67.0</indicatorBreakpoint2>
-                <indicatorHighColor>#00716B</indicatorHighColor>
-                <indicatorLowColor>#C23934</indicatorLowColor>
+                <header>IDR Case Statistics</header>
+                <indicatorBreakpoint1>30.0</indicatorBreakpoint1>
+                <indicatorBreakpoint2>60.0</indicatorBreakpoint2>
+                <indicatorHighColor>#700011</indicatorHighColor>
+                <indicatorLowColor>#00716B</indicatorLowColor>
                 <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
-                <report>IDRAdoption/Users_With_Cases_Status</report>
+                <report>IDRAdoption/IDR_Case_Statistics</report>
                 <showRange>false</showRange>
             </dashboardComponent>
             <rowIndex>12</rowIndex>
@@ -283,13 +283,13 @@
                 <displayUnits>Auto</displayUnits>
                 <groupingSortProperties/>
                 <header>Average Time to Resolution</header>
-                <indicatorBreakpoint1>5.0</indicatorBreakpoint1>
-                <indicatorBreakpoint2>30.0</indicatorBreakpoint2>
+                <indicatorBreakpoint1>33.0</indicatorBreakpoint1>
+                <indicatorBreakpoint2>67.0</indicatorBreakpoint2>
                 <indicatorHighColor>#00716B</indicatorHighColor>
                 <indicatorLowColor>#C23934</indicatorLowColor>
                 <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
-                <metricLabel>in days</metricLabel>
-                <report>IDRAdoption/Time_to_Resolve_by_Channel</report>
+                <metricLabel>In Days</metricLabel>
+                <report>IDRAdoption/IDR_Average_Time_to_Resolution</report>
                 <showRange>false</showRange>
             </dashboardComponent>
             <rowIndex>12</rowIndex>

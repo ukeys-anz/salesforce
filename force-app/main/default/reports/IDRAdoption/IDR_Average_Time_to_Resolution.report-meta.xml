@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
     <aggregates>
-        <calculatedFormula>CDF1:SUM / RowCount</calculatedFormula>
+        <calculatedFormula>CDF1:SUM/RowCount</calculatedFormula>
         <datatype>number</datatype>
-        <description>Average time to case resolution</description>
         <developerName>FORMULA1</developerName>
         <isActive>true</isActive>
         <isCrossBlock>false</isCrossBlock>
-        <masterLabel>Average Resolution Time</masterLabel>
-        <scale>0</scale>
+        <masterLabel>Average time to close</masterLabel>
+        <scale>2</scale>
     </aggregates>
     <chart>
         <backgroundColor1>#FFFFFF</backgroundColor1>
@@ -17,12 +16,12 @@
         <chartSummaries>
             <aggregate>Sum</aggregate>
             <axisBinding>y</axisBinding>
-            <column>DURATION</column>
+            <column>CDF1</column>
         </chartSummaries>
         <chartType>HorizontalBar</chartType>
         <enableHoverLabels>false</enableHoverLabels>
         <expandOthers>true</expandOthers>
-        <groupingColumn>ORIGIN</groupingColumn>
+        <groupingColumn>OWNER</groupingColumn>
         <location>CHART_BOTTOM</location>
         <showAxisLabels>false</showAxisLabels>
         <showPercentage>false</showPercentage>
@@ -36,14 +35,10 @@
         <titleSize>18</titleSize>
     </chart>
     <columns>
-        <field>OWNER</field>
-    </columns>
-    <columns>
         <field>CREATED_DATE</field>
     </columns>
     <columns>
-        <aggregateTypes>Sum</aggregateTypes>
-        <field>DURATION</field>
+        <field>AGE</field>
     </columns>
     <columns>
         <field>OPEN</field>
@@ -52,44 +47,20 @@
         <field>CLOSED</field>
     </columns>
     <columns>
-        <field>HLAST_UPDATE</field>
-    </columns>
-    <columns>
         <field>CASE_NUMBER</field>
-    </columns>
-    <columns>
-        <field>CLOSED_DATE</field>
     </columns>
     <columns>
         <aggregateTypes>Sum</aggregateTypes>
         <field>CDF1</field>
     </columns>
-    <columns>
-        <aggregateTypes>Sum</aggregateTypes>
-        <field>CLOSED_ON_CREATE</field>
-    </columns>
     <customDetailFormulas>
         <calculatedFormula>CLOSED_DATE - CREATED_DATE</calculatedFormula>
         <dataType>Double</dataType>
         <developerName>CDF1</developerName>
-        <label>Time took to close</label>
+        <label>Time to Close</label>
         <scale>2</scale>
     </customDetailFormulas>
     <filter>
-        <criteriaItems>
-            <column>OWNER</column>
-            <columnToColumn>false</columnToColumn>
-            <isUnlocked>false</isUnlocked>
-            <operator>notContain</operator>
-            <value>queue</value>
-        </criteriaItems>
-        <criteriaItems>
-            <column>CLOSED</column>
-            <columnToColumn>false</columnToColumn>
-            <isUnlocked>false</isUnlocked>
-            <operator>equals</operator>
-            <value>1</value>
-        </criteriaItems>
         <criteriaItems>
             <column>RECORDTYPE</column>
             <columnToColumn>false</columnToColumn>
@@ -98,25 +69,20 @@
             <value>Case.Customer_Complaint,Case.Non_Customer_Complaint</value>
         </criteriaItems>
         <criteriaItems>
-            <column>DURATION</column>
+            <column>CLOSED</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
-            <operator>greaterOrEqual</operator>
+            <operator>equals</operator>
             <value>1</value>
         </criteriaItems>
     </filter>
     <format>Summary</format>
     <groupingsDown>
         <dateGranularity>Day</dateGranularity>
-        <field>ORIGIN</field>
+        <field>OWNER</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
-    <groupingsDown>
-        <dateGranularity>Day</dateGranularity>
-        <field>HSTATUS</field>
-        <sortOrder>Asc</sortOrder>
-    </groupingsDown>
-    <name>IDR: Time to Resolve by Channel</name>
+    <name>IDR :Average Time to Resolution</name>
     <params>
         <name>units</name>
         <value>d</value>
@@ -125,15 +91,13 @@
         <name>co</name>
         <value>1</value>
     </params>
-    <reportType>CaseHistory</reportType>
+    <reportType>CaseList</reportType>
     <scope>organization</scope>
     <showDetails>true</showDetails>
     <showGrandTotal>true</showGrandTotal>
     <showSubTotals>true</showSubTotals>
-    <sortColumn>CASE_NUMBER</sortColumn>
-    <sortOrder>Asc</sortOrder>
     <timeFrameFilter>
-        <dateColumn>HLAST_UPDATE</dateColumn>
+        <dateColumn>CREATED_DATEONLY</dateColumn>
         <interval>INTERVAL_CUSTOM</interval>
     </timeFrameFilter>
 </Report>
