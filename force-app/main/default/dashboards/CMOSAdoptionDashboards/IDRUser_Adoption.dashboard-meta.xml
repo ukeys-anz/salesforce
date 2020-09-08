@@ -175,8 +175,8 @@
                 <drillToDetailEnabled>false</drillToDetailEnabled>
                 <enableHover>false</enableHover>
                 <expandOthers>false</expandOthers>
-                <groupingColumn>User.Case$CreatedById$Origin</groupingColumn>
-                <groupingColumn>User$Division</groupingColumn>
+                <groupingColumn>ORIGIN</groupingColumn>
+                <groupingColumn>Case.IDR_Office__c</groupingColumn>
                 <groupingSortProperties>
                     <groupingSorts>
                         <groupingLevel>g1</groupingLevel>
@@ -187,9 +187,9 @@
                         <sortOrder>a</sortOrder>
                     </groupingSorts>
                 </groupingSortProperties>
-                <header>Issue Channel By Division</header>
+                <header>IDR Case Statistics</header>
                 <legendPosition>Bottom</legendPosition>
-                <report>IDRAdoption/User_adoption_by_channel</report>
+                <report>IDRAdoption/IDR_Case_Statistics</report>
                 <showPercentage>false</showPercentage>
                 <showValues>false</showValues>
                 <sortBy>RowLabelAscending</sortBy>
