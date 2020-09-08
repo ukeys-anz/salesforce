@@ -187,7 +187,7 @@
                         <sortOrder>a</sortOrder>
                     </groupingSorts>
                 </groupingSortProperties>
-                <header>Issue Channel By Division</header>
+                <header>Issue Channel By Team</header>
                 <legendPosition>Bottom</legendPosition>
                 <report>IDRAdoption/IDR_Case_Statistics</report>
                 <showPercentage>false</showPercentage>
