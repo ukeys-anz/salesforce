@@ -187,7 +187,7 @@
                         <sortOrder>a</sortOrder>
                     </groupingSorts>
                 </groupingSortProperties>
-                <header>IDR Case Statistics</header>
+                <header>Issue Channel By Division</header>
                 <legendPosition>Bottom</legendPosition>
                 <report>IDRAdoption/IDR_Case_Statistics</report>
                 <showPercentage>false</showPercentage>
@@ -210,7 +210,7 @@
                 <decimalPrecision>-1</decimalPrecision>
                 <displayUnits>Auto</displayUnits>
                 <groupingSortProperties/>
-                <header>IDR Case Statistics</header>
+                <header>Total Open Cases</header>
                 <indicatorBreakpoint1>100.0</indicatorBreakpoint1>
                 <indicatorBreakpoint2>125.0</indicatorBreakpoint2>
                 <indicatorHighColor>#00716B</indicatorHighColor>
@@ -234,7 +234,7 @@
                 <decimalPrecision>-1</decimalPrecision>
                 <displayUnits>Auto</displayUnits>
                 <groupingSortProperties/>
-                <header>IDR Case Statistics</header>
+                <header>Closed Case Percentage</header>
                 <indicatorBreakpoint1>45.0</indicatorBreakpoint1>
                 <indicatorBreakpoint2>75.0</indicatorBreakpoint2>
                 <indicatorHighColor>#00716B</indicatorHighColor>
@@ -258,7 +258,7 @@
                 <decimalPrecision>-1</decimalPrecision>
                 <displayUnits>Auto</displayUnits>
                 <groupingSortProperties/>
-                <header>IDR Case Statistics</header>
+                <header>Escalated Case Percentage</header>
                 <indicatorBreakpoint1>30.0</indicatorBreakpoint1>
                 <indicatorBreakpoint2>60.0</indicatorBreakpoint2>
                 <indicatorHighColor>#700011</indicatorHighColor>
