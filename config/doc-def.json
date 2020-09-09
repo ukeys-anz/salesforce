@@ -14,7 +14,8 @@
     "User_Provisioning_Request__c",
     "FinServ__FinancialAccount__c",
     "FinServ__FinancialAccountRole__c",
-    "Customer_Feedback__c"
+    "Customer_Feedback__c",
+    "Chat_Topic__c"
   ],
   "usermap": [
     {
