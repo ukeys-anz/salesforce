@@ -25,10 +25,9 @@
         <field>HLAST_UPDATE</field>
     </columns>
     <customDetailFormulas>
-        <calculatedFormula>IF(CREATED == HOWNERNAME,
-IF (DATEVALUE(HLAST_UPDATE) - DATEVALUE(CREATED_DATE)==0,&apos;Immediately&apos;,
+        <calculatedFormula>IF (DATEVALUE(HLAST_UPDATE) - DATEVALUE(CREATED_DATE)==0,&apos;Immediately&apos;,
 IF (DATEVALUE(HLAST_UPDATE) - DATEVALUE(CREATED_DATE) &gt;0 &amp;&amp; (DATEVALUE(HLAST_UPDATE) - DATEVALUE(CREATED_DATE) &lt; 3) ,&apos;&lt; 3 days&apos;,
-If (DATEVALUE(HLAST_UPDATE) - DATEVALUE(CREATED_DATE)&gt;= 3&amp;&amp; (DATEVALUE(HLAST_UPDATE) - DATEVALUE(CREATED_DATE) &lt; 5), &apos; &gt;= 3 days&apos;,&apos;&gt;= 5 days&apos;))),&apos;Other&apos;)</calculatedFormula>
+If (DATEVALUE(HLAST_UPDATE) - DATEVALUE(CREATED_DATE)&gt;= 3&amp;&amp; (DATEVALUE(HLAST_UPDATE) - DATEVALUE(CREATED_DATE) &lt; 5), &apos; &gt;= 3 days&apos;,&apos;&gt;= 5 Day&apos;)))</calculatedFormula>
         <dataType>Text</dataType>
         <developerName>CDF1</developerName>
         <label>DaysToEscalate</label>
@@ -48,13 +47,6 @@ If (DATEVALUE(HLAST_UPDATE) - DATEVALUE(CREATED_DATE)&gt;= 3&amp;&amp; (DATEVALU
             <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
             <value>Case.Customer_Complaint,Case.Non_Customer_Complaint</value>
-        </criteriaItems>
-        <criteriaItems>
-            <column>CDF1</column>
-            <columnToColumn>false</columnToColumn>
-            <isUnlocked>true</isUnlocked>
-            <operator>notEqual</operator>
-            <value>Other</value>
         </criteriaItems>
     </filter>
     <format>Summary</format>
