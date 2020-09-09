@@ -167,7 +167,7 @@ public with sharing class IDRCaseActions {
           }
           checkForCRCEscalation(records.get(i));
         }
-        handleCaseEscalationRules(records.get(i), caseToBeChanged.get(i));
+        handleCaseEscalationRules(records.get(i), caseToBeChanged.get(i),oldMap.get(records.get(i).Id));
       }
       //calling handleOfficeAssignment for all case records for which the IDR_Office__c needs to be updated.
       handleOfficeAssignment(changeOfficeCaseList);
@@ -282,8 +282,10 @@ public with sharing class IDRCaseActions {
 
   private static void handleCaseEscalationRules(
     Case originalRecord,
-    Case caseToBeChanged
+    Case caseToBeChanged,
+    SObject oldRec
   ) {
+    case oldCaseRec = (case)oldRec;
     if (
       originalRecord.IsEscalated &&
       originalRecord.Status != ESCALATED_STATUS &&
@@ -295,7 +297,9 @@ public with sharing class IDRCaseActions {
       caseTobeChanged.IDR_Escalation_Reason__c = ESCALATION_REASON;
     }else if(
       originalRecord.IDR_Escalated_to__c == ESCALATED_TO_CRC_API_NAME &&
-      originalRecord.OwnerId != queue.Id
+      originalRecord.OwnerId != queue.Id && 
+      ((oldCaseRec.status != ESCALATED_STATUS && originalRecord.Status == ESCALATED_STATUS) || 
+      oldCaseRec.IDR_Escalated_to__c != originalRecord.IDR_Escalated_to__c)
     ){
       caseTobeChanged.OwnerId = queue.Id;
     }
