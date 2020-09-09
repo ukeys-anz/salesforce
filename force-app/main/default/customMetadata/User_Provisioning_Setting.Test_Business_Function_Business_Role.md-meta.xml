@@ -7,6 +7,10 @@
         <value xsi:type="xsd:string">IDR_Level_1;IDR_Level_2;</value>
     </values>
     <values>
+        <field>Permission_Set_Licences__c</field>
+        <value xsi:type="xsd:string">MyTrailheadPSL</value>
+    </values>
+    <values>
         <field>Permission_Sets__c</field>
         <value xsi:type="xsd:string">IDR_User;Schedule_Appointment_Access;</value>
     </values>

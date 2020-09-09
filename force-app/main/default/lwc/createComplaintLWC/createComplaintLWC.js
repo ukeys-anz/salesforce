@@ -195,6 +195,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   isDataValid = false;
   caseStatus = OPEN_STATUS_API_NAME;
   isCustNumValidated = false;
+  searchDisabled = true;
   //initialize components
   connectedCallback() {
     this.recordType = this.recordTypeId;
@@ -295,6 +296,11 @@ export default class CreateComplaintLWC extends NavigationMixin(
   handleCustomerNumberChange(event) {
     this.isCustNumValidated = false;
     this.customerIdValue = event.target.value;
+    if (this.customerIdValue.match("^[0-9]{10,15}$")) {
+      this.searchDisabled = false;
+    } else {
+      this.searchDisabled = true;
+    }
   }
 
   handleWrittenResponseChange(event) {
@@ -532,7 +538,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
     }
     return true;
   }
-
   handleCustNumValidated(event) {
     if (event) {
       this.isCustNumValidated = true;

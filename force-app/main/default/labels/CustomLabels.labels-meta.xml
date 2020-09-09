@@ -38,7 +38,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Customer</shortDescription>
-        <value>/cap-system-api/api/v1/public/customers/</value>
+        <value>/anz-exp-sfdc-customers-api/api/v1/public/customers/</value>
     </labels>
     <labels>
         <fullName>Test_Bulk_Size</fullName>
