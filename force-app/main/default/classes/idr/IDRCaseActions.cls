@@ -293,6 +293,12 @@ public with sharing class IDRCaseActions {
       caseToBeChanged.IDR_Escalated_to__c = ESCALATED_TO_CRC_API_NAME;
       caseToBeChanged.Status = ESCALATED_STATUS;
       caseTobeChanged.IDR_Escalation_Reason__c = ESCALATION_REASON;
+    }else if(
+      originalRecord.IDR_Escalated_to__c == ESCALATED_TO_CRC_API_NAME &&
+      originalRecord.OwnerId != queue.Id && 
+      originalRecord.IsEscalated 
+    ){
+      caseTobeChanged.OwnerId = queue.Id;
     }
   }
 
