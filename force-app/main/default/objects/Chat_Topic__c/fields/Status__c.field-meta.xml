@@ -2,6 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Status__c</fullName>
     <businessStatus>Active</businessStatus>
+    <complianceGroup>Source_Twilio;Integrity - Accurate</complianceGroup>
     <description>Indicates the current status of a particular chat topic</description>
     <externalId>false</externalId>
     <inlineHelpText>Indicates the current status of a particular chat topic</inlineHelpText>

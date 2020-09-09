@@ -2,6 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Twilio_Channel_SID__c</fullName>
     <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Source_Twilio</complianceGroup>
     <description>The SID of the Twilio Channel resource. This value can be either the sid or the unique_name of the Channel resource.</description>
     <externalId>false</externalId>
     <label>Twilio Channel SID</label>
