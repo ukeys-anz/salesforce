@@ -35,7 +35,9 @@ export default class AccountsAndGoals extends LightningElement {
     }
   }
 
-  connectedCallback() {
+  update() {
+    const payload = { update: true };
+    publish(this.messageContext, TriggerLoading, payload);
     getAccounts({
       ocvId: this.ocvId,
       fabricId: this.fabricId
@@ -75,30 +77,24 @@ export default class AccountsAndGoals extends LightningElement {
             this.goalDetails.push(goalInformation);
           }
         });
+        //Update accounts
+        updateAccounts({
+          ownerId: this.recordId,
+          accountNumbers: this.accountNumbers,
+          accountData: this.accountDetails
+        }).then(() => {
+          publish(this.messageContext, UpdateAccountsAndGoals, payload);
+        });
+
+        //Update goals
+        updateGoals({
+          ownerId: this.recordId,
+          accountNumbers: this.goalAccountNumbers,
+          goalData: this.goalDetails
+        }).then(() => {
+          publish(this.messageContext, UpdateAccountsAndGoals, payload);
+        });
       }
-    });
-  }
-
-  update() {
-    this.connectedCallback();
-    const payload = { update: true };
-    publish(this.messageContext, TriggerLoading, payload);
-    //Update accounts
-    updateAccounts({
-      ownerId: this.recordId,
-      accountNumbers: this.accountNumbers,
-      accountData: this.accountDetails
-    }).then(() => {
-      publish(this.messageContext, UpdateAccountsAndGoals, payload);
-    });
-
-    //Update goals
-    updateGoals({
-      ownerId: this.recordId,
-      accountNumbers: this.goalAccountNumbers,
-      goalData: this.goalDetails
-    }).then(() => {
-      publish(this.messageContext, UpdateAccountsAndGoals, payload);
     });
   }
 }

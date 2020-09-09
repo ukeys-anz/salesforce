@@ -53,7 +53,8 @@ public class TestUserTriggerHandler {
         DeveloperName,
         Profile_Name__c,
         Role_Name__c,
-        Permission_Sets__c
+        Permission_Sets__c,
+        Permission_Set_Licences__c
       FROM User_Provisioning_Setting__mdt
       WHERE DeveloperName = 'Test_Business_Function_Business_Role'
       LIMIT 1
@@ -75,6 +76,13 @@ public class TestUserTriggerHandler {
         LIMIT 1
       ];
     }
+
+    List<PermissionSetLicenseAssign> pslAssignList = [
+      SELECT Id
+      FROM PermissionSetLicenseAssign
+    ];
+
+    System.assertNotEquals(0, pslAssignList.size());
 
     //Check if Profile and Role are assigned correctly as defined from Custom Metadata
     if (!assignedProfileId.isEmpty() && !assignedRoleId.isEmpty()) {
