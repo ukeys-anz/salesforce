@@ -162,7 +162,16 @@
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>ANZ User Provisioning Requests</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts>
+        <searchResultsAdditionalFields>Business_Function__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Business_Role__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Requestor_UUID__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Requestor__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Status__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Type__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CREATED_DATE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>LAST_UPDATE</searchResultsAdditionalFields>
+    </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <startsWith>Vowel</startsWith>
     <visibility>Public</visibility>
