@@ -3,6 +3,7 @@
     <description>Permission Set Group having all Permission Sets related to Coach functions.</description>
     <label>Coach</label>
     <permissionSets>Case_Read_Write</permissionSets>
+    <permissionSets>Chat_Read_Only</permissionSets>
     <permissionSets>Customer_Feedback_Read_Only</permissionSets>
     <permissionSets>Customer_Read_Only</permissionSets>
     <permissionSets>FinServ__FinancialServicesCloudStandard</permissionSets>
