@@ -21,6 +21,7 @@ public with sharing class UserProvisioningRequestHandler extends Lib_TriggerHand
   /**
    * @description onValidate() method is called before onAfterInsert to validate records or handle the records for which we need to update the values.
    */
+  @SuppressWarnings('PMD.CyclomaticComplexity')
   public override void onValidate() {
     for (
       User_Provisioning_Request__c record : (List<User_Provisioning_Request__c>) records
@@ -29,13 +30,15 @@ public with sharing class UserProvisioningRequestHandler extends Lib_TriggerHand
         String.isNotBlank(record.Business_Function__c) &&
         String.isNotBlank(record.Business_Role__c) &&
         String.isNotBlank(record.Requestor_UUID__c) &&
-        record.Type__c == 'Modify'
+        record.Type__c == 'Modify' &&
+        record.Status__c == 'New'
       ) {
         uprModifyList.add(JSON.serialize(record));
       }
       if (
         String.isNotBlank(record.Requestor_UUID__c) &&
-        record.Type__c == 'Revoke'
+        record.Type__c == 'Revoke' &&
+        record.Status__c == 'New'
       ) {
         uprRevokeIds.add(record.Requestor_UUID__c);
       }
