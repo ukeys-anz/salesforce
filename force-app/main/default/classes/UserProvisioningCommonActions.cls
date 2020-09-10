@@ -13,6 +13,7 @@ public with sharing class UserProvisioningCommonActions {
     if (
       String.isNotBlank(record.Business_Function__c) &&
       String.isNotBlank(record.Business_Role__c) &&
+      String.isNotBlank(record.FederationIdentifier) &&
       record.IsActive == true
     ) {
       return true;
@@ -65,7 +66,7 @@ public with sharing class UserProvisioningCommonActions {
     for (User managerUser : [
       SELECT Id, FederationIdentifier
       FROM User
-      WHERE FederationIdentifier IN :managerUUIDs AND isActive = TRUE
+      WHERE FederationIdentifier IN :managerUUIDs AND isActive = true
     ]) {
       managerMap.put(managerUser.FederationIdentifier, managerUser.Id);
     }

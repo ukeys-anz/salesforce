@@ -19,8 +19,9 @@ public with sharing class UserProvisioningAfterActions {
   ) {
     List<PermissionSetAssignment> psetAssignmentList = new List<PermissionSetAssignment>();
     List<PermissionSetLicenseAssign> psetLicenseAssignmentList = new List<PermissionSetLicenseAssign>();
-
     List<GroupMember> groupMemberList = new List<GroupMember>();
+    Map<String, Boolean> updateUPRMap = new Map<String, Boolean>();
+    Map<String, String> userIdMap = new Map<String, String>();
 
     Map<String, User_Provisioning_Setting__mdt> businessFunctionMap = UserProvisioningCommonActions.getBusinesFunctionAndRoles(
       businessFuncAndRoles
@@ -49,39 +50,26 @@ public with sharing class UserProvisioningAfterActions {
         groupMemberList.addAll(
           assignPublicGroup(record, businessFunctionMap, publicGroupMap)
         );
+        userIdMap.put(record.Id, record.FederationIdentifier);
       }
     }
 
-    //no logic written to check if the user is already having that membership, Database.insert(list,false) is used to handle those records.
     if (!psetLicenseAssignmentList.isEmpty()) {
-      List<Database.SaveResult> psetLicenseAssign = Database.insert(
+      insertPsetLicenseAssign(
         psetLicenseAssignmentList,
-        false
-      );
-      system.debug(
-        System.LoggingLevel.INFO,
-        'Permission Set License Assignments Save Results:' + psetLicenseAssign
+        userIdMap,
+        updateUPRMap
       );
     }
     if (!psetAssignmentList.isEmpty()) {
-      List<Database.SaveResult> psetAssingment = Database.insert(
-        psetAssignmentList,
-        false
-      );
-      system.debug(
-        System.LoggingLevel.INFO,
-        'Permission Set Assignments Save Results:' + psetAssingment
-      );
+      insertPsetAssignment(psetAssignmentList, userIdMap, updateUPRMap);
     }
     if (!groupMemberList.isEmpty()) {
-      List<Database.SaveResult> publicGroup = Database.insert(
-        groupMemberList,
-        false
-      );
-      system.debug(
-        System.LoggingLevel.INFO,
-        'Public Group Assignments Save Results:' + publicGroup
-      );
+      insertGroupAssignment(groupMemberList, userIdMap, updateUPRMap);
+    }
+
+    if (!updateUPRMap.isEmpty()) {
+      system.enqueueJob(new QueueUPRStatusUpdate(updateUPRMap));
     }
   }
 
@@ -235,6 +223,120 @@ public with sharing class UserProvisioningAfterActions {
   }
 
   /**
+   * @description This method is called in assignMembership to insert Permission Set License Assignments to user record.
+   * @param psetLicenseAssignmentList Permission Set License Assignment List
+   * @param userIdMap User Map with User Id as key and Federation Identifier as Value
+   * @param updateUPRMap Map with User Federation Identifier as Key and Success or Failue Flag as value
+   */
+  private static void insertPsetLicenseAssign(
+    List<PermissionSetLicenseAssign> psetLicenseAssignmentList,
+    Map<String, String> userIdMap,
+    Map<String, Boolean> updateUPRMap
+  ) {
+    //no logic written to check if the user is already having that membership, Database.insert(list,false) is used to handle those records.
+    List<Database.SaveResult> results = Database.insert(
+      psetLicenseAssignmentList,
+      false
+    );
+
+    for (Integer i = 0; i < psetLicenseAssignmentList.size(); i++) {
+      Database.SaveResult sr = results[i];
+      PermissionSetLicenseAssign rec = psetLicenseAssignmentList[i];
+
+      if (!sr.isSuccess()) {
+        for (Database.Error err : sr.getErrors()) {
+          if (String.valueOf(err.getStatusCode()) != 'DUPLICATE_VALUE') {
+            updateUPRMap.put(userIdMap.get(rec.AssigneeId), false);
+          }
+        }
+      } else {
+        if (!updateUPRMap.containsKey(userIdMap.get(rec.AssigneeId))) {
+          updateUPRMap.put(userIdMap.get(rec.AssigneeId), true);
+        }
+      }
+    }
+
+    system.debug(
+      System.LoggingLevel.INFO,
+      'Permission Set License Assignments Save Results:' + results
+    );
+  }
+
+  /**
+   * @description This method is called in assignMembership to insert Permission Set Assignments to user record.
+   * @param psetAssignmentList Permission Set Assignment List
+   * @param userIdMap User Map with User Id as key and Federation Identifier as Value
+   * @param updateUPRMap Map with User Federation Identifier as Key and Success or Failue Flag as value
+   */
+  private static void insertPsetAssignment(
+    List<PermissionSetAssignment> psetAssignmentList,
+    Map<String, String> userIdMap,
+    Map<String, Boolean> updateUPRMap
+  ) {
+    //no logic written to check if the user is already having that membership, Database.insert(list,false) is used to handle those records.
+    List<Database.SaveResult> results = Database.insert(
+      psetAssignmentList,
+      false
+    );
+
+    for (Integer i = 0; i < psetAssignmentList.size(); i++) {
+      Database.SaveResult sr = results[i];
+      PermissionSetAssignment rec = psetAssignmentList[i];
+
+      if (!sr.isSuccess()) {
+        for (Database.Error err : sr.getErrors()) {
+          if (String.valueOf(err.getStatusCode()) != 'DUPLICATE_VALUE') {
+            updateUPRMap.put(userIdMap.get(rec.AssigneeId), false);
+          }
+        }
+      } else {
+        if (!updateUPRMap.containsKey(userIdMap.get(rec.AssigneeId))) {
+          updateUPRMap.put(userIdMap.get(rec.AssigneeId), true);
+        }
+      }
+    }
+
+    system.debug(
+      System.LoggingLevel.INFO,
+      'Permission Set Assignments Save Results:' + results
+    );
+  }
+
+  /**
+   * @description This method is called in assignMembership to insert Group Member to user record.
+   * @param groupMemberList Group Member List
+   * @param userIdMap User Map with User Id as key and Federation Identifier as Value
+   * @param updateUPRMap Map with User Federation Identifier as Key and Success or Failue Flag as value
+   */
+  private static void insertGroupAssignment(
+    List<GroupMember> groupMemberList,
+    Map<String, String> userIdMap,
+    Map<String, Boolean> updateUPRMap
+  ) {
+    List<Database.SaveResult> results = Database.insert(groupMemberList, false);
+
+    for (Integer i = 0; i < groupMemberList.size(); i++) {
+      Database.SaveResult sr = results[i];
+      GroupMember rec = groupMemberList[i];
+
+      if (!sr.isSuccess()) {
+        for (Database.Error err : sr.getErrors()) {
+          updateUPRMap.put(userIdMap.get(rec.UserOrGroupId), false);
+        }
+      } else {
+        if (!updateUPRMap.containsKey(userIdMap.get(rec.UserOrGroupId))) {
+          updateUPRMap.put(userIdMap.get(rec.UserOrGroupId), true);
+        }
+      }
+    }
+
+    system.debug(
+      System.LoggingLevel.INFO,
+      'Permission Set License Assignments Save Results:' + results
+    );
+  }
+
+  /**
    * @description This method is called in OnAfterUpdate to revoke Permission sets, Permission set groups and public groups which were previously assigned.
    * @param userIds List of user ids from trigger
    * @param oldBusinessFuncAndRoles Set of old Business Function and Roles key values combinations from trigger
@@ -378,5 +480,30 @@ public with sharing class UserProvisioningAfterActions {
       }
     }
     return deleteGroupMemberList;
+  }
+
+  /**
+   * @description This method is called during Revoke request to update UPR Status
+   * @param records user records from trigger
+   * @param oldRecords old user records Map
+   */
+  public static void revokeUserAccess(
+    List<User> records,
+    Map<Id, SObject> oldRecords
+  ) {
+    Map<String, Boolean> updateUPRMap = new Map<String, Boolean>();
+    for (User record : records) {
+      User oldRecord = (User) oldRecords.get(record.id);
+      if (
+        record.IsActive == false &&
+        oldRecord.IsActive != record.IsActive &&
+        String.isNotBlank(record.FederationIdentifier)
+      ) {
+        updateUPRMap.put(record.FederationIdentifier, true);
+      }
+    }
+    if (!updateUPRMap.isEmpty()) {
+      system.enqueueJob(new QueueUPRStatusUpdate(updateUPRMap));
+    }
   }
 }

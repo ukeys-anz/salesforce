@@ -87,8 +87,14 @@ public class TestUserProvisioningRequest {
     Test.stopTest();
 
     List<User_Provisioning_Request__c> uprRecordList = [
-      SELECT Id, Business_Function__c
+      SELECT Id, Business_Function__c, Status__c, Requestor__c
       FROM User_Provisioning_Request__c
+    ];
+
+    List<User> userList = [
+      SELECT Id, FederationIdentifier
+      FROM User
+      WHERE FederationIdentifier = 'Tester'
     ];
     //check if UPR record is created with same business function from request record.
     System.assertEquals(
@@ -97,5 +103,11 @@ public class TestUserProvisioningRequest {
     );
     //check if the size of inserted User provisioning requests is 2.
     System.assertEquals(2, uprRecordList.size());
+
+    //check if the UPR request is completed successfully
+    System.assertEquals('Completed', uprRecordList[0].Status__c);
+
+    //check if the Requestor lookup is populated correctly
+    System.assertEquals(userList[0].Id, uprRecordList[0].Requestor__c);
   }
 }
