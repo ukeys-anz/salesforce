@@ -65,6 +65,10 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentInstanceProperties>
+                    <name>objectName</name>
+                    <value>Account</value>
+                </componentInstanceProperties>
                 <componentName>accountsAndGoalsRefresh</componentName>
             </componentInstance>
         </itemInstances>

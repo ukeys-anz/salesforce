@@ -5,4 +5,15 @@
     <targets>
       <target>lightning__RecordPage</target>
     </targets>
+    <targetConfigs>
+      <targetConfig targets="lightning__RecordPage">
+        <property
+            name="objectName"
+            type="String"
+            label="Object Name"
+            description="Automatically bind the page's object name to the component variable"
+            required="true"
+            default=""/>
+      </targetConfig>
+    </targetConfigs>
 </LightningComponentBundle>

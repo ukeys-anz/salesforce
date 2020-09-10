@@ -26,7 +26,8 @@ public with sharing class EverydayAccountController {
           FinServ__Balance__c,
           FinServ__CurrentPostedBalance__c,
           FinServ__Status__c,
-          FinServ__FinancialAccountNumber__c
+          FinServ__FinancialAccountNumber__c,
+          LastModifiedDate
         FROM FinServ__FinancialAccount__c
         WHERE
           FinServ__PrimaryOwner__c = :ownerId

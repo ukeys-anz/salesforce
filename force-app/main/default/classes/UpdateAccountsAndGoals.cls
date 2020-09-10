@@ -4,7 +4,8 @@
  * @description UpdateAccountsAndGoals takes the accounts and goals data returned from API
  * and updates our SF records with the latest data
  */
-public with sharing class UpdateAccountsAndGoals {
+@SuppressWarnings('PMD.ApexCRUDViolation')
+public without sharing class UpdateAccountsAndGoals {
   /**
    * @description The AccountsAndGoalsRefresh component uses this to update the
    * accounts records based on the data returned from the API.
@@ -56,9 +57,7 @@ public with sharing class UpdateAccountsAndGoals {
         .FinServ__CurrentPostedBalance__c;
     }
 
-    if (FinServ__FinancialAccount__c.sObjectType.getDescribe().isUpdateable()) {
-      update financialAccounts;
-    }
+    update financialAccounts;
 
     return financialAccounts;
   }
@@ -123,9 +122,7 @@ public with sharing class UpdateAccountsAndGoals {
         .FinServ__TargetDate__c;
     }
 
-    if (FinServ__FinancialGoal__c.sObjectType.getDescribe().isUpdateable()) {
-      update financialGoals;
-    }
+    update financialGoals;
 
     return financialGoals;
   }

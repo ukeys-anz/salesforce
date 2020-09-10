@@ -1,37 +1,77 @@
 import { LightningElement, api, wire } from "lwc";
 
 import { getRecord } from "lightning/uiRecordApi";
-import OCV_ID_FIELD from "@salesforce/schema/Account.OCV_ID__c";
-import FABRIC_ID_FIELD from "@salesforce/schema/Account.Fabric_ID__c";
+import ACCOUNT_OCV_ID_FIELD from "@salesforce/schema/Account.OCV_ID__c";
+import ACCOUNT_FABRIC_ID_FIELD from "@salesforce/schema/Account.Fabric_ID__c";
+import FIN_ACCOUNT_OCV_ID_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.OCV_ID__c";
+import FIN_ACCOUNT_FABRIC_ID_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.Fabric_ID__c";
+import FIN_ACCOUNT_PRIMARY_OWNER_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__PrimaryOwner__c";
 
 import getAccounts from "@salesforce/apex/GetAccountsAndGoals.getAccounts";
 import updateAccounts from "@salesforce/apex/UpdateAccountsAndGoals.updateAccounts";
 import updateGoals from "@salesforce/apex/UpdateAccountsAndGoals.updateGoals";
 
 // Import message service features required for publishing and the message channel
-import { publish, MessageContext } from "lightning/messageService";
+import { publish, MessageContext, subscribe } from "lightning/messageService";
 import UpdateAccountsAndGoals from "@salesforce/messageChannel/FinancialAccountsGoalsUpdate__c";
 import TriggerLoading from "@salesforce/messageChannel/FinancialAccountsTriggerLoading__c";
+import UpdateAccountsGoalsTimed from "@salesforce/messageChannel/FinancialAccountGoalsTimedUpdate__c";
 
 export default class AccountsAndGoals extends LightningElement {
   @api recordId;
+  @api objectName;
   accountDetails = [];
   goalDetails = [];
   accountNumbers = [];
   goalAccountNumbers = [];
   ocvId;
   fabricId;
+  objectFields = [];
+  ownerId;
+
   @wire(MessageContext)
   messageContext;
+  subscription = null;
+  triggerUpdate;
 
   @wire(getRecord, {
     recordId: "$recordId",
-    fields: [OCV_ID_FIELD, FABRIC_ID_FIELD]
+    fields: "$objectFields"
   })
   wiredProject({ data }) {
     if (data) {
+      this.ownerId = this.recordId;
       this.ocvId = data.fields.OCV_ID__c.value;
       this.fabricId = data.fields.Fabric_ID__c.value;
+      if (data.fields.FinServ__PrimaryOwner__c) {
+        this.ownerId = data.fields.FinServ__PrimaryOwner__c.value;
+      }
+      if (this.subscription && this.triggerUpdate) {
+        this.update();
+      }
+    }
+  }
+
+  connectedCallback() {
+    this.subscription = subscribe(
+      this.messageContext,
+      UpdateAccountsGoalsTimed,
+      (message) => {
+        if (message.update) {
+          this.triggerUpdate = true;
+          this.update();
+        }
+      }
+    );
+
+    if (this.objectName === "Account") {
+      this.objectFields = [ACCOUNT_OCV_ID_FIELD, ACCOUNT_FABRIC_ID_FIELD];
+    } else {
+      this.objectFields = [
+        FIN_ACCOUNT_OCV_ID_FIELD,
+        FIN_ACCOUNT_FABRIC_ID_FIELD,
+        FIN_ACCOUNT_PRIMARY_OWNER_FIELD
+      ];
     }
   }
 
@@ -79,7 +119,7 @@ export default class AccountsAndGoals extends LightningElement {
         });
         //Update accounts
         updateAccounts({
-          ownerId: this.recordId,
+          ownerId: this.ownerId,
           accountNumbers: this.accountNumbers,
           accountData: this.accountDetails
         }).then(() => {
@@ -88,7 +128,7 @@ export default class AccountsAndGoals extends LightningElement {
 
         //Update goals
         updateGoals({
-          ownerId: this.recordId,
+          ownerId: this.ownerId,
           accountNumbers: this.goalAccountNumbers,
           goalData: this.goalDetails
         }).then(() => {

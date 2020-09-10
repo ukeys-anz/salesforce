@@ -13,7 +13,6 @@ export default class TotalBalance extends LightningElement {
   @api recordId;
   @track totalBalance;
   @track totalSaved;
-  @track timestamp;
   @track loading = true;
 
   @wire(MessageContext)
@@ -40,7 +39,6 @@ export default class TotalBalance extends LightningElement {
           this.totalSaved = null;
           this.totalBalance = null;
           this.getTotal();
-          this.setTimestamp();
 
           if (this.totalBalance || this.totalSaved) {
             this.loading = false;
@@ -51,27 +49,7 @@ export default class TotalBalance extends LightningElement {
 
     if (!this.subscription || Object.keys(this.subscription).length === 0) {
       this.getTotal();
-      this.setTimestamp();
     }
-  }
-
-  setTimestamp() {
-    //Create timestamp for last updated
-    const today = new Date();
-    this.timestamp =
-      today.getDate() +
-      " " +
-      today.toLocaleString("en-AU", {
-        month: "long"
-      }) +
-      " " +
-      today.getFullYear() +
-      " | " +
-      today.toLocaleString("en-AU", {
-        hour: "numeric",
-        minute: "numeric",
-        hour12: true
-      });
   }
 
   showToast(theTitle, theMessage, theVariant) {
