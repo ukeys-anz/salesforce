@@ -66,7 +66,7 @@ public with sharing class UserProvisioningCommonActions {
     for (User managerUser : [
       SELECT Id, FederationIdentifier
       FROM User
-      WHERE FederationIdentifier IN :managerUUIDs AND isActive = true
+      WHERE FederationIdentifier IN :managerUUIDs AND isActive = TRUE
     ]) {
       managerMap.put(managerUser.FederationIdentifier, managerUser.Id);
     }

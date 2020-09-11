@@ -23,7 +23,7 @@ public class TestUserProvisioningRequest {
   }
 
   @isTest
-  static void testUPR() {
+  static void testUserProvisioingRestService() {
     Faker faker = new Faker('AU');
 
     List<UserProvisioningRestService.UserProvisioningRequest> uprList = new List<UserProvisioningRestService.UserProvisioningRequest>();
@@ -87,6 +87,55 @@ public class TestUserProvisioningRequest {
     Test.stopTest();
 
     List<User_Provisioning_Request__c> uprRecordList = [
+      SELECT Id, Business_Function__c
+      FROM User_Provisioning_Request__c
+    ];
+
+    //check if UPR record is created with same business function from request record.
+    System.assertEquals(
+      pleBusinessFunction[0].getValue(),
+      uprRecordList[0].Business_Function__c
+    );
+    //check if the size of inserted User provisioning requests is 2.
+    System.assertEquals(2, uprRecordList.size());
+  }
+
+  @isTest
+  static void testUPRFlow() {
+    Faker faker = new Faker('AU');
+
+    // GIVEN list of User Provisiong Request Records
+    List<User_Provisioning_Request__c> uprList = new List<User_Provisioning_Request__c>();
+
+    //Fetch business function and role from the backend to avoid Restricted picklist error in future.
+    Schema.DescribeFieldResult businessFunctionResult = User_Provisioning_Request__c.Business_Function__c.getDescribe();
+    List<Schema.PicklistEntry> pleBusinessFunction = businessFunctionResult.getPicklistValues();
+
+    Schema.DescribeFieldResult businessRoleResult = User_Provisioning_Request__c.Business_Role__c.getDescribe();
+    List<Schema.PicklistEntry> pleBusinessRole = businessRoleResult.getPicklistValues();
+
+    //Prepare Modify User provisioning request test data
+    User_Provisioning_Request__c uprModify = new User_Provisioning_Request__c();
+    uprModify.Business_Function__c = pleBusinessFunction[0].getValue();
+    uprModify.Business_Role__c = pleBusinessRole[0].getValue();
+    uprModify.Requestor_UUID__c = 'Tester';
+    uprModify.Manager_UUID__c = 'Manager';
+    uprModify.Type__c = 'Modify';
+    uprList.add(uprModify);
+
+    //Prepare Revoke User provisioning request test data
+    User_Provisioning_Request__c uprRevoke = new User_Provisioning_Request__c();
+    uprRevoke.Requestor_UUID__c = 'Manager';
+    uprRevoke.Type__c = 'Revoke';
+    uprList.add(uprRevoke);
+
+    Test.startTest();
+    // WHEN Modify and Revoke Requests are inserted in UPR Object
+    insert uprList;
+
+    Test.stopTest();
+
+    List<User_Provisioning_Request__c> uprRecordList = [
       SELECT Id, Business_Function__c, Status__c, Requestor__c
       FROM User_Provisioning_Request__c
     ];
@@ -96,14 +145,8 @@ public class TestUserProvisioningRequest {
       FROM User
       WHERE FederationIdentifier = 'Tester'
     ];
-    //check if UPR record is created with same business function from request record.
-    System.assertEquals(
-      pleBusinessFunction[0].getValue(),
-      uprRecordList[0].Business_Function__c
-    );
-    //check if the size of inserted User provisioning requests is 2.
-    System.assertEquals(2, uprRecordList.size());
 
+    // THEN the user access modified or revoked and status is updated in UPR Object
     //check if the UPR request is completed successfully
     System.assertEquals('Completed', uprRecordList[0].Status__c);
 
