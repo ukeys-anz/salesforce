@@ -288,6 +288,7 @@
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
+        <fields>Status__c</fields>
         <fields>LAST_UPDATE</fields>
         <relatedList>Chat_Topic__c.Related_Customer__c</relatedList>
     </relatedLists>
