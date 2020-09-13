@@ -1548,6 +1548,42 @@
         <endAddress>162.247.216.22</endAddress>
         <startAddress>162.247.216.0</startAddress>
     </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision</description>
+        <endAddress>52.8.140.255</endAddress>
+        <startAddress>52.8.140.255</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision</description>
+        <endAddress>52.42.179.76</endAddress>
+        <startAddress>52.42.179.76</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision</description>
+        <endAddress>35.167.156.248</endAddress>
+        <startAddress>35.167.156.248</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision</description>
+        <endAddress>34.215.230.220</endAddress>
+        <startAddress>34.215.230.220</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision</description>
+        <endAddress>52.34.250.140</endAddress>
+        <startAddress>52.34.250.140</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision</description>
+        <endAddress>54.70.91.355</endAddress>
+        <startAddress>54.70.91.35</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision</description>
+        <endAddress>52.24.211.31</endAddress>
+        <startAddress>52.24.211.31</startAddress>
+    </loginIpRanges>
+
     <userPermissions>
         <enabled>false</enabled>
         <name>AccessCMC</name>
