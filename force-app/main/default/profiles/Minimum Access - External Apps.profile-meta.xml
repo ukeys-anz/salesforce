@@ -1575,7 +1575,7 @@
     </loginIpRanges>
     <loginIpRanges>
         <description>Mvision</description>
-        <endAddress>54.70.91.355</endAddress>
+        <endAddress>54.70.91.35</endAddress>
         <startAddress>54.70.91.35</startAddress>
     </loginIpRanges>
     <loginIpRanges>
