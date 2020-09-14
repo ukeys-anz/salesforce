@@ -7,7 +7,7 @@
     <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
     <columns>CORE.USERS.ALIAS</columns>
     <filterScope>Queue</filterScope>
-    <label>CRC Team</label>
+    <label>Customer Resolution Portfolio</label>
     <queue>CRC_Team</queue>
     <sharedTo>
         <group>All_IDR_Users</group>
