@@ -41,6 +41,20 @@
             <operator>equals</operator>
             <value>1</value>
         </criteriaItems>
+        <criteriaItems>
+            <column>User.Business_Function__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>CMoS</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>User.Business_Role__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Tech Support</value>
+        </criteriaItems>
     </filter>
     <format>Summary</format>
     <groupingsDown>
