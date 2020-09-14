@@ -193,7 +193,10 @@ private class TestCaseTriggerHandler {
       WHERE id = :newCases[0].id
     ];
     System.assert(c.Status == 'Escalated', 'Status is Escalated ');
-    System.assert(c.IDR_Escalated_to__c == '1', 'Escalated is changed to CRC');
+    System.assert(
+      c.IDR_Escalated_to__c == '1',
+      'Escalated is changed to Customer Resolution Portfolio'
+    );
   }
 
   @isTest
