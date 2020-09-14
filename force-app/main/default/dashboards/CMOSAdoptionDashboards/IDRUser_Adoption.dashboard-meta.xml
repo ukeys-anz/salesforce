@@ -365,8 +365,9 @@
         <numberOfColumns>12</numberOfColumns>
         <rowHeight>36</rowHeight>
     </dashboardGridLayout>
-    <dashboardType>LoggedInUser</dashboardType>
+    <dashboardType>SpecifiedUser</dashboardType>
     <isGridLayout>true</isGridLayout>
+    <runningUser>David.dawson@anzx.com</runningUser>
     <textColor>#000000</textColor>
     <title>User Adoption</title>
     <titleColor>#000000</titleColor>
