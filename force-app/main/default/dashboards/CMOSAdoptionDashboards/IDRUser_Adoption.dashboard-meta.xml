@@ -16,12 +16,13 @@
                 <decimalPrecision>-1</decimalPrecision>
                 <displayUnits>Auto</displayUnits>
                 <groupingSortProperties/>
+                <header>Active Salesforce Users</header>
                 <indicatorBreakpoint1>20.0</indicatorBreakpoint1>
                 <indicatorBreakpoint2>60.0</indicatorBreakpoint2>
                 <indicatorHighColor>#00716B</indicatorHighColor>
                 <indicatorLowColor>#C23934</indicatorLowColor>
                 <indicatorMiddleColor>#E2CE7D</indicatorMiddleColor>
-                <metricLabel>Active Salesforce Users</metricLabel>
+                <metricLabel>Total number of CMOS users</metricLabel>
                 <report>IDRAdoption/Active_Users</report>
                 <showRange>false</showRange>
             </dashboardComponent>
@@ -46,6 +47,7 @@
                 <indicatorHighColor>#00716B</indicatorHighColor>
                 <indicatorLowColor>#C23934</indicatorLowColor>
                 <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
+                <metricLabel>Percentage of users logged in today</metricLabel>
                 <report>IDRAdoption/Active_Users</report>
                 <showRange>false</showRange>
             </dashboardComponent>
@@ -69,7 +71,7 @@
                 <gaugeMax>200.0</gaugeMax>
                 <gaugeMin>0.0</gaugeMin>
                 <groupingSortProperties/>
-                <header>ALL User Logins</header>
+                <header>ALL User Logins - Last 7 Days</header>
                 <indicatorBreakpoint1>75.0</indicatorBreakpoint1>
                 <indicatorBreakpoint2>125.0</indicatorBreakpoint2>
                 <indicatorHighColor>#00716B</indicatorHighColor>
@@ -80,7 +82,7 @@
                 <showRange>false</showRange>
                 <showTotal>true</showTotal>
                 <showValues>false</showValues>
-                <title>Last 7 Days</title>
+                <title>No. of users logged in daily</title>
             </dashboardComponent>
             <rowIndex>0</rowIndex>
             <rowSpan>8</rowSpan>
@@ -116,6 +118,7 @@
                 <showPicturesOnCharts>false</showPicturesOnCharts>
                 <showValues>true</showValues>
                 <sortBy>RowLabelAscending</sortBy>
+                <title>% of users logged in based on team</title>
                 <useReportChart>false</useReportChart>
             </dashboardComponent>
             <rowIndex>0</rowIndex>
@@ -153,6 +156,7 @@
                 <showTotal>true</showTotal>
                 <showValues>true</showValues>
                 <sortBy>RowLabelAscending</sortBy>
+                <title>Displays the frequency of logins</title>
                 <useReportChart>false</useReportChart>
             </dashboardComponent>
             <rowIndex>8</rowIndex>
@@ -193,6 +197,7 @@
                 <showPercentage>false</showPercentage>
                 <showValues>false</showValues>
                 <sortBy>RowLabelAscending</sortBy>
+                <title>Complaints received by channel &amp; team</title>
                 <useReportChart>false</useReportChart>
             </dashboardComponent>
             <rowIndex>8</rowIndex>
@@ -216,6 +221,7 @@
                 <indicatorHighColor>#00716B</indicatorHighColor>
                 <indicatorLowColor>#C23934</indicatorLowColor>
                 <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
+                <metricLabel>All cases Open or Under Investigation</metricLabel>
                 <report>IDRAdoption/IDR_Case_Statistics</report>
                 <showRange>false</showRange>
             </dashboardComponent>
@@ -240,6 +246,7 @@
                 <indicatorHighColor>#00716B</indicatorHighColor>
                 <indicatorLowColor>#C23934</indicatorLowColor>
                 <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
+                <metricLabel>% of cases Resolved or Closed</metricLabel>
                 <report>IDRAdoption/IDR_Case_Statistics</report>
                 <showRange>false</showRange>
             </dashboardComponent>
@@ -264,6 +271,7 @@
                 <indicatorHighColor>#700011</indicatorHighColor>
                 <indicatorLowColor>#00716B</indicatorLowColor>
                 <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
+                <metricLabel>% of cases which have been escalated</metricLabel>
                 <report>IDRAdoption/IDR_Case_Statistics</report>
                 <showRange>false</showRange>
             </dashboardComponent>
@@ -288,7 +296,7 @@
                 <indicatorHighColor>#00716B</indicatorHighColor>
                 <indicatorLowColor>#C23934</indicatorLowColor>
                 <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
-                <metricLabel>In Days</metricLabel>
+                <metricLabel>Ave days taken to Resolve/Close</metricLabel>
                 <report>IDRAdoption/IDR_Average_Time_to_Resolution</report>
                 <showRange>false</showRange>
             </dashboardComponent>
@@ -321,7 +329,7 @@
                 <showRange>false</showRange>
                 <showTotal>true</showTotal>
                 <showValues>false</showValues>
-                <title>In Days</title>
+                <title>Average time taken (in days)</title>
             </dashboardComponent>
             <rowIndex>16</rowIndex>
             <rowSpan>8</rowSpan>
@@ -357,6 +365,7 @@
                 <showTotal>true</showTotal>
                 <showValues>true</showValues>
                 <sortBy>RowLabelAscending</sortBy>
+                <title>No. of days taken before escalating</title>
                 <useReportChart>false</useReportChart>
             </dashboardComponent>
             <rowIndex>16</rowIndex>
