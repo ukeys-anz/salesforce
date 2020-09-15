@@ -20,7 +20,7 @@
     </columns>
     <customDetailFormulas>
         <calculatedFormula>IF(NOT(ISBLANK(LAST_LOGIN)) , 
-    IF((TODAY() - DATEVALUE(LAST_LOGIN)) == 0 , &apos;Daily Login&apos;, 
+    IF((TODAY() - DATEVALUE(LAST_LOGIN)) == 0 , &apos;* Daily Login&apos;, 
         IF((TODAY() - DATEVALUE(LAST_LOGIN)) &gt;0 &amp;&amp; (TODAY() - DATEVALUE(LAST_LOGIN)) &lt;=5, &apos;&lt; 5 Days&apos;, &apos;&gt; 5 days&apos;) ) ,
 
  &apos;Never Logged In&apos; )</calculatedFormula>
@@ -35,7 +35,7 @@
             <columnToColumn>false</columnToColumn>
             <isUnlocked>false</isUnlocked>
             <operator>equals</operator>
-            <value>CMoS</value>
+            <value>Cmos</value>
         </criteriaItems>
         <criteriaItems>
             <column>User.Business_Role__c</column>
