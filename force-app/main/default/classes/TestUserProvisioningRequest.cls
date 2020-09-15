@@ -128,23 +128,21 @@ public class TestUserProvisioningRequest {
 
     Test.stopTest();
 
-    List<User_Provisioning_Request__c> uprRecordList = [
-      SELECT Id, Business_Function__c, Status__c, Requestor__c
-      FROM User_Provisioning_Request__c
-    ];
-
     List<User> userList = [
-      SELECT Id, FederationIdentifier
+      SELECT Id, Business_Function__c, Business_Role__c
       FROM User
       WHERE FederationIdentifier = 'Tester'
     ];
 
-    // THEN the user access is modified and status is updated in UPR Object
-    //check if the UPR request is completed successfully
-    System.assertEquals('Completed', uprRecordList[0].Status__c);
-
-    //check if the Requestor lookup is populated correctly
-    System.assertEquals(userList[0].Id, uprRecordList[0].Requestor__c);
+    // THEN the user access is modified with new business function and business role
+    System.assertEquals(
+      pleBusinessFunction[0].getValue(),
+      userList[0].Business_Function__c
+    );
+    System.assertEquals(
+      pleBusinessRole[0].getValue(),
+      userList[0].Business_Role__c
+    );
   }
 
   @isTest
@@ -179,16 +177,13 @@ public class TestUserProvisioningRequest {
     ];
 
     List<User> userList = [
-      SELECT Id, FederationIdentifier
+      SELECT Id, isActive
       FROM User
       WHERE FederationIdentifier = 'Tester'
     ];
 
-    // THEN the user access is revoked and status is updated in UPR Object
+    // THEN the user access is revoked
     //check if the UPR request is completed successfully
-    System.assertEquals('Completed', uprRecordList[0].Status__c);
-
-    //check if the Requestor lookup is populated correctly
-    System.assertEquals(userList[0].Id, uprRecordList[0].Requestor__c);
+    System.assertEquals(false, userList[0].isActive);
   }
 }
