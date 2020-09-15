@@ -35,7 +35,7 @@
             <columnToColumn>false</columnToColumn>
             <isUnlocked>false</isUnlocked>
             <operator>equals</operator>
-            <value>Cmos</value>
+            <value>CMoS</value>
         </criteriaItems>
         <criteriaItems>
             <column>User.Business_Role__c</column>
