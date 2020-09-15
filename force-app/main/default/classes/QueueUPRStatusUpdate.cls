@@ -4,35 +4,34 @@
  * @description QueueUPRStatusUpdate class is called in UserTriggerHandler to update User Provisioning Request status Asynchronously to avoid Mixed_DML_Error
  */
 public class QueueUPRStatusUpdate implements Queueable {
-  Map<String, Boolean> updateUPRMap;
+  List<User_Provisioning_Request__c> updateUPRList;
+  Lib_SystemLog log;
 
   /**
    * @description Constructor
-   * @param triggerUPRMap Map from User Trigger
+   * @param triggerUPRList List of UPR records from User Trigger
+   * @param triggerLog Lib_SystemLog from User Trigger
    */
-  public QueueUPRStatusUpdate(Map<String, Boolean> triggerUPRMap) {
-    updateUPRMap = triggerUPRMap;
+
+  public QueueUPRStatusUpdate(
+    List<User_Provisioning_Request__c> triggerUPRList,
+    Lib_SystemLog triggerLog
+  ) {
+    updateUPRList = triggerUPRList;
+    log = triggerLog;
   }
 
   /**
    * @description execute method
    * @param context QueueableContext
    */
+
   public void execute(QueueableContext context) {
-    Map<String, User_Provisioning_Request__c> uprMap = UserProvisioningBeforeActions.getUPRRecords(
-      updateUPRMap.keySet()
-    );
-
-    for (User_Provisioning_Request__c upr : uprMAP.values()) {
-      upr.Requestor__r = new user(FederationIdentifier = upr.Requestor_UUID__c);
-      upr.Status__c = (updateUPRMap.get(upr.Requestor_UUID__c)
-        ? 'Completed'
-        : 'Error');
-    }
-
     List<Database.SaveResult> updateUPRResult = Database.update(
-      uprMap.values(),
+      updateUPRList,
       false
     );
+
+    log.insertLog();
   }
 }

@@ -20,8 +20,13 @@ public with sharing class UserProvisioningAfterActions {
     List<PermissionSetAssignment> psetAssignmentList = new List<PermissionSetAssignment>();
     List<PermissionSetLicenseAssign> psetLicenseAssignmentList = new List<PermissionSetLicenseAssign>();
     List<GroupMember> groupMemberList = new List<GroupMember>();
-    Map<String, Boolean> updateUPRMap = new Map<String, Boolean>();
     Map<String, String> userIdMap = new Map<String, String>();
+    Set<Id> failedRecordIds = new Set<Id>();
+    Map<String, User_Provisioning_Request__c> uprMap = new Map<String, User_Provisioning_Request__c>();
+    lib_systemLog log = new lib_systemLog(
+      UserProvisioningAfterActions.class.getName(),
+      'assignMembership'
+    );
 
     Map<String, User_Provisioning_Setting__mdt> businessFunctionMap = UserProvisioningCommonActions.getBusinesFunctionAndRoles(
       businessFuncAndRoles
@@ -50,26 +55,33 @@ public with sharing class UserProvisioningAfterActions {
         groupMemberList.addAll(
           assignPublicGroup(record, businessFunctionMap, publicGroupMap)
         );
-        userIdMap.put(record.Id, record.FederationIdentifier);
+        userIdMap.put(record.FederationIdentifier, record.Id);
       }
     }
 
     if (!psetLicenseAssignmentList.isEmpty()) {
-      insertPsetLicenseAssign(
-        psetLicenseAssignmentList,
-        userIdMap,
-        updateUPRMap
-      );
+      insertPsetLicenseAssign(psetLicenseAssignmentList, failedRecordIds, log);
     }
     if (!psetAssignmentList.isEmpty()) {
-      insertPsetAssignment(psetAssignmentList, userIdMap, updateUPRMap);
+      insertPsetAssignment(psetAssignmentList, failedRecordIds, log);
     }
     if (!groupMemberList.isEmpty()) {
-      insertGroupAssignment(groupMemberList, userIdMap, updateUPRMap);
+      insertGroupAssignment(groupMemberList, failedRecordIds, log);
     }
 
-    if (!updateUPRMap.isEmpty()) {
-      system.enqueueJob(new QueueUPRStatusUpdate(updateUPRMap));
+    //Check if there is any UPR record and Queue the status update
+    uprMap = UserProvisioningBeforeActions.getUPRRecords(userIdMap.keySet());
+    for (User_Provisioning_Request__c upr : uprMAP.values()) {
+      upr.Requestor__c = userIdMap.get(upr.Requestor_UUID__c);
+      upr.Status__c = (failedRecordIds.contains(
+          userIdMap.get(upr.Requestor_UUID__c)
+        )
+        ? 'Error'
+        : 'Completed');
+    }
+
+    if (!uprMap.isEmpty() || !log.log.isEmpty()) {
+      system.enqueueJob(new QueueUPRStatusUpdate(uprMAP.values(), log));
     }
   }
 
@@ -225,13 +237,13 @@ public with sharing class UserProvisioningAfterActions {
   /**
    * @description This method is called in assignMembership to insert Permission Set License Assignments to user record.
    * @param psetLicenseAssignmentList Permission Set License Assignment List
-   * @param userIdMap User Map with User Id as key and Federation Identifier as Value
-   * @param updateUPRMap Map with User Federation Identifier as Key and Success or Failue Flag as value
+   * @param failedRecordIds Set to store failed record ids
+   * @param log Lib_SystemLog reference from assignMembership method
    */
   private static void insertPsetLicenseAssign(
     List<PermissionSetLicenseAssign> psetLicenseAssignmentList,
-    Map<String, String> userIdMap,
-    Map<String, Boolean> updateUPRMap
+    Set<Id> failedRecordIds,
+    Lib_SystemLog log
   ) {
     //no logic written to check if the user is already having that membership, Database.insert(list,false) is used to handle those records.
     List<Database.SaveResult> results = Database.insert(
@@ -246,32 +258,24 @@ public with sharing class UserProvisioningAfterActions {
       if (!sr.isSuccess()) {
         for (Database.Error err : sr.getErrors()) {
           if (String.valueOf(err.getStatusCode()) != 'DUPLICATE_VALUE') {
-            updateUPRMap.put(userIdMap.get(rec.AssigneeId), false);
+            failedRecordIds.add(rec.AssigneeId);
+            logError(rec.AssigneeId, err, log);
           }
-        }
-      } else {
-        if (!updateUPRMap.containsKey(userIdMap.get(rec.AssigneeId))) {
-          updateUPRMap.put(userIdMap.get(rec.AssigneeId), true);
         }
       }
     }
-
-    system.debug(
-      System.LoggingLevel.INFO,
-      'Permission Set License Assignments Save Results:' + results
-    );
   }
 
   /**
    * @description This method is called in assignMembership to insert Permission Set Assignments to user record.
    * @param psetAssignmentList Permission Set Assignment List
-   * @param userIdMap User Map with User Id as key and Federation Identifier as Value
-   * @param updateUPRMap Map with User Federation Identifier as Key and Success or Failue Flag as value
+   * @param failedRecordIds Set to store failed record ids
+   * @param log Lib_SystemLog reference from assignMembership method
    */
   private static void insertPsetAssignment(
     List<PermissionSetAssignment> psetAssignmentList,
-    Map<String, String> userIdMap,
-    Map<String, Boolean> updateUPRMap
+    Set<Id> failedRecordIds,
+    Lib_SystemLog log
   ) {
     //no logic written to check if the user is already having that membership, Database.insert(list,false) is used to handle those records.
     List<Database.SaveResult> results = Database.insert(
@@ -286,32 +290,24 @@ public with sharing class UserProvisioningAfterActions {
       if (!sr.isSuccess()) {
         for (Database.Error err : sr.getErrors()) {
           if (String.valueOf(err.getStatusCode()) != 'DUPLICATE_VALUE') {
-            updateUPRMap.put(userIdMap.get(rec.AssigneeId), false);
+            failedRecordIds.add(rec.AssigneeId);
+            logError(rec.AssigneeId, err, log);
           }
-        }
-      } else {
-        if (!updateUPRMap.containsKey(userIdMap.get(rec.AssigneeId))) {
-          updateUPRMap.put(userIdMap.get(rec.AssigneeId), true);
         }
       }
     }
-
-    system.debug(
-      System.LoggingLevel.INFO,
-      'Permission Set Assignments Save Results:' + results
-    );
   }
 
   /**
    * @description This method is called in assignMembership to insert Group Member to user record.
    * @param groupMemberList Group Member List
-   * @param userIdMap User Map with User Id as key and Federation Identifier as Value
-   * @param updateUPRMap Map with User Federation Identifier as Key and Success or Failue Flag as value
+   * @param failedRecordIds Set to store failed record ids
+   * @param log Lib_SystemLog reference from assignMembership method
    */
   private static void insertGroupAssignment(
     List<GroupMember> groupMemberList,
-    Map<String, String> userIdMap,
-    Map<String, Boolean> updateUPRMap
+    Set<Id> failedRecordIds,
+    Lib_SystemLog log
   ) {
     List<Database.SaveResult> results = Database.insert(groupMemberList, false);
 
@@ -321,19 +317,11 @@ public with sharing class UserProvisioningAfterActions {
 
       if (!sr.isSuccess()) {
         for (Database.Error err : sr.getErrors()) {
-          updateUPRMap.put(userIdMap.get(rec.UserOrGroupId), false);
-        }
-      } else {
-        if (!updateUPRMap.containsKey(userIdMap.get(rec.UserOrGroupId))) {
-          updateUPRMap.put(userIdMap.get(rec.UserOrGroupId), true);
+          failedRecordIds.add(rec.UserOrGroupId);
+          logError(rec.UserOrGroupId, err, log);
         }
       }
     }
-
-    system.debug(
-      System.LoggingLevel.INFO,
-      'Permission Set License Assignments Save Results:' + results
-    );
   }
 
   /**
@@ -483,6 +471,31 @@ public with sharing class UserProvisioningAfterActions {
   }
 
   /**
+   * @description Generic method to log failures in Lib_SystemLog.addObjectMessage
+   * @param recordId record Id of the failed record
+   * @param error Database.Error
+   * @param log Lib_SystemLog reference
+   */
+  private static void logError(
+    String recordId,
+    Database.Error error,
+    Lib_SystemLog log
+  ) {
+    log.addObjectMessage(
+      'User',
+      recordId,
+      String.valueOf(error.getStatusCode()),
+      'Id=' +
+      recordId +
+      ',Message:' +
+      error.getMessage() +
+      'Fields:' +
+      error.getFields(),
+      Lib_SystemLog.Severity.ERROR
+    );
+  }
+
+  /**
    * @description This method is called during Revoke request to update UPR Status
    * @param records user records from trigger
    * @param oldRecords old user records Map
@@ -491,7 +504,14 @@ public with sharing class UserProvisioningAfterActions {
     List<User> records,
     Map<Id, SObject> oldRecords
   ) {
-    Map<String, Boolean> updateUPRMap = new Map<String, Boolean>();
+    Set<String> federationIds = new Set<String>();
+    Map<String, User_Provisioning_Request__c> uprMap = new Map<String, User_Provisioning_Request__c>();
+    Map<String, String> userIdMap = new Map<String, String>();
+    lib_systemLog log = new lib_systemLog(
+      UserProvisioningAfterActions.class.getName(),
+      'revokeUserAccess'
+    );
+
     for (User record : records) {
       User oldRecord = (User) oldRecords.get(record.id);
       if (
@@ -499,11 +519,18 @@ public with sharing class UserProvisioningAfterActions {
         oldRecord.IsActive != record.IsActive &&
         String.isNotBlank(record.FederationIdentifier)
       ) {
-        updateUPRMap.put(record.FederationIdentifier, true);
+        userIdMap.put(record.FederationIdentifier, record.Id);
       }
     }
-    if (!updateUPRMap.isEmpty()) {
-      system.enqueueJob(new QueueUPRStatusUpdate(updateUPRMap));
+
+    //Check if there is any UPR record and Queue the status update
+    uprMap = UserProvisioningBeforeActions.getUPRRecords(userIdMap.keySet());
+    if (!uprMAP.isEmpty()) {
+      for (User_Provisioning_Request__c upr : uprMAP.values()) {
+        upr.Requestor__c = userIdMap.get(upr.Requestor_UUID__c);
+        upr.Status__c = 'Completed';
+      }
+      system.enqueueJob(new QueueUPRStatusUpdate(uprMAP.values(), log));
     }
   }
 }
