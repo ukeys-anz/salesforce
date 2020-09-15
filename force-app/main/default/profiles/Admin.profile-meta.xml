@@ -1065,6 +1065,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>FinServ__FinancialAccount__c.BSB__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>FinServ__FinancialAccount__c.FinServ__APY__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1526,6 +1531,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>FinServ__FinancialAccount__c.FinServ__Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FinServ__FinancialAccount__c.lastUpdatedDateTime__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

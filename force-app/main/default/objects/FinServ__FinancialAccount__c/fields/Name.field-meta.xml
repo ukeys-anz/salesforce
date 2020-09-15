@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>CommentBody</fullName>
+    <fullName>Name</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Source_Salesforce;Integrity - Trusted;Privacy - Personal Information</complianceGroup>
+    <complianceGroup>Source_Fabric</complianceGroup>
     <securityClassification>Confidential</securityClassification>
 </CustomField>
