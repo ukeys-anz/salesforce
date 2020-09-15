@@ -16,7 +16,7 @@
                 <decimalPrecision>-1</decimalPrecision>
                 <displayUnits>Auto</displayUnits>
                 <groupingSortProperties/>
-                <header>Active Salesforce Users</header>
+                <header>Active Users</header>
                 <indicatorBreakpoint1>20.0</indicatorBreakpoint1>
                 <indicatorBreakpoint2>60.0</indicatorBreakpoint2>
                 <indicatorHighColor>#00716B</indicatorHighColor>
