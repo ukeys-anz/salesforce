@@ -6,6 +6,11 @@
  */
 @SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class UserProvisioningAfterActions {
+  private static lib_systemLog log = new lib_systemLog(
+    UserProvisioningAfterActions.class.getName()
+  );
+  private static Set<Id> failedRecordIds = new Set<Id>();
+
   /**
    * @description This method is called in OnAfterInsert & OnAfterUpdate to assign Permission sets, Permission set groups and public groups to user record.
    * Permission set name, Permission set group name and Public group names are identified from User_Provisioning_Setting__mdt object based on the combination of Business Function and Business Role from user object.
@@ -20,14 +25,6 @@ public with sharing class UserProvisioningAfterActions {
     List<PermissionSetAssignment> psetAssignmentList = new List<PermissionSetAssignment>();
     List<PermissionSetLicenseAssign> psetLicenseAssignmentList = new List<PermissionSetLicenseAssign>();
     List<GroupMember> groupMemberList = new List<GroupMember>();
-    Map<String, String> userIdMap = new Map<String, String>();
-    Set<Id> failedRecordIds = new Set<Id>();
-    Map<String, User_Provisioning_Request__c> uprMap = new Map<String, User_Provisioning_Request__c>();
-    lib_systemLog log = new lib_systemLog(
-      UserProvisioningAfterActions.class.getName(),
-      'assignMembership'
-    );
-
     Map<String, User_Provisioning_Setting__mdt> businessFunctionMap = UserProvisioningCommonActions.getBusinesFunctionAndRoles(
       businessFuncAndRoles
     );
@@ -55,33 +52,17 @@ public with sharing class UserProvisioningAfterActions {
         groupMemberList.addAll(
           assignPublicGroup(record, businessFunctionMap, publicGroupMap)
         );
-        userIdMap.put(record.FederationIdentifier, record.Id);
       }
     }
 
     if (!psetLicenseAssignmentList.isEmpty()) {
-      insertPsetLicenseAssign(psetLicenseAssignmentList, failedRecordIds, log);
+      insertPsetLicenseAssign(psetLicenseAssignmentList);
     }
     if (!psetAssignmentList.isEmpty()) {
-      insertPsetAssignment(psetAssignmentList, failedRecordIds, log);
+      insertPsetAssignment(psetAssignmentList);
     }
     if (!groupMemberList.isEmpty()) {
-      insertGroupAssignment(groupMemberList, failedRecordIds, log);
-    }
-
-    //Check if there is any UPR record and Queue the status update
-    uprMap = UserProvisioningBeforeActions.getUPRRecords(userIdMap.keySet());
-    for (User_Provisioning_Request__c upr : uprMAP.values()) {
-      upr.Requestor__c = userIdMap.get(upr.Requestor_UUID__c);
-      upr.Status__c = (failedRecordIds.contains(
-          userIdMap.get(upr.Requestor_UUID__c)
-        )
-        ? 'Error'
-        : 'Completed');
-    }
-
-    if (!uprMap.isEmpty() || !log.log.isEmpty()) {
-      system.enqueueJob(new QueueUPRStatusUpdate(uprMAP.values(), log));
+      insertGroupAssignment(groupMemberList);
     }
   }
 
@@ -237,13 +218,9 @@ public with sharing class UserProvisioningAfterActions {
   /**
    * @description This method is called in assignMembership to insert Permission Set License Assignments to user record.
    * @param psetLicenseAssignmentList Permission Set License Assignment List
-   * @param failedRecordIds Set to store failed record ids
-   * @param log Lib_SystemLog reference from assignMembership method
    */
   private static void insertPsetLicenseAssign(
-    List<PermissionSetLicenseAssign> psetLicenseAssignmentList,
-    Set<Id> failedRecordIds,
-    Lib_SystemLog log
+    List<PermissionSetLicenseAssign> psetLicenseAssignmentList
   ) {
     //no logic written to check if the user is already having that membership, Database.insert(list,false) is used to handle those records.
     List<Database.SaveResult> results = Database.insert(
@@ -259,7 +236,7 @@ public with sharing class UserProvisioningAfterActions {
         for (Database.Error err : sr.getErrors()) {
           if (String.valueOf(err.getStatusCode()) != 'DUPLICATE_VALUE') {
             failedRecordIds.add(rec.AssigneeId);
-            logError(rec.AssigneeId, err, log);
+            logError(rec.AssigneeId, err);
           }
         }
       }
@@ -269,13 +246,9 @@ public with sharing class UserProvisioningAfterActions {
   /**
    * @description This method is called in assignMembership to insert Permission Set Assignments to user record.
    * @param psetAssignmentList Permission Set Assignment List
-   * @param failedRecordIds Set to store failed record ids
-   * @param log Lib_SystemLog reference from assignMembership method
    */
   private static void insertPsetAssignment(
-    List<PermissionSetAssignment> psetAssignmentList,
-    Set<Id> failedRecordIds,
-    Lib_SystemLog log
+    List<PermissionSetAssignment> psetAssignmentList
   ) {
     //no logic written to check if the user is already having that membership, Database.insert(list,false) is used to handle those records.
     List<Database.SaveResult> results = Database.insert(
@@ -291,7 +264,7 @@ public with sharing class UserProvisioningAfterActions {
         for (Database.Error err : sr.getErrors()) {
           if (String.valueOf(err.getStatusCode()) != 'DUPLICATE_VALUE') {
             failedRecordIds.add(rec.AssigneeId);
-            logError(rec.AssigneeId, err, log);
+            logError(rec.AssigneeId, err);
           }
         }
       }
@@ -301,14 +274,8 @@ public with sharing class UserProvisioningAfterActions {
   /**
    * @description This method is called in assignMembership to insert Group Member to user record.
    * @param groupMemberList Group Member List
-   * @param failedRecordIds Set to store failed record ids
-   * @param log Lib_SystemLog reference from assignMembership method
    */
-  private static void insertGroupAssignment(
-    List<GroupMember> groupMemberList,
-    Set<Id> failedRecordIds,
-    Lib_SystemLog log
-  ) {
+  private static void insertGroupAssignment(List<GroupMember> groupMemberList) {
     List<Database.SaveResult> results = Database.insert(groupMemberList, false);
 
     for (Integer i = 0; i < groupMemberList.size(); i++) {
@@ -318,7 +285,7 @@ public with sharing class UserProvisioningAfterActions {
       if (!sr.isSuccess()) {
         for (Database.Error err : sr.getErrors()) {
           failedRecordIds.add(rec.UserOrGroupId);
-          logError(rec.UserOrGroupId, err, log);
+          logError(rec.UserOrGroupId, err);
         }
       }
     }
@@ -344,12 +311,6 @@ public with sharing class UserProvisioningAfterActions {
     List<User_Provisioning_Setting__mdt> businessFunctionList = getOldRecordBusinessFunctions(
       oldBusinessFuncAndRoles
     );
-
-    lib_systemLog log = new lib_systemLog(
-      UserProvisioningAfterActions.class.getName(),
-      'revokeMembership'
-    );
-    List<User_Provisioning_Request__c> uprList = new List<User_Provisioning_Request__c>();
 
     for (
       User_Provisioning_Setting__mdt businessFunction : businessFunctionList
@@ -377,15 +338,11 @@ public with sharing class UserProvisioningAfterActions {
     deleteGroupMemberList = getDeleteGroupMemberList(userIds, pGroups);
 
     if (!deletePsetList.isEmpty()) {
-      deletePsetAssignment(deletePsetList, log);
+      deletePsetAssignment(deletePsetList);
     }
 
     if (!deleteGroupMemberList.isEmpty()) {
-      deleteGroupAssignment(deleteGroupMemberList, log);
-    }
-
-    if (!log.log.isEmpty()) {
-      system.enqueueJob(new QueueUPRStatusUpdate(uprList, log));
+      deleteGroupAssignment(deleteGroupMemberList);
     }
   }
 
@@ -469,11 +426,9 @@ public with sharing class UserProvisioningAfterActions {
   /**
    * @description This method is called in revokeMembership to delete Permission Set Assignments to user record.
    * @param deletePsetList Permission Set Assignment List
-   * @param log Lib_SystemLog reference from revokeMembership method
    */
   private static void deletePsetAssignment(
-    List<PermissionSetAssignment> deletePsetList,
-    Lib_SystemLog log
+    List<PermissionSetAssignment> deletePsetList
   ) {
     List<Database.DeleteResult> deleteResult = Database.delete(
       deletePsetList,
@@ -484,7 +439,8 @@ public with sharing class UserProvisioningAfterActions {
       PermissionSetAssignment rec = deletePsetList[i];
       if (!sr.isSuccess()) {
         for (Database.Error err : sr.getErrors()) {
-          logError(rec.AssigneeId, err, log);
+          failedRecordIds.add(rec.AssigneeId);
+          logError(rec.AssigneeId, err);
         }
       }
     }
@@ -493,11 +449,9 @@ public with sharing class UserProvisioningAfterActions {
   /**
    * @description This method is called in revokeMembership to delete Group Member assignment to user record.
    * @param deleteGroupMemberList Group Member List
-   * @param log Lib_SystemLog reference from revokeMembership method
    */
   private static void deleteGroupAssignment(
-    List<GroupMember> deleteGroupMemberList,
-    Lib_SystemLog log
+    List<GroupMember> deleteGroupMemberList
   ) {
     List<Database.DeleteResult> deleteResult = Database.delete(
       deleteGroupMemberList,
@@ -508,7 +462,8 @@ public with sharing class UserProvisioningAfterActions {
       GroupMember rec = deleteGroupMemberList[i];
       if (!sr.isSuccess()) {
         for (Database.Error err : sr.getErrors()) {
-          logError(rec.UserOrGroupId, err, log);
+          failedRecordIds.add(rec.UserOrGroupId);
+          logError(rec.UserOrGroupId, err);
         }
       }
     }
@@ -518,13 +473,8 @@ public with sharing class UserProvisioningAfterActions {
    * @description Generic method to log failures in Lib_SystemLog.addObjectMessage
    * @param recordId record Id of the failed record
    * @param error Database.Error
-   * @param log Lib_SystemLog reference
    */
-  private static void logError(
-    String recordId,
-    Database.Error error,
-    Lib_SystemLog log
-  ) {
+  private static void logError(String recordId, Database.Error error) {
     log.addObjectMessage(
       'User',
       recordId,
@@ -540,40 +490,30 @@ public with sharing class UserProvisioningAfterActions {
   }
 
   /**
-   * @description This method is called during Revoke request to update UPR Status
+   * @description This method is called after all the user provisioning process to update UPR status and log errors.
    * @param records user records from trigger
-   * @param oldRecords old user records Map
    */
-  public static void revokeUserAccess(
-    List<User> records,
-    Map<Id, SObject> oldRecords
-  ) {
-    Set<String> federationIds = new Set<String>();
+  public static void updateUPRStatus(List<User> records) {
     Map<String, User_Provisioning_Request__c> uprMap = new Map<String, User_Provisioning_Request__c>();
     Map<String, String> userIdMap = new Map<String, String>();
-    lib_systemLog log = new lib_systemLog(
-      UserProvisioningAfterActions.class.getName(),
-      'revokeUserAccess'
-    );
 
     for (User record : records) {
-      User oldRecord = (User) oldRecords.get(record.id);
-      if (
-        record.IsActive == false &&
-        oldRecord.IsActive != record.IsActive &&
-        String.isNotBlank(record.FederationIdentifier)
-      ) {
-        userIdMap.put(record.FederationIdentifier, record.Id);
-      }
+      userIdMap.put(record.FederationIdentifier, record.Id);
     }
 
     //Check if there is any UPR record and Queue the status update
     uprMap = UserProvisioningBeforeActions.getUPRRecords(userIdMap.keySet());
-    if (!uprMAP.isEmpty()) {
-      for (User_Provisioning_Request__c upr : uprMAP.values()) {
-        upr.Requestor__c = userIdMap.get(upr.Requestor_UUID__c);
-        upr.Status__c = 'Completed';
-      }
+
+    for (User_Provisioning_Request__c upr : uprMAP.values()) {
+      upr.Requestor__c = userIdMap.get(upr.Requestor_UUID__c);
+      upr.Status__c = (failedRecordIds.contains(
+          userIdMap.get(upr.Requestor_UUID__c)
+        )
+        ? 'Error'
+        : 'Completed');
+    }
+
+    if (!uprMap.isEmpty() || !log.log.isEmpty()) {
       system.enqueueJob(new QueueUPRStatusUpdate(uprMAP.values(), log));
     }
   }
