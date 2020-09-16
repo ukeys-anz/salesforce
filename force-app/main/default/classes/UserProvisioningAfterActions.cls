@@ -345,6 +345,12 @@ public with sharing class UserProvisioningAfterActions {
       oldBusinessFuncAndRoles
     );
 
+    lib_systemLog log = new lib_systemLog(
+      UserProvisioningAfterActions.class.getName(),
+      'revokeMembership'
+    );
+    List<User_Provisioning_Request__c> uprList = new List<User_Provisioning_Request__c>();
+
     for (
       User_Provisioning_Setting__mdt businessFunction : businessFunctionList
     ) {
@@ -371,25 +377,15 @@ public with sharing class UserProvisioningAfterActions {
     deleteGroupMemberList = getDeleteGroupMemberList(userIds, pGroups);
 
     if (!deletePsetList.isEmpty()) {
-      List<Database.DeleteResult> deleteResult = Database.delete(
-        deletePsetList,
-        false
-      );
-      system.debug(
-        System.LoggingLevel.INFO,
-        'Permission Set Assignments Delete Results:' + deleteResult
-      );
+      deletePsetAssignment(deletePsetList, log);
     }
 
     if (!deleteGroupMemberList.isEmpty()) {
-      List<Database.DeleteResult> deleteResult = Database.delete(
-        deleteGroupMemberList,
-        false
-      );
-      system.debug(
-        System.LoggingLevel.INFO,
-        'Group Member Delete Results:' + deleteResult
-      );
+      deleteGroupAssignment(deleteGroupMemberList, log);
+    }
+
+    if (!log.log.isEmpty()) {
+      system.enqueueJob(new QueueUPRStatusUpdate(uprList, log));
     }
   }
 
@@ -434,7 +430,7 @@ public with sharing class UserProvisioningAfterActions {
     List<PermissionSetAssignment> deletePsetList = new List<PermissionSetAssignment>();
 
     for (PermissionSetAssignment pSetAssignment : [
-      SELECT id, PermissionSet.Name
+      SELECT id, PermissionSet.Name, AssigneeId
       FROM PermissionSetAssignment
       WHERE AssigneeId IN :userIds
     ]) {
@@ -459,7 +455,7 @@ public with sharing class UserProvisioningAfterActions {
     List<GroupMember> deleteGroupMemberList = new List<GroupMember>();
 
     for (GroupMember publicGroupMember : [
-      SELECT id, Group.DeveloperName
+      SELECT id, Group.DeveloperName, UserOrGroupId
       FROM GroupMember
       WHERE UserOrGroupId IN :userIds
     ]) {
@@ -468,6 +464,54 @@ public with sharing class UserProvisioningAfterActions {
       }
     }
     return deleteGroupMemberList;
+  }
+
+  /**
+   * @description This method is called in revokeMembership to delete Permission Set Assignments to user record.
+   * @param deletePsetList Permission Set Assignment List
+   * @param log Lib_SystemLog reference from revokeMembership method
+   */
+  private static void deletePsetAssignment(
+    List<PermissionSetAssignment> deletePsetList,
+    Lib_SystemLog log
+  ) {
+    List<Database.DeleteResult> deleteResult = Database.delete(
+      deletePsetList,
+      false
+    );
+    for (Integer i = 0; i < deletePsetList.size(); i++) {
+      Database.DeleteResult sr = deleteResult[i];
+      PermissionSetAssignment rec = deletePsetList[i];
+      if (!sr.isSuccess()) {
+        for (Database.Error err : sr.getErrors()) {
+          logError(rec.AssigneeId, err, log);
+        }
+      }
+    }
+  }
+
+  /**
+   * @description This method is called in revokeMembership to delete Group Member assignment to user record.
+   * @param deleteGroupMemberList Group Member List
+   * @param log Lib_SystemLog reference from revokeMembership method
+   */
+  private static void deleteGroupAssignment(
+    List<GroupMember> deleteGroupMemberList,
+    Lib_SystemLog log
+  ) {
+    List<Database.DeleteResult> deleteResult = Database.delete(
+      deleteGroupMemberList,
+      false
+    );
+    for (Integer i = 0; i < deleteGroupMemberList.size(); i++) {
+      Database.DeleteResult sr = deleteResult[i];
+      GroupMember rec = deleteGroupMemberList[i];
+      if (!sr.isSuccess()) {
+        for (Database.Error err : sr.getErrors()) {
+          logError(rec.UserOrGroupId, err, log);
+        }
+      }
+    }
   }
 
   /**
