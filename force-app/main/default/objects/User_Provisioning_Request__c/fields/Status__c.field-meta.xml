@@ -22,11 +22,6 @@
                 <label>Completed</label>
             </value>
             <value>
-                <fullName>Notified</fullName>
-                <default>false</default>
-                <label>Notified</label>
-            </value>
-            <value>
                 <fullName>Error</fullName>
                 <default>false</default>
                 <label>Error</label>

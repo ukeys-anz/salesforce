@@ -27,9 +27,6 @@
         <locationY>200</locationY>
         <actionName>User_Provisioning_Request__c.Send_Email_Notification_to_Requestor</actionName>
         <actionType>emailAlert</actionType>
-        <connector>
-            <targetReference>myRule_3_A2</targetReference>
-        </connector>
         <inputParameters>
             <name>SObjectRowId</name>
             <value>
@@ -329,7 +326,7 @@
         <dataType>Boolean</dataType>
         <expression>{!$Setup.Salesforce_Library_Settings__c.Disable_Flows__c} = true</expression>
     </formulas>
-    <interviewLabel>Send_Notification_to_New_User-2_InterviewLabel</interviewLabel>
+    <interviewLabel>Send_Notification_to_New_User-4_InterviewLabel</interviewLabel>
     <label>ANZ User Provisioning Request</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -356,86 +353,6 @@
         </value>
     </processMetadataValues>
     <processType>Workflow</processType>
-    <recordUpdates>
-        <processMetadataValues>
-            <name>evaluationType</name>
-            <value>
-                <stringValue>always</stringValue>
-            </value>
-        </processMetadataValues>
-        <processMetadataValues>
-            <name>extraTypeInfo</name>
-        </processMetadataValues>
-        <processMetadataValues>
-            <name>isChildRelationship</name>
-            <value>
-                <booleanValue>false</booleanValue>
-            </value>
-        </processMetadataValues>
-        <processMetadataValues>
-            <name>reference</name>
-            <value>
-                <stringValue>[User_Provisioning_Request__c]</stringValue>
-            </value>
-        </processMetadataValues>
-        <processMetadataValues>
-            <name>referenceTargetField</name>
-        </processMetadataValues>
-        <name>myRule_3_A2</name>
-        <label>Update Status to Notified</label>
-        <locationX>300</locationX>
-        <locationY>300</locationY>
-        <filters>
-            <processMetadataValues>
-                <name>implicit</name>
-                <value>
-                    <booleanValue>true</booleanValue>
-                </value>
-            </processMetadataValues>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>myVariable_current.Id</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <processMetadataValues>
-                <name>dataType</name>
-                <value>
-                    <stringValue>Picklist</stringValue>
-                </value>
-            </processMetadataValues>
-            <processMetadataValues>
-                <name>isRequired</name>
-                <value>
-                    <booleanValue>false</booleanValue>
-                </value>
-            </processMetadataValues>
-            <processMetadataValues>
-                <name>leftHandSideLabel</name>
-                <value>
-                    <stringValue>Status</stringValue>
-                </value>
-            </processMetadataValues>
-            <processMetadataValues>
-                <name>leftHandSideReferenceTo</name>
-                <value>
-                    <stringValue/>
-                </value>
-            </processMetadataValues>
-            <processMetadataValues>
-                <name>rightHandSideType</name>
-                <value>
-                    <stringValue>Picklist</stringValue>
-                </value>
-            </processMetadataValues>
-            <field>Status__c</field>
-            <value>
-                <stringValue>Notified</stringValue>
-            </value>
-        </inputAssignments>
-        <object>User_Provisioning_Request__c</object>
-    </recordUpdates>
     <startElementReference>myDecision</startElementReference>
     <status>Active</status>
     <variables>
