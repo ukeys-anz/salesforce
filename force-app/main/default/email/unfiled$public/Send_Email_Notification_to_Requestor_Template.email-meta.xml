@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email template with Salesforce base URL</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Send Email Notification to Requestor Template</name>
+    <style>none</style>
+    <subject>Welcome to Salesforce</subject>
+    <textOnly>Welcome to Salesforce!
+
+To easily log in using SSO, save this URL:
+{!LEFT(User_Provisioning_Request__c.Link, LEN(User_Provisioning_Request__c.Link) - 15)}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

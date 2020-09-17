@@ -77,6 +77,8 @@ public with sharing class UserTriggerHandler extends Lib_TriggerHandler {
         businessFuncAndRoles
       );
     }
+
+    UserProvisioningAfterActions.updateUPRStatus(records);
   }
 
   /**
@@ -152,5 +154,7 @@ public with sharing class UserTriggerHandler extends Lib_TriggerHandler {
         businessFuncAndRoles
       );
     }
+
+    UserProvisioningAfterActions.updateUPRStatus(records);
   }
 }

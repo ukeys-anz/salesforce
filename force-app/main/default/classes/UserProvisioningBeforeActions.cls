@@ -43,7 +43,7 @@ public with sharing class UserProvisioningBeforeActions {
    * @param federationIds Set of Federation ID's from user records
    * @return `Map<String, User_Provisioning_Request__c>` User Provisiong request records map
    */
-  private static Map<String, User_Provisioning_Request__c> getUPRRecords(
+  public static Map<String, User_Provisioning_Request__c> getUPRRecords(
     Set<String> federationIds
   ) {
     Map<String, User_Provisioning_Request__c> uprMap = new Map<String, User_Provisioning_Request__c>();
@@ -54,9 +54,12 @@ public with sharing class UserProvisioningBeforeActions {
         Business_Function__c,
         Business_Role__c,
         Requestor_UUID__c,
-        Manager_UUID__c
+        Manager_UUID__c,
+        Status__c,
+        Requestor__c
       FROM User_Provisioning_Request__c
-      WHERE Requestor_UUID__c IN :federationIds AND Type__c = 'Grant'
+      WHERE Requestor_UUID__c IN :federationIds AND Status__c = 'New'
+      ORDER BY CreatedDate ASC
     ]) {
       uprMap.put((uprRecord.Requestor_UUID__c), uprRecord);
     }

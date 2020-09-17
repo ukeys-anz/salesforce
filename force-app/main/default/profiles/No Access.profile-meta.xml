@@ -1233,16 +1233,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>User_Provisioning_Request__c.Approval_Status__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>User_Provisioning_Request__c.Approver__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>User_Provisioning_Request__c.Business_Function__c</field>
         <readable>false</readable>
     </fieldPermissions>

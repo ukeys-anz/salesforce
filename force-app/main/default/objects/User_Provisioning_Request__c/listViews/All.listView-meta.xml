@@ -6,7 +6,9 @@
     <columns>Business_Role__c</columns>
     <columns>Requestor_UUID__c</columns>
     <columns>Type__c</columns>
-    <columns>UPDATEDBY_USER</columns>
+    <columns>Requestor__c</columns>
+    <columns>Status__c</columns>
+    <columns>CREATED_DATE</columns>
     <columns>LAST_UPDATE</columns>
     <filterScope>Everything</filterScope>
     <label>All</label>

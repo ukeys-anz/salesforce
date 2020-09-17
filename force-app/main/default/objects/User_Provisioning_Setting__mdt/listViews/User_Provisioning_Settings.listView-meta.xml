@@ -5,6 +5,7 @@
     <columns>Profile_Name__c</columns>
     <columns>Role_Name__c</columns>
     <columns>Permission_Sets__c</columns>
+    <columns>Permission_Set_Licences__c</columns>
     <columns>Permission_Set_Groups__c</columns>
     <columns>Public_Groups__c</columns>
     <filterScope>Everything</filterScope>

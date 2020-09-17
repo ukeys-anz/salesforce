@@ -13,6 +13,7 @@ public with sharing class UserProvisioningCommonActions {
     if (
       String.isNotBlank(record.Business_Function__c) &&
       String.isNotBlank(record.Business_Role__c) &&
+      String.isNotBlank(record.FederationIdentifier) &&
       record.IsActive == true
     ) {
       return true;
