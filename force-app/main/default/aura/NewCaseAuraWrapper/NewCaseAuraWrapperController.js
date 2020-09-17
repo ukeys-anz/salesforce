@@ -24,16 +24,41 @@
           if (response == true) {
             workspaceAPI.getFocusedTabInfo().then(function (response) {
               var firstTabId = response.tabId;
-              workspaceAPI
-                .openConsoleURL({
-                  url:
-                    "/lightning/o/Case/new?count=1&nooverride=1&recordTypeId=" +
-                    component.get("v.pageReference").state.recordTypeId,
-                  focus: true
-                })
-                .then(function (activeTabId) {
-                  workspaceAPI.closeTab({ tabId: firstTabId });
-                });
+
+              var additionalParams = component.get("v.pageReference").state
+                .additionalParams;
+              console.log(additionalParams);
+
+              var value = helper.getURLParameterByName(
+                component,
+                "inContextOfRef"
+              );
+              if (value) {
+                var context = JSON.parse(window.atob(value));
+                var parentRecID = context.attributes.recordId;
+                var parentObjectName = context.attributes.objectApiName;
+                var defaultFieldValues =
+                  parentObjectName == "Account"
+                    ? "&defaultFieldValues=AccountId=" + parentRecID
+                    : "";
+
+                workspaceAPI
+                  .openConsoleURL({
+                    url:
+                      "/lightning/o/Case/new?count=1&nooverride=1&recordTypeId=" +
+                      component.get("v.pageReference").state.recordTypeId +
+                      "&ws=%2Flightning%2Fr%2F" +
+                      parentObjectName +
+                      "%2F" +
+                      parentRecID +
+                      "%2Fview" +
+                      defaultFieldValues,
+                    focus: true
+                  })
+                  .then(function (activeTabId) {
+                    workspaceAPI.closeTab({ tabId: firstTabId });
+                  });
+              }
             });
           } else {
             helper.goToStandardNewCasePage(component, event);
