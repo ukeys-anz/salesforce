@@ -34,6 +34,8 @@
                 "inContextOfRef"
               );
               if (value) {
+                //Modifying console URL to open New Case window as a sub-tab.
+                //Setting 'defaultFieldValues' to pre-populate the parent Account lookup.
                 var context = JSON.parse(window.atob(value));
                 var parentRecID = context.attributes.recordId;
                 var parentObjectName = context.attributes.objectApiName;
