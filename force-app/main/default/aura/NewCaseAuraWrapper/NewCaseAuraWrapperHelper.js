@@ -27,6 +27,7 @@
       var parentRecID = context.attributes.recordId;
 
       // Manually populating the related parent Account record ID, and recordTypeId when new case creation was originated from a related list
+      // TODO: Should modify accordingly to pre-populate Chat Topic lookup
       if (parentRecID) {
         newCaseRecord.setParams({
           entityApiName: "Case",
@@ -95,5 +96,23 @@
       return context.attributes.recordId;
     }
     return null;
+  },
+  getActiveChatTopicID: function (component, parentRecID, callback) {
+    // Identify which record type was selected
+    var action = component.get("c.getActiveChatTopicIDByCustomer");
+    action.setParams({
+      accountID: parentRecID
+    });
+    action.setCallback(this, function (response) {
+      var state = response.getState();
+      if (state === "SUCCESS") {
+        if (callback) {
+          callback(response.getReturnValue());
+        }
+      } else {
+        console.log("Failed with state: " + state);
+      }
+    });
+    $A.enqueueAction(action);
   }
 });

@@ -25,41 +25,72 @@
             workspaceAPI.getFocusedTabInfo().then(function (response) {
               var firstTabId = response.tabId;
 
-              var additionalParams = component.get("v.pageReference").state
-                .additionalParams;
-              console.log(additionalParams);
-
+              //Reading Parent Record ID from URL to manipulate the console URL to open New Case window as a sub-tab.
               var value = helper.getURLParameterByName(
                 component,
                 "inContextOfRef"
               );
+
               if (value) {
-                //Modifying console URL to open New Case window as a sub-tab.
-                //Setting 'defaultFieldValues' to pre-populate the parent Account lookup.
                 var context = JSON.parse(window.atob(value));
                 var parentRecID = context.attributes.recordId;
                 var parentObjectName = context.attributes.objectApiName;
-                var defaultFieldValues =
-                  parentObjectName == "Account"
-                    ? "&defaultFieldValues=AccountId=" + parentRecID
-                    : "";
 
-                workspaceAPI
-                  .openConsoleURL({
-                    url:
-                      "/lightning/o/Case/new?count=1&nooverride=1&recordTypeId=" +
-                      component.get("v.pageReference").state.recordTypeId +
-                      "&ws=%2Flightning%2Fr%2F" +
-                      parentObjectName +
-                      "%2F" +
-                      parentRecID +
-                      "%2Fview" +
-                      defaultFieldValues,
-                    focus: true
-                  })
-                  .then(function (activeTabId) {
-                    workspaceAPI.closeTab({ tabId: firstTabId });
+                // Fetch active Chat Topic ID (if there is any) related to the Customer
+                if (parentObjectName == "Account") {
+                  helper.getActiveChatTopicID(component, parentRecID, function (
+                    topicID
+                  ) {
+                    //Setting 'defaultFieldValues' to pre-populate the parent Account lookup.
+                    //Also pre-populating/linking Chat Topic record, if the Case is related to an on-going active chat.
+                    if (topicID) {
+                      var defaultFieldValues =
+                        "&defaultFieldValues=AccountId=" +
+                        parentRecID +
+                        ",Chat_Topic__c=" +
+                        topicID;
+                    } else {
+                      var defaultFieldValues =
+                        "&defaultFieldValues=AccountId=" + parentRecID;
+                    }
+
+                    workspaceAPI
+                      .openConsoleURL({
+                        url:
+                          "/lightning/o/Case/new?count=1&nooverride=1&recordTypeId=" +
+                          component.get("v.pageReference").state.recordTypeId +
+                          "&ws=%2Flightning%2Fr%2F" +
+                          parentObjectName +
+                          "%2F" +
+                          parentRecID +
+                          "%2Fview" +
+                          defaultFieldValues,
+                        focus: true
+                      })
+                      .then(function (activeTabId) {
+                        workspaceAPI.closeTab({ tabId: firstTabId });
+                      });
                   });
+
+                  // TODO: Have to manually pre-pupulate parent lookup for objects other than Account
+                  // Only addressing the console sub-tab behaviour for now
+                } else {
+                  workspaceAPI
+                    .openConsoleURL({
+                      url:
+                        "/lightning/o/Case/new?count=1&nooverride=1&recordTypeId=" +
+                        component.get("v.pageReference").state.recordTypeId +
+                        "&ws=%2Flightning%2Fr%2F" +
+                        parentObjectName +
+                        "%2F" +
+                        parentRecID +
+                        "%2Fview",
+                      focus: true
+                    })
+                    .then(function (activeTabId) {
+                      workspaceAPI.closeTab({ tabId: firstTabId });
+                    });
+                }
               }
             });
           } else {

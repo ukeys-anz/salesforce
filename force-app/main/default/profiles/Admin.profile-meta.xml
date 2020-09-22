@@ -861,6 +861,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Chat_Topic__c.Currently_Active__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Chat_Topic__c.Related_Customer__c</field>
         <readable>true</readable>
     </fieldPermissions>
