@@ -127,7 +127,7 @@ public with sharing class IDRCaseActions {
     for (Case record : records) {
       if (isIDRComplaintType(record)) {
         if (NOTIFICATION_STATUS.contains(record.Status)) {
-           notificationCaseList.add(record);
+          notificationCaseList.add(record);
         }
         checkForCRCEscalation(record);
       }
