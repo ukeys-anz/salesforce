@@ -446,6 +446,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
           ] = this.financialCompensation;
         }
       }
+      if(this.isComplaintEscalated && fields[ESCALATED_TO.fieldApiName] == '1'){
+        fields[STATUS_FIELD.fieldApiName] = 'Open';
+        fields['IsEscalated'] = true;
+      }
       if (this.isRealFormNeeded) {
         fields[IS_REAL_FORM_NEED_FIELD.fieldApiName] = true;
       }
