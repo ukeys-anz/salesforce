@@ -311,6 +311,14 @@ public with sharing class IDRCaseActions {
       oldRec.Status != ESCALATED_STATUS
     ){
       caseTobeChanged.OwnerId = queue.Id;
+    }else if(
+      originalRecord.IDR_Escalated_to__c == ESCALATED_TO_CRC_API_NAME &&
+      oldRec.IDR_Escalated_to__c != ESCALATED_TO_CRC_API_NAME &&
+      originalRecord.OwnerId != queue.Id && 
+      originalRecord.Status == ESCALATED_STATUS 
+    ){
+      caseTobeChanged.OwnerId = queue.Id;
+      caseEscalationList.add(originalRecord);
     }
   }
 
