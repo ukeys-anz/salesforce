@@ -27,7 +27,7 @@ describe("Customer Record Escalation", () => {
     $("span=Case Number").click();
     $("span=Case Number").click();
 
-    $("a[title=" + caseId + "]").click();
+    $(`a[title=${caseId}]`).click();
 
     $("=Edit").click();
 
