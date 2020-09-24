@@ -15,22 +15,16 @@ import {
 describe("Anonymous Non Customer Record Creation", () => {
   it("should create an anonymous non customer complaint case record", () => {
     NonCustomerComplaint.login("idrlvl3");
-    console.log("login");
     NonCustomerComplaint.loadApp("Complaint Mgt");
-    console.log("loadapp");
     $('button[title="Show Navigation Menu"]').click();
     $("=Cases").click();
-    console.log("Selected Cases");
 
     $("=New").click();
-    console.log("New");
+
     $("span=Non-Customer Complaint").click();
-    console.log("NCC");
     $("span=Next").click();
-    console.log("Next");
 
     $("span=Disagrees").click();
-    console.log("Disagrees");
 
     NonCustomerComplaint.complainantType.click();
     $("span.slds-truncate=Individual").click();
@@ -66,6 +60,7 @@ describe("Anonymous Non Customer Record Creation", () => {
 
     NonCustomerComplaint.caseType.click();
     $("span.slds-truncate=Collections").click();
+
     NonCustomerComplaint.complaintSubIssue.click();
     $("span.slds-truncate=Disputed debt").click();
 
