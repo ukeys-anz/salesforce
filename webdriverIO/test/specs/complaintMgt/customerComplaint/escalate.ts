@@ -5,22 +5,18 @@ import CustomerComplaint from "../../../../pages/complaintMgt/edit/customerCompl
 import { createCaseList } from "../../../../objectStore/complaint";
 
 /*** DECLARATIONS ***/
-var caseId: any;
+let caseId: any;
 const recordType = "Customer_Complaint";
 
 describe("Customer Record Escalation", () => {
   before(async () => {
-    console.log("Before execution start");
     const cases: any = await createCaseList(1, recordType, "idrlvl3");
     /* createCaseList(1, recordType, "idrlvl3").then((cases: any) => {*/
-    console.log("result:" + JSON.stringify(cases[0].CaseNumber));
     caseId = JSON.stringify(cases[0].CaseNumber);
-    console.log("caseId:" + caseId);
     /* });*/
   });
 
   it("should escalate a customer complaint case record", () => {
-    console.log("after:" + caseId);
     CustomerComplaint.login("idrlvl3");
     CustomerComplaint.loadApp("Complaint Mgt");
     $('button[title="Show Navigation Menu"]').click();
