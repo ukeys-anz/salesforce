@@ -69,7 +69,6 @@ export function createCaseList(
         IDR_Is_Written_Resp_Requested__c: "No",
         IDR_Is_Written_Resp_Required__c: "No",
         IDR_NC_Is_Consent_Obtained__c: true,
-        // new required fields
         IDR_Subsequent_Issue__c: "26",
         OwnerId: user.Id
       };
