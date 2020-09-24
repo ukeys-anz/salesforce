@@ -11,9 +11,7 @@ const recordType = "Customer_Complaint";
 describe("Customer Record Escalation", () => {
   before(async () => {
     const cases: any = await createCaseList(1, recordType, "idrlvl3");
-    /* createCaseList(1, recordType, "idrlvl3").then((cases: any) => {*/
     caseId = JSON.stringify(cases[0].CaseNumber);
-    /* });*/
   });
 
   it("should escalate a customer complaint case record", () => {
