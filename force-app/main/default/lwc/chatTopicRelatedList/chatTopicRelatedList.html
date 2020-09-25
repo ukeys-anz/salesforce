@@ -1,0 +1,43 @@
+<template>
+  <article class="slds-card slds-card_boundary">
+    <lightning-card
+      variant="Narrow"
+      title={titleWithCount}
+      icon-name="standard:live_chat"
+    >
+      <template if:true={totalRecountCount}>
+        <div class="slds-card__body slds-wrap">
+          <lightning-datatable
+            columns={columns}
+            data={data}
+            key-field="id"
+            hide-checkbox-column="true"
+            onrowaction={callRowAction}
+            onsort={updateColumnSorting}
+            sorted-by={sortBy}
+            sorted-direction={sortDirection}
+          ></lightning-datatable>
+        </div>
+        <template if:true={paginatorRequired}>
+          <div class="slds-m-around_medium">
+            <p class="slds-m-vertical_medium content">
+              Displaying {startingRecord} to {endingRecord} of
+              {totalRecountCount} records. Page {page} of {totalPage}.
+            </p>
+            <c-paginator
+              onprevious={previousHandler}
+              onnext={nextHandler}
+            ></c-paginator>
+          </div>
+        </template>
+      </template>
+    </lightning-card>
+    <!-- Spinner -->
+    <template if:true={showLoadingSpinner}>
+      <lightning-spinner
+        alternative-text="Loading"
+        size="large"
+      ></lightning-spinner>
+    </template>
+  </article>
+</template>
