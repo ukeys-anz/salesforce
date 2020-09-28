@@ -3,7 +3,7 @@
     <fullName>Account_Name__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate</complianceGroup>
-    <deleteConstraint>SetNull</deleteConstraint>
+    <deleteConstraint>Cascade</deleteConstraint>
     <description>lookup relationship between Account and Customer Feedback object</description>
     <externalId>false</externalId>
     <label>Account Name</label>

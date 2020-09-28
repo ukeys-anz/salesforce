@@ -13,6 +13,7 @@ public with sharing class UserProvisioningCommonActions {
     if (
       String.isNotBlank(record.Business_Function__c) &&
       String.isNotBlank(record.Business_Role__c) &&
+      String.isNotBlank(record.FederationIdentifier) &&
       record.IsActive == true
     ) {
       return true;
@@ -92,7 +93,8 @@ public with sharing class UserProvisioningCommonActions {
         Role_Name__c,
         Permission_Sets__c,
         Permission_Set_Groups__c,
-        Public_Groups__c
+        Public_Groups__c,
+        Permission_Set_Licences__c
       FROM User_Provisioning_Setting__mdt
       WHERE DeveloperName IN :BusinessFuncAndRoles
     ]) {
@@ -161,6 +163,23 @@ public with sharing class UserProvisioningCommonActions {
       pSetGroupMap.put(pSetGroup.DeveloperName, pSetGroup);
     }
     return pSetGroupMap;
+  }
+
+  /**
+   * @description This method is called to get all permission set license names and their ids.
+   * @return `Map<String, PermissionSetLicense>`
+   */
+
+  public static Map<String, PermissionSetLicense> getAllPSetLicenseMap() {
+    Map<String, PermissionSetLicense> pSetLicenseMap = new Map<String, PermissionSetLicense>();
+
+    for (PermissionSetLicense pSetLicense : [
+      SELECT Id, DeveloperName
+      FROM PermissionSetLicense
+    ]) {
+      pSetLicenseMap.put(pSetLicense.DeveloperName, pSetLicense);
+    }
+    return pSetLicenseMap;
   }
 
   /**

@@ -6,7 +6,7 @@
     <description>field to store the Federation ID of the manager user</description>
     <externalId>false</externalId>
     <label>Manager UUID</label>
-    <length>10</length>
+    <length>50</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackHistory>false</trackHistory>

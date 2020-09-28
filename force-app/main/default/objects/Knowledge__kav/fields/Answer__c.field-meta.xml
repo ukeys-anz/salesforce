@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Answer__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information</complianceGroup>
+    <complianceGroup>Source_Salesforce; Integrity - Accurate;Privacy - Non Personal Information</complianceGroup>
     <description>Article text</description>
     <externalId>false</externalId>
     <label>Answer</label>

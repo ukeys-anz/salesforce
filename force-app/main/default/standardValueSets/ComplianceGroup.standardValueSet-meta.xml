@@ -66,4 +66,14 @@
         <default>false</default>
         <label>Source - OCV</label>
     </standardValue>
+    <standardValue>
+        <fullName>Source_Salesforce</fullName>
+        <default>false</default>
+        <label>Source - Salesforce</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Source_Fabric</fullName>
+        <default>false</default>
+        <label>Source - Fabric</label>
+    </standardValue>
 </StandardValueSet>

@@ -99,11 +99,6 @@ jobs:
       - name: "Authenticate all orgs in SFDX CLI"
         run: sfdx force:auth:sfdxurl:store -a systest --sfdxurlfile=./SFDX_URL_SYSTEST.txt
 
-      - name: Reindex sidebar
-        run: |
-          npm i lodash@4.17.19
-          node reindex
-
       - name: Generate schema and access docs
         working-directory: salesforce
         shell: bash
@@ -131,19 +126,24 @@ jobs:
           mkdir -p ./docs/static/
           cp -r salesforce/apexdoc/ApexDocumentation ./docs/static/
 
+      - name: Reindex sidebar
+        run: |
+          npm i lodash@4.17.19
+          node reindex
+
       - name: Create new branch on anzx/salesforce-docs
         uses: EndBug/add-and-commit@v4
         with:
           add: "docs/static docs/governance sidebars.js"
           author_name: github-actions
           message: "Update salesforce documentation"
-          ref: "doc/plugin-update"
+          ref: ${{ github.run_id }}
         env:
           GITHUB_TOKEN: ${{ secrets.ORG_GITHUB_TOKEN }}
 
       - name: Create a PR on anzx/salesforce-docs
         shell: bash
         run: |
-          hub pull-request -b master -h doc/plugin-update --no-edit -m "${GITHUB_REF##*/}-${GITHUB_RUN_ID} Release Update" -m "An automated PR to update access and schema documentation from https://github.com/anzx/salesforce/releases/tag/${GITHUB_REF##*/}-${GITHUB_RUN_ID}"
+          if git branch | grep -q -w ${GITHUB_RUN_ID}; then hub pull-request -b master -h ${GITHUB_RUN_ID} --no-edit -m "${GITHUB_REF##*/}-${GITHUB_RUN_ID} Release Update" -m "An automated PR to update access and schema documentation from https://github.com/anzx/salesforce/releases/tag/${GITHUB_REF##*/}-${GITHUB_RUN_ID}"; fi
         env:
           GITHUB_TOKEN: ${{ secrets.ORG_GITHUB_TOKEN }}

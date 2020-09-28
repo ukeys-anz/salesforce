@@ -53,11 +53,6 @@
             <field>Knowledge__kav.Question__c</field>
             <operation>notEqual</operation>
         </criteriaItems>
-        <criteriaItems>
-            <field>User.UserRole</field>
-            <operation>equals</operation>
-            <value>Content Writer</value>
-        </criteriaItems>
     </entryCriteria>
     <finalApprovalRecordLock>false</finalApprovalRecordLock>
     <finalRejectionRecordLock>false</finalRejectionRecordLock>

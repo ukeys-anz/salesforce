@@ -1,0 +1,108 @@
+<template>
+  <template if:true={transactionRecord.showDateTitle}>
+    <div class="slds-m-bottom_small slds-m-left_small">{transactionDate}</div>
+  </template>
+  <article class="slds-card slds-card_boundary slds-m-bottom_small">
+    <div
+      class="slds-grid slds-m-bottom_small transaction-header"
+      onclick={handleDetailsToggle}
+    >
+      <div class="slds-col slds-size--1-of-5">
+        <img class="logo-image" alt="Logo" src={transactionRecord.Logo} />
+      </div>
+      <div class="slds-col slds-size--1-of-5">
+        <div class="slds-grid slds-form-element__label">Name</div>
+        <div class="slds-grid">{transactionRecord.Name}</div>
+      </div>
+      <div class="slds-col slds-size--1-of-5">
+        <div class="slds-grid slds-form-element__label">Transaction Type</div>
+        <div class="slds-grid">{transactionRecord.TransactionType}</div>
+      </div>
+      <div class="slds-col slds-size--1-of-5">
+        <div class="slds-grid slds-form-element__label">Transaction Time</div>
+        <div class="slds-grid">{transactionRecord.TransactionTime}</div>
+      </div>
+      <div class="slds-col slds-size--1-of-5">
+        <div class="slds-grid slds-form-element__label">Amount</div>
+        <div class="slds-grid">
+          <template if:true={positiveAmount}>
+            <span class="positive-amount">+</span>
+          </template>
+          <template if:true={negativeAmount}>
+            <span class="negative-amount">-</span>
+          </template>
+          $<lightning-formatted-number
+            value={amountNumber}
+          ></lightning-formatted-number>
+        </div>
+      </div>
+    </div>
+    <template if:true={showTransactionDetails}>
+      <div>
+        <div class="slds-grid slds-m-bottom_small">
+          <div class="slds-col slds-size--1-of-5"></div>
+          <div class="slds-col slds-size--1-of-5">
+            <div class="slds-grid slds-form-element__label">
+              Transaction Status
+            </div>
+            <div class="slds-grid">{transactionRecord.TransactionStatus}</div>
+          </div>
+          <div class="slds-col slds-size--1-of-5">
+            <div class="slds-grid slds-form-element__label">
+              Transaction Description
+            </div>
+            <div class="slds-grid">
+              {transactionRecord.TransactionDescription}
+            </div>
+          </div>
+          <div class="slds-col slds-size--1-of-5">
+            <div class="slds-grid slds-form-element__label">
+              Merchant Category Code
+            </div>
+            <div class="slds-grid">
+              A{transactionRecord.MerchantCategoryCode}
+            </div>
+          </div>
+          <div class="slds-col slds-size--1-of-5">
+            <div class="slds-grid slds-form-element__label">
+              Original Balance
+            </div>
+            <div class="slds-grid">${transactionRecord.OriginalBalance}</div>
+          </div>
+        </div>
+        <div class="slds-grid slds-m-bottom_small">
+          <div class="slds-col slds-size--1-of-5"></div>
+          <div class="slds-col slds-size--1-of-5">
+            <div class="slds-grid slds-form-element__label">Transaction ID</div>
+            <div class="slds-grid">{transactionRecord.TransactionID}</div>
+          </div>
+          <div class="slds-col slds-size--1-of-5">
+            <div class="slds-grid slds-form-element__label">
+              Transaction Code
+            </div>
+            <div class="slds-grid">{transactionRecord.TransactionCode}</div>
+          </div>
+          <div class="slds-col slds-size--1-of-5">
+            <div class="slds-grid slds-form-element__label">
+              Merchant Description
+            </div>
+            <div class="slds-grid">{transactionRecord.MerchantDescription}</div>
+          </div>
+          <div class="slds-col slds-size--1-of-5">
+            <div class="slds-grid slds-form-element__label">Currency Code</div>
+            <div class="slds-grid">{transactionRecord.CurrencyCode}</div>
+          </div>
+        </div>
+        <div class="slds-grid slds-m-bottom_small">
+          <div class="slds-col slds-size--1-of-5"></div>
+          <div class="slds-col slds-size--1-of-5">
+            <div class="slds-grid slds-form-element__label">
+              Merchant Location
+            </div>
+            <div class="slds-grid">{transactionRecord.MerchantLocation}</div>
+          </div>
+        </div>
+      </div>
+    </template>
+  </article>
+</template>

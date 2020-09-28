@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Card_Status__c</fullName>
+    <complianceGroup>Integrity - Accurate</complianceGroup>
+    <description>The status of the card</description>
+    <externalId>false</externalId>
+    <label>Card Status</label>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Closed</fullName>
+                <default>false</default>
+                <label>Closed</label>
+            </value>
+            <value>
+                <fullName>Delinquent (Return)</fullName>
+                <default>false</default>
+                <label>Delinquent (Return)</label>
+            </value>
+            <value>
+                <fullName>Delinquent (Retain)</fullName>
+                <default>false</default>
+                <label>Delinquent (Retain)</label>
+            </value>
+            <value>
+                <fullName>Issued</fullName>
+                <default>false</default>
+                <label>Issued</label>
+            </value>
+            <value>
+                <fullName>Lost</fullName>
+                <default>false</default>
+                <label>Lost</label>
+            </value>
+            <value>
+                <fullName>Stolen</fullName>
+                <default>false</default>
+                <label>Stolen</label>
+            </value>
+            <value>
+                <fullName>Unissued (N&amp;D ICI Cards)</fullName>
+                <default>false</default>
+                <label>Unissued (N&amp;D ICI Cards)</label>
+            </value>
+            <value>
+                <fullName>Temporary (OZ Only)</fullName>
+                <default>false</default>
+                <label>Temporary (OZ Only)</label>
+            </value>
+            <value>
+                <fullName>Block ATM</fullName>
+                <default>false</default>
+                <label>Block ATM</label>
+            </value>
+            <value>
+                <fullName>Block ATM &amp; POS (Exclude CNP)</fullName>
+                <default>false</default>
+                <label>Block ATM &amp; POS (Exclude CNP)</label>
+            </value>
+            <value>
+                <fullName>Block ATM, POS, CNP &amp; BCH</fullName>
+                <default>false</default>
+                <label>Block ATM, POS, CNP &amp; BCH</label>
+            </value>
+            <value>
+                <fullName>Block ATM, POS &amp; CNP</fullName>
+                <default>false</default>
+                <label>Block ATM, POS &amp; CNP</label>
+            </value>
+            <value>
+                <fullName>Block CNP</fullName>
+                <default>false</default>
+                <label>Block CNP</label>
+            </value>
+            <value>
+                <fullName>Block POS (exclude CNP)</fullName>
+                <default>false</default>
+                <label>Block POS (exclude CNP)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

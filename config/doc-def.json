@@ -25,6 +25,13 @@
       "type": "user"
     },
     {
+      "name": "Coach Manager",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["Coach", "Content_Author_PSG"],
+      "permissionsets": [],
+      "type": "user"
+    },
+    {
       "name": "Content Author",
       "profile": "ANZx Standard User",
       "permissionsetgroups": ["Content_Author_PSG"],
@@ -32,18 +39,11 @@
       "type": "user"
     },
     {
-      "name": "Read Only Administrator",
+      "name": "Deployment User",
       "profile": "No Access",
       "permissionsetgroups": [],
-      "permissionsets": ["Read_Only_Admin"],
-      "type": "user"
-    },
-    {
-      "name": "System Administrator",
-      "profile": "Admin",
-      "permissionsetgroups": [],
-      "permissionsets": [],
-      "type": "user"
+      "permissionsets": ["SFDX_GCB", "EinsteinAnalyticsPlusAdmin"],
+      "type": "system"
     },
     {
       "name": "Engineer",
@@ -75,11 +75,11 @@
       "type": "user"
     },
     {
-      "name": "Deployment User",
-      "profile": "No Access",
-      "permissionsetgroups": [],
-      "permissionsets": ["SFDX_GCB", "EinsteinAnalyticsPlusAdmin"],
-      "type": "system"
+      "name": "IDR Tech Support",
+      "profile": "ANZ Standard User",
+      "permissionsetgroups": ["IDR_Tech_Support"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
     },
     {
       "name": "OCV Integration User",
@@ -89,10 +89,45 @@
       "type": "system"
     },
     {
+      "name": "Ops Support",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["Ops_Support"],
+      "permissionsets": [],
+      "type": "user"
+    },
+    {
       "name": "Qualtrics Integration User",
       "profile": "Integration User (External Apps)",
       "permissionsetgroups": [],
       "permissionsets": ["Customer_Feedback_Read_Write"],
+      "type": "system"
+    },
+    {
+      "name": "Read Only Administrator",
+      "profile": "No Access",
+      "permissionsetgroups": [],
+      "permissionsets": ["Read_Only_Admin"],
+      "type": "user"
+    },
+    {
+      "name": "System Administrator",
+      "profile": "Admin",
+      "permissionsetgroups": [],
+      "permissionsets": [],
+      "type": "user"
+    },
+    {
+      "name": "Trailblazer",
+      "profile": "ANZx Trailblazer User",
+      "permissionsetgroups": ["MyTrailhead_Learner"],
+      "permissionsets": [],
+      "type": "user"
+    },
+    {
+      "name": "TrailTracker Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": ["API_Only", "Th_Badge_Admin"],
       "type": "system"
     },
     {

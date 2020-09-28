@@ -13,7 +13,9 @@
     "LightningScheduler",
     "EventLogFile",
     "DevelopmentWave",
-    "AnalyticsAdminPerms"
+    "AnalyticsAdminPerms",
+    "CascadeDelete",
+    "MyTrailhead"
   ],
   "settings": {
     "chatterSettings": {

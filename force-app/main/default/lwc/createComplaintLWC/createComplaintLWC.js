@@ -195,6 +195,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   isDataValid = false;
   caseStatus = OPEN_STATUS_API_NAME;
   isCustNumValidated = false;
+  searchDisabled = true;
   //initialize components
   connectedCallback() {
     this.recordType = this.recordTypeId;
@@ -295,6 +296,11 @@ export default class CreateComplaintLWC extends NavigationMixin(
   handleCustomerNumberChange(event) {
     this.isCustNumValidated = false;
     this.customerIdValue = event.target.value;
+    if (this.customerIdValue.match("^[0-9]{10,15}$")) {
+      this.searchDisabled = false;
+    } else {
+      this.searchDisabled = true;
+    }
   }
 
   handleWrittenResponseChange(event) {
@@ -423,7 +429,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
       const fields = event.detail.fields;
       fields[DESCRIPTION_FIELD.fieldApiName] = this.description;
       fields[PRODUCT_LOOKUP_FIELD.fieldApiName] = this.productValue;
-      fields[CAP_CIS_ID_FIELD.fieldApiName] = this.customerIdValue;
+      fields[CAP_CIS_ID_FIELD.fieldApiName] = this.customerIdValue.replace(
+        /^0+/,
+        ""
+      );
       fields[
         WRITTEN_RESPONSE_REQUESTED_FIELD.fieldApiName
       ] = this.writtenResponseValue;
@@ -439,6 +448,16 @@ export default class CreateComplaintLWC extends NavigationMixin(
             FINANCIAL_COMPENSATION.fieldApiName
           ] = this.financialCompensation;
         }
+      }
+      //If user wants to create an escalated case. Set the case status to default status and set the isEscalated flag.
+      // This is required to handle afterUpdate trigger logic.
+      // Status will be set to escalated in 'HandleCaseEscalationRules' of IDRCaseActions class from the trigger.
+      if (
+        this.isComplaintEscalated &&
+        fields[ESCALATED_TO.fieldApiName] === "1"
+      ) {
+        fields[STATUS_FIELD.fieldApiName] = OPEN_STATUS_API_NAME;
+        fields.IsEscalated = true;
       }
       if (this.isRealFormNeeded) {
         fields[IS_REAL_FORM_NEED_FIELD.fieldApiName] = true;
@@ -461,21 +480,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
         .catch((error) => {
           this.handleError(error);
         });
-    }
-  }
-
-  handleCustomerNumberOnblur() {
-    let capCisfield = this.template.querySelector(".inputCapCisId");
-    if (!this.customerIdValue.match("^[0-9]{10,}$")) {
-      //set an error
-      capCisfield.setCustomValidity(
-        "Customer number must be numbers and at least 10 digits long"
-      );
-      capCisfield.reportValidity();
-    } else {
-      //reset an error
-      capCisfield.setCustomValidity("");
-      capCisfield.reportValidity();
     }
   }
 
@@ -547,7 +551,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
     }
     return true;
   }
-
   handleCustNumValidated(event) {
     if (event) {
       this.isCustNumValidated = true;
