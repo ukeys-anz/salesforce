@@ -1522,6 +1522,9 @@
         <description>Salesforce Australia (Public Cloud) 1</description>
         <endAddress>13.210.7.255</endAddress>
         <startAddress>13.210.4.0</startAddress>
+        <description>Mvision</description>
+        <endAddress>44.234.215.175</endAddress>
+        <startAddress>44.234.215.175</startAddress>
     </loginIpRanges>
     <loginIpRanges>
         <description>Salesforce Australia (Public Cloud) 2</description>
@@ -1567,21 +1570,33 @@
         <description>Mvision</description>
         <endAddress>34.215.230.220</endAddress>
         <startAddress>34.215.230.220</startAddress>
+        <description>ANZ Proxy required for Mvision</description>
+        <endAddress>203.110.235.1</endAddress>
+        <startAddress>203.110.235.1</startAddress>
     </loginIpRanges>
     <loginIpRanges>
         <description>Mvision</description>
         <endAddress>52.34.250.140</endAddress>
         <startAddress>52.34.250.140</startAddress>
+        <description>ANZ Proxy required for Mvision</description>
+        <endAddress>203.110.235.5</endAddress>
+        <startAddress>203.110.235.3</startAddress>
     </loginIpRanges>
     <loginIpRanges>
         <description>Mvision</description>
         <endAddress>54.70.91.35</endAddress>
         <startAddress>54.70.91.35</startAddress>
+        <description>ANZ Proxy required for Mvision</description>
+        <endAddress>203.110.235.129</endAddress>
+        <startAddress>203.110.235.129</startAddress>
     </loginIpRanges>
     <loginIpRanges>
         <description>Mvision</description>
         <endAddress>52.24.211.31</endAddress>
         <startAddress>52.24.211.31</startAddress>
+        <description>ANZ Proxy required for Mvision</description>
+        <endAddress>203.110.235.133</endAddress>
+        <startAddress>203.110.235.131</startAddress>
     </loginIpRanges>
 
     <userPermissions>
