@@ -86,11 +86,11 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Chat_Topic__c</field>
+                <field>Reason</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Reason</field>
+                <field>Chat_Topic__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>

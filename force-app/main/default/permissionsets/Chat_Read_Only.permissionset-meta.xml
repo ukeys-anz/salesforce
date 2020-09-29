@@ -2,6 +2,11 @@
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <description>Grants Read-Only permissions for asynchronous chat related objects and fields</description>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Auto_matched_Chat_Topic_IDs__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Case.Chat_Topic__c</field>
         <readable>true</readable>

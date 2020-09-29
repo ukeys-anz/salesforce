@@ -21,9 +21,9 @@
                 <label>New</label>
             </value>
             <value>
-                <fullName>Open</fullName>
+                <fullName>Active</fullName>
                 <default>false</default>
-                <label>Open</label>
+                <label>Active</label>
             </value>
             <value>
                 <fullName>On Hold</fullName>
