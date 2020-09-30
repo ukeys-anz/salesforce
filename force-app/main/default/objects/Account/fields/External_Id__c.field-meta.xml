@@ -3,7 +3,7 @@
     <fullName>External_Id__c</fullName>
     <caseSensitive>false</caseSensitive>
     <description>To be used as an unique identifier for customer records. 
-This will have a composite value which consists of OCV ID + Source Type + Source ID</description>
+Refer to Mulesoft for the structure of the Id.</description>
     <externalId>true</externalId>
     <label>External Id</label>
     <length>100</length>
