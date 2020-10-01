@@ -46,6 +46,16 @@
                 <label>Tech Support</label>
             </value>
             <value>
+                <fullName>Admin</fullName>
+                <default>false</default>
+                <label>Admin</label>
+            </value>
+            <value>
+                <fullName>Coach</fullName>
+                <default>false</default>
+                <label>Coach</label>
+            </value>
+            <value>
                 <fullName>Business Role</fullName>
                 <default>false</default>
                 <isActive>false</isActive>
