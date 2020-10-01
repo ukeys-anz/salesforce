@@ -8,6 +8,7 @@ export default class RetrieveChatTopics extends LightningElement {
   @api objectName;
   @track data = []; //data to be displayed in the table
   @track totalRecordCount = 0; //total record count received from all retrieved records
+  @track loading = true;
 
   connectedCallback() {
     if (this.objectName === "Account") {
@@ -41,8 +42,10 @@ export default class RetrieveChatTopics extends LightningElement {
           this.data = currentData;
           this.totalRecordCount = result.length;
         }
+        this.loading = false;
       })
       .catch(error => {
+        this.loading = false;
         let errorMessage = "Failed to load chat records";
         if (error.body && error.body.message) {
           errorMessage = error.body.message;
@@ -74,8 +77,10 @@ export default class RetrieveChatTopics extends LightningElement {
           this.data = currentData;
           this.totalRecordCount = result.length;
         }
+        this.loading = false;
       })
       .catch(error => {
+        this.loading = false;
         let errorMessage = "Failed to load chat records";
         if (error.body && error.body.message) {
           errorMessage = error.body.message;
