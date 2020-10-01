@@ -2,8 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>External_Id__c</fullName>
     <caseSensitive>false</caseSensitive>
-    <description>To be used as an unique identifier for customer records. 
-Refer to Mulesoft for the structure of the Id.</description>
+    <description>Used for writing updates from OCV Party event messages. It is constructed in Mulesoft.</description>
     <externalId>true</externalId>
     <label>External Id</label>
     <length>100</length>
