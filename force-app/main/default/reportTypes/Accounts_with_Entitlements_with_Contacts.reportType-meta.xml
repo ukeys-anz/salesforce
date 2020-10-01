@@ -661,6 +661,16 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>ANZx_Customer__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>AR_C_Customer__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>FinServ__TotalOutstandingCredit__c</field>
             <table>Account</table>
         </columns>
@@ -697,11 +707,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Contact_Preferences__c</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Customer_Belongs_To__c</field>
             <table>Account</table>
         </columns>
         <columns>
