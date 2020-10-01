@@ -141,6 +141,15 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>objectName</name>
+                    <value>Account</value>
+                </componentInstanceProperties>
+                <componentName>chatTopicRelatedList</componentName>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
                     <name>relatedListComponentOverride</name>
                     <value>NONE</value>
                 </componentInstanceProperties>
