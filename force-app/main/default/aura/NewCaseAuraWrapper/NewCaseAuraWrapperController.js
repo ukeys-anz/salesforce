@@ -128,6 +128,21 @@
       }
     });
   },
+  urlchange: function (component, event, helper) {
+    // This is to perform intended actions from 'goToNewCaseWithDefaultRecordType()' method, if the URL (including "inContextOfRef" parameter) was not readily available at the time od calling the init() method.
+    // 'urlchange' mwthod will only be called if;
+    // * The user has access to only one record type. And,
+    // * If it's not the first time he/she tries to create a new case without a page refresh (the first time it works fine).
+
+    // If there is only one recordtype assigned to the user take him to default case creation
+    if (
+      !component.get("v.pageReference").state.recordTypeId &&
+      helper.getURLParameterByName(component, "inContextOfRef")
+    ) {
+      helper.goToNewCaseWithDefaultRecordType(component);
+      return;
+    }
+  },
   handleNavigateRecord: function (component, event) {
     var caseId = event.getParam("caseId");
     var workspaceAPI = component.find("workspace");

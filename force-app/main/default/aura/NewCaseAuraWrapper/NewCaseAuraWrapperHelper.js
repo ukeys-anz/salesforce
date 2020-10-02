@@ -100,23 +100,65 @@
     if (value) {
       var context = JSON.parse(window.atob(value));
       var parentRecID = context.attributes.recordId;
+      var parentObjectName = context.attributes.objectApiName;
 
       // Manually populating the related parent Account record ID when new case creation was originated from a related list
       if (parentRecID) {
-        newCaseRecord.setParams({
-          entityApiName: "Case",
-          defaultFieldValues: {
-            AccountId: parentRecID
-          }
-        });
+        // Pre-populate Chat Topic lookup if parent object is Account
+        if (parentObjectName == "Account") {
+          // Fetch active Chat Topic ID (if there is any) related to the Customer
+          this.getActiveChatTopicID(component, parentRecID, function (topicID) {
+            //Setting 'defaultFieldValues' to pre-populate the parent Account lookup.
+            //Also pre-populating/linking Chat Topic record, if the Case is related to an on-going active chat.
+            var defaultFieldValues = "";
+            if (topicID) {
+              var array = topicID.split("|");
+              if (array.length == 1) {
+                newCaseRecord.setParams({
+                  entityApiName: "Case",
+                  defaultFieldValues: {
+                    AccountId: parentRecID,
+                    Chat_Topic__c: topicID
+                  }
+                });
+              } else {
+                // only comes here if array length > 1
+                // Saving '|' separated IDs on a custom field to help in troubleshooting
+                newCaseRecord.setParams({
+                  entityApiName: "Case",
+                  defaultFieldValues: {
+                    AccountId: parentRecID,
+                    Auto_matched_Chat_Topic_IDs__c: topicID
+                  }
+                });
+              }
+              newCaseRecord.fire();
+            } else {
+              // Chat Topic population faild, fallback option
+              newCaseRecord.setParams({
+                entityApiName: "Case",
+                defaultFieldValues: {
+                  AccountId: parentRecID
+                }
+              });
+              newCaseRecord.fire();
+            }
+          });
+        } else {
+          // in case if the Parent object isn't Account
+          newCaseRecord.setParams({
+            entityApiName: "Case"
+          });
+          newCaseRecord.fire();
+        }
       } else {
+        // in case there isn't a parent record ID
         newCaseRecord.setParams({
           entityApiName: "Case"
         });
+        newCaseRecord.fire();
       }
     }
-
-    newCaseRecord.fire();
   },
   getURLParameterByName: function (component, name) {
     name = name.replace(/[\[\]]/g, "\\$&");
