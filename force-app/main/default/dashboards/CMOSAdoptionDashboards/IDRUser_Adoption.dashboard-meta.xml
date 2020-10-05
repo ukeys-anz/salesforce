@@ -427,6 +427,8 @@
         </dashboardGridComponents>
         <dashboardGridComponents>
             <colSpan>3</colSpan>
+            <columnIndex>9</columnIndex>
+            <dashboardComponent>
                 <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
                 <chartSummary>
                     <column>FORMULA2</column>
