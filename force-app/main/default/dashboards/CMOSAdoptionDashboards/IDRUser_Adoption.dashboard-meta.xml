@@ -203,13 +203,13 @@
                 <decimalPrecision>-1</decimalPrecision>
                 <displayUnits>Auto</displayUnits>
                 <groupingSortProperties/>
-                <header>Total Complaint Recorded</header>
+                <header>Total Complaints Recorded</header>
                 <indicatorBreakpoint1>100.0</indicatorBreakpoint1>
                 <indicatorBreakpoint2>125.0</indicatorBreakpoint2>
                 <indicatorHighColor>#00716B</indicatorHighColor>
                 <indicatorLowColor>#C23934</indicatorLowColor>
                 <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
-                <metricLabel>Total complaint recorded</metricLabel>
+                <metricLabel>Total complaints recorded</metricLabel>
                 <report>IDRAdoption/IDR_Case_Statistics</report>
                 <showRange>false</showRange>
             </dashboardComponent>
