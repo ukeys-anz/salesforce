@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
-    <aggregates>
-        <calculatedFormula>(CDF1:SUM)/RowCount</calculatedFormula>
-        <datatype>percent</datatype>
-        <developerName>FORMULA1</developerName>
-        <isActive>true</isActive>
-        <isCrossBlock>false</isCrossBlock>
-        <masterLabel>Login Percentage</masterLabel>
-        <scale>2</scale>
-    </aggregates>
     <chart>
         <backgroundColor1>#FFFFFF</backgroundColor1>
         <backgroundColor2>#FFFFFF</backgroundColor2>
@@ -16,14 +7,16 @@
         <chartSummaries>
             <aggregate>Sum</aggregate>
             <axisBinding>y</axisBinding>
-            <column>CDF1</column>
+            <column>User.User__c</column>
         </chartSummaries>
-        <chartType>HorizontalBar</chartType>
+        <chartType>LineGrouped</chartType>
         <enableHoverLabels>false</enableHoverLabels>
         <expandOthers>true</expandOthers>
-        <groupingColumn>DIVISION</groupingColumn>
+        <groupingColumn>LOGIN_DATE</groupingColumn>
+        <legendPosition>Right</legendPosition>
         <location>CHART_BOTTOM</location>
-        <showAxisLabels>true</showAxisLabels>
+        <secondaryGroupingColumn>DIVISION</secondaryGroupingColumn>
+        <showAxisLabels>false</showAxisLabels>
         <showPercentage>false</showPercentage>
         <showTotal>false</showTotal>
         <showValues>false</showValues>
@@ -35,31 +28,27 @@
         <titleSize>18</titleSize>
     </chart>
     <columns>
+        <field>FIRST_NAME</field>
+    </columns>
+    <columns>
+        <field>LAST_NAME</field>
+    </columns>
+    <columns>
+        <field>LOGIN_DATETIME</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>User.User__c</field>
+    </columns>
+    <columns>
         <field>TITLE</field>
-    </columns>
-    <columns>
-        <field>FULL_NAME</field>
-    </columns>
-    <columns>
-        <field>EMAIL</field>
-    </columns>
-    <columns>
-        <field>PROFILE</field>
     </columns>
     <columns>
         <field>DEPARTMENT</field>
     </columns>
     <columns>
-        <aggregateTypes>Sum</aggregateTypes>
-        <field>CDF1</field>
+        <field>USER_ID</field>
     </columns>
-    <customDetailFormulas>
-        <calculatedFormula>IF( (NOT(ISBLANK(LAST_LOGIN)) &amp;&amp; DATEVALUE(LAST_LOGIN) = TODAY()), 1, 0)</calculatedFormula>
-        <dataType>Double</dataType>
-        <developerName>CDF1</developerName>
-        <label>Regular Login</label>
-        <scale>0</scale>
-    </customDetailFormulas>
     <description># of Active Users</description>
     <filter>
         <criteriaItems>
@@ -90,11 +79,22 @@
             <operator>contains</operator>
             <value>IDR,Digital Servicing,CCC AU Sales - SLWS04 - Sales Wellington,ANZ Direct Manila Service,Card Solutions</value>
         </criteriaItems>
+        <criteriaItems>
+            <column>LOGIN_DATE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>LAST_N_DAYS:30</value>
+        </criteriaItems>
     </filter>
-    <format>Summary</format>
+    <format>Matrix</format>
+    <groupingsAcross>
+        <field>LOGIN_DATE</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
     <groupingsDown>
         <dateGranularity>Day</dateGranularity>
-        <field>ACTIVE</field>
+        <field>FULL_NAME</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
     <groupingsDown>
@@ -102,7 +102,7 @@
         <field>DIVISION</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
-    <name>IDR Active USERS</name>
+    <name>IDR Daily Login by Team</name>
     <params>
         <name>active</name>
         <value>active</value>

@@ -2028,6 +2028,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>User.User__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>User_Provisioning_Request__c.Business_Function__c</field>
         <readable>true</readable>

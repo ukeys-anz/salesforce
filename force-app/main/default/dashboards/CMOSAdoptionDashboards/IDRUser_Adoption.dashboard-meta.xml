@@ -16,7 +16,7 @@
                 <decimalPrecision>-1</decimalPrecision>
                 <displayUnits>Auto</displayUnits>
                 <groupingSortProperties/>
-                <header>Active Users</header>
+                <header>Active Trailblazers</header>
                 <indicatorBreakpoint1>20.0</indicatorBreakpoint1>
                 <indicatorBreakpoint2>60.0</indicatorBreakpoint2>
                 <indicatorHighColor>#00716B</indicatorHighColor>
@@ -91,35 +91,23 @@
             <colSpan>3</colSpan>
             <columnIndex>9</columnIndex>
             <dashboardComponent>
-                <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
+                <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
                 <chartAxisRange>Auto</chartAxisRange>
-                <chartSummary>
-                    <axisBinding>y</axisBinding>
-                    <column>FORMULA1</column>
-                </chartSummary>
                 <componentType>Bar</componentType>
-                <decimalPrecision>-1</decimalPrecision>
                 <displayUnits>Auto</displayUnits>
                 <drillEnabled>false</drillEnabled>
                 <drillToDetailEnabled>false</drillToDetailEnabled>
                 <enableHover>false</enableHover>
                 <expandOthers>false</expandOthers>
-                <groupingColumn>DIVISION</groupingColumn>
-                <groupingSortProperties>
-                    <groupingSorts>
-                        <groupingLevel>g1</groupingLevel>
-                        <sortOrder>a</sortOrder>
-                    </groupingSorts>
-                </groupingSortProperties>
-                <header>Today&apos;s Login Percentage by Team</header>
-                <legendPosition>Bottom</legendPosition>
-                <report>IDRAdoption/Active_Users</report>
+                <groupingSortProperties/>
+                <header>Daily Login by team</header>
+                <report>IDRAdoption/IDR_Daily_Login_by_Team</report>
                 <showPercentage>false</showPercentage>
                 <showPicturesOnCharts>false</showPicturesOnCharts>
-                <showValues>true</showValues>
+                <showValues>false</showValues>
                 <sortBy>RowLabelAscending</sortBy>
-                <title>% of users logged in based on team</title>
-                <useReportChart>false</useReportChart>
+                <title>Sum of users login in daily by team</title>
+                <useReportChart>true</useReportChart>
             </dashboardComponent>
             <rowIndex>0</rowIndex>
             <rowSpan>8</rowSpan>
@@ -172,7 +160,7 @@
                     <axisBinding>y</axisBinding>
                     <column>RowCount</column>
                 </chartSummary>
-                <componentType>BarStacked</componentType>
+                <componentType>BarGrouped</componentType>
                 <decimalPrecision>-1</decimalPrecision>
                 <displayUnits>Auto</displayUnits>
                 <drillEnabled>false</drillEnabled>
@@ -195,7 +183,7 @@
                 <legendPosition>Bottom</legendPosition>
                 <report>IDRAdoption/IDR_Case_Statistics</report>
                 <showPercentage>false</showPercentage>
-                <showValues>false</showValues>
+                <showValues>true</showValues>
                 <sortBy>RowLabelAscending</sortBy>
                 <title>Complaints received by channel &amp; team</title>
                 <useReportChart>false</useReportChart>
@@ -215,13 +203,13 @@
                 <decimalPrecision>-1</decimalPrecision>
                 <displayUnits>Auto</displayUnits>
                 <groupingSortProperties/>
-                <header>Total Open Cases</header>
+                <header>Total Complaints Recorded</header>
                 <indicatorBreakpoint1>100.0</indicatorBreakpoint1>
                 <indicatorBreakpoint2>125.0</indicatorBreakpoint2>
                 <indicatorHighColor>#00716B</indicatorHighColor>
                 <indicatorLowColor>#C23934</indicatorLowColor>
                 <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
-                <metricLabel>All cases Open or Under Investigation</metricLabel>
+                <metricLabel>Total complaints recorded</metricLabel>
                 <report>IDRAdoption/IDR_Case_Statistics</report>
                 <showRange>false</showRange>
             </dashboardComponent>
@@ -234,20 +222,20 @@
             <dashboardComponent>
                 <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
                 <chartSummary>
-                    <column>FORMULA1</column>
+                    <column>FORMULA2</column>
                 </chartSummary>
                 <componentType>Metric</componentType>
                 <decimalPrecision>-1</decimalPrecision>
                 <displayUnits>Auto</displayUnits>
                 <groupingSortProperties/>
-                <header>Closed Case Percentage</header>
-                <indicatorBreakpoint1>45.0</indicatorBreakpoint1>
+                <header>Resolved at First Point of Contact</header>
+                <indicatorBreakpoint1>30.0</indicatorBreakpoint1>
                 <indicatorBreakpoint2>75.0</indicatorBreakpoint2>
                 <indicatorHighColor>#00716B</indicatorHighColor>
                 <indicatorLowColor>#C23934</indicatorLowColor>
                 <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
-                <metricLabel>% of cases Resolved or Closed</metricLabel>
-                <report>IDRAdoption/IDR_Case_Statistics</report>
+                <metricLabel>% of cases Resolved or Closed at FPOC</metricLabel>
+                <report>IDRAdoption/IDR_First_Contact_Resolution</report>
                 <showRange>false</showRange>
             </dashboardComponent>
             <rowIndex>8</rowIndex>
@@ -284,20 +272,20 @@
             <dashboardComponent>
                 <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
                 <chartSummary>
-                    <column>FORMULA1</column>
+                    <column>FORMULA2</column>
                 </chartSummary>
                 <componentType>Metric</componentType>
                 <decimalPrecision>-1</decimalPrecision>
                 <displayUnits>Auto</displayUnits>
                 <groupingSortProperties/>
-                <header>Average Time to Resolution</header>
-                <indicatorBreakpoint1>33.0</indicatorBreakpoint1>
-                <indicatorBreakpoint2>67.0</indicatorBreakpoint2>
+                <header>Cases Retained For Resolution</header>
+                <indicatorBreakpoint1>30.0</indicatorBreakpoint1>
+                <indicatorBreakpoint2>75.0</indicatorBreakpoint2>
                 <indicatorHighColor>#00716B</indicatorHighColor>
                 <indicatorLowColor>#C23934</indicatorLowColor>
                 <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
-                <metricLabel>Ave days taken to Resolve/Close</metricLabel>
-                <report>IDRAdoption/IDR_Average_Time_to_Resolution</report>
+                <metricLabel>% of cases retained for resolution</metricLabel>
+                <report>IDRAdoption/IDR_Cases_Retained_For_Resolution</report>
                 <showRange>false</showRange>
             </dashboardComponent>
             <rowIndex>12</rowIndex>
@@ -370,6 +358,97 @@
             </dashboardComponent>
             <rowIndex>16</rowIndex>
             <rowSpan>8</rowSpan>
+        </dashboardGridComponents>
+        <dashboardGridComponents>
+            <colSpan>3</colSpan>
+            <columnIndex>6</columnIndex>
+            <dashboardComponent>
+                <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
+                <chartAxisRange>Auto</chartAxisRange>
+                <chartSummary>
+                    <axisBinding>y</axisBinding>
+                    <column>RowCount</column>
+                </chartSummary>
+                <componentType>ColumnGrouped</componentType>
+                <decimalPrecision>-1</decimalPrecision>
+                <displayUnits>Auto</displayUnits>
+                <drillEnabled>false</drillEnabled>
+                <drillToDetailEnabled>false</drillToDetailEnabled>
+                <enableHover>false</enableHover>
+                <expandOthers>false</expandOthers>
+                <groupingColumn>Case.IDR_Non_Financial_Remedy__c</groupingColumn>
+                <groupingColumn>Case.IDR_Office__c</groupingColumn>
+                <groupingSortProperties>
+                    <groupingSorts>
+                        <groupingLevel>g1</groupingLevel>
+                        <sortOrder>a</sortOrder>
+                    </groupingSorts>
+                    <groupingSorts>
+                        <groupingLevel>g2</groupingLevel>
+                        <sortOrder>a</sortOrder>
+                    </groupingSorts>
+                </groupingSortProperties>
+                <header>Non-Fnancial Resolutions</header>
+                <legendPosition>Right</legendPosition>
+                <report>IDRAdoption/IDR_NonFinancial_Remedy_Cases</report>
+                <showPercentage>false</showPercentage>
+                <showValues>true</showValues>
+                <sortBy>RowLabelAscending</sortBy>
+                <title>Cases resolved with non financial remedy</title>
+                <useReportChart>false</useReportChart>
+            </dashboardComponent>
+            <rowIndex>16</rowIndex>
+            <rowSpan>8</rowSpan>
+        </dashboardGridComponents>
+        <dashboardGridComponents>
+            <colSpan>3</colSpan>
+            <columnIndex>9</columnIndex>
+            <dashboardComponent>
+                <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
+                <chartSummary>
+                    <column>FORMULA1</column>
+                </chartSummary>
+                <componentType>Metric</componentType>
+                <decimalPrecision>-1</decimalPrecision>
+                <displayUnits>Auto</displayUnits>
+                <groupingSortProperties/>
+                <header>Average Time to Resolution</header>
+                <indicatorBreakpoint1>33.0</indicatorBreakpoint1>
+                <indicatorBreakpoint2>67.0</indicatorBreakpoint2>
+                <indicatorHighColor>#00716B</indicatorHighColor>
+                <indicatorLowColor>#C23934</indicatorLowColor>
+                <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
+                <metricLabel>Ave days taken to Resolve/Close</metricLabel>
+                <report>IDRAdoption/IDR_Average_Time_to_Resolution</report>
+                <showRange>false</showRange>
+            </dashboardComponent>
+            <rowIndex>16</rowIndex>
+            <rowSpan>4</rowSpan>
+        </dashboardGridComponents>
+        <dashboardGridComponents>
+            <colSpan>3</colSpan>
+            <columnIndex>9</columnIndex>
+            <dashboardComponent>
+                <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
+                <chartSummary>
+                    <column>FORMULA2</column>
+                </chartSummary>
+                <componentType>Metric</componentType>
+                <decimalPrecision>-1</decimalPrecision>
+                <displayUnits>Auto</displayUnits>
+                <groupingSortProperties/>
+                <header>Average Compensation Paid (in AUD)</header>
+                <indicatorBreakpoint1>100.0</indicatorBreakpoint1>
+                <indicatorBreakpoint2>200.0</indicatorBreakpoint2>
+                <indicatorHighColor>#C23934</indicatorHighColor>
+                <indicatorLowColor>#00716B</indicatorLowColor>
+                <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
+                <metricLabel>Avg financial compensation to customer</metricLabel>
+                <report>IDRAdoption/IDR_Financial_Remedy_Cases</report>
+                <showRange>false</showRange>
+            </dashboardComponent>
+            <rowIndex>20</rowIndex>
+            <rowSpan>4</rowSpan>
         </dashboardGridComponents>
         <numberOfColumns>12</numberOfColumns>
         <rowHeight>36</rowHeight>
