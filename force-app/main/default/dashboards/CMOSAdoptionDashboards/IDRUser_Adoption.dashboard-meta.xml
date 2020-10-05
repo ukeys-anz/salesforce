@@ -438,8 +438,8 @@
                 <displayUnits>Auto</displayUnits>
                 <groupingSortProperties/>
                 <header>Average Compensation Paid (in AUD)</header>
-                <indicatorBreakpoint1>100.0</indicatorBreakpoint1>
-                <indicatorBreakpoint2>200.0</indicatorBreakpoint2>
+                <indicatorBreakpoint1>10000.0</indicatorBreakpoint1>
+                <indicatorBreakpoint2>20000.0</indicatorBreakpoint2>
                 <indicatorHighColor>#C23934</indicatorHighColor>
                 <indicatorLowColor>#00716B</indicatorLowColor>
                 <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
