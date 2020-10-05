@@ -209,7 +209,7 @@
                 <indicatorHighColor>#00716B</indicatorHighColor>
                 <indicatorLowColor>#C23934</indicatorLowColor>
                 <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
-                <metricLabel>All cases Open or Under Investigation</metricLabel>
+                <metricLabel>Total complaint recorded</metricLabel>
                 <report>IDRAdoption/IDR_Case_Statistics</report>
                 <showRange>false</showRange>
             </dashboardComponent>

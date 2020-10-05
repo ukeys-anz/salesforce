@@ -86,20 +86,6 @@
             <operator>equals</operator>
             <value>LAST_N_DAYS:30</value>
         </criteriaItems>
-        <criteriaItems>
-            <column>LOGIN_DATE</column>
-            <columnToColumn>false</columnToColumn>
-            <isUnlocked>false</isUnlocked>
-            <operator>equals</operator>
-            <value>10/2/2020 12:00 AM</value>
-        </criteriaItems>
-        <criteriaItems>
-            <column>DIVISION</column>
-            <columnToColumn>false</columnToColumn>
-            <isUnlocked>false</isUnlocked>
-            <operator>equals</operator>
-            <value>Card Solutions</value>
-        </criteriaItems>
     </filter>
     <format>Matrix</format>
     <groupingsAcross>
