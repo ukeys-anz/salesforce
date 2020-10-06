@@ -118,7 +118,8 @@
                   entityApiName: "Case",
                   defaultFieldValues: {
                     AccountId: parentRecID,
-                    Chat_Topic__c: topicID
+                    Chat_Topic__c: topicID,
+                    Origin: "Chat"
                   }
                 });
               } else {

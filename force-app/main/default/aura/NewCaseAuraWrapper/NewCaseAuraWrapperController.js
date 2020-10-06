@@ -53,7 +53,8 @@
                               "&defaultFieldValues=AccountId=" +
                               parentRecID +
                               ",Chat_Topic__c=" +
-                              topicID;
+                              topicID +
+                              ",Origin=Chat";
                           } else {
                             // only comes here if array length > 1
                             // Saving '|' separated IDs on a custom field to help in troubleshooting
