@@ -54,6 +54,13 @@
             <operator>notEqual</operator>
             <value>Tech Support</value>
         </criteriaItems>
+        <criteriaItems>
+            <column>DIVISION</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>IDR,Digital Servicing,CCC AU Sales - SLWS04 - Sales Wellington,ANZ Direct Manila Service,Card Solutions</value>
+        </criteriaItems>
     </filter>
     <format>Summary</format>
     <groupingsDown>
