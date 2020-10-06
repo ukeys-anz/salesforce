@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR14_Channel_Received_Validation_Chat</fullName>
+    <active>true</active>
+    <description>&apos;Channel Received&apos; should be &quot;Chat&quot;, if a &apos;Chat Topic&apos; has been selected.</description>
+    <errorConditionFormula>NOT(ISBLANK( Chat_Topic__c )) &amp;&amp; NOT(ISPICKVAL( Origin, &quot;Chat&quot;))</errorConditionFormula>
+    <errorDisplayField>Origin</errorDisplayField>
+    <errorMessage>&apos;Channel Received&apos; should be &quot;Chat&quot;, if a &apos;Chat Topic&apos; has been selected.</errorMessage>
+</ValidationRule>
