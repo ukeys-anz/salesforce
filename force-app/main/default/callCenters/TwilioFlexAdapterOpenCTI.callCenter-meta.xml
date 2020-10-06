@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CallCenter xmlns="http://soap.sforce.com/2006/04/metadata">
     <adapterUrl>https://flex.twilio.com/agent-desktop</adapterUrl>
-    <customSettings>{&quot;reqSoftphoneHeight&quot;:&quot;550&quot;,&quot;reqUseApi&quot;:&quot;true&quot;,&quot;reqSoftphoneWidth&quot;:&quot;400&quot;,&quot;reqSalesforceCompatibilityMode&quot;:&quot;Classic_and_Lightning&quot;}</customSettings>
+    <customSettings>{&quot;reqSoftphoneHeight&quot;:&quot;600&quot;,&quot;reqUseApi&quot;:&quot;true&quot;,&quot;reqSoftphoneWidth&quot;:&quot;400&quot;,&quot;reqSalesforceCompatibilityMode&quot;:&quot;Classic_and_Lightning&quot;}</customSettings>
     <displayName>Twilo Flex Call Center Adapter Open CTI</displayName>
     <displayNameLabel>Display Name</displayNameLabel>
     <internalNameLabel>Internal Name</internalNameLabel>
@@ -19,7 +19,7 @@
         <items>
             <label>Softphone Height</label>
             <name>reqSoftphoneHeight</name>
-            <value>550</value>
+            <value>600</value>
         </items>
         <items>
             <label>Softphone Width</label>
