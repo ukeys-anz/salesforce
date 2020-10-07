@@ -38,7 +38,7 @@
       <template if:true={totalRecordCount}>
         <div
           class="slds-card__body slds-scrollable container"
-          style="max-height: 150px;"
+          style="max-height: 150px; min-height: 132px;"
         >
           <table class="slds-table slds-table_cell-buffer slds-table_bordered">
             <thead>
@@ -95,6 +95,7 @@
                       variant="border-filled"
                       menu-alignment="right"
                       icon-size="x-small"
+                      data-id={chatTopic.ChannelSID}
                       onselect={handleOnselect}
                     >
                       <template if:true={chatTopic.enableReinitiate}>

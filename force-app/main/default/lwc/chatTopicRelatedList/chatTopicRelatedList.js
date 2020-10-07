@@ -1,7 +1,9 @@
-import { LightningElement, api, track } from "lwc";
+import { LightningElement, api, track, wire } from "lwc";
 import getChatTopicsFromAccount from "@salesforce/apex/ChatTopicRelatedListController.getChatTopicsFromAccount";
 import getChatTopicFromCase from "@salesforce/apex/ChatTopicRelatedListController.getChatTopicFromCase";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
+import { publish, MessageContext } from "lightning/messageService";
+import chatReChannel from "@salesforce/messageChannel/ReinitiateChatTopic__c";
 
 export default class RetrieveChatTopics extends LightningElement {
   @api recordId;
@@ -9,6 +11,9 @@ export default class RetrieveChatTopics extends LightningElement {
   @track data = []; //data to be displayed in the table
   @track totalRecordCount = 0; //total record count received from all retrieved records
   @track loading = true;
+
+  @wire(MessageContext)
+  messageContext;
 
   connectedCallback() {
     if (this.objectName === "Account") {
@@ -37,6 +42,7 @@ export default class RetrieveChatTopics extends LightningElement {
             } else {
               rowData.enableReinitiate = false;
             }
+            rowData.ChannelSID = row.Twilio_Channel_SID__c;
             currentData.push(rowData);
           });
           this.data = currentData;
@@ -72,6 +78,7 @@ export default class RetrieveChatTopics extends LightningElement {
             } else {
               rowData.enableReinitiate = false;
             }
+            rowData.ChannelSID = row.Chat_Topic__r.Twilio_Channel_SID__c;
             currentData.push(rowData);
           });
           this.data = currentData;
@@ -89,8 +96,24 @@ export default class RetrieveChatTopics extends LightningElement {
       });
   }
 
-  handleOnselect() {
-    //do nothing for now
+  handleOnselect(event) {
+    let selectedChannelSID = event.target.dataset.id;
+    let selectedAction = event.detail.value;
+
+    // Publish a message on 'ReinitiateChatTopic' channel which triggers Twilio to re-initiate this Chat Topic
+    if (selectedAction == "re_initiate") {
+      const message = { channelSID: selectedChannelSID };
+
+      try {
+        publish(this.messageContext, chatReChannel, message);
+      } catch (error) {
+        let errorMessage = "Failed to re-initiate Chat Topic";
+        if (error.body && error.body.message) {
+          errorMessage = error.body.message;
+        }
+        this.showToast("Failed to re-initiate Chat Topic", errorMessage, error);
+      }
+    }
   }
 
   showToast(theTitle, theMessage, theVariant) {
