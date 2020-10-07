@@ -23,7 +23,7 @@
                 <indicatorLowColor>#C23934</indicatorLowColor>
                 <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
                 <metricLabel>Total number of CMOS users</metricLabel>
-                <report>IDRAdoption/IDR_Active_Users_New</report>
+                <report>IDRAdoption/IDR_Active_Users_with_custom_report_type</report>
                 <showRange>false</showRange>
             </dashboardComponent>
             <rowIndex>0</rowIndex>
@@ -48,7 +48,7 @@
                 <indicatorLowColor>#C23934</indicatorLowColor>
                 <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
                 <metricLabel>Percentage of users logged in today</metricLabel>
-                <report>IDRAdoption/IDR_Active_Users_New</report>
+                <report>IDRAdoption/IDR_Active_Users_with_custom_report_type</report>
                 <showRange>false</showRange>
             </dashboardComponent>
             <rowIndex>0</rowIndex>
@@ -113,7 +113,7 @@
                 </groupingSortProperties>
                 <header>Today&apos;s Login Percentage by Team</header>
                 <legendPosition>Bottom</legendPosition>
-                <report>IDRAdoption/IDR_Active_Users_New</report>
+                <report>IDRAdoption/IDR_Active_Users_with_custom_report_type</report>
                 <showPercentage>false</showPercentage>
                 <showPicturesOnCharts>false</showPicturesOnCharts>
                 <showValues>true</showValues>
