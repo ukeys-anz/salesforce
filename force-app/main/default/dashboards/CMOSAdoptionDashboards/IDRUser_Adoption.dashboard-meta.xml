@@ -21,9 +21,9 @@
                 <indicatorBreakpoint2>60.0</indicatorBreakpoint2>
                 <indicatorHighColor>#00716B</indicatorHighColor>
                 <indicatorLowColor>#C23934</indicatorLowColor>
-                <indicatorMiddleColor>#E2CE7D</indicatorMiddleColor>
+                <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
                 <metricLabel>Total number of CMOS users</metricLabel>
-                <report>IDRAdoption/Active_Users</report>
+                <report>IDRAdoption/IDR_Active_Users_New</report>
                 <showRange>false</showRange>
             </dashboardComponent>
             <rowIndex>0</rowIndex>
@@ -48,7 +48,7 @@
                 <indicatorLowColor>#C23934</indicatorLowColor>
                 <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
                 <metricLabel>Percentage of users logged in today</metricLabel>
-                <report>IDRAdoption/Active_Users</report>
+                <report>IDRAdoption/IDR_Active_Users_New</report>
                 <showRange>false</showRange>
             </dashboardComponent>
             <rowIndex>0</rowIndex>
@@ -62,22 +62,21 @@
                 <chartSummary>
                     <aggregate>Sum</aggregate>
                     <axisBinding>y</axisBinding>
-                    <column>ACTIVE</column>
+                    <column>User$IsActive</column>
                 </chartSummary>
                 <componentType>Gauge</componentType>
                 <decimalPrecision>-1</decimalPrecision>
                 <displayUnits>Auto</displayUnits>
-                <footer>How many &quot;active&quot; Users are logging in on a regular basis</footer>
                 <gaugeMax>200.0</gaugeMax>
                 <gaugeMin>0.0</gaugeMin>
                 <groupingSortProperties/>
-                <header>ALL User Logins - Last 7 Days</header>
+                <header>All User Logins - Last 7 days</header>
                 <indicatorBreakpoint1>75.0</indicatorBreakpoint1>
                 <indicatorBreakpoint2>125.0</indicatorBreakpoint2>
                 <indicatorHighColor>#00716B</indicatorHighColor>
                 <indicatorLowColor>#C23934</indicatorLowColor>
-                <indicatorMiddleColor>#E2CE7D</indicatorMiddleColor>
-                <report>IDRAdoption/Active_User_Logins</report>
+                <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
+                <report>IDRAdoption/IDR_All_User_Logins_Last_7_days</report>
                 <showPercentage>false</showPercentage>
                 <showRange>false</showRange>
                 <showTotal>true</showTotal>
@@ -104,7 +103,7 @@
                 <drillToDetailEnabled>false</drillToDetailEnabled>
                 <enableHover>false</enableHover>
                 <expandOthers>false</expandOthers>
-                <groupingColumn>DIVISION</groupingColumn>
+                <groupingColumn>User$Division</groupingColumn>
                 <groupingSortProperties>
                     <groupingSorts>
                         <groupingLevel>g1</groupingLevel>
@@ -114,7 +113,7 @@
                 </groupingSortProperties>
                 <header>Today&apos;s Login Percentage by Team</header>
                 <legendPosition>Bottom</legendPosition>
-                <report>IDRAdoption/Active_Users</report>
+                <report>IDRAdoption/IDR_Active_Users_New</report>
                 <showPercentage>false</showPercentage>
                 <showPicturesOnCharts>false</showPicturesOnCharts>
                 <showValues>true</showValues>
@@ -152,7 +151,7 @@
                 <header>Days Past Since Last Login</header>
                 <legendPosition>Bottom</legendPosition>
                 <maxValuesDisplayed>6</maxValuesDisplayed>
-                <report>IDRAdoption/IDR_User_Last_Login</report>
+                <report>IDRAdoption/IDR_Days_Past_Since_Last_Login</report>
                 <showPercentage>false</showPercentage>
                 <showTotal>true</showTotal>
                 <showValues>true</showValues>
