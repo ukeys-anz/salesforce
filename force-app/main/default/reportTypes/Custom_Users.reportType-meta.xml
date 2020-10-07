@@ -391,11 +391,6 @@
             <field>Business_Role__c</field>
             <table>User</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>User__c</field>
-            <table>User</table>
-        </columns>
         <masterLabel>Users</masterLabel>
     </sections>
 </ReportType>
