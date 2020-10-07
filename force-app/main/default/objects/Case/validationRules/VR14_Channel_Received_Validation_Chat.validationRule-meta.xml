@@ -3,7 +3,11 @@
     <fullName>VR14_Channel_Received_Validation_Chat</fullName>
     <active>true</active>
     <description>&apos;Channel Received&apos; should be &quot;Chat&quot;, if a &apos;Chat Topic&apos; has been selected.</description>
-    <errorConditionFormula>NOT(ISBLANK( Chat_Topic__c )) &amp;&amp; NOT(ISPICKVAL( Origin, &quot;Chat&quot;))</errorConditionFormula>
+    <errorConditionFormula>AND(
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+RecordType.DeveloperName = &apos;General_Inquiry&apos;,
+NOT(ISBLANK( Chat_Topic__c )) &amp;&amp; NOT(ISPICKVAL( Origin, &quot;Chat&quot;))
+)</errorConditionFormula>
     <errorDisplayField>Origin</errorDisplayField>
     <errorMessage>&apos;Channel Received&apos; should be &quot;Chat&quot;, if a &apos;Chat Topic&apos; has been selected.</errorMessage>
 </ValidationRule>
