@@ -4,6 +4,10 @@
         <application>Coach_App</application>
         <visible>true</visible>
     </applicationVisibilities>
+    <applicationVisibilities>
+        <application>Coaches_Console</application>
+        <visible>true</visible>
+    </applicationVisibilities>
     <classAccesses>
         <apexClass>AccountBalancesController</apexClass>
         <enabled>true</enabled>
