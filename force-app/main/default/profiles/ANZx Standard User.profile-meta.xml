@@ -1364,13 +1364,23 @@
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
-    <field>Account.BillingAddress</field>
+    <field>Account.ANZx_Customer__c</field>
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
+      <editable>false</editable>
+      <field>Account.AR_C_Customer__c</field>
+      <readable>false</readable>
+  </fieldPermissions>
+  <fieldPermissions>
+      <editable>false</editable>
+      <field>Account.External_Id__c</field>
+      <readable>false</readable>
+  </fieldPermissions>
+  <fieldPermissions>
     <editable>false</editable>
-    <field>Account.Customer_Belongs_To__c</field>
-    <readable>true</readable>
+    <field>Account.BillingAddress</field>
+    <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
@@ -10301,11 +10311,11 @@
     <name>EditTopics</name>
   </userPermissions>
   <userPermissions>
-    <enabled>true</enabled>
+    <enabled>false</enabled>
     <name>EmailMass</name>
   </userPermissions>
   <userPermissions>
-    <enabled>true</enabled>
+    <enabled>false</enabled>
     <name>EmailSingle</name>
   </userPermissions>
   <userPermissions>
@@ -10329,7 +10339,7 @@
     <name>LightningExperienceUser</name>
   </userPermissions>
   <userPermissions>
-    <enabled>true</enabled>
+    <enabled>false</enabled>
     <name>ListEmailSend</name>
   </userPermissions>
   <userPermissions>
@@ -10365,7 +10375,7 @@
     <name>SubscribeToLightningReports</name>
   </userPermissions>
   <userPermissions>
-    <enabled>true</enabled>
+    <enabled>false</enabled>
     <name>TransactionalEmailSend</name>
   </userPermissions>
   <userPermissions>

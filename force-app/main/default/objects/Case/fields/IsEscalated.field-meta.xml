@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IsEscalated</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information</complianceGroup>
+    <complianceGroup>Source_Salesforce;Integrity - Accurate;Privacy - Non Personal Information</complianceGroup>
     <description>Flag to select if the case has been Escalated</description>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

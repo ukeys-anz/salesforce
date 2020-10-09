@@ -163,6 +163,20 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentInstanceProperties>
+                    <name>objectName</name>
+                    <value>FinServ__FinancialAccount__c</value>
+                </componentInstanceProperties>
+                <componentName>accountsAndGoalsRefresh</componentName>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>accountBalances</componentName>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentName>force:detailPanel</componentName>
             </componentInstance>
         </itemInstances>

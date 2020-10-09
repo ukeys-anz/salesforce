@@ -4,8 +4,9 @@ import getFinancialGoals from "@salesforce/apex/FinancialGoalsComponentControlle
 
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
-import { subscribe, MessageContext } from "lightning/messageService";
+import { publish, subscribe, MessageContext } from "lightning/messageService";
 import UpdateAccountsAndGoals from "@salesforce/messageChannel/FinancialAccountsGoalsUpdate__c";
+import UpdateAccountsGoalsTimed from "@salesforce/messageChannel/FinancialAccountGoalsTimedUpdate__c";
 import TriggerLoading from "@salesforce/messageChannel/FinancialAccountsTriggerLoading__c";
 
 export default class FinancialGoals extends LightningElement {
@@ -43,9 +44,10 @@ export default class FinancialGoals extends LightningElement {
         if (message.update) {
           this.inProgressGoals = [];
           this.completedGoals = [];
+          this.timestamp = "";
           this.getInProgressGoals();
           this.getCompletedGoals();
-          this.setTimestamp();
+
           if (this.inProgressGoals || this.completedGoals) {
             this.loading = false;
           }
@@ -56,29 +58,36 @@ export default class FinancialGoals extends LightningElement {
     if (!this.subscription || Object.keys(this.subscription).length === 0) {
       this.getInProgressGoals();
       this.getCompletedGoals();
-      this.setTimestamp();
     }
 
     this.loading = false;
   }
 
-  setTimestamp() {
+  setTimestamp(lastModifiedDate) {
     //Create timestamp
-    const today = new Date();
+    const lastUpdated = new Date(lastModifiedDate);
     this.timestamp =
-      today.getDate() +
+      lastUpdated.getDate() +
       " " +
-      today.toLocaleString("en-AU", {
+      lastUpdated.toLocaleString("en-AU", {
         month: "long"
       }) +
       " " +
-      today.getFullYear() +
+      lastUpdated.getFullYear() +
       " | " +
-      today.toLocaleString("en-AU", {
+      lastUpdated.toLocaleString("en-AU", {
         hour: "numeric",
         minute: "numeric",
         hour12: true
       });
+
+    //If it has been more than 15 min since last update,
+    //call API for latest data
+    const today = new Date();
+    if (today - lastUpdated > 15 * 60 * 1000) {
+      const payload = { update: true };
+      publish(this.messageContext, UpdateAccountsGoalsTimed, payload);
+    }
   }
 
   getInProgressGoals() {
@@ -102,6 +111,11 @@ export default class FinancialGoals extends LightningElement {
           this.gridClass = `grid-content__${result.length}`;
 
           result.forEach((finGoal) => {
+            //Only set timestamp once instead of each time in the loop
+            if (!this.timestamp) {
+              this.setTimestamp(finGoal.LastModifiedDate);
+            }
+
             //Work out percentage for fill
             finGoal.fillPercent = Math.floor(
               (finGoal.FinServ__ActualValue__c /
@@ -178,6 +192,11 @@ export default class FinancialGoals extends LightningElement {
           }
 
           result.forEach((finGoal) => {
+            //Only set timestamp once instead of each time in the loop
+            if (!this.timestamp) {
+              this.setTimestamp(finGoal.LastModifiedDate);
+            }
+
             //Set URL for record
             finGoal.url = `/lightning/r/FinServ__FinancialGoal__c/${finGoal.Id}/view`;
 

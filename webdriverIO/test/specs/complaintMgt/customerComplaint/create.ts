@@ -31,7 +31,10 @@ describe("Customer Complaint Record Creation", () => {
     $(`span.slds-truncate=${faker.random.arrayElement(priority)}`).click();
 
     CustomerComplaint.caseType.click();
-    $("span.slds-truncate=Product").click();
+    $("span.slds-truncate=Collections").click();
+
+    CustomerComplaint.complaintSubIssue.click();
+    $("span.slds-truncate=Disputed debt").click();
 
     CustomerComplaint.productServiceName.setValue("Netwealth");
     $("strong=Netwealth").click();

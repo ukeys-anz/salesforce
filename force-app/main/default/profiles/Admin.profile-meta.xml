@@ -162,6 +162,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>GetAccountsAndGoals</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>GetCustomerInformation</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -304,9 +308,19 @@
         <field>Account.Anniversay_Duration__c</field>
         <readable>true</readable>
     </fieldPermissions>
+        <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.ANZx_Customer__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Account.Customer_Belongs_To__c</field>
+        <field>Account.AR_C_Customer__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.External_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1001,6 +1015,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>FinServ__Card__c.Available_Balance__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>FinServ__Card__c.Card_Activation_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1011,12 +1030,72 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>FinServ__Card__c.Card_Status_Reason__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FinServ__Card__c.Card_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FinServ__Card__c.Closed_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FinServ__Card__c.Daily_Limit__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FinServ__Card__c.Expiry_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FinServ__Card__c.Limit_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FinServ__Card__c.Number_of_Accounts_Linked__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FinServ__Card__c.Number_of_Card_Replacements__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FinServ__Card__c.Number_of_PIN_Changes__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FinServ__Card__c.Number_of_PIN_Failures__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>FinServ__Card__c.Pin_Set__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>FinServ__Card__c.Temporary_Lock__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FinServ__FinancialAccount__c.Branch_Code__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FinServ__FinancialAccount__c.BSB__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1482,6 +1561,15 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>FinServ__FinancialAccount__c.FinServ__Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FinServ__FinancialAccount__c.lastUpdatedDateTime__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <field>FinServ__FinancialAccount__c.Total_Number_of_Cards__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1961,16 +2049,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>User_Provisioning_Request__c.Approval_Status__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>User_Provisioning_Request__c.Approver__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>User_Provisioning_Request__c.Business_Function__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1992,6 +2070,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>User_Provisioning_Request__c.Requestor__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>User_Provisioning_Request__c.Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2042,6 +2125,10 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Customer_Feedback__c-Customer Feedback Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>FinServ__FinancialAccount__c-Financial Account %28Staging Account%29 Layout</layout>
+        <recordType>FinServ__FinancialAccount__c.Staging_Account</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Knowledge__kav-Knowledge Layout</layout>
@@ -2316,6 +2403,11 @@
     <recordTypeVisibilities>
         <default>false</default>
         <recordType>FinServ__FinancialAccount__c.FinServ__TreasuryService</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>FinServ__FinancialAccount__c.Staging_Account</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>

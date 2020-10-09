@@ -14,7 +14,8 @@
     "EventLogFile",
     "DevelopmentWave",
     "AnalyticsAdminPerms",
-    "CascadeDelete"
+    "CascadeDelete",
+    "MyTrailhead"
   ],
   "settings": {
     "chatterSettings": {

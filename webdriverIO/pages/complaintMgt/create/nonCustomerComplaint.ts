@@ -51,12 +51,12 @@ class NonCustomerComplaint extends Base {
   }
   get description() {
     return $(
-      "//lightning-accordion-section[2]/section/div[2]/slot/div/div[5]/lightning-input-field/lightning-textarea/div[1]/textarea"
+      "//lightning-accordion-section[2]/section/div[2]/slot/div/div[6]/lightning-input-field/lightning-textarea/div[1]/textarea"
     );
   }
   get desiredOutcome() {
     return $(
-      "//lightning-accordion-section[2]/section/div[2]/slot/div/div[6]/lightning-input-field/lightning-textarea/div[1]/textarea"
+      "//lightning-accordion-section[2]/section/div[2]/slot/div/div[7]/lightning-input-field/lightning-textarea/div[1]/textarea"
     );
   }
 
@@ -102,6 +102,11 @@ class NonCustomerComplaint extends Base {
     );
   }
 
+  get complaintSubIssue() {
+    return $(
+      "//lightning-accordion-section[2]/section/div[2]/slot/div/div[4]/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[1]/input"
+    );
+  }
   /****** BUTTONS ******/
   get create() {
     return $(
@@ -124,7 +129,7 @@ class NonCustomerComplaint extends Base {
   /****** LOOKUPS ******/
   get productServiceName() {
     return $(
-      "//lightning-accordion-section[2]/section/div[2]/slot/div/div[4]/lightning-input-field/lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div/div/lightning-base-combobox/div/div[1]/input"
+      "//lightning-accordion-section[2]/section/div[2]/slot/div/div[5]/lightning-input-field/lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div/div/lightning-base-combobox/div/div[1]/input"
     );
   }
 }

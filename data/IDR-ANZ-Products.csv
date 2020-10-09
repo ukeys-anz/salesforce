@@ -1,8 +1,8 @@
 Name,ANZ_Product_Code__c,IDR_Product_or_Service_Line__c,IDR_Product_or_Service_Category__c,IDR_Product_or_Service_Type__c,IsActive
-ANZ Business Black,1,1,1,1,TRUE
-ANZ Business 55 Days Interest Free,2,1,1,1,TRUE
-ANZ Business Rewards Options,3,1,1,1,TRUE
-ANZ Business Low Rate,4,1,1,1,TRUE
+ANZ Business Black Credit Card,1,1,1,1,TRUE
+ANZ Business 55 Days Interest Free Credit Card,2,1,1,1,TRUE
+ANZ Business Rewards Options Credit Card,3,1,1,1,TRUE
+ANZ Business Low Rate Credit Card,4,1,1,1,TRUE
 ANZ Visa Purchasing Card,5,1,1,1,TRUE
 ANZ Virtual Card,6,1,1,1,TRUE
 ANZ Travel Account,7,1,1,1,TRUE
@@ -31,17 +31,17 @@ Business Advantage Overdraft,29,1,1,6,TRUE
 Agri Finance Offset Account,30,2,5,24,TRUE
 ANZ Business Offset,31,2,5,24,TRUE
 BML Offset Account - with Cheque Book,32,2,5,24,TRUE
-ANZ First,33,1,2,9,TRUE
-ANZ Platinum,34,1,2,9,TRUE
-ANZ First (for Students),35,1,2,9,TRUE
-ANZ Low Rate,36,1,2,9,TRUE
-ANZ Rewards Black,37,1,2,9,TRUE
-ANZ Rewards Travel Adventures,38,1,2,9,TRUE
-ANZ Rewards Platinum,39,1,2,9,TRUE
-ANZ Rewards,40,1,2,9,TRUE
-ANZ Frequent Flyer,41,1,2,9,TRUE
-ANZ Frequent Flyer Platinum,42,1,2,9,TRUE
-ANZ Frequent Flyer Black,43,1,2,9,TRUE
+ANZ First Credit Card,33,1,2,9,TRUE
+ANZ Platinum Credit Card,34,1,2,9,TRUE
+ANZ First (for Students) Credit Card,35,1,2,9,TRUE
+ANZ Low Rate Credit Card,36,1,2,9,TRUE
+ANZ Rewards Black Credit Card,37,1,2,9,TRUE
+ANZ Rewards Travel Adventures Credit Card,38,1,2,9,TRUE
+ANZ Rewards Platinum Credit Card,39,1,2,9,TRUE
+ANZ Rewards Credit Card,40,1,2,9,TRUE
+ANZ Frequent Flyer Credit Card,41,1,2,9,TRUE
+ANZ Frequent Flyer Platinum Credit Card,42,1,2,9,TRUE
+ANZ Frequent Flyer Black Credit Card,43,1,2,9,TRUE
 Travel Money,44,1,2,9,TRUE
 ANZ Travel Card (Multi Currency),45,6,20,139,TRUE
 ANZ Breakfree Package,46,1,2,13,TRUE
@@ -51,8 +51,8 @@ ANZ Simplicity Plus Home Loan,49,1,2,13,TRUE
 ANZ Equity Manager,50,1,2,16,TRUE
 ANZ Assured,51,1,2,16,TRUE
 ANZ Personal Overdraft,52,1,2,16,TRUE
-ANZ Variable Rate Loan,53,1,2,18,TRUE
-ANZ Fixed Rate Loan,54,1,2,18,TRUE
+ANZ Variable Rate Personal Loan,53,1,2,18,TRUE
+ANZ Fixed Rate Personal Loan,54,1,2,18,TRUE
 Cash Covered Facility Account,55,1,3,20,TRUE
 Cash Cover Indemnity Guarantee,56,1,3,20,TRUE
 Indemnity Guarantee Facility,57,1,3,20,TRUE
@@ -128,7 +128,7 @@ ANZ Smart Choice Pension,128,8,28,177,TRUE
 ANZ Smart Choice Super,129,8,28,178,TRUE
 ANZ Lenders Mortgage Insurance,130,3,8,35,TRUE
 Asset Finance,131,1,1,4,TRUE
-ANZ Low Rate Platinum,132,1,2,9,TRUE
+ANZ Low Rate Platinum Credit Card,132,1,2,9,TRUE
 ANZ Fixed Investment Property Loan,133,1,2,15,TRUE
 ANZ Simplicity Plus Investment Property Loan,134,1,2,15,TRUE
 ANZ Standard Variable Investment Property Loan,135,1,2,15,TRUE

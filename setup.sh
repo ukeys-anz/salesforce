@@ -44,9 +44,18 @@ fi
 JOB_END_TIME=$(date +%s)
 echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
 
+echo "$(date): Deploy content assets......"
+JOB_START_TIME=$(date +%s)
+sfdx force:source:deploy -p force-app/main/default/contentassets 2>&1 | tee stderr
+if [[ ($(cat stderr) == *'ERROR'*) ]]; then
+    exit 1
+fi
+JOB_END_TIME=$(date +%s)
+echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
+
 echo "$(date): Push metadata..."
 JOB_START_TIME=$(date +%s)
-sfdx force:source:push 2>&1 | tee stderr
+sfdx force:source:push -f 2>&1 | tee stderr
 if [[ ($(cat stderr) == *'ERROR'*) ]]; then
     exit 1
 fi

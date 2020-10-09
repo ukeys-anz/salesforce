@@ -95,7 +95,11 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Customer_Belongs_To__c</field>
+                <field>ANZx_Customer__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>AR_C_Customer__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>

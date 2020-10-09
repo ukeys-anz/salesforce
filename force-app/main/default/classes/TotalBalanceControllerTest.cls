@@ -38,9 +38,9 @@ public with sharing class TotalBalanceControllerTest {
 
     Test.startTest();
 
-    Account acc = TotalBalanceController.getTotalBalance(accnt.Id);
+    AggregateResult result = TotalBalanceController.getTotalBalance(accnt.Id);
 
-    System.assertEquals(200, acc.FinServ__TotalFinAcctsPrimaryOwner__c);
+    System.assertEquals(200, result.get('totalBalance'));
 
     Test.stopTest();
   }

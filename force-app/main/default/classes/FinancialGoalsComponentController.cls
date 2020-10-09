@@ -29,7 +29,8 @@ public with sharing class FinancialGoalsComponentController {
           FinServ__TargetDate__c,
           Recommended_Savings_Amount__c,
           FinServ__CompletionDate__c,
-          Icon__c
+          Icon__c,
+          LastModifiedDate
         FROM FinServ__FinancialGoal__c
         WHERE
           FinServ__PrimaryOwner__c = :ownerId

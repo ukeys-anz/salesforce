@@ -9,10 +9,9 @@ let caseId: any;
 const recordType = "Customer_Complaint";
 
 describe("Customer Record Escalation", () => {
-  before(() => {
-    createCaseList(1, recordType, "idrlvl3").then((cases: any) => {
-      caseId = cases[0].CaseNumber;
-    });
+  before(async () => {
+    const cases: any = await createCaseList(1, recordType, "idrlvl3");
+    caseId = JSON.stringify(cases[0].CaseNumber);
   });
 
   it("should escalate a customer complaint case record", () => {
@@ -23,7 +22,10 @@ describe("Customer Record Escalation", () => {
 
     $("a[title='Select List View']").click();
     $("span=My Open Cases").click();
-    $(`=${caseId}`).click();
+    $("span=Case Number").click();
+    $("span=Case Number").click();
+
+    $(`a[title=${caseId}]`).click();
 
     $("=Edit").click();
 
@@ -35,9 +37,10 @@ describe("Customer Record Escalation", () => {
     $("mark=Netwealth").click();
 
     CustomerComplaint.escalatedReason.click();
-    $("=Above Banker Discretion").click();
+    $('a[role="menuitemradio"]=Remediation').click();
+
     CustomerComplaint.escalatedTo.click();
-    $("=CRC").click();
+    $('a[role="menuitemradio"]=CRC').click();
 
     CustomerComplaint.save.click();
 
