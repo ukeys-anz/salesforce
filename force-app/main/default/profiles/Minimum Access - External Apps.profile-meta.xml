@@ -1558,6 +1558,16 @@
         <endAddress>52.8.140.255</endAddress>
         <startAddress>52.8.140.255</startAddress>
     </loginIpRanges>
+     <loginIpRanges>
+        <description>Mvision</description>
+        <endAddress>52.62.169.21</endAddress>
+        <startAddress>52.62.169.21</startAddress>
+    </loginIpRanges>
+     <loginIpRanges>
+        <description>Mvision</description>
+        <endAddress>54.79.123.149</endAddress>
+        <startAddress>54.79.123.149</startAddress>
+    </loginIpRanges>
     <loginIpRanges>
         <description>Mvision</description>
         <endAddress>52.42.179.76</endAddress>
