@@ -1,4 +1,7 @@
 import Base from "../../base";
+import helpers from "../../../utilities/helpers";
+import * as faker from "faker";
+
 /**
  * Handles the Customer Complaint record type fields on Complaints Mgt during edit
  */
@@ -32,13 +35,25 @@ class CustomerComplaint extends Base {
     return $("//div/div[3]/div/div/div[8]/div/div/div/div/input");
   }
   get description() {
-    return $("//div/div[3]/div/div/div[9]/div/div/div/div/textarea");
+    return $(
+      "//lightning-accordion-section[2]/section/div[2]/slot/div/div[7]/lightning-textarea/div[1]/textarea"
+    );
   }
   get desiredOutcome() {
-    return $("//div/div[3]/div/div/div[10]/div/div/div/div/textarea");
+    return $(
+      "//lightning-accordion-section[2]/section/div[2]/slot/div/div[8]/lightning-input-field/lightning-textarea/div[1]/textarea"
+    );
   }
   get descriptionOfOutcome() {
     return $("//div/div[4]/div/div/div[3]/div/div/div/div/textarea");
+  }
+
+  get searchTxt() {
+    return $("//input[@placeholder='Search this list...']");
+  }
+
+  get productNameSearch() {
+    return $('input[title="Search Products"]');
   }
 
   /****** DROPDOWNS ******/
@@ -58,11 +73,16 @@ class CustomerComplaint extends Base {
     return $("//div/div[3]/div/div/div[2]/div[2]/div/div/div/div");
   }
   get escalatedReason() {
-    return $("//div/div[3]/div/div/div[6]/div[2]/div/div/div/div");
+    return $(
+      "//div/div[3]/div/div/div[6]/div[2]/div/div/div/div/div/div/div/a"
+    );
   }
   get escalatedTo() {
-    return $("//div/div[3]/div/div/div[6]/div[1]/div/div/div/div");
+    return $(
+      "//div/div[3]/div/div/div[6]/div[1]/div/div/div/div/div[1]/div/div/a"
+    );
   }
+
   get complaintOutcome() {
     return $(
       "//article/div[3]/div/div[4]/div/div/div[1]/div[1]/div/div/div/div"
@@ -74,12 +94,153 @@ class CustomerComplaint extends Base {
     );
   }
   get financialCompensation() {
-    return $("//div/div[4]/div/div/div[2]/div[1]/div/div/div/div");
+    return $(
+      "//div//div//div//div//div//div//div[4]//div[1]//div[1]//div[2]//div[1]//div[1]//div[1]//div[1]//input[1]"
+    );
   }
 
   /****** BUTTONS ******/
   get save() {
     return $("//div/div[3]/div/button[3]");
+  }
+
+  get refreshBtn() {
+    return $("//button[@name='refreshButton']");
+  }
+
+  get editBtn() {
+    return $(
+      "//div[@class='windowViewMode-maximized active lafPageHost']//slot//div[contains(text(),'Edit')]"
+    );
+  }
+
+  //**LINKS ***/
+
+  get caseLink() {
+    return $("//tr[1]//th[1]//span[1]//a[1]");
+  }
+
+  ///***PAGE ACTIONS ***/\
+
+  enterCaseInSearch(value: String) {
+    helpers.enterText(this.searchTxt, value);
+  }
+
+  waitForCaseToDisplay(valueToClick: String) {
+    helpers.waitAndRetry(this.refreshBtn, this.caseLink, valueToClick);
+  }
+
+  clickEdit() {
+    helpers.doJSClick(this.editBtn);
+  }
+
+  selectIssueType() {
+    const pageElement = $(function () {
+      return document.querySelectorAll("a.select")[8];
+    });
+
+    helpers.doJSClick(pageElement);
+  }
+
+  selectSubIssueType() {
+    const pageElement = $("//a[contains(text(),'Disputed debt')]");
+    helpers.doJSClick(pageElement);
+  }
+
+  selectEscalateStatus() {
+    helpers.doClick(this.status);
+    const pageElement = $('a[role="menuitemradio"]=Escalated');
+    helpers.doJSClick(pageElement);
+  }
+
+  selectResolveStatus() {
+    helpers.doClick(this.status);
+    const pageElement = $('a[role="menuitemradio"]=Resolved');
+    helpers.doJSClick(pageElement);
+  }
+
+  selectProdType() {
+    const pageElement = $("mark=Netwealth");
+    helpers.doJSClick(pageElement);
+  }
+
+  selectEscalatedReason() {
+    helpers.doClick(this.escalatedReason);
+    const pageElement = $("=Above Banker Discretion");
+    helpers.doJSClick(pageElement);
+  }
+
+  selectEscalatedTo() {
+    helpers.doClick(this.escalatedTo);
+    const pageElement = $("=CRC");
+    helpers.doJSClick(pageElement);
+  }
+
+  selectComplaintOutcome() {
+    helpers.doClick(this.complaintOutcome);
+    const pageElement = $("=In favour of customer in full");
+    helpers.doJSClick(pageElement);
+  }
+
+  selectComplaintRemedy() {
+    helpers.doClick(this.complaintRemedy);
+    const pageElement = $("=Financial remedy");
+    helpers.doJSClick(pageElement);
+  }
+
+  fillComplaintEditDetails() {
+    helpers.enterText(
+      this.nominatedThirdName,
+      faker.name.firstName() + " " + faker.name.lastName()
+    );
+    helpers.enterText(this.nominatedThirdEmail, faker.internet.email());
+    helpers.enterText(this.nominatedThirdStreet, faker.address.streetName());
+    helpers.enterText(this.nominatedThirdSuburb, faker.address.city());
+    helpers.enterText(
+      this.nominatedThirdPostcode,
+      faker.address.zipCode("####")
+    );
+    helpers.enterText(
+      this.nominatedThirdMobile,
+      faker.phone.phoneNumber("04########")
+    );
+    helpers.enterText(
+      this.nominatedThirdPhone,
+      faker.phone.phoneNumber("97######")
+    );
+    this.selectIssueType();
+    this.selectSubIssueType();
+    helpers.enterText(this.productNameSearch, "Netwealth");
+    this.selectProdType();
+    //helpers.enterText(this.description, faker.lorem.text());
+    //helpers.enterText(this.desiredOutcome, faker.lorem.text());
+  }
+
+  fillComplaintEscalateDetails() {
+    this.status.scrollIntoView();
+    this.selectEscalateStatus();
+    this.selectIssueType();
+    this.selectSubIssueType();
+    helpers.enterText(this.productNameSearch, "Netwealth");
+    this.selectProdType();
+    this.selectEscalatedReason();
+    this.selectEscalatedTo();
+  }
+
+  fillComplaintResolveDetails() {
+    this.status.scrollIntoView();
+    this.selectResolveStatus();
+    this.selectIssueType();
+    this.selectSubIssueType();
+    helpers.enterText(this.productNameSearch, "Netwealth");
+    this.selectProdType();
+    this.selectComplaintOutcome();
+    this.selectComplaintRemedy();
+    helpers.enterText(this.financialCompensation, "123.22");
+    helpers.enterText(
+      this.descriptionOfOutcome,
+      "Financial compensation awarded"
+    );
   }
 }
 

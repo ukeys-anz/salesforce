@@ -1,4 +1,13 @@
 import Base from "../../base";
+import helpers from "../../../utilities/helpers";
+import * as faker from "faker";
+
+/*** COMMON VALUE IMPORTS ***/
+import {
+  status,
+  channelReceived
+} from "../../../pages/coachesWorkbench/common/generalInquiry";
+
 /**
  * Handles the General Inquiry record type fields on Coaches Workbench during create
  */
@@ -40,7 +49,7 @@ class GeneralInquiry extends Base {
   get type() {
     return $("//div/div[2]/div/div/div[3]/div[1]/div/div/div/div");
   }
-  get channelReceived() {
+  get channelReceivedLink() {
     return $("//div/div[2]/div/div/div[4]/div[2]/div/div/div/div");
   }
   get caseReason() {
@@ -63,6 +72,84 @@ class GeneralInquiry extends Base {
   }
   get save() {
     return $("//div/div[2]/button[3]");
+  }
+
+  get newBtn() {
+    return $("=New");
+  }
+
+  get appSupport() {
+    return $("=App Support");
+  }
+
+  get appGuide() {
+    return $("span=App Guide");
+  }
+
+  get deviceSupport() {
+    return $("span=Device Support");
+  }
+
+  get bugReport() {
+    return $("span=Bug Report & Feature");
+  }
+
+  /*******Page Actions *****/
+
+  clickNewBtn() {
+    helpers.doJSClick(this.newBtn);
+  }
+
+  selectLowPriority() {
+    helpers.doClick(this.priority);
+    const PageElement = $("=Low");
+    PageElement.click();
+  }
+
+  clickBugReport() {
+    this.bugReport.scrollIntoView();
+    this.bugReport.click();
+  }
+
+  selectChannelReceived() {
+    helpers.doClick(this.channelReceivedLink);
+    const PageElement = $(`=${faker.random.arrayElement(channelReceived)}`);
+    PageElement.click();
+  }
+
+  clickAccountName(accName: String) {
+    helpers.doClick($(`div=${accName}`));
+  }
+
+  clickFinancialAccountName(finaccName: String) {
+    helpers.doClick($(`div=${finaccName}`));
+  }
+
+  selectStatus() {
+    helpers.doClick(this.status);
+    const PageElement = $(
+      `a[role="menuitemradio"]=${faker.random.arrayElement(status)}`
+    );
+    PageElement.click();
+  }
+
+  fillCreateInquiryDetails(accName: String, finaccName: String) {
+    helpers.enterText(this.description, faker.lorem.text());
+    helpers.enterText(this.accountName, accName.toString());
+    this.clickAccountName(accName);
+    this.selectStatus();
+    helpers.doClick(this.type);
+    helpers.doClick(this.appSupport);
+    helpers.doClick(this.appGuide);
+    helpers.doClick(this.subTypeAdd);
+    helpers.doClick(this.deviceSupport);
+    helpers.doClick(this.subTypeAdd);
+    this.clickBugReport();
+    helpers.doClick(this.additionalTypeAdd);
+    this.selectChannelReceived();
+    this.selectLowPriority();
+    helpers.enterText(this.financialAccount, finaccName.toString());
+    this.clickFinancialAccountName(finaccName);
   }
 }
 
