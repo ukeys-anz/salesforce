@@ -67,7 +67,7 @@ global with sharing class ANZAzureADRegistrationHandler implements Auth.Registra
       );
     }
 
-    String uniqueName = attributeMap.get('unique_name');
+    String uniqueName = attributeMap.get('upn');
     System.debug(
       System.LoggingLevel.INFO,
       '---- unique_name ---- ' + uniqueName
@@ -81,7 +81,7 @@ global with sharing class ANZAzureADRegistrationHandler implements Auth.Registra
    */
   private String getUPN(Auth.UserData data) {
     Map<String, String> attributeMap = data.attributeMap;
-    String upn = attributeMap.get('unique_name');
+    String upn = attributeMap.get('upn');
     return upn;
   }
 }

@@ -27,7 +27,7 @@ private class TestANZAzureADRegistrationHandler {
       'en_AU',
       'AzureAD',
       null,
-      new Map<String, String>{ 'unique_name' => 'testFedId' }
+      new Map<String, String>{ 'upn' => 'testFedId' }
     );
 
     Test.startTest();
