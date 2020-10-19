@@ -378,11 +378,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Case.IsVisibleInCss</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Case.Is_Owner_s_Line_Manager_Me__c</field>
         <readable>false</readable>
     </fieldPermissions>
