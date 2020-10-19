@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reported_Bugs</fullName>
+    <active>true</active>
+    <description>A section to view the reported bugs.</description>
+    <label>Reported Bugs</label>
+    <picklistValues>
+        <picklist>Feedback_Type__c</picklist>
+        <values>
+            <fullName>60%25 through a savings goal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Changes profile</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Coach Interaction</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Complaint or dispute</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Guarantee Exited ANZx</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Joined ANZx</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Made payments</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Opened an account</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rate %26 Review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Settlement Loan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Store Visit</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Responsible_Value_Stream__c</picklist>
+        <values>
+            <fullName>CPP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Data Enablement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Get Help</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Join</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Learn and Adopt</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>M%2EA%2EC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manage_My_Money</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Platform</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Escalated</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>On Hold</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending Release</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Resolved</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

@@ -143,7 +143,6 @@
     <allowInChatterGroups>true</allowInChatterGroups>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
-    <description>To store customer feedback(survey) records coming from qualtrics system</description>
     <enableActivities>true</enableActivities>
     <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
@@ -154,20 +153,14 @@
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <externalSharingModel>Private</externalSharingModel>
-    <label>Customer Feedback</label>
+    <label>Reported Bug</label>
     <nameField>
-        <label>Name</label>
+        <label>Reported Bug Name</label>
         <trackHistory>false</trackHistory>
         <type>Text</type>
     </nameField>
-    <pluralLabel>Customer Feedback</pluralLabel>
-    <recordTypeTrackHistory>false</recordTypeTrackHistory>
-    <searchLayouts>
-        <searchResultsAdditionalFields>Account_Name__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>Verbatim__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>Advocacy_Rating__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>Feedback_Received_Date_Time__c</searchResultsAdditionalFields>
-    </searchLayouts>
-    <sharingModel>Read</sharingModel>
+    <pluralLabel>Reported Bugs</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

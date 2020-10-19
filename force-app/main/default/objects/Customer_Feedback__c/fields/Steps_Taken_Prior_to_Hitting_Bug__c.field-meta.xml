@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Steps_Taken_Prior_to_Hitting_Bug__c</fullName>
+    <description>The course of steps taken before hitting bug.</description>
+    <externalId>false</externalId>
+    <label>Steps Taken Prior to Hitting Bug</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

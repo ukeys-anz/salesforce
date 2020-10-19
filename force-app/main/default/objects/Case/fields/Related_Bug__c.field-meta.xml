@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Related_Bug__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Lookup created from Case to Customer Feedback.</description>
+    <externalId>false</externalId>
+    <label>Related Bug</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Customer_Feedback__c.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Reported Bugs</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Customer_Feedback__c</referenceTo>
+    <relationshipLabel>Cases</relationshipLabel>
+    <relationshipName>Cases</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>
