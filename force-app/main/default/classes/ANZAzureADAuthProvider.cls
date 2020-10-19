@@ -8,6 +8,7 @@
 global class ANZAzureADAuthProvider extends Auth.AuthProviderPluginClass {
   public static final String FIELD_REDIRECT_URL = 'redirectURL__c';
   public static final String FIELD_AUTH_URL = 'Auth_URL__c';
+  public static final String FIELD_CID = 'clientID__c';
   public static final String FIELD_USER_ENDPOINT = 'UserEndpoint__c';
 
   public String redirectUrl; // use this URL for the endpoint that the authentication provider calls back to for configuration
@@ -41,6 +42,7 @@ global class ANZAzureADAuthProvider extends Auth.AuthProviderPluginClass {
     String stateToPropagate
   ) {
     authUrl = authProviderConfiguration.get(FIELD_AUTH_URL);
+    key = authProviderConfiguration.get(FIELD_CID);
     redirectUrl = authProviderConfiguration.get(FIELD_REDIRECT_URL);
     String url =
       authUrl +

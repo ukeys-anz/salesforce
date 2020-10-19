@@ -50,6 +50,7 @@ public class ANZAzureADAuthProviderTest {
       ANZAzureADAuthProvider.FIELD_USER_ENDPOINT,
       USER_ENDPOINT
     );
+    authProviderConfiguration.put(ANZAzureADAuthProvider.FIELD_CID, 'Test cid');
 
     return authProviderConfiguration;
   }
