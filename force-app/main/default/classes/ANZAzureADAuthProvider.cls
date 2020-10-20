@@ -159,7 +159,6 @@ global class ANZAzureADAuthProvider extends Auth.AuthProviderPluginClass {
 
     Map<String, String> provMap = new Map<String, String>();
     String id = '';
-    String username = '';
     HTTPResponse res;
 
     List<String> idTokenList = idToken.split('\\.');
@@ -172,6 +171,7 @@ global class ANZAzureADAuthProvider extends Auth.AuthProviderPluginClass {
     ));
     String upn = (String) userJsonMap.get('upn');
     id = upn;
+    String username = (String) userJsonMap.get('upn');
 
     // Add these to the data passed to the reg. handler in the data.attributeMap
     // required so they can be used during the Staff Token JWT exchange for callouts
