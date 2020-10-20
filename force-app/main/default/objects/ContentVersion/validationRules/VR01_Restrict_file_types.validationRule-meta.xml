@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR01_Restrict_file_types</fullName>
+    <active>true</active>
+    <description>Restrict the file types that can be uploaded to salesforce</description>
+    <errorConditionFormula>AND(!CONTAINS( PathOnClient , &apos;tiff&apos;),!CONTAINS( PathOnClient , &apos;tif&apos;),!CONTAINS( PathOnClient , &apos;JPEG&apos;),!CONTAINS( PathOnClient , &apos;JPG&apos;),!CONTAINS( PathOnClient , &apos;gif&apos;), !CONTAINS( PathOnClient , &apos;bmp&apos;), !CONTAINS( PathOnClient , &apos;png&apos;), !CONTAINS( PathOnClient , &apos;pdf&apos;), !CONTAINS( PathOnClient , &apos;doc&apos;), !CONTAINS( PathOnClient , &apos;docx&apos;), !CONTAINS( PathOnClient , &apos;xls&apos;) ,!CONTAINS( PathOnClient , &apos;xlsx&apos;), !CONTAINS( PathOnClient , &apos;xlsb&apos;),!CONTAINS( PathOnClient , &apos;ppt&apos;), !CONTAINS( PathOnClient , &apos;pptx&apos;), !CONTAINS( PathOnClient , &apos;msg&apos;), !CONTAINS( PathOnClient , &apos;eml&apos;), !CONTAINS( PathOnClient , &apos;rtf&apos;), !CONTAINS( PathOnClient , &apos;txt&apos;),!CONTAINS( PathOnClient , &apos;csv&apos;), !CONTAINS( PathOnClient , &apos;zip&apos;))</errorConditionFormula>
+    <errorMessage>This file has a file type which is not supported by CMOS.  Please note it is not possible to load this file onto CMOS</errorMessage>
+</ValidationRule>
