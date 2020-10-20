@@ -508,8 +508,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
       if (this.consentValue) {
         requiredFields.firstName = "First Name";
         requiredFields.lastName = "Last Name";
-        requiredFields.email = "Email";
-        requiredFields.mobileinput = "Mobile";
       }
       if (this.isAddressRequired) {
         requiredFields.street = "Street";
