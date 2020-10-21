@@ -7,14 +7,6 @@
     <picklistValues>
         <picklist>Priority</picklist>
         <values>
-            <fullName>High</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Low</fullName>
-            <default>true</default>
-        </values>
-        <values>
             <fullName>Normal</fullName>
             <default>false</default>
         </values>
@@ -26,7 +18,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>In Progress</fullName>
+            <fullName>Open</fullName>
             <default>true</default>
         </values>
     </picklistValues>
