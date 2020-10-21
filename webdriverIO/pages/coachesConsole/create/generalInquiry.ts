@@ -146,7 +146,6 @@ class GeneralInquiry extends Base {
     helpers.doClick(this.subTypeAdd);
     helpers.doClick(this.deviceSupport);
     helpers.doClick(this.subTypeAdd);
-    this.clickBugReport();
     helpers.doClick(this.additionalTypeAdd);
     this.selectChannelReceived();
     this.selectLowPriority();
