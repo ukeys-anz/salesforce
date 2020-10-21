@@ -25,7 +25,6 @@ describe("General Inquiry Record Resolved", () => {
     GeneralInquiry.enterCaseInSearch(caseId);
     GeneralInquiry.waitForCaseToDisplay(caseId);
     helpers.doJSClick($(`=${caseId}`));
-    browser.pause(5000);
     GeneralInquiry.clickEdit();
     GeneralInquiry.selectCloseStatus();
     GeneralInquiry.save.click();
