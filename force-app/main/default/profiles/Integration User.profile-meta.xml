@@ -228,10 +228,6 @@
         <layout>Case-Complaint Layout</layout>
         <recordType>Case.Non_Customer_Complaint</recordType>
     </layoutAssignments>
-    <layoutAssignments>
-        <layout>Task-IDR System Task</layout>
-        <recordType>Task.IDR_System_Task</recordType>
-    </layoutAssignments>
     <recordTypeVisibilities>
         <default>true</default>
         <recordType>Account.Business_Account</recordType>
