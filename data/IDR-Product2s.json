@@ -2093,6 +2093,15 @@
       "IDR_Product_or_Service_Category__c": "21",
       "IDR_Product_or_Service_Line__c": "7",
       "IDR_Product_or_Service_Type__c": "143"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref176"
+      },
+      "Name": "IVR",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "177"
     }
   ]
 }
