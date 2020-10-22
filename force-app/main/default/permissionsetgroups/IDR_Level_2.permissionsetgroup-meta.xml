@@ -2,7 +2,6 @@
 <PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
     <description>This permission set group is for IDR users of Level 2</description>
     <label>IDR Level 2</label>
-    <permissionSets>Auth_Apex_Access</permissionSets>
     <permissionSets>IDR_User</permissionSets>
     <permissionSets>IDR_User_Level_2</permissionSets>
     <status>Updated</status>
