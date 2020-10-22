@@ -3,7 +3,7 @@
     <label>Content Author</label>
     <permissionSets>Auth_Apex_Access</permissionSets>
     <permissionSets>Content_Author</permissionSets>
-    <permissionSets>Customer_Feedback_Access</permissionSets>
+    <permissionSets>Customer_Feedback_Read_Only</permissionSets>
     <permissionSets>Release_Author</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>
