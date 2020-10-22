@@ -2,6 +2,7 @@
 <PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
     <description>This permission set group is for CMoS level 2 support team users.</description>
     <label>IDR Tech Support</label>
+    <permissionSets>Auth_Apex_Access</permissionSets>
     <permissionSets>IDR_User</permissionSets>
     <permissionSets>View_All_Data</permissionSets>
     <permissionSets>View_Application_Log</permissionSets>
