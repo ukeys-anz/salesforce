@@ -4,6 +4,10 @@
         <application>Coach_App</application>
         <visible>true</visible>
     </applicationVisibilities>
+    <applicationVisibilities>
+        <application>Coaches_Console</application>
+        <visible>true</visible>
+    </applicationVisibilities>
     <classAccesses>
         <apexClass>AccountBalancesController</apexClass>
         <enabled>true</enabled>
@@ -45,6 +49,16 @@
         <enabled>true</enabled>
     </classAccesses>
     <description>Should only have required permissions to view Custom related information.</description>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.ANZx_Customer__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.AR_C_Customer__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.BillingAddress</field>

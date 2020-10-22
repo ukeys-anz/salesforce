@@ -36,4 +36,9 @@
         <default>false</default>
         <label>Customer experiencing vulnerability</label>
     </standardValue>
+    <standardValue>
+        <fullName>Customer in Collections</fullName>
+        <default>false</default>
+        <label>Customer in Collections</label>
+    </standardValue>
 </StandardValueSet>
