@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
     <label>Ops Support</label>
+    <permissionSets>Auth_Apex_Access</permissionSets>
     <permissionSets>Case_Read_Write</permissionSets>
     <permissionSets>Customer_Feedback_Access</permissionSets>
     <permissionSets>Customer_Read_Only_for_Support</permissionSets>

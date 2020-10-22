@@ -8,8 +8,9 @@ import { publish, subscribe, MessageContext } from "lightning/messageService";
 import UpdateAccountsAndGoals from "@salesforce/messageChannel/FinancialAccountsGoalsUpdate__c";
 import UpdateAccountsGoalsTimed from "@salesforce/messageChannel/FinancialAccountGoalsTimedUpdate__c";
 import TriggerLoading from "@salesforce/messageChannel/FinancialAccountsTriggerLoading__c";
+import { NavigationMixin } from "lightning/navigation";
 
-export default class EverydayAccount extends LightningElement {
+export default class EverydayAccount extends NavigationMixin(LightningElement) {
   @api recordId;
   financialAccounts = [];
   @track viewAll;
@@ -113,9 +114,6 @@ export default class EverydayAccount extends LightningElement {
               finAccount.badgeClass = "slds-badge slds-theme_error";
             }
 
-            //Set URL for record
-            finAccount.url = `/lightning/r/FinServ__FinancialAccount__c/${finAccount.Id}/view`;
-
             //Format balances
             finAccount.FinServ__Balance__c = new Intl.NumberFormat("en-AU", {
               style: "currency",
@@ -141,5 +139,15 @@ export default class EverydayAccount extends LightningElement {
         }
         this.showToast("Financial Account Load Failed", errorMessage, error);
       });
+  }
+
+  navigateToRecordViewPage(event) {
+    this[NavigationMixin.Navigate]({
+      type: "standard__recordPage",
+      attributes: {
+        recordId: event.currentTarget.dataset.id,
+        actionName: "view"
+      }
+    });
   }
 }

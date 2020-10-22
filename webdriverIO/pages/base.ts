@@ -43,7 +43,7 @@ export default class Base {
         browser.pause(5000);
         break;
       case "standard":
-        browser.$("one-appnav").shadow$("div.appLauncher").click();
+        browser.$("//one-app-launcher-header/button[1]/div[1]").click();
         $(
           "/html/body/div[4]/div[2]/div/div[1]/div[1]/one-app-launcher-menu/div/one-app-launcher-search-bar/lightning-input/div/input"
         ).setValue(appName);

@@ -12,7 +12,6 @@ global with sharing class ANZAzureADRegistrationHandler implements Auth.Registra
    * @return User record from salesforce.
    */
   global User createUser(Id portalId, Auth.UserData data) {
-    debugToken(data);
     User u = getUser(data);
     return u;
   }
@@ -26,6 +25,7 @@ global with sharing class ANZAzureADRegistrationHandler implements Auth.Registra
   @SuppressWarnings('PMD.EmptyStatementBlock')
   global void updateUser(Id userId, Id portalId, Auth.UserData data) {
     //do nothing
+    getUser(data);
   }
 
   /**
@@ -34,54 +34,33 @@ global with sharing class ANZAzureADRegistrationHandler implements Auth.Registra
    * @return User record from salesforce.
    */
   private User getUser(Auth.UserData data) {
+    Map<String, String> attributeMap = data.attributeMap;
+    String upn = attributeMap.get('upn');
     List<User> users = new List<User>();
-    String upn = getUPN(data);
     if (Schema.sObjectType.User.isQueryable()) {
       users = [
-        SELECT ID, USERNAME, FIRSTNAME, LASTNAME, FederationIdentifier
+        SELECT
+          ID,
+          USERNAME,
+          FIRSTNAME,
+          LASTNAME,
+          FederationIdentifier,
+          Profile.Name
         FROM User
         WHERE FederationIdentifier = :upn AND isActive = TRUE
       ];
     }
 
     if (users.size() > 0) {
-      return users[0];
+      User u = users[0];
+      AuthTokenCacheUtil.storeAzureOrgTokens(
+        u,
+        attributeMap.get('refreshToken'),
+        attributeMap.get('idToken')
+      );
+      return u;
     } else {
       return null;
     }
-  }
-
-  /**
-   * @description This method is used to debug the token received from Azure AD
-   * @param data User data from Azure AD
-   */
-  private void debugToken(Auth.UserData data) {
-    Map<String, String> attributeMap = data.attributeMap;
-
-    for (String key : attributeMap.keySet()) {
-      System.debug(
-        System.LoggingLevel.INFO,
-        key +
-        ' = ' +
-        attributeMap.get(key)
-      );
-    }
-
-    String uniqueName = attributeMap.get('unique_name');
-    System.debug(
-      System.LoggingLevel.INFO,
-      '---- unique_name ---- ' + uniqueName
-    );
-  }
-
-  /**
-   * @description This method returns the unique UPN value from input data
-   * @param data User data from Azure AD
-   * @return unique UPN value
-   */
-  private String getUPN(Auth.UserData data) {
-    Map<String, String> attributeMap = data.attributeMap;
-    String upn = attributeMap.get('unique_name');
-    return upn;
   }
 }

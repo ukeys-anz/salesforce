@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Store_Auth_Tokens</name>
+        <label>Store Auth Tokens</label>
+        <locationX>405</locationX>
+        <locationY>82</locationY>
+        <actionName>AuthTokenCacheUtil</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Get_Auth_Session_Records</targetReference>
+        </connector>
+    </actionCalls>
     <assignments>
         <description>No of records of Auth Sessions</description>
         <name>AuthSession_Count</name>
         <label>AuthSession Count</label>
-        <locationX>373</locationX>
-        <locationY>54</locationY>
+        <locationX>651</locationX>
+        <locationY>57</locationY>
         <assignmentItems>
             <assignToReference>AuthSessions_Records_Size</assignToReference>
             <operator>AssignCount</operator>
@@ -21,7 +32,7 @@
         <description>Remove the most recent session from the list of Auth Sessions</description>
         <name>Remove_Most_Recent_Session_From_List</name>
         <label>Remove Most Recent Session From List</label>
-        <locationX>519</locationX>
+        <locationX>700</locationX>
         <locationY>355</locationY>
         <assignmentItems>
             <assignToReference>AuthSessionRecords</assignToReference>
@@ -46,7 +57,7 @@
         <description>Check if there are more than 1 session for the logged in user if so delete the older one</description>
         <name>Is_Valid_for_Session_Delete</name>
         <label>Is Valid for Session Delete</label>
-        <locationX>598</locationX>
+        <locationX>779</locationX>
         <locationY>98</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -75,6 +86,12 @@
         </value>
     </processMetadataValues>
     <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
         <name>OriginBuilderType</name>
         <value>
             <stringValue>LightningFlowBuilder</stringValue>
@@ -85,7 +102,7 @@
         <description>Remove other auth sessions except the current one</description>
         <name>Delete_Other_Auth_Sessions</name>
         <label>Delete Other Auth Sessions</label>
-        <locationX>277</locationX>
+        <locationX>458</locationX>
         <locationY>394</locationY>
         <inputReference>AuthSessionRecords</inputReference>
     </recordDeletes>
@@ -93,8 +110,8 @@
         <description>Get the Auth Sessions related to the logged in User</description>
         <name>Get_Auth_Session_Records</name>
         <label>Get Auth Session Records</label>
-        <locationX>180</locationX>
-        <locationY>53</locationY>
+        <locationX>537</locationX>
+        <locationY>75</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>AuthSession_Count</targetReference>
@@ -131,7 +148,7 @@
         <locationX>21</locationX>
         <locationY>53</locationY>
         <connector>
-            <targetReference>Get_Auth_Session_Records</targetReference>
+            <targetReference>Store_Auth_Tokens</targetReference>
         </connector>
     </start>
     <status>Active</status>

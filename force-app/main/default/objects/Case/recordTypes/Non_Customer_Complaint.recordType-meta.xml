@@ -2755,6 +2755,10 @@
     <picklistValues>
         <picklist>Priority</picklist>
         <values>
+            <fullName>Customer in Collections</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Financial Hardship</fullName>
             <default>false</default>
         </values>
