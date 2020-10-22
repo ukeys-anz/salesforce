@@ -2,57 +2,36 @@
 import CustomerComplaint from "../../../../pages/complaintMgt/edit/customerComplaint";
 
 /*** UTILITIES IMPORTS ***/
-import * as faker from "faker";
+
+import helpers from "../../../../utilities/helpers";
 
 /*** OBJECT STORE IMPORTS ***/
 import { createCaseList } from "../../../../objectStore/complaint";
+
+import CommonSections from "../../../../pages/complaintMgt/common/commonSections";
 
 /*** DECLARATIONS ***/
 let caseId: any;
 const recordType = "Customer_Complaint";
 
-describe("Customer Record Edit", () => {
+describe("Customer Complaint Record Edit", () => {
   before(() => {
     createCaseList(1, recordType, "idrlvl3").then((cases: any) => {
-      caseId = cases[0].CaseNumber;
+      caseId = cases[0].CaseNumber.toString();
     });
   });
 
   it("should edit a customer complaint case record", () => {
     CustomerComplaint.login("idrlvl3");
     CustomerComplaint.loadApp("Complaint Mgt");
-    $('button[title="Show Navigation Menu"]').click();
-    $("=Cases").click();
-
-    $("a[title='Select List View']").click();
-    $("span=My Open Cases").click();
-    $(`=${caseId}`).click();
-    $("=Edit").click();
-
-    CustomerComplaint.nominatedThirdName.setValue(
-      faker.name.firstName() + " " + faker.name.lastName()
-    );
-    CustomerComplaint.nominatedThirdEmail.setValue(faker.internet.email());
-    CustomerComplaint.nominatedThirdStreet.setValue(faker.address.streetName());
-    CustomerComplaint.nominatedThirdSuburb.setValue(faker.address.city());
-    CustomerComplaint.nominatedThirdPostcode.setValue(
-      faker.address.zipCode("####")
-    );
-    CustomerComplaint.nominatedThirdMobile.setValue(
-      faker.phone.phoneNumber("04########")
-    );
-    CustomerComplaint.nominatedThirdPhone.setValue(
-      faker.phone.phoneNumber("97######")
-    );
-
-    $('input[title="Search Products"]').setValue("Netwealth");
-    $("mark=Netwealth").click();
-
-    CustomerComplaint.description.setValue(faker.lorem.text());
-    CustomerComplaint.desiredOutcome.setValue(faker.lorem.text());
-
+    CommonSections.goToCasePage();
+    CommonSections.goToCaseSearchPage();
+    CustomerComplaint.enterCaseInSearch(caseId);
+    CustomerComplaint.waitForCaseToDisplay(caseId);
+    helpers.doJSClick($(`=${caseId}`));
+    CustomerComplaint.clickEdit();
+    CustomerComplaint.fillComplaintEditDetails();
     CustomerComplaint.save.click();
-
     const toastMessage = $(".forceToastMessage");
     expect(toastMessage).toBeVisible();
   });

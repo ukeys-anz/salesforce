@@ -9,21 +9,49 @@
         <masterLabel>Login Percentage</masterLabel>
         <scale>2</scale>
     </aggregates>
+    <chart>
+        <backgroundColor1>#FFFFFF</backgroundColor1>
+        <backgroundColor2>#FFFFFF</backgroundColor2>
+        <backgroundFadeDir>Diagonal</backgroundFadeDir>
+        <chartSummaries>
+            <aggregate>Sum</aggregate>
+            <axisBinding>y</axisBinding>
+            <column>CDF1</column>
+        </chartSummaries>
+        <chartType>HorizontalBar</chartType>
+        <enableHoverLabels>false</enableHoverLabels>
+        <expandOthers>true</expandOthers>
+        <groupingColumn>DIVISION</groupingColumn>
+        <location>CHART_BOTTOM</location>
+        <showAxisLabels>true</showAxisLabels>
+        <showPercentage>false</showPercentage>
+        <showTotal>false</showTotal>
+        <showValues>false</showValues>
+        <size>Medium</size>
+        <summaryAxisRange>Auto</summaryAxisRange>
+        <textColor>#000000</textColor>
+        <textSize>12</textSize>
+        <titleColor>#000000</titleColor>
+        <titleSize>18</titleSize>
+    </chart>
     <columns>
         <field>TITLE</field>
     </columns>
     <columns>
-        <field>EMAIL</field>
+        <field>FULL_NAME</field>
     </columns>
     <columns>
-        <aggregateTypes>Sum</aggregateTypes>
-        <field>CDF1</field>
+        <field>EMAIL</field>
     </columns>
     <columns>
         <field>PROFILE</field>
     </columns>
     <columns>
         <field>DEPARTMENT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>CDF1</field>
     </columns>
     <customDetailFormulas>
         <calculatedFormula>IF( (NOT(ISBLANK(LAST_LOGIN)) &amp;&amp; DATEVALUE(LAST_LOGIN) = TODAY()), 1, 0)</calculatedFormula>
@@ -54,6 +82,13 @@
             <isUnlocked>false</isUnlocked>
             <operator>notEqual</operator>
             <value>Tech Support</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>DIVISION</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>IDR,Digital Servicing,CCC AU Sales - SLWS04 - Sales Wellington,ANZ Direct Manila Service,Card Solutions</value>
         </criteriaItems>
     </filter>
     <format>Summary</format>

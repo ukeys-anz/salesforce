@@ -30,7 +30,7 @@ export function createCaseList(
   amount = 1,
   recordType = "General_Inquiry",
   alias: string
-): Promise<any> {
+): any {
   return new Promise(async (resolve) => {
     const finAccountList: IFinAccount[] = await getFinAccount();
     const recordTypeId: string = await getRecordTypeID("Case", recordType);
@@ -105,10 +105,12 @@ export function createCaseList(
             result[0].errors[0].message
           );
         }
+
         //Loop through the result to create a list of ids
-        result.forEach((item: ICase) => {
-          idList.push(item.Id!);
+        result.forEach((item: any) => {
+          idList.push(item.id);
         });
+
         //Retrieve the new cases using the created id list and return the results
         jsForce.sobject("Case").retrieve(idList, (err: any, result: any) => {
           if (err) {
@@ -271,8 +273,8 @@ export async function createBlankCase(
         }
 
         //Loop through the result to create a list of ids
-        result.forEach((item: ICase) => {
-          idList.push(item.Id!);
+        result.forEach((item: any) => {
+          idList.push(item.id);
         });
 
         //Retrieve the new cases using the created id list and return the results

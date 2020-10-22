@@ -1558,6 +1558,16 @@
         <endAddress>52.8.140.255</endAddress>
         <startAddress>52.8.140.255</startAddress>
     </loginIpRanges>
+     <loginIpRanges>
+        <description>Mvision</description>
+        <endAddress>52.62.169.21</endAddress>
+        <startAddress>52.62.169.21</startAddress>
+    </loginIpRanges>
+     <loginIpRanges>
+        <description>Mvision</description>
+        <endAddress>54.79.123.149</endAddress>
+        <startAddress>54.79.123.149</startAddress>
+    </loginIpRanges>
     <loginIpRanges>
         <description>Mvision</description>
         <endAddress>52.42.179.76</endAddress>
@@ -1602,6 +1612,36 @@
         <description>Mvision</description>
         <endAddress>52.24.211.31</endAddress>
         <startAddress>52.24.211.31</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision Prod</description>
+        <endAddress>52.8.201.70</endAddress>
+        <startAddress>52.8.201.70</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision Prod</description>
+        <endAddress>52.52.251.72</endAddress>
+        <startAddress>52.52.251.72</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision Prod</description>
+        <endAddress>52.9.194.74</endAddress>
+        <startAddress>52.9.194.74</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision Prod</description>
+        <endAddress>35.169.47.31</endAddress>
+        <startAddress>35.169.47.31</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision Prod</description>
+        <endAddress>54.164.132.26</endAddress>
+        <startAddress>54.164.132.26</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision Prod</description>
+        <endAddress>34.215.17.195</endAddress>
+        <startAddress>34.215.17.195</startAddress>
     </loginIpRanges>
     <loginIpRanges>
         <description>ANZ Proxy required for Mvision</description>

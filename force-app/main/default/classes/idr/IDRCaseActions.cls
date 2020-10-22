@@ -167,7 +167,11 @@ public with sharing class IDRCaseActions {
           }
           checkForCRCEscalation(records.get(i));
         }
-        handleCaseEscalationRules(records.get(i), caseToBeChanged.get(i),(case) oldMap.get(records.get(i).id));
+        handleCaseEscalationRules(
+          records.get(i),
+          caseToBeChanged.get(i),
+          (case) oldMap.get(records.get(i).id)
+        );
       }
       //calling handleOfficeAssignment for all case records for which the IDR_Office__c needs to be updated.
       handleOfficeAssignment(changeOfficeCaseList);
@@ -280,9 +284,9 @@ public with sharing class IDRCaseActions {
     );
   }
   /**
-   * @description  handleCaseEscalationRules method is used to handle the case escalations 
+   * @description  handleCaseEscalationRules method is used to handle the case escalations
    * 1.First condition check is for auto esclated cases
-   * 2.second condition checks for cases created as escalated.  
+   * 2.second condition checks for cases created as escalated.
    * 3.third condition checks for cases that have been esclated after create.
    * 4.Fourth condition checks for cases that have a change in 'escalated to' after the case is already escalated.
    * @param originalRecord The actual case record
@@ -307,29 +311,29 @@ public with sharing class IDRCaseActions {
       caseTobeChanged.IDR_Escalation_Reason__c = ESCALATION_REASON;
       caseEscalationList.add(originalRecord);
       notificationCaseList.add(originalRecord);
-    }else if (
+    } else if (
       originalRecord.IsEscalated &&
-      originalRecord.Status != ESCALATED_STATUS && 
+      originalRecord.Status != ESCALATED_STATUS &&
       !string.isBlank(originalRecord.IDR_Escalation_Reason__c)
-    ){
+    ) {
       // escalated on insert cases , change status to escalated, assign to CRC queue and send notifcation to CFMS
       caseToBeChanged.Status = ESCALATED_STATUS;
       caseTobeChanged.OwnerId = queue.Id;
       caseEscalationList.add(originalRecord);
-    }else if(
+    } else if (
       originalRecord.IDR_Escalated_to__c == ESCALATED_TO_CRC_API_NAME &&
-      originalRecord.OwnerId != queue.Id && 
+      originalRecord.OwnerId != queue.Id &&
       originalRecord.Status == ESCALATED_STATUS &&
       oldRec.Status != ESCALATED_STATUS
-    ){
+    ) {
       // Escalated by updating the case , change status to escalated
       caseTobeChanged.OwnerId = queue.Id;
-    }else if(
+    } else if (
       originalRecord.IDR_Escalated_to__c == ESCALATED_TO_CRC_API_NAME &&
       oldRec.IDR_Escalated_to__c != ESCALATED_TO_CRC_API_NAME &&
-      originalRecord.OwnerId != queue.Id && 
-      originalRecord.Status == ESCALATED_STATUS 
-    ){
+      originalRecord.OwnerId != queue.Id &&
+      originalRecord.Status == ESCALATED_STATUS
+    ) {
       // Escalated to has changed for already escalated case, assign to CRC queue and send notifcation to CFMS
       caseTobeChanged.OwnerId = queue.Id;
       caseEscalationList.add(originalRecord);
@@ -463,28 +467,39 @@ public with sharing class IDRCaseActions {
     }
     idrNotifications = new List<IDR_Notification_Event__e>();
     for (Case c : records) {
-      idrNotifications.add(
-        new IDR_Notification_Event__e(
-          AuthorisedEmail__c = c.IDR_3rdParty_Email__c,
-          AuthorisedFirstName__c = c.IDR_3rdParty_Name__c,
-          AuthorisedMobile__c = c.IDR_3rdParty_Mobile__c,
-          CAP_CIS_ID__c = c.IDR_Customer_Number__c,
-          Case_ID__c = c.ID,
-          Case_Number__c = IDRCaseActions.getFormattedCaseNumberToNotify(c),
-          Case_Status__c = c.Status,
-          Case_Status_Change_Date__c = System.now(),
-          ComplainantEmail__c = c.IDR_NC_Email__c,
-          ComplainantFirstName__c = c.IDR_NC_Is_Consent_Obtained__c == false
-            ? ''
-            : c.IDR_NC_First_Name__c,
-          ComplainantMobile__c = c.IDR_NC_Mobile__c,
-          EmailFlag__c = true,
-          EmailTemplate__c = c.Isescalated? TEMPLATE_ID_MAP.get(ESCALATED_STATUS) : TEMPLATE_ID_MAP.get(c.Status),
-          MessageID__c = '' + c.ID + Datetime.now().millisecond(),
-          SMSFlag__c = true,
-          SMSTemplate__c = c.Isescalated? TEMPLATE_ID_MAP.get(ESCALATED_STATUS) : TEMPLATE_ID_MAP.get(c.Status)
-        )
-      );
+      // Don't publish to NB if there's no mobile nor email to send to
+      if (
+        c.RecordTypeId == CUSTOMER_COMPLAINT_RT_ID ||
+        !String.isBlank(c.IDR_NC_Mobile__c) ||
+        !String.isBlank(c.IDR_NC_Email__c)
+      ) {
+        idrNotifications.add(
+          new IDR_Notification_Event__e(
+            AuthorisedEmail__c = c.IDR_3rdParty_Email__c,
+            AuthorisedFirstName__c = c.IDR_3rdParty_Name__c,
+            AuthorisedMobile__c = c.IDR_3rdParty_Mobile__c,
+            CAP_CIS_ID__c = c.IDR_Customer_Number__c,
+            Case_ID__c = c.ID,
+            Case_Number__c = IDRCaseActions.getFormattedCaseNumberToNotify(c),
+            Case_Status__c = c.Status,
+            Case_Status_Change_Date__c = System.now(),
+            ComplainantEmail__c = c.IDR_NC_Email__c,
+            ComplainantFirstName__c = c.IDR_NC_Is_Consent_Obtained__c == false
+              ? ''
+              : c.IDR_NC_First_Name__c,
+            ComplainantMobile__c = c.IDR_NC_Mobile__c,
+            EmailFlag__c = true,
+            EmailTemplate__c = c.Isescalated
+              ? TEMPLATE_ID_MAP.get(ESCALATED_STATUS)
+              : TEMPLATE_ID_MAP.get(c.Status),
+            MessageID__c = '' + c.ID + Datetime.now().millisecond(),
+            SMSFlag__c = true,
+            SMSTemplate__c = c.Isescalated
+              ? TEMPLATE_ID_MAP.get(ESCALATED_STATUS)
+              : TEMPLATE_ID_MAP.get(c.Status)
+          )
+        );
+      }
     }
     if (!idrNotifications.isEmpty()) {
       List<Database.SaveResult> results = EventBus.publish(idrNotifications);

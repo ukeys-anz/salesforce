@@ -16,14 +16,14 @@
                 <decimalPrecision>-1</decimalPrecision>
                 <displayUnits>Auto</displayUnits>
                 <groupingSortProperties/>
-                <header>Active Users</header>
+                <header>Active Trailblazers</header>
                 <indicatorBreakpoint1>20.0</indicatorBreakpoint1>
                 <indicatorBreakpoint2>60.0</indicatorBreakpoint2>
                 <indicatorHighColor>#00716B</indicatorHighColor>
                 <indicatorLowColor>#C23934</indicatorLowColor>
-                <indicatorMiddleColor>#E2CE7D</indicatorMiddleColor>
+                <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
                 <metricLabel>Total number of CMOS users</metricLabel>
-                <report>IDRAdoption/Active_Users</report>
+                <report>IDRAdoption/IDR_Active_Users_with_custom_report_type</report>
                 <showRange>false</showRange>
             </dashboardComponent>
             <rowIndex>0</rowIndex>
@@ -48,7 +48,7 @@
                 <indicatorLowColor>#C23934</indicatorLowColor>
                 <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
                 <metricLabel>Percentage of users logged in today</metricLabel>
-                <report>IDRAdoption/Active_Users</report>
+                <report>IDRAdoption/IDR_Active_Users_with_custom_report_type</report>
                 <showRange>false</showRange>
             </dashboardComponent>
             <rowIndex>0</rowIndex>
@@ -62,22 +62,21 @@
                 <chartSummary>
                     <aggregate>Sum</aggregate>
                     <axisBinding>y</axisBinding>
-                    <column>ACTIVE</column>
+                    <column>User$IsActive</column>
                 </chartSummary>
                 <componentType>Gauge</componentType>
                 <decimalPrecision>-1</decimalPrecision>
                 <displayUnits>Auto</displayUnits>
-                <footer>How many &quot;active&quot; Users are logging in on a regular basis</footer>
                 <gaugeMax>200.0</gaugeMax>
                 <gaugeMin>0.0</gaugeMin>
                 <groupingSortProperties/>
-                <header>ALL User Logins - Last 7 Days</header>
+                <header>All User Logins - Last 7 days</header>
                 <indicatorBreakpoint1>75.0</indicatorBreakpoint1>
                 <indicatorBreakpoint2>125.0</indicatorBreakpoint2>
                 <indicatorHighColor>#00716B</indicatorHighColor>
                 <indicatorLowColor>#C23934</indicatorLowColor>
-                <indicatorMiddleColor>#E2CE7D</indicatorMiddleColor>
-                <report>IDRAdoption/Active_User_Logins</report>
+                <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
+                <report>IDRAdoption/IDR_All_User_Logins_Last_7_days</report>
                 <showPercentage>false</showPercentage>
                 <showRange>false</showRange>
                 <showTotal>true</showTotal>
@@ -104,16 +103,17 @@
                 <drillToDetailEnabled>false</drillToDetailEnabled>
                 <enableHover>false</enableHover>
                 <expandOthers>false</expandOthers>
-                <groupingColumn>DIVISION</groupingColumn>
+                <groupingColumn>User$Division</groupingColumn>
                 <groupingSortProperties>
                     <groupingSorts>
                         <groupingLevel>g1</groupingLevel>
-                        <sortOrder>a</sortOrder>
+                        <sortColumn>FORMULA1</sortColumn>
+                        <sortOrder>d</sortOrder>
                     </groupingSorts>
                 </groupingSortProperties>
                 <header>Today&apos;s Login Percentage by Team</header>
                 <legendPosition>Bottom</legendPosition>
-                <report>IDRAdoption/Active_Users</report>
+                <report>IDRAdoption/IDR_Active_Users_with_custom_report_type</report>
                 <showPercentage>false</showPercentage>
                 <showPicturesOnCharts>false</showPicturesOnCharts>
                 <showValues>true</showValues>
@@ -151,7 +151,7 @@
                 <header>Days Past Since Last Login</header>
                 <legendPosition>Bottom</legendPosition>
                 <maxValuesDisplayed>6</maxValuesDisplayed>
-                <report>IDRAdoption/IDR_User_Last_Login</report>
+                <report>IDRAdoption/IDR_Days_Past_Since_Last_Login</report>
                 <showPercentage>false</showPercentage>
                 <showTotal>true</showTotal>
                 <showValues>true</showValues>
@@ -172,30 +172,26 @@
                     <axisBinding>y</axisBinding>
                     <column>RowCount</column>
                 </chartSummary>
-                <componentType>BarStacked</componentType>
+                <componentType>Bar</componentType>
                 <decimalPrecision>-1</decimalPrecision>
                 <displayUnits>Auto</displayUnits>
                 <drillEnabled>false</drillEnabled>
                 <drillToDetailEnabled>false</drillToDetailEnabled>
                 <enableHover>false</enableHover>
                 <expandOthers>false</expandOthers>
-                <groupingColumn>ORIGIN</groupingColumn>
                 <groupingColumn>Case.IDR_Office__c</groupingColumn>
                 <groupingSortProperties>
                     <groupingSorts>
                         <groupingLevel>g1</groupingLevel>
                         <sortOrder>a</sortOrder>
                     </groupingSorts>
-                    <groupingSorts>
-                        <groupingLevel>g2</groupingLevel>
-                        <sortOrder>a</sortOrder>
-                    </groupingSorts>
                 </groupingSortProperties>
-                <header>Issue Channel By Team</header>
+                <header>Complaints by Team</header>
                 <legendPosition>Bottom</legendPosition>
                 <report>IDRAdoption/IDR_Case_Statistics</report>
                 <showPercentage>false</showPercentage>
-                <showValues>false</showValues>
+                <showPicturesOnCharts>false</showPicturesOnCharts>
+                <showValues>true</showValues>
                 <sortBy>RowLabelAscending</sortBy>
                 <title>Complaints received by channel &amp; team</title>
                 <useReportChart>false</useReportChart>
@@ -215,13 +211,13 @@
                 <decimalPrecision>-1</decimalPrecision>
                 <displayUnits>Auto</displayUnits>
                 <groupingSortProperties/>
-                <header>Total Open Cases</header>
+                <header>Total Complaints Recorded</header>
                 <indicatorBreakpoint1>100.0</indicatorBreakpoint1>
                 <indicatorBreakpoint2>125.0</indicatorBreakpoint2>
                 <indicatorHighColor>#00716B</indicatorHighColor>
                 <indicatorLowColor>#C23934</indicatorLowColor>
                 <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
-                <metricLabel>All cases Open or Under Investigation</metricLabel>
+                <metricLabel>Total complaints recorded</metricLabel>
                 <report>IDRAdoption/IDR_Case_Statistics</report>
                 <showRange>false</showRange>
             </dashboardComponent>
@@ -234,20 +230,20 @@
             <dashboardComponent>
                 <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
                 <chartSummary>
-                    <column>FORMULA1</column>
+                    <column>FORMULA2</column>
                 </chartSummary>
                 <componentType>Metric</componentType>
                 <decimalPrecision>-1</decimalPrecision>
                 <displayUnits>Auto</displayUnits>
                 <groupingSortProperties/>
-                <header>Closed Case Percentage</header>
-                <indicatorBreakpoint1>45.0</indicatorBreakpoint1>
+                <header>Resolved at First Point of Contact</header>
+                <indicatorBreakpoint1>30.0</indicatorBreakpoint1>
                 <indicatorBreakpoint2>75.0</indicatorBreakpoint2>
                 <indicatorHighColor>#00716B</indicatorHighColor>
                 <indicatorLowColor>#C23934</indicatorLowColor>
                 <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
-                <metricLabel>% of cases Resolved or Closed</metricLabel>
-                <report>IDRAdoption/IDR_Case_Statistics</report>
+                <metricLabel>% of cases Resolved or Closed at FPOC</metricLabel>
+                <report>IDRAdoption/IDR_First_Contact_Resolution</report>
                 <showRange>false</showRange>
             </dashboardComponent>
             <rowIndex>8</rowIndex>
@@ -284,20 +280,20 @@
             <dashboardComponent>
                 <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
                 <chartSummary>
-                    <column>FORMULA1</column>
+                    <column>FORMULA2</column>
                 </chartSummary>
                 <componentType>Metric</componentType>
                 <decimalPrecision>-1</decimalPrecision>
                 <displayUnits>Auto</displayUnits>
                 <groupingSortProperties/>
-                <header>Average Time to Resolution</header>
-                <indicatorBreakpoint1>33.0</indicatorBreakpoint1>
-                <indicatorBreakpoint2>67.0</indicatorBreakpoint2>
+                <header>Cases Retained For Resolution</header>
+                <indicatorBreakpoint1>30.0</indicatorBreakpoint1>
+                <indicatorBreakpoint2>75.0</indicatorBreakpoint2>
                 <indicatorHighColor>#00716B</indicatorHighColor>
                 <indicatorLowColor>#C23934</indicatorLowColor>
                 <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
-                <metricLabel>Ave days taken to Resolve/Close</metricLabel>
-                <report>IDRAdoption/IDR_Average_Time_to_Resolution</report>
+                <metricLabel>% of cases retained for resolution</metricLabel>
+                <report>IDRAdoption/IDR_Cases_Retained_For_Resolution</report>
                 <showRange>false</showRange>
             </dashboardComponent>
             <rowIndex>12</rowIndex>
@@ -367,6 +363,68 @@
                 <sortBy>RowLabelAscending</sortBy>
                 <title>No. of days taken before escalating</title>
                 <useReportChart>false</useReportChart>
+            </dashboardComponent>
+            <rowIndex>16</rowIndex>
+            <rowSpan>8</rowSpan>
+        </dashboardGridComponents>
+        <dashboardGridComponents>
+            <colSpan>3</colSpan>
+            <columnIndex>6</columnIndex>
+            <dashboardComponent>
+                <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
+                <chartAxisRange>Auto</chartAxisRange>
+                <chartSummary>
+                    <axisBinding>y</axisBinding>
+                    <column>RowCount</column>
+                </chartSummary>
+                <componentType>Donut</componentType>
+                <decimalPrecision>-1</decimalPrecision>
+                <displayUnits>Auto</displayUnits>
+                <drillEnabled>false</drillEnabled>
+                <drillToDetailEnabled>false</drillToDetailEnabled>
+                <enableHover>false</enableHover>
+                <expandOthers>false</expandOthers>
+                <groupingColumn>Case.IDR_Non_Financial_Remedy__c</groupingColumn>
+                <groupingSortProperties>
+                    <groupingSorts>
+                        <groupingLevel>g1</groupingLevel>
+                        <sortOrder>a</sortOrder>
+                    </groupingSorts>
+                </groupingSortProperties>
+                <header>Non-Fnancial Resolutions</header>
+                <legendPosition>Bottom</legendPosition>
+                <report>IDRAdoption/IDR_NonFinancial_Remedy_Cases</report>
+                <showPercentage>false</showPercentage>
+                <showTotal>true</showTotal>
+                <showValues>true</showValues>
+                <sortBy>RowLabelAscending</sortBy>
+                <title>Cases resolved with non financial remedy</title>
+                <useReportChart>false</useReportChart>
+            </dashboardComponent>
+            <rowIndex>16</rowIndex>
+            <rowSpan>8</rowSpan>
+        </dashboardGridComponents>
+        <dashboardGridComponents>
+            <colSpan>3</colSpan>
+            <columnIndex>9</columnIndex>
+            <dashboardComponent>
+                <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
+                <chartSummary>
+                    <column>FORMULA1</column>
+                </chartSummary>
+                <componentType>Metric</componentType>
+                <decimalPrecision>-1</decimalPrecision>
+                <displayUnits>Auto</displayUnits>
+                <groupingSortProperties/>
+                <header>Average Time to Resolution</header>
+                <indicatorBreakpoint1>33.0</indicatorBreakpoint1>
+                <indicatorBreakpoint2>67.0</indicatorBreakpoint2>
+                <indicatorHighColor>#00716B</indicatorHighColor>
+                <indicatorLowColor>#C23934</indicatorLowColor>
+                <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
+                <metricLabel>Ave days taken to Resolve/Close</metricLabel>
+                <report>IDRAdoption/IDR_Average_Time_to_Resolution</report>
+                <showRange>false</showRange>
             </dashboardComponent>
             <rowIndex>16</rowIndex>
             <rowSpan>8</rowSpan>

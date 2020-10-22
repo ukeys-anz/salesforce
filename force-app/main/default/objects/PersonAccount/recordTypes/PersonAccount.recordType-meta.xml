@@ -146,17 +146,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Customer_Belongs_To__c</picklist>
-        <values>
-            <fullName>ANZx</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>AR%26C</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>FinServ__BorrowingHistory__c</picklist>
         <values>
             <fullName>Excellent</fullName>

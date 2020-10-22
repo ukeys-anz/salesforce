@@ -4,6 +4,11 @@
     <description>This will have all generic profile configuration that needs to be auto deployed. To be used by all ANZx standard users.</description>
   <applicationVisibilities>
     <application>Coach_App</application>
+    <default>false</default>
+    <visible>true</visible>
+  </applicationVisibilities>
+  <applicationVisibilities>
+    <application>Coaches_Console</application>
     <default>true</default>
     <visible>true</visible>
   </applicationVisibilities>
@@ -1364,13 +1369,23 @@
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
-    <field>Account.BillingAddress</field>
+    <field>Account.ANZx_Customer__c</field>
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
+      <editable>false</editable>
+      <field>Account.AR_C_Customer__c</field>
+      <readable>false</readable>
+  </fieldPermissions>
+  <fieldPermissions>
+      <editable>false</editable>
+      <field>Account.External_Id__c</field>
+      <readable>false</readable>
+  </fieldPermissions>
+  <fieldPermissions>
     <editable>false</editable>
-    <field>Account.Customer_Belongs_To__c</field>
-    <readable>true</readable>
+    <field>Account.BillingAddress</field>
+    <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>

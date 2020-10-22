@@ -342,27 +342,6 @@ private class TestCaseTriggerHandler {
   }
 
   @istest
-  static void testNotifications() {
-    Case[] newCases = new List<Case>();
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
-        new Case(
-          RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
-          Status = 'Escalated',
-          IDR_Escalated_to__c = '1',
-          IDR_Escalation_Reason__c = '1'
-        )
-      );
-    }
-    insert newCases;
-    System.assert(
-      IDRCaseActions.idrNotifications.size() ==
-      Integer.valueOf(Label.Test_Bulk_Size),
-      'Matching no of events'
-    );
-  }
-
-  @istest
   static void testCFMSEscalation() {
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {

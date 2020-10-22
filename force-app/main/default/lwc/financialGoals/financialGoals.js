@@ -8,8 +8,9 @@ import { publish, subscribe, MessageContext } from "lightning/messageService";
 import UpdateAccountsAndGoals from "@salesforce/messageChannel/FinancialAccountsGoalsUpdate__c";
 import UpdateAccountsGoalsTimed from "@salesforce/messageChannel/FinancialAccountGoalsTimedUpdate__c";
 import TriggerLoading from "@salesforce/messageChannel/FinancialAccountsTriggerLoading__c";
+import { NavigationMixin } from "lightning/navigation";
 
-export default class FinancialGoals extends LightningElement {
+export default class FinancialGoals extends NavigationMixin(LightningElement) {
   @api recordId;
   inProgressGoals = [];
   completedGoals = [];
@@ -142,9 +143,6 @@ export default class FinancialGoals extends LightningElement {
               finGoal.FinServ__TargetDate__c = "N/A";
             }
 
-            //Set URL for record
-            finGoal.url = `/lightning/r/FinServ__FinancialGoal__c/${finGoal.Id}/view`;
-
             //Format balances
             finGoal.FinServ__TargetValue__c = new Intl.NumberFormat("en-AU", {
               style: "currency",
@@ -196,9 +194,6 @@ export default class FinancialGoals extends LightningElement {
             if (!this.timestamp) {
               this.setTimestamp(finGoal.LastModifiedDate);
             }
-
-            //Set URL for record
-            finGoal.url = `/lightning/r/FinServ__FinancialGoal__c/${finGoal.Id}/view`;
 
             //Format balances
             finGoal.FinServ__TargetValue__c = new Intl.NumberFormat("en-AU", {
@@ -262,5 +257,15 @@ export default class FinancialGoals extends LightningElement {
       variant: theVariant
     });
     this.dispatchEvent(event);
+  }
+
+  navigateToRecordViewPage(event) {
+    this[NavigationMixin.Navigate]({
+      type: "standard__recordPage",
+      attributes: {
+        recordId: event.currentTarget.dataset.id,
+        actionName: "view"
+      }
+    });
   }
 }
