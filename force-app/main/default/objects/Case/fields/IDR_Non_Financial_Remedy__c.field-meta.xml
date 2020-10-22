@@ -60,6 +60,16 @@
                 <default>false</default>
                 <label>Declined Request</label>
             </value>
+            <value>
+                <fullName>10</fullName>
+                <default>false</default>
+                <label>Amend Credit Report</label>
+            </value>
+            <value>
+                <fullName>11</fullName>
+                <default>false</default>
+                <label>Documents Provided</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>2</controllingFieldValue>
@@ -96,6 +106,14 @@
         <valueSettings>
             <controllingFieldValue>2</controllingFieldValue>
             <valueName>9</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>2</controllingFieldValue>
+            <valueName>10</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>2</controllingFieldValue>
+            <valueName>11</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>
