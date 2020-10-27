@@ -1,0 +1,43 @@
+<template>
+    <lightning-layout horizontal-align="space">
+        <lightning-layout-item padding="around-small">
+            <lightning-input
+            type="search" 
+            label="File Name"
+            onchange={UpdateFileNameSearch}
+                >
+            </lightning-input>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small">
+            <lightning-input
+            type="search" 
+            label="File Type"
+            onchange={UpdateFileTypeSearch}
+                >
+            </lightning-input>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small">
+            <lightning-input
+            type="search" 
+            label="Owner"
+            onchange={UpdateOwnerSearch}
+                >
+            </lightning-input>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small">
+            <lightning-input
+            type="search" 
+            label="Contains"
+            onchange={UpdateContainsSearch}
+                >
+            </lightning-input>
+        </lightning-layout-item>
+    </lightning-layout>
+    <template if:true={files}>
+        <lightning-datatable key-field="fileId"
+        data={filesToDisplay}
+        columns={columns}   
+        hide-checkbox-column>
+        </lightning-datatable>
+    </template>
+</template>
