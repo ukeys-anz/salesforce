@@ -471,7 +471,9 @@ public with sharing class IDRCaseActions {
       if (
         c.RecordTypeId == CUSTOMER_COMPLAINT_RT_ID ||
         !String.isBlank(c.IDR_NC_Mobile__c) ||
-        !String.isBlank(c.IDR_NC_Email__c)
+        !String.isBlank(c.IDR_NC_Email__c) ||
+        !String.isBlank(c.IDR_3rdParty_Mobile__c) ||
+        !String.isBlank(c.IDR_3rdParty_Email__c)
       ) {
         idrNotifications.add(
           new IDR_Notification_Event__e(
