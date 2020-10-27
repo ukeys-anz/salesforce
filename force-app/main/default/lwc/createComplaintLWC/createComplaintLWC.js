@@ -190,6 +190,11 @@ export default class CreateComplaintLWC extends NavigationMixin(
     { label: "No", value: "No" }
   ];
 
+  commoncomplaintoptions = [
+    { label: "Yes", value: "Yes" },
+    { label: "No", value: "No" }
+  ];
+
   //form validation fields.
   missingDataFields = "";
   isDataValid = false;
@@ -231,7 +236,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   }
 
   handleCommonComplaint(event) {
-    this.isCommonComplaint = event.target.checked;
+    this.isCommonComplaint = event.target.value;
   }
 
   handleRealFormNeeded(event) {
@@ -370,7 +375,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
           "Is the complaint relating to hardship, a declined insurance claim, the value of an insurance claim or a decision of a superannuation trustee?, ";
       }
     }
-
+    if (!this.isCommonComplaint) {
+      isFieldValid = false;
+      this.missingDataFields += "Is this a possible systemic issue?, ";
+    }
     if (this.missingDataFields !== "") {
       this.missingDataFields =
         ERROR_REQUIRED_TITLE + this.missingDataFields.replace(/,\s$/, ". ");
@@ -462,9 +470,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
       if (this.isRealFormNeeded) {
         fields[IS_REAL_FORM_NEED_FIELD.fieldApiName] = true;
       }
-      if (this.isCommonComplaint) {
-        fields[IS_COMMON_COMPLAINT_FIELD.fieldApiName] = true;
-      }
+        
+      fields[IS_COMMON_COMPLAINT_FIELD.fieldApiName] = this.isCommonComplaint;
+
       if (!this.hasNominatedThirdParty) {
         fields[THIRD_PARTY_COUNTRY_FIELD.fieldApiName] = "";
       }

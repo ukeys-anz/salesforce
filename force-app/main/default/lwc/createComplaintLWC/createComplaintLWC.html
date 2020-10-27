@@ -556,14 +556,16 @@
                   content="Issues which may impact more than one customer AND are of a compliance nature. E.g. ANZ systems or processes not working properly or non-compliance with terms and conditions"
                 >
                 </lightning-helptext>
-                <lightning-input
-                  type="toggle"
-                  label="Is this a common complaint?"
-                  onchange={handleCommonComplaint}
-                  message-toggle-active="Yes"
-                  message-toggle-inactive="No"
-                >
-                </lightning-input>
+                <lightning-radio-group
+                    required
+                    name="commoncomplaintGroup"
+                    label="Is this a possible systemic issue?"
+                    onchange={handleCommonComplaint}
+                    options={commoncomplaintoptions}
+                    value={isCommonComplaint}
+                    type="button"
+                  >
+                  </lightning-radio-group>
               </div>
 
               <div class="slds-col slds-size_1-of-4 slds-m-right_large">
