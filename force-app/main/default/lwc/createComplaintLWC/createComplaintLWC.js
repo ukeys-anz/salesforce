@@ -15,6 +15,7 @@ import THIRD_PARTY_SUBURB_FIELD from "@salesforce/schema/Case.IDR_3rdParty_Subur
 import THIRD_PARTY_POSTCODE_FIELD from "@salesforce/schema/Case.IDR_3rdParty_Postcode__c";
 import THIRD_PARTY_COUNTRY_FIELD from "@salesforce/schema/Case.IDR_3rdParty_Country__c";
 import THIRD_PARTY_STATE_FIELD from "@salesforce/schema/Case.IDR_3rdParty_State__c";
+import THIRD_PARTY_RELATIONSHIP from "@salesforce/schema/Case.IDR_3rdParty_Relationship_To_Complainant__c";
 import RECORDTYPE_FIELD from "@salesforce/schema/Case.RecordTypeId";
 
 //Non Customer complaints
@@ -127,6 +128,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   thirdPartyPostcode = THIRD_PARTY_POSTCODE_FIELD;
   thirdPartyCountry = THIRD_PARTY_COUNTRY_FIELD;
   thirdPartyState = THIRD_PARTY_STATE_FIELD;
+  thirdPartyRelationShip = THIRD_PARTY_RELATIONSHIP;
 
   //written response fields
   writtenResponseRequested = WRITTEN_RESPONSE_REQUESTED_FIELD;
@@ -523,6 +525,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       requiredFields.thirdPartyMobile = "Nominated 3rd party mobile";
       requiredFields.thirdPartyCountry = "Nominated 3rd party country";
       requiredFields.thirdPartyState = "Nominated 3rd party state";
+      requiredFields.thirdPartyRelationShip = "Relationship to complainant";
     }
     if (this.isComplaintResolved) {
       requiredFields.compOutCome = "Complaint Outcome";
