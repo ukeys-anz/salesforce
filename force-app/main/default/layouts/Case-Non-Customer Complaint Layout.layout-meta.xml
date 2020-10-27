@@ -105,6 +105,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>IDR_3rdParty_Relationship_To_Complainant__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>IDR_3rdParty_Street__c</field>
             </layoutItems>
             <layoutItems>

@@ -78,6 +78,11 @@
         <field>Case.IDR_3rdParty_Postcode__c</field>
         <readable>true</readable>
     </fieldPermissions>
+     <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_3rdParty_Relationship_To_Complainant__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.IDR_3rdParty_State__c</field>

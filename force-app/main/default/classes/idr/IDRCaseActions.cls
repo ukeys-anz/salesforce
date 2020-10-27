@@ -437,7 +437,11 @@ public with sharing class IDRCaseActions {
           Channel_Received__c = IDRCaseActions.getPicklistLabel(
             Case.Origin,
             c.Origin
-          )
+          ),
+          Relationship_To_Complainant__c = IDRCaseActions.getPicklistLabel(
+                Case.IDR_3rdParty_Relationship_To_Complainant__c,
+                c.IDR_3rdParty_Relationship_To_Complainant__c
+              )
         )
       );
     }

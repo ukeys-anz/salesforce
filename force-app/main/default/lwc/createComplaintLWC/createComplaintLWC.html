@@ -356,6 +356,16 @@
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
                     variant="label-stacked"
+                    required={hasNominatedThirdParty}
+                    aria-label="Dropdown Relationship to the complainant"
+                    field-name={thirdPartyRelationShip}
+                    id="thirdPartyRelationShip-id"
+                  >
+                  </lightning-input-field>
+                </div>
+                <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                  <lightning-input-field
+                    variant="label-stacked"
                     field-name={thirdPartyEmail}
                     id="thirdPartyEmail-id"
                   ></lightning-input-field>
