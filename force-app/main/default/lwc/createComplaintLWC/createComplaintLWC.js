@@ -288,6 +288,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.consentValue = this.consentOptionValue === "Agrees";
     this.showComplianceFields = this.consentValue || this.isCustomerComplaint;
     this.showSections = true;
+    //prevent 3rd party fields from persisting in the UI when user selects "Agree" and "Nominate" and then switches to "Disagree"
+    if (this.consentValue === false) this.hasNominatedThirdParty = false;
   }
 
   handleSearch() {
