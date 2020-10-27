@@ -47,7 +47,9 @@ class GeneralInquiry extends Base {
     );
   }
   get type() {
-    return $("//div/div[2]/div/div/div[3]/div[1]/div/div/div/div");
+    return $(
+      "//article[1]/div[3]/div[1]/div[2]/div[1]/div[1]/div[3]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/a[1]"
+    );
   }
   get channelReceivedLink() {
     return $("//div/div[2]/div/div/div[4]/div[2]/div/div/div/div");

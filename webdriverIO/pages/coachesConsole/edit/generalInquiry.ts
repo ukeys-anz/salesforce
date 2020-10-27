@@ -8,7 +8,7 @@ import {
 } from "../../../pages/coachesWorkbench/common/generalInquiry";
 
 /**
- * Handles the General Inquiry record type fields on Coaches Workbench during edit
+ * Handles the General Inquiry record type fields on Coaches Console during edit
  */
 class GeneralInquiry extends Base {
   /****** TEXT INPUTS ******/
@@ -19,10 +19,8 @@ class GeneralInquiry extends Base {
     return $("//div/div[1]/div/div/div[2]/div/div/div/div/textarea");
   }
 
-  get searchText() {
-    return $(
-      "//body/div/div/section/div/div/div/div/div/div/div/div/div/div/div/div/div/force-list-view-manager-search-bar/div/lightning-input/div/input[1]"
-    );
+  get searchTxt() {
+    return $("//input[@placeholder='Search this list...']");
   }
 
   /****** LOOKUPS ******/
@@ -99,7 +97,7 @@ class GeneralInquiry extends Base {
   /****** LINKS ******/
 
   get caseLink() {
-    return $("*=Case");
+    return $("//tr[1]//th[1]//span[1]//a[1]");
   }
 
   get searchCase() {
@@ -118,13 +116,21 @@ class GeneralInquiry extends Base {
 
   /*******Page Actions *****/
 
+  enterCaseInSearch(value: String) {
+    helpers.enterText(this.searchTxt, value);
+  }
+
+  clickEdit() {
+    helpers.doJSClick(this.editBtn);
+  }
+
   clickBugReport() {
     this.bugReport.scrollIntoView();
     this.bugReport.click();
   }
 
   waitForCaseToDisplay(valueToClick: String) {
-    helpers.waitAndRetry(this.refreshBtn, this.searchCase, valueToClick);
+    helpers.waitAndRetry(this.refreshBtn, this.caseLink, valueToClick);
   }
 
   clickAccountName(accName: String) {

@@ -1,10 +1,8 @@
 /*** BASE IMPORTS ***/
-import CoachesWorkbench from "../../../../pages/coachesWorkbench/coachesWorkbench";
-import GeneralInquiry from "../../../../pages/coachesWorkbench/edit/generalInquiry";
+import GeneralInquiry from "../../../../pages/coachesConsole/edit/generalInquiry";
 
 /*** UTILITIES IMPORTS ***/
 import { jsForce } from "../../../../utilities/jsforce";
-import * as faker from "faker";
 import CustomError from "../../../../utilities/customErrorHandler";
 import helpers from "../../../../utilities/helpers";
 
@@ -14,7 +12,7 @@ import { createBlankCase } from "../../../../objectStore/case";
 import CommonSections from "../../../../pages/complaintMgt/common/commonSections";
 
 /*** DECLARATIONS ***/
-let caseNumber: string;
+let caseId: string;
 let accountId: string;
 let accountName: string;
 let financialAccountName: string;
@@ -22,7 +20,7 @@ let financialAccountName: string;
 describe("General Inquiry Record Edit", () => {
   before(() => {
     createBlankCase(1, "General_Inquiry", "Coach").then((cases: any) => {
-      caseNumber = cases[0].CaseNumber.toString();
+      caseId = cases[0].CaseNumber.toString();
     });
 
     getFinAccount().then((finAccounts: any) => {
@@ -41,14 +39,14 @@ describe("General Inquiry Record Edit", () => {
   });
 
   it("should edit a general inquiry case record", () => {
-    CoachesWorkbench.login("coach");
-    CoachesWorkbench.loadApp("Coaches Workbench");
-    GeneralInquiry.caseLink.click();
+    GeneralInquiry.login("coach");
+    GeneralInquiry.loadApp("Coaches Console");
+    CommonSections.goToCasePage();
     CommonSections.goToCaseSearchPage();
-    helpers.enterText(GeneralInquiry.searchText, caseNumber);
-    GeneralInquiry.waitForCaseToDisplay(caseNumber);
-    helpers.doJSClick($(`=${caseNumber}`));
-    GeneralInquiry.editBtn.click();
+    GeneralInquiry.enterCaseInSearch(caseId);
+    GeneralInquiry.waitForCaseToDisplay(caseId);
+    helpers.doJSClick($(`=${caseId}`));
+    GeneralInquiry.clickEdit();
     GeneralInquiry.fillEditGeneralInquiryDetails(
       accountName,
       financialAccountName
