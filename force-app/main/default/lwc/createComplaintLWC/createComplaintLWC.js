@@ -470,7 +470,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       if (this.isRealFormNeeded) {
         fields[IS_REAL_FORM_NEED_FIELD.fieldApiName] = true;
       }
-        
+
       fields[IS_COMMON_COMPLAINT_FIELD.fieldApiName] = this.isCommonComplaint;
 
       if (!this.hasNominatedThirdParty) {
