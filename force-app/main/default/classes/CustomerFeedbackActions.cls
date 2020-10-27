@@ -21,7 +21,7 @@ public with sharing class CustomerFeedbackActions {
     for (Account acc : [
       SELECT Id, OCV_ID__c
       FROM Account
-      WHERE OCV_ID__c IN :ocvIds
+      WHERE OCV_ID__c IN :ocvIds AND ANZx_Customer__c = TRUE
     ]) {
       accountIdMap.put(acc.OCV_ID__c, acc.Id);
     }
