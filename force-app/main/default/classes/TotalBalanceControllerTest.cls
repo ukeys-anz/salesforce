@@ -14,6 +14,7 @@ public with sharing class TotalBalanceControllerTest {
     Account accnt = new Account();
     accnt.Name = 'TestAccount';
     accnt.OCV_ID__c = '1';
+    accnt.ANZx_Customer__c = true;
     accnt.FinServ__TotalFinAcctsPrimaryOwner__c = 200;
     //Rollup summary hardcoded to 200, as it doesn't work in test scenarios and is not the focus of these test cases
     insert accnt;
