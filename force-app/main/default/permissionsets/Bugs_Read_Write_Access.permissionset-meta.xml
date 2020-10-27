@@ -8,6 +8,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Reported_Bug__c.Category__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Reported_Bug__c.Date_Bug_Resolved__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -38,7 +43,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Reported_Bug__c.Priority__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Reported_Bug__c.Reported_By__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Reported_Bug__c.Resolution_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

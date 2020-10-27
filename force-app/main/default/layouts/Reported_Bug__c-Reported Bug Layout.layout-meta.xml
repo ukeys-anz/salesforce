@@ -20,6 +20,14 @@
                 <field>Mobile_Device_Details__c</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Required</behavior>
+                <field>Category__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Required</behavior>
+                <field>Priority__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Responsible_Value_Stream__c</field>
             </layoutItems>
@@ -52,6 +60,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Status__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Resolution_Status__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>

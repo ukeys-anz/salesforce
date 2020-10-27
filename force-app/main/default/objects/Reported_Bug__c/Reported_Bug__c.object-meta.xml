@@ -161,7 +161,13 @@
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Reported Bugs</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts>
+        <searchResultsAdditionalFields>Category__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Responsible_Value_Stream__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Steps_Taken_Prior_to_Hitting_Bug__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Status__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Jira_Ticket__c</searchResultsAdditionalFields>
+    </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>
