@@ -8,6 +8,6 @@
     </recordTypeVisibilities>
     <userPermissions>
         <enabled>true</enabled>
-        <name>EditTasks</name>
+        <name>EditTask</name>
     </userPermissions>
 </PermissionSet>
