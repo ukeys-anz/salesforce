@@ -13,6 +13,7 @@ interface IAccount {
   FinServ__PersonalInterests__c: string;
   FinServ__FinancialInterests__c: string;
   OCV_ID__c: number;
+  ANZx_Customer__c: boolean;
   FinServ__ServiceModel__c: string;
   FinServ__ReviewFrequency__c: string;
   FinServ__LastReview__c: Date;
@@ -90,6 +91,7 @@ export async function createAccountList(
           "College Planning"
         ]),
         OCV_ID__c: faker.random.number(),
+        ANZx_Customer__c: true,
         FinServ__ServiceModel__c: faker.random.arrayElement([
           "Tier 1",
           "Tier 2",
