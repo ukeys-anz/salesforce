@@ -300,13 +300,11 @@ public with sharing class UserProvisioningAfterActions {
     List<Id> userIds,
     Set<String> oldBusinessFuncAndRoles
   ) {
-    List<PermissionSetAssignment> deletePsetList = new List<PermissionSetAssignment>();
-
-    List<GroupMember> deleteGroupMemberList = new List<GroupMember>();
-
     Set<String> pSets = new Set<String>();
 
     Set<String> pGroups = new Set<String>();
+
+    Set<String> pLicences = new Set<String>();
 
     List<User_Provisioning_Setting__mdt> businessFunctionList = getOldRecordBusinessFunctions(
       oldBusinessFuncAndRoles
@@ -331,19 +329,39 @@ public with sharing class UserProvisioningAfterActions {
           businessFunction.Public_Groups__c.deleteWhitespace().split(';')
         );
       }
+      if (String.isNotBlank(businessFunction.Permission_Set_Licences__c)) {
+        pLicences.addAll(
+          businessFunction.Permission_Set_Licences__c.deleteWhitespace()
+            .split(';')
+        );
+      }
     }
 
-    deletePsetList = getDeletePSetAssignmentList(userIds, pSets);
+    deleteSObject(
+      [
+        SELECT id, PermissionSet.Name, AssigneeId
+        FROM PermissionSetAssignment
+        WHERE AssigneeId IN :userIds AND PermissionSet.Name IN :pSets
+      ]
+    );
 
-    deleteGroupMemberList = getDeleteGroupMemberList(userIds, pGroups);
+    deleteSObject(
+      [
+        SELECT Id, AssigneeId, PermissionSetLicense.DeveloperName
+        FROM PermissionSetLicenseAssign
+        WHERE
+          AssigneeId IN :userIds
+          AND PermissionSetLicense.DeveloperName IN :pLicences
+      ]
+    );
 
-    if (!deletePsetList.isEmpty()) {
-      deletePsetAssignment(deletePsetList);
-    }
-
-    if (!deleteGroupMemberList.isEmpty()) {
-      deleteGroupAssignment(deleteGroupMemberList);
-    }
+    deleteSObject(
+      [
+        SELECT id, Group.DeveloperName, UserOrGroupId
+        FROM GroupMember
+        WHERE UserOrGroupId IN :userIds AND Group.DeveloperName IN :pGroups
+      ]
+    );
   }
 
   /**
@@ -365,6 +383,7 @@ public with sharing class UserProvisioningAfterActions {
           Role_Name__c,
           Permission_Sets__c,
           Permission_Set_Groups__c,
+          Permission_Set_Licences__c,
           Public_Groups__c
         FROM User_Provisioning_Setting__mdt
         WHERE DeveloperName IN :oldBusinessFuncAndRoles
@@ -374,96 +393,26 @@ public with sharing class UserProvisioningAfterActions {
   }
 
   /**
-   * @description This method is used to populate permission set assignment list of old business function and role.
-   * @param userIds list of user ids from user trigger
-   * @param pSets Set of permission set and permission set group names
-   * @return `List<PermissionSetAssignment>`
+   * @description This method is called in revokeMembership to delete assignments and group memberships
+   * @param deleteList assignment sobject list
    */
-
-  private static List<PermissionSetAssignment> getDeletePSetAssignmentList(
-    List<Id> userIds,
-    Set<String> pSets
-  ) {
-    List<PermissionSetAssignment> deletePsetList = new List<PermissionSetAssignment>();
-
-    for (PermissionSetAssignment pSetAssignment : [
-      SELECT id, PermissionSet.Name, AssigneeId
-      FROM PermissionSetAssignment
-      WHERE AssigneeId IN :userIds
-    ]) {
-      if (pSets.contains(pSetAssignment.PermissionSet.Name)) {
-        deletePsetList.add(pSetAssignment);
-      }
-    }
-    return deletePsetList;
-  }
-
-  /**
-   * @description This method is used to populate group member list of old business function and role.
-   * @param userIds list of user ids from user trigger
-   * @param pGroups Set of public group names
-   * @return `List<GroupMember>`
-   */
-
-  private static List<GroupMember> getDeleteGroupMemberList(
-    List<Id> userIds,
-    Set<String> pGroups
-  ) {
-    List<GroupMember> deleteGroupMemberList = new List<GroupMember>();
-
-    for (GroupMember publicGroupMember : [
-      SELECT id, Group.DeveloperName, UserOrGroupId
-      FROM GroupMember
-      WHERE UserOrGroupId IN :userIds
-    ]) {
-      if (pGroups.contains(publicGroupMember.Group.DeveloperName)) {
-        deleteGroupMemberList.add(publicGroupMember);
-      }
-    }
-    return deleteGroupMemberList;
-  }
-
-  /**
-   * @description This method is called in revokeMembership to delete Permission Set Assignments to user record.
-   * @param deletePsetList Permission Set Assignment List
-   */
-  private static void deletePsetAssignment(
-    List<PermissionSetAssignment> deletePsetList
-  ) {
-    List<Database.DeleteResult> deleteResult = Database.delete(
-      deletePsetList,
-      false
-    );
-    for (Integer i = 0; i < deletePsetList.size(); i++) {
-      Database.DeleteResult sr = deleteResult[i];
-      PermissionSetAssignment rec = deletePsetList[i];
-      if (!sr.isSuccess()) {
-        for (Database.Error err : sr.getErrors()) {
-          failedRecordIds.add(rec.AssigneeId);
-          logError(rec.AssigneeId, err);
-        }
-      }
-    }
-  }
-
-  /**
-   * @description This method is called in revokeMembership to delete Group Member assignment to user record.
-   * @param deleteGroupMemberList Group Member List
-   */
-  private static void deleteGroupAssignment(
-    List<GroupMember> deleteGroupMemberList
-  ) {
-    List<Database.DeleteResult> deleteResult = Database.delete(
-      deleteGroupMemberList,
-      false
-    );
-    for (Integer i = 0; i < deleteGroupMemberList.size(); i++) {
-      Database.DeleteResult sr = deleteResult[i];
-      GroupMember rec = deleteGroupMemberList[i];
-      if (!sr.isSuccess()) {
-        for (Database.Error err : sr.getErrors()) {
-          failedRecordIds.add(rec.UserOrGroupId);
-          logError(rec.UserOrGroupId, err);
+  private static void deleteSObject(List<SObject> deleteList) {
+    if (!deleteList.isEmpty()) {
+      List<Database.DeleteResult> deleteResult = Database.delete(
+        deleteList,
+        false
+      );
+      for (Integer i = 0; i < deleteList.size(); i++) {
+        Database.DeleteResult sr = deleteResult[i];
+        SObject rec = deleteList[i];
+        if (!sr.isSuccess()) {
+          Id userId = rec.get('AssigneeId') != null
+            ? (Id) rec.get('AssigneeId')
+            : (Id) rec.get('UserOrGroupId');
+          for (Database.Error err : sr.getErrors()) {
+            failedRecordIds.add(userId);
+            logError(userId, err);
+          }
         }
       }
     }
