@@ -15,7 +15,8 @@ private class TestAccountTriggerHandler {
     Account testAccount = new Account(
       Name = companyNames[0].capitalize() + companyNames[1].capitalize(),
       Fabric_ID__c = '12345',
-      OCV_ID__c = faker.randomString(10)
+      OCV_ID__c = faker.randomString(10),
+      ANZx_Customer__c = true
     );
 
     // THEN the account insertion will fail
@@ -52,7 +53,8 @@ private class TestAccountTriggerHandler {
     // GIVEN Account with related case records
     Account testAccount = new Account(
       Name = companyNames[0].capitalize() + companyNames[1].capitalize(),
-      OCV_ID__c = faker.randomString(10)
+      OCV_ID__c = faker.randomString(10),
+      ANZx_Customer__c = true
     );
     insert testAccount;
 
@@ -107,6 +109,7 @@ private class TestAccountTriggerHandler {
         new Account(
           Name = companyNames[0].capitalize() + companyNames[1].capitalize(),
           OCV_ID__c = faker.randomString(10),
+          ANZx_Customer__c = true,
           FinServ__Status__c = 'Inactive'
         )
       );

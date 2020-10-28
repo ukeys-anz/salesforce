@@ -101,7 +101,7 @@ class CustomerComplaint extends Base {
 
   /****** BUTTONS ******/
   get save() {
-    return $("//div/div[3]/div/button[3]");
+    return $("//div/div[2]/button[3]");
   }
 
   get refreshBtn() {
@@ -110,7 +110,7 @@ class CustomerComplaint extends Base {
 
   get editBtn() {
     return $(
-      "//div[@class='windowViewMode-maximized active lafPageHost']//slot//div[contains(text(),'Edit')]"
+      "//runtime_platform_actions-page-reference-action[1]/slot[1]/slot[1]/lightning-button[1]/button[1]"
     );
   }
 
@@ -172,7 +172,7 @@ class CustomerComplaint extends Base {
 
   selectEscalatedTo() {
     helpers.doClick(this.escalatedTo);
-    const pageElement = $("=CRC");
+    const pageElement = $("=Customer Resolution Portfolio");
     helpers.doJSClick(pageElement);
   }
 

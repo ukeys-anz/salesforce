@@ -5,6 +5,7 @@ public with sharing class EverydayAccountControllerTest {
     Account accnt = new Account();
     accnt.Name = 'TestAccount';
     accnt.OCV_ID__c = '1';
+    accnt.ANZx_Customer__c = true;
     insert accnt;
 
     List<FinServ__FinancialAccount__c> financialAccounts = new List<FinServ__FinancialAccount__c>();

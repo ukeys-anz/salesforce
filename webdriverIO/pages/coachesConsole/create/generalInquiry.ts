@@ -1,6 +1,7 @@
 import Base from "../../base";
 import helpers from "../../../utilities/helpers";
 import * as faker from "faker";
+
 /*** COMMON VALUE IMPORTS ***/
 import {
   status,
@@ -8,7 +9,7 @@ import {
 } from "../../../pages/coachesWorkbench/common/generalInquiry";
 
 /**
- * Handles the General Inquiry record type fields on Coaches Workbench during edit
+ * Handles the General Inquiry record type fields on Coaches Workbench during create
  */
 class GeneralInquiry extends Base {
   /****** TEXT INPUTS ******/
@@ -18,11 +19,8 @@ class GeneralInquiry extends Base {
   get description() {
     return $("//div/div[1]/div/div/div[2]/div/div/div/div/textarea");
   }
-
-  get searchText() {
-    return $(
-      "//body/div/div/section/div/div/div/div/div/div/div/div/div/div/div/div/div/force-list-view-manager-search-bar/div/lightning-input/div/input[1]"
-    );
+  get originalCaseNumber() {
+    return $("//div/div[2]/div/div/div[1]/div[1]/div/div/div/input");
   }
 
   /****** LOOKUPS ******/
@@ -66,65 +64,59 @@ class GeneralInquiry extends Base {
   /****** BUTTONS ******/
   get subTypeAdd() {
     return $(
-      "//div[2]/div/div/lightning-picklist/lightning-dual-listbox/div/div[2]/div/div[4]/lightning-button-icon[1]/button"
+      "//div/div[3]/div[2]/div/div/lightning-picklist/lightning-dual-listbox/div/div[2]/div/div[4]/lightning-button-icon[1]/button"
     );
   }
   get additionalTypeAdd() {
     return $(
-      "//div[1]/div/div/lightning-picklist/lightning-dual-listbox/div/div[2]/div/div[4]/lightning-button-icon[1]/button"
+      "//div/div[4]/div[1]/div/div/lightning-picklist/lightning-dual-listbox/div/div[2]/div/div[4]/lightning-button-icon[1]/button"
     );
   }
   get save() {
     return $("//div/div[2]/button[3]");
   }
 
-  get editBtn() {
-    return $(
-      "//runtime_platform_actions-page-reference-action[1]/slot[1]/slot[1]/lightning-button[1]/button[1]"
-    );
+  get newBtn() {
+    return $("=New");
   }
 
   get appSupport() {
     return $("=App Support");
   }
 
+  get appGuide() {
+    return $("span=App Guide");
+  }
+
+  get deviceSupport() {
+    return $("span=Device Support");
+  }
+
   get bugReport() {
     return $("span=Bug Report & Feature");
   }
 
-  get refreshBtn() {
-    return $("//button[@name='refreshButton']");
-  }
-
-  /****** LINKS ******/
-
-  get caseLink() {
-    return $("*=Case");
-  }
-
-  get searchCase() {
-    return $(
-      "//*[@id='brandBand_1']/div/div/div/div/div[2]/div/div[1]/div[2]/div[2]/div[1]/div/div/table/tbody/tr/th/span/a"
-    );
-  }
-
-  get menuList() {
-    return $("a[title='Select List View']");
-  }
-
-  get openCaseLink() {
-    return $("span=My Open Cases");
-  }
-
   /*******Page Actions *****/
+
+  clickNewBtn() {
+    helpers.doJSClick(this.newBtn);
+  }
+
+  selectLowPriority() {
+    helpers.doClick(this.priority);
+    const PageElement = $("=Low");
+    PageElement.click();
+  }
 
   clickBugReport() {
     this.bugReport.scrollIntoView();
     this.bugReport.click();
   }
 
-  waitForCaseToDisplay(valueToClick: String) {
-    helpers.waitAndRetry(this.refreshBtn, this.searchCase, valueToClick);
+  selectChannelReceived() {
+    helpers.doClick(this.channelReceivedLink);
+    const PageElement = $(`=${faker.random.arrayElement(channelReceived)}`);
+    PageElement.click();
   }
 
   clickAccountName(accName: String) {
@@ -143,28 +135,20 @@ class GeneralInquiry extends Base {
     PageElement.click();
   }
 
-  selectCloseStatus() {
-    helpers.doClick(this.status);
-    const PageElement = $('a[role="menuitemradio"]=Closed');
-    PageElement.click();
-  }
-
-  selectChannelReceived() {
-    helpers.doClick(this.channelReceivedLink);
-    const PageElement = $(`=${faker.random.arrayElement(channelReceived)}`);
-    PageElement.click();
-  }
-
-  fillEditGeneralInquiryDetails(accName: String, finaccName: String) {
+  fillCreateInquiryDetails(accName: String, finaccName: String) {
     helpers.enterText(this.description, faker.lorem.text());
     helpers.enterText(this.accountName, accName.toString());
     this.clickAccountName(accName);
     this.selectStatus();
     helpers.doClick(this.type);
     helpers.doClick(this.appSupport);
-    this.clickBugReport();
+    helpers.doClick(this.appGuide);
+    helpers.doClick(this.subTypeAdd);
+    helpers.doClick(this.deviceSupport);
+    helpers.doClick(this.subTypeAdd);
     helpers.doClick(this.additionalTypeAdd);
     this.selectChannelReceived();
+    this.selectLowPriority();
     helpers.enterText(this.financialAccount, finaccName.toString());
     this.clickFinancialAccountName(finaccName);
   }
