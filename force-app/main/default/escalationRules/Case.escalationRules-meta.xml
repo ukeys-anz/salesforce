@@ -6,26 +6,6 @@
         <ruleEntry>
             <businessHours>Case Business Hours</businessHours>
             <businessHoursSource>Static</businessHoursSource>
-            <criteriaItems>
-                <field>Case.RecordTypeId</field>
-                <operation>equals</operation>
-                <value>Customer Complaint,Non-Customer Complaint</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.IsEscalated</field>
-                <operation>equals</operation>
-                <value>False</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.IsClosed</field>
-                <operation>equals</operation>
-                <value>False</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.Status</field>
-                <operation>equals</operation>
-                <value>Open</value>
-            </criteriaItems>
             <escalationAction>
                 <assignedTo>CRC_Team</assignedTo>
                 <assignedToType>Queue</assignedToType>
@@ -33,30 +13,20 @@
                 <notifyCaseOwner>false</notifyCaseOwner>
             </escalationAction>
             <escalationStartTime>CaseCreation</escalationStartTime>
+            <formula>AND(
+	OR(
+		RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
+		RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
+	),
+	IsEscalated = False,
+	IsClosed = False,
+	ISPICKVAL(Status, &apos;Open&apos;),
+	Owner:User.Business_Role__c &lt;&gt; &apos;Customer Resolution&apos;		
+)</formula>
         </ruleEntry>
         <ruleEntry>
             <businessHours>Case Business Hours</businessHours>
             <businessHoursSource>Static</businessHoursSource>
-            <criteriaItems>
-                <field>Case.RecordTypeId</field>
-                <operation>equals</operation>
-                <value>False,Customer Complaint,Non-Customer Complaint</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.IsEscalated</field>
-                <operation>equals</operation>
-                <value>False</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.IsClosed</field>
-                <operation>equals</operation>
-                <value>False</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.Status</field>
-                <operation>equals</operation>
-                <value>Open,Under Investigation</value>
-            </criteriaItems>
             <escalationAction>
                 <assignedTo>CRC_Team</assignedTo>
                 <assignedToType>Queue</assignedToType>
@@ -64,6 +34,19 @@
                 <notifyCaseOwner>false</notifyCaseOwner>
             </escalationAction>
             <escalationStartTime>CaseCreation</escalationStartTime>
+            <formula>AND(
+	OR(
+		RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
+		RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
+	),
+	IsEscalated = False,
+	IsClosed = False,
+	OR(
+		ISPICKVAL(Status, &apos;Open&apos;),
+		ISPICKVAL(Status, &apos;Under Investigation&apos;)
+	),
+	Owner:User.Business_Role__c &lt;&gt; &apos;Customer Resolution&apos;		
+)</formula>
         </ruleEntry>
     </escalationRule>
 </EscalationRules>
