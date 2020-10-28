@@ -158,10 +158,9 @@
     <externalSharingModel>Private</externalSharingModel>
     <label>Reported Bug</label>
     <nameField>
-        <displayFormat>Bug-{0000}</displayFormat>
         <label>Reported Bug Name</label>
         <trackHistory>false</trackHistory>
-        <type>AutoNumber</type>
+        <type>Text</type>
     </nameField>
     <pluralLabel>Reported Bugs</pluralLabel>
     <searchLayouts>
