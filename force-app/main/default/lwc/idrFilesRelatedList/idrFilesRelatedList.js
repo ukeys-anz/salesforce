@@ -52,6 +52,41 @@ export default class IDRFilesRelatedList extends LightningElement {
             this.dispatchEvent(toastEvent);
           });
       }
+      refreshFileList(){
+        this.searchFileName = "";
+        this.searchFileType = "";
+        this.searchOwner = "";
+        this.searchContains = "";
+        getCaseRelatedFiles({ caseId: this.recordId })
+        .then((result) => {
+          let filelist = result;
+          this.files  =  filelist;
+          this.filesToDisplay = this.files;
+          this.allFileIdList=[];
+          for(let i=0;i< filelist.length;i++){
+            this.allFileIdList.push(filelist[i].fileId);
+            console.log('this.allFileIdList:'+ this.allFileIdList);
+          }
+        })
+        .catch((error) => {
+          console.log('error:'+error);
+          console.log('errorbody:'+JSON.stringify(error));
+          let errorMessage = "Failed to refresh case files list";
+          if (error.body) {
+            if (Array.isArray(error.body)) {
+              errorMessage = error.body.map((e) => e.message).join(", ");
+            } else if (typeof error.body.message === "string") {
+              errorMessage = error.body.message;
+            }
+          }
+          const toastEvent = new ShowToastEvent({
+            message: errorMessage,
+            variant: 'error'
+          });
+          this.dispatchEvent(toastEvent);
+        });
+      }
+
       UpdateFileNameSearch(event){
         console.log('In UpdateFileNameSearch');
         this.searchFileName = event.target.value;

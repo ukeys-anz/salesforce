@@ -4,6 +4,7 @@
             <lightning-input
             type="search" 
             label="File Name"
+            value={searchFileName}
             onchange={UpdateFileNameSearch}
                 >
             </lightning-input>
@@ -12,6 +13,7 @@
             <lightning-input
             type="search" 
             label="File Type"
+            value={searchFileType}
             onchange={UpdateFileTypeSearch}
                 >
             </lightning-input>
@@ -20,6 +22,7 @@
             <lightning-input
             type="search" 
             label="Owner"
+            value={searchOwner}
             onchange={UpdateOwnerSearch}
                 >
             </lightning-input>
@@ -28,11 +31,18 @@
             <lightning-input
             type="search" 
             label="Contains"
+            value={searchContains}
             onchange={UpdateContainsSearch}
                 >
             </lightning-input>
         </lightning-layout-item>
     </lightning-layout>
+    <c-file-Upload
+                  customer-id={customerId}
+                  onnewfileupload={refreshFileList}
+                  class="slds-m-top_large"
+                >
+    </c-file-Upload>
     <template if:true={files}>
         <lightning-datatable key-field="fileId"
         data={filesToDisplay}
