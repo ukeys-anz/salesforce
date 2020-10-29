@@ -128,11 +128,14 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
-        <type>Default</type>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>Reported_Bug_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
-        <formFactor>Large</formFactor>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
@@ -143,10 +146,9 @@
     <allowInChatterGroups>true</allowInChatterGroups>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
-    <description>To store customer feedback(survey) records coming from qualtrics system</description>
     <enableActivities>true</enableActivities>
     <enableBulkApi>true</enableBulkApi>
-    <enableFeeds>false</enableFeeds>
+    <enableFeeds>true</enableFeeds>
     <enableHistory>true</enableHistory>
     <enableLicensing>false</enableLicensing>
     <enableReports>true</enableReports>
@@ -154,20 +156,20 @@
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <externalSharingModel>Private</externalSharingModel>
-    <label>Customer Feedback</label>
+    <label>Reported Bug</label>
     <nameField>
-        <label>Customer Feedback Name</label>
+        <label>Reported Bug Name</label>
         <trackHistory>false</trackHistory>
         <type>Text</type>
     </nameField>
-    <pluralLabel>Customer Feedback</pluralLabel>
-    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <pluralLabel>Reported Bugs</pluralLabel>
     <searchLayouts>
-        <searchResultsAdditionalFields>Account_Name__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>Verbatim__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>Advocacy_Rating__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>Feedback_Received_Date_Time__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Category__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Responsible_Value_Stream__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Steps_Taken_Prior_to_Hitting_Bug__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Status__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Jira_Ticket__c</searchResultsAdditionalFields>
     </searchLayouts>
-    <sharingModel>Read</sharingModel>
+    <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

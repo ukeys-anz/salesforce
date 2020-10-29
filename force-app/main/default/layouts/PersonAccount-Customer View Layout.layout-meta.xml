@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Layout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <excludeButtons>DataDotComAccountInsights</excludeButtons>
+    <excludeButtons>DataDotComClean</excludeButtons>
+    <excludeButtons>DataDotComCompanyHierarchy</excludeButtons>
     <excludeButtons>Submit</excludeButtons>
     <layoutSections>
         <customLabel>false</customLabel>
@@ -290,13 +293,22 @@
         <sortField>Feedback_Received_Date_Time__c</sortField>
         <sortOrder>Desc</sortOrder>
     </relatedLists>
+    <relatedLists>
+        <excludeButtons>MassChangeOwner</excludeButtons>
+        <fields>NAME</fields>
+        <fields>Date_Time_Bug_Occurred__c</fields>
+        <fields>Status__c</fields>
+        <fields>Responsible_Value_Stream__c</fields>
+        <fields>Jira_Ticket__c</fields>
+        <relatedList>Reported_Bug__c.Reported_By__c</relatedList>
+    </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>true</showHighlightsPanel>
     <showInteractionLogPanel>true</showInteractionLogPanel>
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2N000000wSTd</masterLabel>
+        <masterLabel>00h2O000000j0H0</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

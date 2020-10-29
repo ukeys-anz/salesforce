@@ -12,46 +12,62 @@
                 <field>Name</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Account_Name__c</field>
+                <behavior>Required</behavior>
+                <field>Date_Time_Bug_Occurred__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Required</behavior>
+                <field>Mobile_Device_Details__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Required</behavior>
+                <field>Category__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Required</behavior>
+                <field>Priority__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Feedback_Type__c</field>
+                <field>Responsible_Value_Stream__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Advocacy_Rating__c</field>
+                <field>Date_Bug_Resolved__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Verbatim__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Related_Case__c</field>
+                <field>Jira_Ticket__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>OwnerId</field>
+                <behavior>Required</behavior>
+                <field>Steps_Taken_Prior_to_Hitting_Bug__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Required</behavior>
+                <field>Expected_Outcome__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Required</behavior>
+                <field>Actual_Outcome__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Store_Location__c</field>
+                <field>Reported_By__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Coach_Name__c</field>
+                <field>Status__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Coach_Type__c</field>
+                <field>Resolution_Status__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Feedback_Received_Date_Time__c</field>
+                <field>Number_of_Related_Cases__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
@@ -68,6 +84,10 @@
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>OwnerId</field>
+            </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>LastModifiedById</field>
@@ -86,7 +106,33 @@
         <style>CustomLinks</style>
     </layoutSections>
     <relatedLists>
-        <relatedList>RelatedContentNoteList</relatedList>
+        <fields>TASK.SUBJECT</fields>
+        <fields>TASK.WHO_NAME</fields>
+        <fields>ACTIVITY.TASK</fields>
+        <fields>TASK.DUE_DATE</fields>
+        <fields>TASK.STATUS</fields>
+        <fields>TASK.PRIORITY</fields>
+        <fields>CORE.USERS.FULL_NAME</fields>
+        <relatedList>RelatedActivityList</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>TASK.SUBJECT</fields>
+        <fields>TASK.WHO_NAME</fields>
+        <fields>ACTIVITY.TASK</fields>
+        <fields>TASK.DUE_DATE</fields>
+        <fields>CORE.USERS.FULL_NAME</fields>
+        <fields>TASK.LAST_UPDATE</fields>
+        <relatedList>RelatedHistoryList</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <relatedList>RelatedNoteList</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>CASES.CASE_NUMBER</fields>
+        <fields>CASES.SUBJECT</fields>
+        <fields>CASES.CREATED_DATE</fields>
+        <fields>CASES.PRIORITY</fields>
+        <relatedList>Case.Related_Bug__c</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>
@@ -94,7 +140,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2N000000xR0m</masterLabel>
+        <masterLabel>00h2O000000j1Mt</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>
