@@ -187,6 +187,15 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>displayOption</name>
+                    <value>CARD</value>
+                </componentInstanceProperties>
+                <componentName>runtime_sales_merge:mergeCandidatesPreviewCard</componentName>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
                     <name>dashboardId</name>
                     <value>Customer_Feedback_NPS_Metrics</value>
                 </componentInstanceProperties>
