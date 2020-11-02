@@ -2818,6 +2818,11 @@
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
+    <field>Case.IsStopped</field>
+    <readable>false</readable>
+  </fieldPermissions>
+  <fieldPermissions>
+    <editable>false</editable>
     <field>Case.Origin</field>
     <readable>false</readable>
   </fieldPermissions>
@@ -2835,6 +2840,11 @@
     <editable>false</editable>
     <field>Case.Reason</field>
     <readable>false</readable>
+  </fieldPermissions>
+  <fieldPermissions>
+    <editable>true</editable>
+    <field>Case.SLA_Status__c</field>
+    <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
@@ -8581,8 +8591,8 @@
     <recordType>Case.Customer_Complaint</recordType>
   </layoutAssignments>
   <layoutAssignments>
-        <layout>Case-General Inquiry Layout</layout>
-        <recordType>Case.General_Inquiry</recordType>
+    <layout>Case-General Inquiry Layout</layout>
+    <recordType>Case.General_Inquiry</recordType>
   </layoutAssignments>
   <layoutAssignments>
     <layout>Case-Non-Customer Complaint Layout</layout>

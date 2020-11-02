@@ -88,7 +88,11 @@ private class TestAccountTriggerHandler {
     ];
 
     // THEN the account and related case records will be deleted
-    system.assertEquals(0, accList.size(), 'Account deletion is not sucessful');
+    system.assertEquals(
+      0,
+      accList.size(),
+      'Account deletion is not successful'
+    );
     system.assertEquals(
       0,
       caseList.size(),

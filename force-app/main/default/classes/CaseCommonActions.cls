@@ -6,6 +6,11 @@
  */
 
 public with sharing class CaseCommonActions {
+  // General Inquiry Record Type Id
+  public static final Id GENERAL_INQUIRY_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+    .get('General_Inquiry')
+    .getRecordTypeId();
+
   /**
    * @description completeAfterInsertActions is called after onAfterInsert is finished to complete any pending actions
    * @param updateCaseList updateCaseList to be cleared after insert
