@@ -247,12 +247,10 @@
         <lookupPhoneDialogsAdditionalFields>PC_PHONE6</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>Secondary_Home_Telephone__c</lookupPhoneDialogsAdditionalFields>
         <searchResultsAdditionalFields>ACCOUNT.NAME</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>PC_PHONE3</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>ACCOUNT.PHONE1</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>PC_EMAIL</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>PC_BIRTHDATE</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>FinServ__ShippingAddress__pc</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>OCV_ID__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ANZx_Customer__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>AR_C_Customer__c</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>Read</sharingModel>
 </CustomObject>
-
