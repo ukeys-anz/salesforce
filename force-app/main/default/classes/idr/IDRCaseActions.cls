@@ -438,10 +438,7 @@ public with sharing class IDRCaseActions {
             Case.Origin,
             c.Origin
           ),
-          Relationship_To_Complainant__c = IDRCaseActions.getPicklistLabel(
-            Case.IDR_3rdParty_Relationship_To_Complainant__c,
-            c.IDR_3rdParty_Relationship_To_Complainant__c
-          )
+          Relationship_To_Complainant__c = c.IDR_3rdParty_Relationship_To_Complainant__c
         )
       );
     }

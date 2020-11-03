@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_3rdParty_Relationship_To_Complainant__c</fullName>
-    <complianceGroup>Privacy_Non_Personal_Information;Integrity_Accurate</complianceGroup>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information</complianceGroup>
     <externalId>false</externalId>
     <label>Relationship to complainant</label>
     <required>false</required>
@@ -17,22 +17,12 @@
             <value>
                 <fullName>1</fullName>
                 <default>false</default>
-                <label>Accountant</label>
-            </value>
-            <value>
-                <fullName>2</fullName>
-                <default>false</default>
-                <label>Anti-discrimination Board</label>
+                <label>Accountant/financial adviser</label>
             </value>
             <value>
                 <fullName>3</fullName>
                 <default>false</default>
-                <label>Attorney</label>
-            </value>
-            <value>
-                <fullName>4</fullName>
-                <default>false</default>
-                <label>Consumer Traders and Tenancy Tribunal</label>
+                <label>Power of Attorney</label>
             </value>
             <value>
                 <fullName>5</fullName>
@@ -45,44 +35,44 @@
                 <label>Financial Counsellor</label>
             </value>
             <value>
-                <fullName>7</fullName>
+                <fullName>15</fullName>
                 <default>false</default>
-                <label>Friend</label>
-            </value>
-            <value>
-                <fullName>8</fullName>
-                <default>false</default>
-                <label>Human Rights And Equal Opportunity</label>
+                <label>Family member or friend</label>
             </value>
             <value>
                 <fullName>9</fullName>
                 <default>false</default>
-                <label>MP</label>
-            </value>
-            <value>
-                <fullName>10</fullName>
-                <default>false</default>
-                <label>Office of Federal Privacy Commissioner</label>
-            </value>
-            <value>
-                <fullName>11</fullName>
-                <default>false</default>
-                <label>Partner</label>
-            </value>
-            <value>
-                <fullName>12</fullName>
-                <default>false</default>
-                <label>Relative</label>
+                <label>Member of Parliament</label>
             </value>
             <value>
                 <fullName>13</fullName>
                 <default>false</default>
-                <label>Solicitor</label>
+                <label>Lawyer</label>
             </value>
             <value>
                 <fullName>14</fullName>
                 <default>false</default>
-                <label>Trustee</label>
+                <label>Co-trustee</label>
+            </value>
+            <value>
+                <fullName>16</fullName>
+                <default>false</default>
+                <label>Legal guardian</label>
+            </value>
+            <value>
+                <fullName>17</fullName>
+                <default>false</default>
+                <label>Community legal service or equivalent</label>
+            </value>
+            <value>
+                <fullName>18</fullName>
+                <default>false</default>
+                <label>Director</label>
+            </value>
+            <value>
+                <fullName>19</fullName>
+                <default>false</default>
+                <label>Office bearer – president/secretary</label>
             </value>
         </valueSetDefinition>
     </valueSet>
