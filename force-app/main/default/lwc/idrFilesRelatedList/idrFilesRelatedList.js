@@ -12,7 +12,7 @@ const columns = [
     typeAttributes: { label: { fieldName: "fileName" } }
   },
   { label: "File Type", fieldName: "fileType", sortable: true },
-  { label: "Owner", fieldName: "OwnerName", sortable: true },
+  { label: "Owner", fieldName: "ownerName", sortable: true },
   { label: "Created Date", fieldName: "createdDate", sortable: true }
 ];
 export default class IDRFilesRelatedList extends LightningElement {
@@ -190,7 +190,7 @@ export default class IDRFilesRelatedList extends LightningElement {
 
       let fileName = this.files[i].fileName.toLowerCase();
       let fileType = this.files[i].fileType.toLowerCase();
-      let OwnerName = this.files[i].OwnerName.toLowerCase();
+      let OwnerName = this.files[i].ownerName.toLowerCase();
 
       if (
         (this.searchFileName &&

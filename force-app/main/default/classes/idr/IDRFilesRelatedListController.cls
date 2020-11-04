@@ -16,7 +16,7 @@ public class IDRFilesRelatedListController {
         @AuraEnabled 
         public date  createdDate;
         @AuraEnabled
-        public string OwnerName;
+        public string ownerName;
         @AuraEnabled
         public string contentData; 
         @AuraEnabled
@@ -44,7 +44,7 @@ public class IDRFilesRelatedListController {
             tempData.fileName = doc.ContentDocument.title;
             tempData.fileType = doc.ContentDocument.FileExtension;
             tempData.createdDate = date.valueOf(doc.ContentDocument.CreatedDate);
-            tempData.OwnerName = doc.ContentDocument.Owner.Name;
+            tempData.ownerName = doc.ContentDocument.Owner.Name;
             tempData.fileId = doc.ContentDocumentId;
             tempDatalist.add(tempData);
         }
