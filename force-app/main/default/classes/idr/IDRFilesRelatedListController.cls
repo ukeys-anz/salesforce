@@ -1,4 +1,11 @@
+/**
+ * @author Himabindu Nekkanti
+ * @since  11/2020
+ * @description IDRFilesRelatedListController provides the backend functionality with sosl search for IDRFilesRelatedList lwc
+ * 
+ */
 public class IDRFilesRelatedListController {
+    //data class used to return data to LWC
     public class filesdata{
        	@AuraEnabled
         public string fileUrl;
@@ -15,7 +22,12 @@ public class IDRFilesRelatedListController {
         @AuraEnabled
         public string fileId;
     }
-    
+     /**
+   * @description getCaseRelatedFiles returns all the files related to a case.
+   * @param caseId the ID of the case for which files need to be returned
+   * @return list<filesdata>  , file details are retunred as a list of data class
+   */
+   
     @AuraEnabled
     public static list<filesdata> getCaseRelatedFiles(id caseId){
         string filesDataString = '';
@@ -40,6 +52,15 @@ public class IDRFilesRelatedListController {
 		//system.debug('result:'+filesDataString)
         return tempDatalist;
     }
+    /**
+   * @description searchFilesContent performs an SOSL search with key words or phrase in the required list of documents
+   * @param searchArray list of strings contains the search strings
+   * @param validDocIdList list id's of contentdocuments with in which search needs to be performed
+   * @return list<string>  , list of id's of documents that contain the search terms.
+   * Note : Set cannot be passed to aura enabled methods hence list is used
+   * also it is not possible to do search on document body alone hence search will be performed on all fields.
+   */
+   
      @AuraEnabled
     public static list<string> searchFilesContent(list<string> searchArray,List<Id> validDocIdList){
         //cant pass set to auraenabled methods.
