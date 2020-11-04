@@ -40,10 +40,27 @@ public class IDRFiledRelatedListController {
 		//system.debug('result:'+filesDataString)
         return tempDatalist;
     }
-    @AuraEnabled
-    public static list<string> searchFilesContent(string searchString,List<Id> validDocIdList){
+     @AuraEnabled
+    public static list<string> searchFilesContent(list<string> searchArray,List<Id> validDocIdList){
         //cant pass set to auraenabled methods.
-        string searchQuery = 'FIND '+ '\''+ searchString + '*'+ '\''+ ' IN All FIELDS RETURNING ContentDocument(id where Id in :validDocIdList)';
+        string searchString = '';
+        boolean keyWordSearch = false;
+        for(string key : searchArray){
+            if(searchString.length() == 0){
+                searchString = Key;
+            }else{
+             keyWordSearch = true;
+             searchString += ' AND '+ '"'+ key + '"';        
+            }       
+        }
+        
+        if (!keyWordSearch){
+            searchString = '\''+ searchString + '*'+ '\'';
+        }else{
+            searchString = '{' + searchString + '}';
+        }
+
+        string searchQuery = 'FIND '+  searchString + ' IN All FIELDS RETURNING ContentDocument(id where Id in :validDocIdList)';
         List<List<SObject>>searchList=search.query(searchquery);
         list<string> returnValidDocList = new list<string>();
         for(List<SObject> sl :searchList){
@@ -52,7 +69,8 @@ public class IDRFiledRelatedListController {
             for (ContentDocument cd : cdList){
                 returnValidDocList.add(cd.Id);
             }               
-         }
+         } 
         return returnValidDocList;	 
     }
+   
 }

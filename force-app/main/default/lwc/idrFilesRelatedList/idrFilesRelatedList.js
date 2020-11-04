@@ -148,7 +148,8 @@ export default class IDRFilesRelatedList extends LightningElement {
         this.searchContains = event.target.value;
         //minimum length of 2 characters is required for salesforce search
         if(this.searchContains.length > 1 && this.allFileIdList.length > 0){
-          searchFilesContent({searchString : this.searchContains,validDocIdList : this.allFileIdList})
+          let searchKeyWords = this.searchContains.split("+");
+          searchFilesContent({searchArray : searchKeyWords,validDocIdList : this.allFileIdList})
           .then((result)=>{
               this.AllFieldSearchResult = result;
               this.filterFiles();
@@ -177,23 +178,21 @@ export default class IDRFilesRelatedList extends LightningElement {
           this.filesToDisplay = [];
           for(let i=0; i < this.files.length;i++){
           let fileMatch = true;
-          let FileNameRex = "/"+this.searchFileType+"/gi" ;
-          console.log("regex:"+FileNameRex);
-          console.log("this.searchFileName:"+this.searchFileType);
-          try{ 
+          
+          let fileName = this.files[i].fileName.toLowerCase();
+          let fileType = this.files[i].fileType.toLowerCase();
+          let OwnerName = this.files[i].OwnerName.toLowerCase();
+
           if(
-            (this.searchFileName && !this.files[i].fileName.includes(this.searchFileName))||
-            (this.searchFileType && !this.files[i].fileType.includes(this.searchFileType))||
-            (this.searchOwner && !this.files[i].OwnerName.includes(this.searchOwner))||
+            (this.searchFileName && !fileName.includes(this.searchFileName.toLowerCase()))||
+            (this.searchFileType && !fileType.includes(this.searchFileType.toLowerCase()))||
+            (this.searchOwner && !OwnerName.includes(this.searchOwner.toLowerCase()))||
             (this.searchContains && !this.AllFieldSearchResult.includes(this.files[i].fileId))||
             (this.searchStartDate && this.files[i].createdDate < this.searchStartDate)||
             (this.searchEndDate && this.files[i].createdDate > this.searchEndDate)
             ){            
             fileMatch = false;
           }
-        }catch(err){
-          console.log('error:'+err);
-        }
           if(fileMatch){
             this.filesToDisplay.push(this.files[i]);
           }
