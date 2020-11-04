@@ -435,21 +435,24 @@
         <fields>TASK.STATUS</fields>
         <fields>TASK.PRIORITY</fields>
         <fields>CORE.USERS.FULL_NAME</fields>
-        <relatedList>RelatedActivityList</relatedList>
-    </relatedLists>
-    <relatedLists>
+	    <relatedList>RelatedActivityList</relatedList>
+	</relatedLists>
+	<relatedLists>
         <fields>TASK.SUBJECT</fields>
         <fields>TASK.CREATED_DATE</fields>
         <fields>TASK.STATUS</fields>
         <fields>CORE.USERS.FULL_NAME</fields>
-        <relatedList>RelatedHistoryList</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <relatedList>RelatedCommentsList</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <relatedList>RelatedEntityHistoryList</relatedList>
-    </relatedLists>
+	    <relatedList>RelatedHistoryList</relatedList>
+	</relatedLists>
+	<relatedLists>
+	    <relatedList>RelatedEmailMessageList</relatedList>
+	</relatedLists>
+	<relatedLists>
+	    <relatedList>RelatedCommentsList</relatedList>
+	</relatedLists>
+	<relatedLists>
+	    <relatedList>RelatedEntityHistoryList</relatedList>
+	</relatedLists>
     <relatedObjects>ContactId</relatedObjects>
     <runAssignmentRulesDefault>false</runAssignmentRulesDefault>
     <showEmailCheckbox>true</showEmailCheckbox>

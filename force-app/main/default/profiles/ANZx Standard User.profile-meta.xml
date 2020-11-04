@@ -103,6 +103,10 @@
     <visible>false</visible>
   </applicationVisibilities>
   <classAccesses>
+    <apexClass>AuthTokenCacheUtil</apexClass>
+    <enabled>true</enabled>
+  </classAccesses>
+  <classAccesses>
     <apexClass>FinServ__AccountAccountRelationTriggerHandler</apexClass>
     <enabled>true</enabled>
   </classAccesses>
