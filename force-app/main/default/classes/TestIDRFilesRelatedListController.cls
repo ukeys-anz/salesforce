@@ -45,7 +45,6 @@ public class TestIDRFilesRelatedListController {
       	IDRFilesRelatedListController.searchFilesContent(testSearchList,docIdList);
         
         testSearchList.add('idrsearch123');
-        IDRFiles
-        RelatedListController.searchFilesContent(testSearchList,docIdList);
+        IDRFilesRelatedListController.searchFilesContent(testSearchList,docIdList);
     }
 }
