@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label>MyTrailhead Admininistrator</label>
     <permissionSets>Auth_Apex_Access</permissionSets>
     <permissionSets>myTrailhead_Admin</permissionSets>
     <permissionSets>trailheadapp__Th_Badge_Admin</permissionSets>
