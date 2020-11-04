@@ -1,4 +1,4 @@
-public class IDRFiledRelatedListController {
+public class IDRFilesRelatedListController {
     public class filesdata{
        	@AuraEnabled
         public string fileUrl;

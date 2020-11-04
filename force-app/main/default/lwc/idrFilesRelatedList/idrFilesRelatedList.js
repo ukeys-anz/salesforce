@@ -1,6 +1,6 @@
 import { LightningElement, api, track } from "lwc";
-import getCaseRelatedFiles from "@salesforce/apex/IDRFiledRelatedListController.getCaseRelatedFiles";
-import searchFilesContent from "@salesforce/apex/IDRFiledRelatedListController.searchFilesContent";
+import getCaseRelatedFiles from "@salesforce/apex/IDRFilesRelatedListController.getCaseRelatedFiles";
+import searchFilesContent from "@salesforce/apex/IDRFilesRelatedListController.searchFilesContent";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
 const columns = [
