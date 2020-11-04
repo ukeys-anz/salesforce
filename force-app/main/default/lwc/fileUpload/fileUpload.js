@@ -4,7 +4,8 @@ import { ShowToastEvent } from "lightning/platformShowToastEvent";
 export default class FileUpload extends LightningElement {
   @api recordId;
   get acceptedFormats() {
-    return [".pdf", ".png", ".jpg", ".jpeg"];
+    return [ ".png", ".jpg", ".jpeg",".docx",".tiff",".tif",".gif",".bmp",".pdf",".doc",".xls",
+            ".xlsx","xlsb",".eml",".rtf",".txt",".ppt",".pptx",".msg",".csv",".zip"];
   }
   handleUploadFinished(event) {
     // Get the list of uploaded files

@@ -4,10 +4,10 @@ import searchFilesContent from "@salesforce/apex/IDRFiledRelatedListController.s
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
 const columns = [
-    { label: 'File Name', fieldName: 'fileUrl',type: 'url',typeAttributes: {label: { fieldName: 'fileName' }}},
-    { label: 'File Type', fieldName:'fileType'},
-    { label: 'Owner', fieldName:'OwnerName'},
-    { label: 'Created Date',fieldName: 'createdDate'}
+    { label: 'File Name', fieldName: 'fileUrl',sortable: true, type: 'url',typeAttributes: {label: { fieldName: 'fileName' }}},
+    { label: 'File Type', fieldName:'fileType',sortable: true},
+    { label: 'Owner', fieldName:'OwnerName',sortable: true},
+    { label: 'Created Date',fieldName: 'createdDate',sortable: true}
 ];
 export default class IDRFilesRelatedList extends LightningElement {
     @api recordId;
@@ -18,8 +18,14 @@ export default class IDRFilesRelatedList extends LightningElement {
     searchFileType;
     searchOwner;
     searchContains;
+    searchStartDate;
+    searchEndDate;
     AllFieldSearchResult;
     allFileIdList;
+    defaultSortDirection = 'asc';
+    sortDirection = 'asc';
+    sortedBy;
+    activeSections = ['search','filelist'];
 
     columns = columns;
     connectedCallback() {
@@ -31,7 +37,6 @@ export default class IDRFilesRelatedList extends LightningElement {
             this.allFileIdList=[];
             for(let i=0;i< filelist.length;i++){
               this.allFileIdList.push(filelist[i].fileId);
-              console.log('this.allFileIdList:'+ this.allFileIdList);
             }
           })
           .catch((error) => {
@@ -57,6 +62,8 @@ export default class IDRFilesRelatedList extends LightningElement {
         this.searchFileType = "";
         this.searchOwner = "";
         this.searchContains = "";
+        this.searchStartDate = "";
+        this.searchEndDate = "";
         getCaseRelatedFiles({ caseId: this.recordId })
         .then((result) => {
           let filelist = result;
@@ -65,7 +72,6 @@ export default class IDRFilesRelatedList extends LightningElement {
           this.allFileIdList=[];
           for(let i=0;i< filelist.length;i++){
             this.allFileIdList.push(filelist[i].fileId);
-            console.log('this.allFileIdList:'+ this.allFileIdList);
           }
         })
         .catch((error) => {
@@ -86,9 +92,39 @@ export default class IDRFilesRelatedList extends LightningElement {
           this.dispatchEvent(toastEvent);
         });
       }
+      
+      sortData(fieldname, direction) {
+        let parseData = JSON.parse(JSON.stringify(this.filesToDisplay));
+        let getField = fieldname ==="fileUrl" ? "fileName":fieldname;
 
+        // Return the value stored in the field
+        let keyValue = (a) => {
+        return a[getField];
+        };
+        // cheking reverse direction
+        let isReverse = direction === "asc"? 1: -1;
+        // sorting data
+        parseData.sort((x, y) => {
+            x = keyValue(x) ? keyValue(x) : ""; // handling null values
+            y = keyValue(y) ? keyValue(y) : "";
+            let  a = x.toLowerCase();
+            let  b = y.toLowerCase();
+
+            return isReverse * ((a > b) - (b > a)) ;
+        })
+        this.filesToDisplay = parseData;
+        }
+
+      onHandleSort(event) {
+        this.sortedBy  = event.detail.fieldName;
+        this.sortDirection = event.detail.sortDirection;
+        try{
+        this.sortData(this.sortedBy, this.sortDirection);
+        }catch(err){
+          console.log('error:'+err);
+        }
+      }
       UpdateFileNameSearch(event){
-        console.log('In UpdateFileNameSearch');
         this.searchFileName = event.target.value;
         this.filterFiles();
       }
@@ -96,14 +132,21 @@ export default class IDRFilesRelatedList extends LightningElement {
         this.searchFileType = event.target.value;
         this.filterFiles();
       }
-      UpdateFOwnerSearch(event){
+      UpdateOwnerSearch(event){
         this.searchOwner = event.target.value;
+        this.filterFiles();
+      }
+      UpdateStartDateSearch(event){
+        this.searchStartDate = event.target.value;
+        this.filterFiles();
+      }
+      UpdateEndDateSearch(event){
+        this.searchEndDate = event.target.value;
         this.filterFiles();
       }
       UpdateContainsSearch(event){
         this.searchContains = event.target.value;
         //minimum length of 2 characters is required for salesforce search
-        try{
         if(this.searchContains.length > 1 && this.allFileIdList.length > 0){
           searchFilesContent({searchString : this.searchContains,validDocIdList : this.allFileIdList})
           .then((result)=>{
@@ -129,22 +172,28 @@ export default class IDRFilesRelatedList extends LightningElement {
           this.AllFieldSearchResult = [];
           this.filterFiles();
         }
-      }catch(err){
-        console.log('err'+err);
-      }
       }
       filterFiles(){
           this.filesToDisplay = [];
           for(let i=0; i < this.files.length;i++){
           let fileMatch = true;
+          let FileNameRex = "/"+this.searchFileType+"/gi" ;
+          console.log("regex:"+FileNameRex);
+          console.log("this.searchFileName:"+this.searchFileType);
+          try{ 
           if(
             (this.searchFileName && !this.files[i].fileName.includes(this.searchFileName))||
-            (this.searchFileType && !this.files[i].fileType.includes(this.searchFileType))|| 
+            (this.searchFileType && !this.files[i].fileType.includes(this.searchFileType))||
             (this.searchOwner && !this.files[i].OwnerName.includes(this.searchOwner))||
-            (this.searchContains && !this.AllFieldSearchResult.includes(this.files[i].fileId))
+            (this.searchContains && !this.AllFieldSearchResult.includes(this.files[i].fileId))||
+            (this.searchStartDate && this.files[i].createdDate < this.searchStartDate)||
+            (this.searchEndDate && this.files[i].createdDate > this.searchEndDate)
             ){            
             fileMatch = false;
           }
+        }catch(err){
+          console.log('error:'+err);
+        }
           if(fileMatch){
             this.filesToDisplay.push(this.files[i]);
           }
