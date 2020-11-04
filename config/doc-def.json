@@ -11,7 +11,7 @@
     "FinServ__Card__c",
     "FinServ__FinancialAccount__c",
     "FinServ__FinancialAccountRole__c",
-    "FinServ__Goal__c",
+    "FinServ__FinancialGoal__c",
     "Knowledge__kav",
     "Product2",
     "Release__c",
