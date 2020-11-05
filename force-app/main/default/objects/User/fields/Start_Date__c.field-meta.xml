@@ -5,7 +5,7 @@
     <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information</complianceGroup>
     <description>The date at which the user joined ANZ</description>
     <externalId>false</externalId>
-    <label>Customer End Date</label>
+    <label>Employee Start Date</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
