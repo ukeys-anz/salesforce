@@ -131,5 +131,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
   public override void onBeforeInsert() {
     GetHelpCaseActions.validateAdditionalTypes(records, null);
     GetHelpCaseActions.validateCaseType(records, null);
+    GetHelpCaseActions.updateEntitlement(records);
   }
 }

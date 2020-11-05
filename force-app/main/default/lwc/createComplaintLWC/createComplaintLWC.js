@@ -15,6 +15,7 @@ import THIRD_PARTY_SUBURB_FIELD from "@salesforce/schema/Case.IDR_3rdParty_Subur
 import THIRD_PARTY_POSTCODE_FIELD from "@salesforce/schema/Case.IDR_3rdParty_Postcode__c";
 import THIRD_PARTY_COUNTRY_FIELD from "@salesforce/schema/Case.IDR_3rdParty_Country__c";
 import THIRD_PARTY_STATE_FIELD from "@salesforce/schema/Case.IDR_3rdParty_State__c";
+import THIRD_PARTY_RELATIONSHIP from "@salesforce/schema/Case.IDR_3rdParty_Relationship_To_Complainant__c";
 import RECORDTYPE_FIELD from "@salesforce/schema/Case.RecordTypeId";
 
 //Non Customer complaints
@@ -127,6 +128,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   thirdPartyPostcode = THIRD_PARTY_POSTCODE_FIELD;
   thirdPartyCountry = THIRD_PARTY_COUNTRY_FIELD;
   thirdPartyState = THIRD_PARTY_STATE_FIELD;
+  thirdPartyRelationShip = THIRD_PARTY_RELATIONSHIP;
 
   //written response fields
   writtenResponseRequested = WRITTEN_RESPONSE_REQUESTED_FIELD;
@@ -190,6 +192,11 @@ export default class CreateComplaintLWC extends NavigationMixin(
     { label: "No", value: "No" }
   ];
 
+  commoncomplaintoptions = [
+    { label: "Yes", value: "Yes" },
+    { label: "No", value: "No" }
+  ];
+
   //form validation fields.
   missingDataFields = "";
   isDataValid = false;
@@ -231,7 +238,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   }
 
   handleCommonComplaint(event) {
-    this.isCommonComplaint = event.target.checked;
+    this.isCommonComplaint = event.target.value;
   }
 
   handleRealFormNeeded(event) {
@@ -286,6 +293,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.consentValue = this.consentOptionValue === "Agrees";
     this.showComplianceFields = this.consentValue || this.isCustomerComplaint;
     this.showSections = true;
+    //prevent 3rd party fields from persisting in the UI when user selects "Agree" and "Nominate" and then switches to "Disagree"
+    if (this.consentValue === false) this.hasNominatedThirdParty = false;
   }
 
   handleSearch() {
@@ -370,7 +379,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
           "Is the complaint relating to hardship, a declined insurance claim, the value of an insurance claim or a decision of a superannuation trustee?, ";
       }
     }
-
+    if (!this.isCommonComplaint) {
+      isFieldValid = false;
+      this.missingDataFields += "Is this a possible systemic issue?, ";
+    }
     if (this.missingDataFields !== "") {
       this.missingDataFields =
         ERROR_REQUIRED_TITLE + this.missingDataFields.replace(/,\s$/, ". ");
@@ -462,9 +474,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
       if (this.isRealFormNeeded) {
         fields[IS_REAL_FORM_NEED_FIELD.fieldApiName] = true;
       }
-      if (this.isCommonComplaint) {
-        fields[IS_COMMON_COMPLAINT_FIELD.fieldApiName] = true;
-      }
+
+      fields[IS_COMMON_COMPLAINT_FIELD.fieldApiName] = this.isCommonComplaint;
+
       if (!this.hasNominatedThirdParty) {
         fields[THIRD_PARTY_COUNTRY_FIELD.fieldApiName] = "";
       }
@@ -508,8 +520,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
       if (this.consentValue) {
         requiredFields.firstName = "First Name";
         requiredFields.lastName = "Last Name";
-        requiredFields.email = "Email";
-        requiredFields.mobileinput = "Mobile";
       }
       if (this.isAddressRequired) {
         requiredFields.street = "Street";
@@ -521,10 +531,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
     }
     if (this.hasNominatedThirdParty) {
       requiredFields.thirdPartyName = "Nominated 3rd party name";
-      requiredFields.thirdPartyEmail = "Nominated 3rd party email address";
-      requiredFields.thirdPartyMobile = "Nominated 3rd party mobile";
       requiredFields.thirdPartyCountry = "Nominated 3rd party country";
       requiredFields.thirdPartyState = "Nominated 3rd party state";
+      requiredFields.thirdPartyRelationShip = "Relationship to complainant";
     }
     if (this.isComplaintResolved) {
       requiredFields.compOutCome = "Complaint Outcome";

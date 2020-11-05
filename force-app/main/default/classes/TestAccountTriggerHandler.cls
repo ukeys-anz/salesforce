@@ -15,7 +15,8 @@ private class TestAccountTriggerHandler {
     Account testAccount = new Account(
       Name = companyNames[0].capitalize() + companyNames[1].capitalize(),
       Fabric_ID__c = '12345',
-      OCV_ID__c = faker.randomString(10)
+      OCV_ID__c = faker.randomString(10),
+      ANZx_Customer__c = true
     );
 
     // THEN the account insertion will fail
@@ -52,7 +53,8 @@ private class TestAccountTriggerHandler {
     // GIVEN Account with related case records
     Account testAccount = new Account(
       Name = companyNames[0].capitalize() + companyNames[1].capitalize(),
-      OCV_ID__c = faker.randomString(10)
+      OCV_ID__c = faker.randomString(10),
+      ANZx_Customer__c = true
     );
     insert testAccount;
 
@@ -86,7 +88,11 @@ private class TestAccountTriggerHandler {
     ];
 
     // THEN the account and related case records will be deleted
-    system.assertEquals(0, accList.size(), 'Account deletion is not sucessful');
+    system.assertEquals(
+      0,
+      accList.size(),
+      'Account deletion is not successful'
+    );
     system.assertEquals(
       0,
       caseList.size(),
@@ -107,6 +113,7 @@ private class TestAccountTriggerHandler {
         new Account(
           Name = companyNames[0].capitalize() + companyNames[1].capitalize(),
           OCV_ID__c = faker.randomString(10),
+          ANZx_Customer__c = true,
           FinServ__Status__c = 'Inactive'
         )
       );

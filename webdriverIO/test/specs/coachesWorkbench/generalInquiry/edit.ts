@@ -6,16 +6,12 @@ import GeneralInquiry from "../../../../pages/coachesWorkbench/edit/generalInqui
 import { jsForce } from "../../../../utilities/jsforce";
 import * as faker from "faker";
 import CustomError from "../../../../utilities/customErrorHandler";
+import helpers from "../../../../utilities/helpers";
 
 /*** OBJECT STORE IMPORTS ***/
 import { getFinAccount } from "../../../../objectStore/financialAccount";
 import { createBlankCase } from "../../../../objectStore/case";
-
-/*** COMMON VALUE IMPORTS ***/
-import {
-  status,
-  channelReceived
-} from "../../../../pages/coachesWorkbench/common/generalInquiry";
+import CommonSections from "../../../../pages/complaintMgt/common/commonSections";
 
 /*** DECLARATIONS ***/
 let caseNumber: string;
@@ -26,7 +22,7 @@ let financialAccountName: string;
 describe("General Inquiry Record Edit", () => {
   before(() => {
     createBlankCase(1, "General_Inquiry", "Coach").then((cases: any) => {
-      caseNumber = cases[0].CaseNumber;
+      caseNumber = cases[0].CaseNumber.toString();
     });
 
     getFinAccount().then((finAccounts: any) => {
@@ -47,34 +43,17 @@ describe("General Inquiry Record Edit", () => {
   it("should edit a general inquiry case record", () => {
     CoachesWorkbench.login("coach");
     CoachesWorkbench.loadApp("Coaches Workbench");
-
-    CoachesWorkbench.navHome.click();
-    $(`=${caseNumber}`).click();
-    $("=Edit").click();
-
-    GeneralInquiry.description.setValue(faker.lorem.text());
-
-    GeneralInquiry.accountName.setValue(accountName.toString());
-    $(`div=${accountName}`).click();
-
-    GeneralInquiry.status.click();
-    $(`a[role="menuitemradio"]=${faker.random.arrayElement(status)}`).click();
-
-    GeneralInquiry.type.click();
-    $("=App Support").click();
-
-    $("span=Bug Report & Feature").scrollIntoView();
-    $("span=Bug Report & Feature").click();
-    GeneralInquiry.additionalTypeAdd.click();
-
-    GeneralInquiry.channelReceived.click();
-    $(`=${faker.random.arrayElement(channelReceived)}`).click();
-
-    GeneralInquiry.financialAccount.setValue(financialAccountName.toString());
-    $(`div=${financialAccountName}`).click();
-
+    GeneralInquiry.caseLink.click();
+    CommonSections.goToCaseSearchPage();
+    helpers.enterText(GeneralInquiry.searchText, caseNumber);
+    GeneralInquiry.waitForCaseToDisplay(caseNumber);
+    helpers.doJSClick($(`=${caseNumber}`));
+    GeneralInquiry.editBtn.click();
+    GeneralInquiry.fillEditGeneralInquiryDetails(
+      accountName,
+      financialAccountName
+    );
     GeneralInquiry.save.click();
-
     const toastMessage = $(".forceToastMessage");
     expect(toastMessage).toBeVisible();
   });

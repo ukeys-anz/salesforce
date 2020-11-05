@@ -46,3 +46,6 @@ SingleSignOn.settings
 
 #myTrailhead profile since identity license is not in scratch orgs
 force-app/main/default/profiles/ANZx Trailblazer User.profile-meta.xml
+
+#auth provider to make the build pass and we do the manual deployment later
+force-app/main/default/authproviders/Azure_AD_Custom_OIDC.authprovider-meta.xml

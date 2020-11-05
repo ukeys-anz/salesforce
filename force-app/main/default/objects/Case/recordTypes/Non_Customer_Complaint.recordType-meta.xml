@@ -1017,6 +1017,57 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>IDR_3rdParty_Relationship_To_Complainant__c</picklist>
+        <values>
+            <fullName>1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>13</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>14</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>15</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>16</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>17</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>18</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>19</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>6</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>9</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>IDR_3rdParty_State__c</picklist>
         <values>
             <fullName>1</fullName>
@@ -1169,6 +1220,17 @@
         </values>
         <values>
             <fullName>6</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IDR_Is_Common__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -2280,6 +2342,14 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>10</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>11</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>2</fullName>
             <default>false</default>
         </values>
@@ -2693,6 +2763,14 @@
             <fullName>92</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>93</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>94</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>IDR_Systemic_Issue_Category__c</picklist>
@@ -2754,6 +2832,10 @@
     </picklistValues>
     <picklistValues>
         <picklist>Priority</picklist>
+        <values>
+            <fullName>Customer in Collections</fullName>
+            <default>false</default>
+        </values>
         <values>
             <fullName>Financial Hardship</fullName>
             <default>false</default>
@@ -2937,6 +3019,10 @@
         </values>
         <values>
             <fullName>20</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>21</fullName>
             <default>false</default>
         </values>
         <values>

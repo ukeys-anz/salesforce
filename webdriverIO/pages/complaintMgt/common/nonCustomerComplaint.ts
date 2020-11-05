@@ -40,3 +40,25 @@ export const descent = [
   "Yes, Torres Strait Islander",
   "Not stated/unknown"
 ];
+
+export const issueType = [
+  "Service quality",
+  "Channel accessibility",
+  "Account set-up & maintenance",
+  "Fees, interest, rewards",
+  "Financial difficulty & hardship",
+  "Collections",
+  "Lending fulfilment",
+  "Product features, offers, sales",
+  "Closure process",
+  "Credit assessment",
+  "Credit reporting",
+  "Transactions & payments",
+  "Fraud & Scams",
+  "Transaction Disputes",
+  "Privacy and Confidentiality",
+  "Advice",
+  "Insurance Claims",
+  "Disclosure",
+  "Organisational Structure & Marketing"
+];

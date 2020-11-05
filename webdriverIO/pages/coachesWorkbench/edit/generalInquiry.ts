@@ -1,4 +1,12 @@
 import Base from "../../base";
+import helpers from "../../../utilities/helpers";
+import * as faker from "faker";
+/*** COMMON VALUE IMPORTS ***/
+import {
+  status,
+  channelReceived
+} from "../../../pages/coachesWorkbench/common/generalInquiry";
+
 /**
  * Handles the General Inquiry record type fields on Coaches Workbench during edit
  */
@@ -9,6 +17,12 @@ class GeneralInquiry extends Base {
   }
   get description() {
     return $("//div/div[1]/div/div/div[2]/div/div/div/div/textarea");
+  }
+
+  get searchText() {
+    return $(
+      "//body/div/div/section/div/div/div/div/div/div/div/div/div/div/div/div/div/force-list-view-manager-search-bar/div/lightning-input/div/input[1]"
+    );
   }
 
   /****** LOOKUPS ******/
@@ -35,9 +49,11 @@ class GeneralInquiry extends Base {
     );
   }
   get type() {
-    return $("//div/div[2]/div/div/div[3]/div[1]/div/div/div/div");
+    return $(
+      "//article[1]/div[3]/div[1]/div[2]/div[1]/div[1]/div[3]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/a[1]"
+    );
   }
-  get channelReceived() {
+  get channelReceivedLink() {
     return $("//div/div[2]/div/div/div[4]/div[2]/div/div/div/div");
   }
   get caseReason() {
@@ -59,7 +75,98 @@ class GeneralInquiry extends Base {
     );
   }
   get save() {
-    return $("//div/div[3]/div/button[3]");
+    return $("//div/div[2]/button[3]");
+  }
+
+  get editBtn() {
+    return $(
+      "//runtime_platform_actions-page-reference-action[1]/slot[1]/slot[1]/lightning-button[1]/button[1]"
+    );
+  }
+
+  get appSupport() {
+    return $("=App Support");
+  }
+
+  get bugReport() {
+    return $("span=Bug Report & Feature");
+  }
+
+  get refreshBtn() {
+    return $("//button[@name='refreshButton']");
+  }
+
+  /****** LINKS ******/
+
+  get caseLink() {
+    return $("*=Case");
+  }
+
+  get searchCase() {
+    return $(
+      "//*[@id='brandBand_1']/div/div/div/div/div[2]/div/div[1]/div[2]/div[2]/div[1]/div/div/table/tbody/tr/th/span/a"
+    );
+  }
+
+  get menuList() {
+    return $("a[title='Select List View']");
+  }
+
+  get openCaseLink() {
+    return $("span=My Open Cases");
+  }
+
+  /*******Page Actions *****/
+
+  clickBugReport() {
+    this.bugReport.scrollIntoView();
+    this.bugReport.click();
+  }
+
+  waitForCaseToDisplay(valueToClick: String) {
+    helpers.waitAndRetry(this.refreshBtn, this.searchCase, valueToClick);
+  }
+
+  clickAccountName(accName: String) {
+    helpers.doClick($(`div=${accName}`));
+  }
+
+  clickFinancialAccountName(finaccName: String) {
+    helpers.doClick($(`div=${finaccName}`));
+  }
+
+  selectStatus() {
+    helpers.doClick(this.status);
+    const PageElement = $(
+      `a[role="menuitemradio"]=${faker.random.arrayElement(status)}`
+    );
+    PageElement.click();
+  }
+
+  selectCloseStatus() {
+    helpers.doClick(this.status);
+    const PageElement = $('a[role="menuitemradio"]=Closed');
+    PageElement.click();
+  }
+
+  selectChannelReceived() {
+    helpers.doClick(this.channelReceivedLink);
+    const PageElement = $(`=${faker.random.arrayElement(channelReceived)}`);
+    PageElement.click();
+  }
+
+  fillEditGeneralInquiryDetails(accName: String, finaccName: String) {
+    helpers.enterText(this.description, faker.lorem.text());
+    helpers.enterText(this.accountName, accName.toString());
+    this.clickAccountName(accName);
+    this.selectStatus();
+    helpers.doClick(this.type);
+    helpers.doClick(this.appSupport);
+    this.clickBugReport();
+    helpers.doClick(this.additionalTypeAdd);
+    this.selectChannelReceived();
+    helpers.enterText(this.financialAccount, finaccName.toString());
+    this.clickFinancialAccountName(finaccName);
   }
 }
 

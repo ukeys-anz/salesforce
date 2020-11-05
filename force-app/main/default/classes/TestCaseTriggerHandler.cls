@@ -1,5 +1,24 @@
+@SuppressWarnings('PMD.CyclomaticComplexity')
 @isTest
 private class TestCaseTriggerHandler {
+  @testSetup
+  static void setup() {
+    Faker faker = new Faker('AU');
+
+    Account[] accnts = new List<Account>();
+    for (Integer i = 0; i < 2; i++) {
+      accnts.add(
+        new Account(
+          Name = 'TestAccount',
+          OCV_ID__c = faker.randomString(10),
+          ANZx_Customer__c = true
+        )
+      );
+    }
+
+    insert accnts;
+  }
+
   @isTest
   static void testCaseNumberCopy() {
     // GIVEN cases are created
@@ -342,27 +361,6 @@ private class TestCaseTriggerHandler {
   }
 
   @istest
-  static void testNotifications() {
-    Case[] newCases = new List<Case>();
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
-        new Case(
-          RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
-          Status = 'Escalated',
-          IDR_Escalated_to__c = '1',
-          IDR_Escalation_Reason__c = '1'
-        )
-      );
-    }
-    insert newCases;
-    System.assert(
-      IDRCaseActions.idrNotifications.size() ==
-      Integer.valueOf(Label.Test_Bulk_Size),
-      'Matching no of events'
-    );
-  }
-
-  @istest
   static void testCFMSEscalation() {
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
@@ -404,11 +402,21 @@ private class TestCaseTriggerHandler {
 
   @isTest
   static void testParentCaseValidation() {
+    List<Account> accList = [
+      SELECT Id
+      FROM Account
+      WHERE Name = 'TestAccount'
+      LIMIT 2
+    ];
     // create 2 parent cases
     List<Case> parentCaseList = new List<Case>();
+
     for (Integer i = 0; i < 2; i++) {
       parentCaseList.add(
-        new Case(RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID)
+        new Case(
+          RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
+          AccountId = accList[0].Id
+        )
       );
     }
     insert parentCaseList;
@@ -416,7 +424,8 @@ private class TestCaseTriggerHandler {
     // create a child case
     Case childCase = new Case(
       ParentId = parentCaseList[0].Id,
-      RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID
+      RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
+      AccountId = accList[1].Id
     );
     insert childCase;
 
@@ -436,10 +445,12 @@ private class TestCaseTriggerHandler {
   @isTest
   static void testDuplicateAdditionalTypeValidation() {
     Case[] newCases = new List<Case>();
+    Account acc = [SELECT Id FROM Account WHERE Name = 'TestAccount' LIMIT 1];
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
           RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
+          AccountId = acc.Id,
           Type = 'Card',
           Additional_Type__c = 'App Support;Card;'
         )
@@ -463,10 +474,12 @@ private class TestCaseTriggerHandler {
   @isTest
   static void testAdditionalTypesValidation() {
     Case[] newCases = new List<Case>();
+    Account acc = [SELECT Id FROM Account WHERE Name = 'TestAccount' LIMIT 1];
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
           RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
+          AccountId = acc.Id,
           Additional_Type__c = 'App Support;Card;Coaching'
         )
       );
@@ -487,12 +500,14 @@ private class TestCaseTriggerHandler {
   @isTest
   static void testPopulateCaseSubject() {
     Case[] newCases = new List<Case>();
+    Account acc = [SELECT Id FROM Account WHERE Name = 'TestAccount' LIMIT 1];
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
           RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
           Type = 'Card',
-          Additional_Type__c = 'App Support;Coaching'
+          Additional_Type__c = 'App Support;Coaching',
+          AccountId = acc.Id
         )
       );
     }

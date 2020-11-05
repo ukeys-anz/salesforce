@@ -64,6 +64,10 @@ exports.config = {
         // to run chrome headless the following flags are required
         // (see https://developers.google.com/web/updates/2017/04/headless-chrome)
         args: ["--headless", "--disable-gpu"]
+        // prefs: {
+        // 'profile.managed_default_content_settings.popups' : 1,
+        // 'profile.managed_default_content_settings.notifications' : 1,
+        //  }
       }
       // browserName: "firefox"
       // If outputDir is provided WebdriverIO can capture driver session logs
@@ -183,7 +187,7 @@ exports.config = {
   // },
   mochaOpts: {
     ui: "bdd",
-    timeout: 60000,
+    timeout: 600000,
     compilers: [
       // 'ts-node/register',
       "tsconfig-paths/register"
@@ -233,6 +237,7 @@ exports.config = {
   before: function (capabilities, specs) {
     require("@babel/register");
   },
+
   /**
    * Runs before a WebdriverIO command gets executed.
    * @param {String} commandName hook command name

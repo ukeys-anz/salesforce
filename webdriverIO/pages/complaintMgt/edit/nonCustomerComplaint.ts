@@ -1,4 +1,8 @@
 import Base from "../../base";
+import helpers from "../../../utilities/helpers";
+import * as faker from "faker";
+import { descent } from "../../../pages/complaintMgt/common/nonCustomerComplaint";
+
 /**
  * Handles the Non Customer Complaint record type fields on Complaints Mgt during edit
  */
@@ -61,6 +65,9 @@ class NonCustomerComplaint extends Base {
   get nominatedThirdPhone() {
     return $("//div/div[3]/div/div/div[5]/div[1]/div/div/div/input");
   }
+  get productNameSearch() {
+    return $('input[title="Search Products"]');
+  }
 
   /****** DROPDOWNS ******/
   get complainantType() {
@@ -72,7 +79,7 @@ class NonCustomerComplaint extends Base {
   get gender() {
     return $("//div/div[2]/div/div/div[4]/div[1]/div/div/div/div");
   }
-  get descent() {
+  get descentList() {
     return $("//div/div[2]/div/div/div[4]/div[2]/div/div/div/div");
   }
   get country() {
@@ -100,9 +107,111 @@ class NonCustomerComplaint extends Base {
     return $("//div/div[7]/div/div/div[3]/div[2]/div/div/div/div");
   }
 
+  get searchTxt() {
+    return $("//input[@placeholder='Search this list...']");
+  }
+
   /****** BUTTONS ******/
   get save() {
-    return $("//div[3]/div/button[3]");
+    return $("//div/div[2]/button[3]");
+  }
+
+  get editBtn() {
+    return $(
+      "//runtime_platform_actions-page-reference-action[1]/slot[1]/slot[1]/lightning-button[1]/button[1]"
+    );
+  }
+
+  get refreshBtn() {
+    return $("//button[@name='refreshButton']");
+  }
+
+  /****LINKS*****/
+
+  get caseLink() {
+    return $("//tr[1]//th[1]//span[1]//a[1]");
+  }
+
+  /****PAGE ACTIONS *******/
+
+  enterCaseInSearch(value: String) {
+    helpers.enterText(this.searchTxt, value);
+  }
+
+  clickEdit() {
+    helpers.doClick(this.editBtn);
+  }
+
+  waitForCaseToDisplay(valueToClick: String) {
+    helpers.waitAndRetry(this.refreshBtn, this.caseLink, valueToClick);
+  }
+
+  selectDescentType() {
+    const pageElement = $(
+      `a[role="menuitemradio"]=${faker.random.arrayElement(descent)}`
+    );
+    helpers.doJSClick(pageElement);
+  }
+
+  selectIssueType() {
+    const pageElement = $(function () {
+      return document.querySelectorAll("a.select")[12];
+    });
+
+    helpers.doJSClick(pageElement);
+  }
+
+  selectSubIssueType() {
+    const pageElement = $("=Disputed debt");
+    helpers.doJSClick(pageElement);
+  }
+
+  selectProdType() {
+    const pageElement = $("mark=Netwealth");
+    helpers.doJSClick(pageElement);
+  }
+
+  selectWrittenResponseRequestedAsYes() {
+    this.writtenResponseRequested.click();
+    const pageElement = $("=Yes");
+    helpers.doClick(pageElement);
+  }
+
+  selectWrittenResponseRequiredAsNo() {
+    this.writtenResponseRequired.click();
+    const pageElement = $("=No");
+    helpers.doClick(pageElement);
+  }
+
+  fillNonComplaintEditDetails() {
+    helpers.doClick(this.descentList);
+    this.selectDescentType();
+    helpers.enterText(this.phone, faker.phone.phoneNumber("04########"));
+    helpers.enterText(
+      this.nominatedThirdName,
+      faker.name.firstName() + " " + faker.name.lastName()
+    );
+    helpers.enterText(this.nominatedThirdEmail, faker.internet.email());
+    helpers.enterText(this.nominatedThirdStreet, faker.address.streetName());
+    helpers.enterText(this.nominatedThirdSuburb, faker.address.city());
+    helpers.enterText(
+      this.nominatedThirdPostcode,
+      faker.address.zipCode("####")
+    );
+    helpers.enterText(
+      this.nominatedThirdMobile,
+      faker.phone.phoneNumber("04########")
+    );
+    helpers.enterText(
+      this.nominatedThirdPhone,
+      faker.phone.phoneNumber("97######")
+    );
+    this.selectIssueType();
+    this.selectSubIssueType();
+    helpers.enterText(this.productNameSearch, "Netwealth");
+    this.selectProdType();
+    this.selectWrittenResponseRequestedAsYes();
+    this.selectWrittenResponseRequiredAsNo();
   }
 }
 

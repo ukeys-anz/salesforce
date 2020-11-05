@@ -55,7 +55,7 @@
         <requireHttpOnly>true</requireHttpOnly>
         <requireHttps>true</requireHttps>
         <securityCentralKillSession>true</securityCentralKillSession>
-        <sessionTimeout>ThirtyMinutes</sessionTimeout>
+        <sessionTimeout>SixtyMinutes</sessionTimeout>
     </sessionSettings>
     <singleSignOnSettings>
         <enableMultipleSamlConfigs>true</enableMultipleSamlConfigs>

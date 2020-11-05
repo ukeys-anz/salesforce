@@ -437,7 +437,8 @@ public with sharing class IDRCaseActions {
           Channel_Received__c = IDRCaseActions.getPicklistLabel(
             Case.Origin,
             c.Origin
-          )
+          ),
+          Relationship_To_Complainant__c = c.IDR_3rdParty_Relationship_To_Complainant__c
         )
       );
     }
@@ -467,32 +468,41 @@ public with sharing class IDRCaseActions {
     }
     idrNotifications = new List<IDR_Notification_Event__e>();
     for (Case c : records) {
-      idrNotifications.add(
-        new IDR_Notification_Event__e(
-          AuthorisedEmail__c = c.IDR_3rdParty_Email__c,
-          AuthorisedFirstName__c = c.IDR_3rdParty_Name__c,
-          AuthorisedMobile__c = c.IDR_3rdParty_Mobile__c,
-          CAP_CIS_ID__c = c.IDR_Customer_Number__c,
-          Case_ID__c = c.ID,
-          Case_Number__c = IDRCaseActions.getFormattedCaseNumberToNotify(c),
-          Case_Status__c = c.Status,
-          Case_Status_Change_Date__c = System.now(),
-          ComplainantEmail__c = c.IDR_NC_Email__c,
-          ComplainantFirstName__c = c.IDR_NC_Is_Consent_Obtained__c == false
-            ? ''
-            : c.IDR_NC_First_Name__c,
-          ComplainantMobile__c = c.IDR_NC_Mobile__c,
-          EmailFlag__c = true,
-          EmailTemplate__c = c.Isescalated
-            ? TEMPLATE_ID_MAP.get(ESCALATED_STATUS)
-            : TEMPLATE_ID_MAP.get(c.Status),
-          MessageID__c = '' + c.ID + Datetime.now().millisecond(),
-          SMSFlag__c = true,
-          SMSTemplate__c = c.Isescalated
-            ? TEMPLATE_ID_MAP.get(ESCALATED_STATUS)
-            : TEMPLATE_ID_MAP.get(c.Status)
-        )
-      );
+      // Don't publish to NB if there's no mobile nor email to send to
+      if (
+        c.RecordTypeId == CUSTOMER_COMPLAINT_RT_ID ||
+        !String.isBlank(c.IDR_NC_Mobile__c) ||
+        !String.isBlank(c.IDR_NC_Email__c) ||
+        !String.isBlank(c.IDR_3rdParty_Mobile__c) ||
+        !String.isBlank(c.IDR_3rdParty_Email__c)
+      ) {
+        idrNotifications.add(
+          new IDR_Notification_Event__e(
+            AuthorisedEmail__c = c.IDR_3rdParty_Email__c,
+            AuthorisedFirstName__c = c.IDR_3rdParty_Name__c,
+            AuthorisedMobile__c = c.IDR_3rdParty_Mobile__c,
+            CAP_CIS_ID__c = c.IDR_Customer_Number__c,
+            Case_ID__c = c.ID,
+            Case_Number__c = IDRCaseActions.getFormattedCaseNumberToNotify(c),
+            Case_Status__c = c.Status,
+            Case_Status_Change_Date__c = System.now(),
+            ComplainantEmail__c = c.IDR_NC_Email__c,
+            ComplainantFirstName__c = c.IDR_NC_Is_Consent_Obtained__c == false
+              ? ''
+              : c.IDR_NC_First_Name__c,
+            ComplainantMobile__c = c.IDR_NC_Mobile__c,
+            EmailFlag__c = true,
+            EmailTemplate__c = c.Isescalated
+              ? TEMPLATE_ID_MAP.get(ESCALATED_STATUS)
+              : TEMPLATE_ID_MAP.get(c.Status),
+            MessageID__c = '' + c.ID + Datetime.now().millisecond(),
+            SMSFlag__c = true,
+            SMSTemplate__c = c.Isescalated
+              ? TEMPLATE_ID_MAP.get(ESCALATED_STATUS)
+              : TEMPLATE_ID_MAP.get(c.Status)
+          )
+        );
+      }
     }
     if (!idrNotifications.isEmpty()) {
       List<Database.SaveResult> results = EventBus.publish(idrNotifications);
