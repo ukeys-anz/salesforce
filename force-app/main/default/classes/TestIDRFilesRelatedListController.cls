@@ -29,7 +29,7 @@ public class TestIDRFilesRelatedListController {
       c = [select id from case limit 1];
       list<IDRFilesRelatedListdata> dataList = new list<IDRFilesRelatedListdata>();  
       dataList = IDRFilesRelatedListController.getCaseRelatedFiles(c.id);
-      system.assertEquals(1, Datalist.size());
+      system.assertEquals(1, datalist.size());
     }
     /**
    * @description searchFileContentTest covers the functionality of searchFileContent method
@@ -45,7 +45,7 @@ public class TestIDRFilesRelatedListController {
         docIdlist.add(cv.ContentDocumentId);
 
         list<string> retlist1 = new list<string>();
-      	retlist1=IDRFilesRelatedListController.searchFilesContent(testSearchList,docIdList);
+      	retlist1 = IDRFilesRelatedListController.searchFilesContent(testSearchList,docIdList);
         
         list<string> retlist2 = new list<string>();
         testSearchList.add('idrsearch123');

@@ -11,19 +11,19 @@ public with sharing class IDRFilesRelatedListController {
    * @return list<IDRFilesRelatedListdata>  , file details are retunred as a list of data class
    */  
     @AuraEnabled
-    public static list<IDRFilesRelatedListdata> getCaseRelatedFiles(id caseId){
+    public static list<IDRFilesRelatedListData> getCaseRelatedFiles(id caseId){
         string filesDataString = '';
         
         list<contentDocumentLink> docList = new list<contentDocumentLink>();
-        if (ContentDocument.sObjectType.getDescribe().isQueryable()) {
+        if (contentDocumentLink.sObjectType.getDescribe().isQueryable()) {
         docList = [select ContentDocument.title, ContentDocument.CreatedDate,
                    ContentDocument.Owner.Name,ContentDocument.FileExtension,ContentDocumentId
                    from contentDocumentLink where LinkedEntityId = :caseId];
         }
-        list<IDRFilesRelatedListdata> tempDatalist = new list<IDRFilesRelatedListdata>();
+        list<IDRFilesRelatedListData> tempDatalist = new list<IDRFilesRelatedListData>();
         string baseUrl = URL.getSalesforceBaseUrl().toExternalForm() ;
         for(contentDocumentLink doc:docList){
-            IDRFilesRelatedListdata tempData = new IDRFilesRelatedListdata();
+            IDRFilesRelatedListData tempData = new IDRFilesRelatedListData();
           	tempData.fileUrl = baseUrl + '/' + doc.ContentDocumentId;
             tempData.fileName = doc.ContentDocument.title;
             tempData.fileType = doc.ContentDocument.FileExtension;

@@ -4,7 +4,7 @@
  * @description data class used to return data to LWC
  * 
  */
-public class IDRFilesRelatedListdata {
+public class IDRFilesRelatedListData {
     	@AuraEnabled
         public string fileUrl;
         @AuraEnabled
