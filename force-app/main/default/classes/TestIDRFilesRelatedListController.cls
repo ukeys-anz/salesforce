@@ -26,8 +26,10 @@ public class TestIDRFilesRelatedListController {
     @isTest
     static void getCaseRelatedFilesTest(){
       case c = new case();
-      c = [select id from case limit 1];   
-      IDRFilesRelatedListController.getCaseRelatedFiles(c.id);
+      c = [select id from case limit 1];
+      list<IDRFilesRelatedListdata> Datalist = new list<IDRFilesRelatedListdata>();  
+      Datalist = IDRFilesRelatedListController.getCaseRelatedFiles(c.id);
+      system.assertEquals(1, Datalist.size());
     }
     /**
    * @description searchFileContentTest covers the functionality of searchFileContent method
@@ -41,10 +43,16 @@ public class TestIDRFilesRelatedListController {
       	cv = [select contentdocumentId from contentversion limit 1]; 
        	list<id> docIdList = new list<id>();
         docIdlist.add(cv.ContentDocumentId);
+
+        list<string> retlist1 = new list<string>();
+      	retlist1=IDRFilesRelatedListController.searchFilesContent(testSearchList,docIdList);
         
-      	IDRFilesRelatedListController.searchFilesContent(testSearchList,docIdList);
-        
+        list<string> retlist2 = new list<string>();
         testSearchList.add('idrsearch123');
-        IDRFilesRelatedListController.searchFilesContent(testSearchList,docIdList);
+        retlist2 = IDRFilesRelatedListController.searchFilesContent(testSearchList,docIdList);
+        //salesforce test class limitation- sosl will always return zero items when executed from test class
+         //https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_testing_SOSL.htm 
+         system.assertEquals(0, retlist1.size());
+         system.assertEquals(0, retlist2.size());
     }
 }

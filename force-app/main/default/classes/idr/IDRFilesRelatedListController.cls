@@ -4,42 +4,26 @@
  * @description IDRFilesRelatedListController provides the backend functionality with sosl search for IDRFilesRelatedList lwc
  * 
  */
-public class IDRFilesRelatedListController {
-    //data class used to return data to LWC
-    public class filesdata{
-       	@AuraEnabled
-        public string fileUrl;
-        @AuraEnabled
-        public string fileName;
-        @AuraEnabled
-        public string fileType ;
-        @AuraEnabled 
-        public date  createdDate;
-        @AuraEnabled
-        public string ownerName;
-        @AuraEnabled
-        public string contentData; 
-        @AuraEnabled
-        public string fileId;
-    }
-     /**
+
+   /**
    * @description getCaseRelatedFiles returns all the files related to a case.
    * @param caseId the ID of the case for which files need to be returned
    * @return list<filesdata>  , file details are retunred as a list of data class
-   */
-   
+   */  
     @AuraEnabled
-    public static list<filesdata> getCaseRelatedFiles(id caseId){
+    public static list<IDRFilesRelatedListdata> getCaseRelatedFiles(id caseId){
         string filesDataString = '';
         
         list<contentDocumentLink> docList = new list<contentDocumentLink>();
+        if (ContentDocument.sObjectType.getDescribe().isQueryable()) {
         docList = [select ContentDocument.title, ContentDocument.CreatedDate,
                    ContentDocument.Owner.Name,ContentDocument.FileExtension,ContentDocumentId
                    from contentDocumentLink where LinkedEntityId = :caseId];
-        list<filesdata> tempDatalist = new list<filesdata>();
+        }
+        list<IDRFilesRelatedListdata> tempDatalist = new list<IDRFilesRelatedListdata>();
         string baseUrl = URL.getSalesforceBaseUrl().toExternalForm() ;
         for(contentDocumentLink doc:docList){
-           filesdata tempData = new filesdata();
+            IDRFilesRelatedListdata tempData = new IDRFilesRelatedListdata();
           	tempData.fileUrl = baseUrl + '/' + doc.ContentDocumentId;
             tempData.fileName = doc.ContentDocument.title;
             tempData.fileType = doc.ContentDocument.FileExtension;
