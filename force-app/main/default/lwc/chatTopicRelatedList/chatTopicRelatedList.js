@@ -4,6 +4,7 @@ import getChatTopicFromCase from "@salesforce/apex/ChatTopicRelatedListControlle
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { publish, MessageContext } from "lightning/messageService";
 import chatReChannel from "@salesforce/messageChannel/ReinitiateChatTopic__c";
+import chatHistoryChannel from "@salesforce/messageChannel/ViewChatTopicHistory__c";
 
 export default class RetrieveChatTopics extends LightningElement {
   @api recordId;
@@ -112,6 +113,25 @@ export default class RetrieveChatTopics extends LightningElement {
           errorMessage = error.body.message;
         }
         this.showToast("Failed to re-initiate Chat Topic", errorMessage, error);
+      }
+    }
+
+    // Show Chat History related to the selected Chat Topic
+    if (selectedAction == "chat_history") {
+      const message = { channelSID: selectedChannelSID };
+      try {
+        publish(this.messageContext, chatHistoryChannel, message);
+      } catch (error) {
+        let errorMessage =
+          "Error occured while displaying related Chat History";
+        if (error.body && error.body.message) {
+          errorMessage = error.body.message;
+        }
+        this.showToast(
+          "Error occured while displaying related Chat History",
+          errorMessage,
+          error
+        );
       }
     }
   }
