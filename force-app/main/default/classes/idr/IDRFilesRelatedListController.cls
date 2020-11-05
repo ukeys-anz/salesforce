@@ -4,7 +4,7 @@
  * @description IDRFilesRelatedListController provides the backend functionality with sosl search for IDRFilesRelatedList lwc
  * 
  */
-public class IDRFilesRelatedListController {
+public with sharing class IDRFilesRelatedListController {
    /**
    * @description getCaseRelatedFiles returns all the files related to a case.
    * @param caseId the ID of the case for which files need to be returned

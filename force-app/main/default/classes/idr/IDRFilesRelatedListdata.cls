@@ -14,7 +14,7 @@ public class IDRFilesRelatedListdata {
         @AuraEnabled 
         public date  createdDate;
         @AuraEnabled
-        public string OwnerName;
+        public string ownerName;
         @AuraEnabled
         public string contentData; 
         @AuraEnabled

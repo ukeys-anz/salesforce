@@ -27,8 +27,8 @@ public class TestIDRFilesRelatedListController {
     static void getCaseRelatedFilesTest(){
       case c = new case();
       c = [select id from case limit 1];
-      list<IDRFilesRelatedListdata> Datalist = new list<IDRFilesRelatedListdata>();  
-      Datalist = IDRFilesRelatedListController.getCaseRelatedFiles(c.id);
+      list<IDRFilesRelatedListdata> dataList = new list<IDRFilesRelatedListdata>();  
+      dataList = IDRFilesRelatedListController.getCaseRelatedFiles(c.id);
       system.assertEquals(1, Datalist.size());
     }
     /**
