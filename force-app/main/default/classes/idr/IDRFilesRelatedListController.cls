@@ -4,11 +4,11 @@
  * @description IDRFilesRelatedListController provides the backend functionality with sosl search for IDRFilesRelatedList lwc
  * 
  */
-
+public class IDRFilesRelatedListController {
    /**
    * @description getCaseRelatedFiles returns all the files related to a case.
    * @param caseId the ID of the case for which files need to be returned
-   * @return list<filesdata>  , file details are retunred as a list of data class
+   * @return list<IDRFilesRelatedListdata>  , file details are retunred as a list of data class
    */  
     @AuraEnabled
     public static list<IDRFilesRelatedListdata> getCaseRelatedFiles(id caseId){
