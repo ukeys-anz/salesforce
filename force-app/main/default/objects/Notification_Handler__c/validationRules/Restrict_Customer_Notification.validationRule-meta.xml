@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Restrict_Customer_Notification</fullName>
+    <active>true</active>
+    <errorConditionFormula>IF(OR(Case__r.RecordType.DeveloperName == &apos;Customer_Complaint&apos;,
+ NOT(ISBLANK(Case__r.IDR_NC_Email__c )),
+ NOT(ISBLANK(Case__r.IDR_NC_Mobile__c)) ) , false, true)</errorConditionFormula>
+    <errorMessage>Please make sure that it is either a customer complaint or mobile/email is populated</errorMessage>
+</ValidationRule>
