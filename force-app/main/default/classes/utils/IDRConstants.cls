@@ -1,3 +1,8 @@
+/**
+ * @author Afreen Khan
+ * @since 10/2020
+ * @description  IDRConstants consists of all the IDR constants
+ */
 public with sharing class IDRConstants {
     //Complaint Status
     public static final String OPEN_STATUS = 'Open';

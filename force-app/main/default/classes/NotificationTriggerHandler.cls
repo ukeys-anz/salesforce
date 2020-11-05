@@ -31,7 +31,7 @@ public with sharing class NotificationTriggerHandler extends Lib_TriggerHandler 
 
   /**
    * @description Publish the notification platform event.
-   * @param list of  Notification_Handler__c in the current trigger  context
+   * @param custNotifications list of  Notification_Handler__c in the current trigger  context
    */
   public static void sendNotifications(
     List<Notification_Handler__c> custNotifications
@@ -88,7 +88,8 @@ public with sharing class NotificationTriggerHandler extends Lib_TriggerHandler 
 
   /**
    * @description Prepare and returns the notification platform event.
-   *@param c Case and handler (Notification_Handler__c) to get the nofication details
+   *@param c Case record to get the notification details
+   *@param handler Notification_Handler__c record to get the nofication details
    *@return notification platform event
    */
   public static IDR_Notification_Event__e getNotifcationEvent(
