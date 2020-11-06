@@ -26,15 +26,6 @@ public with sharing class CaseCommonActions {
   }
 
   /**
-   * @description completeAfterUpdateActions method is called after finishing all the necessary steps for update. So, clear the list if
-   * something needs to be done in same transaction
-   * @param updateCaseList list that needs to be cleared
-   */
-  public static void completeAfterUpdateActions(List<Case> updateCaseList) {
-    updateCaseList.clear();
-  }
-
-  /**
    * @description  Copy case Number to Original Case Number(CaseNumber__c) if CaseNumber__c is empty
    * @param records The actual case record List
    * @param caseToBeChanged The record List that needs to be changed
@@ -127,7 +118,7 @@ public with sharing class CaseCommonActions {
         Case__c,
         Case__r.BusinessHoursId
       FROM Case_Duration__c
-      WHERE Case__c IN :relatedCaseList AND End_Time__c = NULL
+      WHERE Case__c IN :relatedCaseList AND End_Time__c = null
     ];
 
     for (Case_Duration__c cd : cdRelatedList) {
