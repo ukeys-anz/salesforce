@@ -4,6 +4,7 @@
  * @since 04/2020
  * @description GetHelpCaseActions class is to handle all the Get Help Case Actions
  */
+@SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class GetHelpCaseActions {
   // General Inquiry Record Type Id
   @TestVisible
@@ -13,6 +14,35 @@ public with sharing class GetHelpCaseActions {
 
   // Parent Case validation error message
   private static final String PARENT_CASE_ERROR = 'You cannot add parent case. This case is associated with child cases';
+
+  /**
+   * @description beforeUpdate(oldMap, records) method handles the following
+   * 1. Validate Additional Type - Validates the selected additional types and addError if it has more than 2 values selected or if the Type value is same as one of the additional values
+   * 2. Validate Case Type - Validates Case Type and Additional Type to populate Case Subject.
+   * 3. Validate Parent Case - Validates the case record and throws an error if the record is having child cases
+   * @param oldMap This Map<Id, SObject> contains the map which holds the previous values which can be used to check what value has changed in onBeforeUpdate. Example to check if the Case Status value has changed we use the following to check record.Status != ((Case) oldMap.get(record.id)).Status
+   * @param records from the trigger
+   */
+  public static void beforeUpdate(Map<Id, SObject> oldMap, List<Case> records) {
+    List<Id> caseIds = new List<Id>();
+    List<Case> validateCaseList = new List<Case>();
+    for (Case record : (List<Case>) records) {
+      Case oldRecord = (Case) oldMap.get(record.id);
+      if (
+        String.isNotBlank(record.ParentId) &&
+        record.RecordTypeId == GENERAL_INQUIRY_RT_ID &&
+        record.ParentId != oldRecord.ParentId
+      ) {
+        caseIds.add(record.id);
+        validateCaseList.add(record);
+      }
+    }
+    validateAdditionalTypes((List<Case>) records, (Map<Id, Case>) oldMap);
+    validateCaseType((List<Case>) records, (Map<Id, Case>) oldMap);
+    if (!caseIds.isEmpty()) {
+      validateParentCase(caseIds, validateCaseList);
+    }
+  }
 
   /**
    * @description validateParentCase method is called before updating the case record to check and throw error if the record is having child cases
@@ -162,7 +192,7 @@ public with sharing class GetHelpCaseActions {
         FROM Entitlement
         WHERE
           AccountId IN :accountIds
-          AND EndDate = NULL
+          AND EndDate = null
           AND Name = 'Basic Subscription'
       ];
 
