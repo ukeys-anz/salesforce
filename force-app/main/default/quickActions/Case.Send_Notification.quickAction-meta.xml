@@ -12,6 +12,10 @@
         <field>Description__c</field>
         <formula>(&quot;Notification will be sent for the case status as &quot;) +  Text(Case.Status)</formula>
     </fieldOverrides>
+    <fieldOverrides>
+        <field>Status__c</field>
+        <literalValue>Published</literalValue>
+    </fieldOverrides>
     <label>Send Notification</label>
     <optionsCreateFeedItem>true</optionsCreateFeedItem>
     <quickActionLayout>
