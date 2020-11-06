@@ -401,6 +401,11 @@
             <actionType>StandardButton</actionType>
             <sortOrder>6</sortOrder>
         </platformActionListItems>
+        <platformActionListItems>
+            <actionName>Case.Send_Notification</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>7</sortOrder>
+        </platformActionListItems>
     </platformActionList>
     <quickActionList>
         <quickActionListItems>
@@ -446,9 +451,6 @@
 	</relatedLists>
 	<relatedLists>
 	    <relatedList>RelatedEmailMessageList</relatedList>
-	</relatedLists>
-	<relatedLists>
-	    <relatedList>RelatedFileList</relatedList>
 	</relatedLists>
 	<relatedLists>
 	    <relatedList>RelatedCommentsList</relatedList>
