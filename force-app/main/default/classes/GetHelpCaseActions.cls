@@ -192,7 +192,7 @@ public with sharing class GetHelpCaseActions {
         FROM Entitlement
         WHERE
           AccountId IN :accountIds
-          AND EndDate = null
+          AND EndDate = NULL
           AND Name = 'Basic Subscription'
       ];
 
