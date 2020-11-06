@@ -25,6 +25,15 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
   }
 
   /**
+   * @description onBeforeInsert to handle before insert trigger actions.
+   */
+  public override void onBeforeInsert() {
+    GetHelpCaseActions.validateAdditionalTypes(records, null);
+    GetHelpCaseActions.validateCaseType(records, null);
+    GetHelpCaseActions.updateEntitlement(records);
+  }
+
+  /**
    * @description onValidate() method is called before onAfterInsert to validate records or handle the records for which we need to update the values.
    */
   public override void onValidate() {
@@ -34,29 +43,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     }
     IDRCaseActions.afterInsert(records);
     CaseCommonActions.copyCaseNumber(records, updateCaseList);
-  }
-
-  /**
-   * @description onValidate(oldMap) is called before onAfterUpdate and all the required record updates are handled here
-   * @param oldMap old trigger values
-   */
-  public override void onValidate(Map<Id, SObject> oldMap) {
-    for (Case record : (List<Case>) records) {
-      if (!CheckRecursive.SetOfIDs.contains(record.Id)) {
-        Case caseToBeUpdated = new Case(ID = record.ID);
-        updateCaseList.add(caseToBeUpdated);
-        CheckRecursive.setOfIDs.add(record.ID);
-      }
-    }
-    IDRCaseActions.afterUpdate(oldMap, records, updateCaseList);
-    CaseCommonActions.copyCaseNumber(records, updateCaseList);
-  }
-
-  /**
-   * @description onBeforeDelete
-   */
-  public override void onBeforeDelete() {
-    IDRCaseActions.onBeforeDelete(records);
   }
 
   /**
@@ -74,63 +60,31 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
   }
 
   /**
+   * @description onBeforeUpdate to handle after update trigger actions.
+   * @param oldMap old trigger values
+   */
+  public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    IDRCaseActions.beforeUpdate(oldMap, records);
+    GetHelpCaseActions.beforeUpdate(oldMap, records);
+  }
+
+  /**
    * @description onAfterUpdate to handle after update trigger actions.
    * @param oldMap old trigger values
    */
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
-    if (
-      Case.sObjectType.getDescribe().isUpdateable() && !updateCaseList.isEmpty()
-    ) {
-      update updateCaseList;
-    }
-
     CaseCommonActions.handleCaseDurationGeneration(
       Trigger.new,
       Trigger.newMap,
       oldMap
     );
-
     IDRCaseActions.completeAfterActions();
-    CaseCommonActions.completeAfterUpdateActions(updateCaseList);
   }
 
   /**
-   * @description onBeforeUpdate to handle after update trigger actions.
-   * @param oldMap old trigger values
+   * @description onBeforeDelete
    */
-  public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
-    List<Id> caseIds = new List<Id>();
-    List<Case> validateCaseList = new List<Case>();
-    for (Case record : (List<Case>) records) {
-      Case oldRecord = (Case) oldMap.get(record.id);
-      if (
-        String.isNotBlank(record.ParentId) &&
-        record.RecordTypeId == GetHelpCaseActions.GENERAL_INQUIRY_RT_ID &&
-        record.ParentId != oldRecord.ParentId
-      ) {
-        caseIds.add(record.id);
-        validateCaseList.add(record);
-      }
-    }
-    GetHelpCaseActions.validateAdditionalTypes(
-      (List<Case>) records,
-      (Map<Id, Case>) oldMap
-    );
-    GetHelpCaseActions.validateCaseType(
-      (List<Case>) records,
-      (Map<Id, Case>) oldMap
-    );
-    if (!caseIds.isEmpty()) {
-      GetHelpCaseActions.validateParentCase(caseIds, validateCaseList);
-    }
-  }
-
-  /**
-   * @description onBeforeInsert to handle before insert trigger actions.
-   */
-  public override void onBeforeInsert() {
-    GetHelpCaseActions.validateAdditionalTypes(records, null);
-    GetHelpCaseActions.validateCaseType(records, null);
-    GetHelpCaseActions.updateEntitlement(records);
+  public override void onBeforeDelete() {
+    IDRCaseActions.onBeforeDelete(records);
   }
 }
