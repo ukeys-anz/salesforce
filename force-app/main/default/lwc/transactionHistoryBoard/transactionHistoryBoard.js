@@ -1,6 +1,28 @@
-import { LightningElement, track } from "lwc";
+import { LightningElement, track, wire } from "lwc";
 import getJsonResponse from "@salesforce/apex/TransactionHistoryController.getJsonResponse";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
+
+import { publish, MessageContext } from "lightning/messageService";
+import ExpandCollapseAll from "@salesforce/messageChannel/ListCollapseExpandAll__c";
+
+//Declare the keys for each specific section we can check
+//if response returns them and dynamically show them on the component
+const merchantKeys = [
+  "MerchantName",
+  "MerchantLocation",
+  "MerchantPhone",
+  "MerchantWebsite",
+  "MerchantEmail",
+  "IsSensitive"
+];
+
+const internationalKeys = [
+  "ConvertedAmount",
+  "ConvertedCurrencyCode",
+  "ExchangeRate"
+];
+
+const cardKeys = ["CardScheme", "CardLastFour"];
 
 export default class TransactionHistoryBoard extends LightningElement {
   fullTransactionList = [];
@@ -9,6 +31,10 @@ export default class TransactionHistoryBoard extends LightningElement {
   @track showSearchBar = false;
   @track filterList = [];
   @track savedMaxIndex = 0;
+  expandAll = false;
+
+  @wire(MessageContext)
+  messageContext;
 
   get showLoadMore() {
     return this.fullTransactionList.length > this.currentLimit;
@@ -21,6 +47,20 @@ export default class TransactionHistoryBoard extends LightningElement {
         let updatedFullList = [];
         for (let i = 0; i < this.fullTransactionList.length; i++) {
           let currentTransaction = this.fullTransactionList[i];
+
+          //Check to see if we have the details required to show
+          //the dynamic sections of our transactions
+          let transactionKeys = Object.keys(currentTransaction);
+          transactionKeys.forEach((key) => {
+            if (merchantKeys.includes(key)) {
+              currentTransaction.merchantDetails = true;
+            } else if (internationalKeys.includes(key)) {
+              currentTransaction.internationalDetails = true;
+            } else if (cardKeys.includes(key)) {
+              currentTransaction.cardDetails = true;
+            }
+          });
+
           if (i === 0) {
             currentTransaction.showDateTitle = true;
           } else if (
@@ -31,6 +71,33 @@ export default class TransactionHistoryBoard extends LightningElement {
           } else {
             currentTransaction.showDateTitle = false;
           }
+
+          //Apply odd or even for each item to determine background
+          currentTransaction.rowColour =
+            "slds-card slds-m-bottom_small transaction-item ";
+          currentTransaction.rowColour += i % 2 === 0 ? "even" : "odd";
+
+          //Split the tags into an array
+          if (currentTransaction.Tags) {
+            currentTransaction.tagList = currentTransaction.Tags.split(";");
+          }
+
+          currentTransaction.Error = currentTransaction.Error
+            ? currentTransaction.Error
+            : "N/A";
+
+          if (currentTransaction.Latitude && currentTransaction.Longitude) {
+            //Set the map markers for the map
+            currentTransaction.mapMarkers = [
+              {
+                location: {
+                  Latitude: currentTransaction.Latitude,
+                  Longitude: currentTransaction.Longitude
+                }
+              }
+            ];
+          }
+
           updatedFullList.push(currentTransaction);
         }
 
@@ -89,5 +156,11 @@ export default class TransactionHistoryBoard extends LightningElement {
     this.filterList = event.detail.detail;
     this.savedMaxIndex = event.detail.maxIndex;
     this.showSearchBar = false;
+  }
+
+  handleExpandAll() {
+    this.expandAll = !this.expandAll;
+    const payload = { expand: this.expandAll };
+    publish(this.messageContext, ExpandCollapseAll, payload);
   }
 }

@@ -4,6 +4,7 @@
 
 .everydayAccount {
   border: 1px solid #dddbda !important;
+  min-height: 248px;
 }
 
 .main-title,
@@ -22,7 +23,7 @@
 .lastUpdated {
   float: right;
   font-size: 12px;
-  position: relative;
+  position: absolute;
   bottom: 7px;
   right: 10px;
 }
@@ -37,4 +38,12 @@
 
 .slds-item_label {
   font-size: 24px;
+}
+
+.not-found {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
