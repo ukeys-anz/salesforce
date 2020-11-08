@@ -20,6 +20,7 @@ describe("General Inquiry Record Resolved", () => {
 
   it("should resolve a general inquiry case record", () => {
     CoachesWorkbench.login("coach");
+    CoachesWorkbench.loadApp("Coaches Workbench");
     GeneralInquiry.caseLink.click();
     CommonSections.goToCaseSearchPage();
     helpers.enterText(GeneralInquiry.searchText, caseNumber);

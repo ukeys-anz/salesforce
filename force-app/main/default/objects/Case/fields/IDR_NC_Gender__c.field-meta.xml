@@ -31,7 +31,7 @@ Capture this only if customer is not found in MAUD/CAP-CIS.</description>
             <value>
                 <fullName>3</fullName>
                 <default>false</default>
-                <label>Other</label>
+                <label>Non-Binary</label>
             </value>
             <value>
                 <fullName>8</fullName>

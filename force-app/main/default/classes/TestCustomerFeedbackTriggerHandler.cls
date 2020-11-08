@@ -14,7 +14,8 @@ private class TestCustomerFeedbackTriggerHandler {
         .getRecordTypeId(),
       FirstName = Faker.randomString(5),
       LastName = Faker.randomString(5),
-      OCV_ID__c = 'test123'
+      OCV_ID__c = 'test123',
+      ANZx_Customer__c = true
     );
     insert testAcc;
 

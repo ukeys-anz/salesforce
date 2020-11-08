@@ -44,6 +44,24 @@ public class QueueAccountDeletion implements Queueable {
       }
     }
 
+    List<Entitlement> deleteEntitlementList = getRelatedRecordIds(
+      accountToDelete.Id,
+      Entitlement.SobjectType,
+      Entitlement.AccountId.getDescribe().getSObjectField()
+    );
+
+    if (!deleteEntitlementList.isEmpty()) {
+      List<Database.DeleteResult> results = Database.delete(
+        deleteEntitlementList,
+        false
+      );
+      for (Database.DeleteResult dr : results) {
+        if (!dr.isSuccess()) {
+          logError('Entitlement', dr);
+        }
+      }
+    }
+
     //finally delete the account record only if all the related records are deleted successfully.
     if (log.log.isEmpty()) {
       Database.DeleteResult result = Database.delete(accountToDelete, false);

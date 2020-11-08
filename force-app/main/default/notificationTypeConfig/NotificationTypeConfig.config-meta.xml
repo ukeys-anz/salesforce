@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NotificationTypeConfig xmlns="http://soap.sforce.com/2006/04/metadata">
+    <notificationTypeSettings>
+        <notificationChannels>
+            <desktopEnabled>true</desktopEnabled>
+            <mobileEnabled>true</mobileEnabled>
+        </notificationChannels>
+        <notificationType>Case_SLA</notificationType>
+    </notificationTypeSettings>
+</NotificationTypeConfig>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Number_of_Accounts_Linked__c</fullName>
+    <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate</complianceGroup>
     <description>Number of accounts linked to this card</description>
     <externalId>false</externalId>

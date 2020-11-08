@@ -140,4 +140,45 @@ public with sharing class GetHelpCaseActions {
       record.Subject = String.join(caseTypeList, ', ');
     }
   }
+
+  /**
+   * @description This method updates the entitlement field on the case
+   * if the case is of General Inquiry record type
+   * @param caseList list of cases from the trigger
+   */
+  public static void updateEntitlement(List<Case> caseList) {
+    List<Id> accountIds = new List<Id>();
+    Map<Id, Id> entMap = new Map<Id, Id>();
+    for (Case c : caseList) {
+      if (c.RecordTypeId == GENERAL_INQUIRY_RT_ID) {
+        accountIds.add(c.AccountId);
+      }
+    }
+
+    if (Entitlement.sObjectType.getDescribe().isQueryable()) {
+      List<Entitlement> entList;
+      entList = [
+        SELECT Id, AccountId
+        FROM Entitlement
+        WHERE
+          AccountId IN :accountIds
+          AND EndDate = NULL
+          AND Name = 'Basic Subscription'
+      ];
+
+      for (Entitlement en : entList) {
+        entMap.put(en.AccountId, en.Id);
+      }
+    }
+
+    for (Case c : caseList) {
+      if (c.RecordTypeId == GENERAL_INQUIRY_RT_ID) {
+        if (!entMap.containsKey(c.AccountId)) {
+          c.addError('No entitlement found for account.');
+        } else {
+          c.EntitlementId = entMap.get(c.AccountId);
+        }
+      }
+    }
+  }
 }

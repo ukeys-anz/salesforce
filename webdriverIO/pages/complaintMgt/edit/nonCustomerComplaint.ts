@@ -113,12 +113,12 @@ class NonCustomerComplaint extends Base {
 
   /****** BUTTONS ******/
   get save() {
-    return $("//div[3]/div/button[3]");
+    return $("//div/div[2]/button[3]");
   }
 
   get editBtn() {
     return $(
-      "//div[@class='windowViewMode-maximized active lafPageHost']//slot//div[contains(text(),'Edit')]"
+      "//runtime_platform_actions-page-reference-action[1]/slot[1]/slot[1]/lightning-button[1]/button[1]"
     );
   }
 

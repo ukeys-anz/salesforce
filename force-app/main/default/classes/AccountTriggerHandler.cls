@@ -28,4 +28,19 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
     AccountCommonActions.enforceNonProdAccountWhitelist(records);
     AccountCommonActions.checkForAccountDeletion(records);
   }
+
+  /**
+   * @description onAfterInsert to update the list of records which were identified in onValidate() method
+   */
+  public override void onAfterInsert() {
+    AccountCommonActions.createEntitlement(records);
+  }
+
+  /**
+   * @description onAfterUpdate to handle after update trigger actions.
+   * @param oldMap old trigger values
+   */
+  public override void onAfterUpdate(Map<Id, SObject> oldMap) {
+    AccountCommonActions.updateEntitlement(records, oldMap);
+  }
 }
