@@ -156,10 +156,6 @@ public with sharing class IDRCaseActions {
           records.get(i).Status != ((Case) oldMap.get(records.get(i).id)).Status
         ) {
           handleCaseStatusChanges(records.get(i));
-          if (NOTIFICATION_STATUS.contains(records.get(i).Status)) {
-            notificationCaseList.add(records.get(i));
-          }
-          checkForCRCEscalation(records.get(i));
         }
         handleCaseEscalationRules(
           records.get(i),
@@ -168,6 +164,26 @@ public with sharing class IDRCaseActions {
       }
       //calling handleOfficeAssignment for all case records for which the IDR_Office__c needs to be updated.
       handleOfficeAssignment(changeOfficeCaseList);
+    }
+  }
+
+  /**
+   * @description afterUpdate(oldMap, records) method handles the following
+   * 1. Validates the case status and add them into notification list.
+   * 2. Calls checkForCRCEscalation method to check if the case record needs to be sent for CRC escalation.
+   * @param oldMap This Map<Id, SObject> contains the map which holds the previous values which can be used to check what value has changed in onAfterUpdate. Example to check if the Case Status value has changed we use the following to check record.Status != ((Case) oldMap.get(record.id)).Status
+   * @param records from the trigger
+   */
+  public static void afterUpdate(Map<Id, SObject> oldMap, List<Case> records) {
+    for (Integer i = 0; i < records.size(); i++) {
+      if (
+        records.get(i).Status != ((Case) oldMap.get(records.get(i).id)).Status
+      ) {
+        if (NOTIFICATION_STATUS.contains(records.get(i).Status)) {
+          notificationCaseList.add(records.get(i));
+        }
+        checkForCRCEscalation(records.get(i));
+      }
     }
   }
 
@@ -287,8 +303,6 @@ public with sharing class IDRCaseActions {
       record.IDR_Escalated_to__c = ESCALATED_TO_CRC_API_NAME;
       record.Status = ESCALATED_STATUS;
       record.IDR_Escalation_Reason__c = ESCALATION_REASON;
-      caseEscalationList.add(record);
-      notificationCaseList.add(record);
     } else if (
       record.IsEscalated &&
       record.Status != ESCALATED_STATUS &&
@@ -297,7 +311,6 @@ public with sharing class IDRCaseActions {
       // escalated on insert cases , change status to escalated, assign to CRC queue and send notifcation to CFMS
       record.Status = ESCALATED_STATUS;
       record.OwnerId = queue.Id;
-      caseEscalationList.add(record);
     } else if (
       record.IDR_Escalated_to__c == ESCALATED_TO_CRC_API_NAME &&
       record.OwnerId != queue.Id &&
@@ -314,7 +327,6 @@ public with sharing class IDRCaseActions {
     ) {
       // Escalated to has changed for already escalated case, assign to CRC queue and send notifcation to CFMS
       record.OwnerId = queue.Id;
-      caseEscalationList.add(record);
     }
   }
 
