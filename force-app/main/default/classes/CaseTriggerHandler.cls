@@ -60,7 +60,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
   }
 
   /**
-   * @description onBeforeUpdate to handle after update trigger actions.
+   * @description onBeforeUpdate to handle before update trigger actions.
    * @param oldMap old trigger values
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
