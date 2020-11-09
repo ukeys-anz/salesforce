@@ -69,16 +69,29 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
   }
 
   /**
+   * @description onValidate(oldMap) is called before onAfterUpdate and all the required record updates are handled here
+   * @param oldMap old trigger values
+   */
+  public override void onValidate(Map<Id, SObject> oldMap) {
+    if (!checkRecursive.firstCall) {
+      IDRCaseActions.afterUpdate(oldMap, records);
+    }
+  }
+
+  /**
    * @description onAfterUpdate to handle after update trigger actions.
    * @param oldMap old trigger values
    */
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
-    CaseCommonActions.handleCaseDurationGeneration(
-      Trigger.new,
-      Trigger.newMap,
-      oldMap
-    );
-    IDRCaseActions.completeAfterActions();
+    if (!checkRecursive.firstCall) {
+      CaseCommonActions.handleCaseDurationGeneration(
+        Trigger.new,
+        Trigger.newMap,
+        oldMap
+      );
+      IDRCaseActions.completeAfterActions();
+      checkRecursive.firstCall = true;
+    }
   }
 
   /**
