@@ -188,7 +188,7 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>displayOption</name>
-                    <value>CARD</value>
+                    <value>TOAST</value>
                 </componentInstanceProperties>
                 <componentName>runtime_sales_merge:mergeCandidatesPreviewCard</componentName>
             </componentInstance>

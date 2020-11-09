@@ -23,6 +23,6 @@
     <masterLabel>Person Accounts with Similar OCV IDs</masterLabel>
     <operationsOnInsert>Alert</operationsOnInsert>
     <operationsOnUpdate>Alert</operationsOnUpdate>
-    <securityOption>BypassSharingRules</securityOption>
+    <securityOption>EnforceSharingRules</securityOption>
     <sortOrder>2</sortOrder>
 </DuplicateRule>
