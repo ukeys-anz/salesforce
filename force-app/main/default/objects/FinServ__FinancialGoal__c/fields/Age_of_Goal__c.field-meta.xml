@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Age_of_Goal__c</fullName>
+    <businessStatus>Active</businessStatus>
     <description>Age of the Goal from Start Date to Today</description>
-    <complianceGroup>Source_Salesforce</complianceGroup>
+    <complianceGroup>Integrity - Trusted;Source_Salesforce</complianceGroup>
     <externalId>false</externalId>
     <formula>TODAY() -  Start_Date__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
@@ -11,6 +12,7 @@
     <precision>18</precision>
     <required>false</required>
     <scale>0</scale>
+    <securityClassification>Confidential</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Number</type>
     <unique>false</unique>

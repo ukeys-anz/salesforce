@@ -76,4 +76,9 @@
         <default>false</default>
         <label>Source - Fabric</label>
     </standardValue>
+    <standardValue>
+        <fullName>Source_Azure</fullName>
+        <default>false</default>
+        <label>Source - Azure</label>
+    </standardValue>
 </StandardValueSet>
