@@ -10,6 +10,12 @@ private class TestScheduleUpdateCaseDuration {
    */
   @isTest
   static void testSchedulerClass() {
+    Account accnt = new Account();
+    accnt.Name = 'TestAccount';
+    accnt.OCV_ID__c = '1';
+    accnt.ANZx_Customer__c = true;
+    insert accnt;
+
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
@@ -17,7 +23,8 @@ private class TestScheduleUpdateCaseDuration {
           RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
           Status = 'Open',
           Type = 'Card',
-          Additional_Type__c = 'App Support;Coaching'
+          Additional_Type__c = 'App Support;Coaching',
+          AccountId = accnt.Id
         )
       );
     }

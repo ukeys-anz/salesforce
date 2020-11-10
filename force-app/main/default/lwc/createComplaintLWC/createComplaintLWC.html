@@ -178,15 +178,6 @@
                     field-name={businessName}
                   ></lightning-input-field>
                 </div>
-                <div class="slds-col slds-size_1-of-4 slds-m-right_large">
-                  <lightning-input-field
-                    variant="label-stacked"
-                    aria-label="Dropdown Aboriginal or Torres Strait Islander"
-                    required
-                    field-name={descent}
-                    id="descent-id"
-                  ></lightning-input-field>
-                </div>
               </div>
             </template>
 
@@ -249,15 +240,6 @@
                     aria-label="Dropdown Gender"
                     field-name={gender}
                     id="gender-id"
-                  ></lightning-input-field>
-                </div>
-                <div class="slds-col slds-size_1-of-4 slds-m-right_large">
-                  <lightning-input-field
-                    variant="label-stacked"
-                    required
-                    aria-label="Dropdown Aboriginal or Torres Strait Islander"
-                    field-name={descent}
-                    id="descent2-id"
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
@@ -357,6 +339,15 @@
                   <lightning-input-field
                     variant="label-stacked"
                     required={hasNominatedThirdParty}
+                    aria-label="Dropdown Relationship to the complainant"
+                    field-name={thirdPartyRelationShip}
+                    id="thirdPartyRelationShip-id"
+                  >
+                  </lightning-input-field>
+                </div>
+                <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                  <lightning-input-field
+                    variant="label-stacked"
                     field-name={thirdPartyEmail}
                     id="thirdPartyEmail-id"
                   ></lightning-input-field>
@@ -364,7 +355,6 @@
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
                     variant="label-stacked"
-                    required={hasNominatedThirdParty}
                     field-name={thirdPartyMobile}
                     id="thirdPartyMobile-id"
                   ></lightning-input-field>
@@ -556,14 +546,16 @@
                   content="Issues which may impact more than one customer AND are of a compliance nature. E.g. ANZ systems or processes not working properly or non-compliance with terms and conditions"
                 >
                 </lightning-helptext>
-                <lightning-input
-                  type="toggle"
-                  label="Is this a common complaint?"
+                <lightning-radio-group
+                  required
+                  name="commoncomplaintGroup"
+                  label="Is this a possible systemic issue?"
                   onchange={handleCommonComplaint}
-                  message-toggle-active="Yes"
-                  message-toggle-inactive="No"
+                  options={commoncomplaintoptions}
+                  value={isCommonComplaint}
+                  type="button"
                 >
-                </lightning-input>
+                </lightning-radio-group>
               </div>
 
               <div class="slds-col slds-size_1-of-4 slds-m-right_large">

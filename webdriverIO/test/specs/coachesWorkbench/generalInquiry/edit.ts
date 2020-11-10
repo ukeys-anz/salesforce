@@ -42,6 +42,7 @@ describe("General Inquiry Record Edit", () => {
 
   it("should edit a general inquiry case record", () => {
     CoachesWorkbench.login("coach");
+    CoachesWorkbench.loadApp("Coaches Workbench");
     GeneralInquiry.caseLink.click();
     CommonSections.goToCaseSearchPage();
     helpers.enterText(GeneralInquiry.searchText, caseNumber);

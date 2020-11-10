@@ -5,6 +5,7 @@ public with sharing class AccountBalancesControllerTest {
     Account accnt = new Account();
     accnt.Name = 'TestAccount';
     accnt.OCV_ID__c = '1';
+    accnt.ANZx_Customer__c = true;
     insert accnt;
 
     FinServ__FinancialAccount__c finAccount = new FinServ__FinancialAccount__c();

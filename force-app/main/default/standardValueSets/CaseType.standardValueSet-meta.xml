@@ -57,6 +57,11 @@
         <label>Credit reporting</label>
     </standardValue>
     <standardValue>
+        <fullName>21</fullName>
+        <default>false</default>
+        <label>Remediation</label>
+    </standardValue>
+    <standardValue>
         <fullName>10</fullName>
         <default>false</default>
         <label>Transactions &amp; payments</label>

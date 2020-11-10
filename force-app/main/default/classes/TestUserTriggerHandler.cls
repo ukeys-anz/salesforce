@@ -138,7 +138,10 @@ public class TestUserTriggerHandler {
       assignedPsetId = [
         SELECT Id
         FROM PermissionSet
-        WHERE Name = :testMetaData[0].Permission_Sets__c
+        WHERE
+          Name IN :testMetaData[0]
+            .Permission_Sets__c.deleteWhitespace()
+            .split(';')
         LIMIT 1
       ];
     }

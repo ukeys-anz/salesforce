@@ -11,13 +11,11 @@ import helpers from "../../../../utilities/helpers";
 let caseId: any;
 const recordType = "Customer_Complaint";
 
-
 describe("Customer Complaint Record Escalation", () => {
   before(() => {
     createCaseList(1, recordType, "idrlvl3").then((cases: any) => {
       caseId = cases[0].CaseNumber.toString();
     });
-
   });
 
   it("should escalate a customer complaint case record", () => {

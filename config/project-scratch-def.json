@@ -28,7 +28,7 @@
       "enableEnhancedNotes": true
     },
     "entitlementSettings": {
-      "enableEntitlements": false
+      "enableEntitlements": true
     },
     "knowledgeSettings": {
       "cases": {
