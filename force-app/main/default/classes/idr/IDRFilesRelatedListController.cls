@@ -16,7 +16,7 @@ public with sharing class IDRFilesRelatedListController {
         
         list<contentDocumentLink> docList = new list<contentDocumentLink>();
         if (contentDocumentLink.sObjectType.getDescribe().isQueryable()) {
-        docList = [select ContentDocument.title, ContentDocument.CreatedDate,
+        docList = [select ContentDocument.LatestPublishedVersion.Document_Flag__c,ContentDocument.title, ContentDocument.CreatedDate,
                    ContentDocument.Owner.Name,ContentDocument.FileExtension,ContentDocumentId
                    from contentDocumentLink where LinkedEntityId = :caseId];
         }
@@ -30,6 +30,25 @@ public with sharing class IDRFilesRelatedListController {
             tempData.createdDate = date.valueOf(doc.ContentDocument.CreatedDate);
             tempData.ownerName = doc.ContentDocument.Owner.Name;
             tempData.fileId = doc.ContentDocumentId;
+           // list<string> flagList = new list<string>();
+           string flagString ;
+            If(!string.isBlank(doc.ContentDocument.LatestPublishedVersion.Document_Flag__c)){
+             string[] flagList = doc.ContentDocument.LatestPublishedVersion.Document_Flag__c.split('\\;');
+            	for (string s:flagList){   
+                	if(string.isBlank(flagString)){
+                    	flagString = IDRFilesRelatedListController.getPicklistLabel(
+            						ContentVersion.Document_Flag__c,
+           							s
+          							);   
+                	}else{
+                 		flagString += ';' + IDRFilesRelatedListController.getPicklistLabel(
+            							ContentVersion.Document_Flag__c,
+           								s
+          							);     
+                	} 
+            	}
+            }
+            tempData.flag = flagString;
             tempDatalist.add(tempData);
         }
         //filesDataString = json.serialize(fileslist);
@@ -77,5 +96,24 @@ public with sharing class IDRFilesRelatedListController {
          } 
         return returnValidDocList;	 
     }
-   
+    /**
+   * @description Get a picklist label from it's value (API_Key).
+   * @param field The picklist field, for example Case.IDR_NC_State__c
+   * @param picklistValue The picklist value, for example '2'
+   * @return the picklist label, for example 'VIC'
+   */
+    @TestVisible
+  	private static String getPicklistLabel(
+    	Schema.SobjectField field,
+    	String picklistValue
+  	) {
+    	Schema.DescribeFieldResult fieldPicklist = field.getDescribe();
+    	Map<String, String> fieldMap = new Map<String, String>();
+    	for (Schema.PicklistEntry f : fieldPicklist.getPicklistValues()) {
+      	if (f.getValue() == picklistValue) {
+        	return f.getLabel();
+      	}
+    	}
+    	return '';
+  	}
 }
