@@ -26,7 +26,6 @@ import MIDDLE_NAME_FIELD from "@salesforce/schema/Case.IDR_NC_Middle_Names__c";
 import LAST_NAME_FIELD from "@salesforce/schema/Case.IDR_NC_Last_Name__c";
 import AGE_FIELD from "@salesforce/schema/Case.IDR_NC_Age__c";
 import GENDER_FIELD from "@salesforce/schema/Case.IDR_NC_Gender__c";
-import DESCENT_FIELD from "@salesforce/schema/Case.IDR_NC_Descent__c";
 import EMAIL_FIELD from "@salesforce/schema/Case.IDR_NC_Email__c";
 import MOBILE_FIELD from "@salesforce/schema/Case.IDR_NC_Mobile__c";
 import PHONE_FIELD from "@salesforce/schema/Case.IDR_NC_Phone__c";
@@ -107,7 +106,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
   lastName = LAST_NAME_FIELD;
   age = AGE_FIELD;
   gender = GENDER_FIELD;
-  descent = DESCENT_FIELD;
   email = EMAIL_FIELD;
   mobile = MOBILE_FIELD;
   phone = PHONE_FIELD;
@@ -511,12 +509,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
     // conditionnally required fields
     if (this.isCustomerComplaint) {
       requiredFields.customerType = "Customer Type";
-      requiredFields.descent = "Aboriginal or Torres Strait Islander";
     } else {
       requiredFields.customerType2 = "Customer Type";
       requiredFields.age = "Age";
       requiredFields.gender = "Gender";
-      requiredFields.descent2 = "Aboriginal or Torres Strait Islander";
       if (this.consentValue) {
         requiredFields.firstName = "First Name";
         requiredFields.lastName = "Last Name";
