@@ -84,13 +84,14 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
     if (!checkRecursive.firstCall) {
+      checkRecursive.firstCall = true;
       CaseCommonActions.handleCaseDurationGeneration(
         Trigger.new,
         Trigger.newMap,
         oldMap
       );
       IDRCaseActions.completeAfterActions();
-      checkRecursive.firstCall = true;
+      CaseCommonActions.completeAfterUpdateActions();
     }
   }
 
