@@ -12,8 +12,8 @@ public class TestNotificationHandlerTrigger {
   @testSetup
   static void setup() {
     IDR_Notification_Hours__c nHours = new IDR_Notification_Hours__c();
-    nHours.Start_Time__c = System.now().hour()-1;
-    nHours.End_Time__c = System.now().hour()+2;
+    nHours.Start_Time__c = System.now().hour() - 1;
+    nHours.End_Time__c = System.now().hour() + 2;
     insert nHours;
 
     // Create Case
@@ -52,8 +52,8 @@ public class TestNotificationHandlerTrigger {
     Notification_Handler__c handlerPostExecution = [
       SELECT Id, Status__c
       FROM Notification_Handler__c
-      Order By CreatedDate DESC
-      LIMIT 1 
+      ORDER BY CreatedDate DESC
+      LIMIT 1
     ];
 
     //verify that notification is published successfully

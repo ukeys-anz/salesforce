@@ -476,10 +476,9 @@ public with sharing class IDRCaseActions {
         
         notificationHandlerList.add(handler);
       }
-
-      if(!notificationHandlerList.isEmpty()){
-        insert notificationHandlerList;
-      }
+    }
+    if(!notificationHandlerList.isEmpty() && Schema.sObjectType.Notification_Handler__c.isCreateable()){
+      insert notificationHandlerList;
     }
   }
 

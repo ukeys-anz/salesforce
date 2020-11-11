@@ -129,16 +129,13 @@ public with sharing class NotificationTriggerHandler extends Lib_TriggerHandler 
         WHERE id IN :caseIds
       ]
     );
-    System.debug('CaseMap' + caseMap);
 
     for (Notification_Handler__c custNotification : custNotifications) {
       if (caseMap.containsKey(custNotification.Case__c)) {
         Case c = caseMap.get(custNotification.Case__c);
         idrNotifications.add(getNotifcationEvent(c, custNotification));
-        System.debug('idrNotifications1' + idrNotifications);
       }
     }
-    System.debug('idrNotifications' + idrNotifications);
     if (!idrNotifications.isEmpty()) {
       peSaveResults = EventBus.publish(idrNotifications);
       Lib_SystemLog log = new Lib_SystemLog(

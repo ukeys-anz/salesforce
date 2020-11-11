@@ -19,7 +19,7 @@ public with sharing class TestNotificationHandlerScheduler {
     // Create Case
 
     List<Case> caseList = new List<Case>();
-    for(Integer i = 0 ; i < 200 ; i++){
+    for (Integer i = 0; i < 200; i++) {
       Case testCase = new Case();
 
       testCase.IDR_Account_Card_Policy_Number__c = '000001234';
@@ -31,10 +31,8 @@ public with sharing class TestNotificationHandlerScheduler {
 
       caseList.add(testCase);
     }
-    
 
     insert caseList;
-
   }
 
   /**
