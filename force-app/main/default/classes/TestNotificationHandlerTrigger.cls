@@ -46,9 +46,6 @@ public class TestNotificationHandlerTrigger {
 
     Test.stopTest();
 
-    //verify that the count of notification platform event count
-    System.assertEquals(1, NotificationTriggerHandler.idrNotifications.size());
-
     Notification_Handler__c handlerPostExecution = [
       SELECT Id, Status__c
       FROM Notification_Handler__c
