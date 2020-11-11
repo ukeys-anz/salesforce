@@ -11,9 +11,10 @@ const columns = [
     type: "url",
     typeAttributes: { label: { fieldName: "fileName" } }
   },
-  { label: "File Type", fieldName: "fileType", sortable: true },
+  { label: "File Type", fieldName: "fileType", wrapText: true, sortable: true },
   { label: "Owner", fieldName: "ownerName", sortable: true },
-  { label: "Created Date", fieldName: "createdDate", sortable: true }
+  { label: "Created Date", fieldName: "createdDate", sortable: true },
+  { label: "Document Flag", fieldName: "flag", wrapText: true }
 ];
 export default class IDRFilesRelatedList extends LightningElement {
   @api recordId;

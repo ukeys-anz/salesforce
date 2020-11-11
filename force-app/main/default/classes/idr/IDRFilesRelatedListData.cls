@@ -19,4 +19,6 @@ public class IDRFilesRelatedListData {
         public string contentData; 
         @AuraEnabled
         public string fileId;
+        @AuraEnabled
+        public string flag;
 }
