@@ -37,9 +37,11 @@ private with sharing class TestIDRCaseActions {
       );
     }
     insert newCases;
+    List<Notification_Handler__c> nhList = [Select Id From Notification_Handler__c ];
+
     System.assertEquals(
       Integer.valueOf(Label.Test_Bulk_Size),
-      IDRCaseActions.idrNotifications.size(),
+      nhList.size(),
       'Matching no of events'
     );
   }
@@ -56,9 +58,11 @@ private with sharing class TestIDRCaseActions {
       );
     }
     insert newCases;
+    List<Notification_Handler__c> nhList = [Select Id From Notification_Handler__c ];
+
     System.assertEquals(
       0,
-      IDRCaseActions.idrNotifications.size(),
+      nhList.size(),
       'Matching no of events'
     );
   }
