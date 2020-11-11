@@ -1,7 +1,21 @@
+/**
+ * @author Afreen Khan
+ * @since 11/2020
+ * @description  To test NotificationTriggerHandler
+ */
+
 @isTest
 public class TestNotificationHandlerTrigger {
+  /**
+   * @description Test data setup required for this test class
+   */
   @testSetup
   static void setup() {
+    IDR_Notification_Hours__c nHours = new IDR_Notification_Hours__c();
+    nHours.Start_Time__c = System.now().hour()-1;
+    nHours.End_Time__c = System.now().hour()+2;
+    insert nHours;
+
     // Create Case
     Case testCase = new Case();
 
@@ -13,13 +27,17 @@ public class TestNotificationHandlerTrigger {
     insert testCase;
   }
 
+  /**
+   * @description Test data setup required for this test class
+   */
+
   @isTest
   static void testManualNotification() {
     //Retrieve the case inserted
     Case c = [SELECT Id FROM Case LIMIT 1];
 
     Test.startTest();
-    //create the notification handler record
+    //create the notification handler record Manually
     Notification_Handler__c handlerRecord = new Notification_Handler__c();
     handlerRecord.Case__c = c.Id;
     handlerRecord.Status__c = IDRConstants.NOTIFICATION_PUBLISH_STATUS;
@@ -30,5 +48,18 @@ public class TestNotificationHandlerTrigger {
 
     //verify that the count of notification platform event count
     System.assertEquals(1, NotificationTriggerHandler.idrNotifications.size());
+
+    Notification_Handler__c handlerPostExecution = [
+      SELECT Id, Status__c
+      FROM Notification_Handler__c
+      Order By CreatedDate DESC
+      LIMIT 1 
+    ];
+
+    //verify that notification is published successfully
+    System.assertEquals(
+      IDRConstants.NOTIFICATION_PUBLISH_STATUS,
+      handlerPostExecution.Status__c
+    );
   }
 }
