@@ -1,0 +1,12 @@
+{
+    "records": [
+      {
+        "attributes": {
+          "type": "IDR_Notification_Hours__c",
+          "referenceId": "NotificationRefId"
+        },
+        "Start_Time__c":9,
+        "End_Time__c":21
+    }
+    ]
+}

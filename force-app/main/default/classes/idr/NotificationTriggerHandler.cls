@@ -4,7 +4,7 @@
  * @description  NotificationTrigggerHandler is the handler class for Notification Handler Trigger which extends Lib_TriggerHandler the trigger framework used.
  */
 
-public with sharing class NotificationTriggerHandler extends Lib_TriggerHandler {
+public without sharing class NotificationTriggerHandler extends Lib_TriggerHandler {
   private static final Map<String, String> TEMPLATE_ID_MAP = new Map<String, String>{
     IDRConstants.OPEN_STATUS => 'AgCaseOpen',
     IDRConstants.UNDER_INVESTIGATION_STATUS => 'AgCaseUdInvest',
@@ -15,6 +15,9 @@ public with sharing class NotificationTriggerHandler extends Lib_TriggerHandler 
     IDRConstants.WITHDRAWN_STATUS => 'AgCaseWthdrwn'
   };
   public static List<IDR_Notification_Event__e> idrNotifications;
+  private static IDR_Notification_Hours__c nHours;
+  private static List<Notification_Handler__c> notificationList;
+  private static List<Database.SaveResult> peSaveResults;
   /**
    * @description Constructor to call the trigger framework
    */
@@ -23,21 +26,87 @@ public with sharing class NotificationTriggerHandler extends Lib_TriggerHandler 
   }
 
   /**
+   * @description onApplyDefaults method is called before onBeforeInsert to set the default values for the records.
+   */
+  public override void onApplyDefaults() {
+    nHours = IDR_Notification_Hours__c.getOrgDefaults();
+
+    preProcessNotification((List<Notification_Handler__c>) records);
+  }
+
+  /**
    * @description onAfterInsert
    */
   public override void onAfterInsert() {
-    sendNotifications((List<Notification_Handler__c>) records);
+    peSaveResults = sendNotifications(notificationList);
+
+    updateNotification(notificationList, peSaveResults);
+  }
+
+  /**
+   * @description check whether the notification is within the AEST hours, then change the status to Publish.
+   * @param notificationList list of  Notification_Handler__c to be updated
+   * @param peSaveResults List of Platform event Enqueued status
+   */
+  private static void updateNotification(
+    List<Notification_Handler__c> notificationList,
+    List<Database.SaveResult> peSaveResults
+  ) {
+    for (Integer i = 0; i < notificationList.size(); i++) {
+      Database.SaveResult sr = peSaveResults[i];
+
+      if (sr.isSuccess()) {
+        notificationList[i]
+          .Status__c = IDRConstants.NOTIFICATION_PUBLISH_STATUS;
+      } else {
+        notificationList[i]
+          .Status__c = IDRConstants.NOTIFICATION_ERROR_PUBLISH_STATUS;
+      }
+    }
+
+    List<Database.saveResult> result = Database.update(notificationList, false);
+
+    Lib_SystemLog log = new Lib_SystemLog(
+      NotificationHandlerBatch.class.getName(),
+      'execute'
+    );
+    log.addDatabaseSaveResult(
+      'Notification_Handler__c',
+      result,
+      notificationList
+    );
+    log.insertLog();
+  }
+
+  /**
+   * @description check whether the notification is within the AEST hours, then change the status to Publish.
+   * @param records list of  Notification_Handler__c in the current trigger  context
+   */
+  public static void preProcessNotification(
+    List<Notification_Handler__c> records
+  ) {
+    notificationList = new List<Notification_Handler__c>();
+    for (Notification_Handler__c handlerRecord : records) {
+      if (
+        System.now().hour() >= nHours.Start_Time__c &&
+        System.now().hour() < nHours.End_Time__c
+      ) {
+        notificationList.add(handlerRecord);
+      }
+    }
   }
 
   /**
    * @description Publish the notification platform event.
    * @param custNotifications list of  Notification_Handler__c in the current trigger  context
+   * @return List of <Database.SaveResult> consists of status on PE enqueued status
    */
-  public static void sendNotifications(
+  public static List<Database.SaveResult> sendNotifications(
     List<Notification_Handler__c> custNotifications
   ) {
     Set<Id> caseIds = new Set<Id>();
     idrNotifications = new List<IDR_Notification_Event__e>();
+    peSaveResults = new List<Database.SaveResult>();
 
     for (Notification_Handler__c custNotification : custNotifications) {
       caseIds.add(custNotification.Case__c);
@@ -62,28 +131,26 @@ public with sharing class NotificationTriggerHandler extends Lib_TriggerHandler 
     );
 
     for (Notification_Handler__c custNotification : custNotifications) {
-      if (
-        caseMap.containsKey(custNotification.Case__c) &&
-        custNotification.Status__c == IDRConstants.NOTIFICATION_PUBLISH_STATUS
-      ) {
+      if (caseMap.containsKey(custNotification.Case__c)) {
         Case c = caseMap.get(custNotification.Case__c);
         idrNotifications.add(getNotifcationEvent(c, custNotification));
       }
-
-      if (!idrNotifications.isEmpty()) {
-        List<Database.SaveResult> results = EventBus.publish(idrNotifications);
-        Lib_SystemLog log = new Lib_SystemLog(
-          IDRCaseActions.class.getName(),
-          'sendNotifications'
-        );
-        log.addDatabaseSaveResult(
-          'IDR_Notification_Event__e',
-          results,
-          idrNotifications
-        );
-        log.insertLog();
-      }
     }
+    if (!idrNotifications.isEmpty()) {
+      peSaveResults = EventBus.publish(idrNotifications);
+      Lib_SystemLog log = new Lib_SystemLog(
+        IDRCaseActions.class.getName(),
+        'sendNotifications'
+      );
+      log.addDatabaseSaveResult(
+        'IDR_Notification_Event__e',
+        peSaveResults,
+        idrNotifications
+      );
+      log.insertLog();
+      return peSaveResults;
+    }
+    return null;
   }
 
   /**

@@ -1,0 +1,80 @@
+/**
+ * @author Afreen Khan
+ * @since 11/2020
+ * @description  NotificationHandlerBatch is to send the notification, via PE, which were generated outside the allowed AEST hours.
+ */
+
+public with sharing class NotificationHandlerBatch implements Database.Batchable<sObject> {
+  /**
+   * @description Get all the Notification records which are due to be sent out
+   * @param bc Database.BatchableContext
+   * @return Database.QueryLocator scope
+   */
+  public Database.QueryLocator start(Database.BatchableContext bc) {
+    return Database.getQueryLocator(
+      'SELECT Id, Case__c, Status__c, Case_Status__c, CreatedDate FROM Notification_Handler__c ' +
+      'WHERE Status__c = \'' +
+      IDRConstants.NOTIFICATION_PENDING_PUBLISH_STATUS +
+      '\''
+    );
+  }
+
+  /**
+   * @description  method which is called when batch is exeuted and will call another method to process the notification
+   * @param bc Database.BatchableContext
+   * @param handlerRecords from start method
+   */
+
+  public void execute(
+    Database.BatchableContext bc,
+    List<Notification_Handler__c> handlerRecords
+  ) {
+    processScheduledNotification(handlerRecords);
+  }
+
+  /**
+   * @description  Process the scheduled Notifications
+   * @param handlerRecords from start method
+   */
+  public void processScheduledNotification(
+    List<Notification_Handler__c> handlerRecords
+  ) {
+    //Send the Notification for the records in context and save the Platform event enqueued status in peresults
+    List<Database.SaveResult> peResults = NotificationTriggerHandler.sendNotifications(
+      handlerRecords
+    );
+
+    //process the PE enqueued results and update the handler records accordingly
+    for (Integer i = 0; i < handlerRecords.size(); i++) {
+      Database.SaveResult sr = peResults[i];
+
+      if (sr.isSuccess()) {
+        handlerRecords[i].Status__c = IDRConstants.NOTIFICATION_PUBLISH_STATUS;
+      } else {
+        handlerRecords[i].Status__c = IDRConstants.NOTIFICATION_ERROR_PUBLISH_STATUS;
+      }
+    }
+
+    List<Database.saveResult> result = Database.update(handlerRecords, false);
+
+    Lib_SystemLog log = new Lib_SystemLog(
+      NotificationHandlerBatch.class.getName(),
+      'execute'
+    );
+    log.addDatabaseSaveResult(
+      'Notification_Handler__c',
+      result,
+      handlerRecords
+    );
+    log.insertLog();
+  }
+
+  /**
+   * @description To execute any post processing steps
+   * @param bc Database.BatchableContext
+   */
+  @SuppressWarnings('PMD.EmptyStatementBlock')
+  public void finish(Database.BatchableContext bc) {
+    //No post processing steps as of now
+  }
+}

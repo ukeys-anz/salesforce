@@ -14,7 +14,7 @@
     </fieldOverrides>
     <fieldOverrides>
         <field>Status__c</field>
-        <literalValue>Published</literalValue>
+        <literalValue>Pending Publish</literalValue>
     </fieldOverrides>
     <label>Send Notification</label>
     <optionsCreateFeedItem>true</optionsCreateFeedItem>
