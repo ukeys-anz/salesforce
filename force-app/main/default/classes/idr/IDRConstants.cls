@@ -17,4 +17,5 @@ public with sharing class IDRConstants {
   public static final String NOTIFICATION_PUBLISH_STATUS = 'Published';
   public static final String NOTIFICATION_PENDING_PUBLISH_STATUS = 'Pending Publish';
   public static final String NOTIFICATION_ERROR_PUBLISH_STATUS = 'Error while Publish';
+
 }

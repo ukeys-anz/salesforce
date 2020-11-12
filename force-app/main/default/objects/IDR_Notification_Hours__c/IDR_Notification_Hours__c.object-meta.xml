@@ -4,5 +4,5 @@
     <description>This is used to control the timing of the notifications sent out to customer.</description>
     <enableFeeds>false</enableFeeds>
     <label>IDR Notification Hours</label>
-    <visibility>Protected</visibility>
+    <visibility>Public</visibility>
 </CustomObject>

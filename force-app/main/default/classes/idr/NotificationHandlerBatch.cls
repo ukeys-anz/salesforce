@@ -51,8 +51,7 @@ public with sharing class NotificationHandlerBatch implements Database.Batchable
       if (sr.isSuccess()) {
         handlerRecords[i].Status__c = IDRConstants.NOTIFICATION_PUBLISH_STATUS;
       } else {
-        handlerRecords[i]
-          .Status__c = IDRConstants.NOTIFICATION_ERROR_PUBLISH_STATUS;
+        handlerRecords[i].Status__c = IDRConstants.NOTIFICATION_ERROR_PUBLISH_STATUS;
       }
     }
 
