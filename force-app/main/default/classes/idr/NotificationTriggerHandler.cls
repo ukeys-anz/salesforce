@@ -4,7 +4,7 @@
  * @description  NotificationTrigggerHandler is the handler class for Notification Handler Trigger which extends Lib_TriggerHandler the trigger framework used.
  */
 
-public with sharing class NotificationTriggerHandler extends Lib_TriggerHandler {
+public without sharing class NotificationTriggerHandler extends Lib_TriggerHandler {
   private static final Map<String, String> TEMPLATE_ID_MAP = new Map<String, String>{
     IDRConstants.OPEN_STATUS => 'AgCaseOpen',
     IDRConstants.UNDER_INVESTIGATION_STATUS => 'AgCaseUdInvest',
