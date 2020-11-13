@@ -14,6 +14,11 @@
                 <componentName>desktopDashboards:embeddedDashboard</componentName>
             </componentInstance>
         </itemInstances>
+        <itemInstances>
+            <componentInstance>
+             <componentName>runtime_sales_activities:todayTaskContainer</componentName>
+            </componentInstance>
+        </itemInstances>
         <mode>Replace</mode>
         <name>top</name>
         <type>Region</type>
