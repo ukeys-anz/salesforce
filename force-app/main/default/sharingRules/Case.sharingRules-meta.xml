@@ -14,4 +14,32 @@
             <value>Customer Complaint,Non-Customer Complaint</value>
         </criteriaItems>
     </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Fraud_RTs_FraudXAgents_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All Cases having Fraud related record types are to be shared with FraudX Agents with Read/Write access.</description>
+        <label>Fraud_RTs-FraudXAgents-RW</label>
+        <sharedTo>
+            <role>FraudX_Agent</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>notEqual</operation>
+            <value>Customer Complaint,General Inquiry,Non-Customer Complaint</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>GeneralEnquiry_RT_FraudXAgents_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>All Cases having &quot;General Enquiry&quot; record type are to be shared with FraudX Agents with Read-Only access.</description>
+        <label>GeneralEnquiry_RT-FraudXAgents-RO</label>
+        <sharedTo>
+            <role>FraudX_Agent</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>General Inquiry</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
 </SharingRules>
