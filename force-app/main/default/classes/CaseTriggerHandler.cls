@@ -80,7 +80,10 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       );
       IDRCaseActions.completeAfterActions();
       CaseCommonActions.completeAfterUpdateActions();
-      GetHelpCaseActions.rollupRelatedBug(records, (List<Case>) oldMap.values());
+      GetHelpCaseActions.rollupRelatedBug(
+        records,
+        (List<Case>) oldMap.values()
+      );
     }
   }
 
