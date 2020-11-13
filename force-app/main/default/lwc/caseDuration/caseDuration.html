@@ -4,24 +4,39 @@
       <header class="slds-media slds-media_center slds-has-flexi-truncate">
         <div class="slds-media__body">
           <h2 class="slds-card__header-title" style="font-weight: bold">
-            <span>Case Duration</span>
+            <lightning-icon
+              icon-name="custom:custom25"
+              class="slds-media__figure"
+              alternative-text="Case Duration"
+              title="Case Duration"
+              size="small"
+            ></lightning-icon>
+            <span>Case Duration</span>{timeVal}
           </h2>
         </div>
       </header>
     </div>
-    <template if:true={durationTime}>
-      <div class="clock-face slds-text-heading_large">
-        <lightning-formatted-number
-          value={durationTime.durationHours}
-          format-style="decimal"
-          minimum-integer-digits="2"
-        ></lightning-formatted-number
-        >:
-        <lightning-formatted-number
-          value={durationTime.durationMins}
-          format-style="decimal"
-          minimum-integer-digits="2"
-        ></lightning-formatted-number>
+    <div class="clock-face slds-text-heading_large">
+      <lightning-formatted-number
+        value={hours}
+        format-style="decimal"
+        minimum-integer-digits="2"
+      ></lightning-formatted-number
+      ><span class={pulseClass}>:</span>
+      <lightning-formatted-number
+        value={minutes}
+        format-style="decimal"
+        minimum-integer-digits="2"
+      >
+      </lightning-formatted-number>
+    </div>
+    <template if:true={caseOnHold}>
+      <div
+        class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_info"
+        role="alert"
+      >
+        The duration countdown is currently paused due to the case being placed
+        on hold.
       </div>
     </template>
   </article>

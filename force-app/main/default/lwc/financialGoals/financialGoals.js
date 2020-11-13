@@ -18,10 +18,6 @@ export default class FinancialGoals extends NavigationMixin(LightningElement) {
   @track viewAllInProgress = false;
   @track viewAllCompleted = false;
   @track loading = true;
-  @track cardSizeClass;
-  @track ringClass;
-  @track paddingClass;
-  @track gridClass;
 
   @wire(MessageContext)
   messageContext;
@@ -47,7 +43,6 @@ export default class FinancialGoals extends NavigationMixin(LightningElement) {
           this.completedGoals = [];
           this.timestamp = "";
           this.getInProgressGoals();
-          this.getCompletedGoals();
 
           if (this.inProgressGoals || this.completedGoals) {
             this.loading = false;
@@ -58,7 +53,6 @@ export default class FinancialGoals extends NavigationMixin(LightningElement) {
 
     if (!this.subscription || Object.keys(this.subscription).length === 0) {
       this.getInProgressGoals();
-      this.getCompletedGoals();
     }
 
     this.loading = false;
@@ -104,12 +98,6 @@ export default class FinancialGoals extends NavigationMixin(LightningElement) {
             this.viewAllInProgress = true;
             result = result.slice(0, 3);
           }
-
-          //Change the card size and classes based on amount of results returned
-          this.cardSizeClass = `slds-p-horizontal_small slds-size_1-of-1 slds-medium-size_1-of-${result.length}`;
-          this.ringClass = `ring__${result.length}`;
-          this.fieldPaddingClass = `field-padding__${result.length}`;
-          this.gridClass = `grid-content__${result.length}`;
 
           result.forEach((finGoal) => {
             //Only set timestamp once instead of each time in the loop
@@ -194,6 +182,17 @@ export default class FinancialGoals extends NavigationMixin(LightningElement) {
             if (!this.timestamp) {
               this.setTimestamp(finGoal.LastModifiedDate);
             }
+
+            //Work out percentage for fill
+            finGoal.fillPercent = Math.floor(
+              (finGoal.FinServ__ActualValue__c /
+                finGoal.FinServ__TargetValue__c) *
+                100
+            );
+
+            //Dont let overfill 100%
+            finGoal.fillPercent =
+              finGoal.fillPercent >= 100 ? 100 : finGoal.fillPercent;
 
             //Format balances
             finGoal.FinServ__TargetValue__c = new Intl.NumberFormat("en-AU", {
