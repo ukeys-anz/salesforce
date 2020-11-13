@@ -114,6 +114,7 @@ public with sharing class IDRCaseActions {
           caseOwnerIds.add(record.OwnerId);
           changeOfficeCaseList.add(record);
         }
+        handleCaseEscalationRules(record, new Case());
       }
     }
     handleOfficeAssignment(changeOfficeCaseList);
