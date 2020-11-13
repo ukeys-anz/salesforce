@@ -7,8 +7,6 @@
  */
 
 public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
-  private List<Case> updateCaseList = new List<Case>();
-
   /**
    * @description Constructor to call the trigger framework
    * which will call the appropriate methods such as onBeforeInsert etc.
@@ -37,26 +35,15 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
    * @description onValidate() method is called before onAfterInsert to validate records or handle the records for which we need to update the values.
    */
   public override void onValidate() {
-    for (Case record : (List<Case>) records) {
-      Case caseToBeUpdated = new Case(ID = record.ID);
-      updateCaseList.add(caseToBeUpdated);
-    }
     IDRCaseActions.afterInsert(records);
-    CaseCommonActions.copyCaseNumber(records, updateCaseList);
   }
 
   /**
    * @description onAfterInsert to update the list of records which were identified in onValidate() method
    */
   public override void onAfterInsert() {
-    if (
-      Case.sObjectType.getDescribe().isUpdateable() && !updateCaseList.isEmpty()
-    ) {
-      update updateCaseList;
-    }
     CaseCommonActions.generateCaseDurationList((List<Case>) Trigger.New);
     IDRCaseActions.completeAfterActions();
-    CaseCommonActions.completeAfterInsertActions(updateCaseList);
   }
 
   /**

@@ -21,6 +21,16 @@
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
+        <fullName>Copy_Case_Number</fullName>
+        <description>Copy CaseNumber Auto Number value to CaseNumber__c field</description>
+        <field>CaseNumber__c</field>
+        <formula>CaseNumber</formula>
+        <name>Copy Case Number</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>SLA_Status_Violation_Update</fullName>
         <field>SLA_Status__c</field>
         <literalValue>Breached</literalValue>
@@ -88,5 +98,19 @@
         </criteriaItems>
         <description>Start the SLA after the status has shifted from On Hold</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Copy Case Number</fullName>
+        <actions>
+            <name>Copy_Case_Number</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Case.CaseNumber__c</field>
+            <operation>equals</operation>
+        </criteriaItems>
+        <description>Copy CaseNumber to CaseNumber__c custom field. This is moved out of trigger because of owner change issues.</description>
+        <triggerType>onCreateOnly</triggerType>
     </rules>
 </Workflow>

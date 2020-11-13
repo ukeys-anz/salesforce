@@ -12,35 +12,11 @@ public with sharing class CaseCommonActions {
     .getRecordTypeId();
 
   /**
-   * @description completeAfterInsertActions is called after onAfterInsert is finished to complete any pending actions
-   * @param updateCaseList updateCaseList to be cleared after insert
-   */
-  public static void completeAfterInsertActions(List<Case> updateCaseList) {
-    updateCaseList.clear();
-  }
-
-  /**
    * @description completeAfterUpdateActions method is called after finishing all the necessary steps for update.
    */
   public static void completeAfterUpdateActions() {
     //set recursive flag to false to avoid test class failures and bulk update issues
     checkRecursive.firstCall = false;
-  }
-
-  /**
-   * @description  Copy case Number to Original Case Number(CaseNumber__c) if CaseNumber__c is empty
-   * @param records The actual case record List
-   * @param caseToBeChanged The record List that needs to be changed
-   */
-  public static void copyCaseNumber(
-    List<Case> records,
-    List<Case> caseToBeChanged
-  ) {
-    for (Integer i = 0; i < caseToBeChanged.size(); i++) {
-      if (String.isBlank(records.get(i).CaseNumber__c)) {
-        caseToBeChanged.get(i).CaseNumber__c = records.get(i).CaseNumber;
-      }
-    }
   }
 
   /**
