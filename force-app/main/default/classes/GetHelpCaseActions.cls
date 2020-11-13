@@ -211,4 +211,87 @@ public with sharing class GetHelpCaseActions {
       }
     }
   }
+
+  /**
+   * @description recalculate related bug rollup whenever a case is inserted/updated/deleted
+   * @param records new trigger case records to calculate rollups for
+   * @param oldRecords old trigger case records to calculate rollups for
+   */
+  @SuppressWarnings('PMD.ApexCRUDViolation')
+  public static void rollupRelatedBug(
+    List<Case> records,
+    List<Case> oldRecords
+  ) {
+    Set<Id> bugIdSet = new Set<Id>();
+    for (Case c : records) {
+      if (c.Related_Bug__c != null && c.RecordTypeId == GENERAL_INQUIRY_RT_ID) {
+        bugIdSet.add(c.Related_Bug__c);
+      }
+    }
+    for (Case c : oldRecords) {
+      if (c.Related_Bug__c != null && c.RecordTypeId == GENERAL_INQUIRY_RT_ID) {
+        bugIdSet.add(c.Related_Bug__c);
+      }
+    }
+
+    List<Reported_Bug__c> bugs;
+    if (Reported_Bug__c.SObjectType.getDescribe().isAccessible()) {
+      bugs = [
+        SELECT Id, (SELECT Id FROM Cases__r)
+        FROM Reported_Bug__c
+        WHERE Id IN :bugIdSet
+      ];
+    } else {
+      bugs = new List<Reported_Bug__c>();
+    }
+
+    for (Reported_Bug__c bug : bugs) {
+      bug.Number_of_Related_Cases__c = bug.Cases__r.size();
+    }
+    List<Database.SaveResult> results = Database.Update(bugs, false);
+
+    //log errors to application log
+    lib_systemLog log = new lib_systemLog(
+      'GetHelpCaseActions',
+      'rollupRelatedBug'
+    );
+    log.addDatabaseSaveResult('Case', results, new List<Case>());
+    log.insertLog();
+  }
+
+  /**
+   * @description future method to recalculate in a deletion scenario, because if done in before delete, the rollup will be wrong. does not check record type, do this before calling
+   * @param bugIdSet set of salesforce bug id's to recalculate
+   */
+  @future
+  @SuppressWarnings('PMD.ApexCRUDViolation')
+  public static void futureRollupRelatedBug(Set<Id> bugIdSet) {
+    List<Reported_Bug__c> bugs;
+    if (
+      Reported_Bug__c.SObjectType.getDescribe().isAccessible() &&
+      Reported_Bug__c.SObjectType.getDescribe().isUpdateable()
+    ) {
+      bugs = [
+        SELECT Id, (SELECT Id FROM Cases__r)
+        FROM Reported_Bug__c
+        WHERE Id IN :bugIdSet
+      ];
+    } else {
+      bugs = new List<Reported_Bug__c>();
+    }
+
+    for (Reported_Bug__c bug : bugs) {
+      bug.Number_of_Related_Cases__c = bug.Cases__r.size();
+    }
+
+    List<Database.SaveResult> results = Database.Update(bugs, false);
+
+    //log errors to application log
+    lib_systemLog log = new lib_systemLog(
+      'GetHelpCaseActions',
+      'futureRollupRelatedBug'
+    );
+    log.addDatabaseSaveResult('Case', results, new List<Case>());
+    log.insertLog();
+  }
 }

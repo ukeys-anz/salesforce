@@ -44,6 +44,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
   public override void onAfterInsert() {
     CaseCommonActions.generateCaseDurationList((List<Case>) Trigger.New);
     IDRCaseActions.completeAfterActions();
+    GetHelpCaseActions.rollupRelatedBug(records, new List<Case>());
   }
 
   /**
@@ -79,6 +80,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       );
       IDRCaseActions.completeAfterActions();
       CaseCommonActions.completeAfterUpdateActions();
+      GetHelpCaseActions.rollupRelatedBug(records, (List<Case>) oldMap.values());
     }
   }
 
@@ -87,5 +89,14 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onBeforeDelete() {
     IDRCaseActions.onBeforeDelete(records);
+    if (!System.isFuture()) {
+      Set<Id> bugIdSet = new Set<Id>();
+      for (Case c : (List<Case>) records) {
+        if (c.RecordTypeId == GetHelpCaseActions.GENERAL_INQUIRY_RT_ID) {
+          bugIdSet.add(c.Related_Bug__c);
+        }
+      }
+      GetHelpCaseActions.futureRollupRelatedBug(bugIdSet);
+    }
   }
 }

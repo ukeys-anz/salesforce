@@ -8497,6 +8497,11 @@
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
+      <editable>false</editable>
+      <field>User.Start_Date__c</field>
+      <readable>true</readable>
+  </fieldPermissions>
+  <fieldPermissions>
     <editable>false</editable>
     <field>WorkType.BlockTimeAfterAppointment</field>
     <readable>false</readable>

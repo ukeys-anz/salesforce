@@ -1,7 +1,3 @@
-.transaction-header {
-  cursor: pointer;
-}
-
 .positive-amount {
   color: green;
 }
@@ -12,8 +8,84 @@
 
 .logo-image {
   max-width: 60%;
+  position: relative;
+  top: 15%;
 }
 
 img {
   max-width: 60%;
+}
+
+.transaction-date {
+  padding-bottom: 25px;
+}
+
+.chevron {
+  cursor: pointer;
+  position: relative;
+  left: 50%;
+  top: 33%;
+}
+
+.transaction-item {
+  padding: 20px !important;
+}
+
+.odd {
+  background: #f3f2f2 !important;
+}
+
+.description {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  max-width: 85%;
+}
+
+.description-tooltip {
+  visibility: hidden;
+  width: 30%;
+  background-color: #1c5297;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  position: absolute;
+  left: 25%;
+  color: #ffffff;
+  z-index: 1;
+}
+
+.description-tooltip__merchant {
+  left: 42% !important;
+}
+
+.description:hover + .description-tooltip {
+  visibility: visible;
+  transition: opacity 0.5s ease;
+  opacity: 1;
+}
+
+.transaction-section {
+  margin-top: 30px;
+}
+
+.section-title {
+  position: relative;
+  left: 146px;
+  padding-bottom: 15px;
+  font-weight: bold;
+}
+
+.word-fix {
+  max-width: 130px;
+  word-break: break-word;
+}
+
+.tag {
+  padding-right: 10px;
+}
+
+.map {
+  width: 55%;
 }
