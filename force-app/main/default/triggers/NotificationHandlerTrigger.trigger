@@ -6,3 +6,4 @@ trigger NotificationHandlerTrigger on Notification_Handler__c(
 ) {
   NotificationTriggerHandler handler = new NotificationTriggerHandler();
 }
+  
