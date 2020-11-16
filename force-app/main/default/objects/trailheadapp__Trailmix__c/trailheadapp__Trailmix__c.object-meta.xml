@@ -2,6 +2,7 @@
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Available Trailhead Trailmixes.</description>
+    <enableReports>true</enableReports>
     <label>Trailmix</label>
     <nameField>
         <label>Trailmix Name</label>
