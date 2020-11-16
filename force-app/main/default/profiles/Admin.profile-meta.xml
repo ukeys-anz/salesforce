@@ -2168,6 +2168,10 @@
         <layout>Task-IDR System Task</layout>
         <recordType>Task.IDR_System_Task</recordType>
     </layoutAssignments>
+     <layoutAssignments>
+        <layout>Task-IDR Task Layout</layout>
+        <recordType>Task.IDR_Task</recordType>
+    </layoutAssignments>
     <layoutAssignments>
         <layout>User-User Layout</layout>
     </layoutAssignments>
@@ -2345,6 +2349,11 @@
     <recordTypeVisibilities>
         <default>false</default>
         <recordType>Case.Non_Customer_Complaint</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+     <recordTypeVisibilities>
+        <default>true</default>
+        <recordType>Task.IDR_Task</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
