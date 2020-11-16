@@ -265,4 +265,14 @@ public with sharing class GetHelpCaseActions {
     log.addDatabaseSaveResult('Case', results, new List<Case>());
     log.insertLog();
   }
+
+  /**
+   * @description This method updates the milestone to closed when
+   * the case status is updated to clsoed
+   * @param caseIds list of case ids from the trigger
+   */
+  public static void completeCaseMilestone(List<Id> caseIds) {
+    //Mark milestones as completed
+    MilestoneUtils.completeMilestone(caseIds, 'Resolution Time', System.now());
+  }
 }

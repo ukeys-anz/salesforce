@@ -109,9 +109,12 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
    * @description onBeforeUpdate to handle after update trigger actions.
    * @param oldMap old trigger values
    */
+  @SuppressWarnings('PMD.CyclomaticComplexity')
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     List<Id> caseIds = new List<Id>();
     List<Case> validateCaseList = new List<Case>();
+    List<Id> milestoneIds = new List<Id>();
+
     for (Case record : (List<Case>) records) {
       Case oldRecord = (Case) oldMap.get(record.id);
       if (
@@ -121,6 +124,14 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       ) {
         caseIds.add(record.id);
         validateCaseList.add(record);
+      }
+
+      if (
+        record.RecordTypeId == GetHelpCaseActions.GENERAL_INQUIRY_RT_ID &&
+        oldRecord.Status != 'Closed' &&
+        record.Status == 'Closed'
+      ) {
+        milestoneIds.add(record.Id);
       }
     }
     GetHelpCaseActions.validateAdditionalTypes(
@@ -133,6 +144,10 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     );
     if (!caseIds.isEmpty()) {
       GetHelpCaseActions.validateParentCase(caseIds, validateCaseList);
+    }
+
+    if (!milestoneIds.isEmpty()) {
+      GetHelpCaseActions.completeCaseMilestone(milestoneIds);
     }
   }
 
