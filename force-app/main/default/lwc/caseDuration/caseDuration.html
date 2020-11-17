@@ -30,13 +30,13 @@
       >
       </lightning-formatted-number>
     </div>
-    <template if:true={caseOnHold}>
+    <template if:true={durationStop}>
       <div
         class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_info"
         role="alert"
       >
-        The duration countdown is currently paused due to the case being placed
-        on hold.
+        The duration countdown is currently paused due to the case being
+        {caseStatus}.
       </div>
     </template>
   </article>

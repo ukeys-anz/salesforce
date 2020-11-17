@@ -32,8 +32,8 @@ export default class CaseDuration extends LightningElement {
     })
       .then((result) => {
         this.durationTime = result;
-        if (this.caseStatus === "On Hold") {
-          this.caseOnHold = true;
+        if (this.caseStatus === "On Hold" || this.caseStatus === "Closed") {
+          this.durationStop = true;
           this.hours = this.durationTime.durationHours;
           this.minutes = this.durationTime.durationMins;
         } else {
