@@ -20,10 +20,6 @@
         <default>true</default>
     </values>
     <values>
-        <fullName>Re-opened</fullName>
-        <default>false</default>
-    </values>
-    <values>
         <fullName>Under Investigation</fullName>
         <default>false</default>
     </values>
