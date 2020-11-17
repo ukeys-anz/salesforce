@@ -25,6 +25,14 @@
         <value>/account-details-api-sandbox/api/accountbalance?ocvid=</value>
     </labels>
     <labels>
+      <fullName>MS_Forge_Token</fullName>
+      <categories>MS</categories>
+      <language>en_US</language>
+      <protected>false</protected>
+      <shortDescription>MS_Forge_Token</shortDescription>
+      <value>/anz-sys-forge-oauth-api/api/token</value>
+  </labels>
+    <labels>
         <fullName>MS_Get_Accounts_Goals</fullName>
         <categories>MS</categories>
         <language>en_US</language>
