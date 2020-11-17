@@ -79,7 +79,7 @@ public with sharing class ForgeTokenHandler {
     try {
       Http http = new Http();
       response = http.send(request);
-      if (response.getStatusCode() == 201) {
+      if (response.getStatusCode() == 200 || response.getStatusCode() == 201) {
         responseBody = response.getBody();
       } else {
         throw new CalloutException(response.getBody());
