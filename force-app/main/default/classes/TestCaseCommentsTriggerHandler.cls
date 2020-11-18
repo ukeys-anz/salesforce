@@ -87,4 +87,96 @@ public with sharing class TestCaseCommentsTriggerHandler {
     ];
     System.assert(deletedComments.size() == 0);
   }
+
+  @istest
+  static void testCaseCommentsInsert() {
+    // Setting up test data
+    User fraudXUser;
+    Case generalEnquiryCase;
+
+    // Insert Account, Case, & User as current user, to get around MIXED_DML_OPERATION error
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      // Create an ANZx Customer
+      Faker faker = new Faker('AU');
+      Account acc = new Account(
+        Name = 'Test 007 Account',
+        OCV_ID__c = faker.randomString(10),
+        ANZx_Customer__c = true
+      );
+      insert acc;
+
+      // Create a Case record to have a record type other than Fraud
+      Id generalEnquiryRecordTypeID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+        .get('General_Inquiry')
+        .getRecordTypeId();
+      generalEnquiryCase = new Case(
+        RecordTypeId = generalEnquiryRecordTypeID,
+        AccountId = acc.Id
+      );
+      insert generalEnquiryCase;
+
+      // Create a FraudX User with 'FraudX Agent' role
+      Profile profile = [
+        SELECT Id
+        FROM Profile
+        WHERE Name = 'ANZx Standard User'
+        LIMIT 1
+      ];
+      UserRole role = [
+        SELECT Id
+        FROM UserRole
+        WHERE DeveloperName = 'FraudX_Agent'
+      ];
+
+      fraudXUser = new User(
+        Alias = 'frdxtst',
+        Email = 'fraudx.agent@anzx.com.test',
+        EmailEncodingKey = 'UTF-8',
+        FirstName = 'FraudX',
+        LastName = 'Test Agent',
+        LanguageLocaleKey = 'en_US',
+        LocaleSidKey = 'en_US',
+        ProfileId = profile.Id,
+        UserRoleId = role.Id,
+        TimeZoneSidKey = 'Australia/Sydney',
+        UserName = 'fraudx.agent@anzx.com.test'
+      );
+      insert fraudXUser;
+
+      PermissionSetGroup psg = [
+        SELECT Id
+        FROM PermissionSetGroup
+        WHERE DeveloperName = 'FraudX_Agent'
+      ];
+      insert new PermissionSetAssignment(
+        AssigneeId = fraudXUser.id,
+        PermissionSetGroupId = psg.Id
+      );
+    }
+
+    // Try to insert a Case Comment against a General Enquiry Case
+    CaseComment comment = new CaseComment(
+      CommentBody = 'Test Comment',
+      ParentId = generalEnquiryCase.id
+    );
+
+    try {
+      // Execute tests as a FraudX Agent
+      System.runAs(fraudXUser) {
+        Test.startTest();
+
+        insert comment;
+
+        Test.stopTest();
+      }
+    } catch (DMLexception e) {
+      System.debug('########## e.getMessage()' + e.getMessage());
+      system.assert(
+        e.getMessage()
+          .contains('You cannot add comments on this Case record type'),
+        'FraudX Agents should not be allowed to add Case Comments on non Fraud Cases'
+      );
+    }
+  }
 }
