@@ -3,5 +3,4 @@
     <enableFileShareSetByRecord>false</enableFileShareSetByRecord>
     <enableUploadFilesOnAttachments>true</enableUploadFilesOnAttachments>
     <enableContentDistribution>false</enableContentDistribution>
-    <enableChatterFileLink>false</enableChatterFileLink>
 </ContentSettings>
