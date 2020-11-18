@@ -8591,18 +8591,34 @@
     <field>WorkerCompCoverageClass.WorkerLocationId</field>
     <readable>false</readable>
   </fieldPermissions>
-  <layoutAssignments>
-    <layout>Case-Complaint Layout</layout>
-    <recordType>Case.Customer_Complaint</recordType>
-  </layoutAssignments>
-  <layoutAssignments>
-    <layout>Case-General Inquiry Layout</layout>
-    <recordType>Case.General_Inquiry</recordType>
-  </layoutAssignments>
-  <layoutAssignments>
-    <layout>Case-Non-Customer Complaint Layout</layout>
-    <recordType>Case.Non_Customer_Complaint</recordType>
-  </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-Complaint Layout</layout>
+        <recordType>Case.Customer_Complaint</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-Fraud Layout</layout>
+        <recordType>Case.Fraud</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-General Inquiry Layout</layout>
+        <recordType>Case.General_Inquiry</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-Identity Layout</layout>
+        <recordType>Case.Identity</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-Non-Customer Complaint Layout</layout>
+        <recordType>Case.Non_Customer_Complaint</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-Recipient%2FMule Layout</layout>
+        <recordType>Case.Recipient_Mule</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-Scam Layout</layout>
+        <recordType>Case.Scam</recordType>
+    </layoutAssignments>
   <layoutAssignments>
     <layout>PersonAccount-Customer View Layout</layout>
     <recordType>PersonAccount.PersonAccount</recordType>
