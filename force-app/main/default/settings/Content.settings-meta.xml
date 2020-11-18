@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentSettings xmlns="http://soap.sforce.com/2006/04/metadata">
+    <enableFileShareSetByRecord>false</enableFileShareSetByRecord>
+    <enableUploadFilesOnAttachments>true</enableUploadFilesOnAttachments>
+    <enableChatterFileLink>false</enableChatterFileLink>
+    <enableContentDistribution>false</enableContentDistribution>
+</ContentSettings>

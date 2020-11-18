@@ -18,4 +18,7 @@ public with sharing class IDRConstants {
   public static final String NOTIFICATION_PENDING_PUBLISH_STATUS = 'Pending Publish';
   public static final String NOTIFICATION_ERROR_PUBLISH_STATUS = 'Error while Publish';
 
+  //Message Text 
+  public static final String RESTRICTED_ACTION_MESSAGE = 'You are not authorised to perform this action.';
+   
 }
