@@ -2128,6 +2128,10 @@
         <recordType>Case.Non_Customer_Complaint</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-Systemic Issue Layout</layout>
+        <recordType>Case.Systemic_Issue</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case_Duration__c-Case Duration Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -2354,6 +2358,11 @@
      <recordTypeVisibilities>
         <default>true</default>
         <recordType>Task.IDR_Task</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Case.Systemic_Issue</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>

@@ -44,6 +44,24 @@
         <closed>true</closed>
     </standardValue>
     <standardValue>
+        <fullName>Assessment</fullName>
+        <default>false</default>
+        <label>Assessment</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Investigation</fullName>
+        <default>false</default>
+        <label>Investigation</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Resolution</fullName>
+        <default>false</default>
+        <label>Resolution</label>
+        <closed>true</closed>
+    </standardValue>
+    <standardValue>
         <fullName>Resolved</fullName>
         <default>false</default>
         <label>Resolved</label>
