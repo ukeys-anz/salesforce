@@ -424,9 +424,9 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Case.ContactId</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -781,7 +781,7 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.SuppliedEmail</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -1890,6 +1890,10 @@
         <recordType>Case.Non_Customer_Complaint</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-Systemic Issue Layout</layout>
+        <recordType>Case.Systemic_Issue</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case_Duration__c-Case Duration Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -2021,6 +2025,11 @@
     <recordTypeVisibilities>
         <default>false</default>
         <recordType>Case.Non_Customer_Complaint</recordType>
+        <visible>false</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Case.Systemic_Issue</recordType>
         <visible>false</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>

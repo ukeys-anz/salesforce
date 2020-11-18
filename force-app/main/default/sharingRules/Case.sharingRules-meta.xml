@@ -3,7 +3,7 @@
     <sharingCriteriaRules>
         <fullName>CRI_RT_Complaints_PG_AllIDRUsers_RW</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All the cases records owned by All IDR Users public group needs to be shared with.</description>
+        <description>Grant read and write access on complaint records for all IDR users</description>
         <label>CRI_RT-Complaints_PG-AllIDRUsers-RW</label>
         <sharedTo>
             <group>All_IDR_Users</group>
@@ -12,6 +12,34 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Customer Complaint,Non-Customer Complaint</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>CRI_RT_SI_PG_AllIDRUsers_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Grant read access on systemic issue records for CMOS users</description>
+        <label>CRI_RT-SI_PG-AllIDRUsers-RO</label>
+        <sharedTo>
+            <group>All_IDR_Users</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Systemic Issue</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>CRI_RT_SI_PG_SiTeam_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Grant read and write access on systemic issue records for SI team members</description>
+        <label>CRI_RT-SI_PG-SiTeam-RW</label>
+        <sharedTo>
+            <group>Systemic_Issue_Team</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Systemic Issue</value>
         </criteriaItems>
     </sharingCriteriaRules>
 </SharingRules>
