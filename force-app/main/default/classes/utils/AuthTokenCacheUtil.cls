@@ -156,6 +156,7 @@ public with sharing class AuthTokenCacheUtil {
    * @return String id token
    * @exception TokenCacheException throws when no token is found
    */
+  @AuraEnabled
   public static String getSessionIdToken() {
     Id userId = UserInfo.getUserId();
     if (

@@ -57,6 +57,15 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onBeforeDelete() {
     IDRCaseActions.onBeforeDelete(records);
+    if (!System.isFuture()) {
+      Set<Id> bugIdSet = new Set<Id>();
+      for (Case c : (List<Case>) records) {
+        if (c.RecordTypeId == GetHelpCaseActions.GENERAL_INQUIRY_RT_ID) {
+          bugIdSet.add(c.Related_Bug__c);
+        }
+      }
+      GetHelpCaseActions.futureRollupRelatedBug(bugIdSet);
+    }
   }
 
   /**
@@ -71,6 +80,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     CaseCommonActions.generateCaseDurationList((List<Case>) Trigger.New);
     IDRCaseActions.completeAfterActions();
     CaseCommonActions.completeAfterInsertActions(updateCaseList);
+    GetHelpCaseActions.rollupRelatedBug(records, new List<Case>());
   }
 
   /**
@@ -92,15 +102,19 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
 
     IDRCaseActions.completeAfterActions();
     CaseCommonActions.completeAfterUpdateActions(updateCaseList);
+    GetHelpCaseActions.rollupRelatedBug(records, (List<Case>) oldMap.values());
   }
 
   /**
    * @description onBeforeUpdate to handle after update trigger actions.
    * @param oldMap old trigger values
    */
+  @SuppressWarnings('PMD.CyclomaticComplexity')
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     List<Id> caseIds = new List<Id>();
     List<Case> validateCaseList = new List<Case>();
+    List<Id> milestoneIds = new List<Id>();
+
     for (Case record : (List<Case>) records) {
       Case oldRecord = (Case) oldMap.get(record.id);
       if (
@@ -110,6 +124,14 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       ) {
         caseIds.add(record.id);
         validateCaseList.add(record);
+      }
+
+      if (
+        record.RecordTypeId == GetHelpCaseActions.GENERAL_INQUIRY_RT_ID &&
+        oldRecord.Status != 'Closed' &&
+        record.Status == 'Closed'
+      ) {
+        milestoneIds.add(record.Id);
       }
     }
     GetHelpCaseActions.validateAdditionalTypes(
@@ -122,6 +144,10 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     );
     if (!caseIds.isEmpty()) {
       GetHelpCaseActions.validateParentCase(caseIds, validateCaseList);
+    }
+
+    if (!milestoneIds.isEmpty()) {
+      GetHelpCaseActions.completeCaseMilestone(milestoneIds);
     }
   }
 

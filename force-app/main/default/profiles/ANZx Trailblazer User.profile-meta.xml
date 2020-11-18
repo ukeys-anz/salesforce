@@ -25,10 +25,6 @@
         <enabled>false</enabled>
     </pageAccesses>
     <tabVisibilities>
-        <tab>ANZx_Trailblazer</tab>
-        <visibility>DefaultOn</visibility>
-    </tabVisibilities>
-    <tabVisibilities>
         <tab>trailheadapp__TrailheadSetup</tab>
         <visibility>Hidden</visibility>
     </tabVisibilities>    
@@ -104,6 +100,14 @@
     <userPermissions>
         <enabled>false</enabled>
         <name>UseWebLink</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>LightningExperienceUser</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>RunFlow</name>
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>

@@ -3,3 +3,30 @@
   font-size: 40pt;
   padding-bottom: 20px;
 }
+
+.on-hold-alert {
+  text-align: center;
+}
+
+.slds-notify_alert {
+  padding: 0.5rem;
+}
+
+@keyframes pulseAnimation {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.pulsate {
+  -webkit-animation: pulseAnimation 2s infinite;
+  animation: pulseAnimation 2s infinite;
+}
