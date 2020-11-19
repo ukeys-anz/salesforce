@@ -153,6 +153,13 @@ public with sharing class TestCaseCommentsTriggerHandler {
         AssigneeId = fraudXUser.id,
         PermissionSetGroupId = psg.Id
       );
+
+      // Sharing Case record manually with FraudX user, as Criteria Based Sharing Rules won't apply in Test Classes
+      CaseShare cs = new CaseShare();
+      cs.CaseId = generalEnquiryCase.id;
+      cs.UserOrGroupId = fraudXUser.Id;
+      cs.CaseAccessLevel = 'Read';
+      insert cs;
     }
 
     // Try to insert a Case Comment against a General Enquiry Case
