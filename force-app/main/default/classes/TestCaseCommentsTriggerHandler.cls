@@ -171,7 +171,6 @@ public with sharing class TestCaseCommentsTriggerHandler {
         Test.stopTest();
       }
     } catch (DMLexception e) {
-      System.debug('########## e.getMessage()' + e.getMessage());
       system.assert(
         e.getMessage()
           .contains('You cannot add comments on this Case record type'),
