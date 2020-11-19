@@ -77,6 +77,18 @@
                         workspaceAPI.closeTab({ tabId: firstTabId });
                       });
                   }
+                } else {
+                  // Creating a Case from Case Tab
+                  workspaceAPI
+                    .openConsoleURL({
+                      url:
+                        "/lightning/o/Case/new?count=1&nooverride=1&recordTypeId=" +
+                        component.get("v.pageReference").state.recordTypeId,
+                      focus: true
+                    })
+                    .then(function (activeTabId) {
+                      workspaceAPI.closeTab({ tabId: firstTabId });
+                    });
                 }
               }
             });
