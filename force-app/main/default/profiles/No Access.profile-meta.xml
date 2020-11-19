@@ -186,7 +186,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>NewCaseFlowWrapperController</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>ProcessBuilderNoAction</apexClass>
