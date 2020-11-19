@@ -132,14 +132,14 @@ jobs:
           node reindex
 
       - name: Create new branch on anzx/salesforce-docs
-        uses: EndBug/add-and-commit@v4
-        with:
-          add: "docs/static docs/governance sidebars.js"
-          author_name: github-actions
-          message: "Update salesforce documentation"
-          ref: ${{ github.run_id }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.ORG_GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git checkout -b ${GITHUB_RUN_ID}
+          git add docs/static docs/governance sidebars.js
+          git commit -m "Update salesforce documentation"
+          git push origin ${GITHUB_RUN_ID}
 
       - name: Create a PR on anzx/salesforce-docs
         shell: bash
