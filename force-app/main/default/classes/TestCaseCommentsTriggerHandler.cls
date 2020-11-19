@@ -166,15 +166,15 @@ public with sharing class TestCaseCommentsTriggerHandler {
         PermissionSetLicenseId = fscInsuPSL.Id
       );
 
-      // Assign PSG
-      PermissionSetGroup psg = [
+      // Assign Case related PS
+      PermissionSet ps = [
         SELECT Id
-        FROM PermissionSetGroup
-        WHERE DeveloperName = 'FraudX_Agent'
+        FROM PermissionSet
+        WHERE Name = 'Case_Read_Write_Fraud_Agent'
       ];
       insert new PermissionSetAssignment(
         AssigneeId = fraudXUser.id,
-        PermissionSetGroupId = psg.Id
+        PermissionSetId = ps.Id
       );
 
       // Sharing Case record manually with FraudX user, as Criteria Based Sharing Rules won't apply in Test Classes
