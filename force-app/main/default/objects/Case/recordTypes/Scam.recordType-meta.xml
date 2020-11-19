@@ -3,7 +3,7 @@
     <fullName>Scam</fullName>
     <active>true</active>
     <businessProcess>Scam Support Process</businessProcess>
-    <description>ANZx FraudX Record Type</description>
+    <description>Record a new scam case for an existing ANZx customer</description>
     <label>Scam</label>
     <picklistValues>
         <picklist>Additional_Type__c</picklist>

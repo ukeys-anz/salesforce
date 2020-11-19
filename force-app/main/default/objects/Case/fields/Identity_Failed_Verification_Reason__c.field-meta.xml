@@ -3,6 +3,7 @@
     <fullName>Identity_Failed_Verification_Reason__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate</complianceGroup>
+    <description>Failed Verification Reason</description>
     <externalId>false</externalId>
     <label>Failed Verification Reason</label>
     <required>false</required>

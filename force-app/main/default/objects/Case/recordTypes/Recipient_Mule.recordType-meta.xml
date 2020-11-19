@@ -3,7 +3,7 @@
     <fullName>Recipient_Mule</fullName>
     <active>true</active>
     <businessProcess>Recipient Support Process</businessProcess>
-    <description>ANZx FraudX Record Type</description>
+    <description>Record a new recipient/mule case for an existing ANZx customer</description>
     <label>Recipient/Mule</label>
     <picklistValues>
         <picklist>Additional_Type__c</picklist>

@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate</complianceGroup>
     <defaultValue>false</defaultValue>
+    <description>Customer Provided Selfie</description>
     <externalId>false</externalId>
     <label>Customer Provided Selfie</label>
     <securityClassification>Internal</securityClassification>
