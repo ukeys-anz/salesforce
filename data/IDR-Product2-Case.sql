@@ -53,7 +53,6 @@ SELECT
     IDR_NC_Age__c,
     IDR_NC_Business_Name__c,
     IDR_NC_Country__c,
-    IDR_NC_Descent__c,
     IDR_NC_Email__c,
     IDR_NC_First_Name__c,
     IDR_NC_Gender__c,

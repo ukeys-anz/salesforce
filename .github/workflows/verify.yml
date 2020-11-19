@@ -28,11 +28,17 @@ jobs:
           sfdx force:auth:sfdxurl:store -a cmosdev --sfdxurlfile=./SFDX_URL_CMOSDEV.txt
           sfdx force:auth:sfdxurl:store -a systest --sfdxurlfile=./SFDX_URL_SYSTEST.txt
 
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+
       - name: "Generate package"
         id: package
         shell: bash
-        run: ci/package.sh
+        run: |
+          git fetch --tags 
+          ci/package.sh
 
       - uses: actions/upload-artifact@v1
         if: ${{ steps.package.outputs.ARTEFACT_GENERATED }}

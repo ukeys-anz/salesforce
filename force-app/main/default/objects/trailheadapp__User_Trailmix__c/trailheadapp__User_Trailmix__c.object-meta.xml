@@ -2,6 +2,7 @@
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Maintains user assignments and follows for trailmixes.</description>
+    <enableReports>true</enableReports>
     <label>User Trailmix</label>
     <nameField>
         <displayFormat>UTM-{0000}</displayFormat>

@@ -1,8 +1,4 @@
-.refresh-icon {
-  float: right;
-  cursor: pointer;
+.refresh {
   position: relative;
-  top: 28px;
-  right: 36px;
-  z-index: 1;
+  left: 41%;
 }
