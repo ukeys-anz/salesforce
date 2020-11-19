@@ -1336,6 +1336,10 @@
     <enabled>false</enabled>
   </classAccesses>
   <classAccesses>
+      <apexClass>NewCaseFlowWrapperController</apexClass>
+      <enabled>true</enabled>
+  </classAccesses>
+  <classAccesses>
     <apexClass>ProcessBuilderNoAction</apexClass>
     <enabled>false</enabled>
   </classAccesses>
