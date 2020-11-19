@@ -7,8 +7,10 @@ public with sharing class CaseCommentsCommonActions {
   private static final String INSERT_ERROR_FOR_FRAUDX = 'You cannot add comments on this Case record type';
   private static final String FRAUDX_AGENT_ROLE_NAME = 'FraudX Agent';
   private static final List<String> FRAUDX_CASE_RECORD_TYPES = new List<String>{
-    'x',
-    'y'
+    'Fraud',
+    'Identity',
+    'Recipient_Mule',
+    'Scam'
   };
 
   /**
