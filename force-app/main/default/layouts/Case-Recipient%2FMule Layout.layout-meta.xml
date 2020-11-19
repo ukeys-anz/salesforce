@@ -96,41 +96,53 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Identity_Assisted_ID_Event_Type__c</field>
+                <field>Fraud_Complicit_in_Fraud__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Identity_Customer_Provided_Selfie__c</field>
+                <field>Fraud_Total_Fraud_Received__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Identity_Selfie_Match__c</field>
+                <field>Fraud_Total_Recovered__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Fraud_Total_Recipient_Loss__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Identity_Device_Status__c</field>
+                <field>Fraud_Funds_from_Geography__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Identity_Phone_Number_Status__c</field>
+                <field>Fraud_Funds_from_Account_BSB__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Identity_PIN_Status__c</field>
+                <field>Fraud_Funds_from_Institution__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Identity_Review_Outcome__c</field>
+                <field>Fraud_Funds_from_Institution_Other__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Identity_Failed_Verification_Reason__c</field>
+                <field>Fraud_Funds_to_Geography__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Identity_Provided_Document_Type__c</field>
+                <field>Fraud_Funds_to_Institution__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Fraud_Funds_to_Institution_Other__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Fraud_Funds_to_Channel__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -216,7 +228,7 @@
     <showRunAssignmentRulesCheckbox>true</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>true</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2N0000017mgx</masterLabel>
+        <masterLabel>00h2O000000onvg</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>
