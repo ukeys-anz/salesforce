@@ -3,6 +3,7 @@
     <fullName>Identity_Device_Status__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate</complianceGroup>
+    <description>Device Status</description>
     <externalId>false</externalId>
     <label>Device Status</label>
     <required>false</required>

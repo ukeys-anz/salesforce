@@ -3,7 +3,7 @@
     <fullName>Identity</fullName>
     <active>true</active>
     <businessProcess>Identity Support Process</businessProcess>
-    <description>ANZx FraudX Record Type</description>
+    <description>Record a new identity case for an existing ANZx customer</description>
     <label>Identity</label>
     <picklistValues>
         <picklist>Additional_Type__c</picklist>

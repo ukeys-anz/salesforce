@@ -3,6 +3,7 @@
     <fullName>Fraud_Funds_from_Institution_Other__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted</complianceGroup>
+    <description>Funds from Institution (Other)</description>
     <externalId>false</externalId>
     <label>Funds from Institution (Other)</label>
     <length>50</length>

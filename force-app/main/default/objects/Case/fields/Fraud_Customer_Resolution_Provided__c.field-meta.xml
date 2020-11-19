@@ -3,6 +3,7 @@
     <fullName>Fraud_Customer_Resolution_Provided__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate</complianceGroup>
+    <description>Customer Resolution Provided</description>
     <externalId>false</externalId>
     <label>Customer Resolution Provided</label>
     <required>false</required>

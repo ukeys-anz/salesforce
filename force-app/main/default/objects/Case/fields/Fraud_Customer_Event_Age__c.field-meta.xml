@@ -2,7 +2,8 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Fraud_Customer_Event_Age__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate</complianceGroup>
+    <complianceGroup>Integrity - Accurate</complianceGroup>
+    <description>Age at Event (Years)</description>
     <externalId>false</externalId>
     <formula>(DATEVALUE(CreatedDate)  -  Account.PersonContact.Birthdate) / 365</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
