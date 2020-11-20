@@ -20,33 +20,38 @@
           </h1>
         </header>
       </div>
-      <template if:true={totalBalance}>
-        <div class="slds-grid slds-wrap">
-          <div class="slds-col slds-grid slds-size_1-of-1">
-            <div class="slds-grid slds-wrap slds-size_1-of-1">
-              <div
-                class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 field-padding"
-              >
-                <div class="header-column">
-                  <p class="slds-tile__title slds-text-color_weak">
-                    Total Financial Position
-                  </p>
-                  <p class="slds-item_label">{totalBalance}</p>
+      <template if:true={hasError}>
+        <c-error message={error}></c-error>
+      </template>
+      <template if:false={hasError}>
+        <template if:true={totalBalance}>
+          <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-grid slds-size_1-of-1">
+              <div class="slds-grid slds-wrap slds-size_1-of-1">
+                <div
+                  class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 field-padding"
+                >
+                  <div class="header-column">
+                    <p class="slds-tile__title slds-text-color_weak">
+                      Total Financial Position
+                    </p>
+                    <p class="slds-item_label">{totalBalance}</p>
+                  </div>
                 </div>
-              </div>
-              <div
-                class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 field-padding"
-              >
-                <div class="header-column">
-                  <p class="slds-tile__title slds-text-color_weak">
-                    Total Saved
-                  </p>
-                  <p class="slds-item_label">{totalSaved}</p>
+                <div
+                  class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 field-padding"
+                >
+                  <div class="header-column">
+                    <p class="slds-tile__title slds-text-color_weak">
+                      Total Saved
+                    </p>
+                    <p class="slds-item_label">{totalSaved}</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </template>
       </template>
     </article>
   </template>

@@ -14,6 +14,8 @@ export default class TotalBalance extends LightningElement {
   @track totalBalance;
   @track totalSaved;
   @track loading = true;
+  hasError = false;
+  error;
 
   @wire(MessageContext)
   messageContext;
@@ -43,6 +45,10 @@ export default class TotalBalance extends LightningElement {
           if (this.totalBalance || this.totalSaved) {
             this.loading = false;
           }
+        } else {
+          this.error = message.message;
+          this.getTotal();
+          this.showToast("Total Balance Load Failed", this.error);
         }
       }
     );
@@ -52,11 +58,10 @@ export default class TotalBalance extends LightningElement {
     }
   }
 
-  showToast(theTitle, theMessage, theVariant) {
+  showToast(theTitle, theMessage) {
     const event = new ShowToastEvent({
       title: theTitle,
-      message: theMessage,
-      variant: theVariant
+      message: theMessage
     });
     this.dispatchEvent(event);
   }
@@ -77,11 +82,10 @@ export default class TotalBalance extends LightningElement {
       })
       .catch((error) => {
         this.loading = false;
-        let errorMessage = "Failed to load total balance";
         if (error.body && error.body.message) {
-          errorMessage = error.body.message;
+          this.error = error.body.message;
         }
-        this.showToast("Total Balance Load Failed", errorMessage, error);
+        this.hasError = true;
       });
 
     getTotalSaved({
@@ -99,11 +103,10 @@ export default class TotalBalance extends LightningElement {
       })
       .catch((error) => {
         this.loading = false;
-        let errorMessage = "Failed to load total saved";
         if (error.body && error.body.message) {
-          errorMessage = error.body.message;
+          this.error = error.body.message;
         }
-        this.showToast("Total Balance Load Failed", errorMessage, error);
+        this.hasError = true;
       });
   }
 }

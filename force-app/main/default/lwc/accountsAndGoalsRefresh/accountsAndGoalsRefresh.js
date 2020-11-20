@@ -71,7 +71,9 @@ export default class AccountsAndGoals extends LightningElement {
   }
 
   update() {
-    const payload = { update: true };
+    const payload = {
+      update: true
+    };
     publish(this.messageContext, TriggerLoading, payload);
     getAccounts({
       ocvId: this.ocvId
@@ -111,22 +113,57 @@ export default class AccountsAndGoals extends LightningElement {
             this.goalDetails.push(goalInformation);
           }
         });
-        //Update accounts
-        updateAccounts({
-          ownerId: this.ownerId,
-          accountNumbers: this.accountNumbers,
-          accountData: this.accountDetails
-        }).then(() => {
-          publish(this.messageContext, UpdateAccountsAndGoals, payload);
-        });
 
-        //Update goals
-        updateGoals({
-          ownerId: this.ownerId,
-          accountNumbers: this.goalAccountNumbers,
-          goalData: this.goalDetails
-        }).then(() => {
-          publish(this.messageContext, UpdateAccountsAndGoals, payload);
+        try {
+          //Update accounts
+          updateAccounts({
+            ownerId: this.ownerId,
+            accountNumbers: this.accountNumbers,
+            accountData: this.accountDetails
+          }).then(() => {
+            publish(this.messageContext, UpdateAccountsAndGoals, payload);
+          });
+        } catch (error) {
+          let errorMessage =
+            "Failed to update account details. Please refresh and try again. If the problem persists, please contact your System Administrator.";
+          if (error.body && error.body.message) {
+            errorMessage = error.body.message;
+          }
+
+          publish(this.messageContext, UpdateAccountsAndGoals, {
+            update: false,
+            message: errorMessage
+          });
+        }
+
+        try {
+          //Update goals
+          updateGoals({
+            ownerId: this.ownerId,
+            accountNumbers: this.goalAccountNumbers,
+            goalData: this.goalDetails
+          }).then(() => {
+            publish(this.messageContext, UpdateAccountsAndGoals, payload);
+          });
+        } catch (error) {
+          let errorMessage =
+            "Failed to update goal details. Please refresh and try again. If the problem persists, please contact your System Administrator.";
+          if (error.body && error.body.message) {
+            errorMessage = error.body.message;
+          }
+
+          publish(this.messageContext, UpdateAccountsAndGoals, {
+            update: false,
+            message: errorMessage
+          });
+        }
+      } else {
+        let errorMessage =
+          "Failed to retrieve updated data. Please refresh and try again. If the problem persists, please contact your System Administrator.";
+
+        publish(this.messageContext, UpdateAccountsAndGoals, {
+          update: false,
+          message: errorMessage
         });
       }
     });

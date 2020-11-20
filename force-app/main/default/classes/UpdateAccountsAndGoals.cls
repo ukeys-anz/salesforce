@@ -57,7 +57,28 @@ public without sharing class UpdateAccountsAndGoals {
         .FinServ__CurrentPostedBalance__c;
     }
 
-    update financialAccounts;
+    List<Database.SaveResult> results = Database.Update(
+      financialAccounts,
+      false
+    );
+
+    //log errors to application log
+    lib_systemLog log = new lib_systemLog(
+      'UpdateAccountsAndGoals',
+      'updateAccounts'
+    );
+    Boolean hasError = log.addDatabaseSaveResult(
+      'FinServ__FinancialAccount__c',
+      results,
+      financialAccounts
+    );
+    log.insertLog();
+
+    if (hasError) {
+      throw new AuraHandledException(
+        'Failed to update accounts. Please refresh and try again. If issue persists please contact your System Administrator'
+      );
+    }
 
     return financialAccounts;
   }
@@ -122,7 +143,25 @@ public without sharing class UpdateAccountsAndGoals {
         .FinServ__TargetDate__c;
     }
 
-    update financialGoals;
+    List<Database.SaveResult> results = Database.Update(financialGoals, false);
+
+    //log errors to application log
+    lib_systemLog log = new lib_systemLog(
+      'UpdateAccountsAndGoals',
+      'updateGoals'
+    );
+    Boolean hasError = log.addDatabaseSaveResult(
+      'FinServ__FinancialAccount__c',
+      results,
+      financialGoals
+    );
+    log.insertLog();
+
+    if (hasError) {
+      throw new AuraHandledException(
+        'Failed to update goals. Please refresh and try again. If issue persists please contact your System Administrator'
+      );
+    }
 
     return financialGoals;
   }
