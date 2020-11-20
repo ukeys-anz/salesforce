@@ -25,6 +25,10 @@
         <enabled>false</enabled>
     </pageAccesses>
     <tabVisibilities>
+        <tab>ANZx_Trailblazer</tab>
+        <visibility>DefaultOn</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
         <tab>trailheadapp__TrailheadSetup</tab>
         <visibility>Hidden</visibility>
     </tabVisibilities>    

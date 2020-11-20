@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <content>Trailblazer_Home</content>
-        <formFactor>Large</formFactor>
-        <skipRecordTypeSelect>false</skipRecordTypeSelect>
-        <type>Flexipage</type>
-        <pageOrSobjectType>standard-home</pageOrSobjectType>
-    </actionOverrides>
     <brand>
         <headerColor>#004165</headerColor>
         <logo>ANZx</logo>
@@ -21,7 +13,7 @@
     <isNavPersonalizationDisabled>true</isNavPersonalizationDisabled>
     <label>Trailblazer</label>
     <navType>Standard</navType>
-    <tabs>standard-home</tabs>
+    <tabs>ANZx_Trailblazer</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Trailblazer_UtilityBar</utilityBar>
 </CustomApplication>
