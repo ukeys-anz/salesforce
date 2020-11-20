@@ -11,29 +11,6 @@ public with sharing class AccountCommonActions {
   );
 
   /**
-   * @description enforceNonProdAccountWhitelist is called when both after insert and after update is finished to enforce whitelisting
-   * @param records The Account records passed from Trigger.new()
-   */
-  public static void enforceNonProdAccountWhitelist(List<Account> records) {
-    if (
-      (SFConstants.IS_SANDBOX ||
-      SFConstants.IS_SCRATCH_ORG ||
-      Test.isRunningTest()) && NON_PROD_SETTINGS.Enable_Account_Whitelisting__c
-    ) {
-      List<String> whitelist = NON_PROD_SETTINGS.Account_Whitelist__c.split(
-        ','
-      );
-      for (Account acc : records) {
-        if (!whitelist.contains(acc.Fabric_ID__c)) {
-          acc.addError(
-            'This account is not currently whitelisted for this sandbox.'
-          );
-        }
-      }
-    }
-  }
-
-  /**
    * @description checkForAccountDeletion is called to check if the Deleted_In_OCV__c flag is updated for deletion
    * @param records The Account records passed from Trigger.new()
    */

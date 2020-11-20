@@ -14,18 +14,10 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
   }
 
   /**
-   * @description onValidate() method is called before onAfterInsert to validate records or handle the records for which we need to update the values.
-   */
-  public override void onValidate() {
-    AccountCommonActions.enforceNonProdAccountWhitelist(records);
-  }
-
-  /**
    * @description onValidate(oldMap) is called before onAfterUpdate and all the required record updates are handled here
    * @param oldMap old trigger values
    */
   public override void onValidate(Map<Id, SObject> oldMap) {
-    AccountCommonActions.enforceNonProdAccountWhitelist(records);
     AccountCommonActions.checkForAccountDeletion(records);
   }
 

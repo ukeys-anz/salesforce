@@ -2,9 +2,7 @@ import { LightningElement, api, wire } from "lwc";
 
 import { getRecord } from "lightning/uiRecordApi";
 import ACCOUNT_OCV_ID_FIELD from "@salesforce/schema/Account.OCV_ID__c";
-import ACCOUNT_FABRIC_ID_FIELD from "@salesforce/schema/Account.Fabric_ID__c";
 import FIN_ACCOUNT_OCV_ID_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.OCV_ID__c";
-import FIN_ACCOUNT_FABRIC_ID_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.Fabric_ID__c";
 import FIN_ACCOUNT_PRIMARY_OWNER_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__PrimaryOwner__c";
 
 import getAccounts from "@salesforce/apex/GetAccountsAndGoals.getAccounts";
@@ -25,7 +23,6 @@ export default class AccountsAndGoals extends LightningElement {
   accountNumbers = [];
   goalAccountNumbers = [];
   ocvId;
-  fabricId;
   objectFields = [];
   ownerId;
 
@@ -42,7 +39,6 @@ export default class AccountsAndGoals extends LightningElement {
     if (data) {
       this.ownerId = this.recordId;
       this.ocvId = data.fields.OCV_ID__c.value;
-      this.fabricId = data.fields.Fabric_ID__c.value;
       if (data.fields.FinServ__PrimaryOwner__c) {
         this.ownerId = data.fields.FinServ__PrimaryOwner__c.value;
       }
@@ -65,11 +61,10 @@ export default class AccountsAndGoals extends LightningElement {
     );
 
     if (this.objectName === "Account") {
-      this.objectFields = [ACCOUNT_OCV_ID_FIELD, ACCOUNT_FABRIC_ID_FIELD];
+      this.objectFields = [ACCOUNT_OCV_ID_FIELD];
     } else {
       this.objectFields = [
         FIN_ACCOUNT_OCV_ID_FIELD,
-        FIN_ACCOUNT_FABRIC_ID_FIELD,
         FIN_ACCOUNT_PRIMARY_OWNER_FIELD
       ];
     }
@@ -79,8 +74,7 @@ export default class AccountsAndGoals extends LightningElement {
     const payload = { update: true };
     publish(this.messageContext, TriggerLoading, payload);
     getAccounts({
-      ocvId: this.ocvId,
-      fabricId: this.fabricId
+      ocvId: this.ocvId
     }).then((result) => {
       if (result) {
         result = JSON.parse(result);

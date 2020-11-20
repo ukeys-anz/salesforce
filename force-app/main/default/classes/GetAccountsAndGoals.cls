@@ -8,28 +8,23 @@
 @SuppressWarnings('PMD.ApexSuggestUsingNamedCred')
 public with sharing class GetAccountsAndGoals {
   /**
-   * @description  The getAccounts(fabricId) is the method to make the Http callout to Mulesoft to fetch the accounts and goals details from Fabric.
-   * <b>Note: </b> This method is  temporarily sending fabricId to MuleSoft going forward we will only be using OCV ID and Mulesoft hits ForgeRock to get JWT token with fabricid based on the ocvid passed.
+   * @description  The getAccounts(ocvId) is the method to make the Http callout to Mulesoft to fetch the accounts and goals details from Fabric.
    * The Namedcredentials used in this method is also temporary and needs to be changed.
    * {@link Lib_SystemLog.logAPIError} is called when ever the call fails to Fabric to have the logs recorded for monitoring.
    *
    * @param ocvId Ocv id for which accounts and goals needs to be fetched
-   * @param fabricId Temporary solution to pass Fabric Id till the time ForgeRock is ready according to the document https://confluence.service.anz/display/ABT/Fabric+ID+as+an+interim+solution+till+ForgeRock+is+available
    * @return String
    * @exception CalloutException
    */
   @AuraEnabled(cacheable=false)
-  public static String getAccounts(String ocvId, String fabricId) {
+  public static String getAccounts(String ocvId) {
     String responseBody = null;
-    if (String.isNotBlank(fabricId)) {
+    if (String.isNotBlank(ocvId)) {
       HttpRequest request = new HttpRequest();
-      request.setEndpoint(
-        'callout:SF_MS_Fabric_interim' +
-        Label.MS_Get_Accounts_Goals +
-        ocvId
-      );
+      request.setEndpoint('callout:SF_MS_Fabric' + Label.MS_Get_Accounts_Goals);
+
       request.setMethod('GET');
-      String serializedToken = createSerializedJWT(fabricId);
+      String serializedToken = ForgeTokenHandler.getForgeJWTToken(ocvId);
       request.setHeader('Authorization', 'Bearer ' + serializedToken);
       request.setHeader('client_id', '{!$Credential.Username}');
       request.setHeader('client_secret', '{!$Credential.Password}');
@@ -59,30 +54,5 @@ public with sharing class GetAccountsAndGoals {
     }
 
     return responseBody;
-  }
-
-  private static String createSerializedJWT(String fabricId) {
-    Map<String, String> claims = new Map<String, String>();
-    // Add fabric id to the custom claims
-    claims.put('fabricid', fabricId);
-    Auth.JWT jwt = new Auth.JWT();
-    jwt.setIss('salesforce');
-    jwt.setAud('mulesoft');
-    // Add custom claims to JWT
-    jwt.setAdditionalClaims(claims);
-
-    //certificates cannot be mocked in a test scenario, return empty string
-    if (Test.isRunningTest()) {
-      return '';
-    }
-
-    Auth.JWS signedToken;
-    if (SFConstants.IS_SCRATCH_ORG) {
-      signedToken = new Auth.JWS(jwt, 'sfglobaltestks');
-    } else {
-      signedToken = new Auth.JWS(jwt, 'sf_signature');
-    }
-
-    return signedToken.getCompactSerialization();
   }
 }
