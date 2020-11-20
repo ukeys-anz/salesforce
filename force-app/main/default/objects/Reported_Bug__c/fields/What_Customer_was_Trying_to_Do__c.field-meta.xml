@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <fullName>Status__c</fullName>
+    <fullName>What_Customer_was_Trying_to_Do__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate;Source - Salesforce;Privacy - Non Personal Information</complianceGroup>
-    <description>The current status of this bug.</description>
+    <description>What the customer was attempting to do when they encountered the bug.</description>
     <externalId>false</externalId>
-    <inlineHelpText>The current status of this bug.</inlineHelpText>
-    <label>Status</label>
+    <inlineHelpText>What the customer was attempting to do when they encountered the bug.</inlineHelpText>
+    <label>What Customer was Trying to Do</label>
     <required>false</required>
     <securityClassification>Public</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
@@ -18,24 +18,19 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>New</fullName>
-                <default>true</default>
-                <label>New</label>
+                <fullName>Payment</fullName>
+                <default>false</default>
+                <label>Payment</label>
             </value>
             <value>
-                <fullName>Escalated to SRE</fullName>
+                <fullName>Profile Change</fullName>
                 <default>false</default>
-                <label>Escalated to SRE</label>
+                <label>Profile Change</label>
             </value>
             <value>
-                <fullName>Action Required</fullName>
+                <fullName>Goals</fullName>
                 <default>false</default>
-                <label>Action Required</label>
-            </value>
-            <value>
-                <fullName>Closed</fullName>
-                <default>false</default>
-                <label>Closed</label>
+                <label>Goals</label>
             </value>
         </valueSetDefinition>
     </valueSet>
