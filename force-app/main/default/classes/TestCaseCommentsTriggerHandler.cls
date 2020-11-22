@@ -144,28 +144,6 @@ public with sharing class TestCaseCommentsTriggerHandler {
       );
       insert fraudXUser;
 
-      // Assign FSC Permission Set Licence
-      PermissionSetLicense fscStdPSL = [
-        SELECT Id
-        FROM PermissionSetLicense
-        WHERE DeveloperName = 'FinServ_FinancialServicesCloudStandardPsl'
-      ];
-      insert new PermissionSetLicenseAssign(
-        AssigneeId = fraudXUser.id,
-        PermissionSetLicenseId = fscStdPSL.Id
-      );
-
-      // Assign FSC Permission Set Licence
-      PermissionSetLicense fscInsuPSL = [
-        SELECT Id
-        FROM PermissionSetLicense
-        WHERE DeveloperName = 'FSCInsurancePsl'
-      ];
-      insert new PermissionSetLicenseAssign(
-        AssigneeId = fraudXUser.id,
-        PermissionSetLicenseId = fscInsuPSL.Id
-      );
-
       // Assign Case related PS
       PermissionSet ps = [
         SELECT Id
