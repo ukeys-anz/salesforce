@@ -13,6 +13,11 @@ public with sharing class IDRConstants {
   public static final String RESOLVED_STATUS = 'Resolved';
   public static final String WITHDRAWN_STATUS = 'Withdrawn';
 
+  //Complaint and Non- Complaint Case Record Type 
+  public static final Id CUSTOMER_COMPLAINT_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+  .get('Customer_Complaint')
+  .getRecordTypeId();
+
   //NotificationHandler Status
   public static final String NOTIFICATION_PUBLISH_STATUS = 'Published';
   public static final String NOTIFICATION_PENDING_PUBLISH_STATUS = 'Pending Publish';
