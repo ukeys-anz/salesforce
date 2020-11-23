@@ -121,11 +121,11 @@ public with sharing class AccountCommonActions {
 
   @SuppressWarnings('PMD.ApexCRUDViolation')
   private static String getSLAId(String processName, String cacheName) {
-    if (Cache.Org.contains('local.Utility.' + cacheName)) {
-      return (String) Cache.Org.get('local.Utility.' + cacheName);
+    String slaId = (String) Cache.Org.get('local.Utility.' + cacheName);
+    if (slaId != null) {
+      return slaId;
     } else {
       SlaProcess sla = [SELECT Id FROM SlaProcess WHERE Name = :processName];
-
       Cache.Org.put('local.Utility.' + cacheName, sla.Id);
       return (String) sla.Id;
     }

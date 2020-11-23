@@ -169,9 +169,38 @@ private class AuthTokenCacheUtilTest {
       'An exception was not thrown by session retrieve method'
     );
     System.assertEquals(
-      'No active token found, please log out, and back into Salesforce',
+      'Connection issue, please sign in again',
       exceptions[0].getMessage(),
       'Incorrect exception message from session token cache miss'
     );
+  }
+
+  /**
+   * @description tests session cache miss on Id token and the refresh process
+   * GIVEN session cache does not id token but does contain refresh, a new token is requested and returned
+   */
+  @isTest
+  static void testSessionCacheRefresh() {
+    Test.setMock(
+      HttpCalloutMock.class,
+      new ANZAzureADAuthProviderTest.AzureMockService(
+        ANZAzureADAuthProviderTest.JSON_GOOD_TOKEN,
+        200
+      )
+    );
+    //add a refresh token but not an Id token
+    Cache.Session.put(
+      'local.SessionAzureTokens.refreshToken' + UserInfo.getUserId(),
+      REFRESHTESTVALUE,
+      300,
+      Cache.Visibility.NAMESPACE,
+      false
+    );
+
+    Test.startTest();
+    String newToken = AuthTokenCacheUtil.getSessionIdToken();
+    Test.stopTest();
+
+    System.assertEquals('sampleidtoken', newToken);
   }
 }
