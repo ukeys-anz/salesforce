@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_Date_Received__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate</complianceGroup>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information</complianceGroup>
     <defaultValue>TODAY()</defaultValue>
     <description>Date received, may not be the record&apos;s created date in SF (data import, replication delays, ...). Leave blank for TODAY.</description>
     <externalId>false</externalId>
