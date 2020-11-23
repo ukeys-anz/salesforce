@@ -19,6 +19,7 @@ public with sharing class CaseCommentsCommonActions {
    */
   public static void blockInsertsBasedOnUserRole(List<CaseComment> records) {
     // Check the Role of current user
+    // ('isQueryable' check is only performed here to workaroung PMD warnings. There isn't a real need for it, as the query is on the Current User itself.)
     if (Schema.sObjectType.User.isQueryable()) {
       List<User> fraudUsers = [
         SELECT id
