@@ -19,23 +19,21 @@ public with sharing class CaseCommentsCommonActions {
    */
   public static void blockInsertsBasedOnUserRole(List<CaseComment> records) {
     // Check the Role of current user
-    String uRoleName = '';
-    String uRoleId = UserInfo.getUserRoleId();
     if (Schema.sObjectType.User.isQueryable()) {
-      User loggedInUser = [
-        SELECT id, UserRole.Name
+      List<User> fraudUsers = [
+        SELECT id
         FROM User
-        WHERE UserRoleId = :uRoleId
+        WHERE
+          UserRole.Name = :FRAUDX_AGENT_ROLE_NAME
+          AND Id = :UserInfo.getUserId()
         LIMIT 1
       ];
-      uRoleName = loggedInUser.UserRole.Name;
-    }
 
-    // Make sure FraudX Agents are only allowed to add Case Comments on Fraud case record types
-    if (FRAUDX_AGENT_ROLE_NAME == uRoleName) {
-      // Performing the SOQL query after the Role check to save SOQL limits.
-      // We can always bring it outside when we have more requiements in the future around different user roles.
-      if (Schema.sObjectType.Case.isQueryable()) {
+      // Make sure FraudX Agents are only allowed to add Case Comments on Fraud case record types
+      if (!fraudUsers.isEmpty()) {
+        // Performing the SOQL query after the Role check to save SOQL limits.
+        // We can always bring it outside when we have more requiements in the future around different user roles.
+
         // Extract related Case IDs
         Set<Id> relatedCaseIDs = new Set<Id>();
         for (CaseComment record : (List<CaseComment>) records) {
