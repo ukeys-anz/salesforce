@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Identity_Selfie_Match__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate</complianceGroup>
+    <complianceGroup>Source_Salesforce;Integrity - Accurate</complianceGroup>
     <defaultValue>false</defaultValue>
     <description>Selfie Match to ID Document</description>
     <externalId>false</externalId>

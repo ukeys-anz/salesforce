@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Fraud_Total_Reimbursed__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate</complianceGroup>
+    <complianceGroup>Source_Salesforce;Integrity - Accurate</complianceGroup>
     <description>Total Reimbursed</description>
     <externalId>false</externalId>
     <label>Total Reimbursed</label>

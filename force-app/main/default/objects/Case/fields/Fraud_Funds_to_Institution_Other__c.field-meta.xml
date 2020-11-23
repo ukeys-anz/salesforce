@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Fraud_Funds_to_Institution_Other__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Trusted</complianceGroup>
+    <complianceGroup>Source_Salesforce;Integrity - Trusted</complianceGroup>
     <description>Funds to Institution (Other)</description>
     <externalId>false</externalId>
     <label>Funds to Institution (Other)</label>

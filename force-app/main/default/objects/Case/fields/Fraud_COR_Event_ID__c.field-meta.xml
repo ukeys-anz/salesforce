@@ -3,7 +3,7 @@
     <fullName>Fraud_COR_Event_ID__c</fullName>
     <businessStatus>Active</businessStatus>
     <caseSensitive>false</caseSensitive>
-    <complianceGroup>Integrity - Trusted</complianceGroup>
+    <complianceGroup>Source_Salesforce;Integrity - Trusted</complianceGroup>
     <description>COR Event ID</description>
     <externalId>false</externalId>
     <label>COR Event ID</label>

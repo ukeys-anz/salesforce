@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Fraud_Complicit_in_Fraud__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate</complianceGroup>
+    <complianceGroup>Source_Salesforce;Integrity - Accurate</complianceGroup>
     <description>Complicit in Fraud</description>
     <externalId>false</externalId>
     <label>Complicit in Fraud</label>

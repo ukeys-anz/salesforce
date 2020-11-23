@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Identity_Review_Outcome__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate</complianceGroup>
+    <complianceGroup>Source_Salesforce;Integrity - Accurate</complianceGroup>
     <description>Review Outcome</description>
     <externalId>false</externalId>
     <label>Review Outcome</label>

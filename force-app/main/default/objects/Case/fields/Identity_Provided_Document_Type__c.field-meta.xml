@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Identity_Provided_Document_Type__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate</complianceGroup>
+    <complianceGroup>Source_Salesforce;Integrity - Accurate</complianceGroup>
     <description>Provided Document Type</description>
     <externalId>false</externalId>
     <label>Provided Document Type</label>
