@@ -165,9 +165,7 @@
     </nameField>
     <pluralLabel>Reported Bugs</pluralLabel>
     <searchLayouts>
-        <searchResultsAdditionalFields xsi:nil="true"/>
         <searchResultsAdditionalFields>Responsible_Value_Stream__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields xsi:nil="true"/>
         <searchResultsAdditionalFields>Status__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Jira_Ticket__c</searchResultsAdditionalFields>
     </searchLayouts>
