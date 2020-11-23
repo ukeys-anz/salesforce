@@ -18,6 +18,8 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
   private static IDR_Notification_Hours__c nHours;
   private static List<Notification_Handler__c> notificationList;
   private static List<Database.SaveResult> peSaveResults;
+    
+    
   /**
    * @description Constructor to call the trigger framework
    */
@@ -206,4 +208,31 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
       )
     );
   }
+    
+    /**
+   * @description  insertNotificationHandler method is to insert the notification handler record and then notification handler trigger will publish the PE based on AEST window. Putting it in the without sharing class so that case is created successfully with the escalated status where case ownership changes
+   * @param records The records for which notifications needs to be sent out
+   */
+  public static void insertNotificationHandler(List<Case> records) {
+    List<Notification_Handler__c> notificationHandlerList = new List<Notification_Handler__c>();
+    Id customerComplaintRecordId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID;
+    for (Case c : records) {
+      if (
+        c.RecordTypeId ==  customerComplaintRecordId ||
+        !String.isBlank(c.IDR_NC_Mobile__c) ||
+        !String.isBlank(c.IDR_NC_Email__c)
+      ){
+        Notification_Handler__c handler = new Notification_Handler__c();
+        handler.Case__c = c.Id;
+        handler.Status__c = IDRConstants.NOTIFICATION_PENDING_PUBLISH_STATUS;
+        handler.Case_Status__c = c.Status;
+        
+        notificationHandlerList.add(handler);
+      }
+    }
+    if(!notificationHandlerList.isEmpty() && Schema.sObjectType.Notification_Handler__c.isCreateable()){
+      insert notificationHandlerList;
+    }
+  }
+
 }

@@ -198,7 +198,7 @@ public with sharing class IDRCaseActions {
    */
   public static void completeAfterActions() {
     //sendNotifications(notificationCaseList);
-    insertNotificationHandler(notificationCaseList);
+    NotificationTriggerHandler.insertNotificationHandler(notificationCaseList);
     escalateToCFMS(caseEscalationList);
     notificationCaseList.clear();
     caseEscalationList.clear();
@@ -458,31 +458,7 @@ public with sharing class IDRCaseActions {
     }
     //Todo handle errors further if needed.
   }
-  /**
-   * @description  insertNotificationHandler method is to insert the notification handler record and then notification handler trigger will publish the PE based on AEST window
-   * @param records The records for which notifications needs to be sent out
-   */
-  private static void insertNotificationHandler(List<Case> records) {
-    List<Notification_Handler__c> notificationHandlerList = new List<Notification_Handler__c>();
-    for (Case c : records) {
-      if (
-        c.RecordTypeId == CUSTOMER_COMPLAINT_RT_ID ||
-        !String.isBlank(c.IDR_NC_Mobile__c) ||
-        !String.isBlank(c.IDR_NC_Email__c)
-      ){
-        Notification_Handler__c handler = new Notification_Handler__c();
-        handler.Case__c = c.Id;
-        handler.Status__c = IDRConstants.NOTIFICATION_PENDING_PUBLISH_STATUS;
-        handler.Case_Status__c = c.Status;
-        
-        notificationHandlerList.add(handler);
-      }
-    }
-    if(!notificationHandlerList.isEmpty() && Schema.sObjectType.Notification_Handler__c.isCreateable()){
-      insert notificationHandlerList;
-    }
-  }
-
+  
   /**
    * @description  sendNotifications method is to send out platform events for notifications to customers. Mulesoft subscribes to these notifications and makes Notification Broker API call.
    * @param records The records for which notifications needs to be sent out
