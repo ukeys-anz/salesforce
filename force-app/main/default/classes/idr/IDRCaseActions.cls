@@ -105,8 +105,11 @@ public with sharing class IDRCaseActions {
    * However in situations where the ID or CaseNumber is used which is only generated in onAfterInsert that logic needs to go in onAfterInsert.
    */
   public static void applyDefaults(List<Case> records) {
+    Id EntitlementId = GetEntitlement();
     for (Case record : records) {
       if (isIDRComplaintType(record)) {
+        record.EntitlementId = EntitlementId;
+        record.Milestone_Sla__c = IDRConstants.MILESTONE_SLA_NORMAL;
         handleMasking(record, record);
         handleAnonymousNames(record, record);
         handleCaseStatusChanges(record, record);
@@ -161,6 +164,9 @@ public with sharing class IDRCaseActions {
         if (
           records.get(i).Status != ((Case) oldMap.get(records.get(i).id)).Status
         ) {
+            if(records.get(i).Status == UNDER_INVESTIGATION_STATUS){
+             caseToBeChanged.get(i).Milestone_Sla__c = IDRConstants.MILESTONE_SLA_NORMAL;
+            }  
           handleCaseStatusChanges(records.get(i), caseToBeChanged.get(i));
           if (NOTIFICATION_STATUS.contains(records.get(i).Status)) {
             notificationCaseList.add(records.get(i));
@@ -363,6 +369,19 @@ public with sharing class IDRCaseActions {
     }
   }
 
+  /**
+   * @description Get the EntitlmentId that will be associated with this case
+   *@return Id  - the Id of the entitlment record
+   */
+   public static Id GetEntitlement(){
+    list<Entitlement> et = new list<Entitlement>();
+    et = [Select Id from Entitlement where name = 'Complaints Entitlement'];
+       if(et.size() > 0){
+          return et[0].Id; 
+       }else{
+          return null;
+       }
+  }
   /**
    * @description Escalate the list of Records to CRC by publishing a platform event.
    * @param recordsToBeEscalated

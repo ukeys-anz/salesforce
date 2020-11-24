@@ -15,7 +15,12 @@ private class TestCaseTriggerHandler {
         )
       );
     }
-
+    
+    account a = new account(
+        					Name = 'Complaint Entitlement Account',
+                           	OCV_ID__c = faker.randomString(10),
+          					ANZx_Customer__c = false);
+     accnts.add(a);
     insert accnts;
   }
 
@@ -525,4 +530,36 @@ private class TestCaseTriggerHandler {
       newCases[0].Subject
     );
   }
+  //Tests if the complaints entitlment logic in working as expected.
+   @isTest
+    static void testComplaintEntilement(){
+    Account a = [SELECT Id FROM Account WHERE Name = 'Complaint Entitlement Account' LIMIT 1];
+    Entitlement et = new Entitlement(
+        							Name = 'Complaints Entitlement',
+    								AccountId = a.Id,
+    								StartDate=Date.valueof(System.now().addDays(-2)));
+    insert et;
+    Case[] complaintCaselist = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      complaintCaselist.add(
+        new Case(
+          IDR_Account_Card_Policy_Number__c = '000001234',
+          Description = 'Test check entitlement',
+          IDR_Complainant_Desired_Outcome__c = 'entitlement id populated',
+          IDR_Description_of_Outcome__c = 'entitlement id populated',
+          IDR_Systemic_Issue_Description__c = 'None',
+          RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID
+        )
+      );
+    }
+    insert complaintCaselist;
+    case checkEntitlment = [SELECT Id, EntitlementId,Status,Milestone_Sla__c FROM Case WHERE Id = :complaintCaselist[0].Id LIMIT 1];
+    system.assertEquals(et.Id, checkEntitlment.EntitlementId);
+    system.assertEquals('Normal', checkEntitlment.Milestone_Sla__c); 
+   	 checkEntitlment.Status = 'Under Investigation' ;  
+     checkEntitlment.Milestone_Sla__c = 'Warning';
+     update checkEntitlment;
+     case checkMilestone = [SELECT Id, EntitlementId,Status,Milestone_Sla__c FROM Case WHERE Id = :complaintCaselist[0].Id LIMIT 1];
+     system.assertEquals('Normal', checkMilestone.Milestone_Sla__c); 
+    }
 }

@@ -20,5 +20,8 @@ public with sharing class IDRConstants {
 
   //Message Text 
   public static final String RESTRICTED_ACTION_MESSAGE = 'You are not authorised to perform this action.';
+
+  //Milestone Sla
+  public static final String MILESTONE_SLA_NORMAL = 'Normal';
    
 }
