@@ -3,7 +3,7 @@
     <fullName>My_Team_s_Cases</fullName>
     <booleanFilter>(1 OR 2) AND 3</booleanFilter>
     <columns>CASES.CASE_NUMBER</columns>
-    <columns>Time_To_Escalation__c</columns>
+    <columns>IDR_Time_To_Escalation__c</columns>
     <columns>ACCOUNT.NAME</columns>
     <columns>CASES.SUBJECT</columns>
     <columns>CASES.STATUS</columns>

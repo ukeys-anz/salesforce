@@ -109,7 +109,7 @@ public with sharing class IDRCaseActions {
     for (Case record : records) {
       if (isIDRComplaintType(record)) {
         record.EntitlementId = EntitlementId;
-        record.Milestone_Sla__c = IDRConstants.MILESTONE_SLA_NORMAL;
+        record.IDR_Milestone_Sla__c = IDRConstants.MILESTONE_SLA_NORMAL;
         handleMasking(record, record);
         handleAnonymousNames(record, record);
         handleCaseStatusChanges(record, record);
@@ -165,7 +165,7 @@ public with sharing class IDRCaseActions {
           records.get(i).Status != ((Case) oldMap.get(records.get(i).id)).Status
         ) {
             if(records.get(i).Status == UNDER_INVESTIGATION_STATUS){
-             caseToBeChanged.get(i).Milestone_Sla__c = IDRConstants.MILESTONE_SLA_NORMAL;
+             caseToBeChanged.get(i).IDR_Milestone_Sla__c = IDRConstants.MILESTONE_SLA_NORMAL;
             }  
           handleCaseStatusChanges(records.get(i), caseToBeChanged.get(i));
           if (NOTIFICATION_STATUS.contains(records.get(i).Status)) {

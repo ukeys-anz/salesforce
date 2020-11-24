@@ -553,13 +553,13 @@ private class TestCaseTriggerHandler {
       );
     }
     insert complaintCaselist;
-    case checkEntitlment = [SELECT Id, EntitlementId,Status,Milestone_Sla__c FROM Case WHERE Id = :complaintCaselist[0].Id LIMIT 1];
+    case checkEntitlment = [SELECT Id, EntitlementId,Status,IDR_Milestone_Sla__c FROM Case WHERE Id = :complaintCaselist[0].Id LIMIT 1];
     system.assertEquals(et.Id, checkEntitlment.EntitlementId);
-    system.assertEquals('Normal', checkEntitlment.Milestone_Sla__c); 
+    system.assertEquals('Normal', checkEntitlment.IDR_Milestone_Sla__c); 
    	 checkEntitlment.Status = 'Under Investigation' ;  
-     checkEntitlment.Milestone_Sla__c = 'Warning';
+     checkEntitlment.IDR_Milestone_Sla__c = 'Warning';
      update checkEntitlment;
-     case checkMilestone = [SELECT Id, EntitlementId,Status,Milestone_Sla__c FROM Case WHERE Id = :complaintCaselist[0].Id LIMIT 1];
-     system.assertEquals('Normal', checkMilestone.Milestone_Sla__c); 
+     case checkMilestone = [SELECT Id, EntitlementId,Status,IDR_Milestone_Sla__c FROM Case WHERE Id = :complaintCaselist[0].Id LIMIT 1];
+     system.assertEquals('Normal', checkMilestone.IDR_Milestone_Sla__c); 
     }
 }

@@ -2796,7 +2796,7 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Milestone_Sla__c</picklist>
+        <picklist>IDR_Milestone_Sla__c</picklist>
         <values>
             <fullName>Critical</fullName>
             <default>false</default>

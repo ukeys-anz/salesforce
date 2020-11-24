@@ -22,7 +22,7 @@
     </fieldUpdates>
     <fieldUpdates>
         <fullName>EscalationtoAmber</fullName>
-        <field>Milestone_Sla__c</field>
+        <field>IDR_Milestone_Sla__c</field>
         <literalValue>Warning</literalValue>
         <name>EscalationtoAmber</name>
         <notifyAssignee>false</notifyAssignee>
@@ -31,7 +31,7 @@
     </fieldUpdates>
     <fieldUpdates>
         <fullName>EscalationtoRed</fullName>
-        <field>Milestone_Sla__c</field>
+        <field>IDR_Milestone_Sla__c</field>
         <literalValue>Critical</literalValue>
         <name>EscalationtoRed</name>
         <notifyAssignee>false</notifyAssignee>
