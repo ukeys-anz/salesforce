@@ -24,7 +24,7 @@ public with sharing class GetAccountsAndGoals {
       request.setEndpoint('callout:SF_MS_Fabric' + Label.MS_Get_Accounts_Goals);
 
       request.setMethod('GET');
-      String serializedToken = ForgeTokenHandler.getForgeJWTToken(ocvId);
+      String serializedToken = AuthTokenCacheUtil.getStaffToken(ocvId);
       request.setHeader('Authorization', 'Bearer ' + serializedToken);
       request.setHeader('client_id', '{!$Credential.Username}');
       request.setHeader('client_secret', '{!$Credential.Password}');

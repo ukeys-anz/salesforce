@@ -203,4 +203,85 @@ private class AuthTokenCacheUtilTest {
 
     System.assertEquals('sampleidtoken', newToken);
   }
+
+  /**
+   * @description test method for getForgeJWTToken when successful
+   */
+  @isTest
+  public static void testGetStaffToken() {
+    Test.setMock(
+      HttpCalloutMock.class,
+      new ForgeTokenHandlerTest.MockForgeCallout()
+    );
+    Id userId = UserInfo.getUserId();
+    Cache.Session.put(
+      'local.SessionAzureTokens.idToken' + userId,
+      ForgeTokenHandlerTest.IDTESTVALUE,
+      300,
+      Cache.Visibility.NAMESPACE,
+      false
+    );
+
+    Test.startTest();
+    String accessToken = AuthTokenCacheUtil.getStaffToken('1111');
+    System.assertEquals(accessToken, 'xxxxx');
+    Test.stopTest();
+  }
+
+  /**
+   * @description test method for getForgeJWTToken when retrieving from cache instead of api
+   */
+  @isTest
+  public static void testGetStaffTokenFromCache() {
+    Test.setMock(
+      HttpCalloutMock.class,
+      new ForgeTokenHandlerTest.MockForgeCallout()
+    );
+    Id userId = UserInfo.getUserId();
+    Cache.Session.put(
+      'local.SessionAzureTokens.idToken' + userId,
+      ForgeTokenHandlerTest.IDTESTVALUE,
+      300,
+      Cache.Visibility.NAMESPACE,
+      false
+    );
+
+    Cache.Session.put(
+      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken1111',
+      'yyyyy'
+    );
+
+    Test.startTest();
+    String accessToken = AuthTokenCacheUtil.getStaffToken('1111');
+    System.assertEquals(accessToken, 'yyyyy');
+    Test.stopTest();
+  }
+
+  /**
+   * @description test method for getForgeJWTToken when failed
+   */
+  @isTest
+  public static void testGetStaffTokenFailure() {
+    Test.setMock(
+      HttpCalloutMock.class,
+      new ForgeTokenHandlerTest.MockForgeCalloutFailed()
+    );
+    Id userId = UserInfo.getUserId();
+    Cache.Session.put(
+      'local.SessionAzureTokens.idToken' + userId,
+      ForgeTokenHandlerTest.IDTESTVALUE,
+      300,
+      Cache.Visibility.NAMESPACE,
+      false
+    );
+
+    Test.startTest();
+    try {
+      AuthTokenCacheUtil.getStaffToken('1111');
+    } catch (Exception e) {
+      System.assertEquals('Get access token failed', e.getMessage());
+    }
+
+    Test.stopTest();
+  }
 }

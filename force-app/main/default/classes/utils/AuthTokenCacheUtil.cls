@@ -6,6 +6,8 @@
 public with sharing class AuthTokenCacheUtil {
   private final static String ORGPART = 'local.OrgAzureTokens.';
   private final static String SESSIONPART = 'local.SessionAzureTokens.';
+  @TestVisible
+  private final static String STAFFPART = 'local.ForgeToken.';
 
   /**
    * @description move the tokens for the current user from org to session cache
@@ -248,6 +250,48 @@ public with sharing class AuthTokenCacheUtil {
     }
 
     return (String) idToken;
+  }
+
+  /**
+   * @description retrieves staff token from forgerock via mulesoft
+   * @param ocvId ocvID
+   * @return String staff token
+   * @exception TokenCacheException throws when no token is found
+   */
+  @AuraEnabled
+  public static String getStaffToken(String ocvId) {
+    if (Cache.Session.contains(STAFFPART + 'forgeJWTToken' + ocvId)) {
+      return (String) Cache.Session.get(STAFFPART + 'forgeJWTToken' + ocvId);
+    }
+
+    String staffToken = '';
+    Integer expiresIn = 300; // default minimum value
+    try {
+      Map<String, Object> responseMap = ForgeTokenHandler.getForgeJWTToken(
+        ocvId
+      );
+      staffToken = (String) responseMap.get('access_token');
+      expiresIn = (Integer) responseMap.get('expires_in');
+    } catch (Exception e) {
+      Lib_SystemLog.createSingleLog(
+        AuthTokenCacheUtil.class.getName(),
+        'getStaffToken',
+        '1',
+        'Unable to retrieve staff token',
+        Lib_SystemLog.Severity.WARNING
+      );
+      throw new TokenCacheException(e.getMessage());
+    }
+
+    Cache.Session.put(
+      STAFFPART +
+      'forgeJWTToken' +
+      ocvId,
+      staffToken,
+      expiresIn //14 minutes
+    );
+
+    return staffToken;
   }
 
   /**
