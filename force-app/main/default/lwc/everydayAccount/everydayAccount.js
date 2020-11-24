@@ -16,6 +16,8 @@ export default class EverydayAccount extends NavigationMixin(LightningElement) {
   @track viewAll;
   @track timestamp;
   @track loading = true;
+  hasError = false;
+  error;
 
   @wire(MessageContext)
   messageContext;
@@ -44,6 +46,10 @@ export default class EverydayAccount extends NavigationMixin(LightningElement) {
           if (this.financialAccounts) {
             this.loading = false;
           }
+        } else {
+          this.error = message.message;
+          this.getAccounts();
+          this.showToast("Financial Account Load Failed", this.error);
         }
       }
     );
@@ -80,11 +86,10 @@ export default class EverydayAccount extends NavigationMixin(LightningElement) {
     }
   }
 
-  showToast(theTitle, theMessage, theVariant) {
+  showToast(theTitle, theMessage) {
     const event = new ShowToastEvent({
       title: theTitle,
-      message: theMessage,
-      variant: theVariant
+      message: theMessage
     });
     this.dispatchEvent(event);
   }
@@ -133,11 +138,10 @@ export default class EverydayAccount extends NavigationMixin(LightningElement) {
       })
       .catch((error) => {
         this.loading = false;
-        let errorMessage = "Failed to load financial accounts";
         if (error.body && error.body.message) {
-          errorMessage = error.body.message;
+          this.error = error.body.message;
         }
-        this.showToast("Financial Account Load Failed", errorMessage, error);
+        this.hasError = true;
       });
   }
 

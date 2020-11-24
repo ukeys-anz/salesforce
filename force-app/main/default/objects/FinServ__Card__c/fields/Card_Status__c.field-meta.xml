@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Card_Status__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate</complianceGroup>
+    <complianceGroup>Integrity - Accurate;Privacy - Personal Information</complianceGroup>
     <description>The status of the card</description>
     <externalId>false</externalId>
     <label>Card Status</label>

@@ -7,4 +7,8 @@
         <fieldName>update</fieldName>
         <description>Boolean to determine if update triggered</description>
     </lightningMessageFields>
+    <lightningMessageFields>
+      <fieldName>message</fieldName>
+      <description>Provide a message if an update failed</description>
+  </lightningMessageFields>
 </LightningMessageChannel>
