@@ -77,95 +77,131 @@ export default class AccountsAndGoals extends LightningElement {
     publish(this.messageContext, TriggerLoading, payload);
     getAccounts({
       ocvId: this.ocvId
-    }).then((result) => {
-      if (result) {
-        result = JSON.parse(result);
-        result.accountList.forEach((account) => {
-          this.accountNumbers.push(account.accountNumber);
-          let accountInformation = {
-            Name: account.name,
-            FinServ__FinancialAccountNumber__c: account.accountNumber,
-            FinServ__Balance__c: account.balance.value.replace("$", ""),
-            FinServ__CurrentPostedBalance__c: account.currentBalance.value.replace(
-              "$",
-              ""
-            )
-          };
-
-          this.accountDetails.push(accountInformation);
-          if (account.accountType === "Savings") {
-            this.goalAccountNumbers.push(account.accountNumber);
-            let goalInformation = {
-              Name: account.goal.name,
-              Financial_Account_Number__c: account.accountNumber,
-              FinServ__TargetValue__c: account.goal.targetAmount.value.replace(
+    })
+      .then((result) => {
+        if (result) {
+          result = JSON.parse(result);
+          result.accountList.forEach((account) => {
+            this.accountNumbers.push(account.accountNumber);
+            let accountInformation = {
+              Name: account.name,
+              FinServ__FinancialAccountNumber__c: account.accountNumber,
+              FinServ__Balance__c: account.balance.value.replace("$", ""),
+              FinServ__CurrentPostedBalance__c: account.currentBalance.value.replace(
                 "$",
                 ""
-              ),
-              FinServ__ActualValue__c: account.currentBalance.value.replace(
-                "$",
-                ""
-              ),
-              Start_Date__c: account.goal.startDate,
-              FinServ__TargetDate__c: account.goal.targetDate,
-              Icon__c: account.goal.iconId
+              )
             };
-            this.goalDetails.push(goalInformation);
-          }
-        });
 
-        try {
+            this.accountDetails.push(accountInformation);
+            if (account.accountType === "Savings") {
+              this.goalAccountNumbers.push(account.accountNumber);
+              let goalInformation = {
+                Name: account.goal.name,
+                Financial_Account_Number__c: account.accountNumber,
+                FinServ__TargetValue__c: account.goal.targetAmount.value.replace(
+                  "$",
+                  ""
+                ),
+                FinServ__ActualValue__c: account.currentBalance.value.replace(
+                  "$",
+                  ""
+                ),
+                Start_Date__c: account.goal.startDate,
+                FinServ__TargetDate__c: account.goal.targetDate,
+                Icon__c: account.goal.iconId
+              };
+              this.goalDetails.push(goalInformation);
+            }
+          });
+
           //Update accounts
           updateAccounts({
             ownerId: this.ownerId,
             accountNumbers: this.accountNumbers,
             accountData: this.accountDetails
-          }).then(() => {
-            publish(this.messageContext, UpdateAccountsAndGoals, payload);
-          });
-        } catch (error) {
-          let errorMessage =
-            "Failed to update account details. Please refresh and try again. If the problem persists, please contact your System Administrator.";
-          if (error.body && error.body.message) {
-            errorMessage = error.body.message;
-          }
+          })
+            .then(() => {
+              publish(this.messageContext, UpdateAccountsAndGoals, payload);
+            })
+            .catch((error) => {
+              let errorMessage =
+                "Failed to update account details. Please refresh and try again. If the problem persists, please contact your System Administrator.";
+              if (error.body && error.body.message) {
+                let message = this.handleError(error.body.message);
+                //Catch any system error messages (most readable errors wont be a single word)
+                if (message.split(" ").length > 1) {
+                  errorMessage = message;
+                }
+              }
 
-          publish(this.messageContext, UpdateAccountsAndGoals, {
-            update: false,
-            message: errorMessage
-          });
-        }
+              publish(this.messageContext, UpdateAccountsAndGoals, {
+                update: false,
+                message: errorMessage
+              });
+            });
 
-        try {
           //Update goals
           updateGoals({
             ownerId: this.ownerId,
             accountNumbers: this.goalAccountNumbers,
             goalData: this.goalDetails
-          }).then(() => {
-            publish(this.messageContext, UpdateAccountsAndGoals, payload);
-          });
-        } catch (error) {
+          })
+            .then(() => {
+              publish(this.messageContext, UpdateAccountsAndGoals, payload);
+            })
+            .catch((error) => {
+              let errorMessage =
+                "Failed to update goal details. Please refresh and try again. If the problem persists, please contact your System Administrator.";
+              if (error.body && error.body.message) {
+                let message = this.handleError(error.body.message);
+                //Catch any system error messages (most readable errors wont be a single word)
+                if (message.split(" ").length > 1) {
+                  errorMessage = message;
+                }
+              }
+
+              publish(this.messageContext, UpdateAccountsAndGoals, {
+                update: false,
+                message: errorMessage
+              });
+            });
+        } else {
           let errorMessage =
-            "Failed to update goal details. Please refresh and try again. If the problem persists, please contact your System Administrator.";
-          if (error.body && error.body.message) {
-            errorMessage = error.body.message;
-          }
+            "No new data returned. Please refresh and try again. If the problem persists, please contact your System Administrator.";
 
           publish(this.messageContext, UpdateAccountsAndGoals, {
             update: false,
             message: errorMessage
           });
         }
-      } else {
+      })
+      .catch((error) => {
         let errorMessage =
-          "Failed to retrieve updated data. Please refresh and try again. If the problem persists, please contact your System Administrator.";
+          "Failed to retrieve updated account details. Please refresh and try again. If the problem persists, please contact your System Administrator.";
+        if (error.body && error.body.message) {
+          let message = this.handleError(error.body.message);
+          //Catch any system error messages (most readable errors wont be a single word)
+          if (message.split(" ").length > 1) {
+            errorMessage = message;
+          }
+        }
 
         publish(this.messageContext, UpdateAccountsAndGoals, {
           update: false,
           message: errorMessage
         });
-      }
-    });
+      });
+  }
+
+  //This function is required as some errors are returned
+  //as stringified json
+  handleError(error) {
+    try {
+      JSON.parse(error);
+    } catch (e) {
+      return error;
+    }
+    return JSON.parse(error).error;
   }
 }
