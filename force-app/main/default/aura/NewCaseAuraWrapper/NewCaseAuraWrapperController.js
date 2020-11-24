@@ -31,66 +31,37 @@
                 "inContextOfRef"
               );
 
+              var navigationUrl =
+                "/lightning/o/Case/new?count=1&nooverride=1&recordTypeId=" +
+                component.get("v.pageReference").state.recordTypeId;
+
               if (value) {
                 var context = JSON.parse(window.atob(value));
                 var parentRecID = context.attributes.recordId;
                 var parentObjectName = context.attributes.objectApiName;
 
                 if (parentRecID) {
+                  navigationUrl =
+                    navigationUrl +
+                    "&ws=%2Flightning%2Fr%2F" +
+                    parentObjectName +
+                    "%2F" +
+                    parentRecID +
+                    "%2Fview";
                   if (parentObjectName == "Account") {
-                    var defaultFieldValues =
-                      "&defaultFieldValues=AccountId=" + parentRecID;
-
-                    workspaceAPI
-                      .openConsoleURL({
-                        url:
-                          "/lightning/o/Case/new?count=1&nooverride=1&recordTypeId=" +
-                          component.get("v.pageReference").state.recordTypeId +
-                          "&ws=%2Flightning%2Fr%2F" +
-                          parentObjectName +
-                          "%2F" +
-                          parentRecID +
-                          "%2Fview" +
-                          defaultFieldValues,
-                        focus: true
-                      })
-                      .then(function (activeTabId) {
-                        workspaceAPI.closeTab({ tabId: firstTabId });
-                      });
-
-                    // TODO: Have to manually pre-pupulate default values for objects other than Account
-                    // Only addressing the console sub-tab behaviour and parent object link for now
-                  } else {
-                    workspaceAPI
-                      .openConsoleURL({
-                        url:
-                          "/lightning/o/Case/new?count=1&nooverride=1&recordTypeId=" +
-                          component.get("v.pageReference").state.recordTypeId +
-                          "&ws=%2Flightning%2Fr%2F" +
-                          parentObjectName +
-                          "%2F" +
-                          parentRecID +
-                          "%2Fview",
-                        focus: true
-                      })
-                      .then(function (activeTabId) {
-                        workspaceAPI.closeTab({ tabId: firstTabId });
-                      });
+                    navigationUrl =
+                      navigationUrl +
+                      "&defaultFieldValues=AccountId=" +
+                      parentRecID;
                   }
-                } else {
-                  // Creating a Case from Case Tab
-                  workspaceAPI
-                    .openConsoleURL({
-                      url:
-                        "/lightning/o/Case/new?count=1&nooverride=1&recordTypeId=" +
-                        component.get("v.pageReference").state.recordTypeId,
-                      focus: true
-                    })
-                    .then(function (activeTabId) {
-                      workspaceAPI.closeTab({ tabId: firstTabId });
-                    });
                 }
               }
+
+              helper.navigateToNewCaseClosePreviousTab(
+                workspaceAPI,
+                navigationUrl,
+                firstTabId
+              );
             });
           } else {
             helper.goToStandardNewCasePage(component, event);
