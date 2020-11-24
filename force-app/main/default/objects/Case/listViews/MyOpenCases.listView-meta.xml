@@ -3,6 +3,7 @@
     <fullName>MyOpenCases</fullName>
     <columns>CASES.CASE_NUMBER</columns>
     <columns>IDR_Time_To_Escalation__c</columns>
+    <columns>ACCOUNT.NAME</columns>
     <columns>CASES.SUBJECT</columns>
     <columns>CASES.STATUS</columns>
     <columns>CASES.PRIORITY</columns>
