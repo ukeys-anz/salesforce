@@ -17,9 +17,6 @@
         <field>Reported_Bug__c.Status__c</field>
     </columns>
     <columns>
-        <field>Reported_Bug__c.Steps_Taken_Prior_to_Hitting_Bug__c</field>
-    </columns>
-    <columns>
         <field>Reported_Bug__c.Expected_Outcome__c</field>
     </columns>
     <columns>
