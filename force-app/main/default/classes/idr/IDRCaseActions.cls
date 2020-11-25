@@ -375,7 +375,7 @@ public with sharing class IDRCaseActions {
    */
    public static Id getEntitlement(){
     list<Entitlement> et = new list<Entitlement>();
-    Entitlement.sObjectType.getDescribe().isQueryable(){
+    if(Entitlement.sObjectType.getDescribe().isQueryable()){
       et = [Select Id from Entitlement where name = 'Complaints Entitlement'];
     }
        if(et.size() > 0){
