@@ -12,42 +12,11 @@ public with sharing class CaseCommonActions {
     .getRecordTypeId();
 
   /**
-   * @description completeAfterInsertActions is called after onAfterInsert is finished to complete any pending actions
-   * @param updateCaseList updateCaseList to be cleared after insert
-   * <p>
-   * <b>Note:</b> It is important to clear {@link CheckRecursive.#setOfIDs setOfIDs} as we are updating the same object (Case) in onAfterInsert
-   * and we don't want the update to interfere with the update DML if it were in same transaction.
+   * @description completeAfterUpdateActions method is called after finishing all the necessary steps for update.
    */
-  public static void completeAfterInsertActions(List<Case> updateCaseList) {
-    //It is improtant to clear the CheckRecursive Set of Ids here as the onAfterInsert has already updated its records above
-    //and shouldn't interfere with the records which are meant for update DML.
-    CheckRecursive.setOfIDs.clear();
-    updateCaseList.clear();
-  }
-
-  /**
-   * @description completeAfterUpdateActions method is called after finishing all the necessary steps for update. So, clear the list if
-   * something needs to be done in same transaction
-   * @param updateCaseList list that needs to be cleared
-   */
-  public static void completeAfterUpdateActions(List<Case> updateCaseList) {
-    updateCaseList.clear();
-  }
-
-  /**
-   * @description  Copy case Number to Original Case Number(CaseNumber__c) if CaseNumber__c is empty
-   * @param records The actual case record List
-   * @param caseToBeChanged The record List that needs to be changed
-   */
-  public static void copyCaseNumber(
-    List<Case> records,
-    List<Case> caseToBeChanged
-  ) {
-    for (Integer i = 0; i < caseToBeChanged.size(); i++) {
-      if (String.isBlank(records.get(i).CaseNumber__c)) {
-        caseToBeChanged.get(i).CaseNumber__c = records.get(i).CaseNumber;
-      }
-    }
+  public static void completeAfterUpdateActions() {
+    //set recursive flag to false to avoid test class failures and bulk update issues
+    checkRecursive.firstCall = false;
   }
 
   /**

@@ -16,6 +16,50 @@ public with sharing class GetHelpCaseActions {
   private static final String PARENT_CASE_ERROR = 'You cannot add parent case. This case is associated with child cases';
 
   /**
+   * @description beforeUpdate(oldMap, records) method handles the following
+   * 1. Validate Additional Type - Validates the selected additional types and addError if it has more than 2 values selected or if the Type value is same as one of the additional values
+   * 2. Validate Case Type - Validates Case Type and Additional Type to populate Case Subject.
+   * 3. Validate Parent Case - Validates the case record and throws an error if the record is having child cases
+   * 4. Complete milestones - updates the milestone to closed when the case status is updated to clsoed
+   * @param oldMap This Map<Id, SObject> contains the map which holds the previous values which can be used to check what value has changed in onBeforeUpdate. Example to check if the Case Status value has changed we use the following to check record.Status != ((Case) oldMap.get(record.id)).Status
+   * @param records from the trigger
+   */
+  public static void beforeUpdate(Map<Id, SObject> oldMap, List<Case> records) {
+    List<Id> caseIds = new List<Id>();
+    List<Case> validateCaseList = new List<Case>();
+    List<Id> milestoneIds = new List<Id>();
+
+    for (Case record : (List<Case>) records) {
+      Case oldRecord = (Case) oldMap.get(record.id);
+      if (
+        String.isNotBlank(record.ParentId) &&
+        record.RecordTypeId == GENERAL_INQUIRY_RT_ID &&
+        record.ParentId != oldRecord.ParentId
+      ) {
+        caseIds.add(record.id);
+        validateCaseList.add(record);
+      }
+
+      if (
+        record.RecordTypeId == GENERAL_INQUIRY_RT_ID &&
+        oldRecord.Status != 'Closed' &&
+        record.Status == 'Closed'
+      ) {
+        milestoneIds.add(record.Id);
+      }
+    }
+
+    validateAdditionalTypes((List<Case>) records, (Map<Id, Case>) oldMap);
+    validateCaseType((List<Case>) records, (Map<Id, Case>) oldMap);
+    if (!caseIds.isEmpty()) {
+      validateParentCase(caseIds, validateCaseList);
+    }
+    if (!milestoneIds.isEmpty()) {
+      completeCaseMilestone(milestoneIds);
+    }
+  }
+
+  /**
    * @description validateParentCase method is called before updating the case record to check and throw error if the record is having child cases
    * @param caseIds list of case ids from the trigger
    * @param validateCaseList list of case records from the trigger
