@@ -4,6 +4,10 @@
         <application>IDR_Console</application>
         <visible>true</visible>
     </applicationVisibilities>
+    <classAccesses>
+        <apexClass>GetCustomerInformation</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <description>Read only access to all cases, view only the fields in use for Complaint Mgt. release 1, export data. May be assigned to EDW and Reporting Analyst users.</description>
     <fieldPermissions>
         <editable>false</editable>
