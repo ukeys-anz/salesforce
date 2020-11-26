@@ -34,7 +34,7 @@
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
             <operator>notEqual</operator>
-            <value>Resolved</value>
+            <value>Closed</value>
         </criteriaItems>
     </filter>
     <format>Tabular</format>
