@@ -5,7 +5,8 @@
  */
 @isTest
 public class ForgeTokenHandlerTest {
-  public final static String IDTESTVALUE = 'testIdTokenValue';
+  //jwt containing a single claim of exp 26/11/2050
+  public final static String IDTESTVALUE = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjI1NTMwMzIxNzh9.eAWGLhTYhn4y9M2t2OHeTLIe7MLPObBFK2Nli8CPTD4';
 
   /**
    * @description test method for getForgeJWTToken when successful

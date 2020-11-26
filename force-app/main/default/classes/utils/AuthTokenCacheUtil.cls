@@ -169,7 +169,7 @@ public with sharing class AuthTokenCacheUtil {
       userId
     );
 
-    if (idToken != null) {
+    if (idToken != null && AuthTokenCacheUtil.isTokenValid(idToken)) {
       return idToken;
     } else if (refreshToken != null) {
       // Id token was not there, if refresh token exists try and refresh the Id token and return it
@@ -260,11 +260,16 @@ public with sharing class AuthTokenCacheUtil {
    */
   @AuraEnabled
   public static String getStaffToken(String ocvId) {
-    if (Cache.Session.contains(STAFFPART + 'forgeJWTToken' + ocvId)) {
-      return (String) Cache.Session.get(STAFFPART + 'forgeJWTToken' + ocvId);
+    String staffToken = (String) Cache.Session.get(
+      STAFFPART +
+      'forgeJWTToken' +
+      ocvId
+    );
+
+    if (staffToken != null && AuthTokenCacheUtil.isTokenValid(staffToken)) {
+      return staffToken;
     }
 
-    String staffToken = '';
     Integer expiresIn = 300; // default minimum value
     try {
       Map<String, Object> responseMap = ForgeTokenHandler.getForgeJWTToken(
@@ -288,10 +293,43 @@ public with sharing class AuthTokenCacheUtil {
       'forgeJWTToken' +
       ocvId,
       staffToken,
-      expiresIn //14 minutes
+      expiresIn
     );
 
     return staffToken;
+  }
+
+  /**
+   * @description checks expiry date contained in a jwt
+   * @param token the JWT to examine, could be azure id token or forge staff token
+   * @return boolean true if the token is valid, false if it has expired
+   * @exception TokenCacheException throws when the token supplied was not of expected format
+   */
+  public static boolean isTokenValid(String token) {
+    if (token == null) {
+      return false;
+    }
+
+    //strip jwt header
+    List<String> tokenParts = token.split('\\.');
+    if (tokenParts.size() < 2) {
+      throw new TokenCacheException(
+        'Invalid format when checking token validity'
+      );
+    }
+
+    //decode claims to json map, the first part is header, second part is claims
+    String decodedString = EncodingUtil.base64Decode(tokenParts[1]).toString();
+    Map<String, Object> tokenMap = (Map<String, Object>) (JSON.deserializeUntyped(
+      decodedString
+    ));
+
+    //Azure token has expiry as 'exp' key
+    Long expiry = (Long) tokenMap.get('exp');
+    Datetime expiryDateTime = DateTime.newInstance(expiry * 1000);
+
+    //add one minute to ensure the token is valid for at least 1 minute when the check is made
+    return expiryDateTime > Datetime.now().addMinutes(1);
   }
 
   /**
