@@ -541,9 +541,9 @@ private class TestCaseTriggerHandler {
       LIMIT 1
     ];
     Slaprocess sla = [
-      SELECT Id, NAME 
-      FROM Slaprocess 
-      WHERE Name = 'complaints' 
+      SELECT Id, NAME
+      FROM Slaprocess
+      WHERE Name = 'complaints'
       LIMIT 1
     ];
     Entitlement et = new Entitlement(
