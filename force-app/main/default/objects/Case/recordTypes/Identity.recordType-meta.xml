@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>General_Inquiry</fullName>
+    <fullName>Identity</fullName>
     <active>true</active>
-    <businessProcess>ANZx Support Process</businessProcess>
-    <description>ANZx General Case Record Type</description>
-    <label>General Inquiry</label>
+    <businessProcess>Identity Support Process</businessProcess>
+    <description>Record a new identity case for an existing ANZx customer</description>
+    <label>Identity</label>
     <picklistValues>
         <picklist>Additional_Type__c</picklist>
         <values>
@@ -3018,6 +3018,10 @@
             <fullName>5</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>6</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>IDR_Is_Common__c</picklist>
@@ -4138,6 +4142,14 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>10</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>11</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>2</fullName>
             <default>false</default>
         </values>
@@ -4163,6 +4175,10 @@
         </values>
         <values>
             <fullName>8</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>9</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -4528,7 +4544,23 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>89</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>9</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>90</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>91</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>92</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -4663,23 +4695,11 @@
     <picklistValues>
         <picklist>Origin</picklist>
         <values>
-            <fullName>Appointment</fullName>
+            <fullName>App</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Chat</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Store</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Video Call</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Voice Call</fullName>
+            <fullName>Origination</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -4687,6 +4707,14 @@
         <picklist>Priority</picklist>
         <values>
             <fullName>Critical</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer in Collections</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial Hardship</fullName>
             <default>false</default>
         </values>
         <values>
@@ -4700,6 +4728,14 @@
         <values>
             <fullName>Medium</fullName>
             <default>true</default>
+        </values>
+        <values>
+            <fullName>Standard</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vulnerable Customer</fullName>
+            <default>false</default>
         </values>
     </picklistValues>
     <picklistValues>
@@ -4838,51 +4874,19 @@
     <picklistValues>
         <picklist>Type</picklist>
         <values>
-            <fullName>App Support</fullName>
+            <fullName>Assisted PIN Recovery</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Bug Report %26 Feature</fullName>
+            <fullName>Assisted Verification</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Card</fullName>
+            <fullName>Legal Name Update</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Coaching</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Customer Feedback %28NPS%29</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Customer Update %26 Details</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Dispute</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Join %2F KYC</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>My Security</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other Enquiries</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Product Information</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Transaction %26 Savings enquiry%C2%A0</fullName>
+            <fullName>Mobile Number Dispute</fullName>
             <default>false</default>
         </values>
     </picklistValues>

@@ -87,4 +87,201 @@ public with sharing class TestCaseCommentsTriggerHandler {
     ];
     System.assert(deletedComments.size() == 0);
   }
+
+  @istest
+  static void testCaseCommentsInsertFraudXUser() {
+    // Setting up test data
+    User fraudXUser;
+    Case generalEnquiryCase;
+
+    // Insert Account, Case, & User as current user, to get around MIXED_DML_OPERATION error
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      // Create an ANZx Customer
+      Faker faker = new Faker('AU');
+      Account acc = new Account(
+        Name = 'Test 007 Account',
+        OCV_ID__c = faker.randomString(10),
+        ANZx_Customer__c = true
+      );
+      insert acc;
+
+      // Create a Case record to have a record type other than Fraud
+      Id generalEnquiryRecordTypeID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+        .get('General_Inquiry')
+        .getRecordTypeId();
+      generalEnquiryCase = new Case(
+        RecordTypeId = generalEnquiryRecordTypeID,
+        AccountId = acc.Id
+      );
+      insert generalEnquiryCase;
+
+      // Create a FraudX User with 'FraudX Agent' role
+      Profile profile = [
+        SELECT Id
+        FROM Profile
+        WHERE Name = 'ANZx Standard User'
+        LIMIT 1
+      ];
+      UserRole role = [
+        SELECT Id
+        FROM UserRole
+        WHERE DeveloperName = 'FraudX_Agent'
+      ];
+
+      fraudXUser = new User(
+        Alias = 'frdxtst',
+        Email = 'fraudx.agent@anzx.com.test',
+        EmailEncodingKey = 'UTF-8',
+        FirstName = 'FraudX',
+        LastName = 'Test Agent',
+        LanguageLocaleKey = 'en_US',
+        LocaleSidKey = 'en_US',
+        ProfileId = profile.Id,
+        UserRoleId = role.Id,
+        TimeZoneSidKey = 'Australia/Sydney',
+        UserName = 'fraudx.agent@anzx.com.test'
+      );
+      insert fraudXUser;
+
+      // Assign Case related PS
+      PermissionSet ps = [
+        SELECT Id
+        FROM PermissionSet
+        WHERE Name = 'Case_Read_Write_Fraud_Agent'
+      ];
+      insert new PermissionSetAssignment(
+        AssigneeId = fraudXUser.id,
+        PermissionSetId = ps.Id
+      );
+
+      // Sharing Case record manually with FraudX user, as Criteria Based Sharing Rules won't apply in Test Classes
+      CaseShare cs = new CaseShare();
+      cs.CaseId = generalEnquiryCase.id;
+      cs.UserOrGroupId = fraudXUser.Id;
+      cs.CaseAccessLevel = 'Read';
+      insert cs;
+    }
+
+    // Try to insert a Case Comment against a General Enquiry Case
+    CaseComment comment = new CaseComment(
+      CommentBody = 'Test Comment',
+      ParentId = generalEnquiryCase.id
+    );
+
+    try {
+      // Execute tests as a FraudX Agent
+      System.runAs(fraudXUser) {
+        Test.startTest();
+
+        insert comment;
+
+        Test.stopTest();
+      }
+    } catch (DMLexception e) {
+      system.assert(
+        e.getMessage()
+          .contains('You cannot add comments on this Case record type'),
+        'FraudX Agents should not be allowed to add Case Comments on non Fraud Cases'
+      );
+    }
+  }
+
+  @istest
+  static void testCaseCommentsInsertNonFraudXUser() {
+    // Setting up test data
+    User coachUser;
+    Case generalEnquiryCase;
+
+    // Insert Account, Case, & User as current user, to get around MIXED_DML_OPERATION error
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      // Create an ANZx Customer
+      Faker faker = new Faker('AU');
+      Account acc = new Account(
+        Name = 'Test 007 Account',
+        OCV_ID__c = faker.randomString(10),
+        ANZx_Customer__c = true
+      );
+      insert acc;
+
+      // Create a Case record to have a record type other than Fraud
+      Id generalEnquiryRecordTypeID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+        .get('General_Inquiry')
+        .getRecordTypeId();
+      generalEnquiryCase = new Case(
+        RecordTypeId = generalEnquiryRecordTypeID,
+        AccountId = acc.Id
+      );
+      insert generalEnquiryCase;
+
+      // Create a non-Fraud User
+      Profile profile = [
+        SELECT Id
+        FROM Profile
+        WHERE Name = 'ANZx Standard User'
+        LIMIT 1
+      ];
+      UserRole role = [SELECT Id FROM UserRole WHERE DeveloperName = 'Coach'];
+
+      coachUser = new User(
+        Alias = 'coachtst',
+        Email = 'coach.test@anzx.com.test',
+        EmailEncodingKey = 'UTF-8',
+        FirstName = 'Caoch',
+        LastName = 'Test User',
+        LanguageLocaleKey = 'en_US',
+        LocaleSidKey = 'en_US',
+        ProfileId = profile.Id,
+        UserRoleId = role.Id,
+        TimeZoneSidKey = 'Australia/Sydney',
+        UserName = 'coach.test@anzx.com.test'
+      );
+      insert coachUser;
+
+      // Assign Case related PS
+      PermissionSet ps = [
+        SELECT Id
+        FROM PermissionSet
+        WHERE Name = 'Case_Read_Write'
+      ];
+      insert new PermissionSetAssignment(
+        AssigneeId = coachUser.id,
+        PermissionSetId = ps.Id
+      );
+
+      // Sharing Case record manually with Coach user, as Criteria Based Sharing Rules won't apply in Test Classes
+      CaseShare cs = new CaseShare();
+      cs.CaseId = generalEnquiryCase.id;
+      cs.UserOrGroupId = coachUser.Id;
+      cs.CaseAccessLevel = 'Edit';
+      insert cs;
+    }
+
+    // Try to insert a Case Comment against a General Enquiry Case
+    CaseComment comment = new CaseComment(
+      CommentBody = 'Test Comment 02',
+      ParentId = generalEnquiryCase.id
+    );
+
+    // Execute tests as a Cuach User
+    System.runAs(coachUser) {
+      Test.startTest();
+
+      insert comment;
+
+      Test.stopTest();
+    }
+
+    System.assert(
+      [
+        SELECT COUNT()
+        FROM CaseComment
+        WHERE
+          CommentBody = 'Test Comment 02'
+          AND ParentId = :generalEnquiryCase.id
+      ] > 0,
+      'A non-fraud user was not able to add Case Comments on General Enquiry cases'
+    );
+  }
 }

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Identity_Device_Status__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Source_Salesforce;Integrity - Accurate</complianceGroup>
+    <description>Device Status</description>
+    <externalId>false</externalId>
+    <label>Device Status</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Existing Device</fullName>
+                <default>false</default>
+                <label>Existing Device</label>
+            </value>
+            <value>
+                <fullName>New Device</fullName>
+                <default>false</default>
+                <label>New Device</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
