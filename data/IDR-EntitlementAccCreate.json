@@ -1,0 +1,8 @@
+[
+    {
+      "sobject": "Account",
+      "saveRefs": false,
+      "resolveRefs": true,
+      "files": ["IDR-Account.json"]
+    }
+  ]

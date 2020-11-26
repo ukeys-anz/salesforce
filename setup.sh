@@ -72,6 +72,7 @@ fi
 JOB_END_TIME=$(date +%s)
 echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
 
+node createCmosEntitlment.js
 case ${testdata:0:1} in
 y | Y)
     echo "$(date): Import test data and users..."
