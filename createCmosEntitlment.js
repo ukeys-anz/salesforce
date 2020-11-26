@@ -40,7 +40,7 @@ exec(
                     type: "Entitlement",
                     referenceId: "EntitlementRef1"
                   },
-                  Name: "Complaint Entitlement Account",
+                  Name: "Complaints Entitlement",
                   AccountId: accRecId,
                   SlaProcessId: entitlementProcessRec,
                   StartDate: "2020-11-25"

@@ -540,10 +540,17 @@ private class TestCaseTriggerHandler {
       WHERE Name = 'Complaint Entitlement Account'
       LIMIT 1
     ];
+    Slaprocess sla = [
+      SELECT Id, NAME 
+      FROM Slaprocess 
+      WHERE Name = 'complaints' 
+      LIMIT 1
+    ];
     Entitlement et = new Entitlement(
       Name = 'Complaints Entitlement',
       AccountId = a.Id,
-      StartDate = Date.valueof(System.now().addDays(-2))
+      StartDate = Date.valueof(System.now().addDays(-2)),
+      SlaProcessId = sla.Id
     );
     insert et;
     Case[] complaintCaselist = new List<Case>();

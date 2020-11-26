@@ -376,7 +376,14 @@ public with sharing class IDRCaseActions {
    public static Id getEntitlement(){
     list<Entitlement> et = new list<Entitlement>();
     if(Entitlement.sObjectType.getDescribe().isQueryable()){
-      et = [Select Id from Entitlement where name = 'Complaints Entitlement'];
+      et = [
+        SELECT Id
+        FROM Entitlement
+        WHERE
+          name = :IDRConstants.COMPLAINTS_ENTITLEMENT_NAME
+          AND SlaProcess.Name = :IDRConstants.COMPLAINTS_ENTITLMENT_PROCESS
+          AND STATUS = 'Active'
+      ];
     }
        if(et.size() > 0){
           return et[0].Id; 
