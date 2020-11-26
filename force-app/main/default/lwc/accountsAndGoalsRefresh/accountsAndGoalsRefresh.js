@@ -130,7 +130,7 @@ export default class AccountsAndGoals extends LightningElement {
               if (error.body && error.body.message) {
                 let message = this.handleError(error.body.message);
                 //Catch any system error messages (most readable errors wont be a single word)
-                if (message.split(" ").length > 1) {
+                if (message && message.split(" ").length > 1) {
                   errorMessage = message;
                 }
               }
@@ -156,7 +156,7 @@ export default class AccountsAndGoals extends LightningElement {
               if (error.body && error.body.message) {
                 let message = this.handleError(error.body.message);
                 //Catch any system error messages (most readable errors wont be a single word)
-                if (message.split(" ").length > 1) {
+                if (message && message.split(" ").length > 1) {
                   errorMessage = message;
                 }
               }
@@ -182,7 +182,7 @@ export default class AccountsAndGoals extends LightningElement {
         if (error.body && error.body.message) {
           let message = this.handleError(error.body.message);
           //Catch any system error messages (most readable errors wont be a single word)
-          if (message.split(" ").length > 1) {
+          if (message && message.split(" ").length > 1) {
             errorMessage = message;
           }
         }
