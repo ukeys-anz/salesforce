@@ -1,8 +1,8 @@
 [
-    {
-      "sobject": "Account",
-      "saveRefs": false,
-      "resolveRefs": true,
-      "files": ["IDR-Account.json"]
-    }
-  ]
+  {
+    "sobject": "Account",
+    "saveRefs": false,
+    "resolveRefs": true,
+    "files": ["IDR-CmosEntitlmentAccount.json"]
+  }
+]
