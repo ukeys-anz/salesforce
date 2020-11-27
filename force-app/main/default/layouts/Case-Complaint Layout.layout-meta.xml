@@ -243,11 +243,11 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>IDR_Real_Form_Req__c</field>
+                <field>IDR_Systemic_Issue_Description__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>IDR_Systemic_Issue_Description__c</field>
+                <field>IDR_Real_Form_Req__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
@@ -461,7 +461,7 @@
     <showRunAssignmentRulesCheckbox>true</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>true</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2N0000013mfV</masterLabel>
+        <masterLabel>00h2N0000018y07</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

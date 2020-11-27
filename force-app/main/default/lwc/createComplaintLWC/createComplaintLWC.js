@@ -61,6 +61,7 @@ import STATUS_FIELD from "@salesforce/schema/Case.Status";
 //Systemic issue fields
 import IS_COMMON_COMPLAINT_FIELD from "@salesforce/schema/Case.IDR_Is_Common__c";
 import IS_REAL_FORM_NEED_FIELD from "@salesforce/schema/Case.IDR_Real_Form_Req__c";
+import SYSTEMIC_ISSUE_DESCRIPTION from "@salesforce/schema/Case.IDR_Systemic_Issue_Description__c";
 
 //Is Escalated fields
 import ESCALATED_TO from "@salesforce/schema/Case.IDR_Escalated_to__c";
@@ -142,6 +143,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   //systemic fields
   commonComplaint = IS_COMMON_COMPLAINT_FIELD;
   isRealFormNeeded = IS_REAL_FORM_NEED_FIELD;
+  systemicIssueDescription = SYSTEMIC_ISSUE_DESCRIPTION;
 
   // escalation fields
   escalatedTo = ESCALATED_TO;
@@ -172,6 +174,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   // future use: isComplaintOnhold;
   isFinancialComplaintRemedy;
   isNonFinancialComplaintRemedy;
+  isCommonComplaintYesNo;
   isCommonComplaint;
   isRealFormNeeded;
   isAddressRequired;
@@ -236,7 +239,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
   }
 
   handleCommonComplaint(event) {
-    this.isCommonComplaint = event.target.value;
+    this.isCommonComplaintYesNo = event.target.value;
+    this.isCommonComplaint =
+      this.isCommonComplaintYesNo === "Yes" ? true : false;
   }
 
   handleRealFormNeeded(event) {
@@ -432,7 +437,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   handleSubmit(event) {
     event.preventDefault(); // stop the form from submitting
-
     //create case if form validation was successful
     if (this.isDataValid) {
       this.template.querySelector(".saveButton").disabled = true;
@@ -473,7 +477,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
         fields[IS_REAL_FORM_NEED_FIELD.fieldApiName] = true;
       }
 
-      fields[IS_COMMON_COMPLAINT_FIELD.fieldApiName] = this.isCommonComplaint;
+      fields[
+        IS_COMMON_COMPLAINT_FIELD.fieldApiName
+      ] = this.isCommonComplaintYesNo;
 
       if (!this.hasNominatedThirdParty) {
         fields[THIRD_PARTY_COUNTRY_FIELD.fieldApiName] = "";
@@ -536,13 +542,16 @@ export default class CreateComplaintLWC extends NavigationMixin(
       requiredFields.compRemedy = "Complaint Remedy";
       requiredFields.descOutcome = "Description of Outcome";
     }
-
     if (this.isComplaintEscalated) {
       requiredFields.escalatedTo = "Escalated To";
       requiredFields.escalationReason = "Complaint Escalation Reason";
     }
     if (this.isNonFinancialComplaintRemedy) {
       requiredFields.nonFinancialRemedy = "Non-Financial Remedy";
+    }
+    if (this.isCommonComplaint) {
+      requiredFields.systemicIssueDescription =
+        "Why is this a possible systemic issue?";
     }
     return requiredFields;
   }
@@ -556,6 +565,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     }
     return true;
   }
+
   handleCustNumValidated(event) {
     if (event) {
       this.isCustNumValidated = true;
