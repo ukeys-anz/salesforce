@@ -12,7 +12,7 @@ global with sharing class IncomingChatRestService {
 
   /**
    * @description HTTP POST method passing incoming Chat context in to Salesforce.
-   * Salesforce would then return a unique customer identifier to include on Twilio tasks as "sfdcSearchString".
+   * Salesforce would then return a unique customer identifier, or a related Case Number to include on Twilio tasks as "sfdcSearchString".
    * @param contextRequests List of Chat Context Requests
    */
   @HttpPost
@@ -27,21 +27,18 @@ global with sharing class IncomingChatRestService {
           requestByOCVId.put(req.ocvId, req);
         } else {
           responseList.add(
-            generateResponse(
+            generateErrorResponse(
               req.ocvId,
-              false,
-              400,
               '',
-              'Invalid request parameters. ' + req
+              'Invalid or insufficient request parameters. ' + req
             )
           );
         }
       }
     }
 
-    // Query for customer's related External ID on Account object based on passed in OCV ID
+    // Query for customer's unique External ID on Account object, as well as any related Case records based on passed in OCV ID
     Map<String, Account> accountByOCVId = new Map<String, Account>();
-    Map<String, Account> accountById = new Map<String, Account>();
     Map<String, List<Case>> casesByOCVId = new Map<String, List<Case>>();
     for (Account acc : [
       SELECT
@@ -53,112 +50,23 @@ global with sharing class IncomingChatRestService {
       WHERE OCV_ID__c IN :requestByOCVId.keySet() AND ANZx_Customer__c = TRUE
     ]) {
       accountByOCVId.put(acc.OCV_ID__c, acc);
-      accountById.put(acc.Id, acc);
       casesByOCVId.put(acc.OCV_ID__c, acc.Cases);
     }
 
-    Map<String, Boolean> responseStatusByOCVId = new Map<String, Boolean>();
-    List<Case> newCases = new List<Case>();
-    for (String ocvId : accountByOCVId.keySet()) {
-      Boolean caseExists = false;
-      // Check if the customer already has a Case created against the Channel SID being passed
-      for (Case existingCase : casesByOCVId.get(ocvId)) {
-        if (
-          (String) existingCase.Twilio_Channel_SID__c ==
-          requestByOCVId.get(ocvId).channelSID
-        ) {
-          // Customer already have a Case against the same Chat Channel
-          responseList.add(
-            generateResponse(ocvId, true, 200, existingCase.CaseNumber, '')
-          );
-
-          caseExists = true;
-          break;
-        }
-      }
-
-      responseStatusByOCVId.put(ocvId, caseExists);
-
-      if (!caseExists) {
-        Case newCase = new Case();
-        newCase.AccountId = accountByOCVId.get(ocvId).Id;
-        newCase.Twilio_Channel_SID__c = requestByOCVId.get(ocvId).channelSID;
-        newCase.Type = requestByOCVId.get(ocvId).caseType;
-        newCase.RecordTypeId = GENERAL_INQUIRY_RT_ID;
-        // newCase.OwnerId = ?? ;
-        newCases.add(newCase);
-      }
-    }
-
-    // Insert new Cases
-    if (!newCases.isEmpty()) {
-      List<Database.SaveResult> results = Database.insert(newCases, false);
-
-      // Query newly inserted Cases to retrive Case Number
-      Map<ID, Case> newCaseMap = new Map<ID, Case>(
-        [SELECT Id, CaseNumber FROM Case WHERE Id IN :newCases]
-      );
-
-      for (Integer i = 0; i < newCases.size(); i++) {
-        Database.SaveResult sr = results[i];
-
-        ChatContextResponse resp = new ChatContextResponse();
-        if (sr.isSuccess()) {
-          responseList.add(
-            generateResponse(
-              accountById.get(newCases[i].AccountId).OCV_ID__c,
-              true,
-              200,
-              newCaseMap.get(newCases[i].Id).CaseNumber,
-              ''
-            )
-          );
-
-          responseStatusByOCVId.put(
-            accountById.get(newCases[i].AccountId).OCV_ID__c,
-            true
-          );
-        } else {
-          resp.sfdcSearchString = accountById.get(newCases[i].AccountId)
-            .External_Id__c;
-
-          String errorMessage =
-            'Faled to auto create a new Case against the customer customer. OCV ID: ' +
-            accountById.get(newCases[i].AccountId).OCV_ID__c +
-            '. Error: ';
-          for (Database.Error err : sr.getErrors()) {
-            errorMessage += err;
-          }
-
-          responseList.add(
-            generateResponse(
-              accountById.get(newCases[i].AccountId).OCV_ID__c,
-              false,
-              400,
-              accountById.get(newCases[i].AccountId).External_Id__c,
-              errorMessage
-            )
-          );
-
-          responseStatusByOCVId.put(
-            accountById.get(newCases[i].AccountId).OCV_ID__c,
-            true
-          );
-        }
-      }
-    }
+    // Locate existing Cases having the Channel SID referenced (if available), or create a new one
+    Map<String, Boolean> responseStatusByOCVId = findOrCreateRelatedCases(
+      accountByOCVId,
+      casesByOCVId,
+      responseList,
+      requestByOCVId
+    );
 
     // Return Account 'External_Id__c' as the 'sfdcSearchString' if no Case was found or created
+    // 'External_Id__c' is assumed to be present at all times on the Account record.
     for (String ocvId : accountByOCVId.keySet()) {
       if (!responseStatusByOCVId.get(ocvId)) {
         responseList.add(
-          generateResponse(
-            ocvId,
-            true,
-            200,
-            accountByOCVId.get(ocvId).External_Id__c,
-            ''
-          )
+          generateResponse(ocvId, accountByOCVId.get(ocvId).External_Id__c, '')
         );
       }
     }
@@ -170,7 +78,7 @@ global with sharing class IncomingChatRestService {
           'Could not find a matching ANZx customer record based on OCV ID: ' +
           ocvId;
 
-        responseList.add(generateResponse(ocvId, false, 400, '', errorMessage));
+        responseList.add(generateErrorResponse(ocvId, '', errorMessage));
       }
     }
 
@@ -190,38 +98,189 @@ global with sharing class IncomingChatRestService {
   }
 
   /**
+   * @description Method to find or create related Case records against the Customer and Chat Topic / Channel
+   * @param accountByOCVId Account records by OCV IDs map
+   * @param casesByOCVId List of Cases by OCV ID map
+   * @param responseList list of response instances
+   * @param requestByOCVId request instances by OCV ID
+   * @return `Map<String, Boolean>` response status by OCVId
+   */
+  private static Map<String, Boolean> findOrCreateRelatedCases(
+    Map<String, Account> accountByOCVId,
+    Map<String, List<Case>> casesByOCVId,
+    List<ChatContextResponse> responseList,
+    Map<String, ChatContextRequest> requestByOCVId
+  ) {
+    Map<String, Boolean> responseStatusByOCVId = new Map<String, Boolean>();
+    List<Case> newCases = new List<Case>();
+
+    for (String ocvId : accountByOCVId.keySet()) {
+      Boolean caseExists = false;
+      // Check if the customer already has a Case created against the Channel SID being passed
+      for (Case existingCase : casesByOCVId.get(ocvId)) {
+        if (
+          (String) existingCase.Twilio_Channel_SID__c ==
+          requestByOCVId.get(ocvId).channelSID
+        ) {
+          // Customer already have a Case against the same Chat Channel
+          responseList.add(
+            generateResponse(ocvId, existingCase.CaseNumber, '')
+          );
+          caseExists = true;
+          break;
+        }
+      }
+
+      // record response status against each OCV ID
+      responseStatusByOCVId.put(ocvId, caseExists);
+
+      // Create a new Case linked to the customer with Channel SID, if no related Case exists
+      if (
+        !caseExists && String.isNotBlank(requestByOCVId.get(ocvId).caseType)
+      ) {
+        Case newCase = new Case();
+        newCase.AccountId = accountByOCVId.get(ocvId).Id;
+        newCase.Twilio_Channel_SID__c = requestByOCVId.get(ocvId).channelSID;
+        newCase.Type = requestByOCVId.get(ocvId).caseType;
+        newCase.RecordTypeId = GENERAL_INQUIRY_RT_ID;
+        // newCase.OwnerId = ?? ;
+        newCases.add(newCase);
+      }
+    }
+
+    // Insert new Case records to represent the Chat Topic
+    createNewCases(newCases, responseStatusByOCVId, responseList);
+
+    return responseStatusByOCVId;
+  }
+
+  /**
+   * @description Method to find or create related Case records against the Customer and Chat Topic / Channel
+   * @param newCases new Case records to be created
+   * @param responseStatusByOCVId response status by OCVId
+   * @param responseList list of responses to be returned
+   * @return `Map<String, Boolean>` response status by OCVId
+   */
+  private static Map<String, Boolean> createNewCases(
+    List<Case> newCases,
+    Map<String, Boolean> responseStatusByOCVId,
+    List<ChatContextResponse> responseList
+  ) {
+    // Insert new Case records to represent the Chat Topic
+    if (!newCases.isEmpty()) {
+      List<Database.SaveResult> results = Database.insert(newCases, false);
+
+      // Query newly inserted Cases to retrive Case Number
+      Map<ID, Case> newCaseMap = new Map<ID, Case>(
+        [
+          SELECT Id, CaseNumber, Account.OCV_ID__c, Account.External_Id__c
+          FROM Case
+          WHERE Id IN :newCases
+        ]
+      );
+
+      for (Integer i = 0; i < newCases.size(); i++) {
+        Database.SaveResult sr = results[i];
+
+        ChatContextResponse resp = new ChatContextResponse();
+        if (sr.isSuccess()) {
+          responseList.add(
+            generateResponse(
+              newCaseMap.get(newCases[i].Id).Account.OCV_ID__c,
+              newCaseMap.get(newCases[i].Id).CaseNumber,
+              ''
+            )
+          );
+
+          responseStatusByOCVId.put(
+            newCaseMap.get(newCases[i].Id).Account.OCV_ID__c,
+            true
+          );
+        } else {
+          resp.sfdcSearchString = newCaseMap.get(newCases[i].Id)
+            .Account.External_Id__c;
+
+          String errorMessage =
+            'Faled to auto create a new Case against the customer customer. OCV ID: ' +
+            newCaseMap.get(newCases[i].Id).Account.OCV_ID__c +
+            '. Error: ';
+          for (Database.Error err : sr.getErrors()) {
+            errorMessage += err;
+          }
+
+          responseList.add(
+            generateErrorResponse(
+              newCaseMap.get(newCases[i].Id).Account.OCV_ID__c,
+              newCaseMap.get(newCases[i].Id).Account.External_Id__c,
+              errorMessage
+            )
+          );
+
+          responseStatusByOCVId.put(
+            newCaseMap.get(newCases[i].Id).Account.OCV_ID__c,
+            true
+          );
+        }
+      }
+    }
+
+    return responseStatusByOCVId;
+  }
+
+  /**
    * @description Method to check if the request record is valid or not.
    * @param chatContext Chat Context instance
    * @return `Boolean` true if the record is valid. Otherwise return false.
    */
   private static Boolean isValidRequest(ChatContextRequest chatContext) {
-    if (String.isNotBlank(chatContext.ocvId)) {
-      return true;
-    } else {
-      return false;
+    Boolean isValid = false;
+    //Check to make sure OCV ID and Channel ID is present
+    if (
+      String.isNotBlank(chatContext.ocvId) &&
+      String.isNotBlank(chatContext.channelSID)
+    ) {
+      isValid = true;
     }
+    return isValid;
   }
 
   /**
    * @description Method to generate a response instance
    * @param ocvId OCV ID related to the original request
-   * @param success if the request was successful or otherwise
-   * @param statusCode response status code
    * @param sfdcSearchString Search String to be used on related Twilio Task
    * @param errMsg error message
    * @return `ChatContextResponse`
    */
   private static ChatContextResponse generateResponse(
     String ocvId,
-    Boolean success,
-    Integer statusCode,
     String sfdcSearchString,
     String errMsg
   ) {
     ChatContextResponse response = new ChatContextResponse();
     response.ocvId = ocvId;
-    response.success = success;
-    response.statusCode = statusCode;
+    response.success = true;
+    response.statusCode = 200;
+    response.sfdcSearchString = sfdcSearchString;
+    response.errorMessage = errMsg;
+    return response;
+  }
+
+  /**
+   * @description Method to generate an error response instance
+   * @param ocvId OCV ID related to the original request
+   * @param sfdcSearchString Search String to be used on related Twilio Task
+   * @param errMsg error message
+   * @return `ChatContextResponse`
+   */
+  private static ChatContextResponse generateErrorResponse(
+    String ocvId,
+    String sfdcSearchString,
+    String errMsg
+  ) {
+    ChatContextResponse response = new ChatContextResponse();
+    response.ocvId = ocvId;
+    response.success = false;
+    response.statusCode = 400;
     response.sfdcSearchString = sfdcSearchString;
     response.errorMessage = errMsg;
     return response;
