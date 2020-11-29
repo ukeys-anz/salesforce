@@ -91,7 +91,9 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     );
 
     IDRCaseActions.completeAfterActions();
+    IDRCaseNotificationManager.manageNotification(records,(Map<Id, Case> )oldMap);
     CaseCommonActions.completeAfterUpdateActions(updateCaseList);
+    
   }
 
   /**
