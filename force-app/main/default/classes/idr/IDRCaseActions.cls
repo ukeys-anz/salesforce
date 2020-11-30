@@ -19,16 +19,21 @@ public with sharing class IDRCaseActions {
     .get('Non_Customer_Complaint')
     .getRecordTypeId();
 
+  @TestVisible
   private static final String OPEN_STATUS = 'Open';
+  @TestVisible
   private static final String UNDER_INVESTIGATION_STATUS = 'Under Investigation';
   private static final String ESCALATED_STATUS = 'Escalated';
   private static final String REOPENED_STATUS = 'Re-opened';
   private static final String CLOSED_STATUS = 'Closed';
   private static final String RESOLVED_STATUS = 'Resolved';
   private static final String WITHDRAWN_STATUS = 'Withdrawn';
-  private static final string ESCALATION_REASON = '6';
+  @TestVisible
+  private static final string DAY_3_ESCALATION_REASON = 'Day 3 auto escalation';
+  @TestVisible
+  private static final string DAY_5_ESCALATION_REASON = 'Day 5 auto escalation';
 
-  // IDR Case Status for which notifications needs to be sent.
+  // IDR Case Status for which notifications need to be sent.
   private static final Set<String> NOTIFICATION_STATUS = new Set<String>{
     OPEN_STATUS,
     UNDER_INVESTIGATION_STATUS,
@@ -76,7 +81,7 @@ public with sharing class IDRCaseActions {
   //We update only the records for which owner has changed and the owner is User.
   private static List<Case> changeOfficeCaseList = new List<Case>();
 
-  //notificationCaseList list of cases foe which Notifications needs to be sent.
+  //notificationCaseList list of cases for which Notifications need to be sent.
   //Only the cases if they are new and is one of NOTIFICATION_STATUS statuses
   private static List<Case> notificationCaseList = new List<Case>();
 
@@ -303,7 +308,11 @@ public with sharing class IDRCaseActions {
       //assign to CRC queue and send notifcation to CFMS
       record.IDR_Escalated_to__c = ESCALATED_TO_CRC_API_NAME;
       record.Status = ESCALATED_STATUS;
-      record.IDR_Escalation_Reason__c = ESCALATION_REASON;
+      if (oldRec.Status == OPEN_STATUS) {
+        record.IDR_Escalation_Reason__c = DAY_3_ESCALATION_REASON;
+      } else if (oldRec.Status == UNDER_INVESTIGATION_STATUS) {
+        record.IDR_Escalation_Reason__c = DAY_5_ESCALATION_REASON;
+      }
     } else if (
       record.IsEscalated &&
       record.Status != ESCALATED_STATUS &&
