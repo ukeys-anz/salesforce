@@ -15,6 +15,12 @@ export default class CaseDuration extends LightningElement {
   totalSeconds = 0;
   hours;
   minutes;
+  days;
+  dayCounter = 0;
+  dayString;
+  hourString;
+  minuteString;
+  durationString;
 
   @wire(getRecord, {
     recordId: "$recordId",
@@ -39,17 +45,52 @@ export default class CaseDuration extends LightningElement {
         } else {
           this.pulseClass = "pulsate";
           let parentThis = this;
+          this.days = Math.floor(this.durationTime.hours / 24);
 
           // eslint-disable-next-line @lwc/lwc/no-async-operation
           this.timeIntervalInstance = setInterval(() => {
             let date = new Date();
 
-            date.setHours(parentThis.durationTime.hours);
             date.setMinutes(parentThis.durationTime.minutes);
+            date.setHours(parentThis.durationTime.hours);
             date.setSeconds(parentThis.totalSeconds);
 
-            parentThis.hours = date.getHours();
             parentThis.minutes = date.getMinutes();
+            parentThis.hours = date.getHours();
+
+            parentThis.dayString =
+              parentThis.days === 0
+                ? ""
+                : parentThis.days === 1
+                ? `${parentThis.days} Day `
+                : `${parentThis.days} Days `;
+            parentThis.hourString =
+              parentThis.hours === 0
+                ? ""
+                : parentThis.hours === 1
+                ? `${parentThis.hours} Hour `
+                : `${parentThis.hours} Hours `;
+            parentThis.minuteString =
+              parentThis.minutes === 0
+                ? ""
+                : parentThis.minutes === 1
+                ? `${parentThis.minutes} Minute`
+                : `${parentThis.minutes} Minutes`;
+
+            if (
+              date.getHours() === 23 &&
+              date.getMinutes() === 59 &&
+              date.getSeconds() === 59
+            ) {
+              // eslint-disable-next-line @lwc/lwc/no-async-operation
+              setTimeout(() => {
+                parentThis.dayCounter++;
+                parentThis.days += parentThis.dayCounter;
+                parentThis.durationString = `${parentThis.dayString} ${parentThis.hourString} ${parentThis.minuteString}`;
+              }, 1000);
+            } else {
+              parentThis.durationString = `${parentThis.dayString} ${parentThis.hourString} ${parentThis.minuteString}`;
+            }
 
             parentThis.totalSeconds += 1;
           }, 1000);
