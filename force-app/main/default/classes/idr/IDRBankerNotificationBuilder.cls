@@ -1,8 +1,18 @@
+
+/**
+ *
+ * @author Afreen
+ * @since 11/2020
+ * @description Builds and send the  Banker Notification as per their preference.
+ */
 public with sharing class IDRBankerNotificationBuilder {
     public static Map<Id ,UserPreference> userPreferenceMap;
     public static List<Case> updateCaseFlagList;
     
-    
+    /**
+   * @description prepare the notification based on preference and sends to appropriate chnnel
+   * @param wrapperList List of wrapper class which holds the notification details
+   */
     public static void sendNotification(List<IDRBankerNotificationWrapper> wrapperList){
         CustomNotificationType type = [SELECT Id FROM CustomNotificationType WHERE DeveloperName = 'IDR_Banker_Notification'];
 		updateCaseFlagList = new List<Case>();
@@ -48,6 +58,15 @@ public with sharing class IDRBankerNotificationBuilder {
         
     }
     
+
+     /**
+   * @description Send the in app notification
+   * @param objectAbstract target object for the notification
+   * @param msgBody Body of the notification
+   * @param msgTitle title of the notification
+   * @param notificationTypeId Id of the IDR Banker Notification Type
+   * @param recipientIds Users ids to recieve this notification
+   */
     public static void sendInAppNotification(SObject objectAbstract , String msgBody, String msgTitle, String notificationTypeId, Set<String> recipientIds  ){
 		Messaging.CustomNotification notification = new Messaging.CustomNotification();
         notification.setBody(msgBody);
@@ -57,6 +76,10 @@ public with sharing class IDRBankerNotificationBuilder {
         notification.send(recipientIds);  
     } 
     
+    /**
+   * @description Update the case flag
+   * @param c case to be updated
+   */
     public static void caseUpdateFlag(Case c){
         System.debug('true;');
         Case cas = new Case(Id = c.Id);
@@ -64,14 +87,15 @@ public with sharing class IDRBankerNotificationBuilder {
         updateCaseFlagList.add(cas);
     }
     
+     /**
+   * @description builds a map of user and their notification preference
+   * @param wrapperList List of wrapper class which holds the notification details
+   */
     Public static void  populateUserPreference(List<IDRBankerNotificationWrapper> wrapperList){
         Set<Id> userIds = new Set<Id>();
         userPreferenceMap = new Map<Id, UserPreference>();
         
         for(IDRBankerNotificationWrapper wrapperRecord : wrapperList){
-            /*for(User recipient : wrapperRecord.recipientList){
-                userIds.add(recipient.Id);
-            }*/
             userIds.addAll(wrapperRecord.recipientList);
         }
         
@@ -88,7 +112,9 @@ public with sharing class IDRBankerNotificationBuilder {
         }
     }
     
-    
+    /**
+   * @description Wrapper class to hold the user preference
+   */
     public class UserPreference{
         public String userId;
         public Boolean email;
