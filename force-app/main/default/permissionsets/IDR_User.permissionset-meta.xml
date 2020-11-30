@@ -517,7 +517,7 @@
     </recordTypeVisibilities>
     <tabSettings>
         <tab>IDR_Notification_Preference__c</tab>
-        <visibility>Available</visibility>
+        <visibility>Visible</visibility>
     </tabSettings>
     <tabSettings>
         <tab>standard-Case</tab>
