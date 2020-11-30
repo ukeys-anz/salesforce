@@ -1,0 +1,332 @@
+/**
+ * @author Shermal Warnakula
+ * @since  11/2020
+ * @description Test class to cover tests for {@link ChatContextService}
+ */
+@isTest
+public with sharing class ChatContextServiceTest {
+  @testSetup
+  static void testSetup() {
+    Faker faker = new Faker('AU');
+    Profile p = [
+      SELECT Id
+      FROM Profile
+      WHERE Name = 'Minimum Access - External Apps'
+    ];
+
+    // Insert Account, Case, & User as current user, to get around MIXED_DML_OPERATION error
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      //Create Twilio API User User
+      User apiUser = (User) FakerFactory.make(new FakerUserFactory());
+      apiUser.FirstName = 'APIUserTest';
+      apiUser.ProfileId = p.Id;
+      insert apiUser;
+
+      // Assign Case related PS on API User
+      List<String> psNames = new List<String>{
+        'Chat_Read_Write',
+        'API_Access_Twilio',
+        'API_Only'
+      };
+      List<PermissionSet> psList = [
+        SELECT Id
+        FROM PermissionSet
+        WHERE Name IN :psNames
+      ];
+      List<PermissionSetAssignment> psaList = new List<PermissionSetAssignment>();
+      for (PermissionSet ps : psList) {
+        PermissionSetAssignment psa = new PermissionSetAssignment(
+          AssigneeId = apiUser.id,
+          PermissionSetId = ps.Id
+        );
+        psaList.add(psa);
+      }
+      insert psaList;
+
+      // Insert Account (Customer) record
+      List<String> companyNames = faker.text.realWords(2);
+      Account testAccount = new Account(
+        Name = companyNames[0].capitalize() + companyNames[1].capitalize(),
+        OCV_ID__c = 'OCVID887766',
+        ANZx_Customer__c = true,
+        External_Id__c = 'OCVID887766CAPSYSID123'
+      );
+      insert testAccount;
+
+      // Create a test Case with a known Channel SID
+      Case newCase = new Case(
+        Twilio_Channel_SID__c = 'CH123456789',
+        AccountId = testAccount.Id
+      );
+      insert newCase;
+    }
+  }
+
+  @isTest
+  static void testSuccessCaseCreation() {
+    Faker faker = new Faker('AU');
+    List<String> caseTypes = new List<String>{ 'Card', 'Coaching', 'Dispute' };
+
+    // GIVEN Twilo API user has required acces to Salesforce API
+    // Query for API User
+    User usr = [SELECT Id FROM User WHERE FirstName = 'APIUserTest' LIMIT 1];
+
+    // WHEN Twilio API user send a request with valid OCV ID
+    //Prepare request test data
+    List<ChatContextService.ChatContextRequest> contextRequests = prepareRequest(
+      'OCVID887766',
+      faker.randomString(32),
+      'Coaching'
+    );
+
+    Test.startTest();
+    System.runAs(usr) {
+      ChatContextService.doPost(contextRequests);
+    }
+    Test.stopTest();
+
+    // THEN the request must succeed, and a new Case should be created against the customer related to the Chat Topic (Channel)
+    List<Case> newCases = [
+      SELECT Id, CaseNumber, Account.OCV_ID__c
+      FROM Case
+      WHERE
+        Account.OCV_ID__c = 'OCVID887766'
+        AND Twilio_Channel_SID__c != 'CH123456789'
+    ];
+    System.assert(
+      newCases.size() > 0,
+      'Auto case creation failed via ChatContextRequests REST service'
+    );
+
+    System.assertEquals(200, RestContext.response.statusCode);
+    List<ChatContextService.ChatContextResponse> responseDto = (List<ChatContextService.ChatContextResponse>) JSON.deserialize(
+      RestContext.response.responseBody.toString(),
+      List<ChatContextService.ChatContextResponse>.class
+    );
+    System.assertEquals(true, responseDto[0].success);
+    System.assertEquals('OCVID887766', responseDto[0].ocvId);
+    System.assertEquals(
+      newCases[0].CaseNumber,
+      responseDto[0].sfdcSearchString
+    );
+  }
+
+  @isTest
+  static void testInvalidRequest() {
+    List<String> caseTypes = new List<String>{ 'Card', 'Coaching', 'Dispute' };
+
+    // GIVEN Twilo API user has required acces to Salesforce API
+    // Query for API User
+    User usr = [SELECT Id FROM User WHERE FirstName = 'APIUserTest' LIMIT 1];
+
+    // WHEN Twilio API user send an invalid request
+    //Prepare request test data (not setting Channel SID on purpose to make the request invalid)
+    List<ChatContextService.ChatContextRequest> contextRequests = prepareRequest(
+      'OCVID887766',
+      '',
+      'Coaching'
+    );
+
+    Test.startTest();
+    System.runAs(usr) {
+      ChatContextService.doPost(contextRequests);
+    }
+    Test.stopTest();
+
+    // THEN the request must fail, and a new Case should not be created against the customer
+    List<ChatContextService.ChatContextResponse> responseDto = (List<ChatContextService.ChatContextResponse>) JSON.deserialize(
+      RestContext.response.responseBody.toString(),
+      List<ChatContextService.ChatContextResponse>.class
+    );
+    System.assertEquals(
+      false,
+      responseDto[0].success,
+      'Request should fail if request params were invalid'
+    );
+    System.assertEquals(400, RestContext.response.statusCode);
+    System.assertEquals('OCVID887766', responseDto[0].ocvId);
+    System.assertEquals('', responseDto[0].sfdcSearchString);
+    System.assert(
+      responseDto[0]
+        .errorMessage.contains('Invalid or insufficient request parameters')
+    );
+    System.assert(
+      [
+        SELECT COUNT()
+        FROM Case
+        WHERE
+          Account.OCV_ID__c = 'OCVID887766'
+          AND Twilio_Channel_SID__c != 'CH123456789'
+      ] == 0
+    );
+  }
+
+  @isTest
+  static void testInvalidOCVID() {
+    Faker faker = new Faker('AU');
+
+    // GIVEN Twilo API user has required acces to Salesforce API
+    // Query for API User
+    User usr = [SELECT Id FROM User WHERE FirstName = 'APIUserTest' LIMIT 1];
+
+    // WHEN Twilio API user send a request with an invalid OCV ID
+    //Prepare request test data (setting an invalid OCV ID)
+    List<ChatContextService.ChatContextRequest> contextRequests = prepareRequest(
+      'OCVID888888',
+      faker.randomString(32),
+      'Coaching'
+    );
+
+    Test.startTest();
+    System.runAs(usr) {
+      ChatContextService.doPost(contextRequests);
+    }
+    Test.stopTest();
+
+    // THEN the request must fail with a valid error message in the response
+    List<ChatContextService.ChatContextResponse> responseDto = (List<ChatContextService.ChatContextResponse>) JSON.deserialize(
+      RestContext.response.responseBody.toString(),
+      List<ChatContextService.ChatContextResponse>.class
+    );
+    System.assertEquals(
+      false,
+      responseDto[0].success,
+      'Request should fail if the OCV ID is invalid'
+    );
+    System.assertEquals(400, RestContext.response.statusCode);
+    System.assertEquals('OCVID888888', responseDto[0].ocvId);
+    System.assertEquals('', responseDto[0].sfdcSearchString);
+    System.assert(
+      responseDto[0]
+        .errorMessage.contains(
+          'Could not find a matching ANZx customer record based on OCV ID'
+        )
+    );
+  }
+
+  @isTest
+  static void testCaseAlreadyExists() {
+    // GIVEN Twilo API user has required acces to Salesforce API
+    // Query for API User
+    User usr = [SELECT Id FROM User WHERE FirstName = 'APIUserTest' LIMIT 1];
+
+    // WHEN Twilio API user send a request with an invalid OCV ID
+    //Prepare request test data (setting aa known Channel SID)
+    List<ChatContextService.ChatContextRequest> contextRequests = prepareRequest(
+      'OCVID887766',
+      'CH123456789',
+      'Coaching'
+    );
+
+    Test.startTest();
+    System.runAs(usr) {
+      ChatContextService.doPost(contextRequests);
+    }
+    Test.stopTest();
+
+    // THEN the request must succeed, and Case will not be created against the customer (existing CaseNumber will be returned).
+    List<Case> newCases = [
+      SELECT Id, CaseNumber, Account.OCV_ID__c
+      FROM Case
+      WHERE Account.OCV_ID__c = 'OCVID887766'
+    ];
+    System.assert(
+      newCases.size() == 1,
+      'A new Case should not be created by ChatContextService REST service, if a Case already exist'
+    );
+
+    List<ChatContextService.ChatContextResponse> responseDto = (List<ChatContextService.ChatContextResponse>) JSON.deserialize(
+      RestContext.response.responseBody.toString(),
+      List<ChatContextService.ChatContextResponse>.class
+    );
+    System.assertEquals(true, responseDto[0].success);
+    System.assertEquals(200, RestContext.response.statusCode);
+    System.assertEquals('OCVID887766', responseDto[0].ocvId);
+    System.assertEquals(
+      newCases[0].CaseNumber,
+      responseDto[0].sfdcSearchString
+    );
+  }
+
+  @isTest
+  static void testNoCaseFoundOrCreated() {
+    Faker faker = new Faker('AU');
+    // GIVEN Twilo API user has required acces to Salesforce API
+    // Query for API User
+    User usr = [SELECT Id FROM User WHERE FirstName = 'APIUserTest' LIMIT 1];
+
+    // WHEN Twilio API user sends a request with valid OCV ID and Channel SID, but with an invalid Case Type (No existing Cases against the same customer and Channel SID).
+    //Prepare request test data
+    List<ChatContextService.ChatContextRequest> contextRequests = prepareRequest(
+      'OCVID887766',
+      faker.randomString(32),
+      ''
+    );
+
+    Test.startTest();
+    System.runAs(usr) {
+      ChatContextService.doPost(contextRequests);
+    }
+    Test.stopTest();
+
+    // THEN the request must succeed. Value on Account 'External ID' field will be returned.
+    List<Case> newCases = [
+      SELECT Id, CaseNumber, Account.OCV_ID__c
+      FROM Case
+      WHERE
+        Account.OCV_ID__c = 'OCVID887766'
+        AND Twilio_Channel_SID__c != 'CH123456789'
+    ];
+    System.assert(
+      newCases.size() == 0,
+      'A new Case should not be created by ChatContextService REST service, if Case Type was empty.'
+    );
+
+    List<ChatContextService.ChatContextResponse> responseDto = (List<ChatContextService.ChatContextResponse>) JSON.deserialize(
+      RestContext.response.responseBody.toString(),
+      List<ChatContextService.ChatContextResponse>.class
+    );
+    System.assertEquals(true, responseDto[0].success);
+    System.assertEquals(200, RestContext.response.statusCode);
+    System.assertEquals('OCVID887766', responseDto[0].ocvId);
+    System.assertEquals(
+      'OCVID887766CAPSYSID123',
+      responseDto[0].sfdcSearchString
+    );
+  }
+
+  /**
+   * @description Method to prepare REST requests for test scenarios.
+   * @param ocvId OCV Id
+   * @param channelSid Twilio Channel SID
+   * @param caseType Case Type
+   * @return `List<ChatContextService.ChatContextRequest>` List of 'ChatContextService.ChatContextRequest'
+   */
+  public static List<ChatContextService.ChatContextRequest> prepareRequest(
+    String ocvId,
+    String channelSid,
+    String caseType
+  ) {
+    List<ChatContextService.ChatContextRequest> contextRequests = new List<ChatContextService.ChatContextRequest>();
+    ChatContextService.ChatContextRequest contextReq = new ChatContextService.ChatContextRequest();
+    contextReq.ocvId = ocvId;
+    contextReq.channelSID = channelSid;
+    contextReq.caseType = caseType;
+    contextRequests.add(contextReq);
+
+    //Setup request
+    RestRequest req = new RestRequest();
+    req.requestURI = '/ChatContextRequests/';
+    req.httpMethod = 'POST';
+
+    //Setup Response
+    RestResponse res = new RestResponse();
+
+    //Assign to context
+    RestContext.request = req;
+    RestContext.response = res;
+
+    return contextRequests;
+  }
+}
