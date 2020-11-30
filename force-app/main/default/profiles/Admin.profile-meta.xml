@@ -455,6 +455,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.IDR_Update_Notification_Flag__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.BusinessHoursId</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2112,8 +2117,31 @@
         <field>User_Provisioning_Setting__mdt.Role_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>IDR_Notification_Preference__c.Case_Flag__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>IDR_Notification_Preference__c.Email__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>IDR_Notification_Preference__c.In_App__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>IDR_Notification_Preference__c.User_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <layoutAssignments>
         <layout>Application_Log__c-Application Log Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>IDR_Notification_Preference__c-Notification Preference Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Case-Complaint Layout</layout>
@@ -2198,6 +2226,15 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
         <object>Application_Log__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>IDR_Notification_Preference__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
@@ -2460,6 +2497,11 @@
         <tab>Application_Log__c</tab>
         <visibility>DefaultOff</visibility>
     </tabVisibilities>
+    <tabVisibilities>
+        <tab>IDR_Notification_Preference__c</tab>
+        <visibility>DefaultOn</visibility>
+    </tabVisibilities>
+
     <tabVisibilities>
         <tab>Customer_Feedback__c</tab>
         <visibility>DefaultOn</visibility>
