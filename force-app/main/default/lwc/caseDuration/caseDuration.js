@@ -38,14 +38,39 @@ export default class CaseDuration extends LightningElement {
     })
       .then((result) => {
         this.durationTime = result;
+        this.days = Math.floor(this.durationTime.hours / 24);
         if (this.caseStatus === "On Hold" || this.caseStatus === "Closed") {
           this.durationStop = true;
           this.hours = this.durationTime.hours;
           this.minutes = this.durationTime.minutes;
+
+          this.dayString =
+            this.days === 0
+              ? ""
+              : this.days === 1
+              ? `${this.days} Day `
+              : `${this.days} Days `;
+          this.hourString =
+            this.hours === 0
+              ? ""
+              : this.hours === 1
+              ? `${this.hours} Hour `
+              : `${this.hours} Hours `;
+          this.minuteString =
+            this.minutes === 0
+              ? ""
+              : this.minutes === 1
+              ? `${this.minutes} Minute`
+              : `${this.minutes} Minutes`;
+
+          if (!this.dayString && !this.hourString && !this.minuteString) {
+            this.minuteString = `${this.minutes} Minutes`;
+          }
+
+          this.durationString = `${this.dayString} ${this.hourString} ${this.minuteString}`;
         } else {
           this.pulseClass = "pulsate";
           let parentThis = this;
-          this.days = Math.floor(this.durationTime.hours / 24);
 
           // eslint-disable-next-line @lwc/lwc/no-async-operation
           this.timeIntervalInstance = setInterval(() => {
@@ -76,6 +101,14 @@ export default class CaseDuration extends LightningElement {
                 : parentThis.minutes === 1
                 ? `${parentThis.minutes} Minute`
                 : `${parentThis.minutes} Minutes`;
+
+            if (
+              !parentThis.dayString &&
+              !parentThis.hourString &&
+              !parentThis.minuteString
+            ) {
+              parentThis.minuteString = `${parentThis.minutes} Minutes`;
+            }
 
             if (
               date.getHours() === 23 &&

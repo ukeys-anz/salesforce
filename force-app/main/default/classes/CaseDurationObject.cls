@@ -26,9 +26,9 @@ public with sharing class CaseDurationObject {
   }
 
   /**
-  @description If the user has access to the relevant objects, retrieve the case record from the system or throw an error otherwise
-  * @param recordId The Case record ID
-  */
+@description If the user has access to the relevant objects, retrieve the case record from the system or throw an error otherwise
+* @param recordId The Case record ID
+*/
   private void retrieveCaseRecord(Id recordId) {
     if (
       !Schema.sObjectType.Case.fields.CaseNumber.isAccessible() ||
@@ -60,22 +60,25 @@ public with sharing class CaseDurationObject {
   }
 
   /**
-  @description Query the CaseHistory table and construct a collection of entries on each status change
-  */
+@description Query the CaseHistory table and construct a collection of entries on each status change
+*/
   private void buildHistoryEntries() {
     Integer processCounter = 0;
-    DateTime lastDateTime = record.CreatedDate;
-    for (CaseHistory historyRecord : [
-      SELECT Id, NewValue, OldValue, CaseId, CreatedDate
-      FROM CaseHistory
-      WHERE CaseId = :record.Id AND Field = 'Status'
-      ORDER BY CreatedDate DESC
-    ]) {
+    DateTime lastDateTime = system.NOW();
+    List<CaseHistory> caseHistory = new List<CaseHistory>(
+      [
+        SELECT Id, NewValue, OldValue, CaseId, CreatedDate
+        FROM CaseHistory
+        WHERE CaseId = :record.Id AND Field = 'Status'
+        ORDER BY CreatedDate DESC
+      ]
+    );
+    for (CaseHistory historyRecord : caseHistory) {
       history.add(
         new CaseHistoryObject(
-          (String) historyRecord.OldValue,
-          lastDateTime,
+          (String) historyRecord.NewValue,
           historyRecord.CreatedDate,
+          lastDateTime,
           record.BusinessHoursId
         )
       );
@@ -83,17 +86,19 @@ public with sharing class CaseDurationObject {
     }
     history.add(
       new CaseHistoryObject(
-        record.Status,
+        !caseHistory.isEmpty()
+          ? (String) caseHistory[0].OldValue
+          : record.Status,
+        record.CreatedDate,
         lastDateTime,
-        system.NOW(),
         record.BusinessHoursId
       )
     );
   }
 
   /**
-  @description Loop through the history entries and determine the total case duration based on business hours and statuses that do not contribute to the total
-  */
+@description Loop through the history entries and determine the total case duration based on business hours and statuses that do not contribute to the total
+*/
   private void calculateCaseDuration() {
     Decimal totalHours = 0;
     for (CaseHistoryObject entry : history) {
@@ -105,8 +110,8 @@ public with sharing class CaseDurationObject {
   }
 
   /**
-  @description wrapper class of the duration time
-  */
+@description wrapper class of the duration time
+*/
   public class DurationTime {
     @AuraEnabled
     public long hours;
@@ -124,8 +129,8 @@ public with sharing class CaseDurationObject {
   }
 
   /**
-  @description extend the Exception class to allow errors to be thrown if the user does not have access
-  */
+@description extend the Exception class to allow errors to be thrown if the user does not have access
+*/
   private class CaseDurationCalculationException extends Exception {
   }
 }
