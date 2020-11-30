@@ -195,7 +195,7 @@ public with sharing class GetHelpCaseActions {
     List<Id> accountIds = new List<Id>();
     Map<Id, Id> entMap = new Map<Id, Id>();
     for (Case c : caseList) {
-      if (c.RecordTypeId == GENERAL_INQUIRY_RT_ID) {
+      if (c.RecordTypeId == GENERAL_INQUIRY_RT_ID && c.AccountId != null) {
         accountIds.add(c.AccountId);
       }
     }
@@ -217,7 +217,7 @@ public with sharing class GetHelpCaseActions {
     }
 
     for (Case c : caseList) {
-      if (c.RecordTypeId == GENERAL_INQUIRY_RT_ID) {
+      if (c.RecordTypeId == GENERAL_INQUIRY_RT_ID && c.AccountId != null) {
         if (!entMap.containsKey(c.AccountId)) {
           c.addError('No entitlement found for account.');
         } else {

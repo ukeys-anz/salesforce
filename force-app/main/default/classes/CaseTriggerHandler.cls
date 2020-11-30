@@ -42,7 +42,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
    * @description onAfterInsert to update the list of records which were identified in onValidate() method
    */
   public override void onAfterInsert() {
-    CaseCommonActions.generateCaseDurationList((List<Case>) Trigger.New);
     IDRCaseActions.completeAfterActions();
     GetHelpCaseActions.rollupRelatedBug(records, new List<Case>());
   }
@@ -73,11 +72,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
     if (!checkRecursive.firstCall) {
       checkRecursive.firstCall = true;
-      CaseCommonActions.handleCaseDurationGeneration(
-        Trigger.new,
-        Trigger.newMap,
-        oldMap
-      );
       IDRCaseActions.completeAfterActions();
       CaseCommonActions.completeAfterUpdateActions();
       GetHelpCaseActions.rollupRelatedBug(

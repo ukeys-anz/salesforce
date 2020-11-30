@@ -1,5 +1,5 @@
 import { LightningElement, track, api, wire } from "lwc";
-import getCaseDurationTime from "@salesforce/apex/CaseDurationServerController.getCaseDurationTime";
+import getCaseDurationTime from "@salesforce/apex/CaseDurationService.getCaseDurationTime";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
 import { getRecord } from "lightning/uiRecordApi";
@@ -34,8 +34,8 @@ export default class CaseDuration extends LightningElement {
         this.durationTime = result;
         if (this.caseStatus === "On Hold" || this.caseStatus === "Closed") {
           this.durationStop = true;
-          this.hours = this.durationTime.durationHours;
-          this.minutes = this.durationTime.durationMins;
+          this.hours = this.durationTime.hours;
+          this.minutes = this.durationTime.minutes;
         } else {
           this.pulseClass = "pulsate";
           let parentThis = this;
@@ -44,8 +44,8 @@ export default class CaseDuration extends LightningElement {
           this.timeIntervalInstance = setInterval(() => {
             let date = new Date();
 
-            date.setHours(parentThis.durationTime.durationHours);
-            date.setMinutes(parentThis.durationTime.durationMins);
+            date.setHours(parentThis.durationTime.hours);
+            date.setMinutes(parentThis.durationTime.minutes);
             date.setSeconds(parentThis.totalSeconds);
 
             parentThis.hours = date.getHours();
