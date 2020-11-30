@@ -16,8 +16,12 @@ public with sharing class IDRBankerNotificationBuilder {
    */
     @SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
     public static void sendNotification(List<IDRBankerNotificationWrapper> wrapperList){
-        CustomNotificationType type = [SELECT Id FROM CustomNotificationType WHERE DeveloperName = 'IDR_Banker_Notification'];
-		updateCaseFlagList = new List<Case>();
+        CustomNotificationType type = new CustomNotificationType();
+
+        if(Schema.sObjectType.IDR_Notification_Preference__c.isQueryable()){
+            type = [SELECT Id FROM CustomNotificationType WHERE DeveloperName = 'IDR_Banker_Notification'];
+        }
+        updateCaseFlagList = new List<Case>();
         
         populateUserPreference(wrapperList);
         
@@ -44,7 +48,7 @@ public with sharing class IDRBankerNotificationBuilder {
             }
             
             if(!inAppRecipientIds.isEmpty()){
-                sendInAppNotification(wrapperRecord.sfObject, wrapperRecord.msgBody, wrapperRecord.msgTitle, type.Id, inAppRecipientIds);
+                sendInAppNotification(wrapperRecord, type.Id, inAppRecipientIds);
             }
             
             if(!caseFlagrecipients.isEmpty()){
