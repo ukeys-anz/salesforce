@@ -41,6 +41,7 @@ public with sharing class IDRCaseNotificationManager {
    * @description Builds a notification using IDRBankerNotificationWrapper class
    * @param fieldLabel Field label where the change has been detected
    * @param c case record where the  change has detected
+   * @return IDRBankerNotificationWrapper new instance of wrapper class
    */
   public static IDRBankerNotificationWrapper createNotification(
     String fieldLabel,
@@ -62,8 +63,7 @@ public with sharing class IDRCaseNotificationManager {
 
   /**
    * @description Returns all the fields of getFields
-   * @param fieldLabel Field label where the change has been detected
-   * @param c case record where the  change has detected
+   * @return List<Schema.FieldSetMember> All fields in a field set
    */
   public static List<Schema.FieldSetMember> getFields() {
     return SObjectType.Case.FieldSets.IDR_Notification_Fields.getFields();

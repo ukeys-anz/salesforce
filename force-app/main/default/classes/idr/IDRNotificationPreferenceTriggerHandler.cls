@@ -14,7 +14,6 @@ public with sharing class IDRNotificationPreferenceTriggerHandler extends Lib_Tr
 
   /**
    * @description onApplyDefaults method is called before onBeforeInsert to set the default values for the records.
-   * @param records list of  IDR_Notification_Preference__c in current trigger context
    */
   public override void onApplyDefaults() {
     populateUserID((List<IDR_Notification_Preference__c>) records);
@@ -22,6 +21,7 @@ public with sharing class IDRNotificationPreferenceTriggerHandler extends Lib_Tr
 
   /**
    * @description Populating the User Id with Owner id to restrict the user to create multiple records for themselves.
+   * @param preferenceList List of IDR_Notification_Preference__c
    */
   public void populateUserID(
     List<IDR_Notification_Preference__c> preferenceList

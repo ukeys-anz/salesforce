@@ -81,7 +81,6 @@ public with sharing class IDRBankerNotificationBuilder {
    * @param c case to be updated
    */
     public static void caseUpdateFlag(Case c){
-        System.debug('true;');
         Case cas = new Case(Id = c.Id);
         cas.IDR_Update_Notification_Flag__c  = true;
         updateCaseFlagList.add(cas);
