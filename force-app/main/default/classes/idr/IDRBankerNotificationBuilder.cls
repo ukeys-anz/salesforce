@@ -5,6 +5,7 @@
  * @since 11/2020
  * @description Builds and send the  Banker Notification as per their preference.
  */
+@SuppressWarnings('PMD.StdCyclomaticComplexity')
 public with sharing class IDRBankerNotificationBuilder {
     public static Map<Id ,UserPreference> userPreferenceMap;
     public static List<Case> updateCaseFlagList;
@@ -13,6 +14,7 @@ public with sharing class IDRBankerNotificationBuilder {
    * @description prepare the notification based on preference and sends to appropriate chnnel
    * @param wrapperList List of wrapper class which holds the notification details
    */
+    @SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
     public static void sendNotification(List<IDRBankerNotificationWrapper> wrapperList){
         CustomNotificationType type = [SELECT Id FROM CustomNotificationType WHERE DeveloperName = 'IDR_Banker_Notification'];
 		updateCaseFlagList = new List<Case>();
@@ -52,7 +54,7 @@ public with sharing class IDRBankerNotificationBuilder {
 
         }
         
-        if(!updateCaseFlagList.isEmpty()){
+        if(!updateCaseFlagList.isEmpty() && Schema.sObjectType.Case.isUpdateable()){
             update updateCaseFlagList;
         }
         
@@ -61,18 +63,16 @@ public with sharing class IDRBankerNotificationBuilder {
 
      /**
    * @description Send the in app notification
-   * @param objectAbstract target object for the notification
-   * @param msgBody Body of the notification
-   * @param msgTitle title of the notification
+   * @param wrapperRecord wrapper reccord 
    * @param notificationTypeId Id of the IDR Banker Notification Type
    * @param recipientIds Users ids to recieve this notification
    */
-    public static void sendInAppNotification(SObject objectAbstract , String msgBody, String msgTitle, String notificationTypeId, Set<String> recipientIds  ){
+    public static void sendInAppNotification(IDRBankerNotificationWrapper wrapperRecord, String notificationTypeId, Set<String> recipientIds  ){
 		Messaging.CustomNotification notification = new Messaging.CustomNotification();
-        notification.setBody(msgBody);
-        notification.setTitle(msgTitle);
+        notification.setBody(wrapperRecord.msgBody);
+        notification.setTitle(wrapperRecord.msgTitle);
         notification.setNotificationTypeId(notificationTypeId);
-        notification.setTargetId(objectAbstract.Id); // target object id
+        notification.setTargetId(wrapperRecord.sfObject.Id); // target object id
         notification.send(recipientIds);  
     } 
     
@@ -93,12 +93,15 @@ public with sharing class IDRBankerNotificationBuilder {
     Public static void  populateUserPreference(List<IDRBankerNotificationWrapper> wrapperList){
         Set<Id> userIds = new Set<Id>();
         userPreferenceMap = new Map<Id, UserPreference>();
+        List<IDR_Notification_Preference__c> nPreference = new  List<IDR_Notification_Preference__c>();
         
         for(IDRBankerNotificationWrapper wrapperRecord : wrapperList){
             userIds.addAll(wrapperRecord.recipientList);
         }
+        if(Schema.sObjectType.IDR_Notification_Preference__c.isQueryable()){
+            nPreference= [Select Id, Email__c, In_App__c, Case_Flag__c, User_Id__c From IDR_Notification_Preference__c where User_Id__c in : userIds ];
+        }
         
-       List<IDR_Notification_Preference__c> nPreference= [Select Id, Email__c, In_App__c, Case_Flag__c, User_Id__c From IDR_Notification_Preference__c where User_Id__c in : userIds ];
 
         for(IDR_Notification_Preference__c userPref : nPreference){
             UserPreference up = new UserPreference();
