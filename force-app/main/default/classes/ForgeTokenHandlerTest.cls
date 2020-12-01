@@ -70,7 +70,7 @@ public class ForgeTokenHandlerTest {
      */
     public HTTPResponse respond(HTTPRequest req) {
       HTTPResponse res = new HTTPResponse();
-      res.setStatusCode(201);
+      res.setStatusCode(200);
       res.setHeader('Content-Type', 'application/json');
       res.setBody('{"access_token":"xxxxx","expires_in":900}');
       return res;
