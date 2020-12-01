@@ -4,12 +4,12 @@
  * @description  Test class for AuthTokenCacheUtil
  */
 @isTest
-private class AuthTokenCacheUtilTest {
+public class AuthTokenCacheUtilTest {
   private final static String REFRESHTESTVALUE = 'testRefreshTokenValue';
   //jwt containing a single claim of exp 26/11/2020
   private final static String EXPIREDTOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MDYzNDczNzh9.-hm-9aM803s3TqiDyj7iaUi-tujRy2l8IddQWHKiXr4';
   //jwt containing a single claim of exp 26/11/2050
-  private final static String IDTESTVALUE = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjI1NTMwMzIxNzh9.eAWGLhTYhn4y9M2t2OHeTLIe7MLPObBFK2Nli8CPTD4';
+  public final static String IDTESTVALUE = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjI1NTMwMzIxNzh9.eAWGLhTYhn4y9M2t2OHeTLIe7MLPObBFK2Nli8CPTD4';
 
   /**
    * @description tests the storage and cleanup of the cache

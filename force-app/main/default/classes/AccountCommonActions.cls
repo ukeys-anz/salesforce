@@ -6,10 +6,6 @@
  */
 
 public with sharing class AccountCommonActions {
-  private static final Non_Prod_Settings__c NON_PROD_SETTINGS = Non_Prod_Settings__c.getInstance(
-    UserInfo.getUserId()
-  );
-
   /**
    * @description checkForAccountDeletion is called to check if the Deleted_In_OCV__c flag is updated for deletion
    * @param records The Account records passed from Trigger.new()

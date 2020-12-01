@@ -1,13 +1,16 @@
 import { LightningElement } from "lwc";
+import { NavigationMixin } from "lightning/navigation";
 import getSessionIdToken from "@salesforce/apex/AuthTokenCacheUtil.getSessionIdToken";
 
-export default class PageBackgroundModal extends LightningElement {
+export default class PageBackgroundModal extends NavigationMixin(
+  LightningElement
+) {
   showModal = false;
   connectedCallback() {
     getSessionIdToken()
       .then()
       .catch((error) => {
-        this.loadModal("Notification", error.body.message);
+        this.loadModal("Connectivity Error", error.body.message);
       });
   }
 
@@ -19,5 +22,14 @@ export default class PageBackgroundModal extends LightningElement {
 
   closeModal() {
     this.showModal = false;
+  }
+
+  logout() {
+    this[NavigationMixin.Navigate]({
+      type: "standard__webPage",
+      attributes: {
+        url: window.location.origin + "/secur/logout.jsp"
+      }
+    });
   }
 }

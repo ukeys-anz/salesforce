@@ -8,6 +8,7 @@ public with sharing class AuthTokenCacheUtil {
   private final static String SESSIONPART = 'local.SessionAzureTokens.';
   @TestVisible
   private final static String STAFFPART = 'local.ForgeToken.';
+  private final static Non_Prod_Settings__c NON_PROD_SETTINGS = Non_Prod_Settings__c.getOrgDefaults();
 
   /**
    * @description move the tokens for the current user from org to session cache
@@ -157,6 +158,10 @@ public with sharing class AuthTokenCacheUtil {
    */
   @AuraEnabled
   public static String getSessionIdToken() {
+    //in tests or environments without sso, return a dummy id token
+    if (NON_PROD_SETTINGS.SSO_Not_Configured__c) {
+      return AuthTokenCacheUtilTest.IDTESTVALUE;
+    }
     Id userId = UserInfo.getUserId();
     String idToken = (String) Cache.Session.get(
       AuthTokenCacheUtil.SESSIONPART +
@@ -183,7 +188,9 @@ public with sharing class AuthTokenCacheUtil {
         'Session Id Token not found for user ' + userId,
         Lib_SystemLog.Severity.WARNING
       );
-      throw new TokenCacheException('Connection issue, please sign in again');
+      throw new TokenCacheException(
+        'Oh dear! Looks like we\'ve messed up and lost a connection downstream.\nThe quick fix is to sign in again and all should be right.'
+      );
     }
   }
 
