@@ -91,7 +91,7 @@ public with sharing class TestCaseCommentsTriggerHandler {
   @istest
   static void testCaseCommentsInsertFraudXUser() {
     // Setting up test data
-    User fraudXUser;
+    User fraudXAgent;
     Case generalEnquiryCase;
 
     // Insert Account, Case, & User as current user, to get around MIXED_DML_OPERATION error
@@ -129,20 +129,11 @@ public with sharing class TestCaseCommentsTriggerHandler {
         WHERE DeveloperName = 'FraudX_Agent'
       ];
 
-      fraudXUser = new User(
-        Alias = 'frdxtst',
-        Email = 'fraudx.agent@anzx.com.test',
-        EmailEncodingKey = 'UTF-8',
-        FirstName = 'FraudX',
-        LastName = 'Test Agent',
-        LanguageLocaleKey = 'en_US',
-        LocaleSidKey = 'en_US',
-        ProfileId = profile.Id,
-        UserRoleId = role.Id,
-        TimeZoneSidKey = 'Australia/Sydney',
-        UserName = 'fraudx.agent@anzx.com.test'
-      );
-      insert fraudXUser;
+      fraudXAgent = (User) FakerFactory.make(new FakerUserFactory());
+      fraudXAgent.FirstName = 'FraudX';
+      fraudXAgent.ProfileId = profile.Id;
+      fraudXAgent.UserRoleId = role.Id;
+      insert fraudXAgent;
 
       // Assign Case related PS
       PermissionSet ps = [
@@ -151,14 +142,14 @@ public with sharing class TestCaseCommentsTriggerHandler {
         WHERE Name = 'Case_Read_Write_Fraud_Agent'
       ];
       insert new PermissionSetAssignment(
-        AssigneeId = fraudXUser.id,
+        AssigneeId = fraudXAgent.id,
         PermissionSetId = ps.Id
       );
 
       // Sharing Case record manually with FraudX user, as Criteria Based Sharing Rules won't apply in Test Classes
       CaseShare cs = new CaseShare();
       cs.CaseId = generalEnquiryCase.id;
-      cs.UserOrGroupId = fraudXUser.Id;
+      cs.UserOrGroupId = fraudXAgent.Id;
       cs.CaseAccessLevel = 'Read';
       insert cs;
     }
@@ -171,7 +162,7 @@ public with sharing class TestCaseCommentsTriggerHandler {
 
     try {
       // Execute tests as a FraudX Agent
-      System.runAs(fraudXUser) {
+      System.runAs(fraudXAgent) {
         Test.startTest();
 
         insert comment;
@@ -224,19 +215,10 @@ public with sharing class TestCaseCommentsTriggerHandler {
       ];
       UserRole role = [SELECT Id FROM UserRole WHERE DeveloperName = 'Coach'];
 
-      coachUser = new User(
-        Alias = 'coachtst',
-        Email = 'coach.test@anzx.com.test',
-        EmailEncodingKey = 'UTF-8',
-        FirstName = 'Caoch',
-        LastName = 'Test User',
-        LanguageLocaleKey = 'en_US',
-        LocaleSidKey = 'en_US',
-        ProfileId = profile.Id,
-        UserRoleId = role.Id,
-        TimeZoneSidKey = 'Australia/Sydney',
-        UserName = 'coach.test@anzx.com.test'
-      );
+      coachUser = (User) FakerFactory.make(new FakerUserFactory());
+      coachUser.FirstName = 'Caoch';
+      coachUser.ProfileId = profile.Id;
+      coachUser.UserRoleId = role.Id;
       insert coachUser;
 
       // Assign Case related PS
