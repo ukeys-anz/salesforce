@@ -389,7 +389,7 @@ public with sharing class IDRCaseActions {
             Case.IDR_AuthRep_Licence_or_registration_type__c,
             c.IDR_AuthRep_Licence_or_registration_type__c
           ),
-          ANZ_Received_Date__c = c.IDR_Date_Received__c,
+          ANZ_Received_Date__c = c.IDR_Date_Received__c.date(),
           Case_Number__c = String.isNotBlank(c.CaseNumber__c)
             ? c.CaseNumber__c
             : c.CaseNumber,
