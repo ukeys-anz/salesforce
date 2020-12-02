@@ -1907,6 +1907,10 @@
         <layout>Product2-Product Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case_Product__c-Relevant Product Layout</layout>
+        <recordType>Case_Product__c.Systemic_Issues_and_Products</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Release__c-Release Layout</layout>
     </layoutAssignments>
     <layoutAssignments>

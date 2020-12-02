@@ -5,6 +5,7 @@
     "Application_Log__c",
     "CaseComment",
     "Case_Duration__c",
+    "Case_Product__c",
     "Case",
     "Contact",
     "Customer_Feedback__c",
@@ -69,21 +70,35 @@
       "name": "IDR Level 1",
       "profile": "ANZ Standard User",
       "permissionsetgroups": ["IDR_Level_1"],
-      "permissionsets": [],
+      "permissionsets": ["Enforce_SSO"],
       "type": "user"
     },
     {
       "name": "IDR Level 2",
       "profile": "ANZ Standard User",
       "permissionsetgroups": ["IDR_Level_2"],
-      "permissionsets": [],
+      "permissionsets": ["Enforce_SSO"],
       "type": "user"
     },
     {
       "name": "IDR Level 3",
       "profile": "ANZ Standard User",
       "permissionsetgroups": ["IDR_Level_3"],
-      "permissionsets": [],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "IDR Reporting Analyst",
+      "profile": "ANZ Standard User",
+      "permissionsetgroups": [],
+      "permissionsets": ["IDR_Reporting_Analyst, Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "IDR Systemic Issue Team",
+      "profile": "ANZ Standard User",
+      "permissionsetgroups": [],
+      "permissionsets": ["Systemic_Issue_User_Base, Enforce_SSO"],
       "type": "user"
     },
     {

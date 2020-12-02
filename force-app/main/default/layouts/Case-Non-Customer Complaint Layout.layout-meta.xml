@@ -418,6 +418,10 @@
                 <behavior>Readonly</behavior>
                 <field>ContactId</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>IDR_Inbox_Email_Address__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
@@ -496,24 +500,26 @@
         <fields>TASK.STATUS</fields>
         <fields>TASK.PRIORITY</fields>
         <fields>CORE.USERS.FULL_NAME</fields>
-	    <relatedList>RelatedActivityList</relatedList>
-	</relatedLists>
-	<relatedLists>
+        <relatedList>RelatedActivityList</relatedList>
+    </relatedLists>
+    <relatedLists>
         <fields>TASK.SUBJECT</fields>
         <fields>TASK.CREATED_DATE</fields>
         <fields>TASK.STATUS</fields>
         <fields>CORE.USERS.FULL_NAME</fields>
-	    <relatedList>RelatedHistoryList</relatedList>
-	</relatedLists>
-	<relatedLists>
-	    <relatedList>RelatedEmailMessageList</relatedList>
-	</relatedLists>
-	<relatedLists>
-	    <relatedList>RelatedCommentsList</relatedList>
-	</relatedLists>
-	<relatedLists>
-	    <relatedList>RelatedEntityHistoryList</relatedList>
-	</relatedLists>
+        <fields>TASK.LAST_UPDATE_DATE_ONLY</fields>
+        <fields>Completed_Date__c</fields>
+        <relatedList>RelatedHistoryList</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <relatedList>RelatedEmailMessageList</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <relatedList>RelatedCommentsList</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <relatedList>RelatedEntityHistoryList</relatedList>
+    </relatedLists>
     <relatedObjects>ContactId</relatedObjects>
     <runAssignmentRulesDefault>false</runAssignmentRulesDefault>
     <showEmailCheckbox>true</showEmailCheckbox>
@@ -523,7 +529,7 @@
     <showRunAssignmentRulesCheckbox>true</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>true</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2N0000013mfX</masterLabel>
+        <masterLabel>00h2O000000pomw</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

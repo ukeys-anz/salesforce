@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SI_AFCA_Outcome_Provided__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Source_Salesforce;Source_Salesforce;Privacy - Non Personal Information;Integrity - Trusted</complianceGroup>
+    <description>Is AFCA recommendation/determination attached or has it been provided verbally or has it not been provided?</description>
+    <externalId>false</externalId>
+    <label>AFCA outcome provided?</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>1</fullName>
+                <default>false</default>
+                <label>AFCA recommendation/determination attached</label>
+            </value>
+            <value>
+                <fullName>2</fullName>
+                <default>false</default>
+                <label>AFCA recommendation/determination provided verbally</label>
+            </value>
+            <value>
+                <fullName>3</fullName>
+                <default>false</default>
+                <label>AFCA recommendation/ determination not provided</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
