@@ -5,7 +5,7 @@ private class TestCaseTriggerHandler {
   static void setup() {
     Faker faker = new Faker('AU');
     // Insert Account & User as current user, to get around MIXED_DML_OPERATION error
-    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    User thisUser = new User(Id = UserInfo.getUserId());
     System.runAs(thisUser) {
       // Create a FraudX User with 'FraudX Agent' role
       Profile profile = [
