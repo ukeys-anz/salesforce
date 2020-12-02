@@ -105,13 +105,18 @@ jobs:
         run: |
           ../plugin/bin/run doc:schema -f config/doc-def.json -u systest
           ../plugin/bin/run doc:access -f config/doc-def.json -u systest
+          ../plugin/bin/run doc:sysl -f config/doc-def.json -u systest
 
       - name: Copy docs
         run: |
           rm -rf ./docs/governance/access
           rm -rf ./docs/governance/schema
+          rm -rf ./sysl
           mkdir -p ./docs/governance/
-          cp -r salesforce/docs/* ./docs/governance/
+          mkdir -p ./sysl/
+          cp -r salesforce/docs/access ./docs/governance/
+          cp -r salesforce/docs/schema ./docs/governance/
+          cp -r salesforce/docs/sysl ./
 
       - name: Generate apex docs
         working-directory: salesforce
@@ -137,7 +142,7 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
           git checkout -b ${GITHUB_RUN_ID}
-          git add docs/static docs/governance sidebars.js
+          git add docs/static docs/governance sidebars.js sysl/
           git commit -m "Update salesforce documentation"
           git push origin ${GITHUB_RUN_ID}
 
