@@ -65,6 +65,7 @@ echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
 echo "$(date): Import post-deployment plan..."
 JOB_START_TIME=$(date +%s)
 sfdx force:data:tree:import -p data/Post-Plan.json 2>&1 | tee stderr
+sfdx force:data:tree:import -f data/Non_Prod_Settings__c.json 2>&1 | tee stderr
 if [[ ($(cat stderr) == *'ERROR'*) ]]; then
     exit 1
 fi
@@ -83,7 +84,6 @@ y | Y)
     git submodule update --init --remote
     #Add all the scripts to load data below
     sfdx force:user:permset:assign -n Read_Write_Customer_Details    
-    sfdx force:data:tree:import -f data/Non_Prod_Settings__c.json 2>&1 | tee stderr    
     node salesforce-scripts/generateTestData/loadFinancialGoals.js 2>&1 | tee stderr
     # Uncomment the next line (and comment the next) to import products without their related cases
     #sfdx force:data:bulk:upsert --sobjecttype Product2 --csvfile data/IDR-ANZ-Products.csv --externalid ANZ_Product_Code__c --wait 2 2>&1 | tee stderr
