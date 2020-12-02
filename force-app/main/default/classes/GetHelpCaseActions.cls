@@ -187,6 +187,7 @@ public with sharing class GetHelpCaseActions {
       }
 
       // Check for Fraud Cases
+      // Note: We are excluding the possibility of 'Type' being empty, because we only care about data entered via UI (required field) or controlled entries via API, both of which should have values for 'Type'
       if (
         FRAUD_RT_IDS.contains(record.RecordTypeId) &&
         String.isNotBlank(record.Type) &&
