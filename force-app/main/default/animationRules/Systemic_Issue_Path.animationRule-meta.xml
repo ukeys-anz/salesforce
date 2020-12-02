@@ -7,6 +7,6 @@
     <recordTypeContext>Custom</recordTypeContext>
     <recordTypeName>Systemic_Issue</recordTypeName>
     <sobjectType>Case</sobjectType>
-    <targetField>Status</targetField>
-    <targetFieldChangeToValues>Resolved</targetFieldChangeToValues>
+    <targetField>SI_Workflow_Step__c</targetField>
+    <targetFieldChangeToValues>4</targetFieldChangeToValues>
 </AnimationRule>
