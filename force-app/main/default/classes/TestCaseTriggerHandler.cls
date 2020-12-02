@@ -4,19 +4,60 @@ private class TestCaseTriggerHandler {
   @testSetup
   static void setup() {
     Faker faker = new Faker('AU');
+    // Insert Account & User as current user, to get around MIXED_DML_OPERATION error
+    User thisUser = new User(Id = UserInfo.getUserId());
+    System.runAs(thisUser) {
+      // Create a FraudX User with 'FraudX Agent' role
+      Profile profile = [
+        SELECT Id
+        FROM Profile
+        WHERE Name = 'ANZx Standard User'
+        LIMIT 1
+      ];
+      UserRole role = [
+        SELECT Id
+        FROM UserRole
+        WHERE DeveloperName = 'FraudX_Agent'
+      ];
+      User fraudXAgent = (User) FakerFactory.make(new FakerUserFactory());
+      fraudXAgent.FirstName = 'FraudXTest';
+      fraudXAgent.ProfileId = profile.Id;
+      fraudXAgent.UserRoleId = role.Id;
+      insert fraudXAgent;
 
-    Account[] accnts = new List<Account>();
-    for (Integer i = 0; i < 2; i++) {
-      accnts.add(
-        new Account(
-          Name = 'TestAccount',
-          OCV_ID__c = faker.randomString(10),
-          ANZx_Customer__c = true
-        )
-      );
+      // Assign related PSs
+      List<String> fraudXPSs = new List<String>{
+        'Case_Read_Write_Fraud_Agent',
+        'Customer_Read_Only'
+      };
+      List<PermissionSet> psList = [
+        SELECT Id
+        FROM PermissionSet
+        WHERE Name IN :fraudXPSs
+      ];
+
+      List<PermissionSetAssignment> psaList = new List<PermissionSetAssignment>();
+      for (PermissionSet ps : psList) {
+        PermissionSetAssignment psa = new PermissionSetAssignment(
+          AssigneeId = fraudXAgent.id,
+          PermissionSetId = ps.Id
+        );
+        psaList.add(psa);
+      }
+      insert psaList;
+
+      Account[] accnts = new List<Account>();
+      for (Integer i = 0; i < 2; i++) {
+        accnts.add(
+          new Account(
+            Name = 'TestAccount',
+            OCV_ID__c = faker.randomString(10),
+            ANZx_Customer__c = true
+          )
+        );
+      }
+      insert accnts;
     }
-
-    insert accnts;
   }
 
   @isTest
@@ -673,6 +714,77 @@ private class TestCaseTriggerHandler {
       0,
       relatedCaseNumber,
       'Incorrect reported bug rollup value'
+    );
+  }
+
+  //Tests if the Fraud Case Subject is populated correctly based on case record type and type.
+  @isTest
+  static void testPopulateFraudCaseSubject() {
+    Faker faker = new Faker('AU');
+    List<String> caseTypes = new List<String>{
+      'Remote Access',
+      'Other',
+      'Not a Scam'
+    };
+
+    // GIVEN FraudX Agent user has required acces
+    // Query for API User
+    User usr = [SELECT Id FROM User WHERE FirstName = 'FraudXTest' LIMIT 1];
+
+    // WHEN FraudX Agent user creates or updates a Fraud case
+    Case[] newCases = new List<Case>();
+    Account acc = [SELECT Id FROM Account WHERE Name = 'TestAccount' LIMIT 1];
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = GetHelpCaseActions.FRAUD_RT_IDS[
+            faker.randomIntegerBetween(1, 4)
+          ],
+          Type = faker.randomElement(caseTypes),
+          AccountId = acc.Id
+        )
+      );
+    }
+
+    Test.startTest();
+    System.runAs(usr) {
+      insert newCases;
+    }
+    Test.stopTest();
+
+    // THEN Case Subject should be autopopulated based on RecordType Name and Type
+
+    // Verify subject on one of the inserted Cases
+    Case sampleCase1 = [
+      SELECT Id, Type, RecordType.Name, Subject
+      FROM Case
+      WHERE Id = :newCases[0].Id
+      LIMIT 1
+    ];
+    system.assertEquals(
+      sampleCase1.RecordType.Name +
+      ' - ' +
+      sampleCase1.Type,
+      sampleCase1.Subject,
+      'Failed to autopopulate Subject on Fraud cases as expected, while inserting'
+    );
+
+    // Validate UPDATE behaviour
+    newCases[0].Type = 'Investment';
+    update newCases[0];
+
+    Case sampleCase2 = [
+      SELECT Id, Type, RecordType.Name, Subject
+      FROM Case
+      WHERE Id = :newCases[0].Id
+      LIMIT 1
+    ];
+    system.assertEquals(
+      sampleCase2.RecordType.Name +
+      ' - ' +
+      sampleCase2.Type,
+      sampleCase2.Subject,
+      'Failed to autopopulate Subject on Fraud cases as expected, while updating'
     );
   }
 }

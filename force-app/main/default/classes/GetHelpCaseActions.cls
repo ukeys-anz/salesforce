@@ -12,6 +12,26 @@ public with sharing class GetHelpCaseActions {
     .get('General_Inquiry')
     .getRecordTypeId();
 
+  public static final Id FRAUD_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+    .get('Fraud')
+    .getRecordTypeId();
+  public static final Id IDENTITY_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+    .get('Identity')
+    .getRecordTypeId();
+  public static final Id RECIPIENT_MULE_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+    .get('Recipient_Mule')
+    .getRecordTypeId();
+  public static final Id SCAM_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+    .get('Scam')
+    .getRecordTypeId();
+  @TestVisible
+  public static final List<Id> FRAUD_RT_IDS = new List<Id>{
+    FRAUD_RT_ID,
+    IDENTITY_RT_ID,
+    RECIPIENT_MULE_RT_ID,
+    SCAM_RT_ID
+  };
+
   // Parent Case validation error message
   private static final String PARENT_CASE_ERROR = 'You cannot add parent case. This case is associated with child cases';
 
@@ -153,6 +173,7 @@ public with sharing class GetHelpCaseActions {
   ) {
     List<Case> additionalTypeCheckCases = new List<Case>();
     for (Case record : caseList) {
+      // Check for General Inquiry Cases
       if (
         record.RecordTypeId == GENERAL_INQUIRY_RT_ID &&
         (String.isNotBlank(record.Type) ||
@@ -163,6 +184,17 @@ public with sharing class GetHelpCaseActions {
         oldCaseMap.get(record.Id).Additional_Type__c))
       ) {
         populateCaseSubject(record);
+      }
+
+      // Check for Fraud Cases
+      // Note: We are excluding the possibility of 'Type' being empty, because we only care about data entered via UI (required field) or controlled entries via API, both of which should have values for 'Type'
+      if (
+        FRAUD_RT_IDS.contains(record.RecordTypeId) &&
+        String.isNotBlank(record.Type) &&
+        (oldCaseMap == null ||
+        record.Type != oldCaseMap.get(record.Id).Type)
+      ) {
+        populateFraudCaseSubject(record);
       }
     }
   }
@@ -183,6 +215,27 @@ public with sharing class GetHelpCaseActions {
     //populate case subject
     if (!caseTypeList.isEmpty()) {
       record.Subject = String.join(caseTypeList, ', ');
+    }
+  }
+
+  /**
+   * @description  This method populates subject on Fraud cases based on Record Type and Type
+   * @param record Case record from trigger
+   */
+  public static void populateFraudCaseSubject(Case record) {
+    List<String> caseTypeList = new List<String>();
+
+    if (String.isNotBlank(record.Type)) {
+      //populate case subject
+      record.Subject =
+        Schema.getGlobalDescribe()
+          .get('Case')
+          .getDescribe()
+          .getRecordTypeInfosById()
+          .get(record.RecordTypeId)
+          .getName() +
+        ' - ' +
+        record.Type;
     }
   }
 
