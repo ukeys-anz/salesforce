@@ -182,7 +182,6 @@ global with sharing class ChatContextService {
       for (Integer i = 0; i < newCases.size(); i++) {
         Database.SaveResult sr = results[i];
 
-        ChatContextResponse resp = new ChatContextResponse();
         if (sr.isSuccess()) {
           responseList.add(
             generateResponse(
@@ -197,9 +196,7 @@ global with sharing class ChatContextService {
             true
           );
         } else {
-          resp.sfdcSearchString = newCaseMap.get(newCases[i].Id)
-            .Account.External_Id__c;
-
+          // Returning a success response with an error message, since Twilio could still create Tasks with Customer Identifier
           String errorMessage =
             'Faled to auto create a new Case against the customer customer. OCV ID: ' +
             newCaseMap.get(newCases[i].Id).Account.OCV_ID__c +
@@ -209,7 +206,7 @@ global with sharing class ChatContextService {
           }
 
           responseList.add(
-            generateErrorResponse(
+            generateResponse(
               newCaseMap.get(newCases[i].Id).Account.OCV_ID__c,
               newCaseMap.get(newCases[i].Id).Account.External_Id__c,
               errorMessage
