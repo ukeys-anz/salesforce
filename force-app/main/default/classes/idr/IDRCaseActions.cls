@@ -205,13 +205,16 @@ public with sharing class IDRCaseActions {
   }
 
   /**
-   * @description onBeforeDelete of IDR Case records. FOr complaints no user is allowed to delete a complaint.
+   * @description onBeforeDelete of IDR Case records. No user is allowed to delete a complaint or a systemic issue.
    * Check if its IDR record type and prevent deleteing for anzx can handle other scenarios
    * @param records
    */
   public static void onBeforeDelete(List<Case> records) {
     for (Case record : records) {
-      if (isIDRComplaintType(record)) {
+      if (
+        isIDRComplaintType(record) ||
+        record.recordTypeId == SICaseActions.SI_RT_ID
+      ) {
         record.addError(DELETE_ERROR);
       }
     }
@@ -458,7 +461,7 @@ public with sharing class IDRCaseActions {
     }
     //Todo handle errors further if needed.
   }
-  
+
   /**
    * @description  sendNotifications method is to send out platform events for notifications to customers. Mulesoft subscribes to these notifications and makes Notification Broker API call.
    * @param records The records for which notifications needs to be sent out

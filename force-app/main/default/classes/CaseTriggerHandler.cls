@@ -71,6 +71,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     CaseCommonActions.generateCaseDurationList((List<Case>) Trigger.New);
     IDRCaseActions.completeAfterActions();
     CaseCommonActions.completeAfterInsertActions(updateCaseList);
+    SICaseActions.afterInsert((List<Case>) Trigger.New);
   }
 
   /**
@@ -92,6 +93,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
 
     IDRCaseActions.completeAfterActions();
     CaseCommonActions.completeAfterUpdateActions(updateCaseList);
+    SICaseActions.afterUpdate((List<Case>) Trigger.New, (Map<Id, Case>) oldMap);
   }
 
   /**
@@ -123,6 +125,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     if (!caseIds.isEmpty()) {
       GetHelpCaseActions.validateParentCase(caseIds, validateCaseList);
     }
+    SICaseActions.beforeUpdate((List<Case>) records, (Map<Id, Case>) oldMap);
   }
 
   /**
