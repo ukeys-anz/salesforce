@@ -5,7 +5,6 @@
  * @since 11/2020
  * @description Builds and send the  Banker Notification as per their preference.
  */
-@SuppressWarnings('PMD.StdCyclomaticComplexity')
 public with sharing class IDRBankerNotificationBuilder {
     public static Map<Id ,UserPreference> userPreferenceMap;
     public static List<Case> updateCaseFlagList;
@@ -14,7 +13,6 @@ public with sharing class IDRBankerNotificationBuilder {
    * @description prepare the notification based on preference and sends to appropriate chnnel
    * @param wrapperList List of wrapper class which holds the notification details
    */
-    @SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
     public static void sendNotification(List<IDRBankerNotificationWrapper> wrapperList){
         CustomNotificationType type = new CustomNotificationType();
 
@@ -26,34 +24,14 @@ public with sharing class IDRBankerNotificationBuilder {
         populateUserPreference(wrapperList);
         
         for(IDRBankerNotificationWrapper wrapperRecord : wrapperList){
-            Set<String> inAppRecipientIds = new Set<String>();
+            Set<String> recipientIds = new Set<String>();
             Set<String> emailrecipients = new Set<String>();
-            Set<String> caseFlagrecipients = new Set<String>();
 
-            for(Id recipient : wrapperRecord.recipientList){
-                if(userPreferenceMap.containsKey(recipient)){
-                    if(userPreferenceMap.get(recipient).inApp){
-                    	inAppRecipientIds.add(recipient);
-                    }
-                    if(userPreferenceMap.get(recipient).email){
-                        emailrecipients.add(recipient);
-                    } 
-                    if(userPreferenceMap.get(recipient).caseFlag){
-                        caseFlagrecipients.add(recipient);
-                    } 
-                }else{
-                    inAppRecipientIds.add(recipient);
-                }
-                
-            }
+            populateRecipientsList(recipientIds, emailrecipients, wrapperRecord);
             
-            if(!inAppRecipientIds.isEmpty()){
-                sendInAppNotification(wrapperRecord, type.Id, inAppRecipientIds);
-            }
-            
-            if(!caseFlagrecipients.isEmpty()){
+            if(!recipientIds.isEmpty()){
+                sendInAppNotification(wrapperRecord, type.Id, recipientIds);
                 caseUpdateFlag(wrapperRecord.relatedCaseRecord);
-                
             }
 
         }
@@ -62,6 +40,26 @@ public with sharing class IDRBankerNotificationBuilder {
             update updateCaseFlagList;
         }
         
+    }
+
+    public static void populateRecipientsList(Set<String> recipients, Set<String> emailRecipients, IDRBankerNotificationWrapper wrapperRecord){
+        
+        for(Id recipient : wrapperRecord.recipientList){
+            if(userPreferenceMap.containsKey(recipient)){
+                if(userPreferenceMap.get(recipient).inApp){
+                    recipients.add(recipient);
+                }
+                if(userPreferenceMap.get(recipient).email){
+                    emailRecipients.add(recipient);
+                } 
+                if(userPreferenceMap.get(recipient).caseFlag){
+                    recipients.add(recipient);
+                } 
+            }else{
+                recipients.add(recipient);
+            }
+            
+        }
     }
     
 
