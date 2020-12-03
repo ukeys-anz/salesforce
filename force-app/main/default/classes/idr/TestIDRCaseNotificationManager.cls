@@ -38,23 +38,7 @@ private class TestIDRCaseNotificationManager {
   @isTest
   static void testManualNotification() {
     List<User> usrlist = [SELECT id FROM User];
-    List<IDR_Notification_Preference__c> npList = new List<IDR_Notification_Preference__c>();
-    IDR_Notification_Preference__c npRecord = new IDR_Notification_Preference__c();
-    npRecord.Case_Flag__c = true;
-    npRecord.Email__c = false;
-    npRecord.In_App__c = true;
-    npRecord.OwnerId = usrlist[0].Id;
-    npList.add(npRecord);
-
-    IDR_Notification_Preference__c npRecord1 = new IDR_Notification_Preference__c();
-    npRecord1.Case_Flag__c = true;
-    npRecord1.Email__c = false;
-    npRecord1.In_App__c = true;
-    npRecord1.OwnerId = usrlist[1].Id;
-    npList.add(npRecord1);
-
-    insert npList;
-
+  
     System.runAs(usrlist[0]) {
       List<Case> caseToUpdate = [SELECT Id FROM Case];
       for (Case c : caseToUpdate) {

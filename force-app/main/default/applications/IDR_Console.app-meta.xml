@@ -51,13 +51,9 @@
     <tabs>standard-Case</tabs>
     <tabs>standard-Task</tabs>
     <tabs>standard-Product2</tabs>
-    <tabs>IDR_Notification_Preference__c</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>IDR_Console_UtilityBar</utilityBar>
     <workspaceConfig>
-        <mappings>
-            <tab>IDR_Notification_Preference__c</tab>
-        </mappings>
         <mappings>
             <tab>standard-Case</tab>
         </mappings>

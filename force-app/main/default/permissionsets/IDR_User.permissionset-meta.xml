@@ -518,26 +518,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>IDR_Notification_Preference__c.Case_Flag__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>IDR_Notification_Preference__c.Email__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>IDR_Notification_Preference__c.In_App__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>IDR_Notification_Preference__c.User_Id__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Notification_Handler__c.Description__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -590,15 +570,6 @@
     <objectPermissions>
         <allowCreate>true</allowCreate>
         <allowDelete>false</allowDelete>
-        <allowEdit>true</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>false</modifyAllRecords>
-        <object>IDR_Notification_Preference__c</object>
-        <viewAllRecords>false</viewAllRecords>
-    </objectPermissions>
-    <objectPermissions>
-        <allowCreate>true</allowCreate>
-        <allowDelete>false</allowDelete>
         <allowEdit>false</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
@@ -630,10 +601,6 @@
         <recordType>Task.IDR_Task</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
-    <tabSettings>
-        <tab>IDR_Notification_Preference__c</tab>
-        <visibility>Visible</visibility>
-    </tabSettings>
     <tabSettings>
         <tab>standard-Case</tab>
         <visibility>Visible</visibility>

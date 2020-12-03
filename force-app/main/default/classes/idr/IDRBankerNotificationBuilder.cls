@@ -97,24 +97,19 @@ public with sharing class IDRBankerNotificationBuilder {
     Public static void  populateUserPreference(List<IDRBankerNotificationWrapper> wrapperList){
         Set<Id> userIds = new Set<Id>();
         userPreferenceMap = new Map<Id, UserPreference>();
-        List<IDR_Notification_Preference__c> nPreference = new  List<IDR_Notification_Preference__c>();
         
         for(IDRBankerNotificationWrapper wrapperRecord : wrapperList){
             userIds.addAll(wrapperRecord.recipientList);
         }
-        if(Schema.sObjectType.IDR_Notification_Preference__c.isQueryable()){
-            nPreference= [Select Id, Email__c, In_App__c, Case_Flag__c, User_Id__c From IDR_Notification_Preference__c where User_Id__c in : userIds ];
-        }
-        
 
-        for(IDR_Notification_Preference__c userPref : nPreference){
+        for(Id recepientId : userIds){
             UserPreference up = new UserPreference();
-            up.userId 	= userPref.User_Id__c;
-            up.email	= userPref.Email__c;
-            up.caseFlag	= userPref.In_App__c;
-            up.inApp 	= userPref.Case_Flag__c;
+            up.userId 	= recepientId;
+            up.email	= false;
+            up.caseFlag	= true;
+            up.inApp 	= true;
             
-            userPreferenceMap.put(userPref.User_Id__c, up);
+            userPreferenceMap.put(recepientId, up);
         }
     }
     
