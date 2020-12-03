@@ -399,6 +399,10 @@
                 <behavior>Readonly</behavior>
                 <field>SuppliedEmail</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>ContactId</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -410,8 +414,8 @@
                 <field>ClosedDate</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>ContactId</field>
+                <behavior>Edit</behavior>
+                <field>IDR_Date_Received__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
