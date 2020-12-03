@@ -147,6 +147,13 @@
       "permissionsetgroups": [],
       "permissionsets": ["API_Only", "SFDX_Full_Dev_Hub_Access"],
       "type": "system"
+    },
+    {
+      "name": "FraudX Agent",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["FraudX Agent"],
+      "permissionsets": [],
+      "type": "user"
     }
   ]
 }
