@@ -3,5 +3,6 @@
     <description>This permission set group is for IDR Level 1 users</description>
     <label>IDR Level 1</label>
     <permissionSets>IDR_User</permissionSets>
+    <permissionSets>IDR_User_Level_1</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>
