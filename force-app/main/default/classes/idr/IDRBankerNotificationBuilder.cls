@@ -91,7 +91,7 @@ public with sharing class IDRBankerNotificationBuilder {
    * @param c case to be updated
    */
   public static void caseUpdateFlag(Case c) {
-    c.IDR_Update_Notification_Flag__c = true;
+    c.IDR_Update_Notification_Flag__c = true; 
   }
 
   /**
