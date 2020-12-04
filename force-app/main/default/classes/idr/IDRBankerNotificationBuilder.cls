@@ -6,8 +6,7 @@
  */
 public with sharing class IDRBankerNotificationBuilder {
   public static Map<Id, UserPreference> userPreferenceMap;
-  public static List<Case> updateCaseFlagList;
-
+  
   /**
    * @description prepare the notification based on preference and sends to appropriate chnnel
    * @param wrapperList List of wrapper class which holds the notification details
@@ -24,7 +23,6 @@ public with sharing class IDRBankerNotificationBuilder {
         WHERE DeveloperName = 'IDR_Banker_Notification'
       ];
     }
-    updateCaseFlagList = new List<Case>();
 
     populateUserPreference(wrapperList);
 
@@ -38,12 +36,6 @@ public with sharing class IDRBankerNotificationBuilder {
         sendInAppNotification(wrapperRecord, type.Id, recipientIds);
         caseUpdateFlag(wrapperRecord.relatedCaseRecord);
       }
-    }
-
-    if (
-      !updateCaseFlagList.isEmpty() && Schema.sObjectType.Case.isUpdateable()
-    ) {
-      update updateCaseFlagList;
     }
   }
 
@@ -99,9 +91,7 @@ public with sharing class IDRBankerNotificationBuilder {
    * @param c case to be updated
    */
   public static void caseUpdateFlag(Case c) {
-    Case cas = new Case(Id = c.Id);
-    cas.IDR_Update_Notification_Flag__c = true;
-    updateCaseFlagList.add(cas);
+    c.IDR_Update_Notification_Flag__c = true;
   }
 
   /**

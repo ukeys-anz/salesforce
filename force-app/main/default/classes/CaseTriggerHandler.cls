@@ -91,10 +91,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     );
 
     IDRCaseActions.completeAfterActions();
-    IDRCaseNotificationManager.manageNotification(
-      records,
-      (Map<Id, Case>) oldMap
-    );
     CaseCommonActions.completeAfterUpdateActions(updateCaseList);
   }
 
@@ -127,6 +123,11 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     if (!caseIds.isEmpty()) {
       GetHelpCaseActions.validateParentCase(caseIds, validateCaseList);
     }
+
+    IDRCaseNotificationManager.manageNotification(
+      records,
+      (Map<Id, Case>) oldMap
+    );
   }
 
   /**
