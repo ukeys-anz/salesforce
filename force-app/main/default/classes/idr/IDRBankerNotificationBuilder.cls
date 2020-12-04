@@ -6,7 +6,7 @@
  */
 public with sharing class IDRBankerNotificationBuilder {
   public static Map<Id, UserPreference> userPreferenceMap;
-  
+
   /**
    * @description prepare the notification based on preference and sends to appropriate chnnel
    * @param wrapperList List of wrapper class which holds the notification details
