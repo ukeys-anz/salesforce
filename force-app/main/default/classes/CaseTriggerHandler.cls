@@ -126,6 +126,11 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       GetHelpCaseActions.validateParentCase(caseIds, validateCaseList);
     }
     SICaseActions.beforeUpdate((List<Case>) records, (Map<Id, Case>) oldMap);
+
+    IDRCaseNotificationManager.manageNotification(
+      records,
+      (Map<Id, Case>) oldMap
+    );
   }
 
   /**

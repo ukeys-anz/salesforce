@@ -460,6 +460,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.IDR_Update_Notification_Flag__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.BusinessHoursId</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2252,6 +2257,7 @@
         <field>User_Provisioning_Setting__mdt.Role_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
+
     <layoutAssignments>
         <layout>Application_Log__c-Application Log Layout</layout>
     </layoutAssignments>

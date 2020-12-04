@@ -9,7 +9,12 @@
         <detailHeading>false</detailHeading>
         <editHeading>false</editHeading>
         <label>Privacy</label>
-        <layoutColumns/>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_Update_Notification_Flag__c</field>
+            </layoutItems>
+        </layoutColumns>
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
