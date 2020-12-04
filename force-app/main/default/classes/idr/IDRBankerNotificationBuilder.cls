@@ -46,7 +46,7 @@ public with sharing class IDRBankerNotificationBuilder {
    * @description populate the recepients 
    * @param recipients list of inapp and case recepients
    * @param emailRecipients list of email recepients
-   * @param wrapperList wrapper class which holds the notification details
+   * @param wrapperRecord wrapper class which holds the notification details
    */
     public static void populateRecipientsList(Set<String> recipients, Set<String> emailRecipients, IDRBankerNotificationWrapper wrapperRecord){
         
