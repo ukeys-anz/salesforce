@@ -398,6 +398,21 @@ private class TestCaseTriggerHandler {
         'Cases Cannot be deleted'
       );
     }
+
+    // Test systemic issues
+    for (Case c : newCases) {
+      c.RecordTypeId = SICaseActions.SI_RT_ID;
+    }
+    update newCases;
+
+    try {
+      delete newCases;
+    } catch (DMLexception e) {
+      system.assert(
+        e.getMessage().contains('You cannot delete cases'),
+        'Cases Cannot be deleted'
+      );
+    }
   }
 
   @isTest
