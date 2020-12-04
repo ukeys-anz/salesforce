@@ -98,11 +98,11 @@ public with sharing class CaseProductTriggerHandler extends Lib_TriggerHandler {
       ];
     } catch (System.QueryException e) {
       Lib_SystemLog.logAPIError(
-        GetCustomerInformation.class.getName(),
+        CaseProductTriggerHandler.class.getName(),
         'errorIfDuplicate',
         e.getMessage(),
         e.getTypeName(),
-        GetCustomerInformation.class.getName(),
+        CaseProductTriggerHandler.class.getName(),
         null,
         null
       );
