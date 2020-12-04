@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_Update_Notification_Flag__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate</complianceGroup>
     <defaultValue>false</defaultValue>
     <externalId>false</externalId>
     <label>Update Notification Flag</label>
+    <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
-    <description>To notify banker at case level that there is an update</description>
-    <complianceGroup>Integrity - Accurate</complianceGroup>
 </CustomField>
