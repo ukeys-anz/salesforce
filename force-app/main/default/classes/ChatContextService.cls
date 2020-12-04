@@ -3,18 +3,31 @@
  * @since  11/2020
  * @description APEX REST API class to handle incoming requests from Twilio.
  */
+@SuppressWarnings('PMD.StdCyclomaticComplexity')
 @RestResource(urlMapping='/ChatContextRequests/*')
 global with sharing class ChatContextService {
   // General Inquiry Record Type Id
   global static final Id GENERAL_INQUIRY_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('General_Inquiry')
     .getRecordTypeId();
+  global static final String QUEUE_TYPE = 'Queue';
+  global static final String GENERAL_CASE_QUEUE_DEVELOPER_NAME = 'General_Case_Queue';
+
+  global static Group generalIinquiryQueue = [
+    SELECT Id
+    FROM Group
+    WHERE
+      Type = :QUEUE_TYPE
+      AND DeveloperName = :GENERAL_CASE_QUEUE_DEVELOPER_NAME
+    LIMIT 1
+  ];
 
   /**
    * @description HTTP POST method passing incoming Chat context in to Salesforce.
    * Salesforce would then return a unique customer identifier, or a related Case Number to include on Twilio tasks as "sfdcSearchString".
    * @param contextRequests List of Chat Context Requests
    */
+  @SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
   @HttpPost
   global static void doPost(List<ChatContextRequest> contextRequests) {
     List<ChatContextResponse> responseList = new List<ChatContextResponse>();
@@ -105,6 +118,7 @@ global with sharing class ChatContextService {
    * @param requestByOCVId request instances by OCV ID
    * @return `Map<String, Boolean>` response status by OCVId
    */
+  @SuppressWarnings('PMD.ExcessiveParameterList')
   private static Map<String, Boolean> findOrCreateRelatedCases(
     Map<String, Account> accountByOCVId,
     Map<String, List<Case>> casesByOCVId,
@@ -143,7 +157,9 @@ global with sharing class ChatContextService {
         newCase.Twilio_Channel_SID__c = requestByOCVId.get(ocvId).channelSID;
         newCase.Type = requestByOCVId.get(ocvId).caseType;
         newCase.RecordTypeId = GENERAL_INQUIRY_RT_ID;
-        // newCase.OwnerId = ?? ;
+        if (generalIinquiryQueue != null) {
+          newCase.OwnerId = generalIinquiryQueue.Id;
+        }
         newCases.add(newCase);
       }
     }
