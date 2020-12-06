@@ -25,5 +25,11 @@ public with sharing class IDRConstants {
 
   //Message Text 
   public static final String RESTRICTED_ACTION_MESSAGE = 'You are not authorised to perform this action.';
+
+  //Milestone Sla
+  public static final String MILESTONE_SLA_NORMAL = 'Normal';
+  public static final string COMPLAINTS_ENTITLMENT_ACCT = 'Complaint Entitlement Account';
+  public static final string COMPLAINTS_ENTITLMENT_PROCESS = 'complaints';
+  public static final string COMPLAINTS_ENTITLEMENT_NAME = 'Complaints Entitlement';
    
 }

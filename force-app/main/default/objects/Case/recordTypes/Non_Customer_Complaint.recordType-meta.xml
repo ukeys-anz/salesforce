@@ -2796,6 +2796,21 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>IDR_Milestone_Sla__c</picklist>
+        <values>
+            <fullName>Critical</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Normal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Warning</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Origin</picklist>
         <values>
             <fullName>1</fullName>
@@ -2869,6 +2884,17 @@
         </values>
         <values>
             <fullName>User didn%27t attend training</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>SLA_Status__c</picklist>
+        <values>
+            <fullName>Breached</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Warning</fullName>
             <default>false</default>
         </values>
     </picklistValues>

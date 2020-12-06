@@ -21,6 +21,24 @@
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
+        <fullName>EscalationtoAmber</fullName>
+        <field>IDR_Milestone_Sla__c</field>
+        <literalValue>Warning</literalValue>
+        <name>EscalationtoAmber</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>EscalationtoRed</fullName>
+        <field>IDR_Milestone_Sla__c</field>
+        <literalValue>Critical</literalValue>
+        <name>EscalationtoRed</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>SLA_Status_Violation_Update</fullName>
         <field>SLA_Status__c</field>
         <literalValue>Breached</literalValue>
