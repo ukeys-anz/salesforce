@@ -20,16 +20,13 @@ public with sharing class SICaseActions {
   public static void beforeUpdate(List<Case> records, Map<Id, Case> oldMap) {
     for (Case record : (List<Case>) records) {
       Case oldRecord = (Case) oldMap.get(record.id);
-      //Align status and workflow: Records in Monitoring workflow step should be closed and vice versa
+      //Align status and workflow: Records in Monitoring workflow step should be closed
       //Note that SI_Workflow_Step__c being a dependent picklist of Status, not all combinations need to be handled by trigger
       if (
         record.RecordTypeId == SI_RT_ID &&
         (record.Status != oldRecord.Status ||
         record.SI_Workflow_Step__c != oldRecord.SI_Workflow_Step__c)
       ) {
-        if (record.Status == 'Closed' && oldRecord.Status != 'Closed') {
-          record.SI_Workflow_Step__c = '4';
-        }
         record = alignStatusToWorkflow(record, oldRecord);
       }
     }
@@ -87,19 +84,19 @@ public with sharing class SICaseActions {
   public static void afterUpdate(List<Case> records, Map<Id, Case> oldMap) {
     removePendingMonitoringTasks(records, oldMap);
     //Create monitoring tasks, only when SI_Workflow_Step__c has just been set to Monitoring
-    Case[] casesToProcessWhenClosed = new List<Case>();
+    Case[] casesToProcessWhenMonitoring = new List<Case>();
     for (Case record : (List<Case>) records) {
       if (
         record.RecordTypeId == SI_RT_ID &&
         ((Case) oldMap.get(record.id)).SI_Workflow_Step__c != '4' &&
         record.SI_Workflow_Step__c == '4'
       ) {
-        casesToProcessWhenClosed.add(record);
+        casesToProcessWhenMonitoring.add(record);
       }
     }
-    if (casesToProcessWhenClosed.size() > 0) {
+    if (casesToProcessWhenMonitoring.size() > 0) {
       Task[] allTasksToInsert = new List<Task>();
-      for (Case record : casesToProcessWhenClosed) {
+      for (Case record : casesToProcessWhenMonitoring) {
         allTasksToInsert.add(createMonitoringTask(record, 3));
         allTasksToInsert.add(createMonitoringTask(record, 6));
       }

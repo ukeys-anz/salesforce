@@ -21,12 +21,12 @@ private with sharing class TestSICaseActions {
     }
     update newCases;
 
-    //THEN workflow step is Monitoring
+    //THEN workflow step has not changed
     Case c = [SELECT SI_Workflow_Step__c FROM Case LIMIT 1];
     System.assertEquals(
-      '4',
+      '1',
       c.SI_Workflow_Step__c,
-      'Closed SI should be in Monitoring'
+      'Able to close SI at any step of the workflow'
     );
   }
 
