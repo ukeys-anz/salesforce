@@ -149,6 +149,13 @@
                     <value>false</value>
                 </componentInstanceProperties>
                 <componentName>support:milestones</componentName>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>Complaint</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
