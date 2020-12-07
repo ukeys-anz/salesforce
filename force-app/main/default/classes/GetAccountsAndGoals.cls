@@ -28,6 +28,7 @@ public with sharing class GetAccountsAndGoals {
       request.setHeader('Authorization', 'Bearer ' + serializedToken);
       request.setHeader('client_id', '{!$Credential.Username}');
       request.setHeader('client_secret', '{!$Credential.Password}');
+      request.setHeader('x-correlation-id', RequestUtils.getRequestId());
       HTTPResponse response = null;
       try {
         Http http = new Http();
@@ -43,7 +44,7 @@ public with sharing class GetAccountsAndGoals {
           'getAccounts',
           e.getMessage(),
           e.getTypeName(),
-          GetAccountsAndGoals.class.getName(),
+          RequestUtils.getRequestId(),
           null,
           response != null ? response.getBody() : null
         );
