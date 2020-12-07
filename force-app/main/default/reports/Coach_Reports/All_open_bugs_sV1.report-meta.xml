@@ -7,9 +7,6 @@
         <field>Reported_Bug__c.Responsible_Value_Stream__c</field>
     </columns>
     <columns>
-        <field>Reported_Bug__c.Category__c</field>
-    </columns>
-    <columns>
         <aggregateTypes>Sum</aggregateTypes>
         <field>Reported_Bug__c.Number_of_Related_Cases__c</field>
     </columns>
@@ -18,12 +15,6 @@
     </columns>
     <columns>
         <field>Reported_Bug__c.Status__c</field>
-    </columns>
-    <columns>
-        <field>Reported_Bug__c.Resolution_Status__c</field>
-    </columns>
-    <columns>
-        <field>Reported_Bug__c.Steps_Taken_Prior_to_Hitting_Bug__c</field>
     </columns>
     <columns>
         <field>Reported_Bug__c.Expected_Outcome__c</field>
@@ -43,7 +34,7 @@
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
             <operator>notEqual</operator>
-            <value>Resolved</value>
+            <value>Closed</value>
         </criteriaItems>
     </filter>
     <format>Tabular</format>

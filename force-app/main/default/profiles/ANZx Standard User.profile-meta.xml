@@ -102,6 +102,11 @@
     <default>false</default>
     <visible>false</visible>
   </applicationVisibilities>
+  <applicationVisibilities>
+      <application>trailheadapp__Trailhead_Tracker</application>
+      <default>false</default>
+      <visible>false</visible>
+  </applicationVisibilities>
   <classAccesses>
     <apexClass>AuthTokenCacheUtil</apexClass>
     <enabled>true</enabled>
@@ -1329,6 +1334,10 @@
   <classAccesses>
     <apexClass>MockHttpMulesoftCallouts</apexClass>
     <enabled>false</enabled>
+  </classAccesses>
+  <classAccesses>
+      <apexClass>NewCaseFlowWrapperController</apexClass>
+      <enabled>true</enabled>
   </classAccesses>
   <classAccesses>
     <apexClass>ProcessBuilderNoAction</apexClass>
@@ -8592,16 +8601,32 @@
     <readable>false</readable>
   </fieldPermissions>
   <layoutAssignments>
-    <layout>Case-Complaint Layout</layout>
-    <recordType>Case.Customer_Complaint</recordType>
+      <layout>Case-Complaint Layout</layout>
+      <recordType>Case.Customer_Complaint</recordType>
   </layoutAssignments>
   <layoutAssignments>
-    <layout>Case-General Inquiry Layout</layout>
-    <recordType>Case.General_Inquiry</recordType>
+      <layout>Case-Fraud Layout</layout>
+      <recordType>Case.Fraud</recordType>
   </layoutAssignments>
   <layoutAssignments>
-    <layout>Case-Non-Customer Complaint Layout</layout>
-    <recordType>Case.Non_Customer_Complaint</recordType>
+      <layout>Case-General Inquiry Layout</layout>
+      <recordType>Case.General_Inquiry</recordType>
+  </layoutAssignments>
+  <layoutAssignments>
+      <layout>Case-Identity Layout</layout>
+      <recordType>Case.Identity</recordType>
+  </layoutAssignments>
+  <layoutAssignments>
+      <layout>Case-Non-Customer Complaint Layout</layout>
+      <recordType>Case.Non_Customer_Complaint</recordType>
+  </layoutAssignments>
+  <layoutAssignments>
+      <layout>Case-Recipient%2FMule Layout</layout>
+      <recordType>Case.Recipient_Mule</recordType>
+  </layoutAssignments>
+  <layoutAssignments>
+      <layout>Case-Scam Layout</layout>
+      <recordType>Case.Scam</recordType>
   </layoutAssignments>
   <layoutAssignments>
     <layout>PersonAccount-Customer View Layout</layout>
@@ -9588,6 +9613,10 @@
     <apexPage>FinServ__WealthLabelDependencies</apexPage>
     <enabled>true</enabled>
   </pageAccesses>
+  <pageAccesses>
+      <apexPage>trailheadapp__TrailheadSetup</apexPage>
+      <enabled>false</enabled>
+  </pageAccesses>
   <recordTypeVisibilities>
     <default>false</default>
     <recordType>Account.Business_Account</recordType>
@@ -10244,6 +10273,10 @@
   <tabVisibilities>
     <tab>standard-report</tab>
     <visibility>DefaultOn</visibility>
+  </tabVisibilities>
+  <tabVisibilities>
+      <tab>trailheadapp__TrailheadSetup</tab>
+      <visibility>Hidden</visibility>
   </tabVisibilities>
   <userLicense>Salesforce</userLicense>
   <userPermissions>

@@ -95,5 +95,19 @@
       return context.attributes.recordId;
     }
     return null;
+  },
+  navigateToNewCaseClosePreviousTab: function (
+    workspaceAPI,
+    navigationUrl,
+    firstTabId
+  ) {
+    workspaceAPI
+      .openConsoleURL({
+        url: navigationUrl,
+        focus: true
+      })
+      .then(function (activeTabId) {
+        workspaceAPI.closeTab({ tabId: firstTabId });
+      });
   }
 });

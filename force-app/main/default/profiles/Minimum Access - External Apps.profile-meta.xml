@@ -21,10 +21,6 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>BatchUpdateCaseDuration</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>CaseCommentsTriggerHandler</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -33,20 +29,20 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>CaseDurationCalculationTest</apexClass>
+        <apexClass>CaseDurationTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>CaseDurationServerController</apexClass>
-        <enabled>false</enabled>
+        <apexClass>CaseDurationObject</apexClass>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>CaseDurationServerControllerTest</apexClass>
-        <enabled>false</enabled>
+        <apexClass>CaseDurationService</apexClass>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>CaseDurationTriggerHandler</apexClass>
-        <enabled>false</enabled>
+        <apexClass>CaseHistoryObject</apexClass>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CaseTriggerHandler</apexClass>
@@ -269,10 +265,6 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>ScheduleUpdateCaseDuration</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>TestANZAzureADRegistrationHandler</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -310,10 +302,6 @@
     </classAccesses>
     <classAccesses>
         <apexClass>TestProcessBuilderNoAction</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>TestScheduleUpdateCaseDuration</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -513,15 +501,6 @@
         <allowRead>false</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>Case</object>
-        <viewAllRecords>false</viewAllRecords>
-    </objectPermissions>
-    <objectPermissions>
-        <allowCreate>false</allowCreate>
-        <allowDelete>false</allowDelete>
-        <allowEdit>false</allowEdit>
-        <allowRead>false</allowRead>
-        <modifyAllRecords>false</modifyAllRecords>
-        <object>Case_Duration__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>

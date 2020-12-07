@@ -25,12 +25,20 @@
         <value>/account-details-api-sandbox/api/accountbalance?ocvid=</value>
     </labels>
     <labels>
+      <fullName>MS_Forge_Token</fullName>
+      <categories>MS</categories>
+      <language>en_US</language>
+      <protected>false</protected>
+      <shortDescription>MS_Forge_Token</shortDescription>
+      <value>/anz-sys-forge-oauth-api/api/token</value>
+  </labels>
+    <labels>
         <fullName>MS_Get_Accounts_Goals</fullName>
         <categories>MS</categories>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Accounts_Goals</shortDescription>
-        <value>/anz-exp-sfdc-coach-banking-api/api/accounts?ocvid=</value>
+        <value>/anz-exp-sfdc-coach-banking-api/api/accounts</value>
     </labels>
     <labels>
         <fullName>MS_Get_Customer</fullName>
@@ -47,5 +55,54 @@
         <protected>false</protected>
         <shortDescription>Test Bulk Size</shortDescription>
         <value>2</value>
+    </labels>
+    <labels>
+        <fullName>th_TrailheadInputSearchDelay</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Number of milliseconds to wait before perfoming a search</shortDescription>
+        <value>600</value>
+    </labels>
+    <labels>
+        <fullName>th_TrailheadTypeBadge</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Trailhead Assignment Type Badge</shortDescription>
+        <value>Badge</value>
+    </labels>
+    <labels>
+        <fullName>th_TrailheadTypeBoth</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Trailhead Assignment Type Both</shortDescription>
+        <value>Both</value>
+    </labels>
+    <labels>
+        <fullName>th_TrailheadTypeTrailmix</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Trailhead Assignment Type Trailmix</shortDescription>
+        <value>TrailMix</value>
+    </labels>
+    <labels>
+        <fullName>th_trailhead_link_address</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Trailhead Assignment List Trailhead Link Address</shortDescription>
+        <value>https://trailblazer.me/relay?community=anz.my.trailhead&amp;mydomain=anz</value>
+    </labels>
+    <labels>
+        <fullName>th_trailhead_link_label</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Trailhead Assignment List Trailhead Link Label</shortDescription>
+        <value>Go to myTrailhead</value>
+    </labels>
+    <labels>
+        <fullName>th_trailhead_trail_icon</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Trailhead Assignment List Trail Icon</shortDescription>
+        <value>https://trailhead-web.s3.amazonaws.com/uploads/users/5396019/photos/thumb_030804d3576dab0cdc2a558055816208e421312a9d1495117d57928ef380d7f2.png?updatedAt=20180906113753</value>
     </labels>
 </CustomLabels>
