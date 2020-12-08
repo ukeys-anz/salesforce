@@ -40,19 +40,22 @@
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Closed</controllingFieldValue>
-            <valueName>4</valueName>
-        </valueSettings>
-        <valueSettings>
             <controllingFieldValue>Open</controllingFieldValue>
             <valueName>1</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Closed</controllingFieldValue>
             <controllingFieldValue>Open</controllingFieldValue>
             <valueName>2</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Closed</controllingFieldValue>
             <controllingFieldValue>Open</controllingFieldValue>
             <valueName>3</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed</controllingFieldValue>
+            <valueName>4</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>
