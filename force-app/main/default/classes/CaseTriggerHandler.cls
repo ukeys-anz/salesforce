@@ -44,6 +44,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
   public override void onAfterInsert() {
     IDRCaseActions.completeAfterActions();
     GetHelpCaseActions.rollupRelatedBug(records, new List<Case>());
+    SICaseActions.afterInsert((List<Case>) Trigger.New);
   }
 
   /**
@@ -53,6 +54,11 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     IDRCaseActions.beforeUpdate(oldMap, records);
     GetHelpCaseActions.beforeUpdate(oldMap, records);
+    SICaseActions.beforeUpdate((List<Case>) records, (Map<Id, Case>) oldMap);
+    IDRCaseNotificationManager.manageNotification(
+      records,
+      (Map<Id, Case>) oldMap
+    );
   }
 
   /**
@@ -63,13 +69,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     if (!checkRecursive.firstCall) {
       IDRCaseActions.afterUpdate(oldMap, records);
     }
-<<<<<<< HEAD
-    CaseCommonActions.generateCaseDurationList((List<Case>) Trigger.New);
-    IDRCaseActions.completeAfterActions();
-    CaseCommonActions.completeAfterInsertActions(updateCaseList);
-    SICaseActions.afterInsert((List<Case>) Trigger.New);
-=======
->>>>>>> master
   }
 
   /**
@@ -85,20 +84,8 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
         records,
         (List<Case>) oldMap.values()
       );
+      SICaseActions.afterUpdate((List<Case>) Trigger.New, (Map<Id, Case>) oldMap);
     }
-<<<<<<< HEAD
-
-    CaseCommonActions.handleCaseDurationGeneration(
-      Trigger.new,
-      Trigger.newMap,
-      oldMap
-    );
-
-    IDRCaseActions.completeAfterActions();
-    CaseCommonActions.completeAfterUpdateActions(updateCaseList);
-    SICaseActions.afterUpdate((List<Case>) Trigger.New, (Map<Id, Case>) oldMap);
-=======
->>>>>>> master
   }
 
   /**
@@ -115,34 +102,5 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       }
       GetHelpCaseActions.futureRollupRelatedBug(bugIdSet);
     }
-<<<<<<< HEAD
-    GetHelpCaseActions.validateAdditionalTypes(
-      (List<Case>) records,
-      (Map<Id, Case>) oldMap
-    );
-    GetHelpCaseActions.validateCaseType(
-      (List<Case>) records,
-      (Map<Id, Case>) oldMap
-    );
-    if (!caseIds.isEmpty()) {
-      GetHelpCaseActions.validateParentCase(caseIds, validateCaseList);
-    }
-    SICaseActions.beforeUpdate((List<Case>) records, (Map<Id, Case>) oldMap);
-
-    IDRCaseNotificationManager.manageNotification(
-      records,
-      (Map<Id, Case>) oldMap
-    );
-  }
-
-  /**
-   * @description onBeforeInsert to handle before insert trigger actions.
-   */
-  public override void onBeforeInsert() {
-    GetHelpCaseActions.validateAdditionalTypes(records, null);
-    GetHelpCaseActions.validateCaseType(records, null);
-    GetHelpCaseActions.updateEntitlement(records);
-=======
->>>>>>> master
   }
 }
