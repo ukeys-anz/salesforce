@@ -1,7 +1,7 @@
 <template>
   <div class="slds-card">
   <template if:true={showOptions}>
-    <div class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-left_small">
+    <div class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium slds-p-left_large">
       <lightning-combobox
         label="Select a template"
         value={template}
@@ -13,11 +13,12 @@
   </template>
   <br />
   <template if:true={showTemplateDetails}>
-    <div class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-left_small" >    
+    <div class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-left_large" >    
       <lightning-input type="checkbox" label="Email" name="Email" value={isEmail} onchange={handleEmail}></lightning-input> 
       <lightning-input type="checkbox" label="Letter" name="Letter" value={isLetter}  onchange={handleLetter}></lightning-input>
     </div>
       <br />
+    <div class="slds-table slds-table_cell-buffer slds-table_header-hidden">
     <lightning-datatable
       key-field="fileId"
       data={fieldData}
@@ -27,7 +28,8 @@
       hide-checkbox-column
       suppress-bottom-bar>
     </lightning-datatable>
-    <div class="slds-float slds-align_absolute-center">
+  </div>
+    <div class="slds-float slds-align_absolute-center slds-p-top_medium">
       <lightning-button
         variant="brand"
         onclick={validateFields}
