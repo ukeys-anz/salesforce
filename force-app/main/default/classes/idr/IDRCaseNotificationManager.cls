@@ -52,12 +52,13 @@ public with sharing class IDRCaseNotificationManager {
     wrapper.msgTitle = c.CaseNumber;
     wrapper.msgBody = fieldLabel + 'field has been changed';
 
-    if (fieldLabel.equalsIgnoreCase('Owner ID')) {
+    if (fieldLabel.equalsIgnoreCase(IDRConstants.CASE_OWNER_ID)) {
       wrapper.msgBody = 'Case ' + c.CaseNumber + ' has been assigned to you';
     }
 
     if (
-      fieldLabel.equalsIgnoreCase('Milestone Sla') && c.Status != 'Escalated'
+      fieldLabel.equalsIgnoreCase(IDRConstants.MILESTONE_SLA_FIELD_LABEL) &&
+      c.Status != IDRConstants.ESCALATED_STATUS
     ) {
       wrapper.msgBody = 'Auto esclation is due in ' + c.IDR_Milestone_Sla__c;
     }
