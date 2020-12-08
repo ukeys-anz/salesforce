@@ -84,7 +84,10 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
         records,
         (List<Case>) oldMap.values()
       );
-      SICaseActions.afterUpdate((List<Case>) Trigger.New, (Map<Id, Case>) oldMap);
+      SICaseActions.afterUpdate(
+        (List<Case>) Trigger.New,
+        (Map<Id, Case>) oldMap
+      );
     }
   }
 
