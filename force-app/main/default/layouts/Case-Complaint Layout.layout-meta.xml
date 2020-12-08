@@ -15,7 +15,7 @@
                 <field>IDR_Customer_Number__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>IDR_Update_Notification_Flag__c</field>
             </layoutItems>
         </layoutColumns>
