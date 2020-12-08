@@ -195,5 +195,19 @@
       }
     });
     $A.enqueueAction(action);
+  },
+  navigateToNewCaseClosePreviousTab: function (
+    workspaceAPI,
+    navigationUrl,
+    firstTabId
+  ) {
+    workspaceAPI
+      .openConsoleURL({
+        url: navigationUrl,
+        focus: true
+      })
+      .then(function (activeTabId) {
+        workspaceAPI.closeTab({ tabId: firstTabId });
+      });
   }
 });

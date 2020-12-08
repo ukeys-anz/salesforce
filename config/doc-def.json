@@ -4,7 +4,6 @@
     "Account",
     "Application_Log__c",
     "CaseComment",
-    "Case_Duration__c",
     "Case",
     "Contact",
     "Customer_Feedback__c",
@@ -29,6 +28,13 @@
     "User"
   ],
   "usermap": [
+    {
+      "name": "CFMS Integration User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": ["Enforce_mTLS", "IDR_CFMS_Integration"],
+      "type": "system"
+    },
     {
       "name": "Coach",
       "profile": "ANZx Standard User",
@@ -55,6 +61,13 @@
       "profile": "No Access",
       "permissionsetgroups": [],
       "permissionsets": ["SFDX_GCB", "EinsteinAnalyticsPlusAdmin"],
+      "type": "system"
+    },
+    {
+      "name": "EDW Integration User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": ["Enforce_mTLS", "IDR_EDW_Integration"],
       "type": "system"
     },
     {
@@ -94,6 +107,20 @@
       "type": "user"
     },
     {
+      "name": "MVISION Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": ["API_Only", "Mvision_Permissions"],
+      "type": "system"
+    },
+    {
+      "name": "Notification Broker Integration User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": ["Enforce_mTLS", "IDR_Notification_Broker_Integration"],
+      "type": "system"
+    },
+    {
       "name": "OCV Integration User",
       "profile": "Integration User",
       "permissionsetgroups": [],
@@ -122,11 +149,28 @@
       "type": "user"
     },
     {
+      "name": "Splunk Sec Ops Integration User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": ["Splunk_Integration_Sec_Ops"],
+      "type": "system"
+    },
+    {
       "name": "System Administrator",
       "profile": "Admin",
       "permissionsetgroups": [],
       "permissionsets": [],
       "type": "user"
+    },
+    {
+      "name": "Splunk Tech Ops Integration User",
+      "profile": "Integration User (External Apps)",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "Password_Never_Expires",
+        "Splunk_Integration_Tech_Ops"
+      ],
+      "type": "system"
     },
     {
       "name": "Trailblazer",
@@ -143,11 +187,25 @@
       "type": "system"
     },
     {
+      "name": "User Provisioning",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": ["User_Provisioning"],
+      "type": "system"
+    },
+    {
       "name": "WebdriverIO Integration User",
       "profile": "Minimum Access - Salesforce",
       "permissionsetgroups": [],
       "permissionsets": ["API_Only", "SFDX_Full_Dev_Hub_Access"],
       "type": "system"
+    },
+    {
+      "name": "FraudX Agent",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["FraudX Agent"],
+      "permissionsets": [],
+      "type": "user"
     }
   ]
 }

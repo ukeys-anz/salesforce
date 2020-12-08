@@ -8,10 +8,10 @@ public with sharing class ForgeTokenHandler {
   /**
    * @description Retrieve the Forge JWT token from cache or make request for new token
    * @param ocvId ocvID
-   * @return String
+   * @return Map<String, Object>
    * @exception CalloutException
    */
-  public static String getForgeJWTToken(String ocvId) {
+  public static Map<String, Object> getForgeJWTToken(String ocvId) {
     String idToken = '';
     try {
       idToken = AuthTokenCacheUtil.getSessionIdToken();
@@ -52,10 +52,7 @@ public with sharing class ForgeTokenHandler {
 
     request.setMethod('POST');
     //This needs to be replaced with uniquely generated id from Salesforce
-    request.setHeader(
-      'x-correlation-id',
-      'cfbd178b-4997-44c4-afdc-f9158d7fb955'
-    );
+    request.setHeader('x-correlation-id', RequestUtils.getRequestId());
 
     request.setHeader('Content-Type', 'application/x-www-form-urlencoded');
     String payload =
@@ -90,7 +87,7 @@ public with sharing class ForgeTokenHandler {
         'getForgeJWTToken',
         e.getMessage(),
         e.getTypeName(),
-        ForgeTokenHandler.class.getName(),
+        RequestUtils.getRequestId(),
         null,
         response != null ? response.getBody() : null
       );
@@ -103,6 +100,6 @@ public with sharing class ForgeTokenHandler {
       responseBody
     );
 
-    return (String) responseMap.get('access_token');
+    return responseMap;
   }
 }

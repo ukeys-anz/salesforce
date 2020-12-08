@@ -3,7 +3,7 @@
     <section
       role="dialog"
       tabindex="-1"
-      class="slds-modal slds-fade-in-open slds-modal_small"
+      class="slds-modal slds-fade-in-open"
       aria-labelledby="modal-heading-01"
       aria-modal="true"
       aria-describedby="modal-content-id-1"
@@ -25,17 +25,23 @@
           class="slds-modal__content slds-p-around_medium"
           id="modal-content-id-1"
         >
-          <lightning-formatted-rich-text
-            value={modalMessage}
-          ></lightning-formatted-rich-text>
+          <p>{modalMessage}</p>
         </div>
         <footer class="slds-modal__footer">
           <lightning-button
-            variant="brand"
+            variant="neutral"
             label="Close"
             aria-label="Press to close the dialog and return to the form"
             title="Close"
             onclick={closeModal}
+            class="slds-m-left_x-small"
+          ></lightning-button>
+          <lightning-button
+            variant="brand"
+            label="Sign in again"
+            aria-label="Press to sign out from Salesforce"
+            title="Sign in again"
+            onclick={logout}
             class="slds-m-left_x-small"
           ></lightning-button>
         </footer>

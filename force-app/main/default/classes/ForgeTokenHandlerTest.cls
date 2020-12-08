@@ -5,7 +5,8 @@
  */
 @isTest
 public class ForgeTokenHandlerTest {
-  private final static String IDTESTVALUE = 'testIdTokenValue';
+  //jwt containing a single claim of exp 26/11/2050
+  public final static String IDTESTVALUE = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjI1NTMwMzIxNzh9.eAWGLhTYhn4y9M2t2OHeTLIe7MLPObBFK2Nli8CPTD4';
 
   /**
    * @description test method for getForgeJWTToken when successful
@@ -23,7 +24,10 @@ public class ForgeTokenHandlerTest {
     );
 
     Test.startTest();
-    String accessToken = ForgeTokenHandler.getForgeJWTToken('1111');
+    Map<String, Object> responseMap = ForgeTokenHandler.getForgeJWTToken(
+      '1111'
+    );
+    String accessToken = (String) responseMap.get('access_token');
     System.assertEquals(accessToken, 'xxxxx');
     Test.stopTest();
   }
@@ -58,7 +62,7 @@ public class ForgeTokenHandlerTest {
    * @since 11/2020
    * @description Mock forge auth api callout result
    */
-  class MockForgeCallout implements HttpCalloutMock {
+  public class MockForgeCallout implements HttpCalloutMock {
     /**
      * @description mock response for callout
      * @param req incoming request
@@ -66,9 +70,9 @@ public class ForgeTokenHandlerTest {
      */
     public HTTPResponse respond(HTTPRequest req) {
       HTTPResponse res = new HTTPResponse();
-      res.setStatusCode(201);
+      res.setStatusCode(200);
       res.setHeader('Content-Type', 'application/json');
-      res.setBody('{"access_token":"xxxxx"}');
+      res.setBody('{"access_token":"xxxxx","expires_in":900}');
       return res;
     }
   }
@@ -78,7 +82,7 @@ public class ForgeTokenHandlerTest {
    * @since 11/2020
    * @description Mock forge auth api callout result
    */
-  class MockForgeCalloutFailed implements HttpCalloutMock {
+  public class MockForgeCalloutFailed implements HttpCalloutMock {
     /**
      * @description mock response for callout
      * @param req incoming request

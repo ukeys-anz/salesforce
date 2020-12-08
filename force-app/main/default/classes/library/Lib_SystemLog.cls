@@ -215,20 +215,23 @@ public without sharing class Lib_SystemLog {
   /**
    * @description  The method addDatabaseSaveResult is used for for creating logs when permorfing DML operations insert or update
    * The save results are checked to see if its successful and if there are any failures we add to the log list. At the end the caller should call {@link insertLog()} method
-   * to create record/records in Application_Log__c object
+   * to create record/records in Application_Log__c object. If an error is found, a boolean is returned so users can easily identify and throw errors
    * @param objectName The name of the object used to create the log record.
    * @param results List of save results which will be evaluated for logging.
    * @param records actual records which are used for DML insert/update.
+   * @return Boolean
    */
-  public void addDatabaseSaveResult(
+  public Boolean addDatabaseSaveResult(
     String objectName,
     List<Database.SaveResult> results,
     List<SObject> records
   ) {
+    Boolean hasError = false;
     for (Integer i = 0; i < records.size(); i++) {
       Database.SaveResult sr = results[i];
       SObject rec = records[i];
       if (!sr.isSuccess()) {
+        hasError = true;
         // Operation failed, so get all errors
         for (Database.Error err : sr.getErrors()) {
           String errNo = String.valueof(err.getStatusCode());
@@ -250,6 +253,8 @@ public without sharing class Lib_SystemLog {
         }
       }
     }
+
+    return hasError;
   }
 
   /**

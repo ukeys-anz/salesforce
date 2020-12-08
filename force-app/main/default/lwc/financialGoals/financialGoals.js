@@ -18,6 +18,8 @@ export default class FinancialGoals extends NavigationMixin(LightningElement) {
   @track viewAllInProgress = false;
   @track viewAllCompleted = false;
   @track loading = true;
+  hadError = false;
+  error;
 
   @wire(MessageContext)
   messageContext;
@@ -47,6 +49,10 @@ export default class FinancialGoals extends NavigationMixin(LightningElement) {
           if (this.inProgressGoals || this.completedGoals) {
             this.loading = false;
           }
+        } else {
+          this.error = message.message;
+          this.getInProgressGoals();
+          this.showToast("Financial Goals Load Failed", this.error);
         }
       }
     );
@@ -155,11 +161,11 @@ export default class FinancialGoals extends NavigationMixin(LightningElement) {
         this.inProgressGoals = result;
       })
       .catch((error) => {
-        let errorMessage = "Failed to load in progress financial goals";
+        this.loading = false;
         if (error.body && error.body.message) {
-          errorMessage = error.body.message;
+          this.error = error.body.message;
         }
-        this.showToast("Financial Goals Load Failed", errorMessage, error);
+        this.hasError = true;
       });
   }
 
@@ -240,20 +246,19 @@ export default class FinancialGoals extends NavigationMixin(LightningElement) {
         this.completedGoals = result;
       })
       .catch((error) => {
-        let errorMessage = "Failed to load completed financial goals";
+        this.loading = false;
         if (error.body && error.body.message) {
-          errorMessage = error.body.message;
+          this.error = error.body.message;
         }
-        this.showToast("Financial Goals Load Failed", errorMessage, error);
+        this.hasError = true;
       });
   }
 
-  showToast(theTitle, theMessage, theVariant) {
+  showToast(theTitle, theMessage) {
     this.loading = false;
     const event = new ShowToastEvent({
       title: theTitle,
-      message: theMessage,
-      variant: theVariant
+      message: theMessage
     });
     this.dispatchEvent(event);
   }

@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Start_Date__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Trusted;Source_Fabric</complianceGroup>
+    <complianceGroup>Integrity - Trusted;Source_Fabric;Privacy - Personal Information</complianceGroup>
     <description>Goal start date</description>
     <externalId>false</externalId>
     <label>Start Date</label>

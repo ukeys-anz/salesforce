@@ -38,7 +38,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Accounts_Goals</shortDescription>
-        <value>/anz-exp-sfdc-coach-banking-api/api/accounts?ocvid=</value>
+        <value>/anz-exp-sfdc-coach-banking-api/api/accounts</value>
     </labels>
     <labels>
         <fullName>MS_Get_Customer</fullName>

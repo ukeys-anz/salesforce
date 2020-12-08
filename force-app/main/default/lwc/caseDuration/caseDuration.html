@@ -17,18 +17,7 @@
       </header>
     </div>
     <div class="clock-face slds-text-heading_large">
-      <lightning-formatted-number
-        value={hours}
-        format-style="decimal"
-        minimum-integer-digits="2"
-      ></lightning-formatted-number
-      ><span class={pulseClass}>:</span>
-      <lightning-formatted-number
-        value={minutes}
-        format-style="decimal"
-        minimum-integer-digits="2"
-      >
-      </lightning-formatted-number>
+      <span>{durationString}</span>
     </div>
     <template if:true={durationStop}>
       <div

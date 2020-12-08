@@ -23,7 +23,7 @@ private with sharing class TestIDRCaseActions {
     );
   }
 
-  @istest
+  @isTest
   static void testNotificationsWithContactDetails() {
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
@@ -44,7 +44,7 @@ private with sharing class TestIDRCaseActions {
     );
   }
 
-  @istest
+  @isTest
   static void testNotificationsWithoutContactDetails() {
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
@@ -60,6 +60,80 @@ private with sharing class TestIDRCaseActions {
       0,
       IDRCaseActions.idrNotifications.size(),
       'Matching no of events'
+    );
+  }
+
+  @isTest
+  static void testPseudoAutoEscalation3Days() {
+    //GIVEN new complaints created as OPEN
+    Case[] newCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID,
+          Status = IDRCaseActions.OPEN_STATUS,
+          isEscalated = false
+        )
+      );
+    }
+    insert newCases;
+
+    //WHEN they are updated as auto-escalation would do (owner and escalated flag)
+    Set<Id> caseIds = (new Map<Id, Case>(newCases)).keySet();
+    newCases = [SELECT OwnerId, isEscalated FROM Case WHERE id IN :caseIds];
+    for (Case c : newCases) {
+      c.OwnerId = IDRCaseActions.queue.id;
+      c.IsEscalated = true;
+    }
+    update newCases;
+
+    //THEN escalation reason is updated accordingly
+    Case c = [
+      SELECT IDR_Escalation_Reason__c
+      FROM Case
+      WHERE id = :newCases[0].Id
+    ];
+    System.assertEquals(
+      IDRCaseActions.DAY_3_ESCALATION_REASON,
+      c.IDR_Escalation_Reason__c,
+      'Escalation reason should be auto-escalated'
+    );
+  }
+
+  @isTest
+  static void testPseudoAutoEscalation5Days() {
+    //GIVEN new complaints created as UNDER INVESTIGATION
+    Case[] newCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID,
+          Status = IDRCaseActions.UNDER_INVESTIGATION_STATUS,
+          isEscalated = false
+        )
+      );
+    }
+    insert newCases;
+
+    //WHEN they are updated as auto-escalation would do (owner and escalated flag)
+    Set<Id> caseIds = (new Map<Id, Case>(newCases)).keySet();
+    newCases = [SELECT OwnerId, isEscalated FROM Case WHERE id IN :caseIds];
+    for (Case c : newCases) {
+      c.OwnerId = IDRCaseActions.queue.id;
+      c.IsEscalated = true;
+    }
+    update newCases;
+
+    //THEN escalation reason is updated accordingly
+    Case c = [
+      SELECT IDR_Escalation_Reason__c
+      FROM Case
+      WHERE id = :newCases[0].Id
+    ];
+    System.assertEquals(
+      IDRCaseActions.DAY_5_ESCALATION_REASON,
+      c.IDR_Escalation_Reason__c,
+      'Escalation reason should be auto-escalated'
     );
   }
 }

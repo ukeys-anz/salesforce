@@ -31,95 +31,89 @@
                 "inContextOfRef"
               );
 
+              var navigationUrl =
+                "/lightning/o/Case/new?count=1&nooverride=1&recordTypeId=" +
+                component.get("v.pageReference").state.recordTypeId;
+
               if (value) {
                 var context = JSON.parse(window.atob(value));
                 var parentRecID = context.attributes.recordId;
                 var parentObjectName = context.attributes.objectApiName;
 
                 if (parentRecID) {
-                  // Fetch active Chat Topic ID (if there is any) related to the Customer
+                  navigationUrl =
+                    navigationUrl +
+                    "&ws=%2Flightning%2Fr%2F" +
+                    parentObjectName +
+                    "%2F" +
+                    parentRecID +
+                    "%2Fview";
+
                   if (parentObjectName == "Account") {
+                    //Setting 'defaultFieldValues' to pre-populate the parent Account lookup.
+                    navigationUrl =
+                      navigationUrl +
+                      "&defaultFieldValues=AccountId=" +
+                      parentRecID;
+
+                    // Fetch active Chat Topic ID (if there is any) related to the Customer
                     helper.getActiveChatTopicID(
                       component,
                       parentRecID,
                       function (topicID) {
-                        //Setting 'defaultFieldValues' to pre-populate the parent Account lookup.
                         //Also pre-populating/linking Chat Topic record, if the Case is related to an on-going active chat.
                         var defaultFieldValues = "";
                         if (topicID) {
                           var array = topicID.split("|");
                           if (array.length == 1) {
-                            defaultFieldValues =
-                              "&defaultFieldValues=AccountId=" +
-                              parentRecID +
+                            navigationUrl =
+                              navigationUrl +
                               ",Chat_Topic__c=" +
                               topicID +
                               ",Origin=Chat";
                           } else {
                             // only comes here if array length > 1
                             // Saving '|' separated IDs on a custom field to help in troubleshooting
-                            defaultFieldValues =
-                              "&defaultFieldValues=AccountId=" +
-                              parentRecID +
+                            navigationUrl =
+                              navigationUrl +
                               ",Auto_matched_Chat_Topic_IDs__c=" +
                               topicID;
                           }
-                        } else {
-                          defaultFieldValues =
-                            "&defaultFieldValues=AccountId=" + parentRecID;
-                        }
 
-                        workspaceAPI
-                          .openConsoleURL({
-                            url:
-                              "/lightning/o/Case/new?count=1&nooverride=1&recordTypeId=" +
-                              component.get("v.pageReference").state
-                                .recordTypeId +
-                              "&ws=%2Flightning%2Fr%2F" +
-                              parentObjectName +
-                              "%2F" +
-                              parentRecID +
-                              "%2Fview" +
-                              defaultFieldValues,
-                            focus: true
-                          })
-                          .then(function (activeTabId) {
-                            workspaceAPI.closeTab({ tabId: firstTabId });
-                          });
+                          helper.navigateToNewCaseClosePreviousTab(
+                            workspaceAPI,
+                            navigationUrl,
+                            firstTabId
+                          );
+                        } else {
+                          helper.navigateToNewCaseClosePreviousTab(
+                            workspaceAPI,
+                            navigationUrl,
+                            firstTabId
+                          );
+                        }
                       }
                     );
-
-                    // TODO: Have to manually pre-pupulate parent lookup for objects other than Account
-                    // Only addressing the console sub-tab behaviour for now
                   } else {
-                    workspaceAPI
-                      .openConsoleURL({
-                        url:
-                          "/lightning/o/Case/new?count=1&nooverride=1&recordTypeId=" +
-                          component.get("v.pageReference").state.recordTypeId +
-                          "&ws=%2Flightning%2Fr%2F" +
-                          parentObjectName +
-                          "%2F" +
-                          parentRecID +
-                          "%2Fview",
-                        focus: true
-                      })
-                      .then(function (activeTabId) {
-                        workspaceAPI.closeTab({ tabId: firstTabId });
-                      });
+                    helper.navigateToNewCaseClosePreviousTab(
+                      workspaceAPI,
+                      navigationUrl,
+                      firstTabId
+                    );
                   }
                 } else {
-                  workspaceAPI
-                    .openConsoleURL({
-                      url:
-                        "/lightning/o/Case/new?count=1&nooverride=1&recordTypeId=" +
-                        component.get("v.pageReference").state.recordTypeId,
-                      focus: true
-                    })
-                    .then(function (activeTabId) {
-                      workspaceAPI.closeTab({ tabId: firstTabId });
-                    });
+                  helper.navigateToNewCaseClosePreviousTab(
+                    workspaceAPI,
+                    navigationUrl,
+                    firstTabId
+                  );
                 }
+              } else {
+                helper.navigateToNewCaseClosePreviousTab(
+                  workspaceAPI,
+                  navigationUrl,
+                  firstTabId
+                );
               }
             });
           } else {

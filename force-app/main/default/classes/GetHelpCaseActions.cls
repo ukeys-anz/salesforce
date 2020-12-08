@@ -12,8 +12,72 @@ public with sharing class GetHelpCaseActions {
     .get('General_Inquiry')
     .getRecordTypeId();
 
+  public static final Id FRAUD_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+    .get('Fraud')
+    .getRecordTypeId();
+  public static final Id IDENTITY_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+    .get('Identity')
+    .getRecordTypeId();
+  public static final Id RECIPIENT_MULE_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+    .get('Recipient_Mule')
+    .getRecordTypeId();
+  public static final Id SCAM_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+    .get('Scam')
+    .getRecordTypeId();
+  @TestVisible
+  public static final List<Id> FRAUD_RT_IDS = new List<Id>{
+    FRAUD_RT_ID,
+    IDENTITY_RT_ID,
+    RECIPIENT_MULE_RT_ID,
+    SCAM_RT_ID
+  };
+
   // Parent Case validation error message
   private static final String PARENT_CASE_ERROR = 'You cannot add parent case. This case is associated with child cases';
+
+  /**
+   * @description beforeUpdate(oldMap, records) method handles the following
+   * 1. Validate Additional Type - Validates the selected additional types and addError if it has more than 2 values selected or if the Type value is same as one of the additional values
+   * 2. Validate Case Type - Validates Case Type and Additional Type to populate Case Subject.
+   * 3. Validate Parent Case - Validates the case record and throws an error if the record is having child cases
+   * 4. Complete milestones - updates the milestone to closed when the case status is updated to clsoed
+   * @param oldMap This Map<Id, SObject> contains the map which holds the previous values which can be used to check what value has changed in onBeforeUpdate. Example to check if the Case Status value has changed we use the following to check record.Status != ((Case) oldMap.get(record.id)).Status
+   * @param records from the trigger
+   */
+  public static void beforeUpdate(Map<Id, SObject> oldMap, List<Case> records) {
+    List<Id> caseIds = new List<Id>();
+    List<Case> validateCaseList = new List<Case>();
+    List<Id> milestoneIds = new List<Id>();
+
+    for (Case record : (List<Case>) records) {
+      Case oldRecord = (Case) oldMap.get(record.id);
+      if (
+        String.isNotBlank(record.ParentId) &&
+        record.RecordTypeId == GENERAL_INQUIRY_RT_ID &&
+        record.ParentId != oldRecord.ParentId
+      ) {
+        caseIds.add(record.id);
+        validateCaseList.add(record);
+      }
+
+      if (
+        record.RecordTypeId == GENERAL_INQUIRY_RT_ID &&
+        oldRecord.Status != 'Closed' &&
+        record.Status == 'Closed'
+      ) {
+        milestoneIds.add(record.Id);
+      }
+    }
+
+    validateAdditionalTypes((List<Case>) records, (Map<Id, Case>) oldMap);
+    validateCaseType((List<Case>) records, (Map<Id, Case>) oldMap);
+    if (!caseIds.isEmpty()) {
+      validateParentCase(caseIds, validateCaseList);
+    }
+    if (!milestoneIds.isEmpty()) {
+      completeCaseMilestone(milestoneIds);
+    }
+  }
 
   /**
    * @description validateParentCase method is called before updating the case record to check and throw error if the record is having child cases
@@ -109,6 +173,7 @@ public with sharing class GetHelpCaseActions {
   ) {
     List<Case> additionalTypeCheckCases = new List<Case>();
     for (Case record : caseList) {
+      // Check for General Inquiry Cases
       if (
         record.RecordTypeId == GENERAL_INQUIRY_RT_ID &&
         (String.isNotBlank(record.Type) ||
@@ -119,6 +184,17 @@ public with sharing class GetHelpCaseActions {
         oldCaseMap.get(record.Id).Additional_Type__c))
       ) {
         populateCaseSubject(record);
+      }
+
+      // Check for Fraud Cases
+      // Note: We are excluding the possibility of 'Type' being empty, because we only care about data entered via UI (required field) or controlled entries via API, both of which should have values for 'Type'
+      if (
+        FRAUD_RT_IDS.contains(record.RecordTypeId) &&
+        String.isNotBlank(record.Type) &&
+        (oldCaseMap == null ||
+        record.Type != oldCaseMap.get(record.Id).Type)
+      ) {
+        populateFraudCaseSubject(record);
       }
     }
   }
@@ -143,6 +219,27 @@ public with sharing class GetHelpCaseActions {
   }
 
   /**
+   * @description  This method populates subject on Fraud cases based on Record Type and Type
+   * @param record Case record from trigger
+   */
+  public static void populateFraudCaseSubject(Case record) {
+    List<String> caseTypeList = new List<String>();
+
+    if (String.isNotBlank(record.Type)) {
+      //populate case subject
+      record.Subject =
+        Schema.getGlobalDescribe()
+          .get('Case')
+          .getDescribe()
+          .getRecordTypeInfosById()
+          .get(record.RecordTypeId)
+          .getName() +
+        ' - ' +
+        record.Type;
+    }
+  }
+
+  /**
    * @description This method updates the entitlement field on the case
    * if the case is of General Inquiry record type
    * @param caseList list of cases from the trigger
@@ -151,7 +248,7 @@ public with sharing class GetHelpCaseActions {
     List<Id> accountIds = new List<Id>();
     Map<Id, Id> entMap = new Map<Id, Id>();
     for (Case c : caseList) {
-      if (c.RecordTypeId == GENERAL_INQUIRY_RT_ID) {
+      if (c.RecordTypeId == GENERAL_INQUIRY_RT_ID && c.AccountId != null) {
         accountIds.add(c.AccountId);
       }
     }
@@ -173,7 +270,7 @@ public with sharing class GetHelpCaseActions {
     }
 
     for (Case c : caseList) {
-      if (c.RecordTypeId == GENERAL_INQUIRY_RT_ID) {
+      if (c.RecordTypeId == GENERAL_INQUIRY_RT_ID && c.AccountId != null) {
         if (!entMap.containsKey(c.AccountId)) {
           c.addError('No entitlement found for account.');
         } else {

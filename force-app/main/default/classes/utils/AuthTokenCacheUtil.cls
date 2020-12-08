@@ -6,6 +6,9 @@
 public with sharing class AuthTokenCacheUtil {
   private final static String ORGPART = 'local.OrgAzureTokens.';
   private final static String SESSIONPART = 'local.SessionAzureTokens.';
+  @TestVisible
+  private final static String STAFFPART = 'local.ForgeToken.';
+  private final static Non_Prod_Settings__c NON_PROD_SETTINGS = Non_Prod_Settings__c.getOrgDefaults();
 
   /**
    * @description move the tokens for the current user from org to session cache
@@ -75,19 +78,23 @@ public with sharing class AuthTokenCacheUtil {
   @TestVisible
   private static void storeAzureSessionTokens(Id userId, String profileName) {
     if (profileName == 'ANZx Standard User') {
-      if (
-        Cache.Org.contains(
-          AuthTokenCacheUtil.ORGPART +
-          'refreshToken' +
-          userId
-        ) && Cache.Org.contains(AuthTokenCacheUtil.ORGPART + 'idToken' + userId)
-      ) {
+      String refreshToken = (String) Cache.Org.get(
+        AuthTokenCacheUtil.ORGPART +
+        'refreshToken' +
+        userId
+      );
+      String idToken = (String) Cache.Org.get(
+        AuthTokenCacheUtil.ORGPART +
+        'idToken' +
+        userId
+      );
+      if (refreshToken != null && idToken != null) {
         // move tokens to session cache
         Cache.Session.put(
           AuthTokenCacheUtil.SESSIONPART +
           'refreshToken' +
           userId,
-          Cache.Org.get(AuthTokenCacheUtil.ORGPART + 'refreshToken' + userId),
+          refreshToken,
           28800,
           Cache.Visibility.NAMESPACE,
           true
@@ -96,8 +103,8 @@ public with sharing class AuthTokenCacheUtil {
           AuthTokenCacheUtil.SESSIONPART +
           'idToken' +
           userId,
-          Cache.Org.get(AuthTokenCacheUtil.ORGPART + 'idToken' + userId),
-          28800,
+          idToken,
+          3420,
           Cache.Visibility.NAMESPACE,
           true
         );
@@ -124,18 +131,13 @@ public with sharing class AuthTokenCacheUtil {
    */
   public static String getSessionRefreshToken() {
     Id userId = UserInfo.getUserId();
-    if (
-      Cache.Session.contains(
-        AuthTokenCacheUtil.SESSIONPART +
-        'refreshToken' +
-        userId
-      )
-    ) {
-      return (String) Cache.Session.get(
-        AuthTokenCacheUtil.SESSIONPART +
-        'refreshToken' +
-        userId
-      );
+    String refreshToken = (String) Cache.Session.get(
+      AuthTokenCacheUtil.SESSIONPART +
+      'refreshToken' +
+      userId
+    );
+    if (refreshToken != null) {
+      return refreshToken;
     } else {
       //notify user to log in again
       Lib_SystemLog.createSingleLog(
@@ -145,9 +147,7 @@ public with sharing class AuthTokenCacheUtil {
         'Session Refresh Token not found for user ' + userId,
         Lib_SystemLog.Severity.WARNING
       );
-      throw new TokenCacheException(
-        'No active token found, please log out, and back into Salesforce'
-      );
+      throw new TokenCacheException('Connection issue, please sign in again');
     }
   }
 
@@ -158,19 +158,27 @@ public with sharing class AuthTokenCacheUtil {
    */
   @AuraEnabled
   public static String getSessionIdToken() {
+    //in tests or environments without sso, return a dummy id token
+    if (NON_PROD_SETTINGS.SSO_Not_Configured__c) {
+      return AuthTokenCacheUtilTest.IDTESTVALUE;
+    }
     Id userId = UserInfo.getUserId();
-    if (
-      Cache.Session.contains(
-        AuthTokenCacheUtil.SESSIONPART +
-        'idToken' +
-        userId
-      )
-    ) {
-      return (String) Cache.Session.get(
-        AuthTokenCacheUtil.SESSIONPART +
-        'idToken' +
-        userId
-      );
+    String idToken = (String) Cache.Session.get(
+      AuthTokenCacheUtil.SESSIONPART +
+      'idToken' +
+      userId
+    );
+    String refreshToken = (String) Cache.Session.get(
+      AuthTokenCacheUtil.SESSIONPART +
+      'refreshToken' +
+      userId
+    );
+
+    if (idToken != null && AuthTokenCacheUtil.isTokenValid(idToken)) {
+      return idToken;
+    } else if (refreshToken != null) {
+      // Id token was not there, if refresh token exists try and refresh the Id token and return it
+      return AuthTokenCacheUtil.refreshIdToken(refreshToken);
     } else {
       //notify user to log in again
       Lib_SystemLog.createSingleLog(
@@ -181,9 +189,154 @@ public with sharing class AuthTokenCacheUtil {
         Lib_SystemLog.Severity.WARNING
       );
       throw new TokenCacheException(
-        'No active token found, please log out, and back into Salesforce'
+        'Oh dear! Looks like we\'ve messed up and lost a connection downstream.\nThe quick fix is to sign in again and all should be right.'
       );
     }
+  }
+
+  /**
+   * @description refreshes the Azure Id and refresh tokens, using refresh_token grant type
+   * @param existingRefreshToken the existing refresh token to send to microsoft token endpoint
+   * @return String new Id token
+   */
+  private static String refreshIdToken(String existingRefreshToken) {
+    Id userId = UserInfo.getUserId();
+    String idToken;
+    String refreshToken;
+    HTTPResponse res;
+    try {
+      Http http = new Http();
+      HttpRequest req = new HttpRequest();
+      req.setEndpoint('callout:TokenUrl');
+      req.setHeader('Content-Type', 'application/x-www-form-urlencoded');
+      req.setMethod('POST');
+      req.setBody(
+        'client_id={!$Credential.UserName}&client_secret={!$Credential.Password}&refresh_token=' +
+        existingRefreshToken +
+        '&grant_type=refresh_token'
+      );
+
+      res = http.send(req);
+
+      String responseBody = res.getBody();
+      Map<String, Object> responseMap = (Map<String, Object>) JSON.deserializeUntyped(
+        responseBody
+      );
+      refreshToken = (String) responseMap.get('refresh_token');
+      idToken = (String) responseMap.get('id_token');
+
+      // place new tokens in session cache
+      Cache.Session.put(
+        AuthTokenCacheUtil.SESSIONPART +
+        'refreshToken' +
+        userId,
+        refreshToken,
+        28800,
+        Cache.Visibility.NAMESPACE,
+        true
+      );
+      Cache.Session.put(
+        AuthTokenCacheUtil.SESSIONPART +
+        'idToken' +
+        userId,
+        idToken,
+        3420,
+        Cache.Visibility.NAMESPACE,
+        true
+      );
+    } catch (Exception e) {
+      Lib_SystemLog.logAPIError(
+        AuthTokenCacheUtil.class.getName(),
+        'refreshIdToken',
+        e.getMessage(),
+        e.getTypeName(),
+        null,
+        null,
+        res != null ? res.getBody() : null
+      );
+    }
+
+    return (String) idToken;
+  }
+
+  /**
+   * @description retrieves staff token from forgerock via mulesoft
+   * @param ocvId ocvID
+   * @return String staff token
+   * @exception TokenCacheException throws when no token is found
+   */
+  @AuraEnabled
+  public static String getStaffToken(String ocvId) {
+    String staffToken = (String) Cache.Session.get(
+      STAFFPART +
+      'forgeJWTToken' +
+      ocvId
+    );
+
+    if (staffToken != null && AuthTokenCacheUtil.isTokenValid(staffToken)) {
+      return staffToken;
+    }
+
+    Integer expiresIn = 300; // default minimum value
+    try {
+      Map<String, Object> responseMap = ForgeTokenHandler.getForgeJWTToken(
+        ocvId
+      );
+      staffToken = (String) responseMap.get('access_token');
+      expiresIn = (Integer) responseMap.get('expires_in');
+    } catch (Exception e) {
+      Lib_SystemLog.createSingleLog(
+        AuthTokenCacheUtil.class.getName(),
+        'getStaffToken',
+        '1',
+        'Unable to retrieve staff token',
+        Lib_SystemLog.Severity.WARNING
+      );
+      throw new TokenCacheException(e.getMessage());
+    }
+
+    Cache.Session.put(
+      STAFFPART +
+      'forgeJWTToken' +
+      ocvId,
+      staffToken,
+      expiresIn
+    );
+
+    return staffToken;
+  }
+
+  /**
+   * @description checks expiry date contained in a jwt
+   * @param token the JWT to examine, could be azure id token or forge staff token
+   * @return boolean true if the token is valid, false if it has expired
+   * @exception TokenCacheException throws when the token supplied was not of expected format
+   */
+  public static boolean isTokenValid(String token) {
+    if (token == null) {
+      return false;
+    }
+
+    //strip jwt header
+    List<String> tokenParts = token.split('\\.');
+    if (tokenParts.size() < 2) {
+      throw new TokenCacheException(
+        'Invalid format when checking token validity'
+      );
+    }
+
+    //decode claims to json map, the first part is header, second part is claims
+    String decodedString = EncodingUtil.base64Decode(tokenParts[1]).toString();
+    Map<String, Object> tokenMap = (Map<String, Object>) (JSON.deserializeUntyped(
+      decodedString
+    ));
+
+    //Azure token has expiry as 'exp' key
+    Long expiry = (Long) tokenMap.get('exp');
+    Datetime expiryDateTime = DateTime.newInstance(expiry * 1000);
+
+    //add one minute to ensure the token is valid for at least 1 minute when the check is made
+    return expiryDateTime > Datetime.now().addMinutes(1);
   }
 
   /**
