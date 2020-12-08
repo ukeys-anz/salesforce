@@ -10,6 +10,7 @@
         <field>Case__c</field>
         <field>CreatedBy</field>
         <field>Status__c</field>
+        <field>Approver_Comments__c</field>
     </approvalPageFields>
     <approvalStep>
         <allowDelegate>false</allowDelegate>

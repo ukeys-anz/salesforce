@@ -1,18 +1,20 @@
-import { LightningElement, api, track } from "lwc";
+import { LightningElement, api, track, wire } from "lwc";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { NavigationMixin } from "lightning/navigation";
 import getTemplateList from "@salesforce/apex/CreateCommsController.getTemplateList";
 import fetchTemplateFields from "@salesforce/apex/CreateCommsController.fetchTemplateFields";
 import createComms from "@salesforce/apex/CreateCommsController.createComms";
+import { CurrentPageReference } from 'lightning/navigation';
 const ERROR_UNKNOWN_TITLE = "An error has occurred.";
 const columns = [
-    { label: "Field Name", fieldName: "fieldLabel" ,  wrapText: true },
-    { label: "Enter Value" , fieldName: "fieldValue" , wrapText: true , editable: true }
+    { label: "Description", fieldName: "fieldDesc" ,  wrapText: true },
+    { label: "Enter your inputs" , fieldName: "fieldValue" , wrapText: true , editable: true }
   ];
 export default class CreateComplaintLWC extends NavigationMixin(
     LightningElement
   ) {
-    @api recordId;
+    @wire(CurrentPageReference) currentPageReference; 
+    recordId;
     @track template;
     showOptions = false;
     templateList = [];
@@ -32,6 +34,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
     connectedCallback() {
         console.log('getTemplateOptions');
+        this.recordId =  this.currentPageReference.state.c__recordId;
+        console.log('LWC recordid:'+this.recordId);
         getTemplateList()
         .then((result) => {
             console.log('getTemplateList');
@@ -73,7 +77,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
             this.fieldData = data;
             this.lineItemList = [];
             for(let i =0 ; i<data.length ; i++){
-               this.lineItemList.push({fieldLabel : data[i].fieldLabel , fieldValue: '' , fieldId: '' }) ;
+               this.lineItemList.push({fieldDesc: data[i].fieldDesc ,fieldLabel : data[i].fieldLabel , fieldValue: '' , fieldId: '' }) ;
             }
             this.showTemplateDetails = true;
         })
@@ -117,14 +121,25 @@ export default class CreateComplaintLWC extends NavigationMixin(
         console.log('isLetter:'+this.isLetter);
         console.log('caserecordid :'+this.recordId);
 
-        if(!this.isEmail && !this.isLetter){
-            let msg = 'Please select atleast one of Email or Letter for this comms';
+        if((!this.isEmail && !this.isLetter) || (this.isEmail && this.isLetter)){
+            let msg = 'Please select one of Email or Letter for sending this communication';
             this.openModal(msg);
         }else{
             createComms({caseId: this.recordId, isEmail: this.isEmail , isLetter: this.isLetter ,template: this.template, lineItems: this.lineItemList})
             .then((result) => {
-                this.showSuccess = true;
+                this.showOptions = false;
                 this.showTemplateDetails = false;
+                this.showSuccess = true;
+                let commId = result;
+                this[NavigationMixin.Navigate]({
+                    type: 'standard__recordPage',
+                    attributes: {
+                        recordId: commId,
+                        objectApiName: 'CaseComms__c', 
+                        actionName: 'view'
+                    }
+                }, ['replace']);
+
             })
             .catch((error)=>{
             console.log("errorbody:" + JSON.stringify(error));

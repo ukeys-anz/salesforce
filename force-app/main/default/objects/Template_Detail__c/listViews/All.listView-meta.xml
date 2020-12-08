@@ -6,6 +6,7 @@
     <columns>Template_Field_Name__c</columns>
     <columns>Case_Field_Name__c</columns>
     <columns>Is_Free_Text__c</columns>
+    <columns>sort_order__c</columns>
     <filterScope>Everything</filterScope>
     <label>All</label>
 </ListView>

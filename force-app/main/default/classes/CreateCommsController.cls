@@ -18,18 +18,20 @@ public class CreateCommsController {
     public static list<CreateCommsData.TemplateFieldsData> fetchTemplateFields(string template){
         list<CreateCommsData.TemplateFieldsData> returnFieldList = new list<CreateCommsData.TemplateFieldsData>();
         list<Template_Detail__c> templatedetails = new list<Template_Detail__c>();
-        templatedetails = [Select Id,Template_Field_Name__c from Template_Detail__c where Template__c=:template and Is_Free_Text__c = true];
+        templatedetails = [Select Id,Template_Field_Name__c,Field_Description__c from Template_Detail__c where Template__c=:template and Is_Free_Text__c = true order by Sort_order__c];
          for(Template_Detail__c td : templatedetails){
            CreateCommsData.TemplateFieldsData singleFieldData = new CreateCommsData.TemplateFieldsData();
            singleFieldData.fieldLabel = td.Template_Field_Name__c;
            singleFieldData.fieldValue = '';
            singleFieldData.fieldId = td.id;
+           singleFieldData.fieldDesc = td.Field_Description__c;
            returnFieldList.add(singleFieldData); 
         }
         return returnFieldList;
     }
     @auraEnabled
-    public static void createComms(string caseId, boolean isEmail , boolean isLetter ,string template , list<object> lineItems){
+    public static string  createComms(string caseId, boolean isEmail , boolean isLetter ,string template , list<object> lineItems){
+        system.debug('caseId:'+caseId);
         Case_Comms__c caseComms = new Case_Comms__c ();
         caseComms.Send_As_Email__c  = isEmail;
         caseComms.Send_As_Letter__c  = isLetter;
@@ -52,6 +54,8 @@ public class CreateCommsController {
                     commsLineItem.Field_Name__c = (string)fieldList.get(key);
                 }else if ((string)key =='fieldValue'){
                     commsLineItem.Value__c	 = (string)fieldList.get(key);
+                }else if ((string)key == 'fieldDesc'){
+                    commsLineItem.Description__c = (string)fieldList.get(key);
                 }              
             }
           	commsLineItemsList.add(commsLineItem);
@@ -68,7 +72,7 @@ public class CreateCommsController {
         }
         
 		submitCommsForApproval(caseComms,CaseId);
-        
+        return caseComms.Id;
     }
     
     public static list<Case_Comms_Line_Item__c> getCommsDataFromCase(string template , string caseId){
