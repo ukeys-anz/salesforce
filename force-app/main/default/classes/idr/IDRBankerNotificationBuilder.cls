@@ -38,7 +38,7 @@ public with sharing class IDRBankerNotificationBuilder {
       }
     }
   }
-
+  
   /**
    * @description populate the recepients
    * @param recipients list of inapp and case recepients
@@ -91,7 +91,12 @@ public with sharing class IDRBankerNotificationBuilder {
    * @param c case to be updated
    */
   public static void caseUpdateFlag(Case c) {
-    c.IDR_Update_Notification_Flag__c = true;
+    //avoid DML update if the flag is already true
+    if(c.IDR_Update_Notification_Flag__c == false) {
+      c.IDR_Update_Notification_Flag__c = true;
+      update c;
+    }
+
   }
 
   /**
