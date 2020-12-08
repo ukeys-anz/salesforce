@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <fullName>Status__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <complianceGroup>Integrity - Accurate;Source - Salesforce;Privacy - Non Personal Information</complianceGroup>
     <description>The current status of this bug.</description>
     <externalId>false</externalId>
+    <inlineHelpText>The current status of this bug.</inlineHelpText>
     <label>Status</label>
     <required>false</required>
     <securityClassification>Public</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
@@ -21,24 +23,19 @@
                 <label>New</label>
             </value>
             <value>
-                <fullName>In Progress</fullName>
+                <fullName>Escalated to SRE</fullName>
                 <default>false</default>
-                <label>In Progress</label>
+                <label>Escalated to SRE</label>
             </value>
             <value>
-                <fullName>On Hold</fullName>
+                <fullName>Action Required</fullName>
                 <default>false</default>
-                <label>On Hold</label>
+                <label>Action Required</label>
             </value>
             <value>
-                <fullName>Pending Release</fullName>
+                <fullName>Closed</fullName>
                 <default>false</default>
-                <label>Pending Release</label>
-            </value>
-            <value>
-                <fullName>Resolved</fullName>
-                <default>false</default>
-                <label>Resolved</label>
+                <label>Closed</label>
             </value>
         </valueSetDefinition>
     </valueSet>

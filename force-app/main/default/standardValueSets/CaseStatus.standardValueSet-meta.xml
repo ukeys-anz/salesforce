@@ -61,4 +61,34 @@
         <label>Re-opened</label>
         <closed>false</closed>
     </standardValue>
+    <standardValue>
+        <fullName>Customer Education</fullName>
+        <default>false</default>
+        <label>Customer Education</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Awaiting Recovery</fullName>
+        <default>false</default>
+        <label>Awaiting Recovery</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Pend 14 Days</fullName>
+        <default>false</default>
+        <label>Pend 14 Days</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Return Funds</fullName>
+        <default>false</default>
+        <label>Return Funds</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Reimbursement</fullName>
+        <default>false</default>
+        <label>Reimbursement</label>
+        <closed>false</closed>
+    </standardValue>
 </StandardValueSet>

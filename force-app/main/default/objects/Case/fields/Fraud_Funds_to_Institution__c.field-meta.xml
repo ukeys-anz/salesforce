@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Fraud_Funds_to_Institution__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Source_Salesforce;Integrity - Accurate</complianceGroup>
+    <description>Funds to Institution</description>
+    <externalId>false</externalId>
+    <label>Funds to Institution</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>ANZx</fullName>
+                <default>false</default>
+                <label>ANZx</label>
+            </value>
+            <value>
+                <fullName>ANZc</fullName>
+                <default>false</default>
+                <label>ANZc</label>
+            </value>
+            <value>
+                <fullName>Commonwealth Bank</fullName>
+                <default>false</default>
+                <label>Commonwealth Bank</label>
+            </value>
+            <value>
+                <fullName>National Australia Bank</fullName>
+                <default>false</default>
+                <label>National Australia Bank</label>
+            </value>
+            <value>
+                <fullName>Westpac</fullName>
+                <default>false</default>
+                <label>Westpac</label>
+            </value>
+            <value>
+                <fullName>St. George</fullName>
+                <default>false</default>
+                <label>St. George</label>
+            </value>
+            <value>
+                <fullName>Bendigo</fullName>
+                <default>false</default>
+                <label>Bendigo</label>
+            </value>
+            <value>
+                <fullName>Bank of Melbourne</fullName>
+                <default>false</default>
+                <label>Bank of Melbourne</label>
+            </value>
+            <value>
+                <fullName>Bank of Queensland</fullName>
+                <default>false</default>
+                <label>Bank of Queensland</label>
+            </value>
+            <value>
+                <fullName>ING</fullName>
+                <default>false</default>
+                <label>ING</label>
+            </value>
+            <value>
+                <fullName>Bankwest</fullName>
+                <default>false</default>
+                <label>Bankwest</label>
+            </value>
+            <value>
+                <fullName>ME Bank</fullName>
+                <default>false</default>
+                <label>ME Bank</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
