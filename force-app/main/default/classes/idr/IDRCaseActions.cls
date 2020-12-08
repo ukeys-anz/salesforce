@@ -164,7 +164,7 @@ public with sharing class IDRCaseActions {
           records.get(i).Status != ((Case) oldMap.get(records.get(i).id)).Status
         ) {
           if (records.get(i).Status == UNDER_INVESTIGATION_STATUS) {
-            caseToBeChanged.get(i)
+            records.get(i)
               .IDR_Milestone_Sla__c = IDRConstants.MILESTONE_SLA_NORMAL;
           }
           handleCaseStatusChanges(records.get(i));
