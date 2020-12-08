@@ -41,4 +41,13 @@ public with sharing class CaseCommentsTriggerHandler extends Lib_TriggerHandler 
       record.addError(EDIT_ERROR);
     }
   }
+
+  /**
+   * @description onAfterInsert to manage after insert actions to handle notifications
+   */
+  public override void onAfterInsert() {
+    IDRCaseCommentsNotificationManager.manageNotification(
+      (List<CaseComment>) records
+    );
+  }
 }
