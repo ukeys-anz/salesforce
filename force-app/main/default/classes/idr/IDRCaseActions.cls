@@ -110,9 +110,10 @@ public with sharing class IDRCaseActions {
    * However in situations where the ID or CaseNumber is used which is only generated in onAfterInsert that logic needs to go in onAfterInsert.
    */
   public static void applyDefaults(List<Case> records) {
+    Id entitlementId = getEntitlement();
     for (Case record : records) {
       if (isIDRComplaintType(record)) {
-        record.EntitlementId = getEntitlement();
+        record.EntitlementId = entitlementId;
         record.IDR_Milestone_Sla__c = IDRConstants.MILESTONE_SLA_NORMAL;
         handleMasking(record);
         handleAnonymousNames(record);
