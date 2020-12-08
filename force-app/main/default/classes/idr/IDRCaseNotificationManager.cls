@@ -50,10 +50,16 @@ public with sharing class IDRCaseNotificationManager {
     IDRBankerNotificationWrapper wrapper = new IDRBankerNotificationWrapper();
     wrapper.sfObject = c;
     wrapper.msgTitle = c.CaseNumber;
-    wrapper.msgBody = 'Field ' + fieldLabel + ' has been changed';
+    wrapper.msgBody = fieldLabel + 'field has been changed';
 
     if (fieldLabel.equalsIgnoreCase('Owner ID')) {
       wrapper.msgBody = 'Case ' + c.CaseNumber + ' has been assigned to you';
+    }
+
+    if (
+      fieldLabel.equalsIgnoreCase('Milestone Sla') && c.Status != 'Escalated'
+    ) {
+      wrapper.msgBody = 'Auto esclation is due in ' + c.IDR_Milestone_Sla__c;
     }
 
     wrapper.relatedCaseRecord = c;

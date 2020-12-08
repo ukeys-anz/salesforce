@@ -23,7 +23,7 @@
     <fieldUpdates>
         <fullName>EscalationtoAmber</fullName>
         <field>IDR_Milestone_Sla__c</field>
-        <literalValue>Warning</literalValue>
+        <literalValue>2 business days</literalValue>
         <name>EscalationtoAmber</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Literal</operation>
@@ -32,7 +32,7 @@
     <fieldUpdates>
         <fullName>EscalationtoRed</fullName>
         <field>IDR_Milestone_Sla__c</field>
-        <literalValue>Critical</literalValue>
+        <literalValue>1 business day</literalValue>
         <name>EscalationtoRed</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Literal</operation>
