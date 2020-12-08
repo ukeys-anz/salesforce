@@ -559,7 +559,7 @@ public with sharing class IDRCaseActions {
    * @param record The record for which the recordType needs to be checked
    * @return `Boolean` True if the the record type is of IDR type false otherwise.
    */
-  private static Boolean isIDRComplaintType(Case record) {
+  public static Boolean isIDRComplaintType(Case record) {
     if (
       record.RecordTypeId == CUSTOMER_COMPLAINT_RT_ID ||
       record.RecordTypeId == NON_CUSTOMER_COMPLAINT_RT_ID
