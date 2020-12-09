@@ -3058,25 +3058,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>IDR_Milestone_Sla__c</picklist>
-        <values>
-            <fullName>1 business day</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>2 business days</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Normal</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Voilated</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>IDR_NC_Age__c</picklist>
         <values>
             <fullName>1</fullName>

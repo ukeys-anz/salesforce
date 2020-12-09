@@ -4616,25 +4616,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>IDR_Milestone_Sla__c</picklist>
-        <values>
-            <fullName>1 business day</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>2 business days</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Normal</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Voilated</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>Identity_Assisted_ID_Event_Type__c</picklist>
         <values>
             <fullName>Failed Electronic Verification</fullName>
