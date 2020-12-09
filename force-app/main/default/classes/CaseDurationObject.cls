@@ -26,9 +26,9 @@ public with sharing class CaseDurationObject {
   }
 
   /**
-@description If the user has access to the relevant objects, retrieve the case record from the system or throw an error otherwise
-* @param recordId The Case record ID
-*/
+   * @description If the user has access to the relevant objects, retrieve the case record from the system or throw an error otherwise
+   * @param recordId The Case record ID
+   */
   private void retrieveCaseRecord(Id recordId) {
     if (
       !Schema.sObjectType.Case.fields.CaseNumber.isAccessible() ||
@@ -60,8 +60,8 @@ public with sharing class CaseDurationObject {
   }
 
   /**
-@description Query the CaseHistory table and construct a collection of entries on each status change
-*/
+    @description Query the CaseHistory table and construct a collection of entries on each status change
+    */
   private void buildHistoryEntries() {
     Integer processCounter = 0;
     DateTime lastDateTime = system.NOW();
@@ -97,8 +97,9 @@ public with sharing class CaseDurationObject {
   }
 
   /**
-@description Loop through the history entries and determine the total case duration based on business hours and statuses that do not contribute to the total
-*/
+    @description Loop through the history entries and determine the total case duration based on business hours and statuses that do not contribute to the total
+    */
+  @testVisible
   private void calculateCaseDuration() {
     Decimal totalHours = 0;
     for (CaseHistoryObject entry : history) {

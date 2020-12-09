@@ -382,7 +382,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
           "Is the complaint relating to hardship, a declined insurance claim, the value of an insurance claim or a decision of a superannuation trustee?, ";
       }
     }
-    if (!this.isCommonComplaint) {
+    if (
+      typeof this.isCommonComplaint === "undefined" ||
+      this.isCommonComplaint === null
+    ) {
       isFieldValid = false;
       this.missingDataFields += "Is this a possible systemic issue?, ";
     }
