@@ -16,19 +16,24 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
+                <fullName>2 business days</fullName>
+                <default>false</default>
+                <label>2 business days</label>
+            </value>
+            <value>
+                <fullName>1 business day</fullName>
+                <default>false</default>
+                <label>1 business day</label>
+            </value>
+            <value>
                 <fullName>Normal</fullName>
                 <default>false</default>
                 <label>Normal</label>
             </value>
             <value>
-                <fullName>Warning</fullName>
+                <fullName>Voilated</fullName>
                 <default>false</default>
-                <label>Warning</label>
-            </value>
-            <value>
-                <fullName>Critical</fullName>
-                <default>false</default>
-                <label>Critical</label>
+                <label>Voilated</label>
             </value>
         </valueSetDefinition>
     </valueSet>

@@ -633,7 +633,7 @@ private class TestCaseTriggerHandler {
     system.assertEquals(et.Id, checkEntitlment.EntitlementId);
     system.assertEquals('Normal', checkEntitlment.IDR_Milestone_Sla__c);
     checkEntitlment.Status = 'Under Investigation';
-    checkEntitlment.IDR_Milestone_Sla__c = 'Warning';
+    checkEntitlment.IDR_Milestone_Sla__c = '2 business days';
     update checkEntitlment;
     case checkMilestone = [
       SELECT Id, EntitlementId, Status, IDR_Milestone_Sla__c

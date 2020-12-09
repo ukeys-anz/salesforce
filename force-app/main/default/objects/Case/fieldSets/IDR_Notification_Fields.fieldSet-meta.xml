@@ -7,5 +7,10 @@
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
     </displayedFields>
+    <displayedFields>
+        <field>IDR_Milestone_Sla__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
     <label>IDR Notification Fields</label>
 </FieldSet>
