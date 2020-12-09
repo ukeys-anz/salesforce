@@ -24,12 +24,17 @@ public class CaseDurationTest {
   }
 
   /**
-   * @description testCaseDurationObject tests that a duration has been calculated for the open case
+   * @description testCaseDurationObject tests default scenario where use dummy caseHistory
    */
   @isTest
   public static void testCaseDurationObject() {
     // GIVEN A case exists
     Case newCase = [SELECT ID FROM Case LIMIT 1];
+
+    CaseHistory history = new CaseHistory();
+    history.Field = 'Status';
+    history.CaseId = newCase.Id;
+    insert history;
 
     // WHEN the case duration is calculated
     CaseDurationObject caseDurationObj = new CaseDurationObject(newCase.Id);
@@ -46,6 +51,107 @@ public class CaseDurationTest {
     );
   }
 
+  /**
+   * @description testCaseDurationWithOneTime tests scenario with two case statuses
+   */
+  @isTest
+  public static void testCaseDurationWithOneTime() {
+    Case newCase = [SELECT ID FROM Case LIMIT 1];
+    List<BusinessHours> bhs = [
+      SELECT id
+      FROM BusinessHours
+      WHERE IsDefault = TRUE
+    ];
+    CaseDurationObject caseDurationObj = new CaseDurationObject(newCase.Id);
+
+    List<CaseHistoryObject> historyList = new List<CaseHistoryObject>();
+    CaseHistoryObject history1 = new CaseHistoryObject(
+      'New',
+      Datetime.newInstance(2020, 12, 7, 0, 0, 0),
+      Datetime.newInstance(2020, 12, 8, 0, 0, 0),
+      bhs[0].Id
+    );
+    historyList.add(history1);
+    caseDurationObj.history = historyList;
+    caseDurationObj.calculateCaseDuration();
+
+    CaseDurationObject.DurationTime durationTime = caseDurationObj.caseDuration;
+    System.assertEquals(24, durationTime.hours);
+  }
+
+  /**
+   * @description testCaseDurationWithTwoTimes tests scenario with one case of status changes
+   */
+  @isTest
+  public static void testCaseDurationWithTwoTimes() {
+    Case newCase = [SELECT ID FROM Case LIMIT 1];
+    List<BusinessHours> bhs = [
+      SELECT id
+      FROM BusinessHours
+      WHERE IsDefault = TRUE
+    ];
+    CaseDurationObject caseDurationObj = new CaseDurationObject(newCase.Id);
+
+    List<CaseHistoryObject> historyList = new List<CaseHistoryObject>();
+    CaseHistoryObject history1 = new CaseHistoryObject(
+      'New',
+      Datetime.newInstance(2020, 12, 7, 0, 0, 0),
+      Datetime.newInstance(2020, 12, 8, 0, 0, 0),
+      bhs[0].Id
+    );
+    CaseHistoryObject history2 = new CaseHistoryObject(
+      'Open',
+      Datetime.newInstance(2020, 12, 8, 0, 0, 0),
+      Datetime.newInstance(2020, 12, 9, 0, 0, 0),
+      bhs[0].Id
+    );
+    historyList.add(history1);
+    historyList.add(history2);
+    caseDurationObj.history = historyList;
+    caseDurationObj.calculateCaseDuration();
+
+    CaseDurationObject.DurationTime durationTime = caseDurationObj.caseDuration;
+    System.assertEquals(48, durationTime.hours);
+  }
+
+  /**
+   * @description testCaseDurationWithClosedTime tests case Duration for a closed case
+   */
+  @isTest
+  public static void testCaseDurationWithClosedTime() {
+    Case newCase = [SELECT ID FROM Case LIMIT 1];
+    List<BusinessHours> bhs = [
+      SELECT id
+      FROM BusinessHours
+      WHERE IsDefault = TRUE
+    ];
+    CaseDurationObject caseDurationObj = new CaseDurationObject(newCase.Id);
+
+    List<CaseHistoryObject> historyList = new List<CaseHistoryObject>();
+    CaseHistoryObject history1 = new CaseHistoryObject(
+      'New',
+      Datetime.newInstance(2020, 12, 7, 0, 0, 0),
+      Datetime.newInstance(2020, 12, 8, 0, 0, 0),
+      bhs[0].Id
+    );
+    CaseHistoryObject history2 = new CaseHistoryObject(
+      'Closed',
+      Datetime.newInstance(2020, 12, 8, 0, 0, 0),
+      Datetime.newInstance(2020, 12, 9, 0, 0, 0),
+      bhs[0].Id
+    );
+    historyList.add(history1);
+    historyList.add(history2);
+    caseDurationObj.history = historyList;
+    caseDurationObj.calculateCaseDuration();
+
+    CaseDurationObject.DurationTime durationTime = caseDurationObj.caseDuration;
+    System.assertEquals(24, durationTime.hours);
+  }
+
+  /**
+   * @description testCaseDurationService tests case Duration service class
+   */
   @isTest
   public static void testCaseDurationService() {
     // GIVEN A case exists
