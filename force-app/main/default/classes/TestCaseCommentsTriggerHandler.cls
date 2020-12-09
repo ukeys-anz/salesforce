@@ -1,32 +1,9 @@
 @isTest
 public with sharing class TestCaseCommentsTriggerHandler {
-  @testSetup
-  static void setup() {
-    List<Case> newCases = new List<Case>();
-
-    Profile p = [SELECT Id FROM Profile WHERE Name = 'ANZ Standard User'];
-
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
-        new Case(
-          RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
-          Status = IDRConstants.OPEN_STATUS,
-          Description = 'Test decription'
-        )
-      );
-    }
-    insert newCases;
-
-    User usr = (User) FakerFactory.make(new FakerUserFactory());
-    usr.ProfileId = p.Id;
-    usr.Business_Function__c = 'CMOS';
-    usr.Business_Role__c = 'Customer Resolution';
-    insert usr;
-  }
-
   @istest
   static void testCaseCommentsDelete() {
-    Case c = [SELECT Id FROM Case LIMIT 1];
+    Case c = new Case();
+    insert c;
     CaseComment[] newCaseComments = new List<CaseComment>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCaseComments.add(
@@ -56,7 +33,8 @@ public with sharing class TestCaseCommentsTriggerHandler {
 
   @isTest
   static void testCaseCommentMasking() {
-    Case c = [SELECT Id FROM Case LIMIT 1];
+    Case c = new Case();
+    insert c;
     CaseComment[] newCaseComments = new List<CaseComment>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCaseComments.add(
@@ -88,7 +66,8 @@ public with sharing class TestCaseCommentsTriggerHandler {
     setting.Object_API_Name__c = 'CaseComment';
     setting.Bypass_Delete__c = true;
     insert setting;
-    Case c = [SELECT Id FROM Case LIMIT 1];
+    Case c = new Case();
+    insert c;
     CaseComment[] newCaseComments = new List<CaseComment>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCaseComments.add(
@@ -111,17 +90,32 @@ public with sharing class TestCaseCommentsTriggerHandler {
 
   @isTest
   static void testCaseCommentNotification() {
-    List<User> usrlist = [SELECT id FROM User];
+    Profile p = [SELECT Id FROM Profile WHERE Name = 'ANZ Standard User'];
+    //Given a compliant case record
+    List<Case> newCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+          Status = IDRConstants.OPEN_STATUS,
+          Description = 'Test decription'
+        )
+      );
+    }
+    insert newCases;
 
-    System.runAs(usrlist[0]) {
-      //Given a complaint case record
-      Case caseRecord = [SELECT Id FROM Case LIMIT 1];
+    User usr = (User) FakerFactory.make(new FakerUserFactory());
+    usr.ProfileId = p.Id;
+    usr.Business_Function__c = 'CMOS';
+    usr.Business_Role__c = 'Customer Resolution';
+    insert usr;
 
+    System.runAs(usr) {
       Test.startTest();
       //When another user adds a case comment
       CaseComment testComment = new CaseComment(
         CommentBody = 'Test',
-        ParentId = caseRecord.id
+        ParentId = newCases[0].id
       );
       insert testComment;
       Test.stopTest();
@@ -134,7 +128,7 @@ public with sharing class TestCaseCommentsTriggerHandler {
       System.assertEquals(true, caseList[0].IDR_Update_Notification_Flag__c);
     }
   }
-  
+
   @istest
   static void testCaseCommentsInsertFraudXUser() {
     // Setting up test data

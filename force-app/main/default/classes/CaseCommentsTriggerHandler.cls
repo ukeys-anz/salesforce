@@ -50,7 +50,7 @@ public with sharing class CaseCommentsTriggerHandler extends Lib_TriggerHandler 
       (List<CaseComment>) records
     );
   }
-  
+
   /**
    * @description onBeforeInsert to prevent Case Comments being added based on user role
    */
