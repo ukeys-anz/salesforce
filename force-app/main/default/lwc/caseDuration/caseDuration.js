@@ -1,15 +1,133 @@
-import { LightningElement, track, api } from "lwc";
-import getCaseDurationTime from "@salesforce/apex/CaseDurationServerController.getCaseDurationTime";
+import { LightningElement, track, api, wire } from "lwc";
+import getCaseDurationTime from "@salesforce/apex/CaseDurationService.getCaseDurationTime";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
+
+import { getRecord } from "lightning/uiRecordApi";
+import CASE_STATUS_FIELD from "@salesforce/schema/Case.Status";
 
 export default class CaseDuration extends LightningElement {
   @track durationTime;
   @api recordId;
+  @track caseStatus;
+  @track caseOnHold = false;
+  pulseClass;
+  timeIntervalInstance;
+  totalSeconds = 0;
+  hours;
+  minutes;
+  days;
+  dayCounter = 0;
+  dayString;
+  hourString;
+  minuteString;
+  durationString;
+
+  @wire(getRecord, {
+    recordId: "$recordId",
+    fields: [CASE_STATUS_FIELD]
+  })
+  wiredProject({ data }) {
+    if (data) {
+      this.caseStatus = data.fields.Status.value;
+    }
+  }
 
   connectedCallback() {
-    getCaseDurationTime({ caseId: this.recordId })
+    getCaseDurationTime({
+      caseId: this.recordId
+    })
       .then((result) => {
         this.durationTime = result;
+        this.days = Math.floor(this.durationTime.hours / 24);
+        if (this.caseStatus === "On Hold" || this.caseStatus === "Closed") {
+          this.durationStop = true;
+          this.hours = this.durationTime.hours;
+          this.minutes = this.durationTime.minutes;
+
+          this.dayString =
+            this.days === 0
+              ? ""
+              : this.days === 1
+              ? `${this.days} Day `
+              : `${this.days} Days `;
+          this.hourString =
+            this.hours === 0
+              ? ""
+              : this.hours === 1
+              ? `${this.hours} Hour `
+              : `${this.hours} Hours `;
+          this.minuteString =
+            this.minutes === 0
+              ? ""
+              : this.minutes === 1
+              ? `${this.minutes} Minute`
+              : `${this.minutes} Minutes`;
+
+          if (!this.dayString && !this.hourString && !this.minuteString) {
+            this.minuteString = `${this.minutes} Minutes`;
+          }
+
+          this.durationString = `${this.dayString} ${this.hourString} ${this.minuteString}`;
+        } else {
+          this.pulseClass = "pulsate";
+          let parentThis = this;
+
+          // eslint-disable-next-line @lwc/lwc/no-async-operation
+          this.timeIntervalInstance = setInterval(() => {
+            let date = new Date();
+
+            date.setMinutes(parentThis.durationTime.minutes);
+            date.setHours(parentThis.durationTime.hours);
+            date.setSeconds(parentThis.totalSeconds);
+
+            parentThis.minutes = date.getMinutes();
+            parentThis.hours = date.getHours();
+
+            parentThis.dayString =
+              parentThis.days === 0
+                ? ""
+                : parentThis.days === 1
+                ? `${parentThis.days} Day `
+                : `${parentThis.days} Days `;
+            parentThis.hourString =
+              parentThis.hours === 0
+                ? ""
+                : parentThis.hours === 1
+                ? `${parentThis.hours} Hour `
+                : `${parentThis.hours} Hours `;
+            parentThis.minuteString =
+              parentThis.minutes === 0
+                ? ""
+                : parentThis.minutes === 1
+                ? `${parentThis.minutes} Minute`
+                : `${parentThis.minutes} Minutes`;
+
+            if (
+              !parentThis.dayString &&
+              !parentThis.hourString &&
+              !parentThis.minuteString
+            ) {
+              parentThis.minuteString = `${parentThis.minutes} Minutes`;
+            }
+
+            if (
+              date.getHours() === 23 &&
+              date.getMinutes() === 59 &&
+              date.getSeconds() === 59
+            ) {
+              // eslint-disable-next-line @lwc/lwc/no-async-operation
+              setTimeout(() => {
+                parentThis.dayCounter++;
+                parentThis.days += parentThis.dayCounter;
+                parentThis.durationString = `${parentThis.dayString} ${parentThis.hourString} ${parentThis.minuteString}`;
+              }, 1000);
+            } else {
+              parentThis.durationString = `${parentThis.dayString} ${parentThis.hourString} ${parentThis.minuteString}`;
+            }
+
+            parentThis.totalSeconds += 1;
+          }, 1000);
+        }
       })
       .catch((error) => {
         let errorMessage = "Failed to load case duration";

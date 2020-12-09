@@ -5,47 +5,91 @@
  */
 @isTest
 public class GetAccountsAndGoalsTest {
+  /**
+   * @description test method for getAccounts when successful
+   */
   @isTest
   public static void validResponse() {
-    Test.setMock(HttpCalloutMock.class, new MockValidAccountsAndGoalsCallout());
+    Test.setMock(
+      HttpCalloutMock.class,
+      new ForgeTokenHandlerTest.MockForgeCallout()
+    );
+    Id userId = UserInfo.getUserId();
+    Cache.Session.put(
+      'local.SessionAzureTokens.idToken' + userId,
+      ForgeTokenHandlerTest.IDTESTVALUE,
+      300,
+      Cache.Visibility.NAMESPACE,
+      false
+    );
+
     Test.startTest();
-    GetAccountsAndGoals.getAccounts('', 'test');
+    String respBody = GetAccountsAndGoals.getAccounts('1111');
+    System.assertEquals('{"access_token":"xxxxx","expires_in":900}', respBody);
     Test.stopTest();
-    //void returntype, no valuable assertion until future refactor
-    System.assert('true' == 'true');
   }
+
+  /**
+   * @description test method for getAccounts when forge token failed
+   */
+  @isTest
+  public static void invalidResponseFromForgeToken() {
+    Test.setMock(
+      HttpCalloutMock.class,
+      new ForgeTokenHandlerTest.MockForgeCalloutFailed()
+    );
+    Id userId = UserInfo.getUserId();
+    Cache.Session.put(
+      'local.SessionAzureTokens.idToken' + userId,
+      ForgeTokenHandlerTest.IDTESTVALUE,
+      300,
+      Cache.Visibility.NAMESPACE,
+      false
+    );
+    String expMessage;
+
+    Test.startTest();
+    try {
+      GetAccountsAndGoals.getAccounts('1111');
+    } catch (Exception e) {
+      expMessage = e.getMessage();
+    }
+
+    System.assertEquals('Get access token failed', expMessage);
+
+    Test.stopTest();
+  }
+
+  /**
+   * @description test method for getAccounts when failed
+   */
   @isTest
   public static void invalidResponse() {
     Test.setMock(
       HttpCalloutMock.class,
       new MockInvalidAccountsAndGoalsCallout()
     );
+    Id userId = UserInfo.getUserId();
+    Cache.Session.put(
+      'local.SessionAzureTokens.idToken' + userId,
+      ForgeTokenHandlerTest.IDTESTVALUE,
+      300,
+      Cache.Visibility.NAMESPACE,
+      false
+    );
 
-    AuraHandledException thrownException;
+    String expMessage;
+
     Test.startTest();
     try {
-      GetAccountsAndGoals.getAccounts('', 'test');
-    } catch (AuraHandledException e) {
-      thrownException = e;
+      GetAccountsAndGoals.getAccounts('1111');
+    } catch (Exception e) {
+      expMessage = e.getMessage();
     }
+
+    System.assertEquals('Get accounts failed', expMessage);
+
     Test.stopTest();
-
-    System.assert(thrownException != null);
-  }
-
-  class MockValidAccountsAndGoalsCallout implements HttpCalloutMock {
-    /**
-     * @description mock response for callout
-     * @param req incoming request
-     * @return HTTPResponse valid response
-     */
-    public HTTPResponse respond(HTTPRequest req) {
-      HTTPResponse res = new HTTPResponse();
-      res.setStatusCode(200);
-      res.setHeader('Content-Type', 'application/json');
-      res.setBody('{"example":"test"}');
-      return res;
-    }
   }
 
   class MockInvalidAccountsAndGoalsCallout implements HttpCalloutMock {
@@ -56,9 +100,16 @@ public class GetAccountsAndGoalsTest {
      */
     public HTTPResponse respond(HTTPRequest req) {
       HTTPResponse res = new HTTPResponse();
-      res.setHeader('Content-Type', 'application/json');
-      res.setBody('{"example":"test"}');
-      res.setStatusCode(500);
+      if (req.getEndpoint().endsWith('accounts')) {
+        res.setStatusCode(500);
+        res.setHeader('Content-Type', 'application/Plaintext');
+        res.setBody('Get accounts failed');
+      } else {
+        res.setStatusCode(201);
+        res.setHeader('Content-Type', 'application/json');
+        res.setBody('{"access_token":"xxxxx","expires_in":900}');
+      }
+
       return res;
     }
   }

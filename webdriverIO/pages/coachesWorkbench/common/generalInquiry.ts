@@ -8,8 +8,7 @@ export const status = [
   "Under Investigation",
   "On Hold",
   "Escalated",
-  "Closed",
-  "Re-opened"
+  "Closed"
 ];
 
 export const channelReceived = [

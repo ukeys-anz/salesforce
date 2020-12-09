@@ -20,11 +20,12 @@
                 </chartSummary>
                 <componentType>Donut</componentType>
                 <decimalPrecision>-1</decimalPrecision>
-                <displayUnits>Auto</displayUnits>
+                <displayUnits>Integer</displayUnits>
                 <drillEnabled>false</drillEnabled>
                 <drillToDetailEnabled>false</drillToDetailEnabled>
                 <enableHover>false</enableHover>
                 <expandOthers>true</expandOthers>
+                <footer>Current and Previous FY</footer>
                 <groupingColumn>STATUS</groupingColumn>
                 <groupingSortProperties>
                     <groupingSorts>
@@ -84,10 +85,10 @@
         <rowHeight>36</rowHeight>
     </dashboardGridLayout>
     <dashboardType>LoggedInUser</dashboardType>
-    <description>Case by status dashboard</description>
+    <description>Dashboard displayed on CMOS home page</description>
     <isGridLayout>true</isGridLayout>
     <textColor>#000000</textColor>
-    <title>Case Dashboards</title>
+    <title>Complaint Dashboard</title>
     <titleColor>#000000</titleColor>
     <titleSize>12</titleSize>
 </Dashboard>
