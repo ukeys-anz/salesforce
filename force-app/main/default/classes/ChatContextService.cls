@@ -22,6 +22,8 @@ global with sharing class ChatContextService {
     LIMIT 1
   ];
 
+  global static Map<Id, Account> accountsById = new Map<Id, Account>();
+
   /**
    * @description HTTP POST method passing incoming Chat context in to Salesforce.
    * Salesforce would then return a unique customer identifier, or a related Case Number to include on Twilio tasks as "sfdcSearchString".
@@ -64,6 +66,7 @@ global with sharing class ChatContextService {
     ]) {
       accountByOCVId.put(acc.OCV_ID__c, acc);
       casesByOCVId.put(acc.OCV_ID__c, acc.Cases);
+      accountsById.put(acc.Id, acc);
     }
 
     // Locate existing Cases having the Channel SID referenced (if available), or create a new one
@@ -215,7 +218,7 @@ global with sharing class ChatContextService {
           // Returning a success response with an error message, since Twilio could still create Tasks with Customer Identifier
           String errorMessage =
             'Faled to auto create a new Case against the customer customer. OCV ID: ' +
-            newCaseMap.get(newCases[i].Id).Account.OCV_ID__c +
+            accountsById.get(newCases[i].AccountId).OCV_ID__c +
             '. Error: ';
           for (Database.Error err : sr.getErrors()) {
             errorMessage += err;
@@ -223,14 +226,14 @@ global with sharing class ChatContextService {
 
           responseList.add(
             generateResponse(
-              newCaseMap.get(newCases[i].Id).Account.OCV_ID__c,
-              newCaseMap.get(newCases[i].Id).Account.External_Id__c,
+              accountsById.get(newCases[i].AccountId).OCV_ID__c,
+              accountsById.get(newCases[i].AccountId).External_Id__c,
               errorMessage
             )
           );
 
           responseStatusByOCVId.put(
-            newCaseMap.get(newCases[i].Id).Account.OCV_ID__c,
+            accountsById.get(newCases[i].AccountId).OCV_ID__c,
             true
           );
         }

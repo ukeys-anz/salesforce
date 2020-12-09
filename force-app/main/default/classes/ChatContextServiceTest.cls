@@ -53,13 +53,6 @@ public with sharing class ChatContextServiceTest {
         External_Id__c = 'OCVID887766CAPSYSID123'
       );
       insert testAccount;
-
-      // Create a test Case with a known Channel SID
-      Case newCase = new Case(
-        Twilio_Channel_SID__c = 'CH123456789',
-        AccountId = testAccount.Id
-      );
-      insert newCase;
     }
   }
 
@@ -73,10 +66,10 @@ public with sharing class ChatContextServiceTest {
     User usr = [SELECT Id FROM User WHERE FirstName = 'APIUserTest' LIMIT 1];
 
     // WHEN Twilio API user send a request with valid OCV ID
-    //Prepare request test data
+    // Prepare request test data
     List<ChatContextService.ChatContextRequest> contextRequests = prepareRequest(
       'OCVID887766',
-      faker.randomString(32),
+      faker.randomString(34),
       'Coaching'
     );
 
@@ -90,9 +83,7 @@ public with sharing class ChatContextServiceTest {
     List<Case> newCases = [
       SELECT Id, CaseNumber, Account.OCV_ID__c
       FROM Case
-      WHERE
-        Account.OCV_ID__c = 'OCVID887766'
-        AND Twilio_Channel_SID__c != 'CH123456789'
+      WHERE Account.OCV_ID__c = 'OCVID887766'
     ];
     System.assert(
       newCases.size() > 0,
@@ -152,13 +143,7 @@ public with sharing class ChatContextServiceTest {
         .errorMessage.contains('Invalid or insufficient request parameters')
     );
     System.assert(
-      [
-        SELECT COUNT()
-        FROM Case
-        WHERE
-          Account.OCV_ID__c = 'OCVID887766'
-          AND Twilio_Channel_SID__c != 'CH123456789'
-      ] == 0
+      [SELECT COUNT() FROM Case WHERE Account.OCV_ID__c = 'OCVID887766'] == 0
     );
   }
 
@@ -210,6 +195,19 @@ public with sharing class ChatContextServiceTest {
     // GIVEN Twilo API user has required acces to Salesforce API
     // Query for API User
     User usr = [SELECT Id FROM User WHERE FirstName = 'APIUserTest' LIMIT 1];
+
+    // Create a test Case with a known Channel SID
+    Account acc = [
+      SELECT Id
+      FROM Account
+      WHERE OCV_ID__c = 'OCVID887766'
+      LIMIT 1
+    ];
+    Case newCase = new Case(
+      Twilio_Channel_SID__c = 'CH123456789',
+      AccountId = acc.Id
+    );
+    insert newCase;
 
     // WHEN Twilio API user send a request with an invalid OCV ID
     //Prepare request test data (setting aa known Channel SID)
@@ -274,9 +272,7 @@ public with sharing class ChatContextServiceTest {
     List<Case> newCases = [
       SELECT Id, CaseNumber, Account.OCV_ID__c
       FROM Case
-      WHERE
-        Account.OCV_ID__c = 'OCVID887766'
-        AND Twilio_Channel_SID__c != 'CH123456789'
+      WHERE Account.OCV_ID__c = 'OCVID887766'
     ];
     System.assert(
       newCases.size() == 0,
