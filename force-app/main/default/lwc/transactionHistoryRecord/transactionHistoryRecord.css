@@ -53,6 +53,7 @@ img {
   position: absolute;
   left: 25%;
   color: #ffffff;
+  z-index: 1;
 }
 
 .description-tooltip__merchant {

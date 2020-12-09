@@ -66,4 +66,44 @@
         <default>false</default>
         <label>Store</label>
     </standardValue>
+    <standardValue>
+        <fullName>Customer</fullName>
+        <default>false</default>
+        <label>Customer</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Falcon</fullName>
+        <default>false</default>
+        <label>Falcon</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Fraud Staff</fullName>
+        <default>false</default>
+        <label>Fraud Staff</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Other ANZx Staff</fullName>
+        <default>false</default>
+        <label>Other ANZx Staff</label>
+    </standardValue>
+    <standardValue>
+        <fullName>OFI</fullName>
+        <default>false</default>
+        <label>OFI</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Law Enforcement</fullName>
+        <default>false</default>
+        <label>Law Enforcement</label>
+    </standardValue>
+    <standardValue>
+        <fullName>App</fullName>
+        <default>false</default>
+        <label>App</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Origination</fullName>
+        <default>false</default>
+        <label>Origination</label>
+    </standardValue>
 </StandardValueSet>

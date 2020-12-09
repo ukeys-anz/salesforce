@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <fullName>Number_of_Related_Cases__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <defaultValue>0</defaultValue>
     <description>The number of cases that have been raised by customers relating to this bug.</description>
     <externalId>false</externalId>
     <inlineHelpText>The number of cases that have been raised by customers relating to this bug.</inlineHelpText>
@@ -11,6 +12,7 @@
     <required>false</required>
     <scale>0</scale>
     <securityClassification>Public</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Number</type>

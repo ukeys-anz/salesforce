@@ -310,11 +310,11 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>IDR_Real_Form_Req__c</field>
+                <field>IDR_Systemic_Issue_Description__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>IDR_Systemic_Issue_Description__c</field>
+                <field>IDR_Real_Form_Req__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>

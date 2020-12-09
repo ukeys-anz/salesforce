@@ -115,7 +115,6 @@ public with sharing class UserTriggerHandler extends Lib_TriggerHandler {
     for (User record : (List<User>) records) {
       User oldRecord = (User) oldMap.get(record.id);
       if (
-        !CheckRecursive.SetOfIDs.contains(record.Id) &&
         UserProvisioningCommonActions.isValidRecordForProcessing(record) &&
         UserProvisioningCommonActions.isValidRecordForUpdate(record, oldRecord)
       ) {
@@ -131,7 +130,6 @@ public with sharing class UserTriggerHandler extends Lib_TriggerHandler {
         businessFuncAndRoles.add(
           UserProvisioningCommonActions.generateKey(record)
         );
-        CheckRecursive.setOfIDs.add(record.ID);
       }
     }
   }

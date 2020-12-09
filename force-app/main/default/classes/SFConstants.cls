@@ -20,4 +20,10 @@ public without sharing class SFConstants {
     ORG_VALUE.IsSandbox && ORG_VALUE.TrialExpirationDate == null;
   public static final Boolean IS_SCRATCH_ORG =
     ORG_VALUE.IsSandbox && ORG_VALUE.TrialExpirationDate != null;
+  public static final List<String> TIMER_PAUSE_STATUSES = new List<String>{
+    'On Hold',
+    'Withdrawn',
+    'Resolved',
+    'Closed'
+  };
 }

@@ -4,25 +4,66 @@ private class TestCaseTriggerHandler {
   @testSetup
   static void setup() {
     Faker faker = new Faker('AU');
+    // Insert Account & User as current user, to get around MIXED_DML_OPERATION error
+    User thisUser = new User(Id = UserInfo.getUserId());
+    System.runAs(thisUser) {
+      // Create a FraudX User with 'FraudX Agent' role
+      Profile profile = [
+        SELECT Id
+        FROM Profile
+        WHERE Name = 'ANZx Standard User'
+        LIMIT 1
+      ];
+      UserRole role = [
+        SELECT Id
+        FROM UserRole
+        WHERE DeveloperName = 'FraudX_Agent'
+      ];
+      User fraudXAgent = (User) FakerFactory.make(new FakerUserFactory());
+      fraudXAgent.FirstName = 'FraudXTest';
+      fraudXAgent.ProfileId = profile.Id;
+      fraudXAgent.UserRoleId = role.Id;
+      insert fraudXAgent;
 
-    Account[] accnts = new List<Account>();
-    for (Integer i = 0; i < 2; i++) {
-      accnts.add(
-        new Account(
-          Name = 'TestAccount',
-          OCV_ID__c = faker.randomString(10),
-          ANZx_Customer__c = true
-        )
+      // Assign related PSs
+      List<String> fraudXPSs = new List<String>{
+        'Case_Read_Write_Fraud_Agent',
+        'Customer_Read_Only'
+      };
+      List<PermissionSet> psList = [
+        SELECT Id
+        FROM PermissionSet
+        WHERE Name IN :fraudXPSs
+      ];
+
+      List<PermissionSetAssignment> psaList = new List<PermissionSetAssignment>();
+      for (PermissionSet ps : psList) {
+        PermissionSetAssignment psa = new PermissionSetAssignment(
+          AssigneeId = fraudXAgent.id,
+          PermissionSetId = ps.Id
+        );
+        psaList.add(psa);
+      }
+      insert psaList;
+
+      Account[] accnts = new List<Account>();
+      for (Integer i = 0; i < 2; i++) {
+        accnts.add(
+          new Account(
+            Name = 'TestAccount',
+            OCV_ID__c = faker.randomString(10),
+            ANZx_Customer__c = true
+          )
+        );
+      }
+      account a = new account(
+        Name = 'Complaint Entitlement Account',
+        OCV_ID__c = faker.randomString(10),
+        ANZx_Customer__c = false
       );
+      accnts.add(a);
+      insert accnts;
     }
-
-    account a = new account(
-      Name = 'Complaint Entitlement Account',
-      OCV_ID__c = faker.randomString(10),
-      ANZx_Customer__c = false
-    );
-    accnts.add(a);
-    insert accnts;
   }
 
   @isTest
@@ -546,6 +587,7 @@ private class TestCaseTriggerHandler {
       newCases[0].Subject
     );
   }
+
   //Tests if the complaints entitlment logic in working as expected.
   @isTest
   static void testComplaintEntilement() {
@@ -591,7 +633,7 @@ private class TestCaseTriggerHandler {
     system.assertEquals(et.Id, checkEntitlment.EntitlementId);
     system.assertEquals('Normal', checkEntitlment.IDR_Milestone_Sla__c);
     checkEntitlment.Status = 'Under Investigation';
-    checkEntitlment.IDR_Milestone_Sla__c = 'Warning';
+    checkEntitlment.IDR_Milestone_Sla__c = '2 business days';
     update checkEntitlment;
     case checkMilestone = [
       SELECT Id, EntitlementId, Status, IDR_Milestone_Sla__c
@@ -600,5 +642,226 @@ private class TestCaseTriggerHandler {
       LIMIT 1
     ];
     system.assertEquals('Normal', checkMilestone.IDR_Milestone_Sla__c);
+  }
+
+  @isTest
+  static void testRollupRelatedBugOnInsert() {
+    insert new Reported_Bug__c(Name = 'Test Bug');
+    Id bugId = [SELECT Id FROM Reported_Bug__c WHERE Name = 'Test Bug' LIMIT 1]
+    .Id;
+    Id accountId = [SELECT Id FROM Account LIMIT 1].Id;
+    List<Case> newCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          Related_Bug__c = bugId,
+          RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
+          AccountId = accountId
+        )
+      );
+    }
+
+    Test.startTest();
+    insert newCases;
+    Test.stopTest();
+
+    Decimal relatedCaseNumber = [
+      SELECT Number_of_Related_Cases__c
+      FROM Reported_Bug__c
+      WHERE Name = 'Test Bug'
+      LIMIT 1
+    ]
+    .Number_of_Related_Cases__c;
+    System.assertEquals(
+      Integer.valueOf(Label.Test_Bulk_Size),
+      relatedCaseNumber,
+      'Incorrect reported bug rollup value'
+    );
+  }
+
+  @isTest
+  static void testRollupRelatedBugOnUpdate() {
+    insert new Reported_Bug__c(Name = 'Test Bug');
+    Id bugId = [SELECT Id FROM Reported_Bug__c WHERE Name = 'Test Bug' LIMIT 1]
+    .Id;
+    Id accountId = [SELECT Id FROM Account LIMIT 1].Id;
+    List<Case> newCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          Related_Bug__c = bugId,
+          RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
+          AccountId = accountId
+        )
+      );
+    }
+    insert newCases;
+
+    Case updateCase = new Case(
+      RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
+      AccountId = accountId
+    );
+    insert updateCase;
+
+    Test.startTest();
+    updateCase.Related_Bug__c = bugId;
+    update updateCase;
+    Test.stopTest();
+
+    Decimal relatedCaseNumber = [
+      SELECT Number_of_Related_Cases__c
+      FROM Reported_Bug__c
+      WHERE Name = 'Test Bug'
+      LIMIT 1
+    ]
+    .Number_of_Related_Cases__c;
+    System.assertEquals(
+      Integer.valueOf(Label.Test_Bulk_Size) + 1,
+      relatedCaseNumber,
+      'Incorrect reported bug rollup value'
+    );
+  }
+
+  @isTest
+  static void testRollupRelatedBugOnDelete() {
+    insert new Reported_Bug__c(Name = 'Test Bug');
+    Id bugId = [SELECT Id FROM Reported_Bug__c WHERE Name = 'Test Bug' LIMIT 1]
+    .Id;
+    Id accountId = [SELECT Id FROM Account LIMIT 1].Id;
+    List<Case> newCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          Related_Bug__c = bugId,
+          RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
+          AccountId = accountId
+        )
+      );
+    }
+    insert newCases;
+
+    Case deleteCase = [SELECT Id, Related_Bug__c FROM Case LIMIT 1];
+
+    Test.startTest();
+    delete deleteCase;
+    Test.stopTest();
+
+    Decimal relatedCaseNumber = [
+      SELECT Number_of_Related_Cases__c
+      FROM Reported_Bug__c
+      WHERE Name = 'Test Bug'
+      LIMIT 1
+    ]
+    .Number_of_Related_Cases__c;
+    System.assertEquals(
+      Integer.valueOf(Label.Test_Bulk_Size) - 1,
+      relatedCaseNumber,
+      'Incorrect reported bug rollup value'
+    );
+  }
+
+  @isTest
+  static void testRollupRelatedBugOnNoBug() {
+    insert new Reported_Bug__c(Name = 'Test Bug');
+    Id bugId = [SELECT Id FROM Reported_Bug__c WHERE Name = 'Test Bug' LIMIT 1]
+    .Id;
+    Id accountId = [SELECT Id FROM Account LIMIT 1].Id;
+    List<Case> newCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
+          AccountId = accountId
+        )
+      );
+    }
+
+    Test.startTest();
+    insert newCases;
+    Test.stopTest();
+
+    Decimal relatedCaseNumber = [
+      SELECT Number_of_Related_Cases__c
+      FROM Reported_Bug__c
+      WHERE Name = 'Test Bug'
+      LIMIT 1
+    ]
+    .Number_of_Related_Cases__c;
+    System.assertEquals(
+      0,
+      relatedCaseNumber,
+      'Incorrect reported bug rollup value'
+    );
+  }
+
+  //Tests if the Fraud Case Subject is populated correctly based on case record type and type.
+  @isTest
+  static void testPopulateFraudCaseSubject() {
+    Faker faker = new Faker('AU');
+    List<String> caseTypes = new List<String>{
+      'Remote Access',
+      'Other',
+      'Not a Scam'
+    };
+
+    // GIVEN FraudX Agent user has required acces
+    // Query for API User
+    User usr = [SELECT Id FROM User WHERE FirstName = 'FraudXTest' LIMIT 1];
+
+    // WHEN FraudX Agent user creates or updates a Fraud case
+    Case[] newCases = new List<Case>();
+    Account acc = [SELECT Id FROM Account WHERE Name = 'TestAccount' LIMIT 1];
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = GetHelpCaseActions.FRAUD_RT_IDS[
+            faker.randomIntegerBetween(1, 4)
+          ],
+          Type = faker.randomElement(caseTypes),
+          AccountId = acc.Id
+        )
+      );
+    }
+
+    Test.startTest();
+    System.runAs(usr) {
+      insert newCases;
+    }
+    Test.stopTest();
+
+    // THEN Case Subject should be autopopulated based on RecordType Name and Type
+
+    // Verify subject on one of the inserted Cases
+    Case sampleCase1 = [
+      SELECT Id, Type, RecordType.Name, Subject
+      FROM Case
+      WHERE Id = :newCases[0].Id
+      LIMIT 1
+    ];
+    system.assertEquals(
+      sampleCase1.RecordType.Name +
+      ' - ' +
+      sampleCase1.Type,
+      sampleCase1.Subject,
+      'Failed to autopopulate Subject on Fraud cases as expected, while inserting'
+    );
+
+    // Validate UPDATE behaviour
+    newCases[0].Type = 'Investment';
+    update newCases[0];
+
+    Case sampleCase2 = [
+      SELECT Id, Type, RecordType.Name, Subject
+      FROM Case
+      WHERE Id = :newCases[0].Id
+      LIMIT 1
+    ];
+    system.assertEquals(
+      sampleCase2.RecordType.Name +
+      ' - ' +
+      sampleCase2.Type,
+      sampleCase2.Subject,
+      'Failed to autopopulate Subject on Fraud cases as expected, while updating'
+    );
   }
 }

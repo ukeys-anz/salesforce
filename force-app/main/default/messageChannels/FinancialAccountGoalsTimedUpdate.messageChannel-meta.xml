@@ -6,5 +6,9 @@
         <description>Boolean to determine if update triggered</description>
         <fieldName>update</fieldName>
     </lightningMessageFields>
+    <lightningMessageFields>
+      <description>Provide a message if failed</description>
+      <fieldName>message</fieldName>
+  </lightningMessageFields>
     <masterLabel>UpdateAccountsGoalsTimed</masterLabel>
 </LightningMessageChannel>

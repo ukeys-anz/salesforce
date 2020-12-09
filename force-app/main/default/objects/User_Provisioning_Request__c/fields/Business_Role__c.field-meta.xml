@@ -56,6 +56,11 @@
                 <label>Coach</label>
             </value>
             <value>
+                <fullName>Trailblazer Manager</fullName>
+                <default>false</default>
+                <label>Trailblazer Manager</label>
+            </value>
+            <value>
                 <fullName>Business Role</fullName>
                 <default>false</default>
                 <isActive>false</isActive>

@@ -11,67 +11,47 @@
   </template>
   <template if:false={loading}>
     <article class="total-amounts slds-card slds-m-bottom_small">
-      <div class="slds-card__header slds-grid">
+      <div class="slds-grid">
         <header class="slds-has-flexi-truncate">
           <h1
-            class="slds-card__header-title main-title slds-m-top_small slds-m-left_small"
+            class="slds-card__header-title slds-m-top_small slds-m-left_small"
           >
             <span>Total Balance</span>
           </h1>
         </header>
       </div>
-      <template if:true={totalBalance}>
-        <div class="slds-card__body slds-card__body_inner">
-          <ul class="slds-grid slds-wrap slds-grid_pull-padded">
-            <li
-              class="slds-p-horizontal_small slds-size_1-of-1 slds-medium-size_1-of-3"
-              style="padding-left: 20px"
-            >
-              <div
-                class="slds-grid slds-grid_align-spread slds-has-flexi-truncate slds-m-left_small"
-              >
-                <h3
-                  class="slds-tile__title slds-truncate"
-                  title="Total Financial Position"
+      <template if:true={hasError}>
+        <c-error message={error}></c-error>
+      </template>
+      <template if:false={hasError}>
+        <template if:true={totalBalance}>
+          <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-grid slds-size_1-of-1">
+              <div class="slds-grid slds-wrap slds-size_1-of-1">
+                <div
+                  class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 field-padding"
                 >
-                  Total Financial Position
-                </h3>
+                  <div class="header-column">
+                    <p class="slds-tile__title slds-text-color_weak">
+                      Total Financial Position
+                    </p>
+                    <p class="slds-item_label">{totalBalance}</p>
+                  </div>
+                </div>
+                <div
+                  class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 field-padding"
+                >
+                  <div class="header-column">
+                    <p class="slds-tile__title slds-text-color_weak">
+                      Total Saved
+                    </p>
+                    <p class="slds-item_label">{totalSaved}</p>
+                  </div>
+                </div>
               </div>
-              <div class="slds-tile__detail slds-m-left_small">
-                <dl class="slds-list_horizontal slds-wrap">
-                  <dt
-                    class="slds-item_label slds-text-color_weak"
-                    title="Total Balance"
-                  >
-                    {totalBalance}
-                  </dt>
-                </dl>
-              </div>
-            </li>
-            <li
-              class="slds-p-horizontal_small slds-size_1-of-1 slds-medium-size_1-of-3"
-              style="padding-left: 20px"
-            >
-              <div
-                class="slds-grid slds-grid_align-spread slds-has-flexi-truncate slds-m-left_small"
-              >
-                <h3 class="slds-tile__title slds-truncate" title="Total Saved">
-                  Total Saved
-                </h3>
-              </div>
-              <div class="slds-tile__detail slds-m-left_small">
-                <dl class="slds-list_horizontal slds-wrap">
-                  <dt
-                    class="slds-item_label slds-text-color_weak"
-                    title="Total Saved"
-                  >
-                    {totalSaved}
-                  </dt>
-                </dl>
-              </div>
-            </li>
-          </ul>
-        </div>
+            </div>
+          </div>
+        </template>
       </template>
     </article>
   </template>
