@@ -31,6 +31,8 @@
                 "inContextOfRef"
               );
 
+              var chatTopicCheckPending = false;
+
               var navigationUrl =
                 "/lightning/o/Case/new?count=1&nooverride=1&recordTypeId=" +
                 component.get("v.pageReference").state.recordTypeId;
@@ -57,6 +59,7 @@
                       parentRecID;
 
                     // Fetch active Chat Topic ID (if there is any) related to the Customer
+                    chatTopicCheckPending = true;
                     helper.getActiveChatTopicID(
                       component,
                       parentRecID,
@@ -79,36 +82,21 @@
                               ",Auto_matched_Chat_Topic_IDs__c=" +
                               topicID;
                           }
-
-                          helper.navigateToNewCaseClosePreviousTab(
-                            workspaceAPI,
-                            navigationUrl,
-                            firstTabId
-                          );
-                        } else {
-                          helper.navigateToNewCaseClosePreviousTab(
-                            workspaceAPI,
-                            navigationUrl,
-                            firstTabId
-                          );
                         }
+
+                        helper.navigateToNewCaseClosePreviousTab(
+                          workspaceAPI,
+                          navigationUrl,
+                          firstTabId
+                        );
                       }
                     );
-                  } else {
-                    helper.navigateToNewCaseClosePreviousTab(
-                      workspaceAPI,
-                      navigationUrl,
-                      firstTabId
-                    );
                   }
-                } else {
-                  helper.navigateToNewCaseClosePreviousTab(
-                    workspaceAPI,
-                    navigationUrl,
-                    firstTabId
-                  );
                 }
-              } else {
+              }
+
+              // Check to stop page navigation if Chat Topic linking logic/callback is pending
+              if (!chatTopicCheckPending) {
                 helper.navigateToNewCaseClosePreviousTab(
                   workspaceAPI,
                   navigationUrl,
