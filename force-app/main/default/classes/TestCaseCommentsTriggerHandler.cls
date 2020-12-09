@@ -114,7 +114,7 @@ public with sharing class TestCaseCommentsTriggerHandler {
     CaseShare cs = new CaseShare();
     cs.CaseId = newCases[0].id;
     cs.UserOrGroupId = usr.Id;
-    cs.CaseAccessLevel = 'Read';
+    cs.CaseAccessLevel = 'Edit';
     insert cs;
 
     System.runAs(usr) {

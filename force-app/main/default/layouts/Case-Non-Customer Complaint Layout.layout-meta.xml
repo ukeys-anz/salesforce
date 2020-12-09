@@ -11,7 +11,7 @@
         <label>Privacy</label>
         <layoutColumns>
             <layoutItems>
-                <behavior>Readonly</behavior>
+                <behavior>Edit</behavior>
                 <field>IDR_Update_Notification_Flag__c</field>
             </layoutItems>
         </layoutColumns>
