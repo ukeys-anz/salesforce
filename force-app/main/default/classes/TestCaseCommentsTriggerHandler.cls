@@ -110,6 +110,13 @@ public with sharing class TestCaseCommentsTriggerHandler {
     usr.Business_Role__c = 'Customer Resolution';
     insert usr;
 
+    // Sharing Case record manually to avoid deployment issues
+    CaseShare cs = new CaseShare();
+    cs.CaseId = newCases[0].id;
+    cs.UserOrGroupId = usr.Id;
+    cs.CaseAccessLevel = 'Read';
+    insert cs;
+
     System.runAs(usr) {
       Test.startTest();
       //When another user adds a case comment
