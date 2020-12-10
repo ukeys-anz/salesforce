@@ -49,6 +49,3 @@ force-app/main/default/authproviders/Azure_AD_Custom_OIDC.authprovider-meta.xml
 
 # Ignoring PSL that does not exist in scratch org (not yet supported in scratch definition)
 force-app/main/default/permissionsets/myTrailhead_PSL.permissionset-meta.xml
-
-# Ignore Connected Apps
-force-app/main/default/connectedApps

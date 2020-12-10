@@ -112,10 +112,6 @@
     <enabled>true</enabled>
   </classAccesses>
   <classAccesses>
-    <apexClass>AuthTokenCacheUtil</apexClass>
-    <enabled>true</enabled>
-  </classAccesses>
-  <classAccesses>
     <apexClass>FinServ__AccountAccountRelationTriggerHandler</apexClass>
     <enabled>true</enabled>
   </classAccesses>
@@ -1360,6 +1356,10 @@
     <enabled>false</enabled>
   </classAccesses>
   <custom>true</custom>
+  <customSettingAccesses>
+      <enabled>true</enabled>
+      <name>Non_Prod_Settings__c</name>
+  </customSettingAccesses>
   <fieldPermissions>
     <editable>false</editable>
     <field>Account.AccountNumber</field>

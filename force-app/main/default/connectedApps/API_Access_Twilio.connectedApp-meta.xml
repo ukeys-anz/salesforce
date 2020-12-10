@@ -4,7 +4,6 @@
     <label>Twilio (API Access)</label>
     <oauthConfig>
         <callbackUrl>https://www.twilio.com/</callbackUrl>
-        <consumerKey>3MVG9cQUYChcCjLv_FxZ8DJJhVy68G4BXtCQRAQclQp9GaaPcJW7dNunW9ukp6I2FAzYGB7I85lt5TS57FMrB</consumerKey>
         <isAdminApproved>true</isAdminApproved>
         <isConsumerSecretOptional>false</isConsumerSecretOptional>
         <isIntrospectAllTokens>false</isIntrospectAllTokens>
