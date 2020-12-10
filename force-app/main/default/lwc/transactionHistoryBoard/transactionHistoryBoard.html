@@ -1,28 +1,33 @@
 <template>
-  <div class="slds-text-title_bold slds-m-bottom_medium">
-    Transaction History
-  </div>
-  <div class="slds-grid">
-    <div class="slds-col">
-      <button class="slds-button expand-collapse" onclick={handleExpandAll}>
-        <template if:true={expandAll}>Collapse All</template>
-        <template if:false={expandAll}>Expand All</template>
-      </button>
-      <template if:true={transactionList}>
-        <template for:each={transactionList} for:item="transRecord">
-          <c-transaction-history-record
-            key={transRecord.TransactionID}
-            transaction-record={transRecord}
-            expand-all={expandAll}
-          >
-          </c-transaction-history-record>
-        </template>
-      </template>
-      <template if:true={showLoadMore}>
-        <button class="slds-button load-more" onclick={handleLoadMore}>
-          Load More
-        </button>
-      </template>
+  <template if:true={hasError}>
+    <c-error message={error}></c-error>
+  </template>
+  <template if:false={hasError}>
+    <div class="slds-text-title_bold slds-m-bottom_medium">
+      Transaction History
     </div>
-  </div>
+    <div class="slds-grid">
+      <div class="slds-col">
+        <button class="slds-button expand-collapse" onclick={handleExpandAll}>
+          <template if:true={expandAll}>Collapse All</template>
+          <template if:false={expandAll}>Expand All</template>
+        </button>
+        <template if:true={transactionList}>
+          <template for:each={transactionList} for:item="transRecord">
+            <c-transaction-history-record
+              key={transRecord.TransactionID}
+              transaction-record={transRecord}
+              expand-all={expandAll}
+            >
+            </c-transaction-history-record>
+          </template>
+        </template>
+        <template if:true={showLoadMore}>
+          <button class="slds-button load-more" onclick={handleLoadMore}>
+            Load More
+          </button>
+        </template>
+      </div>
+    </div>
+  </template>
 </template>
