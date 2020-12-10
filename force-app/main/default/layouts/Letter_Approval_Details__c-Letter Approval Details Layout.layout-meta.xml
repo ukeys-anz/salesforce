@@ -20,7 +20,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
-                <field>Case_Comms__c</field>
+                <field>Letter_Approval__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns/>

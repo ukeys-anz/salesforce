@@ -157,10 +157,10 @@
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <externalSharingModel>ControlledByParent</externalSharingModel>
-    <label>Case Communication</label>
+    <label>Letter Approval</label>
     <nameField>
         <displayFormat>Comm#{000000}</displayFormat>
-        <label>Communication Number</label>
+        <label>Letter Number</label>
         <trackHistory>false</trackHistory>
         <type>AutoNumber</type>
     </nameField>

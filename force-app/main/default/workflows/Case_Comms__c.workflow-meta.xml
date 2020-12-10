@@ -1,30 +1,3 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fieldUpdates>
-        <fullName>Comma_status_pending_approval</fullName>
-        <field>Status__c</field>
-        <literalValue>Pending Approval</literalValue>
-        <name>Comma_status_pending approval</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Literal</operation>
-        <protected>false</protected>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>Comms_Change_Requested</fullName>
-        <field>Status__c</field>
-        <literalValue>Change Requested</literalValue>
-        <name>Comms Change Requested</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Literal</operation>
-        <protected>false</protected>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>Comms_Status_to_Approved</fullName>
-        <field>Status__c</field>
-        <literalValue>Approved</literalValue>
-        <name>Comms_Status_to_Approved</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Literal</operation>
-        <protected>false</protected>
-    </fieldUpdates>
 </Workflow>

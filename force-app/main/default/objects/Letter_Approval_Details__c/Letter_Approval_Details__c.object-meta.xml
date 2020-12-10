@@ -153,12 +153,12 @@
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <externalSharingModel>ControlledByParent</externalSharingModel>
-    <label>Case Comms Line Item</label>
+    <label>Letter Approval Details</label>
     <nameField>
-        <label>Case Comms Line Items Name</label>
+        <label>Letter Approval Details Name</label>
         <type>Text</type>
     </nameField>
-    <pluralLabel>Case Comms Line Items</pluralLabel>
+    <pluralLabel>Letter Approval Details Name</pluralLabel>
     <searchLayouts/>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>

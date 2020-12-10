@@ -32,7 +32,7 @@ public class CreateCommsController {
     @auraEnabled
     public static string  createComms(string caseId, boolean isEmail , boolean isLetter ,string template , list<object> lineItems){
         system.debug('caseId:'+caseId);
-        Case_Comms__c caseComms = new Case_Comms__c ();
+        Letter_Approval__c caseComms = new Letter_Approval__c ();
         caseComms.Send_As_Email__c  = isEmail;
         caseComms.Send_As_Letter__c  = isLetter;
         caseComms.case__c = caseId ;
@@ -43,11 +43,11 @@ public class CreateCommsController {
         }
         insert caseComms;
         
-        list<Case_Comms_Line_Item__c> commsLineItemsList = new list<Case_Comms_Line_Item__c>();
+        list<Letter_Approval_Details__c> commsLineItemsList = new list<Letter_Approval_Details__c>();
         for(object o : lineItems){
             Map<object,object> fieldList = (Map<object,object>)o;
             system.debug('fieldList:'+fieldList);
-            Case_Comms_Line_Item__c commsLineItem = new Case_Comms_Line_Item__c( Case_Comms__c = caseComms.Id);
+            Letter_Approval_Details__c commsLineItem = new Letter_Approval_Details__c( Letter_Approval__c = caseComms.Id);
             for(object key : fieldList.keyset()){
                 if((string)key =='fieldLabel'){
                     commsLineItem.Name = (string)fieldList.get(key);
@@ -55,15 +55,15 @@ public class CreateCommsController {
                 }else if ((string)key =='fieldValue'){
                     commsLineItem.Value__c	 = (string)fieldList.get(key);
                 }else if ((string)key == 'fieldDesc'){
-                    commsLineItem.Description__c = (string)fieldList.get(key);
+                   // commsLineItem.Description__c = (string)fieldList.get(key);
                 }              
             }
           	commsLineItemsList.add(commsLineItem);
         }
-        list<Case_Comms_Line_Item__c> caseDataItems = getCommsDataFromCase(template, caseId);
+        list<Letter_Approval_Details__c> caseDataItems = getCommsDataFromCase(template, caseId);
         
-        for (Case_Comms_Line_Item__c item : caseDataItems){
-            item.Case_Comms__c = caseComms.Id;
+        for (Letter_Approval_Details__c item : caseDataItems){
+            item.Letter_Approval__c = caseComms.Id;
             commsLineItemsList.add(item);
         }  
         
@@ -75,8 +75,8 @@ public class CreateCommsController {
         return caseComms.Id;
     }
     
-    public static list<Case_Comms_Line_Item__c> getCommsDataFromCase(string template , string caseId){
-        list<Case_Comms_Line_Item__c> caseDataItems = new list<Case_Comms_Line_Item__c>();
+    public static list<Letter_Approval_Details__c> getCommsDataFromCase(string template , string caseId){
+        list<Letter_Approval_Details__c> caseDataItems = new list<Letter_Approval_Details__c>();
         list<Template_Detail__c> templatedetails = new list<Template_Detail__c>();
         templatedetails = [Select Id,Template_Field_Name__c, Case_Field_Name__c from Template_Detail__c where Template__c =:template and Is_Free_Text__c = false];
         
@@ -98,7 +98,7 @@ public class CreateCommsController {
             case parentCase = new case();
             parentCase = Database.query(caseQuery);
             for (Template_Detail__c td : templatedetails ){
-                Case_Comms_Line_Item__c item = new Case_Comms_Line_Item__c();
+                Letter_Approval_Details__c item = new Letter_Approval_Details__c();
                 item.Name = td.Template_Field_Name__c;
                 item.Field_Name__c = td.Template_Field_Name__c;
                 string itemValue = '';
@@ -136,7 +136,7 @@ public class CreateCommsController {
         return caseDataItems;
     }
     
-    public static void submitCommsForApproval(Case_Comms__c caseComms, Id CaseId){
+    public static void submitCommsForApproval(Letter_Approval__c caseComms, Id CaseId){
         	case c = [Select OwnerId from Case where id=:CaseId];
         	List<Id> approver = new list<Id> ();
         	approver.add(c.OwnerId);
