@@ -166,19 +166,6 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
-                    <name>objectName</name>
-                    <value>Case</value>
-                </componentInstanceProperties>
-                <componentName>chatTopicRelatedList</componentName>
-            </componentInstance>
-        </itemInstances>
-        <name>Facet-bc20059f-9a9d-4090-a145-5387ff622889</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
                     <name>active</name>
                     <value>false</value>
                 </componentInstanceProperties>
@@ -215,19 +202,6 @@
                 <componentInstanceProperties>
                     <name>title</name>
                     <value>Comments</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:tab</componentName>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-bc20059f-9a9d-4090-a145-5387ff622889</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>title</name>
-                    <value>Chat Topics</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
             </componentInstance>
