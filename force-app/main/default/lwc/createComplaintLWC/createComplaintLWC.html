@@ -508,7 +508,7 @@
                   <lightning-radio-group
                     required
                     name="writtenRequiredGroup"
-                    label="Is the complaint relating to hardship, a declined insurance claim, the value of an insurance claim or a decision of a superannuation trustee?"
+                    label="Is the complaint relating to hardship or a decision of a superannuation trustee?"
                     onchange={handleWrittenRequiredChange}
                     options={writtenrequiredoptions}
                     value={writtenRequiredValue}
@@ -634,13 +634,12 @@
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <template if:true={isFinancialComplaintRemedy}>
-                    <!--<lightning-formatted-text value="Financial Compensation" ></lightning-formatted-text>-->
                     <label
                       class="slds-form-element__label"
                       for="text-input-id-149"
                     >
                       <abbr class="slds-required" title="required">* </abbr
-                      >Financial Compensation</label
+                      >Financial Amount</label
                     >
                     <lightning-input
                       variant="label-hidden"
