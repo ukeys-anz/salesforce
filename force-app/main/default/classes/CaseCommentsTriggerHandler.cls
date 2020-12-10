@@ -43,6 +43,15 @@ public with sharing class CaseCommentsTriggerHandler extends Lib_TriggerHandler 
   }
 
   /**
+   * @description onAfterInsert to manage after insert actions to handle notifications
+   */
+  public override void onAfterInsert() {
+    IDRCaseCommentsNotificationManager.manageNotification(
+      (List<CaseComment>) records
+    );
+  }
+
+  /**
    * @description onBeforeInsert to prevent Case Comments being added based on user role
    */
   public override void onBeforeInsert() {
