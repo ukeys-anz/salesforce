@@ -8,6 +8,12 @@
         <closed>false</closed>
     </standardValue>
     <standardValue>
+        <fullName>Action Required</fullName>
+        <default>false</default>
+        <label>Action Required</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
         <fullName>Open</fullName>
         <default>false</default>
         <label>Open</label>
@@ -90,5 +96,29 @@
         <default>false</default>
         <label>Reimbursement</label>
         <closed>false</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Closed - Customer Educated</fullName>
+        <default>false</default>
+        <label>Closed - Customer Educated</label>
+        <closed>true</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Closed - Future Release</fullName>
+        <default>false</default>
+        <label>Closed - Future Release</label>
+        <closed>true</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Closed - Resolved</fullName>
+        <default>false</default>
+        <label>Closed - Resolved</label>
+        <closed>true</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Closed - Won&apos;t Be Fixed</fullName>
+        <default>false</default>
+        <label>Closed - Won&apos;t Be Fixed</label>
+        <closed>true</closed>
     </standardValue>
 </StandardValueSet>
