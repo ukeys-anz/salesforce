@@ -13,7 +13,7 @@ global with sharing class ChatContextService {
   global static final String QUEUE_TYPE = 'Queue';
   global static final String GENERAL_CASE_QUEUE_DEVELOPER_NAME = 'General_Case_Queue';
 
-  global static Group generalIinquiryQueue = [
+  global static Group generalInquiryQueue = [
     SELECT Id
     FROM Group
     WHERE
@@ -160,8 +160,8 @@ global with sharing class ChatContextService {
         newCase.Twilio_Channel_SID__c = requestByOCVId.get(ocvId).channelSID;
         newCase.Type = requestByOCVId.get(ocvId).caseType;
         newCase.RecordTypeId = GENERAL_INQUIRY_RT_ID;
-        if (generalIinquiryQueue != null) {
-          newCase.OwnerId = generalIinquiryQueue.Id;
+        if (generalInquiryQueue != null) {
+          newCase.OwnerId = generalInquiryQueue.Id;
         }
         newCases.add(newCase);
       }
