@@ -54,7 +54,9 @@ global with sharing class ChatContextService {
 
     // Query for customer's unique External ID on Account object, as well as any related Case records based on passed in OCV ID
     Map<String, Account> accountByOCVId = new Map<String, Account>();
-    Map<String, List<Case>> casesByOCVId = new Map<String, List<Case>>();
+    Map<String, Boolean> responseStatusByOCVId = new Map<String, Boolean>();
+    List<Case> newCases = new List<Case>();
+
     for (Account acc : [
       SELECT
         Id,
@@ -65,17 +67,47 @@ global with sharing class ChatContextService {
       WHERE OCV_ID__c IN :requestByOCVId.keySet() AND ANZx_Customer__c = TRUE
     ]) {
       accountByOCVId.put(acc.OCV_ID__c, acc);
-      casesByOCVId.put(acc.OCV_ID__c, acc.Cases);
       accountsById.put(acc.Id, acc);
+
+      Boolean caseExists = false;
+      // Check if the customer already has a Case created against the Channel SID being passed
+      for (Case existingCase : acc.Cases) {
+        if (
+          (String) existingCase.Twilio_Channel_SID__c ==
+          requestByOCVId.get(acc.OCV_ID__c).channelSID
+        ) {
+          // Customer already have a Case against the same Chat Channel
+          responseList.add(
+            generateResponse(acc.OCV_ID__c, existingCase.CaseNumber, '')
+          );
+          caseExists = true;
+          break;
+        }
+      }
+
+      // record response status against each OCV ID
+      responseStatusByOCVId.put(acc.OCV_ID__c, caseExists);
+
+      // Create a new Case linked to the customer with Channel SID, if no related Case exists
+      if (
+        !caseExists &&
+        String.isNotBlank(requestByOCVId.get(acc.OCV_ID__c).caseType)
+      ) {
+        Case newCase = new Case();
+        newCase.AccountId = acc.Id;
+        newCase.Twilio_Channel_SID__c = requestByOCVId.get(acc.OCV_ID__c)
+          .channelSID;
+        newCase.Type = requestByOCVId.get(acc.OCV_ID__c).caseType;
+        newCase.RecordTypeId = GENERAL_INQUIRY_RT_ID;
+        if (generalInquiryQueue != null) {
+          newCase.OwnerId = generalInquiryQueue.Id;
+        }
+        newCases.add(newCase);
+      }
     }
 
-    // Locate existing Cases having the Channel SID referenced (if available), or create a new one
-    Map<String, Boolean> responseStatusByOCVId = findOrCreateRelatedCases(
-      accountByOCVId,
-      casesByOCVId,
-      responseList,
-      requestByOCVId
-    );
+    // Insert new Case records to represent the Chat Topic, if there weren't any related Cases
+    createNewCases(newCases, responseStatusByOCVId, responseList);
 
     // Return Account 'External_Id__c' as the 'sfdcSearchString' if no Case was found or created
     // 'External_Id__c' is assumed to be present at all times on the Account record.
@@ -111,66 +143,6 @@ global with sharing class ChatContextService {
     RestContext.response.addHeader('Content-Type', 'application/json');
     RestContext.response.responseBody = Blob.valueOf(jsonRes);
     RestContext.response.statusCode = finalStatusCode;
-  }
-
-  /**
-   * @description Method to find or create related Case records against the Customer and Chat Topic / Channel
-   * @param accountByOCVId Account records by OCV IDs map
-   * @param casesByOCVId List of Cases by OCV ID map
-   * @param responseList list of response instances
-   * @param requestByOCVId request instances by OCV ID
-   * @return `Map<String, Boolean>` response status by OCVId
-   */
-  @SuppressWarnings('PMD.ExcessiveParameterList')
-  private static Map<String, Boolean> findOrCreateRelatedCases(
-    Map<String, Account> accountByOCVId,
-    Map<String, List<Case>> casesByOCVId,
-    List<ChatContextResponse> responseList,
-    Map<String, ChatContextRequest> requestByOCVId
-  ) {
-    Map<String, Boolean> responseStatusByOCVId = new Map<String, Boolean>();
-    List<Case> newCases = new List<Case>();
-
-    for (String ocvId : accountByOCVId.keySet()) {
-      Boolean caseExists = false;
-      // Check if the customer already has a Case created against the Channel SID being passed
-      for (Case existingCase : casesByOCVId.get(ocvId)) {
-        if (
-          (String) existingCase.Twilio_Channel_SID__c ==
-          requestByOCVId.get(ocvId).channelSID
-        ) {
-          // Customer already have a Case against the same Chat Channel
-          responseList.add(
-            generateResponse(ocvId, existingCase.CaseNumber, '')
-          );
-          caseExists = true;
-          break;
-        }
-      }
-
-      // record response status against each OCV ID
-      responseStatusByOCVId.put(ocvId, caseExists);
-
-      // Create a new Case linked to the customer with Channel SID, if no related Case exists
-      if (
-        !caseExists && String.isNotBlank(requestByOCVId.get(ocvId).caseType)
-      ) {
-        Case newCase = new Case();
-        newCase.AccountId = accountByOCVId.get(ocvId).Id;
-        newCase.Twilio_Channel_SID__c = requestByOCVId.get(ocvId).channelSID;
-        newCase.Type = requestByOCVId.get(ocvId).caseType;
-        newCase.RecordTypeId = GENERAL_INQUIRY_RT_ID;
-        if (generalInquiryQueue != null) {
-          newCase.OwnerId = generalInquiryQueue.Id;
-        }
-        newCases.add(newCase);
-      }
-    }
-
-    // Insert new Case records to represent the Chat Topic
-    createNewCases(newCases, responseStatusByOCVId, responseList);
-
-    return responseStatusByOCVId;
   }
 
   /**
@@ -251,13 +223,8 @@ global with sharing class ChatContextService {
   private static Boolean isValidRequest(ChatContextRequest chatContext) {
     Boolean isValid = false;
     //Check to make sure OCV ID and Channel ID is present
-    if (
-      String.isNotBlank(chatContext.ocvId) &&
-      String.isNotBlank(chatContext.channelSID)
-    ) {
-      isValid = true;
-    }
-    return isValid;
+    return String.isNotBlank(chatContext.ocvId) &&
+      String.isNotBlank(chatContext.channelSID);
   }
 
   /**
