@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WaveApplication xmlns="http://soap.sforce.com/2006/04/metadata">
-    <assetIcon>/analytics/wave/web/proto/images/app/icons/3.png</assetIcon>
-    <folder>ANZx_Customer_Analytics</folder>
-    <masterLabel>ANZx Customer Analytics</masterLabel>
+    <assetIcon>/analytics/wave/web/proto/images/app/icons/15.png</assetIcon>
+    <folder>Dashboards_for_Coaches</folder>
+    <masterLabel>Dashboards for Coaches</masterLabel>
     <shares>
         <accessLevel>View</accessLevel>
         <sharedTo>Coach</sharedTo>
@@ -13,4 +13,6 @@
         <sharedTo>Manager</sharedTo>
         <sharedToType>Role</sharedToType>
     </shares>
+    <templateOrigin>coaches</templateOrigin>
+    <templateVersion>1.0</templateVersion>
 </WaveApplication>

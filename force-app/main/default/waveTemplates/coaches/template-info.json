@@ -1,0 +1,22 @@
+{
+  "templateType": "app",
+  "label": "Coach Static",
+  "name": "coaches",
+  "description": "This Application loads critical static data for Coaches Reporting",
+  "assetVersion": 43,
+  "releaseInfo": {
+    "templateVersion": "1.0"
+  },
+  "icons": {
+    "appBadge": {
+      "name": "15.png"
+    }
+  },
+  "externalFiles": [
+    {
+      "file": "extFiles/caseAges.csv",
+      "name": "case_ages",
+      "type": "csv"
+    }
+  ]
+}
