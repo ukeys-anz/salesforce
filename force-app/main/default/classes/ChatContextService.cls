@@ -244,6 +244,8 @@ global with sharing class ChatContextService {
     response.success = true;
     response.statusCode = 200;
     response.sfdcSearchString = sfdcSearchString;
+    // There is one instance where we pass a message (with error details) back to Twilio as a success response.
+    // This is when Case auto-creation fails due to some reason, but still Salesforce should return the unique customer identifier instead of a new Case Number.
     response.errorMessage = errMsg;
     return response;
   }
