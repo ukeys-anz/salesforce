@@ -8605,6 +8605,10 @@
     <readable>false</readable>
   </fieldPermissions>
   <layoutAssignments>
+      <layout>Case-Bug Enquiry Layout</layout>
+      <recordType>Case.Bug_Enquiry</recordType>
+  </layoutAssignments>
+  <layoutAssignments>
       <layout>Case-Complaint Layout</layout>
       <recordType>Case.Customer_Complaint</recordType>
   </layoutAssignments>
