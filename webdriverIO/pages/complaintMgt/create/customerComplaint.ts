@@ -112,6 +112,13 @@ class CustomerComplaint extends Base {
     //lightning-accordion-section[3]/section/div[2]/slot/div[2]/div[2]/lightning-radio-group/fieldset/div/div/span[2]/label/span
   }
 
+  get systemicIssueNo() {
+    return $(
+      "//lightning-accordion-section[3]/section/div[2]/slot/div[2]/div[3]/lightning-radio-group/fieldset/div/div/span[2]/label/span"
+    );
+    //lightning-accordion-section[3]/section/div[2]/slot/div[2]/div[1]/lightning-radio-group/fieldset/div/div/span[2]/label/span
+  }
+
   get custComplaint() {
     return $("span=Customer Complaint");
   }
@@ -175,7 +182,7 @@ class CustomerComplaint extends Base {
     helpers.enterText(this.customerNumber, "1234567891");
     helpers.doClick(this.searchBtn);
     this.selectComplaintType();
-    this.selectDescentType();
+    //this.selectDescentType(); --> descent is no longer on the form
     helpers.doClick(this.priority);
     this.selectPriority();
     helpers.doClick(this.caseType);
@@ -189,6 +196,7 @@ class CustomerComplaint extends Base {
     helpers.enterText(this.custDesiredOutcome, faker.lorem.text());
     helpers.doClick(this.writtenResponseNo);
     helpers.doClick(this.complaintRelatingNo);
+    helpers.doClick(this.systemicIssueNo);
   }
 }
 
