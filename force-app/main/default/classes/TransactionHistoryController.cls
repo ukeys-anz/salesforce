@@ -31,7 +31,8 @@ public with sharing class TransactionHistoryController {
       request.setHeader('Authorization', 'Bearer ' + serializedToken);
       request.setHeader('client_id', '{!$Credential.Username}');
       request.setHeader('client_secret', '{!$Credential.Password}');
-      request.setHeader('x-correlation-id', RequestUtils.getRequestId());
+      //Todo: This needs to be replaced with uniquely generated id based on what is accepted by forge
+      //request.setHeader('x-correlation-id', RequestUtils.getRequestId());
       HTTPResponse response = null;
       try {
         Http http = new Http();
