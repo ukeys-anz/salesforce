@@ -101,10 +101,10 @@ export default class TransactionHistoryBoard extends LightningElement {
             let currentTransaction = this.fullTransactionList[i];
 
             //Remove $ from value and convert to int
-            currentTransaction.amount.charged.value = parseInt(
+            currentTransaction.amount.charged.value = parseFloat(
               currentTransaction.amount.charged.value.replace("$", ""),
               10
-            );
+            ).toFixed(2);
 
             //Remap type and status
             currentTransaction.type =
