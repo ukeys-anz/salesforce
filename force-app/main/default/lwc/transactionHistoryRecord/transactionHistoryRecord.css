@@ -1,9 +1,7 @@
 .positive-amount {
-  color: green;
-}
-
-.negative-amount {
-  color: red;
+  color: #0e8d0d;
+  font-weight: bold;
+  background-color: #e5f2e5;
 }
 
 .logo-image {
@@ -46,7 +44,7 @@ img {
 .description-tooltip {
   visibility: hidden;
   width: 30%;
-  background-color: #1c5297;
+  background-color: #18315c;
   padding: 20px;
   opacity: 0;
   transition: opacity 0.5s ease;
@@ -82,10 +80,10 @@ img {
   word-break: break-word;
 }
 
-.tag {
-  padding-right: 10px;
+.tag:nth-child(4n + 1) {
+  margin-left: 14%;
 }
 
 .map {
-  width: 55%;
+  width: 40%;
 }

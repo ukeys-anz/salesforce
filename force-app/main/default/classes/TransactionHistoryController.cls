@@ -12,18 +12,24 @@ public with sharing class TransactionHistoryController {
    *
    * @param ocvId Ocv id for which account transaction details needs to be fetched
    * @param accountNumber Account number for which we want to fetch the transactions
+   * @param nextURL Used to fetch the next lot of transactions
    * @return String
    * @exception CalloutException
    */
   @AuraEnabled(cacheable=false)
-  public static String getTransactions(String ocvId, String accountNumber) {
+  public static String getTransactions(
+    String ocvId,
+    String accountNumber,
+    String nextURL
+  ) {
     String responseBody = null;
     if (String.isNotBlank(ocvId) && String.isNotBlank(accountNumber)) {
       HttpRequest request = new HttpRequest();
       request.setEndpoint(
         'callout:SF_MS_Fabric' +
         Label.MS_Get_Transactions +
-        accountNumber
+        accountNumber +
+        nextURL
       );
 
       request.setMethod('GET');

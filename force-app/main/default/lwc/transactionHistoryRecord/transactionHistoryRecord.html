@@ -7,7 +7,9 @@
   <article class={transactionRecord.rowColour}>
     <div class="slds-grid slds-m-bottom_small">
       <div class="slds-col slds-size--1-of-7">
-        <img class="logo-image" alt="Logo" src={transactionRecord.logo} />
+        <template if:true={transactionRecord.logo}>
+          <img class="logo-image" alt="Logo" src={transactionRecord.logo} />
+        </template>
       </div>
       <div class="slds-col slds-size--1-of-7">
         <div class="slds-grid slds-form-element__label">Name</div>
@@ -29,14 +31,19 @@
         <div class="slds-grid slds-form-element__label">Amount</div>
         <div class="slds-grid">
           <template if:true={positiveAmount}>
-            <span class="positive-amount">+</span>
+            <span class="positive-amount"
+              >+$<lightning-formatted-number
+                value={amountNumber}
+              ></lightning-formatted-number
+            ></span>
           </template>
           <template if:true={negativeAmount}>
-            <span class="negative-amount">-</span>
+            <span
+              >$<lightning-formatted-number
+                value={amountNumber}
+              ></lightning-formatted-number
+            ></span>
           </template>
-          $<lightning-formatted-number
-            value={amountNumber}
-          ></lightning-formatted-number>
         </div>
       </div>
       <div class="slds-col slds-size--1-of-7">
@@ -120,13 +127,6 @@
               <div class="slds-grid">{transactionRecord.merchant.email}</div>
             </div>
           </div>
-          <div class="slds-grid slds-m-bottom_small">
-            <div class="slds-col slds-size--1-of-7"></div>
-            <div class="slds-col slds-size--1-of-7">
-              <div class="slds-grid slds-form-element__label">Is Sensitive</div>
-              <div class="slds-grid">{transactionRecord.IsSensitive}</div>
-            </div>
-          </div>
         </div>
       </template>
 
@@ -163,20 +163,22 @@
         </div>
       </template>
 
-      <template if:true={transactionRecord.cardDetails}>
+      <template if:true={transactionRecord.card}>
         <div class="transaction-section">
           <h3 class="section-title">Card Details</h3>
           <div class="slds-grid slds-m-bottom_small">
             <div class="slds-col slds-size--1-of-7"></div>
             <div class="slds-col slds-size--1-of-7">
               <div class="slds-grid slds-form-element__label">Card Scheme</div>
-              <div class="slds-grid">{transactionRecord.CardScheme}</div>
+              <div class="slds-grid">{transactionRecord.card.scheme}</div>
             </div>
             <div class="slds-col slds-size--1-of-7">
               <div class="slds-grid slds-form-element__label">
                 Card Last 4 Digits
               </div>
-              <div class="slds-grid">{transactionRecord.CardLastFour}</div>
+              <div class="slds-grid">
+                {transactionRecord.card.last_four_digits}
+              </div>
             </div>
           </div>
         </div>
@@ -186,11 +188,10 @@
         <div class="transaction-section">
           <h3 class="section-title">Tags</h3>
           <div class="slds-grid slds-m-bottom_small slds-wrap">
-            <div key={tag} class="slds-col slds-size--1-of-5"></div>
             <template for:each={transactionRecord.tagList} for:item="tag">
               <div
                 key={tag}
-                class="slds-col slds-size--1-of-5 tag slds-m-bottom_small"
+                class="slds-col slds-size--1-of-5 slds-m-bottom_small tag"
               >
                 <lightning-badge label={tag}></lightning-badge>
               </div>

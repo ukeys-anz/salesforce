@@ -27,24 +27,37 @@ const transactionTypeMapping = {
   TRANSACTION_TYPE_DEPOSIT_WITHDRAWAL: "Deposit Withdrawal",
   TRANSACTION_TYPE_TRANSFER: "Transfer",
   TRANSACTION_TYPE_PAYID: "PAYID",
-  TRANSACTION_TYPE_BSB_ACC_NUM: "BSB",
+  TRANSACTION_TYPE_BSB_ACC_NUM: "BSB/ACC",
   TRANSACTION_TYPE_BPAY: "BPAY",
   TRANSACTION_TYPE_OTHER: "Other"
+};
+
+const cardMapping = {
+  CARD_SCHEME_UNSPECIFIED: "Unknown",
+  CARD_SCHEME_VISA: "Visa",
+  CARD_SCHEME_MASTERCARD: "MasterCard",
+  CARD_SCHEME_EFTPOS: "EFTPOS",
+  CARD_SCHEME_AMERICAN_EXPRESS: "American Express"
 };
 
 export default class TransactionHistoryBoard extends LightningElement {
   @api recordId;
   fullTransactionList = [];
-  currentLimit = 10;
-  @track transactionList;
+  @track transactionList = [];
   @track showSearchBar = false;
   @track filterList = [];
   @track savedMaxIndex = 0;
   expandAll = false;
+  endDate;
+  startDate;
+  todayDate;
+  disableSearch = false;
   ocvId;
   accountNumber;
   hasError = false;
   errorMessage;
+  totalTransactions;
+  links;
 
   @wire(MessageContext)
   messageContext;
@@ -64,14 +77,25 @@ export default class TransactionHistoryBoard extends LightningElement {
   }
 
   get showLoadMore() {
-    return this.fullTransactionList.length > this.currentLimit;
+    return this.links && this.links.next ? true : false;
   }
 
-  fetchTransactions() {
-    getTransactions({ ocvId: this.ocvId, accountNumber: this.accountNumber })
+  fetchTransactions(nextUrl = "") {
+    this.todayDate = this.endDate = new Date().toISOString().slice(0, 10);
+    getTransactions({
+      ocvId: this.ocvId,
+      accountNumber: this.accountNumber,
+      nextURL: nextUrl
+    })
       .then((result) => {
         if (result) {
-          this.fullTransactionList = JSON.parse(result).transactions;
+          let response = JSON.parse(result);
+
+          this.totalTransactions = response.total;
+          this.fullTransactionList = response.transactions;
+
+          this.links = response.links;
+
           let updatedFullList = [];
           for (let i = 0; i < this.fullTransactionList.length; i++) {
             let currentTransaction = this.fullTransactionList[i];
@@ -88,10 +112,13 @@ export default class TransactionHistoryBoard extends LightningElement {
             currentTransaction.status =
               transactionStatusMapping[currentTransaction.status];
 
+            //Slice the returned date time to get only the date
             currentTransaction.TransactionDate = currentTransaction.date.slice(
               0,
               10
             );
+
+            //Return only the time from the date time
             currentTransaction.TransactionTime = currentTransaction.date.match(
               /\d\d:\d\d/
             );
@@ -157,6 +184,12 @@ export default class TransactionHistoryBoard extends LightningElement {
               }
             }
 
+            //Remap card scheme to be user friendly
+            if (currentTransaction.card) {
+              currentTransaction.card.scheme =
+                cardMapping[currentTransaction.card.scheme];
+            }
+
             //Check if international transaction
             if (
               currentTransaction.amount.type === "EXCHANGE_TYPE_INTERNATIONAL"
@@ -171,14 +204,9 @@ export default class TransactionHistoryBoard extends LightningElement {
             updatedFullList.push(currentTransaction);
           }
 
-          if (this.currentLimit >= updatedFullList.length) {
-            this.transactionList = updatedFullList;
-          } else {
-            this.transactionList = [];
-            for (let i = 0; i < this.currentLimit; i++) {
-              this.transactionList.push(updatedFullList[i]);
-            }
-          }
+          updatedFullList.forEach((e) => {
+            this.transactionList.push(e);
+          });
         }
       })
       .catch((error) => {
@@ -210,15 +238,14 @@ export default class TransactionHistoryBoard extends LightningElement {
   }
 
   handleLoadMore() {
-    this.currentLimit += 10;
-    if (this.currentLimit >= this.fullTransactionList.length) {
-      this.transactionList = this.fullTransactionList;
-    } else {
-      this.transactionList = [];
-      for (let i = 0; i < this.currentLimit; i++) {
-        this.transactionList.push(this.fullTransactionList[i]);
-      }
-    }
+    //The provided URL doesn't go through MS, so we need
+    //to retrieve the params and pass them to the Apex class
+    //and append it to the request
+    let nextSubstring = `&${this.links.next.href.substring(
+      this.links.next.href.indexOf("?") + 1
+    )}`;
+
+    this.fetchTransactions(nextSubstring);
   }
 
   handleSearchFilterToggle() {
@@ -239,6 +266,31 @@ export default class TransactionHistoryBoard extends LightningElement {
     this.expandAll = !this.expandAll;
     const payload = { expand: this.expandAll };
     publish(this.messageContext, ExpandCollapseAll, payload);
+  }
+
+  handleSearch() {
+    return true;
+  }
+
+  handleStartDateChange(e) {
+    this.startDate = e.detail.value;
+    if (this.startDate > this.endDate || this.startDate > this.todayDate) {
+      this.disableSearch = true;
+    } else {
+      this.disableSearch = false;
+    }
+  }
+
+  handleEndDateChange(e) {
+    this.endDate = e.detail.value;
+    if (
+      (this.startDate && this.endDate < this.startDate) ||
+      this.endDate > this.todayDate
+    ) {
+      this.disableSearch = true;
+    } else {
+      this.disableSearch = false;
+    }
   }
 
   //This function is required as some errors are returned

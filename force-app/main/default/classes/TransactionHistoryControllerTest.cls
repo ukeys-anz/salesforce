@@ -27,7 +27,8 @@ public with sharing class TransactionHistoryControllerTest {
     Test.startTest();
     String respBody = TransactionHistoryController.getTransactions(
       '1111',
-      '11111111'
+      '11111111',
+      ''
     );
     System.assertEquals('{"access_token":"xxxxx","expires_in":900}', respBody);
     Test.stopTest();
@@ -54,7 +55,7 @@ public with sharing class TransactionHistoryControllerTest {
 
     Test.startTest();
     try {
-      TransactionHistoryController.getTransactions('1111', '11111111');
+      TransactionHistoryController.getTransactions('1111', '11111111', '');
     } catch (Exception e) {
       expMessage = e.getMessage();
     }
@@ -83,7 +84,7 @@ public with sharing class TransactionHistoryControllerTest {
 
     Test.startTest();
     try {
-      TransactionHistoryController.getTransactions('1111', '11111111');
+      TransactionHistoryController.getTransactions('1111', '11111111', '');
     } catch (Exception e) {
       expMessage = e.getMessage();
     }
