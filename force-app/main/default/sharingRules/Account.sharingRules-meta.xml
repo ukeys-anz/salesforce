@@ -13,9 +13,9 @@
             <group>All_IDR_Users</group>
         </sharedTo>
         <criteriaItems>
-            <field>Name</field>
+            <field>AR_C_Customer__c</field>
             <operation>equals</operation>
-            <value>Complaint Entitlement Account</value>
+            <value>True</value>
         </criteriaItems>
     </sharingCriteriaRules>
 </SharingRules>
