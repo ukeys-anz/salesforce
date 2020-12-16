@@ -142,14 +142,14 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>NewCase</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>NewCase</actionName>
         <content>NewCaseAuraWrapper</content>
         <formFactor>Large</formFactor>
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>LightningComponent</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>NewCase</actionName>
+        <type>Default</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>NewCase</actionName>
@@ -200,6 +200,27 @@
     </actionOverrides>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <enableFeeds>true</enableFeeds>
+    <externalSharingModel>Private</externalSharingModel>
+    <profileSearchLayouts>
+        <fields>CASES.CASE_NUMBER</fields>
+        <fields>CASES.RECORDTYPE</fields>
+        <fields>CASES.SUBJECT</fields>
+        <fields>CASES.STATUS</fields>
+        <fields>CASES.CREATED_DATE</fields>
+        <fields>CORE.USERS.ALIAS</fields>
+        <fields>SLA_Status__c</fields>
+        <profileName>ANZ Standard User</profileName>
+    </profileSearchLayouts>
+    <profileSearchLayouts>
+        <fields>CASES.CASE_NUMBER</fields>
+        <fields>CASES.RECORDTYPE</fields>
+        <fields>CASES.SUBJECT</fields>
+        <fields>CASES.STATUS</fields>
+        <fields>CASES.CREATED_DATE</fields>
+        <fields>CORE.USERS.ALIAS</fields>
+        <fields>SLA_Status__c</fields>
+        <profileName>System Administrator</profileName>
+    </profileSearchLayouts>
     <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
     <recordTypeTrackHistory>true</recordTypeTrackHistory>
     <searchLayouts>

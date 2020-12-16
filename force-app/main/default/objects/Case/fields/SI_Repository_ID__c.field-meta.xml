@@ -3,13 +3,13 @@
     <fullName>SI_Repository_ID__c</fullName>
     <businessStatus>Active</businessStatus>
     <caseSensitive>false</caseSensitive>
-    <complianceGroup>Source_Salesforce;Integrity_Trusted;Privacy_Non_Personal_Information</complianceGroup>
+    <complianceGroup>Privacy - Non Personal Information;Source - Salesforce;Integrity - Trusted</complianceGroup>
     <description>Pre-salesforce identifier for systemic issues.</description>
     <externalId>true</externalId>
     <label>SI Repository ID</label>
     <length>255</length>
     <required>false</required>
-    <securityClassification>Confidential</securityClassification>
+    <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

@@ -62,6 +62,7 @@ import STATUS_FIELD from "@salesforce/schema/Case.Status";
 import IS_COMMON_COMPLAINT_FIELD from "@salesforce/schema/Case.IDR_Is_Common__c";
 import IS_REAL_FORM_NEED_FIELD from "@salesforce/schema/Case.IDR_Real_Form_Req__c";
 import SYSTEMIC_ISSUE_DESCRIPTION from "@salesforce/schema/Case.IDR_Systemic_Issue_Description__c";
+import SYSTEMIC_ISSUE_LOOKUP_FIELD from "@salesforce/schema/Case.IDR_Parent_Systemic_Issue__c";
 
 //Is Escalated fields
 import ESCALATED_TO from "@salesforce/schema/Case.IDR_Escalated_to__c";
@@ -144,6 +145,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   commonComplaint = IS_COMMON_COMPLAINT_FIELD;
   isRealFormNeeded = IS_REAL_FORM_NEED_FIELD;
   systemicIssueDescription = SYSTEMIC_ISSUE_DESCRIPTION;
+  SystemicIssue = SYSTEMIC_ISSUE_LOOKUP_FIELD;
 
   // escalation fields
   escalatedTo = ESCALATED_TO;
@@ -169,6 +171,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   productValue;
   showComplianceFields;
   showSections;
+  systemicIssueValue;
   isComplaintResolved;
   isComplaintEscalated;
   // future use: isComplaintOnhold;
@@ -207,6 +210,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   //initialize components
   connectedCallback() {
     this.recordType = this.recordTypeId;
+    //prepopulate the lookup when creating a new complaint from a product record page
     this.productValue =
       this.contextRecordId && this.contextRecordId.match(/01t[a-z0-9]+/i)
         ? this.contextRecordId
@@ -339,6 +343,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.description = event.detail.value;
   }
 
+  handleSystemicIssueChange(event) {
+    this.systemicIssueValue = event.detail.value[0];
+  }
+
   //form validation.
   validateFields() {
     this.loading = true;
@@ -446,6 +454,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
       const fields = event.detail.fields;
       fields[DESCRIPTION_FIELD.fieldApiName] = this.description;
       fields[PRODUCT_LOOKUP_FIELD.fieldApiName] = this.productValue;
+      fields[
+        SYSTEMIC_ISSUE_LOOKUP_FIELD.fieldApiName
+      ] = this.systemicIssueValue;
       fields[CAP_CIS_ID_FIELD.fieldApiName] = this.customerIdValue.replace(
         /^0+/,
         ""
