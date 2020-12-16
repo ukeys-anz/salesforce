@@ -206,6 +206,18 @@
       "permissionsetgroups": ["FraudX_Agent"],
       "permissionsets": [],
       "type": "user"
+    },
+    {
+      "name": "Twilio Integration User",
+      "profile": "Integration User (External Apps)",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "API_Access_Twilio",
+        "Chat_Read_Write",
+        "Enforce_mTLS"
+      ],
+      "type": "system"
     }
   ]
 }
