@@ -177,6 +177,7 @@ public with sharing class IDRCaseActions {
    * @description afterUpdate(oldMap, records) method handles the following
    * 1. Validates the case status and add them into notification list.
    * 2. Calls checkForCRCEscalation method to check if the case record needs to be sent for CRC escalation.
+   * 3. Call escalateExistingCommentsToCFMS to escalation case comments upon receiving COM IDs from CFMS
    * @param oldMap This Map<Id, SObject> contains the map which holds the previous values which can be used to check what value has changed in onAfterUpdate. Example to check if the Case Status value has changed we use the following to check record.Status != ((Case) oldMap.get(record.id)).Status
    * @param records from the trigger
    */
@@ -191,6 +192,7 @@ public with sharing class IDRCaseActions {
         checkForCRCEscalation(records.get(i));
       }
     }
+    IDRCaseCommentActions.escalateExistingCommentsToCFMS(oldMap, records);
   }
 
   /**

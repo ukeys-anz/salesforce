@@ -1936,6 +1936,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>IDR_CaseComment_Event__e.Comments__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>IDR_Notification_Event__e.AuthorisedEmail__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2391,6 +2396,15 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
         <object>IDR_CRC_Escalation_Event__e</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>IDR_CaseComment_Event__e</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
