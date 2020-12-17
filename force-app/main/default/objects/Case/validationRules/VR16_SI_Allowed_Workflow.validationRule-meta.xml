@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>VR14_SI_Allowed_Workflow</fullName>
+    <fullName>VR16_SI_Allowed_Workflow</fullName>
     <active>true</active>
     <description>Validate how systemic issues may progress in the workflow.</description>
     <errorConditionFormula>AND(
