@@ -44,16 +44,6 @@ class CustomerComplaint extends Base {
     return $("span.slds-truncate=Individual");
   }
 
-  get descent() {
-    return $(
-      "//lightning-accordion-section[1]/section/div[2]/slot/div[2]/div[2]/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div/input"
-    );
-  }
-
-  get descentTypeNo() {
-    return $("span.slds-truncate=No");
-  }
-
   get priority() {
     return $(
       "//lightning-accordion-section[2]/section/div[2]/slot/div/div[1]/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[1]/input"
@@ -153,12 +143,6 @@ class CustomerComplaint extends Base {
     helpers.doJSClick(pageElement);
   }
 
-  selectDescentType() {
-    helpers.doClick(this.descent);
-    const pageElement = $("span.slds-truncate=No");
-    helpers.doJSClick(pageElement);
-  }
-
   selectIssueType() {
     const pageElement = $(
       "//lightning-accordion-section[2]/section/div[2]/slot/div/div[3]/lightning-input-field/lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[2]/span[2]/span"
@@ -182,7 +166,6 @@ class CustomerComplaint extends Base {
     helpers.enterText(this.customerNumber, "1234567891");
     helpers.doClick(this.searchBtn);
     this.selectComplaintType();
-    //this.selectDescentType(); --> descent is no longer on the form
     helpers.doClick(this.priority);
     this.selectPriority();
     helpers.doClick(this.caseType);
