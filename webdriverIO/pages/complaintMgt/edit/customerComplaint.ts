@@ -17,7 +17,7 @@ class CustomerComplaint extends Base {
     return $("//div/div[2]/div/div/div[1]/div[2]/div/div/div/input");
   }
   get nominatedThirdStreet() {
-    return $("//div/div[2]/div/div/div[2]/div[1]/div/div/div/input");
+    return $("//div/div[2]/div/div/div[3]/div[1]/div/div/div/input");
   }
   get nominatedThirdSuburb() {
     return $("//div/div[2]/div/div/div[2]/div[2]/div/div/div/input");
@@ -29,7 +29,7 @@ class CustomerComplaint extends Base {
     return $("//div/div[2]/div/div/div[4]/div[2]/div/div/div/input");
   }
   get nominatedThirdPhone() {
-    return $("//div/div[2]/div/div/div[5]/div[1]/div/div/div/input");
+    return $("//div/div[2]/div/div/div[6]/div[1]/div/div/div/input");
   }
   get subject() {
     return $("//div/div[3]/div/div/div[8]/div/div/div/div/input");
