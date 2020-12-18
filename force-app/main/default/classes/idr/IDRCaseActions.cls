@@ -19,6 +19,12 @@ public with sharing class IDRCaseActions {
     .get('Non_Customer_Complaint')
     .getRecordTypeId();
 
+  // IDR General Inquiry record type
+  @TestVisible
+  static final Id GENERAL_INQUIRY_CMOS_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+    .get('General_Inquiry_CMOS')
+    .getRecordTypeId();
+
   @TestVisible
   private static final String OPEN_STATUS = 'Open';
   @TestVisible
@@ -65,6 +71,8 @@ public with sharing class IDRCaseActions {
   private static final String QUEUE_TYPE = 'Queue';
 
   private static final String DELETE_ERROR = 'You cannot delete cases';
+
+  private static final String CUSTOMER_NUMBER_VALIDATION_ERROR = 'This field can no longer be edited. In the event that the Customer Number is incorrect, the case must be withdrawn and a new case created with the correct Customer Number.';
 
   //IDR_Notification_Event__e for sending notifications to Notification Broker based on status.
   @TestVisible
@@ -155,6 +163,7 @@ public with sharing class IDRCaseActions {
   public static void beforeUpdate(Map<Id, SObject> oldMap, List<Case> records) {
     for (Integer i = 0; i < records.size(); i++) {
       if (isIDRComplaintType(records.get(i))) {
+        validateCaseNumber(records.get(i),(case) oldMap.get(records.get(i).id));
         handleMasking(records.get(i));
         handleAnonymousNames(records.get(i));
         identifyOwnerChangeRecords(
@@ -631,5 +640,18 @@ public with sharing class IDRCaseActions {
       }
     }
     return '';
+  }
+
+  /**
+   * @description  This method is used to restrict users from editing case number based on certain conditions
+   * @param record The actual case record from the trigger
+   * @param oldRec trigger context variable to check on old values.
+   */
+  private static void validateCaseNumber(Case record, Case oldRec) {
+    if(record.RecordTypeId == CUSTOMER_COMPLAINT_RT_ID &&
+    record.IDR_Customer_Number__c != oldRec.IDR_Customer_Number__c &&
+    oldRec.RecordTypeId != GENERAL_INQUIRY_CMOS_RT_ID) {
+      record.addError(CUSTOMER_NUMBER_VALIDATION_ERROR);
+    }
   }
 }

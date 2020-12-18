@@ -142,4 +142,30 @@ private with sharing class TestIDRCaseActions {
       'Escalation reason should be auto-escalated'
     );
   }
+  
+  @istest
+  static void testCustomerNumberValidation() {
+    Faker faker = new Faker('AU');
+    Case[] newCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
+          IDR_Customer_Number__c = String.valueOf(faker.randomInteger(10))
+        )
+      );
+    }
+    insert newCases;
+
+    for (Case c : newCases) {
+      c.IDR_Customer_Number__c = String.valueOf(faker.randomInteger(10));
+    }
+    try {
+      update newCases;
+    } catch (DMLexception e) {
+      system.assert(
+        e.getMessage().contains('This field can no longer be edited.')
+      );
+    }
+  }
 }
