@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>VR15_SI_Mandatory_Fields_If_Definite</fullName>
+    <fullName>VR13_SI_Mandatory_Fields_If_Definite</fullName>
     <active>true</active>
     <description>Additional fields are required if SI is marked as definite.</description>
     <errorConditionFormula>AND(
