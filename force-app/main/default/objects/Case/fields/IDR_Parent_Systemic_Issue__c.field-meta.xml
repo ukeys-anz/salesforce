@@ -7,7 +7,7 @@
     <description>Relates a complaint to a systemic issue.</description>
     <externalId>false</externalId>
     <label>Parent Systemic Issue</label>
-    <lookupFilter>
+<!--     <lookupFilter>
         <active>true</active>
         <errorMessage>Value does not exist or does not match filter criteria (Systemic Issue).</errorMessage>
         <filterItems>
@@ -17,7 +17,7 @@
         </filterItems>
         <infoMessage>Select a systemic issue record to link to this complaint.</infoMessage>
         <isOptional>false</isOptional>
-    </lookupFilter>
+    </lookupFilter> -->
     <referenceTo>Case</referenceTo>
     <relationshipLabel>Related Complaints</relationshipLabel>
     <relationshipName>Complaints</relationshipName>
