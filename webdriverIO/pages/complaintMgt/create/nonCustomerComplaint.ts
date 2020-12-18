@@ -153,6 +153,13 @@ class NonCustomerComplaint extends Base {
       "//lightning-accordion-section[3]/section/div[2]/slot/div[2]/div[3]/lightning-radio-group/fieldset/div/div/span[2]/label/span"
     );
   }
+
+  get AnonymousSystemicIssueNo(){
+    return $(
+      "//lightning-accordion-section[3]/section/div[2]/slot/div/div[1]/lightning-radio-group/fieldset/div/div/span[2]/label/span"
+    );
+  }
+
   get nonComplaint() {
     return $("span=Non-Customer Complaint");
   }
@@ -293,7 +300,7 @@ class NonCustomerComplaint extends Base {
     helpers.enterText(this.desiredOutcome, faker.lorem.text());
     //helpers.doClick(this.writtenResponseNo);
     // helpers.doClick(this.complaintRelatingNo);
-    helpers.doClick(this.systemicIssueNo);
+    helpers.doClick(this.AnonymousSystemicIssueNo);
   }
 }
 
