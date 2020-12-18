@@ -436,7 +436,10 @@ public with sharing class IDRCaseActions {
             Case.Origin,
             c.Origin
           ),
-          Relationship_To_Complainant__c = c.IDR_3rdParty_Relationship_To_Complainant__c
+          Relationship_To_Complainant__c = c.IDR_3rdParty_Relationship_To_Complainant__c,
+          IDR_Is_Common__c = c.IDR_Is_Common__c,
+          IDR_Systemic_Issue_Category__c = c.IDR_Systemic_Issue_Category__c,
+          IDR_Systemic_Issue_Description__c = c.IDR_Systemic_Issue_Description__c
         )
       );
     }
