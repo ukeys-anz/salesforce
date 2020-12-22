@@ -1,0 +1,205 @@
+<template>
+  <template if:true={hasError}>
+    <div data-id="error">
+      <c-error></c-error>
+    </div>
+  </template>
+
+  <template if:false={hasError}>
+    <lightning-card data-id="card-details">
+      <!-- Placeholder until we get image of actual card -->
+      <div class="card slds-m-bottom_large">
+        <span class="cardHolder" data-id="card-holder"
+          >{cardDetails.AccountHolder}</span
+        >
+        <div class="cardDetails">
+          <span class="slds-m-bottom_x-small">Card Number</span>
+          <span class="cardNumber">{cardDetails.Card_Number__c}</span>
+        </div>
+      </div>
+      <lightning-accordion
+        allow-multiple-sections-open
+        active-section-name={activeSections}
+      >
+        <lightning-accordion-section
+          name="Primary"
+          label="Primary Card Details"
+        >
+          <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size--1-of-2">
+              <div class="slds-form-element slds-form-element_readonly">
+                <span class="slds-form-element__label">Card Expiry</span>
+                <div class="slds-form-element__control">
+                  <div class="slds-form-element__static">
+                    {cardDetails.Expiry_Date__c}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="slds-col slds-size--1-of-2">
+              <div class="slds-form-element slds-form-element_readonly">
+                <span class="slds-form-element__label">Card Status</span>
+                <div class="slds-form-element__control">
+                  <div class="slds-form-element__static">
+                    {cardDetails.Card_Status__c}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="slds-col slds-size--1-of-2">
+              <div class="slds-form-element slds-form-element_readonly">
+                <span class="slds-form-element__label"
+                  >Card Activation Status</span
+                >
+                <div class="slds-form-element__control">
+                  <div class="slds-form-element__static">
+                    {cardDetails.Card_Activation_Status__c}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="slds-col slds-size--1-of-2">
+              <div class="slds-form-element slds-form-element_readonly">
+                <span class="slds-form-element__label">Card Status Reason</span>
+                <div class="slds-form-element__control">
+                  <div class="slds-form-element__static">
+                    {cardDetails.Card_Status_Reason__c}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </lightning-accordion-section>
+        <lightning-accordion-section
+          name="Additional"
+          label="Additional Card Details"
+        >
+          <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size--1-of-2">
+              <div class="slds-form-element slds-form-element_readonly">
+                <span class="slds-form-element__label">Temporary Lock</span>
+                <div class="slds-form-element__control">
+                  <div class="slds-form-element__static">
+                    {cardDetails.Temporary_Lock__c}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="slds-col slds-size--1-of-2">
+              <div class="slds-form-element slds-form-element_readonly">
+                <span class="slds-form-element__label">Daily Card Limit</span>
+                <div class="slds-form-element__control">
+                  <div class="slds-form-element__static">
+                    <lightning-formatted-number
+                      value={cardDetails.Daily_Limit__c}
+                      format-style="currency"
+                      currency-code="AUD"
+                    ></lightning-formatted-number>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="slds-col slds-size--1-of-2">
+              <div class="slds-form-element slds-form-element_readonly">
+                <span class="slds-form-element__label"
+                  >Number of Card Replacements</span
+                >
+                <div class="slds-form-element__control">
+                  <div class="slds-form-element__static">
+                    {cardDetails.Number_of_Card_Replacements__c}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="slds-col slds-size--1-of-2">
+              <div class="slds-form-element slds-form-element_readonly">
+                <span class="slds-form-element__label"
+                  >Available Amount from Daily Limit</span
+                >
+                <div class="slds-form-element__control">
+                  <div class="slds-form-element__static">
+                    <lightning-formatted-number
+                      value={cardDetails.Available_Balance__c}
+                      format-style="currency"
+                      currency-code="AUD"
+                    ></lightning-formatted-number>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="slds-col slds-size--1-of-2">
+              <div class="slds-form-element slds-form-element_readonly">
+                <span class="slds-form-element__label"
+                  >Number of Pin Failures</span
+                >
+                <div class="slds-form-element__control">
+                  <div class="slds-form-element__static">
+                    {cardDetails.Number_of_PIN_Failures__c}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="slds-col slds-size--1-of-2">
+              <div class="slds-form-element slds-form-element_readonly">
+                <span class="slds-form-element__label">Type of Limit</span>
+                <div class="slds-form-element__control">
+                  <div class="slds-form-element__static">
+                    {cardDetails.Limit_Type__c}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="slds-col slds-size--1-of-2">
+              <div class="slds-form-element slds-form-element_readonly">
+                <span class="slds-form-element__label">Date Card Closed</span>
+                <div class="slds-form-element__control">
+                  <div class="slds-form-element__static">
+                    {cardDetails.Closed_Date__c}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="slds-col slds-size--1-of-2">
+              <div class="slds-form-element slds-form-element_readonly">
+                <span class="slds-form-element__label"
+                  >Date of Last Transaction</span
+                >
+                <div class="slds-form-element__control">
+                  <div class="slds-form-element__static">
+                    {cardDetails.Last_Transaction_Processed__c}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="slds-col slds-size--1-of-2">
+              <div class="slds-form-element slds-form-element_readonly">
+                <span class="slds-form-element__label"
+                  >Number of Pin Changes</span
+                >
+                <div class="slds-form-element__control">
+                  <div class="slds-form-element__static">
+                    {cardDetails.Number_of_PIN_Changes__c}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="slds-col slds-size--1-of-2">
+              <div class="slds-form-element slds-form-element_readonly">
+                <span class="slds-form-element__label">Pin Set</span>
+                <div class="slds-form-element__control">
+                  <div class="slds-form-element__static">
+                    <input
+                      type="checkbox"
+                      checked={cardDetails.Pin_Set__c}
+                      disabled
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </lightning-accordion-section>
+      </lightning-accordion>
+    </lightning-card>
+  </template>
+</template>
