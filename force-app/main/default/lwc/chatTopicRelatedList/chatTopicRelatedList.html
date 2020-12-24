@@ -38,7 +38,7 @@
       <template if:true={totalRecordCount}>
         <div
           class="slds-card__body slds-scrollable container"
-          style="max-height: 150px; min-height: 132px"
+          style="max-height: 150px; min-height: 80px"
         >
           <table class="slds-table slds-table_cell-buffer slds-table_bordered">
             <thead>
@@ -74,7 +74,7 @@
                   </td>
                   <td data-label="Status">
                     <div class="slds-truncate" title="Status">
-                      {chatTopic.Status__c}
+                      {chatTopic.Status}
                     </div>
                   </td>
                   <td data-label="Last Activity">
@@ -117,5 +117,14 @@
         </div>
       </template>
     </article>
+    <div class="slds-grid">
+      <div class="slds-col">
+        <template if:true={showLoadMore}>
+          <button class="slds-button load-more" onclick={handleLoadMore}>
+            Load More
+          </button>
+        </template>
+      </div>
+    </div>
   </template>
 </template>

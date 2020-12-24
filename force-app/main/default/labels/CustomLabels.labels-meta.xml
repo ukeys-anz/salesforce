@@ -41,12 +41,28 @@
         <value>/anz-exp-sfdc-coach-banking-api/api/accounts</value>
     </labels>
     <labels>
+        <fullName>MS_Get_CaseChatChannel</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_CaseChatChannel</shortDescription>
+        <value>/contact-centre/v1/chat/channels/</value>
+    </labels>
+    <labels>
         <fullName>MS_Get_Customer</fullName>
         <categories>IDR</categories>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Customer</shortDescription>
         <value>/anz-exp-sfdc-customers-api/api/v1/public/customers/</value>
+    </labels>
+    <labels>
+        <fullName>MS_Get_CustomerChatChannels</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_CustomerChatChannels</shortDescription>
+        <value>/contact-centre/v1/chat/users/</value>
     </labels>
     <labels>
         <fullName>MS_Get_Transactions</fullName>

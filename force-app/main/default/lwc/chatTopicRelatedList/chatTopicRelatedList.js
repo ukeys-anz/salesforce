@@ -1,10 +1,32 @@
 import { LightningElement, api, track, wire } from "lwc";
-import getChatTopicsFromAccount from "@salesforce/apex/ChatTopicRelatedListController.getChatTopicsFromAccount";
-import getChatTopicFromCase from "@salesforce/apex/ChatTopicRelatedListController.getChatTopicFromCase";
+import getChatTopicsOnAccount from "@salesforce/apex/ChatTopicRelatedListController.getChatTopicsOnAccount";
+import getChatTopicInfoOnCase from "@salesforce/apex/ChatTopicRelatedListController.getChatTopicInfoOnCase";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { publish, MessageContext } from "lightning/messageService";
 import chatReChannel from "@salesforce/messageChannel/ReinitiateChatTopic__c";
 import chatHistoryChannel from "@salesforce/messageChannel/ViewChatTopicHistory__c";
+
+// Twilio Channel Status values
+const STATUS_ACTIVE = "active";
+const STATUS_INACTIVE = "inactive";
+const STATUS_CLOSED = "closed";
+const CHAT_FLOW_STATUS_NEW = "NEW";
+const CHAT_FLOW_STATUS_ACCEPTED = "ACCEPTED";
+const CHAT_FLOW_STATUS_RESOLVED = "RESOLVED";
+const CHAT_FLOW_STATUS_ONHOLD = "ON_HOLD";
+const CHAT_FLOW_STATUS_OPEN = "OPEN";
+const ONHOLD_REASON_CUSTOMER = "WAITING_ON_CUSTOMER";
+const ONHOLD_REASON_COACH = "WAITING_ON_COACH";
+
+// Chat Topic statuses to be displayed for Coaches
+const TOPIC_STATUS_NEW = "New";
+const TOPIC_STATUS_ACTIVE = "Active";
+const TOPIC_STATUS_RESOLVED = "Resolved";
+const TOPIC_STATUS_ONHOLD_CUSTOMER = "On Hold (customer)";
+const TOPIC_STATUS_ONHOLD_COACH = "On Hold (coach)";
+const TOPIC_STATUS_OPEN = "Open";
+const TOPIC_STATUS_CLOSED = "Closed & Archived";
+const TOPIC_STATUS_UNDEFINED = "Undefined";
 
 export default class RetrieveChatTopics extends LightningElement {
   @api recordId;
@@ -13,41 +35,57 @@ export default class RetrieveChatTopics extends LightningElement {
   @track totalRecordCount = 0; //total record count received from all retrieved records
   @track loading = true;
 
+  links;
+
   @wire(MessageContext)
   messageContext;
 
   connectedCallback() {
     if (this.objectName === "Account") {
-      this.fetchChatTopicsFromAccount();
+      this.fetchChatTopicsOnAccount();
     }
     if (this.objectName === "Case") {
-      this.fetchChatTopicsFromCase();
+      this.fetchChatTopicInfoOnCase();
     }
   }
 
-  fetchChatTopicsFromAccount() {
-    getChatTopicsFromAccount({
-      accountId: this.recordId
+  fetchChatTopicsOnAccount(nextUrl = "") {
+    getChatTopicsOnAccount({
+      accountId: this.recordId,
+      nextURL: nextUrl
     })
       .then((result) => {
-        if (result) {
-          let currentData = [];
+        console.log(result);
 
-          result.forEach((row) => {
+        if (result) {
+          let respObj = JSON.parse(result);
+
+          // To heck if there were more records that what was retrieved against the same Customer
+          this.links = respObj._links._links;
+
+          // TODO: More error handling
+
+          respObj.channels.forEach((row) => {
             let rowData = {};
-            rowData.Name = row.Name;
-            rowData.Status__c = row.Status__c;
-            rowData.LastModifiedDate = row.LastModifiedDate;
-            if (rowData.Status__c === "On Hold") {
+
+            console.log(row);
+
+            rowData.Name = row.name;
+            rowData.Status = this.resolveStatuses(row);
+            rowData.LastModifiedDate = row.lastModified;
+            rowData.ChannelSID = row.id;
+            if (
+              row.status &&
+              row.status != STATUS_CLOSED &&
+              row.chatFlowStatus === CHAT_FLOW_STATUS_ONHOLD
+            ) {
               rowData.enableReinitiate = true;
             } else {
               rowData.enableReinitiate = false;
             }
-            rowData.ChannelSID = row.Twilio_Channel_SID__c;
-            currentData.push(rowData);
+            this.data.push(rowData);
           });
-          this.data = currentData;
-          this.totalRecordCount = result.length;
+          this.totalRecordCount = this.data.length;
         }
         this.loading = false;
       })
@@ -61,8 +99,8 @@ export default class RetrieveChatTopics extends LightningElement {
       });
   }
 
-  fetchChatTopicsFromCase() {
-    getChatTopicFromCase({
+  fetchChatTopicInfoOnCase() {
+    getChatTopicInfoOnCase({
       caseId: this.recordId
     })
       .then((result) => {
@@ -72,9 +110,9 @@ export default class RetrieveChatTopics extends LightningElement {
           result.forEach((row) => {
             let rowData = {};
             rowData.Name = row.Chat_Topic__r.Name;
-            rowData.Status__c = row.Chat_Topic__r.Status__c;
+            rowData.Status = row.Chat_Topic__r.Status;
             rowData.LastModifiedDate = row.Chat_Topic__r.LastModifiedDate;
-            if (rowData.Status__c === "On Hold") {
+            if (rowData.Status === "On Hold") {
               rowData.enableReinitiate = true;
             } else {
               rowData.enableReinitiate = false;
@@ -143,5 +181,71 @@ export default class RetrieveChatTopics extends LightningElement {
       variant: theVariant
     });
     this.dispatchEvent(event);
+  }
+
+  resolveStatuses(row) {
+    let topicStatus;
+
+    if (row.status) {
+      if (row.chatFlowStatus) {
+        // IF row status is 'active'
+        if (row.status == STATUS_ACTIVE) {
+          if (row.chatFlowStatus == CHAT_FLOW_STATUS_NEW) {
+            topicStatus = TOPIC_STATUS_NEW;
+          }
+          if (row.chatFlowStatus == CHAT_FLOW_STATUS_ACCEPTED) {
+            topicStatus = TOPIC_STATUS_ACTIVE;
+          }
+          if (row.chatFlowStatus == CHAT_FLOW_STATUS_OPEN) {
+            topicStatus = TOPIC_STATUS_OPEN;
+          }
+        }
+
+        // IF row status is 'inactive'
+        if (row.status == STATUS_INACTIVE) {
+          if (row.chatFlowStatus == CHAT_FLOW_STATUS_RESOLVED) {
+            topicStatus = TOPIC_STATUS_RESOLVED;
+          }
+
+          if (
+            row.chatFlowStatus == CHAT_FLOW_STATUS_ONHOLD &&
+            row.onHoldReason
+          ) {
+            if (row.onHoldReason == ONHOLD_REASON_CUSTOMER) {
+              topicStatus = TOPIC_STATUS_ONHOLD_CUSTOMER;
+            }
+            if (row.onHoldReason == ONHOLD_REASON_COACH) {
+              topicStatus = TOPIC_STATUS_ONHOLD_COACH;
+            }
+          }
+        }
+      }
+
+      // IF row status is 'closed'
+      if (row.status == STATUS_CLOSED) {
+        topicStatus = TOPIC_STATUS_CLOSED;
+      }
+    }
+
+    // Incase if no conditions were matched
+    if (!topicStatus) {
+      topicStatus = TOPIC_STATUS_UNDEFINED;
+    }
+
+    return topicStatus;
+  }
+
+  get showLoadMore() {
+    return this.links && this.links.next ? true : false;
+  }
+
+  handleLoadMore() {
+    // Read the URL substring related to next offset (if there is a next) from the response,
+    // and pass it in the next API call
+    let nextSubstring = `?${this.links.next.substring(
+      this.links.next.indexOf("?") + 1
+    )}`;
+
+    this.fetchChatTopicsOnAccount(nextSubstring);
   }
 }
