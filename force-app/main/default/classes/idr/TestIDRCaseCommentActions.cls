@@ -82,9 +82,9 @@ private inherited sharing class TestIDRCaseCommentActions {
     }
     insert testComments;
 
-    //THEN 7 events are sent for comments on escalated cases
+    //THEN events of up to COMMENTS_PER_EVENT comments each are sent for comments on escalated cases
     System.assertEquals(
-      7,
+      Math.floor(198 / IDRCaseCommentActions.COMMENTS_PER_EVENT + 1),
       IDRCaseCommentActions.idrCaseCommentEscalationEvents.size(),
       'Only new comments on escalated cases should escalate.'
     );
@@ -105,20 +105,19 @@ private inherited sharing class TestIDRCaseCommentActions {
     }
     update testCases;
 
-    //THEN case comments events are published (up to 30 comments per event)
+    //THEN case comments events are published (no comments on different cases in the same event and up to COMMENTS_PER_EVENT comments per event)
     System.assertEquals(
-      Math.floor(Integer.valueOf(Label.Test_Bulk_Size) / 30 + 1),
+      testCases.size() *
+      (Math.floor(
+        Integer.valueOf(Label.Test_Bulk_Size) /
+        IDRCaseCommentActions.COMMENTS_PER_EVENT + 1
+      )),
       IDRCaseCommentActions.idrCaseCommentEscalationEvents.size(),
       'Exisitng comments on escalated cases should also escalate.'
     );
 
     //AND WHEN I retry
     IDRCaseCommentActions.idrCaseCommentEscalationEvents.clear();
-    System.assertEquals(
-      0,
-      IDRCaseCommentActions.idrCaseCommentEscalationEvents.size(),
-      'Events to publish should have been reset'
-    );
     Set<Id> commentIds = (new Map<Id, CaseComment>(
         [SELECT Id FROM CaseComment]
       ))
@@ -128,35 +127,13 @@ private inherited sharing class TestIDRCaseCommentActions {
 
     //THEN case comments events are republished
     System.assertEquals(
-      Math.floor(Integer.valueOf(Label.Test_Bulk_Size) / 30 + 1),
+      testCases.size() *
+      (Math.floor(
+        Integer.valueOf(Label.Test_Bulk_Size) /
+        IDRCaseCommentActions.COMMENTS_PER_EVENT + 1
+      )),
       IDRCaseCommentActions.idrCaseCommentEscalationEvents.size(),
-      'Exisitng comments on escalated cases should also escalate.'
-    );
-  }
-
-  @isTest
-  static void testSplitList() {
-    //GIVEN a big list
-    CaseComment[] bigList = new List<CaseComment>();
-    for (Integer i = 0; i < 200; i++) {
-      bigList.add(new CaseComment());
-    }
-
-    //WHEN I split it by 30
-    CaseComment[][] smallLists = IDRCaseCommentActions.splitRecordList(bigList);
-
-    //THEN I get 6 lists of 30 and one list of 20
-    for (Integer i = 0; i < 6; i++) {
-      System.assertEquals(
-        30,
-        smallLists[i].size(),
-        'Split lists should have 30 items each'
-      );
-    }
-    System.assertEquals(
-      20,
-      smallLists[6].size(),
-      'Last split list should have 20 items'
+      'All exisitng comments on escalated cases should be republished.'
     );
   }
 }
