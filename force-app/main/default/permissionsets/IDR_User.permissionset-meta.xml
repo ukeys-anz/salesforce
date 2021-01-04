@@ -203,6 +203,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.IDR_Existing_ANZ_Customer__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.IDR_Feedback_Category__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -324,6 +329,16 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.IDR_Office__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_Previously_raised_with_ANZ__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_Product_Category__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
