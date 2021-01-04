@@ -51,7 +51,7 @@ class NonCustomerComplaint extends Base {
     return $("//div/div[3]/div/div/div[1]/div[2]/div/div/div/input");
   }
   get nominatedThirdStreet() {
-    return $("//div/div[3]/div/div/div[2]/div[1]/div/div/div/input");
+    return $("//div/div[3]/div/div/div[3]/div[1]/div/div/div/input");
   }
   get nominatedThirdSuburb() {
     return $("//div/div[3]/div/div/div[2]/div[2]/div/div/div/input");
@@ -63,7 +63,7 @@ class NonCustomerComplaint extends Base {
     return $("//div/div[3]/div/div/div[4]/div[2]/div/div/div/input");
   }
   get nominatedThirdPhone() {
-    return $("//div/div[3]/div/div/div[5]/div[1]/div/div/div/input");
+    return $("//div/div[3]/div/div/div[6]/div[1]/div/div/div/input");
   }
   get productNameSearch() {
     return $('input[title="Search Products"]');
@@ -78,9 +78,6 @@ class NonCustomerComplaint extends Base {
   }
   get gender() {
     return $("//div/div[2]/div/div/div[4]/div[1]/div/div/div/div");
-  }
-  get descentList() {
-    return $("//div/div[2]/div/div/div[4]/div[2]/div/div/div/div");
   }
   get country() {
     return $("//div/div[2]/div/div/div[8]/div[2]/div/div/div/div");
@@ -113,7 +110,7 @@ class NonCustomerComplaint extends Base {
 
   /****** BUTTONS ******/
   get save() {
-    return $("//div/div[2]/button[3]");
+    return $("//div/div[3]/button[3]");
   }
 
   get editBtn() {
@@ -144,13 +141,6 @@ class NonCustomerComplaint extends Base {
 
   waitForCaseToDisplay(valueToClick: String) {
     helpers.waitAndRetry(this.refreshBtn, this.caseLink, valueToClick);
-  }
-
-  selectDescentType() {
-    const pageElement = $(
-      `a[role="menuitemradio"]=${faker.random.arrayElement(descent)}`
-    );
-    helpers.doJSClick(pageElement);
   }
 
   selectIssueType() {
@@ -184,8 +174,6 @@ class NonCustomerComplaint extends Base {
   }
 
   fillNonComplaintEditDetails() {
-    helpers.doClick(this.descentList);
-    this.selectDescentType();
     helpers.enterText(this.phone, faker.phone.phoneNumber("04########"));
     helpers.enterText(
       this.nominatedThirdName,
