@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_Previously_raised_with_ANZ__c</fullName>
+    <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate</complianceGroup>
     <description>anz.com web form field</description>
     <externalId>false</externalId>
