@@ -31,12 +31,12 @@ class NonCustomerComplaint extends Base {
   }
   get email() {
     return $(
-      "//lightning-accordion-section[1]/section/div[2]/slot/div/div[8]/lightning-input-field/lightning-input/div/input"
+      "//lightning-accordion-section[1]/section/div[2]/slot/div/div[7]/lightning-input-field/lightning-input/div/input"
     );
   }
   get mobile() {
     return $(
-      "//lightning-accordion-section[1]/section/div[2]/slot/div/div[9]/div/lightning-input-field/lightning-input/div[1]/input"
+      "//lightning-accordion-section[1]/section/div[2]/slot/div/div[8]/div/lightning-input-field/lightning-input/div/input"
     );
   }
   get phone() {
@@ -56,7 +56,7 @@ class NonCustomerComplaint extends Base {
   }
   get postcode() {
     return $(
-      "//lightning-accordion-section[1]/section/div[2]/slot/div/div[13]/lightning-input-field/lightning-input/div/input"
+      "//lightning-accordion-section[1]/section/div[2]/slot/div/div[12]/lightning-input-field/lightning-input/div/input"
     );
   }
   get description() {
@@ -86,11 +86,6 @@ class NonCustomerComplaint extends Base {
       "//lightning-accordion-section[1]/section/div[2]/slot/div/div[6]/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[1]/input"
     );
   }
-  get descent() {
-    return $(
-      "//lightning-accordion-section[1]/section/div[2]/slot/div/div[7]/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[1]/input"
-    );
-  }
   get country() {
     return $(
       "//lightning-accordion-section[1]/section/div[2]/slot/div/div[14]/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[1]/input"
@@ -98,7 +93,7 @@ class NonCustomerComplaint extends Base {
   }
   get state() {
     return $(
-      "//lightning-accordion-section[1]/section/div[2]/slot/div/div[15]/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[1]/input"
+      "//lightning-accordion-section[1]/section/div[2]/slot/div/div[14]/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[1]/input"
     );
   }
   get priority() {
@@ -153,6 +148,18 @@ class NonCustomerComplaint extends Base {
     );
   }
 
+  get systemicIssueNo(){
+    return $(
+      "//lightning-accordion-section[3]/section/div[2]/slot/div[2]/div[3]/lightning-radio-group/fieldset/div/div/span[2]/label/span"
+    );
+  }
+
+  get AnonymousSystemicIssueNo(){
+    return $(
+      "//lightning-accordion-section[3]/section/div[2]/slot/div/div[1]/lightning-radio-group/fieldset/div/div/span[2]/label/span"
+    );
+  }
+
   get nonComplaint() {
     return $("span=Non-Customer Complaint");
   }
@@ -198,12 +205,6 @@ class NonCustomerComplaint extends Base {
     helpers.doClick(
       $(`span.slds-truncate=${faker.random.arrayElement(gender)}`)
     );
-  }
-
-  selectDescentType() {
-    helpers.doClick(this.descent);
-    const pageElement = $("span.slds-truncate=No");
-    helpers.doJSClick(pageElement);
   }
 
   selectCountry() {
@@ -259,7 +260,6 @@ class NonCustomerComplaint extends Base {
     helpers.enterText(this.lastName, faker.name.lastName());
     this.selectAge();
     this.selectGender();
-    this.selectDescentType();
     helpers.enterText(this.email, faker.internet.email());
     helpers.enterText(this.mobile, faker.phone.phoneNumber("04########"));
     helpers.enterText(this.phone, faker.phone.phoneNumber("97######"));
@@ -275,6 +275,7 @@ class NonCustomerComplaint extends Base {
     helpers.enterText(this.desiredOutcome, faker.lorem.text());
     helpers.doClick(this.writtenResponseNo);
     helpers.doClick(this.complaintRelatingNo);
+    helpers.doClick(this.systemicIssueNo);
   }
 
   fillCreateAnonymousNonCustomerComplaintDetails() {
@@ -284,7 +285,6 @@ class NonCustomerComplaint extends Base {
     helpers.enterText(this.lastName, faker.name.lastName());
     this.selectAge();
     this.selectGender();
-    this.selectDescentType();
     helpers.enterText(this.email, faker.internet.email());
     helpers.enterText(this.mobile, faker.phone.phoneNumber("04########"));
     helpers.enterText(this.phone, faker.phone.phoneNumber("97######"));
@@ -300,6 +300,7 @@ class NonCustomerComplaint extends Base {
     helpers.enterText(this.desiredOutcome, faker.lorem.text());
     //helpers.doClick(this.writtenResponseNo);
     // helpers.doClick(this.complaintRelatingNo);
+    helpers.doClick(this.AnonymousSystemicIssueNo);
   }
 }
 
