@@ -16,7 +16,7 @@ mkdir ${DEPLOY_DIR}
 mkdir ${DESTRUCTIVE_DIR}
 
 # If any files have changed/been added that require a deployment, generate an artefact
-setBranchDiffCommand false false
+setBranchDiffCommand false false ${TAG_PREFIX}
 echo "Dif statement: ${DIFFSTARTCOMMAND} | ${DIFFENDCOMMAND}"
 CHANGED_FILES=$($DIFFSTARTCOMMAND | wc -w)
 echo "Number of changed files: ${CHANGED_FILES}"
@@ -27,11 +27,11 @@ if [ "${CHANGED_FILES}" -gt "0" ]; then
 fi
 
 # If any files have been deleted that need to be deleted, generate an artefact
-setBranchDiffCommand true true
+setBranchDiffCommand true true ${TAG_PREFIX}
 DELETED_FILES=$($DIFFSTARTCOMMAND | wc -l)
 echo "Number of deleted files: ${DELETED_FILES}"
 if [ "${DELETED_FILES}" -gt "0" ]; then
-    setBranchDiffCommand true false
+    setBranchDiffCommand true false ${TAG_PREFIX}
     $($DIFFSTARTCOMMAND | $DIFFENDCOMMAND)
     unzipDestructivePackage
 fi

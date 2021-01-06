@@ -15,7 +15,7 @@ fi
 [ "$GITHUB_EVENT_NAME" = "push" ] &&
    BRANCH=${SOURCE_BRANCH} ||
    BRANCH=${BASE_BRANCH}
-[ "$BRANCH" = "master" ] &&
+[ "$BRANCH" = "master" && -z "$ORG_NAME" ] &&
    ORG_NAME="systest" ||
    ORG_NAME="cmosdev"
 
