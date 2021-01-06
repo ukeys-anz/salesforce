@@ -79,24 +79,31 @@
       "type": "user"
     },
     {
+      "name": "IDR Reporting Analyst",
+      "profile": "ANZ Standard User",
+      "permissionsetgroups": ["IDR_Data_Analyst"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
       "name": "IDR Level 1",
       "profile": "ANZ Standard User",
       "permissionsetgroups": ["IDR_Level_1"],
-      "permissionsets": [],
+      "permissionsets": ["Enforce_SSO"],
       "type": "user"
     },
     {
       "name": "IDR Level 2",
       "profile": "ANZ Standard User",
       "permissionsetgroups": ["IDR_Level_2"],
-      "permissionsets": [],
+      "permissionsets": ["Enforce_SSO"],
       "type": "user"
     },
     {
       "name": "IDR Level 3",
       "profile": "ANZ Standard User",
       "permissionsetgroups": ["IDR_Level_3"],
-      "permissionsets": [],
+      "permissionsets": ["Enforce_SSO"],
       "type": "user"
     },
     {
