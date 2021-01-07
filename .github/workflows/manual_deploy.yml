@@ -13,6 +13,7 @@ jobs:
 
     env:
       BASE_BRANCH: develop
+      SOURCE_BRANCH: develop
 
     steps:
       - name: "Create auth files with SFDX_URL secret"

@@ -64,21 +64,16 @@ function unzipDestructivePackage() {
 function setBranchDiffCommand() {
     ISDESTRUCTIVE=$1
     ISCHECKCOUNT=$2
-    if [ $GITHUB_EVENT_NAME == "pull_request" ]; then
-        SOURCE_BRANCH=$BASE_BRANCH
-    elif [ -z "$SOURCE_BRANCH" ]; then
-        SOURCE_BRANCH=${GITHUB_REF##*/}
-    fi
-    [ ! -z "$3" ] &&
-        TAGPREFIX="$3" ||
-        TAGPREFIX="$SOURCE_BRANCH"
+    SOURCE_BRANCH=$3
+    TAG_PREFIX=$4
     echo "SOURCE_BRANCH: $SOURCE_BRANCH"
     echo "BASE_BRANCH: $BASE_BRANCH"
+    echo "TAG_PREFIX: $TAG_PREFIX"
     if [[ $ISDESTRUCTIVE = false ]]; then
         DIFFENDCOMMAND="xargs -0 git archive -o package.zip HEAD"
         if [[ "$SOURCE_BRANCH" = "master" || "$SOURCE_BRANCH" = "develop" || "$SOURCE_BRANCH" = "deploy" ]]; then
             echo "Delta deployment requested, commit from head to last tag"
-            DIFFSTARTCOMMAND="git diff -z --name-only --diff-filter=d $(git describe --abbrev=0 --tags --match ${TAGPREFIX}*)..HEAD  ${SOURCE_DIR}/"
+            DIFFSTARTCOMMAND="git diff -z --name-only --diff-filter=d $(git describe --abbrev=0 --tags --match ${TAG_PREFIX}*)..HEAD  ${SOURCE_DIR}/"
         else
             echo "Delta deployment requested, feature branch to ${BASE_BRANCH} branch"
             DIFFSTARTCOMMAND="git diff -z --name-only --diff-filter=d remotes/origin/${BASE_BRANCH}..remotes/origin/${SOURCE_BRANCH}  ${SOURCE_DIR}/"
@@ -86,8 +81,8 @@ function setBranchDiffCommand() {
     elif [[ $ISCHECKCOUNT = true ]]; then
         if [[ "$SOURCE_BRANCH" = "master" || "$SOURCE_BRANCH" = "develop" || "$SOURCE_BRANCH" = "deploy" ]]; then
             echo "Deletion delta deployment requested, commit from head to last master tag"
-            DIFFSTARTCOMMAND="git diff --diff-filter=D --no-renames --name-only $(git describe --abbrev=0 --tags --match ${TAGPREFIX}*)..HEAD  ${SOURCE_DIR}/"
-            DIFFENDCOMMAND="xargs -0 git archive -o destructivePackage.zip $(git describe --abbrev=0 --tags --match ${TAGPREFIX}*)"
+            DIFFSTARTCOMMAND="git diff --diff-filter=D --no-renames --name-only $(git describe --abbrev=0 --tags --match ${TAG_PREFIX}*)..HEAD  ${SOURCE_DIR}/"
+            DIFFENDCOMMAND="xargs -0 git archive -o destructivePackage.zip $(git describe --abbrev=0 --tags --match ${TAG_PREFIX}*)"
         else
             echo "Deletion delta deployment requested, feature branch to ${BASE_BRANCH} branch"
             DIFFSTARTCOMMAND="git diff --diff-filter=D --no-renames --name-only remotes/origin/${BASE_BRANCH}..origin/${SOURCE_BRANCH}  ${SOURCE_DIR}/"
@@ -96,8 +91,8 @@ function setBranchDiffCommand() {
     else
         if [[ "$SOURCE_BRANCH" = "master" || "$SOURCE_BRANCH" = "develop" || "$SOURCE_BRANCH" = "deploy" ]]; then
             echo "Deletion delta deployment requested, commit from head to last master tag"
-            DIFFSTARTCOMMAND="git diff -z --diff-filter=D --no-renames --name-only $(git describe --abbrev=0 --tags --match ${TAGPREFIX}*)..HEAD  ${SOURCE_DIR}/"
-            DIFFENDCOMMAND="xargs -0 git archive -o destructivePackage.zip $(git describe --abbrev=0 --tags --match ${TAGPREFIX}*)"
+            DIFFSTARTCOMMAND="git diff -z --diff-filter=D --no-renames --name-only $(git describe --abbrev=0 --tags --match ${TAG_PREFIX}*)..HEAD  ${SOURCE_DIR}/"
+            DIFFENDCOMMAND="xargs -0 git archive -o destructivePackage.zip $(git describe --abbrev=0 --tags --match ${TAG_PREFIX}*)"
         else
             echo "Deletion delta deployment requested, feature branch to ${BASE_BRANCH} branch"
             DIFFSTARTCOMMAND="git diff -z --diff-filter=D --no-renames --name-only remotes/origin/${BASE_BRANCH}..origin/${SOURCE_BRANCH}  ${SOURCE_DIR}/"
