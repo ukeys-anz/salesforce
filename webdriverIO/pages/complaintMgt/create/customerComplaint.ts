@@ -101,13 +101,6 @@ class CustomerComplaint extends Base {
     );
     //lightning-accordion-section[3]/section/div[2]/slot/div[2]/div[2]/lightning-radio-group/fieldset/div/div/span[2]/label/span
   }
-  
-  get systemicIssueNo() {
-    return $(
-      "//lightning-accordion-section[3]/section/div[2]/slot/div[2]/div[3]/lightning-radio-group/fieldset/div/div/span[2]/label/span"
-    );
-    //lightning-accordion-section[3]/section/div[2]/slot/div[2]/div[1]/lightning-radio-group/fieldset/div/div/span[2]/label/span
-  }
 
   get systemicIssueNo() {
     return $(
