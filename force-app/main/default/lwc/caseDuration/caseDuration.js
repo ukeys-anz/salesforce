@@ -41,90 +41,18 @@ export default class CaseDuration extends LightningElement {
         this.days = Math.floor(this.durationTime.hours / 24);
         if (this.caseStatus === "On Hold" || this.caseStatus === "Closed") {
           this.durationStop = true;
-          this.hours = this.durationTime.hours;
-          this.minutes = this.durationTime.minutes;
-
-          this.dayString =
-            this.days === 0
-              ? ""
-              : this.days === 1
-              ? `${this.days} Day `
-              : `${this.days} Days `;
-          this.hourString =
-            this.hours === 0
-              ? ""
-              : this.hours === 1
-              ? `${this.hours} Hour `
-              : `${this.hours} Hours `;
-          this.minuteString =
-            this.minutes === 0
-              ? ""
-              : this.minutes === 1
-              ? `${this.minutes} Minute`
-              : `${this.minutes} Minutes`;
-
-          if (!this.dayString && !this.hourString && !this.minuteString) {
-            this.minuteString = `${this.minutes} Minutes`;
-          }
-
-          this.durationString = `${this.dayString} ${this.hourString} ${this.minuteString}`;
+          this.handleDate(this.durationTime.hours, this.durationTime.minutes);
         } else {
           this.pulseClass = "pulsate";
           let parentThis = this;
 
           // eslint-disable-next-line @lwc/lwc/no-async-operation
           this.timeIntervalInstance = setInterval(() => {
-            let date = new Date();
-
-            date.setMinutes(parentThis.durationTime.minutes);
-            date.setHours(parentThis.durationTime.hours);
-            date.setSeconds(parentThis.totalSeconds);
-
-            parentThis.minutes = date.getMinutes();
-            parentThis.hours = date.getHours();
-
-            parentThis.dayString =
-              parentThis.days === 0
-                ? ""
-                : parentThis.days === 1
-                ? `${parentThis.days} Day `
-                : `${parentThis.days} Days `;
-            parentThis.hourString =
-              parentThis.hours === 0
-                ? ""
-                : parentThis.hours === 1
-                ? `${parentThis.hours} Hour `
-                : `${parentThis.hours} Hours `;
-            parentThis.minuteString =
-              parentThis.minutes === 0
-                ? ""
-                : parentThis.minutes === 1
-                ? `${parentThis.minutes} Minute`
-                : `${parentThis.minutes} Minutes`;
-
-            if (
-              !parentThis.dayString &&
-              !parentThis.hourString &&
-              !parentThis.minuteString
-            ) {
-              parentThis.minuteString = `${parentThis.minutes} Minutes`;
-            }
-
-            if (
-              date.getHours() === 23 &&
-              date.getMinutes() === 59 &&
-              date.getSeconds() === 59
-            ) {
-              // eslint-disable-next-line @lwc/lwc/no-async-operation
-              setTimeout(() => {
-                parentThis.dayCounter++;
-                parentThis.days += parentThis.dayCounter;
-                parentThis.durationString = `${parentThis.dayString} ${parentThis.hourString} ${parentThis.minuteString}`;
-              }, 1000);
-            } else {
-              parentThis.durationString = `${parentThis.dayString} ${parentThis.hourString} ${parentThis.minuteString}`;
-            }
-
+            this.handleDate(
+              parentThis.durationTime.hours,
+              parentThis.durationTime.minutes,
+              parentThis.totalSeconds
+            );
             parentThis.totalSeconds += 1;
           }, 1000);
         }
@@ -145,5 +73,60 @@ export default class CaseDuration extends LightningElement {
       variant: theVariant
     });
     this.dispatchEvent(event);
+  }
+
+  handleDate(hours, minutes, seconds = "") {
+    let date = new Date();
+
+    date.setMinutes(minutes);
+    date.setHours(hours);
+    if (seconds) {
+      date.setSeconds(this.totalSeconds);
+    }
+
+    this.minutes = date.getMinutes();
+    this.hours = date.getHours();
+
+    this.dayString =
+      this.days === 0
+        ? ""
+        : this.days === 1
+        ? `${this.days} Day `
+        : `${this.days} Days `;
+
+    this.hourString =
+      this.hours === 0
+        ? ""
+        : this.hours === 1
+        ? `${this.hours} Hour `
+        : `${this.hours} Hours `;
+
+    this.minuteString =
+      this.minutes === 0
+        ? ""
+        : this.minutes === 1
+        ? `${this.minutes} Minute`
+        : `${this.minutes} Minutes`;
+
+    if (!this.dayString && !this.hourString && !this.minuteString) {
+      this.minuteString = `${this.minutes} Minutes`;
+    }
+
+    this.durationString = `${this.dayString} ${this.hourString} ${this.minuteString}`;
+
+    if (this.caseStatus !== "On Hold" && this.caseStatus !== "Closed") {
+      if (
+        date.getHours() === 23 &&
+        date.getMinutes() === 59 &&
+        date.getSeconds() === 59
+      ) {
+        // eslint-disable-next-line @lwc/lwc/no-async-operation
+        setTimeout(() => {
+          this.dayCounter++;
+          this.days += this.dayCounter;
+          this.durationString = `${this.dayString} ${this.hourString} ${this.minuteString}`;
+        }, 1000);
+      }
+    }
   }
 }

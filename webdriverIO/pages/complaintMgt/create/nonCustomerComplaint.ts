@@ -41,17 +41,17 @@ class NonCustomerComplaint extends Base {
   }
   get phone() {
     return $(
-      "//lightning-accordion-section[1]/section/div[2]/slot/div/div[10]/lightning-input-field/lightning-input/div/input"
+      "//lightning-accordion-section[1]/section/div[2]/slot/div/div[9]/lightning-input-field/lightning-input/div/input"
     );
   }
   get street() {
     return $(
-      "//lightning-accordion-section[1]/section/div[2]/slot/div/div[11]/lightning-input-field/lightning-input/div/input"
+      "//lightning-accordion-section[1]/section/div[2]/slot/div/div[10]/lightning-input-field/lightning-input/div/input"
     );
   }
   get suburb() {
     return $(
-      "//lightning-accordion-section[1]/section/div[2]/slot/div/div[12]/lightning-input-field/lightning-input/div/input"
+      "//lightning-accordion-section[1]/section/div[2]/slot/div/div[11]/lightning-input-field/lightning-input/div/input"
     );
   }
   get postcode() {
@@ -88,7 +88,7 @@ class NonCustomerComplaint extends Base {
   }
   get country() {
     return $(
-      "//lightning-accordion-section[1]/section/div[2]/slot/div/div[14]/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[1]/input"
+      "//lightning-accordion-section[1]/section/div[2]/slot/div/div[13]/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[1]/input"
     );
   }
   get state() {
@@ -148,13 +148,13 @@ class NonCustomerComplaint extends Base {
     );
   }
 
-  get systemicIssueNo(){
+  get systemicIssueNo() {
     return $(
       "//lightning-accordion-section[3]/section/div[2]/slot/div[2]/div[3]/lightning-radio-group/fieldset/div/div/span[2]/label/span"
     );
   }
 
-  get AnonymousSystemicIssueNo(){
+  get AnonymousSystemicIssueNo() {
     return $(
       "//lightning-accordion-section[3]/section/div[2]/slot/div/div[1]/lightning-radio-group/fieldset/div/div/span[2]/label/span"
     );

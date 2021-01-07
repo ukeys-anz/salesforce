@@ -15,8 +15,8 @@ export const age = [
 ];
 
 export const gender = [
-  "Male", 
-  "Female", 
+  "Male",
+  "Female",
   "Non-Binary",
   "Not applicable (Small business)"
 ];

@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted;Privacy - Personal Information</complianceGroup>
     <description>Email of the customer owning the account</description>
+    <inlineHelpText>Customer&apos;s Registered email</inlineHelpText>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
 </CustomField>

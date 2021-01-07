@@ -23,11 +23,11 @@
                 <field>Fixes__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Required</behavior>
                 <field>Version__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Required</behavior>
                 <field>Release_Date__c</field>
             </layoutItems>
             <layoutItems>

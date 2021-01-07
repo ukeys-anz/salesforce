@@ -25,13 +25,13 @@
         <value>/account-details-api-sandbox/api/accountbalance?ocvid=</value>
     </labels>
     <labels>
-      <fullName>MS_Forge_Token</fullName>
-      <categories>MS</categories>
-      <language>en_US</language>
-      <protected>false</protected>
-      <shortDescription>MS_Forge_Token</shortDescription>
-      <value>/anz-sys-forge-oauth-api/api/token</value>
-  </labels>
+        <fullName>MS_Forge_Token</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Forge_Token</shortDescription>
+        <value>/anz-sys-forge-oauth-api/api/v1/token</value>
+    </labels>
     <labels>
         <fullName>MS_Get_Accounts_Goals</fullName>
         <categories>MS</categories>
@@ -47,6 +47,14 @@
         <protected>false</protected>
         <shortDescription>MS_Get_Customer</shortDescription>
         <value>/anz-exp-sfdc-customers-api/api/v1/public/customers/</value>
+    </labels>
+    <labels>
+        <fullName>MS_Get_Transactions</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_Transactions</shortDescription>
+        <value>/anz-exp-sfdc-coach-banking-api/api/transactions?accountnumber=</value>
     </labels>
     <labels>
         <fullName>Test_Bulk_Size</fullName>

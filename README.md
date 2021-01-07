@@ -47,6 +47,8 @@ sfdx force:auth:web:login -r https://anz.my.salesforce.com -a DevHub -d
 
 There is a pre-written shell script, so to create a scratch org run:
 
+Note: You may need to run `npm install --force` prior to running the script to ensure that the dev dependancies are installed on your machine.
+
 ```bash
 ./setup.sh
 ```

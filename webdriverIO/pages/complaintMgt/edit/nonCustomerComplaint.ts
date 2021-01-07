@@ -1,7 +1,6 @@
 import Base from "../../base";
 import helpers from "../../../utilities/helpers";
 import * as faker from "faker";
-import { descent } from "../../../pages/complaintMgt/common/nonCustomerComplaint";
 
 /**
  * Handles the Non Customer Complaint record type fields on Complaints Mgt during edit
@@ -57,7 +56,7 @@ class NonCustomerComplaint extends Base {
     return $("//div/div[3]/div/div/div[2]/div[2]/div/div/div/input");
   }
   get nominatedThirdPostcode() {
-    return $("//div/div[3]/div/div/div[3]/div[1]/div/div/div/input");
+    return $("//div/div[3]/div/div/div[4]/div[1]/div/div/div/input");
   }
   get nominatedThirdMobile() {
     return $("//div/div[3]/div/div/div[4]/div[2]/div/div/div/input");

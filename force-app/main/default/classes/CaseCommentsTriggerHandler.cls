@@ -57,4 +57,11 @@ public with sharing class CaseCommentsTriggerHandler extends Lib_TriggerHandler 
   public override void onBeforeInsert() {
     CaseCommentsCommonActions.blockInsertsBasedOnUserRole(records);
   }
+
+  /**
+   * @description onAfterInsert to perform processing during the after insert phase
+   */
+  public override void onAfterInsert() {
+    IDRCaseCommentActions.escalateNewCommentsToCFMS(records);
+  }
 }

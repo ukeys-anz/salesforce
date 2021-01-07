@@ -655,7 +655,7 @@ private class TestCaseTriggerHandler {
       newCases.add(
         new Case(
           Related_Bug__c = bugId,
-          RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
+          RecordTypeId = GetHelpCaseActions.BUG_RT_ID,
           AccountId = accountId
         )
       );
@@ -690,7 +690,7 @@ private class TestCaseTriggerHandler {
       newCases.add(
         new Case(
           Related_Bug__c = bugId,
-          RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
+          RecordTypeId = GetHelpCaseActions.BUG_RT_ID,
           AccountId = accountId
         )
       );
@@ -698,7 +698,7 @@ private class TestCaseTriggerHandler {
     insert newCases;
 
     Case updateCase = new Case(
-      RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
+      RecordTypeId = GetHelpCaseActions.BUG_RT_ID,
       AccountId = accountId
     );
     insert updateCase;

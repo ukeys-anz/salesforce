@@ -11,7 +11,6 @@ public with sharing class GetHelpCaseActions {
   public static final Id GENERAL_INQUIRY_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('General_Inquiry')
     .getRecordTypeId();
-
   public static final Id FRAUD_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('Fraud')
     .getRecordTypeId();
@@ -23,6 +22,9 @@ public with sharing class GetHelpCaseActions {
     .getRecordTypeId();
   public static final Id SCAM_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('Scam')
+    .getRecordTypeId();
+  public static final Id BUG_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+    .get('Bug_Enquiry')
     .getRecordTypeId();
   @TestVisible
   public static final List<Id> FRAUD_RT_IDS = new List<Id>{
@@ -292,12 +294,12 @@ public with sharing class GetHelpCaseActions {
   ) {
     Set<Id> bugIdSet = new Set<Id>();
     for (Case c : records) {
-      if (c.Related_Bug__c != null && c.RecordTypeId == GENERAL_INQUIRY_RT_ID) {
+      if (c.Related_Bug__c != null && c.RecordTypeId == BUG_RT_ID) {
         bugIdSet.add(c.Related_Bug__c);
       }
     }
     for (Case c : oldRecords) {
-      if (c.Related_Bug__c != null && c.RecordTypeId == GENERAL_INQUIRY_RT_ID) {
+      if (c.Related_Bug__c != null && c.RecordTypeId == BUG_RT_ID) {
         bugIdSet.add(c.Related_Bug__c);
       }
     }

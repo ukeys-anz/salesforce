@@ -66,6 +66,15 @@
     <isNavPersonalizationDisabled>true</isNavPersonalizationDisabled>
     <label>Coaches Console</label>
     <navType>Console</navType>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Bug_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Case</pageOrSobjectType>
+        <recordType>Case.Bug_Enquiry</recordType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard User</profile>
+    </profileActionOverrides>
     <tabs>standard-home</tabs>
     <tabs>standard-Account</tabs>
     <tabs>standard-Case</tabs>

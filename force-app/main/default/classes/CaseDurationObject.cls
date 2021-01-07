@@ -87,7 +87,7 @@ public with sharing class CaseDurationObject {
     history.add(
       new CaseHistoryObject(
         !caseHistory.isEmpty()
-          ? (String) caseHistory[0].OldValue
+          ? (String) caseHistory[caseHistory.size() - 1].OldValue
           : record.Status,
         record.CreatedDate,
         lastDateTime,
