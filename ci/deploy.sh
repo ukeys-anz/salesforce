@@ -6,18 +6,21 @@ source ci/helper.sh
 # from a different agent from package
 
 # Determine which org to set as the target
-if [ $GITHUB_EVENT_NAME == "pull_request" ]; then
-   SOURCE_BRANCH=$BASE_BRANCH
-else
+[ $GITHUB_EVENT_NAME == "pull_request" ] &&
+   SOURCE_BRANCH=$BASE_BRANCH ||
    SOURCE_BRANCH=${GITHUB_REF##*/}
-fi
 
+# Determine which branch to use to determine the destination
 [ "$GITHUB_EVENT_NAME" = "push" ] &&
    BRANCH=${SOURCE_BRANCH} ||
    BRANCH=${BASE_BRANCH}
-[ "$BRANCH" = "master" && -z "$ORG_NAME" ] &&
-   ORG_NAME="systest" ||
-   ORG_NAME="cmosdev"
+
+# Set the target org if one hasn't already been set
+if [ -z "$ORG_NAME" ]; then
+   [ "$BRANCH" = "master" ] &&
+      ORG_NAME="systest" ||
+      ORG_NAME="cmosdev"
+fi
 
 # Only run this step if there is an artifact
 if [ -d "artefact" ]; then
