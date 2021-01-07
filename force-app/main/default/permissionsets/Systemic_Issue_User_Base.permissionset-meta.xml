@@ -51,6 +51,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.SI_Assigned_to_Portfolios__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.SI_COR_ID_Record__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -101,6 +106,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.SI_Key_Business_Contacts__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.SI_Potential_Consequence_to_Customer__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -112,6 +122,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.SI_Rec_Rem_Actions__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.SI_Relevant_Tribes__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

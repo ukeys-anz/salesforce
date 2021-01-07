@@ -87,6 +87,93 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>SI_Assigned_to_Portfolios__c</picklist>
+        <values>
+            <fullName>AMU %26 Collections</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>APRA Home Loans</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Lending Tribe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Owners Portfolio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial %26 Consumer Cards and Personal Lending %28CCPL%29 Tribe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Resolution Portfolio %28CRP%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Service Operations %28CSO%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Deposits Tribe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Digital Portfolio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Digital Sales Experience Tribe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Group Payments</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Group Payments Tribe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Loans Tribe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Owners Tribe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Payments %26 Merchant Tribe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Private Banking %26 Advice %28PB%26A%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Responsible Banking Portfolio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retail Governance %26 Operational Governance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Systemic Issues</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wealth Tribe</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>SI_Definite_Action_Required__c</picklist>
         <values>
             <fullName>1</fullName>
@@ -156,6 +243,285 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>SI_Key_Business_Contacts__c</picklist>
+        <values>
+            <fullName>Adrian%2EKennedy%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Aisea%2EFilihia%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Alia%2EAyoub%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Alissia%2EWatt%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Amy%2EComben%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Andrew%2EBeck%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Areti%2ERapakousios%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ashish%2EPandeyMel%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Caitlin%2ERudorfer%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Christine%2EBui%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Christopher%2EFox%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Clement%2EYeung%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Craig%2EBrooke%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Darren%2ECaudell%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Darren%2EKeyte%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Darren%2ELaPonder%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>David%2EKerr%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>David%2ESagato%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dean%2EFaglioni%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Edward%2ETawil%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Elizabeth%2EFeldmann%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Elizabeth%2EHouteas%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Felicity%2EHanger%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Gopika%2ENieroshan%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Greta%2EChan%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hong%2ELe%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Isabelle%2EThomson%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Jacobus%2EBriers%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Jacqulyn%2EKelaart%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Jason%2EChiu%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Jhan%2ESvoboda%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Jo%2EHam%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Joanne%2EQuek%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Justin%2ETang%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Katrien%2EvanDerSpiegel%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Kelly%2EHolland%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Kim%2EPearson%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Kylee%2EMillis%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lawrence%2EVirgo%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lee%2EWells%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Leo%2EChan%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Luke%2EManning%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manjushree%2EDatar2%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marco%2EPagliaro%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Maria%2ESerrano2%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mark%2ECole2%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Martin%2EAnderson%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Matt%2EJordan%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Maya%2EAugustus%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Meagan%2EWhiteman%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Michael%2EShurlin%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Neena%2EMitchell%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nicolette%2EBall%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nosheen%2ESarwar%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Patrizia%2ETorres%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Penny%2EStephens%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Phil%2ECvetanovski%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rachel%2EMacKenzie%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Robert%2EHarris%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rose%2ESchupak%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Samantha%2EO%27Neill%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sarah%2EClark%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Stephen%2EHill%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Swati%2EJain2%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Swetha%2EChaparala%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tegan%2EBronkhorst%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Zoe%2EFlannery%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>assurancecoe_comm%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>joe%2Eskinner%40anz%2Ecom</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>SI_Potential_Consequence_to_Customer__c</picklist>
         <values>
             <fullName>1</fullName>
@@ -194,6 +560,93 @@
         </values>
         <values>
             <fullName>3</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>SI_Relevant_Tribes__c</picklist>
+        <values>
+            <fullName>AMU %26 Collections</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>APRA Home Loans</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Lending Tribe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Owners Portfolio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial %26 Consumer Cards and Personal Lending %28CCPL%29 Tribe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Resolution Portfolio %28CRP%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Service Operations %28CSO%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Deposits Tribe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Digital Portfolio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Digital Sales Experience Tribe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Group Payments</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Group Payments Tribe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Loans Tribe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Owners Tribe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Payments %26 Merchant Tribe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Private Banking %26 Advice %28PB%26A%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Responsible Banking Portfolio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retail Governance %26 Operational Governance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Systemic Issues</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wealth Tribe</fullName>
             <default>false</default>
         </values>
     </picklistValues>
