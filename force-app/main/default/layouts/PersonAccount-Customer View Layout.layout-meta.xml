@@ -152,8 +152,8 @@
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>FinServ__MailingAddress__pc</field>
+                <behavior>Edit</behavior>
+                <field>PersonOtherAddress</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
