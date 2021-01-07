@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR01_Prevent_updates_after_send</fullName>
+    <active>true</active>
+    <errorConditionFormula>TEXT(PRIORVALUE( IDR_Status__c)) = &apos;Sent&apos;</errorConditionFormula>
+    <errorMessage>This Letter / Email has alreday been sent</errorMessage>
+</ValidationRule>

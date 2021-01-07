@@ -2,12 +2,12 @@ public class CreateCommsController {
    @auraEnabled
     public static list<string> getTemplateList(){
        list<string> returnList = new list<string>();
-        list<Template_Detail__c> templatedetails = new list<Template_Detail__c>();
-        templatedetails = [Select Id, Template__c from Template_Detail__c];
+        list<IDR_Template_Detail__c> templatedetails = new list<IDR_Template_Detail__c>();
+        templatedetails = [Select Id, IDR_Template__c from IDR_Template_Detail__c];
         set<string> uniqueTemplateNames = new set<string>();
-        for(Template_Detail__c td : templatedetails){
-            system.debug('td:'+td.Template__c);
-           uniqueTemplateNames.add(td.Template__c); 
+        for(IDR_Template_Detail__c td : templatedetails){
+            system.debug('td:'+td.IDR_Template__c);
+           uniqueTemplateNames.add(td.IDR_Template__c); 
         }
         for(string templateName :uniqueTemplateNames){
             returnlist.add(templateName);
@@ -15,55 +15,106 @@ public class CreateCommsController {
         return returnlist; 
     }
     @auraEnabled
-    public static list<CreateCommsData.TemplateFieldsData> fetchTemplateFields(string template){
+    public static list<CreateCommsData.TemplateFieldsData> fetchTemplateFields(string template, string caseId){
+        system.debug('caseId:'+caseId);
         list<CreateCommsData.TemplateFieldsData> returnFieldList = new list<CreateCommsData.TemplateFieldsData>();
-        list<Template_Detail__c> templatedetails = new list<Template_Detail__c>();
-        templatedetails = [Select Id,Template_Field_Name__c,Field_Description__c from Template_Detail__c where Template__c=:template and Is_Free_Text__c = true order by Sort_order__c];
-         for(Template_Detail__c td : templatedetails){
+        list<IDR_Template_Detail__c> templatedetails = new list<IDR_Template_Detail__c>();
+        templatedetails = [Select Id,IDR_Template_Field_Name__c,IDR_Field_Description__c,IDR_Case_Field_Name__c from IDR_Template_Detail__c where IDR_Template__c=:template and IDR_Is_Free_Text__c = true order by IDR_sort_order__c];
+        string caseQuery = '';
+
+        for (IDR_Template_Detail__c td : templatedetails ){  
+            if (string.isNotBlank(td.IDR_Case_Field_Name__c)){
+            if (string.isBlank(caseQuery)){
+                caseQuery = 'Select '+ td.IDR_Case_Field_Name__c;
+            }else{
+                caseQuery += ', ' +td.IDR_Case_Field_Name__c;
+            }
+            }
+        }
+        case parentCase = new case();
+        if(string.isNotBlank(caseQuery)){
+            caseQuery += ' From Case where Id = :CaseId LIMIT 1';    
+            system.debug('caseQuery:'+caseQuery);
+            parentCase = Database.query(caseQuery);
+        }
+       for(IDR_Template_Detail__c td : templatedetails){
            CreateCommsData.TemplateFieldsData singleFieldData = new CreateCommsData.TemplateFieldsData();
-           singleFieldData.fieldLabel = td.Template_Field_Name__c;
-           singleFieldData.fieldValue = '';
+           string caseValue = '';
+           if(string.isNotBlank(td.IDR_Case_Field_Name__c)){
+              caseValue = getValueFromCaseMap(td.IDR_Case_Field_Name__c,parentCase); 
+           }    
+           singleFieldData.fieldLabel = td.IDR_Template_Field_Name__c;
+           singleFieldData.fieldValue = caseValue;
            singleFieldData.fieldId = td.id;
-           singleFieldData.fieldDesc = td.Field_Description__c;
+           singleFieldData.fieldDesc = td.IDR_Field_Description__c;
            returnFieldList.add(singleFieldData); 
         }
         return returnFieldList;
     }
+    public static string getValueFromCaseMap (string fieldName , case caseRec){
+        string fieldValue = '';
+         // if we are trying to retrieve lookup fields we cannot directly get the field.
+         // receiving error when trying to get Owner.Name: Cannot get 'Owner.Name' from case;
+         if(fieldName.contains('.')){
+                    list<string> fieldPath = fieldName.split('\\.');
+                    system.debug('fieldPath:'+fieldPath);
+                    // convert the query result to a JSON; as we cannot directly type cast it to Map<string, Object>
+                     string jsonstring = JSON.serialize(caseRec, true);
+                    //now type cast the string into Map<string,Object>
+      				 Map<String, Object> obj = (Map<String, Object>) JSON.deserializeUntyped(jsonstring);
+                     Map<string,object> childObj = obj;
+                     integer i = 1;
+                    // flow down the fieldPath for example => Owner.Name; get owner object then Name.
+                     for(string st : fieldPath){
+                        system.debug('st:'+st);
+                         //final value should be string of data ( example Name);
+                         if(i==fieldPath.size()){
+                             fieldValue = (string)childObj.get(st);
+                         }else{
+                            childObj = (Map<String, Object>)childObj.get(st);
+                             i++;
+                         }        
+                     }
+                }else{
+                    fieldValue= (string)caseRec.get(fieldName);
+                }
+        return fieldValue;
+    }
     @auraEnabled
     public static string  createComms(string caseId, boolean isEmail , boolean isLetter ,string template , list<object> lineItems){
         system.debug('caseId:'+caseId);
-        Letter_Approval__c caseComms = new Letter_Approval__c ();
-        caseComms.Send_As_Email__c  = isEmail;
-        caseComms.Send_As_Letter__c  = isLetter;
-        caseComms.case__c = caseId ;
-        caseComms.Template_Name__c = template;
-        caseComms.Status__c = 'Submitted';  
+        IDR_Letter_Approval__c caseComms = new IDR_Letter_Approval__c ();
+        caseComms.IDR_Send_As_Email__c  = isEmail;
+        caseComms.IDR_Send_As_Letter__c  = isLetter;
+        caseComms.IDR_case__c = caseId ;
+        caseComms.IDR_Template_Name__c = template;
+        caseComms.IDR_Status__c = 'Submitted';  
         if(lineItems.size()==0){
-            caseComms.Auto_Approve__c = true;
+            caseComms.IDR_Auto_Approve__c = true;
         }
         insert caseComms;
         
-        list<Letter_Approval_Details__c> commsLineItemsList = new list<Letter_Approval_Details__c>();
+        list<IDR_Letter_Approval_Details__c> commsLineItemsList = new list<IDR_Letter_Approval_Details__c>();
         for(object o : lineItems){
             Map<object,object> fieldList = (Map<object,object>)o;
             system.debug('fieldList:'+fieldList);
-            Letter_Approval_Details__c commsLineItem = new Letter_Approval_Details__c( Letter_Approval__c = caseComms.Id);
+            IDR_Letter_Approval_Details__c commsLineItem = new IDR_Letter_Approval_Details__c( IDR_Letter_Approval__c = caseComms.Id);
             for(object key : fieldList.keyset()){
                 if((string)key =='fieldLabel'){
                     commsLineItem.Name = (string)fieldList.get(key);
-                    commsLineItem.Field_Name__c = (string)fieldList.get(key);
+                    commsLineItem.IDR_Field_Name__c = (string)fieldList.get(key);
                 }else if ((string)key =='fieldValue'){
-                    commsLineItem.Value__c	 = (string)fieldList.get(key);
+                    commsLineItem.IDR_Value__c	 = (string)fieldList.get(key);
                 }else if ((string)key == 'fieldDesc'){
                    // commsLineItem.Description__c = (string)fieldList.get(key);
                 }              
             }
           	commsLineItemsList.add(commsLineItem);
         }
-        list<Letter_Approval_Details__c> caseDataItems = getCommsDataFromCase(template, caseId);
+        list<IDR_Letter_Approval_Details__c> caseDataItems = getCommsDataFromCase(template, caseId);
         
-        for (Letter_Approval_Details__c item : caseDataItems){
-            item.Letter_Approval__c = caseComms.Id;
+        for (IDR_Letter_Approval_Details__c item : caseDataItems){
+            item.IDR_Letter_Approval__c = caseComms.Id;
             commsLineItemsList.add(item);
         }  
         
@@ -75,19 +126,19 @@ public class CreateCommsController {
         return caseComms.Id;
     }
     
-    public static list<Letter_Approval_Details__c> getCommsDataFromCase(string template , string caseId){
-        list<Letter_Approval_Details__c> caseDataItems = new list<Letter_Approval_Details__c>();
-        list<Template_Detail__c> templatedetails = new list<Template_Detail__c>();
-        templatedetails = [Select Id,Template_Field_Name__c, Case_Field_Name__c from Template_Detail__c where Template__c =:template and Is_Free_Text__c = false];
+    public static list<IDR_Letter_Approval_Details__c> getCommsDataFromCase(string template , string caseId){
+        list<IDR_Letter_Approval_Details__c> caseDataItems = new list<IDR_Letter_Approval_Details__c>();
+        list<IDR_Template_Detail__c> templatedetails = new list<IDR_Template_Detail__c>();
+        templatedetails = [Select Id,IDR_Template_Field_Name__c, IDR_Case_Field_Name__c from IDR_Template_Detail__c where IDR_Template__c =:template and IDR_Is_Free_Text__c = false];
         
         string caseQuery = '';
 
-        for (Template_Detail__c td : templatedetails ){
+        for (IDR_Template_Detail__c td : templatedetails ){
            
             if (string.isBlank(caseQuery)){
-                caseQuery = 'Select '+ td.Case_Field_Name__c;
+                caseQuery = 'Select '+ td.IDR_Case_Field_Name__c;
             }else{
-                caseQuery += ', ' +td.Case_Field_Name__c;
+                caseQuery += ', ' +td.IDR_Case_Field_Name__c;
             }
         }
         
@@ -97,38 +148,12 @@ public class CreateCommsController {
             system.debug('caseQuery:'+caseQuery);
             case parentCase = new case();
             parentCase = Database.query(caseQuery);
-            for (Template_Detail__c td : templatedetails ){
-                Letter_Approval_Details__c item = new Letter_Approval_Details__c();
-                item.Name = td.Template_Field_Name__c;
-                item.Field_Name__c = td.Template_Field_Name__c;
-                string itemValue = '';
-                system.debug('td.Case_Field_Name__c:'+td.Case_Field_Name__c);
-                // if we are trying to retrieve lookup fields we cannot directly get the field.
-                // receiving error when trying to get Owner.Name: Cannot get 'Owner.Name' from case;
-                if(td.Case_Field_Name__c.contains('.')){
-                    list<string> fieldPath = td.Case_Field_Name__c.split('\\.');
-                    system.debug('fieldPath:'+fieldPath);
-                    // convert the query result to a JSON; as we cannot directly type cast it to Map<string, Object>
-                     string jsonstring = JSON.serialize(parentCase, true);
-                    //now type cast the string into Map<string,Object>
-      				 Map<String, Object> obj = (Map<String, Object>) JSON.deserializeUntyped(jsonstring);
-                     Map<string,object> childObj = obj;
-                     integer i = 1;
-                    // flow down the fieldPath for example => Owner.Name; get owner object then Name.
-                     for(string st : fieldPath){
-                        system.debug('st:'+st);
-                         //final value should be string of data ( example Name);
-                         if(i==fieldPath.size()){
-                             itemValue = (string)childObj.get(st);
-                         }else{
-                            childObj = (Map<String, Object>)childObj.get(st);
-                             i++;
-                         }        
-                     }
-                }else{
-                    itemValue= (string)parentCase.get(td.Case_Field_Name__c);
-                }
-                item.Value__c =  itemValue;
+            for (IDR_Template_Detail__c td : templatedetails ){
+                IDR_Letter_Approval_Details__c item = new IDR_Letter_Approval_Details__c();
+                item.Name = td.IDR_Template_Field_Name__c;
+                item.IDR_Field_Name__c = td.IDR_Template_Field_Name__c;
+                string itemValue = getValueFromCaseMap(td.IDR_Case_Field_Name__c,parentCase);      
+                item.IDR_Value__c =  itemValue;
                 
                 caseDataItems.add(item);
             }
@@ -136,7 +161,7 @@ public class CreateCommsController {
         return caseDataItems;
     }
     
-    public static void submitCommsForApproval(Letter_Approval__c caseComms, Id CaseId){
+    public static void submitCommsForApproval(IDR_Letter_Approval__c caseComms, Id CaseId){
         	case c = [Select OwnerId from Case where id=:CaseId];
         	List<Id> approver = new list<Id> ();
         	approver.add(c.OwnerId);

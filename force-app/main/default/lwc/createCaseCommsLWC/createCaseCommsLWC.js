@@ -69,7 +69,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
         this.template = event.detail.value;
         this.showSuccess = false;
         console.log('template:' + this.template);
-        fetchTemplateFields({template: this.template})
+        fetchTemplateFields({template: this.template, caseId: this.recordId})
         .then((result) => {
             let data = result;    
             console.log('data:'+JSON.stringify(data)); 
@@ -77,7 +77,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
             this.fieldData = data;
             this.lineItemList = [];
             for(let i =0 ; i<data.length ; i++){
-               this.lineItemList.push({fieldDesc: data[i].fieldDesc ,fieldLabel : data[i].fieldLabel , fieldValue: '' , fieldId: '' }) ;
+               this.lineItemList.push({fieldDesc: data[i].fieldDesc ,fieldLabel : data[i].fieldLabel , fieldValue: data[i].fieldValue , fieldId: '' }) ;
             }
             this.showTemplateDetails = true;
         })
