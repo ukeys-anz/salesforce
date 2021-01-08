@@ -47,7 +47,7 @@ describe("c-pageBackgroundModal", () => {
         const div = element.shadowRoot.querySelector(
           "div[data-id='modal-message']"
         );
-        expect(div.textContent).toBe("An internal server error has occurred TEST");
+        expect(div.textContent).toBe("An internal server error has occurred");
       });
     });
 
