@@ -209,6 +209,8 @@
         <fields>CASES.CREATED_DATE</fields>
         <fields>CORE.USERS.ALIAS</fields>
         <fields>SLA_Status__c</fields>
+        <fields>IDR_NC_First_Name__c</fields>
+        <fields>IDR_NC_Last_Name__c</fields>
         <profileName>ANZ Standard User</profileName>
     </profileSearchLayouts>
     <profileSearchLayouts>
@@ -219,6 +221,8 @@
         <fields>CASES.CREATED_DATE</fields>
         <fields>CORE.USERS.ALIAS</fields>
         <fields>SLA_Status__c</fields>
+        <fields>IDR_NC_First_Name__c</fields>
+        <fields>IDR_NC_Last_Name__c</fields>
         <profileName>System Administrator</profileName>
     </profileSearchLayouts>
     <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
