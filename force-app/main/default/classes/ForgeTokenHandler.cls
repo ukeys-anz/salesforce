@@ -51,8 +51,8 @@ public with sharing class ForgeTokenHandler {
     request.setHeader('Authorization', 'Bearer ' + idToken);
 
     request.setMethod('POST');
-    //This needs to be replaced with uniquely generated id from Salesforce
-    request.setHeader('x-correlation-id', RequestUtils.getRequestId());
+    //Todo: This needs to be replaced with uniquely generated id based on what is accepted by forge
+    //request.setHeader('x-correlation-id', RequestUtils.getRequestId());
 
     request.setHeader('Content-Type', 'application/x-www-form-urlencoded');
     String payload =

@@ -15,7 +15,7 @@ RUN sfdx --version
 RUN sfdx plugins --core
 
 # install pmd
-ENV PMD_VERSION 6.22.0
+ENV PMD_VERSION 6.29.0
 
 RUN mkdir -p /opt
 

@@ -80,6 +80,13 @@
       "type": "user"
     },
     {
+      "name": "IDR Reporting Analyst",
+      "profile": "ANZ Standard User",
+      "permissionsetgroups": ["IDR_Data_Analyst"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
       "name": "IDR Level 1",
       "profile": "ANZ Standard User",
       "permissionsetgroups": ["IDR_Level_1"],
@@ -218,9 +225,21 @@
     {
       "name": "FraudX Agent",
       "profile": "ANZx Standard User",
-      "permissionsetgroups": ["FraudX Agent"],
+      "permissionsetgroups": ["FraudX_Agent"],
       "permissionsets": [],
       "type": "user"
+    },
+    {
+      "name": "Twilio Integration User",
+      "profile": "Integration User (External Apps)",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "API_Access_Twilio",
+        "Chat_Read_Write",
+        "Enforce_mTLS"
+      ],
+      "type": "system"
     }
   ]
 }

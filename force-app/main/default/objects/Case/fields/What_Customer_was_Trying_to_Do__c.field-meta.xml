@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>What_Customer_was_Trying_to_Do__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>What the customer was attempting to do when they encountered the bug.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>What the customer was attempting to do when they encountered the bug.</inlineHelpText>
+    <label>What Customer was Trying to Do</label>
+    <required>false</required>
+    <securityClassification>Public</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Payment</fullName>
+                <default>false</default>
+                <label>Payment</label>
+            </value>
+            <value>
+                <fullName>Profile Change</fullName>
+                <default>false</default>
+                <label>Profile Change</label>
+            </value>
+            <value>
+                <fullName>Goals</fullName>
+                <default>false</default>
+                <label>Goals</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

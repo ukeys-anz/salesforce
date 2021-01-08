@@ -4,7 +4,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
    <description>Quickstart configuration of PMD for Salesforce.com Apex. Includes the rules that are most likely to apply everywhere.</description>
-
+  <exclude-pattern>.*/node_modules/.*</exclude-pattern>
    <!-- COMPLEXITY -->
    <rule ref="category/apex/design.xml/ExcessiveClassLength" message="Avoid really long classes (lines of code)">
       <priority>3</priority>
@@ -270,7 +270,7 @@
 
    <!-- SECURITY -->
    <rule ref="category/apex/security.xml/ApexSharingViolations" message="Apex classes should declare a sharing model if DML or SOQL is used">
-      <priority>3</priority>
+      <priority>2</priority>
       <properties>
          <!-- relevant for Code Climate output only -->
          <property name="cc_categories" value="Security" />
@@ -279,7 +279,7 @@
       </properties>
    </rule>
    <rule ref="category/apex/security.xml/ApexInsecureEndpoint" message="Apex callouts should use encrypted communication channels">
-      <priority>3</priority>
+      <priority>2</priority>
       <properties>
          <!-- relevant for Code Climate output only -->
          <property name="cc_categories" value="Security" />
@@ -287,7 +287,10 @@
          <property name="cc_block_highlighting" value="false" />
       </properties>
    </rule>
-   <rule ref="category/apex/security.xml/ApexCSRF" message="Avoid making DML operations in Apex class constructor/init method">
+   <rule ref="category/vf/security.xml/VfCsrf" message="Avoid calling VF action upon page load as the action becomes vulnerable to CSRF.">
+      <priority>2</priority>
+   </rule>
+   <rule ref="category/apex/errorprone.xml/ApexCSRF" message="Avoid making DML operations in Apex class constructor/init method">
       <priority>3</priority>
       <properties>
          <!-- relevant for Code Climate output only -->
@@ -297,7 +300,7 @@
       </properties>
    </rule>
    <rule ref="category/apex/security.xml/ApexOpenRedirect" message="Apex classes should safely redirect to a known location">
-      <priority>3</priority>
+      <priority>2</priority>
       <properties>
          <!-- relevant for Code Climate output only -->
          <property name="cc_categories" value="Security" />
@@ -306,7 +309,7 @@
       </properties>
    </rule>
    <rule ref="category/apex/security.xml/ApexSOQLInjection" message="Apex classes should escape variables merged in DML query">
-      <priority>3</priority>
+      <priority>2</priority>
       <properties>
          <!-- relevant for Code Climate output only -->
          <property name="cc_categories" value="Security" />
@@ -315,7 +318,7 @@
       </properties>
    </rule>
    <rule ref="category/apex/security.xml/ApexXSSFromURLParam" message="Apex classes should escape Strings obtained from URL parameters">
-      <priority>3</priority>
+      <priority>2</priority>
       <properties>
          <!-- relevant for Code Climate output only -->
          <property name="cc_categories" value="Security" />
@@ -324,7 +327,7 @@
       </properties>
    </rule>
    <rule ref="category/apex/security.xml/ApexXSSFromEscapeFalse" message="Apex classes should escape addError strings">
-      <priority>3</priority>
+      <priority>2</priority>
       <properties>
          <!-- relevant for Code Climate output only -->
          <property name="cc_categories" value="Security" />
@@ -333,7 +336,7 @@
       </properties>
    </rule>
    <rule ref="category/apex/security.xml/ApexBadCrypto" message="Apex Crypto should use random IV/key">
-      <priority>3</priority>
+      <priority>2</priority>
       <properties>
          <!-- relevant for Code Climate output only -->
          <property name="cc_categories" value="Security" />
@@ -342,7 +345,7 @@
       </properties>
    </rule>
    <rule ref="category/apex/security.xml/ApexCRUDViolation" message="Validate CRUD permission before SOQL/DML operation">
-      <priority>3</priority>
+      <priority>2</priority>
       <properties>
          <!-- relevant for Code Climate output only -->
          <property name="cc_categories" value="Security"/>
@@ -351,7 +354,7 @@
       </properties>
    </rule>
    <rule ref="category/apex/security.xml/ApexDangerousMethods" message="Calling potentially dangerous method">
-      <priority>3</priority>
+      <priority>2</priority>
       <properties>
          <!-- relevant for Code Climate output only -->
          <property name="cc_categories" value="Security"/>
@@ -360,7 +363,7 @@
       </properties>
    </rule>
    <rule ref="category/apex/security.xml/ApexSuggestUsingNamedCred" message="Consider using named credentials for authenticated callouts">
-      <priority>3</priority>
+      <priority>2</priority>
       <properties>
          <!-- relevant for Code Climate output only -->
          <property name="cc_categories" value="Security"/>

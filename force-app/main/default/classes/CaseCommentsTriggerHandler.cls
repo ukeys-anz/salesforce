@@ -43,18 +43,19 @@ public with sharing class CaseCommentsTriggerHandler extends Lib_TriggerHandler 
   }
 
   /**
-   * @description onAfterInsert to manage after insert actions to handle notifications
+   * @description onBeforeInsert to prevent Case Comments being added based on user role
+   */
+  public override void onBeforeInsert() {
+    CaseCommentsCommonActions.blockInsertsBasedOnUserRole(records);
+  }
+
+  /**
+   * @description onAfterInsert to perform processing during the after insert phase
    */
   public override void onAfterInsert() {
     IDRCaseCommentsNotificationManager.manageNotification(
       (List<CaseComment>) records
     );
-  }
-
-  /**
-   * @description onBeforeInsert to prevent Case Comments being added based on user role
-   */
-  public override void onBeforeInsert() {
-    CaseCommentsCommonActions.blockInsertsBasedOnUserRole(records);
+    IDRCaseCommentActions.escalateNewCommentsToCFMS(records);
   }
 }

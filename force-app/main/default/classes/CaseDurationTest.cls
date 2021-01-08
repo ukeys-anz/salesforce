@@ -115,6 +115,55 @@ public class CaseDurationTest {
   }
 
   /**
+   * @description testCaseDurationWithDetailedMinutes tests case Duration with detailed seconds to test the precision
+   */
+  @isTest
+  public static void testCaseDurationWithDetailedMinutes() {
+    Case newCase = [SELECT ID FROM Case LIMIT 1];
+    List<BusinessHours> bhs = [
+      SELECT id
+      FROM BusinessHours
+      WHERE IsDefault = TRUE
+    ];
+    CaseDurationObject caseDurationObj = new CaseDurationObject(newCase.Id);
+
+    List<CaseHistoryObject> historyList = new List<CaseHistoryObject>();
+    CaseHistoryObject history1 = new CaseHistoryObject(
+      'New',
+      Datetime.newInstance(2020, 12, 7, 0, 0, 0),
+      Datetime.newInstance(2020, 12, 7, 0, 0, 15),
+      bhs[0].Id
+    );
+    CaseHistoryObject history2 = new CaseHistoryObject(
+      'Open',
+      Datetime.newInstance(2020, 12, 7, 0, 1, 0),
+      Datetime.newInstance(2020, 12, 7, 0, 1, 15),
+      bhs[0].Id
+    );
+    CaseHistoryObject history3 = new CaseHistoryObject(
+      'Open',
+      Datetime.newInstance(2020, 12, 7, 0, 2, 0),
+      Datetime.newInstance(2020, 12, 7, 0, 2, 15),
+      bhs[0].Id
+    );
+    CaseHistoryObject history4 = new CaseHistoryObject(
+      'Open',
+      Datetime.newInstance(2020, 12, 7, 0, 3, 0),
+      Datetime.newInstance(2020, 12, 7, 0, 3, 15),
+      bhs[0].Id
+    );
+    historyList.add(history1);
+    historyList.add(history2);
+    historyList.add(history3);
+    historyList.add(history4);
+    caseDurationObj.history = historyList;
+    caseDurationObj.calculateCaseDuration();
+
+    CaseDurationObject.DurationTime durationTime = caseDurationObj.caseDuration;
+    System.assertEquals(1, durationTime.minutes);
+  }
+
+  /**
    * @description testCaseDurationWithClosedTime tests case Duration for a closed case
    */
   @isTest
