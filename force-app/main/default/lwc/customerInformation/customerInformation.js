@@ -1,9 +1,17 @@
 import { LightningElement, api, wire, track } from "lwc";
 import getCustomerData from "@salesforce/apex/GetCustomerInformation.getCustomerData";
-import { getRecord } from "lightning/uiRecordApi";
+import { getRecord, getFieldValue } from "lightning/uiRecordApi";
+import { updateRecord } from "lightning/uiRecordApi";
+import { refreshApex } from "@salesforce/apex";
+import { ShowToastEvent } from "lightning/platformShowToastEvent";
+
 import CAP_ID_FIELD from "@salesforce/schema/Case.IDR_Customer_Number__c";
+import FIRST_NAME from "@salesforce/schema/Case.IDR_NC_First_Name__c";
+import LAST_NAME from "@salesforce/schema/Case.IDR_NC_Last_Name__c";
+import ID_FIELD from "@salesforce/schema/Case.Id";
 
 export default class CustomerInformation extends LightningElement {
+  isCustomerDataBeUpdated = false;
   @track loaded = false;
   @track customerInfo;
   @api recordId;
@@ -23,16 +31,62 @@ export default class CustomerInformation extends LightningElement {
     }
   }
 
-  @wire(getRecord, { recordId: "$recordId", fields: [CAP_ID_FIELD] })
+  @wire(getRecord, {
+    recordId: "$recordId",
+    fields: [CAP_ID_FIELD, FIRST_NAME, LAST_NAME]
+  })
   wiredProject({ error, data }) {
     if (data && this.record !== data) {
       this.record = data;
+      console.log("this.record" + this.record);
+      console.log("this.record.data" + getFieldValue(this.record, FIRST_NAME));
+      if (
+        getFieldValue(this.record.data, FIRST_NAME) == null &&
+        getFieldValue(this.record, LAST_NAME) == null
+      ) {
+        this.isCustomerDataBeUpdated = true;
+      }
+      console.log("isCustomerDataBeUpdated" + this.isCustomerDataBeUpdated);
       this.custData(
         this.record.fields.IDR_Customer_Number__c.value.replace(/^0+/, "")
       );
+      console.log("test1");
     } else if (error) {
       this.handleError(error);
     }
+  }
+
+  updateCustomerDetailsonCase() {
+    console.log("test2");
+    const fields = {};
+    fields[ID_FIELD.fieldApiName] = this.recordId;
+    fields[FIRST_NAME.fieldApiName] = this.customerInfo.first_name;
+    fields[LAST_NAME.fieldApiName] = this.customerInfo.last_name;
+    console.log(
+      "ss" + this.record + "ss" + this.recordId + this.customerInfo.first_name
+    );
+    const recordInput = { fields };
+    updateRecord(recordInput)
+      .then(() => {
+        this.dispatchEvent(
+          new ShowToastEvent({
+            title: "Success",
+            message: "Customer name is updated ",
+            variant: "success"
+          })
+        );
+        // Display fresh data in the form
+        return refreshApex(this.record);
+      })
+      .catch((error) => {
+        this.dispatchEvent(
+          new ShowToastEvent({
+            title: "Error creating record",
+            message: error.body.message,
+            variant: "error"
+          })
+        );
+      });
   }
 
   custData(customerId) {
@@ -77,7 +131,11 @@ export default class CustomerInformation extends LightningElement {
           // adding data object to show in UI
           this.loaded = true;
           this.customerInfo = customerData;
-          this.dispatchEvent(new CustomEvent("custinfochecked"));
+          this.dispatchEvent(
+            new CustomEvent("custinfochecked", {
+              detail: this.customerInfo
+            })
+          );
         })
         .catch((error) => {
           this.handleError(error);
