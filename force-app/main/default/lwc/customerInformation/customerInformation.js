@@ -38,33 +38,26 @@ export default class CustomerInformation extends LightningElement {
   wiredProject({ error, data }) {
     if (data && this.record !== data) {
       this.record = data;
-      console.log("this.record" + this.record);
-      console.log("this.record.data" + getFieldValue(this.record, FIRST_NAME));
       if (
         getFieldValue(this.record.data, FIRST_NAME) == null &&
         getFieldValue(this.record, LAST_NAME) == null
       ) {
         this.isCustomerDataBeUpdated = true;
       }
-      console.log("isCustomerDataBeUpdated" + this.isCustomerDataBeUpdated);
       this.custData(
         this.record.fields.IDR_Customer_Number__c.value.replace(/^0+/, "")
       );
-      console.log("test1");
     } else if (error) {
       this.handleError(error);
     }
   }
 
   updateCustomerDetailsonCase() {
-    console.log("test2");
     const fields = {};
     fields[ID_FIELD.fieldApiName] = this.recordId;
     fields[FIRST_NAME.fieldApiName] = this.customerInfo.first_name;
     fields[LAST_NAME.fieldApiName] = this.customerInfo.last_name;
-    console.log(
-      "ss" + this.record + "ss" + this.recordId + this.customerInfo.first_name
-    );
+
     const recordInput = { fields };
     updateRecord(recordInput)
       .then(() => {
