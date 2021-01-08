@@ -25,19 +25,11 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Industry</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>PersonBirthdate</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>FinServ__Gender__pc</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Legal_Entitlements__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
