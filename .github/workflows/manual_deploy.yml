@@ -21,7 +21,7 @@ jobs:
         run: echo ${{ secrets.CMOSQA}} > ./SFDX_URL_CMOSQA.txt
 
       - name: "Authenticate all orgs in SFDX CLI"
-        run: sfdx force:auth:sfdxurl:store -a cmosqa --sfdxurlfile=./SFDX_URL_CMOSQA.txt
+        run: sfdx force:auth:sfdxurl:store -a idrqa --sfdxurlfile=./SFDX_URL_CMOSQA.txt
 
       - uses: actions/checkout@v2
         with:
