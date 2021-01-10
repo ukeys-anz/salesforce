@@ -150,7 +150,7 @@ public with sharing class ChatTopicRelatedListController {
           null,
           response != null ? response.getBody() : null
         );
-        //throw new AuraHandledException(e.getMessage());
+
         AuraHandledException ahe = new AuraHandledException(e.getMessage());
         ahe.setMessage(e.getMessage());
         throw ahe;
@@ -205,7 +205,7 @@ public with sharing class ChatTopicRelatedListController {
           null,
           response != null ? response.getBody() : null
         );
-        //throw new AuraHandledException(e.getMessage());
+
         AuraHandledException ahe = new AuraHandledException(e.getMessage());
         ahe.setMessage(e.getMessage());
         throw ahe;

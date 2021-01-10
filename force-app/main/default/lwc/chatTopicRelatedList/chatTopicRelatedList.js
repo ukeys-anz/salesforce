@@ -105,23 +105,31 @@ export default class RetrieveChatTopics extends LightningElement {
     })
       .then((result) => {
         if (result) {
-          let currentData = [];
+          console.log(result);
 
-          result.forEach((row) => {
-            let rowData = {};
-            rowData.Name = row.Chat_Topic__r.Name;
-            rowData.Status = row.Chat_Topic__r.Status;
-            rowData.LastModifiedDate = row.Chat_Topic__r.LastModifiedDate;
-            if (rowData.Status === "On Hold") {
-              rowData.enableReinitiate = true;
-            } else {
-              rowData.enableReinitiate = false;
-            }
-            rowData.ChannelSID = row.Chat_Topic__r.Twilio_Channel_SID__c;
-            currentData.push(rowData);
-          });
-          this.data = currentData;
-          this.totalRecordCount = result.length;
+          let respObj = JSON.parse(result);
+
+          console.log(respObj);
+          // TODO: More error handling
+
+          let rowData = {};
+          rowData.Name = respObj.name;
+          rowData.Status = this.resolveStatuses(respObj);
+          rowData.LastModifiedDate = respObj.lastModified;
+          rowData.ChannelSID = respObj.id;
+
+          if (
+            respObj.status &&
+            respObj.status != STATUS_CLOSED &&
+            respObj.chatFlowStatus === CHAT_FLOW_STATUS_ONHOLD
+          ) {
+            rowData.enableReinitiate = true;
+          } else {
+            rowData.enableReinitiate = false;
+          }
+          this.data.push(rowData);
+
+          this.totalRecordCount = this.data.length;
         }
         this.loading = false;
       })
