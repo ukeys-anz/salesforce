@@ -1162,7 +1162,37 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>ContentVersion.Date_of_Document__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>ContentVersion.Document_Flag__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ContentVersion.Party_who_sent_created_file__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ContentVersion.Sent_Created_BU__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ContentVersion.Sent_Created_Other__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ContentVersion.Type_of_Document__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ContentVersion.Wealth_Product_Manufacturer__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2447,6 +2477,9 @@
     <layoutAssignments>
         <layout>Case_Product__c-Relevant Product Layout</layout>
         <recordType>Case_Product__c.Systemic_Issues_and_Products</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ContentVersion-Content Version</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Customer_Feedback__c-Customer Feedback Layout</layout>

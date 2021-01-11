@@ -1877,6 +1877,9 @@
         <recordType>Case_Product__c.Systemic_Issues_and_Products</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>ContentVersion-Content Version</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Release__c-Release Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
