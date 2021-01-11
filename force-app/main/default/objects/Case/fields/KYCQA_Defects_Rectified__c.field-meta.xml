@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>KYCQA_Defects_Rectified__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Have all identified defects been rectified either in the customer profile or by obtaining a new image of the identity document if required?</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Have all identified defects been rectified either in the customer profile or by obtaining a new image of the identity document if required?</inlineHelpText>
+    <label>Have All Defects Been Rectified</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Yes</fullName>
+                <default>false</default>
+                <label>Yes</label>
+            </value>
+            <value>
+                <fullName>Not Applicable</fullName>
+                <default>false</default>
+                <label>Not Applicable</label>
+            </value>
+            <value>
+                <fullName>Customer Has Failed to Respond</fullName>
+                <default>false</default>
+                <label>Customer Has Failed to Respond</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
