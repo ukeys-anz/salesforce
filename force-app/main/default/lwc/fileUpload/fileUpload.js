@@ -25,7 +25,8 @@ export default class FileUpload extends LightningElement {
       ".pptx",
       ".msg",
       ".csv",
-      ".zip"
+      ".zip",
+      ".wav"
     ];
   }
   handleUploadFinished(event) {
@@ -35,6 +36,7 @@ export default class FileUpload extends LightningElement {
     for (let i = 0; i < uploadedFiles.length; i++) {
       uploadedFileNames += uploadedFiles[i].name + ", ";
     }
+    
     this.dispatchEvent(new CustomEvent("newfileupload"));
     this.dispatchEvent(
       new ShowToastEvent({
