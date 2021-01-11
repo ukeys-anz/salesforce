@@ -281,4 +281,9 @@
         <default>false</default>
         <label>Awaiting Details</label>
     </standardValue>
+    <standardValue>
+        <fullName>KYC QA Sample</fullName>
+        <default>false</default>
+        <label>KYC QA Sample</label>
+    </standardValue>
 </StandardValueSet>
