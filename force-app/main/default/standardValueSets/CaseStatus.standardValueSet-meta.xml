@@ -121,4 +121,22 @@
         <label>Closed - Won&apos;t Be Fixed</label>
         <closed>true</closed>
     </standardValue>
+    <standardValue>
+        <fullName>Under Review</fullName>
+        <default>false</default>
+        <label>Under Review</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Rectify Defect</fullName>
+        <default>false</default>
+        <label>Rectify Defect</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Pending Documents</fullName>
+        <default>false</default>
+        <label>Pending Documents</label>
+        <closed>false</closed>
+    </standardValue>
 </StandardValueSet>
