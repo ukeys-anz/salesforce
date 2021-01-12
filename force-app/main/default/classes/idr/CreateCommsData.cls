@@ -1,3 +1,9 @@
+/**
+ *
+ * @author Himabindu Nekkanti
+ * @since 2021
+ * @description CreateCommsData is the data class for CreateCaseComms LWC
+ */
 public class CreateCommsData {
     public class TemplateFieldsData{
         @AuraEnabled

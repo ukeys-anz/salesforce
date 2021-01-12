@@ -4,7 +4,7 @@
  * @since 2021
  * @description CreateCommsController is the apex side controller for the CreateCaseComms LWC
  */
-public class CreateCommsController {
+public with sharing class CreateCommsController {
   /**
    * @description The used to fetch availabe templates.
    *
@@ -14,10 +14,11 @@ public class CreateCommsController {
   public static list<string> getTemplateList() {
     list<string> returnList = new List<string>();
     list<IDR_Template_Detail__c> templatedetails = new List<IDR_Template_Detail__c>();
-    templatedetails = [SELECT Id, IDR_Template__c FROM IDR_Template_Detail__c];
+    If (IDR_Template_Detail__c.sObjectType.getDescribe().isQueryable()) {
+      templatedetails = [SELECT Id, IDR_Template__c FROM IDR_Template_Detail__c];
+    }
     set<string> uniqueTemplateNames = new Set<string>();
     for (IDR_Template_Detail__c td : templatedetails) {
-      system.debug('td:' + td.IDR_Template__c);
       uniqueTemplateNames.add(td.IDR_Template__c);
     }
     for (string templateName : uniqueTemplateNames) {
@@ -37,19 +38,20 @@ public class CreateCommsController {
     string template,
     string caseId
   ) {
-    system.debug('caseId:' + caseId);
     list<CreateCommsData.TemplateFieldsData> returnFieldList = new List<CreateCommsData.TemplateFieldsData>();
     list<IDR_Template_Detail__c> templatedetails = new List<IDR_Template_Detail__c>();
-    templatedetails = [
-      SELECT
-        Id,
-        IDR_Template_Field_Name__c,
-        IDR_Field_Description__c,
-        IDR_Case_Field_Name__c
-      FROM IDR_Template_Detail__c
-      WHERE IDR_Template__c = :template AND IDR_Is_Free_Text__c = TRUE
-      ORDER BY IDR_sort_order__c
-    ];
+    If (IDR_Template_Detail__c.sObjectType.getDescribe().isQueryable()) {
+        templatedetails = [
+          SELECT
+          Id,
+          IDR_Template_Field_Name__c,
+          IDR_Field_Description__c,
+          IDR_Case_Field_Name__c
+        FROM IDR_Template_Detail__c
+        WHERE IDR_Template__c = :template AND IDR_Is_Free_Text__c = TRUE
+        ORDER BY IDR_sort_order__c
+      ];
+    }
     string caseQuery = '';
 
     for (IDR_Template_Detail__c td : templatedetails) {
@@ -64,7 +66,6 @@ public class CreateCommsController {
     case parentCase = new case();
     if (string.isNotBlank(caseQuery)) {
       caseQuery += ' From Case where Id = :CaseId LIMIT 1';
-      system.debug('caseQuery:' + caseQuery);
       parentCase = Database.query(caseQuery);
     }
     for (IDR_Template_Detail__c td : templatedetails) {
@@ -95,7 +96,6 @@ public class CreateCommsController {
     // receiving error when trying to get Owner.Name: Cannot get 'Owner.Name' from case;
     if (fieldName.contains('.')) {
       list<string> fieldPath = fieldName.split('\\.');
-      system.debug('fieldPath:' + fieldPath);
       // convert the query result to a JSON; as we cannot directly type cast it to Map<string, Object>
       string jsonstring = JSON.serialize(caseRec, true);
       //now type cast the string into Map<string,Object>
@@ -106,7 +106,6 @@ public class CreateCommsController {
       integer i = 1;
       // flow down the fieldPath for example => Owner.Name; get owner object then Name.
       for (string st : fieldPath) {
-        system.debug('st:' + st);
         //final value should be string of data ( example Name);
         if (i == fieldPath.size()) {
           fieldValue = (string) childObj.get(st);
@@ -139,7 +138,6 @@ public class CreateCommsController {
     string template,
     list<object> lineItems
   ) {
-    system.debug('caseId:' + caseId);
     IDR_Letter_Approval__c caseComms = new IDR_Letter_Approval__c();
     caseComms.IDR_Send_As_Email__c = isEmail;
     caseComms.IDR_Send_As_Letter__c = isLetter;
@@ -154,7 +152,6 @@ public class CreateCommsController {
     list<IDR_Letter_Approval_Details__c> commsLineItemsList = new List<IDR_Letter_Approval_Details__c>();
     for (object o : lineItems) {
       Map<object, object> fieldList = (Map<object, object>) o;
-      system.debug('fieldList:' + fieldList);
       IDR_Letter_Approval_Details__c commsLineItem = new IDR_Letter_Approval_Details__c(
         IDR_Letter_Approval__c = caseComms.Id
       );
@@ -201,11 +198,13 @@ public class CreateCommsController {
   ) {
     list<IDR_Letter_Approval_Details__c> caseDataItems = new List<IDR_Letter_Approval_Details__c>();
     list<IDR_Template_Detail__c> templatedetails = new List<IDR_Template_Detail__c>();
-    templatedetails = [
-      SELECT Id, IDR_Template_Field_Name__c, IDR_Case_Field_Name__c
-      FROM IDR_Template_Detail__c
-      WHERE IDR_Template__c = :template AND IDR_Is_Free_Text__c = FALSE
-    ];
+    If (IDR_Template_Detail__c.sObjectType.getDescribe().isQueryable()) {
+        templatedetails = [
+          SELECT Id, IDR_Template_Field_Name__c, IDR_Case_Field_Name__c
+          FROM IDR_Template_Detail__c
+          WHERE IDR_Template__c = :template AND IDR_Is_Free_Text__c = FALSE
+        ];
+    }
 
     string caseQuery = '';
 
@@ -219,8 +218,6 @@ public class CreateCommsController {
 
     if (string.isNotBlank(caseQuery)) {
       caseQuery += ' From Case where Id = :CaseId LIMIT 1';
-
-      system.debug('caseQuery:' + caseQuery);
       case parentCase = new case();
       parentCase = Database.query(caseQuery);
       for (IDR_Template_Detail__c td : templatedetails) {

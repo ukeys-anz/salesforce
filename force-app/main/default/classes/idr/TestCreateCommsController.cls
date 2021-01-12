@@ -78,7 +78,7 @@ public class TestCreateCommsController {
       'Unable to Contact',
       testCase.Id
     );
-    system.assertEquals(2, returnedList.size());
+    system.assertEquals(2, returnList.size());
   }
 
   /**
