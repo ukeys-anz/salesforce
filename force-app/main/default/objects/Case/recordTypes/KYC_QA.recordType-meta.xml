@@ -3,6 +3,7 @@
     <fullName>KYC_QA</fullName>
     <active>true</active>
     <businessProcess>KYC QA Support Process</businessProcess>
+    <description>Record a new KYC QA case for an existing ANZx customer</description>
     <label>KYC QA</label>
     <picklistValues>
         <picklist>Additional_Type__c</picklist>
