@@ -14,8 +14,11 @@ public with sharing class CreateCommsController {
   public static list<string> getTemplateList() {
     list<string> returnList = new List<string>();
     list<IDR_Template_Detail__c> templatedetails = new List<IDR_Template_Detail__c>();
-    If (IDR_Template_Detail__c.sObjectType.getDescribe().isQueryable()) {
-      templatedetails = [SELECT Id, IDR_Template__c FROM IDR_Template_Detail__c];
+    if (IDR_Template_Detail__c.sObjectType.getDescribe().isQueryable()) {
+      templatedetails = [
+        SELECT Id, IDR_Template__c
+        FROM IDR_Template_Detail__c
+      ];
     }
     set<string> uniqueTemplateNames = new Set<string>();
     for (IDR_Template_Detail__c td : templatedetails) {
@@ -40,9 +43,9 @@ public with sharing class CreateCommsController {
   ) {
     list<CreateCommsData.TemplateFieldsData> returnFieldList = new List<CreateCommsData.TemplateFieldsData>();
     list<IDR_Template_Detail__c> templatedetails = new List<IDR_Template_Detail__c>();
-    If (IDR_Template_Detail__c.sObjectType.getDescribe().isQueryable()) {
-        templatedetails = [
-          SELECT
+    if (IDR_Template_Detail__c.sObjectType.getDescribe().isQueryable()) {
+      templatedetails = [
+        SELECT
           Id,
           IDR_Template_Field_Name__c,
           IDR_Field_Description__c,
@@ -147,7 +150,10 @@ public with sharing class CreateCommsController {
     if (lineItems.size() == 0) {
       caseComms.IDR_Auto_Approve__c = true;
     }
-    insert caseComms;
+
+    if (IDR_Letter_Approval__c.sObjectType.getDescribe().isCreateable()) {
+      insert caseComms;
+    }
 
     list<IDR_Letter_Approval_Details__c> commsLineItemsList = new List<IDR_Letter_Approval_Details__c>();
     for (object o : lineItems) {
@@ -161,9 +167,9 @@ public with sharing class CreateCommsController {
           commsLineItem.IDR_Field_Name__c = (string) fieldList.get(key);
         } else if ((string) key == 'fieldValue') {
           commsLineItem.IDR_Value__c = (string) fieldList.get(key);
-        } else if ((string) key == 'fieldDesc') {
+        } /*else if ((string) key == 'fieldDesc') {
           // commsLineItem.Description__c = (string)fieldList.get(key);
-        }
+        }*/
       }
       commsLineItemsList.add(commsLineItem);
     }
@@ -177,7 +183,10 @@ public with sharing class CreateCommsController {
       commsLineItemsList.add(item);
     }
 
-    if (commsLineItemsList.size() > 0) {
+    if (
+      commsLineItemsList.size() > 0 &&
+      IDR_Letter_Approval_Details__c.sObjectType.getDescribe().isCreateable()
+    ) {
       insert commsLineItemsList;
     }
 
@@ -198,12 +207,12 @@ public with sharing class CreateCommsController {
   ) {
     list<IDR_Letter_Approval_Details__c> caseDataItems = new List<IDR_Letter_Approval_Details__c>();
     list<IDR_Template_Detail__c> templatedetails = new List<IDR_Template_Detail__c>();
-    If (IDR_Template_Detail__c.sObjectType.getDescribe().isQueryable()) {
-        templatedetails = [
-          SELECT Id, IDR_Template_Field_Name__c, IDR_Case_Field_Name__c
-          FROM IDR_Template_Detail__c
-          WHERE IDR_Template__c = :template AND IDR_Is_Free_Text__c = FALSE
-        ];
+    if (IDR_Template_Detail__c.sObjectType.getDescribe().isQueryable()) {
+      templatedetails = [
+        SELECT Id, IDR_Template_Field_Name__c, IDR_Case_Field_Name__c
+        FROM IDR_Template_Detail__c
+        WHERE IDR_Template__c = :template AND IDR_Is_Free_Text__c = FALSE
+      ];
     }
 
     string caseQuery = '';
@@ -240,7 +249,6 @@ public with sharing class CreateCommsController {
    * @description for the selected template get the data needs to be populated directly from the case.
    *
    * @param caseComms the record that needs to be submitted for approval
-   * @return list<IDR_Letter_Approval_Details__c> list of detail records to be added against the letter/email.
    */
   public static void submitCommsForApproval(IDR_Letter_Approval__c caseComms) {
     // Create an approval request

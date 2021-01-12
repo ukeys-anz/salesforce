@@ -19,12 +19,13 @@ public class TestCreateCommsController {
     );
     tdlist.add(td1);
 
-    IDR_Template_Detail__c td2 = new IDR_Template_Detail__c(
+    // commenting the below code due to slaesforce limitation and deployment issue
+   /* IDR_Template_Detail__c td2 = new IDR_Template_Detail__c(
       IDR_Template__c = '21 Day Letter',
       IDR_Template_Field_Name__c = 'StaffFullName',
       IDR_Case_Field_Name__c = 'Owner.Name'
     );
-    tdList.add(td2);
+    tdList.add(td2);*/
 
     IDR_Template_Detail__c td3 = new IDR_Template_Detail__c(
       IDR_Template__c = 'Unable to Contact',
