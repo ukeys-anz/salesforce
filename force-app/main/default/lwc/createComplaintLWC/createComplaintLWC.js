@@ -155,6 +155,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   @api recordTypeDevName;
   @api contextRecordId;
 
+  isCustomerDetails = false;
   hasNominatedThirdParty = false;
   activeSections = ["A", "B", "C"];
   displayCustomerInfo = false;
@@ -452,10 +453,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
     if (this.isDataValid) {
       this.template.querySelector(".saveButton").disabled = true;
       const fields = event.detail.fields;
-      if (
-        this.firstName != null &&
-        (this.lastName != null) & this.isCustomerComplaint
-      ) {
+
+      if (this.isCustomerDetails && this.isCustomerComplaint) {
         fields[FIRST_NAME_FIELD.fieldApiName] = this.firstName;
         fields[LAST_NAME_FIELD.fieldApiName] = this.lastName;
         fields[MIDDLE_NAME_FIELD.fieldApiName] = this.middleNames;
@@ -595,6 +594,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
         this.firstName = event.detail.first_name;
         this.middleNames = event.detail.middlename;
         this.lastName = event.detail.last_name;
+        this.isCustomerDetails = true;
       }
     }
   }
