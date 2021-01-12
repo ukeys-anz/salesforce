@@ -6,12 +6,13 @@
 @SuppressWarnings('PMD.ApexSuggestUsingNamedCred')
 public with sharing class ChatTopicRelatedListController {
   public static final String CHANNELS_ENDPOINT_SUFFIX = '/channels';
-  public static final Integer OFFSET_LIMIT = 1;
+  public static final Integer OFFSET_LIMIT = 5;
 
   /**
    * @description This method is used to chatTopicRelatedList lwc component to retrive chat topics related to account.
    *
-   * @param accountId from the lwc component
+   * @param accountId Salesforce ID of the Account record from the lwc component
+   * @param nextURL URL substring related to next offset (if there is a next) from API the response
    * @return List<Chat_Topic__c>
    */
   @AuraEnabled(cacheable=false)
@@ -33,43 +34,7 @@ public with sharing class ChatTopicRelatedListController {
     }
 
     // Make a callout to Mulesoft to fetch all Chat Topics related to the customer
-    // ocvId = 'muley';
     String responseBody = getChatTopicsByCustomer(ocvId, nextURL);
-
-    // String responseBody = '{'+
-    // '    \"channels\": ['+
-    // '        {'+
-    // '            \"id\": \"CH157e3ffaac344204b65a2ca6ce0e5cad\",'+
-    // '            \"name\": \"Dispute Transaction\",'+
-    // '            \"status\": \"inactive\",'+
-    // '            \"chatFlowStatus\": \"ON_HOLD\",'+
-    // '            \"onHoldReason\": \"WAITING_ON_CUSTOMER\",'+
-    // '            \"lastModified\": \"2020-12-21T01:10:25Z\"'+
-    // '        },'+
-    // '        {'+
-    // '            \"id\": \"CH157e3ffaac344204b65a2ca6ce0e1111\",'+
-    // '            \"name\": \"Home Loan Enquiry\",'+
-    // '            \"status\": \"active\",'+
-    // '            \"chatFlowStatus\": \"OPEN\",'+
-    // '            \"onHoldReason\": \"\",'+
-    // '            \"lastModified\": \"2020-12-21T01:10:25Z\"'+
-    // '        },'+
-    // '        {'+
-    // '            \"id\": \"CH861a283ceed84330a80a383b4620118c\",'+
-    // '            \"name\": \"Lost Phone\",'+
-    // '            \"status\": \"inactive\",'+
-    // '            \"chatFlowStatus\": \"RESOLVED\",'+
-    // '            \"onHoldReason\": \"\",'+
-    // '            \"lastModified\": \"2020-12-03T06:29:44Z\"'+
-    // '        }'+
-    // '    ],'+
-    // '    \"_links\": {'+
-    // '        \"_links\": {'+
-    // '            \"next\": \"/chat/users/muley/channels?limit=10&sortBy=lastModified&order=desc&offset=PTCHa52aca009e834e05a279b1fa0160d86b\",'+
-    // '            \"self\": \"/chat/users/muley/channels?limit=10&sortBy=lastModified&order=desc\"'+
-    // '        }'+
-    // '    }'+
-    // '}';
 
     return responseBody;
   }
@@ -103,6 +68,12 @@ public with sharing class ChatTopicRelatedListController {
     return responseBody;
   }
 
+  /**
+   * @description Fetch Chat Topics via API by passing in customer OCV ID
+   * @param ocvID Customer OCV ID
+   * @param nextURL URL to get next result set if available
+   * @return String
+   */
   public static String getChatTopicsByCustomer(String ocvID, String nextURL) {
     String rowLimitParam = '?limit=' + OFFSET_LIMIT;
 
@@ -133,9 +104,6 @@ public with sharing class ChatTopicRelatedListController {
         Http http = new Http();
         response = http.send(request);
         if (response.getStatusCode() == 200) {
-          System.debug(response);
-          System.debug(response.getBody());
-
           responseBody = response.getBody();
         } else {
           throw new CalloutException(response.getBody());
@@ -160,6 +128,12 @@ public with sharing class ChatTopicRelatedListController {
     return responseBody;
   }
 
+  /**
+   * @description Fetch Chat Topic information via API by passing in customer OCV ID and particular Channel SID
+   * @param ocvID Customer OCV ID
+   * @param channelSID Channel SID stored on related Case record
+   * @return String
+   */
   public static String getChatTopicByChannelSID(
     String ocvID,
     String channelSID
@@ -188,9 +162,6 @@ public with sharing class ChatTopicRelatedListController {
         Http http = new Http();
         response = http.send(request);
         if (response.getStatusCode() == 200) {
-          System.debug(response);
-          System.debug(response.getBody());
-
           responseBody = response.getBody();
         } else {
           throw new CalloutException(response.getBody());

@@ -55,8 +55,6 @@ export default class RetrieveChatTopics extends LightningElement {
       nextURL: nextUrl
     })
       .then((result) => {
-        console.log(result);
-
         if (result) {
           let respObj = JSON.parse(result);
 
@@ -68,15 +66,13 @@ export default class RetrieveChatTopics extends LightningElement {
           respObj.channels.forEach((row) => {
             let rowData = {};
 
-            console.log(row);
-
             rowData.Name = row.name;
             rowData.Status = this.resolveStatuses(row);
             rowData.LastModifiedDate = row.lastModified;
             rowData.ChannelSID = row.id;
             if (
               row.status &&
-              row.status != STATUS_CLOSED &&
+              row.status !== STATUS_CLOSED &&
               row.chatFlowStatus === CHAT_FLOW_STATUS_ONHOLD
             ) {
               rowData.enableReinitiate = true;
@@ -105,11 +101,8 @@ export default class RetrieveChatTopics extends LightningElement {
     })
       .then((result) => {
         if (result) {
-          console.log(result);
-
           let respObj = JSON.parse(result);
 
-          console.log(respObj);
           // TODO: More error handling
 
           let rowData = {};
@@ -120,7 +113,7 @@ export default class RetrieveChatTopics extends LightningElement {
 
           if (
             respObj.status &&
-            respObj.status != STATUS_CLOSED &&
+            respObj.status !== STATUS_CLOSED &&
             respObj.chatFlowStatus === CHAT_FLOW_STATUS_ONHOLD
           ) {
             rowData.enableReinitiate = true;
@@ -148,7 +141,7 @@ export default class RetrieveChatTopics extends LightningElement {
     let selectedAction = event.detail.value;
 
     // Publish a message on 'ReinitiateChatTopic' channel which triggers Twilio to re-initiate this Chat Topic
-    if (selectedAction == "re_initiate") {
+    if (selectedAction === "re_initiate") {
       const message = { channelSID: selectedChannelSID };
 
       try {
@@ -163,7 +156,7 @@ export default class RetrieveChatTopics extends LightningElement {
     }
 
     // Show Chat History related to the selected Chat Topic
-    if (selectedAction == "chat_history") {
+    if (selectedAction === "chat_history") {
       const message = { channelSID: selectedChannelSID };
       try {
         publish(this.messageContext, chatHistoryChannel, message);
@@ -197,32 +190,32 @@ export default class RetrieveChatTopics extends LightningElement {
     if (row.status) {
       if (row.chatFlowStatus) {
         // IF row status is 'active'
-        if (row.status == STATUS_ACTIVE) {
-          if (row.chatFlowStatus == CHAT_FLOW_STATUS_NEW) {
+        if (row.status === STATUS_ACTIVE) {
+          if (row.chatFlowStatus === CHAT_FLOW_STATUS_NEW) {
             topicStatus = TOPIC_STATUS_NEW;
           }
-          if (row.chatFlowStatus == CHAT_FLOW_STATUS_ACCEPTED) {
+          if (row.chatFlowStatus === CHAT_FLOW_STATUS_ACCEPTED) {
             topicStatus = TOPIC_STATUS_ACTIVE;
           }
-          if (row.chatFlowStatus == CHAT_FLOW_STATUS_OPEN) {
+          if (row.chatFlowStatus === CHAT_FLOW_STATUS_OPEN) {
             topicStatus = TOPIC_STATUS_OPEN;
           }
         }
 
         // IF row status is 'inactive'
-        if (row.status == STATUS_INACTIVE) {
-          if (row.chatFlowStatus == CHAT_FLOW_STATUS_RESOLVED) {
+        if (row.status === STATUS_INACTIVE) {
+          if (row.chatFlowStatus === CHAT_FLOW_STATUS_RESOLVED) {
             topicStatus = TOPIC_STATUS_RESOLVED;
           }
 
           if (
-            row.chatFlowStatus == CHAT_FLOW_STATUS_ONHOLD &&
+            row.chatFlowStatus === CHAT_FLOW_STATUS_ONHOLD &&
             row.onHoldReason
           ) {
-            if (row.onHoldReason == ONHOLD_REASON_CUSTOMER) {
+            if (row.onHoldReason === ONHOLD_REASON_CUSTOMER) {
               topicStatus = TOPIC_STATUS_ONHOLD_CUSTOMER;
             }
-            if (row.onHoldReason == ONHOLD_REASON_COACH) {
+            if (row.onHoldReason === ONHOLD_REASON_COACH) {
               topicStatus = TOPIC_STATUS_ONHOLD_COACH;
             }
           }
@@ -230,7 +223,7 @@ export default class RetrieveChatTopics extends LightningElement {
       }
 
       // IF row status is 'closed'
-      if (row.status == STATUS_CLOSED) {
+      if (row.status === STATUS_CLOSED) {
         topicStatus = TOPIC_STATUS_CLOSED;
       }
     }
