@@ -21,8 +21,10 @@
         </approvalActions>
         <assignedApprover>
             <approver>
-                <type>adhoc</type>
+                <name>IDR_Letter_Approvers</name>
+                <type>queue</type>
             </approver>
+            <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
         </assignedApprover>
         <entryCriteria>
             <criteriaItems>
@@ -64,6 +66,7 @@
         </action>
     </initialSubmissionActions>
     <label>Letter Approval Process</label>
+    <processOrder>1</processOrder>
     <recordEditability>AdminOrCurrentApprover</recordEditability>
     <showApprovalHistory>false</showApprovalHistory>
 </ApprovalProcess>
