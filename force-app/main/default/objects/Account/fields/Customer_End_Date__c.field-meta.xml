@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Customer_End_Date__c</fullName>
-    <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information</complianceGroup>
+    <complianceGroup>Privacy - Non Personal Information;Integrity - Accurate</complianceGroup>
     <description>The date at which the customer/business closes their account.
 
 Deletion event received from OCV, account needs to be removed (it is made inactive and the end date is added)</description>
