@@ -133,7 +133,7 @@ public with sharing class CreateCommsController {
    * @param lineItems list of free text fields with user inputed data.
    * @return string ID of the created letter approval record.
    */
-  @SuppressWarnings('PMD.ExcessiveParameterList PMD.StdCyclomaticComplexity PMD.ApexSOQLInjection')
+  @SuppressWarnings('PMD.ExcessiveParameterList, PMD.StdCyclomaticComplexity, PMD.ApexSOQLInjection')
   @auraEnabled
   public static string createComms(
     string caseId,
