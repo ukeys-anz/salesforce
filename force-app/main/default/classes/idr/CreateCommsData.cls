@@ -5,10 +5,8 @@
  * @description CreateCommsData is the data class for CreateCaseComms LWC
  */
 public class CreateCommsData {
+     @SuppressWarnings(ApexDoc)
     public class TemplateFieldsData{
-        /* 
-        * @description TemplateFieldsData  data class for CreateCaseComms LWC
-        */
         @AuraEnabled
         public string fieldLabel;
         @AuraEnabled
