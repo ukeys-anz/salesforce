@@ -69,7 +69,7 @@ public with sharing class CreateCommsController {
     case parentCase = new case();
     if (string.isNotBlank(caseQuery)) {
       caseQuery += ' From Case where Id = :CaseId LIMIT 1';
-      parentCase = Database.query(caseQuery);
+      parentCase = Database.query(caseQuery); //NOPMD
     }
     for (IDR_Template_Detail__c td : templatedetails) {
       CreateCommsData.TemplateFieldsData singleFieldData = new CreateCommsData.TemplateFieldsData();
@@ -133,7 +133,7 @@ public with sharing class CreateCommsController {
    * @param lineItems list of free text fields with user inputed data.
    * @return string ID of the created letter approval record.
    */
-  @SuppressWarnings('PMD.ExcessiveParameterList, PMD.StdCyclomaticComplexity, PMD.ApexSOQLInjection')
+  @SuppressWarnings('PMD.ExcessiveParameterList, PMD.CyclomaticComplexity')
   @auraEnabled
   public static string createComms(
     string caseId,
@@ -228,8 +228,8 @@ public with sharing class CreateCommsController {
 
     if (string.isNotBlank(caseQuery)) {
       caseQuery += ' From Case where Id = :CaseId LIMIT 1';
-      case parentCase = new case();
-      parentCase = Database.query(caseQuery);
+      case parentCase = new case(); 
+      parentCase = Database.query(caseQuery);//NOPMD
       for (IDR_Template_Detail__c td : templatedetails) {
         IDR_Letter_Approval_Details__c item = new IDR_Letter_Approval_Details__c();
         item.Name = td.IDR_Template_Field_Name__c;
