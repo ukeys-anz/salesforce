@@ -1,4 +1,15 @@
+/**
+ *
+ * @author Himabindu Nekkanti
+ * @since 2021
+ * @description CreateCommsController is the apex side controller for the CreateCaseComms LWC
+ */
 public class CreateCommsController {
+    /**
+   * @description The used to fetch availabe templates.
+   *
+   * @return List<string>  list of all the templates that have been set up
+   */
    @auraEnabled
     public static list<string> getTemplateList(){
        list<string> returnList = new list<string>();
@@ -14,6 +25,13 @@ public class CreateCommsController {
         }
         return returnlist; 
     }
+    /**
+   * @description fetch fetch free text fields for the selected template with pre populated case data
+   *
+   * @param template user selected template for this letter/email
+   * @param caseId the id of the case against which this lette/email is being created 
+   * @return List<CreateCommsData.TemplateFieldsData> list of free text fields with pre populated data where applicable
+   */
     @auraEnabled
     public static list<CreateCommsData.TemplateFieldsData> fetchTemplateFields(string template, string caseId){
         system.debug('caseId:'+caseId);
@@ -51,6 +69,14 @@ public class CreateCommsController {
         }
         return returnFieldList;
     }
+
+     /**
+   * @description  loop through the case record and fetch the field 
+   *
+   * @param fieldName name of the field that needs to retrived
+   * @param caseRec the case record that needs to be looped through.
+   * @return string field value retrieved from the case record.
+   */
     public static string getValueFromCaseMap (string fieldName , case caseRec){
         string fieldValue = '';
          // if we are trying to retrieve lookup fields we cannot directly get the field.
@@ -80,6 +106,17 @@ public class CreateCommsController {
                 }
         return fieldValue;
     }
+
+    /**
+   * @description create letter approval records for the letter/email to be approved.
+   *
+   * @param template user selected template for this letter/email
+   * @param caseId the id of the case against which this lette/email is being created 
+   * @param isEmail should this be sent as an email.
+   * @param isLetter should this be sent as an leter.
+   * @param lineItems list of free text fields with user inputed data.
+   * @return string ID of the created letter approval record.
+   */
     @auraEnabled
     public static string  createComms(string caseId, boolean isEmail , boolean isLetter ,string template , list<object> lineItems){
         system.debug('caseId:'+caseId);
@@ -122,10 +159,17 @@ public class CreateCommsController {
            insert commsLineItemsList;
         }
         
-		submitCommsForApproval(caseComms,CaseId);
+		submitCommsForApproval(caseComms);
         return caseComms.Id;
     }
-    
+
+    /**
+   * @description for the selected template get the data needs to be populated directly from the case.
+   *
+   * @param template user selected template for this letter/email
+   * @param caseId the id of the case against which this lette/email is being created 
+   * @return list<IDR_Letter_Approval_Details__c> list of detail records to be added against the letter/email.
+   */
     public static list<IDR_Letter_Approval_Details__c> getCommsDataFromCase(string template , string caseId){
         list<IDR_Letter_Approval_Details__c> caseDataItems = new list<IDR_Letter_Approval_Details__c>();
         list<IDR_Template_Detail__c> templatedetails = new list<IDR_Template_Detail__c>();
@@ -161,14 +205,16 @@ public class CreateCommsController {
         return caseDataItems;
     }
     
-    public static void submitCommsForApproval(IDR_Letter_Approval__c caseComms, Id CaseId){
-        	case c = [Select OwnerId from Case where id=:CaseId];
-        	List<Id> approver = new list<Id> ();
-        	approver.add(c.OwnerId);
+    /**
+   * @description for the selected template get the data needs to be populated directly from the case.
+   *
+   * @param caseComms the record that needs to be submitted for approval
+   * @return list<IDR_Letter_Approval_Details__c> list of detail records to be added against the letter/email.
+   */
+    public static void submitCommsForApproval(IDR_Letter_Approval__c caseComms){
         	// Create an approval request 
         	Approval.ProcessSubmitRequest req = new Approval.ProcessSubmitRequest();
         	req.setObjectId(caseComms.Id);
-        	req.setNextApproverIds(approver);
         	// Submit the approval request 
         	Approval.process(req);
     }

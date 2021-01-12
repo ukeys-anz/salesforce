@@ -1,5 +1,13 @@
+/**
+ * @author Himabindu Nekkanti
+ * @since 2021
+ * @description  Test class for CreateCommsController
+ */
 @isTest
-public class CreateCommsControllerTest {
+public class TestCreateCommsController {
+/**
+   * @description This method is used to set up test data that will used across the test class.
+   */
  @testSetup
     static void setup() {
         List<IDR_Template_Detail__c> tdList = new list<IDR_Template_Detail__c>();
@@ -28,21 +36,30 @@ public class CreateCommsControllerTest {
         );
         testCase.OwnerId = userinfo.getuserid();
         insert testCase;
-    }    
+    } 
+    /**
+   * @description This method is used to test getTemplateList method from CreateCommsController
+   */   
     
     @istest
     static void testgetTemplateList(){
         list<string> returnedList = CreateCommsController.getTemplateList();
         system.assertEquals(2, returnedList.size());
     }
-	
+	/**
+   * @description This method is used to test fetchTemplateFields method from CreateCommsController
+   */  
     @istest
     static void testfetchTemplateFields(){
         case testCase = new case();
         testCase = [Select Id from Case Limit 1];
         list<CreateCommsData.TemplateFieldsData> returnList = CreateCommsController.fetchTemplateFields('Unable to Contact',testCase.Id);
+         system.assertEquals(2, returnedList.size());
     }
     
+    /**
+   * @description This method is used to test  creation of comms from CreateCommsController
+   */ 
 	@istest
     static void testcreateComms1(){
         case testCase = new case();
@@ -52,6 +69,9 @@ public class CreateCommsControllerTest {
         system.assertNotEquals(null, returnedId);
     }    
     
+    /**
+   * @description This method is used to test  creation of comms from CreateCommsController
+   */ 
     @istest
     static void testcreateComms2(){
         case testCase = new case();
