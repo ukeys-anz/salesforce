@@ -2,7 +2,9 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>VR01_Prevent_updates_after_send</fullName>
     <active>true</active>
-    <errorConditionFormula>OR(TEXT(PRIORVALUE( IDR_Status__c)) = &apos;Sent&apos;,
-TEXT(PRIORVALUE( IDR_Status__c)) = &apos;Approved&apos;)</errorConditionFormula>
+    <errorConditionFormula>OR(
+ISPICKVAL(IDR_Letter_Approval__r.IDR_Status__c , &quot;Approved&quot;) ,
+ISPICKVAL(IDR_Letter_Approval__r.IDR_Status__c , &quot;Sent&quot;)
+)</errorConditionFormula>
     <errorMessage>You cannot edit the letter detail after the letter has been Approved/Sent</errorMessage>
 </ValidationRule>
