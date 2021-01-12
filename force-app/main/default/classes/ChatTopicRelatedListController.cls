@@ -13,7 +13,7 @@ public with sharing class ChatTopicRelatedListController {
    *
    * @param accountId Salesforce ID of the Account record from the lwc component
    * @param nextURL URL substring related to next offset (if there is a next) from API the response
-   * @return List<Chat_Topic__c>
+   * @return String
    */
   @AuraEnabled(cacheable=false)
   public static String getChatTopicsOnAccount(
@@ -43,7 +43,7 @@ public with sharing class ChatTopicRelatedListController {
    * @description This method is used to chatTopicRelatedList lwc component to retrive chat topic related to case.
    *
    * @param caseId from lwc component
-   * @return List<Chat_Topic__c>
+   * @return String
    */
   @AuraEnabled(cacheable=false)
   public static String getChatTopicInfoOnCase(String caseId) {
@@ -90,11 +90,8 @@ public with sharing class ChatTopicRelatedListController {
       );
 
       request.setMethod('GET');
-
-      //TODO remove this later
-      // ocvId = '4017640246';
-      // String serializedToken = AuthTokenCacheUtil.getStaffToken(ocvId);
-      // request.setHeader('Authorization', 'Bearer ' + serializedToken);
+      String serializedToken = AuthTokenCacheUtil.getStaffToken(ocvId);
+      request.setHeader('Authorization', 'Bearer ' + serializedToken);
       request.setHeader('client_id', '{!$Credential.Username}');
       request.setHeader('client_secret', '{!$Credential.Password}');
       //Todo: This needs to be replaced with uniquely generated id based on what is accepted by forge
@@ -148,11 +145,8 @@ public with sharing class ChatTopicRelatedListController {
       );
 
       request.setMethod('GET');
-
-      //TODO remove this later
-      // ocvId = '4017640246';
-      // String serializedToken = AuthTokenCacheUtil.getStaffToken(ocvId);
-      // request.setHeader('Authorization', 'Bearer ' + serializedToken);
+      String serializedToken = AuthTokenCacheUtil.getStaffToken(ocvId);
+      request.setHeader('Authorization', 'Bearer ' + serializedToken);
       request.setHeader('client_id', '{!$Credential.Username}');
       request.setHeader('client_secret', '{!$Credential.Password}');
       //Todo: This needs to be replaced with uniquely generated id based on what is accepted by forge
