@@ -2,6 +2,7 @@
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Junction object for badges and users.</description>
+    <enableReports>true</enableReports>
     <label>User Badge</label>
     <nameField>
         <displayFormat>BADGE-{0000}</displayFormat>

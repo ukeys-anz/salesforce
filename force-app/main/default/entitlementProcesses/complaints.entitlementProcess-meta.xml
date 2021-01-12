@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EntitlementProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <SObjectType>Case</SObjectType>
+    <active>true</active>
+    <businessHours>Case Business Hours</businessHours>
+    <entryStartDateField>Case.CreatedDate</entryStartDateField>
+    <exitCriteriaFilterItems>
+        <field>Case.Status</field>
+        <operation>notEqual</operation>
+        <value>Open</value>
+    </exitCriteriaFilterItems>
+    <exitCriteriaFilterItems>
+        <field>Case.Status</field>
+        <operation>notEqual</operation>
+        <value>Under Investigation</value>
+    </exitCriteriaFilterItems>
+    <milestones>
+        <businessHours>Case Business Hours</businessHours>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>equals</operation>
+            <value>Open</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>Open_Escalation_Time</milestoneName>
+        <minutesToComplete>4320</minutesToComplete>
+        <timeTriggers>
+            <actions>
+                <name>EscalationtoRed</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>-1</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>EscalationtoAmber</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>-2</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>true</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <businessHours>Case Business Hours</businessHours>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>equals</operation>
+            <value>Under Investigation</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>Under_Investigation_Escalation_Time</milestoneName>
+        <minutesToComplete>7200</minutesToComplete>
+        <timeTriggers>
+            <actions>
+                <name>EscalationtoAmber</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>-2</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>EscalationtoRed</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>-1</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>true</useCriteriaStartTime>
+    </milestones>
+</EntitlementProcess>

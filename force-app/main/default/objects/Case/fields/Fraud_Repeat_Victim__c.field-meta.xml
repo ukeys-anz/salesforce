@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Fraud_Repeat_Victim__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Source_Salesforce;Integrity - Accurate</complianceGroup>
+    <defaultValue>false</defaultValue>
+    <description>Repeat Victim</description>
+    <externalId>false</externalId>
+    <label>Repeat Victim</label>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

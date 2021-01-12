@@ -1,5 +1,13 @@
 .clock-face {
   text-align: center;
-  font-size: 40pt;
+  font-size: 25pt;
   padding-bottom: 20px;
+}
+
+.on-hold-alert {
+  text-align: center;
+}
+
+.slds-notify_alert {
+  padding: 0.5rem;
 }

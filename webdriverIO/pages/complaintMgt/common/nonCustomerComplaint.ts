@@ -14,7 +14,12 @@ export const age = [
   "Not known"
 ];
 
-export const gender = ["Male", "Female", "Other"];
+export const gender = [
+  "Male",
+  "Female",
+  "Non-Binary",
+  "Not applicable (Small business)"
+];
 
 export const state = [
   "NSW",

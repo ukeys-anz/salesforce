@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Permission set group for CMOS reporting analysts, essentially granting them read-only access to complaints and permission to author reports.</description>
+    <label>IDR Data Analyst</label>
+    <permissionSets>Author_Reports_and_Dashboards</permissionSets>
+    <permissionSets>IDR_Reporting_Analyst</permissionSets>
+    <status>Updated</status>
+</PermissionSetGroup>

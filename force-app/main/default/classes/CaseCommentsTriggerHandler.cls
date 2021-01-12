@@ -41,4 +41,21 @@ public with sharing class CaseCommentsTriggerHandler extends Lib_TriggerHandler 
       record.addError(EDIT_ERROR);
     }
   }
+
+  /**
+   * @description onBeforeInsert to prevent Case Comments being added based on user role
+   */
+  public override void onBeforeInsert() {
+    CaseCommentsCommonActions.blockInsertsBasedOnUserRole(records);
+  }
+
+  /**
+   * @description onAfterInsert to perform processing during the after insert phase
+   */
+  public override void onAfterInsert() {
+    IDRCaseCommentsNotificationManager.manageNotification(
+      (List<CaseComment>) records
+    );
+    IDRCaseCommentActions.escalateNewCommentsToCFMS(records);
+  }
 }

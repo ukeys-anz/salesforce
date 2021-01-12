@@ -3,6 +3,6 @@
     <fullName>VR01_Restrict_Modification_to_IDR_System</fullName>
     <active>true</active>
     <description>Do not allow any changes to IDR system task once this has been created.</description>
-    <errorConditionFormula>!ISNEW()&amp;&amp; RecordType.DeveloperName = &apos;IDR_System_Task&apos; &amp;&amp; Text(PRIORVALUE(Status)) = &apos;Completed&apos;</errorConditionFormula>
+    <errorConditionFormula>$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false &amp;&amp; !ISNEW()&amp;&amp; RecordType.DeveloperName = &apos;IDR_System_Task&apos; &amp;&amp; Text(PRIORVALUE(Status)) = &apos;Completed&apos;</errorConditionFormula>
     <errorMessage>You are not authorized to make updates to this record.</errorMessage>
 </ValidationRule>

@@ -31,7 +31,7 @@ export default class TransactionHistoryRecord extends LightningElement {
   }
 
   get amountNumber() {
-    let relatedAmount = this.transactionRecord.Amount;
+    let relatedAmount = this.transactionRecord.amount.charged.value;
     if (relatedAmount < 0) {
       relatedAmount = -relatedAmount;
     }
@@ -39,11 +39,11 @@ export default class TransactionHistoryRecord extends LightningElement {
   }
 
   get positiveAmount() {
-    return this.transactionRecord.Amount >= 0;
+    return this.transactionRecord.amount.charged.value >= 0;
   }
 
   get negativeAmount() {
-    return this.transactionRecord.Amount < 0;
+    return this.transactionRecord.amount.charged.value < 0;
   }
 
   get transactionDate() {

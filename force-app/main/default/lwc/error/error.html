@@ -1,0 +1,22 @@
+<template>
+  <div class="slds-card slds-grid slds-grid_vertical-align-center">
+    <div class="slds-col">
+      <span class="emoji">&#128531;</span>
+    </div>
+    <div class="slds-col">
+      <template if:true={errorMessage}>
+        <span
+          class="slds-text-align_center slds-text-color_weak slds-text-heading_small"
+          >{errorMessage}</span
+        >
+      </template>
+      <template if:false={errorMessage}>
+        <span
+          class="slds-text-align_center slds-text-color_weak slds-text-heading_small"
+          >An error has occurred. Please refresh and try again. If the problem
+          persists, please contact your System Administrator.</span
+        >
+      </template>
+    </div>
+  </div>
+</template>

@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Layout xmlns="http://soap.sforce.com/2006/04/metadata">
-    <excludeButtons>DataDotComAccountInsights</excludeButtons>
-    <excludeButtons>DataDotComClean</excludeButtons>
-    <excludeButtons>DataDotComCompanyHierarchy</excludeButtons>
     <excludeButtons>Submit</excludeButtons>
     <layoutSections>
         <customLabel>false</customLabel>
@@ -155,8 +152,8 @@
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>FinServ__MailingAddress__pc</field>
+                <behavior>Edit</behavior>
+                <field>PersonOtherAddress</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
@@ -267,6 +264,9 @@
     </relatedContent>
     <relatedLists>
         <fields>NAME</fields>
+        <fields>Card_Number__c</fields>
+        <fields>Expiry_Date__c</fields>
+        <fields>FinServ__FinancialAccount__c</fields>
         <fields>Card_Activation_Status__c</fields>
         <fields>Card_Delivery_Status__c</fields>
         <fields>Pin_Set__c</fields>
@@ -293,22 +293,13 @@
         <sortField>Feedback_Received_Date_Time__c</sortField>
         <sortOrder>Desc</sortOrder>
     </relatedLists>
-    <relatedLists>
-        <excludeButtons>MassChangeOwner</excludeButtons>
-        <fields>NAME</fields>
-        <fields>Date_Time_Bug_Occurred__c</fields>
-        <fields>Status__c</fields>
-        <fields>Responsible_Value_Stream__c</fields>
-        <fields>Jira_Ticket__c</fields>
-        <relatedList>Reported_Bug__c.Reported_By__c</relatedList>
-    </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>true</showHighlightsPanel>
     <showInteractionLogPanel>true</showInteractionLogPanel>
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2O000000j0H0</masterLabel>
+        <masterLabel>00h2N000001BnB3</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

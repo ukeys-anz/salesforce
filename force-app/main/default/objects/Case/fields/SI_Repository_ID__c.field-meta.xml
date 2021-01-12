@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SI_Repository_ID__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <caseSensitive>false</caseSensitive>
+    <complianceGroup>Privacy - Non Personal Information;Source - Salesforce;Integrity - Trusted</complianceGroup>
+    <description>Pre-salesforce identifier for systemic issues.</description>
+    <externalId>true</externalId>
+    <label>SI Repository ID</label>
+    <length>255</length>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

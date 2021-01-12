@@ -508,7 +508,7 @@
                   <lightning-radio-group
                     required
                     name="writtenRequiredGroup"
-                    label="Is the complaint relating to hardship, a declined insurance claim, the value of an insurance claim or a decision of a superannuation trustee?"
+                    label="Is the complaint relating to hardship or a decision of a superannuation trustee?"
                     onchange={handleWrittenRequiredChange}
                     options={writtenrequiredoptions}
                     value={writtenRequiredValue}
@@ -539,8 +539,8 @@
                 </div>
                 <div class="slds-col slds-size_2-of-4"></div>
               </template>
-              <!--Systemic issuss-->
 
+              <!--Systemic issues-->
               <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                 <lightning-helptext
                   content="Issues which may impact more than one customer AND are of a compliance nature. E.g. ANZ systems or processes not working properly or non-compliance with terms and conditions"
@@ -552,11 +552,31 @@
                   label="Is this a possible systemic issue?"
                   onchange={handleCommonComplaint}
                   options={commoncomplaintoptions}
-                  value={isCommonComplaint}
+                  value={isCommonComplaintYesNo}
                   type="button"
                 >
                 </lightning-radio-group>
               </div>
+              <template if:true={isCommonComplaint}>
+                <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                  <lightning-input-field
+                    variant="label-stacked"
+                    required={isCommonComplaint}
+                    field-name={systemicIssueDescription}
+                    id="systemicIssueDescription-id"
+                  ></lightning-input-field>
+                </div>
+                <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                  <lightning-input-field
+                    variant="label-stacked"
+                    aria-label="Autocomplete parent systemic issue"
+                    field-name={SystemicIssue}
+                    value={systemicIssueValue}
+                    onchange={handleSystemicIssueChange}
+                    id="systemic-issue-id"
+                  ></lightning-input-field>
+                </div>
+              </template>
 
               <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                 <lightning-helptext
@@ -624,13 +644,12 @@
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <template if:true={isFinancialComplaintRemedy}>
-                    <!--<lightning-formatted-text value="Financial Compensation" ></lightning-formatted-text>-->
                     <label
                       class="slds-form-element__label"
                       for="text-input-id-149"
                     >
                       <abbr class="slds-required" title="required">* </abbr
-                      >Financial Compensation</label
+                      >Financial Amount</label
                     >
                     <lightning-input
                       variant="label-hidden"

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR14_SI_Allowed_Workflow</fullName>
+    <active>true</active>
+    <description>Validate how systemic issues may progress in the workflow.</description>
+    <errorConditionFormula>AND(
+	$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+	RecordType.DeveloperName = &apos;Systemic_Issue&apos;,
+	!ISNew(),
+	ISCHANGED(SI_Workflow_Step__c),
+	IF(
+		CASE(Text(PRIORVALUE(SI_Workflow_Step__c)),
+		&quot;1&quot;, CASE(Text(SI_Workflow_Step__c),
+		     &quot;2&quot;, 1,
+		     &quot;3&quot;,1,
+		     &quot;4&quot;,1,
+		     0),
+		&quot;2&quot;, CASE(Text(SI_Workflow_Step__c),
+		     &quot;3&quot;, 1,
+		     &quot;4&quot;,1,
+		     0),
+		&quot;3&quot;, CASE(Text(SI_Workflow_Step__c),
+		     &quot;2&quot;, 1,
+		     &quot;4&quot;,1,
+		     0),
+		&quot;4&quot;, CASE(Text(SI_Workflow_Step__c),
+		     &quot;2&quot;, 1,
+		     0),
+		1)=0, true, false
+	)
+)</errorConditionFormula>
+    <errorDisplayField>SI_Workflow_Step__c</errorDisplayField>
+    <errorMessage>This is not a valid step change.</errorMessage>
+</ValidationRule>

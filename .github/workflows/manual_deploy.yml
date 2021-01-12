@@ -1,0 +1,61 @@
+# This workflow deploys changes to a Salesforce project to a Salesforce org
+name: Deploy
+
+# This workflow will only trigger when manually invoked
+# See: https://github.blog/changelog/2020-07-06-github-actions-manual-triggers-with-workflow_dispatch/
+on:
+  workflow_dispatch:
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    container: ddawson235/sfdx:latest
+
+    env:
+      BASE_BRANCH: develop
+      SOURCE_BRANCH: develop
+
+    steps:
+      - name: "Create auth files with SFDX_URL secret"
+        shell: bash
+        run: echo ${{ secrets.CMOSQA}} > ./SFDX_URL_CMOSQA.txt
+
+      - name: "Authenticate all orgs in SFDX CLI"
+        run: sfdx force:auth:sfdxurl:store -a idrqa --sfdxurlfile=./SFDX_URL_CMOSQA.txt
+
+      - uses: actions/checkout@v2
+        with:
+          ref: develop
+          fetch-depth: 0
+
+      - name: "Generate package"
+        id: package
+        shell: bash
+        run: |
+          git fetch --tags 
+          ci/package.sh
+        env:
+          TAG_PREFIX: idrqa
+          SOURCE_BRANCH: develop
+
+      - uses: actions/upload-artifact@v1
+        if: ${{ steps.package.outputs.ARTEFACT_GENERATED }}
+        with:
+          name: package
+          path: ./artefact/
+
+      - name: "Deploy Changes"
+        shell: bash
+        run: ci/deploy.sh
+        env:
+          DEPLOY_ROOT: ./artefact/
+          BUILD_COMMAND: deploy
+          ORG_NAME: idrqa
+
+      - name: "Tag Release"
+        shell: bash
+        run: |
+          TAG="idrqa-${GITHUB_RUN_ID}"
+          echo "$TAG"
+          git tag "$TAG"
+          git push origin "$TAG"

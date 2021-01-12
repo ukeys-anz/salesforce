@@ -102,13 +102,17 @@
         <fields>OWNER_NAME</fields>
         <relatedList>Case.Product__c</relatedList>
     </relatedLists>
+    <relatedLists>
+        <fields>Case__c</fields>
+        <relatedList>Case_Product__c.Product__c</relatedList>
+    </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>true</showHighlightsPanel>
     <showInteractionLogPanel>true</showInteractionLogPanel>
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2N000000dR1h</masterLabel>
+        <masterLabel>00h2O000000nJxu</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

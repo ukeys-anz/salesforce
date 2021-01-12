@@ -4,7 +4,7 @@
     "Account",
     "Application_Log__c",
     "CaseComment",
-    "Case_Duration__c",
+    "Case_Product__c",
     "Case",
     "Contact",
     "Customer_Feedback__c",
@@ -29,6 +29,13 @@
     "User"
   ],
   "usermap": [
+    {
+      "name": "CFMS Integration User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": ["Enforce_mTLS", "IDR_CFMS_Integration"],
+      "type": "system"
+    },
     {
       "name": "Coach",
       "profile": "ANZx Standard User",
@@ -58,6 +65,13 @@
       "type": "system"
     },
     {
+      "name": "EDW Integration User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": ["Enforce_mTLS", "IDR_EDW_Integration"],
+      "type": "system"
+    },
+    {
       "name": "Engineer",
       "profile": "No Access",
       "permissionsetgroups": [],
@@ -66,24 +80,45 @@
       "type": "user"
     },
     {
+      "name": "IDR Reporting Analyst",
+      "profile": "ANZ Standard User",
+      "permissionsetgroups": ["IDR_Data_Analyst"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
       "name": "IDR Level 1",
       "profile": "ANZ Standard User",
       "permissionsetgroups": ["IDR_Level_1"],
-      "permissionsets": [],
+      "permissionsets": ["Enforce_SSO"],
       "type": "user"
     },
     {
       "name": "IDR Level 2",
       "profile": "ANZ Standard User",
       "permissionsetgroups": ["IDR_Level_2"],
-      "permissionsets": [],
+      "permissionsets": ["Enforce_SSO"],
       "type": "user"
     },
     {
       "name": "IDR Level 3",
       "profile": "ANZ Standard User",
       "permissionsetgroups": ["IDR_Level_3"],
-      "permissionsets": [],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "IDR Reporting Analyst",
+      "profile": "ANZ Standard User",
+      "permissionsetgroups": [],
+      "permissionsets": ["IDR_Reporting_Analyst, Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "IDR Systemic Issue Team",
+      "profile": "ANZ Standard User",
+      "permissionsetgroups": [],
+      "permissionsets": ["Systemic_Issue_User_Base, Enforce_SSO"],
       "type": "user"
     },
     {
@@ -92,6 +127,20 @@
       "permissionsetgroups": ["IDR_Tech_Support"],
       "permissionsets": ["Enforce_SSO"],
       "type": "user"
+    },
+    {
+      "name": "MVISION Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": ["API_Only", "Mvision_Permissions"],
+      "type": "system"
+    },
+    {
+      "name": "Notification Broker Integration User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": ["Enforce_mTLS", "IDR_Notification_Broker_Integration"],
+      "type": "system"
     },
     {
       "name": "OCV Integration User",
@@ -122,11 +171,28 @@
       "type": "user"
     },
     {
+      "name": "Splunk Sec Ops Integration User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": ["Splunk_Integration_Sec_Ops"],
+      "type": "system"
+    },
+    {
       "name": "System Administrator",
       "profile": "Admin",
       "permissionsetgroups": [],
       "permissionsets": [],
       "type": "user"
+    },
+    {
+      "name": "Splunk Tech Ops Integration User",
+      "profile": "Integration User (External Apps)",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "Password_Never_Expires",
+        "Splunk_Integration_Tech_Ops"
+      ],
+      "type": "system"
     },
     {
       "name": "Trailblazer",
@@ -143,10 +209,36 @@
       "type": "system"
     },
     {
+      "name": "User Provisioning",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": ["User_Provisioning"],
+      "type": "system"
+    },
+    {
       "name": "WebdriverIO Integration User",
       "profile": "Minimum Access - Salesforce",
       "permissionsetgroups": [],
       "permissionsets": ["API_Only", "SFDX_Full_Dev_Hub_Access"],
+      "type": "system"
+    },
+    {
+      "name": "FraudX Agent",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["FraudX_Agent"],
+      "permissionsets": [],
+      "type": "user"
+    },
+    {
+      "name": "Twilio Integration User",
+      "profile": "Integration User (External Apps)",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "API_Access_Twilio",
+        "Chat_Read_Write",
+        "Enforce_mTLS"
+      ],
       "type": "system"
     }
   ]

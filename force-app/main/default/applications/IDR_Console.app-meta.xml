@@ -26,6 +26,15 @@
         <type>Flexipage</type>
         <pageOrSobjectType>Product2</pageOrSobjectType>
     </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>Relevant_Product_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>Case_Product__c</pageOrSobjectType>
+    </actionOverrides>
     <brand>
         <headerColor>#0070D2</headerColor>
         <logo>ANZLogoRGBANZBLUE</logo>
@@ -46,13 +55,13 @@
     <utilityBar>IDR_Console_UtilityBar</utilityBar>
     <workspaceConfig>
         <mappings>
-            <tab>standard-Task</tab>
-        </mappings>
-        <mappings>
             <tab>standard-Case</tab>
         </mappings>
         <mappings>
             <tab>standard-Product2</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-Task</tab>
         </mappings>
         <mappings>
             <tab>standard-home</tab>
