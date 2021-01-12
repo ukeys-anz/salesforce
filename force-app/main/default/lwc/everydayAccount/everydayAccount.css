@@ -12,10 +12,6 @@
   padding: 10px !important;
 }
 
-.slds-list_horizontal .slds-item_label {
-  width: unset;
-}
-
 .slds-card__footer {
   border: unset;
 }
@@ -28,22 +24,14 @@
   right: 10px;
 }
 
-.refresh-icon {
-  float: right;
-  cursor: pointer;
-  position: relative;
-  bottom: 25px;
-  right: 20px;
-}
-
-.slds-item_label {
-  font-size: 24px;
-}
-
 .not-found {
   margin: 0;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.field-padding {
+  padding: 10px;
 }

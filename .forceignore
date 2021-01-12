@@ -32,7 +32,7 @@ force-app/main/default/permissionsets/SFDX_Full_Dev_Hub_Access.permissionset
 
 # Ignoring sharing rules for now until the dx issue is fixed https://github.com/forcedotcom/cli/issues/136
 # The sharing rule calculations makes scratch org creation to timeout with error sharing operation already in progress
-#force-app/main/default/sharingRules/Case.sharingRules-meta.xml
+force-app/main/default/sharingRules/Case.sharingRules-meta.xml
 force-app/main/default/sharingRules/User.sharingRules-meta.xml
 
 # Don't pull because delegated authenticaton (and therefore IsSsoEnabled permission) cannot currently be enabled in scratch orgs
@@ -44,8 +44,11 @@ force-app/main/default/reports/Knowledge_Reports/New_Knowledge_Article_with_Vote
 # Obscure setting that is introduced each time a Health Check (Baseline Hardening) is run and actioned
 SingleSignOn.settings
 
-#myTrailhead profile since identity license is not in scratch orgs
-force-app/main/default/profiles/ANZx Trailblazer User.profile-meta.xml
-
 #auth provider to make the build pass and we do the manual deployment later
 force-app/main/default/authproviders/Azure_AD_Custom_OIDC.authprovider-meta.xml
+
+# Ignoring PSL that does not exist in scratch org (not yet supported in scratch definition)
+force-app/main/default/permissionsets/myTrailhead_PSL.permissionset-meta.xml
+
+#Ignoring Jest tests as per https://developer.salesforce.com/docs/component-library/documentation/en/lwc/lwc.unit_testing_using_jest_create_tests
+**/__tests__/**

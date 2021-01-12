@@ -17,7 +17,7 @@ interface ICase {
   IDR_NC_Descent__c: string;
   IDR_NC_State__c: string;
   Type: string;
-  IDR_Is_Common__c: boolean;
+  IDR_Is_Common__c: string;
   Description: string;
   IDR_Complainant_Desired_Outcome__c: string;
   RecordTypeId: string;
@@ -50,7 +50,7 @@ export function createCaseList(
       const mockCase: ICase = {
         IDR_Complainant_Type__c: "1",
         Type: "17",
-        IDR_Is_Common__c: faker.random.boolean(),
+        IDR_Is_Common__c: "No",
         Description: faker.lorem.text(),
         IDR_Complainant_Desired_Outcome__c: faker.lorem.text(),
         RecordTypeId: await getRecordTypeID("Case", recordType),

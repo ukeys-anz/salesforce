@@ -17,7 +17,7 @@ public without sharing class DateTimeUtils {
   ) {
     Decimal difference = endTimeInMillis - startTimeInMillis;
     Decimal differenceHours = difference / SFConstants.TIME_TO_HOUR;
-    return differenceHours.setScale(2, RoundingMode.HALF_UP);
+    return differenceHours.setScale(4, RoundingMode.HALF_UP);
   }
 
   /**
@@ -35,6 +35,6 @@ public without sharing class DateTimeUtils {
   ) {
     Decimal difference = BusinessHours.diff(businessHourId, startTime, endTime);
     Decimal differenceHours = difference / SFConstants.TIME_TO_HOUR;
-    return differenceHours.setScale(2, RoundingMode.HALF_UP);
+    return differenceHours.setScale(4, RoundingMode.HALF_UP);
   }
 }

@@ -61,6 +61,8 @@ import STATUS_FIELD from "@salesforce/schema/Case.Status";
 //Systemic issue fields
 import IS_COMMON_COMPLAINT_FIELD from "@salesforce/schema/Case.IDR_Is_Common__c";
 import IS_REAL_FORM_NEED_FIELD from "@salesforce/schema/Case.IDR_Real_Form_Req__c";
+import SYSTEMIC_ISSUE_DESCRIPTION from "@salesforce/schema/Case.IDR_Systemic_Issue_Description__c";
+import SYSTEMIC_ISSUE_LOOKUP_FIELD from "@salesforce/schema/Case.IDR_Parent_Systemic_Issue__c";
 
 //Is Escalated fields
 import ESCALATED_TO from "@salesforce/schema/Case.IDR_Escalated_to__c";
@@ -142,6 +144,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
   //systemic fields
   commonComplaint = IS_COMMON_COMPLAINT_FIELD;
   isRealFormNeeded = IS_REAL_FORM_NEED_FIELD;
+  systemicIssueDescription = SYSTEMIC_ISSUE_DESCRIPTION;
+  SystemicIssue = SYSTEMIC_ISSUE_LOOKUP_FIELD;
 
   // escalation fields
   escalatedTo = ESCALATED_TO;
@@ -151,6 +155,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   @api recordTypeDevName;
   @api contextRecordId;
 
+  isCustomerDetails = false;
   hasNominatedThirdParty = false;
   activeSections = ["A", "B", "C"];
   displayCustomerInfo = false;
@@ -167,11 +172,13 @@ export default class CreateComplaintLWC extends NavigationMixin(
   productValue;
   showComplianceFields;
   showSections;
+  systemicIssueValue;
   isComplaintResolved;
   isComplaintEscalated;
   // future use: isComplaintOnhold;
   isFinancialComplaintRemedy;
   isNonFinancialComplaintRemedy;
+  isCommonComplaintYesNo;
   isCommonComplaint;
   isRealFormNeeded;
   isAddressRequired;
@@ -204,6 +211,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   //initialize components
   connectedCallback() {
     this.recordType = this.recordTypeId;
+    //prepopulate the lookup when creating a new complaint from a product record page
     this.productValue =
       this.contextRecordId && this.contextRecordId.match(/01t[a-z0-9]+/i)
         ? this.contextRecordId
@@ -236,7 +244,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
   }
 
   handleCommonComplaint(event) {
-    this.isCommonComplaint = event.target.value;
+    this.isCommonComplaintYesNo = event.target.value;
+    this.isCommonComplaint =
+      this.isCommonComplaintYesNo === "Yes" ? true : false;
   }
 
   handleRealFormNeeded(event) {
@@ -334,6 +344,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.description = event.detail.value;
   }
 
+  handleSystemicIssueChange(event) {
+    this.systemicIssueValue = event.detail.value[0];
+  }
+
   //form validation.
   validateFields() {
     this.loading = true;
@@ -377,7 +391,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
           "Is the complaint relating to hardship, a declined insurance claim, the value of an insurance claim or a decision of a superannuation trustee?, ";
       }
     }
-    if (!this.isCommonComplaint) {
+    if (
+      typeof this.isCommonComplaint === "undefined" ||
+      this.isCommonComplaint === null
+    ) {
       isFieldValid = false;
       this.missingDataFields += "Is this a possible systemic issue?, ";
     }
@@ -432,13 +449,21 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   handleSubmit(event) {
     event.preventDefault(); // stop the form from submitting
-
     //create case if form validation was successful
     if (this.isDataValid) {
       this.template.querySelector(".saveButton").disabled = true;
       const fields = event.detail.fields;
+
+      if (this.isCustomerDetails && this.isCustomerComplaint) {
+        fields[FIRST_NAME_FIELD.fieldApiName] = this.firstName;
+        fields[LAST_NAME_FIELD.fieldApiName] = this.lastName;
+        fields[MIDDLE_NAME_FIELD.fieldApiName] = this.middleNames;
+      }
       fields[DESCRIPTION_FIELD.fieldApiName] = this.description;
       fields[PRODUCT_LOOKUP_FIELD.fieldApiName] = this.productValue;
+      fields[
+        SYSTEMIC_ISSUE_LOOKUP_FIELD.fieldApiName
+      ] = this.systemicIssueValue;
       fields[CAP_CIS_ID_FIELD.fieldApiName] = this.customerIdValue.replace(
         /^0+/,
         ""
@@ -473,7 +498,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
         fields[IS_REAL_FORM_NEED_FIELD.fieldApiName] = true;
       }
 
-      fields[IS_COMMON_COMPLAINT_FIELD.fieldApiName] = this.isCommonComplaint;
+      fields[
+        IS_COMMON_COMPLAINT_FIELD.fieldApiName
+      ] = this.isCommonComplaintYesNo;
 
       if (!this.hasNominatedThirdParty) {
         fields[THIRD_PARTY_COUNTRY_FIELD.fieldApiName] = "";
@@ -536,13 +563,16 @@ export default class CreateComplaintLWC extends NavigationMixin(
       requiredFields.compRemedy = "Complaint Remedy";
       requiredFields.descOutcome = "Description of Outcome";
     }
-
     if (this.isComplaintEscalated) {
       requiredFields.escalatedTo = "Escalated To";
       requiredFields.escalationReason = "Complaint Escalation Reason";
     }
     if (this.isNonFinancialComplaintRemedy) {
       requiredFields.nonFinancialRemedy = "Non-Financial Remedy";
+    }
+    if (this.isCommonComplaint) {
+      requiredFields.systemicIssueDescription =
+        "Why is this a possible systemic issue?";
     }
     return requiredFields;
   }
@@ -556,9 +586,16 @@ export default class CreateComplaintLWC extends NavigationMixin(
     }
     return true;
   }
+
   handleCustNumValidated(event) {
     if (event) {
       this.isCustNumValidated = true;
+      if (event.detail) {
+        this.firstName = event.detail.first_name;
+        this.middleNames = event.detail.middlename;
+        this.lastName = event.detail.last_name;
+        this.isCustomerDetails = true;
+      }
     }
   }
 

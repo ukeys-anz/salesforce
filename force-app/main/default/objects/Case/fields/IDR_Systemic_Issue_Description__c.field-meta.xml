@@ -6,8 +6,8 @@
     <description>Free text explanation of the systemic issue that led to the complaint https://confluence.service.anz/display/IDR/8.2.5+Systemic+Issues+Fields</description>
     <externalId>false</externalId>
     <inlineHelpText>Describe why this complaint is likely to impact more than one customer</inlineHelpText>
-    <label>Possible Systemic Issue Description</label>
-    <length>32768</length>
+    <label>Why is this a possible systemic issue?</label>
+    <length>4000</length>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>

@@ -1,35 +1,11 @@
-.ring__1 {
-  position: absolute;
-  left: 80%;
-  top: 50%;
-}
-
-.ring__2,
-.ring__3 {
+.ring {
   position: relative;
-  padding: 10px;
-  margin: 50px;
+  margin-top: 50px;
+  margin-bottom: 110px;
 }
 
-.field-padding__1,
-.field-padding__2 {
-  padding: 30px;
-}
-
-.field-padding__1:last-child {
-  margin-left: 60px;
-}
-
-.field-padding__3 {
+.field-padding {
   padding: 20px;
-}
-
-.refresh-icon {
-  float: right;
-  cursor: pointer;
-  position: relative;
-  bottom: 25px;
-  right: 20px;
 }
 
 .goals {
@@ -45,10 +21,6 @@
   padding: 10px !important;
 }
 
-.header-column {
-  max-width: 75px;
-}
-
 .last-updated {
   float: right;
   font-size: 12px;
@@ -57,18 +29,12 @@
   right: 10px;
 }
 
-.slds-list_horizontal .slds-item_label {
-  width: unset;
-}
-
 .icon-background {
   height: 70px;
   width: 70px;
   background-color: #ebebeb;
   border-radius: 50%;
-  position: absolute;
-  bottom: 4px;
-  margin-left: 40px;
+  position: relative;
 }
 
 .icon {
@@ -77,23 +43,17 @@
   left: 13px;
 }
 
-.slds-item_label {
-  font-size: 20px;
-}
-
-.grid-content__1 {
-  justify-content: flex-start;
-  margin-left: 35px;
-}
-
-.grid-content__2 {
-  justify-content: space-around;
+.icon-wrapper {
+  position: relative;
+  left: 40%;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .tooltip {
+  margin-left: 2px;
   position: relative;
-  bottom: 81px;
-  left: 100px;
+  bottom: 3px;
 }
 
 .in-progress {

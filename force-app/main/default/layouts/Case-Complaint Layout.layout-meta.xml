@@ -14,6 +14,10 @@
                 <behavior>Required</behavior>
                 <field>IDR_Customer_Number__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_Update_Notification_Flag__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -236,22 +240,26 @@
                 <field>IDR_Systemic_Issue_Category__c</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_Real_Form_Req__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Required</behavior>
-                <field>IDR_Is_Written_Resp_Requested__c</field>
+                <field>IDR_Is_Written_Resp_Required__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>IDR_Real_Form_Req__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>IDR_Systemic_Issue_Description__c</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_Parent_Systemic_Issue__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Required</behavior>
-                <field>IDR_Is_Written_Resp_Required__c</field>
+                <field>IDR_Is_Written_Resp_Requested__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -337,6 +345,10 @@
                 <behavior>Readonly</behavior>
                 <field>SuppliedEmail</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>ContactId</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -348,8 +360,8 @@
                 <field>ClosedDate</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>ContactId</field>
+                <behavior>Edit</behavior>
+                <field>IDR_Date_Received__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
@@ -370,16 +382,6 @@
     </layoutSections>
     <platformActionList>
         <actionListContext>Record</actionListContext>
-        <platformActionListItems>
-            <actionName>Edit</actionName>
-            <actionType>StandardButton</actionType>
-            <sortOrder>0</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
-            <actionName>Case.Escalate_Complaint</actionName>
-            <actionType>QuickAction</actionType>
-            <sortOrder>1</sortOrder>
-        </platformActionListItems>
         <platformActionListItems>
             <actionName>Case.Resolve_Complaint</actionName>
             <actionType>QuickAction</actionType>
@@ -414,6 +416,16 @@
             <actionName>Case.Send_Letter_Email</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>8</sortOrder>
+         </platformActionListItems>
+         <platformActionListItems>  
+            <actionName>Edit</actionName>
+            <actionType>StandardButton</actionType>
+            <sortOrder>0</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>Case.Escalate_Complaint</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>1</sortOrder>
         </platformActionListItems>
     </platformActionList>
     <quickActionList>
@@ -456,6 +468,8 @@
         <fields>TASK.CREATED_DATE</fields>
         <fields>TASK.STATUS</fields>
         <fields>CORE.USERS.FULL_NAME</fields>
+        <fields>TASK.LAST_UPDATE_DATE_ONLY</fields>
+        <fields>Completed_Date__c</fields>
         <relatedList>RelatedHistoryList</relatedList>
     </relatedLists>
     <relatedLists>
@@ -488,7 +502,7 @@
     <showRunAssignmentRulesCheckbox>true</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>true</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2O000000pomL</masterLabel>
+        <masterLabel>00h2O000000p7mN</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

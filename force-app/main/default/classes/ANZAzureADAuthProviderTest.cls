@@ -12,7 +12,7 @@ public class ANZAzureADAuthProviderTest {
   public static final String CONTENT_TYPE_JSON = 'application/json';
   public static final String USER_ENDPOINT = 'https://graph.microsoft.com/v1.0/me';
 
-  private static final String JSON_GOOD_TOKEN =
+  public static final String JSON_GOOD_TOKEN =
     '{' +
     '  \"refresh_token_expires_in\" : \"0\",' +
     '  \"api_product_list\" : \"[helloworld, HelloWorld_OAuth2-Product]\",' +

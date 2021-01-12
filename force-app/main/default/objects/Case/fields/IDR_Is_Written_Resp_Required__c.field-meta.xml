@@ -5,7 +5,7 @@
     <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information</complianceGroup>
     <description>Is a Written Response to the Complaint Required under regulations/policy? Yes or No response</description>
     <externalId>false</externalId>
-    <inlineHelpText>Is the complaint relating to hardship, a declined insurance claim, the value of an insurance claim or a decision of a superannuation trustee?</inlineHelpText>
+    <inlineHelpText>Is the complaint relating to hardship or a decision of a superannuation trustee?</inlineHelpText>
     <label>Is a Written Response Required?</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>

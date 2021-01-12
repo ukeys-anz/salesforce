@@ -13,7 +13,6 @@
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
-        <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
@@ -25,16 +24,6 @@
                 <fullName>2</fullName>
                 <default>false</default>
                 <label>Customer Request</label>
-            </value>
-            <value>
-                <fullName>3</fullName>
-                <default>false</default>
-                <label>Systemic Issue</label>
-            </value>
-            <value>
-                <fullName>4</fullName>
-                <default>false</default>
-                <label>Remediation</label>
             </value>
             <value>
                 <fullName>5</fullName>

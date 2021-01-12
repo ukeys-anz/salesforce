@@ -27,7 +27,7 @@ jobs:
           echo "Checking Lightning Web Components"
           npx prettier -c force-app/main/default/lwc/**/*.{js,html,css}
           echo "Checking Aura Components"
-          npx prettier -c force-app/main/default/aura/**/*.{js,css}
+          npx prettier -c force-app/main/default/aura/**/*.{js,css,cmp}
           echo "Checking WebdriverIO project files"
           npx prettier -c webdriverIO/**/*.{ts,js}
 

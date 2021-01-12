@@ -4,9 +4,12 @@
  * @description  Test class for AuthTokenCacheUtil
  */
 @isTest
-private class AuthTokenCacheUtilTest {
-  private final static String IDTESTVALUE = 'testIdTokenValue';
+public class AuthTokenCacheUtilTest {
   private final static String REFRESHTESTVALUE = 'testRefreshTokenValue';
+  //jwt containing a single claim of exp 26/11/2020
+  private final static String EXPIREDTOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MDYzNDczNzh9.-hm-9aM803s3TqiDyj7iaUi-tujRy2l8IddQWHKiXr4';
+  //jwt containing a single claim of exp 26/11/2050
+  public final static String IDTESTVALUE = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjI1NTMwMzIxNzh9.eAWGLhTYhn4y9M2t2OHeTLIe7MLPObBFK2Nli8CPTD4';
 
   /**
    * @description tests the storage and cleanup of the cache
@@ -169,9 +172,136 @@ private class AuthTokenCacheUtilTest {
       'An exception was not thrown by session retrieve method'
     );
     System.assertEquals(
-      'No active token found, please log out, and back into Salesforce',
+      'Connection issue, please sign in again',
       exceptions[0].getMessage(),
       'Incorrect exception message from session token cache miss'
+    );
+  }
+
+  /**
+   * @description tests session cache miss on Id token and the refresh process
+   * GIVEN session cache does not id token but does contain refresh, a new token is requested and returned
+   */
+  @isTest
+  static void testSessionCacheRefresh() {
+    Test.setMock(
+      HttpCalloutMock.class,
+      new ANZAzureADAuthProviderTest.AzureMockService(
+        ANZAzureADAuthProviderTest.JSON_GOOD_TOKEN,
+        200
+      )
+    );
+    //add a refresh token but not an Id token
+    Cache.Session.put(
+      'local.SessionAzureTokens.refreshToken' + UserInfo.getUserId(),
+      REFRESHTESTVALUE,
+      300,
+      Cache.Visibility.NAMESPACE,
+      false
+    );
+
+    Test.startTest();
+    String newToken = AuthTokenCacheUtil.getSessionIdToken();
+    Test.stopTest();
+
+    System.assertEquals('sampleidtoken', newToken);
+  }
+
+  /**
+   * @description test method for getForgeJWTToken when successful
+   */
+  @isTest
+  public static void testGetStaffToken() {
+    Test.setMock(
+      HttpCalloutMock.class,
+      new ForgeTokenHandlerTest.MockForgeCallout()
+    );
+    Id userId = UserInfo.getUserId();
+    Cache.Session.put(
+      'local.SessionAzureTokens.idToken' + userId,
+      ForgeTokenHandlerTest.IDTESTVALUE,
+      300,
+      Cache.Visibility.NAMESPACE,
+      false
+    );
+
+    Test.startTest();
+    String accessToken = AuthTokenCacheUtil.getStaffToken('1111');
+    System.assertEquals(accessToken, 'xxxxx');
+    Test.stopTest();
+  }
+
+  /**
+   * @description test method for getForgeJWTToken when retrieving from cache instead of api
+   */
+  @isTest
+  public static void testGetStaffTokenFromCache() {
+    Test.setMock(
+      HttpCalloutMock.class,
+      new ForgeTokenHandlerTest.MockForgeCallout()
+    );
+    Id userId = UserInfo.getUserId();
+    Cache.Session.put(
+      'local.SessionAzureTokens.idToken' + userId,
+      ForgeTokenHandlerTest.IDTESTVALUE,
+      300,
+      Cache.Visibility.NAMESPACE,
+      false
+    );
+
+    Cache.Session.put(
+      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken1111',
+      ForgeTokenHandlerTest.IDTESTVALUE
+    );
+
+    Test.startTest();
+    String accessToken = AuthTokenCacheUtil.getStaffToken('1111');
+    System.assertEquals(accessToken, ForgeTokenHandlerTest.IDTESTVALUE);
+    Test.stopTest();
+  }
+
+  /**
+   * @description test method for getForgeJWTToken when failed
+   */
+  @isTest
+  public static void testGetStaffTokenFailure() {
+    Test.setMock(
+      HttpCalloutMock.class,
+      new ForgeTokenHandlerTest.MockForgeCalloutFailed()
+    );
+    Id userId = UserInfo.getUserId();
+    Cache.Session.put(
+      'local.SessionAzureTokens.idToken' + userId,
+      ForgeTokenHandlerTest.IDTESTVALUE,
+      300,
+      Cache.Visibility.NAMESPACE,
+      false
+    );
+
+    Test.startTest();
+    try {
+      AuthTokenCacheUtil.getStaffToken('1111');
+    } catch (Exception e) {
+      System.assertEquals('Get access token failed', e.getMessage());
+    }
+
+    Test.stopTest();
+  }
+
+  /**
+   * @description tests the token expiry checker
+   * GIVEN a JWT is supplied with an exp claim, boolean is returned if the exp datetime has passed
+   */
+  @isTest
+  static void testExpiredToken() {
+    Test.startTest();
+    Boolean result = AuthTokenCacheUtil.isTokenValid(
+      AuthTokenCacheUtilTest.EXPIREDTOKEN
+    );
+    Test.stopTest();
+    System.assert(
+      !result,
+      'Token validity checker should return false when expiry date has passed'
     );
   }
 }

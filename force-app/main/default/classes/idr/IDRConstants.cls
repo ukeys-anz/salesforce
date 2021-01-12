@@ -13,17 +13,26 @@ public with sharing class IDRConstants {
   public static final String RESOLVED_STATUS = 'Resolved';
   public static final String WITHDRAWN_STATUS = 'Withdrawn';
 
-  //Complaint and Non- Complaint Case Record Type 
+  //Complaint and Non- Complaint Case Record Type
   public static final Id CUSTOMER_COMPLAINT_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-  .get('Customer_Complaint')
-  .getRecordTypeId();
+    .get('Customer_Complaint')
+    .getRecordTypeId();
 
   //NotificationHandler Status
   public static final String NOTIFICATION_PUBLISH_STATUS = 'Published';
   public static final String NOTIFICATION_PENDING_PUBLISH_STATUS = 'Pending Publish';
   public static final String NOTIFICATION_ERROR_PUBLISH_STATUS = 'Error while Publish';
 
-  //Message Text 
+  //Message Text
   public static final String RESTRICTED_ACTION_MESSAGE = 'You are not authorised to perform this action.';
-   
+
+  //Milestone Sla
+  public static final String MILESTONE_SLA_NORMAL = 'Normal';
+  public static final string COMPLAINTS_ENTITLMENT_ACCT = 'Complaint Entitlement Account';
+  public static final string COMPLAINTS_ENTITLMENT_PROCESS = 'complaints';
+  public static final string COMPLAINTS_ENTITLEMENT_NAME = 'Complaints Entitlement';
+
+  //Field labels
+  public static final String MILESTONE_SLA_FIELD_LABEL = 'Milestone Sla';
+  public static final String CASE_OWNER_ID = 'Owner ID';
 }

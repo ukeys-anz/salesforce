@@ -49,8 +49,7 @@ export function createCaseList(
           "Open",
           "Under Investigation",
           "On Hold",
-          "Escalated",
-          "Re-opened"
+          "Escalated"
         ]),
         Type: "App Support",
         Sub_Type__c: "App Guide;Device Support",
@@ -155,8 +154,7 @@ export async function getParentCase(
               "Under Investigation",
               "On Hold",
               "Escalated",
-              "Closed",
-              "Re-opened"
+              "Closed"
             ]),
             Type: "App Support",
             Sub_Type__c: "App Guide;Device Support",

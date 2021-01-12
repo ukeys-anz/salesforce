@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Title</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Trusted;Source - Azure</complianceGroup>
+    <complianceGroup>Integrity - Trusted;Source - Azure;Privacy - Personal Information</complianceGroup>
     <description>Job title</description>
     <securityClassification>Confidential</securityClassification>
 </CustomField>

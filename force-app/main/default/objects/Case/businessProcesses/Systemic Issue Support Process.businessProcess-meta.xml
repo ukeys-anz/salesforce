@@ -4,15 +4,11 @@
     <description>Standard support process for systemic issues.</description>
     <isActive>true</isActive>
     <values>
-        <fullName>Assessment</fullName>
+        <fullName>Closed</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Open</fullName>
         <default>true</default>
-    </values>
-    <values>
-        <fullName>Investigation</fullName>
-        <default>false</default>
-    </values>
-    <values>
-        <fullName>Resolution</fullName>
-        <default>false</default>
     </values>
 </BusinessProcess>

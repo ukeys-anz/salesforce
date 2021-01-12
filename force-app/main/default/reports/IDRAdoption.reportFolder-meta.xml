@@ -2,7 +2,7 @@
 <ReportFolder xmlns="http://soap.sforce.com/2006/04/metadata">
     <folderShares>
         <accessLevel>View</accessLevel>
-        <sharedTo>CMOS_Leader_Group</sharedTo>
+        <sharedTo>All_IDR_Users</sharedTo>
         <sharedToType>Group</sharedToType>
     </folderShares>
     <name>IDR Adoption</name>
