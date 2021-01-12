@@ -126,16 +126,14 @@ public with sharing class CreateCommsController {
   /**
    * @description create letter approval records for the letter/email to be approved.
    *
-   * @param template user selected template for this letter/email
    * @param caseId the id of the case against which this lette/email is being created
    * @param isEmail should this be sent as an email.
    * @param isLetter should this be sent as an leter.
+   * @param template user selected template for this letter/email
    * @param lineItems list of free text fields with user inputed data.
    * @return string ID of the created letter approval record.
    */
-  @SuppressWarnings('PMD.ExcessiveParameterList')
-  @SuppressWarnings('PMD.StdCyclomaticComplexity')
-  @SuppressWarnings('PMD.ApexSOQLInjection')
+  @SuppressWarnings('PMD.ExcessiveParameterList','PMD.StdCyclomaticComplexity','PMD.ApexSOQLInjection')
   @auraEnabled
   public static string createComms(
     string caseId,
