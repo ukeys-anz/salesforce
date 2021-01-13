@@ -113,7 +113,9 @@
             <div class="slds-col slds-size--1-of-7">
               <div class="slds-grid slds-form-element__label">Phone</div>
               <div class="slds-grid">
-                {transactionRecord.merchant.phone_number.value}
+                <template if:true={transactionRecord.merchant.phone_number}>
+                  {transactionRecord.merchant.phone_number.value}
+                </template>
               </div>
             </div>
             <div class="slds-col slds-size--1-of-7">

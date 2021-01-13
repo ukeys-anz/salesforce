@@ -12,7 +12,7 @@ public with sharing class TransactionHistoryController {
    *
    * @param ocvId Ocv id for which account transaction details needs to be fetched
    * @param accountNumber Account number for which we want to fetch the transactions
-   * @param nextURL Used to fetch the next lot of transactions
+   * @param paramUrl Used to fetch the next lot of transactions or search by date
    * @return String
    * @exception CalloutException
    */
@@ -20,7 +20,7 @@ public with sharing class TransactionHistoryController {
   public static String getTransactions(
     String ocvId,
     String accountNumber,
-    String nextURL
+    String paramUrl
   ) {
     String responseBody = null;
     if (String.isNotBlank(ocvId) && String.isNotBlank(accountNumber)) {
@@ -29,7 +29,7 @@ public with sharing class TransactionHistoryController {
         'callout:SF_MS_Fabric' +
         Label.MS_Get_Transactions +
         accountNumber +
-        nextURL
+        paramUrl
       );
 
       request.setMethod('GET');
