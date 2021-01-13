@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR16_ChatTopic_Required_for_Chat</fullName>
+    <active>true</active>
+    <description>A &apos;Chat Topic&apos; should be linked if &apos;Channel Received&apos; was marked as &quot;Chat&quot;</description>
+    <errorConditionFormula>AND(
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+RecordType.DeveloperName = &apos;General_Inquiry&apos;,
+ISPICKVAL( Origin, &quot;Chat&quot;)  &amp;&amp;  ISBLANK( Twilio_Channel_SID__c )
+)</errorConditionFormula>
+    <errorDisplayField>Chat_Topic__c</errorDisplayField>
+    <errorMessage>A &apos;Chat Topic&apos; should be linked if &apos;Channel Received&apos; was marked as &quot;Chat&quot;.</errorMessage>
+</ValidationRule>
