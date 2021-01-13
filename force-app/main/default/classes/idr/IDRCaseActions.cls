@@ -404,10 +404,8 @@ public with sharing class IDRCaseActions {
             Case.Type,
             c.Type
           ),
-          Complaint_Subsequent_Issue__c = IDRCaseActions.getPicklistLabel(
-            Case.IDR_Subsequent_Issue__c,
-            c.IDR_Subsequent_Issue__c
-          ),
+          Complaint_Issue_Key__c = c.Type,
+          Complaint_Subsequent_Issue__c = c.IDR_Subsequent_Issue__c,
           Country__c = c.IDR_NC_Country__c,
           Customer_Number__c = c.IDR_Customer_Number__c,
           Email__c = c.IDR_NC_Email__c,
