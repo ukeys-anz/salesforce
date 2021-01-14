@@ -141,13 +141,22 @@ public with sharing class IDRCaseActions {
    * @param records
    */
   public static void afterInsert(List<Case> records) {
+    Case[] childComplaints = new List<Case>(); //records to rollup on parent systemic issue
     for (Case record : records) {
       if (isIDRComplaintType(record)) {
         if (NOTIFICATION_STATUS.contains(record.Status)) {
           notificationCaseList.add(record);
         }
         checkForCRCEscalation(record);
+        //should record rollup on parent systemic issue?
+        if (!String.isBlank(record.IDR_Parent_Systemic_Issue__c)) {
+          childComplaints.add(record);
+        }
       }
+    }
+    //rollup on parent systemic issue
+    if (!childComplaints.isEmpty()) {
+      SICaseActions.rollupToParentSI(childComplaints);
     }
   }
 
@@ -163,7 +172,10 @@ public with sharing class IDRCaseActions {
   public static void beforeUpdate(Map<Id, SObject> oldMap, List<Case> records) {
     for (Integer i = 0; i < records.size(); i++) {
       if (isIDRComplaintType(records.get(i))) {
-        validateCaseNumber(records.get(i),(case) oldMap.get(records.get(i).id));
+        validateCaseNumber(
+          records.get(i),
+          (case) oldMap.get(records.get(i).id)
+        );
         handleMasking(records.get(i));
         handleAnonymousNames(records.get(i));
         identifyOwnerChangeRecords(
@@ -193,22 +205,41 @@ public with sharing class IDRCaseActions {
    * @description afterUpdate(oldMap, records) method handles the following
    * 1. Validates the case status and add them into notification list.
    * 2. Calls checkForCRCEscalation method to check if the case record needs to be sent for CRC escalation.
-   * 3. Call escalateExistingCommentsToCFMS to escalation case comments upon receiving COM IDs from CFMS
+   * 3. Calls escalateExistingCommentsToCFMS to escalation case comments upon receiving COM IDs from CFMS
+   * 4. Calls rollupToParentSI to update the counter of linked complaints on the parent systemic issue record
    * @param oldMap This Map<Id, SObject> contains the map which holds the previous values which can be used to check what value has changed in onAfterUpdate. Example to check if the Case Status value has changed we use the following to check record.Status != ((Case) oldMap.get(record.id)).Status
    * @param records from the trigger
    */
   public static void afterUpdate(Map<Id, SObject> oldMap, List<Case> records) {
+    Case[] childComplaints = new List<Case>(); //records to rollup on parent systemic issue
     for (Integer i = 0; i < records.size(); i++) {
-      if (
-        records.get(i).Status != ((Case) oldMap.get(records.get(i).id)).Status
-      ) {
-        if (NOTIFICATION_STATUS.contains(records.get(i).Status)) {
-          notificationCaseList.add(records.get(i));
+      Case record = records[i];
+      Case oldRec = (Case) oldMap.get(record.id);
+      if (record.Status != oldRec.Status) {
+        if (NOTIFICATION_STATUS.contains(record.Status)) {
+          notificationCaseList.add(record);
         }
-        checkForCRCEscalation(records.get(i));
+        checkForCRCEscalation(record);
+      }
+      IDRCaseCommentActions.escalateExistingCommentsToCFMS(oldMap, records);
+      //should a parent systemic issue's rollup field be updated?
+      if (
+        isIDRComplaintType(record) &&
+        record.IDR_Parent_Systemic_Issue__c !=
+        oldRec.IDR_Parent_Systemic_Issue__c
+      ) {
+        //just linked or unliked?
+        if (!String.isBlank(record.IDR_Parent_Systemic_Issue__c)) {
+          childComplaints.add(record);
+        } else {
+          childComplaints.add((Case) oldMap.get(records.get(i).id));
+        }
       }
     }
-    IDRCaseCommentActions.escalateExistingCommentsToCFMS(oldMap, records);
+    //rollup on parent systemic issue
+    if (!childComplaints.isEmpty()) {
+      SICaseActions.rollupToParentSI(childComplaints);
+    }
   }
 
   /**
@@ -653,9 +684,11 @@ public with sharing class IDRCaseActions {
    * @param oldRec trigger context variable to check on old values.
    */
   private static void validateCaseNumber(Case record, Case oldRec) {
-    if(record.RecordTypeId == CUSTOMER_COMPLAINT_RT_ID &&
-    record.IDR_Customer_Number__c != oldRec.IDR_Customer_Number__c &&
-    oldRec.RecordTypeId != GENERAL_INQUIRY_CMOS_RT_ID) {
+    if (
+      record.RecordTypeId == CUSTOMER_COMPLAINT_RT_ID &&
+      record.IDR_Customer_Number__c != oldRec.IDR_Customer_Number__c &&
+      oldRec.RecordTypeId != GENERAL_INQUIRY_CMOS_RT_ID
+    ) {
       record.addError(CUSTOMER_NUMBER_VALIDATION_ERROR);
     }
   }

@@ -44,7 +44,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
   public override void onAfterInsert() {
     IDRCaseActions.completeAfterActions();
     GetHelpCaseActions.rollupRelatedBug(records, new List<Case>());
-    SICaseActions.afterInsert((List<Case>) Trigger.New);
+    SICaseActions.afterInsert(records);
   }
 
   /**
@@ -84,10 +84,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
         records,
         (List<Case>) oldMap.values()
       );
-      SICaseActions.afterUpdate(
-        (List<Case>) Trigger.New,
-        (Map<Id, Case>) oldMap
-      );
+      SICaseActions.afterUpdate(records, (Map<Id, Case>) oldMap);
     }
   }
 

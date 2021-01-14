@@ -175,4 +175,32 @@ public with sharing class SICaseActions {
       }
     }
   }
+
+  /**
+   * @description Show the total count of complaints linked under the SI record
+   * @param complaints list of child complaints that have been linked to or unliked from a systemic issue
+   */
+  public static void rollupToParentSI(Case[] complaints) {
+    List<Case> systemicIssuesToUpdate = new List<Case>();
+    Set<id> systemicIssueIds = new Set<id>();
+
+    //get the ids of the SIs to update
+    for (Case complaint : complaints) {
+      systemicIssueIds.add(complaint.IDR_Parent_Systemic_Issue__c);
+    }
+    //query the SIs and the related complaints and add the size of the complaints to the SI's SI_Complaint_Count__c
+    for (Case si : [
+      SELECT SI_Complaint_Count__c, (SELECT id FROM Complaints__r)
+      FROM Case
+      WHERE Id IN :systemicIssueIds
+    ]) {
+      //add the value in the map to a list so we can update it
+      systemicIssuesToUpdate.add(
+        new Case(id = si.Id, SI_Complaint_Count__c = si.Complaints__r.size())
+      );
+    }
+    if (Case.sObjectType.getDescribe().isUpdateable()) {
+      update systemicIssuesToUpdate;
+    }
+  }
 }

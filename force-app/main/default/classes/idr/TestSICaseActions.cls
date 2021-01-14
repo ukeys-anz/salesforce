@@ -1,11 +1,11 @@
 @isTest
 private with sharing class TestSICaseActions {
-  @isTest
-  static void testWorkflowStepWhenClosing() {
-    //GIVEN new SIs are inserted
-    Case[] newCases = new List<Case>();
+  @TestSetup
+  static void testSetup() {
+    // Open/Assessing SIs
+    Case[] newSIs = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
+      newSIs.add(
         new Case(
           RecordTypeId = SICaseActions.SI_RT_ID,
           Status = 'Open',
@@ -13,7 +13,42 @@ private with sharing class TestSICaseActions {
         )
       );
     }
-    insert newCases;
+    // Closed/Monitoring SIs
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newSIs.add(
+        new Case(
+          RecordTypeId = SICaseActions.SI_RT_ID,
+          Status = 'Closed',
+          SI_Workflow_step__c = '4'
+        )
+      );
+    }
+    insert newSIs;
+    // Related complaints
+    Case[] newComplaints = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newComplaints.add(
+        new Case(
+          RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
+          Status = 'Open',
+          IDR_Parent_Systemic_Issue__c = newSIs[i].Id
+        )
+      );
+    }
+    insert newComplaints;
+  }
+
+  @isTest
+  static void testWorkflowStepWhenClosing() {
+    //GIVEN open/assessing SIs
+    Case[] newCases = [
+      SELECT Status
+      FROM Case
+      WHERE
+        RecordTypeId = :SICaseActions.SI_RT_ID
+        AND Status = 'Open'
+        AND SI_Workflow_step__c = '1'
+    ];
 
     //WHEN they're closed
     for (Case c : newCases) {
@@ -22,28 +57,29 @@ private with sharing class TestSICaseActions {
     update newCases;
 
     //THEN workflow step has not changed
-    Case c = [SELECT SI_Workflow_Step__c FROM Case LIMIT 1];
+    Case[] c = [
+      SELECT SI_Workflow_Step__c
+      FROM Case
+      WHERE Status = 'Closed' AND SI_Workflow_step__c = '1'
+    ];
     System.assertEquals(
-      '1',
-      c.SI_Workflow_Step__c,
+      newCases.size(),
+      c.size(),
       'Able to close SI at any step of the workflow'
     );
   }
 
   @isTest
   static void testStatusWhenWorkflowChanges() {
-    //GIVEN closed SI
-    Case[] newCases = new List<Case>();
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
-        new Case(
-          RecordTypeId = SICaseActions.SI_RT_ID,
-          Status = 'Closed',
-          SI_Workflow_step__c = '4'
-        )
-      );
-    }
-    insert newCases;
+    //GIVEN closed/monitoring SI
+    Case[] newCases = [
+      SELECT SI_Workflow_step__c
+      FROM Case
+      WHERE
+        RecordTypeId = :SICaseActions.SI_RT_ID
+        AND Status = 'Closed'
+        AND SI_Workflow_step__c = '4'
+    ];
 
     //WHEN workflopw step goes back to investigating
     for (Case c : newCases) {
@@ -52,28 +88,29 @@ private with sharing class TestSICaseActions {
     update newCases;
 
     //THEN Status is Open
-    Case c = [SELECT Status FROM Case LIMIT 1];
+    Case[] c = [
+      SELECT Status
+      FROM Case
+      WHERE Status = 'Open' AND SI_Workflow_step__c = '2'
+    ];
     System.assertEquals(
-      'Open',
-      c.Status,
+      newCases.size(),
+      c.size(),
       'SI not in Monitoring should not be closed'
     );
   }
 
   @isTest
   static void testTasksOnCaseUpdate() {
-    //GIVEN new SIs are inserted
-    Case[] newCases = new List<Case>();
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
-        new Case(
-          RecordTypeId = SICaseActions.SI_RT_ID,
-          Status = 'Open',
-          SI_Workflow_step__c = '1'
-        )
-      );
-    }
-    insert newCases;
+    //GIVEN open/assessing SIs
+    Case[] newCases = [
+      SELECT SI_Workflow_step__c
+      FROM Case
+      WHERE
+        RecordTypeId = :SICaseActions.SI_RT_ID
+        AND Status = 'Open'
+        AND SI_Workflow_step__c = '1'
+    ];
 
     //WHEN they go into monitoring
     for (Case c : newCases) {
@@ -82,10 +119,9 @@ private with sharing class TestSICaseActions {
     update newCases;
 
     //THEN 2 monitoring tasks are created per case
-    Case c = [SELECT Status FROM Case LIMIT 1];
-    Task[] tasks = [SELECT id FROM Task WHERE WhatId = :c.Id];
+    Task[] tasks = [SELECT id FROM Task WHERE WhatId IN :newCases];
     System.assertEquals(
-      2,
+      2 * newCases.size(),
       tasks.size(),
       '2 monitoring tasks should be created per case'
     );
@@ -97,11 +133,83 @@ private with sharing class TestSICaseActions {
     update newCases;
 
     //THEN they are removed
-    tasks = [SELECT id FROM Task WHERE WhatId = :c.Id];
+    tasks = [SELECT id FROM Task WHERE WhatId IN :newCases];
     System.assertEquals(
       0,
       tasks.size(),
-      '2 monitoring tasks should be removed because case is no longer in Monitoring'
+      'Monitoring tasks should be removed because cases are no longer in Monitoring'
+    );
+  }
+
+  @isTest
+  static void testRollupToParentSI() {
+    //Assert that testsetup complaint count has rollup to the parent SI records
+    Case[] newSIs = [
+      SELECT SI_Complaint_Count__c
+      FROM Case
+      WHERE SI_Complaint_Count__c > 0
+    ];
+    System.assertEquals(
+      Integer.valueOf(Label.Test_Bulk_Size),
+      newSIs.size(),
+      'All SI records should have a child'
+    );
+
+    //AND WHEN I unlink the complaints from their parent SI
+    Case[] newComplaints = [
+      SELECT IDR_Parent_Systemic_Issue__c
+      FROM Case
+      WHERE IDR_Parent_Systemic_Issue__c != NULL
+    ];
+    for (Integer i = 0; i < newComplaints.size(); i++) {
+      newComplaints[i].IDR_Parent_Systemic_Issue__c = null;
+    }
+    update newComplaints;
+
+    //THEN rollup count has updated
+    newSIs = [
+      SELECT SI_Complaint_Count__c
+      FROM Case
+      WHERE SI_Complaint_Count__c > 0
+    ];
+    System.assertEquals(
+      0,
+      newSIs.size(),
+      'All child records should have been unlinked'
+    );
+
+    //AND WHEN I link all complaints to one SI
+    newComplaints = [
+      SELECT IDR_Parent_Systemic_Issue__c
+      FROM Case
+      WHERE RecordTypeId = :IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID
+    ];
+    newSIs = [
+      SELECT Id
+      FROM Case
+      WHERE RecordTypeId = :SICaseActions.SI_RT_ID
+      LIMIT 1
+    ];
+    for (Integer i = 0; i < newComplaints.size(); i++) {
+      newComplaints[i].IDR_Parent_Systemic_Issue__c = newSIs[0].Id;
+    }
+    update newComplaints;
+
+    //THEN rollup count has updated
+    newSIs = [
+      SELECT SI_Complaint_Count__c
+      FROM Case
+      WHERE SI_Complaint_Count__c > 0
+    ];
+    System.assertEquals(
+      1,
+      newSIs.size(),
+      'All complaints should have been linked to the same SI'
+    );
+    System.assertEquals(
+      Integer.valueOf(Label.Test_Bulk_Size),
+      newSIs[0].SI_Complaint_Count__c,
+      'Counter should have been updated'
     );
   }
 }
