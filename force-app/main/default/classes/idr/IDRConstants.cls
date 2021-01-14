@@ -41,10 +41,12 @@ public with sharing class IDRConstants {
 
   //Anz.com constants
   public static final String ANZ_COM_SUPPLIED_EMAIL = 'interacc@anz.com';
-  public static final Map<String, String> ANZ_COM_FIELD_MAPPING {
+  
+  //@description Static variable to map anz.com field with case fields
+  public static final Map<String, String> anz_COM_FIELD_MAPPING {
     get {
-      if (ANZ_COM_FIELD_MAPPING == null) {
-        ANZ_COM_FIELD_MAPPING = new Map<String, String>{
+      if (anz_COM_FIELD_MAPPING == null) {
+        anz_COM_FIELD_MAPPING = new Map<String, String>{
           'This feedback is a' => 'IDR_Feedback_Category__c',
           'Previously raised?' => 'IDR_Previously_raised_with_ANZ__c',
           'Which product' => 'IDR_Product_Category__c',
@@ -62,15 +64,16 @@ public with sharing class IDRConstants {
           'Country' => 'IDR_NC_Country__c'
         };
       }
-      return ANZ_COM_FIELD_MAPPING;
+      return anz_COM_FIELD_MAPPING;
     }
     set;
   }
 
-  public static final Map<String, String> ANZ_COM_ISSUE_TYPE_MAPPING {
+  //@description Static variable to map anz.com Issue type field with case type field
+  public static final Map<String, String> anz_COM_ISSUE_TYPE_MAPPING {
     get {
-      if (ANZ_COM_ISSUE_TYPE_MAPPING == null) {
-        ANZ_COM_ISSUE_TYPE_MAPPING = new Map<String, String>{
+      if (anz_COM_ISSUE_TYPE_MAPPING == null) {
+        anz_COM_ISSUE_TYPE_MAPPING = new Map<String, String>{
           'Account set up/Maitenence/Closure' => 'Account set-up & maintenance',
           'Branch/Merchant/System issue' => 'Channel accessibility',
           'Collections' => 'Collections',
@@ -85,7 +88,7 @@ public with sharing class IDRConstants {
           'Other' => 'Other'
         };
       }
-      return ANZ_COM_ISSUE_TYPE_MAPPING;
+      return anz_COM_ISSUE_TYPE_MAPPING;
     }
     set;
   }
