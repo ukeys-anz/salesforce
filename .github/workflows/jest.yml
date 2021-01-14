@@ -15,9 +15,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Run Unit Tests
         run: |
-          npm install @salesforce/sfdx-lwc-jest --save-dev
-          npm install --save-dev jest
-          echo "Installed jest"
+          rm babel.config.js
           npm i --only=dev
           echo "Installed dev dependencies"
           npx jest
