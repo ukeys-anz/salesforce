@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>SI_Financial_Impact_to_ANZ__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Source_Salesforce;Integrity_Trusted;Privacy_Non_Personal_Information</complianceGroup>
+    <complianceGroup>Integrity_Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
     <description>Financial Impact to ANZ</description>
     <externalId>false</externalId>
     <label>Financial Impact to ANZ</label>

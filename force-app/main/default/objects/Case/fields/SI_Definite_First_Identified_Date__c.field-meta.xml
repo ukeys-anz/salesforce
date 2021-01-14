@@ -2,9 +2,9 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>SI_Definite_First_Identified_Date__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Source_Salesforce;Privacy - Non Personal Information;Integrity - Trusted</complianceGroup>
-    <description>Date systemic issue first identified</description>
+    <complianceGroup>Integrity_Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
     <defaultValue>TODAY()</defaultValue>
+    <description>Date systemic issue first identified</description>
     <externalId>false</externalId>
     <inlineHelpText>When was the Date systemic issue first identified by ANZ?</inlineHelpText>
     <label>Date systemic issue first identified</label>
