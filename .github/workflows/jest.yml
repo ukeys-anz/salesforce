@@ -16,5 +16,6 @@ jobs:
       - name: Run Unit Tests
         run: |
           npm install @salesforce/sfdx-lwc-jest --save-dev
-          npm test:unit:watch
+          npm i --only=dev
+          npx jest --watch
           echo "Running JEST tests for Lightning Web Components"
