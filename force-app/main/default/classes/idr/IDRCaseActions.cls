@@ -428,10 +428,12 @@ public with sharing class IDRCaseActions {
             Case.IDR_Complaint_Remedy__c,
             c.IDR_Complaint_Remedy__c
           ),
-          State__c = IDRCaseActions.getPicklistLabel(
-            Case.IDR_NC_State__c,
-            c.IDR_NC_State__c
-          ),
+          State__c = c.IDR_NC_State__c == '11'
+            ? 'OTHER TERRITORIES'
+            : IDRCaseActions.getPicklistLabel(
+                Case.IDR_NC_State__c,
+                c.IDR_NC_State__c
+              ),
           Suburb__c = c.IDR_NC_Suburb__c,
           Priority__c = c.Priority,
           Channel_Received__c = IDRCaseActions.getPicklistLabel(
