@@ -90,11 +90,15 @@ public class TestCreateCommsController {
     case testCase = new case();
     testCase = [SELECT Id FROM Case LIMIT 1];
     list<object> lineItems = new List<object>();
+    list<Object> otherDetails = new list<Object>();
+    Map<Object,Object> mapDetails = new Map<Object,Object> ();
+    mapDetails.put('caseId',testCase.Id);
+    mapDetails.put('isEmail', false);
+    mapDetails.put('isLetter',true);
+    mapDetails.put('template', '21 Day Letter');
+    otherDetails.add(mapDetails);
     string returnedId = CreateCommsController.createComms(
-      testCase.Id,
-      false,
-      true,
-      '21 Day Letter',
+      otherDetails,
       lineItems
     );
     system.assertNotEquals(null, returnedId);
@@ -112,11 +116,15 @@ public class TestCreateCommsController {
     fieldMap.put('fieldLabel', 'Input Text 1');
     fieldMap.put('fieldValue', 'test input');
     lineItems.add(fieldMap);
+    list<Object> otherDetails = new list<Object>();
+    Map<Object,Object> mapDetails = new Map<Object,Object> ();
+    mapDetails.put('caseId',testCase.Id);
+    mapDetails.put('isEmail',false);
+    mapDetails.put('isLetter',true);
+    mapDetails.put('template', 'Unable to Contact');
+    otherDetails.add(mapDetails);
     string returnedId = CreateCommsController.createComms(
-      testCase.Id,
-      false,
-      true,
-      'Unable to Contact',
+      otherDetails,
       lineItems
     );
     system.assertNotEquals(null, returnedId);
