@@ -19,7 +19,7 @@ public with sharing class IDREmailToCase {
 
   /**
    * @description Parses the cases generated from Anz.com complaint/feedback webform
-   * @param records List of cases in current context
+   * @param c Single Case record
    */
   private static void parseWebFormEmail(Case c) {
     String emailBody = c.Description.trim();

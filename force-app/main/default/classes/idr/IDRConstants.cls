@@ -41,7 +41,7 @@ public with sharing class IDRConstants {
 
   //Anz.com constants
   public static final String ANZ_COM_SUPPLIED_EMAIL = 'interacc@anz.com';
-  public static Map<String, String> ANZ_COM_FIELD_MAPPING {
+  public static final Map<String, String> ANZ_COM_FIELD_MAPPING {
     get {
       if (ANZ_COM_FIELD_MAPPING == null) {
         ANZ_COM_FIELD_MAPPING = new Map<String, String>{
@@ -67,7 +67,7 @@ public with sharing class IDRConstants {
     set;
   }
 
-  public static Map<String, String> ANZ_COM_ISSUE_TYPE_MAPPING {
+  public static final Map<String, String> ANZ_COM_ISSUE_TYPE_MAPPING {
     get {
       if (ANZ_COM_ISSUE_TYPE_MAPPING == null) {
         ANZ_COM_ISSUE_TYPE_MAPPING = new Map<String, String>{
