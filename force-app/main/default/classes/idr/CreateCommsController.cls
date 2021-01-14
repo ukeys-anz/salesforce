@@ -41,7 +41,7 @@ public with sharing class CreateCommsController {
     string template,
     string caseId
   ) {
-    list<CreateCommsData.TemplateFieldsData> returnFieldList = new List<CreateCommsData>();
+    list<CreateCommsData> returnFieldList = new List<CreateCommsData>();
     list<IDR_Template_Detail__c> templatedetails = new List<IDR_Template_Detail__c>();
     if (IDR_Template_Detail__c.sObjectType.getDescribe().isQueryable()) {
       templatedetails = [
