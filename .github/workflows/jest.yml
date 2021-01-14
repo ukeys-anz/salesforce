@@ -1,5 +1,5 @@
 # This workflow runs JEST tests before deploying changes to a Salesforce project to a Salesforce org
-name: JEST Tests
+name: Unit Tests
 
 # This workflow will only run on Pull Requests against develop
 on:
@@ -7,12 +7,14 @@ on:
     branches: [develop, master]
 
 jobs:
-  Jest:
+  jest:
     runs-on: ubuntu-latest
+    container: ddawson235/sfdx:latest
+
     steps:
       - uses: actions/checkout@v2
-      - name: Run Jest Tests
+      - name: Run Unit Tests
         run: |
-          npm install
-          npm run test:unit
+          npm install jest/sfdx-lwc-jest
+          npm test:unit:watch
           echo "Running JEST tests for Lightning Web Components"
