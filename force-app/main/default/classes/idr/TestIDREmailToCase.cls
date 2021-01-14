@@ -1,7 +1,7 @@
 @isTest
 public with sharing class TestIDREmailToCase {
   @isTest
-  static void test_ANZ_ComCaseParsing() {
+  static void testANZComCaseParsing() {
     Case c = new Case();
     c.recordTypeId = IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID;
     c.SuppliedEmail = IDRConstants.ANZ_COM_SUPPLIED_EMAIL;

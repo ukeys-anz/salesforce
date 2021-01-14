@@ -33,17 +33,17 @@ public with sharing class IDREmailToCase {
       String fieldValue = fieldValueList[1].trim(); //replacing the trailing spaces
       fieldValue = fieldValue.replaceFirst('^[ \t]+', ''); //replacing the leading spaces
 
-      if (IDRConstants.anz_COM_FIELD_MAPPING.containsKey(fieldName)) {
+      if (IDRConstants.anzComFieldMapping.containsKey(fieldName)) {
         if (
           fieldValueList[0] == 'Feedback Topic' &&
-          IDRConstants.anz_COM_ISSUE_TYPE_MAPPING.containsKey(fieldValue)
+          IDRConstants.anzComIssueTypeMapping.containsKey(fieldValue)
         ) {
           c.put(
-            IDRConstants.anz_COM_FIELD_MAPPING.get(fieldName),
-            IDRConstants.anz_COM_ISSUE_TYPE_MAPPING.get(fieldValue)
+            IDRConstants.anzComFieldMapping.get(fieldName),
+            IDRConstants.anzComIssueTypeMapping.get(fieldValue)
           );
         } else {
-          c.put(IDRConstants.anz_COM_FIELD_MAPPING.get(fieldName), fieldValue);
+          c.put(IDRConstants.anzComFieldMapping.get(fieldName), fieldValue);
         }
       }
     }
