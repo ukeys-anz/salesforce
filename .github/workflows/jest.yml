@@ -17,5 +17,5 @@ jobs:
         run: |
           npm install
           echo "Install npm dependencies"
-          npx jest
+          npx jest --coverage
           echo "Running JEST tests for Lightning Web Components"
