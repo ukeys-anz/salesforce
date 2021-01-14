@@ -20,5 +20,5 @@ jobs:
           echo "Installed jest"
           npm i --only=dev
           echo "Installed dev dependencies"
-          npx jest --watch
+          npx jest
           echo "Running JEST tests for Lightning Web Components"
