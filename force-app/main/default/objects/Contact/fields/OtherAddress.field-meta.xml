@@ -3,5 +3,6 @@
     <fullName>OtherAddress</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted;Privacy - Personal Information</complianceGroup>
+    <description>Customer nominated home address.</description>
     <securityClassification>Confidential</securityClassification>
 </CustomField>
