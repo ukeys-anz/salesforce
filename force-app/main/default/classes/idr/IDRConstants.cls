@@ -13,9 +13,12 @@ public with sharing class IDRConstants {
   public static final String RESOLVED_STATUS = 'Resolved';
   public static final String WITHDRAWN_STATUS = 'Withdrawn';
 
-  //Complaint and Non- Complaint Case Record Type
+  //Complaint, Non- Complaint, General Inquiry Case Record Type
   public static final Id CUSTOMER_COMPLAINT_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('Customer_Complaint')
+    .getRecordTypeId();
+  public static final Id GENERAL_INQUIRY_CMOS_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+    .get('General_Inquiry_CMOS')
     .getRecordTypeId();
 
   //NotificationHandler Status
@@ -35,4 +38,55 @@ public with sharing class IDRConstants {
   //Field labels
   public static final String MILESTONE_SLA_FIELD_LABEL = 'Milestone Sla';
   public static final String CASE_OWNER_ID = 'Owner ID';
+
+  //Anz.com constants
+  public static final String ANZ_COM_SUPPLIED_EMAIL = 'interacc@anz.com';
+  public static Map<String, String> ANZ_COM_FIELD_MAPPING {
+    get {
+      if (ANZ_COM_FIELD_MAPPING == null) {
+        ANZ_COM_FIELD_MAPPING = new Map<String, String>{
+          'This feedback is a' => 'IDR_Feedback_Category__c',
+          'Previously raised?' => 'IDR_Previously_raised_with_ANZ__c',
+          'Which product' => 'IDR_Product_Category__c',
+          'Feedback topic' => 'Type',
+          'Feedback summary' => 'Description',
+          'Details and outcome' => 'IDR_Complainant_Desired_Outcome__c',
+          'ANZ Customer?' => 'IDR_Existing_ANZ_Customer__c',
+          'First name' => 'IDR_NC_First_Name__c',
+          'Last name' => 'IDR_NC_Last_Name__c',
+          'Contact number' => 'IDR_NC_Phone__c',
+          'Email address' => 'IDR_NC_Email__c',
+          'Street address' => 'IDR_NC_Street__c',
+          'Suburb' => 'IDR_NC_Suburb__c',
+          'Postcode' => 'IDR_NC_Postcode__c',
+          'Country' => 'IDR_NC_Country__c'
+        };
+      }
+      return ANZ_COM_FIELD_MAPPING;
+    }
+    set;
+  }
+
+  public static Map<String, String> ANZ_COM_ISSUE_TYPE_MAPPING {
+    get {
+      if (ANZ_COM_ISSUE_TYPE_MAPPING == null) {
+        ANZ_COM_ISSUE_TYPE_MAPPING = new Map<String, String>{
+          'Account set up/Maitenence/Closure' => 'Account set-up & maintenance',
+          'Branch/Merchant/System issue' => 'Channel accessibility',
+          'Collections' => 'Collections',
+          'Credit card/Loan assessment' => 'Credit assessment',
+          'Fees/Interest/Rewards' => 'Fees, interest, rewards',
+          'Fraud/Dispute' => 'Transaction Disputes',
+          'Hardship' => 'Financial difficulty & hardship',
+          'Loan settlement/Drawdown' => 'Lending fulfilment',
+          'Payments' => 'Transactions & payments',
+          'Product features/Marketing/Sales' => 'Product features, offers, sales',
+          'Service Quality' => 'Service quality',
+          'Other' => 'Other'
+        };
+      }
+      return ANZ_COM_ISSUE_TYPE_MAPPING;
+    }
+    set;
+  }
 }
