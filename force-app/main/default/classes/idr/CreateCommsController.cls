@@ -133,19 +133,19 @@ public with sharing class CreateCommsController {
    * @param lineItems list of free text fields with user inputed data.
    * @return string ID of the created letter approval record.
    */
-  @SuppressWarnings('PMD.ExcessiveParameterList')
+  
   @auraEnabled
   public static string createComms(
-    string caseId,
-    boolean isEmail,
-    boolean isLetter,
-    string template,
+    list<object> otherDetails,
     list<object> lineItems
   ) {
+    Map<Object, Object> letterDetails = (Map<Object, Object>) otherDetails[0];
+    string template = (string)letterDetails.get('template'); 
+    string caseID = (string)letterDetails.get('caseId');
     IDR_Letter_Approval__c caseComms = new IDR_Letter_Approval__c();
-    caseComms.IDR_Send_As_Email__c = isEmail;
-    caseComms.IDR_Send_As_Letter__c = isLetter;
-    caseComms.IDR_case__c = caseId;
+    caseComms.IDR_Send_As_Email__c = (Boolean)letterDetails.get('isEmail');
+    caseComms.IDR_Send_As_Letter__c = (Boolean)letterDetails.get('isLetter');
+    caseComms.IDR_case__c = caseID;
     caseComms.IDR_Template_Name__c = template;
     caseComms.IDR_Status__c = 'Submitted';
     if (lineItems.size() == 0) {

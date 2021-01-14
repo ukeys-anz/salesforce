@@ -136,7 +136,15 @@ export default class CreateComplaintLWC extends NavigationMixin(
         "Please select one of Email or Letter for sending this communication";
       this.openModal(msg);
     } else {
+      let otherDetails = [];
+      otherDetails.push({
+        caseId: this.recordId,
+        isEmail: this.isEmail,
+        isLetter: this.isLetter,
+        template: this.template
+      });
       createComms({
+        otherDetails: otherDetails,
         caseId: this.recordId,
         isEmail: this.isEmail,
         isLetter: this.isLetter,
