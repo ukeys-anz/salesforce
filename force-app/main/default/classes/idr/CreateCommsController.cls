@@ -34,14 +34,14 @@ public with sharing class CreateCommsController {
    *
    * @param template user selected template for this letter/email
    * @param caseId the id of the case against which this lette/email is being created
-   * @return List<CreateCommsData.TemplateFieldsData> list of free text fields with pre populated data where applicable
+   * @return List<CreateCommsData> list of free text fields with pre populated data where applicable
    */
   @auraEnabled
-  public static list<CreateCommsData.TemplateFieldsData> fetchTemplateFields(
+  public static list<CreateCommsData> fetchTemplateFields(
     string template,
     string caseId
   ) {
-    list<CreateCommsData.TemplateFieldsData> returnFieldList = new List<CreateCommsData.TemplateFieldsData>();
+    list<CreateCommsData.TemplateFieldsData> returnFieldList = new List<CreateCommsData>();
     list<IDR_Template_Detail__c> templatedetails = new List<IDR_Template_Detail__c>();
     if (IDR_Template_Detail__c.sObjectType.getDescribe().isQueryable()) {
       templatedetails = [
@@ -72,7 +72,7 @@ public with sharing class CreateCommsController {
       parentCase = Database.query(caseQuery); //NOPMD
     }
     for (IDR_Template_Detail__c td : templatedetails) {
-      CreateCommsData.TemplateFieldsData singleFieldData = new CreateCommsData.TemplateFieldsData();
+      CreateCommsData singleFieldData = new CreateCommsData();
       string caseValue = '';
       if (string.isNotBlank(td.IDR_Case_Field_Name__c)) {
         caseValue = getValueFromCaseMap(td.IDR_Case_Field_Name__c, parentCase);
@@ -133,7 +133,7 @@ public with sharing class CreateCommsController {
    * @param lineItems list of free text fields with user inputed data.
    * @return string ID of the created letter approval record.
    */
-  @SuppressWarnings('PMD.ExcessiveParameterList, PMD.CyclomaticComplexity')
+  @SuppressWarnings('PMD.ExcessiveParameterList')
   @auraEnabled
   public static string createComms(
     string caseId,
@@ -162,16 +162,9 @@ public with sharing class CreateCommsController {
       IDR_Letter_Approval_Details__c commsLineItem = new IDR_Letter_Approval_Details__c(
         IDR_Letter_Approval__c = caseComms.Id
       );
-      for (object key : fieldList.keyset()) {
-        if ((string) key == 'fieldLabel') {
-          commsLineItem.Name = (string) fieldList.get(key);
-          commsLineItem.IDR_Field_Name__c = (string) fieldList.get(key);
-        } else if ((string) key == 'fieldValue') {
-          commsLineItem.IDR_Value__c = (string) fieldList.get(key);
-        } /*else if ((string) key == 'fieldDesc') {
-          // commsLineItem.Description__c = (string)fieldList.get(key);
-        }*/
-      }
+      commsLineItem.Name = (string) fieldList.get('fieldLabel')  ;  
+      commsLineItem.IDR_Field_Name__c  = (string) fieldList.get('fieldLabel');
+      commsLineItem.IDR_Value__c  = (string) fieldList.get('fieldValue');
       commsLineItemsList.add(commsLineItem);
     }
     list<IDR_Letter_Approval_Details__c> caseDataItems = getCommsDataFromCase(

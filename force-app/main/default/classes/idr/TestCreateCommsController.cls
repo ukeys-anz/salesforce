@@ -75,7 +75,7 @@ public class TestCreateCommsController {
   static void testfetchTemplateFields() {
     case testCase = new case();
     testCase = [SELECT Id FROM Case LIMIT 1];
-    list<CreateCommsData.TemplateFieldsData> returnList = CreateCommsController.fetchTemplateFields(
+    list<CreateCommsData> returnList = CreateCommsController.fetchTemplateFields(
       'Unable to Contact',
       testCase.Id
     );
