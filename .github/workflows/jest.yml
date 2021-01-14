@@ -20,5 +20,7 @@ jobs:
           echo "Installed jest"
           npm i --only=dev
           echo "Installed dev dependencies"
+          npm install --save-dev @babel/core @babel/preset-env
+          echo "Installed babel"
           npx jest
           echo "Running JEST tests for Lightning Web Components"
