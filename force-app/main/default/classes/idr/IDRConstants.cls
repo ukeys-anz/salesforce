@@ -41,9 +41,10 @@ public with sharing class IDRConstants {
 
   //Anz.com constants
   public static final String ANZ_COM_SUPPLIED_EMAIL = 'interacc@anz.com';
-  
-  //@description Static variable to map anz.com field with case fields
-  //@return anzComFieldMapping map of anz.com field with case fields
+  /**
+   * @description @description Static variable to map anz.com field with case fields
+   * @return anzComFieldMapping map of anz.com field with case fields
+   */
   public static final Map<String, String> anzComFieldMapping {
     get {
       if (anzComFieldMapping == null) {
@@ -70,8 +71,10 @@ public with sharing class IDRConstants {
     set;
   }
 
-  //@description Static variable to map anz.com Issue type field with case type field
-  //@return anzComIssueTypeMapping map of anz.com Issue type field with case type field
+  /**
+   * @description Static variable to map anz.com Issue type field with case type field
+   * @return anzComIssueTypeMapping map of anz.com Issue type field with case type field
+   */
   public static final Map<String, String> anzComIssueTypeMapping {
     get {
       if (anzComIssueTypeMapping == null) {
