@@ -37,6 +37,7 @@
         <label>Approve comms</label>
         <name>Approve_comms</name>
     </approvalStep>
+    <description>Approval Process for IDR letters , The letter is auto approved when there are no free text fields. else it will have to be approved by the letter approvers.</description>
     <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
     <entryCriteria>
         <criteriaItems>

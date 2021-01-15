@@ -2,7 +2,8 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_Letter_Approval__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information</complianceGroup>
+    <complianceGroup>Privacy - Non Personal Information;Integrity - Accurate</complianceGroup>
+    <description>the letter approval record to which this letter detail corresponds to</description>
     <externalId>false</externalId>
     <label>Letter Approval</label>
     <referenceTo>IDR_Letter_Approval__c</referenceTo>

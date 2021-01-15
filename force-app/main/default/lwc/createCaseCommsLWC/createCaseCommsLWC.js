@@ -38,23 +38,17 @@ export default class CreateComplaintLWC extends NavigationMixin(
   showSuccess = false;
 
   connectedCallback() {
-    console.log("getTemplateOptions");
     this.recordId = this.currentPageReference.state.c__recordId;
-    console.log("LWC recordid:" + this.recordId);
     getTemplateList()
       .then((result) => {
-        console.log("getTemplateList");
         let tempList = result;
 
         for (let i = 0; i < tempList.length; i++) {
-          console.log("tempList:" + tempList[i]);
           this.templateList.push({ label: tempList[i], value: tempList[i] });
         }
         this.showOptions = true;
       })
       .catch((error) => {
-        console.log("error:" + error);
-        console.log("errorbody:" + JSON.stringify(error));
         let errorMessage = "Failed to retrieve templates";
         if (error.body) {
           if (Array.isArray(error.body)) {
@@ -73,11 +67,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
   handleTemplateSelection(event) {
     this.template = event.detail.value;
     this.showSuccess = false;
-    console.log("template:" + this.template);
     fetchTemplateFields({ template: this.template, caseId: this.recordId })
       .then((result) => {
         let data = result;
-        console.log("data:" + JSON.stringify(data));
         this.fieldData = [];
         this.fieldData = data;
         this.lineItemList = [];
@@ -92,8 +84,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
         this.showTemplateDetails = true;
       })
       .catch((error) => {
-        console.log("error:" + error);
-        console.log("errorbody:" + JSON.stringify(error));
         let errorMessage = "Failed to retrieve template fields";
         if (error.body) {
           if (Array.isArray(error.body)) {
@@ -114,7 +104,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
     let draftlineItem = event.detail.draftValues;
     let index = draftlineItem[0].fileId.split("row-");
     this.lineItemList[index[1]].fieldValue = draftlineItem[0].fieldValue;
-    console.log("updated fieldData:" + JSON.stringify(this.lineItemList));
   }
 
   handleEmail(event) {
@@ -126,11 +115,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
   }
 
   validateFields() {
-    console.log("updated fieldData:" + JSON.stringify(this.lineItemList));
-    console.log("isEmail:" + this.isEmail);
-    console.log("isLetter:" + this.isLetter);
-    console.log("caserecordid :" + this.recordId);
-
     if ((!this.isEmail && !this.isLetter) || (this.isEmail && this.isLetter)) {
       let msg =
         "Please select one of Email or Letter for sending this communication";
@@ -169,7 +153,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
           );
         })
         .catch((error) => {
-          console.log("errorbody:" + JSON.stringify(error));
           let errorMessage = "Failed to retrieve template fields";
           if (error.body) {
             if (Array.isArray(error.body)) {
@@ -188,13 +171,11 @@ export default class CreateComplaintLWC extends NavigationMixin(
   }
 
   openModal(msg) {
-    //  this.template.querySelector(".slds-card").classList.add("slds-hide");
     this.modalMessage = msg;
     this.showModal = true;
   }
 
   closeModal() {
-    // this.template.querySelector(".slds-hide").classList.remove("slds-hide");
     this.showModal = false;
   }
 }

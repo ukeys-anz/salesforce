@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Privacy - Non Personal Information;Integrity - Accurate</complianceGroup>
     <defaultValue>false</defaultValue>
+    <description>This Check Box is ticked when there are no free text fields that are populated by the user in letter details so that the letter is auto approved.</description>
     <externalId>false</externalId>
     <label>Auto Approve</label>
     <securityClassification>Internal</securityClassification>

@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information</complianceGroup>
     <defaultValue>false</defaultValue>
+    <description>Should this letter be sent as email  ?</description>
     <externalId>false</externalId>
     <label>Send As Email</label>
     <securityClassification>Internal</securityClassification>

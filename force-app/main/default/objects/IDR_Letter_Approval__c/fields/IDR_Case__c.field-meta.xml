@@ -3,6 +3,7 @@
     <fullName>IDR_Case__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate</complianceGroup>
+    <description>Case to which this letter relates to</description>
     <externalId>false</externalId>
     <label>Case</label>
     <referenceTo>Case</referenceTo>

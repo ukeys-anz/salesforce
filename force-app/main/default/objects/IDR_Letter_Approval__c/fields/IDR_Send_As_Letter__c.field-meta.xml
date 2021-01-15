@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Privacy - Non Personal Information;Integrity - Accurate</complianceGroup>
     <defaultValue>false</defaultValue>
+    <description>Should this letter be sent as hard copy letter ?</description>
     <externalId>false</externalId>
     <label>Send As Letter</label>
     <securityClassification>Internal</securityClassification>
