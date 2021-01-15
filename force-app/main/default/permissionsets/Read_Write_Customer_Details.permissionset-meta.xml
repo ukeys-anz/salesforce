@@ -88,11 +88,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Account.Legal_Entitlements__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Account.OCV_Event_Version__c</field>
         <readable>true</readable>
     </fieldPermissions>

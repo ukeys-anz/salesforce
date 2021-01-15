@@ -1836,11 +1836,6 @@
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
-    <field>Account.Legal_Entitlements__c</field>
-    <readable>false</readable>
-  </fieldPermissions>
-  <fieldPermissions>
-    <editable>false</editable>
     <field>Account.NumberOfEmployees</field>
     <readable>false</readable>
   </fieldPermissions>

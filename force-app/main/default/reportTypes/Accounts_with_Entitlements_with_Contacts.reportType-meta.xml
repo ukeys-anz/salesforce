@@ -736,11 +736,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Legal_Entitlements__c</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>OCV_Event_Version__c</field>
             <table>Account</table>
         </columns>
