@@ -731,11 +731,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Identification_Type__c</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>KYC_Verification_Level__c</field>
             <table>Account</table>
         </columns>
