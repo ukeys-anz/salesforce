@@ -40,9 +40,8 @@ public with sharing class IDRConstants {
   public static final String CASE_OWNER_ID = 'Owner ID';
 
   //Anz.com constants
-  public static final String ANZ_COM_SUPPLIED_EMAIL = 'interacc@anz.com';
   /**
-   * @description @description Static variable to map anz.com field with case fields
+   * @description Static variable to map anz.com field with case fields
    * @return anzComFieldMapping map of anz.com field with case fields
    */
   public static final Map<String, String> anzComFieldMapping {

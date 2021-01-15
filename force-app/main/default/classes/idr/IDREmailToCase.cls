@@ -11,7 +11,7 @@ public with sharing class IDREmailToCase {
    */
   public static void processEmail(List<Case> records) {
     for (Case caseRecord : records) {
-      if (caseRecord.SuppliedEmail == IDRConstants.ANZ_COM_SUPPLIED_EMAIL) {
+      if (caseRecord.SuppliedEmail == System.Label.ANZ_com_Sender_Address) {
         parseWebFormEmail(caseRecord);
       }
     }
@@ -22,6 +22,7 @@ public with sharing class IDREmailToCase {
    * @param c Single Case record
    */
   private static void parseWebFormEmail(Case c) {
+    c.Origin = 'anz.com';
     String emailBody = c.Description.trim();
     emailBody = emailBody.removeStart('[');
     emailBody = emailBody.removeEnd(']');
