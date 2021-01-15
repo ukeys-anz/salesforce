@@ -52,21 +52,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Contact_Category__c</picklist>
-        <values>
-            <fullName>Email Address</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Social Media%C2%A0</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Telephone Number</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>Contact_Preferences__c</picklist>
         <values>
             <fullName>Business Email</fullName>
