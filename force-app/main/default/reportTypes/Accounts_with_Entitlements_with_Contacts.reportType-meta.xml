@@ -759,11 +759,6 @@
             <field>Occupation__c</field>
             <table>Account</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Preferred_Phone__c</field>
-            <table>Account</table>
-        </columns>
         <masterLabel>Accounts</masterLabel>
     </sections>
     <sections>
