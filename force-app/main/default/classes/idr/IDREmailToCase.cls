@@ -33,9 +33,8 @@ public with sharing class IDREmailToCase {
         'parseWebFormEmail',
         '',
         'Anz.com email parsing error',
-        'Fatal'
+        Lib_SystemLog.Severity.Fatal
       );
-      log.insertLog();
     } else {
       for (String field : fieldList) {
         List<String> fieldValueList = field.split(':', 2);

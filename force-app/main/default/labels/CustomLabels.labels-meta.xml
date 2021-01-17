@@ -5,7 +5,7 @@
         <categories>IDR</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>Anz.com email address which is used to send complaint on YourFeedback@anz.com inbox</shortDescription>
+        <shortDescription>Anz.com email address to send complaint on YourFeedback@anz.com inbox</shortDescription>
         <value>interacc@anz.com</value>
     </labels>
     <labels>
