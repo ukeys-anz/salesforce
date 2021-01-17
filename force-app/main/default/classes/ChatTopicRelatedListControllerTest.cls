@@ -22,7 +22,8 @@ public with sharing class ChatTopicRelatedListControllerTest {
     Case newCase = new Case(
       RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
       AccountId = accnt.Id,
-      Twilio_Channel_SID__c = 'CH123456789'
+      Twilio_Channel_SID__c = 'CH123456789',
+      Origin = 'Chat'
     );
     insert newCase;
   }

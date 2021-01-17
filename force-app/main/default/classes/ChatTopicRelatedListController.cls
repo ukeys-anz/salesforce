@@ -5,7 +5,7 @@
  */
 public with sharing class ChatTopicRelatedListController {
   public static final String CHANNELS_ENDPOINT_SUFFIX = '/channels';
-  public static final Integer OFFSET_LIMIT = 5;
+  public static final Integer OFFSET_LIMIT = 20;
 
   /**
    * @description This method is used to chatTopicRelatedList lwc component to retrive chat topics related to account.
@@ -88,14 +88,37 @@ public with sharing class ChatTopicRelatedListController {
         urlParams
       );
 
-      RequestUtils.setAuthHeaders(request, ocvID, 'GET');
-      responseBody = RequestUtils.processRequest(
-        request,
-        ChatTopicRelatedListController.class.getName(),
-        'getChatTopicsByCustomer',
-        ChatTopicRelatedListController.class.getName(),
-        true
-      );
+      request.setMethod('GET');
+      String serializedToken = AuthTokenCacheUtil.getStaffToken(ocvID);
+      request.setHeader('Authorization', 'Bearer ' + serializedToken);
+      request.setHeader('client_id', '{!$Credential.Username}');
+      request.setHeader('client_secret', '{!$Credential.Password}');
+      //Todo: This needs to be replaced with uniquely generated id based on what is accepted by forge
+      //request.setHeader('x-correlation-id', RequestUtils.getRequestId());
+      HTTPResponse response = null;
+      try {
+        Http http = new Http();
+        response = http.send(request);
+        if (response.getStatusCode() == 200) {
+          responseBody = response.getBody();
+        } else {
+          throw new CalloutException(response.getBody());
+        }
+      } catch (Exception e) {
+        Lib_SystemLog.logAPIError(
+          ChatTopicRelatedListController.class.getName(),
+          'getChatTopicsByCustomer',
+          e.getMessage(),
+          e.getTypeName(),
+          ChatTopicRelatedListController.class.getName(),
+          null,
+          response != null ? response.getBody() : null
+        );
+
+        AuraHandledException ahe = new AuraHandledException(e.getMessage());
+        ahe.setMessage(e.getMessage());
+        throw ahe;
+      }
     }
 
     return responseBody;
@@ -120,14 +143,37 @@ public with sharing class ChatTopicRelatedListController {
         channelSID
       );
 
-      RequestUtils.setAuthHeaders(request, ocvID, 'GET');
-      responseBody = RequestUtils.processRequest(
-        request,
-        ChatTopicRelatedListController.class.getName(),
-        'getChatTopicByChannelSID',
-        ChatTopicRelatedListController.class.getName(),
-        true
-      );
+      request.setMethod('GET');
+      String serializedToken = AuthTokenCacheUtil.getStaffToken(ocvID);
+      request.setHeader('Authorization', 'Bearer ' + serializedToken);
+      request.setHeader('client_id', '{!$Credential.Username}');
+      request.setHeader('client_secret', '{!$Credential.Password}');
+      //Todo: This needs to be replaced with uniquely generated id based on what is accepted by forge
+      //request.setHeader('x-correlation-id', RequestUtils.getRequestId());
+      HTTPResponse response = null;
+      try {
+        Http http = new Http();
+        response = http.send(request);
+        if (response.getStatusCode() == 200) {
+          responseBody = response.getBody();
+        } else {
+          throw new CalloutException(response.getBody());
+        }
+      } catch (Exception e) {
+        Lib_SystemLog.logAPIError(
+          ChatTopicRelatedListController.class.getName(),
+          'getChatTopicByChannelSID',
+          e.getMessage(),
+          e.getTypeName(),
+          ChatTopicRelatedListController.class.getName(),
+          null,
+          response != null ? response.getBody() : null
+        );
+
+        AuraHandledException ahe = new AuraHandledException(e.getMessage());
+        ahe.setMessage(e.getMessage());
+        throw ahe;
+      }
     }
 
     return responseBody;
