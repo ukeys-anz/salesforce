@@ -58,7 +58,7 @@ export default class RetrieveChatTopics extends LightningElement {
         if (result) {
           let respObj = JSON.parse(result);
 
-          // To heck if there were more records that what was retrieved against the same Customer
+          // To check if there were more records that what was retrieved against the same Customer
           this.links = respObj._links._links;
 
           // TODO: More error handling
