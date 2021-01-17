@@ -3,7 +3,7 @@ public with sharing class TestIDREmailToCase {
   @isTest
   static void testANZComCaseParsing() {
     List<Case> caseList = new List<Case>();
-    for (Integer i = 0; i <= 100; i++) {
+    for (Integer i = 0; i <= Integer.valueOf(Label.Test_Bulk_Size); i++) {
       Case c = new Case();
       c.recordTypeId = IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID;
       c.SuppliedEmail = System.Label.ANZ_com_Sender_Address;

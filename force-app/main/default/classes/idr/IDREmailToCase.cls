@@ -22,29 +22,39 @@ public with sharing class IDREmailToCase {
    * @param c Single Case record
    */
   private static void parseWebFormEmail(Case c) {
-    c.Origin = 'anz.com';
+    c.Origin = '8'; // anz.com
     String emailBody = c.Description.trim();
     emailBody = emailBody.removeStart('[');
     emailBody = emailBody.removeEnd(']');
     List<String> fieldList = emailBody.split(',  \n\n');
+    if (fieldList.isEmpty()) {
+      Lib_SystemLog.createSingleLog(
+        IDREmailToCase.class.getName(),
+        'parseWebFormEmail',
+        '',
+        'Anz.com email parsing error',
+        'Fatal'
+      );
+      log.insertLog();
+    } else {
+      for (String field : fieldList) {
+        List<String> fieldValueList = field.split(':', 2);
+        String fieldName = fieldValueList[0];
+        String fieldValue = fieldValueList[1].trim(); //replacing the trailing spaces
+        fieldValue = fieldValue.replaceFirst('^[ \t]+', ''); //replacing the leading spaces
 
-    for (String field : fieldList) {
-      List<String> fieldValueList = field.split(':', 2);
-      String fieldName = fieldValueList[0];
-      String fieldValue = fieldValueList[1].trim(); //replacing the trailing spaces
-      fieldValue = fieldValue.replaceFirst('^[ \t]+', ''); //replacing the leading spaces
-
-      if (IDRConstants.anzComFieldMapping.containsKey(fieldName)) {
-        if (
-          fieldValueList[0] == 'Feedback Topic' &&
-          IDRConstants.anzComIssueTypeMapping.containsKey(fieldValue)
-        ) {
-          c.put(
-            IDRConstants.anzComFieldMapping.get(fieldName),
-            IDRConstants.anzComIssueTypeMapping.get(fieldValue)
-          );
-        } else {
-          c.put(IDRConstants.anzComFieldMapping.get(fieldName), fieldValue);
+        if (IDRConstants.anzComFieldMapping.containsKey(fieldName)) {
+          if (
+            fieldValueList[0] == 'Feedback Topic' &&
+            IDRConstants.anzComIssueTypeMapping.containsKey(fieldValue)
+          ) {
+            c.put(
+              IDRConstants.anzComFieldMapping.get(fieldName),
+              IDRConstants.anzComIssueTypeMapping.get(fieldValue)
+            );
+          } else {
+            c.put(IDRConstants.anzComFieldMapping.get(fieldName), fieldValue);
+          }
         }
       }
     }
