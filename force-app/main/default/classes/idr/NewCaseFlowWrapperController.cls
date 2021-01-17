@@ -4,6 +4,7 @@
  * @group IDR(Internal Dispute Resolution)
  * @description Controller for the lightning component wrapping the Case creation flow, currently only for Complaints.
  */
+@SuppressWarnings('PMD.StdCyclomaticComplexity')
 public with sharing class NewCaseFlowWrapperController {
   /**
    * @description Get the Developer Name of a Case record type based on its Id
@@ -15,5 +16,156 @@ public with sharing class NewCaseFlowWrapperController {
     return Schema.SObjectType.Case.getRecordTypeInfosById()
       .get(id)
       .getDeveloperName();
+  }
+
+  /**
+   * @description Get the active Chat Topic ID (if any) by the Account ID (customer)
+   * @param accountID Account ID related to the customer
+   * @return String having the Active Chat Topic ID
+   */
+  @AuraEnabled
+  @SuppressWarnings('PMD.CyclomaticComplexity')
+  public static string getActiveChatTopicIDsByCustomer(Id accountID) {
+    // TODO: Only run below logic for Case record types which has a possibility of originating from a Chat.
+    //       (Might have to pass in Record Type ID from Aura Controller to figure out the Record Type name)
+
+    String activeChatTopicID = '';
+
+    // Query for Customer OCV ID by passing in the Account ID
+    String ocvId;
+    if (Account.sObjectType.getDescribe().isQueryable()) {
+      List<Account> accounts = [
+        SELECT OCV_ID__c
+        FROM Account
+        WHERE Id = :accountID
+      ];
+      if (!accounts.isEmpty()) {
+        ocvId = accounts[0].OCV_ID__c;
+      }
+    }
+
+    List<ChatChannelsWrapper.Channels> activeCahtTopics = new List<ChatChannelsWrapper.Channels>();
+    String nextURL = '';
+    Boolean hasNext = false;
+
+    // NOTE: Mule-Twilio API only returns filtered results within offset limit (MAX 20).
+    //       Therefore, we have to keep on querying the API until there is no 'Next' attribute present in the response to identify all 'Active' chat topics
+
+    // Loop through results to identify Active Chat Topics
+    // NOTE: A singe iteration of below loop will return a maximum of 20 records (Maximum offset limit supported by the API is 20 records at once)
+    //       If a particular customer have had 60 different Chat Topics throughout the lifetime with ANZx, the API will be called 3 times which is 60/20.
+    do {
+      // Make a callout to Mulesoft to fetch all Chat Topics related to the customer
+      String responseBody = getActiveChatTopics(ocvId, nextURL);
+
+      ChatChannelsWrapper responseWrapper = ChatChannelsWrapper.parse(
+        responseBody
+      );
+
+      // Keep on adding to the list unil there is no Next set
+      if (responseWrapper.channels != null) {
+        activeCahtTopics.addAll(responseWrapper.channels);
+      }
+
+      if (responseWrapper.x_links.x_links.next != null) {
+        hasNext = true;
+        nextURL = responseWrapper.x_links.x_links.next.substring(
+          responseWrapper.x_links.x_links.next.indexOf('?')
+        );
+      } else {
+        hasNext = false;
+      }
+    } while (hasNext);
+
+    if (!activeCahtTopics.isEmpty()) {
+      if (activeCahtTopics.size() == 1) {
+        activeChatTopicID = activeCahtTopics[0].Id;
+      } else {
+        // Return '|' seperated string of all returned Chat Topic IDs, and save it on a custom field on Case object (not visible on Page Layout) ?
+        for (ChatChannelsWrapper.Channels topic : activeCahtTopics) {
+          activeChatTopicID += !String.isBlank(activeChatTopicID)
+            ? '|' + topic.Id
+            : topic.Id;
+        }
+
+        //Log an Application Log entry including the '|' seperated string of all returned Chat Topic IDs
+        lib_systemLog.createSingleLog(
+          NewCaseFlowWrapperController.class.getName(),
+          'getActiveChatTopicIDsByCustomer',
+          'MORE_THAN_ONE_ACTIVE_CHAT_TOPIC',
+          'More than one "Acitve" Chat Topics found while trying to auto-link to a Case.' +
+          ' - ' +
+          'Channel SIDs :' +
+          activeChatTopicID +
+          ' - Account ID:' +
+          accountID +
+          ' - ' +
+          'If user decides to save the Case (with or without a linked Chat Topic), the custom field "Auto_matched_Chat_Topic_IDs__c" on the particular Case record will me marked with auto-matched Chat Topic IDs to help troubleshooting.',
+          lib_systemLog.Severity.WARNING
+        );
+      }
+    }
+
+    return activeChatTopicID;
+  }
+
+  /**
+   * @description Fetch Chat Topics via API by passing in customer OCV ID
+   * @param ocvID Customer OCV ID
+   * @param nextURL URL to get next result set if available
+   * @return String
+   */
+  @SuppressWarnings('PMD.ApexSuggestUsingNamedCred')
+  public static String getActiveChatTopics(String ocvID, String nextURL) {
+    String urlParams =
+      '?status=active&chatFlowStatus=ACCEPTED&limit=' +
+      ChatTopicRelatedListController.OFFSET_LIMIT;
+
+    String responseBody = null;
+    if (String.isNotBlank(ocvID)) {
+      HttpRequest request = new HttpRequest();
+      String finalURL = String.isBlank(nextURL) ? urlParams : nextURL;
+      request.setEndpoint(
+        'callout:SF_MS_Fabric' +
+        Label.MS_Get_CustomerChatChannels +
+        ocvID +
+        ChatTopicRelatedListController.CHANNELS_ENDPOINT_SUFFIX +
+        finalURL
+      );
+
+      request.setMethod('GET');
+      String serializedToken = AuthTokenCacheUtil.getStaffToken(ocvID);
+      request.setHeader('Authorization', 'Bearer ' + serializedToken);
+      request.setHeader('client_id', '{!$Credential.Username}');
+      request.setHeader('client_secret', '{!$Credential.Password}');
+      //Todo: This needs to be replaced with uniquely generated id based on what is accepted by forge
+      //request.setHeader('x-correlation-id', RequestUtils.getRequestId());
+      HTTPResponse response = null;
+      try {
+        Http http = new Http();
+        response = http.send(request);
+        if (response.getStatusCode() == 200) {
+          responseBody = response.getBody();
+        } else {
+          throw new CalloutException(response.getBody());
+        }
+      } catch (Exception e) {
+        Lib_SystemLog.logAPIError(
+          ChatTopicRelatedListController.class.getName(),
+          'getActiveChatTopics',
+          e.getMessage(),
+          e.getTypeName(),
+          ChatTopicRelatedListController.class.getName(),
+          null,
+          response != null ? response.getBody() : null
+        );
+
+        AuraHandledException ahe = new AuraHandledException(e.getMessage());
+        ahe.setMessage(e.getMessage());
+        throw ahe;
+      }
+    }
+
+    return responseBody;
   }
 }

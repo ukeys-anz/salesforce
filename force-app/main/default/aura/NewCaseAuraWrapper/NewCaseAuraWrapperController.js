@@ -31,6 +31,8 @@
                 "inContextOfRef"
               );
 
+              var chatTopicCheckPending = false;
+
               var navigationUrl =
                 "/lightning/o/Case/new?count=1&nooverride=1&recordTypeId=" +
                 component.get("v.pageReference").state.recordTypeId;
@@ -48,20 +50,70 @@
                     "%2F" +
                     parentRecID +
                     "%2Fview";
+
                   if (parentObjectName == "Account") {
+                    //Setting 'defaultFieldValues' to pre-populate the parent Account lookup.
                     navigationUrl =
                       navigationUrl +
                       "&defaultFieldValues=AccountId=" +
                       parentRecID;
+
+                    // Start loading spinner
+                    component.set("v.loading", true);
+
+                    // Fetch active Chat Topic ID (if there is any) related to the Customer
+                    chatTopicCheckPending = true;
+                    helper.getActiveChatTopicID(
+                      component,
+                      parentRecID,
+                      function (topicID) {
+                        //Also pre-populating/linking Chat Topic record, if the Case is related to an on-going active chat.
+                        var defaultFieldValues = "";
+                        if (topicID) {
+                          var array = topicID.split("|");
+                          if (array.length == 1) {
+                            navigationUrl =
+                              navigationUrl +
+                              ",Twilio_Channel_SID__c=" +
+                              topicID +
+                              ",Origin=Chat";
+                          } else {
+                            // only comes here if array length > 1
+                            // Saving '|' separated IDs on a custom field to help in troubleshooting
+                            navigationUrl =
+                              navigationUrl +
+                              ",Auto_matched_Chat_Topic_IDs__c=" +
+                              topicID;
+                          }
+                        }
+
+                        // Stop loading spinner
+                        component.set("v.loading", false);
+
+                        helper.navigateToNewCaseClosePreviousTab(
+                          workspaceAPI,
+                          navigationUrl,
+                          firstTabId
+                        );
+                      }
+                    );
                   }
                 }
               }
 
-              helper.navigateToNewCaseClosePreviousTab(
-                workspaceAPI,
-                navigationUrl,
-                firstTabId
-              );
+              // Check to stop page navigation if Chat Topic linking logic/callback is pending
+              if (!chatTopicCheckPending) {
+                // Stop loading spinner
+                if (component.get("v.loading")) {
+                  component.set("v.loading", false);
+                }
+
+                helper.navigateToNewCaseClosePreviousTab(
+                  workspaceAPI,
+                  navigationUrl,
+                  firstTabId
+                );
+              }
             });
           } else {
             helper.goToStandardNewCasePage(component, event);
@@ -69,6 +121,21 @@
         });
       }
     });
+  },
+  urlchange: function (component, event, helper) {
+    // This is to perform intended actions from 'goToNewCaseWithDefaultRecordType()' method, if the URL (including "inContextOfRef" parameter) was not readily available at the time of calling the init() method.
+    // 'urlchange' method will only be called if;
+    // * The user has access to only one record type. And,
+    // * If it's not the first time where the user tries to create a new case without a page refresh (the first time it works fine).
+
+    // If there is only one recordtype assigned to the user take him to default case creation
+    if (
+      !component.get("v.pageReference").state.recordTypeId &&
+      helper.getURLParameterByName(component, "inContextOfRef")
+    ) {
+      helper.goToNewCaseWithDefaultRecordType(component);
+      return;
+    }
   },
   handleNavigateRecord: function (component, event) {
     var caseId = event.getParam("caseId");
