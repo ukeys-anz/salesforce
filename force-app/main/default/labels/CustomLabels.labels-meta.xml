@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
     <labels>
+        <fullName>ANZ_com_Sender_Address</fullName>
+        <categories>IDR</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Anz.com email address to send complaint on YourFeedback@anz.com inbox</shortDescription>
+        <value>interacc@anz.com</value>
+    </labels>
+    <labels>
         <fullName>Anonymous_Complainant</fullName>
         <categories>IDR</categories>
         <language>en_US</language>

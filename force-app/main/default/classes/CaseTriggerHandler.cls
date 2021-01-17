@@ -29,8 +29,8 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     GetHelpCaseActions.validateAdditionalTypes(records, null);
     GetHelpCaseActions.validateCaseType(records, null);
     GetHelpCaseActions.updateEntitlement(records);
+    IDREmailToCase.processEmail(records);
   }
-
   /**
    * @description onValidate() method is called before onAfterInsert to validate records or handle the records for which we need to update the values.
    */
