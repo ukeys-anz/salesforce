@@ -24,9 +24,7 @@ public with sharing class CreateCommsController {
     for (IDR_Template_Detail__c td : templatedetails) {
       uniqueTemplateNames.add(td.IDR_Template__c);
     }
-    for (string templateName : uniqueTemplateNames) {
-      returnlist.add(templateName);
-    }
+    returnlist.addAll(uniqueTemplateNames);
     return returnlist;
   }
   /**
