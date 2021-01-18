@@ -31,6 +31,9 @@
       if (parentRecID) {
         // Pre-populate Chat Topic lookup if parent object is Account
         if (parentObjectName == "Account") {
+          // Start loading spinner
+          component.set("v.loading", true);
+
           // Fetch active Chat Topic ID (if there is any) related to the Customer
           this.getActiveChatTopicID(component, parentRecID, function (topicID) {
             //Setting 'defaultFieldValues' to pre-populate the parent Account lookup.
@@ -63,6 +66,8 @@
 
               newCaseRecord.fire();
             }
+            // Stop loading spinner
+            component.set("v.loading", false);
           });
         } else {
           //Setting 'defaultFieldValues' to pre-populate the parent Account lookup.
@@ -106,6 +111,9 @@
       if (parentRecID) {
         // Pre-populate Chat Topic lookup if parent object is Account
         if (parentObjectName == "Account") {
+          // Start loading spinner
+          component.set("v.loading", true);
+
           // Fetch active Chat Topic ID (if there is any) related to the Customer
           this.getActiveChatTopicID(component, parentRecID, function (topicID) {
             //Setting 'defaultFieldValues' to pre-populate the parent Account lookup.
@@ -144,6 +152,9 @@
               });
               newCaseRecord.fire();
             }
+
+            // Stop loading spinner
+            component.set("v.loading", false);
           });
         } else {
           // in case if the Parent object isn't Account
