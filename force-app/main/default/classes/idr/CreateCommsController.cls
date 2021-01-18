@@ -6,7 +6,7 @@
  */
 public with sharing class CreateCommsController {
   /**
-   * @description The used to fetch availabe templates.
+   * @description The getTemplateList used to fetch availabe templates from IDR_Template_Detail__c .
    *
    * @return List<string>  list of all the templates that have been set up
    */
@@ -28,7 +28,7 @@ public with sharing class CreateCommsController {
     return returnlist;
   }
   /**
-   * @description fetch fetch free text fields for the selected template with pre populated case data
+   * @description  fetch free text fields for the selected template with pre populated case data
    *
    * @param template user selected template for this letter/email
    * @param caseId the id of the case against which this lette/email is being created
@@ -184,7 +184,7 @@ public with sharing class CreateCommsController {
   }
 
   /**
-   * @description for the selected template get the data needs to be populated directly from the case.
+   * @description for the selected template get the data that needs to be populated directly from the case.
    *
    * @param template user selected template for this letter/email
    * @param caseId the id of the case against which this lette/email is being created
@@ -235,7 +235,7 @@ public with sharing class CreateCommsController {
   }
 
   /**
-   * @description for the selected template get the data needs to be populated directly from the case.
+   * @description submit the letter approval record for approval
    *
    * @param caseComms the record that needs to be submitted for approval
    */
