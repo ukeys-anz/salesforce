@@ -2,7 +2,7 @@
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>General_Inquiry_CMOS</fullName>
     <active>true</active>
-    <businessProcess>Complaint Support Process</businessProcess>
+    <businessProcess>General Inquiry CMOS</businessProcess>
     <compactLayoutAssignment>Complaint</compactLayoutAssignment>
     <description>CMOS General Inquiry Record Type</description>
     <label>General Inquiry CMOS</label>
