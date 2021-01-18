@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_Template__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Privacy - Non Personal Information;Integrity - Accurate</complianceGroup>
+    <complianceGroup>Privacy - Non Personal Information;Integrity - Accurate;Source_Salesforce</complianceGroup>
     <description>what is the template of the letter on which this field needs to appear</description>
     <externalId>false</externalId>
     <label>Template</label>
