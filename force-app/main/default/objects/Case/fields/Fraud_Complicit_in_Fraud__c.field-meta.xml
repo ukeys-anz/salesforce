@@ -3,7 +3,7 @@
     <fullName>Fraud_Complicit_in_Fraud__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_Salesforce;Integrity - Accurate</complianceGroup>
-    <description>Complicit in Fraud</description>
+    <description>To denote whether the customer was complicit in the fraud event</description>
     <externalId>false</externalId>
     <label>Complicit in Fraud</label>
     <required>false</required>

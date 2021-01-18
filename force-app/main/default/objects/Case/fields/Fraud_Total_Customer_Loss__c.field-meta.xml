@@ -3,7 +3,7 @@
     <fullName>Fraud_Total_Customer_Loss__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_Salesforce;Integrity - Accurate</complianceGroup>
-    <description>Total Customer Loss</description>
+    <description>The total amount a customer lost post any recoveries due to a scam event</description>
     <externalId>false</externalId>
     <formula>Fraud_Total_Scam_Value__c -  Fraud_Total_Falcon_Recalled__c -  Fraud_Total_Recovered__c -  Fraud_Total_Reimbursed__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>

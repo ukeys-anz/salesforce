@@ -3,7 +3,7 @@
     <fullName>Fraud_Total_Scam_Value__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_Salesforce;Integrity - Accurate</complianceGroup>
-    <description>Total Scam Value</description>
+    <description>The total amount transacted on an account due to a scam event</description>
     <externalId>false</externalId>
     <label>Total Scam Value</label>
     <precision>18</precision>

@@ -3,5 +3,6 @@
     <fullName>Name</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted;Privacy - Personal Information</complianceGroup>
+    <description>Captures first and last name of the customer</description>
     <securityClassification>Confidential</securityClassification>
 </CustomField>

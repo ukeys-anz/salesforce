@@ -3,7 +3,7 @@
     <fullName>Identity_PIN_Status__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_Salesforce;Integrity - Accurate</complianceGroup>
-    <description>PIN Status</description>
+    <description>To denote the status of a device PIN in an assisted ID event</description>
     <externalId>false</externalId>
     <label>PIN Status</label>
     <required>false</required>

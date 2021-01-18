@@ -4,7 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_Salesforce;Integrity - Accurate</complianceGroup>
     <defaultValue>false</defaultValue>
-    <description>Customer Provided Selfie</description>
+    <description>To denote whether a customer provided a selfie in an assisted ID event</description>
     <externalId>false</externalId>
     <label>Customer Provided Selfie</label>
     <securityClassification>Internal</securityClassification>

@@ -3,7 +3,7 @@
     <fullName>Fraud_Funds_from_Institution__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_Salesforce;Integrity - Accurate</complianceGroup>
-    <description>Funds from Institution</description>
+    <description>The financial institution of the account in which a customer received stolen funds (list of common Australian banks)</description>
     <externalId>false</externalId>
     <label>Funds from Institution</label>
     <required>false</required>

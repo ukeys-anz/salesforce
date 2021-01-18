@@ -3,7 +3,7 @@
     <fullName>Identity_Device_Status__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_Salesforce;Integrity - Accurate</complianceGroup>
-    <description>Device Status</description>
+    <description>To denote the status of a customers device  in an assisted ID event</description>
     <externalId>false</externalId>
     <label>Device Status</label>
     <required>false</required>

@@ -3,7 +3,7 @@
     <fullName>Identity_Failed_Verification_Reason__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_Salesforce;Integrity - Accurate</complianceGroup>
-    <description>Failed Verification Reason</description>
+    <description>To denote why a individual failed assisted verification  in an assisted ID event</description>
     <externalId>false</externalId>
     <label>Failed Verification Reason</label>
     <required>false</required>

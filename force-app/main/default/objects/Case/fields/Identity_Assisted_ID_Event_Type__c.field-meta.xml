@@ -3,7 +3,7 @@
     <fullName>Identity_Assisted_ID_Event_Type__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_Salesforce;Integrity - Accurate</complianceGroup>
-    <description>Assisted ID Event Type</description>
+    <description>The event which led to a customer needing their identity being verified manually</description>
     <externalId>false</externalId>
     <label>Assisted ID Event Type</label>
     <required>false</required>

@@ -4,7 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_Salesforce;Integrity - Accurate</complianceGroup>
     <defaultValue>false</defaultValue>
-    <description>Selfie Match to ID Document</description>
+    <description>To denote whether the individuals face matches a selfie in an assisted ID event</description>
     <externalId>false</externalId>
     <label>Selfie Match to ID Document</label>
     <securityClassification>Internal</securityClassification>

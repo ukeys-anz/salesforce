@@ -3,7 +3,7 @@
     <fullName>Fraud_Total_Reimbursed__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_Salesforce;Integrity - Accurate</complianceGroup>
-    <description>Total Reimbursed</description>
+    <description>The total amount reimbursed by fraud agents post a fraud or scam event</description>
     <externalId>false</externalId>
     <label>Total Reimbursed</label>
     <precision>18</precision>

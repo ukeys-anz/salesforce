@@ -4,7 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_Salesforce;Integrity - Accurate</complianceGroup>
     <defaultValue>false</defaultValue>
-    <description>Repeat Victim</description>
+    <description>To denote whether a customer is a repeat victim of scams</description>
     <externalId>false</externalId>
     <label>Repeat Victim</label>
     <securityClassification>Internal</securityClassification>
