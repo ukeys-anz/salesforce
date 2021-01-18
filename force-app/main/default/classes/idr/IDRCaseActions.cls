@@ -215,7 +215,11 @@ public with sharing class IDRCaseActions {
     for (Integer i = 0; i < records.size(); i++) {
       Case record = records[i];
       Case oldRec = (Case) oldMap.get(record.id);
-      if (record.Status != oldRec.Status) {
+      if (
+        record.Status != oldRec.Status ||
+        (oldRec.RecordTypeId == GENERAL_INQUIRY_CMOS_RT_ID &&
+        isIDRComplaintType(record))
+      ) {
         if (NOTIFICATION_STATUS.contains(record.Status)) {
           notificationCaseList.add(record);
         }
