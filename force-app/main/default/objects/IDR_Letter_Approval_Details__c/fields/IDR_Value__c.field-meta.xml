@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_Value__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Privacy - Personal Information;Integrity - Accurate;Source_Salesforce</complianceGroup>
+    <description>the value of the field on the letter</description>
+    <externalId>false</externalId>
+    <label>Value</label>
+    <length>32768</length>
+    <securityClassification>Confidential</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
+</CustomField>
