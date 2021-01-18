@@ -2992,14 +2992,6 @@
             <fullName>1</fullName>
             <default>false</default>
         </values>
-        <values>
-            <fullName>2</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>3</fullName>
-            <default>false</default>
-        </values>
     </picklistValues>
     <picklistValues>
         <picklist>IDR_Escalation_Reason__c</picklist>
