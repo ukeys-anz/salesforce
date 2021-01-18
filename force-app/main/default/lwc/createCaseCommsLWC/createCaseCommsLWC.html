@@ -34,18 +34,17 @@
         ></lightning-input>
       </div>
       <br />
-      <div class="slds-table slds-table_cell-buffer slds-table_header-hidden">
-        <lightning-datatable
-          key-field="fileId"
-          data={fieldData}
-          columns={columns}
-          oncellchange={handlelineItemUpdate}
-          draft-values={draftValues}
-          hide-checkbox-column
-          suppress-bottom-bar
-        >
-        </lightning-datatable>
-      </div>
+      <lightning-datatable
+        key-field="fileId"
+        data={fieldData}
+        columns={columns}
+        oncellchange={handlelineItemUpdate}
+        draft-values={draftValues}
+        suppress-bottom-bar
+        hide-checkbox-column
+      >
+      </lightning-datatable>
+      <br />
       <div class="slds-float slds-align_absolute-center slds-p-top_medium">
         <lightning-button
           variant="brand"
