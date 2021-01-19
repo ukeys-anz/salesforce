@@ -78,7 +78,7 @@ export default class TransactionHistoryBoard extends LightningElement {
   }
 
   get showLoadMore() {
-    return this.links && this.links.next.href ? true : false;
+    return this.links && this.links.next && this.links.next.href ? true : false;
   }
 
   fetchTransactions(paramUrl = "", isSearch = false) {
