@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>IDR_Share_Investing_Case</fullName>
+    <fullName>IDR_CEO</fullName>
     <columns>CASES.CASE_NUMBER</columns>
     <columns>NAME</columns>
     <columns>CASES.SUBJECT</columns>
@@ -9,8 +9,8 @@
     <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
     <columns>CORE.USERS.ALIAS</columns>
     <filterScope>Queue</filterScope>
-    <label>IDR Share Investing</label>
-    <queue>IDR_Share_Investing</queue>
+    <label>IDR CEO</label>
+    <queue>IDR_Maladmin</queue>
     <sharedTo>
         <group>All_IDR_Users</group>
     </sharedTo>
