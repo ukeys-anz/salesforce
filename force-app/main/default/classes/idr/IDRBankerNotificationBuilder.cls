@@ -38,7 +38,7 @@ public with sharing class IDRBankerNotificationBuilder {
       }
     }
   }
-  
+
   /**
    * @description populate the recepients
    * @param recipients list of inapp and case recepients
@@ -91,12 +91,15 @@ public with sharing class IDRBankerNotificationBuilder {
    * @param c case to be updated
    */
   public static void caseUpdateFlag(Case c) {
-    //avoid DML update if the flag is already true
-    if(c.IDR_Update_Notification_Flag__c == false) {
+    //avoid DML update if the flag is already true and the user is l2 or l3
+    if (
+      c.IDR_Update_Notification_Flag__c == false &&
+      !(FeatureManagement.checkPermission('IDR_Level_2') ||
+      FeatureManagement.checkPermission('IDR_Level_3'))
+    ) {
       c.IDR_Update_Notification_Flag__c = true;
       update c;
     }
-
   }
 
   /**
