@@ -15,4 +15,73 @@ public with sharing class RequestUtils {
     }
     return reqInfo.getRequestId();
   }
+
+  /**
+   * @description Set Auth headers on HTTP Request where Forge Tokens are involved
+   * @param request HttpRequest
+   * @param ocvID Customer OCV ID
+   * @param requestMethod HTTP request method
+   */
+  @SuppressWarnings('PMD.ApexSuggestUsingNamedCred')
+  public static void setAuthHeaders(
+    HttpRequest request,
+    String ocvID,
+    String requestMethod
+  ) {
+    request.setMethod(requestMethod);
+    String serializedToken = AuthTokenCacheUtil.getStaffToken(ocvID);
+    request.setHeader('Authorization', 'Bearer ' + serializedToken);
+    request.setHeader('client_id', '{!$Credential.Username}');
+    request.setHeader('client_secret', '{!$Credential.Password}');
+    //Todo: This needs to be replaced with uniquely generated id based on what is accepted by forge
+    //request.setHeader('x-correlation-id', RequestUtils.getRequestId());
+  }
+
+  /**
+   * @description Make HTTP request and process the response
+   * @param request HttpRequest
+   * @param processName name of the process which failed
+   * @param functionName function name where the error occured
+   * @param errorIdentifier error identifier
+   * @param usedInLWC is usen in a LWC component
+   * @return String response body
+   */
+  @SuppressWarnings('PMD.ExcessiveParameterList')
+  public static String processRequest(
+    HttpRequest request,
+    String processName,
+    String functionName,
+    String errorIdentifier,
+    Boolean usedInLWC
+  ) {
+    String responseBody;
+    HTTPResponse response = null;
+    try {
+      Http http = new Http();
+      response = http.send(request);
+      if (response.getStatusCode() <= 200 && response.getStatusCode() < 300) {
+        responseBody = response.getBody();
+      } else {
+        throw new CalloutException(response.getBody());
+      }
+    } catch (Exception e) {
+      Lib_SystemLog.logAPIError(
+        processName,
+        functionName,
+        e.getMessage(),
+        e.getTypeName(),
+        errorIdentifier,
+        null,
+        response != null ? response.getBody() : null
+      );
+
+      if (usedInLWC) {
+        AuraHandledException ahe = new AuraHandledException(e.getMessage());
+        ahe.setMessage(e.getMessage());
+        throw ahe;
+      }
+    }
+
+    return responseBody;
+  }
 }
