@@ -77,6 +77,11 @@
                               ",Twilio_Channel_SID__c=" +
                               topicID +
                               ",Origin=Chat";
+
+                            helper.showToast(
+                              "success",
+                              "Active Chat Topic was successfully auto-populated on Case !"
+                            );
                           } else {
                             // only comes here if array length > 1
                             // Saving '|' separated IDs on a custom field to help in troubleshooting
@@ -84,6 +89,11 @@
                               navigationUrl +
                               ",Auto_matched_Chat_Topic_IDs__c=" +
                               topicID;
+
+                            helper.showToast(
+                              "warning",
+                              "More than one Active Chat Topics found ! Chat Topic will not be auto-populated on Case."
+                            );
                           }
                         }
 

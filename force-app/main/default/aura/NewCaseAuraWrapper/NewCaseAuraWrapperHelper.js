@@ -202,6 +202,7 @@
           callback(response.getReturnValue());
         }
       } else {
+        callback("");
         console.log("Failed with state: " + state);
       }
     });
@@ -220,5 +221,14 @@
       .then(function (activeTabId) {
         workspaceAPI.closeTab({ tabId: firstTabId });
       });
+  },
+  showToast: function (notificationType, messageText) {
+    var toastEvent = $A.get("e.force:showToast");
+    toastEvent.setParams({
+      title: "Success!",
+      message: messageText,
+      type: notificationType
+    });
+    toastEvent.fire();
   }
 });
