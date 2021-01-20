@@ -11,7 +11,7 @@
         <description>If ANZx Customer, ANZx and subordinates can view</description>
         <label>ANZx Customer</label>
         <sharedTo>
-            <roleAndSubordinatesInternal>ANZx</roleAndSubordinatesInternal>
+            <roleAndSubordinates>ANZx</roleAndSubordinates>
         </sharedTo>
         <criteriaItems>
             <field>ANZx_Customer__c</field>
