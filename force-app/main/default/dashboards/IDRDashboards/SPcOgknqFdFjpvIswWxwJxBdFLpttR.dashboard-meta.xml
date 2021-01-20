@@ -150,7 +150,6 @@
     <dashboardType>LoggedInUser</dashboardType>
     <description>Dashboard displayed on CMOS home page</description>
     <isGridLayout>true</isGridLayout>
-    <runningUser>test-s1rphndgyrj2@example.com</runningUser>
     <textColor>#000000</textColor>
     <title>Complaint Dashboard</title>
     <titleColor>#000000</titleColor>
