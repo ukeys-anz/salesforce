@@ -44,7 +44,7 @@ public with sharing class NewCaseFlowWrapperController {
       }
     }
 
-    List<ChatChannelsWrapper.Channels> activeCahtTopics = new List<ChatChannelsWrapper.Channels>();
+    List<ChatChannelsResponseWrapper.Channels> activeCahtTopics = new List<ChatChannelsResponseWrapper.Channels>();
     String nextURL = '';
     Boolean hasNext = false;
 
@@ -58,8 +58,14 @@ public with sharing class NewCaseFlowWrapperController {
       // Make a callout to Mulesoft to fetch all Chat Topics related to the customer
       String responseBody = getActiveChatTopics(ocvId, nextURL);
 
-      ChatChannelsWrapper responseWrapper = ChatChannelsWrapper.parse(
-        responseBody
+      // process responseBody string, and replace '_links' with 'xlinks'
+      if (String.isNotBlank(responseBody)) {
+        responseBody = responseBody.replace('_links', 'xlinks');
+      }
+
+      ChatChannelsResponseWrapper responseWrapper = (ChatChannelsResponseWrapper) JSON.deserialize(
+        responseBody,
+        ChatChannelsResponseWrapper.class
       );
 
       // Keep on adding to the list unil there is no Next set
@@ -82,7 +88,7 @@ public with sharing class NewCaseFlowWrapperController {
         activeChatTopicID = activeCahtTopics[0].Id;
       } else {
         // Return '|' seperated string of all returned Chat Topic IDs, and save it on a custom field on Case object (not visible on Page Layout) ?
-        for (ChatChannelsWrapper.Channels topic : activeCahtTopics) {
+        for (ChatChannelsResponseWrapper.Channels topic : activeCahtTopics) {
           activeChatTopicID += !String.isBlank(activeChatTopicID)
             ? '|' + topic.Id
             : topic.Id;
