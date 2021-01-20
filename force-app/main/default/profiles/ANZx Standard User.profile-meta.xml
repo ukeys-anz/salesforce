@@ -8646,6 +8646,12 @@
     <recordType>ServiceTerritory.Branch</recordType>
   </layoutAssignments>
   <layoutAssignments>
+      <layout>User-User Layout</layout>
+  </layoutAssignments>
+  <layoutAssignments>
+      <layout>UserAlt-User Profile Layout</layout>
+  </layoutAssignments>
+  <layoutAssignments>
     <layout>WorkType-ANZ Work Type Layout</layout>
   </layoutAssignments>
   <layoutAssignments>

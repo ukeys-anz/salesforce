@@ -2288,6 +2288,9 @@
         <layout>User-User Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>UserAlt-User Profile Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>User_Provisioning_Request__c-User Provisioning Request Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
