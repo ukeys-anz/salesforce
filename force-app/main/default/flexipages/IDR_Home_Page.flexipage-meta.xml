@@ -30,19 +30,19 @@
     </flexiPageRegions>
     <flexiPageRegions>
         <itemInstances>
-            <componentInstances>
+            <componentInstance>
                 <componentName>runtime_sales_activities:todayTaskContainer</componentName>
-            </componentInstances>
+            </componentInstance>
         </itemInstances>
         <itemInstances>
-            <componentInstances>
+            <componentInstance>
                 <componentName>runtime_approval_process:pendingApprovalCard</componentName>
-            </componentInstances>
+            </componentInstance>
         </itemInstances>
         <itemInstances>
-            <componentInstances>
+            <componentInstance>
                 <componentName>home:recentRecordContainer</componentName>
-            </componentInstances>
+            </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
         <name>sidebar</name>
@@ -55,3 +55,5 @@
     </template>
     <type>HomePage</type>
 </FlexiPage>
+
+
