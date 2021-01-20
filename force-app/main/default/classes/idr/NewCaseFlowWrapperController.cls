@@ -67,10 +67,10 @@ public with sharing class NewCaseFlowWrapperController {
         activeCahtTopics.addAll(responseWrapper.channels);
       }
 
-      if (responseWrapper.x_links.x_links.next != null) {
+      if (responseWrapper.xlinks.xlinks.next != null) {
         hasNext = true;
-        nextURL = responseWrapper.x_links.x_links.next.substring(
-          responseWrapper.x_links.x_links.next.indexOf('?')
+        nextURL = responseWrapper.xlinks.xlinks.next.substring(
+          responseWrapper.xlinks.xlinks.next.indexOf('?')
         );
       } else {
         hasNext = false;
