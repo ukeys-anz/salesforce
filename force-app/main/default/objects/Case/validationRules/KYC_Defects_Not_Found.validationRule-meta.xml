@@ -8,18 +8,18 @@
 (RecordType.DeveloperName = &quot;KYC_QA&quot;),
 ISPICKVAL (Status, &quot;Closed&quot;),
 OR(
-ISPICKVAL (KYCQA_Defects_Rectified__c, &quot;Yes&quot; ),
-ISPICKVAL (KYCQA_Defects_Rectified__c, &quot;Customer Has Failed to Respond&quot; )),
-ISPICKVAL (KYCQA_ID_True_Document__c, &quot;Yes&quot;),
-ISPICKVAL (KYCQA_ID_Not_Picture__c , &quot;Yes&quot;),
-ISPICKVAL (KYCQA_Customer_Photo_Modified__c , &quot;Yes&quot;),
-ISPICKVAL (KYCQA_Security_Features__c , &quot;Yes&quot;),
-ISPICKVAL (KYCQA_ID_Legible__c , &quot;Yes&quot;),
-ISPICKVAL (KYCQA_Customer_Details__c , &quot;Yes&quot;),
-ISPICKVAL (KYCQA_EV_Match__c, &quot;Yes&quot;),
-ISPICKVAL (KYCQA_EV_Consent__c, &quot;Yes&quot;),
-ISPICKVAL (KYCQA_EV_Rules_Met__c, &quot;Yes&quot;),
-ISPICKVAL (KYCQA_PO_Box__c , &quot;Yes&quot;),
-ISPICKVAL (KYCQA_Middle_Name__c , &quot;Yes&quot;))</errorConditionFormula>
+ISPICKVAL (Fraud_Defects_Rectified__c, &quot;Yes&quot; ),
+ISPICKVAL (Fraud_Defects_Rectified__c, &quot;Customer Has Failed to Respond&quot; )),
+ISPICKVAL (Fraud_ID_True_Document__c, &quot;Yes&quot;),
+ISPICKVAL (Fraud_ID_Not_Picture__c , &quot;Yes&quot;),
+ISPICKVAL (Fraud_Customer_Photo_Modified__c , &quot;Yes&quot;),
+ISPICKVAL (Fraud_Security_Features__c , &quot;Yes&quot;),
+ISPICKVAL (Fraud_ID_Legible__c , &quot;Yes&quot;),
+ISPICKVAL (Fraud_Customer_Details__c , &quot;Yes&quot;),
+ISPICKVAL (Fraud_EV_Match__c, &quot;Yes&quot;),
+ISPICKVAL (Fraud_EV_Consent__c, &quot;Yes&quot;),
+ISPICKVAL (Fraud_EV_Rules_Met__c, &quot;Yes&quot;),
+ISPICKVAL (Fraud_PO_Box__c , &quot;Yes&quot;),
+ISPICKVAL (Fraud_Middle_Name__c , &quot;Yes&quot;))</errorConditionFormula>
     <errorMessage>You have selected that an error has been rectified in the individual&apos;s KYC or that the customer has failed to respond with documents but have not selected what metric has recorded an error. Please check all fields prior to case closure.</errorMessage>
 </ValidationRule>

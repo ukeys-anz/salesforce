@@ -7,18 +7,18 @@
 ($Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false),
 (RecordType.DeveloperName = &quot;KYC_QA&quot;),
 ISPICKVAL (Status, &quot;Closed&quot;),
-ISPICKVAL (KYCQA_Defects_Rectified__c, &quot;Not Applicable&quot; ),
+ISPICKVAL (Fraud_Defects_Rectified__c, &quot;Not Applicable&quot; ),
 OR(
-ISPICKVAL (KYCQA_ID_True_Document__c, &quot;No&quot;),
-ISPICKVAL (KYCQA_ID_Not_Picture__c , &quot;No&quot;),
-ISPICKVAL (KYCQA_Customer_Photo_Modified__c , &quot;No&quot;),
-ISPICKVAL (KYCQA_Security_Features__c , &quot;No&quot;),
-ISPICKVAL (KYCQA_ID_Legible__c , &quot;No&quot;),
-ISPICKVAL (KYCQA_Customer_Details__c , &quot;No&quot;),
-ISPICKVAL (KYCQA_EV_Match__c, &quot;No&quot;),
-ISPICKVAL (KYCQA_EV_Consent__c, &quot;No&quot;),
-ISPICKVAL (KYCQA_EV_Rules_Met__c, &quot;No&quot;),
-ISPICKVAL (KYCQA_PO_Box__c , &quot;No&quot;),
-ISPICKVAL (KYCQA_Middle_Name__c , &quot;No&quot;)))</errorConditionFormula>
+ISPICKVAL (Fraud_ID_True_Document__c, &quot;No&quot;),
+ISPICKVAL (Fraud_ID_Not_Picture__c , &quot;No&quot;),
+ISPICKVAL (Fraud_Customer_Photo_Modified__c , &quot;No&quot;),
+ISPICKVAL (Fraud_Security_Features__c , &quot;No&quot;),
+ISPICKVAL (Fraud_ID_Legible__c , &quot;No&quot;),
+ISPICKVAL (Fraud_Customer_Details__c , &quot;No&quot;),
+ISPICKVAL (Fraud_EV_Match__c, &quot;No&quot;),
+ISPICKVAL (Fraud_EV_Consent__c, &quot;No&quot;),
+ISPICKVAL (Fraud_EV_Rules_Met__c, &quot;No&quot;),
+ISPICKVAL (Fraud_PO_Box__c , &quot;No&quot;),
+ISPICKVAL (Fraud_Middle_Name__c , &quot;No&quot;)))</errorConditionFormula>
     <errorMessage>You have selected that an error has been found in the individual&apos;s KYC and have not selected that the error has been rectified or that the customer has failed to respond with required documents. Please check the field &quot;Have All Defects Been Rectified&quot;.</errorMessage>
 </ValidationRule>

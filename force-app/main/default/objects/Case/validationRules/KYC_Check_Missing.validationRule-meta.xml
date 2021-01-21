@@ -8,17 +8,17 @@
 (RecordType.DeveloperName = &quot;KYC_QA&quot;),
 ISPICKVAL (Status, &quot;Closed&quot;),
 OR(
-ISPICKVAL (KYCQA_Defects_Rectified__c, &quot;&quot; ),
-ISPICKVAL (KYCQA_ID_True_Document__c, &quot;&quot;),
-ISPICKVAL (KYCQA_ID_Not_Picture__c , &quot;&quot;),
-ISPICKVAL (KYCQA_Customer_Photo_Modified__c , &quot;&quot;),
-ISPICKVAL (KYCQA_Security_Features__c , &quot;&quot;),
-ISPICKVAL (KYCQA_ID_Legible__c , &quot;&quot;),
-ISPICKVAL (KYCQA_Customer_Details__c , &quot;&quot;),
-ISPICKVAL (KYCQA_EV_Match__c, &quot;&quot;),
-ISPICKVAL (KYCQA_EV_Consent__c, &quot;&quot;),
-ISPICKVAL (KYCQA_EV_Rules_Met__c, &quot;&quot;),
-ISPICKVAL (KYCQA_PO_Box__c , &quot;&quot;),
-ISPICKVAL (KYCQA_Middle_Name__c , &quot;&quot;)))</errorConditionFormula>
+ISPICKVAL (Fraud_Defects_Rectified__c, &quot;&quot; ),
+ISPICKVAL (Fraud_ID_True_Document__c, &quot;&quot;),
+ISPICKVAL (Fraud_ID_Not_Picture__c , &quot;&quot;),
+ISPICKVAL (Fraud_Customer_Photo_Modified__c , &quot;&quot;),
+ISPICKVAL (Fraud_Security_Features__c , &quot;&quot;),
+ISPICKVAL (Fraud_ID_Legible__c , &quot;&quot;),
+ISPICKVAL (Fraud_Customer_Details__c , &quot;&quot;),
+ISPICKVAL (Fraud_EV_Match__c, &quot;&quot;),
+ISPICKVAL (Fraud_EV_Consent__c, &quot;&quot;),
+ISPICKVAL (Fraud_EV_Rules_Met__c, &quot;&quot;),
+ISPICKVAL (Fraud_PO_Box__c , &quot;&quot;),
+ISPICKVAL (Fraud_Middle_Name__c , &quot;&quot;)))</errorConditionFormula>
     <errorMessage>You are attempting to close this KYC QA case however have not answered all checks. Please ensure all checks are completed prior to case closure.</errorMessage>
 </ValidationRule>

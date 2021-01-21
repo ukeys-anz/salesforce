@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>KYCQA_EV_Consent__c</fullName>
+    <fullName>Fraud_Customer_Photo_Modified__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
-    <description>Check:
+    <complianceGroup>Privacy - Non Personal Information;Integrity - Trusted;Source - Salesforce</complianceGroup>
+    <description>Confirm:
 
-The EV consent flag is populated in the EV Information file</description>
+Customer&apos;s photograph on the identity document is not superimposed or replaced with another person&apos;s photograph.</description>
     <externalId>false</externalId>
-    <inlineHelpText>Check:
+    <inlineHelpText>Confirm:
 
-The EV consent flag is populated in the EV Information file</inlineHelpText>
-    <label>EV Consent has been Obtained &amp; Recorded</label>
+Customer&apos;s photograph on the identity document is not superimposed or replaced with another person&apos;s photograph.</inlineHelpText>
+    <label>Customer&apos;s Photo is Not Modified</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
