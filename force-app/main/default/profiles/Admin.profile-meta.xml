@@ -947,62 +947,62 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.KYCQA_Customer_Details__c</field>
+        <field>Case.Fraud_Customer_Details__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.KYCQA_Customer_Photo_Modified__c</field>
+        <field>Case.Fraud_Customer_Photo_Modified__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.KYCQA_Defects_Rectified__c</field>
+        <field>Case.Fraud_Defects_Rectified__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.KYCQA_EV_Consent__c</field>
+        <field>Case.Fraud_EV_Consent__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.KYCQA_EV_Match__c</field>
+        <field>Case.Fraud_EV_Match__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.KYCQA_EV_Rules_Met__c</field>
+        <field>Case.Fraud_EV_Rules_Met__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.KYCQA_ID_Legible__c</field>
+        <field>Case.Fraud_ID_Legible__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.KYCQA_ID_Not_Picture__c</field>
+        <field>Case.Fraud_ID_Not_Picture__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.KYCQA_ID_True_Document__c</field>
+        <field>Case.Fraud_ID_True_Document__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.KYCQA_Middle_Name__c</field>
+        <field>Case.Fraud_Middle_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.KYCQA_PO_Box__c</field>
+        <field>Case.Fraud_PO_Box__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.KYCQA_Security_Features__c</field>
+        <field>Case.Fraud_Security_Features__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
