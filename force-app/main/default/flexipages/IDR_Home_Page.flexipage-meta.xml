@@ -14,16 +14,6 @@
                 <componentName>desktopDashboards:embeddedDashboard</componentName>
             </componentInstance>
         </itemInstances>
-        <itemInstances>
-            <componentInstance>
-             <componentName>runtime_sales_activities:todayTaskContainer</componentName>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentName>runtime_approval_process:pendingApprovalCard</componentName>
-            </componentInstance>
-        </itemInstances>
         <mode>Replace</mode>
         <name>top</name>
         <type>Region</type>
@@ -41,7 +31,12 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentName>home:assistant</componentName>
+                <componentName>runtime_sales_activities:todayTaskContainer</componentName>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>runtime_approval_process:pendingApprovalCard</componentName>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -60,3 +55,5 @@
     </template>
     <type>HomePage</type>
 </FlexiPage>
+
+
