@@ -8605,6 +8605,10 @@
       <recordType>Case.Identity</recordType>
   </layoutAssignments>
   <layoutAssignments>
+      <layout>Case-KYC QA Layout</layout>
+      <recordType>Case.KYC_QA</recordType>
+  </layoutAssignments>
+  <layoutAssignments>
       <layout>Case-Non-Customer Complaint Layout</layout>
       <recordType>Case.Non_Customer_Complaint</recordType>
   </layoutAssignments>
