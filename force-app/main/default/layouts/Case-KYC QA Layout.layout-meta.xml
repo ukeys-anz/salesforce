@@ -60,49 +60,49 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>KYCQA_EV_Consent__c</field>
+                <field>Fraud_EV_Consent__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>KYCQA_EV_Match__c</field>
+                <field>Fraud_EV_Match__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>KYCQA_EV_Rules_Met__c</field>
+                <field>Fraud_EV_Rules_Met__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>KYCQA_Customer_Details__c</field>
+                <field>Fraud_Customer_Details__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>KYCQA_Middle_Name__c</field>
+                <field>Fraud_Middle_Name__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>KYCQA_PO_Box__c</field>
+                <field>Fraud_PO_Box__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>KYCQA_ID_True_Document__c</field>
+                <field>Fraud_ID_True_Document__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>KYCQA_ID_Legible__c</field>
+                <field>Fraud_ID_Legible__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>KYCQA_ID_Not_Picture__c</field>
+                <field>Fraud_ID_Not_Picture__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>KYCQA_Customer_Photo_Modified__c</field>
+                <field>Fraud_Customer_Photo_Modified__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>KYCQA_Security_Features__c</field>
+                <field>Fraud_Security_Features__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
@@ -115,7 +115,7 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>KYCQA_Defects_Rectified__c</field>
+                <field>Fraud_Defects_Rectified__c</field>
             </layoutItems>
         </layoutColumns>
         <style>OneColumn</style>
