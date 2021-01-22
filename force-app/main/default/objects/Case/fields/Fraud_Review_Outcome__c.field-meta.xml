@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Identity_Phone_Number_Status__c</fullName>
+    <fullName>Fraud_Review_Outcome__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Source_Salesforce;Integrity - Accurate</complianceGroup>
-    <description>To denote the status of a customers phone number in an assisted ID event</description>
+    <complianceGroup>Integrity - Accurate;Source - Salesforce</complianceGroup>
+    <description>To denote whether an individual has passed or failed an assisted ID event</description>
     <externalId>false</externalId>
-    <label>Phone Number Status</label>
+    <label>Review Outcome</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
@@ -17,14 +17,14 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Existing Number</fullName>
+                <fullName>Pass</fullName>
                 <default>false</default>
-                <label>Existing Number</label>
+                <label>Pass</label>
             </value>
             <value>
-                <fullName>New Number</fullName>
+                <fullName>Fail</fullName>
                 <default>false</default>
-                <label>New Number</label>
+                <label>Fail</label>
             </value>
         </valueSetDefinition>
     </valueSet>
