@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Identity_Review_Outcome__c</fullName>
+    <fullName>Fraud_PIN_Status__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Source_Salesforce;Integrity - Accurate</complianceGroup>
-    <description>To denote whether an individual has passed or failed an assisted ID event</description>
+    <complianceGroup>Integrity - Accurate;Source - Salesforce</complianceGroup>
+    <description>To denote the status of a device PIN in an assisted ID event</description>
     <externalId>false</externalId>
-    <label>Review Outcome</label>
+    <label>PIN Status</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
@@ -17,14 +17,14 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Pass</fullName>
+                <fullName>Forgot PIN</fullName>
                 <default>false</default>
-                <label>Pass</label>
+                <label>Forgot PIN</label>
             </value>
             <value>
-                <fullName>Fail</fullName>
+                <fullName>Locked PIN</fullName>
                 <default>false</default>
-                <label>Fail</label>
+                <label>Locked PIN</label>
             </value>
         </valueSetDefinition>
     </valueSet>

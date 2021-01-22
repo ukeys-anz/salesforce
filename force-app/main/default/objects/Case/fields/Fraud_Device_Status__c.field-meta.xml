@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Identity_PIN_Status__c</fullName>
+    <fullName>Fraud_Device_Status__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Source_Salesforce;Integrity - Accurate</complianceGroup>
-    <description>To denote the status of a device PIN in an assisted ID event</description>
+    <complianceGroup>Integrity - Accurate;Source - Salesforce</complianceGroup>
+    <description>To denote the status of a customers device  in an assisted ID event</description>
     <externalId>false</externalId>
-    <label>PIN Status</label>
+    <label>Device Status</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
@@ -17,14 +17,14 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Forgot PIN</fullName>
+                <fullName>Existing Device</fullName>
                 <default>false</default>
-                <label>Forgot PIN</label>
+                <label>Existing Device</label>
             </value>
             <value>
-                <fullName>Locked PIN</fullName>
+                <fullName>New Device</fullName>
                 <default>false</default>
-                <label>Locked PIN</label>
+                <label>New Device</label>
             </value>
         </valueSetDefinition>
     </valueSet>
