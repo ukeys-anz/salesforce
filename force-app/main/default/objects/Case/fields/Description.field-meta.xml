@@ -4,7 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_Salesforce;Integrity - Trusted;Privacy - Personal Information</complianceGroup>
     <description>Description of issue</description>
-    <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
+    <encryptionScheme>ProbabilisticEncryption</encryptionScheme>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
