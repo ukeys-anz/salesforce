@@ -755,6 +755,11 @@ private class TestCaseTriggerHandler {
       WHERE Display_Name__c = 'TestAccount'
       LIMIT 1
     ];
+
+    // criteria based sharing rules cannot be tested in apex, so open up access to this user
+    acc.OwnerId = usr.Id;
+    update acc;
+
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(

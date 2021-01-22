@@ -13,6 +13,7 @@ public with sharing class ChatContextServiceTest {
       FROM Profile
       WHERE Name = 'Minimum Access - External Apps'
     ];
+    UserRole role = [SELECT Id FROM UserRole WHERE DeveloperName = 'ANZx'];
 
     // Insert Account, Case, & User as current user, to get around MIXED_DML_OPERATION error
     User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
@@ -21,6 +22,7 @@ public with sharing class ChatContextServiceTest {
       User apiUser = (User) FakerFactory.make(new FakerUserFactory());
       apiUser.FirstName = 'APIUserTest';
       apiUser.ProfileId = p.Id;
+      apiUser.UserRoleId = role.Id;
       insert apiUser;
 
       // Assign Case related PS on API User
