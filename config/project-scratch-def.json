@@ -15,7 +15,8 @@
     "DevelopmentWave",
     "AnalyticsAdminPerms",
     "CascadeDelete",
-    "MyTrailhead"
+    "MyTrailhead",
+    "PlatformEncryption"
   ],
   "settings": {
     "chatterSettings": {

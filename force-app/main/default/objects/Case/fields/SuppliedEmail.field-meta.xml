@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_Salesforce;Integrity - Trusted;Privacy - Personal Information</complianceGroup>
     <description>Email details supplied when case is first raised</description>
+    <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
     <securityClassification>Confidential</securityClassification>
     <trackTrending>false</trackTrending>
 </CustomField>
