@@ -3,5 +3,6 @@
     <fullName>Name</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_Fabric;Privacy - Personal Information;Integrity - Trusted</complianceGroup>
+    <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
     <securityClassification>Confidential</securityClassification>
 </CustomField>

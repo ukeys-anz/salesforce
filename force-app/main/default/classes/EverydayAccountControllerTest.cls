@@ -4,6 +4,7 @@ public with sharing class EverydayAccountControllerTest {
   static void setup() {
     Account accnt = new Account();
     accnt.Name = 'TestAccount';
+    accnt.Display_Name__c = 'TestAccount';
     accnt.OCV_ID__c = '1';
     accnt.ANZx_Customer__c = true;
     insert accnt;
@@ -27,7 +28,12 @@ public with sharing class EverydayAccountControllerTest {
 
   @isTest
   public static void testFinAccountRetrieval() {
-    Account accnt = [SELECT Id FROM Account WHERE Name = 'TestAccount' LIMIT 1];
+    Account accnt = [
+      SELECT Id
+      FROM Account
+      WHERE Display_Name__c = 'TestAccount'
+      LIMIT 1
+    ];
 
     Test.startTest();
 
