@@ -16,7 +16,8 @@
     "AnalyticsAdminPerms",
     "CascadeDelete",
     "MyTrailhead",
-    "PlatformEncryption"
+    "PlatformEncryption",
+    "EinsteinAnalyticsPlus"
   ],
   "settings": {
     "chatterSettings": {
