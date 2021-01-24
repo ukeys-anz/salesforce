@@ -6,7 +6,7 @@ import fetchTemplateFields from "@salesforce/apex/CreateCommsController.fetchTem
 import createComms from "@salesforce/apex/CreateCommsController.createComms";
 import { getRecord } from "lightning/uiRecordApi";
 import CASE_OWNERID_FIELD from "@salesforce/schema/Case.OwnerId";
-import Id from '@salesforce/user/Id';
+import Id from "@salesforce/user/Id";
 import { CurrentPageReference } from "lightning/navigation";
 const ERROR_UNKNOWN_TITLE = "An error has occurred.";
 const columns = [
@@ -33,7 +33,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   isLetter = false;
   lineItemList = [];
   CurrentUserId = Id;
-  CaseOwnerID = '';
+  CaseOwnerID = "";
 
   showModal = false;
   modalMessage = ERROR_UNKNOWN_TITLE;
@@ -42,8 +42,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   showSuccess = false;
   showAuthError = false;
-   
-  
 
   connectedCallback() {
     this.recordId = this.currentPageReference.state.c__recordId;
@@ -57,15 +55,18 @@ export default class CreateComplaintLWC extends NavigationMixin(
     if (data) {
       this.CaseOwnerID = data.fields.OwnerId.value;
 
-      if (this.CaseOwnerID === this.CurrentUserId ){
-          getTemplateList()
+      if (this.CaseOwnerID === this.CurrentUserId) {
+        getTemplateList()
           .then((result) => {
-          let tempList = result;
-          for (let i = 0; i < tempList.length; i++) {
-            this.templateList.push({ label: tempList[i], value: tempList[i] });
-          }
-          this.showOptions = true;
-         })
+            let tempList = result;
+            for (let i = 0; i < tempList.length; i++) {
+              this.templateList.push({
+                label: tempList[i],
+                value: tempList[i]
+              });
+            }
+            this.showOptions = true;
+          })
           .catch((error) => {
             let errorMessage = "Failed to retrieve templates";
             if (error.body) {
@@ -74,20 +75,20 @@ export default class CreateComplaintLWC extends NavigationMixin(
               } else if (typeof error.body.message === "string") {
                 errorMessage = error.body.message;
               }
-           }
+            }
             const toastEvent = new ShowToastEvent({
               message: errorMessage,
               variant: "error"
             });
             this.dispatchEvent(toastEvent);
-        });
+          });
       } else {
         let msg =
-        "You are not authorised. Please contact the case owner or their line manager if a letter or email is required to be created for this case.";
-      this.openModal(msg);
+          "You are not authorised. Please contact the case owner or their line manager if a letter or email is required to be created for this case.";
+        this.openModal(msg);
+      }
     }
-  }   
-  } 
+  }
 
   handleTemplateSelection(event) {
     this.template = event.detail.value;
