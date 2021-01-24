@@ -83,7 +83,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
         });
       } else {
         let msg =
-        "You are not authorised to create letters against this case";
+        "You are not authorised. Please contact the case owner or their line manager if a letter or email is required to be created for this case.";
       this.openModal(msg);
     }
   }   
