@@ -3,6 +3,7 @@
  * @since 10 2020
  * @description ChatTopicRelatedListController is the apex side controller for the chatTopicRelatedList LWC
  */
+@SuppressWarnings('PMD.ApexSuggestUsingNamedCred')
 public with sharing class ChatTopicRelatedListController {
   public static final String CHANNELS_ENDPOINT_SUFFIX = '/channels';
   public static final Integer OFFSET_LIMIT = 20;
