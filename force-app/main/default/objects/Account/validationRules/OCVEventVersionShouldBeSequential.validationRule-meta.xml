@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>VersionShouldBeSequential</fullName>
+    <fullName>OCVEventVersionShouldBeSequential</fullName>
     <active>true</active>
     <description>Validation rule to enforce sequential OCV event versions.</description>
     <errorConditionFormula>AND(
