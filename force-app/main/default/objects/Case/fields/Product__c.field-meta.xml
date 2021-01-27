@@ -2,15 +2,15 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Product__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Source_Salesforce;Integrity - Accurate;Privacy - Non Personal Information</complianceGroup>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Foreign key to Product2 table, if a case relates to a specific product, this links to that product</description>
     <externalId>false</externalId>
     <inlineHelpText>Start typing the ANZ product or Service the complaint relates to for available options to appear</inlineHelpText>
     <label>Product or Service Name</label>
     <referenceTo>Product2</referenceTo>
-    <relationshipLabel>Cases</relationshipLabel>
-    <relationshipName>Cases</relationshipName>
+    <relationshipLabel>Related Issues</relationshipLabel>
+    <relationshipName>Related_Issues</relationshipName>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
