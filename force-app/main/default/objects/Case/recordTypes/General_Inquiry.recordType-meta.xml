@@ -4,7 +4,7 @@
     <active>true</active>
     <businessProcess>ANZx Support Process</businessProcess>
     <description>ANZx General Case Record Type</description>
-    <label>General Inquiry</label>
+    <label>General Enquiry</label>
     <picklistValues>
         <picklist>Additional_Type__c</picklist>
         <values>
