@@ -28,7 +28,7 @@ const TOPIC_STATUS_OPEN = "Open";
 const TOPIC_STATUS_CLOSED = "Closed & Archived";
 const TOPIC_STATUS_UNDEFINED = "Undefined";
 
-export default class RetrieveChatTopics extends LightningElement {
+export default class ChatTopicRelatedList extends LightningElement {
   @api recordId;
   @api objectName;
   @track data = []; //data to be displayed in the table
@@ -64,22 +64,7 @@ export default class RetrieveChatTopics extends LightningElement {
           // TODO: More error handling
 
           respObj.channels.forEach((row) => {
-            let rowData = {};
-
-            rowData.Name = row.name;
-            rowData.Status = this.resolveStatuses(row);
-            rowData.LastModifiedDate = row.lastModified;
-            rowData.ChannelSID = row.id;
-            if (
-              row.status &&
-              row.status !== STATUS_CLOSED &&
-              row.chatFlowStatus === CHAT_FLOW_STATUS_ONHOLD
-            ) {
-              rowData.enableReinitiate = true;
-            } else {
-              rowData.enableReinitiate = false;
-            }
-            this.data.push(rowData);
+            this.data.push(this.generateRowData(row));
           });
           this.totalRecordCount = this.data.length;
         }
@@ -105,23 +90,7 @@ export default class RetrieveChatTopics extends LightningElement {
 
           // TODO: More error handling
 
-          let rowData = {};
-          rowData.Name = respObj.name;
-          rowData.Status = this.resolveStatuses(respObj);
-          rowData.LastModifiedDate = respObj.lastModified;
-          rowData.ChannelSID = respObj.id;
-
-          if (
-            respObj.status &&
-            respObj.status !== STATUS_CLOSED &&
-            respObj.chatFlowStatus === CHAT_FLOW_STATUS_ONHOLD
-          ) {
-            rowData.enableReinitiate = true;
-          } else {
-            rowData.enableReinitiate = false;
-          }
-          this.data.push(rowData);
-
+          this.data.push(this.generateRowData(respObj));
           this.totalRecordCount = this.data.length;
         }
         this.loading = false;
@@ -136,6 +105,24 @@ export default class RetrieveChatTopics extends LightningElement {
       });
   }
 
+  generateRowData(row) {
+    let rowData = {};
+    rowData.Name = row.name;
+    rowData.Status = this.resolveStatuses(row);
+    rowData.LastModifiedDate = row.lastModified;
+    rowData.ChannelSID = row.id;
+    if (
+      row.status &&
+      row.status !== STATUS_CLOSED &&
+      row.chatFlowStatus === CHAT_FLOW_STATUS_ONHOLD
+    ) {
+      rowData.enableReinitiate = true;
+    } else {
+      rowData.enableReinitiate = false;
+    }
+    return rowData;
+  }
+
   handleOnselect(event) {
     let selectedChannelSID = event.target.dataset.id;
     let selectedAction = event.detail.value;
@@ -143,38 +130,37 @@ export default class RetrieveChatTopics extends LightningElement {
     // Publish a message on 'ReinitiateChatTopic' channel which triggers Twilio to re-initiate this Chat Topic
     if (selectedAction === "re_initiate") {
       const message = { channelSID: selectedChannelSID };
-
-      try {
-        publish(this.messageContext, chatReChannel, message);
-      } catch (error) {
-        let errorMessage = "Failed to re-initiate Chat Topic";
-        if (error.body && error.body.message) {
-          errorMessage = error.body.message;
-        }
-        this.showToast("Failed to re-initiate Chat Topic", errorMessage, error);
-      }
+      this.publishLightningMessage(
+        chatReChannel,
+        message,
+        "Failed to re-initiate Chat Topic"
+      );
     }
 
     // Show Chat History related to the selected Chat Topic
     if (selectedAction === "chat_history") {
       const message = { channelSID: selectedChannelSID };
-      try {
-        publish(this.messageContext, chatHistoryChannel, message);
-      } catch (error) {
-        let errorMessage =
-          "Error occured while displaying related Chat History";
-        if (error.body && error.body.message) {
-          errorMessage = error.body.message;
-        }
-        this.showToast(
-          "Error occured while displaying related Chat History",
-          errorMessage,
-          error
-        );
-      }
+      this.publishLightningMessage(
+        chatHistoryChannel,
+        message,
+        "Error occured while displaying related Chat History"
+      );
     }
   }
 
+  publishLightningMessage(msgChannel, message, errorText) {
+    try {
+      publish(this.messageContext, msgChannel, message);
+    } catch (error) {
+      let errorMessage = errorText;
+      if (error.body && error.body.message) {
+        errorMessage = error.body.message;
+      }
+      this.showToast(errorText, errorMessage, error);
+    }
+  }
+
+  //TODO to me moved to a common util once a paending PR is merged
   showToast(theTitle, theMessage, theVariant) {
     const event = new ShowToastEvent({
       title: theTitle,

@@ -59,7 +59,7 @@ public with sharing class RequestUtils {
     try {
       Http http = new Http();
       response = http.send(request);
-      if (response.getStatusCode() <= 200 && response.getStatusCode() < 300) {
+      if (response.getStatusCode() >= 200 && response.getStatusCode() < 300) {
         responseBody = response.getBody();
       } else {
         throw new CalloutException(response.getBody());

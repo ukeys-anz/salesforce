@@ -8,17 +8,17 @@ public with sharing class ChatTopicRelatedListControllerTest {
   /**
    * @description setup is to setup test data
    */
+  static String ocvId;
   @testSetup
   static void setup() {
     Faker faker = new Faker('AU');
-
+    ocvId = faker.randomString(10);
     Account accnt = new Account(
       Name = 'TestAccount',
-      OCV_ID__c = faker.randomString(10),
+      OCV_ID__c = ocvId,
       ANZx_Customer__c = true
     );
     insert accnt;
-
     Case newCase = new Case(
       RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
       AccountId = accnt.Id,
@@ -27,72 +27,39 @@ public with sharing class ChatTopicRelatedListControllerTest {
     );
     insert newCase;
   }
-
   /**
    * @description test method for getChatTopicsOnAccount when Forge response is successful
    */
   @isTest
-  public static void validForgeResponseChatTopicsOnAccount() {
-    Test.setMock(
-      HttpCalloutMock.class,
-      new ForgeTokenHandlerTest.MockForgeCallout()
-    );
-    Id userId = UserInfo.getUserId();
-    Cache.Session.put(
-      'local.SessionAzureTokens.idToken' + userId,
-      ForgeTokenHandlerTest.IDTESTVALUE,
-      300,
-      Cache.Visibility.NAMESPACE,
-      false
-    );
-
+  public static void validResponseChatTopicsOnAccount() {
+    Test.setMock(HttpCalloutMock.class, new MockValidChatTopicsOnAccount());
+    TestHelper.addTokensForApiCallout(ocvId);
     // Query for pre-inserted Account record
     Account acc = [SELECT Id FROM Account WHERE Name = 'TestAccount' LIMIT 1];
-
     Test.startTest();
     String respBody = ChatTopicRelatedListController.getChatTopicsOnAccount(
       acc.Id,
       ''
     );
-    System.assertEquals('{"access_token":"xxxxx","expires_in":900}', respBody);
+    System.assert(respBody.contains('CH2c3d77ee8301494986657b57ffdxxxxx'));
     Test.stopTest();
   }
-
-  /**
-   * @description test method for getChatTopicsOnAccount when forge token failed
-   */
-  @isTest
-  public static void invalidForgeResponseChatTopicsOnAccount() {
-    Test.setMock(
-      HttpCalloutMock.class,
-      new ForgeTokenHandlerTest.MockForgeCalloutFailed()
-    );
-    Id userId = UserInfo.getUserId();
-    Cache.Session.put(
-      'local.SessionAzureTokens.idToken' + userId,
-      ForgeTokenHandlerTest.IDTESTVALUE,
-      300,
-      Cache.Visibility.NAMESPACE,
-      false
-    );
-
-    // Query for pre-inserted Account record
-    Account acc = [SELECT Id FROM Account WHERE Name = 'TestAccount' LIMIT 1];
-
-    String expMessage;
-
-    Test.startTest();
-    try {
-      ChatTopicRelatedListController.getChatTopicsOnAccount(acc.Id, '');
-    } catch (Exception e) {
-      expMessage = e.getMessage();
+  class MockValidChatTopicsOnAccount implements HttpCalloutMock {
+    /**
+     * @description mock response for callout
+     * @param req incoming request
+     * @return HTTPResponse valid having one Chat Topic in the response
+     */
+    public HTTPResponse respond(HTTPRequest req) {
+      HTTPResponse res = new HTTPResponse();
+      res.setStatusCode(200);
+      res.setHeader('Content-Type', 'application/json');
+      res.setBody(
+        '{"channels": [{"id": "CH2c3d77ee8301494986657b57ffdxxxxx","name": "home-loan","status": "active","chatFlowStatus": "ACCEPTED","lastModified": "2021-01-13T04:51:16Z"}],"_links": {"_links": {"self": "xxxxx"} } }'
+      );
+      return res;
     }
-
-    System.assertEquals('Get access token failed', expMessage);
-
-    Test.stopTest();
   }
-
   /**
    * @description test method for getChatTopicsOnAccount when failed
    */
@@ -102,32 +69,19 @@ public with sharing class ChatTopicRelatedListControllerTest {
       HttpCalloutMock.class,
       new MockInvalidChatTopicsByCustomerCallout()
     );
-    Id userId = UserInfo.getUserId();
-    Cache.Session.put(
-      'local.SessionAzureTokens.idToken' + userId,
-      ForgeTokenHandlerTest.IDTESTVALUE,
-      300,
-      Cache.Visibility.NAMESPACE,
-      false
-    );
-
+    TestHelper.addTokensForApiCallout(ocvId);
     // Query for pre-inserted Account record
     Account acc = [SELECT Id FROM Account WHERE Name = 'TestAccount' LIMIT 1];
-
     String expMessage;
-
     Test.startTest();
     try {
       ChatTopicRelatedListController.getChatTopicsOnAccount(acc.Id, '');
     } catch (Exception e) {
       expMessage = e.getMessage();
     }
-
     System.assertEquals('Get ChatTopicsByCustomer failed', expMessage);
-
     Test.stopTest();
   }
-
   class MockInvalidChatTopicsByCustomerCallout implements HttpCalloutMock {
     /**
      * @description mock response for callout
@@ -136,41 +90,19 @@ public with sharing class ChatTopicRelatedListControllerTest {
      */
     public HTTPResponse respond(HTTPRequest req) {
       HTTPResponse res = new HTTPResponse();
-      if (
-        req.getEndpoint()
-          .endsWith(String.valueOf(ChatTopicRelatedListController.OFFSET_LIMIT))
-      ) {
-        res.setStatusCode(500);
-        res.setHeader('Content-Type', 'application/Plaintext');
-        res.setBody('Get ChatTopicsByCustomer failed');
-      } else {
-        res.setStatusCode(201);
-        res.setHeader('Content-Type', 'application/json');
-        res.setBody('{"access_token":"xxxxx","expires_in":900}');
-      }
-
+      res.setStatusCode(500);
+      res.setHeader('Content-Type', 'application/Plaintext');
+      res.setBody('Get ChatTopicsByCustomer failed');
       return res;
     }
   }
-
   /**
    * @description test method for getChatTopicInfoOnCase when successful
    */
   @isTest
-  public static void validForgeResponseChatTopicOnCase() {
-    Test.setMock(
-      HttpCalloutMock.class,
-      new ForgeTokenHandlerTest.MockForgeCallout()
-    );
-    Id userId = UserInfo.getUserId();
-    Cache.Session.put(
-      'local.SessionAzureTokens.idToken' + userId,
-      ForgeTokenHandlerTest.IDTESTVALUE,
-      300,
-      Cache.Visibility.NAMESPACE,
-      false
-    );
-
+  public static void validResponseChatTopicOnCase() {
+    Test.setMock(HttpCalloutMock.class, new MockValidChatTopicsOnCase());
+    TestHelper.addTokensForApiCallout(ocvId);
     // Query for pre-inserted Case record
     Case chatCase = [
       SELECT Id
@@ -178,53 +110,30 @@ public with sharing class ChatTopicRelatedListControllerTest {
       WHERE Account.Name = 'TestAccount'
       LIMIT 1
     ];
-
     Test.startTest();
     String respBody = ChatTopicRelatedListController.getChatTopicInfoOnCase(
       chatCase.Id
     );
-    System.assertEquals('{"access_token":"xxxxx","expires_in":900}', respBody);
+    System.assert(respBody.contains('CH2c3d77ee8301494986657b57ffdyyyyy'));
     Test.stopTest();
   }
 
-  /**
-   * @description test method for getChatTopicInfoOnCase when forge token failed
-   */
-  @isTest
-  public static void invalidForgeResponseChatTopicOnCase() {
-    Test.setMock(
-      HttpCalloutMock.class,
-      new ForgeTokenHandlerTest.MockForgeCalloutFailed()
-    );
-    Id userId = UserInfo.getUserId();
-    Cache.Session.put(
-      'local.SessionAzureTokens.idToken' + userId,
-      ForgeTokenHandlerTest.IDTESTVALUE,
-      300,
-      Cache.Visibility.NAMESPACE,
-      false
-    );
+  class MockValidChatTopicsOnCase implements HttpCalloutMock {
+    /**
+     * @description mock response for callout
+     * @param req incoming request
+     * @return HTTPResponse valid having one Chat Topic in the response
+     */
+    public HTTPResponse respond(HTTPRequest req) {
+      HTTPResponse res = new HTTPResponse();
+      res.setStatusCode(200);
+      res.setHeader('Content-Type', 'application/json');
+      res.setBody(
+        '{"channels": [{"id": "CH2c3d77ee8301494986657b57ffdyyyyy","name": "home-loan","status": "active","chatFlowStatus": "ACCEPTED","lastModified": "2021-01-13T04:51:16Z"}],"_links": {"_links": {"self": "xxxxx"} } }'
+      );
 
-    // Query for pre-inserted Case record
-    Case chatCase = [
-      SELECT Id
-      FROM Case
-      WHERE Account.Name = 'TestAccount'
-      LIMIT 1
-    ];
-
-    String expMessage;
-
-    Test.startTest();
-    try {
-      ChatTopicRelatedListController.getChatTopicInfoOnCase(chatCase.Id);
-    } catch (Exception e) {
-      expMessage = e.getMessage();
+      return res;
     }
-
-    System.assertEquals('Get access token failed', expMessage);
-
-    Test.stopTest();
   }
 
   /**
@@ -236,15 +145,7 @@ public with sharing class ChatTopicRelatedListControllerTest {
       HttpCalloutMock.class,
       new MockInvalidChatTopicByChannelCallout()
     );
-    Id userId = UserInfo.getUserId();
-    Cache.Session.put(
-      'local.SessionAzureTokens.idToken' + userId,
-      ForgeTokenHandlerTest.IDTESTVALUE,
-      300,
-      Cache.Visibility.NAMESPACE,
-      false
-    );
-
+    TestHelper.addTokensForApiCallout(ocvId);
     // Query for pre-inserted Case record
     Case chatCase = [
       SELECT Id
@@ -252,18 +153,14 @@ public with sharing class ChatTopicRelatedListControllerTest {
       WHERE Account.Name = 'TestAccount'
       LIMIT 1
     ];
-
     String expMessage;
-
     Test.startTest();
     try {
       ChatTopicRelatedListController.getChatTopicInfoOnCase(chatCase.Id);
     } catch (Exception e) {
       expMessage = e.getMessage();
     }
-
     System.assertEquals('Get ChatTopicsByChannelSID failed', expMessage);
-
     Test.stopTest();
   }
 
@@ -275,16 +172,9 @@ public with sharing class ChatTopicRelatedListControllerTest {
      */
     public HTTPResponse respond(HTTPRequest req) {
       HTTPResponse res = new HTTPResponse();
-      if (req.getEndpoint().endsWith('CH123456789')) {
-        res.setStatusCode(500);
-        res.setHeader('Content-Type', 'application/Plaintext');
-        res.setBody('Get ChatTopicsByChannelSID failed');
-      } else {
-        res.setStatusCode(201);
-        res.setHeader('Content-Type', 'application/json');
-        res.setBody('{"access_token":"xxxxx","expires_in":900}');
-      }
-
+      res.setStatusCode(500);
+      res.setHeader('Content-Type', 'application/Plaintext');
+      res.setBody('Get ChatTopicsByChannelSID failed');
       return res;
     }
   }
