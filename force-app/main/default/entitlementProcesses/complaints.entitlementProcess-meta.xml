@@ -3,7 +3,8 @@
     <SObjectType>Case</SObjectType>
     <active>true</active>
     <businessHours>Case Business Hours</businessHours>
-    <entryStartDateField>Case.CreatedDate</entryStartDateField>
+    <description>entitlement process that supports complaints case with appropriate timers and escalates the case on voliation</description>
+    <entryStartDateField>Case.IDR_Date_Received__c</entryStartDateField>
     <exitCriteriaFilterItems>
         <field>Case.Status</field>
         <operation>notEqual</operation>
@@ -16,13 +17,36 @@
     </exitCriteriaFilterItems>
     <milestones>
         <businessHours>Case Business Hours</businessHours>
+        <criteriaBooleanFilter>1 AND( 2 or  3 )</criteriaBooleanFilter>
         <milestoneCriteriaFilterItems>
             <field>Case.Status</field>
             <operation>equals</operation>
             <value>Open</value>
         </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Complaint</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Non-Customer Complaint</value>
+        </milestoneCriteriaFilterItems>
         <milestoneName>Open_Escalation_Time</milestoneName>
         <minutesToComplete>4320</minutesToComplete>
+        <timeTriggers>
+            <actions>
+                <name>Assign_to_Customer_Resolution_Portfolio</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <actions>
+                <name>escalate_the_case</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
         <timeTriggers>
             <actions>
                 <name>EscalationtoRed</name>
@@ -39,24 +63,39 @@
             <timeLength>-2</timeLength>
             <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
         </timeTriggers>
-        <useCriteriaStartTime>true</useCriteriaStartTime>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
     </milestones>
     <milestones>
         <businessHours>Case Business Hours</businessHours>
+        <criteriaBooleanFilter>1 AND (2 OR 3 )</criteriaBooleanFilter>
         <milestoneCriteriaFilterItems>
             <field>Case.Status</field>
             <operation>equals</operation>
             <value>Under Investigation</value>
         </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Complaint</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Non-Customer Complaint</value>
+        </milestoneCriteriaFilterItems>
         <milestoneName>Under_Investigation_Escalation_Time</milestoneName>
         <minutesToComplete>7200</minutesToComplete>
         <timeTriggers>
             <actions>
-                <name>EscalationtoAmber</name>
+                <name>Assign_to_Customer_Resolution_Portfolio</name>
                 <type>FieldUpdate</type>
             </actions>
-            <timeLength>-2</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+            <actions>
+                <name>escalate_the_case</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
         </timeTriggers>
         <timeTriggers>
             <actions>
@@ -66,6 +105,14 @@
             <timeLength>-1</timeLength>
             <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
         </timeTriggers>
-        <useCriteriaStartTime>true</useCriteriaStartTime>
+        <timeTriggers>
+            <actions>
+                <name>EscalationtoAmber</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>-2</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
     </milestones>
 </EntitlementProcess>
