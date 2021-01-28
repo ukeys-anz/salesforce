@@ -139,37 +139,14 @@ public with sharing class NewCaseFlowWrapperController {
         finalURL
       );
 
-      request.setMethod('GET');
-      String serializedToken = AuthTokenCacheUtil.getStaffToken(ocvID);
-      request.setHeader('Authorization', 'Bearer ' + serializedToken);
-      request.setHeader('client_id', '{!$Credential.Username}');
-      request.setHeader('client_secret', '{!$Credential.Password}');
-      //Todo: This needs to be replaced with uniquely generated id based on what is accepted by forge
-      //request.setHeader('x-correlation-id', RequestUtils.getRequestId());
-      HTTPResponse response = null;
-      try {
-        Http http = new Http();
-        response = http.send(request);
-        if (response.getStatusCode() == 200) {
-          responseBody = response.getBody();
-        } else {
-          throw new CalloutException(response.getBody());
-        }
-      } catch (Exception e) {
-        Lib_SystemLog.logAPIError(
-          ChatTopicRelatedListController.class.getName(),
-          'getActiveChatTopics',
-          e.getMessage(),
-          e.getTypeName(),
-          ChatTopicRelatedListController.class.getName(),
-          null,
-          response != null ? response.getBody() : null
-        );
-
-        AuraHandledException ahe = new AuraHandledException(e.getMessage());
-        ahe.setMessage(e.getMessage());
-        throw ahe;
-      }
+      RequestUtils.setAuthHeaders(request, ocvID, 'GET');
+      responseBody = RequestUtils.processRequest(
+        request,
+        NewCaseFlowWrapperController.class.getName(),
+        'getActiveChatTopics',
+        NewCaseFlowWrapperController.class.getName(),
+        true
+      );
     }
 
     return responseBody;
