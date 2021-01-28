@@ -10,7 +10,7 @@
     <label>Product or Service Name</label>
     <referenceTo>Product2</referenceTo>
     <relationshipLabel>Related Issues</relationshipLabel>
-    <relationshipName>Related_Issues</relationshipName>
+    <relationshipName>Cases</relationshipName>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
