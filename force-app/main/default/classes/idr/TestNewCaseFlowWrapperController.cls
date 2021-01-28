@@ -6,7 +6,6 @@ private with sharing class TestNewCaseFlowWrapperController {
   @testSetup
   static void setup() {
     Faker faker = new Faker('AU');
-
     //create test account
     Id recTypeID = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
       .get('PersonAccount')
@@ -48,14 +47,7 @@ private with sharing class TestNewCaseFlowWrapperController {
     ];
 
     Test.setMock(HttpCalloutMock.class, new MockValidButNoChatTopics());
-    Id userId = UserInfo.getUserId();
-    Cache.Session.put(
-      'local.SessionAzureTokens.idToken' + userId,
-      ForgeTokenHandlerTest.IDTESTVALUE,
-      300,
-      Cache.Visibility.NAMESPACE,
-      false
-    );
+    TestHelper.addTokensForApiCallout('1234567891');
 
     String response;
     Test.startTest();
@@ -82,21 +74,11 @@ private with sharing class TestNewCaseFlowWrapperController {
      */
     public HTTPResponse respond(HTTPRequest req) {
       HTTPResponse res = new HTTPResponse();
-      if (
-        req.getEndpoint()
-          .endsWith(String.valueOf(ChatTopicRelatedListController.OFFSET_LIMIT))
-      ) {
-        res.setStatusCode(200);
-        res.setHeader('Content-Type', 'application/json');
-        res.setBody(
-          '{"channels": null,"_links": {"_links": {"self": "xxxxx"} } }'
-        );
-      } else {
-        res.setStatusCode(201);
-        res.setHeader('Content-Type', 'application/json');
-        res.setBody('{"access_token":"xxxxx","expires_in":900}');
-      }
-
+      res.setStatusCode(200);
+      res.setHeader('Content-Type', 'application/json');
+      res.setBody(
+        '{"channels": null,"_links": {"_links": {"self": "xxxxx"} } }'
+      );
       return res;
     }
   }
@@ -115,14 +97,7 @@ private with sharing class TestNewCaseFlowWrapperController {
     ];
 
     Test.setMock(HttpCalloutMock.class, new MockValidOneChatTopics());
-    Id userId = UserInfo.getUserId();
-    Cache.Session.put(
-      'local.SessionAzureTokens.idToken' + userId,
-      ForgeTokenHandlerTest.IDTESTVALUE,
-      300,
-      Cache.Visibility.NAMESPACE,
-      false
-    );
+    TestHelper.addTokensForApiCallout('1234567891');
 
     String response;
     Test.startTest();
@@ -149,21 +124,11 @@ private with sharing class TestNewCaseFlowWrapperController {
      */
     public HTTPResponse respond(HTTPRequest req) {
       HTTPResponse res = new HTTPResponse();
-      if (
-        req.getEndpoint()
-          .endsWith(String.valueOf(ChatTopicRelatedListController.OFFSET_LIMIT))
-      ) {
-        res.setStatusCode(200);
-        res.setHeader('Content-Type', 'application/json');
-        res.setBody(
-          '{"channels": [{"id": "CH2c3d77ee8301494986657b57ffdxxxxx","name": "home-loan","status": "active","chatFlowStatus": "ACCEPTED","lastModified": "2021-01-13T04:51:16Z"}],"_links": {"_links": {"self": "xxxxx"} } }'
-        );
-      } else {
-        res.setStatusCode(201);
-        res.setHeader('Content-Type', 'application/json');
-        res.setBody('{"access_token":"xxxxx","expires_in":900}');
-      }
-
+      res.setStatusCode(200);
+      res.setHeader('Content-Type', 'application/json');
+      res.setBody(
+        '{"channels": [{"id": "CH2c3d77ee8301494986657b57ffdxxxxx","name": "home-loan","status": "active","chatFlowStatus": "ACCEPTED","lastModified": "2021-01-13T04:51:16Z"}],"_links": {"_links": {"self": "xxxxx"} } }'
+      );
       return res;
     }
   }
@@ -182,15 +147,7 @@ private with sharing class TestNewCaseFlowWrapperController {
     ];
 
     Test.setMock(HttpCalloutMock.class, new MockValidMultipleChatTopics());
-
-    Id userId = UserInfo.getUserId();
-    Cache.Session.put(
-      'local.SessionAzureTokens.idToken' + userId,
-      ForgeTokenHandlerTest.IDTESTVALUE,
-      300,
-      Cache.Visibility.NAMESPACE,
-      false
-    );
+    TestHelper.addTokensForApiCallout('1234567891');
 
     String response;
     Test.startTest();
@@ -244,15 +201,6 @@ private with sharing class TestNewCaseFlowWrapperController {
         res.setBody(
           '{"channels": [{"id": "CH2c3eyyyyy","name": "card-rates","status": "active","chatFlowStatus": "ACCEPTED","lastModified": "2021-01-11T04:51:16Z"}],"_links": {"_links": {"self": "xxxxx"} } }'
         );
-      } else {
-        // Mock response from Forge
-        res.setStatusCode(201);
-        res.setHeader('Content-Type', 'application/json');
-        res.setBody(
-          '{"access_token":"' +
-          AuthTokenCacheUtilTest.IDTESTVALUE +
-          '","expires_in":900}'
-        );
       }
 
       return res;
@@ -276,14 +224,7 @@ private with sharing class TestNewCaseFlowWrapperController {
       HttpCalloutMock.class,
       new MockInvalidChatTopicsByCustomerCallout()
     );
-    Id userId = UserInfo.getUserId();
-    Cache.Session.put(
-      'local.SessionAzureTokens.idToken' + userId,
-      ForgeTokenHandlerTest.IDTESTVALUE,
-      300,
-      Cache.Visibility.NAMESPACE,
-      false
-    );
+    TestHelper.addTokensForApiCallout('1234567891');
 
     String expMessage;
 
@@ -308,19 +249,9 @@ private with sharing class TestNewCaseFlowWrapperController {
      */
     public HTTPResponse respond(HTTPRequest req) {
       HTTPResponse res = new HTTPResponse();
-      if (
-        req.getEndpoint()
-          .endsWith(String.valueOf(ChatTopicRelatedListController.OFFSET_LIMIT))
-      ) {
-        res.setStatusCode(500);
-        res.setHeader('Content-Type', 'application/json');
-        res.setBody('Get Active Chat Topics failed');
-      } else {
-        res.setStatusCode(201);
-        res.setHeader('Content-Type', 'application/json');
-        res.setBody('{"access_token":"xxxxx","expires_in":900}');
-      }
-
+      res.setStatusCode(500);
+      res.setHeader('Content-Type', 'application/json');
+      res.setBody('Get Active Chat Topics failed');
       return res;
     }
   }
