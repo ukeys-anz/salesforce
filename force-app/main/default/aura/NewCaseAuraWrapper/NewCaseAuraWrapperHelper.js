@@ -1,3 +1,5 @@
+import { open } from "inspector";
+
 ({
   getRtDevName: function (component, callback) {
     // Identify which record type was selected
@@ -18,77 +20,9 @@
     $A.enqueueAction(action);
   },
   goToStandardNewCasePage: function (component, event) {
-    var newCaseRecord = $A.get("e.force:createRecord");
-
-    // Read from URL param 'inContextOfRef' to identify parent record ID
-    var value = this.getURLParameterByName(component, "inContextOfRef");
-    if (value) {
-      var context = JSON.parse(window.atob(value));
-      var parentRecID = context.attributes.recordId;
-      var parentObjectName = context.attributes.objectApiName;
-
-      // Manually populating the related parent Account record ID, and recordTypeId when new case creation was originated from a related list
-      if (parentRecID) {
-        // Pre-populate Chat Topic lookup if parent object is Account
-        if (parentObjectName == "Account") {
-          // Start loading spinner
-          component.set("v.loading", true);
-
-          // Fetch active Chat Topic ID (if there is any) related to the Customer
-          this.getActiveChatTopicID(component, parentRecID, function (topicID) {
-            //Setting 'defaultFieldValues' to pre-populate the parent Account lookup.
-            //Also pre-populating/linking Chat Topic record, if the Case is related to an on-going active chat.
-            if (topicID) {
-              var array = topicID.split("|");
-              if (array.length == 1) {
-                newCaseRecord.setParams({
-                  entityApiName: "Case",
-                  recordTypeId: component.get("v.pageReference").state
-                    .recordTypeId,
-                  defaultFieldValues: {
-                    AccountId: parentRecID,
-                    Twilio_Channel_SID__c: topicID
-                  }
-                });
-              } else {
-                // only comes here if array length > 1
-                // Saving '|' separated IDs on a custom field to help in troubleshooting
-                newCaseRecord.setParams({
-                  entityApiName: "Case",
-                  recordTypeId: component.get("v.pageReference").state
-                    .recordTypeId,
-                  defaultFieldValues: {
-                    AccountId: parentRecID,
-                    Auto_matched_Chat_Topic_IDs__c: topicID
-                  }
-                });
-              }
-
-              newCaseRecord.fire();
-            }
-            // Stop loading spinner
-            component.set("v.loading", false);
-          });
-        } else {
-          //Setting 'defaultFieldValues' to pre-populate the parent Account lookup.
-          newCaseRecord.setParams({
-            entityApiName: "Case",
-            recordTypeId: component.get("v.pageReference").state.recordTypeId,
-            defaultFieldValues: {
-              AccountId: parentRecID
-            }
-          });
-          newCaseRecord.fire();
-        }
-      } else {
-        newCaseRecord.setParams({
-          entityApiName: "Case",
-          recordTypeId: component.get("v.pageReference").state.recordTypeId
-        });
-        newCaseRecord.fire();
-      }
-    }
+    this.handleCaseRecordOpenEvent(component,  component.get("v.pageReference").state.recordTypeId)
   },
+
   goToViewRecord: function (component, event, recordId) {
     var navEvt = $A.get("e.force:navigateToSObject");
     navEvt.setParams({
@@ -98,6 +32,9 @@
     navEvt.fire();
   },
   goToNewCaseWithDefaultRecordType: function (component) {
+    this.handleCaseRecordOpenEvent(component, "")
+  },
+  handleCaseRecordOpenEvent: function(component, recordTypeId){
     var newCaseRecord = $A.get("e.force:createRecord");
 
     // Read from URL param 'inContextOfRef' to identify parent record ID
@@ -108,69 +45,70 @@
       var parentObjectName = context.attributes.objectApiName;
 
       // Manually populating the related parent Account record ID when new case creation was originated from a related list
-      if (parentRecID) {
+      if (parentRecID && parentObjectName == "Account") {
         // Pre-populate Chat Topic lookup if parent object is Account
-        if (parentObjectName == "Account") {
-          // Start loading spinner
+      
           component.set("v.loading", true);
 
           // Fetch active Chat Topic ID (if there is any) related to the Customer
-          this.getActiveChatTopicID(component, parentRecID, function (topicID) {
-            //Setting 'defaultFieldValues' to pre-populate the parent Account lookup.
-            //Also pre-populating/linking Chat Topic record, if the Case is related to an on-going active chat.
-            var defaultFieldValues = "";
-            if (topicID) {
-              var array = topicID.split("|");
-              if (array.length == 1) {
-                newCaseRecord.setParams({
-                  entityApiName: "Case",
-                  defaultFieldValues: {
-                    AccountId: parentRecID,
-                    Twilio_Channel_SID__c: topicID,
-                    Origin: "Chat"
-                  }
-                });
-              } else {
-                // only comes here if array length > 1
-                // Saving '|' separated IDs on a custom field to help in troubleshooting
-                newCaseRecord.setParams({
-                  entityApiName: "Case",
-                  defaultFieldValues: {
-                    AccountId: parentRecID,
-                    Auto_matched_Chat_Topic_IDs__c: topicID
-                  }
-                });
-              }
-              newCaseRecord.fire();
-            } else {
-              // Chat Topic population faild, fallback option
-              newCaseRecord.setParams({
-                entityApiName: "Case",
-                defaultFieldValues: {
-                  AccountId: parentRecID
-                }
-              });
-              newCaseRecord.fire();
-            }
-
-            // Stop loading spinner
-            component.set("v.loading", false);
-          });
-        } else {
-          // in case if the Parent object isn't Account
-          newCaseRecord.setParams({
-            entityApiName: "Case"
-          });
-          newCaseRecord.fire();
-        }
-      } else {
-        // in case there isn't a parent record ID
-        newCaseRecord.setParams({
-          entityApiName: "Case"
-        });
-        newCaseRecord.fire();
+          this.getActiveChatTopicID(component, parentRecID, this.getCaseRecordOpenBaseonChatCallBack(recordTypeId));
+        } 
+       else {
+         this.openCaseRecordPage();
+        
       }
     }
+  },
+  getCaseRecordOpenBaseonChatCallBack: function(recordTypeId){
+   function openCaseRecordPageBasedOnChatTopic(topicID){
+      //Setting 'defaultFieldValues' to pre-populate the parent Account lookup.
+      //Also pre-populating/linking Chat Topic record, if the Case is related to an on-going active chat.
+      var defaultFieldValues = {};
+      if (topicID) {
+        
+        if (isSingleChatTopic(topicID)) {
+      
+          defaultFieldValues =  {
+              AccountId: parentRecID,
+              Twilio_Channel_SID__c: topicID,
+              Origin: "Chat"
+            }
+      
+        } else {
+          // only comes here if array length > 1
+          // Saving '|' separated IDs on a custom field to help in troubleshooting           
+            defaultFieldValues = {
+              AccountId: parentRecID,
+              Auto_matched_Chat_Topic_IDs__c: topicID
+            }               
+        }
+
+      } else {
+        // Chat Topic population faild, fallback option            
+          defaultFieldValues = {
+            AccountId: parentRecID
+          }           
+      }
+      this.openCaseRecordPage(defaultFieldValues, recordTypeId);
+      // Stop loading spinner
+      component.set("v.loading", false);
+    }
+    return openCaseRecordPageBasedOnChatTopic
+  },
+  isSingleChatTopic: function(topicID){
+    return topicID.split("|").length == 1;
+  },
+  openCaseRecordPage: function(defaultFieldValuesObj = {}, recordTypeId = ""){
+    var paramValue = {
+      entityApiName: "Case",
+      defaultFieldValues: defaultFieldValuesObj
+    }
+    if(recordTypeId){
+      paramValue.recordTypeId = recordTypeId
+    }
+
+    newCaseRecord.setParams(paramValue);
+    newCaseRecord.fire();
   },
   getURLParameterByName: function (component, name) {
     name = name.replace(/[\[\]]/g, "\\$&");

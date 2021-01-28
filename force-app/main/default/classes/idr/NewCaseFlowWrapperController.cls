@@ -32,21 +32,11 @@ public with sharing class NewCaseFlowWrapperController {
     String activeChatTopicID = '';
 
     // Query for Customer OCV ID by passing in the Account ID
-    String ocvId;
-    if (Account.sObjectType.getDescribe().isQueryable()) {
-      List<Account> accounts = [
-        SELECT OCV_ID__c
-        FROM Account
-        WHERE Id = :accountID
-      ];
-      if (!accounts.isEmpty()) {
-        ocvId = accounts[0].OCV_ID__c;
-      }
-    }
+    String ocvId = getOCVId(accountID);
+    
 
-    List<ChatChannelsResponseWrapper.Channels> activeCahtTopics = new List<ChatChannelsResponseWrapper.Channels>();
+    List<ChatChannelsResponseWrapper.Channels> activeChatTopics = new List<ChatChannelsResponseWrapper.Channels>();
     String nextURL = '';
-    Boolean hasNext = false;
 
     // NOTE: Mule-Twilio API only returns filtered results within offset limit (MAX 20).
     //       Therefore, we have to keep on querying the API until there is no 'Next' attribute present in the response to identify all 'Active' chat topics
@@ -59,41 +49,21 @@ public with sharing class NewCaseFlowWrapperController {
       String responseBody = getActiveChatTopics(ocvId, nextURL);
 
       // process responseBody string, and replace '_links' with 'xlinks'
-      if (String.isNotBlank(responseBody)) {
-        responseBody = responseBody.replace('_links', 'xlinks');
-      }
-
-      ChatChannelsResponseWrapper responseWrapper = (ChatChannelsResponseWrapper) JSON.deserialize(
-        responseBody,
-        ChatChannelsResponseWrapper.class
-      );
-
+     
+      ChatChannelsResponseWrapper responseWrapper = deserializeResponse(responseBody);
       // Keep on adding to the list unil there is no Next set
-      if (responseWrapper.channels != null) {
+      if (responseWrapper.hasChannels()) {
         activeCahtTopics.addAll(responseWrapper.channels);
       }
 
-      if (responseWrapper.xlinks.xlinks.next != null) {
-        hasNext = true;
-        nextURL = responseWrapper.xlinks.xlinks.next.substring(
-          responseWrapper.xlinks.xlinks.next.indexOf('?')
-        );
-      } else {
-        hasNext = false;
-      }
-    } while (hasNext);
+      nextURL = responseWrapper.nextUrl();
 
-    if (!activeCahtTopics.isEmpty()) {
-      if (activeCahtTopics.size() == 1) {
-        activeChatTopicID = activeCahtTopics[0].Id;
-      } else {
-        // Return '|' seperated string of all returned Chat Topic IDs, and save it on a custom field on Case object (not visible on Page Layout) ?
-        for (ChatChannelsResponseWrapper.Channels topic : activeCahtTopics) {
-          activeChatTopicID += !String.isBlank(activeChatTopicID)
-            ? '|' + topic.Id
-            : topic.Id;
-        }
+    } while (nextURL != null);
 
+    activeChatTopicID = getChatIds(activeChatTopics);
+
+      if(activeChatTopics.size() >1 )
+      {
         //Log an Application Log entry including the '|' seperated string of all returned Chat Topic IDs
         lib_systemLog.createSingleLog(
           NewCaseFlowWrapperController.class.getName(),
@@ -110,9 +80,52 @@ public with sharing class NewCaseFlowWrapperController {
           lib_systemLog.Severity.WARNING
         );
       }
-    }
+    
 
     return activeChatTopicID;
+  }
+
+  private String getChatIds( List<ChatChannelsResponseWrapper.Channels> activeChatTopics){
+
+    String activeChatTopicID = '';
+    if (!activeChatTopics.isEmpty()) {
+      if (activeChatTopics.size() == 1) {
+        activeChatTopicID = activeChatTopics[0].Id;
+      } else {
+        // Return '|' seperated string of all returned Chat Topic IDs, and save it on a custom field on Case object (not visible on Page Layout) ?
+        for (ChatChannelsResponseWrapper.Channels topic : activeChatTopics) {
+          activeChatTopicID += !String.isBlank(activeChatTopicID)
+            ? '|' + topic.Id
+            : topic.Id;
+        }
+      }
+    }
+      return activeChatTopicID;
+  }
+  private String getOCVId(Id accountID){
+    if (Account.sObjectType.getDescribe().isQueryable()) {
+      List<Account> accounts = [
+        SELECT OCV_ID__c
+        FROM Account
+        WHERE Id = :accountID
+      ];
+      if (!accounts.isEmpty()) {
+        return accounts[0].OCV_ID__c;
+      }
+    }
+    return null;
+  }
+
+  private static ChatChannelsResponseWrapper deserializeResponse(String responseBody){
+    if (String.isNotBlank(responseBody)) {
+      responseBody = responseBody.replace('_links', 'xlinks');
+    }
+
+    ChatChannelsResponseWrapper responseWrapper = (ChatChannelsResponseWrapper) JSON.deserialize(
+      responseBody,
+      ChatChannelsResponseWrapper.class
+    );
+    return responseWrapper;
   }
 
   /**
