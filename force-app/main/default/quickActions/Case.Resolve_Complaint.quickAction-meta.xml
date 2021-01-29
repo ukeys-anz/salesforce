@@ -59,9 +59,14 @@
                 <field>IDR_Parent_Systemic_Issue__c</field>
                 <uiBehavior>Edit</uiBehavior>
             </quickActionLayoutItems>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>IDR_Possible_Systemic_Issues__c</field>
+                <uiBehavior>Edit</uiBehavior>
+            </quickActionLayoutItems>
         </quickActionLayoutColumns>
         <quickActionLayoutColumns/>
     </quickActionLayout>
-    <successMessage>Resolved!</successMessage>
+    <successMessage>Case is updated successfully!</successMessage>
     <type>Update</type>
 </QuickAction>
