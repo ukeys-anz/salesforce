@@ -622,8 +622,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
       requiredFields.systemicIssueDescription =
         "Why is this a possible systemic issue?";
       requiredFields.systemicIssueCategory = "Possible Systemic Issue Category";
-      requiredFields.possibleSystemicIssues =
-        "Which additional issues are systemic?";
     }
     if (this.hasSecondIssue) {
       requiredFields.issueType2 = "Issue Type 2";
