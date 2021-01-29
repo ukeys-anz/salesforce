@@ -10,11 +10,7 @@ OR(
 RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
 RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
 ),
-OR(
-ISPICKVAL(Status, &apos;Closed&apos;),
-ISPICKVAL(Status, &apos;Resolved&apos;),
-ISPICKVAL(Status, &apos;Withdrawn&apos;)
-),
+IsClosed,
 OR(
 (ISCHANGED(IDR_Second_Issue__c) &amp;&amp; IDR_Second_Issue__c),
 (ISCHANGED(IDR_Third_Issue__c) &amp;&amp; IDR_Third_Issue__c)
