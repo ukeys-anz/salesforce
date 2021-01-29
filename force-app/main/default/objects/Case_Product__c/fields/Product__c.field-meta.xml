@@ -8,8 +8,8 @@
     <externalId>false</externalId>
     <label>Product</label>
     <referenceTo>Product2</referenceTo>
-    <relationshipLabel>Related Systemic Issues</relationshipLabel>
-    <relationshipName>Related_Systemic_Issues</relationshipName>
+    <relationshipLabel>Related Cases</relationshipLabel>
+    <relationshipName>Relevant_Products</relationshipName>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackHistory>true</trackHistory>
