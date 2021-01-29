@@ -31,34 +31,13 @@ public with sharing class NewCaseFlowWrapperController {
 
     String activeChatTopicID = '';
 
-    // Query for Customer OCV ID by passing in the Account ID
+    
     String ocvId = getOCVId(accountID);
     
 
-    List<ChatChannelsResponseWrapper.Channels> activeChatTopics = new List<ChatChannelsResponseWrapper.Channels>();
-    String nextURL = '';
+    List<ChatChannelsResponseWrapper.Channels> activeChatTopics = getActiveChatChannelsFromTwilio(ocvId);
 
-    // NOTE: Mule-Twilio API only returns filtered results within offset limit (MAX 20).
-    //       Therefore, we have to keep on querying the API until there is no 'Next' attribute present in the response to identify all 'Active' chat topics
-
-    // Loop through results to identify Active Chat Topics
-    // NOTE: A singe iteration of below loop will return a maximum of 20 records (Maximum offset limit supported by the API is 20 records at once)
-    //       If a particular customer have had 60 different Chat Topics throughout the lifetime with ANZx, the API will be called 3 times which is 60/20.
-    do {
-      // Make a callout to Mulesoft to fetch all Chat Topics related to the customer
-      String responseBody = getActiveChatTopics(ocvId, nextURL);
-
-      // process responseBody string, and replace '_links' with 'xlinks'
-     
-      ChatChannelsResponseWrapper responseWrapper = deserializeResponse(responseBody);
-      // Keep on adding to the list unil there is no Next set
-      if (responseWrapper.hasChannels()) {
-        activeCahtTopics.addAll(responseWrapper.channels);
-      }
-
-      nextURL = responseWrapper.nextUrl();
-
-    } while (nextURL != null);
+   
 
     activeChatTopicID = getChatIds(activeChatTopics);
 
@@ -85,8 +64,36 @@ public with sharing class NewCaseFlowWrapperController {
     return activeChatTopicID;
   }
 
-  private String getChatIds( List<ChatChannelsResponseWrapper.Channels> activeChatTopics){
+   // NOTE: Mule-Twilio API only returns filtered results within offset limit (MAX 20).
+    //       Therefore, we have to keep on querying the API until there is no 'Next' attribute present in the response to identify all 'Active' chat topics
 
+    // Loop through results to identify Active Chat Topics
+    // NOTE: A singe iteration of below loop will return a maximum of 20 records (Maximum offset limit supported by the API is 20 records at once)
+    //       If a particular customer have had 60 different Chat Topics throughout the lifetime with ANZx, the API will be called 3 times which is 60/20.
+   
+  private static List<ChatChannelsResponseWrapper.Channels>  getActiveChatChannelsFromTwilio(String ocvId){
+    List<ChatChannelsResponseWrapper.Channels> activeChatTopics = new List<ChatChannelsResponseWrapper.Channels>();
+    String nextURL = '';
+    do {
+      // Make a callout to Mulesoft to fetch all Chat Topics related to the customer
+      String responseBody = getActiveChatTopics(ocvId, nextURL);
+
+      // process responseBody string, and replace '_links' with 'xlinks'
+     
+      ChatChannelsResponseWrapper responseWrapper = deserializeResponse(responseBody);
+      // Keep on adding to the list unil there is no Next set
+      if (responseWrapper.hasChannels()) {
+        activeCahtTopics.addAll(responseWrapper.channels);
+      }
+
+      nextURL = responseWrapper.nextUrl();
+
+    } while (nextURL != null);
+
+    return activeChatTopics;
+  }
+
+  private static String getChatIds( List<ChatChannelsResponseWrapper.Channels> activeChatTopics){
     String activeChatTopicID = '';
     if (!activeChatTopics.isEmpty()) {
       if (activeChatTopics.size() == 1) {
@@ -102,6 +109,8 @@ public with sharing class NewCaseFlowWrapperController {
     }
       return activeChatTopicID;
   }
+
+  // Query for Customer OCV ID by passing in the Account ID
   private String getOCVId(Id accountID){
     if (Account.sObjectType.getDescribe().isQueryable()) {
       List<Account> accounts = [

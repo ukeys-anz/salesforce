@@ -40,26 +40,32 @@ import { open } from "inspector";
     // Read from URL param 'inContextOfRef' to identify parent record ID
     var value = this.getURLParameterByName(component, "inContextOfRef");
     if (value) {
-      var context = JSON.parse(window.atob(value));
-      var parentRecID = context.attributes.recordId;
-      var parentObjectName = context.attributes.objectApiName;
-
-      // Manually populating the related parent Account record ID when new case creation was originated from a related list
-      if (parentRecID && parentObjectName == "Account") {
-        // Pre-populate Chat Topic lookup if parent object is Account
       
-          component.set("v.loading", true);
+      var parentInfo = extractParentInfo(value)
+      // Manually populating the related parent Account record ID when new case creation was originated from a related list
+      if (parentInfo.parentRecID && parentInfo.parentObjectName == "Account") {            
+        
 
           // Fetch active Chat Topic ID (if there is any) related to the Customer
           this.getActiveChatTopicID(component, parentRecID, this.getCaseRecordOpenBaseonChatCallBack(recordTypeId));
         } 
        else {
-         this.openCaseRecordPage();
-        
+         this.openCaseRecordPage(recordTypeId);        
       }
     }
   },
+  // Pre-populate Chat Topic lookup if parent object is Account     
+  extractParentInfo: function(urlParameter){
+      var context = JSON.parse(window.atob(value));
+
+      return { parentRecID : context.attributes.recordId,
+         parentObjectName : context.attributes.objectApiName
+      }
+  },
   getCaseRecordOpenBaseonChatCallBack: function(recordTypeId){
+    
+   component.set("v.loading", true);
+
    function openCaseRecordPageBasedOnChatTopic(topicID){
       //Setting 'defaultFieldValues' to pre-populate the parent Account lookup.
       //Also pre-populating/linking Chat Topic record, if the Case is related to an on-going active chat.
@@ -89,7 +95,7 @@ import { open } from "inspector";
             AccountId: parentRecID
           }           
       }
-      this.openCaseRecordPage(defaultFieldValues, recordTypeId);
+      this.openCaseRecordPage(recordTypeId, defaultFieldValues);
       // Stop loading spinner
       component.set("v.loading", false);
     }
@@ -98,7 +104,7 @@ import { open } from "inspector";
   isSingleChatTopic: function(topicID){
     return topicID.split("|").length == 1;
   },
-  openCaseRecordPage: function(defaultFieldValuesObj = {}, recordTypeId = ""){
+  openCaseRecordPage: function(recordTypeId = "", defaultFieldValuesObj = {} ){
     var paramValue = {
       entityApiName: "Case",
       defaultFieldValues: defaultFieldValuesObj
