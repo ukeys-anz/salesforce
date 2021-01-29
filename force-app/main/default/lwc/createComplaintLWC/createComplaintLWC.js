@@ -77,7 +77,7 @@ import SUBSEQUENT_ISSUE_TYPE_2 from "@salesforce/schema/Case.IDR_Subsequent_Issu
 import PRODUCT_LOOKUP_FIELD_2 from "@salesforce/schema/Case.IDR_Product_2__c";
 import ACCOUNT_POLICY_FIELD_2 from "@salesforce/schema/Case.IDR_Account_Card_Policy_Number_2__c";
 
-//Issue 2 fields
+//Issue 3 fields
 import HAS_THIRD_ISSUE from "@salesforce/schema/Case.IDR_Third_Issue__c";
 import ISSUE_TYPE_3 from "@salesforce/schema/Case.IDR_Issue_Type_3__c";
 import SUBSEQUENT_ISSUE_TYPE_3 from "@salesforce/schema/Case.IDR_Subsequent_Issue_3__c";
@@ -176,7 +176,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   productValue2 = PRODUCT_LOOKUP_FIELD_2;
   accountOrPolicyNumber2 = ACCOUNT_POLICY_FIELD_2;
 
-  // Issue 2 fields
+  // Issue 3 fields
   hasThirdIssue = HAS_THIRD_ISSUE;
   issueType3 = ISSUE_TYPE_3;
   subsequentIssue3 = SUBSEQUENT_ISSUE_TYPE_3;
