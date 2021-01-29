@@ -83,11 +83,15 @@
         </div>
         <div class="slds-col slds-size--1-of-7">
           <div class="slds-grid slds-form-element__label">Transaction ID</div>
-          <div class="slds-grid">{transactionRecord.transactionId}</div>
+          <div class="slds-grid" data-id="transactionId">
+            {transactionRecord.transactionId}
+          </div>
         </div>
         <div class="slds-col slds-size--1-of-7">
           <div class="slds-grid slds-form-element__label">Error Reason</div>
-          <div class="slds-grid word-fix">{transactionRecord.Error}</div>
+          <div class="slds-grid word-fix" data-id="transError">
+            {transactionRecord.Error}
+          </div>
         </div>
         <div class="slds-col slds-size--1-of-7">
           <div class="slds-grid slds-form-element__label">Currency Code</div>

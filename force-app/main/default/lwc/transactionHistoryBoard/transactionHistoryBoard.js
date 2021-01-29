@@ -185,6 +185,7 @@ export default class TransactionHistoryBoard extends LightningElement {
             this.transactionList.push(e);
           });
         }
+
         this.loading = false;
       })
       .catch((error) => {
