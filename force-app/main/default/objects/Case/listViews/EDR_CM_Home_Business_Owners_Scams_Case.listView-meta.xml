@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EDR_CM_Home_Business_Owners_Scams_Case</fullName>
+    <filterScope>Queue</filterScope>
+    <label>EDR CM Home/Business Owners &amp; Scams</label>
+    <queue>EDR_CM_Home_Business_Owners_Scams</queue>
+    <sharedTo>
+        <allInternalUsers/>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_Responsible_Lending_Case</fullName>
+    <filterScope>Queue</filterScope>
+    <label>IDR Responsible Lending</label>
+    <queue>IDR_Responsible_Lending</queue>
+    <sharedTo>
+        <allInternalUsers/>
+    </sharedTo>
+</ListView>
