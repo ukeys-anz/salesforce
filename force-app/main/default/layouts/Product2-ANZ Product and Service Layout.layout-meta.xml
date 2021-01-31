@@ -103,6 +103,24 @@
         <relatedList>Case.Product__c</relatedList>
     </relatedLists>
     <relatedLists>
+        <fields>CASES.CASE_NUMBER</fields>
+        <fields>CASES.STATUS</fields>
+        <fields>CASES.PRIORITY</fields>
+        <fields>IDR_Issue_Type_2__c</fields>
+        <fields>IDR_Date_Received__c</fields>
+        <fields>OWNER_NAME</fields>
+        <relatedList>Case.IDR_Product_2__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>CASES.CASE_NUMBER</fields>
+        <fields>CASES.STATUS</fields>
+        <fields>CASES.PRIORITY</fields>
+        <fields>IDR_Issue_Type_3__c</fields>
+        <fields>IDR_Date_Received__c</fields>
+        <fields>OWNER_NAME</fields>
+        <relatedList>Case.IDR_Product_3__c</relatedList>
+    </relatedLists>
+    <relatedLists>
         <fields>Case__c</fields>
         <relatedList>Case_Product__c.Product__c</relatedList>
     </relatedLists>
@@ -112,7 +130,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2O000000nJxu</masterLabel>
+        <masterLabel>00h2N000001ETAX</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

@@ -334,6 +334,12 @@ public with sharing class IDRCaseActions {
     record.IDR_Account_Card_Policy_Number__c = TextUtils.maskData(
       record.IDR_Account_Card_Policy_Number__c
     );
+    record.IDR_Account_Card_Policy_Number_2__c = TextUtils.maskData(
+      record.IDR_Account_Card_Policy_Number_2__c
+    );
+    record.IDR_Account_Card_Policy_Number_3__c = TextUtils.maskData(
+      record.IDR_Account_Card_Policy_Number_3__c
+    );
     record.Description = TextUtils.maskData(record.Description);
     record.IDR_Complainant_Desired_Outcome__c = TextUtils.maskData(
       record.IDR_Complainant_Desired_Outcome__c

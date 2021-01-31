@@ -63,10 +63,26 @@ import IS_COMMON_COMPLAINT_FIELD from "@salesforce/schema/Case.IDR_Is_Common__c"
 import IS_REAL_FORM_NEED_FIELD from "@salesforce/schema/Case.IDR_Real_Form_Req__c";
 import SYSTEMIC_ISSUE_DESCRIPTION from "@salesforce/schema/Case.IDR_Systemic_Issue_Description__c";
 import SYSTEMIC_ISSUE_LOOKUP_FIELD from "@salesforce/schema/Case.IDR_Parent_Systemic_Issue__c";
+import SYSTEMIC_ISSUE_CATEGORY from "@salesforce/schema/Case.IDR_Systemic_Issue_Category__c";
+import POSSIBLE_SYSTEMIC_ISSUES from "@salesforce/schema/Case.IDR_Possible_Systemic_Issues__c";
 
 //Is Escalated fields
 import ESCALATED_TO from "@salesforce/schema/Case.IDR_Escalated_to__c";
 import ESCALATION_REASON from "@salesforce/schema/Case.IDR_Escalation_Reason__c";
+
+//Issue 2 fields
+import HAS_SECOND_ISSUE from "@salesforce/schema/Case.IDR_Second_Issue__c";
+import ISSUE_TYPE_2 from "@salesforce/schema/Case.IDR_Issue_Type_2__c";
+import SUBSEQUENT_ISSUE_TYPE_2 from "@salesforce/schema/Case.IDR_Subsequent_Issue_2__c";
+import PRODUCT_LOOKUP_FIELD_2 from "@salesforce/schema/Case.IDR_Product_2__c";
+import ACCOUNT_POLICY_FIELD_2 from "@salesforce/schema/Case.IDR_Account_Card_Policy_Number_2__c";
+
+//Issue 3 fields
+import HAS_THIRD_ISSUE from "@salesforce/schema/Case.IDR_Third_Issue__c";
+import ISSUE_TYPE_3 from "@salesforce/schema/Case.IDR_Issue_Type_3__c";
+import SUBSEQUENT_ISSUE_TYPE_3 from "@salesforce/schema/Case.IDR_Subsequent_Issue_3__c";
+import PRODUCT_LOOKUP_FIELD_3 from "@salesforce/schema/Case.IDR_Product_3__c";
+import ACCOUNT_POLICY_FIELD_3 from "@salesforce/schema/Case.IDR_Account_Card_Policy_Number_3__c";
 
 const ERROR_REQUIRED_TITLE = "Please complete all required fields:\n";
 const ERROR_UNKNOWN_TITLE = "An error has occurred.";
@@ -146,10 +162,26 @@ export default class CreateComplaintLWC extends NavigationMixin(
   isRealFormNeeded = IS_REAL_FORM_NEED_FIELD;
   systemicIssueDescription = SYSTEMIC_ISSUE_DESCRIPTION;
   SystemicIssue = SYSTEMIC_ISSUE_LOOKUP_FIELD;
+  systemicIssueCategory = SYSTEMIC_ISSUE_CATEGORY;
+  possibleSystemicIssues = POSSIBLE_SYSTEMIC_ISSUES;
 
   // escalation fields
   escalatedTo = ESCALATED_TO;
   escalationReason = ESCALATION_REASON;
+
+  // Issue 2 fields
+  hasSecondIssue = HAS_SECOND_ISSUE;
+  issueType2 = ISSUE_TYPE_2;
+  subsequentIssue2 = SUBSEQUENT_ISSUE_TYPE_2;
+  productValue2 = PRODUCT_LOOKUP_FIELD_2;
+  accountOrPolicyNumber2 = ACCOUNT_POLICY_FIELD_2;
+
+  // Issue 3 fields
+  hasThirdIssue = HAS_THIRD_ISSUE;
+  issueType3 = ISSUE_TYPE_3;
+  subsequentIssue3 = SUBSEQUENT_ISSUE_TYPE_3;
+  productValue3 = PRODUCT_LOOKUP_FIELD_3;
+  accountOrPolicyNumber3 = ACCOUNT_POLICY_FIELD_3;
 
   @api recordTypeId;
   @api recordTypeDevName;
@@ -157,6 +189,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   isCustomerDetails = false;
   hasNominatedThirdParty = false;
+  hasSecondIssue = false;
+  hasThirdIssue = false;
   activeSections = ["A", "B", "C"];
   displayCustomerInfo = false;
   customerIdValue = "";
@@ -243,6 +277,13 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.hasNominatedThirdParty = event.target.checked;
   }
 
+  handle2ndIssueToggleChange(event) {
+    this.hasSecondIssue = event.target.checked;
+  }
+
+  handle3rdIssueToggleChange(event) {
+    this.hasThirdIssue = event.target.checked;
+  }
   handleCommonComplaint(event) {
     this.isCommonComplaintYesNo = event.target.value;
     this.isCommonComplaint =
@@ -497,6 +538,13 @@ export default class CreateComplaintLWC extends NavigationMixin(
       if (this.isRealFormNeeded) {
         fields[IS_REAL_FORM_NEED_FIELD.fieldApiName] = true;
       }
+      if (this.hasSecondIssue) {
+        fields[HAS_SECOND_ISSUE.fieldApiName] = true;
+      }
+
+      if (this.hasThirdIssue) {
+        fields[HAS_THIRD_ISSUE.fieldApiName] = true;
+      }
 
       fields[
         IS_COMMON_COMPLAINT_FIELD.fieldApiName
@@ -573,6 +621,20 @@ export default class CreateComplaintLWC extends NavigationMixin(
     if (this.isCommonComplaint) {
       requiredFields.systemicIssueDescription =
         "Why is this a possible systemic issue?";
+      requiredFields.systemicIssueCategory = "Possible Systemic Issue Category";
+    }
+    if (this.hasSecondIssue) {
+      requiredFields.issueType2 = "Issue Type 2";
+      requiredFields.subsequentIssue2 = "Subsequent Issue Type 2";
+      requiredFields.productValue2 = "Product or Service Name 2";
+      requiredFields.accountOrPolicyNumber2 = "Account/Card/Policy Number 2";
+    }
+
+    if (this.hasThirdIssue) {
+      requiredFields.issueType3 = "Issue Type 3";
+      requiredFields.subsequentIssue3 = "Subsequent Issue Type 3";
+      requiredFields.productValue3 = "Product or Service Name 3";
+      requiredFields.accountOrPolicyNumber3 = "Account/Card/Policy Number 3";
     }
     return requiredFields;
   }

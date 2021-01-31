@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR18_Restrict_Add_Issues_On_Closed</fullName>
+    <active>true</active>
+    <description>Restrict users from adding additional issues on closed complaints</description>
+    <errorConditionFormula>AND(
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+NOT(ISNEW()),
+OR(
+RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
+RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
+),
+IsClosed,
+OR(
+(ISCHANGED(IDR_Second_Issue__c) &amp;&amp; IDR_Second_Issue__c),
+(ISCHANGED(IDR_Third_Issue__c) &amp;&amp; IDR_Third_Issue__c)
+)
+)</errorConditionFormula>
+    <errorMessage>You cannot add additional issues on closed complaints</errorMessage>
+</ValidationRule>
