@@ -18,77 +18,12 @@
     $A.enqueueAction(action);
   },
   goToStandardNewCasePage: function (component, event) {
-    var newCaseRecord = $A.get("e.force:createRecord");
-
-    // Read from URL param 'inContextOfRef' to identify parent record ID
-    var value = this.getURLParameterByName(component, "inContextOfRef");
-    if (value) {
-      var context = JSON.parse(window.atob(value));
-      var parentRecID = context.attributes.recordId;
-      var parentObjectName = context.attributes.objectApiName;
-
-      // Manually populating the related parent Account record ID, and recordTypeId when new case creation was originated from a related list
-      if (parentRecID) {
-        // Pre-populate Chat Topic lookup if parent object is Account
-        if (parentObjectName == "Account") {
-          // Start loading spinner
-          component.set("v.loading", true);
-
-          // Fetch active Chat Topic ID (if there is any) related to the Customer
-          this.getActiveChatTopicID(component, parentRecID, function (topicID) {
-            //Setting 'defaultFieldValues' to pre-populate the parent Account lookup.
-            //Also pre-populating/linking Chat Topic record, if the Case is related to an on-going active chat.
-            if (topicID) {
-              var array = topicID.split("|");
-              if (array.length == 1) {
-                newCaseRecord.setParams({
-                  entityApiName: "Case",
-                  recordTypeId: component.get("v.pageReference").state
-                    .recordTypeId,
-                  defaultFieldValues: {
-                    AccountId: parentRecID,
-                    Twilio_Channel_SID__c: topicID
-                  }
-                });
-              } else {
-                // only comes here if array length > 1
-                // Saving '|' separated IDs on a custom field to help in troubleshooting
-                newCaseRecord.setParams({
-                  entityApiName: "Case",
-                  recordTypeId: component.get("v.pageReference").state
-                    .recordTypeId,
-                  defaultFieldValues: {
-                    AccountId: parentRecID,
-                    Auto_matched_Chat_Topic_IDs__c: topicID
-                  }
-                });
-              }
-
-              newCaseRecord.fire();
-            }
-            // Stop loading spinner
-            component.set("v.loading", false);
-          });
-        } else {
-          //Setting 'defaultFieldValues' to pre-populate the parent Account lookup.
-          newCaseRecord.setParams({
-            entityApiName: "Case",
-            recordTypeId: component.get("v.pageReference").state.recordTypeId,
-            defaultFieldValues: {
-              AccountId: parentRecID
-            }
-          });
-          newCaseRecord.fire();
-        }
-      } else {
-        newCaseRecord.setParams({
-          entityApiName: "Case",
-          recordTypeId: component.get("v.pageReference").state.recordTypeId
-        });
-        newCaseRecord.fire();
-      }
-    }
+    this.handleCaseRecordOpenEvent(
+      component,
+      component.get("v.pageReference").state.recordTypeId
+    );
   },
+
   goToViewRecord: function (component, event, recordId) {
     var navEvt = $A.get("e.force:navigateToSObject");
     navEvt.setParams({
@@ -98,79 +33,103 @@
     navEvt.fire();
   },
   goToNewCaseWithDefaultRecordType: function (component) {
-    var newCaseRecord = $A.get("e.force:createRecord");
-
+    this.handleCaseRecordOpenEvent(component, "");
+  },
+  handleCaseRecordOpenEvent: function (component, recordTypeId) {
     // Read from URL param 'inContextOfRef' to identify parent record ID
-    var value = this.getURLParameterByName(component, "inContextOfRef");
-    if (value) {
-      var context = JSON.parse(window.atob(value));
-      var parentRecID = context.attributes.recordId;
-      var parentObjectName = context.attributes.objectApiName;
+    var parentIdParameter = this.getURLParameterByName(
+      component,
+      "inContextOfRef"
+    );
 
-      // Manually populating the related parent Account record ID when new case creation was originated from a related list
-      if (parentRecID) {
-        // Pre-populate Chat Topic lookup if parent object is Account
-        if (parentObjectName == "Account") {
-          // Start loading spinner
-          component.set("v.loading", true);
+    var parentInfo = this.extractParentInfo(parentIdParameter);
+    // Manually populating the related parent Account record ID when new case creation was originated from a related list
+    if (this.isParentObjectAccount(parentInfo)) {
+      // Fetch active Chat Topic ID (if there is any) related to the Customer
+      this.getActiveChatTopicID(
+        component,
+        parentInfo.parentRecID,
+        this.getCaseRecordOpenBaseonChatCallBack(
+          component,
+          parentInfo.parentRecID,
+          recordTypeId
+        )
+      );
+    } else {
+      this.openCaseRecordPage(recordTypeId, {});
+    }
+  },
+  // Pre-populate Chat Topic lookup if parent object is Account
+  extractParentInfo: function (urlParameter) {
+    if (urlParameter) {
+      var context = JSON.parse(window.atob(urlParameter));
 
-          // Fetch active Chat Topic ID (if there is any) related to the Customer
-          this.getActiveChatTopicID(component, parentRecID, function (topicID) {
-            //Setting 'defaultFieldValues' to pre-populate the parent Account lookup.
-            //Also pre-populating/linking Chat Topic record, if the Case is related to an on-going active chat.
-            var defaultFieldValues = "";
-            if (topicID) {
-              var array = topicID.split("|");
-              if (array.length == 1) {
-                newCaseRecord.setParams({
-                  entityApiName: "Case",
-                  defaultFieldValues: {
-                    AccountId: parentRecID,
-                    Twilio_Channel_SID__c: topicID,
-                    Origin: "Chat"
-                  }
-                });
-              } else {
-                // only comes here if array length > 1
-                // Saving '|' separated IDs on a custom field to help in troubleshooting
-                newCaseRecord.setParams({
-                  entityApiName: "Case",
-                  defaultFieldValues: {
-                    AccountId: parentRecID,
-                    Auto_matched_Chat_Topic_IDs__c: topicID
-                  }
-                });
-              }
-              newCaseRecord.fire();
-            } else {
-              // Chat Topic population faild, fallback option
-              newCaseRecord.setParams({
-                entityApiName: "Case",
-                defaultFieldValues: {
-                  AccountId: parentRecID
-                }
-              });
-              newCaseRecord.fire();
-            }
+      return {
+        parentRecID: context.attributes.recordId,
+        parentObjectName: context.attributes.objectApiName
+      };
+    } else return {};
+  },
+  getCaseRecordOpenBaseonChatCallBack: function (
+    component,
+    parentRecID,
+    recordTypeId
+  ) {
+    this.startSpinner(component);
 
-            // Stop loading spinner
-            component.set("v.loading", false);
-          });
+    return (topicID) => {
+      var defaultFieldValues = {};
+      if (topicID) {
+        if (this.isMultipleChatTopic(topicID)) {
+          defaultFieldValues = {
+            AccountId: parentRecID,
+            Auto_matched_Chat_Topic_IDs__c: topicID
+          };
+
+          this.showToast(
+            "warning",
+            "More than one Active Chat Topics found ! Chat Topic will not be auto-populated on Case.",
+            "Warning!"
+          );
         } else {
-          // in case if the Parent object isn't Account
-          newCaseRecord.setParams({
-            entityApiName: "Case"
-          });
-          newCaseRecord.fire();
+          defaultFieldValues = {
+            AccountId: parentRecID,
+            Twilio_Channel_SID__c: topicID,
+            Origin: "Chat"
+          };
+
+          this.showToast(
+            "success",
+            "Active Chat Topic was successfully auto-populated on Case !",
+            "Success!"
+          );
         }
       } else {
-        // in case there isn't a parent record ID
-        newCaseRecord.setParams({
-          entityApiName: "Case"
-        });
-        newCaseRecord.fire();
+        // Chat Topic population faild, fallback option
+        defaultFieldValues = {
+          AccountId: parentRecID
+        };
       }
+      this.openCaseRecordPage(recordTypeId, defaultFieldValues);
+      // Stop loading spinner
+      this.stopSpinner(component);
+    };
+  },
+  isMultipleChatTopic: function (topicID) {
+    return topicID.split("|").length > 1;
+  },
+  openCaseRecordPage: function (recordTypeId, defaultFieldValuesObj) {
+    var newCaseRecord = $A.get("e.force:createRecord");
+    var paramValue = {
+      entityApiName: "Case",
+      defaultFieldValues: defaultFieldValuesObj
+    };
+    if (recordTypeId) {
+      paramValue.recordTypeId = recordTypeId;
     }
+
+    newCaseRecord.setParams(paramValue);
+    newCaseRecord.fire();
   },
   getURLParameterByName: function (component, name) {
     name = name.replace(/[\[\]]/g, "\\$&");
@@ -206,6 +165,7 @@
         console.log("Failed with state: " + state);
       }
     });
+    this.startSpinner(component);
     $A.enqueueAction(action);
   },
   navigateToNewCaseClosePreviousTab: function (
@@ -222,13 +182,160 @@
         workspaceAPI.closeTab({ tabId: firstTabId });
       });
   },
-  showToast: function (notificationType, messageText) {
+  showToast: function (notificationType, messageText, messageTitle) {
     var toastEvent = $A.get("e.force:showToast");
     toastEvent.setParams({
-      title: "Success!",
+      title: messageTitle,
       message: messageText,
       type: notificationType
     });
     toastEvent.fire();
+  },
+  startSpinner: function (component) {
+    component.set("v.loading", true);
+  },
+  stopSpinner: function (component) {
+    if (component.get("v.loading")) {
+      component.set("v.loading", false);
+    }
+  },
+  addParentInfoToUrl: function (navigationUrl, parentInfo) {
+    return (
+      navigationUrl +
+      "&ws=%2Flightning%2Fr%2F" +
+      parentInfo.parentObjectName +
+      "%2F" +
+      parentInfo.parentRecID +
+      "%2Fview"
+    );
+  },
+  isParentObjectAccount: function (parentInfo) {
+    return parentInfo.parentRecID && parentInfo.parentObjectName == "Account";
+  },
+  isComplaintCase: function (recordType) {
+    return (
+      recordType == "Non_Customer_Complaint" ||
+      recordType == "Customer_Complaint"
+    );
+  },
+  setComplaintParameters: function (component, recordType) {
+    component.set(
+      "v.recordTypeId",
+      component.get("v.pageReference").state.recordTypeId
+    );
+    component.set("v.recordTypeDevName", recordType);
+    component.set("v.showComponent", true);
+  },
+  handleNonComplaintCase: function (component) {
+    let workspaceAPI = component.find("workspace");
+
+    workspaceAPI.isConsoleNavigation().then((isConsole) => {
+      if (isConsole) {
+        this.handleConsoleAppCaseCreation(component, workspaceAPI);
+      } else {
+        this.goToStandardNewCasePage(component, event);
+      }
+    });
+  },
+  handleConsoleAppCaseCreation: function (component, workspaceAPI) {
+    workspaceAPI.getFocusedTabInfo().then((firstTabId) => {
+      //Reading Parent Record ID from URL to manipulate the console URL to open New Case window as a sub-tab.
+      var parentIdParameter = this.getURLParameterByName(
+        component,
+        "inContextOfRef"
+      );
+
+      var navigationUrl =
+        "/lightning/o/Case/new?count=1&nooverride=1&recordTypeId=" +
+        component.get("v.pageReference").state.recordTypeId;
+
+      var parentInfo = this.extractParentInfo(parentIdParameter);
+
+      if (parentInfo.parentRecID) {
+        navigationUrl = this.addParentInfoToUrl(navigationUrl, parentInfo);
+      }
+
+      if (this.isParentObjectAccount(parentInfo)) {
+        this.handleConsoleCaseCreationFromAccountPage(
+          component,
+          workspaceAPI,
+          navigationUrl,
+          parentInfo,
+          firstTabId
+        );
+      } else {
+        this.navigateToNewCaseClosePreviousTab(
+          workspaceAPI,
+          navigationUrl,
+          firstTabId
+        );
+      }
+    });
+  },
+  handleConsoleCaseCreationFromAccountPage: function (
+    component,
+    workspaceAPI,
+    navigationUrl,
+    parentInfo,
+    tabId
+  ) {
+    //Setting 'defaultFieldValues' to pre-populate the parent Account lookup.
+    navigationUrl =
+      navigationUrl + "&defaultFieldValues=AccountId=" + parentInfo.parentRecID;
+
+    this.getActiveChatTopicID(
+      component,
+      parentInfo.parentRecID,
+      this.handleConsoleChatCaseCreationCallback(
+        component,
+        navigationUrl,
+        workspaceAPI,
+        tabId
+      )
+    );
+  },
+  handleConsoleChatCaseCreationCallback: function (
+    component,
+    navigationUrl,
+    workspaceAPI,
+    tabId
+  ) {
+    return (topicID) => {
+      //Also pre-populating/linking Chat Topic record, if the Case is related to an on-going active chat.
+      var defaultFieldValues = "";
+      if (topicID) {
+        if (this.isMultipleChatTopic(topicID)) {
+          navigationUrl =
+            navigationUrl + ",Auto_matched_Chat_Topic_IDs__c=" + topicID;
+
+          this.showToast(
+            "warning",
+            "More than one Active Chat Topics found ! Chat Topic will not be auto-populated on Case.",
+            "Warning!"
+          );
+        } else {
+          navigationUrl =
+            navigationUrl +
+            ",Twilio_Channel_SID__c=" +
+            topicID +
+            ",Origin=Chat";
+
+          this.showToast(
+            "success",
+            "Active Chat Topic was successfully auto-populated on Case !",
+            "Success!"
+          );
+        }
+      }
+
+      // Stop loading spinner
+      this.stopSpinner(component);
+
+      this.navigateToNewCaseClosePreviousTab(
+        workspaceAPI,
+        navigationUrl,
+        tabId
+      );
+    };
   }
 });

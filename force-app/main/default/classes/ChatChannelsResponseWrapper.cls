@@ -11,6 +11,28 @@ public with sharing class ChatChannelsResponseWrapper {
   public Links_Z xlinks;
 
   /**
+   * @description Checks for Channels in the response
+   * @return Boolean
+   */
+  public boolean hasChannels() {
+    return this.channels != null;
+  }
+
+  /**
+   * @description Returns the URL to fetch the next set of records, if there is any
+   * @return String
+   */
+  public String nextUrl() {
+    String nextUrl;
+    if (xlinks.xlinks.next != null) {
+      nextUrl = this.xlinks.xlinks.next.substring(
+        xlinks.xlinks.next.indexOf('?')
+      );
+    }
+    return nextUrl;
+  }
+
+  /**
    * @description Wrapper class representing Channel attributes
    */
   public class Channels {
