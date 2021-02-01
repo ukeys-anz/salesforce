@@ -83,7 +83,7 @@ public with sharing class NewCaseFlowWrapperController {
       ChatChannelsResponseWrapper responseWrapper = deserializeResponse(responseBody);
       // Keep on adding to the list unil there is no Next set
       if (responseWrapper.hasChannels()) {
-        activeCahtTopics.addAll(responseWrapper.channels);
+        activeChatTopics.addAll(responseWrapper.channels);
       }
 
       nextURL = responseWrapper.nextUrl();
@@ -111,7 +111,7 @@ public with sharing class NewCaseFlowWrapperController {
   }
 
   // Query for Customer OCV ID by passing in the Account ID
-  private String getOCVId(Id accountID){
+  private static String getOCVId(Id accountID){
     if (Account.sObjectType.getDescribe().isQueryable()) {
       List<Account> accounts = [
         SELECT OCV_ID__c
