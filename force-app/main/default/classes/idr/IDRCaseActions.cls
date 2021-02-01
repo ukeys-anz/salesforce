@@ -429,14 +429,14 @@ public with sharing class IDRCaseActions {
    * 2. when a case has a status change. Flag status is needs to be recalculated.
    * @param record The actual case record from the trigger
    * @param oldRec The old record values for the case
-   * @param EntitlementId Entitlment ID that needs to be populated on the complaints case.
+   * @param entitlementId Entitlment ID that needs to be populated on the complaints case.
    */ 
-    private static void handleEntitlementForUpdate(Case record, Case oldRec , Id EntitlementId){
+    private static void handleEntitlementForUpdate(Case record, Case oldRec , Id entitlementId){
         
         // this is a case where indexing team as updated the details and identified it as a complaint. 
         // in this case we need to update the entitlement && flag on the case.
         if(string.isBlank(record.EntitlementId)){
-            record.EntitlementId = EntitlementId;
+            record.EntitlementId = entitlementId;
             record.IDR_Milestone_Sla__c = getMilestoneSla(record.Status, record.IDR_Date_Received__c , record.BusinessHoursId);  
         }
         
@@ -456,6 +456,7 @@ public with sharing class IDRCaseActions {
    * @param caseStatus status of the case record
    * @param dateReceived IDR_Date_Recieved field of the case
    * @param businessHoursId business hours of the case record.
+   * @return string value of the flag calculated based on the time elapsed from dateReceuved
    */ 
     private static string getMilestoneSla(string caseStatus , dateTime dateReceived , ID businessHoursId){
         string milestoneSla; 
