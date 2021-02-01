@@ -4,7 +4,6 @@
  * @group IDR(Internal Dispute Resolution)
  * @description Controller for the lightning component wrapping the Case creation flow, currently only for Complaints.
  */
-@SuppressWarnings('PMD.StdCyclomaticComplexity')
 public with sharing class NewCaseFlowWrapperController {
   /**
    * @description Get the Developer Name of a Case record type based on its Id
@@ -24,23 +23,25 @@ public with sharing class NewCaseFlowWrapperController {
    * @return String having the Active Chat Topic ID
    */
   @AuraEnabled
-  @SuppressWarnings('PMD.CyclomaticComplexity')
   public static string getActiveChatTopicIDsByCustomer(Id accountID) {
     // TODO: Only run below logic for Case record types which has a possibility of originating from a Chat.
     //       (Might have to pass in Record Type ID from Aura Controller to figure out the Record Type name)
 
     String activeChatTopicID = '';
 
+    // Get OCV ID by passing in SF Account ID
     String ocvId = getOCVId(accountID);
 
+    // Get Active Chat Topics from Twilio
     List<ChatChannelsResponseWrapper.Channels> activeChatTopics = getActiveChatChannelsFromTwilio(
       ocvId
     );
 
-    activeChatTopicID = getChatIds(activeChatTopics);
+    // Extract Channel SIDs from Active Chat Topics
+    activeChatTopicID = getChatChannelSIDs(activeChatTopics);
 
+    // If more than one active Chat Topic found, log an Application Log entry including the '|' seperated string of all returned Chat Topic IDs
     if (activeChatTopics.size() > 1) {
-      //Log an Application Log entry including the '|' seperated string of all returned Chat Topic IDs
       lib_systemLog.createSingleLog(
         NewCaseFlowWrapperController.class.getName(),
         'getActiveChatTopicIDsByCustomer',
@@ -60,27 +61,30 @@ public with sharing class NewCaseFlowWrapperController {
     return activeChatTopicID;
   }
 
-  // NOTE: Mule-Twilio API only returns filtered results within offset limit (MAX 20).
-  //       Therefore, we have to keep on querying the API until there is no 'Next' attribute present in the response to identify all 'Active' chat topics
-
-  // Loop through results to identify Active Chat Topics
-  // NOTE: A singe iteration of below loop will return a maximum of 20 records (Maximum offset limit supported by the API is 20 records at once)
-  //       If a particular customer have had 60 different Chat Topics throughout the lifetime with ANZx, the API will be called 3 times which is 60/20.
-
+  /**
+   * @description Get Active Chat Channels (Topics) from Twilio.
+   *    NOTE: Mule-Twilio API only returns filtered results within offset limit (MAX 20).
+   *    Therefore, we have to keep on querying the API until there is no 'Next' attribute present in the response to identify all 'Active' chat topics
+   * @param ocvId Customer OCV ID
+   * @return List<ChatChannelsResponseWrapper.Channels>
+   */
   private static List<ChatChannelsResponseWrapper.Channels> getActiveChatChannelsFromTwilio(
     String ocvId
   ) {
+    // Loop through results to identify Active Chat Topics
+    // NOTE: A singe iteration of below loop will return a maximum of 20 records (Maximum offset limit supported by the API is 20 records at once)
+    //       If a particular customer have had 60 different Chat Topics throughout the lifetime with ANZx, the API will be called 3 times which is 60/20.
     List<ChatChannelsResponseWrapper.Channels> activeChatTopics = new List<ChatChannelsResponseWrapper.Channels>();
     String nextURL = '';
     do {
       // Make a callout to Mulesoft to fetch all Chat Topics related to the customer
       String responseBody = getActiveChatTopics(ocvId, nextURL);
 
-      // process responseBody string, and replace '_links' with 'xlinks'
-
+      // Process and deserialize response body
       ChatChannelsResponseWrapper responseWrapper = deserializeResponse(
         responseBody
       );
+
       // Keep on adding to the list unil there is no Next set
       if (responseWrapper.hasChannels()) {
         activeChatTopics.addAll(responseWrapper.channels);
@@ -92,7 +96,12 @@ public with sharing class NewCaseFlowWrapperController {
     return activeChatTopics;
   }
 
-  private static String getChatIds(
+  /**
+   * @description Extracts Channel SIDs (Chat Topic IDs) from active Chat Topics. Returns a String containing Channel SIDs separated by '|'
+   * @param activeChatTopics List of active Chat Topics from response wrapper
+   * @return String
+   */
+  private static String getChatChannelSIDs(
     List<ChatChannelsResponseWrapper.Channels> activeChatTopics
   ) {
     String activeChatTopicID = '';
@@ -111,7 +120,11 @@ public with sharing class NewCaseFlowWrapperController {
     return activeChatTopicID;
   }
 
-  // Query for Customer OCV ID by passing in the Account ID
+  /**
+   * @description Query for Customer OCV ID by passing in the Account ID
+   * @param accountID SF Account ID related to the Customer
+   * @return String
+   */
   private static String getOCVId(Id accountID) {
     if (Account.sObjectType.getDescribe().isQueryable()) {
       List<Account> accounts = [
@@ -126,9 +139,15 @@ public with sharing class NewCaseFlowWrapperController {
     return null;
   }
 
+  /**
+   * @description Deserialize JSON response
+   * @param responseBody JSON response body
+   * @return ChatChannelsResponseWrapper
+   */
   private static ChatChannelsResponseWrapper deserializeResponse(
     String responseBody
   ) {
+    // Replace '_links' with 'xlinks'
     if (String.isNotBlank(responseBody)) {
       responseBody = responseBody.replace('_links', 'xlinks');
     }
@@ -146,7 +165,6 @@ public with sharing class NewCaseFlowWrapperController {
    * @param nextURL URL to get next result set if available
    * @return String
    */
-  @SuppressWarnings('PMD.ApexSuggestUsingNamedCred')
   public static String getActiveChatTopics(String ocvID, String nextURL) {
     String urlParams =
       '?status=active&chatFlowStatus=ACCEPTED&limit=' +
