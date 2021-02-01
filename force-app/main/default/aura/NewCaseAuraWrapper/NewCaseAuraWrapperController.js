@@ -10,11 +10,11 @@
     // Get the selected record type dev name and either show the LWC or redirect to the standard from
     helper.getRtDevName(component, function (rt) {
       if (helper.isComplaintCase(rt)) {
-        helper.setComplaintParameters(component, rt)
+        helper.setComplaintParameters(component, rt);
         // for cases that are not complaints, open the standard new case form
       } else {
         //workaround for console because the new case form opens in a new tab, so need to close the previous one
-        helper.handleNonComplaintCase(component)
+        helper.handleNonComplaintCase(component);
       }
     });
   },
