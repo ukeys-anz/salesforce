@@ -10,16 +10,24 @@ public with sharing class ChatChannelsResponseWrapper {
   // object to store first level '_links' in json
   public Links_Z xlinks;
 
-  public boolean hasChannels(){
+  /**
+   * @description Checks for Channels in the response
+   * @return Boolean
+   */
+  public boolean hasChannels() {
     return this.channels != null;
   }
 
-  public String nextUrl(){
+  /**
+   * @description Returns the URL to fetch the next set of records, if there is any
+   * @return String
+   */
+  public String nextUrl() {
     String nextUrl;
-    if(xlinks.xlinks.next != null) {
+    if (xlinks.xlinks.next != null) {
       nextUrl = this.xlinks.xlinks.next.substring(
-          xlinks.xlinks.next.indexOf('?')
-        );        
+        xlinks.xlinks.next.indexOf('?')
+      );
     }
     return nextUrl;
   }
