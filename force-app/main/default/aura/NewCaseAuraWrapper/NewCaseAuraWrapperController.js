@@ -9,116 +9,12 @@
     component.set("v.contextRecordId", helper.getContextRecordId(component));
     // Get the selected record type dev name and either show the LWC or redirect to the standard from
     helper.getRtDevName(component, function (rt) {
-      if (rt == "Non_Customer_Complaint" || rt == "Customer_Complaint") {
-        component.set(
-          "v.recordTypeId",
-          component.get("v.pageReference").state.recordTypeId
-        );
-        component.set("v.recordTypeDevName", rt);
-        component.set("v.showComponent", true);
+      if (helper.isComplaintCase(rt)) {
+        helper.setComplaintParameters(component, rt)
         // for cases that are not complaints, open the standard new case form
       } else {
         //workaround for console because the new case form opens in a new tab, so need to close the previous one
-        var workspaceAPI = component.find("workspace");
-        workspaceAPI.isConsoleNavigation().then(function (response) {
-          if (response == true) {
-            workspaceAPI.getFocusedTabInfo().then(function (response) {
-              var firstTabId = response.tabId;
-
-              //Reading Parent Record ID from URL to manipulate the console URL to open New Case window as a sub-tab.
-              var value = helper.getURLParameterByName(
-                component,
-                "inContextOfRef"
-              );
-
-              var chatTopicCheckPending = false;
-
-              var navigationUrl =
-                "/lightning/o/Case/new?count=1&nooverride=1&recordTypeId=" +
-                component.get("v.pageReference").state.recordTypeId;
-
-              if (value) {
-                var context = JSON.parse(window.atob(value));
-                var parentRecID = context.attributes.recordId;
-                var parentObjectName = context.attributes.objectApiName;
-
-                if (parentRecID) {
-                  navigationUrl =
-                    navigationUrl +
-                    "&ws=%2Flightning%2Fr%2F" +
-                    parentObjectName +
-                    "%2F" +
-                    parentRecID +
-                    "%2Fview";
-
-                  if (parentObjectName == "Account") {
-                    //Setting 'defaultFieldValues' to pre-populate the parent Account lookup.
-                    navigationUrl =
-                      navigationUrl +
-                      "&defaultFieldValues=AccountId=" +
-                      parentRecID;
-
-                    // Start loading spinner
-                    component.set("v.loading", true);
-
-                    // Fetch active Chat Topic ID (if there is any) related to the Customer
-                    chatTopicCheckPending = true;
-                    helper.getActiveChatTopicID(
-                      component,
-                      parentRecID,
-                      function (topicID) {
-                        //Also pre-populating/linking Chat Topic record, if the Case is related to an on-going active chat.
-                        var defaultFieldValues = "";
-                        if (topicID) {
-                          var array = topicID.split("|");
-                          if (array.length == 1) {
-                            navigationUrl =
-                              navigationUrl +
-                              ",Twilio_Channel_SID__c=" +
-                              topicID +
-                              ",Origin=Chat";
-                          } else {
-                            // only comes here if array length > 1
-                            // Saving '|' separated IDs on a custom field to help in troubleshooting
-                            navigationUrl =
-                              navigationUrl +
-                              ",Auto_matched_Chat_Topic_IDs__c=" +
-                              topicID;
-                          }
-                        }
-
-                        // Stop loading spinner
-                        component.set("v.loading", false);
-
-                        helper.navigateToNewCaseClosePreviousTab(
-                          workspaceAPI,
-                          navigationUrl,
-                          firstTabId
-                        );
-                      }
-                    );
-                  }
-                }
-              }
-
-              // Check to stop page navigation if Chat Topic linking logic/callback is pending
-              if (!chatTopicCheckPending) {
-                // Stop loading spinner
-                if (component.get("v.loading")) {
-                  component.set("v.loading", false);
-                }
-
-                helper.navigateToNewCaseClosePreviousTab(
-                  workspaceAPI,
-                  navigationUrl,
-                  firstTabId
-                );
-              }
-            });
-          } else {
-            helper.goToStandardNewCasePage(component, event);
-          }
-        });
+        helper.handleNonComplaintCase(component)
       }
     });
   },
