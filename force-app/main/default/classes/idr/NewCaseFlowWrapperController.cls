@@ -31,47 +31,45 @@ public with sharing class NewCaseFlowWrapperController {
 
     String activeChatTopicID = '';
 
-    
     String ocvId = getOCVId(accountID);
-    
 
-    List<ChatChannelsResponseWrapper.Channels> activeChatTopics = getActiveChatChannelsFromTwilio(ocvId);
-
-   
+    List<ChatChannelsResponseWrapper.Channels> activeChatTopics = getActiveChatChannelsFromTwilio(
+      ocvId
+    );
 
     activeChatTopicID = getChatIds(activeChatTopics);
 
-      if(activeChatTopics.size() >1 )
-      {
-        //Log an Application Log entry including the '|' seperated string of all returned Chat Topic IDs
-        lib_systemLog.createSingleLog(
-          NewCaseFlowWrapperController.class.getName(),
-          'getActiveChatTopicIDsByCustomer',
-          'MORE_THAN_ONE_ACTIVE_CHAT_TOPIC',
-          'More than one "Acitve" Chat Topics found while trying to auto-link to a Case.' +
-          ' - ' +
-          'Channel SIDs :' +
-          activeChatTopicID +
-          ' - Account ID:' +
-          accountID +
-          ' - ' +
-          'If user decides to save the Case (with or without a linked Chat Topic), the custom field "Auto_matched_Chat_Topic_IDs__c" on the particular Case record will me marked with auto-matched Chat Topic IDs to help troubleshooting.',
-          lib_systemLog.Severity.WARNING
-        );
-      }
-    
+    if (activeChatTopics.size() > 1) {
+      //Log an Application Log entry including the '|' seperated string of all returned Chat Topic IDs
+      lib_systemLog.createSingleLog(
+        NewCaseFlowWrapperController.class.getName(),
+        'getActiveChatTopicIDsByCustomer',
+        'MORE_THAN_ONE_ACTIVE_CHAT_TOPIC',
+        'More than one "Acitve" Chat Topics found while trying to auto-link to a Case.' +
+        ' - ' +
+        'Channel SIDs :' +
+        activeChatTopicID +
+        ' - Account ID:' +
+        accountID +
+        ' - ' +
+        'If user decides to save the Case (with or without a linked Chat Topic), the custom field "Auto_matched_Chat_Topic_IDs__c" on the particular Case record will me marked with auto-matched Chat Topic IDs to help troubleshooting.',
+        lib_systemLog.Severity.WARNING
+      );
+    }
 
     return activeChatTopicID;
   }
 
-   // NOTE: Mule-Twilio API only returns filtered results within offset limit (MAX 20).
-    //       Therefore, we have to keep on querying the API until there is no 'Next' attribute present in the response to identify all 'Active' chat topics
+  // NOTE: Mule-Twilio API only returns filtered results within offset limit (MAX 20).
+  //       Therefore, we have to keep on querying the API until there is no 'Next' attribute present in the response to identify all 'Active' chat topics
 
-    // Loop through results to identify Active Chat Topics
-    // NOTE: A singe iteration of below loop will return a maximum of 20 records (Maximum offset limit supported by the API is 20 records at once)
-    //       If a particular customer have had 60 different Chat Topics throughout the lifetime with ANZx, the API will be called 3 times which is 60/20.
-   
-  private static List<ChatChannelsResponseWrapper.Channels>  getActiveChatChannelsFromTwilio(String ocvId){
+  // Loop through results to identify Active Chat Topics
+  // NOTE: A singe iteration of below loop will return a maximum of 20 records (Maximum offset limit supported by the API is 20 records at once)
+  //       If a particular customer have had 60 different Chat Topics throughout the lifetime with ANZx, the API will be called 3 times which is 60/20.
+
+  private static List<ChatChannelsResponseWrapper.Channels> getActiveChatChannelsFromTwilio(
+    String ocvId
+  ) {
     List<ChatChannelsResponseWrapper.Channels> activeChatTopics = new List<ChatChannelsResponseWrapper.Channels>();
     String nextURL = '';
     do {
@@ -79,21 +77,24 @@ public with sharing class NewCaseFlowWrapperController {
       String responseBody = getActiveChatTopics(ocvId, nextURL);
 
       // process responseBody string, and replace '_links' with 'xlinks'
-     
-      ChatChannelsResponseWrapper responseWrapper = deserializeResponse(responseBody);
+
+      ChatChannelsResponseWrapper responseWrapper = deserializeResponse(
+        responseBody
+      );
       // Keep on adding to the list unil there is no Next set
       if (responseWrapper.hasChannels()) {
         activeChatTopics.addAll(responseWrapper.channels);
       }
 
       nextURL = responseWrapper.nextUrl();
-
     } while (nextURL != null);
 
     return activeChatTopics;
   }
 
-  private static String getChatIds( List<ChatChannelsResponseWrapper.Channels> activeChatTopics){
+  private static String getChatIds(
+    List<ChatChannelsResponseWrapper.Channels> activeChatTopics
+  ) {
     String activeChatTopicID = '';
     if (!activeChatTopics.isEmpty()) {
       if (activeChatTopics.size() == 1) {
@@ -107,11 +108,11 @@ public with sharing class NewCaseFlowWrapperController {
         }
       }
     }
-      return activeChatTopicID;
+    return activeChatTopicID;
   }
 
   // Query for Customer OCV ID by passing in the Account ID
-  private static String getOCVId(Id accountID){
+  private static String getOCVId(Id accountID) {
     if (Account.sObjectType.getDescribe().isQueryable()) {
       List<Account> accounts = [
         SELECT OCV_ID__c
@@ -125,7 +126,9 @@ public with sharing class NewCaseFlowWrapperController {
     return null;
   }
 
-  private static ChatChannelsResponseWrapper deserializeResponse(String responseBody){
+  private static ChatChannelsResponseWrapper deserializeResponse(
+    String responseBody
+  ) {
     if (String.isNotBlank(responseBody)) {
       responseBody = responseBody.replace('_links', 'xlinks');
     }
