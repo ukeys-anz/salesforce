@@ -85,12 +85,24 @@
             AccountId: parentRecID,
             Auto_matched_Chat_Topic_IDs__c: topicID
           };
+
+          this.showToast(
+            "warning",
+            "More than one Active Chat Topics found ! Chat Topic will not be auto-populated on Case.",
+            "Warning!"
+          );
         } else {
           defaultFieldValues = {
             AccountId: parentRecID,
             Twilio_Channel_SID__c: topicID,
             Origin: "Chat"
           };
+
+          this.showToast(
+            "success",
+            "Active Chat Topic was successfully auto-populated on Case !",
+            "Success!"
+          );
         }
       } else {
         // Chat Topic population faild, fallback option
@@ -170,10 +182,10 @@
         workspaceAPI.closeTab({ tabId: firstTabId });
       });
   },
-  showToast: function (notificationType, messageText) {
+  showToast: function (notificationType, messageText, messageTitle) {
     var toastEvent = $A.get("e.force:showToast");
     toastEvent.setParams({
-      title: "Success!",
+      title: messageTitle,
       message: messageText,
       type: notificationType
     });
@@ -298,7 +310,8 @@
 
           this.showToast(
             "warning",
-            "More than one Active Chat Topics found ! Chat Topic will not be auto-populated on Case."
+            "More than one Active Chat Topics found ! Chat Topic will not be auto-populated on Case.",
+            "Warning!"
           );
         } else {
           navigationUrl =
@@ -309,7 +322,8 @@
 
           this.showToast(
             "success",
-            "Active Chat Topic was successfully auto-populated on Case !"
+            "Active Chat Topic was successfully auto-populated on Case !",
+            "Success!"
           );
         }
       }
