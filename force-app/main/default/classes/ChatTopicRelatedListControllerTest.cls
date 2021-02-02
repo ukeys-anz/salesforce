@@ -8,14 +8,11 @@ public with sharing class ChatTopicRelatedListControllerTest {
   /**
    * @description setup is to setup test data
    */
-  static String ocvId;
   @testSetup
   static void setup() {
-    Faker faker = new Faker('AU');
-    ocvId = faker.randomString(10);
     Account accnt = new Account(
       Name = 'TestAccount',
-      OCV_ID__c = ocvId,
+      OCV_ID__c = '1234567891',
       ANZx_Customer__c = true
     );
     insert accnt;
@@ -33,7 +30,7 @@ public with sharing class ChatTopicRelatedListControllerTest {
   @isTest
   public static void validResponseChatTopicsOnAccount() {
     Test.setMock(HttpCalloutMock.class, new MockValidChatTopicsOnAccount());
-    TestHelper.addTokensForApiCallout(ocvId);
+    TestHelper.addTokensForApiCallout('1234567891');
     // Query for pre-inserted Account record
     Account acc = [SELECT Id FROM Account WHERE Name = 'TestAccount' LIMIT 1];
     Test.startTest();
@@ -69,7 +66,7 @@ public with sharing class ChatTopicRelatedListControllerTest {
       HttpCalloutMock.class,
       new MockInvalidChatTopicsByCustomerCallout()
     );
-    TestHelper.addTokensForApiCallout(ocvId);
+    TestHelper.addTokensForApiCallout('1234567891');
     // Query for pre-inserted Account record
     Account acc = [SELECT Id FROM Account WHERE Name = 'TestAccount' LIMIT 1];
     String expMessage;
@@ -102,7 +99,7 @@ public with sharing class ChatTopicRelatedListControllerTest {
   @isTest
   public static void validResponseChatTopicOnCase() {
     Test.setMock(HttpCalloutMock.class, new MockValidChatTopicsOnCase());
-    TestHelper.addTokensForApiCallout(ocvId);
+    TestHelper.addTokensForApiCallout('1234567891');
     // Query for pre-inserted Case record
     Case chatCase = [
       SELECT Id
@@ -145,7 +142,7 @@ public with sharing class ChatTopicRelatedListControllerTest {
       HttpCalloutMock.class,
       new MockInvalidChatTopicByChannelCallout()
     );
-    TestHelper.addTokensForApiCallout(ocvId);
+    TestHelper.addTokensForApiCallout('1234567891');
     // Query for pre-inserted Case record
     Case chatCase = [
       SELECT Id
