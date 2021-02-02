@@ -1,7 +1,6 @@
 import { LightningElement, api, track, wire } from "lwc";
 import getChatTopicsOnAccount from "@salesforce/apex/ChatTopicRelatedListController.getChatTopicsOnAccount";
 import getChatTopicInfoOnCase from "@salesforce/apex/ChatTopicRelatedListController.getChatTopicInfoOnCase";
-import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { publish, MessageContext } from "lightning/messageService";
 import chatReChannel from "@salesforce/messageChannel/ReinitiateChatTopic__c";
 import chatHistoryChannel from "@salesforce/messageChannel/ViewChatTopicHistory__c";
