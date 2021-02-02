@@ -10,7 +10,7 @@
     <columns>CORE.USERS.ALIAS</columns>
     <filterScope>Queue</filterScope>
     <label>IDR Everyday Banking</label>
-    <queue>IDR_Maladmin</queue>
+    <queue>IDR_Everyday_Banking</queue>
     <sharedTo>
         <group>All_IDR_Users</group>
     </sharedTo>
