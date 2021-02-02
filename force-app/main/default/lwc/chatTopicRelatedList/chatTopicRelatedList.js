@@ -6,6 +6,9 @@ import { publish, MessageContext } from "lightning/messageService";
 import chatReChannel from "@salesforce/messageChannel/ReinitiateChatTopic__c";
 import chatHistoryChannel from "@salesforce/messageChannel/ViewChatTopicHistory__c";
 
+// Util methods
+import { handleErrorShowToast } from "c/utils";
+
 // Twilio Channel Status values
 const STATUS_ACTIVE = "active";
 const STATUS_INACTIVE = "inactive";
@@ -76,7 +79,14 @@ export default class ChatTopicRelatedList extends LightningElement {
         if (error.body && error.body.message) {
           errorMessage = error.body.message;
         }
-        this.showToast("Chat Topic Load Failed", errorMessage, error);
+
+        handleErrorShowToast(
+          this,
+          "Chat Topic Load Failed",
+          error,
+          errorMessage,
+          "pester"
+        );
       });
   }
 
@@ -101,7 +111,14 @@ export default class ChatTopicRelatedList extends LightningElement {
         if (error.body && error.body.message) {
           errorMessage = error.body.message;
         }
-        this.showToast("Chat Topic Load Failed", errorMessage, error);
+
+        handleErrorShowToast(
+          this,
+          "Chat Topic Load Failed",
+          error,
+          errorMessage,
+          "pester"
+        );
       });
   }
 
@@ -156,18 +173,9 @@ export default class ChatTopicRelatedList extends LightningElement {
       if (error.body && error.body.message) {
         errorMessage = error.body.message;
       }
-      this.showToast(errorText, errorMessage, error);
-    }
-  }
 
-  //TODO to me moved to a common util once a paending PR is merged
-  showToast(theTitle, theMessage, theVariant) {
-    const event = new ShowToastEvent({
-      title: theTitle,
-      message: theMessage,
-      variant: theVariant
-    });
-    this.dispatchEvent(event);
+      handleErrorShowToast(this, errorText, error, errorMessage, "pester");
+    }
   }
 
   resolveStatuses(row) {
