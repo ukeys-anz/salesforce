@@ -3,5 +3,6 @@
     <fullName>ParentId</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_Salesforce;Integrity - Trusted;Privacy - Non Personal Information</complianceGroup>
+    <description>Case Id this comment is related to</description>
     <securityClassification>Confidential</securityClassification>
 </CustomField>

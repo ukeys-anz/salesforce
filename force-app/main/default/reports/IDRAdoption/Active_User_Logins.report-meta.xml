@@ -59,7 +59,7 @@
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
             <operator>contains</operator>
-            <value>IDR,Digital Servicing,CCC AU Sales - SLWS04 - Sales Wellington,ANZ Direct Manila Service,Card Solutions</value>
+            <value>IDR,Digital Servicing,CCC AU Sales - SLWS04,ANZ Direct Manila Service,Card Solutions,Acquiring &amp; Issuing Disputes,CSO Financial Resolution,ROYAL BANK,BAIRNSDALE,ARMADALE,BUNBURY,MORTG SOLUTION FRANCHISEES WA,MORTG SOLUTION FRANCHISEES VIC,Wetherill Park Business Centre,CARINGBAH LENDING,BB - Taren Point,NBC SBM,South West Sydney,BPB AF Desk</value>
         </criteriaItems>
     </filter>
     <format>Summary</format>

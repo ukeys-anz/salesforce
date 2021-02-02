@@ -3,7 +3,7 @@
     <fullName>Fraud_Total_Recipient_Loss__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_Salesforce;Integrity - Accurate</complianceGroup>
-    <description>Total Recipient Loss</description>
+    <description>The total amount not able to be recovered in the event a customer received stolen funds</description>
     <externalId>false</externalId>
     <formula>Fraud_Total_Fraud_Received__c -  Fraud_Total_Recovered__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>

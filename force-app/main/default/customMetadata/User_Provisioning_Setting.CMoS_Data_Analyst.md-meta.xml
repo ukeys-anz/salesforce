@@ -4,11 +4,11 @@
     <protected>false</protected>
     <values>
         <field>Permission_Set_Groups__c</field>
-        <value xsi:nil="true"/>
+        <value xsi:type="xsd:string">IDR_Data_Analyst</value>
     </values>
     <values>
         <field>Permission_Sets__c</field>
-        <value xsi:type="xsd:string">Enforce_SSO;IDR_Reporting_Analyst;</value>
+        <value xsi:type="xsd:string">Enforce_SSO</value>
     </values>
     <values>
         <field>Profile_Name__c</field>
@@ -16,10 +16,10 @@
     </values>
     <values>
         <field>Public_Groups__c</field>
-        <value xsi:type="xsd:string">All_IDR_Users;</value>
+        <value xsi:type="xsd:string">All_IDR_Users</value>
     </values>
     <values>
         <field>Role_Name__c</field>
-        <value xsi:nil="true"/>
+        <value xsi:type="xsd:string">ANZ</value>
     </values>
 </CustomMetadata>

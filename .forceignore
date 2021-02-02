@@ -34,6 +34,7 @@ force-app/main/default/permissionsets/SFDX_Full_Dev_Hub_Access.permissionset
 # The sharing rule calculations makes scratch org creation to timeout with error sharing operation already in progress
 force-app/main/default/sharingRules/Case.sharingRules-meta.xml
 force-app/main/default/sharingRules/User.sharingRules-meta.xml
+force-app/main/default/sharingRules/Account.sharingRules-meta.xml
 
 # Don't pull because delegated authenticaton (and therefore IsSsoEnabled permission) cannot currently be enabled in scratch orgs
 Enforce_SSO.permissionset
@@ -49,3 +50,6 @@ force-app/main/default/authproviders/Azure_AD_Custom_OIDC.authprovider-meta.xml
 
 # Ignoring PSL that does not exist in scratch org (not yet supported in scratch definition)
 force-app/main/default/permissionsets/myTrailhead_PSL.permissionset-meta.xml
+
+#Ignoring Jest tests as per https://developer.salesforce.com/docs/component-library/documentation/en/lwc/lwc.unit_testing_using_jest_create_tests
+**/__tests__/**

@@ -3,6 +3,7 @@
     <fullName>EntitlementId</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_Salesforce;Integrity - Accurate;Privacy - Non Personal Information</complianceGroup>
+    <description>Salesforce identifier indicating if there is an entitlement record to link a milestone to this case</description>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>

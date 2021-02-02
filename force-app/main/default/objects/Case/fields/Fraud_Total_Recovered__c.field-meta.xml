@@ -3,7 +3,7 @@
     <fullName>Fraud_Total_Recovered__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_Salesforce;Integrity - Accurate</complianceGroup>
-    <description>Total Recovered</description>
+    <description>The total amount recovered by fraud agents post a fraud or scam event</description>
     <externalId>false</externalId>
     <label>Total Recovered</label>
     <precision>18</precision>

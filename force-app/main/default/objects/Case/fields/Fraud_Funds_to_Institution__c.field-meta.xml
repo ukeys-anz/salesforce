@@ -3,7 +3,7 @@
     <fullName>Fraud_Funds_to_Institution__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_Salesforce;Integrity - Accurate</complianceGroup>
-    <description>Funds to Institution</description>
+    <description>The financial institution to which funds left a customer account due to a fraud event (list of common Australian banks)</description>
     <externalId>false</externalId>
     <label>Funds to Institution</label>
     <required>false</required>

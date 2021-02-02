@@ -57,6 +57,25 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Fraud_Assisted_ID_Event_Type__c</picklist>
+        <values>
+            <fullName>Failed Electronic Verification</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Failed ID to Face Bio-metric Match</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Failed Self-Service PIN Recovery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Update Legal Name</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Fraud_Complicit_in_Fraud__c</picklist>
         <values>
             <fullName>No</fullName>
@@ -83,6 +102,36 @@
         </values>
         <values>
             <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Fraud_Device_Status__c</picklist>
+        <values>
+            <fullName>Existing Device</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Device</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Fraud_Failed_Verification_Reason__c</picklist>
+        <values>
+            <fullName>Clearly Fake Document</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nuisance Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Suspect Fraud</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Under Age or Non-Qualified Person</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -1854,6 +1903,62 @@
         </values>
         <values>
             <fullName>Westpac</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Fraud_PIN_Status__c</picklist>
+        <values>
+            <fullName>Forgot PIN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Locked PIN</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Fraud_Phone_Number_Status__c</picklist>
+        <values>
+            <fullName>Existing Number</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Number</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Fraud_Provided_Document_Type__c</picklist>
+        <values>
+            <fullName>Drivers Licence</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Family Deed Poll</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marriage Certificate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other Change of Name Document</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Passport</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Fraud_Review_Outcome__c</picklist>
+        <values>
+            <fullName>Fail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pass</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -4557,111 +4662,6 @@
         </values>
         <values>
             <fullName>5</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Identity_Assisted_ID_Event_Type__c</picklist>
-        <values>
-            <fullName>Failed Electronic Verification</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Failed ID to Face Bio-metric Match</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Failed Self-Service PIN Recovery</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Update Legal Name</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Identity_Device_Status__c</picklist>
-        <values>
-            <fullName>Existing Device</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>New Device</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Identity_Failed_Verification_Reason__c</picklist>
-        <values>
-            <fullName>Clearly Fake Document</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Nuisance Customer</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Suspect Fraud</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Under Age or Non-Qualified Person</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Identity_PIN_Status__c</picklist>
-        <values>
-            <fullName>Forgot PIN</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Locked PIN</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Identity_Phone_Number_Status__c</picklist>
-        <values>
-            <fullName>Existing Number</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>New Number</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Identity_Provided_Document_Type__c</picklist>
-        <values>
-            <fullName>Drivers Licence</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Family Deed Poll</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Marriage Certificate</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other Change of Name Document</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Passport</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Identity_Review_Outcome__c</picklist>
-        <values>
-            <fullName>Fail</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Pass</fullName>
             <default>false</default>
         </values>
     </picklistValues>

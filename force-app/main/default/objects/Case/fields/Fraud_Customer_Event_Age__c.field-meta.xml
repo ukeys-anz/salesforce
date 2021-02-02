@@ -3,7 +3,7 @@
     <fullName>Fraud_Customer_Event_Age__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_Salesforce;Integrity - Accurate</complianceGroup>
-    <description>Age at Event (Years)</description>
+    <description>An auto-calculating field that provides the customers age (in years) at the time of the event</description>
     <externalId>false</externalId>
     <formula>(DATEVALUE(CreatedDate)  -  Account.PersonContact.Birthdate) / 365</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>

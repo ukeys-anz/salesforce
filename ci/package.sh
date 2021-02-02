@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/usr/bin/env bash
 
 # Access the helper methods
 source ci/helper.sh
@@ -9,6 +9,16 @@ DEPLOY_DIR="./tmp/deploy"
 DESTRUCTIVE_DIR="./tmp/destructive"
 META_DIR=(classes components pages triggers 'email/unfiled$public' staticresources)
 COMPONENT_DIR=(aura lwc)
+# If SOURCE_BRANCH is specified in the yml, do not overwrite
+if [ -z "$SOURCE_BRANCH" ]; then
+   [ $GITHUB_EVENT_NAME == "pull_request" ] &&
+      SOURCE_BRANCH=$BASE_BRANCH ||
+      SOURCE_BRANCH=${GITHUB_REF##*/}
+fi
+# If TAG_PREFIX is specified in the yml, do not overwrite
+if [ -z "$TAG_PREFIX" ]; then
+   TAG_PREFIX="$SOURCE_BRANCH"
+fi
 
 ## Make a deploy and destroy directories to start building artefacts
 mkdir -p tmp
@@ -16,7 +26,7 @@ mkdir ${DEPLOY_DIR}
 mkdir ${DESTRUCTIVE_DIR}
 
 # If any files have changed/been added that require a deployment, generate an artefact
-setBranchDiffCommand false false
+setBranchDiffCommand false false ${SOURCE_BRANCH} ${TAG_PREFIX}
 echo "Dif statement: ${DIFFSTARTCOMMAND} | ${DIFFENDCOMMAND}"
 CHANGED_FILES=$($DIFFSTARTCOMMAND | wc -w)
 echo "Number of changed files: ${CHANGED_FILES}"
@@ -27,11 +37,11 @@ if [ "${CHANGED_FILES}" -gt "0" ]; then
 fi
 
 # If any files have been deleted that need to be deleted, generate an artefact
-setBranchDiffCommand true true
+setBranchDiffCommand true true ${SOURCE_BRANCH} ${TAG_PREFIX}
 DELETED_FILES=$($DIFFSTARTCOMMAND | wc -l)
 echo "Number of deleted files: ${DELETED_FILES}"
 if [ "${DELETED_FILES}" -gt "0" ]; then
-    setBranchDiffCommand true false
+    setBranchDiffCommand true false ${SOURCE_BRANCH} ${TAG_PREFIX}
     $($DIFFSTARTCOMMAND | $DIFFENDCOMMAND)
     unzipDestructivePackage
 fi

@@ -4,8 +4,13 @@
  * @description CMOS CaseComment Action methods
  */
 public inherited sharing class IDRCaseCommentActions {
+  //list of platform events to publish
   @testVisible
   private static IDR_CaseComment_Event__e[] idrCaseCommentEscalationEvents;
+
+  //max number of comments per platform event
+  @testVisible
+  private static final Integer COMMENTS_PER_EVENT = 28;
 
   /**
    * @description Escalate new CaseComments to CFMS.
@@ -67,12 +72,12 @@ public inherited sharing class IDRCaseCommentActions {
    * Each event's comments__c field will contain a JSON array of case comments.
    * A problem here is one hand we want to publish as few events as possible,
    * and on the other hand a single event containing all Trigger.New may overflow the comments__c max-length.
-   * Solution is to consider at most ~4100 chars per comment and 131072 chars per event.comments__c hence split the CaseComment list in 30-comment events
+   * Solution is to consider at most ~4100 chars per comment and 131072 chars per event.comments__c hence split the CaseComment list in COMMENTS_PER_EVENT-comment events
    * @param records List of case comments to escalate
    */
   private static void publishCaseComments(CaseComment[] records) {
     idrCaseCommentEscalationEvents = new List<IDR_CaseComment_Event__e>();
-    for (List<CaseComment> comments : splitRecordList(records)) {
+    for (List<CaseComment> comments : splitCommentList(records)) {
       String json = buildCommentsPayload(comments);
       idrCaseCommentEscalationEvents.add(
         new IDR_CaseComment_Event__e(Comments__c = json)
@@ -177,20 +182,77 @@ public inherited sharing class IDRCaseCommentActions {
   }
 
   /**
+   * @description Split the lists of comments to be escalated into several lists,
+   * one list per event to be sent (no comments on different cases in the same event and up to COMMENTS_PER_EVENT comments per event)
+   * @param records list of comments to be escalated
+   * @return A list containing lists of comments
+   */
+  private static List<List<CaseComment>> splitCommentList(
+    CaseComment[] records
+  ) {
+    //split list case by case
+    List<List<CaseComment>> caseByCaseComments = splitCommentListCaseByCase(
+      records
+    );
+    //then split each list into smaller lists
+    List<List<CaseComment>> lists = new List<List<CaseComment>>();
+    for (List<CaseComment> comments : caseByCaseComments) {
+      for (List<CaseComment> commentList : splitInSmallerLists(comments)) {
+        lists.add(commentList);
+      }
+    }
+    return lists;
+  }
+
+  /**
+   * @description Split a list of comments into one list per case they're children of
+   * We do this because CFMS' case notes API only accept a list of comments on the same case
+   * @param records a list case comments
+   * @return A list containing lists of case comments
+   */
+  private static List<List<CaseComment>> splitCommentListCaseByCase(
+    CaseComment[] records
+  ) {
+    Set<Id> caseIds = new Set<Id>();
+    for (CaseComment comment : records) {
+      caseIds.add(comment.ParentId);
+    }
+    List<List<CaseComment>> commentsByCaseLists = new List<List<CaseComment>>();
+    for (Id caseId : caseIds) {
+      List<CaseComment> commentsByCaseList = new List<CaseComment>();
+      Integer i = 0;
+      while (i < records.size()) {
+        if (records.get(i).ParentId == caseId) {
+          commentsByCaseList.add(records.get(i));
+          records.remove(i);
+        } else {
+          i++;
+        }
+      }
+      commentsByCaseLists.add(commentsByCaseList);
+    }
+    return commentsByCaseLists;
+  }
+
+  /**
    * @description Split a list into smaller lists
    * @param records a list of up to 200 records
-   * @return A list containing lists of up to 30 records
+   * @return A list containing lists of up to COMMENTS_PER_EVENT records
    */
   @testVisible
-  private static List<List<CaseComment>> splitRecordList(
+  private static List<List<CaseComment>> splitInSmallerLists(
     CaseComment[] records
   ) {
     List<List<CaseComment>> smallLists = new List<List<CaseComment>>();
-    for (Integer i = 0; i < Math.floor(records.size() / 30 + 1); i++) {
+    for (
+      Integer i = 0;
+      i < Math.floor(records.size() / COMMENTS_PER_EVENT + 1);
+      i++
+    ) {
       List<CaseComment> smallList = new List<CaseComment>();
-      for (Integer j = 0; j < 30; j++) {
-        if (j < records.size() - 30 * i) {
-          smallList.add(records[j + 30 * i]);
+      for (Integer j = 0; j < COMMENTS_PER_EVENT; j++) {
+        if (j < records.size() - COMMENTS_PER_EVENT * i) {
+          smallList.add(records[j + COMMENTS_PER_EVENT * i]);
         } else {
           break;
         }

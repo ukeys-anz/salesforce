@@ -14,7 +14,7 @@
   },
   "externalFiles": [
     {
-      "file": "extFiles/caseAges.csv",
+      "file": "extFiles/case_ages.csv",
       "name": "case_ages",
       "type": "csv"
     }

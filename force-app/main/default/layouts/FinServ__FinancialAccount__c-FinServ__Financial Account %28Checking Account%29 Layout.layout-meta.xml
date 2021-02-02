@@ -305,8 +305,10 @@
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
-        <fields>FinServ__BinNumber__c</fields>
+        <fields>Card_Number__c</fields>
+        <fields>Expiry_Date__c</fields>
         <fields>FinServ__AccountHolder__c</fields>
+        <fields>FinServ__BinNumber__c</fields>
         <fields>FinServ__ValidUntil__c</fields>
         <fields>FinServ__Active__c</fields>
         <fields>FinServ__OwnershipType__c</fields>
@@ -361,7 +363,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2N000000po8l</masterLabel>
+        <masterLabel>00h2N000001Bn5x</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

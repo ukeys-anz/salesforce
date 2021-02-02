@@ -3,7 +3,7 @@
     <fullName>Fraud_Total_Fraud_Received__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_Salesforce;Integrity - Accurate</complianceGroup>
-    <description>Total Fraud Received</description>
+    <description>The total amount received by a customer who received stolen funds</description>
     <externalId>false</externalId>
     <label>Total Fraud Received</label>
     <precision>18</precision>

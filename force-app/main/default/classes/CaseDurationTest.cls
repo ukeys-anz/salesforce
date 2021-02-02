@@ -67,8 +67,8 @@ public class CaseDurationTest {
     List<CaseHistoryObject> historyList = new List<CaseHistoryObject>();
     CaseHistoryObject history1 = new CaseHistoryObject(
       'New',
-      Datetime.newInstance(2020, 12, 7, 0, 0, 0),
-      Datetime.newInstance(2020, 12, 8, 0, 0, 0),
+      Datetime.newInstance(2020, 12, 7, 9, 0, 0),
+      Datetime.newInstance(2020, 12, 8, 9, 0, 0),
       bhs[0].Id
     );
     historyList.add(history1);
@@ -76,7 +76,7 @@ public class CaseDurationTest {
     caseDurationObj.calculateCaseDuration();
 
     CaseDurationObject.DurationTime durationTime = caseDurationObj.caseDuration;
-    System.assertEquals(24, durationTime.hours);
+    System.assertEquals(8, durationTime.hours);
   }
 
   /**
@@ -95,14 +95,14 @@ public class CaseDurationTest {
     List<CaseHistoryObject> historyList = new List<CaseHistoryObject>();
     CaseHistoryObject history1 = new CaseHistoryObject(
       'New',
-      Datetime.newInstance(2020, 12, 7, 0, 0, 0),
-      Datetime.newInstance(2020, 12, 8, 0, 0, 0),
+      Datetime.newInstance(2020, 12, 7, 9, 0, 0),
+      Datetime.newInstance(2020, 12, 8, 9, 0, 0),
       bhs[0].Id
     );
     CaseHistoryObject history2 = new CaseHistoryObject(
       'Open',
-      Datetime.newInstance(2020, 12, 8, 0, 0, 0),
-      Datetime.newInstance(2020, 12, 9, 0, 0, 0),
+      Datetime.newInstance(2020, 12, 8, 9, 0, 0),
+      Datetime.newInstance(2020, 12, 9, 9, 0, 0),
       bhs[0].Id
     );
     historyList.add(history1);
@@ -111,7 +111,56 @@ public class CaseDurationTest {
     caseDurationObj.calculateCaseDuration();
 
     CaseDurationObject.DurationTime durationTime = caseDurationObj.caseDuration;
-    System.assertEquals(48, durationTime.hours);
+    System.assertEquals(16, durationTime.hours);
+  }
+
+  /**
+   * @description testCaseDurationWithDetailedMinutes tests case Duration with detailed seconds to test the precision
+   */
+  @isTest
+  public static void testCaseDurationWithDetailedMinutes() {
+    Case newCase = [SELECT ID FROM Case LIMIT 1];
+    List<BusinessHours> bhs = [
+      SELECT id
+      FROM BusinessHours
+      WHERE IsDefault = TRUE
+    ];
+    CaseDurationObject caseDurationObj = new CaseDurationObject(newCase.Id);
+
+    List<CaseHistoryObject> historyList = new List<CaseHistoryObject>();
+    CaseHistoryObject history1 = new CaseHistoryObject(
+      'New',
+      Datetime.newInstance(2020, 12, 7, 9, 0, 0),
+      Datetime.newInstance(2020, 12, 7, 9, 0, 15),
+      bhs[0].Id
+    );
+    CaseHistoryObject history2 = new CaseHistoryObject(
+      'Open',
+      Datetime.newInstance(2020, 12, 7, 9, 1, 0),
+      Datetime.newInstance(2020, 12, 7, 9, 1, 15),
+      bhs[0].Id
+    );
+    CaseHistoryObject history3 = new CaseHistoryObject(
+      'Open',
+      Datetime.newInstance(2020, 12, 7, 9, 2, 0),
+      Datetime.newInstance(2020, 12, 7, 9, 2, 15),
+      bhs[0].Id
+    );
+    CaseHistoryObject history4 = new CaseHistoryObject(
+      'Open',
+      Datetime.newInstance(2020, 12, 7, 9, 3, 0),
+      Datetime.newInstance(2020, 12, 7, 9, 3, 15),
+      bhs[0].Id
+    );
+    historyList.add(history1);
+    historyList.add(history2);
+    historyList.add(history3);
+    historyList.add(history4);
+    caseDurationObj.history = historyList;
+    caseDurationObj.calculateCaseDuration();
+
+    CaseDurationObject.DurationTime durationTime = caseDurationObj.caseDuration;
+    System.assertEquals(1, durationTime.minutes);
   }
 
   /**
@@ -130,14 +179,14 @@ public class CaseDurationTest {
     List<CaseHistoryObject> historyList = new List<CaseHistoryObject>();
     CaseHistoryObject history1 = new CaseHistoryObject(
       'New',
-      Datetime.newInstance(2020, 12, 7, 0, 0, 0),
-      Datetime.newInstance(2020, 12, 8, 0, 0, 0),
+      Datetime.newInstance(2020, 12, 7, 9, 0, 0),
+      Datetime.newInstance(2020, 12, 8, 9, 0, 0),
       bhs[0].Id
     );
     CaseHistoryObject history2 = new CaseHistoryObject(
       'Closed',
-      Datetime.newInstance(2020, 12, 8, 0, 0, 0),
-      Datetime.newInstance(2020, 12, 9, 0, 0, 0),
+      Datetime.newInstance(2020, 12, 8, 9, 0, 0),
+      Datetime.newInstance(2020, 12, 9, 9, 0, 0),
       bhs[0].Id
     );
     historyList.add(history1);
@@ -146,7 +195,7 @@ public class CaseDurationTest {
     caseDurationObj.calculateCaseDuration();
 
     CaseDurationObject.DurationTime durationTime = caseDurationObj.caseDuration;
-    System.assertEquals(24, durationTime.hours);
+    System.assertEquals(8, durationTime.hours);
   }
 
   /**

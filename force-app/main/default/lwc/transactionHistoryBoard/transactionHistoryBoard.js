@@ -48,9 +48,9 @@ export default class TransactionHistoryBoard extends LightningElement {
   @track filterList = [];
   @track savedMaxIndex = 0;
   expandAll = false;
-  endDate;
   startDate;
-  todayDate;
+  endDate = new Date().toISOString().slice(0, 10);
+  todayDate = new Date().toISOString().slice(0, 10);
   disableSearch = false;
   ocvId;
   accountNumber;
@@ -58,6 +58,7 @@ export default class TransactionHistoryBoard extends LightningElement {
   errorMessage;
   totalTransactions;
   links;
+  loading = true;
 
   @wire(MessageContext)
   messageContext;
@@ -77,137 +78,115 @@ export default class TransactionHistoryBoard extends LightningElement {
   }
 
   get showLoadMore() {
-    return this.links && this.links.next ? true : false;
+    return this.links && this.links.next && this.links.next.href ? true : false;
   }
 
-  fetchTransactions(nextUrl = "") {
-    this.todayDate = this.endDate = new Date().toISOString().slice(0, 10);
+  fetchTransactions(paramUrl = "", isSearch = false) {
     getTransactions({
       ocvId: this.ocvId,
       accountNumber: this.accountNumber,
-      nextURL: nextUrl
+      paramUrl: paramUrl
     })
       .then((result) => {
         if (result) {
-          let response = JSON.parse(result);
-
-          this.totalTransactions = response.total;
-          this.fullTransactionList = response.transactions;
-
-          this.links = response.links;
-
+          this.totalTransactions = JSON.parse(result).total;
+          this.fullTransactionList = JSON.parse(result).transactions;
+          this.links = JSON.parse(result).links;
           let updatedFullList = [];
-          for (let i = 0; i < this.fullTransactionList.length; i++) {
-            let currentTransaction = this.fullTransactionList[i];
 
-            //Remove $ from value and convert to int
-            currentTransaction.amount.charged.value = parseFloat(
-              currentTransaction.amount.charged.value.replace("$", ""),
-              10
-            ).toFixed(2);
+          if (this.fullTransactionList) {
+            for (let i = 0; i < this.fullTransactionList.length; i++) {
+              let currentTransaction = { ...this.fullTransactionList[i] };
 
-            //Remap type and status
-            currentTransaction.type =
-              transactionTypeMapping[currentTransaction.type];
-            currentTransaction.status =
-              transactionStatusMapping[currentTransaction.status];
+              //Remove $ from value and convert to int
+              currentTransaction.amount.charged.value = parseFloat(
+                currentTransaction.amount.charged.value.replace("$", ""),
+                10
+              ).toFixed(2);
 
-            //Slice the returned date time to get only the date
-            currentTransaction.TransactionDate = currentTransaction.date.slice(
-              0,
-              10
-            );
+              //Remap type and status
+              currentTransaction.type =
+                transactionTypeMapping[currentTransaction.type];
+              currentTransaction.status =
+                transactionStatusMapping[currentTransaction.status];
 
-            //Return only the time from the date time
-            currentTransaction.TransactionTime = currentTransaction.date.match(
-              /\d\d:\d\d/
-            );
+              //Slice the returned date time to get only the date
+              currentTransaction.TransactionDate = currentTransaction.date.slice(
+                0,
+                10
+              );
 
-            if (i === 0) {
-              currentTransaction.showDateTitle = true;
-            } else if (
-              currentTransaction.TransactionDate !==
-              this.fullTransactionList[i - 1].TransactionDate
-            ) {
-              currentTransaction.showDateTitle = true;
-            } else {
-              currentTransaction.showDateTitle = false;
-            }
+              //Return only the time from the date time
+              currentTransaction.TransactionTime = currentTransaction.date.match(
+                /\d\d:\d\d/
+              );
 
-            //Apply odd or even for each item to determine background
-            currentTransaction.rowColour =
-              "slds-card slds-m-bottom_small transaction-item ";
-            currentTransaction.rowColour += i % 2 === 0 ? "even" : "odd";
-
-            if (currentTransaction.tags) {
-              currentTransaction.tagList = [];
-              //loop through tags
-              currentTransaction.tags.forEach((tag) => {
-                //Truncate tag name
-                if (tag.name.length > 15) {
-                  tag.name = tag.name.substring(0, 14) + "...";
-                }
-                currentTransaction.tagList.push(tag.name);
-              });
-            }
-
-            //Handle merchant details
-            if (currentTransaction.merchant) {
-              currentTransaction.merchantDetails = true;
-              currentTransaction.name = currentTransaction.merchant.chain_name
-                ? currentTransaction.merchant.chain_name.value
-                : currentTransaction.merchant.name;
-
-              currentTransaction.merchantLocation = `${currentTransaction.merchant.address.line_one.value}, ${currentTransaction.merchant.address.suburb.value} ${currentTransaction.merchant.address.state.value} ${currentTransaction.merchant.address.postcode.value}`;
-
-              currentTransaction.logo =
-                currentTransaction.merchant.image_details.light_url.value;
-
-              currentTransaction.merchant.email = currentTransaction.merchant
-                .email
-                ? currentTransaction.merchant.email.value
-                : "";
-              if (currentTransaction.merchant.address.coordinates) {
-                //Set the map markers for the map
-                currentTransaction.mapMarkers = [
-                  {
-                    location: {
-                      Latitude:
-                        currentTransaction.merchant.address.coordinates
-                          .latitude,
-                      Longitude:
-                        currentTransaction.merchant.address.coordinates
-                          .longitude
-                    }
-                  }
-                ];
+              if (i === 0) {
+                currentTransaction.showDateTitle = true;
+              } else if (
+                currentTransaction.TransactionDate !==
+                this.fullTransactionList[i - 1].TransactionDate
+              ) {
+                currentTransaction.showDateTitle = true;
+              } else {
+                currentTransaction.showDateTitle = false;
               }
+
+              //Apply odd or even for each item to determine background
+              currentTransaction.rowColour =
+                "slds-card slds-m-bottom_small transaction-item ";
+              currentTransaction.rowColour += i % 2 === 0 ? "even" : "odd";
+
+              if (currentTransaction.tags) {
+                currentTransaction.tagList = [];
+                //loop through tags
+                currentTransaction.tags.forEach((tag) => {
+                  //Truncate tag name
+                  if (tag.name.length > 15) {
+                    tag.name = tag.name.substring(0, 14) + "...";
+                  }
+                  currentTransaction.tagList.push(tag.name);
+                });
+              }
+
+              //Handle merchant details
+              if (currentTransaction.merchant) {
+                currentTransaction = this.handleMerchantDetails(
+                  currentTransaction
+                );
+              }
+
+              //Remap card scheme to be user friendly
+              if (currentTransaction.card) {
+                currentTransaction.card.scheme =
+                  cardMapping[currentTransaction.card.scheme];
+              }
+
+              //Check if international transaction
+              if (
+                currentTransaction.amount.type === "EXCHANGE_TYPE_INTERNATIONAL"
+              ) {
+                currentTransaction.internationalDetails = true;
+              }
+
+              currentTransaction.error = currentTransaction.error
+                ? currentTransaction.error
+                : "N/A";
+
+              updatedFullList.push(currentTransaction);
             }
-
-            //Remap card scheme to be user friendly
-            if (currentTransaction.card) {
-              currentTransaction.card.scheme =
-                cardMapping[currentTransaction.card.scheme];
-            }
-
-            //Check if international transaction
-            if (
-              currentTransaction.amount.type === "EXCHANGE_TYPE_INTERNATIONAL"
-            ) {
-              currentTransaction.internationalDetails = true;
-            }
-
-            currentTransaction.error = currentTransaction.error
-              ? currentTransaction.error
-              : "N/A";
-
-            updatedFullList.push(currentTransaction);
           }
 
+          //Clear transaction list to only display search results
+          if (isSearch) {
+            this.transactionList = [];
+          }
           updatedFullList.forEach((e) => {
             this.transactionList.push(e);
           });
         }
+
+        this.loading = false;
       })
       .catch((error) => {
         this.errorMessage =
@@ -220,12 +199,44 @@ export default class TransactionHistoryBoard extends LightningElement {
           }
         }
         this.hasError = true;
+        this.loading = false;
         this.showToast(
           "Transaction History Load Failed",
           this.errorMessage,
           error
         );
       });
+  }
+
+  handleMerchantDetails(transaction) {
+    transaction.merchantDetails = true;
+    transaction.name = transaction.merchant.chain_name
+      ? transaction.merchant.chain_name.value
+      : transaction.merchant.name;
+
+    if (transaction.merchant.address) {
+      transaction.merchantLocation = `${transaction.merchant.address.line_one.value}, ${transaction.merchant.address.suburb.value} ${transaction.merchant.address.state.value} ${transaction.merchant.address.postcode.value}`;
+
+      if (transaction.merchant.address.coordinates) {
+        //Set the map markers for the map
+        transaction.mapMarkers = [
+          {
+            location: {
+              Latitude: transaction.merchant.address.coordinates.latitude,
+              Longitude: transaction.merchant.address.coordinates.longitude
+            }
+          }
+        ];
+      }
+    }
+
+    transaction.logo = transaction.merchant.image_details.light_url.value;
+
+    transaction.merchant.email = transaction.merchant.email
+      ? transaction.merchant.email.value
+      : "";
+
+    return transaction;
   }
 
   showToast(theTitle, theMessage, theVariant) {
@@ -269,7 +280,22 @@ export default class TransactionHistoryBoard extends LightningElement {
   }
 
   handleSearch() {
-    return true;
+    this.loading = true;
+    //Need to convert dates to ISO string for search params
+    let urlParam;
+    if (this.startDate) {
+      urlParam = `&start_date=${new Date(
+        this.startDate + " 00:00:00 UTC"
+      ).toISOString()}`;
+    }
+
+    if (this.endDate) {
+      urlParam =
+        urlParam +
+        `&end_date=${new Date(this.endDate + " 23:59:59 UTC").toISOString()}`;
+    }
+
+    this.fetchTransactions(urlParam, true);
   }
 
   handleStartDateChange(e) {

@@ -3,7 +3,7 @@
     <fullName>Fraud_Customer_Resolution_Provided__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_Salesforce;Integrity - Accurate</complianceGroup>
-    <description>Customer Resolution Provided</description>
+    <description>To denote whether the customer's issue was resolved in the event their identity was compromised</description>
     <externalId>false</externalId>
     <label>Customer Resolution Provided</label>
     <required>false</required>

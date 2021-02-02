@@ -5,7 +5,6 @@
     <fields>PersonBirthdate</fields>
     <fields>PersonMobilePhone</fields>
     <fields>PersonEmail</fields>
-    <fields>FinServ__ContactPreference__pc</fields>
     <fields>BillingAddress</fields>
     <label>Person Account Compact Layout</label>
 </CompactLayout>

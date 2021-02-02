@@ -404,6 +404,8 @@ public with sharing class IDRCaseActions {
             Case.Type,
             c.Type
           ),
+          Complaint_Issue_Key__c = c.Type,
+          Complaint_Subsequent_Issue__c = c.IDR_Subsequent_Issue__c,
           Country__c = c.IDR_NC_Country__c,
           Customer_Number__c = c.IDR_Customer_Number__c,
           Email__c = c.IDR_NC_Email__c,
@@ -426,10 +428,12 @@ public with sharing class IDRCaseActions {
             Case.IDR_Complaint_Remedy__c,
             c.IDR_Complaint_Remedy__c
           ),
-          State__c = IDRCaseActions.getPicklistLabel(
-            Case.IDR_NC_State__c,
-            c.IDR_NC_State__c
-          ),
+          State__c = c.IDR_NC_State__c == '11'
+            ? 'OTHER TERRITORIES'
+            : IDRCaseActions.getPicklistLabel(
+                Case.IDR_NC_State__c,
+                c.IDR_NC_State__c
+              ),
           Suburb__c = c.IDR_NC_Suburb__c,
           Priority__c = c.Priority,
           Channel_Received__c = IDRCaseActions.getPicklistLabel(

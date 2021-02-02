@@ -3,7 +3,7 @@
     <fullName>ClosedDate</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_Salesforce;Integrity - Accurate;Privacy - Non Personal Information</complianceGroup>
-    <description>Closed Date</description>
+    <description>Date the customer case is marked as closed</description>
     <securityClassification>Internal</securityClassification>
     <trackTrending>false</trackTrending>
 </CustomField>

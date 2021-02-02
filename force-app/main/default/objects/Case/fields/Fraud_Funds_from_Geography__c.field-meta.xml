@@ -3,7 +3,7 @@
     <fullName>Fraud_Funds_from_Geography__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_Salesforce;Integrity - Accurate</complianceGroup>
-    <description>Funds from Geography</description>
+    <description>The geographical location of the account in which a customer received stolen funds</description>
     <externalId>false</externalId>
     <label>Funds from Geography</label>
     <required>false</required>

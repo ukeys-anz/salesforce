@@ -3,7 +3,7 @@
     <fullName>What_Customer_was_Trying_to_Do__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
-    <description>What the customer was attempting to do when they encountered the bug.</description>
+    <description>What the customer was attempting to do when they encountered the bug</description>
     <externalId>false</externalId>
     <inlineHelpText>What the customer was attempting to do when they encountered the bug.</inlineHelpText>
     <label>What Customer was Trying to Do</label>

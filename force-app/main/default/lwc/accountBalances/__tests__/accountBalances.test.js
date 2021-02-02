@@ -1,0 +1,210 @@
+import accountBalances from "c/accountBalances";
+import { createElement } from "lwc";
+import getBalances from "@salesforce/apex/AccountBalancesController.getBalances";
+import { publish, subscribe, MessageContext } from "lightning/messageService";
+import {
+  registerLdsTestWireAdapter,
+  registerTestWireAdapter
+} from "@salesforce/sfdx-lwc-jest";
+import UpdateAccountsAndGoals from "@salesforce/messageChannel/FinancialAccountsGoalsUpdate__c";
+import UpdateAccountsGoalsTimed from "@salesforce/messageChannel/FinancialAccountGoalsTimedUpdate__c";
+import TriggerLoading from "@salesforce/messageChannel/FinancialAccountsTriggerLoading__c";
+
+jest.mock(
+  "@salesforce/apex/AccountBalancesController.getBalances",
+  () => {
+    return {
+      default: jest.fn()
+    };
+  },
+  { virtual: true }
+);
+
+const APEX_FACCOUNTS_SUCCESS = [
+  {
+    Id: "a0c2O00000197sUQAQ",
+    FinServ__Balance__c: 50,
+    FinServ__CurrentPostedBalance__c: 50,
+    LastModifiedDate: "2021-01-05T04:56:48.000+0000"
+  }
+];
+
+const APEX_FACCOUNTS_EMPTY = [
+  {
+    Id: "",
+    FinServ__Balance__c: null,
+    FinServ__CurrentPostedBalance__c: null,
+    LastModifiedDate: null
+  }
+];
+
+const APEX_FACCOUNTS_NO_RECORD = [];
+
+// Sample error for imperative Apex call
+const APEX_FACCOUNTS_ERROR = {
+  body: { message: "An internal server error has occurred" },
+  ok: false,
+  status: 400,
+  statusText: "Bad Request"
+};
+
+const messageContextWireAdapter = registerTestWireAdapter(MessageContext);
+
+describe("c-accountsBalances", () => {
+  //clean the dom and mocks in between test runs
+  afterEach(() => {
+    while (document.body.firstChild) {
+      document.body.removeChild(document.body.firstChild);
+    }
+    jest.clearAllMocks();
+  });
+
+  function flushPromises() {
+    return new Promise((resolve) => setImmediate(resolve));
+  }
+
+  it("test default section", () => {
+    getBalances.mockResolvedValue(APEX_FACCOUNTS_SUCCESS);
+
+    const element = createElement("c-account-balances", {
+      is: accountBalances
+    });
+    document.body.appendChild(element);
+
+    const loadingEle = element.shadowRoot.querySelector("lightning-spinner");
+
+    return Promise.resolve().then(() => {
+      expect(loadingEle).not.toBeNull();
+    });
+  });
+
+  it("test loading secenario", () => {
+    getBalances.mockResolvedValue(APEX_FACCOUNTS_SUCCESS);
+
+    const element = createElement("c-account-balances", {
+      is: accountBalances
+    });
+    document.body.appendChild(element);
+
+    const payload = {
+      update: true
+    };
+    publish(messageContextWireAdapter, TriggerLoading, payload);
+
+    return Promise.resolve().then(() => {
+      const loadingEle = element.shadowRoot.querySelector("lightning-spinner");
+      expect(loadingEle).not.toBeNull();
+    });
+  });
+
+  it("registers the LMS subscriber during the component lifecycle", () => {
+    getBalances.mockResolvedValue(APEX_FACCOUNTS_SUCCESS);
+
+    const element = createElement("c-account-balances", {
+      is: accountBalances
+    });
+    document.body.appendChild(element);
+
+    expect(subscribe).toHaveBeenCalled();
+  });
+
+  it("test update accounts and goals secenario", () => {
+    getBalances.mockResolvedValue(APEX_FACCOUNTS_SUCCESS);
+
+    const element = createElement("c-account-balances", {
+      is: accountBalances
+    });
+    document.body.appendChild(element);
+
+    const payload = {
+      update: true
+    };
+
+    publish(messageContextWireAdapter, UpdateAccountsAndGoals, payload);
+
+    return flushPromises().then(() => {
+      const balanceEle = element.shadowRoot.querySelector("article");
+      expect(balanceEle).not.toBeNull();
+    });
+  });
+
+  it("test update accounts and goals secenario with error message", () => {
+    getBalances.mockResolvedValue(APEX_FACCOUNTS_SUCCESS);
+
+    const element = createElement("c-account-balances", {
+      is: accountBalances
+    });
+    document.body.appendChild(element);
+
+    const payload = {
+      message: "test error message"
+    };
+
+    publish(messageContextWireAdapter, UpdateAccountsAndGoals, payload);
+
+    return flushPromises().then(() => {
+      const balanceEle = element.shadowRoot.querySelector("article");
+      expect(balanceEle).not.toBeNull();
+    });
+  });
+
+  it("test update accounts and goals secenario with Apex failures", () => {
+    getBalances.mockRejectedValue(APEX_FACCOUNTS_ERROR);
+
+    const element = createElement("c-account-balances", {
+      is: accountBalances
+    });
+    document.body.appendChild(element);
+
+    const payload = {
+      message: "test error message"
+    };
+
+    publish(messageContextWireAdapter, UpdateAccountsAndGoals, payload);
+
+    return flushPromises().then(() => {
+      const balanceEle = element.shadowRoot.querySelector("article");
+      expect(balanceEle).toBeNull();
+    });
+  });
+
+  it("test update accounts and goals secenario with empty values", () => {
+    getBalances.mockResolvedValue(APEX_FACCOUNTS_EMPTY);
+
+    const element = createElement("c-account-balances", {
+      is: accountBalances
+    });
+    document.body.appendChild(element);
+
+    const payload = {
+      message: "test error message"
+    };
+
+    publish(messageContextWireAdapter, UpdateAccountsAndGoals, payload);
+
+    return flushPromises().then(() => {
+      const balanceEle = element.shadowRoot.querySelector("article");
+      expect(balanceEle).not.toBeNull();
+    });
+  });
+
+  it("test update accounts and goals secenario with no record", () => {
+    getBalances.mockResolvedValue(APEX_FACCOUNTS_NO_RECORD);
+
+    const element = createElement("c-account-balances", {
+      is: accountBalances
+    });
+    document.body.appendChild(element);
+
+    const payload = {
+      message: "test error message"
+    };
+
+    publish(messageContextWireAdapter, UpdateAccountsAndGoals, payload);
+
+    return flushPromises().then(() => {
+      const balanceEle = element.shadowRoot.querySelector("article");
+      expect(balanceEle).not.toBeNull();
+    });
+  });
+});

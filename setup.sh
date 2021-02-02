@@ -101,6 +101,9 @@ y | Y)
     echo "Creating IDR user"
     node createUser.js --profile "idr level 3"
 
+    echo "Assigning user roles"
+    sfdx force:apex:execute -f ./apex-scripts/assignUserRole.apex
+
     echo "Create users json for webdriverIO"
     node createUserJsonList.js
 
@@ -112,6 +115,9 @@ esac
 
 ALL_END_TIME=$(date +%s)
 echo "$(date): All done in $((ALL_END_TIME - ALL_START_TIME)) s."
+
+echo "Resetting source tracking..."
+sfdx force:source:tracking:reset -p
 
 echo "Open scratch org..."
 sfdx force:org:open

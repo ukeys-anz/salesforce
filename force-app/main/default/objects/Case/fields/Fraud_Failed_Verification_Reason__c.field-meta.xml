@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Fraud_Failed_Verification_Reason__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Source - Salesforce</complianceGroup>
+    <description>To denote why a individual failed assisted verification  in an assisted ID event</description>
+    <externalId>false</externalId>
+    <label>Failed Verification Reason</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Fraud_Review_Outcome__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Clearly Fake Document</fullName>
+                <default>false</default>
+                <label>Clearly Fake Document</label>
+            </value>
+            <value>
+                <fullName>Nuisance Customer</fullName>
+                <default>false</default>
+                <label>Nuisance Customer</label>
+            </value>
+            <value>
+                <fullName>Under Age or Non-Qualified Person</fullName>
+                <default>false</default>
+                <label>Under Age or Non-Qualified Person</label>
+            </value>
+            <value>
+                <fullName>Suspect Fraud</fullName>
+                <default>false</default>
+                <label>Suspect Fraud</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Fail</controllingFieldValue>
+            <valueName>Clearly Fake Document</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fail</controllingFieldValue>
+            <valueName>Nuisance Customer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fail</controllingFieldValue>
+            <valueName>Under Age or Non-Qualified Person</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fail</controllingFieldValue>
+            <valueName>Suspect Fraud</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

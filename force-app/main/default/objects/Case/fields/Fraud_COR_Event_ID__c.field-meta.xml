@@ -4,7 +4,7 @@
     <businessStatus>Active</businessStatus>
     <caseSensitive>false</caseSensitive>
     <complianceGroup>Source_Salesforce;Integrity - Trusted</complianceGroup>
-    <description>COR Event ID</description>
+    <description>The reportable event number for a case that is loaded into COR whereby a loss exceeds $10k</description>
     <externalId>false</externalId>
     <label>COR Event ID</label>
     <length>9</length>

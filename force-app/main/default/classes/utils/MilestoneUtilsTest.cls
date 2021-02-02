@@ -14,6 +14,7 @@ private class MilestoneUtilsTest {
       accnts.add(
         new Account(
           Name = 'TestAccount',
+          Display_Name__c = 'TestAccount',
           OCV_ID__c = faker.randomString(10),
           ANZx_Customer__c = true
         )
@@ -40,7 +41,7 @@ private class MilestoneUtilsTest {
     List<Account> accIdList = [
       SELECT Id
       FROM Account
-      WHERE Name = 'TestAccount'
+      WHERE Display_Name__c = 'TestAccount'
     ];
 
     List<Case> caseList = [SELECT Id FROM Case WHERE AccountId IN :accIdList];
@@ -71,7 +72,7 @@ private class MilestoneUtilsTest {
     List<Account> accIdList = [
       SELECT Id
       FROM Account
-      WHERE Name = 'TestAccount'
+      WHERE Display_Name__c = 'TestAccount'
     ];
 
     List<Case> caseList = [

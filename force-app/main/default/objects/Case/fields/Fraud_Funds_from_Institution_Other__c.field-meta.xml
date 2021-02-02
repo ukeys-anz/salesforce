@@ -3,7 +3,7 @@
     <fullName>Fraud_Funds_from_Institution_Other__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_Salesforce;Integrity - Trusted</complianceGroup>
-    <description>Funds from Institution (Other)</description>
+    <description>The financial institution of the account in which a customer received stolen funds (if not in list)</description>
     <externalId>false</externalId>
     <label>Funds from Institution (Other)</label>
     <length>50</length>
