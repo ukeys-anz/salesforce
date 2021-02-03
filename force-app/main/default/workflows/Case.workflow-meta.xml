@@ -78,10 +78,10 @@
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
-        <fullName>escalate_the_case</fullName>
+        <fullName>Escalate_The_Case</fullName>
         <field>IsEscalated</field>
         <literalValue>1</literalValue>
-        <name>escalate the case</name>
+        <name>Escalate The Case</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Literal</operation>
         <protected>false</protected>

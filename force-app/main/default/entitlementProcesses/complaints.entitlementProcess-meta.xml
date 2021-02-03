@@ -41,7 +41,7 @@
                 <type>FieldUpdate</type>
             </actions>
             <actions>
-                <name>escalate_the_case</name>
+                <name>Escalate_The_Case</name>
                 <type>FieldUpdate</type>
             </actions>
             <timeLength>0</timeLength>
@@ -91,7 +91,7 @@
                 <type>FieldUpdate</type>
             </actions>
             <actions>
-                <name>escalate_the_case</name>
+                <name>Escalate_The_Case</name>
                 <type>FieldUpdate</type>
             </actions>
             <timeLength>0</timeLength>

@@ -468,7 +468,7 @@ public with sharing class IDRCaseActions {
         }else if ((caseStatus == UNDER_INVESTIGATION_STATUS && duration.intValue() >= 96 && duration.intValue() < 120 )|| (caseStatus == OPEN_STATUS && duration.intValue() >= 48 &&  duration.intValue() < 72)){
             milestoneSla = IDRConstants.MILESTONE_SLA_RED;
         }else{
-            milestoneSla = IDRConstants.MILESTONE_SLA_VOILATED; 
+            milestoneSla = IDRConstants.MILESTONE_SLA_VIOLATED; 
         }              
         return milestoneSla;
     }
