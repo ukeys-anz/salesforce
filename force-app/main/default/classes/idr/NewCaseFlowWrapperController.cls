@@ -182,7 +182,7 @@ public with sharing class NewCaseFlowWrapperController {
         finalURL
       );
 
-      RequestUtils.setAuthHeaders(request, ocvID, 'GET');
+      RequestUtils.setCommonRequestParams(request, 'GET');
       responseBody = RequestUtils.processRequest(
         request,
         NewCaseFlowWrapperController.class.getName(),

@@ -89,7 +89,7 @@ public with sharing class ChatTopicRelatedListController {
         urlParams
       );
 
-      RequestUtils.setAuthHeaders(request, ocvID, 'GET');
+      RequestUtils.setCommonRequestParams(request, 'GET');
       responseBody = RequestUtils.processRequest(
         request,
         ChatTopicRelatedListController.class.getName(),
@@ -121,7 +121,7 @@ public with sharing class ChatTopicRelatedListController {
         channelSID
       );
 
-      RequestUtils.setAuthHeaders(request, ocvID, 'GET');
+      RequestUtils.setCommonRequestParams(request, 'GET');
       responseBody = RequestUtils.processRequest(
         request,
         ChatTopicRelatedListController.class.getName(),
