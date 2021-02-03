@@ -244,6 +244,15 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>objectName</name>
+                    <value>Account</value>
+                </componentInstanceProperties>
+                <componentName>chatTopicRelatedList</componentName>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
                     <name>tabs</name>
                     <value>Facet-67841764-3f50-493f-a29a-65b606c2d12c</value>
                 </componentInstanceProperties>
