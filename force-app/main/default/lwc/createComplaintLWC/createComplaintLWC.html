@@ -484,6 +484,104 @@
                 ></lightning-input-field>
               </div>
             </div>
+            <!-- Issue2 starts here -->
+            <lightning-input
+              type="toggle"
+              label="Is there an another Issue?"
+              onchange={handle2ndIssueToggleChange}
+              message-toggle-active="Yes"
+              message-toggle-inactive="No"
+            >
+            </lightning-input>
+            <template if:true={hasSecondIssue}>
+              <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                  <lightning-input-field
+                    variant="label-stacked"
+                    required={hasSecondIssue}
+                    field-name={issueType2}
+                    id="issueType2-id"
+                  ></lightning-input-field>
+                </div>
+                <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                  <lightning-input-field
+                    variant="label-stacked"
+                    required={hasSecondIssue}
+                    field-name={subsequentIssue2}
+                    id="subsequentIssue2-id"
+                  ></lightning-input-field>
+                </div>
+                <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                  <lightning-input-field
+                    variant="label-stacked"
+                    required={hasSecondIssue}
+                    field-name={productValue2}
+                    id="productValue2-id"
+                  ></lightning-input-field>
+                </div>
+                <template if:true={isCustomerComplaint}>
+                  <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                    <lightning-input-field
+                      variant="label-stacked"
+                      required
+                      field-name={accountOrPolicyNumber2}
+                      id="accPolicyNum2-id"
+                    ></lightning-input-field>
+                  </div>
+                </template>
+              </div>
+            </template>
+            <!-- Issue2 end here -->
+            <!-- Issue3 starts here -->
+            <template if:true={hasSecondIssue}>
+              <lightning-input
+                type="toggle"
+                label="Is there an another Issue?"
+                onchange={handle3rdIssueToggleChange}
+                message-toggle-active="Yes"
+                message-toggle-inactive="No"
+              >
+              </lightning-input>
+            </template>
+            <template if:true={hasThirdIssue}>
+              <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                  <lightning-input-field
+                    variant="label-stacked"
+                    required={hasThirdIssue}
+                    field-name={issueType3}
+                    id="issueType3-id"
+                  ></lightning-input-field>
+                </div>
+                <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                  <lightning-input-field
+                    variant="label-stacked"
+                    required={hasThirdIssue}
+                    field-name={subsequentIssue3}
+                    id="subsequentIssue3-id"
+                  ></lightning-input-field>
+                </div>
+                <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                  <lightning-input-field
+                    variant="label-stacked"
+                    required={hasThirdIssue}
+                    field-name={productValue3}
+                    id="productValue3-id"
+                  ></lightning-input-field>
+                </div>
+                <template if:true={isCustomerComplaint}>
+                  <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                    <lightning-input-field
+                      variant="label-stacked"
+                      required
+                      field-name={accountOrPolicyNumber3}
+                      id="accPolicyNum3-id"
+                    ></lightning-input-field>
+                  </div>
+                </template>
+              </div>
+            </template>
+            <!-- Issue3 end here -->
           </lightning-accordion-section>
 
           <lightning-accordion-section name="C" label="Resolution Information">
@@ -539,45 +637,6 @@
                 </div>
                 <div class="slds-col slds-size_2-of-4"></div>
               </template>
-
-              <!--Systemic issues-->
-              <div class="slds-col slds-size_1-of-4 slds-m-right_large">
-                <lightning-helptext
-                  content="Issues which may impact more than one customer AND are of a compliance nature. E.g. ANZ systems or processes not working properly or non-compliance with terms and conditions"
-                >
-                </lightning-helptext>
-                <lightning-radio-group
-                  required
-                  name="commoncomplaintGroup"
-                  label="Is this a possible systemic issue?"
-                  onchange={handleCommonComplaint}
-                  options={commoncomplaintoptions}
-                  value={isCommonComplaintYesNo}
-                  type="button"
-                >
-                </lightning-radio-group>
-              </div>
-              <template if:true={isCommonComplaint}>
-                <div class="slds-col slds-size_1-of-4 slds-m-right_large">
-                  <lightning-input-field
-                    variant="label-stacked"
-                    required={isCommonComplaint}
-                    field-name={systemicIssueDescription}
-                    id="systemicIssueDescription-id"
-                  ></lightning-input-field>
-                </div>
-                <div class="slds-col slds-size_1-of-4 slds-m-right_large">
-                  <lightning-input-field
-                    variant="label-stacked"
-                    aria-label="Autocomplete parent systemic issue"
-                    field-name={SystemicIssue}
-                    value={systemicIssueValue}
-                    onchange={handleSystemicIssueChange}
-                    id="systemic-issue-id"
-                  ></lightning-input-field>
-                </div>
-              </template>
-
               <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                 <lightning-helptext
                   content="A REAL form is required if there has been an Operational Risk Event: a failure of internal process, people and/or systems, or an external event (i.e. something has gone wrong). The event could/will have financial, reputation or compliance impacts for ANZ"
@@ -592,6 +651,7 @@
                 >
                 </lightning-input>
               </div>
+              <!--Complaint Status-->
               <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                 <lightning-combobox
                   name="ComplaintStatus"
@@ -635,6 +695,14 @@
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
                     variant="label-stacked"
+                    required={isComplaintResolved}
+                    field-name={outcomeDescription}
+                    id="descOutcome-id"
+                  ></lightning-input-field>
+                </div>
+                <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                  <lightning-input-field
+                    variant="label-stacked"
                     aria-label="Dropdown Complaint Remedy"
                     required={isComplaintResolved}
                     field-name={complaintRemedy}
@@ -672,14 +740,62 @@
                     ></lightning-input-field>
                   </template>
                 </div>
+              </template>
+            </div>
+            <!--Systemic issues-->
+            <div class="slds-grid slds-wrap">
+              <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                <lightning-helptext
+                  content="Issues which may impact more than one customer AND are of a compliance nature. E.g. ANZ systems or processes not working properly or non-compliance with terms and conditions"
+                >
+                </lightning-helptext>
+                <lightning-radio-group
+                  required
+                  name="commoncomplaintGroup"
+                  label="Is this a possible systemic issue?"
+                  onchange={handleCommonComplaint}
+                  options={commoncomplaintoptions}
+                  value={isCommonComplaintYesNo}
+                  type="button"
+                >
+                </lightning-radio-group>
+              </div>
+              <template if:true={isCommonComplaint}>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
                     variant="label-stacked"
-                    required={isComplaintResolved}
-                    field-name={outcomeDescription}
-                    id="descOutcome-id"
+                    required={isCommonComplaint}
+                    field-name={systemicIssueDescription}
+                    id="systemicIssueDescription-id"
                   ></lightning-input-field>
                 </div>
+                <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                  <lightning-input-field
+                    variant="label-stacked"
+                    required={isCommonComplaint}
+                    field-name={systemicIssueCategory}
+                    id="systemicIssueCategory-id"
+                  ></lightning-input-field>
+                </div>
+                <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                  <lightning-input-field
+                    variant="label-stacked"
+                    aria-label="Autocomplete parent systemic issue"
+                    field-name={SystemicIssue}
+                    value={systemicIssueValue}
+                    onchange={handleSystemicIssueChange}
+                    id="systemic-issue-id"
+                  ></lightning-input-field>
+                </div>
+                <template if:true={hasSecondIssue}>
+                  <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                    <lightning-input-field
+                      variant="label-stacked"
+                      field-name={possibleSystemicIssues}
+                      id="possibleSystemicIssues-id"
+                    ></lightning-input-field>
+                  </div>
+                </template>
               </template>
             </div>
           </lightning-accordion-section>

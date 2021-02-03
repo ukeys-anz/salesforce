@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR15_Validate_SI_On_Complaint</fullName>
+    <active>true</active>
+    <description>Systemic issue description and category are mandatory when a complaint is possible systemic issue</description>
+    <errorConditionFormula>AND(
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+OR(
+RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
+RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
+),
+ISPICKVAL(IDR_Is_Common__c,&apos;Yes&apos;),
+OR(
+ISBLANK(IDR_Systemic_Issue_Description__c),
+ISBLANK(TEXT(IDR_Systemic_Issue_Category__c))
+)
+)</errorConditionFormula>
+    <errorMessage>Please select Why is this a possible systemic issue? and Possible Systemic Issue Category if this is a possible systemic issue</errorMessage>
+</ValidationRule>
