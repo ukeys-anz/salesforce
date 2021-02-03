@@ -31,9 +31,9 @@
                 <label>Normal</label>
             </value>
             <value>
-                <fullName>Voilated</fullName>
+                <fullName>Violated</fullName>
                 <default>false</default>
-                <label>Voilated</label>
+                <label>Violated</label>
             </value>
         </valueSetDefinition>
     </valueSet>

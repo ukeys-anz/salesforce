@@ -119,10 +119,21 @@ public with sharing class IDRCaseActions {
    */
   public static void applyDefaults(List<Case> records) {
     Id entitlementId = getEntitlement();
+    //future use do not remove the below commented code
+    // salesforce limitation ,business hours id is not populated at this point in time get the  complaints business hours (default value) for SLA calculation;
+    /*Id businessHoursId ;
+    if(BusinessHours.sObjectType.getDescribe().isQueryable()) {
+      list<BusinessHours> bh = new list<BusinessHours>();
+      bh = [SELECT Id FROM BusinessHours WHERE IsDefault=true];
+      if(bh.size() > 0){
+         businessHoursId = bh[0].Id ;
+      }      
+    }*/
     for (Case record : records) {
       if (isIDRComplaintType(record)) {
         record.EntitlementId = entitlementId;
         record.IDR_Milestone_Sla__c = IDRConstants.MILESTONE_SLA_NORMAL;
+       // record.IDR_Milestone_Sla__c = getMilestoneSla(record.Status, record.IDR_Date_Received__c , businessHoursId); 
         handleMasking(record);
         handleAnonymousNames(record);
         handleCaseStatusChanges(record);
@@ -170,6 +181,7 @@ public with sharing class IDRCaseActions {
    * @param records from the trigger
    */
   public static void beforeUpdate(Map<Id, SObject> oldMap, List<Case> records) {
+    Id entitlementId = getEntitlement();
     for (Integer i = 0; i < records.size(); i++) {
       if (isIDRComplaintType(records.get(i))) {
         validateCaseNumber(
@@ -178,6 +190,7 @@ public with sharing class IDRCaseActions {
         );
         handleMasking(records.get(i));
         handleAnonymousNames(records.get(i));
+        handleEntitlementForUpdate(records.get(i) ,(Case) oldMap.get(records.get(i).id) ,entitlementId);  
         identifyOwnerChangeRecords(
           records.get(i),
           ((Case) oldMap.get(records.get(i).id)).OwnerId
@@ -185,10 +198,6 @@ public with sharing class IDRCaseActions {
         if (
           records.get(i).Status != ((Case) oldMap.get(records.get(i).id)).Status
         ) {
-          if (records.get(i).Status == UNDER_INVESTIGATION_STATUS) {
-            records.get(i)
-              .IDR_Milestone_Sla__c = IDRConstants.MILESTONE_SLA_NORMAL;
-          }
           handleCaseStatusChanges(records.get(i));
         }
         handleCaseEscalationRules(
@@ -420,7 +429,57 @@ public with sharing class IDRCaseActions {
       record.IsEscalated = false;
     }
   }
+   /**
+   * @description  handleEntitlementForUpdate method is used to update the entitlment and time to escalation flag.
+   * 1. when a case is updated by the indexing team. entitlment ID and Flag both need to be calculated.
+   * 2. when a case has a status change. Flag status is needs to be recalculated.
+   * Note : IDR_Milestone_Sla__c is updated by entitlment process. this code is to handle the edge case scenarios.
+   * where the date received is back dated and milestones warning actions will not execute.
+   * @param record The actual case record from the trigger
+   * @param oldRec The old record values for the case
+   * @param entitlementId Entitlment ID that needs to be populated on the complaints case.
+   */ 
+    private static void handleEntitlementForUpdate(Case record, Case oldRec , Id entitlementId){
+        
+        // this is a case where indexing team as updated the details and identified it as a complaint. 
+        // in this case we need to update the entitlement && flag on the case.
+        if(string.isBlank(record.EntitlementId)){
+            record.EntitlementId = entitlementId;
+            record.IDR_Milestone_Sla__c = getMilestoneSla(record.Status, record.IDR_Date_Received__c , record.BusinessHoursId);  
+        }
+        
+        // this is a case where complaint has changed status. we need to recalculate the flag status.
+        if( record.Status != oldRec.Status && (record.Status == UNDER_INVESTIGATION_STATUS || record.Status == OPEN_STATUS)){
+             record.IDR_Milestone_Sla__c = getMilestoneSla(record.Status, record.IDR_Date_Received__c , record.BusinessHoursId);                       
+        }
+        
+    }  
 
+    /**
+   * @description  getMilestoneSla method is used to identify the appropriate SLA flag that needs to be shown on the case.
+   * 1. when a case is open for less than 1 business day or is under investgation for less than 3 days it should be green (normal)
+   * 2. when a case is open for  1-2 business days or  is under investigation for  3-4 business days it should be flagged as amber
+   * 3. when a case is open for more than 2 business days or  is under investigation for more than 4 business days it shoud be flagged as red. 
+   * 4. if the case is open 3 days  or more / is under investgation for 5 days/more it will be auto escalated ,mark as violated.
+   * @param caseStatus status of the case record
+   * @param dateReceived IDR_Date_Recieved field of the case
+   * @param businessHoursId business hours of the case record.
+   * @return string value of the flag calculated based on the time elapsed from dateReceuved
+   */ 
+    private static string getMilestoneSla(string caseStatus , dateTime dateReceived , ID businessHoursId){
+        string milestoneSla; 
+        decimal duration = DateTimeUtils.calculateHoursBetween(dateReceived,system.NOW(),businessHoursId);
+        if ((caseStatus == UNDER_INVESTIGATION_STATUS && duration.intValue() < 72 )|| (caseStatus == OPEN_STATUS && duration.intValue() < 24 )){
+            milestoneSla = IDRConstants.MILESTONE_SLA_NORMAL;
+        }else if((caseStatus == UNDER_INVESTIGATION_STATUS && duration.intValue() >= 72 && duration.intValue() < 96 )||(caseStatus == OPEN_STATUS && duration.intValue() >= 24 && duration.intValue() < 48 )){
+        	milestoneSla = IDRConstants.MILESTONE_SLA_AMBER;
+        }else if ((caseStatus == UNDER_INVESTIGATION_STATUS && duration.intValue() >= 96 && duration.intValue() < 120 )|| (caseStatus == OPEN_STATUS && duration.intValue() >= 48 &&  duration.intValue() < 72)){
+            milestoneSla = IDRConstants.MILESTONE_SLA_RED;
+        }else{
+            milestoneSla = IDRConstants.MILESTONE_SLA_VIOLATED; 
+        }              
+        return milestoneSla;
+    }
   /**
    * @description Get the EntitlmentId that will be associated with this case
    *@return Id  - the Id of the entitlment record
