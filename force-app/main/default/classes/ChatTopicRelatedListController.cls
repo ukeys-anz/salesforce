@@ -82,7 +82,7 @@ public with sharing class ChatTopicRelatedListController {
       HttpRequest request = new HttpRequest();
       String urlParams = String.isBlank(nextURL) ? rowLimitParam : nextURL;
       request.setEndpoint(
-        'callout:SF_MS_Fabric' +
+        'callout:SF_MS_Twilio' +
         Label.MS_Get_CustomerChatChannels +
         ocvID +
         CHANNELS_ENDPOINT_SUFFIX +
@@ -116,7 +116,7 @@ public with sharing class ChatTopicRelatedListController {
     if (String.isNotBlank(ocvID) && String.isNotBlank(channelSID)) {
       HttpRequest request = new HttpRequest();
       request.setEndpoint(
-        'callout:SF_MS_Fabric' +
+        'callout:SF_MS_Twilio' +
         Label.MS_Get_CaseChatChannel +
         channelSID
       );

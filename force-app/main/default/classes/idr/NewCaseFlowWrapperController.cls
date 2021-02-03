@@ -175,7 +175,7 @@ public with sharing class NewCaseFlowWrapperController {
       HttpRequest request = new HttpRequest();
       String finalURL = String.isBlank(nextURL) ? urlParams : nextURL;
       request.setEndpoint(
-        'callout:SF_MS_Fabric' +
+        'callout:SF_MS_Twilio' +
         Label.MS_Get_CustomerChatChannels +
         ocvID +
         ChatTopicRelatedListController.CHANNELS_ENDPOINT_SUFFIX +
