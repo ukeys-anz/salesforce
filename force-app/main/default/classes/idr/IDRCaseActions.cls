@@ -427,6 +427,8 @@ public with sharing class IDRCaseActions {
    * @description  handleEntitlementForUpdate method is used to update the entitlment and time to escalation flag.
    * 1. when a case is updated by the indexing team. entitlment ID and Flag both need to be calculated.
    * 2. when a case has a status change. Flag status is needs to be recalculated.
+   * Note : IDR_Milestone_Sla__c is updated by entitlment process. this code is to handle the edge case scenarios.
+   * where the date received is back dated and milestones warning actions will not execute.
    * @param record The actual case record from the trigger
    * @param oldRec The old record values for the case
    * @param entitlementId Entitlment ID that needs to be populated on the complaints case.
