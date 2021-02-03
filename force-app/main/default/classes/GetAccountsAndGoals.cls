@@ -23,13 +23,7 @@ public with sharing class GetAccountsAndGoals {
       HttpRequest request = new HttpRequest();
       request.setEndpoint('callout:SF_MS_Fabric' + Label.MS_Get_Accounts_Goals);
 
-      request.setMethod('GET');
-      String serializedToken = AuthTokenCacheUtil.getStaffToken(ocvId);
-      request.setHeader('Authorization', 'Bearer ' + serializedToken);
-      request.setHeader('client_id', '{!$Credential.Username}');
-      request.setHeader('client_secret', '{!$Credential.Password}');
-      //Todo: This needs to be replaced with uniquely generated id based on what is accepted by forge
-      //request.setHeader('x-correlation-id', RequestUtils.getRequestId());
+      RequestUtils.setAuthHeaders(request, ocvId, 'GET');
       HTTPResponse response = null;
       try {
         Http http = new Http();

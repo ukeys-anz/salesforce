@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Trusted;Privacy - Personal Information</complianceGroup>
     <description>Unstructured text, no maximum limit</description>
+    <encryptionScheme>ProbabilisticEncryption</encryptionScheme>
     <externalId>false</externalId>
     <label>Verbatim</label>
     <length>32768</length>

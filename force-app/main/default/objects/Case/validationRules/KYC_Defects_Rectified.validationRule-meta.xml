@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>KYC_Defects_Rectified</fullName>
+    <active>true</active>
+    <description>Ensures that an agent has selected a Yes value to &apos;Have All Defects Been Rectified&apos; if any other field has been selected as a No</description>
+    <errorConditionFormula>AND(
+($Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false),
+(RecordType.DeveloperName = &quot;KYC_QA&quot;),
+ISPICKVAL (Status, &quot;Closed&quot;),
+ISPICKVAL (Fraud_Defects_Rectified__c, &quot;Not Applicable&quot; ),
+OR(
+ISPICKVAL (Fraud_ID_True_Document__c, &quot;No&quot;),
+ISPICKVAL (Fraud_ID_Not_Picture__c , &quot;No&quot;),
+ISPICKVAL (Fraud_Customer_Photo_Modified__c , &quot;No&quot;),
+ISPICKVAL (Fraud_Security_Features__c , &quot;No&quot;),
+ISPICKVAL (Fraud_ID_Legible__c , &quot;No&quot;),
+ISPICKVAL (Fraud_Customer_Details__c , &quot;No&quot;),
+ISPICKVAL (Fraud_EV_Match__c, &quot;No&quot;),
+ISPICKVAL (Fraud_EV_Consent__c, &quot;No&quot;),
+ISPICKVAL (Fraud_EV_Rules_Met__c, &quot;No&quot;),
+ISPICKVAL (Fraud_PO_Box__c , &quot;No&quot;),
+ISPICKVAL (Fraud_Middle_Name__c , &quot;No&quot;)))</errorConditionFormula>
+    <errorMessage>You have selected that an error has been found in the individual&apos;s KYC and have not selected that the error has been rectified or that the customer has failed to respond with required documents. Please check the field &quot;Have All Defects Been Rectified&quot;.</errorMessage>
+</ValidationRule>

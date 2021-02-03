@@ -1836,11 +1836,6 @@
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
-    <field>Account.Legal_Entitlements__c</field>
-    <readable>false</readable>
-  </fieldPermissions>
-  <fieldPermissions>
-    <editable>false</editable>
     <field>Account.NumberOfEmployees</field>
     <readable>false</readable>
   </fieldPermissions>
@@ -1866,17 +1861,7 @@
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
-    <field>Account.Preferred_Phone__c</field>
-    <readable>false</readable>
-  </fieldPermissions>
-  <fieldPermissions>
-    <editable>false</editable>
     <field>Account.Rating</field>
-    <readable>false</readable>
-  </fieldPermissions>
-  <fieldPermissions>
-    <editable>false</editable>
-    <field>Account.Secondary_Home_Telephone__c</field>
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
@@ -8620,6 +8605,10 @@
       <recordType>Case.Identity</recordType>
   </layoutAssignments>
   <layoutAssignments>
+      <layout>Case-KYC QA Layout</layout>
+      <recordType>Case.KYC_QA</recordType>
+  </layoutAssignments>
+  <layoutAssignments>
       <layout>Case-Non-Customer Complaint Layout</layout>
       <recordType>Case.Non_Customer_Complaint</recordType>
   </layoutAssignments>
@@ -8644,6 +8633,12 @@
   <layoutAssignments>
     <layout>ServiceTerritory-Branch Layout</layout>
     <recordType>ServiceTerritory.Branch</recordType>
+  </layoutAssignments>
+  <layoutAssignments>
+      <layout>User-User Layout</layout>
+  </layoutAssignments>
+  <layoutAssignments>
+      <layout>UserAlt-User Profile Layout</layout>
   </layoutAssignments>
   <layoutAssignments>
     <layout>WorkType-ANZ Work Type Layout</layout>

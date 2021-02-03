@@ -6,4 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>FraudX Agent</name>
     <opportunityAccessLevel>Edit</opportunityAccessLevel>
+    <parentRole>ANZx</parentRole>
 </Role>

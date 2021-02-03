@@ -5,4 +5,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Manager</name>
     <opportunityAccessLevel>Read</opportunityAccessLevel>
+    <parentRole>ANZx</parentRole>
 </Role>

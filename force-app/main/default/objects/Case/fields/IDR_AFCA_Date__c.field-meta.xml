@@ -5,7 +5,7 @@
     <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information</complianceGroup>
     <description>The date ANZ received the complaint from AFCA (Australian Financial Complaints Authority)</description>
     <externalId>false</externalId>
-    <label>Date received from AFCA</label>
+    <label>Date AFCA received complaint</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

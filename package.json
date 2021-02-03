@@ -9,7 +9,8 @@
     "open-report": "npx allure open",
     "test:unit": "sfdx-lwc-jest",
     "test:unit:debug": "sfdx-lwc-jest --debug",
-    "test:unit:watch": "sfdx-lwc-jest --watch"
+    "test:unit:watch": "sfdx-lwc-jest --watch",
+    "test:unit:coverage": "sfdx-lwc-jest --coverage"
   },
   "repository": {
     "type": "git",

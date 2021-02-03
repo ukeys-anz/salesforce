@@ -99,16 +99,17 @@ export default class AccountsAndGoals extends LightningElement {
               let goalInformation = {
                 Name: account.goal.name,
                 Financial_Account_Number__c: account.accountNumber,
-                FinServ__TargetValue__c: account.goal.targetAmount.value.replace(
-                  "$",
-                  ""
-                ),
+                FinServ__TargetValue__c: account.goal.targetAmount
+                  ? account.goal.targetAmount.value.replace("$", "")
+                  : "",
                 FinServ__ActualValue__c: account.currentBalance.value.replace(
                   "$",
                   ""
                 ),
                 Start_Date__c: account.goal.startDate,
-                FinServ__TargetDate__c: account.goal.targetDate,
+                FinServ__TargetDate__c: account.goal.targetDate
+                  ? account.goal.targetDate
+                  : "",
                 Icon__c: account.goal.iconId
               };
               this.goalDetails.push(goalInformation);
