@@ -245,7 +245,7 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>objectName</name>
-                    <value>Account</value>
+                    <value>Case</value>
                 </componentInstanceProperties>
                 <componentName>chatTopicRelatedList</componentName>
             </componentInstance>
