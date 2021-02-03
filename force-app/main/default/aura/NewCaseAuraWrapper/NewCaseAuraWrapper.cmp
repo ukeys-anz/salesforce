@@ -27,5 +27,4 @@
       <lightning:spinner alternativeText="Loading" />
     </div>
   </aura:if>
-
 </aura:component>
