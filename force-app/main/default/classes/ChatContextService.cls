@@ -12,6 +12,7 @@ global with sharing class ChatContextService {
     .getRecordTypeId();
   global static final String QUEUE_TYPE = 'Queue';
   global static final String GENERAL_CASE_QUEUE_DEVELOPER_NAME = 'General_Case_Queue';
+  global static final String CASE_CHANNEL_CHAT = 'Chat';
 
   global static Group generalInquiryQueue = [
     SELECT Id
@@ -95,6 +96,7 @@ global with sharing class ChatContextService {
       ) {
         Case newCase = new Case();
         newCase.AccountId = acc.Id;
+        newCase.Origin = CASE_CHANNEL_CHAT;
         newCase.Twilio_Channel_SID__c = requestByOCVId.get(acc.OCV_ID__c)
           .channelSID;
         newCase.Type = requestByOCVId.get(acc.OCV_ID__c).caseType;

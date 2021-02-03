@@ -9,66 +9,29 @@
     component.set("v.contextRecordId", helper.getContextRecordId(component));
     // Get the selected record type dev name and either show the LWC or redirect to the standard from
     helper.getRtDevName(component, function (rt) {
-      if (rt == "Non_Customer_Complaint" || rt == "Customer_Complaint") {
-        component.set(
-          "v.recordTypeId",
-          component.get("v.pageReference").state.recordTypeId
-        );
-        component.set("v.recordTypeDevName", rt);
-        component.set("v.showComponent", true);
+      if (helper.isComplaintCase(rt)) {
+        helper.setComplaintParameters(component, rt);
         // for cases that are not complaints, open the standard new case form
       } else {
         //workaround for console because the new case form opens in a new tab, so need to close the previous one
-        var workspaceAPI = component.find("workspace");
-        workspaceAPI.isConsoleNavigation().then(function (response) {
-          if (response == true) {
-            workspaceAPI.getFocusedTabInfo().then(function (response) {
-              var firstTabId = response.tabId;
-
-              //Reading Parent Record ID from URL to manipulate the console URL to open New Case window as a sub-tab.
-              var value = helper.getURLParameterByName(
-                component,
-                "inContextOfRef"
-              );
-
-              var navigationUrl =
-                "/lightning/o/Case/new?count=1&nooverride=1&recordTypeId=" +
-                component.get("v.pageReference").state.recordTypeId;
-
-              if (value) {
-                var context = JSON.parse(window.atob(value));
-                var parentRecID = context.attributes.recordId;
-                var parentObjectName = context.attributes.objectApiName;
-
-                if (parentRecID) {
-                  navigationUrl =
-                    navigationUrl +
-                    "&ws=%2Flightning%2Fr%2F" +
-                    parentObjectName +
-                    "%2F" +
-                    parentRecID +
-                    "%2Fview";
-                  if (parentObjectName == "Account") {
-                    navigationUrl =
-                      navigationUrl +
-                      "&defaultFieldValues=AccountId=" +
-                      parentRecID;
-                  }
-                }
-              }
-
-              helper.navigateToNewCaseClosePreviousTab(
-                workspaceAPI,
-                navigationUrl,
-                firstTabId
-              );
-            });
-          } else {
-            helper.goToStandardNewCasePage(component, event);
-          }
-        });
+        helper.handleNonComplaintCase(component);
       }
     });
+  },
+  urlchange: function (component, event, helper) {
+    // This is to perform intended actions from 'goToNewCaseWithDefaultRecordType()' method, if the URL (including "inContextOfRef" parameter) was not readily available at the time of calling the init() method.
+    // 'urlchange' method will only be called if;
+    // * The user has access to only one record type. And,
+    // * If it's not the first time where the user tries to create a new case without a page refresh (the first time it works fine).
+
+    // If there is only one recordtype assigned to the user take him to default case creation
+    if (
+      !component.get("v.pageReference").state.recordTypeId &&
+      helper.getURLParameterByName(component, "inContextOfRef")
+    ) {
+      helper.goToNewCaseWithDefaultRecordType(component);
+      return;
+    }
   },
   handleNavigateRecord: function (component, event) {
     var caseId = event.getParam("caseId");
