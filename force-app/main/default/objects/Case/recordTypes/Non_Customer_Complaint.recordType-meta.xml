@@ -5531,7 +5531,7 @@
         </values>
         <values>
             <fullName>Violated</fullName>
-            <default>false</default>f
+            <default>false</default>
         </values>
     </picklistValues>
     <picklistValues>
