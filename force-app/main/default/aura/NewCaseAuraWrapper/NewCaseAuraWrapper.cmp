@@ -22,9 +22,10 @@
     />
   </aura:renderIf>
 
-  <div class="spinnerHolder">
-    <aura:if isTrue="{! v.loading }">
+  <aura:if isTrue="{! v.loading }">
+    <div class="spinnerHolder">
       <lightning:spinner alternativeText="Loading" />
-    </aura:if>
-  </div>
+    </div>
+  </aura:if>
+
 </aura:component>
