@@ -18,7 +18,8 @@ public with sharing class IDRFilesRelatedListController {
         if (contentDocumentLink.sObjectType.getDescribe().isQueryable()) {
         docList = [select ContentDocument.LatestPublishedVersion.Document_Flag__c,ContentDocument.title, ContentDocument.CreatedDate,
                    ContentDocument.Owner.Name,ContentDocument.FileExtension,ContentDocumentId
-                   from contentDocumentLink where LinkedEntityId = :caseId];
+                   from contentDocumentLink where LinkedEntityId = :caseId
+                   order by ContentDocument.CreatedDate desc , ContentDocument.title asc , ContentDocument.FileExtension asc ];
         }
         list<IDRFilesRelatedListData> tempDatalist = new list<IDRFilesRelatedListData>();
         string baseUrl = URL.getSalesforceBaseUrl().toExternalForm() ;
