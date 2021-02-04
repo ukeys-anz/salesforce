@@ -31,6 +31,9 @@ public with sharing class IDRConstants {
 
   //Milestone Sla
   public static final String MILESTONE_SLA_NORMAL = 'Normal';
+  public static final String MILESTONE_SLA_RED = '1 business day';
+  public static final String MILESTONE_SLA_AMBER = '2 business days';
+  public static final string MILESTONE_SLA_VIOLATED = 'Violated';
   public static final string COMPLAINTS_ENTITLMENT_ACCT = 'Complaint Entitlement Account';
   public static final string COMPLAINTS_ENTITLMENT_PROCESS = 'complaints';
   public static final string COMPLAINTS_ENTITLEMENT_NAME = 'Complaints Entitlement';

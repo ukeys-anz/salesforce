@@ -25,8 +25,7 @@ export default class FileUpload extends LightningElement {
       ".pptx",
       ".msg",
       ".csv",
-      ".zip",
-      ".wav"
+      ".zip"
     ];
   }
   handleUploadFinished(event) {

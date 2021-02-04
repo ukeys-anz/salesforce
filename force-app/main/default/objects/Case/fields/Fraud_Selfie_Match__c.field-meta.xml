@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Fraud_Selfie_Match__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Privacy_Non_Personal_Information;Integrity - Accurate;Source - Salesforce</complianceGroup>
+    <defaultValue>false</defaultValue>
+    <description>To denote whether the individuals face matches a selfie in an assisted ID event</description>
+    <externalId>false</externalId>
+    <label>Selfie Match to ID Document</label>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

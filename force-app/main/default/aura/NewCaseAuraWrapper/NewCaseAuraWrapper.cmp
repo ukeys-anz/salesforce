@@ -1,6 +1,6 @@
 <aura:component
   controller="NewCaseFlowWrapperController"
-  implements="lightning:isUrlAddressable, force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction,lightning:actionOverride"
+  implements="lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction,lightning:actionOverride"
   access="global"
 >
   <lightning:workspaceAPI aura:id="workspace" />
@@ -8,6 +8,8 @@
   <aura:attribute name="recordTypeId" type="String" />
   <aura:attribute name="recordTypeDevName" type="String" />
   <aura:attribute name="contextRecordId" type="String" />
+  <aura:attribute name="loading" type="Boolean" default="false" />
+  <aura:handler event="aura:locationChange" action="{!c.urlchange}" />
   <aura:handler name="init" value="{!this}" action="{!c.init}" />
   <aura:handler name="change" value="{!v.pageReference}" action="{!c.init}" />
 
@@ -19,4 +21,10 @@
       onnavigaterecord="{!c.handleNavigateRecord}"
     />
   </aura:renderIf>
+
+  <div class="spinnerHolder">
+    <aura:if isTrue="{! v.loading }">
+      <lightning:spinner alternativeText="Loading" />
+    </aura:if>
+  </div>
 </aura:component>

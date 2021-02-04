@@ -8,7 +8,7 @@
 CASE(Text(IDR_Milestone_Sla__c), 
 &quot;Normal&quot;, &quot;/img/samples/flag_green.gif&quot;,
 &quot;2 business days&quot;, &quot;/img/samples/flag_yellow.gif&quot;,
-&quot;1 business days&quot;, &quot;/img/samples/flag_red.gif&quot;, 
+&quot;1 business day&quot;, &quot;/img/samples/flag_red.gif&quot;, 
 &quot;/s.gif&quot;), 
 &quot;status color&quot;,26,20)</formula>
     <label>Time To Escalation</label>

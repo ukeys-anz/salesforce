@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Fraud_Provided_Document_Type__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Privacy_Non_Personal_Information;Integrity - Accurate;Source - Salesforce</complianceGroup>
+    <description>To denote what document was provided by a customer in an assisted ID event</description>
+    <externalId>false</externalId>
+    <label>Provided Document Type</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Marriage Certificate</fullName>
+                <default>false</default>
+                <label>Marriage Certificate</label>
+            </value>
+            <value>
+                <fullName>Family Deed Poll</fullName>
+                <default>false</default>
+                <label>Family Deed Poll</label>
+            </value>
+            <value>
+                <fullName>Drivers Licence</fullName>
+                <default>false</default>
+                <label>Drivers Licence</label>
+            </value>
+            <value>
+                <fullName>Passport</fullName>
+                <default>false</default>
+                <label>Passport</label>
+            </value>
+            <value>
+                <fullName>Other Change of Name Document</fullName>
+                <default>false</default>
+                <label>Other Change of Name Document</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>5</visibleLines>
+</CustomField>

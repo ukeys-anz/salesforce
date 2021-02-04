@@ -2,8 +2,8 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>What_Customer_was_Trying_to_Do__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
-    <description>What the customer was attempting to do when they encountered the bug.</description>
+    <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Textual description of what a customer was doing at the time they encountered a bug with ANZx, eg with the mobile app or website.</description>
     <externalId>false</externalId>
     <inlineHelpText>What the customer was attempting to do when they encountered the bug.</inlineHelpText>
     <label>What Customer was Trying to Do</label>
