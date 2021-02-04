@@ -42,6 +42,21 @@
         <label>anz.com</label>
     </standardValue>
     <standardValue>
+        <fullName>9</fullName>
+        <default>false</default>
+        <label>CEO Complaint</label>
+    </standardValue>
+    <standardValue>
+        <fullName>10</fullName>
+        <default>false</default>
+        <label>Board Complaint</label>
+    </standardValue>
+    <standardValue>
+        <fullName>11</fullName>
+        <default>false</default>
+        <label>Referred from AFCA</label>
+    </standardValue>
+    <standardValue>
         <fullName>Chat</fullName>
         <default>false</default>
         <label>Chat</label>
