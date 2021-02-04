@@ -6,6 +6,7 @@ import fetchTemplateFields from "@salesforce/apex/CreateCommsController.fetchTem
 import createComms from "@salesforce/apex/CreateCommsController.createComms";
 import { getRecord } from "lightning/uiRecordApi";
 import CASE_OWNERID_FIELD from "@salesforce/schema/Case.OwnerId";
+import CASE_OWNER_Manager from "@salesforce/schema/Case.Is_Owner_s_Line_Manager_Me__c";
 import Id from "@salesforce/user/Id";
 import { CurrentPageReference } from "lightning/navigation";
 const ERROR_UNKNOWN_TITLE = "An error has occurred.";
@@ -34,6 +35,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   lineItemList = [];
   CurrentUserId = Id;
   CaseOwnerID = "";
+  OwnersManager = false;
 
   showModal = false;
   modalMessage = ERROR_UNKNOWN_TITLE;
@@ -49,13 +51,13 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   @wire(getRecord, {
     recordId: "$recordId",
-    fields: [CASE_OWNERID_FIELD]
+    fields: [CASE_OWNERID_FIELD, CASE_OWNER_Manager]
   })
   wiredProject({ data }) {
     if (data) {
       this.CaseOwnerID = data.fields.OwnerId.value;
-
-      if (this.CaseOwnerID === this.CurrentUserId) {
+      this.OwnersManager = data.fields.Is_Owner_s_Line_Manager_Me__c.value;
+      if (this.CaseOwnerID === this.CurrentUserId || this.OwnersManager) {
         getTemplateList()
           .then((result) => {
             let tempList = result;
