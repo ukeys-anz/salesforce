@@ -5,8 +5,8 @@ import getTemplateList from "@salesforce/apex/CreateCommsController.getTemplateL
 import fetchTemplateFields from "@salesforce/apex/CreateCommsController.fetchTemplateFields";
 import createComms from "@salesforce/apex/CreateCommsController.createComms";
 import { getRecord } from "lightning/uiRecordApi";
-import CASE_OWNERID_FIELD from "@salesforce/schema/Case.OwnerId";
-import Id from "@salesforce/user/Id";
+import CASE_OWNER from "@salesforce/schema/Case.IsOwner__c";
+import CASE_OWNER_Manager from "@salesforce/schema/Case.Is_Owner_s_Line_Manager_Me__c";
 import { CurrentPageReference } from "lightning/navigation";
 const ERROR_UNKNOWN_TITLE = "An error has occurred.";
 const columns = [
@@ -32,8 +32,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
   isEmail = false;
   isLetter = false;
   lineItemList = [];
-  CurrentUserId = Id;
-  CaseOwnerID = "";
+  CaseOwner = false;
+  OwnersManager = false;
 
   showModal = false;
   modalMessage = ERROR_UNKNOWN_TITLE;
@@ -49,13 +49,13 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   @wire(getRecord, {
     recordId: "$recordId",
-    fields: [CASE_OWNERID_FIELD]
+    fields: [CASE_OWNER, CASE_OWNER_Manager]
   })
   wiredProject({ data }) {
     if (data) {
-      this.CaseOwnerID = data.fields.OwnerId.value;
-
-      if (this.CaseOwnerID === this.CurrentUserId) {
+      this.CaseOwner = data.fields.IsOwner__c.value;
+      this.OwnersManager = data.fields.Is_Owner_s_Line_Manager_Me__c.value;
+      if (this.CaseOwner || this.OwnersManager) {
         getTemplateList()
           .then((result) => {
             let tempList = result;
