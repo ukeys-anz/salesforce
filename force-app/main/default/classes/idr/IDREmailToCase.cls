@@ -32,7 +32,6 @@ public with sharing class IDREmailToCase {
     emailBody = emailBody.trim();
     emailBody = emailBody.removeEnd(']');
 
-    System.debug('emailBody' + emailBody);
     List<String> fieldList = emailBody.split('\\|-\\|');
     if (fieldList.isEmpty()) {
       Lib_SystemLog.createSingleLog(
@@ -62,7 +61,6 @@ public with sharing class IDREmailToCase {
             );
           } else if (fieldName == 'Email address') {
             List<String> emailValues = fieldValue.split('<', 2);
-            System.debug('emailValues[0]' + emailValues[0]);
             c.put(
               IDRConstants.anzComFieldMapping.get(fieldName),
               emailValues[0]
