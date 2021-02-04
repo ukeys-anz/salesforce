@@ -3,6 +3,7 @@
     <fullName>Additional_Type__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_Salesforce;Integrity - Accurate;Privacy - Non Personal Information</complianceGroup>
+    <description>Second level of categorisation for the customer case</description>
     <externalId>false</externalId>
     <label>Additional Type</label>
     <required>false</required>

@@ -102,6 +102,9 @@ y | Y)
     echo "Creating IDR user"
     node createUser.js --profile "idr level 3"
 
+    echo "Assigning user roles"
+    sfdx force:apex:execute -f ./apex-scripts/assignUserRole.apex
+
     echo "Create users json for webdriverIO"
     node createUserJsonList.js
 

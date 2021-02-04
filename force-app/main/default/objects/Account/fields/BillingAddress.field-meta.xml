@@ -3,5 +3,6 @@
     <fullName>BillingAddress</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted;Privacy - Personal Information</complianceGroup>
+    <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
     <securityClassification>Confidential</securityClassification>
 </CustomField>

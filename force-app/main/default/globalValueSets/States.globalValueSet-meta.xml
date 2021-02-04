@@ -50,6 +50,11 @@
         <default>false</default>
         <label>OVERSEAS</label>
     </customValue>
+    <customValue>
+        <fullName>11</fullName>
+        <default>false</default>
+        <label>NOT STATED/UNKNOWN</label>
+    </customValue>
     <masterLabel>States</masterLabel>
     <sorted>false</sorted>
 </GlobalValueSet>

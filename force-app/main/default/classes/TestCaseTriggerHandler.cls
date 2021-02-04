@@ -51,6 +51,7 @@ private class TestCaseTriggerHandler {
         accnts.add(
           new Account(
             Name = 'TestAccount',
+            Display_Name__c = 'TestAccount',
             OCV_ID__c = faker.randomString(10),
             ANZx_Customer__c = true
           )
@@ -467,7 +468,7 @@ private class TestCaseTriggerHandler {
     List<Account> accList = [
       SELECT Id
       FROM Account
-      WHERE Name = 'TestAccount'
+      WHERE Display_Name__c = 'TestAccount'
       LIMIT 2
     ];
     // create 2 parent cases
@@ -507,7 +508,12 @@ private class TestCaseTriggerHandler {
   @isTest
   static void testDuplicateAdditionalTypeValidation() {
     Case[] newCases = new List<Case>();
-    Account acc = [SELECT Id FROM Account WHERE Name = 'TestAccount' LIMIT 1];
+    Account acc = [
+      SELECT Id
+      FROM Account
+      WHERE Display_Name__c = 'TestAccount'
+      LIMIT 1
+    ];
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
@@ -536,7 +542,12 @@ private class TestCaseTriggerHandler {
   @isTest
   static void testAdditionalTypesValidation() {
     Case[] newCases = new List<Case>();
-    Account acc = [SELECT Id FROM Account WHERE Name = 'TestAccount' LIMIT 1];
+    Account acc = [
+      SELECT Id
+      FROM Account
+      WHERE Display_Name__c = 'TestAccount'
+      LIMIT 1
+    ];
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
@@ -562,7 +573,12 @@ private class TestCaseTriggerHandler {
   @isTest
   static void testPopulateCaseSubject() {
     Case[] newCases = new List<Case>();
-    Account acc = [SELECT Id FROM Account WHERE Name = 'TestAccount' LIMIT 1];
+    Account acc = [
+      SELECT Id
+      FROM Account
+      WHERE Display_Name__c = 'TestAccount'
+      LIMIT 1
+    ];
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
@@ -810,7 +826,17 @@ private class TestCaseTriggerHandler {
 
     // WHEN FraudX Agent user creates or updates a Fraud case
     Case[] newCases = new List<Case>();
-    Account acc = [SELECT Id FROM Account WHERE Name = 'TestAccount' LIMIT 1];
+    Account acc = [
+      SELECT Id
+      FROM Account
+      WHERE Display_Name__c = 'TestAccount'
+      LIMIT 1
+    ];
+
+    // criteria based sharing rules cannot be tested in apex, so open up access to this user
+    acc.OwnerId = usr.Id;
+    update acc;
+
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(

@@ -13,6 +13,7 @@ public with sharing class TotalBalanceControllerTest {
   static void setup() {
     Account accnt = new Account();
     accnt.Name = 'TestAccount';
+    accnt.Display_Name__c = 'TestAccount';
     accnt.OCV_ID__c = '1';
     accnt.ANZx_Customer__c = true;
     accnt.FinServ__TotalFinAcctsPrimaryOwner__c = 200;
@@ -35,7 +36,12 @@ public with sharing class TotalBalanceControllerTest {
    */
   @isTest
   public static void testBalanceRetrieval() {
-    Account accnt = [SELECT Id FROM Account WHERE Name = 'TestAccount' LIMIT 1];
+    Account accnt = [
+      SELECT Id
+      FROM Account
+      WHERE Display_Name__c = 'TestAccount'
+      LIMIT 1
+    ];
 
     Test.startTest();
 

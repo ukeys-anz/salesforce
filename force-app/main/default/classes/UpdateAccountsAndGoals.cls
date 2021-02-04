@@ -126,10 +126,17 @@ public without sharing class UpdateAccountsAndGoals {
     //Update the financial goal details
     for (FinServ__FinancialGoal__c goal : financialGoals) {
       goal.Name = goalMap.get(goal.Financial_Account_Number__c).Name;
-      goal.FinServ__TargetValue__c = goalMap.get(
-          goal.Financial_Account_Number__c
-        )
-        .FinServ__TargetValue__c;
+
+      if (
+        goalMap.get(goal.Financial_Account_Number__c).FinServ__TargetValue__c !=
+        null
+      ) {
+        goal.FinServ__TargetValue__c = goalMap.get(
+            goal.Financial_Account_Number__c
+          )
+          .FinServ__TargetValue__c;
+      }
+
       goal.FinServ__ActualValue__c = goalMap.get(
           goal.Financial_Account_Number__c
         )
@@ -137,10 +144,16 @@ public without sharing class UpdateAccountsAndGoals {
       goal.Icon__c = goalMap.get(goal.Financial_Account_Number__c).Icon__c;
       goal.Start_Date__c = goalMap.get(goal.Financial_Account_Number__c)
         .Start_Date__c;
-      goal.FinServ__TargetDate__c = goalMap.get(
-          goal.Financial_Account_Number__c
-        )
-        .FinServ__TargetDate__c;
+
+      if (
+        goalMap.get(goal.Financial_Account_Number__c).FinServ__TargetDate__c !=
+        null
+      ) {
+        goal.FinServ__TargetDate__c = goalMap.get(
+            goal.Financial_Account_Number__c
+          )
+          .FinServ__TargetDate__c;
+      }
     }
 
     List<Database.SaveResult> results = Database.Update(financialGoals, false);
