@@ -207,7 +207,9 @@ public with sharing class ChatContextServiceTest {
     ];
     Case newCase = new Case(
       Twilio_Channel_SID__c = 'CH123456789',
-      AccountId = acc.Id
+      AccountId = acc.Id,
+      Origin = 'Chat',
+      RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID
     );
     insert newCase;
 

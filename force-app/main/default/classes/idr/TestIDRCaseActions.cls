@@ -2,7 +2,9 @@
 private with sharing class TestIDRCaseActions {
   @isTest
   static void testFormatedCaseNumber() {
-    Case c = new Case();
+    Case c = new Case(
+      RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID
+    );
     insert c;
     c.CaseNumber__c = '00009999';
     update c;
@@ -30,6 +32,7 @@ private with sharing class TestIDRCaseActions {
       newCases.add(
         new Case(
           RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
+          IDR_Customer_Number__c = '1234567890',
           Status = 'Escalated',
           IDR_Escalated_to__c = '1',
           IDR_Escalation_Reason__c = '1'

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Profile xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>ANZx Standard User</fullName>
-    <description>This will have all generic profile configuration that needs to be auto deployed. To be used by all ANZx standard users.</description>
+  <fullName>ANZx Standard User</fullName>
+  <description>This will have all generic profile configuration that needs to be auto deployed. To be used by all ANZx standard users.</description>
   <applicationVisibilities>
     <application>Coach_App</application>
     <default>false</default>
@@ -103,9 +103,9 @@
     <visible>false</visible>
   </applicationVisibilities>
   <applicationVisibilities>
-      <application>trailheadapp__Trailhead_Tracker</application>
-      <default>false</default>
-      <visible>false</visible>
+    <application>trailheadapp__Trailhead_Tracker</application>
+    <default>false</default>
+    <visible>false</visible>
   </applicationVisibilities>
   <classAccesses>
     <apexClass>AuthTokenCacheUtil</apexClass>
@@ -1336,8 +1336,8 @@
     <enabled>false</enabled>
   </classAccesses>
   <classAccesses>
-      <apexClass>NewCaseFlowWrapperController</apexClass>
-      <enabled>true</enabled>
+    <apexClass>NewCaseFlowWrapperController</apexClass>
+    <enabled>true</enabled>
   </classAccesses>
   <classAccesses>
     <apexClass>ProcessBuilderNoAction</apexClass>
@@ -1357,8 +1357,8 @@
   </classAccesses>
   <custom>true</custom>
   <customSettingAccesses>
-      <enabled>true</enabled>
-      <name>Non_Prod_Settings__c</name>
+    <enabled>true</enabled>
+    <name>Non_Prod_Settings__c</name>
   </customSettingAccesses>
   <fieldPermissions>
     <editable>false</editable>
@@ -1390,14 +1390,14 @@
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
-      <editable>false</editable>
-      <field>Account.AR_C_Customer__c</field>
-      <readable>false</readable>
+    <editable>false</editable>
+    <field>Account.AR_C_Customer__c</field>
+    <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
-      <editable>false</editable>
-      <field>Account.External_Id__c</field>
-      <readable>false</readable>
+    <editable>false</editable>
+    <field>Account.External_Id__c</field>
+    <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
@@ -8490,9 +8490,9 @@
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
-      <editable>false</editable>
-      <field>User.Start_Date__c</field>
-      <readable>true</readable>
+    <editable>false</editable>
+    <field>User.Start_Date__c</field>
+    <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
@@ -8585,40 +8585,40 @@
     <readable>false</readable>
   </fieldPermissions>
   <layoutAssignments>
-      <layout>Case-Bug Enquiry Layout</layout>
-      <recordType>Case.Bug_Enquiry</recordType>
+    <layout>Case-Bug Enquiry Layout</layout>
+    <recordType>Case.Bug_Enquiry</recordType>
   </layoutAssignments>
   <layoutAssignments>
-      <layout>Case-Complaint Layout</layout>
-      <recordType>Case.Customer_Complaint</recordType>
+    <layout>Case-Complaint Layout</layout>
+    <recordType>Case.Customer_Complaint</recordType>
   </layoutAssignments>
   <layoutAssignments>
-      <layout>Case-Fraud Layout</layout>
-      <recordType>Case.Fraud</recordType>
+    <layout>Case-Fraud Layout</layout>
+    <recordType>Case.Fraud</recordType>
   </layoutAssignments>
   <layoutAssignments>
-      <layout>Case-General Inquiry Layout</layout>
-      <recordType>Case.General_Inquiry</recordType>
+    <layout>Case-General Inquiry Layout</layout>
+    <recordType>Case.General_Inquiry</recordType>
   </layoutAssignments>
   <layoutAssignments>
-      <layout>Case-Identity Layout</layout>
-      <recordType>Case.Identity</recordType>
+    <layout>Case-Identity Layout</layout>
+    <recordType>Case.Identity</recordType>
   </layoutAssignments>
   <layoutAssignments>
-      <layout>Case-KYC QA Layout</layout>
-      <recordType>Case.KYC_QA</recordType>
+    <layout>Case-KYC QA Layout</layout>
+    <recordType>Case.KYC_QA</recordType>
   </layoutAssignments>
   <layoutAssignments>
-      <layout>Case-Non-Customer Complaint Layout</layout>
-      <recordType>Case.Non_Customer_Complaint</recordType>
+    <layout>Case-Non-Customer Complaint Layout</layout>
+    <recordType>Case.Non_Customer_Complaint</recordType>
   </layoutAssignments>
   <layoutAssignments>
-      <layout>Case-Recipient%2FMule Layout</layout>
-      <recordType>Case.Recipient_Mule</recordType>
+    <layout>Case-Recipient%2FMule Layout</layout>
+    <recordType>Case.Recipient_Mule</recordType>
   </layoutAssignments>
   <layoutAssignments>
-      <layout>Case-Scam Layout</layout>
-      <recordType>Case.Scam</recordType>
+    <layout>Case-Scam Layout</layout>
+    <recordType>Case.Scam</recordType>
   </layoutAssignments>
   <layoutAssignments>
     <layout>PersonAccount-Customer View Layout</layout>
@@ -8635,10 +8635,10 @@
     <recordType>ServiceTerritory.Branch</recordType>
   </layoutAssignments>
   <layoutAssignments>
-      <layout>User-User Layout</layout>
+    <layout>User-User Layout</layout>
   </layoutAssignments>
   <layoutAssignments>
-      <layout>UserAlt-User Profile Layout</layout>
+    <layout>UserAlt-User Profile Layout</layout>
   </layoutAssignments>
   <layoutAssignments>
     <layout>WorkType-ANZ Work Type Layout</layout>
@@ -9612,8 +9612,8 @@
     <enabled>true</enabled>
   </pageAccesses>
   <pageAccesses>
-      <apexPage>trailheadapp__TrailheadSetup</apexPage>
-      <enabled>false</enabled>
+    <apexPage>trailheadapp__TrailheadSetup</apexPage>
+    <enabled>false</enabled>
   </pageAccesses>
   <recordTypeVisibilities>
     <default>false</default>
@@ -9646,9 +9646,9 @@
     <visible>false</visible>
   </recordTypeVisibilities>
   <recordTypeVisibilities>
-        <default>false</default>
-        <recordType>Case.General_Inquiry</recordType>
-        <visible>false</visible>
+    <default>false</default>
+    <recordType>Case.General_Inquiry</recordType>
+    <visible>false</visible>
   </recordTypeVisibilities>
   <recordTypeVisibilities>
     <default>false</default>
@@ -10273,8 +10273,8 @@
     <visibility>DefaultOn</visibility>
   </tabVisibilities>
   <tabVisibilities>
-      <tab>trailheadapp__TrailheadSetup</tab>
-      <visibility>Hidden</visibility>
+    <tab>trailheadapp__TrailheadSetup</tab>
+    <visibility>Hidden</visibility>
   </tabVisibilities>
   <userLicense>Salesforce</userLicense>
   <userPermissions>
@@ -10403,6 +10403,10 @@
   </userPermissions>
   <userPermissions>
     <enabled>true</enabled>
+    <name>PreventClassicExperience</name>
+  </userPermissions>
+  <userPermissions>
+    <enabled>true</enabled>
     <name>RemoveDirectMessageMembers</name>
   </userPermissions>
   <userPermissions>
@@ -10446,12 +10450,12 @@
     <name>ViewRoles</name>
   </userPermissions>
   <userPermissions>
-      <enabled>false</enabled>
-      <name>ViewPublicDashboards</name>
+    <enabled>false</enabled>
+    <name>ViewPublicDashboards</name>
   </userPermissions>
   <userPermissions>
-      <enabled>false</enabled>
-      <name>ViewPublicReports</name>
+    <enabled>false</enabled>
+    <name>ViewPublicReports</name>
   </userPermissions>
   <userPermissions>
     <enabled>false</enabled>

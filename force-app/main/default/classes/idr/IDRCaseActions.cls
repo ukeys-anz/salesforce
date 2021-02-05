@@ -119,7 +119,7 @@ public with sharing class IDRCaseActions {
           caseOwnerIds.add(record.OwnerId);
           changeOfficeCaseList.add(record);
         }
-        handleCaseEscalationRules(record, new Case());
+        handleCaseEscalationRules(record, null);
       }
     }
     handleOfficeAssignment(changeOfficeCaseList);
@@ -310,9 +310,12 @@ public with sharing class IDRCaseActions {
       //assign to CRC queue and send notifcation to CFMS
       record.IDR_Escalated_to__c = ESCALATED_TO_CRC_API_NAME;
       record.Status = ESCALATED_STATUS;
-      if (oldRec.Status == OPEN_STATUS) {
+      if (oldRec != null && oldRec.Status == OPEN_STATUS) {
         record.IDR_Escalation_Reason__c = DAY_3_ESCALATION_REASON;
-      } else if (oldRec.Status == UNDER_INVESTIGATION_STATUS) {
+      } else if (
+        oldRec != null &&
+        oldRec.Status == UNDER_INVESTIGATION_STATUS
+      ) {
         record.IDR_Escalation_Reason__c = DAY_5_ESCALATION_REASON;
       }
     } else if (
@@ -327,12 +330,14 @@ public with sharing class IDRCaseActions {
       record.IDR_Escalated_to__c == ESCALATED_TO_CRC_API_NAME &&
       record.OwnerId != queue.Id &&
       record.Status == ESCALATED_STATUS &&
+      oldRec != null &&
       oldRec.Status != ESCALATED_STATUS
     ) {
       // Escalated by updating the case , change status to escalated
       record.OwnerId = queue.Id;
     } else if (
       record.IDR_Escalated_to__c == ESCALATED_TO_CRC_API_NAME &&
+      oldRec != null &&
       oldRec.IDR_Escalated_to__c != ESCALATED_TO_CRC_API_NAME &&
       record.OwnerId != queue.Id &&
       record.Status == ESCALATED_STATUS

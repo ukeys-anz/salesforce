@@ -6,7 +6,10 @@ private inherited sharing class TestIDRCaseCommentActions {
     Case[] testCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       testCases.add(
-        new Case(recordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID)
+        new Case(
+          recordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
+          IDR_Customer_Number__c = '1234567890'
+        )
       );
     }
     insert testCases;
@@ -25,6 +28,7 @@ private inherited sharing class TestIDRCaseCommentActions {
     );
     Case complaintEscalated = new Case(
       recordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
+      IDR_Customer_Number__c = '1234567890',
       IDR_CFMS_Complaint_Number__c = 'COM-1234'
     );
     testCases.add(notAComplaint);
