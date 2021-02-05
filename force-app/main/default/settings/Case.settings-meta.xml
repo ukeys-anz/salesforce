@@ -1,33 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CaseSettings xmlns="http://soap.sforce.com/2006/04/metadata">
     <closeCaseThroughStatusChange>true</closeCaseThroughStatusChange>
-    <emailToCase>
-        <enableE2CAttachmentAsFile>true</enableE2CAttachmentAsFile>
-        <enableE2CSourceTracking>true</enableE2CSourceTracking>
-        <enableEmailToCase>true</enableEmailToCase>
-        <enableHtmlEmail>true</enableHtmlEmail>
-        <enableOnDemandEmailToCase>true</enableOnDemandEmailToCase>
-        <enableThreadIDInBody>true</enableThreadIDInBody>
-        <enableThreadIDInSubject>true</enableThreadIDInSubject>
-        <notifyOwnerOnNewCaseEmail>false</notifyOwnerOnNewCaseEmail>
-        <overEmailLimitAction>Bounce</overEmailLimitAction>
-        <preQuoteSignature>false</preQuoteSignature>
-        <routingAddresses>
-            <addressType>EmailToCase</addressType>
-            <authorizedSenders>yourfeedback-np@anz.com</authorizedSenders>
-            <caseOrigin>Email</caseOrigin>
-            <caseOwner>Indexing_Queue</caseOwner>
-            <caseOwnerType>Queue</caseOwnerType>
-            <casePriority>Standard</casePriority>
-            <createTask>false</createTask>
-            <emailAddress>yourfeedback-np@anz.com</emailAddress>
-            <!--<emailServicesAddress>yourfeedback-np@yfb89iri6unmd2is1wbisi0p3dwoasf01bvjc1y24pek92k3o.2n-asniuaw.cs115.case.sandbox.salesforce.com</emailServicesAddress>-->
-            <isVerified>true</isVerified>
-            <routingName>YourFeedback</routingName>
-            <saveEmailHeaders>true</saveEmailHeaders>
-        </routingAddresses>
-        <unauthorizedSenderAction>Discard</unauthorizedSenderAction>
-    </emailToCase>
     <enableCaseFeed>true</enableCaseFeed>
     <enableSuggestedArticlesApplication>true</enableSuggestedArticlesApplication>
     <enableSuggestedArticlesCustomerPortal>false</enableSuggestedArticlesCustomerPortal>
