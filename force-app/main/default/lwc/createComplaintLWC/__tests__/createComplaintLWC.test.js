@@ -1,5 +1,6 @@
 import { createElement } from "lwc";
 import CreateComplaintForm from "c/createComplaintLWC";
+import { ShowToastEventName } from "lightning/platformShowToastEvent";
 
 describe("c-create-complaint-l-w-c", () => {
   afterEach(() => {
@@ -349,10 +350,13 @@ describe("c-create-complaint-l-w-c", () => {
     );
     expect(complaintForm).not.toBeNull();
 
+    const TOAST_VARIANT = "success";
+    const TOAST_TITLE = "Complaint has been created successfully.";
+
     // Mock handler for toast event
     const handler = jest.fn();
     // Add event listener to catch toast event
-    element.addEventListener("lightning__showtoast", handler);
+    element.addEventListener(ShowToastEventName, handler);
     //mocks the submit function for lightning-record-edit-form
     complaintForm.submit = jest.fn();
     //submit EVENT gets dispatched, which triggers a handler function that will call the submit FUNCTION
@@ -366,7 +370,8 @@ describe("c-create-complaint-l-w-c", () => {
 
     return flushPromises().then(() => {
       expect(handler).toHaveBeenCalled();
-      //expect(handler.mock.calls[0][0].detail.variant).toBe(TOAST_VARIANT);
+      expect(handler.mock.calls[0][0].detail.message).toBe(TOAST_TITLE);
+      expect(handler.mock.calls[0][0].detail.variant).toBe(TOAST_VARIANT);
     });
   });
 });
