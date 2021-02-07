@@ -62,12 +62,11 @@ public with sharing class GetHelpCaseActions {
         validateCaseList.add(record);
       }
 
-      if (
-        record.RecordTypeId == GENERAL_INQUIRY_RT_ID &&
-        oldRecord.Status != 'Closed' &&
-        record.Status == 'Closed'
-      ) {
-        milestoneIds.add(record.Id);
+      if (oldRecord.Status != 'Closed' && record.Status == 'Closed') {
+        updateCaseDurationTime(record);
+        if (record.RecordTypeId == GENERAL_INQUIRY_RT_ID) {
+          milestoneIds.add(record.Id);
+        }
       }
     }
 
@@ -373,5 +372,20 @@ public with sharing class GetHelpCaseActions {
   public static void completeCaseMilestone(List<Id> caseIds) {
     //Mark milestones as completed
     MilestoneUtils.completeMilestone(caseIds, 'Resolution Time', System.now());
+  }
+
+  /**
+   * @description This method updates the case duration hours field for EA for further usage
+   * when the case status is updated to closed
+   * @param record case from the trigger
+   */
+  public static void updateCaseDurationTime(Case record) {
+    CaseDurationObject.DurationTime durationTime = CaseDurationService.getCaseDurationTime(
+      record.Id
+    );
+    record.Case_Hour_Duration__c = durationTime.dHours.setScale(
+      2,
+      RoundingMode.HALF_UP
+    );
   }
 }

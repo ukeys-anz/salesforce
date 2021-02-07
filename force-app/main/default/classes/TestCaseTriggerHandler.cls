@@ -821,4 +821,24 @@ private class TestCaseTriggerHandler {
       'Failed to autopopulate Subject on Fraud cases as expected, while updating'
     );
   }
+
+  //Tests duration hours field is populated during closure time
+  @isTest
+  static void testUpdateCaseDurationTime() {
+    Case newCase = new Case();
+    insert newCase;
+
+    newCase.Status = 'Closed';
+    newCase.IDR_Complaint_Outcome__c = '1';
+    newCase.IDR_Description_of_Outcome__c = 'test';
+
+    update newCase;
+
+    newCase = [
+      SELECT Id, Case_Hour_Duration__c
+      FROM Case
+      WHERE Id = :newCase.Id
+    ];
+    System.assert(newCase.Case_Hour_Duration__c >= 0);
+  }
 }

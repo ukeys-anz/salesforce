@@ -452,6 +452,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Case_Hour_Duration__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.ClosedDate</field>
         <readable>true</readable>
     </fieldPermissions>
