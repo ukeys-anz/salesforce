@@ -52,11 +52,6 @@
         <label>Board Complaint</label>
     </standardValue>
     <standardValue>
-        <fullName>11</fullName>
-        <default>false</default>
-        <label>Referred from AFCA</label>
-    </standardValue>
-    <standardValue>
         <fullName>12</fullName>
         <default>false</default>
         <label>Complaints team</label>
@@ -65,6 +60,11 @@
         <fullName>13</fullName>
         <default>false</default>
         <label>Frontline</label>
+    </standardValue>
+    <standardValue>
+        <fullName>11</fullName>
+        <default>false</default>
+        <label>Referred from AFCA</label>
     </standardValue>
     <standardValue>
         <fullName>Other</fullName>
