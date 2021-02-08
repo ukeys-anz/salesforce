@@ -826,6 +826,7 @@ private class TestCaseTriggerHandler {
   @isTest
   static void testUpdateCaseDurationTime() {
     Case newCase = new Case();
+    newCase.IDR_Customer_Number__c = '123456789012';
     insert newCase;
 
     newCase.Status = 'Closed';
