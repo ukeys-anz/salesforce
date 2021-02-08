@@ -1,5 +1,5 @@
 @isTest
-public with sharing class EverydayAccountControllerTest {
+public with sharing class FinancialAccountControllerTest {
   @testSetup
   static void setup() {
     Account accnt = new Account();
@@ -37,9 +37,10 @@ public with sharing class EverydayAccountControllerTest {
 
     Test.startTest();
 
-    List<FinServ__FinancialAccount__c> finAccountList = EverydayAccountController.getFinancialAccounts(
+    List<FinServ__FinancialAccount__c> finAccountList = FinancialAccountController.getFinancialAccounts(
       accnt.Id,
-      3
+      3,
+      'Checking'
     );
 
     System.assertEquals(3, finAccountList.size());

@@ -6,14 +6,13 @@ import FIN_ACCOUNT_OCV_ID_FIELD from "@salesforce/schema/FinServ__FinancialAccou
 import FIN_ACCOUNT_PRIMARY_OWNER_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__PrimaryOwner__c";
 
 import getAccounts from "@salesforce/apex/GetAccountsAndGoals.getAccounts";
-import updateAccounts from "@salesforce/apex/UpdateAccountsAndGoals.updateAccounts";
-import updateGoals from "@salesforce/apex/UpdateAccountsAndGoals.updateGoals";
+import updateAccounts from "@salesforce/apex/UpdateFinancialAccounts.updateAccounts";
 
 // Import message service features required for publishing and the message channel
-import { publish, MessageContext, subscribe } from "lightning/messageService";
-import UpdateAccountsAndGoals from "@salesforce/messageChannel/FinancialAccountsGoalsUpdate__c";
+import { publish, MessageContext } from "lightning/messageService";
+import UpdateAccounts from "@salesforce/messageChannel/FinancialAccountsUpdate__c";
+import RetrieveGoals from "@salesforce/messageChannel/RetrieveFinancialGoals__c";
 import TriggerLoading from "@salesforce/messageChannel/FinancialAccountsTriggerLoading__c";
-import UpdateAccountsGoalsTimed from "@salesforce/messageChannel/FinancialAccountGoalsTimedUpdate__c";
 
 export default class AccountsAndGoals extends LightningElement {
   @api recordId;
@@ -28,7 +27,9 @@ export default class AccountsAndGoals extends LightningElement {
 
   @wire(MessageContext)
   messageContext;
-  subscription = null;
+  timedSubscription = null;
+  goalSubscription = null;
+  accountSubscription = null;
   triggerUpdate;
 
   @wire(getRecord, {
@@ -42,24 +43,16 @@ export default class AccountsAndGoals extends LightningElement {
       if (data.fields.FinServ__PrimaryOwner__c) {
         this.ownerId = data.fields.FinServ__PrimaryOwner__c.value;
       }
-      if (this.subscription && this.triggerUpdate) {
+      if (this.ocvId) {
         this.update();
       }
     }
   }
 
   connectedCallback() {
-    this.subscription = subscribe(
-      this.messageContext,
-      UpdateAccountsGoalsTimed,
-      (message) => {
-        if (message.update) {
-          this.triggerUpdate = true;
-          this.update();
-        }
-      }
-    );
-
+    publish(this.messageContext, TriggerLoading, {
+      update: true
+    });
     if (this.objectName === "Account") {
       this.objectFields = [ACCOUNT_OCV_ID_FIELD];
     } else {
@@ -71,10 +64,16 @@ export default class AccountsAndGoals extends LightningElement {
   }
 
   update() {
+    //Reset values
+    this.accountDetails = [];
+    this.goalDetails = [];
+    this.accountNumbers = [];
+    this.goalAccountNumbers = [];
+
     const payload = {
       update: true
     };
-    publish(this.messageContext, TriggerLoading, payload);
+
     getAccounts({
       ocvId: this.ocvId
     })
@@ -97,33 +96,33 @@ export default class AccountsAndGoals extends LightningElement {
             if (account.accountType === "Savings") {
               this.goalAccountNumbers.push(account.accountNumber);
               let goalInformation = {
-                Name: account.goal.name,
-                Financial_Account_Number__c: account.accountNumber,
-                FinServ__TargetValue__c: account.goal.targetAmount
+                name: account.goal.name,
+                accountNumber: account.accountNumber,
+                targetAmount: account.goal.targetAmount
                   ? account.goal.targetAmount.value.replace("$", "")
                   : "",
-                FinServ__ActualValue__c: account.currentBalance.value.replace(
-                  "$",
-                  ""
-                ),
-                Start_Date__c: account.goal.startDate,
-                FinServ__TargetDate__c: account.goal.targetDate
+                currentBalance: account.currentBalance.value.replace("$", ""),
+                startDate: account.goal.startDate,
+                targetDate: account.goal.targetDate
                   ? account.goal.targetDate
                   : "",
-                Icon__c: account.goal.iconId
+                icon: account.goal.iconId
               };
               this.goalDetails.push(goalInformation);
             }
           });
 
+          //Return goal data
+          publish(this.messageContext, RetrieveGoals, this.goalDetails);
+
           //Update accounts
           updateAccounts({
             ownerId: this.ownerId,
             accountNumbers: this.accountNumbers,
-            accountData: this.accountDetails
+            financialAccounts: this.accountDetails
           })
             .then(() => {
-              publish(this.messageContext, UpdateAccountsAndGoals, payload);
+              publish(this.messageContext, UpdateAccounts, payload);
             })
             .catch((error) => {
               let errorMessage =
@@ -136,33 +135,7 @@ export default class AccountsAndGoals extends LightningElement {
                 }
               }
 
-              publish(this.messageContext, UpdateAccountsAndGoals, {
-                update: false,
-                message: errorMessage
-              });
-            });
-
-          //Update goals
-          updateGoals({
-            ownerId: this.ownerId,
-            accountNumbers: this.goalAccountNumbers,
-            goalData: this.goalDetails
-          })
-            .then(() => {
-              publish(this.messageContext, UpdateAccountsAndGoals, payload);
-            })
-            .catch((error) => {
-              let errorMessage =
-                "Failed to update goal details. Please refresh and try again. If the problem persists, please contact your System Administrator.";
-              if (error.body && error.body.message) {
-                let message = this.handleError(error.body.message);
-                //Catch any system error messages (most readable errors wont be a single word)
-                if (message && message.split(" ").length > 1) {
-                  errorMessage = message;
-                }
-              }
-
-              publish(this.messageContext, UpdateAccountsAndGoals, {
+              publish(this.messageContext, UpdateAccounts, {
                 update: false,
                 message: errorMessage
               });
@@ -171,7 +144,7 @@ export default class AccountsAndGoals extends LightningElement {
           let errorMessage =
             "No new data returned. Please refresh and try again. If the problem persists, please contact your System Administrator.";
 
-          publish(this.messageContext, UpdateAccountsAndGoals, {
+          publish(this.messageContext, UpdateAccounts, {
             update: false,
             message: errorMessage
           });
@@ -188,10 +161,12 @@ export default class AccountsAndGoals extends LightningElement {
           }
         }
 
-        publish(this.messageContext, UpdateAccountsAndGoals, {
+        publish(this.messageContext, UpdateAccounts, {
           update: false,
           message: errorMessage
         });
+
+        publish(this.messageContext, RetrieveGoals, { error: errorMessage });
       });
   }
 

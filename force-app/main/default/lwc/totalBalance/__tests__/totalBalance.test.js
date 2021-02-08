@@ -9,8 +9,7 @@ import {
   registerLdsTestWireAdapter,
   registerTestWireAdapter
 } from "@salesforce/sfdx-lwc-jest";
-import UpdateAccountsAndGoals from "@salesforce/messageChannel/FinancialAccountsGoalsUpdate__c";
-import UpdateAccountsGoalsTimed from "@salesforce/messageChannel/FinancialAccountGoalsTimedUpdate__c";
+import UpdateAccounts from "@salesforce/messageChannel/FinancialAccountsUpdate__c";
 import TriggerLoading from "@salesforce/messageChannel/FinancialAccountsTriggerLoading__c";
 
 jest.mock(
@@ -126,7 +125,7 @@ describe("c-totalBalance", () => {
     const payload = {
       update: true
     };
-    publish(messageContextWireAdapter, UpdateAccountsAndGoals, payload);
+    publish(messageContextWireAdapter, UpdateAccounts, payload);
 
     return Promise.resolve()
       .then(() => {})
@@ -149,7 +148,7 @@ describe("c-totalBalance", () => {
     const payload = {
       message: "test message"
     };
-    publish(messageContextWireAdapter, UpdateAccountsAndGoals, payload);
+    publish(messageContextWireAdapter, UpdateAccounts, payload);
 
     return Promise.resolve()
       .then(() => {})
@@ -170,7 +169,7 @@ describe("c-totalBalance", () => {
     const payload = {
       message: "test message"
     };
-    publish(messageContextWireAdapter, UpdateAccountsAndGoals, payload);
+    publish(messageContextWireAdapter, UpdateAccounts, payload);
 
     return Promise.resolve().catch(() => {
       const mainEle = element.shadowRoot.querySelector("article");
@@ -192,7 +191,7 @@ describe("c-totalBalance", () => {
     const payload = {
       update: true
     };
-    publish(messageContextWireAdapter, UpdateAccountsAndGoals, payload);
+    publish(messageContextWireAdapter, UpdateAccounts, payload);
 
     return Promise.resolve()
       .then(() => {})

@@ -53,3 +53,9 @@ force-app/main/default/permissionsets/myTrailhead_PSL.permissionset-meta.xml
 
 #Ignoring Jest tests as per https://developer.salesforce.com/docs/component-library/documentation/en/lwc/lwc.unit_testing_using_jest_create_tests
 **/__tests__/**
+
+#Ignoring apex classes below as they have been renamed
+force-app/main/default/classes/EverydayAccountController.cls
+force-app/main/default/classes/FinancialGoalsComponentController.cls
+force-app/main/default/classes/UpdateAccountsAndGoals.cls
+force-app/main/default/messageChannels/FinancialAccountsGoalsUpdate.messageChannel-meta.xml

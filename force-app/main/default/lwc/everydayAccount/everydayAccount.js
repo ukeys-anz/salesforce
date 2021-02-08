@@ -1,12 +1,11 @@
 import { LightningElement, api, track, wire } from "lwc";
 
-import getFinancialAccounts from "@salesforce/apex/EverydayAccountController.getFinancialAccounts";
+import getFinancialAccounts from "@salesforce/apex/FinancialAccountController.getFinancialAccounts";
 
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
-import { publish, subscribe, MessageContext } from "lightning/messageService";
-import UpdateAccountsAndGoals from "@salesforce/messageChannel/FinancialAccountsGoalsUpdate__c";
-import UpdateAccountsGoalsTimed from "@salesforce/messageChannel/FinancialAccountGoalsTimedUpdate__c";
+import { subscribe, MessageContext } from "lightning/messageService";
+import UpdateAccounts from "@salesforce/messageChannel/FinancialAccountsUpdate__c";
 import TriggerLoading from "@salesforce/messageChannel/FinancialAccountsTriggerLoading__c";
 import { NavigationMixin } from "lightning/navigation";
 
@@ -36,7 +35,7 @@ export default class EverydayAccount extends NavigationMixin(LightningElement) {
 
     this.subscription = subscribe(
       this.messageContext,
-      UpdateAccountsAndGoals,
+      UpdateAccounts,
       (message) => {
         if (message.update) {
           this.financialAccounts = [];
@@ -59,31 +58,23 @@ export default class EverydayAccount extends NavigationMixin(LightningElement) {
     }
   }
 
-  setTimestamp(lastModifiedDate) {
+  setTimestamp() {
     //Create timestamp for last updated
-    const lastUpdated = new Date(lastModifiedDate);
+    const today = new Date();
     this.timestamp =
-      lastUpdated.getDate() +
+      today.getDate() +
       " " +
-      lastUpdated.toLocaleString("en-AU", {
+      today.toLocaleString("en-AU", {
         month: "long"
       }) +
       " " +
-      lastUpdated.getFullYear() +
+      today.getFullYear() +
       " | " +
-      lastUpdated.toLocaleString("en-AU", {
+      today.toLocaleString("en-AU", {
         hour: "numeric",
         minute: "numeric",
         hour12: true
       });
-
-    //If it has been more than 15 min since last update,
-    //call API for latest data
-    const today = new Date();
-    if (today - lastUpdated > 15 * 60 * 1000) {
-      const payload = { update: true };
-      publish(this.messageContext, UpdateAccountsGoalsTimed, payload);
-    }
   }
 
   showToast(theTitle, theMessage) {
@@ -97,7 +88,8 @@ export default class EverydayAccount extends NavigationMixin(LightningElement) {
   getAccounts() {
     getFinancialAccounts({
       ownerId: this.recordId,
-      recordLimit: 4
+      recordLimit: 4,
+      type: "Checking"
     })
       .then((result) => {
         this.viewAll = false;
@@ -110,8 +102,9 @@ export default class EverydayAccount extends NavigationMixin(LightningElement) {
           result.forEach((finAccount) => {
             //Only set timestamp once instead of each time in the loop
             if (!this.timestamp) {
-              this.setTimestamp(finAccount.LastModifiedDate);
+              this.setTimestamp();
             }
+
             //Set the badge class based on the status
             if (finAccount.FinServ__Status__c === "Open") {
               finAccount.badgeClass = "slds-badge slds-theme_success";

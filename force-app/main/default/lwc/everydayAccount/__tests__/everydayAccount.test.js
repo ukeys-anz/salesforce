@@ -1,19 +1,17 @@
 import everydayAccount from "c/everydayAccount";
 import { createElement } from "lwc";
-import getFinancialAccounts from "@salesforce/apex/EverydayAccountController.getFinancialAccounts";
+import getFinancialAccounts from "@salesforce/apex/FinancialAccountController.getFinancialAccounts";
 
 import { publish, subscribe, MessageContext } from "lightning/messageService";
 import {
   registerLdsTestWireAdapter,
   registerTestWireAdapter
 } from "@salesforce/sfdx-lwc-jest";
-import UpdateAccountsAndGoals from "@salesforce/messageChannel/FinancialAccountsGoalsUpdate__c";
-import UpdateAccountsGoalsTimed from "@salesforce/messageChannel/FinancialAccountGoalsTimedUpdate__c";
+import UpdateAccounts from "@salesforce/messageChannel/FinancialAccountsUpdate__c";
 import TriggerLoading from "@salesforce/messageChannel/FinancialAccountsTriggerLoading__c";
-import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
 jest.mock(
-  "@salesforce/apex/EverydayAccountController.getFinancialAccounts",
+  "@salesforce/apex/FinancialAccountController.getFinancialAccounts",
   () => {
     return {
       default: jest.fn()
@@ -136,7 +134,7 @@ describe("c-everydayAccount", () => {
     const payload = {
       update: true
     };
-    publish(messageContextWireAdapter, UpdateAccountsAndGoals, payload);
+    publish(messageContextWireAdapter, UpdateAccounts, payload);
 
     return Promise.resolve().then(() => {
       const mainEle = element.shadowRoot.querySelector("article");
@@ -154,7 +152,7 @@ describe("c-everydayAccount", () => {
     const payload = {
       update: true
     };
-    publish(messageContextWireAdapter, UpdateAccountsAndGoals, payload);
+    publish(messageContextWireAdapter, UpdateAccounts, payload);
 
     return Promise.resolve().catch(() => {
       const mainEle = element.shadowRoot.querySelector("article");
@@ -172,7 +170,7 @@ describe("c-everydayAccount", () => {
     const payload = {
       message: "test message"
     };
-    publish(messageContextWireAdapter, UpdateAccountsAndGoals, payload);
+    publish(messageContextWireAdapter, UpdateAccounts, payload);
 
     return Promise.resolve()
       .then(() => {})
@@ -192,7 +190,7 @@ describe("c-everydayAccount", () => {
     const payload = {
       update: true
     };
-    publish(messageContextWireAdapter, UpdateAccountsAndGoals, payload);
+    publish(messageContextWireAdapter, UpdateAccounts, payload);
 
     return Promise.resolve()
       .then(() => {})
@@ -212,7 +210,7 @@ describe("c-everydayAccount", () => {
     const payload = {
       update: true
     };
-    publish(messageContextWireAdapter, UpdateAccountsAndGoals, payload);
+    publish(messageContextWireAdapter, UpdateAccounts, payload);
 
     return Promise.resolve()
       .then(() => {})

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
-    <masterLabel>UpdateAccountsAndGoals</masterLabel>
+    <masterLabel>UpdateAccounts</masterLabel>
     <isExposed>true</isExposed>
-    <description>Used to determine if everyday account and financial goals component should refetch data.</description>
+    <description>Used to determine if everyday account component should refetch data.</description>
     <lightningMessageFields>
         <fieldName>update</fieldName>
         <description>Boolean to determine if update triggered</description>

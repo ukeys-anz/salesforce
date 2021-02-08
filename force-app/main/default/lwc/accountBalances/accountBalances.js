@@ -3,9 +3,8 @@ import { LightningElement, api, track, wire } from "lwc";
 import getBalances from "@salesforce/apex/AccountBalancesController.getBalances";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
-import { publish, subscribe, MessageContext } from "lightning/messageService";
-import UpdateAccountsAndGoals from "@salesforce/messageChannel/FinancialAccountsGoalsUpdate__c";
-import UpdateAccountsGoalsTimed from "@salesforce/messageChannel/FinancialAccountGoalsTimedUpdate__c";
+import { subscribe, MessageContext } from "lightning/messageService";
+import UpdateAccounts from "@salesforce/messageChannel/FinancialAccountsUpdate__c";
 import TriggerLoading from "@salesforce/messageChannel/FinancialAccountsTriggerLoading__c";
 
 export default class AccountBalances extends LightningElement {
@@ -36,7 +35,7 @@ export default class AccountBalances extends LightningElement {
 
     this.subscription = subscribe(
       this.messageContext,
-      UpdateAccountsAndGoals,
+      UpdateAccounts,
       (message) => {
         if (message.update) {
           this.timestamp = "";
@@ -109,14 +108,6 @@ export default class AccountBalances extends LightningElement {
         minute: "numeric",
         hour12: true
       });
-
-    //If it has been more than 15 min since last update,
-    //call API for latest data
-    const today = new Date();
-    if (today - lastUpdated > 15 * 60 * 1000) {
-      const payload = { update: true };
-      publish(this.messageContext, UpdateAccountsGoalsTimed, payload);
-    }
   }
 
   showToast(theTitle, theMessage) {
