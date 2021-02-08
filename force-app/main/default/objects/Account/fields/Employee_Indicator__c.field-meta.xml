@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Employee_Indicator__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Trusted;Privacy - Personal Information</complianceGroup>
+    <complianceGroup>Integrity - Accurate;Privacy - Personal Information</complianceGroup>
     <defaultValue>false</defaultValue>
     <description>Checkbox if the person is an employee</description>
     <externalId>false</externalId>

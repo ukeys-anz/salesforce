@@ -12,7 +12,7 @@
     <relationshipLabel>Financial Account Roles</relationshipLabel>
     <relationshipName>FinancialAccountRoles</relationshipName>
     <required>false</required>
-    <securityClassification>Internal</securityClassification>
+    <securityClassification>Confidential</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

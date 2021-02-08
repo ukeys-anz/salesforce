@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>FinServ__Nickname__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Trusted</complianceGroup>
+    <complianceGroup>Integrity_Accurate</complianceGroup>
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Nickname</label>

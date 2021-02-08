@@ -11,7 +11,7 @@ Unique identifier for the ANZ product, from Zafin</description>
     <label>Code</label>
     <length>255</length>
     <required>false</required>
-    <securityClassification>Internal</securityClassification>
+    <securityClassification>Public</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>true</unique>

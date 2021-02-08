@@ -11,7 +11,7 @@
     <relationshipLabel>Customer Feedback</relationshipLabel>
     <relationshipName>Customer_Feedback</relationshipName>
     <required>false</required>
-    <securityClassification>Internal</securityClassification>
+    <securityClassification>Confidential</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
