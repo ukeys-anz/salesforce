@@ -11,11 +11,5 @@ public with sharing class CaseCommonActions {
     .get('General_Inquiry')
     .getRecordTypeId();
 
-  /**
-   * @description completeAfterUpdateActions method is called after finishing all the necessary steps for update.
-   */
-  public static void completeAfterUpdateActions() {
-    //set recursive flag to false to avoid test class failures and bulk update issues
-    //checkRecursive.firstCall = false;
-  }
+  
 }
