@@ -145,6 +145,7 @@ public with sharing class IDRCaseActions {
       }
     }
     handleOfficeAssignment(changeOfficeCaseList);
+    handleQueueNameChange(records, null);
   }
 
   /**
@@ -211,6 +212,8 @@ public with sharing class IDRCaseActions {
       }
       //calling handleOfficeAssignment for all case records for which the IDR_Office__c needs to be updated.
       handleOfficeAssignment(changeOfficeCaseList);
+
+      handleQueueNameChange(records, (Map<Id, Case>) oldMap);
     }
   }
 
@@ -340,12 +343,49 @@ public with sharing class IDRCaseActions {
     Case record,
     String oldOwnerId
   ) {
+    System.debug(
+      'Affreen' +
+      record.OwnerId.getSobjectType() +
+      ': ' +
+      record.Owner.Name
+    );
     if (
       record.OwnerId.getSobjectType() == User.SobjectType &&
       record.OwnerId != oldOwnerId
     ) {
       caseOwnerIds.add(record.OwnerId);
       changeOfficeCaseList.add(record);
+    }
+  }
+
+  private static void handleQueueNameChange(
+    List<Case> caseList,
+    Map<id, Case> oldCaseMap
+  ) {
+    Set<Id> queueIds = new Set<Id>();
+
+    for (Case c : caseList) {
+      if (c.OwnerId.getSobjectType() == Group.SobjectType) {
+        if (
+          oldCaseMap != null &&
+          oldCaseMap.containsKey(c.id) &&
+          c.OwnerId != oldCaseMap.get(c.id).OwnerId
+        ) {
+          queueIds.add(c.OwnerId);
+        } else if (oldCaseMap == null) {
+          queueIds.add(c.OwnerId);
+        }
+      }
+    }
+
+    Map<Id, group> queue = new Map<Id, group>(
+      [SELECT id, Name FROM group WHERE Id IN :queueIds]
+    );
+
+    for (Case c : caseList) {
+      if (queue.containsKey(c.OwnerId)) {
+        c.Queue__c = queue.get(c.OwnerId).Name;
+      }
     }
   }
 
