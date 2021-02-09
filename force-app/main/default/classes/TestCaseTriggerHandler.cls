@@ -230,6 +230,7 @@ private class TestCaseTriggerHandler {
       newCases[i].IDR_Escalation_Reason__c = '1';
     }
     // WHEN they are updated
+        CheckRecursive.firstCall = false;
     update newCases;
     // THEN check if IsEscalated is true
     c = [SELECT CaseNumber, IsEscalated FROM Case WHERE id = :newCases[0].id];
@@ -296,6 +297,7 @@ private class TestCaseTriggerHandler {
       newCases[i].IDR_Reason_for_re_opening__c = '1';
     }
     // WHEN they are updated
+        CheckRecursive.firstCall = false;
     update newCases;
     // THEN check if date is todays date
     c = [
@@ -362,6 +364,8 @@ private class TestCaseTriggerHandler {
       );
     }
     // WHEN they are inserted
+          System.debug('CheckRecursive1' + CheckRecursive.firstCall);
+
     insert newCases;
     // THEN office field matches the case owner's
     User currentUser = [
@@ -375,6 +379,7 @@ private class TestCaseTriggerHandler {
       c.IDR_Office__c,
       'Office is current owner\'s division'
     );
+      
 
     // GIVEN complaint is reassigned to another User
     Profile p = [SELECT Id FROM Profile WHERE Name = 'Standard USer'];
@@ -391,8 +396,10 @@ private class TestCaseTriggerHandler {
       Division = 'IDR Test Office'
     );
     insert idrUser;
+      System.debug('CheckRecursive' + CheckRecursive.firstCall);
     c.OwnerId = idrUser.Id;
     // WHEN complaint is updated
+    CheckRecursive.firstCall = false;
     update c;
     // THEN Office has changed to new user's
     idrUser = [
@@ -591,6 +598,8 @@ private class TestCaseTriggerHandler {
     }
 
     insert newCases;
+        CheckRecursive.firstCall = false;
+
 
     newCases[0].Type = 'Dispute';
     newCases[0].Additional_Type__c = 'My Security;Product Information';
@@ -648,6 +657,8 @@ private class TestCaseTriggerHandler {
     ];
     system.assertEquals(et.Id, checkEntitlment.EntitlementId);
     system.assertEquals('Normal', checkEntitlment.IDR_Milestone_Sla__c);
+        CheckRecursive.firstCall = false;
+
     checkEntitlment.Status = 'Under Investigation';
     checkEntitlment.IDR_Milestone_Sla__c = '2 business days';
     update checkEntitlment;
@@ -718,6 +729,8 @@ private class TestCaseTriggerHandler {
       AccountId = accountId
     );
     insert updateCase;
+
+        CheckRecursive.firstCall = false;
 
     Test.startTest();
     updateCase.Related_Bug__c = bugId;
@@ -871,6 +884,7 @@ private class TestCaseTriggerHandler {
       sampleCase1.Subject,
       'Failed to autopopulate Subject on Fraud cases as expected, while inserting'
     );
+	    CheckRecursive.firstCall = false;
 
     // Validate UPDATE behaviour
     newCases[0].Type = 'Investment';
