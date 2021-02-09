@@ -131,6 +131,7 @@ public with sharing class IDRCaseActions {
     }*/
     for (Case record : records) {
       if (isIDRComplaintType(record)) {
+       
         record.EntitlementId = entitlementId;
         record.IDR_Milestone_Sla__c = IDRConstants.MILESTONE_SLA_NORMAL;
        // record.IDR_Milestone_Sla__c = getMilestoneSla(record.Status, record.IDR_Date_Received__c , businessHoursId); 
@@ -277,9 +278,41 @@ public with sharing class IDRCaseActions {
     //sendNotifications(notificationCaseList);
     NotificationTriggerHandler.insertNotificationHandler(notificationCaseList);
     escalateToCFMS(caseEscalationList);
+    exceuteAssignmentRule(caseEscalationList);
     notificationCaseList.clear();
     caseEscalationList.clear();
   }
+    
+    /**
+   * @description Execute the assignment rules on escalated cases
+   * @param caseList List of escalated cases
+   */
+    public static void exceuteAssignmentRule(List<Case> caseList){
+        List<Case> cList = new List<Case>();
+        for(Case c : [Select Id from Case where id in: caseList])
+        { 
+            Database.DMLOptions dmo = new Database.DMLOptions();
+ 
+            dmo.assignmentRuleHeader.useDefaultRule = true;
+            c.setOptions(dmo);
+            cList.add(c);
+            
+        }
+        try{
+            Database.update(cList);
+        }catch(Exception e){
+            Lib_SystemLog.logAPIError(
+            IDRCaseActions.class.getName(),
+            'error in executing case Assignment Rule',
+            e.getMessage(),
+            e.getTypeName(),
+            IDRCaseActions.class.getName(),
+            null,
+            null
+          );
+        }
+        
+    }
 
   /**
    * @description onBeforeDelete of IDR Case records. No user is allowed to delete a complaint or a systemic issue.
@@ -392,24 +425,8 @@ public with sharing class IDRCaseActions {
     ) {
       // escalated on insert cases , change status to escalated, assign to CRC queue and send notifcation to CFMS
       record.Status = ESCALATED_STATUS;
-      record.OwnerId = queue.Id;
-    } else if (
-      record.IDR_Escalated_to__c == ESCALATED_TO_CRC_API_NAME &&
-      record.OwnerId != queue.Id &&
-      record.Status == ESCALATED_STATUS &&
-      oldRec.Status != ESCALATED_STATUS
-    ) {
-      // Escalated by updating the case , change status to escalated
-      record.OwnerId = queue.Id;
-    } else if (
-      record.IDR_Escalated_to__c == ESCALATED_TO_CRC_API_NAME &&
-      oldRec.IDR_Escalated_to__c != ESCALATED_TO_CRC_API_NAME &&
-      record.OwnerId != queue.Id &&
-      record.Status == ESCALATED_STATUS
-    ) {
-      // Escalated to has changed for already escalated case, assign to CRC queue and send notifcation to CFMS
-      record.OwnerId = queue.Id;
-    }
+      //record.OwnerId = queue.Id;
+    } 
   }
 
   /**

@@ -52,6 +52,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
    * @param oldMap old trigger values
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    if (!checkRecursive.firstCall) {
     IDRCaseActions.beforeUpdate(oldMap, records);
     GetHelpCaseActions.beforeUpdate(oldMap, records);
     SICaseActions.beforeUpdate((List<Case>) records, (Map<Id, Case>) oldMap);
@@ -59,6 +60,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       records,
       (Map<Id, Case>) oldMap
     );
+    }
   }
 
   /**
