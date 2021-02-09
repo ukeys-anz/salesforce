@@ -89,9 +89,10 @@ export default class TransactionHistoryBoard extends LightningElement {
     })
       .then((result) => {
         if (result) {
-          this.totalTransactions = JSON.parse(result).total;
-          this.fullTransactionList = JSON.parse(result).transactions;
-          this.links = JSON.parse(result).links;
+          const resultObj = JSON.parse(result);
+          this.totalTransactions = resultObj.total;
+          this.fullTransactionList = resultObj.transactions;
+          this.links = resultObj.links;
           let updatedFullList = [];
 
           if (this.fullTransactionList) {
@@ -99,27 +100,36 @@ export default class TransactionHistoryBoard extends LightningElement {
               let currentTransaction = { ...this.fullTransactionList[i] };
 
               //Remove $ from value and convert to int
-              currentTransaction.amount.charged.value = parseFloat(
-                currentTransaction.amount.charged.value.replace("$", ""),
-                10
-              ).toFixed(2);
+              if (
+                currentTransaction.amount &&
+                currentTransaction.amount.charged &&
+                currentTransaction.amount.charged.value
+              ) {
+                currentTransaction.amount.charged.value = parseFloat(
+                  currentTransaction.amount.charged.value.replace("$", ""),
+                  10
+                ).toFixed(2);
+              } else {
+                currentTransaction.amount.charged.value = 0;
+              }
 
               //Remap type and status
-              currentTransaction.type =
-                transactionTypeMapping[currentTransaction.type];
-              currentTransaction.status =
-                transactionStatusMapping[currentTransaction.status];
+              currentTransaction.type = currentTransaction.type
+                ? transactionTypeMapping[currentTransaction.type]
+                : "Unknown";
+              currentTransaction.status = currentTransaction.status
+                ? transactionStatusMapping[currentTransaction.status]
+                : "Unknown";
 
               //Slice the returned date time to get only the date
-              currentTransaction.TransactionDate = currentTransaction.date.slice(
-                0,
-                10
-              );
+              currentTransaction.TransactionDate = currentTransaction.date
+                ? currentTransaction.date.slice(0, 10)
+                : "Unknown";
 
               //Return only the time from the date time
-              currentTransaction.TransactionTime = currentTransaction.date.match(
-                /\d\d:\d\d/
-              );
+              currentTransaction.TransactionTime = currentTransaction.date
+                ? currentTransaction.date.match(/\d\d:\d\d/)
+                : "Unknown";
 
               if (i === 0) {
                 currentTransaction.showDateTitle = true;
@@ -142,7 +152,7 @@ export default class TransactionHistoryBoard extends LightningElement {
                 //loop through tags
                 currentTransaction.tags.forEach((tag) => {
                   //Truncate tag name
-                  if (tag.name.length > 15) {
+                  if (tag.name && tag.name.length > 15) {
                     tag.name = tag.name.substring(0, 14) + "...";
                   }
                   currentTransaction.tagList.push(tag.name);
@@ -158,12 +168,14 @@ export default class TransactionHistoryBoard extends LightningElement {
 
               //Remap card scheme to be user friendly
               if (currentTransaction.card) {
-                currentTransaction.card.scheme =
-                  cardMapping[currentTransaction.card.scheme];
+                currentTransaction.card.scheme = currentTransaction.card.scheme
+                  ? cardMapping[currentTransaction.card.scheme]
+                  : "Unknown";
               }
 
               //Check if international transaction
               if (
+                currentTransaction.amount &&
                 currentTransaction.amount.type === "EXCHANGE_TYPE_INTERNATIONAL"
               ) {
                 currentTransaction.internationalDetails = true;
@@ -215,7 +227,16 @@ export default class TransactionHistoryBoard extends LightningElement {
       : transaction.merchant.name;
 
     if (transaction.merchant.address) {
-      transaction.merchantLocation = `${transaction.merchant.address.line_one.value}, ${transaction.merchant.address.suburb.value} ${transaction.merchant.address.state.value} ${transaction.merchant.address.postcode.value}`;
+      if (
+        transaction.merchant.address.line_one &&
+        transaction.merchant.address.suburb &&
+        transaction.merchant.address.state &&
+        transaction.merchant.address.postcode
+      ) {
+        transaction.merchantLocation = `${transaction.merchant.address.line_one.value}, ${transaction.merchant.address.suburb.value} ${transaction.merchant.address.state.value} ${transaction.merchant.address.postcode.value}`;
+      } else {
+        transaction.merchantLocation = "Unknown";
+      }
 
       if (transaction.merchant.address.coordinates) {
         //Set the map markers for the map
@@ -230,11 +251,18 @@ export default class TransactionHistoryBoard extends LightningElement {
       }
     }
 
-    transaction.logo = transaction.merchant.image_details.light_url.value;
+    if (
+      transaction.merchant.image_details &&
+      transaction.merchant.image_details.light_url
+    ) {
+      transaction.logo = transaction.merchant.image_details.light_url.value;
+    } else {
+      transaction.logo = null;
+    }
 
     transaction.merchant.email = transaction.merchant.email
       ? transaction.merchant.email.value
-      : "";
+      : "Unknown";
 
     return transaction;
   }
