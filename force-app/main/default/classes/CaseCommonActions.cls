@@ -16,6 +16,6 @@ public with sharing class CaseCommonActions {
    */
   public static void completeAfterUpdateActions() {
     //set recursive flag to false to avoid test class failures and bulk update issues
-    checkRecursive.firstCall = false;
+    //checkRecursive.firstCall = false;
   }
 }
