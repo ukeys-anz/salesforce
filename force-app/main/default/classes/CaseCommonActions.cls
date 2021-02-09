@@ -10,6 +10,4 @@ public with sharing class CaseCommonActions {
   public static final Id GENERAL_INQUIRY_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('General_Inquiry')
     .getRecordTypeId();
-
-  
 }

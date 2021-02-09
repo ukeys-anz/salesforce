@@ -53,13 +53,13 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     if (!checkRecursive.firstCall) {
-    IDRCaseActions.beforeUpdate(oldMap, records);
-    GetHelpCaseActions.beforeUpdate(oldMap, records);
-    SICaseActions.beforeUpdate((List<Case>) records, (Map<Id, Case>) oldMap);
-    IDRCaseNotificationManager.manageNotification(
-      records,
-      (Map<Id, Case>) oldMap
-    );
+      IDRCaseActions.beforeUpdate(oldMap, records);
+      GetHelpCaseActions.beforeUpdate(oldMap, records);
+      SICaseActions.beforeUpdate((List<Case>) records, (Map<Id, Case>) oldMap);
+      IDRCaseNotificationManager.manageNotification(
+        records,
+        (Map<Id, Case>) oldMap
+      );
     }
   }
 
