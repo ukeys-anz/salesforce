@@ -17,11 +17,12 @@ public with sharing class IDRFilesRelatedListController {
         //if there are emails associated with this case. we need to get any documents 
         //that are sent as attachment on the email. 
         list<emailmessage> caseEmails = new list<emailmessage>();
-        
-        caseEmails = [select Id from emailmessage where ParentId= :caseId];
-        
+
+        if (emailmessage.sObjectType.getDescribe().isQueryable()) {
+            caseEmails = [select Id from emailmessage where ParentId= :caseId];
+        }
+
         set<Id> linkedEntityIdList = new set<Id>();
-        
         linkedEntityIdList.add(caseId);
         
         for (emailmessage msg: caseEmails){
