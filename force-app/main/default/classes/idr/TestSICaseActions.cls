@@ -116,6 +116,7 @@ private with sharing class TestSICaseActions {
     for (Case c : newCases) {
       c.SI_Workflow_step__c = '4';
     }
+
     update newCases;
 
     //THEN 2 monitoring tasks are created per case
@@ -130,6 +131,7 @@ private with sharing class TestSICaseActions {
     for (Case c2 : newCases) {
       c2.SI_Workflow_step__c = '2';
     }
+    checkRecursive.firstCall = false;
     update newCases;
 
     //THEN they are removed
@@ -190,6 +192,7 @@ private with sharing class TestSICaseActions {
       WHERE RecordTypeId = :SICaseActions.SI_RT_ID
       LIMIT 1
     ];
+    checkRecursive.firstCall = false;
     for (Integer i = 0; i < newComplaints.size(); i++) {
       newComplaints[i].IDR_Parent_Systemic_Issue__c = newSIs[0].Id;
     }
