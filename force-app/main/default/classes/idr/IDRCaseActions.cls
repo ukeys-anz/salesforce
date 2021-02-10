@@ -527,6 +527,7 @@ public with sharing class IDRCaseActions {
     }
   }
 
+
   /**
    * @description  getMilestoneSla method is used to identify the appropriate SLA flag that needs to be shown on the case.
    * 1. when a case is open for less than 1 business day or is under investgation for less than 3 days it should be green (normal)
