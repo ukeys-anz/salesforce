@@ -13,6 +13,26 @@ public with sharing class IDRFilesRelatedListController {
   @AuraEnabled
   public static list<IDRFilesRelatedListData> getCaseRelatedFiles(id caseId) {
     string filesDataString = '';
+    
+    //if there are emails associated with this case. we need to get any documents 
+    //that are sent as attachment on the email. 
+    list<emailmessage> caseEmails = new list<emailmessage>();
+
+    if (emailmessage.sObjectType.getDescribe().isQueryable()) {
+        caseEmails = [
+           select 
+           Id 
+           from emailmessage 
+           where ParentId= :caseId
+        ];
+    }
+
+    set<Id> linkedEntityIdList = new set<Id>();
+    linkedEntityIdList.add(caseId);
+        
+    for (emailmessage msg: caseEmails){
+        linkedEntityIdList.add(msg.Id);
+    }
 
     list<contentDocumentLink> docList = new List<contentDocumentLink>();
     if (contentDocumentLink.sObjectType.getDescribe().isQueryable()) {
@@ -25,7 +45,7 @@ public with sharing class IDRFilesRelatedListController {
           ContentDocument.FileExtension,
           ContentDocumentId
         FROM contentDocumentLink
-        WHERE LinkedEntityId = :caseId
+        WHERE LinkedEntityId in :linkedEntityIdList
         ORDER BY
           ContentDocument.CreatedDate DESC,
           ContentDocument.title ASC,
