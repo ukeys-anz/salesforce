@@ -6,5 +6,6 @@
     <fields>CaseNumber</fields>
     <fields>IDR_Date_Received__c</fields>
     <fields>OwnerId</fields>
+    <fields>Queue__c</fields>
     <label>Complaint</label>
 </CompactLayout>
