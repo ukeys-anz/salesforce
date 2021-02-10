@@ -210,11 +210,11 @@ public with sharing class IDRCaseActions {
           (case) oldMap.get(records.get(i).id)
         );
       }
-      //calling handleOfficeAssignment for all case records for which the IDR_Office__c needs to be updated.
-      handleOfficeAssignment(changeOfficeCaseList);
-
-      handleQueueNameChange(records, (Map<Id, Case>) oldMap);
+     
     }
+     //calling handleOfficeAssignment for all case records for which the IDR_Office__c needs to be updated.
+    handleOfficeAssignment(changeOfficeCaseList); 
+    handleQueueNameChange(records, (Map<Id, Case>) oldMap);
   }
 
   /**
@@ -282,6 +282,7 @@ public with sharing class IDRCaseActions {
    */
   public static void completeAfterActions() {
     //sendNotifications(notificationCaseList);
+    checkRecursive.firstCall = true;
     NotificationTriggerHandler.insertNotificationHandler(notificationCaseList);
     escalateToCFMS(caseEscalationList);
     exceuteAssignmentRule(caseEscalationList);
