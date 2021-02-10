@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Feedback_Received_Date_Time__c</fullName>
-    <businessStatus>Active</businessStatus>
+    <businessStatus>Hidden</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy - Non Personal Information</complianceGroup>
     <description>Customer feedback received date time</description>
     <externalId>false</externalId>
