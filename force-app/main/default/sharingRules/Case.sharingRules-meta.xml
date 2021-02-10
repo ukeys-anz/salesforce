@@ -67,7 +67,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>General Inquiry</value>
+            <value>General Enquiry</value>
         </criteriaItems>
     </sharingCriteriaRules>
 </SharingRules>

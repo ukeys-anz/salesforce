@@ -1,9 +1,10 @@
 /**
  * @author Olivier Saier
  * @since  12/2020
- * @description SICaseActions is class to handle all the Actions related to CMOS Systemic Issues
+ * @description SICaseActions is class to handle all the Actions related to CMOS Systemic Issues.
+ * Set as without sharing because updates on SI may follow updates on complaints, by users who only have read access to SI.
  */
-public with sharing class SICaseActions {
+public without sharing class SICaseActions {
   public static final Id SI_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('Systemic_Issue')
     .getRecordTypeId();
