@@ -353,6 +353,12 @@ public with sharing class IDRCaseActions {
     }
   }
 
+  /**
+   * @description checks if teh owner is Queue or not and then stamps the Queue Name to the Queue field.
+   * Once teh case owner accepts the case we lose the track of Queue, and hence the explicit field
+   * @param caseList case list in current context
+   * @param  oldCaseMap old map of the cases in current context
+   */
   private static void handleQueueNameChange(
     List<Case> caseList,
     Map<id, Case> oldCaseMap
