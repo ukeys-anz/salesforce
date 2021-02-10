@@ -343,12 +343,6 @@ public with sharing class IDRCaseActions {
     Case record,
     String oldOwnerId
   ) {
-    System.debug(
-      'Affreen' +
-      record.OwnerId.getSobjectType() +
-      ': ' +
-      record.Owner.Name
-    );
     if (
       record.OwnerId.getSobjectType() == User.SobjectType &&
       record.OwnerId != oldOwnerId

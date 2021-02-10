@@ -364,8 +364,6 @@ private class TestCaseTriggerHandler {
       );
     }
     // WHEN they are inserted
-    System.debug('CheckRecursive1' + CheckRecursive.firstCall);
-
     insert newCases;
     // THEN office field matches the case owner's
     User currentUser = [
@@ -395,7 +393,6 @@ private class TestCaseTriggerHandler {
       Division = 'IDR Test Office'
     );
     insert idrUser;
-    System.debug('CheckRecursive' + CheckRecursive.firstCall);
     c.OwnerId = idrUser.Id;
     // WHEN complaint is updated
     CheckRecursive.firstCall = false;
