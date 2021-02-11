@@ -34,7 +34,9 @@ public with sharing class IDRBankerNotificationBuilder {
 
       if (!recipientIds.isEmpty()) {
         sendInAppNotification(wrapperRecord, type.Id, recipientIds);
-        caseUpdateFlag(wrapperRecord.relatedCaseRecord);
+        if (wrapperRecord.relatedCaseRecord != null) {
+          caseUpdateFlag(wrapperRecord.relatedCaseRecord);
+        }
       }
     }
   }
@@ -94,8 +96,7 @@ public with sharing class IDRBankerNotificationBuilder {
     //avoid DML update if the flag is already true and the user is l2 or l3
     if (
       c.IDR_Update_Notification_Flag__c == false &&
-      !(FeatureManagement.checkPermission('IDR_Level_2') ||
-      FeatureManagement.checkPermission('IDR_Level_3'))
+      FeatureManagement.checkPermission('IDR_Level_1')
     ) {
       c.IDR_Update_Notification_Flag__c = true;
       update c;

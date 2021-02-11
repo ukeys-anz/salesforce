@@ -890,4 +890,30 @@ private class TestCaseTriggerHandler {
       'Failed to autopopulate Subject on Fraud cases as expected, while updating'
     );
   }
+  @isTest
+  static void testPSITaskCreation() {
+    // GIVEN complaint cases which are possibly systemic issues
+    Case[] newCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID)
+      );
+    }
+    newCases[0].IDR_Is_Common__c = 'Yes';
+    newCases[0].IDR_Systemic_Issue_Description__c = 'Test Description';
+    newCases[0].IDR_Systemic_Issue_Category__c = '1';
+    test.startTest();
+    // WHEN they are inserted or updated
+    insert newCases;
+    newCases[1].IDR_Is_Common__c = 'Yes';
+    newCases[1].IDR_Systemic_Issue_Description__c = 'Test Description';
+    newCases[1].IDR_Systemic_Issue_Category__c = '1';
+    update newCases;
+    test.stopTest();
+    // THEN new tasks are created and assigned to PSI queue
+    List<Task> psiTasks = [SELECT Id, Subject FROM Task];
+
+    System.assertEquals(Integer.valueOf(Label.Test_Bulk_Size), psiTasks.size());
+    System.assertEquals('Please Review PSI', psiTasks[0].Subject);
+  }
 }
