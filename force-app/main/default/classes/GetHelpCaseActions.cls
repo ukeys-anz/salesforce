@@ -23,6 +23,9 @@ public with sharing class GetHelpCaseActions {
   public static final Id SCAM_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('Scam')
     .getRecordTypeId();
+  public static final Id KYCQA_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+    .get('KYC_QA')
+    .getRecordTypeId();
   public static final Id BUG_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('Bug_Enquiry')
     .getRecordTypeId();
@@ -31,7 +34,8 @@ public with sharing class GetHelpCaseActions {
     FRAUD_RT_ID,
     IDENTITY_RT_ID,
     RECIPIENT_MULE_RT_ID,
-    SCAM_RT_ID
+    SCAM_RT_ID,
+    KYCQA_RT_ID
   };
 
   // Parent Case validation error message
@@ -227,16 +231,20 @@ public with sharing class GetHelpCaseActions {
     List<String> caseTypeList = new List<String>();
 
     if (String.isNotBlank(record.Type)) {
-      //populate case subject
-      record.Subject =
-        Schema.getGlobalDescribe()
-          .get('Case')
-          .getDescribe()
-          .getRecordTypeInfosById()
-          .get(record.RecordTypeId)
-          .getName() +
-        ' - ' +
-        record.Type;
+      // Setting a different Subject format for KYC QA Cases
+      if (KYCQA_RT_ID == record.RecordTypeId) {
+        record.Subject = record.Type;
+      } else {
+        record.Subject =
+          Schema.getGlobalDescribe()
+            .get('Case')
+            .getDescribe()
+            .getRecordTypeInfosById()
+            .get(record.RecordTypeId)
+            .getName() +
+          ' - ' +
+          record.Type;
+      }
     }
   }
 
