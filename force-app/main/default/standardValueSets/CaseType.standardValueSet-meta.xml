@@ -286,4 +286,9 @@
         <default>false</default>
         <label>KYC QA Sample</label>
     </standardValue>
+    <standardValue>
+        <fullName>Potential Recipient</fullName>
+        <default>false</default>
+        <label>Potential Recipient</label>
+    </standardValue>
 </StandardValueSet>
