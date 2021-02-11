@@ -446,28 +446,17 @@ public with sharing class IDRCaseActions {
   private static void handleCaseEscalationRules(Case record, Case oldRec) {
     if (
       record.IsEscalated &&
-      record.Status != ESCALATED_STATUS &&
-      record.OwnerId.getSobjectType() == Group.SobjectType &&
-      record.OwnerId == queue.Id
+      record.Status != ESCALATED_STATUS && 
+      String.isBlank(record.IDR_Escalation_Reason__c)
     ) {
       // set default values for auto escalated cases , change status to escalated,
       //assign to CRC queue and send notifcation to CFMS
-      record.IDR_Escalated_to__c = ESCALATED_TO_CRC_API_NAME;
-      record.Status = ESCALATED_STATUS;
       if (oldRec.Status == OPEN_STATUS) {
         record.IDR_Escalation_Reason__c = DAY_3_ESCALATION_REASON;
       } else if (oldRec.Status == UNDER_INVESTIGATION_STATUS) {
         record.IDR_Escalation_Reason__c = DAY_5_ESCALATION_REASON;
       }
-    } else if (
-      record.IsEscalated &&
-      record.Status != ESCALATED_STATUS &&
-      !string.isBlank(record.IDR_Escalation_Reason__c)
-    ) {
-      // escalated on insert cases , change status to escalated, assign to CRC queue and send notifcation to CFMS
-      record.Status = ESCALATED_STATUS;
-      //record.OwnerId = queue.Id;
-    }
+    } 
   }
 
   /**

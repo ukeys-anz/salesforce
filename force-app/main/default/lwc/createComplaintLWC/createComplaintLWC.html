@@ -677,15 +677,7 @@
                   id="caseStatus-id"
                 ></lightning-combobox>
               </div>
-              <template if:true={isComplaintEscalated}>
-                <div class="slds-col slds-size_1-of-4 slds-m-right_large">
-                  <lightning-input-field
-                    variant="label-stacked"
-                    required={isComplaintEscalated}
-                    field-name={escalatedTo}
-                    data-id="escalatedTo-id"
-                  ></lightning-input-field>
-                </div>
+             <template if:true={isComplaintEscalated}>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
                     variant="label-stacked"

@@ -226,5 +226,19 @@ Product__r.Name=&apos;ANZ Car Insurance (Third Party Property Damage)&apos;||
 Product__r.Name=&apos;ANZ Travel Insurance&apos;
 )</formula>
         </ruleEntry>
+        <ruleEntry>
+            <assignedTo>IDR_Early_Resolution</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Customer Complaint,Non-Customer Complaint</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Status</field>
+                <operation>equals</operation>
+                <value>Escalated</value>
+            </criteriaItems>
+        </ruleEntry>
     </assignmentRule>
 </AssignmentRules>
