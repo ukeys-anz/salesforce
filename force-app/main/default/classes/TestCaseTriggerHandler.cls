@@ -238,36 +238,6 @@ private class TestCaseTriggerHandler {
   }
 
   @isTest
-  static void testComplaintEscalationStatus() {
-    // GIVEN cases are created as not escalated
-    Case[] newCases = new List<Case>();
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
-        new Case(
-          RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
-          IsEscalated = true,
-          IDR_Escalated_to__c = '2',
-          IDR_Escalation_Reason__c = '1',
-          OwnerId = IDRCaseActions.queue.Id
-        )
-      );
-    }
-    // WHEN they are inserted
-    insert newCases;
-    // THEN check if IsEscalated is false
-    Case c = [
-      SELECT CaseNumber, IDR_Escalated_to__c, Status, IsEscalated
-      FROM Case
-      WHERE id = :newCases[0].id
-    ];
-    System.assert(c.Status == 'Escalated', 'Status is Escalated ');
-    System.assert(
-      c.IDR_Escalated_to__c == '1',
-      'Escalated is changed to Customer Resolution Portfolio'
-    );
-  }
-
-  @isTest
   static void testDateWhenComplaintIsReopened() {
     // GIVEN cases are created as not re-openened
     Case[] newCases = new List<Case>();
