@@ -822,6 +822,60 @@ private class TestCaseTriggerHandler {
     );
   }
 
+  //Tests if KYC QA Fraud Case Subject is populated correctly based on case type.
+  @isTest
+  static void testPopulateKYCQAFraudCaseSubject() {
+    Faker faker = new Faker('AU');
+
+    // GIVEN FraudX Agent user has required acces
+    // Query for API User
+    User usr = [SELECT Id FROM User WHERE FirstName = 'FraudXTest' LIMIT 1];
+
+    // WHEN FraudX Agent user creates or updates a Fraud case
+    Case[] newCases = new List<Case>();
+    Account acc = [
+      SELECT Id
+      FROM Account
+      WHERE Display_Name__c = 'TestAccount'
+      LIMIT 1
+    ];
+
+    // criteria based sharing rules cannot be tested in apex, so open up access to this user
+    acc.OwnerId = usr.Id;
+    update acc;
+
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = GetHelpCaseActions.FRAUD_RT_IDS[4],
+          Type = 'KYC QA Sample',
+          AccountId = acc.Id
+        )
+      );
+    }
+
+    Test.startTest();
+    System.runAs(usr) {
+      insert newCases;
+    }
+    Test.stopTest();
+
+    // THEN Case Subject should be autopopulated based on Type
+
+    // Verify subject on one of the inserted Cases
+    Case sampleCase1 = [
+      SELECT Id, Type, RecordType.Name, Subject
+      FROM Case
+      WHERE Id = :newCases[0].Id
+      LIMIT 1
+    ];
+    system.assertEquals(
+      sampleCase1.Type,
+      sampleCase1.Subject,
+      'Failed to autopopulate Subject on KYC QA Fraud cases as expected, while inserting'
+    );
+  }
+
   //Tests duration hours field is populated during closure time
   @isTest
   static void testUpdateCaseDurationTime() {
