@@ -16,7 +16,7 @@ public with sharing class IDRFilesRelatedListController {
 
     //if there are emails associated with this case. we need to get any documents
     //that are sent as attachment on the email.
-    list<emailmessage> caseEmails = new List<emailmessage>();
+    List<emailmessage> caseEmails = new List<emailmessage>();
 
     if (emailmessage.sObjectType.getDescribe().isQueryable()) {
       caseEmails = [SELECT Id FROM emailmessage WHERE ParentId = :caseId];

@@ -80,6 +80,9 @@ public with sharing class IDRCaseActions {
 
   private static final String CUSTOMER_NUMBER_VALIDATION_ERROR = 'This field can no longer be edited. In the event that the Customer Number is incorrect, the case must be withdrawn and a new case created with the correct Customer Number.';
 
+  @TestVisible
+  private static final String IDR_TASK_SUBJECT = 'Please Review PSI';
+
   //IDR_Notification_Event__e for sending notifications to Notification Broker based on status.
   @TestVisible
   private static List<IDR_Notification_Event__e> idrNotifications;
@@ -172,7 +175,7 @@ public with sharing class IDRCaseActions {
         checkForCRCEscalation(record);
       }
     }
-    psiActions(records, null);
+    possibleSystemicIssueActions(records, null);
   }
 
   /**
@@ -243,7 +246,7 @@ public with sharing class IDRCaseActions {
       }
       IDRCaseCommentActions.escalateExistingCommentsToCFMS(oldMap, records);
     }
-    psiActions(records, oldMap);
+    possibleSystemicIssueActions(records, oldMap);
   }
 
   /**
@@ -798,18 +801,20 @@ public with sharing class IDRCaseActions {
   }
 
   /**
-   * @description psiActions(records, oldMap) method handles the following
+   * @description possibleSystemicIssueActions(records, oldMap) method handles the following
    * 1. Calls rollupToParentSI to update the counter of linked complaints on the parent systemic issue record
    * 2. Calls createTaskforPSI method to generate task if the complaint is a PSI and created/updated by L1 user
    * @param records from the trigger
    * @param oldMap This Map<Id, SObject> contains the map which holds the previous values which can be used to check what value has changed in onAfterUpdate.
    */
-  private static void psiActions(List<Case> records, Map<Id, SObject> oldMap) {
+  private static void possibleSystemicIssueActions(
+    List<Case> records,
+    Map<Id, SObject> oldMap
+  ) {
     Case[] childComplaints = new List<Case>(); //records to rollup on parent systemic issue
     Task[] siTasks = new List<Task>();
 
-    for (Integer i = 0; i < records.size(); i++) {
-      Case record = records[i];
+    for (Case record : records) {
       Case oldRec;
       if (oldMap != null) {
         oldRec = (Case) oldMap.get(record.id);
@@ -864,7 +869,7 @@ public with sharing class IDRCaseActions {
       RecordTypeId = IDR_TASK_RT_ID,
       OwnerId = siQueue.Id,
       WhatId = c.Id,
-      Subject = 'Please Review PSI ',
+      Subject = IDR_TASK_SUBJECT,
       ActivityDate = activityDate,
       IsReminderSet = true,
       ReminderDateTime = (DateTime) (activityDate - 2)
