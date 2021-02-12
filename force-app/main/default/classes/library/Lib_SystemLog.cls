@@ -11,7 +11,7 @@
  *
  * log.addDatabaseSaveResult(results, 'Contact', contactToUpdate);
  */
-@SuppressWarnings('PMD.ExcessiveParameterList')
+@SuppressWarnings('PMD.ExcessiveParameterList, PMD.ExcessivePublicCount')
 public without sharing class Lib_SystemLog {
   public enum Severity {
     INFO,
@@ -121,6 +121,29 @@ public without sharing class Lib_SystemLog {
     lib_SystemLog sfLog = new lib_SystemLog(processName, functionName);
     sfLog.addMessage(errorNo, errorDescription, severity);
     sfLog.insertLog();
+  }
+
+  /**
+   * @description The method is used to create a single log record in Application_Log__c object in async mode
+   * @param processName Process name used to generate the log.
+   * @param functionName Function name used to generate the log.
+   * @param errorNo Error code used to create the log record.
+   * @param errorDescription Error description used to create the log record.
+   */
+  @future
+  public static void createSingleLogAsync(
+    String processName,
+    String functionName,
+    String errorNo,
+    String errorDescription
+  ) {
+    createSingleLog(
+      processName,
+      functionName,
+      errorNo,
+      errorDescription,
+      Lib_SystemLog.Severity.ERROR
+    );
   }
 
   /**
