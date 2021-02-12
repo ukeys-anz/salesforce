@@ -896,4 +896,21 @@ private class TestCaseTriggerHandler {
     ];
     System.assert(newCase.Case_Hour_Duration__c >= 0);
   }
+
+  @istest
+  static void testBusinessHoursAssignment() {
+    Case newCase = new Case();
+    newCase.RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID;
+    insert newCase;
+
+    BusinessHours bhs = [
+      SELECT Id
+      FROM BusinessHours
+      WHERE Name = 'Case Business Hours'
+    ];
+
+    Case c = [SELECT BusinessHoursId FROM Case WHERE id = :newCase.id];
+
+    System.assertEquals(bhs.Id, c.BusinessHoursId);
+  }
 }

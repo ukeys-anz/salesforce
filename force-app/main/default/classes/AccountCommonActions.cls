@@ -42,7 +42,7 @@ public with sharing class AccountCommonActions {
         Entitlement ent = new Entitlement();
         ent.AccountId = acc.Id;
         ent.Name = 'Basic Subscription';
-        ent.SlaProcessId = getSLAId('general inquiries', 'generalInquirySlaId');
+        ent.SlaProcessId = getSLAId('general enquiries', 'generalEnquirySlaId');
         ent.StartDate = System.today();
         entitlementList.add(ent);
       }
@@ -77,7 +77,7 @@ public with sharing class AccountCommonActions {
         Entitlement ent = new Entitlement();
         ent.AccountId = acc.Id;
         ent.Name = 'Basic Subscription';
-        ent.SlaProcessId = getSLAId('general inquiries', 'generalInquirySlaId');
+        ent.SlaProcessId = getSLAId('general enquiries', 'generalEnquirySlaId');
         ent.StartDate = System.today();
         entitlementList.add(ent);
       } else if (

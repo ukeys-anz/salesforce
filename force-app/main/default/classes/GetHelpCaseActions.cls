@@ -396,4 +396,52 @@ public with sharing class GetHelpCaseActions {
       RoundingMode.HALF_UP
     );
   }
+
+  /**
+   * @description This method updates the case business hours field
+   * to be ANZx specific
+   * @param record the record we are updating
+   */
+  private static void setBusinessHours(Case record) {
+    if (BusinessHours.SObjectType.getDescribe().isAccessible()) {
+      BusinessHours bhs = [
+        SELECT Id
+        FROM BusinessHours
+        WHERE Name = 'ANZx Case Business Hours'
+      ];
+
+      record.BusinessHoursId = bhs.Id;
+    }
+  }
+
+  /**
+   * @description applyDefaults is called onBeforeInsert to set the following values as defaults
+   * 1. Update business hours field to match ANZx business hours
+   * @param records The record list form which we need to apply defaults
+   */
+  public static void applyDefaults(List<Case> records) {
+    for (Case record : records) {
+      if (isANZxCaseType(record)) {
+        setBusinessHours(record);
+      }
+    }
+  }
+
+  /**
+   * @description isANZxCaseType check if record type is of ANZx type.
+   * As this Trigger will be used across various teams we identify case record based on ANZx record Type.
+   *
+   * @param record The record for which the recordType needs to be checked
+   * @return `Boolean` True if the the record type is of ANZx type false otherwise.
+   */
+  private static Boolean isANZxCaseType(Case record) {
+    if (
+      FRAUD_RT_IDS.contains(record.RecordTypeId) ||
+      record.RecordTypeId == GENERAL_INQUIRY_RT_ID ||
+      record.RecordTypeId == BUG_RT_ID
+    ) {
+      return true;
+    }
+    return false;
+  }
 }

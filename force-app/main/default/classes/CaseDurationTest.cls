@@ -60,7 +60,7 @@ public class CaseDurationTest {
     List<BusinessHours> bhs = [
       SELECT id
       FROM BusinessHours
-      WHERE IsDefault = TRUE
+      WHERE Name = 'ANZx Case Business Hours'
     ];
     CaseDurationObject caseDurationObj = new CaseDurationObject(newCase.Id);
 
@@ -88,7 +88,7 @@ public class CaseDurationTest {
     List<BusinessHours> bhs = [
       SELECT id
       FROM BusinessHours
-      WHERE IsDefault = TRUE
+      WHERE Name = 'ANZx Case Business Hours'
     ];
     CaseDurationObject caseDurationObj = new CaseDurationObject(newCase.Id);
 
@@ -123,7 +123,7 @@ public class CaseDurationTest {
     List<BusinessHours> bhs = [
       SELECT id
       FROM BusinessHours
-      WHERE IsDefault = TRUE
+      WHERE Name = 'ANZx Case Business Hours'
     ];
     CaseDurationObject caseDurationObj = new CaseDurationObject(newCase.Id);
 
@@ -172,7 +172,7 @@ public class CaseDurationTest {
     List<BusinessHours> bhs = [
       SELECT id
       FROM BusinessHours
-      WHERE IsDefault = TRUE
+      WHERE Name = 'ANZx Case Business Hours'
     ];
     CaseDurationObject caseDurationObj = new CaseDurationObject(newCase.Id);
 
