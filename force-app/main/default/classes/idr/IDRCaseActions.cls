@@ -145,7 +145,7 @@ public with sharing class IDRCaseActions {
       }
     }
     handleOfficeAssignment(changeOfficeCaseList);
-    handleQueueNameChange(records, null);
+    stampQueueName(records, null);
   }
 
   /**
@@ -214,7 +214,7 @@ public with sharing class IDRCaseActions {
     }
      //calling handleOfficeAssignment for all case records for which the IDR_Office__c needs to be updated.
     handleOfficeAssignment(changeOfficeCaseList); 
-    handleQueueNameChange(records, (Map<Id, Case>) oldMap);
+    stampQueueName(records, (Map<Id, Case>) oldMap);
   }
 
   /**
@@ -281,7 +281,6 @@ public with sharing class IDRCaseActions {
    * @description completeAfterActions() is called post onAfterInsert and onAfterUpdate
    */
   public static void completeAfterActions() {
-    //sendNotifications(notificationCaseList);
     checkRecursive.firstCall = true;
     NotificationTriggerHandler.insertNotificationHandler(notificationCaseList);
     escalateToCFMS(caseEscalationList);
@@ -359,7 +358,7 @@ public with sharing class IDRCaseActions {
    * @param caseList case list in current context
    * @param  oldCaseMap old map of the cases in current context
    */
-  private static void handleQueueNameChange(
+  private static void stampQueueName(
     List<Case> caseList,
     Map<id, Case> oldCaseMap
   ) {
@@ -379,13 +378,13 @@ public with sharing class IDRCaseActions {
       }
     }
 
-    Map<Id, group> queue = new Map<Id, group>(
-      [SELECT id, Name FROM group WHERE Id IN :queueIds]
+    Map<Id, Group> queueMap = new Map<Id, Group>(
+      [SELECT id, Name FROM Group WHERE Id IN :queueIds]
     );
 
     for (Case c : caseList) {
       if (queue.containsKey(c.OwnerId)) {
-        c.Queue__c = queue.get(c.OwnerId).Name;
+        c.Queue__c = queueMap.get(c.OwnerId).Name;
       }
     }
   }
