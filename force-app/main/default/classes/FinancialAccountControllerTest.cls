@@ -7,6 +7,7 @@ public with sharing class FinancialAccountControllerTest {
     accnt.Display_Name__c = 'TestAccount';
     accnt.OCV_ID__c = '1';
     accnt.ANZx_Customer__c = true;
+    accnt.External_Id__c = '82jfsa80534';
     insert accnt;
 
     List<FinServ__FinancialAccount__c> financialAccounts = new List<FinServ__FinancialAccount__c>();
@@ -19,6 +20,8 @@ public with sharing class FinancialAccountControllerTest {
       finAccount.FinServ__Status__c = 'Open';
       finAccount.FinServ__FinancialAccountType__c = 'Checking';
       finAccount.FinServ__PrimaryOwner__c = accnt.Id;
+      finAccount.Account_Key__c = '342490981' + i;
+      finAccount.Primary_Owner_Start_Date__c = Date.valueOf('2021-02-11');
 
       financialAccounts.add(finAccount);
     }
