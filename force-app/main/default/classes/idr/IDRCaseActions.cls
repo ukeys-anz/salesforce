@@ -379,7 +379,7 @@ public with sharing class IDRCaseActions {
       }
     }
 
-    Map<Id, group> queue = new Map<Id, group>(
+    Map<Id, Group> queueMap = new Map<Id, Group>(
       [SELECT id, Name FROM group WHERE Id IN :queueIds]
     );
 
