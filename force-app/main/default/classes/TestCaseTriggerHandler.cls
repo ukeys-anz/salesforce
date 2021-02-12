@@ -78,18 +78,26 @@ private class TestCaseTriggerHandler {
       idrUser.ProfileId = anzProfile.Id;
       insert idrUser;
 
-      PermissionSetGroup idrPsg = [
+      // Assign related PSs
+      List<String> idrPsets = new List<String>{
+        'IDR_User',
+        'IDR_User_Level_1'
+      };
+      List<PermissionSet> idrPsetList = [
         SELECT Id
-        FROM PermissionSetGroup
-        WHERE DeveloperName = 'IDR_Level_1'
+        FROM PermissionSet
+        WHERE Name IN :idrPsets
       ];
 
-      PermissionSetAssignment psa = new PermissionSetAssignment(
-        AssigneeId = idrUser.id,
-        PermissionSetGroupId = idrPsg.Id
-      );
-
-      insert psa;
+      List<PermissionSetAssignment> idrPsaList = new List<PermissionSetAssignment>();
+      for (PermissionSet ps : idrPsetList) {
+        PermissionSetAssignment psa = new PermissionSetAssignment(
+          AssigneeId = idrUser.id,
+          PermissionSetId = ps.Id
+        );
+        idrPsaList.add(psa);
+      }
+      insert idrPsaList;
     }
   }
 
