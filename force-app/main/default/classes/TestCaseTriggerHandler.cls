@@ -64,6 +64,32 @@ private class TestCaseTriggerHandler {
       );
       accnts.add(a);
       insert accnts;
+
+      // Create IDR L1 user
+      Profile anzProfile = [
+        SELECT Id
+        FROM Profile
+        WHERE Name = 'ANZ Standard User'
+        LIMIT 1
+      ];
+
+      User idrUser = (User) FakerFactory.make(new FakerUserFactory());
+      idrUser.FirstName = 'IDRL1';
+      idrUser.ProfileId = anzProfile.Id;
+      insert idrUser;
+
+      PermissionSetGroup idrPsg = [
+        SELECT Id
+        FROM PermissionSetGroup
+        WHERE DeveloperName = 'IDR_Level_1'
+      ];
+
+      PermissionSetAssignment psa = new PermissionSetAssignment(
+        AssigneeId = idrUser.id,
+        PermissionSetGroupId = idrPsg.Id
+      );
+
+      insert psa;
     }
   }
 
@@ -893,27 +919,42 @@ private class TestCaseTriggerHandler {
   @isTest
   static void testPSITaskCreation() {
     // GIVEN complaint cases which are possibly systemic issues
-    Case[] newCases = new List<Case>();
+    Case[] caseList1 = new List<Case>();
+    Case[] caseList2 = new List<Case>();
+    User level1User = [SELECT Id FROM User WHERE FirstName = 'IDRL1'];
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
+      caseList1.add(
+        new Case(
+          RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
+          IDR_Is_Common__c = 'Yes',
+          IDR_Systemic_Issue_Description__c = 'Test Description',
+          IDR_Systemic_Issue_Category__c = '1'
+        )
+      );
+    }
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      caseList2.add(
         new Case(RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID)
       );
     }
-    newCases[0].IDR_Is_Common__c = 'Yes';
-    newCases[0].IDR_Systemic_Issue_Description__c = 'Test Description';
-    newCases[0].IDR_Systemic_Issue_Category__c = '1';
+
     test.startTest();
-    // WHEN they are inserted or updated
-    insert newCases;
-    newCases[1].IDR_Is_Common__c = 'Yes';
-    newCases[1].IDR_Systemic_Issue_Description__c = 'Test Description';
-    newCases[1].IDR_Systemic_Issue_Category__c = '1';
-    update newCases;
+    System.runAs(level1User) {
+      // WHEN they are inserted or updated by L1 User
+      insert caseList1;
+      insert caseList2;
+      for (Case updateCase : caseList2) {
+        updateCase.IDR_Is_Common__c = 'Yes';
+        updateCase.IDR_Systemic_Issue_Description__c = 'Test Description';
+        updateCase.IDR_Systemic_Issue_Category__c = '2';
+      }
+      update caseList2;
+    }
     test.stopTest();
     // THEN new tasks are created and assigned to PSI queue
     List<Task> psiTasks = [SELECT Id, Subject FROM Task];
 
-    System.assertEquals(Integer.valueOf(Label.Test_Bulk_Size), psiTasks.size());
-    System.assertEquals('Please Review PSI', psiTasks[0].Subject);
+    System.assertEquals(4, psiTasks.size());
+    System.assertEquals(IDRCaseActions.IDR_TASK_SUBJECT, psiTasks[0].Subject);
   }
 }
