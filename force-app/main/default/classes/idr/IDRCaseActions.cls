@@ -210,10 +210,9 @@ public with sharing class IDRCaseActions {
           (case) oldMap.get(records.get(i).id)
         );
       }
-     
     }
-     //calling handleOfficeAssignment for all case records for which the IDR_Office__c needs to be updated.
-    handleOfficeAssignment(changeOfficeCaseList); 
+    //calling handleOfficeAssignment for all case records for which the IDR_Office__c needs to be updated.
+    handleOfficeAssignment(changeOfficeCaseList);
     stampQueueName(records, (Map<Id, Case>) oldMap);
   }
 
@@ -303,17 +302,24 @@ public with sharing class IDRCaseActions {
       cList.add(c);
     }
     try {
-      Database.update(cList);
-    } catch (Exception e) {
-      Lib_SystemLog.logAPIError(
-        IDRCaseActions.class.getName(),
-        'error in executing case Assignment Rule',
-        e.getMessage(),
-        e.getTypeName(),
-        IDRCaseActions.class.getName(),
-        null,
-        null
-      );
+      Database.SaveResult saveResultList = Database.update(cList, false);
+
+      for (Database.SaveResult sr : saveResultList) {
+        if (!sr.isSuccess())
+          // Operation failed, so get all errors
+          for (Database.Error err : sr.getErrors()) {
+            Lib_SystemLog.logAPIError(
+              IDRCaseActions.class.getName(),
+              'Error in executing case Assignment Rule for record id' +
+              err.getId(),
+              err.getMessage(),
+              err.getStatusCode(),
+              IDRCaseActions.class.getName(),
+              null,
+              null
+            );
+          }
+      }
     }
   }
 
@@ -445,7 +451,7 @@ public with sharing class IDRCaseActions {
   private static void handleCaseEscalationRules(Case record, Case oldRec) {
     if (
       record.IsEscalated &&
-      record.Status != ESCALATED_STATUS && 
+      record.Status != ESCALATED_STATUS &&
       String.isBlank(record.IDR_Escalation_Reason__c)
     ) {
       // set default values for auto escalated cases , change status to escalated,
@@ -455,7 +461,7 @@ public with sharing class IDRCaseActions {
       } else if (oldRec.Status == UNDER_INVESTIGATION_STATUS) {
         record.IDR_Escalation_Reason__c = DAY_5_ESCALATION_REASON;
       }
-    } 
+    }
   }
 
   /**
@@ -514,7 +520,6 @@ public with sharing class IDRCaseActions {
       );
     }
   }
-
 
   /**
    * @description  getMilestoneSla method is used to identify the appropriate SLA flag that needs to be shown on the case.
