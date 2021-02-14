@@ -301,25 +301,24 @@ public with sharing class IDRCaseActions {
       c.setOptions(dmo);
       cList.add(c);
     }
-    try {
-      Database.SaveResult saveResultList = Database.update(cList, false);
 
-      for (Database.SaveResult sr : saveResultList) {
-        if (!sr.isSuccess())
-          // Operation failed, so get all errors
-          for (Database.Error err : sr.getErrors()) {
-            Lib_SystemLog.logAPIError(
-              IDRCaseActions.class.getName(),
-              'Error in executing case Assignment Rule for record id' +
-              err.getId(),
-              err.getMessage(),
-              err.getStatusCode(),
-              IDRCaseActions.class.getName(),
-              null,
-              null
-            );
-          }
-      }
+    List<Database.SaveResult> saveResultList = Database.update(cList, false);
+
+    for (Database.SaveResult sr : saveResultList) {
+      if (!sr.isSuccess())
+        // Operation failed, so get all errors
+        for (Database.Error err : sr.getErrors()) {
+          Lib_SystemLog.logAPIError(
+            IDRCaseActions.class.getName(),
+            'Error in executing case Assignment Rule for record id' +
+            sr.getId(),
+            err.getMessage(),
+            null,
+            IDRCaseActions.class.getName(),
+            null,
+            null
+          );
+        }
     }
   }
 
@@ -366,7 +365,7 @@ public with sharing class IDRCaseActions {
    */
   private static void stampQueueName(
     List<Case> caseList,
-    Map<id, Case> oldCaseMap
+    Map<Id, Case> oldCaseMap
   ) {
     Set<Id> queueIds = new Set<Id>();
 
@@ -389,7 +388,7 @@ public with sharing class IDRCaseActions {
     );
 
     for (Case c : caseList) {
-      if (queue.containsKey(c.OwnerId)) {
+      if (queueMap.containsKey(c.OwnerId)) {
         c.Queue__c = queueMap.get(c.OwnerId).Name;
       }
     }
