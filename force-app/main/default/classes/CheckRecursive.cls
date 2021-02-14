@@ -7,4 +7,8 @@
  */
 public with sharing class CheckRecursive {
   public static Boolean firstCall = false;
+
+  public static void run(){
+    firstCall = true;
+  }
 }

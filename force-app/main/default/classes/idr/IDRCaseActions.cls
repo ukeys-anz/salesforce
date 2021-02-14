@@ -281,10 +281,10 @@ public with sharing class IDRCaseActions {
    * @description completeAfterActions() is called post onAfterInsert and onAfterUpdate
    */
   public static void completeAfterActions() {
-    checkRecursive.firstCall = true;
+    CheckRecursive.run();
     NotificationTriggerHandler.insertNotificationHandler(notificationCaseList);
     escalateToCFMS(caseEscalationList);
-    exceuteAssignmentRule(caseEscalationList);
+    executeAssignmentRule(caseEscalationList);
     notificationCaseList.clear();
     caseEscalationList.clear();
   }
@@ -293,7 +293,7 @@ public with sharing class IDRCaseActions {
    * @description Execute the assignment rules on escalated cases
    * @param caseList List of escalated cases
    */
-  public static void exceuteAssignmentRule(List<Case> caseList) {
+  public static void executeAssignmentRule(List<Case> caseList) {
     List<Case> cList = new List<Case>();
     for (Case c : [SELECT Id FROM Case WHERE id IN :caseList]) {
       Database.DMLOptions dmo = new Database.DMLOptions();
