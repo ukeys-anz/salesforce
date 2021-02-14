@@ -305,9 +305,9 @@ public with sharing class IDRCaseActions {
     List<Database.SaveResult> saveResultList = Database.update(cList, false);
 
     for (Database.SaveResult sr : saveResultList) {
-      if (!sr.isSuccess())
+      if (!sr.isSuccess()){
         // Operation failed, so get all errors
-        for (Database.Error err : sr.getErrors()) {
+        for (Database.Error err : sr.getErrors()){
           Lib_SystemLog.logAPIError(
             IDRCaseActions.class.getName(),
             'Error in executing case Assignment Rule for record id' +
@@ -319,6 +319,7 @@ public with sharing class IDRCaseActions {
             null
           );
         }
+      }
     }
   }
 
