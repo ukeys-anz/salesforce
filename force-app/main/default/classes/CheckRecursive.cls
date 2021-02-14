@@ -8,7 +8,11 @@
 public with sharing class CheckRecursive {
   public static Boolean firstCall = false;
 
-  public static void run(){
+  /**
+   * @description Method to turn the flag on
+   *
+   */
+  public static void run() {
     firstCall = true;
   }
 }
