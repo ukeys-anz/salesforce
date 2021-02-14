@@ -294,20 +294,20 @@ public with sharing class IDRCaseActions {
    */
   public static void executeAssignmentRule(List<Case> caseList) {
     List<Case> cList = new List<Case>();
-    for (Case c : [SELECT Id FROM Case WHERE id IN :caseList]) {
+    for (Case c : caseList) {
+      Case caseRecord = new Case(id = c.id);
       Database.DMLOptions dmo = new Database.DMLOptions();
-
       dmo.assignmentRuleHeader.useDefaultRule = true;
-      c.setOptions(dmo);
-      cList.add(c);
+      caseRecord.setOptions(dmo);
+      cList.add(caseRecord);
     }
 
     List<Database.SaveResult> saveResultList = Database.update(cList, false);
 
     for (Database.SaveResult sr : saveResultList) {
-      if (!sr.isSuccess()){
+      if (!sr.isSuccess()) {
         // Operation failed, so get all errors
-        for (Database.Error err : sr.getErrors()){
+        for (Database.Error err : sr.getErrors()) {
           Lib_SystemLog.logAPIError(
             IDRCaseActions.class.getName(),
             'Error in executing case Assignment Rule for record id' +
