@@ -939,9 +939,9 @@ private class TestCaseTriggerHandler {
     }
     test.stopTest();
     // THEN new tasks are created and assigned to PSI queue
-    List<Task> psiTasks = [SELECT Id, Subject FROM Task];
+    List<Task> psiTasks = [SELECT Id, Subject, OwnerId FROM Task];
 
-    System.assertEquals(4, psiTasks.size());
+    System.assertEquals(IDRCaseActions.siQueue.Id, psiTasks[0].OwnerId);
     System.assertEquals(IDRCaseActions.IDR_TASK_SUBJECT, psiTasks[0].Subject);
   }
 }
