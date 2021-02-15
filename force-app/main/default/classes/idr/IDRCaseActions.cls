@@ -25,6 +25,10 @@ public with sharing class IDRCaseActions {
     .get('General_Inquiry_CMOS')
     .getRecordTypeId();
 
+  public static final Id IDR_TASK_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
+    .get('IDR_Task')
+    .getRecordTypeId();
+
   @TestVisible
   private static final String OPEN_STATUS = 'Open';
   @TestVisible
@@ -68,11 +72,16 @@ public with sharing class IDRCaseActions {
 
   private static final String CRC_QUEUE_DEVELOPER_NAME = 'CRC_Team';
 
+  private static final String SI_QUEUE_DEVELOPER_NAME = 'Systemic_Issue_Team';
+
   private static final String QUEUE_TYPE = 'Queue';
 
   private static final String DELETE_ERROR = 'You cannot delete cases';
 
   private static final String CUSTOMER_NUMBER_VALIDATION_ERROR = 'This field can no longer be edited. In the event that the Customer Number is incorrect, the case must be withdrawn and a new case created with the correct Customer Number.';
+
+  @TestVisible
+  public static final String IDR_TASK_SUBJECT = 'Please Review PSI';
 
   //IDR_Notification_Event__e for sending notifications to Notification Broker based on status.
   @TestVisible
@@ -104,6 +113,12 @@ public with sharing class IDRCaseActions {
     SELECT id
     FROM group
     WHERE developername = :CRC_QUEUE_DEVELOPER_NAME AND Type = :QUEUE_TYPE
+  ];
+
+  public static Group siQueue = [
+    SELECT id
+    FROM group
+    WHERE developername = :SI_QUEUE_DEVELOPER_NAME AND Type = :QUEUE_TYPE
   ];
 
   /**
@@ -153,23 +168,15 @@ public with sharing class IDRCaseActions {
    * @param records
    */
   public static void afterInsert(List<Case> records) {
-    Case[] childComplaints = new List<Case>(); //records to rollup on parent systemic issue
     for (Case record : records) {
       if (isIDRComplaintType(record)) {
         if (NOTIFICATION_STATUS.contains(record.Status)) {
           notificationCaseList.add(record);
         }
         checkForCRCEscalation(record);
-        //should record rollup on parent systemic issue?
-        if (!String.isBlank(record.IDR_Parent_Systemic_Issue__c)) {
-          childComplaints.add(record);
-        }
       }
     }
-    //rollup on parent systemic issue
-    if (!childComplaints.isEmpty()) {
-      SICaseActions.rollupToParentSI(childComplaints);
-    }
+    possibleSystemicIssueActions(records, null);
   }
 
   /**
@@ -226,7 +233,6 @@ public with sharing class IDRCaseActions {
    * @param records from the trigger
    */
   public static void afterUpdate(Map<Id, SObject> oldMap, List<Case> records) {
-    Case[] childComplaints = new List<Case>(); //records to rollup on parent systemic issue
     for (Integer i = 0; i < records.size(); i++) {
       Case record = records[i];
       Case oldRec = (Case) oldMap.get(record.id);
@@ -241,24 +247,8 @@ public with sharing class IDRCaseActions {
         checkForCRCEscalation(record);
       }
       IDRCaseCommentActions.escalateExistingCommentsToCFMS(oldMap, records);
-      //should a parent systemic issue's rollup field be updated?
-      if (
-        isIDRComplaintType(record) &&
-        record.IDR_Parent_Systemic_Issue__c !=
-        oldRec.IDR_Parent_Systemic_Issue__c
-      ) {
-        //just linked or unliked?
-        if (!String.isBlank(record.IDR_Parent_Systemic_Issue__c)) {
-          childComplaints.add(record);
-        } else {
-          childComplaints.add((Case) oldMap.get(records.get(i).id));
-        }
-      }
     }
-    //rollup on parent systemic issue
-    if (!childComplaints.isEmpty()) {
-      SICaseActions.rollupToParentSI(childComplaints);
-    }
+    possibleSystemicIssueActions(records, oldMap);
   }
 
   /**
@@ -856,5 +846,81 @@ public with sharing class IDRCaseActions {
     ) {
       record.addError(CUSTOMER_NUMBER_VALIDATION_ERROR);
     }
+  }
+
+  /**
+   * @description possibleSystemicIssueActions(records, oldMap) method handles the following
+   * 1. Calls rollupToParentSI to update the counter of linked complaints on the parent systemic issue record
+   * 2. Calls createTaskforPSI method to generate task if the complaint is a PSI and created/updated by L1 user
+   * @param records from the trigger
+   * @param oldMap This Map<Id, SObject> contains the map which holds the previous values which can be used to check what value has changed in onAfterUpdate.
+   */
+  private static void possibleSystemicIssueActions(
+    List<Case> records,
+    Map<Id, SObject> oldMap
+  ) {
+    Case[] childComplaints = new List<Case>(); //records to rollup on parent systemic issue
+    Task[] siTasks = new List<Task>();
+
+    for (Case record : records) {
+      Case oldRec;
+      if (oldMap != null) {
+        oldRec = (Case) oldMap.get(record.id);
+      }
+
+      //should a parent systemic issue's rollup field be updated?
+      if (
+        isIDRComplaintType(record) &&
+        (oldRec == null ||
+        record.IDR_Parent_Systemic_Issue__c !=
+        oldRec.IDR_Parent_Systemic_Issue__c)
+      ) {
+        //just linked or unliked?
+        if (String.isNotBlank(record.IDR_Parent_Systemic_Issue__c)) {
+          childComplaints.add(record);
+        } else if (oldRec != null) {
+          childComplaints.add(oldRec);
+        }
+      }
+
+      //create task if it is a possible systemic issue and level 1 user is making the change
+      if (
+        isIDRComplaintType(record) &&
+        record.IDR_Is_Common__c == 'Yes' &&
+        FeatureManagement.checkPermission('IDR_Level_1') &&
+        (oldRec == null ||
+        record.IDR_Is_Common__c != oldRec.IDR_Is_Common__c)
+      ) {
+        siTasks.add(createTaskForPSI(record));
+      }
+    }
+
+    //rollup on parent systemic issue
+    if (!childComplaints.isEmpty()) {
+      SICaseActions.rollupToParentSI(childComplaints);
+    }
+
+    //insert SI Tasks
+    if (!siTasks.isEmpty() && Task.sObjectType.getDescribe().isCreateable()) {
+      insert siTasks;
+    }
+  }
+
+  /**
+   * @description Create a task and assign it to SI team for review
+   * @param c Parent case of the tasks
+   * @return An instance of a Task
+   */
+  private static Task createTaskForPSI(Case c) {
+    Date activityDate = Date.today().addDays(5);
+    return new Task(
+      RecordTypeId = IDR_TASK_RT_ID,
+      OwnerId = siQueue.Id,
+      WhatId = c.Id,
+      Subject = IDR_TASK_SUBJECT,
+      ActivityDate = activityDate,
+      IsReminderSet = true,
+      ReminderDateTime = (DateTime) (activityDate - 2)
+    );
   }
 }

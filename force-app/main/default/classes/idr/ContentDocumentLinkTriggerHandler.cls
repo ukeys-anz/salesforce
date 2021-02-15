@@ -15,22 +15,29 @@ public with sharing class ContentDocumentLinkTriggerHandler extends Lib_TriggerH
    * @description Assesses whether or not to generate a banker notification
    * @param records ContentDocumentLink records in current trigger context
    */
-  public static void manageNotification(
-    List<ContentDocumentLink> records
-  ) {
+  public static void manageNotification(List<ContentDocumentLink> records) {
     List<IDRBankerNotificationWrapper> wrapperList = new List<IDRBankerNotificationWrapper>();
-    Map<Id,Case> caseMap = getCaseRecords(records);
+    Map<Id, Case> caseMap = getCaseRecords(records);
     Map<Id, ContentDocument> contentDocMap = getContentDocRecords(records);
-    
+
     for (ContentDocumentLink record : (List<ContentDocumentLink>) records) {
-      if(record.LinkedEntityId.getSobjectType() == Schema.getGlobalDescribe().get('Case') &&
-        caseMap.containsKey(record.LinkedEntityId) && 
+      if (
+        record.LinkedEntityId.getSobjectType() ==
+        Schema.getGlobalDescribe().get('Case') &&
+        caseMap.containsKey(record.LinkedEntityId) &&
         contentDocMap.containsKey(record.ContentDocumentId) &&
-        caseMap.get(record.LinkedEntityId).OwnerId != contentDocMap.get(record.ContentDocumentId).OwnerId &&
-        IDRCaseActions.isIDRComplaintType(caseMap.get(record.LinkedEntityId))) {
-          wrapperList.add(createNotification(caseMap.get(record.LinkedEntityId),contentDocMap.get(record.ContentDocumentId)));
-        }
+        caseMap.get(record.LinkedEntityId).OwnerId !=
+        contentDocMap.get(record.ContentDocumentId).OwnerId &&
+        IDRCaseActions.isIDRComplaintType(caseMap.get(record.LinkedEntityId))
+      ) {
+        wrapperList.add(
+          createNotification(
+            caseMap.get(record.LinkedEntityId),
+            contentDocMap.get(record.ContentDocumentId)
+          )
+        );
       }
+    }
 
     if (!wrapperList.isEmpty()) {
       IDRBankerNotificationBuilder.sendNotification(wrapperList);
@@ -40,19 +47,33 @@ public with sharing class ContentDocumentLinkTriggerHandler extends Lib_TriggerH
   /**
    * @description get case record details associated with the content document link
    * @param records content document link records from the trigger
-   * @return getCaseMap case map 
+   * @return getCaseMap case map
    */
-  private static Map<Id,Case> getCaseRecords(List<ContentDocumentLink> records) {
+  private static Map<Id, Case> getCaseRecords(
+    List<ContentDocumentLink> records
+  ) {
     Set<Id> caseIds = new Set<Id>();
-    Map<Id,Case> getCaseMap = new Map<Id,Case>();
+    Map<Id, Case> getCaseMap = new Map<Id, Case>();
 
-    for(ContentDocumentLink record : (List<ContentDocumentLink>) records) {
-        if(record.LinkedEntityId.getSobjectType() == Schema.getGlobalDescribe().get('Case')) {
-            caseIds.add(record.LinkedEntityId);
-        }
+    for (ContentDocumentLink record : (List<ContentDocumentLink>) records) {
+      if (
+        record.LinkedEntityId.getSobjectType() ==
+        Schema.getGlobalDescribe().get('Case')
+      ) {
+        caseIds.add(record.LinkedEntityId);
+      }
     }
 
-    for(Case c : [SELECT Id, RecordTypeId, CaseNumber, OwnerId, IDR_Update_Notification_Flag__c FROM Case Where Id IN :caseIds]) {
+    for (Case c : [
+      SELECT
+        Id,
+        RecordTypeId,
+        CaseNumber,
+        OwnerId,
+        IDR_Update_Notification_Flag__c
+      FROM Case
+      WHERE Id IN :caseIds
+    ]) {
       getCaseMap.put(c.id, c);
     }
     return getCaseMap;
@@ -63,19 +84,27 @@ public with sharing class ContentDocumentLinkTriggerHandler extends Lib_TriggerH
    * @param records content document link records from the trigger
    * @return contentDocMap content document map
    */
-  private static Map<Id,ContentDocument> getContentDocRecords(List<ContentDocumentLink> records) {
-    
+  private static Map<Id, ContentDocument> getContentDocRecords(
+    List<ContentDocumentLink> records
+  ) {
     Set<Id> contentDocIds = new Set<Id>();
-    Map<Id,ContentDocument> contentDocMap = new Map<Id, ContentDocument>();
+    Map<Id, ContentDocument> contentDocMap = new Map<Id, ContentDocument>();
 
-    for(ContentDocumentLink record : (List<ContentDocumentLink>) records) {
-        if(record.LinkedEntityId.getSobjectType() == Schema.getGlobalDescribe().get('Case')) {
-            contentDocIds.add(record.ContentDocumentId);
-        }
+    for (ContentDocumentLink record : (List<ContentDocumentLink>) records) {
+      if (
+        record.LinkedEntityId.getSobjectType() ==
+        Schema.getGlobalDescribe().get('Case')
+      ) {
+        contentDocIds.add(record.ContentDocumentId);
+      }
     }
 
-    for(ContentDocument cd : [SELECT Id, OwnerId FROM ContentDocument WHERE Id IN :contentDocIds]) {
-        contentDocMap.put(cd.Id,cd);
+    for (ContentDocument cd : [
+      SELECT Id, OwnerId
+      FROM ContentDocument
+      WHERE Id IN :contentDocIds
+    ]) {
+      contentDocMap.put(cd.Id, cd);
     }
 
     return contentDocMap;
@@ -90,12 +119,13 @@ public with sharing class ContentDocumentLinkTriggerHandler extends Lib_TriggerH
     Case record,
     ContentDocument cdRecord
   ) {
-    IDRBankerNotificationWrapper wrapper = new IDRBankerNotificationWrapper();
-    wrapper.sfObject = cdRecord;
-    wrapper.msgTitle = record.CaseNumber;
-    wrapper.msgBody = 'New File added by ' + UserInfo.getName() ;
-    wrapper.relatedCaseRecord = record;
-    wrapper.recipientList = new List<Id>{record.OwnerId };
+    IDRBankerNotificationWrapper wrapper = new IDRBankerNotificationWrapper(
+      cdRecord,
+      new List<Id>{ record.OwnerId },
+      record.CaseNumber,
+      'New File added by ' + UserInfo.getName(),
+      record
+    );
     return wrapper;
   }
 }
