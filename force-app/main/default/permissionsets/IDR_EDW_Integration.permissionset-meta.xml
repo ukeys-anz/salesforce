@@ -285,6 +285,11 @@
         <field>Case.IDR_Office__c</field>
         <readable>true</readable>
     </fieldPermissions>
+        <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.IDR_Office_Created_By__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.IDR_Real_Form_Req__c</field>
