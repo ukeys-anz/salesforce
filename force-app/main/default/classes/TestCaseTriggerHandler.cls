@@ -53,7 +53,10 @@ private class TestCaseTriggerHandler {
             Name = 'TestAccount',
             Display_Name__c = 'TestAccount',
             OCV_ID__c = faker.randomString(10),
-            ANZx_Customer__c = true
+            ANZx_Customer__c = true,
+            // Criteria based sharing rules cannot be tested in APEX unit tests.
+            // Therefore, sharing the test Account record with user by assigning ownership.
+            OwnerId = fraudXAgent.Id
           )
         );
       }
@@ -764,10 +767,6 @@ private class TestCaseTriggerHandler {
       LIMIT 1
     ];
 
-    // criteria based sharing rules cannot be tested in apex, so open up access to this user
-    acc.OwnerId = usr.Id;
-    update acc;
-
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
@@ -839,10 +838,6 @@ private class TestCaseTriggerHandler {
       WHERE Display_Name__c = 'TestAccount'
       LIMIT 1
     ];
-
-    // criteria based sharing rules cannot be tested in apex, so open up access to this user
-    acc.OwnerId = usr.Id;
-    update acc;
 
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(

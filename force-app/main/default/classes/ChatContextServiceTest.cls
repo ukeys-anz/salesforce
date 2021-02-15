@@ -52,7 +52,10 @@ public with sharing class ChatContextServiceTest {
         Name = companyNames[0].capitalize() + companyNames[1].capitalize(),
         OCV_ID__c = 'OCVID887766',
         ANZx_Customer__c = true,
-        External_Id__c = 'OCVID887766CAPSYSID123'
+        External_Id__c = 'OCVID887766CAPSYSID123',
+        // Criteria based sharing rules cannot be tested in APEX unit tests.
+        // Therefore, sharing the test Account record with user by assigning ownership.
+        OwnerId = apiUser.Id
       );
       insert testAccount;
     }
