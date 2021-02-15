@@ -528,12 +528,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
       //If user wants to create an escalated case. Set the case status to default status and set the isEscalated flag.
       // This is required to handle afterUpdate trigger logic.
       // Status will be set to escalated in 'HandleCaseEscalationRules' of IDRCaseActions class from the trigger.
-      if (
-        this.isComplaintEscalated &&
-        fields[ESCALATED_TO.fieldApiName] === "1"
-      ) {
-        fields[STATUS_FIELD.fieldApiName] = OPEN_STATUS_API_NAME;
+      if (this.isComplaintEscalated) {
         fields.IsEscalated = true;
+        fields[ESCALATED_TO.fieldApiName] = "1";
       }
       if (this.isRealFormNeeded) {
         fields[IS_REAL_FORM_NEED_FIELD.fieldApiName] = true;

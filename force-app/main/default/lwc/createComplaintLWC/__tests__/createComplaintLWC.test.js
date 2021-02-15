@@ -45,7 +45,7 @@ describe("c-create-complaint-l-w-c", () => {
     return flushPromises().then(() => {
       expect(complaintStatus.value).toBe("Escalated");
       const escalatedTo = element.shadowRoot.querySelector(
-        "lightning-input-field[data-id=escalatedTo-id]"
+        "lightning-input-field[data-id=escalationReason-id]"
       );
       expect(escalatedTo).toBeTruthy();
 

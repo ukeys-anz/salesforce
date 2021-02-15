@@ -145,6 +145,7 @@ public with sharing class IDRCaseActions {
       }
     }
     handleOfficeAssignment(changeOfficeCaseList);
+    stampQueueName(records, null);
   }
 
   /**
@@ -209,9 +210,10 @@ public with sharing class IDRCaseActions {
           (case) oldMap.get(records.get(i).id)
         );
       }
-      //calling handleOfficeAssignment for all case records for which the IDR_Office__c needs to be updated.
-      handleOfficeAssignment(changeOfficeCaseList);
     }
+    //calling handleOfficeAssignment for all case records for which the IDR_Office__c needs to be updated.
+    handleOfficeAssignment(changeOfficeCaseList);
+    stampQueueName(records, (Map<Id, Case>) oldMap);
   }
 
   /**
@@ -278,11 +280,47 @@ public with sharing class IDRCaseActions {
    * @description completeAfterActions() is called post onAfterInsert and onAfterUpdate
    */
   public static void completeAfterActions() {
-    //sendNotifications(notificationCaseList);
+    CheckRecursive.run();
     NotificationTriggerHandler.insertNotificationHandler(notificationCaseList);
     escalateToCFMS(caseEscalationList);
+    executeAssignmentRule(caseEscalationList);
     notificationCaseList.clear();
     caseEscalationList.clear();
+  }
+
+  /**
+   * @description Execute the assignment rules on escalated cases
+   * @param caseList List of escalated cases
+   */
+  public static void executeAssignmentRule(List<Case> caseList) {
+    List<Case> cList = new List<Case>();
+    for (Case c : caseList) {
+      Case caseRecord = new Case(id = c.id);
+      Database.DMLOptions dmo = new Database.DMLOptions();
+      dmo.assignmentRuleHeader.useDefaultRule = true;
+      caseRecord.setOptions(dmo);
+      cList.add(caseRecord);
+    }
+
+    List<Database.SaveResult> saveResultList = Database.update(cList, false);
+
+    for (Database.SaveResult sr : saveResultList) {
+      if (!sr.isSuccess()) {
+        // Operation failed, so get all errors
+        for (Database.Error err : sr.getErrors()) {
+          Lib_SystemLog.logAPIError(
+            IDRCaseActions.class.getName(),
+            'Error in executing case Assignment Rule for record id' +
+            sr.getId(),
+            err.getMessage(),
+            null,
+            IDRCaseActions.class.getName(),
+            null,
+            null
+          );
+        }
+      }
+    }
   }
 
   /**
@@ -317,6 +355,43 @@ public with sharing class IDRCaseActions {
     ) {
       caseOwnerIds.add(record.OwnerId);
       changeOfficeCaseList.add(record);
+    }
+  }
+
+  /**
+   * @description checks if teh owner is Queue or not and then stamps the Queue Name to the Queue field.
+   * Once teh case owner accepts the case we lose the track of Queue, and hence the explicit field
+   * @param caseList case list in current context
+   * @param  oldCaseMap old map of the cases in current context
+   */
+  private static void stampQueueName(
+    List<Case> caseList,
+    Map<Id, Case> oldCaseMap
+  ) {
+    Set<Id> queueIds = new Set<Id>();
+
+    for (Case c : caseList) {
+      if (c.OwnerId.getSobjectType() == Group.SobjectType) {
+        if (
+          oldCaseMap != null &&
+          oldCaseMap.containsKey(c.id) &&
+          c.OwnerId != oldCaseMap.get(c.id).OwnerId
+        ) {
+          queueIds.add(c.OwnerId);
+        } else if (oldCaseMap == null) {
+          queueIds.add(c.OwnerId);
+        }
+      }
+    }
+
+    Map<Id, Group> queueMap = new Map<Id, Group>(
+      [SELECT id, Name FROM Group WHERE Id IN :queueIds]
+    );
+
+    for (Case c : caseList) {
+      if (queueMap.containsKey(c.OwnerId)) {
+        c.Queue__c = queueMap.get(c.OwnerId).Name;
+      }
     }
   }
 
@@ -377,42 +452,15 @@ public with sharing class IDRCaseActions {
     if (
       record.IsEscalated &&
       record.Status != ESCALATED_STATUS &&
-      record.OwnerId.getSobjectType() == Group.SobjectType &&
-      record.OwnerId == queue.Id
+      String.isBlank(record.IDR_Escalation_Reason__c)
     ) {
       // set default values for auto escalated cases , change status to escalated,
       //assign to CRC queue and send notifcation to CFMS
-      record.IDR_Escalated_to__c = ESCALATED_TO_CRC_API_NAME;
-      record.Status = ESCALATED_STATUS;
       if (oldRec.Status == OPEN_STATUS) {
         record.IDR_Escalation_Reason__c = DAY_3_ESCALATION_REASON;
       } else if (oldRec.Status == UNDER_INVESTIGATION_STATUS) {
         record.IDR_Escalation_Reason__c = DAY_5_ESCALATION_REASON;
       }
-    } else if (
-      record.IsEscalated &&
-      record.Status != ESCALATED_STATUS &&
-      !string.isBlank(record.IDR_Escalation_Reason__c)
-    ) {
-      // escalated on insert cases , change status to escalated, assign to CRC queue and send notifcation to CFMS
-      record.Status = ESCALATED_STATUS;
-      record.OwnerId = queue.Id;
-    } else if (
-      record.IDR_Escalated_to__c == ESCALATED_TO_CRC_API_NAME &&
-      record.OwnerId != queue.Id &&
-      record.Status == ESCALATED_STATUS &&
-      oldRec.Status != ESCALATED_STATUS
-    ) {
-      // Escalated by updating the case , change status to escalated
-      record.OwnerId = queue.Id;
-    } else if (
-      record.IDR_Escalated_to__c == ESCALATED_TO_CRC_API_NAME &&
-      oldRec.IDR_Escalated_to__c != ESCALATED_TO_CRC_API_NAME &&
-      record.OwnerId != queue.Id &&
-      record.Status == ESCALATED_STATUS
-    ) {
-      // Escalated to has changed for already escalated case, assign to CRC queue and send notifcation to CFMS
-      record.OwnerId = queue.Id;
     }
   }
 
