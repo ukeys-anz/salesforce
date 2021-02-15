@@ -27,7 +27,7 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
     for (Task record : (List<Task>) records) {
       if (
         record.RecordTypeId == IDRCaseActions.IDR_TASK_RT_ID &&
-        record.Subject == 'Please Review PSI' &&
+        record.Subject == IDRCaseActions.IDR_TASK_SUBJECT &&
         record.OwnerId == IDRCaseActions.siQueue.id
       ) {
         wrapperList.add(createNotification(record));
@@ -44,11 +44,13 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
    * @return IDRBankerNotificationWrapper new instance of wrapper class
    */
   private static IDRBankerNotificationWrapper createNotification(Task record) {
-    IDRBankerNotificationWrapper wrapper = new IDRBankerNotificationWrapper();
-    wrapper.sfObject = record;
-    wrapper.msgTitle = record.Subject;
-    wrapper.msgBody = String.valueOf(record.activityDate);
-    wrapper.recipientList = new List<Id>{ record.OwnerId };
+    IDRBankerNotificationWrapper wrapper = new IDRBankerNotificationWrapper(
+      record,
+      new List<Id>{ record.OwnerId },
+      record.Subject,
+      String.valueOf(record.activityDate),
+      null
+    );
     return wrapper;
   }
 }
