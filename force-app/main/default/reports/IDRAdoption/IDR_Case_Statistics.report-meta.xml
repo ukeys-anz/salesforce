@@ -41,7 +41,7 @@
         <groupingColumn>ORIGIN</groupingColumn>
         <legendPosition>Right</legendPosition>
         <location>CHART_BOTTOM</location>
-        <secondaryGroupingColumn>Case.IDR_Office__c</secondaryGroupingColumn>
+        <secondaryGroupingColumn>Case.IDR_Office_Created_By__c</secondaryGroupingColumn>
         <showAxisLabels>true</showAxisLabels>
         <showPercentage>false</showPercentage>
         <showTotal>false</showTotal>
@@ -94,7 +94,7 @@
     <format>Summary</format>
     <groupingsDown>
         <dateGranularity>Day</dateGranularity>
-        <field>Case.IDR_Office__c</field>
+        <field>Case.IDR_Office_Created_By__c</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
     <groupingsDown>
