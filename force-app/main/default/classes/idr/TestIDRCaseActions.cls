@@ -90,6 +90,7 @@ private with sharing class TestIDRCaseActions {
     for (Case c : newCases) {
       c.OwnerId = IDRCaseActions.queue.id;
       c.IsEscalated = true;
+      c.IDR_Escalated_to__c = '1';
     }
     update newCases;
 
@@ -127,6 +128,7 @@ private with sharing class TestIDRCaseActions {
     for (Case c : newCases) {
       c.OwnerId = IDRCaseActions.queue.id;
       c.IsEscalated = true;
+      c.IDR_Escalated_to__c = '1';
     }
     update newCases;
 

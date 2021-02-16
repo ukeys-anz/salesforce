@@ -451,6 +451,12 @@ public with sharing class IDRCaseActions {
       } else if (oldRec.Status == UNDER_INVESTIGATION_STATUS) {
         record.IDR_Escalation_Reason__c = DAY_5_ESCALATION_REASON;
       }
+      record.Status = ESCALATED_STATUS;
+    } else if (
+      record.Status == ESCALATED_STATUS &&
+      String.isBlank(record.IDR_Escalated_to__c)
+    ) {
+      record.IDR_Escalation_Reason__c = '1';
     }
   }
 
