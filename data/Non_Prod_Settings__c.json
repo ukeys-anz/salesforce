@@ -5,7 +5,8 @@
         "type": "Non_Prod_Settings__c",
         "referenceId": "Non_Prod_Settings__cRef1"
       },
-      "SSO_Not_Configured__c": true
+      "SSO_Not_Configured__c": true,
+      "MockCallouts__c": true
     }
   ]
 }

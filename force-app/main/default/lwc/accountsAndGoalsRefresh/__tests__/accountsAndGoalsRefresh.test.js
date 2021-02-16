@@ -1,6 +1,6 @@
 import accountsAndGoalsRefresh from "c/accountsAndGoalsRefresh";
 import { createElement } from "lwc";
-import getAccounts from "@salesforce/apex/GetAccountsAndGoals.getAccounts";
+import getAccounts from "@salesforce/apex/CoachBankingAPIRepository.getAccountsAura";
 import updateAccounts from "@salesforce/apex/UpdateFinancialAccounts.updateAccounts";
 import { getRecord } from "lightning/uiRecordApi";
 import { publish, MessageContext } from "lightning/messageService";
@@ -13,7 +13,7 @@ import UpdateAccountsGoalsTimed from "@salesforce/messageChannel/FinancialAccoun
 import TriggerLoading from "@salesforce/messageChannel/FinancialAccountsTriggerLoading__c";
 
 jest.mock(
-  "@salesforce/apex/GetAccountsAndGoals.getAccounts",
+  "@salesforce/apex/CoachBankingAPIRepository.getAccountsAura",
   () => {
     return {
       default: jest.fn()

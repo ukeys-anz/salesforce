@@ -5,7 +5,7 @@ import ACCOUNT_OCV_ID_FIELD from "@salesforce/schema/Account.OCV_ID__c";
 import FIN_ACCOUNT_OCV_ID_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.OCV_ID__c";
 import FIN_ACCOUNT_PRIMARY_OWNER_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__PrimaryOwner__c";
 
-import getAccounts from "@salesforce/apex/GetAccountsAndGoals.getAccounts";
+import getAccounts from "@salesforce/apex/CoachBankingAPIRepository.getAccountsAura";
 import updateAccounts from "@salesforce/apex/UpdateFinancialAccounts.updateAccounts";
 
 // Import message service features required for publishing and the message channel
@@ -79,7 +79,6 @@ export default class AccountsAndGoals extends LightningElement {
     })
       .then((result) => {
         if (result) {
-          result = JSON.parse(result);
           result.accountList.forEach((account) => {
             this.accountNumbers.push(account.accountNumber);
             let accountInformation = {

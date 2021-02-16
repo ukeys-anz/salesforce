@@ -1,11 +1,11 @@
 import financialGoals from "c/financialGoals";
 import { createElement } from "lwc";
-import getAccounts from "@salesforce/apex/GetAccountsAndGoals.getAccounts";
+import getAccounts from "@salesforce/apex/CoachBankingAPIRepository.getAccountsAura";
 
 import { subscribe } from "lightning/messageService";
 
 jest.mock(
-  "@salesforce/apex/GetAccountsAndGoals.getAccounts",
+  "@salesforce/apex/CoachBankingAPIRepository.getAccountsAura",
   () => {
     return {
       default: jest.fn()
