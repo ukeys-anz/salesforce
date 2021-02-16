@@ -4,5 +4,5 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted;Source - Azure;Privacy - Personal Information</complianceGroup>
     <description>Salesforce username, similar to email with anzx.com as a postfix</description>
-    <securityClassification>Confidential</securityClassification>
+    <securityClassification>Internal</securityClassification>
 </CustomField>

@@ -2,13 +2,13 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <fullName>Actual_Outcome__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
+    <complianceGroup>Integrity_Trusted;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Description of the unexpected behaviour the customer encountered.</description>
     <externalId>false</externalId>
     <inlineHelpText>Description of the unexpected behaviour the customer encountered.</inlineHelpText>
     <label>Actual Outcome</label>
     <length>32768</length>
-    <securityClassification>Public</securityClassification>
+    <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

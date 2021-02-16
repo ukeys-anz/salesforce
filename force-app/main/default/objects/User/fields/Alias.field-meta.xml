@@ -4,5 +4,5 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted;Source - Azure;Privacy - Non Personal Information</complianceGroup>
     <description>First 8 characters of UPN</description>
-    <securityClassification>Confidential</securityClassification>
+    <securityClassification>Internal</securityClassification>
 </CustomField>
