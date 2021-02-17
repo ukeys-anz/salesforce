@@ -542,7 +542,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Case.SI_Definite_First_Identified_Date__c</field>
+        <field>Case.SI_First_Identified_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

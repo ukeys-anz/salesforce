@@ -5,7 +5,7 @@
     <fields>CaseNumber</fields>
     <fields>Status</fields>
     <fields>SI_Definite__c</fields>
-    <fields>SI_Definite_First_Identified_Date__c</fields>
+    <fields>SI_First_Identified_Date__c</fields>
     <fields>Case_Age_in_Days__c</fields>
     <fields>SI_Complaint_Count__c</fields>
     <fields>RAG__c</fields>
