@@ -4,13 +4,12 @@
  * @description Exception Handling https://developer.salesforce.com/blogs/2017/09/error-handling-best-practices-lightning-apex.html
  */
 public virtual with sharing class RepositoryBase {
-  
   /**
-   * 
-   * @param response 
-   * @param error 
-   * @param apexType 
-   * @description 
+   *
+   * @param response
+   * @param error
+   * @param apexType
+   * @description
    */
   public void handleErrors(
     HttpCalloutResponse response,

@@ -3,5 +3,5 @@
     <content xsi:nil="true"/>
     <application>FraudX</application>
     <description>FraudX Monthly Dashboard</description>
-    <masterLabel>FraudX Dashboard</masterLabel>
+    <masterLabel>FraudX Scam Dashboard</masterLabel>
 </WaveDashboard>

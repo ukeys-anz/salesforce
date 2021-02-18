@@ -10,13 +10,12 @@ public with sharing class FabricServiceMock extends Service {
    * @description construct a mock with hardcoded success value
    */
   public FabricServiceMock() {
-      response.statusCode = 200;
-      response.body = FabricServiceMock.ACCOUNTS_AND_GOALS_SUCCESS_RESPONSE;
-      response.successful = true;
-     
+    response.statusCode = 200;
+    response.body = FabricServiceMock.ACCOUNTS_AND_GOALS_SUCCESS_RESPONSE;
+    response.successful = true;
   }
 
   public override HttpCalloutResponse getAccountsAndGoals(String ocvId) {
     return response;
- }
+  }
 }

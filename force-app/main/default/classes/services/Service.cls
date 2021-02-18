@@ -4,7 +4,6 @@
  * @description virtual service class for all API callouts
  */
 public virtual class Service {
-
   protected HttpCalloutResponse response = new HttpCalloutResponse();
 
   /**

@@ -12,11 +12,11 @@ public class Lib_HttpMockCallout implements HttpCalloutMock {
   protected Map<String, String> responseHeaders;
 
   /**
-   * 
-   * @param code 
-   * @param status 
-   * @param body 
-   * @param responseHeaders 
+   *
+   * @param code
+   * @param status
+   * @param body
+   * @param responseHeaders
    * @description  Mock constructor
    */
   @SuppressWarnings('PMD.ExcessiveParameterList')
@@ -34,11 +34,11 @@ public class Lib_HttpMockCallout implements HttpCalloutMock {
   }
 
   /**
-   * 
-   * @param code 
-   * @param status 
-   * @param body 
-   * @param responseHeaders 
+   *
+   * @param code
+   * @param status
+   * @param body
+   * @param responseHeaders
    * @description Mock constructor
    */
   @SuppressWarnings('PMD.ExcessiveParameterList')
@@ -54,12 +54,12 @@ public class Lib_HttpMockCallout implements HttpCalloutMock {
     this.bodyAsString = null;
     this.responseHeaders = responseHeaders;
   }
-/**
- * 
- * @param req Request
- * @return `HTTPResponse` response 
- * @description returns mock response based with respective parameters
- */
+  /**
+   *
+   * @param req Request
+   * @return `HTTPResponse` response
+   * @description returns mock response based with respective parameters
+   */
   public HTTPResponse respond(HTTPRequest req) {
     HttpResponse resp = new HttpResponse();
     resp.setStatusCode(code);
