@@ -6,18 +6,13 @@
     <description>entitlement process that supports complaints case with appropriate timers and escalates the case on voliation</description>
     <entryStartDateField>Case.IDR_Date_Received__c</entryStartDateField>
     <exitCriteriaFilterItems>
-        <field>Case.Status</field>
-        <operation>notEqual</operation>
-        <value>Open</value>
-    </exitCriteriaFilterItems>
-    <exitCriteriaFilterItems>
-        <field>Case.Status</field>
-        <operation>notEqual</operation>
-        <value>Under Investigation</value>
+        <field>Case.IsClosed</field>
+        <operation>equals</operation>
+        <value>true</value>
     </exitCriteriaFilterItems>
     <milestones>
         <businessHours>Case Business Hours</businessHours>
-        <criteriaBooleanFilter>1 AND( 2 or  3 )</criteriaBooleanFilter>
+        <criteriaBooleanFilter>1 AND 4 AND( 2 or  3 )</criteriaBooleanFilter>
         <milestoneCriteriaFilterItems>
             <field>Case.Status</field>
             <operation>equals</operation>
@@ -33,8 +28,21 @@
             <operation>equals</operation>
             <value>Non-Customer Complaint</value>
         </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.SuppliedEmail</field>
+            <operation>equals</operation>
+            <value/>
+        </milestoneCriteriaFilterItems>
         <milestoneName>Open_Escalation_Time</milestoneName>
         <minutesToComplete>4320</minutesToComplete>
+        <timeTriggers>
+            <actions>
+                <name>EscalationtoAmber</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>-2</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
         <timeTriggers>
             <actions>
                 <name>Assign_to_Customer_Resolution_Portfolio</name>
@@ -55,19 +63,11 @@
             <timeLength>-1</timeLength>
             <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
         </timeTriggers>
-        <timeTriggers>
-            <actions>
-                <name>EscalationtoAmber</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <timeLength>-2</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </timeTriggers>
         <useCriteriaStartTime>false</useCriteriaStartTime>
     </milestones>
     <milestones>
         <businessHours>Case Business Hours</businessHours>
-        <criteriaBooleanFilter>1 AND (2 OR 3 )</criteriaBooleanFilter>
+        <criteriaBooleanFilter>1 AND 4 AND (2 OR 3 )</criteriaBooleanFilter>
         <milestoneCriteriaFilterItems>
             <field>Case.Status</field>
             <operation>equals</operation>
@@ -83,20 +83,13 @@
             <operation>equals</operation>
             <value>Non-Customer Complaint</value>
         </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.SuppliedEmail</field>
+            <operation>equals</operation>
+            <value/>
+        </milestoneCriteriaFilterItems>
         <milestoneName>Under_Investigation_Escalation_Time</milestoneName>
         <minutesToComplete>7200</minutesToComplete>
-        <timeTriggers>
-            <actions>
-                <name>Assign_to_Customer_Resolution_Portfolio</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <actions>
-                <name>Escalate_The_Case</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <timeLength>0</timeLength>
-            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
-        </timeTriggers>
         <timeTriggers>
             <actions>
                 <name>EscalationtoRed</name>
@@ -111,6 +104,134 @@
                 <type>FieldUpdate</type>
             </actions>
             <timeLength>-2</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>Assign_to_Customer_Resolution_Portfolio</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <actions>
+                <name>Escalate_The_Case</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <businessHours>Case Business Hours</businessHours>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>notEqual</operation>
+            <value>Closed</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>notEqual</operation>
+            <value>Resolved</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>notEqual</operation>
+            <value>Withdrawn</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Priority</field>
+            <operation>equals</operation>
+            <value>Standard</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>30-day IDR Response Due</milestoneName>
+        <minutesToComplete>43200</minutesToComplete>
+        <timeTriggers>
+            <actions>
+                <name>Maximum_IDR_Time_1day_Reminder</name>
+                <type>Task</type>
+            </actions>
+            <timeLength>-1</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>maximum_time_7Days_reminder</name>
+                <type>Task</type>
+            </actions>
+            <timeLength>-7</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>Maximum_IDR_time_3day_reminder</name>
+                <type>Task</type>
+            </actions>
+            <timeLength>-3</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>Maximum_IDR_timeframe_5days_Reminder</name>
+                <type>Task</type>
+            </actions>
+            <timeLength>-5</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <businessHours>Case Business Hours</businessHours>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>notEqual</operation>
+            <value>Closed</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>notEqual</operation>
+            <value>Withdrawn</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>notEqual</operation>
+            <value>Resolved</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Priority</field>
+            <operation>notEqual</operation>
+            <value>Standard</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>21-day IDR Response Due</milestoneName>
+        <minutesToComplete>30240</minutesToComplete>
+        <timeTriggers>
+            <actions>
+                <name>Maximum_IDR_timeframe_5days_Reminder</name>
+                <type>Task</type>
+            </actions>
+            <timeLength>-5</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>maximum_time_7Days_reminder</name>
+                <type>Task</type>
+            </actions>
+            <timeLength>-7</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>Maximum_IDR_time_3day_reminder</name>
+                <type>Task</type>
+            </actions>
+            <timeLength>-3</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>Maximum_IDR_Time_1day_Reminder</name>
+                <type>Task</type>
+            </actions>
+            <timeLength>-1</timeLength>
             <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
         </timeTriggers>
         <useCriteriaStartTime>false</useCriteriaStartTime>

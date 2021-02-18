@@ -131,4 +131,48 @@
         <description>Copy CaseNumber to CaseNumber__c custom field. This is moved out of trigger because of owner change issues.</description>
         <triggerType>onCreateOnly</triggerType>
     </rules>
+     <tasks>
+        <fullName>Maximum_IDR_Time_1day_Reminder</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>This case is approaching Maximum IDR Time in 1 day.</description>
+        <dueDateOffset>0</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>High</priority>
+        <protected>false</protected>
+        <status>Open</status>
+        <subject>Urgent - IDR Response due in 1-day</subject>
+    </tasks>
+    <tasks>
+        <fullName>Maximum_IDR_time_3day_reminder</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>his case is approaching Maximum IDR Time in 3 days.</description>
+        <dueDateOffset>0</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>High</priority>
+        <protected>false</protected>
+        <status>Open</status>
+        <subject>IDR Response due in 3-days</subject>
+    </tasks>
+    <tasks>
+        <fullName>Maximum_IDR_timeframe_5days_Reminder</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>This complaint is approaching Maximum IDR Time in 5 days.</description>
+        <dueDateOffset>0</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Open</status>
+        <subject>IDR Response due in 5-days</subject>
+    </tasks>
+    <tasks>
+        <fullName>maximum_time_7Days_reminder</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>This case is approaching Maximum IDR Time frame in 7 days from this task due date</description>
+        <dueDateOffset>0</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Open</status>
+        <subject>IDR Response Due in 7-days</subject>
+    </tasks>
 </Workflow>

@@ -41,6 +41,17 @@ public with sharing class IDRConstants {
   //Field labels
   public static final String MILESTONE_SLA_FIELD_LABEL = 'Milestone Sla';
   public static final String CASE_OWNER_ID = 'Owner ID';
+    
+  //IDR Maximum time constants
+  public static final string TASK_SUBJECT_DAY7 = 'IDR Response Due in 7-days';
+  public static final string TASK_SUBJECT_DAY5 = 'IDR Response due in 5-days';
+  public static final string TASK_SUBJECT_DAY3 = 'IDR Response due in 3-days';
+  public static final string TASK_SUBJECT_DAY1 = 'Urgent - IDR Response due in 1-day';  
+  public static final string TASK_STANDARD_PRIORITY = 'Standard'; 
+  public static final string TASK_STATUS_EXPIRED = 'Expired';  
+  public static final string TASK_STATUS_COMPLETED = 'Completed';  
+  public static final string MILESTONE_STANDARD = '30-day IDR Response Due';  
+  public static final string MILESTONE_PRIORITY = '21-day IDR Response Due';
 
   //Anz.com constants
   /**
