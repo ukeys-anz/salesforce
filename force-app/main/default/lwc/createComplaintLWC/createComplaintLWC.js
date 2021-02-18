@@ -49,6 +49,7 @@ import PRODUCT_LOOKUP_FIELD from "@salesforce/schema/Case.Product__c";
 import ACCOUNT_POLICY_FIELD from "@salesforce/schema/Case.IDR_Account_Card_Policy_Number__c";
 import DESCRIPTION_FIELD from "@salesforce/schema/Case.Description";
 import DESIRED_OUTCOME_FIELD from "@salesforce/schema/Case.IDR_Complainant_Desired_Outcome__c";
+import STOP_COLLECTIONS_FIELD from "@salesforce/schema/Case.IDR_Stop_Collections__c";
 
 //complaint resolution fields
 import COMPLAINT_OUTCOME from "@salesforce/schema/Case.IDR_Complaint_Outcome__c";
@@ -236,6 +237,11 @@ export default class CreateComplaintLWC extends NavigationMixin(
     { label: "No", value: "No" }
   ];
 
+  collectionFlagOptions = [
+    { label: "Yes", value: "Yes" },
+    { label: "No", value: "No" }
+  ];
+
   //form validation fields.
   missingDataFields = "";
   isDataValid = false;
@@ -275,6 +281,11 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   handle3rdPartyToggleChange(event) {
     this.hasNominatedThirdParty = event.target.checked;
+  }
+
+  handlePriorityChange(event){
+    this.ComplaintPriority = event.detail.value;
+
   }
 
   handle2ndIssueToggleChange(event) {
@@ -389,6 +400,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.systemicIssueValue = event.detail.value[0];
   }
 
+  handleCollectionFlagChange(event){
+    this.stopCollectionValue = event.detail.value;
+  }
+
   //form validation.
   validateFields() {
     this.loading = true;
@@ -431,6 +446,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
         this.missingDataFields +=
           "Is the complaint relating to hardship, a declined insurance claim, the value of an insurance claim or a decision of a superannuation trustee?, ";
       }
+    }
+    if(!this.stopCollectionValue){
+      isFieldValid = false;
+      this.missingDataFields +="Is complaint is relating to Hardship, Collections, A default notice or Legal proceedings?, "
     }
     if (
       typeof this.isCommonComplaint === "undefined" ||
@@ -485,7 +504,14 @@ export default class CreateComplaintLWC extends NavigationMixin(
     if (this.isFinancialComplaintRemedy) {
       isFinCompValid = this.validateFinancialCompensation();
     }
-    return isFieldValid && isEmailValid && isFinCompValid;
+
+    let isStopCollection = true;
+    if(this.stopCollectionValue === 'Yes'){
+      isStopCollection =  this.validateComplaintPriority();
+      isFieldValid = isFieldValid && isStopCollection;
+    }
+
+    return isFieldValid && isEmailValid && isFinCompValid ;
   }
 
   handleSubmit(event) {
@@ -500,6 +526,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
         fields[LAST_NAME_FIELD.fieldApiName] = this.lastName;
         fields[MIDDLE_NAME_FIELD.fieldApiName] = this.middleNames;
       }
+      fields[STOP_COLLECTIONS_FIELD.fieldApiName] = this.stopCollectionValue;
       fields[DESCRIPTION_FIELD.fieldApiName] = this.description;
       fields[PRODUCT_LOOKUP_FIELD.fieldApiName] = this.productValue;
       fields[
@@ -642,6 +669,15 @@ export default class CreateComplaintLWC extends NavigationMixin(
       this.missingDataFields +=
         "Financial Compensation must be a positive value with up to 7 whole digits and 2 decimal digits. ";
       return false;
+    }
+    return true;
+  }
+
+  validateComplaintPriority(){
+    if(this.ComplaintPriority != 'Financial Hardship' && this.ComplaintPriority != 'Customer in Collections' ){
+      this.missingDataFields +=
+        "Priority must be Customer experiencing financial hardship or Customer in Collections, when collections flag is turned on.";
+        return false;
     }
     return true;
   }

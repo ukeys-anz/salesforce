@@ -419,6 +419,21 @@
             data-id="complaint-details"
           >
             <div class="slds-grid slds-wrap">
+              <!--Collections Field-->
+              <div class="slds-col slds-size_3-of-4 slds-m-botton_large">
+                <lightning-radio-group
+                  required
+                  name="Collectionfield"
+                  label="Is complaint is relating to Hardship, Collections, A default notice or Legal proceedings?"
+                  options={collectionFlagOptions}
+                  onchange={handleCollectionFlagChange}
+                  value={stopCollectionValue}
+                  type="button"
+                  data-id="collectionFlag-id"
+                  >
+                </lightning-radio-group>
+              </div>  
+
               <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                 <lightning-input-field
                   variant="label-stacked"
@@ -426,6 +441,7 @@
                   required
                   field-name={Priority}
                   data-id="priority-id"
+                  onchange={handlePriorityChange}
                 ></lightning-input-field>
               </div>
               <div class="slds-col slds-size_1-of-4 slds-m-right_large">
@@ -805,7 +821,7 @@
                   </div>
                 </template>
               </template>
-            </div>
+            </div> 
           </lightning-accordion-section>
         </template>
       </lightning-accordion>

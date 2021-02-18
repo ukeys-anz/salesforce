@@ -278,6 +278,99 @@ public with sharing class IDRCaseActions {
     caseEscalationList.clear();
   }
 
+  
+  /**
+   * @description completeAfterActions() is called post onAfterInsert and onAfterUpdate
+   */
+  public static void onAfterInsert(List<Case> records){
+    triggerCollectionActivities(records, null);
+  }
+
+  /**
+   * @description completeAfterActions() is called post onAfterInsert and onAfterUpdate
+   */
+  public static void onAfterUpdate(List<Case> records, Map<Id, Case> oldMap){
+    triggerCollectionActivities(records, oldMap);
+  }
+
+  private static void triggerCollectionActivities(List<Case> records, Map<Id, Case> oldMap){
+    List<Database.SaveResult> publishResults;
+    List<IDR_Collections_Event__e> collectionsCasesEventList = new List<IDR_Collections_Event__e>();
+    for(Case c : records){
+      if(c.recordTypeId == CUSTOMER_COMPLAINT_RT_ID){
+        if(oldMap== null && c.IDR_Stop_Collections__c != null ){ // that means it is on insert
+          collectionsCasesEventList.add(buildEvent(c));
+        }else if(oldMap != null && c.IDR_Stop_Collections__c != null && oldMap.get(c.Id).IDR_Stop_Collections__c != c.IDR_Stop_Collections__c){
+          collectionsCasesEventList.add(buildEvent(c));
+        }
+      }
+    }
+      if(!collectionsCasesEventList.isEmpty()){
+        publishResults = EventBus.publish(collectionsCasesEventList);
+
+        for (Integer i = 0; i < publishResults.size(); i++) {
+          Database.SaveResult sr = publishResults[i];
+    
+          if (!publishResults[i].isSuccess()) {
+            for (Database.Error err : publishResults[i].getErrors()) {
+            Lib_SystemLog.logAPIError(
+            IDRCaseActions.class.getName(),
+            'Error in publishing collection platform event for Case'+ collectionsCasesEventList[i].IDR_Complaint_Number__c,
+            err.getMessage(),
+            null,
+            IDRCaseActions.class.getName(),
+            null,
+            null
+          );
+          } 
+        }
+      }
+    }
+  }
+
+  private static IDR_Collections_Event__e buildEvent(Case c){
+    IDR_Collections_Event__e collectionsEvent = new IDR_Collections_Event__e();
+    collectionsEvent.IDR_Customer_Number__c =  c.IDR_Customer_Number__c;
+    collectionsEvent.IDR_OCV_Id__c = null ; // When AR$C Custoemr are In SF replace this line with Account's OCV
+    collectionsEvent.IDR_Complaint_Created_Date__c = Date.newinstance(c.IDR_Date_Received__c.year(), c.IDR_Date_Received__c.month(), c.IDR_Date_Received__c.day());
+    
+    if(c.Status == IDRConstants.RESOLVED_STATUS || c.Status == IDRConstants.CLOSED_STATUS){
+      collectionsEvent.IDR_Complaint_Resolved_Date__c = Date.newinstance(c.ClosedDate.year(), c.ClosedDate.month(), c.ClosedDate.day());
+    }
+    
+    collectionsEvent.IDR_Complaint_Number__c = c.CaseNumber;
+    collectionsEvent.IDR_Complaint_Status__c = c.Status;
+    collectionsEvent.IDR_Hardship_Collection_Flag__c = c.IDR_Stop_Collections__c;
+
+    if(c.IDR_Stop_Collections__c == YES_VALUE){
+      collectionsEvent.IDR_First_Name__c = c.IDR_NC_First_Name__c;
+      collectionsEvent.IDR_Last_Name__c = c.IDR_NC_Last_Name__c;
+      collectionsEvent.IDR_Mobile__c = c.IDR_NC_Phone__c;
+      collectionsEvent.IDR_Email__c = c.IDR_NC_Email__c; 
+    }
+
+    collectionsEvent.IDR_Account_Details__c = getAccountListJson(c);
+
+    return collectionsEvent;
+  }
+
+
+  private static String getAccountListJson(Case c){
+    List<IDRCollectionsAccounts> collectionAcctsList = new List<IDRCollectionsAccounts>();
+
+    collectionAcctsList.add( new IDRCollectionsAccounts(c.IDR_Account_Card_Policy_Number__c, null, null));
+    
+    if(c.IDR_Second_Issue__c){
+      collectionAcctsList.add( new IDRCollectionsAccounts(c.IDR_Account_Card_Policy_Number_2__c, null, null));
+    }
+
+    if(c.IDR_Third_Issue__c){
+      collectionAcctsList.add( new IDRCollectionsAccounts(c.IDR_Account_Card_Policy_Number_3__c, null, null));
+    }
+
+    return Json.serialize(collectionAcctsList);
+  }
+
   /**
    * @description Execute the assignment rules on escalated cases
    * @param caseList List of escalated cases
