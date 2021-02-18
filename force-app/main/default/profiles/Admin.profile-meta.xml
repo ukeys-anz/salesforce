@@ -1297,12 +1297,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>ContentVersion.Sent_Created_BU__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>ContentVersion.Sent_Created_Other__c</field>
+        <field>ContentVersion.Sent_Created_Party_Details__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
