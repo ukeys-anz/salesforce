@@ -2,6 +2,6 @@
 <WaveDashboard xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <content xsi:nil="true"/>
     <application>FraudX</application>
-    <description>FraudX Monthly Dashboard</description>
+    <description>FraudX Scam Dashboard</description>
     <masterLabel>FraudX Scam Dashboard</masterLabel>
 </WaveDashboard>
