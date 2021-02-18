@@ -29,7 +29,7 @@
   top: 51%;
 }
 
-.cardHolder {
+.card-holder {
   display: block;
   font-size: 18px;
   position: relative;
@@ -38,7 +38,7 @@
   z-index: 1;
 }
 
-.cardDetails {
+.card-details {
   display: grid;
   font-size: 14px;
   position: relative;
@@ -47,6 +47,6 @@
   z-index: 1;
 }
 
-.cardNumber {
+.card-number {
   font-size: 18px;
 }

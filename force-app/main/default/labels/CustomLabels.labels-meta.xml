@@ -73,6 +73,14 @@
         <value>/anz-exp-sfdc-coach-banking-api/api/transactions?accountnumber=</value>
     </labels>
     <labels>
+        <fullName>MS_Temp_Block_Card</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Temp_Block_Card</shortDescription>
+        <value>/anz-exp-sfdc-coach-banking-api/api/cards/</value>
+    </labels>
+    <labels>
         <fullName>Test_Bulk_Size</fullName>
         <categories>Technical</categories>
         <language>en_US</language>

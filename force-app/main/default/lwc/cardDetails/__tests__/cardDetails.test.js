@@ -128,4 +128,29 @@ describe("c-card-details", () => {
       expect(card).toBeFalsy();
     });
   });
+
+  it("clicks block button", () => {
+    getCardDetails.mockResolvedValue(MOCK_SUCCESS_RESPONSE);
+
+    const element = createElement("c-card-details", {
+      is: CardDetails
+    });
+    document.body.appendChild(element);
+
+    return flushPromises()
+      .then(() => {
+        let button = element.shadowRoot.querySelector(
+          "lightning-button[data-id='block-button']"
+        );
+
+        expect(button).toBeTruthy();
+        button.click();
+      })
+      .then(() => {
+        let blockComponent = element.shadowRoot.querySelector(
+          "c-card-temp-block"
+        );
+        expect(blockComponent).toBeTruthy();
+      });
+  });
 });
