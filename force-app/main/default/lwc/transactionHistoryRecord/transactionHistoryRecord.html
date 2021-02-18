@@ -118,15 +118,13 @@
               <div class="slds-grid slds-form-element__label">Phone</div>
               <div class="slds-grid">
                 <template if:true={transactionRecord.merchant.phone_number}>
-                  {transactionRecord.merchant.phone_number.value}
+                  {merchantPhoneNumber}
                 </template>
               </div>
             </div>
             <div class="slds-col slds-size--1-of-7">
               <div class="slds-grid slds-form-element__label">Website</div>
-              <div class="slds-grid word-fix">
-                {transactionRecord.merchant.website_url.value}
-              </div>
+              <div class="slds-grid word-fix">{merchantWebsiteUrl}</div>
             </div>
             <div class="slds-col slds-size--1-of-7">
               <div class="slds-grid slds-form-element__label">Email</div>
@@ -145,25 +143,19 @@
               <div class="slds-grid slds-form-element__label">
                 Converted Amount
               </div>
-              <div class="slds-grid">
-                {transactionRecord.amount.converted.value}
-              </div>
+              <div class="slds-grid">{amountConvertedValue}</div>
             </div>
             <div class="slds-col slds-size--1-of-7">
               <div class="slds-grid slds-form-element__label">
                 Converted Currency Code
               </div>
-              <div class="slds-grid">
-                {transactionRecord.amount.converted.currency}
-              </div>
+              <div class="slds-grid">{amountConvertedCurrency}</div>
             </div>
             <div class="slds-col slds-size--1-of-7">
               <div class="slds-grid slds-form-element__label">
                 Exchange Rate
               </div>
-              <div class="slds-grid">
-                {transactionRecord.amount.exchangeRate.value}
-              </div>
+              <div class="slds-grid">{amountExchangeRateValue}</div>
             </div>
           </div>
         </div>

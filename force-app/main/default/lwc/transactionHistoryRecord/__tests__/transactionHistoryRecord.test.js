@@ -63,6 +63,56 @@ const transRecord = {
   Error: "test error"
 };
 
+const transRecordWithoutWebsite = {
+  transactionId: "123",
+  amount: {
+    charged: { value: "50.00" },
+    converted: { value: "50.00" },
+    exchangeRate: { value: "50.00" }
+  },
+  type: "Card",
+  status: "Pending",
+  card: { scheme: "Visa" },
+  date: "2020-01-01d18:19",
+  longDesc: "test Description",
+  tags: [{ name: "test" }, { name: "testsuperloooo..." }],
+  merchant: {
+    name: "test",
+    chain_name: { value: "test" },
+    phone_number: { value: "123456" },
+    address: {
+      line_one: {
+        value: "test street"
+      },
+      suburb: {
+        value: "test suburb"
+      },
+      state: {
+        value: "test state"
+      },
+      postcode: {
+        value: "4000"
+      },
+      coordinates: {
+        latitude: 51,
+        longitude: 47
+      }
+    },
+    image_details: { light_url: [Object] },
+    email: "test@test.com"
+  },
+  TransactionDate: "2020-01-01",
+  TransactionTime: "18:19",
+  showDateTitle: true,
+  rowColour: "slds-card slds-m-bottom_small transaction-item even",
+  tagList: ["test", "testsuperloooo..."],
+  merchantDetails: true,
+  name: "test",
+  merchantLocation: "test street, test suburb test state 4000",
+  logo: "test url",
+  Error: "test error"
+};
+
 const transRecordPartial = {
   transactionId: "123",
   longDesc: "test Description",
@@ -88,6 +138,42 @@ describe("c-transactionHistoryRecord", () => {
       is: TransactionHistoryRecord
     });
     element.transactionRecord = transRecord;
+    document.body.appendChild(element);
+
+    const payload = {
+      expand: true
+    };
+
+    expect(subscribe).toHaveBeenCalled();
+
+    publish(messageContextWireAdapter, ExpandCollapseAll, payload);
+
+    return Promise.resolve().then(() => {
+      const descriptionDiv = element.shadowRoot.querySelector(
+        "div.description-tooltip"
+      );
+      expect(descriptionDiv).not.toBeNull();
+      expect(descriptionDiv.textContent).toBe("test Description");
+
+      const transIdDiv = element.shadowRoot.querySelector(
+        'div[data-id="transactionId"]'
+      );
+      expect(transIdDiv).not.toBeNull();
+      expect(transIdDiv.textContent).toBe("123");
+
+      const errorDiv = element.shadowRoot.querySelector(
+        'div[data-id="transError"]'
+      );
+      expect(errorDiv).not.toBeNull();
+      expect(errorDiv.textContent).toBe("test error");
+    });
+  });
+
+  it("test message without website value", () => {
+    const element = createElement("c-transactionHistoryRecord", {
+      is: TransactionHistoryRecord
+    });
+    element.transactionRecord = transRecordWithoutWebsite;
     document.body.appendChild(element);
 
     const payload = {
