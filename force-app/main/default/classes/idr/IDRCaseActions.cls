@@ -373,14 +373,6 @@ public with sharing class IDRCaseActions {
     collectionsEvent.IDR_Complaint_Number__c = c.CaseNumber;
     collectionsEvent.IDR_Complaint_Status__c = c.Status;
     collectionsEvent.IDR_Hardship_Collection_Flag__c = c.IDR_Stop_Collections__c;
-
-    if (c.IDR_Stop_Collections__c == YES_VALUE) {
-      collectionsEvent.IDR_First_Name__c = c.IDR_NC_First_Name__c;
-      collectionsEvent.IDR_Last_Name__c = c.IDR_NC_Last_Name__c;
-      collectionsEvent.IDR_Mobile__c = c.IDR_NC_Phone__c;
-      collectionsEvent.IDR_Email__c = c.IDR_NC_Email__c;
-    }
-
     collectionsEvent.IDR_Account_Details__c = getAccountListJson(c);
 
     return collectionsEvent;
