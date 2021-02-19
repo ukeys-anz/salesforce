@@ -11,7 +11,7 @@
         <chartType>VerticalColumnStacked</chartType>
         <enableHoverLabels>false</enableHoverLabels>
         <expandOthers>true</expandOthers>
-        <groupingColumn>Case.SI_Definite_First_Identified_Date__c</groupingColumn>
+        <groupingColumn>Case.SI_First_Identified_Date__c</groupingColumn>
         <legendPosition>Right</legendPosition>
         <location>CHART_BOTTOM</location>
         <secondaryGroupingColumn>Case.SI_Definite__c</secondaryGroupingColumn>
@@ -75,7 +75,7 @@
     </groupingsAcross>
     <groupingsDown>
         <dateGranularity>Month</dateGranularity>
-        <field>Case.SI_Definite_First_Identified_Date__c</field>
+        <field>Case.SI_First_Identified_Date__c</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
     <name>Currently open AFCA matters</name>

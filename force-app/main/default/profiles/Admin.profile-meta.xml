@@ -1177,7 +1177,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.SI_Definite_First_Identified_Date__c</field>
+        <field>Case.SI_First_Identified_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1218,6 +1218,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.SI_Rec_Rem_Actions__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.SI_Repository_COM_IDs__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1297,12 +1302,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>ContentVersion.Sent_Created_BU__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>ContentVersion.Sent_Created_Other__c</field>
+        <field>ContentVersion.Sent_Created_Party_Details__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1437,7 +1437,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Event.Action__c</field>
+        <field>Task.Action__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1447,17 +1447,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Event.IDR_COR_ID__c</field>
+        <field>Task.IDR_COR_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Event.IDR_Key_Business_Contact__c</field>
+        <field>Task.IDR_Key_Business_Contact__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Event.PSI_or_DSI__c</field>
+        <field>Task.PSI_or_DSI__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

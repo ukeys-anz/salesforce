@@ -164,7 +164,7 @@
                 <drillToDetailEnabled>false</drillToDetailEnabled>
                 <enableHover>false</enableHover>
                 <expandOthers>false</expandOthers>
-                <groupingColumn>Case.SI_Definite_First_Identified_Date__c</groupingColumn>
+                <groupingColumn>Case.SI_First_Identified_Date__c</groupingColumn>
                 <groupingColumn>Case.SI_Definite__c</groupingColumn>
                 <groupingSortProperties>
                     <groupingSorts>
@@ -204,7 +204,7 @@
                 <drillToDetailEnabled>false</drillToDetailEnabled>
                 <enableHover>false</enableHover>
                 <expandOthers>false</expandOthers>
-                <groupingColumn>Case.SI_Definite_First_Identified_Date__c</groupingColumn>
+                <groupingColumn>Case.SI_First_Identified_Date__c</groupingColumn>
                 <groupingSortProperties>
                     <groupingSorts>
                         <groupingLevel>g1</groupingLevel>
