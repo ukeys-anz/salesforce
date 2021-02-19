@@ -950,36 +950,47 @@ private class TestCaseTriggerHandler {
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
-        new Case(RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID, IDR_Stop_Collections__c = 'Yes', Priority = 'Standard')
-          
+        new Case(
+          RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
+          IDR_Stop_Collections__c = 'Yes',
+          Priority = 'Standard'
+        )
       );
     }
-      try{
-              insert newCases;
-      }catch(Exception e){
-          System.assert(e.getMessage().contains('Priority must be Customer experiencing financial hardship or Customer in Collections, when collections flag is turned on'));
-      }
+    try {
+      insert newCases;
+    } catch (Exception e) {
+      System.assert(
+        e.getMessage()
+          .contains(
+            'Priority must be Customer experiencing financial hardship or Customer in Collections, when collections flag is turned on'
+          )
+      );
+    }
   }
-    
-     @istest
+
+  @istest
   static void testCollectionsDataValidationPositive() {
-      
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
-        new Case(RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID, IDR_Stop_Collections__c = 'Yes', Priority = 'Customer in Collections')
+        new Case(
+          RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
+          IDR_Stop_Collections__c = 'Yes',
+          Priority = 'Customer in Collections'
+        )
       );
     }
-     Test.startTest();
-     insert newCases;
-     //If below line executes that means platform event got published as event is configured "Publish on Event"
-     System.assertEquals(String.valueOf(newCases.size()), Label.Test_Bulk_Size);
-      
-      for(Case c : newCases){
-          c.IDR_Stop_Collections__c = 'No';
-      }
-      update newCases;
-      
-      Test.stopTest();
+    Test.startTest();
+    insert newCases;
+    //If below line executes that means platform event got published as event is configured "Publish on Event"
+    System.assertEquals(String.valueOf(newCases.size()), Label.Test_Bulk_Size);
+
+    for (Case c : newCases) {
+      c.IDR_Stop_Collections__c = 'No';
+    }
+    update newCases;
+
+    Test.stopTest();
   }
 }
