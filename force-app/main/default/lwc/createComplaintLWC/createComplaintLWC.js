@@ -283,9 +283,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.hasNominatedThirdParty = event.target.checked;
   }
 
-  handlePriorityChange(event){
+  handlePriorityChange(event) {
     this.ComplaintPriority = event.detail.value;
-
   }
 
   handle2ndIssueToggleChange(event) {
@@ -400,7 +399,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.systemicIssueValue = event.detail.value[0];
   }
 
-  handleCollectionFlagChange(event){
+  handleCollectionFlagChange(event) {
     this.stopCollectionValue = event.detail.value;
   }
 
@@ -447,9 +446,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
           "Is the complaint relating to hardship, a declined insurance claim, the value of an insurance claim or a decision of a superannuation trustee?, ";
       }
     }
-    if(!this.stopCollectionValue){
+    if (this.isCustomerComplaint && !this.stopCollectionValue) {
       isFieldValid = false;
-      this.missingDataFields +="Is complaint is relating to Hardship, Collections, A default notice or Legal proceedings?, "
+      this.missingDataFields +=
+        "Is complaint is relating to Hardship, Collections, A default notice or Legal proceedings?, ";
     }
     if (
       typeof this.isCommonComplaint === "undefined" ||
@@ -506,12 +506,12 @@ export default class CreateComplaintLWC extends NavigationMixin(
     }
 
     let isStopCollection = true;
-    if(this.stopCollectionValue === 'Yes'){
-      isStopCollection =  this.validateComplaintPriority();
+    if (this.stopCollectionValue === "Yes") {
+      isStopCollection = this.validateComplaintPriority();
       isFieldValid = isFieldValid && isStopCollection;
     }
 
-    return isFieldValid && isEmailValid && isFinCompValid ;
+    return isFieldValid && isEmailValid && isFinCompValid;
   }
 
   handleSubmit(event) {
@@ -673,11 +673,14 @@ export default class CreateComplaintLWC extends NavigationMixin(
     return true;
   }
 
-  validateComplaintPriority(){
-    if(this.ComplaintPriority != 'Financial Hardship' && this.ComplaintPriority != 'Customer in Collections' ){
+  validateComplaintPriority() {
+    if (
+      this.ComplaintPriority != "Financial Hardship" &&
+      this.ComplaintPriority != "Customer in Collections"
+    ) {
       this.missingDataFields +=
         "Priority must be Customer experiencing financial hardship or Customer in Collections, when collections flag is turned on.";
-        return false;
+      return false;
     }
     return true;
   }
