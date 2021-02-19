@@ -675,8 +675,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   validateComplaintPriority() {
     if (
-      this.ComplaintPriority != "Financial Hardship" &&
-      this.ComplaintPriority != "Customer in Collections"
+      this.ComplaintPriority !== "Financial Hardship" &&
+      this.ComplaintPriority !== "Customer in Collections"
     ) {
       this.missingDataFields +=
         "Priority must be Customer experiencing financial hardship or Customer in Collections, when collections flag is turned on.";
