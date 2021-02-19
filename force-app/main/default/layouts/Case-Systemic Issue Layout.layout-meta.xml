@@ -222,6 +222,10 @@
                 <behavior>Readonly</behavior>
                 <field>SuppliedEmail</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>ContactId</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -233,8 +237,8 @@
                 <field>ClosedDate</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>ContactId</field>
+                <behavior>Edit</behavior>
+                <field>SI_Repository_COM_IDs__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
