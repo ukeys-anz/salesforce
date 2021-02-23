@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Quick action to log a voice call with a customer manually</description>
+    <description>Quick action to log a voice call interaction</description>
     <fieldOverrides>
         <field>ActivityDate</field>
         <formula>NOW()</formula>
@@ -11,7 +11,7 @@
     </fieldOverrides>
     <fieldOverrides>
         <field>Subject</field>
-        <formula>TEXT(Case.Type)</formula>
+        <formula>Case.Subject</formula>
     </fieldOverrides>
     <fieldOverrides>
         <field>WhoId</field>
