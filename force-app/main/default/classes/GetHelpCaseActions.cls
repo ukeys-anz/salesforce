@@ -41,6 +41,8 @@ public with sharing class GetHelpCaseActions {
   // Parent Case validation error message
   private static final String PARENT_CASE_ERROR = 'You cannot add parent case. This case is associated with child cases';
 
+  private static Map<String, String> caseTypeLabelByValue = new Map<String, String>();
+
   /**
    * @description beforeUpdate(oldMap, records) method handles the following
    * 1. Validate Additional Type - Validates the selected additional types and addError if it has more than 2 values selected or if the Type value is same as one of the additional values
@@ -186,7 +188,8 @@ public with sharing class GetHelpCaseActions {
         (oldCaseMap == null ||
         (record.Type != oldCaseMap.get(record.Id).Type ||
         record.Additional_Type__c !=
-        oldCaseMap.get(record.Id).Additional_Type__c))
+        oldCaseMap.get(record.Id).Additional_Type__c ||
+        record.RecordTypeId != oldCaseMap.get(record.Id).RecordTypeId))
       ) {
         populateCaseSubject(record);
       }
@@ -197,7 +200,8 @@ public with sharing class GetHelpCaseActions {
         FRAUD_RT_IDS.contains(record.RecordTypeId) &&
         String.isNotBlank(record.Type) &&
         (oldCaseMap == null ||
-        record.Type != oldCaseMap.get(record.Id).Type)
+        record.Type != oldCaseMap.get(record.Id).Type ||
+        record.RecordTypeId != oldCaseMap.get(record.Id).RecordTypeId)
       ) {
         populateFraudCaseSubject(record);
       }
@@ -212,7 +216,8 @@ public with sharing class GetHelpCaseActions {
     List<String> caseTypeList = new List<String>();
 
     if (String.isNotBlank(record.Type)) {
-      caseTypeList.add(record.Type);
+      fetchCaseTypeLabelsByValues();
+      caseTypeList.add(caseTypeLabelByValue.get(record.Type));
     }
     if (String.isNotBlank(record.Additional_Type__c)) {
       caseTypeList.addAll(record.Additional_Type__c.split(';'));
@@ -231,9 +236,10 @@ public with sharing class GetHelpCaseActions {
     List<String> caseTypeList = new List<String>();
 
     if (String.isNotBlank(record.Type)) {
+      fetchCaseTypeLabelsByValues();
       // Setting a different Subject format for KYC QA Cases
       if (KYCQA_RT_ID == record.RecordTypeId) {
-        record.Subject = record.Type;
+        record.Subject = caseTypeLabelByValue.get(record.Type);
       } else {
         record.Subject =
           Schema.getGlobalDescribe()
@@ -243,8 +249,17 @@ public with sharing class GetHelpCaseActions {
             .get(record.RecordTypeId)
             .getName() +
           ' - ' +
-          record.Type;
+          caseTypeLabelByValue.get(record.Type);
       }
+    }
+  }
+
+  /**
+   * @description Fetches (if not already available) a map of Case 'Type' Picklist Labels by Values
+   */
+  public static void fetchCaseTypeLabelsByValues() {
+    if (caseTypeLabelByValue.isEmpty()) {
+      caseTypeLabelByValue = CommonUtils.getPicklistLabelsByValues(Case.Type);
     }
   }
 

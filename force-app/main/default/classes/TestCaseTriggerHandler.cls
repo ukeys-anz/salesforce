@@ -1,6 +1,10 @@
 @SuppressWarnings('PMD.CyclomaticComplexity')
 @isTest
 private class TestCaseTriggerHandler {
+  public static Map<String, String> caseTypeLabelByValue = CommonUtils.getPicklistLabelsByValues(
+    Case.Type
+  );
+
   @testSetup
   static void setup() {
     Faker faker = new Faker('AU');
@@ -748,11 +752,7 @@ private class TestCaseTriggerHandler {
   @isTest
   static void testPopulateFraudCaseSubject() {
     Faker faker = new Faker('AU');
-    List<String> caseTypes = new List<String>{
-      'Remote Access',
-      'Other',
-      'Not a Scam'
-    };
+    List<String> caseTypes = new List<String>{ 'Remote Access', 'Not a Scam' };
 
     // GIVEN FraudX Agent user has required acces
     // Query for API User
@@ -797,7 +797,7 @@ private class TestCaseTriggerHandler {
     system.assertEquals(
       sampleCase1.RecordType.Name +
       ' - ' +
-      sampleCase1.Type,
+      caseTypeLabelByValue.get(sampleCase1.Type),
       sampleCase1.Subject,
       'Failed to autopopulate Subject on Fraud cases as expected, while inserting'
     );
@@ -818,6 +818,71 @@ private class TestCaseTriggerHandler {
       sampleCase2.Type,
       sampleCase2.Subject,
       'Failed to autopopulate Subject on Fraud cases as expected, while updating'
+    );
+  }
+
+  //Test to verify Subject auto-population when Case Type has a numerical value different from the label
+  static void testNumericCaseTypeValue() {
+    Faker faker = new Faker('AU');
+    // GIVEN the selected Case Types has numerical values as API names
+    List<String> caseTypes = new List<String>{ '10', '11' };
+
+    // WHEN a user creates or updates a Fradx 'Scam' case
+    Case[] newCases = new List<Case>();
+    Account acc = [
+      SELECT Id
+      FROM Account
+      WHERE Display_Name__c = 'TestAccount'
+      LIMIT 1
+    ];
+
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = GetHelpCaseActions.SCAM_RT_ID,
+          Type = faker.randomElement(caseTypes),
+          AccountId = acc.Id
+        )
+      );
+    }
+
+    Test.startTest();
+    insert newCases;
+    Test.stopTest();
+
+    // THEN Case Subject should be autopopulated based on RecordType Name and Type Label
+
+    // Verify subject on one of the inserted Cases
+    Case sampleCase1 = [
+      SELECT Id, Type, RecordType.Name, Subject
+      FROM Case
+      WHERE Id = :newCases[0].Id
+      LIMIT 1
+    ];
+    system.assertEquals(
+      sampleCase1.RecordType.Name +
+      ' - ' +
+      caseTypeLabelByValue.get(sampleCase1.Type),
+      sampleCase1.Subject,
+      'Failed to autopopulate Subject with Case Type label as expected, while inserting'
+    );
+
+    // Validate UPDATE behaviour
+    newCases[0].Type = '12';
+    update newCases[0];
+
+    Case sampleCase2 = [
+      SELECT Id, Type, RecordType.Name, Subject
+      FROM Case
+      WHERE Id = :newCases[0].Id
+      LIMIT 1
+    ];
+    system.assertEquals(
+      sampleCase2.RecordType.Name +
+      ' - ' +
+      caseTypeLabelByValue.get(sampleCase2.Type),
+      sampleCase2.Subject,
+      'Failed to autopopulate Subject with Case Type label as expected, while updating'
     );
   }
 
