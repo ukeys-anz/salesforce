@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingOwnerRules>
-        <fullName>OWN_PG_AllIDRUsers_PG_AllIDRUsers_RO</fullName>
-        <accessLevel>Read</accessLevel>
-        <description>Necessary for IDR users to transfer complaints to other IDR users.</description>
-        <label>OWN_PG-AllIDRUsers_PG-AllIDRUsers_RO</label>
-        <sharedTo>
-            <group>All_IDR_Users</group>
-        </sharedTo>
-        <sharedFrom>
-            <group>All_IDR_Users</group>
-        </sharedFrom>
-    </sharingOwnerRules>
-    <sharingOwnerRules>
         <fullName>Grant_Read_Access_on_Coach_User_Records_for_Coaches</fullName>
         <accessLevel>Read</accessLevel>
         <description>Rule to provide &apos;Read&apos; access to all Coach User records for Coaches.</description>
@@ -37,18 +25,6 @@
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
-        <fullName>Grant_Read_Access_on_Manager_User_Records_for_Coaches</fullName>
-        <accessLevel>Read</accessLevel>
-        <description>Rule to provide &apos;Read&apos; access to all Manager User records for Coaches.</description>
-        <label>Grant Read Access on Manager User Records for Coaches</label>
-        <sharedTo>
-            <role>Coach</role>
-        </sharedTo>
-        <sharedFrom>
-            <role>Manager</role>
-        </sharedFrom>
-    </sharingOwnerRules>
-    <sharingOwnerRules>
         <fullName>Grant_Read_Access_on_Content_Manager_User_Records_for_Content_Writers</fullName>
         <accessLevel>Read</accessLevel>
         <description>Rule to provide ‘Read’ access to all Content Manager User records for Content Writers.</description>
@@ -70,6 +46,30 @@
         </sharedTo>
         <sharedFrom>
             <role>Content_Writer</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Grant_Read_Access_on_Manager_User_Records_for_Coaches</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Rule to provide &apos;Read&apos; access to all Manager User records for Coaches.</description>
+        <label>Grant Read Access on Manager User Records for Coaches</label>
+        <sharedTo>
+            <role>Coach</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>Manager</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>OWN_PG_ANZUsers_PG_ANZUsers_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Necessary for IDR users to transfer complaints to other IDR users.</description>
+        <label>OWN_PG-ANZUsers_PG-ANZUsers_RO</label>
+        <sharedTo>
+            <roleAndSubordinates>ANZ</roleAndSubordinates>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>ANZ</roleAndSubordinates>
         </sharedFrom>
     </sharingOwnerRules>
 </SharingRules>
