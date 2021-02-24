@@ -59,21 +59,13 @@ private class TestTaskTriggerHandler {
         case priorityComplaint = [Select Id from Case where RecordTypeId =:IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID AND Priority = 'Vulnerable Customer' LIMIT 1];
         List<Task> listofTasks = new List<Task>();
         
-        Task standard7day = new Task(Subject=IDRConstants.TASK_SUBJECT_DAY7,Priority= 'Normal',ActivityDate=system.today().addDays(60),WhatId = standardComplaint.Id);
-        insert standard7day;
         Task standard5day = new Task(Subject=IDRConstants.TASK_SUBJECT_DAY5,Priority= 'Normal',ActivityDate=system.today().addDays(60),WhatId = standardComplaint.Id);
-        listofTasks.add(standard5day);
-        Task standard3day = new Task(Subject=IDRConstants.TASK_SUBJECT_DAY3,Priority= 'High',ActivityDate=system.today().addDays(60),WhatId = standardComplaint.Id);
-        listofTasks.add(standard3day);
+        insert standard5day;
         Task standard1day = new Task(Subject=IDRConstants.TASK_SUBJECT_DAY1,Priority= 'High',ActivityDate=system.today().addDays(60),WhatId = standardComplaint.Id);        
         listofTasks.add(standard1day);
         
-        Task priority7day = new Task(Subject=IDRConstants.TASK_SUBJECT_DAY7,Priority= 'Normal',ActivityDate=system.today().addDays(60),WhatId = priorityComplaint.Id);
-        listofTasks.add(priority7day);
         Task priority5day = new Task(Subject=IDRConstants.TASK_SUBJECT_DAY5,Priority= 'Normal',ActivityDate=system.today().addDays(60),WhatId = priorityComplaint.Id);
-        listofTasks.add(priority5day);
-        Task priority3day = new Task(Subject=IDRConstants.TASK_SUBJECT_DAY3,Priority= 'High',ActivityDate=system.today().addDays(60),WhatId = priorityComplaint.Id);
-        listofTasks.add(priority3day);
+        listofTasks.add(priority5day);        
         Task priority1day = new Task(Subject=IDRConstants.TASK_SUBJECT_DAY1,Priority= 'High',ActivityDate=system.today().addDays(60),WhatId = priorityComplaint.Id);        
         listofTasks.add(priority1day);
         

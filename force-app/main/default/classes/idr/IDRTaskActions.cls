@@ -1,18 +1,39 @@
+/**
+ * @author Himabindu Nekkanti
+ * @since  02/2021
+ * @description IDRTaskActions is class to handle all the IDR (Internal Dispute Resolution) Actions
+ */
 public with sharing class IDRTaskActions {
-     // IDR Non Customer Record Type ID
+     // IDR Maximum time Record Type ID
   @TestVisible
   static final Id IDR_MAXIMUM_TIME_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
     .get('IDR_System_Task')
     .getRecordTypeId();
+    /**
+   * @description beforeInsertActions is called onBeforeInsert. any logic that needs to be executed on before insert is executed from here
+   * @param records The Task record list.
+   */
   	 public static void beforeInsertActions(list<Task> records ){
         checkIDRMaximumTimeTasks(records);
     }
+    /**
+   * @description afterInsertActions is called onAfterInsert. any logic that needs to be executed on after insert is executed from here
+   * @param records The Task record list.
+   */
     public static void afterInsertActions(list<Task> records ){
         closeOldIDRMaximumTimeTasks(records);
     }
+    /**
+   * @description afterUpdateActions is called onAfterUpdate. any logic that needs to be executed on after Update is executed from here
+   * @param records The Task record list.
+   */
     public static void afterUpdateActions(list<Task> records ){
         closeMilestonesOfClosedTask(records);
     }
+    /**
+   * @description closeOldIDRMaximumTimeTasks will close out old IDR Task reminders against case when a new Task is created.
+   * @param taskRecs The Task record list.
+   */
     private static void closeOldIDRMaximumTimeTasks(list<Task> taskRecs){  
        Set<Id> currentTask = new set<Id> ();
         Map<Id,ID> caseTaskMap = new Map<Id,ID> ();
@@ -38,24 +59,27 @@ public with sharing class IDRTaskActions {
             }
         }           
     }
+     /**
+   * @description checkIDRMaximumTimeTasks will perform the following actions.
+   *1. since record type cannot be set from milestone , the appriapriate Task record type will be set here.
+   ***Edge case scenarios 
+   *2. In the event case is created with a very old date recieved the milestone will create IDR tasks with wrong due date. 
+   *   we will recalaulate and adust the date to correct date here and also expire any unwanted tasks.
+   *                             
+   * @param taskRecs The Task record list.
+   */
     private static void checkIDRMaximumTimeTasks(list<Task> taskRecs){
         list<Task> idrMaixmumTimeTasks = new list<Task> ();
         Map<Id,ID> taskCaseMap = new Map<Id,ID> ();
         set<Id> caseIdSet = new set<Id> ();   
     	Map<Id,String> caseTaskMap = new Map<Id,String>() ;
         for (Task record : taskRecs){
-            if (record.subject == IDRConstants.TASK_SUBJECT_DAY7 
-                || record.subject == IDRConstants.TASK_SUBJECT_DAY5 
-                || record.subject == IDRConstants.TASK_SUBJECT_DAY3  
+            if (record.subject == IDRConstants.TASK_SUBJECT_DAY5   
                 || record.subject == IDRConstants.TASK_SUBJECT_DAY1  ) {
 				record.RecordTypeId = IDR_MAXIMUM_TIME_RT_ID; 
                 if(!caseIdSet.contains(record.WhatId) 
-                    ||(record.subject == IDRConstants.TASK_SUBJECT_DAY1) 
-                   	||(record.subject == IDRConstants.TASK_SUBJECT_DAY5 && (caseTaskMap.get(record.WhatId) == IDRConstants.TASK_SUBJECT_DAY7 ))
-                    ||(record.subject == IDRConstants.TASK_SUBJECT_DAY3   
-                       && (caseTaskMap.get(record.WhatId) == IDRConstants.TASK_SUBJECT_DAY5 || caseTaskMap.get(record.WhatId) == IDRConstants.TASK_SUBJECT_DAY7 ))
-                    
-                   ){
+                    ||(record.subject == IDRConstants.TASK_SUBJECT_DAY1))
+                    {
                  	caseTaskMap.put(record.WhatId,record.subject) ;
                 }
                 idrMaixmumTimeTasks.add(record);
@@ -72,48 +96,8 @@ public with sharing class IDRTaskActions {
             }
         }
         for (Task record : IDRMaixmumTimeTasks){
-                datetime expectedDueDate ;
-            if(record.Subject == IDRConstants.TASK_SUBJECT_DAY7 && caseMap.get(record.WhatId).Priority == IDRConstants.TASK_STANDARD_PRIORITY ){
-              	expectedDueDate =  addDays(
-                    			caseMap.get(record.WhatId).BusinessHoursId,
-                    			caseMap.get(record.WhatId).IDR_Date_Received__c,
-                    			23); 
-            }else if(record.Subject == IDRConstants.TASK_SUBJECT_DAY7 && caseMap.get(record.WhatId).Priority != IDRConstants.TASK_STANDARD_PRIORITY ){
-              	expectedDueDate =  addDays(
-                    			caseMap.get(record.WhatId).BusinessHoursId,
-                    			caseMap.get(record.WhatId).IDR_Date_Received__c,
-                    			14); 
-            }else if(record.Subject == IDRConstants.TASK_SUBJECT_DAY5 && caseMap.get(record.WhatId).Priority == IDRConstants.TASK_STANDARD_PRIORITY  ){
-                expectedDueDate =  addDays(
-                    			caseMap.get(record.WhatId).BusinessHoursId,
-                    			caseMap.get(record.WhatId).IDR_Date_Received__c,
-                    			25); 
-            }else if(record.Subject == IDRConstants.TASK_SUBJECT_DAY5 && caseMap.get(record.WhatId).Priority != IDRConstants.TASK_STANDARD_PRIORITY  ){
-                expectedDueDate =  addDays(
-                    			caseMap.get(record.WhatId).BusinessHoursId,
-                    			caseMap.get(record.WhatId).IDR_Date_Received__c,
-                    			16); 
-            }else if(record.Subject == IDRConstants.TASK_SUBJECT_DAY3 && caseMap.get(record.WhatId).Priority == IDRConstants.TASK_STANDARD_PRIORITY  ){
-                expectedDueDate =  addDays(
-                    			caseMap.get(record.WhatId).BusinessHoursId,
-                    			caseMap.get(record.WhatId).IDR_Date_Received__c,
-                    			27); 
-            }else if(record.Subject == IDRConstants.TASK_SUBJECT_DAY3 && caseMap.get(record.WhatId).Priority != IDRConstants.TASK_STANDARD_PRIORITY  ){
-                expectedDueDate =  addDays(
-                    			caseMap.get(record.WhatId).BusinessHoursId,
-                    			caseMap.get(record.WhatId).IDR_Date_Received__c,
-                    			18); 
-            }else if(record.Subject == IDRConstants.TASK_SUBJECT_DAY1 && caseMap.get(record.WhatId).Priority == IDRConstants.TASK_STANDARD_PRIORITY){
-                expectedDueDate =  addDays(
-                    			caseMap.get(record.WhatId).BusinessHoursId,
-                    			caseMap.get(record.WhatId).IDR_Date_Received__c,
-                    			29); 
-            }else if(record.Subject == IDRConstants.TASK_SUBJECT_DAY1 && caseMap.get(record.WhatId).Priority != IDRConstants.TASK_STANDARD_PRIORITY){
-                expectedDueDate =  addDays(
-                    			caseMap.get(record.WhatId).BusinessHoursId,
-                    			caseMap.get(record.WhatId).IDR_Date_Received__c,
-                    			20); 
-            }
+                datetime expectedDueDate = calculateExpectedDue(record ,caseMap.get(record.WhatId));
+            
             if (record.ActivityDate > date.valueof(expectedDueDate)){
                 record.ActivityDate = date.valueof(expectedDueDate);              
              }
@@ -124,6 +108,44 @@ public with sharing class IDRTaskActions {
          }
            
  	}
+     /**
+   * @description calculateExpectedDue will calaulate the what the due date must be for IDR Tasks.
+   *                             
+   * @param record The Task record.
+   * @param caseRec the case record that this task is related to.
+   * @return datetime new datetime value that expected to be the due date based on the task and case parms.
+   */
+    public static datetime calculateExpectedDue(task record, case caseRec){
+        datetime expectedDueDate;
+        If(record.Subject == IDRConstants.TASK_SUBJECT_DAY5 && caseRec.Priority == IDRConstants.TASK_STANDARD_PRIORITY  ){
+                expectedDueDate =  DateTimeUtils.addBusinessDays(
+                    			caseRec.BusinessHoursId,
+                    			caseRec.IDR_Date_Received__c,
+                    			25); 
+            }else if(record.Subject == IDRConstants.TASK_SUBJECT_DAY5 && caseRec.Priority != IDRConstants.TASK_STANDARD_PRIORITY  ){
+                expectedDueDate =  DateTimeUtils.addBusinessDays(
+                    			caseRec.BusinessHoursId,
+                    			caseRec.IDR_Date_Received__c,
+                    			16); 
+            }else if(record.Subject == IDRConstants.TASK_SUBJECT_DAY1 && caseRec.Priority == IDRConstants.TASK_STANDARD_PRIORITY){
+                expectedDueDate =  DateTimeUtils.addBusinessDays(
+                    			caseRec.BusinessHoursId,
+                    			caseRec.IDR_Date_Received__c,
+                    			29); 
+            }else if(record.Subject == IDRConstants.TASK_SUBJECT_DAY1 && caseRec.Priority != IDRConstants.TASK_STANDARD_PRIORITY){
+                expectedDueDate =  DateTimeUtils.addBusinessDays(
+                    			caseRec.BusinessHoursId,
+                    			caseRec.IDR_Date_Received__c,
+                    			20); 
+            }
+        return expectedDueDate;
+    }
+    /**
+   * @description closeMilestonesOfClosedTask will mark Maximum IDR milestones as completed
+   *               when the corresponding Taks completed.
+   *                             
+   * @param taskRecs List of task records.
+   */
     private static void closeMilestonesOfClosedTask(list<Task> taskRecs){  
         set<Id> caseIDSet = new Set<Id>();
         for (task t: taskRecs){
@@ -147,15 +169,5 @@ public with sharing class IDRTaskActions {
             
         }
     }
-     public static datetime addDays(id BusinessHrs , datetime startDate , integer daysToAdd ){
-        datetime newDate = startDate;
-        for(integer i=1; i<= daysToAdd; i++ ){
-            newDate = newDate.addDays(1);
-            if(!BusinessHours.isWithin(BusinessHrs,newDate)){
-                newDate = BusinessHours.nextStartDate(BusinessHrs, newDate);
-            }
-        }
-        
-        return newDate;
-    }
+     
 }

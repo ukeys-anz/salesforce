@@ -154,22 +154,6 @@
         </timeTriggers>
         <timeTriggers>
             <actions>
-                <name>maximum_time_7Days_reminder</name>
-                <type>Task</type>
-            </actions>
-            <timeLength>-7</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <actions>
-                <name>Maximum_IDR_time_3day_reminder</name>
-                <type>Task</type>
-            </actions>
-            <timeLength>-3</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <actions>
                 <name>Maximum_IDR_timeframe_5days_Reminder</name>
                 <type>Task</type>
             </actions>
@@ -208,22 +192,6 @@
                 <type>Task</type>
             </actions>
             <timeLength>-5</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <actions>
-                <name>maximum_time_7Days_reminder</name>
-                <type>Task</type>
-            </actions>
-            <timeLength>-7</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <actions>
-                <name>Maximum_IDR_time_3day_reminder</name>
-                <type>Task</type>
-            </actions>
-            <timeLength>-3</timeLength>
             <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
         </timeTriggers>
         <timeTriggers>

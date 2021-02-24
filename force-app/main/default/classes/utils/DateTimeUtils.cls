@@ -37,4 +37,22 @@ public without sharing class DateTimeUtils {
     Decimal differenceHours = difference / SFConstants.TIME_TO_HOUR;
     return differenceHours.setScale(4, RoundingMode.HALF_UP);
   }
+  /**
+   *@description Add business days to a date.
+   * @param startDate start date in DateTime
+   * @param daysToAdd number of business days to be added
+   * @param businessHourId Business Hours Id to consider working hours and public holidays
+   * @return `datetime` final date after adding days to startDate
+   */
+  public static datetime addBusinessDays(id BusinessHrs , datetime startDate , integer daysToAdd ){
+        datetime newDatetime = startDate;
+        for(integer i=1; i<= daysToAdd; i++ ){
+            newDatetime = newDatetime.addDays(1);
+            if(!BusinessHours.isWithin(BusinessHrs,newDatetime)){
+                newDatetime = BusinessHours.nextStartDate(BusinessHrs, newDatetime);
+            }
+        }
+        
+        return newDatetime;
+    }
 }

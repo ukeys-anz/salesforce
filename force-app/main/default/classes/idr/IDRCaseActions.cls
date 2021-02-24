@@ -24,7 +24,12 @@ public with sharing class IDRCaseActions {
   static final Id GENERAL_INQUIRY_CMOS_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('General_Inquiry_CMOS')
     .getRecordTypeId();
-
+  
+    @TestVisible  
+  static final Id IDR_MAXIMUM_TIME_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
+     .get('IDR_System_Task')
+    .getRecordTypeId();
+    
   @TestVisible
   private static final String OPEN_STATUS = 'Open';
   @TestVisible
@@ -206,7 +211,7 @@ public with sharing class IDRCaseActions {
         );
       }
       //calling handleOfficeAssignment for all case records for which the IDR_Office__c needs to be updated.
-      handleOfficeAssignment(changeOfficeCaseList);
+      handleOfficeAssignment(changeOfficeCaseList);      
     }
   }
 
@@ -221,6 +226,7 @@ public with sharing class IDRCaseActions {
    */
   public static void afterUpdate(Map<Id, SObject> oldMap, List<Case> records) {
     Case[] childComplaints = new List<Case>(); //records to rollup on parent systemic issue
+    list<case> updateIDRTimeCases  = new list<Case>(); // records where the date received has changed
     for (Integer i = 0; i < records.size(); i++) {
       Case record = records[i];
       Case oldRec = (Case) oldMap.get(record.id);
@@ -248,11 +254,24 @@ public with sharing class IDRCaseActions {
           childComplaints.add((Case) oldMap.get(records.get(i).id));
         }
       }
+        // if the date recieved is changed after milestone has been applied
+        // I.e Case is already created as complain or already identified as complaint.(isIDRComplaintType(oldRec))
+        // then the tasks and milestone needs to be update to reflect this change
+        if(isIDRComplaintType(record) &&
+           isIDRComplaintType(oldRec) &&
+          oldRec.IDR_Date_Received__c != record.IDR_Date_Received__c){
+          updateIDRTimeCases.add(record);  
+        }  
     }
     //rollup on parent systemic issue
     if (!childComplaints.isEmpty()) {
       SICaseActions.rollupToParentSI(childComplaints);
     }
+    
+      if(!updateIDRTimeCases.isEmpty()){
+          updateIDRMilestoneTask(updateIDRTimeCases);
+      }
+      
   }
 
   /**
@@ -765,4 +784,39 @@ public with sharing class IDRCaseActions {
       record.addError(CUSTOMER_NUMBER_VALIDATION_ERROR);
     }
   }
+   /**
+   * @description Update the tasks and milestones to reflect the values based on new date recieved.
+   * @param records list of case record that have date recieved changed
+   */
+    private static void updateIDRMilestoneTask(list<Case> records) {
+        Map<Id, Case> caseMap = new Map<Id,Case>();
+        for (case c: records){
+            caseMap.put(c.Id , c);
+        }
+        if(task.sObjectType.getDescribe().isQueryable()){
+            List<task> idrTasks = [Select Id,ActivityDate,whatId,Subject from Task where whatId in :caseMap.keySet() 
+                               AND RecordTypeId =:IDR_MAXIMUM_TIME_RT_ID AND IsClosed = false];
+            for(task t : idrTasks){
+             t.ActivityDate = date.valueOf(IDRTaskActions.calculateExpectedDue(t,caseMap.get(t.whatId)));           
+        	}
+            if(!idrTasks.isEmpty()){
+            update idrTasks;
+        	}
+        }
+        
+        if(CaseMilestone.sObjectType.getDescribe().isQueryable()){
+        
+        	List<CaseMilestone> cmsToUpdate = [select Id, StartDate,caseId from CaseMilestone cm 
+                                              where caseId in :caseMap.keySet() and 
+                                               	(cm.MilestoneType.Name= :IDRConstants.MILESTONE_STANDARD or cm.MilestoneType.Name= :IDRConstants.MILESTONE_PRIORITY )
+            									and completionDate = null limit 1];
+        	for(CaseMilestone cm : cmsToUpdate){
+            	cm.StartDate = caseMap.get(cm.caseId).IDR_Date_Received__c;
+        	}
+        	if(!cmsToUpdate.isEmpty()){
+            	update cmsToUpdate;
+        	}
+        }    
+            
+    }
 }
