@@ -13,9 +13,9 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
   /**
    * @description onBeforeInsert to handle before insert trigger actions.
    */
-    public override void onBeforeInsert() {
-       IDRTaskActions.beforeInsertActions(records);
-    }
+  public override void onBeforeInsert() {
+    IDRTaskActions.beforeInsertActions(records);
+  }
   /**
    * @description onAfterInsert to perform processing during the after insert phase
    */
@@ -23,12 +23,12 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
     manageNotification((List<Task>) records);
     IDRTaskActions.afterInsertActions(records);
   }
-    /**
+  /**
    * @description onAfterUpdate to handle after update trigger actions.
    * @param oldMap old trigger values
    */
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
-      IDRTaskActions.afterUpdateActions(records);  
+    IDRTaskActions.afterUpdateActions(records);
   }
   /**
    * @description Assesses whether or not to generate a banker notification

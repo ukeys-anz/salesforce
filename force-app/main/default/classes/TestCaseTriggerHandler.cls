@@ -949,18 +949,28 @@ private class TestCaseTriggerHandler {
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
-        new Case(RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID ,IDR_Date_Received__c = system.now())
+        new Case(
+          RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
+          IDR_Date_Received__c = system.now()
+        )
       );
     }
     insert newCases;
-	
-    task idrTask = new task(whatId = newCases[0].Id, Subject = IDRConstants.TASK_SUBJECT_DAY5 , ActivityDate = system.today()); 
+
+    task idrTask = new task(
+      whatId = newCases[0].Id,
+      Subject = IDRConstants.TASK_SUBJECT_DAY5,
+      ActivityDate = system.today()
+    );
     insert idrTask;
-     
-    case updateCase = new case(Id=newCases[0].Id ,IDR_Date_Received__c= system.now().addDays(1));
+
+    case updateCase = new case(
+      Id = newCases[0].Id,
+      IDR_Date_Received__c = system.now().addDays(1)
+    );
     update updateCase;
-    
-    task checkTask = [Select ActivityDate from Task where id =:idrTask.Id ];
-    system.assertNotEquals(idrTask.ActivityDate, checkTask.ActivityDate) ; 
-    }
+
+    task checkTask = [SELECT ActivityDate FROM Task WHERE id = :idrTask.Id];
+    system.assertNotEquals(idrTask.ActivityDate, checkTask.ActivityDate);
+  }
 }
