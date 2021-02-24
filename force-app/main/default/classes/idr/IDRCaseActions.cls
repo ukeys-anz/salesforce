@@ -177,6 +177,7 @@ public with sharing class IDRCaseActions {
       }
     }
     possibleSystemicIssueActions(records, null);
+    triggerCollectionActivities(records, null);
   }
 
   /**
@@ -249,6 +250,7 @@ public with sharing class IDRCaseActions {
       IDRCaseCommentActions.escalateExistingCommentsToCFMS(oldMap, records);
     }
     possibleSystemicIssueActions(records, oldMap);
+    triggerCollectionActivities(records, oldMap);
   }
 
   /**
@@ -276,23 +278,6 @@ public with sharing class IDRCaseActions {
     executeAssignmentRule(caseEscalationList);
     notificationCaseList.clear();
     caseEscalationList.clear();
-  }
-
-  /**
-   * @description onAfterInsert() is called post onAfterInsert
-   * @param records List of Case records in current  trigger context
-   */
-  public static void onAfterInsert(List<Case> records) {
-    triggerCollectionActivities(records, null);
-  }
-
-  /**
-   * @description onAfterUpdate() is called onAfterUpdate
-   * @param records List of Case records in current  trigger context
-   * @param oldMap old Map of Case records in current  trigger context
-   */
-  public static void onAfterUpdate(List<Case> records, Map<Id, Case> oldMap) {
-    triggerCollectionActivities(records, oldMap);
   }
 
   /**

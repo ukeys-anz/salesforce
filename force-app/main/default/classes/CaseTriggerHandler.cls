@@ -43,7 +43,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onAfterInsert() {
     IDRCaseActions.completeAfterActions();
-    IDRCaseActions.onAfterInsert(records);
     GetHelpCaseActions.rollupRelatedBug(records, new List<Case>());
     SICaseActions.afterInsert(records);
   }
@@ -80,7 +79,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     if (!checkRecursive.firstCall) {
       checkRecursive.firstCall = true;
       IDRCaseActions.completeAfterActions();
-      IDRCaseActions.onAfterUpdate(records, (Map<Id, Case>) oldMap);
       GetHelpCaseActions.rollupRelatedBug(
         records,
         (List<Case>) oldMap.values()
