@@ -63,11 +63,9 @@ public with sharing class IDRTaskActions {
     }
      /**
    * @description checkIDRMaximumTimeTasks will perform the following actions.
-   *1. since record type cannot be set from milestone , the appriapriate Task record type will be set here.
-   ***Edge case scenarios 
-   *2. In the event case is created with a very old date recieved the milestone will create IDR tasks with wrong due date. 
-   *   we will recalaulate and adust the date to correct date here and also expire any unwanted tasks.
-   *                             
+   *1. since record type cannot be set from milestone , the appriapriate Task record type will be set here. 
+   *2. Edge case scenarios: In the event case is created with a very old date recieved the milestone will create IDR tasks with wrong due date. 
+   *   we will recalaulate and adust the date to correct date here and also expire any unwanted tasks.                            
    * @param taskRecs The Task record list.
    */
     private static void checkIDRMaximumTimeTasks(list<Task> taskRecs){
@@ -79,16 +77,16 @@ public with sharing class IDRTaskActions {
             if (record.subject == IDRConstants.TASK_SUBJECT_DAY5   
                 || record.subject == IDRConstants.TASK_SUBJECT_DAY1  ) {
 				record.RecordTypeId = IDR_MAXIMUM_TIME_RT_ID; 
-                if(!caseIdSet.contains(record.WhatId) 
-                    ||(record.subject == IDRConstants.TASK_SUBJECT_DAY1))
-                    {
-                 	caseTaskMap.put(record.WhatId,record.subject) ;
-                }
                 idrMaixmumTimeTasks.add(record);
                 taskCaseMap.put(record.Id,record.WhatId); 
-                
-                caseIdSet.add(record.WhatId);
             }
+            if(record.RecordTypeId == IDR_MAXIMUM_TIME_RT_ID 
+                    && (!caseIdSet.contains(record.WhatId) 
+                    ||(record.subject == IDRConstants.TASK_SUBJECT_DAY1)))
+                    {
+                    caseIdSet.add(record.WhatId);    
+                 	caseTaskMap.put(record.WhatId,record.subject) ;
+                }
         }
         Map<Id,Case> caseMap = new Map<Id,Case>();
         if (caseIdSet.size()>0){
@@ -113,8 +111,7 @@ public with sharing class IDRTaskActions {
            
  	}
      /**
-   * @description calculateExpectedDue will calaulate the what the due date must be for IDR Tasks.
-   *                             
+   * @description calculateExpectedDue will calaulate the what the due date must be for IDR Tasks.                            
    * @param record The Task record.
    * @param caseRec the case record that this task is related to.
    * @return datetime new datetime value that expected to be the due date based on the task and case parms.
