@@ -12,6 +12,6 @@
     <label>IDR Early Resolution</label>
     <queue>IDR_Early_Resolution</queue>
     <sharedTo>
-        <group>All_IDR_Users</group>
+        <roleAndSubordinates>ANZ</roleAndSubordinates>
     </sharedTo>
 </ListView>

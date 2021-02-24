@@ -12,6 +12,6 @@
     <queue>EDR_CM_Home_Business_Owners_Scams</queue>
     <sharedTo>
         <allInternalUsers/>
-        <group>All_IDR_Users</group>
+        <roleAndSubordinates>ANZ</roleAndSubordinates>
     </sharedTo>
 </ListView>

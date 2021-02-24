@@ -12,6 +12,6 @@
     <queue>EDR_CM_Everyday_Banking_Wealth</queue>
     <sharedTo>
         <allInternalUsers/>
-        <group>All_IDR_Users</group>
+        <roleAndSubordinates>ANZ</roleAndSubordinates>
     </sharedTo>
 </ListView>

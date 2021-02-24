@@ -12,6 +12,6 @@
     <queue>Indexing_Queue</queue>
     <sharedTo>
         <allInternalUsers/>
-        <group>All_IDR_Users</group>
+        <roleAndSubordinates>ANZ</roleAndSubordinates>
     </sharedTo>
 </ListView>

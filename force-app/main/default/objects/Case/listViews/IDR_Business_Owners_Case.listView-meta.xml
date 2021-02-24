@@ -13,6 +13,6 @@
     <queue>IDR_Business_Owners</queue>
     <sharedTo>
         <allInternalUsers/>
-        <group>All_IDR_Users</group>
+        <roleAndSubordinates>ANZ</roleAndSubordinates>
     </sharedTo>
 </ListView>
