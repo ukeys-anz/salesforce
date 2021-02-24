@@ -88,23 +88,23 @@ public with sharing class IDRTaskActions {
                  	caseTaskMap.put(record.WhatId,record.subject) ;
                 }
         }
-        Map<Id,Case> caseMap = new Map<Id,Case>();
-        if(case.sObjectType.getDescribe().isQueryable() && caseIdSet.size()>0 ){
-            list<case> relatedCaseList = [select Id , BusinessHoursId , IDR_Date_Received__c , Priority  from Case where Id in :caseIdSet];
-        }
-        for (case c : relatedCaseList){
-            caseMap.put(c.ID, c);
-        }
 
-        validateDueDate(IDRMaixmumTimeTasks,caseMap);
+        validateDueDate(IDRMaixmumTimeTasks,caseIdSet);
         
  	}
      /**
    * @description validateDueDate will validate update the due date for IDR Tasks.                            
    * @param IDRMaixmumTimeTasks The Task record.
-   * @param caseMap  map of case  id and record that these tasks are related to.
+   * @param caseIdSet  map of case  id and record that these tasks are related to.
    */
-    public static void validateDueDate(list<task> IDRMaixmumTimeTasks, Map<id,case> caseMap){
+    public static void validateDueDate(list<task> IDRMaixmumTimeTasks, set<id> caseIdSet){
+             Map<Id,Case> caseMap = new Map<Id,Case>();
+            if(case.sObjectType.getDescribe().isQueryable() && caseIdSet.size()>0 ){
+                list<case> relatedCaseList = [select Id , BusinessHoursId , IDR_Date_Received__c , Priority  from Case where Id in :caseIdSet];
+            }
+            for (case c : relatedCaseList){
+                caseMap.put(c.ID, c);
+            }
             for (Task record : IDRMaixmumTimeTasks){
             datetime expectedDueDate = calculateExpectedDue(record ,caseMap.get(record.WhatId));
             
