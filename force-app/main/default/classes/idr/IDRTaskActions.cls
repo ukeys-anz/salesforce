@@ -95,7 +95,7 @@ public with sharing class IDRTaskActions {
         for (case c : relatedCaseList){
             caseMap.put(c.ID, c);
         }
-       /* for (Task record : IDRMaixmumTimeTasks){
+        for (Task record : IDRMaixmumTimeTasks){
             datetime expectedDueDate = calculateExpectedDue(record ,caseMap.get(record.WhatId));
             
             if (record.ActivityDate > date.valueof(expectedDueDate)){
@@ -105,7 +105,7 @@ public with sharing class IDRTaskActions {
             if (record.subject != caseTaskMap.get(record.WhatId)){
                 record.Status = IDRConstants.TASK_STATUS_EXPIRED;
             }
-         }*/
+         }
            
  	}
      /**
@@ -116,22 +116,25 @@ public with sharing class IDRTaskActions {
    */
     public static datetime calculateExpectedDue(task record, case caseRec){
         datetime expectedDueDate;
-        If(record.Subject == IDRConstants.TASK_SUBJECT_DAY5 && caseRec.Priority == IDRConstants.TASK_STANDARD_PRIORITY  ){
+        if(record.Subject == IDRConstants.TASK_SUBJECT_DAY5 && caseRec.Priority == IDRConstants.TASK_STANDARD_PRIORITY  ){
                 expectedDueDate =  DateTimeUtils.addBusinessDays(
                     			caseRec.BusinessHoursId,
                     			caseRec.IDR_Date_Received__c,
                     			25); 
-            }else if(record.Subject == IDRConstants.TASK_SUBJECT_DAY5 && caseRec.Priority != IDRConstants.TASK_STANDARD_PRIORITY  ){
+            }
+         if(record.Subject == IDRConstants.TASK_SUBJECT_DAY5 && caseRec.Priority != IDRConstants.TASK_STANDARD_PRIORITY  ){
                 expectedDueDate =  DateTimeUtils.addBusinessDays(
                     			caseRec.BusinessHoursId,
                     			caseRec.IDR_Date_Received__c,
                     			16); 
-            }else if(record.Subject == IDRConstants.TASK_SUBJECT_DAY1 && caseRec.Priority == IDRConstants.TASK_STANDARD_PRIORITY){
+            }
+         if(record.Subject == IDRConstants.TASK_SUBJECT_DAY1 && caseRec.Priority == IDRConstants.TASK_STANDARD_PRIORITY){
                 expectedDueDate =  DateTimeUtils.addBusinessDays(
                     			caseRec.BusinessHoursId,
                     			caseRec.IDR_Date_Received__c,
                     			29); 
-            }else if(record.Subject == IDRConstants.TASK_SUBJECT_DAY1 && caseRec.Priority != IDRConstants.TASK_STANDARD_PRIORITY){
+            } 
+        if(record.Subject == IDRConstants.TASK_SUBJECT_DAY1 && caseRec.Priority != IDRConstants.TASK_STANDARD_PRIORITY){
                 expectedDueDate =  DateTimeUtils.addBusinessDays(
                     			caseRec.BusinessHoursId,
                     			caseRec.IDR_Date_Received__c,
