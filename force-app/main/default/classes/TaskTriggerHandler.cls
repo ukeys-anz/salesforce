@@ -1,4 +1,5 @@
-/* @description TaskTriggerHandler is the handler class for Task Trigger which extends Lib_TriggerHandler the trigger framework used.
+/**
+ * @description TaskTriggerHandler is the handler class for Task Trigger which extends Lib_TriggerHandler the trigger framework used.
  * @author Boobalakrishnan Duraisamy
  * @since 02/2021
  */

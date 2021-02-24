@@ -39,10 +39,10 @@ public without sharing class DateTimeUtils {
   }
   /**
    *@description Add business days to a date.
+   *@param businessHrs Business Hours Id to consider working hours and public holidays
    * @param startDate start date in DateTime
    * @param daysToAdd number of business days to be added
-   * @param businessHrs Business Hours Id to consider working hours and public holidays
-   * @return `datetime` final date after adding days to startDate
+   * @return datetime final date after adding days to startDate
    */
   public static datetime addBusinessDays(id businessHrs , datetime startDate , integer daysToAdd ){
         datetime newDatetime = startDate;
