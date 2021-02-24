@@ -58,6 +58,10 @@
                 <behavior>Edit</behavior>
                 <field>Origin_Other__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Required</behavior>
+                <field>SI_First_Identified_Date__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
@@ -88,7 +92,7 @@
                 <field>SI_Assigned_to_Portfolios__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Required</behavior>
                 <field>SI_Key_Business_Contacts__c</field>
             </layoutItems>
             <layoutItems>
@@ -158,11 +162,11 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>SI_Definite_First_Identified_Date__c</field>
+                <field>SI_Definite_Deemed_Date__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>SI_Definite_Conduct_Start_Date__c</field>
+                <field>SI_Definite_Conduct_End_Date__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -172,11 +176,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>SI_Definite_Deemed_Date__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>SI_Definite_Conduct_End_Date__c</field>
+                <field>SI_Definite_Conduct_Start_Date__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -222,6 +222,10 @@
                 <behavior>Readonly</behavior>
                 <field>SuppliedEmail</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>ContactId</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -233,8 +237,8 @@
                 <field>ClosedDate</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>ContactId</field>
+                <behavior>Edit</behavior>
+                <field>SI_Repository_COM_IDs__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
@@ -331,9 +335,10 @@
         <excludeButtons>NewCase</excludeButtons>
         <fields>CASES.CASE_NUMBER</fields>
         <fields>CASES.CREATED_DATE</fields>
-        <fields>CASES.PRIORITY</fields>
         <fields>CASES.STATUS</fields>
         <fields>OWNER_NAME</fields>
+        <fields>IDR_Systemic_Issue_Description__c</fields>
+        <fields>IDR_Systemic_Issue_Category__c</fields>
         <relatedList>Case.IDR_Parent_Systemic_Issue__c</relatedList>
     </relatedLists>
     <relatedLists>
@@ -350,7 +355,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>true</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2N000001E556</masterLabel>
+        <masterLabel>00h2N000001OR60</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

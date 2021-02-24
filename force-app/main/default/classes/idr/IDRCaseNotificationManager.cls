@@ -50,24 +50,24 @@ public with sharing class IDRCaseNotificationManager {
     String fieldLabel,
     Case c
   ) {
-    IDRBankerNotificationWrapper wrapper = new IDRBankerNotificationWrapper();
-    wrapper.sfObject = c;
-    wrapper.msgTitle = c.CaseNumber;
-    wrapper.msgBody = fieldLabel + 'field has been changed';
-
+    String msgBody = fieldLabel + 'field has been changed';
     if (fieldLabel.equalsIgnoreCase(IDRConstants.CASE_OWNER_ID)) {
-      wrapper.msgBody = 'Case ' + c.CaseNumber + ' has been assigned to you';
+      msgBody = 'Case ' + c.CaseNumber + ' has been assigned to you';
     }
-
     if (
       fieldLabel.equalsIgnoreCase(IDRConstants.MILESTONE_SLA_FIELD_LABEL) &&
       c.Status != IDRConstants.ESCALATED_STATUS
     ) {
-      wrapper.msgBody = 'Auto esclation is due in ' + c.IDR_Milestone_Sla__c;
+      msgBody = 'Auto esclation is due in ' + c.IDR_Milestone_Sla__c;
     }
 
-    wrapper.relatedCaseRecord = c;
-    wrapper.recipientList = new List<Id>{ c.OwnerId };
+    IDRBankerNotificationWrapper wrapper = new IDRBankerNotificationWrapper(
+      c,
+      new List<Id>{ c.OwnerId },
+      c.CaseNumber,
+      msgBody,
+      c
+    );
     return wrapper;
   }
 

@@ -34,7 +34,9 @@ public with sharing class IDRBankerNotificationBuilder {
 
       if (!recipientIds.isEmpty()) {
         sendInAppNotification(wrapperRecord, type.Id, recipientIds);
-        caseUpdateFlag(wrapperRecord.relatedCaseRecord);
+        if (wrapperRecord.relatedCaseRecord != null) {
+          caseUpdateFlag(wrapperRecord.relatedCaseRecord);
+        }
       }
     }
   }

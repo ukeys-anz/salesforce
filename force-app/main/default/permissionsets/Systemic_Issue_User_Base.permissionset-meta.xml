@@ -8,6 +8,10 @@
         <apexClass>IDRFilesRelatedListController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>IDR_SI</name>
+    </customPermissions>
     <description>Baseline pset for Systemic Issues team members</description>
     <fieldPermissions>
         <editable>false</editable>
@@ -106,7 +110,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.SI_Definite_First_Identified_Date__c</field>
+        <field>Case.SI_First_Identified_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -126,12 +130,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.SI_Potential_Consequence_to_Customer__c</field>
+        <field>Case.SI_PSI_Ranking__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.SI_PSI_Ranking__c</field>
+        <field>Case.SI_Potential_Consequence_to_Customer__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -142,6 +146,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.SI_Rec_Rem_Actions__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.SI_Repository_COM_IDs__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -181,11 +190,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case_Product__c.Product__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>ContentVersion.Date_of_Document__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -201,12 +205,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>ContentVersion.Sent_Created_BU__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>ContentVersion.Sent_Created_Other__c</field>
+        <field>ContentVersion.Sent_Created_Party_Details__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -217,6 +216,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>ContentVersion.Wealth_Product_Manufacturer__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case_Product__c.Product__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -249,6 +253,11 @@
         <field>Product2.IDR_Product_or_Service_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
+        <fieldPermissions>
+        <editable>true</editable>
+        <field>Task.Action__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Task.ActivityDate</field>
@@ -262,6 +271,21 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Task.Description</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Task.IDR_COR_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Task.IDR_Key_Business_Contact__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Task.PSI_or_DSI__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomPermission xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>The custom permission which needs to be used for IDR Level 1 permission set</description>
+    <label>IDR Level 1</label>
+</CustomPermission>

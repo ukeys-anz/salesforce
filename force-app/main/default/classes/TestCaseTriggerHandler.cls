@@ -64,6 +64,40 @@ private class TestCaseTriggerHandler {
       );
       accnts.add(a);
       insert accnts;
+
+      // Create IDR L1 user
+      Profile anzProfile = [
+        SELECT Id
+        FROM Profile
+        WHERE Name = 'ANZ Standard User'
+        LIMIT 1
+      ];
+
+      User idrUser = (User) FakerFactory.make(new FakerUserFactory());
+      idrUser.FirstName = 'IDRL1';
+      idrUser.ProfileId = anzProfile.Id;
+      insert idrUser;
+
+      // Assign related PSs
+      List<String> idrPsets = new List<String>{
+        'IDR_User',
+        'IDR_User_Level_1'
+      };
+      List<PermissionSet> idrPsetList = [
+        SELECT Id
+        FROM PermissionSet
+        WHERE Name IN :idrPsets
+      ];
+
+      List<PermissionSetAssignment> idrPsaList = new List<PermissionSetAssignment>();
+      for (PermissionSet ps : idrPsetList) {
+        PermissionSetAssignment psa = new PermissionSetAssignment(
+          AssigneeId = idrUser.id,
+          PermissionSetId = ps.Id
+        );
+        idrPsaList.add(psa);
+      }
+      insert idrPsaList;
     }
   }
 
@@ -230,40 +264,11 @@ private class TestCaseTriggerHandler {
       newCases[i].IDR_Escalation_Reason__c = '1';
     }
     // WHEN they are updated
+    CheckRecursive.firstCall = false;
     update newCases;
     // THEN check if IsEscalated is true
     c = [SELECT CaseNumber, IsEscalated FROM Case WHERE id = :newCases[0].id];
     System.assert(c.IsEscalated, 'IsEscalated is true');
-  }
-
-  @isTest
-  static void testComplaintEscalationStatus() {
-    // GIVEN cases are created as not escalated
-    Case[] newCases = new List<Case>();
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
-        new Case(
-          RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
-          IsEscalated = true,
-          IDR_Escalated_to__c = '2',
-          IDR_Escalation_Reason__c = '1',
-          OwnerId = IDRCaseActions.queue.Id
-        )
-      );
-    }
-    // WHEN they are inserted
-    insert newCases;
-    // THEN check if IsEscalated is false
-    Case c = [
-      SELECT CaseNumber, IDR_Escalated_to__c, Status, IsEscalated
-      FROM Case
-      WHERE id = :newCases[0].id
-    ];
-    System.assert(c.Status == 'Escalated', 'Status is Escalated ');
-    System.assert(
-      c.IDR_Escalated_to__c == '1',
-      'Escalated is changed to Customer Resolution Portfolio'
-    );
   }
 
   @isTest
@@ -296,6 +301,7 @@ private class TestCaseTriggerHandler {
       newCases[i].IDR_Reason_for_re_opening__c = '1';
     }
     // WHEN they are updated
+    CheckRecursive.firstCall = false;
     update newCases;
     // THEN check if date is todays date
     c = [
@@ -393,6 +399,7 @@ private class TestCaseTriggerHandler {
     insert idrUser;
     c.OwnerId = idrUser.Id;
     // WHEN complaint is updated
+    CheckRecursive.firstCall = false;
     update c;
     // THEN Office has changed to new user's
     idrUser = [
@@ -591,6 +598,7 @@ private class TestCaseTriggerHandler {
     }
 
     insert newCases;
+    CheckRecursive.firstCall = false;
 
     newCases[0].Type = 'Dispute';
     newCases[0].Additional_Type__c = 'My Security;Product Information';
@@ -648,6 +656,8 @@ private class TestCaseTriggerHandler {
     ];
     system.assertEquals(et.Id, checkEntitlment.EntitlementId);
     system.assertEquals('Normal', checkEntitlment.IDR_Milestone_Sla__c);
+    CheckRecursive.firstCall = false;
+
     checkEntitlment.Status = 'Under Investigation';
     checkEntitlment.IDR_Milestone_Sla__c = '2 business days';
     update checkEntitlment;
@@ -718,6 +728,8 @@ private class TestCaseTriggerHandler {
       AccountId = accountId
     );
     insert updateCase;
+
+    CheckRecursive.firstCall = false;
 
     Test.startTest();
     updateCase.Related_Bug__c = bugId;
@@ -871,6 +883,7 @@ private class TestCaseTriggerHandler {
       sampleCase1.Subject,
       'Failed to autopopulate Subject on Fraud cases as expected, while inserting'
     );
+    CheckRecursive.firstCall = false;
 
     // Validate UPDATE behaviour
     newCases[0].Type = 'Investment';
@@ -889,6 +902,47 @@ private class TestCaseTriggerHandler {
       sampleCase2.Subject,
       'Failed to autopopulate Subject on Fraud cases as expected, while updating'
     );
+  }
+  @isTest
+  static void testPSITaskCreation() {
+    // GIVEN complaint cases which are possibly systemic issues
+    Case[] caseList1 = new List<Case>();
+    Case[] caseList2 = new List<Case>();
+    User level1User = [SELECT Id FROM User WHERE FirstName = 'IDRL1'];
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      caseList1.add(
+        new Case(
+          RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
+          IDR_Is_Common__c = 'Yes',
+          IDR_Systemic_Issue_Description__c = 'Test Description',
+          IDR_Systemic_Issue_Category__c = '1'
+        )
+      );
+    }
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      caseList2.add(
+        new Case(RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID)
+      );
+    }
+
+    test.startTest();
+    System.runAs(level1User) {
+      // WHEN they are inserted or updated by L1 User
+      insert caseList1;
+      insert caseList2;
+      for (Case updateCase : caseList2) {
+        updateCase.IDR_Is_Common__c = 'Yes';
+        updateCase.IDR_Systemic_Issue_Description__c = 'Test Description';
+        updateCase.IDR_Systemic_Issue_Category__c = '2';
+      }
+      update caseList2;
+    }
+    test.stopTest();
+    // THEN new tasks are created and assigned to PSI queue
+    List<Task> psiTasks = [SELECT Id, Subject, OwnerId FROM Task];
+
+    System.assertEquals(IDRCaseActions.siQueue.Id, psiTasks[0].OwnerId);
+    System.assertEquals(IDRCaseActions.IDR_TASK_SUBJECT, psiTasks[0].Subject);
   }
   @istest
   static void testIDRCaseDateRecievedUpdate() {

@@ -37,7 +37,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Sent_Created_BU__c</field>
+                <field>Sent_Created_Party_Details__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -48,10 +48,6 @@
             <layoutItems>
                 <behavior>Required</behavior>
                 <field>Wealth_Product_Manufacturer__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Sent_Created_Other__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>

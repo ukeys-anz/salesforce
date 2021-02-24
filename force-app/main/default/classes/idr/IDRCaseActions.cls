@@ -24,12 +24,11 @@ public with sharing class IDRCaseActions {
   static final Id GENERAL_INQUIRY_CMOS_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('General_Inquiry_CMOS')
     .getRecordTypeId();
-  
-    @TestVisible  
-  static final Id IDR_MAXIMUM_TIME_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
-     .get('IDR_System_Task')
+
+  public static final Id IDR_TASK_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
+    .get('IDR_Task')
     .getRecordTypeId();
-    
+
   @TestVisible
   private static final String OPEN_STATUS = 'Open';
   @TestVisible
@@ -73,11 +72,16 @@ public with sharing class IDRCaseActions {
 
   private static final String CRC_QUEUE_DEVELOPER_NAME = 'CRC_Team';
 
+  private static final String SI_QUEUE_DEVELOPER_NAME = 'Systemic_Issue_Team';
+
   private static final String QUEUE_TYPE = 'Queue';
 
   private static final String DELETE_ERROR = 'You cannot delete cases';
 
   private static final String CUSTOMER_NUMBER_VALIDATION_ERROR = 'This field can no longer be edited. In the event that the Customer Number is incorrect, the case must be withdrawn and a new case created with the correct Customer Number.';
+
+  @TestVisible
+  public static final String IDR_TASK_SUBJECT = 'Please Review PSI';
 
   //IDR_Notification_Event__e for sending notifications to Notification Broker based on status.
   @TestVisible
@@ -111,6 +115,12 @@ public with sharing class IDRCaseActions {
     WHERE developername = :CRC_QUEUE_DEVELOPER_NAME AND Type = :QUEUE_TYPE
   ];
 
+  public static Group siQueue = [
+    SELECT id
+    FROM group
+    WHERE developername = :SI_QUEUE_DEVELOPER_NAME AND Type = :QUEUE_TYPE
+  ];
+
   /**
    * @description applyDefaults is called onBeforeInsert to set the following values as defaults
    * 1. IDR_Account_Card_Policy_Number__c field masking as part of Customer Complaint Recording in IDR {@link #handleMasking(record) handleMasking}.
@@ -138,7 +148,7 @@ public with sharing class IDRCaseActions {
       if (isIDRComplaintType(record)) {
         record.EntitlementId = entitlementId;
         record.IDR_Milestone_Sla__c = IDRConstants.MILESTONE_SLA_NORMAL;
-       // record.IDR_Milestone_Sla__c = getMilestoneSla(record.Status, record.IDR_Date_Received__c , businessHoursId); 
+        // record.IDR_Milestone_Sla__c = getMilestoneSla(record.Status, record.IDR_Date_Received__c , businessHoursId);
         handleMasking(record);
         handleAnonymousNames(record);
         handleCaseStatusChanges(record);
@@ -150,6 +160,7 @@ public with sharing class IDRCaseActions {
       }
     }
     handleOfficeAssignment(changeOfficeCaseList);
+    stampQueueName(records, null);
   }
 
   /**
@@ -157,23 +168,15 @@ public with sharing class IDRCaseActions {
    * @param records
    */
   public static void afterInsert(List<Case> records) {
-    Case[] childComplaints = new List<Case>(); //records to rollup on parent systemic issue
     for (Case record : records) {
       if (isIDRComplaintType(record)) {
         if (NOTIFICATION_STATUS.contains(record.Status)) {
           notificationCaseList.add(record);
         }
         checkForCRCEscalation(record);
-        //should record rollup on parent systemic issue?
-        if (!String.isBlank(record.IDR_Parent_Systemic_Issue__c)) {
-          childComplaints.add(record);
-        }
       }
     }
-    //rollup on parent systemic issue
-    if (!childComplaints.isEmpty()) {
-      SICaseActions.rollupToParentSI(childComplaints);
-    }
+    possibleSystemicIssueActions(records, null);
   }
 
   /**
@@ -195,7 +198,11 @@ public with sharing class IDRCaseActions {
         );
         handleMasking(records.get(i));
         handleAnonymousNames(records.get(i));
-        handleEntitlementForUpdate(records.get(i) ,(Case) oldMap.get(records.get(i).id) ,entitlementId);  
+        handleEntitlementForUpdate(
+          records.get(i),
+          (Case) oldMap.get(records.get(i).id),
+          entitlementId
+        );
         identifyOwnerChangeRecords(
           records.get(i),
           ((Case) oldMap.get(records.get(i).id)).OwnerId
@@ -210,13 +217,14 @@ public with sharing class IDRCaseActions {
           (case) oldMap.get(records.get(i).id)
         );
       }
-      //calling handleOfficeAssignment for all case records for which the IDR_Office__c needs to be updated.
-      handleOfficeAssignment(changeOfficeCaseList);      
     }
+    //calling handleOfficeAssignment for all case records for which the IDR_Office__c needs to be updated.
+    handleOfficeAssignment(changeOfficeCaseList);
+    stampQueueName(records, (Map<Id, Case>) oldMap);
   }
 
   /**
-   * @description afterUpdate(oldMap, records) method handles the following
+   * @description ate(oldMap, records) method handles the following
    * 1. Validates the case status and add them into notification list.
    * 2. Calls checkForCRCEscalation method to check if the case record needs to be sent for CRC escalation.
    * 3. Calls escalateExistingCommentsToCFMS to escalation case comments upon receiving COM IDs from CFMS
@@ -225,8 +233,6 @@ public with sharing class IDRCaseActions {
    * @param records from the trigger
    */
   public static void afterUpdate(Map<Id, SObject> oldMap, List<Case> records) {
-    Case[] childComplaints = new List<Case>(); //records to rollup on parent systemic issue
-    list<case> updateIDRTimeCases  = new list<Case>(); // records where the date received has changed
     for (Integer i = 0; i < records.size(); i++) {
       Case record = records[i];
       Case oldRec = (Case) oldMap.get(record.id);
@@ -240,21 +246,7 @@ public with sharing class IDRCaseActions {
         }
         checkForCRCEscalation(record);
       }
-      IDRCaseCommentActions.escalateExistingCommentsToCFMS(oldMap, records);
-      //should a parent systemic issue's rollup field be updated?
-      if (
-        isIDRComplaintType(record) &&
-        record.IDR_Parent_Systemic_Issue__c !=
-        oldRec.IDR_Parent_Systemic_Issue__c
-      ) {
-        //just linked or unliked?
-        if (!String.isBlank(record.IDR_Parent_Systemic_Issue__c)) {
-          childComplaints.add(record);
-        } else {
-          childComplaints.add((Case) oldMap.get(records.get(i).id));
-        }
-      }
-        // if the date recieved is changed after milestone has been applied
+      // if the date recieved is changed after milestone has been applied
         // I.e Case is already created as complain or already identified as complaint.(isIDRComplaintType(oldRec))
         // then the tasks and milestone needs to be update to reflect this change
         if(isIDRComplaintType(record) &&
@@ -262,16 +254,12 @@ public with sharing class IDRCaseActions {
           oldRec.IDR_Date_Received__c != record.IDR_Date_Received__c){
           updateIDRTimeCases.add(record);  
         }  
+      IDRCaseCommentActions.escalateExistingCommentsToCFMS(oldMap, records);
     }
-    //rollup on parent systemic issue
-    if (!childComplaints.isEmpty()) {
-      SICaseActions.rollupToParentSI(childComplaints);
-    }
-    
-      if(!updateIDRTimeCases.isEmpty()){
+    possibleSystemicIssueActions(records, oldMap);
+     if(!updateIDRTimeCases.isEmpty()){
           updateIDRMilestoneTask(updateIDRTimeCases);
       }
-      
   }
 
   /**
@@ -293,11 +281,47 @@ public with sharing class IDRCaseActions {
    * @description completeAfterActions() is called post onAfterInsert and onAfterUpdate
    */
   public static void completeAfterActions() {
-    //sendNotifications(notificationCaseList);
+    CheckRecursive.run();
     NotificationTriggerHandler.insertNotificationHandler(notificationCaseList);
     escalateToCFMS(caseEscalationList);
+    executeAssignmentRule(caseEscalationList);
     notificationCaseList.clear();
     caseEscalationList.clear();
+  }
+
+  /**
+   * @description Execute the assignment rules on escalated cases
+   * @param caseList List of escalated cases
+   */
+  public static void executeAssignmentRule(List<Case> caseList) {
+    List<Case> cList = new List<Case>();
+    for (Case c : caseList) {
+      Case caseRecord = new Case(id = c.id);
+      Database.DMLOptions dmo = new Database.DMLOptions();
+      dmo.assignmentRuleHeader.useDefaultRule = true;
+      caseRecord.setOptions(dmo);
+      cList.add(caseRecord);
+    }
+
+    List<Database.SaveResult> saveResultList = Database.update(cList, false);
+
+    for (Database.SaveResult sr : saveResultList) {
+      if (!sr.isSuccess()) {
+        // Operation failed, so get all errors
+        for (Database.Error err : sr.getErrors()) {
+          Lib_SystemLog.logAPIError(
+            IDRCaseActions.class.getName(),
+            'Error in executing case Assignment Rule for record id' +
+            sr.getId(),
+            err.getMessage(),
+            null,
+            IDRCaseActions.class.getName(),
+            null,
+            null
+          );
+        }
+      }
+    }
   }
 
   /**
@@ -332,6 +356,43 @@ public with sharing class IDRCaseActions {
     ) {
       caseOwnerIds.add(record.OwnerId);
       changeOfficeCaseList.add(record);
+    }
+  }
+
+  /**
+   * @description checks if teh owner is Queue or not and then stamps the Queue Name to the Queue field.
+   * Once teh case owner accepts the case we lose the track of Queue, and hence the explicit field
+   * @param caseList case list in current context
+   * @param  oldCaseMap old map of the cases in current context
+   */
+  private static void stampQueueName(
+    List<Case> caseList,
+    Map<Id, Case> oldCaseMap
+  ) {
+    Set<Id> queueIds = new Set<Id>();
+
+    for (Case c : caseList) {
+      if (c.OwnerId.getSobjectType() == Group.SobjectType) {
+        if (
+          oldCaseMap != null &&
+          oldCaseMap.containsKey(c.id) &&
+          c.OwnerId != oldCaseMap.get(c.id).OwnerId
+        ) {
+          queueIds.add(c.OwnerId);
+        } else if (oldCaseMap == null) {
+          queueIds.add(c.OwnerId);
+        }
+      }
+    }
+
+    Map<Id, Group> queueMap = new Map<Id, Group>(
+      [SELECT id, Name FROM Group WHERE Id IN :queueIds]
+    );
+
+    for (Case c : caseList) {
+      if (queueMap.containsKey(c.OwnerId)) {
+        c.Queue__c = queueMap.get(c.OwnerId).Name;
+      }
     }
   }
 
@@ -392,42 +453,21 @@ public with sharing class IDRCaseActions {
     if (
       record.IsEscalated &&
       record.Status != ESCALATED_STATUS &&
-      record.OwnerId.getSobjectType() == Group.SobjectType &&
-      record.OwnerId == queue.Id
+      String.isBlank(record.IDR_Escalation_Reason__c)
     ) {
       // set default values for auto escalated cases , change status to escalated,
       //assign to CRC queue and send notifcation to CFMS
-      record.IDR_Escalated_to__c = ESCALATED_TO_CRC_API_NAME;
-      record.Status = ESCALATED_STATUS;
       if (oldRec.Status == OPEN_STATUS) {
         record.IDR_Escalation_Reason__c = DAY_3_ESCALATION_REASON;
       } else if (oldRec.Status == UNDER_INVESTIGATION_STATUS) {
         record.IDR_Escalation_Reason__c = DAY_5_ESCALATION_REASON;
       }
-    } else if (
-      record.IsEscalated &&
-      record.Status != ESCALATED_STATUS &&
-      !string.isBlank(record.IDR_Escalation_Reason__c)
-    ) {
-      // escalated on insert cases , change status to escalated, assign to CRC queue and send notifcation to CFMS
       record.Status = ESCALATED_STATUS;
-      record.OwnerId = queue.Id;
     } else if (
-      record.IDR_Escalated_to__c == ESCALATED_TO_CRC_API_NAME &&
-      record.OwnerId != queue.Id &&
       record.Status == ESCALATED_STATUS &&
-      oldRec.Status != ESCALATED_STATUS
+      String.isBlank(record.IDR_Escalated_to__c)
     ) {
-      // Escalated by updating the case , change status to escalated
-      record.OwnerId = queue.Id;
-    } else if (
-      record.IDR_Escalated_to__c == ESCALATED_TO_CRC_API_NAME &&
-      oldRec.IDR_Escalated_to__c != ESCALATED_TO_CRC_API_NAME &&
-      record.OwnerId != queue.Id &&
-      record.Status == ESCALATED_STATUS
-    ) {
-      // Escalated to has changed for already escalated case, assign to CRC queue and send notifcation to CFMS
-      record.OwnerId = queue.Id;
+      record.IDR_Escalation_Reason__c = '1';
     }
   }
 
@@ -448,7 +488,7 @@ public with sharing class IDRCaseActions {
       record.IsEscalated = false;
     }
   }
-   /**
+  /**
    * @description  handleEntitlementForUpdate method is used to update the entitlment and time to escalation flag.
    * 1. when a case is updated by the indexing team. entitlment ID and Flag both need to be calculated.
    * 2. when a case has a status change. Flag status is needs to be recalculated.
@@ -457,48 +497,88 @@ public with sharing class IDRCaseActions {
    * @param record The actual case record from the trigger
    * @param oldRec The old record values for the case
    * @param entitlementId Entitlment ID that needs to be populated on the complaints case.
-   */ 
-    private static void handleEntitlementForUpdate(Case record, Case oldRec , Id entitlementId){
-        
-        // this is a case where indexing team as updated the details and identified it as a complaint. 
-        // in this case we need to update the entitlement && flag on the case.
-        if(string.isBlank(record.EntitlementId)){
-            record.EntitlementId = entitlementId;
-            record.IDR_Milestone_Sla__c = getMilestoneSla(record.Status, record.IDR_Date_Received__c , record.BusinessHoursId);  
-        }
-        
-        // this is a case where complaint has changed status. we need to recalculate the flag status.
-        if( record.Status != oldRec.Status && (record.Status == UNDER_INVESTIGATION_STATUS || record.Status == OPEN_STATUS)){
-             record.IDR_Milestone_Sla__c = getMilestoneSla(record.Status, record.IDR_Date_Received__c , record.BusinessHoursId);                       
-        }
-        
-    }  
+   */
+  private static void handleEntitlementForUpdate(
+    Case record,
+    Case oldRec,
+    Id entitlementId
+  ) {
+    // this is a case where indexing team as updated the details and identified it as a complaint.
+    // in this case we need to update the entitlement && flag on the case.
+    if (string.isBlank(record.EntitlementId)) {
+      record.EntitlementId = entitlementId;
+      record.IDR_Milestone_Sla__c = getMilestoneSla(
+        record.Status,
+        record.IDR_Date_Received__c,
+        record.BusinessHoursId
+      );
+    }
 
-    /**
+    // this is a case where complaint has changed status. we need to recalculate the flag status.
+    if (
+      record.Status != oldRec.Status &&
+      (record.Status == UNDER_INVESTIGATION_STATUS ||
+      record.Status == OPEN_STATUS)
+    ) {
+      record.IDR_Milestone_Sla__c = getMilestoneSla(
+        record.Status,
+        record.IDR_Date_Received__c,
+        record.BusinessHoursId
+      );
+    }
+  }
+
+  /**
    * @description  getMilestoneSla method is used to identify the appropriate SLA flag that needs to be shown on the case.
    * 1. when a case is open for less than 1 business day or is under investgation for less than 3 days it should be green (normal)
    * 2. when a case is open for  1-2 business days or  is under investigation for  3-4 business days it should be flagged as amber
-   * 3. when a case is open for more than 2 business days or  is under investigation for more than 4 business days it shoud be flagged as red. 
+   * 3. when a case is open for more than 2 business days or  is under investigation for more than 4 business days it shoud be flagged as red.
    * 4. if the case is open 3 days  or more / is under investgation for 5 days/more it will be auto escalated ,mark as violated.
    * @param caseStatus status of the case record
    * @param dateReceived IDR_Date_Recieved field of the case
    * @param businessHoursId business hours of the case record.
    * @return string value of the flag calculated based on the time elapsed from dateReceuved
-   */ 
-    private static string getMilestoneSla(string caseStatus , dateTime dateReceived , ID businessHoursId){
-        string milestoneSla; 
-        decimal duration = DateTimeUtils.calculateHoursBetween(dateReceived,system.NOW(),businessHoursId);
-        if ((caseStatus == UNDER_INVESTIGATION_STATUS && duration.intValue() < 72 )|| (caseStatus == OPEN_STATUS && duration.intValue() < 24 )){
-            milestoneSla = IDRConstants.MILESTONE_SLA_NORMAL;
-        }else if((caseStatus == UNDER_INVESTIGATION_STATUS && duration.intValue() >= 72 && duration.intValue() < 96 )||(caseStatus == OPEN_STATUS && duration.intValue() >= 24 && duration.intValue() < 48 )){
-        	milestoneSla = IDRConstants.MILESTONE_SLA_AMBER;
-        }else if ((caseStatus == UNDER_INVESTIGATION_STATUS && duration.intValue() >= 96 && duration.intValue() < 120 )|| (caseStatus == OPEN_STATUS && duration.intValue() >= 48 &&  duration.intValue() < 72)){
-            milestoneSla = IDRConstants.MILESTONE_SLA_RED;
-        }else{
-            milestoneSla = IDRConstants.MILESTONE_SLA_VIOLATED; 
-        }              
-        return milestoneSla;
+   */
+  private static string getMilestoneSla(
+    string caseStatus,
+    dateTime dateReceived,
+    ID businessHoursId
+  ) {
+    string milestoneSla;
+    decimal duration = DateTimeUtils.calculateHoursBetween(
+      dateReceived,
+      system.NOW(),
+      businessHoursId
+    );
+    if (
+      (caseStatus == UNDER_INVESTIGATION_STATUS && duration.intValue() < 72) ||
+      (caseStatus == OPEN_STATUS &&
+      duration.intValue() < 24)
+    ) {
+      milestoneSla = IDRConstants.MILESTONE_SLA_NORMAL;
+    } else if (
+      (caseStatus == UNDER_INVESTIGATION_STATUS &&
+      duration.intValue() >= 72 &&
+      duration.intValue() < 96) ||
+      (caseStatus == OPEN_STATUS &&
+      duration.intValue() >= 24 &&
+      duration.intValue() < 48)
+    ) {
+      milestoneSla = IDRConstants.MILESTONE_SLA_AMBER;
+    } else if (
+      (caseStatus == UNDER_INVESTIGATION_STATUS &&
+      duration.intValue() >= 96 &&
+      duration.intValue() < 120) ||
+      (caseStatus == OPEN_STATUS &&
+      duration.intValue() >= 48 &&
+      duration.intValue() < 72)
+    ) {
+      milestoneSla = IDRConstants.MILESTONE_SLA_RED;
+    } else {
+      milestoneSla = IDRConstants.MILESTONE_SLA_VIOLATED;
     }
+    return milestoneSla;
+  }
   /**
    * @description Get the EntitlmentId that will be associated with this case
    *@return Id  - the Id of the entitlment record
@@ -784,7 +864,83 @@ public with sharing class IDRCaseActions {
       record.addError(CUSTOMER_NUMBER_VALIDATION_ERROR);
     }
   }
-   /**
+
+  /**
+   * @description possibleSystemicIssueActions(records, oldMap) method handles the following
+   * 1. Calls rollupToParentSI to update the counter of linked complaints on the parent systemic issue record
+   * 2. Calls createTaskforPSI method to generate task if the complaint is a PSI and created/updated by L1 user
+   * @param records from the trigger
+   * @param oldMap This Map<Id, SObject> contains the map which holds the previous values which can be used to check what value has changed in onAfterUpdate.
+   */
+  private static void possibleSystemicIssueActions(
+    List<Case> records,
+    Map<Id, SObject> oldMap
+  ) {
+    Case[] childComplaints = new List<Case>(); //records to rollup on parent systemic issue
+    Task[] siTasks = new List<Task>();
+
+    for (Case record : records) {
+      Case oldRec;
+      if (oldMap != null) {
+        oldRec = (Case) oldMap.get(record.id);
+      }
+
+      //should a parent systemic issue's rollup field be updated?
+      if (
+        isIDRComplaintType(record) &&
+        (oldRec == null ||
+        record.IDR_Parent_Systemic_Issue__c !=
+        oldRec.IDR_Parent_Systemic_Issue__c)
+      ) {
+        //just linked or unliked?
+        if (String.isNotBlank(record.IDR_Parent_Systemic_Issue__c)) {
+          childComplaints.add(record);
+        } else if (oldRec != null) {
+          childComplaints.add(oldRec);
+        }
+      }
+
+      //create task if it is a possible systemic issue and level 1 user is making the change
+      if (
+        isIDRComplaintType(record) &&
+        record.IDR_Is_Common__c == 'Yes' &&
+        FeatureManagement.checkPermission('IDR_Level_1') &&
+        (oldRec == null ||
+        record.IDR_Is_Common__c != oldRec.IDR_Is_Common__c)
+      ) {
+        siTasks.add(createTaskForPSI(record));
+      }
+    }
+
+    //rollup on parent systemic issue
+    if (!childComplaints.isEmpty()) {
+      SICaseActions.rollupToParentSI(childComplaints);
+    }
+
+    //insert SI Tasks
+    if (!siTasks.isEmpty() && Task.sObjectType.getDescribe().isCreateable()) {
+      insert siTasks;
+    }
+  }
+
+  /**
+   * @description Create a task and assign it to SI team for review
+   * @param c Parent case of the tasks
+   * @return An instance of a Task
+   */
+  private static Task createTaskForPSI(Case c) {
+    Date activityDate = Date.today().addDays(5);
+    return new Task(
+      RecordTypeId = IDR_TASK_RT_ID,
+      OwnerId = siQueue.Id,
+      WhatId = c.Id,
+      Subject = IDR_TASK_SUBJECT,
+      ActivityDate = activityDate,
+      IsReminderSet = true,
+      ReminderDateTime = (DateTime) (activityDate - 2)
+    );
+  }
+  /**
    * @description Update the tasks and milestones to reflect the values based on new date recieved.
    * @param records list of case record that have date recieved changed
    */
