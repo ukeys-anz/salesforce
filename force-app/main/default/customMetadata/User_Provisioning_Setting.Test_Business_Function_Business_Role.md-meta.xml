@@ -20,7 +20,7 @@
     </values>
     <values>
         <field>Public_Groups__c</field>
-        <value xsi:type="xsd:string">All_IDR_Users;Complaint_Line_Managers;</value>
+        <value xsi:type="xsd:string">SI_Business_Contacts;</value>
     </values>
     <values>
         <field>Role_Name__c</field>
