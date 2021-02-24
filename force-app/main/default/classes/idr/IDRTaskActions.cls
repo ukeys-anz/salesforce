@@ -95,7 +95,7 @@ public with sharing class IDRTaskActions {
         for (case c : relatedCaseList){
             caseMap.put(c.ID, c);
         }
-        for (Task record : IDRMaixmumTimeTasks){
+       /* for (Task record : IDRMaixmumTimeTasks){
             datetime expectedDueDate = calculateExpectedDue(record ,caseMap.get(record.WhatId));
             
             if (record.ActivityDate > date.valueof(expectedDueDate)){
@@ -105,7 +105,7 @@ public with sharing class IDRTaskActions {
             if (record.subject != caseTaskMap.get(record.WhatId)){
                 record.Status = IDRConstants.TASK_STATUS_EXPIRED;
             }
-         }
+         }*/
            
  	}
      /**
