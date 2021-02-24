@@ -44,7 +44,7 @@ public with sharing class IDRTaskActions {
             }
         } 
          
-        if (caseTaskMap.size()>0){
+        if (caseTaskMap.size()>0 && task.sObjectType.getDescribe().isUpdateable()){ 
           list<task> oldTasks = [Select Id,Status,subject from Task 
                                  where WhatId in :caseTaskMap.keySet() 
                                  AND RecordTypeId =:IDR_MAXIMUM_TIME_RT_ID
@@ -89,7 +89,7 @@ public with sharing class IDRTaskActions {
             }
         }
         Map<Id,Case> caseMap = new Map<Id,Case>();
-        if (caseIdSet.size()>0){
+        if (caseIdSet.size()>0 && case.sObjectType.getDescribe().isQueryable()){
             list<case> relatedCaseList = [select Id , BusinessHoursId , IDR_Date_Received__c , Priority  from Case where Id in :caseIdSet];
             for (case c : relatedCaseList){
                caseMap.put(c.ID, c);
@@ -154,7 +154,7 @@ public with sharing class IDRTaskActions {
             }
         }
         
-        if (caseIDSet.size()>0){
+        if (caseIDSet.size()>0 && CaseMilestone.sObjectType.getDescribe().isUpdateable()){
             List<CaseMilestone> cmsToUpdate = [select Id, completionDate from CaseMilestone cm 
                                               where caseId in :caseIDSet and 
                                                	(cm.MilestoneType.Name= :IDRConstants.MILESTONE_STANDARD or cm.MilestoneType.Name= :IDRConstants.MILESTONE_PRIORITY )

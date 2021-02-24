@@ -41,14 +41,14 @@ public without sharing class DateTimeUtils {
    *@description Add business days to a date.
    * @param startDate start date in DateTime
    * @param daysToAdd number of business days to be added
-   * @param businessHourId Business Hours Id to consider working hours and public holidays
+   * @param businessHrs Business Hours Id to consider working hours and public holidays
    * @return `datetime` final date after adding days to startDate
    */
-  public static datetime addBusinessDays(id BusinessHrs , datetime startDate , integer daysToAdd ){
+  public static datetime addBusinessDays(id businessHrs , datetime startDate , integer daysToAdd ){
         datetime newDatetime = startDate;
         for(integer i=1; i<= daysToAdd; i++ ){
             newDatetime = newDatetime.addDays(1);
-            if(!BusinessHours.isWithin(BusinessHrs,newDatetime)){
+            if(!BusinessHours.isWithin(businessHrs,newDatetime)){
                 newDatetime = BusinessHours.nextStartDate(BusinessHrs, newDatetime);
             }
         }

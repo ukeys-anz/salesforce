@@ -70,6 +70,11 @@ private class TestTaskTriggerHandler {
         listofTasks.add(priority1day);
         
         insert ListofTasks;
+
+		//check standard5Day Task is closed
+        task checkTask = [select Id , Status from Task where Subject=:IDRConstants.TASK_SUBJECT_DAY5 and WhatId = :standardComplaint.Id];
+        
+        system.assertEquals('Expired', checkTask.Status);
         
         
     }

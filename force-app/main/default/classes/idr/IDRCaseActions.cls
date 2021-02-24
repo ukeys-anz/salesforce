@@ -955,7 +955,7 @@ public with sharing class IDRCaseActions {
             for(task t : idrTasks){
              t.ActivityDate = date.valueOf(IDRTaskActions.calculateExpectedDue(t,caseMap.get(t.whatId)));           
         	}
-            if(!idrTasks.isEmpty()){
+            if(task.sObjectType.getDescribe().isUpdateable() && !idrTasks.isEmpty()){
             update idrTasks;
         	}
         }
@@ -969,7 +969,7 @@ public with sharing class IDRCaseActions {
         	for(CaseMilestone cm : cmsToUpdate){
             	cm.StartDate = caseMap.get(cm.caseId).IDR_Date_Received__c;
         	}
-        	if(!cmsToUpdate.isEmpty()){
+        	if(CaseMilestone.sObjectType.getDescribe().isUpdateable() && !cmsToUpdate.isEmpty()){
             	update cmsToUpdate;
         	}
         }    
