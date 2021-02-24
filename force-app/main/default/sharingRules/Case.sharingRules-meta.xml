@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingCriteriaRules>
-        <fullName>CRI_RT_Complaints_PG_AllIDRUsers_RW</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>Grant read and write access on complaint records for all IDR users</description>
-        <label>CRI_RT-Complaints_PG-AllIDRUsers-RW</label>
+        <fullName>Complaint_RTs_ANZUsers_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Great Read only access to Complaint record types for all ANZ users</description>
+        <label>Complaint_RTs_ANZUsers_RO</label>
         <sharedTo>
-            <group>All_IDR_Users</group>
+            <roleAndSubordinates>ANZ</roleAndSubordinates>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -15,31 +15,31 @@
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>CRI_RT_SI_PG_AllIDRUsers_RO</fullName>
-        <accessLevel>Read</accessLevel>
-        <description>Grant read access on systemic issue records for CMOS users</description>
-        <label>CRI_RT-SI_PG-AllIDRUsers-RO</label>
+        <fullName>Complaint_RTs_Banker_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Great Read write access to complaint records for Customer Resolution Users</description>
+        <label>Complaint_RTs_Banker_RW</label>
         <sharedTo>
-            <group>All_IDR_Users</group>
+            <role>Banker</role>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Systemic Issue</value>
+            <value>Customer Complaint,Non-Customer Complaint</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>CRI_RT_SI_PG_SiTeam_RW</fullName>
+        <fullName>Complaint_RTs_CRPUsers_RW</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Grant read and write access on systemic issue records for SI team members</description>
-        <label>CRI_RT-SI_PG-SiTeam-RW</label>
+        <description>Great Read write access to complaint records for Customer Resolution Users</description>
+        <label>Complaint_RTs_CRPUsers_RW</label>
         <sharedTo>
-            <group>Systemic_Issue_Team</group>
+            <role>Customer_Resolution</role>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Systemic Issue</value>
+            <value>Customer Complaint,Non-Customer Complaint</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -68,6 +68,62 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>General Enquiry</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>SI_RT_CRP_LT_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Grant Read only access to Systemic issue records for Customer Resolution Leadership Team</description>
+        <label>SI_RT_CRP_LT_RO</label>
+        <sharedTo>
+            <role>Customer_Resolution_Leadership</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Systemic Issue</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>SI_RT_Data_Analyst_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Grant read only access to Data Analyst for SI record type</description>
+        <label>SI_RT_Data_Analyst_RO</label>
+        <sharedTo>
+            <role>Data_Analyst</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Systemic Issue</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>SI_RT_SI_Business_Contacts_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Grant Read Only access to systemic issue records for SI Key business contacts</description>
+        <label>SI_RT_SI_Business_Contacts_RO</label>
+        <sharedTo>
+            <group>SI_Business_Contacts</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Systemic Issue</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>SI_RTs_SITeam_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Grant read and write access on systemic issue records for SI team members</description>
+        <label>SI_RTs_SITeam_RW</label>
+        <sharedTo>
+            <role>Systemic_Issue_Team</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Systemic Issue</value>
         </criteriaItems>
     </sharingCriteriaRules>
 </SharingRules>

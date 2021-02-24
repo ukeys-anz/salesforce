@@ -1,24 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingCriteriaRules>
-        <fullName>Share_Complaint_Entitlment_Account</fullName>
-        <accessLevel>Read</accessLevel>
-        <accountSettings>
-            <caseAccessLevel>None</caseAccessLevel>
-            <contactAccessLevel>Read</contactAccessLevel>
-            <opportunityAccessLevel>None</opportunityAccessLevel>
-        </accountSettings>
-        <label>Share Complaint Entitlment Account</label>
-        <sharedTo>
-            <group>All_IDR_Users</group>
-        </sharedTo>
-        <criteriaItems>
-            <field>AR_C_Customer__c</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
         <fullName>ANZx_Customer</fullName>
         <accessLevel>Edit</accessLevel>
         <accountSettings>
@@ -33,6 +15,25 @@
         </sharedTo>
         <criteriaItems>
             <field>ANZx_Customer__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Complaint_Entitlement_Account</fullName>
+        <accessLevel>Read</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>None</caseAccessLevel>
+            <contactAccessLevel>Read</contactAccessLevel>
+            <opportunityAccessLevel>None</opportunityAccessLevel>
+        </accountSettings>
+        <description>Share Complaint Entitlement Account with all ANZ users</description>
+        <label>Share Complaint Entitlement Account</label>
+        <sharedTo>
+            <roleAndSubordinates>ANZ</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>AR_C_Customer__c</field>
             <operation>equals</operation>
             <value>True</value>
         </criteriaItems>

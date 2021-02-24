@@ -4,7 +4,7 @@
     <name>IDR Reports</name>
     <publicFolderAccess>ReadOnly</publicFolderAccess>
     <sharedTo>
-        <group>All_IDR_Users</group>
+        <roleAndSubordinates>ANZ</roleAndSubordinates>
     </sharedTo>
     <folderShares>
         <accessLevel>View</accessLevel>
