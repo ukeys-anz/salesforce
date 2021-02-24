@@ -45,7 +45,7 @@ public with sharing class IDRTaskActions {
         } 
          
         if (caseTaskMap.size()>0 ){
-           if(task.sObjectType.getDescribe().isQueryable()){  
+           if(case.sObjectType.getDescribe().isQueryable()){  
                 list<task> oldTasks = [Select Id,Status,subject from Task 
                                  where WhatId in :caseTaskMap.keySet() 
                                  AND RecordTypeId =:IDR_MAXIMUM_TIME_RT_ID
@@ -89,16 +89,14 @@ public with sharing class IDRTaskActions {
                 }
         }
         Map<Id,Case> caseMap = new Map<Id,Case>();
-        if (caseIdSet.size()>0){
-            if(case.sObjectType.getDescribe().isQueryable()){
-                list<case> relatedCaseList = [select Id , BusinessHoursId , IDR_Date_Received__c , Priority  from Case where Id in :caseIdSet];
-            }
-            for (case c : relatedCaseList){
-               caseMap.put(c.ID, c);
-            }
+        if(case.sObjectType.getDescribe().isQueryable() && caseIdSet.size()>0 ){
+            list<case> relatedCaseList = [select Id , BusinessHoursId , IDR_Date_Received__c , Priority  from Case where Id in :caseIdSet];
+        }
+        for (case c : relatedCaseList){
+            caseMap.put(c.ID, c);
         }
         for (Task record : IDRMaixmumTimeTasks){
-                datetime expectedDueDate = calculateExpectedDue(record ,caseMap.get(record.WhatId));
+            datetime expectedDueDate = calculateExpectedDue(record ,caseMap.get(record.WhatId));
             
             if (record.ActivityDate > date.valueof(expectedDueDate)){
                 record.ActivityDate = date.valueof(expectedDueDate);              
