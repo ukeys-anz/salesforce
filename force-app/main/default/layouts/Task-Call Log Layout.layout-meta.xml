@@ -36,11 +36,11 @@
                 <field>ActivityDate</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Required</behavior>
                 <field>Call_Direction__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Required</behavior>
                 <field>Voice_Call_SID__c</field>
             </layoutItems>
             <layoutItems>
