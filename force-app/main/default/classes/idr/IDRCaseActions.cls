@@ -190,7 +190,6 @@ public with sharing class IDRCaseActions {
    */
   public static void beforeUpdate(Map<Id, SObject> oldMap, List<Case> records) {
     Id entitlementId = getEntitlement();
-    list<case> updateIDRTimeCases = new list<case>();
     for (Integer i = 0; i < records.size(); i++) {
       if (isIDRComplaintType(records.get(i))) {
         validateCaseNumber(
@@ -234,6 +233,7 @@ public with sharing class IDRCaseActions {
    * @param records from the trigger
    */
   public static void afterUpdate(Map<Id, SObject> oldMap, List<Case> records) {
+    list<case> updateIDRTimeCases = new list<case>();
     for (Integer i = 0; i < records.size(); i++) {
       Case record = records[i];
       Case oldRec = (Case) oldMap.get(record.id);
