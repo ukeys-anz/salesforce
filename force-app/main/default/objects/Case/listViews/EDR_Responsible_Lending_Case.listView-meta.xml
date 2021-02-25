@@ -11,7 +11,6 @@
     <label>EDR Responsible Lending</label>
     <queue>EDR_Responsible_Lending</queue>
     <sharedTo>
-        <allInternalUsers/>
         <roleAndSubordinates>ANZ</roleAndSubordinates>
     </sharedTo>
 </ListView>
