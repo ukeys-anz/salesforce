@@ -3,6 +3,7 @@
  * @since  02/2021
  * @description IDRTaskActions is class to handle all the IDR (Internal Dispute Resolution) Actions
  */
+ @SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class IDRTaskActions {
      // IDR Maximum time Record Type ID
   @TestVisible
@@ -130,25 +131,22 @@ public with sharing class IDRTaskActions {
                     			caseRec.BusinessHoursId,
                     			caseRec.IDR_Date_Received__c,
                     			25); 
-        }
-        if(record.Subject == IDRConstants.TASK_SUBJECT_DAY5 && caseRec.Priority != IDRConstants.TASK_STANDARD_PRIORITY  ){
+        }else if(record.Subject == IDRConstants.TASK_SUBJECT_DAY5 && caseRec.Priority != IDRConstants.TASK_STANDARD_PRIORITY  ){
                 expectedDueDate =  DateTimeUtils.addBusinessDays(
                     			caseRec.BusinessHoursId,
                     			caseRec.IDR_Date_Received__c,
                     			16); 
-        }      
-        if(record.Subject == IDRConstants.TASK_SUBJECT_DAY1 && caseRec.Priority == IDRConstants.TASK_STANDARD_PRIORITY){
+        }else if(record.Subject == IDRConstants.TASK_SUBJECT_DAY1 && caseRec.Priority == IDRConstants.TASK_STANDARD_PRIORITY){
                 expectedDueDate =  DateTimeUtils.addBusinessDays(
                     			caseRec.BusinessHoursId,
                     			caseRec.IDR_Date_Received__c,
                     			29); 
-            } 
-        if(record.Subject == IDRConstants.TASK_SUBJECT_DAY1 && caseRec.Priority != IDRConstants.TASK_STANDARD_PRIORITY){
+        }else if(record.Subject == IDRConstants.TASK_SUBJECT_DAY1 && caseRec.Priority != IDRConstants.TASK_STANDARD_PRIORITY){
                 expectedDueDate =  DateTimeUtils.addBusinessDays(
                     			caseRec.BusinessHoursId,
                     			caseRec.IDR_Date_Received__c,
                     			20); 
-            }
+        }
         return expectedDueDate;
     }
     /**
