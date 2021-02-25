@@ -256,11 +256,11 @@ public with sharing class IDRCaseActions {
           oldRec.IDR_Date_Received__c != record.IDR_Date_Received__c){
           updateIDRTimeCases.add(record);  
         }  
+        if(!updateIDRTimeCases.isEmpty()){
+          updateIDRMilestoneTask(updateIDRTimeCases);
+        }
       IDRCaseCommentActions.escalateExistingCommentsToCFMS(oldMap, records);
     }
-     if(!updateIDRTimeCases.isEmpty()){
-          updateIDRMilestoneTask(updateIDRTimeCases);
-      }
   }
 
   /**
