@@ -190,6 +190,7 @@ public with sharing class IDRCaseActions {
    */
   public static void beforeUpdate(Map<Id, SObject> oldMap, List<Case> records) {
     Id entitlementId = getEntitlement();
+    list<case> updateIDRTimeCases = new list<case>();
     for (Integer i = 0; i < records.size(); i++) {
       if (isIDRComplaintType(records.get(i))) {
         validateCaseNumber(
@@ -224,7 +225,7 @@ public with sharing class IDRCaseActions {
   }
 
   /**
-   * @description ate(oldMap, records) method handles the following
+   * @description afterUpdate(oldMap, records) method handles the following
    * 1. Validates the case status and add them into notification list.
    * 2. Calls checkForCRCEscalation method to check if the case record needs to be sent for CRC escalation.
    * 3. Calls escalateExistingCommentsToCFMS to escalation case comments upon receiving COM IDs from CFMS
@@ -246,21 +247,22 @@ public with sharing class IDRCaseActions {
         }
         checkForCRCEscalation(record);
       }
-      possibleSystemicIssueActions(records, oldMap);
+      
       // if the date recieved is changed after milestone has been applied
         // I.e Case is already created as complain or already identified as complaint.(isIDRComplaintType(oldRec))
         // then the tasks and milestone needs to be update to reflect this change
-        list<case> updateIDRTimeCases = new list<case>();
+        
         if(isIDRComplaintType(record) &&
            isIDRComplaintType(oldRec) &&
           oldRec.IDR_Date_Received__c != record.IDR_Date_Received__c){
           updateIDRTimeCases.add(record);  
         }  
-        if(!updateIDRTimeCases.isEmpty()){
-          updateIDRMilestoneTask(updateIDRTimeCases);
-        }
       IDRCaseCommentActions.escalateExistingCommentsToCFMS(oldMap, records);
     }
+    possibleSystemicIssueActions(records, oldMap);
+    if(!updateIDRTimeCases.isEmpty()){
+          updateIDRMilestoneTask(updateIDRTimeCases);
+      }
   }
 
   /**
