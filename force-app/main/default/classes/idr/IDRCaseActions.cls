@@ -250,7 +250,7 @@ public with sharing class IDRCaseActions {
       // if the date recieved is changed after milestone has been applied
         // I.e Case is already created as complain or already identified as complaint.(isIDRComplaintType(oldRec))
         // then the tasks and milestone needs to be update to reflect this change
-        list<case> updateIDRTimeCases = new list<cases>();
+        list<case> updateIDRTimeCases = new list<case>();
         if(isIDRComplaintType(record) &&
            isIDRComplaintType(oldRec) &&
           oldRec.IDR_Date_Received__c != record.IDR_Date_Received__c){
