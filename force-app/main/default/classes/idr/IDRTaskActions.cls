@@ -45,7 +45,7 @@ public with sharing class IDRTaskActions {
         } 
          
         list<task> oldTasks = new list<task>();
-        if(caseTaskMap.size()>0 && case.sObjectType.getDescribe().isQueryable()){  
+        if(caseTaskMap.size()>0 && Task.sObjectType.getDescribe().isQueryable()){  
             oldTasks = [Select Id,Status,subject from Task 
                             where WhatId in :caseTaskMap.keySet() 
                             AND RecordTypeId =:IDR_MAXIMUM_TIME_RT_ID
@@ -92,13 +92,13 @@ public with sharing class IDRTaskActions {
  	}
      /**
    * @description validateDueDate will validate update the due date for IDR Tasks.                            
-   * @param IDRMaixmumTimeTasks The Task record.
+   * @param idrMaixmumTimeTasks The Task record.
    * @param caseTaskMap  map of case  id and task subjects  
    */
     public static void validateDueDate(list<task> idrMaixmumTimeTasks, Map<id,string> caseTaskMap){
             Map<Id,Case> caseMap = new Map<Id,Case>();
             list<case> relatedCaseList = new list<case>();
-            if(case.sObjectType.getDescribe().isQueryable() && caseTaskMap.size()>0 ){
+            if(Case.sObjectType.getDescribe().isQueryable() && caseTaskMap.size()>0 ){
                 relatedCaseList = [select Id , BusinessHoursId , IDR_Date_Received__c , Priority  from Case where Id in :caseTaskMap.keySet()];
             }
             for (case c : relatedCaseList){
