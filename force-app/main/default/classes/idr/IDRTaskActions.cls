@@ -130,17 +130,20 @@ public with sharing class IDRTaskActions {
                     			caseRec.BusinessHoursId,
                     			caseRec.IDR_Date_Received__c,
                     			25); 
-            }else if(record.Subject == IDRConstants.TASK_SUBJECT_DAY5 && caseRec.Priority != IDRConstants.TASK_STANDARD_PRIORITY  ){
+        }
+        if(record.Subject == IDRConstants.TASK_SUBJECT_DAY5 && caseRec.Priority != IDRConstants.TASK_STANDARD_PRIORITY  ){
                 expectedDueDate =  DateTimeUtils.addBusinessDays(
                     			caseRec.BusinessHoursId,
                     			caseRec.IDR_Date_Received__c,
                     			16); 
-            }else if(record.Subject == IDRConstants.TASK_SUBJECT_DAY1 && caseRec.Priority == IDRConstants.TASK_STANDARD_PRIORITY){
+        }      
+        if(record.Subject == IDRConstants.TASK_SUBJECT_DAY1 && caseRec.Priority == IDRConstants.TASK_STANDARD_PRIORITY){
                 expectedDueDate =  DateTimeUtils.addBusinessDays(
                     			caseRec.BusinessHoursId,
                     			caseRec.IDR_Date_Received__c,
                     			29); 
-            }else if(record.Subject == IDRConstants.TASK_SUBJECT_DAY1 && caseRec.Priority != IDRConstants.TASK_STANDARD_PRIORITY){
+            } 
+        if(record.Subject == IDRConstants.TASK_SUBJECT_DAY1 && caseRec.Priority != IDRConstants.TASK_STANDARD_PRIORITY){
                 expectedDueDate =  DateTimeUtils.addBusinessDays(
                     			caseRec.BusinessHoursId,
                     			caseRec.IDR_Date_Received__c,
