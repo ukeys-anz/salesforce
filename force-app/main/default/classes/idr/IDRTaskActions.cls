@@ -7,7 +7,7 @@
 public with sharing class IDRTaskActions {
      // IDR Maximum time Record Type ID
   @TestVisible
-  static final Id IDR_MAXIMUM_TIME_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
+  public static final Id IDR_MAXIMUM_TIME_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
     .get('IDR_System_Task')
     .getRecordTypeId();
     /**

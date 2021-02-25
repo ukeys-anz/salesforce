@@ -246,9 +246,11 @@ public with sharing class IDRCaseActions {
         }
         checkForCRCEscalation(record);
       }
+      possibleSystemicIssueActions(records, oldMap);
       // if the date recieved is changed after milestone has been applied
         // I.e Case is already created as complain or already identified as complaint.(isIDRComplaintType(oldRec))
         // then the tasks and milestone needs to be update to reflect this change
+        list<case> updateIDRTimeCases = new list<cases>();
         if(isIDRComplaintType(record) &&
            isIDRComplaintType(oldRec) &&
           oldRec.IDR_Date_Received__c != record.IDR_Date_Received__c){
@@ -256,7 +258,6 @@ public with sharing class IDRCaseActions {
         }  
       IDRCaseCommentActions.escalateExistingCommentsToCFMS(oldMap, records);
     }
-    possibleSystemicIssueActions(records, oldMap);
      if(!updateIDRTimeCases.isEmpty()){
           updateIDRMilestoneTask(updateIDRTimeCases);
       }
@@ -951,7 +952,7 @@ public with sharing class IDRCaseActions {
         }
         if(task.sObjectType.getDescribe().isQueryable()){
             List<task> idrTasks = [Select Id,ActivityDate,whatId,Subject from Task where whatId in :caseMap.keySet() 
-                               AND RecordTypeId =:IDR_MAXIMUM_TIME_RT_ID AND IsClosed = false];
+                               AND RecordTypeId =:IDRTaskActions.IDR_MAXIMUM_TIME_RT_ID AND IsClosed = false];
             for(task t : idrTasks){
              t.ActivityDate = date.valueOf(IDRTaskActions.calculateExpectedDue(t,caseMap.get(t.whatId)));           
         	}
