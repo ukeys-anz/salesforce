@@ -8,51 +8,10 @@
         <apexClass>GetCustomerInformation</apexClass>
         <enabled>true</enabled>
     </classAccesses>
-    <description>Read only access to all cases, view only the fields in use for Complaint Mgt. release 1, export data. May be assigned to EDW and Reporting Analyst users.</description>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Product2.ANZ_Product_Code__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Product2.IDR_Product_or_Service_Category__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Product2.IDR_Product_or_Service_Line__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Product2.IDR_Product_or_Service_Type__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
+    <description>Permissions for CMOS Data analyst user to access complaint mgt app and export data from salesforce.</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>IDR Reporting Analyst</label>
     <license>Salesforce</license>
-    <objectPermissions>
-        <allowCreate>false</allowCreate>
-        <allowDelete>false</allowDelete>
-        <allowEdit>false</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>false</modifyAllRecords>
-        <object>Product2</object>
-        <viewAllRecords>false</viewAllRecords>
-    </objectPermissions>
-    <recordTypeVisibilities>
-        <recordType>Case.Customer_Complaint</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
-        <recordType>Case.Non_Customer_Complaint</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
-        <recordType>Product2.ANZ_Product_or_Service</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
     <tabSettings>
         <tab>standard-Case</tab>
         <visibility>Visible</visibility>
