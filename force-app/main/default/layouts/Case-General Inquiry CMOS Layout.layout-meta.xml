@@ -40,6 +40,10 @@
                 <behavior>Edit</behavior>
                 <field>IDR_NC_Suburb__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_NC_Country__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
