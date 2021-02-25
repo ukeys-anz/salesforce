@@ -18,6 +18,5 @@
     <label>All Systemic Issues</label>
     <sharedTo>
         <roleAndSubordinates>ANZ</roleAndSubordinates>
-        <group>Systemic_Issue_Team</group>
     </sharedTo>
 </ListView>
