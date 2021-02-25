@@ -44,22 +44,22 @@ public with sharing class IDRTaskActions {
             }
         } 
          
-        if (caseTaskMap.size()>0 ){
-           if(case.sObjectType.getDescribe().isQueryable()){  
-                list<task> oldTasks = [Select Id,Status,subject from Task 
-                                 where WhatId in :caseTaskMap.keySet() 
-                                 AND RecordTypeId =:IDR_MAXIMUM_TIME_RT_ID
-                                 AND Id not in :currentTask 
-                                 AND Status != :IDRConstants.TASK_STATUS_COMPLETED
-                                 AND Status != :IDRConstants.TASK_STATUS_EXPIRED ];
-            }                     
-            for (task t: oldTasks){
-                t.status = IDRConstants.TASK_STATUS_EXPIRED;
-            }
-            if (oldTasks.size() > 0 && task.sObjectType.getDescribe().isUpdateable()){
-                update oldTasks;
-            }
-        }           
+        list<task> oldTasks = new list<task>();
+        if(caseTaskMap.size()>0 && case.sObjectType.getDescribe().isQueryable()){  
+            oldTasks = [Select Id,Status,subject from Task 
+                            where WhatId in :caseTaskMap.keySet() 
+                            AND RecordTypeId =:IDR_MAXIMUM_TIME_RT_ID
+                            AND Id not in :currentTask 
+                            AND Status != :IDRConstants.TASK_STATUS_COMPLETED
+                            AND Status != :IDRConstants.TASK_STATUS_EXPIRED ];
+
+        }     
+        for (task t: oldTasks){
+            t.status = IDRConstants.TASK_STATUS_EXPIRED;
+        }
+        if (oldTasks.size() > 0 && task.sObjectType.getDescribe().isUpdateable()){
+            update oldTasks;
+        }                          
     }
      /**
    * @description checkIDRMaximumTimeTasks will perform the following actions.
@@ -71,7 +71,6 @@ public with sharing class IDRTaskActions {
     private static void checkIDRMaximumTimeTasks(list<Task> taskRecs){
         list<Task> idrMaixmumTimeTasks = new list<Task> ();
         Map<Id,ID> taskCaseMap = new Map<Id,ID> ();
-        set<Id> caseIdSet = new set<Id> ();   
     	Map<Id,String> caseTaskMap = new Map<Id,String>() ;
         for (Task record : taskRecs){
             if (record.subject == IDRConstants.TASK_SUBJECT_DAY5   
@@ -81,40 +80,40 @@ public with sharing class IDRTaskActions {
                 taskCaseMap.put(record.Id,record.WhatId); 
             }
             if(record.RecordTypeId == IDR_MAXIMUM_TIME_RT_ID 
-                    && (!caseIdSet.contains(record.WhatId) 
+                    && (!caseTaskMap.KeySet().contains(record.WhatId) 
                     ||(record.subject == IDRConstants.TASK_SUBJECT_DAY1)))
-                    {
-                    caseIdSet.add(record.WhatId);    
+                    {    
                  	caseTaskMap.put(record.WhatId,record.subject) ;
                 }
         }
 
-        validateDueDate(IDRMaixmumTimeTasks,caseIdSet);
+        validateDueDate(idrMaixmumTimeTasks,caseTaskMap);
         
  	}
      /**
    * @description validateDueDate will validate update the due date for IDR Tasks.                            
    * @param IDRMaixmumTimeTasks The Task record.
-   * @param caseIdSet  map of case  id and record that these tasks are related to.
+   * @param caseTaskMap  map of case  id and task subjects  
    */
-    public static void validateDueDate(list<task> IDRMaixmumTimeTasks, set<id> caseIdSet){
-             Map<Id,Case> caseMap = new Map<Id,Case>();
-            if(case.sObjectType.getDescribe().isQueryable() && caseIdSet.size()>0 ){
-                list<case> relatedCaseList = [select Id , BusinessHoursId , IDR_Date_Received__c , Priority  from Case where Id in :caseIdSet];
+    public static void validateDueDate(list<task> idrMaixmumTimeTasks, Map<id,string> caseTaskMap){
+            Map<Id,Case> caseMap = new Map<Id,Case>();
+            list<case> relatedCaseList = new list<case>();
+            if(case.sObjectType.getDescribe().isQueryable() && caseTaskMap.size()>0 ){
+                relatedCaseList = [select Id , BusinessHoursId , IDR_Date_Received__c , Priority  from Case where Id in :caseTaskMap.keySet()];
             }
             for (case c : relatedCaseList){
                 caseMap.put(c.ID, c);
             }
-            for (Task record : IDRMaixmumTimeTasks){
-            datetime expectedDueDate = calculateExpectedDue(record ,caseMap.get(record.WhatId));
+            for (Task record : idrMaixmumTimeTasks){
+                datetime expectedDueDate = calculateExpectedDue(record ,caseMap.get(record.WhatId));
             
-            if (record.ActivityDate > date.valueof(expectedDueDate)){
-                record.ActivityDate = date.valueof(expectedDueDate);              
-             }
+                if (record.ActivityDate > date.valueof(expectedDueDate)){
+                    record.ActivityDate = date.valueof(expectedDueDate);              
+                }
             
-            if (record.subject != caseTaskMap.get(record.WhatId)){
-                record.Status = IDRConstants.TASK_STATUS_EXPIRED;
-            }
+                if (record.subject != caseTaskMap.get(record.WhatId)){
+                    record.Status = IDRConstants.TASK_STATUS_EXPIRED;
+                }
          }
            
     }
