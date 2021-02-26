@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SI_Category__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information</complianceGroup>
+    <description>Enables categorisation of the systemic issue records.</description>
+    <externalId>false</externalId>
+    <label>Category</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Account Authorisation &amp; Instructions</fullName>
+                <default>false</default>
+                <label>Account Authorisation &amp; Instructions</label>
+            </value>
+            <value>
+                <fullName>Account Set up &amp; Maintenance (excl. fees)</fullName>
+                <default>false</default>
+                <label>Account Set up &amp; Maintenance (excl. fees)</label>
+            </value>
+            <value>
+                <fullName>Charges, Fees &amp; Commissions</fullName>
+                <default>false</default>
+                <label>Charges, Fees &amp; Commissions</label>
+            </value>
+            <value>
+                <fullName>Credit/Responsible Lending</fullName>
+                <default>false</default>
+                <label>Credit/Responsible Lending</label>
+            </value>
+            <value>
+                <fullName>Customer Service</fullName>
+                <default>false</default>
+                <label>Customer Service</label>
+            </value>
+            <value>
+                <fullName>Disclosure/Misleading Conduct/Mis-selling/Promotions</fullName>
+                <default>false</default>
+                <label>Disclosure/Misleading Conduct/Mis-selling/Promotions</label>
+            </value>
+            <value>
+                <fullName>Hardship &amp; Collections</fullName>
+                <default>false</default>
+                <label>Hardship &amp; Collections</label>
+            </value>
+            <value>
+                <fullName>IDR/EDR</fullName>
+                <default>false</default>
+                <label>IDR/EDR</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Personal Advice/Conduct of Representatives (Wealth only)</fullName>
+                <default>false</default>
+                <label>Personal Advice/Conduct of Representatives (Wealth only)</label>
+            </value>
+            <value>
+                <fullName>Privacy, Confidentiality &amp; Credit Reporting</fullName>
+                <default>false</default>
+                <label>Privacy, Confidentiality &amp; Credit Reporting</label>
+            </value>
+            <value>
+                <fullName>Remediation</fullName>
+                <default>false</default>
+                <label>Remediation</label>
+            </value>
+            <value>
+                <fullName>System/Process</fullName>
+                <default>false</default>
+                <label>System/Process</label>
+            </value>
+            <value>
+                <fullName>Transactions &amp; Payments</fullName>
+                <default>false</default>
+                <label>Transactions &amp; Payments</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

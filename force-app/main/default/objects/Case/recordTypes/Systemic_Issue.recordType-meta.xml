@@ -21,6 +21,14 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>14</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>15</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Other</fullName>
             <default>false</default>
         </values>
@@ -154,6 +162,65 @@
         </values>
         <values>
             <fullName>Wealth Tribe</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>SI_Category__c</picklist>
+        <values>
+            <fullName>Account Authorisation %26 Instructions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Account Set up %26 Maintenance %28excl%2E fees%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Charges%2C Fees %26 Commissions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit%2FResponsible Lending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Service</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Disclosure%2FMisleading Conduct%2FMis-selling%2FPromotions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hardship %26 Collections</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IDR%2FEDR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Personal Advice%2FConduct of Representatives %28Wealth only%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Privacy%2C Confidentiality %26 Credit Reporting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Remediation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>System%2FProcess</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transactions %26 Payments</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -502,15 +569,23 @@
     <picklistValues>
         <picklist>SI_Rec_Rem_Action_Status__c</picklist>
         <values>
-            <fullName>1</fullName>
+            <fullName>Not Required</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>2</fullName>
+            <fullName>To be determined</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>3</fullName>
+            <fullName>Proposed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Completed</fullName>
             <default>false</default>
         </values>
     </picklistValues>

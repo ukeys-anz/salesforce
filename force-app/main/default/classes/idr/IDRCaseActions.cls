@@ -456,7 +456,7 @@ public with sharing class IDRCaseActions {
       record.Status == ESCALATED_STATUS &&
       String.isBlank(record.IDR_Escalated_to__c)
     ) {
-      record.IDR_Escalation_Reason__c = '1';
+      record.IDR_Escalated_to__c = '1';
     }
   }
 
