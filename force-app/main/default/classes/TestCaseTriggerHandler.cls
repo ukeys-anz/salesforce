@@ -966,6 +966,7 @@ private class TestCaseTriggerHandler {
     task idrTask = new task(
       whatId = testCase.Id,
       Subject = IDRConstants.TASK_SUBJECT_DAY5,
+      RecordTypeId = IDRTaskActions.IDR_MAXIMUM_TIME_RT_ID,
       ActivityDate = system.today()
     );
     insert idrTask;
