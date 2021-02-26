@@ -36,8 +36,8 @@
                 <field>ActivityDate</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Required</behavior>
-                <field>Call_Direction__c</field>
+                <behavior>Readonly</behavior>
+                <field>CallType</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>

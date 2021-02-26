@@ -6,6 +6,10 @@
         <formula>NOW()</formula>
     </fieldOverrides>
     <fieldOverrides>
+        <field>CallType</field>
+        <literalValue>Inbound</literalValue>
+    </fieldOverrides>
+    <fieldOverrides>
         <field>OwnerId</field>
         <formula>$User.Id</formula>
     </fieldOverrides>
@@ -45,11 +49,6 @@ null
             <quickActionLayoutItems>
                 <emptySpace>true</emptySpace>
                 <uiBehavior>Edit</uiBehavior>
-            </quickActionLayoutItems>
-            <quickActionLayoutItems>
-                <emptySpace>false</emptySpace>
-                <field>Call_Direction__c</field>
-                <uiBehavior>Required</uiBehavior>
             </quickActionLayoutItems>
         </quickActionLayoutColumns>
     </quickActionLayout>
