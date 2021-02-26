@@ -21,6 +21,6 @@
     </filters>
     <label>All Complaints Flagged as PSI</label>
     <sharedTo>
-        <group>Systemic_Issue_Team</group>
+        <role>Systemic_Issue_Team</role>
     </sharedTo>
 </ListView>
