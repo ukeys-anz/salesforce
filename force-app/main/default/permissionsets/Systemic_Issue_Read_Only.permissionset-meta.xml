@@ -58,6 +58,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.SI_Category__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.SI_COR_ID_Record__c</field>
         <readable>true</readable>
     </fieldPermissions>
