@@ -971,7 +971,7 @@ private class TestCaseTriggerHandler {
       ActivityDate = system.today()
     );
     insert idrTask;
-    
+
     checkRecursive.firstCall = false;
 
     Test.startTest();
