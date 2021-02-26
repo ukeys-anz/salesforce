@@ -244,7 +244,7 @@
         <excludeButtons>ViewAll</excludeButtons>
         <fields>TASK.SUBJECT</fields>
         <fields>TASK.DUE_DATE</fields>
-        <fields>Call_Direction__c</fields>
+        <fields>TASK.CALLTYPE</fields>
         <fields>CORE.USERS.FULL_NAME</fields>
         <relatedList>RelatedHistoryList</relatedList>
     </relatedLists>
