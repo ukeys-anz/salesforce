@@ -967,6 +967,7 @@ private class TestCaseTriggerHandler {
       whatId = testCase.Id,
       Subject = IDRConstants.TASK_SUBJECT_DAY5,
       RecordTypeId = IDRTaskActions.IDR_MAXIMUM_TIME_RT_ID,
+      Priority = 'Standard',
       ActivityDate = system.today()
     );
     insert idrTask;
@@ -980,7 +981,7 @@ private class TestCaseTriggerHandler {
     Test.stopTest();
 
     task checkTask = [SELECT ActivityDate FROM Task WHERE id = :idrTask.Id];
-    
+
     system.assertNotEquals(idrTask.ActivityDate, checkTask.ActivityDate);
   }
 }
