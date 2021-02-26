@@ -3,11 +3,6 @@
     <description>Read / Write permissions related to voice Call Logs (Tasks)</description>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Event.Call_Direction__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Event.Description</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -29,11 +24,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Task.ActivityDate</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Task.Call_Direction__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
