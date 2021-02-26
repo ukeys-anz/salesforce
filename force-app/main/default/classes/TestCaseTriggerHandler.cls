@@ -965,12 +965,14 @@ private class TestCaseTriggerHandler {
       ActivityDate = system.today()
     );
     insert idrTask;
-
+    
+    Test.startTest();
     case updateCase = new case(
       Id = testCase.Id,
       IDR_Date_Received__c = system.now().addDays(1)
     );
     update updateCase;
+    Test.stopTest();
 
     task checkTask = [SELECT ActivityDate FROM Task WHERE id = :idrTask.Id];
     //github issue when test class is executed via github , the businesshourId is null. 
