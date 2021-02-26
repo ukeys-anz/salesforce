@@ -957,7 +957,11 @@ private class TestCaseTriggerHandler {
     }
     insert newCases;
 
-    case testCase = [select Id, BusinessHoursId from case where id =:newCases[0].Id ];
+    case testCase = [
+      SELECT Id, BusinessHoursId
+      FROM case
+      WHERE id = :newCases[0].Id
+    ];
 
     task idrTask = new task(
       whatId = testCase.Id,
@@ -965,7 +969,7 @@ private class TestCaseTriggerHandler {
       ActivityDate = system.today()
     );
     insert idrTask;
-    
+
     Test.startTest();
     case updateCase = new case(
       Id = testCase.Id,
@@ -975,12 +979,11 @@ private class TestCaseTriggerHandler {
     Test.stopTest();
 
     task checkTask = [SELECT ActivityDate FROM Task WHERE id = :idrTask.Id];
-    //github issue when test class is executed via github , the businesshourId is null. 
-    if(string.isBlank(testCase.BusinessHoursId)){
+    //github issue when test class is executed via github , the businesshourId is null.
+    if (string.isBlank(testCase.BusinessHoursId)) {
       system.assertEquals(idrTask.ActivityDate, checkTask.ActivityDate);
-    }else{
-       system.assertNotEquals(idrTask.ActivityDate, checkTask.ActivityDate);
+    } else {
+      system.assertNotEquals(idrTask.ActivityDate, checkTask.ActivityDate);
     }
-   
   }
 }
