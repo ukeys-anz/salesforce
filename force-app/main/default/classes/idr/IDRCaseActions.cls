@@ -254,7 +254,6 @@ public with sharing class IDRCaseActions {
    * @param records from the trigger
    */
   public static void afterUpdate(Map<Id, SObject> oldMap, List<Case> records) {
-    List<case> updateIDRTimeCases = new List<case>();
     for (Integer i = 0; i < records.size(); i++) {
       Case record = records[i];
       Case oldRec = (Case) oldMap.get(record.id);
@@ -268,7 +267,6 @@ public with sharing class IDRCaseActions {
         }
         checkForCRCEscalation(record);
       }
-
       IDRCaseCommentActions.escalateExistingCommentsToCFMS(oldMap, records);
     }
     possibleSystemicIssueActions(records, oldMap);
