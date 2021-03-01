@@ -1016,6 +1016,7 @@ public with sharing class IDRCaseActions {
     ) {
       update cmsToUpdate;
     }
+  } 
 
   /**
    * @description Update Date/Time PSI Ticked when complaint is flagged or unflagged. Before calling, check whether all cases are complaints and the PSI flag has just been ticked or unticked
