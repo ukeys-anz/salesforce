@@ -161,6 +161,7 @@ public with sharing class IDRCaseActions {
     }
     handleOfficeAssignment(changeOfficeCaseList);
     stampQueueName(records, null);
+    triggerCollectionActivities(records, null);
   }
 
   /**
@@ -177,7 +178,6 @@ public with sharing class IDRCaseActions {
       }
     }
     possibleSystemicIssueActions(records, null);
-    triggerCollectionActivities(records, null);
   }
 
   /**
@@ -222,6 +222,7 @@ public with sharing class IDRCaseActions {
     //calling handleOfficeAssignment for all case records for which the IDR_Office__c needs to be updated.
     handleOfficeAssignment(changeOfficeCaseList);
     stampQueueName(records, (Map<Id, Case>) oldMap);
+    triggerCollectionActivities(records, (Map<Id, Case>) oldMap);
   }
 
   /**
@@ -250,7 +251,6 @@ public with sharing class IDRCaseActions {
       IDRCaseCommentActions.escalateExistingCommentsToCFMS(oldMap, records);
     }
     possibleSystemicIssueActions(records, oldMap);
-    triggerCollectionActivities(records, oldMap);
   }
 
   /**
@@ -293,15 +293,31 @@ public with sharing class IDRCaseActions {
     List<IDR_Collections_Event__e> collectionsCasesEventList = new List<IDR_Collections_Event__e>();
     for (Case c : records) {
       if (c.recordTypeId == CUSTOMER_COMPLAINT_RT_ID) {
-        if (oldMap == null && c.IDR_Stop_Collections__c != null) {
+        if (
+          oldMap == null &&
+          (c.Priority == IDRConstants.PRIORITY_COLLECTIONS ||
+          c.Priority == IDRConstants.PRIORITY_HARDSHIP) &&
+          (c.Type == IDRConstants.ISSUE_TYPE_HARDSHIP ||
+          c.Type == IDRConstants.ISSUE_TYPE_COLLECTIONS)
+        ) {
           // that means it is on insert
           collectionsCasesEventList.add(buildEvent(c));
+          c.IDR_Stop_Collections__c = true;
         } else if (
           oldMap != null &&
-          c.IDR_Stop_Collections__c != null &&
-          oldMap.get(c.Id).IDR_Stop_Collections__c != c.IDR_Stop_Collections__c
+          (oldMap.get(c.Id).Priority != c.Priority &&
+          oldMap.get(c.Id).Priority != IDRConstants.PRIORITY_COLLECTIONS &&
+          oldMap.get(c.Id).Priority != IDRConstants.PRIORITY_HARDSHIP &&
+          (c.Priority == IDRConstants.PRIORITY_COLLECTIONS ||
+          c.Priority == IDRConstants.PRIORITY_HARDSHIP)) &&
+          (oldMap.get(c.Id).Type != c.Type &&
+          oldMap.get(c.Id).Type != IDRConstants.ISSUE_TYPE_HARDSHIP &&
+          oldMap.get(c.Id).Type != IDRConstants.ISSUE_TYPE_COLLECTIONS &&
+          (c.Type == IDRConstants.ISSUE_TYPE_HARDSHIP ||
+          c.Type == IDRConstants.ISSUE_TYPE_COLLECTIONS))
         ) {
           collectionsCasesEventList.add(buildEvent(c));
+          c.IDR_Stop_Collections__c = true;
         }
       }
     }
@@ -357,7 +373,6 @@ public with sharing class IDRCaseActions {
 
     collectionsEvent.IDR_Complaint_Number__c = c.CaseNumber;
     collectionsEvent.IDR_Complaint_Status__c = c.Status;
-    collectionsEvent.IDR_Hardship_Collection_Flag__c = c.IDR_Stop_Collections__c;
     collectionsEvent.IDR_Account_Details__c = getAccountListJson(c);
 
     return collectionsEvent;

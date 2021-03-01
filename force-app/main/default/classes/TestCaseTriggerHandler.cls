@@ -64,40 +64,6 @@ private class TestCaseTriggerHandler {
       );
       accnts.add(a);
       insert accnts;
-
-      // Create IDR L1 user
-      Profile anzProfile = [
-        SELECT Id
-        FROM Profile
-        WHERE Name = 'ANZ Standard User'
-        LIMIT 1
-      ];
-
-      User idrUser = (User) FakerFactory.make(new FakerUserFactory());
-      idrUser.FirstName = 'IDRL1';
-      idrUser.ProfileId = anzProfile.Id;
-      insert idrUser;
-
-      // Assign related PSs
-      List<String> idrPsets = new List<String>{
-        'IDR_User',
-        'IDR_User_Level_1'
-      };
-      List<PermissionSet> idrPsetList = [
-        SELECT Id
-        FROM PermissionSet
-        WHERE Name IN :idrPsets
-      ];
-
-      List<PermissionSetAssignment> idrPsaList = new List<PermissionSetAssignment>();
-      for (PermissionSet ps : idrPsetList) {
-        PermissionSetAssignment psa = new PermissionSetAssignment(
-          AssigneeId = idrUser.id,
-          PermissionSetId = ps.Id
-        );
-        idrPsaList.add(psa);
-      }
-      insert idrPsaList;
     }
   }
 
@@ -903,93 +869,93 @@ private class TestCaseTriggerHandler {
       'Failed to autopopulate Subject on Fraud cases as expected, while updating'
     );
   }
-  @isTest
-  static void testPSITaskCreation() {
-    // GIVEN complaint cases which are possibly systemic issues
-    Case[] caseList1 = new List<Case>();
-    Case[] caseList2 = new List<Case>();
-    User level1User = [SELECT Id FROM User WHERE FirstName = 'IDRL1'];
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      caseList1.add(
-        new Case(
-          RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
-          IDR_Is_Common__c = 'Yes',
-          IDR_Systemic_Issue_Description__c = 'Test Description',
-          IDR_Systemic_Issue_Category__c = '1'
-        )
-      );
-    }
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      caseList2.add(
-        new Case(RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID)
-      );
-    }
-
-    test.startTest();
-    System.runAs(level1User) {
-      // WHEN they are inserted or updated by L1 User
-      insert caseList1;
-      insert caseList2;
-      for (Case updateCase : caseList2) {
-        updateCase.IDR_Is_Common__c = 'Yes';
-        updateCase.IDR_Systemic_Issue_Description__c = 'Test Description';
-        updateCase.IDR_Systemic_Issue_Category__c = '2';
-      }
-      update caseList2;
-    }
-    test.stopTest();
-    // THEN new tasks are created and assigned to PSI queue
-    List<Task> psiTasks = [SELECT Id, Subject, OwnerId FROM Task];
-
-    System.assertEquals(IDRCaseActions.siQueue.Id, psiTasks[0].OwnerId);
-    System.assertEquals(IDRCaseActions.IDR_TASK_SUBJECT, psiTasks[0].Subject);
-  }
 
   @istest
-  static void testCollectionsDataValidationNegative() {
+  static void testCollectionsOnInsertNegative() {
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
           RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
-          IDR_Stop_Collections__c = 'Yes',
-          Priority = 'Standard'
-        )
-      );
-    }
-    try {
-      insert newCases;
-    } catch (Exception e) {
-      System.assert(
-        e.getMessage()
-          .contains(
-            'Priority must be Customer experiencing financial hardship or Customer in Collections, when collections flag is turned on'
-          )
-      );
-    }
-  }
-
-  @istest
-  static void testCollectionsDataValidationPositive() {
-    Case[] newCases = new List<Case>();
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
-        new Case(
-          RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
-          IDR_Stop_Collections__c = 'Yes',
-          Priority = 'Customer in Collections'
+          Priority = 'Standard',
+          Type = '4',
+          IDR_Subsequent_Issue__c = '20'
         )
       );
     }
     Test.startTest();
     insert newCases;
-    //If below line executes that means platform event got published as event is configured "Publish on Event"
-    System.assertEquals(String.valueOf(newCases.size()), Label.Test_Bulk_Size);
+    List<Case> caseList = [
+      SELECT Id, IDR_Stop_Collections__c
+      FROM Case
+      WHERE id IN :newCases
+    ];
+
+    for (Case c : caseList) {
+      System.assertEquals(false, c.IDR_Stop_Collections__c);
+    }
+    Test.stopTest();
+  }
+  @istest
+  static void testCollectionsOnUpdatePostivite() {
+    Case[] newCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
+          Priority = 'Standard',
+          Type = '9',
+          IDR_Subsequent_Issue__c = '57'
+        )
+      );
+    }
+    insert newCases;
+
+    Test.startTest();
 
     for (Case c : newCases) {
-      c.IDR_Stop_Collections__c = 'No';
+      c.Priority = 'Customer in Collections';
+      c.Type = '4';
+      c.IDR_Subsequent_Issue__c = '20';
     }
     update newCases;
+
+    List<Case> caseList = [
+      SELECT Id, IDR_Stop_Collections__c
+      FROM Case
+      WHERE id IN :newCases
+    ];
+
+    for (Case c : caseList) {
+      System.assertEquals(true, c.IDR_Stop_Collections__c);
+    }
+    Test.stopTest();
+  }
+
+  @istest
+  static void testCollectionsOnInsertPositive() {
+    Case[] newCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
+          Priority = 'Customer in Collections',
+          Type = '4',
+          IDR_Subsequent_Issue__c = '20'
+        )
+      );
+    }
+    Test.startTest();
+    insert newCases;
+    List<Case> caseList = [
+      SELECT Id, IDR_Stop_Collections__c
+      FROM Case
+      WHERE id IN :newCases
+    ];
+
+    for (Case c : caseList) {
+      System.assertEquals(true, c.IDR_Stop_Collections__c);
+    }
 
     Test.stopTest();
   }

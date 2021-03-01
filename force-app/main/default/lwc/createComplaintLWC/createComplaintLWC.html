@@ -419,22 +419,6 @@
             data-id="complaint-details"
           >
             <div class="slds-grid slds-wrap">
-              <template if:true={isCustomerComplaint}>
-                <!--Collections Field-->
-                <div class="slds-col slds-size_3-of-4 slds-m-botton_large">
-                  <lightning-radio-group
-                    required
-                    name="Collectionfield"
-                    label="Is complaint is relating to Hardship, Collections, A default notice or Legal proceedings?"
-                    options={collectionFlagOptions}
-                    onchange={handleCollectionFlagChange}
-                    value={stopCollectionValue}
-                    type="button"
-                    data-id="collectionFlag-id"
-                  >
-                  </lightning-radio-group>
-                </div>
-              </template>
               <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                 <lightning-input-field
                   variant="label-stacked"
