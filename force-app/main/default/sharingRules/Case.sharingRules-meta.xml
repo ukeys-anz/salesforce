@@ -71,6 +71,26 @@
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>PSIComplaint_RTs_SITeam_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Grant edit access to possible systemic issue complaint records for systemic issue team</description>
+        <label>PSIComplaint_RTs_SITeam_RW</label>
+        <sharedTo>
+            <role>Systemic_Issue_Team</role>
+        </sharedTo>
+        <booleanFilter>1 AND 2</booleanFilter>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Complaint,Non-Customer Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IDR_Is_Common__c</field>
+            <operation>equals</operation>
+            <value>Yes</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>SI_RT_CRP_LT_RO</fullName>
         <accessLevel>Read</accessLevel>
         <description>Grant Read only access to Systemic issue records for Customer Resolution Leadership Team</description>
