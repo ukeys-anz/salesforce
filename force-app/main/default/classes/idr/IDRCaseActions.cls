@@ -233,7 +233,7 @@ public with sharing class IDRCaseActions {
    * @param records from the trigger
    */
   public static void afterUpdate(Map<Id, SObject> oldMap, List<Case> records) {
-    list<case> updateIDRTimeCases = new list<case>();
+    List<case> updateIDRTimeCases = new List<case>();
     for (Integer i = 0; i < records.size(); i++) {
       Case record = records[i];
       Case oldRec = (Case) oldMap.get(record.id);
@@ -248,21 +248,10 @@ public with sharing class IDRCaseActions {
         checkForCRCEscalation(record);
       }
       
-      // if the date recieved is changed after milestone has been applied
-        // I.e Case is already created as complain or already identified as complaint.(isIDRComplaintType(oldRec))
-        // then the tasks and milestone needs to be update to reflect this change
-        
-        if(isIDRComplaintType(record) &&
-           isIDRComplaintType(oldRec) &&
-          oldRec.IDR_Date_Received__c != record.IDR_Date_Received__c){
-          updateIDRTimeCases.add(record);  
-        }  
       IDRCaseCommentActions.escalateExistingCommentsToCFMS(oldMap, records);
     }
     possibleSystemicIssueActions(records, oldMap);
-    if(!updateIDRTimeCases.isEmpty()){
-          updateIDRMilestoneTask(updateIDRTimeCases);
-      }
+    updateIDRMilestoneTask(records, oldMap);   
   }
 
   /**
@@ -947,12 +936,22 @@ public with sharing class IDRCaseActions {
    * @description Update the tasks and milestones to reflect the values based on new date recieved.
    * @param records list of case record that have date recieved changed
    */
-    private static void updateIDRMilestoneTask(list<Case> records) {
+    private static void updateIDRMilestoneTask(list<Case> records,Map<Id, SObject> oldMap ) {
         Map<Id, Case> caseMap = new Map<Id,Case>();
-        for (case c: records){
-            caseMap.put(c.Id , c);
+        for (case record :records ){
+          Case oldRec = (Case) oldMap.get(record.id);
+          // if the date recieved is changed after milestone has been applied
+          // I.e Case is already created as complain or already identified as complaint.(isIDRComplaintType(oldRec))
+          // then the tasks and milestone needs to be update to reflect this change
+        
+          if(isIDRComplaintType(record) &&
+             isIDRComplaintType(oldRec) &&
+            oldRec.IDR_Date_Received__c != record.IDR_Date_Received__c){  
+            caseMap.put(record.Id , record);
+          }  
         }
-        if(task.sObjectType.getDescribe().isQueryable()){
+    
+        if(task.sObjectType.getDescribe().isQueryable() && caseMap.size()>0){
             List<task> idrTasks = [Select Id,ActivityDate,whatId,Subject from Task where whatId in :caseMap.keySet() 
                                AND RecordTypeId =:IDRTaskActions.IDR_MAXIMUM_TIME_RT_ID AND IsClosed = false];
             for(task t : idrTasks){
@@ -963,7 +962,7 @@ public with sharing class IDRCaseActions {
         	}
         }
         
-        if(CaseMilestone.sObjectType.getDescribe().isQueryable()){
+        if(CaseMilestone.sObjectType.getDescribe().isQueryable() && caseMap.size()>0){
         
         	List<CaseMilestone> cmsToUpdate = [select Id, StartDate,caseId from CaseMilestone cm 
                                               where caseId in :caseMap.keySet() and 
