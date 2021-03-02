@@ -944,7 +944,6 @@ private class TestCaseTriggerHandler {
     System.assertEquals(IDRCaseActions.siQueue.Id, psiTasks[0].OwnerId);
     System.assertEquals(IDRCaseActions.IDR_TASK_SUBJECT, psiTasks[0].Subject);
   }
-
   @istest
   static void testCollectionsOnInsertNegative() {
     Case[] newCases = new List<Case>();
@@ -1033,5 +1032,47 @@ private class TestCaseTriggerHandler {
     }
 
     Test.stopTest();
+  }
+  @istest
+  static void testIDRCaseDateRecievedUpdate() {
+    Case[] newCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
+          IDR_Date_Received__c = system.now()
+        )
+      );
+    }
+    insert newCases;
+
+    case testCase = [
+      SELECT Id, BusinessHoursId
+      FROM case
+      WHERE id = :newCases[0].Id
+    ];
+
+    task idrTask = new task(
+      whatId = testCase.Id,
+      Subject = IDRConstants.TASK_SUBJECT_DAY5,
+      RecordTypeId = IDRTaskActions.IDR_MAXIMUM_TIME_RT_ID,
+      Priority = 'Standard',
+      ActivityDate = system.today()
+    );
+    insert idrTask;
+
+    checkRecursive.firstCall = false;
+
+    Test.startTest();
+    case updateCase = new case(
+      Id = testCase.Id,
+      IDR_Date_Received__c = system.now().addDays(1)
+    );
+    update updateCase;
+    Test.stopTest();
+
+    task checkTask = [SELECT ActivityDate FROM Task WHERE id = :idrTask.Id];
+
+    system.assertNotEquals(idrTask.ActivityDate, checkTask.ActivityDate);
   }
 }

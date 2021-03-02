@@ -537,9 +537,9 @@
         <fields>TASK.SUBJECT</fields>
         <fields>TASK.CREATED_DATE</fields>
         <fields>TASK.STATUS</fields>
+        <fields>Completed_Date__c</fields>
         <fields>CORE.USERS.FULL_NAME</fields>
         <fields>TASK.LAST_UPDATE_DATE_ONLY</fields>
-        <fields>Completed_Date__c</fields>
         <relatedList>RelatedHistoryList</relatedList>
     </relatedLists>
     <relatedLists>
