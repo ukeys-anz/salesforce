@@ -16,7 +16,9 @@ ISCHANGED( Status ),
 ISCHANGED( Origin ),
 ISCHANGED( Subject ),
 ISCHANGED( Description ),
-ISCHANGED( IDR_Description_of_Outcome__c )
+ISCHANGED( IDR_Description_of_Outcome__c ),
+ISCHANGED( OwnerId ),
+ISCHANGED( RecordTypeId )
 )
 )</errorConditionFormula>
     <errorMessage>You are not authorised to make update to this field. You can update only Parent Systemic Issue field in a complaint record.</errorMessage>
