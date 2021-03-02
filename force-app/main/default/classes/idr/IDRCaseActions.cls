@@ -125,8 +125,9 @@ public with sharing class IDRCaseActions {
    * @description applyDefaults is called onBeforeInsert to set the following values as defaults
    * 1. IDR_Account_Card_Policy_Number__c field masking as part of Customer Complaint Recording in IDR {@link #handleMasking(record) handleMasking}.
    * 2. Handle anonymous names if complainant doesnt want to share their info. This is for NON ANZ Customer rasing a complaint {@link #handleAnonymousNames(record) handleAnonymousNames}.
-   * 3. Handle case stutus changes such as updating IsEscalated to true if the case is created as escalated case. Change the reopen date if case is created with re-opened status {@link #handleCaseStatusChanges(record) handleCaseStatusChanges}.
+   * 3. Handle case status changes such as updating IsEscalated to true if the case is created as escalated case. Change the reopen date if case is created with re-opened status {@link #handleCaseStatusChanges(record) handleCaseStatusChanges}.
    * 4. Handle office assignment based on the case Owner's Division of the current case. {@link handleOfficeAssignment(cases) handleOfficeAssignment}.
+   * 5. Update Date/Time PSI Ticked if complaint is flagged as PSI
    * @param records The record list form which we need to apply defaults
    * <p>
    * <b>Note:</b> It is always good to change/update values in on onBeforeInsert rather than in onAfterInsert
@@ -144,6 +145,7 @@ public with sharing class IDRCaseActions {
          businessHoursId = bh[0].Id ;
       }      
     }*/
+    Case[] updatePsiTicked = new List<Case>();
     for (Case record : records) {
       if (isIDRComplaintType(record)) {
         record.EntitlementId = entitlementId;
@@ -157,10 +159,17 @@ public with sharing class IDRCaseActions {
           changeOfficeCaseList.add(record);
         }
         handleCaseEscalationRules(record, new Case());
+        if (record.IDR_Is_Common__c == 'Yes') {
+          updatePsiTicked.add(record);
+        }
       }
     }
     handleOfficeAssignment(changeOfficeCaseList);
-    stampQueueName(records, null);
+    stampQueueName(records, null);    
+    //Update Date/Time PSI Ticked if complaint is flagged as PSI
+    if (!updatePsiTicked.isEmpty()) {
+      updateDateTimePsiTicked(updatePsiTicked);
+    }
     triggerCollectionActivities(records, null);
   }
 
@@ -185,12 +194,14 @@ public with sharing class IDRCaseActions {
    * 1. Handle Masking - IDR_Account_Card_Policy_Number__c field masking as part of Customer Complaint Recording in IDR {@link #handleMasking(record) handleMasking}.
    * 2. Handle anonymous names if complainant doesnt want to share their info. This is for NON ANZ Customer rasing a complaint {@link #handleAnonymousNames(record) handleAnonymousNames}.
    * 3. Identify records for which owner is changed for IDR_Office__c to be updated. Note we need to update only the records for which the owner has changed and the owner is User(not Group).
-   * 4. Handle case stutus changes only for records which had a status change. Actions such as updating IsEscalated to true if the case is created as escalated case. Change the reopen date if case is created with re-opened status {@link #handleCaseStatusChanges(record) handleCaseStatusChanges}.
+   * 4. Handle case status changes only for records which had a status change. Actions such as updating IsEscalated to true if the case is created as escalated case. Change the reopen date if case is created with re-opened status {@link #handleCaseStatusChanges(record) handleCaseStatusChanges}.
+   * 5. Update Date/Time PSI Ticked when complaint is flagged or unflagged
    * @param oldMap This Map<Id, SObject> contains the map which holds the previous values which can be used to check what value has changed in onBeforeUpdate. Example to check if the Case Status value has changed we use the following to check record.Status != ((Case) oldMap.get(record.id)).Status
    * @param records from the trigger
    */
   public static void beforeUpdate(Map<Id, SObject> oldMap, List<Case> records) {
     Id entitlementId = getEntitlement();
+    Case[] updatePsiTicked = new List<Case>();
     for (Integer i = 0; i < records.size(); i++) {
       if (isIDRComplaintType(records.get(i))) {
         validateCaseNumber(
@@ -217,11 +228,21 @@ public with sharing class IDRCaseActions {
           records.get(i),
           (case) oldMap.get(records.get(i).id)
         );
+        if (
+          records.get(i).IDR_Is_Common__c !=
+          ((Case) oldMap.get(records.get(i).id)).IDR_Is_Common__c
+        ) {
+          updatePsiTicked.add(records.get(i));
+        }
       }
     }
     //calling handleOfficeAssignment for all case records for which the IDR_Office__c needs to be updated.
     handleOfficeAssignment(changeOfficeCaseList);
     stampQueueName(records, (Map<Id, Case>) oldMap);
+    //Update Date/Time PSI Ticked if complaint is flagged as PSI
+    if (!updatePsiTicked.isEmpty()) {
+      updateDateTimePsiTicked(updatePsiTicked);
+    }
     triggerCollectionActivities(records, (Map<Id, Case>) oldMap);
   }
 
@@ -1067,5 +1088,19 @@ public with sharing class IDRCaseActions {
       IsReminderSet = true,
       ReminderDateTime = (DateTime) (activityDate - 2)
     );
+  }
+
+  /**
+   * @description Update Date/Time PSI Ticked when complaint is flagged or unflagged. Before calling, check whether all cases are complaints and the PSI flag has just been ticked or unticked
+   * @param records from the trigger
+   */
+  private static void updateDateTimePsiTicked(List<Case> records) {
+    for (Case record : records) {
+      if (record.IDR_Is_Common__c == 'Yes') {
+        record.IDR_Datetime_PSI_Ticked__c = Datetime.now();
+      } else {
+        record.IDR_Datetime_PSI_Ticked__c = null;
+      }
+    }
   }
 }
