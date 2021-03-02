@@ -310,7 +310,7 @@ public with sharing class IDRCaseActions {
     List<Case> records,
     Map<Id, Case> oldMap
   ) {
-    List<Database.SaveResult> publishResults;
+    List<Database.SaveResult> publishResults = new List<Database.SaveResult>() ;
     List<IDR_Collections_Event__e> collectionsCasesEventList = new List<IDR_Collections_Event__e>();
     for (Case c : records) {
       if (c.recordTypeId == CUSTOMER_COMPLAINT_RT_ID) {
