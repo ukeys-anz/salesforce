@@ -20,7 +20,7 @@ private with sharing class TestIDRCaseActions {
   static void testPicklistLabelFromValue() {
     System.assertEquals(
       'VIC',
-      IDRCaseActions.getPicklistLabel(Case.IDR_NC_State__c, '2'),
+      CommonUtils.getSinglePicklistLabel(Case.IDR_NC_State__c, '2'),
       'Key=2, Value=VIC'
     );
   }

@@ -39,12 +39,14 @@ public with sharing class AccountCommonActions {
 
     for (Account acc : records) {
       if (acc.ANZx_Customer__c) {
-        Entitlement ent = new Entitlement();
-        ent.AccountId = acc.Id;
-        ent.Name = 'Basic Subscription';
-        ent.SlaProcessId = getSLAId('general enquiries', 'generalEnquirySlaId');
-        ent.StartDate = System.today();
-        entitlementList.add(ent);
+        entitlementList.add(
+          createEntitlement(
+            acc.id,
+            'Basic Subscription',
+            'anz plus - basic subscription v1',
+            'anzPlusBasic'
+          )
+        );
       }
     }
 
@@ -74,12 +76,14 @@ public with sharing class AccountCommonActions {
       Account oldAccount = (Account) oldMap.get(acc.Id);
       //Check if its a new ANZx account and created entitlement
       if (acc.ANZx_Customer__c && !oldAccount.ANZx_Customer__c) {
-        Entitlement ent = new Entitlement();
-        ent.AccountId = acc.Id;
-        ent.Name = 'Basic Subscription';
-        ent.SlaProcessId = getSLAId('general enquiries', 'generalEnquirySlaId');
-        ent.StartDate = System.today();
-        entitlementList.add(ent);
+        entitlementList.add(
+          createEntitlement(
+            acc.id,
+            'Basic Subscription',
+            'anz plus - basic subscription v1',
+            'anzPlusBasic'
+          )
+        );
       } else if (
         acc.ANZx_Customer__c != true &&
         oldAccount.ANZx_Customer__c == true
@@ -125,5 +129,21 @@ public with sharing class AccountCommonActions {
       Cache.Org.put('local.Utility.' + cacheName, sla.Id);
       return (String) sla.Id;
     }
+  }
+
+  @SuppressWarnings('PMD.ExcessiveParameterList')
+  private static Entitlement createEntitlement(
+    Id accountId,
+    String entitlementName,
+    String slaProcessName,
+    String cacheName
+  ) {
+    Entitlement ent = new Entitlement();
+    ent.AccountId = accountId;
+    ent.Name = entitlementName;
+    ent.SlaProcessId = getSLAId(slaProcessName, cacheName);
+    ent.StartDate = System.today();
+
+    return ent;
   }
 }

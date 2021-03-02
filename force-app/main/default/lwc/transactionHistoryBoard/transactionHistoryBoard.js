@@ -51,7 +51,7 @@ export default class TransactionHistoryBoard extends LightningElement {
   startDate;
   endDate = new Date().toISOString().slice(0, 10);
   todayDate = new Date().toISOString().slice(0, 10);
-  disableSearch = false;
+  disableSearch = true;
   ocvId;
   accountNumber;
   hasError = false;
@@ -135,7 +135,7 @@ export default class TransactionHistoryBoard extends LightningElement {
                 currentTransaction.showDateTitle = true;
               } else if (
                 currentTransaction.TransactionDate !==
-                this.fullTransactionList[i - 1].TransactionDate
+                this.fullTransactionList[i - 1].date.slice(0, 10)
               ) {
                 currentTransaction.showDateTitle = true;
               } else {
@@ -308,30 +308,27 @@ export default class TransactionHistoryBoard extends LightningElement {
   }
 
   handleSearch() {
-    this.loading = true;
-    //Need to convert dates to ISO string for search params
-    let urlParam;
-    if (this.startDate) {
-      urlParam = `&start_date=${new Date(
+    if (this.startDate && this.endDate) {
+      this.loading = true;
+      //Need to convert dates to ISO string for search params
+      let urlParam = `&start_date=${new Date(
         this.startDate + " 00:00:00 UTC"
+      ).toISOString()}&end_date=${new Date(
+        this.endDate + " 23:59:59 UTC"
       ).toISOString()}`;
-    }
 
-    if (this.endDate) {
-      urlParam =
-        urlParam +
-        `&end_date=${new Date(this.endDate + " 23:59:59 UTC").toISOString()}`;
+      this.fetchTransactions(urlParam, true);
     }
-
-    this.fetchTransactions(urlParam, true);
   }
 
   handleStartDateChange(e) {
     this.startDate = e.detail.value;
     if (this.startDate > this.endDate || this.startDate > this.todayDate) {
       this.disableSearch = true;
-    } else {
+    } else if (this.startDate && this.endDate) {
       this.disableSearch = false;
+    } else {
+      this.disableSearch = true;
     }
   }
 
@@ -342,8 +339,10 @@ export default class TransactionHistoryBoard extends LightningElement {
       this.endDate > this.todayDate
     ) {
       this.disableSearch = true;
-    } else {
+    } else if (this.endDate && this.startDate) {
       this.disableSearch = false;
+    } else {
+      this.disableSearch = true;
     }
   }
 
