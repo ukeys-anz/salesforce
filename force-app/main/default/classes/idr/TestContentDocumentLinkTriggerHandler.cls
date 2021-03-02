@@ -10,7 +10,6 @@ public class TestContentDocumentLinkTriggerHandler {
    */
   @testSetup
   static void setup() {
-
     Profile p = [SELECT Id FROM Profile WHERE Name = 'ANZ Standard User'];
 
     //Create Case
@@ -19,6 +18,7 @@ public class TestContentDocumentLinkTriggerHandler {
     testCase.IDR_Account_Card_Policy_Number__c = '000001234';
     testCase.Description = 'Test decription';
     testCase.RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID;
+    testCase.IDR_Customer_Number__c = '1234567890';
     testCase.Status = IDRConstants.OPEN_STATUS;
     insert testCase;
 
@@ -28,7 +28,6 @@ public class TestContentDocumentLinkTriggerHandler {
     usr.Business_Function__c = 'CMOS';
     usr.Business_Role__c = 'Customer Resolution';
     insert usr;
-
   }
   /**
    * @description Test whether the case flag is updated when another user adds a file in case record
@@ -36,38 +35,40 @@ public class TestContentDocumentLinkTriggerHandler {
   @isTest
   static void testContentDocumentNotification() {
     List<User> usrlist = [SELECT id FROM User];
-  
+
     System.runAs(usrlist[0]) {
       //Given a complaint case record
-      Case testCase = [SELECT Id FROM Case Limit 1];
+      Case testCase = [SELECT Id FROM Case LIMIT 1];
 
       Test.startTest();
       //When another user adds a file attachment
-        //Create a file
-        ContentVersion cv = new ContentVersion();
-        cv.Title = 'Test File Delete';
-        cv.PathOnClient = 'Test File Delete' + '.txt';
-        cv.VersionData = Blob.valueOf('Test File Delete functionality');
+      //Create a file
+      ContentVersion cv = new ContentVersion();
+      cv.Title = 'Test File Delete';
+      cv.PathOnClient = 'Test File Delete' + '.txt';
+      cv.VersionData = Blob.valueOf('Test File Delete functionality');
 
-        insert cv;
+      insert cv;
 
-        // retrieve file to create an association with case
-        ContentDocument cd = [SELECT id FROM ContentDocument LIMIT 1];
+      // retrieve file to create an association with case
+      ContentDocument cd = [SELECT id FROM ContentDocument LIMIT 1];
 
-        // insert Content document link
-        ContentDocumentLink cdl = new ContentDocumentLink();
-        cdl.ContentDocumentId = cd.Id;
-        cdl.LinkedEntityId = testCase.Id;
-        cdl.ShareType = 'V';
-        cdl.Visibility = 'AllUsers';
-        insert cdl;
+      // insert Content document link
+      ContentDocumentLink cdl = new ContentDocumentLink();
+      cdl.ContentDocumentId = cd.Id;
+      cdl.LinkedEntityId = testCase.Id;
+      cdl.ShareType = 'V';
+      cdl.Visibility = 'AllUsers';
+      insert cdl;
 
       Test.stopTest();
 
-      List<Case> caseList = [SELECT Id, IDR_Update_Notification_Flag__c FROM Case];
+      List<Case> caseList = [
+        SELECT Id, IDR_Update_Notification_Flag__c
+        FROM Case
+      ];
       //THEN notification flag is set to true in the case record
       System.assertEquals(true, caseList[0].IDR_Update_Notification_Flag__c);
-
     }
   }
 }

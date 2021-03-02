@@ -29,7 +29,7 @@ private with sharing class TestSICaseActions {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newComplaints.add(
         new Case(
-          RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
+          RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID,
           Status = 'Open',
           IDR_Parent_Systemic_Issue__c = newSIs[i].Id
         )

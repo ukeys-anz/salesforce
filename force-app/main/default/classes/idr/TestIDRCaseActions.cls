@@ -150,20 +150,19 @@ private with sharing class TestIDRCaseActions {
 
   @istest
   static void testCustomerNumberValidation() {
-    Faker faker = new Faker('AU');
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
           RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
-          IDR_Customer_Number__c = String.valueOf(faker.randomInteger(10))
+          IDR_Customer_Number__c = '1234567890'
         )
       );
     }
     insert newCases;
 
     for (Case c : newCases) {
-      c.IDR_Customer_Number__c = String.valueOf(faker.randomInteger(10));
+      c.IDR_Customer_Number__c = '0987654321';
     }
     try {
       update newCases;

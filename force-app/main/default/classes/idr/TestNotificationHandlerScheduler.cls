@@ -25,6 +25,7 @@ public with sharing class TestNotificationHandlerScheduler {
       testCase.IDR_Account_Card_Policy_Number__c = '000001234';
       testCase.Description = 'Test decription';
       testCase.RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID;
+      testCase.IDR_Customer_Number__c = '1234567890';
       testCase.Status = IDRConstants.ESCALATED_STATUS;
       testCase.IDR_Escalated_to__c = '1';
       testCase.IDR_Escalation_Reason__c = '1';
