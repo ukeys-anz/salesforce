@@ -64,6 +64,40 @@ private class TestCaseTriggerHandler {
       );
       accnts.add(a);
       insert accnts;
+
+      // Create IDR L1 user
+      Profile anzProfile = [
+        SELECT Id
+        FROM Profile
+        WHERE Name = 'ANZ Standard User'
+        LIMIT 1
+      ];
+
+      User idrUser = (User) FakerFactory.make(new FakerUserFactory());
+      idrUser.FirstName = 'IDRL1';
+      idrUser.ProfileId = anzProfile.Id;
+      insert idrUser;
+
+      // Assign related PSs
+      List<String> idrPsets = new List<String>{
+        'IDR_User',
+        'IDR_User_Level_1'
+      };
+      List<PermissionSet> idrPsetList = [
+        SELECT Id
+        FROM PermissionSet
+        WHERE Name IN :idrPsets
+      ];
+
+      List<PermissionSetAssignment> idrPsaList = new List<PermissionSetAssignment>();
+      for (PermissionSet ps : idrPsetList) {
+        PermissionSetAssignment psa = new PermissionSetAssignment(
+          AssigneeId = idrUser.id,
+          PermissionSetId = ps.Id
+        );
+        idrPsaList.add(psa);
+      }
+      insert idrPsaList;
     }
   }
 
@@ -869,7 +903,48 @@ private class TestCaseTriggerHandler {
       'Failed to autopopulate Subject on Fraud cases as expected, while updating'
     );
   }
+  @isTest
+  static void testPSITaskCreation() {
+    // GIVEN complaint cases which are possibly systemic issues
+    Case[] caseList1 = new List<Case>();
+    Case[] caseList2 = new List<Case>();
+    User level1User = [SELECT Id FROM User WHERE FirstName = 'IDRL1'];
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      caseList1.add(
+        new Case(
+          RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
+          IDR_Is_Common__c = 'Yes',
+          IDR_Systemic_Issue_Description__c = 'Test Description',
+          IDR_Systemic_Issue_Category__c = '1'
+        )
+      );
+    }
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      caseList2.add(
+        new Case(RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID)
+      );
+    }
 
+    test.startTest();
+    System.runAs(level1User) {
+      // WHEN they are inserted or updated by L1 User
+      insert caseList1;
+      insert caseList2;
+      for (Case updateCase : caseList2) {
+        updateCase.IDR_Is_Common__c = 'Yes';
+        updateCase.IDR_Systemic_Issue_Description__c = 'Test Description';
+        updateCase.IDR_Systemic_Issue_Category__c = '2';
+      }
+      update caseList2;
+    }
+    test.stopTest();
+    // THEN new tasks are created and assigned to PSI queue
+    List<Task> psiTasks = [SELECT Id, Subject, OwnerId FROM Task];
+
+    System.assertEquals(IDRCaseActions.siQueue.Id, psiTasks[0].OwnerId);
+    System.assertEquals(IDRCaseActions.IDR_TASK_SUBJECT, psiTasks[0].Subject);
+  }
+  
   @istest
   static void testCollectionsOnInsertNegative() {
     Case[] newCases = new List<Case>();
@@ -960,3 +1035,4 @@ private class TestCaseTriggerHandler {
     Test.stopTest();
   }
 }
+
