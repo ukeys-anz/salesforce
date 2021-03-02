@@ -1,23 +1,21 @@
 import { LightningElement, api, track, wire } from "lwc";
 
-import getFinancialGoals from "@salesforce/apex/FinancialGoalsComponentController.getFinancialGoals";
+import getFinancialAccounts from "@salesforce/apex/FinancialAccountController.getFinancialAccounts";
 
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
-import { publish, subscribe, MessageContext } from "lightning/messageService";
-import UpdateAccountsAndGoals from "@salesforce/messageChannel/FinancialAccountsGoalsUpdate__c";
-import UpdateAccountsGoalsTimed from "@salesforce/messageChannel/FinancialAccountGoalsTimedUpdate__c";
+import { subscribe, MessageContext } from "lightning/messageService";
+import RetrieveGoals from "@salesforce/messageChannel/RetrieveFinancialGoals__c";
 import TriggerLoading from "@salesforce/messageChannel/FinancialAccountsTriggerLoading__c";
 import { NavigationMixin } from "lightning/navigation";
 
 export default class FinancialGoals extends NavigationMixin(LightningElement) {
   @api recordId;
-  inProgressGoals = [];
-  completedGoals = [];
+  goals = [];
   @track timestamp;
-  @track viewAllInProgress = false;
-  @track viewAllCompleted = false;
+  @track viewAllGoals = false;
   @track loading = true;
+  accountNumbers = [];
   hadError = false;
   error;
 
@@ -27,6 +25,33 @@ export default class FinancialGoals extends NavigationMixin(LightningElement) {
   loadingSubscription = null;
 
   connectedCallback() {
+    getFinancialAccounts({
+      ownerId: this.recordId,
+      recordLimit: 4,
+      type: "Savings"
+    })
+      .then((result) => {
+        if (result) {
+          result.forEach((finAccount) => {
+            //Set account number as key and ID as value to link goals to accounts later
+            this.accountNumbers[finAccount.FinServ__FinancialAccountNumber__c] =
+              finAccount.Id;
+
+            //Only set timestamp once instead of each time in the loop
+            if (!this.timestamp) {
+              this.setTimestamp();
+            }
+          });
+        }
+      })
+      .catch((error) => {
+        this.loading = false;
+        if (error.body && error.body.message) {
+          this.error = error.body.message;
+        }
+        this.hasError = true;
+      });
+
     this.loadingSubscription = subscribe(
       this.messageContext,
       TriggerLoading,
@@ -38,220 +63,132 @@ export default class FinancialGoals extends NavigationMixin(LightningElement) {
     );
     this.subscription = subscribe(
       this.messageContext,
-      UpdateAccountsAndGoals,
-      (message) => {
-        if (message.update) {
-          this.inProgressGoals = [];
-          this.completedGoals = [];
-          this.timestamp = "";
-          this.getInProgressGoals();
-
-          if (this.inProgressGoals || this.completedGoals) {
-            this.loading = false;
-          }
-        } else {
-          this.error = message.message;
-          this.getInProgressGoals();
+      RetrieveGoals,
+      (response) => {
+        if (response.error) {
+          this.error = response.error;
           this.showToast("Financial Goals Load Failed", this.error);
+        } else {
+          this.goals = [];
+          this.timestamp = "";
+          this.handleGoals(response);
         }
       }
     );
-
-    if (!this.subscription || Object.keys(this.subscription).length === 0) {
-      this.getInProgressGoals();
-    }
-
-    this.loading = false;
   }
 
-  setTimestamp(lastModifiedDate) {
-    //Create timestamp
-    const lastUpdated = new Date(lastModifiedDate);
+  setTimestamp() {
+    //Create timestamp for last updated
+    const today = new Date();
     this.timestamp =
-      lastUpdated.getDate() +
+      today.getDate() +
       " " +
-      lastUpdated.toLocaleString("en-AU", {
+      today.toLocaleString("en-AU", {
         month: "long"
       }) +
       " " +
-      lastUpdated.getFullYear() +
+      today.getFullYear() +
       " | " +
-      lastUpdated.toLocaleString("en-AU", {
+      today.toLocaleString("en-AU", {
         hour: "numeric",
         minute: "numeric",
         hour12: true
       });
+  }
 
-    //If it has been more than 15 min since last update,
-    //call API for latest data
-    const today = new Date();
-    if (today - lastUpdated > 15 * 60 * 1000) {
-      const payload = { update: true };
-      publish(this.messageContext, UpdateAccountsGoalsTimed, payload);
+  handleGoals(response) {
+    if (response) {
+      //If we get more than 3 records, set view all to true and get first 3 records
+      if (response.length > 3) {
+        this.viewAllGoals = true;
+        response = response.slice(0, 3);
+      }
+
+      for (let i = 0; i < response.length; i++) {
+        let finGoal = { ...response[i] };
+        //Only set timestamp once instead of each time in the loop
+        if (!this.timestamp) {
+          this.setTimestamp();
+        }
+
+        finGoal.targetAmount = finGoal.targetAmount
+          ? parseFloat(finGoal.targetAmount)
+          : "";
+        finGoal.currentBalance = parseFloat(finGoal.currentBalance);
+
+        finGoal.Id = this.accountNumbers[finGoal.accountNumber];
+
+        if (finGoal.targetAmount) {
+          //Work out percentage for fill
+          finGoal.fillPercent = Math.floor(
+            (finGoal.currentBalance / finGoal.targetAmount) * 100
+          );
+
+          //Dont let overfill 100%
+          finGoal.fillPercent =
+            finGoal.fillPercent >= 100 ? 100 : finGoal.fillPercent;
+
+          finGoal.balanceRemaining =
+            finGoal.targetAmount - finGoal.currentBalance;
+        } else {
+          finGoal.fillPercent = finGoal.currentBalance > 0 ? 100 : 0;
+        }
+
+        finGoal.daysRemaining = "Days Remaining: ";
+        // Override potential null values with generic values
+        if (finGoal.targetDate) {
+          const targetDate = new Date(finGoal.targetDate);
+          const today = new Date();
+
+          if (targetDate > today) {
+            //Calculate time difference between two dates
+            let timeDifference = targetDate.getTime() - today.getTime();
+
+            //Calculate days remaining
+            finGoal.daysRemaining += Math.round(
+              timeDifference / (1000 * 3600 * 24)
+            );
+
+            finGoal.recommendedSavings = finGoal.balanceRemaining
+              ? finGoal.balanceRemaining / finGoal.daysRemaining
+              : "";
+          }
+
+          finGoal.targetDate =
+            targetDate.getDate() +
+            " " +
+            targetDate.toLocaleString("en-AU", {
+              month: "long"
+            }) +
+            " " +
+            targetDate.getFullYear();
+        } else {
+          finGoal.targetDate = "N/A";
+        }
+
+        //Format balances
+        finGoal.targetAmount = finGoal.targetAmount
+          ? new Intl.NumberFormat("en-AU", {
+              style: "currency",
+              currency: "AUD"
+            }).format(finGoal.targetAmount)
+          : "N/A";
+
+        finGoal.currentBalance = new Intl.NumberFormat("en-AU", {
+          style: "currency",
+          currency: "AUD"
+        }).format(finGoal.currentBalance);
+
+        finGoal.recommendedSavings = finGoal.recommendedSavings
+          ? new Intl.NumberFormat("en-AU", {
+              style: "currency",
+              currency: "AUD"
+            }).format(finGoal.recommendedSavings)
+          : "Unspecified";
+        this.goals.push(finGoal);
+      }
     }
-  }
-
-  getInProgressGoals() {
-    getFinancialGoals({
-      ownerId: this.recordId,
-      status: "In Progress",
-      recordLimit: 4
-    })
-      .then((result) => {
-        if (result) {
-          //If we get more than 3 records, set view all to true and get first 3 records
-          if (result.length > 3) {
-            this.viewAllInProgress = true;
-            result = result.slice(0, 3);
-          }
-
-          result.forEach((finGoal) => {
-            //Only set timestamp once instead of each time in the loop
-            if (!this.timestamp) {
-              this.setTimestamp(finGoal.LastModifiedDate);
-            }
-
-            //Work out percentage for fill
-            finGoal.fillPercent = Math.floor(
-              (finGoal.FinServ__ActualValue__c /
-                finGoal.FinServ__TargetValue__c) *
-                100
-            );
-
-            //Dont let overfill 100%
-            finGoal.fillPercent =
-              finGoal.fillPercent >= 100 ? 100 : finGoal.fillPercent;
-
-            // Override potential null values with generic values
-            if (finGoal.FinServ__TargetDate__c) {
-              const targetDate = new Date(finGoal.FinServ__TargetDate__c);
-              finGoal.FinServ__TargetDate__c =
-                targetDate.getDate() +
-                " " +
-                targetDate.toLocaleString("en-AU", {
-                  month: "long"
-                }) +
-                " " +
-                targetDate.getFullYear();
-            } else {
-              finGoal.FinServ__TargetDate__c = "N/A";
-            }
-
-            //Format balances
-            finGoal.FinServ__TargetValue__c = new Intl.NumberFormat("en-AU", {
-              style: "currency",
-              currency: "AUD"
-            }).format(finGoal.FinServ__TargetValue__c);
-
-            finGoal.FinServ__ActualValue__c = new Intl.NumberFormat("en-AU", {
-              style: "currency",
-              currency: "AUD"
-            }).format(finGoal.FinServ__ActualValue__c);
-
-            finGoal.Recommended_Savings_Amount__c =
-              finGoal.Recommended_Savings_Amount__c !== "Unspecified"
-                ? new Intl.NumberFormat("en-AU", {
-                    style: "currency",
-                    currency: "AUD"
-                  }).format(finGoal.Recommended_Savings_Amount__c)
-                : finGoal.Recommended_Savings_Amount__c;
-          });
-        }
-
-        this.inProgressGoals = result;
-      })
-      .catch((error) => {
-        this.loading = false;
-        if (error.body && error.body.message) {
-          this.error = error.body.message;
-        }
-        this.hasError = true;
-      });
-  }
-
-  getCompletedGoals() {
-    getFinancialGoals({
-      ownerId: this.recordId,
-      status: "Completed",
-      recordLimit: 4
-    })
-      .then((result) => {
-        if (result) {
-          //If we get more than 3 records, set view all to true and get first 3 records
-          if (result.length > 3) {
-            this.viewAllCompleted = true;
-            result = result.slice(0, 3);
-          }
-
-          result.forEach((finGoal) => {
-            //Only set timestamp once instead of each time in the loop
-            if (!this.timestamp) {
-              this.setTimestamp(finGoal.LastModifiedDate);
-            }
-
-            //Work out percentage for fill
-            finGoal.fillPercent = Math.floor(
-              (finGoal.FinServ__ActualValue__c /
-                finGoal.FinServ__TargetValue__c) *
-                100
-            );
-
-            //Dont let overfill 100%
-            finGoal.fillPercent =
-              finGoal.fillPercent >= 100 ? 100 : finGoal.fillPercent;
-
-            //Format balances
-            finGoal.FinServ__TargetValue__c = new Intl.NumberFormat("en-AU", {
-              style: "currency",
-              currency: "AUD"
-            }).format(finGoal.FinServ__TargetValue__c);
-
-            finGoal.FinServ__ActualValue__c = new Intl.NumberFormat("en-AU", {
-              style: "currency",
-              currency: "AUD"
-            }).format(finGoal.FinServ__ActualValue__c);
-
-            // Override potential null values with generic values
-            if (finGoal.FinServ__TargetDate__c) {
-              const targetDate = new Date(finGoal.FinServ__TargetDate__c);
-              finGoal.FinServ__TargetDate__c =
-                targetDate.getDate() +
-                " " +
-                targetDate.toLocaleString("en-AU", {
-                  month: "long"
-                }) +
-                " " +
-                targetDate.getFullYear();
-            } else {
-              finGoal.FinServ__TargetDate__c = "N/A";
-            }
-
-            if (finGoal.FinServ__CompletionDate__c) {
-              const completionDate = new Date(
-                finGoal.FinServ__CompletionDate__c
-              );
-              finGoal.FinServ__CompletionDate__c =
-                completionDate.getDate() +
-                " " +
-                completionDate.toLocaleString("en-AU", {
-                  month: "long"
-                }) +
-                " " +
-                completionDate.getFullYear();
-            } else {
-              finGoal.FinServ__CompletionDate__c = "Unspecified";
-            }
-          });
-        }
-        this.completedGoals = result;
-      })
-      .catch((error) => {
-        this.loading = false;
-        if (error.body && error.body.message) {
-          this.error = error.body.message;
-        }
-        this.hasError = true;
-      });
+    this.loading = false;
   }
 
   showToast(theTitle, theMessage) {

@@ -6,8 +6,7 @@ import {
   registerLdsTestWireAdapter,
   registerTestWireAdapter
 } from "@salesforce/sfdx-lwc-jest";
-import UpdateAccountsAndGoals from "@salesforce/messageChannel/FinancialAccountsGoalsUpdate__c";
-import UpdateAccountsGoalsTimed from "@salesforce/messageChannel/FinancialAccountGoalsTimedUpdate__c";
+import UpdateAccounts from "@salesforce/messageChannel/FinancialAccountsUpdate__c";
 import TriggerLoading from "@salesforce/messageChannel/FinancialAccountsTriggerLoading__c";
 
 jest.mock(
@@ -105,7 +104,9 @@ describe("c-accountsBalances", () => {
     });
     document.body.appendChild(element);
 
-    expect(subscribe).toHaveBeenCalled();
+    return Promise.resolve().then(() => {
+      expect(subscribe).toHaveBeenCalled();
+    });
   });
 
   it("test update accounts and goals secenario", () => {
@@ -120,7 +121,7 @@ describe("c-accountsBalances", () => {
       update: true
     };
 
-    publish(messageContextWireAdapter, UpdateAccountsAndGoals, payload);
+    publish(messageContextWireAdapter, UpdateAccounts, payload);
 
     return flushPromises().then(() => {
       const balanceEle = element.shadowRoot.querySelector("article");
@@ -140,7 +141,7 @@ describe("c-accountsBalances", () => {
       message: "test error message"
     };
 
-    publish(messageContextWireAdapter, UpdateAccountsAndGoals, payload);
+    publish(messageContextWireAdapter, UpdateAccounts, payload);
 
     return flushPromises().then(() => {
       const balanceEle = element.shadowRoot.querySelector("article");
@@ -160,7 +161,7 @@ describe("c-accountsBalances", () => {
       message: "test error message"
     };
 
-    publish(messageContextWireAdapter, UpdateAccountsAndGoals, payload);
+    publish(messageContextWireAdapter, UpdateAccounts, payload);
 
     return flushPromises().then(() => {
       const balanceEle = element.shadowRoot.querySelector("article");
@@ -180,7 +181,7 @@ describe("c-accountsBalances", () => {
       message: "test error message"
     };
 
-    publish(messageContextWireAdapter, UpdateAccountsAndGoals, payload);
+    publish(messageContextWireAdapter, UpdateAccounts, payload);
 
     return flushPromises().then(() => {
       const balanceEle = element.shadowRoot.querySelector("article");
@@ -200,7 +201,7 @@ describe("c-accountsBalances", () => {
       message: "test error message"
     };
 
-    publish(messageContextWireAdapter, UpdateAccountsAndGoals, payload);
+    publish(messageContextWireAdapter, UpdateAccounts, payload);
 
     return flushPromises().then(() => {
       const balanceEle = element.shadowRoot.querySelector("article");

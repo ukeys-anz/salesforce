@@ -4,5 +4,5 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted;Source - Azure;Privacy - Personal Information</complianceGroup>
     <description>Landline phone number</description>
-    <securityClassification>Confidential</securityClassification>
+    <securityClassification>Internal</securityClassification>
 </CustomField>

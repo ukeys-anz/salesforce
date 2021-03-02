@@ -113,13 +113,12 @@ public with sharing class AuthTokenCacheUtil {
         Cache.Org.remove(AuthTokenCacheUtil.ORGPART + 'refreshToken' + userId);
         Cache.Org.remove(AuthTokenCacheUtil.ORGPART + 'idToken' + userId);
       } else {
-        Lib_SystemLog.createSingleLog(
+        Lib_SystemLog.createSingleLogAsync(
           AuthTokenCacheUtil.class.getName(),
           'storeAzureSessionTokens',
           '1',
           'Login Flow Invocable method did not receive Azure Refresh or Id Token for user: ' +
-          userId,
-          Lib_SystemLog.Severity.ERROR
+          userId
         );
       }
     }

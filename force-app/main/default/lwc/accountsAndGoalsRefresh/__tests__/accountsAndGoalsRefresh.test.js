@@ -1,20 +1,19 @@
 import accountsAndGoalsRefresh from "c/accountsAndGoalsRefresh";
 import { createElement } from "lwc";
-import getAccounts from "@salesforce/apex/GetAccountsAndGoals.getAccounts";
-import updateAccounts from "@salesforce/apex/UpdateAccountsAndGoals.updateAccounts";
-import updateGoals from "@salesforce/apex/UpdateAccountsAndGoals.updateGoals";
+import getAccounts from "@salesforce/apex/CoachBankingAPIRepository.getAccountsAura";
+import updateAccounts from "@salesforce/apex/UpdateFinancialAccounts.updateAccounts";
 import { getRecord } from "lightning/uiRecordApi";
-import { publish, subscribe, MessageContext } from "lightning/messageService";
+import { publish, MessageContext } from "lightning/messageService";
 import {
   registerLdsTestWireAdapter,
   registerTestWireAdapter
 } from "@salesforce/sfdx-lwc-jest";
-import UpdateAccountsAndGoals from "@salesforce/messageChannel/FinancialAccountsGoalsUpdate__c";
+import UpdateAccounts from "@salesforce/messageChannel/FinancialAccountsUpdate__c";
 import UpdateAccountsGoalsTimed from "@salesforce/messageChannel/FinancialAccountGoalsTimedUpdate__c";
 import TriggerLoading from "@salesforce/messageChannel/FinancialAccountsTriggerLoading__c";
 
 jest.mock(
-  "@salesforce/apex/GetAccountsAndGoals.getAccounts",
+  "@salesforce/apex/CoachBankingAPIRepository.getAccountsAura",
   () => {
     return {
       default: jest.fn()
@@ -24,17 +23,7 @@ jest.mock(
 );
 
 jest.mock(
-  "@salesforce/apex/UpdateAccountsAndGoals.updateAccounts",
-  () => {
-    return {
-      default: jest.fn()
-    };
-  },
-  { virtual: true }
-);
-
-jest.mock(
-  "@salesforce/apex/UpdateAccountsAndGoals.updateGoals",
+  "@salesforce/apex/UpdateFinancialAccounts.updateAccounts",
   () => {
     return {
       default: jest.fn()
@@ -54,18 +43,6 @@ const APEX_UPDATE_ACCOUNTS_SUCCESS = [
     FinServ__Balance__c: 50,
     FinServ__CurrentPostedBalance__c: 50,
     FinServ__Status__c: "Closed",
-    LastModifiedDate: "2021-01-05T04:56:48.000+0000"
-  }
-];
-
-const APEX_UPDATE_GOALS_SUCCESS = [
-  {
-    Id: "a0c2O00000197sUQAQ",
-    FinServ__TargetValue__c: 50,
-    FinServ__ActualValue__c: 50,
-    FinServ__TargetDate__c: "2021-03-05T04:56:48.000+0000",
-    Recommended_Savings_Amount__c: 200,
-    FinServ__CompletionDate__c: "2021-04-05T04:56:48.000+0000",
     LastModifiedDate: "2021-01-05T04:56:48.000+0000"
   }
 ];
@@ -106,19 +83,9 @@ describe("c-accountsAndGoalsRefresh", () => {
     });
   });
 
-  it("test subscribe is called", () => {
-    const element = createElement("c-accountsAndGoalsRefresh", {
-      is: accountsAndGoalsRefresh
-    });
-    document.body.appendChild(element);
-
-    expect(subscribe).toHaveBeenCalled();
-  });
-
   it("test normal value", () => {
     getAccounts.mockResolvedValue(APEX_ACCOUNTS_SUCCESS);
     updateAccounts.mockResolvedValue(APEX_UPDATE_ACCOUNTS_SUCCESS);
-    updateGoals.mockResolvedValue(APEX_UPDATE_GOALS_SUCCESS);
     const element = createElement("c-accountsAndGoalsRefresh", {
       is: accountsAndGoalsRefresh
     });
@@ -143,7 +110,6 @@ describe("c-accountsAndGoalsRefresh", () => {
   it("test update failures", () => {
     getAccounts.mockResolvedValue(APEX_ACCOUNTS_SUCCESS);
     updateAccounts.mockRejectedValue(APEX_ACCOUNTS_ERROR);
-    updateGoals.mockRejectedValue(APEX_ACCOUNTS_ERROR);
     const element = createElement("c-accountsAndGoalsRefresh", {
       is: accountsAndGoalsRefresh
     });
@@ -168,7 +134,6 @@ describe("c-accountsAndGoalsRefresh", () => {
   it("test get account failures", () => {
     getAccounts.mockRejectedValue(APEX_ACCOUNTS_ERROR);
     updateAccounts.mockRejectedValue(APEX_ACCOUNTS_ERROR);
-    updateGoals.mockRejectedValue(APEX_ACCOUNTS_ERROR);
     const element = createElement("c-accountsAndGoalsRefresh", {
       is: accountsAndGoalsRefresh
     });
@@ -193,7 +158,6 @@ describe("c-accountsAndGoalsRefresh", () => {
   it("test get account return empty value", () => {
     getAccounts.mockResolvedValue(null);
     updateAccounts.mockRejectedValue(APEX_ACCOUNTS_ERROR);
-    updateGoals.mockRejectedValue(APEX_ACCOUNTS_ERROR);
     const element = createElement("c-accountsAndGoalsRefresh", {
       is: accountsAndGoalsRefresh
     });

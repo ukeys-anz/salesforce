@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Advocacy_Rating__c</fullName>
-    <businessStatus>Active</businessStatus>
+    <businessStatus>Hidden</businessStatus>
     <complianceGroup>Integrity_Trusted;Privacy - Non Personal Information</complianceGroup>
     <description>Numerical score from 0 - 10 (inclusive) - presented as a whole number</description>
     <externalId>false</externalId>

@@ -32,10 +32,10 @@
                   </h2>
                 </header>
               </div>
-              <template if:true={inProgressGoals}>
+              <template if:true={goals}>
                 <div class="slds-card__body slds-card__body_inner">
                   <ul class="slds-grid slds-wrap slds-grid_pull-padded">
-                    <template for:each={inProgressGoals} for:item="finGoal">
+                    <template for:each={goals} for:item="finGoal">
                       <li
                         class="slds-p-horizontal_small slds-size_1-of-1 slds-medium-size_1-of-1"
                         key={finGoal.Id}
@@ -48,9 +48,9 @@
                                   <a
                                     onclick={navigateToRecordViewPage}
                                     data-id={finGoal.Id}
-                                    title={finGoal.Name}
+                                    title={finGoal.name}
                                   >
-                                    <span>{finGoal.Name}</span>
+                                    <span>{finGoal.name}</span>
                                   </a>
                                 </h2>
                               </header>
@@ -70,7 +70,7 @@
                                         Target Value
                                       </p>
                                       <p class="slds-text-title_bold">
-                                        {finGoal.FinServ__TargetValue__c}
+                                        {finGoal.targetAmount}
                                       </p>
                                     </div>
                                   </div>
@@ -84,7 +84,7 @@
                                         Available Balance
                                       </p>
                                       <p class="slds-text-title_bold">
-                                        {finGoal.FinServ__ActualValue__c}
+                                        {finGoal.currentBalance}
                                       </p>
                                     </div>
                                   </div>
@@ -104,9 +104,14 @@
                                         class="field-title slds-text-color_weak"
                                       >
                                         Target Date
+                                        <lightning-helptext
+                                          class="tooltip"
+                                          content={finGoal.daysRemaining}
+                                        >
+                                        </lightning-helptext>
                                       </p>
                                       <p class="slds-text-title_bold">
-                                        {finGoal.FinServ__TargetDate__c}
+                                        {finGoal.targetDate}
                                       </p>
                                     </div>
                                   </div>
@@ -125,7 +130,7 @@
                                         </lightning-helptext>
                                       </p>
                                       <p class="slds-text-title_bold">
-                                        {finGoal.Recommended_Savings_Amount__c}
+                                        {finGoal.recommendedSavings}
                                       </p>
                                     </div>
                                   </div>
@@ -135,7 +140,7 @@
                             <div class="ring">
                               <c-progress-ring
                                 progress={finGoal.fillPercent}
-                                emoticon={finGoal.Icon__c}
+                                emoticon={finGoal.icon}
                               >
                               </c-progress-ring>
                             </div>
@@ -146,7 +151,7 @@
                   </ul>
                 </div>
               </template>
-              <template if:false={inProgressGoals}>
+              <template if:false={goals}>
                 <h1 class="slds-card__header-title main-title">
                   <span class="not-found">No Financial Goals In Progress</span>
                 </h1>

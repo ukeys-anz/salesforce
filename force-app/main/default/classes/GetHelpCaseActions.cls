@@ -23,6 +23,9 @@ public with sharing class GetHelpCaseActions {
   public static final Id SCAM_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('Scam')
     .getRecordTypeId();
+  public static final Id KYCQA_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+    .get('KYC_QA')
+    .getRecordTypeId();
   public static final Id BUG_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('Bug_Enquiry')
     .getRecordTypeId();
@@ -31,11 +34,14 @@ public with sharing class GetHelpCaseActions {
     FRAUD_RT_ID,
     IDENTITY_RT_ID,
     RECIPIENT_MULE_RT_ID,
-    SCAM_RT_ID
+    SCAM_RT_ID,
+    KYCQA_RT_ID
   };
 
   // Parent Case validation error message
   private static final String PARENT_CASE_ERROR = 'You cannot add parent case. This case is associated with child cases';
+
+  private static Map<String, String> caseTypeLabelByValue = new Map<String, String>();
 
   /**
    * @description beforeUpdate(oldMap, records) method handles the following
@@ -62,12 +68,11 @@ public with sharing class GetHelpCaseActions {
         validateCaseList.add(record);
       }
 
-      if (
-        record.RecordTypeId == GENERAL_INQUIRY_RT_ID &&
-        oldRecord.Status != 'Closed' &&
-        record.Status == 'Closed'
-      ) {
-        milestoneIds.add(record.Id);
+      if (oldRecord.Status != 'Closed' && record.Status == 'Closed') {
+        updateCaseDurationTime(record);
+        if (record.RecordTypeId == GENERAL_INQUIRY_RT_ID) {
+          milestoneIds.add(record.Id);
+        }
       }
     }
 
@@ -183,7 +188,8 @@ public with sharing class GetHelpCaseActions {
         (oldCaseMap == null ||
         (record.Type != oldCaseMap.get(record.Id).Type ||
         record.Additional_Type__c !=
-        oldCaseMap.get(record.Id).Additional_Type__c))
+        oldCaseMap.get(record.Id).Additional_Type__c ||
+        record.RecordTypeId != oldCaseMap.get(record.Id).RecordTypeId))
       ) {
         populateCaseSubject(record);
       }
@@ -194,7 +200,8 @@ public with sharing class GetHelpCaseActions {
         FRAUD_RT_IDS.contains(record.RecordTypeId) &&
         String.isNotBlank(record.Type) &&
         (oldCaseMap == null ||
-        record.Type != oldCaseMap.get(record.Id).Type)
+        record.Type != oldCaseMap.get(record.Id).Type ||
+        record.RecordTypeId != oldCaseMap.get(record.Id).RecordTypeId)
       ) {
         populateFraudCaseSubject(record);
       }
@@ -209,7 +216,8 @@ public with sharing class GetHelpCaseActions {
     List<String> caseTypeList = new List<String>();
 
     if (String.isNotBlank(record.Type)) {
-      caseTypeList.add(record.Type);
+      fetchCaseTypeLabelsByValues();
+      caseTypeList.add(caseTypeLabelByValue.get(record.Type));
     }
     if (String.isNotBlank(record.Additional_Type__c)) {
       caseTypeList.addAll(record.Additional_Type__c.split(';'));
@@ -228,16 +236,30 @@ public with sharing class GetHelpCaseActions {
     List<String> caseTypeList = new List<String>();
 
     if (String.isNotBlank(record.Type)) {
-      //populate case subject
-      record.Subject =
-        Schema.getGlobalDescribe()
-          .get('Case')
-          .getDescribe()
-          .getRecordTypeInfosById()
-          .get(record.RecordTypeId)
-          .getName() +
-        ' - ' +
-        record.Type;
+      fetchCaseTypeLabelsByValues();
+      // Setting a different Subject format for KYC QA Cases
+      if (KYCQA_RT_ID == record.RecordTypeId) {
+        record.Subject = caseTypeLabelByValue.get(record.Type);
+      } else {
+        record.Subject =
+          Schema.getGlobalDescribe()
+            .get('Case')
+            .getDescribe()
+            .getRecordTypeInfosById()
+            .get(record.RecordTypeId)
+            .getName() +
+          ' - ' +
+          caseTypeLabelByValue.get(record.Type);
+      }
+    }
+  }
+
+  /**
+   * @description Fetches (if not already available) a map of Case 'Type' Picklist Labels by Values
+   */
+  public static void fetchCaseTypeLabelsByValues() {
+    if (caseTypeLabelByValue.isEmpty()) {
+      caseTypeLabelByValue = CommonUtils.getPicklistLabelsByValues(Case.Type);
     }
   }
 
@@ -373,5 +395,68 @@ public with sharing class GetHelpCaseActions {
   public static void completeCaseMilestone(List<Id> caseIds) {
     //Mark milestones as completed
     MilestoneUtils.completeMilestone(caseIds, 'Resolution Time', System.now());
+  }
+
+  /**
+   * @description This method updates the case duration hours field for EA for further usage
+   * when the case status is updated to closed
+   * @param record case from the trigger
+   */
+  public static void updateCaseDurationTime(Case record) {
+    CaseDurationObject.DurationTime durationTime = CaseDurationService.getCaseDurationTime(
+      record.Id
+    );
+    record.Case_Hour_Duration__c = durationTime.dHours.setScale(
+      2,
+      RoundingMode.HALF_UP
+    );
+  }
+
+  /**
+   * @description This method updates the case business hours field
+   * to be ANZx specific
+   * @param record the record we are updating
+   */
+  private static void setBusinessHours(Case record) {
+    if (BusinessHours.SObjectType.getDescribe().isAccessible()) {
+      BusinessHours bhs = [
+        SELECT Id
+        FROM BusinessHours
+        WHERE Name = 'ANZx Case Business Hours'
+      ];
+
+      record.BusinessHoursId = bhs.Id;
+    }
+  }
+
+  /**
+   * @description applyDefaults is called onBeforeInsert to set the following values as defaults
+   * 1. Update business hours field to match ANZx business hours
+   * @param records The record list form which we need to apply defaults
+   */
+  public static void applyDefaults(List<Case> records) {
+    for (Case record : records) {
+      if (isANZxCaseType(record)) {
+        setBusinessHours(record);
+      }
+    }
+  }
+
+  /**
+   * @description isANZxCaseType check if record type is of ANZx type.
+   * As this Trigger will be used across various teams we identify case record based on ANZx record Type.
+   *
+   * @param record The record for which the recordType needs to be checked
+   * @return `Boolean` True if the the record type is of ANZx type false otherwise.
+   */
+  private static Boolean isANZxCaseType(Case record) {
+    if (
+      FRAUD_RT_IDS.contains(record.RecordTypeId) ||
+      record.RecordTypeId == GENERAL_INQUIRY_RT_ID ||
+      record.RecordTypeId == BUG_RT_ID
+    ) {
+      return true;
+    }
+    return false;
   }
 }

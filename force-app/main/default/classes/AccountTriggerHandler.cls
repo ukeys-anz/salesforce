@@ -17,9 +17,10 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
    * @description onValidate(oldMap) is called before onAfterUpdate and all the required record updates are handled here
    * @param oldMap old trigger values
    */
-  public override void onValidate(Map<Id, SObject> oldMap) {
-    AccountCommonActions.checkForAccountDeletion(records);
-  }
+  // ABT-25697 - Disable Trigger for Delete Event for Beta
+  // public override void onValidate(Map<Id, SObject> oldMap) {
+  //   AccountCommonActions.checkForAccountDeletion(records);
+  // }
 
   /**
    * @description onAfterInsert to update the list of records which were identified in onValidate() method

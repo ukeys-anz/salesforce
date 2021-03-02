@@ -30,6 +30,71 @@ export default class TransactionHistoryRecord extends LightningElement {
     }
   }
 
+  get merchantPhoneNumber() {
+    let merPhoneNumber;
+    if (
+      this.transactionRecord.merchant &&
+      this.transactionRecord.merchant.phone_number
+    ) {
+      merPhoneNumber = this.transactionRecord.merchant.phone_number.value;
+    } else {
+      merPhoneNumber = "Unknown";
+    }
+    return merPhoneNumber;
+  }
+
+  get merchantWebsiteUrl() {
+    let merWebsiteUrl;
+    if (
+      this.transactionRecord.merchant &&
+      this.transactionRecord.merchant.website_url
+    ) {
+      merWebsiteUrl = this.transactionRecord.merchant.website_url.value;
+    } else {
+      merWebsiteUrl = "Unknown";
+    }
+    return merWebsiteUrl;
+  }
+
+  get amountConvertedValue() {
+    let amountConValue;
+    if (
+      this.transactionRecord.amount &&
+      this.transactionRecord.amount.converted
+    ) {
+      amountConValue = this.transactionRecord.amount.converted.value;
+    } else {
+      amountConValue = "Unknown";
+    }
+    return amountConValue;
+  }
+
+  get amountConvertedCurrency() {
+    let amountConCurrency;
+    if (
+      this.transactionRecord.amount &&
+      this.transactionRecord.amount.converted
+    ) {
+      amountConCurrency = this.transactionRecord.amount.converted.currency;
+    } else {
+      amountConCurrency = "Unknown";
+    }
+    return amountConCurrency;
+  }
+
+  get amountExchangeRateValue() {
+    let amountExchangeRate;
+    if (
+      this.transactionRecord.amount &&
+      this.transactionRecord.amount.exchangeRate
+    ) {
+      amountExchangeRate = this.transactionRecord.amount.exchangeRate.value;
+    } else {
+      amountExchangeRate = "Unknown";
+    }
+    return amountExchangeRate;
+  }
+
   get amountNumber() {
     let relatedAmount = this.transactionRecord.amount.charged.value;
     if (relatedAmount < 0) {

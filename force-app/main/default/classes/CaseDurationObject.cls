@@ -118,12 +118,14 @@ public with sharing class CaseDurationObject {
     public long hours;
     @AuraEnabled
     public long minutes;
+    public Decimal dHours;
     /**
      *
      * @description The DurationTime constructor requires the time in hours in decimal format to initialise
      * @param decimalHours The decimal form of the time between two datetimes
      */
     public DurationTime(Decimal decimalHours) {
+      dHours = decimalHours;
       hours = decimalHours.longValue();
       minutes = ((decimalHours - hours) * SFConstants.MIN_IN_HOUR).longValue();
     }

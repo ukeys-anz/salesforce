@@ -9,7 +9,7 @@
     <precision>5</precision>
     <required>false</required>
     <scale>2</scale>
-    <securityClassification>Internal</securityClassification>
+    <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <type>Number</type>
     <unique>false</unique>

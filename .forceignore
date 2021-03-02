@@ -53,3 +53,34 @@ force-app/main/default/permissionsets/myTrailhead_PSL.permissionset-meta.xml
 
 #Ignoring Jest tests as per https://developer.salesforce.com/docs/component-library/documentation/en/lwc/lwc.unit_testing_using_jest_create_tests
 **/__tests__/**
+
+#Ignoring these objects/fields as they aren't used. Ignored as per https://jira.service.anz/browse/ABT-27699
+force-app/main/default/objects/ServiceAppointment/
+force-app/main/default/objects/ServiceResource/
+force-app/main/default/objects/ServiceTerritory/
+force-app/main/default/objects/WorkTypeGroup/
+force-app/main/default/objects/Lead/
+force-app/main/default/objects/Location/
+force-app/main/default/objects/Opportunity/
+force-app/main/default/objects/Individual/
+force-app/main/default/objects/FinServ__Securities__c/
+force-app/main/default/objects/FinServ__ReciprocalRole__c/
+force-app/main/default/objects/FinServ__RollupByLookupConfig__c/
+force-app/main/default/objects/SocialPost/
+force-app/main/default/objects/Campaign/
+force-app/main/default/objects/ContactRequest/
+force-app/main/default/objects/FinServ__FinancialAccountRole__c/fields/FinServ__RelatedContact__c.field-meta.xml
+force-app/main/default/objects/FinServ__FinancialAccountRole__c/fields/FinServ__SourceSystemId__c.field-meta.xml
+force-app/main/default/objects/FinServ__FinancialGoal__c/fields/FinServ__Household__c.field-meta.xml
+force-app/main/default/objects/FinServ__FinancialGoal__c/fields/FinServ__SourceSystemId__c.field-meta.xml
+force-app/main/default/flows/Outbound_New_Appointment.flow-meta.xml
+force-app/main/default/quickActions/Account.New_Appointment.quickAction-meta.xml
+force-app/main/default/objects/FinServ__FinancialGoal__c
+force-app/main/default/layouts/FinServ__FinancialGoal__c-FinServ__Financial Goal Layout.layout-meta.xml
+
+#Ignoring apex classes below as they have been renamed
+force-app/main/default/classes/EverydayAccountController.cls
+force-app/main/default/classes/FinancialGoalsComponentController.cls
+force-app/main/default/classes/UpdateAccountsAndGoals.cls
+force-app/main/default/messageChannels/FinancialAccountsGoalsUpdate.messageChannel-meta.xml
+force-app/main/default/classes/GetAccountsAndGoals.cls

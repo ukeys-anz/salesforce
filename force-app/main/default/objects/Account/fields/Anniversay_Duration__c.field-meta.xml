@@ -11,7 +11,7 @@ Text(Today() -  Anniversary_Date__c) &amp; &quot; Day(s)&quot;,
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Anniversay Duration</label>
     <required>false</required>
-    <securityClassification>Internal</securityClassification>
+    <securityClassification>Confidential</securityClassification>
     <type>Text</type>
     <unique>false</unique>
 </CustomField>

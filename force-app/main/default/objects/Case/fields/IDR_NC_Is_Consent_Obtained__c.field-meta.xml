@@ -8,7 +8,7 @@
     <externalId>false</externalId>
     <inlineHelpText>The script to read out to the customer is located in the utility bar.</inlineHelpText>
     <label>Privacy Script Read and Consent Obtained</label>
-    <securityClassification>Internal</securityClassification>
+    <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>

@@ -1,6 +1,10 @@
 @SuppressWarnings('PMD.CyclomaticComplexity')
 @isTest
 private class TestCaseTriggerHandler {
+  public static Map<String, String> caseTypeLabelByValue = CommonUtils.getPicklistLabelsByValues(
+    Case.Type
+  );
+
   @testSetup
   static void setup() {
     Faker faker = new Faker('AU');
@@ -53,7 +57,10 @@ private class TestCaseTriggerHandler {
             Name = 'TestAccount',
             Display_Name__c = 'TestAccount',
             OCV_ID__c = faker.randomString(10),
-            ANZx_Customer__c = true
+            ANZx_Customer__c = true,
+            // Criteria based sharing rules cannot be tested in APEX unit tests.
+            // Therefore, sharing the test Account record with user by assigning ownership.
+            OwnerId = fraudXAgent.Id
           )
         );
       }
@@ -106,7 +113,9 @@ private class TestCaseTriggerHandler {
     // GIVEN cases are created
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(new Case());
+      newCases.add(
+        new Case(RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID)
+      );
     }
     // WHEN they are inserted
     insert newCases;
@@ -134,7 +143,12 @@ private class TestCaseTriggerHandler {
     // GIVEN cases which already have their case number copied
     Case[] casesWithCopiedCaseNumber = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      casesWithCopiedCaseNumber.add(new Case(CaseNumber__c = '123' + i));
+      casesWithCopiedCaseNumber.add(
+        new Case(
+          CaseNumber__c = '123' + i,
+          RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID
+        )
+      );
     }
     // WHEN they are inserted
     insert casesWithCopiedCaseNumber;
@@ -167,7 +181,8 @@ private class TestCaseTriggerHandler {
           IDR_Complainant_Desired_Outcome__c = 'Test decription 1234 5678 9101 check mask',
           IDR_Description_of_Outcome__c = 'Test decription 123456789101 check mask',
           IDR_Systemic_Issue_Description__c = 'Test decription 1234-5678-9101 check mask',
-          RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID
+          RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
+          IDR_Customer_Number__c = '1234567890'
         )
       );
     }
@@ -223,7 +238,7 @@ private class TestCaseTriggerHandler {
           Status = 'Escalated',
           IDR_Escalated_to__c = '1',
           IDR_Escalation_Reason__c = '1',
-          RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID
+          RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID
         )
       );
     }
@@ -244,7 +259,7 @@ private class TestCaseTriggerHandler {
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
-        new Case(RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID)
+        new Case(RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID)
       );
     }
     // WHEN they are inserted
@@ -272,13 +287,43 @@ private class TestCaseTriggerHandler {
   }
 
   @isTest
+  static void testComplaintEscalationStatus() {
+    // GIVEN cases are created as not escalated
+    Case[] newCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID,
+          IsEscalated = true,
+          IDR_Escalated_to__c = '2',
+          IDR_Escalation_Reason__c = '1',
+          OwnerId = IDRCaseActions.queue.Id
+        )
+      );
+    }
+    // WHEN they are inserted
+    insert newCases;
+    // THEN check if IsEscalated is false
+    Case c = [
+      SELECT CaseNumber, IDR_Escalated_to__c, Status, IsEscalated
+      FROM Case
+      WHERE id = :newCases[0].id
+    ];
+    System.assert(c.Status == 'Escalated', 'Status is Escalated ');
+    System.assert(
+      c.IDR_Escalated_to__c == '1',
+      'Escalated is changed to Customer Resolution Portfolio'
+    );
+  }
+
+  @isTest
   static void testDateWhenComplaintIsReopened() {
     // GIVEN cases are created as not re-openened
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
+          RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID,
           Status = 'Closed',
           IDR_Complaint_Outcome__c = '1',
           IDR_Description_of_Outcome__c = 'test'
@@ -364,7 +409,7 @@ private class TestCaseTriggerHandler {
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
-        new Case(RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID)
+        new Case(RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID)
       );
     }
     // WHEN they are inserted
@@ -421,7 +466,7 @@ private class TestCaseTriggerHandler {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
+          RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID,
           Status = 'Escalated',
           IDR_Escalated_to__c = '1',
           IDR_Escalation_Reason__c = '1'
@@ -440,7 +485,7 @@ private class TestCaseTriggerHandler {
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
-        new Case(RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID)
+        new Case(RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID)
       );
     }
     insert newCases;
@@ -826,11 +871,7 @@ private class TestCaseTriggerHandler {
   @isTest
   static void testPopulateFraudCaseSubject() {
     Faker faker = new Faker('AU');
-    List<String> caseTypes = new List<String>{
-      'Remote Access',
-      'Other',
-      'Not a Scam'
-    };
+    List<String> caseTypes = new List<String>{ 'Remote Access', 'Not a Scam' };
 
     // GIVEN FraudX Agent user has required acces
     // Query for API User
@@ -844,10 +885,6 @@ private class TestCaseTriggerHandler {
       WHERE Display_Name__c = 'TestAccount'
       LIMIT 1
     ];
-
-    // criteria based sharing rules cannot be tested in apex, so open up access to this user
-    acc.OwnerId = usr.Id;
-    update acc;
 
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
@@ -879,7 +916,7 @@ private class TestCaseTriggerHandler {
     system.assertEquals(
       sampleCase1.RecordType.Name +
       ' - ' +
-      sampleCase1.Type,
+      caseTypeLabelByValue.get(sampleCase1.Type),
       sampleCase1.Subject,
       'Failed to autopopulate Subject on Fraud cases as expected, while inserting'
     );
@@ -943,5 +980,158 @@ private class TestCaseTriggerHandler {
 
     System.assertEquals(IDRCaseActions.siQueue.Id, psiTasks[0].OwnerId);
     System.assertEquals(IDRCaseActions.IDR_TASK_SUBJECT, psiTasks[0].Subject);
+  }
+
+  //Test to verify Subject auto-population when Case Type has a numerical value different from the label
+  static void testNumericCaseTypeValue() {
+    Faker faker = new Faker('AU');
+    // GIVEN the selected Case Types has numerical values as API names
+    List<String> caseTypes = new List<String>{ '10', '11' };
+
+    // WHEN a user creates or updates a Fradx 'Scam' case
+    Case[] newCases = new List<Case>();
+    Account acc = [
+      SELECT Id
+      FROM Account
+      WHERE Display_Name__c = 'TestAccount'
+      LIMIT 1
+    ];
+
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = GetHelpCaseActions.SCAM_RT_ID,
+          Type = faker.randomElement(caseTypes),
+          AccountId = acc.Id
+        )
+      );
+    }
+
+    Test.startTest();
+    insert newCases;
+    Test.stopTest();
+
+    // THEN Case Subject should be autopopulated based on RecordType Name and Type Label
+
+    // Verify subject on one of the inserted Cases
+    Case sampleCase1 = [
+      SELECT Id, Type, RecordType.Name, Subject
+      FROM Case
+      WHERE Id = :newCases[0].Id
+      LIMIT 1
+    ];
+    system.assertEquals(
+      sampleCase1.RecordType.Name +
+      ' - ' +
+      caseTypeLabelByValue.get(sampleCase1.Type),
+      sampleCase1.Subject,
+      'Failed to autopopulate Subject with Case Type label as expected, while inserting'
+    );
+
+    // Validate UPDATE behaviour
+    newCases[0].Type = '12';
+    update newCases[0];
+
+    Case sampleCase2 = [
+      SELECT Id, Type, RecordType.Name, Subject
+      FROM Case
+      WHERE Id = :newCases[0].Id
+      LIMIT 1
+    ];
+    system.assertEquals(
+      sampleCase2.RecordType.Name +
+      ' - ' +
+      caseTypeLabelByValue.get(sampleCase2.Type),
+      sampleCase2.Subject,
+      'Failed to autopopulate Subject with Case Type label as expected, while updating'
+    );
+  }
+
+  //Tests if KYC QA Fraud Case Subject is populated correctly based on case type.
+  @isTest
+  static void testPopulateKYCQAFraudCaseSubject() {
+    Faker faker = new Faker('AU');
+
+    // GIVEN FraudX Agent user has required acces
+    // Query for API User
+    User usr = [SELECT Id FROM User WHERE FirstName = 'FraudXTest' LIMIT 1];
+
+    // WHEN FraudX Agent user creates or updates a Fraud case
+    Case[] newCases = new List<Case>();
+    Account acc = [
+      SELECT Id
+      FROM Account
+      WHERE Display_Name__c = 'TestAccount'
+      LIMIT 1
+    ];
+
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = GetHelpCaseActions.FRAUD_RT_IDS[4],
+          Type = 'KYC QA Sample',
+          AccountId = acc.Id
+        )
+      );
+    }
+
+    Test.startTest();
+    System.runAs(usr) {
+      insert newCases;
+    }
+    Test.stopTest();
+
+    // THEN Case Subject should be autopopulated based on Type
+
+    // Verify subject on one of the inserted Cases
+    Case sampleCase1 = [
+      SELECT Id, Type, RecordType.Name, Subject
+      FROM Case
+      WHERE Id = :newCases[0].Id
+      LIMIT 1
+    ];
+    system.assertEquals(
+      sampleCase1.Type,
+      sampleCase1.Subject,
+      'Failed to autopopulate Subject on KYC QA Fraud cases as expected, while inserting'
+    );
+  }
+
+  //Tests duration hours field is populated during closure time
+  @isTest
+  static void testUpdateCaseDurationTime() {
+    Case newCase = new Case();
+    newCase.IDR_Customer_Number__c = '123456789012';
+    insert newCase;
+
+    newCase.Status = 'Closed';
+    newCase.IDR_Complaint_Outcome__c = '1';
+    newCase.IDR_Description_of_Outcome__c = 'test';
+
+    update newCase;
+
+    newCase = [
+      SELECT Id, Case_Hour_Duration__c
+      FROM Case
+      WHERE Id = :newCase.Id
+    ];
+    System.assert(newCase.Case_Hour_Duration__c >= 0);
+  }
+
+  @istest
+  static void testBusinessHoursAssignment() {
+    Case newCase = new Case();
+    newCase.RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID;
+    insert newCase;
+
+    BusinessHours bhs = [
+      SELECT Id
+      FROM BusinessHours
+      WHERE Name = 'Case Business Hours'
+    ];
+
+    Case c = [SELECT BusinessHoursId FROM Case WHERE id = :newCase.id];
+
+    System.assertEquals(bhs.Id, c.BusinessHoursId);
   }
 }

@@ -158,7 +158,7 @@ public with sharing class IDRCaseActions {
           caseOwnerIds.add(record.OwnerId);
           changeOfficeCaseList.add(record);
         }
-        handleCaseEscalationRules(record, new Case());
+        handleCaseEscalationRules(record, null);
         if (record.IDR_Is_Common__c == 'Yes') {
           updatePsiTicked.add(record);
         }
@@ -451,11 +451,7 @@ public with sharing class IDRCaseActions {
     );
   }
   /**
-   * @description  handleCaseEscalationRules method is used to handle the case escalations
-   * 1.First condition check is for auto esclated cases
-   * 2.second condition checks for cases created as escalated.
-   * 3.third condition checks for cases that have been esclated after create.
-   * 4.Fourth condition checks for cases that have a change in 'escalated to' after the case is already escalated.
+   * @description  handleCaseEscalationRules method is used to handle the case escalations.
    * @param record The actual case record from the trigger
    * @param oldRec trigger context variable to check on old values.
    */
@@ -465,19 +461,19 @@ public with sharing class IDRCaseActions {
       record.Status != ESCALATED_STATUS &&
       String.isBlank(record.IDR_Escalation_Reason__c)
     ) {
-      // set default values for auto escalated cases , change status to escalated,
-      //assign to CRC queue and send notifcation to CFMS
-      if (oldRec.Status == OPEN_STATUS) {
+      // set default values for auto escalated cases: Status, Escalated To, Escalation Reason
+      record.Status = ESCALATED_STATUS;
+      if (oldRec != null && oldRec.Status == OPEN_STATUS) {
         record.IDR_Escalation_Reason__c = DAY_3_ESCALATION_REASON;
-      } else if (oldRec.Status == UNDER_INVESTIGATION_STATUS) {
+      } else if (
+        oldRec != null &&
+        oldRec.Status == UNDER_INVESTIGATION_STATUS
+      ) {
         record.IDR_Escalation_Reason__c = DAY_5_ESCALATION_REASON;
       }
-      record.Status = ESCALATED_STATUS;
-    } else if (
-      record.Status == ESCALATED_STATUS &&
-      String.isBlank(record.IDR_Escalated_to__c)
-    ) {
-      record.IDR_Escalated_to__c = '1';
+    }
+    if (String.isBlank(record.IDR_Escalated_to__c)) {
+      record.IDR_Escalated_to__c = ESCALATED_TO_CRC_API_NAME;
     }
   }
 

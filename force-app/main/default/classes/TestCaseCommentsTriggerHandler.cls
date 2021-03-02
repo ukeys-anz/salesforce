@@ -2,7 +2,9 @@
 public with sharing class TestCaseCommentsTriggerHandler {
   @istest
   static void testCaseCommentsDelete() {
-    Case c = new Case();
+    Case c = new Case(
+      RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID
+    );
     insert c;
     CaseComment[] newCaseComments = new List<CaseComment>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
@@ -33,7 +35,9 @@ public with sharing class TestCaseCommentsTriggerHandler {
 
   @isTest
   static void testCaseCommentMasking() {
-    Case c = new Case();
+    Case c = new Case(
+      RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID
+    );
     insert c;
     CaseComment[] newCaseComments = new List<CaseComment>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
@@ -66,7 +70,9 @@ public with sharing class TestCaseCommentsTriggerHandler {
     setting.Object_API_Name__c = 'CaseComment';
     setting.Bypass_Delete__c = true;
     insert setting;
-    Case c = new Case();
+    Case c = new Case(
+      RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID
+    );
     insert c;
     CaseComment[] newCaseComments = new List<CaseComment>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {

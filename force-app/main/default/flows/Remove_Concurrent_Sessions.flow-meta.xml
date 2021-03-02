@@ -11,12 +11,13 @@
             <targetReference>Get_Auth_Session_Records</targetReference>
         </connector>
     </actionCalls>
+    <apiVersion>49.0</apiVersion>
     <assignments>
         <description>No of records of Auth Sessions</description>
         <name>AuthSession_Count</name>
         <label>AuthSession Count</label>
-        <locationX>651</locationX>
-        <locationY>57</locationY>
+        <locationX>662</locationX>
+        <locationY>64</locationY>
         <assignmentItems>
             <assignToReference>AuthSessions_Records_Size</assignToReference>
             <operator>AssignCount</operator>
@@ -29,11 +30,27 @@
         </connector>
     </assignments>
     <assignments>
+        <name>Log_Out</name>
+        <label>Log Out</label>
+        <locationX>273</locationX>
+        <locationY>384</locationY>
+        <assignmentItems>
+            <assignToReference>LoginFlow_ForceLogout</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>End</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <description>Remove the most recent session from the list of Auth Sessions</description>
         <name>Remove_Most_Recent_Session_From_List</name>
         <label>Remove Most Recent Session From List</label>
-        <locationX>700</locationX>
-        <locationY>355</locationY>
+        <locationX>790</locationX>
+        <locationY>319</locationY>
         <assignmentItems>
             <assignToReference>AuthSessionRecords</assignToReference>
             <operator>RemovePosition</operator>
@@ -53,6 +70,31 @@
             <stringValue>UI</stringValue>
         </value>
     </constants>
+    <decisions>
+        <name>Browser_Based_Decision</name>
+        <label>Browser-Based Decision</label>
+        <locationX>308</locationX>
+        <locationY>217</locationY>
+        <defaultConnector>
+            <targetReference>Store_Auth_Tokens</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Allow</defaultConnectorLabel>
+        <rules>
+            <name>Block_IE</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>Is_Browser_Supported</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Browser_Not_Supported</targetReference>
+            </connector>
+            <label>Block IE</label>
+        </rules>
+    </decisions>
     <decisions>
         <description>Check if there are more than 1 session for the logged in user if so delete the older one</description>
         <name>Is_Valid_for_Session_Delete</name>
@@ -76,7 +118,21 @@
             <label>More Than one Session</label>
         </rules>
     </decisions>
-    <description>Remove concurrent sessions of the user who is currently logged in. As per the security requirement salesforce should only have one session at a time. So if a user logs in to a different browser or into other system the previous sessions are ended and user will be logged in with the current active session and will always have only one session for a user in salesforce.</description>
+    <description>1. Remove concurrent sessions of the user who is currently logged in. As per the security requirement salesforce should only have one session at a time. So if a user logs in to a different browser or into other system the previous sessions are ended and user will be logged in with the current active session and will always have only one session for a user in salesforce.
+2. Allow login only if user is using a supported browser.</description>
+    <formulas>
+        <name>Is_Browser_Supported</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+  NOT(CONTAINS({!LoginFlow_UserAgent},&quot;Edge&quot;)),
+  OR(
+    CONTAINS({!LoginFlow_UserAgent},&quot;Firefox&quot;),
+    CONTAINS({!LoginFlow_UserAgent},&quot;Chrome&quot;),
+    CONTAINS({!LoginFlow_UserAgent},&quot;Safari&quot;),
+    CONTAINS({!LoginFlow_UserAgent},&quot;Edg&quot;)
+  )
+)</expression>
+    </formulas>
     <interviewLabel>Remove Concurrent Sessions {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Remove Concurrent Sessions</label>
     <processMetadataValues>
@@ -102,8 +158,8 @@
         <description>Remove other auth sessions except the current one</description>
         <name>Delete_Other_Auth_Sessions</name>
         <label>Delete Other Auth Sessions</label>
-        <locationX>458</locationX>
-        <locationY>394</locationY>
+        <locationX>941</locationX>
+        <locationY>351</locationY>
         <inputReference>AuthSessionRecords</inputReference>
     </recordDeletes>
     <recordLookups>
@@ -116,6 +172,7 @@
         <connector>
             <targetReference>AuthSession_Count</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>ParentId</field>
             <operator>EqualTo</operator>
@@ -144,11 +201,41 @@
         <sortField>CreatedDate</sortField>
         <sortOrder>Desc</sortOrder>
     </recordLookups>
+    <screens>
+        <name>Browser_Not_Supported</name>
+        <label>Browser Not Supported</label>
+        <locationX>127</locationX>
+        <locationY>348</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Log_Out</targetReference>
+        </connector>
+        <fields>
+            <name>Brower_Not_Supported_Text</name>
+            <fieldText>&lt;p&gt;The browser you are currently using is not supported.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Chrome is recommended.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>End</name>
+        <label>End</label>
+        <locationX>393</locationX>
+        <locationY>404</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
     <start>
         <locationX>21</locationX>
         <locationY>53</locationY>
         <connector>
-            <targetReference>Store_Auth_Tokens</targetReference>
+            <targetReference>Browser_Based_Decision</targetReference>
         </connector>
     </start>
     <status>Active</status>
@@ -169,6 +256,24 @@
         <isInput>false</isInput>
         <isOutput>false</isOutput>
         <scale>0</scale>
+    </variables>
+    <variables>
+        <name>LoginFlow_ForceLogout</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <booleanValue>false</booleanValue>
+        </value>
+    </variables>
+    <variables>
+        <description>Stores the browser information.</description>
+        <name>LoginFlow_UserAgent</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
     </variables>
     <variables>
         <description>Login Flow User Id</description>

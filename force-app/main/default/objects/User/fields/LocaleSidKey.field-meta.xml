@@ -4,5 +4,5 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate;Source - Azure;Privacy - Personal Information</complianceGroup>
     <description>Preferred language code</description>
-    <securityClassification>Internal</securityClassification>
+    <securityClassification>Confidential</securityClassification>
 </CustomField>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MockCallouts__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Mock callouts if needed so we display the LWC with mock responses. Enable this flag to mock the responses in lower environments</description>
+    <externalId>false</externalId>
+    <label>MockCallouts</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

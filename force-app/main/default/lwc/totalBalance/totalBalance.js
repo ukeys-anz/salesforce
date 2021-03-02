@@ -6,7 +6,7 @@ import getTotalSaved from "@salesforce/apex/TotalBalanceController.getTotalSaved
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
 import { subscribe, MessageContext } from "lightning/messageService";
-import UpdateAccountsAndGoals from "@salesforce/messageChannel/FinancialAccountsGoalsUpdate__c";
+import UpdateAccounts from "@salesforce/messageChannel/FinancialAccountsUpdate__c";
 import TriggerLoading from "@salesforce/messageChannel/FinancialAccountsTriggerLoading__c";
 
 export default class TotalBalance extends LightningElement {
@@ -35,7 +35,7 @@ export default class TotalBalance extends LightningElement {
 
     this.subscription = subscribe(
       this.messageContext,
-      UpdateAccountsAndGoals,
+      UpdateAccounts,
       (message) => {
         if (message.update) {
           this.totalSaved = null;
