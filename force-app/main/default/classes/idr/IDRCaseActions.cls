@@ -627,7 +627,10 @@ public with sharing class IDRCaseActions {
         record.IDR_Escalation_Reason__c = DAY_5_ESCALATION_REASON;
       }
     }
-    if (String.isBlank(record.IDR_Escalated_to__c)) {
+    if (
+      record.Status == ESCALATED_STATUS &&
+      String.isBlank(record.IDR_Escalated_to__c)
+    ) {
       record.IDR_Escalated_to__c = ESCALATED_TO_CRC_API_NAME;
     }
   }
