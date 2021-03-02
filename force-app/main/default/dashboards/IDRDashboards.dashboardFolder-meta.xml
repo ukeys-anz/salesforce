@@ -2,8 +2,8 @@
 <DashboardFolder xmlns="http://soap.sforce.com/2006/04/metadata">
     <folderShares>
         <accessLevel>View</accessLevel>
-        <sharedTo>All_IDR_Users</sharedTo>
-        <sharedToType>Group</sharedToType>
+        <sharedTo>ANZ</sharedTo>
+        <sharedToType>RoleAndSubordinatesInternal</sharedToType>
     </folderShares>
     <name>CMOS Dashboards</name>
 </DashboardFolder>

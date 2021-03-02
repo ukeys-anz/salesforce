@@ -12,6 +12,6 @@
     <label>IDR CEO</label>
     <queue>IDR_CEO</queue>
     <sharedTo>
-        <group>All_IDR_Users</group>
+        <roleAndSubordinates>ANZ</roleAndSubordinates>
     </sharedTo>
 </ListView>

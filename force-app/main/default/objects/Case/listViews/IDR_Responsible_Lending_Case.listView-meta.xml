@@ -10,8 +10,7 @@
     <filterScope>Queue</filterScope>
     <label>IDR Responsible Lending</label>
     <queue>IDR_Responsible_Lending</queue>
-    <sharedTo>
-        <allInternalUsers/>
-        <group>All_IDR_Users</group>
+    <sharedTo>   
+        <roleAndSubordinates>ANZ</roleAndSubordinates>
     </sharedTo>
 </ListView>

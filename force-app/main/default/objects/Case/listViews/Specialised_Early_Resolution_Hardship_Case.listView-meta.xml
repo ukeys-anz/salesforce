@@ -11,7 +11,6 @@
     <label>Specialised Early Resolution Hardship</label>
     <queue>Specialised_Early_Resolution_Hardship</queue>
     <sharedTo>
-        <allInternalUsers/>
-        <group>All_IDR_Users</group>
+        <roleAndSubordinates>ANZ</roleAndSubordinates>
     </sharedTo>
 </ListView>

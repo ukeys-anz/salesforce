@@ -17,7 +17,6 @@
     </filters>
     <label>All Systemic Issues</label>
     <sharedTo>
-        <group>All_IDR_Users</group>
-        <group>Systemic_Issue_Team</group>
+        <roleAndSubordinates>ANZ</roleAndSubordinates>
     </sharedTo>
 </ListView>

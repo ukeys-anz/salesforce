@@ -10,8 +10,7 @@
     <filterScope>Queue</filterScope>
     <label>Specialised Early Resolution Responsible</label>
     <queue>Specialised_Early_Resolution_Responsible</queue>
-    <sharedTo>
-        <allInternalUsers/>
-        <group>All_IDR_Users</group>
+    <sharedTo>    
+        <roleAndSubordinates>ANZ</roleAndSubordinates>
     </sharedTo>
 </ListView>

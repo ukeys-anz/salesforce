@@ -3,9 +3,9 @@
     <doesSendEmailToMembers>true</doesSendEmailToMembers>
     <name>Systemic Issue Team</name>
     <queueMembers>
-        <publicGroups>
-            <publicGroup>Systemic_Issue_Team</publicGroup>
-        </publicGroups>
+        <roles>
+            <role>Systemic_Issue_Team</role>
+        </roles>
     </queueMembers>
     <queueSobject>
         <sobjectType>Case</sobjectType>

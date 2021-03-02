@@ -12,6 +12,6 @@
     <label>IDR Everyday Banking</label>
     <queue>IDR_Everyday_Banking</queue>
     <sharedTo>
-        <group>All_IDR_Users</group>
+        <roleAndSubordinates>ANZ</roleAndSubordinates>
     </sharedTo>
 </ListView>
