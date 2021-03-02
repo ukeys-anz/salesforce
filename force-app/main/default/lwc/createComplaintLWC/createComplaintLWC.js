@@ -277,6 +277,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.hasNominatedThirdParty = event.target.checked;
   }
 
+  handlePriorityChange(event) {
+    this.ComplaintPriority = event.detail.value;
+  }
+
   handle2ndIssueToggleChange(event) {
     this.hasSecondIssue = event.target.checked;
   }
@@ -485,6 +489,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     if (this.isFinancialComplaintRemedy) {
       isFinCompValid = this.validateFinancialCompensation();
     }
+
     return isFieldValid && isEmailValid && isFinCompValid;
   }
 

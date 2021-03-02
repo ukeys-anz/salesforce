@@ -21,6 +21,14 @@ public with sharing class IDRConstants {
     .get('General_Inquiry_CMOS')
     .getRecordTypeId();
 
+  //Complaint Priority
+  public static final String PRIORITY_COLLECTIONS = 'Customer in Collections';
+  public static final String PRIORITY_HARDSHIP = 'Financial Hardship';
+
+  //Complaint IssueType
+  public static final String ISSUE_TYPE_HARDSHIP = '4';
+  public static final String ISSUE_TYPE_COLLECTIONS = '17';
+
   //NotificationHandler Status
   public static final String NOTIFICATION_PUBLISH_STATUS = 'Published';
   public static final String NOTIFICATION_PENDING_PUBLISH_STATUS = 'Pending Publish';
