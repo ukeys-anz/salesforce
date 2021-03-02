@@ -944,7 +944,7 @@ private class TestCaseTriggerHandler {
     System.assertEquals(IDRCaseActions.siQueue.Id, psiTasks[0].OwnerId);
     System.assertEquals(IDRCaseActions.IDR_TASK_SUBJECT, psiTasks[0].Subject);
   }
-  
+
   @istest
   static void testCollectionsOnInsertNegative() {
     Case[] newCases = new List<Case>();
@@ -1035,4 +1035,3 @@ private class TestCaseTriggerHandler {
     Test.stopTest();
   }
 }
-
