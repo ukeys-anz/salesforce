@@ -1,5 +1,5 @@
 /**
- * @description TaskTriggerHandler to send custom notification to SI queue members
+ * @description TaskTriggerHandler is the handler class for Task Trigger which extends Lib_TriggerHandler the trigger framework used.
  * @author Boobalakrishnan Duraisamy
  * @since 02/2021
  */
@@ -11,12 +11,25 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
     super();
   }
   /**
+   * @description onBeforeInsert to handle before insert trigger actions.
+   */
+  public override void onBeforeInsert() {
+    IDRTaskActions.beforeInsertActions(records);
+  }
+  /**
    * @description onAfterInsert to perform processing during the after insert phase
    */
   public override void onAfterInsert() {
     manageNotification((List<Task>) records);
+    IDRTaskActions.afterInsertActions(records);
   }
-
+  /**
+   * @description onAfterUpdate to handle after update trigger actions.
+   * @param oldMap old trigger values
+   */
+  public override void onAfterUpdate(Map<Id, SObject> oldMap) {
+    IDRTaskActions.afterUpdateActions(records);
+  }
   /**
    * @description Assesses whether or not to generate a banker notification
    * @param records task records in current trigger context

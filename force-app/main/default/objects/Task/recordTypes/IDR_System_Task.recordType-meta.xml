@@ -10,11 +10,23 @@
             <fullName>Normal</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>High</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>Status</picklist>
         <values>
             <fullName>Completed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Expired</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Open</fullName>
             <default>true</default>
         </values>
     </picklistValues>
