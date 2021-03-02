@@ -4,7 +4,7 @@
  * @since 04/2020
  * @description GetHelpCaseActions class is to handle all the Get Help Case Actions
  */
-@SuppressWarnings('PMD.CyclomaticComplexity')
+@SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
 public with sharing class GetHelpCaseActions {
   // General Inquiry Record Type Id
   @TestVisible
@@ -29,6 +29,9 @@ public with sharing class GetHelpCaseActions {
   public static final Id BUG_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('Bug_Enquiry')
     .getRecordTypeId();
+  public static final Id COMPLAINT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+    .get('ANZx_Complaint')
+    .getRecordTypeId();
   @TestVisible
   public static final List<Id> FRAUD_RT_IDS = new List<Id>{
     FRAUD_RT_ID,
@@ -52,6 +55,7 @@ public with sharing class GetHelpCaseActions {
    * @param oldMap This Map<Id, SObject> contains the map which holds the previous values which can be used to check what value has changed in onBeforeUpdate. Example to check if the Case Status value has changed we use the following to check record.Status != ((Case) oldMap.get(record.id)).Status
    * @param records from the trigger
    */
+  @SuppressWarnings('PMD.StdCyclomaticComplexity')
   public static void beforeUpdate(Map<Id, SObject> oldMap, List<Case> records) {
     List<Id> caseIds = new List<Id>();
     List<Case> validateCaseList = new List<Case>();
@@ -59,25 +63,36 @@ public with sharing class GetHelpCaseActions {
 
     for (Case record : (List<Case>) records) {
       Case oldRecord = (Case) oldMap.get(record.id);
-      if (
-        String.isNotBlank(record.ParentId) &&
-        record.RecordTypeId == GENERAL_INQUIRY_RT_ID &&
-        record.ParentId != oldRecord.ParentId
-      ) {
-        caseIds.add(record.id);
-        validateCaseList.add(record);
-      }
-
       if (oldRecord.Status != 'Closed' && record.Status == 'Closed') {
         updateCaseDurationTime(record);
-        if (record.RecordTypeId == GENERAL_INQUIRY_RT_ID) {
+      }
+
+      if (record.RecordTypeId == GENERAL_INQUIRY_RT_ID) {
+        if (
+          String.isNotBlank(record.ParentId) &&
+          record.ParentId != oldRecord.ParentId
+        ) {
+          caseIds.add(record.id);
+          validateCaseList.add(record);
+        }
+
+        if (oldRecord.Status != 'Closed' && record.Status == 'Closed') {
+          milestoneIds.add(record.Id);
+        }
+      } else if (record.RecordTypeId == COMPLAINT_ID) {
+        if (
+          oldRecord.Status != 'Closed' &&
+          oldRecord.Status != 'Escalated' &&
+          (record.Status == 'Closed' ||
+          record.Status == 'Escalated')
+        ) {
           milestoneIds.add(record.Id);
         }
       }
     }
 
     validateAdditionalTypes((List<Case>) records, (Map<Id, Case>) oldMap);
-    validateCaseType((List<Case>) records, (Map<Id, Case>) oldMap);
+    handleCaseSubject((List<Case>) records, (Map<Id, Case>) oldMap);
     if (!caseIds.isEmpty()) {
       validateParentCase(caseIds, validateCaseList);
     }
@@ -174,7 +189,7 @@ public with sharing class GetHelpCaseActions {
    * @param caseList list of cases from the trigger
    * @param oldCaseMap old case map
    */
-  public static void validateCaseType(
+  public static void handleCaseSubject(
     List<Case> caseList,
     Map<Id, Case> oldCaseMap
   ) {
@@ -191,7 +206,7 @@ public with sharing class GetHelpCaseActions {
         oldCaseMap.get(record.Id).Additional_Type__c ||
         record.RecordTypeId != oldCaseMap.get(record.Id).RecordTypeId))
       ) {
-        populateCaseSubject(record);
+        populateGeneralEnquiryCaseSubject(record);
       }
 
       // Check for Fraud Cases
@@ -205,6 +220,14 @@ public with sharing class GetHelpCaseActions {
       ) {
         populateFraudCaseSubject(record);
       }
+
+      if (
+        record.RecordTypeId == COMPLAINT_ID &&
+        (oldCaseMap == null ||
+        record.Type != oldCaseMap.get(record.Id).Type)
+      ) {
+        populateComplaintCaseSubject(record);
+      }
     }
   }
 
@@ -212,7 +235,7 @@ public with sharing class GetHelpCaseActions {
    * @description  This method populates Case subject based on Case type and additional type values
    * @param record Case record from trigger
    */
-  public static void populateCaseSubject(Case record) {
+  public static void populateGeneralEnquiryCaseSubject(Case record) {
     List<String> caseTypeList = new List<String>();
 
     if (String.isNotBlank(record.Type)) {
@@ -255,6 +278,18 @@ public with sharing class GetHelpCaseActions {
   }
 
   /**
+   * @description  This method populates complaint Case subject based on Case record type and issue values
+   * @param record Case record from trigger
+   */
+  public static void populateComplaintCaseSubject(Case record) {
+    String typeLabel = CommonUtils.getSinglePicklistLabel(
+      Case.Type,
+      record.Type
+    );
+    record.Subject = 'ANZ Plus Complaint - ' + typeLabel;
+  }
+
+  /**
    * @description Fetches (if not already available) a map of Case 'Type' Picklist Labels by Values
    */
   public static void fetchCaseTypeLabelsByValues() {
@@ -265,14 +300,17 @@ public with sharing class GetHelpCaseActions {
 
   /**
    * @description This method updates the entitlement field on the case
-   * if the case is of General Inquiry record type
+   * if the case is of General Inquiry or ANZX Complaint record type
    * @param caseList list of cases from the trigger
    */
   public static void updateEntitlement(List<Case> caseList) {
     List<Id> accountIds = new List<Id>();
     Map<Id, Id> entMap = new Map<Id, Id>();
     for (Case c : caseList) {
-      if (c.RecordTypeId == GENERAL_INQUIRY_RT_ID && c.AccountId != null) {
+      if (
+        (c.RecordTypeId == GENERAL_INQUIRY_RT_ID ||
+        c.RecordTypeId == COMPLAINT_ID) && c.AccountId != null
+      ) {
         accountIds.add(c.AccountId);
       }
     }
@@ -294,7 +332,10 @@ public with sharing class GetHelpCaseActions {
     }
 
     for (Case c : caseList) {
-      if (c.RecordTypeId == GENERAL_INQUIRY_RT_ID && c.AccountId != null) {
+      if (
+        (c.RecordTypeId == GENERAL_INQUIRY_RT_ID ||
+        c.RecordTypeId == COMPLAINT_ID) && c.AccountId != null
+      ) {
         if (!entMap.containsKey(c.AccountId)) {
           c.addError('No entitlement found for account.');
         } else {

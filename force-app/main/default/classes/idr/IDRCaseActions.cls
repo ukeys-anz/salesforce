@@ -381,13 +381,13 @@ public with sharing class IDRCaseActions {
           Address_Line1__c = c.IDR_NC_Street__c,
           AFCA_Date__c = c.IDR_AFCA_Date__c,
           AFCA_Number__c = c.IDR_AFCA_Number__c,
-          Age__c = IDRCaseActions.getPicklistLabel(
+          Age__c = CommonUtils.getSinglePicklistLabel(
             Case.IDR_NC_Age__c,
             c.IDR_NC_Age__c
           ),
           Non_Financial_Remedy__c = c.IDR_Non_Financial_Remedy__c,
           Agent_License_Number__c = c.IDR_AuthRep_Licence_Number__c,
-          Agent_License_Type__c = IDRCaseActions.getPicklistLabel(
+          Agent_License_Type__c = CommonUtils.getSinglePicklistLabel(
             Case.IDR_AuthRep_Licence_or_registration_type__c,
             c.IDR_AuthRep_Licence_or_registration_type__c
           ),
@@ -399,13 +399,13 @@ public with sharing class IDRCaseActions {
           Customer_Middle_Names__c = c.IDR_NC_Middle_Names__c,
           Customer_Last_Name__c = c.IDR_NC_Last_Name__c,
           Customer_Business_Name__c = c.IDR_NC_Business_Name__c,
-          Complainant_Type__c = IDRCaseActions.getPicklistLabel(
+          Complainant_Type__c = CommonUtils.getSinglePicklistLabel(
             Case.IDR_Complainant_Type__c,
             c.IDR_Complainant_Type__c
           ),
           Complaint_Description__c = c.Description,
           Complaint_Desired_Outcome__c = c.IDR_Complainant_Desired_Outcome__c,
-          Complaint_Issue__c = IDRCaseActions.getPicklistLabel(
+          Complaint_Issue__c = CommonUtils.getSinglePicklistLabel(
             Case.Type,
             c.Type
           ),
@@ -414,7 +414,7 @@ public with sharing class IDRCaseActions {
           Country__c = c.IDR_NC_Country__c,
           Customer_Number__c = c.IDR_Customer_Number__c,
           Email__c = c.IDR_NC_Email__c,
-          Gender__c = IDRCaseActions.getPicklistLabel(
+          Gender__c = CommonUtils.getSinglePicklistLabel(
             Case.IDR_NC_Gender__c,
             c.IDR_NC_Gender__c
           ),
@@ -429,19 +429,19 @@ public with sharing class IDRCaseActions {
           Mobile__c = c.IDR_NC_Mobile__c,
           Phone__c = c.IDR_NC_Phone__c,
           Post_Code__c = c.IDR_NC_Postcode__c,
-          Remedy__c = IDRCaseActions.getPicklistLabel(
+          Remedy__c = CommonUtils.getSinglePicklistLabel(
             Case.IDR_Complaint_Remedy__c,
             c.IDR_Complaint_Remedy__c
           ),
           State__c = c.IDR_NC_State__c == '11'
             ? 'OTHER TERRITORIES'
-            : IDRCaseActions.getPicklistLabel(
+            : CommonUtils.getSinglePicklistLabel(
                 Case.IDR_NC_State__c,
                 c.IDR_NC_State__c
               ),
           Suburb__c = c.IDR_NC_Suburb__c,
           Priority__c = c.Priority,
-          Channel_Received__c = IDRCaseActions.getPicklistLabel(
+          Channel_Received__c = CommonUtils.getSinglePicklistLabel(
             Case.Origin,
             c.Origin
           ),
@@ -591,26 +591,5 @@ public with sharing class IDRCaseActions {
         String.isNotBlank(c.CaseNumber__c) ? c.CaseNumber__c : c.CaseNumber
       )
     );
-  }
-
-  /**
-   * @description Get a picklist label from it's value (API_Key).
-   * @param field The picklist field, for example Case.IDR_NC_State__c
-   * @param picklistValue The picklist value, for example '2'
-   * @return the picklist label, for example 'VIC'
-   */
-  @TestVisible
-  private static String getPicklistLabel(
-    Schema.SobjectField field,
-    String picklistValue
-  ) {
-    Schema.DescribeFieldResult fieldPicklist = field.getDescribe();
-    Map<String, String> fieldMap = new Map<String, String>();
-    for (Schema.PicklistEntry f : fieldPicklist.getPicklistValues()) {
-      if (f.getValue() == picklistValue) {
-        return f.getLabel();
-      }
-    }
-    return '';
   }
 }

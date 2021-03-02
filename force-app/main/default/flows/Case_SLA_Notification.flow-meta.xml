@@ -40,13 +40,13 @@
         <inputParameters>
             <name>title</name>
             <value>
-                <stringValue>SLA status for Case {!myVariable_current.CaseNumber} has escalated to {!myVariable_current.SLA_Status__c}</stringValue>
+                <stringValue>SLA status for {!myVariable_current.RecordType.DeveloperName} {!myVariable_current.CaseNumber} has escalated to {!myVariable_current.SLA_Status__c}</stringValue>
             </value>
         </inputParameters>
         <inputParameters>
             <name>body</name>
             <value>
-                <stringValue>Please review and action this case as soon as possible.</stringValue>
+                <stringValue>Please review and ensure case is being managed by Customer Resolution Centre</stringValue>
             </value>
         </inputParameters>
         <inputParameters>
@@ -138,7 +138,7 @@
         <inputParameters>
             <name>title</name>
             <value>
-                <stringValue>SLA status for Case {!myVariable_current.CaseNumber} has changed to {!myVariable_current.SLA_Status__c}</stringValue>
+                <stringValue>SLA status for {!myVariable_current.RecordType.DeveloperName} {!myVariable_current.CaseNumber} has changed to {!myVariable_current.SLA_Status__c}</stringValue>
             </value>
         </inputParameters>
         <inputParameters>
@@ -196,6 +196,7 @@
             </value>
         </inputParameters>
     </actionCalls>
+    <apiVersion>49.0</apiVersion>
     <assignments>
         <name>myAssignment_myRule_1_A1</name>
         <label>myAssignment_myRule_1_A1</label>
@@ -458,7 +459,7 @@
         </rules>
     </decisions>
     <description>Send SLA Notification when case SLA status changes to breach or warning</description>
-    <interviewLabel>Case_SLA_Notification-3_InterviewLabel</interviewLabel>
+    <interviewLabel>Case_SLA_Notification-2_InterviewLabel</interviewLabel>
     <label>Case SLA Notification</label>
     <processMetadataValues>
         <name>ObjectType</name>
