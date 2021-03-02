@@ -945,6 +945,95 @@ private class TestCaseTriggerHandler {
     System.assertEquals(IDRCaseActions.IDR_TASK_SUBJECT, psiTasks[0].Subject);
   }
   @istest
+  static void testCollectionsOnInsertNegative() {
+    Case[] newCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
+          Priority = 'Standard',
+          Type = '4',
+          IDR_Subsequent_Issue__c = '20'
+        )
+      );
+    }
+    Test.startTest();
+    insert newCases;
+    List<Case> caseList = [
+      SELECT Id, IDR_Stop_Collections__c
+      FROM Case
+      WHERE id IN :newCases
+    ];
+
+    for (Case c : caseList) {
+      System.assertEquals(false, c.IDR_Stop_Collections__c);
+    }
+    Test.stopTest();
+  }
+  @istest
+  static void testCollectionsOnUpdatePostivite() {
+    Case[] newCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
+          Priority = 'Standard',
+          Type = '9',
+          IDR_Subsequent_Issue__c = '57'
+        )
+      );
+    }
+    insert newCases;
+
+    Test.startTest();
+
+    for (Case c : newCases) {
+      c.Priority = 'Customer in Collections';
+      c.Type = '4';
+      c.IDR_Subsequent_Issue__c = '20';
+    }
+    update newCases;
+
+    List<Case> caseList = [
+      SELECT Id, IDR_Stop_Collections__c
+      FROM Case
+      WHERE id IN :newCases
+    ];
+
+    for (Case c : caseList) {
+      System.assertEquals(true, c.IDR_Stop_Collections__c);
+    }
+    Test.stopTest();
+  }
+
+  @istest
+  static void testCollectionsOnInsertPositive() {
+    Case[] newCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
+          Priority = 'Customer in Collections',
+          Type = '4',
+          IDR_Subsequent_Issue__c = '20'
+        )
+      );
+    }
+    Test.startTest();
+    insert newCases;
+    List<Case> caseList = [
+      SELECT Id, IDR_Stop_Collections__c
+      FROM Case
+      WHERE id IN :newCases
+    ];
+
+    for (Case c : caseList) {
+      System.assertEquals(true, c.IDR_Stop_Collections__c);
+    }
+
+    Test.stopTest();
+  }
+  @istest
   static void testIDRCaseDateRecievedUpdate() {
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
