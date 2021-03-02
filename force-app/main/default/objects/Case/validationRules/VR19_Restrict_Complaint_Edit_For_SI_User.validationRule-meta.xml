@@ -9,7 +9,8 @@ $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
 $UserRole.DeveloperName  = &apos;Systemic_Issue_Team&apos;,
 OR(
 RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
-RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
+RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;,
+ISCHANGED( RecordTypeId )
 ),
 OR(
 ISCHANGED( Status ),
