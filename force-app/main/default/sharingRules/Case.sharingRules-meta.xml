@@ -15,12 +15,12 @@
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>Complaint_RTs_Banker_RW</fullName>
+        <fullName>Complaint_RTs_BankerManager_RW</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Great Read write access to complaint records for Customer Resolution Users</description>
-        <label>Complaint_RTs_Banker_RW</label>
+        <description>Great Read write access to complaint records for Bankers and Line Managers</description>
+        <label>Complaint_RTs_BankerManager_RW</label>
         <sharedTo>
-            <role>Banker</role>
+            <roleAndSubordinates>Banker_Line_Manager</roleAndSubordinates>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -34,7 +34,7 @@
         <description>Great Read write access to complaint records for Customer Resolution Users</description>
         <label>Complaint_RTs_CRPUsers_RW</label>
         <sharedTo>
-            <role>Customer_Resolution</role>
+            <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
