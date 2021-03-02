@@ -313,7 +313,6 @@ public with sharing class IDRCaseActions {
     List<Database.SaveResult> publishResults;
     List<IDR_Collections_Event__e> collectionsCasesEventList = new List<IDR_Collections_Event__e>();
     for (Case c : records) {
-      Case oldCase = (oldMap !=null ? oldMap.get(c.id) :null) ;
       if (c.recordTypeId == CUSTOMER_COMPLAINT_RT_ID) {
         if (
           oldMap == null &&
@@ -331,25 +330,25 @@ public with sharing class IDRCaseActions {
           c.IDR_Stop_Collections__c = true;
         } else if (
           oldMap != null &&
-          (oldCase.Priority != c.Priority &&
-          oldCase.Priority != IDRConstants.PRIORITY_COLLECTIONS &&
-          oldCase.Priority != IDRConstants.PRIORITY_HARDSHIP &&
+          (oldMap.get(c.Id).Priority != c.Priority &&
+          oldMap.get(c.Id).Priority != IDRConstants.PRIORITY_COLLECTIONS &&
+          oldMap.get(c.Id).Priority != IDRConstants.PRIORITY_HARDSHIP &&
           (c.Priority == IDRConstants.PRIORITY_COLLECTIONS ||
           c.Priority == IDRConstants.PRIORITY_HARDSHIP)) &&
-          ((oldCase.Type != c.Type &&
-          oldCase.Type != IDRConstants.ISSUE_TYPE_HARDSHIP &&
-          oldCase.Type != IDRConstants.ISSUE_TYPE_COLLECTIONS &&
+          ((oldMap.get(c.Id).Type != c.Type &&
+          oldMap.get(c.Id).Type != IDRConstants.ISSUE_TYPE_HARDSHIP &&
+          oldMap.get(c.Id).Type != IDRConstants.ISSUE_TYPE_COLLECTIONS &&
           (c.Type == IDRConstants.ISSUE_TYPE_HARDSHIP ||
           c.Type == IDRConstants.ISSUE_TYPE_COLLECTIONS)) ||
-          (oldCase.IDR_Issue_Type_2__c != c.IDR_Issue_Type_2__c &&
-          oldCase.IDR_Issue_Type_2__c !=
+          (oldMap.get(c.Id).IDR_Issue_Type_2__c != c.IDR_Issue_Type_2__c &&
+          oldMap.get(c.Id).IDR_Issue_Type_2__c !=
           IDRConstants.ISSUE_TYPE_HARDSHIP &&
-          oldCase.IDR_Issue_Type_2__c !=
+          oldMap.get(c.Id).IDR_Issue_Type_2__c !=
           IDRConstants.ISSUE_TYPE_COLLECTIONS &&
           (c.IDR_Issue_Type_2__c == IDRConstants.ISSUE_TYPE_HARDSHIP ||
           c.IDR_Issue_Type_2__c == IDRConstants.ISSUE_TYPE_COLLECTIONS)) ||
-          (oldCase.IDR_Issue_Type_3__c != c.IDR_Issue_Type_3__c &&
-          oldCase.IDR_Issue_Type_3__c !=
+          (oldMap.get(c.Id).IDR_Issue_Type_3__c != c.IDR_Issue_Type_3__c &&
+          oldMap.get(c.Id).IDR_Issue_Type_3__c !=
           IDRConstants.ISSUE_TYPE_HARDSHIP &&
           oldMap.get(c.Id).IDR_Issue_Type_3__c !=
           IDRConstants.ISSUE_TYPE_COLLECTIONS &&
@@ -364,25 +363,23 @@ public with sharing class IDRCaseActions {
     if (!collectionsCasesEventList.isEmpty()) {
       publishResults = EventBus.publish(collectionsCasesEventList);
     }
-
-      for (Integer i = 0; i < publishResults.size(); i++) {
-        Database.SaveResult sr = publishResults[i];
-
-        if (!publishResults[i].isSuccess()) {
-          for (Database.Error err : publishResults[i].getErrors()) {
-            Lib_SystemLog.logAPIError(
-              IDRCaseActions.class.getName(),
-              'Error in publishing collection platform event for Case' +
-              collectionsCasesEventList[i].IDR_Complaint_Number__c,
-              err.getMessage(),
-              null,
-              IDRCaseActions.class.getName(),
-              null,
-              null
-            );
-          }
+    for (Integer i = 0; i < publishResults.size(); i++) {
+      Database.SaveResult sr = publishResults[i];
+      if (!publishResults[i].isSuccess()) {
+        for (Database.Error err : publishResults[i].getErrors()) {
+          Lib_SystemLog.logAPIError(
+            IDRCaseActions.class.getName(),
+            'Error in publishing collection platform event for Case' +
+            collectionsCasesEventList[i].IDR_Complaint_Number__c,
+            err.getMessage(),
+            null,
+            IDRCaseActions.class.getName(),
+            null,
+            null
+          );
         }
       }
+    }
   }
 
   /**
