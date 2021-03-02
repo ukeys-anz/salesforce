@@ -61,6 +61,21 @@
                 <label>Trailblazer Manager</label>
             </value>
             <value>
+                <fullName>CRP LT</fullName>
+                <default>false</default>
+                <label>CRP LT</label>
+            </value>
+            <value>
+                <fullName>SI Team</fullName>
+                <default>false</default>
+                <label>SI Team</label>
+            </value>
+            <value>
+                <fullName>SI Business Contacts</fullName>
+                <default>false</default>
+                <label>SI Business Contacts</label>
+            </value>
+            <value>
                 <fullName>Business Role</fullName>
                 <default>false</default>
                 <isActive>false</isActive>

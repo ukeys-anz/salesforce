@@ -28,6 +28,6 @@
     </filters>
     <label>Complaints flagged as PSI for Review</label>
     <sharedTo>
-        <group>Systemic_Issue_Team</group>
+        <role>Systemic_Issue_Team</role>
     </sharedTo>
 </ListView>

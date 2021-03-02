@@ -31,6 +31,6 @@
     </filters>
     <label>My Team&apos;s Inactive Cases</label>
     <sharedTo>
-        <group>All_IDR_Users</group>
+        <roleAndSubordinates>ANZ</roleAndSubordinates>
     </sharedTo>
 </ListView>

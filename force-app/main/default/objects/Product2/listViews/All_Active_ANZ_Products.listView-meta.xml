@@ -18,6 +18,6 @@
     </filters>
     <label>All Active ANZ Products</label>
     <sharedTo>
-        <group>All_IDR_Users</group>
+        <roleAndSubordinates>ANZ</roleAndSubordinates>
     </sharedTo>
 </ListView>

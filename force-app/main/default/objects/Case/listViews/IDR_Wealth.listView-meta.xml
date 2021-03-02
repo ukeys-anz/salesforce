@@ -12,6 +12,6 @@
     <label>IDR Wealth</label>
     <queue>IDR_Wealth</queue>
     <sharedTo>
-        <group>All_IDR_Users</group>
+        <roleAndSubordinates>ANZ</roleAndSubordinates>
     </sharedTo>
 </ListView>

@@ -24,6 +24,6 @@
     </filters>
     <label>My Direct Reports&apos; Complaints</label>
     <sharedTo>
-        <group>Complaint_Line_Managers</group>
+        <roleAndSubordinates>Banker_Line_Manager</roleAndSubordinates>
     </sharedTo>
 </ListView>
