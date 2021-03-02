@@ -130,6 +130,10 @@
                 <behavior>Edit</behavior>
                 <field>IDR_Account_Card_Policy_Number__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>IDR_Stop_Collections__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
@@ -562,7 +566,7 @@
         <relatedList>RelatedEntityHistoryList</relatedList>
     </relatedLists>
     <relatedObjects>ContactId</relatedObjects>
-    <runAssignmentRulesDefault>false</runAssignmentRulesDefault>
+    <runAssignmentRulesDefault>true</runAssignmentRulesDefault>
     <showEmailCheckbox>true</showEmailCheckbox>
     <showHighlightsPanel>true</showHighlightsPanel>
     <showInteractionLogPanel>true</showInteractionLogPanel>
