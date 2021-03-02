@@ -5,17 +5,6 @@
     <description>Captures logs related to voice calls</description>
     <label>Call Log</label>
     <picklistValues>
-        <picklist>Call_Direction__c</picklist>
-        <values>
-            <fullName>Inbound</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Outbound</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>FinServ__Regarding__c</picklist>
         <values>
             <fullName>Service</fullName>
