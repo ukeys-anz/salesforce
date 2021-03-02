@@ -143,6 +143,91 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentInstanceProperties>
+                    <name>objectName</name>
+                    <value>Case</value>
+                </componentInstanceProperties>
+                <componentName>chatTopicRelatedList</componentName>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-6dca3cc2-5378-4db9-b2ab-1edd7e9d7f0a</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>context</name>
+                    <value>RECORD</value>
+                </componentInstanceProperties>
+                <componentName>forceChatter:publisher</componentName>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>parentFieldApiName</name>
+                    <value>Case.Id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListApiName</name>
+                    <value>ActivityHistories</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListComponentOverride</name>
+                    <value>ADVGRID</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>rowsToDisplay</name>
+                    <value>5</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showActionBar</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentName>force:relatedListSingleContainer</componentName>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-1c66dff8-0bb5-4e57-a5c4-5082895ebc52</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>active</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-6dca3cc2-5378-4db9-b2ab-1edd7e9d7f0a</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Chats</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-1c66dff8-0bb5-4e57-a5c4-5082895ebc52</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Calls</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-33cf8d28-3d14-411b-bf83-c08939ade1a8</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
                 <componentName>forceKnowledge:articleSearchDesktop</componentName>
             </componentInstance>
         </itemInstances>
@@ -196,17 +281,8 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
-                    <name>objectName</name>
-                    <value>Case</value>
-                </componentInstanceProperties>
-                <componentName>chatTopicRelatedList</componentName>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
                     <name>tabs</name>
-                    <value>Facet-67841764-3f50-493f-a29a-65b606c2d12c</value>
+                    <value>Facet-33cf8d28-3d14-411b-bf83-c08939ade1a8</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
             </componentInstance>
@@ -215,7 +291,7 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>tabs</name>
-                    <value>Facet-d25c0031-817d-493d-a864-9d18f8029b4f</value>
+                    <value>Facet-67841764-3f50-493f-a29a-65b606c2d12c</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
             </componentInstance>
