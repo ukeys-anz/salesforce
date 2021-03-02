@@ -165,7 +165,7 @@ public with sharing class IDRCaseActions {
       }
     }
     handleOfficeAssignment(changeOfficeCaseList);
-    stampQueueName(records, null);    
+    stampQueueName(records, null);
     //Update Date/Time PSI Ticked if complaint is flagged as PSI
     if (!updatePsiTicked.isEmpty()) {
       updateDateTimePsiTicked(updatePsiTicked);
@@ -319,7 +319,11 @@ public with sharing class IDRCaseActions {
           (c.Priority == IDRConstants.PRIORITY_COLLECTIONS ||
           c.Priority == IDRConstants.PRIORITY_HARDSHIP) &&
           (c.Type == IDRConstants.ISSUE_TYPE_HARDSHIP ||
-          c.Type == IDRConstants.ISSUE_TYPE_COLLECTIONS)
+          c.Type == IDRConstants.ISSUE_TYPE_COLLECTIONS ||
+          c.IDR_Issue_Type_2__c == IDRConstants.ISSUE_TYPE_HARDSHIP ||
+          c.IDR_Issue_Type_2__c == IDRConstants.ISSUE_TYPE_COLLECTIONS ||
+          c.IDR_Issue_Type_3__c == IDRConstants.ISSUE_TYPE_HARDSHIP ||
+          c.IDR_Issue_Type_3__c == IDRConstants.ISSUE_TYPE_COLLECTIONS)
         ) {
           // that means it is on insert
           collectionsCasesEventList.add(buildEvent(c));
@@ -331,11 +335,25 @@ public with sharing class IDRCaseActions {
           oldMap.get(c.Id).Priority != IDRConstants.PRIORITY_HARDSHIP &&
           (c.Priority == IDRConstants.PRIORITY_COLLECTIONS ||
           c.Priority == IDRConstants.PRIORITY_HARDSHIP)) &&
-          (oldMap.get(c.Id).Type != c.Type &&
+          ((oldMap.get(c.Id).Type != c.Type &&
           oldMap.get(c.Id).Type != IDRConstants.ISSUE_TYPE_HARDSHIP &&
           oldMap.get(c.Id).Type != IDRConstants.ISSUE_TYPE_COLLECTIONS &&
           (c.Type == IDRConstants.ISSUE_TYPE_HARDSHIP ||
-          c.Type == IDRConstants.ISSUE_TYPE_COLLECTIONS))
+          c.Type == IDRConstants.ISSUE_TYPE_COLLECTIONS)) ||
+          (oldMap.get(c.Id).IDR_Issue_Type_2__c != c.IDR_Issue_Type_2__c &&
+          oldMap.get(c.Id).IDR_Issue_Type_2__c !=
+          IDRConstants.ISSUE_TYPE_HARDSHIP &&
+          oldMap.get(c.Id).IDR_Issue_Type_2__c !=
+          IDRConstants.ISSUE_TYPE_COLLECTIONS &&
+          (c.IDR_Issue_Type_2__c == IDRConstants.ISSUE_TYPE_HARDSHIP ||
+          c.IDR_Issue_Type_2__c == IDRConstants.ISSUE_TYPE_COLLECTIONS)) ||
+          (oldMap.get(c.Id).IDR_Issue_Type_3__c != c.IDR_Issue_Type_3__c &&
+          oldMap.get(c.Id).IDR_Issue_Type_3__c !=
+          IDRConstants.ISSUE_TYPE_HARDSHIP &&
+          oldMap.get(c.Id).IDR_Issue_Type_3__c !=
+          IDRConstants.ISSUE_TYPE_COLLECTIONS &&
+          (c.IDR_Issue_Type_3__c == IDRConstants.ISSUE_TYPE_HARDSHIP ||
+          c.IDR_Issue_Type_3__c == IDRConstants.ISSUE_TYPE_COLLECTIONS)))
         ) {
           collectionsCasesEventList.add(buildEvent(c));
           c.IDR_Stop_Collections__c = true;
