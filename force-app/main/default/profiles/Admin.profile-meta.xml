@@ -2289,6 +2289,10 @@
         <layout>Release__c-Release Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Task-Call Log Layout</layout>
+        <recordType>Task.Call_Log</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>User-User Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -2578,6 +2582,11 @@
     <recordTypeVisibilities>
         <default>true</default>
         <recordType>Product2.ANZ_Product_or_Service</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>true</default>
+        <recordType>Task.Call_Log</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <tabVisibilities>
