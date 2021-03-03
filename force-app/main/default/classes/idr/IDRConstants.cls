@@ -18,7 +18,7 @@ public with sharing class IDRConstants {
     .get('Customer_Complaint')
     .getRecordTypeId();
   public static final Id NON_CUSTOMER_COMPLAINT_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get('Customer_Complaint')
+    .get('Non_Customer_Complaint')
     .getRecordTypeId();
   public static final Id GENERAL_INQUIRY_CMOS_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('General_Inquiry_CMOS')

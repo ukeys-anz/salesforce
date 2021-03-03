@@ -135,7 +135,11 @@ private with sharing class TestSICaseActions {
     update newCases;
 
     //THEN they are removed
-    tasks = [SELECT id FROM Task WHERE WhatId IN :newCases];
+    tasks = [
+      SELECT id
+      FROM Task
+      WHERE WhatId IN :newCases AND Type = 'Monitoring'
+    ];
     System.assertEquals(
       0,
       tasks.size(),
@@ -184,7 +188,7 @@ private with sharing class TestSICaseActions {
     newComplaints = [
       SELECT IDR_Parent_Systemic_Issue__c
       FROM Case
-      WHERE RecordTypeId = :IDRConstants.CUSTOMER_COMPLAINT_RT_ID
+      WHERE RecordTypeId = :IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID
     ];
     newSIs = [
       SELECT Id
