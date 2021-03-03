@@ -3,7 +3,7 @@
     <sharingCriteriaRules>
         <fullName>Complaint_RTs_ANZUsers_RO</fullName>
         <accessLevel>Read</accessLevel>
-        <description>Great Read only access to Complaint record types for all ANZ users</description>
+        <description>Great Read only access to Complaint record types for all ANZ users.</description>
         <label>Complaint_RTs_ANZUsers_RO</label>
         <sharedTo>
             <roleAndSubordinates>ANZ</roleAndSubordinates>
