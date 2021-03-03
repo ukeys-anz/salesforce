@@ -11,7 +11,10 @@ public class TestIDRFilesRelatedListController {
    */
   @testSetup
   static void setupData() {
-    case c = new case(subject = 'test subject');
+    case c = new case(
+      subject = 'test subject',
+      RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID
+    );
     insert c;
     contentversion cv = new contentversion();
     cv.Title = 'loan.txt';

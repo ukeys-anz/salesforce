@@ -7,24 +7,6 @@
  */
 @SuppressWarnings('PMD.CyclomaticComplexity,PMD.ExcessiveClassLength')
 public with sharing class IDRCaseActions {
-  // IDR Customer Record Type ID
-  @TestVisible
-  static final Id CUSTOMER_COMPLAINT_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get('Customer_Complaint')
-    .getRecordTypeId();
-
-  // IDR Non Customer Record Type ID
-  @TestVisible
-  static final Id NON_CUSTOMER_COMPLAINT_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get('Non_Customer_Complaint')
-    .getRecordTypeId();
-
-  // IDR General Inquiry record type
-  @TestVisible
-  static final Id GENERAL_INQUIRY_CMOS_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get('General_Inquiry_CMOS')
-    .getRecordTypeId();
-
   public static final Id IDR_TASK_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
     .get('IDR_Task')
     .getRecordTypeId();
@@ -158,7 +140,7 @@ public with sharing class IDRCaseActions {
           caseOwnerIds.add(record.OwnerId);
           changeOfficeCaseList.add(record);
         }
-        handleCaseEscalationRules(record, new Case());
+        handleCaseEscalationRules(record, null);
         if (record.IDR_Is_Common__c == 'Yes') {
           updatePsiTicked.add(record);
         }
@@ -261,7 +243,7 @@ public with sharing class IDRCaseActions {
       Case oldRec = (Case) oldMap.get(record.id);
       if (
         record.Status != oldRec.Status ||
-        (oldRec.RecordTypeId == GENERAL_INQUIRY_CMOS_RT_ID &&
+        (oldRec.RecordTypeId == IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID &&
         isIDRComplaintType(record))
       ) {
         if (NOTIFICATION_STATUS.contains(record.Status)) {
@@ -311,10 +293,10 @@ public with sharing class IDRCaseActions {
     List<Case> records,
     Map<Id, Case> oldMap
   ) {
-    List<Database.SaveResult> publishResults = new List<Database.SaveResult>() ;
+    List<Database.SaveResult> publishResults = new List<Database.SaveResult>();
     List<IDR_Collections_Event__e> collectionsCasesEventList = new List<IDR_Collections_Event__e>();
     for (Case c : records) {
-      if (c.recordTypeId == CUSTOMER_COMPLAINT_RT_ID) {
+      if (c.recordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID) {
         if (
           oldMap == null &&
           (c.Priority == IDRConstants.PRIORITY_COLLECTIONS ||
@@ -540,7 +522,8 @@ public with sharing class IDRCaseActions {
     for (Case c : caseList) {
       if (c.OwnerId.getSobjectType() == Group.SobjectType) {
         if (
-          oldCaseMap != null && oldCaseMap.containsKey(c.id) &&
+          oldCaseMap != null &&
+          oldCaseMap.containsKey(c.id) &&
           c.OwnerId != oldCaseMap.get(c.id).OwnerId
         ) {
           queueIds.add(c.OwnerId);
@@ -568,7 +551,7 @@ public with sharing class IDRCaseActions {
    */
   private static void handleAnonymousNames(Case record) {
     if (
-      record.RecordTypeId == NON_CUSTOMER_COMPLAINT_RT_ID &&
+      record.RecordTypeId == IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID &&
       record.IDR_NC_Is_Consent_Obtained__c == false &&
       record.IDR_NC_First_Name__c != Label.Anonymous_Complainant &&
       record.IDR_NC_Middle_Names__c != Label.Anonymous_Complainant &&
@@ -606,11 +589,7 @@ public with sharing class IDRCaseActions {
     );
   }
   /**
-   * @description  handleCaseEscalationRules method is used to handle the case escalations
-   * 1.First condition check is for auto esclated cases
-   * 2.second condition checks for cases created as escalated.
-   * 3.third condition checks for cases that have been esclated after create.
-   * 4.Fourth condition checks for cases that have a change in 'escalated to' after the case is already escalated.
+   * @description  handleCaseEscalationRules method is used to handle the case escalations.
    * @param record The actual case record from the trigger
    * @param oldRec trigger context variable to check on old values.
    */
@@ -620,19 +599,22 @@ public with sharing class IDRCaseActions {
       record.Status != ESCALATED_STATUS &&
       String.isBlank(record.IDR_Escalation_Reason__c)
     ) {
-      // set default values for auto escalated cases , change status to escalated,
-      //assign to CRC queue and send notifcation to CFMS
-      if (oldRec.Status == OPEN_STATUS) {
+      // set default values for auto escalated cases: Status, Escalated To, Escalation Reason
+      record.Status = ESCALATED_STATUS;
+      if (oldRec != null && oldRec.Status == OPEN_STATUS) {
         record.IDR_Escalation_Reason__c = DAY_3_ESCALATION_REASON;
-      } else if (oldRec.Status == UNDER_INVESTIGATION_STATUS) {
+      } else if (
+        oldRec != null &&
+        oldRec.Status == UNDER_INVESTIGATION_STATUS
+      ) {
         record.IDR_Escalation_Reason__c = DAY_5_ESCALATION_REASON;
       }
-      record.Status = ESCALATED_STATUS;
-    } else if (
+    }
+    if (
       record.Status == ESCALATED_STATUS &&
       String.isBlank(record.IDR_Escalated_to__c)
     ) {
-      record.IDR_Escalated_to__c = '1';
+      record.IDR_Escalated_to__c = ESCALATED_TO_CRC_API_NAME;
     }
   }
 
@@ -782,13 +764,13 @@ public with sharing class IDRCaseActions {
           Address_Line1__c = c.IDR_NC_Street__c,
           AFCA_Date__c = c.IDR_AFCA_Date__c,
           AFCA_Number__c = c.IDR_AFCA_Number__c,
-          Age__c = IDRCaseActions.getPicklistLabel(
+          Age__c = CommonUtils.getSinglePicklistLabel(
             Case.IDR_NC_Age__c,
             c.IDR_NC_Age__c
           ),
           Non_Financial_Remedy__c = c.IDR_Non_Financial_Remedy__c,
           Agent_License_Number__c = c.IDR_AuthRep_Licence_Number__c,
-          Agent_License_Type__c = IDRCaseActions.getPicklistLabel(
+          Agent_License_Type__c = CommonUtils.getSinglePicklistLabel(
             Case.IDR_AuthRep_Licence_or_registration_type__c,
             c.IDR_AuthRep_Licence_or_registration_type__c
           ),
@@ -800,13 +782,13 @@ public with sharing class IDRCaseActions {
           Customer_Middle_Names__c = c.IDR_NC_Middle_Names__c,
           Customer_Last_Name__c = c.IDR_NC_Last_Name__c,
           Customer_Business_Name__c = c.IDR_NC_Business_Name__c,
-          Complainant_Type__c = IDRCaseActions.getPicklistLabel(
+          Complainant_Type__c = CommonUtils.getSinglePicklistLabel(
             Case.IDR_Complainant_Type__c,
             c.IDR_Complainant_Type__c
           ),
           Complaint_Description__c = c.Description,
           Complaint_Desired_Outcome__c = c.IDR_Complainant_Desired_Outcome__c,
-          Complaint_Issue__c = IDRCaseActions.getPicklistLabel(
+          Complaint_Issue__c = CommonUtils.getSinglePicklistLabel(
             Case.Type,
             c.Type
           ),
@@ -815,7 +797,7 @@ public with sharing class IDRCaseActions {
           Country__c = c.IDR_NC_Country__c,
           Customer_Number__c = c.IDR_Customer_Number__c,
           Email__c = c.IDR_NC_Email__c,
-          Gender__c = IDRCaseActions.getPicklistLabel(
+          Gender__c = CommonUtils.getSinglePicklistLabel(
             Case.IDR_NC_Gender__c,
             c.IDR_NC_Gender__c
           ),
@@ -830,19 +812,19 @@ public with sharing class IDRCaseActions {
           Mobile__c = c.IDR_NC_Mobile__c,
           Phone__c = c.IDR_NC_Phone__c,
           Post_Code__c = c.IDR_NC_Postcode__c,
-          Remedy__c = IDRCaseActions.getPicklistLabel(
+          Remedy__c = CommonUtils.getSinglePicklistLabel(
             Case.IDR_Complaint_Remedy__c,
             c.IDR_Complaint_Remedy__c
           ),
           State__c = c.IDR_NC_State__c == '11'
             ? 'OTHER TERRITORIES'
-            : IDRCaseActions.getPicklistLabel(
+            : CommonUtils.getSinglePicklistLabel(
                 Case.IDR_NC_State__c,
                 c.IDR_NC_State__c
               ),
           Suburb__c = c.IDR_NC_Suburb__c,
           Priority__c = c.Priority,
-          Channel_Received__c = IDRCaseActions.getPicklistLabel(
+          Channel_Received__c = CommonUtils.getSinglePicklistLabel(
             Case.Origin,
             c.Origin
           ),
@@ -881,7 +863,7 @@ public with sharing class IDRCaseActions {
     for (Case c : records) {
       // Don't publish to NB if there's no mobile nor email to send to
       if (
-        c.RecordTypeId == CUSTOMER_COMPLAINT_RT_ID ||
+        c.RecordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID ||
         !String.isBlank(c.IDR_NC_Mobile__c) ||
         !String.isBlank(c.IDR_NC_Email__c) ||
         !String.isBlank(c.IDR_3rdParty_Mobile__c) ||
@@ -940,8 +922,8 @@ public with sharing class IDRCaseActions {
    */
   public static Boolean isIDRComplaintType(Case record) {
     if (
-      record.RecordTypeId == CUSTOMER_COMPLAINT_RT_ID ||
-      record.RecordTypeId == NON_CUSTOMER_COMPLAINT_RT_ID
+      record.RecordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID ||
+      record.RecordTypeId == IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID
     ) {
       return true;
     }
@@ -995,36 +977,15 @@ public with sharing class IDRCaseActions {
   }
 
   /**
-   * @description Get a picklist label from it's value (API_Key).
-   * @param field The picklist field, for example Case.IDR_NC_State__c
-   * @param picklistValue The picklist value, for example '2'
-   * @return the picklist label, for example 'VIC'
-   */
-  @TestVisible
-  private static String getPicklistLabel(
-    Schema.SobjectField field,
-    String picklistValue
-  ) {
-    Schema.DescribeFieldResult fieldPicklist = field.getDescribe();
-    Map<String, String> fieldMap = new Map<String, String>();
-    for (Schema.PicklistEntry f : fieldPicklist.getPicklistValues()) {
-      if (f.getValue() == picklistValue) {
-        return f.getLabel();
-      }
-    }
-    return '';
-  }
-
-  /**
    * @description  This method is used to restrict users from editing case number based on certain conditions
    * @param record The actual case record from the trigger
    * @param oldRec trigger context variable to check on old values.
    */
   private static void validateCaseNumber(Case record, Case oldRec) {
     if (
-      record.RecordTypeId == CUSTOMER_COMPLAINT_RT_ID &&
+      record.RecordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID &&
       record.IDR_Customer_Number__c != oldRec.IDR_Customer_Number__c &&
-      oldRec.RecordTypeId != GENERAL_INQUIRY_CMOS_RT_ID
+      oldRec.RecordTypeId != IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID
     ) {
       record.addError(CUSTOMER_NUMBER_VALIDATION_ERROR);
     }
@@ -1107,7 +1068,7 @@ public with sharing class IDRCaseActions {
   }
   /**
    * @description Update the tasks and milestones to reflect the values based on new date recieved.
-   * @param records list of case record 
+   * @param records list of case record
    * @param oldMap Map of old case records
    */
   private static void updateIDRMilestoneTask(
@@ -1172,7 +1133,7 @@ public with sharing class IDRCaseActions {
     ) {
       update cmsToUpdate;
     }
-  } 
+  }
 
   /**
    * @description Update Date/Time PSI Ticked when complaint is flagged or unflagged. Before calling, check whether all cases are complaints and the PSI flag has just been ticked or unticked

@@ -8,12 +8,12 @@ public with sharing class IDRCollectionsAccounts {
   public String productCode;
   public String subProductCode;
 
-/**
- * @description Constructor
- * @param accNumber
- * @param prodCode
- * @param subProdCode
- */
+  /**
+   * @description Constructor
+   * @param accNumber
+   * @param prodCode
+   * @param subProdCode
+   */
   public IDRCollectionsAccounts(
     String accNumber,
     String prodCode,

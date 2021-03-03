@@ -8,7 +8,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Customer has an AR&amp;C account</inlineHelpText>
     <label>AR&amp;C Customer</label>
-    <securityClassification>Internal</securityClassification>
+    <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <type>Checkbox</type>
 </CustomField>

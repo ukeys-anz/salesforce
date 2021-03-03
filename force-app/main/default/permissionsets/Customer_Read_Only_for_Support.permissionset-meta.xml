@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <applicationVisibilities>
-        <application>Coach_App</application>
-        <visible>true</visible>
-    </applicationVisibilities>
-    <applicationVisibilities>
         <application>Coaches_Console</application>
         <visible>true</visible>
     </applicationVisibilities>
@@ -25,7 +21,7 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>EverydayAccountController</apexClass>
+        <apexClass>FinancialAccountController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>

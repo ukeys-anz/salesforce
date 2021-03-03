@@ -111,7 +111,7 @@ jobs:
         run: |
           rm -rf ./docs/governance/access
           rm -rf ./docs/governance/schema
-          rm -rf ./sysl
+          rm -rf ./sysl/salesforce.edg.sysl
           mkdir -p ./docs/governance/
           mkdir -p ./sysl/
           cp -r salesforce/docs/access ./docs/governance/

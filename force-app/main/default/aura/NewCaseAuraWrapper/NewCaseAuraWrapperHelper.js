@@ -238,7 +238,7 @@
     });
   },
   handleConsoleAppCaseCreation: function (component, workspaceAPI) {
-    workspaceAPI.getFocusedTabInfo().then((firstTabId) => {
+    workspaceAPI.getFocusedTabInfo().then((response) => {
       //Reading Parent Record ID from URL to manipulate the console URL to open New Case window as a sub-tab.
       var parentIdParameter = this.getURLParameterByName(
         component,
@@ -261,13 +261,13 @@
           workspaceAPI,
           navigationUrl,
           parentInfo,
-          firstTabId
+          response.tabId
         );
       } else {
         this.navigateToNewCaseClosePreviousTab(
           workspaceAPI,
           navigationUrl,
-          firstTabId
+          response.tabId
         );
       }
     });

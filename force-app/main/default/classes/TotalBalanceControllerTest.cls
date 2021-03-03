@@ -17,6 +17,7 @@ public with sharing class TotalBalanceControllerTest {
     accnt.OCV_ID__c = '1';
     accnt.ANZx_Customer__c = true;
     accnt.FinServ__TotalFinAcctsPrimaryOwner__c = 200;
+    accnt.External_Id__c = '82jfsa80534';
     //Rollup summary hardcoded to 200, as it doesn't work in test scenarios and is not the focus of these test cases
     insert accnt;
 
@@ -27,6 +28,8 @@ public with sharing class TotalBalanceControllerTest {
     finAccount.FinServ__Status__c = 'Open';
     finAccount.FinServ__FinancialAccountType__c = 'Checking';
     finAccount.FinServ__PrimaryOwner__c = accnt.Id;
+    finAccount.Account_Key__c = '342490981';
+    finAccount.Primary_Owner_Start_Date__c = Date.valueOf('2021-02-11');
 
     insert finAccount;
   }

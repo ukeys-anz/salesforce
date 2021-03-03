@@ -113,18 +113,25 @@
                 </tr>
               </template>
             </tbody>
+            <template if:true={showLoadMore}>
+              <tfoot>
+                <tr>
+                  <td>
+                    <template if:true={showLoadMore}>
+                      <button
+                        class="slds-button slds-button_neutral load-more"
+                        onclick={handleLoadMore}
+                      >
+                        Load More
+                      </button>
+                    </template>
+                  </td>
+                </tr>
+              </tfoot>
+            </template>
           </table>
         </div>
       </template>
     </article>
-    <div class="slds-grid">
-      <div class="slds-col">
-        <template if:true={showLoadMore}>
-          <button class="slds-button load-more" onclick={handleLoadMore}>
-            Load More
-          </button>
-        </template>
-      </div>
-    </div>
   </template>
 </template>

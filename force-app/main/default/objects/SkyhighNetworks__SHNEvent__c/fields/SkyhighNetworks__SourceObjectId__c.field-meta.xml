@@ -9,7 +9,7 @@
     <label>SourceObjectId</label>
     <length>128</length>
     <required>false</required>
-    <securityClassification>Internal</securityClassification>
+    <securityClassification>Confidential</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

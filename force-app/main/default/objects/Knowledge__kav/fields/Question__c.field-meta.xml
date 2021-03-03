@@ -7,7 +7,7 @@
     <externalId>false</externalId>
     <label>Question</label>
     <length>2000</length>
-    <securityClassification>Public</securityClassification>
+    <securityClassification>Internal</securityClassification>
     <trackHistory>false</trackHistory>
     <type>LongTextArea</type>
     <visibleLines>25</visibleLines>

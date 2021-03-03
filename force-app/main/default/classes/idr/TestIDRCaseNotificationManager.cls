@@ -11,6 +11,7 @@ private class TestIDRCaseNotificationManager {
       newCases.add(
         new Case(
           RecordTypeId = complaintRecordTypeId,
+          IDR_Customer_Number__c = '1234567890',
           Status = IDRConstants.OPEN_STATUS,
           IDR_Account_Card_Policy_Number__c = '000001234',
           Description = 'Test decription'
@@ -38,7 +39,7 @@ private class TestIDRCaseNotificationManager {
   @isTest
   static void testManualNotification() {
     List<User> usrlist = [SELECT id FROM User];
-  
+
     System.runAs(usrlist[0]) {
       List<Case> caseToUpdate = [SELECT Id FROM Case];
       for (Case c : caseToUpdate) {

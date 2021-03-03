@@ -2,11 +2,11 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_Subsequent_Issue__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate</complianceGroup>
+    <complianceGroup>Integrity - Trusted</complianceGroup>
     <externalId>false</externalId>
     <label>Subsequent Issue Type</label>
     <required>false</required>
-    <securityClassification>Internal</securityClassification>
+    <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
@@ -481,29 +481,37 @@
                 <default>false</default>
                 <label>Calculation Dispute</label>
             </value>
+            <value>
+                <fullName>Not working on device</fullName>
+                <default>false</default>
+                <label>Not working on device</label>
+            </value>
+            <value>
+                <fullName>Request won&apos;t be actioned</fullName>
+                <default>false</default>
+                <label>Request won&apos;t be actioned</label>
+            </value>
+            <value>
+                <fullName>No direct phone line</fullName>
+                <default>false</default>
+                <label>No direct phone line</label>
+            </value>
+            <value>
+                <fullName>Stores are cashless</fullName>
+                <default>false</default>
+                <label>Stores are cashless</label>
+            </value>
+            <value>
+                <fullName>Not enough stores</fullName>
+                <default>false</default>
+                <label>Not enough stores</label>
+            </value>
+            <value>
+                <fullName>Digital only service</fullName>
+                <default>false</default>
+                <label>Digital only service</label>
+            </value>
         </valueSetDefinition>
-        <valueSettings>
-            <controllingFieldValue>7</controllingFieldValue>
-            <controllingFieldValue>3</controllingFieldValue>
-            <valueName>1</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>12</controllingFieldValue>
-            <valueName>54</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>12</controllingFieldValue>
-            <valueName>55</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>12</controllingFieldValue>
-            <valueName>56</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>12</controllingFieldValue>
-            <controllingFieldValue>11</controllingFieldValue>
-            <valueName>10</valueName>
-        </valueSettings>
         <valueSettings>
             <controllingFieldValue>4</controllingFieldValue>
             <valueName>20</valueName>
@@ -662,14 +670,6 @@
             <valueName>81</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>21</controllingFieldValue>
-            <valueName>93</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>21</controllingFieldValue>
-            <valueName>94</valueName>
-        </valueSettings>
-        <valueSettings>
             <controllingFieldValue>10</controllingFieldValue>
             <valueName>46</valueName>
         </valueSettings>
@@ -758,6 +758,14 @@
             <valueName>62</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>9</controllingFieldValue>
+            <valueName>Request won&apos;t be actioned</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>9</controllingFieldValue>
+            <valueName>Stores are cashless</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>13</controllingFieldValue>
             <valueName>2</valueName>
         </valueSettings>
@@ -784,6 +792,22 @@
         <valueSettings>
             <controllingFieldValue>13</controllingFieldValue>
             <valueName>9</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>13</controllingFieldValue>
+            <valueName>Not working on device</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>13</controllingFieldValue>
+            <valueName>No direct phone line</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>13</controllingFieldValue>
+            <valueName>Not enough stores</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>13</controllingFieldValue>
+            <valueName>Digital only service</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>18</controllingFieldValue>
@@ -856,6 +880,36 @@
         <valueSettings>
             <controllingFieldValue>1</controllingFieldValue>
             <valueName>53</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>7</controllingFieldValue>
+            <controllingFieldValue>3</controllingFieldValue>
+            <valueName>1</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>12</controllingFieldValue>
+            <valueName>54</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>12</controllingFieldValue>
+            <valueName>55</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>12</controllingFieldValue>
+            <valueName>56</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>12</controllingFieldValue>
+            <controllingFieldValue>11</controllingFieldValue>
+            <valueName>10</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>21</controllingFieldValue>
+            <valueName>93</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>21</controllingFieldValue>
+            <valueName>94</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>

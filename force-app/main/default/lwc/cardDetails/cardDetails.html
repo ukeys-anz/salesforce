@@ -7,14 +7,28 @@
 
   <template if:false={hasError}>
     <lightning-card data-id="card-details">
+      <lightning-button
+        label="Block"
+        slot="actions"
+        onclick={handleShowBlock}
+        disabled={isBlocked}
+        data-id="block-button"
+      ></lightning-button>
+      <template if:true={showBlock}>
+        <c-card-temp-block
+          show-modal={showBlock}
+          card-number={tokenisedCard}
+          record-id={recordId}
+        ></c-card-temp-block>
+      </template>
       <!-- Placeholder until we get image of actual card -->
       <div class="card slds-m-bottom_large">
-        <span class="cardHolder" data-id="card-holder"
+        <span class="card-holder" data-id="card-holder"
           >{cardDetails.AccountHolder}</span
         >
-        <div class="cardDetails">
+        <div class="card-details">
           <span class="slds-m-bottom_x-small">Card Number</span>
-          <span class="cardNumber">{cardDetails.Card_Number__c}</span>
+          <span class="card-number">{cardDetails.Card_Number__c}</span>
         </div>
       </div>
       <lightning-accordion

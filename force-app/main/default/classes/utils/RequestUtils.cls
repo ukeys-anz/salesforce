@@ -28,9 +28,21 @@ public with sharing class RequestUtils {
     String ocvID,
     String requestMethod
   ) {
-    request.setMethod(requestMethod);
+    setCommonRequestParams(request, requestMethod);
     String serializedToken = AuthTokenCacheUtil.getStaffToken(ocvID);
     request.setHeader('Authorization', 'Bearer ' + serializedToken);
+  }
+
+  /**
+   * @description Set common request params on HTTP Requests
+   * @param request HttpRequest
+   * @param requestMethod HTTP request method
+   */
+  public static void setCommonRequestParams(
+    HttpRequest request,
+    String requestMethod
+  ) {
+    request.setMethod(requestMethod);
     request.setHeader('client_id', '{!$Credential.Username}');
     request.setHeader('client_secret', '{!$Credential.Password}');
     //Todo: This needs to be replaced with uniquely generated id based on what is accepted by forge

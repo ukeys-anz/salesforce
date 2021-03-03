@@ -17,10 +17,13 @@ public with sharing class IDRConstants {
   public static final Id CUSTOMER_COMPLAINT_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('Customer_Complaint')
     .getRecordTypeId();
+  public static final Id NON_CUSTOMER_COMPLAINT_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+    .get('Customer_Complaint')
+    .getRecordTypeId();
   public static final Id GENERAL_INQUIRY_CMOS_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('General_Inquiry_CMOS')
     .getRecordTypeId();
-  
+
   //Complaint Priority
   public static final String PRIORITY_COLLECTIONS = 'Customer in Collections';
   public static final String PRIORITY_HARDSHIP = 'Financial Hardship';
@@ -49,14 +52,14 @@ public with sharing class IDRConstants {
   //Field labels
   public static final String MILESTONE_SLA_FIELD_LABEL = 'Milestone Sla';
   public static final String CASE_OWNER_ID = 'Owner ID';
-    
+
   //IDR Maximum time constants
   public static final string TASK_SUBJECT_DAY5 = 'IDR Response due in 5-days';
-  public static final string TASK_SUBJECT_DAY1 = 'IDR Response Due in 1-day';  
-  public static final string TASK_STANDARD_PRIORITY = 'Standard'; 
-  public static final string TASK_STATUS_EXPIRED = 'Expired';  
-  public static final string TASK_STATUS_COMPLETED = 'Completed';  
-  public static final string MILESTONE_STANDARD = '30-day IDR Response Due';  
+  public static final string TASK_SUBJECT_DAY1 = 'IDR Response Due in 1-day';
+  public static final string TASK_STANDARD_PRIORITY = 'Standard';
+  public static final string TASK_STATUS_EXPIRED = 'Expired';
+  public static final string TASK_STATUS_COMPLETED = 'Completed';
+  public static final string MILESTONE_STANDARD = '30-day IDR Response Due';
   public static final string MILESTONE_PRIORITY = '21-day IDR Response Due';
 
   //Anz.com constants

@@ -16,7 +16,8 @@
       ></circle>
     </svg>
     <template if:true={emoticon}>
-      <div class="emoticon">{emoticon}</div>
+      <div class="emoticon" data-progress={progress}>{emoticon}</div>
+      <div class="progress-text hide" data-progress={progress}>{progress}%</div>
     </template>
     <template if:false={emoticon}>
       <div class="progress-text" data-progress={progress}>{progress}%</div>

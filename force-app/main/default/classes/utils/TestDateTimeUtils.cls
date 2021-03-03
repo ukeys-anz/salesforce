@@ -19,7 +19,7 @@ public with sharing class TestDateTimeUtils {
     BusinessHours bhs = [
       SELECT id
       FROM BusinessHours
-      WHERE Name = 'Case Business Hours'
+      WHERE Name = 'ANZx Case Business Hours'
     ];
     DateTime date1 = DateTime.newInstance(2020, 4, 3, 9, 8, 16);
     // Include weekends Saturday and Sunday and test its not included in hours

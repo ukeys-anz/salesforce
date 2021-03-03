@@ -6,7 +6,10 @@ private inherited sharing class TestIDRCaseCommentActions {
     Case[] testCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       testCases.add(
-        new Case(recordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID)
+        new Case(
+          recordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+          IDR_Customer_Number__c = '1234567890'
+        )
       );
     }
     insert testCases;
@@ -24,7 +27,8 @@ private inherited sharing class TestIDRCaseCommentActions {
       recordTypeId = CaseCommonActions.GENERAL_INQUIRY_RT_ID
     );
     Case complaintEscalated = new Case(
-      recordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
+      recordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+      IDR_Customer_Number__c = '1234567890',
       IDR_CFMS_Complaint_Number__c = 'COM-1234'
     );
     testCases.add(notAComplaint);
@@ -38,14 +42,14 @@ private inherited sharing class TestIDRCaseCommentActions {
     Case notAComplaint = [
       SELECT Id
       FROM Case
-      WHERE recordTypeId != :IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID
+      WHERE recordTypeId != :IDRConstants.CUSTOMER_COMPLAINT_RT_ID
       LIMIT 1
     ];
     Case complaintNotEscalated = [
       SELECT Id
       FROM Case
       WHERE
-        recordTypeId = :IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID
+        recordTypeId = :IDRConstants.CUSTOMER_COMPLAINT_RT_ID
         AND IDR_CFMS_Complaint_Number__c = ''
       LIMIT 1
     ];
@@ -53,7 +57,7 @@ private inherited sharing class TestIDRCaseCommentActions {
       SELECT Id
       FROM Case
       WHERE
-        recordTypeId = :IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID
+        recordTypeId = :IDRConstants.CUSTOMER_COMPLAINT_RT_ID
         AND IDR_CFMS_Complaint_Number__c = 'COM-1234'
       LIMIT 1
     ];

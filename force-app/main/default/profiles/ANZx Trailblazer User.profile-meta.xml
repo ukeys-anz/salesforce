@@ -31,7 +31,7 @@
     <tabVisibilities>
         <tab>trailheadapp__TrailheadSetup</tab>
         <visibility>Hidden</visibility>
-    </tabVisibilities>    
+    </tabVisibilities>
     <userLicense>Identity</userLicense>
     <userPermissions>
         <enabled>false</enabled>
@@ -100,6 +100,10 @@
     <userPermissions>
         <enabled>true</enabled>
         <name>LightningExperienceUser</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>PreventClassicExperience</name>
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>

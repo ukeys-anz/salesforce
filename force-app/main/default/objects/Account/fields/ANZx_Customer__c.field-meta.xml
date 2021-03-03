@@ -8,7 +8,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Customer has an ANZx account</inlineHelpText>
     <label>ANZx Customer</label>
-    <securityClassification>Internal</securityClassification>
+    <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <type>Checkbox</type>
 </CustomField>

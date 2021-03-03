@@ -4,5 +4,5 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted;Source - Azure;Privacy - Personal Information</complianceGroup>
     <description>Third party identifier, Azure UserPrincipalName</description>
-    <securityClassification>Confidential</securityClassification>
+    <securityClassification>Internal</securityClassification>
 </CustomField>

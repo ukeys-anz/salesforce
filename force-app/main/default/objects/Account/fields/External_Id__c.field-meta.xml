@@ -3,13 +3,13 @@
     <fullName>External_Id__c</fullName>
     <businessStatus>Active</businessStatus>
     <caseSensitive>false</caseSensitive>
-    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information</complianceGroup>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information</complianceGroup>
     <description>Used for writing updates from OCV Party event messages. It is constructed in Mulesoft.</description>
     <externalId>true</externalId>
     <label>External Id</label>
     <length>150</length>
     <required>false</required>
-    <securityClassification>Internal</securityClassification>
+    <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <type>Text</type>
     <unique>true</unique>

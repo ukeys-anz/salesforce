@@ -85,7 +85,7 @@ describe("c-transactionHistoryBoard", () => {
       const titleDiv = element.shadowRoot.querySelector(
         "div.slds-text-title_bold"
       );
-      expect(titleDiv).toBeNull();
+      expect(titleDiv).not.toBeNull();
     });
   });
 

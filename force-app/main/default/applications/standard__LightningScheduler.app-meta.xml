@@ -5,11 +5,7 @@
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
     <label>Lightning Scheduler Setup</label>
     <navType>Standard</navType>
-    <tabs>standard-ServiceTerritory</tabs>
-    <tabs>standard-ServiceResource</tabs>
-    <tabs>standard-WorkTypeGroup</tabs>
     <tabs>standard-WorkType</tabs>
     <tabs>standard-OperatingHours</tabs>
-    <tabs>standard-ServiceAppointment</tabs>
     <uiType>Lightning</uiType>
 </CustomApplication>

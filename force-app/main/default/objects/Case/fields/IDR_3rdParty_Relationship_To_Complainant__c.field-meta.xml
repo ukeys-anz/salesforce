@@ -74,6 +74,11 @@
                 <default>false</default>
                 <label>Office bearer – president/secretary</label>
             </value>
+            <value>
+                <fullName>20</fullName>
+                <default>false</default>
+                <label>Debt Management Firm</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

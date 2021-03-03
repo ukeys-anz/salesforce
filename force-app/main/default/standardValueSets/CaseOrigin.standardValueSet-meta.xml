@@ -146,4 +146,9 @@
         <default>false</default>
         <label>Origination</label>
     </standardValue>
+    <standardValue>
+        <fullName>ANZ Plus App</fullName>
+        <default>false</default>
+        <label>ANZ Plus App</label>
+    </standardValue>
 </StandardValueSet>

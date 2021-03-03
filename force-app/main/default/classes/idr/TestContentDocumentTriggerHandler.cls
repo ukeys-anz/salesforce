@@ -15,7 +15,8 @@ public class TestContentDocumentTriggerHandler {
 
     testCase.IDR_Account_Card_Policy_Number__c = '000001234';
     testCase.Description = 'Test decription';
-    testCase.RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID;
+    testCase.RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID;
+    testCase.IDR_Customer_Number__c = '1234567890';
     testCase.Status = IDRConstants.OPEN_STATUS;
 
     insert testCase;

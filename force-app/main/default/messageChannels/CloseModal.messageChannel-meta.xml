@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+  <description>Used to determine tell a parent component that the modal/popup has been closed
+    </description>
+  <isExposed>true</isExposed>
+  <lightningMessageFields>
+    <description>Boolean to determine if modal/popup is open</description>
+    <fieldName>open</fieldName>
+  </lightningMessageFields>
+  <lightningMessageFields>
+    <fieldName>message</fieldName>
+    <description>Provide a success/error message</description>
+  </lightningMessageFields>
+  <lightningMessageFields>
+    <fieldName>success</fieldName>
+    <description>Provide a boolean to determine potential actions in modal were successful</description>
+  </lightningMessageFields>
+  <masterLabel>CloseModal</masterLabel>
+</LightningMessageChannel>

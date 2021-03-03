@@ -20,6 +20,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onApplyDefaults() {
     IDRCaseActions.applyDefaults((List<Case>) records);
+    GetHelpCaseActions.applyDefaults((List<Case>) records);
   }
 
   /**
@@ -27,7 +28,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onBeforeInsert() {
     GetHelpCaseActions.validateAdditionalTypes(records, null);
-    GetHelpCaseActions.validateCaseType(records, null);
+    GetHelpCaseActions.handleCaseSubject(records, null);
     GetHelpCaseActions.updateEntitlement(records);
     IDREmailToCase.processEmail(records);
   }

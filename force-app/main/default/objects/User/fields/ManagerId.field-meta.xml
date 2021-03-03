@@ -4,7 +4,7 @@
     <businessStatus>Active</businessStatus>
     <description>Identification code of the user&apos;s manager (another User).</description>
     <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information</complianceGroup>
-    <securityClassification>Internal</securityClassification>
+    <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <type>Hierarchy</type>
 </CustomField>
