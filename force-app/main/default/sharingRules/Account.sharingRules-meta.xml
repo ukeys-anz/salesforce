@@ -27,7 +27,7 @@
             <contactAccessLevel>Read</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Share Complaint Entitlement Account with all ANZ users</description>
+        <description>Share Complaint Entitlement Account with all ANZ users.</description>
         <label>Share Complaint Entitlement Account</label>
         <sharedTo>
             <roleAndSubordinates>ANZ</roleAndSubordinates>
