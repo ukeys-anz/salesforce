@@ -1249,7 +1249,7 @@ private class TestCaseTriggerHandler {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
+          RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID,
           IDR_Date_Received__c = system.now()
         )
       );
