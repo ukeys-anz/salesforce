@@ -13,7 +13,7 @@ public class TestIDRFilesRelatedListController {
   static void setupData() {
     case c = new case(
       subject = 'test subject',
-      RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID
+      RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID
     );
     insert c;
     contentversion cv = new contentversion();

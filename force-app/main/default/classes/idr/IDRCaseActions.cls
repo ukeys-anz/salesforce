@@ -7,24 +7,6 @@
  */
 @SuppressWarnings('PMD.CyclomaticComplexity,PMD.ExcessiveClassLength')
 public with sharing class IDRCaseActions {
-  // IDR Customer Record Type ID
-  @TestVisible
-  static final Id CUSTOMER_COMPLAINT_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get('Customer_Complaint')
-    .getRecordTypeId();
-
-  // IDR Non Customer Record Type ID
-  @TestVisible
-  static final Id NON_CUSTOMER_COMPLAINT_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get('Non_Customer_Complaint')
-    .getRecordTypeId();
-
-  // IDR General Inquiry record type
-  @TestVisible
-  static final Id GENERAL_INQUIRY_CMOS_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get('General_Inquiry_CMOS')
-    .getRecordTypeId();
-
   public static final Id IDR_TASK_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
     .get('IDR_Task')
     .getRecordTypeId();
@@ -261,7 +243,7 @@ public with sharing class IDRCaseActions {
       Case oldRec = (Case) oldMap.get(record.id);
       if (
         record.Status != oldRec.Status ||
-        (oldRec.RecordTypeId == GENERAL_INQUIRY_CMOS_RT_ID &&
+        (oldRec.RecordTypeId == IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID &&
         isIDRComplaintType(record))
       ) {
         if (NOTIFICATION_STATUS.contains(record.Status)) {
@@ -314,7 +296,7 @@ public with sharing class IDRCaseActions {
     List<Database.SaveResult> publishResults = new List<Database.SaveResult>();
     List<IDR_Collections_Event__e> collectionsCasesEventList = new List<IDR_Collections_Event__e>();
     for (Case c : records) {
-      if (c.recordTypeId == CUSTOMER_COMPLAINT_RT_ID) {
+      if (c.recordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID) {
         if (
           oldMap == null &&
           (c.Priority == IDRConstants.PRIORITY_COLLECTIONS ||
@@ -569,7 +551,7 @@ public with sharing class IDRCaseActions {
    */
   private static void handleAnonymousNames(Case record) {
     if (
-      record.RecordTypeId == NON_CUSTOMER_COMPLAINT_RT_ID &&
+      record.RecordTypeId == IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID &&
       record.IDR_NC_Is_Consent_Obtained__c == false &&
       record.IDR_NC_First_Name__c != Label.Anonymous_Complainant &&
       record.IDR_NC_Middle_Names__c != Label.Anonymous_Complainant &&
@@ -881,7 +863,7 @@ public with sharing class IDRCaseActions {
     for (Case c : records) {
       // Don't publish to NB if there's no mobile nor email to send to
       if (
-        c.RecordTypeId == CUSTOMER_COMPLAINT_RT_ID ||
+        c.RecordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID ||
         !String.isBlank(c.IDR_NC_Mobile__c) ||
         !String.isBlank(c.IDR_NC_Email__c) ||
         !String.isBlank(c.IDR_3rdParty_Mobile__c) ||
@@ -940,8 +922,8 @@ public with sharing class IDRCaseActions {
    */
   public static Boolean isIDRComplaintType(Case record) {
     if (
-      record.RecordTypeId == CUSTOMER_COMPLAINT_RT_ID ||
-      record.RecordTypeId == NON_CUSTOMER_COMPLAINT_RT_ID
+      record.RecordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID ||
+      record.RecordTypeId == IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID
     ) {
       return true;
     }
@@ -1001,9 +983,9 @@ public with sharing class IDRCaseActions {
    */
   private static void validateCaseNumber(Case record, Case oldRec) {
     if (
-      record.RecordTypeId == CUSTOMER_COMPLAINT_RT_ID &&
+      record.RecordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID &&
       record.IDR_Customer_Number__c != oldRec.IDR_Customer_Number__c &&
-      oldRec.RecordTypeId != GENERAL_INQUIRY_CMOS_RT_ID
+      oldRec.RecordTypeId != IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID
     ) {
       record.addError(CUSTOMER_NUMBER_VALIDATION_ERROR);
     }

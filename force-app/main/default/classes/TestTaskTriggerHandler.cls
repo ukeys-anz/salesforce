@@ -37,7 +37,7 @@ private class TestTaskTriggerHandler {
         IDR_Description_of_Outcome__c = 'Test IDR Maximum Time Standard',
         IDR_Systemic_Issue_Description__c = 'None',
         IDR_Date_Received__c = system.now(),
-        RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
+        RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
         IDR_Customer_Number__c = '1234567890',
         Priority = 'Standard'
       )
@@ -51,7 +51,7 @@ private class TestTaskTriggerHandler {
         IDR_Description_of_Outcome__c = 'Test IDR Maximum Time Priority',
         IDR_Systemic_Issue_Description__c = 'None',
         IDR_Date_Received__c = system.now(),
-        RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
+        RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
         IDR_Customer_Number__c = '1234567890',
         Priority = 'Vulnerable Customer'
       )
@@ -65,7 +65,7 @@ private class TestTaskTriggerHandler {
       SELECT Id
       FROM Case
       WHERE
-        RecordTypeId = :IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID
+        RecordTypeId = :IDRConstants.CUSTOMER_COMPLAINT_RT_ID
         AND Priority = 'Standard'
       LIMIT 1
     ];
@@ -73,7 +73,7 @@ private class TestTaskTriggerHandler {
       SELECT Id
       FROM Case
       WHERE
-        RecordTypeId = :IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID
+        RecordTypeId = :IDRConstants.CUSTOMER_COMPLAINT_RT_ID
         AND Priority = 'Vulnerable Customer'
       LIMIT 1
     ];

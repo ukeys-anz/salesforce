@@ -20,7 +20,7 @@ public class TestCreateCommsController {
     tdlist.add(td1);
 
     // commenting the below code due to slaesforce limitation and deployment issue
-   /* IDR_Template_Detail__c td2 = new IDR_Template_Detail__c(
+    /* IDR_Template_Detail__c td2 = new IDR_Template_Detail__c(
       IDR_Template__c = '21 Day Letter',
       IDR_Template_Field_Name__c = 'StaffFullName',
       IDR_Case_Field_Name__c = 'Owner.Name'
@@ -52,7 +52,7 @@ public class TestCreateCommsController {
     insert tdList;
 
     Case testCase = new Case(
-      RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
+      RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
       IDR_Customer_Number__c = '12345678901',
       Description = 'Test Description'
     );
@@ -90,11 +90,11 @@ public class TestCreateCommsController {
     case testCase = new case();
     testCase = [SELECT Id FROM Case LIMIT 1];
     list<object> lineItems = new List<object>();
-    list<Object> otherDetails = new list<Object>();
-    Map<Object,Object> mapDetails = new Map<Object,Object> ();
-    mapDetails.put('caseId',testCase.Id);
+    list<Object> otherDetails = new List<Object>();
+    Map<Object, Object> mapDetails = new Map<Object, Object>();
+    mapDetails.put('caseId', testCase.Id);
     mapDetails.put('isEmail', false);
-    mapDetails.put('isLetter',true);
+    mapDetails.put('isLetter', true);
     mapDetails.put('template', '21 Day Letter');
     otherDetails.add(mapDetails);
     string returnedId = CreateCommsController.createComms(
@@ -116,11 +116,11 @@ public class TestCreateCommsController {
     fieldMap.put('fieldLabel', 'Input Text 1');
     fieldMap.put('fieldValue', 'test input');
     lineItems.add(fieldMap);
-    list<Object> otherDetails = new list<Object>();
-    Map<Object,Object> mapDetails = new Map<Object,Object> ();
-    mapDetails.put('caseId',testCase.Id);
-    mapDetails.put('isEmail',false);
-    mapDetails.put('isLetter',true);
+    list<Object> otherDetails = new List<Object>();
+    Map<Object, Object> mapDetails = new Map<Object, Object>();
+    mapDetails.put('caseId', testCase.Id);
+    mapDetails.put('isEmail', false);
+    mapDetails.put('isLetter', true);
     mapDetails.put('template', 'Unable to Contact');
     otherDetails.add(mapDetails);
     string returnedId = CreateCommsController.createComms(

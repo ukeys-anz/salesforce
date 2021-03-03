@@ -2,9 +2,7 @@
 private with sharing class TestIDRCaseActions {
   @isTest
   static void testFormatedCaseNumber() {
-    Case c = new Case(
-      RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID
-    );
+    Case c = new Case(RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID);
     insert c;
     c.CaseNumber__c = '00009999';
     update c;
@@ -31,7 +29,7 @@ private with sharing class TestIDRCaseActions {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
+          RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
           IDR_Customer_Number__c = '1234567890',
           Status = 'Escalated',
           IDR_Escalated_to__c = '1',
@@ -58,7 +56,7 @@ private with sharing class TestIDRCaseActions {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID,
+          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
           Status = 'Open'
         )
       );
@@ -79,7 +77,7 @@ private with sharing class TestIDRCaseActions {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID,
+          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
           Status = IDRCaseActions.OPEN_STATUS,
           isEscalated = false
         )
@@ -117,7 +115,7 @@ private with sharing class TestIDRCaseActions {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID,
+          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
           Status = IDRCaseActions.UNDER_INVESTIGATION_STATUS,
           isEscalated = false
         )
@@ -154,7 +152,7 @@ private with sharing class TestIDRCaseActions {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
+          RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
           IDR_Customer_Number__c = '1234567890'
         )
       );
@@ -180,7 +178,7 @@ private with sharing class TestIDRCaseActions {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID,
+          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
           IDR_Is_Common__c = 'yes',
           IDR_Systemic_Issue_Category__c = '1',
           IDR_Systemic_Issue_Description__c = 'Test'
