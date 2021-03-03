@@ -63,7 +63,7 @@
     <sharingOwnerRules>
         <fullName>OWN_RO_ANZUsers_RO_ANZUsers_RO</fullName>
         <accessLevel>Read</accessLevel>
-        <description>Necessary for IDR users to transfer complaints to other IDR users.</description>
+        <description>Necessary for IDR users to transfer complaints to other IDR users</description>
         <label>OWN_RO-ANZUsers_RO-ANZUsers_RO</label>
         <sharedTo>
             <roleAndSubordinates>ANZ</roleAndSubordinates>
