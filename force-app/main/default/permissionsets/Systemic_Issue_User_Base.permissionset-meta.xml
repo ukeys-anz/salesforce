@@ -5,7 +5,15 @@
         <visible>true</visible>
     </applicationVisibilities>
     <classAccesses>
+        <apexClass>GetCustomerInformation</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>IDRFilesRelatedListController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>NewCaseFlowWrapperController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <customPermissions>
