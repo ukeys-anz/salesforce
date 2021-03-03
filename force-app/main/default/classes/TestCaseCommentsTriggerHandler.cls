@@ -102,7 +102,7 @@ public with sharing class TestCaseCommentsTriggerHandler {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
           Status = IDRConstants.OPEN_STATUS,
           Description = 'Test decription'
         )
