@@ -231,7 +231,7 @@ public with sharing class TestCaseCommentsTriggerHandler {
       PermissionSet ps = [
         SELECT Id
         FROM PermissionSet
-        WHERE Name = 'Case_Read_Write'
+        WHERE Name = 'Case_Read_Write_Get_Help'
       ];
       insert new PermissionSetAssignment(
         AssigneeId = coachUser.id,

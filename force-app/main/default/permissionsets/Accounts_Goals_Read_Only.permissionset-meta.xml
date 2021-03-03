@@ -1,164 +1,198 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <applicationVisibilities>
-        <application>Coaches_Console</application>
-        <visible>true</visible>
-    </applicationVisibilities>
-    <description>Should only have required permissions to view Custom related information.</description>
+    <classAccesses>
+        <apexClass>AccountBalancesController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>AccountTableServerController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>CoachBankingAPIRepository</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FinancialAccountController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TotalBalanceController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TransactionHistoryController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>UpdateFinancialAccounts</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <description>Provides read only access to Accounts and Goals</description>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.ANZx_Customer__c</field>
+        <field>FinServ__FinancialAccountRole__c.FinServ__Active__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.AR_C_Customer__c</field>
+        <field>FinServ__FinancialAccountRole__c.FinServ__EndDate__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.BillingAddress</field>
+        <field>FinServ__FinancialAccountRole__c.FinServ__RelatedAccount__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Deceased_Date__c</field>
+        <field>FinServ__FinancialAccountRole__c.FinServ__RelatedContact__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Display_Name__c</field>
+        <field>FinServ__FinancialAccountRole__c.FinServ__Role__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Employee_Indicator__c</field>
+        <field>FinServ__FinancialAccountRole__c.FinServ__StartDate__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Employer_Name__c</field>
+        <field>FinServ__FinancialAccount__c.BSB__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.FinServ__KYCStatus__c</field>
+        <field>FinServ__FinancialAccount__c.FinServ__AvailableCredit__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.FinServ__Status__c</field>
+        <field>FinServ__FinancialAccount__c.FinServ__AverageBalance__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.FinServ__TotalBankDeposits__c</field>
+        <field>FinServ__FinancialAccount__c.FinServ__BalanceLastStatement__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.FinServ__TotalFinAcctsPrimaryOwner__c</field>
+        <field>FinServ__FinancialAccount__c.FinServ__Balance__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.FinServ__TotalNumberOfFinAccounts__c</field>
+        <field>FinServ__FinancialAccount__c.FinServ__CashBalance__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.FinServ__TotalOutstandingCredit__c</field>
+        <field>FinServ__FinancialAccount__c.FinServ__CashLimit__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Industry</field>
+        <field>FinServ__FinancialAccount__c.FinServ__CloseDate__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.KYC_Verification_Level__c</field>
+        <field>FinServ__FinancialAccount__c.FinServ__CurrentPostedBalance__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.OCV_Event_Version__c</field>
+        <field>FinServ__FinancialAccount__c.FinServ__DailyWithdrawalLimit__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Occupation__c</field>
+        <field>FinServ__FinancialAccount__c.FinServ__FinancialAccountNumber__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Phone</field>
+        <field>FinServ__FinancialAccount__c.FinServ__FinancialAccountType__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Survivor_Party_ID__c</field>
+        <field>FinServ__FinancialAccount__c.FinServ__Household__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>AccountContactRelation.IsActive</field>
+        <field>FinServ__FinancialAccount__c.FinServ__InterestRate__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Contact.AccountId</field>
+        <field>FinServ__FinancialAccount__c.FinServ__JointOwner__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Contact.Birthdate</field>
+        <field>FinServ__FinancialAccount__c.FinServ__LastUpdated__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Contact.Email</field>
+        <field>FinServ__FinancialAccount__c.FinServ__OpenDate__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Contact.FinServ__ContactPreference__c</field>
+        <field>FinServ__FinancialAccount__c.FinServ__OwnerType__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Contact.FinServ__Gender__c</field>
+        <field>FinServ__FinancialAccount__c.FinServ__ProductName__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Contact.FinServ__MaritalStatus__c</field>
+        <field>FinServ__FinancialAccount__c.FinServ__Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Contact.HomePhone</field>
+        <field>FinServ__FinancialAccount__c.FinServ__Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Contact.MobilePhone</field>
+        <field>FinServ__FinancialAccount__c.Interest_Accrued__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Contact.OtherAddress</field>
+        <field>FinServ__FinancialAccount__c.OCV_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__FinancialAccount__c.Total_Number_of_Cards__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__FinancialAccount__c.lastUpdatedDateTime__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
-    <label>Customer Read-Only</label>
+    <label>Accounts &amp; Goals Read Only</label>
     <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
         <allowEdit>false</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
-        <object>Account</object>
+        <object>FinServ__FinancialAccountRole__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
@@ -167,11 +201,19 @@
         <allowEdit>false</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
-        <object>Contact</object>
+        <object>FinServ__FinancialAccount__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <recordTypeVisibilities>
-        <recordType>PersonAccount.PersonAccount</recordType>
+        <recordType>FinServ__FinancialAccount__c.FinServ__CheckingAccount</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>FinServ__FinancialAccount__c.FinServ__SavingsAccount</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <tabSettings>
+        <tab>FinServ__FinancialAccount__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
 </PermissionSet>
