@@ -1,7 +1,12 @@
 <template>
   <article class="slds-card slds-m-bottom_small">
-    <button class="slds-button refresh" onclick={update}>
-      Refresh Balances
-    </button>
+    <template if:true={displayContent}>
+      <button class="slds-button refresh" onclick={update}>
+        Refresh Balances
+      </button>
+    </template>
+    <template if:false={displayContent}>
+      <p class="refresh grey">Refresh Balances</p>
+    </template>
   </article>
 </template>

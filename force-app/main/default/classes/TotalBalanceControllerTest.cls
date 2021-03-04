@@ -32,6 +32,8 @@ public with sharing class TotalBalanceControllerTest {
     finAccount.Primary_Owner_Start_Date__c = Date.valueOf('2021-02-11');
 
     insert finAccount;
+
+    TestUtil.addAccountsGoalsPs();
   }
 
   /**
@@ -39,19 +41,22 @@ public with sharing class TotalBalanceControllerTest {
    */
   @isTest
   public static void testBalanceRetrieval() {
-    Account accnt = [
-      SELECT Id
-      FROM Account
-      WHERE Display_Name__c = 'TestAccount'
-      LIMIT 1
-    ];
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      Account accnt = [
+        SELECT Id
+        FROM Account
+        WHERE Display_Name__c = 'TestAccount'
+        LIMIT 1
+      ];
 
-    Test.startTest();
+      Test.startTest();
 
-    AggregateResult result = TotalBalanceController.getTotalBalance(accnt.Id);
+      AggregateResult result = TotalBalanceController.getTotalBalance(accnt.Id);
 
-    System.assertEquals(200, result.get('totalBalance'));
+      System.assertEquals(200, result.get('totalBalance'));
 
-    Test.stopTest();
+      Test.stopTest();
+    }
   }
 }

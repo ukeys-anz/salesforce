@@ -23,7 +23,11 @@ public with sharing class TransactionHistoryController {
     String paramUrl
   ) {
     String responseBody = null;
-    if (String.isNotBlank(ocvId) && String.isNotBlank(accountNumber)) {
+    if (
+      FeatureManagement.checkPermission('ANZx_Accounts_and_Goals') &&
+      String.isNotBlank(ocvId) &&
+      String.isNotBlank(accountNumber)
+    ) {
       HttpRequest request = new HttpRequest();
       request.setEndpoint(
         'callout:SF_MS_Fabric' +

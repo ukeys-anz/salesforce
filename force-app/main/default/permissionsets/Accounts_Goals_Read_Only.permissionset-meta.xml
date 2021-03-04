@@ -28,6 +28,10 @@
         <apexClass>UpdateFinancialAccounts</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>ANZx_Accounts_and_Goals</name>
+    </customPermissions>
     <description>Provides read only access to Accounts and Goals</description>
     <fieldPermissions>
         <editable>false</editable>

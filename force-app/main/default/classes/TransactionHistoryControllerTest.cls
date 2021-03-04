@@ -7,31 +7,45 @@
 @isTest
 public with sharing class TransactionHistoryControllerTest {
   /**
+   * @description Add required PermissionSet
+   */
+  @testSetup
+  public static void setup() {
+    TestUtil.addAccountsGoalsPs();
+  }
+
+  /**
    * @description test method for getTransactions when successful
    */
   @isTest
   public static void validResponse() {
-    Test.setMock(
-      HttpCalloutMock.class,
-      new ForgeTokenHandlerTest.MockForgeCallout()
-    );
-    Id userId = UserInfo.getUserId();
-    Cache.Session.put(
-      'local.SessionAzureTokens.idToken' + userId,
-      ForgeTokenHandlerTest.IDTESTVALUE,
-      300,
-      Cache.Visibility.NAMESPACE,
-      false
-    );
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      Test.setMock(
+        HttpCalloutMock.class,
+        new ForgeTokenHandlerTest.MockForgeCallout()
+      );
+      Id userId = UserInfo.getUserId();
+      Cache.Session.put(
+        'local.SessionAzureTokens.idToken' + userId,
+        ForgeTokenHandlerTest.IDTESTVALUE,
+        300,
+        Cache.Visibility.NAMESPACE,
+        false
+      );
 
-    Test.startTest();
-    String respBody = TransactionHistoryController.getTransactions(
-      '1111',
-      '11111111',
-      ''
-    );
-    System.assertEquals('{"access_token":"xxxxx","expires_in":900}', respBody);
-    Test.stopTest();
+      Test.startTest();
+      String respBody = TransactionHistoryController.getTransactions(
+        '1111',
+        '11111111',
+        ''
+      );
+      System.assertEquals(
+        '{"access_token":"xxxxx","expires_in":900}',
+        respBody
+      );
+      Test.stopTest();
+    }
   }
 
   /**
@@ -39,30 +53,33 @@ public with sharing class TransactionHistoryControllerTest {
    */
   @isTest
   public static void invalidResponseFromForgeToken() {
-    Test.setMock(
-      HttpCalloutMock.class,
-      new ForgeTokenHandlerTest.MockForgeCalloutFailed()
-    );
-    Id userId = UserInfo.getUserId();
-    Cache.Session.put(
-      'local.SessionAzureTokens.idToken' + userId,
-      ForgeTokenHandlerTest.IDTESTVALUE,
-      300,
-      Cache.Visibility.NAMESPACE,
-      false
-    );
-    String expMessage;
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      Test.setMock(
+        HttpCalloutMock.class,
+        new ForgeTokenHandlerTest.MockForgeCalloutFailed()
+      );
+      Id userId = UserInfo.getUserId();
+      Cache.Session.put(
+        'local.SessionAzureTokens.idToken' + userId,
+        ForgeTokenHandlerTest.IDTESTVALUE,
+        300,
+        Cache.Visibility.NAMESPACE,
+        false
+      );
+      String expMessage;
 
-    Test.startTest();
-    try {
-      TransactionHistoryController.getTransactions('1111', '11111111', '');
-    } catch (Exception e) {
-      expMessage = e.getMessage();
+      Test.startTest();
+      try {
+        TransactionHistoryController.getTransactions('1111', '11111111', '');
+      } catch (Exception e) {
+        expMessage = e.getMessage();
+      }
+
+      System.assertEquals('Get access token failed', expMessage);
+
+      Test.stopTest();
     }
-
-    System.assertEquals('Get access token failed', expMessage);
-
-    Test.stopTest();
   }
 
   /**
@@ -70,29 +87,33 @@ public with sharing class TransactionHistoryControllerTest {
    */
   @isTest
   public static void invalidResponse() {
-    Test.setMock(HttpCalloutMock.class, new MockInvalidTransactionCallout());
-    Id userId = UserInfo.getUserId();
-    Cache.Session.put(
-      'local.SessionAzureTokens.idToken' + userId,
-      ForgeTokenHandlerTest.IDTESTVALUE,
-      300,
-      Cache.Visibility.NAMESPACE,
-      false
-    );
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      Test.setMock(HttpCalloutMock.class, new MockInvalidTransactionCallout());
+      Id userId = UserInfo.getUserId();
+      Cache.Session.put(
+        'local.SessionAzureTokens.idToken' + userId,
+        ForgeTokenHandlerTest.IDTESTVALUE,
+        300,
+        Cache.Visibility.NAMESPACE,
+        false
+      );
 
-    String expMessage;
+      String expMessage;
 
-    Test.startTest();
-    try {
-      TransactionHistoryController.getTransactions('1111', '11111111', '');
-    } catch (Exception e) {
-      expMessage = e.getMessage();
+      Test.startTest();
+      try {
+        TransactionHistoryController.getTransactions('1111', '11111111', '');
+      } catch (Exception e) {
+        expMessage = e.getMessage();
+      }
+
+      System.assertEquals('Get transactions failed', expMessage);
+
+      Test.stopTest();
     }
-
-    System.assertEquals('Get transactions failed', expMessage);
-
-    Test.stopTest();
   }
+
   class MockInvalidTransactionCallout implements HttpCalloutMock {
     /**
      * @description mock response for callout

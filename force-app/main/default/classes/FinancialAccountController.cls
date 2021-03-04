@@ -20,7 +20,10 @@ public with sharing class FinancialAccountController {
     String type
   ) {
     List<FinServ__FinancialAccount__c> financialAccount;
-    if (FinServ__FinancialAccount__c.sObjectType.getDescribe().isQueryable()) {
+    if (
+      FeatureManagement.checkPermission('ANZx_Accounts_and_Goals') &&
+      FinServ__FinancialAccount__c.sObjectType.getDescribe().isQueryable()
+    ) {
       financialAccount = [
         SELECT
           Id,

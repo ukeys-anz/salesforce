@@ -9,6 +9,8 @@ import UpdateAccounts from "@salesforce/messageChannel/FinancialAccountsUpdate__
 import TriggerLoading from "@salesforce/messageChannel/FinancialAccountsTriggerLoading__c";
 import { NavigationMixin } from "lightning/navigation";
 
+import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
+
 export default class EverydayAccount extends NavigationMixin(LightningElement) {
   @api recordId;
   financialAccounts = [];
@@ -22,39 +24,48 @@ export default class EverydayAccount extends NavigationMixin(LightningElement) {
   messageContext;
   subscription = null;
   loadingSubscription = null;
+
+  get displayContent() {
+    return hasAccountsGoalsPermission;
+  }
+
   connectedCallback() {
-    this.loadingSubscription = subscribe(
-      this.messageContext,
-      TriggerLoading,
-      (message) => {
-        if (message.update) {
-          this.loading = true;
-        }
-      }
-    );
-
-    this.subscription = subscribe(
-      this.messageContext,
-      UpdateAccounts,
-      (message) => {
-        if (message.update) {
-          this.financialAccounts = [];
-          this.timestamp = "";
-          this.getAccounts();
-
-          if (this.financialAccounts) {
-            this.loading = false;
+    if (hasAccountsGoalsPermission) {
+      this.loadingSubscription = subscribe(
+        this.messageContext,
+        TriggerLoading,
+        (message) => {
+          if (message.update) {
+            this.loading = true;
           }
-        } else {
-          this.error = message.message;
-          this.getAccounts();
-          this.showToast("Financial Account Load Failed", this.error);
         }
-      }
-    );
+      );
 
-    if (!this.subscription || Object.keys(this.subscription).length === 0) {
-      this.getAccounts();
+      this.subscription = subscribe(
+        this.messageContext,
+        UpdateAccounts,
+        (message) => {
+          if (message.update) {
+            this.financialAccounts = [];
+            this.timestamp = "";
+            this.getAccounts();
+
+            if (this.financialAccounts) {
+              this.loading = false;
+            }
+          } else {
+            this.error = message.message;
+            this.getAccounts();
+            this.showToast("Financial Account Load Failed", this.error);
+          }
+        }
+      );
+
+      if (!this.subscription || Object.keys(this.subscription).length === 0) {
+        this.getAccounts();
+      }
+    } else {
+      this.loading = false;
     }
   }
 
