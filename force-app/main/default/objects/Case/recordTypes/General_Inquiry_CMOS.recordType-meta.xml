@@ -178,7 +178,7 @@
         </values>
         <values>
             <fullName>Australia</fullName>
-            <default>false</default>
+            <default>true</default>
         </values>
         <values>
             <fullName>Austria</fullName>
