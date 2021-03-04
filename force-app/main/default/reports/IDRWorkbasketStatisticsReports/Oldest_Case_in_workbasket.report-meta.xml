@@ -13,19 +13,13 @@
         <field>OWNER</field>
     </columns>
     <columns>
-        <field>ACCOUNT.NAME</field>
-    </columns>
-    <columns>
         <field>CASE_NUMBER</field>
     </columns>
     <columns>
-        <field>CREATED_DATE</field>
+        <field>Case.IDR_Date_Received__c</field>
     </columns>
     <columns>
         <field>DESCRIPTION</field>
-    </columns>
-    <columns>
-        <field>AGE</field>
     </columns>
     <columns>
         <aggregateTypes>Sum</aggregateTypes>
@@ -52,7 +46,7 @@
             <columnToColumn>false</columnToColumn>
             <isUnlocked>false</isUnlocked>
             <operator>notEqual</operator>
-            <value></value>
+            <value/>
         </criteriaItems>
     </filter>
     <format>Summary</format>
