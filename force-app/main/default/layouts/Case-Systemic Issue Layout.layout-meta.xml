@@ -128,7 +128,7 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>SI_AFCA_Id__c</field>
+                <field>IDR_AFCA_Number__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>

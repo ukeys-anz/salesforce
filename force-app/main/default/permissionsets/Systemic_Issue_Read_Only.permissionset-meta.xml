@@ -48,7 +48,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Case.SI_AFCA_Id__c</field>
+        <field>Case.IDR_AFCA_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
