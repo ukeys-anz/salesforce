@@ -1,5 +1,5 @@
 @isTest
-public with sharing class TestCaseCommentsTriggerHandler {
+public with sharing class CaseCommentsTriggerHandlerTest {
   @istest
   static void testCaseCommentsDelete() {
     Case c = new Case(

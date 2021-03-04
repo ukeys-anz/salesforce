@@ -1339,15 +1339,15 @@
     <enabled>false</enabled>
   </classAccesses>
   <classAccesses>
-    <apexClass>TestCaseTriggerHandler</apexClass>
+    <apexClass>CaseTriggerHandlerTest</apexClass>
     <enabled>false</enabled>
   </classAccesses>
   <classAccesses>
-    <apexClass>TestGetCustomerInformation</apexClass>
+    <apexClass>GetCustomerInformationTest</apexClass>
     <enabled>false</enabled>
   </classAccesses>
   <classAccesses>
-    <apexClass>TestProcessBuilderNoAction</apexClass>
+    <apexClass>ProcessBuilderNoActionTest</apexClass>
     <enabled>false</enabled>
   </classAccesses>
   <custom>true</custom>

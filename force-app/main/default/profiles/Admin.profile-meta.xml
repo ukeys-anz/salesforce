@@ -222,43 +222,43 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>TestCaseCommentsTriggerHandler</apexClass>
+        <apexClass>CaseCommentsTriggerHandlerTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>TestCaseTriggerHandler</apexClass>
+        <apexClass>CaseTriggerHandlerTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>TestCustomerFeedbackTriggerHandler</apexClass>
+        <apexClass>CustomerFeedbackTriggerHandlerTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>TestDateTimeUtils</apexClass>
+        <apexClass>DateTimeUtilsTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>TestGetCustomerInformation</apexClass>
+        <apexClass>GetCustomerInformationTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>TestIDRCaseActions</apexClass>
+        <apexClass>IDRCaseActionsTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>TestNewCaseFlowWrapperController</apexClass>
+        <apexClass>NewCaseFlowWrapperControllerTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>TestProcessBuilderNoAction</apexClass>
+        <apexClass>ProcessBuilderNoActionTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>TestUserProvisioningRequest</apexClass>
+        <apexClass>UserProvisioningRequestTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>TestUserTriggerHandler</apexClass>
+        <apexClass>UserTriggerHandlerTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>

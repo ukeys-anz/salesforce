@@ -4,7 +4,7 @@
  * @description  Test class for ANZAzureADRegistrationHandler
  */
 @isTest
-private class TestANZAzureADRegistrationHandler {
+private class ANZAzureADRegistrationHandlerTest {
   /**
    * @description This method is used to test createUser and updateUser methods from ANZAzureADRegistrationHandler
    * GIVEN a user record of existing user WHEN the createUser method is called THEN the corresponding user detail is returned.

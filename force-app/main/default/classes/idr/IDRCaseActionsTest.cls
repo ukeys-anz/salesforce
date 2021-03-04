@@ -1,5 +1,5 @@
 @isTest
-private with sharing class TestIDRCaseActions {
+private with sharing class IDRCaseActionsTest {
   @isTest
   static void testFormatedCaseNumber() {
     Case c = new Case(

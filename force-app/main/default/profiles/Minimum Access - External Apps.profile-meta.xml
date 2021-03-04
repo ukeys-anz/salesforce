@@ -265,51 +265,51 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>TestANZAzureADRegistrationHandler</apexClass>
+        <apexClass>ANZAzureADRegistrationHandlerTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>TestAccountTriggerHandler</apexClass>
+        <apexClass>AccountTriggerHandlerTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>TestCaseCommentsTriggerHandler</apexClass>
+        <apexClass>CaseCommentsTriggerHandlerTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>TestCaseTriggerHandler</apexClass>
+        <apexClass>CaseTriggerHandlerTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>TestCustomerFeedbackTriggerHandler</apexClass>
+        <apexClass>CustomerFeedbackTriggerHandlerTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>TestDateTimeUtils</apexClass>
+        <apexClass>DateTimeUtilsTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>TestGetCustomerInformation</apexClass>
+        <apexClass>GetCustomerInformationTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>TestIDRCaseActions</apexClass>
+        <apexClass>IDRCaseActionsTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>TestNewCaseFlowWrapperController</apexClass>
+        <apexClass>NewCaseFlowWrapperControllerTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>TestProcessBuilderNoAction</apexClass>
+        <apexClass>ProcessBuilderNoActionTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>TestUserProvisioningRequest</apexClass>
+        <apexClass>UserProvisioningRequestTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>TestUserTriggerHandler</apexClass>
+        <apexClass>UserTriggerHandlerTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>

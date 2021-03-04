@@ -11,13 +11,15 @@ public with sharing class TotalBalanceControllerTest {
    */
   @testSetup
   static void setup() {
+    Faker faker = new Faker('AU');
+
     Account accnt = new Account();
     accnt.Name = 'TestAccount';
     accnt.Display_Name__c = 'TestAccount';
-    accnt.OCV_ID__c = '1';
+    accnt.OCV_ID__c = faker.randomString(10);
     accnt.ANZx_Customer__c = true;
     accnt.FinServ__TotalFinAcctsPrimaryOwner__c = 200;
-    accnt.External_Id__c = '82jfsa80534';
+    accnt.External_Id__c = faker.randomString(10);
     //Rollup summary hardcoded to 200, as it doesn't work in test scenarios and is not the focus of these test cases
     insert accnt;
 
@@ -28,10 +30,28 @@ public with sharing class TotalBalanceControllerTest {
     finAccount.FinServ__Status__c = 'Open';
     finAccount.FinServ__FinancialAccountType__c = 'Checking';
     finAccount.FinServ__PrimaryOwner__c = accnt.Id;
-    finAccount.Account_Key__c = '342490981';
+    finAccount.Account_Key__c = faker.randomString(9);
     finAccount.Primary_Owner_Start_Date__c = Date.valueOf('2021-02-11');
 
     insert finAccount;
+
+    FinServ__FinancialAccount__c[] savingAccounts = new List<FinServ__FinancialAccount__c>();
+    for (Integer i = 0; i < 2; i++) {
+      savingAccounts.add(
+        new FinServ__FinancialAccount__c(
+          Name = 'Savings Account',
+          FinServ__Balance__c = 200,
+          FinServ__CurrentPostedBalance__c = 200,
+          FinServ__Status__c = 'Open',
+          FinServ__FinancialAccountType__c = 'Savings',
+          FinServ__PrimaryOwner__c = accnt.Id,
+          Account_Key__c = faker.randomString(9),
+          Primary_Owner_Start_Date__c = Date.valueOf('2021-02-11')
+        )
+      );
+    }
+
+    insert savingAccounts;
 
     TestUtil.addAccountsGoalsPs();
   }
@@ -54,9 +74,31 @@ public with sharing class TotalBalanceControllerTest {
 
       AggregateResult result = TotalBalanceController.getTotalBalance(accnt.Id);
 
-      System.assertEquals(200, result.get('totalBalance'));
+      System.assertEquals(600, result.get('totalBalance'));
 
       Test.stopTest();
     }
+  }
+
+  /**
+   * @description testBalanceRetrieval is to test total balance is retrieved successfully
+   */
+  @isTest
+  public static void testTotalSavedRetrieval() {
+    Account accnt = [
+      SELECT Id
+      FROM Account
+      WHERE Display_Name__c = 'TestAccount'
+    ];
+    AggregateResult result;
+    Test.startTest();
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      result = TotalBalanceController.getTotalSaved(accnt.Id);
+    }
+
+    Test.stopTest();
+
+    System.assertEquals(400, result.get('totalSaved'));
   }
 }

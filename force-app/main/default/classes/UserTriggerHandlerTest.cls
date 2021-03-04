@@ -1,10 +1,10 @@
 /**
  * @author Boobalakrishnan Duraisamy
  * @since 02/2020
- * @description  TestUserTriggerHandler is the a class for UserProvisioningService and UserTriggerHandler Class.
+ * @description  UserTriggerHandlerTest is the a class for UserProvisioningService and UserTriggerHandler Class.
  */
 @isTest
-public class TestUserTriggerHandler {
+public class UserTriggerHandlerTest {
   static List<User> testUsers = new List<User>();
 
   /**
