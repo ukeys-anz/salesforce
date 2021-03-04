@@ -57,11 +57,6 @@
                 <label>IDR/EDR</label>
             </value>
             <value>
-                <fullName>Other</fullName>
-                <default>false</default>
-                <label>Other</label>
-            </value>
-            <value>
                 <fullName>Personal Advice/Conduct of Representatives (Wealth only)</fullName>
                 <default>false</default>
                 <label>Personal Advice/Conduct of Representatives (Wealth only)</label>
@@ -85,6 +80,11 @@
                 <fullName>Transactions &amp; Payments</fullName>
                 <default>false</default>
                 <label>Transactions &amp; Payments</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
             </value>
         </valueSetDefinition>
     </valueSet>
