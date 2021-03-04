@@ -24,7 +24,8 @@
     "trailheadapp__User_Badge__c",
     "trailheadapp__User_Trailmix__c",
     "User",
-    "Activity"
+    "Activity",
+    "Task"
   ],
   "usermap": [
     {
