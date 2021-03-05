@@ -1005,7 +1005,6 @@ public with sharing class IDRCaseActions {
   ) {
     Case[] childComplaints = new List<Case>(); //records to rollup on parent systemic issue
     Task[] siTasks = new List<Task>();
-
     for (Case record : records) {
       Case oldRec;
       if (oldMap != null) {
@@ -1026,24 +1025,15 @@ public with sharing class IDRCaseActions {
           childComplaints.add(oldRec);
         }
       }
-
-      //create task if it is a possible systemic issue and level 1 user is making the change
-      if (
-        isIDRComplaintType(record) &&
-        record.IDR_Is_Common__c == 'Yes' &&
-        FeatureManagement.checkPermission('IDR_Level_1') &&
-        (oldRec == null ||
-        record.IDR_Is_Common__c != oldRec.IDR_Is_Common__c)
-      ) {
-        siTasks.add(createTaskForPSI(record));
+      //validate case for PSI task creation
+      if (validateCaseForPSITask(record, oldRec)) {
+        siTasks.add(populateTaskFields(record));
       }
     }
-
     //rollup on parent systemic issue
     if (!childComplaints.isEmpty()) {
       SICaseActions.rollupToParentSI(childComplaints);
     }
-
     //insert SI Tasks
     if (!siTasks.isEmpty() && Task.sObjectType.getDescribe().isCreateable()) {
       insert siTasks;
@@ -1051,11 +1041,41 @@ public with sharing class IDRCaseActions {
   }
 
   /**
-   * @description Create a task and assign it to SI team for review
+   * @description Validates a complaint record for creating PSI task
+   * @param record from case trigger
+   * @param oldRec from case trigger
+   * @return Boolean returns true or false based on validation
+   */
+  private static Boolean validateCaseForPSITask(Case record, Case oldRec) {
+    if (
+      isIDRComplaintType(record) &&
+      record.IDR_Is_Common__c == 'Yes' &&
+      FeatureManagement.checkPermission('IDR_Level_1') &&
+      (oldRec == null ||
+      record.IDR_Is_Common__c != oldRec.IDR_Is_Common__c)
+    ) {
+      //create task if it is a possible systemic issue and level 1 user is making the change
+      return true;
+    } else if (
+      oldRec != null &&
+      isIDRComplaintType(record) &&
+      record.IDR_Is_Common__c == 'Yes' &&
+      record.isClosed == true &&
+      oldRec.isEscalated == true
+    ) {
+      //create task if the complaint is a PSI, escalated and closed.
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  /**
+   * @description populate task fields for creating possible systemic issue task
    * @param c Parent case of the tasks
    * @return An instance of a Task
    */
-  private static Task createTaskForPSI(Case c) {
+  private static Task populateTaskFields(Case c) {
     Date activityDate = Date.today().addDays(5);
     return new Task(
       RecordTypeId = IDR_TASK_RT_ID,
