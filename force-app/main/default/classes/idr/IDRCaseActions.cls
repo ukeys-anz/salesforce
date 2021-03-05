@@ -393,6 +393,7 @@ public with sharing class IDRCaseActions {
 
     collectionsEvent.IDR_Complaint_Number__c = c.CaseNumber;
     collectionsEvent.IDR_Complaint_Status__c = c.Status;
+    collectionsEvent.IDR_Closed_On_Create__c = c.IsClosedOnCreate;
     collectionsEvent.IDR_Account_Details__c = getAccountListJson(c);
 
     return collectionsEvent;
