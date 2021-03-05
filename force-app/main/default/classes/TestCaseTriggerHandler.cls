@@ -956,6 +956,7 @@ private class TestCaseTriggerHandler {
       'Failed to autopopulate Subject on Fraud cases as expected, while updating'
     );
   }
+
   @isTest
   static void testPSITaskCreation() {
     // GIVEN complaint cases which are possibly systemic issues
@@ -974,7 +975,14 @@ private class TestCaseTriggerHandler {
     }
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       caseList2.add(
-        new Case(RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID)
+        new Case(
+          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
+          Status = 'Escalated',
+          IDR_Escalation_Reason__c = '2',
+          IDR_Is_Common__c = 'Yes',
+          IDR_Systemic_Issue_Description__c = 'Test Description',
+          IDR_Systemic_Issue_Category__c = '1'
+        )
       );
     }
 
@@ -982,14 +990,17 @@ private class TestCaseTriggerHandler {
     System.runAs(level1User) {
       // WHEN they are inserted or updated by L1 User
       insert caseList1;
-      insert caseList2;
-      for (Case updateCase : caseList2) {
-        updateCase.IDR_Is_Common__c = 'Yes';
-        updateCase.IDR_Systemic_Issue_Description__c = 'Test Description';
-        updateCase.IDR_Systemic_Issue_Category__c = '2';
-      }
-      update caseList2;
     }
+    // When they are Escalated and Resolved by any user
+    insert caseList2;
+    for (Case updateCase : caseList2) {
+      updateCase.Status = 'Resolved';
+      updateCase.IDR_Complaint_Outcome__c = '1';
+      updateCase.IDR_Complaint_Remedy__c = '2';
+      updateCase.IDR_Non_Financial_Remedy__c = '5';
+      updateCase.IDR_Description_of_Outcome__c = 'Test';
+    }
+    update caseList2;
     test.stopTest();
     // THEN new tasks are created and assigned to PSI queue
     List<Task> psiTasks = [SELECT Id, Subject, OwnerId FROM Task];
