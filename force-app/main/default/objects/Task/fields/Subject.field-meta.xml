@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Subject</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Source_Salesforce;Integrity - Accurate</complianceGroup>
+    <complianceGroup>Privacy_Personal_Information;Integrity - Accurate;Source - Salesforce</complianceGroup>
     <securityClassification>Internal</securityClassification>
     <type>Picklist</type>
 </CustomField>
