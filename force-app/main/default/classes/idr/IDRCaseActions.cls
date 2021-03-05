@@ -1046,7 +1046,6 @@ public with sharing class IDRCaseActions {
    * @return Boolean returns true or false based on validation
    */
   private static Boolean validateCaseForPSITask(Case record, Case oldRec) {
-    //create task if it is a possible systemic issue and level 1 user is making the change
     if (
       isIDRComplaintType(record) &&
       record.IDR_Is_Common__c == 'Yes' &&
@@ -1054,6 +1053,7 @@ public with sharing class IDRCaseActions {
       (oldRec == null ||
       record.IDR_Is_Common__c != oldRec.IDR_Is_Common__c)
     ) {
+      //create task if it is a possible systemic issue and level 1 user is making the change
       return true;
     } else if (
       oldRec != null &&
