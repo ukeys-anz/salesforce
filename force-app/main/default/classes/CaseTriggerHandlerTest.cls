@@ -1,6 +1,6 @@
 @SuppressWarnings('PMD.CyclomaticComplexity')
 @isTest
-private class TestCaseTriggerHandler {
+private class CaseTriggerHandlerTest {
   public static Map<String, String> caseTypeLabelByValue = CommonUtils.getPicklistLabelsByValues(
     Case.Type
   );

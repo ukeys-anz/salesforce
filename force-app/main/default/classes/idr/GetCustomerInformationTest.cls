@@ -3,11 +3,11 @@
  * @author Pavan Kuamr Ananta
  * @since 2020
  * @group IDR(Internal Dispute Resolution)
- * @description TestGetCustomerInformation is the test class to cover tests for {@link GetCustomerInformation}
+ * @description GetCustomerInformationTest is the test class to cover tests for {@link GetCustomerInformation}
  */
 
 @isTest
-private with sharing class TestGetCustomerInformation {
+private with sharing class GetCustomerInformationTest {
   //Success response body
   private static final String SUCCESS_RESPONSE_BODY = '{"profile": {"firstname": "TestFirstName","lastname": "TestLastName","mobile": "TestMobile"}}';
 

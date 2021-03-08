@@ -1,5 +1,5 @@
 @isTest
-public with sharing class TestCaseCommentsTriggerHandler {
+public with sharing class CaseCommentsTriggerHandlerTest {
   @istest
   static void testCaseCommentsDelete() {
     Case c = new Case(
@@ -231,7 +231,7 @@ public with sharing class TestCaseCommentsTriggerHandler {
       PermissionSet ps = [
         SELECT Id
         FROM PermissionSet
-        WHERE Name = 'Case_Read_Write'
+        WHERE Name = 'Case_Read_Write_Get_Help'
       ];
       insert new PermissionSetAssignment(
         AssigneeId = coachUser.id,

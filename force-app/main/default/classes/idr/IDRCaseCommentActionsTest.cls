@@ -1,5 +1,5 @@
 @isTest
-private inherited sharing class TestIDRCaseCommentActions {
+private inherited sharing class IDRCaseCommentActionsTest {
   @TestSetup
   static void testSetup() {
     //Insert Cases with comments

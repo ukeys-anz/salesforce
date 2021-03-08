@@ -4,7 +4,7 @@
  * @description Unit test class for UserProvisioningRestService and User Provisioning Request Trigger
  */
 @isTest
-public class TestUserProvisioningRequest {
+public class UserProvisioningRequestTest {
   @testSetup
   static void testSetup() {
     Profile p = [SELECT Id FROM Profile WHERE Name = 'Standard User'];

@@ -9,6 +9,8 @@ import { subscribe, MessageContext } from "lightning/messageService";
 import UpdateAccounts from "@salesforce/messageChannel/FinancialAccountsUpdate__c";
 import TriggerLoading from "@salesforce/messageChannel/FinancialAccountsTriggerLoading__c";
 
+import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
+
 export default class TotalBalance extends LightningElement {
   @api recordId;
   @track totalBalance;
@@ -22,39 +24,47 @@ export default class TotalBalance extends LightningElement {
   subscription = null;
   loadingSubscription = null;
 
+  get displayContent() {
+    return hasAccountsGoalsPermission;
+  }
+
   connectedCallback() {
-    this.loadingSubscription = subscribe(
-      this.messageContext,
-      TriggerLoading,
-      (message) => {
-        if (message.update) {
-          this.loading = true;
-        }
-      }
-    );
-
-    this.subscription = subscribe(
-      this.messageContext,
-      UpdateAccounts,
-      (message) => {
-        if (message.update) {
-          this.totalSaved = null;
-          this.totalBalance = null;
-          this.getTotal();
-
-          if (this.totalBalance || this.totalSaved) {
-            this.loading = false;
+    if (hasAccountsGoalsPermission) {
+      this.loadingSubscription = subscribe(
+        this.messageContext,
+        TriggerLoading,
+        (message) => {
+          if (message.update) {
+            this.loading = true;
           }
-        } else {
-          this.error = message.message;
-          this.getTotal();
-          this.showToast("Total Balance Load Failed", this.error);
         }
-      }
-    );
+      );
 
-    if (!this.subscription || Object.keys(this.subscription).length === 0) {
-      this.getTotal();
+      this.subscription = subscribe(
+        this.messageContext,
+        UpdateAccounts,
+        (message) => {
+          if (message.update) {
+            this.totalSaved = null;
+            this.totalBalance = null;
+            this.getTotal();
+
+            if (this.totalBalance || this.totalSaved) {
+              this.loading = false;
+            }
+          } else {
+            this.error = message.message;
+            this.getTotal();
+            this.showToast("Total Balance Load Failed", this.error);
+          }
+        }
+      );
+
+      if (!this.subscription || Object.keys(this.subscription).length === 0) {
+        this.getTotal();
+      }
+    } else {
+      this.loading = false;
     }
   }
 

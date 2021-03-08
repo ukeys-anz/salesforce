@@ -1,5 +1,5 @@
 @isTest
-private with sharing class TestNewCaseFlowWrapperController {
+private with sharing class NewCaseFlowWrapperControllerTest {
   /**
    * @description setup is to prepare test data
    */

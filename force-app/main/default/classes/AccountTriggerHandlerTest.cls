@@ -1,5 +1,5 @@
 @isTest
-private class TestAccountTriggerHandler {
+private class AccountTriggerHandlerTest {
   // ABT-25697 - Disable Trigger for Delete Event for Beta
   // @isTest
   // static void testAccountDeletionPositiveFlow() {
@@ -116,4 +116,29 @@ private class TestAccountTriggerHandler {
   //   // THEN the account deletion will fail and failure result will be added to application logs
   //   system.assertEquals('DELETE_FAILED', logList[0].Error_No__c);
   // }
+
+  @isTest
+  static void testEntitlementUpdate() {
+    Faker faker = new Faker('AU');
+
+    Account testAccount = new Account(
+      Name = 'Test Account',
+      OCV_ID__c = faker.randomString(10),
+      ANZx_Customer__c = false
+    );
+    insert testAccount;
+
+    Test.startTest();
+    testAccount.ANZx_Customer__c = true;
+    update testAccount;
+
+    Integer entitlementCount = [
+      SELECT COUNT()
+      FROM Entitlement
+      WHERE AccountId = :testAccount.Id AND Name = 'Basic Subscription'
+    ];
+
+    System.assertEquals(1, entitlementCount);
+    Test.stopTest();
+  }
 }

@@ -21,7 +21,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
-    <label>Staff Knowledge Base Author</label>
+    <label>Knowledge Base Author</label>
     <objectPermissions>
         <allowCreate>true</allowCreate>
         <allowDelete>true</allowDelete>

@@ -10,6 +10,8 @@ import FIN_ACCOUNT_ACCOUNT_NUMBER_FIELD from "@salesforce/schema/FinServ__Financ
 import { publish, MessageContext } from "lightning/messageService";
 import ExpandCollapseAll from "@salesforce/messageChannel/ListCollapseExpandAll__c";
 
+import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
+
 //Remapping the status and types returned from the API so they
 //are more readable on the UI
 const transactionStatusMapping = {
@@ -70,11 +72,15 @@ export default class TransactionHistoryBoard extends LightningElement {
     fields: [FIN_ACCOUNT_OCV_ID_FIELD, FIN_ACCOUNT_ACCOUNT_NUMBER_FIELD]
   })
   wiredProject({ data }) {
-    if (data) {
+    if (data && hasAccountsGoalsPermission) {
       this.ocvId = data.fields.OCV_ID__c.value;
       this.accountNumber = data.fields.FinServ__FinancialAccountNumber__c.value;
       this.fetchTransactions();
     }
+  }
+
+  get displayContent() {
+    return hasAccountsGoalsPermission;
   }
 
   get showLoadMore() {

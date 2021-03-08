@@ -1,5 +1,5 @@
 @isTest
-public with sharing class TestDateTimeUtils {
+public with sharing class DateTimeUtilsTest {
   @isTest
   static void testTimeInHours() {
     Decimal hours = DateTimeUtils.calculateHoursBetween(

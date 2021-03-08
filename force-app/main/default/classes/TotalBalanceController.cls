@@ -14,7 +14,10 @@ public with sharing class TotalBalanceController {
   @AuraEnabled
   public static AggregateResult getTotalBalance(Id ownerId) {
     AggregateResult totalBalance;
-    if (FinServ__FinancialAccount__c.sObjectType.getDescribe().isQueryable()) {
+    if (
+      FeatureManagement.checkPermission('ANZx_Accounts_and_Goals') &&
+      FinServ__FinancialAccount__c.sObjectType.getDescribe().isQueryable()
+    ) {
       totalBalance = [
         SELECT SUM(FinServ__Balance__c) totalBalance
         FROM FinServ__FinancialAccount__c
@@ -39,7 +42,10 @@ public with sharing class TotalBalanceController {
   @AuraEnabled
   public static AggregateResult getTotalSaved(Id ownerId) {
     AggregateResult totalSaved;
-    if (FinServ__FinancialAccount__c.sObjectType.getDescribe().isQueryable()) {
+    if (
+      FeatureManagement.checkPermission('ANZx_Accounts_and_Goals') &&
+      FinServ__FinancialAccount__c.sObjectType.getDescribe().isQueryable()
+    ) {
       totalSaved = [
         SELECT SUM(FinServ__Balance__c) totalSaved
         FROM FinServ__FinancialAccount__c

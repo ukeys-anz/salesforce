@@ -20,7 +20,7 @@
                 <field>OwnerId</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Required</behavior>
                 <field>AccountId</field>
             </layoutItems>
             <layoutItems>
@@ -123,6 +123,25 @@
     <layoutSections>
         <customLabel>true</customLabel>
         <detailHeading>true</detailHeading>
+        <editHeading>true</editHeading>
+        <label>System Information</label>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>CreatedById</field>
+            </layoutItems>
+        </layoutColumns>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>LastModifiedById</field>
+            </layoutItems>
+        </layoutColumns>
+        <style>TwoColumnsLeftToRight</style>
+    </layoutSections>
+    <layoutSections>
+        <customLabel>true</customLabel>
+        <detailHeading>true</detailHeading>
         <editHeading>false</editHeading>
         <label>Custom Links</label>
         <layoutColumns/>
@@ -167,6 +186,15 @@
             </layoutItem>
         </relatedContentItems>
     </relatedContent>
+    <relatedLists>
+        <fields>TITLE</fields>
+        <fields>LAST_UPDATE</fields>
+        <fields>CREATEDBY_USER</fields>
+        <relatedList>RelatedArticleList</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <relatedList>RelatedCommentsList</relatedList>
+    </relatedLists>
     <relatedLists>
         <excludeButtons>LogCall</excludeButtons>
         <excludeButtons>MailMerge</excludeButtons>

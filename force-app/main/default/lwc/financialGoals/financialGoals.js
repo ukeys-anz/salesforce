@@ -9,6 +9,8 @@ import RetrieveGoals from "@salesforce/messageChannel/RetrieveFinancialGoals__c"
 import TriggerLoading from "@salesforce/messageChannel/FinancialAccountsTriggerLoading__c";
 import { NavigationMixin } from "lightning/navigation";
 
+import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
+
 export default class FinancialGoals extends NavigationMixin(LightningElement) {
   @api recordId;
   goals = [];
@@ -24,57 +26,66 @@ export default class FinancialGoals extends NavigationMixin(LightningElement) {
   subscription = null;
   loadingSubscription = null;
 
+  get displayContent() {
+    return hasAccountsGoalsPermission;
+  }
+
   connectedCallback() {
-    getFinancialAccounts({
-      ownerId: this.recordId,
-      recordLimit: 4,
-      type: "Savings"
-    })
-      .then((result) => {
-        if (result) {
-          result.forEach((finAccount) => {
-            //Set account number as key and ID as value to link goals to accounts later
-            this.accountNumbers[finAccount.FinServ__FinancialAccountNumber__c] =
-              finAccount.Id;
-
-            //Only set timestamp once instead of each time in the loop
-            if (!this.timestamp) {
-              this.setTimestamp();
-            }
-          });
-        }
+    if (hasAccountsGoalsPermission) {
+      getFinancialAccounts({
+        ownerId: this.recordId,
+        recordLimit: 4,
+        type: "Savings"
       })
-      .catch((error) => {
-        this.loading = false;
-        if (error.body && error.body.message) {
-          this.error = error.body.message;
-        }
-        this.hasError = true;
-      });
+        .then((result) => {
+          if (result) {
+            result.forEach((finAccount) => {
+              //Set account number as key and ID as value to link goals to accounts later
+              this.accountNumbers[
+                finAccount.FinServ__FinancialAccountNumber__c
+              ] = finAccount.Id;
 
-    this.loadingSubscription = subscribe(
-      this.messageContext,
-      TriggerLoading,
-      (message) => {
-        if (message.update) {
-          this.loading = true;
+              //Only set timestamp once instead of each time in the loop
+              if (!this.timestamp) {
+                this.setTimestamp();
+              }
+            });
+          }
+        })
+        .catch((error) => {
+          this.loading = false;
+          if (error.body && error.body.message) {
+            this.error = error.body.message;
+          }
+          this.hasError = true;
+        });
+
+      this.loadingSubscription = subscribe(
+        this.messageContext,
+        TriggerLoading,
+        (message) => {
+          if (message.update) {
+            this.loading = true;
+          }
         }
-      }
-    );
-    this.subscription = subscribe(
-      this.messageContext,
-      RetrieveGoals,
-      (response) => {
-        if (response.error) {
-          this.error = response.error;
-          this.showToast("Financial Goals Load Failed", this.error);
-        } else {
-          this.goals = [];
-          this.timestamp = "";
-          this.handleGoals(response);
+      );
+      this.subscription = subscribe(
+        this.messageContext,
+        RetrieveGoals,
+        (response) => {
+          if (response.error) {
+            this.error = response.error;
+            this.showToast("Financial Goals Load Failed", this.error);
+          } else {
+            this.goals = [];
+            this.timestamp = "";
+            this.handleGoals(response);
+          }
         }
-      }
-    );
+      );
+    } else {
+      this.loading = false;
+    }
   }
 
   setTimestamp() {

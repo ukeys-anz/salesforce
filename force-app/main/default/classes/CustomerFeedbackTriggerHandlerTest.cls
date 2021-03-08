@@ -1,5 +1,5 @@
 @isTest
-private class TestCustomerFeedbackTriggerHandler {
+private class CustomerFeedbackTriggerHandlerTest {
   //GIVEN a feedback record with existing OCV ID WHEN the record is inserted THEN corresponding account Id is inserted in record.
   //GIVEN a feedback record with non existing OCV ID WHEN the record is inserted THEN insert will fail with error message.
   @isTest
