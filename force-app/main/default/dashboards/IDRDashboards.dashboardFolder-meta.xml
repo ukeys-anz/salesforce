@@ -3,7 +3,7 @@
     <folderShares>
         <accessLevel>View</accessLevel>
         <sharedTo>ANZ</sharedTo>
-        <sharedToType>RoleAndSubordinatesInternal</sharedToType>
+        <sharedToType>RoleAndSubordinates</sharedToType>
     </folderShares>
     <name>CMOS Dashboards</name>
 </DashboardFolder>
