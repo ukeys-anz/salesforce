@@ -484,7 +484,8 @@ private class TestCaseTriggerHandler {
           RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
           Status = 'Escalated',
           IDR_Escalated_to__c = '1',
-          IDR_Escalation_Reason__c = '1'
+          IDR_Escalation_Reason__c = '1',
+          OwnerId = IDRCaseActions.queue.Id
         )
       );
     }

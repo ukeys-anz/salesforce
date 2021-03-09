@@ -258,7 +258,7 @@ public with sharing class IDRCaseActions {
   }
 
   /**
-   * @description Check if this case record needs to be sent for CRC escalation
+   * @description Check if this case record needs to be assigned to a CRP workbasket
    * @param record case record
    */
   private static void checkForCRCEscalation(Case record) {
@@ -278,7 +278,6 @@ public with sharing class IDRCaseActions {
   public static void completeAfterActions() {
     CheckRecursive.run();
     NotificationTriggerHandler.insertNotificationHandler(notificationCaseList);
-    escalateToCFMS(caseEscalationList);
     executeAssignmentRule(caseEscalationList);
     notificationCaseList.clear();
     caseEscalationList.clear();
@@ -729,7 +728,7 @@ public with sharing class IDRCaseActions {
   }
   /**
    * @description Get the EntitlmentId that will be associated with this case
-   *@return Id  - the Id of the entitlment record
+   * @return Id  - the Id of the entitlment record
    */
   public static Id getEntitlement() {
     list<Entitlement> et = new List<Entitlement>();
@@ -749,94 +748,101 @@ public with sharing class IDRCaseActions {
       return null;
     }
   }
+
   /**
    * @description Escalate the list of Records to CRC by publishing a platform event.
-   * @param recordsToBeEscalated
+   * @param recordsToBeEscalated the cases which data will be escalated
    */
-  private static void escalateToCFMS(List<Case> recordsToBeEscalated) {
-    if (recordsToBeEscalated.isEmpty()) {
-      return;
-    }
-    idrCaseEscalations = new List<IDR_CRC_Escalation_Event__e>();
-    for (Case c : recordsToBeEscalated) {
-      idrCaseEscalations.add(
-        new IDR_CRC_Escalation_Event__e(
-          Account_Number__c = c.IDR_Account_Card_Policy_Number__c,
-          Address_Line1__c = c.IDR_NC_Street__c,
-          AFCA_Date__c = c.IDR_AFCA_Date__c,
-          AFCA_Number__c = c.IDR_AFCA_Number__c,
-          Age__c = CommonUtils.getSinglePicklistLabel(
-            Case.IDR_NC_Age__c,
-            c.IDR_NC_Age__c
-          ),
-          Non_Financial_Remedy__c = c.IDR_Non_Financial_Remedy__c,
-          Agent_License_Number__c = c.IDR_AuthRep_Licence_Number__c,
-          Agent_License_Type__c = CommonUtils.getSinglePicklistLabel(
-            Case.IDR_AuthRep_Licence_or_registration_type__c,
-            c.IDR_AuthRep_Licence_or_registration_type__c
-          ),
-          ANZ_Received_Date__c = c.IDR_Date_Received__c.date(),
-          Case_Number__c = String.isNotBlank(c.CaseNumber__c)
-            ? c.CaseNumber__c
-            : c.CaseNumber,
-          Customer_First_Name__c = c.IDR_NC_First_Name__c,
-          Customer_Middle_Names__c = c.IDR_NC_Middle_Names__c,
-          Customer_Last_Name__c = c.IDR_NC_Last_Name__c,
-          Customer_Business_Name__c = c.IDR_NC_Business_Name__c,
-          Complainant_Type__c = CommonUtils.getSinglePicklistLabel(
-            Case.IDR_Complainant_Type__c,
-            c.IDR_Complainant_Type__c
-          ),
-          Complaint_Description__c = c.Description,
-          Complaint_Desired_Outcome__c = c.IDR_Complainant_Desired_Outcome__c,
-          Complaint_Issue__c = CommonUtils.getSinglePicklistLabel(
-            Case.Type,
-            c.Type
-          ),
-          Complaint_Issue_Key__c = c.Type,
-          Complaint_Subsequent_Issue__c = c.IDR_Subsequent_Issue__c,
-          Country__c = c.IDR_NC_Country__c,
-          Customer_Number__c = c.IDR_Customer_Number__c,
-          Email__c = c.IDR_NC_Email__c,
-          Gender__c = CommonUtils.getSinglePicklistLabel(
-            Case.IDR_NC_Gender__c,
-            c.IDR_NC_Gender__c
-          ),
-          Is_Written_Response_Requested__c = c.IDR_Is_Written_Resp_Requested__c ==
-            YES_VALUE
-            ? true
-            : false,
-          Is_Written_Response_Required__c = c.IDR_Is_Written_Resp_Required__c ==
-            YES_VALUE
-            ? true
-            : false,
-          Mobile__c = c.IDR_NC_Mobile__c,
-          Phone__c = c.IDR_NC_Phone__c,
-          Post_Code__c = c.IDR_NC_Postcode__c,
-          Remedy__c = CommonUtils.getSinglePicklistLabel(
-            Case.IDR_Complaint_Remedy__c,
-            c.IDR_Complaint_Remedy__c
-          ),
-          State__c = c.IDR_NC_State__c == '11'
-            ? 'OTHER TERRITORIES'
-            : CommonUtils.getSinglePicklistLabel(
-                Case.IDR_NC_State__c,
-                c.IDR_NC_State__c
-              ),
-          Suburb__c = c.IDR_NC_Suburb__c,
-          Priority__c = c.Priority,
-          Channel_Received__c = CommonUtils.getSinglePicklistLabel(
-            Case.Origin,
-            c.Origin
-          ),
-          Relationship_To_Complainant__c = c.IDR_3rdParty_Relationship_To_Complainant__c,
-          IDR_Is_Common__c = c.IDR_Is_Common__c,
-          IDR_Systemic_Issue_Category__c = c.IDR_Systemic_Issue_Category__c,
-          IDR_Systemic_Issue_Description__c = c.IDR_Systemic_Issue_Description__c
-        )
-      );
-    }
-    if (!idrCaseEscalations.isEmpty()) {
+  @InvocableMethod(
+    label='Escalate complaint to CFMS'
+    description='Publishes complaint escalation platform events'
+    category='Platform Event'
+  )
+  public static void escalateToCFMS(List<Case> recordsToBeEscalated) {
+    if (!recordsToBeEscalated.isEmpty()) {
+      Map<Id, Group> queueMap = getQueuesToEscalate(recordsToBeEscalated);
+      idrCaseEscalations = new List<IDR_CRC_Escalation_Event__e>();
+      for (Case c : recordsToBeEscalated) {
+        idrCaseEscalations.add(
+          new IDR_CRC_Escalation_Event__e(
+            Account_Number__c = c.IDR_Account_Card_Policy_Number__c,
+            Address_Line1__c = c.IDR_NC_Street__c,
+            AFCA_Date__c = c.IDR_AFCA_Date__c,
+            AFCA_Number__c = c.IDR_AFCA_Number__c,
+            Age__c = CommonUtils.getSinglePicklistLabel(
+              Case.IDR_NC_Age__c,
+              c.IDR_NC_Age__c
+            ),
+            Non_Financial_Remedy__c = c.IDR_Non_Financial_Remedy__c,
+            Agent_License_Number__c = c.IDR_AuthRep_Licence_Number__c,
+            Agent_License_Type__c = CommonUtils.getSinglePicklistLabel(
+              Case.IDR_AuthRep_Licence_or_registration_type__c,
+              c.IDR_AuthRep_Licence_or_registration_type__c
+            ),
+            ANZ_Received_Date__c = c.IDR_Date_Received__c.date(),
+            Case_Number__c = String.isNotBlank(c.CaseNumber__c)
+              ? c.CaseNumber__c
+              : c.CaseNumber,
+            Customer_First_Name__c = c.IDR_NC_First_Name__c,
+            Customer_Middle_Names__c = c.IDR_NC_Middle_Names__c,
+            Customer_Last_Name__c = c.IDR_NC_Last_Name__c,
+            Customer_Business_Name__c = c.IDR_NC_Business_Name__c,
+            Complainant_Type__c = CommonUtils.getSinglePicklistLabel(
+              Case.IDR_Complainant_Type__c,
+              c.IDR_Complainant_Type__c
+            ),
+            Complaint_Description__c = c.Description,
+            Complaint_Desired_Outcome__c = c.IDR_Complainant_Desired_Outcome__c,
+            Complaint_Issue__c = CommonUtils.getSinglePicklistLabel(
+              Case.Type,
+              c.Type
+            ),
+            Complaint_Issue_Key__c = c.Type,
+            Complaint_Subsequent_Issue__c = c.IDR_Subsequent_Issue__c,
+            Country__c = c.IDR_NC_Country__c,
+            Customer_Number__c = c.IDR_Customer_Number__c,
+            Email__c = c.IDR_NC_Email__c,
+            Gender__c = CommonUtils.getSinglePicklistLabel(
+              Case.IDR_NC_Gender__c,
+              c.IDR_NC_Gender__c
+            ),
+            Is_Written_Response_Requested__c = c.IDR_Is_Written_Resp_Requested__c ==
+              YES_VALUE
+              ? true
+              : false,
+            Is_Written_Response_Required__c = c.IDR_Is_Written_Resp_Required__c ==
+              YES_VALUE
+              ? true
+              : false,
+            Mobile__c = c.IDR_NC_Mobile__c,
+            Phone__c = c.IDR_NC_Phone__c,
+            Post_Code__c = c.IDR_NC_Postcode__c,
+            Remedy__c = CommonUtils.getSinglePicklistLabel(
+              Case.IDR_Complaint_Remedy__c,
+              c.IDR_Complaint_Remedy__c
+            ),
+            State__c = c.IDR_NC_State__c == '11'
+              ? 'OTHER TERRITORIES'
+              : CommonUtils.getSinglePicklistLabel(
+                  Case.IDR_NC_State__c,
+                  c.IDR_NC_State__c
+                ),
+            Suburb__c = c.IDR_NC_Suburb__c,
+            Priority__c = c.Priority,
+            Channel_Received__c = CommonUtils.getSinglePicklistLabel(
+              Case.Origin,
+              c.Origin
+            ),
+            Relationship_To_Complainant__c = c.IDR_3rdParty_Relationship_To_Complainant__c,
+            IDR_Is_Common__c = c.IDR_Is_Common__c,
+            IDR_Systemic_Issue_Category__c = c.IDR_Systemic_Issue_Category__c,
+            IDR_Systemic_Issue_Description__c = c.IDR_Systemic_Issue_Description__c,
+            Queue_DeveloperName__c = queueMap.containsKey(c.OwnerId)
+              ? queueMap.get(c.OwnerId).DeveloperName
+              : null
+          )
+        );
+      }
       List<Database.SaveResult> results = EventBus.publish(idrCaseEscalations);
       Lib_SystemLog log = new Lib_SystemLog(
         IDRCaseActions.class.getName(),
@@ -849,7 +855,26 @@ public with sharing class IDRCaseActions {
       );
       log.insertLog();
     }
-    //Todo handle errors further if needed.
+  }
+
+  /**
+   * @description On escalation, we prefer passing the developer name of the queue the case is assigned to, instead of its label.
+   * Label could change in the future and it'd break Mulesoft mapping to CFMS' workbasket.
+   * @param cases Cases to get the queues's names from
+   * @return a map with queue ids as keys and queue records as values
+   */
+  private static Map<Id, Group> getQueuesToEscalate(Case[] cases) {
+    Group[] queues = new List<Group>();
+    if (Group.sObjectType.getDescribe().isQueryable()) {
+      Set<Id> queueIds = new Set<Id>();
+      for (Case c : cases) {
+        if (String.valueOf(c.OwnerId).startsWith('00G')) {
+          queueIds.add(c.OwnerId);
+        }
+      }
+      queues = [SELECT DeveloperName FROM Group WHERE Id IN :queueIds];
+    }
+    return new Map<Id, Group>(queues);
   }
 
   /**
