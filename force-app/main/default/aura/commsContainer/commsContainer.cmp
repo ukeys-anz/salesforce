@@ -3,5 +3,8 @@
   access="global"
 >
   <lightning:workspaceAPI aura:id="workspace" />
-  <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+  <br/>
+  <div class="slds-align_absolute-center">  
+  <lightning:button variant="brand-outline" label="Create Request" title="Create Request" onclick="{!c.doInit}" />
+  </div> 
 </aura:component>
