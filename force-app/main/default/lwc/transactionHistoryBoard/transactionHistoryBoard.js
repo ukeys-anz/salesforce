@@ -286,8 +286,8 @@ export default class TransactionHistoryBoard extends LightningElement {
     //The provided URL doesn't go through MS, so we need
     //to retrieve the params and pass them to the Apex class
     //and append it to the request
-    let nextSubstring = `&${this.links.next.href.substring(
-      this.links.next.href.indexOf("?") + 1
+    let nextSubstring = `${this.links.next.href.substring(
+      this.links.next.href.indexOf("?")
     )}`;
 
     this.fetchTransactions(nextSubstring);
@@ -316,8 +316,11 @@ export default class TransactionHistoryBoard extends LightningElement {
   handleSearch() {
     if (this.startDate && this.endDate) {
       this.loading = true;
+
       //Need to convert dates to ISO string for search params
-      let urlParam = `&start_date=${new Date(
+      let urlParam = `?account_number=${
+        this.accountNumber
+      }&start_date=${new Date(
         this.startDate + " 00:00:00 UTC"
       ).toISOString()}&end_date=${new Date(
         this.endDate + " 23:59:59 UTC"

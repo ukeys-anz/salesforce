@@ -122,7 +122,7 @@ public with sharing class TransactionHistoryControllerTest {
      */
     public HTTPResponse respond(HTTPRequest req) {
       HTTPResponse res = new HTTPResponse();
-      if (req.getEndpoint().contains('/api/transactions?accountnumber')) {
+      if (req.getEndpoint().contains('/api/transactions?account_number')) {
         res.setStatusCode(500);
         res.setHeader('Content-Type', 'application/Plaintext');
         res.setBody('Get transactions failed');

@@ -16,6 +16,7 @@ public with sharing class TransactionHistoryController {
    * @return String
    * @exception CalloutException
    */
+  @SuppressWarnings('PMD.CyclomaticComplexity')
   @AuraEnabled(cacheable=false)
   public static String getTransactions(
     String ocvId,
@@ -29,11 +30,15 @@ public with sharing class TransactionHistoryController {
       String.isNotBlank(accountNumber)
     ) {
       HttpRequest request = new HttpRequest();
+
+      String endPointParams = String.isNotBlank(paramUrl)
+        ? paramUrl
+        : '?account_number=' + accountNumber;
+
       request.setEndpoint(
         'callout:SF_MS_Fabric' +
         Label.MS_Get_Transactions +
-        accountNumber +
-        paramUrl
+        endPointParams
       );
 
       RequestUtils.setAuthHeaders(request, ocvId, 'GET');
