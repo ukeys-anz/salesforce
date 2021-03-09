@@ -5,6 +5,7 @@
     <permissionSets>Accounts_Goals_Read_Only</permissionSets>
     <permissionSets>Bugs_Read_Write</permissionSets>
     <permissionSets>Case_Read_Write_Get_Help</permissionSets>
+    <permissionSets>Call_Logs_R_W</permissionSets>
     <permissionSets>Chat_Read_Only</permissionSets>
     <permissionSets>Coaches_Workbench</permissionSets>
     <permissionSets>Customer_Feedback_Read_Only</permissionSets>

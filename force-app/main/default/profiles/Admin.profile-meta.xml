@@ -1107,6 +1107,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Event.Voice_Call_SID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Entitlement.AssetId</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2071,6 +2076,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Task.Voice_Call_SID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>IDR_Notification_Event__e.ComplainantMobile__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2277,6 +2287,10 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Release__c-Release Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Task-Call Log Layout</layout>
+        <recordType>Task.Call_Log</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>User-User Layout</layout>
@@ -2568,6 +2582,11 @@
     <recordTypeVisibilities>
         <default>true</default>
         <recordType>Product2.ANZ_Product_or_Service</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>true</default>
+        <recordType>Task.Call_Log</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <tabVisibilities>
