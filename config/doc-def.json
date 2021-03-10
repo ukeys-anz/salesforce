@@ -2,6 +2,7 @@
   "folder": "docs",
   "objectwhitelist": [
     "Account",
+    "Activity",
     "Application_Log__c",
     "CaseComment",
     "Case",
@@ -13,7 +14,7 @@
     "Release__c",
     "Reported_Bug__c",
     "SkyhighNetworks__SHNEvent__c",
-    "User_Provisioning_Request__c",
+    "Task",
     "trailheadapp__Badge__c",
     "trailheadapp__Debug_Log__c",
     "trailheadapp__Trail__c",
@@ -22,6 +23,7 @@
     "trailheadapp__Trailmix_Assignment__c",
     "trailheadapp__User_Badge__c",
     "trailheadapp__User_Trailmix__c",
+    "User_Provisioning_Request__c",
     "User"
   ],
   "usermap": [
