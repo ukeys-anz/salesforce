@@ -258,7 +258,7 @@ public with sharing class IDRCaseActions {
   }
 
   /**
-   * @description Check if this case record needs to be assigned to a CRP workbasket
+   * @description Check if this case record needs to be sent for CRC escalation
    * @param record case record
    */
   private static void checkForCRCEscalation(Case record) {
@@ -278,6 +278,7 @@ public with sharing class IDRCaseActions {
   public static void completeAfterActions() {
     CheckRecursive.run();
     NotificationTriggerHandler.insertNotificationHandler(notificationCaseList);
+    escalateToCFMS(caseEscalationList);
     executeAssignmentRule(caseEscalationList);
     notificationCaseList.clear();
     caseEscalationList.clear();
@@ -308,7 +309,7 @@ public with sharing class IDRCaseActions {
           c.IDR_Issue_Type_3__c == IDRConstants.ISSUE_TYPE_COLLECTIONS)
         ) {
           // that means it is on insert
-          collectionsCasesEventList.add(buildEvent(c));
+          collectionsCasesEventList.add(buildEvent(c, null));
           c.IDR_Stop_Collections__c = true;
         } else if (
           oldMap != null &&
@@ -337,7 +338,7 @@ public with sharing class IDRCaseActions {
           (c.IDR_Issue_Type_3__c == IDRConstants.ISSUE_TYPE_HARDSHIP ||
           c.IDR_Issue_Type_3__c == IDRConstants.ISSUE_TYPE_COLLECTIONS)))
         ) {
-          collectionsCasesEventList.add(buildEvent(c));
+          collectionsCasesEventList.add(buildEvent(c, oldMap.get(c.Id)));
           c.IDR_Stop_Collections__c = true;
         }
       }
@@ -369,30 +370,26 @@ public with sharing class IDRCaseActions {
    * @param c A case record
    * @return Platform event record
    */
-  private static IDR_Collections_Event__e buildEvent(Case c) {
+  private static IDR_Collections_Event__e buildEvent(Case c, Case oldCase) {
     IDR_Collections_Event__e collectionsEvent = new IDR_Collections_Event__e();
     collectionsEvent.IDR_Customer_Number__c = c.IDR_Customer_Number__c;
     collectionsEvent.IDR_OCV_Id__c = null; // When AR&C Customer are in SF replace this line with Account's OCV
-    collectionsEvent.IDR_Complaint_Created_Date__c = Date.newinstance(
-      c.IDR_Date_Received__c.year(),
-      c.IDR_Date_Received__c.month(),
-      c.IDR_Date_Received__c.day()
-    );
+    collectionsEvent.IDR_Complaint_Created_Date__c = c.IDR_Date_Received__c;
 
     if (
       c.Status == IDRConstants.RESOLVED_STATUS ||
       c.Status == IDRConstants.CLOSED_STATUS
     ) {
-      collectionsEvent.IDR_Complaint_Resolved_Date__c = Date.newinstance(
-        c.ClosedDate.year(),
-        c.ClosedDate.month(),
-        c.ClosedDate.day()
-      );
+      collectionsEvent.IDR_Complaint_Resolved_Date__c = (c.ClosedDate == null
+        ? System.now()
+        : c.ClosedDate);
+      if (oldCase == null) {
+        collectionsEvent.IDR_Closed_On_Create__c = true;
+      }
     }
 
     collectionsEvent.IDR_Complaint_Number__c = c.CaseNumber;
     collectionsEvent.IDR_Complaint_Status__c = c.Status;
-    collectionsEvent.IDR_Closed_On_Create__c = c.IsClosedOnCreate;
     collectionsEvent.IDR_Account_Details__c = getAccountListJson(c);
 
     return collectionsEvent;
@@ -728,7 +725,7 @@ public with sharing class IDRCaseActions {
   }
   /**
    * @description Get the EntitlmentId that will be associated with this case
-   * @return Id  - the Id of the entitlment record
+   *@return Id  - the Id of the entitlment record
    */
   public static Id getEntitlement() {
     list<Entitlement> et = new List<Entitlement>();
@@ -748,101 +745,94 @@ public with sharing class IDRCaseActions {
       return null;
     }
   }
-
   /**
    * @description Escalate the list of Records to CRC by publishing a platform event.
-   * @param recordsToBeEscalated the cases which data will be escalated
+   * @param recordsToBeEscalated
    */
-  @InvocableMethod(
-    label='Escalate complaint to CFMS'
-    description='Publishes complaint escalation platform events'
-    category='Platform Event'
-  )
-  public static void escalateToCFMS(List<Case> recordsToBeEscalated) {
-    if (!recordsToBeEscalated.isEmpty()) {
-      Map<Id, Group> queueMap = getQueuesToEscalate(recordsToBeEscalated);
-      idrCaseEscalations = new List<IDR_CRC_Escalation_Event__e>();
-      for (Case c : recordsToBeEscalated) {
-        idrCaseEscalations.add(
-          new IDR_CRC_Escalation_Event__e(
-            Account_Number__c = c.IDR_Account_Card_Policy_Number__c,
-            Address_Line1__c = c.IDR_NC_Street__c,
-            AFCA_Date__c = c.IDR_AFCA_Date__c,
-            AFCA_Number__c = c.IDR_AFCA_Number__c,
-            Age__c = CommonUtils.getSinglePicklistLabel(
-              Case.IDR_NC_Age__c,
-              c.IDR_NC_Age__c
-            ),
-            Non_Financial_Remedy__c = c.IDR_Non_Financial_Remedy__c,
-            Agent_License_Number__c = c.IDR_AuthRep_Licence_Number__c,
-            Agent_License_Type__c = CommonUtils.getSinglePicklistLabel(
-              Case.IDR_AuthRep_Licence_or_registration_type__c,
-              c.IDR_AuthRep_Licence_or_registration_type__c
-            ),
-            ANZ_Received_Date__c = c.IDR_Date_Received__c.date(),
-            Case_Number__c = String.isNotBlank(c.CaseNumber__c)
-              ? c.CaseNumber__c
-              : c.CaseNumber,
-            Customer_First_Name__c = c.IDR_NC_First_Name__c,
-            Customer_Middle_Names__c = c.IDR_NC_Middle_Names__c,
-            Customer_Last_Name__c = c.IDR_NC_Last_Name__c,
-            Customer_Business_Name__c = c.IDR_NC_Business_Name__c,
-            Complainant_Type__c = CommonUtils.getSinglePicklistLabel(
-              Case.IDR_Complainant_Type__c,
-              c.IDR_Complainant_Type__c
-            ),
-            Complaint_Description__c = c.Description,
-            Complaint_Desired_Outcome__c = c.IDR_Complainant_Desired_Outcome__c,
-            Complaint_Issue__c = CommonUtils.getSinglePicklistLabel(
-              Case.Type,
-              c.Type
-            ),
-            Complaint_Issue_Key__c = c.Type,
-            Complaint_Subsequent_Issue__c = c.IDR_Subsequent_Issue__c,
-            Country__c = c.IDR_NC_Country__c,
-            Customer_Number__c = c.IDR_Customer_Number__c,
-            Email__c = c.IDR_NC_Email__c,
-            Gender__c = CommonUtils.getSinglePicklistLabel(
-              Case.IDR_NC_Gender__c,
-              c.IDR_NC_Gender__c
-            ),
-            Is_Written_Response_Requested__c = c.IDR_Is_Written_Resp_Requested__c ==
-              YES_VALUE
-              ? true
-              : false,
-            Is_Written_Response_Required__c = c.IDR_Is_Written_Resp_Required__c ==
-              YES_VALUE
-              ? true
-              : false,
-            Mobile__c = c.IDR_NC_Mobile__c,
-            Phone__c = c.IDR_NC_Phone__c,
-            Post_Code__c = c.IDR_NC_Postcode__c,
-            Remedy__c = CommonUtils.getSinglePicklistLabel(
-              Case.IDR_Complaint_Remedy__c,
-              c.IDR_Complaint_Remedy__c
-            ),
-            State__c = c.IDR_NC_State__c == '11'
-              ? 'OTHER TERRITORIES'
-              : CommonUtils.getSinglePicklistLabel(
-                  Case.IDR_NC_State__c,
-                  c.IDR_NC_State__c
-                ),
-            Suburb__c = c.IDR_NC_Suburb__c,
-            Priority__c = c.Priority,
-            Channel_Received__c = CommonUtils.getSinglePicklistLabel(
-              Case.Origin,
-              c.Origin
-            ),
-            Relationship_To_Complainant__c = c.IDR_3rdParty_Relationship_To_Complainant__c,
-            IDR_Is_Common__c = c.IDR_Is_Common__c,
-            IDR_Systemic_Issue_Category__c = c.IDR_Systemic_Issue_Category__c,
-            IDR_Systemic_Issue_Description__c = c.IDR_Systemic_Issue_Description__c,
-            Queue_DeveloperName__c = queueMap.containsKey(c.OwnerId)
-              ? queueMap.get(c.OwnerId).DeveloperName
-              : null
-          )
-        );
-      }
+  private static void escalateToCFMS(List<Case> recordsToBeEscalated) {
+    if (recordsToBeEscalated.isEmpty()) {
+      return;
+    }
+    idrCaseEscalations = new List<IDR_CRC_Escalation_Event__e>();
+    for (Case c : recordsToBeEscalated) {
+      idrCaseEscalations.add(
+        new IDR_CRC_Escalation_Event__e(
+          Account_Number__c = c.IDR_Account_Card_Policy_Number__c,
+          Address_Line1__c = c.IDR_NC_Street__c,
+          AFCA_Date__c = c.IDR_AFCA_Date__c,
+          AFCA_Number__c = c.IDR_AFCA_Number__c,
+          Age__c = CommonUtils.getSinglePicklistLabel(
+            Case.IDR_NC_Age__c,
+            c.IDR_NC_Age__c
+          ),
+          Non_Financial_Remedy__c = c.IDR_Non_Financial_Remedy__c,
+          Agent_License_Number__c = c.IDR_AuthRep_Licence_Number__c,
+          Agent_License_Type__c = CommonUtils.getSinglePicklistLabel(
+            Case.IDR_AuthRep_Licence_or_registration_type__c,
+            c.IDR_AuthRep_Licence_or_registration_type__c
+          ),
+          ANZ_Received_Date__c = c.IDR_Date_Received__c.date(),
+          Case_Number__c = String.isNotBlank(c.CaseNumber__c)
+            ? c.CaseNumber__c
+            : c.CaseNumber,
+          Customer_First_Name__c = c.IDR_NC_First_Name__c,
+          Customer_Middle_Names__c = c.IDR_NC_Middle_Names__c,
+          Customer_Last_Name__c = c.IDR_NC_Last_Name__c,
+          Customer_Business_Name__c = c.IDR_NC_Business_Name__c,
+          Complainant_Type__c = CommonUtils.getSinglePicklistLabel(
+            Case.IDR_Complainant_Type__c,
+            c.IDR_Complainant_Type__c
+          ),
+          Complaint_Description__c = c.Description,
+          Complaint_Desired_Outcome__c = c.IDR_Complainant_Desired_Outcome__c,
+          Complaint_Issue__c = CommonUtils.getSinglePicklistLabel(
+            Case.Type,
+            c.Type
+          ),
+          Complaint_Issue_Key__c = c.Type,
+          Complaint_Subsequent_Issue__c = c.IDR_Subsequent_Issue__c,
+          Country__c = c.IDR_NC_Country__c,
+          Customer_Number__c = c.IDR_Customer_Number__c,
+          Email__c = c.IDR_NC_Email__c,
+          Gender__c = CommonUtils.getSinglePicklistLabel(
+            Case.IDR_NC_Gender__c,
+            c.IDR_NC_Gender__c
+          ),
+          Is_Written_Response_Requested__c = c.IDR_Is_Written_Resp_Requested__c ==
+            YES_VALUE
+            ? true
+            : false,
+          Is_Written_Response_Required__c = c.IDR_Is_Written_Resp_Required__c ==
+            YES_VALUE
+            ? true
+            : false,
+          Mobile__c = c.IDR_NC_Mobile__c,
+          Phone__c = c.IDR_NC_Phone__c,
+          Post_Code__c = c.IDR_NC_Postcode__c,
+          Remedy__c = CommonUtils.getSinglePicklistLabel(
+            Case.IDR_Complaint_Remedy__c,
+            c.IDR_Complaint_Remedy__c
+          ),
+          State__c = c.IDR_NC_State__c == '11'
+            ? 'OTHER TERRITORIES'
+            : CommonUtils.getSinglePicklistLabel(
+                Case.IDR_NC_State__c,
+                c.IDR_NC_State__c
+              ),
+          Suburb__c = c.IDR_NC_Suburb__c,
+          Priority__c = c.Priority,
+          Channel_Received__c = CommonUtils.getSinglePicklistLabel(
+            Case.Origin,
+            c.Origin
+          ),
+          Relationship_To_Complainant__c = c.IDR_3rdParty_Relationship_To_Complainant__c,
+          IDR_Is_Common__c = c.IDR_Is_Common__c,
+          IDR_Systemic_Issue_Category__c = c.IDR_Systemic_Issue_Category__c,
+          IDR_Systemic_Issue_Description__c = c.IDR_Systemic_Issue_Description__c
+        )
+      );
+    }
+    if (!idrCaseEscalations.isEmpty()) {
       List<Database.SaveResult> results = EventBus.publish(idrCaseEscalations);
       Lib_SystemLog log = new Lib_SystemLog(
         IDRCaseActions.class.getName(),
@@ -855,26 +845,7 @@ public with sharing class IDRCaseActions {
       );
       log.insertLog();
     }
-  }
-
-  /**
-   * @description On escalation, we prefer passing the developer name of the queue the case is assigned to, instead of its label.
-   * Label could change in the future and it'd break Mulesoft mapping to CFMS' workbasket.
-   * @param cases Cases to get the queues's names from
-   * @return a map with queue ids as keys and queue records as values
-   */
-  private static Map<Id, Group> getQueuesToEscalate(Case[] cases) {
-    Group[] queues = new List<Group>();
-    if (Group.sObjectType.getDescribe().isQueryable()) {
-      Set<Id> queueIds = new Set<Id>();
-      for (Case c : cases) {
-        if (String.valueOf(c.OwnerId).startsWith('00G')) {
-          queueIds.add(c.OwnerId);
-        }
-      }
-      queues = [SELECT DeveloperName FROM Group WHERE Id IN :queueIds];
-    }
-    return new Map<Id, Group>(queues);
+    //Todo handle errors further if needed.
   }
 
   /**
@@ -1030,6 +1001,7 @@ public with sharing class IDRCaseActions {
   ) {
     Case[] childComplaints = new List<Case>(); //records to rollup on parent systemic issue
     Task[] siTasks = new List<Task>();
+
     for (Case record : records) {
       Case oldRec;
       if (oldMap != null) {
@@ -1050,15 +1022,24 @@ public with sharing class IDRCaseActions {
           childComplaints.add(oldRec);
         }
       }
-      //validate case for PSI task creation
-      if (validateCaseForPSITask(record, oldRec)) {
-        siTasks.add(populateTaskFields(record));
+
+      //create task if it is a possible systemic issue and level 1 user is making the change
+      if (
+        isIDRComplaintType(record) &&
+        record.IDR_Is_Common__c == 'Yes' &&
+        FeatureManagement.checkPermission('IDR_Level_1') &&
+        (oldRec == null ||
+        record.IDR_Is_Common__c != oldRec.IDR_Is_Common__c)
+      ) {
+        siTasks.add(createTaskForPSI(record));
       }
     }
+
     //rollup on parent systemic issue
     if (!childComplaints.isEmpty()) {
       SICaseActions.rollupToParentSI(childComplaints);
     }
+
     //insert SI Tasks
     if (!siTasks.isEmpty() && Task.sObjectType.getDescribe().isCreateable()) {
       insert siTasks;
@@ -1066,41 +1047,11 @@ public with sharing class IDRCaseActions {
   }
 
   /**
-   * @description Validates a complaint record for creating PSI task
-   * @param record from case trigger
-   * @param oldRec from case trigger
-   * @return Boolean returns true or false based on validation
-   */
-  private static Boolean validateCaseForPSITask(Case record, Case oldRec) {
-    if (
-      isIDRComplaintType(record) &&
-      record.IDR_Is_Common__c == 'Yes' &&
-      FeatureManagement.checkPermission('IDR_Level_1') &&
-      (oldRec == null ||
-      record.IDR_Is_Common__c != oldRec.IDR_Is_Common__c)
-    ) {
-      //create task if it is a possible systemic issue and level 1 user is making the change
-      return true;
-    } else if (
-      oldRec != null &&
-      isIDRComplaintType(record) &&
-      record.IDR_Is_Common__c == 'Yes' &&
-      record.isClosed == true &&
-      oldRec.isEscalated == true
-    ) {
-      //create task if the complaint is a PSI, escalated and closed.
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  /**
-   * @description populate task fields for creating possible systemic issue task
+   * @description Create a task and assign it to SI team for review
    * @param c Parent case of the tasks
    * @return An instance of a Task
    */
-  private static Task populateTaskFields(Case c) {
+  private static Task createTaskForPSI(Case c) {
     Date activityDate = Date.today().addDays(5);
     return new Task(
       RecordTypeId = IDR_TASK_RT_ID,
