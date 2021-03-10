@@ -8,7 +8,7 @@
     <inlineHelpText>Have all identified defects been rectified either in the customer profile or by obtaining a new image of the identity document if required?</inlineHelpText>
     <label>Have All Defects Been Rectified</label>
     <required>false</required>
-    <securityClassification>Internal</securityClassification>
+    <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

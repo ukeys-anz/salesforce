@@ -12,7 +12,7 @@ If a middle name or initial exists on the document it is recorded on customer pr
 If a middle name or initial exists on the document it is recorded on customer profile as a matching name AND if a middle initial exists in SalesForce then obtain the full middle name. </inlineHelpText>
     <label>Middle Name Matches</label>
     <required>false</required>
-    <securityClassification>Internal</securityClassification>
+    <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
