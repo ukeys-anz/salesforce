@@ -368,6 +368,7 @@ public with sharing class IDRCaseActions {
   /**
    * @description method to trigger collections activity in downstream systems when collections flag is turned on for a customer on a complaint.
    * @param c A case record
+   * @param oldCase An old case record
    * @return Platform event record
    */
   private static IDR_Collections_Event__e buildEvent(Case c, Case oldCase) {
