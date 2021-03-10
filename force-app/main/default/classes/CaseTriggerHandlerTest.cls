@@ -64,6 +64,19 @@ private class CaseTriggerHandlerTest {
           )
         );
       }
+
+      // Create a PersonAccount
+      Account personAcc = new Account(
+        RecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
+          .get('PersonAccount')
+          .getRecordTypeId(),
+        FirstName = Faker.randomString(5),
+        LastName = Faker.randomString(5),
+        OCV_ID__c = 'PERSONOCV879879',
+        ANZx_Customer__c = true
+      );
+      accnts.add(personAcc);
+
       insert accnts;
     }
   }
@@ -972,5 +985,47 @@ private class CaseTriggerHandlerTest {
     Case c = [SELECT BusinessHoursId FROM Case WHERE id = :newCase.id];
 
     System.assertEquals(bhs.Id, c.BusinessHoursId);
+  }
+
+  //Tests if ANZ Plus Case ContactId is populated correctly based on Account.
+  @isTest
+  static void testContactLookupPopulation() {
+    // GIVEN a Person Account record is available with relevant fields on it
+    Account acc = [
+      SELECT Id, PersonContactId
+      FROM Account
+      WHERE OCV_ID__c = 'PERSONOCV879879'
+      LIMIT 1
+    ];
+
+    // WHEN an ANZ Plus Case is created
+    Case[] newCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
+          AccountId = acc.Id
+        )
+      );
+    }
+
+    Test.startTest();
+    insert newCases;
+    Test.stopTest();
+
+    // THEN Contact Name lookup should be auto-populated
+
+    // Verify Contact lookup on one of the inserted Cases
+    Case sampleCase1 = [
+      SELECT Id, ContactId
+      FROM Case
+      WHERE Id = :newCases[0].Id
+      LIMIT 1
+    ];
+    system.assertEquals(
+      acc.PersonContactId,
+      sampleCase1.ContactId,
+      'Failed to auto-populate Contact lookup on ANZ Plus cases while inserting'
+    );
   }
 }

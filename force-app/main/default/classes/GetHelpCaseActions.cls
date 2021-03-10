@@ -455,7 +455,7 @@ public with sharing class GetHelpCaseActions {
 
   /**
    * @description This method updates the case business hours field
-   * to be ANZx specific
+   * to be ANZ Plus specific
    * @param record the record we are updating
    */
   private static void setBusinessHours(Case record) {
@@ -472,32 +472,97 @@ public with sharing class GetHelpCaseActions {
 
   /**
    * @description applyDefaults is called onBeforeInsert to set the following values as defaults
-   * 1. Update business hours field to match ANZx business hours
+   * 1. Update business hours field to match ANZ Plus business hours
    * @param records The record list form which we need to apply defaults
    */
   public static void applyDefaults(List<Case> records) {
     for (Case record : records) {
-      if (isANZxCaseType(record)) {
+      if (isANZPlusCaseType(record)) {
         setBusinessHours(record);
       }
     }
   }
 
   /**
-   * @description isANZxCaseType check if record type is of ANZx type.
-   * As this Trigger will be used across various teams we identify case record based on ANZx record Type.
+   * @description isANZPlusCaseType checks if record type is of ANZ Plus type.
+   * As this Trigger will be used across various teams we identify case record based on ANZ Plus record Type.
    *
    * @param record The record for which the recordType needs to be checked
-   * @return `Boolean` True if the the record type is of ANZx type false otherwise.
+   * @return `Boolean` True if the the record type is of ANZ Plus type false otherwise.
    */
-  private static Boolean isANZxCaseType(Case record) {
+  private static Boolean isANZPlusCaseType(Case record) {
     if (
       FRAUD_RT_IDS.contains(record.RecordTypeId) ||
       record.RecordTypeId == GENERAL_INQUIRY_RT_ID ||
-      record.RecordTypeId == BUG_RT_ID
+      record.RecordTypeId == BUG_RT_ID ||
+      record.RecordTypeId == COMPLAINT_ID
     ) {
       return true;
     }
     return false;
+  }
+
+  /**
+   * @description auto-populate Contact lookup on ANZ Plus Cases.
+   * Assumption: Case record types would not be manually changed from AR&C to ANZ Plus
+   * @param records new trigger case records
+   */
+  public static void populateContactLookupForANZPlus(List<Case> records) {
+    List<Case> anzPlusCases = new List<Case>();
+    List<Id> relatedAccountIDs = new List<Id>();
+    for (Case record : records) {
+      if (isANZPlusCaseType(record) && record.AccountId != null) {
+        anzPlusCases.add(record);
+        relatedAccountIDs.add(record.AccountId);
+      }
+    }
+
+    Map<Id, Account> relatedAccountsMap = new Map<Id, Account>(
+      [
+        SELECT Id, IsPersonAccount, PersonContactId
+        FROM Account
+        WHERE Id IN :relatedAccountIDs
+      ]
+    );
+
+    List<Case> casesToBeUpdated = new List<Case>();
+    for (Case record : anzPlusCases) {
+      casesToBeUpdated.add(
+        new Case(
+          Id = record.Id,
+          ContactId = getContactFromAccount(
+            relatedAccountsMap.get(record.AccountId)
+          )
+        )
+      );
+    }
+
+    List<Database.SaveResult> results = Database.Update(
+      casesToBeUpdated,
+      false
+    );
+
+    //log errors to application log
+    lib_systemLog log = new lib_systemLog(
+      'GetHelpCaseActions',
+      'populateContactLookupForANZPlus'
+    );
+    log.addDatabaseSaveResult('Case', results, new List<Case>());
+    log.insertLog();
+  }
+
+  /**
+   * @description returns the Contact instance related to a particular Account record
+   * @param accountRecord the parent Account record related to a Case
+   * @return `Id` Contact Id related to the parent Account
+   */
+  private static Id getContactFromAccount(Account accountRecord) {
+    Id contactId = null;
+    // Currently only caters for cases having PersonAccounts as parent.
+    // (will have to handle Business Accounts later when we roll it out)
+    if (accountRecord.IsPersonAccount) {
+      contactId = accountRecord.PersonContactId;
+    }
+    return contactId;
   }
 }
