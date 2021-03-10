@@ -308,7 +308,7 @@ public with sharing class IDRCaseActions {
           c.IDR_Issue_Type_3__c == IDRConstants.ISSUE_TYPE_COLLECTIONS)
         ) {
           // that means it is on insert
-          collectionsCasesEventList.add(buildEvent(c));
+          collectionsCasesEventList.add(buildEvent(c, null));
           c.IDR_Stop_Collections__c = true;
         } else if (
           oldMap != null &&
@@ -337,7 +337,7 @@ public with sharing class IDRCaseActions {
           (c.IDR_Issue_Type_3__c == IDRConstants.ISSUE_TYPE_HARDSHIP ||
           c.IDR_Issue_Type_3__c == IDRConstants.ISSUE_TYPE_COLLECTIONS)))
         ) {
-          collectionsCasesEventList.add(buildEvent(c));
+          collectionsCasesEventList.add(buildEvent(c, oldMap.get(c.Id)));
           c.IDR_Stop_Collections__c = true;
         }
       }
@@ -370,30 +370,26 @@ public with sharing class IDRCaseActions {
    * @param oldCase An old case record
    * @return Platform event record
    */
-  private static IDR_Collections_Event__e buildEvent(Case c) {
+  private static IDR_Collections_Event__e buildEvent(Case c, Case oldCase) {
     IDR_Collections_Event__e collectionsEvent = new IDR_Collections_Event__e();
     collectionsEvent.IDR_Customer_Number__c = c.IDR_Customer_Number__c;
     collectionsEvent.IDR_OCV_Id__c = null; // When AR&C Customer are in SF replace this line with Account's OCV
-    collectionsEvent.IDR_Complaint_Created_Date__c = Date.newinstance(
-      c.IDR_Date_Received__c.year(),
-      c.IDR_Date_Received__c.month(),
-      c.IDR_Date_Received__c.day()
-    );
+    collectionsEvent.IDR_Complaint_Created_Date__c = c.IDR_Date_Received__c;
 
     if (
       c.Status == IDRConstants.RESOLVED_STATUS ||
       c.Status == IDRConstants.CLOSED_STATUS
     ) {
-      collectionsEvent.IDR_Complaint_Resolved_Date__c = Date.newinstance(
-        c.ClosedDate.year(),
-        c.ClosedDate.month(),
-        c.ClosedDate.day()
-      );
+      collectionsEvent.IDR_Complaint_Resolved_Date__c = (c.ClosedDate == null
+        ? System.now()
+        : c.ClosedDate);
+      if (oldCase == null) {
+        collectionsEvent.IDR_Closed_On_Create__c = true;
+      }
     }
 
     collectionsEvent.IDR_Complaint_Number__c = c.CaseNumber;
     collectionsEvent.IDR_Complaint_Status__c = c.Status;
-    collectionsEvent.IDR_Closed_On_Create__c = c.IsClosedOnCreate;
     collectionsEvent.IDR_Account_Details__c = getAccountListJson(c);
 
     return collectionsEvent;
@@ -523,8 +519,7 @@ public with sharing class IDRCaseActions {
     for (Case c : caseList) {
       if (c.OwnerId.getSobjectType() == Group.SobjectType) {
         if (
-          oldCaseMap != null &&
-          oldCaseMap.containsKey(c.id) &&
+          oldCaseMap != null && oldCaseMap.containsKey(c.id) &&
           c.OwnerId != oldCaseMap.get(c.id).OwnerId
         ) {
           queueIds.add(c.OwnerId);
@@ -1083,8 +1078,7 @@ public with sharing class IDRCaseActions {
       //create task if it is a possible systemic issue and level 1 user is making the change
       return true;
     } else if (
-      oldRec != null &&
-      isIDRComplaintType(record) &&
+      oldRec != null && isIDRComplaintType(record) &&
       record.IDR_Is_Common__c == 'Yes' &&
       record.isClosed == true &&
       oldRec.isEscalated == true
