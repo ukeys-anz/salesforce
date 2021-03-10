@@ -8,5 +8,5 @@
     <isSortingDisabled>false</isSortingDisabled>
     <label>Complaint Resolved Date</label>
     <required>false</required>
-    <type>DateTime</type>
+    <type>Date</type>
 </CustomField>
