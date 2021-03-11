@@ -55,7 +55,6 @@ export default class TotalBalance extends LightningElement {
           } else {
             this.error = message.message;
             this.getTotal();
-            this.showToast("Total Balance Load Failed", this.error);
           }
         }
       );
