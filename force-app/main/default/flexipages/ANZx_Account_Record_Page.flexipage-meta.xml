@@ -55,6 +55,19 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
+                <componentInstanceProperties>
+                    <name>accountType</name>
+                    <value>Checking</value>
+                </componentInstanceProperties>
+                <componentName>everydayAccount</componentName>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>accountType</name>
+                    <value>Savings</value>
+                </componentInstanceProperties>
                 <componentName>everydayAccount</componentName>
             </componentInstance>
         </itemInstances>

@@ -14,7 +14,7 @@
       <div class="slds-card__header slds-grid">
         <header class="slds-has-flexi-truncate">
           <h1 class="slds-card__header-title main-title">
-            <span>Everyday Accounts</span>
+            <span>{componentTitle}</span>
           </h1>
         </header>
       </div>
@@ -95,7 +95,7 @@
           </template>
           <template if:false={financialAccounts}>
             <h1 class="slds-card__header-title main-title">
-              <span class="not-found">No Financial Accounts</span>
+              <span class="not-found">No {accountType} Accounts</span>
             </h1>
           </template>
         </template>

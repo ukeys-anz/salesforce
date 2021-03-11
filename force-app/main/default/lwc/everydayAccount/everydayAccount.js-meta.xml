@@ -5,4 +5,15 @@
     <targets>
       <target>lightning__RecordPage</target>
     </targets>
+    <targetConfigs>
+      <targetConfig targets="lightning__RecordPage">
+        <property
+            name="accountType"
+            type="String"
+            label="Account Type"
+            description="Specify the account type for which you would like to use this component (Checking, Savings etc)"
+            required="true"
+            default=""/>
+      </targetConfig>
+    </targetConfigs>
 </LightningComponentBundle>

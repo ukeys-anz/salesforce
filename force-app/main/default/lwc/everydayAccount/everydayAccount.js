@@ -11,14 +11,21 @@ import { NavigationMixin } from "lightning/navigation";
 
 import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
 
+const ACCOUNT_TYPES = {
+  checking: "Everyday Account - ANZ Money",
+  savings: "Savings Account - ANZ Save"
+};
+
 export default class EverydayAccount extends NavigationMixin(LightningElement) {
   @api recordId;
+  @api accountType;
   financialAccounts = [];
   @track viewAll;
   @track timestamp;
   @track loading = true;
   hasError = false;
   error;
+  componentTitle;
 
   @wire(MessageContext)
   messageContext;
@@ -30,6 +37,7 @@ export default class EverydayAccount extends NavigationMixin(LightningElement) {
   }
 
   connectedCallback() {
+    this.componentTitle = ACCOUNT_TYPES[this.accountType.toLowerCase()];
     if (hasAccountsGoalsPermission) {
       this.loadingSubscription = subscribe(
         this.messageContext,
@@ -100,7 +108,7 @@ export default class EverydayAccount extends NavigationMixin(LightningElement) {
     getFinancialAccounts({
       ownerId: this.recordId,
       recordLimit: 4,
-      type: "Checking"
+      type: this.accountType
     })
       .then((result) => {
         this.viewAll = false;

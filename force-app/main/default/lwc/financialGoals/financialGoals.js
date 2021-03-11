@@ -18,7 +18,7 @@ export default class FinancialGoals extends NavigationMixin(LightningElement) {
   @track viewAllGoals = false;
   @track loading = true;
   accountNumbers = [];
-  hadError = false;
+  hasError = false;
   error;
 
   @wire(MessageContext)
@@ -50,6 +50,10 @@ export default class FinancialGoals extends NavigationMixin(LightningElement) {
                 this.setTimestamp();
               }
             });
+          } else {
+            //If no goals set goals to null as template condition checks
+            //dont seem to mark as false if array empty
+            this.goals = null;
           }
         })
         .catch((error) => {
@@ -145,7 +149,7 @@ export default class FinancialGoals extends NavigationMixin(LightningElement) {
           finGoal.fillPercent = finGoal.currentBalance > 0 ? 100 : 0;
         }
 
-        finGoal.daysRemaining = "Days Remaining: ";
+        finGoal.daysRemaining = "Days remaining: ";
         // Override potential null values with generic values
         if (finGoal.targetDate) {
           const targetDate = new Date(finGoal.targetDate);
