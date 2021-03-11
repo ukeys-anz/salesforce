@@ -1010,21 +1010,13 @@ private class CaseTriggerHandlerTest {
     }
 
     Test.startTest();
-    insert newCases;
+    GetHelpCaseActions.populateContactLookupForANZPlus(newCases);
     Test.stopTest();
 
     // THEN Contact Name lookup should be auto-populated
-
-    // Verify Contact lookup on one of the inserted Cases
-    Case sampleCase1 = [
-      SELECT Id, ContactId
-      FROM Case
-      WHERE Id = :newCases[0].Id
-      LIMIT 1
-    ];
     system.assertEquals(
       acc.PersonContactId,
-      sampleCase1.ContactId,
+      newCases[0].ContactId,
       'Failed to auto-populate Contact lookup on ANZ Plus cases while inserting'
     );
   }

@@ -525,44 +525,12 @@ public with sharing class GetHelpCaseActions {
       ]
     );
 
-    List<Case> casesToBeUpdated = new List<Case>();
     for (Case record : anzPlusCases) {
-      casesToBeUpdated.add(
-        new Case(
-          Id = record.Id,
-          ContactId = getContactFromAccount(
-            relatedAccountsMap.get(record.AccountId)
-          )
-        )
-      );
+      // Currently only caters for cases having PersonAccounts as parent (will have to handle Business Accounts later when we roll it out)
+      record.ContactId = relatedAccountsMap.get(record.AccountId)
+          .IsPersonAccount
+        ? relatedAccountsMap.get(record.AccountId).PersonContactId
+        : null;
     }
-
-    List<Database.SaveResult> results = Database.Update(
-      casesToBeUpdated,
-      false
-    );
-
-    //log errors to application log
-    lib_systemLog log = new lib_systemLog(
-      'GetHelpCaseActions',
-      'populateContactLookupForANZPlus'
-    );
-    log.addDatabaseSaveResult('Case', results, new List<Case>());
-    log.insertLog();
-  }
-
-  /**
-   * @description returns the Contact instance related to a particular Account record
-   * @param accountRecord the parent Account record related to a Case
-   * @return `Id` Contact Id related to the parent Account
-   */
-  private static Id getContactFromAccount(Account accountRecord) {
-    Id contactId = null;
-    // Currently only caters for cases having PersonAccounts as parent.
-    // (will have to handle Business Accounts later when we roll it out)
-    if (accountRecord.IsPersonAccount) {
-      contactId = accountRecord.PersonContactId;
-    }
-    return contactId;
   }
 }
