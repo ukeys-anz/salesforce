@@ -57,8 +57,8 @@ public without sharing class DateTimeUtils {
       }
     }
 
-    string AusDate = newDatetime.format('yyyy-MM-dd HH:mm:ss','Australia/Sydney'); // Format the date time Australian time zone.
-	  datetime returnValue = date.valueOf(AusDate);
+    string ausDate = newDatetime.format('yyyy-MM-dd HH:mm:ss','Australia/Sydney'); // Format the date time Australian time zone.
+	  datetime returnValue = date.valueOf(ausDate);
     return returnValue;
   }
 }
