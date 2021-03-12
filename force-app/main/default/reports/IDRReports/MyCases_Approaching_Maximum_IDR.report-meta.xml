@@ -1,63 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
     <columns>
-        <field>OWNER</field>
+        <field>CASE_NUMBER</field>
     </columns>
     <columns>
-        <field>CASE_NUMBER</field>
+        <field>CASE_OWNER</field>
     </columns>
     <columns>
         <field>STATUS</field>
     </columns>
     <columns>
-        <field>DESCRIPTION</field>
+        <field>DUE_DATE</field>
     </columns>
-    <description>Number of cases that are closed or resolved by each workbasket</description>
+    <columns>
+        <field>ASSIGNED</field>
+    </columns>
+    <description>Cases approaching maximum IDR time</description>
     <filter>
+        <booleanFilter>1 AND (2 OR 3)</booleanFilter>
         <criteriaItems>
             <column>RECORDTYPE</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>false</isUnlocked>
             <operator>equals</operator>
-            <value>Case.Customer_Complaint,Case.Non_Customer_Complaint</value>
+            <value>Task.IDR_System_Task</value>
         </criteriaItems>
         <criteriaItems>
-            <column>STATUS</column>
+            <column>DUE_DATE</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>false</isUnlocked>
             <operator>equals</operator>
-            <value>Resolved,Closed</value>
+            <value>TODAY</value>
         </criteriaItems>
         <criteriaItems>
-            <column>Case.Queue__c</column>
+            <column>SUBJECT</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>false</isUnlocked>
-            <operator>notEqual</operator>
-            <value></value>
+            <operator>contains</operator>
+            <value>IDR Response due in 5-days</value>
         </criteriaItems>
     </filter>
     <format>Summary</format>
     <groupingsDown>
         <dateGranularity>Day</dateGranularity>
-        <field>Case.Queue__c</field>
+        <field>SUBJECT</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
-    <name>ClosedResolvedComplaintsByWorkBasket</name>
+    <name>Approaching Maximum IDR Response Time</name>
+    <params>
+        <name>closed</name>
+        <value>open</value>
+    </params>
+    <params>
+        <name>type</name>
+        <value>t</value>
+    </params>
     <params>
         <name>units</name>
-        <value>h</value>
+        <value>m</value>
     </params>
     <params>
         <name>co</name>
         <value>1</value>
     </params>
-    <reportType>CaseList</reportType>
-    <scope>organization</scope>
+    <reportType>CaseActivity</reportType>
+    <scope>user</scope>
     <showDetails>true</showDetails>
     <showGrandTotal>true</showGrandTotal>
     <showSubTotals>true</showSubTotals>
     <timeFrameFilter>
-        <dateColumn>CREATED_DATEONLY</dateColumn>
+        <dateColumn>DUE_DATE</dateColumn>
         <interval>INTERVAL_CUSTOM</interval>
     </timeFrameFilter>
 </Report>
