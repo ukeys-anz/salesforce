@@ -19,7 +19,7 @@
                     <column>RowCount</column>
                 </chartSummary>
                 <componentType>Bar</componentType>
-                <decimalPrecision>-1</decimalPrecision>
+                <decimalPrecision>0</decimalPrecision>
                 <displayUnits>Integer</displayUnits>
                 <drillEnabled>false</drillEnabled>
                 <drillToDetailEnabled>false</drillToDetailEnabled>
@@ -32,9 +32,9 @@
                         <sortOrder>a</sortOrder>
                     </groupingSorts>
                 </groupingSortProperties>
-                <header>Cases Assigned To Case Manager</header>
+                <header>Case Assigned To Case Manager</header>
                 <legendPosition>Bottom</legendPosition>
-                <report>IDRWorkbasketStatisticsReports/IDR_AllocatedComplaintsByWorkBasket</report>
+                <report>IDRWorkbasketStatisticsReports/EDR_AllocatedComplaintsByWorkBasket</report>
                 <showPercentage>false</showPercentage>
                 <showPicturesOnCharts>false</showPicturesOnCharts>
                 <showValues>true</showValues>
@@ -71,7 +71,7 @@
                 </groupingSortProperties>
                 <header>Cases Awaiting Allocation</header>
                 <legendPosition>Bottom</legendPosition>
-                <report>IDRWorkbasketStatisticsReports/IDR_UnallocatedComplaintsByWorkBasket</report>
+                <report>IDRWorkbasketStatisticsReports/EDR_UnallocatedComplaintsByWorkBasket</report>
                 <showPercentage>false</showPercentage>
                 <showPicturesOnCharts>false</showPicturesOnCharts>
                 <showValues>true</showValues>
@@ -108,7 +108,7 @@
                 </groupingSortProperties>
                 <header>Closed Complaints</header>
                 <legendPosition>Bottom</legendPosition>
-                <report>IDRWorkbasketStatisticsReports/IDR_ClosedResolvedComplaintsByWorkBasket</report>
+                <report>IDRWorkbasketStatisticsReports/EDR_ClosedResolvedComplaintsByWorkbasket</report>
                 <showPercentage>false</showPercentage>
                 <showPicturesOnCharts>false</showPicturesOnCharts>
                 <showValues>true</showValues>
@@ -145,12 +145,12 @@
                 </groupingSortProperties>
                 <header>Urgent Complaints</header>
                 <legendPosition>Bottom</legendPosition>
-                <report>IDRWorkbasketStatisticsReports/IDR_UrgentComplaintsByWorkBasket</report>
+                <report>IDRWorkbasketStatisticsReports/EDR_UrgentComplaintsByWorkBasket</report>
                 <showPercentage>false</showPercentage>
                 <showPicturesOnCharts>false</showPicturesOnCharts>
                 <showValues>true</showValues>
                 <sortBy>RowLabelAscending</sortBy>
-                <title>By WorkBasket</title>
+                <title>By Workbasket</title>
                 <useReportChart>false</useReportChart>
             </dashboardComponent>
             <rowIndex>8</rowIndex>
@@ -168,7 +168,7 @@
                 </chartSummary>
                 <componentType>Bar</componentType>
                 <decimalPrecision>0</decimalPrecision>
-                <displayUnits>Auto</displayUnits>
+                <displayUnits>Integer</displayUnits>
                 <drillEnabled>false</drillEnabled>
                 <drillToDetailEnabled>false</drillToDetailEnabled>
                 <enableHover>false</enableHover>
@@ -182,12 +182,12 @@
                 </groupingSortProperties>
                 <header>Oldest Open Case</header>
                 <legendPosition>Bottom</legendPosition>
-                <report>IDRWorkbasketStatisticsReports/IDR_Oldest_Case_in_workbasket</report>
+                <report>IDRWorkbasketStatisticsReports/EDR_Oldest_Case_in_workbasket</report>
                 <showPercentage>false</showPercentage>
                 <showPicturesOnCharts>false</showPicturesOnCharts>
                 <showValues>true</showValues>
                 <sortBy>RowLabelAscending</sortBy>
-                <title>By Workbasket</title>
+                <title>By Wrokbasket</title>
                 <useReportChart>false</useReportChart>
             </dashboardComponent>
             <rowIndex>8</rowIndex>
@@ -204,8 +204,8 @@
                     <column>RowCount</column>
                 </chartSummary>
                 <componentType>Bar</componentType>
-                <decimalPrecision>-1</decimalPrecision>
-                <displayUnits>Auto</displayUnits>
+                <decimalPrecision>0</decimalPrecision>
+                <displayUnits>Integer</displayUnits>
                 <drillEnabled>false</drillEnabled>
                 <drillToDetailEnabled>false</drillToDetailEnabled>
                 <enableHover>false</enableHover>
@@ -219,7 +219,7 @@
                 </groupingSortProperties>
                 <header>Withdrawn Cases</header>
                 <legendPosition>Bottom</legendPosition>
-                <report>IDRWorkbasketStatisticsReports/IDR_Withdrawn_Cases_By_Workbasket</report>
+                <report>IDRWorkbasketStatisticsReports/EDR_Withdrawn_Cases_By_Workbasket</report>
                 <showPercentage>false</showPercentage>
                 <showPicturesOnCharts>false</showPicturesOnCharts>
                 <showValues>true</showValues>
@@ -256,7 +256,7 @@
                 </groupingSortProperties>
                 <header>Maximum IDR Response Time Overdue</header>
                 <legendPosition>Bottom</legendPosition>
-                <report>IDRWorkbasketStatisticsReports/Max_IDR_Response_Time_overdue_by_Wrkbskt</report>
+                <report>IDRWorkbasketStatisticsReports/Max_IDR_Response_Time_Overdue_EDR_Wrkbsk</report>
                 <showPercentage>false</showPercentage>
                 <showPicturesOnCharts>false</showPicturesOnCharts>
                 <showValues>true</showValues>
@@ -298,7 +298,7 @@
                 </groupingSortProperties>
                 <header>Cases Approaching Maximum IDR ResponseTime</header>
                 <legendPosition>Right</legendPosition>
-                <report>IDRWorkbasketStatisticsReports/IDR_ApproachingMaxIDRResponseTime</report>
+                <report>IDRWorkbasketStatisticsReports/ApproachingMaxResponseTimeEDRWrkbskt</report>
                 <showPercentage>false</showPercentage>
                 <showValues>true</showValues>
                 <sortBy>RowLabelAscending</sortBy>
@@ -312,11 +312,10 @@
         <rowHeight>36</rowHeight>
     </dashboardGridLayout>
     <dashboardType>SpecifiedUser</dashboardType>
-    <description>Dashboard for statistics on workbaskets</description>
     <isGridLayout>true</isGridLayout>
     <runningUser>david.dawson@anzx.com</runningUser>
     <textColor>#000000</textColor>
-    <title>IDR Workbasket Statistics</title>
+    <title>EDR Workbasket Statistics</title>
     <titleColor>#000000</titleColor>
     <titleSize>12</titleSize>
 </Dashboard>
