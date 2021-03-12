@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Business_Role__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information</complianceGroup>
+    <complianceGroup>Privacy - Non Personal Information;Integrity - Trusted</complianceGroup>
     <description>Business Role of the user which will be used in User trigger to provide permissions</description>
     <externalId>false</externalId>
     <label>Business Role</label>
@@ -59,6 +59,36 @@
                 <fullName>Trailblazer Manager</fullName>
                 <default>false</default>
                 <label>Trailblazer Manager</label>
+            </value>
+            <value>
+                <fullName>Fraud Agent</fullName>
+                <default>false</default>
+                <label>Fraud Agent</label>
+            </value>
+            <value>
+                <fullName>Support Staff ARC</fullName>
+                <default>false</default>
+                <label>Support Staff AR&amp;C</label>
+            </value>
+            <value>
+                <fullName>Support Coach</fullName>
+                <default>false</default>
+                <label>Support Coach</label>
+            </value>
+            <value>
+                <fullName>Content Writer</fullName>
+                <default>false</default>
+                <label>Content Writer</label>
+            </value>
+            <value>
+                <fullName>Quality Analyst</fullName>
+                <default>false</default>
+                <label>Quality Analyst</label>
+            </value>
+            <value>
+                <fullName>Super Support Admin</fullName>
+                <default>false</default>
+                <label>Super Support Admin</label>
             </value>
             <value>
                 <fullName>Business Role</fullName>
