@@ -57,6 +57,8 @@ public without sharing class DateTimeUtils {
       }
     }
 
-    return newDatetime.date(); // return date in local time zone not GMT
+    string AusDate = newDatetime.format('yyyy-MM-dd HH:mm:ss','Australia/Sydney'); // Format the date time Australian time zone.
+	  datetime returnValue = date.valueOf(AusDate);
+    return returnValue;
   }
 }
