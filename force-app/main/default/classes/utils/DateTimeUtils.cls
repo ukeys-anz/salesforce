@@ -57,6 +57,6 @@ public without sharing class DateTimeUtils {
       }
     }
 
-    return newDatetime;
+    return newDatetime.date(); // return date in local time zone not GMT
   }
 }

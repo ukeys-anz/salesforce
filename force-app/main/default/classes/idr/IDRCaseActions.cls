@@ -1159,8 +1159,6 @@ public with sharing class IDRCaseActions {
         FROM CaseMilestone cm
         WHERE
           caseId IN :caseMap.keySet()
-          AND (cm.MilestoneType.Name = :IDRConstants.MILESTONE_STANDARD
-          OR cm.MilestoneType.Name = :IDRConstants.MILESTONE_PRIORITY)
           AND completionDate = NULL
         LIMIT 1
       ];
