@@ -4,7 +4,6 @@
     <label>FraudX Agent</label>
     <permissionSets>Call_Logs_R_W</permissionSets>
     <permissionSets>Case_Read_Write_Fraud_Agent</permissionSets>
-    <permissionSets>Chat_Read_Only</permissionSets>
     <permissionSets>Customer_Feedback_Read_Only</permissionSets>
     <permissionSets>Customer_Read_Only</permissionSets>
     <permissionSets>FinServ__FinancialServicesCloudStandard</permissionSets>
