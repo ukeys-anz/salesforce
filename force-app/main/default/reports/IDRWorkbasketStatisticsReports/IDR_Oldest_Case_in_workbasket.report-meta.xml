@@ -45,8 +45,8 @@
             <column>Case.Queue__c</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>false</isUnlocked>
-            <operator>notEqual</operator>
-            <value/>
+            <operator>startsWith</operator>
+            <value>IDR</value>
         </criteriaItems>
     </filter>
     <format>Summary</format>
@@ -55,7 +55,7 @@
         <field>Case.Queue__c</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
-    <name>Oldest Case in workbasket</name>
+    <name>IDR_Oldest Case in workbasket</name>
     <params>
         <name>units</name>
         <value>h</value>
