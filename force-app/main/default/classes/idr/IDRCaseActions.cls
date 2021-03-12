@@ -1160,7 +1160,6 @@ public with sharing class IDRCaseActions {
         WHERE
           caseId IN :caseMap.keySet()
           AND completionDate = NULL
-        LIMIT 1
       ];
     }
     for (CaseMilestone cm : cmsToUpdate) {
