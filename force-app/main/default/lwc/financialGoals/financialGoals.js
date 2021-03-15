@@ -2,8 +2,6 @@ import { LightningElement, api, track, wire } from "lwc";
 
 import getFinancialAccounts from "@salesforce/apex/FinancialAccountController.getFinancialAccounts";
 
-import { ShowToastEvent } from "lightning/platformShowToastEvent";
-
 import { subscribe, MessageContext } from "lightning/messageService";
 import RetrieveGoals from "@salesforce/messageChannel/RetrieveFinancialGoals__c";
 import TriggerLoading from "@salesforce/messageChannel/FinancialAccountsTriggerLoading__c";
@@ -79,7 +77,6 @@ export default class FinancialGoals extends NavigationMixin(LightningElement) {
         (response) => {
           if (response.error) {
             this.error = response.error;
-            this.showToast("Financial Goals Load Failed", this.error);
           } else {
             this.timestamp = "";
 
@@ -210,15 +207,6 @@ export default class FinancialGoals extends NavigationMixin(LightningElement) {
       }
     }
     this.loading = false;
-  }
-
-  showToast(theTitle, theMessage) {
-    this.loading = false;
-    const event = new ShowToastEvent({
-      title: theTitle,
-      message: theMessage
-    });
-    this.dispatchEvent(event);
   }
 
   navigateToRecordViewPage(event) {

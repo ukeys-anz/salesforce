@@ -3,8 +3,6 @@ import { LightningElement, api, track, wire } from "lwc";
 import getTotalBalance from "@salesforce/apex/TotalBalanceController.getTotalBalance";
 import getTotalSaved from "@salesforce/apex/TotalBalanceController.getTotalSaved";
 
-import { ShowToastEvent } from "lightning/platformShowToastEvent";
-
 import { subscribe, MessageContext } from "lightning/messageService";
 import UpdateAccounts from "@salesforce/messageChannel/FinancialAccountsUpdate__c";
 import TriggerLoading from "@salesforce/messageChannel/FinancialAccountsTriggerLoading__c";
@@ -65,14 +63,6 @@ export default class TotalBalance extends LightningElement {
     } else {
       this.loading = false;
     }
-  }
-
-  showToast(theTitle, theMessage) {
-    const event = new ShowToastEvent({
-      title: theTitle,
-      message: theMessage
-    });
-    this.dispatchEvent(event);
   }
 
   getTotal() {
