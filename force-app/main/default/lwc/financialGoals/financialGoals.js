@@ -81,9 +81,15 @@ export default class FinancialGoals extends NavigationMixin(LightningElement) {
             this.error = response.error;
             this.showToast("Financial Goals Load Failed", this.error);
           } else {
-            this.goals = [];
             this.timestamp = "";
-            this.handleGoals(response);
+
+            //Only need to handle goals if there is any
+            if (response && response.length > 0) {
+              this.goals = [];
+              this.handleGoals(response);
+            } else {
+              this.loading = false;
+            }
           }
         }
       );
