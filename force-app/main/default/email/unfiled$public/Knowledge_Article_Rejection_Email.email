@@ -1,0 +1,10 @@
+Hello {!Knowledge__kav.CreatedBy},
+
+Please be advised that your knowledge article titled "{!Knowledge__kav.Title}" has been peer reviewed and requires chances before it can be published.
+
+Comments: {!ApprovalRequest.Comments}
+
+You can access the article via this link: {!Knowledge__kav.Link}
+
+Kind regards,
+The Salesforce Team
