@@ -18,7 +18,7 @@ public with sharing class AzureService extends Service {
     Map<String, String> headers = new Map<String, String>();
     headers.put('Content-Type', 'application/x-www-form-urlencoded');
     String reqBody =
-      'client_id={!$Credential.UserName}&client_secret={!$Credential.Password}&refresh_token=' +
+      'client_id={!$Credential.UserName}&client_secret={!$Credential.Password}&redirect_uri=' +
       redirectURL +
       '&grant_type=authorization_code' +
       '&code=' +
