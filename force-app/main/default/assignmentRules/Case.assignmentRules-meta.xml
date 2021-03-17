@@ -9,7 +9,7 @@
             <criteriaItems>
                 <field>Case.Priority</field>
                 <operation>equals</operation>
-                <value>Financial Hardship,Vulnerable Customer,Customer in Collections</value>
+                <value>Financial Hardship,Customer in Collections</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.Status</field>
