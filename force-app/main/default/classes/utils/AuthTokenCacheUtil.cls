@@ -204,25 +204,13 @@ public with sharing class AuthTokenCacheUtil {
     String refreshToken;
     HTTPResponse res;
     try {
-      Http http = new Http();
-      HttpRequest req = new HttpRequest();
-      req.setEndpoint('callout:TokenUrl');
-      req.setHeader('Content-Type', 'application/x-www-form-urlencoded');
-      req.setMethod('POST');
-      req.setBody(
-        'client_id={!$Credential.UserName}&client_secret={!$Credential.Password}&refresh_token=' +
-        existingRefreshToken +
-        '&grant_type=refresh_token'
+      AuthRepository authRepo = new AuthRepository();
+      IdentityModel idenModel = authRepo.getRefreshIdToken(
+        existingRefreshToken
       );
 
-      res = http.send(req);
-
-      String responseBody = res.getBody();
-      Map<String, Object> responseMap = (Map<String, Object>) JSON.deserializeUntyped(
-        responseBody
-      );
-      refreshToken = (String) responseMap.get('refresh_token');
-      idToken = (String) responseMap.get('id_token');
+      refreshToken = idenModel.refreshToken;
+      idToken = idenModel.idToken;
 
       // place new tokens in session cache
       Cache.Session.put(
