@@ -381,13 +381,13 @@ public with sharing class IDRCaseActions {
           Address_Line1__c = c.IDR_NC_Street__c,
           AFCA_Date__c = c.IDR_AFCA_Date__c,
           AFCA_Number__c = c.IDR_AFCA_Number__c,
-          Age__c = CommonUtils.getSinglePicklistLabel(
+          Age__c = CommonUtil.getSinglePicklistLabel(
             Case.IDR_NC_Age__c,
             c.IDR_NC_Age__c
           ),
           Non_Financial_Remedy__c = c.IDR_Non_Financial_Remedy__c,
           Agent_License_Number__c = c.IDR_AuthRep_Licence_Number__c,
-          Agent_License_Type__c = CommonUtils.getSinglePicklistLabel(
+          Agent_License_Type__c = CommonUtil.getSinglePicklistLabel(
             Case.IDR_AuthRep_Licence_or_registration_type__c,
             c.IDR_AuthRep_Licence_or_registration_type__c
           ),
@@ -399,13 +399,13 @@ public with sharing class IDRCaseActions {
           Customer_Middle_Names__c = c.IDR_NC_Middle_Names__c,
           Customer_Last_Name__c = c.IDR_NC_Last_Name__c,
           Customer_Business_Name__c = c.IDR_NC_Business_Name__c,
-          Complainant_Type__c = CommonUtils.getSinglePicklistLabel(
+          Complainant_Type__c = CommonUtil.getSinglePicklistLabel(
             Case.IDR_Complainant_Type__c,
             c.IDR_Complainant_Type__c
           ),
           Complaint_Description__c = c.Description,
           Complaint_Desired_Outcome__c = c.IDR_Complainant_Desired_Outcome__c,
-          Complaint_Issue__c = CommonUtils.getSinglePicklistLabel(
+          Complaint_Issue__c = CommonUtil.getSinglePicklistLabel(
             Case.Type,
             c.Type
           ),
@@ -414,7 +414,7 @@ public with sharing class IDRCaseActions {
           Country__c = c.IDR_NC_Country__c,
           Customer_Number__c = c.IDR_Customer_Number__c,
           Email__c = c.IDR_NC_Email__c,
-          Gender__c = CommonUtils.getSinglePicklistLabel(
+          Gender__c = CommonUtil.getSinglePicklistLabel(
             Case.IDR_NC_Gender__c,
             c.IDR_NC_Gender__c
           ),
@@ -429,19 +429,19 @@ public with sharing class IDRCaseActions {
           Mobile__c = c.IDR_NC_Mobile__c,
           Phone__c = c.IDR_NC_Phone__c,
           Post_Code__c = c.IDR_NC_Postcode__c,
-          Remedy__c = CommonUtils.getSinglePicklistLabel(
+          Remedy__c = CommonUtil.getSinglePicklistLabel(
             Case.IDR_Complaint_Remedy__c,
             c.IDR_Complaint_Remedy__c
           ),
           State__c = c.IDR_NC_State__c == '11'
             ? 'OTHER TERRITORIES'
-            : CommonUtils.getSinglePicklistLabel(
+            : CommonUtil.getSinglePicklistLabel(
                 Case.IDR_NC_State__c,
                 c.IDR_NC_State__c
               ),
           Suburb__c = c.IDR_NC_Suburb__c,
           Priority__c = c.Priority,
-          Channel_Received__c = CommonUtils.getSinglePicklistLabel(
+          Channel_Received__c = CommonUtil.getSinglePicklistLabel(
             Case.Origin,
             c.Origin
           ),

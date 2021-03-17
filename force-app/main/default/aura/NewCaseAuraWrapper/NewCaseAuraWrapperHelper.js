@@ -1,26 +1,8 @@
 ({
-  getRtDevName: function (component, callback) {
-    // Identify which record type was selected
-    var action = component.get("c.getCaseRecordTypeDevNameById");
-    action.setParams({
-      id: component.get("v.pageReference").state.recordTypeId
-    });
-    action.setCallback(this, function (response) {
-      var state = response.getState();
-      if (state === "SUCCESS") {
-        if (callback) {
-          callback(response.getReturnValue());
-        }
-      } else {
-        console.log("Failed with state: " + state);
-      }
-    });
-    $A.enqueueAction(action);
-  },
   goToStandardNewCasePage: function (component, event) {
     this.handleCaseRecordOpenEvent(
       component,
-      component.get("v.pageReference").state.recordTypeId
+      component.get("v.selectedRecordTypeId")
     );
   },
 
@@ -33,7 +15,11 @@
     navEvt.fire();
   },
   goToNewCaseWithDefaultRecordType: function (component) {
-    this.handleCaseRecordOpenEvent(component, "");
+    // If there is no record type selected (because user is assigned with only 1 record type), then use that record type Id
+    let recordTypeId = component.get("v.selectedRecordTypeId")
+      ? component.get("v.selectedRecordTypeId")
+      : component.get("v.caseRecordTypes")[0].Id;
+    this.handleCaseRecordOpenEvent(component, recordTypeId);
   },
   handleCaseRecordOpenEvent: function (component, recordTypeId) {
     // Read from URL param 'inContextOfRef' to identify parent record ID
@@ -41,7 +27,6 @@
       component,
       "inContextOfRef"
     );
-
     var parentInfo = this.extractParentInfo(parentIdParameter);
     // Manually populating the related parent Account record ID when new case creation was originated from a related list
     if (this.isParentObjectAccount(parentInfo)) {
@@ -56,7 +41,7 @@
         )
       );
     } else {
-      this.openCaseRecordPage(recordTypeId, {});
+      this.openCaseRecordPage(component, recordTypeId, {});
     }
   },
   // Pre-populate Chat Topic lookup if parent object is Account
@@ -110,7 +95,7 @@
           AccountId: parentRecID
         };
       }
-      this.openCaseRecordPage(recordTypeId, defaultFieldValues);
+      this.openCaseRecordPage(component, recordTypeId, defaultFieldValues);
       // Stop loading spinner
       this.stopSpinner(component);
     };
@@ -118,18 +103,27 @@
   isMultipleChatTopic: function (topicID) {
     return topicID.split("|").length > 1;
   },
-  openCaseRecordPage: function (recordTypeId, defaultFieldValuesObj) {
-    var newCaseRecord = $A.get("e.force:createRecord");
-    var paramValue = {
-      entityApiName: "Case",
-      defaultFieldValues: defaultFieldValuesObj
-    };
-    if (recordTypeId) {
-      paramValue.recordTypeId = recordTypeId;
+  openCaseRecordPage: function (
+    component,
+    recordTypeId,
+    defaultFieldValuesObj
+  ) {
+    var navigationUrl =
+      "/lightning/o/Case/new?count=1&nooverride=1&recordTypeId=" + recordTypeId;
+    let defaultValuesString;
+    for (const [key, value] of Object.entries(defaultFieldValuesObj)) {
+      let defaultValuePair = `${key} = ${value}`;
+      defaultValuesString += defaultValuePair;
     }
-
-    newCaseRecord.setParams(paramValue);
-    newCaseRecord.fire();
+    if (defaultValuesString) navigationUrl += defaultValuesString;
+    let workspaceAPI = component.find("workspace");
+    workspaceAPI.getFocusedTabInfo().then((response) => {
+      this.navigateToNewCaseClosePreviousTab(
+        workspaceAPI,
+        navigationUrl,
+        response.tabId
+      );
+    });
   },
   getURLParameterByName: function (component, name) {
     name = name.replace(/[\[\]]/g, "\\$&");
@@ -225,6 +219,8 @@
     );
     component.set("v.recordTypeDevName", recordType);
     component.set("v.showComponent", true);
+    // Hide the record type selection page
+    component.set("v.showRecordTypeSelection", false);
   },
   handleNonComplaintCase: function (component) {
     let workspaceAPI = component.find("workspace");
@@ -247,7 +243,7 @@
 
       var navigationUrl =
         "/lightning/o/Case/new?count=1&nooverride=1&recordTypeId=" +
-        component.get("v.pageReference").state.recordTypeId;
+        component.get("v.selectedRecordTypeId");
 
       var parentInfo = this.extractParentInfo(parentIdParameter);
 
@@ -331,11 +327,60 @@
       // Stop loading spinner
       this.stopSpinner(component);
 
-      this.navigateToNewCaseClosePreviousTab(
+      // When raising a case from the account page, the new record type selection page is open as a subtab
+      // therefore after the user selects a record type and proceed, we need to open the form as a sub tab and close the previous one
+      this.navigateToNewCaseClosePreviousSubTab(
         workspaceAPI,
         navigationUrl,
         tabId
       );
     };
+  },
+
+  // Handle get available case record types
+  handleGetCaseRecordTypes: function (component, event, helper) {
+    return new Promise(
+      $A.getCallback(function (resolve, reject) {
+        var action = component.get("c.getCaseRecordTypes");
+        action.setCallback(this, function (response) {
+          var state = response.getState();
+          if (state === "SUCCESS") {
+            let rsp = response.getReturnValue();
+            component.set("v.caseRecordTypes", JSON.parse(rsp));
+            resolve({ r: component.get("v.caseRecordTypes") });
+          } else {
+            console.log("Failed with state: " + state);
+          }
+        });
+        $A.enqueueAction(action);
+      })
+    );
+  },
+
+  // Handle unchecking previous selected radio
+  uncheckPreviouslySelectedRadio: function (component) {
+    let selectedRecordTypeId = component.get("v.selectedRecordTypeId");
+    if (selectedRecordTypeId) {
+      let selectedRadioButton = document.getElementById(selectedRecordTypeId);
+      if (selectedRadioButton.checked) selectedRadioButton.checked = false;
+    }
+  },
+
+  // Open the URL as a new sub tab, and close the previous sub tab
+  navigateToNewCaseClosePreviousSubTab: function (
+    workspaceAPI,
+    navigationURL,
+    parentTabId
+  ) {
+    workspaceAPI.getFocusedTabInfo().then(function (response) {
+      var prevSubTabId = response.tabId;
+      workspaceAPI
+        .openSubtab({
+          parentTabId: parentTabId,
+          url: navigationURL,
+          focus: true
+        })
+        .then(workspaceAPI.closeTab({ tabId: prevSubTabId }));
+    });
   }
 });

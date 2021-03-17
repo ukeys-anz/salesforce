@@ -1,38 +1,25 @@
 ({
   init: function (component, event, helper) {
-    // If there is only one recordtype assigned to the user take him to default case creation
-    if (!component.get("v.pageReference").state.recordTypeId) {
-      helper.goToNewCaseWithDefaultRecordType(component);
-      return;
-    }
-    //Make the context record id available to the wrapped LWC
-    component.set("v.contextRecordId", helper.getContextRecordId(component));
-    // Get the selected record type dev name and either show the LWC or redirect to the standard from
-    helper.getRtDevName(component, function (rt) {
-      if (helper.isComplaintCase(rt)) {
-        helper.setComplaintParameters(component, rt);
-        // for cases that are not complaints, open the standard new case form
-      } else {
-        //workaround for console because the new case form opens in a new tab, so need to close the previous one
-        helper.handleNonComplaintCase(component);
-      }
-    });
+    // Retrieve a list of record types available to the current user
+    helper
+      .handleGetCaseRecordTypes(component, event, helper)
+      .then(function (r) {
+        // If no record types are returned then show the warning modal
+        if (component.get("v.caseRecordTypes") == null) {
+          component.set("v.showWarningModal", true);
+        }
+        // Else if there is only one recordtype assigned to the user take them to default case creation
+        else if (component.get("v.caseRecordTypes").length == 1) {
+          helper.goToNewCaseWithDefaultRecordType(component);
+          return;
+        }
+        // Else if there are more than 1 record types assigned to the user, show custom record type selection page
+        else if (component.get("v.caseRecordTypes").length > 1) {
+          component.set("v.showRecordTypeSelection", true);
+        }
+      });
   },
-  urlchange: function (component, event, helper) {
-    // This is to perform intended actions from 'goToNewCaseWithDefaultRecordType()' method, if the URL (including "inContextOfRef" parameter) was not readily available at the time of calling the init() method.
-    // 'urlchange' method will only be called if;
-    // * The user has access to only one record type. And,
-    // * If it's not the first time where the user tries to create a new case without a page refresh (the first time it works fine).
 
-    // If there is only one recordtype assigned to the user take him to default case creation
-    if (
-      !component.get("v.pageReference").state.recordTypeId &&
-      helper.getURLParameterByName(component, "inContextOfRef")
-    ) {
-      helper.goToNewCaseWithDefaultRecordType(component);
-      return;
-    }
-  },
   handleNavigateRecord: function (component, event) {
     var caseId = event.getParam("caseId");
     var workspaceAPI = component.find("workspace");
@@ -52,6 +39,42 @@
       } else {
         helper.goToViewRecord(component, event, outputVar.value.Id);
       }
+    });
+  },
+
+  // Handle select record type
+  handleSelectRecordType: function (component, event, helper) {
+    helper.uncheckPreviouslySelectedRadio(component);
+    // Set the selected record type Id
+    component.set("v.selectedRecordTypeId", event.target.value);
+    // Set the selected record type name
+    component.set("v.selectedRecordTypeName", event.target.name);
+  },
+
+  // Handle cancel
+  handleCancel: function (component, event, helper) {},
+
+  // Handle next
+  handleNext: function (component, event, helper) {
+    // Check if one record type has been selected
+    if (component.get("v.selectedRecordTypeId")) {
+      // Get the record type name
+      let rt = component.get("v.selectedRecordTypeName");
+      // If record type name is complaint, then proceed accordingly
+      if (helper.isComplaintCase(rt)) {
+        helper.setComplaintParameters(component, rt);
+      } else {
+        // Otherwise, handle as non-complaint case
+        helper.handleNonComplaintCase(component);
+      }
+    }
+  },
+
+  // Handle close modal
+  handleClose: function (component) {
+    let workspaceAPI = component.find("workspace");
+    workspaceAPI.getFocusedTabInfo().then(function (response) {
+      workspaceAPI.closeTab({ tabId: response.tabId });
     });
   }
 });

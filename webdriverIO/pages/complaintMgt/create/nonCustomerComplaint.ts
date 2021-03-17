@@ -86,7 +86,7 @@ class NonCustomerComplaint extends Base {
       "//lightning-accordion-section[1]/section/div[2]/slot/div/div[6]/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[1]/input"
     );
   }
-  
+
   get country() {
     return $(
       "//lightning-accordion-section[1]/section/div[2]/slot/div/div[13]/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[1]/input"
@@ -149,13 +149,13 @@ class NonCustomerComplaint extends Base {
     );
   }
 
-  get systemicIssueNo(){
+  get systemicIssueNo() {
     return $(
       "//lightning-accordion-section[3]/section/div[2]/slot/div[2]/div[3]/lightning-radio-group/fieldset/div/div/span[2]/label/span"
     );
   }
 
-  get AnonymousSystemicIssueNo(){
+  get AnonymousSystemicIssueNo() {
     return $(
       "//lightning-accordion-section[3]/section/div[2]/slot/div/div[1]/lightning-radio-group/fieldset/div/div/span[2]/label/span"
     );

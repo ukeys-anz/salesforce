@@ -28,9 +28,9 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onBeforeInsert() {
     GetHelpCaseActions.validateAdditionalTypes(records, null);
-    GetHelpCaseActions.handleCaseSubject(records, null);
+    GetHelpCaseActions.handlePopulateCaseSubject(records, null);
     GetHelpCaseActions.updateEntitlement(records);
-    GetHelpCaseActions.populateContactLookupForANZPlus(records);
+    GetHelpCaseActionsHelper.populateContactLookupForANZPlus(records);
   }
 
   /**

@@ -10,8 +10,6 @@
 
 .expand-collapse {
   position: relative;
-  left: 88%;
-  margin-bottom: 10px;
 }
 
 .not-found {
@@ -20,4 +18,10 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.search-section {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 35px;
 }

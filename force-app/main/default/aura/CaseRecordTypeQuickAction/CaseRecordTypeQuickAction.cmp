@@ -1,0 +1,97 @@
+<aura:component
+  controller="NewCaseFlowWrapperController"
+  implements="lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickActionWithoutHeader,lightning:actionOverride"
+  access="global"
+>
+  <aura:attribute name="caseRecord" type="Object" />
+  <aura:attribute name="showRecordTypes" type="Boolean" default="false" />
+  <aura:attribute name="caseRecordTypes" type="List" />
+  <aura:attribute name="selectedRecordTypeId" type="String" default="" />
+  <aura:attribute name="selectedRecordTypeName" type="String" default="" />
+  <aura:attribute name="showError" type="Boolean" default="false" />
+  <aura:handler name="init" value="{!this}" action="{!c.init}" />
+  <lightning:navigation aura:id="navService" />
+
+  <!-- Get case record data -->
+  <force:recordData
+    aura:id="caseRecordLoader"
+    recordId="{!v.recordId}"
+    targetFields="{!v.caseRecord}"
+    fields="CaseNumber"
+    targetError="{!v.caseRecordError}"
+  />
+
+  <article class="slds-card">
+    <!-- Header -->
+    <div class="slds-card__header slds-grid">
+      <h2 class="title slds-text-heading--medium slds-hyphenate">
+        Change Case Record Type
+      </h2>
+    </div>
+
+    <!-- Error if no record type is available -->
+    <aura:if isTrue="{!v.showError}">
+      <div class="errorDiv">
+        <lightning:icon iconName="utility:warning" />
+        <p>
+          You don’t have access to any active Case record types. Contact your
+          Salesforce administrator for help.
+        </p>
+      </div>
+    </aura:if>
+
+    <!-- Body -->
+    <div class="slds-card__body slds-card__body_inner">
+      <p class="changeRecordTypeTagLine">
+        Existing picklists aren’t updated when record types change. You’ll need
+        to change picklist values manually.
+      </p>
+      <p>
+        Select a record type for
+        <lightning:formattedText value="{!v.caseRecord.CaseNumber}" />.
+      </p>
+      <div class="recordTypeSection">
+        <p class="changeRecordTypeLeftColumn">Available record types</p>
+        <aura:if isTrue="{!and(v.showRecordTypes, not(empty(v.caseRecord)) )}">
+          <div class="iteration">
+            <aura:iteration items="{!v.caseRecordTypes}" var="rt">
+              <div class="slds-form-element__control">
+                <span class="slds-radio">
+                  <input
+                    type="radio"
+                    id="{!rt.Id}"
+                    value="{!rt.Id}"
+                    name="{!rt.DeveloperName}"
+                    checked=""
+                    onchange="{!c.handleSelectRecordType}"
+                  />
+                  <label class="slds-radio__label" for="{!rt.Id}">
+                    <span class="slds-radio_faux"></span>
+                    <span class="slds-form-element__label">{!rt.Name}</span>
+                    <div class="slds-text-body_regular radio-description">
+                      {!rt.Description}
+                    </div>
+                  </label>
+                </span>
+              </div>
+            </aura:iteration>
+          </div>
+        </aura:if>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="slds-card__footer">
+      <lightning:button
+        variant="neutral"
+        label="Cancel"
+        onclick="{!c.handleClose}"
+      />
+      <lightning:button
+        variant="brand"
+        label="Next"
+        onclick="{!c.handleNext}"
+      />
+    </footer>
+  </article>
+</aura:component>

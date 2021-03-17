@@ -1,3 +1,8 @@
+/**
+ * @author saiero
+ * @since 2020
+ * @description Test class for NewCaseFlowWrapperController
+ */
 @isTest
 private with sharing class NewCaseFlowWrapperControllerTest {
   /**
@@ -254,5 +259,23 @@ private with sharing class NewCaseFlowWrapperControllerTest {
       res.setBody('Get Active Chat Topics failed');
       return res;
     }
+  }
+
+  // Test getting available record type Ids for Case
+  @isTest
+  private static void testGetAvailableRecordTypeIdsForSObject() {
+    List<Id> caseRecordTypeIdsByQuery = new List<Id>();
+    Test.startTest();
+    String resultString = NewCaseFlowWrapperController.getCaseRecordTypes();
+    Test.stopTest();
+    System.assertNotEquals(
+      0,
+      ((List<RecordType>) JSON.deserializeStrict(
+          resultString,
+          List<RecordType>.class
+        ))
+        .size(),
+      'Record type Ids were returned'
+    );
   }
 }

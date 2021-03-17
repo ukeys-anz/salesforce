@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Signed_Instructions_Supplied__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Trusted;Source - Salesforce</complianceGroup>
+    <defaultValue>false</defaultValue>
+    <description>An authorised document, electronic or in writing to confirm the customer has authorised the direct debit set up/contract on their account</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Signed contract to set up the direct debit</inlineHelpText>
+    <label>Signed Instructions Supplied</label>
+    <securityClassification>Confidential</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

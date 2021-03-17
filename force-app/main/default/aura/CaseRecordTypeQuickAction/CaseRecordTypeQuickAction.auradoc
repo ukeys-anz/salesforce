@@ -1,0 +1,8 @@
+<aura:documentation>
+	<aura:description>Documentation</aura:description>
+	<aura:example name="ExampleName" ref="exampleComponentName" label="Label">
+		This quick action replaces the standard Change Record Type button for cases. So we can hide certain record types from being selected.
+		This quick action is not sitting on any Case page layout as there is no requirements for users who have access to dispute record types to be able to change case record type.
+		However, later on, if this requirement comes up, then this quick action will be placed on certain case page layouts to prevent users from selecting dispute record types when changing a case's record type.
+	</aura:example>
+</aura:documentation>

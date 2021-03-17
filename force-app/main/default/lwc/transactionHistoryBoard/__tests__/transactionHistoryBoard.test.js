@@ -101,6 +101,8 @@ describe("c-transactionHistoryBoard", () => {
 
     return Promise.resolve()
       .then(() => {})
+      .then(() => {})
+      .then(() => {})
       .then(() => {
         const startDateInput = element.shadowRoot.querySelector(
           'lightning-input[data-id="startDateInput"]'
@@ -164,6 +166,8 @@ describe("c-transactionHistoryBoard", () => {
     getRecordAdapter.emit(mockGetRecord);
 
     return Promise.resolve()
+      .then(() => {})
+      .then(() => {})
       .then(() => {})
       .then(() => {
         getTransactions.mockResolvedValue(APEX_TRANSACTIONS_SUCCESS_SECOND);

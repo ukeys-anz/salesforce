@@ -7,7 +7,7 @@
 
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
-// Hanlde show toast message
+// Handle show toast message
 export function showToast(
   cmp,
   theTitle,
