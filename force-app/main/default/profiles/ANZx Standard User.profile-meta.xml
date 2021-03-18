@@ -4,8 +4,8 @@
   <description>This will have all generic profile configuration that needs to be auto deployed. To be used by all ANZx standard users.</description>
   <applicationVisibilities>
     <application>Coaches_Console</application>
-    <default>true</default>
-    <visible>true</visible>
+    <default>false</default>
+    <visible>false</visible>
   </applicationVisibilities>
   <applicationVisibilities>
     <application>Content_Workbench</application>
@@ -46,6 +46,11 @@
     <application>IDR_Console</application>
     <default>false</default>
     <visible>false</visible>
+  </applicationVisibilities>
+  <applicationVisibilities>
+    <application>standard__AllTabSet</application>
+    <default>true</default>
+    <visible>true</visible>
   </applicationVisibilities>
   <applicationVisibilities>
     <application>standard__Chatter</application>
