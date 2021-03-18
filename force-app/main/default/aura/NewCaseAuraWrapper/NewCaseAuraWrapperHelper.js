@@ -346,7 +346,10 @@
           var state = response.getState();
           if (state === "SUCCESS") {
             let rsp = response.getReturnValue();
-            component.set("v.caseRecordTypes", JSON.parse(rsp));
+            let recordTypes = JSON.parse(rsp);
+            // Sort record types alphabetically
+            recordTypes.sort((a, b) => a.Name.localeCompare(b.Name));
+            component.set("v.caseRecordTypes", recordTypes);
             resolve({ r: component.get("v.caseRecordTypes") });
           } else {
             console.log("Failed with state: " + state);
