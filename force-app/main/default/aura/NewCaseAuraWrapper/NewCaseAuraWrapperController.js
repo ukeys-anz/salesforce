@@ -1,5 +1,7 @@
 ({
   init: function (component, event, helper) {
+    //Make the context record id available to the wrapped LWC
+    component.set("v.contextRecordId", helper.getContextRecordId(component));
     // Retrieve a list of record types available to the current user
     helper
       .handleGetCaseRecordTypes(component, event, helper)

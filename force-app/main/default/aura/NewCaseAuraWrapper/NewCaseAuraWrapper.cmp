@@ -23,7 +23,7 @@
 
   <aura:renderIf isTrue="{!v.showComponent}">
     <c:createComplaintLWC
-      recordTypeId="{!v.recordTypeId}"
+      recordTypeId="{!v.selectedRecordTypeId}"
       recordTypeDevName="{!v.recordTypeDevName}"
       contextRecordId="{!v.contextRecordId}"
       onnavigaterecord="{!c.handleNavigateRecord}"
