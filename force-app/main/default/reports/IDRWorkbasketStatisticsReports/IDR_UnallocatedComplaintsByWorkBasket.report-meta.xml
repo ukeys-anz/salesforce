@@ -13,6 +13,15 @@
         <field>DESCRIPTION</field>
     </columns>
     <columns>
+        <field>TYPE</field>
+    </columns>
+    <columns>
+        <field>Case.IDR_Subsequent_Issue__c</field>
+    </columns>
+    <columns>
+        <field>Case.IDR_Escalation_Reason__c</field>
+    </columns>
+    <columns>
         <aggregateTypes>Sum</aggregateTypes>
         <field>CDF1</field>
     </columns>
