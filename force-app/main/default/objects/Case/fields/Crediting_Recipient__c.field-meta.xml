@@ -2,8 +2,9 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Crediting_Recipient__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Trusted;Source - Salesforce</complianceGroup>
+    <complianceGroup>Integrity - Trusted;Source - Salesforce;Privacy - Personal Information</complianceGroup>
     <description>Beneficiary who received funds</description>
+    <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
     <externalId>false</externalId>
     <inlineHelpText>Beneficiary or payee who received the funds</inlineHelpText>
     <label>Recipient</label>

@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Trusted;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Date customer expects the delivery/service to be completed</description>
+    <encryptionScheme>ProbabilisticEncryption</encryptionScheme>
     <externalId>false</externalId>
     <inlineHelpText>Only applicable for dispute reason:
 ·         Goods or services purchased but not received</inlineHelpText>

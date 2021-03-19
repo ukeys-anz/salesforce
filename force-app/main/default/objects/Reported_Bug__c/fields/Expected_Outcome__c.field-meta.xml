@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>What the customer expected to happen when they encountered the bug.</description>
+    <encryptionScheme>ProbabilisticEncryption</encryptionScheme>
     <externalId>false</externalId>
     <inlineHelpText>What the customer expected to happen when they encountered the bug.</inlineHelpText>
     <label>Expected Outcome</label>

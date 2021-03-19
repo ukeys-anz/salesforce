@@ -2,8 +2,9 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Card_Number__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Source - Salesforce;Integrity - Accurate</complianceGroup>
+    <complianceGroup>Source - Salesforce;Integrity - Accurate;Privacy - Personal Information</complianceGroup>
     <description>Card details of the customer</description>
+    <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
     <externalId>false</externalId>
     <inlineHelpText>Last 4 digits of card used</inlineHelpText>
     <label>Card Number</label>
