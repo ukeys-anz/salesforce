@@ -4,5 +4,6 @@
     <label>IDR Level 2</label>
     <permissionSets>IDR_User</permissionSets>
     <permissionSets>IDR_User_Level_2</permissionSets>
+    <permissionSets>Product_Read_Only</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>
