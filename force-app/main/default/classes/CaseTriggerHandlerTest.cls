@@ -87,7 +87,7 @@ private class CaseTriggerHandlerTest {
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
-        new Case(RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID)
+        new Case(RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID)
       );
     }
     // WHEN they are inserted
@@ -119,7 +119,7 @@ private class CaseTriggerHandlerTest {
       casesWithCopiedCaseNumber.add(
         new Case(
           CaseNumber__c = '123' + i,
-          RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID
+          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID
         )
       );
     }
@@ -154,7 +154,7 @@ private class CaseTriggerHandlerTest {
           IDR_Complainant_Desired_Outcome__c = 'Test decription 1234 5678 9101 check mask',
           IDR_Description_of_Outcome__c = 'Test decription 123456789101 check mask',
           IDR_Systemic_Issue_Description__c = 'Test decription 1234-5678-9101 check mask',
-          RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
+          RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
           IDR_Customer_Number__c = '1234567890'
         )
       );
@@ -211,7 +211,7 @@ private class CaseTriggerHandlerTest {
           Status = 'Escalated',
           IDR_Escalated_to__c = '1',
           IDR_Escalation_Reason__c = '1',
-          RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID
+          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID
         )
       );
     }
@@ -232,7 +232,7 @@ private class CaseTriggerHandlerTest {
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
-        new Case(RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID)
+        new Case(RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID)
       );
     }
     // WHEN they are inserted
@@ -265,7 +265,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID,
+          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
           IsEscalated = true,
           IDR_Escalated_to__c = '2',
           IDR_Escalation_Reason__c = '1',
@@ -295,7 +295,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID,
+          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
           Status = 'Closed',
           IDR_Complaint_Outcome__c = '1',
           IDR_Description_of_Outcome__c = 'test'
@@ -341,7 +341,7 @@ private class CaseTriggerHandlerTest {
       newCases.add(
         new Case(
           IDR_NC_Is_Consent_Obtained__c = false,
-          RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID
+          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID
         )
       );
     }
@@ -380,7 +380,7 @@ private class CaseTriggerHandlerTest {
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
-        new Case(RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID)
+        new Case(RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID)
       );
     }
     // WHEN they are inserted
@@ -436,7 +436,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID,
+          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
           Status = 'Escalated',
           IDR_Escalated_to__c = '1',
           IDR_Escalation_Reason__c = '1'
@@ -455,7 +455,7 @@ private class CaseTriggerHandlerTest {
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
-        new Case(RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID)
+        new Case(RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID)
       );
     }
     insert newCases;
@@ -998,7 +998,7 @@ private class CaseTriggerHandlerTest {
   @istest
   static void testBusinessHoursAssignment() {
     Case newCase = new Case();
-    newCase.RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID;
+    newCase.RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID;
     insert newCase;
 
     BusinessHours bhs = [
