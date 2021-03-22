@@ -57,6 +57,83 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Card_In_Possession_During_Transaction__c</picklist>
+        <values>
+            <fullName>NA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Customer_Contacted_Merchant__c</picklist>
+        <values>
+            <fullName>NA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Dispute_Reason__c</picklist>
+        <values>
+            <fullName>Additional transactions for an existing lost%2Fstolen%2Ffraud case</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cancel current dispute</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cancellation of regular payment arrangement was unsuccessful</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cardholder did not authorise transaction %28Fraud%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cardholder does not recognise transaction</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit has not been processed or processed incorrectly</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Goods or services defective or not as described</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Goods or services purchased but not received</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Purchase was charged incorrectly</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Purchase was charged more than once</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transaction Services Only - Bank initiated chargeback</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Fraud_Complicit_in_Fraud__c</picklist>
         <values>
             <fullName>No</fullName>
@@ -1858,6 +1935,21 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Has_The_Card_Been_Stopped__c</picklist>
+        <values>
+            <fullName>NA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>IDR_3rdParty_Country__c</picklist>
         <values>
             <fullName>Afghanistan</fullName>
@@ -2993,6 +3085,25 @@
         </values>
         <values>
             <fullName>3</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IDR_Escalation_Reason__c</picklist>
+        <values>
+            <fullName>1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>6</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -4609,6 +4720,13 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>SRE_Team__c</picklist>
+        <values>
+            <fullName>Core SRE</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Sub_Type__c</picklist>
         <values>
             <fullName>Add Life Event</fullName>
@@ -4755,6 +4873,21 @@
         </values>
         <values>
             <fullName>Transaction %26 Savings enquiry%C2%A0</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>What_Customer_was_Trying_to_Do__c</picklist>
+        <values>
+            <fullName>Goals</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Payment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Profile Change</fullName>
             <default>false</default>
         </values>
     </picklistValues>

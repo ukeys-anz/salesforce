@@ -3,6 +3,7 @@
     <fullName>BSB__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy - Non Personal Information;Source_CTM</complianceGroup>
+    <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
     <externalId>false</externalId>
     <label>BSB</label>
     <length>20</length>

@@ -469,7 +469,7 @@
     </picklistValues>
     <picklistValues>
         <picklist>Industry</picklist>
-                <values>
+        <values>
             <fullName>0</fullName>
             <default>false</default>
         </values>

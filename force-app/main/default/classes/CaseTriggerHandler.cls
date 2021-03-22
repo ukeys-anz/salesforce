@@ -28,10 +28,11 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onBeforeInsert() {
     GetHelpCaseActions.validateAdditionalTypes(records, null);
-    GetHelpCaseActions.handleCaseSubject(records, null);
+    GetHelpCaseActions.handlePopulateCaseSubject(records, null);
     GetHelpCaseActions.updateEntitlement(records);
-    IDREmailToCase.processEmail(records);
+    GetHelpCaseActionsHelper.populateContactLookupForANZPlus(records);
   }
+
   /**
    * @description onValidate() method is called before onAfterInsert to validate records or handle the records for which we need to update the values.
    */
@@ -45,7 +46,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
   public override void onAfterInsert() {
     IDRCaseActions.completeAfterActions();
     GetHelpCaseActions.rollupRelatedBug(records, new List<Case>());
-    SICaseActions.afterInsert(records);
   }
 
   /**
@@ -55,11 +55,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     IDRCaseActions.beforeUpdate(oldMap, records);
     GetHelpCaseActions.beforeUpdate(oldMap, records);
-    SICaseActions.beforeUpdate((List<Case>) records, (Map<Id, Case>) oldMap);
-    IDRCaseNotificationManager.manageNotification(
-      records,
-      (Map<Id, Case>) oldMap
-    );
   }
 
   /**
@@ -80,11 +75,11 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     if (!checkRecursive.firstCall) {
       checkRecursive.firstCall = true;
       IDRCaseActions.completeAfterActions();
+      CaseCommonActions.completeAfterUpdateActions();
       GetHelpCaseActions.rollupRelatedBug(
         records,
         (List<Case>) oldMap.values()
       );
-      SICaseActions.afterUpdate(records, (Map<Id, Case>) oldMap);
     }
   }
 

@@ -8,7 +8,12 @@ public virtual class CalloutModel {
    * @description JSON keys that need to be replaced, as they are Apex reserved keywords. For example, 'currency', 'integer', 'public'
    */
   private static final Map<String, String> RESERVED_KEY_MAPPINGS = new Map<String, String>{
-    'currency' => 'currencyCode'
+    'currency' => 'currencyCode',
+    'id_token' => 'idToken',
+    'access_token' => 'accessToken',
+    'refresh_token' => 'refreshToken',
+    'expires_in' => 'expiresIn',
+    'expires_on' => 'expiresOn'
   };
 
   /**

@@ -14,6 +14,8 @@ import UpdateAccounts from "@salesforce/messageChannel/FinancialAccountsUpdate__
 import RetrieveGoals from "@salesforce/messageChannel/RetrieveFinancialGoals__c";
 import TriggerLoading from "@salesforce/messageChannel/FinancialAccountsTriggerLoading__c";
 
+import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
+
 export default class AccountsAndGoals extends LightningElement {
   @api recordId;
   @api objectName;
@@ -37,7 +39,7 @@ export default class AccountsAndGoals extends LightningElement {
     fields: "$objectFields"
   })
   wiredProject({ data }) {
-    if (data) {
+    if (data && hasAccountsGoalsPermission) {
       this.ownerId = this.recordId;
       this.ocvId = data.fields.OCV_ID__c.value;
       if (data.fields.FinServ__PrimaryOwner__c) {
@@ -50,17 +52,23 @@ export default class AccountsAndGoals extends LightningElement {
   }
 
   connectedCallback() {
-    publish(this.messageContext, TriggerLoading, {
-      update: true
-    });
-    if (this.objectName === "Account") {
-      this.objectFields = [ACCOUNT_OCV_ID_FIELD];
-    } else {
-      this.objectFields = [
-        FIN_ACCOUNT_OCV_ID_FIELD,
-        FIN_ACCOUNT_PRIMARY_OWNER_FIELD
-      ];
+    if (hasAccountsGoalsPermission) {
+      publish(this.messageContext, TriggerLoading, {
+        update: true
+      });
+      if (this.objectName === "Account") {
+        this.objectFields = [ACCOUNT_OCV_ID_FIELD];
+      } else {
+        this.objectFields = [
+          FIN_ACCOUNT_OCV_ID_FIELD,
+          FIN_ACCOUNT_PRIMARY_OWNER_FIELD
+        ];
+      }
     }
+  }
+
+  get displayContent() {
+    return hasAccountsGoalsPermission;
   }
 
   update() {

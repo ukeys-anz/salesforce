@@ -16,6 +16,30 @@ public virtual class Service {
   }
 
   /**
+   * @param redirectURL redirect url in the http request
+   * @param code code in the http request
+   * @return `HttpCalloutResponse` api response
+   * @description virtual azure identity callout
+   */
+  public virtual HttpCalloutResponse getIdentityTokens(
+    String redirectURL,
+    String code
+  ) {
+    return null;
+  }
+
+  /**
+   * @param existingRefreshToken existing refresh token id
+   * @return `HttpCalloutResponse` api response
+   * @description virtual azure refresh id token callout
+   */
+  public virtual HttpCalloutResponse getRefreshIdToken(
+    String existingRefreshToken
+  ) {
+    return null;
+  }
+
+  /**
    * @param response HttpCalloutResponse to test various error codes
    * @description setter method for response property
    */

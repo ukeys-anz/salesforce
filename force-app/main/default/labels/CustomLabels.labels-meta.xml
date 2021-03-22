@@ -78,7 +78,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Transactions</shortDescription>
-        <value>/anz-exp-sfdc-coach-banking-api/api/transactions?accountnumber=</value>
+        <value>/anz-exp-sfdc-coach-banking-api/api/transactions</value>
     </labels>
     <labels>
         <fullName>MS_Temp_Block_Card</fullName>

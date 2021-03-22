@@ -4,8 +4,8 @@
   <description>This will have all generic profile configuration that needs to be auto deployed. To be used by all ANZx standard users.</description>
   <applicationVisibilities>
     <application>Coaches_Console</application>
-    <default>true</default>
-    <visible>true</visible>
+    <default>false</default>
+    <visible>false</visible>
   </applicationVisibilities>
   <applicationVisibilities>
     <application>Content_Workbench</application>
@@ -46,6 +46,11 @@
     <application>IDR_Console</application>
     <default>false</default>
     <visible>false</visible>
+  </applicationVisibilities>
+  <applicationVisibilities>
+    <application>standard__AllTabSet</application>
+    <default>true</default>
+    <visible>true</visible>
   </applicationVisibilities>
   <applicationVisibilities>
     <application>standard__Chatter</application>
@@ -1339,15 +1344,15 @@
     <enabled>false</enabled>
   </classAccesses>
   <classAccesses>
-    <apexClass>TestCaseTriggerHandler</apexClass>
+    <apexClass>CaseTriggerHandlerTest</apexClass>
     <enabled>false</enabled>
   </classAccesses>
   <classAccesses>
-    <apexClass>TestGetCustomerInformation</apexClass>
+    <apexClass>GetCustomerInformationTest</apexClass>
     <enabled>false</enabled>
   </classAccesses>
   <classAccesses>
-    <apexClass>TestProcessBuilderNoAction</apexClass>
+    <apexClass>ProcessBuilderNoActionTest</apexClass>
     <enabled>false</enabled>
   </classAccesses>
   <custom>true</custom>
@@ -8070,6 +8075,10 @@
     <readable>false</readable>
   </fieldPermissions>
   <layoutAssignments>
+      <layout>Case-ATM Dispute Layout</layout>
+      <recordType>Case.ATM_Dispute</recordType>
+    </layoutAssignments>
+<layoutAssignments>
     <layout>Case-ANZx Complaint Layout</layout>
     <recordType>Case.ANZx_Complaint</recordType>
   </layoutAssignments>
@@ -8078,8 +8087,20 @@
     <recordType>Case.Bug_Enquiry</recordType>
   </layoutAssignments>
   <layoutAssignments>
+      <layout>Case-Card Dispute Layout</layout>
+      <recordType>Case.Card_Dispute</recordType>
+  </layoutAssignments>
+  <layoutAssignments>
     <layout>Case-Complaint Layout</layout>
     <recordType>Case.Customer_Complaint</recordType>
+  </layoutAssignments>
+  <layoutAssignments>
+    <layout>Case-Direct Debit Dispute Layout</layout>
+    <recordType>Case.Direct_Debit_Dispute</recordType>
+  </layoutAssignments>
+  <layoutAssignments>
+    <layout>Case-Direct Entry Dispute Layout</layout>
+    <recordType>Case.Direct_Entry_Dispute</recordType>
   </layoutAssignments>
   <layoutAssignments>
     <layout>Case-Fraud Layout</layout>
@@ -8110,8 +8131,16 @@
     <recordType>Case.Scam</recordType>
   </layoutAssignments>
   <layoutAssignments>
+      <layout>Case-Urgent Dishonour Request Layout</layout>
+      <recordType>Case.Urgent_Dishonour_Request_Dispute</recordType>
+    </layoutAssignments>
+  <layoutAssignments>
     <layout>PersonAccount-Customer View Layout</layout>
     <recordType>PersonAccount.PersonAccount</recordType>
+  </layoutAssignments>
+  <layoutAssignments>
+      <layout>Task-Call Log Layout</layout>
+      <recordType>Task.Call_Log</recordType>
   </layoutAssignments>
   <layoutAssignments>
       <layout>User-User Layout</layout>
@@ -9267,6 +9296,11 @@
     <default>false</default>
     <recordType>PersonAccount.PersonAccount</recordType>
     <visible>false</visible>
+  </recordTypeVisibilities>
+  <recordTypeVisibilities>
+      <default>true</default>
+      <recordType>Task.Call_Log</recordType>
+      <visible>true</visible>
   </recordTypeVisibilities>
   <recordTypeVisibilities>
     <default>false</default>

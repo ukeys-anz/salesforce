@@ -12,7 +12,7 @@ The image provided by customer does not look like a image of a picture of an act
 The image provided by customer does not look like a image of a picture of an actual identity document.</inlineHelpText>
     <label>Image is not a Picture of ID Document</label>
     <required>false</required>
-    <securityClassification>Internal</securityClassification>
+    <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

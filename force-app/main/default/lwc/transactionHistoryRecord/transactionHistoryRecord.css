@@ -97,3 +97,9 @@ img {
 .map {
   width: 40%;
 }
+
+.button-icon-col {
+  justify-content: flex-end;
+  align-self: center;
+  display: flex;
+}

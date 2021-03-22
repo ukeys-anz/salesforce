@@ -1,17 +1,27 @@
 @isTest
 public inherited sharing class CoachBankingAPIRepositoryTest {
   /**
+   * @description Add required PermissionSet
+   */
+  @testSetup
+  public static void setup() {
+    TestUtil.addAccountsGoalsPs();
+  }
+  /**
    * @description fetch valid accounts, mocked values in force-app/main/default/classes/services/FabricServiceMock.cls
    */
   @isTest
   static void validResponse() {
-    Test.startTest();
-    CoachBankingAPIRepository coachapi = new CoachBankingAPIRepository();
-    AccountsAndGoalsModel model = coachapi.getAccounts('1111');
-    Test.stopTest();
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      Test.startTest();
+      CoachBankingAPIRepository coachapi = new CoachBankingAPIRepository();
+      AccountsAndGoalsModel model = coachapi.getAccounts('1111');
+      Test.stopTest();
 
-    System.assertEquals(2, model.accountList.size());
-    System.assertEquals('000000000', model.accountList[0].accountNumber);
+      System.assertEquals(2, model.accountList.size());
+      System.assertEquals('000000000', model.accountList[0].accountNumber);
+    }
   }
 
   /**
@@ -19,20 +29,23 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
    */
   @isTest
   static void invalidResponse() {
-    AccountsAndGoalsModel model;
-    HttpCalloutResponse res = getInvalidResponse();
-    Service s = ServiceProvider.getService(FabricService.class);
-    s.setCalloutResponse(res);
-    Exception resultException;
-    Test.startTest();
-    CoachBankingAPIRepository coachapi = new CoachBankingAPIRepository();
-    try {
-      model = coachapi.getAccounts('1111');
-    } catch (Exception e) {
-      resultException = e;
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      AccountsAndGoalsModel model;
+      HttpCalloutResponse res = getInvalidResponse();
+      Service s = ServiceProvider.getService(FabricService.class);
+      s.setCalloutResponse(res);
+      Exception resultException;
+      Test.startTest();
+      CoachBankingAPIRepository coachapi = new CoachBankingAPIRepository();
+      try {
+        model = coachapi.getAccounts('1111');
+      } catch (Exception e) {
+        resultException = e;
+      }
+      Test.stopTest();
+      System.assertEquals('Get accounts failed', resultException.getMessage());
     }
-    Test.stopTest();
-    System.assertEquals('Get accounts failed', resultException.getMessage());
   }
 
   private static HttpCalloutResponse getInvalidResponse() {
@@ -48,13 +61,16 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
    */
   @isTest
   static void auraResponse() {
-    Test.startTest();
-    AccountsAndGoalsModel model = CoachBankingAPIRepository.getAccountsAura(
-      '1111'
-    );
-    Test.stopTest();
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      Test.startTest();
+      AccountsAndGoalsModel model = CoachBankingAPIRepository.getAccountsAura(
+        '1111'
+      );
+      Test.stopTest();
 
-    System.assertEquals(2, model.accountList.size());
-    System.assertEquals('000000000', model.accountList[0].accountNumber);
+      System.assertEquals(2, model.accountList.size());
+      System.assertEquals('000000000', model.accountList[0].accountNumber);
+    }
   }
 }

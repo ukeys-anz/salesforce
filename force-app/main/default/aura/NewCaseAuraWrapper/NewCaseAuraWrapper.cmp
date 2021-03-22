@@ -9,13 +9,21 @@
   <aura:attribute name="recordTypeDevName" type="String" />
   <aura:attribute name="contextRecordId" type="String" />
   <aura:attribute name="loading" type="Boolean" default="false" />
-  <aura:handler event="aura:locationChange" action="{!c.urlchange}" />
+  <aura:attribute
+    name="showRecordTypeSelection"
+    type="Boolean"
+    default="false"
+  />
+  <aura:attribute name="caseRecordTypes" type="List" />
+  <aura:attribute name="selectedRecordTypeId" type="String" default="" />
+  <aura:attribute name="selectedRecordTypeName" type="String" default="" />
+  <aura:attribute name="showWarningModal" type="Boolean" default="false" />
   <aura:handler name="init" value="{!this}" action="{!c.init}" />
   <aura:handler name="change" value="{!v.pageReference}" action="{!c.init}" />
 
   <aura:renderIf isTrue="{!v.showComponent}">
     <c:createComplaintLWC
-      recordTypeId="{!v.recordTypeId}"
+      recordTypeId="{!v.selectedRecordTypeId}"
       recordTypeDevName="{!v.recordTypeDevName}"
       contextRecordId="{!v.contextRecordId}"
       onnavigaterecord="{!c.handleNavigateRecord}"
@@ -26,5 +34,98 @@
     <div class="spinnerHolder">
       <lightning:spinner alternativeText="Loading" />
     </div>
+  </aura:if>
+
+  <!-- Custom record selection page -->
+  <aura:if isTrue="{!v.showRecordTypeSelection}">
+    <article class="slds-card">
+      <div class="slds-card__header slds-grid">
+        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+          <div class="slds-media__body">
+            <div class="slds-card__header-title">
+              <h2
+                class="inlineTitle slds-p-top--large slds-p-horizontal--medium slds-p-bottom--medium slds-text-heading--medium"
+              >
+                New Case
+              </h2>
+            </div>
+          </div>
+        </header>
+      </div>
+      <div class="slds-card__body slds-card__body_inner">
+        <aura:iteration items="{!v.caseRecordTypes}" var="rt">
+          <div class="slds-form-element__control">
+            <span class="slds-radio">
+              <input
+                type="radio"
+                id="{!rt.Id}"
+                value="{!rt.Id}"
+                name="{!rt.DeveloperName}"
+                checked=""
+                onchange="{!c.handleSelectRecordType}"
+              />
+              <label class="slds-radio__label" for="{!rt.Id}">
+                <span class="slds-radio_faux"></span>
+                <span class="slds-form-element__label">{!rt.Name}</span>
+                <div class="slds-text-body_regular radio-description">
+                  {!rt.Description}
+                </div>
+              </label>
+            </span>
+          </div>
+        </aura:iteration>
+      </div>
+      <footer class="slds-card__footer">
+        <lightning:button
+          variant="neutral"
+          label="Cancel"
+          onclick="{!c.handleClose}"
+        />
+        <lightning:button
+          variant="brand"
+          label="Next"
+          onclick="{!c.handleNext}"
+        />
+      </footer>
+    </article>
+  </aura:if>
+
+  <!-- Modal shown if user does not have access to any record types or only dispute record types -->
+  <aura:if isTrue="{!v.showWarningModal}">
+    <section
+      role="dialog"
+      tabindex="-1"
+      aria-labelledby="modal-heading-01"
+      aria-modal="true"
+      aria-describedby="modal-content-id-1"
+      class="slds-modal slds-fade-in-open"
+    >
+      <div class="slds-modal__container">
+        <header class="slds-modal__header slds-modal__header_empty">
+          <button
+            class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+            title="Close"
+            onclick="{!c.handleClose}"
+          >
+            <lightning:icon
+              iconName="utility:close"
+              alternativeText="Close"
+              title="Close"
+            />
+            <span class="slds-assistive-text">Close</span>
+          </button>
+        </header>
+        <div
+          class="slds-modal__content slds-p-around_medium"
+          id="modal-content-id-1"
+        >
+          <p>
+            You don't have access to this record. Ask your administrator for
+            help or to request access.
+          </p>
+        </div>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
   </aura:if>
 </aura:component>

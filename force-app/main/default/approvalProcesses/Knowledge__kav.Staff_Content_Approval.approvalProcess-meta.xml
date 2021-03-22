@@ -17,10 +17,6 @@
         <allowDelegate>false</allowDelegate>
         <approvalActions>
             <action>
-                <name>Publish_Article</name>
-                <type>KnowledgePublish</type>
-            </action>
-            <action>
                 <name>Update_Status_to_Approved</name>
                 <type>FieldUpdate</type>
             </action>
@@ -63,6 +59,7 @@
         </action>
     </initialSubmissionActions>
     <label>Staff Content Approval</label>
+    <processOrder>1</processOrder>
     <recordEditability>AdminOnly</recordEditability>
     <showApprovalHistory>false</showApprovalHistory>
 </ApprovalProcess>

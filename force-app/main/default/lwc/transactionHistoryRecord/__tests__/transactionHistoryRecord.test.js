@@ -274,4 +274,56 @@ describe("c-transactionHistoryRecord", () => {
       expect(errorDiv).toBeNull();
     });
   });
+
+  it("test button menu show menu items", () => {
+    const element = createElement("c-transactionHistoryRecord", {
+      is: TransactionHistoryRecord
+    });
+    element.transactionRecord = transRecord;
+    element.expandAll = true;
+    document.body.appendChild(element);
+
+    const buttonMenu = element.shadowRoot.querySelector(
+      "lightning-button-menu"
+    );
+    expect(buttonMenu).not.toBeNull();
+
+    buttonMenu.click();
+    const menuItems = element.shadowRoot.querySelectorAll(
+      "lightning-menu-item"
+    );
+    expect(menuItems.length).toBe(2);
+  });
+
+  it("record type selection modal displayed if transaction type is unspecified", () => {
+    const element = createElement("c-transactionHistoryRecord", {
+      is: TransactionHistoryRecord
+    });
+    // Set the dispute record type to be undefined to trigger the modal to display
+    transRecord.disputeRecordTypeId = undefined;
+    element.transactionRecord = transRecord;
+    element.expandAll = true;
+    document.body.appendChild(element);
+
+    const buttonMenu = element.shadowRoot.querySelector(
+      "lightning-button-menu"
+    );
+    expect(buttonMenu).not.toBeNull();
+
+    buttonMenu.click();
+    const menuItems = element.shadowRoot.querySelectorAll(
+      "lightning-menu-item"
+    );
+    expect(menuItems.length).toBe(2);
+
+    const raiseDisputeButton = menuItems[1];
+    expect(raiseDisputeButton).not.toBeNull();
+    raiseDisputeButton.click();
+
+    // Check if modal is displayed
+    const recordTypeSelectionModal = document.getElementsByTagName(
+      "slds-modal__container"
+    )[0];
+    expect(recordTypeSelectionModal).not.toBeNull();
+  });
 });

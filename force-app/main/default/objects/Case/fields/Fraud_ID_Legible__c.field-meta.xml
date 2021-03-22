@@ -20,7 +20,7 @@ Check for:
 Image is not blurry, pixelated or poor quality.</inlineHelpText>
     <label>Identity Document is Legible</label>
     <required>false</required>
-    <securityClassification>Internal</securityClassification>
+    <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
