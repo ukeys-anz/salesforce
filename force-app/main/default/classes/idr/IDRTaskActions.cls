@@ -78,6 +78,7 @@ public with sharing class IDRTaskActions {
     list<Task> idrMaixmumTimeTasks = new List<Task>();
     Map<Id, ID> taskCaseMap = new Map<Id, ID>();
     Map<Id, String> caseTaskMap = new Map<Id, String>();
+    Set<Id> caseIds = new Set<Id>();
     for (Task record : taskRecs) {
       if (
         record.subject == IDRConstants.TASK_SUBJECT_DAY5 ||
@@ -86,6 +87,7 @@ public with sharing class IDRTaskActions {
         record.RecordTypeId = IDR_MAXIMUM_TIME_RT_ID;
         idrMaixmumTimeTasks.add(record);
         taskCaseMap.put(record.Id, record.WhatId);
+        caseIds.add(record.whatId);
       }
       if (
         record.RecordTypeId == IDR_MAXIMUM_TIME_RT_ID &&
@@ -97,6 +99,9 @@ public with sharing class IDRTaskActions {
     }
 
     validateDueDate(idrMaixmumTimeTasks, caseTaskMap);
+    if(!caseIds.isEmpty()) {
+      assignTaskToCaseOwner(taskRecs, caseIds);
+    }
   }
   /**
    * @description validateDueDate will validate update the due date for IDR Tasks.
@@ -218,6 +223,24 @@ public with sharing class IDRTaskActions {
 
     if (cmsToUpdate.size() > 0) {
       update cmsToUpdate;
+    }
+  }
+
+  /**
+   * @description assignTaskToCaseOwner is used to assign the tasks 
+   * created by entitlement process to case owner. 
+   * @param records List of task records from trigger
+   * @param caseIds Set of case ids
+   */
+  private static void assignTaskToCaseOwner(List<Task> records, Set<Id> caseIds) {
+    Map<Id, Case> caseMap = new Map<ID, Case>();
+    for(Case caseRecord : [SELECT Id, OwnerId FROM Case where Id IN : caseIds]) {
+      caseMap.put(caseRecord.Id, caseRecord);
+    }
+    for(Task record : records) {
+      if(caseMap.containsKey(record.WhatId)) {
+      record.OwnerId = caseMap.get(record.WhatId).OwnerId;
+      }
     }
   }
 }
