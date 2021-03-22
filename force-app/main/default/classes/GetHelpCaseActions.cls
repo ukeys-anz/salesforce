@@ -103,8 +103,12 @@ public with sharing class GetHelpCaseActions {
         if (
           oldRecord.Status != 'Closed' &&
           oldRecord.Status != 'Escalated' &&
+          oldRecord.Status != 'Withdrawn' &&
+          oldRecord.Status != 'Resolved' &&
           (record.Status == 'Closed' ||
-          record.Status == 'Escalated')
+          record.Status == 'Escalated' ||
+          record.Status == 'Withdrawn' ||
+          record.Status == 'Resolved')
         ) {
           milestoneIds.add(record.Id);
         }
