@@ -31,6 +31,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     GetHelpCaseActions.handlePopulateCaseSubject(records, null);
     GetHelpCaseActions.updateEntitlement(records);
     GetHelpCaseActionsHelper.populateContactLookupForANZPlus(records);
+    IDREmailToCase.processEmail(records);
   }
 
   /**
@@ -55,6 +56,11 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     IDRCaseActions.beforeUpdate(oldMap, records);
     GetHelpCaseActions.beforeUpdate(oldMap, records);
+    SICaseActions.beforeUpdate((List<Case>) records, (Map<Id, Case>) oldMap);
+    IDRCaseNotificationManager.manageNotification(
+      records,
+      (Map<Id, Case>) oldMap
+    );
   }
 
   /**
@@ -80,6 +86,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
         records,
         (List<Case>) oldMap.values()
       );
+      SICaseActions.afterUpdate(records, (Map<Id, Case>) oldMap);
     }
   }
 
