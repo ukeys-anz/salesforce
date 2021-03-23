@@ -266,25 +266,40 @@ private class CaseTriggerHandlerTest {
       newCases.add(
         new Case(
           RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
-          IsEscalated = true,
-          IDR_Escalated_to__c = '2',
-          IDR_Escalation_Reason__c = '1',
-          OwnerId = IDRCaseActions.queue.Id
+          Status = 'Open',
+          IDR_Escalated_to__c = '1'
         )
       );
     }
-    // WHEN they are inserted
     insert newCases;
-    // THEN check if IsEscalated is false
+
+    // WHEN they are auto-escalated (kind of)
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases[i].IsEscalated = true;
+      newCases[i].OwnerId = IDRCaseActions.queue.Id;
+    }
+    update newCases;
+
+    // THEN check escalation fields
     Case c = [
-      SELECT CaseNumber, IDR_Escalated_to__c, Status, IsEscalated
+      SELECT Status, IDR_Escalated_to__c, IDR_Escalation_Reason__c
       FROM Case
       WHERE id = :newCases[0].id
     ];
-    System.assert(c.Status == 'Escalated', 'Status is Escalated ');
-    System.assert(
-      c.IDR_Escalated_to__c == '1',
-      'Escalated is changed to Customer Resolution Portfolio'
+    System.assertEquals(
+      'Escalated',
+      c.Status,
+      'Status should have been updated to Escalated '
+    );
+    System.assertEquals(
+      '1',
+      c.IDR_Escalated_to__c,
+      'Escalated To should have been updated to CRP '
+    );
+    System.assertEquals(
+      IDRCaseActions.DAY_3_ESCALATION_REASON,
+      c.IDR_Escalation_Reason__c,
+      'Escalation Reason should have been updated to DAY_3_ESCALATION_REASON '
     );
   }
 
