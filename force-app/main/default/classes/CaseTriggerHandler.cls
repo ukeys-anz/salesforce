@@ -47,6 +47,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
   public override void onAfterInsert() {
     IDRCaseActions.completeAfterActions();
     GetHelpCaseActions.rollupRelatedBug(records, new List<Case>());
+    SICaseActions.afterInsert(records);
   }
 
   /**
