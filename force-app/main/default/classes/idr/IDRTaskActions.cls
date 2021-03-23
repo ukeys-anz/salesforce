@@ -4,7 +4,7 @@
  * @description IDRTaskActions is class to handle all the IDR (Internal Dispute Resolution) Actions
  */
 @SuppressWarnings('PMD.CyclomaticComplexity')
-public with sharing class IDRTaskActions {
+public without sharing class IDRTaskActions {
   // IDR Maximum time Record Type ID
   @TestVisible
   public static final Id IDR_MAXIMUM_TIME_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
