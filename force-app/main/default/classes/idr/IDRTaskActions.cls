@@ -260,8 +260,8 @@ public without sharing class IDRTaskActions {
       // I.e Case is already created as complain or already identified as complaint.(isIDRComplaintType(oldRec))
       // then the tasks and milestone needs to be update to reflect this change
       if (
-        isIDRComplaintType(record) &&
-        isIDRComplaintType(oldRec) &&
+        IDRCaseActions.isIDRComplaintType(record) &&
+        IDRCaseActions.isIDRComplaintType(oldRec) &&
         oldRec.IDR_Date_Received__c != record.IDR_Date_Received__c
       ) {
         caseMap.put(record.Id, record);
