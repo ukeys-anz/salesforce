@@ -24,9 +24,8 @@ jobs:
         name: determine if valid
         run: |
           if [ ${{ env.BASE_BRANCH }} == 'develop' ]; then echo sandbox_name=$(echo SYSTEST) >> $GITHUB_ENV; elif [ ${{ env.BASE_BRANCH }} == 'master' ]; then echo sandbox_name=$(echo STAGING) >> $GITHUB_ENV; else echo sandbox_name=$(echo ${{ env.BASE_BRANCH }} |  tr -d '-' | tr 'a-z' 'A-Z' | cut -d'/' -f 2 | cut -c1-10) >> $GITHUB_ENV; fi
-          echo ${{ secrets.ABC }} > ./SFDX_URL_ABC.txt
-          cat ./SFDX_URL_ABC.txt
-          if [ -s ./SFDX_URL_ABC.txt ]; then echo ::set-output name=is_valid::$(echo "valid"); else echo ::set-output name=env_name::$(echo "invalid"); fi
+          echo ${{ secrets[env.sandbox_name] }} > ./SFDX_URL_${{ env.sandbox_name }}.txt
+          if [ -s ./SFDX_URL_${{ env.sandbox_name }}.txt ]; then echo ::set-output name=is_valid::$(echo "valid"); else echo ::set-output name=env_name::$(echo "invalid"); fi
   build_and_deploy:
     runs-on: ubuntu-latest
     container: ddawson235/sfdx:latest
