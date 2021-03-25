@@ -376,14 +376,20 @@
     parentTabId
   ) {
     workspaceAPI.getFocusedTabInfo().then(function (response) {
-      var prevSubTabId = response.tabId;
+      const urlParams = new URLSearchParams(response.url);
+      // When a user refresh the account page, this count param will always be 1, we only
+      // need to run closeTab when count is > 2 otherwise workspace API will throw error
+      let count = urlParams.get("count");
+      let prevSubTabId = response.tabId;
       workspaceAPI
         .openSubtab({
           parentTabId: parentTabId,
           url: navigationURL,
           focus: true
         })
-        .then(workspaceAPI.closeTab({ tabId: prevSubTabId }));
+        .then(() => {
+          if (count > 1) workspaceAPI.closeTab({ tabId: prevSubTabId });
+        });
     });
   }
 });
