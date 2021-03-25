@@ -68,3 +68,4 @@ jobs:
         env:
           DEPLOY_ROOT: ./artefact/
           BUILD_COMMAND: validate
+          ORG_NAME: ${{ env.sandbox_name }}
