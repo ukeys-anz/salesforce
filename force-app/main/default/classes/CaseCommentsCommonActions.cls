@@ -10,7 +10,8 @@ public with sharing class CaseCommentsCommonActions {
     'Fraud',
     'Identity',
     'Recipient_Mule',
-    'Scam'
+    'Scam',
+    'KYC_QA'
   };
 
   /**

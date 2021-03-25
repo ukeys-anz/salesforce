@@ -144,7 +144,7 @@
         <actionName>NewCase</actionName>
         <content>NewCaseAuraWrapper</content>
         <formFactor>Large</formFactor>
-        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <skipRecordTypeSelect>true</skipRecordTypeSelect>
         <type>LightningComponent</type>
     </actionOverrides>
     <actionOverrides>

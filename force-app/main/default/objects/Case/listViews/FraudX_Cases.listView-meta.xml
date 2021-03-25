@@ -12,7 +12,7 @@
     <filters>
         <field>CASES.RECORDTYPE</field>
         <operation>equals</operation>
-        <value>Case.Fraud,Case.Identity,Case.Recipient_Mule,Case.Scam</value>
+        <value>Case.Fraud,Case.Identity,Case.KYC_QA,Case.Recipient_Mule,Case.Scam</value>
     </filters>
     <label>FraudX Cases</label>
     <sharedTo>

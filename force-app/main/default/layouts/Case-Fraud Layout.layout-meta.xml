@@ -65,6 +65,10 @@
                 <field>Status</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>ContactMobile</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>OwnerId</field>
             </layoutItems>
@@ -114,6 +118,10 @@
                 <behavior>Edit</behavior>
                 <field>Fraud_Customer_Resolution_Provided__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Fraud_COR_Event_ID__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -134,7 +142,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Fraud_COR_Event_ID__c</field>
+                <field>Fraud_Total_Customer_Exposure__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -182,6 +190,29 @@
         <layoutColumns/>
         <style>CustomLinks</style>
     </layoutSections>
+    <platformActionList>
+        <actionListContext>Record</actionListContext>
+        <platformActionListItems>
+            <actionName>Case.LogVoiceCall</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>0</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>Delete</actionName>
+            <actionType>StandardButton</actionType>
+            <sortOrder>1</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>Edit</actionName>
+            <actionType>StandardButton</actionType>
+            <sortOrder>2</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>Share</actionName>
+            <actionType>StandardButton</actionType>
+            <sortOrder>3</sortOrder>
+        </platformActionListItems>
+    </platformActionList>
     <quickActionList>
         <quickActionListItems>
             <quickActionName>FeedItem.TextPost</quickActionName>
@@ -210,6 +241,17 @@
     <relatedLists>
         <relatedList>RelatedCommentsList</relatedList>
     </relatedLists>
+    <relatedLists>
+        <excludeButtons>LogCall</excludeButtons>
+        <excludeButtons>MailMerge</excludeButtons>
+        <excludeButtons>SendEmail</excludeButtons>
+        <excludeButtons>ViewAll</excludeButtons>
+        <fields>TASK.SUBJECT</fields>
+        <fields>TASK.DUE_DATE</fields>
+        <fields>TASK.CALLTYPE</fields>
+        <fields>CORE.USERS.FULL_NAME</fields>
+        <relatedList>RelatedHistoryList</relatedList>
+    </relatedLists>
     <relatedObjects>ContactId</relatedObjects>
     <relatedObjects>AccountId</relatedObjects>
     <runAssignmentRulesDefault>false</runAssignmentRulesDefault>
@@ -220,7 +262,7 @@
     <showRunAssignmentRulesCheckbox>true</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>true</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2N0000017lq0</masterLabel>
+        <masterLabel>00h2O000000x8Hx</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

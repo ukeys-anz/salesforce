@@ -184,13 +184,6 @@ public class AuthTokenCacheUtilTest {
    */
   @isTest
   static void testSessionCacheRefresh() {
-    Test.setMock(
-      HttpCalloutMock.class,
-      new ANZAzureADAuthProviderTest.AzureMockService(
-        ANZAzureADAuthProviderTest.JSON_GOOD_TOKEN,
-        200
-      )
-    );
     //add a refresh token but not an Id token
     Cache.Session.put(
       'local.SessionAzureTokens.refreshToken' + UserInfo.getUserId(),

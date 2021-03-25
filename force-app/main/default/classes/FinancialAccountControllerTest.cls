@@ -27,27 +27,32 @@ public with sharing class FinancialAccountControllerTest {
     }
 
     insert financialAccounts;
+
+    TestUtil.addAccountsGoalsPs();
   }
 
   @isTest
   public static void testFinAccountRetrieval() {
-    Account accnt = [
-      SELECT Id
-      FROM Account
-      WHERE Display_Name__c = 'TestAccount'
-      LIMIT 1
-    ];
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      Account accnt = [
+        SELECT Id
+        FROM Account
+        WHERE Display_Name__c = 'TestAccount'
+        LIMIT 1
+      ];
 
-    Test.startTest();
+      Test.startTest();
 
-    List<FinServ__FinancialAccount__c> finAccountList = FinancialAccountController.getFinancialAccounts(
-      accnt.Id,
-      3,
-      'Checking'
-    );
+      List<FinServ__FinancialAccount__c> finAccountList = FinancialAccountController.getFinancialAccounts(
+        accnt.Id,
+        3,
+        'Checking'
+      );
 
-    System.assertEquals(3, finAccountList.size());
+      System.assertEquals(3, finAccountList.size());
 
-    Test.stopTest();
+      Test.stopTest();
+    }
   }
 }

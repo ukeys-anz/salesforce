@@ -84,6 +84,7 @@ describe("c-everydayAccount", () => {
     const element = createElement("c-everydayAccount", {
       is: everydayAccount
     });
+    element.accountType = "Checking";
     document.body.appendChild(element);
     const loadingEle = element.shadowRoot.querySelector("lightning-spinner");
 
@@ -97,6 +98,7 @@ describe("c-everydayAccount", () => {
     const element = createElement("c-everydayAccount", {
       is: everydayAccount
     });
+    element.accountType = "Savings";
     document.body.appendChild(element);
 
     const payload = {
@@ -116,6 +118,7 @@ describe("c-everydayAccount", () => {
     const element = createElement("c-everydayAccount", {
       is: everydayAccount
     });
+    element.accountType = "Savings";
     document.body.appendChild(element);
     const loadingEle = element.shadowRoot.querySelector("lightning-spinner");
 
@@ -129,6 +132,7 @@ describe("c-everydayAccount", () => {
     const element = createElement("c-everydayAccount", {
       is: everydayAccount
     });
+    element.accountType = "Checking";
     document.body.appendChild(element);
 
     const payload = {
@@ -147,6 +151,7 @@ describe("c-everydayAccount", () => {
     const element = createElement("c-everydayAccount", {
       is: everydayAccount
     });
+    element.accountType = "Checking";
     document.body.appendChild(element);
 
     const payload = {
@@ -165,6 +170,7 @@ describe("c-everydayAccount", () => {
     const element = createElement("c-everydayAccount", {
       is: everydayAccount
     });
+    element.accountType = "Checking";
     document.body.appendChild(element);
 
     const payload = {
@@ -185,6 +191,7 @@ describe("c-everydayAccount", () => {
     const element = createElement("c-everydayAccount", {
       is: everydayAccount
     });
+    element.accountType = "Savings";
     document.body.appendChild(element);
 
     const payload = {
@@ -205,6 +212,7 @@ describe("c-everydayAccount", () => {
     const element = createElement("c-everydayAccount", {
       is: everydayAccount
     });
+    element.accountType = "Checking";
     document.body.appendChild(element);
 
     const payload = {

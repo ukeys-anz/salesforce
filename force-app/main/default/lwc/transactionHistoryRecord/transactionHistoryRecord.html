@@ -46,27 +46,29 @@
           </template>
         </div>
       </div>
-      <div class="slds-col slds-size--1-of-7">
-        <template if:false={showTransactionDetails}>
-          <lightning-icon
-            icon-name="utility:chevronleft"
-            alternative-text="Collapsed"
-            title="Collapsed"
-            size="xx-small"
-            class="chevron"
-            onclick={handleDetailsToggle}
-          ></lightning-icon>
-        </template>
-        <template if:true={showTransactionDetails}>
-          <lightning-icon
-            icon-name="utility:chevrondown"
-            alternative-text="Expanded"
-            title="Expanded"
-            size="xx-small"
-            class="chevron"
-            onclick={handleDetailsToggle}
-          ></lightning-icon>
-        </template>
+      <div class="slds-col slds-size--1-of-7 button-icon-col">
+        <lightning-button-menu alternative-text="Show Actions">
+          <template if:false={showTransactionDetails}>
+            <lightning-menu-item
+              value="Show Details"
+              label="Show Details"
+              onclick={handleDetailsToggle}
+            ></lightning-menu-item>
+          </template>
+          <template if:true={showTransactionDetails}>
+            <lightning-menu-item
+              value="Hide Details"
+              label="Hide Details"
+              onclick={handleDetailsToggle}
+            ></lightning-menu-item>
+          </template>
+          <lightning-menu-item
+            value="Raise Dispute"
+            label="Raise Dispute"
+            onclick={handleRaiseDispute}
+          >
+          </lightning-menu-item>
+        </lightning-button-menu>
       </div>
     </div>
     <template if:true={showTransactionDetails}>
@@ -213,4 +215,42 @@
       </template>
     </template>
   </article>
+
+  <!-- Show dispute record type selection modal -->
+  <template if:true={showRecordTypeSelection}>
+    <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+      <div class="slds-modal__container">
+        <header class="slds-modal__header">
+          <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
+            What type of dispute would you like to raise?
+          </h2>
+        </header>
+        <div class="slds-modal__content slds-p-around_medium">
+          <lightning-radio-group
+            options={disputeRecordTypes}
+            value={value}
+            onchange={handleSelectedRecordType}
+            required
+            variant="label-hidden"
+          >
+          </lightning-radio-group>
+        </div>
+        <footer class="slds-modal__footer">
+          <button
+            class="slds-button slds-button_neutral"
+            onclick={handleToggleModal}
+          >
+            Cancel
+          </button>
+          <button
+            class="slds-button slds-button_brand"
+            onclick={handleNavigateToDisputeForm}
+          >
+            Next
+          </button>
+        </footer>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+  </template>
 </template>

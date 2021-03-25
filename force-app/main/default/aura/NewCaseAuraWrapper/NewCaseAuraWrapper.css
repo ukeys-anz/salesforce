@@ -2,3 +2,42 @@
   position: relative;
   height: 100%;
 }
+
+/* Styling for custom record type selection page */
+.THIS.slds-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.THIS .slds-card__header {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+.THIS .slds-card__body.slds-card__body_inner {
+  flex: 1;
+}
+.THIS .slds-card__header-title {
+  border-bottom: 1px solid rgb(221, 219, 218);
+}
+.THIS .slds-form-element__label {
+  margin-bottom: var(--lwc-spacingXxxSmall, 0.125rem);
+}
+.THIS span.slds-radio_faux {
+  margin-top: -0.25rem;
+}
+.THIS .radio-description {
+  float: left;
+  width: calc(100% - 2.3rem);
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-bottom: var(--lwc-spacingSmall, 0.75rem);
+  padding-left: var(--lwc-spacingLarge, 1.5rem);
+  word-wrap: break-word;
+  color: rgb(62, 62, 60);
+}
+.THIS .slds-card__footer {
+  border: none;
+  padding: 1rem 0 1rem 0;
+}

@@ -12,7 +12,7 @@ Are the security features on the identity document visible?</description>
 Are the security features on the identity document visible?</inlineHelpText>
     <label>Security Features Visible</label>
     <required>false</required>
-    <securityClassification>Internal</securityClassification>
+    <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

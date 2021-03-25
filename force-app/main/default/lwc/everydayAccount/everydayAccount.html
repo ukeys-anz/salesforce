@@ -14,89 +14,99 @@
       <div class="slds-card__header slds-grid">
         <header class="slds-has-flexi-truncate">
           <h1 class="slds-card__header-title main-title">
-            <span>Everyday Accounts</span>
+            <span>{componentTitle}</span>
           </h1>
         </header>
       </div>
-      <template if:true={hasError}>
-        <c-error message={error}></c-error>
-      </template>
-      <template if:false={hasError}>
-        <template if:true={financialAccounts}>
-          <template for:each={financialAccounts} for:item="finAccount">
-            <div
-              class="slds-card__body slds-card__body_inner"
-              key={finAccount.Id}
-            >
-              <article class="slds-card slds-card_boundary">
-                <div class="slds-card__header slds-grid">
-                  <header class="slds-has-flexi-truncate">
-                    <h2 class="slds-card__header-title">
-                      <a
-                        onclick={navigateToRecordViewPage}
-                        data-id={finAccount.Id}
-                        class="slds-truncate"
-                        title={finAccount.Name}
-                      >
-                        <span>{finAccount.Name}</span>
-                      </a>
-                      <span class={finAccount.badgeClass}
-                        >{finAccount.FinServ__Status__c}</span
-                      >
-                    </h2>
-                  </header>
-                </div>
-                <div class="slds-grid slds-wrap">
-                  <div class="slds-col slds-grid slds-size_1-of-1">
-                    <div class="slds-grid slds-wrap slds-size_1-of-1">
-                      <div
-                        class="slds-col slds-size_1-of-1 slds-large-size_1-of-3 field-padding"
-                      >
-                        <div class="header-column">
-                          <p class="field-title slds-text-color_weak">
-                            Account Number
-                          </p>
-                          <p class="slds-text-title_bold">
-                            {finAccount.FinServ__FinancialAccountNumber__c}
-                          </p>
+      <template if:true={displayContent}>
+        <template if:true={hasError}>
+          <c-error message={error}></c-error>
+        </template>
+        <template if:false={hasError}>
+          <template if:true={financialAccounts}>
+            <template for:each={financialAccounts} for:item="finAccount">
+              <div
+                class="slds-card__body slds-card__body_inner"
+                key={finAccount.Id}
+              >
+                <article class="slds-card slds-card_boundary">
+                  <div class="slds-card__header slds-grid">
+                    <header class="slds-has-flexi-truncate">
+                      <h2 class="slds-card__header-title">
+                        <a
+                          onclick={navigateToRecordViewPage}
+                          data-id={finAccount.Id}
+                          class="slds-truncate"
+                          title={finAccount.Name}
+                        >
+                          <span>{finAccount.Name}</span>
+                        </a>
+                        <span class={finAccount.badgeClass}
+                          >{finAccount.FinServ__Status__c}</span
+                        >
+                      </h2>
+                    </header>
+                  </div>
+                  <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-grid slds-size_1-of-1">
+                      <div class="slds-grid slds-wrap slds-size_1-of-1">
+                        <div
+                          class="slds-col slds-size_1-of-1 slds-large-size_1-of-3 field-padding"
+                        >
+                          <div class="header-column">
+                            <p class="field-title slds-text-color_weak">
+                              Account Number
+                            </p>
+                            <p class="slds-text-title_bold">
+                              {finAccount.FinServ__FinancialAccountNumber__c}
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                      <div
-                        class="slds-col slds-size_1-of-1 slds-large-size_1-of-3 field-padding"
-                      >
-                        <div class="header-column">
-                          <p class="field-title slds-text-color_weak">
-                            Available Balance
-                          </p>
-                          <p class="slds-text-title_bold">
-                            {finAccount.FinServ__Balance__c}
-                          </p>
+                        <div
+                          class="slds-col slds-size_1-of-1 slds-large-size_1-of-3 field-padding"
+                        >
+                          <div class="header-column">
+                            <p class="field-title slds-text-color_weak">
+                              Available Balance
+                            </p>
+                            <p class="slds-text-title_bold">
+                              {finAccount.FinServ__Balance__c}
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                      <div
-                        class="slds-col slds-size_1-of-1 slds-large-size_1-of-3 field-padding"
-                      >
-                        <div class="header-column">
-                          <p class="field-title slds-text-color_weak">
-                            Current Balance
-                          </p>
-                          <p class="slds-text-title_bold">
-                            {finAccount.FinServ__CurrentPostedBalance__c}
-                          </p>
+                        <div
+                          class="slds-col slds-size_1-of-1 slds-large-size_1-of-3 field-padding"
+                        >
+                          <div class="header-column">
+                            <p class="field-title slds-text-color_weak">
+                              Current Balance
+                            </p>
+                            <p class="slds-text-title_bold">
+                              {finAccount.FinServ__CurrentPostedBalance__c}
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </article>
-            </div>
+                </article>
+              </div>
+            </template>
+          </template>
+          <template if:false={financialAccounts}>
+            <h1 class="slds-card__header-title main-title">
+              <span class="not-found">No {accountType} Accounts</span>
+            </h1>
           </template>
         </template>
-        <template if:false={financialAccounts}>
-          <h1 class="slds-card__header-title main-title">
-            <span class="not-found">No Financial Accounts</span>
-          </h1>
-        </template>
+      </template>
+      <template if:false={displayContent}>
+        <div class="slds-grid">
+          <p class="message-padding">
+            Don’t worry, it’s not broken. To view this you need a higher
+            permission level.
+          </p>
+        </div>
       </template>
       <footer class="slds-card__footer">
         <span class="lastUpdated">Last Updated Date/Time {timestamp}</span>

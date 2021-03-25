@@ -7,6 +7,8 @@ import { subscribe, MessageContext } from "lightning/messageService";
 import UpdateAccounts from "@salesforce/messageChannel/FinancialAccountsUpdate__c";
 import TriggerLoading from "@salesforce/messageChannel/FinancialAccountsTriggerLoading__c";
 
+import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
+
 export default class AccountBalances extends LightningElement {
   @api recordId;
   loading = true;
@@ -23,38 +25,44 @@ export default class AccountBalances extends LightningElement {
   loadingSubscription = null;
 
   connectedCallback() {
-    this.loadingSubscription = subscribe(
-      this.messageContext,
-      TriggerLoading,
-      (message) => {
-        if (message.update) {
-          this.loading = true;
-        }
-      }
-    );
-
-    this.subscription = subscribe(
-      this.messageContext,
-      UpdateAccounts,
-      (message) => {
-        if (message.update) {
-          this.timestamp = "";
-          this.fetchBalances();
-
-          if (this.availableBalance && this.currentBalance) {
-            this.loading = false;
+    if (hasAccountsGoalsPermission) {
+      this.loadingSubscription = subscribe(
+        this.messageContext,
+        TriggerLoading,
+        (message) => {
+          if (message.update) {
+            this.loading = true;
           }
-        } else {
-          this.error = message.message;
-          this.fetchBalances();
-          this.showToast("Financial Account Load Failed", this.error);
         }
-      }
-    );
+      );
 
-    if (!this.subscription || Object.keys(this.subscription).length === 0) {
-      this.fetchBalances();
+      this.subscription = subscribe(
+        this.messageContext,
+        UpdateAccounts,
+        (message) => {
+          if (message.update) {
+            this.timestamp = "";
+            this.fetchBalances();
+
+            if (this.availableBalance && this.currentBalance) {
+              this.loading = false;
+            }
+          } else {
+            this.error = message.message;
+            this.fetchBalances();
+            this.showToast("Financial Account Load Failed", this.error);
+          }
+        }
+      );
+
+      if (!this.subscription || Object.keys(this.subscription).length === 0) {
+        this.fetchBalances();
+      }
     }
+  }
+
+  get displayContent() {
+    return hasAccountsGoalsPermission;
   }
 
   fetchBalances() {

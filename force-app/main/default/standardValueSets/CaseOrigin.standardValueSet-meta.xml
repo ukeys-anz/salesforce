@@ -8,7 +8,7 @@
     </standardValue>
     <standardValue>
         <fullName>Phone</fullName>
-        <default>true</default>
+        <default>false</default>
         <label>Phone</label>
     </standardValue>
     <standardValue>

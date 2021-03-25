@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy - Non Personal Information</complianceGroup>
     <description>Branch code from OCV at financial account level</description>
+    <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
     <externalId>false</externalId>
     <label>Branch Code</label>
     <length>80</length>

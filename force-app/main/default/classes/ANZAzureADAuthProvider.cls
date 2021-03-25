@@ -75,61 +75,13 @@ global class ANZAzureADAuthProvider extends Auth.AuthProviderPluginClass {
 
     String accessToken;
     String refreshToken;
-    HTTPResponse res;
-    try {
-      //request part
-      Http http = new Http();
-      HttpRequest req = new HttpRequest();
-      req.setEndpoint('callout:TokenUrl');
-      req.setHeader('Content-Type', 'application/x-www-form-urlencoded');
-      req.setMethod('POST');
+    AuthRepository authRepo = new AuthRepository();
+    IdentityModel idenModel = authRepo.getIdentityTokens(redirectURL, code);
 
-      req.setBody(
-        'client_id={!$Credential.UserName}&client_secret={!$Credential.Password}&redirect_uri=' +
-        redirectURL +
-        '&grant_type=authorization_code' +
-        '&code=' +
-        code
-      );
-
-      res = http.send(req);
-      String responseBody = res.getBody();
-      Map<String, Object> responseMap = (Map<String, Object>) JSON.deserializeUntyped(
-        responseBody
-      );
-
-      // Retrieve the tokens, as these need passing to the Reg. Handler to store for the user
-      // Required so they can be used during the Staff Token JWT exchange for callouts
-
-      accessToken = (String) responseMap.get('access_token');
-      refreshToken = (String) responseMap.get('refresh_token');
-      idToken = (String) responseMap.get('id_token');
-
-      // Added as depending on token endpoint? has different response (ideally we'd use expires_on)
-      // Some returned expired on, others expires in, both in Unix time in seconds
-      if (responseMap.containsKey('expires_on')) {
-        // Note: this is unix time in seconds (Salesforce works in milliseconds for this, so would need to convert if required)
-        expiresOn = (String) responseMap.get('expires_on');
-      } else {
-        // Add now() datetime to the expires in (which is typically 3599 secs)
-        Long l = Datetime.now().getTime() / 1000; // Saleforce returns this in milliseconds, and expires_in is seconds so need to convert to seconds
-        l = l + (long) responseMap.get('expires_in');
-        expiresOn = String.valueOf(l);
-      }
-
-      // For further save purpose
-      //Need to store idToken and refreshToken for further usage later on
-    } catch (Exception e) {
-      Lib_SystemLog.logAPIError(
-        ANZAzureADAuthProvider.class.getName(),
-        'handleCallback',
-        e.getMessage(),
-        e.getTypeName(),
-        ANZAzureADAuthProvider.class.getName(),
-        null,
-        res != null ? res.getBody() : null
-      );
-    }
+    accessToken = idenModel.accessToken;
+    refreshToken = idenModel.refreshToken;
+    idToken = idenModel.idToken;
+    expiresOn = String.valueOf(idenModel.expiresOn);
 
     return new Auth.AuthProviderTokenResponse(
       'Open Id Connect',

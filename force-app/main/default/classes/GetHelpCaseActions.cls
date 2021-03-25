@@ -8,30 +8,27 @@
 public with sharing class GetHelpCaseActions {
   // General Inquiry Record Type Id
   @TestVisible
-  public static final Id GENERAL_INQUIRY_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get('General_Inquiry')
-    .getRecordTypeId();
-  public static final Id FRAUD_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get('Fraud')
-    .getRecordTypeId();
-  public static final Id IDENTITY_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get('Identity')
-    .getRecordTypeId();
-  public static final Id RECIPIENT_MULE_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get('Recipient_Mule')
-    .getRecordTypeId();
-  public static final Id SCAM_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get('Scam')
-    .getRecordTypeId();
-  public static final Id KYCQA_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get('KYC_QA')
-    .getRecordTypeId();
-  public static final Id BUG_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get('Bug_Enquiry')
-    .getRecordTypeId();
-  public static final Id COMPLAINT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get('ANZx_Complaint')
-    .getRecordTypeId();
+  public static final Id GENERAL_INQUIRY_RT_ID = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
+    'General_Inquiry'
+  );
+  public static final Id FRAUD_RT_ID = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
+    'Fraud'
+  );
+  public static final Id IDENTITY_RT_ID = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
+    'Identity'
+  );
+  public static final Id RECIPIENT_MULE_RT_ID = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
+    'Recipient_Mule'
+  );
+  public static final Id SCAM_RT_ID = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
+    'Scam'
+  );
+  public static final Id KYCQA_RT_ID = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
+    'KYC_QA'
+  );
+  public static final Id BUG_RT_ID = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
+    'Bug_Enquiry'
+  );
   @TestVisible
   public static final List<Id> FRAUD_RT_IDS = new List<Id>{
     FRAUD_RT_ID,
@@ -40,16 +37,39 @@ public with sharing class GetHelpCaseActions {
     SCAM_RT_ID,
     KYCQA_RT_ID
   };
-
-  // Parent Case validation error message
-  private static final String PARENT_CASE_ERROR = 'You cannot add parent case. This case is associated with child cases';
+  public static final Id ATM_DISPUTE_RT_ID = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
+    'ATM_Dispute'
+  );
+  public static final Id CARD_DISPUTE_RT_ID = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
+    'Card_Dispute'
+  );
+  public static final Id DIRECT_DEBIT_DISPUTE_RT_ID = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
+    'Direct_Debit_Dispute'
+  );
+  public static final Id DIRECT_ENTRY_DISPUTE_RT_ID = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
+    'Direct_Entry_Dispute'
+  );
+  public static final Id URGENT_DISHONOUR_DISPUTE_RT_ID = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
+    'Urgent_Dishonour_Request_Dispute'
+  );
+  @TestVisible
+  public static final List<Id> DISPUTE_RT_IDS = new List<Id>{
+    ATM_DISPUTE_RT_ID,
+    CARD_DISPUTE_RT_ID,
+    DIRECT_DEBIT_DISPUTE_RT_ID,
+    DIRECT_ENTRY_DISPUTE_RT_ID,
+    URGENT_DISHONOUR_DISPUTE_RT_ID
+  };
+  public static final Id COMPLAINT_ID = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
+    'ANZx_Complaint'
+  );
 
   private static Map<String, String> caseTypeLabelByValue = new Map<String, String>();
 
   /**
    * @description beforeUpdate(oldMap, records) method handles the following
    * 1. Validate Additional Type - Validates the selected additional types and addError if it has more than 2 values selected or if the Type value is same as one of the additional values
-   * 2. Validate Case Type - Validates Case Type and Additional Type to populate Case Subject.
+   * 2. Handle Populate Case Subject- Check the case type and populate its subject accordingly.
    * 3. Validate Parent Case - Validates the case record and throws an error if the record is having child cases
    * 4. Complete milestones - updates the milestone to closed when the case status is updated to clsoed
    * @param oldMap This Map<Id, SObject> contains the map which holds the previous values which can be used to check what value has changed in onBeforeUpdate. Example to check if the Case Status value has changed we use the following to check record.Status != ((Case) oldMap.get(record.id)).Status
@@ -83,55 +103,29 @@ public with sharing class GetHelpCaseActions {
         if (
           oldRecord.Status != 'Closed' &&
           oldRecord.Status != 'Escalated' &&
+          oldRecord.Status != 'Withdrawn' &&
+          oldRecord.Status != 'Resolved' &&
           (record.Status == 'Closed' ||
-          record.Status == 'Escalated')
+          record.Status == 'Escalated' ||
+          record.Status == 'Withdrawn' ||
+          record.Status == 'Resolved')
         ) {
           milestoneIds.add(record.Id);
         }
       }
     }
 
+    handlePopulateCaseSubject((List<Case>) records, (Map<Id, Case>) oldMap);
     validateAdditionalTypes((List<Case>) records, (Map<Id, Case>) oldMap);
-    handleCaseSubject((List<Case>) records, (Map<Id, Case>) oldMap);
+
     if (!caseIds.isEmpty()) {
-      validateParentCase(caseIds, validateCaseList);
+      GetHelpCaseActionsHelper.validateParentCase(caseIds, validateCaseList);
     }
     if (!milestoneIds.isEmpty()) {
       completeCaseMilestone(milestoneIds);
     }
   }
 
-  /**
-   * @description validateParentCase method is called before updating the case record to check and throw error if the record is having child cases
-   * @param caseIds list of case ids from the trigger
-   * @param validateCaseList list of case records from the trigger
-   */
-  public static void validateParentCase(
-    List<Id> caseIds,
-    List<Case> validateCaseList
-  ) {
-    Set<Id> parentCaseIds = new Set<Id>();
-    //to store list of cases where the current record is parent case for other case records
-    List<Case> childCaseList = new List<Case>();
-
-    if (Schema.sObjectType.Case.isQueryable()) {
-      childCaseList = [
-        SELECT Id, ParentId
-        FROM Case
-        WHERE ParentId IN :caseIds
-      ];
-    }
-
-    for (Case childCase : childCaseList) {
-      parentCaseIds.add(childCase.ParentId);
-    }
-
-    for (Case record : validateCaseList) {
-      if (parentCaseIds.contains(record.id)) {
-        record.addError(PARENT_CASE_ERROR);
-      }
-    }
-  }
   /**
    * @description validate the selected additional types
    * @param caseList The case list to validate the additional types on
@@ -142,46 +136,17 @@ public with sharing class GetHelpCaseActions {
     Map<Id, Case> oldCaseMap
   ) {
     List<Case> additionalTypeCheckCases = new List<Case>();
-    for (Integer i = 0; i < caseList.size(); i++) {
+    for (Case record : caseList) {
       if (
-        caseList.get(i).RecordTypeId == GENERAL_INQUIRY_RT_ID &&
-        (oldCaseMap == null ||
-        (caseList.get(i).Type != oldCaseMap.get(caseList.get(i).Id).Type ||
-        caseList.get(i).Additional_Type__c !=
-        oldCaseMap.get(caseList.get(i).Id).Additional_Type__c)) &&
-        String.isNotBlank(caseList.get(i).Additional_Type__c)
+        GetHelpCaseActionsHelper.isEnquiryOrAdditionalCheckRequired(
+          record,
+          oldCaseMap
+        )
       ) {
-        additionalTypeCheckCases.add(caseList.get(i));
+        additionalTypeCheckCases.add(record);
       }
     }
-    if (!additionalTypeCheckCases.isEmpty()) {
-      checkAdditionalTypes(additionalTypeCheckCases);
-    }
-  }
-
-  /**
-   * @description  This method checks if Additional_Type__c has more than 2 values selected or
-   * if the Type value is same as one of the additional values
-   * @param caseList The caseList for which Additional_Type__c needs to be checked
-   */
-  private static void checkAdditionalTypes(List<Case> caseList) {
-    for (Case singleCase : caseList) {
-      List<String> additionalTypes = singleCase.Additional_Type__c.split(';');
-
-      if (additionalTypes.size() > 2) {
-        singleCase.addError(
-          'You cannot select more than two Additional Types.'
-        );
-      }
-
-      for (String additionalType : additionalTypes) {
-        if (additionalType == singleCase.Type) {
-          singleCase.addError(
-            'You cannot select a value in Additional Type that is already selected as the Primary Type.'
-          );
-        }
-      }
-    }
+    GetHelpCaseActionsHelper.checkAdditionalTypes(additionalTypeCheckCases);
   }
 
   /**
@@ -189,43 +154,34 @@ public with sharing class GetHelpCaseActions {
    * @param caseList list of cases from the trigger
    * @param oldCaseMap old case map
    */
-  public static void handleCaseSubject(
+  public static void handlePopulateCaseSubject(
     List<Case> caseList,
     Map<Id, Case> oldCaseMap
   ) {
-    List<Case> additionalTypeCheckCases = new List<Case>();
     for (Case record : caseList) {
       // Check for General Inquiry Cases
       if (
-        record.RecordTypeId == GENERAL_INQUIRY_RT_ID &&
-        (String.isNotBlank(record.Type) ||
-        String.isNotBlank(record.Additional_Type__c)) &&
-        (oldCaseMap == null ||
-        (record.Type != oldCaseMap.get(record.Id).Type ||
-        record.Additional_Type__c !=
-        oldCaseMap.get(record.Id).Additional_Type__c ||
-        record.RecordTypeId != oldCaseMap.get(record.Id).RecordTypeId))
+        GetHelpCaseActionsHelper.isEnquiryOrAdditionalCheckRequired(
+          record,
+          oldCaseMap
+        )
       ) {
         populateGeneralEnquiryCaseSubject(record);
       }
 
       // Check for Fraud Cases
       // Note: We are excluding the possibility of 'Type' being empty, because we only care about data entered via UI (required field) or controlled entries via API, both of which should have values for 'Type'
-      if (
-        FRAUD_RT_IDS.contains(record.RecordTypeId) &&
-        String.isNotBlank(record.Type) &&
-        (oldCaseMap == null ||
-        record.Type != oldCaseMap.get(record.Id).Type ||
-        record.RecordTypeId != oldCaseMap.get(record.Id).RecordTypeId)
-      ) {
+      if (GetHelpCaseActionsHelper.isFraud(record, oldCaseMap)) {
         populateFraudCaseSubject(record);
       }
 
-      if (
-        record.RecordTypeId == COMPLAINT_ID &&
-        (oldCaseMap == null ||
-        record.Type != oldCaseMap.get(record.Id).Type)
-      ) {
+      // Check for Dispute Cases
+      if (GetHelpCaseActionsHelper.isDispute(record)) {
+        populateDisputeCaseSubject(record);
+      }
+
+      // Check for Complaint Cases
+      if (GetHelpCaseActionsHelper.isComplaint(record, oldCaseMap)) {
         populateComplaintCaseSubject(record);
       }
     }
@@ -278,11 +234,30 @@ public with sharing class GetHelpCaseActions {
   }
 
   /**
+   * @description  This method populates the subject of Dispute cases based on Record Type and Dispute Reason
+   * @param record Case record from trigger
+   */
+  public static void populateDisputeCaseSubject(Case record) {
+    // For dispute cases, subject will be text comprising "<Record Type Name> - <Dispute Reason>
+    if (String.isNotBlank(record.Dispute_Reason__c)) {
+      record.Subject =
+        Schema.getGlobalDescribe()
+          .get('Case')
+          .getDescribe()
+          .getRecordTypeInfosById()
+          .get(record.RecordTypeId)
+          .getName() +
+        ' - ' +
+        record.Dispute_Reason__c;
+    }
+  }
+
+  /**
    * @description  This method populates complaint Case subject based on Case record type and issue values
    * @param record Case record from trigger
    */
   public static void populateComplaintCaseSubject(Case record) {
-    String typeLabel = CommonUtils.getSinglePicklistLabel(
+    String typeLabel = CommonUtil.getSinglePicklistLabel(
       Case.Type,
       record.Type
     );
@@ -294,7 +269,7 @@ public with sharing class GetHelpCaseActions {
    */
   public static void fetchCaseTypeLabelsByValues() {
     if (caseTypeLabelByValue.isEmpty()) {
-      caseTypeLabelByValue = CommonUtils.getPicklistLabelsByValues(Case.Type);
+      caseTypeLabelByValue = CommonUtil.getPicklistLabelsByValues(Case.Type);
     }
   }
 
@@ -306,43 +281,22 @@ public with sharing class GetHelpCaseActions {
   public static void updateEntitlement(List<Case> caseList) {
     List<Id> accountIds = new List<Id>();
     Map<Id, Id> entMap = new Map<Id, Id>();
-    for (Case c : caseList) {
-      if (
-        (c.RecordTypeId == GENERAL_INQUIRY_RT_ID ||
-        c.RecordTypeId == COMPLAINT_ID) && c.AccountId != null
-      ) {
-        accountIds.add(c.AccountId);
-      }
-    }
+
+    accountIds = GetHelpCaseActionsHelper.getGeneralEnquiryAccountIds(caseList);
 
     if (Entitlement.sObjectType.getDescribe().isQueryable()) {
       List<Entitlement> entList;
-      entList = [
-        SELECT Id, AccountId
-        FROM Entitlement
-        WHERE
-          AccountId IN :accountIds
-          AND EndDate = NULL
-          AND Name = 'Basic Subscription'
-      ];
+      entList = GetHelpCaseActionsHelper.getEntitlements(
+        accountIds,
+        'Basic Subscription'
+      );
 
       for (Entitlement en : entList) {
         entMap.put(en.AccountId, en.Id);
       }
     }
 
-    for (Case c : caseList) {
-      if (
-        (c.RecordTypeId == GENERAL_INQUIRY_RT_ID ||
-        c.RecordTypeId == COMPLAINT_ID) && c.AccountId != null
-      ) {
-        if (!entMap.containsKey(c.AccountId)) {
-          c.addError('No entitlement found for account.');
-        } else {
-          c.EntitlementId = entMap.get(c.AccountId);
-        }
-      }
-    }
+    GetHelpCaseActionsHelper.updateEntitlementIdOnCase(caseList, entMap);
   }
 
   /**
@@ -356,26 +310,12 @@ public with sharing class GetHelpCaseActions {
     List<Case> oldRecords
   ) {
     Set<Id> bugIdSet = new Set<Id>();
-    for (Case c : records) {
-      if (c.Related_Bug__c != null && c.RecordTypeId == BUG_RT_ID) {
-        bugIdSet.add(c.Related_Bug__c);
-      }
-    }
-    for (Case c : oldRecords) {
-      if (c.Related_Bug__c != null && c.RecordTypeId == BUG_RT_ID) {
-        bugIdSet.add(c.Related_Bug__c);
-      }
-    }
+    bugIdSet = GetHelpCaseActionsHelper.getBugIdSet(records, bugIdSet);
+    bugIdSet = GetHelpCaseActionsHelper.getBugIdSet(oldRecords, bugIdSet);
 
-    List<Reported_Bug__c> bugs;
+    List<Reported_Bug__c> bugs = new List<Reported_Bug__c>();
     if (Reported_Bug__c.SObjectType.getDescribe().isAccessible()) {
-      bugs = [
-        SELECT Id, (SELECT Id FROM Cases__r)
-        FROM Reported_Bug__c
-        WHERE Id IN :bugIdSet
-      ];
-    } else {
-      bugs = new List<Reported_Bug__c>();
+      bugs = GetHelpCaseActionsHelper.getReportedBugs(bugIdSet);
     }
 
     for (Reported_Bug__c bug : bugs) {
@@ -399,18 +339,12 @@ public with sharing class GetHelpCaseActions {
   @future
   @SuppressWarnings('PMD.ApexCRUDViolation')
   public static void futureRollupRelatedBug(Set<Id> bugIdSet) {
-    List<Reported_Bug__c> bugs;
+    List<Reported_Bug__c> bugs = new List<Reported_Bug__c>();
     if (
       Reported_Bug__c.SObjectType.getDescribe().isAccessible() &&
       Reported_Bug__c.SObjectType.getDescribe().isUpdateable()
     ) {
-      bugs = [
-        SELECT Id, (SELECT Id FROM Cases__r)
-        FROM Reported_Bug__c
-        WHERE Id IN :bugIdSet
-      ];
-    } else {
-      bugs = new List<Reported_Bug__c>();
+      bugs = GetHelpCaseActionsHelper.getReportedBugs(bugIdSet);
     }
 
     for (Reported_Bug__c bug : bugs) {
@@ -455,49 +389,26 @@ public with sharing class GetHelpCaseActions {
 
   /**
    * @description This method updates the case business hours field
-   * to be ANZx specific
+   * to be ANZ Plus specific
    * @param record the record we are updating
    */
   private static void setBusinessHours(Case record) {
     if (BusinessHours.SObjectType.getDescribe().isAccessible()) {
-      BusinessHours bhs = [
-        SELECT Id
-        FROM BusinessHours
-        WHERE Name = 'ANZx Case Business Hours'
-      ];
-
+      BusinessHours bhs = CommonUtil.getBusinessHours();
       record.BusinessHoursId = bhs.Id;
     }
   }
 
   /**
    * @description applyDefaults is called onBeforeInsert to set the following values as defaults
-   * 1. Update business hours field to match ANZx business hours
+   * 1. Update business hours field to match ANZ Plus business hours
    * @param records The record list form which we need to apply defaults
    */
   public static void applyDefaults(List<Case> records) {
     for (Case record : records) {
-      if (isANZxCaseType(record)) {
+      if (GetHelpCaseActionsHelper.isANZPlusCaseType(record)) {
         setBusinessHours(record);
       }
     }
-  }
-
-  /**
-   * @description isANZxCaseType check if record type is of ANZx type.
-   * As this Trigger will be used across various teams we identify case record based on ANZx record Type.
-   *
-   * @param record The record for which the recordType needs to be checked
-   * @return `Boolean` True if the the record type is of ANZx type false otherwise.
-   */
-  private static Boolean isANZxCaseType(Case record) {
-    if (
-      FRAUD_RT_IDS.contains(record.RecordTypeId) ||
-      record.RecordTypeId == GENERAL_INQUIRY_RT_ID ||
-      record.RecordTypeId == BUG_RT_ID
-    ) {
-      return true;
-    }
-    return false;
   }
 }

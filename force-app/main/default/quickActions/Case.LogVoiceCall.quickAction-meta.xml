@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Quick action to log a voice call interaction</description>
+    <fieldOverrides>
+        <field>ActivityDate</field>
+        <formula>NOW()</formula>
+    </fieldOverrides>
+    <fieldOverrides>
+        <field>CallType</field>
+        <literalValue>Inbound</literalValue>
+    </fieldOverrides>
+    <fieldOverrides>
+        <field>OwnerId</field>
+        <formula>$User.Id</formula>
+    </fieldOverrides>
+    <fieldOverrides>
+        <field>Subject</field>
+        <formula>Case.Subject</formula>
+    </fieldOverrides>
+    <fieldOverrides>
+        <field>WhoId</field>
+        <formula>IF( 
+Case.Account.IsPersonAccount, 
+Case.Account.PersonContactId, 
+null
+)</formula>
+    </fieldOverrides>
+    <optionsCreateFeedItem>true</optionsCreateFeedItem>
+    <quickActionLayout>
+        <layoutSectionStyle>TwoColumnsLeftToRight</layoutSectionStyle>
+        <quickActionLayoutColumns>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Subject</field>
+                <uiBehavior>Edit</uiBehavior>
+            </quickActionLayoutItems>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Voice_Call_SID__c</field>
+                <uiBehavior>Required</uiBehavior>
+            </quickActionLayoutItems>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Description</field>
+                <uiBehavior>Edit</uiBehavior>
+            </quickActionLayoutItems>
+        </quickActionLayoutColumns>
+        <quickActionLayoutColumns>
+            <quickActionLayoutItems>
+                <emptySpace>true</emptySpace>
+                <uiBehavior>Edit</uiBehavior>
+            </quickActionLayoutItems>
+        </quickActionLayoutColumns>
+    </quickActionLayout>
+    <standardLabel>LogACall</standardLabel>
+    <targetObject>Task</targetObject>
+    <targetParentField>What</targetParentField>
+    <targetRecordType>Task.Call_Log</targetRecordType>
+    <type>LogACall</type>
+</QuickAction>
