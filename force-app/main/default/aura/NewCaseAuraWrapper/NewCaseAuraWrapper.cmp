@@ -4,7 +4,7 @@
   access="global"
 >
   <lightning:workspaceAPI aura:id="workspace" />
-  <aura:attribute name="randomStr" type="String" default=""/>
+  <aura:attribute name="randomStr" type="String" default="" />
   <aura:attribute name="showComponent" type="Boolean" default="false" />
   <aura:attribute name="recordTypeId" type="String" />
   <aura:attribute name="recordTypeDevName" type="String" />
