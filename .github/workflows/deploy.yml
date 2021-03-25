@@ -10,10 +10,25 @@ on:
       - epic/*
 
 jobs:
-  build_and_deploy:
+  prepare:
     runs-on: ubuntu-latest
     container: ddawson235/sfdx:latest
-
+    env:
+      BASE_BRANCH: ${{ github.base_ref }}
+    outputs:
+      is_valid: ${{ steps.isValid.outputs.is_valid }}
+    steps:
+      - id: isValid
+        name: determine if valid
+        run: |
+          if [ ${{ env.BASE_BRANCH }} == 'develop' ]; then echo sandbox_name=$(echo SYSTEST) >> $GITHUB_ENV; elif [ ${{ env.BASE_BRANCH }} == 'master' ]; then echo sandbox_name=$(echo STAGING) >> $GITHUB_ENV; else echo sandbox_name=$(echo ${{ env.BASE_BRANCH }} |  tr -d '-' | tr 'a-z' 'A-Z' | cut -d'/' -f 2 | cut -c1-10) >> $GITHUB_ENV; fi
+          echo ${{ secrets[env.sandbox_name] }} > ./SFDX_URL_${{ env.sandbox_name }}.txt
+          if [ -s ./SFDX_URL_${{ env.sandbox_name }}.txt ]; then echo ::set-output name=is_valid::$(echo "valid"); else echo ::set-output name=env_name::$(echo "invalid"); fi
+  build_and_deploy:
+    needs: [prepare]
+    if: needs.prepare.outputs.is_valid == 'valid'
+    runs-on: ubuntu-latest
+    container: ddawson235/sfdx:latest
     env:
       BASE_BRANCH: ${{ github.base_ref }}
 

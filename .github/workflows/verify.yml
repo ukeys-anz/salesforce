@@ -25,6 +25,8 @@ jobs:
           echo ${{ secrets[env.sandbox_name] }} > ./SFDX_URL_${{ env.sandbox_name }}.txt
           if [ -s ./SFDX_URL_${{ env.sandbox_name }}.txt ]; then echo ::set-output name=is_valid::$(echo "valid"); else echo ::set-output name=env_name::$(echo "invalid"); fi
   build_and_deploy:
+    needs: [prepare]
+    if: needs.prepare.outputs.is_valid == 'valid'
     runs-on: ubuntu-latest
     container: ddawson235/sfdx:latest
     env:
