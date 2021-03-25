@@ -378,7 +378,7 @@
     workspaceAPI.getFocusedTabInfo().then(function (response) {
       const urlParams = new URLSearchParams(response.url);
       // When a user refresh the account page, this count param will always be 1, we only
-      // need to run closeTab when count is > 2 otherwise workspace API will throw error
+      // need to run closeTab when count is > 2 otherwise workspace API will throw error when trying to close previous tab
       let count = urlParams.get("count");
       let prevSubTabId = response.tabId;
       workspaceAPI
