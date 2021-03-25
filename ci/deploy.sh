@@ -15,12 +15,6 @@ source ci/helper.sh
    BRANCH=${SOURCE_BRANCH} ||
    BRANCH=${BASE_BRANCH}
 
-# Set the target org if one hasn't already been set
-if [ -z "$ORG_NAME" ]; then
-   [ "$BRANCH" = "master" ] &&
-      ORG_NAME="systest" ||
-      ORG_NAME="cmosdev"
-fi
 
 # Only run this step if there is an artifact
 if [ -d "artefact" ]; then

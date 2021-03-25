@@ -7,32 +7,49 @@ on:
     branches:
       - develop
       - master
+      - epic/*
 
 jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    container: ddawson235/sfdx:latest
+    env:
+      BASE_BRANCH: ${{ github.base_ref }}
+    outputs:
+      is_valid: ${{ steps.isValid.outputs.is_valid }}
+    steps:
+      - name: Set Sandbox Name
+        run: echo branch_name=$(echo ${GITHUB_REF#refs/heads/}) >> $GITHUB_ENV
+      - id: isValid
+        name: determine if valid
+        run: |
+          if [ ${{ env.BASE_BRANCH }} == 'develop' ]; then echo sandbox_name=$(echo SYSTEST) >> $GITHUB_ENV; elif [ ${{ env.BASE_BRANCH }} == 'master' ]; then echo sandbox_name=$(echo STAGING) >> $GITHUB_ENV; else echo sandbox_name=$(echo ${{ env.BASE_BRANCH }} |  tr -d '-' | tr 'a-z' 'A-Z' | cut -d'/' -f 2 | cut -c1-10) >> $GITHUB_ENV; fi
+          echo ${{ secrets.ABC }} > ./SFDX_URL_ABC.txt
+          cat ./SFDX_URL_ABC.txt
+          if [ -s ./SFDX_URL_ABC.txt ]; then echo ::set-output name=is_valid::$(echo "valid"); else echo ::set-output name=env_name::$(echo "invalid"); fi
   build_and_deploy:
     runs-on: ubuntu-latest
     container: ddawson235/sfdx:latest
-
     env:
       BASE_BRANCH: ${{ github.base_ref }}
 
     steps:
-      - name: "Create auth files with SFDX_URL secret"
-        shell: bash
+      - name: Set Sandbox Name
         run: |
-          echo ${{ secrets.SYSTEST}} > ./SFDX_URL_SYSTEST.txt
-          echo ${{ secrets.CMOSDEV}} > ./SFDX_URL_CMOSDEV.txt
+          if [ ${{ env.BASE_BRANCH }} == 'develop' ]; then echo sandbox_name=$(echo SYSTEST) >> $GITHUB_ENV; elif [ ${{ env.BASE_BRANCH }} == 'master' ]; then echo sandbox_name=$(echo STAGING) >> $GITHUB_ENV; else echo sandbox_name=$(echo ${{ env.BASE_BRANCH }} |  tr -d '-' | tr 'a-z' 'A-Z' | cut -d'/' -f 2 | cut -c1-10) >> $GITHUB_ENV; fi
 
-      - name: "Authenticate all orgs in SFDX CLI"
-        run: |
-          sfdx force:auth:sfdxurl:store -a cmosdev --sfdxurlfile=./SFDX_URL_CMOSDEV.txt
-          sfdx force:auth:sfdxurl:store -a systest --sfdxurlfile=./SFDX_URL_SYSTEST.txt
+      - name: "Authenticate the org"
+        shell: bash
+        run: | 
+          echo 'Authenticating ${{ env.sandbox_name }}'
+          echo ${{ secrets[env.sandbox_name] }} > ./SFDX_URL_${{ env.sandbox_name }}.txt
+          sfdx force:auth:sfdxurl:store -a ${{ env.sandbox_name }} --sfdxurlfile=./SFDX_URL_${{ env.sandbox_name }}.txt
 
       - uses: actions/checkout@v2
         with:
           ref: ${{ github.ref }}
           fetch-depth: 0
-
+     
       - name: "Generate package"
         id: package
         shell: bash

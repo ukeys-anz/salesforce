@@ -4,7 +4,7 @@ name: Lint
 # This workflow will only run on Pull Requests against develop
 on:
   pull_request:
-    branches: [develop, master]
+    branches: [develop, master, epic/*]
 
 jobs:
   prettier:

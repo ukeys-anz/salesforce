@@ -71,7 +71,7 @@ function setBranchDiffCommand() {
     echo "TAG_PREFIX: $TAG_PREFIX"
     if [[ $ISDESTRUCTIVE = false ]]; then
         DIFFENDCOMMAND="xargs -0 git archive -o package.zip HEAD"
-        if [[ "$SOURCE_BRANCH" = "master" || "$SOURCE_BRANCH" = "develop" || "$SOURCE_BRANCH" = "deploy" ]]; then
+        if [[ "$SOURCE_BRANCH" = "master" || "$SOURCE_BRANCH" = "develop" || "$SOURCE_BRANCH" = "epic/"* ]]; then
             echo "Delta deployment requested, commit from head to last tag"
             DIFFSTARTCOMMAND="git diff -z --name-only --diff-filter=d $(git describe --abbrev=0 --tags --match ${TAG_PREFIX}*)..HEAD  ${SOURCE_DIR}/"
         else
@@ -79,7 +79,7 @@ function setBranchDiffCommand() {
             DIFFSTARTCOMMAND="git diff -z --name-only --diff-filter=d remotes/origin/${BASE_BRANCH}..remotes/origin/${SOURCE_BRANCH}  ${SOURCE_DIR}/"
         fi
     elif [[ $ISCHECKCOUNT = true ]]; then
-        if [[ "$SOURCE_BRANCH" = "master" || "$SOURCE_BRANCH" = "develop" || "$SOURCE_BRANCH" = "deploy" ]]; then
+        if [[ "$SOURCE_BRANCH" = "master" || "$SOURCE_BRANCH" = "develop" || "$SOURCE_BRANCH" = "epic/"* ]]; then
             echo "Deletion delta deployment requested, commit from head to last master tag"
             DIFFSTARTCOMMAND="git diff --diff-filter=D --no-renames --name-only $(git describe --abbrev=0 --tags --match ${TAG_PREFIX}*)..HEAD  ${SOURCE_DIR}/"
             DIFFENDCOMMAND="xargs -0 git archive -o destructivePackage.zip $(git describe --abbrev=0 --tags --match ${TAG_PREFIX}*)"
@@ -89,7 +89,7 @@ function setBranchDiffCommand() {
             DIFFENDCOMMAND="xargs -0 git archive -o destructivePackage.zip remotes/origin/${BASE_BRANCH}"
         fi
     else
-        if [[ "$SOURCE_BRANCH" = "master" || "$SOURCE_BRANCH" = "develop" || "$SOURCE_BRANCH" = "deploy" ]]; then
+        if [[ "$SOURCE_BRANCH" = "master" || "$SOURCE_BRANCH" = "develop" || "$SOURCE_BRANCH" = "epic/"* ]]; then
             echo "Deletion delta deployment requested, commit from head to last master tag"
             DIFFSTARTCOMMAND="git diff -z --diff-filter=D --no-renames --name-only $(git describe --abbrev=0 --tags --match ${TAG_PREFIX}*)..HEAD  ${SOURCE_DIR}/"
             DIFFENDCOMMAND="xargs -0 git archive -o destructivePackage.zip $(git describe --abbrev=0 --tags --match ${TAG_PREFIX}*)"
