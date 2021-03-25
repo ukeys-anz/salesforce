@@ -254,7 +254,7 @@ public with sharing class IDRCaseActions {
       IDRCaseCommentActions.escalateExistingCommentsToCFMS(oldMap, records);
     }
     possibleSystemicIssueActions(records, oldMap);
-    updateIDRMilestoneTask(records, oldMap);
+    IDRTaskActions.updateIDRMilestoneTask(records, oldMap);
   }
 
   /**
@@ -1097,69 +1097,7 @@ public with sharing class IDRCaseActions {
       ReminderDateTime = (DateTime) (activityDate - 2)
     );
   }
-  /**
-   * @description Update the tasks and milestones to reflect the values based on new date recieved.
-   * @param records list of case record
-   * @param oldMap Map of old case records
-   */
-  private static void updateIDRMilestoneTask(
-    list<Case> records,
-    Map<Id, SObject> oldMap
-  ) {
-    Map<Id, Case> caseMap = new Map<Id, Case>();
-    for (case record : records) {
-      Case oldRec = (Case) oldMap.get(record.id);
-      // if the date recieved is changed after milestone has been applied
-      // I.e Case is already created as complain or already identified as complaint.(isIDRComplaintType(oldRec))
-      // then the tasks and milestone needs to be update to reflect this change
-      if (
-        isIDRComplaintType(record) &&
-        isIDRComplaintType(oldRec) &&
-        oldRec.IDR_Date_Received__c != record.IDR_Date_Received__c
-      ) {
-        caseMap.put(record.Id, record);
-      }
-    }
-    List<task> idrTasks = new List<task>();
-    if (task.sObjectType.getDescribe().isQueryable() && caseMap.size() > 0) {
-      idrTasks = [
-        SELECT Id, ActivityDate, whatId, Subject
-        FROM Task
-        WHERE
-          whatId IN :caseMap.keySet()
-          AND RecordTypeId = :IDRTaskActions.IDR_MAXIMUM_TIME_RT_ID
-          AND IsClosed = FALSE
-      ];
-    }
-    for (task t : idrTasks) {
-      t.ActivityDate = date.valueOf(
-        IDRTaskActions.calculateExpectedDue(t, caseMap.get(t.whatId))
-      );
-    }
-    if (task.sObjectType.getDescribe().isUpdateable() && !idrTasks.isEmpty()) {
-      update idrTasks;
-    }
-    List<CaseMilestone> cmsToUpdate = new List<CaseMilestone>();
-    if (
-      CaseMilestone.sObjectType.getDescribe().isQueryable() &&
-      caseMap.size() > 0
-    ) {
-      cmsToUpdate = [
-        SELECT Id, StartDate, caseId
-        FROM CaseMilestone cm
-        WHERE caseId IN :caseMap.keySet() AND completionDate = NULL
-      ];
-    }
-    for (CaseMilestone cm : cmsToUpdate) {
-      cm.StartDate = caseMap.get(cm.caseId).IDR_Date_Received__c;
-    }
-    if (
-      CaseMilestone.sObjectType.getDescribe().isUpdateable() &&
-      !cmsToUpdate.isEmpty()
-    ) {
-      update cmsToUpdate;
-    }
-  }
+
 
   /**
    * @description Update Date/Time PSI Ticked when complaint is flagged or unflagged. Before calling, check whether all cases are complaints and the PSI flag has just been ticked or unticked

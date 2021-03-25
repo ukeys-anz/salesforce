@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
     <columns>
-        <field>OWNER</field>
+        <field>CDF1</field>
     </columns>
     <columns>
         <field>CASE_NUMBER</field>
@@ -12,6 +12,13 @@
     <columns>
         <field>DESCRIPTION</field>
     </columns>
+    <customDetailFormulas>
+        <calculatedFormula>OWNER</calculatedFormula>
+        <dataType>Text</dataType>
+        <developerName>CDF1</developerName>
+        <label>Case Owner</label>
+        <scale>2</scale>
+    </customDetailFormulas>
     <description>Number of cases that are withdrawn by each workbasket</description>
     <filter>
         <criteriaItems>

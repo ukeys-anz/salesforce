@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
     <columns>
-        <field>CASE_NUMBER</field>
+        <field>CDF1</field>
     </columns>
     <columns>
-        <field>CASE_OWNER</field>
+        <field>CASE_NUMBER</field>
     </columns>
     <columns>
         <field>STATUS</field>
@@ -18,6 +18,13 @@
     <columns>
         <field>SUBJECT</field>
     </columns>
+    <customDetailFormulas>
+        <calculatedFormula>CASE_OWNER</calculatedFormula>
+        <dataType>Text</dataType>
+        <developerName>CDF1</developerName>
+        <label>Case Owner</label>
+        <scale>2</scale>
+    </customDetailFormulas>
     <description>Cases approaching maximum IDR time by Queue</description>
     <filter>
         <criteriaItems>

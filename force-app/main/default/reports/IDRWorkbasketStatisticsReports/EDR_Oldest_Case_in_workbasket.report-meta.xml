@@ -10,7 +10,7 @@
         <scale>0</scale>
     </aggregates>
     <columns>
-        <field>OWNER</field>
+        <field>CDF1</field>
     </columns>
     <columns>
         <field>CASE_NUMBER</field>
@@ -25,6 +25,13 @@
         <aggregateTypes>Sum</aggregateTypes>
         <field>Case.Case_Age_in_Days__c</field>
     </columns>
+    <customDetailFormulas>
+        <calculatedFormula>OWNER</calculatedFormula>
+        <dataType>Text</dataType>
+        <developerName>CDF1</developerName>
+        <label>Case Owner</label>
+        <scale>2</scale>
+    </customDetailFormulas>
     <description>Used to show the oldest case an agent has. This report is embedded in the complaints dashboard present on the home page.</description>
     <filter>
         <booleanFilter>1 AND 2 AND (3 OR 4)</booleanFilter>
