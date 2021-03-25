@@ -18,8 +18,6 @@ jobs:
     outputs:
       is_valid: ${{ steps.isValid.outputs.is_valid }}
     steps:
-      - name: Set Sandbox Name
-        run: echo branch_name=$(echo ${GITHUB_REF#refs/heads/}) >> $GITHUB_ENV
       - id: isValid
         name: determine if valid
         run: |
