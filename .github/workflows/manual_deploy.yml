@@ -1,7 +1,7 @@
 # This workflow deploys changes to a Salesforce project to a Salesforce org
 name: Deploy
 
-# This workflow will only trigger when manually invoked
+# This workflow will only trigger when manually invoked on epic/cmos-bau or epic/cmos-r2 branches
 # See: https://github.blog/changelog/2020-07-06-github-actions-manual-triggers-with-workflow_dispatch/
 on:
   workflow_dispatch:
@@ -76,4 +76,3 @@ jobs:
           echo "$TAG"
           git tag "$TAG"
           git push origin "$TAG"
-          

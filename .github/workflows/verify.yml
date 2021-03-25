@@ -1,7 +1,7 @@
 # This workflow deploys changes to a Salesforce project to a Salesforce org with the check only flag
 name: Verify
 
-# This workflow will only run on Pull Reqeusts against master and develop
+# This workflow will only run on Pull Reqeusts against master , develop and epic/*
 on:
   pull_request:
     branches:
@@ -69,4 +69,3 @@ jobs:
           DEPLOY_ROOT: ./artefact/
           BUILD_COMMAND: validate
           ORG_NAME: ${{ env.sandbox_name }}
-          
