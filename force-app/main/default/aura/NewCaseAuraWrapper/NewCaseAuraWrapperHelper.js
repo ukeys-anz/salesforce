@@ -347,13 +347,13 @@
           if (state === "SUCCESS") {
             let rsp = response.getReturnValue();
             let recordTypes = JSON.parse(rsp);
-            let randomStr = Math.random().toString(36).substring(7);
-            component.set("v.randomStr", randomStr);
-            // This random string is a key for each instance of this aura component
+            let cmpInstanceIdentifier = Date.now();
+            component.set("v.cmpInstanceIdentifier", cmpInstanceIdentifier);
+            // This cmpInstanceIdentifier is a key for each instance of this aura component
             // Each record type's id will have this key as a part of it, so the uncheckPreviouslySelectedRadio() can work
             // if the user has multiple instances of this aura component open
             recordTypes.forEach((rt) => {
-              rt.elementId = rt.Id + randomStr;
+              rt.elementId = rt.Id + cmpInstanceIdentifier;
             });
             // Sort record types alphabetically
             recordTypes.sort((a, b) => a.Name.localeCompare(b.Name));
@@ -373,7 +373,7 @@
     let selectedRecordTypeId = component.get("v.selectedRecordTypeId");
     if (selectedRecordTypeId) {
       let selectedRadioButton = document.getElementById(
-        selectedRecordTypeId + component.get("v.randomStr")
+        selectedRecordTypeId + component.get("v.cmpInstanceIdentifier")
       );
       if (selectedRadioButton.checked) selectedRadioButton.checked = false;
     }
