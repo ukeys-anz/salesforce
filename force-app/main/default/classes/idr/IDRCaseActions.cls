@@ -29,8 +29,6 @@ public with sharing class IDRCaseActions {
   private static final String RESOLVED_STATUS = 'Resolved';
   private static final String WITHDRAWN_STATUS = 'Withdrawn';
   @TestVisible
-  private static final string DAY_3_ESCALATION_REASON = 'Day 3 auto escalation';
-  @TestVisible
   private static final string DAY_5_ESCALATION_REASON = 'Day 5 auto escalation';
 
   // IDR Case Status for which notifications need to be sent.
@@ -310,11 +308,10 @@ public with sharing class IDRCaseActions {
       //assign to CRC queue and send notifcation to CFMS
       record.IDR_Escalated_to__c = ESCALATED_TO_CRC_API_NAME;
       record.Status = ESCALATED_STATUS;
-      if (oldRec != null && oldRec.Status == OPEN_STATUS) {
-        record.IDR_Escalation_Reason__c = DAY_3_ESCALATION_REASON;
-      } else if (
+      if (
         oldRec != null &&
-        oldRec.Status == UNDER_INVESTIGATION_STATUS
+        (oldRec.Status == UNDER_INVESTIGATION_STATUS ||
+        oldRec.Status == OPEN_STATUS)
       ) {
         record.IDR_Escalation_Reason__c = DAY_5_ESCALATION_REASON;
       }
