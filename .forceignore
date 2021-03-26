@@ -80,6 +80,7 @@ force-app/main/default/flows/Outbound_New_Appointment.flow-meta.xml
 force-app/main/default/quickActions/Account.New_Appointment.quickAction-meta.xml
 force-app/main/default/objects/FinServ__FinancialGoal__c
 force-app/main/default/layouts/FinServ__FinancialGoal__c-FinServ__Financial Goal Layout.layout-meta.xml
+force-app/main/default/customMetadata/User_Provisioning_Setting.ANZx_FraudX_Agent.md-meta.xml
 
 #Ignoring apex classes below as they have been renamed
 force-app/main/default/classes/EverydayAccountController.cls
