@@ -9,43 +9,22 @@
             <escalationAction>
                 <assignedTo>CRC_Team</assignedTo>
                 <assignedToType>Queue</assignedToType>
-                <minutesToEscalation>4320</minutesToEscalation>
-                <notifyCaseOwner>false</notifyCaseOwner>
-            </escalationAction>
-            <escalationStartTime>CaseCreation</escalationStartTime>
-            <formula>AND(
-	OR(
-		RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
-		RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
-	),
-	IsEscalated = False,
-	IsClosed = False,
-	ISPICKVAL(Status, &apos;Open&apos;),
-	Owner:User.Business_Role__c &lt;&gt; &apos;Customer Resolution&apos;		
-)</formula>
-        </ruleEntry>
-        <ruleEntry>
-            <businessHours>Case Business Hours</businessHours>
-            <businessHoursSource>Static</businessHoursSource>
-            <escalationAction>
-                <assignedTo>CRC_Team</assignedTo>
-                <assignedToType>Queue</assignedToType>
                 <minutesToEscalation>7200</minutesToEscalation>
                 <notifyCaseOwner>false</notifyCaseOwner>
             </escalationAction>
             <escalationStartTime>CaseCreation</escalationStartTime>
             <formula>AND(
-	OR(
-		RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
-		RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
-	),
-	IsEscalated = False,
-	IsClosed = False,
-	OR(
-		ISPICKVAL(Status, &apos;Open&apos;),
-		ISPICKVAL(Status, &apos;Under Investigation&apos;)
-	),
-	Owner:User.Business_Role__c &lt;&gt; &apos;Customer Resolution&apos;		
+OR(
+    RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
+    RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
+),
+IsEscalated = False,
+IsClosed = False,
+OR(
+    ISPICKVAL(Status, &apos;Open&apos;),
+    ISPICKVAL(Status, &apos;Under Investigation&apos;)
+),
+Owner:User.Business_Role__c &lt;&gt; &apos;Customer Resolution&apos;
 )</formula>
         </ruleEntry>
     </escalationRule>
