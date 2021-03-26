@@ -39,7 +39,7 @@ jobs:
 
       - name: "Authenticate the org"
         shell: bash
-        run: | 
+        run: |
           echo 'Authenticating ${{ env.SANDBOX_NAME }}'
           echo ${{ secrets[env.SANDBOX_NAME] }} > ./SFDX_URL_${{ env.SANDBOX_NAME }}.txt
           sfdx force:auth:sfdxurl:store -a ${{ env.SANDBOX_NAME }} --sfdxurlfile=./SFDX_URL_${{ env.SANDBOX_NAME }}.txt
@@ -48,7 +48,7 @@ jobs:
         with:
           ref: ${{ github.ref }}
           fetch-depth: 0
-     
+
       - name: "Generate package"
         id: package
         shell: bash

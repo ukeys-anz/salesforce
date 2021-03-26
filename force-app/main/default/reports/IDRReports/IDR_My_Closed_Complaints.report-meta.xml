@@ -1,32 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
-    <aggregates>
-        <calculatedFormula>CASE_NUMBER:UNIQUE</calculatedFormula>
-        <datatype>number</datatype>
-        <developerName>FORMULA1</developerName>
-        <isActive>true</isActive>
-        <isCrossBlock>false</isCrossBlock>
-        <masterLabel>Unique Case Count</masterLabel>
-        <scale>0</scale>
-    </aggregates>
     <chart>
         <backgroundColor1>#FFFFFF</backgroundColor1>
         <backgroundColor2>#FFFFFF</backgroundColor2>
         <backgroundFadeDir>Diagonal</backgroundFadeDir>
         <chartSummaries>
             <axisBinding>y</axisBinding>
-            <column>FORMULA1</column>
+            <column>RowCount</column>
         </chartSummaries>
-        <chartType>Donut</chartType>
+        <chartType>HorizontalBar</chartType>
         <enableHoverLabels>false</enableHoverLabels>
         <expandOthers>true</expandOthers>
-        <groupingColumn>STATUS</groupingColumn>
-        <legendPosition>Right</legendPosition>
+        <groupingColumn>CASE_NUMBER</groupingColumn>
         <location>CHART_BOTTOM</location>
         <showAxisLabels>true</showAxisLabels>
         <showPercentage>false</showPercentage>
-        <showTotal>true</showTotal>
-        <showValues>true</showValues>
+        <showTotal>false</showTotal>
+        <showValues>false</showValues>
         <size>Medium</size>
         <summaryAxisRange>Auto</summaryAxisRange>
         <textColor>#000000</textColor>
@@ -38,13 +28,32 @@
         <field>OWNER</field>
     </columns>
     <columns>
-        <field>RECORDTYPE</field>
+        <field>ACCOUNT.NAME</field>
     </columns>
     <columns>
-        <field>CASE_ID</field>
+        <field>SUBJECT</field>
     </columns>
-    <description>Case report by status</description>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>AGE</field>
+    </columns>
+    <columns>
+        <field>OPEN</field>
+    </columns>
+    <columns>
+        <field>CLOSED</field>
+    </columns>
+    <description>Total number of my closed cases in current FY</description>
     <filter>
+        <criteriaItems>
+            <column>STATUS</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Resolved,Closed</value>
+        </criteriaItems>
         <criteriaItems>
             <column>RECORDTYPE</column>
             <columnToColumn>false</columnToColumn>
@@ -56,15 +65,10 @@
     <format>Summary</format>
     <groupingsDown>
         <dateGranularity>Day</dateGranularity>
-        <field>STATUS</field>
-        <sortOrder>Asc</sortOrder>
-    </groupingsDown>
-    <groupingsDown>
-        <dateGranularity>Day</dateGranularity>
         <field>CASE_NUMBER</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
-    <name>IDR Case Lifecycle Report</name>
+    <name>My Closed Complaints</name>
     <params>
         <name>units</name>
         <value>h</value>
@@ -73,13 +77,13 @@
         <name>co</name>
         <value>1</value>
     </params>
-    <reportType>CaseHistory</reportType>
+    <reportType>CaseList</reportType>
     <scope>user</scope>
-    <showDetails>false</showDetails>
+    <showDetails>true</showDetails>
     <showGrandTotal>true</showGrandTotal>
     <showSubTotals>true</showSubTotals>
     <timeFrameFilter>
-        <dateColumn>HLAST_UPDATE</dateColumn>
-        <interval>INTERVAL_PREVCURFY</interval>
+        <dateColumn>CLOSED_DATEONLY</dateColumn>
+        <interval>INTERVAL_THISMONTH</interval>
     </timeFrameFilter>
 </Report>
