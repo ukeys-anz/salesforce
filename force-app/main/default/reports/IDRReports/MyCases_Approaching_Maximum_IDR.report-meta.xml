@@ -17,7 +17,7 @@
     </columns>
     <description>Cases approaching maximum IDR time</description>
     <filter>
-        <booleanFilter>1 AND (2 OR 3)</booleanFilter>
+        <booleanFilter>1 AND (2 OR 3) AND 4</booleanFilter>
         <criteriaItems>
             <column>RECORDTYPE</column>
             <columnToColumn>false</columnToColumn>
@@ -38,6 +38,13 @@
             <isUnlocked>false</isUnlocked>
             <operator>contains</operator>
             <value>IDR Response due in 5-days</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Case.IsOwner__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>1</value>
         </criteriaItems>
     </filter>
     <format>Summary</format>
@@ -64,7 +71,7 @@
         <value>1</value>
     </params>
     <reportType>CaseActivity</reportType>
-    <scope>user</scope>
+    <scope>organization</scope>
     <showDetails>true</showDetails>
     <showGrandTotal>true</showGrandTotal>
     <showSubTotals>true</showSubTotals>
