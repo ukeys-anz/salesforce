@@ -670,6 +670,8 @@ private class CaseTriggerHandlerTest {
     );
     insert updateCase;
 
+    CheckRecursive.firstCall = false;
+
     Test.startTest();
     updateCase.Related_Bug__c = bugId;
     update updateCase;
