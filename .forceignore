@@ -95,14 +95,14 @@ force-app/main/default/classes/TestUserTriggerHandler.cls
 force-app/main/default/classes/TestIDRCaseCommentActions.cls
 force-app/main/default/classes/TestProcessBuilderNoAction.cls
 force-app/main/default/classes/TestCaseCommentsTriggerHandler.cls
-force-app/main/default/classes/TestNewCaseFlowWrapperController.cls
-force-app/main/default/classes/TestDateTimeUtils.cls
-force-app/main/default/classes/CommonUtils.cls
+force-app/main/default/classes/idr/TestNewCaseFlowWrapperController.cls
+force-app/main/default/classes/utils/TestDateTimeUtils.cls
+force-app/main/default/classes/utils/CommonUtils.cls
 force-app/main/default/classes/TestCustomerFeedbackTriggerHandler.cls
 force-app/main/default/classes/TestIDRCaseActions.cls
 force-app/main/default/classes/TestCaseTriggerHandler.cls
 force-app/main/default/classes/TestANZAzureADRegistrationHandler.cls
-force-app/main/default/classes/TestGetCustomerInformation.cls
+force-app/main/default/classes/idr/TestGetCustomerInformation.cls
 force-app/main/default/classes/TestAccountTriggerHandler.cls
 
 #Ignore Knowledge validation status field as it is not supported in metadata API
