@@ -191,6 +191,9 @@ export default class TransactionHistoryRecord extends NavigationMixin(
     if (this.transactionRecord.amount.charged.value)
       defaultFieldValues +=
         ",Amount__c=" + Math.abs(this.transactionRecord.amount.charged.value); // Return the absolute value of amount
+    // Explicitly set the Origin to null so on the layout it's not defaulted to Phone
+    // The reason is because if the user is a call center user, and the record type does not have a default value for Case Origin, it will be defaulted to Phone
+    defaultFieldValues += ",Origin=";
 
     this[NavigationMixin.Navigate]({
       type: "standard__objectPage",
