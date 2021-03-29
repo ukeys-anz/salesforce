@@ -8,7 +8,7 @@ source ci/helper.sh
 # Determine which org to set as the target
 [ $GITHUB_EVENT_NAME == "pull_request" ] &&
    SOURCE_BRANCH=$BASE_BRANCH ||
-   SOURCE_BRANCH=${GITHUB_REF##*/}
+   SOURCE_BRANCH=${GITHUB_REF#refs/heads/}
 
 # Determine which branch to use to determine the destination
 [ "$GITHUB_EVENT_NAME" = "push" ] &&
