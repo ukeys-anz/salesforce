@@ -865,26 +865,6 @@ public with sharing class IDRCaseActions {
   }
 
   /**
-   * @description On escalation, we prefer passing the developer name of the queue the case is assigned to, instead of its label.
-   * Label could change in the future and it'd break Mulesoft mapping to CFMS' workbasket.
-   * @param cases Cases to get the queues's names from
-   * @return a map with queue ids as keys and queue records as values
-   */
-  private static Map<Id, Group> getQueuesToEscalate(Case[] cases) {
-    Group[] queues = new List<Group>();
-    if (Group.sObjectType.getDescribe().isQueryable()) {
-      Set<Id> queueIds = new Set<Id>();
-      for (Case c : cases) {
-        if (String.valueOf(c.OwnerId).startsWith('00G')) {
-          queueIds.add(c.OwnerId);
-        }
-      }
-      queues = [SELECT DeveloperName FROM Group WHERE Id IN :queueIds];
-    }
-    return new Map<Id, Group>(queues);
-  }
-
-  /**
    * @description  sendNotifications method is to send out platform events for notifications to customers. Mulesoft subscribes to these notifications and makes Notification Broker API call.
    * @param records The records for which notifications needs to be sent out
    */

@@ -297,9 +297,9 @@ private class CaseTriggerHandlerTest {
       'Escalated To should have been updated to CRP '
     );
     System.assertEquals(
-      IDRCaseActions.DAY_3_ESCALATION_REASON,
+      IDRCaseActions.DAY_5_ESCALATION_REASON,
       c.IDR_Escalation_Reason__c,
-      'Escalation Reason should have been updated to DAY_3_ESCALATION_REASON '
+      'Escalation Reason should have been updated to DAY_5_ESCALATION_REASON '
     );
   }
 
