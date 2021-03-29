@@ -61,10 +61,66 @@
                 <value>9,10</value>
             </criteriaItems>
         </ruleEntry>
-        <ruleEntry>
+       <ruleEntry>
             <assignedTo>IDR_Business_Owners</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <formula>(RecordType.Name = &apos;Customer Complaint&apos;|| RecordType.Name = &apos;Non-Customer Complaint&apos;)&amp;&amp; ISPICKVAL(Status,&apos;Escalated&apos;)&amp;&amp; (Product__r.Name = &apos;ANZ Business Black Credit Card&apos;|| Product__r.Name = &apos;ANZ Business 55 Days Interest Free Credit Card&apos;||Product__r.Name = &apos;ANZ Business Rewards Options Credit Card&apos;|| Product__r.Name = &apos;ANZ Business Low Rate Credit Card&apos;|| Product__r.Name = &apos;ANZ Visa Purchasing Card&apos;|| Product__r.Name = &apos;ANZ Virtual Card&apos;|| Product__r.Name = &apos;ANZ Travel Account&apos;|| Product__r.Name = &apos;ANZ Corporate Card&apos;|| Product__r.Name = &apos;AGRI Finance Loan&apos;|| Product__r.Name = &apos;ANZ Business Loan (ABL) for Personal Investment&apos;|| Product__r.Name = &apos;ANZ Business Loan (ABL)&apos;|| Product__r.Name = &apos;ANZ Business Mortgage Loan (BML)&apos;|| Product__r.Name = &apos;ANZ Business Saver Loan&apos;|| Product__r.Name = &apos;Investment Property Loan (Grand Fathered)&apos;|| Product__r.Name = &apos;Tailored Commercial Facility (TCF) - VARIABLE INT&apos;|| Product__r.Name = &apos;Tailored Commercial Facility (TCF) - RANGE INT&apos;|| Product__r.Name = &apos;Tailored Commercial Facility (TCF) - FIXED INT&apos;|| Product__r.Name = &apos;Tailored Commercial Facility (TCF) - FIX INT IN ADV&apos;|| Product__r.Name = &apos;Tailored Commercial Facility (TCF) - CAPPED INT&apos;|| Product__r.Name = &apos;Tailored Commercial Facility (TCF)&apos;|| Product__r.Name = &apos;ANZ Tailored Business Facility,Chattel Mortgage&apos;|| Product__r.Name = &apos;Finance Lease,Novated Lease,Luxury Asset Lease&apos;|| Product__r.Name = &apos;Offer to Hire,Asset Finance&apos;|| Product__r.Name = &apos;ANZ Revolving AGRI Line overdraft&apos;|| Product__r.Name = &apos;Business Credit Facility&apos;|| Product__r.Name = &apos;Business Advantage Overdraft&apos;|| Product__r.Name = &apos;Cash Covered Facility Account&apos;|| Product__r.Name = &apos;Cash Cover Indemnity Guarantee&apos;|| Product__r.Name = &apos;Indemnity Guarantee Facility&apos;|| Product__r.Name = &apos;Business Classic Account&apos;|| Product__r.Name = &apos;GST Payment Account&apos;|| Product__r.Name = &apos;Business Extra 50 Account&apos;|| Product__r.Name = &apos;Business Extra Account&apos;|| Product__r.Name = &apos;Negotiator Account&apos;|| Product__r.Name = &apos;Business Premium Saver Account&apos;|| Product__r.Name = &apos;Negotiator Investor Account&apos;|| Product__r.Name = &apos;Statutory Trust Account&apos;|| Product__r.Name = &apos;Business Advantage Account&apos;|| Product__r.Name = &apos;Security Deposit Account&apos;|| Product__r.Name = &apos;Farm Management Deposit Account&apos;|| Product__r.Name = &apos;Agri Finance Offset Account&apos;|| Product__r.Name = &apos;ANZ Business Offset&apos;|| Product__r.Name = &apos;BML Offset Account - with Cheque Book&apos;|| Product__r.Name = &apos;Missing Funds&apos;|| Product__r.Name = &apos;ANZ Business Visa Debit card (ABVD)&apos;|| Product__r.Name = &apos;Business Online Saver Account&apos;|| Product__r.Name = &apos;ANZ Farm Management Deposit&apos;|| Product__r.Name = &apos;ANZ Business Notice Term Deposit&apos;|| Product__r.Name = &apos;Merchant services&apos;|| Product__r.Name = &apos;ANZ IB4B - Internet Banking for Business&apos;|| Product__r.Name = &apos;ANZ Transactive&apos;)</formula>
+            <formula>(RecordType.Name = &apos;Customer Complaint&apos;||
+RecordType.Name = &apos;Non-Customer Complaint&apos;)&amp;&amp;
+ISPICKVAL(Status,&apos;Escalated&apos;)&amp;&amp;
+(Product__r.Name = &apos;ANZ Business Black Credit Card&apos;||
+Product__r.Name = &apos;ANZ Business 55 Days Interest Free Credit Card&apos;||Product__r.Name = &apos;ANZ Business Rewards Options Credit Card&apos;||
+Product__r.Name = &apos;ANZ Business Low Rate Credit Card&apos;||
+Product__r.Name = &apos;ANZ Visa Purchasing Card&apos;||
+Product__r.Name = &apos;ANZ Virtual Card&apos;||
+Product__r.Name = &apos;ANZ Travel Account&apos;||
+Product__r.Name = &apos;ANZ Corporate Card&apos;||
+Product__r.Name = &apos;AGRI Finance Loan&apos;||
+Product__r.Name = &apos;ANZ Business Loan (ABL) for Personal Investment&apos;||
+Product__r.Name = &apos;ANZ Business Loan (ABL)&apos;||
+Product__r.Name = &apos;ANZ Business Mortgage Loan (BML)&apos;||
+Product__r.Name = &apos;ANZ Business Saver Loan&apos;||
+Product__r.Name = &apos;Investment Property Loan (Grand Fathered)&apos;||
+Product__r.Name = &apos;Tailored Commercial Facility (TCF) - VARIABLE INT&apos;||
+Product__r.Name = &apos;Tailored Commercial Facility (TCF) - RANGE INT&apos;||
+Product__r.Name = &apos;Tailored Commercial Facility (TCF) - FIXED INT&apos;||
+Product__r.Name = &apos;Tailored Commercial Facility (TCF) - FIX INT IN ADV&apos;||
+Product__r.Name = &apos;Tailored Commercial Facility (TCF) - CAPPED INT&apos;||
+Product__r.Name = &apos;Tailored Commercial Facility (TCF)&apos;||
+Product__r.Name = &apos;ANZ Tailored Business Facility&apos;||
+Product__r.Name = &apos;Chattel Mortgage&apos;||
+Product__r.Name = &apos;Finance Lease&apos;||
+Product__r.Name = &apos;Novated Lease&apos;||
+Product__r.Name = &apos;Luxury Asset Lease&apos;||
+Product__r.Name = &apos;Offer to Hire&apos;||
+Product__r.Name = &apos;Asset Finance&apos;||
+Product__r.Name = &apos;ANZ Revolving AGRI Line overdraft&apos;||
+Product__r.Name = &apos;Business Credit Facility&apos;||
+Product__r.Name = &apos;Business Advantage Overdraft&apos;||
+Product__r.Name = &apos;Cash Covered Facility Account&apos;||
+Product__r.Name = &apos;Cash Cover Indemnity Guarantee&apos;||
+Product__r.Name = &apos;Indemnity Guarantee Facility&apos;||
+Product__r.Name = &apos;Business Classic Account&apos;||
+Product__r.Name = &apos;GST Payment Account&apos;||
+Product__r.Name = &apos;Business Extra 50 Account&apos;||
+Product__r.Name = &apos;Business Extra Account&apos;||
+Product__r.Name = &apos;Negotiator Account&apos;||
+Product__r.Name = &apos;Business Premium Saver Account&apos;||
+Product__r.Name = &apos;Negotiator Investor Account&apos;||
+Product__r.Name = &apos;Statutory Trust Account&apos;||
+Product__r.Name = &apos;Business Advantage Account&apos;||
+Product__r.Name = &apos;Security Deposit Account&apos;||
+Product__r.Name = &apos;Farm Management Deposit Account&apos;||
+Product__r.Name = &apos;Agri Finance Offset Account&apos;||
+Product__r.Name = &apos;ANZ Business Offset&apos;||
+Product__r.Name = &apos;BML Offset Account - with Cheque Book&apos;||
+Product__r.Name = &apos;Missing Funds&apos;||
+Product__r.Name = &apos;ANZ Business Visa Debit card (ABVD)&apos;||
+Product__r.Name = &apos;Business Online Saver Account&apos;||
+Product__r.Name = &apos;ANZ Farm Management Deposit&apos;||
+Product__r.Name = &apos;ANZ Business Notice Term Deposit&apos;||
+Product__r.Name = &apos;Merchant services&apos;||
+Product__r.Name = &apos;ANZ IB4B - Internet Banking for Business&apos;||
+Product__r.Name = &apos;ANZ Transactive&apos;)</formula>
         </ruleEntry>
         <ruleEntry>
             <assignedTo>IDR_Everyday_Banking</assignedTo>
