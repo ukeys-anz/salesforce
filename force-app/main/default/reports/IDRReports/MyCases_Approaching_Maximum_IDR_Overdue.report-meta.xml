@@ -38,6 +38,13 @@
             <operator>notEqual</operator>
             <value>TODAY</value>
         </criteriaItems>
+        <criteriaItems>
+            <column>Case.IsOwner__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>1</value>
+        </criteriaItems>
     </filter>
     <format>Summary</format>
     <groupingsDown>
@@ -63,7 +70,7 @@
         <value>1</value>
     </params>
     <reportType>CaseActivity</reportType>
-    <scope>user</scope>
+    <scope>organization</scope>
     <showDetails>true</showDetails>
     <showGrandTotal>true</showGrandTotal>
     <showSubTotals>true</showSubTotals>
