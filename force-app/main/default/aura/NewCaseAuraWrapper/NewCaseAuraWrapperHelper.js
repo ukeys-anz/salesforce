@@ -347,6 +347,14 @@
           if (state === "SUCCESS") {
             let rsp = response.getReturnValue();
             let recordTypes = JSON.parse(rsp);
+            let cmpInstanceIdentifier = Date.now();
+            component.set("v.cmpInstanceIdentifier", cmpInstanceIdentifier);
+            // This cmpInstanceIdentifier is a key for each instance of this aura component
+            // Each record type's id will have this key as a part of it, so the uncheckPreviouslySelectedRadio() can work
+            // if the user has multiple instances of this aura component open
+            recordTypes.forEach((rt) => {
+              rt.elementId = rt.Id + cmpInstanceIdentifier;
+            });
             // Sort record types alphabetically
             recordTypes.sort((a, b) => a.Name.localeCompare(b.Name));
             component.set("v.caseRecordTypes", recordTypes);
@@ -364,7 +372,9 @@
   uncheckPreviouslySelectedRadio: function (component) {
     let selectedRecordTypeId = component.get("v.selectedRecordTypeId");
     if (selectedRecordTypeId) {
-      let selectedRadioButton = document.getElementById(selectedRecordTypeId);
+      let selectedRadioButton = document.getElementById(
+        selectedRecordTypeId + component.get("v.cmpInstanceIdentifier")
+      );
       if (selectedRadioButton.checked) selectedRadioButton.checked = false;
     }
   },
@@ -376,14 +386,20 @@
     parentTabId
   ) {
     workspaceAPI.getFocusedTabInfo().then(function (response) {
-      var prevSubTabId = response.tabId;
+      const urlParams = new URLSearchParams(response.url);
+      // When a user refresh the account page, this count param will always be 1, we only
+      // need to run closeTab when count is > 2 otherwise workspace API will throw error when trying to close previous tab
+      let count = urlParams.get("count");
+      let prevSubTabId = response.tabId;
       workspaceAPI
         .openSubtab({
           parentTabId: parentTabId,
           url: navigationURL,
           focus: true
         })
-        .then(workspaceAPI.closeTab({ tabId: prevSubTabId }));
+        .then(() => {
+          if (count > 1) workspaceAPI.closeTab({ tabId: prevSubTabId });
+        });
     });
   }
 });
