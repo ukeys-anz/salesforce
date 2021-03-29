@@ -21,6 +21,7 @@ if [ -z "$TAG_PREFIX" ]; then
 fi
 
 ## Make a deploy and destroy directories to start building artefacts
+rm -rf tmp
 mkdir -p tmp
 mkdir ${DEPLOY_DIR}
 mkdir ${DESTRUCTIVE_DIR}

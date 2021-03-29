@@ -4,6 +4,7 @@
   access="global"
 >
   <lightning:workspaceAPI aura:id="workspace" />
+  <aura:attribute name="cmpInstanceIdentifier" type="String" default="" />
   <aura:attribute name="showComponent" type="Boolean" default="false" />
   <aura:attribute name="recordTypeId" type="String" />
   <aura:attribute name="recordTypeDevName" type="String" />
@@ -58,13 +59,13 @@
             <span class="slds-radio">
               <input
                 type="radio"
-                id="{!rt.Id}"
+                id="{!rt.elementId}"
                 value="{!rt.Id}"
                 name="{!rt.DeveloperName}"
                 checked=""
                 onchange="{!c.handleSelectRecordType}"
               />
-              <label class="slds-radio__label" for="{!rt.Id}">
+              <label class="slds-radio__label" for="{!rt.elementId}">
                 <span class="slds-radio_faux"></span>
                 <span class="slds-form-element__label">{!rt.Name}</span>
                 <div class="slds-text-body_regular radio-description">
