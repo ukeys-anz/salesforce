@@ -12,6 +12,6 @@
     <label>EDR Spare</label>
     <queue>EDR_Spare</queue>
     <sharedTo>
-        <roleAndSubordinates>ANZ</roleAndSubordinates>
+        <allInternalUsers/>
     </sharedTo>
 </ListView>
