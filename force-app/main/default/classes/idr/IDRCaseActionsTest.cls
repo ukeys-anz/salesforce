@@ -102,7 +102,7 @@ private with sharing class IDRCaseActionsTest {
       WHERE id = :newCases[0].Id
     ];
     System.assertEquals(
-      IDRCaseActions.DAY_3_ESCALATION_REASON,
+      IDRCaseActions.DAY_5_ESCALATION_REASON,
       c.IDR_Escalation_Reason__c,
       'Escalation reason should be auto-escalated'
     );

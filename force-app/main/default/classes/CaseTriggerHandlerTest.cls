@@ -297,9 +297,9 @@ private class CaseTriggerHandlerTest {
       'Escalated To should have been updated to CRP '
     );
     System.assertEquals(
-      IDRCaseActions.DAY_3_ESCALATION_REASON,
+      IDRCaseActions.DAY_5_ESCALATION_REASON,
       c.IDR_Escalation_Reason__c,
-      'Escalation Reason should have been updated to DAY_3_ESCALATION_REASON '
+      'Escalation Reason should have been updated to DAY_5_ESCALATION_REASON '
     );
   }
 
@@ -852,7 +852,7 @@ private class CaseTriggerHandlerTest {
   }
 
   //Tests if the Dispute Case Subject is populated correctly based on case record type and dispute reason
-  @isTest
+  /*@isTest
   static void testPopulateDisputeCaseSubject() {
     Case[] newCases = new List<Case>();
     Account acc = [SELECT Id FROM Account WHERE Name = 'TestAccount' LIMIT 1];
@@ -876,7 +876,7 @@ private class CaseTriggerHandlerTest {
       'Card - Cardholder does not recognise transaction',
       newCases[0].Subject
     );
-  }
+  }*/
 
   //Test to verify Subject auto-population when Case Type has a numerical value different from the label
   static void testNumericCaseTypeValue() {

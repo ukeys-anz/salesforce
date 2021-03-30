@@ -21,8 +21,6 @@ public with sharing class IDRCaseActions {
   private static final String RESOLVED_STATUS = 'Resolved';
   private static final String WITHDRAWN_STATUS = 'Withdrawn';
   @TestVisible
-  private static final string DAY_3_ESCALATION_REASON = 'Day 3 auto escalation';
-  @TestVisible
   private static final string DAY_5_ESCALATION_REASON = 'Day 5 auto escalation';
 
   // IDR Case Status for which notifications need to be sent.
@@ -586,11 +584,10 @@ public with sharing class IDRCaseActions {
     ) {
       // set default values for auto escalated cases: Status, Escalated To, Escalation Reason
       record.Status = ESCALATED_STATUS;
-      if (oldRec != null && oldRec.Status == OPEN_STATUS) {
-        record.IDR_Escalation_Reason__c = DAY_3_ESCALATION_REASON;
-      } else if (
+      if (
         oldRec != null &&
-        oldRec.Status == UNDER_INVESTIGATION_STATUS
+        (oldRec.Status == UNDER_INVESTIGATION_STATUS ||
+        oldRec.Status == OPEN_STATUS)
       ) {
         record.IDR_Escalation_Reason__c = DAY_5_ESCALATION_REASON;
       }
@@ -607,16 +604,21 @@ public with sharing class IDRCaseActions {
    * @description  handleCaseStatusChanges method is used to handle the case status changes as follows
    * 1. when a case is escalated mark the case's IsEscalated value to true and
    * 2. when a case is reopened mark the IDR_Date_Re_Opened__c as current date.
+   * 3. When an escalated case is resolved or closed, mark the case's IsEscalated value to false
    * @param record The actual case record from the trigger
    */
   private static void handleCaseStatusChanges(Case record) {
-    if (record.Status == ESCALATED_STATUS) {
-      if (!record.IsEscalated) {
-        record.IsEscalated = true;
-      }
+    if (record.Status == ESCALATED_STATUS && !record.IsEscalated) {
+      record.IsEscalated = true;
     }
     if (record.Status == REOPENED_STATUS) {
       record.IDR_Date_Re_Opened__c = System.today();
+      record.IsEscalated = false;
+    }
+    if (
+      (record.Status == RESOLVED_STATUS || record.Status == CLOSED_STATUS) &&
+      record.IsEscalated
+    ) {
       record.IsEscalated = false;
     }
   }
@@ -1097,7 +1099,6 @@ public with sharing class IDRCaseActions {
       ReminderDateTime = (DateTime) (activityDate - 2)
     );
   }
-
 
   /**
    * @description Update Date/Time PSI Ticked when complaint is flagged or unflagged. Before calling, check whether all cases are complaints and the PSI flag has just been ticked or unticked

@@ -13,7 +13,7 @@ COMPONENT_DIR=(aura lwc)
 if [ -z "$SOURCE_BRANCH" ]; then
    [ $GITHUB_EVENT_NAME == "pull_request" ] &&
       SOURCE_BRANCH=$BASE_BRANCH ||
-      SOURCE_BRANCH=${GITHUB_REF##*/}
+      SOURCE_BRANCH=${GITHUB_REF#refs/heads/}
 fi
 # If TAG_PREFIX is specified in the yml, do not overwrite
 if [ -z "$TAG_PREFIX" ]; then
@@ -21,6 +21,7 @@ if [ -z "$TAG_PREFIX" ]; then
 fi
 
 ## Make a deploy and destroy directories to start building artefacts
+rm -rf tmp
 mkdir -p tmp
 mkdir ${DEPLOY_DIR}
 mkdir ${DESTRUCTIVE_DIR}
