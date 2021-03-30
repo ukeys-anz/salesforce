@@ -12,6 +12,6 @@
     <label>IDR Hardship</label>
     <queue>IDR_Hardship</queue>
     <sharedTo>
-        <roleAndSubordinates>ANZ</roleAndSubordinates>
+        <allInternalUsers/>
     </sharedTo>
 </ListView>
