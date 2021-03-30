@@ -12,6 +12,6 @@
     <label>EDR Early Resolution</label>
     <queue>EDR_Early_Resolution</queue>
     <sharedTo>
-        <roleAndSubordinates>ANZ</roleAndSubordinates>
+        <allInternalUsers/>
     </sharedTo>
 </ListView>
