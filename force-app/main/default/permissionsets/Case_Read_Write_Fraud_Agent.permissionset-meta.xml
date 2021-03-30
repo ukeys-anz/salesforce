@@ -12,6 +12,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Auto_matched_Chat_Topic_IDs__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Case.CaseNumber__c</field>
         <readable>true</readable>
@@ -154,6 +159,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Fraud_Summary_of_Events__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Fraud_Total_Customer_Exposure__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

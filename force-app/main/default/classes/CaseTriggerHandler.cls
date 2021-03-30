@@ -28,10 +28,12 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onBeforeInsert() {
     GetHelpCaseActions.validateAdditionalTypes(records, null);
-    GetHelpCaseActions.handleCaseSubject(records, null);
+    GetHelpCaseActions.handlePopulateCaseSubject(records, null);
     GetHelpCaseActions.updateEntitlement(records);
+    GetHelpCaseActionsHelper.populateContactLookupForANZPlus(records);
     IDREmailToCase.processEmail(records);
   }
+
   /**
    * @description onValidate() method is called before onAfterInsert to validate records or handle the records for which we need to update the values.
    */
@@ -80,6 +82,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     if (!checkRecursive.firstCall) {
       checkRecursive.firstCall = true;
       IDRCaseActions.completeAfterActions();
+      CaseCommonActions.completeAfterUpdateActions();
       GetHelpCaseActions.rollupRelatedBug(
         records,
         (List<Case>) oldMap.values()

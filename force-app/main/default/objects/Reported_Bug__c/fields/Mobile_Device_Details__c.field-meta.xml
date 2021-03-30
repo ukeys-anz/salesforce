@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Trusted;Privacy - Personal Information;Source_Salesforce</complianceGroup>
     <description>The customer&apos;s mobile device details.</description>
+    <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
     <externalId>false</externalId>
     <inlineHelpText>The customer&apos;s mobile device details.</inlineHelpText>
     <label>Mobile Device Details</label>

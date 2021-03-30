@@ -1,0 +1,72 @@
+.THIS.slds-card {
+  display: flex;
+  flex-direction: column;
+}
+.THIS .slds-card__header {
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+  border-bottom-color: rgb(221, 219, 218);
+  background-color: rgb(255, 255, 255);
+  padding: 16px;
+}
+.THIS .slds-card__body {
+  flex: 1;
+  min-width: 450px;
+}
+.THIS .recordTypeSection {
+  display: flex;
+}
+.THIS .iteration {
+  display: flex;
+  flex-direction: column;
+}
+.THIS .title {
+  text-align: center;
+  width: 100%;
+}
+.THIS .slds-card__body .slds-card__body_inner {
+  padding: 0px;
+}
+.THIS .changeRecordTypeTagLine {
+  margin-bottom: 24px;
+}
+.THIS .changeRecordTypeLeftColumn {
+  margin-top: 24px;
+  width: 35%;
+  margin-left: 35px;
+}
+.THIS .iteration {
+  margin-top: 40px;
+}
+.THIS .errorDiv {
+  display: flex;
+  height: 66px;
+  margin-right: 20px;
+  background-color: rgb(194, 57, 52);
+  justify-content: center;
+  align-items: center;
+}
+.THIS .slds-icon_container {
+  margin: 0 20px 0 20px;
+}
+.THIS .slds-icon_container svg {
+  fill: white;
+}
+.THIS .errorDiv p {
+  color: white;
+}
+.THIS .slds-radio .slds-form-element__label {
+  margin-left: 1rem;
+}
+.THIS .radio-description {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-bottom: 0.75rem;
+  padding-left: 3.75rem;
+  word-wrap: break-word;
+}
+.THIS .slds-card__footer {
+  background: rgb(243, 242, 242);
+  justify-content: flex-end;
+  display: flex;
+}

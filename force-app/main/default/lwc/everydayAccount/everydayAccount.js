@@ -9,52 +9,71 @@ import UpdateAccounts from "@salesforce/messageChannel/FinancialAccountsUpdate__
 import TriggerLoading from "@salesforce/messageChannel/FinancialAccountsTriggerLoading__c";
 import { NavigationMixin } from "lightning/navigation";
 
+import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
+
+const ACCOUNT_TYPES = {
+  checking: "Everyday Account - ANZ Money",
+  savings: "Savings Account - ANZ Save"
+};
+
 export default class EverydayAccount extends NavigationMixin(LightningElement) {
   @api recordId;
+  @api accountType;
   financialAccounts = [];
   @track viewAll;
   @track timestamp;
   @track loading = true;
   hasError = false;
   error;
+  componentTitle;
 
   @wire(MessageContext)
   messageContext;
   subscription = null;
   loadingSubscription = null;
+
+  get displayContent() {
+    return hasAccountsGoalsPermission;
+  }
+
   connectedCallback() {
-    this.loadingSubscription = subscribe(
-      this.messageContext,
-      TriggerLoading,
-      (message) => {
-        if (message.update) {
-          this.loading = true;
-        }
-      }
-    );
-
-    this.subscription = subscribe(
-      this.messageContext,
-      UpdateAccounts,
-      (message) => {
-        if (message.update) {
-          this.financialAccounts = [];
-          this.timestamp = "";
-          this.getAccounts();
-
-          if (this.financialAccounts) {
-            this.loading = false;
+    this.componentTitle = ACCOUNT_TYPES[this.accountType.toLowerCase()];
+    if (hasAccountsGoalsPermission) {
+      this.loadingSubscription = subscribe(
+        this.messageContext,
+        TriggerLoading,
+        (message) => {
+          if (message.update) {
+            this.loading = true;
           }
-        } else {
-          this.error = message.message;
-          this.getAccounts();
-          this.showToast("Financial Account Load Failed", this.error);
         }
-      }
-    );
+      );
 
-    if (!this.subscription || Object.keys(this.subscription).length === 0) {
-      this.getAccounts();
+      this.subscription = subscribe(
+        this.messageContext,
+        UpdateAccounts,
+        (message) => {
+          if (message.update) {
+            this.financialAccounts = [];
+            this.timestamp = "";
+            this.getAccounts();
+
+            if (this.financialAccounts) {
+              this.loading = false;
+            }
+          } else {
+            this.error = message.message;
+            this.getAccounts();
+            this.showToast("Financial Account Load Failed", this.error);
+          }
+        }
+      );
+
+      if (!this.subscription || Object.keys(this.subscription).length === 0) {
+        this.getAccounts();
+      }
+    } else {
+      this.loading = false;
     }
   }
 
@@ -89,7 +108,7 @@ export default class EverydayAccount extends NavigationMixin(LightningElement) {
     getFinancialAccounts({
       ownerId: this.recordId,
       recordLimit: 4,
-      type: "Checking"
+      type: this.accountType
     })
       .then((result) => {
         this.viewAll = false;

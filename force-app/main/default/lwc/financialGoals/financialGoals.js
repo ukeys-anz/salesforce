@@ -2,12 +2,12 @@ import { LightningElement, api, track, wire } from "lwc";
 
 import getFinancialAccounts from "@salesforce/apex/FinancialAccountController.getFinancialAccounts";
 
-import { ShowToastEvent } from "lightning/platformShowToastEvent";
-
 import { subscribe, MessageContext } from "lightning/messageService";
 import RetrieveGoals from "@salesforce/messageChannel/RetrieveFinancialGoals__c";
 import TriggerLoading from "@salesforce/messageChannel/FinancialAccountsTriggerLoading__c";
 import { NavigationMixin } from "lightning/navigation";
+
+import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
 
 export default class FinancialGoals extends NavigationMixin(LightningElement) {
   @api recordId;
@@ -16,7 +16,7 @@ export default class FinancialGoals extends NavigationMixin(LightningElement) {
   @track viewAllGoals = false;
   @track loading = true;
   accountNumbers = [];
-  hadError = false;
+  hasError = false;
   error;
 
   @wire(MessageContext)
@@ -24,57 +24,75 @@ export default class FinancialGoals extends NavigationMixin(LightningElement) {
   subscription = null;
   loadingSubscription = null;
 
+  get displayContent() {
+    return hasAccountsGoalsPermission;
+  }
+
   connectedCallback() {
-    getFinancialAccounts({
-      ownerId: this.recordId,
-      recordLimit: 4,
-      type: "Savings"
-    })
-      .then((result) => {
-        if (result) {
-          result.forEach((finAccount) => {
-            //Set account number as key and ID as value to link goals to accounts later
-            this.accountNumbers[finAccount.FinServ__FinancialAccountNumber__c] =
-              finAccount.Id;
-
-            //Only set timestamp once instead of each time in the loop
-            if (!this.timestamp) {
-              this.setTimestamp();
-            }
-          });
-        }
+    if (hasAccountsGoalsPermission) {
+      getFinancialAccounts({
+        ownerId: this.recordId,
+        recordLimit: 4,
+        type: "Savings"
       })
-      .catch((error) => {
-        this.loading = false;
-        if (error.body && error.body.message) {
-          this.error = error.body.message;
-        }
-        this.hasError = true;
-      });
+        .then((result) => {
+          if (result) {
+            result.forEach((finAccount) => {
+              //Set account number as key and ID as value to link goals to accounts later
+              this.accountNumbers[
+                finAccount.FinServ__FinancialAccountNumber__c
+              ] = finAccount.Id;
 
-    this.loadingSubscription = subscribe(
-      this.messageContext,
-      TriggerLoading,
-      (message) => {
-        if (message.update) {
-          this.loading = true;
+              //Only set timestamp once instead of each time in the loop
+              if (!this.timestamp) {
+                this.setTimestamp();
+              }
+            });
+          } else {
+            //If no goals set goals to null as template condition checks
+            //dont seem to mark as false if array empty
+            this.goals = null;
+          }
+        })
+        .catch((error) => {
+          this.loading = false;
+          if (error.body && error.body.message) {
+            this.error = error.body.message;
+          }
+          this.hasError = true;
+        });
+
+      this.loadingSubscription = subscribe(
+        this.messageContext,
+        TriggerLoading,
+        (message) => {
+          if (message.update) {
+            this.loading = true;
+          }
         }
-      }
-    );
-    this.subscription = subscribe(
-      this.messageContext,
-      RetrieveGoals,
-      (response) => {
-        if (response.error) {
-          this.error = response.error;
-          this.showToast("Financial Goals Load Failed", this.error);
-        } else {
-          this.goals = [];
-          this.timestamp = "";
-          this.handleGoals(response);
+      );
+      this.subscription = subscribe(
+        this.messageContext,
+        RetrieveGoals,
+        (response) => {
+          if (response.error) {
+            this.error = response.error;
+          } else {
+            this.timestamp = "";
+
+            //Only need to handle goals if there is any
+            if (response && response.length > 0) {
+              this.goals = [];
+              this.handleGoals(response);
+            } else {
+              this.loading = false;
+            }
+          }
         }
-      }
-    );
+      );
+    } else {
+      this.loading = false;
+    }
   }
 
   setTimestamp() {
@@ -134,7 +152,7 @@ export default class FinancialGoals extends NavigationMixin(LightningElement) {
           finGoal.fillPercent = finGoal.currentBalance > 0 ? 100 : 0;
         }
 
-        finGoal.daysRemaining = "Days Remaining: ";
+        finGoal.daysRemaining = "Days remaining: ";
         // Override potential null values with generic values
         if (finGoal.targetDate) {
           const targetDate = new Date(finGoal.targetDate);
@@ -189,15 +207,6 @@ export default class FinancialGoals extends NavigationMixin(LightningElement) {
       }
     }
     this.loading = false;
-  }
-
-  showToast(theTitle, theMessage) {
-    this.loading = false;
-    const event = new ShowToastEvent({
-      title: theTitle,
-      message: theMessage
-    });
-    this.dispatchEvent(event);
   }
 
   navigateToRecordViewPage(event) {

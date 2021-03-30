@@ -3,6 +3,7 @@
     <description>This permission set group is for Systemic Issue users</description>
     <label>IDR SI User</label>
     <permissionSets>Complaint_Read_Only</permissionSets>
+    <permissionSets>Product_Read_Only</permissionSets>
     <permissionSets>Systemic_Issue_User_Base</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

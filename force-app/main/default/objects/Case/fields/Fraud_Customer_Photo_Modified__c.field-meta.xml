@@ -12,7 +12,7 @@ Customer&apos;s photograph on the identity document is not superimposed or repla
 Customer&apos;s photograph on the identity document is not superimposed or replaced with another person&apos;s photograph.</inlineHelpText>
     <label>Customer&apos;s Photo is Not Modified</label>
     <required>false</required>
-    <securityClassification>Internal</securityClassification>
+    <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

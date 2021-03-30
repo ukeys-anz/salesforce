@@ -4,7 +4,7 @@
  * @description IDRTaskActions is class to handle all the IDR (Internal Dispute Resolution) Actions
  */
 @SuppressWarnings('PMD.CyclomaticComplexity')
-public with sharing class IDRTaskActions {
+public without sharing class IDRTaskActions {
   // IDR Maximum time Record Type ID
   @TestVisible
   public static final Id IDR_MAXIMUM_TIME_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
@@ -78,6 +78,7 @@ public with sharing class IDRTaskActions {
     list<Task> idrMaixmumTimeTasks = new List<Task>();
     Map<Id, ID> taskCaseMap = new Map<Id, ID>();
     Map<Id, String> caseTaskMap = new Map<Id, String>();
+    Set<Id> caseIds = new Set<Id>();
     for (Task record : taskRecs) {
       if (
         record.subject == IDRConstants.TASK_SUBJECT_DAY5 ||
@@ -86,6 +87,7 @@ public with sharing class IDRTaskActions {
         record.RecordTypeId = IDR_MAXIMUM_TIME_RT_ID;
         idrMaixmumTimeTasks.add(record);
         taskCaseMap.put(record.Id, record.WhatId);
+        caseIds.add(record.whatId);
       }
       if (
         record.RecordTypeId == IDR_MAXIMUM_TIME_RT_ID &&
@@ -97,6 +99,9 @@ public with sharing class IDRTaskActions {
     }
 
     validateDueDate(idrMaixmumTimeTasks, caseTaskMap);
+    if(!caseIds.isEmpty()) {
+      assignTaskToCaseOwner(taskRecs, caseIds);
+    }
   }
   /**
    * @description validateDueDate will validate update the due date for IDR Tasks.
@@ -217,6 +222,90 @@ public with sharing class IDRTaskActions {
     }
 
     if (cmsToUpdate.size() > 0) {
+      update cmsToUpdate;
+    }
+  }
+
+  /**
+   * @description assignTaskToCaseOwner is used to assign the tasks 
+   * created by entitlement process to case owner. 
+   * @param records List of task records from trigger
+   * @param caseIds Set of case ids
+   */
+  private static void assignTaskToCaseOwner(List<Task> records, Set<Id> caseIds) {
+    Map<Id, Case> caseMap = new Map<ID, Case>();
+    for(Case caseRecord : [SELECT Id, OwnerId FROM Case where Id IN : caseIds]) {
+      caseMap.put(caseRecord.Id, caseRecord);
+    }
+    for(Task record : records) {
+      if(caseMap.containsKey(record.WhatId)) {
+      record.OwnerId = caseMap.get(record.WhatId).OwnerId;
+      }
+    }
+  }
+
+  /**
+   * @description Update the tasks and milestones to reflect the values based on new date recieved.
+   * @param records list of case record
+   * @param oldMap Map of old case records
+   */
+  public static void updateIDRMilestoneTask(
+    list<Case> records,
+    Map<Id, SObject> oldMap
+  ) {
+    Map<Id, Case> caseMap = new Map<Id, Case>();
+    for (case record : records) {
+      Case oldRec = (Case) oldMap.get(record.id);
+      // if the date recieved is changed after milestone has been applied
+      // I.e Case is already created as complain or already identified as complaint.(isIDRComplaintType(oldRec))
+      // then the tasks and milestone needs to be update to reflect this change
+      if (
+        IDRCaseActions.isIDRComplaintType(record) &&
+        IDRCaseActions.isIDRComplaintType(oldRec) &&
+        oldRec.IDR_Date_Received__c != record.IDR_Date_Received__c
+      ) {
+        caseMap.put(record.Id, record);
+      }
+    }
+    List<task> idrTasks = new List<task>();
+    if (task.sObjectType.getDescribe().isQueryable() && caseMap.size() > 0) {
+      idrTasks = [
+        SELECT Id, ActivityDate, whatId, Subject
+        FROM Task
+        WHERE
+          whatId IN :caseMap.keySet()
+          AND RecordTypeId = :IDR_MAXIMUM_TIME_RT_ID
+          AND IsClosed = FALSE
+      ];
+    }
+    for (task t : idrTasks) {
+      t.ActivityDate = date.valueOf(
+        calculateExpectedDue(t, caseMap.get(t.whatId))
+      );
+    }
+    if (task.sObjectType.getDescribe().isUpdateable() && !idrTasks.isEmpty()) {
+      update idrTasks;
+    }
+    List<CaseMilestone> cmsToUpdate = new List<CaseMilestone>();
+    if (
+      CaseMilestone.sObjectType.getDescribe().isQueryable() &&
+      caseMap.size() > 0
+    ) {
+      cmsToUpdate = [
+        SELECT Id, StartDate, caseId
+        FROM CaseMilestone cm
+        WHERE
+          caseId IN :caseMap.keySet()
+          AND completionDate = NULL
+      ];
+    }
+    for (CaseMilestone cm : cmsToUpdate) {
+      cm.StartDate = caseMap.get(cm.caseId).IDR_Date_Received__c;
+    }
+    if (
+      CaseMilestone.sObjectType.getDescribe().isUpdateable() &&
+      !cmsToUpdate.isEmpty()
+    ) {
       update cmsToUpdate;
     }
   }

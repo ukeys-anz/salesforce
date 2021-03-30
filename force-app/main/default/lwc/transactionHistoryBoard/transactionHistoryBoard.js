@@ -1,14 +1,15 @@
 import { LightningElement, track, wire, api } from "lwc";
 import getTransactions from "@salesforce/apex/TransactionHistoryController.getTransactions";
-
+import getDisputeRecordTypeMap from "@salesforce/apex/TransactionHistoryController.getDisputeRecordTypeMap";
+import getPersonContactId from "@salesforce/apex/TransactionHistoryController.getPersonContactId";
 import { getRecord } from "lightning/uiRecordApi";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
-
 import FIN_ACCOUNT_OCV_ID_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.OCV_ID__c";
 import FIN_ACCOUNT_ACCOUNT_NUMBER_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__FinancialAccountNumber__c";
-
 import { publish, MessageContext } from "lightning/messageService";
 import ExpandCollapseAll from "@salesforce/messageChannel/ListCollapseExpandAll__c";
+import { handleErrorShowToast } from "c/utils";
+import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
 
 //Remapping the status and types returned from the API so they
 //are more readable on the UI
@@ -17,7 +18,6 @@ const transactionStatusMapping = {
   TRANSACTION_STATUS_PENDING: "Pending",
   TRANSACTION_STATUS_POSTED: "Posted"
 };
-
 const transactionTypeMapping = {
   TRANSACTION_TYPE_UNSPECIFIED: "Unknown",
   TRANSACTION_TYPE_CARD: "Card",
@@ -31,7 +31,6 @@ const transactionTypeMapping = {
   TRANSACTION_TYPE_BPAY: "BPAY",
   TRANSACTION_TYPE_OTHER: "Other"
 };
-
 const cardMapping = {
   CARD_SCHEME_UNSPECIFIED: "Unknown",
   CARD_SCHEME_VISA: "Visa",
@@ -59,10 +58,11 @@ export default class TransactionHistoryBoard extends LightningElement {
   totalTransactions;
   links;
   loading = true;
-
+  disputeRecordTypes = [];
+  transactionTypeDisputeIdMap = {};
+  personContactId = "";
   @wire(MessageContext)
   messageContext;
-
   //Get the OCVID and Account Number to send to
   //the API and get the transactions
   @wire(getRecord, {
@@ -70,17 +70,21 @@ export default class TransactionHistoryBoard extends LightningElement {
     fields: [FIN_ACCOUNT_OCV_ID_FIELD, FIN_ACCOUNT_ACCOUNT_NUMBER_FIELD]
   })
   wiredProject({ data }) {
-    if (data) {
+    if (data && hasAccountsGoalsPermission) {
       this.ocvId = data.fields.OCV_ID__c.value;
       this.accountNumber = data.fields.FinServ__FinancialAccountNumber__c.value;
-      this.fetchTransactions();
+      this.handleGetPersonContactId();
+      this.handleGetDisputeRecordTypeDetails();
     }
+  }
+
+  get displayContent() {
+    return hasAccountsGoalsPermission;
   }
 
   get showLoadMore() {
     return this.links && this.links.next && this.links.next.href ? true : false;
   }
-
   fetchTransactions(paramUrl = "", isSearch = false) {
     getTransactions({
       ocvId: this.ocvId,
@@ -98,6 +102,11 @@ export default class TransactionHistoryBoard extends LightningElement {
           if (this.fullTransactionList) {
             for (let i = 0; i < this.fullTransactionList.length; i++) {
               let currentTransaction = { ...this.fullTransactionList[i] };
+
+              // Set the transaction's dispute record type Id
+              currentTransaction.disputeRecordTypeId = this.transactionTypeDisputeIdMap[
+                currentTransaction.type
+              ];
 
               //Remove $ from value and convert to int
               if (
@@ -280,8 +289,8 @@ export default class TransactionHistoryBoard extends LightningElement {
     //The provided URL doesn't go through MS, so we need
     //to retrieve the params and pass them to the Apex class
     //and append it to the request
-    let nextSubstring = `&${this.links.next.href.substring(
-      this.links.next.href.indexOf("?") + 1
+    let nextSubstring = `${this.links.next.href.substring(
+      this.links.next.href.indexOf("?")
     )}`;
 
     this.fetchTransactions(nextSubstring);
@@ -310,8 +319,11 @@ export default class TransactionHistoryBoard extends LightningElement {
   handleSearch() {
     if (this.startDate && this.endDate) {
       this.loading = true;
+
       //Need to convert dates to ISO string for search params
-      let urlParam = `&start_date=${new Date(
+      let urlParam = `?account_number=${
+        this.accountNumber
+      }&start_date=${new Date(
         this.startDate + " 00:00:00 UTC"
       ).toISOString()}&end_date=${new Date(
         this.endDate + " 23:59:59 UTC"
@@ -355,5 +367,66 @@ export default class TransactionHistoryBoard extends LightningElement {
       return error;
     }
     return JSON.parse(error).message;
+  }
+
+  // Construct a map of transaction type and its corresponding case record type
+  handleGetDisputeRecordTypeDetails() {
+    getDisputeRecordTypeMap()
+      .then((result) => {
+        if (result) {
+          const returnedMap = JSON.parse(result);
+          this.transactionTypeDisputeIdMap.TRANSACTION_TYPE_CARD =
+            returnedMap.Card_Dispute.Id;
+          this.transactionTypeDisputeIdMap.TRANSACTION_TYPE_DEPOSIT_WITHDRAWAL =
+            returnedMap.ATM_Dispute.Id;
+          this.transactionTypeDisputeIdMap.TRANSACTION_TYPE_BSB_ACC_NUM =
+            returnedMap.Direct_Entry_Dispute.Id;
+          // Sort the map so record types will be presented in A-Z order
+          const sortedReturnedMap = Object.fromEntries(
+            Object.entries(returnedMap).sort()
+          );
+          // Construct a map of dispute record type's label and Id to send to transaction record
+          for (const [key, value] of Object.entries(sortedReturnedMap)) {
+            let recordTypeItem = {};
+            recordTypeItem.developerName = key;
+            recordTypeItem.label = value.Name;
+            recordTypeItem.value = value.Id;
+            this.disputeRecordTypes.push(recordTypeItem);
+          }
+        }
+      })
+      .then(() => {
+        this.fetchTransactions();
+      })
+      .catch((error) => {
+        handleErrorShowToast(
+          this,
+          "Failed To Retrieve Dispute Record Types",
+          error,
+          "Failed to retrieve dispute record types. Please refresh and try again. If the problem persists, please contact your System Administrator.",
+          "pester"
+        );
+      });
+  }
+
+  // Getting person contact Id so we can pre-populated it on the data capture form
+  handleGetPersonContactId() {
+    getPersonContactId({
+      financialAccountId: this.recordId
+    })
+      .then((result) => {
+        if (result != null) {
+          this.personContactId = result;
+        }
+      })
+      .catch((error) => {
+        handleErrorShowToast(
+          this,
+          "Failed To Retrieve Contact Id",
+          error,
+          "Failed to retrieve contact Id. Please refresh and try again. If the problem persists, please contact your System Administrator.",
+          "pester"
+        );
+      });
   }
 }

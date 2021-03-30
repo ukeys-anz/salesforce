@@ -194,4 +194,43 @@ public with sharing class NewCaseFlowWrapperController {
 
     return responseBody;
   }
+
+  /**
+   * @description Get available record types for Case object
+   * @return Serialized string of a list of record types
+   */
+  @SuppressWarnings(
+    'PMD.ApexCRUDViolation'
+  ) // Already check accessibility below but somehow PMD did not pick up
+  @AuraEnabled
+  public static String getCaseRecordTypes() {
+    List<String> recordTypesToExcl = new List<String>();
+    for (Case_Record_Type_To_Exclude__mdt mdt : [
+      SELECT DeveloperName
+      FROM Case_Record_Type_To_Exclude__mdt
+    ]) {
+      recordTypesToExcl.add(mdt.DeveloperName);
+    }
+    try {
+      List<Id> caseRecordTypeIds = CommonUtil.getAvailableRecordTypeIdsForSObject(
+        'Case'
+      );
+      if (
+        caseRecordTypeIds.size() > 0 && Schema.SObjectType.Case.isAccessible()
+      ) {
+        List<RecordType> rtToDisplay = [
+          SELECT Id, Name, Description, DeveloperName
+          FROM RecordType
+          WHERE
+            SobjectType = 'Case'
+            AND DeveloperName NOT IN :recordTypesToExcl
+            AND Id IN :caseRecordTypeIds
+        ];
+        return JSON.serialize(rtToDisplay);
+      }
+      return null;
+    } catch (Exception e) {
+      throw new AuraHandledException(e.getMessage());
+    }
+  }
 }

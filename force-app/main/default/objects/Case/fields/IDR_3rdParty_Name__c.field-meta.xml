@@ -3,7 +3,7 @@
     <fullName>IDR_3rdParty_Name__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate;Privacy - Personal Information</complianceGroup>
-    <description>Nominated 3rd party name</description>
+    <description>Nominated 3rd party name (Also used in Get Help for Preferred Contact details)</description>
     <externalId>false</externalId>
     <label>Nominated 3rd party name</label>
     <length>255</length>

@@ -2,9 +2,9 @@
   "folder": "docs",
   "objectwhitelist": [
     "Account",
+    "Activity",
     "Application_Log__c",
     "CaseComment",
-    "Case_Product__c",
     "Case",
     "Contact",
     "FinServ__FinancialAccount__c",
@@ -14,7 +14,7 @@
     "Release__c",
     "Reported_Bug__c",
     "SkyhighNetworks__SHNEvent__c",
-    "User_Provisioning_Request__c",
+    "Task",
     "trailheadapp__Badge__c",
     "trailheadapp__Debug_Log__c",
     "trailheadapp__Trail__c",
@@ -23,9 +23,8 @@
     "trailheadapp__Trailmix_Assignment__c",
     "trailheadapp__User_Badge__c",
     "trailheadapp__User_Trailmix__c",
-    "User",
-    "Activity",
-    "Task"
+    "User_Provisioning_Request__c",
+    "User"
   ],
   "usermap": [
     {
@@ -104,20 +103,6 @@
       "profile": "ANZ Standard User",
       "permissionsetgroups": ["IDR_Level_3"],
       "permissionsets": ["Enforce_SSO"],
-      "type": "user"
-    },
-    {
-      "name": "IDR Reporting Analyst",
-      "profile": "ANZ Standard User",
-      "permissionsetgroups": [],
-      "permissionsets": ["IDR_Reporting_Analyst, Enforce_SSO"],
-      "type": "user"
-    },
-    {
-      "name": "IDR Systemic Issue Team",
-      "profile": "ANZ Standard User",
-      "permissionsetgroups": [],
-      "permissionsets": ["Systemic_Issue_User_Base, Enforce_SSO"],
       "type": "user"
     },
     {
@@ -239,6 +224,34 @@
         "Enforce_mTLS"
       ],
       "type": "system"
+    },
+    {
+      "name": "Quality Analyst",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["Quality_Analyst"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Support Staff AR&C",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["Support_Staff_ARC"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Support Coach",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["Support_Coach"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Super Support Admin",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["Super_Support_Admin"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
     }
   ]
 }

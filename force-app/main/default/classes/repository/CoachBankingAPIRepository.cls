@@ -11,16 +11,26 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
    */
   public AccountsAndGoalsModel getAccounts(String ocvId) {
     AccountsAndGoalsModel result;
-    Service s = ServiceProvider.getService(FabricService.class);
-    HttpCalloutResponse response = s.getAccountsAndGoals(ocvId);
-    if (response.successful) {
-      try {
-        result = AccountsAndGoalsModel.parse(response.body);
-      } catch (Exception e) {
-        handleErrors(null, e, CoachBankingAPIRepository.class);
+    if (FeatureManagement.checkPermission('ANZx_Accounts_and_Goals')) {
+      Service s = ServiceProvider.getService(FabricService.class);
+      HttpCalloutResponse response = s.getAccountsAndGoals(ocvId);
+      if (response.successful) {
+        try {
+          result = AccountsAndGoalsModel.parse(response.body);
+        } catch (Exception e) {
+          handleErrors(null, e, CoachBankingAPIRepository.class);
+        }
+      } else {
+        handleErrors(response, null, CoachBankingAPIRepository.class);
       }
     } else {
-      handleErrors(response, null, CoachBankingAPIRepository.class);
+      handleErrors(
+        null,
+        new PermissionException(
+          'User does not have the ANZx Accounts and Goals permission'
+        ),
+        CoachBankingAPIRepository.class
+      );
     }
     return result;
   }
@@ -45,5 +55,13 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
       ahe.setMessage(e.getMessage());
       throw ahe;
     }
+  }
+
+  /**
+   * @author Lance
+   * @since March 2021
+   * @description insufficient permission exception
+   */
+  public class PermissionException extends Exception {
   }
 }
