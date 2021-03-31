@@ -12,6 +12,6 @@
     <label>IDR Spare</label>
     <queue>IDR_Spare</queue>
     <sharedTo>
-        <roleAndSubordinates>ANZ</roleAndSubordinates>
+        <allInternalUsers/>
     </sharedTo>
 </ListView>
