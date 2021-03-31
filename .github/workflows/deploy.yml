@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     container: ddawson235/sfdx:latest
     env:
-      BASE_BRANCH: ${{ github.base_ref }}
+      BASE_BRANCH: ${{ github.ref }}
     outputs:
       IS_SANDBOX_SECRET_SET: ${{ steps.checksecret.outputs.IS_SANDBOX_SECRET_SET }}
     steps:
