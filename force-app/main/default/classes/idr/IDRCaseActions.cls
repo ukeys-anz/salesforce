@@ -145,6 +145,7 @@ public with sharing class IDRCaseActions {
       }
     }
     handleOfficeAssignment(changeOfficeCaseList);
+    runCaseOwnerAssignmentRules(records, null);
     stampQueueName(records, null);
     //Update Date/Time PSI Ticked if complaint is flagged as PSI
     if (!updatePsiTicked.isEmpty()) {
@@ -1111,6 +1112,32 @@ public with sharing class IDRCaseActions {
       } else {
         record.IDR_Datetime_PSI_Ticked__c = null;
       }
+    }
+  }
+
+  private static void runCaseOwnerAssignmentRules(List<Case> caseRecords, Map<Id, Case> oldMap){
+    List<Group> queueList = [Select id FROM group
+    WHERE developername in :IDRConstants.workBasketNames  AND Type = :QUEUE_TYPE ];
+    Map<String,Id> queueMap = new Map<String,Id>();
+
+    for(Group queueRec :queueList){
+      queueMap.put(queueRec.Name, queueRec.Id);
+    }
+
+    for(Case caseRec :  caseRecords){
+      caseRec.OwnerID = getOwnerId(caseRec);
+    }
+  }
+
+  private static void getOwnerId(Case rec){
+    if(rec.IDR_Inbox_Email_Address__c == Label.EDR_inbox_address && rec.Status = 'Escalated'){
+      if(rec.Priority== 'Customer in Collections' || rec.Priority== 'Financial Hardship'){
+        return queueMap.get('Specialised Early Resolution Hardship');
+      }
+      if(rec.IDR_Subsequent_Issue__c == '38' || rec.IDR_Subsequent_Issue_2__c== '38' || rec.IDR_Subsequent_Issue_3__c == '38'){
+        return queueMap.get('Specialised Early Resolution Responsible Lending');
+      }
+      return queueMap.get('EDR Early Resolution');
     }
   }
 }

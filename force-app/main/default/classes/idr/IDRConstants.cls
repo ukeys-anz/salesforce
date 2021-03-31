@@ -119,4 +119,22 @@ public with sharing class IDRConstants {
     }
     set;
   }
+
+  /**
+   * @description Static variable to map anz.com Issue type field with case type field
+   * @return anzComIssueTypeMapping map of anz.com Issue type field with case type field
+   */
+  public static final List<String> workBasketNames {
+    get {
+      if (workBasketNames == null) {
+        workBasketNames = new List<String>{
+          'Specialised Early Resolution Hardship',
+          'Specialised Early Resolution Responsible Lending',
+          'EDR Early Resolution'
+        };
+      }
+      return workBasketNames;
+    }
+    set;
+  }
 }
