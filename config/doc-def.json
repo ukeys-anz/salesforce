@@ -233,6 +233,13 @@
       "type": "user"
     },
     {
+      "name": "Sailpoint User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": ["API_Only", "User_Provisioning"],
+      "type": "system"
+    },
+    {
       "name": "Support Staff AR&C",
       "profile": "ANZx Standard User",
       "permissionsetgroups": ["Support_Staff_ARC"],

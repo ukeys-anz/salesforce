@@ -1591,7 +1591,81 @@
         <endAddress>203.110.235.133</endAddress>
         <startAddress>203.110.235.131</startAddress>
     </loginIpRanges>
-
+    <loginIpRanges>
+        <description>Sailpoint Dev</description>
+        <endAddress>10.204.105.219</endAddress>
+        <startAddress>10.204.105.219</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Sailpoint Dev</description>
+        <endAddress>10.204.106.137</endAddress>
+        <startAddress>10.204.106.137</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Sailpoint NonProd</description>
+        <endAddress>10.52.99.49</endAddress>
+        <startAddress>10.52.99.49</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Sailpoint NonProd</description>
+        <endAddress>10.52.99.65</endAddress>
+        <startAddress>10.52.99.65</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Sailpoint NonProd</description>
+        <endAddress>10.53.140.20</endAddress>
+        <startAddress>10.53.140.17</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Sailpoint NonProd</description>
+        <endAddress>10.204.106.136</endAddress>
+        <startAddress>10.204.106.134</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Sailpoint NonProd</description>
+        <endAddress>10.204.106.138</endAddress>
+        <startAddress>10.204.106.138</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Sailpoint NonProd</description>
+        <endAddress>10.52.50.59</endAddress>
+        <startAddress>10.52.50.59</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Sailpoint NonProd</description>
+        <endAddress>10.52.50.82</endAddress>
+        <startAddress>10.52.50.80</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Sailpoint NonProd</description>
+        <endAddress>10.52.50.244</endAddress>
+        <startAddress>10.52.50.244</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Sailpoint NonProd</description>
+        <endAddress>10.53.140.25</endAddress>
+        <startAddress>10.53.140.21</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Sailpoint NonProd</description>
+        <endAddress>10.204.72.14</endAddress>
+        <startAddress>10.204.72.10</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Sailpoint NonProd</description>
+        <endAddress>10.53.140.30</endAddress>
+        <startAddress>10.53.140.26</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Sailpoint Prod</description>
+        <endAddress>10.152.198.5</endAddress>
+        <startAddress>10.152.198.1</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Sailpoint Prod</description>
+        <endAddress>10.156.198.5</endAddress>
+        <startAddress>10.156.198.1</startAddress>
+    </loginIpRanges>
     <userPermissions>
         <enabled>false</enabled>
         <name>AccessCMC</name>
