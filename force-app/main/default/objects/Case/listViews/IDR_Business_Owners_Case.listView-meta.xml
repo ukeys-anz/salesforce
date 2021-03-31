@@ -12,6 +12,6 @@
     <label>IDR Business Owners</label>
     <queue>IDR_Business_Owners</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <roleAndSubordinates>ANZ</roleAndSubordinates>
     </sharedTo>
 </ListView>
