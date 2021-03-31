@@ -43,6 +43,41 @@
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>Dispute_RT_FraudXAgents_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>All Cases having &quot;Dispute&quot; record types are to be shared with FraudX Agents with Read-Only access.</description>
+        <label>Dispute_RT-FraudXAgents-RO</label>
+        <sharedTo>
+            <role>FraudX_Agent</role>
+        </sharedTo>
+        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5</booleanFilter>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>ATM</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Card</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Direct Debit</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Direct Entry</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Urgent Dishonour Request</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>Dispute_RTs_Coaches_RW</fullName>
         <accessLevel>Edit</accessLevel>
         <description>All Cases having Dispute related record types are to be shared with Coaches with Read/Write access.</description>
