@@ -2,17 +2,15 @@ import { LightningElement, wire, api, track } from "lwc";
 import { refreshApex } from "@salesforce/apex";
 import getRestrictedCaseData from "@salesforce/apex/GetRestrictedCaseInfo.getRestrictedCaseData";
 
-const actions = [{ label: "Add Case Comment", name: "add_case_comment" }];
+const actions = [
+  { label: "Add Case Comment", name: "add_case_comment" },
+  { label: "Upload Files", name: "update_files" }
+];
 const columns = [
   {
     label: "Case Number",
     fieldName: "CaseNumber",
     type: "text",
-    sortable: true
-  },
-  {
-    label: "Status",
-    fieldName: "Status",
     sortable: true
   },
   {
@@ -34,6 +32,16 @@ const columns = [
   {
     label: "Last Name",
     fieldName: "IDR_NC_Last_Name__c",
+    sortable: true
+  },
+  {
+    label: "Case Owner",
+    fieldName: "caseOwner",
+    sortable: true
+  },
+  {
+    label: "Status",
+    fieldName: "Status",
     sortable: true
   },
   {
@@ -74,8 +82,10 @@ export default class RestrictedCaseDetails extends LightningElement {
       sortBy: this.sortBy,
       sortDirection: this.sortedDirection
     })
-      .then((result) => {
-        this.items = result;
+      .then(result => {
+        this.items = result.map(row => {
+          return { ...row, caseOwner: row.Owner.Name };
+        });
         this.totalRecountCount = result.length;
         this.totalPage = Math.ceil(this.totalRecountCount / this.pageSize);
 
@@ -85,7 +95,7 @@ export default class RestrictedCaseDetails extends LightningElement {
 
         this.error = undefined;
       })
-      .catch((error) => {
+      .catch(error => {
         this.error = error;
         this.data = undefined;
       });
@@ -124,14 +134,14 @@ export default class RestrictedCaseDetails extends LightningElement {
   // Used to sort the 'Age' column
   sortBy(field, reverse, primer) {
     const key = primer
-      ? function (x) {
+      ? function(x) {
           return primer(x[field]);
         }
-      : function (x) {
+      : function(x) {
           return x[field];
         };
 
-    return function (a, b) {
+    return function(a, b) {
       a = key(a);
       b = key(b);
       return reverse * ((a > b) - (b > a));
