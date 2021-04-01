@@ -483,6 +483,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.Restriction_Level__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.SuppliedEmail</field>
         <readable>true</readable>
     </fieldPermissions>

@@ -1049,6 +1049,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Restriction_Level__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.IDR_Subsequent_Issue__c</field>
         <readable>true</readable>
     </fieldPermissions>
