@@ -13,6 +13,11 @@
             <operation>equals</operation>
             <value>Customer Complaint,Non-Customer Complaint</value>
         </criteriaItems>
+        <criteriaItems>
+            <field>Restriction_Level__c</field>
+            <operation>equals</operation>
+            <value/>
+        </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Complaint_RTs_BankerManager_RW</fullName>
@@ -27,6 +32,25 @@
             <operation>equals</operation>
             <value>Customer Complaint,Non-Customer Complaint</value>
         </criteriaItems>
+        <criteriaItems>
+            <field>Restriction_Level__c</field>
+            <operation>equals</operation>
+            <value/>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Complaint_RTs_CRPLTUsers_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Great Read write access to complaint records for Customer Resolution Leadership Users</description>
+        <label>Complaint_RTs_CRPLTUsers_RW</label>
+        <sharedTo>
+            <role>Customer_Resolution_Leadership</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Complaint,Non-Customer Complaint</value>
+        </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Complaint_RTs_CRPUsers_RW</fullName>
@@ -34,12 +58,17 @@
         <description>Great Read write access to complaint records for Customer Resolution Users</description>
         <label>Complaint_RTs_CRPUsers_RW</label>
         <sharedTo>
-            <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
+            <role>Customer_Resolution</role>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Customer Complaint,Non-Customer Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Restriction_Level__c</field>
+            <operation>notEqual</operation>
+            <value>Highly Sensitive</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
