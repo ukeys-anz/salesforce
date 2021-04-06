@@ -4,6 +4,7 @@ import { subscribe, MessageContext } from "lightning/messageService";
 import ExpandCollapseAll from "@salesforce/messageChannel/ListCollapseExpandAll__c";
 
 import { NavigationMixin } from "lightning/navigation";
+import canRaiseDispute from "@salesforce/customPermission/ANZx_Raise_Dispute";
 
 export default class TransactionHistoryRecord extends NavigationMixin(
   LightningElement
@@ -37,6 +38,10 @@ export default class TransactionHistoryRecord extends NavigationMixin(
     if (this.expandAll) {
       this.showTransactionDetails = true;
     }
+  }
+
+  get disableRaiseDisputeBtn() {
+    return !canRaiseDispute;
   }
 
   get merchantPhoneNumber() {

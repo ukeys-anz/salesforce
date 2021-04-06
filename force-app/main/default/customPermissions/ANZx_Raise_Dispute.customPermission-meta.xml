@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomPermission xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This custom permission allows user to raise disputes from the financial account page. Without this custom permission, the &quot;Raise Dispute&quot; button will be disabled for the user.</description>
+    <isLicensed>false</isLicensed>
+    <label>ANZx Raise Dispute</label>
+</CustomPermission>
