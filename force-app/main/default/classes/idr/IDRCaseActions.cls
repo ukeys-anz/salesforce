@@ -215,7 +215,6 @@ public with sharing class IDRCaseActions {
    */
   public static void completeAfterActions() {
     sendNotifications(notificationCaseList);
-    CheckRecursive.run();
     executeAssignmentRule(caseEscalationList);
     notificationCaseList.clear();
     caseEscalationList.clear();
