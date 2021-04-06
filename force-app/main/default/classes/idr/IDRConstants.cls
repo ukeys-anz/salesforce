@@ -128,9 +128,9 @@ public with sharing class IDRConstants {
     get {
       if (workBasketNames == null) {
         workBasketNames = new List<String>{
-          'Specialised Early Resolution Hardship',
-          'Specialised Early Resolution Responsible Lending',
-          'EDR Early Resolution'
+          'Specialised_Early_Resolution_Hardship',
+          'Specialised_EarlyRes_Responsible_Lending',
+          'EDR_Early_Resolution'
         };
       }
       return workBasketNames;
