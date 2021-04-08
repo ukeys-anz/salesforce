@@ -121,7 +121,7 @@ public with sharing class FinancialAccountTriggerHandlerTest {
     FinServ__FinancialAccount__c updatedFinAccount = [
       SELECT Id, FinServ__PrimaryOwner__c, Primary_Owner_Start_Date__c
       FROM FinServ__FinancialAccount__c
-      WHERE Name = 'Everyday Account'
+      LIMIT 1
     ];
     System.assertEquals(
       accnt2.Id,
