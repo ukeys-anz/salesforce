@@ -42,7 +42,7 @@ public with sharing class FinancialAccountTriggerHandlerTest {
     FinServ__FinancialAccount__c finAccount = [
       SELECT Id, FinServ__PrimaryOwner__c, Primary_Owner_Start_Date__c
       FROM FinServ__FinancialAccount__c
-      WHERE Name = 'Everyday Account'
+      LIMIT 1
     ];
 
     Faker faker = new Faker('AU');
@@ -74,7 +74,7 @@ public with sharing class FinancialAccountTriggerHandlerTest {
     FinServ__FinancialAccount__c finAccount = [
       SELECT Id, FinServ__PrimaryOwner__c, Primary_Owner_Start_Date__c
       FROM FinServ__FinancialAccount__c
-      WHERE Name = 'Everyday Account'
+      LIMIT 1
     ];
     Test.startTest();
     try {
@@ -96,7 +96,7 @@ public with sharing class FinancialAccountTriggerHandlerTest {
     FinServ__FinancialAccount__c finAccount = [
       SELECT Id, FinServ__PrimaryOwner__c, Primary_Owner_Start_Date__c
       FROM FinServ__FinancialAccount__c
-      WHERE Name = 'Everyday Account'
+      LIMIT 1
     ];
 
     Faker faker = new Faker('AU');
