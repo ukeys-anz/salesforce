@@ -76,7 +76,6 @@ private class CaseTriggerHandlerTest {
       );
       accnts.add(personAcc);
 
-
       Account a = new Account(
         Name = 'Complaint Entitlement Account',
         OCV_ID__c = faker.randomString(10),
@@ -725,7 +724,6 @@ private class CaseTriggerHandlerTest {
     system.assertEquals('Normal', checkMilestone.IDR_Milestone_Sla__c);
   }
 
-
   @isTest
   static void testRollupRelatedBugOnInsert() {
     insert new Reported_Bug__c(Name = 'Test Bug');
@@ -986,7 +984,7 @@ private class CaseTriggerHandlerTest {
     List<Task> psiTasks = [SELECT Id, Subject, OwnerId FROM Task];
     System.assertEquals(IDRCaseActions.siQueue.Id, psiTasks[0].OwnerId);
     System.assertEquals(IDRCaseActions.IDR_TASK_SUBJECT, psiTasks[0].Subject);
-  } 
+  }
 
   //Tests if the Dispute Case Subject is populated correctly based on case record type and dispute reason
   /*@isTest
@@ -1185,14 +1183,15 @@ private class CaseTriggerHandlerTest {
     List<Case> caseList = [
       SELECT Id, IDR_Stop_Collections__c
       FROM Case
-      WHERE id IN :newCases];
-      for (Case c : caseList) {
-        System.assertEquals(false, c.IDR_Stop_Collections__c);
-      }
-      Test.stopTest();
+      WHERE id IN :newCases
+    ];
+    for (Case c : caseList) {
+      System.assertEquals(false, c.IDR_Stop_Collections__c);
     }
+    Test.stopTest();
+  }
 
-    @istest
+  @istest
   static void testCollectionsOnUpdatePostivite() {
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
@@ -1203,7 +1202,7 @@ private class CaseTriggerHandlerTest {
           Priority = 'Standard',
           Type = '9',
           IDR_Subsequent_Issue__c = '57'
-          )
+        )
       );
     }
     insert newCases;
@@ -1290,13 +1289,14 @@ private class CaseTriggerHandlerTest {
     Test.startTest();
     case updateCase = new case(
       Id = testCase.Id,
-      IDR_Date_Received__c = system.now().addDays(1));
-      update updateCase;
-      Test.stopTest();
-  
-      task checkTask = [SELECT ActivityDate FROM Task WHERE id = :idrTask.Id];
-  
-      system.assertNotEquals(idrTask.ActivityDate, checkTask.ActivityDate);
+      IDR_Date_Received__c = system.now().addDays(1)
+    );
+    update updateCase;
+    Test.stopTest();
+
+    task checkTask = [SELECT ActivityDate FROM Task WHERE id = :idrTask.Id];
+
+    system.assertNotEquals(idrTask.ActivityDate, checkTask.ActivityDate);
   }
 
   //Tests if ANZ Plus Case ContactId is populated correctly based on Account.
