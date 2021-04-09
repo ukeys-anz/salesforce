@@ -145,7 +145,7 @@ public with sharing class IDRCaseActions {
       }
     }
     handleOfficeAssignment(changeOfficeCaseList);
-    runCaseOwnerAssignmentRules(records);
+    runCaseOwnerAssignmentRules(records, null);
     stampQueueName(records, null);
     //Update Date/Time PSI Ticked if complaint is flagged as PSI
     if (!updatePsiTicked.isEmpty()) {
@@ -219,7 +219,7 @@ public with sharing class IDRCaseActions {
     }
     //calling handleOfficeAssignment for all case records for which the IDR_Office__c needs to be updated.
     handleOfficeAssignment(changeOfficeCaseList);
-    runCaseOwnerAssignmentRules(records);
+    runCaseOwnerAssignmentRules(records, (Map<Id, Case>) oldMap);
     stampQueueName(records, (Map<Id, Case>) oldMap);
     //Update Date/Time PSI Ticked if complaint is flagged as PSI
     if (!updatePsiTicked.isEmpty()) {
@@ -1121,7 +1121,7 @@ public with sharing class IDRCaseActions {
    * @param caseRecords Records in the current context
    */
   private static void runCaseOwnerAssignmentRules(
-    List<Case> caseRecords
+    List<Case> caseRecords, Map<ID, Case> oldMap
   ) {
     Map<String, Id> queueMap = new Map<String, Id>();
     List<Group> queueList = [
@@ -1137,12 +1137,11 @@ public with sharing class IDRCaseActions {
     }
 
     for (Case caseRec : caseRecords) {
-      ID  ownerId= IDRCaseAssignmentRules.getOwnerId(caseRec, queueMap);
+      Case oldCase = (oldMap != null? oldMap.get(caseRec.Id) : null );
+      ID  ownerId= IDRCaseAssignmentRules.getOwnerId(caseRec, queueMap, oldCase);
       if(ownerId != null){
             caseRec.OwnerID = ownerId ;
       }
     }
   }
-
- 
 }

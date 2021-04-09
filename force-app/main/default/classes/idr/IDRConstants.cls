@@ -62,6 +62,9 @@ public with sharing class IDRConstants {
   public static final string MILESTONE_STANDARD = '30-day IDR Response Due';
   public static final string MILESTONE_PRIORITY = '21-day IDR Response Due';
 
+  //Channel Recieved
+  public static final string CHANNEL_RECEIVED_AFCA_REFERRED = '11';
+
   //Anz.com constants
   /**
    * @description Static variable to map anz.com field with case fields
