@@ -1130,7 +1130,7 @@ public with sharing class IDRCaseActions {
     if (Group.sObjectType.getDescribe().isQueryable()) {
       queueList = [
         SELECT id, developername
-        FROM group
+        FROM Group
         WHERE
           developername IN :IDRConstants.workBasketNames
           AND Type = :QUEUE_TYPE
