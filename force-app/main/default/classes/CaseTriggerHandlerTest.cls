@@ -64,7 +64,6 @@ private class CaseTriggerHandlerTest {
           )
         );
       }
-
       // Create a PersonAccount
       Account personAcc = new Account(
         RecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
@@ -77,7 +76,47 @@ private class CaseTriggerHandlerTest {
       );
       accnts.add(personAcc);
 
+      Account a = new Account(
+        Name = 'Complaint Entitlement Account',
+        OCV_ID__c = faker.randomString(10),
+        ANZx_Customer__c = false
+      );
+      accnts.add(a);
       insert accnts;
+
+      // Create IDR L1 user
+      Profile anzProfile = [
+        SELECT Id
+        FROM Profile
+        WHERE Name = 'ANZ Standard User'
+        LIMIT 1
+      ];
+
+      User idrUser = (User) FakerFactory.make(new FakerUserFactory());
+      idrUser.FirstName = 'IDRL1';
+      idrUser.ProfileId = anzProfile.Id;
+      insert idrUser;
+
+      // Assign related PSs
+      List<String> idrPsets = new List<String>{
+        'IDR_User',
+        'IDR_User_Level_1'
+      };
+      List<PermissionSet> idrPsetList = [
+        SELECT Id
+        FROM PermissionSet
+        WHERE Name IN :idrPsets
+      ];
+
+      List<PermissionSetAssignment> idrPsaList = new List<PermissionSetAssignment>();
+      for (PermissionSet ps : idrPsetList) {
+        PermissionSetAssignment psa = new PermissionSetAssignment(
+          AssigneeId = idrUser.id,
+          PermissionSetId = ps.Id
+        );
+        idrPsaList.add(psa);
+      }
+      insert idrPsaList;
     }
   }
 
@@ -626,6 +665,65 @@ private class CaseTriggerHandlerTest {
     );
   }
 
+  //Tests if the complaints entitlment logic in working as expected.
+  @isTest
+  static void testComplaintEntilement() {
+    Account a = [
+      SELECT Id
+      FROM Account
+      WHERE Name = 'Complaint Entitlement Account'
+      LIMIT 1
+    ];
+    Slaprocess sla = [
+      SELECT Id, NAME
+      FROM Slaprocess
+      WHERE Name = 'complaints'
+      LIMIT 1
+    ];
+    Entitlement et = new Entitlement(
+      Name = 'Complaints Entitlement',
+      AccountId = a.Id,
+      StartDate = Date.valueof(System.now().addDays(-2)),
+      SlaProcessId = sla.Id
+    );
+    insert et;
+    Case[] complaintCaselist = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      complaintCaselist.add(
+        new Case(
+          IDR_Account_Card_Policy_Number__c = '000001234',
+          Description = 'Test check entitlement',
+          IDR_Complainant_Desired_Outcome__c = 'entitlement id populated',
+          IDR_Description_of_Outcome__c = 'entitlement id populated',
+          IDR_Systemic_Issue_Description__c = 'None',
+          RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+          IDR_Customer_Number__c = '1234567890'
+        )
+      );
+    }
+    insert complaintCaselist;
+    case checkEntitlment = [
+      SELECT Id, EntitlementId, Status, IDR_Milestone_Sla__c
+      FROM Case
+      WHERE Id = :complaintCaselist[0].Id
+      LIMIT 1
+    ];
+    system.assertEquals(et.Id, checkEntitlment.EntitlementId);
+    system.assertEquals('Normal', checkEntitlment.IDR_Milestone_Sla__c);
+    CheckRecursive.firstCall = false;
+
+    checkEntitlment.Status = 'Under Investigation';
+    checkEntitlment.IDR_Milestone_Sla__c = '2 business days';
+    update checkEntitlment;
+    case checkMilestone = [
+      SELECT Id, EntitlementId, Status, IDR_Milestone_Sla__c
+      FROM Case
+      WHERE Id = :complaintCaselist[0].Id
+      LIMIT 1
+    ];
+    system.assertEquals('Normal', checkMilestone.IDR_Milestone_Sla__c);
+  }
+
   @isTest
   static void testRollupRelatedBugOnInsert() {
     insert new Reported_Bug__c(Name = 'Test Bug');
@@ -850,6 +948,43 @@ private class CaseTriggerHandlerTest {
       'Failed to autopopulate Subject on Fraud cases as expected, while updating'
     );
   }
+  @isTest
+  static void testPSITaskCreation() {
+    // GIVEN complaint cases which are possibly systemic issues
+    Case[] caseList1 = new List<Case>();
+    Case[] caseList2 = new List<Case>();
+    User level1User = [SELECT Id FROM User WHERE FirstName = 'IDRL1'];
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      caseList1.add(
+        new Case(
+          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
+          IDR_Is_Common__c = 'Yes',
+          IDR_Systemic_Issue_Description__c = 'Test Description',
+          IDR_Systemic_Issue_Category__c = '1'
+        )
+      );
+    }
+    test.startTest();
+    System.runAs(level1User) {
+      // WHEN they are inserted or updated by L1 User
+      insert caseList1;
+    }
+    // When they are Escalated and Resolved by any user
+    insert caseList2;
+    for (Case updateCase : caseList2) {
+      updateCase.Status = 'Resolved';
+      updateCase.IDR_Complaint_Outcome__c = '1';
+      updateCase.IDR_Complaint_Remedy__c = '2';
+      updateCase.IDR_Non_Financial_Remedy__c = '5';
+      updateCase.IDR_Description_of_Outcome__c = 'Test';
+    }
+    update caseList2;
+    test.stopTest();
+    // THEN new tasks are created and assigned to PSI queue
+    List<Task> psiTasks = [SELECT Id, Subject, OwnerId FROM Task];
+    System.assertEquals(IDRCaseActions.siQueue.Id, psiTasks[0].OwnerId);
+    System.assertEquals(IDRCaseActions.IDR_TASK_SUBJECT, psiTasks[0].Subject);
+  }
 
   //Tests if the Dispute Case Subject is populated correctly based on case record type and dispute reason
   /*@isTest
@@ -1027,6 +1162,141 @@ private class CaseTriggerHandlerTest {
     Case c = [SELECT BusinessHoursId FROM Case WHERE id = :newCase.id];
 
     System.assertEquals(bhs.Id, c.BusinessHoursId);
+  }
+
+  @istest
+  static void testCollectionsOnInsertNegative() {
+    Case[] newCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+          IDR_Customer_Number__c = '1234567890',
+          Priority = 'Standard',
+          Type = '4',
+          IDR_Subsequent_Issue__c = '20'
+        )
+      );
+    }
+    Test.startTest();
+    insert newCases;
+    List<Case> caseList = [
+      SELECT Id, IDR_Stop_Collections__c
+      FROM Case
+      WHERE id IN :newCases
+    ];
+    for (Case c : caseList) {
+      System.assertEquals(false, c.IDR_Stop_Collections__c);
+    }
+    Test.stopTest();
+  }
+
+  @istest
+  static void testCollectionsOnUpdatePostivite() {
+    Case[] newCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+          IDR_Customer_Number__c = '1234567890',
+          Priority = 'Standard',
+          Type = '9',
+          IDR_Subsequent_Issue__c = '57'
+        )
+      );
+    }
+    insert newCases;
+
+    Test.startTest();
+
+    for (Case c : newCases) {
+      c.Priority = 'Customer in Collections';
+      c.Type = '4';
+      c.IDR_Subsequent_Issue__c = '20';
+    }
+    update newCases;
+
+    List<Case> caseList = [
+      SELECT Id, IDR_Stop_Collections__c
+      FROM Case
+      WHERE id IN :newCases
+    ];
+
+    for (Case c : caseList) {
+      System.assertEquals(true, c.IDR_Stop_Collections__c);
+    }
+    Test.stopTest();
+  }
+
+  @istest
+  static void testCollectionsOnInsertPositive() {
+    Case[] newCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+          IDR_Customer_Number__c = '1234567890',
+          Priority = 'Customer in Collections',
+          Type = '4',
+          IDR_Subsequent_Issue__c = '20'
+        )
+      );
+    }
+    Test.startTest();
+    insert newCases;
+    List<Case> caseList = [
+      SELECT Id, IDR_Stop_Collections__c
+      FROM Case
+      WHERE id IN :newCases
+    ];
+
+    for (Case c : caseList) {
+      System.assertEquals(true, c.IDR_Stop_Collections__c);
+    }
+    Test.stopTest();
+  }
+
+  @istest
+  static void testIDRCaseDateRecievedUpdate() {
+    Case[] newCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
+          IDR_Date_Received__c = system.now()
+        )
+      );
+    }
+    insert newCases;
+
+    case testCase = [
+      SELECT Id, BusinessHoursId
+      FROM case
+      WHERE id = :newCases[0].Id
+    ];
+
+    task idrTask = new task(
+      whatId = testCase.Id,
+      Subject = IDRConstants.TASK_SUBJECT_DAY5,
+      RecordTypeId = IDRTaskActions.IDR_MAXIMUM_TIME_RT_ID,
+      Priority = 'Standard',
+      ActivityDate = system.today()
+    );
+    insert idrTask;
+
+    checkRecursive.firstCall = false;
+
+    Test.startTest();
+    case updateCase = new case(
+      Id = testCase.Id,
+      IDR_Date_Received__c = system.now().addDays(1)
+    );
+    update updateCase;
+    Test.stopTest();
+
+    task checkTask = [SELECT ActivityDate FROM Task WHERE id = :idrTask.Id];
+
+    system.assertNotEquals(idrTask.ActivityDate, checkTask.ActivityDate);
   }
 
   //Tests if ANZ Plus Case ContactId is populated correctly based on Account.
