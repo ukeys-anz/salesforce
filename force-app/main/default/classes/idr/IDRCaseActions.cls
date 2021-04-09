@@ -1126,8 +1126,9 @@ public with sharing class IDRCaseActions {
     Map<ID, Case> oldMap
   ) {
     Map<String, Id> queueMap = new Map<String, Id>();
+    List<Group> queueList;
     if (Group.sObjectType.getDescribe().isQueryable()) {
-      List<Group> queueList = [
+      queueList = [
         SELECT id, developername
         FROM group
         WHERE
