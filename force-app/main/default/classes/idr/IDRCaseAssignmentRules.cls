@@ -1,4 +1,18 @@
+/**
+ * @author Afreen Khan
+ * @since 03/2021
+ * @description  Contains Complaints Assignment rules conditions
+ */
+@SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class IDRCaseAssignmentRules {
+
+  /**
+   * @description method to run the Case assignment rules conditions
+   * @param rec case record
+   * @param queueMap Map of queue name to be used in the logic
+   * @param oldCase old record of case
+   * @return Queue Id
+   */
   public static ID getOwnerId(
     Case rec,
     Map<String, Id> queueMap,

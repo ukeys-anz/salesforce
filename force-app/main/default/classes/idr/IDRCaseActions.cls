@@ -1119,28 +1119,38 @@ public with sharing class IDRCaseActions {
   /**
    * @description method to call the Case assignment rules
    * @param caseRecords Records in the current context
+   * @param oldMap old map of case record in current trigger context
    */
   private static void runCaseOwnerAssignmentRules(
-    List<Case> caseRecords, Map<ID, Case> oldMap
+    List<Case> caseRecords,
+    Map<ID, Case> oldMap
   ) {
     Map<String, Id> queueMap = new Map<String, Id>();
-    List<Group> queueList = [
-      SELECT id, developername
-      FROM group
-      WHERE
-        developername IN :IDRConstants.workBasketNames
-        AND Type = :QUEUE_TYPE
-    ];
+    if (Group.sObjectType.getDescribe().isQueryable()) {
+      List<Group> queueList = [
+        SELECT id, developername
+        FROM group
+        WHERE
+          developername IN :IDRConstants.workBasketNames
+          AND Type = :QUEUE_TYPE
+      ];
+    }
 
     for (Group queueRec : queueList) {
       queueMap.put(queueRec.developername, queueRec.Id);
     }
 
     for (Case caseRec : caseRecords) {
-      Case oldCase = (oldMap != null? oldMap.get(caseRec.Id) : null );
-      ID  ownerId= IDRCaseAssignmentRules.getOwnerId(caseRec, queueMap, oldCase);
-      if(ownerId != null){
-            caseRec.OwnerID = ownerId ;
+      Case oldCase = (oldMap != null ? oldMap.get(caseRec.Id) : null);
+      if (isIDRComplaintType(caseRec)) {
+        ID ownerId = IDRCaseAssignmentRules.getOwnerId(
+          caseRec,
+          queueMap,
+          oldCase
+        );
+        if (ownerId != null) {
+          caseRec.OwnerID = ownerId;
+        }
       }
     }
   }
