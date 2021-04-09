@@ -13,7 +13,7 @@ COMPONENT_DIR=(aura lwc)
 if [ -z "$SOURCE_BRANCH" ]; then
    [ $GITHUB_EVENT_NAME == "pull_request" ] &&
       SOURCE_BRANCH=$BASE_BRANCH ||
-      SOURCE_BRANCH=${GITHUB_REF##*/}
+      SOURCE_BRANCH=${GITHUB_REF#refs/heads/}
 fi
 # If TAG_PREFIX is specified in the yml, do not overwrite
 if [ -z "$TAG_PREFIX" ]; then
@@ -70,7 +70,7 @@ if [ "${DELETED_FILES}" -gt "0" ]; then
     cd ./tmp/
     if [ ! -d ${CURRENT_DIR}/artefact ]; then
         mkdir ${CURRENT_DIR}/artefact
-        echo '<?xml version="1.0" encoding="UTF-8"?><Package xmlns="http://soap.sforce.com/2006/04/metadata"><version>48.0</version></Package>' > ${CURRENT_DIR}/artefact/package.xml
+        echo '<?xml version="1.0" encoding="UTF-8"?><Package xmlns="http://soap.sforce.com/2006/04/metadata"><version>50.0</version></Package>' > ${CURRENT_DIR}/artefact/package.xml
     fi
     mv package.xml ${CURRENT_DIR}/artefact/destructiveChanges.xml
     # Return to working DIR

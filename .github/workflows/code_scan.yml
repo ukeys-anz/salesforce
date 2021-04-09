@@ -1,10 +1,10 @@
 # This workflow scans a salesforce project against PMD rulesets
 name: Scan
 
-# This workflow will only run on Pull Requests against develop
+# This workflow will only run on Pull Requests against master , develop and epic/*
 on:
   pull_request:
-    branches: [develop, master]
+    branches: [develop, master, epic/*]
 
 jobs:
   pmd:

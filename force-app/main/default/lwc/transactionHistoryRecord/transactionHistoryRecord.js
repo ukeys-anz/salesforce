@@ -4,6 +4,7 @@ import { subscribe, MessageContext } from "lightning/messageService";
 import ExpandCollapseAll from "@salesforce/messageChannel/ListCollapseExpandAll__c";
 
 import { NavigationMixin } from "lightning/navigation";
+import canRaiseDispute from "@salesforce/customPermission/ANZx_Raise_Dispute";
 
 export default class TransactionHistoryRecord extends NavigationMixin(
   LightningElement
@@ -37,6 +38,10 @@ export default class TransactionHistoryRecord extends NavigationMixin(
     if (this.expandAll) {
       this.showTransactionDetails = true;
     }
+  }
+
+  get disableRaiseDisputeBtn() {
+    return !canRaiseDispute;
   }
 
   get merchantPhoneNumber() {
@@ -191,6 +196,9 @@ export default class TransactionHistoryRecord extends NavigationMixin(
     if (this.transactionRecord.amount.charged.value)
       defaultFieldValues +=
         ",Amount__c=" + Math.abs(this.transactionRecord.amount.charged.value); // Return the absolute value of amount
+    // Explicitly set the Origin to null so on the layout it's not defaulted to Phone
+    // The reason is because if the user is a call center user, and the record type does not have a default value for Case Origin, it will be defaulted to Phone
+    defaultFieldValues += ",Origin=";
 
     this[NavigationMixin.Navigate]({
       type: "standard__objectPage",
