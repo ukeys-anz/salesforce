@@ -78,7 +78,7 @@ export default class IDRFilesRelatedList extends LightningElement {
   columns = columns;
   connectedCallback() {
     getCaseRelatedFiles({ caseId: this.recordId })
-      .then(result => {
+      .then((result) => {
         let filelist = result;
         this.files = filelist;
         this.filesToDisplay = this.files;
@@ -87,13 +87,13 @@ export default class IDRFilesRelatedList extends LightningElement {
           this.allFileIdList.push(filelist[i].fileId);
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.log("error:" + error);
         console.log("errorbody:" + JSON.stringify(error));
         let errorMessage = "Failed to retrive case files";
         if (error.body) {
           if (Array.isArray(error.body)) {
-            errorMessage = error.body.map(e => e.message).join(", ");
+            errorMessage = error.body.map((e) => e.message).join(", ");
           } else if (typeof error.body.message === "string") {
             errorMessage = error.body.message;
           }
@@ -113,7 +113,7 @@ export default class IDRFilesRelatedList extends LightningElement {
     this.searchStartDate = "";
     this.searchEndDate = "";
     getCaseRelatedFiles({ caseId: this.recordId })
-      .then(result => {
+      .then((result) => {
         let filelist = result;
         this.files = filelist;
         this.filesToDisplay = this.files;
@@ -122,13 +122,13 @@ export default class IDRFilesRelatedList extends LightningElement {
           this.allFileIdList.push(filelist[i].fileId);
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.log("error:" + error);
         console.log("errorbody:" + JSON.stringify(error));
         let errorMessage = "Failed to refresh case files list";
         if (error.body) {
           if (Array.isArray(error.body)) {
-            errorMessage = error.body.map(e => e.message).join(", ");
+            errorMessage = error.body.map((e) => e.message).join(", ");
           } else if (typeof error.body.message === "string") {
             errorMessage = error.body.message;
           }
@@ -146,7 +146,7 @@ export default class IDRFilesRelatedList extends LightningElement {
     let getField = fieldname === "fileUrl" ? "fileName" : fieldname;
 
     // Return the value stored in the field
-    let keyValue = a => {
+    let keyValue = (a) => {
       return a[getField];
     };
     // cheking reverse direction
@@ -201,15 +201,15 @@ export default class IDRFilesRelatedList extends LightningElement {
         searchArray: searchKeyWords,
         validDocIdList: this.allFileIdList
       })
-        .then(result => {
+        .then((result) => {
           this.AllFieldSearchResult = result;
           this.filterFiles();
         })
-        .catch(error => {
+        .catch((error) => {
           let errorMessage = "Failed to search files content";
           if (error.body) {
             if (Array.isArray(error.body)) {
-              errorMessage = error.body.map(e => e.message).join(", ");
+              errorMessage = error.body.map((e) => e.message).join(", ");
             } else if (typeof error.body.message === "string") {
               errorMessage = error.body.message;
             }
