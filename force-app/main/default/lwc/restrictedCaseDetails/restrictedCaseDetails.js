@@ -71,6 +71,7 @@ export default class RestrictedCaseDetails extends LightningElement {
   @track totalPage = 0;
   @track showData = false;
   @track isEditForm = false;
+  @track isUploadFile = false;
 
   connectedCallback() {
     this.getRestrictedCaseDetails();
@@ -179,8 +180,13 @@ export default class RestrictedCaseDetails extends LightningElement {
       this.isEditForm = true;
       window.console.log("row ====> " + row.Id);
     }
+    if (actionName === "update_files") {
+      this.isUploadFile = true;
+      window.console.log("row ====> " + row.Id);
+    }
   }
   closeModal() {
     this.isEditForm = false;
+    this.isUploadFile = false;
   }
 }

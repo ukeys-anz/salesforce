@@ -88,8 +88,12 @@
           class="slds-modal__content slds-p-around_medium"
           id="modal-content-id-1"
         >
-          <lightning-input type="Text" label="Body" field-name="CommentBody">
-          </lightning-input>
+          <lightning-textarea
+            name="Body"
+            required
+            label="Body"
+            placeholder="type here..."
+          ></lightning-textarea>
         </div>
         <!-- Modal/Popup Box LWC footer starts here -->
         <footer class="slds-modal__footer">
@@ -100,6 +104,69 @@
             name="update"
             label="Save"
           ></lightning-button>
+          &nbsp;
+          <lightning-button
+            variant="brand"
+            label="Close"
+            title="Close"
+            onclick={closeModal}
+          ></lightning-button>
+        </footer>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+  </template>
+  <template if:true={isUploadFile}>
+    <section
+      role="dialog"
+      tabindex="-1"
+      aria-labelledby="modal-heading-01"
+      aria-modal="true"
+      aria-describedby="modal-content-id-1"
+      class="slds-modal slds-fade-in-open"
+    >
+      <div class="slds-modal__container">
+        <!-- Modal/Popup Box LWC header here -->
+        <header class="slds-modal__header">
+          <button
+            class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+            title="Close"
+            onclick={closeModal}
+          >
+            <lightning-icon
+              icon-name="utility:close"
+              alternative-text="close"
+              variant="inverse"
+              size="small"
+            ></lightning-icon>
+            <span class="slds-assistive-text">Close</span>
+          </button>
+          <h2
+            id="modal-heading-02"
+            class="slds-text-heading_medium slds-hyphenate"
+          >
+            Upload Files
+          </h2>
+        </header>
+        <!-- Upload File starts here -->
+        <div class="slds-theme_shade slds-text-align_center">
+          <c-file-Upload
+            customer-id={customerId}
+            onnewfileupload={refreshFileList}
+            record-id={recordId}
+          >
+          </c-file-Upload>
+        </div>
+        <!-- Modal/Popup Box LWC footer starts here -->
+        <footer class="slds-modal__footer">
+          <lightning-button
+            class="slds-m-top_small"
+            variant="brand"
+            type="submit"
+            name="update"
+            label="Save"
+          ></lightning-button>
+          &nbsp;
           <lightning-button
             variant="brand"
             label="Close"
