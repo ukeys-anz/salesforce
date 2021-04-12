@@ -58,14 +58,12 @@ export default class ChatTopicRelatedList extends LightningElement {
     })
       .then((result) => {
         if (result) {
-          let respObj = JSON.parse(result);
-
           // To check if there were more records that what was retrieved against the same Customer
-          this.links = respObj._links._links;
+          this.links = result.links.links;
 
           // TODO: More error handling
 
-          respObj.channels.forEach((row) => {
+          result.channels.forEach((row) => {
             this.data.push(this.generateRowData(row));
           });
           this.totalRecordCount = this.data.length;
@@ -95,11 +93,9 @@ export default class ChatTopicRelatedList extends LightningElement {
     })
       .then((result) => {
         if (result) {
-          let respObj = JSON.parse(result);
-
           // TODO: More error handling
 
-          this.data.push(this.generateRowData(respObj));
+          this.data.push(this.generateRowData(result));
           this.totalRecordCount = this.data.length;
         }
         this.loading = false;
@@ -122,21 +118,18 @@ export default class ChatTopicRelatedList extends LightningElement {
   }
 
   generateRowData(row) {
-    let rowData = {};
-    rowData.Name = row.name;
-    rowData.Status = this.resolveStatuses(row);
-    rowData.LastModifiedDate = row.lastModified;
-    rowData.ChannelSID = row.id;
+    row.status = this.resolveStatuses(row);
     if (
       row.status &&
       row.status !== STATUS_CLOSED &&
       row.chatFlowStatus === CHAT_FLOW_STATUS_ONHOLD
     ) {
-      rowData.enableReinitiate = true;
+      row.enableReinitiate = true;
     } else {
-      rowData.enableReinitiate = false;
+      row.enableReinitiate = false;
     }
-    return rowData;
+
+    return row;
   }
 
   handleOnselect(event) {
