@@ -9,6 +9,10 @@
         <formula>True</formula>
     </fieldOverrides>
     <fieldOverrides>
+        <field>Restriction_Level__c</field>
+        <literalValue>No Restriction</literalValue>
+    </fieldOverrides>
+    <fieldOverrides>
         <field>Status</field>
         <literalValue>Escalated</literalValue>
     </fieldOverrides>
@@ -21,6 +25,11 @@
                 <emptySpace>false</emptySpace>
                 <field>IDR_Escalation_Reason__c</field>
                 <uiBehavior>Required</uiBehavior>
+            </quickActionLayoutItems>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Restriction_Level__c</field>
+                <uiBehavior>Edit</uiBehavior>
             </quickActionLayoutItems>
         </quickActionLayoutColumns>
         <quickActionLayoutColumns/>
