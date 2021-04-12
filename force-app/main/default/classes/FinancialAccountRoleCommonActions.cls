@@ -6,7 +6,12 @@
  */
 
 public with sharing class FinancialAccountRoleCommonActions {
-  private static final String SET_EXTERNAL_ID_ERROR = 'Failed to set external id for Financial Account Role due to missing data. Financial Account Id: ';
+  private static final String SET_EXTERNAL_ID_ERROR = 'Failed to set external Id for Financial Account Role due to missing value in the following field(s): ';
+  private static final Map<String, String> FIELD_ERROR_MESSAGE_MAP = new Map<String, String>{
+    'accountExternalId' => 'External Id',
+    'financialAccountKey' => 'Account Key',
+    'startDate' => 'Primary Owner Start Date/Start Date'
+  };
   /**
    * @description setExternalId is called to set the external Id field on the newly created financial account role record
    * @param records The Financial Account Role records passed from Trigger.new()
@@ -29,48 +34,56 @@ public with sharing class FinancialAccountRoleCommonActions {
         )
         .Account_Key__c;
       String financialAccountRole = rec.FinServ__Role__c.remove(' ');
-      Date primaryOwnerStartDate = financialAccountIdMap.get(
-          rec.FinServ__FinancialAccount__c
-        )
-        .Primary_Owner_Start_Date__c;
-      if (
-        // Check if any data used to construct the external id is null
-        String.isNotBlank(accountExternalId) &&
-        String.isNotBlank(financialAccountKey) &&
-        String.isNotBlank(rec.FinServ__Role__c) &&
-        primaryOwnerStartDate != null
-      ) {
-        // Prep the data before constructing the external Id string
-        // Process the date string
+      // If the role is 'Primary Owner' use Primary_Owner_Start_Date__c on the financial account,
+      // otherwise use FinServ__StartDate__c on the financial account role record
+      Date startDate = rec.FinServ__Role__c == 'Primary Owner'
+        ? financialAccountIdMap.get(rec.FinServ__FinancialAccount__c)
+            .Primary_Owner_Start_Date__c
+        : rec.FinServ__StartDate__c;
+      String startDateString = getFormattedDate(startDate);
 
-        String startDate = getFormattedDate(primaryOwnerStartDate);
+      // Check if any field is missing
+      List<String> errors = checkMissingFields(
+        accountExternalId,
+        financialAccountKey,
+        startDateString
+      );
 
-        // Construct the external Id for Financial Account Role
-        List<String> strings = new List<String>{
-          accountExternalId,
-          financialAccountKey,
-          financialAccountRole,
-          startDate
-        };
-
-        // Set the external Id on the financial account role
-        rec.External_Id__c = String.join(strings, '_');
-
-        // Set the start date on the role as the start date from the financial account (which is populated by OCV)
-        rec.FinServ__StartDate__c = primaryOwnerStartDate;
+      if (errors.size() == 0) {
+        rec.External_Id__c =
+          accountExternalId +
+          '_' +
+          financialAccountKey +
+          '_' +
+          financialAccountRole +
+          '_' +
+          startDateString;
       } else {
         String errorMessage =
-          SET_EXTERNAL_ID_ERROR + rec.FinServ__FinancialAccount__c;
-        // Throw an error to prevent the financial role from being created
-        throw new FinancialAccountRoleException(errorMessage);
+          SET_EXTERNAL_ID_ERROR +
+          String.join(errors, '; ') +
+          '.';
+        Lib_SystemLog.createSingleLogAsync(
+          FinancialAccountRoleCommonActions.class.getName(),
+          'setExternalId',
+          rec.Id,
+          errorMessage
+        );
+        rec.addError(errorMessage);
       }
     }
   }
 
   private static String getFormattedDate(Date dt) {
-    Datetime output = Datetime.newInstanceGmt(dt, Time.newInstance(0, 0, 0, 0));
-    // now output is the same as it was in `bar`
-    return output.formatGmt('ddMMyyyy');
+    if (dt != null) {
+      Datetime output = Datetime.newInstanceGmt(
+        dt,
+        Time.newInstance(0, 0, 0, 0)
+      );
+      // now output is the same as it was in `bar`
+      return output.formatGmt('ddMMyyyy');
+    }
+    return null;
   }
 
   private static Map<Id, Account> getRelatedAccounts(
@@ -105,6 +118,25 @@ public with sharing class FinancialAccountRoleCommonActions {
       ]
     );
     return financialAccountIdMap;
+  }
+
+  private static List<String> checkMissingFields(
+    String accountExternalId,
+    String financialAccountKey,
+    String startDate
+  ) {
+    List<String> errors = new List<String>();
+    if (String.isBlank(accountExternalId)) {
+      errors.add(FIELD_ERROR_MESSAGE_MAP.get('accountExternalId'));
+    }
+    if (String.isBlank(financialAccountKey)) {
+      errors.add(FIELD_ERROR_MESSAGE_MAP.get('financialAccountKey'));
+    }
+    if (String.isBlank(startDate)) {
+      errors.add(FIELD_ERROR_MESSAGE_MAP.get('startDate'));
+    }
+
+    return errors;
   }
 
   /**
