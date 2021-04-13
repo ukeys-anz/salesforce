@@ -108,6 +108,7 @@ public with sharing class CaseCommentsTriggerHandlerTest {
     usr.ProfileId = p.Id;
     usr.Business_Function__c = 'CMOS';
     usr.Business_Role__c = 'Customer Resolution';
+    usr.IsActive = true;
     insert usr;
 
     // Sharing Case record manually to avoid deployment issues
