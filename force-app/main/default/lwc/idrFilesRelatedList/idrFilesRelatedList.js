@@ -9,33 +9,14 @@ const columns = [
     fieldName: "fileUrl",
     sortable: true,
     type: "url",
-    initialWidth: 200,
+    initialWidth: 250,
     wrapText: true,
     typeAttributes: { label: { fieldName: "fileName" } }
-  },
-  {
-    label: "File Type",
-    fieldName: "fileType",
-    wrapText: true,
-    sortable: true,
-    initialWidth: 100
-  },
-  {
-    label: "Owner",
-    fieldName: "ownerName",
-    sortable: true,
-    initialWidth: 100
   },
   {
     label: "Created Date",
     fieldName: "createdDate",
     sortable: true,
-    initialWidth: 150
-  },
-  {
-    label: "Document Flag",
-    fieldName: "flag",
-    wrapText: true,
     initialWidth: 150
   },
   {
@@ -51,10 +32,29 @@ const columns = [
     initialWidth: 200
   },
   {
+    label: "Document Flag",
+    fieldName: "flag",
+    wrapText: true,
+    initialWidth: 150
+  },
+  {
     label: "Document Category",
     fieldName: "documentType",
     wrapText: true,
     initialWidth: 200
+  },
+  {
+    label: "Owner",
+    fieldName: "ownerName",
+    sortable: true,
+    initialWidth: 100
+  },
+  {
+    label: "File Type",
+    fieldName: "fileType",
+    wrapText: true,
+    sortable: true,
+    initialWidth: 100
   }
 ];
 export default class IDRFilesRelatedList extends LightningElement {
