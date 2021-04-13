@@ -145,6 +145,7 @@ public with sharing class IDRCaseActions {
       }
     }
     handleOfficeAssignment(changeOfficeCaseList);
+    runCaseOwnerAssignmentRules(records, null);
     stampQueueName(records, null);
     //Update Date/Time PSI Ticked if complaint is flagged as PSI
     if (!updatePsiTicked.isEmpty()) {
@@ -218,6 +219,7 @@ public with sharing class IDRCaseActions {
     }
     //calling handleOfficeAssignment for all case records for which the IDR_Office__c needs to be updated.
     handleOfficeAssignment(changeOfficeCaseList);
+    runCaseOwnerAssignmentRules(records, (Map<Id, Case>) oldMap);
     stampQueueName(records, (Map<Id, Case>) oldMap);
     //Update Date/Time PSI Ticked if complaint is flagged as PSI
     if (!updatePsiTicked.isEmpty()) {
@@ -1110,6 +1112,46 @@ public with sharing class IDRCaseActions {
         record.IDR_Datetime_PSI_Ticked__c = Datetime.now();
       } else {
         record.IDR_Datetime_PSI_Ticked__c = null;
+      }
+    }
+  }
+
+  /**
+   * @description method to call the Case assignment rules
+   * @param caseRecords Records in the current context
+   * @param oldMap old map of case record in current trigger context
+   */
+  private static void runCaseOwnerAssignmentRules(
+    List<Case> caseRecords,
+    Map<ID, Case> oldMap
+  ) {
+    Map<String, Id> queueMap = new Map<String, Id>();
+    List<Group> queueList;
+    if (Group.sObjectType.getDescribe().isQueryable()) {
+      queueList = [
+        SELECT id, developername
+        FROM Group
+        WHERE
+          developername IN :IDRConstants.workBasketNames
+          AND Type = :QUEUE_TYPE
+      ];
+    }
+
+    for (Group queueRec : queueList) {
+      queueMap.put(queueRec.developername, queueRec.Id);
+    }
+
+    for (Case caseRec : caseRecords) {
+      Case oldCase = (oldMap != null ? oldMap.get(caseRec.Id) : null);
+      if (isIDRComplaintType(caseRec)) {
+        ID ownerId = IDRCaseAssignmentRules.getOwnerId(
+          caseRec,
+          queueMap,
+          oldCase
+        );
+        if (ownerId != null) {
+          caseRec.OwnerID = ownerId;
+        }
       }
     }
   }

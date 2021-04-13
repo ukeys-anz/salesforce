@@ -1002,11 +1002,8 @@ private class CaseTriggerHandlerTest {
         )
       );
     }
-
     insert newCases;
-
     newCases = [SELECT Subject FROM Case WHERE id = :newCases[0].id];
-
     system.assertEquals(
       'Card - Cardholder does not recognise transaction',
       newCases[0].Subject
@@ -1331,5 +1328,90 @@ private class CaseTriggerHandlerTest {
       newCases[0].ContactId,
       'Failed to auto-populate Contact lookup on ANZ Plus cases while inserting'
     );
+  }
+  //test the workbasket assignment for Afca referred compalints on insert
+  @istest
+  static void testEDRWorkbasketAssignmentOnInsert() {
+    Case[] newCases = new List<Case>();
+    List<Group> queueList = [
+      SELECT id, developername
+      FROM group
+      WHERE
+        developername = 'Specialised_Early_Resolution_Hardship'
+        AND Type = 'Queue'
+    ];
+
+    Test.startTest();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+          Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
+          IDR_Customer_Number__c = '1234567890',
+          Priority = IDRConstants.PRIORITY_HARDSHIP,
+          Type = '9',
+          IDR_Subsequent_Issue__c = '57',
+          Status = 'Escalated',
+          IDR_Escalation_Reason__c = '1'
+        )
+      );
+    }
+    insert newCases;
+    for (Case c : [SELECT Id, OwnerId FROM Case WHERE id IN :newCases]) {
+      System.assertEquals(c.OwnerId.getSobjectType(), Group.SobjectType);
+      System.assertEquals(queueList[0].Id, c.OwnerId);
+    }
+
+    Test.stopTest();
+  }
+
+  //test the workbasket assignment for Afca referred compalints on update
+  @istest
+  static void testEDRWorkbasketAssignmentOnUpdate() {
+    Case[] newCases = new List<Case>();
+    List<Group> queueList = [
+      SELECT id, developername
+      FROM group
+      WHERE
+        developername IN (
+          'Specialised_EarlyRes_Responsible_Lending',
+          'EDR_Early_Resolution'
+        )
+        AND Type = 'Queue'
+    ];
+
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+          Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
+          IDR_Customer_Number__c = '1234567890',
+          Priority = 'Standard',
+          Type = '5',
+          IDR_Subsequent_Issue__c = '38'
+        )
+      );
+    }
+    insert newCases;
+    Test.startTest();
+    newCases[0].Status = 'Escalated';
+    newCases[0].IDR_Escalation_Reason__c = '1';
+
+    update newCases[0];
+
+    Case caseRec = [SELECT Id, OwnerId FROM Case WHERE id = :newCases[0].id];
+    System.assertEquals(Group.SobjectType, caseRec.OwnerId.getSobjectType());
+    System.assertEquals(queueList[1].Id, caseRec.OwnerId);
+
+    newCases[1].IDR_Subsequent_Issue__c = '39';
+    newCases[1].Status = 'Escalated';
+    newCases[1].IDR_Escalation_Reason__c = '1';
+    update newCases[1];
+
+    Case caseRec1 = [SELECT Id, OwnerId FROM Case WHERE id = :newCases[1].id];
+    System.assertEquals(Group.SobjectType, caseRec1.OwnerId.getSobjectType());
+    System.assertEquals(queueList[0].Id, caseRec1.OwnerId);
+
+    Test.stopTest();
   }
 }
