@@ -14,7 +14,7 @@ public without sharing class GetRestrictedCaseInfo {
         'Highly Sensitive',
         'CRP Managed'
       };
-      query += ' WHERE Restriction_Level__C IN: restrictList AND (CaseNumber LIKE :key OR Status LIKE :key OR IDR_Customer_Number__c LIKE :key OR IDR_Complainant_Type__c LIKE :key OR IDR_NC_First_Name__c LIKE :key OR IDR_NC_Last_Name__c LIKE :key) ORDER BY LastModifiedDate Desc';
+      query += ' WHERE IDR_Restriction_Level__C IN: restrictList AND (CaseNumber LIKE :key OR Status LIKE :key OR IDR_Customer_Number__c LIKE :key OR IDR_Complainant_Type__c LIKE :key OR IDR_NC_First_Name__c LIKE :key OR IDR_NC_Last_Name__c LIKE :key) ORDER BY LastModifiedDate Desc';
     }
     if (sortBy != null && sortDirection != null) {
       query += ' ORDER BY ' + sortBy + ' ' + sortDirection;
