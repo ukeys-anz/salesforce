@@ -72,7 +72,7 @@ public with sharing class ContentDocumentLinkTriggerHandler extends Lib_TriggerH
         OwnerId,
         IDR_Update_Notification_Flag__c
       FROM Case
-      WHERE Id IN :caseIds
+      WHERE Id IN :caseIds AND Owner.isActive = TRUE
     ]) {
       getCaseMap.put(c.id, c);
     }
