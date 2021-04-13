@@ -22,24 +22,28 @@ const columns = [
   {
     label: "Date Of Document",
     fieldName: "dateOfDocument",
+    sortable: true,
     wrapText: true,
     initialWidth: 150
   },
   {
     label: "Party who sent/created file",
     fieldName: "partyWhoSent",
+    sortable: true,
     wrapText: true,
     initialWidth: 200
   },
   {
     label: "Document Flag",
     fieldName: "flag",
+    sortable: true,
     wrapText: true,
     initialWidth: 150
   },
   {
     label: "Document Category",
     fieldName: "documentType",
+    sortable: true,
     wrapText: true,
     initialWidth: 200
   },
