@@ -31,7 +31,7 @@ public with sharing class ChatTopicRelatedListControllerTest {
   @isTest
   public static void validResponseChatTopicsOnAccount() {
     // Query for pre-inserted Account record
-    Account acc = [SELECT Id FROM Account WHERE Name = 'TestAccount' LIMIT 1];
+    Account acc = [SELECT Id FROM Account LIMIT 1];
     Test.startTest();
     ChatChannelModel response = ChatTopicRelatedListController.getChatTopicsOnAccount(
       acc.Id,
@@ -72,12 +72,7 @@ public with sharing class ChatTopicRelatedListControllerTest {
   @isTest
   public static void validResponseChatTopicOnCase() {
     // Query for pre-inserted Case record
-    Case chatCase = [
-      SELECT Id
-      FROM Case
-      WHERE Account.Name = 'TestAccount'
-      LIMIT 1
-    ];
+    Case chatCase = [SELECT Id FROM Case WHERE AccountId != NULL LIMIT 1];
     Test.startTest();
     ChatChannelModel response = ChatTopicRelatedListController.getChatTopicInfoOnCase(
       chatCase.Id
