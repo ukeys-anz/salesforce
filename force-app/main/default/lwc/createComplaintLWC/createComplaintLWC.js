@@ -69,6 +69,7 @@ import POSSIBLE_SYSTEMIC_ISSUES from "@salesforce/schema/Case.IDR_Possible_Syste
 //Is Escalated fields
 import ESCALATED_TO from "@salesforce/schema/Case.IDR_Escalated_to__c";
 import ESCALATION_REASON from "@salesforce/schema/Case.IDR_Escalation_Reason__c";
+import RESTRICTION_LEVEL from "@salesforce/schema/Case.IDR_Restriction_Level__c";
 
 //Issue 2 fields
 import HAS_SECOND_ISSUE from "@salesforce/schema/Case.IDR_Second_Issue__c";
@@ -168,6 +169,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   // escalation fields
   escalatedTo = ESCALATED_TO;
   escalationReason = ESCALATION_REASON;
+  restrictionLevel = RESTRICTION_LEVEL;
 
   // Issue 2 fields
   hasSecondIssue = HAS_SECOND_ISSUE;
@@ -557,14 +559,14 @@ export default class CreateComplaintLWC extends NavigationMixin(
       }
       const recordInput = { apiName: CASE_OBJECT.objectApiName, fields };
       createRecord(recordInput)
-        .then((response) => {
+        .then(response => {
           if (response) {
             let caseId = response.id;
             this.template.querySelector(".saveButton").disabled = false;
             this.handleCaseSuccess(caseId);
           }
         })
-        .catch((error) => {
+        .catch(error => {
           this.handleError(error);
         });
     }
@@ -616,6 +618,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     if (this.isComplaintEscalated) {
       requiredFields.escalatedTo = "Escalated To";
       requiredFields.escalationReason = "Complaint Escalation Reason";
+      requiredFields.restrictionLevel = "Restriction Level";
     }
     if (this.isNonFinancialComplaintRemedy) {
       requiredFields.nonFinancialRemedy = "Non-Financial Remedy";
@@ -683,7 +686,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       msg = error.replace(/\.\s?/gm, ".<br><br>");
     } else if (error.body) {
       if (Array.isArray(error.body)) {
-        msg = error.body.map((e) => e.message).join(", ");
+        msg = error.body.map(e => e.message).join(", ");
       } else if (typeof error.body.message === "string") {
         msg = error.body.message;
       }
