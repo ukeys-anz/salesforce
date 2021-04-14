@@ -229,7 +229,11 @@
       if (isConsole) {
         this.handleConsoleAppCaseCreation(component, workspaceAPI);
       } else {
-        this.goToStandardNewCasePage(component, event);
+        this.showToast(
+          "error",
+          "Please raise cases from a lightning console app.",
+          "An error has occurred!"
+        );
       }
     });
   },
