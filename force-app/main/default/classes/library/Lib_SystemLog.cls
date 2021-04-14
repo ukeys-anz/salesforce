@@ -97,7 +97,7 @@ public without sharing class Lib_SystemLog {
     String batchId,
     String errorIdentifier
   ) {
-    this.log = new List<Application_Log__c>(0);
+    this.log = new Application_Log__c[0];
     this.processName = processName;
     this.functionName = functionName;
     this.batchId = batchId;

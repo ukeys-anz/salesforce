@@ -24,155 +24,84 @@ public with sharing class ChatTopicRelatedListControllerTest {
     );
     insert newCase;
   }
+
   /**
-   * @description test method for getChatTopicsOnAccount when Forge response is successful
+   * @description test method for getChatTopicsOnAccount when successful
    */
   @isTest
   public static void validResponseChatTopicsOnAccount() {
-    Test.setMock(HttpCalloutMock.class, new MockValidChatTopicsOnAccount());
-    TestHelper.addTokensForApiCallout('1234567891');
     // Query for pre-inserted Account record
-    Account acc = [SELECT Id FROM Account WHERE Name = 'TestAccount' LIMIT 1];
+    Account acc = [SELECT Id FROM Account LIMIT 1];
     Test.startTest();
-    String respBody = ChatTopicRelatedListController.getChatTopicsOnAccount(
+    ChatChannelModel response = ChatTopicRelatedListController.getChatTopicsOnAccount(
       acc.Id,
       ''
     );
-    System.assert(respBody.contains('CH2c3d77ee8301494986657b57ffdxxxxx'));
     Test.stopTest();
+
+    System.assertEquals(
+      2,
+      response.channels.size(),
+      'Number of chat topics returned does not match with mock values size.'
+    );
+    System.assertEquals(
+      'CH147c6128b4864e0aaadc58d87d74e50c',
+      response.channels[0].id,
+      'Id of 1st chat topic does not match.'
+    );
   }
-  class MockValidChatTopicsOnAccount implements HttpCalloutMock {
-    /**
-     * @description mock response for callout
-     * @param req incoming request
-     * @return HTTPResponse valid having one Chat Topic in the response
-     */
-    public HTTPResponse respond(HTTPRequest req) {
-      HTTPResponse res = new HTTPResponse();
-      res.setStatusCode(200);
-      res.setHeader('Content-Type', 'application/json');
-      res.setBody(
-        '{"channels": [{"id": "CH2c3d77ee8301494986657b57ffdxxxxx","name": "home-loan","status": "active","chatFlowStatus": "ACCEPTED","lastModified": "2021-01-13T04:51:16Z"}],"_links": {"_links": {"self": "xxxxx"} } }'
-      );
-      return res;
-    }
-  }
+
   /**
-   * @description test method for getChatTopicsOnAccount when failed
+   * @description test method for getChatTopicsOnAccount when response is null
    */
   @isTest
-  public static void invalidResponseChatTopicsOnAccount() {
-    Test.setMock(
-      HttpCalloutMock.class,
-      new MockInvalidChatTopicsByCustomerCallout()
-    );
-    TestHelper.addTokensForApiCallout('1234567891');
-    // Query for pre-inserted Account record
-    Account acc = [SELECT Id FROM Account WHERE Name = 'TestAccount' LIMIT 1];
-    String expMessage;
+  public static void nullsResponseChatTopicsOnAccount() {
     Test.startTest();
-    try {
-      ChatTopicRelatedListController.getChatTopicsOnAccount(acc.Id, '');
-    } catch (Exception e) {
-      expMessage = e.getMessage();
-    }
-    System.assertEquals('Get ChatTopicsByCustomer failed', expMessage);
+    ChatChannelModel response = ChatTopicRelatedListController.getChatTopicsOnAccount(
+      '',
+      ''
+    );
     Test.stopTest();
+
+    System.assertEquals(null, response, 'Response is not null.');
   }
-  class MockInvalidChatTopicsByCustomerCallout implements HttpCalloutMock {
-    /**
-     * @description mock response for callout
-     * @param req incoming request
-     * @return HTTPResponse invalid response
-     */
-    public HTTPResponse respond(HTTPRequest req) {
-      HTTPResponse res = new HTTPResponse();
-      res.setStatusCode(500);
-      res.setHeader('Content-Type', 'application/Plaintext');
-      res.setBody('Get ChatTopicsByCustomer failed');
-      return res;
-    }
-  }
+
   /**
    * @description test method for getChatTopicInfoOnCase when successful
    */
   @isTest
   public static void validResponseChatTopicOnCase() {
-    Test.setMock(HttpCalloutMock.class, new MockValidChatTopicsOnCase());
-    TestHelper.addTokensForApiCallout('1234567891');
     // Query for pre-inserted Case record
-    Case chatCase = [
-      SELECT Id
-      FROM Case
-      WHERE Account.Name = 'TestAccount'
-      LIMIT 1
-    ];
+    Case chatCase = [SELECT Id FROM Case WHERE AccountId != NULL LIMIT 1];
     Test.startTest();
-    String respBody = ChatTopicRelatedListController.getChatTopicInfoOnCase(
+    ChatChannelModel response = ChatTopicRelatedListController.getChatTopicInfoOnCase(
       chatCase.Id
     );
-    System.assert(respBody.contains('CH2c3d77ee8301494986657b57ffdyyyyy'));
     Test.stopTest();
-  }
 
-  class MockValidChatTopicsOnCase implements HttpCalloutMock {
-    /**
-     * @description mock response for callout
-     * @param req incoming request
-     * @return HTTPResponse valid having one Chat Topic in the response
-     */
-    public HTTPResponse respond(HTTPRequest req) {
-      HTTPResponse res = new HTTPResponse();
-      res.setStatusCode(200);
-      res.setHeader('Content-Type', 'application/json');
-      res.setBody(
-        '{"channels": [{"id": "CH2c3d77ee8301494986657b57ffdyyyyy","name": "home-loan","status": "active","chatFlowStatus": "ACCEPTED","lastModified": "2021-01-13T04:51:16Z"}],"_links": {"_links": {"self": "xxxxx"} } }'
-      );
-
-      return res;
-    }
+    System.assertEquals(
+      2,
+      response.channels.size(),
+      'Number of chat topics returned does not match with mock values size.'
+    );
+    System.assertEquals(
+      'CH147c6128b4864e0aaadc58d87d74e50c',
+      response.channels[0].id,
+      'Id of 1st chat topic does not match.'
+    );
   }
 
   /**
-   * @description test method for getChatTopicInfoOnCase when failed
+   * @description test method for getChatTopicInfoOnCase when response is null
    */
   @isTest
-  public static void invalidResponseChatTopicOnCase() {
-    Test.setMock(
-      HttpCalloutMock.class,
-      new MockInvalidChatTopicByChannelCallout()
-    );
-    TestHelper.addTokensForApiCallout('1234567891');
-    // Query for pre-inserted Case record
-    Case chatCase = [
-      SELECT Id
-      FROM Case
-      WHERE Account.Name = 'TestAccount'
-      LIMIT 1
-    ];
-    String expMessage;
+  public static void nullsResponseChatTopicsOnCase() {
     Test.startTest();
-    try {
-      ChatTopicRelatedListController.getChatTopicInfoOnCase(chatCase.Id);
-    } catch (Exception e) {
-      expMessage = e.getMessage();
-    }
-    System.assertEquals('Get ChatTopicsByChannelSID failed', expMessage);
+    ChatChannelModel response = ChatTopicRelatedListController.getChatTopicInfoOnCase(
+      ''
+    );
     Test.stopTest();
-  }
 
-  class MockInvalidChatTopicByChannelCallout implements HttpCalloutMock {
-    /**
-     * @description mock response for callout
-     * @param req incoming request
-     * @return HTTPResponse invalid response
-     */
-    public HTTPResponse respond(HTTPRequest req) {
-      HTTPResponse res = new HTTPResponse();
-      res.setStatusCode(500);
-      res.setHeader('Content-Type', 'application/Plaintext');
-      res.setBody('Get ChatTopicsByChannelSID failed');
-      return res;
-    }
+    System.assertEquals(null, response, 'Response is not null.');
   }
 }
