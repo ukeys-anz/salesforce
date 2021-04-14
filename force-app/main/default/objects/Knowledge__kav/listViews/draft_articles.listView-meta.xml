@@ -16,4 +16,8 @@
         <value>1</value>
     </filters>
     <label>Draft Articles</label>
+    <sharedTo>
+        <role>Content_Manager</role>
+        <role>Content_Writer</role>
+    </sharedTo>
 </ListView>

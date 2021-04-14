@@ -27,15 +27,11 @@
     <searchLayouts>
         <customTabListAdditionalFields>TITLE</customTabListAdditionalFields>
         <excludedStandardButtons>OpenListInQuip</excludedStandardButtons>
-        <excludedStandardButtons>MassChangeOwnerKnowledgeArticleVersion</excludedStandardButtons>
         <excludedStandardButtons>MassPublishKnowledgeArticleVersion</excludedStandardButtons>
+        <excludedStandardButtons>MassChangeOwnerKnowledgeArticleVersion</excludedStandardButtons>
         <searchResultsAdditionalFields>TITLE</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>ABSTRACT</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>LAST_UPDATE</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>UPDATEDBY_USER</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>LAST_PUBLISHED_DATE</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>CREATEDBY_USER</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>PUBLISH_STATUS</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>VALIDATION_STATUS_ENUM</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>UPDATEDBY_USER</searchResultsAdditionalFields>
     </searchLayouts>
 </CustomObject>

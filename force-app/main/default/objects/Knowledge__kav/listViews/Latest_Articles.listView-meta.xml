@@ -3,12 +3,8 @@
     <fullName>Latest_Articles</fullName>
     <columns>TITLE</columns>
     <columns>ABSTRACT</columns>
-    <columns>LAST_UPDATE</columns>
-    <columns>UPDATEDBY_USER</columns>
     <columns>LAST_PUBLISHED_DATE</columns>
-    <columns>CREATEDBY_USER</columns>
-    <columns>PUBLISH_STATUS</columns>
-    <columns>VALIDATION_STATUS_ENUM</columns>
+    <columns>UPDATEDBY_USER</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>PUBLISH_STATUS</field>

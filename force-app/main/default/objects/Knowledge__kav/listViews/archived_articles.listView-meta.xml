@@ -16,4 +16,8 @@
         <value>3</value>
     </filters>
     <label>Archived Articles</label>
+    <sharedTo>
+        <role>Content_Manager</role>
+        <role>Content_Writer</role>
+    </sharedTo>
 </ListView>
