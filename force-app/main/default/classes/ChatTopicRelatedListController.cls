@@ -1,13 +1,11 @@
 /**
- * @author Boobalakrishnan Duraisamy
+ * @author Boobalakrishnan Duraisamy, Jasmine Nguyen
  * @since 10 2020
+ * @lastModified: March 2021
  * @description ChatTopicRelatedListController is the apex side controller for the chatTopicRelatedList LWC
  */
 @SuppressWarnings('PMD.ApexSuggestUsingNamedCred')
 public with sharing class ChatTopicRelatedListController {
-  public static final String CHANNELS_ENDPOINT_SUFFIX = '/channels';
-  public static final Integer OFFSET_LIMIT = 20;
-
   /**
    * @description This method is used to chatTopicRelatedList lwc component to retrive chat topics related to account.
    *
@@ -16,7 +14,7 @@ public with sharing class ChatTopicRelatedListController {
    * @return String
    */
   @AuraEnabled(cacheable=false)
-  public static String getChatTopicsOnAccount(
+  public static ChatChannelModel getChatTopicsOnAccount(
     String accountId,
     String nextURL
   ) {
@@ -31,12 +29,20 @@ public with sharing class ChatTopicRelatedListController {
       if (!accounts.isEmpty()) {
         ocvId = accounts[0].OCV_ID__c;
       }
+
+      if (String.isNotBlank(ocvID)) {
+        // Make a callout to Twilio Service to fetch all Chat Topics related to the customer
+        CallCenterAPIRepository ccap = new CallCenterAPIRepository();
+        ChatChannelModel responseBody = ccap.getChatTopicsByCustomer(
+          ocvId,
+          nextURL
+        );
+
+        return responseBody;
+      }
     }
 
-    // Make a callout to Mulesoft to fetch all Chat Topics related to the customer
-    String responseBody = getChatTopicsByCustomer(ocvId, nextURL);
-
-    return responseBody;
+    return null;
   }
 
   /**
@@ -46,7 +52,7 @@ public with sharing class ChatTopicRelatedListController {
    * @return String
    */
   @AuraEnabled(cacheable=false)
-  public static String getChatTopicInfoOnCase(String caseId) {
+  public static ChatChannelModel getChatTopicInfoOnCase(String caseId) {
     // Query for Twilio Chat Channel SID by passing in the Case ID
     String channelSID;
     String ocvId;
@@ -62,75 +68,17 @@ public with sharing class ChatTopicRelatedListController {
       }
     }
 
-    // Make a callout to Mulesoft to fetch Chat Topic information linked with the Case
-    String responseBody = getChatTopicByChannelSID(ocvId, channelSID);
-
-    return responseBody;
-  }
-
-  /**
-   * @description Fetch Chat Topics via API by passing in customer OCV ID
-   * @param ocvID Customer OCV ID
-   * @param nextURL URL to get next result set if available
-   * @return String
-   */
-  public static String getChatTopicsByCustomer(String ocvID, String nextURL) {
-    String rowLimitParam = '?limit=' + OFFSET_LIMIT;
-
-    String responseBody = null;
-    if (String.isNotBlank(ocvID)) {
-      HttpRequest request = new HttpRequest();
-      String urlParams = String.isBlank(nextURL) ? rowLimitParam : nextURL;
-      request.setEndpoint(
-        'callout:SF_MS_Twilio' +
-        Label.MS_Get_CustomerChatChannels +
-        ocvID +
-        CHANNELS_ENDPOINT_SUFFIX +
-        urlParams
-      );
-
-      RequestUtils.setCommonRequestParams(request, 'GET');
-      responseBody = RequestUtils.processRequest(
-        request,
-        ChatTopicRelatedListController.class.getName(),
-        'getChatTopicsByCustomer',
-        ChatTopicRelatedListController.class.getName(),
-        true
-      );
-    }
-
-    return responseBody;
-  }
-
-  /**
-   * @description Fetch Chat Topic information via API by passing in customer OCV ID and particular Channel SID
-   * @param ocvID Customer OCV ID
-   * @param channelSID Channel SID stored on related Case record
-   * @return String
-   */
-  public static String getChatTopicByChannelSID(
-    String ocvID,
-    String channelSID
-  ) {
-    String responseBody = null;
     if (String.isNotBlank(ocvID) && String.isNotBlank(channelSID)) {
-      HttpRequest request = new HttpRequest();
-      request.setEndpoint(
-        'callout:SF_MS_Twilio' +
-        Label.MS_Get_CaseChatChannel +
+      // Make a callout to Twilio Service to fetch Chat Topic information linked with the Case
+      CallCenterAPIRepository ccap = new CallCenterAPIRepository();
+      ChatChannelModel responseBody = ccap.getChatTopicsByChannelSID(
+        ocvId,
         channelSID
       );
 
-      RequestUtils.setCommonRequestParams(request, 'GET');
-      responseBody = RequestUtils.processRequest(
-        request,
-        ChatTopicRelatedListController.class.getName(),
-        'getChatTopicByChannelSID',
-        ChatTopicRelatedListController.class.getName(),
-        true
-      );
+      return responseBody;
     }
 
-    return responseBody;
+    return null;
   }
 }

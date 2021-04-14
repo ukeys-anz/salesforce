@@ -14,18 +14,27 @@ jobs:
     runs-on: ubuntu-latest
     container: ddawson235/sfdx:latest
     outputs:
-      is_valid: ${{ steps.isValid.outputs.is_valid }}
+      IS_SANDBOX_SECRET_SET: ${{ steps.checksecret.outputs.IS_SANDBOX_SECRET_SET }}
     steps:
-      - id: isValid
-        name: determine if valid
+      - name: Set Branch Name
+        run: echo BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/}) >> $GITHUB_ENV
+
+      - name: Set Sandbox Name
         run: |
-          echo BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/}) >> $GITHUB_ENV
           if [ ${{ env.BRANCH_NAME }} == 'develop' ]; then echo SANDBOX_NAME=$(echo SYSTEST) >> $GITHUB_ENV; elif [ ${{ env.BRANCH_NAME }} == 'master' ]; then echo SANDBOX_NAME=$(echo STAGING) >> $GITHUB_ENV; else echo SANDBOX_NAME=$(echo ${{ env.BRANCH_NAME }} |  tr -d '-' | tr 'a-z' 'A-Z' | cut -d'/' -f 2 | cut -c1-10) >> $GITHUB_ENV; fi
-          echo ${{ secrets[env.SANDBOX_NAME] }} > ./SFDX_URL_${{ env.SANDBOX_NAME }}.txt
-          if [ -s ./SFDX_URL_${{ env.SANDBOX_NAME }}.txt ]; then echo ::set-output name=is_valid::$(echo "valid"); else echo ::set-output name=env_name::$(echo "invalid"); fi
+
+      - name: Check whether the sandbox secret exists
+        id: checksecret
+        env:
+          MY_SECRET: ${{ secrets[env.SANDBOX_NAME] }}
+        run: |
+          echo "IS_SANDBOX_SECRET_SET: ${{ env.MY_SECRET != '' }}"
+          echo "::set-output name=IS_SANDBOX_SECRET_SET::${{ env.MY_SECRET != '' }}" 
+          echo ${{ steps.checksecret.outputs.IS_SANDBOX_SECRET_SET }}
+
   build_and_deploy:
     needs: [prepare]
-    if: needs.prepare.outputs.is_valid == 'valid'
+    if: needs.prepare.outputs.IS_SANDBOX_SECRET_SET == 'true'
     runs-on: ubuntu-latest
     container: ddawson235/sfdx:latest
 
@@ -72,8 +81,8 @@ jobs:
       - name: "Tag Release"
         shell: bash
         run: |
-          echo "${GITHUB_REF##*/}-${GITHUB_RUN_ID}"
-          TAG="${GITHUB_REF##*/}-${GITHUB_RUN_ID}"
+          echo "${GITHUB_REF#refs/heads/}-${GITHUB_RUN_ID}"
+          TAG="${GITHUB_REF#refs/heads/}-${GITHUB_RUN_ID}"
           git tag "$TAG"
           git push origin "$TAG"
 
@@ -165,6 +174,6 @@ jobs:
       - name: Create a PR on anzx/salesforce-docs
         shell: bash
         run: |
-          if git branch | grep -q -w ${GITHUB_RUN_ID}; then hub pull-request -b master -h ${GITHUB_RUN_ID} --no-edit -m "${GITHUB_REF##*/}-${GITHUB_RUN_ID} Release Update" -m "An automated PR to update access and schema documentation from https://github.com/anzx/salesforce/releases/tag/${GITHUB_REF##*/}-${GITHUB_RUN_ID}"; fi
+          if git branch | grep -q -w ${GITHUB_RUN_ID}; then hub pull-request -b master -h ${GITHUB_RUN_ID} --no-edit -m "${GITHUB_REF#refs/heads/}-${GITHUB_RUN_ID} Release Update" -m "An automated PR to update access and schema documentation from https://github.com/anzx/salesforce/releases/tag/${GITHUB_REF#refs/heads/}-${GITHUB_RUN_ID}"; fi
         env:
           GITHUB_TOKEN: ${{ secrets.ORG_GITHUB_TOKEN }}

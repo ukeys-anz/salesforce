@@ -8,6 +8,19 @@ public virtual class Service {
 
   /**
    * @param ocvId customer id
+   * @param endPoint endPoint
+   * @return `HttpCalloutResponse` api response
+   * @description virtual chat channels callout
+   */
+  public virtual HttpCalloutResponse fetchChatTopics(
+    String ocvId,
+    String endPoint
+  ) {
+    return null;
+  }
+
+  /**
+   * @param ocvId customer id
    * @return `HttpCalloutResponse` api response
    * @description virtual accounts and goals callout
    */

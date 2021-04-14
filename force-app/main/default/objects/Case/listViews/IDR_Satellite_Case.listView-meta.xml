@@ -12,6 +12,6 @@
     <label>IDR Satellite</label>
     <queue>IDR_Satellite</queue>
     <sharedTo>
-        <roleAndSubordinates>ANZ</roleAndSubordinates>
+        <allInternalUsers/>
     </sharedTo>
 </ListView>
