@@ -142,14 +142,17 @@ public with sharing class CaseCommentsTriggerHandlerTest {
         ParentId = newCases[0].id
       );
       insert testComment;
-      Test.stopTest();
 
-      List<Case> caseList = [
-        SELECT Id, IDR_Update_Notification_Flag__c
+      Case c = [
+        SELECT Id, IDR_Update_Notification_Flag__c, OwnerId, Owner.isActive
         FROM Case
+        WHERE Id = :newCases[0].id
       ];
+
       //THEN notification flag is set to true in the case record
-      System.assertEquals(true, caseList[0].IDR_Update_Notification_Flag__c);
+      System.assertEquals(true, c.IDR_Update_Notification_Flag__c);
+
+      Test.stopTest();
     }
   }
 
