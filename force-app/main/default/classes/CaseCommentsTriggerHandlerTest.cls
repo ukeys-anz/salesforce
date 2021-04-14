@@ -9,20 +9,13 @@ public with sharing class CaseCommentsTriggerHandlerTest {
       FROM UserRole
       WHERE Name = 'Customer Resolution'
     ];
-    User idrUser = new User(
-      Alias = 'idruse',
-      Email = 'idruser@anztest.com',
-      LastName = 'Testing',
-      ProfileId = p.Id,
-      UserName = 'idruser@anztest.com',
-      LocaleSidKey = 'en_US',
-      TimeZoneSidKey = 'GMT',
-      LanguageLocaleKey = 'en_US',
-      EmailEncodingKey = 'UTF-8',
-      Division = 'IDR Test Office',
-      UserRoleId = bankerRole.id,
-      isActive = true
-    );
+    User idrUser = (User) FakerFactory.make(new FakerUserFactory());
+    idrUser.ProfileId = p.Id;
+    idrUser.Business_Function__c = 'CMOS';
+    idrUser.Business_Role__c = 'Customer Resolution';
+    idrUser.FirstName = 'IDRL3';
+    idrUser.IsActive = true;
+    idrUser.UserRoleId = bankerRole.id;
     insert idrUser;
 
     List<String> idrPsets = new List<String>{ 'IDR_User', 'IDR_User_Level_1' };
@@ -141,7 +134,7 @@ public with sharing class CaseCommentsTriggerHandlerTest {
 
   @isTest
   static void testCaseCommentNotification() {
-    User idrUser1 = [SELECT Id FROM user WHERE Email = 'idruser@anztest.com'];
+    User idrUser1 = [SELECT Id FROM user WHERE FirstName = 'IDRL3'];
     User idrUser2 = [SELECT Id FROM user WHERE FirstName = 'IDRL1'];
 
     //Given a compliant case record
