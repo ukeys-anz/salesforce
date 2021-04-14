@@ -11,7 +11,20 @@ public class TestContentDocumentLinkTriggerHandler {
   @testSetup
   static void setup() {
     Profile p = [SELECT Id FROM Profile WHERE Name = 'ANZ Standard User'];
-
+    User idrUser = new User(
+      Alias = 'idruse',
+      Email = 'idruser@anztest.com',
+      LastName = 'Testing',
+      ProfileId = p.Id,
+      UserName = 'idruser@anztest.com',
+      LocaleSidKey = 'en_US',
+      TimeZoneSidKey = 'GMT',
+      LanguageLocaleKey = 'en_US',
+      EmailEncodingKey = 'UTF-8',
+      Division = 'IDR Test Office',
+      isActive = true
+    );
+    insert idrUser;
     //Create Case
     Case testCase = new Case();
 
@@ -20,6 +33,7 @@ public class TestContentDocumentLinkTriggerHandler {
     testCase.RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID;
     testCase.IDR_Customer_Number__c = '1234567890';
     testCase.Status = IDRConstants.OPEN_STATUS;
+    testCase.OwnerId = idrUser.Id;
     insert testCase;
 
     //Create user

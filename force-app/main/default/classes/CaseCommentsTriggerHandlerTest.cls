@@ -91,6 +91,21 @@ public with sharing class CaseCommentsTriggerHandlerTest {
   @isTest
   static void testCaseCommentNotification() {
     Profile p = [SELECT Id FROM Profile WHERE Name = 'ANZ Standard User'];
+    User idrUser = new User(
+      Alias = 'idruse',
+      Email = 'idruser@anztest.com',
+      LastName = 'Testing',
+      ProfileId = p.Id,
+      UserName = 'idruser@anztest.com',
+      LocaleSidKey = 'en_US',
+      TimeZoneSidKey = 'GMT',
+      LanguageLocaleKey = 'en_US',
+      EmailEncodingKey = 'UTF-8',
+      Division = 'IDR Test Office',
+      isActive = true
+    );
+    insert idrUser;
+
     //Given a compliant case record
     List<Case> newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
@@ -98,7 +113,8 @@ public with sharing class CaseCommentsTriggerHandlerTest {
         new Case(
           RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
           Status = IDRConstants.OPEN_STATUS,
-          Description = 'Test decription'
+          Description = 'Test decription',
+          OwnerId = idrUser.Id
         )
       );
     }
