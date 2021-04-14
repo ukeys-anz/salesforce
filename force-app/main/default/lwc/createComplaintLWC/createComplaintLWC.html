@@ -213,7 +213,7 @@
                     variant="label-stacked"
                     required={consentValue}
                     field-name={firstName}
-                    id="firstName-id"
+                    data-id="firstName-id"
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
@@ -227,7 +227,7 @@
                     variant="label-stacked"
                     required={consentValue}
                     field-name={lastName}
-                    id="lastName-id"
+                    data-id="lastName-id"
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
@@ -236,7 +236,7 @@
                     aria-label="Dropdown Age"
                     required
                     field-name={age}
-                    id="age-id"
+                    data-id="age-id"
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
@@ -245,14 +245,14 @@
                     required
                     aria-label="Dropdown Gender"
                     field-name={gender}
-                    id="gender-id"
+                    data-id="gender-id"
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
                     variant="label-stacked"
                     field-name={email}
-                    id="email-id"
+                    data-id="email-id"
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
@@ -261,7 +261,7 @@
                       >Mobile e.g. 61474977148</label
                     >
                     <lightning-input-field
-                      id="mobileinput-id"
+                      data-id="mobileinput-id"
                       variant="label-hidden"
                       field-name={mobile}
                     >
@@ -279,7 +279,7 @@
                     required={isAddressRequired}
                     variant="label-stacked"
                     field-name={street}
-                    id="street-id"
+                    data-id="street-id"
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
@@ -287,7 +287,7 @@
                     required={isAddressRequired}
                     variant="label-stacked"
                     field-name={suburb}
-                    id="suburb-id"
+                    data-id="suburb-id"
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
@@ -295,7 +295,7 @@
                     required={isAddressRequired}
                     variant="label-stacked"
                     field-name={postcode}
-                    id="postcode-id"
+                    data-id="postcode-id"
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
@@ -304,7 +304,7 @@
                     required
                     aria-label="Dropdown Country"
                     field-name={country}
-                    id="country-id"
+                    data-id="country-id"
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
@@ -313,7 +313,7 @@
                     required
                     aria-label="Dropdown State"
                     field-name={state}
-                    id="state-id"
+                    data-id="state-id"
                   ></lightning-input-field>
                 </div>
               </div>
@@ -483,7 +483,7 @@
                   label="Description of Issue"
                   maxlength="3000"
                   onchange={handleDescriptionChange}
-                  data-id="issueDesc-id"
+                  data-id="descOfIssue-id"
                 ></lightning-textarea>
               </div>
               <div class="slds-col slds-size_1-of-4 slds-m-right_large">
@@ -520,7 +520,7 @@
                     variant="label-stacked"
                     required={hasSecondIssue}
                     field-name={subsequentIssue2}
-                    id="subsequentIssue2-id"
+                    data-id="subsequentIssue2-id"
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
@@ -528,7 +528,7 @@
                     variant="label-stacked"
                     required={hasSecondIssue}
                     field-name={productValue2}
-                    id="productValue2-id"
+                    data-id="productValue2-id"
                   ></lightning-input-field>
                 </div>
                 <template if:true={isCustomerComplaint}>
@@ -537,7 +537,7 @@
                       variant="label-stacked"
                       required
                       field-name={accountOrPolicyNumber2}
-                      id="accPolicyNum2-id"
+                      data-id="accPolicyNum2-id"
                     ></lightning-input-field>
                   </div>
                 </template>
@@ -571,7 +571,7 @@
                     variant="label-stacked"
                     required={hasThirdIssue}
                     field-name={subsequentIssue3}
-                    id="subsequentIssue3-id"
+                    data-id="subsequentIssue3-id"
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
@@ -579,7 +579,7 @@
                     variant="label-stacked"
                     required={hasThirdIssue}
                     field-name={productValue3}
-                    id="productValue3-id"
+                    data-id="productValue3-id"
                   ></lightning-input-field>
                 </div>
                 <template if:true={isCustomerComplaint}>
@@ -588,7 +588,7 @@
                       variant="label-stacked"
                       required
                       field-name={accountOrPolicyNumber3}
-                      id="accPolicyNum3-id"
+                      data-id="accPolicyNum3-id"
                     ></lightning-input-field>
                   </div>
                 </template>
@@ -675,7 +675,7 @@
                   value={caseStatus}
                   options={statusOptions}
                   onchange={handleStatusChange}
-                  id="caseStatus-id"
+                  data-id="caseStatus-id"
                 ></lightning-combobox>
               </div>
               <template if:true={isComplaintEscalated}>
@@ -704,7 +704,7 @@
                     variant="label-stacked"
                     required={isComplaintResolved}
                     field-name={outcomeDescription}
-                    id="descOutcome-id"
+                    data-id="descOutcome-id"
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
@@ -744,7 +744,7 @@
                       variant="label-stacked"
                       required
                       field-name={nonFinancialRemedy}
-                      id="nonFinancialRemedy-id"
+                      data-id="nonFinancialRemedy-id"
                     ></lightning-input-field>
                   </template>
                 </div>
@@ -793,7 +793,7 @@
                     field-name={SystemicIssue}
                     value={systemicIssueValue}
                     onchange={handleSystemicIssueChange}
-                    id="systemic-issue-id"
+                    data-id="systemic-issue-id"
                   ></lightning-input-field>
                 </div>
                 <template if:true={hasSecondIssue}>
@@ -801,7 +801,7 @@
                     <lightning-input-field
                       variant="label-stacked"
                       field-name={possibleSystemicIssues}
-                      id="possibleSystemicIssues-id"
+                      data-id="possibleSystemicIssues-id"
                     ></lightning-input-field>
                   </div>
                 </template>
