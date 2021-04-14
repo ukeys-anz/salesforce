@@ -1,5 +1,56 @@
 @isTest
 public with sharing class CaseCommentsTriggerHandlerTest {
+  @testSetup
+  static void setup() {
+    Profile p = [SELECT Id FROM Profile WHERE Name = 'ANZ Standard User'];
+    UserRole bankerRole = [SELECT Id FROM UserRole WHERE Name = 'Banker'];
+    UserRole leadershipRole = [
+      SELECT Id
+      FROM UserRole
+      WHERE Name = 'Customer Resolution'
+    ];
+    User idrUser = new User(
+      Alias = 'idruse',
+      Email = 'idruser@anztest.com',
+      LastName = 'Testing',
+      ProfileId = p.Id,
+      UserName = 'idruser@anztest.com',
+      LocaleSidKey = 'en_US',
+      TimeZoneSidKey = 'GMT',
+      LanguageLocaleKey = 'en_US',
+      EmailEncodingKey = 'UTF-8',
+      Division = 'IDR Test Office',
+      UserRoleId = bankerRole.id,
+      isActive = true
+    );
+    insert idrUser;
+
+    List<String> idrPsets = new List<String>{ 'IDR_User', 'IDR_User_Level_1' };
+    List<PermissionSet> idrPsetList = [
+      SELECT Id
+      FROM PermissionSet
+      WHERE Name IN :idrPsets
+    ];
+
+    User usr = (User) FakerFactory.make(new FakerUserFactory());
+    usr.ProfileId = p.Id;
+    usr.Business_Function__c = 'CMOS';
+    usr.Business_Role__c = 'Customer Resolution';
+    usr.FirstName = 'IDRL1';
+    usr.IsActive = true;
+    usr.UserRoleId = leadershipRole.Id;
+    insert usr;
+
+    List<PermissionSetAssignment> idrPsaList = new List<PermissionSetAssignment>();
+    for (PermissionSet ps : idrPsetList) {
+      PermissionSetAssignment psa = new PermissionSetAssignment(
+        AssigneeId = usr.id,
+        PermissionSetId = ps.Id
+      );
+      idrPsaList.add(psa);
+    }
+    insert idrPsaList;
+  }
   @istest
   static void testCaseCommentsDelete() {
     Case c = new Case(RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID);
@@ -90,21 +141,8 @@ public with sharing class CaseCommentsTriggerHandlerTest {
 
   @isTest
   static void testCaseCommentNotification() {
-    Profile p = [SELECT Id FROM Profile WHERE Name = 'ANZ Standard User'];
-    User idrUser = new User(
-      Alias = 'idruse',
-      Email = 'idruser@anztest.com',
-      LastName = 'Testing',
-      ProfileId = p.Id,
-      UserName = 'idruser@anztest.com',
-      LocaleSidKey = 'en_US',
-      TimeZoneSidKey = 'GMT',
-      LanguageLocaleKey = 'en_US',
-      EmailEncodingKey = 'UTF-8',
-      Division = 'IDR Test Office',
-      isActive = true
-    );
-    insert idrUser;
+    User idrUser1 = [SELECT Id FROM user WHERE Email = 'idruser@anztest.com'];
+    User idrUser2 = [SELECT Id FROM user WHERE FirstName = 'IDRL1'];
 
     //Given a compliant case record
     List<Case> newCases = new List<Case>();
@@ -114,27 +152,20 @@ public with sharing class CaseCommentsTriggerHandlerTest {
           RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
           Status = IDRConstants.OPEN_STATUS,
           Description = 'Test decription',
-          OwnerId = idrUser.Id
+          OwnerId = idrUser1.Id
         )
       );
     }
     insert newCases;
 
-    User usr = (User) FakerFactory.make(new FakerUserFactory());
-    usr.ProfileId = p.Id;
-    usr.Business_Function__c = 'CMOS';
-    usr.Business_Role__c = 'Customer Resolution';
-    usr.IsActive = true;
-    insert usr;
-
     // Sharing Case record manually to avoid deployment issues
     CaseShare cs = new CaseShare();
     cs.CaseId = newCases[0].id;
-    cs.UserOrGroupId = usr.Id;
+    cs.UserOrGroupId = idrUser2.Id;
     cs.CaseAccessLevel = 'Edit';
     insert cs;
 
-    System.runAs(usr) {
+    System.runAs(idrUser2) {
       Test.startTest();
       //When another user adds a case comment
       CaseComment testComment = new CaseComment(
