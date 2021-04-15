@@ -2,10 +2,10 @@
 FROM node:alpine
 
 # install zip, unzip and jq
-RUN apk add --update zip unzip jq bash git openjdk8-jre wget curl python make g++
+RUN apk add --update zip unzip jq bash git openjdk11-jre wget curl python make g++
 
 # setup java
-ENV JAVA_HOME="/usr/lib/jvm/java-1.8-openjdk"
+ENV JAVA_HOME="/usr/lib/jvm/java-11-openjdk"
 ENV PATH="$JAVA_HOME/bin:${PATH}"
 RUN java -version
 

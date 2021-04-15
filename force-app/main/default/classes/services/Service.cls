@@ -3,8 +3,21 @@
  * @since Feb 2020
  * @description virtual service class for all API callouts
  */
-public virtual class Service {
+public with sharing virtual class Service {
   protected HttpCalloutResponse response = new HttpCalloutResponse();
+
+  /**
+   * @param ocvId customer id
+   * @param endPoint endPoint
+   * @return `HttpCalloutResponse` api response
+   * @description virtual chat channels callout
+   */
+  public virtual HttpCalloutResponse fetchChatTopics(
+    String ocvId,
+    String endPoint
+  ) {
+    return null;
+  }
 
   /**
    * @param ocvId customer id
@@ -35,6 +48,21 @@ public virtual class Service {
    */
   public virtual HttpCalloutResponse getRefreshIdToken(
     String existingRefreshToken
+  ) {
+    return null;
+  }
+
+  /**
+   * @param ocvId customer id
+   * @param accountNumber Account number for which we want to fetch the transactions
+   * @param paramUrl Used to fetch the next lot of transactions or search by date
+   * @return `HttpCalloutResponse` api response
+   * @description virtual transaction history callout
+   */
+  public virtual HttpCalloutResponse getTransactionHistory(
+    String ocvId,
+    String accountNumber,
+    String paramUrl
   ) {
     return null;
   }
@@ -73,5 +101,18 @@ public virtual class Service {
     headers.put('client_id', '{!$Credential.Username}');
     headers.put('client_secret', '{!$Credential.Password}');
     return headers;
+  }
+
+  /**
+   * @param resourceName the name of the static resource to fetch
+   * @return `String` body of static resource
+   * @description returns the body of the static resource as a string used for mock data
+   */
+  public static String getStaticResource(String resourceName) {
+    StaticResource sr;
+    if (StaticResource.sObjectType.getDescribe().isQueryable()) {
+      sr = [SELECT body FROM StaticResource WHERE Name = :resourceName];
+    }
+    return sr.body.toString();
   }
 }

@@ -13,7 +13,11 @@ public virtual class CalloutModel {
     'access_token' => 'accessToken',
     'refresh_token' => 'refreshToken',
     'expires_in' => 'expiresIn',
-    'expires_on' => 'expiresOn'
+    'expires_on' => 'expiresOn',
+    'number' => 'transactionAccountNumber',
+    'type' => 'transactionType',
+    'date' => 'transactionDate',
+    '_links' => 'links'
   };
 
   /**

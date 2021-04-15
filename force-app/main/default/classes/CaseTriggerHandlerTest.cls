@@ -837,10 +837,10 @@ private class CaseTriggerHandlerTest {
   }
 
   //Tests if the Dispute Case Subject is populated correctly based on case record type and dispute reason
-  /*@isTest
+  @isTest
   static void testPopulateDisputeCaseSubject() {
     Case[] newCases = new List<Case>();
-    Account acc = [SELECT Id FROM Account WHERE Name = 'TestAccount' LIMIT 1];
+    Account acc = [SELECT Id FROM Account LIMIT 1];
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
@@ -861,7 +861,7 @@ private class CaseTriggerHandlerTest {
       'Card - Cardholder does not recognise transaction',
       newCases[0].Subject
     );
-  }*/
+  }
 
   //Test to verify Subject auto-population when Case Type has a numerical value different from the label
   static void testNumericCaseTypeValue() {

@@ -69,18 +69,18 @@
                 <tr class="slds-hint-parent" key={chatTopic.Id}>
                   <td data-label="Name">
                     <div class="slds-truncate slds-cell-wrap" title="Name">
-                      {chatTopic.Name}
+                      {chatTopic.name}
                     </div>
                   </td>
                   <td data-label="Status">
                     <div class="slds-truncate" title="Status">
-                      {chatTopic.Status}
+                      {chatTopic.status}
                     </div>
                   </td>
                   <td data-label="Last Activity">
                     <div class="uiOutputDateTime" title="Last Activity">
                       <lightning-formatted-date-time
-                        value={chatTopic.LastModifiedDate}
+                        value={chatTopic.lastModified}
                         year="numeric"
                         month="numeric"
                         day="numeric"
@@ -95,7 +95,7 @@
                       variant="border-filled"
                       menu-alignment="right"
                       icon-size="x-small"
-                      data-id={chatTopic.ChannelSID}
+                      data-id={chatTopic.id}
                       onselect={handleOnselect}
                     >
                       <template if:true={chatTopic.enableReinitiate}>

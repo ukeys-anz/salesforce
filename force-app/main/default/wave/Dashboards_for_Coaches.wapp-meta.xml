@@ -13,6 +13,9 @@
         <sharedTo>Manager</sharedTo>
         <sharedToType>Role</sharedToType>
     </shares>
-    <templateOrigin>coaches</templateOrigin>
-    <templateVersion>1.0</templateVersion>
+     <shares>
+        <accessLevel>EditAllContents</accessLevel>
+        <sharedTo>Super_Support_Admin</sharedTo>
+        <sharedToType>Role</sharedToType>
+    </shares>
 </WaveApplication>
