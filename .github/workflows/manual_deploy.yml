@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     container: ddawson235/sfdx:latest
     steps:
-       - name: Set Branch Name
+      - name: Set Branch Name
         run: echo BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/}) >> $GITHUB_ENV
       - name: Set Sandbox Name
         run: |
