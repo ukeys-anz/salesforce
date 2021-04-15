@@ -33,6 +33,10 @@ public with sharing class ChatChannelModel extends CalloutModel {
     // Twilio Channel Last Modified Date
     @AuraEnabled
     public String lastModified;
+
+    // Twilio Channel On Hold Reason
+    @AuraEnabled
+    public String onHoldReason;
   }
 
   /**
