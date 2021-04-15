@@ -50,6 +50,9 @@ force-app/main/default/authproviders/Azure_AD_Custom_OIDC.authprovider-meta.xml
 
 # Ignoring PSL that does not exist in scratch org (not yet supported in scratch definition)
 force-app/main/default/permissionsets/myTrailhead_PSL.permissionset-meta.xml
+force-app/main/default/permissionsets/Case_Read_Write.permissionset-meta.xml
+force-app/main/default/permissionsets/Content_Author.permissionset-meta.xml
+force-app/main/default/permissionsets/Bugs_Read_Write_Access.permissionset-meta.xml
 
 #Ignoring Jest tests as per https://developer.salesforce.com/docs/component-library/documentation/en/lwc/lwc.unit_testing_using_jest_create_tests
 **/__tests__/**
@@ -77,6 +80,7 @@ force-app/main/default/flows/Outbound_New_Appointment.flow-meta.xml
 force-app/main/default/quickActions/Account.New_Appointment.quickAction-meta.xml
 force-app/main/default/objects/FinServ__FinancialGoal__c
 force-app/main/default/layouts/FinServ__FinancialGoal__c-FinServ__Financial Goal Layout.layout-meta.xml
+force-app/main/default/customMetadata/User_Provisioning_Setting.ANZx_FraudX_Agent.md-meta.xml
 
 #Ignoring apex classes below as they have been renamed
 force-app/main/default/classes/EverydayAccountController.cls
@@ -84,6 +88,22 @@ force-app/main/default/classes/FinancialGoalsComponentController.cls
 force-app/main/default/classes/UpdateAccountsAndGoals.cls
 force-app/main/default/messageChannels/FinancialAccountsGoalsUpdate.messageChannel-meta.xml
 force-app/main/default/classes/GetAccountsAndGoals.cls
+
+#remove below later once merged
+force-app/main/default/classes/TestUserProvisioningRequest.cls
+force-app/main/default/classes/TestUserTriggerHandler.cls
+force-app/main/default/classes/idr/TestIDRCaseCommentActions.cls
+force-app/main/default/classes/TestProcessBuilderNoAction.cls
+force-app/main/default/classes/TestCaseCommentsTriggerHandler.cls
+force-app/main/default/classes/idr/TestNewCaseFlowWrapperController.cls
+force-app/main/default/classes/utils/TestDateTimeUtils.cls
+force-app/main/default/classes/utils/CommonUtils.cls
+force-app/main/default/classes/TestCustomerFeedbackTriggerHandler.cls
+force-app/main/default/classes/idr/TestIDRCaseActions.cls
+force-app/main/default/classes/TestCaseTriggerHandler.cls
+force-app/main/default/classes/TestANZAzureADRegistrationHandler.cls
+force-app/main/default/classes/idr/TestGetCustomerInformation.cls
+force-app/main/default/classes/TestAccountTriggerHandler.cls
 
 #Ignore Knowledge validation status field as it is not supported in metadata API
 KnowledgeValidationStatus
