@@ -102,7 +102,7 @@ public with sharing class ChatChannelModel extends CalloutModel {
   @AuraEnabled
   public String getNextUrl() {
     String nextUrl;
-    if (links.links.next != null) {
+    if (links != null && links.links != null && links.links.next != null) {
       nextUrl = this.links.links.next.substring(links.links.next.indexOf('?'));
     }
     return nextUrl;
