@@ -280,7 +280,7 @@ describe("c-create-complaint-l-w-c", () => {
     );
     //Populate user input - issue description
     const issueDesc = element.shadowRoot.querySelector(
-      "lightning-textarea[data-id=issueDesc-id]"
+      "lightning-textarea[data-id=descOfIssue-id]"
     );
     issueDesc.dispatchEvent(
       new CustomEvent("change", {
