@@ -1,0 +1,50 @@
+{
+  "transactionId": "123",
+  "amount": {
+    "charged": { "value": "50.00" },
+    "converted": { "value": "50.00" },
+    "exchangeRate": { "value": "50.00" }
+  },
+  "type": "Card",
+  "status": "Pending",
+  "card": { "scheme": "Visa" },
+  "date": "2020-01-01d18:19",
+  "longDesc": "test Description",
+  "tags": [{ "name": "test" }, { "name": "testsuperloooo..." }],
+  "merchant": {
+    "name": "test",
+    "chain_name": { "value": "test" },
+    "phone_number": { "value": "123456" },
+    "website_url": { "value": "wwww.test.com" },
+    "address": {
+      "line_one": {
+        "value": "test street"
+      },
+      "suburb": {
+        "value": "test suburb"
+      },
+      "state": {
+        "value": "test state"
+      },
+      "postcode": {
+        "value": "4000"
+      },
+      "coordinates": {
+        "latitude": 51,
+        "longitude": 47
+      }
+    },
+    "image_details": { "light_url": ["Object"] },
+    "email": "test@test.com"
+  },
+  "TransactionDate": "2020-01-01",
+  "TransactionTime": "18:19",
+  "showDateTitle": true,
+  "rowColour": "slds-card slds-m-bottom_small transaction-item even",
+  "tagList": ["test", "testsuperloooo..."],
+  "merchantDetails": true,
+  "name": "test",
+  "merchantLocation": "test street, test suburb test state 4000",
+  "logo": "test url",
+  "Error": "test error"
+}
