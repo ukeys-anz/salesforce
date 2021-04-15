@@ -33,6 +33,10 @@ public with sharing class ChatChannelModel extends CalloutModel {
     // Twilio Channel Last Modified Date
     @AuraEnabled
     public String lastModified;
+
+    // Twilio Channel On Hold Reason
+    @AuraEnabled
+    public String onHoldReason;
   }
 
   /**
@@ -98,7 +102,7 @@ public with sharing class ChatChannelModel extends CalloutModel {
   @AuraEnabled
   public String getNextUrl() {
     String nextUrl;
-    if (links.links.next != null) {
+    if (links != null && links.links != null && links.links.next != null) {
       nextUrl = this.links.links.next.substring(links.links.next.indexOf('?'));
     }
     return nextUrl;

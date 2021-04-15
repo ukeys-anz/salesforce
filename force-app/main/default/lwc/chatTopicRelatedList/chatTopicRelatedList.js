@@ -95,7 +95,9 @@ export default class ChatTopicRelatedList extends LightningElement {
         if (result) {
           // TODO: More error handling
 
-          this.data.push(this.generateRowData(result));
+          result.channels.forEach((row) => {
+            this.data.push(this.generateRowData(row));
+          });
           this.totalRecordCount = this.data.length;
         }
         this.loading = false;
