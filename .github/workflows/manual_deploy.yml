@@ -19,7 +19,7 @@ jobs:
       - id: isValid
         name: determine if valid
         run: |
-          if [ ${{ env.branch_name }} == 'epic/cmos-bau' || ${{ env.branch_name }} == 'epic/cmos-r2' ]; then echo ::set-output name=is_valid::$(echo "valid"); else echo ::set-output name=is_valid::$(echo "invalid"); fi
+          if [ ${{ env.BRANCH_NAME }} == 'epic/cmos-bau' || ${{ env.BRANCH_NAME }} == 'epic/cmos-r2' ]; then echo ::set-output name=is_valid::$(echo "valid"); else echo ::set-output name=is_valid::$(echo "invalid"); fi
 
   build_and_deploy:
     needs: [prepare]
