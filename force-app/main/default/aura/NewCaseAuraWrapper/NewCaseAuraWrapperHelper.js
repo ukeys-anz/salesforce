@@ -229,11 +229,13 @@
       if (isConsole) {
         this.handleConsoleAppCaseCreation(component, workspaceAPI);
       } else {
-        this.showToast(
-          "error",
-          "Please raise cases from a lightning console app.",
-          "An error has occurred!"
-        );
+        var urlEvent = $A.get("e.force:navigateToURL");
+        urlEvent.setParams({
+          url:
+            "/lightning/o/Case/new?count=1&nooverride=1&recordTypeId=" +
+            component.get("v.selectedRecordTypeId")
+        });
+        urlEvent.fire();
       }
     });
   },
