@@ -82,7 +82,6 @@
     <tabs>standard-report</tabs>
     <tabs>standard-Dashboard</tabs>
     <tabs>Customer_Feedback__c</tabs>
-    <tabs>Reported_Bug__c</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Coaches_Console_UtilityBar</utilityBar>
     <workspaceConfig>
@@ -92,9 +91,6 @@
         </mappings>
         <mappings>
             <tab>Knowledge__kav</tab>
-        </mappings>
-        <mappings>
-            <tab>Reported_Bug__c</tab>
         </mappings>
         <mappings>
             <tab>standard-Account</tab>

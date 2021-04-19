@@ -64,4 +64,65 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
    */
   public class PermissionException extends Exception {
   }
+  /**
+   * @param ocvId customer id
+   * @param accountNumber Account number for which we want to fetch the transactions
+   * @param paramUrl Used to fetch the next lot of transactions or search by date
+   * @return `TransactionHistoryModel` model class constructed from api response
+   * @description fetches transaction history from fabric, deserialized to a model
+   */
+  public TransactionHistoryModel getTransactionHistory(
+    String ocvId,
+    String accountNumber,
+    String paramUrl
+  ) {
+    TransactionHistoryModel result;
+    Service s = ServiceProvider.getService(FabricService.class);
+    HttpCalloutResponse response = s.getTransactionHistory(
+      ocvId,
+      accountNumber,
+      paramUrl
+    );
+    if (response.successful) {
+      try {
+        result = TransactionHistoryModel.parse(response.body);
+      } catch (Exception e) {
+        handleErrors(null, e, CoachBankingAPIRepository.class);
+      }
+    } else {
+      handleErrors(response, null, CoachBankingAPIRepository.class);
+    }
+    return result;
+  }
+
+  /**
+   * @description  The getTransactionHistory is the method to make the Http callout to Mulesoft to fetch the transaction history details from Fabric.
+   * {@link Lib_SystemLog.logAPIError} is called when ever the call fails to Fabric to have the logs recorded for monitoring.
+   *
+   * @param ocvId customer id
+   * @param accountNumber Account number for which we want to fetch the transactions
+   * @param paramUrl Used to fetch the next lot of transactions or search by date
+   * @return String
+   * @exception CalloutException
+   */
+  @AuraEnabled(cacheable=false)
+  public static TransactionHistoryModel getTransactionHistoryAura(
+    String ocvId,
+    String accountNumber,
+    String paramUrl
+  ) {
+    CoachBankingAPIRepository coachapi = new CoachBankingAPIRepository();
+    try {
+      TransactionHistoryModel responseModel = coachapi.getTransactionHistory(
+        ocvId,
+        accountNumber,
+        paramUrl
+      );
+      return responseModel;
+    } catch (Exception e) {
+      AuraHandledException ahe = new AuraHandledException(e.getMessage());
+      ahe.setMessage(e.getMessage());
+      throw ahe;
+    }
+  }
 }

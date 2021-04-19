@@ -33,5 +33,6 @@
         <searchResultsAdditionalFields>ABSTRACT</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>LAST_PUBLISHED_DATE</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>UPDATEDBY_USER</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ARTICLE_NUMBER</searchResultsAdditionalFields>
     </searchLayouts>
 </CustomObject>

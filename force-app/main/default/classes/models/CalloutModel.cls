@@ -14,6 +14,9 @@ public virtual class CalloutModel {
     'refresh_token' => 'refreshToken',
     'expires_in' => 'expiresIn',
     'expires_on' => 'expiresOn',
+    'number' => 'transactionAccountNumber',
+    'type' => 'transactionType',
+    'date' => 'transactionDate',
     '_links' => 'links'
   };
 
