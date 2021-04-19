@@ -205,10 +205,6 @@ public class AuthTokenCacheUtilTest {
    */
   @isTest
   public static void testGetStaffToken() {
-    Test.setMock(
-      HttpCalloutMock.class,
-      new ForgeTokenHandlerTest.MockForgeCallout()
-    );
     Id userId = UserInfo.getUserId();
     Cache.Session.put(
       'local.SessionAzureTokens.idToken' + userId,
@@ -229,10 +225,6 @@ public class AuthTokenCacheUtilTest {
    */
   @isTest
   public static void testGetStaffTokenFromCache() {
-    Test.setMock(
-      HttpCalloutMock.class,
-      new ForgeTokenHandlerTest.MockForgeCallout()
-    );
     Id userId = UserInfo.getUserId();
     Cache.Session.put(
       'local.SessionAzureTokens.idToken' + userId,
@@ -254,34 +246,6 @@ public class AuthTokenCacheUtilTest {
   }
 
   /**
-   * @description test method for getForgeJWTToken when failed
-   */
-  @isTest
-  public static void testGetStaffTokenFailure() {
-    Test.setMock(
-      HttpCalloutMock.class,
-      new ForgeTokenHandlerTest.MockForgeCalloutFailed()
-    );
-    Id userId = UserInfo.getUserId();
-    Cache.Session.put(
-      'local.SessionAzureTokens.idToken' + userId,
-      ForgeTokenHandlerTest.IDTESTVALUE,
-      300,
-      Cache.Visibility.NAMESPACE,
-      false
-    );
-
-    Test.startTest();
-    try {
-      AuthTokenCacheUtil.getStaffToken('1111');
-    } catch (Exception e) {
-      System.assertEquals('Get access token failed', e.getMessage());
-    }
-
-    Test.stopTest();
-  }
-
-  /**
    * @description tests the token expiry checker
    * GIVEN a JWT is supplied with an exp claim, boolean is returned if the exp datetime has passed
    */
@@ -296,5 +260,40 @@ public class AuthTokenCacheUtilTest {
       !result,
       'Token validity checker should return false when expiry date has passed'
     );
+  }
+
+  @isTest
+  public static void testGetStaffTokenFailure() {
+    Id userId = UserInfo.getUserId();
+    Cache.Session.put(
+      'local.SessionAzureTokens.idToken' + userId,
+      ForgeTokenHandlerTest.IDTESTVALUE,
+      300,
+      Cache.Visibility.NAMESPACE,
+      false
+    );
+    HttpCalloutResponse res = getForgeTokenInvalidResponse();
+    Service s = ServiceProvider.getService(FabricService.class);
+    s.setCalloutResponse(res);
+
+    Test.startTest();
+    String exceptionMsg = '';
+    try {
+      AuthTokenCacheUtil.getStaffToken('1111');
+    } catch (Exception e) {
+      exceptionMsg = e.getMessage();
+    }
+    System.assertEquals('Get access token failed', exceptionMsg);
+
+    Test.stopTest();
+  }
+
+  private static HttpCalloutResponse getForgeTokenInvalidResponse() {
+    HttpCalloutResponse response = new HttpCalloutResponse();
+    response.error = new CalloutException('Get access token failed');
+    response.statusCode = 500;
+    response.body = 'Get access token failed';
+    response.successful = false;
+    return response;
   }
 }

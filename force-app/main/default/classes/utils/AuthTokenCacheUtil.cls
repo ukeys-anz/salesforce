@@ -266,11 +266,9 @@ public with sharing class AuthTokenCacheUtil {
 
     Integer expiresIn = 300; // default minimum value
     try {
-      Map<String, Object> responseMap = ForgeTokenHandler.getForgeJWTToken(
-        ocvId
-      );
-      staffToken = (String) responseMap.get('access_token');
-      expiresIn = (Integer) responseMap.get('expires_in');
+      IdentityModel responseModel = ForgeTokenHandler.getForgeJWTToken(ocvId);
+      staffToken = responseModel.accessToken;
+      expiresIn = responseModel.expiresIn.intValue();
     } catch (Exception e) {
       Lib_SystemLog.createSingleLog(
         AuthTokenCacheUtil.class.getName(),
