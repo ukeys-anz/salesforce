@@ -23,6 +23,7 @@ public with sharing class AzureServiceMock extends Service {
     '  \"refresh_count\" : \"0\",' +
     '  \"status\" : \"approved\"' +
     '}';
+
   /**
    * @description construct a mock with hardcoded success value
    */

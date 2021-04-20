@@ -157,22 +157,19 @@ public with sharing class AuthTokenCacheUtil {
    */
   @AuraEnabled
   public static String getSessionIdToken() {
-    //in tests or environments without sso, return a dummy id token
-    if (NON_PROD_SETTINGS.SSO_Not_Configured__c) {
-      return AuthTokenCacheUtilTest.IDTESTVALUE;
-    }
     Id userId = UserInfo.getUserId();
+    String refreshToken = NON_PROD_SETTINGS.SSO_Not_Configured__c
+      ? AuthTokenCacheUtilTest.REFRESHTESTVALUE
+      : (String) Cache.Session.get(
+          AuthTokenCacheUtil.SESSIONPART +
+          'refreshToken' +
+          userId
+        );
     String idToken = (String) Cache.Session.get(
       AuthTokenCacheUtil.SESSIONPART +
       'idToken' +
       userId
     );
-    String refreshToken = (String) Cache.Session.get(
-      AuthTokenCacheUtil.SESSIONPART +
-      'refreshToken' +
-      userId
-    );
-
     if (idToken != null && AuthTokenCacheUtil.isTokenValid(idToken)) {
       return idToken;
     } else if (refreshToken != null) {
@@ -266,11 +263,9 @@ public with sharing class AuthTokenCacheUtil {
 
     Integer expiresIn = 300; // default minimum value
     try {
-      Map<String, Object> responseMap = ForgeTokenHandler.getForgeJWTToken(
-        ocvId
-      );
-      staffToken = (String) responseMap.get('access_token');
-      expiresIn = (Integer) responseMap.get('expires_in');
+      IdentityModel responseModel = ForgeTokenHandler.getForgeJWTToken(ocvId);
+      staffToken = responseModel.accessToken;
+      expiresIn = responseModel.expiresIn.intValue();
     } catch (Exception e) {
       Lib_SystemLog.createSingleLog(
         AuthTokenCacheUtil.class.getName(),
