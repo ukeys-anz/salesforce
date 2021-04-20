@@ -4,7 +4,8 @@
     <active>true</active>
     <errorConditionFormula>AND(
         $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
-        OR(TEXT(PRIORVALUE( IDR_Status__c)) = &apos;Sent&apos;,
-TEXT(PRIORVALUE( IDR_Status__c)) = &apos;Approved&apos;))</errorConditionFormula>
+        OR(TEXT(PRIORVALUE( IDR_Status__c)) = &apos;Sent&apos;, 
+AND(TEXT(PRIORVALUE( IDR_Status__c)) = &apos;Approved&apos;,  PRIORVALUE( Customer_Data_updated__c ))
+  ))</errorConditionFormula>
     <errorMessage>You cannot edit the letter detail after the letter has been Approved/Sent</errorMessage>
 </ValidationRule>
