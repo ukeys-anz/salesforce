@@ -64,7 +64,6 @@ public with sharing class IDRLetterApprovalActions {
     Map<String, Object> customerData = (Map<String, Object>) responseMap.get(
       'profile'
     );
-    System.debug('Response Map' + customerData);
 
     List<IDR_Letter_Approval_Details__c> appDetailsList = new List<IDR_Letter_Approval_Details__c>();
     appDetailsList.add(
