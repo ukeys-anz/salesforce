@@ -15,7 +15,7 @@
         <label>Task Information</label>
         <layoutColumns>
             <layoutItems>
-                <behavior>Required</behavior>
+                <behavior>Readonly</behavior>
                 <field>Subject</field>
             </layoutItems>
             <layoutItems>
@@ -55,7 +55,7 @@
         <label>Other Information</label>
         <layoutColumns>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>ActivityDate</field>
             </layoutItems>
             <layoutItems>
@@ -128,7 +128,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2N0000011mUY</masterLabel>
+        <masterLabel>00h2N000001XGjo</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>
