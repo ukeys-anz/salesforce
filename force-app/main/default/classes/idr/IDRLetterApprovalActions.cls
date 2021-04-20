@@ -103,13 +103,18 @@ public with sharing class IDRLetterApprovalActions {
       )
     );
 
-    insert appDetailsList;
+    if(Schema.sObjectType.IDR_Letter_Approval_Details__c.creatable()){
+        insert appDetailsList;
+    }
+    
 
     IDR_Letter_Approval__c appRec = new IDR_Letter_Approval__c(
       id = approvalRecId
     );
     appRec.Customer_Data_updated__c = true;
-    update appRec;
+    if(Schema.sObjectType.IDR_Letter_Approval_Details__c.updatable()){
+        update appRec;
+    }
   }
 
   /**
