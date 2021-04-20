@@ -44,7 +44,7 @@ public with sharing class IDRLetterApprovalActions {
     }
 
     for (Id appRecId : capIdMap.keySet()) {
-      makeCallOut(capIdMap.get(appRecId), appRecId);
+        makeOCVCallout(capIdMap.get(appRecId), appRecId);
     }
   }
 
