@@ -20,9 +20,9 @@
                 <label>21 Day Letter</label>
             </value>
             <value>
-                <fullName>Unable to Contact</fullName>
+                <fullName>Declined Application Letter</fullName>
                 <default>false</default>
-                <label>Unable to Contact</label>
+                <label>Declined Application Letter</label>
             </value>
             <value>
                 <fullName>21dl</fullName>
@@ -35,6 +35,12 @@
                 <default>false</default>
                 <isActive>false</isActive>
                 <label>Gen</label>
+            </value>
+            <value>
+                <fullName>Unable to Contact</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Unable to Contact</label>
             </value>
         </valueSetDefinition>
     </valueSet>
