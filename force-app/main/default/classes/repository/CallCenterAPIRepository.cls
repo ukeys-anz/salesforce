@@ -2,6 +2,7 @@
  * @author Jasmine Nguyen
  * @since March 2021
  * @description Call Center API repository for all chat, voice calling, sms callouts
+ * @group Repository
  */
 public with sharing class CallCenterAPIRepository extends RepositoryBase {
   public static final String CHANNELS_ENDPOINT_SUFFIX = '/channels';
@@ -39,11 +40,11 @@ public with sharing class CallCenterAPIRepository extends RepositoryBase {
    * @return `ChatChannelModel` model class constructed from api response
    * @description fetches chat channels by channel SID from Twilio, deserialized to a model
    */
-  public ChatChannelModel getChatTopicsByChannelSID(
+  public ChatChannelModel.Channel getChatTopicsByChannelSID(
     String ocvId,
     String channelSID
   ) {
-    ChatChannelModel result;
+    ChatChannelModel.Channel result;
 
     // Construct the endpoint
     String endPoint =
@@ -52,7 +53,7 @@ public with sharing class CallCenterAPIRepository extends RepositoryBase {
       channelSID;
 
     // Call the service
-    return getChatTopics(ocvId, endPoint);
+    return getSingleChatTopic(ocvId, endPoint);
   }
 
   /**
@@ -67,7 +68,32 @@ public with sharing class CallCenterAPIRepository extends RepositoryBase {
     HttpCalloutResponse response = s.fetchChatTopics(ocvId, endPoint);
     if (response.successful) {
       try {
-        result = ChatChannelModel.parse(response.body);
+        result = ChatChannelModel.parseChannels(response.body);
+      } catch (Exception e) {
+        handleErrors(null, e, CallCenterAPIRepository.class);
+      }
+    } else {
+      handleErrors(response, null, CallCenterAPIRepository.class);
+    }
+    return result;
+  }
+
+  /**
+   * @param ocvId customer id
+   * @param endPoint the end point of the API callout
+   * @return `ChatChannelModel.Channel` model class constructed from api response
+   * @description fetches chat channels from Twilio, deserialized to a model
+   */
+  private ChatChannelModel.Channel getSingleChatTopic(
+    String ocvId,
+    String endPoint
+  ) {
+    ChatChannelModel.Channel result;
+    Service s = ServiceProvider.getService(TwilioService.class);
+    HttpCalloutResponse response = s.fetchChatTopics(ocvId, endPoint);
+    if (response.successful) {
+      try {
+        result = ChatChannelModel.parseSingleChannel(response.body);
       } catch (Exception e) {
         handleErrors(null, e, CallCenterAPIRepository.class);
       }

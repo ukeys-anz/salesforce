@@ -2,6 +2,7 @@
  * @author Lance Shi
  * @since  March 2021
  * @description This class is to provide generic setups configs for unit tests.
+ * @group Utils
  */
 @isTest
 public with sharing class TestUtil {

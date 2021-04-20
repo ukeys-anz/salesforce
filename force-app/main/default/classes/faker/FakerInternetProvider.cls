@@ -1,7 +1,7 @@
 /**
  * @author Igor Matkovic
  * @since 09/07/2018
- * @group faker
+ * @group Faker
  * @description Class having internet related fake data population methods
  */
 @SuppressWarnings('PMD.ExcessivePublicCount')

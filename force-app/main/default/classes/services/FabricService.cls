@@ -2,6 +2,7 @@
  * @author Pavan Kumar Ananta
  * @since Feb 2020
  * @description fabric implementation of the API service
+ * @group Services
  */
 public with sharing class FabricService extends Service {
   /**
@@ -23,32 +24,44 @@ public with sharing class FabricService extends Service {
   }
 
   /**
-   * @param ocvId customer id
-   * @param accountNumber Account number for which we want to fetch the transactions
-   * @param paramUrl Used to fetch the next lot of transactions or search by date
-   * @return `HttpCalloutResponse` the api response
-   * @description fetches transaction history from the fabric API
+   * @param ocvId ocv id
+   * @param idToken id token as the bearer token
+   * @param forgeAuth custom metadata which contains the client id and secret
+   * @return `HttpCalloutResponse` api response
+   * @description fetches response from forge api
    */
-  public override HttpCalloutResponse getTransactionHistory(
+  public override HttpCalloutResponse getForgeJWTToken(
     String ocvId,
-    String accountNumber,
-    String paramUrl
+    String idToken,
+    Forgerock_Auth__mdt forgeAuth
   ) {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
-    Map<String, String> headers = new Map<String, String>();
-    setFabricCommonHeaders(ocvID, headers);
 
-    String endPointParams = String.isNotBlank(paramUrl)
-      ? paramUrl
-      : '?account_number=' + accountNumber;
+    Map<String, String> headers = new Map<String, String>();
+    headers.put('client_id', '{!$Credential.Username}');
+    headers.put('client_secret', '{!$Credential.Password}');
+    headers.put('Authorization', 'Bearer ' + idToken);
+    headers.put('Content-Type', 'application/x-www-form-urlencoded');
+
+    String payload =
+      'identity_system_client_id=' +
+      EncodingUtil.urlEncode(forgeAuth.Encrypted_forge_client_id__c, 'UTF-8') +
+      '&identity_system_client_secret=' +
+      EncodingUtil.urlEncode(
+        forgeAuth.Encrypted_forge_client_secret__c,
+        'UTF-8'
+      ) +
+      '&ocvId=' +
+      EncodingUtil.urlEncode(ocvId, 'UTF-8') +
+      '&scope=aegis-introspect' +
+      '&requested_token_type=StaffJWT' +
+      '&personaType=retail';
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' +
-      Label.MS_Get_Transactions +
-      endPointParams,
-      HTTP_METHOD.HTTP_GET,
+      'callout:SF_MS_Fabric' + Label.MS_Forge_Token,
+      HTTP_METHOD.HTTP_POST,
       headers,
-      null
+      payload
     );
     return response;
   }

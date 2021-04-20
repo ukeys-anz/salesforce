@@ -2,7 +2,8 @@
  *
  * @author Pavan Kumar Ananta
  * @since Feb 2020
- * @description Test class for Lib_HttpCallout
+ * @description Test class for {@link Lib_HttpCallout}
+ * @group Library
  */
 @isTest
 public inherited sharing class Lib_HttpCalloutTest {
