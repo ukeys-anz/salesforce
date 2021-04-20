@@ -2,6 +2,7 @@
  * @author Pavan Kumar Ananta
  * @since Feb 2020
  * @description banking API repository for all banking callouts
+ * @group Repository
  */
 public with sharing class CoachBankingAPIRepository extends RepositoryBase {
   /**

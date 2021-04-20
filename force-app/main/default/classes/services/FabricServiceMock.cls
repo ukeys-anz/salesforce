@@ -2,6 +2,7 @@
  * @author Pavan Kumar Ananta
  * @since Feb 2020
  * @description Mock implementation of fabric api service, automatically injected if Non_Prod_Settings__c.MockCallouts__c is set or if the application is running in Tests
+ * @group Services
  */
 public with sharing class FabricServiceMock extends Service {
   /**

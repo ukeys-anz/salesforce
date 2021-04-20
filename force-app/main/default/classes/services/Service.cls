@@ -2,6 +2,7 @@
  * @author Pavan Kumar Ananta
  * @since Feb 2020
  * @description virtual service class for all API callouts
+ * @group Services
  */
 public with sharing virtual class Service {
   protected HttpCalloutResponse response = new HttpCalloutResponse();

@@ -3,6 +3,7 @@
  * @since 11/2020
  * @description  MilestoneUtils handles marking milestones Completed on cases that match unique criteria
  * Util function is based on https://help.salesforce.com/articleView?id=entitlements_milestones_trigger.htm&type=5
+ * @group Utils
  */
 public with sharing class MilestoneUtils {
   /**

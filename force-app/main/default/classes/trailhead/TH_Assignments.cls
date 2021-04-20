@@ -2,6 +2,7 @@
  * @author Aidan Majewski
  * @since 2020
  * @description myTrailhead assignments LWC controller, originally sourced from https://github.com/CSGAMERSServices/Trailhead-Badge-and-Mix-Assignments-LWC
+ * @group Trailhead
  */
 public with sharing class TH_Assignments {
   public static final Integer MAX_RESULTS = 255;

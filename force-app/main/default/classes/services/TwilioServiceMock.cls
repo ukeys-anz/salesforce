@@ -2,6 +2,7 @@
  * @author Jasmine Nguyen
  * @since March 2021
  * @description Mock implementation of Twilio api service, automatically injected if Non_Prod_Settings__c.MockCallouts__c is set or if the application is running in Tests
+ * @group Services
  */
 public with sharing class TwilioServiceMock extends Service {
   @TestVisible

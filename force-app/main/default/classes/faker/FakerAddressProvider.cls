@@ -1,7 +1,7 @@
 /**
  * @author Igor Matkovic
  * @since 09/07/2018
- * @group faker
+ * @group Faker
  * @description  Class extending FakerBase which defines FakerAddressProvider.
  */
 @SuppressWarnings('PMD.ExcessivePublicCount')

@@ -1,7 +1,8 @@
 /**
  * @author Aidan Majewski
  * @since 10/2020
- * @description  Test class for AuthTokenCacheUtil
+ * @description  Test class for {@link AuthTokenCacheUtil}
+ * @group Utils
  */
 @isTest
 public class AuthTokenCacheUtilTest {

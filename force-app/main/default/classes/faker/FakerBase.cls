@@ -1,7 +1,7 @@
 /**
  * @author Igor Matkovic
  * @since 09/07/2018
- * @group faker
+ * @group Faker
  * @description  Base class for Faker, which has all basic methods/definitions returning random/fake outputs
  */
 @SuppressWarnings('PMD.ExcessiveClassLength')

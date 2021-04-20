@@ -1,7 +1,8 @@
 /**
  * @author Jasmine Nguyen
  * @since March 2021
- * @description Test class for @link CallCenterAPIRepository
+ * @description Test class for {@link CallCenterAPIRepository}
+ * @group Repository
  */
 @isTest
 public with sharing class CallCenterAPIRepositoryTest {

@@ -1,7 +1,7 @@
 /**
  * @author Igor Matkovic
  * @since 09/07/2018
- * @group faker
+ * @group Faker
  * @description  Class extending FakerTextProvider which defines fake US tealted text.
  */
 public with sharing class FakerUsTextProvider extends FakerTextProvider {

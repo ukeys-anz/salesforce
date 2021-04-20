@@ -2,6 +2,7 @@
  * @author Aidan Majewski
  * @since  10/2020
  * @description Auth token session and org cache methods
+ * @group Utils
  */
 public with sharing class AuthTokenCacheUtil {
   private final static String ORGPART = 'local.OrgAzureTokens.';

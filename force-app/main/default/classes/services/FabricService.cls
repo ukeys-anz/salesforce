@@ -2,6 +2,7 @@
  * @author Pavan Kumar Ananta
  * @since Feb 2020
  * @description fabric implementation of the API service
+ * @group Services
  */
 public with sharing class FabricService extends Service {
   /**
