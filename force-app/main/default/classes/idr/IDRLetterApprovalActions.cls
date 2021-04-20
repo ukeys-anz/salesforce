@@ -102,7 +102,7 @@ public with sharing class IDRLetterApprovalActions {
       )
     );
 
-    if(Schema.sObjectType.IDR_Letter_Approval_Details__c.creatable()){
+    if(IDR_Letter_Approval_Details__c.sObjectType.getDescribe().isCreateable()){
         insert appDetailsList;
     }
     
@@ -111,7 +111,7 @@ public with sharing class IDRLetterApprovalActions {
       id = approvalRecId
     );
     appRec.Customer_Data_updated__c = true;
-    if(Schema.sObjectType.IDR_Letter_Approval_Details__c.updatable()){
+    if(IDR_Letter_Approval__c.sObjectType.getDescribe().isUpdateable()){
         update appRec;
     }
   }
