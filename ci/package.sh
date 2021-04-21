@@ -7,7 +7,7 @@ source ci/helper.sh
 SOURCE_DIR="./force-app"
 DEPLOY_DIR="./tmp/deploy"
 DESTRUCTIVE_DIR="./tmp/destructive"
-META_DIR=(classes components pages triggers 'email/unfiled$public' staticresources)
+META_DIR=(classes components pages triggers 'email/unfiled$public' staticresources wave)
 COMPONENT_DIR=(aura lwc)
 # If SOURCE_BRANCH is specified in the yml, do not overwrite
 if [ -z "$SOURCE_BRANCH" ]; then
@@ -58,6 +58,9 @@ CURRENT_DIR=$(pwd)
 if [ "${CHANGED_FILES}" -gt "0" ]; then
     cd ${DEPLOY_DIR}
     sfdx force:source:convert -r ./force-app -d ${CURRENT_DIR}/artefact --loglevel debug
+    if [ $? == 1 ]; then
+        exit 1
+    fi
     echo "::set-output name=ARTEFACT_GENERATED::true"
     # Return to working DIR
     cd ${CURRENT_DIR}
@@ -66,6 +69,9 @@ fi
 if [ "${DELETED_FILES}" -gt "0" ]; then
     cd ${DESTRUCTIVE_DIR}
     sfdx force:source:convert -r ./force-app -d tmp/ --loglevel debug
+    if [ $? == 1 ]; then
+        exit 1
+    fi
     echo "::set-output name=ARTEFACT_GENERATED::true"
     echo "Creating destroy manifest"
     cd ./tmp/
