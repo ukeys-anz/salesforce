@@ -8,7 +8,7 @@ SOURCE_DIR="./force-app"
 DEPLOY_DIR="./tmp/deploy"
 DESTRUCTIVE_DIR="./tmp/destructive"
 META_DIR=(classes components pages triggers 'email/unfiled$public' staticresources wave)
-COMPONENT_DIR=(aura lwc)
+BUNDLE_DIR=(aura lwc waveTemplates)
 # If SOURCE_BRANCH is specified in the yml, do not overwrite
 if [ -z "$SOURCE_BRANCH" ]; then
    [ $GITHUB_EVENT_NAME == "pull_request" ] &&
