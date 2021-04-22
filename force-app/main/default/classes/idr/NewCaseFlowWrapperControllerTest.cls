@@ -1,7 +1,8 @@
 /**
  * @author saiero
  * @since 2020
- * @description Test class for NewCaseFlowWrapperController
+ * @description Test class for {@link NewCaseFlowWrapperController}
+ * @group IDR(Internal Dispute Resolution)
  */
 @isTest
 private with sharing class NewCaseFlowWrapperControllerTest {

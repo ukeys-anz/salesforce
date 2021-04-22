@@ -59,14 +59,19 @@ export default class ChatTopicRelatedList extends LightningElement {
       .then((result) => {
         if (result) {
           // To check if there were more records that what was retrieved against the same Customer
-          this.links = result.links.links;
+          // Check if links is not undefined before processing, avoid throwing error when user has the case tab open along with
+          // the account tab which will call fetchChatTopicInfoOnCase() and return a single channel which might not have links
+          this.links = result.links !== undefined ? result.links.links : "";
 
           // TODO: More error handling
-
-          result.channels.forEach((row) => {
-            this.data.push(this.generateRowData(row));
-          });
-          this.totalRecordCount = this.data.length;
+          // Check if there are channels before processing, avoid throwing error when user has the case tab open along with
+          // the account tab which will call fetchChatTopicInfoOnCase() and return a single channel instead of a list of channels
+          if (result.channels) {
+            result.channels.forEach((row) => {
+              this.data.push(this.generateRowData(row));
+            });
+            this.totalRecordCount = this.data.length;
+          }
         }
         this.loading = false;
       })
@@ -94,7 +99,6 @@ export default class ChatTopicRelatedList extends LightningElement {
       .then((result) => {
         if (result) {
           // TODO: More error handling
-
           this.data.push(this.generateRowData(result));
           this.totalRecordCount = this.data.length;
         }

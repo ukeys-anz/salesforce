@@ -1,3 +1,9 @@
+/**
+ * @author Igor Matkovic
+ * @date April 2020
+ * @description Test class for {@link FakerTextProvider} s
+ * @group Faker
+ */
 @IsTest
 class FakerTextProviderTest {
   @isTest

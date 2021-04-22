@@ -19,7 +19,7 @@ public with sharing class ChatTopicRelatedListControllerTest {
     Case newCase = new Case(
       RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
       AccountId = accnt.Id,
-      Twilio_Channel_SID__c = 'CH123456789',
+      Twilio_Channel_SID__c = 'CHc6ad9b34eb3e4788a12eb1caa07aefd5',
       Origin = 'Chat'
     );
     insert newCase;
@@ -74,20 +74,20 @@ public with sharing class ChatTopicRelatedListControllerTest {
     // Query for pre-inserted Case record
     Case chatCase = [SELECT Id FROM Case WHERE AccountId != NULL LIMIT 1];
     Test.startTest();
-    ChatChannelModel response = ChatTopicRelatedListController.getChatTopicInfoOnCase(
+    ChatChannelModel.Channel response = ChatTopicRelatedListController.getChatTopicInfoOnCase(
       chatCase.Id
     );
     Test.stopTest();
 
     System.assertEquals(
-      2,
-      response.channels.size(),
-      'Number of chat topics returned does not match with mock values size.'
+      'CHc6ad9b34eb3e4788a12eb1caa07aefd5',
+      response.id,
+      'Channel Id does not match'
     );
     System.assertEquals(
-      'CH147c6128b4864e0aaadc58d87d74e50c',
-      response.channels[0].id,
-      'Id of 1st chat topic does not match.'
+      'April2021',
+      response.name,
+      'Channel name does not match.'
     );
   }
 
@@ -97,7 +97,7 @@ public with sharing class ChatTopicRelatedListControllerTest {
   @isTest
   public static void nullsResponseChatTopicsOnCase() {
     Test.startTest();
-    ChatChannelModel response = ChatTopicRelatedListController.getChatTopicInfoOnCase(
+    ChatChannelModel.Channel response = ChatTopicRelatedListController.getChatTopicInfoOnCase(
       ''
     );
     Test.stopTest();

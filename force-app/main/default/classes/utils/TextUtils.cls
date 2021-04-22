@@ -2,6 +2,7 @@
  * @description TextUtils class contains static utility methods to take some actions related to text.
  * @author Pavan Kumar Ananta
  * @since 01/06/2020
+ * @group Utils
  */
 public without sharing class TextUtils {
   private static final String ACCOUNT_OR_CARD_REGEX_PATTERN = '[0-9][^a-zA-Z]{6,}[0-9]';

@@ -1,7 +1,7 @@
 /**
  * @author Igor Matkovic
  * @since 09/07/2018
- * @group faker
+ * @group Faker
  * @description  Class extending FakerAddressProvider which defines fake US addresses.
  */
 @SuppressWarnings('PMD.ExcessiveClassLength')

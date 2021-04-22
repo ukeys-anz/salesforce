@@ -1,3 +1,9 @@
+/**
+ * @author David Dawson
+ * @date April 2020
+ * @description Test class for {@link Lib_TestSync}
+ * @group Library
+ */
 @isTest
 public class Lib_TestSyncLogs {
   @isTest

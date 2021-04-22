@@ -11,7 +11,7 @@ public with sharing class ChatTopicRelatedListController {
    *
    * @param accountId Salesforce ID of the Account record from the lwc component
    * @param nextURL URL substring related to next offset (if there is a next) from API the response
-   * @return String
+   * @return `ChatChannelModel`  a list of channels
    */
   @AuraEnabled(cacheable=false)
   public static ChatChannelModel getChatTopicsOnAccount(
@@ -49,10 +49,10 @@ public with sharing class ChatTopicRelatedListController {
    * @description This method is used to chatTopicRelatedList lwc component to retrive chat topic related to case.
    *
    * @param caseId from lwc component
-   * @return String
+   * @return `ChatChannelModel.Channel` a single channel
    */
   @AuraEnabled(cacheable=false)
-  public static ChatChannelModel getChatTopicInfoOnCase(String caseId) {
+  public static ChatChannelModel.Channel getChatTopicInfoOnCase(String caseId) {
     // Query for Twilio Chat Channel SID by passing in the Case ID
     String channelSID;
     String ocvId;
@@ -71,7 +71,7 @@ public with sharing class ChatTopicRelatedListController {
     if (String.isNotBlank(ocvID) && String.isNotBlank(channelSID)) {
       // Make a callout to Twilio Service to fetch Chat Topic information linked with the Case
       CallCenterAPIRepository ccap = new CallCenterAPIRepository();
-      ChatChannelModel responseBody = ccap.getChatTopicsByChannelSID(
+      ChatChannelModel.Channel responseBody = ccap.getChatTopicsByChannelSID(
         ocvId,
         channelSID
       );

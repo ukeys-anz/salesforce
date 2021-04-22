@@ -12,34 +12,32 @@ jobs:
     container: ddawson235/sfdx:latest
     outputs:
       is_valid: ${{ steps.isValid.outputs.is_valid }}
+      
     steps:
       - name: Set Branch Name
-        run: echo branch_name=$(echo ${GITHUB_REF#refs/heads/}) >> $GITHUB_ENV
+        run: echo BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/}) >> $GITHUB_ENV
       - id: isValid
         name: determine if valid
         run: |
-          if [ ${{ env.branch_name }} == 'epic/cmos-bau' || ${{ env.branch_name }} == 'epic/cmos-r2' ]; then echo ::set-output name=is_valid::$(echo "valid"); else echo ::set-output name=env_name::$(echo "invalid"); fi
+          if [[ ${{ env.BRANCH_NAME }} == 'epic/cmos-bau' || ${{ env.BRANCH_NAME }} == 'epic/cmos-r2' ]]; then echo ::set-output name=is_valid::$(echo "valid"); else echo ::set-output name=is_valid::$(echo "invalid"); fi
 
   build_and_deploy:
     needs: [prepare]
     if: needs.prepare.outputs.is_valid == 'valid'
     runs-on: ubuntu-latest
     container: ddawson235/sfdx:latest
-
-    env:
-      BASE_BRANCH: ${{ env.branch_name }}
-      SOURCE_BRANCH: ${{ env.branch_name }}
-
     steps:
+      - name: Set Branch Name
+        run: echo BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/}) >> $GITHUB_ENV
       - name: Set Sandbox Name
         run: |
-          if [ ${{ env.branch_name }} == 'epic/cmos-r2' ]; then echo sandbox_name=$(echo CMOSQA) >> $GITHUB_ENV; else echo sandbox_name=$(echo CMOSBAUQA) >> $GITHUB_ENV; fi
+          if [ ${{ env.BRANCH_NAME }} == 'epic/cmos-r2' ]; then echo SANDBOX_NAME=$(echo CMOSQA) >> $GITHUB_ENV; else echo SANDBOX_NAME=$(echo CMOSBAUQA) >> $GITHUB_ENV; fi
       - name: "Authenticate the org"
         shell: bash
         run: |
-          echo ${{ env.sandbox_name }}
-          echo ${{ secrets[env.sandbox_name] }} > ./SFDX_URL_${{ env.sandbox_name }}.txt
-          sfdx force:auth:sfdxurl:store -a ${{ env.sandbox_name }} --sfdxurlfile=./SFDX_URL_${{ env.sandbox_name }}.txt
+          echo ${{ env.SANDBOX_NAME }}
+          echo ${{ secrets[env.SANDBOX_NAME] }} > ./SFDX_URL_${{ env.SANDBOX_NAME }}.txt
+          sfdx force:auth:sfdxurl:store -a ${{ env.SANDBOX_NAME }} --sfdxurlfile=./SFDX_URL_${{ env.SANDBOX_NAME }}.txt
       - uses: actions/checkout@v2
         with:
           ref: ${{ github.ref }}
@@ -52,8 +50,8 @@ jobs:
           git fetch --tags 
           ci/package.sh
         env:
-          TAG_PREFIX: ${{ env.sandbox_name }}
-          SOURCE_BRANCH: ${{ env.branch_name }}
+          TAG_PREFIX: ${{ env.SANDBOX_NAME }}
+          SOURCE_BRANCH: ${{ env.BRANCH_NAME }}
 
       - uses: actions/upload-artifact@v1
         if: ${{ steps.package.outputs.ARTEFACT_GENERATED }}
@@ -67,12 +65,12 @@ jobs:
         env:
           DEPLOY_ROOT: ./artefact/
           BUILD_COMMAND: deploy
-          ORG_NAME: ${{ env.sandbox_name }}
+          ORG_NAME: ${{ env.SANDBOX_NAME }}
 
       - name: "Tag Release"
         shell: bash
         run: |
-          TAG="${{ env.sandbox_name }}-${GITHUB_RUN_ID}"
+          TAG="${{ env.SANDBOX_NAME }}-${GITHUB_RUN_ID}"
           echo "$TAG"
           git tag "$TAG"
           git push origin "$TAG"

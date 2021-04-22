@@ -1,5 +1,5 @@
 import { LightningElement, track, wire, api } from "lwc";
-import getTransactions from "@salesforce/apex/TransactionHistoryController.getTransactions";
+import getTransactions from "@salesforce/apex/CoachBankingAPIRepository.getTransactionHistoryAura";
 import getDisputeRecordTypeMap from "@salesforce/apex/TransactionHistoryController.getDisputeRecordTypeMap";
 import getPersonContactId from "@salesforce/apex/TransactionHistoryController.getPersonContactId";
 import { getRecord } from "lightning/uiRecordApi";
@@ -93,10 +93,9 @@ export default class TransactionHistoryBoard extends LightningElement {
     })
       .then((result) => {
         if (result) {
-          const resultObj = JSON.parse(result);
-          this.totalTransactions = resultObj.total;
-          this.fullTransactionList = resultObj.transactions;
-          this.links = resultObj.links;
+          this.totalTransactions = result.total;
+          this.fullTransactionList = result.transactions;
+          this.links = result.links;
           let updatedFullList = [];
 
           if (this.fullTransactionList) {
@@ -105,7 +104,7 @@ export default class TransactionHistoryBoard extends LightningElement {
 
               // Set the transaction's dispute record type Id
               currentTransaction.disputeRecordTypeId = this.transactionTypeDisputeIdMap[
-                currentTransaction.type
+                currentTransaction.transactionType
               ];
 
               //Remove $ from value and convert to int
@@ -123,28 +122,28 @@ export default class TransactionHistoryBoard extends LightningElement {
               }
 
               //Remap type and status
-              currentTransaction.type = currentTransaction.type
-                ? transactionTypeMapping[currentTransaction.type]
+              currentTransaction.transactionType = currentTransaction.transactionType
+                ? transactionTypeMapping[currentTransaction.transactionType]
                 : "Unknown";
               currentTransaction.status = currentTransaction.status
                 ? transactionStatusMapping[currentTransaction.status]
                 : "Unknown";
 
               //Slice the returned date time to get only the date
-              currentTransaction.TransactionDate = currentTransaction.date
-                ? currentTransaction.date.slice(0, 10)
+              currentTransaction.TransactionDate = currentTransaction.transactionDate
+                ? currentTransaction.transactionDate.slice(0, 10)
                 : "Unknown";
 
               //Return only the time from the date time
-              currentTransaction.TransactionTime = currentTransaction.date
-                ? currentTransaction.date.match(/\d\d:\d\d/)
+              currentTransaction.TransactionTime = currentTransaction.transactionDate
+                ? currentTransaction.transactionDate.match(/\d\d:\d\d/)
                 : "Unknown";
 
               if (i === 0) {
                 currentTransaction.showDateTitle = true;
               } else if (
                 currentTransaction.TransactionDate !==
-                this.fullTransactionList[i - 1].date.slice(0, 10)
+                this.fullTransactionList[i - 1].transactionDate.slice(0, 10)
               ) {
                 currentTransaction.showDateTitle = true;
               } else {
@@ -185,7 +184,8 @@ export default class TransactionHistoryBoard extends LightningElement {
               //Check if international transaction
               if (
                 currentTransaction.amount &&
-                currentTransaction.amount.type === "EXCHANGE_TYPE_INTERNATIONAL"
+                currentTransaction.amount.transactionType ===
+                  "EXCHANGE_TYPE_INTERNATIONAL"
               ) {
                 currentTransaction.internationalDetails = true;
               }

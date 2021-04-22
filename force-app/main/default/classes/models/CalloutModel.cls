@@ -2,6 +2,7 @@
  * @author Pavan Kumar Ananta
  * @since Feb 2020
  * @description base class for JSON <-> Apex Type de/serializations
+ * @group Models
  */
 public virtual class CalloutModel {
   /**
@@ -14,6 +15,9 @@ public virtual class CalloutModel {
     'refresh_token' => 'refreshToken',
     'expires_in' => 'expiresIn',
     'expires_on' => 'expiresOn',
+    'number' => 'transactionAccountNumber',
+    'type' => 'transactionType',
+    'date' => 'transactionDate',
     '_links' => 'links'
   };
 
