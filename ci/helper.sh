@@ -40,8 +40,8 @@ function unzipDeployPackageandCopyMetaFiles() {
         fi
     done
 
-    # Copy full Aura and LWC directories where at least one change has been made
-    for dir in ${COMPONENT_DIR[*]}; do
+    # Copy full Aura, LWC, waveTemplate directories where at least one change has been made
+    for dir in ${BUNDLE_DIR[*]}; do
         if [[ -d ${DEPLOY_DIR}/force-app/main/default/$dir ]]; then
             for d in ${DEPLOY_DIR}/force-app/main/default/$dir/*; do
                 if [ -d "$d" ]; then
