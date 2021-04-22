@@ -1,56 +1,51 @@
 <template>
   <lightning-card>
-    <div class="slds-m-around_medium">
-      <div style="width: 35%; margin: auto">
-        <lightning-input
-          label="Search Restricted Cases"
-          type="search"
-          class="slds-m-bottom_small"
-          onkeyup={handleSearch}
-          onchange={handleKeyChange}
-          placeholder="Type your key and press Enter"
-          value={searchKey}
-        ></lightning-input>
-      </div>
-      <template if:true={showData}>
-        <lightning-datatable
-          key-field="Id"
-          data={data}
-          columns={columns}
-          sorted-by={sortedBy}
-          sorted-direction={sortDirection}
-          onsort={onHandleSort}
-          onrowaction={handleRowActions}
-          show-row-number-column
-          hide-checkbox-column
-        >
-        </lightning-datatable>
-        <br />
-        <lightning-layout horizontal-align="space">
-          <lightning-layout-item flexibility="auto">
-            <lightning-button
-              label="Previous"
-              icon-name="utility:chevronleft"
-              onclick={previousHandler}
-            >
-            </lightning-button>
-          </lightning-layout-item>
-          <lightning-layout-item flexibility="auto">
-            Page {page} of {totalPage}
-          </lightning-layout-item>
-          <lightning-layout-item flexibility="auto">
-            <lightning-button
-              label="Next"
-              icon-name="utility:chevronright"
-              icon-position="right"
-              onclick={nextHandler}
-            ></lightning-button>
-          </lightning-layout-item>
-        </lightning-layout>
-      </template>
+    <div style="width: 35%; margin: auto">
+      <lightning-input
+        label="Search Restricted Cases"
+        type="search"
+        class="slds-m-bottom_small"
+        onkeyup={handleSearch}
+        onchange={handleKeyChange}
+        placeholder="Type your key and press Enter"
+        value={searchKey}
+      ></lightning-input>
     </div>
+    <template if:true={loading}>
+      <div class="slds-align_absolute-center" style="height: 4rem">
+        <div role="status" class="slds-spinner_inline">
+          <lightning-spinner
+            alternative-text="Loading"
+            variant="brand"
+          ></lightning-spinner>
+        </div>
+      </div>
+    </template>
+    <template if:true={showData}>
+        <div style="height: 500px">
+          <lightning-datatable
+            key-field="Id"
+            data={data}
+            columns={columns}
+            sorted-by={sortedBy}
+            sorted-direction={sortDirection}
+            onsort={onHandleSort}
+            onrowaction={handleRowActions}
+            show-row-number-column
+            hide-checkbox-column
+          >
+          </lightning-datatable>
+        </div>
+    </template>
+    <template if:true={noData}>
+      <div style="height: 100px;">
+      </br>
+        <h1 class="slds-align_absolute-center">
+          <span>No Records Found!</span>
+        </h1>
+      </div>
+    </template>
   </lightning-card>
-  <!-- showing record edit form -->
   <template if:true={isEditForm}>
     <section
       role="dialog"
@@ -92,25 +87,22 @@
             name="Body"
             required
             label="Body"
+            onchange={handleCommentChange}
             placeholder="type here..."
           ></lightning-textarea>
         </div>
         <!-- Modal/Popup Box LWC footer starts here -->
         <footer class="slds-modal__footer">
-          <lightning-button
-            class="slds-m-top_small"
-            variant="brand"
-            type="submit"
-            name="update"
-            label="Save"
-          ></lightning-button>
-          &nbsp;
-          <lightning-button
-            variant="brand"
-            label="Close"
-            title="Close"
-            onclick={closeModal}
-          ></lightning-button>
+          <template if:true={showSave}>
+            <lightning-button
+              class="slds-m-top_small"
+              variant="brand"
+              type="submit"
+              onclick={handleSubmit}
+              name="update"
+              label="Save"
+            ></lightning-button>
+          </template>
         </footer>
       </div>
     </section>
@@ -126,7 +118,7 @@
       class="slds-modal slds-fade-in-open"
     >
       <div class="slds-modal__container">
-        <!-- Modal/Popup Box LWC header here -->
+        <!-- Modal/Popup Box Header starts here-->
         <header class="slds-modal__header">
           <button
             class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
@@ -150,23 +142,16 @@
         </header>
         <!-- Upload File starts here -->
         <div class="slds-theme_shade slds-text-align_center">
-          <c-file-Upload
-            customer-id={customerId}
-            onnewfileupload={refreshFileList}
-            record-id={recordId}
+          <lightning-file-upload
+            name="fileUploader"
+            accept={acceptedFormats}
+            onuploadfinished={handleUploadFinished}
+            multiple
           >
-          </c-file-Upload>
+          </lightning-file-upload>
         </div>
         <!-- Modal/Popup Box LWC footer starts here -->
         <footer class="slds-modal__footer">
-          <lightning-button
-            class="slds-m-top_small"
-            variant="brand"
-            type="submit"
-            name="update"
-            label="Save"
-          ></lightning-button>
-          &nbsp;
           <lightning-button
             variant="brand"
             label="Close"

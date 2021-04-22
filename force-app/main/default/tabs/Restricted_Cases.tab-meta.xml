@@ -2,6 +2,6 @@
 <CustomTab xmlns="http://soap.sforce.com/2006/04/metadata">
     <description>Custom tab to show restricted case details using lightning web component</description>
     <label>Restricted Cases</label>
-    <lwcComponent>restrictedCaseDetails</lwcComponent>
+    <lwcComponent>idrRestrictedCases</lwcComponent>
     <motif>Custom91: Shield</motif>
 </CustomTab>
