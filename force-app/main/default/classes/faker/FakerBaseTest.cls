@@ -1,3 +1,10 @@
+/**
+ * @author Igor Matkovic
+ * @since 09/07/2018
+ * @group Faker
+ * @description  Base class for Faker, which has all basic methods/definitions returning random/fake outputs
+ * Test class for {@link FakerBase}
+ */
 @IsTest
 class FakerBaseTest {
   @isTest

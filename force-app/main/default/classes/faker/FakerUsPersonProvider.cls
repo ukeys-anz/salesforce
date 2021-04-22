@@ -1,7 +1,7 @@
 /**
  * @author Igor Matkovic
  * @since 09/07/2018
- * @group faker
+ * @group Faker
  * @description Class extending FakerPersonProvider which defines fake US person related data
  */
 @SuppressWarnings('PMD.ExcessiveClassLength')

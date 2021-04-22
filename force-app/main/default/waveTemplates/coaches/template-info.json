@@ -1,8 +1,8 @@
 {
   "templateType": "app",
-  "label": "Coach Static",
+  "label": "Coaches Dashboard",
   "name": "coaches",
-  "description": "This Application loads critical static data for Coaches Reporting",
+  "description": "Coaches Dashboard",
   "assetVersion": 43,
   "releaseInfo": {
     "templateVersion": "1.0"

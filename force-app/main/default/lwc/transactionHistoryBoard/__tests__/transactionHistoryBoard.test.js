@@ -1,6 +1,6 @@
 import TransactionHistoryBoard from "c/transactionHistoryBoard";
 import { createElement } from "lwc";
-import getTransactions from "@salesforce/apex/TransactionHistoryController.getTransactions";
+import getTransactions from "@salesforce/apex/CoachBankingAPIRepository.getTransactionHistoryAura";
 import { getRecord } from "lightning/uiRecordApi";
 
 import { publish, MessageContext } from "lightning/messageService";
@@ -13,11 +13,17 @@ import {
 } from "@salesforce/sfdx-lwc-jest";
 
 const messageContextWireAdapter = registerTestWireAdapter(MessageContext);
+
 const mockGetRecord = require("./data/getRecord.json");
+const APEX_TRANSACTIONS_SUCCESS = require("./data/transactionSuccess.json");
+const APEX_TRANSACTIONS_SUCCESS_SECOND = require("./data/transactionSuccessTwo.json");
+const APEX_TRANSACTIONS_SUCCESS_PARTIAL = require("./data/transactionPartial.json");
+const APEX_TRANSACTIONS_FAILURE = require("./data/transactionFailure.json");
+
 const getRecordAdapter = registerLdsTestWireAdapter(getRecord);
 
 jest.mock(
-  "@salesforce/apex/TransactionHistoryController.getTransactions",
+  "@salesforce/apex/CoachBankingAPIRepository.getTransactionHistoryAura",
   () => {
     return {
       default: jest.fn()
@@ -25,19 +31,6 @@ jest.mock(
   },
   { virtual: true }
 );
-
-const APEX_TRANSACTIONS_SUCCESS =
-  '{"total":{},"transactions":[{"TransactionID":"123","amount":{"charged":{"value":"50.00"}},"type":"TRANSACTION_TYPE_CARD","status":"TRANSACTION_STATUS_PENDING","card":{"scheme":"CARD_SCHEME_VISA"},"date":"2020-01-01d18:19","tags":[{"name":"test"},{"name":"testsuperlooooooooongStr"}],"merchant":{"name":"test","chain_name":{"value":"test"},"address":{"line_one":{"value":"test street"},"suburb":{"value":"test suburb"},"state":{"value":"test state"},"postcode":{"value":"4000"},"coordinates":{"latitude":51,"longitude":47}},"image_details":{"light_url":{"value":"test url"}},"email":{"value":"test@test.com"}}}],"links":{"next":{"href":"www.google.com"}}}';
-const APEX_TRANSACTIONS_SUCCESS_SECOND =
-  '{"total":{},"transactions":[{"TransactionID":"124","amount":{"charged":{"value":"50.00"}},"type":"TRANSACTION_TYPE_CARD","status":"TRANSACTION_STATUS_PENDING","card":{"scheme":"CARD_SCHEME_VISA"},"date":"2020-01-01d18:19","tags":[{"name":"test"},{"name":"testsuperlooooooooongStr"}],"merchant":{"name":"test","chain_name":{"value":"test"},"address":{"line_one":{"value":"test street"},"suburb":{"value":"test suburb"},"state":{"value":"test state"},"postcode":{"value":"4000"},"coordinates":{"latitude":51,"longitude":47}},"image_details":{"light_url":{"value":"test url"}},"email":{"value":"test@test.com"}}}],"links":{"next":{"href":"www.google.com"}}}';
-const APEX_TRANSACTIONS_SUCCESS_PARTIAL =
-  '{"total":{},"transactions":[{"TransactionID":"123","amount":{"charged":{"value":"50.00"}},"type":"TRANSACTION_TYPE_CARD"}]}';
-const APEX_TRANSACTIONS_FAILURE = {
-  body: { message: "An internal server error has occurred" },
-  ok: false,
-  status: 400,
-  statusText: "Bad Request"
-};
 
 describe("c-transactionHistoryBoard", () => {
   afterEach(() => {

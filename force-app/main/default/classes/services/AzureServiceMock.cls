@@ -2,6 +2,7 @@
  * @author Lance Shi
  * @since March 2021
  * @description Mock implementation of Azure api service, automatically injected if Non_Prod_Settings__c.MockCallouts__c is set or if the application is running in Tests
+ * @group Services
  */
 public with sharing class AzureServiceMock extends Service {
   @TestVisible
@@ -23,6 +24,7 @@ public with sharing class AzureServiceMock extends Service {
     '  \"refresh_count\" : \"0\",' +
     '  \"status\" : \"approved\"' +
     '}';
+
   /**
    * @description construct a mock with hardcoded success value
    */

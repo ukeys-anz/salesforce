@@ -2,6 +2,7 @@
  * @author Pavan Kumar Ananta
  * @since  02/2020
  * @description IDRCaseActions is class to handle all the IDR (Internal Dispute Resolution) Actions
+ * @group IDR(Internal Dispute Resolution)
  * Note: Since Case Owner is a lookup of either User or Group Salesforce has common object in which only few fields are accessible as found in the link https://skaruz.com/salesforce-how-to-access-owner-custom-fields-in-a-soql-query/
  * So we need to query the Users and update the records accordingly.
  */

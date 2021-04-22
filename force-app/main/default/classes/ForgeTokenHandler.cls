@@ -11,7 +11,7 @@ public with sharing class ForgeTokenHandler {
    * @return Map<String, Object>
    * @exception CalloutException
    */
-  public static Map<String, Object> getForgeJWTToken(String ocvId) {
+  public static IdentityModel getForgeJWTToken(String ocvId) {
     String idToken = '';
     try {
       idToken = AuthTokenCacheUtil.getSessionIdToken();
@@ -43,63 +43,13 @@ public with sharing class ForgeTokenHandler {
         LIMIT 1
       ];
     }
-
-    HttpRequest request = new HttpRequest();
-    request.setEndpoint('callout:SF_MS_Fabric' + Label.MS_Forge_Token);
-    request.setHeader('client_id', '{!$Credential.Username}');
-    request.setHeader('client_secret', '{!$Credential.Password}');
-    request.setHeader('Authorization', 'Bearer ' + idToken);
-
-    request.setMethod('POST');
-    //Todo: This needs to be replaced with uniquely generated id based on what is accepted by forge
-    //request.setHeader('x-correlation-id', RequestUtils.getRequestId());
-
-    request.setHeader('Content-Type', 'application/x-www-form-urlencoded');
-    String payload =
-      'identity_system_client_id=' +
-      EncodingUtil.urlEncode(forgeAuth.Encrypted_forge_client_id__c, 'UTF-8') +
-      '&identity_system_client_secret=' +
-      EncodingUtil.urlEncode(
-        forgeAuth.Encrypted_forge_client_secret__c,
-        'UTF-8'
-      ) +
-      '&ocvId=' +
-      EncodingUtil.urlEncode(ocvId, 'UTF-8') +
-      '&scope=aegis-introspect' +
-      '&requested_token_type=StaffJWT' +
-      '&personaType=retail';
-
-    request.setBody(payload);
-
-    HTTPResponse response = null;
-    String responseBody = '';
-    try {
-      Http http = new Http();
-      response = http.send(request);
-      if (response.getStatusCode() == 200 || response.getStatusCode() == 201) {
-        responseBody = response.getBody();
-      } else {
-        throw new CalloutException(response.getBody());
-      }
-    } catch (Exception e) {
-      Lib_SystemLog.logAPIError(
-        ForgeTokenHandler.class.getName(),
-        'getForgeJWTToken',
-        e.getMessage(),
-        e.getTypeName(),
-        RequestUtils.getRequestId(),
-        null,
-        response != null ? response.getBody() : null
-      );
-      AuraHandledException ahe = new AuraHandledException(e.getMessage());
-      ahe.setMessage(e.getMessage());
-      throw ahe;
-    }
-
-    Map<String, Object> responseMap = (Map<String, Object>) JSON.deserializeUntyped(
-      responseBody
+    AuthRepository authRepo = new AuthRepository();
+    IdentityModel responseModel = authRepo.getForgeStaffToken(
+      ocvId,
+      idToken,
+      forgeAuth
     );
 
-    return responseMap;
+    return responseModel;
   }
 }

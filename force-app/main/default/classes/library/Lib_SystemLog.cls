@@ -10,6 +10,7 @@
  * lib_systemLog log = new lib_systemLog('ContactService','Contact','upgradeContact');
  *
  * log.addDatabaseSaveResult(results, 'Contact', contactToUpdate);
+ * @group Library
  */
 @SuppressWarnings('PMD.ExcessiveParameterList, PMD.ExcessivePublicCount')
 public without sharing class Lib_SystemLog {

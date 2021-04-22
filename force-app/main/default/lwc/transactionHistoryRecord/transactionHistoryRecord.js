@@ -4,6 +4,7 @@ import { subscribe, MessageContext } from "lightning/messageService";
 import ExpandCollapseAll from "@salesforce/messageChannel/ListCollapseExpandAll__c";
 
 import { NavigationMixin } from "lightning/navigation";
+import canRaiseDispute from "@salesforce/customPermission/ANZx_Raise_Dispute";
 
 export default class TransactionHistoryRecord extends NavigationMixin(
   LightningElement
@@ -37,6 +38,10 @@ export default class TransactionHistoryRecord extends NavigationMixin(
     if (this.expandAll) {
       this.showTransactionDetails = true;
     }
+  }
+
+  get disableRaiseDisputeBtn() {
+    return !canRaiseDispute;
   }
 
   get merchantPhoneNumber() {
@@ -185,9 +190,10 @@ export default class TransactionHistoryRecord extends NavigationMixin(
     if (this.transactionRecord.transactionId)
       defaultFieldValues +=
         ",Transaction_Id__c=" + this.transactionRecord.transactionId;
-    if (this.transactionRecord.date)
+    if (this.transactionRecord.transactionDate)
       defaultFieldValues +=
-        ",Effective_Date__c=" + this.transactionRecord.date.split("T")[0]; // Get the date only to prevent SF from converting this date to local timezone in the Date field
+        ",Effective_Date__c=" +
+        this.transactionRecord.transactionDate.split("T")[0]; // Get the date only to prevent SF from converting this date to local timezone in the Date field
     if (this.transactionRecord.amount.charged.value)
       defaultFieldValues +=
         ",Amount__c=" + Math.abs(this.transactionRecord.amount.charged.value); // Return the absolute value of amount

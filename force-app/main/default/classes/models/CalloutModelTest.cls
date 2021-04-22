@@ -1,3 +1,9 @@
+/**
+ * @author Pavan Kumar Ananta
+ * @date February 2020
+ * @description Test class for {@link CalloutModel}
+ * @group Models
+ */
 @isTest
 public inherited sharing class CalloutModelTest {
   static String modelJson = '{"testString":"Test","submodel":{"testSubString":"TestSub"},"currency":"123"}';

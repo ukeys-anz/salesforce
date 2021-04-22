@@ -17,7 +17,7 @@
       </div>
       <div class="slds-col slds-size--1-of-7">
         <div class="slds-grid slds-form-element__label">Transaction Type</div>
-        <div class="slds-grid">{transactionRecord.type}</div>
+        <div class="slds-grid">{transactionRecord.transactionType}</div>
       </div>
       <div class="slds-col slds-size--1-of-7">
         <div class="slds-grid slds-form-element__label">Transaction Time</div>
@@ -66,6 +66,7 @@
             value="Raise Dispute"
             label="Raise Dispute"
             onclick={handleRaiseDispute}
+            disabled={disableRaiseDisputeBtn}
           >
           </lightning-menu-item>
         </lightning-button-menu>

@@ -1,3 +1,9 @@
+/**
+ * @author Lance Shi
+ * @date March 2021
+ * @description Test class for {@link AzureService}
+ * @group Services
+ */
 @isTest
 public with sharing class AzureServiceTest {
   public static final String JSON_GOOD_TOKEN =

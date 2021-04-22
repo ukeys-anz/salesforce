@@ -1,7 +1,7 @@
 /**
  * @author Igor Matkovic
  * @since 09/07/2018
- * @group faker
+ * @group Faker
  * @description  Factory factory interface.
  */
 public interface FakerFactoryInterface {
