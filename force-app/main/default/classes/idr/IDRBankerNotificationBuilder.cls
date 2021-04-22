@@ -85,7 +85,19 @@ public with sharing class IDRBankerNotificationBuilder {
     notification.setTitle(wrapperRecord.msgTitle);
     notification.setNotificationTypeId(notificationTypeId);
     notification.setTargetId(wrapperRecord.sfObject.Id); // target object id
-    notification.send(recipientIds);
+    try {
+      notification.send(recipientIds);
+    } catch (Exception e) {
+      Lib_SystemLog.logAPIError(
+        IDRBankerNotificationBuilder.class.getName(),
+        'Problem sending in app notification: ' + recipientIds,
+        e.getMessage(),
+        null,
+        IDRBankerNotificationBuilder.class.getName(),
+        null,
+        null
+      );
+    }
   }
 
   /**

@@ -21,6 +21,9 @@ public class TestIDRFilesRelatedListController {
     cv.PathOnClient = 'loan.txt';
     cv.VersionData = blob.valueOf('Test file Search - idrsearch123');
     cv.Document_Flag__c = '1;7';
+    cv.Date_of_Document__c = datetime.now();
+    cv.Party_who_sent_created_file__c = 'Internal business unit';
+    cv.Type_of_Document__c = 'Correspondence';
     cv.FirstPublishLocationId = c.id;
     insert cv;
   }

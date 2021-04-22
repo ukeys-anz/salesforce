@@ -62,7 +62,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Customer</shortDescription>
-        <value>/anz-exp-sfdc-customers-api/api/v1/public/customers/</value>
+        <value>/sfdc/customers/v1r20/api/v1/public/customers/</value>
     </labels>
     <labels>
         <fullName>MS_Get_CustomerChatChannels</fullName>

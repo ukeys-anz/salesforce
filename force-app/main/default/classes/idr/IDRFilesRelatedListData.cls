@@ -21,4 +21,10 @@ public class IDRFilesRelatedListData {
         public string fileId;
         @AuraEnabled
         public string flag;
+        @AuraEnabled
+        public date dateOfDocument;
+        @AuraEnabled
+        public string partyWhoSent;
+        @AuraEnabled
+        public string documentType;
 }

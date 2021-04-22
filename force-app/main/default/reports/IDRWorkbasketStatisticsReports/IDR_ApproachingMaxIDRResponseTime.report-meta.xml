@@ -4,7 +4,7 @@
         <field>CASE_NUMBER</field>
     </columns>
     <columns>
-        <field>CASE_OWNER</field>
+        <field>CDF1</field>
     </columns>
     <columns>
         <field>STATUS</field>
@@ -12,9 +12,13 @@
     <columns>
         <field>DUE_DATE</field>
     </columns>
-    <columns>
-        <field>ASSIGNED</field>
-    </columns>
+    <customDetailFormulas>
+        <calculatedFormula>CASE_OWNER</calculatedFormula>
+        <dataType>Text</dataType>
+        <developerName>CDF1</developerName>
+        <label>Case Owner</label>
+        <scale>2</scale>
+    </customDetailFormulas>
     <description>Cases approaching maximum IDR time by Queue</description>
     <filter>
         <booleanFilter>1 AND 3 AND (2 OR 4)</booleanFilter>

@@ -62,6 +62,9 @@ public with sharing class IDRConstants {
   public static final string MILESTONE_STANDARD = '30-day IDR Response Due';
   public static final string MILESTONE_PRIORITY = '21-day IDR Response Due';
 
+  //Channel Recieved
+  public static final string CHANNEL_RECEIVED_AFCA_REFERRED = '11';
+
   //Anz.com constants
   /**
    * @description Static variable to map anz.com field with case fields
@@ -116,6 +119,24 @@ public with sharing class IDRConstants {
         };
       }
       return anzComIssueTypeMapping;
+    }
+    set;
+  }
+
+  /**
+   * @description Static variable to map anz.com Issue type field with case type field
+   * @return anzComIssueTypeMapping map of anz.com Issue type field with case type field
+   */
+  public static final List<String> workBasketNames {
+    get {
+      if (workBasketNames == null) {
+        workBasketNames = new List<String>{
+          'Specialised_Early_Resolution_Hardship',
+          'Specialised_EarlyRes_Responsible_Lending',
+          'EDR_Early_Resolution'
+        };
+      }
+      return workBasketNames;
     }
     set;
   }

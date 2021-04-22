@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
     <columns>
-        <field>CASE_NUMBER</field>
+        <field>SUBJECT</field>
     </columns>
     <columns>
-        <field>CASE_OWNER</field>
+        <field>CASE_NUMBER</field>
     </columns>
     <columns>
         <field>STATUS</field>
     </columns>
     <columns>
         <field>DUE_DATE</field>
-    </columns>
-    <columns>
-        <field>ASSIGNED</field>
     </columns>
     <description>Cases approaching maximum IDR time</description>
     <filter>
@@ -49,7 +46,7 @@
     <format>Summary</format>
     <groupingsDown>
         <dateGranularity>Day</dateGranularity>
-        <field>SUBJECT</field>
+        <field>CASE_OWNER</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
     <name>Maximum IDR Response Overdue Cases</name>

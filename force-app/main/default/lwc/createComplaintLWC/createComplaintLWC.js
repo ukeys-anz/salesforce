@@ -413,8 +413,21 @@ export default class CreateComplaintLWC extends NavigationMixin(
     let isFieldValid = [
       ...this.template.querySelectorAll("lightning-input-field")
     ].reduce((isValidSoFar, inputCmp) => {
-      if (inputCmp.id) {
-        let getId = inputCmp.id.split("-");
+      if (inputCmp.getAttribute("data-id")) {
+        let getId = inputCmp.getAttribute("data-id").split("-");
+        if (requiredFields[getId[0]] && !inputCmp.value) {
+          isValidSoFar = false;
+          this.missingDataFields += requiredFields[getId[0]] + ", ";
+        }
+      }
+      return isValidSoFar;
+    }, true);
+
+    let isDescValid = [
+      ...this.template.querySelectorAll("lightning-textarea")
+    ].reduce((isValidSoFar, inputCmp) => {
+      if (inputCmp.getAttribute("data-id")) {
+        let getId = inputCmp.getAttribute("data-id").split("-");
         if (requiredFields[getId[0]] && !inputCmp.value) {
           isValidSoFar = false;
           this.missingDataFields += requiredFields[getId[0]] + ", ";
@@ -467,19 +480,17 @@ export default class CreateComplaintLWC extends NavigationMixin(
     let isEmailValid = [
       ...this.template.querySelectorAll("lightning-input-field")
     ].reduce((isValidSoFar, inputCmp) => {
-      if (inputCmp.id) {
-        let getId = inputCmp.id.split("-");
+      if (inputCmp.getAttribute("data-id")) {
+        let getId = inputCmp.getAttribute("data-id").split("-");
         if (
           (getId[0].includes("email") || getId[0].includes("Email")) &&
-          requiredFields[getId[0]] &&
           inputCmp.value
         ) {
           let emailRegex =
             '^(([^<>()\\[\\]\\.,;:\\s@"]+(\\.+[^<>()\\[\\]\\.,;:\\s@"]+)*)|(".+"))@(([^<>()[\\]\\.,;:\\s@"]+\\.)+[^<>()[\\]\\.,;:\\s@"]{2,})$';
           if (!inputCmp.value.match(emailRegex)) {
             isValidSoFar = false;
-            this.missingDataFields +=
-              requiredFields[getId[0]] + " is invalid. ";
+            this.missingDataFields += inputCmp.value + " is invalid. ";
           }
         }
       }
@@ -492,7 +503,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       isFinCompValid = this.validateFinancialCompensation();
     }
 
-    return isFieldValid && isEmailValid && isFinCompValid;
+    return isFieldValid && isEmailValid && isFinCompValid && isDescValid;
   }
 
   handleSubmit(event) {

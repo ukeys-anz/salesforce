@@ -38,6 +38,9 @@ public with sharing class IDRFilesRelatedListController {
           ContentDocument.CreatedDate,
           ContentDocument.Owner.Name,
           ContentDocument.FileExtension,
+          ContentDocument.LatestPublishedVersion.Date_of_Document__c,
+          ContentDocument.LatestPublishedVersion.Party_who_sent_created_file__c,
+          ContentDocument.LatestPublishedVersion.Type_of_Document__c,
           ContentDocumentId
         FROM contentDocumentLink
         WHERE LinkedEntityId IN :linkedEntityIdList
@@ -57,6 +60,9 @@ public with sharing class IDRFilesRelatedListController {
       tempData.createdDate = date.valueOf(doc.ContentDocument.CreatedDate);
       tempData.ownerName = doc.ContentDocument.Owner.Name;
       tempData.fileId = doc.ContentDocumentId;
+      tempData.dateOfDocument = date.valueOf(doc.ContentDocument.LatestPublishedVersion.Date_of_Document__c);
+      tempData.partyWhoSent = doc.ContentDocument.LatestPublishedVersion.Party_who_sent_created_file__c;
+      tempData.documentType = doc.ContentDocument.LatestPublishedVersion.Type_of_Document__c;
       // list<string> flagList = new list<string>();
       string flagString;
       if (

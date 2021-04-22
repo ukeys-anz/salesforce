@@ -12,9 +12,6 @@
     <columns>
         <field>DUE_DATE</field>
     </columns>
-    <columns>
-        <field>ASSIGNED</field>
-    </columns>
     <customDetailFormulas>
         <calculatedFormula>CASE_OWNER</calculatedFormula>
         <dataType>Text</dataType>
