@@ -45,7 +45,7 @@ const columns = [
     type: "action",
     typeAttributes: {
       rowActions: actions,
-      menuAlignment: "right"
+      menuAlignment: "slds-popover__body"
     }
   }
 ];
