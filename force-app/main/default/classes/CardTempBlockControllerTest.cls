@@ -10,10 +10,7 @@ public with sharing class CardTempBlockControllerTest {
    */
   @isTest
   public static void validResponse() {
-    Test.setMock(
-      HttpCalloutMock.class,
-      new ForgeTokenHandlerTest.MockForgeCallout()
-    );
+    Test.setMock(HttpCalloutMock.class, new MockFCardCallout());
     Id userId = UserInfo.getUserId();
     Cache.Session.put(
       'local.SessionAzureTokens.idToken' + userId,
@@ -28,7 +25,7 @@ public with sharing class CardTempBlockControllerTest {
       '4444444444444444',
       '1111'
     );
-    System.assertEquals('{"access_token":"xxxxx","expires_in":900}', respBody);
+    System.assertEquals('{"card_number":"xxxxx","expires_in":900}', respBody);
     Test.stopTest();
   }
 
@@ -37,10 +34,7 @@ public with sharing class CardTempBlockControllerTest {
    */
   @isTest
   public static void invalidResponseFromForgeToken() {
-    Test.setMock(
-      HttpCalloutMock.class,
-      new ForgeTokenHandlerTest.MockForgeCalloutFailed()
-    );
+    Test.setMock(HttpCalloutMock.class, new MockInvalidCardBlockCallout());
     Id userId = UserInfo.getUserId();
     Cache.Session.put(
       'local.SessionAzureTokens.idToken' + userId,
@@ -58,7 +52,7 @@ public with sharing class CardTempBlockControllerTest {
       expMessage = e.getMessage();
     }
 
-    System.assertEquals('Get access token failed', expMessage);
+    System.assertEquals('Block card failed', expMessage);
 
     Test.stopTest();
   }
@@ -109,6 +103,26 @@ public with sharing class CardTempBlockControllerTest {
         res.setBody('{"access_token":"xxxxx","expires_in":900}');
       }
 
+      return res;
+    }
+  }
+
+  /**
+   * @author Lance Shi
+   * @since 11/2020
+   * @description Mock card api callout result
+   */
+  public class MockFCardCallout implements HttpCalloutMock {
+    /**
+     * @description mock response for callout
+     * @param req incoming request
+     * @return HTTPResponse valid response
+     */
+    public HTTPResponse respond(HTTPRequest req) {
+      HTTPResponse res = new HTTPResponse();
+      res.setStatusCode(200);
+      res.setHeader('Content-Type', 'application/json');
+      res.setBody('{"card_number":"xxxxx","expires_in":900}');
       return res;
     }
   }

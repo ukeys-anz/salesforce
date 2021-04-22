@@ -2,6 +2,7 @@
  * @author Jasmine Nguyen
  * @since March 2021
  * @description model for chat channels API, extending the base
+ * @group Models
  */
 public with sharing class ChatChannelModel extends CalloutModel {
   /**
@@ -113,7 +114,16 @@ public with sharing class ChatChannelModel extends CalloutModel {
    * @return `ChatChannelModel`
    * @description deserializes the input string into the model, using the base method and reserved key replacement
    */
-  public static ChatChannelModel parse(String json) {
+  public static ChatChannelModel parseChannels(String json) {
     return (ChatChannelModel) deserialize(json, ChatChannelModel.class);
+  }
+
+  /**
+   * @param json input string to deserialize
+   * @return `Channel`
+   * @description deserializes the input string into the model of a single channel, using the base method and reserved key replacement
+   */
+  public static Channel parseSingleChannel(String json) {
+    return (Channel) deserialize(json, Channel.class);
   }
 }

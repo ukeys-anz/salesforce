@@ -2,6 +2,7 @@
  * @author Olivier Saier
  * @since 12/2020
  * @description CMOS CaseComment Action methods
+ * @group IDR(Internal Dispute Resolution) Igor Matkovic
  */
 public inherited sharing class IDRCaseCommentActions {
   //list of platform events to publish

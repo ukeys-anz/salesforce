@@ -3,6 +3,7 @@
  * @author Pavan Kumar Ananta
  * @since Feb 2020
  * @description Mock http callout for Tests
+ * @group Library
  */
 public class Lib_HttpMockCallout implements HttpCalloutMock {
   protected Integer code;

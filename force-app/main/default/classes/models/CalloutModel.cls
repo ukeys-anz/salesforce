@@ -2,6 +2,7 @@
  * @author Pavan Kumar Ananta
  * @since Feb 2020
  * @description base class for JSON <-> Apex Type de/serializations
+ * @group Models
  */
 public virtual class CalloutModel {
   /**

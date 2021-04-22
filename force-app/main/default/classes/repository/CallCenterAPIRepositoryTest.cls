@@ -1,7 +1,8 @@
 /**
  * @author Jasmine Nguyen
  * @since March 2021
- * @description Test class for @link CallCenterAPIRepository
+ * @description Test class for {@link CallCenterAPIRepository}
+ * @group Repository
  */
 @isTest
 public with sharing class CallCenterAPIRepositoryTest {
@@ -37,21 +38,21 @@ public with sharing class CallCenterAPIRepositoryTest {
   static void testValidResponseByChannelSID() {
     Test.startTest();
     CallCenterAPIRepository callCenterAPI = new CallCenterAPIRepository();
-    ChatChannelModel model = callCenterAPI.getChatTopicsByChannelSID(
+    ChatChannelModel.Channel channel = callCenterAPI.getChatTopicsByChannelSID(
       '4017640246',
-      'AB8423JS'
+      'CHc6ad9b34eb3e4788a12eb1caa07aefd5'
     );
     Test.stopTest();
 
     System.assertEquals(
-      2,
-      model.channels.size(),
-      'Number of chat topics returned does not match with mock values size.'
+      'CHc6ad9b34eb3e4788a12eb1caa07aefd5',
+      channel.id,
+      'Channel Id does not match.'
     );
     System.assertEquals(
-      'CH147c6128b4864e0aaadc58d87d74e50c',
-      model.channels[0].id,
-      'Id of 1st chat topic does not match.'
+      'April2021',
+      channel.name,
+      'Channel name does not match.'
     );
   }
 

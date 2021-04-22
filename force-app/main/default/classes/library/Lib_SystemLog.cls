@@ -10,6 +10,7 @@
  * lib_systemLog log = new lib_systemLog('ContactService','Contact','upgradeContact');
  *
  * log.addDatabaseSaveResult(results, 'Contact', contactToUpdate);
+ * @group Library
  */
 @SuppressWarnings('PMD.ExcessiveParameterList, PMD.ExcessivePublicCount')
 public without sharing class Lib_SystemLog {
@@ -97,7 +98,7 @@ public without sharing class Lib_SystemLog {
     String batchId,
     String errorIdentifier
   ) {
-    this.log = new Application_Log__c[0];
+    this.log = new List<Application_Log__c>(0);
     this.processName = processName;
     this.functionName = functionName;
     this.batchId = batchId;

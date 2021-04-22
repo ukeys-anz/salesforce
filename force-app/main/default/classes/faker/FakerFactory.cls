@@ -1,7 +1,7 @@
 /**
  * @author Igor Matkovic
  * @since 09/07/2018
- * @group faker
+ * @group Faker
  * @description  Factory method to allow creating different Object instances
  */
 public with sharing class FakerFactory {
