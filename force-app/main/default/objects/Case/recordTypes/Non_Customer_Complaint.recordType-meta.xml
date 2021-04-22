@@ -5643,7 +5643,7 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Restriction_Level__c</picklist>
+        <picklist>IDR_Restriction_Level__c</picklist>
         <values>
             <fullName>No Restriction</fullName>
             <default>true</default>
