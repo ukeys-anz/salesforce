@@ -15,7 +15,7 @@
                 <field>IDR_Update_Notification_Flag__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>IDR_Restriction_Level__c</field>
             </layoutItems>
         </layoutColumns>
