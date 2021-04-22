@@ -2,7 +2,16 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_Restriction_Level__c</fullName>
     <externalId>false</externalId>
-    <inlineHelpText>This record will be restricted based on the selection</inlineHelpText>
+    <inlineHelpText>Complaint Resolution Portfolio Restriction:
+
+Only restrict this case if it is being escalated to the Complaint Resolution Portfolio or if it is already being managed by the Complaint Resolution Portfolio.
+
+Selecting to restrict this case will mean that only Complaint Resolution Portfolio users will have access to all information on this case file.  All other users will only be able to view the:
+
+•	case number 
+•	customer name
+•	case owner
+•	case status</inlineHelpText>
     <label>Restriction Level</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>
@@ -14,19 +23,14 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
+                <fullName>No Restriction</fullName>
+                <default>false</default>
+                <label>No Restriction</label>
+            </value>
+            <value>
                 <fullName>Restricted Case</fullName>
                 <default>false</default>
                 <label>Restricted Case</label>
-            </value>
-            <value>
-                <fullName>Highly Sensitive</fullName>
-                <default>false</default>
-                <label>Highly Sensitive</label>
-            </value>
-            <value>
-                <fullName>No Restriction</fullName>
-                <default>true</default>
-                <label>No Restriction</label>
             </value>
         </valueSetDefinition>
     </valueSet>
