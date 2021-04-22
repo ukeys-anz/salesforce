@@ -1,8 +1,9 @@
 /**
  * @author Peter Charalambous
  * @since 11/2020
- * @description MilestoneUtilsTest is the test class to cover tests for MilestoneUtils
+ * @description MilestoneUtilsTest is the test class to cover tests for {@link MilestoneUtils}
  * The code is based on https://help.salesforce.com/articleView?id=entitlements_milestones_trigger.htm&type=5
+ * @group Utils
  */
 @isTest
 private class MilestoneUtilsTest {

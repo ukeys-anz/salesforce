@@ -1,3 +1,9 @@
+/**
+ * @author Aidan Majewski
+ * @since 2020
+ * @description Test class for {@link TH_Assignments}
+ * @group Trailhead
+ */
 @isTest
 public class TH_AssignmentsTest {
   @testSetup

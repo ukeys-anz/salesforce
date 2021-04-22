@@ -2,6 +2,7 @@
  * @author Boobalakrishnan Duraisamy
  * @since 03/2020
  * @description  FakerUserFactory is used to create test user records using Faker.
+ * @group Faker
  */
 public class FakerUserFactory extends FakerFactoryBase {
   public override String objectName() {

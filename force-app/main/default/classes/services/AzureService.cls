@@ -2,6 +2,7 @@
  * @author Lance Shi
  * @since March 2021
  * @description Azure implementation of the API service
+ * @group Services
  */
 public with sharing class AzureService extends Service {
   /**

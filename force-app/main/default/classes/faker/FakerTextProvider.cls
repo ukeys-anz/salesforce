@@ -1,7 +1,7 @@
 /**
  * @author Igor Matkovic
  * @since 09/07/2018
- * @group faker
+ * @group Faker
  * @description Class having various text output methods
  */
 public with sharing virtual class FakerTextProvider extends FakerBase {

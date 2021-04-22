@@ -2,6 +2,7 @@
  * @author Shermal Warnakula
  * @since Feb 2021
  * @description Holds common util functions
+ * @group Utils
  */
 public with sharing class CommonUtil {
   /**

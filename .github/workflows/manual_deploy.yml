@@ -19,7 +19,8 @@ jobs:
       - id: isValid
         name: determine if valid
         run: |
-          if [ ${{ env.BRANCH_NAME }} == 'epic/cmos-bau' || ${{ env.BRANCH_NAME }} == 'epic/cmos-r2' ]; then echo ::set-output name=is_valid::$(echo "valid"); else echo ::set-output name=is_valid::$(echo "invalid"); fi
+          if [[ ${{ env.BRANCH_NAME }} == 'epic/cmos-bau' || ${{ env.BRANCH_NAME }} == 'epic/cmos-r2' ]]; then echo ::set-output name=is_valid::$(echo "valid"); else echo ::set-output name=is_valid::$(echo "invalid"); fi
+
 
   build_and_deploy:
     needs: [prepare]
@@ -65,12 +66,12 @@ jobs:
         env:
           DEPLOY_ROOT: ./artefact/
           BUILD_COMMAND: deploy
-          ORG_NAME: ${{ env.sandbox_name }}
+          ORG_NAME: ${{ env.SANDBOX_NAME }}
 
       - name: "Tag Release"
         shell: bash
         run: |
-          TAG="${{ env.sandbox_name }}-${GITHUB_RUN_ID}"
+          TAG="${{ env.SANDBOX_NAME }}-${GITHUB_RUN_ID}"
           echo "$TAG"
           git tag "$TAG"
           git push origin "$TAG"

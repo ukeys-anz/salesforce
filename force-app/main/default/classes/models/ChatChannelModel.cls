@@ -2,6 +2,7 @@
  * @author Jasmine Nguyen
  * @since March 2021
  * @description model for chat channels API, extending the base
+ * @group Models
  */
 public with sharing class ChatChannelModel extends CalloutModel {
   /**
