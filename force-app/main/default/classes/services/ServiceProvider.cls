@@ -2,6 +2,7 @@
  * @author Pavan Kumar Ananta
  * @since Feb 2020
  * @description provider class that instantiates service classes (or mocks)
+ * @group Services
  */
 public with sharing class ServiceProvider {
   private final static Non_Prod_Settings__c NON_PROD_SETTINGS = Non_Prod_Settings__c.getOrgDefaults();

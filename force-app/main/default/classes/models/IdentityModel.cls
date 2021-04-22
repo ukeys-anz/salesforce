@@ -2,6 +2,7 @@
  * @author Lance Shi
  * @since March 2021
  * @description model for accounts and goals API, extending the base
+ * @group Models
  */
 public with sharing class IdentityModel extends CalloutModel {
   public String accessToken;

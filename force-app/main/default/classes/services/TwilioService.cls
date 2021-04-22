@@ -2,6 +2,7 @@
  * @author Jasmine Nguyen
  * @since March 2021
  * @description Twilio implementation of the API service
+ * @group Services
  */
 public with sharing class TwilioService extends Service {
   /**

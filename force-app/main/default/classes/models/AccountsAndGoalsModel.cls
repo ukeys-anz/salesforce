@@ -2,6 +2,7 @@
  * @author Pavan Kumar Ananta
  * @since Feb 2020
  * @description model for accounts and goals API, extending the base
+ * @group Models
  */
 public with sharing class AccountsAndGoalsModel extends CalloutModel {
   @AuraEnabled

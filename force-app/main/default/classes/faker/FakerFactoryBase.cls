@@ -1,7 +1,7 @@
 /**
  * @author Igor Matkovic
  * @since 09/07/2018
- * @group faker
+ * @group Faker
  * @description  Factory base class which should be extended while defining test object factories.
  */
 public with sharing virtual class FakerFactoryBase implements FakerFactoryInterface {

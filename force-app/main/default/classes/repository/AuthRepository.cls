@@ -2,6 +2,7 @@
  * @author Lance Shi
  * @since March 2021
  * @description banking API repository for all auth callouts
+ * @group Repository
  */
 public with sharing class AuthRepository extends RepositoryBase {
   public Service azureSvc;

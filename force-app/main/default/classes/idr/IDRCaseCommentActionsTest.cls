@@ -1,3 +1,9 @@
+/**
+ * @author Olivier Saier
+ * @since 12/2020
+ * @description Test class for {@link IDRCaseCommentActions}
+ * @group IDR(Internal Dispute Resolution)
+ */
 @isTest
 private inherited sharing class IDRCaseCommentActionsTest {
   @TestSetup

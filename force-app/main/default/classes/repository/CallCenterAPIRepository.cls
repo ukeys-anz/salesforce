@@ -2,6 +2,7 @@
  * @author Jasmine Nguyen
  * @since March 2021
  * @description Call Center API repository for all chat, voice calling, sms callouts
+ * @group Repository
  */
 public with sharing class CallCenterAPIRepository extends RepositoryBase {
   public static final String CHANNELS_ENDPOINT_SUFFIX = '/channels';
