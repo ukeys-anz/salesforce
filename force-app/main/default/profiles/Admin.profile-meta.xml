@@ -1049,7 +1049,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.Restriction_Level__c</field>
+        <field>Case.IDR_Restriction_Level__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

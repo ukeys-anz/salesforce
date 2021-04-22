@@ -14,9 +14,9 @@
             <value>Customer Complaint,Non-Customer Complaint</value>
         </criteriaItems>
         <criteriaItems>
-            <field>Restriction_Level__c</field>
+            <field>IDR_Restriction_Level__c</field>
             <operation>equals</operation>
-            <value/>
+            <value>No Restriction</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -33,23 +33,9 @@
             <value>Customer Complaint,Non-Customer Complaint</value>
         </criteriaItems>
         <criteriaItems>
-            <field>Restriction_Level__c</field>
+            <field>IDR_Restriction_Level__c</field>
             <operation>equals</operation>
-            <value/>
-        </criteriaItems>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>Complaint_RTs_CRPLTUsers_RW</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>Great Read write access to complaint records for Customer Resolution Leadership Users</description>
-        <label>Complaint_RTs_CRPLTUsers_RW</label>
-        <sharedTo>
-            <role>Customer_Resolution_Leadership</role>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Customer Complaint,Non-Customer Complaint</value>
+            <value>No Restriction</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -58,17 +44,12 @@
         <description>Great Read write access to complaint records for Customer Resolution Users</description>
         <label>Complaint_RTs_CRPUsers_RW</label>
         <sharedTo>
-            <role>Customer_Resolution</role>
+            <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Customer Complaint,Non-Customer Complaint</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Restriction_Level__c</field>
-            <operation>notEqual</operation>
-            <value>Highly Sensitive</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -142,7 +123,7 @@
         <sharedTo>
             <role>Systemic_Issue_Team</role>
         </sharedTo>
-        <booleanFilter>1 AND 2</booleanFilter>
+        <booleanFilter>1 AND 2 AND 3</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -152,6 +133,11 @@
             <field>IDR_Is_Common__c</field>
             <operation>equals</operation>
             <value>Yes</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IDR_Restriction_Level__c</field>
+            <operation>equals</operation>
+            <value>No Restriction</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
