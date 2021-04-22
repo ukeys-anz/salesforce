@@ -22,24 +22,24 @@
       </div>
     </template>
     <template if:true={showData}>
-        <div style="height: 500px">
-          <lightning-datatable
-            key-field="Id"
-            data={data}
-            columns={columns}
-            sorted-by={sortedBy}
-            sorted-direction={sortDirection}
-            onsort={onHandleSort}
-            onrowaction={handleRowActions}
-            show-row-number-column
-            hide-checkbox-column
-          >
-          </lightning-datatable>
-        </div>
+      <div style="height: 500px">
+        <lightning-datatable
+          key-field="Id"
+          data={data}
+          columns={columns}
+          sorted-by={sortedBy}
+          sorted-direction={sortDirection}
+          onsort={onHandleSort}
+          onrowaction={handleRowActions}
+          show-row-number-column
+          hide-checkbox-column
+        >
+        </lightning-datatable>
+      </div>
     </template>
     <template if:true={noData}>
       <div style="height: 100px;">
-      </br>
+        <br />
         <h1 class="slds-align_absolute-center">
           <span>No Records Found!</span>
         </h1>

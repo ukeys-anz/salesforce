@@ -152,7 +152,7 @@ export default class IDRRestrictedCases extends LightningElement {
       caseId: this.caseId,
       commentBody: this.commentBody
     })
-      .then(result => {
+      .then(() => {
         this.closeModal();
         this.dispatchEvent(
           new ShowToastEvent({
@@ -211,7 +211,7 @@ export default class IDRRestrictedCases extends LightningElement {
       caseId: this.caseId,
       contentDocIdList: this.documentIds
     })
-      .then(result => {
+      .then(() => {
         this.closeModal();
         this.dispatchEvent(
           new ShowToastEvent({
