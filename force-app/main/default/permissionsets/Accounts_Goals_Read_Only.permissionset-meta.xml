@@ -5,10 +5,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>AccountTableServerController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>CoachBankingAPIRepository</apexClass>
         <enabled>true</enabled>
     </classAccesses>

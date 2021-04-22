@@ -10,12 +10,4 @@ public with sharing class CaseCommonActions {
   public static final Id GENERAL_INQUIRY_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('General_Inquiry')
     .getRecordTypeId();
-
-  /**
-   * @description completeAfterUpdateActions method is called after finishing all the necessary steps for update.
-   */
-  public static void completeAfterUpdateActions() {
-    //set recursive flag to false to avoid test class failures and bulk update issues
-    checkRecursive.firstCall = false;
-  }
 }

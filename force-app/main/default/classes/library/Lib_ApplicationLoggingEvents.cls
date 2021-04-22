@@ -5,6 +5,7 @@
  * @description  Lib_ApplicationLoggingEvents is handler for trigger on Application_Logging__e that creates Logs in Application_Log__c Object
  * {@link triggers.lib_ApplicationLoggingEventTrigger} is the trigger which uses this handler
  * which is received from a platform event based on {@link Lib_SystemLog}
+ * @group Library
  */
 public without sharing class Lib_ApplicationLoggingEvents extends Lib_TriggerHandler {
   /**

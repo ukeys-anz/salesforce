@@ -1,7 +1,7 @@
 /**
  * @author Igor Matkovic
  * @since 22/07/2018
- * @group faker
+ * @group Faker
  * @description  Class extending FakerBase which defines basic data test providers.
  */
 public with sharing class Faker extends FakerBase {

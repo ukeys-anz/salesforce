@@ -229,7 +229,13 @@
       if (isConsole) {
         this.handleConsoleAppCaseCreation(component, workspaceAPI);
       } else {
-        this.goToStandardNewCasePage(component, event);
+        var urlEvent = $A.get("e.force:navigateToURL");
+        urlEvent.setParams({
+          url:
+            "/lightning/o/Case/new?count=1&nooverride=1&recordTypeId=" +
+            component.get("v.selectedRecordTypeId")
+        });
+        urlEvent.fire();
       }
     });
   },

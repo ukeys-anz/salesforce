@@ -1,7 +1,8 @@
 /**
  * @author saiero
  * @since 2020
- * @description Test class for NewCaseFlowWrapperController
+ * @description Test class for {@link NewCaseFlowWrapperController}
+ * @group IDR(Internal Dispute Resolution)
  */
 @isTest
 private with sharing class NewCaseFlowWrapperControllerTest {
@@ -191,7 +192,7 @@ private with sharing class NewCaseFlowWrapperControllerTest {
       HTTPResponse res = new HTTPResponse();
       if (
         req.getEndpoint()
-          .endsWith(String.valueOf(ChatTopicRelatedListController.OFFSET_LIMIT))
+          .endsWith(String.valueOf(CallCenterAPIRepository.OFFSET_LIMIT))
       ) {
         // Mock response with offset param set as "AAAA" on "next" attribute
         res.setStatusCode(200);

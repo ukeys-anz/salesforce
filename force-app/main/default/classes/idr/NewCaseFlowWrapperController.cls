@@ -168,7 +168,7 @@ public with sharing class NewCaseFlowWrapperController {
   public static String getActiveChatTopics(String ocvID, String nextURL) {
     String urlParams =
       '?status=active&chatFlowStatus=ACCEPTED&limit=' +
-      ChatTopicRelatedListController.OFFSET_LIMIT;
+      CallCenterAPIRepository.OFFSET_LIMIT;
 
     String responseBody = null;
     if (String.isNotBlank(ocvID)) {
@@ -178,7 +178,7 @@ public with sharing class NewCaseFlowWrapperController {
         'callout:SF_MS_Twilio' +
         Label.MS_Get_CustomerChatChannels +
         ocvID +
-        ChatTopicRelatedListController.CHANNELS_ENDPOINT_SUFFIX +
+        CallCenterAPIRepository.CHANNELS_ENDPOINT_SUFFIX +
         finalURL
       );
 

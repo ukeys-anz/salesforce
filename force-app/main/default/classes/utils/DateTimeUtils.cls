@@ -2,6 +2,7 @@
  * @description Date time utils which contains untility functions for all the Date and Time related calculations
  * @author Pavan Kumar Ananta
  * @since April 2020
+ * @group Utils
  */
 public without sharing class DateTimeUtils {
   /**
@@ -57,8 +58,11 @@ public without sharing class DateTimeUtils {
       }
     }
 
-    string ausDate = newDatetime.format('yyyy-MM-dd HH:mm:ss','Australia/Sydney'); // Format the date time Australian time zone.
-	  datetime returnValue = date.valueOf(ausDate);
+    string ausDate = newDatetime.format(
+      'yyyy-MM-dd HH:mm:ss',
+      'Australia/Sydney'
+    ); // Format the date time Australian time zone.
+    datetime returnValue = date.valueOf(ausDate);
     return returnValue;
   }
 }

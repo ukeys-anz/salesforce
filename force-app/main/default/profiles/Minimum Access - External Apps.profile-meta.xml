@@ -9,14 +9,6 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>AccountTableServerController</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>AccountTableServerControllerTest</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>AccountTriggerHandler</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -1591,7 +1583,21 @@
         <endAddress>203.110.235.133</endAddress>
         <startAddress>203.110.235.131</startAddress>
     </loginIpRanges>
-
+    <loginIpRanges>
+        <description>Sailpoint Internet Proxy DEV</description>
+        <endAddress>59.154.134.83</endAddress>
+        <startAddress>59.154.134.83</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Sailpoint Internet Proxy QA</description>
+        <endAddress>59.154.134.109</endAddress>
+        <startAddress>59.154.134.107</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Sailpoint Internet Proxy Prod</description>
+        <endAddress>203.110.235.255</endAddress>
+        <startAddress>203.110.235.0</startAddress>
+    </loginIpRanges>
     <userPermissions>
         <enabled>false</enabled>
         <name>AccessCMC</name>
