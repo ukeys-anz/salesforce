@@ -5645,10 +5645,6 @@
     <picklistValues>
         <picklist>Restriction_Level__c</picklist>
         <values>
-            <fullName>Highly Sensitive</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>No Restriction</fullName>
             <default>true</default>
         </values>
