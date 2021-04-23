@@ -63,7 +63,7 @@ public with sharing class IDRConstants {
   public static final string MILESTONE_PRIORITY = '21-day IDR Response Due';
 
   //Channel Recieved
-  public static final string CHANNEL_RECEIVED_AFCA_REFERRED = '11';
+  public static final string CHANNEL_RECEIVED_AFCA_REFERRED = 'Referred from AFCA';
 
   //Anz.com constants
   /**
