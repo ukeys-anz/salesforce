@@ -2941,6 +2941,10 @@
         <visibility>Hidden</visibility>
     </tabVisibilities>
     <tabVisibilities>
+        <tab>Restricted_Cases</tab>
+        <visibility>DefaultOn</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
         <tab>User_Provisioning_Request__c</tab>
         <visibility>DefaultOff</visibility>
     </tabVisibilities>
