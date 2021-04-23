@@ -9,10 +9,6 @@
         <formula>True</formula>
     </fieldOverrides>
     <fieldOverrides>
-        <field>IDR_Restriction_Level__c</field>
-        <literalValue>No Restriction</literalValue>
-    </fieldOverrides>
-    <fieldOverrides>
         <field>Status</field>
         <literalValue>Escalated</literalValue>
     </fieldOverrides>
