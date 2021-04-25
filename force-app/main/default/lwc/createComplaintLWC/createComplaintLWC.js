@@ -170,6 +170,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   escalatedTo = ESCALATED_TO;
   escalationReason = ESCALATION_REASON;
   restrictionLevel = RESTRICTION_LEVEL;
+  restrictionLevelValue = "";
 
   // Issue 2 fields
   hasSecondIssue = HAS_SECOND_ISSUE;
@@ -339,6 +340,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   handleFinancialCompensation(event) {
     this.financialCompensation = event.target.value;
+  }
+
+  handleRestrictionLevel(event) {
+    this.restrictionLevelValue = event.target.value;
   }
 
   handleSectionToggle() {}
@@ -578,7 +583,15 @@ export default class CreateComplaintLWC extends NavigationMixin(
           }
         })
         .catch((error) => {
-          this.handleError(error);
+          if (
+            error.body.enhancedErrorType === "RecordError" &&
+            error.body.output.errors[0].errorCode === "INSUFFICIENT_ACCESS" &&
+            this.restrictionLevelValue === "Restricted Case"
+          ) {
+            this.handleRestrictedCase(error);
+          } else {
+            this.handleError(error);
+          }
         });
     }
   }
@@ -705,6 +718,21 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.loading = false;
     this.template.querySelector(".saveButton").disabled = false;
     this.openModal(msg);
+  }
+
+  handleRestrictedCase() {
+    this.loading = false;
+    const toastEvent = new ShowToastEvent({
+      message: SUCCESS_TITLE,
+      variant: SUCCESS
+    });
+    this.dispatchEvent(toastEvent);
+    this[NavigationMixin.Navigate]({
+      type: "standard__navItemPage",
+      attributes: {
+        apiName: "Restricted_Cases"
+      }
+    });
   }
 
   showModal = false;
