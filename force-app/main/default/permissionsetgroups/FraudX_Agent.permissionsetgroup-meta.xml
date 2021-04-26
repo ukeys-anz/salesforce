@@ -13,6 +13,7 @@
     <permissionSets>Knowledge_User</permissionSets>
     <permissionSets>Life_Event_Read_Write</permissionSets>
     <permissionSets>TwilioSF__Twilio_User</permissionSets>
+    <permissionSets>View_Card_Details</permissionSets>
     <permissionSets>force__FSCInsurance</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

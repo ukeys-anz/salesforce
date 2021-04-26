@@ -1,0 +1,207 @@
+<template>
+  <template if:true={loading}>
+    <article class="slds-card slds-m-bottom_small">
+      <div class="slds-align_absolute-center" style="height: 4rem">
+        <div role="status" class="slds-spinner_inline">
+          <lightning-spinner
+            alternative-text="Loading"
+            variant="brand"
+          ></lightning-spinner>
+        </div>
+      </div>
+    </article>
+  </template>
+  <template if:false={loading}>
+    <template if:true={hasError}>
+      <c-error permission-issue={hasPermission}></c-error>
+    </template>
+    <template if:false={hasError}>
+      <template if:true={showFetch}>
+        <article class="slds-card slds-m-bottom_small">
+          <button
+            class="slds-button fetch-cards"
+            onclick={getCardDetails}
+            data-id="get-cards-button"
+          >
+            Get Card Details
+          </button>
+        </article>
+      </template>
+      <template if:true={noCards}>
+        <article class="slds-card">
+          <h1 class="slds-card__header-title main-title">
+            <span>No cards available on account</span>
+          </h1>
+        </article>
+      </template>
+      <template if:true={showDetails}>
+        <template if:true={viewAllCards}>
+          <button
+            class="slds-button collapse-cards"
+            onclick={handleViewAll}
+            data-id="collapse-button"
+          >
+            Collapse
+          </button>
+        </template>
+        <div class="slds-m-bottom_xx-small">
+          <lightning-card>
+            <div
+              class="slds-card__body slds-card__body_inner"
+              data-id="first-card-details"
+            >
+              <article class="card-container">
+                <div class="slds-col">
+                  <img src={initialCardDetails.image} class="card-image" />
+                </div>
+                <div class="details-container slds-col">
+                  <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-grid slds-size_1-of-1">
+                      <div class="slds-grid slds-wrap slds-size_1-of-1">
+                        <div
+                          class="slds-col slds-size_1-of-3 slds-large-size_1-of-2 field-padding"
+                        >
+                          <div>
+                            <p class="slds-text-title_bold">Cardholder</p>
+                            <p class="slds-text-body_regular">
+                              {initialCardDetails.name}
+                            </p>
+                          </div>
+                        </div>
+                        <div
+                          class="slds-col slds-size_1-of-3 slds-large-size_1-of-2 field-padding"
+                        >
+                          <div>
+                            <p class="slds-text-title_bold">Expiry Date</p>
+                            <p class="slds-text-body_regular">
+                              {initialCardDetails.expiryTime}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-grid slds-size_1-of-1">
+                      <div class="slds-grid slds-wrap slds-size_1-of-1">
+                        <div
+                          class="slds-col slds-size_1-of-3 slds-large-size_1-of-2 field-padding"
+                        >
+                          <div>
+                            <p class="slds-text-title_bold">Last 4 Digits</p>
+                            <p class="slds-text-body_regular">
+                              **** **** **** {initialCardDetails.last4Digits}
+                            </p>
+                          </div>
+                        </div>
+                        <div
+                          class="slds-col slds-size_1-of-3 slds-large-size_1-of-2 field-padding"
+                        >
+                          <div>
+                            <p class="slds-text-title_bold">Status</p>
+                            <p
+                              class="slds-text-body_regular"
+                              data-id="initial-status"
+                            >
+                              {initialCardDetails.status}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+            <template if:true={showViewAllButton}>
+              <button
+                class="slds-button load-all"
+                onclick={handleViewAll}
+                data-id="load-more-button"
+              >
+                Load More
+              </button>
+            </template>
+          </lightning-card>
+        </div>
+        <template if:true={viewAllCards}>
+          <template for:each={cardDetails} for:item="card">
+            <div
+              class="slds-m-bottom_xx-small"
+              key={card.name}
+              data-id={card.name}
+            >
+              <lightning-card>
+                <div class="slds-card__body slds-card__body_inner">
+                  <article class="card-container">
+                    <div class="slds-col">
+                      <img src={card.image} class="card-image" />
+                    </div>
+                    <div class="details-container slds-col">
+                      <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-grid slds-size_1-of-1">
+                          <div class="slds-grid slds-wrap slds-size_1-of-1">
+                            <div
+                              class="slds-col slds-size_1-of-3 slds-large-size_1-of-2 field-padding"
+                            >
+                              <div>
+                                <p class="slds-text-title_bold">
+                                  Card Holder Name
+                                </p>
+                                <p class="slds-text-body_regular">
+                                  {card.name}
+                                </p>
+                              </div>
+                            </div>
+                            <div
+                              class="slds-col slds-size_1-of-3 slds-large-size_1-of-2 field-padding"
+                            >
+                              <div>
+                                <p class="slds-text-title_bold">Expiry Date</p>
+                                <p class="slds-text-body_regular">
+                                  {card.expiryTime}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-grid slds-size_1-of-1">
+                          <div class="slds-grid slds-wrap slds-size_1-of-1">
+                            <div
+                              class="slds-col slds-size_1-of-3 slds-large-size_1-of-2 field-padding"
+                            >
+                              <div>
+                                <p class="slds-text-title_bold">
+                                  Last 4 Digits
+                                </p>
+                                <p class="slds-text-body_regular">
+                                  **** **** **** {card.last4Digits}
+                                </p>
+                              </div>
+                            </div>
+                            <div
+                              class="slds-col slds-size_1-of-3 slds-large-size_1-of-2 field-padding"
+                            >
+                              <div>
+                                <p class="slds-text-title_bold">Status</p>
+                                <p class="slds-text-body_regular">
+                                  {card.status}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+              </lightning-card>
+            </div>
+          </template>
+        </template>
+      </template>
+    </template>
+  </template>
+</template>
