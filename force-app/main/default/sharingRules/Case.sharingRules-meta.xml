@@ -6,17 +6,12 @@
         <description>Great Read only access to Complaint record types for all ANZ users.</description>
         <label>Complaint_RTs_ANZUsers_RO</label>
         <sharedTo>
-            <roleAndSubordinates>ANZ</roleAndSubordinates>
+            <role>ANZ</role>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Customer Complaint,Non-Customer Complaint</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>IDR_Restriction_Level__c</field>
-            <operation>equals</operation>
-            <value>No Restriction</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -50,6 +45,25 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Customer Complaint,Non-Customer Complaint</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Complaint_RTs_SIUsers_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Give read only access to Systemic issue users for customer and non customer complaints</description>
+        <label>Complaint_RTs_SIUsers_RO</label>
+        <sharedTo>
+            <role>Systemic_Issue_Team</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Complaint,Non-Customer Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IDR_Restriction_Level__c</field>
+            <operation>equals</operation>
+            <value>No Restriction</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -158,7 +172,7 @@
         <sharedTo>
             <role>Systemic_Issue_Team</role>
         </sharedTo>
-        <booleanFilter>1 AND 2 AND 3</booleanFilter>
+        <booleanFilter>1 AND 2</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -168,11 +182,6 @@
             <field>IDR_Is_Common__c</field>
             <operation>equals</operation>
             <value>Yes</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>IDR_Restriction_Level__c</field>
-            <operation>equals</operation>
-            <value>No Restriction</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
