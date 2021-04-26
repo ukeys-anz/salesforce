@@ -164,11 +164,11 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       validResponse.indexOf('"accountType"') + 13
     );
     Integer valueEndIndex = validResponse.indexOf('"', valueStartIndex + 1);
-    String balanceValue = validResponse.substring(
+    String accTypeValue = validResponse.substring(
       valueStartIndex + 1,
       valueEndIndex
     );
-    String manipulatedResponse = validResponse.replace(balanceValue, '');
+    String manipulatedResponse = validResponse.replace(accTypeValue, '');
 
     // THEN
     // resonse should be validated before it reaches the UI layer
@@ -180,6 +180,45 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
     System.assert(
       !modelInstance.accountList[0].isValid,
       'Failed to validate missing "accountType" data at Financial Account record level on Accounts & Goals Fabric response.'
+    );
+  }
+
+  /**
+   * @description Test to confirm "accountNumber" attribute in response data is validated before passing to UI layer
+   */
+  @isTest
+  static void missingAccountNumberInResponse() {
+    // GIVEN
+    // a customer record has valid Fin Accounts in Fabric
+    Service s = ServiceProvider.getService(FabricService.class);
+    HttpCalloutResponse response = s.getAccountsAndGoals('1111');
+    String validResponse = response.body;
+
+    // WHEN
+    // for some reason, the Fabric API response returns "accountNumber" attribute as empty
+
+    // manipulate "accountNumber" attribute value to be blank on the mock response coming from "mock_accountsAndGoals.json"
+    Integer valueStartIndex = validResponse.indexOf(
+      '"',
+      validResponse.indexOf('"accountNumber"') + 15
+    );
+    Integer valueEndIndex = validResponse.indexOf('"', valueStartIndex + 1);
+    String accNumberValue = validResponse.substring(
+      valueStartIndex + 1,
+      valueEndIndex
+    );
+    String manipulatedResponse = validResponse.replace(accNumberValue, '');
+
+    // THEN
+    // resonse should be validated before it reaches the UI layer
+    Test.startTest();
+    AccountsAndGoalsModel modelInstance = new AccountsAndGoalsModel();
+    modelInstance = AccountsAndGoalsModel.parse(manipulatedResponse);
+    Test.stopTest();
+
+    System.assert(
+      !modelInstance.accountList[0].isValid,
+      'Failed to validate missing "accountNumber" data at Financial Account record level on Accounts & Goals Fabric response.'
     );
   }
 

@@ -39,7 +39,8 @@ public with sharing class AccountsAndGoalsModel extends CalloutModel {
     @AuraEnabled
     public Boolean isValid {
       get {
-        return (String.isNotBlank(this.balance.value) &&
+        return (String.isNotBlank(this.accountNumber) &&
+          String.isNotBlank(this.balance.value) &&
           String.isNotBlank(this.currentBalance.value) &&
           String.isNotBlank(this.accountType))
           ? true
