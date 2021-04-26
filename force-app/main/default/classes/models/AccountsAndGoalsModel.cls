@@ -4,6 +4,7 @@
  * @description model for accounts and goals API, extending the base
  * @group Models
  */
+@SuppressWarnings('PMD.ExcessivePublicCount')
 public with sharing class AccountsAndGoalsModel extends CalloutModel {
   @AuraEnabled
   public List<FinancialAccount> accountList;
@@ -32,6 +33,21 @@ public with sharing class AccountsAndGoalsModel extends CalloutModel {
     public String accountType;
     @AuraEnabled
     public Goal goal;
+    /**
+     * @description validates response for expected values by the UI
+     */
+    @AuraEnabled
+    public Boolean isValid {
+      get {
+        return (String.isNotBlank(this.accountNumber) &&
+          String.isNotBlank(this.balance.value) &&
+          String.isNotBlank(this.currentBalance.value) &&
+          String.isNotBlank(this.accountType))
+          ? true
+          : false;
+      }
+      set;
+    }
   }
 
   /**
