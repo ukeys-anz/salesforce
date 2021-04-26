@@ -3,6 +3,28 @@
     <fullName>VR01_Restrict_file_types</fullName>
     <active>true</active>
     <description>Restrict the file types that can be uploaded to salesforce</description>
-    <errorConditionFormula>AND(!CONTAINS( PathOnClient , &apos;.tiff&apos;),!CONTAINS( PathOnClient , &apos;.TIFF&apos;), !CONTAINS( PathOnClient , &apos;.tif&apos;),!CONTAINS( PathOnClient , &apos;.TIF&apos;),!CONTAINS( PathOnClient , &apos;.JPEG&apos;),!CONTAINS( PathOnClient , &apos;.jpeg&apos;),!CONTAINS( PathOnClient , &apos;.JPG&apos;),!CONTAINS( PathOnClient , &apos;.jpg&apos;),!CONTAINS( PathOnClient , &apos;.gif&apos;),!CONTAINS( PathOnClient , &apos;.GIF&apos;), !CONTAINS( PathOnClient , &apos;.bmp&apos;),!CONTAINS( PathOnClient , &apos;.BMP&apos;), !CONTAINS( PathOnClient , &apos;.png&apos;), !CONTAINS( PathOnClient , &apos;.PNG&apos;),!CONTAINS( PathOnClient , &apos;.pdf&apos;),!CONTAINS( PathOnClient , &apos;.PDF&apos;), !CONTAINS( PathOnClient , &apos;.doc&apos;),!CONTAINS( PathOnClient , &apos;.DOC&apos;), !CONTAINS( PathOnClient , &apos;.docx&apos;),!CONTAINS( PathOnClient , &apos;.DOCX&apos;),  !CONTAINS( PathOnClient , &apos;.xls&apos;) ,!CONTAINS( PathOnClient , &apos;.XLS&apos;) ,!CONTAINS( PathOnClient , &apos;.xlsx&apos;), !CONTAINS( PathOnClient , &apos;.XLSX&apos;), !CONTAINS( PathOnClient , &apos;.xlsb&apos;),!CONTAINS( PathOnClient , &apos;.XLSB&apos;),!CONTAINS( PathOnClient , &apos;.ppt&apos;),!CONTAINS( PathOnClient , &apos;.PPT&apos;),  !CONTAINS( PathOnClient , &apos;.pptx&apos;),!CONTAINS( PathOnClient , &apos;.PPTX&apos;),!CONTAINS( PathOnClient , &apos;.msg&apos;), !CONTAINS( PathOnClient , &apos;.MSG&apos;), !CONTAINS( PathOnClient , &apos;.eml&apos;), !CONTAINS( PathOnClient , &apos;.EML&apos;), !CONTAINS( PathOnClient , &apos;.rtf&apos;),!CONTAINS( PathOnClient , &apos;.RTF&apos;), !CONTAINS( PathOnClient , &apos;.txt&apos;),!CONTAINS( PathOnClient , &apos;.TXT&apos;),!CONTAINS( PathOnClient , &apos;.csv&apos;),!CONTAINS( PathOnClient , &apos;.CSV&apos;), !CONTAINS( PathOnClient , &apos;.zip&apos;), !CONTAINS( PathOnClient , &apos;.ZIP&apos;))</errorConditionFormula>
+    <errorConditionFormula>AND(
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+!(RIGHT( LOWER(PathOnClient) , 5) = &apos;.tiff&apos;),
+!(RIGHT( LOWER(PathOnClient) , 4) = &apos;.tif&apos;),
+!(RIGHT( LOWER(PathOnClient) , 5) = &apos;.jpeg&apos;),
+!(RIGHT( LOWER(PathOnClient) , 4) = &apos;.jpg&apos;),
+!(RIGHT( LOWER(PathOnClient) , 4) = &apos;.gif&apos;),
+!(RIGHT( LOWER(PathOnClient) , 4) = &apos;.bmp&apos;),
+!(RIGHT( LOWER(PathOnClient) , 4) = &apos;.png&apos;),
+!(RIGHT( LOWER(PathOnClient) , 4) = &apos;.pdf&apos;),
+!(RIGHT( LOWER(PathOnClient) , 4) = &apos;.doc&apos;),
+!(RIGHT( LOWER(PathOnClient) , 5) = &apos;.docx&apos;),
+!(RIGHT( LOWER(PathOnClient) , 4) = &apos;.xls&apos;),
+!(RIGHT( LOWER(PathOnClient) , 5) = &apos;.xlsx&apos;),
+!(RIGHT( LOWER(PathOnClient) , 5) = &apos;.xlsb&apos;),
+!(RIGHT( LOWER(PathOnClient) , 4) = &apos;.ppt&apos;),
+!(RIGHT( LOWER(PathOnClient) , 5) = &apos;.pptx&apos;),
+!(RIGHT( LOWER(PathOnClient) , 4) = &apos;.msg&apos;),
+!(RIGHT( LOWER(PathOnClient) , 4) = &apos;.eml&apos;),
+!(RIGHT( LOWER(PathOnClient) , 4) = &apos;.rtf&apos;),
+!(RIGHT( LOWER(PathOnClient) , 4) = &apos;.txt&apos;),
+!(RIGHT( LOWER(PathOnClient) , 4) = &apos;.csv&apos;),
+!(RIGHT( LOWER(PathOnClient) , 4) = &apos;.zip&apos;))</errorConditionFormula>
     <errorMessage>This file has a file type which is not supported by CMOS.  Please note it is not possible to load this file onto CMOS</errorMessage>
 </ValidationRule>
