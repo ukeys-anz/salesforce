@@ -1,29 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <applicationVisibilities>
-        <application>IDR_Console</application>
-        <visible>true</visible>
-    </applicationVisibilities>
-    <classAccesses>
-        <apexClass>CreateCommsController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>GetCustomerInformation</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>IDRFilesRelatedListController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>NewCaseFlowWrapperController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <customSettingAccesses>
-        <enabled>true</enabled>
-        <name>IDR_Notification_Hours__c</name>
-    </customSettingAccesses>
     <description>Permissions for Xpression Integration User</description>
     <fieldPermissions>
         <editable>false</editable>
