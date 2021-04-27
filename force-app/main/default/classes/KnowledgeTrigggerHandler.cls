@@ -18,8 +18,19 @@ public with sharing class KnowledgeTrigggerHandler extends Lib_TriggerHandler {
    * @description onApplyDefaults to set default values for all newly created Knowledge Article Version records
    */
   public override void onApplyDefaults() {
-    for (Knowledge__kav article : (List<Knowledge__kav>) Trigger.New) {
+    for (Knowledge__kav article : (List<Knowledge__kav>) records) {
       article.Reason_for_Change__c = '';
+      article.UrlName = article.UrlName.toLowerCase();
+    }
+  }
+
+  /**
+   * @description onBeforeUpdate do the settings before the update is happening
+   * @param oldMap old sobject map of previous records data
+   */
+  public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    for (Knowledge__kav article : (List<Knowledge__kav>) records) {
+      article.UrlName = article.UrlName.toLowerCase();
     }
   }
 }
