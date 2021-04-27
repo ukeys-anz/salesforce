@@ -141,7 +141,7 @@ public with sharing class CreateCommsController {
     caseComms.IDR_Send_As_Email__c = (Boolean)letterDetails.get('isEmail');
     caseComms.IDR_Send_As_Letter__c = (Boolean)letterDetails.get('isLetter');
     caseComms.IDR_case__c = caseID;
-    caseComms.IDR_Template_Name__c = template;
+    caseComms.IDR_Template_Name__c =  IDRConstants.xpressiontemplateName.get(template);
     caseComms.IDR_Status__c = 'Submitted';
     if (lineItems.size() == 0) {
       caseComms.IDR_Auto_Approve__c = true;
