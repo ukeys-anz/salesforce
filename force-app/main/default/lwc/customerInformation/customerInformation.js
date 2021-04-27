@@ -108,6 +108,8 @@ export default class CustomerInformation extends LightningElement {
           };
           // retrieving the response data
           let responseData = result.profile;
+          let accountsData = result.accounts;
+          let accounts = [];
           // adding data object by reading from JSON
           customerData.complainant_type = responseData.complainantType;
           customerData.first_name = responseData.firstName;
@@ -123,6 +125,11 @@ export default class CustomerInformation extends LightningElement {
           customerData.state = responseData.state;
           customerData.street = responseData.street;
           customerData.suburb = responseData.suburb;
+          console.log(accountsData[0].accountNumber);
+          for (i = 0; i < accountsData.length; i++) {
+            accounts[i]=(accountsData[i].accountNumber);
+          }
+          //console.log("Afreeb"+accounts);
           // adding data object to show in UI
           this.loaded = true;
           this.customerInfo = customerData;
