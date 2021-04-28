@@ -40,8 +40,9 @@ public without sharing class IDRRestrictedCasesController {
           Owner.Name
         FROM Case
         WHERE
-          Status = 'Escalated'
-          AND IDR_Restriction_Level__C = 'Restricted Case'
+          IDR_Restriction_Level__c = 'Restricted Case'
+          AND (RecordTypeId = :IDRConstants.CUSTOMER_COMPLAINT_RT_ID
+          OR RecordTypeId = :IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID)
           AND (CaseNumber LIKE :key
           OR Status LIKE :key
           OR IDR_Customer_Number__c LIKE :key
