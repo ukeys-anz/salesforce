@@ -25,7 +25,7 @@
             <quickActionLayoutItems>
                 <emptySpace>false</emptySpace>
                 <field>IDR_Restriction_Level__c</field>
-                <uiBehavior>Edit</uiBehavior>
+                <uiBehavior>Required</uiBehavior>
             </quickActionLayoutItems>
         </quickActionLayoutColumns>
         <quickActionLayoutColumns/>
