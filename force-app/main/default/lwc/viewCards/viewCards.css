@@ -4,10 +4,8 @@
 }
 
 .collapse-cards {
-  position: absolute;
-  left: 68%;
-  z-index: 1;
-  margin-top: 10px;
+  line-height: initial;
+  padding-left: 15px;
 }
 
 .field-padding {

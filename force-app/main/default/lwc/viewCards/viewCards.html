@@ -35,17 +35,17 @@
         </article>
       </template>
       <template if:true={showDetails}>
-        <template if:true={viewAllCards}>
-          <button
-            class="slds-button collapse-cards"
-            onclick={handleViewAll}
-            data-id="collapse-button"
-          >
-            Collapse
-          </button>
-        </template>
         <div class="slds-m-bottom_xx-small">
           <lightning-card>
+            <template if:true={viewAllCards}>
+              <button
+                class="slds-button collapse-cards"
+                onclick={handleViewAll}
+                data-id="collapse-button"
+              >
+                Collapse
+              </button>
+            </template>
             <div
               class="slds-card__body slds-card__body_inner"
               data-id="first-card-details"
@@ -90,7 +90,7 @@
                           <div>
                             <p class="slds-text-title_bold">Last 4 Digits</p>
                             <p class="slds-text-body_regular">
-                              **** **** **** {initialCardDetails.last4Digits}
+                              {initialCardDetails.last4Digits}
                             </p>
                           </div>
                         </div>
@@ -145,9 +145,7 @@
                               class="slds-col slds-size_1-of-3 slds-large-size_1-of-2 field-padding"
                             >
                               <div>
-                                <p class="slds-text-title_bold">
-                                  Card Holder Name
-                                </p>
+                                <p class="slds-text-title_bold">Cardholder</p>
                                 <p class="slds-text-body_regular">
                                   {card.name}
                                 </p>
@@ -177,7 +175,7 @@
                                   Last 4 Digits
                                 </p>
                                 <p class="slds-text-body_regular">
-                                  **** **** **** {card.last4Digits}
+                                  {card.last4Digits}
                                 </p>
                               </div>
                             </div>
