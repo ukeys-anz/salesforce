@@ -4,16 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Privacy_Non_Personal_Information;Integrity - Accurate;Source - Salesforce</complianceGroup>
     <externalId>false</externalId>
-    <inlineHelpText>Complaint Resolution Portfolio Restriction:
-
-Only restrict this case if it is being escalated to the Complaint Resolution Portfolio or if it is already being managed by the Complaint Resolution Portfolio.
-
-Selecting to restrict this case will mean that only Complaint Resolution Portfolio users will have access to all information on this case file.  All other users will only be able to view the:
-
-•	case number 
-•	customer name
-•	case owner
-•	case status</inlineHelpText>
+    <inlineHelpText>Some complaints must be restricted if the complaint or attached documentation is of a sensitive nature (refer to Managing Complaints KnowHow process).  When restricting a complaint it must be escalated to, or managed by, the Customer Resolution Portfolio (CRP). Only CRP users will be able to view the full case details.</inlineHelpText>
     <label>Restriction Level</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
