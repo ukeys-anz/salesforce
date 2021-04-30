@@ -13,7 +13,12 @@
   </template>
   <template if:false={loading}>
     <template if:true={hasError}>
-      <c-error permission-issue={hasPermission}></c-error>
+      <template if:true={hasPermissionIssue}>
+        <c-error permission-issue={hasPermissionIssue}></c-error>
+      </template>
+      <template if:false={hasPermissionIssue}>
+        <c-error message={errorMsg}></c-error>
+      </template>
     </template>
     <template if:false={hasError}>
       <template if:true={showFetch}>

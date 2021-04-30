@@ -11,7 +11,7 @@ public with sharing class TransactionHistoryControllerTest {
    */
   @testSetup
   public static void setup() {
-    TestUtil.addAccountsGoalsPs();
+    TestUtil.addPermissionSets(new List<String>{ 'Accounts_Goals_Read_Only' });
   }
 
   /**

@@ -10,7 +10,6 @@ public inherited sharing class FabricServiceTest {
   static void testGetAccountsAndGoals() {
     Test.setMock(HttpCalloutMock.class, new MockFabricCallout());
     //load forge staff token
-    Id userId = UserInfo.getUserId();
     Cache.Session.put(
       AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken1111',
       ForgeTokenHandlerTest.IDTESTVALUE
@@ -77,6 +76,19 @@ public inherited sharing class FabricServiceTest {
     System.assertNotEquals(null, resp.body);
   }
 
+  @isTest
+  public static void testGetCardList() {
+    FabricService serviceClass = new FabricService();
+    Cache.Session.put(
+      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken1111',
+      ForgeTokenHandlerTest.IDTESTVALUE
+    );
+
+    Test.setMock(HttpCalloutMock.class, new MockCardListCallout());
+    HttpCalloutResponse resp = serviceClass.getCardList('1111');
+    System.assertNotEquals(null, resp.body);
+  }
+
   class MockFabricCallout implements HttpCalloutMock {
     /**
      * @description mock response for callout
@@ -135,6 +147,26 @@ public inherited sharing class FabricServiceTest {
       res.setStatusCode(500);
       res.setHeader('Content-Type', 'application/Plaintext');
       res.setBody('Get access token failed');
+      return res;
+    }
+  }
+
+  /**
+   * @author Lance Shi
+   * @since 04/2021
+   * @description Mock forge auth api callout result
+   */
+  public class MockCardListCallout implements HttpCalloutMock {
+    /**
+     * @description mock response for callout
+     * @param req incoming request
+     * @return HTTPResponse valid response
+     */
+    public HTTPResponse respond(HTTPRequest req) {
+      HTTPResponse res = new HTTPResponse();
+      res.setStatusCode(200);
+      res.setHeader('Content-Type', 'application/json');
+      res.setBody('{"cards": [{"name": "test"}]}');
       return res;
     }
   }

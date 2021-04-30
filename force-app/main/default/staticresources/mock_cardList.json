@@ -1,12 +1,11 @@
 {
-  "cards": [
+  "cards":[
     {
       "name": "Bruce Willis",
       "tokenizedCardNumber": "1234567890",
       "last4Digits": "4123",
       "status": "Closed",
       "expiryTime": "2020-09-24T00:00:00Z",
-      "isValid": true,
       "accountNumber": "",
       "eligibilities": [
         "ELIGIBILITY_APPLE_PAY",
@@ -27,7 +26,6 @@
       "last4Digits": "9876",
       "status": "Issued",
       "expiryTime": "2023-02-19T00:00:00Z",
-      "isValid": true,
       "accountNumber": "",
       "eligibilities": [
         "ELIGIBILITY_APPLE_PAY",
@@ -45,7 +43,6 @@
     {
       "name": "Bernie Sanders",
       "tokenizedCardNumber": "1234567890",
-      "isValid": true,
       "last4Digits": "1111",
       "status": "Temporary Block",
       "expiryTime": "2020-12-21T00:00:00Z",

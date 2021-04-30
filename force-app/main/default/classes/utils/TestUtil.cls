@@ -7,18 +7,24 @@
 @isTest
 public with sharing class TestUtil {
   /**
+   * @param psNameList permission name list
    * @description Add required PermissionSet
    */
-  public static void addAccountsGoalsPs() {
-    List<PermissionSet> ps = [
+  public static void addPermissionSets(List<String> psNameList) {
+    List<PermissionSet> psList = [
       SELECT Id
       FROM PermissionSet
-      WHERE Name = 'Accounts_Goals_Read_Only'
+      WHERE Name IN :psNameList
     ];
-    PermissionSetAssignment psa = new PermissionSetAssignment(
-      AssigneeId = UserInfo.getUserId(),
-      PermissionSetId = ps[0].Id
-    );
-    insert psa;
+    List<PermissionSetAssignment> psaList = new List<PermissionSetAssignment>();
+    for (PermissionSet ps : psList) {
+      PermissionSetAssignment psa = new PermissionSetAssignment(
+        AssigneeId = UserInfo.getUserId(),
+        PermissionSetId = ps.Id
+      );
+      psaList.add(psa);
+    }
+
+    insert psaList;
   }
 }

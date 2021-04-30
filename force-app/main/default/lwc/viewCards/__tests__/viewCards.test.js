@@ -1,12 +1,19 @@
 import { createElement } from "lwc";
 import ViewCards from "c/viewCards";
+import getCardList from "@salesforce/apex/CoachBankingAPIRepository.getCardListAura";
 
-/**
- * NOTE 22/04/2021 - Peter Charalambous
- * Data is currently hard coded in the LWC as the API is currently not set up
- * Once API is up and running and an apex class exists, the data can be mocked
- * properly and the below tests can be updated accordingly
- */
+jest.mock(
+  "@salesforce/apex/CoachBankingAPIRepository.getCardListAura",
+  () => {
+    return {
+      default: jest.fn()
+    };
+  },
+  { virtual: true }
+);
+
+const APEX_CARDS_SUCCESS = require("./data/response.json");
+const APEX_CARDS_INVALID = require("./data/invalidResp.json");
 
 describe("c-view-cards", () => {
   afterEach(() => {
@@ -33,6 +40,7 @@ describe("c-view-cards", () => {
   });
 
   it("tests if initial card detail is visible", () => {
+    getCardList.mockResolvedValue(APEX_CARDS_SUCCESS);
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
@@ -55,7 +63,24 @@ describe("c-view-cards", () => {
     });
   });
 
+  it("tests invalid json renders error message", () => {
+    getCardList.mockResolvedValue(APEX_CARDS_INVALID);
+    const element = createElement("c-view-cards", {
+      is: ViewCards
+    });
+    document.body.appendChild(element);
+    let button = element.shadowRoot.querySelector(
+      "button[data-id='get-cards-button']"
+    );
+    button.click();
+    return flushPromises().then(() => {
+      let error = element.shadowRoot.querySelector("c-error");
+      expect(error).toBeTruthy();
+    });
+  });
+
   it("tests load more cards", () => {
+    getCardList.mockResolvedValue(APEX_CARDS_SUCCESS);
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
@@ -81,6 +106,7 @@ describe("c-view-cards", () => {
   });
 
   it("tests collapse cards", () => {
+    getCardList.mockResolvedValue(APEX_CARDS_SUCCESS);
     const element = createElement("c-view-cards", {
       is: ViewCards
     });

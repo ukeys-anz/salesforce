@@ -1,76 +1,12 @@
 import { LightningElement, wire, api, track } from "lwc";
 
 import { getRecord } from "lightning/uiRecordApi";
+import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import ACCOUNT_OCV_ID_FIELD from "@salesforce/schema/Account.OCV_ID__c";
 import card_images from "@salesforce/resourceUrl/card_images";
 
 import hasViewCardsPermission from "@salesforce/customPermission/ANZx_View_Cards";
-
-//Mock data until API is up and running
-let response = {
-  cards: [
-    {
-      name: "Bruce Willis",
-      tokenizedCardNumber: "1234567890",
-      last4Digits: "4123",
-      status: "Closed",
-      expiryTime: "2020-09-24T00:00:00Z",
-      accountNumber: "",
-      eligibilities: [
-        "ELIGIBILITY_APPLE_PAY",
-        "ELIGIBILITY_GOOGLE_PAY",
-        "ELIGIBILITY_SAMSUNG_PAY",
-        "ELIGIBILITY_SET_PIN",
-        "ELIGIBILITY_CHANGE_PIN",
-        "ELIGIBILITY_CARD_REPLACEMENT_LOST",
-        "ELIGIBILITY_CARD_REPLACEMENT_STOLEN",
-        "ELIGIBILITY_CARD_REPLACEMENT_DAMAGED",
-        "ELIGIBILITY_CARD_CONTROLS",
-        "ELIGIBILITY_BLOCK"
-      ]
-    },
-    {
-      name: "Peter Charalambous",
-      tokenizedCardNumber: "1234567890",
-      last4Digits: "9876",
-      status: "Issued",
-      expiryTime: "2023-02-19T00:00:00Z",
-      accountNumber: "",
-      eligibilities: [
-        "ELIGIBILITY_APPLE_PAY",
-        "ELIGIBILITY_GOOGLE_PAY",
-        "ELIGIBILITY_SAMSUNG_PAY",
-        "ELIGIBILITY_SET_PIN",
-        "ELIGIBILITY_CHANGE_PIN",
-        "ELIGIBILITY_CARD_REPLACEMENT_LOST",
-        "ELIGIBILITY_CARD_REPLACEMENT_STOLEN",
-        "ELIGIBILITY_CARD_REPLACEMENT_DAMAGED",
-        "ELIGIBILITY_CARD_CONTROLS",
-        "ELIGIBILITY_BLOCK"
-      ]
-    },
-    {
-      name: "Bernie Sanders",
-      tokenizedCardNumber: "1234567890",
-      last4Digits: "1111",
-      status: "Temporary Block",
-      expiryTime: "2020-12-21T00:00:00Z",
-      accountNumber: "",
-      eligibilities: [
-        "ELIGIBILITY_APPLE_PAY",
-        "ELIGIBILITY_GOOGLE_PAY",
-        "ELIGIBILITY_SAMSUNG_PAY",
-        "ELIGIBILITY_SET_PIN",
-        "ELIGIBILITY_CHANGE_PIN",
-        "ELIGIBILITY_CARD_REPLACEMENT_LOST",
-        "ELIGIBILITY_CARD_REPLACEMENT_STOLEN",
-        "ELIGIBILITY_CARD_REPLACEMENT_DAMAGED",
-        "ELIGIBILITY_CARD_CONTROLS",
-        "ELIGIBILITY_BLOCK"
-      ]
-    }
-  ]
-};
+import getCardList from "@salesforce/apex/CoachBankingAPIRepository.getCardListAura";
 
 export default class ViewCards extends LightningElement {
   @api recordId;
@@ -84,8 +20,8 @@ export default class ViewCards extends LightningElement {
   @track showViewAllButton = false;
   @track viewAllCards = false;
   hasError = hasViewCardsPermission ? false : true;
-  hasPermission = hasViewCardsPermission ? false : true;
-  error;
+  hasPermissionIssue = hasViewCardsPermission ? false : true;
+  errorMsg = "";
   noCards = false;
   showFetch = true;
 
@@ -103,44 +39,81 @@ export default class ViewCards extends LightningElement {
     if (hasViewCardsPermission) {
       this.showFetch = false;
       this.loading = true;
-      if (response.cards) {
-        this.cardDetails = [...response.cards];
-        if (this.cardDetails.length > 1) {
-          this.showViewAllButton = true;
-        }
-        //sort card details so issued card is always first
-        //if no issued card we just display in any order
-        this.cardDetails.sort((card) => (card.status === "Issued" ? -1 : 1));
-        this.cardDetails.forEach((card) => {
-          //Map the relevant image to the statuses
-          switch (card.status) {
-            case "Issued":
-              card.image = `${card_images}/card_active.png`;
-              break;
-            case "Temporary Block":
-              card.image = `${card_images}/card_locked.png`;
-              break;
-            default:
-              card.image = `${card_images}/card_disabled.png`;
-              break;
+      getCardList({
+        ocvId: this.ocvId
+      })
+        .then((result) => {
+          if (result.cards) {
+            this.cardDetails = [...result.cards];
+            if (this.cardDetails.length > 1) {
+              this.showViewAllButton = true;
+            }
+            for (let curCard of result.cards) {
+              if (!curCard.isValid) {
+                this.hasError = true;
+                this.errorMsg =
+                  "Card Information is invalid. Please reach out to your system administrator.";
+              }
+            }
+            //sort card details so issued card is always first
+            //if no issued card we just display in any order
+            this.cardDetails.sort((card) => {
+              return card.status === "Issued" ? -1 : 1;
+            });
+            this.cardDetails.forEach((card) => {
+              //Map the relevant image to the statuses
+              switch (card.status) {
+                case "Issued":
+                  card.image = `${card_images}/card_active.png`;
+                  break;
+                case "Temporary Block":
+                  card.image = `${card_images}/card_locked.png`;
+                  break;
+                default:
+                  card.image = `${card_images}/card_disabled.png`;
+                  break;
+              }
+
+              //format date from ISO
+              card.expiryTime = new Date(card.expiryTime).toLocaleDateString(
+                "en-AU"
+              );
+            });
+
+            //remove the first card in array and assign
+            //to the initial card
+            this.initialCardDetails = this.cardDetails.shift();
+
+            this.showDetails = true;
+          } else {
+            this.noCards = true;
           }
-
-          //format date from ISO
-          card.expiryTime = new Date(card.expiryTime).toLocaleDateString(
-            "en-AU"
-          );
+          this.loading = false;
+        })
+        .catch((error) => {
+          this.errorMsg =
+            "Failed to retrieve card list. Please refresh and try again. If the problem persists, please contact your System Administrator.";
+          if (error.body && error.body.message) {
+            let message = this.handleError(error.body.message);
+            //Catch any system error messages (most readable errors wont be a single word)
+            if (message && message.split(" ").length > 1) {
+              this.errorMsg = message;
+            }
+          }
+          this.hasError = true;
+          this.loading = false;
+          this.showToast("Card List Load Failed", this.errorMsg, error);
         });
-
-        //remove the first card in array and assign
-        //to the initial card
-        this.initialCardDetails = this.cardDetails.shift();
-
-        this.showDetails = true;
-      } else {
-        this.noCards = true;
-      }
-      this.loading = false;
     }
+  }
+
+  showToast(theTitle, theMessage, theVariant) {
+    const event = new ShowToastEvent({
+      title: theTitle,
+      message: theMessage,
+      variant: theVariant
+    });
+    this.dispatchEvent(event);
   }
 
   handleViewAll() {

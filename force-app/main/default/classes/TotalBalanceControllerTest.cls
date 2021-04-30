@@ -53,7 +53,7 @@ public with sharing class TotalBalanceControllerTest {
 
     insert savingAccounts;
 
-    TestUtil.addAccountsGoalsPs();
+    TestUtil.addPermissionSets(new List<String>{ 'Accounts_Goals_Read_Only' });
   }
 
   /**
