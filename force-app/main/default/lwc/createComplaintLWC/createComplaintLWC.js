@@ -69,6 +69,7 @@ import POSSIBLE_SYSTEMIC_ISSUES from "@salesforce/schema/Case.IDR_Possible_Syste
 //Is Escalated fields
 import ESCALATED_TO from "@salesforce/schema/Case.IDR_Escalated_to__c";
 import ESCALATION_REASON from "@salesforce/schema/Case.IDR_Escalation_Reason__c";
+import RESTRICTION_LEVEL from "@salesforce/schema/Case.IDR_Restriction_Level__c";
 
 //Issue 2 fields
 import HAS_SECOND_ISSUE from "@salesforce/schema/Case.IDR_Second_Issue__c";
@@ -168,6 +169,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
   // escalation fields
   escalatedTo = ESCALATED_TO;
   escalationReason = ESCALATION_REASON;
+  restrictionLevel = RESTRICTION_LEVEL;
+  restrictionLevelValue = "";
 
   // Issue 2 fields
   hasSecondIssue = HAS_SECOND_ISSUE;
@@ -337,6 +340,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   handleFinancialCompensation(event) {
     this.financialCompensation = event.target.value;
+  }
+
+  handleRestrictionLevel(event) {
+    this.restrictionLevelValue = event.target.value;
   }
 
   handleSectionToggle() {}
@@ -576,7 +583,15 @@ export default class CreateComplaintLWC extends NavigationMixin(
           }
         })
         .catch((error) => {
-          this.handleError(error);
+          if (
+            error.body.enhancedErrorType === "RecordError" &&
+            error.body.output.errors[0].errorCode === "INSUFFICIENT_ACCESS" &&
+            this.restrictionLevelValue === "Restricted Case"
+          ) {
+            this.handleRestrictedCase(error);
+          } else {
+            this.handleError(error);
+          }
         });
     }
   }
@@ -627,6 +642,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     if (this.isComplaintEscalated) {
       requiredFields.escalatedTo = "Escalated To";
       requiredFields.escalationReason = "Complaint Escalation Reason";
+      requiredFields.restrictionLevel = "Restriction Level";
     }
     if (this.isNonFinancialComplaintRemedy) {
       requiredFields.nonFinancialRemedy = "Non-Financial Remedy";
@@ -702,6 +718,21 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.loading = false;
     this.template.querySelector(".saveButton").disabled = false;
     this.openModal(msg);
+  }
+
+  handleRestrictedCase() {
+    this.loading = false;
+    const toastEvent = new ShowToastEvent({
+      message: SUCCESS_TITLE,
+      variant: SUCCESS
+    });
+    this.dispatchEvent(toastEvent);
+    this[NavigationMixin.Navigate]({
+      type: "standard__navItemPage",
+      attributes: {
+        apiName: "Restricted_Cases"
+      }
+    });
   }
 
   showModal = false;

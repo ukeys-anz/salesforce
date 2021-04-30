@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingCriteriaRules>
-        <fullName>Complaint_RTs_ANZUsers_RO</fullName>
+        <fullName>Complaint_RTs_ANZRole_RO</fullName>
         <accessLevel>Read</accessLevel>
-        <description>Great Read only access to Complaint record types for all ANZ users.</description>
-        <label>Complaint_RTs_ANZUsers_RO</label>
+        <description>Great Read only access to Complaint record types for all ANZ Role users.</description>
+        <label>Complaint_RTs_ANZRole_RO</label>
         <sharedTo>
-            <roleAndSubordinates>ANZ</roleAndSubordinates>
+            <role>ANZ</role>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -27,6 +27,11 @@
             <operation>equals</operation>
             <value>Customer Complaint,Non-Customer Complaint</value>
         </criteriaItems>
+        <criteriaItems>
+            <field>IDR_Restriction_Level__c</field>
+            <operation>equals</operation>
+            <value>No Restriction</value>
+        </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Complaint_RTs_CRPUsers_RW</fullName>
@@ -40,6 +45,25 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Customer Complaint,Non-Customer Complaint</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Complaint_RTs_SIUsers_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Give read only access to Systemic issue users for customer and non customer complaints</description>
+        <label>Complaint_RTs_SIUsers_RO</label>
+        <sharedTo>
+            <role>Systemic_Issue_Team</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Complaint,Non-Customer Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IDR_Restriction_Level__c</field>
+            <operation>equals</operation>
+            <value>No Restriction</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
