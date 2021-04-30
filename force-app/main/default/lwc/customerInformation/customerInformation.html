@@ -113,7 +113,46 @@
               Country : {customerInfo.country}
             </li>
           </ul>
+        
         </div>
+        <lightning-accordion
+        class="example-accordion"
+        allow-multiple-sections-open
+        active-section-name=""
+      >
+      <lightning-accordion-section
+            name="A"
+            label="Account Details"
+            data-id="account-details"
+          >
+          <div class="slds-p-around_medium" >
+          <ul >
+            <template for:each={customerInfo.accounts} for:item="account">
+                <li class="slds-list__item" key={account}>
+                    {account}
+                </li>
+            </template>
+        </ul>
+        </div>
+
+        </lightning-accordion-section>
+        <lightning-accordion-section
+            name="B"
+            label="Relationship Manager Details"
+            data-id="rel-details"
+          >
+          <div class="slds-p-around_medium" >
+          <ul >
+            <template for:each={customerInfo.accounts} for:item="account">
+                <li class="slds-list__item" key={account}>
+                    {account}
+                </li>
+            </template>
+        </ul>
+        </div>
+
+        </lightning-accordion-section>
+      </lightning-accordion>
       </template>
     </template>
     <template if:true={error}>

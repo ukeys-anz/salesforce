@@ -479,10 +479,11 @@
                   name="Account/Card/Policy Number"
                   label="Account/Card/Policy Number"
                   aria-label="Account/Card/Policy Number"
-                  value={accountNumber}
+                  value={accountOrPolicyNumber}
                   options={accountNumberOptions}
                   onchange={handleAccountNumberChange}
                   data-id="accPolicyNum-id"
+                  required
                 ></lightning-combobox>
                 </div>
               </template>
@@ -525,7 +526,7 @@
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
-                  <lightning-input-field
+                  <lightning-input-field 
                     variant="label-stacked"
                     required={hasSecondIssue}
                     field-name={subsequentIssue2}
@@ -542,12 +543,22 @@
                 </div>
                 <template if:true={isCustomerComplaint}>
                   <div class="slds-col slds-size_1-of-4 slds-m-right_large">
-                    <lightning-input-field
+                    <!--<lightning-input-field
                       variant="label-stacked"
                       required
                       field-name={accountOrPolicyNumber2}
                       data-id="accPolicyNum2-id"
-                    ></lightning-input-field>
+                    ></lightning-input-field>-->
+                  <lightning-combobox
+                  name="Account/Card/Policy Number"
+                  label="Account/Card/Policy Number"
+                  aria-label="Account/Card/Policy Number"
+                  value={accountOrPolicyNumber2}
+                  options={accountNumberOptions}
+                  onchange={handleAccountNumber2Change}
+                  data-id="accPolicyNum2-id"
+                  required
+                ></lightning-combobox>
                   </div>
                 </template>
               </div>
@@ -593,12 +604,22 @@
                 </div>
                 <template if:true={isCustomerComplaint}>
                   <div class="slds-col slds-size_1-of-4 slds-m-right_large">
-                    <lightning-input-field
+                    <!--<lightning-input-field
                       variant="label-stacked"
                       required
                       field-name={accountOrPolicyNumber3}
                       data-id="accPolicyNum3-id"
-                    ></lightning-input-field>
+                    ></lightning-input-field>-->
+                    <lightning-combobox
+                  name="Account/Card/Policy Number"
+                  label="Account/Card/Policy Number"
+                  aria-label="Account/Card/Policy Number"
+                  value={accountOrPolicyNumber3}
+                  options={accountNumberOptions}
+                  onchange={handleAccountNumber3Change}
+                  data-id="accPolicyNum3-id"
+                  required
+                ></lightning-combobox>
                   </div>
                 </template>
               </div>

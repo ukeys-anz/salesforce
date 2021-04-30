@@ -104,7 +104,8 @@ export default class CustomerInformation extends LightningElement {
             street: "",
             state: "",
             postcode: "",
-            country: ""
+            country: "",
+            accounts: []
           };
           // retrieving the response data
           let responseData = result.profile;
@@ -126,10 +127,12 @@ export default class CustomerInformation extends LightningElement {
           customerData.street = responseData.street;
           customerData.suburb = responseData.suburb;
           console.log(accountsData[0].accountNumber);
-          for (i = 0; i < accountsData.length; i++) {
-            accounts[i]=(accountsData[i].accountNumber);
+          let x;
+          for(x in accountsData){
+            accounts.push(accountsData[x].accountNumber);
           }
           //console.log("Afreeb"+accounts);
+          customerData.accounts = accounts;
           // adding data object to show in UI
           this.loaded = true;
           this.customerInfo = customerData;
