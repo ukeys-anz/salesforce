@@ -24,6 +24,6 @@
     </values>
     <values>
         <field>Role_Name__c</field>
-        <value xsi:type="xsd:string">ANZ</value>
+        <value xsi:type="xsd:string">Data_Analyst</value>
     </values>
 </CustomMetadata>
