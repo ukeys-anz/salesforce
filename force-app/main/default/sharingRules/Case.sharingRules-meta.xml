@@ -165,6 +165,20 @@
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>IDR_RT_Data_Analyst_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Grant read only access to Data Analyst for Complaint and SI record types</description>
+        <label>IDR_RT_Data_Analyst_RO</label>
+        <sharedTo>
+            <role>Data_Analyst</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Systemic Issue,Customer Complaint,Non-Customer Complaint</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>PSIComplaint_RTs_SITeam_RW</fullName>
         <accessLevel>Edit</accessLevel>
         <description>Grant edit access to possible systemic issue complaint records for systemic issue team</description>
@@ -191,20 +205,6 @@
         <label>SI_RT_CRP_LT_RO</label>
         <sharedTo>
             <role>Customer_Resolution_Leadership</role>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Systemic Issue</value>
-        </criteriaItems>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>SI_RT_Data_Analyst_RO</fullName>
-        <accessLevel>Read</accessLevel>
-        <description>Grant read only access to Data Analyst for SI record type</description>
-        <label>SI_RT_Data_Analyst_RO</label>
-        <sharedTo>
-            <role>Data_Analyst</role>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
