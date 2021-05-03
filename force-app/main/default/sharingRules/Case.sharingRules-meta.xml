@@ -199,17 +199,17 @@
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>SI_RT_Data_Analyst_RO</fullName>
+        <fullName>IDR_RT_Data_Analyst_RO</fullName>
         <accessLevel>Read</accessLevel>
-        <description>Grant read only access to Data Analyst for SI record type</description>
-        <label>SI_RT_Data_Analyst_RO</label>
+        <description>Grant read only access to Data Analyst for SI and Complaint record types</description>
+        <label>IDR_RT_Data_Analyst_RO</label>
         <sharedTo>
             <role>Data_Analyst</role>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Systemic Issue</value>
+            <value>Systemic Issue,Customer Complaint,Non-Customer Complaint</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
