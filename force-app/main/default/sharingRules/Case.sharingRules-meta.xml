@@ -29,8 +29,8 @@
         </criteriaItems>
         <criteriaItems>
             <field>IDR_Restriction_Level__c</field>
-            <operation>equals</operation>
-            <value>No Restriction</value>
+            <operation>notEqual</operation>
+            <value>Restricted Case</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -62,8 +62,8 @@
         </criteriaItems>
         <criteriaItems>
             <field>IDR_Restriction_Level__c</field>
-            <operation>equals</operation>
-            <value>No Restriction</value>
+            <operation>notEqual</operation>
+            <value>Restricted Case</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
