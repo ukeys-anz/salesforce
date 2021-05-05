@@ -130,7 +130,7 @@ class NonCustomerComplaint extends Base {
 
   /****PAGE ACTIONS *******/
 
-  enterCaseInSearch(value: String) {
+  enterCaseInSearch(value: string) {
     helpers.enterText(this.searchTxt, value);
   }
 
@@ -138,7 +138,7 @@ class NonCustomerComplaint extends Base {
     helpers.doClick(this.editBtn);
   }
 
-  waitForCaseToDisplay(valueToClick: String) {
+  waitForCaseToDisplay(valueToClick: string) {
     helpers.waitAndRetry(this.refreshBtn, this.caseLink, valueToClick);
   }
 

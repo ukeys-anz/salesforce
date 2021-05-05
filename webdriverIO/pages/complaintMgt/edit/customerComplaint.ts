@@ -122,11 +122,11 @@ class CustomerComplaint extends Base {
 
   ///***PAGE ACTIONS ***/\
 
-  enterCaseInSearch(value: String) {
+  enterCaseInSearch(value: string) {
     helpers.enterText(this.searchTxt, value);
   }
 
-  waitForCaseToDisplay(valueToClick: String) {
+  waitForCaseToDisplay(valueToClick: string) {
     helpers.waitAndRetry(this.refreshBtn, this.caseLink, valueToClick);
   }
 

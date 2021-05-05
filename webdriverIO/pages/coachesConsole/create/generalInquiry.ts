@@ -119,11 +119,11 @@ class GeneralInquiry extends Base {
     PageElement.click();
   }
 
-  clickAccountName(accName: String) {
+  clickAccountName(accName: string) {
     helpers.doClick($(`div=${accName}`));
   }
 
-  clickFinancialAccountName(finaccName: String) {
+  clickFinancialAccountName(finaccName: string) {
     helpers.doClick($(`div=${finaccName}`));
   }
 
@@ -135,7 +135,7 @@ class GeneralInquiry extends Base {
     PageElement.click();
   }
 
-  fillCreateInquiryDetails(accName: String, finaccName: String) {
+  fillCreateInquiryDetails(accName: string, finaccName: string) {
     helpers.enterText(this.description, faker.lorem.text());
     helpers.enterText(this.accountName, accName.toString());
     this.clickAccountName(accName);

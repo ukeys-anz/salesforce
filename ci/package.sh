@@ -56,7 +56,7 @@ CURRENT_DIR=$(pwd)
 # Only generate artefacts where files are found
 if [ "${CHANGED_FILES}" -gt "0" ]; then
     cd ${DEPLOY_DIR}
-    sfdx force:source:convert -r ./force-app -d ${CURRENT_DIR}/artefact --loglevel debug
+    npx sfdx force:source:convert -r ./force-app -d ${CURRENT_DIR}/artefact --loglevel debug
     if [ $? == 1 ]; then
         exit 1
     fi
@@ -67,7 +67,7 @@ fi
 
 if [ "${DELETED_FILES}" -gt "0" ]; then
     cd ${DESTRUCTIVE_DIR}
-    sfdx force:source:convert -r ./force-app -d tmp/ --loglevel debug
+    npx sfdx force:source:convert -r ./force-app -d tmp/ --loglevel debug
     if [ $? == 1 ]; then
         exit 1
     fi

@@ -116,7 +116,7 @@ class GeneralInquiry extends Base {
 
   /*******Page Actions *****/
 
-  enterCaseInSearch(value: String) {
+  enterCaseInSearch(value: string) {
     helpers.enterText(this.searchTxt, value);
   }
 
@@ -129,15 +129,15 @@ class GeneralInquiry extends Base {
     this.bugReport.click();
   }
 
-  waitForCaseToDisplay(valueToClick: String) {
+  waitForCaseToDisplay(valueToClick: string) {
     helpers.waitAndRetry(this.refreshBtn, this.caseLink, valueToClick);
   }
 
-  clickAccountName(accName: String) {
+  clickAccountName(accName: string) {
     helpers.doClick($(`div=${accName}`));
   }
 
-  clickFinancialAccountName(finaccName: String) {
+  clickFinancialAccountName(finaccName: string) {
     helpers.doClick($(`div=${finaccName}`));
   }
 
@@ -161,7 +161,7 @@ class GeneralInquiry extends Base {
     PageElement.click();
   }
 
-  fillEditGeneralInquiryDetails(accName: String, finaccName: String) {
+  fillEditGeneralInquiryDetails(accName: string, finaccName: string) {
     helpers.enterText(this.description, faker.lorem.text());
     helpers.enterText(this.accountName, accName.toString());
     this.clickAccountName(accName);
