@@ -10,7 +10,8 @@
     "test:unit": "sfdx-lwc-jest",
     "test:unit:debug": "sfdx-lwc-jest --debug",
     "test:unit:watch": "sfdx-lwc-jest --watch",
-    "test:unit:coverage": "sfdx-lwc-jest --coverage"
+    "test:unit:coverage": "sfdx-lwc-jest --coverage",
+    "ea:prettier": "node ./.husky/ea-custom-prettier.js"
   },
   "repository": {
     "type": "git",
@@ -38,9 +39,9 @@
     "expect-webdriverio": "^1.2.0",
     "faker": "^4.1.0",
     "geckodriver": "^1.19.1",
-    "husky": "^4.2.3",
+    "husky": "^6.0.0",
     "jsforce": "^1.9.3",
-    "pretty-quick": "^2.0.1",
+    "pretty-quick": "^3.1.0",
     "selenium-webdriver": "^4.0.0-alpha.7",
     "ts-node": "^8.6.2",
     "tsc": "^1.20150623.0",
