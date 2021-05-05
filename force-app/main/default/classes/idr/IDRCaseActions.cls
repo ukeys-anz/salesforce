@@ -8,10 +8,6 @@
  */
 @SuppressWarnings('PMD.CyclomaticComplexity,PMD.ExcessiveClassLength')
 public with sharing class IDRCaseActions {
-  public static final Id IDR_TASK_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
-    .get('IDR_Task')
-    .getRecordTypeId();
-
   @TestVisible
   private static final String OPEN_STATUS = 'Open';
   @TestVisible
@@ -55,7 +51,7 @@ public with sharing class IDRCaseActions {
 
   private static final String SI_QUEUE_DEVELOPER_NAME = 'Systemic_Issue_Team';
 
-  private static final String QUEUE_TYPE = 'Queue';
+  public static final String QUEUE_TYPE = 'Queue';
 
   private static final String DELETE_ERROR = 'You cannot delete cases';
 
@@ -104,15 +100,7 @@ public with sharing class IDRCaseActions {
 
   /**
    * @description applyDefaults is called onBeforeInsert to set the following values as defaults
-   * 1. IDR_Account_Card_Policy_Number__c field masking as part of Customer Complaint Recording in IDR {@link #handleMasking(record) handleMasking}.
-   * 2. Handle anonymous names if complainant doesnt want to share their info. This is for NON ANZ Customer rasing a complaint {@link #handleAnonymousNames(record) handleAnonymousNames}.
-   * 3. Handle case status changes such as updating IsEscalated to true if the case is created as escalated case. Change the reopen date if case is created with re-opened status {@link #handleCaseStatusChanges(record) handleCaseStatusChanges}.
-   * 4. Handle office assignment based on the case Owner's Division of the current case. {@link handleOfficeAssignment(cases) handleOfficeAssignment}.
-   * 5. Update Date/Time PSI Ticked if complaint is flagged as PSI
    * @param records The record list form which we need to apply defaults
-   * <p>
-   * <b>Note:</b> It is always good to change/update values in on onBeforeInsert rather than in onAfterInsert
-   * However in situations where the ID or CaseNumber is used which is only generated in onAfterInsert that logic needs to go in onAfterInsert.
    */
   public static void applyDefaults(List<Case> records) {
     Id entitlementId = getEntitlement();
@@ -146,7 +134,7 @@ public with sharing class IDRCaseActions {
       }
     }
     handleOfficeAssignment(changeOfficeCaseList);
-    runCaseOwnerAssignmentRules(records, null);
+    IDRCaseAssignmentRules.assignCases(records, null);
     stampQueueName(records, null);
     //Update Date/Time PSI Ticked if complaint is flagged as PSI
     if (!updatePsiTicked.isEmpty()) {
@@ -172,12 +160,7 @@ public with sharing class IDRCaseActions {
   }
 
   /**
-   * @description beforeUpdate(oldMap, records) method handles the following
-   * 1. Handle Masking - IDR_Account_Card_Policy_Number__c field masking as part of Customer Complaint Recording in IDR {@link #handleMasking(record) handleMasking}.
-   * 2. Handle anonymous names if complainant doesnt want to share their info. This is for NON ANZ Customer rasing a complaint {@link #handleAnonymousNames(record) handleAnonymousNames}.
-   * 3. Identify records for which owner is changed for IDR_Office__c to be updated. Note we need to update only the records for which the owner has changed and the owner is User(not Group).
-   * 4. Handle case status changes only for records which had a status change. Actions such as updating IsEscalated to true if the case is created as escalated case. Change the reopen date if case is created with re-opened status {@link #handleCaseStatusChanges(record) handleCaseStatusChanges}.
-   * 5. Update Date/Time PSI Ticked when complaint is flagged or unflagged
+   * @description beforeUpdate(oldMap, records) method handles before update automations for CMOS complaints. Refer to the doc of each method invoked.
    * @param oldMap This Map<Id, SObject> contains the map which holds the previous values which can be used to check what value has changed in onBeforeUpdate. Example to check if the Case Status value has changed we use the following to check record.Status != ((Case) oldMap.get(record.id)).Status
    * @param records from the trigger
    */
@@ -220,7 +203,7 @@ public with sharing class IDRCaseActions {
     }
     //calling handleOfficeAssignment for all case records for which the IDR_Office__c needs to be updated.
     handleOfficeAssignment(changeOfficeCaseList);
-    runCaseOwnerAssignmentRules(records, (Map<Id, Case>) oldMap);
+    IDRCaseAssignmentRules.assignCases(records, (Map<Id, Case>) oldMap);
     stampQueueName(records, (Map<Id, Case>) oldMap);
     //Update Date/Time PSI Ticked if complaint is flagged as PSI
     if (!updatePsiTicked.isEmpty()) {
@@ -279,7 +262,6 @@ public with sharing class IDRCaseActions {
   public static void completeAfterActions() {
     CheckRecursive.run();
     NotificationTriggerHandler.insertNotificationHandler(notificationCaseList);
-    executeAssignmentRule(caseEscalationList);
     notificationCaseList.clear();
     caseEscalationList.clear();
   }
@@ -424,41 +406,6 @@ public with sharing class IDRCaseActions {
   }
 
   /**
-   * @description Execute the assignment rules on escalated cases
-   * @param caseList List of escalated cases
-   */
-  public static void executeAssignmentRule(List<Case> caseList) {
-    List<Case> cList = new List<Case>();
-    for (Case c : caseList) {
-      Case caseRecord = new Case(id = c.id);
-      Database.DMLOptions dmo = new Database.DMLOptions();
-      dmo.assignmentRuleHeader.useDefaultRule = true;
-      caseRecord.setOptions(dmo);
-      cList.add(caseRecord);
-    }
-
-    List<Database.SaveResult> saveResultList = Database.update(cList, false);
-
-    for (Database.SaveResult sr : saveResultList) {
-      if (!sr.isSuccess()) {
-        // Operation failed, so get all errors
-        for (Database.Error err : sr.getErrors()) {
-          Lib_SystemLog.logAPIError(
-            IDRCaseActions.class.getName(),
-            'Error in executing case Assignment Rule for record id' +
-            sr.getId(),
-            err.getMessage(),
-            null,
-            IDRCaseActions.class.getName(),
-            null,
-            null
-          );
-        }
-      }
-    }
-  }
-
-  /**
    * @description onBeforeDelete of IDR Case records. No user is allowed to delete a complaint or a systemic issue.
    * Check if its IDR record type and prevent deleteing for anzx can handle other scenarios
    * @param records
@@ -467,7 +414,7 @@ public with sharing class IDRCaseActions {
     for (Case record : records) {
       if (
         isIDRComplaintType(record) ||
-        record.recordTypeId == SICaseActions.SI_RT_ID
+        record.recordTypeId == IDRConstants.SI_RT_ID
       ) {
         record.addError(DELETE_ERROR);
       }
@@ -519,13 +466,15 @@ public with sharing class IDRCaseActions {
       }
     }
 
-    Map<Id, Group> queueMap = new Map<Id, Group>(
-      [SELECT id, Name FROM Group WHERE Id IN :queueIds]
-    );
+    if (!queueIds.isEmpty()) {
+      Map<Id, Group> queueMap = new Map<Id, Group>(
+        [SELECT id, Name FROM Group WHERE Id IN :queueIds]
+      );
 
-    for (Case c : caseList) {
-      if (queueMap.containsKey(c.OwnerId)) {
-        c.Queue__c = queueMap.get(c.OwnerId).Name;
+      for (Case c : caseList) {
+        if (queueMap.containsKey(c.OwnerId)) {
+          c.Queue__c = queueMap.get(c.OwnerId).Name;
+        }
       }
     }
   }
@@ -1093,7 +1042,7 @@ public with sharing class IDRCaseActions {
   private static Task populateTaskFields(Case c) {
     Date activityDate = Date.today().addDays(5);
     return new Task(
-      RecordTypeId = IDR_TASK_RT_ID,
+      RecordTypeId = IDRConstants.IDR_TASK_RT_ID,
       OwnerId = siQueue.Id,
       WhatId = c.Id,
       Subject = IDR_TASK_SUBJECT,
@@ -1113,46 +1062,6 @@ public with sharing class IDRCaseActions {
         record.IDR_Datetime_PSI_Ticked__c = Datetime.now();
       } else {
         record.IDR_Datetime_PSI_Ticked__c = null;
-      }
-    }
-  }
-
-  /**
-   * @description method to call the Case assignment rules
-   * @param caseRecords Records in the current context
-   * @param oldMap old map of case record in current trigger context
-   */
-  private static void runCaseOwnerAssignmentRules(
-    List<Case> caseRecords,
-    Map<ID, Case> oldMap
-  ) {
-    Map<String, Id> queueMap = new Map<String, Id>();
-    List<Group> queueList;
-    if (Group.sObjectType.getDescribe().isQueryable()) {
-      queueList = [
-        SELECT id, developername
-        FROM Group
-        WHERE
-          developername IN :IDRConstants.workBasketNames
-          AND Type = :QUEUE_TYPE
-      ];
-    }
-
-    for (Group queueRec : queueList) {
-      queueMap.put(queueRec.developername, queueRec.Id);
-    }
-
-    for (Case caseRec : caseRecords) {
-      Case oldCase = (oldMap != null ? oldMap.get(caseRec.Id) : null);
-      if (isIDRComplaintType(caseRec)) {
-        ID ownerId = IDRCaseAssignmentRules.getOwnerId(
-          caseRec,
-          queueMap,
-          oldCase
-        );
-        if (ownerId != null) {
-          caseRec.OwnerID = ownerId;
-        }
       }
     }
   }

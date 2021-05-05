@@ -5,11 +5,6 @@
  */
 @SuppressWarnings('PMD.CyclomaticComplexity')
 public without sharing class IDRTaskActions {
-  // IDR Maximum time Record Type ID
-  @TestVisible
-  public static final Id IDR_MAXIMUM_TIME_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
-    .get('IDR_System_Task')
-    .getRecordTypeId();
   /**
    * @description beforeInsertActions is called onBeforeInsert. any logic that needs to be executed on before insert is executed from here
    * @param records The Task record list.
@@ -39,7 +34,7 @@ public without sharing class IDRTaskActions {
     Set<Id> currentTask = new Set<Id>();
     Map<Id, ID> caseTaskMap = new Map<Id, ID>();
     for (Task record : taskRecs) {
-      if (record.RecordTypeId == IDR_MAXIMUM_TIME_RT_ID) {
+      if (record.RecordTypeId == IDRConstants.IDR_MAXIMUM_TIME_RT_ID) {
         currentTask.add(record.Id);
         caseTaskMap.put(record.WhatId, record.Id);
       }
@@ -54,7 +49,7 @@ public without sharing class IDRTaskActions {
         FROM Task
         WHERE
           WhatId IN :caseTaskMap.keySet()
-          AND RecordTypeId = :IDR_MAXIMUM_TIME_RT_ID
+          AND RecordTypeId = :IDRConstants.IDR_MAXIMUM_TIME_RT_ID
           AND Id NOT IN :currentTask
           AND Status != :IDRConstants.TASK_STATUS_COMPLETED
           AND Status != :IDRConstants.TASK_STATUS_EXPIRED
@@ -84,13 +79,13 @@ public without sharing class IDRTaskActions {
         record.subject == IDRConstants.TASK_SUBJECT_DAY5 ||
         record.subject == IDRConstants.TASK_SUBJECT_DAY1
       ) {
-        record.RecordTypeId = IDR_MAXIMUM_TIME_RT_ID;
+        record.RecordTypeId = IDRConstants.IDR_MAXIMUM_TIME_RT_ID;
         idrMaixmumTimeTasks.add(record);
         taskCaseMap.put(record.Id, record.WhatId);
         caseIds.add(record.whatId);
       }
       if (
-        record.RecordTypeId == IDR_MAXIMUM_TIME_RT_ID &&
+        record.RecordTypeId == IDRConstants.IDR_MAXIMUM_TIME_RT_ID &&
         (!caseTaskMap.KeySet().contains(record.WhatId) ||
         (record.subject == IDRConstants.TASK_SUBJECT_DAY1))
       ) {
@@ -99,7 +94,7 @@ public without sharing class IDRTaskActions {
     }
 
     validateDueDate(idrMaixmumTimeTasks, caseTaskMap);
-    if(!caseIds.isEmpty()) {
+    if (!caseIds.isEmpty()) {
       assignTaskToCaseOwner(taskRecs, caseIds);
     }
   }
@@ -197,7 +192,10 @@ public without sharing class IDRTaskActions {
   private static void closeMilestonesOfClosedTask(list<Task> taskRecs) {
     set<Id> caseIDSet = new Set<Id>();
     for (task t : taskRecs) {
-      if (t.RecordTypeId == IDR_MAXIMUM_TIME_RT_ID && t.Status == 'Completed') {
+      if (
+        t.RecordTypeId == IDRConstants.IDR_MAXIMUM_TIME_RT_ID &&
+        t.Status == 'Completed'
+      ) {
         caseIDSet.add(t.WhatId);
       }
     }
@@ -227,19 +225,26 @@ public without sharing class IDRTaskActions {
   }
 
   /**
-   * @description assignTaskToCaseOwner is used to assign the tasks 
-   * created by entitlement process to case owner. 
+   * @description assignTaskToCaseOwner is used to assign the tasks
+   * created by entitlement process to case owner.
    * @param records List of task records from trigger
    * @param caseIds Set of case ids
    */
-  private static void assignTaskToCaseOwner(List<Task> records, Set<Id> caseIds) {
+  private static void assignTaskToCaseOwner(
+    List<Task> records,
+    Set<Id> caseIds
+  ) {
     Map<Id, Case> caseMap = new Map<ID, Case>();
-    for(Case caseRecord : [SELECT Id, OwnerId FROM Case where Id IN : caseIds]) {
+    for (Case caseRecord : [
+      SELECT Id, OwnerId
+      FROM Case
+      WHERE Id IN :caseIds
+    ]) {
       caseMap.put(caseRecord.Id, caseRecord);
     }
-    for(Task record : records) {
-      if(caseMap.containsKey(record.WhatId)) {
-      record.OwnerId = caseMap.get(record.WhatId).OwnerId;
+    for (Task record : records) {
+      if (caseMap.containsKey(record.WhatId)) {
+        record.OwnerId = caseMap.get(record.WhatId).OwnerId;
       }
     }
   }
@@ -274,7 +279,7 @@ public without sharing class IDRTaskActions {
         FROM Task
         WHERE
           whatId IN :caseMap.keySet()
-          AND RecordTypeId = :IDR_MAXIMUM_TIME_RT_ID
+          AND RecordTypeId = :IDRConstants.IDR_MAXIMUM_TIME_RT_ID
           AND IsClosed = FALSE
       ];
     }
@@ -294,9 +299,7 @@ public without sharing class IDRTaskActions {
       cmsToUpdate = [
         SELECT Id, StartDate, caseId
         FROM CaseMilestone cm
-        WHERE
-          caseId IN :caseMap.keySet()
-          AND completionDate = NULL
+        WHERE caseId IN :caseMap.keySet() AND completionDate = NULL
       ];
     }
     for (CaseMilestone cm : cmsToUpdate) {

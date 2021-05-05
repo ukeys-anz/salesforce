@@ -7,7 +7,7 @@ private with sharing class TestSICaseActions {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newSIs.add(
         new Case(
-          RecordTypeId = SICaseActions.SI_RT_ID,
+          RecordTypeId = IDRConstants.SI_RT_ID,
           Status = 'Open',
           SI_Workflow_step__c = '1'
         )
@@ -17,7 +17,7 @@ private with sharing class TestSICaseActions {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newSIs.add(
         new Case(
-          RecordTypeId = SICaseActions.SI_RT_ID,
+          RecordTypeId = IDRConstants.SI_RT_ID,
           Status = 'Closed',
           SI_Workflow_step__c = '4'
         )
@@ -45,7 +45,7 @@ private with sharing class TestSICaseActions {
       SELECT Status
       FROM Case
       WHERE
-        RecordTypeId = :SICaseActions.SI_RT_ID
+        RecordTypeId = :IDRConstants.SI_RT_ID
         AND Status = 'Open'
         AND SI_Workflow_step__c = '1'
     ];
@@ -76,7 +76,7 @@ private with sharing class TestSICaseActions {
       SELECT SI_Workflow_step__c
       FROM Case
       WHERE
-        RecordTypeId = :SICaseActions.SI_RT_ID
+        RecordTypeId = :IDRConstants.SI_RT_ID
         AND Status = 'Closed'
         AND SI_Workflow_step__c = '4'
     ];
@@ -107,7 +107,7 @@ private with sharing class TestSICaseActions {
       SELECT SI_Workflow_step__c
       FROM Case
       WHERE
-        RecordTypeId = :SICaseActions.SI_RT_ID
+        RecordTypeId = :IDRConstants.SI_RT_ID
         AND Status = 'Open'
         AND SI_Workflow_step__c = '1'
     ];
@@ -193,7 +193,7 @@ private with sharing class TestSICaseActions {
     newSIs = [
       SELECT Id
       FROM Case
-      WHERE RecordTypeId = :SICaseActions.SI_RT_ID
+      WHERE RecordTypeId = :IDRConstants.SI_RT_ID
       LIMIT 1
     ];
     checkRecursive.firstCall = false;

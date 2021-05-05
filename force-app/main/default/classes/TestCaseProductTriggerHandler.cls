@@ -6,11 +6,11 @@ public with sharing class TestCaseProductTriggerHandler {
     Case[] cases = new List<Case>();
     Product2[] products = new List<Product2>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      cases.add(new Case(RecordTypeId = CaseProductTriggerHandler.SI_RT_ID));
+      cases.add(new Case(RecordTypeId = IDRConstants.SI_RT_ID));
       products.add(
         new Product2(
           Name = 'Test Product ' + i,
-          RecordTypeId = CaseProductTriggerHandler.ANZ_PRODUCT_RT_ID,
+          RecordTypeId = IDRConstants.ANZ_PRODUCT_RT_ID,
           isActive = true
         )
       );
@@ -60,11 +60,11 @@ public with sharing class TestCaseProductTriggerHandler {
   @isTest
   static void testErrorIfAlreadyExists() {
     //GIVEN a case and a product, related to each other
-    Case c = new Case(RecordTypeId = CaseProductTriggerHandler.SI_RT_ID);
+    Case c = new Case(RecordTypeId = IDRConstants.SI_RT_ID);
     insert c;
     Product2 p = new Product2(
       Name = 'Test Product',
-      RecordTypeId = CaseProductTriggerHandler.ANZ_PRODUCT_RT_ID,
+      RecordTypeId = IDRConstants.ANZ_PRODUCT_RT_ID,
       isActive = true
     );
     insert p;
@@ -99,11 +99,11 @@ public with sharing class TestCaseProductTriggerHandler {
   @isTest
   static void testErrorIfDuplicateInBulk() {
     //GIVEN a case and a product, NOT related
-    Case c = new Case(RecordTypeId = CaseProductTriggerHandler.SI_RT_ID);
+    Case c = new Case(RecordTypeId = IDRConstants.SI_RT_ID);
     insert c;
     Product2 p = new Product2(
       Name = 'Test Product',
-      RecordTypeId = CaseProductTriggerHandler.ANZ_PRODUCT_RT_ID,
+      RecordTypeId = IDRConstants.ANZ_PRODUCT_RT_ID,
       isActive = true
     );
     insert p;
@@ -138,11 +138,11 @@ public with sharing class TestCaseProductTriggerHandler {
   @isTest
   static void testInsufficientPermission() {
     //GIVEN a case, a product, and a current user who doesn't have enough CRUD access
-    Case c = new Case(RecordTypeId = CaseProductTriggerHandler.SI_RT_ID);
+    Case c = new Case(RecordTypeId = IDRConstants.SI_RT_ID);
     insert c;
     Product2 p = new Product2(
       Name = 'Test Product',
-      RecordTypeId = CaseProductTriggerHandler.ANZ_PRODUCT_RT_ID,
+      RecordTypeId = IDRConstants.ANZ_PRODUCT_RT_ID,
       isActive = true
     );
     insert p;

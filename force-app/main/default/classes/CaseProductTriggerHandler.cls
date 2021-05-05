@@ -5,16 +5,6 @@
  */
 
 public with sharing class CaseProductTriggerHandler extends Lib_TriggerHandler {
-  @TestVisible
-  static final Id SI_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get('Systemic_Issue')
-    .getRecordTypeId();
-
-  @TestVisible
-  static final Id ANZ_PRODUCT_RT_ID = Schema.SObjectType.Product2.getRecordTypeInfosByDeveloperName()
-    .get('ANZ_Product_or_Service')
-    .getRecordTypeId();
-
   /**
    * @description Constructor to call the trigger framework
    * which will call the appropriate methods such as onBeforeInsert etc.
