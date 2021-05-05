@@ -36,6 +36,21 @@
           <div
             class="slds-col slds-size_1-of-4 slds-text-body_regular slds-m-right_large slds-m-bottom_large slds-border_bottom"
           >
+          CPID : {customerInfo.cpId}
+        </div>
+          <div
+            class="slds-col slds-size_1-of-4 slds-text-body_regular slds-m-right_large slds-m-bottom_large slds-border_bottom"
+          >
+          OCV ID : {customerInfo.ocvId}
+          </div>
+          <div
+            class="slds-col slds-size_1-of-4 slds-text-body_regular slds-m-right_large slds-m-bottom_large slds-border_bottom"
+          >
+            DOB : {customerInfo.dob}
+          </div>
+          <div
+            class="slds-col slds-size_1-of-4 slds-text-body_regular slds-m-right_large slds-m-bottom_large slds-border_bottom"
+          >
             Email : {customerInfo.email}
           </div>
           <div
@@ -69,6 +84,34 @@
             Country : {customerInfo.country}
           </div>
         </div>
+        <template if:true={isRMDetails}>
+        <div class="slds-text-heading_small slds-m-left_medium slds-text-title_bold">Relationship Manager Details</div><br/>
+        <div class="slds-grid slds-m-left_medium">
+          <div
+            class="slds-col slds-size_1-of-4 slds-text-body_regular slds-m-right_large slds-m-bottom_large slds-border_bottom"
+          >
+            Name : {customerInfo.rmData.name}
+          </div>
+          <div
+            class="slds-col slds-size_1-of-4 slds-text-body_regular slds-m-right_large slds-m-bottom_large slds-border_bottom"
+          >
+            Phone : {customerInfo.rmData.phone}
+          </div>
+          <div
+            class="slds-col slds-size_1-of-4 slds-text-body_regular slds-m-right_large slds-m-bottom_large slds-border_bottom"
+          >
+            Office Address : {customerInfo.rmData.officeAddress}
+          </div>
+        </div>
+      </template>
+      <template if:true={rmDetailsError}>
+        <div class="slds-text-heading_small slds-m-left_medium slds-text-title_bold">Relationship Manager Details</div><br/>
+          <div class="slds-p-around_medium">
+            <ul class="slds-list--vertical slds-has-dividers--bottom-space">
+              <li class="slds-list__item" title="Customer Type">Error : {rmDetailsError}</li>
+            </ul>
+          </div>
+      </template>
       </template>
       <template if:false={showAsGrid}>
         <div class="slds-p-around_medium">
@@ -90,6 +133,15 @@
             </li>
             <li class="slds-list__item" title="Age">
               Age : {customerInfo.age}
+            </li>
+            <li class="slds-list__item" title="Cpid">
+              CPID : {customerInfo.cpId}
+            </li>
+            <li class="slds-list__item" title="Ocvid">
+              OCVID : {customerInfo.ocvId}
+            </li>
+            <li class="slds-list__item" title="Dob">
+              DOB : {customerInfo.dob}
             </li>
             <li class="slds-list__item" title="Email">
               Email : {customerInfo.email}
@@ -141,15 +193,23 @@
             label="Relationship Manager Details"
             data-id="rel-details"
           >
-          <div class="slds-p-around_medium" >
-          <ul >
-            <template for:each={customerInfo.accounts} for:item="account">
-                <li class="slds-list__item" key={account}>
-                    {account}
-                </li>
-            </template>
-        </ul>
-        </div>
+          
+          <template if:true={isRMDetails}>
+            <ul class="slds-list--vertical slds-has-dividers--bottom-space">
+              <li class="slds-list__item" title="Customer Type">
+                Name : {customerInfo.rmData.name}
+              </li>
+              <li class="slds-list__item" title="Customer Type">
+                Phone : {customerInfo.rmData.phone}
+              </li>
+              <li class="slds-list__item" title="Customer Type">
+                Office Address : {customerInfo.rmData.officeAddress}
+              </li>
+            </ul>
+          </template>
+          <template if:true={rmDetailsError}>
+            rmDetailsError
+          </template>
 
         </lightning-accordion-section>
       </lightning-accordion>

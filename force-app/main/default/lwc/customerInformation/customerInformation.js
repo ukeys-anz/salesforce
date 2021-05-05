@@ -9,6 +9,9 @@ import CAP_ID_FIELD from "@salesforce/schema/Case.IDR_Customer_Number__c";
 import FIRST_NAME from "@salesforce/schema/Case.IDR_NC_First_Name__c";
 import LAST_NAME from "@salesforce/schema/Case.IDR_NC_Last_Name__c";
 import MIDDLE_NAME from "@salesforce/schema/Case.IDR_NC_Middle_Names__c";
+import OCV_ID from "@salesforce/schema/Case.OCV_Id__c";
+import CP_ID from "@salesforce/schema/Case.CPID__c";
+import DOB from "@salesforce/schema/Case.Birth_Date__c";
 import ID_FIELD from "@salesforce/schema/Case.Id";
 
 export default class CustomerInformation extends LightningElement {
@@ -17,6 +20,8 @@ export default class CustomerInformation extends LightningElement {
   @track customerInfo;
   @api recordId;
   @track error;
+  @track isRMDetails;
+  @track rmDetailsError;
   @api showAsGrid;
   @api
   get customerId() {
@@ -59,6 +64,9 @@ export default class CustomerInformation extends LightningElement {
     fields[FIRST_NAME.fieldApiName] = this.customerInfo.first_name;
     fields[LAST_NAME.fieldApiName] = this.customerInfo.last_name;
     fields[MIDDLE_NAME.fieldApiName] = this.customerInfo.middlename;
+    fields[OCV_ID.fieldApiName] = this.customerInfo.ocvId;
+    fields[CP_ID.fieldApiName] = this.customerInfo.capId;
+    fields[DOB.fieldApiName] = this.customerInfo.dob;
 
     const recordInput = { fields };
     updateRecord(recordInput)
@@ -88,6 +96,8 @@ export default class CustomerInformation extends LightningElement {
     // calling apex class method to make callout
     if (!this.loaded) {
       this.error = null;
+      this.rmDetailsError = null;
+      this.isRMDetails = false;
       getCustomerData({ capId: customerId })
         .then((result) => {
           let customerData = {
@@ -105,11 +115,19 @@ export default class CustomerInformation extends LightningElement {
             state: "",
             postcode: "",
             country: "",
-            accounts: []
+            ocvId:"",
+            cpId:"",
+            dob:"",
+            accounts: [],
+            rmData:{name:"",
+                    phone:"",
+                    officeAddress:""
+                  }
           };
           // retrieving the response data
           let responseData = result.profile;
           let accountsData = result.accounts;
+          let relationshipData = result.relationshipManager;
           let accounts = [];
           // adding data object by reading from JSON
           customerData.complainant_type = responseData.complainantType;
@@ -126,13 +144,28 @@ export default class CustomerInformation extends LightningElement {
           customerData.state = responseData.state;
           customerData.street = responseData.street;
           customerData.suburb = responseData.suburb;
-          console.log(accountsData[0].accountNumber);
-          let x;
+          customerData.ocvId = responseData.ocvId;
+          customerData.cpId = responseData.cpId;
+          customerData.dob = responseData.dob;
+            let x;
           for(x in accountsData){
             accounts.push(accountsData[x].accountNumber);
           }
-          //console.log("Afreeb"+accounts);
           customerData.accounts = accounts;
+          console.log('dd'+result.relationshipDetails );
+          if(!relationshipData && relationshipData.details == null  && relationshipData.error == null){
+            isRMDetails = false;
+          }else if (relationshipData.details != null  && relationshipData.error == null){
+            this.isRMDetails = true;
+            customerData.rmData.name = relationshipData.details.name;
+            customerData.rmData.phone = relationshipData.details.phoneNumber;
+            customerData.rmData.officeAddress = relationshipData.details.address[0].addressLine1+', '+relationshipData.details.address[0].addressLine2;  
+      
+          }else if(relationshipData.details == null  && relationshipData.error != null){
+            this.rmDetailsError = relationshipData.error.message;
+          }
+          
+          
           // adding data object to show in UI
           this.loaded = true;
           this.customerInfo = customerData;
@@ -149,19 +182,23 @@ export default class CustomerInformation extends LightningElement {
   }
   handleError(err) {
     this.loaded = true;
-    this.error = "Unknown error";
-    if (err.body) {
-      if (Array.isArray(err.body)) {
-        this.error = err.body.map((e) => e.message).join(", ");
-      } else if (typeof err.body.message === "string") {
-        this.error = err.body.message;
+      this.error = "Unknown error";
+      if (err.body) {
+        if (Array.isArray(err.body)) {
+          this.error = err.body.map((e) => e.message).join(", ");
+        } else if (typeof err.body.message === "string") {
+          this.error = err.body.message;
+        }
       }
+      // if the customer Id couldnt be validated against CAP at the moment throw this event so that case can be created.
+      console.log("this.error:" + this.error);
+      if (!this.error.includes("No data found for the given customerId")) {
+        this.dispatchEvent(new CustomEvent("custinfochecked"));
+      }
+      
+      this.record = undefined;
     }
-    // if the customer Id couldnt be validated against CAP at the moment throw this event so that case can be created.
-    console.log("this.error:" + this.error);
-    if (!this.error.includes("No data found for the given customerId")) {
-      this.dispatchEvent(new CustomEvent("custinfochecked"));
-    }
-    this.record = undefined;
-  }
+
+    
+    
 }

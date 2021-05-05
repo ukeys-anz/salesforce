@@ -37,7 +37,7 @@ describe("c-create-complaint-l-w-c", () => {
     document.body.appendChild(element);
 
     const complaintStatus = element.shadowRoot.querySelector(
-      "lightning-combobox"
+      "lightning-combobox[data-id=caseStatus-id]"
     );
     complaintStatus.value = "Escalated";
     complaintStatus.dispatchEvent(new CustomEvent("change"));
@@ -112,7 +112,7 @@ describe("c-create-complaint-l-w-c", () => {
     document.body.appendChild(element);
 
     const complaintStatus = element.shadowRoot.querySelector(
-      "lightning-combobox"
+      "lightning-combobox[data-id=caseStatus-id]"
     );
     complaintStatus.value = "Resolved";
     complaintStatus.dispatchEvent(new CustomEvent("change"));
@@ -269,7 +269,7 @@ describe("c-create-complaint-l-w-c", () => {
     );
     //Populate user input - Account Number
     const accNumber = element.shadowRoot.querySelector(
-      "lightning-input-field[data-id=accPolicyNum-id]"
+      "lightning-combobox[data-id=accPolicyNum-id]"
     );
     accNumber.dispatchEvent(
       new CustomEvent("change", {

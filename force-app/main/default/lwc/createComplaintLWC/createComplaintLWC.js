@@ -35,6 +35,9 @@ import POSTCODE_FIELD from "@salesforce/schema/Case.IDR_NC_Postcode__c";
 import COUNTRY_FIELD from "@salesforce/schema/Case.IDR_NC_Country__c";
 import STATE_FIELD from "@salesforce/schema/Case.IDR_NC_State__c";
 import CONSENT_OBTAINED from "@salesforce/schema/Case.IDR_NC_Is_Consent_Obtained__c";
+import OCV_ID from "@salesforce/schema/Case.OCV_Id__c";
+import CP_ID from "@salesforce/schema/Case.CPID__c";
+import DOB from "@salesforce/schema/Case.Birth_Date__c";
 
 //Is written Response Needed Fields
 import WRITTEN_RESPONSE_REQUESTED_FIELD from "@salesforce/schema/Case.IDR_Is_Written_Resp_Requested__c";
@@ -133,6 +136,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
   country = COUNTRY_FIELD;
   state = STATE_FIELD;
   consentObtained = CONSENT_OBTAINED;
+  ocvId=OCV_ID;
+  cpId =CP_ID;
+  dob=DOB;
 
   //3rd Party Fields
   thirdPartyName = THIRD_PARTY_NAME_FIELD;
@@ -293,6 +299,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   }
   handleAccountNumberChange(event){
     this.accountOrPolicyNumber = event.target.value;
+    console.log(this.accountOrPolicyNumber);
   }
   handleAccountNumber2Change(event){
     this.accountOrPolicyNumber2 = event.target.value;
@@ -452,6 +459,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     ].reduce((isValidSoFar, inputCmp) => {
       if (inputCmp.getAttribute("data-id")) {
         let getId = inputCmp.getAttribute("data-id").split("-");
+        console.log('ggg'+getId+'cc'+getId[0]+'ff'+ requiredFields[getId[0]]);
         if (requiredFields[getId[0]] && !inputCmp.value) {
           isValidSoFar = false;
           this.missingDataFields += requiredFields[getId[0]] + ", ";
@@ -541,6 +549,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
         fields[FIRST_NAME_FIELD.fieldApiName] = this.firstName;
         fields[LAST_NAME_FIELD.fieldApiName] = this.lastName;
         fields[MIDDLE_NAME_FIELD.fieldApiName] = this.middleNames;
+        console.log('3'+this.ocvId);
+        fields[OCV_ID.fieldApiName] = this.ocvId;
+        fields[CP_ID.fieldApiName] = this.cpId;
+        fields[DOB.fieldApiName] = this.dob;
       }
       fields[DESCRIPTION_FIELD.fieldApiName] = this.description;
       fields[PRODUCT_LOOKUP_FIELD.fieldApiName] = this.productValue;
@@ -710,6 +722,11 @@ export default class CreateComplaintLWC extends NavigationMixin(
         this.firstName = event.detail.first_name;
         this.middleNames = event.detail.middlename;
         this.lastName = event.detail.last_name;
+        console.log('1'+event.detail.cpId+'2'+event.detail.ocvId);
+        this.cpId = event.detail.cpId;
+        this.ocvId = event.detail.ocvId;
+        this.dob = event.detail.dob;
+
         this.isCustomerDetails = true;
         this.accountNumberOptions = [{label:"N/A", value:"N/A"}];
         let x;
