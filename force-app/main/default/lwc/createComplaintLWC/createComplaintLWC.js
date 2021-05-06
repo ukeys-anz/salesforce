@@ -136,8 +136,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
   country = COUNTRY_FIELD;
   state = STATE_FIELD;
   consentObtained = CONSENT_OBTAINED;
-  ocvId=OCV_ID;
-  cpId =CP_ID;
+  ocvId = OCV_ID;
+  cpId = CP_ID;
   rmComplaint = RM_COMPLAINT;
 
   //3rd Party Fields
@@ -236,9 +236,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     { label: "Yes", value: "Yes" },
     { label: "No", value: "No" }
   ];
-  accountNumberOptions=[
-    { label: "N/A", value: "N/A" }
-  ];
+  accountNumberOptions = [{ label: "N/A", value: "N/A" }];
 
   commoncomplaintoptions = [
     { label: "Yes", value: "Yes" },
@@ -297,13 +295,13 @@ export default class CreateComplaintLWC extends NavigationMixin(
   handle3rdIssueToggleChange(event) {
     this.hasThirdIssue = event.target.checked;
   }
-  handleAccountNumberChange(event){
+  handleAccountNumberChange(event) {
     this.accountOrPolicyNumber = event.target.value;
   }
-  handleAccountNumber2Change(event){
+  handleAccountNumber2Change(event) {
     this.accountOrPolicyNumber2 = event.target.value;
   }
-  handleAccountNumber3Change(event){
+  handleAccountNumber3Change(event) {
     this.accountOrPolicyNumber3 = event.target.value;
   }
   handleCommonComplaint(event) {
@@ -428,7 +426,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     let isFieldValid = [
       ...this.template.querySelectorAll("lightning-input-field")
     ].reduce((isValidSoFar, inputCmp) => {
-    if (inputCmp.getAttribute("data-id")) {
+      if (inputCmp.getAttribute("data-id")) {
         let getId = inputCmp.getAttribute("data-id").split("-");
         if (requiredFields[getId[0]] && !inputCmp.value) {
           isValidSoFar = false;
@@ -531,7 +529,13 @@ export default class CreateComplaintLWC extends NavigationMixin(
       isFinCompValid = this.validateFinancialCompensation();
     }
 
-    return isFieldValid && isEmailValid && isFinCompValid && isDescValid && isComboboxValid;
+    return (
+      isFieldValid &&
+      isEmailValid &&
+      isFinCompValid &&
+      isDescValid &&
+      isComboboxValid
+    );
   }
 
   handleSubmit(event) {
@@ -599,22 +603,20 @@ export default class CreateComplaintLWC extends NavigationMixin(
       if (!this.hasNominatedThirdParty) {
         fields[THIRD_PARTY_COUNTRY_FIELD.fieldApiName] = "";
       }
-      fields[
-        ACCOUNT_POLICY_FIELD.fieldApiName
-      ] = this.accountOrPolicyNumber;
+      fields[ACCOUNT_POLICY_FIELD.fieldApiName] = this.accountOrPolicyNumber;
 
-      if (this.hasSecondIssue){
+      if (this.hasSecondIssue) {
         fields[
           ACCOUNT_POLICY_FIELD_2.fieldApiName
         ] = this.accountOrPolicyNumber2;
       }
 
-      if (this.hasThirdIssue){
+      if (this.hasThirdIssue) {
         fields[
           ACCOUNT_POLICY_FIELD_3.fieldApiName
         ] = this.accountOrPolicyNumber3;
       }
-     
+
       const recordInput = { apiName: CASE_OBJECT.objectApiName, fields };
       createRecord(recordInput)
         .then((response) => {
@@ -721,10 +723,13 @@ export default class CreateComplaintLWC extends NavigationMixin(
         this.ocvId = event.detail.ocvId;
         this.rmComplaint = event.detail.isRmPresent;
         this.isCustomerDetails = true;
-        this.accountNumberOptions = [{label:"N/A", value:"N/A"}];
+        this.accountNumberOptions = [{ label: "N/A", value: "N/A" }];
         let x;
-        for(x in event.detail.accounts){
-          this.accountNumberOptions.push({label:event.detail.accounts[x], value:event.detail.accounts[x]});
+        for (x in event.detail.accounts) {
+          this.accountNumberOptions.push({
+            label: event.detail.accounts[x],
+            value: event.detail.accounts[x]
+          });
         }
       }
     }

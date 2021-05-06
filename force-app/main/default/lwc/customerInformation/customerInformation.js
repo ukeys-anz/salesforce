@@ -14,7 +14,6 @@ import OCV_ID from "@salesforce/schema/Case.OCV_Id__c";
 import CP_ID from "@salesforce/schema/Case.CPID__c";
 import ID_FIELD from "@salesforce/schema/Case.Id";
 
-
 export default class CustomerInformation extends LightningElement {
   isCustomerDataBeUpdated = false;
   @track loaded = true;
@@ -46,32 +45,33 @@ export default class CustomerInformation extends LightningElement {
   wiredProject({ error, data }) {
     if (data && this.record !== data) {
       this.record = data;
-      
-      if(!this.customerInfo){
+
+      if (!this.customerInfo) {
         let customerData1 = {
           complainant_type: "",
           first_name: "",
           last_name: "",
           middlename: "",
-          isRmPresent:false
+          isRmPresent: false
+        };
+        customerData1.first_name = getFieldValue(this.record, FIRST_NAME);
+        customerData1.last_name = getFieldValue(this.record, LAST_NAME);
+        customerData1.middlename = getFieldValue(this.record, MIDDLE_NAME);
+        customerData1.isRmPresent = getFieldValue(this.record, RM_COMPLAINT);
+        this.customerInfo = customerData1;
+        if (
+          customerData1.first_name == null &&
+          customerData1.last_name == null
+        ) {
+          this.isCustomerDataBeUpdated = true;
         }
-      customerData1.first_name =  getFieldValue(this.record, FIRST_NAME);
-      customerData1.last_name =  getFieldValue(this.record, LAST_NAME);
-      customerData1.middlename =  getFieldValue(this.record, MIDDLE_NAME);
-      customerData1.isRmPresent = getFieldValue(this.record, RM_COMPLAINT);
-      this.customerInfo = customerData1;
-      if (customerData1.first_name == null && customerData1.last_name == null
-      ) {
-        this.isCustomerDataBeUpdated = true;
-      }}
-
-      
+      }
     } else if (error) {
       this.handleError(error);
     }
   }
 
-  showAllCustomerData(){
+  showAllCustomerData() {
     this.custData(
       this.record.fields.IDR_Customer_Number__c.value.replace(/^0+/, "")
     );
@@ -113,114 +113,120 @@ export default class CustomerInformation extends LightningElement {
 
   custData(customerId) {
     // calling apex class method to make callout
-      this.loaded = false;
-      this.error = null;
-      this.rmDetailsError = null;
-      this.isRMDetails = false;
-      getCustomerData({ capId: customerId })
-        .then((result) => {
-          let customerData = {
-            complainant_type: "",
-            first_name: "",
-            last_name: "",
-            middlename: "",
-            mobile: "",
-            businessname: "",
-            gender: "",
-            email: "",
-            age: "",
-            suburb: "",
-            street: "",
-            state: "",
-            postcode: "",
-            country: "",
-            ocvId:"",
-            cpId:"",
-            dob:"",
-            isRmPresent: false,
-            accounts: [],
-            rmData:{name:"",
-                    phone:"",
-                    officeAddress:""
-                  }
-          };
-          // retrieving the response data
-          let responseData = result.profile;
-          let accountsData = result.accounts;
-          let relationshipData = result.relationshipManager;
-          let accounts = [];
-          // adding data object by reading from JSON
-          customerData.complainant_type = responseData.complainantType;
-          customerData.first_name = responseData.firstName;
-          customerData.last_name = responseData.lastName;
-          customerData.middlename = responseData.middleName;
-          customerData.mobile = responseData.mobile;
-          customerData.businessname = responseData.businessName;
-          customerData.age = responseData.age;
-          customerData.country = responseData.country;
-          customerData.email = responseData.email;
-          customerData.gender = responseData.gender;
-          customerData.postcode = responseData.postCode;
-          customerData.state = responseData.state;
-          customerData.street = responseData.street;
-          customerData.suburb = responseData.suburb;
-          customerData.ocvId = responseData.ocvId;
-          customerData.cpId = responseData.cpId;
-          customerData.dob = responseData.dob;
-            let x;
-          for(x in accountsData){
-            accounts.push(accountsData[x].accountNumber);
-          }
-          customerData.accounts = accounts;
-          if(!relationshipData && relationshipData.details == null  && relationshipData.error == null){
-            isRMDetails = false;
-            customerData.isRmPresent = true;
-          }else if (relationshipData.details != null  && relationshipData.error == null){
-            this.isRMDetails = true;
-            customerData.rmData.name = relationshipData.details.name;
-            customerData.rmData.phone = relationshipData.details.phoneNumber;
-            customerData.rmData.officeAddress = relationshipData.details.address[0].addressLine1+', '+relationshipData.details.address[0].addressLine2;  
-            customerData.isRmPresent = true;
-          }else if(relationshipData.details == null  && relationshipData.error != null){
-            this.rmDetailsError = relationshipData.error.message;
-          }
-          
-          
-          // adding data object to show in UI
-          this.loaded = true;
-          this.customerInfo = customerData;
-          this.showMore= true;
-          if(this.isCustomerDataBeUpdated === true){
-            this.updateCustomerDetailsonCase();
-          }
-          this.dispatchEvent(
-            new CustomEvent("custinfochecked", {
-              detail: this.customerInfo
-            })
-          );
-        })
-        .catch((error) => {
-          this.handleError(error);
-        });
+    this.loaded = false;
+    this.error = null;
+    this.rmDetailsError = null;
+    this.isRMDetails = false;
+    getCustomerData({ capId: customerId })
+      .then((result) => {
+        let customerData = {
+          complainant_type: "",
+          first_name: "",
+          last_name: "",
+          middlename: "",
+          mobile: "",
+          businessname: "",
+          gender: "",
+          email: "",
+          age: "",
+          suburb: "",
+          street: "",
+          state: "",
+          postcode: "",
+          country: "",
+          ocvId: "",
+          cpId: "",
+          dob: "",
+          isRmPresent: false,
+          accounts: [],
+          rmData: { name: "", phone: "", officeAddress: "" }
+        };
+        // retrieving the response data
+        let responseData = result.profile;
+        let accountsData = result.accounts;
+        let relationshipData = result.relationshipManager;
+        let accounts = [];
+        // adding data object by reading from JSON
+        customerData.complainant_type = responseData.complainantType;
+        customerData.first_name = responseData.firstName;
+        customerData.last_name = responseData.lastName;
+        customerData.middlename = responseData.middleName;
+        customerData.mobile = responseData.mobile;
+        customerData.businessname = responseData.businessName;
+        customerData.age = responseData.age;
+        customerData.country = responseData.country;
+        customerData.email = responseData.email;
+        customerData.gender = responseData.gender;
+        customerData.postcode = responseData.postCode;
+        customerData.state = responseData.state;
+        customerData.street = responseData.street;
+        customerData.suburb = responseData.suburb;
+        customerData.ocvId = responseData.ocvId;
+        customerData.cpId = responseData.cpId;
+        customerData.dob = responseData.dob;
+        let x;
+        for (x in accountsData) {
+          accounts.push(accountsData[x].accountNumber);
+        }
+        customerData.accounts = accounts;
+        if (
+          !relationshipData &&
+          relationshipData.details == null &&
+          relationshipData.error == null
+        ) {
+          isRMDetails = false;
+          customerData.isRmPresent = true;
+        } else if (
+          relationshipData.details != null &&
+          relationshipData.error == null
+        ) {
+          this.isRMDetails = true;
+          customerData.rmData.name = relationshipData.details.name;
+          customerData.rmData.phone = relationshipData.details.phoneNumber;
+          customerData.rmData.officeAddress =
+            relationshipData.details.address[0].addressLine1 +
+            ", " +
+            relationshipData.details.address[0].addressLine2;
+          customerData.isRmPresent = true;
+        } else if (
+          relationshipData.details == null &&
+          relationshipData.error != null
+        ) {
+          this.rmDetailsError = relationshipData.error.message;
+        }
+
+        // adding data object to show in UI
+        this.loaded = true;
+        this.customerInfo = customerData;
+        this.showMore = true;
+        if (this.isCustomerDataBeUpdated === true) {
+          this.updateCustomerDetailsonCase();
+        }
+        this.dispatchEvent(
+          new CustomEvent("custinfochecked", {
+            detail: this.customerInfo
+          })
+        );
+      })
+      .catch((error) => {
+        this.handleError(error);
+      });
   }
   handleError(err) {
     this.loaded = true;
-      this.error = "Unknown error";
-      if (err.body) {
-        if (Array.isArray(err.body)) {
-          this.error = err.body.map((e) => e.message).join(", ");
-        } else if (typeof err.body.message === "string") {
-          this.error = err.body.message;
-        }
+    this.error = "Unknown error";
+    if (err.body) {
+      if (Array.isArray(err.body)) {
+        this.error = err.body.map((e) => e.message).join(", ");
+      } else if (typeof err.body.message === "string") {
+        this.error = err.body.message;
       }
-      // if the customer Id couldnt be validated against CAP at the moment throw this event so that case can be created.
-      if (!this.error.includes("No data found for the given customerId")) {
-        this.dispatchEvent(new CustomEvent("custinfochecked"));
-      }
-      
-      this.record = undefined;
+    }
+    // if the customer Id couldnt be validated against CAP at the moment throw this event so that case can be created.
+    if (!this.error.includes("No data found for the given customerId")) {
+      this.dispatchEvent(new CustomEvent("custinfochecked"));
     }
 
-    
-    
+    this.record = undefined;
+  }
 }

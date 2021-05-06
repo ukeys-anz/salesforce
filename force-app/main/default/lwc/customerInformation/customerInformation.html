@@ -36,12 +36,12 @@
           <div
             class="slds-col slds-size_1-of-4 slds-text-body_regular slds-m-right_large slds-m-bottom_large slds-border_bottom"
           >
-          CPID : {customerInfo.cpId}
-        </div>
+            CPID : {customerInfo.cpId}
+          </div>
           <div
             class="slds-col slds-size_1-of-4 slds-text-body_regular slds-m-right_large slds-m-bottom_large slds-border_bottom"
           >
-          OCV ID : {customerInfo.ocvId}
+            OCV ID : {customerInfo.ocvId}
           </div>
           <div
             class="slds-col slds-size_1-of-4 slds-text-body_regular slds-m-right_large slds-m-bottom_large slds-border_bottom"
@@ -85,33 +85,45 @@
           </div>
         </div>
         <template if:true={isRMDetails}>
-        <div class="slds-text-heading_small slds-m-left_medium slds-text-title_bold">Relationship Manager Details</div><br/>
-        <div class="slds-grid slds-m-left_medium">
           <div
-            class="slds-col slds-size_1-of-4 slds-text-body_regular slds-m-right_large slds-m-bottom_large slds-border_bottom"
+            class="slds-text-heading_small slds-m-left_medium slds-text-title_bold"
           >
-            Name : {customerInfo.rmData.name}
+            Relationship Manager Details
           </div>
+          <br />
+          <div class="slds-grid slds-m-left_medium">
+            <div
+              class="slds-col slds-size_1-of-4 slds-text-body_regular slds-m-right_large slds-m-bottom_large slds-border_bottom"
+            >
+              Name : {customerInfo.rmData.name}
+            </div>
+            <div
+              class="slds-col slds-size_1-of-4 slds-text-body_regular slds-m-right_large slds-m-bottom_large slds-border_bottom"
+            >
+              Phone : {customerInfo.rmData.phone}
+            </div>
+            <div
+              class="slds-col slds-size_1-of-4 slds-text-body_regular slds-m-right_large slds-m-bottom_large slds-border_bottom"
+            >
+              Office Address : {customerInfo.rmData.officeAddress}
+            </div>
+          </div>
+        </template>
+        <template if:true={rmDetailsError}>
           <div
-            class="slds-col slds-size_1-of-4 slds-text-body_regular slds-m-right_large slds-m-bottom_large slds-border_bottom"
+            class="slds-text-heading_small slds-m-left_medium slds-text-title_bold"
           >
-            Phone : {customerInfo.rmData.phone}
+            Relationship Manager Details
           </div>
-          <div
-            class="slds-col slds-size_1-of-4 slds-text-body_regular slds-m-right_large slds-m-bottom_large slds-border_bottom"
-          >
-            Office Address : {customerInfo.rmData.officeAddress}
-          </div>
-        </div>
-      </template>
-      <template if:true={rmDetailsError}>
-        <div class="slds-text-heading_small slds-m-left_medium slds-text-title_bold">Relationship Manager Details</div><br/>
+          <br />
           <div class="slds-p-around_medium">
             <ul class="slds-list--vertical slds-has-dividers--bottom-space">
-              <li class="slds-list__item" title="Customer Type">Error : {rmDetailsError}</li>
+              <li class="slds-list__item" title="Customer Type">
+                Error : {rmDetailsError}
+              </li>
             </ul>
           </div>
-      </template>
+        </template>
       </template>
       <template if:false={showAsGrid}>
         <div class="slds-p-around_medium">
@@ -129,100 +141,98 @@
               Last Name : {customerInfo.last_name}
             </li>
             <li class="slds-list__item" title="Last Name">
-              RM Complaint : <template if:true={customerInfo.isRmPresent}>YES</template>
+              RM Complaint :
+              <template if:true={customerInfo.isRmPresent}>YES</template>
               <template if:false={customerInfo.isRmPresent}>NO</template>
             </li>
             <template if:false={showMore}>
               <div>
-            <button   class="slds-button showMore" onclick={showAllCustomerData}>Show More</button>
-          </div>
+                <button
+                  class="slds-button showMore"
+                  onclick={showAllCustomerData}
+                >
+                  Show More
+                </button>
+              </div>
             </template>
             <template if:true={showMore}>
-            <li class="slds-list__item" title="Gender">
-              Gender : {customerInfo.gender}
-            </li>
-            <li class="slds-list__item" title="Age">
-              Age : {customerInfo.age}
-            </li>
-            <li class="slds-list__item" title="Cpid">
-              CPID : {customerInfo.cpId}
-            </li>
-            <li class="slds-list__item" title="Ocvid">
-              OCVID : {customerInfo.ocvId}
-            </li>
-            <li class="slds-list__item" title="Email">
-              Email : {customerInfo.email}
-            </li>
-            <li class="slds-list__item" title="Mobile">
-              Mobile : {customerInfo.mobile}
-            </li>
-            <li class="slds-list__item" title="Street">
-              Street : {customerInfo.street}
-            </li>
-            <li class="slds-list__item" title="Suburb">
-              Suburb : {customerInfo.suburb}
-            </li>
-            <li class="slds-list__item" title="State">
-              State : {customerInfo.state}
-            </li>
-            <li class="slds-list__item" title="Postcode">
-              Postcode : {customerInfo.postcode}
-            </li>
-            <li class="slds-list__item" title="Country">
-              Country : {customerInfo.country}
-            </li>
-          </template>
+              <li class="slds-list__item" title="Gender">
+                Gender : {customerInfo.gender}
+              </li>
+              <li class="slds-list__item" title="Age">
+                Age : {customerInfo.age}
+              </li>
+              <li class="slds-list__item" title="Cpid">
+                CPID : {customerInfo.cpId}
+              </li>
+              <li class="slds-list__item" title="Ocvid">
+                OCVID : {customerInfo.ocvId}
+              </li>
+              <li class="slds-list__item" title="Email">
+                Email : {customerInfo.email}
+              </li>
+              <li class="slds-list__item" title="Mobile">
+                Mobile : {customerInfo.mobile}
+              </li>
+              <li class="slds-list__item" title="Street">
+                Street : {customerInfo.street}
+              </li>
+              <li class="slds-list__item" title="Suburb">
+                Suburb : {customerInfo.suburb}
+              </li>
+              <li class="slds-list__item" title="State">
+                State : {customerInfo.state}
+              </li>
+              <li class="slds-list__item" title="Postcode">
+                Postcode : {customerInfo.postcode}
+              </li>
+              <li class="slds-list__item" title="Country">
+                Country : {customerInfo.country}
+              </li>
+            </template>
           </ul>
-        
         </div>
         <template if:true={showMore}>
-        <lightning-accordion
-        class="example-accordion"
-        allow-multiple-sections-open
-        active-section-name=""
-      >
-      <lightning-accordion-section
-            name="A"
-            label="Account Details"
-            data-id="account-details"
+          <lightning-accordion
+            class="example-accordion"
+            allow-multiple-sections-open
+            active-section-name=""
           >
-          <div class="slds-p-around_medium" >
-          <ul >
-            <template for:each={customerInfo.accounts} for:item="account">
-                <li class="slds-list__item" key={account}>
-                    {account}
-                </li>
-            </template>
-        </ul>
-        </div>
-
-        </lightning-accordion-section>
-        <lightning-accordion-section
-            name="B"
-            label="Relationship Manager Details"
-            data-id="rel-details"
-          >
-
-          <template if:true={isRMDetails}>
-            <ul class="slds-list--vertical slds-has-dividers--bottom-space">
-              <li class="slds-list__item" title="Customer Type">
-                Name : {customerInfo.rmData.name}
-              </li>
-              <li class="slds-list__item" title="Customer Type">
-                Phone : {customerInfo.rmData.phone}
-              </li>
-              <li class="slds-list__item" title="Customer Type">
-                Office Address : {customerInfo.rmData.officeAddress}
-              </li>
-            </ul>
-          </template>
-          <template if:true={rmDetailsError}>
-            rmDetailsError
-          </template>
-
-        </lightning-accordion-section>
-      </lightning-accordion>
-    </template>
+            <lightning-accordion-section
+              name="A"
+              label="Account Details"
+              data-id="account-details"
+            >
+              <div class="slds-p-around_medium">
+                <ul>
+                  <template for:each={customerInfo.accounts} for:item="account">
+                    <li class="slds-list__item" key={account}>{account}</li>
+                  </template>
+                </ul>
+              </div>
+            </lightning-accordion-section>
+            <lightning-accordion-section
+              name="B"
+              label="Relationship Manager Details"
+              data-id="rel-details"
+            >
+              <template if:true={isRMDetails}>
+                <ul class="slds-list--vertical slds-has-dividers--bottom-space">
+                  <li class="slds-list__item" title="Customer Type">
+                    Name : {customerInfo.rmData.name}
+                  </li>
+                  <li class="slds-list__item" title="Customer Type">
+                    Phone : {customerInfo.rmData.phone}
+                  </li>
+                  <li class="slds-list__item" title="Customer Type">
+                    Office Address : {customerInfo.rmData.officeAddress}
+                  </li>
+                </ul>
+              </template>
+              <template if:true={rmDetailsError}> rmDetailsError </template>
+            </lightning-accordion-section>
+          </lightning-accordion>
+        </template>
       </template>
     </template>
     <template if:true={error}>
