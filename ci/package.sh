@@ -52,13 +52,21 @@ copyMandatoryFilesToPackage ${DESTRUCTIVE_DIR}
 
 # Convert the DX project to a metadata api package and commit the changes to the artefact
 CURRENT_DIR=$(pwd)
+# This error message means the artifact is empty, either ci changes only, or everything is forceignored
+ERROR_MSG="ERROR running force:source:convert:  No matching source was found within the package root directory:"
 
 # Only generate artefacts where files are found
 if [ "${CHANGED_FILES}" -gt "0" ]; then
     cd ${DEPLOY_DIR}
-    npx sfdx force:source:convert -r ./force-app -d ${CURRENT_DIR}/artefact --loglevel debug
-    if [ $? == 1 ]; then
-        exit 1
+    if result=$(npx sfdx force:source:convert -r ./force-app -d ${CURRENT_DIR}/artefact --loglevel debug 2>&1); then
+        echo "Deploy conversion successful"
+    else
+        if [[ $result == $ERROR_MSG* ]]; then
+            echo "No files found in artifact, all files forceignored or no changes in deployable meta"
+            exit 0
+        else
+            exit 1
+        fi        
     fi
     echo "::set-output name=ARTEFACT_GENERATED::true"
     # Return to working DIR
@@ -67,9 +75,16 @@ fi
 
 if [ "${DELETED_FILES}" -gt "0" ]; then
     cd ${DESTRUCTIVE_DIR}
-    npx sfdx force:source:convert -r ./force-app -d tmp/ --loglevel debug
-    if [ $? == 1 ]; then
-        exit 1
+
+    if result=$(npx sfdx force:source:convert -r ./force-app -d tmp/ --loglevel debug 2>&1); then
+        echo "Destroy conversion successful"
+    else
+        if [[ $result == $ERROR_MSG* ]]; then
+            echo "No files found in destructive artifact, all files forceignored or no changes in deployable meta"
+            exit 0
+        else
+            exit 1
+        fi        
     fi
     echo "::set-output name=ARTEFACT_GENERATED::true"
     echo "Creating destroy manifest"
