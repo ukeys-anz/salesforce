@@ -166,7 +166,9 @@ export default class CustomerInformation extends LightningElement {
         customerData.dob = responseData.dob;
         let x;
         for (x in accountsData) {
-          accounts.push(accountsData[x].accountNumber);
+          if (accountsData[x].accountNumber != null) {
+            accounts.push(accountsData[x].accountNumber);
+          }
         }
         customerData.accounts = accounts;
         if (

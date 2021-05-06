@@ -726,10 +726,12 @@ export default class CreateComplaintLWC extends NavigationMixin(
         this.accountNumberOptions = [{ label: "N/A", value: "N/A" }];
         let x;
         for (x in event.detail.accounts) {
-          this.accountNumberOptions.push({
-            label: event.detail.accounts[x],
-            value: event.detail.accounts[x]
-          });
+          if (event.detail.accounts[x] != null) {
+            this.accountNumberOptions.push({
+              label: event.detail.accounts[x],
+              value: event.detail.accounts[x]
+            });
+          }
         }
       }
     }
