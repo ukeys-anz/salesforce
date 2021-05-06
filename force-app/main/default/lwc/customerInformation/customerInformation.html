@@ -128,6 +128,16 @@
             <li class="slds-list__item" title="Last Name">
               Last Name : {customerInfo.last_name}
             </li>
+            <li class="slds-list__item" title="Last Name">
+              RM Complaint : <template if:true={customerInfo.isRmPresent}>YES</template>
+              <template if:false={customerInfo.isRmPresent}>NO</template>
+            </li>
+            <template if:false={showMore}>
+              <div>
+            <button   class="slds-button showMore" onclick={showAllCustomerData}>Show More</button>
+          </div>
+            </template>
+            <template if:true={showMore}>
             <li class="slds-list__item" title="Gender">
               Gender : {customerInfo.gender}
             </li>
@@ -139,9 +149,6 @@
             </li>
             <li class="slds-list__item" title="Ocvid">
               OCVID : {customerInfo.ocvId}
-            </li>
-            <li class="slds-list__item" title="Dob">
-              DOB : {customerInfo.dob}
             </li>
             <li class="slds-list__item" title="Email">
               Email : {customerInfo.email}
@@ -164,9 +171,11 @@
             <li class="slds-list__item" title="Country">
               Country : {customerInfo.country}
             </li>
+          </template>
           </ul>
         
         </div>
+        <template if:true={showMore}>
         <lightning-accordion
         class="example-accordion"
         allow-multiple-sections-open
@@ -193,7 +202,7 @@
             label="Relationship Manager Details"
             data-id="rel-details"
           >
-          
+
           <template if:true={isRMDetails}>
             <ul class="slds-list--vertical slds-has-dividers--bottom-space">
               <li class="slds-list__item" title="Customer Type">
@@ -213,6 +222,7 @@
 
         </lightning-accordion-section>
       </lightning-accordion>
+    </template>
       </template>
     </template>
     <template if:true={error}>
