@@ -3,7 +3,15 @@
   "version": "1.0.0",
   "description": "Salesforce development project",
   "scripts": {
-    "ea:prettier": "node ./.husky/ea-custom-prettier.js"
+    "ea:prettier": "node ./misc/ea-custom-prettier.js",
+    "test": "node webdriverURLsetup.js && node createUserJsonList.js && npx tsc && npx wdio webdriverIO-build/wdio.conf.js",
+    "generate-report": "npx allure generate allure-results --clean",
+    "open-report": "npx allure open",
+    "postinstall": "git config core.hooksPath ./.git-hooks",
+    "test:unit": "sfdx-lwc-jest",
+    "test:unit:debug": "sfdx-lwc-jest --debug",
+    "test:unit:watch": "sfdx-lwc-jest --watch",
+    "test:unit:coverage": "sfdx-lwc-jest --coverage"
   },
   "repository": {
     "type": "git",
