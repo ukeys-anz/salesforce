@@ -138,7 +138,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   consentObtained = CONSENT_OBTAINED;
   ocvId = OCV_ID;
   cpId = CP_ID;
-  rmComplaint = RM_COMPLAINT;
+  isRmComplaint = RM_COMPLAINT;
 
   //3rd Party Fields
   thirdPartyName = THIRD_PARTY_NAME_FIELD;
@@ -551,7 +551,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
         fields[MIDDLE_NAME_FIELD.fieldApiName] = this.middleNames;
         fields[OCV_ID.fieldApiName] = this.ocvId;
         fields[CP_ID.fieldApiName] = this.cpId;
-        fields[RM_COMPLAINT.fieldApiName] = this.rmComplaint;
+        fields[RM_COMPLAINT.fieldApiName] = this.isRmComplaint;
       }
       fields[DESCRIPTION_FIELD.fieldApiName] = this.description;
       fields[PRODUCT_LOOKUP_FIELD.fieldApiName] = this.productValue;
@@ -721,7 +721,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
         this.lastName = event.detail.last_name;
         this.cpId = event.detail.cpId;
         this.ocvId = event.detail.ocvId;
-        this.rmComplaint = event.detail.isRmPresent;
+        this.isRmComplaint = event.detail.isRmPresent;
         this.isCustomerDetails = true;
         this.accountNumberOptions = [{ label: "N/A", value: "N/A" }];
         let x;
