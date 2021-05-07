@@ -55,10 +55,7 @@
         "rightKey": ["CaseId"],
         "rightSelect": ["CountOfTransfers"]
       },
-      "sources": [
-        "ExcludeAnythingOtherThan:ANZx_Enquiry_Disputes",
-        "CalcCountOfTransfers"
-      ]
+      "sources": ["IncludeOnly:ANZx_Enquiry_Disputes", "CalcCountOfTransfers"]
     },
     "MergeCaseProduct": {
       "action": "augment",
@@ -205,6 +202,13 @@
       },
       "sources": ["MergeIssuePicklist", "RecordType"]
     },
+    "IncludeOnly:ANZx_Enquiry_Disputes": {
+      "action": "filter",
+      "parameters": {
+        "saqlFilter": "'Record.DeveloperName' in [\"ANZx_Complaint\", \"General_Inquiry\", \"ATM_Dispute\", \"Direct_Debit_Dispute\", \"Card_Dispute\", \"Direct_Entry_Dispute\", \"Urgent_Dishonour_Request_Dispute\"]"
+      },
+      "sources": ["AgedTicketsBucket"]
+    },
     "AgedTicketsBucket": {
       "action": "computeExpression",
       "parameters": {
@@ -220,13 +224,6 @@
         "mergeWithSource": true
       },
       "sources": ["AddCaseStatusBucket"]
-    },
-    "ExcludeAnythingOtherThan:ANZx_Enquiry_Disputes": {
-      "action": "filter",
-      "parameters": {
-        "saqlFilter": "'Record.DeveloperName' not in [\"ANZx_Complaint\", \"General_Inquiry\", \"ATM_Dispute\", \"Direct_Debit_Dispute\", \"Card_Dispute\", \"Direct_Entry_Dispute\", \"Urgent_Dishonour_Request_Dispute\"]"
-      },
-      "sources": ["AgedTicketsBucket"]
     },
     "CountOfTransfers": {
       "action": "sobjectDigest",
