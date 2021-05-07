@@ -80,8 +80,6 @@ public with sharing class Lib_HttpCallout {
       return callResponse;
     } catch (Exception e) {
       Lib_SystemLog.createSingleLog(
-        Lib_HttpCallout.class.getName(),
-        'performCallout',
         'COM0001',
         e.getMessage(),
         Lib_SystemLog.Severity.ERROR

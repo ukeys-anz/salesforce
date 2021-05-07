@@ -64,10 +64,9 @@ public with sharing class FinancialAccountRoleCommonActions {
           String.join(errors, '; ') +
           '.';
         Lib_SystemLog.createSingleLogAsync(
-          FinancialAccountRoleCommonActions.class.getName(),
-          'setExternalId',
           rec.Id,
-          errorMessage
+          errorMessage,
+          Lib_SystemLog.Severity.ERROR
         );
         rec.addError(errorMessage);
       }

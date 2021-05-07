@@ -44,11 +44,9 @@ public with sharing class GetCustomerInformation {
         }
       } catch (Exception e) {
         Lib_SystemLog.logAPIError(
-          GetCustomerInformation.class.getName(),
-          'getCustomerData',
           e.getMessage(),
           e.getTypeName(),
-          GetCustomerInformation.class.getName(),
+          RequestUtils.getRequestId(),
           null,
           response != null ? response.getBody() : null
         );

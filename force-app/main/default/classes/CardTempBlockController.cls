@@ -46,8 +46,6 @@ public with sharing class CardTempBlockController {
         }
       } catch (Exception e) {
         Lib_SystemLog.logAPIError(
-          CardTempBlockController.class.getName(),
-          'blockCard',
           e.getMessage(),
           e.getTypeName(),
           RequestUtils.getRequestId(),

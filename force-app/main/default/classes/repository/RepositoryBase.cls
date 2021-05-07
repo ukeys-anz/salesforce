@@ -20,16 +20,12 @@ public virtual with sharing class RepositoryBase {
     Exception err = error != null ? error : response.error;
     if (err instanceof JSONException) {
       Lib_SystemLog.createSingleLog(
-        apexType.getName(),
-        'RepositoryBase-handleErrors',
         'JE0001',
         err.getMessage(),
         Lib_SystemLog.Severity.ERROR
       );
     } else if (err instanceof CalloutException) {
       Lib_SystemLog.logAPIError(
-        apexType.getName(),
-        'RepositoryBase-handleErrors',
         err.getMessage(),
         err.getTypeName(),
         RequestUtils.getRequestId(),
@@ -38,8 +34,6 @@ public virtual with sharing class RepositoryBase {
       );
     } else {
       Lib_SystemLog.createSingleLog(
-        apexType.getName(),
-        'RepositoryBase-handleErrors',
         'GE0001',
         err.getMessage(),
         Lib_SystemLog.Severity.ERROR

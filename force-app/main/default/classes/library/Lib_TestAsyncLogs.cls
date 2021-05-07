@@ -9,10 +9,7 @@ public class Lib_TestAsyncLogs {
   @isTest
   static void testApplicationLoggingEvent() {
     // GIVEN a process throws an application log.
-    lib_SystemLog sfLog = new lib_SystemLog(
-      'ApplicationLogging_Event_Test',
-      'testApplicationLogging_Event()'
-    );
+    lib_SystemLog sfLog = new lib_SystemLog();
     sfLog.addMessage(
       '101',
       'something really serious failed',
@@ -31,11 +28,11 @@ public class Lib_TestAsyncLogs {
     // THEN application log record(s) should be created
     System.assert(applicationLogs.size() > 0);
     System.assertEquals(
-      'ApplicationLogging_Event_Test',
+      'Lib_TestAsyncLogs',
       applicationLogs[0].Process_Name__c
     );
     System.assertEquals(
-      'testApplicationLogging_Event()',
+      'testApplicationLoggingEvent',
       applicationLogs[0].Function_Name__c
     );
 

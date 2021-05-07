@@ -54,10 +54,9 @@ public with sharing class FinancialAccountCommonActions {
           record.Id;
         record.addError(errorMessage);
         Lib_SystemLog.createSingleLogAsync(
-          FinancialAccountCommonActions.class.getName(),
-          'checkPrimaryOwnerStartDate',
           '1',
-          errorMessage
+          errorMessage,
+          Lib_SystemLog.Severity.ERROR
         );
       }
     }

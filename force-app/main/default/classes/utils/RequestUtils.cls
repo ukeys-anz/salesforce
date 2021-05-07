@@ -53,18 +53,12 @@ public with sharing class RequestUtils {
   /**
    * @description Make HTTP request and process the response
    * @param request HttpRequest
-   * @param processName name of the process which failed
-   * @param functionName function name where the error occured
-   * @param errorIdentifier error identifier
    * @param usedInLWC is usen in a LWC component
    * @return String response body
    */
   @SuppressWarnings('PMD.ExcessiveParameterList')
   public static String processRequest(
     HttpRequest request,
-    String processName,
-    String functionName,
-    String errorIdentifier,
     Boolean usedInLWC
   ) {
     String responseBody;
@@ -79,11 +73,9 @@ public with sharing class RequestUtils {
       }
     } catch (Exception e) {
       Lib_SystemLog.logAPIError(
-        processName,
-        functionName,
         e.getMessage(),
         e.getTypeName(),
-        errorIdentifier,
+        RequestUtils.getRequestId(),
         null,
         response != null ? response.getBody() : null
       );

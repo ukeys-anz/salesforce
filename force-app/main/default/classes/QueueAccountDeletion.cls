@@ -7,10 +7,7 @@ public class QueueAccountDeletion implements Queueable {
   Account accountToDelete;
 
   //call application log function to log results incase of failure
-  lib_systemLog log = new lib_systemLog(
-    QueueAccountDeletion.class.getName(),
-    'execute'
-  );
+  lib_systemLog log = new lib_systemLog();
 
   /**
    * @description Constructor
