@@ -10,6 +10,19 @@ public without sharing class IDRTaskActions {
    * @param records The Task record list.
    */
   public static void beforeInsertActions(list<Task> records) {
+    for (Task record : records) {
+      if (
+        record.RecordTypeId == IDRConstants.IDR_MAXIMUM_TIME_RT_ID ||
+        record.RecordTypeId == IDRConstants.SI_TASK_RT_ID ||
+        record.RecordTypeId == IDRConstants.IDR_TASK_RT_ID
+      ) {
+        CommonUtil.handleMasking(
+          record,
+          null,
+          SObjectType.Task.FieldSets.IDR_Masked_Fields.getFields()
+        );
+      }
+    }
     checkIDRMaximumTimeTasks(records);
   }
   /**
@@ -18,6 +31,30 @@ public without sharing class IDRTaskActions {
    */
   public static void afterInsertActions(list<Task> records) {
     closeOldIDRMaximumTimeTasks(records);
+  }
+  /**
+   * @description beforeUpdateActions is called onBeforeUpdate
+   * @param records The Task record list.
+   * @param oldMap Map of the old values of the records to process
+   */
+  public static void beforeUpdateActions(
+    list<Task> records,
+    Map<Id, Task> oldMap
+  ) {
+    for (Task record : records) {
+      if (
+        record.RecordTypeId == IDRConstants.IDR_MAXIMUM_TIME_RT_ID ||
+        record.RecordTypeId == IDRConstants.SI_TASK_RT_ID ||
+        record.RecordTypeId == IDRConstants.IDR_TASK_RT_ID
+      ) {
+        Task oldRecord = (Task) oldMap.get(record.id);
+        CommonUtil.handleMasking(
+          record,
+          oldRecord,
+          SObjectType.Task.FieldSets.IDR_Masked_Fields.getFields()
+        );
+      }
+    }
   }
   /**
    * @description afterUpdateActions is called onAfterUpdate. any logic that needs to be executed on after Update is executed from here
@@ -70,7 +107,7 @@ public without sharing class IDRTaskActions {
    * @param taskRecs The Task record list.
    */
   private static void checkIDRMaximumTimeTasks(list<Task> taskRecs) {
-    list<Task> idrMaixmumTimeTasks = new List<Task>();
+    list<Task> idrMaximumTimeTasks = new List<Task>();
     Map<Id, ID> taskCaseMap = new Map<Id, ID>();
     Map<Id, String> caseTaskMap = new Map<Id, String>();
     Set<Id> caseIds = new Set<Id>();
@@ -80,7 +117,7 @@ public without sharing class IDRTaskActions {
         record.subject == IDRConstants.TASK_SUBJECT_DAY1
       ) {
         record.RecordTypeId = IDRConstants.IDR_MAXIMUM_TIME_RT_ID;
-        idrMaixmumTimeTasks.add(record);
+        idrMaximumTimeTasks.add(record);
         taskCaseMap.put(record.Id, record.WhatId);
         caseIds.add(record.whatId);
       }
@@ -93,18 +130,18 @@ public without sharing class IDRTaskActions {
       }
     }
 
-    validateDueDate(idrMaixmumTimeTasks, caseTaskMap);
+    validateDueDate(idrMaximumTimeTasks, caseTaskMap);
     if (!caseIds.isEmpty()) {
       assignTaskToCaseOwner(taskRecs, caseIds);
     }
   }
   /**
    * @description validateDueDate will validate update the due date for IDR Tasks.
-   * @param idrMaixmumTimeTasks The Task record.
+   * @param idrMaximumTimeTasks The Task record.
    * @param caseTaskMap  map of case  id and task subjects
    */
   public static void validateDueDate(
-    list<task> idrMaixmumTimeTasks,
+    list<task> idrMaximumTimeTasks,
     Map<id, string> caseTaskMap
   ) {
     Map<Id, Case> caseMap = new Map<Id, Case>();
@@ -121,7 +158,7 @@ public without sharing class IDRTaskActions {
     for (case c : relatedCaseList) {
       caseMap.put(c.ID, c);
     }
-    for (Task record : idrMaixmumTimeTasks) {
+    for (Task record : idrMaximumTimeTasks) {
       datetime expectedDueDate = calculateExpectedDue(
         record,
         caseMap.get(record.WhatId)

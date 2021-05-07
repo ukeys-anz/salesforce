@@ -4,7 +4,24 @@
  * @description SICaseActions is class to handle all the Actions related to CMOS Systemic Issues.
  * Set as without sharing because updates on SI may follow updates on complaints, by users who only have read access to SI.
  */
+@SuppressWarnings('PMD.CyclomaticComplexity')
 public without sharing class SICaseActions {
+  /**
+   * @description applyDefaults method is called before onBeforeInsert to set the default values for the records.
+   * @param records Records to process
+   */
+  public static void applyDefaults(List<Case> records) {
+    for (Case record : (List<Case>) records) {
+      if (record.RecordTypeId == IDRConstants.SI_RT_ID) {
+        CommonUtil.handleMasking(
+          record,
+          null,
+          SObjectType.Case.FieldSets.SI_Masked_Fields.getFields()
+        );
+      }
+    }
+  }
+
   /**
    * @description Entry point called by CaseTriggerHandler.onBeforeUpdate()
    * @param records Records to process
@@ -13,14 +30,20 @@ public without sharing class SICaseActions {
   public static void beforeUpdate(List<Case> records, Map<Id, Case> oldMap) {
     for (Case record : (List<Case>) records) {
       Case oldRecord = (Case) oldMap.get(record.id);
-      //Align status and workflow: Records in Monitoring workflow step should be closed
-      //Note that SI_Workflow_Step__c being a dependent picklist of Status, not all combinations need to be handled by trigger
-      if (
-        record.RecordTypeId == IDRConstants.SI_RT_ID &&
-        (record.Status != oldRecord.Status ||
-        record.SI_Workflow_Step__c != oldRecord.SI_Workflow_Step__c)
-      ) {
-        record = alignStatusToWorkflow(record, oldRecord);
+      if (record.RecordTypeId == IDRConstants.SI_RT_ID) {
+        //Align status and workflow: Records in Monitoring workflow step should be closed
+        //Note that SI_Workflow_Step__c being a dependent picklist of Status, not all combinations need to be handled by trigger
+        if (
+          record.Status != oldRecord.Status ||
+          record.SI_Workflow_Step__c != oldRecord.SI_Workflow_Step__c
+        ) {
+          record = alignStatusToWorkflow(record, oldRecord);
+        }
+        CommonUtil.handleMasking(
+          record,
+          oldRecord,
+          SObjectType.Case.FieldSets.SI_Masked_Fields.getFields()
+        );
       }
     }
   }
@@ -45,7 +68,6 @@ public without sharing class SICaseActions {
     }
     return record;
   }
-
   /**
    * @description Entry point called by CaseTriggerHandler.onAfterInsert()
    * @param records Records to process

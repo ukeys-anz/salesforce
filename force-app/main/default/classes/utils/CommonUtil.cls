@@ -83,4 +83,35 @@ public with sharing class CommonUtil {
     }
     return '';
   }
+
+  /**
+   * @description handleMasking method is used to mask free text fields as we dont want to store e.g. card numbers in SF.
+   * So, we mask the number and store only last 4 digits unmasked.
+   * @param record The actual record from Trigger.new
+   * @param oldRecord The actual record from Trigger.old, null if in a before insert trigger
+   * @param fieldsToMask a list of fields from a field set, storing the data to be masked
+   */
+  public static void handleMasking(
+    sObject record,
+    sObject oldRecord,
+    Schema.FieldSetMember[] fieldsToMask
+  ) {
+    for (Schema.FieldSetMember fsm : fieldsToMask) {
+      String fieldName = fsm.getFieldPath();
+      //System.debug(fieldName + ': ' + String.valueOf(fsm.getType()));
+      if (
+        (String.valueOf(fsm.getType()) == 'STRING' ||
+        String.valueOf(fsm.getType()) == 'COMBOBOX' ||
+        String.valueOf(fsm.getType()) == 'TEXTAREA') &&
+        (oldRecord == null ||
+        String.valueOf(record.get(fieldName)) !=
+        String.valueOf(oldRecord.get(fieldName)))
+      ) {
+        record.put(
+          fieldName,
+          TextUtils.maskData((String) record.get(fieldName))
+        );
+      }
+    }
+  }
 }

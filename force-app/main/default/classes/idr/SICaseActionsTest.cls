@@ -1,15 +1,22 @@
 @isTest
-private with sharing class TestSICaseActions {
+private with sharing class SICaseActionsTest {
   @TestSetup
   static void testSetup() {
-    // Open/Assessing SIs
+    // Open/Assessing SIs, with fields to test masking
     Case[] newSIs = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newSIs.add(
         new Case(
           RecordTypeId = IDRConstants.SI_RT_ID,
           Status = 'Open',
-          SI_Workflow_step__c = '1'
+          SI_Workflow_step__c = '1',
+          Subject = '000001234',
+          Description = 'Test description 1234-5678-9101 check mask',
+          IDR_Description_of_Outcome__c = 'Test description 1234 5678 9101 check mask',
+          RAG_Comments__c = 'Test description 123456789101 check mask',
+          SI_Definite_Action_Completed__c = 'Test description 1234-5678-9101 check mask',
+          SI_Rec_Rem_Actions__c = 'Test description 1234-5678-9101 check mask',
+          SI_Subject_of_Breach_Report_Comments__c = 'Test description 1234-5678-9101 check mask'
         )
       );
     }
@@ -218,5 +225,62 @@ private with sharing class TestSICaseActions {
       newSIs[0].SI_Complaint_Count__c,
       'Counter should have been updated'
     );
+  }
+
+  @isTest
+  static void testSystemicIssueFieldMasking() {
+    //GIVEN SIs
+    //WHEN they're inserted
+    // THEN long numbers in free text fields are masked, showing only the last four digits
+    Case c = [
+      SELECT
+        Subject,
+        Description,
+        IDR_Description_of_Outcome__c,
+        RAG_Comments__c,
+        SI_Definite_Action_Completed__c,
+        SI_Rec_Rem_Actions__c,
+        SI_Subject_of_Breach_Report_Comments__c
+      FROM Case
+      WHERE SI_Workflow_step__c = '1'
+      LIMIT 1
+    ];
+    System.assertEquals('*****1234', c.Subject, 'Subject should be masked.');
+    System.assertEquals(
+      'Test description ********9101 check mask',
+      c.Description,
+      'Description should be masked.'
+    );
+    System.assertEquals(
+      'Test description ********9101 check mask',
+      c.IDR_Description_of_Outcome__c,
+      'IDR_Description_of_Outcome__c should be masked.'
+    );
+    System.assertEquals(
+      'Test description ********9101 check mask',
+      c.RAG_Comments__c,
+      'RAG_Comments__c should be masked.'
+    );
+    System.assertEquals(
+      'Test description ********9101 check mask',
+      c.SI_Definite_Action_Completed__c,
+      'SI_Definite_Action_Completed__c should be masked.'
+    );
+    System.assertEquals(
+      'Test description ********9101 check mask',
+      c.SI_Rec_Rem_Actions__c,
+      'SI_Rec_Rem_Actions__c should be masked.'
+    );
+    System.assertEquals(
+      'Test description ********9101 check mask',
+      c.SI_Subject_of_Breach_Report_Comments__c,
+      'SI_Subject_of_Breach_Report_Comments__c should be masked.'
+    );
+    //AND WHEN updated
+    c.Subject = '987654321';
+    update c;
+    //THEN long numbers in free text fields are masked, showing only the last four digits
+    c = [SELECT Subject FROM Case LIMIT 1];
+    System.assertEquals('*****4321', c.Subject, 'Subject should be masked.');
   }
 }

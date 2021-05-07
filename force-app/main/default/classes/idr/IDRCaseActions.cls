@@ -120,7 +120,11 @@ public with sharing class IDRCaseActions {
         record.EntitlementId = entitlementId;
         record.IDR_Milestone_Sla__c = IDRConstants.MILESTONE_SLA_NORMAL;
         // record.IDR_Milestone_Sla__c = getMilestoneSla(record.Status, record.IDR_Date_Received__c , businessHoursId);
-        handleMasking(record);
+        CommonUtil.handleMasking(
+          record,
+          null,
+          SObjectType.Case.FieldSets.IDR_Masked_Fields.getFields()
+        );
         handleAnonymousNames(record);
         handleCaseStatusChanges(record);
         if (((String) record.OwnerId).startsWith(Label.ID_Prefix_User)) {
@@ -167,37 +171,24 @@ public with sharing class IDRCaseActions {
   public static void beforeUpdate(Map<Id, SObject> oldMap, List<Case> records) {
     Id entitlementId = getEntitlement();
     Case[] updatePsiTicked = new List<Case>();
-    for (Integer i = 0; i < records.size(); i++) {
-      if (isIDRComplaintType(records.get(i))) {
-        validateCaseNumber(
-          records.get(i),
-          (case) oldMap.get(records.get(i).id)
+    for (Case record : records) {
+      if (isIDRComplaintType(record)) {
+        Case oldRecord = (case) oldMap.get(record.id);
+        validateCaseNumber(record, oldRecord);
+        CommonUtil.handleMasking(
+          record,
+          oldRecord,
+          SObjectType.Case.FieldSets.IDR_Masked_Fields.getFields()
         );
-        handleMasking(records.get(i));
-        handleAnonymousNames(records.get(i));
-        handleEntitlementForUpdate(
-          records.get(i),
-          (Case) oldMap.get(records.get(i).id),
-          entitlementId
-        );
-        identifyOwnerChangeRecords(
-          records.get(i),
-          ((Case) oldMap.get(records.get(i).id)).OwnerId
-        );
-        if (
-          records.get(i).Status != ((Case) oldMap.get(records.get(i).id)).Status
-        ) {
-          handleCaseStatusChanges(records.get(i));
+        handleAnonymousNames(record);
+        handleEntitlementForUpdate(record, oldRecord, entitlementId);
+        identifyOwnerChangeRecords(record, (oldRecord).OwnerId);
+        if (record.Status != oldRecord.Status) {
+          handleCaseStatusChanges(record);
         }
-        handleCaseEscalationRules(
-          records.get(i),
-          (case) oldMap.get(records.get(i).id)
-        );
-        if (
-          records.get(i).IDR_Is_Common__c !=
-          ((Case) oldMap.get(records.get(i).id)).IDR_Is_Common__c
-        ) {
-          updatePsiTicked.add(records.get(i));
+        handleCaseEscalationRules(record, oldRecord);
+        if (record.IDR_Is_Common__c != oldRecord.IDR_Is_Common__c) {
+          updatePsiTicked.add(record);
         }
       }
     }
@@ -498,31 +489,6 @@ public with sharing class IDRCaseActions {
     }
   }
 
-  /**
-   * @description handleMasking method is used to mask the Account/Policy number as we dont want to store the account number in SF. So, we mask the number and store only last last 4 digits unmasked.
-   * @param record The actual case record from the trigger
-   */
-  private static void handleMasking(Case record) {
-    record.IDR_Account_Card_Policy_Number__c = TextUtils.maskData(
-      record.IDR_Account_Card_Policy_Number__c
-    );
-    record.IDR_Account_Card_Policy_Number_2__c = TextUtils.maskData(
-      record.IDR_Account_Card_Policy_Number_2__c
-    );
-    record.IDR_Account_Card_Policy_Number_3__c = TextUtils.maskData(
-      record.IDR_Account_Card_Policy_Number_3__c
-    );
-    record.Description = TextUtils.maskData(record.Description);
-    record.IDR_Complainant_Desired_Outcome__c = TextUtils.maskData(
-      record.IDR_Complainant_Desired_Outcome__c
-    );
-    record.IDR_Description_of_Outcome__c = TextUtils.maskData(
-      record.IDR_Description_of_Outcome__c
-    );
-    record.IDR_Systemic_Issue_Description__c = TextUtils.maskData(
-      record.IDR_Systemic_Issue_Description__c
-    );
-  }
   /**
    * @description  handleCaseEscalationRules method is used to handle the case escalations.
    * @param record The actual case record from the trigger
