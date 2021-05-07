@@ -36,17 +36,16 @@ export default class FinancialGoals extends NavigationMixin(LightningElement) {
         type: "Savings"
       })
         .then((result) => {
+          //Set timestamp
+          if (!this.timestamp) {
+            this.setTimestamp();
+          }
           if (result) {
             result.forEach((finAccount) => {
               //Set account number as key and ID as value to link goals to accounts later
               this.accountNumbers[
                 finAccount.FinServ__FinancialAccountNumber__c
               ] = finAccount.Id;
-
-              //Only set timestamp once instead of each time in the loop
-              if (!this.timestamp) {
-                this.setTimestamp();
-              }
             });
           } else {
             //If no goals set goals to null as template condition checks
@@ -124,12 +123,12 @@ export default class FinancialGoals extends NavigationMixin(LightningElement) {
         response = response.slice(0, 3);
       }
 
+      if (!this.timestamp && !this.error) {
+        this.setTimestamp();
+      }
+
       for (let i = 0; i < response.length; i++) {
         let finGoal = { ...response[i] };
-        //Only set timestamp once instead of each time in the loop
-        if (!this.timestamp) {
-          this.setTimestamp();
-        }
 
         finGoal.targetAmount = finGoal.targetAmount
           ? parseFloat(finGoal.targetAmount)
