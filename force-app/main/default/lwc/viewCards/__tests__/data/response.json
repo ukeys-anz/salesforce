@@ -5,7 +5,7 @@
       "tokenizedCardNumber": "1234567890",
       "last4Digits": "4123",
       "status": "Closed",
-      "expiryTime": "2020-09-24T00:00:00Z",
+      "expiryDate": "9/14",
       "isValid": true,
       "accountNumber": "",
       "eligibilities": [
@@ -26,7 +26,7 @@
       "tokenizedCardNumber": "1234567890",
       "last4Digits": "9876",
       "status": "Issued",
-      "expiryTime": "2023-02-19T00:00:00Z",
+      "expiryDate": "9/14",
       "isValid": true,
       "accountNumber": "",
       "eligibilities": [
@@ -48,7 +48,7 @@
       "isValid": true,
       "last4Digits": "1111",
       "status": "Temporary Block",
-      "expiryTime": "2020-12-21T00:00:00Z",
+      "expiryDate": "9/14",
       "accountNumber": "",
       "eligibilities": [
         "ELIGIBILITY_APPLE_PAY",

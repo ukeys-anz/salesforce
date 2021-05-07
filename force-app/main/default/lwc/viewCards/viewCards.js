@@ -73,11 +73,6 @@ export default class ViewCards extends LightningElement {
                   card.image = `${card_images}/card_disabled.png`;
                   break;
               }
-
-              //format date from ISO
-              card.expiryTime = new Date(card.expiryTime).toLocaleDateString(
-                "en-AU"
-              );
             });
 
             //remove the first card in array and assign
@@ -105,6 +100,17 @@ export default class ViewCards extends LightningElement {
           this.showToast("Card List Load Failed", this.errorMsg, error);
         });
     }
+  }
+
+  //This function is required as some errors are returned
+  //as stringified json
+  handleError(error) {
+    try {
+      JSON.parse(error);
+    } catch (e) {
+      return error;
+    }
+    return JSON.parse(error).error;
   }
 
   showToast(theTitle, theMessage, theVariant) {

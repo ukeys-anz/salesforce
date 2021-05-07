@@ -20,7 +20,7 @@ public with sharing class CardListModel extends CalloutModel {
     @AuraEnabled
     public String status;
     @AuraEnabled
-    public String expiryTime;
+    public String expiryDate;
     @AuraEnabled
     public String accountNumber;
     @AuraEnabled
@@ -34,7 +34,7 @@ public with sharing class CardListModel extends CalloutModel {
       get {
         return (String.isNotBlank(this.name) &&
           String.isNotBlank(this.last4Digits) &&
-          String.isNotBlank(this.expiryTime) &&
+          String.isNotBlank(this.expiryDate) &&
           String.isNotBlank(this.status))
           ? true
           : false;
