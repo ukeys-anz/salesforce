@@ -60,6 +60,11 @@
                 <default>false</default>
                 <label>Not to be exchanged</label>
             </value>
+            <value>
+                <fullName>10</fullName>
+                <default>false</default>
+                <label>Important</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
     <visibleLines>3</visibleLines>

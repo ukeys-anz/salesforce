@@ -198,8 +198,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   isCustomerDetails = false;
   hasNominatedThirdParty = false;
-  hasSecondIssue = false;
-  hasThirdIssue = false;
+  hasSecondIssue;
+  hasThirdIssue;
   activeSections = ["A", "B", "C"];
   displayCustomerInfo = false;
   customerIdValue = "";

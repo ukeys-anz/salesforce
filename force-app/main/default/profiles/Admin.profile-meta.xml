@@ -1489,7 +1489,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>ContentVersion.Type_of_Document__c</field>
+        <field>ContentVersion.Document_Category__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

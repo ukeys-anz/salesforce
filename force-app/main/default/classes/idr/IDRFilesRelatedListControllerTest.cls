@@ -5,7 +5,7 @@
  *
  */
 @isTest
-public class TestIDRFilesRelatedListController {
+public class IDRFilesRelatedListControllerTest {
   /**
    * @description setupData sets up the test data required for the test class.
    */
@@ -23,7 +23,7 @@ public class TestIDRFilesRelatedListController {
     cv.Document_Flag__c = '1;7';
     cv.Date_of_Document__c = datetime.now();
     cv.Party_who_sent_created_file__c = 'Internal business unit';
-    cv.Type_of_Document__c = 'Correspondence';
+    cv.Document_Category__c = 'Internal Correspondence';
     cv.FirstPublishLocationId = c.id;
     insert cv;
   }
