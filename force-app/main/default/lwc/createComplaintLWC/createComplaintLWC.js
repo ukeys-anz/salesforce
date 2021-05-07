@@ -35,6 +35,9 @@ import POSTCODE_FIELD from "@salesforce/schema/Case.IDR_NC_Postcode__c";
 import COUNTRY_FIELD from "@salesforce/schema/Case.IDR_NC_Country__c";
 import STATE_FIELD from "@salesforce/schema/Case.IDR_NC_State__c";
 import CONSENT_OBTAINED from "@salesforce/schema/Case.IDR_NC_Is_Consent_Obtained__c";
+import OCV_ID from "@salesforce/schema/Case.OCV_Id__c";
+import CP_ID from "@salesforce/schema/Case.CPID__c";
+import RM_COMPLAINT from "@salesforce/schema/Case.Relationship_Managed_Complaint__c";
 
 //Is written Response Needed Fields
 import WRITTEN_RESPONSE_REQUESTED_FIELD from "@salesforce/schema/Case.IDR_Is_Written_Resp_Requested__c";
@@ -114,7 +117,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   ComplainantDesiredOutcome = DESIRED_OUTCOME_FIELD;
 
   //Customer complaint details
-  accountOrPolicyNumber = ACCOUNT_POLICY_FIELD;
+  accountOrPolicyNumber = "";
   CapCisID = CAP_CIS_ID_FIELD;
 
   //Non customer complaint details
@@ -134,6 +137,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
   country = COUNTRY_FIELD;
   state = STATE_FIELD;
   consentObtained = CONSENT_OBTAINED;
+  ocvId = OCV_ID;
+  cpId = CP_ID;
+  isRmComplaint = RM_COMPLAINT;
 
   //3rd Party Fields
   thirdPartyName = THIRD_PARTY_NAME_FIELD;
@@ -177,14 +183,14 @@ export default class CreateComplaintLWC extends NavigationMixin(
   issueType2 = ISSUE_TYPE_2;
   subsequentIssue2 = SUBSEQUENT_ISSUE_TYPE_2;
   productValue2 = PRODUCT_LOOKUP_FIELD_2;
-  accountOrPolicyNumber2 = ACCOUNT_POLICY_FIELD_2;
+  accountOrPolicyNumber2 = "";
 
   // Issue 3 fields
   hasThirdIssue = HAS_THIRD_ISSUE;
   issueType3 = ISSUE_TYPE_3;
   subsequentIssue3 = SUBSEQUENT_ISSUE_TYPE_3;
   productValue3 = PRODUCT_LOOKUP_FIELD_3;
-  accountOrPolicyNumber3 = ACCOUNT_POLICY_FIELD_3;
+  accountOrPolicyNumber3 = "";
 
   @api recordTypeId;
   @api recordTypeDevName;
@@ -233,6 +239,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     { label: "Yes", value: "Yes" },
     { label: "No", value: "No" }
   ];
+  accountNumberOptions = [{ label: "N/A", value: "N/A" }];
 
   commoncomplaintoptions = [
     { label: "Yes", value: "Yes" },
@@ -291,6 +298,15 @@ export default class CreateComplaintLWC extends NavigationMixin(
   handle3rdIssueToggleChange(event) {
     this.hasThirdIssue = event.target.checked;
   }
+  handleAccountNumberChange(event) {
+    this.accountOrPolicyNumber = event.target.value;
+  }
+  handleAccountNumber2Change(event) {
+    this.accountOrPolicyNumber2 = event.target.value;
+  }
+  handleAccountNumber3Change(event) {
+    this.accountOrPolicyNumber3 = event.target.value;
+  }
   handleCommonComplaint(event) {
     this.isCommonComplaintYesNo = event.target.value;
     this.isCommonComplaint =
@@ -301,7 +317,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.isRealFormNeeded = event.target.checked;
   }
   handleStatusChange(event) {
-    console.log("event.target.value:" + event.target.value);
     this.caseStatus = event.target.value;
     this.isComplaintEscalated = false;
     this.isComplaintResolved = false;
@@ -441,6 +456,19 @@ export default class CreateComplaintLWC extends NavigationMixin(
       return isValidSoFar;
     }, true);
 
+    let isComboboxValid = [
+      ...this.template.querySelectorAll("lightning-combobox")
+    ].reduce((isValidSoFar, inputCmp) => {
+      if (inputCmp.getAttribute("data-id")) {
+        let getId = inputCmp.getAttribute("data-id").split("-");
+        if (requiredFields[getId[0]] && !inputCmp.value) {
+          isValidSoFar = false;
+          this.missingDataFields += requiredFields[getId[0]] + ", ";
+        }
+      }
+      return isValidSoFar;
+    }, true);
+
     if (!this.isCustomerComplaint && !this.showSections) {
       isFieldValid = false;
       this.missingDataFields += "Customer Decision";
@@ -508,7 +536,13 @@ export default class CreateComplaintLWC extends NavigationMixin(
       isFinCompValid = this.validateFinancialCompensation();
     }
 
-    return isFieldValid && isEmailValid && isFinCompValid && isDescValid;
+    return (
+      isFieldValid &&
+      isEmailValid &&
+      isFinCompValid &&
+      isDescValid &&
+      isComboboxValid
+    );
   }
 
   handleSubmit(event) {
@@ -522,6 +556,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
         fields[FIRST_NAME_FIELD.fieldApiName] = this.firstName;
         fields[LAST_NAME_FIELD.fieldApiName] = this.lastName;
         fields[MIDDLE_NAME_FIELD.fieldApiName] = this.middleNames;
+        fields[OCV_ID.fieldApiName] = this.ocvId;
+        fields[CP_ID.fieldApiName] = this.cpId;
+        fields[RM_COMPLAINT.fieldApiName] = this.isRmComplaint;
       }
       fields[DESCRIPTION_FIELD.fieldApiName] = this.description;
       fields[PRODUCT_LOOKUP_FIELD.fieldApiName] = this.productValue;
@@ -573,6 +610,20 @@ export default class CreateComplaintLWC extends NavigationMixin(
       if (!this.hasNominatedThirdParty) {
         fields[THIRD_PARTY_COUNTRY_FIELD.fieldApiName] = "";
       }
+      fields[ACCOUNT_POLICY_FIELD.fieldApiName] = this.accountOrPolicyNumber;
+
+      if (this.hasSecondIssue) {
+        fields[
+          ACCOUNT_POLICY_FIELD_2.fieldApiName
+        ] = this.accountOrPolicyNumber2;
+      }
+
+      if (this.hasThirdIssue) {
+        fields[
+          ACCOUNT_POLICY_FIELD_3.fieldApiName
+        ] = this.accountOrPolicyNumber3;
+      }
+
       const recordInput = { apiName: CASE_OBJECT.objectApiName, fields };
       createRecord(recordInput)
         .then((response) => {
@@ -656,14 +707,13 @@ export default class CreateComplaintLWC extends NavigationMixin(
       requiredFields.issueType2 = "Issue Type 2";
       requiredFields.subsequentIssue2 = "Subsequent Issue Type 2";
       requiredFields.productValue2 = "Product or Service Name 2";
-      requiredFields.accountOrPolicyNumber2 = "Account/Card/Policy Number 2";
+      requiredFields.accPolicyNum2 = "Account/Card/Policy Number 2";
     }
-
     if (this.hasThirdIssue) {
       requiredFields.issueType3 = "Issue Type 3";
       requiredFields.subsequentIssue3 = "Subsequent Issue Type 3";
       requiredFields.productValue3 = "Product or Service Name 3";
-      requiredFields.accountOrPolicyNumber3 = "Account/Card/Policy Number 3";
+      requiredFields.accPolicyNum3 = "Account/Card/Policy Number 3";
     }
     return requiredFields;
   }
@@ -685,7 +735,20 @@ export default class CreateComplaintLWC extends NavigationMixin(
         this.firstName = event.detail.first_name;
         this.middleNames = event.detail.middlename;
         this.lastName = event.detail.last_name;
+        this.cpId = event.detail.cpId;
+        this.ocvId = event.detail.ocvId;
+        this.isRmComplaint = event.detail.isRmPresent;
         this.isCustomerDetails = true;
+        this.accountNumberOptions = [{ label: "N/A", value: "N/A" }];
+        let x;
+        for (x in event.detail.accounts) {
+          if (event.detail.accounts[x] != null) {
+            this.accountNumberOptions.push({
+              label: event.detail.accounts[x],
+              value: event.detail.accounts[x]
+            });
+          }
+        }
       }
     }
   }
@@ -704,7 +767,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
   }
 
   handleError(error) {
-    console.log(error);
     let msg = ERROR_UNKNOWN_TITLE;
     if (typeof error === "string") {
       msg = error.replace(/\.\s?/gm, ".<br><br>");

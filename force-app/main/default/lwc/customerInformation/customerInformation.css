@@ -1,3 +1,13 @@
 .spinner {
   position: relative;
 }
+.slds-accordion__list-item {
+  border-top-style: none;
+}
+.showMore {
+  position: relative;
+  left: 40%;
+}
+.showMore:hover {
+  text-decoration: underline;
+}
