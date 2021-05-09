@@ -132,6 +132,7 @@ public with sharing class IDRCaseActions {
         record.EntitlementId = entitlementId;
         record.IDR_Milestone_Sla__c = IDRConstants.MILESTONE_SLA_NORMAL;
         // record.IDR_Milestone_Sla__c = getMilestoneSla(record.Status, record.IDR_Date_Received__c , businessHoursId);
+        IDRCollectionActions.populateCollectionNumber(record);
         handleMasking(record);
         handleAnonymousNames(record);
         handleCaseStatusChanges(record);
@@ -152,7 +153,6 @@ public with sharing class IDRCaseActions {
     if (!updatePsiTicked.isEmpty()) {
       updateDateTimePsiTicked(updatePsiTicked);
     }
-    IDRCollectionActions.triggerCollectionActivities(records, null);
   }
 
   /**
@@ -169,6 +169,9 @@ public with sharing class IDRCaseActions {
       }
     }
     possibleSystemicIssueActions(records, null);
+    IDRCollectionActions.stopCollections(records, null);
+    IDRCollectionActions.startCollections(records, null);
+    IDRCollectionActions.setComplaintsFlag(records, null);
   }
 
   /**
@@ -190,6 +193,7 @@ public with sharing class IDRCaseActions {
           records.get(i),
           (case) oldMap.get(records.get(i).id)
         );
+        IDRCollectionActions.populateCollectionNumber(records.get(i));
         handleMasking(records.get(i));
         handleAnonymousNames(records.get(i));
         handleEntitlementForUpdate(
@@ -226,10 +230,6 @@ public with sharing class IDRCaseActions {
     if (!updatePsiTicked.isEmpty()) {
       updateDateTimePsiTicked(updatePsiTicked);
     }
-    IDRCollectionActions.triggerCollectionActivities(
-      records,
-      (Map<Id, Case>) oldMap
-    );
   }
 
   /**
@@ -259,6 +259,9 @@ public with sharing class IDRCaseActions {
     }
     possibleSystemicIssueActions(records, oldMap);
     IDRTaskActions.updateIDRMilestoneTask(records, oldMap);
+    IDRCollectionActions.stopCollections(records, oldMap);
+    IDRCollectionActions.startCollections(records, oldMap);
+    IDRCollectionActions.setComplaintsFlag(records, oldMap);
   }
 
   /**

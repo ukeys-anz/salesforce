@@ -24,13 +24,31 @@ public with sharing class IDRConstants {
     .get('General_Inquiry_CMOS')
     .getRecordTypeId();
 
-  //Complaint Priority
-  public static final String PRIORITY_COLLECTIONS = 'Customer in Collections';
-  public static final String PRIORITY_HARDSHIP = 'Financial Hardship';
+  //IDR collections task record type
+  public static final Id IDR_COLLECTIONS_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
+    .get('IDR_Collections')
+    .getRecordTypeId();
 
-  //Complaint IssueType
-  public static final String ISSUE_TYPE_HARDSHIP = '4';
-  public static final String ISSUE_TYPE_COLLECTIONS = '17';
+  //Complaint Type and Subsequent Issue Type Set for collections
+  public static final Set<String> ISSUE_TYPE_COLLECTIONS = new Set<String>{
+    '4',
+    '5',
+    '17',
+    '19'
+  };
+  public static final Set<String> SUB_ISSUE_TYPE_COLLECTIONS = new Set<String>{
+    '20',
+    '21',
+    '22',
+    '23',
+    '24',
+    '25',
+    '26',
+    '27',
+    '28',
+    '38',
+    '42'
+  };
 
   //NotificationHandler Status
   public static final String NOTIFICATION_PUBLISH_STATUS = 'Published';
@@ -139,5 +157,28 @@ public with sharing class IDRConstants {
       return workBasketNames;
     }
     set;
+  }
+
+  /**
+   * @description method to get collection related product Ids from Product2 table
+   * @return Set of Product Ids
+   */
+  public static Set<Id> getCollectionProductIds() {
+    Set<Id> collectionProductIds = new Set<Id>();
+    for (Product2 product : [
+      SELECT Id
+      FROM Product2
+      WHERE
+        Name IN (
+          'Asset Finance',
+          'Chattel Mortgage',
+          'Finance Lease',
+          'Novated Lease',
+          'Luxury Asset Lease'
+        )
+    ]) {
+      collectionProductIds.add(product.Id);
+    }
+    return collectionProductIds;
   }
 }
