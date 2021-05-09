@@ -29,6 +29,7 @@ public with sharing class IDRCollectionActions {
   private static final String REMOVE_COMPLAINT_TASK_SUBJECT = 'Remove Complaint event is triggered from Salesforce';
 
   private static Set<Id> collectionProductIds = IDRConstants.getCollectionProductIds();
+
   /**
    * @description method to copy customer account number in bankend field for collection purposes
    * @param record Case record from the trigger
@@ -57,7 +58,7 @@ public with sharing class IDRCollectionActions {
   }
 
   /**
-   * @description method to trigger collections activity in downstream systems when collections flag is turned on for a customer on a complaint.
+   * @description method to trigger stop collections activity in downstream systems when collections flag is turned on for an account number on a complaint.
    * @param records List of Case records in current  trigger context
    * @param oldMap old Map of Case records in current  trigger context
    */
@@ -279,6 +280,10 @@ public with sharing class IDRCollectionActions {
     return collectionsEvent;
   }
 
+  /**
+   * @description method to publish collection event and handle errors
+   * @param collectionsEventList List of collection events
+   */
   private static void publishCollectionEvent(
     List<IDR_Collections_Event__e> collectionsEventList
   ) {
@@ -304,6 +309,10 @@ public with sharing class IDRCollectionActions {
     }
   }
 
+  /**
+   * @description method to insert collection tasks and handle errors
+   * @param collectionTaskList List of collection tasks
+   */
   private static void insertCollectionTasks(List<Task> collectionTaskList) {
     List<Database.SaveResult> results = Database.insert(
       collectionTaskList,
@@ -317,6 +326,11 @@ public with sharing class IDRCollectionActions {
     log.insertLog();
   }
 
+  /**
+   * @description method to trigger start collections activity in downstream systems when collections flag is turned on for an account number on a complaint.
+   * @param records List of Case records in current  trigger context
+   * @param oldMap old Map of Case records in current  trigger context
+   */
   public static void startCollections(
     List<Case> records,
     Map<Id, SObject> oldMap
@@ -462,6 +476,12 @@ public with sharing class IDRCollectionActions {
     }
   }
 
+  /**
+   * @description method to populate stop and start collection task and assigned to collections queue
+   * @param c case record from trigger
+   * @param type stop or start collections type
+   * @param accountNumber account number of each issue
+   */
   private static Task populateUserTask(
     Case c,
     String type,
@@ -481,6 +501,11 @@ public with sharing class IDRCollectionActions {
     return userTask;
   }
 
+  /**
+   * @description method to publish complaints event flag to downstreams systems whenever the complaint is created and closed.
+   * @param records List of Case records in current  trigger context
+   * @param oldMap old Map of Case records in current  trigger context
+   */
   public static void setComplaintsFlag(
     List<Case> records,
     Map<Id, SObject> oldMap
@@ -508,10 +533,9 @@ public with sharing class IDRCollectionActions {
   }
 
   /**
-   * @description method to trigger collections activity in downstream systems when collections flag is turned on for a customer on a complaint.
-   * @param c A case record
-   * @param oldCase An old case record
-   * @param collectionAccList list of account number applicable for collections
+   * @description method to populate compliant platform event fields
+   * @param c case record from trigger
+   * @param oldCase An old case record from trigger
    * @return Platform event record
    */
   private static IDR_OCV_Complaint_Event__e buildComplaintEvent(
@@ -522,7 +546,6 @@ public with sharing class IDRCollectionActions {
     complaintEvent.IDR_Customer_Number__c = c.IDR_Customer_Number__c;
     complaintEvent.IDR_OCV_Id__c = null; // When AR&C Customer are in SF replace this line with Account's OCV
     complaintEvent.IDR_Complaint_Created_Date__c = c.IDR_Date_Received__c;
-
     if (c.isClosed) {
       complaintEvent.IDR_Complaint_Resolved_Date__c = (c.ClosedDate == null
         ? System.now()
@@ -531,7 +554,6 @@ public with sharing class IDRCollectionActions {
         complaintEvent.IDR_Closed_On_Create__c = true;
       }
     }
-
     complaintEvent.IDR_Complaint_Number__c = c.CaseNumber;
     complaintEvent.IDR_Complaint_Status__c = c.Status;
     complaintEvent.IDR_Product_Updated__c = true;
