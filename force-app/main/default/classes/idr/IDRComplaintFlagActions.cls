@@ -145,7 +145,7 @@ public with sharing class IDRComplaintFlagActions {
   ) {
     IDR_OCV_Complaint_Event__e complaintEvent = new IDR_OCV_Complaint_Event__e();
     complaintEvent.IDR_Customer_Number__c = c.IDR_Customer_Number__c;
-    complaintEvent.IDR_OCV_Id__c = null; // When AR&C Customer are in SF replace this line with Account's OCV
+    complaintEvent.IDR_OCV_Id__c = c.OCV_Id__c; // When AR&C Customer are in SF replace this line with Account's OCV
     complaintEvent.IDR_Complaint_Created_Date__c = c.IDR_Date_Received__c;
     if (c.isClosed) {
       complaintEvent.IDR_Complaint_Resolved_Date__c = (c.ClosedDate == null
