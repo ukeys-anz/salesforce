@@ -171,7 +171,7 @@ public with sharing class IDRCaseActions {
     possibleSystemicIssueActions(records, null);
     IDRCollectionActions.stopCollections(records, null);
     IDRCollectionActions.startCollections(records, null);
-    IDRCollectionActions.setComplaintsFlag(records, null);
+    IDRComplaintFlagActions.setComplaintsFlag(records, null);
   }
 
   /**
@@ -261,7 +261,7 @@ public with sharing class IDRCaseActions {
     IDRTaskActions.updateIDRMilestoneTask(records, oldMap);
     IDRCollectionActions.stopCollections(records, oldMap);
     IDRCollectionActions.startCollections(records, oldMap);
-    IDRCollectionActions.setComplaintsFlag(records, oldMap);
+    IDRComplaintFlagActions.setComplaintsFlag(records, oldMap);
   }
 
   /**

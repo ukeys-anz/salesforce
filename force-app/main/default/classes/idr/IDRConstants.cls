@@ -158,27 +158,4 @@ public with sharing class IDRConstants {
     }
     set;
   }
-
-  /**
-   * @description method to get collection related product Ids from Product2 table
-   * @return Set of Product Ids
-   */
-  public static Set<Id> getCollectionProductIds() {
-    Set<Id> collectionProductIds = new Set<Id>();
-    for (Product2 product : [
-      SELECT Id
-      FROM Product2
-      WHERE
-        Name IN (
-          'Asset Finance',
-          'Chattel Mortgage',
-          'Finance Lease',
-          'Novated Lease',
-          'Luxury Asset Lease'
-        )
-    ]) {
-      collectionProductIds.add(product.Id);
-    }
-    return collectionProductIds;
-  }
 }
