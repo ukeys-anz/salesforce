@@ -15,7 +15,7 @@ public with sharing class IDRComplaintFlagActions {
 
   private static Boolean isComplaintEventFailed = false;
 
-  private static List<IDR_OCV_Complaint_Event__e> complaintEventList = new List<IDR_OCV_Complaint_Event__e>();
+  private static List<IDR_Complaints_Event__e> complaintEventList = new List<IDR_Complaints_Event__e>();
 
   private static List<Task> complaintTaskList = new List<Task>();
 
@@ -139,11 +139,11 @@ public with sharing class IDRComplaintFlagActions {
    * @param oldCase An old case record from trigger
    * @return Platform event record
    */
-  private static IDR_OCV_Complaint_Event__e buildComplaintEvent(
+  private static IDR_Complaints_Event__e buildComplaintEvent(
     Case c,
     Case oldCase
   ) {
-    IDR_OCV_Complaint_Event__e complaintEvent = new IDR_OCV_Complaint_Event__e();
+    IDR_Complaints_Event__e complaintEvent = new IDR_Complaints_Event__e();
     complaintEvent.IDR_Customer_Number__c = c.IDR_Customer_Number__c;
     complaintEvent.IDR_OCV_Id__c = c.OCV_Id__c; // When AR&C Customer are in SF replace this line with Account's OCV
     complaintEvent.IDR_Complaint_Created_Date__c = c.IDR_Date_Received__c;
@@ -205,7 +205,7 @@ public with sharing class IDRComplaintFlagActions {
    * @param complaintEventList List of complaint events
    */
   private static void publishComplaintEvent(
-    List<IDR_OCV_Complaint_Event__e> complaintEventList
+    List<IDR_Complaints_Event__e> complaintEventList
   ) {
     List<Database.SaveResult> publishResults = EventBus.publish(
       complaintEventList

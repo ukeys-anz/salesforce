@@ -3,7 +3,7 @@
     <deploymentStatus>Deployed</deploymentStatus>
     <description>This event is used to send Customer Complaint Flag to OCV and CAP via mulesoft</description>
     <eventType>HighVolume</eventType>
-    <label>IDR OCV Complaint Event</label>
-    <pluralLabel>IDR OCV Complaint Events</pluralLabel>
+    <label>IDR Complaints Event</label>
+    <pluralLabel>IDR Complaints Events</pluralLabel>
     <publishBehavior>PublishAfterCommit</publishBehavior>
 </CustomObject>
