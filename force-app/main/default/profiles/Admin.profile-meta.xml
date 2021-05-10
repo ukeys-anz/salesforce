@@ -870,6 +870,21 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.IDR_Collection_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.IDR_Collection_Number_2__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.IDR_Collection_Number_3__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.IDR_Complainant_Desired_Outcome__c</field>
         <readable>true</readable>
@@ -2808,6 +2823,10 @@
     <layoutAssignments>
         <layout>Task-IDR System Task</layout>
         <recordType>Task.IDR_System_Task</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Task-IDR System Task</layout>
+        <recordType>Task.IDR_Collections</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Task-IDR Task Layout</layout>
