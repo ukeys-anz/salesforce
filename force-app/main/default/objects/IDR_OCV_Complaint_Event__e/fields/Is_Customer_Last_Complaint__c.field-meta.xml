@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_Customer_Last_Complaint__c</fullName>
+    <defaultValue>true</defaultValue>
+    <description>checkbox field to identify whether it is a last complaint of the customer</description>
+    <externalId>false</externalId>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Is Customer Last Complaint</label>
+    <type>Checkbox</type>
+</CustomField>
