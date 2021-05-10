@@ -35,6 +35,8 @@ public with sharing class CaseDurationObject {
       !Schema.sObjectType.CaseHistory.fields.CaseId.isAccessible()
     ) {
       Lib_SystemLog.createSingleLog(
+        IDRCaseActions.class.getName(),
+        'Constructor',
         null,
         'To calculate the case duration, access to both the Case and CaseHistory objects is required.',
         Lib_systemLog.Severity.ERROR

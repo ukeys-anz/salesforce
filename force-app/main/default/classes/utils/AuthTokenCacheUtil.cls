@@ -29,6 +29,8 @@ public with sharing class AuthTokenCacheUtil {
       );
     } else {
       Lib_SystemLog.createSingleLog(
+        AuthTokenCacheUtil.class.getName(),
+        'moveAuthTokens',
         '1',
         'Unable to query user to check if ANZx user to perform token caching',
         Lib_SystemLog.Severity.ERROR
@@ -113,10 +115,11 @@ public with sharing class AuthTokenCacheUtil {
         Cache.Org.remove(AuthTokenCacheUtil.ORGPART + 'idToken' + userId);
       } else {
         Lib_SystemLog.createSingleLogAsync(
+          AuthTokenCacheUtil.class.getName(),
+          'storeAzureSessionTokens',
           '1',
           'Login Flow Invocable method did not receive Azure Refresh or Id Token for user: ' +
-          userId,
-          Lib_SystemLog.Severity.ERROR
+          userId
         );
       }
     }
@@ -138,6 +141,8 @@ public with sharing class AuthTokenCacheUtil {
     } else {
       //notify user to log in again
       Lib_SystemLog.createSingleLog(
+        AuthTokenCacheUtil.class.getName(),
+        'getSessionRefreshToken',
         '1',
         'Session Refresh Token not found for user ' + userId,
         Lib_SystemLog.Severity.WARNING
@@ -174,6 +179,8 @@ public with sharing class AuthTokenCacheUtil {
     } else {
       //notify user to log in again
       Lib_SystemLog.createSingleLog(
+        AuthTokenCacheUtil.class.getName(),
+        'getSessionIdToken',
         '1',
         'Session Id Token not found for user ' + userId,
         Lib_SystemLog.Severity.WARNING
@@ -224,6 +231,8 @@ public with sharing class AuthTokenCacheUtil {
       );
     } catch (Exception e) {
       Lib_SystemLog.logAPIError(
+        AuthTokenCacheUtil.class.getName(),
+        'refreshIdToken',
         e.getMessage(),
         e.getTypeName(),
         null,
@@ -260,6 +269,8 @@ public with sharing class AuthTokenCacheUtil {
       expiresIn = responseModel.expiresIn.intValue();
     } catch (Exception e) {
       Lib_SystemLog.createSingleLog(
+        AuthTokenCacheUtil.class.getName(),
+        'getStaffToken',
         '1',
         'Unable to retrieve staff token',
         Lib_SystemLog.Severity.WARNING

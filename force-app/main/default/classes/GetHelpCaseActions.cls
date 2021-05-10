@@ -324,7 +324,10 @@ public with sharing class GetHelpCaseActions {
     List<Database.SaveResult> results = Database.Update(bugs, false);
 
     //log errors to application log
-    lib_systemLog log = new lib_systemLog();
+    lib_systemLog log = new lib_systemLog(
+      'GetHelpCaseActions',
+      'rollupRelatedBug'
+    );
     log.addDatabaseSaveResult('Case', results, new List<Case>());
     log.insertLog();
   }
@@ -351,7 +354,10 @@ public with sharing class GetHelpCaseActions {
     List<Database.SaveResult> results = Database.Update(bugs, false);
 
     //log errors to application log
-    lib_systemLog log = new lib_systemLog();
+    lib_systemLog log = new lib_systemLog(
+      'GetHelpCaseActions',
+      'futureRollupRelatedBug'
+    );
     log.addDatabaseSaveResult('Case', results, new List<Case>());
     log.insertLog();
   }

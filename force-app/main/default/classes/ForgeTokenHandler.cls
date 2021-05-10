@@ -17,9 +17,11 @@ public with sharing class ForgeTokenHandler {
       idToken = AuthTokenCacheUtil.getSessionIdToken();
     } catch (Exception e) {
       Lib_SystemLog.logAPIError(
+        ForgeTokenHandler.class.getName(),
+        'getForgeJWTToken',
         e.getMessage(),
         e.getTypeName(),
-        RequestUtils.getRequestId(),
+        ForgeTokenHandler.class.getName(),
         null,
         'No active token found, please log out, and back into Salesforce'
       );

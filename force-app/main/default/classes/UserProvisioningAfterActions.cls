@@ -6,7 +6,9 @@
  */
 @SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class UserProvisioningAfterActions {
-  private static lib_systemLog log = new lib_systemLog();
+  private static lib_systemLog log = new lib_systemLog(
+    UserProvisioningAfterActions.class.getName()
+  );
   private static Set<Id> failedRecordIds = new Set<Id>();
 
   /**

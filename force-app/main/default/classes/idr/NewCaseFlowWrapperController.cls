@@ -43,6 +43,8 @@ public with sharing class NewCaseFlowWrapperController {
     // If more than one active Chat Topic found, log an Application Log entry including the '|' seperated string of all returned Chat Topic IDs
     if (activeChatTopics.size() > 1) {
       lib_systemLog.createSingleLog(
+        NewCaseFlowWrapperController.class.getName(),
+        'getActiveChatTopicIDsByCustomer',
         'MORE_THAN_ONE_ACTIVE_CHAT_TOPIC',
         'More than one "Acitve" Chat Topics found while trying to auto-link to a Case.' +
         ' - ' +
@@ -182,7 +184,10 @@ public with sharing class NewCaseFlowWrapperController {
 
       RequestUtils.setCommonRequestParams(request, 'GET');
       responseBody = RequestUtils.processRequest(
-        request,        
+        request,
+        NewCaseFlowWrapperController.class.getName(),
+        'getActiveChatTopics',
+        NewCaseFlowWrapperController.class.getName(),
         true
       );
     }
