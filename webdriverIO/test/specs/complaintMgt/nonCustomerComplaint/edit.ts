@@ -16,7 +16,7 @@ let caseId: any;
 const recordType = "Non_Customer_Complaint";
 
 describe("Non Customer Complaint Record Edit", () => {
- /* before(() => {
+  /* before(() => {
     createCaseList(1, recordType, "idrlvl3").then((cases: any) => {
       caseId = cases[0].CaseNumber.toString();
     });

@@ -192,6 +192,21 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.OCV_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.CPID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Relationship_Managed_Complaint__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.IDR_Date_Re_Opened__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -511,6 +526,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_Restriction_Level__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Case.SI_AFCA_Outcome_Provided__c</field>
         <readable>true</readable>
@@ -637,7 +657,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>ContentVersion.Type_of_Document__c</field>
+        <field>ContentVersion.Document_Category__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -678,6 +698,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>IDR_Letter_Approval_Details__c.IDR_Value__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>IDR_Letter_Approval__c.Customer_Data_updated__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -128,20 +128,22 @@ public with sharing class CreateCommsController {
    * @param lineItems list of free text fields with user inputed data.
    * @return string ID of the created letter approval record.
    */
-  
+
   @auraEnabled
   public static string createComms(
     list<object> otherDetails,
     list<object> lineItems
   ) {
     Map<Object, Object> letterDetails = (Map<Object, Object>) otherDetails[0];
-    string template = (string)letterDetails.get('template'); 
-    string caseID = (string)letterDetails.get('caseId');
+    string template = (string) letterDetails.get('template');
+    string caseID = (string) letterDetails.get('caseId');
     IDR_Letter_Approval__c caseComms = new IDR_Letter_Approval__c();
-    caseComms.IDR_Send_As_Email__c = (Boolean)letterDetails.get('isEmail');
-    caseComms.IDR_Send_As_Letter__c = (Boolean)letterDetails.get('isLetter');
+    caseComms.IDR_Send_As_Email__c = (Boolean) letterDetails.get('isEmail');
+    caseComms.IDR_Send_As_Letter__c = (Boolean) letterDetails.get('isLetter');
     caseComms.IDR_case__c = caseID;
-    caseComms.IDR_Template_Name__c = template;
+    caseComms.IDR_Template_Name__c = IDRConstants.xpressiontemplateName.get(
+      template
+    );
     caseComms.IDR_Status__c = 'Submitted';
     if (lineItems.size() == 0) {
       caseComms.IDR_Auto_Approve__c = true;
@@ -157,9 +159,9 @@ public with sharing class CreateCommsController {
       IDR_Letter_Approval_Details__c commsLineItem = new IDR_Letter_Approval_Details__c(
         IDR_Letter_Approval__c = caseComms.Id
       );
-      commsLineItem.Name = (string) fieldList.get('fieldLabel')  ;  
-      commsLineItem.IDR_Field_Name__c  = (string) fieldList.get('fieldLabel');
-      commsLineItem.IDR_Value__c  = (string) fieldList.get('fieldValue');
+      commsLineItem.Name = (string) fieldList.get('fieldLabel');
+      commsLineItem.IDR_Field_Name__c = (string) fieldList.get('fieldLabel');
+      commsLineItem.IDR_Value__c = (string) fieldList.get('fieldValue');
       commsLineItemsList.add(commsLineItem);
     }
     list<IDR_Letter_Approval_Details__c> caseDataItems = getCommsDataFromCase(
@@ -216,8 +218,8 @@ public with sharing class CreateCommsController {
 
     if (string.isNotBlank(caseQuery)) {
       caseQuery += ' From Case where Id = :CaseId LIMIT 1';
-      case parentCase = new case(); 
-      parentCase = Database.query(caseQuery);//NOPMD
+      case parentCase = new case();
+      parentCase = Database.query(caseQuery); //NOPMD
       for (IDR_Template_Detail__c td : templatedetails) {
         IDR_Letter_Approval_Details__c item = new IDR_Letter_Approval_Details__c();
         item.Name = td.IDR_Template_Field_Name__c;

@@ -1995,6 +1995,10 @@
         <visible>false</visible>
     </recordTypeVisibilities>
     <tabVisibilities>
+        <tab>standard-File</tab>
+        <visibility>Hidden</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
         <tab>FinServ__FinancialAccount__c</tab>
         <visibility>DefaultOn</visibility>
     </tabVisibilities>

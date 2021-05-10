@@ -50,10 +50,6 @@
         </timeTriggers>
         <timeTriggers>
             <actions>
-                <name>Assign_to_Customer_Resolution_Portfolio</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <actions>
                 <name>Escalate_The_Case</name>
                 <type>FieldUpdate</type>
             </actions>

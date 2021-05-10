@@ -9,14 +9,20 @@ import CAP_ID_FIELD from "@salesforce/schema/Case.IDR_Customer_Number__c";
 import FIRST_NAME from "@salesforce/schema/Case.IDR_NC_First_Name__c";
 import LAST_NAME from "@salesforce/schema/Case.IDR_NC_Last_Name__c";
 import MIDDLE_NAME from "@salesforce/schema/Case.IDR_NC_Middle_Names__c";
+import RM_COMPLAINT from "@salesforce/schema/Case.Relationship_Managed_Complaint__c";
+import OCV_ID from "@salesforce/schema/Case.OCV_Id__c";
+import CP_ID from "@salesforce/schema/Case.CPID__c";
 import ID_FIELD from "@salesforce/schema/Case.Id";
 
 export default class CustomerInformation extends LightningElement {
   isCustomerDataBeUpdated = false;
-  @track loaded = false;
+  @track loaded = true;
   @track customerInfo;
+  @track showMore = false;
   @api recordId;
   @track error;
+  @track isRMDetails;
+  @track rmDetailsError;
   @api showAsGrid;
   @api
   get customerId() {
@@ -34,23 +40,41 @@ export default class CustomerInformation extends LightningElement {
 
   @wire(getRecord, {
     recordId: "$recordId",
-    fields: [CAP_ID_FIELD, FIRST_NAME, MIDDLE_NAME]
+    fields: [CAP_ID_FIELD, FIRST_NAME, MIDDLE_NAME, LAST_NAME, RM_COMPLAINT]
   })
   wiredProject({ error, data }) {
     if (data && this.record !== data) {
       this.record = data;
-      if (
-        getFieldValue(this.record.data, FIRST_NAME) == null &&
-        getFieldValue(this.record, LAST_NAME) == null
-      ) {
-        this.isCustomerDataBeUpdated = true;
+
+      if (!this.customerInfo) {
+        let customerData1 = {
+          complainant_type: "",
+          first_name: "",
+          last_name: "",
+          middlename: "",
+          isRmPresent: false
+        };
+        customerData1.first_name = getFieldValue(this.record, FIRST_NAME);
+        customerData1.last_name = getFieldValue(this.record, LAST_NAME);
+        customerData1.middlename = getFieldValue(this.record, MIDDLE_NAME);
+        customerData1.isRmPresent = getFieldValue(this.record, RM_COMPLAINT);
+        this.customerInfo = customerData1;
+        if (
+          customerData1.first_name == null &&
+          customerData1.last_name == null
+        ) {
+          this.isCustomerDataBeUpdated = true;
+        }
       }
-      this.custData(
-        this.record.fields.IDR_Customer_Number__c.value.replace(/^0+/, "")
-      );
     } else if (error) {
       this.handleError(error);
     }
+  }
+
+  showAllCustomerData() {
+    this.custData(
+      this.record.fields.IDR_Customer_Number__c.value.replace(/^0+/, "")
+    );
   }
 
   updateCustomerDetailsonCase() {
@@ -59,6 +83,9 @@ export default class CustomerInformation extends LightningElement {
     fields[FIRST_NAME.fieldApiName] = this.customerInfo.first_name;
     fields[LAST_NAME.fieldApiName] = this.customerInfo.last_name;
     fields[MIDDLE_NAME.fieldApiName] = this.customerInfo.middlename;
+    fields[OCV_ID.fieldApiName] = this.customerInfo.ocvId;
+    fields[CP_ID.fieldApiName] = this.customerInfo.capId;
+    fields[RM_COMPLAINT.fieldApiName] = this.customerInfo.isRmPresent;
 
     const recordInput = { fields };
     updateRecord(recordInput)
@@ -86,56 +113,106 @@ export default class CustomerInformation extends LightningElement {
 
   custData(customerId) {
     // calling apex class method to make callout
-    if (!this.loaded) {
-      this.error = null;
-      getCustomerData({ capId: customerId })
-        .then((result) => {
-          let customerData = {
-            complainant_type: "",
-            first_name: "",
-            last_name: "",
-            middlename: "",
-            mobile: "",
-            businessname: "",
-            gender: "",
-            email: "",
-            age: "",
-            suburb: "",
-            street: "",
-            state: "",
-            postcode: "",
-            country: ""
-          };
-          // retrieving the response data
-          let responseData = result.profile;
-          // adding data object by reading from JSON
-          customerData.complainant_type = responseData.complainantType;
-          customerData.first_name = responseData.firstName;
-          customerData.last_name = responseData.lastName;
-          customerData.middlename = responseData.middleName;
-          customerData.mobile = responseData.mobile;
-          customerData.businessname = responseData.businessName;
-          customerData.age = responseData.age;
-          customerData.country = responseData.country;
-          customerData.email = responseData.email;
-          customerData.gender = responseData.gender;
-          customerData.postcode = responseData.postCode;
-          customerData.state = responseData.state;
-          customerData.street = responseData.street;
-          customerData.suburb = responseData.suburb;
-          // adding data object to show in UI
-          this.loaded = true;
-          this.customerInfo = customerData;
-          this.dispatchEvent(
-            new CustomEvent("custinfochecked", {
-              detail: this.customerInfo
-            })
-          );
-        })
-        .catch((error) => {
-          this.handleError(error);
-        });
-    }
+    this.loaded = false;
+    this.error = null;
+    this.rmDetailsError = null;
+    this.isRMDetails = false;
+    getCustomerData({ capId: customerId })
+      .then((result) => {
+        let customerData = {
+          complainant_type: "",
+          first_name: "",
+          last_name: "",
+          middlename: "",
+          mobile: "",
+          businessname: "",
+          gender: "",
+          email: "",
+          age: "",
+          suburb: "",
+          street: "",
+          state: "",
+          postcode: "",
+          country: "",
+          ocvId: "",
+          cpId: "",
+          dob: "",
+          isRmPresent: false,
+          accounts: [],
+          rmData: { name: "", phone: "", officeAddress: "" }
+        };
+        // retrieving the response data
+        let responseData = result.profile;
+        let accountsData = result.accounts;
+        let relationshipData = result.relationshipManager;
+        let accounts = [];
+        // adding data object by reading from JSON
+        customerData.complainant_type = responseData.complainantType;
+        customerData.first_name = responseData.firstName;
+        customerData.last_name = responseData.lastName;
+        customerData.middlename = responseData.middleName;
+        customerData.mobile = responseData.mobile;
+        customerData.businessname = responseData.businessName;
+        customerData.age = responseData.age;
+        customerData.country = responseData.country;
+        customerData.email = responseData.email;
+        customerData.gender = responseData.gender;
+        customerData.postcode = responseData.postCode;
+        customerData.state = responseData.state;
+        customerData.street = responseData.street;
+        customerData.suburb = responseData.suburb;
+        customerData.ocvId = responseData.ocvId;
+        customerData.cpId = responseData.cpId;
+        customerData.dob = responseData.dob;
+        let x;
+        for (x in accountsData) {
+          if (accountsData[x].accountNumber != null) {
+            accounts.push(accountsData[x].accountNumber);
+          }
+        }
+        customerData.accounts = accounts;
+        if (
+          !relationshipData &&
+          relationshipData.details == null &&
+          relationshipData.error == null
+        ) {
+          isRMDetails = false;
+          customerData.isRmPresent = true;
+        } else if (
+          relationshipData.details != null &&
+          relationshipData.error == null
+        ) {
+          this.isRMDetails = true;
+          customerData.rmData.name = relationshipData.details.name;
+          customerData.rmData.phone = relationshipData.details.phoneNumber;
+          customerData.rmData.officeAddress =
+            relationshipData.details.address[0].addressLine1 +
+            ", " +
+            relationshipData.details.address[0].addressLine2;
+          customerData.isRmPresent = true;
+        } else if (
+          relationshipData.details == null &&
+          relationshipData.error != null
+        ) {
+          this.rmDetailsError = relationshipData.error.message;
+        }
+
+        // adding data object to show in UI
+        this.loaded = true;
+        this.customerInfo = customerData;
+        this.showMore = true;
+        if (this.isCustomerDataBeUpdated === true) {
+          this.updateCustomerDetailsonCase();
+        }
+        this.dispatchEvent(
+          new CustomEvent("custinfochecked", {
+            detail: this.customerInfo
+          })
+        );
+      })
+      .catch((error) => {
+        this.handleError(error);
+      });
   }
   handleError(err) {
     this.loaded = true;
@@ -148,10 +225,10 @@ export default class CustomerInformation extends LightningElement {
       }
     }
     // if the customer Id couldnt be validated against CAP at the moment throw this event so that case can be created.
-    console.log("this.error:" + this.error);
     if (!this.error.includes("No data found for the given customerId")) {
       this.dispatchEvent(new CustomEvent("custinfochecked"));
     }
+
     this.record = undefined;
   }
 }

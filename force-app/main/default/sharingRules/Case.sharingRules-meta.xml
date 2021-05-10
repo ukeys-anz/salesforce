@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingCriteriaRules>
-        <fullName>Complaint_RTs_ANZUsers_RO</fullName>
+        <fullName>Complaint_RTs_ANZRole_RO</fullName>
         <accessLevel>Read</accessLevel>
-        <description>Great Read only access to Complaint record types for all ANZ users.</description>
-        <label>Complaint_RTs_ANZUsers_RO</label>
+        <description>Great Read only access to Complaint record types for all ANZ Role users.</description>
+        <label>Complaint_RTs_ANZRole_RO</label>
         <sharedTo>
-            <roleAndSubordinates>ANZ</roleAndSubordinates>
+            <role>ANZ</role>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -27,6 +27,11 @@
             <operation>equals</operation>
             <value>Customer Complaint,Non-Customer Complaint</value>
         </criteriaItems>
+        <criteriaItems>
+            <field>IDR_Restriction_Level__c</field>
+            <operation>notEqual</operation>
+            <value>Restricted Case</value>
+        </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Complaint_RTs_CRPUsers_RW</fullName>
@@ -40,6 +45,25 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Customer Complaint,Non-Customer Complaint</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Complaint_RTs_SIUsers_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Give read only access to Systemic issue users for customer and non customer complaints</description>
+        <label>Complaint_RTs_SIUsers_RO</label>
+        <sharedTo>
+            <role>Systemic_Issue_Team</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Complaint,Non-Customer Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IDR_Restriction_Level__c</field>
+            <operation>notEqual</operation>
+            <value>Restricted Case</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -141,6 +165,20 @@
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>IDR_RT_Data_Analyst_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Grant read only access to Data Analyst for Complaint and SI record types</description>
+        <label>IDR_RT_Data_Analyst_RO</label>
+        <sharedTo>
+            <role>Data_Analyst</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Systemic Issue,Customer Complaint,Non-Customer Complaint</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>PSIComplaint_RTs_SITeam_RW</fullName>
         <accessLevel>Edit</accessLevel>
         <description>Grant edit access to possible systemic issue complaint records for systemic issue team</description>
@@ -167,20 +205,6 @@
         <label>SI_RT_CRP_LT_RO</label>
         <sharedTo>
             <role>Customer_Resolution_Leadership</role>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Systemic Issue</value>
-        </criteriaItems>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>SI_RT_Data_Analyst_RO</fullName>
-        <accessLevel>Read</accessLevel>
-        <description>Grant read only access to Data Analyst for SI record type</description>
-        <label>SI_RT_Data_Analyst_RO</label>
-        <sharedTo>
-            <role>Data_Analyst</role>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>

@@ -24,6 +24,13 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
     IDRTaskActions.afterInsertActions(records);
   }
   /**
+   * @description onBeforeUpdate to handle after update trigger actions.
+   * @param oldMap old trigger values
+   */
+  public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    IDRTaskActions.beforeUpdateActions(records, (Map<Id, Task>) oldMap);
+  }
+  /**
    * @description onAfterUpdate to handle after update trigger actions.
    * @param oldMap old trigger values
    */
@@ -39,7 +46,7 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
 
     for (Task record : (List<Task>) records) {
       if (
-        record.RecordTypeId == IDRCaseActions.IDR_TASK_RT_ID &&
+        record.RecordTypeId == IDRConstants.IDR_TASK_RT_ID &&
         record.Subject == IDRCaseActions.IDR_TASK_SUBJECT &&
         record.OwnerId == IDRCaseActions.siQueue.id
       ) {

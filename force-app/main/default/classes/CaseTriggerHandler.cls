@@ -20,6 +20,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onApplyDefaults() {
     IDRCaseActions.applyDefaults((List<Case>) records);
+    SICaseActions.applyDefaults((List<Case>) records);
     GetHelpCaseActions.applyDefaults((List<Case>) records);
   }
 

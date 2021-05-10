@@ -5,16 +5,24 @@
  */
 @SuppressWarnings('PMD.CyclomaticComplexity')
 public without sharing class IDRTaskActions {
-  // IDR Maximum time Record Type ID
-  @TestVisible
-  public static final Id IDR_MAXIMUM_TIME_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
-    .get('IDR_System_Task')
-    .getRecordTypeId();
   /**
    * @description beforeInsertActions is called onBeforeInsert. any logic that needs to be executed on before insert is executed from here
    * @param records The Task record list.
    */
   public static void beforeInsertActions(list<Task> records) {
+    for (Task record : records) {
+      if (
+        record.RecordTypeId == IDRConstants.IDR_MAXIMUM_TIME_RT_ID ||
+        record.RecordTypeId == IDRConstants.SI_TASK_RT_ID ||
+        record.RecordTypeId == IDRConstants.IDR_TASK_RT_ID
+      ) {
+        CommonUtil.handleMasking(
+          record,
+          null,
+          SObjectType.Task.FieldSets.IDR_Masked_Fields.getFields()
+        );
+      }
+    }
     checkIDRMaximumTimeTasks(records);
   }
   /**
@@ -23,6 +31,30 @@ public without sharing class IDRTaskActions {
    */
   public static void afterInsertActions(list<Task> records) {
     closeOldIDRMaximumTimeTasks(records);
+  }
+  /**
+   * @description beforeUpdateActions is called onBeforeUpdate
+   * @param records The Task record list.
+   * @param oldMap Map of the old values of the records to process
+   */
+  public static void beforeUpdateActions(
+    list<Task> records,
+    Map<Id, Task> oldMap
+  ) {
+    for (Task record : records) {
+      if (
+        record.RecordTypeId == IDRConstants.IDR_MAXIMUM_TIME_RT_ID ||
+        record.RecordTypeId == IDRConstants.SI_TASK_RT_ID ||
+        record.RecordTypeId == IDRConstants.IDR_TASK_RT_ID
+      ) {
+        Task oldRecord = (Task) oldMap.get(record.id);
+        CommonUtil.handleMasking(
+          record,
+          oldRecord,
+          SObjectType.Task.FieldSets.IDR_Masked_Fields.getFields()
+        );
+      }
+    }
   }
   /**
    * @description afterUpdateActions is called onAfterUpdate. any logic that needs to be executed on after Update is executed from here
@@ -39,7 +71,7 @@ public without sharing class IDRTaskActions {
     Set<Id> currentTask = new Set<Id>();
     Map<Id, ID> caseTaskMap = new Map<Id, ID>();
     for (Task record : taskRecs) {
-      if (record.RecordTypeId == IDR_MAXIMUM_TIME_RT_ID) {
+      if (record.RecordTypeId == IDRConstants.IDR_MAXIMUM_TIME_RT_ID) {
         currentTask.add(record.Id);
         caseTaskMap.put(record.WhatId, record.Id);
       }
@@ -54,7 +86,7 @@ public without sharing class IDRTaskActions {
         FROM Task
         WHERE
           WhatId IN :caseTaskMap.keySet()
-          AND RecordTypeId = :IDR_MAXIMUM_TIME_RT_ID
+          AND RecordTypeId = :IDRConstants.IDR_MAXIMUM_TIME_RT_ID
           AND Id NOT IN :currentTask
           AND Status != :IDRConstants.TASK_STATUS_COMPLETED
           AND Status != :IDRConstants.TASK_STATUS_EXPIRED
@@ -75,7 +107,7 @@ public without sharing class IDRTaskActions {
    * @param taskRecs The Task record list.
    */
   private static void checkIDRMaximumTimeTasks(list<Task> taskRecs) {
-    list<Task> idrMaixmumTimeTasks = new List<Task>();
+    list<Task> idrMaximumTimeTasks = new List<Task>();
     Map<Id, ID> taskCaseMap = new Map<Id, ID>();
     Map<Id, String> caseTaskMap = new Map<Id, String>();
     Set<Id> caseIds = new Set<Id>();
@@ -84,13 +116,13 @@ public without sharing class IDRTaskActions {
         record.subject == IDRConstants.TASK_SUBJECT_DAY5 ||
         record.subject == IDRConstants.TASK_SUBJECT_DAY1
       ) {
-        record.RecordTypeId = IDR_MAXIMUM_TIME_RT_ID;
-        idrMaixmumTimeTasks.add(record);
+        record.RecordTypeId = IDRConstants.IDR_MAXIMUM_TIME_RT_ID;
+        idrMaximumTimeTasks.add(record);
         taskCaseMap.put(record.Id, record.WhatId);
         caseIds.add(record.whatId);
       }
       if (
-        record.RecordTypeId == IDR_MAXIMUM_TIME_RT_ID &&
+        record.RecordTypeId == IDRConstants.IDR_MAXIMUM_TIME_RT_ID &&
         (!caseTaskMap.KeySet().contains(record.WhatId) ||
         (record.subject == IDRConstants.TASK_SUBJECT_DAY1))
       ) {
@@ -98,18 +130,18 @@ public without sharing class IDRTaskActions {
       }
     }
 
-    validateDueDate(idrMaixmumTimeTasks, caseTaskMap);
-    if(!caseIds.isEmpty()) {
+    validateDueDate(idrMaximumTimeTasks, caseTaskMap);
+    if (!caseIds.isEmpty()) {
       assignTaskToCaseOwner(taskRecs, caseIds);
     }
   }
   /**
    * @description validateDueDate will validate update the due date for IDR Tasks.
-   * @param idrMaixmumTimeTasks The Task record.
+   * @param idrMaximumTimeTasks The Task record.
    * @param caseTaskMap  map of case  id and task subjects
    */
   public static void validateDueDate(
-    list<task> idrMaixmumTimeTasks,
+    list<task> idrMaximumTimeTasks,
     Map<id, string> caseTaskMap
   ) {
     Map<Id, Case> caseMap = new Map<Id, Case>();
@@ -126,7 +158,7 @@ public without sharing class IDRTaskActions {
     for (case c : relatedCaseList) {
       caseMap.put(c.ID, c);
     }
-    for (Task record : idrMaixmumTimeTasks) {
+    for (Task record : idrMaximumTimeTasks) {
       datetime expectedDueDate = calculateExpectedDue(
         record,
         caseMap.get(record.WhatId)
@@ -197,7 +229,10 @@ public without sharing class IDRTaskActions {
   private static void closeMilestonesOfClosedTask(list<Task> taskRecs) {
     set<Id> caseIDSet = new Set<Id>();
     for (task t : taskRecs) {
-      if (t.RecordTypeId == IDR_MAXIMUM_TIME_RT_ID && t.Status == 'Completed') {
+      if (
+        t.RecordTypeId == IDRConstants.IDR_MAXIMUM_TIME_RT_ID &&
+        t.Status == 'Completed'
+      ) {
         caseIDSet.add(t.WhatId);
       }
     }
@@ -227,19 +262,26 @@ public without sharing class IDRTaskActions {
   }
 
   /**
-   * @description assignTaskToCaseOwner is used to assign the tasks 
-   * created by entitlement process to case owner. 
+   * @description assignTaskToCaseOwner is used to assign the tasks
+   * created by entitlement process to case owner.
    * @param records List of task records from trigger
    * @param caseIds Set of case ids
    */
-  private static void assignTaskToCaseOwner(List<Task> records, Set<Id> caseIds) {
+  private static void assignTaskToCaseOwner(
+    List<Task> records,
+    Set<Id> caseIds
+  ) {
     Map<Id, Case> caseMap = new Map<ID, Case>();
-    for(Case caseRecord : [SELECT Id, OwnerId FROM Case where Id IN : caseIds]) {
+    for (Case caseRecord : [
+      SELECT Id, OwnerId
+      FROM Case
+      WHERE Id IN :caseIds
+    ]) {
       caseMap.put(caseRecord.Id, caseRecord);
     }
-    for(Task record : records) {
-      if(caseMap.containsKey(record.WhatId)) {
-      record.OwnerId = caseMap.get(record.WhatId).OwnerId;
+    for (Task record : records) {
+      if (caseMap.containsKey(record.WhatId)) {
+        record.OwnerId = caseMap.get(record.WhatId).OwnerId;
       }
     }
   }
@@ -274,7 +316,7 @@ public without sharing class IDRTaskActions {
         FROM Task
         WHERE
           whatId IN :caseMap.keySet()
-          AND RecordTypeId = :IDR_MAXIMUM_TIME_RT_ID
+          AND RecordTypeId = :IDRConstants.IDR_MAXIMUM_TIME_RT_ID
           AND IsClosed = FALSE
       ];
     }
@@ -294,9 +336,7 @@ public without sharing class IDRTaskActions {
       cmsToUpdate = [
         SELECT Id, StartDate, caseId
         FROM CaseMilestone cm
-        WHERE
-          caseId IN :caseMap.keySet()
-          AND completionDate = NULL
+        WHERE caseId IN :caseMap.keySet() AND completionDate = NULL
       ];
     }
     for (CaseMilestone cm : cmsToUpdate) {
