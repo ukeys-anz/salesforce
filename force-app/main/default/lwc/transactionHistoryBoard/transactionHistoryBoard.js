@@ -61,6 +61,7 @@ export default class TransactionHistoryBoard extends LightningElement {
   disputeRecordTypes = [];
   transactionTypeDisputeIdMap = {};
   personContactId = "";
+
   @wire(MessageContext)
   messageContext;
   //Get the OCVID and Account Number to send to
@@ -85,7 +86,16 @@ export default class TransactionHistoryBoard extends LightningElement {
   get showLoadMore() {
     return this.links && this.links.next && this.links.next.href ? true : false;
   }
+
   fetchTransactions(paramUrl = "", isSearch = false) {
+    //This check here is to prevent Salesforce from triggering
+    //the API and appending duplicate transactions into our list
+    //ie: modifying the financial account record triggers the API
+    //and appends the initial transaction results onto our list
+    if (this.transactionList.length > 0 && !paramUrl) {
+      this.loading = false;
+      return;
+    }
     getTransactions({
       ocvId: this.ocvId,
       accountNumber: this.accountNumber,
