@@ -245,7 +245,7 @@ public with sharing class IDRCaseActions {
         // Operation failed, so get all errors
         for (Database.Error err : sr.getErrors()) {
           Lib_SystemLog.logAPIError(
-            'Error in executing case Assignment Rule for record id: ' + sr.getId() + '. ' + err.getMessage(),
+            'Error in executing case Assignment Rule for record id' + sr.getId() + ' : ' + err.getMessage(),
             null,
             RequestUtils.getRequestId(),
             null,
