@@ -29,8 +29,6 @@ jobs:
           npx prettier -c force-app/main/default/lwc/**/*.{js,html,css}
           echo "Checking Aura Components"
           npx prettier -c force-app/main/default/aura/**/*.{js,css,cmp}
-          echo "Checking WebdriverIO project files"
-          npx prettier -c "webdriverIO/**/*.{ts,js}"
 
   eslint:
     runs-on: [self-hosted, salesforce]
@@ -46,7 +44,7 @@ jobs:
         run: npm ci
 
       - name: "Lint LWC"
-        run: npx eslint "force-app/main/default/lwc/**/*.js" -c .lwc-eslintrc.json
-
-      - name: "Lint Webdriver TS"
-        run: npx eslint "webdriverIO/**/*.ts" -c .ts-eslintrc.json
+        shell: bash
+        run: |
+          echo "Linting Lightning Web Components"
+          npx eslint force-app/main/default/lwc/**/*.js -c .lwc-eslintrc.json

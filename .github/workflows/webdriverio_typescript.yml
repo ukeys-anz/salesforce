@@ -1,7 +1,6 @@
 # This workflow builds the webdriverIO tests with typescript
 name: WebDriverIO
 
-# Disable until package separation
 on:
   pull_request:
     branches: [develop]
@@ -14,8 +13,27 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@v2
 
-      # - name: "Install NPM Packages"
-      #   run: npm i --only=dev
+      - name: "Rename npmrc"
+        run: mv ci.npmrc ./webdriverIO/.npmrc
 
-      # - name: "Build Typescript"
-      #   run: npx typescript --build
+      - name: "Install npm packages"
+        working-directory: webdriverIO
+        run: npm ci
+
+      - name: "Enforce Style Guidelines"
+        working-directory: webdriverIO
+        shell: bash
+        run: |
+          echo "Checking WebdriverIO project files"
+          npx prettier -c "./**/*.{ts,js}"
+      
+      - name: "Lint TypeScript files"
+        working-directory: webdriverIO
+        shell: bash
+        run: |
+          echo "Linting TypeScript files"
+          npx eslint "./**/*.ts" -c "./.ts-eslintrc.json"
+
+      - name: "Build Typescript"
+        working-directory: webdriverIO
+        run: npx tsc

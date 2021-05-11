@@ -39,6 +39,9 @@ jobs:
         run: |
           if [ ${{ env.BRANCH_NAME }} == 'epic/cmos-r2' ]; then echo SANDBOX_NAME=$(echo CMOSQA) >> $GITHUB_ENV; else echo SANDBOX_NAME=$(echo CMOSBAUQA) >> $GITHUB_ENV; fi
 
+      - name: Set secret prefix
+        run: echo SANDBOX_SECRET=SALESFORCE_${{ env.SANDBOX_NAME }} >> $GITHUB_ENV
+
       - uses: actions/checkout@v2
         with:
           ref: ${{ github.ref }}
@@ -53,7 +56,7 @@ jobs:
         shell: bash
         run: |
           echo ${{ env.SANDBOX_NAME }}
-          echo ${{ secrets[env.SANDBOX_NAME] }} > ./SFDX_URL_${{ env.SANDBOX_NAME }}.txt
+          echo ${{ secrets[env.SANDBOX_SECRET] }} > ./SFDX_URL_${{ env.SANDBOX_NAME }}.txt
           npx sfdx force:auth:sfdxurl:store -a ${{ env.SANDBOX_NAME }} --sfdxurlfile=./SFDX_URL_${{ env.SANDBOX_NAME }}.txt
 
       - name: "Generate package"
