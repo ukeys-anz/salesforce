@@ -1256,7 +1256,7 @@ private class CaseTriggerHandlerTest {
           RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
           Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
           IDR_Customer_Number__c = '1234567890',
-          Priority = 'Financial',
+          Priority = 'Financial Hardship',
           Type = '9',
           IDR_Subsequent_Issue__c = '57',
           Status = 'Escalated',
