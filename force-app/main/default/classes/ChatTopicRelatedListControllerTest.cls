@@ -5,24 +5,43 @@
  */
 @isTest
 public with sharing class ChatTopicRelatedListControllerTest {
+  public static List<Account> accList;
+  public static List<Case> caseList;
   /**
    * @description setup is to setup test data
    */
-  @testSetup
   static void setup() {
     Account accnt = new Account(
       Name = 'TestAccount',
       OCV_ID__c = '1234567891',
       ANZx_Customer__c = true
     );
-    insert accnt;
+    Id accId = Lib_FakeIdGenerator.getMockId(accnt.getSObjectType());
+    accnt.put('Id', accId);
+    accList = new List<Account>{ accnt };
     Case newCase = new Case(
       RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
       AccountId = accnt.Id,
+      Account = accnt,
       Twilio_Channel_SID__c = 'CHc6ad9b34eb3e4788a12eb1caa07aefd5',
       Origin = 'Chat'
     );
-    insert newCase;
+    Id caseId = Lib_FakeIdGenerator.getMockId(newCase.getSObjectType());
+    newCase.put('Id', caseId);
+    caseList = new List<Case>{ newCase };
+
+    AccountQueryHelper mockAccountHelper = (AccountQueryHelper) Lib_MockService.createMock(
+      AccountQueryHelper.class,
+      new Map<String, Object>{ 'findAccountsByAccountId' => accList }
+    );
+
+    CaseQueryHelper mockCaseHelper = (CaseQueryHelper) Lib_MockService.createMock(
+      CaseQueryHelper.class,
+      new Map<String, Object>{ 'findChatCaseByCaseId' => caseList }
+    );
+
+    ChatTopicRelatedListController.accountHelper = mockAccountHelper;
+    ChatTopicRelatedListController.caseHelper = mockCaseHelper;
   }
 
   /**
@@ -30,11 +49,11 @@ public with sharing class ChatTopicRelatedListControllerTest {
    */
   @isTest
   public static void validResponseChatTopicsOnAccount() {
+    setup();
     // Query for pre-inserted Account record
-    Account acc = [SELECT Id FROM Account LIMIT 1];
     Test.startTest();
     ChatChannelModel response = ChatTopicRelatedListController.getChatTopicsOnAccount(
-      acc.Id,
+      accList[0].Id,
       ''
     );
     Test.stopTest();
@@ -56,6 +75,14 @@ public with sharing class ChatTopicRelatedListControllerTest {
    */
   @isTest
   public static void nullsResponseChatTopicsOnAccount() {
+    setup();
+    AccountQueryHelper mockAccountHelperNull = (AccountQueryHelper) Lib_MockService.createMock(
+      AccountQueryHelper.class,
+      new Map<String, Object>{
+        'findAccountsByAccountId' => (new List<Account>())
+      }
+    );
+    ChatTopicRelatedListController.accountHelper = mockAccountHelperNull;
     Test.startTest();
     ChatChannelModel response = ChatTopicRelatedListController.getChatTopicsOnAccount(
       '',
@@ -71,11 +98,11 @@ public with sharing class ChatTopicRelatedListControllerTest {
    */
   @isTest
   public static void validResponseChatTopicOnCase() {
+    setup();
     // Query for pre-inserted Case record
-    Case chatCase = [SELECT Id FROM Case WHERE AccountId != NULL LIMIT 1];
     Test.startTest();
     ChatChannelModel.Channel response = ChatTopicRelatedListController.getChatTopicInfoOnCase(
-      chatCase.Id
+      caseList[0].Id
     );
     Test.stopTest();
 
@@ -96,6 +123,12 @@ public with sharing class ChatTopicRelatedListControllerTest {
    */
   @isTest
   public static void nullsResponseChatTopicsOnCase() {
+    setup();
+    CaseQueryHelper mockCaseHelperNull = (CaseQueryHelper) Lib_MockService.createMock(
+      CaseQueryHelper.class,
+      new Map<String, Object>{ 'findChatCaseByCaseId' => (new List<Case>()) }
+    );
+    ChatTopicRelatedListController.caseHelper = mockCaseHelperNull;
     Test.startTest();
     ChatChannelModel.Channel response = ChatTopicRelatedListController.getChatTopicInfoOnCase(
       ''

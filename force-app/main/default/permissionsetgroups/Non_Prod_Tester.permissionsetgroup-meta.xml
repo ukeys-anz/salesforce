@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>ONLY USE IN NON PRODUCTION. This permission set provides view setup, view users and roles to allow &quot;Login as&quot; functionality in non production environments to facilitate testing.</description>
+    <label>Non Prod Tester</label>
+    <permissionSets>View_Setup_And_Users</permissionSets>
+    <status>Updated</status>
+</PermissionSetGroup>
