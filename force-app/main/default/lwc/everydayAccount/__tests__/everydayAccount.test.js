@@ -2,11 +2,8 @@ import everydayAccount from "c/everydayAccount";
 import { createElement } from "lwc";
 import getFinancialAccounts from "@salesforce/apex/FinancialAccountController.getFinancialAccounts";
 
-import { publish, subscribe, MessageContext } from "lightning/messageService";
-import {
-  registerLdsTestWireAdapter,
-  registerTestWireAdapter
-} from "@salesforce/sfdx-lwc-jest";
+import { publish, subscribe } from "lightning/messageService";
+import { createTestWireAdapter } from '@salesforce/wire-service-jest-util';
 import UpdateAccounts from "@salesforce/messageChannel/FinancialAccountsUpdate__c";
 import TriggerLoading from "@salesforce/messageChannel/FinancialAccountsTriggerLoading__c";
 
@@ -68,7 +65,7 @@ const APEX_FACCOUNTS_ERROR = {
   statusText: "Bad Request"
 };
 
-const messageContextWireAdapter = registerTestWireAdapter(MessageContext);
+const MessageContext = createTestWireAdapter();
 
 describe("c-everydayAccount", () => {
   //clean the dom and mocks in between test runs
@@ -104,7 +101,7 @@ describe("c-everydayAccount", () => {
     const payload = {
       update: true
     };
-    publish(messageContextWireAdapter, TriggerLoading, payload);
+    publish(MessageContext, TriggerLoading, payload);
 
     const loadingEle = element.shadowRoot.querySelector("lightning-spinner");
 
@@ -120,7 +117,6 @@ describe("c-everydayAccount", () => {
     });
     element.accountType = "Savings";
     document.body.appendChild(element);
-    const loadingEle = element.shadowRoot.querySelector("lightning-spinner");
 
     return Promise.resolve().then(() => {
       expect(subscribe).toHaveBeenCalled();
@@ -138,7 +134,7 @@ describe("c-everydayAccount", () => {
     const payload = {
       update: true
     };
-    publish(messageContextWireAdapter, UpdateAccounts, payload);
+    publish(MessageContext, UpdateAccounts, payload);
 
     return Promise.resolve().then(() => {
       const mainEle = element.shadowRoot.querySelector("article");
@@ -157,12 +153,14 @@ describe("c-everydayAccount", () => {
     const payload = {
       update: true
     };
-    publish(messageContextWireAdapter, UpdateAccounts, payload);
+    publish(MessageContext, UpdateAccounts, payload);
 
-    return Promise.resolve().catch(() => {
-      const mainEle = element.shadowRoot.querySelector("article");
-      expect(mainEle).not.toBeNull();
-    });
+    return Promise.resolve()
+      .catch(() => {})
+      .finally(() => {
+        const mainEle = element.shadowRoot.querySelector("article");
+        expect(mainEle).not.toBeNull();
+      });
   });
 
   it("test UpdateAccountsAndGoals failed", () => {
@@ -176,7 +174,7 @@ describe("c-everydayAccount", () => {
     const payload = {
       message: "test message"
     };
-    publish(messageContextWireAdapter, UpdateAccounts, payload);
+    publish(MessageContext, UpdateAccounts, payload);
 
     return Promise.resolve()
       .then(() => {})
@@ -197,7 +195,7 @@ describe("c-everydayAccount", () => {
     const payload = {
       update: true
     };
-    publish(messageContextWireAdapter, UpdateAccounts, payload);
+    publish(MessageContext, UpdateAccounts, payload);
 
     return Promise.resolve()
       .then(() => {})
@@ -218,7 +216,7 @@ describe("c-everydayAccount", () => {
     const payload = {
       update: true
     };
-    publish(messageContextWireAdapter, UpdateAccounts, payload);
+    publish(MessageContext, UpdateAccounts, payload);
 
     return Promise.resolve()
       .then(() => {})

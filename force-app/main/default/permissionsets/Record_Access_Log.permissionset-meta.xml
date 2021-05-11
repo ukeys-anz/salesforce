@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <classAccesses>
+        <apexClass>RecordAccessLogController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <description>This grants access to the RecordAccessLogController which inserts details of records accessed by the user</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Record Access Log</label>
+</PermissionSet>

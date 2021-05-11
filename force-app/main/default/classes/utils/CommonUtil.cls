@@ -28,13 +28,16 @@ public with sharing class CommonUtil {
    * @return list of business hours
    */
   public static BusinessHours getBusinessHours() {
-    BusinessHours bh = [
-      SELECT Id
-      FROM BusinessHours
-      WHERE Name = 'ANZx Case Business Hours'
-      LIMIT 1
-    ];
-    return bh;
+    if (BusinessHours.sObjectType.getDescribe().isQueryable()) {
+      BusinessHours bh = [
+        SELECT Id
+        FROM BusinessHours
+        WHERE Name = 'ANZx Case Business Hours'
+        LIMIT 1
+      ];
+      return bh;
+    }
+    return null;
   }
 
   /**

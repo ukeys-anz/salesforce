@@ -8,11 +8,10 @@ on:
 
 jobs:
   prepare:
-    runs-on: ubuntu-latest
-    container: ddawson235/sfdx:latest
+    runs-on: [self-hosted, salesforce]
     outputs:
       is_valid: ${{ steps.isValid.outputs.is_valid }}
-
+      
     steps:
       - name: Set Branch Name
         run: echo BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/}) >> $GITHUB_ENV
@@ -24,24 +23,41 @@ jobs:
   build_and_deploy:
     needs: [prepare]
     if: needs.prepare.outputs.is_valid == 'valid'
-    runs-on: ubuntu-latest
-    container: ddawson235/sfdx:latest
+    runs-on: [self-hosted, salesforce]
+    env:
+      SFDX_NPM_REGISTRY: https://artifactory.gcp.anz/artifactory/api/npm/npmjs-org/
+      SFDX_DISABLE_TELEMETRY: true
+      SFDX_DISABLE_AUTOUPDATE: true
+      HTTP_PROXY: http://127.0.0.1:3128
+      HTTPS_PROXY: http://127.0.0.1:3128
+
     steps:
       - name: Set Branch Name
         run: echo BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/}) >> $GITHUB_ENV
+
       - name: Set Sandbox Name
         run: |
           if [ ${{ env.BRANCH_NAME }} == 'epic/cmos-r2' ]; then echo SANDBOX_NAME=$(echo CMOSQA) >> $GITHUB_ENV; else echo SANDBOX_NAME=$(echo CMOSBAUQA) >> $GITHUB_ENV; fi
-      - name: "Authenticate the org"
-        shell: bash
-        run: |
-          echo ${{ env.SANDBOX_NAME }}
-          echo ${{ secrets[env.SANDBOX_NAME] }} > ./SFDX_URL_${{ env.SANDBOX_NAME }}.txt
-          sfdx force:auth:sfdxurl:store -a ${{ env.SANDBOX_NAME }} --sfdxurlfile=./SFDX_URL_${{ env.SANDBOX_NAME }}.txt
+
+      - name: Set secret prefix
+        run: echo SANDBOX_SECRET=SALESFORCE_${{ env.SANDBOX_NAME }} >> $GITHUB_ENV
+
       - uses: actions/checkout@v2
         with:
           ref: ${{ github.ref }}
           fetch-depth: 0
+
+      - name: "Install npm packages"
+        run: |
+          mv ci.npmrc .npmrc
+          npm ci
+
+      - name: "Authenticate the org"
+        shell: bash
+        run: |
+          echo ${{ env.SANDBOX_NAME }}
+          echo ${{ secrets[env.SANDBOX_SECRET] }} > ./SFDX_URL_${{ env.SANDBOX_NAME }}.txt
+          npx sfdx force:auth:sfdxurl:store -a ${{ env.SANDBOX_NAME }} --sfdxurlfile=./SFDX_URL_${{ env.SANDBOX_NAME }}.txt
 
       - name: "Generate package"
         id: package

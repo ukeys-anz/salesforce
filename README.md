@@ -35,6 +35,21 @@ It is not recommended to run Salesforce on WLAN, as most features do not work. Y
 npm i -g sfdx-cli prettier prettier-plugin-apex typescript
 ```
 
+#### Pre-commit tooling
+(Recommended) To ensure that your npm tools are installed, please run
+
+```bash
+npm install -- force
+```
+This will install all the dev dependacies on your local machines, and it will also install a pre-commit hook which runs a script found in `.git-hooks/pre-commit`.
+This script runs:
+* Prettier on all parsable staged files
+* Runs a custom code designed to help with reviewing Einstein Analytics Dataflow JSON
+
+You will see prettier notices in your terminal everytime you run `git-commit`
+![Prettier and Git Hooks](https://user-images.githubusercontent.com/73924151/115315255-45aeba80-a1ba-11eb-8633-18aae634eab6.png)
+
+
 3. Download and install [PMD](https://pmd.github.io/) (use the Quickstart section on the home page)
 4. You can use any Text Editor or IDE you choose so long as they run locally. VS Code is recommended by Salesforce and there are several handy plugins found in the VS Code marketplace for syntax highlighter and SFDX CLI integration
 5. We use Production as our DevHub, and a DevHub is required in Salesforce CLI to generate scratch orgs. First you need to get your Production credentials setup, then execute
@@ -46,8 +61,6 @@ sfdx force:auth:web:login -r https://anz.my.salesforce.com -a DevHub -d
 ### 3. Creating a scrarch org
 
 There is a pre-written shell script, so to create a scratch org run:
-
-Note: You may need to run `npm install --force` prior to running the script to ensure that the dev dependancies are installed on your machine.
 
 ```bash
 ./setup.sh

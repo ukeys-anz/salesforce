@@ -11,8 +11,7 @@ on:
 
 jobs:
   prepare:
-    runs-on: ubuntu-latest
-    container: ddawson235/sfdx:latest
+    runs-on: [self-hosted, salesforce]
     outputs:
       IS_SANDBOX_SECRET_SET: ${{ steps.checksecret.outputs.IS_SANDBOX_SECRET_SET }}
     steps:
@@ -23,10 +22,13 @@ jobs:
         run: |
           if [ ${{ env.BRANCH_NAME }} == 'develop' ]; then echo SANDBOX_NAME=$(echo SYSTEST) >> $GITHUB_ENV; elif [ ${{ env.BRANCH_NAME }} == 'master' ]; then echo SANDBOX_NAME=$(echo STAGING) >> $GITHUB_ENV; else echo SANDBOX_NAME=$(echo ${{ env.BRANCH_NAME }} |  tr -d '-' | tr 'a-z' 'A-Z' | cut -d'/' -f 2 | cut -c1-10) >> $GITHUB_ENV; fi
 
+      - name: Set secret prefix
+        run: echo SANDBOX_SECRET=SALESFORCE_${{ env.SANDBOX_NAME }} >> $GITHUB_ENV
+
       - name: Check whether the sandbox secret exists
         id: checksecret
         env:
-          MY_SECRET: ${{ secrets[env.SANDBOX_NAME] }}
+          MY_SECRET: ${{ secrets[env.SANDBOX_SECRET] }}
         run: |
           echo "IS_SANDBOX_SECRET_SET: ${{ env.MY_SECRET != '' }}"
           echo "::set-output name=IS_SANDBOX_SECRET_SET::${{ env.MY_SECRET != '' }}" 
@@ -35,8 +37,13 @@ jobs:
   build_and_deploy:
     needs: [prepare]
     if: needs.prepare.outputs.IS_SANDBOX_SECRET_SET == 'true'
-    runs-on: ubuntu-latest
-    container: ddawson235/sfdx:latest
+    runs-on: [self-hosted, salesforce]
+    env:
+      SFDX_NPM_REGISTRY: https://artifactory.gcp.anz/artifactory/api/npm/npmjs-org/
+      SFDX_DISABLE_TELEMETRY: true
+      SFDX_DISABLE_AUTOUPDATE: true
+      HTTP_PROXY: http://127.0.0.1:3128
+      HTTPS_PROXY: http://127.0.0.1:3128
 
     steps:
       - name: Set Branch Name
@@ -45,17 +52,25 @@ jobs:
         run: |
           if [ ${{ env.BRANCH_NAME }} == 'develop' ]; then echo SANDBOX_NAME=$(echo SYSTEST) >> $GITHUB_ENV; elif [ ${{ env.BRANCH_NAME }} == 'master' ]; then echo SANDBOX_NAME=$(echo STAGING) >> $GITHUB_ENV; else echo SANDBOX_NAME=$(echo ${{ env.BRANCH_NAME }} |  tr -d '-' | tr 'a-z' 'A-Z' | cut -d'/' -f 2 | cut -c1-10) >> $GITHUB_ENV; fi
 
-      - name: "Authenticate the org"
-        shell: bash
-        run: |
-          echo 'Authenticating ${{ env.SANDBOX_NAME }}'
-          echo ${{ secrets[env.SANDBOX_NAME] }} > ./SFDX_URL_${{ env.SANDBOX_NAME }}.txt
-          sfdx force:auth:sfdxurl:store -a ${{ env.SANDBOX_NAME }} --sfdxurlfile=./SFDX_URL_${{ env.SANDBOX_NAME }}.txt
+      - name: Set secret prefix
+        run: echo SANDBOX_SECRET=SALESFORCE_${{ env.SANDBOX_NAME }} >> $GITHUB_ENV
 
       - uses: actions/checkout@v2
         with:
           ref: ${{ github.ref }}
           fetch-depth: 0
+
+      - name: "Install npm packages"
+        run: |
+          mv ci.npmrc .npmrc
+          npm ci
+
+      - name: "Authenticate the org"
+        shell: bash
+        run: |
+          echo 'Authenticating ${{ env.SANDBOX_NAME }}'
+          echo ${{ secrets[env.SANDBOX_SECRET] }} > ./SFDX_URL_${{ env.SANDBOX_NAME }}.txt
+          npx sfdx force:auth:sfdxurl:store -a ${{ env.SANDBOX_NAME }} --sfdxurlfile=./SFDX_URL_${{ env.SANDBOX_NAME }}.txt
 
       - name: "Generate package"
         id: package
@@ -87,8 +102,7 @@ jobs:
           git push origin "$TAG"
 
   create_documentation:
-    runs-on: ubuntu-latest
-    container: ddawson235/sfdx:latest
+    runs-on: [self-hosted, salesforce]
     needs: build_and_deploy
     if: github.ref == 'refs/heads/master'
     steps:
@@ -112,6 +126,12 @@ jobs:
           fetch-depth: 0
           path: salesforce
 
+      - name: "Install npm packages"
+        working-directory: salesforce
+        run: |
+          mv ci.npmrc .npmrc
+          npm ci
+
       - name: Install plugin
         working-directory: plugin
         shell: bash
@@ -119,10 +139,10 @@ jobs:
 
       - name: "Create auth files with SFDX_URL secret"
         shell: bash
-        run: echo ${{ secrets.SYSTEST}} > ./SFDX_URL_SYSTEST.txt
+        run: echo ${{ secrets.SALESFORCE_SYSTEST}} > ./SFDX_URL_SYSTEST.txt
 
       - name: "Authenticate all orgs in SFDX CLI"
-        run: sfdx force:auth:sfdxurl:store -a systest --sfdxurlfile=./SFDX_URL_SYSTEST.txt
+        run: npx sfdx force:auth:sfdxurl:store -a systest --sfdxurlfile=./SFDX_URL_SYSTEST.txt
 
       - name: Generate schema and access docs
         working-directory: salesforce

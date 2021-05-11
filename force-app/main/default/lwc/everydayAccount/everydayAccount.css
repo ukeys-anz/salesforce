@@ -24,9 +24,9 @@
 .lastUpdated {
   float: right;
   font-size: 12px;
-  position: absolute;
-  bottom: 7px;
-  right: 10px;
+  position: relative;
+  bottom: 24px;
+  right: 12px;
 }
 
 .not-found {

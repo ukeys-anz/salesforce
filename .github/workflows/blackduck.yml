@@ -1,0 +1,43 @@
+name: BlackDuck 🦆 Scan
+
+on:
+  push:
+    paths:
+      - .github/workflows/blackduck.yml # Run on change to scan, or packages, in develop
+      - '**/package.json'
+    branches:
+      - develop
+  schedule:
+    - cron: "57 2 * * SAT" # Run every Saturday between 2-3am
+
+jobs:
+  blackduck:
+    runs-on: [self-hosted, org]
+    steps:
+      - uses: actions/setup-node@v2.1.5
+        with:
+          node-version: '12'
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: "Install npm packages"
+        run: |
+          mv ci.npmrc .npmrc
+          npm ci
+
+      - name: "🦆 Black Duck Scan"
+        run: |
+          # Collect GitHub Actions environment variables for forwarding into
+          # docker run, so that Blackduck project and project version are
+          # automatically configured based on branch and repository name.
+          DOCKER_RUN_ENV_ARGS=($(env|awk -F= '$1 ~ /^GITHUB_/ {print "-e"$1}' ))
+          # Do the actual Blackduck scan.
+          docker run \
+            "${DOCKER_RUN_ENV_ARGS[@]}" \
+            -e=DETECT_JAVA_OPTS=-Xmx6G \
+            -v="$(pwd)":/workspace \
+            --workdir /workspace \
+            anzx-docker.artifactory.gcp.anz/blackduck/scanner:latest \
+            -- --detect.tools=DETECTOR \
+            --detect.detector.search.depth=10
