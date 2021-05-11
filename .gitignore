@@ -19,6 +19,7 @@ yarn-error.log*
 
 # Dependency directories
 node_modules/
+webdriverIO/node_modules
 
 # MacOS system files
 .DS_Store
@@ -62,17 +63,22 @@ coverage/
 .eslintrc.json
 
 #Webdriver IO
-webdriverIO/all-logs/
-webdriverIO/driver-logs/
-webdriverIO-build/
+webdriverIO/suite/all-logs/
+webdriverIO/suite/driver-logs/
+webdriverIO/build
 
 # Sonarqube
 .scannerwork
 
 #Allure reporting
+webdriverIO/allure-results/*
+webdriverIO/!allure-results/categories.json
+webdriverIO/allure-report
+webdriverIO/.env
 allure-results/*
 !allure-results/categories.json
 allure-report
 .env
 .env.example.original
+
 force-app/main/default/classes/utils/AzureTestRefreshToken.cls

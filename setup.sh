@@ -77,9 +77,8 @@ y | Y)
     echo "$(date): Import test data and users..."
     JOB_START_TIME=$(date +%s)
     tsc --build
-    cp .env.example .env.example.original
-    mv .env.example .env
-    node webdriverURLsetup.js
+    cp webdriverIO/.env.example webdriverIO/.env
+    node webdriverIO/setup-scripts/envSetup.js
     #below will fetch the latest changes from the remote master branch as its the branch specified in salesforce-scripts submodule
     git submodule update --init --remote
     #Add all the scripts to load data below
@@ -89,23 +88,20 @@ y | Y)
     #sfdx force:data:bulk:upsert --sobjecttype Product2 --csvfile data/IDR-ANZ-Products.csv --externalid ANZ_Product_Code__c --wait 2 2>&1 | tee stderr
     sfdx force:data:tree:import -p data/IDR-Product2-Case-plan.json 2>&1 | tee stderr
     if [[ ($(cat stderr) == *'ERROR'*) ]]; then
-        mv .env.example.original .env.example
         exit 1
     fi
-    rm .env
-    mv .env.example.original .env.example
-
+    
     echo "Creating Coach user"
-    node createUser.js --profile "coach"
+    node webdriverIO/setup-scripts/createUser.js --profile "coach"
 
     echo "Creating IDR user"
-    node createUser.js --profile "idr level 3"
+    node webdriverIO/setup-scripts/createUser.js --profile "idr level 3"
 
     echo "Assigning user roles"
     sfdx force:apex:execute -f ./apex-scripts/assignUserRole.apex
 
     echo "Create users json for webdriverIO"
-    node createUserJsonList.js
+    node webdriverIO/setup-scripts/createUserJsonList.js
 
     JOB_END_TIME=$(date +%s)
     echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
