@@ -179,14 +179,12 @@ export default class CreateComplaintLWC extends NavigationMixin(
   restrictionLevelValue = "";
 
   // Issue 2 fields
-  hasSecondIssue = HAS_SECOND_ISSUE;
   issueType2 = ISSUE_TYPE_2;
   subsequentIssue2 = SUBSEQUENT_ISSUE_TYPE_2;
   productValue2 = PRODUCT_LOOKUP_FIELD_2;
   accountOrPolicyNumber2 = "";
 
   // Issue 3 fields
-  hasThirdIssue = HAS_THIRD_ISSUE;
   issueType3 = ISSUE_TYPE_3;
   subsequentIssue3 = SUBSEQUENT_ISSUE_TYPE_3;
   productValue3 = PRODUCT_LOOKUP_FIELD_3;
@@ -198,8 +196,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   isCustomerDetails = false;
   hasNominatedThirdParty = false;
-  hasSecondIssue;
-  hasThirdIssue;
+  hasSecondIssue = false;
+  hasThirdIssue = false;
   activeSections = ["A", "B", "C"];
   displayCustomerInfo = false;
   customerIdValue = "";
@@ -223,7 +221,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
   isNonFinancialComplaintRemedy;
   isCommonComplaintYesNo;
   isCommonComplaint;
-  isRealFormNeeded;
   isAddressRequired;
   consentOptions = [
     { label: "Agrees", value: "Agrees" },

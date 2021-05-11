@@ -45,6 +45,9 @@
                           >{finAccount.FinServ__Status__c}</span
                         >
                       </h2>
+                      <span class="lastUpdated"
+                        >Last Updated {finAccount.lastUpdated}</span
+                      >
                     </header>
                   </div>
                   <div class="slds-grid slds-wrap">
@@ -108,9 +111,6 @@
           </p>
         </div>
       </template>
-      <footer class="slds-card__footer">
-        <span class="lastUpdated">Last Updated Date/Time {timestamp}</span>
-      </footer>
     </article>
   </template>
 </template>

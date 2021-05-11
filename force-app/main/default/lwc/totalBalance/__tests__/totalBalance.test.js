@@ -3,12 +3,9 @@ import { createElement } from "lwc";
 import getTotalBalance from "@salesforce/apex/TotalBalanceController.getTotalBalance";
 import getTotalSaved from "@salesforce/apex/TotalBalanceController.getTotalSaved";
 
-import { publish, subscribe, MessageContext } from "lightning/messageService";
+import { publish, subscribe } from "lightning/messageService";
 
-import {
-  registerLdsTestWireAdapter,
-  registerTestWireAdapter
-} from "@salesforce/sfdx-lwc-jest";
+import { createTestWireAdapter } from '@salesforce/wire-service-jest-util';
 import UpdateAccounts from "@salesforce/messageChannel/FinancialAccountsUpdate__c";
 import TriggerLoading from "@salesforce/messageChannel/FinancialAccountsTriggerLoading__c";
 
@@ -55,7 +52,7 @@ const APEX_TOTAL_BALANCE_ERROR = {
   statusText: "Bad Request"
 };
 
-const messageContextWireAdapter = registerTestWireAdapter(MessageContext);
+const MessageContext = createTestWireAdapter();
 
 describe("c-totalBalance", () => {
   //clean the dom and mocks in between test runs
@@ -91,7 +88,7 @@ describe("c-totalBalance", () => {
     const payload = {
       update: true
     };
-    publish(messageContextWireAdapter, TriggerLoading, payload);
+    publish(MessageContext, TriggerLoading, payload);
 
     const loadingEle = element.shadowRoot.querySelector("lightning-spinner");
 
@@ -107,7 +104,6 @@ describe("c-totalBalance", () => {
       is: totalBalance
     });
     document.body.appendChild(element);
-    const loadingEle = element.shadowRoot.querySelector("lightning-spinner");
 
     return Promise.resolve().then(() => {
       expect(subscribe).toHaveBeenCalled();
@@ -125,7 +121,7 @@ describe("c-totalBalance", () => {
     const payload = {
       update: true
     };
-    publish(messageContextWireAdapter, UpdateAccounts, payload);
+    publish(MessageContext, UpdateAccounts, payload);
 
     return Promise.resolve()
       .then(() => {})
@@ -148,7 +144,7 @@ describe("c-totalBalance", () => {
     const payload = {
       message: "test message"
     };
-    publish(messageContextWireAdapter, UpdateAccounts, payload);
+    publish(MessageContext, UpdateAccounts, payload);
 
     return Promise.resolve()
       .then(() => {})
@@ -169,15 +165,18 @@ describe("c-totalBalance", () => {
     const payload = {
       message: "test message"
     };
-    publish(messageContextWireAdapter, UpdateAccounts, payload);
+    publish(MessageContext, UpdateAccounts, payload);
 
-    return Promise.resolve().catch(() => {
-      const mainEle = element.shadowRoot.querySelector("article");
-      expect(mainEle).not.toBeNull();
+    return Promise.resolve()
+      .then(() => {})
+      .then(() => {})
+      .finally(() => {
+        const mainEle = element.shadowRoot.querySelector("article");
+        expect(mainEle).not.toBeNull();
 
-      const paraEle = element.shadowRoot.querySelector("p");
-      expect(paraEle).toBeNull();
-    });
+        const paraEle = element.shadowRoot.querySelector("p");
+        expect(paraEle).toBeNull();
+      });
   });
 
   it("test UpdateAccountsAndGoals triggering with null result", () => {
@@ -191,7 +190,7 @@ describe("c-totalBalance", () => {
     const payload = {
       update: true
     };
-    publish(messageContextWireAdapter, UpdateAccounts, payload);
+    publish(MessageContext, UpdateAccounts, payload);
 
     return Promise.resolve()
       .then(() => {})
