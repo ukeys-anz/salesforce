@@ -65,7 +65,7 @@ describe("c-customer-information", () => {
         "Last Name : " + lastName
       );
       expect(customerdataElements[4].textContent).toBe(
-        "RM Complaint :" + rmComplaint
+        "RM Complaint : " + rmComplaint
       );
 
       const showMoreButton = element.shadowRoot.querySelector("button");
@@ -108,7 +108,7 @@ describe("c-customer-information", () => {
         "Last Name : " + lastName
       );
       expect(customerdataElements[4].textContent).toBe(
-        "RM Complaint :" + rmComplaint
+        "RM Complaint : " + rmComplaint
       );
 
       const showMoreButton = element.shadowRoot.querySelector("button");
