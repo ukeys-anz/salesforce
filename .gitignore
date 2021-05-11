@@ -80,5 +80,3 @@ allure-results/*
 allure-report
 .env
 .env.example.original
-
-force-app/main/default/classes/utils/AzureTestRefreshToken.cls
