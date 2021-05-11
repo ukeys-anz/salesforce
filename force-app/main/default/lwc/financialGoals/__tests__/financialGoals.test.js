@@ -90,10 +90,11 @@ describe("c-financialGoals", () => {
     });
     document.body.appendChild(element);
 
-    return Promise.resolve().catch(() => {
-      const mainEle = element.shadowRoot.querySelector("article");
-      expect(mainEle).not.toBeNull();
-    });
+    return Promise.resolve()
+      .finally(() => {
+        const mainEle = element.shadowRoot.querySelector("article");
+        expect(mainEle).toBeNull();
+      });
   });
 
   it("test fetch with empty data", () => {
@@ -103,9 +104,10 @@ describe("c-financialGoals", () => {
     });
     document.body.appendChild(element);
 
-    return Promise.resolve().catch(() => {
-      const mainEle = element.shadowRoot.querySelector("article");
-      expect(mainEle).not.toBeNull();
-    });
+    return Promise.resolve()
+      .finally(() => {
+        const mainEle = element.shadowRoot.querySelector("ul");
+        expect(mainEle).toBeNull();
+      });
   });
 });

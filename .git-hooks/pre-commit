@@ -1,0 +1,19 @@
+#!/bin/sh
+
+RED="\033[1;31m"
+GREEN="\033[1;32m"
+NC="\033[0m"
+
+npx pretty-quick --staged
+npm run ea:prettier
+
+if [ $? -eq 0 ]
+then
+  echo "${GREEN} ✔ Prettier Auto-commit complete ${NC}"
+  exit 0
+else
+  echo "${RED} Prettier did not run successfully ${NC}"
+  exit 1
+fi
+
+exit 0
