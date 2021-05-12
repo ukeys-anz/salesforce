@@ -9,6 +9,8 @@ public with sharing class IDRCollectionActions {
 
   private static final String START_COLLEC_TASK_SUBJECT = 'Start Collection is triggered from Salesforce for ';
 
+  private static final String ACC_NUMBER_NA = 'N/A';
+
   private static Boolean isCollectionEventFailed = false;
 
   private static List<String> stopCollectionAccList = new List<String>();
@@ -27,18 +29,21 @@ public with sharing class IDRCollectionActions {
     if (record.recordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID) {
       if (
         String.isNotBlank(record.IDR_Account_Card_Policy_Number__c) &&
+        record.IDR_Account_Card_Policy_Number__c != ACC_NUMBER_NA &&
         String.isBlank(record.IDR_Collection_Number__c)
       ) {
         record.IDR_Collection_Number__c = record.IDR_Account_Card_Policy_Number__c;
       }
       if (
         String.isNotBlank(record.IDR_Account_Card_Policy_Number_2__c) &&
+        record.IDR_Account_Card_Policy_Number_2__c != ACC_NUMBER_NA &&
         String.isBlank(record.IDR_Collection_Number_2__c)
       ) {
         record.IDR_Collection_Number_2__c = record.IDR_Account_Card_Policy_Number_2__c;
       }
       if (
         String.isNotBlank(record.IDR_Account_Card_Policy_Number_3__c) &&
+        record.IDR_Account_Card_Policy_Number_3__c != ACC_NUMBER_NA &&
         String.isBlank(record.IDR_Collection_Number_3__c)
       ) {
         record.IDR_Collection_Number_3__c = record.IDR_Account_Card_Policy_Number_3__c;
@@ -130,6 +135,7 @@ public with sharing class IDRCollectionActions {
       !IDRConstants.SUB_ISSUE_TYPE_COLLECTIONS.contains(
         oldRec.IDR_Subsequent_Issue__c
       )) &&
+      String.isNotBlank(c.IDR_Collection_Number__c) &&
       IDRConstants.ISSUE_TYPE_COLLECTIONS.contains(c.Type) &&
       IDRConstants.SUB_ISSUE_TYPE_COLLECTIONS.contains(
         c.IDR_Subsequent_Issue__c
@@ -156,6 +162,7 @@ public with sharing class IDRCollectionActions {
       !IDRConstants.SUB_ISSUE_TYPE_COLLECTIONS.contains(
         oldRec.IDR_Subsequent_Issue_2__c
       )) &&
+      String.isNotBlank(c.IDR_Collection_Number_2__c) &&
       IDRConstants.ISSUE_TYPE_COLLECTIONS.contains(c.IDR_Issue_Type_2__c) &&
       IDRConstants.SUB_ISSUE_TYPE_COLLECTIONS.contains(
         c.IDR_Subsequent_Issue_2__c
@@ -182,6 +189,7 @@ public with sharing class IDRCollectionActions {
       !IDRConstants.SUB_ISSUE_TYPE_COLLECTIONS.contains(
         oldRec.IDR_Subsequent_Issue_3__c
       )) &&
+      String.isNotBlank(c.IDR_Collection_Number_3__c) &&
       IDRConstants.ISSUE_TYPE_COLLECTIONS.contains(c.IDR_Issue_Type_3__c) &&
       IDRConstants.SUB_ISSUE_TYPE_COLLECTIONS.contains(
         c.IDR_Subsequent_Issue_3__c
@@ -340,7 +348,7 @@ public with sharing class IDRCollectionActions {
           AND WhatId IN (
             SELECT id
             FROM case
-            WHERE isClosed = FALSE OR Id IN :caseIds
+            WHERE isClosed = false OR Id IN :caseIds
           )
       ]) {
         if (!startCollecMap.containsKey(taskRec.IDR_Collection_Number__c)) {
