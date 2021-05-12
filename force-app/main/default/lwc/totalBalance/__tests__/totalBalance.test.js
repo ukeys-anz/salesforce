@@ -5,7 +5,7 @@ import getTotalSaved from "@salesforce/apex/TotalBalanceController.getTotalSaved
 
 import { publish, subscribe } from "lightning/messageService";
 
-import { createTestWireAdapter } from '@salesforce/wire-service-jest-util';
+import { createTestWireAdapter } from "@salesforce/wire-service-jest-util";
 import UpdateAccounts from "@salesforce/messageChannel/FinancialAccountsUpdate__c";
 import TriggerLoading from "@salesforce/messageChannel/FinancialAccountsTriggerLoading__c";
 
