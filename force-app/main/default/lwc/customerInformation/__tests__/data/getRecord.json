@@ -1,0 +1,19 @@
+{
+    "fields": {
+        "IDR_NC_First_Name__c": {
+            "value": "DYNAMO"
+        },
+        "IDR_NC_Last_Name__c": {
+            "value": "Doe"
+        },
+        "IDR_NC_Middle_Names__c": {
+            "value": "john"
+        },
+        "IDR_Customer_Number__c": {
+            "value": "1234567890"
+        },
+        "Relationship_Managed_Complaint__c": {
+            "value": false
+        }
+    }
+ }
