@@ -2,7 +2,7 @@ import accountBalances from "c/accountBalances";
 import { createElement } from "lwc";
 import getBalances from "@salesforce/apex/AccountBalancesController.getBalances";
 import { publish, subscribe } from "lightning/messageService";
-import { createTestWireAdapter } from '@salesforce/wire-service-jest-util';
+import { createTestWireAdapter } from "@salesforce/wire-service-jest-util";
 
 import UpdateAccounts from "@salesforce/messageChannel/FinancialAccountsUpdate__c";
 import TriggerLoading from "@salesforce/messageChannel/FinancialAccountsTriggerLoading__c";
