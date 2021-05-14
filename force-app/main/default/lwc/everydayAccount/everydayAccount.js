@@ -77,23 +77,26 @@ export default class EverydayAccount extends NavigationMixin(LightningElement) {
     }
   }
 
-  setTimestamp() {
+  setTimestamp(date) {
     //Create timestamp for last updated
-    const today = new Date();
-    this.timestamp =
-      today.getDate() +
+    let updated = new Date(date);
+
+    let lastUpdate =
+      updated.getDate() +
       " " +
-      today.toLocaleString("en-AU", {
+      updated.toLocaleString("en-AU", {
         month: "long"
       }) +
       " " +
-      today.getFullYear() +
+      updated.getFullYear() +
       " | " +
-      today.toLocaleString("en-AU", {
+      updated.toLocaleString("en-AU", {
         hour: "numeric",
         minute: "numeric",
         hour12: true
       });
+
+    return lastUpdate;
   }
 
   showToast(theTitle, theMessage) {
@@ -119,10 +122,10 @@ export default class EverydayAccount extends NavigationMixin(LightningElement) {
             result = result.slice(0, 3);
           }
           result.forEach((finAccount) => {
-            //Only set timestamp once instead of each time in the loop
-            if (!this.timestamp) {
-              this.setTimestamp();
-            }
+            //Set last updated
+            finAccount.lastUpdated = this.setTimestamp(
+              finAccount.LastModifiedDate
+            );
 
             //Set the badge class based on the status
             if (finAccount.FinServ__Status__c === "Open") {

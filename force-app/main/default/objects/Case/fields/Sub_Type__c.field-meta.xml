@@ -219,19 +219,19 @@
             <valueName>Product Info</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Transaction &amp; Savings enquiry </controllingFieldValue>
+            <controllingFieldValue>Transaction &amp; Savings enquiry</controllingFieldValue>
             <valueName>Overdraft</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Transaction &amp; Savings enquiry </controllingFieldValue>
+            <controllingFieldValue>Transaction &amp; Savings enquiry</controllingFieldValue>
             <valueName>Round Ups</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Transaction &amp; Savings enquiry </controllingFieldValue>
+            <controllingFieldValue>Transaction &amp; Savings enquiry</controllingFieldValue>
             <valueName>Savings Goals</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Transaction &amp; Savings enquiry </controllingFieldValue>
+            <controllingFieldValue>Transaction &amp; Savings enquiry</controllingFieldValue>
             <valueName>Transaction</valueName>
         </valueSettings>
     </valueSet>

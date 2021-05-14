@@ -1,26 +1,17 @@
 import TransactionHistoryBoard from "c/transactionHistoryBoard";
 import { createElement } from "lwc";
 import getTransactions from "@salesforce/apex/CoachBankingAPIRepository.getTransactionHistoryAura";
+import { publish } from "lightning/messageService";
 import { getRecord } from "lightning/uiRecordApi";
-
-import { publish, MessageContext } from "lightning/messageService";
-import ExpandCollapseAll from "@salesforce/messageChannel/ListCollapseExpandAll__c";
-
 import {
-  registerApexTestWireAdapter,
-  registerTestWireAdapter,
   registerLdsTestWireAdapter
 } from "@salesforce/sfdx-lwc-jest";
 
-const messageContextWireAdapter = registerTestWireAdapter(MessageContext);
 
-const mockGetRecord = require("./data/getRecord.json");
 const APEX_TRANSACTIONS_SUCCESS = require("./data/transactionSuccess.json");
 const APEX_TRANSACTIONS_SUCCESS_SECOND = require("./data/transactionSuccessTwo.json");
 const APEX_TRANSACTIONS_SUCCESS_PARTIAL = require("./data/transactionPartial.json");
 const APEX_TRANSACTIONS_FAILURE = require("./data/transactionFailure.json");
-
-const getRecordAdapter = registerLdsTestWireAdapter(getRecord);
 
 jest.mock(
   "@salesforce/apex/CoachBankingAPIRepository.getTransactionHistoryAura",
@@ -32,12 +23,18 @@ jest.mock(
   { virtual: true }
 );
 
+//https://github.com/salesforce/wire-service-jest-util/blob/master/docs/migrating-from-version-2.x-to-3.x.md
+/* eslint-disable-next-line @lwc/lwc/no-unexpected-wire-adapter-usages */
+const getRecordAdapter = registerLdsTestWireAdapter(getRecord);
+const mockGetRecord = require("./data/getRecord.json");
+
 describe("c-transactionHistoryBoard", () => {
   afterEach(() => {
     // The jsdom instance is shared across test cases in a single file so reset the DOM
     while (document.body.firstChild) {
       document.body.removeChild(document.body.firstChild);
     }
+    jest.clearAllMocks();
   });
 
   function flushPromises() {

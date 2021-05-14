@@ -1,7 +1,7 @@
 import TransactionHistoryRecord from "c/transactionHistoryRecord";
 import { createElement } from "lwc";
 
-import { publish, subscribe, MessageContext } from "lightning/messageService";
+import { publish, subscribe } from "lightning/messageService";
 import ExpandCollapseAll from "@salesforce/messageChannel/ListCollapseExpandAll__c";
 
 //Import transaction test data
@@ -9,13 +9,9 @@ const transRecord = require("./data/transactionRecord.json");
 const transRecordWithoutWebsite = require("./data/transactionRecordNoWebsite.json");
 const transRecordPartial = require("./data/transactionRecordPartial.json");
 
-import {
-  registerApexTestWireAdapter,
-  registerTestWireAdapter,
-  registerLdsTestWireAdapter
-} from "@salesforce/sfdx-lwc-jest";
+import { createTestWireAdapter } from '@salesforce/wire-service-jest-util';
 
-const messageContextWireAdapter = registerTestWireAdapter(MessageContext);
+const MessageContext = createTestWireAdapter();
 
 describe("c-transactionHistoryRecord", () => {
   afterEach(() => {
@@ -38,7 +34,7 @@ describe("c-transactionHistoryRecord", () => {
 
     expect(subscribe).toHaveBeenCalled();
 
-    publish(messageContextWireAdapter, ExpandCollapseAll, payload);
+    publish(MessageContext, ExpandCollapseAll, payload);
 
     return Promise.resolve().then(() => {
       const descriptionDiv = element.shadowRoot.querySelector(
@@ -74,7 +70,7 @@ describe("c-transactionHistoryRecord", () => {
 
     expect(subscribe).toHaveBeenCalled();
 
-    publish(messageContextWireAdapter, ExpandCollapseAll, payload);
+    publish(MessageContext, ExpandCollapseAll, payload);
 
     return Promise.resolve().then(() => {
       const descriptionDiv = element.shadowRoot.querySelector(
@@ -110,7 +106,7 @@ describe("c-transactionHistoryRecord", () => {
 
     expect(subscribe).toHaveBeenCalled();
 
-    publish(messageContextWireAdapter, ExpandCollapseAll, payload);
+    publish(MessageContext, ExpandCollapseAll, payload);
 
     return Promise.resolve().then(() => {
       const descriptionDiv = element.shadowRoot.querySelector(
@@ -147,7 +143,7 @@ describe("c-transactionHistoryRecord", () => {
 
     expect(subscribe).toHaveBeenCalled();
 
-    publish(messageContextWireAdapter, ExpandCollapseAll, payload);
+    publish(MessageContext, ExpandCollapseAll, payload);
 
     return Promise.resolve().then(() => {
       const descriptionDiv = element.shadowRoot.querySelector(
@@ -212,10 +208,13 @@ describe("c-transactionHistoryRecord", () => {
     expect(raiseDisputeButton).not.toBeNull();
     raiseDisputeButton.click();
 
-    // Check if modal is displayed
-    const recordTypeSelectionModal = document.getElementsByTagName(
-      "slds-modal__container"
-    )[0];
-    expect(recordTypeSelectionModal).not.toBeNull();
+    return Promise.resolve().then(() => {
+      // Check if modal is displayed
+      const recordTypeSelectionModal = element.shadowRoot.querySelector(
+        "div.slds-modal__container"
+      );
+      expect(recordTypeSelectionModal).not.toBeNull();
+    });
+
   });
 });

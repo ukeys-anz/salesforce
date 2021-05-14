@@ -238,6 +238,11 @@
                 <componentName>runtime_sales_merge:mergeCandidatesPreviewCard</componentName>
             </componentInstance>
         </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>recordAccessLogMonitor</componentName>
+            </componentInstance>
+        </itemInstances>
         <name>rightsidebar</name>
         <type>Region</type>
     </flexiPageRegions>

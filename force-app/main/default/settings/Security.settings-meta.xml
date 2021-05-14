@@ -9,7 +9,6 @@
     <networkAccess/>
     <passwordPolicies>
         <complexity>SpecialCharacters</complexity>
-        <enableSetPasswordInApi>true</enableSetPasswordInApi>
         <expiration>NinetyDays</expiration>
         <historyRestriction>3</historyRestriction>
         <lockoutInterval>ThirtyMinutes</lockoutInterval>
