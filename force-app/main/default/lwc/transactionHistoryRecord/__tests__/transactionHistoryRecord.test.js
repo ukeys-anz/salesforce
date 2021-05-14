@@ -9,7 +9,7 @@ const transRecord = require("./data/transactionRecord.json");
 const transRecordWithoutWebsite = require("./data/transactionRecordNoWebsite.json");
 const transRecordPartial = require("./data/transactionRecordPartial.json");
 
-import { createTestWireAdapter } from '@salesforce/wire-service-jest-util';
+import { createTestWireAdapter } from "@salesforce/wire-service-jest-util";
 
 const MessageContext = createTestWireAdapter();
 
@@ -215,6 +215,5 @@ describe("c-transactionHistoryRecord", () => {
       );
       expect(recordTypeSelectionModal).not.toBeNull();
     });
-
   });
 });
