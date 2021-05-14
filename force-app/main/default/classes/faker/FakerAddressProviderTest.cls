@@ -1,3 +1,10 @@
+/**
+ * @author Igor Matkovic
+ * @since 09/07/2018
+ * @group Faker
+ * @description  Class extending FakerBase which defines FakerAddressProvider.
+ * Test class for {@link FakerAddressProvider}
+ */
 @IsTest
 class FakerAddressProviderTest {
   @isTest

@@ -1,0 +1,10 @@
+{
+  "total": {},
+  "transactions": [
+    {
+      "TransactionID": "123",
+      "amount": { "charged": { "value": "50.00" } },
+      "transactionType": "TRANSACTION_TYPE_CARD"
+    }
+  ]
+}

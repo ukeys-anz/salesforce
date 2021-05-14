@@ -4,6 +4,7 @@
  * @since Feb 2020
  * @description Lib_HttpCallout is a callout handler class which handles all the callouts to external apis such as SOAP services or REST services.
  * For now this class only has REST service implementation as we are currently not consuming SOAP or any other types of services
+ * @group Library
  */
 public with sharing class Lib_HttpCallout {
   /**

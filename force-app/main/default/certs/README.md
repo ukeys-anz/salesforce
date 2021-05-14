@@ -17,6 +17,12 @@
 
  5. In JWT Signing Certificate from the dropdown choose sfglobaltestks.
 
+### For Fabric Integrations from Salesforce 
+If the salesforce org is configured for SSO such as Systest and Staging no additional steps are required. However if you want a scratch org or sandbox with no SSO integration.
+1. In the named credentials change the TokenUrl named credentials URL:  https://login.microsoftonline.com/7f0788f7-3634-419b-bf74-bbe48147830c/oauth2/v2.0/token , username e0bd1ebf-68d8-4862-b8c6-49e59931c9de Password will be provided by github codeowners.
+2. In Custom Settings click on Manage for Non Production Settings and check SSO Not Configured and uncheck MockCallouts so we are integrating with real endpoints rather than Mocks.
+3. As admin go to Apex classes and edit AzureTestRefreshToken and change the REFRESHTESTVALUE field to a real refresh token provided by github codeowners.
+
 ##### For ingress into Salesforce from Mulesoft
 
  ![ingress](../../../../misc/readme-images/ingress.png)

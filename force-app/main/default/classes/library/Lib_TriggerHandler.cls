@@ -24,6 +24,7 @@
  *              public override void onBeforeInsert(){
  *              }
  *          }
+ * @group Library
  */
 @SuppressWarnings('PMD.EmptyStatementBlock')
 public virtual with sharing class Lib_TriggerHandler {

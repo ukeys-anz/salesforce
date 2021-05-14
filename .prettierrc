@@ -16,6 +16,10 @@
     {
       "files": "*.{ts}",
       "options": { "parser": "typescript" }
+    },
+    {
+      "files": "**/*.wdash",
+      "options": { "parser": "json" }
     }
   ]
 }

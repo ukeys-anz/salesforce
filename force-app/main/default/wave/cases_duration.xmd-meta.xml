@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<WaveXmd xmlns="http://soap.sforce.com/2006/04/metadata">
+<WaveXmd xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <dataset>cases_duration</dataset>
     <dimensions>
         <field>Subject</field>
@@ -43,5 +43,63 @@
         <isDerived>false</isDerived>
         <label>Product Name</label>
         <sortIndex>4</sortIndex>
+    </dimensions>
+    <dimensions>
+        <conditionalFormatting>
+            <formattingBins>
+                <bin>Breached</bin>
+                <formatValue>#E84340</formatValue>
+                <label xsi:nil="true"/>
+                <sortIndex>0</sortIndex>
+            </formattingBins>
+            <formattingBins>
+                <bin>Warning</bin>
+                <formatValue>#E8963B</formatValue>
+                <label xsi:nil="true"/>
+                <sortIndex>1</sortIndex>
+            </formattingBins>
+            <property>chartColor</property>
+            <referenceField>SLA_Status__c</referenceField>
+            <sortIndex xsi:nil="true"/>
+            <type>categories</type>
+        </conditionalFormatting>
+        <field>SLA_Status__c</field>
+        <isDerived>false</isDerived>
+        <sortIndex>5</sortIndex>
+    </dimensions>
+    <dimensions>
+        <conditionalFormatting>
+            <formattingBins>
+                <bin>Escalated</bin>
+                <formatValue>rgb(181, 14, 3)</formatValue>
+                <label xsi:nil="true"/>
+                <sortIndex>0</sortIndex>
+            </formattingBins>
+            <formattingBins>
+                <bin>Open</bin>
+                <formatValue>rgb(97, 144, 189)</formatValue>
+                <label xsi:nil="true"/>
+                <sortIndex>1</sortIndex>
+            </formattingBins>
+            <formattingBins>
+                <bin>Re-opened</bin>
+                <formatValue>rgb(74, 191, 106)</formatValue>
+                <label xsi:nil="true"/>
+                <sortIndex>2</sortIndex>
+            </formattingBins>
+            <formattingBins>
+                <bin>Under Investigation</bin>
+                <formatValue>rgb(231, 225, 95)</formatValue>
+                <label xsi:nil="true"/>
+                <sortIndex>3</sortIndex>
+            </formattingBins>
+            <property>chartColor</property>
+            <referenceField>Status</referenceField>
+            <sortIndex xsi:nil="true"/>
+            <type>categories</type>
+        </conditionalFormatting>
+        <field>Status</field>
+        <isDerived>false</isDerived>
+        <sortIndex>6</sortIndex>
     </dimensions>
 </WaveXmd>

@@ -2,6 +2,7 @@
  * @description Date time utils which contains untility functions for all the Date and Time related calculations
  * @author Pavan Kumar Ananta
  * @since April 2020
+ * @group Utils
  */
 public without sharing class DateTimeUtils {
   /**

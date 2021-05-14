@@ -162,9 +162,9 @@
         <label>Product Information</label>
     </standardValue>
     <standardValue>
-        <fullName>Transaction &amp; Savings enquiry </fullName>
+        <fullName>Transaction &amp; Savings enquiry</fullName>
         <default>false</default>
-        <label>Transaction &amp; Savings enquiry </label>
+        <label>Transaction &amp; Savings enquiry</label>
     </standardValue>
     <standardValue>
         <fullName>Dating &amp; Romance</fullName>

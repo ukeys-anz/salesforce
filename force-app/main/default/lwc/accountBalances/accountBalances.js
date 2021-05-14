@@ -11,7 +11,6 @@ import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accoun
 
 export default class AccountBalances extends LightningElement {
   @api recordId;
-  loading = true;
   currentBalance;
   availableBalance;
   @track timestamp;

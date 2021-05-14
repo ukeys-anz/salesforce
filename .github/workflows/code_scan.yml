@@ -8,12 +8,18 @@ on:
 
 jobs:
   pmd:
-    runs-on: ubuntu-latest
-    container: ddawson235/sfdx:latest
+    runs-on: [self-hosted, salesforce]
 
     steps:
       - name: "Checkout"
         uses: actions/checkout@v2
 
+      - name: "Install PMD"
+        shell: bash
+        run: |
+          wget -nc -O pmd.zip https://artifactory.gcp.anz/artifactory/github/pmd/pmd/releases/download/pmd_releases%2F6.34.0/pmd-bin-6.34.0.zip
+          unzip pmd.zip
+          chmod +x $GITHUB_WORKSPACE/pmd-bin-6.34.0/bin
+
       - name: "Run PMD"
-        run: pmd -d . -R ./rulesets/apex/quickstart.xml -l apex -f textcolor
+        run: $GITHUB_WORKSPACE/pmd-bin-6.34.0/bin/run.sh pmd -d . -R ./rulesets/apex/quickstart.xml -l apex -f textcolor

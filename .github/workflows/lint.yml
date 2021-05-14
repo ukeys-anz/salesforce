@@ -8,15 +8,16 @@ on:
 
 jobs:
   prettier:
-    runs-on: ubuntu-latest
-    container: ddawson235/sfdx:latest
+    runs-on: [self-hosted, salesforce]
 
     steps:
       - name: "Checkout"
         uses: actions/checkout@v2
 
-      - name: "Install NPM Packages"
-        run: npm i --only=dev
+      - name: "Install npm packages"
+        run: |
+          mv ci.npmrc .npmrc
+          npm ci
 
       - name: "Enforce Style Guidelines"
         shell: bash
@@ -28,26 +29,22 @@ jobs:
           npx prettier -c force-app/main/default/lwc/**/*.{js,html,css}
           echo "Checking Aura Components"
           npx prettier -c force-app/main/default/aura/**/*.{js,css,cmp}
-          echo "Checking WebdriverIO project files"
-          npx prettier -c webdriverIO/**/*.{ts,js}
 
   eslint:
-    runs-on: ubuntu-latest
-    container: ddawson235/sfdx:latest
+    runs-on: [self-hosted, salesforce]
 
     steps:
       - name: "Checkout"
         uses: actions/checkout@v2
 
-      - name: "Install NPM Packages"
-        run: |
-          npm i --only=dev
-          npm i lodash
+      - name: "Set npm repository mirror"
+        run: npm config set registry https://artifactory.gcp.anz/artifactory/api/npm/npmjs-org/
 
-      - name: "Lint LWC and TypeScript files"
+      - name: "Install NPM Packages"
+        run: npm ci
+
+      - name: "Lint LWC"
         shell: bash
         run: |
           echo "Linting Lightning Web Components"
           npx eslint force-app/main/default/lwc/**/*.js -c .lwc-eslintrc.json
-          echo "Linting TypeScript files"
-          npx eslint webdriverIO/**/*.ts -c .ts-eslintrc.json

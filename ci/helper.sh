@@ -40,8 +40,8 @@ function unzipDeployPackageandCopyMetaFiles() {
         fi
     done
 
-    # Copy full Aura and LWC directories where at least one change has been made
-    for dir in ${COMPONENT_DIR[*]}; do
+    # Copy full Aura, LWC, waveTemplate directories where at least one change has been made
+    for dir in ${BUNDLE_DIR[*]}; do
         if [[ -d ${DEPLOY_DIR}/force-app/main/default/$dir ]]; then
             for d in ${DEPLOY_DIR}/force-app/main/default/$dir/*; do
                 if [ -d "$d" ]; then
@@ -122,10 +122,10 @@ function deployArtifact() {
     if [[ $1 == 'validate' ]]; then
         #validate metadata
         echo "**********Validating metadata"
-        sfdx force:mdapi:deploy -u $2 -c -d $DEPLOY_ROOT -l RunLocalTests -w -1 --loglevel debug
+        npx sfdx force:mdapi:deploy -u $2 -c -d $DEPLOY_ROOT -l RunLocalTests -w -1 --loglevel debug
     else
         #deploy metadata
         echo "**********Deploying metadata"
-        sfdx force:mdapi:deploy -u $2 -d $DEPLOY_ROOT -l RunLocalTests -w -1 --loglevel debug
+        npx sfdx force:mdapi:deploy -u $2 -d $DEPLOY_ROOT -l RunLocalTests -w -1 --loglevel debug
     fi
 }

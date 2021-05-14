@@ -1,7 +1,7 @@
 /**
  * @author Igor Matkovic
  * @since 09/07/2018
- * @group faker
+ * @group Faker
  * @description  Sample factory class extending FakerFactoryBase
  * Marked as @isTest to not count against LOC limits
  */

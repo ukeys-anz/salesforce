@@ -90,9 +90,9 @@ describe("c-financialGoals", () => {
     });
     document.body.appendChild(element);
 
-    return Promise.resolve().catch(() => {
+    return Promise.resolve().finally(() => {
       const mainEle = element.shadowRoot.querySelector("article");
-      expect(mainEle).not.toBeNull();
+      expect(mainEle).toBeNull();
     });
   });
 
@@ -103,9 +103,9 @@ describe("c-financialGoals", () => {
     });
     document.body.appendChild(element);
 
-    return Promise.resolve().catch(() => {
-      const mainEle = element.shadowRoot.querySelector("article");
-      expect(mainEle).not.toBeNull();
+    return Promise.resolve().finally(() => {
+      const mainEle = element.shadowRoot.querySelector("ul");
+      expect(mainEle).toBeNull();
     });
   });
 });

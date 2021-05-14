@@ -2,6 +2,7 @@
  * @author Pavan Kumar Ananta
  * @since December 2020
  * @description RequestUtils class holds the util functions for all the apex callout requests
+ * @group Utils
  */
 public with sharing class RequestUtils {
   private static Request reqInfo;

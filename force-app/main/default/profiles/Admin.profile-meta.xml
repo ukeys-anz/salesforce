@@ -26,11 +26,7 @@
         <visible>false</visible>
     </applicationVisibilities>
     <classAccesses>
-        <apexClass>AccountTableServerController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>AccountTableServerControllerTest</apexClass>
+        <apexClass>AccountQueryHelper</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -47,6 +43,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CaseDurationService</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>CaseQueryHelper</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -179,6 +179,18 @@
     </classAccesses>
     <classAccesses>
         <apexClass>Lib_ApplicationLoggingEvents</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>Lib_FakeIdGenerator</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>Lib_MockProvider</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>Lib_MockService</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>

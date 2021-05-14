@@ -1,0 +1,11 @@
+{
+  "transactionId": "123",
+  "longDesc": "test Description",
+  "amount": {
+    "charged": { "value": "50.00" },
+    "converted": { "value": "50.00" },
+    "exchangeRate": { "value": "50.00" }
+  },
+  "type": "Card",
+  "date": "2020-01-01d18:19"
+}

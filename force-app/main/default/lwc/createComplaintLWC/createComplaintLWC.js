@@ -176,7 +176,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
   isNonFinancialComplaintRemedy;
   isCommonComplaintYesNo;
   isCommonComplaint;
-  isRealFormNeeded;
   isAddressRequired;
   consentOptions = [
     { label: "Agrees", value: "Agrees" },

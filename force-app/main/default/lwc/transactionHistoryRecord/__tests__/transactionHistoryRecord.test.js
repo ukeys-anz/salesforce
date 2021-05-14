@@ -1,129 +1,17 @@
 import TransactionHistoryRecord from "c/transactionHistoryRecord";
 import { createElement } from "lwc";
 
-import { publish, subscribe, MessageContext } from "lightning/messageService";
+import { publish, subscribe } from "lightning/messageService";
 import ExpandCollapseAll from "@salesforce/messageChannel/ListCollapseExpandAll__c";
 
-import {
-  registerApexTestWireAdapter,
-  registerTestWireAdapter,
-  registerLdsTestWireAdapter
-} from "@salesforce/sfdx-lwc-jest";
+//Import transaction test data
+const transRecord = require("./data/transactionRecord.json");
+const transRecordWithoutWebsite = require("./data/transactionRecordNoWebsite.json");
+const transRecordPartial = require("./data/transactionRecordPartial.json");
 
-const messageContextWireAdapter = registerTestWireAdapter(MessageContext);
+import { createTestWireAdapter } from "@salesforce/wire-service-jest-util";
 
-const transRecord = {
-  transactionId: "123",
-  amount: {
-    charged: { value: "50.00" },
-    converted: { value: "50.00" },
-    exchangeRate: { value: "50.00" }
-  },
-  type: "Card",
-  status: "Pending",
-  card: { scheme: "Visa" },
-  date: "2020-01-01d18:19",
-  longDesc: "test Description",
-  tags: [{ name: "test" }, { name: "testsuperloooo..." }],
-  merchant: {
-    name: "test",
-    chain_name: { value: "test" },
-    phone_number: { value: "123456" },
-    website_url: { value: "wwww.test.com" },
-    address: {
-      line_one: {
-        value: "test street"
-      },
-      suburb: {
-        value: "test suburb"
-      },
-      state: {
-        value: "test state"
-      },
-      postcode: {
-        value: "4000"
-      },
-      coordinates: {
-        latitude: 51,
-        longitude: 47
-      }
-    },
-    image_details: { light_url: [Object] },
-    email: "test@test.com"
-  },
-  TransactionDate: "2020-01-01",
-  TransactionTime: "18:19",
-  showDateTitle: true,
-  rowColour: "slds-card slds-m-bottom_small transaction-item even",
-  tagList: ["test", "testsuperloooo..."],
-  merchantDetails: true,
-  name: "test",
-  merchantLocation: "test street, test suburb test state 4000",
-  logo: "test url",
-  Error: "test error"
-};
-
-const transRecordWithoutWebsite = {
-  transactionId: "123",
-  amount: {
-    charged: { value: "50.00" },
-    converted: { value: "50.00" },
-    exchangeRate: { value: "50.00" }
-  },
-  type: "Card",
-  status: "Pending",
-  card: { scheme: "Visa" },
-  date: "2020-01-01d18:19",
-  longDesc: "test Description",
-  tags: [{ name: "test" }, { name: "testsuperloooo..." }],
-  merchant: {
-    name: "test",
-    chain_name: { value: "test" },
-    phone_number: { value: "123456" },
-    address: {
-      line_one: {
-        value: "test street"
-      },
-      suburb: {
-        value: "test suburb"
-      },
-      state: {
-        value: "test state"
-      },
-      postcode: {
-        value: "4000"
-      },
-      coordinates: {
-        latitude: 51,
-        longitude: 47
-      }
-    },
-    image_details: { light_url: [Object] },
-    email: "test@test.com"
-  },
-  TransactionDate: "2020-01-01",
-  TransactionTime: "18:19",
-  showDateTitle: true,
-  rowColour: "slds-card slds-m-bottom_small transaction-item even",
-  tagList: ["test", "testsuperloooo..."],
-  merchantDetails: true,
-  name: "test",
-  merchantLocation: "test street, test suburb test state 4000",
-  logo: "test url",
-  Error: "test error"
-};
-
-const transRecordPartial = {
-  transactionId: "123",
-  longDesc: "test Description",
-  amount: {
-    charged: { value: "50.00" },
-    converted: { value: "50.00" },
-    exchangeRate: { value: "50.00" }
-  },
-  type: "Card",
-  date: "2020-01-01d18:19"
-};
+const MessageContext = createTestWireAdapter();
 
 describe("c-transactionHistoryRecord", () => {
   afterEach(() => {
@@ -146,7 +34,7 @@ describe("c-transactionHistoryRecord", () => {
 
     expect(subscribe).toHaveBeenCalled();
 
-    publish(messageContextWireAdapter, ExpandCollapseAll, payload);
+    publish(MessageContext, ExpandCollapseAll, payload);
 
     return Promise.resolve().then(() => {
       const descriptionDiv = element.shadowRoot.querySelector(
@@ -182,7 +70,7 @@ describe("c-transactionHistoryRecord", () => {
 
     expect(subscribe).toHaveBeenCalled();
 
-    publish(messageContextWireAdapter, ExpandCollapseAll, payload);
+    publish(MessageContext, ExpandCollapseAll, payload);
 
     return Promise.resolve().then(() => {
       const descriptionDiv = element.shadowRoot.querySelector(
@@ -218,7 +106,7 @@ describe("c-transactionHistoryRecord", () => {
 
     expect(subscribe).toHaveBeenCalled();
 
-    publish(messageContextWireAdapter, ExpandCollapseAll, payload);
+    publish(MessageContext, ExpandCollapseAll, payload);
 
     return Promise.resolve().then(() => {
       const descriptionDiv = element.shadowRoot.querySelector(
@@ -255,7 +143,7 @@ describe("c-transactionHistoryRecord", () => {
 
     expect(subscribe).toHaveBeenCalled();
 
-    publish(messageContextWireAdapter, ExpandCollapseAll, payload);
+    publish(MessageContext, ExpandCollapseAll, payload);
 
     return Promise.resolve().then(() => {
       const descriptionDiv = element.shadowRoot.querySelector(
@@ -320,10 +208,12 @@ describe("c-transactionHistoryRecord", () => {
     expect(raiseDisputeButton).not.toBeNull();
     raiseDisputeButton.click();
 
-    // Check if modal is displayed
-    const recordTypeSelectionModal = document.getElementsByTagName(
-      "slds-modal__container"
-    )[0];
-    expect(recordTypeSelectionModal).not.toBeNull();
+    return Promise.resolve().then(() => {
+      // Check if modal is displayed
+      const recordTypeSelectionModal = element.shadowRoot.querySelector(
+        "div.slds-modal__container"
+      );
+      expect(recordTypeSelectionModal).not.toBeNull();
+    });
   });
 });

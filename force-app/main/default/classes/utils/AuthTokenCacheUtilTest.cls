@@ -1,11 +1,11 @@
 /**
  * @author Aidan Majewski
  * @since 10/2020
- * @description  Test class for AuthTokenCacheUtil
+ * @description  Test class for {@link AuthTokenCacheUtil}
+ * @group Utils
  */
 @isTest
 public class AuthTokenCacheUtilTest {
-  private final static String REFRESHTESTVALUE = 'testRefreshTokenValue';
   //jwt containing a single claim of exp 26/11/2020
   private final static String EXPIREDTOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MDYzNDczNzh9.-hm-9aM803s3TqiDyj7iaUi-tujRy2l8IddQWHKiXr4';
   //jwt containing a single claim of exp 26/11/2050
@@ -28,7 +28,7 @@ public class AuthTokenCacheUtilTest {
     );
     Cache.Org.put(
       'local.OrgAzureTokens.refreshToken' + userId,
-      REFRESHTESTVALUE,
+      AzureTestRefreshToken.REFRESHTESTVALUE,
       300,
       Cache.Visibility.NAMESPACE,
       false
@@ -61,17 +61,17 @@ public class AuthTokenCacheUtilTest {
     Test.startTest();
     AuthTokenCacheUtil.storeAzureOrgTokens(
       anzxUser,
-      REFRESHTESTVALUE,
+      AzureTestRefreshToken.REFRESHTESTVALUE,
       IDTESTVALUE
     );
     AuthTokenCacheUtil.storeAzureOrgTokens(
       anzUser,
-      REFRESHTESTVALUE,
+      AzureTestRefreshToken.REFRESHTESTVALUE,
       IDTESTVALUE
     );
     Test.stopTest();
     System.assertEquals(
-      REFRESHTESTVALUE,
+      AzureTestRefreshToken.REFRESHTESTVALUE,
       Cache.Org.get('local.OrgAzureTokens.refreshToken' + '005000000000000000'),
       'Token was incorrectly added for a non ANZx user' + anzxUser.Profile.Name
     );
@@ -126,7 +126,7 @@ public class AuthTokenCacheUtilTest {
     );
     Cache.Session.put(
       'local.SessionAzureTokens.refreshToken' + userId,
-      REFRESHTESTVALUE,
+      AzureTestRefreshToken.REFRESHTESTVALUE,
       300,
       Cache.Visibility.NAMESPACE,
       false
@@ -141,7 +141,7 @@ public class AuthTokenCacheUtilTest {
       'Failed to retrieve id token from session cache'
     );
     System.assertEquals(
-      REFRESHTESTVALUE,
+      AzureTestRefreshToken.REFRESHTESTVALUE,
       refreshTokenResult,
       'Failed to retrieve refresh token from session cache'
     );
@@ -187,7 +187,7 @@ public class AuthTokenCacheUtilTest {
     //add a refresh token but not an Id token
     Cache.Session.put(
       'local.SessionAzureTokens.refreshToken' + UserInfo.getUserId(),
-      REFRESHTESTVALUE,
+      AzureTestRefreshToken.REFRESHTESTVALUE,
       300,
       Cache.Visibility.NAMESPACE,
       false
@@ -205,10 +205,6 @@ public class AuthTokenCacheUtilTest {
    */
   @isTest
   public static void testGetStaffToken() {
-    Test.setMock(
-      HttpCalloutMock.class,
-      new ForgeTokenHandlerTest.MockForgeCallout()
-    );
     Id userId = UserInfo.getUserId();
     Cache.Session.put(
       'local.SessionAzureTokens.idToken' + userId,
@@ -229,10 +225,6 @@ public class AuthTokenCacheUtilTest {
    */
   @isTest
   public static void testGetStaffTokenFromCache() {
-    Test.setMock(
-      HttpCalloutMock.class,
-      new ForgeTokenHandlerTest.MockForgeCallout()
-    );
     Id userId = UserInfo.getUserId();
     Cache.Session.put(
       'local.SessionAzureTokens.idToken' + userId,
@@ -254,34 +246,6 @@ public class AuthTokenCacheUtilTest {
   }
 
   /**
-   * @description test method for getForgeJWTToken when failed
-   */
-  @isTest
-  public static void testGetStaffTokenFailure() {
-    Test.setMock(
-      HttpCalloutMock.class,
-      new ForgeTokenHandlerTest.MockForgeCalloutFailed()
-    );
-    Id userId = UserInfo.getUserId();
-    Cache.Session.put(
-      'local.SessionAzureTokens.idToken' + userId,
-      ForgeTokenHandlerTest.IDTESTVALUE,
-      300,
-      Cache.Visibility.NAMESPACE,
-      false
-    );
-
-    Test.startTest();
-    try {
-      AuthTokenCacheUtil.getStaffToken('1111');
-    } catch (Exception e) {
-      System.assertEquals('Get access token failed', e.getMessage());
-    }
-
-    Test.stopTest();
-  }
-
-  /**
    * @description tests the token expiry checker
    * GIVEN a JWT is supplied with an exp claim, boolean is returned if the exp datetime has passed
    */
@@ -296,5 +260,40 @@ public class AuthTokenCacheUtilTest {
       !result,
       'Token validity checker should return false when expiry date has passed'
     );
+  }
+
+  @isTest
+  public static void testGetStaffTokenFailure() {
+    Id userId = UserInfo.getUserId();
+    Cache.Session.put(
+      'local.SessionAzureTokens.idToken' + userId,
+      ForgeTokenHandlerTest.IDTESTVALUE,
+      300,
+      Cache.Visibility.NAMESPACE,
+      false
+    );
+    HttpCalloutResponse res = getForgeTokenInvalidResponse();
+    Service s = ServiceProvider.getService(FabricService.class);
+    s.setCalloutResponse(res);
+
+    Test.startTest();
+    String exceptionMsg = '';
+    try {
+      AuthTokenCacheUtil.getStaffToken('1111');
+    } catch (Exception e) {
+      exceptionMsg = e.getMessage();
+    }
+    System.assertEquals('Get access token failed', exceptionMsg);
+
+    Test.stopTest();
+  }
+
+  private static HttpCalloutResponse getForgeTokenInvalidResponse() {
+    HttpCalloutResponse response = new HttpCalloutResponse();
+    response.error = new CalloutException('Get access token failed');
+    response.statusCode = 500;
+    response.body = 'Get access token failed';
+    response.successful = false;
+    return response;
   }
 }
