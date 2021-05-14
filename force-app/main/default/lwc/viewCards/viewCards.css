@@ -18,7 +18,7 @@
 
 .details-container {
   position: relative;
-  left: 38%;
+  left: 42%;
   max-width: 315px;
   bottom: 110px;
 }
@@ -31,6 +31,8 @@
 .card-image {
   max-width: 175px;
   filter: drop-shadow(4px 4px 3px #034082);
+  position: relative;
+  right: 15px;
 }
 
 .load-all {
