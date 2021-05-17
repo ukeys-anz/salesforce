@@ -81,7 +81,7 @@
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
             <operator>notEqual</operator>
-            <value>1</value>
+            <value>Yes</value>
         </criteriaItems>
     </filter>
     <format>Summary</format>

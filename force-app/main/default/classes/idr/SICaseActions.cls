@@ -56,13 +56,13 @@ public without sharing class SICaseActions {
    */
   private static Case alignStatusToWorkflow(Case record, Case oldRecord) {
     if (
-      record.SI_Workflow_Step__c == '4' &&
-      oldRecord.SI_Workflow_Step__c != '4'
+      record.SI_Workflow_Step__c == 'Monitoring' &&
+      oldRecord.SI_Workflow_Step__c != 'Monitoring'
     ) {
       record.Status = 'Closed';
     } else if (
-      record.SI_Workflow_Step__c != '4' &&
-      oldRecord.SI_Workflow_Step__c == '4'
+      record.SI_Workflow_Step__c != 'Monitoring' &&
+      oldRecord.SI_Workflow_Step__c == 'Monitoring'
     ) {
       record.Status = 'Open';
     }
@@ -77,7 +77,7 @@ public without sharing class SICaseActions {
     for (Case record : records) {
       if (
         record.RecordTypeId == IDRConstants.SI_RT_ID &&
-        record.SI_Workflow_Step__c == '4'
+        record.SI_Workflow_Step__c == 'Monitoring'
       ) {
         monitoringTasks.add(createMonitoringTask(record, 3));
         monitoringTasks.add(createMonitoringTask(record, 6));
@@ -103,8 +103,8 @@ public without sharing class SICaseActions {
     for (Case record : (List<Case>) records) {
       if (
         record.RecordTypeId == IDRConstants.SI_RT_ID &&
-        ((Case) oldMap.get(record.id)).SI_Workflow_Step__c != '4' &&
-        record.SI_Workflow_Step__c == '4'
+        ((Case) oldMap.get(record.id)).SI_Workflow_Step__c != 'Monitoring' &&
+        record.SI_Workflow_Step__c == 'Monitoring'
       ) {
         casesToProcessWhenMonitoring.add(record);
       }
@@ -163,8 +163,8 @@ public without sharing class SICaseActions {
     for (Case c : (List<Case>) cases) {
       if (
         c.RecordTypeId == IDRConstants.SI_RT_ID &&
-        ((Case) oldMap.get(c.id)).SI_Workflow_Step__c == '4' &&
-        c.SI_Workflow_Step__c != '4'
+        ((Case) oldMap.get(c.id)).SI_Workflow_Step__c == 'Monitoring' &&
+        c.SI_Workflow_Step__c != 'Monitoring'
       ) {
         casesToProcessWhenReopened.add(c);
       }
