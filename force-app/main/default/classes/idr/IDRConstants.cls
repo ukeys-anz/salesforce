@@ -102,6 +102,14 @@ public with sharing class IDRConstants {
   //Channel Recieved
   public static final string CHANNEL_RECEIVED_AFCA_REFERRED = 'Referred from AFCA';
 
+  //IDREmailServiceConstants
+  public static final String CASE_NO_REGEX = '\\d{8}';
+  public static final String CASE_EMAIL_REGEX = '(?<=\\<)(.*?)(?=\\>)';
+  public static final String YOUR_FEEDBACK_EMAIL = 'YourFeedback@anz.com';
+  public static final String ICMNFL_EMAIL = 'IDRNonProd@anz.com';
+  public static final String ANZ_EDR_EMAIL = 'ANZEDRNonProd@anz.com';
+  public static final String REFERRED_FROM_AFCA = 'Referred from AFCA';
+
   //Anz.com constants
   /**
    * @description Static variable to map anz.com field with case fields
@@ -186,6 +194,7 @@ public with sharing class IDRConstants {
     set;
   }
 
+
   //Anz.com constants
   /**
    * @description Static variable to map xpression Template name
@@ -202,9 +211,9 @@ public with sharing class IDRConstants {
       return xpressiontemplateName;
     }
     set;
-  }
+  } 
 
-  /**
+  /** 
    * @description mapping from product to queue for workbasket allocation
    */
   public static final Map<String, String> CASE_ASSIGNMENT_PRODUCT_MAP = new Map<String, String>{

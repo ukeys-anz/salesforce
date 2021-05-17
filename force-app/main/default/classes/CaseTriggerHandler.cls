@@ -20,7 +20,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onApplyDefaults() {
     IDRCaseActions.applyDefaults((List<Case>) records);
-    SICaseActions.applyDefaults((List<Case>) records);
     GetHelpCaseActions.applyDefaults((List<Case>) records);
   }
 
@@ -32,7 +31,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     GetHelpCaseActions.handlePopulateCaseSubject(records, null);
     GetHelpCaseActions.updateEntitlement(records);
     GetHelpCaseActionsHelper.populateContactLookupForANZPlus(records);
-    IDREmailToCase.processEmail(records);
+    //IDREmailToCase.processEmail(records);
   }
 
   /**
@@ -81,7 +80,9 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
     if (!checkRecursive.firstCall) {
+      checkRecursive.firstCall = true;
       IDRCaseActions.completeAfterActions();
+      CaseCommonActions.completeAfterUpdateActions();
       GetHelpCaseActions.rollupRelatedBug(
         records,
         (List<Case>) oldMap.values()
