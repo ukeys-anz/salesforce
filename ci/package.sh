@@ -61,10 +61,11 @@ if [ "${CHANGED_FILES}" -gt "0" ]; then
     if result=$(npx sfdx force:source:convert -r ./force-app -d ${CURRENT_DIR}/artefact --loglevel debug 2>&1); then
         echo "Deploy conversion successful"
     else
-        if [[ $result == $ERROR_MSG* ]]; then
+        if [[ $result == *$ERROR_MSG* ]]; then
             echo "No files found in artifact, all files forceignored or no changes in deployable meta"
             exit 0
         else
+            echo $result
             exit 1
         fi        
     fi

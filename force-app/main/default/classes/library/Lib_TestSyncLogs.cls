@@ -13,6 +13,8 @@ public class Lib_TestSyncLogs {
     // GIVEN a single log record is created
     // WHEN the log is inserted
     lib_SystemLog.createSingleLog(
+      'Process',
+      'Function',
       '1111',
       'Desc',
       lib_SystemLog.Severity.ERROR
@@ -32,6 +34,8 @@ public class Lib_TestSyncLogs {
     // GIVEN a single api log record is created
     // WHEN the log is inserted
     lib_SystemLog.logAPIError(
+      'SomeProcess',
+      'SomeMethod',
       'Failed',
       '200',
       '0000',
@@ -56,7 +60,7 @@ public class Lib_TestSyncLogs {
   @isTest
   static void testMultipleLogs() {
     // GIVEN multiple log records are created
-    lib_SystemLog log = new lib_SystemLog();
+    lib_SystemLog log = new lib_SystemLog('Test Process', 'getSomething');
 
     Test.startTest();
 
@@ -90,7 +94,7 @@ public class Lib_TestSyncLogs {
   static void testDatabaseSaveResultError() {
     // GIVEN a programmatic database insert fails
     Contact c = new Contact();
-    lib_SystemLog log = new lib_SystemLog();
+    lib_SystemLog log = new lib_SystemLog('Contacts', 'saveContact');
 
     Test.startTest();
 

@@ -89,7 +89,10 @@ public inherited sharing class IDRCaseCommentActions {
         idrCaseCommentEscalationEvents
       );
       //log errors to application log
-      lib_systemLog log = new lib_systemLog();
+      lib_systemLog log = new lib_systemLog(
+        'IDRCaseCommentActions',
+        'publishCaseComments'
+      );
       log.addDatabaseSaveResult(
         'IDR_CaseComment_Event__e',
         results,

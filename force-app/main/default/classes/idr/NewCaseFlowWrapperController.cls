@@ -4,7 +4,10 @@
  * @group IDR(Internal Dispute Resolution)
  * @description Controller for the lightning component wrapping the Case creation flow, currently only for Complaints.
  */
+@SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class NewCaseFlowWrapperController {
+  public static final String SUPPORT_ARC_ROLE = 'Support_Staff_ARC';
+  public static final String COMPLAINT_RT = 'ANZx_Complaint';
   /**
    * @description Get the Developer Name of a Case record type based on its Id
    * @param id Record Type ID
@@ -43,6 +46,8 @@ public with sharing class NewCaseFlowWrapperController {
     // If more than one active Chat Topic found, log an Application Log entry including the '|' seperated string of all returned Chat Topic IDs
     if (activeChatTopics.size() > 1) {
       lib_systemLog.createSingleLog(
+        NewCaseFlowWrapperController.class.getName(),
+        'getActiveChatTopicIDsByCustomer',
         'MORE_THAN_ONE_ACTIVE_CHAT_TOPIC',
         'More than one "Acitve" Chat Topics found while trying to auto-link to a Case.' +
         ' - ' +
@@ -182,7 +187,10 @@ public with sharing class NewCaseFlowWrapperController {
 
       RequestUtils.setCommonRequestParams(request, 'GET');
       responseBody = RequestUtils.processRequest(
-        request,        
+        request,
+        NewCaseFlowWrapperController.class.getName(),
+        'getActiveChatTopics',
+        NewCaseFlowWrapperController.class.getName(),
         true
       );
     }
@@ -221,6 +229,24 @@ public with sharing class NewCaseFlowWrapperController {
             AND DeveloperName NOT IN :recordTypesToExcl
             AND Id IN :caseRecordTypeIds
         ];
+        List<UserRole> roleList = [
+          SELECT Id, Name, DeveloperName
+          FROM UserRole
+          WHERE Id = :UserInfo.getUserRoleId()
+        ];
+        if (
+          roleList.size() > 0 &&
+          roleList[0].DeveloperName ==
+          NewCaseFlowWrapperController.SUPPORT_ARC_ROLE
+        ) {
+          List<RecordType> filteredRt = new List<RecordType>();
+          for (RecordType rt : rtToDisplay) {
+            if (rt.DeveloperName == NewCaseFlowWrapperController.COMPLAINT_RT) {
+              filteredRt.add(rt);
+            }
+          }
+          rtToDisplay = filteredRt;
+        }
         return JSON.serialize(rtToDisplay);
       }
       return null;

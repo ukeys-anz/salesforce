@@ -28,7 +28,10 @@ public without sharing class UpdateFinancialAccounts {
     );
 
     //log errors to application log
-    lib_systemLog log = new lib_systemLog();
+    lib_systemLog log = new lib_systemLog(
+      'UpdateFinancialAccounts',
+      'updateAccounts'
+    );
     Boolean hasError = log.addDatabaseUpsertResult(
       'FinServ__FinancialAccount__c',
       results,

@@ -245,9 +245,12 @@ public with sharing class IDRCaseActions {
         // Operation failed, so get all errors
         for (Database.Error err : sr.getErrors()) {
           Lib_SystemLog.logAPIError(
-            'Error in executing case Assignment Rule for record id: ' + sr.getId() + '. ' + err.getMessage(),
+            IDRCaseActions.class.getName(),
+            'Error in executing case Assignment Rule for record id' +
+            sr.getId(),
+            err.getMessage(),
             null,
-            RequestUtils.getRequestId(),
+            IDRCaseActions.class.getName(),
             null,
             null
           );
@@ -512,7 +515,10 @@ public with sharing class IDRCaseActions {
         );
       }
       List<Database.SaveResult> results = EventBus.publish(idrCaseEscalations);
-      Lib_SystemLog log = new Lib_SystemLog();
+      Lib_SystemLog log = new Lib_SystemLog(
+        IDRCaseActions.class.getName(),
+        'escalateToCFMS'
+      );
       log.addDatabaseSaveResult(
         'IDR_CRC_Escalation_Event__e',
         results,
@@ -591,7 +597,10 @@ public with sharing class IDRCaseActions {
     }
     if (!idrNotifications.isEmpty()) {
       List<Database.SaveResult> results = EventBus.publish(idrNotifications);
-      Lib_SystemLog log = new Lib_SystemLog();
+      Lib_SystemLog log = new Lib_SystemLog(
+        IDRCaseActions.class.getName(),
+        'sendNotifications'
+      );
       log.addDatabaseSaveResult(
         'IDR_Notification_Event__e',
         results,
