@@ -258,12 +258,12 @@
     <picklistValues>
         <picklist>SI_Definite__c</picklist>
         <values>
-            <fullName>1</fullName>
+            <fullName>Yes</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>2</fullName>
-            <default>false</default>
+            <fullName>No</fullName>
+            <default>true</default>
         </values>
     </picklistValues>
     <picklistValues>
@@ -679,34 +679,34 @@
     <picklistValues>
         <picklist>SI_Subject_of_Breach_Report__c</picklist>
         <values>
-            <fullName>1</fullName>
+            <fullName>Yes</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>2</fullName>
+            <fullName>No</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>3</fullName>
+            <fullName>To be confirmed</fullName>
             <default>false</default>
         </values>
     </picklistValues>
     <picklistValues>
         <picklist>SI_Workflow_Step__c</picklist>
         <values>
-            <fullName>1</fullName>
+            <fullName>Assessing</fullName>
             <default>true</default>
         </values>
         <values>
-            <fullName>2</fullName>
+            <fullName>Investigating</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>3</fullName>
+            <fullName>Resolution</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>4</fullName>
+            <fullName>Monitoring</fullName>
             <default>false</default>
         </values>
     </picklistValues>

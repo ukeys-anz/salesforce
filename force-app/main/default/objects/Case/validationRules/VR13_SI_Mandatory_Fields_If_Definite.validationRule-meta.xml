@@ -6,7 +6,7 @@
     <errorConditionFormula>AND(
 	$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
 	RecordType.DeveloperName = &apos;Systemic_Issue&apos;,
-	ISPICKVAL(SI_Definite__c, &apos;1&apos;),
+	ISPICKVAL(SI_Definite__c, &apos;Yes&apos;),
 	OR(
 		ISBLANK(IDR_Description_of_Outcome__c),
 		ISBLANK(SI_Definite_Action_Required__c),
