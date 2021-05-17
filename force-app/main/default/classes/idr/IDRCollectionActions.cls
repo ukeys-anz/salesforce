@@ -13,13 +13,15 @@ public with sharing class IDRCollectionActions {
 
   private static Boolean isCollectionEventFailed = false;
 
-  private static List<String> stopCollectionAccList = new List<String>();
+  private static List<IDRCollectionsAccounts> stopCollectionAccList = new List<IDRCollectionsAccounts>();
 
   private static List<Task> stopCollectionTaskList = new List<Task>();
 
-  private static List<String> startCollectionAccList = new List<String>();
+  private static List<IDRCollectionsAccounts> startCollectionAccList = new List<IDRCollectionsAccounts>();
 
   private static List<Task> startCollectionTaskList = new List<Task>();
+
+  public static Map<Id, String> productNameMap = new Map<Id, String>();
 
   /**
    * @description method to copy customer account number in bankend field for collection purposes
@@ -60,6 +62,9 @@ public with sharing class IDRCollectionActions {
     List<Case> records,
     Map<Id, SObject> oldMap
   ) {
+    //get product names from Product2 table and store the mapping in local variable
+    productNameMap = getProductNames(records);
+
     List<IDR_Collections_Event__e> collectionsCasesEventList = new List<IDR_Collections_Event__e>();
 
     for (Case rec : records) {
@@ -88,7 +93,12 @@ public with sharing class IDRCollectionActions {
    */
   private static void validateRecordForStopCollection(Case rec, Case oldRec) {
     if (checkIssueOne(rec, oldRec)) {
-      stopCollectionAccList.add(rec.IDR_Collection_Number__c);
+      stopCollectionAccList.add(
+        new IDRCollectionsAccounts(
+          rec.IDR_Collection_Number__c,
+          productNameMap.get(rec.Product__c)
+        )
+      );
       stopCollectionTaskList.add(
         populateSystemTask(
           rec,
@@ -99,7 +109,12 @@ public with sharing class IDRCollectionActions {
       );
     }
     if (checkIssueTwo(rec, oldRec)) {
-      stopCollectionAccList.add(rec.IDR_Collection_Number_2__c);
+      stopCollectionAccList.add(
+        new IDRCollectionsAccounts(
+          rec.IDR_Collection_Number_2__c,
+          productNameMap.get(rec.IDR_Product_2__c)
+        )
+      );
       stopCollectionTaskList.add(
         populateSystemTask(
           rec,
@@ -110,7 +125,12 @@ public with sharing class IDRCollectionActions {
       );
     }
     if (checkIssueThree(rec, oldRec)) {
-      stopCollectionAccList.add(rec.IDR_Collection_Number_3__c);
+      stopCollectionAccList.add(
+        new IDRCollectionsAccounts(
+          rec.IDR_Collection_Number_3__c,
+          productNameMap.get(rec.IDR_Product_3__c)
+        )
+      );
       stopCollectionTaskList.add(
         populateSystemTask(
           rec,
@@ -201,7 +221,7 @@ public with sharing class IDRCollectionActions {
   }
 
   /**
-   * @description populate task fields for creating possible systemic issue task
+   * @description populate task fields for creating task after successful collection or complaint event
    * @param c case record from the trigger
    * @param subject of the task record
    * @param accountNumber of the each issue
@@ -234,7 +254,7 @@ public with sharing class IDRCollectionActions {
    */
   private static IDR_Collections_Event__e buildCollectionEvent(
     Case c,
-    List<String> collectionAccList
+    List<IDRCollectionsAccounts> collectionAccList
   ) {
     IDR_Collections_Event__e collectionsEvent = new IDR_Collections_Event__e();
     collectionsEvent.IDR_Customer_Number__c = c.IDR_Customer_Number__c;
@@ -400,7 +420,12 @@ public with sharing class IDRCollectionActions {
       startCollecMap.get(rec.IDR_Collection_Number__c).contains(rec.Id) &&
       startCollecMap.get(rec.IDR_Collection_Number__c).size() == 1
     ) {
-      startCollectionAccList.add(rec.IDR_Collection_Number__c);
+      startCollectionAccList.add(
+        new IDRCollectionsAccounts(
+          rec.IDR_Collection_Number__c,
+          productNameMap.get(rec.Product__c)
+        )
+      );
       startCollectionTaskList.add(
         populateSystemTask(
           rec,
@@ -415,7 +440,12 @@ public with sharing class IDRCollectionActions {
       startCollecMap.get(rec.IDR_Collection_Number_2__c).contains(rec.Id) &&
       startCollecMap.get(rec.IDR_Collection_Number_2__c).size() == 1
     ) {
-      startCollectionAccList.add(rec.IDR_Collection_Number_2__c);
+      startCollectionAccList.add(
+        new IDRCollectionsAccounts(
+          rec.IDR_Collection_Number_2__c,
+          productNameMap.get(rec.IDR_Product_2__c)
+        )
+      );
       startCollectionTaskList.add(
         populateSystemTask(
           rec,
@@ -430,7 +460,12 @@ public with sharing class IDRCollectionActions {
       startCollecMap.get(rec.IDR_Collection_Number_3__c).contains(rec.Id) &&
       startCollecMap.get(rec.IDR_Collection_Number_3__c).size() == 1
     ) {
-      startCollectionAccList.add(rec.IDR_Collection_Number_3__c);
+      startCollectionAccList.add(
+        new IDRCollectionsAccounts(
+          rec.IDR_Collection_Number_3__c,
+          productNameMap.get(rec.IDR_Product_3__c)
+        )
+      );
       startCollectionTaskList.add(
         populateSystemTask(
           rec,
@@ -440,5 +475,39 @@ public with sharing class IDRCollectionActions {
         )
       );
     }
+  }
+
+  /**
+   * @description method to query product names using product ids
+   * @param records List of case records from trigger
+   * @return Map<Id, String> product id as key and Product Name as value
+   */
+  public static Map<Id, String> getProductNames(List<Case> records) {
+    Set<Id> productIds = new Set<Id>();
+    Map<Id, String> productMap = new Map<Id, String>();
+
+    for (Case rec : records) {
+      if (rec.recordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID) {
+        if (String.isNotBlank(rec.Product__c)) {
+          productIds.add(rec.Product__c);
+        }
+        if (String.isNotBlank(rec.IDR_Product_2__c)) {
+          productIds.add(rec.IDR_Product_2__c);
+        }
+        if (String.isNotBlank(rec.IDR_Product_3__c)) {
+          productIds.add(rec.IDR_Product_3__c);
+        }
+      }
+    }
+    if (!productIds.isEmpty()) {
+      for (Product2 product : [
+        SELECT Id, Name
+        FROM Product2
+        WHERE Id IN :productIds
+      ]) {
+        productMap.put(product.Id, product.Name);
+      }
+    }
+    return productMap;
   }
 }

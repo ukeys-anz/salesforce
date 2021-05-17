@@ -11,8 +11,6 @@ public with sharing class IDRComplaintFlagActions {
 
   private static Set<String> existCustNumbers = new Set<String>();
 
-  private static Map<Id, String> productMap = new Map<Id, String>();
-
   private static Boolean isComplaintEventFailed = false;
 
   private static List<IDR_Complaints_Event__e> complaintEventList = new List<IDR_Complaints_Event__e>();
@@ -31,7 +29,6 @@ public with sharing class IDRComplaintFlagActions {
   ) {
     List<String> customerNumbers = new List<String>();
     List<Id> caseIds = new List<Id>();
-    Set<Id> productIds = new Set<Id>();
 
     for (Case rec : records) {
       Case oldRec = (oldMap != null ? (Case) oldMap.get(rec.Id) : null);
@@ -41,16 +38,8 @@ public with sharing class IDRComplaintFlagActions {
       ) {
         customerNumbers.add(rec.IDR_Customer_Number__c);
         caseIds.add(rec.Id);
-        productIds.add(rec.Product__c);
-        if (rec.IDR_Second_Issue__c) {
-          productIds.add(rec.IDR_Product_2__c);
-        }
-        if (rec.IDR_Third_Issue__c) {
-          productIds.add(rec.IDR_Product_3__c);
-        }
       }
     }
-    getProductNames(productIds);
     getExistingCustNumbers(customerNumbers, caseIds);
 
     for (Case rec : records) {
@@ -68,20 +57,6 @@ public with sharing class IDRComplaintFlagActions {
   }
 
   /**
-   * @description method to query product names using product ids
-   * @param productIds Set of product ids from case record
-   */
-  private static void getProductNames(Set<Id> productIds) {
-    for (Product2 product : [
-      SELECT Id, Name
-      FROM Product2
-      WHERE Id IN :productIds
-    ]) {
-      productMap.put(product.Id, product.Name);
-    }
-  }
-
-  /**
    * @description method to check if the case record has open complaint in the system
    * @param customerNumbers List of customer numbers from complaint records
    * @param caseIds list of case ids from complaint records
@@ -94,7 +69,7 @@ public with sharing class IDRComplaintFlagActions {
       SELECT Id, IDR_Customer_Number__c
       FROM Case
       WHERE
-        isClosed = FALSE
+        isClosed = false
         AND IDR_Customer_Number__c IN :customerNumbers
         AND Id NOT IN :caseIds
     ]) {
@@ -176,14 +151,17 @@ public with sharing class IDRComplaintFlagActions {
     List<IDRComplaintProducts> complaintProductList = new List<IDRComplaintProducts>();
 
     complaintProductList.add(
-      new IDRComplaintProducts(c.Type, productMap.get(c.Product__c))
+      new IDRComplaintProducts(
+        c.Type,
+        IDRCollectionActions.productNameMap.get(c.Product__c)
+      )
     );
 
     if (c.IDR_Second_Issue__c) {
       complaintProductList.add(
         new IDRComplaintProducts(
           c.IDR_Issue_Type_2__c,
-          productMap.get(c.IDR_Product_2__c)
+          IDRCollectionActions.productNameMap.get(c.IDR_Product_2__c)
         )
       );
     }
@@ -192,7 +170,7 @@ public with sharing class IDRComplaintFlagActions {
       complaintProductList.add(
         new IDRComplaintProducts(
           c.IDR_Issue_Type_3__c,
-          productMap.get(c.IDR_Product_3__c)
+          IDRCollectionActions.productNameMap.get(c.IDR_Product_3__c)
         )
       );
     }
