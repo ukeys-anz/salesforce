@@ -9,7 +9,7 @@ private with sharing class SICaseActionsTest {
         new Case(
           RecordTypeId = IDRConstants.SI_RT_ID,
           Status = 'Open',
-          SI_Workflow_step__c = '1',
+          SI_Workflow_step__c = 'Assessing',
           Subject = '000001234',
           Description = 'Test description 1234-5678-9101 check mask',
           IDR_Description_of_Outcome__c = 'Test description 1234 5678 9101 check mask',
@@ -26,7 +26,7 @@ private with sharing class SICaseActionsTest {
         new Case(
           RecordTypeId = IDRConstants.SI_RT_ID,
           Status = 'Closed',
-          SI_Workflow_step__c = '4'
+          SI_Workflow_step__c = 'Monitoring'
         )
       );
     }
@@ -54,7 +54,7 @@ private with sharing class SICaseActionsTest {
       WHERE
         RecordTypeId = :IDRConstants.SI_RT_ID
         AND Status = 'Open'
-        AND SI_Workflow_step__c = '1'
+        AND SI_Workflow_step__c = 'Assessing'
     ];
 
     //WHEN they're closed
@@ -67,7 +67,7 @@ private with sharing class SICaseActionsTest {
     Case[] c = [
       SELECT SI_Workflow_Step__c
       FROM Case
-      WHERE Status = 'Closed' AND SI_Workflow_step__c = '1'
+      WHERE Status = 'Closed' AND SI_Workflow_step__c = 'Assessing'
     ];
     System.assertEquals(
       newCases.size(),
@@ -85,12 +85,12 @@ private with sharing class SICaseActionsTest {
       WHERE
         RecordTypeId = :IDRConstants.SI_RT_ID
         AND Status = 'Closed'
-        AND SI_Workflow_step__c = '4'
+        AND SI_Workflow_step__c = 'Monitoring'
     ];
 
     //WHEN workflopw step goes back to investigating
     for (Case c : newCases) {
-      c.SI_Workflow_step__c = '2';
+      c.SI_Workflow_step__c = 'Investigating';
     }
     update newCases;
 
@@ -98,7 +98,7 @@ private with sharing class SICaseActionsTest {
     Case[] c = [
       SELECT Status
       FROM Case
-      WHERE Status = 'Open' AND SI_Workflow_step__c = '2'
+      WHERE Status = 'Open' AND SI_Workflow_step__c = 'Investigating'
     ];
     System.assertEquals(
       newCases.size(),
@@ -116,12 +116,12 @@ private with sharing class SICaseActionsTest {
       WHERE
         RecordTypeId = :IDRConstants.SI_RT_ID
         AND Status = 'Open'
-        AND SI_Workflow_step__c = '1'
+        AND SI_Workflow_step__c = 'Assessing'
     ];
 
     //WHEN they go into monitoring
     for (Case c : newCases) {
-      c.SI_Workflow_step__c = '4';
+      c.SI_Workflow_step__c = 'Monitoring';
     }
 
     update newCases;
@@ -136,7 +136,7 @@ private with sharing class SICaseActionsTest {
 
     //AND WHEN they go back to Investigating
     for (Case c2 : newCases) {
-      c2.SI_Workflow_step__c = '2';
+      c2.SI_Workflow_step__c = 'Investigating';
     }
     checkRecursive.firstCall = false;
     update newCases;
@@ -242,7 +242,7 @@ private with sharing class SICaseActionsTest {
         SI_Rec_Rem_Actions__c,
         SI_Subject_of_Breach_Report_Comments__c
       FROM Case
-      WHERE SI_Workflow_step__c = '1'
+      WHERE SI_Workflow_step__c = 'Assessing'
       LIMIT 1
     ];
     System.assertEquals('*****1234', c.Subject, 'Subject should be masked.');
