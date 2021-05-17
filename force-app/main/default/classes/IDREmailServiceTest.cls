@@ -142,7 +142,6 @@ public with sharing class IDREmailServiceTest {
       );
       insert c;
       List<Case> createdCases = [SELECT Id, CaseNumber FROM Case LIMIT 1];
-      System.debug('CaseNumber -- ' + createdCases[0].CaseNumber);
       String caseNumber = createdCases[0].CaseNumber;
 
       // Create a new email and envelope object.
@@ -217,7 +216,6 @@ public with sharing class IDREmailServiceTest {
       );
       insert c;
       List<Case> createdCases = [SELECT Id, CaseNumber FROM Case LIMIT 1];
-      System.debug('CaseNumber -- ' + createdCases[0].CaseNumber);
       String caseNumber = createdCases[0].CaseNumber;
 
       // Create a new email and envelope object.
