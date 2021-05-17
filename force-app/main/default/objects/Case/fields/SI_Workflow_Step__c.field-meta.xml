@@ -18,22 +18,22 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>1</fullName>
+                <fullName>Assessing</fullName>
                 <default>false</default>
                 <label>Assessing</label>
             </value>
             <value>
-                <fullName>2</fullName>
+                <fullName>Investigating</fullName>
                 <default>false</default>
                 <label>Investigating</label>
             </value>
             <value>
-                <fullName>3</fullName>
+                <fullName>Resolution</fullName>
                 <default>false</default>
                 <label>Resolution</label>
             </value>
             <value>
-                <fullName>4</fullName>
+                <fullName>Monitoring</fullName>
                 <default>false</default>
                 <label>Monitoring</label>
             </value>
@@ -41,21 +41,21 @@
         <valueSettings>
             <controllingFieldValue>Closed</controllingFieldValue>
             <controllingFieldValue>Open</controllingFieldValue>
-            <valueName>1</valueName>
+            <valueName>Assessing</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Closed</controllingFieldValue>
             <controllingFieldValue>Open</controllingFieldValue>
-            <valueName>2</valueName>
+            <valueName>Investigating</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Closed</controllingFieldValue>
             <controllingFieldValue>Open</controllingFieldValue>
-            <valueName>3</valueName>
+            <valueName>Resolution</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Closed</controllingFieldValue>
-            <valueName>4</valueName>
+            <valueName>Monitoring</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>
