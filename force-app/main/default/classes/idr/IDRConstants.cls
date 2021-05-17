@@ -108,7 +108,6 @@ public with sharing class IDRConstants {
   public static final String YOUR_FEEDBACK_EMAIL = 'YourFeedback@anz.com';
   public static final String ICMNFL_EMAIL = 'IDRNonProd@anz.com';
   public static final String ANZ_EDR_EMAIL = 'ANZEDRNonProd@anz.com';
-  public static final String REFERRED_FROM_AFCA = 'Referred from AFCA';
 
   //Anz.com constants
   /**

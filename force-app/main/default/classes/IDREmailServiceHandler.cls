@@ -142,7 +142,7 @@ public with sharing class IDREmailServiceHandler {
     } else if (senderEmail == IDRConstants.ICMNFL_EMAIL) {
       newCase.Origin = 'Email';
     } else if (senderEmail == IDRConstants.ANZ_EDR_EMAIL) {
-      newCase.Origin = IDRConstants.REFERRED_FROM_AFCA;
+      newCase.Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED;
     }
     if (fromEmail == System.Label.ANZ_com_Sender_Address) {
       IDREmailToCase.parseWebFormEmail(newCase);
