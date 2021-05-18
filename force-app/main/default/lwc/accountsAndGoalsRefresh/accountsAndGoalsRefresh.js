@@ -88,34 +88,44 @@ export default class AccountsAndGoals extends LightningElement {
       .then((result) => {
         if (result) {
           result.accountList.forEach((account) => {
-            this.accountNumbers.push(account.accountNumber);
-            let accountInformation = {
-              Name: account.name,
-              FinServ__FinancialAccountNumber__c: account.accountNumber,
-              FinServ__Balance__c: account.balance.value.replace("$", ""),
-              FinServ__CurrentPostedBalance__c: account.currentBalance.value.replace(
-                "$",
-                ""
-              )
-            };
-
-            this.accountDetails.push(accountInformation);
-            if (account.accountType === "Savings") {
-              this.goalAccountNumbers.push(account.accountNumber);
-              let goalInformation = {
-                name: account.goal.name,
-                accountNumber: account.accountNumber,
-                targetAmount: account.goal.targetAmount
-                  ? account.goal.targetAmount.value.replace("$", "")
-                  : "",
-                currentBalance: account.currentBalance.value.replace("$", ""),
-                startDate: account.goal.startDate,
-                targetDate: account.goal.targetDate
-                  ? account.goal.targetDate
-                  : "",
-                icon: account.goal.iconId
+            // check to drop or show an error message against a particular Fin Account record based on response
+            if (account.isValid) {
+              this.accountNumbers.push(account.accountNumber);
+              let accountInformation = {
+                Name: account.name,
+                FinServ__FinancialAccountNumber__c: account.accountNumber,
+                FinServ__Balance__c: account.balance.value.replace("$", ""),
+                FinServ__CurrentPostedBalance__c: account.currentBalance.value.replace(
+                  "$",
+                  ""
+                )
               };
-              this.goalDetails.push(goalInformation);
+
+              this.accountDetails.push(accountInformation);
+              if (account.accountType === "Savings") {
+                this.goalAccountNumbers.push(account.accountNumber);
+                let goalInformation = {
+                  name: account.goal.name,
+                  accountNumber: account.accountNumber,
+                  targetAmount: account.goal.targetAmount
+                    ? account.goal.targetAmount.value.replace("$", "")
+                    : "",
+                  currentBalance: account.currentBalance.value.replace("$", ""),
+                  startDate: account.goal.startDate,
+                  targetDate: account.goal.targetDate
+                    ? account.goal.targetDate
+                    : "",
+                  icon: account.goal.iconId
+                };
+                this.goalDetails.push(goalInformation);
+              }
+            } else {
+              let errorMessage =
+                "One or more Financial Account records returned bad or missing data. Please refresh and try again. If the problem persists, please contact your System Administrator.";
+              publish(this.messageContext, UpdateAccounts, {
+                update: false,
+                message: errorMessage
+              });
             }
           });
 

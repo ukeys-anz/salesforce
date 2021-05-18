@@ -160,7 +160,7 @@ public with sharing class AuthTokenCacheUtil {
   public static String getSessionIdToken() {
     Id userId = UserInfo.getUserId();
     String refreshToken = NON_PROD_SETTINGS.SSO_Not_Configured__c
-      ? AuthTokenCacheUtilTest.REFRESHTESTVALUE
+      ? AzureTestRefreshToken.REFRESHTESTVALUE
       : (String) Cache.Session.get(
           AuthTokenCacheUtil.SESSIONPART +
           'refreshToken' +

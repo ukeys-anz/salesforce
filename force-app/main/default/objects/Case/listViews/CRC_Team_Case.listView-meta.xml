@@ -5,6 +5,7 @@
     <columns>CASES.STATUS</columns>
     <columns>CASES.PRIORITY</columns>
     <columns>CREATEDBY_USER.ALIAS</columns>
+    <columns>IDR_Office_Created_By__c</columns>
     <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
     <columns>IDR_Escalation_Reason__c</columns>
     <columns>IDR_CFMS_Complaint_Number__c</columns>

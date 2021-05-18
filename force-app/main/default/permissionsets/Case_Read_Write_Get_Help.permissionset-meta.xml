@@ -12,10 +12,6 @@
         <apexClass>CaseHistoryObject</apexClass>
         <enabled>true</enabled>
     </classAccesses>
-    <customPermissions>
-        <enabled>true</enabled>
-        <name>ANZx_Raise_Dispute</name>
-    </customPermissions>
     <description>Should only have required/minimum permissions to Read/Write Case related information.</description>
     <fieldPermissions>
         <editable>true</editable>
@@ -235,6 +231,56 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Has_The_Card_Been_Stopped__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.IDR_3rdParty_Country__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_3rdParty_Email__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_3rdParty_Mobile__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_3rdParty_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_3rdParty_Phone__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_3rdParty_Postcode__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_3rdParty_Relationship_To_Complainant__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_3rdParty_State__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_3rdParty_Street__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_3rdParty_Suburb__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -639,12 +639,12 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.IDR_Escalation_Reason__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.IDR_Financial_Compensation__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -2445,7 +2445,7 @@
         <editable>true</editable>
         <field>trailheadapp__User_Trailmix__c.trailheadapp__User__c</field>
         <readable>true</readable>
-    </fieldPermissions>
+    </fieldPermissions>  
     <layoutAssignments>
         <layout>Application_Log__c-Application Log Layout</layout>
     </layoutAssignments>

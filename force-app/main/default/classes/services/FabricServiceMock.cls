@@ -5,7 +5,6 @@
  * @group Services
  */
 public with sharing class FabricServiceMock extends Service {
-
   /**
    * @description constructor which sets default status code and successful
    */
