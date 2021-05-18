@@ -6,7 +6,6 @@
     <columns>CORE.USERS.ACTIVE</columns>
     <columns>CORE.USER_ROLE.NAME</columns>
     <columns>CORE.PROFILE.NAME</columns>
-    <columns>CORE.USERS.SAML_SUBJECT</columns>
     <columns>Business_Function__c</columns>
     <columns>Business_Role__c</columns>
     <columns>CORE.USERS.LAST_LOGIN</columns>
