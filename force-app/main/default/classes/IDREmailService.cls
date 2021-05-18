@@ -4,7 +4,7 @@
  * @description  This class is used to create or update cases(IDR Complaints), It fetches email addresses
  *               from IDREmailService email services.
  */
-@SuppressWarnings('PMD.AvoidGlobalModifier')
+@SuppressWarnings('PMD.AvoidGlobalModifier, PMD.StdCyclomaticComplexity')
 global with sharing class IDREmailService implements Messaging.InboundEmailHandler {
   /**
    * @description handles the inbound email from IDREmailService
@@ -41,20 +41,20 @@ global with sharing class IDREmailService implements Messaging.InboundEmailHandl
     /***** Variable Declarations End *****/
     String caseOrigin = '';
     String technicalEmailAddress = '';
-    IDR_Email_Service_Setting__mdt emailServiceMdt;
+    List<IDR_Email_Service_Setting__mdt> emailServiceMdtList;
     if (
       IDR_Email_Service_Setting__mdt.sObjectType.getDescribe().isQueryable()
     ) {
-      emailServiceMdt = [
+      emailServiceMdtList = [
         SELECT Id, DeveloperName, Email_Address__c, Inbox_Address__c, Origin__c
         FROM IDR_Email_Service_Setting__mdt
         WHERE Inbox_Address__c = :senderEmail
         LIMIT 1
       ];
     }
-    if (emailServiceMdt != null) {
-      technicalEmailAddress = emailServiceMdt.Email_Address__c;
-      caseOrigin = emailServiceMdt.Origin__c;
+    if (emailServiceMdtList.size() > 0) {
+      technicalEmailAddress = emailServiceMdtList[0].Email_Address__c;
+      caseOrigin = emailServiceMdtList[0].Origin__c;
     }
 
     //Check for Spamming
