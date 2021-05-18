@@ -21,7 +21,7 @@ public with sharing class IDRCollectionActions {
 
   private static List<Task> startCollectionTaskList = new List<Task>();
 
-  public static Map<Id, String> productNameMap = new Map<Id, String>();
+  public static Map<Id, Product2> productNameMap = new Map<Id, Product2>();
 
   /**
    * @description method to copy customer account number in bankend field for collection purposes
@@ -96,7 +96,7 @@ public with sharing class IDRCollectionActions {
       stopCollectionAccList.add(
         new IDRCollectionsAccounts(
           rec.IDR_Collection_Number__c,
-          productNameMap.get(rec.Product__c)
+          productNameMap.get(rec.Product__c).Name
         )
       );
       stopCollectionTaskList.add(
@@ -112,7 +112,7 @@ public with sharing class IDRCollectionActions {
       stopCollectionAccList.add(
         new IDRCollectionsAccounts(
           rec.IDR_Collection_Number_2__c,
-          productNameMap.get(rec.IDR_Product_2__c)
+          productNameMap.get(rec.IDR_Product_2__c).Name
         )
       );
       stopCollectionTaskList.add(
@@ -128,7 +128,7 @@ public with sharing class IDRCollectionActions {
       stopCollectionAccList.add(
         new IDRCollectionsAccounts(
           rec.IDR_Collection_Number_3__c,
-          productNameMap.get(rec.IDR_Product_3__c)
+          productNameMap.get(rec.IDR_Product_3__c).Name
         )
       );
       stopCollectionTaskList.add(
@@ -423,7 +423,7 @@ public with sharing class IDRCollectionActions {
       startCollectionAccList.add(
         new IDRCollectionsAccounts(
           rec.IDR_Collection_Number__c,
-          productNameMap.get(rec.Product__c)
+          productNameMap.get(rec.Product__c).Name
         )
       );
       startCollectionTaskList.add(
@@ -443,7 +443,7 @@ public with sharing class IDRCollectionActions {
       startCollectionAccList.add(
         new IDRCollectionsAccounts(
           rec.IDR_Collection_Number_2__c,
-          productNameMap.get(rec.IDR_Product_2__c)
+          productNameMap.get(rec.IDR_Product_2__c).Name
         )
       );
       startCollectionTaskList.add(
@@ -463,7 +463,7 @@ public with sharing class IDRCollectionActions {
       startCollectionAccList.add(
         new IDRCollectionsAccounts(
           rec.IDR_Collection_Number_3__c,
-          productNameMap.get(rec.IDR_Product_3__c)
+          productNameMap.get(rec.IDR_Product_3__c).Name
         )
       );
       startCollectionTaskList.add(
@@ -482,9 +482,9 @@ public with sharing class IDRCollectionActions {
    * @param records List of case records from trigger
    * @return Map<Id, String> product id as key and Product Name as value
    */
-  public static Map<Id, String> getProductNames(List<Case> records) {
+  public static Map<Id, Product2> getProductNames(List<Case> records) {
     Set<Id> productIds = new Set<Id>();
-    Map<Id, String> productMap = new Map<Id, String>();
+    Map<Id, Product2> productMap;
 
     for (Case rec : records) {
       if (rec.recordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID) {
@@ -499,14 +499,8 @@ public with sharing class IDRCollectionActions {
         }
       }
     }
-    if (!productIds.isEmpty()) {
-      for (Product2 product : [
-        SELECT Id, Name
-        FROM Product2
-        WHERE Id IN :productIds
-      ]) {
-        productMap.put(product.Id, product.Name);
-      }
+    if (!productIds.isEmpty() && Product2.sObjectType.getDescribe().isQueryable()) {
+      productMap = new Map<Id, Product2>([SELECT Id, Name FROM Product2 WHERE Id IN :productIds]);
     }
     return productMap;
   }

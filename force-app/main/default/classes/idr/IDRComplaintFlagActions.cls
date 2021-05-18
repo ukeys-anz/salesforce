@@ -153,7 +153,7 @@ public with sharing class IDRComplaintFlagActions {
     complaintProductList.add(
       new IDRComplaintProducts(
         c.Type,
-        IDRCollectionActions.productNameMap.get(c.Product__c)
+        IDRCollectionActions.productNameMap.get(c.Product__c).Name
       )
     );
 
@@ -161,7 +161,7 @@ public with sharing class IDRComplaintFlagActions {
       complaintProductList.add(
         new IDRComplaintProducts(
           c.IDR_Issue_Type_2__c,
-          IDRCollectionActions.productNameMap.get(c.IDR_Product_2__c)
+          IDRCollectionActions.productNameMap.get(c.IDR_Product_2__c).Name
         )
       );
     }
@@ -170,7 +170,7 @@ public with sharing class IDRComplaintFlagActions {
       complaintProductList.add(
         new IDRComplaintProducts(
           c.IDR_Issue_Type_3__c,
-          IDRCollectionActions.productNameMap.get(c.IDR_Product_3__c)
+          IDRCollectionActions.productNameMap.get(c.IDR_Product_3__c).Name
         )
       );
     }
