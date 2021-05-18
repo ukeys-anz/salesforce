@@ -118,6 +118,18 @@
           >
             <template if:true={isCustomerComplaint}>
               <div class="slds-grid slds-wrap" tabindex="0">
+                <div class="slds-col slds-size_1-of-4 slds-m-right_large" tabindex="0">
+                  <lightning-combobox
+                      name="Customer Identifier"
+                      label="Customer Identifier"
+                      aria-label="Customer Identifier"
+                      value={customerIdentifierValue}
+                      options={customerNumberTypeOptions}
+                      onchange={handleCustomerIdentifierChange}
+                      data-id="idtype-id"
+                      required
+                    ></lightning-combobox>
+                </div>
                 <div class="slds-col slds-size_1-of-6" tabindex="0">
                   <label class="slds-form-element__label" for="text-input-id-1">
                     <abbr class="slds-required" title="required">* </abbr
@@ -131,24 +143,13 @@
                     class="input inputCapCisId"
                     variant="label-hidden"
                     required
-                    minlength="10"
-                    maxlength="15"
-                    pattern="\d{10,15}"
-                    message-when-pattern-mismatch="Customer number must be numbers and at least 10 digits long"
                     onchange={handleCustomerNumberChange}
                     data-id="customerNumber-id"
                   >
                   </lightning-input>
-                  <lightning-combobox
-                    name="ID Type"
-                    label="Account/Card/Policy Number"
-                    aria-label="Account/Card/Policy Number"
-                    value=""
-                    options={YES}
-                    data-id="IDType-id"
-                    required
-                  ></lightning-combobox>
+                  
                 </div>
+                
                 <div class="slds-col slds-size_1-of-12 slds-m-right_large">
                   <div class="searchButtonDiv">
                     <lightning-button
