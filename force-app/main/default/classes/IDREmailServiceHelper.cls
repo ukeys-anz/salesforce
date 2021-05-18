@@ -52,9 +52,14 @@ public with sharing class IDREmailServiceHelper {
           );
           contentVersionList.add(cv);
         } else {
-          System.debug(
-            LoggingLevel.DEBUG,
-            'Discarded   a   text   file   ' + tAttachment.fileName
+          Lib_SystemLog.logAPIError(
+            IDREmailServiceHelper.class.getName(),
+            'Discarded   a   text   file   ' + tAttachment.fileName,
+            null,
+            null,
+            IDREmailServiceHelper.class.getName(),
+            null,
+            null
           );
         }
       }
@@ -70,9 +75,14 @@ public with sharing class IDREmailServiceHelper {
           );
           contentVersionList.add(cv);
         } else {
-          System.debug(
-            LoggingLevel.DEBUG,
-            'Discarded   a   binary   file   ' + bAttachment.fileName
+          Lib_SystemLog.logAPIError(
+            IDREmailServiceHelper.class.getName(),
+            'Discarded   a   binary   file   ' + bAttachment.fileName,
+            null,
+            null,
+            IDREmailServiceHelper.class.getName(),
+            null,
+            null
           );
         }
       }
@@ -81,7 +91,6 @@ public with sharing class IDREmailServiceHelper {
       insert contentVersionList;
     }
 
-    //Call queueable apex to do linking
     List<Id> contentVerIds = new List<ID>();
     for (ContentVersion cv : contentVersionList) {
       contentVerIds.add(cv.Id);
@@ -135,11 +144,10 @@ public with sharing class IDREmailServiceHelper {
   };
 
   /**
-   * @description Future method to link attachment with case records
+   * @description method to link attachment with case records
    * @param contentVerIds Content Version Ids
    * @param caseId The case Id that needs to be related to
    */
-  @future
   public static void linkContentWithCase(List<Id> contentVerIds, Id caseId) {
     List<ContentDocumentLink> contentDocLinkList = new List<ContentDocumentLink>();
     List<ContentVersion> contentVersionList;

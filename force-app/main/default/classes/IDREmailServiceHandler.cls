@@ -10,30 +10,17 @@ public with sharing class IDREmailServiceHandler {
    * @param senderEmail The email address sent to
    * @param fromEmail The email address recieved from
    * @param subject The subject of email
+   * @param technicalEmailAddress The technical email address of email services
    * @return isSpam If it is a spam or not
    */
   public static Boolean checkSpamming(
     String senderEmail,
     String fromEmail,
-    String subject
+    String subject,
+    String technicalEmailAddress
   ) {
     Boolean isSpam = false;
-    String allTechnicalEmailAddresses = '';
-    List<IDR_Email_Service_Setting__mdt> emailServiceMdtList;
-    if (
-      IDR_Email_Service_Setting__mdt.sObjectType.getDescribe().isQueryable()
-    ) {
-      emailServiceMdtList = [
-        SELECT Id, DeveloperName, Email_Address__c
-        FROM IDR_Email_Service_Setting__mdt
-      ];
-    }
-    for (IDR_Email_Service_Setting__mdt emailServMdt : emailServiceMdtList) {
-      allTechnicalEmailAddresses += emailServMdt.Email_Address__c + ',';
-    }
-    if (
-      senderEmail != null && allTechnicalEmailAddresses.contains(senderEmail)
-    ) {
+    if (senderEmail != null && senderEmail == technicalEmailAddress) {
       Lib_SystemLog.logAPIError(
         IDREmailServiceHandler.class.getName(),
         'Spam detected from IDR apex email service' + null,
@@ -72,6 +59,7 @@ public with sharing class IDREmailServiceHandler {
         WHERE
           CaseNumber = :caseNo
           AND Status != 'Closed'
+          AND Status != 'Resolved'
           AND SuppliedEmail = :fromEmail
         LIMIT 1
       ];
@@ -106,6 +94,7 @@ public with sharing class IDREmailServiceHandler {
    * @param email Inbound email object
    * @param senderEmail The email address sent to
    * @param fromEmail The email address recieved from
+   * @param caseOrigin The case origin
    */
   @SuppressWarnings(
     'PMD.CyclomaticComplexity, PMD.StdCyclomaticComplexity'
@@ -113,7 +102,8 @@ public with sharing class IDREmailServiceHandler {
   public static void createNewCase(
     Messaging.InboundEmail email,
     String senderEmail,
-    String fromEmail
+    String fromEmail,
+    String caseOrigin
   ) {
     //Get Indexing Queue Id
     List<Group> queueList;
@@ -137,12 +127,8 @@ public with sharing class IDREmailServiceHandler {
     if (queueList.size() > 0) {
       newCase.OwnerId = queueList[0].Id;
     }
-    if (senderEmail == IDRConstants.YOUR_FEEDBACK_EMAIL) {
-      newCase.Origin = 'Email';
-    } else if (senderEmail == IDRConstants.ICMNFL_EMAIL) {
-      newCase.Origin = 'Email';
-    } else if (senderEmail == IDRConstants.ANZ_EDR_EMAIL) {
-      newCase.Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED;
+    if (caseOrigin != '') {
+      newCase.Origin = caseOrigin;
     }
     if (fromEmail == System.Label.ANZ_com_Sender_Address) {
       IDREmailToCase.parseWebFormEmail(newCase);
@@ -163,22 +149,24 @@ public with sharing class IDREmailServiceHandler {
       );
     }
 
-    try {
-      //Create email message
-      IDREmailServiceHelper.createEmailMessage(email, newCase.Id);
-      //Create files from attachments
-      IDREmailServiceHelper.createAttachmentFiles(email, newCase.Id);
-    } catch (Exception err) {
-      Lib_SystemLog.logAPIError(
-        IDREmailServiceHandler.class.getName(),
-        'Error in creating email message / attachments from email service class' +
-        newCase.Id,
-        err.getMessage(),
-        null,
-        IDREmailServiceHandler.class.getName(),
-        null,
-        null
-      );
+    if (newCase.Id != null) {
+      try {
+        //Create email message
+        IDREmailServiceHelper.createEmailMessage(email, newCase.Id);
+        //Create files from attachments
+        IDREmailServiceHelper.createAttachmentFiles(email, newCase.Id);
+      } catch (Exception err) {
+        Lib_SystemLog.logAPIError(
+          IDREmailServiceHandler.class.getName(),
+          'Error in creating email message / attachments from email service class' +
+          newCase.Id,
+          err.getMessage(),
+          null,
+          IDREmailServiceHandler.class.getName(),
+          null,
+          null
+        );
+      }
     }
   }
 }

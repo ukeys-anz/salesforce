@@ -105,9 +105,6 @@ public with sharing class IDRConstants {
   //IDREmailServiceConstants
   public static final String CASE_NO_REGEX = '\\d{8}';
   public static final String CASE_EMAIL_REGEX = '(?<=\\<)(.*?)(?=\\>)';
-  public static final String YOUR_FEEDBACK_EMAIL = 'YourFeedback@anz.com';
-  public static final String ICMNFL_EMAIL = 'IDRNonProd@anz.com';
-  public static final String ANZ_EDR_EMAIL = 'ANZEDRNonProd@anz.com';
 
   //Anz.com constants
   /**
@@ -193,7 +190,6 @@ public with sharing class IDRConstants {
     set;
   }
 
-
   //Anz.com constants
   /**
    * @description Static variable to map xpression Template name
@@ -210,9 +206,9 @@ public with sharing class IDRConstants {
       return xpressiontemplateName;
     }
     set;
-  } 
+  }
 
-  /** 
+  /**
    * @description mapping from product to queue for workbasket allocation
    */
   public static final Map<String, String> CASE_ASSIGNMENT_PRODUCT_MAP = new Map<String, String>{

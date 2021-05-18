@@ -38,12 +38,28 @@ global with sharing class IDREmailService implements Messaging.InboundEmailHandl
       fromEmail = m2.group();
     }
     /***** Variable Declarations End *****/
-
+    String caseOrigin = '';
+    String technicalEmailAddress = '';
+    IDR_Email_Service_Setting__mdt emailServiceMdt;
+    if (
+      IDR_Email_Service_Setting__mdt.sObjectType.getDescribe().isQueryable()
+    ){
+      emailServiceMdt = [
+      SELECT Id, DeveloperName, Email_Address__c, Inbox_Address__c, Origin__c
+      FROM IDR_Email_Service_Setting__mdt where Inbox_Address__c =: senderEmail Limit 1
+    ];
+    }
+    if(emailServiceMdt != null){
+      technicalEmailAddress = emailServiceMdt.Email_Address__c;
+      caseOrigin = emailServiceMdt.Origin__c;
+    }
+    
     //Check for Spamming
     isSpam = IDREmailServiceHandler.checkSpamming(
       senderEmail,
       fromEmail,
-      email.subject
+      email.subject,
+      String technicalEmailAddress
     );
 
     //Extracting case number from subject
@@ -65,7 +81,7 @@ global with sharing class IDREmailService implements Messaging.InboundEmailHandl
         createNewCase = true;
       }
       if (createNewCase) {
-        IDREmailServiceHandler.createNewCase(email, senderEmail, fromEmail);
+        IDREmailServiceHandler.createNewCase(email, senderEmail, fromEmail, );
       }
       result.success = true;
     } else {
