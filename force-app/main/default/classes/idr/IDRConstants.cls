@@ -102,6 +102,10 @@ public with sharing class IDRConstants {
   //Channel Recieved
   public static final string CHANNEL_RECEIVED_AFCA_REFERRED = 'Referred from AFCA';
 
+  //IDREmailServiceConstants
+  public static final String CASE_NO_REGEX = '\\d{8}';
+  public static final String CASE_EMAIL_REGEX = '(?<=\\<)(.*?)(?=\\>)';
+
   //Anz.com constants
   /**
    * @description Static variable to map anz.com field with case fields

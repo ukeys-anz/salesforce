@@ -11,10 +11,12 @@ public with sharing class TestIDREmailToCase {
 
       caseList.add(c);
     }
+      
+    IDREmailToCase.processEmail(caseList);  
 
     insert caseList;
 
     Case queriedCase = [SELECT Id, Type FROM Case LIMIT 1];
-    System.assertEquals('Credit assessment', queriedCase.Type);
+    System.assertEquals('Credit assessment', queriedCase.Type, 'Case Type is not correct');
   }
 }
