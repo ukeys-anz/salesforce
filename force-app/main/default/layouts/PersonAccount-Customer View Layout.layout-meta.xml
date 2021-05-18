@@ -122,10 +122,6 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>FinServ__KYCDate__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>FinServ__KYCStatus__c</field>
             </layoutItems>
         </layoutColumns>
