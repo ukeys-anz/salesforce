@@ -6,4 +6,12 @@
         <field>Email_Address__c</field>
         <value xsi:type="xsd:string">anz_edr_idremailservice@q-1hszjr1286uoxejq74hoh4kjiivhj03leqh8lpgvm1o7esykdt.2n-atttuak.cs115.apex.sandbox.salesforce.com</value>
     </values>
+    <values>
+        <field>Inbox_Address__c</field>
+        <value xsi:type="xsd:string">ANZEDRNonProd@anz.com</value>
+    </values>
+    <values>
+        <field>Origin__c</field>
+        <value xsi:type="xsd:string">Referred from AFCA</value>
+    </values>
 </CustomMetadata>

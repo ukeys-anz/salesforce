@@ -12,6 +12,7 @@ global with sharing class IDREmailService implements Messaging.InboundEmailHandl
    * @param envelope Inbound envelope object
    * @return result If the email ingestion is successful or not
    */
+  @SuppressWarnings('PMD.CyclomaticComplexity, PMD.StdCyclomaticComplexity')
   global Messaging.InboundEmailResult handleInboundEmail(
     Messaging.InboundEmail email,
     Messaging.InboundEnvelope envelope
