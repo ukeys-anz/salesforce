@@ -13,6 +13,7 @@ public with sharing class IDREmailServiceHandler {
    * @param technicalEmailAddress The technical email address of email services
    * @return isSpam If it is a spam or not
    */
+  @SuppressWarnings('PMD.ExcessiveParameterList')
   public static Boolean checkSpamming(
     String senderEmail,
     String fromEmail,
@@ -97,7 +98,7 @@ public with sharing class IDREmailServiceHandler {
    * @param caseOrigin The case origin
    */
   @SuppressWarnings(
-    'PMD.CyclomaticComplexity, PMD.StdCyclomaticComplexity'
+    'PMD.CyclomaticComplexity, PMD.StdCyclomaticComplexity, PMD.ExcessiveParameterList'
   ) //Since the method is already refined to reduce complexity
   public static void createNewCase(
     Messaging.InboundEmail email,

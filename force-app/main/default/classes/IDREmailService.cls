@@ -43,23 +43,25 @@ global with sharing class IDREmailService implements Messaging.InboundEmailHandl
     IDR_Email_Service_Setting__mdt emailServiceMdt;
     if (
       IDR_Email_Service_Setting__mdt.sObjectType.getDescribe().isQueryable()
-    ){
+    ) {
       emailServiceMdt = [
-      SELECT Id, DeveloperName, Email_Address__c, Inbox_Address__c, Origin__c
-      FROM IDR_Email_Service_Setting__mdt where Inbox_Address__c =: senderEmail Limit 1
-    ];
+        SELECT Id, DeveloperName, Email_Address__c, Inbox_Address__c, Origin__c
+        FROM IDR_Email_Service_Setting__mdt
+        WHERE Inbox_Address__c = :senderEmail
+        LIMIT 1
+      ];
     }
-    if(emailServiceMdt != null){
+    if (emailServiceMdt != null) {
       technicalEmailAddress = emailServiceMdt.Email_Address__c;
       caseOrigin = emailServiceMdt.Origin__c;
     }
-    
+
     //Check for Spamming
     isSpam = IDREmailServiceHandler.checkSpamming(
       senderEmail,
       fromEmail,
       email.subject,
-      String technicalEmailAddress
+      technicalEmailAddress
     );
 
     //Extracting case number from subject
@@ -81,7 +83,12 @@ global with sharing class IDREmailService implements Messaging.InboundEmailHandl
         createNewCase = true;
       }
       if (createNewCase) {
-        IDREmailServiceHandler.createNewCase(email, senderEmail, fromEmail, );
+        IDREmailServiceHandler.createNewCase(
+          email,
+          senderEmail,
+          fromEmail,
+          caseOrigin
+        );
       }
       result.success = true;
     } else {

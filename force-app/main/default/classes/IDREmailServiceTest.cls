@@ -55,7 +55,7 @@ public with sharing class IDREmailServiceTest {
       List<Messaging.InboundEmail.Header> emailHeaders = new List<Messaging.InboundEmail.Header>();
       Messaging.InboundEmail.Header sendTo = new Messaging.InboundEmail.Header();
       sendTo.name = 'To';
-      sendTo.value = IDRConstants.YOUR_FEEDBACK_EMAIL;
+      sendTo.value = 'YourFeedback@anz.com';
       emailHeaders.add(sendTo);
 
       Messaging.InboundEmail.Header fromEmail = new Messaging.InboundEmail.Header();
@@ -298,7 +298,7 @@ public with sharing class IDREmailServiceTest {
       List<Messaging.InboundEmail.Header> emailHeaders = new List<Messaging.InboundEmail.Header>();
       Messaging.InboundEmail.Header sendTo = new Messaging.InboundEmail.Header();
       sendTo.name = 'To';
-      sendTo.value = IDRConstants.ANZ_EDR_EMAIL;
+      sendTo.value = 'ANZEDRNonProd@anz.com';
       emailHeaders.add(sendTo);
 
       Messaging.InboundEmail.Header fromEmail = new Messaging.InboundEmail.Header();
