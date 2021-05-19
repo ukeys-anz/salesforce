@@ -7,5 +7,6 @@
     <permissionSets>View_All_Data</permissionSets>
     <permissionSets>View_Application_Log</permissionSets>
     <permissionSets>View_Setup_And_Users</permissionSets>
+    <permissionSets>Email_Based_Identity_Verification_Option</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

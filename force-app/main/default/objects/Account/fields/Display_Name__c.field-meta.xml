@@ -8,7 +8,7 @@
 Display name is pushed from OCV, and is first+last</description>
     <externalId>false</externalId>
     <label>Display Name</label>
-    <length>50</length>
+    <length>255</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

@@ -250,7 +250,7 @@ public with sharing class IDRConstants {
     'Business Extra 50 Account' => 'IDR_Business_Owners',
     'Business Extra Account' => 'IDR_Business_Owners',
     'Negotiator Account' => 'IDR_Business_Owners',
-    'Business Premium Saver Account' => 'IDR_Business_Owners',
+    'ANZ Business Essentials (Previously ANZ Business Premium Saver)' => 'IDR_Business_Owners',
     'Negotiator Investor Account' => 'IDR_Business_Owners',
     'Statutory Trust Account' => 'IDR_Business_Owners',
     'Business Advantage Account' => 'IDR_Business_Owners',

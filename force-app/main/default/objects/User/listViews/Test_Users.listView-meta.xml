@@ -15,5 +15,10 @@
         <operation>contains</operation>
         <value>Test</value>
     </filters>
+    <filters>
+        <field>FULL_NAME</field>
+        <operation>contains</operation>
+        <value>_</value>
+    </filters>
     <label>Test Users</label>
 </ListView>
