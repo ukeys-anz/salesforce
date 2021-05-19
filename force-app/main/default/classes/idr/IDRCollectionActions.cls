@@ -156,6 +156,7 @@ public with sharing class IDRCollectionActions {
         oldRec.IDR_Subsequent_Issue__c
       )) &&
       String.isNotBlank(c.IDR_Collection_Number__c) &&
+      productNameMap.containsKey(c.Product__c) &&
       IDRConstants.ISSUE_TYPE_COLLECTIONS.contains(c.Type) &&
       IDRConstants.SUB_ISSUE_TYPE_COLLECTIONS.contains(
         c.IDR_Subsequent_Issue__c
@@ -183,6 +184,7 @@ public with sharing class IDRCollectionActions {
         oldRec.IDR_Subsequent_Issue_2__c
       )) &&
       String.isNotBlank(c.IDR_Collection_Number_2__c) &&
+      productNameMap.containsKey(c.IDR_Product_2__c) &&
       IDRConstants.ISSUE_TYPE_COLLECTIONS.contains(c.IDR_Issue_Type_2__c) &&
       IDRConstants.SUB_ISSUE_TYPE_COLLECTIONS.contains(
         c.IDR_Subsequent_Issue_2__c
@@ -210,6 +212,7 @@ public with sharing class IDRCollectionActions {
         oldRec.IDR_Subsequent_Issue_3__c
       )) &&
       String.isNotBlank(c.IDR_Collection_Number_3__c) &&
+      productNameMap.containsKey(c.IDR_Product_3__c) &&
       IDRConstants.ISSUE_TYPE_COLLECTIONS.contains(c.IDR_Issue_Type_3__c) &&
       IDRConstants.SUB_ISSUE_TYPE_COLLECTIONS.contains(
         c.IDR_Subsequent_Issue_3__c
@@ -418,7 +421,8 @@ public with sharing class IDRCollectionActions {
     if (
       startCollecMap.containsKey(rec.IDR_Collection_Number__c) &&
       startCollecMap.get(rec.IDR_Collection_Number__c).contains(rec.Id) &&
-      startCollecMap.get(rec.IDR_Collection_Number__c).size() == 1
+      startCollecMap.get(rec.IDR_Collection_Number__c).size() == 1 &&
+      productNameMap.containsKey(rec.Product__c)
     ) {
       startCollectionAccList.add(
         new IDRCollectionsAccounts(
@@ -438,7 +442,8 @@ public with sharing class IDRCollectionActions {
     if (
       startCollecMap.containsKey(rec.IDR_Collection_Number_2__c) &&
       startCollecMap.get(rec.IDR_Collection_Number_2__c).contains(rec.Id) &&
-      startCollecMap.get(rec.IDR_Collection_Number_2__c).size() == 1
+      startCollecMap.get(rec.IDR_Collection_Number_2__c).size() == 1 &&
+      productNameMap.containsKey(rec.IDR_Product_2__c)
     ) {
       startCollectionAccList.add(
         new IDRCollectionsAccounts(
@@ -458,7 +463,8 @@ public with sharing class IDRCollectionActions {
     if (
       startCollecMap.containsKey(rec.IDR_Collection_Number_3__c) &&
       startCollecMap.get(rec.IDR_Collection_Number_3__c).contains(rec.Id) &&
-      startCollecMap.get(rec.IDR_Collection_Number_3__c).size() == 1
+      startCollecMap.get(rec.IDR_Collection_Number_3__c).size() == 1 &&
+      productNameMap.containsKey(rec.IDR_Product_3__c)
     ) {
       startCollectionAccList.add(
         new IDRCollectionsAccounts(
@@ -499,8 +505,12 @@ public with sharing class IDRCollectionActions {
         }
       }
     }
-    if (!productIds.isEmpty() && Product2.sObjectType.getDescribe().isQueryable()) {
-      productMap = new Map<Id, Product2>([SELECT Id, Name FROM Product2 WHERE Id IN :productIds]);
+    if (
+      !productIds.isEmpty() && Product2.sObjectType.getDescribe().isQueryable()
+    ) {
+      productMap = new Map<Id, Product2>(
+        [SELECT Id, Name FROM Product2 WHERE Id IN :productIds]
+      );
     }
     return productMap;
   }
