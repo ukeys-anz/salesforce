@@ -490,7 +490,7 @@ public with sharing class IDRCollectionActions {
    */
   public static Map<Id, Product2> getProductNames(List<Case> records) {
     Set<Id> productIds = new Set<Id>();
-    Map<Id, Product2> productMap;
+    Map<Id, Product2> productMap = new Map<Id, Product2>();
 
     for (Case rec : records) {
       if (rec.recordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID) {
