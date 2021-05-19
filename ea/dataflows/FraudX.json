@@ -74,7 +74,7 @@
       "action": "sobjectDigest",
       "parameters": {
         "fields": [
-          { "name": "FinServ__Gender__pc" },
+          { "name": "Gender__pc" },
           { "name": "ShippingState" },
           { "name": "ShippingPostalCode" },
           { "name": "FinServ__MaritalStatus__pc" },
@@ -97,7 +97,7 @@
         "relationship": "Account",
         "rightKey": ["Id"],
         "rightSelect": [
-          "FinServ__Gender__pc",
+          "Gender__pc",
           "FinServ__MaritalStatus__pc",
           "Id",
           "ShippingPostalCode",
