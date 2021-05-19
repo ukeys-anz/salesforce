@@ -6,7 +6,6 @@
     <columns>CORE.USERS.ACTIVE</columns>
     <columns>CORE.USER_ROLE.NAME</columns>
     <columns>CORE.PROFILE.NAME</columns>
-    <columns>CORE.USERS.SAML_SUBJECT</columns>
     <columns>Business_Function__c</columns>
     <columns>Business_Role__c</columns>
     <columns>CORE.USERS.LAST_LOGIN</columns>
@@ -15,6 +14,11 @@
         <field>FULL_NAME</field>
         <operation>contains</operation>
         <value>Test</value>
+    </filters>
+    <filters>
+        <field>FULL_NAME</field>
+        <operation>contains</operation>
+        <value>_</value>
     </filters>
     <label>Test Users</label>
 </ListView>
