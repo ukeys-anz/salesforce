@@ -5,22 +5,18 @@
  */
 public with sharing class IDRCollectionsAccounts {
   public String accountNumber;
-  public String productCode;
-  public String subProductCode;
+  public String productName;
 
   /**
    * @description Constructor
    * @param accNumber
-   * @param prodCode
-   * @param subProdCode
+   * @param prodName
    */
   public IDRCollectionsAccounts(
     String accNumber,
-    String prodCode,
-    String subProdCode
+    String prodName
   ) {
     accountNumber = accNumber;
-    productCode = prodCode;
-    subProductCode = subProdCode;
+    productName = prodName;
   }
 }
