@@ -35,6 +35,13 @@ public with sharing class IDREmailServiceTest {
 
   @IsTest
   static void createCaseCompTest() {
+    IDR_Email_Settings__c idrEmailSetting = new IDR_Email_Settings__c(
+      Name = 'Test_Email',
+      Inbox_Email__c = 'YourFeedback@anz.com',
+      Origin__c = 'Email',
+      Technical_Email_Address__c = 'testtechnicaladdress@testabc.com'
+    );
+    insert idrEmailSetting;
     User contextUser = [
       SELECT Id
       FROM User
@@ -82,6 +89,13 @@ public with sharing class IDREmailServiceTest {
 
   @IsTest
   static void checkSpammingTest() {
+    IDR_Email_Settings__c idrEmailSetting = new IDR_Email_Settings__c(
+      Name = 'Test_Email',
+      Inbox_Email__c = 'testclassxyz@testabc.com',
+      Origin__c = 'Email',
+      Technical_Email_Address__c = 'testclassxyz@testabc.com'
+    );
+    insert idrEmailSetting;
     User contextUser = [
       SELECT Id
       FROM User
