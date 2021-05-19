@@ -17,14 +17,16 @@ public with sharing class GetCustomerInformation {
    * @exception CalloutException
    */
   @AuraEnabled(cacheable=false)
-  public static map<String, Object> getCustomerData(String capId) {
+  public static map<String, Object> getCustomerData(String capId, String customerIdentifier) {
     map<String, Object> customerData = new Map<String, Object>();
     String responseBody = null;
     if (String.isNotBlank(capId)) {
       HttpRequest request = new HttpRequest();
-      request.setEndpoint('callout:Mulesoft' + Label.MS_Get_Customer + capId);
-      request.setMethod('GET');
-      request.setHeader('x-mule-clientId', 'salesforce-cap');
+      request.setEndpoint('callout:Mulesoft' + Label.MS_Get_Customer);
+      request.setMethod('POST');
+      request.setHeader('consumer_id', 'salesforce');
+      request.setHeader('Content-type', 'application/json');
+      request.setBody( getBody(capId,customerIdentifier));
       HTTPResponse response = null;
       try {
         Http http = new Http();
@@ -61,5 +63,26 @@ public with sharing class GetCustomerInformation {
     } else {
       return customerData;
     }
+  }
+
+
+  public static String getBody(String capId,String customerIdentifier){
+    CustomerIdentifiers cusIden= new CustomerIdentifiers();
+    cls_Identiers cls = new cls_Identiers();
+    cls.identifierUsageType = customerIdentifier;
+    cls.identifier = capId;
+    cusIden.identifiers.add(cls);
+
+    return Json.serialize(cusIden);
+  }
+
+  public class CustomerIdentifiers{
+    public List<cls_Identiers> identifiers = new List<cls_Identiers>()  ;
+
+   
+  }
+  public class cls_Identiers{
+    public String identifierUsageType ='';
+    public String identifier='';
   }
 }

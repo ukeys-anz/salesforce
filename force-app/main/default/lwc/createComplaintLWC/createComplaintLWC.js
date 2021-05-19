@@ -103,7 +103,7 @@ const CLOSED_STATUS_API_NAME = "Closed";
 const YES_VALUE = "Yes";
 const COMPLAINT_REMEDY_FIN_VALUE = "1";
 const COMPLAINT_REMEDY_NON_FIN_VALUE = "2";
-const CUS_IDENTIFIER_CAPCIS_ID = "CAP CIS ID";
+const CUS_IDENTIFIER_CAPCIS_ID = "CAP ID";
 const CUS_IDENTIFIER_CACHE_ID = "CACHE ID";
 const CUS_IDENTIFIER_RAZOR_ID = "RAZOR ID";
 const CUS_IDENTIFIER_CRN_ID = "CRN";
@@ -397,6 +397,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   }
 
   handleCustomerNumberChange(event) {
+    let customerNumberField = this.template.querySelector('.inputCapCisId');
     this.isCustNumValidated = false;
     this.customerIdValue = event.target.value;
     /*if (this.customerIdValue.match("^[0-9]{10,15}$")) {
@@ -405,6 +406,19 @@ export default class CreateComplaintLWC extends NavigationMixin(
       this.searchDisabled = true;
     }*/
     this.searchDisabled = false;
+    if(this.customerIdentifierValue == CUS_IDENTIFIER_CAPCIS_ID){
+      if(this.customerIdValue.match("^[0-9]{10,15}$")){
+        customerNumberField.setCustomValidity('');
+        this.searchDisabled = false;
+      }else{
+        customerNumberField.setCustomValidity('Customer number must be numbers and at least 10 digits long');
+        this.searchDisabled = true;
+      }
+    }else{
+      customerNumberField.setCustomValidity('');
+      this.searchDisabled = false;
+    }
+    customerNumberField.reportValidity();
   }
 
   handleWrittenResponseChange(event) {
@@ -598,6 +612,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       fields[CONSENT_OBTAINED.fieldApiName] = this.consentValue;
       fields[RECORDTYPE_FIELD.fieldApiName] = this.recordType;
       fields[STATUS_FIELD.fieldApiName] = this.caseStatus;
+      fields[CUS_IDENTIFIER_FIELD.fieldApiName] = this.customerIdentifierValue;
       if (this.isComplaintResolved) {
         if (this.isFinancialComplaintRemedy) {
           fields[

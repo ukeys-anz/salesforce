@@ -167,6 +167,7 @@
 
               <template if:true={displayCustomerInfo}>
                 <c-customer-information
+                  cust-identifier={customerIdentifierValue}
                   customer-id={customerId}
                   show-as-grid="true"
                   oncustinfochecked={handleCustNumValidated}
