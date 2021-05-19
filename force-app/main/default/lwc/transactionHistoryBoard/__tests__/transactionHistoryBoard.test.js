@@ -3,10 +3,7 @@ import { createElement } from "lwc";
 import getTransactions from "@salesforce/apex/CoachBankingAPIRepository.getTransactionHistoryAura";
 import { publish } from "lightning/messageService";
 import { getRecord } from "lightning/uiRecordApi";
-import {
-  registerLdsTestWireAdapter
-} from "@salesforce/sfdx-lwc-jest";
-
+import { registerLdsTestWireAdapter } from "@salesforce/sfdx-lwc-jest";
 
 const APEX_TRANSACTIONS_SUCCESS = require("./data/transactionSuccess.json");
 const APEX_TRANSACTIONS_SUCCESS_SECOND = require("./data/transactionSuccessTwo.json");
