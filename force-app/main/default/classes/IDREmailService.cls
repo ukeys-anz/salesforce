@@ -4,7 +4,7 @@
  * @description  This class is used to create or update cases(IDR Complaints), It fetches email addresses
  *               from IDREmailService email services.
  */
-@SuppressWarnings('PMD.AvoidGlobalModifier, PMD.StdCyclomaticComplexity')
+@SuppressWarnings('PMD.AvoidGlobalModifier')
 global with sharing class IDREmailService implements Messaging.InboundEmailHandler {
   /**
    * @description handles the inbound email from IDREmailService
@@ -12,7 +12,6 @@ global with sharing class IDREmailService implements Messaging.InboundEmailHandl
    * @param envelope Inbound envelope object
    * @return result If the email ingestion is successful or not
    */
-  @SuppressWarnings('PMD.CyclomaticComplexity, PMD.StdCyclomaticComplexity')
   global Messaging.InboundEmailResult handleInboundEmail(
     Messaging.InboundEmail email,
     Messaging.InboundEnvelope envelope

@@ -117,7 +117,7 @@ public with sharing class IDREmailServiceTest {
       List<Messaging.InboundEmail.Header> emailHeaders = new List<Messaging.InboundEmail.Header>();
       Messaging.InboundEmail.Header sendTo = new Messaging.InboundEmail.Header();
       sendTo.name = 'To';
-      sendTo.value = 'testclassxyz@testabc.com'; //This value is present in custom metadata IDR_Email_Service_Setting__mdt
+      sendTo.value = 'testclassxyz@testabc.com'; //This value is present in custom setting
       emailHeaders.add(sendTo);
 
       Messaging.InboundEmail.Header fromEmail = new Messaging.InboundEmail.Header();
