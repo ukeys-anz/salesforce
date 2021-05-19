@@ -32,9 +32,6 @@ public with sharing class IDREmailServiceHelper {
    * @param email Inbound email object
    * @param caseId The case Id that needs to be related to
    */
-  @SuppressWarnings(
-    'PMD.CyclomaticComplexity'
-  ) //Since the method is already refined to reduce complexity
   public static void createAttachmentFiles(
     Messaging.InboundEmail email,
     Id caseId
