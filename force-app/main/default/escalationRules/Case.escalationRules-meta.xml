@@ -7,6 +7,8 @@
             <businessHours>Case Business Hours</businessHours>
             <businessHoursSource>Static</businessHoursSource>
             <escalationAction>
+                <assignedTo>CRC_Team</assignedTo>
+                <assignedToType>Queue</assignedToType>
                 <minutesToEscalation>7200</minutesToEscalation>
                 <notifyCaseOwner>false</notifyCaseOwner>
             </escalationAction>

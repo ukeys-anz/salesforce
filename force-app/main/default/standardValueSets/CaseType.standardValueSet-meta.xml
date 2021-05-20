@@ -2,6 +2,51 @@
 <StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <sorted>false</sorted>
     <standardValue>
+        <fullName>About Us</fullName>
+        <default>false</default>
+        <label>About Us</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Cards</fullName>
+        <default>false</default>
+        <label>Cards</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Money</fullName>
+        <default>false</default>
+        <label>Money</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Payments</fullName>
+        <default>false</default>
+        <label>Payments</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Profile</fullName>
+        <default>false</default>
+        <label>Profile</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Fraud</fullName>
+        <default>false</default>
+        <label>Fraud</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Financial Wellbeing</fullName>
+        <default>false</default>
+        <label>Financial Wellbeing</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Other Enquiries</fullName>
+        <default>false</default>
+        <label>Other Enquiries</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Deceased Estate</fullName>
+        <default>false</default>
+        <label>Deceased Estate</label>
+    </standardValue>
+    <standardValue>
         <fullName>9</fullName>
         <default>false</default>
         <label>Service quality</label>
@@ -117,11 +162,6 @@
         <label>Bug Report &amp; Feature</label>
     </standardValue>
     <standardValue>
-        <fullName>Card</fullName>
-        <default>false</default>
-        <label>Card</label>
-    </standardValue>
-    <standardValue>
         <fullName>Coaching</fullName>
         <default>false</default>
         <label>Coaching</label>
@@ -152,19 +192,14 @@
         <label>My Security</label>
     </standardValue>
     <standardValue>
-        <fullName>Other Enquiries</fullName>
-        <default>false</default>
-        <label>Other Enquiries</label>
-    </standardValue>
-    <standardValue>
         <fullName>Product Information</fullName>
         <default>false</default>
         <label>Product Information</label>
     </standardValue>
     <standardValue>
-        <fullName>Transaction &amp; Savings enquiry </fullName>
+        <fullName>Transaction &amp; Savings enquiry</fullName>
         <default>false</default>
-        <label>Transaction &amp; Savings enquiry </label>
+        <label>Transaction &amp; Savings enquiry</label>
     </standardValue>
     <standardValue>
         <fullName>Dating &amp; Romance</fullName>

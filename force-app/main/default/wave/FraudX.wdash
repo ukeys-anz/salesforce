@@ -1,1 +1,2551 @@
-{"dataSourceLinks":[],"filters":[],"gridLayouts":[{"name":"Default","numColumns":48,"pages":[{"label":"Fraud Summary","name":"7333e75c-9951-4ec8-9209-853678809a05","navigationHidden":false,"widgets":[{"colspan":5,"column":1,"name":"text_1","row":7,"rowspan":1,"widgetStyle":{"backgroundColor":"#091A3E","borderColor":"#E6ECF2","borderEdges":[],"borderRadius":0,"borderWidth":1}},{"colspan":5,"column":1,"name":"text_2","row":8,"rowspan":1,"widgetStyle":{"backgroundColor":"#091A3E","borderColor":"#E6ECF2","borderEdges":[],"borderRadius":0,"borderWidth":1}},{"colspan":5,"column":1,"name":"text_3","row":9,"rowspan":1,"widgetStyle":{"backgroundColor":"#091A3E","borderColor":"#E6ECF2","borderEdges":[],"borderRadius":0,"borderWidth":1}},{"colspan":24,"column":1,"name":"text_4","row":0,"rowspan":2,"widgetStyle":{"backgroundColor":"rgb(242, 243, 131)","borderColor":"#E6ECF2","borderEdges":[],"borderRadius":0,"borderWidth":1}},{"colspan":46,"column":1,"name":"container_1","row":5,"rowspan":5,"widgetStyle":{"backgroundColor":"#FFFFFF","borderColor":"#091A3E","borderEdges":["all"],"borderRadius":4,"borderWidth":2}},{"colspan":18,"column":17,"name":"container_2","row":10,"rowspan":7,"widgetStyle":{"backgroundColor":"#FFFFFF","borderColor":"#091A3E","borderEdges":["all"],"borderRadius":4,"borderWidth":2}},{"colspan":17,"column":17,"name":"chart_2","row":10,"rowspan":7,"widgetStyle":{"borderEdges":[]}},{"colspan":12,"column":35,"name":"chart_1","row":10,"rowspan":7,"widgetStyle":{"backgroundColor":"#FFFFFF","borderColor":"#091A3E","borderEdges":["all"],"borderRadius":4,"borderWidth":2}},{"colspan":15,"column":1,"name":"chart_3","row":10,"rowspan":7,"widgetStyle":{"backgroundColor":"rgba(255, 255, 255, 0)","borderColor":"#091A3E","borderEdges":[],"borderRadius":4,"borderWidth":2}},{"colspan":19,"column":28,"name":"table_2","row":18,"rowspan":4,"widgetStyle":{"borderEdges":[]}},{"colspan":19,"column":28,"name":"container_3","row":17,"rowspan":10,"widgetStyle":{"backgroundColor":"#FFFFFF","borderColor":"#091A3E","borderEdges":["all"],"borderRadius":4,"borderWidth":2}},{"colspan":17,"column":29,"name":"text_5","row":17,"rowspan":1,"widgetStyle":{"borderEdges":[]}},{"colspan":19,"column":28,"name":"table_3","row":23,"rowspan":4,"widgetStyle":{"borderEdges":[]}},{"colspan":17,"column":29,"name":"text_6","row":22,"rowspan":1,"widgetStyle":{"borderEdges":[]}},{"colspan":25,"column":2,"name":"chart_4","row":17,"rowspan":5,"widgetStyle":{"borderEdges":[]}},{"colspan":25,"column":2,"name":"chart_5","row":23,"rowspan":4,"widgetStyle":{"borderEdges":[]}},{"colspan":27,"column":1,"name":"container_4","row":17,"rowspan":14,"widgetStyle":{"backgroundColor":"#FFFFFF","borderColor":"#091A3E","borderEdges":["all"],"borderRadius":0,"borderWidth":2}},{"colspan":16,"column":1,"name":"container_5","row":10,"rowspan":7,"widgetStyle":{"backgroundColor":"#FFFFFF","borderColor":"#091A3E","borderEdges":["all"],"borderRadius":4,"borderWidth":2}},{"colspan":46,"column":1,"name":"container_7","row":2,"rowspan":3,"widgetStyle":{"backgroundColor":"#FFFFFF","borderColor":"#091A3E","borderEdges":["all"],"borderRadius":4,"borderWidth":2}},{"colspan":45,"column":1,"name":"text_7","row":2,"rowspan":1,"widgetStyle":{"borderEdges":[]}},{"colspan":45,"column":1,"name":"text_8","row":3,"rowspan":1,"widgetStyle":{"borderEdges":[]}},{"colspan":22,"column":25,"name":"pillbox_1","row":1,"rowspan":1,"widgetStyle":{"borderEdges":[]}},{"colspan":13,"column":34,"name":"pillbox_2","row":0,"rowspan":1,"widgetStyle":{"borderEdges":[]}},{"colspan":8,"column":25,"name":"text_9","row":0,"rowspan":1,"widgetStyle":{"borderEdges":[]}},{"colspan":41,"column":6,"name":"table_4","row":6,"rowspan":4,"widgetStyle":{"borderEdges":[]}},{"colspan":25,"column":2,"name":"chart_6","row":28,"rowspan":3,"widgetStyle":{"borderEdges":[]}}]}],"rowHeight":"normal","selectors":[],"style":{"alignmentX":"left","alignmentY":"top","backgroundColor":"#F2F6FA","cellSpacingX":4,"cellSpacingY":4,"fit":"original","gutterColor":"#C5D3E0"},"version":1.0},{"name":"Phone View","numColumns":6,"pages":[{"label":"Fraud Summary","name":"7333e75c-9951-4ec8-9209-853678809a05","navigationHidden":false,"widgets":[{"colspan":6,"column":0,"name":"text_4","row":0,"rowspan":2,"widgetStyle":{"backgroundColor":"rgb(242, 243, 131)","borderColor":"#E6ECF2","borderEdges":[],"borderRadius":0,"borderWidth":1}},{"colspan":6,"column":0,"name":"container_7","row":2,"rowspan":3,"widgetStyle":{"backgroundColor":"#FFFFFF","borderColor":"#091A3E","borderEdges":["all"],"borderRadius":4,"borderWidth":2}},{"colspan":6,"column":0,"name":"text_7","row":2,"rowspan":1,"widgetStyle":{"borderEdges":[]}},{"colspan":6,"column":0,"name":"text_8","row":3,"rowspan":1,"widgetStyle":{"borderEdges":[]}},{"colspan":6,"column":0,"name":"container_1","row":5,"rowspan":8,"widgetStyle":{"backgroundColor":"#FFFFFF","borderColor":"#091A3E","borderEdges":["all"],"borderRadius":4,"borderWidth":2}},{"colspan":6,"column":0,"name":"table_1","row":6,"rowspan":4,"widgetStyle":{"borderEdges":[]}},{"colspan":5,"column":0,"name":"text_1","row":10,"rowspan":1,"widgetStyle":{"backgroundColor":"#091A3E","borderColor":"#E6ECF2","borderEdges":[],"borderRadius":0,"borderWidth":1}},{"colspan":5,"column":0,"name":"text_2","row":11,"rowspan":1,"widgetStyle":{"backgroundColor":"#091A3E","borderColor":"#E6ECF2","borderEdges":[],"borderRadius":0,"borderWidth":1}},{"colspan":5,"column":0,"name":"text_3","row":12,"rowspan":1,"widgetStyle":{"backgroundColor":"#091A3E","borderColor":"#E6ECF2","borderEdges":[],"borderRadius":0,"borderWidth":1}},{"colspan":6,"column":0,"name":"container_5","row":13,"rowspan":7,"widgetStyle":{"backgroundColor":"#FFFFFF","borderColor":"#091A3E","borderEdges":["all"],"borderRadius":4,"borderWidth":2}},{"colspan":6,"column":0,"name":"chart_3","row":13,"rowspan":7,"widgetStyle":{"backgroundColor":"rgba(255, 255, 255, 0)","borderColor":"#091A3E","borderEdges":[],"borderRadius":4,"borderWidth":2}},{"colspan":6,"column":0,"name":"container_2","row":20,"rowspan":7,"widgetStyle":{"backgroundColor":"#FFFFFF","borderColor":"#091A3E","borderEdges":["all"],"borderRadius":4,"borderWidth":2}},{"colspan":6,"column":0,"name":"chart_2","row":20,"rowspan":7,"widgetStyle":{"borderEdges":[]}},{"colspan":6,"column":0,"name":"chart_1","row":27,"rowspan":7,"widgetStyle":{"backgroundColor":"#FFFFFF","borderColor":"#091A3E","borderEdges":["all"],"borderRadius":4,"borderWidth":2}},{"colspan":6,"column":0,"name":"container_4","row":34,"rowspan":10,"widgetStyle":{"backgroundColor":"#FFFFFF","borderColor":"#091A3E","borderEdges":["all"],"borderRadius":0,"borderWidth":2}},{"colspan":6,"column":0,"name":"chart_4","row":34,"rowspan":5,"widgetStyle":{"borderEdges":[]}},{"colspan":6,"column":0,"name":"chart_5","row":40,"rowspan":4,"widgetStyle":{"borderEdges":[]}},{"colspan":6,"column":0,"name":"container_3","row":44,"rowspan":10,"widgetStyle":{"backgroundColor":"#FFFFFF","borderColor":"#091A3E","borderEdges":["all"],"borderRadius":4,"borderWidth":2}},{"colspan":6,"column":0,"name":"text_5","row":44,"rowspan":1,"widgetStyle":{"borderEdges":[]}},{"colspan":6,"column":0,"name":"table_2","row":45,"rowspan":4,"widgetStyle":{"borderEdges":[]}},{"colspan":6,"column":0,"name":"text_6","row":49,"rowspan":1,"widgetStyle":{"borderEdges":[]}},{"colspan":6,"column":0,"name":"table_3","row":50,"rowspan":4,"widgetStyle":{"borderEdges":[]}}]}],"rowHeight":"normal","selectors":["maxWidth(599)"],"style":{"alignmentX":"left","alignmentY":"top","backgroundColor":"#F2F6FA","cellSpacingX":4,"cellSpacingY":4,"fit":"original","gutterColor":"#C5D3E0"},"version":1.0}],"layouts":[],"steps":{"ClosedDate_1":{"broadcastFacet":true,"datasets":[{"name":"FraudX"}],"isGlobal":false,"query":{"query":"{\"measures\":[[\"count\",\"*\"]],\"groups\":[\"ClosedDate\"]}","version":-1.0},"receiveFacetSource":{"mode":"all","steps":[]},"selectMode":"single","type":"aggregateflex","useGlobal":true,"visualizationParameters":{}},"ClosedDate_2":{"broadcastFacet":true,"datasets":[{"name":"FraudX"}],"isGlobal":false,"query":{"query":"{\"measures\":[[\"count\",\"*\"]],\"groups\":[\"ClosedDate\"]}","version":-1.0},"receiveFacetSource":{"mode":"all","steps":[]},"selectMode":"single","type":"aggregateflex","useGlobal":true,"visualizationParameters":{}},"__Of_Scams_1":{"broadcastFacet":true,"groups":[],"label":"% Of Scams","numbers":[],"query":"q = load \"FraudX\";\nq = filter q by 'Record.Name' == \"Scam\";\nq = filter q by 'IDR_Date_Received__c_Month' == number_to_string({{cell(static_1.selection, 0, \"Month\").asObject()}}, \"0#\");\ns = group q by all;\ns = foreach s generate count() as 'all';\nq = group q by 'Type';\nq = foreach q generate count() as 'count';\nq = limit q 3;\n\nq = group q by all;\nq = foreach q generate sum('count') as 'total';\nq = union q, s;\n\nq = group q by all;\nq = foreach q generate round(sum('total')/sum('all'),4) * 100 as 'Percent'","receiveFacetSource":{"mode":"all","steps":[]},"selectMode":"single","strings":[],"type":"saql","useGlobal":true,"visualizationParameters":{"parameters":{"borderColor":"#e0e5ee","borderWidth":1,"cell":{"backgroundColor":"#ffffff","fontColor":"#16325c","fontSize":12},"columnProperties":{},"columns":[],"customBulkActions":[],"header":{"backgroundColor":"#f4f6f9","fontColor":"#16325c","fontSize":12},"innerMajorBorderColor":"#a8b7c7","innerMinorBorderColor":"#e0e5ee","maxColumnWidth":300,"minColumnWidth":40,"mode":"variable","numberOfLines":1,"showActionMenu":true,"totals":true,"verticalPadding":8},"type":"table"}},"Account_BillingState_1":{"broadcastFacet":true,"groups":[],"label":"Account_BillingState_1","numbers":[],"query":"q = load \"FraudX\";\nq = group q by 'Account.BillingState';\nq = filter q by 'IDR_Date_Received__c_Year' == \"{{cell(static_2.selection, 0, \"Year\").asObject()}}\";\nq = filter q by 'IDR_Date_Received__c_Month' == number_to_string( ({{cell(static_1.selection, 0, \"Month\").asObject()}}), \"0#\");\nq = foreach q generate 'Account.BillingState' as 'Account.BillingState', count() as 'count';\nq = order q by 'count' desc;\nq = limit q 2000;","receiveFacetSource":{"mode":"all","steps":[]},"selectMode":"single","start":"[]","strings":[],"type":"saql","useGlobal":true,"visualizationParameters":{"parameters":{"autoFitMode":"keepLabels","showValues":true,"bins":{"breakpoints":{"high":100,"low":0},"bands":{"high":{"color":"#008000","label":""},"low":{"color":"#B22222","label":""},"medium":{"color":"#ffa500","label":""}}},"legend":{"descOrder":false,"showHeader":true,"show":false,"customSize":"auto","position":"right-top","inside":false},"axisMode":"multi","tooltip":{"showBinLabel":true,"measures":"","showNullValues":true,"showPercentage":true,"showDimensions":true,"showMeasures":true,"customizeTooltip":false,"dimensions":""},"visualizationType":"vbar","title":{"fontSize":14,"subtitleFontSize":11,"label":"Scam Victim States:","align":"center","subtitleLabel":""},"binValues":false,"trellis":{"flipLabels":false,"showGridLines":true,"size":[100,100],"enable":false,"type":"x","chartsPerLine":4},"columnMap":{"trellis":[],"dimensionAxis":["Account.BillingState"],"plots":["count"]},"showActionMenu":true,"measureAxis2":{"sqrtScale":false,"showTitle":true,"showAxis":true,"title":"","customDomain":{"showDomain":false}},"measureAxis1":{"sqrtScale":false,"showTitle":false,"showAxis":false,"title":"","customDomain":{"showDomain":false}},"theme":"wave","dimensionAxis":{"showTitle":false,"customSize":"auto","showAxis":true,"title":"","icons":{"useIcons":false,"iconProps":{"fit":"cover","column":"","type":"round"}}},"applyConditionalFormatting":true},"type":"chart"}},"CreatedDate_Year_Cre_1":{"broadcastFacet":true,"groups":[],"label":"CreatedDate_Year_Cre_1","numbers":[],"query":"q = load \"FraudX\";\nq = foreach q generate \n({{cell(static_2.selection, 0, \"Year\").asObject()}}-1) + ({{cell(static_1.selection, 0, \"Month\").asObject()}}/100) as 'lowerFilterDate',\n(string_to_number('ClosedDate_Year') + (string_to_number('ClosedDate_Month')/100) ) as 'filterDate',\nClosedDate_Year, ClosedDate_Month;\nq = filter q by 'filterDate' >= lowerFilterDate;\nq = filter q by 'filterDate' <= {{cell(static_2.selection, 0, \"Year\").asObject()}} + ({{cell(static_1.selection, 0, \"Month\").asObject()}}/100);\nq = group q by ('ClosedDate_Year', 'ClosedDate_Month');\nq = foreach q generate 'ClosedDate_Year' + \"~~~\" + 'ClosedDate_Month' as 'ClosedDate_Year~~~ClosedDate_Month', count() as 'count';\nq = order q by 'ClosedDate_Year~~~ClosedDate_Month' asc;\nq = limit q 2000;","receiveFacetSource":{"mode":"all","steps":[]},"selectMode":"single","strings":[],"type":"saql","useGlobal":true,"visualizationParameters":{"parameters":{"autoFitMode":"keepLabels","showValues":true,"bins":{"breakpoints":{"high":100,"low":0},"bands":{"high":{"color":"#008000","label":""},"low":{"color":"#B22222","label":""},"medium":{"color":"#ffa500","label":""}}},"showPoints":false,"legend":{"descOrder":false,"showHeader":true,"show":false,"customSize":"auto","position":"right-top","inside":false},"axisMode":"multi","tooltip":{"showBinLabel":true,"measures":"","showNullValues":true,"showPercentage":true,"showDimensions":true,"showMeasures":true,"customizeTooltip":false,"dimensions":""},"visualizationType":"time","missingValue":"connect","dashLine":{"measures":["count"],"showDashLine":false},"timeAxis":{"showTitle":false,"showAxis":true,"title":""},"title":{"fontSize":14,"subtitleFontSize":11,"label":"Closed Tickets over time","align":"center","subtitleLabel":""},"binValues":false,"trellis":{"flipLabels":false,"showGridLines":true,"size":[100,100],"enable":false,"type":"x","chartsPerLine":4},"fillArea":true,"columnMap":{"split":[],"timeAxis":["CreatedDate_Year~~~CreatedDate_Month"],"trellis":[],"plots":["count"]},"showActionMenu":true,"showZero":true,"measureAxis2":{"sqrtScale":false,"showTitle":true,"showAxis":true,"title":"","customDomain":{"showDomain":false}},"measureAxis1":{"sqrtScale":false,"showTitle":false,"showAxis":true,"title":"","customDomain":{"showDomain":false}},"valueType":"compactNumber","theme":"wave","applyConditionalFormatting":true,"drawArea":{"measure":"","showDrawArea":false,"bounding1":"","bounding2":""}},"type":"chart"}},"Fraud_Funds_to_Geogr_1":{"broadcastFacet":true,"groups":[],"label":"Fraud_Funds_to_Geogr_1","numbers":[],"query":"q = load \"FraudX\";\nq = filter q by 'IDR_Date_Received__c_Year' == \"{{cell(static_2.selection, 0, \"Year\").asObject()}}\";\nq = filter q by 'IDR_Date_Received__c_Month' == number_to_string( ({{cell(static_1.selection, 0, \"Month\").asObject()}}), \"0#\");\nq = group q by 'Fraud_Funds_from_Geography__c';\nq = foreach q generate 'Fraud_Funds_from_Geography__c' as 'Fraud_Funds_from_Geography__c', count() as 'count';\nq = order q by 'count' desc;\nq = limit q 5;","receiveFacetSource":{"mode":"all","steps":[]},"selectMode":"single","start":"[]","strings":[],"type":"saql","useGlobal":true,"visualizationParameters":{"parameters":{"borderColor":"#a8b7c7","borderWidth":1,"cell":{"backgroundColor":"#ffffff","fontColor":"#16325c","fontSize":12},"columnProperties":{"count":{"parameters":{"alignment":"right","styles":{"bold":true}},"type":"text"}},"columns":[],"customBulkActions":[],"header":{"backgroundColor":"#16325c","fontColor":"#ffffff","fontSize":10},"innerMajorBorderColor":"#54698d","innerMinorBorderColor":"#a8b7c7","mode":"fittocontainer","numberOfLines":1,"pivoted":false,"showActionMenu":true,"totals":true,"verticalPadding":4},"type":"table"}},"static_2":{"broadcastFacet":true,"columns":{"Year":{"type":"string"}},"label":"","selectMode":"singlerequired","type":"staticflex","values":["{\"Year\":\"2020\"}","{\"Year\":\"2021\"}"]},"static_1":{"broadcastFacet":true,"columns":{"Month":{"type":"number"},"Display":{"type":"string"}},"label":"","selectMode":"singlerequired","start":"{\"Display\":[\"Dec\"]}","type":"staticflex","values":["{\"Display\":\"Jan\",\"Month\":1}","{\"Display\":\"Feb\",\"Month\":2}","{\"Display\":\"Mar\",\"Month\":3}","{\"Display\":\"Apr\",\"Month\":4}","{\"Display\":\"May\",\"Month\":5}","{\"Display\":\"Jun\",\"Month\":6}","{\"Display\":\"Jul\",\"Month\":7}","{\"Display\":\"Aug\",\"Month\":8}","{\"Display\":\"Sep\",\"Month\":9}","{\"Display\":\"Oct\",\"Month\":10}","{\"Display\":\"Nov\",\"Month\":11}","{\"Display\":\"Dec\",\"Month\":12}"]},"IDR_Date_Received__c_2":{"broadcastFacet":true,"groups":[],"label":"IDR_Date_Received__c_2","numbers":[],"query":"q = load \"FraudX\";\nq = foreach q generate \n({{cell(static_2.selection, 0, \"Year\").asObject()}}-1) + ({{cell(static_1.selection, 0, \"Month\").asObject()}}/100) as 'lowerFilterDate',\n(string_to_number('IDR_Date_Received__c_Year') + (string_to_number('IDR_Date_Received__c_Month')/100) ) as 'filterDate',\n'IDR_Date_Received__c_Year', 'IDR_Date_Received__c_Month', 'Fraud_Total_Falcon_Recalled__c';\nq = filter q by 'filterDate' >= lowerFilterDate;\nq = filter q by 'filterDate' <= {{cell(static_2.selection, 0, \"Year\").asObject()}} + ({{cell(static_1.selection, 0, \"Month\").asObject()}}/100);\nq = group q by ('IDR_Date_Received__c_Year', 'IDR_Date_Received__c_Month');\nq = foreach q generate 'IDR_Date_Received__c_Year' + \"~~~\" + 'IDR_Date_Received__c_Month' as 'IDR_Date_Received__c_Year~~~IDR_Date_Received__c_Month', sum('Fraud_Total_Falcon_Recalled__c') as 'sum_Fraud_Total_Falcon_Recalled__c';\nq = order q by 'IDR_Date_Received__c_Year~~~IDR_Date_Received__c_Month' asc;\nq = limit q 2000;","receiveFacetSource":{"mode":"all","steps":[]},"selectMode":"single","strings":[],"type":"saql","useGlobal":true,"visualizationParameters":{"parameters":{"showValues":true,"showPoints":true,"legend":{"descOrder":false,"showHeader":true,"show":true,"customSize":"auto","position":"right-top","inside":false},"axisMode":"multi","tooltip":{"showBinLabel":true,"measures":"","showNullValues":true,"showPercentage":true,"showDimensions":true,"showMeasures":true,"customizeTooltip":false,"dimensions":""},"visualizationType":"time","missingValue":"connect","title":{"fontSize":14,"subtitleFontSize":11,"label":"Actual Scam Reimbursements","align":"center","subtitleLabel":""},"binValues":false,"trellis":{"flipLabels":false,"showGridLines":true,"size":[100,100],"enable":false,"type":"x","chartsPerLine":4},"showZero":true,"valueType":"compactNumber","theme":"wave","dimensionAxis":{"showTitle":true,"customSize":"auto","showAxis":true,"title":"","icons":{"useIcons":false,"iconProps":{"fit":"cover","column":"","type":"round"}}},"applyConditionalFormatting":true,"drawArea":{"measure":"","showDrawArea":false,"bounding1":"","bounding2":""},"autoFitMode":"keepLabels","bins":{"breakpoints":{"high":100,"low":0},"bands":{"high":{"color":"#008000","label":""},"low":{"color":"#B22222","label":""},"medium":{"color":"#ffa500","label":""}}},"dashLine":{"measures":["sum_Fraud_Total_Falcon_Recalled__c"],"showDashLine":false},"timeAxis":{"showTitle":false,"showAxis":true,"title":""},"fillArea":true,"columnMap":{"split":[],"timeAxis":["IDR_Date_Received__c_Year~~~IDR_Date_Received__c_Month"],"trellis":[],"plots":["sum_Fraud_Total_Falcon_Recalled__c"]},"showActionMenu":true,"measureAxis2":{"sqrtScale":false,"showTitle":true,"showAxis":true,"title":"","customDomain":{"showDomain":false}},"measureAxis1":{"sqrtScale":false,"showTitle":false,"showAxis":true,"title":"","customDomain":{"showDomain":false}}},"type":"chart"}},"Account_FinServ__Gen_1":{"broadcastFacet":true,"groups":[],"label":"Account_FinServ__Gen_1","numbers":[],"query":"q = load \"FraudX\";\nq = filter q by 'IDR_Date_Received__c_Year' == \"{{cell(static_2.selection, 0, \"Year\").asObject()}}\";\nq = filter q by 'IDR_Date_Received__c_Month' == number_to_string( ({{cell(static_1.selection, 0, \"Month\").asObject()}}), \"0#\");\nq = group q by 'Account.FinServ__Gender__pc';\nq = foreach q generate 'Account.FinServ__Gender__pc' as 'Account.FinServ__Gender__pc', count() as 'count';\nq = order q by 'Account.FinServ__Gender__pc' asc;\nq = limit q 2000;","receiveFacetSource":{"mode":"all","steps":[]},"selectMode":"single","start":"[]","strings":[],"type":"saql","useGlobal":true,"visualizationParameters":{"parameters":{"autoFitMode":"keepLabels","showValues":true,"bins":{"breakpoints":{"high":100,"low":0},"bands":{"high":{"color":"#008000","label":""},"low":{"color":"#B22222","label":""},"medium":{"color":"#ffa500","label":""}}},"legend":{"descOrder":false,"showHeader":false,"show":false,"customSize":"auto","position":"right-top","inside":false},"axisMode":"multi","tooltip":{"showBinLabel":true,"measures":"","showNullValues":true,"showPercentage":true,"showDimensions":true,"showMeasures":true,"customizeTooltip":false,"dimensions":""},"visualizationType":"vbar","title":{"fontSize":14,"subtitleFontSize":11,"label":"Scam Victims Gender:","align":"center","subtitleLabel":""},"trellis":{"flipLabels":false,"showGridLines":true,"size":[100,100],"enable":false,"type":"x","chartsPerLine":4},"binValues":false,"columnMap":{"trellis":[],"dimensionAxis":["Account.FinServ__Gender__pc"],"plots":["count"]},"showActionMenu":true,"measureAxis2":{"sqrtScale":false,"showTitle":true,"showAxis":true,"title":"","customDomain":{"showDomain":false}},"measureAxis1":{"sqrtScale":false,"showTitle":true,"showAxis":true,"title":"Cases","customDomain":{"showDomain":false}},"theme":"wave","dimensionAxis":{"showTitle":false,"customSize":"auto","showAxis":false,"title":"","icons":{"useIcons":false,"iconProps":{"fit":"cover","column":"","type":"round"}}},"applyConditionalFormatting":true},"type":"chart"}},"IDR_Date_Received__c_1":{"broadcastFacet":true,"groups":[],"label":"IDR_Date_Received__c_1","numbers":[],"query":"q = load \"FraudX\";\nq = foreach q generate \n({{cell(static_2.selection, 0, \"Year\").asObject()}}-1) + ({{cell(static_1.selection, 0, \"Month\").asObject()}}/100) as 'lowerFilterDate',\n(string_to_number('IDR_Date_Received__c_Year') + (string_to_number('IDR_Date_Received__c_Month')/100) ) as 'filterDate', \n'Record.Name' as 'Record.Name', IDR_Date_Received__c_Year, IDR_Date_Received__c_Month, IDR_Date_Received__c_Day, Fraud_Total_Scam_Value__c, Fraud_Total_Recovered__c, Fraud_Total_Fraud_Value__c, Fraud_Total_Falcon_Recalled__c, Fraud_Total_Recipient_Loss__c, Fraud_Total_Customer_Loss__c;\nq = filter q by 'filterDate' >= lowerFilterDate;\nq = filter q by 'filterDate' <= {{cell(static_2.selection, 0, \"Year\").asObject()}} + ({{cell(static_1.selection, 0, \"Month\").asObject()}}/100);\nq = filter q by 'Record.Name' == \"Scam\";\nq = group q by ('IDR_Date_Received__c_Year', 'IDR_Date_Received__c_Month');\nq = foreach q generate 'IDR_Date_Received__c_Year' + \"~~~\" + 'IDR_Date_Received__c_Month' as 'IDR_Date_Received__c_Year~~~IDR_Date_Received__c_Month', sum('Fraud_Total_Fraud_Value__c') as 'sum_Fraud_Total_Fraud_Value__c', sum('Fraud_Total_Falcon_Recalled__c') as 'sum_Fraud_Total_Falcon_Recalled__c', sum('Fraud_Total_Customer_Loss__c') as 'sum_Fraud_Total_Customer_Loss__c', sum('Fraud_Total_Recipient_Loss__c') as 'sum_Fraud_Total_Recipient_Loss__c';\nq = order q by 'IDR_Date_Received__c_Year~~~IDR_Date_Received__c_Month' asc;\nq = limit q 2000;","receiveFacetSource":{"mode":"all","steps":[]},"selectMode":"single","strings":[],"type":"saql","useGlobal":true,"visualizationParameters":{"parameters":{"autoFitMode":"keepLabels","showValues":true,"bins":{"breakpoints":{"high":100,"low":0},"bands":{"high":{"color":"#008000","label":""},"low":{"color":"#B22222","label":""},"medium":{"color":"#ffa500","label":""}}},"legend":{"descOrder":false,"showHeader":true,"show":true,"customSize":"auto","position":"top-center","inside":false},"axisMode":"dual","tooltip":{"showBinLabel":true,"measures":"","showNullValues":true,"showPercentage":true,"showDimensions":true,"showMeasures":true,"customizeTooltip":false,"dimensions":""},"visualizationType":"time-bar","timeAxis":{"showTitle":false,"showAxis":true,"title":""},"title":{"fontSize":14,"subtitleFontSize":11,"label":"Scam Victim Only Case Historical Financials","align":"center","subtitleLabel":""},"binValues":false,"trellis":{"flipLabels":false,"showGridLines":true,"size":[100,100],"enable":false,"type":"x","chartsPerLine":4},"columnMap":{"timeAxis":["IDR_Date_Received__c_Year~~~IDR_Date_Received__c_Month"],"trellis":[],"plots":["sum_Fraud_Total_Fraud_Value__c","sum_Fraud_Total_Falcon_Recalled__c","sum_Fraud_Total_Recipient_Loss__c"]},"showActionMenu":true,"measureAxis2":{"sqrtScale":false,"showTitle":false,"showAxis":true,"title":"","customDomain":{"showDomain":false}},"measureAxis1":{"sqrtScale":false,"showTitle":false,"showAxis":true,"title":"","customDomain":{"showDomain":false}},"theme":"wave","dimensionAxis":{"showTitle":true,"customSize":"auto","showAxis":true,"title":"","icons":{"useIcons":false,"iconProps":{"fit":"cover","column":"","type":"round"}}},"applyConditionalFormatting":true},"type":"chart"}},"Type_1":{"broadcastFacet":true,"datasets":[{"name":"FraudX"}],"isGlobal":false,"query":{"query":"{\"measures\":[[\"count\",\"*\"]],\"groups\":[\"Type\"],\"filters\":[[\"Record.Name\",[\"Scam\"],\"in\"]]}","version":-1.0},"receiveFacetSource":{"mode":"all","steps":[]},"selectMode":"single","type":"aggregateflex","useGlobal":true,"visualizationParameters":{"parameters":{"autoFitMode":"keepLabels","showValues":true,"bins":{"breakpoints":{"high":100,"low":0},"bands":{"high":{"color":"#008000","label":""},"low":{"color":"#B22222","label":""},"medium":{"color":"#ffa500","label":""}}},"legend":{"descOrder":false,"showHeader":true,"show":true,"customSize":"auto","position":"right-top","inside":false},"axisMode":"multi","tooltip":{"showBinLabel":true,"measures":"","showNullValues":true,"showPercentage":true,"showDimensions":true,"showMeasures":true,"customizeTooltip":false,"dimensions":""},"visualizationType":"hbar","title":{"fontSize":14,"subtitleFontSize":11,"label":"","align":"center","subtitleLabel":""},"binValues":false,"trellis":{"flipLabels":false,"showGridLines":true,"size":[100,100],"enable":false,"type":"x","chartsPerLine":4},"columnMap":{"trellis":[],"dimensionAxis":["Type"],"plots":["count"]},"showActionMenu":true,"measureAxis2":{"sqrtScale":false,"showTitle":true,"showAxis":true,"title":"","customDomain":{"showDomain":false}},"measureAxis1":{"sqrtScale":false,"showTitle":true,"showAxis":true,"title":"","customDomain":{"showDomain":false}},"theme":"wave","dimensionAxis":{"showTitle":true,"customSize":"auto","showAxis":true,"title":"","icons":{"useIcons":false,"iconProps":{"fit":"cover","column":"","type":"round"}}},"applyConditionalFormatting":true},"type":"chart"}},"Type_2":{"broadcastFacet":true,"groups":[],"label":"Type_2","numbers":[],"query":"q = load \"FraudX\";\nq = filter q by 'Record.Name' == \"Scam\";\nq = filter q by 'IDR_Date_Received__c_Year' == \"{{cell(static_2.selection, 0, \"Year\").asObject()}}\";\nq = filter q by 'IDR_Date_Received__c_Month' == number_to_string( ({{cell(static_1.selection, 0, \"Month\").asObject()}}), \"0#\");\nq = group q by 'Type';\nq = foreach q generate 'Type' as 'Type', count() as 'count';\nq = order q by 'count' desc;\nq = limit q 5;","receiveFacetSource":{"mode":"all","steps":[]},"selectMode":"single","start":"[]","strings":[],"type":"saql","useGlobal":true,"visualizationParameters":{"parameters":{"borderColor":"#a8b7c7","borderWidth":1,"cell":{"backgroundColor":"#ffffff","fontColor":"#16325c","fontSize":12},"columnProperties":{"count":{"parameters":{"alignment":"right","styles":{"bold":true}},"type":"text"}},"columns":[],"customBulkActions":[],"header":{"backgroundColor":"#16325c","fontColor":"#ffffff","fontSize":10},"innerMajorBorderColor":"#54698d","innerMinorBorderColor":"#a8b7c7","mode":"fittocontainer","numberOfLines":1,"pivoted":false,"showActionMenu":false,"totals":true,"verticalPadding":4},"type":"table"}},"AgeBucket_1":{"broadcastFacet":true,"groups":[],"label":"AgeBucket_1","numbers":[],"query":"q = load \"FraudX\";\nq = filter q by 'IDR_Date_Received__c_Year' == \"{{cell(static_2.selection, 0, \"Year\").asObject()}}\";\nq = filter q by 'IDR_Date_Received__c_Month' == number_to_string( ({{cell(static_1.selection, 0, \"Month\").asObject()}}), \"0#\");\nq = group q by 'AgeBucket';\nq = foreach q generate 'AgeBucket' as 'AgeBucket', count() as 'count';\nq = order q by 'AgeBucket' asc;\nq = limit q 2000;","receiveFacetSource":{"mode":"all","steps":[]},"selectMode":"single","start":"[]","strings":[],"type":"saql","useGlobal":true,"visualizationParameters":{"parameters":{"autoFitMode":"keepLabels","showValues":true,"bins":{"breakpoints":{"high":100,"low":0},"bands":{"high":{"color":"#008000","label":""},"low":{"color":"#B22222","label":""},"medium":{"color":"#ffa500","label":""}}},"legend":{"descOrder":false,"showHeader":true,"show":false,"customSize":"auto","position":"right-top","inside":false},"axisMode":"multi","tooltip":{"showBinLabel":true,"measures":"","showNullValues":true,"showPercentage":true,"showDimensions":true,"showMeasures":true,"customizeTooltip":false,"dimensions":""},"visualizationType":"hbar","title":{"fontSize":14,"subtitleFontSize":11,"label":"Scam Victim Ages:","align":"center","subtitleLabel":""},"binValues":false,"trellis":{"flipLabels":false,"showGridLines":true,"size":[100,100],"enable":false,"type":"x","chartsPerLine":4},"columnMap":{"trellis":[],"dimensionAxis":["AgeBucket"],"plots":["count"]},"showActionMenu":true,"measureAxis2":{"sqrtScale":false,"showTitle":true,"showAxis":true,"title":"","customDomain":{"showDomain":false}},"measureAxis1":{"sqrtScale":false,"showTitle":false,"showAxis":true,"title":"","customDomain":{"showDomain":false}},"theme":"wave","dimensionAxis":{"showTitle":false,"customSize":"auto","showAxis":true,"title":"","icons":{"useIcons":false,"iconProps":{"fit":"cover","column":"","type":"round"}}},"applyConditionalFormatting":true},"type":"chart"}},"lens_1":{"broadcastFacet":true,"groups":[],"numbers":[],"query":"q = load \"FraudX\";\nq = group q by ('ClosedDate_Year', 'ClosedDate_Month');\nq = foreach q generate 'ClosedDate_Year' + \"~~~\" + 'ClosedDate_Month' as 'ClosedDate_Year~~~ClosedDate_Month', count() as 'count';\nq = order q by 'ClosedDate_Year~~~ClosedDate_Month' asc;\nq = limit q 2000;","receiveFacetSource":{"mode":"all","steps":[]},"selectMode":"single","strings":[],"type":"saql","useGlobal":true,"visualizationParameters":{"parameters":{"autoFitMode":"keepLabels","showPoints":false,"legend":{"descOrder":false,"showHeader":true,"show":true,"customSize":"auto","position":"right-top","inside":false},"axisMode":"multi","tooltip":{"showBinLabel":true,"measures":"","showNullValues":true,"showPercentage":true,"showDimensions":true,"showMeasures":true,"customizeTooltip":false,"dimensions":""},"visualizationType":"line","dashLine":{"measures":"","showDashLine":false},"title":{"fontSize":14,"subtitleFontSize":11,"label":"","align":"center","subtitleLabel":""},"trellis":{"flipLabels":false,"showGridLines":true,"size":[100,100],"enable":false,"type":"x","chartsPerLine":4},"columnMap":{"split":[],"trellis":[],"dimensionAxis":["ClosedDate_Year~~~ClosedDate_Month"],"plots":["count"]},"fillArea":true,"showActionMenu":true,"showZero":true,"measureAxis2":{"sqrtScale":false,"showTitle":true,"showAxis":true,"title":"","customDomain":{"showDomain":false}},"measureAxis1":{"sqrtScale":false,"showTitle":true,"showAxis":true,"title":"","customDomain":{"showDomain":false}},"valueType":"none","theme":"wave","dimensionAxis":{"showTitle":true,"customSize":"auto","showAxis":true,"title":"","icons":{"useIcons":false,"iconProps":{"fit":"cover","column":"","type":"round"}}},"applyConditionalFormatting":true,"drawArea":{"measure":"","showDrawArea":false,"bounding1":"","bounding2":""}},"type":"chart"}},"lens_2":{"broadcastFacet":true,"groups":[],"label":"lens_2","numbers":[],"query":"\nq = load \"FraudX\";\nq = filter q by 'IDR_Date_Received__c_Year' == \"{{cell(static_2.selection, 0, \"Year\").asObject()}}\";\nq = filter q by 'IDR_Date_Received__c_Month' == number_to_string({{cell(static_1.selection, 0, \"Month\").asObject()}}, \"0#\");\nq_B = filter q by 'Record.Name' == \"Scam\";\nresult = group q by all full, q_B by all;\nresult = foreach result generate count(q) as 'A', count(q_B) as 'B', sum(q_B.'Fraud_Total_Scam_Value__c') as 'E', sum(q_B.'Fraud_Total_Recovered__c') as 'F', sum(q_B.'Fraud_Total_Customer_Exposure__c') as 'Ex';\nresult = foreach result generate coalesce(A,0) as 'A', 'B', 'E', 'F', E - F as 'G', 'Ex';\nresult1 = limit result 10000;\n\n-- Previous Month\nq = load \"FraudX\";\nq = foreach q generate IDR_Date_Received__c_Year, IDR_Date_Received__c_Month, 'Record.Name' as 'Record.Name', Fraud_Total_Scam_Value__c, Fraud_Total_Recovered__c, Fraud_Total_Customer_Exposure__c,\ncase when {{cell(static_1.selection, 0, \"Month\").asObject()}} == 1 then 12 else ({{cell(static_1.selection, 0, \"Month\").asObject()}}-1) end as 'monthFilter',\ncase when {{cell(static_1.selection, 0, \"Month\").asObject()}} == 1 then ({{cell(static_2.selection, 0, \"Year\").asObject()}}-1) else ({{cell(static_2.selection, 0, \"Year\").asObject()}}) end as 'yearFilter';\nq = filter q by 'IDR_Date_Received__c_Month' == number_to_string('monthFilter', \"0#\");\nq = filter q by 'IDR_Date_Received__c_Year' == number_to_string('yearFilter', \"####\");\nq_B = filter q by 'Record.Name' == \"Scam\";\nresult = group q by all full, q_B by all;\nresult = foreach result generate count(q) as 'A', count(q_B) as 'B', sum(q.'Fraud_Total_Scam_Value__c') as 'E', sum(q.'Fraud_Total_Recovered__c') as 'F', sum(q.'Fraud_Total_Customer_Exposure__c') as 'Ex';\nresult = foreach result generate coalesce('A',0) as 'A', 'B', 'E', 'F', E - F as 'G', 'Ex';\nresult2 = limit result 2000;\n\n-- Rolling 12 months\n\nq = load \"FraudX\";\nq1 = foreach q generate \n({{cell(static_2.selection, 0, \"Year\").asObject()}}-1) + ({{cell(static_1.selection, 0, \"Month\").asObject()}}/100) as 'lowerFilterDate',\n(string_to_number('IDR_Date_Received__c_Year') + (string_to_number('IDR_Date_Received__c_Month')/100) ) as 'filterDate', \nIDR_Date_Received__c_Year, IDR_Date_Received__c_Month, IDR_Date_Received__c_Day, Fraud_Total_Scam_Value__c, Fraud_Total_Recovered__c, Fraud_Total_Customer_Exposure__c,\n'Record.Name' as 'Record.Name';\nq1 = filter q1 by 'filterDate' >= lowerFilterDate;\nq1 = filter q1 by 'filterDate' <= {{cell(static_2.selection, 0, \"Year\").asObject()}} + ({{cell(static_1.selection, 0, \"Month\").asObject()}}/100);\nq_B = filter q1 by 'Record.Name' == \"Scam\";\nresult = group q1 by all full, q_B by all;\nresult = foreach result generate count(q1) as 'A', count(q_B) as 'B', sum(q1.'Fraud_Total_Scam_Value__c') as 'E', sum(q1.'Fraud_Total_Recovered__c') as 'F', sum(q1.'Fraud_Total_Customer_Exposure__c') as 'Ex';\nresult = foreach result generate number_to_string(('A'/12), \"#.##\") as 'A', round('B'/12) as 'B', round('E'/12) as 'E', round('F'/12) as 'F', E - F as 'G', round('Ex'/12) as 'Ex';\nresult3 = limit result 2000;\n\nq = union result1, result2, result3;\nq = foreach q generate 'A' as 'Total Cases Worked', 'B' as 'Scam Cases', number_to_string('E', \"$0.0,,\")+\"M\" as 'How much did customer\\'s send?', number_to_string('F', \"$0.0,,\")+\"M\" as 'How much did ANZ Recover?', number_to_string('G', \"$0.0,,\")+\"M\" as 'How much did customer\\'s lose?',  number_to_string('Ex', \"$0.0,,\")+\"M\" as 'Total Customer Exposure' ;","receiveFacetSource":{"mode":"all","steps":[]},"selectMode":"single","strings":[],"type":"saql","useGlobal":true,"visualizationParameters":{"parameters":{"borderColor":"#e1e5ee","borderWidth":1,"cell":{"backgroundColor":"#f2f6fa","fontColor":"#16325c","fontSize":16},"columnProperties":{},"columns":[],"customBulkActions":[],"evenRowColor":"#f2f6fa","header":{"backgroundColor":"#e4ecf2","fontColor":"#5c7a99","fontSize":12},"innerMajorBorderColor":"#a9b7c7","innerMinorBorderColor":"#e1e5ee","mode":"fittocontainer","numberOfLines":1,"oddRowColor":"#ffffff","showActionMenu":false,"showRowIndexColumn":false,"totals":true,"verticalPadding":12},"type":"table"}}},"widgetStyle":{"backgroundColor":"#FFFFFF","borderColor":"#E6ECF2","borderEdges":[],"borderRadius":0,"borderWidth":1},"widgets":{"container_1":{"parameters":{"alignmentX":"left","alignmentY":"top","fit":"original"},"type":"container"},"container_2":{"parameters":{"alignmentX":"left","alignmentY":"top","fit":"original"},"type":"container"},"container_3":{"parameters":{"alignmentX":"left","alignmentY":"top","fit":"original"},"type":"container"},"container_4":{"parameters":{"alignmentX":"left","alignmentY":"top","fit":"original"},"type":"container"},"container_5":{"parameters":{"alignmentX":"center","alignmentY":"center","fit":"fitwidth","image":{"name":"Picture_1png","namespace":""}},"type":"container"},"text_3":{"parameters":{"content":{"displayTemplate":"12 Mth Avg"},"fontSize":16,"showActionMenu":true,"textAlignment":"left","textColor":"#FFFFFF"},"type":"text"},"chart_6":{"parameters":{"showValues":true,"showPoints":false,"legend":{"descOrder":false,"showHeader":true,"show":false,"customSize":"auto","position":"right-top","inside":false},"axisMode":"multi","tooltip":{"showBinLabel":true,"measures":"","showNullValues":true,"showPercentage":true,"showDimensions":true,"showMeasures":true,"customizeTooltip":false,"dimensions":""},"visualizationType":"time","missingValue":"connect","exploreLink":true,"title":{"fontSize":14,"subtitleFontSize":11,"label":"Closed Tickets over time","align":"center","subtitleLabel":""},"binValues":false,"trellis":{"flipLabels":false,"showGridLines":true,"size":[100,100],"enable":false,"type":"x","chartsPerLine":4},"showZero":true,"valueType":"compactNumber","theme":"wave","applyConditionalFormatting":true,"drawArea":{"measure":"","showDrawArea":false,"bounding1":"","bounding2":""},"autoFitMode":"keepLabels","bins":{"breakpoints":{"high":100,"low":0},"bands":{"high":{"color":"#008000","label":""},"low":{"color":"#B22222","label":""},"medium":{"color":"#ffa500","label":""}}},"dashLine":{"measures":["count"],"showDashLine":false},"timeAxis":{"showTitle":false,"showAxis":true,"title":""},"fillArea":true,"columnMap":{"split":[],"timeAxis":["ClosedDate_Year~~~ClosedDate_Month"],"trellis":[],"plots":["count"]},"showActionMenu":true,"measureAxis2":{"sqrtScale":false,"showTitle":true,"showAxis":true,"title":"","customDomain":{"showDomain":false}},"measureAxis1":{"sqrtScale":false,"showTitle":false,"showAxis":true,"title":"","customDomain":{"showDomain":false}},"step":"CreatedDate_Year_Cre_1"},"type":"chart"},"text_2":{"parameters":{"content":{"displayTemplate":"Last Month"},"fontSize":16,"showActionMenu":true,"textAlignment":"left","textColor":"#FFFFFF"},"type":"text"},"chart_5":{"parameters":{"showValues":true,"showPoints":true,"legend":{"descOrder":false,"showHeader":true,"show":true,"customSize":"auto","position":"right-top","inside":false},"axisMode":"multi","tooltip":{"showBinLabel":true,"measures":"","showNullValues":true,"showPercentage":true,"showDimensions":true,"showMeasures":true,"customizeTooltip":false,"dimensions":""},"visualizationType":"time","missingValue":"connect","exploreLink":true,"title":{"fontSize":14,"subtitleFontSize":11,"label":"Actual Scam Reimbursements","align":"center","subtitleLabel":""},"binValues":false,"trellis":{"flipLabels":false,"showGridLines":true,"size":[100,100],"enable":false,"type":"x","chartsPerLine":4},"showZero":true,"valueType":"compactNumber","theme":"wave","dimensionAxis":{"showTitle":true,"customSize":"auto","showAxis":true,"title":"","icons":{"useIcons":false,"iconProps":{"fit":"cover","column":"","type":"round"}}},"applyConditionalFormatting":true,"drawArea":{"measure":"","showDrawArea":false,"bounding1":"","bounding2":""},"autoFitMode":"keepLabels","bins":{"breakpoints":{"high":100,"low":0},"bands":{"high":{"color":"#008000","label":""},"low":{"color":"#B22222","label":""},"medium":{"color":"#ffa500","label":""}}},"dashLine":{"measures":["sum_Fraud_Total_Falcon_Recalled__c"],"showDashLine":false},"timeAxis":{"showTitle":false,"showAxis":true,"title":""},"fillArea":true,"columnMap":{"split":[],"timeAxis":["IDR_Date_Received__c_Year~~~IDR_Date_Received__c_Month"],"trellis":[],"plots":["sum_Fraud_Total_Falcon_Recalled__c"]},"showActionMenu":true,"measureAxis2":{"sqrtScale":false,"showTitle":true,"showAxis":true,"title":"","customDomain":{"showDomain":false}},"measureAxis1":{"sqrtScale":false,"showTitle":false,"showAxis":true,"title":"","customDomain":{"showDomain":false}},"step":"IDR_Date_Received__c_2"},"type":"chart"},"container_7":{"parameters":{"alignmentX":"left","alignmentY":"top","fit":"original"},"type":"container"},"text_5":{"parameters":{"content":{"displayTemplate":"Top 5 Scam Types:"},"fontSize":16,"showActionMenu":true,"textAlignment":"center","textColor":"#091A3E"},"type":"text"},"text_4":{"parameters":{"content":{"displayTemplate":"Scam Monthly Dashboard"},"fontSize":32,"showActionMenu":true,"textAlignment":"center","textColor":"#091A3E"},"type":"text"},"chart_2":{"parameters":{"autoFitMode":"keepLabels","showValues":true,"bins":{"breakpoints":{"high":100,"low":0},"bands":{"high":{"color":"#008000","label":""},"low":{"color":"#B22222","label":""},"medium":{"color":"#ffa500","label":""}}},"legend":{"descOrder":false,"showHeader":true,"show":false,"customSize":"auto","position":"right-top","inside":false},"axisMode":"multi","tooltip":{"showBinLabel":true,"measures":"","showNullValues":true,"showPercentage":true,"showDimensions":true,"showMeasures":true,"customizeTooltip":false,"dimensions":""},"visualizationType":"hbar","exploreLink":true,"title":{"fontSize":14,"subtitleFontSize":11,"label":"Scam Victim Ages:","align":"center","subtitleLabel":""},"binValues":false,"trellis":{"flipLabels":false,"showGridLines":true,"size":[100,100],"enable":false,"type":"x","chartsPerLine":4},"columnMap":{"trellis":[],"dimensionAxis":["AgeBucket"],"plots":["count"]},"showActionMenu":true,"measureAxis2":{"sqrtScale":false,"showTitle":true,"showAxis":true,"title":"","customDomain":{"showDomain":false}},"measureAxis1":{"sqrtScale":false,"showTitle":false,"showAxis":true,"title":"","customDomain":{"showDomain":false}},"theme":"wave","step":"AgeBucket_1","dimensionAxis":{"showTitle":false,"customSize":"auto","showAxis":true,"title":"","icons":{"useIcons":false,"iconProps":{"fit":"cover","column":"","type":"round"}}},"applyConditionalFormatting":true},"type":"chart"},"text_7":{"parameters":{"content":{"displayTemplate":"In [Display]/[Year] the Scam Team worked a total of [Total_Cases_Worked] cases with [Scam_Only_Cases] cases of scam victims.","values":{"Total_Cases_Worked":{"field":"Total Cases Worked","sourceType":"result","step":"lens_2"},"Year":{"field":"Year","sourceType":"selection","step":"static_2"},"Scam_Only_Cases":{"field":"Scam Cases","sourceType":"result","step":"lens_2"},"Display":{"field":"Display","sourceType":"selection","step":"static_1"}}},"fontSize":14,"showActionMenu":true,"textAlignment":"left","textColor":"#091A3E"},"type":"text"},"chart_1":{"parameters":{"autoFitMode":"keepLabels","showValues":true,"bins":{"breakpoints":{"high":100,"low":0},"bands":{"high":{"color":"#008000","label":""},"low":{"color":"#B22222","label":""},"medium":{"color":"#ffa500","label":""}}},"legend":{"descOrder":false,"showHeader":false,"show":false,"customSize":"auto","position":"right-top","inside":false},"axisMode":"multi","tooltip":{"showBinLabel":true,"measures":"","showNullValues":true,"showPercentage":true,"showDimensions":true,"showMeasures":true,"customizeTooltip":false,"dimensions":""},"visualizationType":"vbar","exploreLink":true,"title":{"fontSize":14,"subtitleFontSize":11,"label":"Scam Victims Gender:","align":"center","subtitleLabel":""},"trellis":{"flipLabels":false,"showGridLines":true,"size":[100,100],"enable":false,"type":"x","chartsPerLine":4},"binValues":false,"columnMap":{"trellis":[],"dimensionAxis":["Account.FinServ__Gender__pc"],"plots":["count"]},"showActionMenu":true,"measureAxis2":{"sqrtScale":false,"showTitle":true,"showAxis":true,"title":"","customDomain":{"showDomain":false}},"measureAxis1":{"sqrtScale":false,"showTitle":true,"showAxis":true,"title":"Cases","customDomain":{"showDomain":false}},"theme":"wave","step":"Account_FinServ__Gen_1","dimensionAxis":{"showTitle":false,"customSize":"auto","showAxis":false,"title":"","icons":{"useIcons":false,"iconProps":{"fit":"cover","column":"","type":"round"}}},"applyConditionalFormatting":true},"type":"chart"},"text_6":{"parameters":{"content":{"displayTemplate":"Top 5 Scam Funds Destination:"},"fontSize":16,"showActionMenu":true,"textAlignment":"center","textColor":"#091A3E"},"type":"text"},"chart_4":{"parameters":{"autoFitMode":"keepLabels","showValues":true,"bins":{"breakpoints":{"high":100,"low":0},"bands":{"high":{"color":"#008000","label":""},"low":{"color":"#B22222","label":""},"medium":{"color":"#ffa500","label":""}}},"legend":{"descOrder":false,"showHeader":true,"show":true,"customSize":"auto","position":"top-center","inside":false},"axisMode":"dual","tooltip":{"showBinLabel":true,"measures":"","showNullValues":true,"showPercentage":true,"showDimensions":true,"showMeasures":true,"customizeTooltip":false,"dimensions":""},"visualizationType":"time-bar","timeAxis":{"showTitle":false,"showAxis":true,"title":""},"exploreLink":true,"title":{"fontSize":14,"subtitleFontSize":11,"label":"Scam Victim Only Case Historical Financials","align":"center","subtitleLabel":""},"binValues":false,"trellis":{"flipLabels":false,"showGridLines":true,"size":[100,100],"enable":false,"type":"x","chartsPerLine":4},"columnMap":{"timeAxis":["IDR_Date_Received__c_Year~~~IDR_Date_Received__c_Month"],"trellis":[],"plots":["sum_Fraud_Total_Fraud_Value__c","sum_Fraud_Total_Falcon_Recalled__c","sum_Fraud_Total_Recipient_Loss__c"]},"showActionMenu":true,"measureAxis2":{"sqrtScale":false,"showTitle":false,"showAxis":true,"title":"","customDomain":{"showDomain":false}},"measureAxis1":{"sqrtScale":false,"showTitle":false,"showAxis":true,"title":"","customDomain":{"showDomain":false}},"theme":"wave","step":"IDR_Date_Received__c_1","dimensionAxis":{"showTitle":true,"customSize":"auto","showAxis":true,"title":"","icons":{"useIcons":false,"iconProps":{"fit":"cover","column":"","type":"round"}}},"applyConditionalFormatting":true},"type":"chart"},"text_9":{"parameters":{"content":{"displayTemplate":"Report Date: [Display_2] / [Year]","values":{"Display_2":{"field":"Display","sourceType":"selection","step":"static_1"},"Year":{"field":"Year","sourceType":"selection","step":"static_2"}}},"fontSize":16,"showActionMenu":true,"textAlignment":"left","textColor":"#091A3E"},"type":"text"},"chart_3":{"parameters":{"autoFitMode":"keepLabels","showValues":true,"bins":{"breakpoints":{"high":100,"low":0},"bands":{"high":{"color":"#008000","label":""},"low":{"color":"#B22222","label":""},"medium":{"color":"#ffa500","label":""}}},"legend":{"descOrder":false,"showHeader":true,"show":false,"customSize":"auto","position":"right-top","inside":false},"axisMode":"multi","tooltip":{"showBinLabel":true,"measures":"","showNullValues":true,"showPercentage":true,"showDimensions":true,"showMeasures":true,"customizeTooltip":false,"dimensions":""},"visualizationType":"vbar","exploreLink":true,"title":{"fontSize":14,"subtitleFontSize":11,"label":"Scam Victim States:","align":"center","subtitleLabel":""},"binValues":false,"trellis":{"flipLabels":false,"showGridLines":true,"size":[100,100],"enable":false,"type":"x","chartsPerLine":4},"columnMap":{"trellis":[],"dimensionAxis":["Account.BillingState"],"plots":["count"]},"showActionMenu":true,"measureAxis2":{"sqrtScale":false,"showTitle":true,"showAxis":true,"title":"","customDomain":{"showDomain":false}},"measureAxis1":{"sqrtScale":false,"showTitle":false,"showAxis":false,"title":"","customDomain":{"showDomain":false}},"theme":"wave","step":"Account_BillingState_1","dimensionAxis":{"showTitle":false,"customSize":"auto","showAxis":true,"title":"","icons":{"useIcons":false,"iconProps":{"fit":"cover","column":"","type":"round"}}},"applyConditionalFormatting":true},"type":"chart"},"text_8":{"parameters":{"content":{"displayTemplate":"Overall, [Count_of_Rows] of scam victims were located in [Account_BillingState] the most in the month. The top 3 scam types were {{cell(Type_2.result, 0, \"Type\").asString()}}, {{cell(Type_2.result, 1, \"Type\").asString()}}, {{cell(Type_2.result, 2, \"Type\").asString()}} which represented a combined total of [Percent]% of all scam cases worked.","values":{"Percent":{"field":"Percent","sourceType":"result","step":"__Of_Scams_1"},"Count_of_Rows":{"field":"count","sourceType":"result","step":"Account_BillingState_1"},"Account_BillingState":{"field":"Account.BillingState","sourceType":"result","step":"Account_BillingState_1"}}},"fontSize":14,"showActionMenu":true,"textAlignment":"left","textColor":"#091A3E"},"type":"text"},"text_1":{"parameters":{"content":{"displayTemplate":"This Month"},"fontSize":16,"showActionMenu":true,"textAlignment":"left","textColor":"#FFFFFF"},"type":"text"},"filterpanel_1":{"parameters":{"filterItemOptions":{"propertyColor":"#54698D","valueColor":"#16325C"},"filters":[],"showAllFilters":false},"type":"filterpanel"},"table_1":{"parameters":{"borderColor":"#e1e5ee","borderWidth":1,"cell":{"backgroundColor":"#f2f6fa","fontColor":"#16325c","fontSize":16},"columnProperties":{},"columns":[],"customBulkActions":[],"evenRowColor":"#f2f6fa","exploreLink":true,"header":{"backgroundColor":"#e4ecf2","fontColor":"#5c7a99","fontSize":12},"innerMajorBorderColor":"#a9b7c7","innerMinorBorderColor":"#e1e5ee","mode":"fittocontainer","numberOfLines":1,"oddRowColor":"#ffffff","showActionMenu":false,"showRowIndexColumn":false,"step":"lens_2","totals":true,"verticalPadding":12},"type":"table"},"table_2":{"parameters":{"borderColor":"#a8b7c7","borderWidth":1,"cell":{"backgroundColor":"#ffffff","fontColor":"#16325c","fontSize":12},"columnProperties":{"count":{"parameters":{"alignment":"right","styles":{"bold":true}},"type":"text"}},"columns":[],"customBulkActions":[],"exploreLink":true,"header":{"backgroundColor":"#16325c","fontColor":"#ffffff","fontSize":10},"innerMajorBorderColor":"#54698d","innerMinorBorderColor":"#a8b7c7","mode":"fittocontainer","numberOfLines":1,"pivoted":false,"showActionMenu":false,"step":"Type_2","totals":true,"verticalPadding":4},"type":"table"},"table_3":{"parameters":{"borderColor":"#a8b7c7","borderWidth":1,"cell":{"backgroundColor":"#ffffff","fontColor":"#16325c","fontSize":12},"columnProperties":{"count":{"parameters":{"alignment":"right","styles":{"bold":true}},"type":"text"}},"columns":[],"customBulkActions":[],"exploreLink":true,"header":{"backgroundColor":"#16325c","fontColor":"#ffffff","fontSize":10},"innerMajorBorderColor":"#54698d","innerMinorBorderColor":"#a8b7c7","mode":"fittocontainer","numberOfLines":1,"pivoted":false,"showActionMenu":true,"step":"Fraud_Funds_to_Geogr_1","totals":true,"verticalPadding":4},"type":"table"},"table_4":{"parameters":{"borderColor":"#e1e5ee","borderWidth":1,"cell":{"backgroundColor":"#f2f6fa","fontColor":"#16325c","fontSize":16},"columnProperties":{},"columns":[],"customBulkActions":[],"evenRowColor":"#f2f6fa","exploreLink":true,"header":{"backgroundColor":"#e4ecf2","fontColor":"#5c7a99","fontSize":12},"innerMajorBorderColor":"#a9b7c7","innerMinorBorderColor":"#e1e5ee","mode":"fittocontainer","numberOfLines":1,"oddRowColor":"#ffffff","showActionMenu":false,"showRowIndexColumn":false,"step":"lens_2","totals":true,"verticalPadding":12},"type":"table"},"pillbox_2":{"parameters":{"compact":false,"exploreLink":false,"fontSize":14,"selectedTab":{"backgroundColor":"#0070D2","borderColor":"#C6D3E1","borderEdges":["all"],"borderWidth":1,"textColor":"#FFFFFF"},"showActionMenu":true,"step":"static_2","textColor":"#0070D2"},"type":"pillbox"},"pillbox_1":{"parameters":{"compact":false,"exploreLink":false,"fontSize":10,"measureField":"Month","selectedTab":{"backgroundColor":"#0070D2","borderColor":"#C6D3E1","borderEdges":["all"],"borderWidth":1,"textColor":"#FFFFFF"},"showActionMenu":true,"step":"static_1","textColor":"#0070D2"},"type":"pillbox"}}}
+{
+  "dataSourceLinks": [],
+  "filters": [],
+  "gridLayouts": [
+    {
+      "name": "Default",
+      "numColumns": 48,
+      "pages": [
+        {
+          "label": "Fraud Summary",
+          "name": "7333e75c-9951-4ec8-9209-853678809a05",
+          "navigationHidden": false,
+          "widgets": [
+            {
+              "colspan": 5,
+              "column": 1,
+              "name": "text_1",
+              "row": 7,
+              "rowspan": 1,
+              "widgetStyle": {
+                "backgroundColor": "#091A3E",
+                "borderColor": "#E6ECF2",
+                "borderEdges": [],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 5,
+              "column": 1,
+              "name": "text_2",
+              "row": 8,
+              "rowspan": 1,
+              "widgetStyle": {
+                "backgroundColor": "#091A3E",
+                "borderColor": "#E6ECF2",
+                "borderEdges": [],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 5,
+              "column": 1,
+              "name": "text_3",
+              "row": 9,
+              "rowspan": 1,
+              "widgetStyle": {
+                "backgroundColor": "#091A3E",
+                "borderColor": "#E6ECF2",
+                "borderEdges": [],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 24,
+              "column": 1,
+              "name": "text_4",
+              "row": 0,
+              "rowspan": 2,
+              "widgetStyle": {
+                "backgroundColor": "rgb(242, 243, 131)",
+                "borderColor": "#E6ECF2",
+                "borderEdges": [],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 46,
+              "column": 1,
+              "name": "container_1",
+              "row": 5,
+              "rowspan": 5,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#091A3E",
+                "borderEdges": ["all"],
+                "borderRadius": 4,
+                "borderWidth": 2
+              }
+            },
+            {
+              "colspan": 18,
+              "column": 17,
+              "name": "container_2",
+              "row": 10,
+              "rowspan": 7,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#091A3E",
+                "borderEdges": ["all"],
+                "borderRadius": 4,
+                "borderWidth": 2
+              }
+            },
+            {
+              "colspan": 17,
+              "column": 17,
+              "name": "chart_2",
+              "row": 10,
+              "rowspan": 7,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 12,
+              "column": 35,
+              "name": "chart_1",
+              "row": 10,
+              "rowspan": 7,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#091A3E",
+                "borderEdges": ["all"],
+                "borderRadius": 4,
+                "borderWidth": 2
+              }
+            },
+            {
+              "colspan": 15,
+              "column": 1,
+              "name": "chart_3",
+              "row": 10,
+              "rowspan": 7,
+              "widgetStyle": {
+                "backgroundColor": "rgba(255, 255, 255, 0)",
+                "borderColor": "#091A3E",
+                "borderEdges": [],
+                "borderRadius": 4,
+                "borderWidth": 2
+              }
+            },
+            {
+              "colspan": 19,
+              "column": 28,
+              "name": "table_2",
+              "row": 18,
+              "rowspan": 4,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 19,
+              "column": 28,
+              "name": "container_3",
+              "row": 17,
+              "rowspan": 10,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#091A3E",
+                "borderEdges": ["all"],
+                "borderRadius": 4,
+                "borderWidth": 2
+              }
+            },
+            {
+              "colspan": 17,
+              "column": 29,
+              "name": "text_5",
+              "row": 17,
+              "rowspan": 1,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 19,
+              "column": 28,
+              "name": "table_3",
+              "row": 23,
+              "rowspan": 4,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 17,
+              "column": 29,
+              "name": "text_6",
+              "row": 22,
+              "rowspan": 1,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 25,
+              "column": 2,
+              "name": "chart_4",
+              "row": 17,
+              "rowspan": 5,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 25,
+              "column": 2,
+              "name": "chart_5",
+              "row": 23,
+              "rowspan": 4,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 27,
+              "column": 1,
+              "name": "container_4",
+              "row": 17,
+              "rowspan": 14,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#091A3E",
+                "borderEdges": ["all"],
+                "borderRadius": 0,
+                "borderWidth": 2
+              }
+            },
+            {
+              "colspan": 16,
+              "column": 1,
+              "name": "container_5",
+              "row": 10,
+              "rowspan": 7,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#091A3E",
+                "borderEdges": ["all"],
+                "borderRadius": 4,
+                "borderWidth": 2
+              }
+            },
+            {
+              "colspan": 46,
+              "column": 1,
+              "name": "container_7",
+              "row": 2,
+              "rowspan": 3,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#091A3E",
+                "borderEdges": ["all"],
+                "borderRadius": 4,
+                "borderWidth": 2
+              }
+            },
+            {
+              "colspan": 45,
+              "column": 1,
+              "name": "text_7",
+              "row": 2,
+              "rowspan": 1,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 45,
+              "column": 1,
+              "name": "text_8",
+              "row": 3,
+              "rowspan": 1,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 22,
+              "column": 25,
+              "name": "pillbox_1",
+              "row": 1,
+              "rowspan": 1,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 13,
+              "column": 34,
+              "name": "pillbox_2",
+              "row": 0,
+              "rowspan": 1,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 8,
+              "column": 25,
+              "name": "text_9",
+              "row": 0,
+              "rowspan": 1,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 41,
+              "column": 6,
+              "name": "table_4",
+              "row": 6,
+              "rowspan": 4,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 25,
+              "column": 2,
+              "name": "chart_6",
+              "row": 28,
+              "rowspan": 3,
+              "widgetStyle": { "borderEdges": [] }
+            }
+          ]
+        }
+      ],
+      "rowHeight": "normal",
+      "selectors": [],
+      "style": {
+        "alignmentX": "left",
+        "alignmentY": "top",
+        "backgroundColor": "#F2F6FA",
+        "cellSpacingX": 4,
+        "cellSpacingY": 4,
+        "fit": "original",
+        "gutterColor": "#C5D3E0"
+      },
+      "version": 1.0
+    },
+    {
+      "name": "Phone View",
+      "numColumns": 6,
+      "pages": [
+        {
+          "label": "Fraud Summary",
+          "name": "7333e75c-9951-4ec8-9209-853678809a05",
+          "navigationHidden": false,
+          "widgets": [
+            {
+              "colspan": 6,
+              "column": 0,
+              "name": "text_4",
+              "row": 0,
+              "rowspan": 2,
+              "widgetStyle": {
+                "backgroundColor": "rgb(242, 243, 131)",
+                "borderColor": "#E6ECF2",
+                "borderEdges": [],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 6,
+              "column": 0,
+              "name": "container_7",
+              "row": 2,
+              "rowspan": 3,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#091A3E",
+                "borderEdges": ["all"],
+                "borderRadius": 4,
+                "borderWidth": 2
+              }
+            },
+            {
+              "colspan": 6,
+              "column": 0,
+              "name": "text_7",
+              "row": 2,
+              "rowspan": 1,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 6,
+              "column": 0,
+              "name": "text_8",
+              "row": 3,
+              "rowspan": 1,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 6,
+              "column": 0,
+              "name": "container_1",
+              "row": 5,
+              "rowspan": 8,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#091A3E",
+                "borderEdges": ["all"],
+                "borderRadius": 4,
+                "borderWidth": 2
+              }
+            },
+            {
+              "colspan": 6,
+              "column": 0,
+              "name": "table_1",
+              "row": 6,
+              "rowspan": 4,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 5,
+              "column": 0,
+              "name": "text_1",
+              "row": 10,
+              "rowspan": 1,
+              "widgetStyle": {
+                "backgroundColor": "#091A3E",
+                "borderColor": "#E6ECF2",
+                "borderEdges": [],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 5,
+              "column": 0,
+              "name": "text_2",
+              "row": 11,
+              "rowspan": 1,
+              "widgetStyle": {
+                "backgroundColor": "#091A3E",
+                "borderColor": "#E6ECF2",
+                "borderEdges": [],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 5,
+              "column": 0,
+              "name": "text_3",
+              "row": 12,
+              "rowspan": 1,
+              "widgetStyle": {
+                "backgroundColor": "#091A3E",
+                "borderColor": "#E6ECF2",
+                "borderEdges": [],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 6,
+              "column": 0,
+              "name": "container_5",
+              "row": 13,
+              "rowspan": 7,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#091A3E",
+                "borderEdges": ["all"],
+                "borderRadius": 4,
+                "borderWidth": 2
+              }
+            },
+            {
+              "colspan": 6,
+              "column": 0,
+              "name": "chart_3",
+              "row": 13,
+              "rowspan": 7,
+              "widgetStyle": {
+                "backgroundColor": "rgba(255, 255, 255, 0)",
+                "borderColor": "#091A3E",
+                "borderEdges": [],
+                "borderRadius": 4,
+                "borderWidth": 2
+              }
+            },
+            {
+              "colspan": 6,
+              "column": 0,
+              "name": "container_2",
+              "row": 20,
+              "rowspan": 7,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#091A3E",
+                "borderEdges": ["all"],
+                "borderRadius": 4,
+                "borderWidth": 2
+              }
+            },
+            {
+              "colspan": 6,
+              "column": 0,
+              "name": "chart_2",
+              "row": 20,
+              "rowspan": 7,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 6,
+              "column": 0,
+              "name": "chart_1",
+              "row": 27,
+              "rowspan": 7,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#091A3E",
+                "borderEdges": ["all"],
+                "borderRadius": 4,
+                "borderWidth": 2
+              }
+            },
+            {
+              "colspan": 6,
+              "column": 0,
+              "name": "container_4",
+              "row": 34,
+              "rowspan": 10,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#091A3E",
+                "borderEdges": ["all"],
+                "borderRadius": 0,
+                "borderWidth": 2
+              }
+            },
+            {
+              "colspan": 6,
+              "column": 0,
+              "name": "chart_4",
+              "row": 34,
+              "rowspan": 5,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 6,
+              "column": 0,
+              "name": "chart_5",
+              "row": 40,
+              "rowspan": 4,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 6,
+              "column": 0,
+              "name": "container_3",
+              "row": 44,
+              "rowspan": 10,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#091A3E",
+                "borderEdges": ["all"],
+                "borderRadius": 4,
+                "borderWidth": 2
+              }
+            },
+            {
+              "colspan": 6,
+              "column": 0,
+              "name": "text_5",
+              "row": 44,
+              "rowspan": 1,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 6,
+              "column": 0,
+              "name": "table_2",
+              "row": 45,
+              "rowspan": 4,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 6,
+              "column": 0,
+              "name": "text_6",
+              "row": 49,
+              "rowspan": 1,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 6,
+              "column": 0,
+              "name": "table_3",
+              "row": 50,
+              "rowspan": 4,
+              "widgetStyle": { "borderEdges": [] }
+            }
+          ]
+        }
+      ],
+      "rowHeight": "normal",
+      "selectors": ["maxWidth(599)"],
+      "style": {
+        "alignmentX": "left",
+        "alignmentY": "top",
+        "backgroundColor": "#F2F6FA",
+        "cellSpacingX": 4,
+        "cellSpacingY": 4,
+        "fit": "original",
+        "gutterColor": "#C5D3E0"
+      },
+      "version": 1.0
+    }
+  ],
+  "layouts": [],
+  "steps": {
+    "ClosedDate_1": {
+      "broadcastFacet": true,
+      "datasets": [{ "name": "FraudX" }],
+      "isGlobal": false,
+      "query": {
+        "query": "{\"measures\":[[\"count\",\"*\"]],\"groups\":[\"ClosedDate\"]}",
+        "version": -1.0
+      },
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "type": "aggregateflex",
+      "useGlobal": true,
+      "visualizationParameters": {}
+    },
+    "ClosedDate_2": {
+      "broadcastFacet": true,
+      "datasets": [{ "name": "FraudX" }],
+      "isGlobal": false,
+      "query": {
+        "query": "{\"measures\":[[\"count\",\"*\"]],\"groups\":[\"ClosedDate\"]}",
+        "version": -1.0
+      },
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "type": "aggregateflex",
+      "useGlobal": true,
+      "visualizationParameters": {}
+    },
+    "__Of_Scams_1": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "% Of Scams",
+      "numbers": [],
+      "query": "q = load \"FraudX\";\nq = filter q by 'Record.Name' == \"Scam\";\nq = filter q by 'IDR_Date_Received__c_Month' == number_to_string({{cell(static_1.selection, 0, \"Month\").asObject()}}, \"0#\");\ns = group q by all;\ns = foreach s generate count() as 'all';\nq = group q by 'Type';\nq = foreach q generate count() as 'count';\nq = limit q 3;\n\nq = group q by all;\nq = foreach q generate sum('count') as 'total';\nq = union q, s;\n\nq = group q by all;\nq = foreach q generate round(sum('total')/sum('all'),4) * 100 as 'Percent'",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "borderColor": "#e0e5ee",
+          "borderWidth": 1,
+          "cell": {
+            "backgroundColor": "#ffffff",
+            "fontColor": "#16325c",
+            "fontSize": 12
+          },
+          "columnProperties": {},
+          "columns": [],
+          "customBulkActions": [],
+          "header": {
+            "backgroundColor": "#f4f6f9",
+            "fontColor": "#16325c",
+            "fontSize": 12
+          },
+          "innerMajorBorderColor": "#a8b7c7",
+          "innerMinorBorderColor": "#e0e5ee",
+          "maxColumnWidth": 300,
+          "minColumnWidth": 40,
+          "mode": "variable",
+          "numberOfLines": 1,
+          "showActionMenu": true,
+          "totals": true,
+          "verticalPadding": 8
+        },
+        "type": "table"
+      }
+    },
+    "Account_BillingState_1": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "Account_BillingState_1",
+      "numbers": [],
+      "query": "q = load \"FraudX\";\nq = group q by 'Account.BillingState';\nq = filter q by 'IDR_Date_Received__c_Year' == \"{{cell(static_2.selection, 0, \"Year\").asObject()}}\";\nq = filter q by 'IDR_Date_Received__c_Month' == number_to_string( ({{cell(static_1.selection, 0, \"Month\").asObject()}}), \"0#\");\nq = foreach q generate 'Account.BillingState' as 'Account.BillingState', count() as 'count';\nq = order q by 'count' desc;\nq = limit q 2000;",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "start": "[]",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": false,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "vbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "Scam Victim States:",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "columnMap": {
+            "trellis": [],
+            "dimensionAxis": ["Account.BillingState"],
+            "plots": ["count"]
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": false,
+            "showAxis": false,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": false,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "CreatedDate_Year_Cre_1": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "CreatedDate_Year_Cre_1",
+      "numbers": [],
+      "query": "q = load \"FraudX\";\nq = foreach q generate \n({{cell(static_2.selection, 0, \"Year\").asObject()}}-1) + ({{cell(static_1.selection, 0, \"Month\").asObject()}}/100) as 'lowerFilterDate',\n(string_to_number('ClosedDate_Year') + (string_to_number('ClosedDate_Month')/100) ) as 'filterDate',\nClosedDate_Year, ClosedDate_Month;\nq = filter q by 'filterDate' >= lowerFilterDate;\nq = filter q by 'filterDate' <= {{cell(static_2.selection, 0, \"Year\").asObject()}} + ({{cell(static_1.selection, 0, \"Month\").asObject()}}/100);\nq = group q by ('ClosedDate_Year', 'ClosedDate_Month');\nq = foreach q generate 'ClosedDate_Year' + \"~~~\" + 'ClosedDate_Month' as 'ClosedDate_Year~~~ClosedDate_Month', count() as 'count';\nq = order q by 'ClosedDate_Year~~~ClosedDate_Month' asc;\nq = limit q 2000;",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "showPoints": false,
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": false,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "time",
+          "missingValue": "connect",
+          "dashLine": { "measures": ["count"], "showDashLine": false },
+          "timeAxis": { "showTitle": false, "showAxis": true, "title": "" },
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "Closed Tickets over time",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "fillArea": true,
+          "columnMap": {
+            "split": [],
+            "timeAxis": ["CreatedDate_Year~~~CreatedDate_Month"],
+            "trellis": [],
+            "plots": ["count"]
+          },
+          "showActionMenu": true,
+          "showZero": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": false,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "valueType": "compactNumber",
+          "theme": "wave",
+          "applyConditionalFormatting": true,
+          "drawArea": {
+            "measure": "",
+            "showDrawArea": false,
+            "bounding1": "",
+            "bounding2": ""
+          }
+        },
+        "type": "chart"
+      }
+    },
+    "Fraud_Funds_to_Geogr_1": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "Fraud_Funds_to_Geogr_1",
+      "numbers": [],
+      "query": "q = load \"FraudX\";\nq = filter q by 'IDR_Date_Received__c_Year' == \"{{cell(static_2.selection, 0, \"Year\").asObject()}}\";\nq = filter q by 'IDR_Date_Received__c_Month' == number_to_string( ({{cell(static_1.selection, 0, \"Month\").asObject()}}), \"0#\");\nq = group q by 'Fraud_Funds_from_Geography__c';\nq = foreach q generate 'Fraud_Funds_from_Geography__c' as 'Fraud_Funds_from_Geography__c', count() as 'count';\nq = order q by 'count' desc;\nq = limit q 5;",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "start": "[]",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "borderColor": "#a8b7c7",
+          "borderWidth": 1,
+          "cell": {
+            "backgroundColor": "#ffffff",
+            "fontColor": "#16325c",
+            "fontSize": 12
+          },
+          "columnProperties": {
+            "count": {
+              "parameters": {
+                "alignment": "right",
+                "styles": { "bold": true }
+              },
+              "type": "text"
+            }
+          },
+          "columns": [],
+          "customBulkActions": [],
+          "header": {
+            "backgroundColor": "#16325c",
+            "fontColor": "#ffffff",
+            "fontSize": 10
+          },
+          "innerMajorBorderColor": "#54698d",
+          "innerMinorBorderColor": "#a8b7c7",
+          "mode": "fittocontainer",
+          "numberOfLines": 1,
+          "pivoted": false,
+          "showActionMenu": true,
+          "totals": true,
+          "verticalPadding": 4
+        },
+        "type": "table"
+      }
+    },
+    "static_2": {
+      "broadcastFacet": true,
+      "columns": { "Year": { "type": "string" } },
+      "label": "",
+      "selectMode": "singlerequired",
+      "type": "staticflex",
+      "values": ["{\"Year\":\"2020\"}", "{\"Year\":\"2021\"}"]
+    },
+    "static_1": {
+      "broadcastFacet": true,
+      "columns": {
+        "Month": { "type": "number" },
+        "Display": { "type": "string" }
+      },
+      "label": "",
+      "selectMode": "singlerequired",
+      "start": "{\"Display\":[\"Dec\"]}",
+      "type": "staticflex",
+      "values": [
+        "{\"Display\":\"Jan\",\"Month\":1}",
+        "{\"Display\":\"Feb\",\"Month\":2}",
+        "{\"Display\":\"Mar\",\"Month\":3}",
+        "{\"Display\":\"Apr\",\"Month\":4}",
+        "{\"Display\":\"May\",\"Month\":5}",
+        "{\"Display\":\"Jun\",\"Month\":6}",
+        "{\"Display\":\"Jul\",\"Month\":7}",
+        "{\"Display\":\"Aug\",\"Month\":8}",
+        "{\"Display\":\"Sep\",\"Month\":9}",
+        "{\"Display\":\"Oct\",\"Month\":10}",
+        "{\"Display\":\"Nov\",\"Month\":11}",
+        "{\"Display\":\"Dec\",\"Month\":12}"
+      ]
+    },
+    "IDR_Date_Received__c_2": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "IDR_Date_Received__c_2",
+      "numbers": [],
+      "query": "q = load \"FraudX\";\nq = foreach q generate \n({{cell(static_2.selection, 0, \"Year\").asObject()}}-1) + ({{cell(static_1.selection, 0, \"Month\").asObject()}}/100) as 'lowerFilterDate',\n(string_to_number('IDR_Date_Received__c_Year') + (string_to_number('IDR_Date_Received__c_Month')/100) ) as 'filterDate',\n'IDR_Date_Received__c_Year', 'IDR_Date_Received__c_Month', 'Fraud_Total_Falcon_Recalled__c';\nq = filter q by 'filterDate' >= lowerFilterDate;\nq = filter q by 'filterDate' <= {{cell(static_2.selection, 0, \"Year\").asObject()}} + ({{cell(static_1.selection, 0, \"Month\").asObject()}}/100);\nq = group q by ('IDR_Date_Received__c_Year', 'IDR_Date_Received__c_Month');\nq = foreach q generate 'IDR_Date_Received__c_Year' + \"~~~\" + 'IDR_Date_Received__c_Month' as 'IDR_Date_Received__c_Year~~~IDR_Date_Received__c_Month', sum('Fraud_Total_Falcon_Recalled__c') as 'sum_Fraud_Total_Falcon_Recalled__c';\nq = order q by 'IDR_Date_Received__c_Year~~~IDR_Date_Received__c_Month' asc;\nq = limit q 2000;",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "showValues": true,
+          "showPoints": true,
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "time",
+          "missingValue": "connect",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "Actual Scam Reimbursements",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "showZero": true,
+          "valueType": "compactNumber",
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true,
+          "drawArea": {
+            "measure": "",
+            "showDrawArea": false,
+            "bounding1": "",
+            "bounding2": ""
+          },
+          "autoFitMode": "keepLabels",
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "dashLine": {
+            "measures": ["sum_Fraud_Total_Falcon_Recalled__c"],
+            "showDashLine": false
+          },
+          "timeAxis": { "showTitle": false, "showAxis": true, "title": "" },
+          "fillArea": true,
+          "columnMap": {
+            "split": [],
+            "timeAxis": [
+              "IDR_Date_Received__c_Year~~~IDR_Date_Received__c_Month"
+            ],
+            "trellis": [],
+            "plots": ["sum_Fraud_Total_Falcon_Recalled__c"]
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": false,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          }
+        },
+        "type": "chart"
+      }
+    },
+    "Account_FinServ__Gen_1": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "Account_FinServ__Gen_1",
+      "numbers": [],
+      "query": "q = load \"FraudX\";\nq = filter q by 'IDR_Date_Received__c_Year' == \"{{cell(static_2.selection, 0, \"Year\").asObject()}}\";\nq = filter q by 'IDR_Date_Received__c_Month' == number_to_string( ({{cell(static_1.selection, 0, \"Month\").asObject()}}), \"0#\");\nq = group q by 'Account.Gender__pc';\nq = foreach q generate 'Account.Gender__pc' as 'Account.Gender__pc', count() as 'count';\nq = order q by 'Account.Gender__pc' asc;\nq = limit q 2000;",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "start": "[]",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": false,
+            "show": false,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "vbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "Scam Victims Gender:",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "binValues": false,
+          "columnMap": {
+            "trellis": [],
+            "dimensionAxis": ["Account.Gender__pc"],
+            "plots": ["count"]
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "Cases",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": false,
+            "customSize": "auto",
+            "showAxis": false,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "IDR_Date_Received__c_1": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "IDR_Date_Received__c_1",
+      "numbers": [],
+      "query": "q = load \"FraudX\";\nq = foreach q generate \n({{cell(static_2.selection, 0, \"Year\").asObject()}}-1) + ({{cell(static_1.selection, 0, \"Month\").asObject()}}/100) as 'lowerFilterDate',\n(string_to_number('IDR_Date_Received__c_Year') + (string_to_number('IDR_Date_Received__c_Month')/100) ) as 'filterDate', \n'Record.Name' as 'Record.Name', IDR_Date_Received__c_Year, IDR_Date_Received__c_Month, IDR_Date_Received__c_Day, Fraud_Total_Scam_Value__c, Fraud_Total_Recovered__c, Fraud_Total_Fraud_Value__c, Fraud_Total_Falcon_Recalled__c, Fraud_Total_Recipient_Loss__c, Fraud_Total_Customer_Loss__c;\nq = filter q by 'filterDate' >= lowerFilterDate;\nq = filter q by 'filterDate' <= {{cell(static_2.selection, 0, \"Year\").asObject()}} + ({{cell(static_1.selection, 0, \"Month\").asObject()}}/100);\nq = filter q by 'Record.Name' == \"Scam\";\nq = group q by ('IDR_Date_Received__c_Year', 'IDR_Date_Received__c_Month');\nq = foreach q generate 'IDR_Date_Received__c_Year' + \"~~~\" + 'IDR_Date_Received__c_Month' as 'IDR_Date_Received__c_Year~~~IDR_Date_Received__c_Month', sum('Fraud_Total_Fraud_Value__c') as 'sum_Fraud_Total_Fraud_Value__c', sum('Fraud_Total_Falcon_Recalled__c') as 'sum_Fraud_Total_Falcon_Recalled__c', sum('Fraud_Total_Customer_Loss__c') as 'sum_Fraud_Total_Customer_Loss__c', sum('Fraud_Total_Recipient_Loss__c') as 'sum_Fraud_Total_Recipient_Loss__c';\nq = order q by 'IDR_Date_Received__c_Year~~~IDR_Date_Received__c_Month' asc;\nq = limit q 2000;",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "top-center",
+            "inside": false
+          },
+          "axisMode": "dual",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "time-bar",
+          "timeAxis": { "showTitle": false, "showAxis": true, "title": "" },
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "Scam Victim Only Case Historical Financials",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "columnMap": {
+            "timeAxis": [
+              "IDR_Date_Received__c_Year~~~IDR_Date_Received__c_Month"
+            ],
+            "trellis": [],
+            "plots": [
+              "sum_Fraud_Total_Fraud_Value__c",
+              "sum_Fraud_Total_Falcon_Recalled__c",
+              "sum_Fraud_Total_Recipient_Loss__c"
+            ]
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": false,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": false,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "Type_1": {
+      "broadcastFacet": true,
+      "datasets": [{ "name": "FraudX" }],
+      "isGlobal": false,
+      "query": {
+        "query": "{\"measures\":[[\"count\",\"*\"]],\"groups\":[\"Type\"],\"filters\":[[\"Record.Name\",[\"Scam\"],\"in\"]]}",
+        "version": -1.0
+      },
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "type": "aggregateflex",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "columnMap": {
+            "trellis": [],
+            "dimensionAxis": ["Type"],
+            "plots": ["count"]
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "Type_2": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "Type_2",
+      "numbers": [],
+      "query": "q = load \"FraudX\";\nq = filter q by 'Record.Name' == \"Scam\";\nq = filter q by 'IDR_Date_Received__c_Year' == \"{{cell(static_2.selection, 0, \"Year\").asObject()}}\";\nq = filter q by 'IDR_Date_Received__c_Month' == number_to_string( ({{cell(static_1.selection, 0, \"Month\").asObject()}}), \"0#\");\nq = group q by 'Type';\nq = foreach q generate 'Type' as 'Type', count() as 'count';\nq = order q by 'count' desc;\nq = limit q 5;",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "start": "[]",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "borderColor": "#a8b7c7",
+          "borderWidth": 1,
+          "cell": {
+            "backgroundColor": "#ffffff",
+            "fontColor": "#16325c",
+            "fontSize": 12
+          },
+          "columnProperties": {
+            "count": {
+              "parameters": {
+                "alignment": "right",
+                "styles": { "bold": true }
+              },
+              "type": "text"
+            }
+          },
+          "columns": [],
+          "customBulkActions": [],
+          "header": {
+            "backgroundColor": "#16325c",
+            "fontColor": "#ffffff",
+            "fontSize": 10
+          },
+          "innerMajorBorderColor": "#54698d",
+          "innerMinorBorderColor": "#a8b7c7",
+          "mode": "fittocontainer",
+          "numberOfLines": 1,
+          "pivoted": false,
+          "showActionMenu": false,
+          "totals": true,
+          "verticalPadding": 4
+        },
+        "type": "table"
+      }
+    },
+    "AgeBucket_1": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "AgeBucket_1",
+      "numbers": [],
+      "query": "q = load \"FraudX\";\nq = filter q by 'IDR_Date_Received__c_Year' == \"{{cell(static_2.selection, 0, \"Year\").asObject()}}\";\nq = filter q by 'IDR_Date_Received__c_Month' == number_to_string( ({{cell(static_1.selection, 0, \"Month\").asObject()}}), \"0#\");\nq = group q by 'AgeBucket';\nq = foreach q generate 'AgeBucket' as 'AgeBucket', count() as 'count';\nq = order q by 'AgeBucket' asc;\nq = limit q 2000;",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "start": "[]",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": false,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "Scam Victim Ages:",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "columnMap": {
+            "trellis": [],
+            "dimensionAxis": ["AgeBucket"],
+            "plots": ["count"]
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": false,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": false,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "lens_1": {
+      "broadcastFacet": true,
+      "groups": [],
+      "numbers": [],
+      "query": "q = load \"FraudX\";\nq = group q by ('ClosedDate_Year', 'ClosedDate_Month');\nq = foreach q generate 'ClosedDate_Year' + \"~~~\" + 'ClosedDate_Month' as 'ClosedDate_Year~~~ClosedDate_Month', count() as 'count';\nq = order q by 'ClosedDate_Year~~~ClosedDate_Month' asc;\nq = limit q 2000;",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showPoints": false,
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "line",
+          "dashLine": { "measures": "", "showDashLine": false },
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "columnMap": {
+            "split": [],
+            "trellis": [],
+            "dimensionAxis": ["ClosedDate_Year~~~ClosedDate_Month"],
+            "plots": ["count"]
+          },
+          "fillArea": true,
+          "showActionMenu": true,
+          "showZero": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "valueType": "none",
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true,
+          "drawArea": {
+            "measure": "",
+            "showDrawArea": false,
+            "bounding1": "",
+            "bounding2": ""
+          }
+        },
+        "type": "chart"
+      }
+    },
+    "lens_2": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "lens_2",
+      "numbers": [],
+      "query": "\nq = load \"FraudX\";\nq = filter q by 'IDR_Date_Received__c_Year' == \"{{cell(static_2.selection, 0, \"Year\").asObject()}}\";\nq = filter q by 'IDR_Date_Received__c_Month' == number_to_string({{cell(static_1.selection, 0, \"Month\").asObject()}}, \"0#\");\nq_B = filter q by 'Record.Name' == \"Scam\";\nresult = group q by all full, q_B by all;\nresult = foreach result generate count(q) as 'A', count(q_B) as 'B', sum(q_B.'Fraud_Total_Scam_Value__c') as 'E', sum(q_B.'Fraud_Total_Recovered__c') as 'F', sum(q_B.'Fraud_Total_Customer_Exposure__c') as 'Ex';\nresult = foreach result generate coalesce(A,0) as 'A', 'B', 'E', 'F', E - F as 'G', 'Ex';\nresult1 = limit result 10000;\n\n-- Previous Month\nq = load \"FraudX\";\nq = foreach q generate IDR_Date_Received__c_Year, IDR_Date_Received__c_Month, 'Record.Name' as 'Record.Name', Fraud_Total_Scam_Value__c, Fraud_Total_Recovered__c, Fraud_Total_Customer_Exposure__c,\ncase when {{cell(static_1.selection, 0, \"Month\").asObject()}} == 1 then 12 else ({{cell(static_1.selection, 0, \"Month\").asObject()}}-1) end as 'monthFilter',\ncase when {{cell(static_1.selection, 0, \"Month\").asObject()}} == 1 then ({{cell(static_2.selection, 0, \"Year\").asObject()}}-1) else ({{cell(static_2.selection, 0, \"Year\").asObject()}}) end as 'yearFilter';\nq = filter q by 'IDR_Date_Received__c_Month' == number_to_string('monthFilter', \"0#\");\nq = filter q by 'IDR_Date_Received__c_Year' == number_to_string('yearFilter', \"####\");\nq_B = filter q by 'Record.Name' == \"Scam\";\nresult = group q by all full, q_B by all;\nresult = foreach result generate count(q) as 'A', count(q_B) as 'B', sum(q.'Fraud_Total_Scam_Value__c') as 'E', sum(q.'Fraud_Total_Recovered__c') as 'F', sum(q.'Fraud_Total_Customer_Exposure__c') as 'Ex';\nresult = foreach result generate coalesce('A',0) as 'A', 'B', 'E', 'F', E - F as 'G', 'Ex';\nresult2 = limit result 2000;\n\n-- Rolling 12 months\n\nq = load \"FraudX\";\nq1 = foreach q generate \n({{cell(static_2.selection, 0, \"Year\").asObject()}}-1) + ({{cell(static_1.selection, 0, \"Month\").asObject()}}/100) as 'lowerFilterDate',\n(string_to_number('IDR_Date_Received__c_Year') + (string_to_number('IDR_Date_Received__c_Month')/100) ) as 'filterDate', \nIDR_Date_Received__c_Year, IDR_Date_Received__c_Month, IDR_Date_Received__c_Day, Fraud_Total_Scam_Value__c, Fraud_Total_Recovered__c, Fraud_Total_Customer_Exposure__c,\n'Record.Name' as 'Record.Name';\nq1 = filter q1 by 'filterDate' >= lowerFilterDate;\nq1 = filter q1 by 'filterDate' <= {{cell(static_2.selection, 0, \"Year\").asObject()}} + ({{cell(static_1.selection, 0, \"Month\").asObject()}}/100);\nq_B = filter q1 by 'Record.Name' == \"Scam\";\nresult = group q1 by all full, q_B by all;\nresult = foreach result generate count(q1) as 'A', count(q_B) as 'B', sum(q1.'Fraud_Total_Scam_Value__c') as 'E', sum(q1.'Fraud_Total_Recovered__c') as 'F', sum(q1.'Fraud_Total_Customer_Exposure__c') as 'Ex';\nresult = foreach result generate number_to_string(('A'/12), \"#.##\") as 'A', round('B'/12) as 'B', round('E'/12) as 'E', round('F'/12) as 'F', E - F as 'G', round('Ex'/12) as 'Ex';\nresult3 = limit result 2000;\n\nq = union result1, result2, result3;\nq = foreach q generate 'A' as 'Total Cases Worked', 'B' as 'Scam Cases', number_to_string('E', \"$0.0,,\")+\"M\" as 'How much did customer\\'s send?', number_to_string('F', \"$0.0,,\")+\"M\" as 'How much did ANZ Recover?', number_to_string('G', \"$0.0,,\")+\"M\" as 'How much did customer\\'s lose?',  number_to_string('Ex', \"$0.0,,\")+\"M\" as 'Total Customer Exposure' ;",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "borderColor": "#e1e5ee",
+          "borderWidth": 1,
+          "cell": {
+            "backgroundColor": "#f2f6fa",
+            "fontColor": "#16325c",
+            "fontSize": 16
+          },
+          "columnProperties": {},
+          "columns": [],
+          "customBulkActions": [],
+          "evenRowColor": "#f2f6fa",
+          "header": {
+            "backgroundColor": "#e4ecf2",
+            "fontColor": "#5c7a99",
+            "fontSize": 12
+          },
+          "innerMajorBorderColor": "#a9b7c7",
+          "innerMinorBorderColor": "#e1e5ee",
+          "mode": "fittocontainer",
+          "numberOfLines": 1,
+          "oddRowColor": "#ffffff",
+          "showActionMenu": false,
+          "showRowIndexColumn": false,
+          "totals": true,
+          "verticalPadding": 12
+        },
+        "type": "table"
+      }
+    }
+  },
+  "widgetStyle": {
+    "backgroundColor": "#FFFFFF",
+    "borderColor": "#E6ECF2",
+    "borderEdges": [],
+    "borderRadius": 0,
+    "borderWidth": 1
+  },
+  "widgets": {
+    "container_1": {
+      "parameters": {
+        "alignmentX": "left",
+        "alignmentY": "top",
+        "fit": "original"
+      },
+      "type": "container"
+    },
+    "container_2": {
+      "parameters": {
+        "alignmentX": "left",
+        "alignmentY": "top",
+        "fit": "original"
+      },
+      "type": "container"
+    },
+    "container_3": {
+      "parameters": {
+        "alignmentX": "left",
+        "alignmentY": "top",
+        "fit": "original"
+      },
+      "type": "container"
+    },
+    "container_4": {
+      "parameters": {
+        "alignmentX": "left",
+        "alignmentY": "top",
+        "fit": "original"
+      },
+      "type": "container"
+    },
+    "container_5": {
+      "parameters": {
+        "alignmentX": "center",
+        "alignmentY": "center",
+        "fit": "fitwidth",
+        "image": { "name": "Picture_1png", "namespace": "" }
+      },
+      "type": "container"
+    },
+    "text_3": {
+      "parameters": {
+        "content": { "displayTemplate": "12 Mth Avg" },
+        "fontSize": 16,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#FFFFFF"
+      },
+      "type": "text"
+    },
+    "chart_6": {
+      "parameters": {
+        "showValues": true,
+        "showPoints": false,
+        "legend": {
+          "descOrder": false,
+          "showHeader": true,
+          "show": false,
+          "customSize": "auto",
+          "position": "right-top",
+          "inside": false
+        },
+        "axisMode": "multi",
+        "tooltip": {
+          "showBinLabel": true,
+          "measures": "",
+          "showNullValues": true,
+          "showPercentage": true,
+          "showDimensions": true,
+          "showMeasures": true,
+          "customizeTooltip": false,
+          "dimensions": ""
+        },
+        "visualizationType": "time",
+        "missingValue": "connect",
+        "exploreLink": true,
+        "title": {
+          "fontSize": 14,
+          "subtitleFontSize": 11,
+          "label": "Closed Tickets over time",
+          "align": "center",
+          "subtitleLabel": ""
+        },
+        "binValues": false,
+        "trellis": {
+          "flipLabels": false,
+          "showGridLines": true,
+          "size": [100, 100],
+          "enable": false,
+          "type": "x",
+          "chartsPerLine": 4
+        },
+        "showZero": true,
+        "valueType": "compactNumber",
+        "theme": "wave",
+        "applyConditionalFormatting": true,
+        "drawArea": {
+          "measure": "",
+          "showDrawArea": false,
+          "bounding1": "",
+          "bounding2": ""
+        },
+        "autoFitMode": "keepLabels",
+        "bins": {
+          "breakpoints": { "high": 100, "low": 0 },
+          "bands": {
+            "high": { "color": "#008000", "label": "" },
+            "low": { "color": "#B22222", "label": "" },
+            "medium": { "color": "#ffa500", "label": "" }
+          }
+        },
+        "dashLine": { "measures": ["count"], "showDashLine": false },
+        "timeAxis": { "showTitle": false, "showAxis": true, "title": "" },
+        "fillArea": true,
+        "columnMap": {
+          "split": [],
+          "timeAxis": ["ClosedDate_Year~~~ClosedDate_Month"],
+          "trellis": [],
+          "plots": ["count"]
+        },
+        "showActionMenu": true,
+        "measureAxis2": {
+          "sqrtScale": false,
+          "showTitle": true,
+          "showAxis": true,
+          "title": "",
+          "customDomain": { "showDomain": false }
+        },
+        "measureAxis1": {
+          "sqrtScale": false,
+          "showTitle": false,
+          "showAxis": true,
+          "title": "",
+          "customDomain": { "showDomain": false }
+        },
+        "step": "CreatedDate_Year_Cre_1"
+      },
+      "type": "chart"
+    },
+    "text_2": {
+      "parameters": {
+        "content": { "displayTemplate": "Last Month" },
+        "fontSize": 16,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#FFFFFF"
+      },
+      "type": "text"
+    },
+    "chart_5": {
+      "parameters": {
+        "showValues": true,
+        "showPoints": true,
+        "legend": {
+          "descOrder": false,
+          "showHeader": true,
+          "show": true,
+          "customSize": "auto",
+          "position": "right-top",
+          "inside": false
+        },
+        "axisMode": "multi",
+        "tooltip": {
+          "showBinLabel": true,
+          "measures": "",
+          "showNullValues": true,
+          "showPercentage": true,
+          "showDimensions": true,
+          "showMeasures": true,
+          "customizeTooltip": false,
+          "dimensions": ""
+        },
+        "visualizationType": "time",
+        "missingValue": "connect",
+        "exploreLink": true,
+        "title": {
+          "fontSize": 14,
+          "subtitleFontSize": 11,
+          "label": "Actual Scam Reimbursements",
+          "align": "center",
+          "subtitleLabel": ""
+        },
+        "binValues": false,
+        "trellis": {
+          "flipLabels": false,
+          "showGridLines": true,
+          "size": [100, 100],
+          "enable": false,
+          "type": "x",
+          "chartsPerLine": 4
+        },
+        "showZero": true,
+        "valueType": "compactNumber",
+        "theme": "wave",
+        "dimensionAxis": {
+          "showTitle": true,
+          "customSize": "auto",
+          "showAxis": true,
+          "title": "",
+          "icons": {
+            "useIcons": false,
+            "iconProps": { "fit": "cover", "column": "", "type": "round" }
+          }
+        },
+        "applyConditionalFormatting": true,
+        "drawArea": {
+          "measure": "",
+          "showDrawArea": false,
+          "bounding1": "",
+          "bounding2": ""
+        },
+        "autoFitMode": "keepLabels",
+        "bins": {
+          "breakpoints": { "high": 100, "low": 0 },
+          "bands": {
+            "high": { "color": "#008000", "label": "" },
+            "low": { "color": "#B22222", "label": "" },
+            "medium": { "color": "#ffa500", "label": "" }
+          }
+        },
+        "dashLine": {
+          "measures": ["sum_Fraud_Total_Falcon_Recalled__c"],
+          "showDashLine": false
+        },
+        "timeAxis": { "showTitle": false, "showAxis": true, "title": "" },
+        "fillArea": true,
+        "columnMap": {
+          "split": [],
+          "timeAxis": [
+            "IDR_Date_Received__c_Year~~~IDR_Date_Received__c_Month"
+          ],
+          "trellis": [],
+          "plots": ["sum_Fraud_Total_Falcon_Recalled__c"]
+        },
+        "showActionMenu": true,
+        "measureAxis2": {
+          "sqrtScale": false,
+          "showTitle": true,
+          "showAxis": true,
+          "title": "",
+          "customDomain": { "showDomain": false }
+        },
+        "measureAxis1": {
+          "sqrtScale": false,
+          "showTitle": false,
+          "showAxis": true,
+          "title": "",
+          "customDomain": { "showDomain": false }
+        },
+        "step": "IDR_Date_Received__c_2"
+      },
+      "type": "chart"
+    },
+    "container_7": {
+      "parameters": {
+        "alignmentX": "left",
+        "alignmentY": "top",
+        "fit": "original"
+      },
+      "type": "container"
+    },
+    "text_5": {
+      "parameters": {
+        "content": { "displayTemplate": "Top 5 Scam Types:" },
+        "fontSize": 16,
+        "showActionMenu": true,
+        "textAlignment": "center",
+        "textColor": "#091A3E"
+      },
+      "type": "text"
+    },
+    "text_4": {
+      "parameters": {
+        "content": { "displayTemplate": "Scam Monthly Dashboard" },
+        "fontSize": 32,
+        "showActionMenu": true,
+        "textAlignment": "center",
+        "textColor": "#091A3E"
+      },
+      "type": "text"
+    },
+    "chart_2": {
+      "parameters": {
+        "autoFitMode": "keepLabels",
+        "showValues": true,
+        "bins": {
+          "breakpoints": { "high": 100, "low": 0 },
+          "bands": {
+            "high": { "color": "#008000", "label": "" },
+            "low": { "color": "#B22222", "label": "" },
+            "medium": { "color": "#ffa500", "label": "" }
+          }
+        },
+        "legend": {
+          "descOrder": false,
+          "showHeader": true,
+          "show": false,
+          "customSize": "auto",
+          "position": "right-top",
+          "inside": false
+        },
+        "axisMode": "multi",
+        "tooltip": {
+          "showBinLabel": true,
+          "measures": "",
+          "showNullValues": true,
+          "showPercentage": true,
+          "showDimensions": true,
+          "showMeasures": true,
+          "customizeTooltip": false,
+          "dimensions": ""
+        },
+        "visualizationType": "hbar",
+        "exploreLink": true,
+        "title": {
+          "fontSize": 14,
+          "subtitleFontSize": 11,
+          "label": "Scam Victim Ages:",
+          "align": "center",
+          "subtitleLabel": ""
+        },
+        "binValues": false,
+        "trellis": {
+          "flipLabels": false,
+          "showGridLines": true,
+          "size": [100, 100],
+          "enable": false,
+          "type": "x",
+          "chartsPerLine": 4
+        },
+        "columnMap": {
+          "trellis": [],
+          "dimensionAxis": ["AgeBucket"],
+          "plots": ["count"]
+        },
+        "showActionMenu": true,
+        "measureAxis2": {
+          "sqrtScale": false,
+          "showTitle": true,
+          "showAxis": true,
+          "title": "",
+          "customDomain": { "showDomain": false }
+        },
+        "measureAxis1": {
+          "sqrtScale": false,
+          "showTitle": false,
+          "showAxis": true,
+          "title": "",
+          "customDomain": { "showDomain": false }
+        },
+        "theme": "wave",
+        "step": "AgeBucket_1",
+        "dimensionAxis": {
+          "showTitle": false,
+          "customSize": "auto",
+          "showAxis": true,
+          "title": "",
+          "icons": {
+            "useIcons": false,
+            "iconProps": { "fit": "cover", "column": "", "type": "round" }
+          }
+        },
+        "applyConditionalFormatting": true
+      },
+      "type": "chart"
+    },
+    "text_7": {
+      "parameters": {
+        "content": {
+          "displayTemplate": "In [Display]/[Year] the Scam Team worked a total of [Total_Cases_Worked] cases with [Scam_Only_Cases] cases of scam victims.",
+          "values": {
+            "Total_Cases_Worked": {
+              "field": "Total Cases Worked",
+              "sourceType": "result",
+              "step": "lens_2"
+            },
+            "Year": {
+              "field": "Year",
+              "sourceType": "selection",
+              "step": "static_2"
+            },
+            "Scam_Only_Cases": {
+              "field": "Scam Cases",
+              "sourceType": "result",
+              "step": "lens_2"
+            },
+            "Display": {
+              "field": "Display",
+              "sourceType": "selection",
+              "step": "static_1"
+            }
+          }
+        },
+        "fontSize": 14,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#091A3E"
+      },
+      "type": "text"
+    },
+    "chart_1": {
+      "parameters": {
+        "autoFitMode": "keepLabels",
+        "showValues": true,
+        "bins": {
+          "breakpoints": { "high": 100, "low": 0 },
+          "bands": {
+            "high": { "color": "#008000", "label": "" },
+            "low": { "color": "#B22222", "label": "" },
+            "medium": { "color": "#ffa500", "label": "" }
+          }
+        },
+        "legend": {
+          "descOrder": false,
+          "showHeader": false,
+          "show": false,
+          "customSize": "auto",
+          "position": "right-top",
+          "inside": false
+        },
+        "axisMode": "multi",
+        "tooltip": {
+          "showBinLabel": true,
+          "measures": "",
+          "showNullValues": true,
+          "showPercentage": true,
+          "showDimensions": true,
+          "showMeasures": true,
+          "customizeTooltip": false,
+          "dimensions": ""
+        },
+        "visualizationType": "vbar",
+        "exploreLink": true,
+        "title": {
+          "fontSize": 14,
+          "subtitleFontSize": 11,
+          "label": "Scam Victims Gender:",
+          "align": "center",
+          "subtitleLabel": ""
+        },
+        "trellis": {
+          "flipLabels": false,
+          "showGridLines": true,
+          "size": [100, 100],
+          "enable": false,
+          "type": "x",
+          "chartsPerLine": 4
+        },
+        "binValues": false,
+        "columnMap": {
+          "trellis": [],
+          "dimensionAxis": ["Account.Gender__pc"],
+          "plots": ["count"]
+        },
+        "showActionMenu": true,
+        "measureAxis2": {
+          "sqrtScale": false,
+          "showTitle": true,
+          "showAxis": true,
+          "title": "",
+          "customDomain": { "showDomain": false }
+        },
+        "measureAxis1": {
+          "sqrtScale": false,
+          "showTitle": true,
+          "showAxis": true,
+          "title": "Cases",
+          "customDomain": { "showDomain": false }
+        },
+        "theme": "wave",
+        "step": "Account_FinServ__Gen_1",
+        "dimensionAxis": {
+          "showTitle": false,
+          "customSize": "auto",
+          "showAxis": false,
+          "title": "",
+          "icons": {
+            "useIcons": false,
+            "iconProps": { "fit": "cover", "column": "", "type": "round" }
+          }
+        },
+        "applyConditionalFormatting": true
+      },
+      "type": "chart"
+    },
+    "text_6": {
+      "parameters": {
+        "content": { "displayTemplate": "Top 5 Scam Funds Destination:" },
+        "fontSize": 16,
+        "showActionMenu": true,
+        "textAlignment": "center",
+        "textColor": "#091A3E"
+      },
+      "type": "text"
+    },
+    "chart_4": {
+      "parameters": {
+        "autoFitMode": "keepLabels",
+        "showValues": true,
+        "bins": {
+          "breakpoints": { "high": 100, "low": 0 },
+          "bands": {
+            "high": { "color": "#008000", "label": "" },
+            "low": { "color": "#B22222", "label": "" },
+            "medium": { "color": "#ffa500", "label": "" }
+          }
+        },
+        "legend": {
+          "descOrder": false,
+          "showHeader": true,
+          "show": true,
+          "customSize": "auto",
+          "position": "top-center",
+          "inside": false
+        },
+        "axisMode": "dual",
+        "tooltip": {
+          "showBinLabel": true,
+          "measures": "",
+          "showNullValues": true,
+          "showPercentage": true,
+          "showDimensions": true,
+          "showMeasures": true,
+          "customizeTooltip": false,
+          "dimensions": ""
+        },
+        "visualizationType": "time-bar",
+        "timeAxis": { "showTitle": false, "showAxis": true, "title": "" },
+        "exploreLink": true,
+        "title": {
+          "fontSize": 14,
+          "subtitleFontSize": 11,
+          "label": "Scam Victim Only Case Historical Financials",
+          "align": "center",
+          "subtitleLabel": ""
+        },
+        "binValues": false,
+        "trellis": {
+          "flipLabels": false,
+          "showGridLines": true,
+          "size": [100, 100],
+          "enable": false,
+          "type": "x",
+          "chartsPerLine": 4
+        },
+        "columnMap": {
+          "timeAxis": [
+            "IDR_Date_Received__c_Year~~~IDR_Date_Received__c_Month"
+          ],
+          "trellis": [],
+          "plots": [
+            "sum_Fraud_Total_Fraud_Value__c",
+            "sum_Fraud_Total_Falcon_Recalled__c",
+            "sum_Fraud_Total_Recipient_Loss__c"
+          ]
+        },
+        "showActionMenu": true,
+        "measureAxis2": {
+          "sqrtScale": false,
+          "showTitle": false,
+          "showAxis": true,
+          "title": "",
+          "customDomain": { "showDomain": false }
+        },
+        "measureAxis1": {
+          "sqrtScale": false,
+          "showTitle": false,
+          "showAxis": true,
+          "title": "",
+          "customDomain": { "showDomain": false }
+        },
+        "theme": "wave",
+        "step": "IDR_Date_Received__c_1",
+        "dimensionAxis": {
+          "showTitle": true,
+          "customSize": "auto",
+          "showAxis": true,
+          "title": "",
+          "icons": {
+            "useIcons": false,
+            "iconProps": { "fit": "cover", "column": "", "type": "round" }
+          }
+        },
+        "applyConditionalFormatting": true
+      },
+      "type": "chart"
+    },
+    "text_9": {
+      "parameters": {
+        "content": {
+          "displayTemplate": "Report Date: [Display_2] / [Year]",
+          "values": {
+            "Display_2": {
+              "field": "Display",
+              "sourceType": "selection",
+              "step": "static_1"
+            },
+            "Year": {
+              "field": "Year",
+              "sourceType": "selection",
+              "step": "static_2"
+            }
+          }
+        },
+        "fontSize": 16,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#091A3E"
+      },
+      "type": "text"
+    },
+    "chart_3": {
+      "parameters": {
+        "autoFitMode": "keepLabels",
+        "showValues": true,
+        "bins": {
+          "breakpoints": { "high": 100, "low": 0 },
+          "bands": {
+            "high": { "color": "#008000", "label": "" },
+            "low": { "color": "#B22222", "label": "" },
+            "medium": { "color": "#ffa500", "label": "" }
+          }
+        },
+        "legend": {
+          "descOrder": false,
+          "showHeader": true,
+          "show": false,
+          "customSize": "auto",
+          "position": "right-top",
+          "inside": false
+        },
+        "axisMode": "multi",
+        "tooltip": {
+          "showBinLabel": true,
+          "measures": "",
+          "showNullValues": true,
+          "showPercentage": true,
+          "showDimensions": true,
+          "showMeasures": true,
+          "customizeTooltip": false,
+          "dimensions": ""
+        },
+        "visualizationType": "vbar",
+        "exploreLink": true,
+        "title": {
+          "fontSize": 14,
+          "subtitleFontSize": 11,
+          "label": "Scam Victim States:",
+          "align": "center",
+          "subtitleLabel": ""
+        },
+        "binValues": false,
+        "trellis": {
+          "flipLabels": false,
+          "showGridLines": true,
+          "size": [100, 100],
+          "enable": false,
+          "type": "x",
+          "chartsPerLine": 4
+        },
+        "columnMap": {
+          "trellis": [],
+          "dimensionAxis": ["Account.BillingState"],
+          "plots": ["count"]
+        },
+        "showActionMenu": true,
+        "measureAxis2": {
+          "sqrtScale": false,
+          "showTitle": true,
+          "showAxis": true,
+          "title": "",
+          "customDomain": { "showDomain": false }
+        },
+        "measureAxis1": {
+          "sqrtScale": false,
+          "showTitle": false,
+          "showAxis": false,
+          "title": "",
+          "customDomain": { "showDomain": false }
+        },
+        "theme": "wave",
+        "step": "Account_BillingState_1",
+        "dimensionAxis": {
+          "showTitle": false,
+          "customSize": "auto",
+          "showAxis": true,
+          "title": "",
+          "icons": {
+            "useIcons": false,
+            "iconProps": { "fit": "cover", "column": "", "type": "round" }
+          }
+        },
+        "applyConditionalFormatting": true
+      },
+      "type": "chart"
+    },
+    "text_8": {
+      "parameters": {
+        "content": {
+          "displayTemplate": "Overall, [Count_of_Rows] of scam victims were located in [Account_BillingState] the most in the month. The top 3 scam types were {{cell(Type_2.result, 0, \"Type\").asString()}}, {{cell(Type_2.result, 1, \"Type\").asString()}}, {{cell(Type_2.result, 2, \"Type\").asString()}} which represented a combined total of [Percent]% of all scam cases worked.",
+          "values": {
+            "Percent": {
+              "field": "Percent",
+              "sourceType": "result",
+              "step": "__Of_Scams_1"
+            },
+            "Count_of_Rows": {
+              "field": "count",
+              "sourceType": "result",
+              "step": "Account_BillingState_1"
+            },
+            "Account_BillingState": {
+              "field": "Account.BillingState",
+              "sourceType": "result",
+              "step": "Account_BillingState_1"
+            }
+          }
+        },
+        "fontSize": 14,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#091A3E"
+      },
+      "type": "text"
+    },
+    "text_1": {
+      "parameters": {
+        "content": { "displayTemplate": "This Month" },
+        "fontSize": 16,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#FFFFFF"
+      },
+      "type": "text"
+    },
+    "filterpanel_1": {
+      "parameters": {
+        "filterItemOptions": {
+          "propertyColor": "#54698D",
+          "valueColor": "#16325C"
+        },
+        "filters": [],
+        "showAllFilters": false
+      },
+      "type": "filterpanel"
+    },
+    "table_1": {
+      "parameters": {
+        "borderColor": "#e1e5ee",
+        "borderWidth": 1,
+        "cell": {
+          "backgroundColor": "#f2f6fa",
+          "fontColor": "#16325c",
+          "fontSize": 16
+        },
+        "columnProperties": {},
+        "columns": [],
+        "customBulkActions": [],
+        "evenRowColor": "#f2f6fa",
+        "exploreLink": true,
+        "header": {
+          "backgroundColor": "#e4ecf2",
+          "fontColor": "#5c7a99",
+          "fontSize": 12
+        },
+        "innerMajorBorderColor": "#a9b7c7",
+        "innerMinorBorderColor": "#e1e5ee",
+        "mode": "fittocontainer",
+        "numberOfLines": 1,
+        "oddRowColor": "#ffffff",
+        "showActionMenu": false,
+        "showRowIndexColumn": false,
+        "step": "lens_2",
+        "totals": true,
+        "verticalPadding": 12
+      },
+      "type": "table"
+    },
+    "table_2": {
+      "parameters": {
+        "borderColor": "#a8b7c7",
+        "borderWidth": 1,
+        "cell": {
+          "backgroundColor": "#ffffff",
+          "fontColor": "#16325c",
+          "fontSize": 12
+        },
+        "columnProperties": {
+          "count": {
+            "parameters": { "alignment": "right", "styles": { "bold": true } },
+            "type": "text"
+          }
+        },
+        "columns": [],
+        "customBulkActions": [],
+        "exploreLink": true,
+        "header": {
+          "backgroundColor": "#16325c",
+          "fontColor": "#ffffff",
+          "fontSize": 10
+        },
+        "innerMajorBorderColor": "#54698d",
+        "innerMinorBorderColor": "#a8b7c7",
+        "mode": "fittocontainer",
+        "numberOfLines": 1,
+        "pivoted": false,
+        "showActionMenu": false,
+        "step": "Type_2",
+        "totals": true,
+        "verticalPadding": 4
+      },
+      "type": "table"
+    },
+    "table_3": {
+      "parameters": {
+        "borderColor": "#a8b7c7",
+        "borderWidth": 1,
+        "cell": {
+          "backgroundColor": "#ffffff",
+          "fontColor": "#16325c",
+          "fontSize": 12
+        },
+        "columnProperties": {
+          "count": {
+            "parameters": { "alignment": "right", "styles": { "bold": true } },
+            "type": "text"
+          }
+        },
+        "columns": [],
+        "customBulkActions": [],
+        "exploreLink": true,
+        "header": {
+          "backgroundColor": "#16325c",
+          "fontColor": "#ffffff",
+          "fontSize": 10
+        },
+        "innerMajorBorderColor": "#54698d",
+        "innerMinorBorderColor": "#a8b7c7",
+        "mode": "fittocontainer",
+        "numberOfLines": 1,
+        "pivoted": false,
+        "showActionMenu": true,
+        "step": "Fraud_Funds_to_Geogr_1",
+        "totals": true,
+        "verticalPadding": 4
+      },
+      "type": "table"
+    },
+    "table_4": {
+      "parameters": {
+        "borderColor": "#e1e5ee",
+        "borderWidth": 1,
+        "cell": {
+          "backgroundColor": "#f2f6fa",
+          "fontColor": "#16325c",
+          "fontSize": 16
+        },
+        "columnProperties": {},
+        "columns": [],
+        "customBulkActions": [],
+        "evenRowColor": "#f2f6fa",
+        "exploreLink": true,
+        "header": {
+          "backgroundColor": "#e4ecf2",
+          "fontColor": "#5c7a99",
+          "fontSize": 12
+        },
+        "innerMajorBorderColor": "#a9b7c7",
+        "innerMinorBorderColor": "#e1e5ee",
+        "mode": "fittocontainer",
+        "numberOfLines": 1,
+        "oddRowColor": "#ffffff",
+        "showActionMenu": false,
+        "showRowIndexColumn": false,
+        "step": "lens_2",
+        "totals": true,
+        "verticalPadding": 12
+      },
+      "type": "table"
+    },
+    "pillbox_2": {
+      "parameters": {
+        "compact": false,
+        "exploreLink": false,
+        "fontSize": 14,
+        "selectedTab": {
+          "backgroundColor": "#0070D2",
+          "borderColor": "#C6D3E1",
+          "borderEdges": ["all"],
+          "borderWidth": 1,
+          "textColor": "#FFFFFF"
+        },
+        "showActionMenu": true,
+        "step": "static_2",
+        "textColor": "#0070D2"
+      },
+      "type": "pillbox"
+    },
+    "pillbox_1": {
+      "parameters": {
+        "compact": false,
+        "exploreLink": false,
+        "fontSize": 10,
+        "measureField": "Month",
+        "selectedTab": {
+          "backgroundColor": "#0070D2",
+          "borderColor": "#C6D3E1",
+          "borderEdges": ["all"],
+          "borderWidth": 1,
+          "textColor": "#FFFFFF"
+        },
+        "showActionMenu": true,
+        "step": "static_1",
+        "textColor": "#0070D2"
+      },
+      "type": "pillbox"
+    }
+  }
+}

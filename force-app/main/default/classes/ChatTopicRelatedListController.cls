@@ -6,6 +6,8 @@
  */
 @SuppressWarnings('PMD.ApexSuggestUsingNamedCred')
 public with sharing class ChatTopicRelatedListController {
+  public static AccountQueryHelper accountHelper = new AccountQueryHelper();
+  public static CaseQueryHelper caseHelper = new CaseQueryHelper();
   /**
    * @description This method is used to chatTopicRelatedList lwc component to retrive chat topics related to account.
    *
@@ -21,11 +23,7 @@ public with sharing class ChatTopicRelatedListController {
     // Query for Customer OCV ID by passing in the Account ID
     String ocvId;
     if (Account.sObjectType.getDescribe().isQueryable()) {
-      List<Account> accounts = [
-        SELECT OCV_ID__c
-        FROM Account
-        WHERE Id = :accountId
-      ];
+      List<Account> accounts = accountHelper.findAccountsByAccountId(accountId);
       if (!accounts.isEmpty()) {
         ocvId = accounts[0].OCV_ID__c;
       }
@@ -57,11 +55,7 @@ public with sharing class ChatTopicRelatedListController {
     String channelSID;
     String ocvId;
     if (Case.sObjectType.getDescribe().isQueryable()) {
-      List<Case> cases = [
-        SELECT Twilio_Channel_SID__c, Account.OCV_ID__c
-        FROM Case
-        WHERE Twilio_Channel_SID__c != NULL AND Id = :caseId
-      ];
+      List<Case> cases = caseHelper.findChatCaseByCaseId(caseId);
       if (!cases.isEmpty()) {
         channelSID = cases[0].Twilio_Channel_SID__c;
         ocvId = cases[0].Account.OCV_ID__c;

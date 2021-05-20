@@ -8,14 +8,16 @@ on:
 
 jobs:
   jest:
-    runs-on: ubuntu-latest
-    container: ddawson235/sfdx:latest
+    runs-on: [self-hosted, salesforce]
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Run Unit Tests
+      - name: "Checkout"
+        uses: actions/checkout@v2
+
+      - name: "Install npm packages"
         run: |
-          npm install
-          echo "Install npm dependencies"
-          npx jest --coverage
-          echo "Running JEST tests for Lightning Web Components"
+          mv ci.npmrc .npmrc
+          npm ci
+
+      - name: Running JEST tests for LWC
+        run: npx jest --coverage

@@ -1212,7 +1212,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>FinServ__Gender__c</field>
+            <field>Gender__c</field>
             <table>Account.Entitlements.EntitlementContacts</table>
         </columns>
         <columns>
