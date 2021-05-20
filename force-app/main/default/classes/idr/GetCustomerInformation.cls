@@ -12,7 +12,8 @@ public with sharing class GetCustomerInformation {
    * The cache is turned off as we need to get the latest data from cap everytime.
    * {@link Lib_SystemLog.logAPIError} is called when ever the call fails to cap to have the logs recorded for monitoring.
    *
-   * @param capId
+   * @param capId Customer Identidfier Id
+   * @param customerIdentifier Customer Identidfier Type
    * @return `map<String, Object>`
    * @exception CalloutException
    */
