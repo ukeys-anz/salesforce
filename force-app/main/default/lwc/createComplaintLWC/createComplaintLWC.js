@@ -269,7 +269,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.isAddressRequired = false;
   }
 
-  get customerNumberTypeOptions(){
+  get customerNumberTypeOptions() {
     return [
       { label: CUS_IDENTIFIER_CAPCIS_ID, value: CUS_IDENTIFIER_CAPCIS_ID },
       {
@@ -278,7 +278,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       },
       { label: CUS_IDENTIFIER_RAZOR_ID, value: CUS_IDENTIFIER_RAZOR_ID },
       { label: CUS_IDENTIFIER_CRN_ID, value: CUS_IDENTIFIER_CRN_ID }
-        ];
+    ];
   }
 
   get statusOptions() {
@@ -294,7 +294,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       { label: CLOSED_STATUS_API_NAME, value: CLOSED_STATUS_API_NAME }
     ];
   }
-  handleCustomerIdentifierChange(event){
+  handleCustomerIdentifierChange(event) {
     this.customerIdentifierValue = event.target.value;
   }
 
@@ -397,7 +397,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   }
 
   handleCustomerNumberChange(event) {
-    let customerNumberField = this.template.querySelector('.inputCapCisId');
+    let customerNumberField = this.template.querySelector(".inputCapCisId");
     this.isCustNumValidated = false;
     this.customerIdValue = event.target.value;
     /*if (this.customerIdValue.match("^[0-9]{10,15}$")) {
@@ -406,16 +406,18 @@ export default class CreateComplaintLWC extends NavigationMixin(
       this.searchDisabled = true;
     }*/
     this.searchDisabled = false;
-    if(this.customerIdentifierValue == CUS_IDENTIFIER_CAPCIS_ID){
-      if(this.customerIdValue.match("^[0-9]{10,15}$")){
-        customerNumberField.setCustomValidity('');
+    if (this.customerIdentifierValue == CUS_IDENTIFIER_CAPCIS_ID) {
+      if (this.customerIdValue.match("^[0-9]{10,15}$")) {
+        customerNumberField.setCustomValidity("");
         this.searchDisabled = false;
-      }else{
-        customerNumberField.setCustomValidity('Customer number must be numbers and at least 10 digits long');
+      } else {
+        customerNumberField.setCustomValidity(
+          "Customer number must be numbers and at least 10 digits long"
+        );
         this.searchDisabled = true;
       }
-    }else{
-      customerNumberField.setCustomValidity('');
+    } else {
+      customerNumberField.setCustomValidity("");
       this.searchDisabled = false;
     }
     customerNumberField.reportValidity();
