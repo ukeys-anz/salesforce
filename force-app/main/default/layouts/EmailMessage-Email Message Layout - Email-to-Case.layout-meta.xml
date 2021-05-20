@@ -121,7 +121,6 @@
         <relatedList>RelatedAttachmentList</relatedList>
     </relatedLists>
     <relatedLists>
-        <fields>CreatedDate</fields>
         <fields>StepStatus</fields>
         <fields>OriginalActor</fields>
         <fields>Actor</fields>
