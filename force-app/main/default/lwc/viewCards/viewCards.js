@@ -24,6 +24,7 @@ export default class ViewCards extends LightningElement {
   errorMsg = "";
   noCards = false;
   showFetch = true;
+  defaultImage = `${card_images}/card_active.png`;
 
   @wire(getRecord, {
     recordId: "$recordId",

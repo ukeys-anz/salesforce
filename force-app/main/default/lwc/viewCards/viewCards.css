@@ -29,10 +29,7 @@
 }
 
 .card-image {
-  max-width: 175px;
   filter: drop-shadow(4px 4px 3px #034082);
-  position: relative;
-  right: 15px;
 }
 
 .load-all {
@@ -42,4 +39,13 @@
 
 .main-title {
   padding: 10px !important;
+}
+
+.card-title {
+  background: #eef1f5;
+  width: 98%;
+  padding: 8px;
+  font-size: 16px;
+  margin-left: 1%;
+  border-radius: 0.25em;
 }

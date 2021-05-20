@@ -34,7 +34,7 @@ describe("c-view-cards", () => {
     });
     document.body.appendChild(element);
     let button = element.shadowRoot.querySelector(
-      "button[data-id='get-cards-button']"
+      "lightning-button[data-id='get-cards-button']"
     );
     expect(button).toBeTruthy();
   });
@@ -46,7 +46,7 @@ describe("c-view-cards", () => {
     });
     document.body.appendChild(element);
     let button = element.shadowRoot.querySelector(
-      "button[data-id='get-cards-button']"
+      "lightning-button[data-id='get-cards-button']"
     );
     button.click();
     return flushPromises().then(() => {
@@ -70,7 +70,7 @@ describe("c-view-cards", () => {
     });
     document.body.appendChild(element);
     let button = element.shadowRoot.querySelector(
-      "button[data-id='get-cards-button']"
+      "lightning-button[data-id='get-cards-button']"
     );
     button.click();
     return flushPromises().then(() => {
@@ -86,7 +86,7 @@ describe("c-view-cards", () => {
     });
     document.body.appendChild(element);
     let button = element.shadowRoot.querySelector(
-      "button[data-id='get-cards-button']"
+      "lightning-button[data-id='get-cards-button']"
     );
     button.click();
     return flushPromises().then(() => {
@@ -98,7 +98,7 @@ describe("c-view-cards", () => {
 
       return flushPromises().then(() => {
         let card = element.shadowRoot.querySelector(
-          "div[data-id='Bruce Willis']"
+          "div[data-id='loaded-card-details']"
         );
         expect(card).toBeTruthy();
       });
@@ -112,7 +112,7 @@ describe("c-view-cards", () => {
     });
     document.body.appendChild(element);
     let button = element.shadowRoot.querySelector(
-      "button[data-id='get-cards-button']"
+      "lightning-button[data-id='get-cards-button']"
     );
     button.click();
     return flushPromises().then(() => {
@@ -120,23 +120,24 @@ describe("c-view-cards", () => {
         "button[data-id='load-more-button']"
       );
       expect(button).toBeTruthy();
+
       button.click();
 
       return flushPromises().then(() => {
         let button = element.shadowRoot.querySelector(
-          "button[data-id='collapse-button']"
+          "lightning-button[data-id='collapse-button']"
         );
         expect(button).toBeTruthy();
         button.click();
 
         return flushPromises().then(() => {
           let button = element.shadowRoot.querySelector(
-            "button[data-id='collapse-button']"
+            "lightning-button[data-id='collapse-button']"
           );
           expect(button).toBeFalsy();
 
           let loadedCard = element.shadowRoot.querySelector(
-            "div[data-id='Bruce Willis']"
+            "div[data-id='loaded-card-details']"
           );
           expect(loadedCard).toBeFalsy();
 
@@ -146,6 +147,29 @@ describe("c-view-cards", () => {
           expect(initialCard).toBeTruthy();
         });
       });
+    });
+  });
+
+  it("tests collapse button is disabled", () => {
+    getCardList.mockResolvedValue(APEX_CARDS_SUCCESS);
+    const element = createElement("c-view-cards", {
+      is: ViewCards
+    });
+    document.body.appendChild(element);
+    let button = element.shadowRoot.querySelector(
+      "lightning-button[data-id='get-cards-button']"
+    );
+    button.click();
+    return flushPromises().then(() => {
+      let card = element.shadowRoot.querySelector(
+        "div[data-id='first-card-details']"
+      );
+      expect(card).toBeTruthy();
+
+      let button = element.shadowRoot.querySelector(
+        "lightning-button[data-id='collapse-button-disabled']"
+      );
+      expect(button).toBeTruthy();
     });
   });
 });
