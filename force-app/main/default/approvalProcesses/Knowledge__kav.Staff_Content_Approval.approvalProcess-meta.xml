@@ -27,8 +27,8 @@
             </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
         </assignedApprover>
-        <description>Approval step for content managers</description>
-        <label>Content Manager Approval</label>
+        <description>Approval step for content writers</description>
+        <label>Peer Review</label>
         <name>Content_Manager_Approval</name>
         <rejectionActions>
             <action>
