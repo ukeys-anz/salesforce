@@ -31,6 +31,20 @@
             <operator>contains</operator>
             <value>STOP COLLECTIONS</value>
         </criteriaItems>
+        <criteriaItems>
+            <column>ASSIGNED</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Stop Collections</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>RECORDTYPE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Task.IDR_System_Task</value>
+        </criteriaItems>
     </filter>
     <format>Summary</format>
     <groupingsDown>
@@ -38,10 +52,10 @@
         <field>ASSIGNED</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
-    <name>Cases with Completed Stop Collections</name>
+    <name>All Stop Collection Tasks Completed</name>
     <params>
         <name>closed</name>
-        <value>open</value>
+        <value>closed</value>
     </params>
     <params>
         <name>type</name>

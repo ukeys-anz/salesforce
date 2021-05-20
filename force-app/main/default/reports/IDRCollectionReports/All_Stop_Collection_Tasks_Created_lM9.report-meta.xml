@@ -10,13 +10,10 @@
         <field>STATUS</field>
     </columns>
     <columns>
-        <field>DUE_DATE</field>
+        <field>CDF1</field>
     </columns>
     <columns>
         <field>CASE_NUMBER</field>
-    </columns>
-    <columns>
-        <field>CDF1</field>
     </columns>
     <customDetailFormulas>
         <calculatedFormula>CASE_OWNER</calculatedFormula>
@@ -25,14 +22,28 @@
         <label>Case Owner</label>
         <scale>2</scale>
     </customDetailFormulas>
-    <description>Report to show customer complaints with Open restart collection tasks</description>
+    <description>Report to show customer complaints with open stop collection tasks</description>
     <filter>
         <criteriaItems>
             <column>SUBJECT</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>false</isUnlocked>
             <operator>contains</operator>
-            <value>RESTART COLLECTIONS</value>
+            <value>STOP COLLECTIONS</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>ASSIGNED</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Stop Collections</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>RECORDTYPE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Task.IDR_System_Task</value>
         </criteriaItems>
     </filter>
     <format>Summary</format>
@@ -41,7 +52,7 @@
         <field>ASSIGNED</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
-    <name>Cases with Open Restart Collections</name>
+    <name>All Stop Collection Tasks Created</name>
     <params>
         <name>closed</name>
         <value>open</value>

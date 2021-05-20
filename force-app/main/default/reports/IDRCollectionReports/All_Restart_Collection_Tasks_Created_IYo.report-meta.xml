@@ -25,7 +25,7 @@
         <label>Case Owner</label>
         <scale>2</scale>
     </customDetailFormulas>
-    <description>Report to show customer complaints with complerted restart collection tasks</description>
+    <description>Report to show customer complaints with Open restart collection tasks</description>
     <filter>
         <criteriaItems>
             <column>SUBJECT</column>
@@ -34,6 +34,20 @@
             <operator>contains</operator>
             <value>RESTART COLLECTIONS</value>
         </criteriaItems>
+        <criteriaItems>
+            <column>ASSIGNED</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Restart Collections</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>RECORDTYPE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Task.IDR_System_Task</value>
+        </criteriaItems>
     </filter>
     <format>Summary</format>
     <groupingsDown>
@@ -41,7 +55,7 @@
         <field>ASSIGNED</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
-    <name>Cases with Completed Restart Collections</name>
+    <name>All Restart Collection Tasks Created</name>
     <params>
         <name>closed</name>
         <value>open</value>
