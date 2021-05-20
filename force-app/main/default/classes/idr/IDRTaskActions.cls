@@ -5,6 +5,30 @@
  */
 @SuppressWarnings('PMD.CyclomaticComplexity')
 public without sharing class IDRTaskActions {
+  private static final String STOP_COLLECTIONS_QUEUE_NAME = 'IDR_Stop_Collections';
+
+  private static final String START_COLLECTIONS_QUEUE_NAME = 'IDR_Restart_Collections';
+
+  private static final String STOP_COLLECTIONS_SUBJECT = 'STOP COLLECTIONS';
+
+  private static final String START_COLLECTIONS_SUBJECT = 'START COLLECTIONS';
+
+  public static Group stopQueue = [
+    SELECT id
+    FROM group
+    WHERE
+      developername = :STOP_COLLECTIONS_QUEUE_NAME
+      AND Type = :IDRCaseActions.QUEUE_TYPE
+  ];
+
+  public static Group startQueue = [
+    SELECT id
+    FROM group
+    WHERE
+      developername = :START_COLLECTIONS_QUEUE_NAME
+      AND Type = :IDRCaseActions.QUEUE_TYPE
+  ];
+
   /**
    * @description beforeInsertActions is called onBeforeInsert. any logic that needs to be executed on before insert is executed from here
    * @param records The Task record list.
@@ -24,7 +48,28 @@ public without sharing class IDRTaskActions {
       }
     }
     checkIDRMaximumTimeTasks(records);
+    assignToCollectionsQueue(records);
   }
+
+  /**
+   * @description assignToCollectionQueue method is used to validate the collection task created by mulesoft and assign to respective collections queue
+   * @param records The Task record list.
+   */
+  public static void assignToCollectionsQueue(list<Task> records) {
+    for (Task record : records) {
+      if (
+        record.RecordTypeId == IDRConstants.IDR_COLLECTIONS_RT_ID &&
+        record.Status == IDRConstants.OPEN_STATUS
+      ) {
+        if (record.Subject.contains(STOP_COLLECTIONS_SUBJECT)) {
+          record.OwnerId = stopQueue.Id;
+        } else if (record.Subject.contains(START_COLLECTIONS_SUBJECT)) {
+          record.OwnerId = startQueue.Id;
+        }
+      }
+    }
+  }
+
   /**
    * @description afterInsertActions is called onAfterInsert. any logic that needs to be executed on after insert is executed from here
    * @param records The Task record list.
@@ -248,7 +293,7 @@ public without sharing class IDRTaskActions {
           caseId IN :caseIDSet
           AND (cm.MilestoneType.Name = :IDRConstants.MILESTONE_STANDARD
           OR cm.MilestoneType.Name = :IDRConstants.MILESTONE_PRIORITY)
-          AND completionDate = NULL
+          AND completionDate = null
         LIMIT 1
       ];
     }
@@ -317,7 +362,7 @@ public without sharing class IDRTaskActions {
         WHERE
           whatId IN :caseMap.keySet()
           AND RecordTypeId = :IDRConstants.IDR_MAXIMUM_TIME_RT_ID
-          AND IsClosed = FALSE
+          AND IsClosed = false
       ];
     }
     for (task t : idrTasks) {
@@ -336,7 +381,7 @@ public without sharing class IDRTaskActions {
       cmsToUpdate = [
         SELECT Id, StartDate, caseId
         FROM CaseMilestone cm
-        WHERE caseId IN :caseMap.keySet() AND completionDate = NULL
+        WHERE caseId IN :caseMap.keySet() AND completionDate = null
       ];
     }
     for (CaseMilestone cm : cmsToUpdate) {

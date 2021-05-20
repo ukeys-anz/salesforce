@@ -106,19 +106,15 @@ public with sharing class IDREmailServiceHandler {
     String fromEmail,
     String caseOrigin
   ) {
-    //Get Indexing Queue Id
-    List<Group> queueList;
-    if (Group.sObjectType.getDescribe().isQueryable()) {
-      queueList = [
-        SELECT Id
-        FROM Group
-        WHERE Type = 'Queue' AND developername = 'Indexing_Queue'
-        LIMIT 1
-      ];
-    }
+    //Get Indexing Queue
+    List<Group> queueList = IDREmailServiceHelper.getGroupDetails(
+      'Queue',
+      'Indexing_Queue'
+    );
+
     //Create new case
     Case newCase = new Case(
-      Description = email.plainTextBody.replaceAll('<.*>', 'REMOVED'),
+      Description = email.plainTextBody?.replaceAll('<.*>', 'REMOVED'),
       Priority = 'Standard',
       Status = 'New',
       Subject = email.subject,
@@ -169,5 +165,18 @@ public with sharing class IDREmailServiceHandler {
         );
       }
     }
+  }
+
+  /**
+   * @description Fetches all the data from IDR Email Settings Custom Setting
+   * @return Custom setting map of custom setting name with its setting details
+   */
+  public static Map<String, IDR_Email_Settings__c> getIDREmailServiceSetting() {
+    Map<String, IDR_Email_Settings__c> customSettingMap = IDR_Email_Settings__c.getAll();
+    Map<String, IDR_Email_Settings__c> idrSettingWithSenderEmailMap = new Map<String, IDR_Email_Settings__c>();
+    for (IDR_Email_Settings__c custSetting : customSettingMap.values()) {
+      idrSettingWithSenderEmailMap.put(custSetting.Inbox_Email__c, custSetting);
+    }
+    return idrSettingWithSenderEmailMap;
   }
 }

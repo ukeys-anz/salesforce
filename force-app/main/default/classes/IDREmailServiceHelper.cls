@@ -32,9 +32,6 @@ public with sharing class IDREmailServiceHelper {
    * @param email Inbound email object
    * @param caseId The case Id that needs to be related to
    */
-  @SuppressWarnings(
-    'PMD.CyclomaticComplexity'
-  ) //Since the method is already refined to reduce complexity
   public static void createAttachmentFiles(
     Messaging.InboundEmail email,
     Id caseId
@@ -42,52 +39,16 @@ public with sharing class IDREmailServiceHelper {
     List<Messaging.Inboundemail.TextAttachment> tAttachments = email.textAttachments;
     List<Messaging.Inboundemail.BinaryAttachment> bAttachments = email.binaryAttachments;
     List<ContentVersion> contentVersionList = new List<ContentVersion>();
-    if (tAttachments != null && tAttachments.size() > 0) {
-      for (Messaging.Inboundemail.TextAttachment tAttachment : tAttachments) {
-        if (checkExtension(tAttachment.mimeTypeSubType)) {
-          ContentVersion cv = new ContentVersion(
-            Title = tAttachment.fileName,
-            PathOnClient = tAttachment.fileName,
-            VersionData = Blob.valueOf(tAttachment.body)
-          );
-          contentVersionList.add(cv);
-        } else {
-          Lib_SystemLog.logAPIError(
-            IDREmailServiceHelper.class.getName(),
-            'Discarded   a   text   file   ' + tAttachment.fileName,
-            null,
-            null,
-            IDREmailServiceHelper.class.getName(),
-            null,
-            null
-          );
-        }
-      }
-    }
 
-    if (bAttachments != null && bAttachments.size() > 0) {
-      for (Messaging.Inboundemail.BinaryAttachment bAttachment : bAttachments) {
-        if (checkExtension(bAttachment.mimeTypeSubType)) {
-          ContentVersion cv = new ContentVersion(
-            Title = bAttachment.fileName,
-            PathOnClient = bAttachment.fileName,
-            VersionData = bAttachment.body
-          );
-          contentVersionList.add(cv);
-        } else {
-          Lib_SystemLog.logAPIError(
-            IDREmailServiceHelper.class.getName(),
-            'Discarded   a   binary   file   ' + bAttachment.fileName,
-            null,
-            null,
-            IDREmailServiceHelper.class.getName(),
-            null,
-            null
-          );
-        }
-      }
-    }
-    if (ContentVersion.sObjectType.getDescribe().isCreateable()) {
+    //Get all text attachments
+    contentVersionList.addAll(getTextFileAttachments(tAttachments));
+    //Get all binary attachments
+    contentVersionList.addAll(getTextBinaryAttachments(bAttachments));
+
+    if (
+      contentVersionList.size() > 0 &&
+      ContentVersion.sObjectType.getDescribe().isCreateable()
+    ) {
       insert contentVersionList;
     }
 
@@ -173,5 +134,109 @@ public with sharing class IDREmailServiceHelper {
         insert contentDocLinkList;
       }
     }
+  }
+
+  /**
+   * @description Gets the filtered string using Regular Expression
+   * @param pattern The RegEx pattern
+   * @param matcher The string with which the matching is performed
+   * @return returnString The filtered String
+   */
+  public static String filterStringUsingRegEx(String pattern, String matcher) {
+    String returnString;
+    Matcher m = System.Pattern.compile(pattern).matcher(matcher);
+    if (m.find()) {
+      returnString = m.group();
+    } else {
+      returnString = matcher;
+    }
+    return returnString;
+  }
+
+  /**
+   * @description Queries through the group object
+   * @param type The type of group
+   * @param queueName The devveloper name of group
+   * @return List<Group>
+   */
+  public static List<Group> getGroupDetails(String type, String queueName) {
+    if (Group.sObjectType.getDescribe().isQueryable()) {
+      return [
+        SELECT Id
+        FROM Group
+        WHERE Type = :type AND developername = :queueName
+        LIMIT 1
+      ];
+    } else {
+      return null;
+    }
+  }
+
+  /**
+   * @description Fetches the text attachments from the email
+   * @param tAttachments The messaging inbound email text attachments
+   * @return List<ContentVersion> Wraps through content version
+   */
+  public static List<ContentVersion> getTextFileAttachments(
+    List<Messaging.Inboundemail.TextAttachment> tAttachments
+  ) {
+    List<ContentVersion> returnConVerList = new List<ContentVersion>();
+    if (tAttachments != null && tAttachments.size() > 0) {
+      for (Messaging.Inboundemail.TextAttachment tAttachment : tAttachments) {
+        if (checkExtension(tAttachment.mimeTypeSubType)) {
+          ContentVersion cv = new ContentVersion(
+            Title = tAttachment.fileName,
+            PathOnClient = tAttachment.fileName,
+            VersionData = Blob.valueOf(tAttachment.body)
+          );
+          returnConVerList.add(cv);
+        } else {
+          Lib_SystemLog.logAPIError(
+            IDREmailServiceHelper.class.getName(),
+            'Discarded   a   text   file   ' + tAttachment.fileName,
+            null,
+            null,
+            IDREmailServiceHelper.class.getName(),
+            null,
+            null
+          );
+        }
+      }
+    }
+    return returnConVerList;
+  }
+
+  /**
+   * @description Fetches the text attachments from the email
+   * @param bAttachments The messaging inbound email binary attachments
+   * @return List<ContentVersion> Wraps through content version
+   */
+  public static List<ContentVersion> getTextBinaryAttachments(
+    List<Messaging.Inboundemail.BinaryAttachment> bAttachments
+  ) {
+    List<ContentVersion> returnConVerList = new List<ContentVersion>();
+    if (bAttachments != null && bAttachments.size() > 0) {
+      for (Messaging.Inboundemail.BinaryAttachment bAttachment : bAttachments) {
+        if (checkExtension(bAttachment.mimeTypeSubType)) {
+          ContentVersion cv = new ContentVersion(
+            Title = bAttachment.fileName,
+            PathOnClient = bAttachment.fileName,
+            VersionData = bAttachment.body
+          );
+          returnConVerList.add(cv);
+        } else {
+          Lib_SystemLog.logAPIError(
+            IDREmailServiceHelper.class.getName(),
+            'Discarded   a   binary   file   ' + bAttachment.fileName,
+            null,
+            null,
+            IDREmailServiceHelper.class.getName(),
+            null,
+            null
+          );
+        }
+      }
+    }
+    return returnConVerList;
   }
 }

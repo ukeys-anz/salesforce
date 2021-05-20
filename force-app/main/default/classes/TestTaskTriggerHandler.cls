@@ -122,4 +122,45 @@ private class TestTaskTriggerHandler {
 
     system.assertEquals('Expired', checkTask.Status);
   }
+
+  @isTest
+  static void testCollectionTaskCreation() {
+    List<Case> newCases = [
+      SELECT Id
+      FROM Case
+      WHERE RecordTypeId = :IDRConstants.CUSTOMER_COMPLAINT_RT_ID
+    ];
+    List<Task> newTasks = new List<Task>();
+
+    Test.startTest();
+    //GIVEN list of collection tasks created by Mulesoft
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newTasks.add(
+        new Task(
+          whatId = newCases[0].Id,
+          RecordTypeId = IDRConstants.IDR_COLLECTIONS_RT_ID,
+          Status = 'Open',
+          Priority = 'High',
+          ActivityDate = system.today()
+        )
+      );
+    }
+    newTasks[0].Subject = 'STOP COLLECTIONS FOR ****1111';
+    newTasks[1].Subject = 'RESTART COLLECTIONS FOR ****1111';
+    //WHEN they are inserted into Salesforce
+    insert newTasks;
+
+    Test.stopTest();
+
+    List<Task> taskList = [
+      SELECT OwnerId
+      FROM Task
+      WHERE
+        RecordTypeId = :IDRConstants.IDR_COLLECTIONS_RT_ID
+        AND Status = 'Open'
+    ];
+    //THEN they are automatically assigned to STOP or START collections queue
+    system.assertEquals(IDRTaskActions.stopQueue.Id, taskList[0].OwnerId);
+    system.assertEquals(IDRTaskActions.startQueue.Id, taskList[1].OwnerId);
+  }
 }

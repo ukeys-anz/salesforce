@@ -2,11 +2,9 @@ import accountsAndGoalsRefresh from "c/accountsAndGoalsRefresh";
 import { createElement } from "lwc";
 import getAccounts from "@salesforce/apex/CoachBankingAPIRepository.getAccountsAura";
 import updateAccounts from "@salesforce/apex/UpdateFinancialAccounts.updateAccounts";
-import { createTestWireAdapter } from '@salesforce/wire-service-jest-util';
+import { createTestWireAdapter } from "@salesforce/wire-service-jest-util";
 import { getRecord } from "lightning/uiRecordApi";
-import {
-  registerLdsTestWireAdapter
-} from "@salesforce/sfdx-lwc-jest";
+import { registerLdsTestWireAdapter } from "@salesforce/sfdx-lwc-jest";
 
 import { publish } from "lightning/messageService";
 

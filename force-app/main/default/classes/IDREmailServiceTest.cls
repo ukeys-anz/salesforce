@@ -35,6 +35,13 @@ public with sharing class IDREmailServiceTest {
 
   @IsTest
   static void createCaseCompTest() {
+    IDR_Email_Settings__c idrEmailSetting = new IDR_Email_Settings__c(
+      Name = 'Test_Email',
+      Inbox_Email__c = 'YourFeedback@anz.com',
+      Origin__c = 'Email',
+      Technical_Email_Address__c = 'testtechnicaladdress@testabc.com'
+    );
+    insert idrEmailSetting;
     User contextUser = [
       SELECT Id
       FROM User
@@ -82,6 +89,13 @@ public with sharing class IDREmailServiceTest {
 
   @IsTest
   static void checkSpammingTest() {
+    IDR_Email_Settings__c idrEmailSetting = new IDR_Email_Settings__c(
+      Name = 'Test_Email',
+      Inbox_Email__c = 'testclassxyz@testabc.com',
+      Origin__c = 'Email',
+      Technical_Email_Address__c = 'testclassxyz@testabc.com'
+    );
+    insert idrEmailSetting;
     User contextUser = [
       SELECT Id
       FROM User
@@ -103,7 +117,7 @@ public with sharing class IDREmailServiceTest {
       List<Messaging.InboundEmail.Header> emailHeaders = new List<Messaging.InboundEmail.Header>();
       Messaging.InboundEmail.Header sendTo = new Messaging.InboundEmail.Header();
       sendTo.name = 'To';
-      sendTo.value = 'testclassxyz@testabc.com'; //This value is present in custom metadata IDR_Email_Service_Setting__mdt
+      sendTo.value = 'testclassxyz@testabc.com'; //This value is present in custom setting
       emailHeaders.add(sendTo);
 
       Messaging.InboundEmail.Header fromEmail = new Messaging.InboundEmail.Header();

@@ -45,24 +45,8 @@
     <picklistValues>
         <picklist>FinServ__FinancialAccountType__c</picklist>
         <values>
-            <fullName>CD</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Cash Management Account</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Checking</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Credit Card</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Savings</fullName>
-            <default>false</default>
+            <default>true</default>
         </values>
     </picklistValues>
     <picklistValues>

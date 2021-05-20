@@ -3,7 +3,7 @@ import { createElement } from "lwc";
 import getFinancialAccounts from "@salesforce/apex/FinancialAccountController.getFinancialAccounts";
 
 import { publish, subscribe } from "lightning/messageService";
-import { createTestWireAdapter } from '@salesforce/wire-service-jest-util';
+import { createTestWireAdapter } from "@salesforce/wire-service-jest-util";
 import UpdateAccounts from "@salesforce/messageChannel/FinancialAccountsUpdate__c";
 import TriggerLoading from "@salesforce/messageChannel/FinancialAccountsTriggerLoading__c";
 

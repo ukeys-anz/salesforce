@@ -14,6 +14,7 @@
     <permissionSets>Knowledge_Base_Author</permissionSets>
     <permissionSets>Knowledge_User</permissionSets>
     <permissionSets>Life_Event_Read_Write</permissionSets>
+    <permissionSets>Raise_Dispute</permissionSets>
     <permissionSets>Record_Access_Log</permissionSets>
     <permissionSets>Release_Author</permissionSets>
     <permissionSets>force__EinsteinAnalyticsPlusUser</permissionSets>
