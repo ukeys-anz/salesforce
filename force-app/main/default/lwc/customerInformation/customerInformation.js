@@ -37,13 +37,21 @@ export default class CustomerInformation extends LightningElement {
     if (this.customerId) {
       this.loaded = false;
       this.customerInfo = null;
-      this.custData(this.customerId.replace(/^0+/, ""),this.custIdentifier );
+      this.custData(this.customerId.replace(/^0+/, ""), this.custIdentifier);
     }
   }
 
   @wire(getRecord, {
     recordId: "$recordId",
-    fields: [CAP_ID_FIELD, FIRST_NAME, MIDDLE_NAME, LAST_NAME, RM_COMPLAINT,CUSTOMER_IDENTIFIER,COMPLAINANT_TYPE]
+    fields: [
+      CAP_ID_FIELD,
+      FIRST_NAME,
+      MIDDLE_NAME,
+      LAST_NAME,
+      RM_COMPLAINT,
+      CUSTOMER_IDENTIFIER,
+      COMPLAINANT_TYPE
+    ]
   })
   wiredProject({ error, data }) {
     if (data && this.record !== data) {
@@ -61,7 +69,10 @@ export default class CustomerInformation extends LightningElement {
         customerData1.last_name = getFieldValue(this.record, LAST_NAME);
         customerData1.middlename = getFieldValue(this.record, MIDDLE_NAME);
         customerData1.isRmPresent = getFieldValue(this.record, RM_COMPLAINT);
-        customerData1.complainant_type = (getFieldValue(this.record, COMPLAINANT_TYPE) == '1' ? 'Individual' :'Business');
+        customerData1.complainant_type =
+          getFieldValue(this.record, COMPLAINANT_TYPE) == "1"
+            ? "Individual"
+            : "Business";
         this.customerInfo = customerData1;
         if (
           customerData1.first_name == null &&
@@ -122,7 +133,7 @@ export default class CustomerInformation extends LightningElement {
     this.error = null;
     this.rmDetailsError = null;
     this.isRMDetails = false;
-    getCustomerData({ capId: customerId , customerIdentifier: custIdentifier})
+    getCustomerData({ capId: customerId, customerIdentifier: custIdentifier })
       .then((result) => {
         let customerData = {
           complainant_type: "",
