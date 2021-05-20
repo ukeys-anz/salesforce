@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <DashboardFolder xmlns="http://soap.sforce.com/2006/04/metadata">
     <folderShares>
-        <accessLevel>Manage</accessLevel>
-        <sharedTo>test-a0nejoybuams@example.com</sharedTo>
-        <sharedToType>User</sharedToType>
+        <accessLevel>View</accessLevel>
+        <sharedTo>Customer_Resolution</sharedTo>
+        <sharedToType>Role</sharedToType>
+    </folderShares>
+    <folderShares>
+        <accessLevel>View</accessLevel>
+        <sharedTo>Customer_Resolution_Leadership</sharedTo>
+        <sharedToType>Role</sharedToType>
     </folderShares>
     <name>CMOS Collections Statistics</name>
 </DashboardFolder>
