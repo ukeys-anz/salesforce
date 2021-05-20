@@ -88,7 +88,7 @@ public with sharing class GetCustomerInformation {
  * 
  */
   public class CustomerIdentifiers{
-    public List<cls_Identiers> identifiers = new List<cls_Identiers>()  ;
+    public List<IdentierDetails> identifiers = new List<IdentierDetails>()  ;
   }
   
    /**
