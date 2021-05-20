@@ -400,11 +400,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
     let customerNumberField = this.template.querySelector(".inputCapCisId");
     this.isCustNumValidated = false;
     this.customerIdValue = event.target.value;
-    /*if (this.customerIdValue.match("^[0-9]{10,15}$")) {
-      this.searchDisabled = false;
-    } else {
-      this.searchDisabled = true;
-    }*/
     this.searchDisabled = false;
     if (this.customerIdentifierValue === CUS_IDENTIFIER_CAPCIS_ID) {
       if (this.customerIdValue.match("^[0-9]{10,15}$")) {
