@@ -51,6 +51,7 @@ public with sharing class IDRLetterApprovalActions {
   /**
    * @description populateCustomerData is to make OCV call and create the detail record with customer data
    * @param customerNumber customer Number
+   * @param customerIdentifier Customer Identifier Type
    * @param approvalRecId Letter Approval record Id
    */
   @future(callOut=true)
