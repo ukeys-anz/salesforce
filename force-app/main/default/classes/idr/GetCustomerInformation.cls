@@ -65,10 +65,16 @@ public with sharing class GetCustomerInformation {
     }
   }
 
-
+/**
+   * @description prepares the body for the callout
+   * @param capId Customer Identifier Id
+   * @param customerIdentifier Customer Identifier Type
+   * @return `map<String, Object>`
+   * @exception CalloutException
+   */
   public static String getBody(String capId,String customerIdentifier){
     CustomerIdentifiers cusIden= new CustomerIdentifiers();
-    cls_Identiers cls = new cls_Identiers();
+    IdentierDetails cls = new IdentierDetails();
     cls.identifierUsageType = customerIdentifier;
     cls.identifier = capId;
     cusIden.identifiers.add(cls);
@@ -76,12 +82,19 @@ public with sharing class GetCustomerInformation {
     return Json.serialize(cusIden);
   }
 
+  /**
+ * @description  Wrapper class to build the body
+ * 
+ */
   public class CustomerIdentifiers{
     public List<cls_Identiers> identifiers = new List<cls_Identiers>()  ;
-
-   
   }
-  public class cls_Identiers{
+  
+   /**
+ * @description  Wrapper class to build the body
+ * 
+ */
+  public class IdentierDetails{
     public String identifierUsageType ='';
     public String identifier='';
   }
