@@ -406,7 +406,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       this.searchDisabled = true;
     }*/
     this.searchDisabled = false;
-    if (this.customerIdentifierValue == CUS_IDENTIFIER_CAPCIS_ID) {
+    if (this.customerIdentifierValue === CUS_IDENTIFIER_CAPCIS_ID) {
       if (this.customerIdValue.match("^[0-9]{10,15}$")) {
         customerNumberField.setCustomValidity("");
         this.searchDisabled = false;
