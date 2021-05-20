@@ -70,7 +70,7 @@ export default class CustomerInformation extends LightningElement {
         customerData1.middlename = getFieldValue(this.record, MIDDLE_NAME);
         customerData1.isRmPresent = getFieldValue(this.record, RM_COMPLAINT);
         customerData1.complainant_type =
-          getFieldValue(this.record, COMPLAINANT_TYPE) == "1"
+          getFieldValue(this.record, COMPLAINANT_TYPE) === "1"
             ? "Individual"
             : "Business";
         this.customerInfo = customerData1;
