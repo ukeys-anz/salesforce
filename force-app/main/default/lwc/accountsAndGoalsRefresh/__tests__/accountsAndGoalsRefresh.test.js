@@ -2,15 +2,13 @@ import accountsAndGoalsRefresh from "c/accountsAndGoalsRefresh";
 import { createElement } from "lwc";
 import getAccounts from "@salesforce/apex/CoachBankingAPIRepository.getAccountsAura";
 import updateAccounts from "@salesforce/apex/UpdateFinancialAccounts.updateAccounts";
+import { createTestWireAdapter } from "@salesforce/wire-service-jest-util";
 import { getRecord } from "lightning/uiRecordApi";
-import { publish, MessageContext } from "lightning/messageService";
-import {
-  registerLdsTestWireAdapter,
-  registerTestWireAdapter
-} from "@salesforce/sfdx-lwc-jest";
-import UpdateAccounts from "@salesforce/messageChannel/FinancialAccountsUpdate__c";
+import { registerLdsTestWireAdapter } from "@salesforce/sfdx-lwc-jest";
+
+import { publish } from "lightning/messageService";
+
 import UpdateAccountsGoalsTimed from "@salesforce/messageChannel/FinancialAccountGoalsTimedUpdate__c";
-import TriggerLoading from "@salesforce/messageChannel/FinancialAccountsTriggerLoading__c";
 
 jest.mock(
   "@salesforce/apex/CoachBankingAPIRepository.getAccountsAura",
@@ -32,6 +30,10 @@ jest.mock(
   { virtual: true }
 );
 
+const MessageContext = createTestWireAdapter();
+//https://github.com/salesforce/wire-service-jest-util/blob/master/docs/migrating-from-version-2.x-to-3.x.md
+/* eslint-disable-next-line @lwc/lwc/no-unexpected-wire-adapter-usages */
+const getRecordAdapter = registerLdsTestWireAdapter(getRecord);
 const mockGetRecord = require("./data/getRecord.json");
 
 const APEX_ACCOUNTS_SUCCESS =
@@ -54,9 +56,6 @@ const APEX_ACCOUNTS_ERROR = {
   status: 400,
   statusText: "Bad Request"
 };
-
-const messageContextWireAdapter = registerTestWireAdapter(MessageContext);
-const getRecordAdapter = registerLdsTestWireAdapter(getRecord);
 
 describe("c-accountsAndGoalsRefresh", () => {
   //clean the dom and mocks in between test runs
@@ -99,7 +98,7 @@ describe("c-accountsAndGoalsRefresh", () => {
     const payload = {
       update: true
     };
-    publish(messageContextWireAdapter, UpdateAccountsGoalsTimed, payload);
+    publish(MessageContext, UpdateAccountsGoalsTimed, payload);
 
     return flushPromises().then(() => {
       const mainEle = element.shadowRoot.querySelector("article");
@@ -123,7 +122,7 @@ describe("c-accountsAndGoalsRefresh", () => {
     const payload = {
       update: true
     };
-    publish(messageContextWireAdapter, UpdateAccountsGoalsTimed, payload);
+    publish(MessageContext, UpdateAccountsGoalsTimed, payload);
 
     return flushPromises().then(() => {
       const mainEle = element.shadowRoot.querySelector("article");
@@ -147,7 +146,7 @@ describe("c-accountsAndGoalsRefresh", () => {
     const payload = {
       update: true
     };
-    publish(messageContextWireAdapter, UpdateAccountsGoalsTimed, payload);
+    publish(MessageContext, UpdateAccountsGoalsTimed, payload);
 
     return flushPromises().then(() => {
       const mainEle = element.shadowRoot.querySelector("article");
@@ -171,7 +170,7 @@ describe("c-accountsAndGoalsRefresh", () => {
     const payload = {
       update: true
     };
-    publish(messageContextWireAdapter, UpdateAccountsGoalsTimed, payload);
+    publish(MessageContext, UpdateAccountsGoalsTimed, payload);
 
     return flushPromises().then(() => {
       const mainEle = element.shadowRoot.querySelector("article");

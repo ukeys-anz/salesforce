@@ -2,6 +2,9 @@
 # If you are not using git, you can delete this file. For more information see: https://git-scm.com/docs/gitignore
 # For useful gitignore templates see: https://github.com/github/gitignore
 
+# Husky
+.husky/_
+
 # Caches
 .sfdx/
 .eslintcache
@@ -16,7 +19,7 @@ yarn-error.log*
 
 # Dependency directories
 node_modules/
-package-lock.json
+webdriverIO/node_modules
 
 # MacOS system files
 .DS_Store
@@ -60,14 +63,18 @@ coverage/
 .eslintrc.json
 
 #Webdriver IO
-webdriverIO/all-logs/
-webdriverIO/driver-logs/
-webdriverIO-build/
+webdriverIO/suite/all-logs/
+webdriverIO/suite/driver-logs/
+webdriverIO/build
 
 # Sonarqube
 .scannerwork
 
 #Allure reporting
+webdriverIO/allure-results/*
+webdriverIO/!allure-results/categories.json
+webdriverIO/allure-report
+webdriverIO/.env
 allure-results/*
 !allure-results/categories.json
 allure-report

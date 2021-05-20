@@ -19,6 +19,7 @@
     let recordTypeId = component.get("v.selectedRecordTypeId")
       ? component.get("v.selectedRecordTypeId")
       : component.get("v.caseRecordTypes")[0].Id;
+
     this.handleCaseRecordOpenEvent(component, recordTypeId);
   },
   handleCaseRecordOpenEvent: function (component, recordTypeId) {
@@ -31,15 +32,19 @@
     // Manually populating the related parent Account record ID when new case creation was originated from a related list
     if (this.isParentObjectAccount(parentInfo)) {
       // Fetch active Chat Topic ID (if there is any) related to the Customer
-      this.getActiveChatTopicID(
-        component,
-        parentInfo.parentRecID,
-        this.getCaseRecordOpenBaseonChatCallBack(
+      let workspaceAPI = component.find("workspace");
+      workspaceAPI.getFocusedTabInfo().then((response) => {
+        var navigationUrl =
+          "/lightning/o/Case/new?count=1&nooverride=1&recordTypeId=" +
+          recordTypeId;
+        this.handleConsoleCaseCreationFromAccountPage(
           component,
-          parentInfo.parentRecID,
-          recordTypeId
-        )
-      );
+          workspaceAPI,
+          navigationUrl,
+          parentInfo,
+          response.tabId
+        );
+      });
     } else {
       this.openCaseRecordPage(component, recordTypeId, {});
     }

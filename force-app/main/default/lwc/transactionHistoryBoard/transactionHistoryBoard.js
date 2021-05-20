@@ -61,6 +61,7 @@ export default class TransactionHistoryBoard extends LightningElement {
   disputeRecordTypes = [];
   transactionTypeDisputeIdMap = {};
   personContactId = "";
+
   @wire(MessageContext)
   messageContext;
   //Get the OCVID and Account Number to send to
@@ -85,7 +86,16 @@ export default class TransactionHistoryBoard extends LightningElement {
   get showLoadMore() {
     return this.links && this.links.next && this.links.next.href ? true : false;
   }
+
   fetchTransactions(paramUrl = "", isSearch = false) {
+    //This check here is to prevent Salesforce from triggering
+    //the API and appending duplicate transactions into our list
+    //ie: modifying the financial account record triggers the API
+    //and appends the initial transaction results onto our list
+    if (this.transactionList.length > 0 && !paramUrl) {
+      this.loading = false;
+      return;
+    }
     getTransactions({
       ocvId: this.ocvId,
       accountNumber: this.accountNumber,
@@ -138,6 +148,9 @@ export default class TransactionHistoryBoard extends LightningElement {
               currentTransaction.TransactionTime = currentTransaction.transactionDate
                 ? currentTransaction.transactionDate.match(/\d\d:\d\d/)
                 : "Unknown";
+              currentTransaction.TransactionTime = this.timeConversion(
+                currentTransaction.TransactionTime
+              );
 
               if (i === 0) {
                 currentTransaction.showDateTitle = true;
@@ -428,5 +441,20 @@ export default class TransactionHistoryBoard extends LightningElement {
           "pester"
         );
       });
+  }
+
+  timeConversion(time) {
+    // Check correct time format and split into components
+    time = time
+      .toString()
+      .match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+
+    if (time.length > 1) {
+      // If time format correct
+      time = time.slice(1); // Remove full string match value
+      time[5] = +time[0] < 12 ? " AM" : " PM"; // Set AM/PM
+      time[0] = +time[0] % 12 || 12; // Adjust hours
+    }
+    return time.join(""); // return adjusted time or original string
   }
 }

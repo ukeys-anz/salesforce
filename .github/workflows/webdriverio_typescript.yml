@@ -1,21 +1,39 @@
 # This workflow builds the webdriverIO tests with typescript
 name: WebDriverIO
 
-# This workflow will only run on Pull Requests against develop
 on:
   pull_request:
-    branches: [develop, master, epic/*]
+    branches: [develop]
 
 jobs:
   typescript-build:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, salesforce]
 
     steps:
       - name: "Checkout"
         uses: actions/checkout@v2
 
-      - name: "Install NPM Packages"
-        run: npm i
+      - name: "Rename npmrc"
+        run: mv ci.npmrc ./webdriverIO/.npmrc
+
+      - name: "Install npm packages"
+        working-directory: webdriverIO
+        run: npm ci
+
+      - name: "Enforce Style Guidelines"
+        working-directory: webdriverIO
+        shell: bash
+        run: |
+          echo "Checking WebdriverIO project files"
+          npx prettier -c "./**/*.{ts,js}"
+
+      - name: "Lint TypeScript files"
+        working-directory: webdriverIO
+        shell: bash
+        run: |
+          echo "Linting TypeScript files"
+          npx eslint "./**/*.ts" -c "./.ts-eslintrc.json"
 
       - name: "Build Typescript"
+        working-directory: webdriverIO
         run: npx tsc

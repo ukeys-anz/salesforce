@@ -622,21 +622,21 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>FinServ__Gender__pc</picklist>
+        <picklist>Gender__pc</picklist>
         <values>
-            <fullName>Decline to Specify</fullName>
+            <fullName>U</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Female</fullName>
+            <fullName>F</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Male</fullName>
+            <fullName>M</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Other</fullName>
+            <fullName>N</fullName>
             <default>false</default>
         </values>
     </picklistValues>

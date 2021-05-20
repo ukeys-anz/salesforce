@@ -7,5 +7,6 @@
     <permissionSets>Customer_Feedback_Read_Only</permissionSets>
     <permissionSets>Customer_Read_Only</permissionSets>
     <permissionSets>Knowledge_User</permissionSets>
+    <permissionSets>Record_Access_Log</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

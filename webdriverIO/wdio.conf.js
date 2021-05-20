@@ -19,12 +19,10 @@ exports.config = {
   // NPM script (see https://docs.npmjs.com/cli/run-script) then the current working
   // directory is where your package.json resides, so `wdio` will be called from there.
   //
-  specs: ["./webdriverIO-build/test/specs/**/*.js"],
+  specs: ["./build/test/specs/**/*.js"],
   suites: {
-    coachesWorkbench: [
-      "./webdriverIO-build/test/specs/coachesWorkbench/**/*.js"
-    ],
-    complaintMgt: ["./webdriverIO-build/test/specs/complaintMgt/**/*.js"]
+    coachesWorkbench: ["./build/test/specs/coachesWorkbench/**/*.js"],
+    complaintMgt: ["./build/test/specs/complaintMgt/**/*.js"]
   },
   // Patterns to exclude.
   exclude: [
@@ -63,7 +61,13 @@ exports.config = {
       "goog:chromeOptions": {
         // to run chrome headless the following flags are required
         // (see https://developers.google.com/web/updates/2017/04/headless-chrome)
-        args: ["--headless", "--disable-gpu"]
+        args: [
+          "--headless",
+          "--disable-gpu",
+          "--no-sandbox",
+          "--disable-infobars",
+          "--window-size=1440,735"
+        ]
         // prefs: {
         // 'profile.managed_default_content_settings.popups' : 1,
         // 'profile.managed_default_content_settings.notifications' : 1,
@@ -123,13 +127,13 @@ exports.config = {
   // Services take over a specific job you don't want to take care of. They enhance
   // your test setup with almost no effort. Unlike plugins, they don't add new
   // commands. Instead, they hook themselves up into the test process.
-  outputDir: "webdriverIO/all-logs",
+  outputDir: "./all-logs",
   // ...
   services: [
     [
       "chromedriver",
       {
-        outputDir: "webdriverIO/driver-logs", // overwrites the config.outputDir
+        outputDir: "./driver-logs", // overwrites the config.outputDir
         args: ["--silent"] //
       }
     ],
