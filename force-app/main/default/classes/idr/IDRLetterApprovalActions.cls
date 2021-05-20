@@ -14,7 +14,7 @@ public with sharing class IDRLetterApprovalActions {
     List<IDR_Letter_Approval__c> approvalRecords,
     Map<Id, IDR_Letter_Approval__c> oldMap
   ) {
-    Map<Id, String> capIdMap = new Map<Id, String>();
+    Map<Id, Case> capIdMap = new Map<Id, Case>();
     Set<Id> caseIds = new Set<Id>();
     for (IDR_Letter_Approval__c app : approvalRecords) {
       if (
@@ -28,7 +28,7 @@ public with sharing class IDRLetterApprovalActions {
 
     Map<Id, Case> caseMap = new Map<Id, Case>(
       [
-        SELECT id, IDR_Customer_Number__c
+        SELECT id, IDR_Customer_Number__c, IDR_Customer_Identifier__c 
         FROM Case
         WHERE Id IN :caseIds AND IDR_Customer_Number__c != NULL
       ]
@@ -38,13 +38,13 @@ public with sharing class IDRLetterApprovalActions {
       if (caseMap.containsKey(app.IDR_Case__c)) {
         capIdMap.put(
           app.id,
-          caseMap.get(app.IDR_Case__c).IDR_Customer_Number__c
+          caseMap.get(app.IDR_Case__c)
         );
       }
     }
 
     for (Id appRecId : capIdMap.keySet()) {
-        makeOCVCallout(capIdMap.get(appRecId), appRecId);
+        makeOCVCallout(capIdMap.get(appRecId).IDR_Customer_Number__c,capIdMap.get(appRecId).IDR_Customer_Identifier__c , appRecId);
     }
   }
 
@@ -56,10 +56,11 @@ public with sharing class IDRLetterApprovalActions {
   @future(callOut=true)
   public static void makeOCVCallout(
     String customerNumber,
+    String customerIdentifier,
     String approvalRecId
   ) {
     Map<String, Object> responseMap = GetCustomerInformation.getCustomerData(
-      customerNumber
+      customerNumber, customerIdentifier
     );
     Map<String, Object> customerData = (Map<String, Object>) responseMap.get(
       'profile'
