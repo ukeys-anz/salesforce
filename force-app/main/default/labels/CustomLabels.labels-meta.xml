@@ -62,7 +62,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Customer</shortDescription>
-        <value>/sfdc/customers/v1r20/api/v1/public/customers/</value>
+        <value>/sfdc/customers/v1r20/api/v2/private/customers/search?relationship_manager_required=true&amp;all_accounts_required=true</value>
     </labels>
     <labels>
         <fullName>MS_Get_CustomerChatChannels</fullName>
