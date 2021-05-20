@@ -138,7 +138,7 @@ private class TestTaskTriggerHandler {
       newTasks.add(
         new Task(
           whatId = newCases[0].Id,
-          RecordTypeId = IDRConstants.IDR_COLLECTIONS_RT_ID,
+          RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID,
           Status = 'Open',
           Priority = 'High',
           ActivityDate = system.today()
@@ -156,7 +156,7 @@ private class TestTaskTriggerHandler {
       SELECT OwnerId
       FROM Task
       WHERE
-        RecordTypeId = :IDRConstants.IDR_COLLECTIONS_RT_ID
+        RecordTypeId = :IDRConstants.IDR_SYSTEM_TASK_RT_ID
         AND Status = 'Open'
     ];
     //THEN they are automatically assigned to STOP or START collections queue

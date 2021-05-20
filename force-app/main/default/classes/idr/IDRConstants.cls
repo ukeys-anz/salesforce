@@ -36,16 +36,11 @@ public with sharing class IDRConstants {
   public static final Id IDR_TASK_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
     .get('IDR_Task')
     .getRecordTypeId();
-  public static final Id IDR_MAXIMUM_TIME_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
+  public static final Id IDR_SYSTEM_TASK_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
     .get('IDR_System_Task')
     .getRecordTypeId();
   public static final Id SI_TASK_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
     .get('Systemic_Issue_Task')
-    .getRecordTypeId();
-
-  //IDR collections task record type
-  public static final Id IDR_COLLECTIONS_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
-    .get('IDR_Collections')
     .getRecordTypeId();
 
   //Complaint Type and Subsequent Issue Type Set for collections

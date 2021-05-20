@@ -36,7 +36,7 @@ public without sharing class IDRTaskActions {
   public static void beforeInsertActions(list<Task> records) {
     for (Task record : records) {
       if (
-        record.RecordTypeId == IDRConstants.IDR_MAXIMUM_TIME_RT_ID ||
+        record.RecordTypeId == IDRConstants.IDR_SYSTEM_TASK_RT_ID ||
         record.RecordTypeId == IDRConstants.SI_TASK_RT_ID ||
         record.RecordTypeId == IDRConstants.IDR_TASK_RT_ID
       ) {
@@ -58,7 +58,7 @@ public without sharing class IDRTaskActions {
   public static void assignToCollectionsQueue(list<Task> records) {
     for (Task record : records) {
       if (
-        record.RecordTypeId == IDRConstants.IDR_COLLECTIONS_RT_ID &&
+        record.RecordTypeId == IDRConstants.IDR_SYSTEM_TASK_RT_ID &&
         record.Status == IDRConstants.OPEN_STATUS
       ) {
         if (record.Subject.contains(STOP_COLLECTIONS_SUBJECT)) {
@@ -88,7 +88,7 @@ public without sharing class IDRTaskActions {
   ) {
     for (Task record : records) {
       if (
-        record.RecordTypeId == IDRConstants.IDR_MAXIMUM_TIME_RT_ID ||
+        record.RecordTypeId == IDRConstants.IDR_SYSTEM_TASK_RT_ID ||
         record.RecordTypeId == IDRConstants.SI_TASK_RT_ID ||
         record.RecordTypeId == IDRConstants.IDR_TASK_RT_ID
       ) {
@@ -116,7 +116,7 @@ public without sharing class IDRTaskActions {
     Set<Id> currentTask = new Set<Id>();
     Map<Id, ID> caseTaskMap = new Map<Id, ID>();
     for (Task record : taskRecs) {
-      if (record.RecordTypeId == IDRConstants.IDR_MAXIMUM_TIME_RT_ID) {
+      if (record.RecordTypeId == IDRConstants.IDR_SYSTEM_TASK_RT_ID) {
         currentTask.add(record.Id);
         caseTaskMap.put(record.WhatId, record.Id);
       }
@@ -131,7 +131,7 @@ public without sharing class IDRTaskActions {
         FROM Task
         WHERE
           WhatId IN :caseTaskMap.keySet()
-          AND RecordTypeId = :IDRConstants.IDR_MAXIMUM_TIME_RT_ID
+          AND RecordTypeId = :IDRConstants.IDR_SYSTEM_TASK_RT_ID
           AND Id NOT IN :currentTask
           AND Status != :IDRConstants.TASK_STATUS_COMPLETED
           AND Status != :IDRConstants.TASK_STATUS_EXPIRED
@@ -161,13 +161,13 @@ public without sharing class IDRTaskActions {
         record.subject == IDRConstants.TASK_SUBJECT_DAY5 ||
         record.subject == IDRConstants.TASK_SUBJECT_DAY1
       ) {
-        record.RecordTypeId = IDRConstants.IDR_MAXIMUM_TIME_RT_ID;
+        record.RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID;
         idrMaximumTimeTasks.add(record);
         taskCaseMap.put(record.Id, record.WhatId);
         caseIds.add(record.whatId);
       }
       if (
-        record.RecordTypeId == IDRConstants.IDR_MAXIMUM_TIME_RT_ID &&
+        record.RecordTypeId == IDRConstants.IDR_SYSTEM_TASK_RT_ID &&
         (!caseTaskMap.KeySet().contains(record.WhatId) ||
         (record.subject == IDRConstants.TASK_SUBJECT_DAY1))
       ) {
@@ -275,7 +275,7 @@ public without sharing class IDRTaskActions {
     set<Id> caseIDSet = new Set<Id>();
     for (task t : taskRecs) {
       if (
-        t.RecordTypeId == IDRConstants.IDR_MAXIMUM_TIME_RT_ID &&
+        t.RecordTypeId == IDRConstants.IDR_SYSTEM_TASK_RT_ID &&
         t.Status == 'Completed'
       ) {
         caseIDSet.add(t.WhatId);
@@ -361,7 +361,7 @@ public without sharing class IDRTaskActions {
         FROM Task
         WHERE
           whatId IN :caseMap.keySet()
-          AND RecordTypeId = :IDRConstants.IDR_MAXIMUM_TIME_RT_ID
+          AND RecordTypeId = :IDRConstants.IDR_SYSTEM_TASK_RT_ID
           AND IsClosed = false
       ];
     }
