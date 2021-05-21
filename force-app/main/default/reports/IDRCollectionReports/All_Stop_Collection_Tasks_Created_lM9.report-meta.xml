@@ -15,6 +15,9 @@
     <columns>
         <field>CASE_NUMBER</field>
     </columns>
+    <columns>
+        <field>Case.IDR_Date_Received__c</field>
+    </columns>
     <customDetailFormulas>
         <calculatedFormula>CASE_OWNER</calculatedFormula>
         <dataType>Text</dataType>
@@ -52,7 +55,7 @@
         <field>ASSIGNED</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
-    <name>All Stop Collection Tasks Created</name>
+    <name>All Open Stop Collection Tasks</name>
     <params>
         <name>closed</name>
         <value>open</value>
