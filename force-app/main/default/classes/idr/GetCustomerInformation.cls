@@ -75,7 +75,10 @@ public with sharing class GetCustomerInformation {
    */
   public static String getBody(String customerId,String customerIdentifier){
     CustomerIdentifiers cusIden= new CustomerIdentifiers();
-    cusIden.identifiers.add(new IdentifierDetails(identifierUsageType =customerIdentifier,identifier = customerId));
+    IdentifierDetails cls = new IdentifierDetails();
+    cls.identifierUsageType = customerIdentifier;
+    cls.identifier = customerId;
+    cusIden.identifiers.add(cls);
 
     return Json.serialize(cusIden);
   }
