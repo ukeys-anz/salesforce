@@ -6,7 +6,7 @@ private with sharing class IDRTaskActionsTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newTasks.add(
         new Task(
-          RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID,
+          RecordTypeId = IDRConstants.IDR_TASK_RT_ID,
           Priority = 'Normal',
           Subject = '000001234',
           Description = 'Test description 1234-5678-9101 check mask'
