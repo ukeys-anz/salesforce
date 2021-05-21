@@ -5,7 +5,7 @@
     <complianceGroup>Source_Salesforce;Integrity - Accurate;Privacy - Non Personal Information</complianceGroup>
     <description>Based on the type of case, the sub type provides a more detailed categorisation of the case.</description>
     <externalId>false</externalId>
-    <label>Sub Type</label>
+    <label>Issue Sub Type</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
