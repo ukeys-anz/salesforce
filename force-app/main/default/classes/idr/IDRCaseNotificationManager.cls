@@ -3,8 +3,60 @@
  * @author Afreen
  * @since 11/2020
  * @description Responsible to trigger the Notification for banker.
+ *
+ * @history
+ *          v1.1 21/05/2021 [IDR-2132] Updated the logic to cater InApp notification when a case is attached to a parent case.
  */
 public with sharing class IDRCaseNotificationManager {
+  //[IDR-2132 Start]
+  /**
+   * @description Assesses whether or not to generate a banker notification for AfterUpdate scenario
+   * @param records Case records in current trigger context
+   * @param oldMap Old values of the cases in current context
+   */
+  public static void manageNotificationAfterUpdate(
+    List<Case> records,
+    Map<Id, Case> oldMap
+  ) {
+    List<Case> parentCases = new List<Case>();
+    List<IDRBankerNotificationWrapper> wrapperList = new List<IDRBankerNotificationWrapper>();
+    Map<Id, Id> caseWithParentId = new Map<Id, Id>();
+    Map<Id, Case> newMapWithCase = new Map<Id, Case>();
+    for (Case c : records) {
+      newMapWithCase.put(c.id, c);
+      caseWithParentId.put(c.id, c.ParentId);
+    }
+
+    if (Case.sObjectType.getDescribe().isQueryable()) {
+      parentCases = [
+        SELECT id, Origin, CaseNumber
+        FROM Case
+        WHERE id IN :caseWithParentId.values()
+      ];
+    }
+    Map<Id, Case> parentIdWithCaseMap = new Map<Id, Case>();
+    for (Case c : parentCases) {
+      parentIdWithCaseMap.put(c.id, c);
+    }
+
+    for (Case c : records) {
+      if (
+        oldMap.get(c.Id).ParentId == null &&
+        newMapWithCase.get(c.Id).ParentId != null
+      ) {
+        Case parentCase = parentIdWithCaseMap.get(c.ParentId);
+        if (c.Status != 'Closed') {
+          wrapperList.add(createNotification('Parent Updated', c, parentCase));
+        }
+      }
+    }
+
+    if (!wrapperList.isEmpty()) {
+      IDRBankerNotificationBuilder.sendNotification(wrapperList);
+    }
+  }
+  //[IDR-2132 End]
+
   /**
    * @description Assesses whether or not to generate a banker notification
    * @param records Case records in current trigger context
@@ -30,7 +82,9 @@ public with sharing class IDRCaseNotificationManager {
         ) {
           //Set notification flag to true in here itself to avoid update in IDRBankerNotificationBuilder
           records[i].IDR_Update_Notification_Flag__c = true;
-          wrapperList.add(createNotification(fieldLabel, records[i]));
+          //[IDR-2132 Start]
+          wrapperList.add(createNotification(fieldLabel, records[i], null));
+          //[IDR-2132 End]
         }
       }
     }
@@ -40,36 +94,58 @@ public with sharing class IDRCaseNotificationManager {
     }
   }
 
+  //[IDR-2132 Start]
   /**
    * @description Builds a notification using IDRBankerNotificationWrapper class
    * @param fieldLabel Field label where the change has been detected
    * @param c case record where the  change has detected
+   * @param parentCase parent case record which is attached to parentId of the above case
    * @return IDRBankerNotificationWrapper new instance of wrapper class
    */
   public static IDRBankerNotificationWrapper createNotification(
     String fieldLabel,
-    Case c
+    Case c,
+    Case parentCase
   ) {
-    String msgBody = fieldLabel + 'field has been changed';
-    if (fieldLabel.equalsIgnoreCase(IDRConstants.CASE_OWNER_ID)) {
-      msgBody = 'Case ' + c.CaseNumber + ' has been assigned to you';
-    }
-    if (
-      fieldLabel.equalsIgnoreCase(IDRConstants.MILESTONE_SLA_FIELD_LABEL) &&
-      c.Status != IDRConstants.ESCALATED_STATUS
-    ) {
-      msgBody = 'Auto esclation is due in ' + c.IDR_Milestone_Sla__c;
+    IDRBankerNotificationWrapper wrapper;
+    String msgBody;
+    if (fieldLabel == 'Parent Updated') {
+      msgBody =
+        'Your case ' +
+        c.CaseNumber +
+        ' has been linked as a related complaint to ' +
+        parentCase.CaseNumber;
+      wrapper = new IDRBankerNotificationWrapper(
+        c,
+        new List<Id>{ c.OwnerId },
+        c.CaseNumber,
+        msgBody,
+        null
+      );
+    } else {
+      msgBody = fieldLabel + 'field has been changed';
+      if (fieldLabel.equalsIgnoreCase(IDRConstants.CASE_OWNER_ID)) {
+        msgBody = 'Case ' + c.CaseNumber + ' has been assigned to you';
+      }
+      if (
+        fieldLabel.equalsIgnoreCase(IDRConstants.MILESTONE_SLA_FIELD_LABEL) &&
+        c.Status != IDRConstants.ESCALATED_STATUS
+      ) {
+        msgBody = 'Auto esclation is due in ' + c.IDR_Milestone_Sla__c;
+      }
+
+      wrapper = new IDRBankerNotificationWrapper(
+        c,
+        new List<Id>{ c.OwnerId },
+        c.CaseNumber,
+        msgBody,
+        c
+      );
     }
 
-    IDRBankerNotificationWrapper wrapper = new IDRBankerNotificationWrapper(
-      c,
-      new List<Id>{ c.OwnerId },
-      c.CaseNumber,
-      msgBody,
-      c
-    );
     return wrapper;
   }
+  //[IDR-2132 End]
 
   /**
    * @description Returns all the fields of getFields
