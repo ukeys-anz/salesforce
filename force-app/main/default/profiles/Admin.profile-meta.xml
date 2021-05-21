@@ -2855,10 +2855,6 @@
         <recordType>Task.IDR_System_Task</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Task-IDR System Task</layout>
-        <recordType>Task.IDR_Collections</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
         <layout>Task-IDR Task Layout</layout>
         <recordType>Task.IDR_Task</recordType>
     </layoutAssignments>

@@ -239,7 +239,7 @@ public with sharing class IDRCollectionActions {
     String collectionNumber
   ) {
     return new Task(
-      RecordTypeId = IDRConstants.IDR_COLLECTIONS_RT_ID,
+      RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID,
       IDR_Collection_Number__c = collectionNumber,
       OwnerId = c.OwnerId,
       WhatId = c.Id,

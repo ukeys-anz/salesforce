@@ -1183,7 +1183,7 @@ private class CaseTriggerHandlerTest {
     task idrTask = new task(
       whatId = testCase.Id,
       Subject = IDRConstants.TASK_SUBJECT_DAY5,
-      RecordTypeId = IDRConstants.IDR_MAXIMUM_TIME_RT_ID,
+      RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID,
       Priority = 'Standard',
       ActivityDate = system.today()
     );
