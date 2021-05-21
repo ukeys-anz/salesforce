@@ -78,7 +78,7 @@ public with sharing class GetCustomerInformation {
     IdentifierDetails cls = new IdentifierDetails();
     cls.identifierUsageType = customerIdentifier;
     cls.identifier = customerId;
-    cusIden.identifiers.add(cls);
+    cusIden.identifiers.add(new IdentifierDetails(identifierUsageType =customerIdentifier,identifier = customerId));
 
     return Json.serialize(cusIden);
   }
