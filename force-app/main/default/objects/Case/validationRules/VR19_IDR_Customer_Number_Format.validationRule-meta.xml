@@ -7,7 +7,7 @@
 	$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
 	RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
 	ISNEW(),
-	NOT(REGEX(IDR_Customer_Number__c, &quot;^[0-9]{10,15}$&quot;))
+	NOT(REGEX(IDR_Customer_Number__c, &quot;^[0-9]{10,15}$&quot;)),  ISPICKVAL(IDR_Customer_Identifier__c,&apos;CAP ID&apos;)
 )</errorConditionFormula>
     <errorDisplayField>IDR_Customer_Number__c</errorDisplayField>
     <errorMessage>Customer number must be numbers and between 10 and 15 digits long.</errorMessage>

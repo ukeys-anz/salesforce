@@ -12,22 +12,22 @@ public with sharing class GetCustomerInformation {
    * The cache is turned off as we need to get the latest data from cap everytime.
    * {@link Lib_SystemLog.logAPIError} is called when ever the call fails to cap to have the logs recorded for monitoring.
    *
-   * @param capId Customer Identidfier Id
+   * @param customerId Customer Identidfier Id
    * @param customerIdentifier Customer Identidfier Type
    * @return `map<String, Object>`
    * @exception CalloutException
    */
   @AuraEnabled(cacheable=false)
-  public static map<String, Object> getCustomerData(String capId, String customerIdentifier) {
+  public static map<String, Object> getCustomerData(String customerId, String customerIdentifier) {
     map<String, Object> customerData = new Map<String, Object>();
     String responseBody = null;
-    if (String.isNotBlank(capId)) {
+    if (String.isNotBlank(customerId)) {
       HttpRequest request = new HttpRequest();
       request.setEndpoint('callout:Mulesoft' + Label.MS_Get_Customer);
       request.setMethod('POST');
       request.setHeader('consumer_id', 'salesforce');
       request.setHeader('Content-type', 'application/json');
-      request.setBody( getBody(capId,customerIdentifier));
+      request.setBody( getBody(customerId,customerIdentifier));
       HTTPResponse response = null;
       try {
         Http http = new Http();
@@ -68,16 +68,16 @@ public with sharing class GetCustomerInformation {
 
 /**
    * @description prepares the body for the callout
-   * @param capId Customer Identifier Id
+   * @param customerId Customer Identifier Id
    * @param customerIdentifier Customer Identifier Type
    * @return `map<String, Object>`
    * @exception CalloutException
    */
-  public static String getBody(String capId,String customerIdentifier){
+  public static String getBody(String customerId,String customerIdentifier){
     CustomerIdentifiers cusIden= new CustomerIdentifiers();
-    IdentierDetails cls = new IdentierDetails();
+    IdentifierDetails cls = new IdentifierDetails();
     cls.identifierUsageType = customerIdentifier;
-    cls.identifier = capId;
+    cls.identifier = customerId;
     cusIden.identifiers.add(cls);
 
     return Json.serialize(cusIden);
@@ -88,14 +88,14 @@ public with sharing class GetCustomerInformation {
  * 
  */
   public class CustomerIdentifiers{
-    public List<IdentierDetails> identifiers = new List<IdentierDetails>()  ;
+    public List<IdentifierDetails> identifiers = new List<IdentifierDetails>()  ;
   }
   
    /**
  * @description  Wrapper class to build the body
  * 
  */
-  public class IdentierDetails{
+  public class IdentifierDetails{
     public String identifierUsageType ='';
     public String identifier='';
   }
