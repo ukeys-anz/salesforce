@@ -5,5 +5,10 @@
         <sharedTo>Customer_Resolution_Leadership</sharedTo>
         <sharedToType>RoleAndSubordinates</sharedToType>
     </folderShares>
+    <folderShares>
+        <accessLevel>View</accessLevel>
+        <sharedTo>Data_Analyst</sharedTo>
+        <sharedToType>Role</sharedToType>
+    </folderShares>
     <name>IDR Collection Reports</name>
 </ReportFolder>
