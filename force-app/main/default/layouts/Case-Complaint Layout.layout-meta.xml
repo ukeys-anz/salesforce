@@ -19,7 +19,7 @@
                 <field>IDR_Update_Notification_Flag__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
+                <behavior>Edit</behavior>
                 <field>IDR_Customer_Identifier__c</field>
             </layoutItems>
         </layoutColumns>

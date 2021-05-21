@@ -133,7 +133,7 @@ export default class CustomerInformation extends LightningElement {
     this.error = null;
     this.rmDetailsError = null;
     this.isRMDetails = false;
-    getCustomerData({ capId: customerId, customerIdentifier: custIdentifier })
+    getCustomerData({ customerId: customerId, customerIdentifier: custIdentifier })
       .then((result) => {
         let customerData = {
           complainant_type: "",

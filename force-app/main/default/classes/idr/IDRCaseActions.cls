@@ -55,7 +55,7 @@ public with sharing class IDRCaseActions {
 
   private static final String DELETE_ERROR = 'You cannot delete cases';
 
-  private static final String CUSTOMER_NUMBER_VALIDATION_ERROR = 'This field can no longer be edited. In the event that the Customer Number is incorrect, the case must be withdrawn and a new case created with the correct Customer Number.';
+  private static final String CUSTOMER_NUMBER_VALIDATION_ERROR = 'This field can no longer be edited. In the event that the Customer Number/Identifier is incorrect, the case must be withdrawn and a new case created with the correct Customer Number.';
 
   @TestVisible
   public static final String IDR_TASK_SUBJECT = 'Please Review PSI';
@@ -782,8 +782,8 @@ public with sharing class IDRCaseActions {
   private static void validateCaseNumber(Case record, Case oldRec) {
     if (
       record.RecordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID &&
-      record.IDR_Customer_Number__c != oldRec.IDR_Customer_Number__c &&
-      oldRec.RecordTypeId != IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID
+      record.IDR_Customer_Number__c != oldRec.IDR_Customer_Number__c || record.IDR_Customer_Identifier__c != oldRec.IDR_Customer_Identifier__c &&
+      oldRec.RecordTypeId != IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID 
     ) {
       record.addError(CUSTOMER_NUMBER_VALIDATION_ERROR);
     }

@@ -76,7 +76,7 @@ public with sharing class GetCustomerInformation {
   public static String getBody(String customerId,String customerIdentifier){
     CustomerIdentifiers cusIden= new CustomerIdentifiers();
     IdentifierDetails cls = new IdentifierDetails();
-    cls.identifierUsageType = customerIdentifier;
+    cls.identifierUsageType = (customerIdentifier.contains('CAP ID') ? 'CAP ID' : customerIdentifier) ;
     cls.identifier = customerId;
     cusIden.identifiers.add(cls);
 

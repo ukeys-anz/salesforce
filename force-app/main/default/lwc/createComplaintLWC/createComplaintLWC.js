@@ -103,10 +103,12 @@ const CLOSED_STATUS_API_NAME = "Closed";
 const YES_VALUE = "Yes";
 const COMPLAINT_REMEDY_FIN_VALUE = "1";
 const COMPLAINT_REMEDY_NON_FIN_VALUE = "2";
-const CUS_IDENTIFIER_CAPCIS_ID = "CAP ID";
+const CUS_IDENTIFIER_CAPCIS_ID = "Customer CAP ID";
 const CUS_IDENTIFIER_CACHE_ID = "CACHE ID";
 const CUS_IDENTIFIER_RAZOR_ID = "RAZOR ID";
 const CUS_IDENTIFIER_CRN_ID = "CRN";
+const CUS_IDENTIFIER_BUS_CAP_ID = "Business CAP ID";
+
 
 export default class CreateComplaintLWC extends NavigationMixin(
   LightningElement
@@ -277,7 +279,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
         value: CUS_IDENTIFIER_CACHE_ID
       },
       { label: CUS_IDENTIFIER_RAZOR_ID, value: CUS_IDENTIFIER_RAZOR_ID },
-      { label: CUS_IDENTIFIER_CRN_ID, value: CUS_IDENTIFIER_CRN_ID }
+      { label: CUS_IDENTIFIER_CRN_ID, value: CUS_IDENTIFIER_CRN_ID },
+      { label: CUS_IDENTIFIER_BUS_CAP_ID, value: CUS_IDENTIFIER_BUS_CAP_ID }
     ];
   }
 
@@ -401,7 +404,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.isCustNumValidated = false;
     this.customerIdValue = event.target.value;
     this.searchDisabled = false;
-    if (this.customerIdentifierValue === CUS_IDENTIFIER_CAPCIS_ID) {
+    if (this.customerIdentifierValue === CUS_IDENTIFIER_CAPCIS_ID || this.customerIdentifierValue === CUS_IDENTIFIER_BUS_CAP_ID) {
       if (this.customerIdValue.match("^[0-9]{10,15}$")) {
         customerNumberField.setCustomValidity("");
         this.searchDisabled = false;
