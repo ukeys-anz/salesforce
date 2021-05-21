@@ -89,6 +89,3 @@ force-app/main/default/classes/utils/CommonUtils.cls
 #Ignore Knowledge validation status field as it is not supported in metadata API
 KnowledgeValidationStatus
 type:DataCategoryGroup
-
-#Ignore IDR_Collections task record tyep
-force-app/main/default/objects/Task/recordTypes/IDR_Collections.recordType-meta.xml
