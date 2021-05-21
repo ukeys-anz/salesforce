@@ -7,11 +7,6 @@
     </folderShares>
     <folderShares>
         <accessLevel>View</accessLevel>
-        <sharedTo>Customer_Resolution_Leadership</sharedTo>
-        <sharedToType>Role</sharedToType>
-    </folderShares>
-    <folderShares>
-        <accessLevel>View</accessLevel>
         <sharedTo>Data_Analyst</sharedTo>
         <sharedToType>Role</sharedToType>
     </folderShares>
