@@ -27,7 +27,7 @@ public with sharing class FinancialAccountTriggerHandlerTest {
     finAccount.Name = 'Everyday Account';
     finAccount.FinServ__Balance__c = 400;
     finAccount.FinServ__CurrentPostedBalance__c = 400;
-    finAccount.FinServ__Status__c = 'Open';
+    finAccount.FinServ__Status__c = 'Active';
     finAccount.FinServ__FinancialAccountType__c = 'Checking';
     finAccount.FinServ__PrimaryOwner__c = accnt.Id;
     finAccount.Account_Key__c = faker.randomString(9);
