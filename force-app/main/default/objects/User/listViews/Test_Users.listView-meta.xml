@@ -16,7 +16,7 @@
         <value>Test</value>
     </filters>
     <filters>
-        <field>FULL_NAME</field>
+        <field>CORE.USERS.USERNAME</field>
         <operation>contains</operation>
         <value>_</value>
     </filters>

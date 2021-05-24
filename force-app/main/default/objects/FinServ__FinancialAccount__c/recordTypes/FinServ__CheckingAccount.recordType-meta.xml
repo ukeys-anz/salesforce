@@ -283,11 +283,11 @@
     <picklistValues>
         <picklist>FinServ__Status__c</picklist>
         <values>
-            <fullName>Closed</fullName>
+            <fullName>Active</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Open</fullName>
+            <fullName>Closed</fullName>
             <default>false</default>
         </values>
     </picklistValues>

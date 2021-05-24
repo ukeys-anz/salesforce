@@ -29,7 +29,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>FinServ__Gender__pc</field>
+                <field>Gender__pc</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
