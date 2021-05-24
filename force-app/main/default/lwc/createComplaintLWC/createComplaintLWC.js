@@ -4,6 +4,7 @@ import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { NavigationMixin } from "lightning/navigation";
 import CASE_OBJECT from "@salesforce/schema/Case";
 import CAP_CIS_ID_FIELD from "@salesforce/schema/Case.IDR_Customer_Number__c";
+import CUS_IDENTIFIER_FIELD from "@salesforce/schema/Case.IDR_Customer_Identifier__c";
 
 //3rd Party Fields
 import THIRD_PARTY_NAME_FIELD from "@salesforce/schema/Case.IDR_3rdParty_Name__c";
@@ -103,6 +104,12 @@ const YES_VALUE = "Yes";
 const COMPLAINT_REMEDY_FIN_VALUE = "1";
 const COMPLAINT_REMEDY_NON_FIN_VALUE = "2";
 
+const CUS_IDENTIFIER_CAPCIS_ID = "Customer CAP ID";
+const CUS_IDENTIFIER_CACHE_ID = "CACHE ID";
+const CUS_IDENTIFIER_RAZOR_ID = "RAZOR ID";
+const CUS_IDENTIFIER_CRN_ID = "CRN";
+const CUS_IDENTIFIER_BUS_CAP_ID = "Business CAP ID";
+
 export default class CreateComplaintLWC extends NavigationMixin(
   LightningElement
 ) {
@@ -119,6 +126,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   //Customer complaint details
   accountOrPolicyNumber = "";
   CapCisID = CAP_CIS_ID_FIELD;
+  customerIdentifierValue = CUS_IDENTIFIER_CAPCIS_ID;
 
   //Non customer complaint details
   complaintType = COMPLAINT_TYPE_FIELD;
@@ -263,6 +271,19 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.isAddressRequired = false;
   }
 
+  get customerNumberTypeOptions() {
+    return [
+      { label: CUS_IDENTIFIER_CAPCIS_ID, value: CUS_IDENTIFIER_CAPCIS_ID },
+      {
+        label: CUS_IDENTIFIER_CACHE_ID,
+        value: CUS_IDENTIFIER_CACHE_ID
+      },
+      { label: CUS_IDENTIFIER_RAZOR_ID, value: CUS_IDENTIFIER_RAZOR_ID },
+      { label: CUS_IDENTIFIER_CRN_ID, value: CUS_IDENTIFIER_CRN_ID },
+      { label: CUS_IDENTIFIER_BUS_CAP_ID, value: CUS_IDENTIFIER_BUS_CAP_ID }
+    ];
+  }
+
   get statusOptions() {
     //future use:  { label: ONHOLD_STATUS_API_NAME, value: ONHOLD_STATUS_API_NAME },
     return [
@@ -276,6 +297,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
       { label: CLOSED_STATUS_API_NAME, value: CLOSED_STATUS_API_NAME }
     ];
   }
+  handleCustomerIdentifierChange(event) {
+    this.customerIdentifierValue = event.target.value;
+  }
+
   handleComplaintTypeChange(event) {
     this.isBusiness = event.detail.value === BUSINESS_TYPE_API;
   }
@@ -375,13 +400,28 @@ export default class CreateComplaintLWC extends NavigationMixin(
   }
 
   handleCustomerNumberChange(event) {
+    let customerNumberField = this.template.querySelector(".inputCapCisId");
     this.isCustNumValidated = false;
     this.customerIdValue = event.target.value;
-    if (this.customerIdValue.match("^[0-9]{10,15}$")) {
-      this.searchDisabled = false;
+    this.searchDisabled = false;
+    if (
+      this.customerIdentifierValue === CUS_IDENTIFIER_CAPCIS_ID ||
+      this.customerIdentifierValue === CUS_IDENTIFIER_BUS_CAP_ID
+    ) {
+      if (this.customerIdValue.match("^[0-9]{10,15}$")) {
+        customerNumberField.setCustomValidity("");
+        this.searchDisabled = false;
+      } else {
+        customerNumberField.setCustomValidity(
+          "Customer number must be numbers and at least 10 digits long"
+        );
+        this.searchDisabled = true;
+      }
     } else {
-      this.searchDisabled = true;
+      customerNumberField.setCustomValidity("");
+      this.searchDisabled = false;
     }
+    customerNumberField.reportValidity();
   }
 
   handleWrittenResponseChange(event) {
@@ -575,6 +615,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       fields[CONSENT_OBTAINED.fieldApiName] = this.consentValue;
       fields[RECORDTYPE_FIELD.fieldApiName] = this.recordType;
       fields[STATUS_FIELD.fieldApiName] = this.caseStatus;
+      fields[CUS_IDENTIFIER_FIELD.fieldApiName] = this.customerIdentifierValue;
       if (this.isComplaintResolved) {
         if (this.isFinancialComplaintRemedy) {
           fields[

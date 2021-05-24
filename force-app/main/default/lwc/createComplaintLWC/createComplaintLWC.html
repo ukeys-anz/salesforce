@@ -118,28 +118,37 @@
           >
             <template if:true={isCustomerComplaint}>
               <div class="slds-grid slds-wrap" tabindex="0">
+                <div
+                  class="slds-col slds-size_1-of-4 slds-m-right_large"
+                  tabindex="0"
+                >
+                  <lightning-combobox
+                    name="Customer Identifier"
+                    label="Customer Identifier"
+                    aria-label="Customer Identifier"
+                    value={customerIdentifierValue}
+                    options={customerNumberTypeOptions}
+                    onchange={handleCustomerIdentifierChange}
+                    data-id="idtype-id"
+                    title="Select which customer identifier (i.e. the type of customer number) you would like to use to search"
+                    required
+                  ></lightning-combobox>
+                </div>
                 <div class="slds-col slds-size_1-of-6" tabindex="0">
                   <label class="slds-form-element__label" for="text-input-id-1">
                     <abbr class="slds-required" title="required">* </abbr
                     >Customer Number</label
                   >
-                  <lightning-helptext
-                    content="Also known as Customer CAP CIS ID. Copy and paste this from MAUD"
-                  >
-                  </lightning-helptext>
                   <lightning-input
                     class="input inputCapCisId"
                     variant="label-hidden"
                     required
-                    minlength="10"
-                    maxlength="15"
-                    pattern="\d{10,15}"
-                    message-when-pattern-mismatch="Customer number must be numbers and at least 10 digits long"
                     onchange={handleCustomerNumberChange}
                     data-id="customerNumber-id"
                   >
                   </lightning-input>
                 </div>
+
                 <div class="slds-col slds-size_1-of-12 slds-m-right_large">
                   <div class="searchButtonDiv">
                     <lightning-button
@@ -157,6 +166,7 @@
 
               <template if:true={displayCustomerInfo}>
                 <c-customer-information
+                  cust-identifier={customerIdentifierValue}
                   customer-id={customerId}
                   show-as-grid="true"
                   oncustinfochecked={handleCustNumValidated}

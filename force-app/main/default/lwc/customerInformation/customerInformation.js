@@ -6,6 +6,8 @@ import { refreshApex } from "@salesforce/apex";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
 import CAP_ID_FIELD from "@salesforce/schema/Case.IDR_Customer_Number__c";
+import CUSTOMER_IDENTIFIER from "@salesforce/schema/Case.IDR_Customer_Identifier__c";
+import COMPLAINANT_TYPE from "@salesforce/schema/Case.IDR_Complainant_Type__c";
 import FIRST_NAME from "@salesforce/schema/Case.IDR_NC_First_Name__c";
 import LAST_NAME from "@salesforce/schema/Case.IDR_NC_Last_Name__c";
 import MIDDLE_NAME from "@salesforce/schema/Case.IDR_NC_Middle_Names__c";
@@ -24,6 +26,7 @@ export default class CustomerInformation extends LightningElement {
   @track isRMDetails;
   @track rmDetailsError;
   @api showAsGrid;
+  @api custIdentifier;
   @api
   get customerId() {
     return this._customerId;
@@ -34,13 +37,21 @@ export default class CustomerInformation extends LightningElement {
     if (this.customerId) {
       this.loaded = false;
       this.customerInfo = null;
-      this.custData(this.customerId.replace(/^0+/, ""));
+      this.custData(this.customerId.replace(/^0+/, ""), this.custIdentifier);
     }
   }
 
   @wire(getRecord, {
     recordId: "$recordId",
-    fields: [CAP_ID_FIELD, FIRST_NAME, MIDDLE_NAME, LAST_NAME, RM_COMPLAINT]
+    fields: [
+      CAP_ID_FIELD,
+      FIRST_NAME,
+      MIDDLE_NAME,
+      LAST_NAME,
+      RM_COMPLAINT,
+      CUSTOMER_IDENTIFIER,
+      COMPLAINANT_TYPE
+    ]
   })
   wiredProject({ error, data }) {
     if (data && this.record !== data) {
@@ -58,6 +69,10 @@ export default class CustomerInformation extends LightningElement {
         customerData1.last_name = getFieldValue(this.record, LAST_NAME);
         customerData1.middlename = getFieldValue(this.record, MIDDLE_NAME);
         customerData1.isRmPresent = getFieldValue(this.record, RM_COMPLAINT);
+        customerData1.complainant_type =
+          getFieldValue(this.record, COMPLAINANT_TYPE) === "1"
+            ? "Individual"
+            : "Business";
         this.customerInfo = customerData1;
         if (
           customerData1.first_name == null &&
@@ -73,7 +88,8 @@ export default class CustomerInformation extends LightningElement {
 
   showAllCustomerData() {
     this.custData(
-      this.record.fields.IDR_Customer_Number__c.value.replace(/^0+/, "")
+      this.record.fields.IDR_Customer_Number__c.value.replace(/^0+/, ""),
+      this.record.fields.IDR_Customer_Identifier__c.value
     );
   }
 
@@ -111,13 +127,16 @@ export default class CustomerInformation extends LightningElement {
       });
   }
 
-  custData(customerId) {
+  custData(customerId, custIdentifier) {
     // calling apex class method to make callout
     this.loaded = false;
     this.error = null;
     this.rmDetailsError = null;
     this.isRMDetails = false;
-    getCustomerData({ capId: customerId })
+    getCustomerData({
+      customerId: customerId,
+      customerIdentifier: custIdentifier
+    })
       .then((result) => {
         let customerData = {
           complainant_type: "",
