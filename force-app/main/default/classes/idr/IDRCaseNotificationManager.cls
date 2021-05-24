@@ -21,7 +21,11 @@ public with sharing class IDRCaseNotificationManager {
     Map<Id, Case> newMapWithCase = new Map<Id, Case>();
     for (Case c : records) {
       newMapWithCase.put(c.id, c);
-      if (oldMap.get(c.Id).ParentId != c.ParentId && c.Status != 'Closed') {
+      if (
+        oldMap.get(c.Id).ParentId != c.ParentId &&
+        c.Status != 'Closed' &&
+        c.RecordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID
+      ) {
         caseWithParentId.put(c.id, c.ParentId);
       }
     }
