@@ -3,7 +3,8 @@
     <fullName>SI_Subject_of_Breach_Report_Comments__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_Salesforce;Integrity_Trusted;Privacy_Personal_Information</complianceGroup>
-    <description>Additional Comments on the systemic issue, escpecially if being subject of a breach report.</description>
+    <description>Additional Comments on the systemic issue, e.g. if being subject of a breach report.</description>
+    <encryptionScheme>ProbabilisticEncryption</encryptionScheme>
     <externalId>false</externalId>
     <label>Additional Comments</label>
     <length>32768</length>

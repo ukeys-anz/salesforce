@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information</complianceGroup>
     <description>Related CFMS COM IDs, migrated from the previous SI repository.</description>
+    <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
     <externalId>true</externalId>
     <label>SI Repository COM IDs</label>
     <length>255</length>

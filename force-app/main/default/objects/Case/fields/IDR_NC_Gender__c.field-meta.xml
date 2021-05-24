@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_NC_Gender__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate;Privacy - Sensitive Personal Information</complianceGroup>
+    <complianceGroup>Integrity_Accurate;Privacy - Sensitive Personal Information</complianceGroup>
     <description>Gender of Complainant.
 
 Capture this only if customer is not found in MAUD/CAP-CIS.</description>

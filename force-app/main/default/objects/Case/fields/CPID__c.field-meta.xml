@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Trusted;Privacy_Personal_Information;Source_OCV</complianceGroup>
     <description>Controlling Post ID of the Customer</description>
+    <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
     <externalId>false</externalId>
     <label>CPID</label>
     <length>20</length>

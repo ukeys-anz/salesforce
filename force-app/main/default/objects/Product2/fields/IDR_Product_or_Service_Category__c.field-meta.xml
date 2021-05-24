@@ -3,7 +3,7 @@
     <fullName>IDR_Product_or_Service_Category__c</fullName>
     <businessStatus>Active</businessStatus>
     <description>The broad category of product or service that the complaint is about. Keys and values match ASIC specifications (refer to ASIC&apos;s &quot;Internal dispute resolution data dictionary&quot; PDF)</description>
-    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information</complianceGroup>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information</complianceGroup>
     <externalId>false</externalId>
     <label>Product or Service Category</label>
     <required>false</required>

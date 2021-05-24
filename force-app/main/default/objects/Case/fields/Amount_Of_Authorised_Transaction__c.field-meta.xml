@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Amount_Of_Authorised_Transaction__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Source_Salesforce;Integrity - Trusted;Privacy_Non_Personal_Information</complianceGroup>
+    <complianceGroup>Source_Salesforce;Integrity_Trusted;Privacy_Non_Personal_Information</complianceGroup>
     <description>Expected amount which should have been debited from customer&apos;s account</description>
     <externalId>false</externalId>
     <inlineHelpText>The expected amount which should have been debited from customer&apos;s account.

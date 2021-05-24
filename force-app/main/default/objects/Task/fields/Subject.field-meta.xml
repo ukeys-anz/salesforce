@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Trusted;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
     <description>The purpose behind this task record, for example, to record a call</description>
-    <encryptionScheme>None</encryptionScheme>
     <securityClassification>Confidential</securityClassification>
     <type>Picklist</type>
 </CustomField>

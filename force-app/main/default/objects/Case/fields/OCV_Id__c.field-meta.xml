@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Trusted;Privacy_Personal_Information;Source_OCV</complianceGroup>
     <description>OCV ID of the customer</description>
+    <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
     <externalId>true</externalId>
     <label>OCV Id</label>
     <length>20</length>

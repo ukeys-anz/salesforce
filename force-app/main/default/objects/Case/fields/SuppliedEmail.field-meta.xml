@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>SuppliedEmail</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Source_Salesforce;Integrity - Accurate;Privacy - Personal Information</complianceGroup>
+    <complianceGroup>Source_Salesforce;Integrity_Accurate;Privacy_Personal_Information</complianceGroup>
     <description>Email details supplied when case is first raised</description>
     <securityClassification>Confidential</securityClassification>
     <trackTrending>false</trackTrending>

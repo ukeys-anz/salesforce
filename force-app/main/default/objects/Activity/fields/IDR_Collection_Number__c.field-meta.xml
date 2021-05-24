@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Sensitive_Personal_Information;Source_OCV</complianceGroup>
     <description>Backend field to store full account number of the customer which will be used in collections logic</description>
+    <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
     <externalId>false</externalId>
     <label>IDR Collection Number</label>
     <length>42</length>

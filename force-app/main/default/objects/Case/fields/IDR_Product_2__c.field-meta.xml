@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_Product_2__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Foreign key to Product2 table, if secondary issue within the complaint case relates to a specific product, this links to that product</description>
     <externalId>false</externalId>

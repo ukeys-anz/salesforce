@@ -4,5 +4,6 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
     <description>The subject line of the email.</description>
-    <securityClassification>Restricted</securityClassification>
+    <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
+    <securityClassification>Confidential</securityClassification>
 </CustomField>

@@ -4,5 +4,6 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Trusted;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
     <description>The Internet message headers of the incoming email. Used for debugging and tracing purposes.</description>
+    <encryptionScheme>ProbabilisticEncryption</encryptionScheme>
     <securityClassification>Confidential</securityClassification>
 </CustomField>
