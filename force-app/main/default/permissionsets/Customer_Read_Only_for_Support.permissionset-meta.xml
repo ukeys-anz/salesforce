@@ -127,12 +127,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Contact.FinServ__Gender__c</field>
+        <field>Contact.FinServ__MaritalStatus__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Contact.FinServ__MaritalStatus__c</field>
+        <field>Contact.Gender__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
