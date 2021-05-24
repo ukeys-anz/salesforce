@@ -1048,7 +1048,7 @@
       "groups": [],
       "label": "Account_FinServ__Gen_1",
       "numbers": [],
-      "query": "q = load \"FraudX\";\nq = filter q by 'IDR_Date_Received__c_Year' == \"{{cell(static_2.selection, 0, \"Year\").asObject()}}\";\nq = filter q by 'IDR_Date_Received__c_Month' == number_to_string( ({{cell(static_1.selection, 0, \"Month\").asObject()}}), \"0#\");\nq = group q by 'Account.FinServ__Gender__pc';\nq = foreach q generate 'Account.FinServ__Gender__pc' as 'Account.FinServ__Gender__pc', count() as 'count';\nq = order q by 'Account.FinServ__Gender__pc' asc;\nq = limit q 2000;",
+      "query": "q = load \"FraudX\";\nq = filter q by 'IDR_Date_Received__c_Year' == \"{{cell(static_2.selection, 0, \"Year\").asObject()}}\";\nq = filter q by 'IDR_Date_Received__c_Month' == number_to_string( ({{cell(static_1.selection, 0, \"Month\").asObject()}}), \"0#\");\nq = group q by 'Account.Gender__pc';\nq = foreach q generate 'Account.Gender__pc' as 'Account.Gender__pc', count() as 'count';\nq = order q by 'Account.Gender__pc' asc;\nq = limit q 2000;",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "start": "[]",
@@ -1105,7 +1105,11 @@
           "binValues": false,
           "columnMap": {
             "trellis": [],
+<<<<<<< HEAD
             "dimensionAxis": ["Account.FinServ__Gender__pc"],
+=======
+            "dimensionAxis": ["Account.Gender__pc"],
+>>>>>>> develop
             "plots": ["count"]
           },
           "showActionMenu": true,
@@ -2081,7 +2085,11 @@
         "binValues": false,
         "columnMap": {
           "trellis": [],
+<<<<<<< HEAD
           "dimensionAxis": ["Account.FinServ__Gender__pc"],
+=======
+          "dimensionAxis": ["Account.Gender__pc"],
+>>>>>>> develop
           "plots": ["count"]
         },
         "showActionMenu": true,

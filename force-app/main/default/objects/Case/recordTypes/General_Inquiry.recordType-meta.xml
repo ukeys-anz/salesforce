@@ -4654,6 +4654,14 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Store</fullName>
             <default>false</default>
         </values>
@@ -4729,6 +4737,18 @@
     <picklistValues>
         <picklist>Sub_Type__c</picklist>
         <values>
+            <fullName>ANZ branches</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>About ANZ Plus</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Account closure</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Add Life Event</fullName>
             <default>false</default>
         </values>
@@ -4737,27 +4757,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>App Guide</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>App security</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Bug Report</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Cancel a Dispute</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Card Enquiry</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Card Issue</fullName>
             <default>false</default>
         </values>
         <values>
@@ -4765,78 +4765,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Coaching%2FNeeds based Discussion</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Device Support</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Feature Request</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Fees %26 Charges</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Fraud</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Hoax Email%2FSMS</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>KYC</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>New Dispute</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Overdraft</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Product Info</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Re-Identification</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Re-Joining</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Round Ups</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Savings Goals</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Transaction</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Type</picklist>
-        <values>
-            <fullName>App Support</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Bug Report %26 Feature</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Card</fullName>
+            <fullName>Card%2Fdevice block enquiry</fullName>
             <default>false</default>
         </values>
         <values>
@@ -4844,23 +4773,106 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer Feedback %28NPS%29</fullName>
+            <fullName>Coaching%2FNeeds based Discussion</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer Update %26 Details</fullName>
+            <fullName>Damaged card</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Dispute</fullName>
+            <fullName>Extra Care</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Join %2F KYC</fullName>
+            <fullName>Falcon transaction confirmation</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>My Security</fullName>
+            <fullName>General fraud enquiry</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hardship</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lost or new phone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lost or stolen card</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Making payments</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Money tiles</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Dispute</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Power of attorney</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Privacy</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Savings Goals</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Savings and goals</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Statements</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Updating details</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Using account</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Using card</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type</picklist>
+        <values>
+            <fullName>About Us</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cards</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Deceased Estate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial Wellbeing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fraud</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Money</fullName>
             <default>false</default>
         </values>
         <values>
@@ -4868,11 +4880,15 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Product Information</fullName>
+            <fullName>Payments</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Transaction %26 Savings enquiry</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Profile</fullName>
             <default>false</default>
         </values>
     </picklistValues>

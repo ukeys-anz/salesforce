@@ -36,11 +36,13 @@ npm i -g sfdx-cli prettier prettier-plugin-apex typescript
 ```
 
 #### Pre-commit tooling
+
 (Recommended) To ensure that your npm tools are installed, please run
 
 ```bash
 npm install -- force
 ```
+
 This will install all the dev dependacies on your local machines, and it will also install a pre-commit hook which runs a script found in `.git-hooks/pre-commit`.
 This script runs:
 * Prettier on all parsable staged files
@@ -48,7 +50,6 @@ This script runs:
 
 You will see prettier notices in your terminal everytime you run `git-commit`
 ![Prettier and Git Hooks](https://user-images.githubusercontent.com/73924151/115315255-45aeba80-a1ba-11eb-8633-18aae634eab6.png)
-
 
 3. Download and install [PMD](https://pmd.github.io/) (use the Quickstart section on the home page)
 4. You can use any Text Editor or IDE you choose so long as they run locally. VS Code is recommended by Salesforce and there are several handy plugins found in the VS Code marketplace for syntax highlighter and SFDX CLI integration
@@ -117,7 +118,9 @@ Any changes to the org can be reviewed by any member of the team, with a few exc
 
 ## Feature Traceability
 
-All cards must be linked to the relevant JIRA card number. Following the convention required by the JIRA integration, you must put the JIRA ticket in square brackets in the PR title. Example `[JIRA-1234] Updates to the Admin Profile`.
+All cards must be linked to the relevant JIRA card number. Following the convention required by the JIRA integration, you must put the JIRA ticket in square brackets in the PR title. Example `ABT-12345 Updates to the Admin Profile`.
+
+We use an internal github action to enforce this format, see https://github.com/anzx/pr-title-action.
 
 ## Branch Naming Convention
 

@@ -29,7 +29,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>FinServ__Gender__pc</field>
+                <field>Gender__pc</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
@@ -120,10 +120,6 @@
         <editHeading>true</editHeading>
         <label>Know Your Customer</label>
         <layoutColumns>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>FinServ__KYCDate__c</field>
-            </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>FinServ__KYCStatus__c</field>

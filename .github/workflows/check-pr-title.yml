@@ -1,0 +1,19 @@
+name: ✍️ Check PR
+on:
+  pull_request:
+    types: [opened, edited]
+
+jobs:
+  check-pr-title:
+    name: 🎫 Check Title for Jira Ticket
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Action Repo
+        uses: actions/checkout@v2
+        with:
+          repository: anzx/pr-title-action
+          ref: v2
+          token: ${{ secrets.ORG_GITHUB_TOKEN }}
+          path: .github/actions/pr-title-action
+      - name: Check PR Title for Ticket
+        uses: ./.github/actions/pr-title-action

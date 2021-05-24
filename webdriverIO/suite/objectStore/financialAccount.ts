@@ -56,7 +56,7 @@ export async function createFinAccountList(
         FinServ__FinancialAccountType__c:
           recordType == "CheckingAccount" ? "Checking" : " Savings",
         FinServ__Status__c: faker.random.arrayElement([
-          "Open",
+          "Active",
           "Closed",
           "On Hold",
           "Pending"

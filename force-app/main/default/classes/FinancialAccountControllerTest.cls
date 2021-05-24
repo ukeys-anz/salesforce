@@ -17,7 +17,7 @@ public with sharing class FinancialAccountControllerTest {
       finAccount.Name = 'Everyday Account' + i;
       finAccount.FinServ__Balance__c = 200;
       finAccount.FinServ__CurrentPostedBalance__c = 200;
-      finAccount.FinServ__Status__c = 'Open';
+      finAccount.FinServ__Status__c = 'Active';
       finAccount.FinServ__FinancialAccountType__c = 'Checking';
       finAccount.FinServ__PrimaryOwner__c = accnt.Id;
       finAccount.Account_Key__c = '342490981' + i;
