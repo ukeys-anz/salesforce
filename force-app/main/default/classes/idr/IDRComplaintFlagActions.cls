@@ -69,7 +69,7 @@ public with sharing class IDRComplaintFlagActions {
       SELECT Id, IDR_Customer_Number__c
       FROM Case
       WHERE
-        isClosed = false
+        isClosed = FALSE
         AND IDR_Customer_Number__c IN :customerNumbers
         AND Id NOT IN :caseIds
     ]) {
@@ -213,5 +213,6 @@ public with sharing class IDRComplaintFlagActions {
         }
       }
     }
+    complaintEventList.clear();
   }
 }
