@@ -77,11 +77,6 @@
         <label>Frontline BU</label>
     </standardValue>
     <standardValue>
-        <fullName>Other</fullName>
-        <default>false</default>
-        <label>Other</label>
-    </standardValue>
-    <standardValue>
         <fullName>Chat</fullName>
         <default>false</default>
         <label>Chat</label>
@@ -150,5 +145,10 @@
         <fullName>ANZ Plus App</fullName>
         <default>false</default>
         <label>ANZ Plus App</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Other</fullName>
+        <default>false</default>
+        <label>Other</label>
     </standardValue>
 </StandardValueSet>

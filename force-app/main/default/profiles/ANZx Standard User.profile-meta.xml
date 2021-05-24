@@ -3216,11 +3216,6 @@
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
-    <field>Contact.FinServ__Gender__c</field>
-    <readable>false</readable>
-  </fieldPermissions>
-  <fieldPermissions>
-    <editable>false</editable>
     <field>Contact.FinServ__HomeOwnership__c</field>
     <readable>false</readable>
   </fieldPermissions>
@@ -3398,6 +3393,11 @@
     <editable>false</editable>
     <field>Contact.FinServ__WeddingAnniversary__c</field>
     <readable>true</readable>
+  </fieldPermissions>
+  <fieldPermissions>
+    <editable>false</editable>
+    <field>Contact.Gender__c</field>
+    <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>

@@ -5,7 +5,7 @@
     <complianceGroup>Source_Salesforce;Privacy_Non_Personal_Information;Integrity_Accurate</complianceGroup>
     <description>Based on the type of case, the sub type provides a more detailed categorisation of the case.</description>
     <externalId>false</externalId>
-    <label>Sub Type</label>
+    <label>Issue Sub Type</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
@@ -137,7 +137,184 @@
                 <default>false</default>
                 <label>Transaction</label>
             </value>
+            <value>
+                <fullName>About ANZ Plus</fullName>
+                <default>false</default>
+                <label>About ANZ Plus</label>
+            </value>
+            <value>
+                <fullName>Privacy</fullName>
+                <default>false</default>
+                <label>Privacy</label>
+            </value>
+            <value>
+                <fullName>ANZ branches</fullName>
+                <default>false</default>
+                <label>ANZ branches</label>
+            </value>
+            <value>
+                <fullName>Lost or stolen card</fullName>
+                <default>false</default>
+                <label>Lost or stolen card</label>
+            </value>
+            <value>
+                <fullName>Damaged card</fullName>
+                <default>false</default>
+                <label>Damaged card</label>
+            </value>
+            <value>
+                <fullName>Using card</fullName>
+                <default>false</default>
+                <label>Using card</label>
+            </value>
+            <value>
+                <fullName>Using account</fullName>
+                <default>false</default>
+                <label>Using account</label>
+            </value>
+            <value>
+                <fullName>Savings and goals</fullName>
+                <default>false</default>
+                <label>Savings and goals</label>
+            </value>
+            <value>
+                <fullName>Money tiles</fullName>
+                <default>false</default>
+                <label>Money tiles</label>
+            </value>
+            <value>
+                <fullName>Account closure</fullName>
+                <default>false</default>
+                <label>Account closure</label>
+            </value>
+            <value>
+                <fullName>Statements</fullName>
+                <default>false</default>
+                <label>Statements</label>
+            </value>
+            <value>
+                <fullName>Making payments</fullName>
+                <default>false</default>
+                <label>Making payments</label>
+            </value>
+            <value>
+                <fullName>Updating details</fullName>
+                <default>false</default>
+                <label>Updating details</label>
+            </value>
+            <value>
+                <fullName>Lost or new phone</fullName>
+                <default>false</default>
+                <label>Lost or new phone</label>
+            </value>
+            <value>
+                <fullName>Power of attorney</fullName>
+                <default>false</default>
+                <label>Power of attorney</label>
+            </value>
+            <value>
+                <fullName>General fraud enquiry</fullName>
+                <default>false</default>
+                <label>General fraud enquiry</label>
+            </value>
+            <value>
+                <fullName>Card/device block enquiry</fullName>
+                <default>false</default>
+                <label>Card/device block enquiry</label>
+            </value>
+            <value>
+                <fullName>Falcon transaction confirmation</fullName>
+                <default>false</default>
+                <label>Falcon transaction confirmation</label>
+            </value>
+            <value>
+                <fullName>Hardship</fullName>
+                <default>false</default>
+                <label>Hardship</label>
+            </value>
+            <value>
+                <fullName>Coaching</fullName>
+                <default>false</default>
+                <label>Coaching</label>
+            </value>
+            <value>
+                <fullName>Extra Care</fullName>
+                <default>false</default>
+                <label>Extra Care</label>
+            </value>
         </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>About Us</controllingFieldValue>
+            <valueName>About ANZ Plus</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>About Us</controllingFieldValue>
+            <valueName>Privacy</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>About Us</controllingFieldValue>
+            <valueName>ANZ branches</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money</controllingFieldValue>
+            <valueName>Using account</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money</controllingFieldValue>
+            <valueName>Savings and goals</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money</controllingFieldValue>
+            <valueName>Money tiles</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money</controllingFieldValue>
+            <valueName>Account closure</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money</controllingFieldValue>
+            <valueName>Statements</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payments</controllingFieldValue>
+            <valueName>Making payments</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Profile</controllingFieldValue>
+            <valueName>Updating details</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Profile</controllingFieldValue>
+            <valueName>Lost or new phone</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Profile</controllingFieldValue>
+            <valueName>Power of attorney</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fraud</controllingFieldValue>
+            <valueName>General fraud enquiry</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fraud</controllingFieldValue>
+            <valueName>Card/device block enquiry</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fraud</controllingFieldValue>
+            <valueName>Falcon transaction confirmation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Wellbeing</controllingFieldValue>
+            <valueName>Hardship</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Wellbeing</controllingFieldValue>
+            <valueName>Coaching</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Wellbeing</controllingFieldValue>
+            <valueName>Extra Care</valueName>
+        </valueSettings>
         <valueSettings>
             <controllingFieldValue>App Support</controllingFieldValue>
             <valueName>App Guide</valueName>
@@ -155,16 +332,16 @@
             <valueName>Feature Request</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Card</controllingFieldValue>
-            <valueName>Card Enquiry</valueName>
+            <controllingFieldValue>Cards</controllingFieldValue>
+            <valueName>Lost or stolen card</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Card</controllingFieldValue>
-            <valueName>Card Issue</valueName>
+            <controllingFieldValue>Cards</controllingFieldValue>
+            <valueName>Damaged card</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Card</controllingFieldValue>
-            <valueName>Card Lost/Stolen</valueName>
+            <controllingFieldValue>Cards</controllingFieldValue>
+            <valueName>Using card</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Coaching</controllingFieldValue>

@@ -13,7 +13,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>FinServ__FinancialAccountNumber__c</field>
+                <field>BSB__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
@@ -44,6 +44,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>FinServ__ProductName__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>FinServ__FinancialAccountNumber__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
