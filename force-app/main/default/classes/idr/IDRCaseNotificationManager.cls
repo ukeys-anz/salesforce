@@ -30,14 +30,12 @@ public with sharing class IDRCaseNotificationManager {
       }
     }
 
-    if (!caseWithParentId.isEmpty()) {
-      if (Case.sObjectType.getDescribe().isQueryable()) {
+    if (!caseWithParentId.isEmpty() && Case.sObjectType.getDescribe().isQueryable()) {
         parentCases = [
           SELECT id, Origin, CaseNumber
           FROM Case
           WHERE id IN :caseWithParentId.values()
         ];
-      }
       Map<Id, Case> parentIdWithCaseMap = new Map<Id, Case>();
       for (Case c : parentCases) {
         parentIdWithCaseMap.put(c.id, c);
