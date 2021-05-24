@@ -4,11 +4,8 @@
  * @since 11/2020
  * @description Responsible to trigger the Notification for banker.
  *
- * @history
- *          v1.1 21/05/2021 [IDR-2132] Updated the logic to cater InApp notification when a case is attached to a parent case.
  */
 public with sharing class IDRCaseNotificationManager {
-  //[IDR-2132 Start]
   /**
    * @description Assesses whether or not to generate a banker notification for AfterUpdate scenario
    * @param records Case records in current trigger context
@@ -24,38 +21,34 @@ public with sharing class IDRCaseNotificationManager {
     Map<Id, Case> newMapWithCase = new Map<Id, Case>();
     for (Case c : records) {
       newMapWithCase.put(c.id, c);
-      caseWithParentId.put(c.id, c.ParentId);
-    }
-
-    if (Case.sObjectType.getDescribe().isQueryable()) {
-      parentCases = [
-        SELECT id, Origin, CaseNumber
-        FROM Case
-        WHERE id IN :caseWithParentId.values()
-      ];
-    }
-    Map<Id, Case> parentIdWithCaseMap = new Map<Id, Case>();
-    for (Case c : parentCases) {
-      parentIdWithCaseMap.put(c.id, c);
-    }
-
-    for (Case c : records) {
-      if (
-        oldMap.get(c.Id).ParentId == null &&
-        newMapWithCase.get(c.Id).ParentId != null
-      ) {
-        Case parentCase = parentIdWithCaseMap.get(c.ParentId);
-        if (c.Status != 'Closed') {
-          wrapperList.add(createNotification('Parent Updated', c, parentCase));
-        }
+      if (oldMap.get(c.Id).ParentId != c.ParentId && c.Status != 'Closed') {
+        caseWithParentId.put(c.id, c.ParentId);
       }
     }
 
-    if (!wrapperList.isEmpty()) {
-      IDRBankerNotificationBuilder.sendNotification(wrapperList);
+    if (!caseWithParentId.isEmpty()) {
+      if (Case.sObjectType.getDescribe().isQueryable()) {
+        parentCases = [
+          SELECT id, Origin, CaseNumber
+          FROM Case
+          WHERE id IN :caseWithParentId.values()
+        ];
+      }
+      Map<Id, Case> parentIdWithCaseMap = new Map<Id, Case>();
+      for (Case c : parentCases) {
+        parentIdWithCaseMap.put(c.id, c);
+      }
+
+      for (Case c : records) {
+        Case parentCase = parentIdWithCaseMap.get(c.ParentId);
+        wrapperList.add(createNotification('Parent Updated', c, parentCase));
+      }
+
+      if (!wrapperList.isEmpty()) {
+        IDRBankerNotificationBuilder.sendNotification(wrapperList);
+      }
     }
   }
-  //[IDR-2132 End]
 
   /**
    * @description Assesses whether or not to generate a banker notification
@@ -82,9 +75,7 @@ public with sharing class IDRCaseNotificationManager {
         ) {
           //Set notification flag to true in here itself to avoid update in IDRBankerNotificationBuilder
           records[i].IDR_Update_Notification_Flag__c = true;
-          //[IDR-2132 Start]
           wrapperList.add(createNotification(fieldLabel, records[i], null));
-          //[IDR-2132 End]
         }
       }
     }
@@ -94,7 +85,6 @@ public with sharing class IDRCaseNotificationManager {
     }
   }
 
-  //[IDR-2132 Start]
   /**
    * @description Builds a notification using IDRBankerNotificationWrapper class
    * @param fieldLabel Field label where the change has been detected
@@ -145,7 +135,6 @@ public with sharing class IDRCaseNotificationManager {
 
     return wrapper;
   }
-  //[IDR-2132 End]
 
   /**
    * @description Returns all the fields of getFields

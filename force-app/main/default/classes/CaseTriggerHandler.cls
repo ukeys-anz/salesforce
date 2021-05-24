@@ -86,12 +86,10 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
         (List<Case>) oldMap.values()
       );
       SICaseActions.afterUpdate(records, (Map<Id, Case>) oldMap);
-      //[IDR-2132 Start]
       IDRCaseNotificationManager.manageNotificationAfterUpdate(
         records,
         (Map<Id, Case>) oldMap
       );
-      //[IDR-2132 End]
     }
   }
 

@@ -1323,7 +1323,6 @@ private class CaseTriggerHandlerTest {
     Test.stopTest();
   }
 
-  //[IDR-2132 Start]
   @isTest
   static void testCaseNotifiationAfterUpdate() {
     Case parentCase = new Case(
@@ -1358,7 +1357,7 @@ private class CaseTriggerHandlerTest {
     for (Case c : caseList) {
       c.ParentId = parentCase.Id;
     }
-    CheckRecursive.firstCall = true;
+    CheckRecursive.firstCall = false;
     update caseList;
     Test.stopTest();
     System.assertEquals(
@@ -1368,5 +1367,4 @@ private class CaseTriggerHandlerTest {
       'Issue while updating parentId'
     );
   }
-  //[IDR-2132 End]
 }
