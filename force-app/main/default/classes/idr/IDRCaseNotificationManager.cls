@@ -15,7 +15,6 @@ public with sharing class IDRCaseNotificationManager {
     List<Case> records,
     Map<Id, Case> oldMap
   ) {
-    List<Case> parentCases = new List<Case>();
     List<IDRBankerNotificationWrapper> wrapperList = new List<IDRBankerNotificationWrapper>();
     Map<Id, Id> caseWithParentId = new Map<Id, Id>();
     Map<Id, Case> newMapWithCase = new Map<Id, Case>();
@@ -30,14 +29,16 @@ public with sharing class IDRCaseNotificationManager {
       }
     }
 
-    if (!caseWithParentId.isEmpty() && Case.sObjectType.getDescribe().isQueryable()) {
-        parentCases = [
-          SELECT id, Origin, CaseNumber
-          FROM Case
-          WHERE id IN :caseWithParentId.values()
-        ];
+    if (
+      !caseWithParentId.isEmpty() &&
+      Case.sObjectType.getDescribe().isQueryable()
+    ) {
       Map<Id, Case> parentIdWithCaseMap = new Map<Id, Case>();
-      for (Case c : parentCases) {
+      for (Case c : [
+        SELECT id, Origin, CaseNumber
+        FROM Case
+        WHERE id IN :caseWithParentId.values()
+      ]) {
         parentIdWithCaseMap.put(c.id, c);
       }
 
@@ -46,9 +47,8 @@ public with sharing class IDRCaseNotificationManager {
         wrapperList.add(createNotification('Parent Updated', c, parentCase));
       }
 
-      if (!wrapperList.isEmpty()) {
-        IDRBankerNotificationBuilder.sendNotification(wrapperList);
-      }
+      //Send Notification
+      IDRBankerNotificationBuilder.sendNotification(wrapperList);
     }
   }
 
