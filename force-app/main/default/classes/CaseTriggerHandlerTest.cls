@@ -1358,7 +1358,7 @@ private class CaseTriggerHandlerTest {
     for (Case c : caseList) {
       c.ParentId = parentCase.Id;
     }
-    CheckRecursive.firstCall = false;
+    CheckRecursive.firstCall = true;
     update caseList;
     Test.stopTest();
     System.assertEquals(
