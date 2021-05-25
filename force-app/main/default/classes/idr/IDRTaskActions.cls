@@ -109,7 +109,7 @@ public without sharing class IDRTaskActions {
           oldRecord,
           SObjectType.Task.FieldSets.IDR_Masked_Fields.getFields()
         );
-        populateFieldsOnTask(record, oldMap.get(record.Id));
+        populateFieldsOnTask(record, oldRecord);
       }
     }
   }
