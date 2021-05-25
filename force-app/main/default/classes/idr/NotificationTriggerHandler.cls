@@ -124,7 +124,7 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
           IDR_NC_Email__c,
           IDR_NC_Is_Consent_Obtained__c,
           CaseNumber__c,
-          Customer_Identifier__c,
+          IDR_Customer_Identifier__c,
           CaseNumber,
           IDR_NC_First_Name__c,
           IDR_NC_Mobile__c
