@@ -45,7 +45,7 @@ public without sharing class IDRTaskActions {
           null,
           SObjectType.Task.FieldSets.IDR_Masked_Fields.getFields()
         );
-        populateFieldsOnTask(records, null);
+        populateFieldsOnTask(record, null);
       }
     }
     checkIDRMaximumTimeTasks(records);
@@ -57,11 +57,9 @@ public without sharing class IDRTaskActions {
    * @param records The Task record list.
    * @param oldMap oldmap of the task records
    */
-  public static void populateFieldsOnTask(list<Task> records, Map<Id, Task> oldMap) {
-    for(Task record : records){
-      if(record.Status == 'Completed' & (oldMap == null || oldMap.get(record.Id).Status != 'Completed')){
-        record.CompletedDate__c = Date.today();
-      }
+  public static void populateFieldsOnTask(Task record, Task oldRec) {
+    if(record.Status == 'Completed' & (oldRec == null || oldRec.Status != 'Completed')){
+      record.CompletedDate__c = Date.today();
     }
   }
   /**
@@ -111,7 +109,7 @@ public without sharing class IDRTaskActions {
           oldRecord,
           SObjectType.Task.FieldSets.IDR_Masked_Fields.getFields()
         );
-        populateFieldsOnTask(records, oldMap);
+        populateFieldsOnTask(record, oldMap.get(record.Id));
       }
     }
   }
