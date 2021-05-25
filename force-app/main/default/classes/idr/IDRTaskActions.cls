@@ -45,12 +45,23 @@ public without sharing class IDRTaskActions {
           null,
           SObjectType.Task.FieldSets.IDR_Masked_Fields.getFields()
         );
+        populateFieldsOnTask(record, null);
       }
     }
     checkIDRMaximumTimeTasks(records);
     assignToCollectionsQueue(records);
   }
 
+  /**
+   * @description populate the required field on Task record
+   * @param record The Task record list.
+   * @param oldRec oldmap of the task record
+   */
+  public static void populateFieldsOnTask(Task record, Task oldRec) {
+    if(record.Status == 'Completed' & (oldRec == null || oldRec.Status != 'Completed')){
+      record.CompletedDate__c = Date.today();
+    }
+  }
   /**
    * @description assignToCollectionQueue method is used to validate the collection task created by mulesoft and assign to respective collections queue
    * @param records The Task record list.
@@ -98,6 +109,7 @@ public without sharing class IDRTaskActions {
           oldRecord,
           SObjectType.Task.FieldSets.IDR_Masked_Fields.getFields()
         );
+        populateFieldsOnTask(record, oldRecord);
       }
     }
   }
