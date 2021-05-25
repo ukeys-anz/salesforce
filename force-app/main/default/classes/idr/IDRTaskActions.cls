@@ -54,8 +54,8 @@ public without sharing class IDRTaskActions {
 
   /**
    * @description populate the required field on Task record
-   * @param records The Task record list.
-   * @param oldMap oldmap of the task records
+   * @param record The Task record list.
+   * @param oldRec oldmap of the task record
    */
   public static void populateFieldsOnTask(Task record, Task oldRec) {
     if(record.Status == 'Completed' & (oldRec == null || oldRec.Status != 'Completed')){
