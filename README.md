@@ -118,7 +118,7 @@ Any changes to the org can be reviewed by any member of the team, with a few exc
 
 ## Feature Traceability
 
-All cards must be linked to the relevant JIRA card number. Following the convention required by the JIRA integration, you must put the JIRA ticket in square brackets in the PR title. Example `ABT-12345 Updates to the Admin Profile`.
+All cards must be linked to the relevant JIRA card number. Following the convention required by the PR Title Checked, starting with ABT-#### or IDR-#### followed by a descriptive title. Example: `ABT-12345 Updates to the Admin Profile`.
 
 We use an internal github action to enforce this format, see https://github.com/anzx/pr-title-action.
 
