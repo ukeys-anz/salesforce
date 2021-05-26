@@ -21,10 +21,10 @@ public with sharing class IDREmailServiceHandler {
     String technicalEmailAddress
   ) {
     Boolean isSpam = false;
-    if (senderEmail != null && senderEmail == technicalEmailAddress) {
+    if (senderEmail != null && technicalEmailAddress.contains(senderEmail)) {
       Lib_SystemLog.logAPIError(
         IDREmailServiceHandler.class.getName(),
-        'Spam detected from IDR apex email service' + null,
+        'Spam detected from IDR apex email service',
         'Recieved email from --' +
         fromEmail +
         ' Subject --' +
@@ -70,12 +70,25 @@ public with sharing class IDREmailServiceHandler {
       try {
         //Create email message
         IDREmailServiceHelper.createEmailMessage(email, caseToUpd.Id);
+      } catch (Exception err) {
+        Lib_SystemLog.logAPIError(
+          IDREmailServiceHandler.class.getName(),
+          'Error in creating email message from service class, which needs to be attached to existing case :' +
+          caseToUpd.Id,
+          err.getMessage(),
+          null,
+          IDREmailServiceHandler.class.getName(),
+          null,
+          null
+        );
+      }
+      try {
         //Create files from attachments
         IDREmailServiceHelper.createAttachmentFiles(email, caseToUpd.Id);
       } catch (Exception err) {
         Lib_SystemLog.logAPIError(
           IDREmailServiceHandler.class.getName(),
-          'Error in creating email message / attachment from service class' +
+          'Error in creating attachments from service class, which needs to be attached to existing case :' +
           caseToUpd.Id,
           err.getMessage(),
           null,
@@ -106,12 +119,6 @@ public with sharing class IDREmailServiceHandler {
     String fromEmail,
     String caseOrigin
   ) {
-    //Get Indexing Queue
-    List<Group> queueList = IDREmailServiceHelper.getGroupDetails(
-      'Queue',
-      'Indexing_Queue'
-    );
-
     //Create new case
     Case newCase = new Case(
       Description = email.plainTextBody?.replaceAll('<.*>', 'REMOVED'),
@@ -121,9 +128,6 @@ public with sharing class IDREmailServiceHandler {
       SuppliedEmail = fromEmail,
       recordTypeId = IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID
     );
-    if (queueList.size() > 0) {
-      newCase.OwnerId = queueList[0].Id;
-    }
     if (caseOrigin != '') {
       newCase.Origin = caseOrigin;
     }
@@ -137,7 +141,7 @@ public with sharing class IDREmailServiceHandler {
     } catch (Exception err) {
       Lib_SystemLog.logAPIError(
         IDREmailServiceHandler.class.getName(),
-        'Error in creating new case from email service class' + null,
+        'Error in creating new case from email service class',
         err.getMessage(),
         null,
         IDREmailServiceHandler.class.getName(),
@@ -150,12 +154,10 @@ public with sharing class IDREmailServiceHandler {
       try {
         //Create email message
         IDREmailServiceHelper.createEmailMessage(email, newCase.Id);
-        //Create files from attachments
-        IDREmailServiceHelper.createAttachmentFiles(email, newCase.Id);
       } catch (Exception err) {
         Lib_SystemLog.logAPIError(
           IDREmailServiceHandler.class.getName(),
-          'Error in creating email message / attachments from email service class' +
+          'Error in creating email message from email service class for new case :' +
           newCase.Id,
           err.getMessage(),
           null,
@@ -164,6 +166,22 @@ public with sharing class IDREmailServiceHandler {
           null
         );
       }
+      try {
+        //Create files from attachments
+        IDREmailServiceHelper.createAttachmentFiles(email, newCase.Id);
+      } catch (Exception err) {
+        Lib_SystemLog.logAPIError(
+          IDREmailServiceHandler.class.getName(),
+          'Error in creating attachments from email service class for new case :' +
+          newCase.Id,
+          err.getMessage(),
+          null,
+          IDREmailServiceHandler.class.getName(),
+          null,
+          null
+        );
+      }
+      IDREmailServiceHelper.updateCaseWithQueue(newCase);
     }
   }
 
