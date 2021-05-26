@@ -48,21 +48,12 @@
             </article>
           </template>
           <template if:true={showDetails}>
-            <template if:true={viewAllCards}>
+            <template if:true={showExpandCollapse}>
               <lightning-button
-                label="Collapse"
+                label={collapseExpandText}
                 slot="actions"
                 onclick={handleViewAll}
-                data-id="collapse-button"
-              ></lightning-button>
-            </template>
-            <template if:false={viewAllCards}>
-              <lightning-button
-                label="Collapse"
-                slot="actions"
-                onclick={handleViewAll}
-                disabled
-                data-id="collapse-button-disabled"
+                data-id="collapse-expand-button"
               ></lightning-button>
             </template>
             <div class="slds-m-bottom_xx-small">
@@ -121,15 +112,6 @@
                     </div>
                   </article>
                 </div>
-                <template if:true={showViewAllButton}>
-                  <button
-                    class="slds-button slds-align_absolute-center"
-                    onclick={handleViewAll}
-                    data-id="load-more-button"
-                  >
-                    Load More
-                  </button>
-                </template>
               </lightning-card>
             </div>
 
@@ -197,6 +179,15 @@
                 </div>
               </template>
             </template>
+          </template>
+          <template if:true={showViewAllButton}>
+            <button
+              class="slds-button slds-align_absolute-center"
+              onclick={handleViewAll}
+              data-id="load-more-button"
+            >
+              Load More
+            </button>
           </template>
         </lightning-card>
       </div>

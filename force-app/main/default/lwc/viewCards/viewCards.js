@@ -25,6 +25,8 @@ export default class ViewCards extends LightningElement {
   noCards = false;
   showFetch = true;
   defaultImage = `${card_images}/card_active.png`;
+  showExpandCollapse = false;
+  collapseExpandText = "Expand List";
 
   @wire(getRecord, {
     recordId: "$recordId",
@@ -47,6 +49,7 @@ export default class ViewCards extends LightningElement {
           if (result.cards) {
             this.cardDetails = [...result.cards];
             if (this.cardDetails.length > 1) {
+              this.showExpandCollapse = true;
               this.showViewAllButton = true;
             }
             for (let curCard of result.cards) {
@@ -62,6 +65,7 @@ export default class ViewCards extends LightningElement {
               return card.status === "Issued" ? -1 : 1;
             });
             this.cardDetails.forEach((card) => {
+              card.expiryDate = this.handleDateFormat(card.expiryDate);
               //Map the relevant image to the statuses
               switch (card.status) {
                 case "Issued":
@@ -103,6 +107,17 @@ export default class ViewCards extends LightningElement {
     }
   }
 
+  handleDateFormat(expiryDate) {
+    let splitDate = expiryDate.split("/");
+    //Check if month is single digit
+    if (splitDate[0].length === 1) {
+      //Append 0 if month is single digit
+      expiryDate = "0" + splitDate[0] + "/" + splitDate[1];
+    }
+
+    return expiryDate;
+  }
+
   //This function is required as some errors are returned
   //as stringified json
   handleError(error) {
@@ -126,5 +141,10 @@ export default class ViewCards extends LightningElement {
   handleViewAll() {
     this.viewAllCards = !this.viewAllCards;
     this.showViewAllButton = !this.showViewAllButton;
+    if (this.collapseExpandText === "Expand List") {
+      this.collapseExpandText = "Collapse List";
+    } else {
+      this.collapseExpandText = "Expand List";
+    }
   }
 }

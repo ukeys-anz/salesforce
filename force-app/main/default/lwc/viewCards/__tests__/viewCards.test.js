@@ -125,17 +125,12 @@ describe("c-view-cards", () => {
 
       return flushPromises().then(() => {
         let button = element.shadowRoot.querySelector(
-          "lightning-button[data-id='collapse-button']"
+          "lightning-button[data-id='collapse-expand-button']"
         );
         expect(button).toBeTruthy();
         button.click();
 
         return flushPromises().then(() => {
-          let button = element.shadowRoot.querySelector(
-            "lightning-button[data-id='collapse-button']"
-          );
-          expect(button).toBeFalsy();
-
           let loadedCard = element.shadowRoot.querySelector(
             "div[data-id='loaded-card-details']"
           );
@@ -147,29 +142,6 @@ describe("c-view-cards", () => {
           expect(initialCard).toBeTruthy();
         });
       });
-    });
-  });
-
-  it("tests collapse button is disabled", () => {
-    getCardList.mockResolvedValue(APEX_CARDS_SUCCESS);
-    const element = createElement("c-view-cards", {
-      is: ViewCards
-    });
-    document.body.appendChild(element);
-    let button = element.shadowRoot.querySelector(
-      "lightning-button[data-id='get-cards-button']"
-    );
-    button.click();
-    return flushPromises().then(() => {
-      let card = element.shadowRoot.querySelector(
-        "div[data-id='first-card-details']"
-      );
-      expect(card).toBeTruthy();
-
-      let button = element.shadowRoot.querySelector(
-        "lightning-button[data-id='collapse-button-disabled']"
-      );
-      expect(button).toBeTruthy();
     });
   });
 });
