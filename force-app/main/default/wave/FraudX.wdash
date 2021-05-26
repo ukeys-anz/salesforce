@@ -1105,11 +1105,7 @@
           "binValues": false,
           "columnMap": {
             "trellis": [],
-<<<<<<< HEAD
-            "dimensionAxis": ["Account.FinServ__Gender__pc"],
-=======
             "dimensionAxis": ["Account.Gender__pc"],
->>>>>>> develop
             "plots": ["count"]
           },
           "showActionMenu": true,
@@ -2085,11 +2081,7 @@
         "binValues": false,
         "columnMap": {
           "trellis": [],
-<<<<<<< HEAD
-          "dimensionAxis": ["Account.FinServ__Gender__pc"],
-=======
           "dimensionAxis": ["Account.Gender__pc"],
->>>>>>> develop
           "plots": ["count"]
         },
         "showActionMenu": true,
