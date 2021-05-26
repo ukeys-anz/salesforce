@@ -14,5 +14,5 @@ RecordType.DeveloperName = &apos;General_Inquiry_CMOS&apos;
 IDR_Date_Received__c &gt; NOW()
 )</errorConditionFormula>
     <errorDisplayField>IDR_Date_Received__c</errorDisplayField>
-    <errorMessage>You are unable to select a future date</errorMessage>
+    <errorMessage>You cannot select a future date</errorMessage>
 </ValidationRule>
