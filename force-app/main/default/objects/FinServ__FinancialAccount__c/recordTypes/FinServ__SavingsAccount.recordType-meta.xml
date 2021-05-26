@@ -45,64 +45,8 @@
     <picklistValues>
         <picklist>FinServ__FinancialAccountType__c</picklist>
         <values>
-            <fullName>Brokerage</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>CD</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Cash Management Account</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Checking</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Credit Card</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Discount Brokerage</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Fixed Annuity</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Individual Life</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Managed Account</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Mutual Fund</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Savings</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Term Life</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Variable Annuity</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Variable Life</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Whole Life</fullName>
-            <default>false</default>
+            <default>true</default>
         </values>
     </picklistValues>
     <picklistValues>
@@ -339,11 +283,11 @@
     <picklistValues>
         <picklist>FinServ__Status__c</picklist>
         <values>
-            <fullName>Closed</fullName>
+            <fullName>Active</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Open</fullName>
+            <fullName>Closed</fullName>
             <default>false</default>
         </values>
     </picklistValues>
