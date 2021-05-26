@@ -3,7 +3,7 @@
     <sharingCriteriaRules>
         <fullName>Complaint_RTs_ANZRole_RO</fullName>
         <accessLevel>Read</accessLevel>
-        <description>Great Read only access to Complaint and General Inquiry record types for all ANZ Role users.</description>
+        <description>Great Read only access to Complaint and General Inquiry CMOS record types for all ANZ Role users.</description>
         <label>Complaint_RTs_ANZRole_RO</label>
         <sharedTo>
             <role>ANZ</role>
