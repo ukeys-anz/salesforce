@@ -1194,7 +1194,7 @@ private class CaseTriggerHandlerTest {
     Test.startTest();
     case updateCase = new case(
       Id = testCase.Id,
-      IDR_Date_Received__c = system.now().addDays(1)
+      IDR_Date_Received__c = system.now().addDays(-1)
     );
     update updateCase;
     Test.stopTest();
