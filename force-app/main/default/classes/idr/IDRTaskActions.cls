@@ -58,7 +58,11 @@ public without sharing class IDRTaskActions {
    * @param oldRec oldmap of the task record
    */
   public static void populateFieldsOnTask(Task record, Task oldRec) {
-    if(record.Status == 'Completed' & (oldRec == null || oldRec.Status != 'Completed')){
+    if (
+      record.Status == 'Completed' &
+      (oldRec == null ||
+      oldRec.Status != 'Completed')
+    ) {
       record.CompletedDate__c = Date.today();
     }
   }
@@ -147,6 +151,8 @@ public without sharing class IDRTaskActions {
           AND Id NOT IN :currentTask
           AND Status != :IDRConstants.TASK_STATUS_COMPLETED
           AND Status != :IDRConstants.TASK_STATUS_EXPIRED
+          AND (Subject = :IDRConstants.TASK_SUBJECT_DAY5
+          OR Subject = :IDRConstants.TASK_SUBJECT_DAY1)
       ];
     }
     for (task t : oldTasks) {
