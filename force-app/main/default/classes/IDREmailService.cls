@@ -40,6 +40,13 @@ global with sharing class IDREmailService implements Messaging.InboundEmailHandl
       technicalEmailAddress = idrSettingWithSenderEmailMap.get(senderEmail)
         ?.Technical_Email_Address__c;
       caseOrigin = idrSettingWithSenderEmailMap.get(senderEmail)?.Origin__c;
+      if (technicalEmailAddress == null) {
+        for (
+          IDR_Email_Settings__c idrem : idrSettingWithSenderEmailMap.values()
+        ) {
+          technicalEmailAddress += idrem.Technical_Email_Address__c + ' , ';
+        }
+      }
     }
 
     //Check for Spamming

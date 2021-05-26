@@ -3,7 +3,7 @@
     <sharingCriteriaRules>
         <fullName>Complaint_RTs_ANZRole_RO</fullName>
         <accessLevel>Read</accessLevel>
-        <description>Great Read only access to Complaint record types for all ANZ Role users.</description>
+        <description>Great Read only access to Complaint and General Inquirey record types for all ANZ Role users.</description>
         <label>Complaint_RTs_ANZRole_RO</label>
         <sharedTo>
             <role>ANZ</role>
@@ -11,7 +11,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Customer Complaint,Non-Customer Complaint</value>
+            <value>Customer Complaint,Non-Customer Complaint,General Inquiry CMOS</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>

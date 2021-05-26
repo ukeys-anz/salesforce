@@ -193,7 +193,10 @@ public with sharing class IDREmailServiceHelper {
         } else {
           Lib_SystemLog.logAPIError(
             IDREmailServiceHelper.class.getName(),
-            'Discarded   a   text   file   ' + tAttachment.fileName,
+            'Discarded an attachment as the type was unsupported => filename : ' +
+            tAttachment.fileName +
+            ' , mimesubtype : ' +
+            tAttachment.mimeTypeSubType,
             null,
             null,
             IDREmailServiceHelper.class.getName(),
@@ -227,7 +230,10 @@ public with sharing class IDREmailServiceHelper {
         } else {
           Lib_SystemLog.logAPIError(
             IDREmailServiceHelper.class.getName(),
-            'Discarded   a   binary   file   ' + bAttachment.fileName,
+            'Discarded a binary attachment as the type was unsupported => filename : ' +
+            bAttachment.fileName +
+            ' , mimesubtype : ' +
+            bAttachment.mimeTypeSubType,
             null,
             null,
             IDREmailServiceHelper.class.getName(),
@@ -238,5 +244,30 @@ public with sharing class IDREmailServiceHelper {
       }
     }
     return returnConVerList;
+  }
+
+  /**
+   * @description Updates the case with queue
+   * @param newCase The case record
+   */
+  public static void updateCaseWithQueue(Case newCase) {
+    //Get Indexing Queue
+    List<Group> queueList = getGroupDetails('Queue', 'Indexing_Queue');
+    if (queueList.size() > 0 && Case.sObjectType.getDescribe().isUpdateable()) {
+      newCase.OwnerId = queueList[0].Id;
+      try {
+        update newCase;
+      } catch (Exception err) {
+        Lib_SystemLog.logAPIError(
+          IDREmailServiceHandler.class.getName(),
+          'Error in updating case with queue for caseId :' + newCase.Id,
+          err.getMessage(),
+          null,
+          IDREmailServiceHandler.class.getName(),
+          null,
+          null
+        );
+      }
+    }
   }
 }
