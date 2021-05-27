@@ -98,6 +98,7 @@ public with sharing class IDREmailServiceHelper {
     'image/bmp' => 'bmp',
     'image/png' => 'png',
     'application/vnd.ms-excel' => 'xls',
+    'application/octet-stream' => 'xls',
     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => 'xlsx',
     'application/vnd.ms-excel.sheet.binary.macroenabled.12' => 'xlsb',
     'application/vnd.ms-powerpoint' => 'ppt',
