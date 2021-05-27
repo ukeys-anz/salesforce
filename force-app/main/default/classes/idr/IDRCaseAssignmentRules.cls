@@ -64,6 +64,12 @@ public with sharing class IDRCaseAssignmentRules {
           return QUEUE_MAP.get('IDR_Responsible_Lending');
         }
       }
+
+      //Default queue for AFCA if none of the above conditions mataches
+      if (rec.Origin == IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED) {
+        return QUEUE_MAP.get('EDR_Early_Resolution');
+      }
+
       //CEO or Board
       if (rec.Origin == '9' || rec.Origin == '10') {
         return QUEUE_MAP.get('IDR_CEO');
