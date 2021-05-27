@@ -116,6 +116,7 @@ public with sharing class IDRFilesRelatedListController {
     string searchString = '';
     boolean keyWordSearch = false;
     for (string key : searchArray) {
+      key = String.escapeSingleQuotes(key);
       if (searchString.length() == 0) {
         searchString = Key;
       } else {
