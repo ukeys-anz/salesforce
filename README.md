@@ -45,9 +45,8 @@ npm install -- force
 
 This will install all the dev dependacies on your local machines, and it will also install a pre-commit hook which runs a script found in `.git-hooks/pre-commit`.
 This script runs:
-
-- Prettier on all parsable staged files
-- Runs a custom code designed to help with reviewing Einstein Analytics Dataflow JSON
+* Prettier on all parsable staged files
+* Runs a custom code designed to help with reviewing Einstein Analytics Dataflow JSON
 
 You will see prettier notices in your terminal everytime you run `git-commit`
 ![Prettier and Git Hooks](https://user-images.githubusercontent.com/73924151/115315255-45aeba80-a1ba-11eb-8633-18aae634eab6.png)
@@ -120,6 +119,7 @@ Any changes to the org can be reviewed by any member of the team, with a few exc
 ## Feature Traceability
 
 All cards must be linked to the relevant JIRA card number. Following the convention required by the PR Title Checked, starting with ABT-#### or IDR-#### followed by a descriptive title. Example: `ABT-12345 Updates to the Admin Profile`.
+
 
 We use an internal github action to enforce this format, see https://github.com/anzx/pr-title-action.
 
