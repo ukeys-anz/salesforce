@@ -87,22 +87,26 @@ public with sharing class IDREmailServiceHelper {
 
   private static Map<String, String> mimeTypeToFileExtensionsMap = new Map<String, String>{
     'text/plain' => 'txt,text,conf,def,list,log,in',
+    'application/rtf' => 'rtf',
     'text/rtf' => 'rtf',
     'application/pdf' => 'pdf',
-    'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => 'docx,doc',
+    'application/msword' => 'doc',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => 'docx',
     'image/tiff' => 'tiff,tif',
     'image/jpeg' => 'jpeg,jpg',
     'image/gif' => 'gif',
     'image/bmp' => 'bmp',
     'image/png' => 'png',
     'application/vnd.ms-excel' => 'xls',
-    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => 'xlsx,xlsb',
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => 'xlsx',
+    'application/vnd.ms-excel.sheet.binary.macroenabled.12' => 'xlsb',
     'application/vnd.ms-powerpoint' => 'ppt',
     'application/vnd.openxmlformats-officedocument.presentationml.presentation' => 'pptx',
-    'application/octet-stream' => 'eml',
+    'message/rfc822' => 'eml',
     'application/vnd.ms-outlook' => 'msg',
     'text/csv' => 'csv',
-    'application/zip' => 'zip'
+    'application/zip' => 'zip',
+    'application/x-zip-compressed' => 'zip'
   };
 
   /**
