@@ -31,7 +31,7 @@
         <field>Case.Relationship_Managed_Complaint__c</field>
         <readable>true</readable>
     </fieldPermissions>
-     <fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Case.IDR_Customer_Identifier__c</field>
         <readable>true</readable>
@@ -543,6 +543,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>ContentVersion.UUID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ContentVersion.Wealth_Product_Manufacturer__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -558,7 +563,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Event.Completed_Date__c</field>
+        <field>Event.CompletedDate__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -638,7 +643,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Task.Completed_Date__c</field>
+        <field>Task.CompletedDate__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

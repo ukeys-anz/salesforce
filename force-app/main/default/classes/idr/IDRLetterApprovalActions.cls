@@ -28,7 +28,7 @@ public with sharing class IDRLetterApprovalActions {
 
     Map<Id, Case> caseMap = new Map<Id, Case>(
       [
-        SELECT id, IDR_Customer_Number__c, IDR_Customer_Identifier__c 
+        SELECT id, IDR_Customer_Number__c, IDR_Customer_Identifier__c
         FROM Case
         WHERE Id IN :caseIds AND IDR_Customer_Number__c != NULL
       ]
@@ -36,15 +36,16 @@ public with sharing class IDRLetterApprovalActions {
 
     for (IDR_Letter_Approval__c app : approvalRecords) {
       if (caseMap.containsKey(app.IDR_Case__c)) {
-        capIdMap.put(
-          app.id,
-          caseMap.get(app.IDR_Case__c)
-        );
+        capIdMap.put(app.id, caseMap.get(app.IDR_Case__c));
       }
     }
 
     for (Id appRecId : capIdMap.keySet()) {
-        makeOCVCallout(capIdMap.get(appRecId).IDR_Customer_Number__c,capIdMap.get(appRecId).IDR_Customer_Identifier__c , appRecId);
+      makeOCVCallout(
+        capIdMap.get(appRecId).IDR_Customer_Number__c,
+        capIdMap.get(appRecId).IDR_Customer_Identifier__c,
+        appRecId
+      );
     }
   }
 
@@ -61,7 +62,8 @@ public with sharing class IDRLetterApprovalActions {
     String approvalRecId
   ) {
     Map<String, Object> responseMap = GetCustomerInformation.getCustomerData(
-      customerNumber, customerIdentifier
+      customerNumber,
+      customerIdentifier
     );
     Map<String, Object> customerData = (Map<String, Object>) responseMap.get(
       'profile'
@@ -104,17 +106,18 @@ public with sharing class IDRLetterApprovalActions {
       )
     );
 
-    if(IDR_Letter_Approval_Details__c.sObjectType.getDescribe().isCreateable()){
-        insert appDetailsList;
+    if (
+      IDR_Letter_Approval_Details__c.sObjectType.getDescribe().isCreateable()
+    ) {
+      insert appDetailsList;
     }
-    
 
     IDR_Letter_Approval__c appRec = new IDR_Letter_Approval__c(
       id = approvalRecId
     );
     appRec.Customer_Data_updated__c = true;
-    if(IDR_Letter_Approval__c.sObjectType.getDescribe().isUpdateable()){
-        update appRec;
+    if (IDR_Letter_Approval__c.sObjectType.getDescribe().isUpdateable()) {
+      update appRec;
     }
   }
 

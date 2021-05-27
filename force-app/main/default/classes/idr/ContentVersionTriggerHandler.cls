@@ -22,6 +22,9 @@ public with sharing class ContentVersionTriggerHandler extends Lib_TriggerHandle
         null,
         SObjectType.ContentVersion.FieldSets.IDR_Masked_Fields.getFields()
       );
+      if (String.isBlank(record.UUID__c)) {
+        record.UUID__c = CommonUtil.generateUUID();
+      }
     }
   }
 

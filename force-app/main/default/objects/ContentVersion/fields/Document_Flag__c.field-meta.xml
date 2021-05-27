@@ -9,7 +9,7 @@
     <label>Document Flag</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
-    <trackHistory>false</trackHistory>
+    <trackHistory>true</trackHistory>
     <type>MultiselectPicklist</type>
     <valueSet>
         <restricted>true</restricted>

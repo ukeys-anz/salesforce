@@ -26,7 +26,10 @@ private with sharing class GetCustomerInformationTest {
     // Call method to test.
     // This causes a fake response to be sent
     // from the class that implements HttpCalloutMock.
-    Map<String, Object> info = GetCustomerInformation.getCustomerData('12345', 'CAP ID');
+    Map<String, Object> info = GetCustomerInformation.getCustomerData(
+      '12345',
+      'CAP ID'
+    );
     Map<String, Object> profile = (Map<String, Object>) info.get('profile');
 
     // Verify response received contains fake values
@@ -65,7 +68,8 @@ private with sharing class GetCustomerInformationTest {
     Test.startTest();
     try {
       Map<String, Object> info = GetCustomerInformation.getCustomerData(
-        '12345', 'CAP ID'
+        '12345',
+        'CAP ID'
       );
     } catch (Exception e) {
       System.Assert(
@@ -99,7 +103,8 @@ private with sharing class GetCustomerInformationTest {
     Test.startTest();
     try {
       Map<String, Object> info = GetCustomerInformation.getCustomerData(
-        '12345', 'CAP ID'
+        '12345',
+        'CAP ID'
       );
     } catch (Exception e) {
       System.Assert(

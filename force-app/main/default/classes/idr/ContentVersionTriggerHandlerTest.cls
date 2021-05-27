@@ -38,4 +38,18 @@ private with sharing class ContentVersionTriggerHandlerTest {
       'Description should be masked.'
     );
   }
+
+  @isTest
+  static void testUUID() {
+    //GIVEN files
+    //WHEN they're inserted
+    //THEN UUIDs have been generated
+    //(Uniqueness and pattern have already been tested in CommonUtilTest)
+    ContentVersion cv = [SELECT UUID__c FROM ContentVersion LIMIT 1];
+    System.assertEquals(
+      false,
+      String.isBlank(cv.UUID__c),
+      'A UUID should have been generated'
+    );
+  }
 }

@@ -9,6 +9,6 @@
     <label>Date of Document</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
-    <trackHistory>false</trackHistory>
+    <trackHistory>true</trackHistory>
     <type>DateTime</type>
 </CustomField>

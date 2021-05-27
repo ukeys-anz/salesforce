@@ -117,4 +117,21 @@ public with sharing class CommonUtil {
       }
     }
   }
+
+  /**
+   * @description Generates a standard UUID (Universally Unique Identifier)
+   * @return A UUID, e.g. 874ddf01-552c-dc25-821b-33c57946632e
+   */
+  public static String generateUUID() {
+    String uuid = EncodingUtil.ConvertTohex(Crypto.GenerateAESKey(128));
+    return uuid.Substring(0, 8) +
+      '-' +
+      uuid.SubString(8, 12) +
+      '-' +
+      uuid.SubString(12, 16) +
+      '-' +
+      uuid.SubString(16, 20) +
+      '-' +
+      uuid.substring(20);
+  }
 }

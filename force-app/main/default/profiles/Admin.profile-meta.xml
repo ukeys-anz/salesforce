@@ -1519,6 +1519,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>ContentVersion.Document_Category__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>ContentVersion.Document_Flag__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1534,7 +1539,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>ContentVersion.Document_Category__c</field>
+        <field>ContentVersion.UUID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

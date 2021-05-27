@@ -18,7 +18,10 @@ public with sharing class GetCustomerInformation {
    * @exception CalloutException
    */
   @AuraEnabled(cacheable=false)
-  public static map<String, Object> getCustomerData(String customerId, String customerIdentifier) {
+  public static map<String, Object> getCustomerData(
+    String customerId,
+    String customerIdentifier
+  ) {
     map<String, Object> customerData = new Map<String, Object>();
     String responseBody = null;
     if (String.isNotBlank(customerId)) {
@@ -27,7 +30,7 @@ public with sharing class GetCustomerInformation {
       request.setMethod('POST');
       request.setHeader('consumer_id', 'salesforce');
       request.setHeader('Content-type', 'application/json');
-      request.setBody( getBody(customerId,customerIdentifier));
+      request.setBody(getBody(customerId, customerIdentifier));
       HTTPResponse response = null;
       try {
         Http http = new Http();
@@ -66,17 +69,20 @@ public with sharing class GetCustomerInformation {
     }
   }
 
-/**
+  /**
    * @description prepares the body for the callout
    * @param customerId Customer Identifier Id
    * @param customerIdentifier Customer Identifier Type
    * @return `map<String, Object>`
    * @exception CalloutException
    */
-  public static String getBody(String customerId,String customerIdentifier){
-    CustomerIdentifiers cusIden= new CustomerIdentifiers();
+  public static String getBody(String customerId, String customerIdentifier) {
+    CustomerIdentifiers cusIden = new CustomerIdentifiers();
     IdentifierDetails cls = new IdentifierDetails();
-    cls.identifierUsageType = ((String.isNotBlank(customerIdentifier) && customerIdentifier.contains('CAP ID')) ? 'CAP ID' : customerIdentifier) ;
+    cls.identifierUsageType = ((String.isNotBlank(customerIdentifier) &&
+      customerIdentifier.contains('CAP ID'))
+      ? 'CAP ID'
+      : customerIdentifier);
     cls.identifier = customerId;
     cusIden.identifiers.add(cls);
 
@@ -84,19 +90,19 @@ public with sharing class GetCustomerInformation {
   }
 
   /**
- * @description  Wrapper class to build the body
- * 
- */
-  public class CustomerIdentifiers{
-    public List<IdentifierDetails> identifiers = new List<IdentifierDetails>()  ;
+   * @description  Wrapper class to build the body
+   *
+   */
+  public class CustomerIdentifiers {
+    public List<IdentifierDetails> identifiers = new List<IdentifierDetails>();
   }
-  
-   /**
- * @description  Wrapper class to build the body
- * 
- */
-  public class IdentifierDetails{
-    public String identifierUsageType ='';
-    public String identifier='';
+
+  /**
+   * @description  Wrapper class to build the body
+   *
+   */
+  public class IdentifierDetails {
+    public String identifierUsageType = '';
+    public String identifier = '';
   }
 }

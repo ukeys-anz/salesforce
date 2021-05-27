@@ -8,7 +8,7 @@
     <label>Wealth Product Manufacturer</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
-    <trackHistory>false</trackHistory>
+    <trackHistory>true</trackHistory>
     <type>Picklist</type>
     <valueSet>
         <controllingField>Party_who_sent_created_file__c</controllingField>
