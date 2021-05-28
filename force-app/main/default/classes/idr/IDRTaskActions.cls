@@ -151,9 +151,7 @@ public without sharing class IDRTaskActions {
           WhatId IN :caseTaskMap.keySet()
           AND RecordTypeId = :IDRConstants.IDR_SYSTEM_TASK_RT_ID
           AND Id NOT IN :currentTask
-          AND Status != :IDRConstants.TASK_STATUS_COMPLETED
-          AND Status != :IDRConstants.TASK_STATUS_EXPIRED
-          AND Status != :IDRConstants.TASK_STATUS_FAILED
+          AND isClosed = false
           AND (Subject = :IDRConstants.TASK_SUBJECT_DAY5
           OR Subject = :IDRConstants.TASK_SUBJECT_DAY1)
       ];
