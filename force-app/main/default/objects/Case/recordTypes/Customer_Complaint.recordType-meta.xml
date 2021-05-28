@@ -2993,10 +2993,6 @@
     <picklistValues>
         <picklist>IDR_Customer_Identifier__c</picklist>
         <values>
-            <fullName>Business CAP ID</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>CACHE ID</fullName>
             <default>false</default>
         </values>
@@ -3005,7 +3001,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer CAP ID</fullName>
+            <fullName>Customer/Business CAP ID</fullName>
             <default>false</default>
         </values>
         <values>
