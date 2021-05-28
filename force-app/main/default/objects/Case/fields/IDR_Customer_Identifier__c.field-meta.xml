@@ -17,9 +17,9 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Customer CAP ID</fullName>
+                <fullName>Customer/Business CAP ID</fullName>
                 <default>false</default>
-                <label>Customer CAP ID</label>
+                <label>Customer/Business CAP ID</label>
             </value>
             <value>
                 <fullName>CACHE ID</fullName>
@@ -35,11 +35,6 @@
                 <fullName>CRN</fullName>
                 <default>false</default>
                 <label>CRN</label>
-            </value>
-            <value>
-                <fullName>Business CAP ID</fullName>
-                <default>false</default>
-                <label>Business CAP ID</label>
             </value>
         </valueSetDefinition>
     </valueSet>
