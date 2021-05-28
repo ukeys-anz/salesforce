@@ -114,6 +114,16 @@ public with sharing class IDRCaseNotificationManager {
         msgBody,
         null
       );
+    } else if (fieldLabel == 'Email Response Attached') {
+      msgBody =
+        'A new email response has been received on case : ' + c.CaseNumber;
+      wrapper = new IDRBankerNotificationWrapper(
+        c,
+        new List<Id>{ c.OwnerId },
+        c.CaseNumber,
+        msgBody,
+        null
+      );
     } else {
       msgBody = fieldLabel + 'field has been changed';
       if (fieldLabel.equalsIgnoreCase(IDRConstants.CASE_OWNER_ID)) {
