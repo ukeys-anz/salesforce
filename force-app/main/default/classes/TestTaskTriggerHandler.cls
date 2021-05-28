@@ -145,8 +145,8 @@ private class TestTaskTriggerHandler {
         )
       );
     }
-    newTasks[0].Subject = 'STOP COLLECTIONS FOR ****1111';
-    newTasks[1].Subject = 'RESTART COLLECTIONS FOR ****1111';
+    newTasks[0].Subject = 'STOP Collection FOR ****1111';
+    newTasks[1].Subject = 'START Collection FOR ****1111';
     //WHEN they are inserted into Salesforce
     insert newTasks;
 
