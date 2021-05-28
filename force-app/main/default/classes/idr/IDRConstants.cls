@@ -91,6 +91,7 @@ public with sharing class IDRConstants {
   public static final string TASK_STANDARD_PRIORITY = 'Standard';
   public static final string TASK_STATUS_EXPIRED = 'Expired';
   public static final string TASK_STATUS_COMPLETED = 'Completed';
+  public static final string TASK_STATUS_FAILED = 'Failed';
   public static final string MILESTONE_STANDARD = '30-day IDR Response Due';
   public static final string MILESTONE_PRIORITY = '21-day IDR Response Due';
 
