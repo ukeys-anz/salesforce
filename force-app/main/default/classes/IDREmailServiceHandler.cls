@@ -55,7 +55,7 @@ public with sharing class IDREmailServiceHandler {
     List<Case> caseToUpdList;
     if (Case.sObjectType.getDescribe().isQueryable()) {
       caseToUpdList = [
-        SELECT Id
+        SELECT Id, CaseNumber, OwnerId
         FROM Case
         WHERE
           CaseNumber = :caseNo
@@ -70,6 +70,16 @@ public with sharing class IDREmailServiceHandler {
       try {
         //Create email message
         IDREmailServiceHelper.createEmailMessage(email, caseToUpd.Id);
+        //Notify Case Owner
+        IDRBankerNotificationBuilder.sendNotification(
+          new List<IDRBankerNotificationWrapper>{
+            IDRCaseNotificationManager.createNotification(
+              'Email Response Attached',
+              caseToUpd,
+              null
+            )
+          }
+        );
       } catch (Exception err) {
         Lib_SystemLog.logAPIError(
           IDREmailServiceHandler.class.getName(),
