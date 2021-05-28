@@ -32,7 +32,7 @@
             <columnToColumn>false</columnToColumn>
             <isUnlocked>false</isUnlocked>
             <operator>contains</operator>
-            <value>STOP COLLECTIONS</value>
+            <value>STOP Collection</value>
         </criteriaItems>
         <criteriaItems>
             <column>ASSIGNED</column>
