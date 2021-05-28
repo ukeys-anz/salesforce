@@ -145,8 +145,8 @@ private class TestTaskTriggerHandler {
         )
       );
     }
-    newTasks[0].Subject = 'STOP Collection FOR ****1111';
-    newTasks[1].Subject = 'START Collection FOR ****1111';
+    newTasks[0].Subject = IDRTaskActions.STOP_COLLECTIONS_SUBJECT + '- Account with 3rd Party/Asset Finance';
+    newTasks[1].Subject = IDRTaskActions.START_COLLECTIONS_SUBJECT + '- Account with 3rd Party/Asset Finance';
     //WHEN they are inserted into Salesforce
     insert newTasks;
 

@@ -9,9 +9,9 @@ public without sharing class IDRTaskActions {
 
   private static final String START_COLLECTIONS_QUEUE_NAME = 'IDR_Restart_Collections';
 
-  private static final String STOP_COLLECTIONS_SUBJECT = 'STOP Collection';
+  public static final String STOP_COLLECTIONS_SUBJECT = 'STOP Collection';
 
-  private static final String START_COLLECTIONS_SUBJECT = 'START Collection';
+  public static final String START_COLLECTIONS_SUBJECT = 'START Collection';
 
   public static Group stopQueue = [
     SELECT id
