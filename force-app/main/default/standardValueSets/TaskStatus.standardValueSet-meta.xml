@@ -25,4 +25,10 @@
         <label>Expired</label>
         <closed>true</closed>
     </standardValue>
+    <standardValue>
+        <fullName>Failed</fullName>
+        <default>false</default>
+        <label>Failed</label>
+        <closed>true</closed>
+    </standardValue>
 </StandardValueSet>
