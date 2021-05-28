@@ -11,6 +11,7 @@ RecordType.DeveloperName = &apos;IDR_System_Task&apos;,
 OR
 (
 Text(PRIORVALUE(Status)) = &apos;Completed&apos;,
+Text(PRIORVALUE(Status)) = &apos;Failed&apos;,
 ISCHANGED(Subject)
 )
 )</errorConditionFormula>
