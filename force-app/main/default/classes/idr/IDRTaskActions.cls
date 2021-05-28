@@ -9,9 +9,11 @@ public without sharing class IDRTaskActions {
 
   private static final String START_COLLECTIONS_QUEUE_NAME = 'IDR_Restart_Collections';
 
-  private static final String STOP_COLLECTIONS_SUBJECT = 'STOP COLLECTIONS';
+  @testVisible
+  private static final String STOP_COLLECTIONS_SUBJECT = 'STOP Collection';
 
-  private static final String START_COLLECTIONS_SUBJECT = 'START COLLECTIONS';
+  @testVisible
+  private static final String START_COLLECTIONS_SUBJECT = 'START Collection';
 
   public static Group stopQueue = [
     SELECT id
@@ -78,8 +80,10 @@ public without sharing class IDRTaskActions {
       ) {
         if (record.Subject.contains(STOP_COLLECTIONS_SUBJECT)) {
           record.OwnerId = stopQueue.Id;
+          record.ActivityDate = Date.today();
         } else if (record.Subject.contains(START_COLLECTIONS_SUBJECT)) {
           record.OwnerId = startQueue.Id;
+          record.ActivityDate = Date.today().addDays(14);
         }
       }
     }
@@ -149,8 +153,7 @@ public without sharing class IDRTaskActions {
           WhatId IN :caseTaskMap.keySet()
           AND RecordTypeId = :IDRConstants.IDR_SYSTEM_TASK_RT_ID
           AND Id NOT IN :currentTask
-          AND Status != :IDRConstants.TASK_STATUS_COMPLETED
-          AND Status != :IDRConstants.TASK_STATUS_EXPIRED
+          AND isClosed = false
           AND (Subject = :IDRConstants.TASK_SUBJECT_DAY5
           OR Subject = :IDRConstants.TASK_SUBJECT_DAY1)
       ];

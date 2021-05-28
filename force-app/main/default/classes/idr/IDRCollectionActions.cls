@@ -5,9 +5,9 @@
  */
 @SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
 public with sharing class IDRCollectionActions {
-  private static final String STOP_COLLEC_TASK_SUBJECT = 'Stop Collection is triggered from Salesforce for ';
+  private static final String STOP_COLLEC_TASK_SUBJECT = 'STOP Collection is triggered from Salesforce for ';
 
-  private static final String START_COLLEC_TASK_SUBJECT = 'Start Collection is triggered from Salesforce for ';
+  private static final String START_COLLEC_TASK_SUBJECT = 'START Collection is triggered from Salesforce for ';
 
   private static final String ACC_NUMBER_NA = 'N/A';
 

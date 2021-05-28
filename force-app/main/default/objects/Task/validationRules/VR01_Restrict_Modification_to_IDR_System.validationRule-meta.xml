@@ -10,7 +10,7 @@ $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
 RecordType.DeveloperName = &apos;IDR_System_Task&apos;,
 OR
 (
-Text(PRIORVALUE(Status)) = &apos;Completed&apos;,
+PRIORVALUE(IsClosed),
 ISCHANGED(Subject)
 )
 )</errorConditionFormula>
