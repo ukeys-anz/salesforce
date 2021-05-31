@@ -173,7 +173,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   //systemic fields
   commonComplaint = IS_COMMON_COMPLAINT_FIELD;
-  isRealFormNeeded = IS_REAL_FORM_NEED_FIELD;
+  isRealFormNeeded = false;
   systemicIssueDescription = SYSTEMIC_ISSUE_DESCRIPTION;
   SystemicIssue = SYSTEMIC_ISSUE_LOOKUP_FIELD;
   systemicIssueCategory = SYSTEMIC_ISSUE_CATEGORY;
@@ -531,6 +531,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     // validate the data in customer number is as expected.
     if (
       this.isCustomerComplaint &&
+      this.customerIdentifierValue === CUS_IDENTIFIER_CAPCIS_ID &&
       !this.customerIdValue.match("^[0-9]{10,}$")
     ) {
       isFieldValid = false;
@@ -669,6 +670,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
           }
         })
         .catch((error) => {
+          console.log("Error Body" + error.body);
           if (
             error.body.enhancedErrorType === "RecordError" &&
             error.body.output.errors[0].errorCode === "INSUFFICIENT_ACCESS" &&
