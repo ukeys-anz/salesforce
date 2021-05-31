@@ -592,6 +592,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
         fields[OCV_ID.fieldApiName] = this.ocvId;
         fields[CP_ID.fieldApiName] = this.cpId;
         fields[RM_COMPLAINT.fieldApiName] = this.isRmComplaint;
+        fields[
+          CUS_IDENTIFIER_FIELD.fieldApiName
+        ] = this.customerIdentifierValue;
       }
       fields[DESCRIPTION_FIELD.fieldApiName] = this.description;
       fields[PRODUCT_LOOKUP_FIELD.fieldApiName] = this.productValue;
@@ -611,7 +614,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
       fields[CONSENT_OBTAINED.fieldApiName] = this.consentValue;
       fields[RECORDTYPE_FIELD.fieldApiName] = this.recordType;
       fields[STATUS_FIELD.fieldApiName] = this.caseStatus;
-      fields[CUS_IDENTIFIER_FIELD.fieldApiName] = this.customerIdentifierValue;
       if (this.isComplaintResolved) {
         if (this.isFinancialComplaintRemedy) {
           fields[
@@ -668,7 +670,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
           }
         })
         .catch((error) => {
-          console.log("Error Body" + error.body);
           if (
             error.body.enhancedErrorType === "RecordError" &&
             error.body.output.errors[0].errorCode === "INSUFFICIENT_ACCESS" &&
