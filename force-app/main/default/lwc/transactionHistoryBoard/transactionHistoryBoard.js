@@ -131,6 +131,18 @@ export default class TransactionHistoryBoard extends LightningElement {
                 currentTransaction.amount.charged.value = 0;
               }
 
+              //Remove $ from value and convert to int
+              if (
+                currentTransaction.amount &&
+                currentTransaction.amount.converted &&
+                currentTransaction.amount.converted.value
+              ) {
+                currentTransaction.amount.converted.value = parseFloat(
+                  currentTransaction.amount.converted.value.replace("$", ""),
+                  10
+                ).toFixed(2);
+              }
+
               //Remap type and status
               currentTransaction.transactionType = currentTransaction.transactionType
                 ? transactionTypeMapping[currentTransaction.transactionType]

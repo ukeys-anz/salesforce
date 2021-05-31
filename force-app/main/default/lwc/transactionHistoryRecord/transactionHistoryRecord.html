@@ -25,22 +25,26 @@
       </div>
       <div class="slds-col slds-size--1-of-7">
         <div class="slds-grid slds-form-element__label">Short Description</div>
-        <div class="slds-grid">{transactionRecord.enrichmentId}</div>
+        <div class="slds-grid slds-hyphenate">
+          {transactionRecord.enrichmentId}
+        </div>
       </div>
       <div class="slds-col slds-size--1-of-7">
         <div class="slds-grid slds-form-element__label">Amount</div>
         <div class="slds-grid">
           <template if:true={positiveAmount}>
             <span class="positive-amount"
-              >+$<lightning-formatted-number
+              >+<lightning-formatted-number
                 value={amountNumber}
+                format-style="currency"
               ></lightning-formatted-number
             ></span>
           </template>
           <template if:true={negativeAmount}>
             <span
-              >$<lightning-formatted-number
+              ><lightning-formatted-number
                 value={amountNumber}
+                format-style="currency"
               ></lightning-formatted-number
             ></span>
           </template>
@@ -146,7 +150,12 @@
               <div class="slds-grid slds-form-element__label">
                 Converted Amount
               </div>
-              <div class="slds-grid">{amountConvertedValue}</div>
+              <div class="slds-grid">
+                <lightning-formatted-number
+                  value={amountConvertedValue}
+                  format-style="currency"
+                ></lightning-formatted-number>
+              </div>
             </div>
             <div class="slds-col slds-size--1-of-7">
               <div class="slds-grid slds-form-element__label">
