@@ -8,21 +8,20 @@ public with sharing class ChatContextServiceTest {
   @testSetup
   static void testSetup() {
     Faker faker = new Faker('AU');
-    Profile p = [
-      SELECT Id
-      FROM Profile
-      WHERE Name = 'Minimum Access - External Apps'
-    ];
-    UserRole role = [SELECT Id FROM UserRole WHERE DeveloperName = 'ANZx'];
+    Profile p = CommonUtil.getProfileByName('Minimum Access - External Apps');
+    UserRole role = CommonUtil.getUserRoleByDevName('ANZx');
 
     // Insert Account, Case, & User as current user, to get around MIXED_DML_OPERATION error
     User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
     System.runAs(thisUser) {
       //Create Twilio API User User
-      User apiUser = (User) FakerFactory.make(new FakerUserFactory());
-      apiUser.FirstName = 'APIUserTest';
-      apiUser.ProfileId = p.Id;
-      apiUser.UserRoleId = role.Id;
+      User apiUser = TestUtil.createTestUser(
+        new Map<String, Object>{
+          'FirstName' => 'APIUserTest',
+          'ProfileId' => p.Id,
+          'UserRoleId' => role.Id
+        }
+      );
       insert apiUser;
 
       // Assign Case related PS on API User
@@ -38,11 +37,7 @@ public with sharing class ChatContextServiceTest {
       ];
       List<PermissionSetAssignment> psaList = new List<PermissionSetAssignment>();
       for (PermissionSet ps : psList) {
-        PermissionSetAssignment psa = new PermissionSetAssignment(
-          AssigneeId = apiUser.id,
-          PermissionSetId = ps.Id
-        );
-        psaList.add(psa);
+        psaList.add(TestUtil.createPSAssignment(apiUser.id, ps.Id));
       }
       insert psaList;
 
@@ -68,7 +63,7 @@ public with sharing class ChatContextServiceTest {
 
     // GIVEN Twilo API user has required acces to Salesforce API
     // Query for API User
-    User usr = [SELECT Id FROM User WHERE FirstName = 'APIUserTest' LIMIT 1];
+    User usr = TestUtil.getUserByFirstName('APIUserTest');
 
     // WHEN Twilio API user send a request with valid OCV ID
     // Prepare request test data
@@ -114,7 +109,7 @@ public with sharing class ChatContextServiceTest {
 
     // GIVEN Twilo API user has required acces to Salesforce API
     // Query for API User
-    User usr = [SELECT Id FROM User WHERE FirstName = 'APIUserTest' LIMIT 1];
+    User usr = TestUtil.getUserByFirstName('APIUserTest');
 
     // WHEN Twilio API user send an invalid request
     //Prepare request test data (not setting Channel SID on purpose to make the request invalid)
@@ -158,7 +153,7 @@ public with sharing class ChatContextServiceTest {
 
     // GIVEN Twilo API user has required acces to Salesforce API
     // Query for API User
-    User usr = [SELECT Id FROM User WHERE FirstName = 'APIUserTest' LIMIT 1];
+    User usr = TestUtil.getUserByFirstName('APIUserTest');
 
     // WHEN Twilio API user send a request with an invalid OCV ID
     //Prepare request test data (setting an invalid OCV ID)
@@ -199,7 +194,7 @@ public with sharing class ChatContextServiceTest {
   static void testCaseAlreadyExists() {
     // GIVEN Twilo API user has required acces to Salesforce API
     // Query for API User
-    User usr = [SELECT Id FROM User WHERE FirstName = 'APIUserTest' LIMIT 1];
+    User usr = TestUtil.getUserByFirstName('APIUserTest');
 
     // Create a test Case with a known Channel SID
     Account acc = [
@@ -259,7 +254,7 @@ public with sharing class ChatContextServiceTest {
     Faker faker = new Faker('AU');
     // GIVEN Twilo API user has required acces to Salesforce API
     // Query for API User
-    User usr = [SELECT Id FROM User WHERE FirstName = 'APIUserTest' LIMIT 1];
+    User usr = TestUtil.getUserByFirstName('APIUserTest');
 
     // WHEN Twilio API user sends a request with valid OCV ID and Channel SID, but with an invalid Case Type (No existing Cases against the same customer and Channel SID).
     //Prepare request test data
