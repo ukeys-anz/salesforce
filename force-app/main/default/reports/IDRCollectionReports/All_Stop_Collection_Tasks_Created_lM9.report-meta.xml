@@ -10,7 +10,7 @@
         <field>STATUS</field>
     </columns>
     <columns>
-        <field>CDF1</field>
+        <field>DUE_DATE</field>
     </columns>
     <columns>
         <field>CASE_NUMBER</field>
@@ -19,10 +19,12 @@
         <field>Case.IDR_Date_Received__c</field>
     </columns>
     <customDetailFormulas>
-        <calculatedFormula>CASE_OWNER</calculatedFormula>
+        <calculatedFormula>IF (DATEVALUE(NOW()) - DATEVALUE(CREATED_DATE)==0,&apos;Day 1&apos;,
+IF (DATEVALUE(NOW()) - DATEVALUE(CREATED_DATE)==1, &apos;Day 2&apos;,
+If (DATEVALUE(NOW()) - DATEVALUE(CREATED_DATE)==2, &apos;Day 3&apos;, &apos;&gt;Day 3&apos;)))</calculatedFormula>
         <dataType>Text</dataType>
         <developerName>CDF1</developerName>
-        <label>Case Owner</label>
+        <label>Due (In Days)</label>
         <scale>2</scale>
     </customDetailFormulas>
     <description>Report to show customer complaints with open stop collection tasks</description>
@@ -53,6 +55,11 @@
     <groupingsDown>
         <dateGranularity>Day</dateGranularity>
         <field>ASSIGNED</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>CDF1</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
     <name>All Open Stop Collection Tasks</name>
