@@ -241,7 +241,6 @@ public with sharing class IDRCollectionActions {
     return new Task(
       RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID,
       IDR_Collection_Number__c = collectionNumber,
-      OwnerId = c.OwnerId,
       WhatId = c.Id,
       Subject = subject + accountNumber,
       Status = 'Completed',
