@@ -24,7 +24,7 @@ public with sharing class IDRCaseActions {
   private static final String OPEN_STATUS = 'Open';
   @TestVisible
   private static final String UNDER_INVESTIGATION_STATUS = 'Under Investigation';
-  private static final String ESCALATED_STATUS = 'Escalated';
+  public static final String ESCALATED_STATUS = 'Escalated';
   private static final String REOPENED_STATUS = 'Re-opened';
   private static final String CLOSED_STATUS = 'Closed';
   private static final String RESOLVED_STATUS = 'Resolved';
@@ -61,7 +61,7 @@ public with sharing class IDRCaseActions {
 
   private static final String CRC_QUEUE_DEVELOPER_NAME = 'CRC_Team';
 
-  private static final String QUEUE_TYPE = 'Queue';
+  public static final String QUEUE_TYPE = 'Queue';
 
   private static final String DELETE_ERROR = 'You cannot delete cases';
 
@@ -109,8 +109,10 @@ public with sharing class IDRCaseActions {
    * However in situations where the ID or CaseNumber is used which is only generated in onAfterInsert that logic needs to go in onAfterInsert.
    */
   public static void applyDefaults(List<Case> records) {
+    Id entitlementId = getEntitlement();
     for (Case record : records) {
       if (isIDRComplaintType(record)) {
+        record.EntitlementId = entitlementId;
         handleMasking(record);
         handleAnonymousNames(record);
         handleCaseStatusChanges(record);
@@ -122,6 +124,7 @@ public with sharing class IDRCaseActions {
       }
     }
     handleOfficeAssignment(changeOfficeCaseList);
+    IDRCaseAssignmentRules.assignCases(records, null);
     stampQueueName(records, null);
   }
 
@@ -135,9 +138,10 @@ public with sharing class IDRCaseActions {
         if (NOTIFICATION_STATUS.contains(record.Status)) {
           notificationCaseList.add(record);
         }
-        checkForCRCEscalation(record);
+        checkForCRCEscalation(record, null);
       }
     }
+    escalateToCFMS(caseEscalationList);
   }
 
   /**
@@ -170,6 +174,8 @@ public with sharing class IDRCaseActions {
       }
       //calling handleOfficeAssignment for all case records for which the IDR_Office__c needs to be updated.
       handleOfficeAssignment(changeOfficeCaseList);
+      IDRCaseAssignmentRules.assignCases(records, (Map<Id, Case>) oldMap);
+
     }
     stampQueueName(records, (Map<Id, Case>) oldMap);
   }
@@ -183,29 +189,32 @@ public with sharing class IDRCaseActions {
    * @param records from the trigger
    */
   public static void afterUpdate(Map<Id, SObject> oldMap, List<Case> records) {
-    for (Integer i = 0; i < records.size(); i++) {
+    for (Case record : records) {
+      Case oldRec = (Case) oldMap.get(record.id);
       if (
-        records.get(i).Status != ((Case) oldMap.get(records.get(i).id)).Status
+        record.Status != oldRec.Status && 
+        isIDRComplaintType(record)
       ) {
-        if (NOTIFICATION_STATUS.contains(records.get(i).Status)) {
-          notificationCaseList.add(records.get(i));
+        if (NOTIFICATION_STATUS.contains(record.Status)) {
+          notificationCaseList.add(record);
         }
-        checkForCRCEscalation(records.get(i));
+        checkForCRCEscalation(record, oldRec);
       }
     }
+    escalateToCFMS(caseEscalationList);
     IDRCaseCommentActions.escalateExistingCommentsToCFMS(oldMap, records);
   }
 
   /**
    * @description Check if this case record needs to be sent for CRC escalation
    * @param record case record
+   * @param oldRec old case record from trigger
    */
-  private static void checkForCRCEscalation(Case record) {
+  private static void checkForCRCEscalation(Case record, Case oldRec) {
     if (
       record.Status == ESCALATED_STATUS &&
-      (record.IDR_Escalated_to__c == ESCALATED_TO_CRC_API_NAME ||
-      (record.OwnerId.getSobjectType() == Group.SobjectType &&
-      record.OwnerId == queue.Id))
+      (oldRec == null ||
+      oldRec.Status != ESCALATED_STATUS)
     ) {
       caseEscalationList.add(record);
     }
@@ -217,46 +226,8 @@ public with sharing class IDRCaseActions {
   public static void completeAfterActions() {
     sendNotifications(notificationCaseList);
     CheckRecursive.run();
-    executeAssignmentRule(caseEscalationList);
     notificationCaseList.clear();
     caseEscalationList.clear();
-  }
-
-  /**
-   * @description onBeforeDelete of IDR Case records. FOr complaints no user is allowed to delete a complaint.
-  /**
-   * @description Execute the assignment rules on escalated cases
-   * @param caseList List of escalated cases
-   */
-  public static void executeAssignmentRule(List<Case> caseList) {
-    List<Case> cList = new List<Case>();
-    for (Case c : caseList) {
-      Case caseRecord = new Case(id = c.id);
-      Database.DMLOptions dmo = new Database.DMLOptions();
-      dmo.assignmentRuleHeader.useDefaultRule = true;
-      caseRecord.setOptions(dmo);
-      cList.add(caseRecord);
-    }
-
-    List<Database.SaveResult> saveResultList = Database.update(cList, false);
-
-    for (Database.SaveResult sr : saveResultList) {
-      if (!sr.isSuccess()) {
-        // Operation failed, so get all errors
-        for (Database.Error err : sr.getErrors()) {
-          Lib_SystemLog.logAPIError(
-            IDRCaseActions.class.getName(),
-            'Error in executing case Assignment Rule for record id' +
-            sr.getId(),
-            err.getMessage(),
-            null,
-            IDRCaseActions.class.getName(),
-            null,
-            null
-          );
-        }
-      }
-    }
   }
 
   /**
@@ -421,15 +392,33 @@ public with sharing class IDRCaseActions {
   }
 
   /**
+   * @description Get the EntitlmentId that will be associated with this case
+   * @return Id  - the Id of the entitlment record
+   */
+  public static Id getEntitlement() {
+    list<Entitlement> et = new List<Entitlement>();
+    if (Entitlement.sObjectType.getDescribe().isQueryable()) {
+      et = [
+        SELECT Id
+        FROM Entitlement
+        WHERE
+          name = :IDRConstants.COMPLAINTS_ENTITLEMENT_NAME
+          AND SlaProcess.Name = :IDRConstants.COMPLAINTS_ENTITLMENT_PROCESS
+          AND STATUS = 'Active'
+      ];
+    }
+    if (et.size() > 0) {
+      return et[0].Id;
+    } else {
+      return null;
+    }
+  }
+
+  /**
    * @description Escalate the list of Records to CRC by publishing a platform event.
    * @param recordsToBeEscalated the cases which data will be escalated
    */
-  @InvocableMethod(
-    label='Escalate complaint to CFMS'
-    description='Publishes complaint escalation platform events'
-    category='Platform Event'
-  )
-  public static void escalateToCFMS(List<Case> recordsToBeEscalated) {
+  private static void escalateToCFMS(List<Case> recordsToBeEscalated) {
     if (!recordsToBeEscalated.isEmpty()) {
       Map<Id, Group> queueMap = getQueuesToEscalate(recordsToBeEscalated);
       idrCaseEscalations = new List<IDR_CRC_Escalation_Event__e>();
@@ -618,7 +607,7 @@ public with sharing class IDRCaseActions {
    * @param record The record for which the recordType needs to be checked
    * @return `Boolean` True if the the record type is of IDR type false otherwise.
    */
-  private static Boolean isIDRComplaintType(Case record) {
+  public static Boolean isIDRComplaintType(Case record) {
     if (
       record.RecordTypeId == CUSTOMER_COMPLAINT_RT_ID ||
       record.RecordTypeId == NON_CUSTOMER_COMPLAINT_RT_ID
