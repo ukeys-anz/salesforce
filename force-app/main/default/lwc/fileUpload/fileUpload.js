@@ -17,7 +17,7 @@ export default class FileUpload extends LightningElement {
       ".doc",
       ".xls",
       ".xlsx",
-      "xlsb",
+      ".xlsb",
       ".eml",
       ".rtf",
       ".txt",
