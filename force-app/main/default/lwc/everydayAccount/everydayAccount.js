@@ -128,7 +128,7 @@ export default class EverydayAccount extends NavigationMixin(LightningElement) {
             );
 
             //Set the badge class based on the status
-            if (finAccount.FinServ__Status__c === "Open") {
+            if (finAccount.FinServ__Status__c === "Active") {
               finAccount.badgeClass = "slds-badge slds-theme_success";
             } else {
               finAccount.badgeClass = "slds-badge slds-theme_error";
