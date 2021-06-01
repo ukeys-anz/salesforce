@@ -193,8 +193,6 @@ public with sharing class IDRCaseActions {
       Case oldRec = (Case) oldMap.get(record.id);
       if (
         record.Status != oldRec.Status && 
-        record.isEscalated &&
-        !oldRec.isEscalated &&
         isIDRComplaintType(record)
       ) {
         if (NOTIFICATION_STATUS.contains(record.Status)) {
@@ -215,8 +213,10 @@ public with sharing class IDRCaseActions {
   private static void checkForCRCEscalation(Case record, Case oldRec) {
     if (
       record.Status == ESCALATED_STATUS &&
+      record.isEscalated &&
       (oldRec == null ||
-      oldRec.Status != ESCALATED_STATUS)
+      (oldRec.Status != ESCALATED_STATUS &&
+      !oldRec.isEscalated))
     ) {
       caseEscalationList.add(record);
     }
