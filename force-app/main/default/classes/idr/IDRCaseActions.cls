@@ -193,6 +193,8 @@ public with sharing class IDRCaseActions {
       Case oldRec = (Case) oldMap.get(record.id);
       if (
         record.Status != oldRec.Status && 
+        record.isEscalated &&
+        !oldRec.isEscalated &&
         isIDRComplaintType(record)
       ) {
         if (NOTIFICATION_STATUS.contains(record.Status)) {
