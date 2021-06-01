@@ -75,7 +75,7 @@ export default class TransactionHistoryBoard extends LightningElement {
       this.ocvId = data.fields.OCV_ID__c.value;
       this.accountNumber = data.fields.FinServ__FinancialAccountNumber__c.value;
       this.handleGetPersonContactId();
-      if (this.disputeRecordTypes.length == 0){
+      if (this.disputeRecordTypes.length == 0) {
         this.handleGetDisputeRecordTypeDetails();
       }
       this.fetchTransactions();
