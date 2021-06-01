@@ -75,7 +75,10 @@ export default class TransactionHistoryBoard extends LightningElement {
       this.ocvId = data.fields.OCV_ID__c.value;
       this.accountNumber = data.fields.FinServ__FinancialAccountNumber__c.value;
       this.handleGetPersonContactId();
-      this.handleGetDisputeRecordTypeDetails();
+      if (this.disputeRecordTypes.length == 0){
+        this.handleGetDisputeRecordTypeDetails();
+      }
+      this.fetchTransactions();
     }
   }
 
@@ -407,9 +410,6 @@ export default class TransactionHistoryBoard extends LightningElement {
             this.disputeRecordTypes.push(recordTypeItem);
           }
         }
-      })
-      .then(() => {
-        this.fetchTransactions();
       })
       .catch((error) => {
         handleErrorShowToast(
