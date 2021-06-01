@@ -116,10 +116,9 @@ export default class TransactionHistoryBoard extends LightningElement {
               let currentTransaction = { ...this.fullTransactionList[i] };
 
               // Set the transaction's dispute record type Id
-              currentTransaction.disputeRecordTypeId =
-                this.transactionTypeDisputeIdMap[
-                  currentTransaction.transactionType
-                ];
+              currentTransaction.disputeRecordTypeId = this.transactionTypeDisputeIdMap[
+                currentTransaction.transactionType
+              ];
 
               //Remove $ from value and convert to int
               if (
@@ -136,25 +135,22 @@ export default class TransactionHistoryBoard extends LightningElement {
               }
 
               //Remap type and status
-              currentTransaction.transactionType =
-                currentTransaction.transactionType
-                  ? transactionTypeMapping[currentTransaction.transactionType]
-                  : "Unknown";
+              currentTransaction.transactionType = currentTransaction.transactionType
+                ? transactionTypeMapping[currentTransaction.transactionType]
+                : "Unknown";
               currentTransaction.status = currentTransaction.status
                 ? transactionStatusMapping[currentTransaction.status]
                 : "Unknown";
 
               //Slice the returned date time to get only the date
-              currentTransaction.TransactionDate =
-                currentTransaction.transactionDate
-                  ? currentTransaction.transactionDate.slice(0, 10)
-                  : "Unknown";
+              currentTransaction.TransactionDate = currentTransaction.transactionDate
+                ? currentTransaction.transactionDate.slice(0, 10)
+                : "Unknown";
 
               //Return only the time from the date time
-              currentTransaction.TransactionTime =
-                currentTransaction.transactionDate
-                  ? currentTransaction.transactionDate.match(/\d\d:\d\d/)
-                  : "Unknown";
+              currentTransaction.TransactionTime = currentTransaction.transactionDate
+                ? currentTransaction.transactionDate.match(/\d\d:\d\d/)
+                : "Unknown";
               currentTransaction.TransactionTime = this.timeConversion(
                 currentTransaction.TransactionTime
               );
@@ -189,8 +185,9 @@ export default class TransactionHistoryBoard extends LightningElement {
 
               //Handle merchant details
               if (currentTransaction.merchant) {
-                currentTransaction =
-                  this.handleMerchantDetails(currentTransaction);
+                currentTransaction = this.handleMerchantDetails(
+                  currentTransaction
+                );
               }
 
               //Remap card scheme to be user friendly
