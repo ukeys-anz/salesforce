@@ -13,6 +13,8 @@ public with sharing class IDRConstants {
   public static final String RESOLVED_STATUS = 'Resolved';
   public static final String WITHDRAWN_STATUS = 'Withdrawn';
 
+  public static final String QUEUE_TYPE = 'Queue';
+  
   //CMOS Case record type Ids
   public static final Id CUSTOMER_COMPLAINT_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('Customer_Complaint')
