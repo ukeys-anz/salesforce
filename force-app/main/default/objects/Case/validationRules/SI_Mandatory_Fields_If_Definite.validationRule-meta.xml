@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>VR13_SI_Mandatory_Fields_If_Definite</fullName>
-    <active>true</active>
-    <description>Additional fields are required if SI is marked as definite.</description>
-    <errorConditionFormula>AND(
+	<fullName>SI_Mandatory_Fields_If_Definite</fullName>
+	<active>true</active>
+	<description>Additional fields are required if SI is marked as definite.</description>
+	<errorConditionFormula>AND(
 	$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
 	RecordType.DeveloperName = &apos;Systemic_Issue&apos;,
 	ISPICKVAL(SI_Definite__c, &apos;Yes&apos;),
@@ -17,6 +17,6 @@
 		ISBLANK(SI_Definite_Conduct_End_Date__c)
 	)
 )</errorConditionFormula>
-    <errorDisplayField>SI_Definite__c</errorDisplayField>
-    <errorMessage>All fields in the Definite systemic Issue Information section are mandatory if issue is marked as definite.</errorMessage>
+	<errorDisplayField>SI_Definite__c</errorDisplayField>
+	<errorMessage>All fields in the Definite systemic Issue Information section are mandatory if issue is marked as definite.</errorMessage>
 </ValidationRule>
