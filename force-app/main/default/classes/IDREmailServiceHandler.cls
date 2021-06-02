@@ -132,8 +132,8 @@ public with sharing class IDREmailServiceHandler {
     //Create new case
     Case newCase = new Case(
       Description = email.plainTextBody?.replaceAll('<.*>', 'REMOVED'),
-      Priority = 'Standard',
-      Status = 'New',
+      Priority = IDRConstants.CASE_PRIORITY_STANDARD,
+      Status = IDRConstants.OPEN_STATUS,
       Subject = email.subject,
       SuppliedEmail = fromEmail,
       recordTypeId = IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID
