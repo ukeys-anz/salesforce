@@ -39,7 +39,7 @@
             <value>Customer Resolution</value>
         </milestoneCriteriaFilterItems>
         <milestoneName>Open Escalation Time</milestoneName>
-        <minutesToComplete>30</minutesToComplete>
+        <minutesToComplete>7680</minutesToComplete>
         <timeTriggers>
             <actions>
                 <name>Escalate_The_Case</name>
