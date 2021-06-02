@@ -175,7 +175,6 @@ public with sharing class IDRCaseActions {
       //calling handleOfficeAssignment for all case records for which the IDR_Office__c needs to be updated.
       handleOfficeAssignment(changeOfficeCaseList);
       IDRCaseAssignmentRules.assignCases(records, (Map<Id, Case>) oldMap);
-
     }
     stampQueueName(records, (Map<Id, Case>) oldMap);
   }
@@ -191,10 +190,7 @@ public with sharing class IDRCaseActions {
   public static void afterUpdate(Map<Id, SObject> oldMap, List<Case> records) {
     for (Case record : records) {
       Case oldRec = (Case) oldMap.get(record.id);
-      if (
-        record.Status != oldRec.Status && 
-        isIDRComplaintType(record)
-      ) {
+      if (record.Status != oldRec.Status && isIDRComplaintType(record)) {
         if (NOTIFICATION_STATUS.contains(record.Status)) {
           notificationCaseList.add(record);
         }
@@ -213,10 +209,8 @@ public with sharing class IDRCaseActions {
   private static void checkForCRCEscalation(Case record, Case oldRec) {
     if (
       record.Status == ESCALATED_STATUS &&
-      record.isEscalated &&
       (oldRec == null ||
-      (oldRec.Status != ESCALATED_STATUS &&
-      !oldRec.isEscalated))
+      oldRec.Status != ESCALATED_STATUS)
     ) {
       caseEscalationList.add(record);
     }
@@ -278,8 +272,7 @@ public with sharing class IDRCaseActions {
     for (Case c : caseList) {
       if (c.OwnerId.getSobjectType() == Group.SobjectType) {
         if (
-          oldCaseMap != null &&
-          oldCaseMap.containsKey(c.id) &&
+          oldCaseMap != null && oldCaseMap.containsKey(c.id) &&
           c.OwnerId != oldCaseMap.get(c.id).OwnerId
         ) {
           queueIds.add(c.OwnerId);
