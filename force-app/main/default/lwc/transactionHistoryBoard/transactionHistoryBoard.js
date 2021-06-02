@@ -10,6 +10,7 @@ import { publish, MessageContext } from "lightning/messageService";
 import ExpandCollapseAll from "@salesforce/messageChannel/ListCollapseExpandAll__c";
 import { handleErrorShowToast } from "c/utils";
 import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
+import TIMEZONE from "@salesforce/i18n/timeZone";
 
 //Remapping the status and types returned from the API so they
 //are more readable on the UI
@@ -38,6 +39,8 @@ const cardMapping = {
   CARD_SCHEME_EFTPOS: "EFTPOS",
   CARD_SCHEME_AMERICAN_EXPRESS: "American Express"
 };
+
+const userTimezone = TIMEZONE;
 
 export default class TransactionHistoryBoard extends LightningElement {
   @api recordId;
@@ -156,14 +159,6 @@ export default class TransactionHistoryBoard extends LightningElement {
                 ? currentTransaction.transactionDate.slice(0, 10)
                 : "Unknown";
 
-              //Return only the time from the date time
-              currentTransaction.TransactionTime = currentTransaction.transactionDate
-                ? currentTransaction.transactionDate.match(/\d\d:\d\d/)
-                : "Unknown";
-              currentTransaction.TransactionTime = this.timeConversion(
-                currentTransaction.TransactionTime
-              );
-
               if (i === 0) {
                 currentTransaction.showDateTitle = true;
               } else if (
@@ -174,6 +169,12 @@ export default class TransactionHistoryBoard extends LightningElement {
               } else {
                 currentTransaction.showDateTitle = false;
               }
+
+              //Create new date with user timezone but in US format
+              //US format required for lightning-formatted-date-time
+              currentTransaction.TransactionDate = new Date(
+                currentTransaction.transactionDate
+              ).toLocaleDateString("en-US", { timeZone: userTimezone });
 
               //Apply odd or even for each item to determine background
               currentTransaction.rowColour =
@@ -218,7 +219,6 @@ export default class TransactionHistoryBoard extends LightningElement {
               currentTransaction.error = currentTransaction.error
                 ? currentTransaction.error
                 : "N/A";
-
               updatedFullList.push(currentTransaction);
             }
           }
@@ -453,20 +453,5 @@ export default class TransactionHistoryBoard extends LightningElement {
           "pester"
         );
       });
-  }
-
-  timeConversion(time) {
-    // Check correct time format and split into components
-    time = time
-      .toString()
-      .match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
-
-    if (time.length > 1) {
-      // If time format correct
-      time = time.slice(1); // Remove full string match value
-      time[5] = +time[0] < 12 ? " AM" : " PM"; // Set AM/PM
-      time[0] = +time[0] % 12 || 12; // Adjust hours
-    }
-    return time.join(""); // return adjusted time or original string
   }
 }
