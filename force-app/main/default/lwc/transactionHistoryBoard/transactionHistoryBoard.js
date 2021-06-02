@@ -64,6 +64,7 @@ export default class TransactionHistoryBoard extends LightningElement {
   disputeRecordTypes = [];
   transactionTypeDisputeIdMap = {};
   personContactId = "";
+  showWarning = true;
 
   @wire(MessageContext)
   messageContext;
@@ -453,5 +454,9 @@ export default class TransactionHistoryBoard extends LightningElement {
           "pester"
         );
       });
+  }
+
+  closeWarning() {
+    this.showWarning = false;
   }
 }
