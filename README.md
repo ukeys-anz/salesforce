@@ -45,8 +45,9 @@ npm install -- force
 
 This will install all the dev dependacies on your local machines, and it will also install a pre-commit hook which runs a script found in `.git-hooks/pre-commit`.
 This script runs:
-* Prettier on all parsable staged files
-* Runs a custom code designed to help with reviewing Einstein Analytics Dataflow JSON
+
+- Prettier on all parsable staged files
+- Runs a custom code designed to help with reviewing Einstein Analytics Dataflow JSON
 
 You will see prettier notices in your terminal everytime you run `git-commit`
 ![Prettier and Git Hooks](https://user-images.githubusercontent.com/73924151/115315255-45aeba80-a1ba-11eb-8633-18aae634eab6.png)

@@ -126,4 +126,56 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
       throw ahe;
     }
   }
+
+  /**
+   * @param ocvId customer id
+   * @return `CardListModel` model class constructed from api response
+   * @description fetches card list from fabric, deserialized to a model
+   */
+  public CardListModel getCardList(String ocvId) {
+    CardListModel result;
+    if (FeatureManagement.checkPermission('ANZx_View_Cards')) {
+      Service s = ServiceProvider.getService(FabricService.class);
+      HttpCalloutResponse response = s.getCardList(ocvId);
+      if (response.successful) {
+        try {
+          result = CardListModel.parse(response.body);
+          for (CardListModel.CardCls card : result.cards) {
+            if (!card.isValid) {
+              handleErrors(
+                null,
+                new InvalidInformationException(
+                  'Card Information is invalid. Please reach out to your system administrator.'
+                ),
+                CoachBankingAPIRepository.class
+              );
+            }
+          }
+        } catch (Exception e) {
+          handleErrors(null, e, CoachBankingAPIRepository.class);
+        }
+      } else {
+        handleErrors(response, null, CoachBankingAPIRepository.class);
+      }
+    } else {
+      handleErrors(
+        null,
+        new PermissionException('User does not have the view cards permission'),
+        CoachBankingAPIRepository.class
+      );
+    }
+    return result;
+  }
+
+  /**
+   * @param ocvId customer id
+   * @return `CardListModel` model class constructed from api response
+   * @description fetches card list from fabric, deserialized to a model used in lwc
+   */
+  @AuraEnabled(cacheable=false)
+  public static CardListModel getCardListAura(String ocvId) {
+    CoachBankingAPIRepository coachapi = new CoachBankingAPIRepository();
+    CardListModel result = coachapi.getCardList(ocvId);
+    return result;
+  }
 }

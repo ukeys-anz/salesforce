@@ -7,6 +7,7 @@
 @isTest
 public with sharing class TestUtil {
   /**
+   * @param psNameList permission name list
    * @description Add required PermissionSet
    */
   public static void addAccountsGoalsPs() {
