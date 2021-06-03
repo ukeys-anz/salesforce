@@ -12,7 +12,7 @@ public with sharing class FabricServiceMock extends Service {
     response.statusCode = 200;
     response.successful = true;
   }
-
+  
   @TestVisible
   private static final String FORGE_TOKEN_RESPONSE = '{"access_token":"xxxxx","expires_in":900}';
 

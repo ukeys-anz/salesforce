@@ -928,11 +928,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Contact.FinServ__Gender__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Contact.FinServ__MailingAddress__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -944,6 +939,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Contact.FinServ__PreferredName__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Contact.Gender__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1948,12 +1948,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Knowledge__kav.Answer__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Knowledge__kav.Question__c</field>
+        <field>Knowledge__kav.Body__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>

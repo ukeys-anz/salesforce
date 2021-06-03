@@ -6,6 +6,12 @@
  */
 @isTest
 public with sharing class TotalBalanceControllerTest {
+  private static User thisUser = [
+    SELECT Id
+    FROM User
+    WHERE Id = :UserInfo.getUserId()
+  ];
+
   /**
    * @description setup is to setup test data
    */
@@ -27,7 +33,7 @@ public with sharing class TotalBalanceControllerTest {
     finAccount.Name = 'Everyday Account';
     finAccount.FinServ__Balance__c = 200;
     finAccount.FinServ__CurrentPostedBalance__c = 200;
-    finAccount.FinServ__Status__c = 'Open';
+    finAccount.FinServ__Status__c = 'Active';
     finAccount.FinServ__FinancialAccountType__c = 'Checking';
     finAccount.FinServ__PrimaryOwner__c = accnt.Id;
     finAccount.Account_Key__c = faker.randomString(9);
@@ -42,7 +48,7 @@ public with sharing class TotalBalanceControllerTest {
           Name = 'Savings Account',
           FinServ__Balance__c = 200,
           FinServ__CurrentPostedBalance__c = 200,
-          FinServ__Status__c = 'Open',
+          FinServ__Status__c = 'Active',
           FinServ__FinancialAccountType__c = 'Savings',
           FinServ__PrimaryOwner__c = accnt.Id,
           Account_Key__c = faker.randomString(9),
@@ -53,7 +59,10 @@ public with sharing class TotalBalanceControllerTest {
 
     insert savingAccounts;
 
-    TestUtil.addAccountsGoalsPs();
+    // Inserting as current user, to get around MIXED_DML_OPERATION error
+    System.runAs(thisUser) {
+      TestUtil.addAccountsGoalsPs();
+    }
   }
 
   /**
@@ -61,7 +70,6 @@ public with sharing class TotalBalanceControllerTest {
    */
   @isTest
   public static void testBalanceRetrieval() {
-    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
     System.runAs(thisUser) {
       Account accnt = [
         SELECT Id

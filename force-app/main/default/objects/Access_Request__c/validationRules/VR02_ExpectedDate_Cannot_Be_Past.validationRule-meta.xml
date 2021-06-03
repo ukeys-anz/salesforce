@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR02_ExpectedDate_Cannot_Be_Past</fullName>
+    <active>true</active>
+    <description>If an access request is raised for a future date then the expected date cannot be in the past.</description>
+    <errorConditionFormula>AND(
+ ISPICKVAL( Status__c ,&apos;&apos;),
+ ISPICKVAL( When__c ,&apos;Future&apos;) ,
+ Expected_Start__c &lt;  NOW() 
+)</errorConditionFormula>
+    <errorDisplayField>Expected_Start__c</errorDisplayField>
+    <errorMessage>Expected Start cannot be in the past if the request is for access in the future.</errorMessage>
+</ValidationRule>
