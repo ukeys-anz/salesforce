@@ -16,16 +16,14 @@
         <field>CASE_NUMBER</field>
     </columns>
     <columns>
-        <field>CDF1</field>
-    </columns>
-    <columns>
         <field>Case.IDR_Date_Received__c</field>
     </columns>
     <customDetailFormulas>
-        <calculatedFormula>CASE_OWNER</calculatedFormula>
+        <calculatedFormula>IF (DATEVALUE(NOW()) - DATEVALUE(CREATED_DATE)==14,&apos;Day 14&apos;,
+IF (DATEVALUE(NOW()) - DATEVALUE(CREATED_DATE) &lt; 14 &amp;&amp; DATEVALUE(NOW()) - DATEVALUE(CREATED_DATE) &gt; 10, &apos;Day 11-13&apos;,&apos;&lt;Day 10&apos;))</calculatedFormula>
         <dataType>Text</dataType>
         <developerName>CDF1</developerName>
-        <label>Case Owner</label>
+        <label>Due (In Days)</label>
         <scale>2</scale>
     </customDetailFormulas>
     <description>Report to show customer complaints with Open restart collection tasks</description>
@@ -56,6 +54,11 @@
     <groupingsDown>
         <dateGranularity>Day</dateGranularity>
         <field>ASSIGNED</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>CDF1</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
     <name>All Open Restart Collection Tasks</name>

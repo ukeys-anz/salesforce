@@ -308,7 +308,9 @@ public without sharing class IDRTaskActions {
     for (task t : taskRecs) {
       if (
         t.RecordTypeId == IDRConstants.IDR_SYSTEM_TASK_RT_ID &&
-        t.Status == 'Completed'
+        t.Status == 'Completed' &&
+        (t.Subject == IDRConstants.TASK_SUBJECT_DAY5 ||
+        t.Subject == IDRConstants.TASK_SUBJECT_DAY1)
       ) {
         caseIDSet.add(t.WhatId);
       }
@@ -395,6 +397,8 @@ public without sharing class IDRTaskActions {
           whatId IN :caseMap.keySet()
           AND RecordTypeId = :IDRConstants.IDR_SYSTEM_TASK_RT_ID
           AND IsClosed = false
+          AND (Subject = :IDRConstants.TASK_SUBJECT_DAY5
+          OR Subject = :IDRConstants.TASK_SUBJECT_DAY1)
       ];
     }
     for (task t : idrTasks) {
