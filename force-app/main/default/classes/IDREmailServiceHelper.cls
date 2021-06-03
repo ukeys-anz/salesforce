@@ -152,7 +152,11 @@ public with sharing class IDREmailServiceHelper {
     String returnString;
     Matcher m = System.Pattern.compile(pattern).matcher(matcher);
     if (m.find()) {
-      returnString = m.group();
+      if (pattern == IDRConstants.CASE_NO_REGEX) {
+        returnString = m.group().leftPad(8, '0');
+      } else {
+        returnString = m.group();
+      }
     } else {
       returnString = matcher;
     }
