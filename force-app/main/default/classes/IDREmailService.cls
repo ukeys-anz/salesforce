@@ -65,7 +65,7 @@ global with sharing class IDREmailService implements Messaging.InboundEmailHandl
 
     if (!isSpam) {
       Boolean createNewCase;
-      if (caseNumber != email.subject) {
+      if (caseNumber != email.subject || email.subject.isNumeric()) {
         createNewCase = IDREmailServiceHandler.updateExistingEmail(
           email,
           fromEmail,

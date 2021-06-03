@@ -14,7 +14,7 @@ public with sharing class IDRConstants {
   public static final String WITHDRAWN_STATUS = 'Withdrawn';
 
   //Case Priority
-  public static final String CASE_PRIORITY_STANDARD ='Standard';
+  public static final String CASE_PRIORITY_STANDARD = 'Standard';
 
   public static final String QUEUE_TYPE = 'Queue';
 
@@ -103,7 +103,7 @@ public with sharing class IDRConstants {
   public static final string CHANNEL_RECEIVED_AFCA_REFERRED = '11';
 
   //IDREmailServiceConstants
-  public static final String CASE_NO_REGEX = '\\d{8}';
+  public static final String CASE_NO_REGEX = '\\d{4,8}';
   public static final String CASE_EMAIL_REGEX = '(?<=\\<)(.*?)(?=\\>)';
 
   //Anz.com constants
