@@ -178,4 +178,12 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
     CardListModel result = coachapi.getCardList(ocvId);
     return result;
   }
+
+  /**
+   * @author Lance
+   * @since April 2021
+   * @description invaid information exception
+   */
+  public class InvalidInformationException extends Exception {
+  }
 }
