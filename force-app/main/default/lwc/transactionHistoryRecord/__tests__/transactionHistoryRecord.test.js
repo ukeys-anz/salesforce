@@ -37,6 +37,10 @@ describe("c-transactionHistoryRecord", () => {
     publish(MessageContext, ExpandCollapseAll, payload);
 
     return Promise.resolve().then(() => {
+      const amount = element.shadowRoot.querySelector(
+        'lightning-formatted-number[data-id="amount"]'
+      );
+      expect(amount.value).toBe("50.00");
       const descriptionDiv = element.shadowRoot.querySelector(
         "div.description-tooltip"
       );
