@@ -93,5 +93,6 @@ public with sharing class TestUtil {
       );
       psaList.add(psa);
     }
+    insert psaList;
   }
 }
