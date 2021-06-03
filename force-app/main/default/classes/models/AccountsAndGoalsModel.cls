@@ -34,7 +34,7 @@ public with sharing class AccountsAndGoalsModel extends CalloutModel {
     @AuraEnabled
     public Goal goal;
     /**
-     * @description validates response for expected values by the UI
+     * @description validates the response for expected values by the UI
      */
     @AuraEnabled
     public Boolean isValid {

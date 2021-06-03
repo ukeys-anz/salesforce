@@ -13,9 +13,14 @@
         <sharedTo>Manager</sharedTo>
         <sharedToType>Role</sharedToType>
     </shares>
-     <shares>
+    <shares>
         <accessLevel>EditAllContents</accessLevel>
         <sharedTo>Super_Support_Admin</sharedTo>
         <sharedToType>Role</sharedToType>
+    </shares>
+    <shares>
+        <accessLevel>View</accessLevel>
+        <sharedTo>Support_Coach</sharedTo>
+        <sharedToType>RoleAndSubordinates</sharedToType>
     </shares>
 </WaveApplication>
