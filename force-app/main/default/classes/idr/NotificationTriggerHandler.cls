@@ -3,7 +3,7 @@
  * @since 10/2020
  * @description  NotificationTrigggerHandler is the handler class for Notification Handler Trigger which extends Lib_TriggerHandler the trigger framework used.
  */
-
+@SuppressWarnings('PMD.CyclomaticComplexity')
 public without sharing class NotificationTriggerHandler extends Lib_TriggerHandler {
   private static final Map<String, String> TEMPLATE_ID_MAP = new Map<String, String>{
     IDRConstants.OPEN_STATUS => 'AgCaseOpen',
@@ -64,9 +64,7 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
           .Status__c = IDRConstants.NOTIFICATION_ERROR_PUBLISH_STATUS;
       }
     }
-
     List<Database.saveResult> result = Database.update(notificationList, false);
-
     Lib_SystemLog log = new Lib_SystemLog(
       NotificationHandlerBatch.class.getName(),
       'execute'
@@ -172,7 +170,11 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
     notification.AuthorisedFirstName__c = c.IDR_3rdParty_Name__c;
     notification.AuthorisedMobile__c = c.IDR_3rdParty_Mobile__c;
     notification.CAP_CIS_ID__c = c.IDR_Customer_Number__c;
-    notification.Customer_Identifier__c = ((String.isNotBlank(c.IDR_Customer_Identifier__c) && c.IDR_Customer_Identifier__c.contains('CAP ID'))? 'CAP ID':c.IDR_Customer_Identifier__c);
+    notification.Customer_Identifier__c = ((String.isNotBlank(
+        c.IDR_Customer_Identifier__c
+      ) && c.IDR_Customer_Identifier__c.contains('CAP ID'))
+      ? 'CAP ID'
+      : c.IDR_Customer_Identifier__c);
     notification.Case_ID__c = c.ID;
     notification.Case_Number__c = getFormattedCaseNumberToNotify(c);
     notification.Case_Status__c = handler.Case_Status__c;
@@ -232,11 +234,21 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
         notificationHandlerList.add(handler);
       }
     }
-    if (
-      !notificationHandlerList.isEmpty() &&
-      Schema.sObjectType.Notification_Handler__c.isCreateable()
-    ) {
-      insert notificationHandlerList;
+    if (!notificationHandlerList.isEmpty()) {
+      if (
+        Schema.sObjectType.Notification_Handler__c.isCreateable() &&
+        Schema.sObjectType.Notification_Handler__c.fields.Case__c.isCreateable() &&
+        Schema.sObjectType.Notification_Handler__c.fields.Case_Status__c.isCreateable() &&
+        Schema.sObjectType.Notification_Handler__c.fields.Status__c.isCreateable()
+      ) {
+        insert notificationHandlerList;
+      } else {
+        CommonUtil.logAndThrowIAE(
+          'NotificationTriggerHandler',
+          'insertNotificationHandler',
+          'Not enough permissions to create Notification_Handler__c.'
+        );
+      }
     }
   }
 }

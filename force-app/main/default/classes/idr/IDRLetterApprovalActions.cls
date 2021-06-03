@@ -107,17 +107,36 @@ public with sharing class IDRLetterApprovalActions {
     );
 
     if (
-      IDR_Letter_Approval_Details__c.sObjectType.getDescribe().isCreateable()
+      IDR_Letter_Approval_Details__c.sObjectType.getDescribe().isCreateable() &&
+      Schema.sObjectType.IDR_Letter_Approval_Details__c.fields.IDR_Field_Name__c.isCreateable() &&
+      Schema.sObjectType.IDR_Letter_Approval_Details__c.fields.IDR_Letter_Approval__c.isCreateable() &&
+      Schema.sObjectType.IDR_Letter_Approval_Details__c.fields.IDR_Value__c.isCreateable() &&
+      Schema.sObjectType.IDR_Letter_Approval_Details__c.fields.Name.isCreateable()
     ) {
       insert appDetailsList;
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'IDRLetterApprovalActions',
+        'makeOCVCallout',
+        'Not enough permissions to create IDR_Letter_Approval_Details__c.'
+      );
     }
 
     IDR_Letter_Approval__c appRec = new IDR_Letter_Approval__c(
       id = approvalRecId
     );
     appRec.Customer_Data_updated__c = true;
-    if (IDR_Letter_Approval__c.sObjectType.getDescribe().isUpdateable()) {
+    if (
+      IDR_Letter_Approval__c.sObjectType.getDescribe().isUpdateable() &&
+      Schema.sObjectType.IDR_Letter_Approval__c.fields.Customer_Data_updated__c.isUpdateable()
+    ) {
       update appRec;
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'IDRLetterApprovalActions',
+        'makeOCVCallout',
+        'Not enough permissions to update IDR_Letter_Approval__c.'
+      );
     }
   }
 

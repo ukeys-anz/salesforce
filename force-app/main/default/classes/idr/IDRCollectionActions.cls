@@ -370,7 +370,7 @@ public with sharing class IDRCollectionActions {
           AND WhatId IN (
             SELECT id
             FROM case
-            WHERE isClosed = false OR Id IN :caseIds
+            WHERE isClosed = FALSE OR Id IN :caseIds
           )
       ]) {
         if (!startCollecMap.containsKey(taskRec.IDR_Collection_Number__c)) {

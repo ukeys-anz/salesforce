@@ -50,11 +50,22 @@ public with sharing class AccountCommonActions {
       }
     }
 
-    if (
-      !entitlementList.isEmpty() &&
-      Entitlement.sObjectType.getDescribe().isCreateable()
-    ) {
-      insert entitlementList;
+    if (!entitlementList.isEmpty()) {
+      if (
+        Entitlement.sObjectType.getDescribe().isCreateable() &&
+        Schema.sObjectType.Entitlement.fields.AccountId.isCreateable() &&
+        Schema.sObjectType.Entitlement.fields.Name.isCreateable() &&
+        Schema.sObjectType.Entitlement.fields.SlaProcessId.isCreateable() &&
+        Schema.sObjectType.Entitlement.fields.StartDate.isCreateable()
+      ) {
+        insert entitlementList;
+      } else {
+        CommonUtil.logAndThrowIAE(
+          'AccountCommonActions',
+          'createEntitlement',
+          'Not enough permissions to create Entitlement.'
+        );
+      }
     }
   }
 
@@ -106,16 +117,36 @@ public with sharing class AccountCommonActions {
       for (Entitlement ent : entList) {
         ent.EndDate = System.today();
       }
-      if (Entitlement.sObjectType.getDescribe().isUpdateable()) {
+      if (
+        Entitlement.sObjectType.getDescribe().isUpdateable() &&
+        Schema.sObjectType.Entitlement.fields.EndDate.isUpdateable()
+      ) {
         update entList;
+      } else {
+        CommonUtil.logAndThrowIAE(
+          'AccountCommonActions',
+          'updateEntitlement',
+          'Not enough permissions to update Entitlement.'
+        );
       }
     }
 
-    if (
-      !entitlementList.isEmpty() &&
-      Entitlement.sObjectType.getDescribe().isCreateable()
-    ) {
-      insert entitlementList;
+    if (!entitlementList.isEmpty()) {
+      if (
+        Entitlement.sObjectType.getDescribe().isCreateable() &&
+        Schema.sObjectType.Entitlement.fields.AccountId.isCreateable() &&
+        Schema.sObjectType.Entitlement.fields.Name.isCreateable() &&
+        Schema.sObjectType.Entitlement.fields.SlaProcessId.isCreateable() &&
+        Schema.sObjectType.Entitlement.fields.StartDate.isCreateable()
+      ) {
+        insert entitlementList;
+      } else {
+        CommonUtil.logAndThrowIAE(
+          'AccountCommonActions',
+          'updateEntitlement',
+          'Not enough permissions to create Entitlement.'
+        );
+      }
     }
   }
 

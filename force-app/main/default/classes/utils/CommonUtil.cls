@@ -134,4 +134,33 @@ public with sharing class CommonUtil {
       '-' +
       uuid.substring(20);
   }
+
+  /**
+   * @description Log an error and throw an exception if user doen't have the required permissions
+   * @param processName Process name used to generate the log.
+   * @param functionName Name of the funtion to generate the log.
+   * @param errorDescription Error description used to create the log record.
+   */
+  public static void logAndThrowIAE(
+    String processName,
+    String functionName,
+    String errorDescription
+  ) {
+    Lib_SystemLog.logAPIError(
+      processName,
+      functionName,
+      errorDescription,
+      'InsufficientAccessException',
+      UserInfo.getUserId(),
+      null,
+      null
+    );
+    throw new InsufficientAccessException(errorDescription);
+  }
+
+  /**
+   * @description extend the Exception class to allow errors to be thrown if the user does not have access
+   */
+  private class InsufficientAccessException extends Exception {
+  }
 }

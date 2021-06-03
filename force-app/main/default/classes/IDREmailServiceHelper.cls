@@ -45,11 +45,16 @@ public with sharing class IDREmailServiceHelper {
     //Get all binary attachments
     contentVersionList.addAll(getTextBinaryAttachments(bAttachments));
 
-    if (
-      contentVersionList.size() > 0 &&
-      ContentVersion.sObjectType.getDescribe().isCreateable()
-    ) {
-      insert contentVersionList;
+    if (contentVersionList.size() > 0) {
+      if (ContentVersion.sObjectType.getDescribe().isCreateable()) {
+        insert contentVersionList;
+      } else {
+        CommonUtil.logAndThrowIAE(
+          'IDREmailServiceHelper',
+          'createAttachmentFiles',
+          'Not enough permissions to create ContentVersion.'
+        );
+      }
     }
 
     List<Id> contentVerIds = new List<ID>();
@@ -278,6 +283,12 @@ public with sharing class IDREmailServiceHelper {
           null
         );
       }
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'IDREmailServiceHelper',
+        'updateCaseWithQueue',
+        'Case is not updateable for the current user.'
+      );
     }
   }
 }

@@ -566,6 +566,11 @@
         <field>Case.Type</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Reported_Bug__c.Number_of_Related_Cases__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Case Read/Write - Fraud Agent</label>
     <objectPermissions>

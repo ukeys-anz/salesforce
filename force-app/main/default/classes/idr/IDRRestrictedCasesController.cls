@@ -80,10 +80,20 @@ public without sharing class IDRRestrictedCasesController {
   @AuraEnabled
   public static void insertCaseComment(Id caseId, String commentBody) {
     CaseComment cc = new CaseComment();
-    cc.parentId = caseId;
-    cc.commentBody = commentbody;
-    if (CaseComment.sObjectType.getDescribe().isCreateable()) {
+    cc.ParentId = caseId;
+    cc.CommentBody = commentbody;
+    if (
+      CaseComment.sObjectType.getDescribe().isCreateable() &&
+      Schema.sObjectType.CaseComment.fields.CommentBody.isCreateable() &&
+      Schema.sObjectType.CaseComment.fields.ParentId.isCreateable()
+    ) {
       insert cc;
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'IDRRestrictedCasesController',
+        'insertCaseComment',
+        'Not enough permissions to create CaseComment.'
+      );
     }
   }
 
@@ -102,8 +112,19 @@ public without sharing class IDRRestrictedCasesController {
       contentDocLink.ShareType = 'I';
       cdLinkList.add(contentDocLink);
     }
-    if (ContentDocumentLink.sObjectType.getDescribe().isCreateable()) {
+    if (
+      ContentDocumentLink.sObjectType.getDescribe().isCreateable() &&
+      Schema.sObjectType.ContentDocumentLink.fields.ContentDocumentId.isCreateable() &&
+      Schema.sObjectType.ContentDocumentLink.fields.LinkedEntityId.isCreateable() &&
+      Schema.sObjectType.ContentDocumentLink.fields.ShareType.isCreateable()
+    ) {
       insert cdLinkList;
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'IDRRestrictedCasesController',
+        'linkFileToCase',
+        'Not enough permissions to create ContentDocumentLink.'
+      );
     }
   }
 

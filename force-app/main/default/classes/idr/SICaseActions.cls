@@ -2,10 +2,10 @@
  * @author Olivier Saier
  * @since  12/2020
  * @description SICaseActions is class to handle all the Actions related to CMOS Systemic Issues.
- * Set as without sharing because updates on SI may follow updates on complaints, by users who only have read access to SI.
+ * Set as with sharing because updates on SI may follow updates on complaints, only by SI Team users who have write access to SI.
  */
 @SuppressWarnings('PMD.CyclomaticComplexity')
-public without sharing class SICaseActions {
+public with sharing class SICaseActions {
   /**
    * @description applyDefaults method is called before onBeforeInsert to set the default values for the records.
    * @param records Records to process
@@ -83,11 +83,26 @@ public without sharing class SICaseActions {
         monitoringTasks.add(createMonitoringTask(record, 6));
       }
     }
-    if (
-      monitoringTasks.size() > 0 &&
-      Task.sObjectType.getDescribe().isCreateable()
-    ) {
-      insert monitoringTasks;
+    if (monitoringTasks.size() > 0) {
+      if (
+        Task.sObjectType.getDescribe().isCreateable() &&
+        Schema.sObjectType.Task.fields.ActivityDate.isCreateable() &&
+        Schema.sObjectType.Task.fields.IsReminderSet.isCreateable() &&
+        Schema.sObjectType.Task.fields.OwnerId.isCreateable() &&
+        Schema.sObjectType.Task.fields.RecordTypeId.isCreateable() &&
+        Schema.sObjectType.Task.fields.ReminderDateTime.isCreateable() &&
+        Schema.sObjectType.Task.fields.Subject.isCreateable() &&
+        Schema.sObjectType.Task.fields.Type.isCreateable() &&
+        Schema.sObjectType.Task.fields.WhatId.isCreateable()
+      ) {
+        insert monitoringTasks;
+      } else {
+        CommonUtil.logAndThrowIAE(
+          'SICaseActions',
+          'afterInsert',
+          'Not enough permissions to create Task.'
+        );
+      }
     }
   }
 
@@ -110,16 +125,31 @@ public without sharing class SICaseActions {
       }
     }
     if (casesToProcessWhenMonitoring.size() > 0) {
-      Task[] allTasksToInsert = new List<Task>();
+      Task[] monitoringTasks = new List<Task>();
       for (Case record : casesToProcessWhenMonitoring) {
-        allTasksToInsert.add(createMonitoringTask(record, 3));
-        allTasksToInsert.add(createMonitoringTask(record, 6));
+        monitoringTasks.add(createMonitoringTask(record, 3));
+        monitoringTasks.add(createMonitoringTask(record, 6));
       }
-      if (
-        Task.sObjectType.getDescribe().isCreateable() &&
-        allTasksToInsert.size() > 0
-      ) {
-        insert allTasksToInsert;
+      if (monitoringTasks.size() > 0) {
+        if (
+          Task.sObjectType.getDescribe().isCreateable() &&
+          Schema.sObjectType.Task.fields.ActivityDate.isCreateable() &&
+          Schema.sObjectType.Task.fields.IsReminderSet.isCreateable() &&
+          Schema.sObjectType.Task.fields.OwnerId.isCreateable() &&
+          Schema.sObjectType.Task.fields.RecordTypeId.isCreateable() &&
+          Schema.sObjectType.Task.fields.ReminderDateTime.isCreateable() &&
+          Schema.sObjectType.Task.fields.Subject.isCreateable() &&
+          Schema.sObjectType.Task.fields.Type.isCreateable() &&
+          Schema.sObjectType.Task.fields.WhatId.isCreateable()
+        ) {
+          insert monitoringTasks;
+        } else {
+          CommonUtil.logAndThrowIAE(
+            'SICaseActions',
+            'afterUpdate',
+            'Not enough permissions to create Task.'
+          );
+        }
       }
     }
   }
@@ -216,6 +246,12 @@ public without sharing class SICaseActions {
     }
     if (Case.sObjectType.getDescribe().isUpdateable()) {
       update systemicIssuesToUpdate;
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'SICaseActions',
+        'rollupToParentSI',
+        'Not enough permissions to update Case.'
+      );
     }
   }
 }

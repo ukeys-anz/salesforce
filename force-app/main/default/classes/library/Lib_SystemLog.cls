@@ -12,7 +12,9 @@
  * log.addDatabaseSaveResult(results, 'Contact', contactToUpdate);
  * @group Library
  */
-@SuppressWarnings('PMD.ExcessiveParameterList, PMD.ExcessivePublicCount')
+@SuppressWarnings(
+  'PMD.ExcessiveParameterList, PMD.ExcessivePublicCount, PMD.ApexCRUDViolation'
+)
 public without sharing class Lib_SystemLog {
   public enum Severity {
     INFO,
@@ -98,7 +100,7 @@ public without sharing class Lib_SystemLog {
     String batchId,
     String errorIdentifier
   ) {
-    this.log = new List<Application_Log__c>(0);
+    this.log = new Application_Log__c[0];
     this.processName = processName;
     this.functionName = functionName;
     this.batchId = batchId;
@@ -391,10 +393,7 @@ public without sharing class Lib_SystemLog {
    *  @description  The method insertLog is used creating/inserting log records in Application_Log__c object.
    */
   public void insertLog() {
-    if (
-      !log.isEmpty() &&
-      Application_Log__c.sObjectType.getDescribe().isCreateable()
-    ) {
+    if (!log.isEmpty()) {
       insert log;
     }
   }

@@ -51,22 +51,33 @@ public with sharing class NotificationHandlerBatch implements Database.Batchable
       if (sr.isSuccess()) {
         handlerRecords[i].Status__c = IDRConstants.NOTIFICATION_PUBLISH_STATUS;
       } else {
-        handlerRecords[i].Status__c = IDRConstants.NOTIFICATION_ERROR_PUBLISH_STATUS;
+        handlerRecords[i]
+          .Status__c = IDRConstants.NOTIFICATION_ERROR_PUBLISH_STATUS;
       }
     }
+    if (
+      Notification_Handler__c.sObjectType.getDescribe().isUpdateable() &&
+      Schema.sObjectType.Notification_Handler__c.fields.Status__c.isUpdateable()
+    ) {
+      List<Database.saveResult> result = Database.update(handlerRecords, false);
 
-    List<Database.saveResult> result = Database.update(handlerRecords, false);
-
-    Lib_SystemLog log = new Lib_SystemLog(
-      NotificationHandlerBatch.class.getName(),
-      'execute'
-    );
-    log.addDatabaseSaveResult(
-      'Notification_Handler__c',
-      result,
-      handlerRecords
-    );
-    log.insertLog();
+      Lib_SystemLog log = new Lib_SystemLog(
+        NotificationHandlerBatch.class.getName(),
+        'execute'
+      );
+      log.addDatabaseSaveResult(
+        'Notification_Handler__c',
+        result,
+        handlerRecords
+      );
+      log.insertLog();
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'NotificationHandlerBatch',
+        'processScheduledNotification',
+        'Not enough permissions to update Notification_Handler__c.'
+      );
+    }
   }
 
   /**

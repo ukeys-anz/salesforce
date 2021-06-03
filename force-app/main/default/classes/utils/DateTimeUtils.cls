@@ -4,7 +4,7 @@
  * @since April 2020
  * @group Utils
  */
-public without sharing class DateTimeUtils {
+public with sharing class DateTimeUtils {
   /**
    * @description Calculate the difference between start and endtime in mills
    * To get the hours use .intValue() and to get minutes substract and multiply by @link{SFConstants.MIN_IN_HOUR}

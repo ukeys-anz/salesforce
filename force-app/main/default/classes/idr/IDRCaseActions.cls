@@ -6,7 +6,7 @@
  * Note: Since Case Owner is a lookup of either User or Group Salesforce has common object in which only few fields are accessible as found in the link https://skaruz.com/salesforce-how-to-access-owner-custom-fields-in-a-soql-query/
  * So we need to query the Users and update the records accordingly.
  */
-@SuppressWarnings('PMD.CyclomaticComplexity')
+@SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
 public with sharing class IDRCaseActions {
   @TestVisible
   private static final String OPEN_STATUS = 'Open';
@@ -54,8 +54,6 @@ public with sharing class IDRCaseActions {
   private static final String DELETE_ERROR = 'You cannot delete cases';
 
   private static final String CUSTOMER_NUMBER_VALIDATION_ERROR = 'This field can no longer be edited. In the event that the Customer Number/Identifier is incorrect, the case must be withdrawn and a new case created with the correct Customer Number.';
-
-
 
   //IDR_Notification_Event__e for sending notifications to Notification Broker based on status.
   @TestVisible
@@ -780,12 +778,6 @@ public with sharing class IDRCaseActions {
       record.addError(CUSTOMER_NUMBER_VALIDATION_ERROR);
     }
   }
-
-  
-
-  
-
-  
 
   /**
    * @description Update Date/Time PSI Ticked when complaint is flagged or unflagged. Before calling, check whether all cases are complaints and the PSI flag has just been ticked or unticked

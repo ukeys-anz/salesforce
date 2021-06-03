@@ -712,6 +712,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>IDR_Letter_Approval_Details__c.Name</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>IDR_Letter_Approval__c.Customer_Data_updated__c</field>
         <readable>true</readable>
     </fieldPermissions>

@@ -2588,6 +2588,46 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>IDR_Letter_Approval_Details__c.IDR_Value__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>IDR_Letter_Approval_Details__c.Name</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>IDR_Letter_Approval__c.Customer_Data_updated__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>IDR_Letter_Approval__c.IDR_Auto_Approve__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>IDR_Letter_Approval__c.IDR_Send_As_Email__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>IDR_Letter_Approval__c.IDR_Send_As_Letter__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>IDR_Letter_Approval__c.IDR_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>IDR_Letter_Approval__c.IDR_Template_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>IDR_Notification_Event__e.AuthorisedEmail__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2683,6 +2723,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Notification_Handler__c.Description__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Product2.ANZ_Product_Code__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2719,6 +2764,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Release__c.Release_Notes__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Reported_Bug__c.Number_of_Related_Cases__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

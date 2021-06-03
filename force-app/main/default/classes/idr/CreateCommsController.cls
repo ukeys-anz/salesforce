@@ -4,6 +4,7 @@
  * @since 2021
  * @description CreateCommsController is the apex side controller for the CreateCaseComms LWC
  */
+@SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class CreateCommsController {
   /**
    * @description The getTemplateList used to fetch availabe templates from IDR_Template_Detail__c .
@@ -149,8 +150,22 @@ public with sharing class CreateCommsController {
       caseComms.IDR_Auto_Approve__c = true;
     }
 
-    if (IDR_Letter_Approval__c.sObjectType.getDescribe().isCreateable()) {
+    if (
+      IDR_Letter_Approval__c.sObjectType.getDescribe().isCreateable() &&
+      Schema.sObjectType.IDR_Letter_Approval__c.fields.IDR_Auto_Approve__c.isCreateable() &&
+      Schema.sObjectType.IDR_Letter_Approval__c.fields.IDR_case__c.isCreateable() &&
+      Schema.sObjectType.IDR_Letter_Approval__c.fields.IDR_Send_As_Letter__c.isCreateable() &&
+      Schema.sObjectType.IDR_Letter_Approval__c.fields.IDR_Status__c.isCreateable() &&
+      Schema.sObjectType.IDR_Letter_Approval__c.fields.IDR_Send_As_Email__c.isCreateable() &&
+      Schema.sObjectType.IDR_Letter_Approval__c.fields.IDR_Template_Name__c.isCreateable()
+    ) {
       insert caseComms;
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'CreateCommsController',
+        'createComms',
+        'Not enough permissions to create IDR_Letter_Approval__c.'
+      );
     }
 
     list<IDR_Letter_Approval_Details__c> commsLineItemsList = new List<IDR_Letter_Approval_Details__c>();
@@ -174,11 +189,22 @@ public with sharing class CreateCommsController {
       commsLineItemsList.add(item);
     }
 
-    if (
-      commsLineItemsList.size() > 0 &&
-      IDR_Letter_Approval_Details__c.sObjectType.getDescribe().isCreateable()
-    ) {
-      insert commsLineItemsList;
+    if (commsLineItemsList.size() > 0) {
+      if (
+        IDR_Letter_Approval_Details__c.sObjectType.getDescribe()
+          .isCreateable() &&
+        Schema.sObjectType.IDR_Letter_Approval_Details__c.fields.IDR_Field_Name__c.isCreateable() &&
+        Schema.sObjectType.IDR_Letter_Approval_Details__c.fields.IDR_Value__c.isCreateable() &&
+        Schema.sObjectType.IDR_Letter_Approval_Details__c.fields.Name.isCreateable()
+      ) {
+        insert commsLineItemsList;
+      } else {
+        CommonUtil.logAndThrowIAE(
+          'CreateCommsController',
+          'createComms',
+          'Not enough permissions to create IDR_Letter_Approval_Details__c.'
+        );
+      }
     }
 
     submitCommsForApproval(caseComms);

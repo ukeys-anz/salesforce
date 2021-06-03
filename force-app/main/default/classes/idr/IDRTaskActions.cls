@@ -3,7 +3,7 @@
  * @since  02/2021
  * @description IDRTaskActions is class to handle all the IDR (Internal Dispute Resolution) Actions
  */
-@SuppressWarnings('PMD.CyclomaticComplexity')
+@SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
 public without sharing class IDRTaskActions {
   private static final String SI_QUEUE_DEVELOPER_NAME = 'Systemic_Issue_Team';
 
@@ -23,7 +23,9 @@ public without sharing class IDRTaskActions {
   public static Group siQueue = [
     SELECT id
     FROM group
-    WHERE developername = :SI_QUEUE_DEVELOPER_NAME AND Type = :IDRConstants.QUEUE_TYPE
+    WHERE
+      developername = :SI_QUEUE_DEVELOPER_NAME
+      AND Type = :IDRConstants.QUEUE_TYPE
   ];
 
   public static Group stopQueue = [
@@ -153,7 +155,7 @@ public without sharing class IDRTaskActions {
       }
     }
 
-    list<task> oldTasks = new List<task>();
+    list<Task> oldTasks = new List<Task>();
     if (
       caseTaskMap.size() > 0 && Task.sObjectType.getDescribe().isQueryable()
     ) {
@@ -164,16 +166,27 @@ public without sharing class IDRTaskActions {
           WhatId IN :caseTaskMap.keySet()
           AND RecordTypeId = :IDRConstants.IDR_SYSTEM_TASK_RT_ID
           AND Id NOT IN :currentTask
-          AND isClosed = false
+          AND isClosed = FALSE
           AND (Subject = :IDRConstants.TASK_SUBJECT_DAY5
           OR Subject = :IDRConstants.TASK_SUBJECT_DAY1)
       ];
     }
-    for (task t : oldTasks) {
-      t.status = IDRConstants.TASK_STATUS_EXPIRED;
+    for (Task t : oldTasks) {
+      t.Status = IDRConstants.TASK_STATUS_EXPIRED;
     }
-    if (oldTasks.size() > 0 && task.sObjectType.getDescribe().isUpdateable()) {
-      update oldTasks;
+    if (oldTasks.size() > 0) {
+      if (
+        Task.sObjectType.getDescribe().isUpdateable() &&
+        Schema.sObjectType.Task.fields.Status.isUpdateable()
+      ) {
+        update oldTasks;
+      } else {
+        CommonUtil.logAndThrowIAE(
+          'IDRTaskActions',
+          'closeOldIDRMaximumTimeTasks',
+          'Not enough permissions to update Task.'
+        );
+      }
     }
   }
   /**
@@ -316,27 +329,43 @@ public without sharing class IDRTaskActions {
       }
     }
     List<CaseMilestone> cmsToUpdate = new List<CaseMilestone>();
-    if (
-      caseIDSet.size() > 0 &&
-      CaseMilestone.sObjectType.getDescribe().isUpdateable()
-    ) {
-      cmsToUpdate = [
-        SELECT Id, completionDate
-        FROM CaseMilestone cm
-        WHERE
-          caseId IN :caseIDSet
-          AND (cm.MilestoneType.Name = :IDRConstants.MILESTONE_STANDARD
-          OR cm.MilestoneType.Name = :IDRConstants.MILESTONE_PRIORITY)
-          AND completionDate = null
-        LIMIT 1
-      ];
+    if (caseIDSet.size() > 0) {
+      if (CaseMilestone.sObjectType.getDescribe().isUpdateable()) {
+        cmsToUpdate = [
+          SELECT Id, CompletionDate
+          FROM CaseMilestone cm
+          WHERE
+            caseId IN :caseIDSet
+            AND (cm.MilestoneType.Name = :IDRConstants.MILESTONE_STANDARD
+            OR cm.MilestoneType.Name = :IDRConstants.MILESTONE_PRIORITY)
+            AND completionDate = NULL
+          LIMIT 1
+        ];
+      } else {
+        CommonUtil.logAndThrowIAE(
+          'IDRTaskActions',
+          'closeMilestonesOfClosedTask',
+          'Not enough permissions to update CaseMilestone.'
+        );
+      }
     }
     for (CaseMilestone cm : cmsToUpdate) {
-      cm.completionDate = system.now();
+      cm.CompletionDate = system.now();
     }
 
     if (cmsToUpdate.size() > 0) {
-      update cmsToUpdate;
+      if (
+        CaseMilestone.sObjectType.getDescribe().isUpdateable() &&
+        Schema.sObjectType.CaseMilestone.fields.CompletionDate.isUpdateable()
+      ) {
+        update cmsToUpdate;
+      } else {
+        CommonUtil.logAndThrowIAE(
+          'IDRTaskActions',
+          'closeMilestonesOfClosedTask',
+          'Not enough permissions to update CaseMilestone.'
+        );
+      }
     }
   }
 
@@ -388,26 +417,37 @@ public without sharing class IDRTaskActions {
         caseMap.put(record.Id, record);
       }
     }
-    List<task> idrTasks = new List<task>();
-    if (task.sObjectType.getDescribe().isQueryable() && caseMap.size() > 0) {
+    List<Task> idrTasks = new List<Task>();
+    if (Task.sObjectType.getDescribe().isQueryable() && caseMap.size() > 0) {
       idrTasks = [
         SELECT Id, ActivityDate, whatId, Subject
         FROM Task
         WHERE
           whatId IN :caseMap.keySet()
           AND RecordTypeId = :IDRConstants.IDR_SYSTEM_TASK_RT_ID
-          AND IsClosed = false
+          AND IsClosed = FALSE
           AND (Subject = :IDRConstants.TASK_SUBJECT_DAY5
           OR Subject = :IDRConstants.TASK_SUBJECT_DAY1)
       ];
     }
-    for (task t : idrTasks) {
+    for (Task t : idrTasks) {
       t.ActivityDate = date.valueOf(
         calculateExpectedDue(t, caseMap.get(t.whatId))
       );
     }
-    if (task.sObjectType.getDescribe().isUpdateable() && !idrTasks.isEmpty()) {
-      update idrTasks;
+    if (!idrTasks.isEmpty()) {
+      if (
+        Task.sObjectType.getDescribe().isUpdateable() &&
+        Schema.sObjectType.Task.fields.ActivityDate.isUpdateable()
+      ) {
+        update idrTasks;
+      } else {
+        CommonUtil.logAndThrowIAE(
+          'IDRTaskActions',
+          'updateIDRMilestoneTask',
+          'Not enough permissions to update Task.'
+        );
+      }
     }
     List<CaseMilestone> cmsToUpdate = new List<CaseMilestone>();
     if (
@@ -417,17 +457,25 @@ public without sharing class IDRTaskActions {
       cmsToUpdate = [
         SELECT Id, StartDate, caseId
         FROM CaseMilestone cm
-        WHERE caseId IN :caseMap.keySet() AND completionDate = null
+        WHERE caseId IN :caseMap.keySet() AND CompletionDate = NULL
       ];
     }
     for (CaseMilestone cm : cmsToUpdate) {
       cm.StartDate = caseMap.get(cm.caseId).IDR_Date_Received__c;
     }
-    if (
-      CaseMilestone.sObjectType.getDescribe().isUpdateable() &&
-      !cmsToUpdate.isEmpty()
-    ) {
-      update cmsToUpdate;
+    if (!cmsToUpdate.isEmpty()) {
+      if (
+        CaseMilestone.sObjectType.getDescribe().isUpdateable() &&
+        Schema.sObjectType.CaseMilestone.fields.StartDate.isUpdateable()
+      ) {
+        update cmsToUpdate;
+      } else {
+        CommonUtil.logAndThrowIAE(
+          'IDRTaskActions',
+          'updateIDRMilestoneTask',
+          'Not enough permissions to update CaseMilestone.'
+        );
+      }
     }
   }
 
@@ -474,8 +522,24 @@ public without sharing class IDRTaskActions {
       SICaseActions.rollupToParentSI(childComplaints);
     }
     //insert SI Tasks
-    if (!siTasks.isEmpty() && Task.sObjectType.getDescribe().isCreateable()) {
-      insert siTasks;
+    if (!siTasks.isEmpty()) {
+      if (
+        Task.sObjectType.getDescribe().isCreateable() &&
+        Schema.sObjectType.Task.fields.ActivityDate.isCreateable() &&
+        Schema.sObjectType.Task.fields.IsReminderSet.isCreateable() &&
+        Schema.sObjectType.Task.fields.OwnerId.isCreateable() &&
+        Schema.sObjectType.Task.fields.RecordTypeId.isCreateable() &&
+        Schema.sObjectType.Task.fields.Subject.isCreateable() &&
+        Schema.sObjectType.Task.fields.WhatId.isCreateable()
+      ) {
+        insert siTasks;
+      } else {
+        CommonUtil.logAndThrowIAE(
+          'IDRCaseActions',
+          'possibleSystemicIssueActions',
+          'Not enough permissions to create Task.'
+        );
+      }
     }
   }
 

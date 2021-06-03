@@ -112,7 +112,18 @@ public with sharing class IDRBankerNotificationBuilder {
       FeatureManagement.checkPermission('IDR_Level_3'))
     ) {
       c.IDR_Update_Notification_Flag__c = true;
-      update c;
+      if (
+        Case.sObjectType.getDescribe().isUpdateable() &&
+        Schema.sObjectType.Case.fields.IDR_Update_Notification_Flag__c.isUpdateable()
+      ) {
+        update c;
+      } else {
+        CommonUtil.logAndThrowIAE(
+          'IDRBankerNotificationBuilder',
+          'caseUpdateFlag',
+          'Not enough permissions to update Case.'
+        );
+      }
     }
   }
 
