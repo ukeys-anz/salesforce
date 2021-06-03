@@ -45,7 +45,7 @@ public with sharing class IDREmailToCase {
       for (String field : fieldList) {
         List<String> fieldValueList = field.split(':-:', 2);
         String fieldName = fieldValueList[0].trim();
-        String fieldValue = (fieldValueList.size() >= 1
+        String fieldValue = (fieldValueList.size() > 1
           ? fieldValueList[1].trim()
           : ''); //replacing the trailing spaces
         fieldValue = fieldValue.replaceFirst('^[ \t]+', ''); //replacing the leading spaces
