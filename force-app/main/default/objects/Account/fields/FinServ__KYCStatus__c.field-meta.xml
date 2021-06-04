@@ -79,6 +79,16 @@
                 <default>false</default>
                 <label>Required</label>
             </value>
+            <value>
+                <fullName>NoMatch</fullName>
+                <default>false</default>
+                <label>NoMatch</label>
+            </value>
+            <value>
+                <fullName>Purged</fullName>
+                <default>false</default>
+                <label>Purged</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
