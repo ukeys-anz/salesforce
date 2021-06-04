@@ -34,7 +34,7 @@
             <value>Non-Customer Complaint</value>
         </milestoneCriteriaFilterItems>
         <milestoneCriteriaFilterItems>
-            <field>Case.SuppliedEmail</field>
+            <field>Case.IDR_Inbox_Email_Address__c</field>
             <operation>equals</operation>
             <value/>
         </milestoneCriteriaFilterItems>

@@ -11,6 +11,7 @@ import COMPLAINANT_TYPE from "@salesforce/schema/Case.IDR_Complainant_Type__c";
 import FIRST_NAME from "@salesforce/schema/Case.IDR_NC_First_Name__c";
 import LAST_NAME from "@salesforce/schema/Case.IDR_NC_Last_Name__c";
 import MIDDLE_NAME from "@salesforce/schema/Case.IDR_NC_Middle_Names__c";
+import EMAIL_FIELD from "@salesforce/schema/Case.IDR_NC_Email__c";
 import RM_COMPLAINT from "@salesforce/schema/Case.Relationship_Managed_Complaint__c";
 import OCV_ID from "@salesforce/schema/Case.OCV_Id__c";
 import CP_ID from "@salesforce/schema/Case.CPID__c";
@@ -102,6 +103,7 @@ export default class CustomerInformation extends LightningElement {
     fields[OCV_ID.fieldApiName] = this.customerInfo.ocvId;
     fields[CP_ID.fieldApiName] = this.customerInfo.capId;
     fields[RM_COMPLAINT.fieldApiName] = this.customerInfo.isRmPresent;
+    fields[EMAIL_FIELD.fieldApiName] = this.customerInfo.email;
 
     const recordInput = { fields };
     updateRecord(recordInput)
