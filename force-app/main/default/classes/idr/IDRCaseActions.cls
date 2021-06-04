@@ -167,6 +167,7 @@ public with sharing class IDRCaseActions {
       if (isIDRComplaintType(record)) {
         Case oldRecord = (case) oldMap.get(record.id);
         validateCaseNumber(record, oldRecord);
+        validateEmailIngestedComplaints(record, oldRecord);
         IDRCollectionActions.populateCollectionNumber(record);
         CommonUtil.handleMasking(
           record,
@@ -225,6 +226,18 @@ public with sharing class IDRCaseActions {
     IDRCollectionActions.stopCollections(records, oldMap);
     IDRCollectionActions.startCollections(records, oldMap);
     IDRComplaintFlagActions.setComplaintsFlag(records, oldMap);
+  }
+
+  /**
+   * @description This method is to ensure that case is escalated when an ingested complaint is converted to Compliant/Non-Complaint case 
+   * @param oldCase This Map<Id, SObject> contains the map which holds the previous values which can be used to check what value has changed in onAfterUpdate. Example to check if the Case Status value has changed we use the following to check record.Status != ((Case) oldMap.get(record.id)).Status
+   * @param record record in the trigger context
+   */
+  public static void validateEmailIngestedComplaints(Case record, Case oldCase ){
+    if(oldCase.RecordTypeID == IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID && 
+      record.Status != IDRConstants.ESCALATED_STATUS){
+      record.addError('Case Status must be updated to "Escalated"');
+    }
   }
 
   /**
