@@ -17,19 +17,19 @@
         <value>Anonymous</value>
     </labels>
     <labels>
-        <fullName>CMOS_BCC_FromEmail</fullName>
-        <categories>IDREmailService</categories>
+        <fullName>XpressionSenderAddress</fullName>
+        <categories>IDR</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>CMOS_BCC_FromEmail</shortDescription>
+        <shortDescription>XpressionSenderAddress</shortDescription>
         <value>Yourfeedback@anz.com</value>
     </labels>
     <labels>
-        <fullName>CMOS_BCC_SenderEmail</fullName>
-        <categories>IDREmailService</categories>
+        <fullName>XpressionRecepientInboxAddress</fullName>
+        <categories>IDR</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>CMOS_BCC_SenderEmail</shortDescription>
+        <shortDescription>XpressionRecepientInboxAddress</shortDescription>
         <value>ICMNFL@anz.com</value>
     </labels>
     <labels>

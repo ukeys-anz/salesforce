@@ -59,8 +59,8 @@ public with sharing class IDREmailServiceHandler {
     if (Case.sObjectType.getDescribe().isQueryable()) {
       String queryString = 'SELECT Id, CaseNumber, OwnerId FROM Case WHERE CaseNumber = :caseNo AND Status != \'Closed\' AND Status != \'Resolved\' ';
       if (
-        fromEmail != Label.CMOS_BCC_FromEmail &&
-        senderEmail != Label.CMOS_BCC_SenderEmail
+        fromEmail != System.Label.XpressionSenderAddress &&
+        senderEmail != System.Label.XpressionRecepientInboxAddress
       ) {
         queryString = queryString + 'AND SuppliedEmail = :fromEmail ';
       }
