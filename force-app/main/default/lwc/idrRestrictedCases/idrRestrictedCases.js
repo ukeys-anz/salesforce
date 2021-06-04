@@ -70,7 +70,7 @@ export default class IDRRestrictedCases extends LightningElement {
     getRestrictedCaseData({
       searchKey: this.searchKey
     })
-      .then((result) => {
+      .then(result => {
         this.data = result;
         this.loading = false;
         if (this.data.length === 0) {
@@ -79,7 +79,7 @@ export default class IDRRestrictedCases extends LightningElement {
           this.showData = true;
         }
       })
-      .catch((error) => {
+      .catch(error => {
         this.error = error;
         this.data = undefined;
         this.loading = false;
@@ -125,14 +125,14 @@ export default class IDRRestrictedCases extends LightningElement {
 
   sortBy(field, reverse, primer) {
     const key = primer
-      ? function (x) {
+      ? function(x) {
           return primer(x[field]);
         }
-      : function (x) {
+      : function(x) {
           return x[field];
         };
 
-    return function (a, b) {
+    return function(a, b) {
       a = key(a);
       b = key(b);
       return reverse * ((a > b) - (b > a));
@@ -162,7 +162,7 @@ export default class IDRRestrictedCases extends LightningElement {
           })
         );
       })
-      .catch((error) => {
+      .catch(error => {
         this.closeModal();
         this.dispatchEvent(
           new ShowToastEvent({
@@ -201,6 +201,8 @@ export default class IDRRestrictedCases extends LightningElement {
   }
 
   handleUploadFinished(event) {
+    this.documentIds = [];
+    this.uploadedFileNames = "";
     // Get the list of uploaded files
     this.uploadedFiles = event.detail.files;
     for (let i = 0; i < this.uploadedFiles.length; i++) {
@@ -224,7 +226,7 @@ export default class IDRRestrictedCases extends LightningElement {
           })
         );
       })
-      .catch((error) => {
+      .catch(error => {
         this.closeModal();
         this.dispatchEvent(
           new ShowToastEvent({
