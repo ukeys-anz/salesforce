@@ -285,21 +285,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Fraud,Scam,KYC QA,Identity,Recipient/Mule</value>
-        </criteriaItems>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>GeneralEnquiry_RT_FraudXAgents_RO</fullName>
-        <accessLevel>Read</accessLevel>
-        <description>All Cases having &quot;General Enquiry&quot; record type are to be shared with FraudX Agents with Read-Only access.</description>
-        <label>GeneralEnquiry_RT-FraudXAgents-RO</label>
-        <sharedTo>
-            <role>FraudX_Agent</role>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>General Enquiry</value>
+            <value>Fraud,Scam,KYC QA,General Enquiry,Identity,Recipient/Mule</value>
         </criteriaItems>
     </sharingCriteriaRules>
 </SharingRules>
