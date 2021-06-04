@@ -109,6 +109,7 @@ public with sharing class IDRCaseActions {
         record.EntitlementId = entitlementId;
         record.IDR_Milestone_Sla__c = IDRConstants.MILESTONE_SLA_NORMAL;
         // record.IDR_Milestone_Sla__c = getMilestoneSla(record.Status, record.IDR_Date_Received__c , businessHoursId);
+        populateSuppliedEmail(record, null);
         IDRCollectionActions.populateCollectionNumber(record);
         CommonUtil.handleMasking(
           record,
@@ -166,6 +167,7 @@ public with sharing class IDRCaseActions {
     for (Case record : records) {
       if (isIDRComplaintType(record)) {
         Case oldRecord = (case) oldMap.get(record.id);
+        populateSuppliedEmail(record, oldRecord);
         validateCaseNumber(record, oldRecord);
         IDRCollectionActions.populateCollectionNumber(record);
         CommonUtil.handleMasking(
@@ -225,6 +227,17 @@ public with sharing class IDRCaseActions {
     IDRCollectionActions.stopCollections(records, oldMap);
     IDRCollectionActions.startCollections(records, oldMap);
     IDRComplaintFlagActions.setComplaintsFlag(records, oldMap);
+  }
+
+  /**
+   * @description Prepopulate Case Fields
+   * @param record case record
+   * @param oldCase Old copy of case record before this transaction intiated
+   */
+  private static void populateSuppliedEmail(Case record, Case oldCase) {
+    if(oldCase == null || (String.IsBlank(oldCase.IDR_NC_Email__c ) && String.IsNotBlank(record.IDR_NC_Email__c))){
+      record.SuppliedEmail = record.IDR_NC_Email__c;
+    }
   }
 
   /**
