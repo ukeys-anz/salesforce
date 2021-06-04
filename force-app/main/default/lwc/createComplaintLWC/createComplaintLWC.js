@@ -592,6 +592,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
         fields[OCV_ID.fieldApiName] = this.ocvId;
         fields[CP_ID.fieldApiName] = this.cpId;
         fields[RM_COMPLAINT.fieldApiName] = this.isRmComplaint;
+        fields[EMAIL_FIELD.fieldApiName] = this.email;
         fields[
           CUS_IDENTIFIER_FIELD.fieldApiName
         ] = this.customerIdentifierValue;
@@ -774,6 +775,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
         this.cpId = event.detail.cpId;
         this.ocvId = event.detail.ocvId;
         this.isRmComplaint = event.detail.isRmPresent;
+        this.email = event.detail.email;
         this.isCustomerDetails = true;
         this.accountNumberOptions = [{ label: "N/A", value: "N/A" }];
         let x;
