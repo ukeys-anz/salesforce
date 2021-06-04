@@ -136,6 +136,7 @@ public with sharing class IDREmailServiceHandler {
       Status = IDRConstants.OPEN_STATUS,
       Subject = email.subject,
       SuppliedEmail = fromEmail,
+      IDR_Inbox_Email_Address__c = senderEmail,
       recordTypeId = IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID
     );
     if (caseOrigin != '') {
