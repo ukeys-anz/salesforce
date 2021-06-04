@@ -201,6 +201,8 @@ export default class IDRRestrictedCases extends LightningElement {
   }
 
   handleUploadFinished(event) {
+    this.documentIds = [];
+    this.uploadedFileNames = "";
     // Get the list of uploaded files
     this.uploadedFiles = event.detail.files;
     for (let i = 0; i < this.uploadedFiles.length; i++) {
