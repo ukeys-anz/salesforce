@@ -4,7 +4,7 @@
  */
 
 export const status = [
-  "Open",
+  "Active",
   "Under Investigation",
   "On Hold",
   "Escalated",

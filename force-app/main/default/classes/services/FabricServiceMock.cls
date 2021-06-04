@@ -24,6 +24,7 @@ public with sharing class FabricServiceMock extends Service {
   private static final String TRANSACTION_HISTORY_SUCCESS_RESPONSE = getStaticResource(
     'mock_transactionHistory'
   );
+
   @TestVisible
   private static final String CARD_LIST_SUCCESS_RESPONSE = getStaticResource(
     'mock_cardList'

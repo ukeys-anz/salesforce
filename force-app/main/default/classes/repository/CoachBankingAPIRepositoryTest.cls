@@ -66,6 +66,165 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
   }
 
   /**
+   * @description Test to confirm "balance" attribute in response data is validated before passing to UI layer
+   */
+  @isTest
+  static void missingBalanceInResponse() {
+    // GIVEN
+    // a customer record has valid Fin Accounts in Fabric
+    Service s = ServiceProvider.getService(FabricService.class);
+    HttpCalloutResponse response = s.getAccountsAndGoals('1111');
+    String validResponse = response.body;
+
+    // WHEN
+    // for some reason, the Fabric API response returns “balance” attribute as empty
+
+    // manipulate “balance” attribute value to be blank on the mock response coming from "mock_accountsAndGoals.json"
+    Integer valueStartIndex = validResponse.indexOf(
+      '"',
+      validResponse.indexOf('"value"', validResponse.indexOf('"balance"')) + 7
+    );
+    Integer valueEndIndex = validResponse.indexOf('"', valueStartIndex + 1);
+    String balanceValue = validResponse.substring(
+      valueStartIndex + 1,
+      valueEndIndex
+    );
+    String manipulatedResponse = validResponse.replace(balanceValue, '');
+
+    // THEN
+    // resonse should be validated before it reaches the UI layer
+    Test.startTest();
+    AccountsAndGoalsModel modelInstance = new AccountsAndGoalsModel();
+    modelInstance = AccountsAndGoalsModel.parse(manipulatedResponse);
+    Test.stopTest();
+
+    System.assert(
+      !modelInstance.accountList[0].isValid,
+      'Failed to validate missing data on "balance" attribute in Accounts & Goals Fabric response.'
+    );
+  }
+
+  /**
+   * @description Test to confirm "currentBalance" attribute in response data is validated before passing to UI layer
+   */
+  @isTest
+  static void missingCurrentBalanceInResponse() {
+    // GIVEN
+    // a customer record has valid Fin Accounts in Fabric
+    Service s = ServiceProvider.getService(FabricService.class);
+    HttpCalloutResponse response = s.getAccountsAndGoals('1111');
+    String validResponse = response.body;
+
+    // WHEN
+    // for some reason, the Fabric API response returns “currentBalance” attribute as empty
+
+    // manipulate “currentBalance” attribute value to be blank on the mock response coming from "mock_accountsAndGoals.json"
+    Integer valueStartIndex = validResponse.indexOf(
+      '"',
+      validResponse.indexOf(
+        '"value"',
+        validResponse.indexOf('"currentBalance"')
+      ) + 7
+    );
+    Integer valueEndIndex = validResponse.indexOf('"', valueStartIndex + 1);
+    String currentBalanceValue = validResponse.substring(
+      valueStartIndex + 1,
+      valueEndIndex
+    );
+    String manipulatedResponse = validResponse.replace(currentBalanceValue, '');
+
+    // THEN
+    // resonse should be validated before it reaches the UI layer
+    Test.startTest();
+    AccountsAndGoalsModel modelInstance = new AccountsAndGoalsModel();
+    modelInstance = AccountsAndGoalsModel.parse(manipulatedResponse);
+    Test.stopTest();
+
+    System.assert(
+      !modelInstance.accountList[0].isValid,
+      'Failed to validate missing data on "currentBalance" attribute in Accounts & Goals Fabric response.'
+    );
+  }
+
+  /**
+   * @description Test to confirm "accountType" attribute in response data is validated before passing to UI layer
+   */
+  @isTest
+  static void missingAccountTypeInResponse() {
+    // GIVEN
+    // a customer record has valid Fin Accounts in Fabric
+    Service s = ServiceProvider.getService(FabricService.class);
+    HttpCalloutResponse response = s.getAccountsAndGoals('1111');
+    String validResponse = response.body;
+
+    // WHEN
+    // for some reason, the Fabric API response returns "accountType" attribute as empty
+
+    // manipulate “accountType” attribute value to be blank on the mock response coming from "mock_accountsAndGoals.json"
+    Integer valueStartIndex = validResponse.indexOf(
+      '"',
+      validResponse.indexOf('"accountType"') + 13
+    );
+    Integer valueEndIndex = validResponse.indexOf('"', valueStartIndex + 1);
+    String accTypeValue = validResponse.substring(
+      valueStartIndex + 1,
+      valueEndIndex
+    );
+    String manipulatedResponse = validResponse.replace(accTypeValue, '');
+
+    // THEN
+    // resonse should be validated before it reaches the UI layer
+    Test.startTest();
+    AccountsAndGoalsModel modelInstance = new AccountsAndGoalsModel();
+    modelInstance = AccountsAndGoalsModel.parse(manipulatedResponse);
+    Test.stopTest();
+
+    System.assert(
+      !modelInstance.accountList[0].isValid,
+      'Failed to validate missing "accountType" data at Financial Account record level on Accounts & Goals Fabric response.'
+    );
+  }
+
+  /**
+   * @description Test to confirm "accountNumber" attribute in response data is validated before passing to UI layer
+   */
+  @isTest
+  static void missingAccountNumberInResponse() {
+    // GIVEN
+    // a customer record has valid Fin Accounts in Fabric
+    Service s = ServiceProvider.getService(FabricService.class);
+    HttpCalloutResponse response = s.getAccountsAndGoals('1111');
+    String validResponse = response.body;
+
+    // WHEN
+    // for some reason, the Fabric API response returns "accountNumber" attribute as empty
+
+    // manipulate "accountNumber" attribute value to be blank on the mock response coming from "mock_accountsAndGoals.json"
+    Integer valueStartIndex = validResponse.indexOf(
+      '"',
+      validResponse.indexOf('"accountNumber"') + 15
+    );
+    Integer valueEndIndex = validResponse.indexOf('"', valueStartIndex + 1);
+    String accNumberValue = validResponse.substring(
+      valueStartIndex + 1,
+      valueEndIndex
+    );
+    String manipulatedResponse = validResponse.replace(accNumberValue, '');
+
+    // THEN
+    // resonse should be validated before it reaches the UI layer
+    Test.startTest();
+    AccountsAndGoalsModel modelInstance = new AccountsAndGoalsModel();
+    modelInstance = AccountsAndGoalsModel.parse(manipulatedResponse);
+    Test.stopTest();
+
+    System.assert(
+      !modelInstance.accountList[0].isValid,
+      'Failed to validate missing "accountNumber" data at Financial Account record level on Accounts & Goals Fabric response.'
+    );
+  }
+
+  /**
    * @description fetch valid accounts, mocked values in force-app/main/default/staticresources/mock_accountsAndGoals.json
    * called in force-app/main/default/classes/services/FabricServiceMock.cls
    */
@@ -194,7 +353,10 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
         resultException = e;
       }
       Test.stopTest();
-      System.assertEquals('Card Information is invalid. Please reach out to your system administrator.', resultException.getMessage());
+      System.assertEquals(
+        'Card Information is invalid. Please reach out to your system administrator.',
+        resultException.getMessage()
+      );
     }
   }
 

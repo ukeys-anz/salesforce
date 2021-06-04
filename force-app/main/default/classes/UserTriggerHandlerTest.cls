@@ -13,7 +13,7 @@ public class UserTriggerHandlerTest {
 
   @isTest
   static void testUserInsert() {
-    Profile p = [SELECT Id FROM Profile WHERE Name = 'ANZ Standard User'];
+    Profile p = CommonUtil.getProfileByName('ANZ Standard User');
 
     User_Provisioning_Request__c upr = new User_Provisioning_Request__c();
     upr.Requestor_UUID__c = 'Test1';
@@ -22,7 +22,7 @@ public class UserTriggerHandlerTest {
     insert upr;
 
     for (Integer i = 0; i < 3; i++) {
-      testUsers.add((User) FakerFactory.make(new FakerUserFactory()));
+      testUsers.add(TestUtil.createTestUser());
     }
 
     for (User usr : testUsers) {
@@ -60,21 +60,15 @@ public class UserTriggerHandlerTest {
       LIMIT 1
     ];
 
-    List<Profile> assignedProfileId = new List<Profile>();
-    List<UserRole> assignedRoleId = new List<UserRole>();
+    Profile assignedProfile = new Profile();
+    UserRole assignedRole = new UserRole();
     if (!testMetaData.isEmpty()) {
-      assignedProfileId = [
-        SELECT Id
-        FROM Profile
-        WHERE Name = :testMetaData[0].Profile_Name__c
-        LIMIT 1
-      ];
-      assignedRoleId = [
-        SELECT Id
-        FROM UserRole
-        WHERE DeveloperName = :testMetaData[0].Role_Name__c
-        LIMIT 1
-      ];
+      assignedProfile = CommonUtil.getProfileByName(
+        testMetaData[0].Profile_Name__c
+      );
+      assignedRole = CommonUtil.getUserRoleByDevName(
+        testMetaData[0].Role_Name__c
+      );
     }
 
     List<PermissionSetLicenseAssign> pslAssignList = [
@@ -85,9 +79,9 @@ public class UserTriggerHandlerTest {
     System.assertNotEquals(0, pslAssignList.size());
 
     //Check if Profile and Role are assigned correctly as defined from Custom Metadata
-    if (!assignedProfileId.isEmpty() && !assignedRoleId.isEmpty()) {
-      System.assertEquals(assignedProfileId[0].Id, insertedUser.ProfileId);
-      System.assertEquals(assignedRoleId[0].Id, insertedUser.UserRoleId);
+    if (assignedProfile != null && assignedRole != null) {
+      System.assertEquals(assignedProfile.Id, insertedUser.ProfileId);
+      System.assertEquals(assignedRole.Id, insertedUser.UserRoleId);
     }
   }
 
@@ -97,10 +91,10 @@ public class UserTriggerHandlerTest {
 
   @isTest
   static void testUserUpdate() {
-    Profile p = [SELECT Id FROM Profile WHERE Name = 'Standard User'];
+    Profile p = CommonUtil.getProfileByName('Standard User');
 
     for (Integer i = 0; i < 3; i++) {
-      testUsers.add((User) FakerFactory.make(new FakerUserFactory()));
+      testUsers.add(TestUtil.createTestUser());
     }
     for (User usr : testUsers) {
       usr.ProfileId = p.Id;
@@ -172,13 +166,15 @@ public class UserTriggerHandlerTest {
 
   @isTest
   static void testRevoke() {
-    Profile p = [SELECT Id FROM Profile WHERE Name = 'Standard User'];
+    Profile p = CommonUtil.getProfileByName('Standard User');
 
-    User testUser = (User) FakerFactory.make(new FakerUserFactory());
-    testUser.ProfileId = p.Id;
-    testUser.Business_Function__c = 'Test Business Function';
-    testUser.Business_Role__c = 'Business Role';
-
+    User testUser = TestUtil.createTestUser(
+      new Map<String, Object>{
+        'ProfileId' => p.Id,
+        'Business_Function__c' => 'Test Business Function',
+        'Business_Role__c' => 'Business Role'
+      }
+    );
     insert testUser;
 
     Test.startTest();

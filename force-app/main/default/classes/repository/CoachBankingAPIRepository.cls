@@ -65,15 +65,6 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
    */
   public class PermissionException extends Exception {
   }
-
-  /**
-   * @author Lance
-   * @since April 2021
-   * @description invaid information exception
-   */
-  public class InvalidInformationException extends Exception {
-  }
-
   /**
    * @param ocvId customer id
    * @param accountNumber Account number for which we want to fetch the transactions
@@ -153,7 +144,9 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
             if (!card.isValid) {
               handleErrors(
                 null,
-                new InvalidInformationException('Card Information is invalid. Please reach out to your system administrator.'),
+                new InvalidInformationException(
+                  'Card Information is invalid. Please reach out to your system administrator.'
+                ),
                 CoachBankingAPIRepository.class
               );
             }
@@ -184,5 +177,13 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
     CoachBankingAPIRepository coachapi = new CoachBankingAPIRepository();
     CardListModel result = coachapi.getCardList(ocvId);
     return result;
+  }
+
+  /**
+   * @author Lance
+   * @since April 2021
+   * @description invaid information exception
+   */
+  public class InvalidInformationException extends Exception {
   }
 }

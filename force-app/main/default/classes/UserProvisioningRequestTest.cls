@@ -7,19 +7,28 @@
 public class UserProvisioningRequestTest {
   @testSetup
   static void testSetup() {
-    Profile p = [SELECT Id FROM Profile WHERE Name = 'Standard User'];
+    Profile p = CommonUtil.getProfileByName('Standard User');
 
     //Create Manager User
-    User testUser1 = (User) FakerFactory.make(new FakerUserFactory());
-    testUser1.ProfileId = p.Id;
-    testUser1.FederationIdentifier = 'Manager';
-    insert testUser1;
+    List<User> userList = new List<User>();
+    User testUser1 = TestUtil.createTestUser(
+      new Map<String, Object>{
+        'ProfileId' => p.Id,
+        'FederationIdentifier' => 'Manager'
+      }
+    );
+    userList.add(testUser1);
 
     //Create Modify Request User
-    User testUser2 = (User) FakerFactory.make(new FakerUserFactory());
-    testUser2.ProfileId = p.Id;
-    testUser2.FederationIdentifier = 'Tester';
-    insert testUser2;
+    User testUser2 = TestUtil.createTestUser(
+      new Map<String, Object>{
+        'ProfileId' => p.Id,
+        'FederationIdentifier' => 'Tester'
+      }
+    );
+    userList.add(testUser2);
+
+    insert userList;
   }
 
   @isTest

@@ -3216,11 +3216,6 @@
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
-    <field>Contact.FinServ__Gender__c</field>
-    <readable>false</readable>
-  </fieldPermissions>
-  <fieldPermissions>
-    <editable>false</editable>
     <field>Contact.FinServ__HomeOwnership__c</field>
     <readable>false</readable>
   </fieldPermissions>
@@ -3398,6 +3393,11 @@
     <editable>false</editable>
     <field>Contact.FinServ__WeddingAnniversary__c</field>
     <readable>true</readable>
+  </fieldPermissions>
+  <fieldPermissions>
+    <editable>false</editable>
+    <field>Contact.Gender__c</field>
+    <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
@@ -9754,7 +9754,7 @@
     <name>ApexRestServices</name>
   </userPermissions>
   <userPermissions>
-    <enabled>true</enabled>
+    <enabled>false</enabled>
     <name>ApiEnabled</name>
   </userPermissions>
   <userPermissions>
@@ -9794,7 +9794,7 @@
     <name>CreateCustomizeFilters</name>
   </userPermissions>
   <userPermissions>
-    <enabled>true</enabled>
+    <enabled>false</enabled>
     <name>CreateCustomizeReports</name>
   </userPermissions>
   <userPermissions>
@@ -9834,7 +9834,7 @@
     <name>EnableNotifications</name>
   </userPermissions>
   <userPermissions>
-    <enabled>true</enabled>
+    <enabled>false</enabled>
     <name>ExportReport</name>
   </userPermissions>
   <userPermissions>
