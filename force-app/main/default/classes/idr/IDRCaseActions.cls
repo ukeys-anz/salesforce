@@ -167,7 +167,6 @@ public with sharing class IDRCaseActions {
       if (isIDRComplaintType(record)) {
         Case oldRecord = (case) oldMap.get(record.id);
         validateCaseNumber(record, oldRecord);
-        validateEmailIngestedComplaints(record, oldRecord);
         IDRCollectionActions.populateCollectionNumber(record);
         CommonUtil.handleMasking(
           record,
@@ -226,18 +225,6 @@ public with sharing class IDRCaseActions {
     IDRCollectionActions.stopCollections(records, oldMap);
     IDRCollectionActions.startCollections(records, oldMap);
     IDRComplaintFlagActions.setComplaintsFlag(records, oldMap);
-  }
-
-  /**
-   * @description This method is to ensure that case is escalated when an ingested complaint is converted to Compliant/Non-Complaint case 
-   *  @param record record in the trigger context
-   *  @param oldCase old copy of case record before this update
-   */
-  public static void validateEmailIngestedComplaints(Case record, Case oldCase ){
-    if(oldCase.RecordTypeID == IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID && 
-      record.Status != IDRConstants.ESCALATED_STATUS){
-      record.addError('Case Status must be updated to "Escalated"');
-    }
   }
 
   /**
