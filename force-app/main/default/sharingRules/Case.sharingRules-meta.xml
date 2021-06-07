@@ -285,7 +285,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Direct Debit,Recipient/Mule,Direct Entry,ATM,Fraud,Scam,KYC QA,Identity,Urgent Dishonour Request,Card</value>
+            <value>ATM,Card,Direct Debit,Direct Entry,Fraud,General Enquiry,Identity,KYC QA,Recipient/Mule,Scam,Urgent Dishonour Request</value>
         </criteriaItems>
     </sharingCriteriaRules>
 </SharingRules>
