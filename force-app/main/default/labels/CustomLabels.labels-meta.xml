@@ -21,7 +21,7 @@
         <categories>IDR</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>XpressionSenderAddress</shortDescription>
+        <shortDescription>Xpression will use this address to send letters to Xpression recipient address</shortDescription>
         <value>Yourfeedback@anz.com</value>
     </labels>
     <labels>
@@ -29,7 +29,7 @@
         <categories>IDR</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>XpressionRecepientInboxAddress</shortDescription>
+        <shortDescription>Xpression will BCC this address to insert letters into CMOS</shortDescription>
         <value>ICMNFL@anz.com</value>
     </labels>
     <labels>
