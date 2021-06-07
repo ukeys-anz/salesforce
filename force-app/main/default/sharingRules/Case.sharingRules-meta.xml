@@ -253,18 +253,4 @@
             <value>Direct Debit,Recipient/Mule,Direct Entry,ATM,Fraud,Scam,KYC QA,Identity,Urgent Dishonour Request,Card</value>
         </criteriaItems>
     </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>GeneralEnquiry_RT_FraudXAgents_RO</fullName>
-        <accessLevel>Read</accessLevel>
-        <description>All Cases having &quot;General Enquiry&quot; record type are to be shared with FraudX Agents with Read-Only access.</description>
-        <label>GeneralEnquiry_RT-FraudXAgents-RO</label>
-        <sharedTo>
-            <role>FraudX_Agent</role>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>General Enquiry</value>
-        </criteriaItems>
-    </sharingCriteriaRules>
 </SharingRules>
