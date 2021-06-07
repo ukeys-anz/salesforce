@@ -1,26 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingCriteriaRules>
-        <fullName>AllExceptARC_RTs_SSA_RO</fullName>
-        <accessLevel>Read</accessLevel>
-        <description>All cases record types except AR&amp;C are to be shared with Super Support Admin users with Read-Only access.</description>
-        <label>AllExceptARC_RTs_SSA_RO</label>
-        <sharedTo>
-            <role>Super_Support_Admin</role>
-        </sharedTo>
-        <booleanFilter>1 AND 2</booleanFilter>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>notEqual</operation>
-            <value>Customer Complaint</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>notEqual</operation>
-            <value>Non-Customer Complaint</value>
-        </criteriaItems>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
         <fullName>CRI_RT_Complaints_PG_AllIDRUsers_RW</fullName>
         <accessLevel>Edit</accessLevel>
         <description>All the cases records owned by All IDR Users public group needs to be shared with.</description>
@@ -32,6 +12,41 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Customer Complaint,Non-Customer Complaint</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Dispute_RT_FraudXAgents_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>All Cases having &quot;Dispute&quot; record types are to be shared with FraudX Agents with Read-Only access.</description>
+        <label>Dispute_RT-FraudXAgents-RO</label>
+        <sharedTo>
+            <role>FraudX_Agent</role>
+        </sharedTo>
+        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5</booleanFilter>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>ATM</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Card</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Direct Debit</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Direct Entry</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Urgent Dishonour Request</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -134,6 +149,26 @@
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>AllExceptARC_RTs_SSA_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>All cases record types except AR&amp;C are to be shared with Super Support Admin users with Read-Only access.</description>
+        <label>AllExceptARC_RTs_SSA_RO</label>
+        <sharedTo>
+            <role>Super_Support_Admin</role>
+        </sharedTo>
+        <booleanFilter>1 AND 2</booleanFilter>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>notEqual</operation>
+            <value>Customer Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>notEqual</operation>
+            <value>Non-Customer Complaint</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>Dispute_RTs_Support_Coaches_RW</fullName>
         <accessLevel>Edit</accessLevel>
         <label>Dispute_RTs_Support_Coaches_RW</label>
@@ -183,6 +218,19 @@
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>Dispute_RTs_Support_Staff_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Dispute_RTs_Support_Staff_RW</label>
+        <sharedTo>
+            <role>Support_Staff_ARC</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Complaint</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>Dispute_RTs_Support_Staff_RO</fullName>
         <accessLevel>Read</accessLevel>
         <label>Dispute_RTs_Support_Staff_RO</label>
@@ -224,19 +272,6 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Bug Enquiry</value>
-        </criteriaItems>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>Dispute_RTs_Support_Staff_RW</fullName>
-        <accessLevel>Edit</accessLevel>
-        <label>Dispute_RTs_Support_Staff_RW</label>
-        <sharedTo>
-            <role>Support_Staff_ARC</role>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Complaint</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
