@@ -3,6 +3,7 @@
  * @since 05/2021
  * @description  This class is contains helper methods for IDREmailService class
  */
+@SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class IDREmailServiceHelper {
   /**
    * @description Creates a new email message record
@@ -17,13 +18,26 @@ public with sharing class IDREmailServiceHelper {
     Id caseId
   ) {
     EmailMessage emailMessage = new EmailMessage();
-    emailMessage.parentId = caseId;
-    emailMessage.fromAddress = email.fromAddress;
-    emailMessage.fromName = email.fromName;
-    emailMessage.subject = email.subject;
-    emailMessage.htmlBody = email.htmlBody.replaceAll('<a.*<.{1}a>', 'REMOVED');
-    if (Case.sObjectType.getDescribe().isCreateable()) {
+    emailMessage.ParentId = caseId;
+    emailMessage.FromAddress = email.fromAddress;
+    emailMessage.FromName = email.fromName;
+    emailMessage.Subject = email.subject;
+    emailMessage.HtmlBody = email.htmlBody.replaceAll('<a.*<.{1}a>', 'REMOVED');
+    if (
+      Schema.EmailMessage.sObjectType.getDescribe().isCreateable() &&
+      Schema.sObjectType.EmailMessage.fields.ParentId.isCreateable() &&
+      Schema.sObjectType.EmailMessage.fields.FromAddress.isCreateable() &&
+      Schema.sObjectType.EmailMessage.fields.FromName.isCreateable() &&
+      Schema.sObjectType.EmailMessage.fields.Subject.isCreateable() &&
+      Schema.sObjectType.EmailMessage.fields.HtmlBody.isCreateable()
+    ) {
       insert emailMessage;
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'CreateCommsController',
+        'createComms',
+        'Not enough permissions to create EmailMessage.'
+      );
     }
   }
 
@@ -135,14 +149,25 @@ public with sharing class IDREmailServiceHelper {
         ContentDocumentLink contentLink = new ContentDocumentLink();
         contentLink.LinkedEntityId = caseId;
         contentLink.ContentDocumentId = cv.ContentDocumentId;
-        contentLink.shareType = 'V';
+        contentLink.ShareType = 'V';
         contentDocLinkList.add(contentLink);
       }
     }
 
     if (contentDocLinkList.size() > 0) {
-      if (ContentDocumentLink.sObjectType.getDescribe().isCreateable()) {
+      if (
+        ContentDocumentLink.sObjectType.getDescribe().isCreateable() &&
+        Schema.sObjectType.ContentDocumentLink.fields.ContentDocumentId.isCreateable() &&
+        Schema.sObjectType.ContentDocumentLink.fields.LinkedEntityId.isCreateable() &&
+        Schema.sObjectType.ContentDocumentLink.fields.ShareType.isCreateable()
+      ) {
         insert contentDocLinkList;
+      } else {
+        CommonUtil.logAndThrowIAE(
+          'CreateCommsController',
+          'createComms',
+          'Not enough permissions to create ContentDocumentLink.'
+        );
       }
     }
   }
@@ -276,7 +301,11 @@ public with sharing class IDREmailServiceHelper {
   public static void updateCaseWithQueue(Case newCase) {
     //Get Indexing Queue
     List<Group> queueList = getGroupDetails('Queue', 'Indexing_Queue');
-    if (queueList.size() > 0 && Case.sObjectType.getDescribe().isUpdateable()) {
+    if (
+      queueList.size() > 0 &&
+      Case.sObjectType.getDescribe().isUpdateable() &&
+      Schema.sObjectType.Case.fields.OwnerId.isUpdateable()
+    ) {
       newCase.OwnerId = queueList[0].Id;
       try {
         update newCase;

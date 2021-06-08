@@ -64,17 +64,31 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
           .Status__c = IDRConstants.NOTIFICATION_ERROR_PUBLISH_STATUS;
       }
     }
-    List<Database.saveResult> result = Database.update(notificationList, false);
-    Lib_SystemLog log = new Lib_SystemLog(
-      NotificationHandlerBatch.class.getName(),
-      'execute'
-    );
-    log.addDatabaseSaveResult(
-      'Notification_Handler__c',
-      result,
-      notificationList
-    );
-    log.insertLog();
+    if (
+      Schema.sObjectType.Notification_Handler__c.isUpdateable() &&
+      Schema.sObjectType.Notification_Handler__c.fields.Status__c.isUpdateable()
+    ) {
+      List<Database.saveResult> result = Database.update(
+        notificationList,
+        false
+      );
+      Lib_SystemLog log = new Lib_SystemLog(
+        NotificationHandlerBatch.class.getName(),
+        'execute'
+      );
+      log.addDatabaseSaveResult(
+        'Notification_Handler__c',
+        result,
+        notificationList
+      );
+      log.insertLog();
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'NotificationTriggerHandler',
+        'insertNotificationHandler',
+        'Not enough permissions to update Notification_Handler__c.'
+      );
+    }
   }
 
   /**
