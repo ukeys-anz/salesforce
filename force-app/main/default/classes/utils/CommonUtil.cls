@@ -163,4 +163,50 @@ public with sharing class CommonUtil {
    */
   private class InsufficientAccessException extends Exception {
   }
+
+  /**
+   * @description Get Profile by Profile Name
+   * @param profileName name of the Profile
+   * @return Profile
+   */
+  public static Profile getProfileByName(String profileName) {
+    Profile profile = new Profile();
+    for (Profile prof : [SELECT Id FROM Profile WHERE Name = :profileName]) {
+      profile = prof;
+    }
+
+    return profile;
+  }
+
+  /**
+   * @description Get UserRole by UserRole DeveloperName
+   * @param developerName developer name of the UserRole
+   * @return UserRole
+   */
+  public static UserRole getUserRoleByDevName(String developerName) {
+    UserRole userRole = new UserRole();
+    for (UserRole role : [
+      SELECT Id
+      FROM UserRole
+      WHERE DeveloperName = :developerName
+    ]) {
+      userRole = role;
+    }
+
+    return userRole;
+  }
+
+  /**
+   * @description Get PermissionSet by PermissionSet Name
+   * @param name name of the PermissionSet
+   * @return PermissionSet
+   */
+  public static PermissionSet getPermissionSetByName(String name) {
+    PermissionSet permSet = new PermissionSet();
+    for (PermissionSet ps : [SELECT Id FROM PermissionSet WHERE Name = :name]) {
+      permSet = ps;
+    }
+
+    return permSet;
+  }
 }

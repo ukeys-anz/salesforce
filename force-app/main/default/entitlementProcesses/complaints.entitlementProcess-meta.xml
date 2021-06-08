@@ -39,7 +39,7 @@
             <value/>
         </milestoneCriteriaFilterItems>
         <milestoneName>Open_Escalation_Time</milestoneName>
-        <minutesToComplete>7200</minutesToComplete>
+        <minutesToComplete>7680</minutesToComplete>
         <timeTriggers>
             <actions>
                 <name>EscalationtoAmber</name>
