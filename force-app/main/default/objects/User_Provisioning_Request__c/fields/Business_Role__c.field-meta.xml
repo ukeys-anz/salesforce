@@ -26,19 +26,19 @@
                 <label>Data Analyst</label>
             </value>
             <value>
-                <fullName>Customer Resolution</fullName>
+                <fullName>All Customer Resolution</fullName>
                 <default>false</default>
-                <label>Customer Resolution</label>
+                <label>All Customer Resolution</label>
             </value>
             <value>
-                <fullName>Manager</fullName>
+                <fullName>Frontline Manager</fullName>
                 <default>false</default>
-                <label>Manager</label>
+                <label>Frontline Manager</label>
             </value>
             <value>
-                <fullName>Banker</fullName>
+                <fullName>Frontline Banker</fullName>
                 <default>false</default>
-                <label>Banker</label>
+                <label>Frontline Banker</label>
             </value>
             <value>
                 <fullName>Tech Support</fullName>
@@ -89,6 +89,21 @@
                 <fullName>Super Support Admin</fullName>
                 <default>false</default>
                 <label>Super Support Admin</label>
+            </value>
+            <value>
+                <fullName>Systemic Issues Team</fullName>
+                <default>false</default>
+                <label>Systemic Issues Team</label>
+            </value>
+            <value>
+                <fullName>Systemic Issue BU Contacts</fullName>
+                <default>false</default>
+                <label>Systemic Issue BU Contacts</label>
+            </value>
+            <value>
+                <fullName>CRP LT</fullName>
+                <default>false</default>
+                <label>CRP LT</label>
             </value>
             <value>
                 <fullName>Business Role</fullName>
