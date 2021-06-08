@@ -7,4 +7,9 @@
         <sharedTo>David.dawson@anzx.com</sharedTo>
         <sharedToType>User</sharedToType>
     </shares>
+    <shares>
+        <accessLevel>View</accessLevel>
+        <sharedTo>FraudX_Agent</sharedTo>
+        <sharedToType>Role</sharedToType>
+    </shares>
 </WaveApplication>
