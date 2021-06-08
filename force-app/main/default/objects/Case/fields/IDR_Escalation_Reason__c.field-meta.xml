@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_Escalation_Reason__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information</complianceGroup>
+    <complianceGroup>Privacy - Non Personal Information;Integrity - Trusted</complianceGroup>
     <description>Complaint Escalation Reason</description>
     <externalId>false</externalId>
     <label>Complaint Escalation Reason</label>
@@ -16,24 +16,59 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>1</fullName>
+                <fullName>7</fullName>
                 <default>false</default>
-                <label>Above Banker Discretion</label>
+                <label>The outcome of a hardship application (e.g. the customer’s hardship application has been declined, and the customer is not satisfied with the offer being made)</label>
             </value>
             <value>
-                <fullName>2</fullName>
+                <fullName>8</fullName>
                 <default>false</default>
-                <label>Customer Request</label>
+                <label>Customer requests a written response (we should not proactively ask customers if they want a written response)</label>
             </value>
             <value>
-                <fullName>5</fullName>
+                <fullName>9</fullName>
                 <default>false</default>
-                <label>Outside Process</label>
+                <label>Customer is in collections and the complaint relates to collection activity, process or outcome</label>
             </value>
             <value>
-                <fullName>6</fullName>
+                <fullName>10</fullName>
                 <default>false</default>
-                <label>Written Response Required</label>
+                <label>ANZ&apos;s handling of credit information, credit eligibility information or CRB (credit reporting body) (e.g. ANZ agreed to update my credit file and this has not been done)</label>
+            </value>
+            <value>
+                <fullName>11</fullName>
+                <default>false</default>
+                <label>Responsible lending (e.g. the customer says that their investment loan should never have been provided to them as they did not have the income to support the loan)</label>
+            </value>
+            <value>
+                <fullName>12</fullName>
+                <default>false</default>
+                <label>Financial advice relating to Wealth products, or by a Financial Planner (e.g. ‘I was provided with poor advice on X product and this has caused me a financial loss’)</label>
+            </value>
+            <value>
+                <fullName>13</fullName>
+                <default>false</default>
+                <label>Complaints about a third party product, including declined insurance claims i.e. issued by a company other than ANZ (e.g. QBE, Zurich, IOOF)</label>
+            </value>
+            <value>
+                <fullName>14</fullName>
+                <default>false</default>
+                <label>Serious allegations of fraud/criminal behaviour by ANZ</label>
+            </value>
+            <value>
+                <fullName>15</fullName>
+                <default>false</default>
+                <label>Customer is represented by a lawyer or consumer advocacy service</label>
+            </value>
+            <value>
+                <fullName>16</fullName>
+                <default>false</default>
+                <label>Complaint relates to current legal action or poses serious litigation risk for ANZ</label>
+            </value>
+            <value>
+                <fullName>17</fullName>
+                <default>false</default>
+                <label>Privacy breach</label>
             </value>
         </valueSetDefinition>
     </valueSet>
