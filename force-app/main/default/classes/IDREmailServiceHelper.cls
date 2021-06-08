@@ -41,9 +41,9 @@ public with sharing class IDREmailServiceHelper {
     List<ContentVersion> contentVersionList = new List<ContentVersion>();
 
     //Get all text attachments
-    contentVersionList.addAll(getTextFileAttachments(tAttachments));
+    contentVersionList.addAll(getTextFileAttachments(tAttachments, caseId));
     //Get all binary attachments
-    contentVersionList.addAll(getTextBinaryAttachments(bAttachments));
+    contentVersionList.addAll(getTextBinaryAttachments(bAttachments, caseId));
 
     if (contentVersionList.size() > 0) {
       if (ContentVersion.sObjectType.getDescribe().isCreateable()) {
@@ -190,10 +190,12 @@ public with sharing class IDREmailServiceHelper {
   /**
    * @description Fetches the text attachments from the email
    * @param tAttachments The messaging inbound email text attachments
+   * @param caseId The case Id that needs to be related to
    * @return List<ContentVersion> Wraps through content version
    */
   public static List<ContentVersion> getTextFileAttachments(
-    List<Messaging.Inboundemail.TextAttachment> tAttachments
+    List<Messaging.Inboundemail.TextAttachment> tAttachments,
+    Id caseId
   ) {
     List<ContentVersion> returnConVerList = new List<ContentVersion>();
     if (tAttachments != null && tAttachments.size() > 0) {
@@ -211,7 +213,9 @@ public with sharing class IDREmailServiceHelper {
             'Discarded an attachment as the type was unsupported => filename : ' +
             tAttachment.fileName +
             ' , mimesubtype : ' +
-            tAttachment.mimeTypeSubType,
+            tAttachment.mimeTypeSubType +
+            ', For the case : ' +
+            caseId,
             null,
             null,
             IDREmailServiceHelper.class.getName(),
@@ -227,10 +231,12 @@ public with sharing class IDREmailServiceHelper {
   /**
    * @description Fetches the text attachments from the email
    * @param bAttachments The messaging inbound email binary attachments
+   * @param caseId The case Id that needs to be related to
    * @return List<ContentVersion> Wraps through content version
    */
   public static List<ContentVersion> getTextBinaryAttachments(
-    List<Messaging.Inboundemail.BinaryAttachment> bAttachments
+    List<Messaging.Inboundemail.BinaryAttachment> bAttachments,
+    Id caseId
   ) {
     List<ContentVersion> returnConVerList = new List<ContentVersion>();
     if (bAttachments != null && bAttachments.size() > 0) {
@@ -248,7 +254,9 @@ public with sharing class IDREmailServiceHelper {
             'Discarded a binary attachment as the type was unsupported => filename : ' +
             bAttachment.fileName +
             ' , mimesubtype : ' +
-            bAttachment.mimeTypeSubType,
+            bAttachment.mimeTypeSubType +
+            ', For the case : ' +
+            caseId,
             null,
             null,
             IDREmailServiceHelper.class.getName(),

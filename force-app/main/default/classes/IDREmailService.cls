@@ -69,7 +69,8 @@ global with sharing class IDREmailService implements Messaging.InboundEmailHandl
         createNewCase = IDREmailServiceHandler.updateExistingEmail(
           email,
           fromEmail,
-          caseNumber
+          caseNumber,
+          senderEmail
         );
       } else {
         createNewCase = true;

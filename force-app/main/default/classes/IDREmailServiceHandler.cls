@@ -44,26 +44,28 @@ public with sharing class IDREmailServiceHandler {
    * @param email Inbound email object
    * @param fromEmail The email address recieved from
    * @param caseNo Case number retrieved from subject line
+   * @param senderEmail The email address to whom the email was sent to
    * @return Boolean if the case is updated or not successfully
    */
+  @SuppressWarnings('PMD.ExcessiveParameterList')
   public static Boolean updateExistingEmail(
     Messaging.InboundEmail email,
     String fromEmail,
-    String caseNo
+    String caseNo,
+    String senderEmail
   ) {
     Case caseToUpd;
     List<Case> caseToUpdList;
     if (Case.sObjectType.getDescribe().isQueryable()) {
-      caseToUpdList = [
-        SELECT Id, CaseNumber, OwnerId
-        FROM Case
-        WHERE
-          CaseNumber = :caseNo
-          AND Status != 'Closed'
-          AND Status != 'Resolved'
-          AND SuppliedEmail = :fromEmail
-        LIMIT 1
-      ];
+      String queryString = 'SELECT Id, CaseNumber, OwnerId FROM Case WHERE CaseNumber = :caseNo AND Status != \'Closed\' AND Status != \'Resolved\' ';
+      if (
+        fromEmail != System.Label.XpressionSenderAddress &&
+        senderEmail != System.Label.XpressionRecepientInboxAddress
+      ) {
+        queryString = queryString + 'AND SuppliedEmail = :fromEmail ';
+      }
+      queryString = queryString + 'LIMIT 1';
+      caseToUpdList = Database.query(queryString);
     }
     if (caseToUpdList.size() > 0) {
       caseToUpd = caseToUpdList[0];
