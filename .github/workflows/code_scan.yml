@@ -4,6 +4,10 @@ name: Scan
 # This workflow will only run on Pull Requests against master , develop and epic/*
 on:
   pull_request:
+    paths:
+      - "**/*.cls"
+      - "**/*.trigger"
+      - "**/*.apex"
     branches: [develop, master, epic/*]
 
 jobs:
@@ -17,7 +21,7 @@ jobs:
       - name: "Install PMD"
         shell: bash
         run: |
-          wget -nc -O pmd.zip https://artifactory.gcp.anz/artifactory/github/pmd/pmd/releases/download/pmd_releases%2F6.34.0/pmd-bin-6.34.0.zip
+          curl -o pmd.zip -OL https://artifactory.gcp.anz/artifactory/github/pmd/pmd/releases/download/pmd_releases%2F6.34.0/pmd-bin-6.34.0.zip
           unzip pmd.zip
           chmod +x $GITHUB_WORKSPACE/pmd-bin-6.34.0/bin
 

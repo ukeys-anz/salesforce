@@ -4,6 +4,8 @@ name: Verify
 # This workflow will only run on Pull Reqeusts against master , develop and epic/*
 on:
   pull_request:
+    paths:
+      - "force-app/**"
     branches:
       - develop
       - master
