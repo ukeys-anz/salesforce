@@ -14,7 +14,7 @@ public with sharing class IDREmailServiceTest {
     insert contextUser;
 
     // Assign related PSs
-    List<String> emailServicePSs = new List<String>{ 'IDREmailServicePermSet' };
+    List<String> emailServicePSs = new List<String>{ 'IDR_EmailService' };
 
     List<PermissionSet> psList = [
       SELECT Id
