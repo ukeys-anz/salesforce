@@ -42,7 +42,7 @@ public with sharing class IDRCaseActions {
     CLOSED_STATUS => 'AgCaseClosed',
     RESOLVED_STATUS => 'AgCaseRslvd',
     WITHDRAWN_STATUS => 'AgCaseWthdrwn',
-    BANKER_ESCALATION_EMAIL => ''
+    BANKER_ESCALATION_EMAIL => 'TO_BE_PROVIDED_FROM_NB'
   };
 
   private static final String ESCALATED_TO_CRC_API_NAME = '1';
@@ -251,6 +251,7 @@ public with sharing class IDRCaseActions {
         ? (Case) oldMap.get(record.Id)
         : null);
       if (
+        oldCase != null &&
         oldCase.IDR_Milestone_Sla__c != record.IDR_Milestone_Sla__c &&
         record.IDR_Milestone_Sla__c == IDRConstants.MILESTONE_SLA_RED
       ) {
@@ -260,7 +261,13 @@ public with sharing class IDRCaseActions {
     }
     Map<Id, User> ownerMap = new Map<Id, User>(
       [
-        SELECT Id, Email, FirstName, Manager.Name, Manager.FirstName
+        SELECT
+          Id,
+          Email,
+          FirstName,
+          Manager.Name,
+          Manager.FirstName,
+          Manager.Email
         FROM User
         WHERE Id IN :caseOwnerIds
       ]
@@ -272,7 +279,7 @@ public with sharing class IDRCaseActions {
 
     Lib_SystemLog log = new Lib_SystemLog(
       IDRCaseActions.class.getName(),
-      'sendNotifications'
+      'notifyBankersForEscalation'
     );
     log.addDatabaseSaveResult(
       'IDR_Notification_Event__e',
