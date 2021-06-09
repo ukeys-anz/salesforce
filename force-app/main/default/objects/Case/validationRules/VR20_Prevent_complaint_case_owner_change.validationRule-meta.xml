@@ -5,7 +5,7 @@
     <description>This validation rule exists to prevent users with the Support Staff AR&amp;C role from changing case owners of complaints. This rule is in place as part of UAM.</description>
     <errorConditionFormula>AND(
 $RecordType.Name = &quot;Complaint&quot;,
-ISCHANGED(  OwnerId  ),
+ OR(ISCHANGED(  OwnerId  ),ISCHANGED ( Queue__c )),  
 $UserRole.Name = &quot;Support Staff AR&amp;C&quot;
 )</errorConditionFormula>
     <errorDisplayField>OwnerId</errorDisplayField>
