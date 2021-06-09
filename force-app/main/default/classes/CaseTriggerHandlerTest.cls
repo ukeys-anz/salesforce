@@ -1381,21 +1381,21 @@ private class CaseTriggerHandlerTest {
           IDR_Systemic_Issue_Description__c = 'None',
           RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
           IDR_Customer_Number__c = '1234567890',
-          Status= 'Under Investigation'
+          Status = 'Under Investigation'
         )
       );
     }
-      
+
     insert complaintCaselist;
 
     Test.startTest();
-      for(Case c : complaintCaselist){
-        c.IDR_Date_Received__c = DateTime.now().addDays(-4);
-        c.IDR_Milestone_Sla__c = IDRConstants.MILESTONE_SLA_RED;
-      }
-      update complaintCaselist;
+    for (Case c : complaintCaselist) {
+      c.IDR_Date_Received__c = DateTime.now().addDays(-4);
+      c.IDR_Milestone_Sla__c = IDRConstants.MILESTONE_SLA_RED;
+    }
+    update complaintCaselist;
     Test.stopTest();
-    List<Application_Log__c> appLogs = [Select ID From Application_Log__c];
+    List<Application_Log__c> appLogs = [SELECT ID FROM Application_Log__c];
     System.assertEquals(0, appLogs.size());
   }
 }
