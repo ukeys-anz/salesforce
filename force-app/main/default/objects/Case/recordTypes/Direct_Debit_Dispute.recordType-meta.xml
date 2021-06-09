@@ -3331,19 +3331,7 @@
     <picklistValues>
         <picklist>IDR_Escalation_Reason__c</picklist>
         <values>
-            <fullName>1</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>2</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>5</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>6</fullName>
+            <fullName>17</fullName>
             <default>false</default>
         </values>
     </picklistValues>
