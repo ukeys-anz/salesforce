@@ -101,9 +101,9 @@
                 <label>Systemic Issue BU Contacts</label>
             </value>
             <value>
-                <fullName>CRP LT</fullName>
+                <fullName>CRP Leader Group 3 or above</fullName>
                 <default>false</default>
-                <label>CRP LT</label>
+                <label>CRP Leader Group 3 or above</label>
             </value>
             <value>
                 <fullName>Business Role</fullName>
