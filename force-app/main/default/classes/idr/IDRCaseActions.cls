@@ -12,7 +12,7 @@ public with sharing class IDRCaseActions {
   private static final String OPEN_STATUS = 'Open';
   @TestVisible
   private static final String UNDER_INVESTIGATION_STATUS = 'Under Investigation';
-  public static final String ESCALATED_STATUS = 'Escalated';
+  private static final String ESCALATED_STATUS = 'Escalated';
   private static final String REOPENED_STATUS = 'Re-opened';
   private static final String CLOSED_STATUS = 'Closed';
   private static final String RESOLVED_STATUS = 'Resolved';
@@ -505,29 +505,6 @@ public with sharing class IDRCaseActions {
     }
     return milestoneSla;
   }
-  /**
-   * @description Get the EntitlmentId that will be associated with this case
-   * @return Id  - the Id of the entitlment record
-   */
-  public static Id getEntitlement() {
-    list<Entitlement> et = new List<Entitlement>();
-    if (Entitlement.sObjectType.getDescribe().isQueryable()) {
-      et = [
-        SELECT Id
-        FROM Entitlement
-        WHERE
-          name = :IDRConstants.COMPLAINTS_ENTITLEMENT_NAME
-          AND SlaProcess.Name = :IDRConstants.COMPLAINTS_ENTITLMENT_PROCESS
-          AND STATUS = 'Active'
-      ];
-    }
-    if (et.size() > 0) {
-      return et[0].Id;
-    } else {
-      return null;
-    }
-  }
-
   /**
    * @description Get the EntitlmentId that will be associated with this case
    * @return Id  - the Id of the entitlment record
