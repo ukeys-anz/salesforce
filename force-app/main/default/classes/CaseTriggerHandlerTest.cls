@@ -1324,7 +1324,7 @@ private class CaseTriggerHandlerTest {
   }
 
   @isTest
-  static void testCaseNotifiationAfterUpdate() {
+  static void testBankerNotifcationForCaseEscalation() {
     Case parentCase = new Case(
       RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
       Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
@@ -1366,5 +1366,37 @@ private class CaseTriggerHandlerTest {
       .ParentId,
       'Issue while updating parentId'
     );
+  }
+
+  static void testCaseNotifiationAfterUpdate() {
+    List<Case> complaintCaselist = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      complaintCaselist.add(
+        new Case(
+          IDR_Account_Card_Policy_Number__c = '000001234',
+          Description = 'Test check entitlement',
+          IDR_Complainant_Desired_Outcome__c = 'entitlement id populated',
+          IDR_Description_of_Outcome__c = 'entitlement id populated',
+          IDR_Systemic_Issue_Description__c = 'None',
+          RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+          IDR_Customer_Number__c = '1234567890',
+          Status= 'Under Investigation'
+        )
+      );
+    }
+      
+    insert complaintCaselist;
+
+    Test.startTest();
+      
+    for(Case c : complaintCaselist){
+        c.IDR_Date_Received__c = DateTime.now().addDays(-4);
+      c.IDR_Milestone_Sla__c = IDRConstants.MILESTONE_SLA_RED;
+        
+    }
+      update complaintCaselist;
+Test.stopTest();
+    List<Application_Log__c> appLogs = [Select ID From Application_Log__c];
+    System.assertEquals(0, appLogs.size());
   }
 }
