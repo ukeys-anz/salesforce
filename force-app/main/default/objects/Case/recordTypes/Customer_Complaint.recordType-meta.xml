@@ -7,21 +7,6 @@
     <description>Record a new complaint for an existing ANZ customer.</description>
     <label>Customer Complaint</label>
     <picklistValues>
-        <picklist>ANZx_Product__c</picklist>
-        <values>
-            <fullName>ANZ Money - Everyday Account</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>ANZ Save - Savings Account</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Not Product Related</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>Additional_Type__c</picklist>
         <values>
             <fullName>App Support</fullName>
@@ -73,172 +58,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Card_In_Possession_During_Transaction__c</picklist>
-        <values>
-            <fullName>NA</fullName>
-            <default>true</default>
-        </values>
-        <values>
-            <fullName>No</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Yes</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Customer_Contacted_Merchant__c</picklist>
-        <values>
-            <fullName>NA</fullName>
-            <default>true</default>
-        </values>
-        <values>
-            <fullName>No</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Yes</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Debit_or_Credit__c</picklist>
-        <values>
-            <fullName>Credit</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Debit</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Dispute_Reason__c</picklist>
-        <values>
-            <fullName>Additional transactions for an existing lost%2Fstolen%2Ffraud case</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Cancel current dispute</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Cancellation of regular payment arrangement was unsuccessful</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Cardholder did not authorise transaction %28Fraud%29</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Cardholder does not recognise transaction</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Cash Dispense Error</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Credit has not been processed or processed incorrectly</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Customer entered incorrect account details</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Customer selected wrong payee</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Direct Debit Cancellation Request</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Duplicate Transaction</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Error Correction</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>General Enquiry</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Goods or services defective or not as described</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Goods or services purchased but not received</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Purchase was charged incorrectly</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Purchase was charged more than once</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Trace Request</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Transaction Services Only - Bank initiated chargeback</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Unauthorised Transaction</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Urgent Dishonour Request</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Dispute_Subtype__c</picklist>
-        <values>
-            <fullName>Incorrect Account</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Incorrect Amount</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Incorrect Payee</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Unknown Sender</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Fraud_Assisted_ID_Event_Type__c</picklist>
-        <values>
-            <fullName>Failed Electronic Verification</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Failed ID to Face Bio-metric Match</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Failed Self-Service PIN Recovery</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Update Legal Name</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>Fraud_Complicit_in_Fraud__c</picklist>
         <values>
             <fullName>No</fullName>
@@ -246,28 +65,6 @@
         </values>
         <values>
             <fullName>Unknown</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Yes</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Fraud_Customer_Details__c</picklist>
-        <values>
-            <fullName>No</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Yes</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Fraud_Customer_Photo_Modified__c</picklist>
-        <values>
-            <fullName>No</fullName>
             <default>false</default>
         </values>
         <values>
@@ -287,84 +84,6 @@
         </values>
         <values>
             <fullName>Yes</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Fraud_Defects_Rectified__c</picklist>
-        <values>
-            <fullName>Customer Has Failed to Respond</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Not Applicable</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Yes</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Fraud_Device_Status__c</picklist>
-        <values>
-            <fullName>Existing Device</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>New Device</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Fraud_EV_Consent__c</picklist>
-        <values>
-            <fullName>No</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Yes</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Fraud_EV_Match__c</picklist>
-        <values>
-            <fullName>No</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Yes</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Fraud_EV_Rules_Met__c</picklist>
-        <values>
-            <fullName>No</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Yes</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Fraud_Failed_Verification_Reason__c</picklist>
-        <values>
-            <fullName>Clearly Fake Document</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Nuisance Customer</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Suspect Fraud</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Under Age or Non-Qualified Person</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -2136,143 +1855,6 @@
         </values>
         <values>
             <fullName>Westpac</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Fraud_ID_Legible__c</picklist>
-        <values>
-            <fullName>No</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Yes</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Fraud_ID_Not_Picture__c</picklist>
-        <values>
-            <fullName>No</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Yes</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Fraud_ID_True_Document__c</picklist>
-        <values>
-            <fullName>No</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Yes</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Fraud_Middle_Name__c</picklist>
-        <values>
-            <fullName>No</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Yes</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Fraud_PIN_Status__c</picklist>
-        <values>
-            <fullName>Forgot PIN</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Locked PIN</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Fraud_PO_Box__c</picklist>
-        <values>
-            <fullName>No</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Yes</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Fraud_Phone_Number_Status__c</picklist>
-        <values>
-            <fullName>Existing Number</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>New Number</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Fraud_Provided_Document_Type__c</picklist>
-        <values>
-            <fullName>Drivers Licence</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Family Deed Poll</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Marriage Certificate</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other Change of Name Document</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Passport</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Fraud_Review_Outcome__c</picklist>
-        <values>
-            <fullName>Fail</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Pass</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Fraud_Security_Features__c</picklist>
-        <values>
-            <fullName>No</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Yes</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Has_The_Card_Been_Stopped__c</picklist>
-        <values>
-            <fullName>NA</fullName>
-            <default>true</default>
-        </values>
-        <values>
-            <fullName>No</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Yes</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -5039,25 +4621,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Is_The_Card_Lost_Stolen__c</picklist>
-        <values>
-            <fullName>Lost</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>NA</fullName>
-            <default>true</default>
-        </values>
-        <values>
-            <fullName>No</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Stolen</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>Origin</picklist>
         <values>
             <fullName>1</fullName>
@@ -5154,13 +4717,6 @@
         </values>
         <values>
             <fullName>Warning</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>SRE_Team__c</picklist>
-        <values>
-            <fullName>Core SRE</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -5343,21 +4899,6 @@
         </values>
         <values>
             <fullName>9</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>What_Customer_was_Trying_to_Do__c</picklist>
-        <values>
-            <fullName>Goals</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Payment</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Profile Change</fullName>
             <default>false</default>
         </values>
     </picklistValues>
