@@ -17,6 +17,7 @@ public with sharing class IDRCaseActions {
   private static final String CLOSED_STATUS = 'Closed';
   private static final String RESOLVED_STATUS = 'Resolved';
   private static final String WITHDRAWN_STATUS = 'Withdrawn';
+  private static final string BANKER_ESCALATION_EMAIL = 'EscalationEmailNotification';
   @TestVisible
   private static final string DAY_5_ESCALATION_REASON = 'Day 5 auto escalation';
 
