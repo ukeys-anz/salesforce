@@ -40,7 +40,8 @@ public with sharing class IDRCaseActions {
     REOPENED_STATUS => 'AgCaseReopen',
     CLOSED_STATUS => 'AgCaseClosed',
     RESOLVED_STATUS => 'AgCaseRslvd',
-    WITHDRAWN_STATUS => 'AgCaseWthdrwn'
+    WITHDRAWN_STATUS => 'AgCaseWthdrwn',
+    BANKER_ESCALATION_EMAIL => ''
   };
 
   private static final String ESCALATED_TO_CRC_API_NAME = '1';
@@ -284,6 +285,8 @@ public with sharing class IDRCaseActions {
     nEvent.Line_Manager_Email__c = ownerMap.get(c.OwnerId).Manager.Email;
     nEvent.Line_Manager_First_Name__c = ownerMap.get(c.OwnerId).Manager.FirstName;
     nEvent.MessageID__c = '' + c.ID + Datetime.now().millisecond();
+    nEvent.EmailFlag__c = true;
+    nEvent.EmailTemplate__c = TEMPLATE_ID_MAP.get(BANKER_ESCALATION_EMAIL)
 
     return nEvent;
   }
