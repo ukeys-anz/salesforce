@@ -84,6 +84,7 @@ if [ "${DELETED_FILES}" -gt "0" ]; then
             echo "No files found in destructive artifact, all files forceignored or no changes in deployable meta"
             exit 0
         else
+            echo $result
             exit 1
         fi        
     fi
