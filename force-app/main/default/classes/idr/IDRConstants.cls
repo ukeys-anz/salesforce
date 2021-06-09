@@ -42,10 +42,10 @@ public with sharing class IDRConstants {
    * @description mapping from product to queue for workbasket allocation
    * @return Map of Product to Workbasket
    */
-  public static final Map<String, String> CASE_ASSIGNMENT_PRODUCT_MAP {
+  public static final Map<String, String> caseAssignmentProductMap {
     get {
-      if (CASE_ASSIGNMENT_PRODUCT_MAP == null) {
-        CASE_ASSIGNMENT_PRODUCT_MAP = new Map<String, String>{
+      if (caseAssignmentProductMap == null) {
+        caseAssignmentProductMap = new Map<String, String>{
           'ANZ Business Black Credit Card' => 'IDR_Business_Owners',
           'ANZ Business 55 Days Interest Free Credit Card' => 'IDR_Business_Owners',
           'ANZ Business Rewards Options Credit Card' => 'IDR_Business_Owners',
@@ -226,7 +226,7 @@ public with sharing class IDRConstants {
           'Self Managed Super Fund (SMSF)' => 'IDR_Wealth'
         };
       }
-      return CASE_ASSIGNMENT_PRODUCT_MAP;
+      return caseAssignmentProductMap;
     }
     set;
   }
