@@ -270,7 +270,7 @@ public with sharing class IDRCaseActions {
 
   /**
    * @description Build Platform Event record with details related to banker and line manager
-   * @param record Case record
+   * @param c Case record
    * @param ownerMap Map containing details of owner and line manager
    */
   private static IDR_Notification_Event__e buildEscalationNotificationEvent(Case c, Map<Id, User> ownerMap){
