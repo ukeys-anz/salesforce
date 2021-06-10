@@ -119,6 +119,14 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Referred for Exit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Referred to Fraud</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Yes</fullName>
             <default>false</default>
         </values>
