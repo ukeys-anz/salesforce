@@ -30,7 +30,8 @@ public with sharing class IDRConstants {
           'IDR_Business_Owners',
           'IDR_Everyday_Banking',
           'IDR_Home_Owners',
-          'IDR_Wealth'
+          'IDR_Wealth',
+          'IDR_Early_Resolution'
         };
       }
       return workBasketNames;
