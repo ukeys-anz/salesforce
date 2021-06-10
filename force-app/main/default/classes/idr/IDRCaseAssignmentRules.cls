@@ -76,7 +76,11 @@ public with sharing class IDRCaseAssignmentRules {
         );
       }
       //Default workbasket
-      return QUEUE_MAP.get('EDR_Early_Resolution');
+      if (rec.Origin == IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED) {
+        return QUEUE_MAP.get('EDR_Early_Resolution');
+      } else {
+        return QUEUE_MAP.get('IDR_Early_Resolution');
+      }
     }
     //Not escalated, don't change owner
     return rec.OwnerId;
