@@ -6,6 +6,7 @@
     <columns>CASES.STATUS</columns>
     <columns>IDR_Date_Received__c</columns>
     <columns>OWNER_NAME</columns>
+    <columns>IDR_Office__c</columns>
     <columns>IDR_Systemic_Issue_Category__c</columns>
     <columns>IDR_Systemic_Issue_Description__c</columns>
     <filterScope>Everything</filterScope>
