@@ -37,6 +37,15 @@ describe("c-transactionHistoryRecord", () => {
     publish(MessageContext, ExpandCollapseAll, payload);
 
     return Promise.resolve().then(() => {
+      const amount = element.shadowRoot.querySelector(
+        'lightning-formatted-number[data-id="amount"]'
+      );
+
+      //We can't confirm that the value is formatted in Jest
+      //so we confirm the format style of the amount plus the value
+      expect(amount.formatStyle).toEqual("currency");
+      expect(amount.value).toEqual("50");
+
       const descriptionDiv = element.shadowRoot.querySelector(
         "div.description-tooltip"
       );
