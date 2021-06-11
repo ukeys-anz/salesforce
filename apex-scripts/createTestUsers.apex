@@ -49,5 +49,7 @@ for (String role : roles) {
         }
         testUsers.add(u);
     }
+    testUsers.add(u);
+  }
 }
 insert testUsers;

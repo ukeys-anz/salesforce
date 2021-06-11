@@ -4,7 +4,6 @@
  * @description  IDRConstants consists of all the IDR constants
  */
 public with sharing class IDRConstants {
-
   //Milestone Sla
   public static final string COMPLAINTS_ENTITLMENT_ACCT = 'Complaint Entitlement Account';
   public static final string COMPLAINTS_ENTITLMENT_PROCESS = 'complaints';
@@ -38,8 +37,8 @@ public with sharing class IDRConstants {
     }
     set;
   }
-  
-   /**
+
+  /**
    * @description mapping from product to queue for workbasket allocation
    */
   public static final Map<String, String> CASE_ASSIGNMENT_PRODUCT_MAP = new Map<String, String>{

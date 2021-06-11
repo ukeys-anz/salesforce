@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - .github/workflows/blackduck.yml # Run on change to scan, or packages, in develop
-      - '**/package.json'
+      - "**/package.json"
     branches:
       - develop
   schedule:
@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v2.1.5
         with:
-          node-version: '12'
+          node-version: "12"
 
       - name: Checkout
         uses: actions/checkout@v2
