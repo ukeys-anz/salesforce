@@ -3,6 +3,8 @@ name: WebDriverIO
 
 on:
   pull_request:
+    paths:
+      - "webdriverIO/**"
     branches: [develop]
 
 jobs:
@@ -26,7 +28,7 @@ jobs:
         run: |
           echo "Checking WebdriverIO project files"
           npx prettier -c "./**/*.{ts,js}"
-      
+
       - name: "Lint TypeScript files"
         working-directory: webdriverIO
         shell: bash

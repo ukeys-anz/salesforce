@@ -316,6 +316,31 @@
     <custom>false</custom>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Access_Request__c.Approver__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Access_Request__c.Expected_Start__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Access_Request__c.Reference_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Access_Request__c.Requestor__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Access_Request__c.Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Account.Anniversary_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -324,7 +349,7 @@
         <field>Account.Anniversay_Duration__c</field>
         <readable>true</readable>
     </fieldPermissions>
-        <fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Account.ANZx_Customer__c</field>
         <readable>true</readable>
@@ -909,7 +934,7 @@
         <field>Case.IDR_Complainant_Desired_Outcome__c</field>
         <readable>true</readable>
     </fieldPermissions>
-     <fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.IDR_Customer_Identifier__c</field>
         <readable>true</readable>
@@ -1350,6 +1375,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.IDR_Parent_Systemic_Issue__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_Update_Notification_Flag__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2307,7 +2337,7 @@
         <field>FinServ__FinancialAccount__c.Primary_Owner_Start_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
-   <fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>FinServ__FinancialAccount__c.Product_Type__c</field>
         <readable>true</readable>
@@ -2708,17 +2738,32 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Knowledge__kav.Answer__c</field>
+        <field>Knowledge__kav.Body__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Knowledge__kav.Question__c</field>
+        <field>Privileged_Access_Request__c.Previous_Profile_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Knowledge__kav.Reason_for_Change__c</field>
+        <field>Privileged_Access_Request__c.Revoke_Time__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Privileged_Access_Request__c.Start_Date_Time__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Privileged_Access_Request__c.Actual_Access_Granted_Time__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Privileged_Access_Request__c.Actual_Access_Revoked_Time__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2842,6 +2887,9 @@
         <readable>true</readable>
     </fieldPermissions>
     <layoutAssignments>
+        <layout>Access_Request__c-Access Request Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Application_Log__c-Application Log Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -2901,7 +2949,36 @@
         <recordType>Case.Urgent_Dishonour_Request_Dispute</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case_Product__c-Relevant Product Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case_Product__c-Relevant Product Layout</layout>
+        <recordType>Case_Product__c.Systemic_Issues_and_Products</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ContentVersion-Content Version</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ContentVersion-Content Version</layout>
+        <recordType>ContentVersion.IDR_Attachment</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ContentVersion-Content Version</layout>
+        <recordType>ContentVersion.File</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ContentVersion-Content Version</layout>
+        <recordType>ContentVersion.IDR_File</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ContentVersion-Content Version</layout>
+        <recordType>ContentVersion.Systemic_Issue_File</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Customer_Feedback__c-Customer Feedback Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>EmailMessage-Email Message Layout - Email-to-Case</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>FinServ__FinancialAccount__c-Financial Account %28Staging Account%29 Layout</layout>
@@ -2915,18 +2992,14 @@
         <recordType>PersonAccount.PersonAccount</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Privileged_Access_Request__c-Privileged Access Request Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Product2-ANZ Product and Service Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Product2-ANZ Product and Service Layout</layout>
         <recordType>Product2.ANZ_Product_or_Service</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Case_Product__c-Relevant Product Layout</layout>
-        <recordType>Case_Product__c.Systemic_Issues_and_Products</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>ContentVersion-Content Version</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Release__c-Release Layout</layout>
@@ -2965,6 +3038,15 @@
     <layoutAssignments>
         <layout>WorkTypeGroup-ANZ Work type Group Layout</layout>
     </layoutAssignments>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>Access_Request__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
     <objectPermissions>
         <allowCreate>true</allowCreate>
         <allowDelete>true</allowDelete>
@@ -3106,6 +3188,15 @@
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
+        <object>Privileged_Access_Request__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
         <object>Release__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
@@ -3190,6 +3281,32 @@
     <recordTypeVisibilities>
         <default>false</default>
         <recordType>Case.Urgent_Dishonour_Request_Dispute</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>true</default>
+        <recordType>Case_Product__c.Systemic_Issues_and_Products</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>ContentVersion.IDR_Attachment</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>true</default>
+        <personAccountDefault>true</personAccountDefault>
+        <recordType>ContentVersion.File</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>ContentVersion.IDR_File</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>ContentVersion.Systemic_Issue_File</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
@@ -3282,6 +3399,25 @@
         <recordType>Task.Call_Log</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Task.IDR_System_Task</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Task.IDR_Task</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Task.Systemic_Issue_Task</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <tabVisibilities>
+        <tab>Access_Request__c</tab>
+        <visibility>DefaultOn</visibility>
+    </tabVisibilities>
     <tabVisibilities>
         <tab>Application_Log__c</tab>
         <visibility>DefaultOff</visibility>

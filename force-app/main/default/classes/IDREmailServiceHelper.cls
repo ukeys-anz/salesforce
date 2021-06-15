@@ -229,7 +229,8 @@ public with sharing class IDREmailServiceHelper {
           ContentVersion cv = new ContentVersion(
             Title = tAttachment.fileName,
             PathOnClient = tAttachment.fileName,
-            VersionData = Blob.valueOf(tAttachment.body)
+            VersionData = Blob.valueOf(tAttachment.body),
+            RecordTypeId = IDRConstants.EMAIL_ATTACHMENT_RT_ID
           );
           returnConVerList.add(cv);
         } else {
@@ -270,7 +271,8 @@ public with sharing class IDREmailServiceHelper {
           ContentVersion cv = new ContentVersion(
             Title = bAttachment.fileName,
             PathOnClient = bAttachment.fileName,
-            VersionData = bAttachment.body
+            VersionData = bAttachment.body,
+            RecordTypeId = IDRConstants.EMAIL_ATTACHMENT_RT_ID
           );
           returnConVerList.add(cv);
         } else {

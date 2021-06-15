@@ -266,7 +266,7 @@
         <field>Event.WhatId</field>
         <readable>true</readable>
     </fieldPermissions>
-        <fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Task.Action__c</field>
         <readable>true</readable>
@@ -358,6 +358,10 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>Case_Product__c.Systemic_Issues_and_Products</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>ContentVersion.Systemic_Issue_File</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>

@@ -170,4 +170,8 @@
         <recordType>Case.General_Inquiry_CMOS</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>ContentVersion.IDR_Attachment</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
 </PermissionSet>

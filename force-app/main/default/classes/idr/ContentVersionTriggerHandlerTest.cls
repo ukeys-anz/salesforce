@@ -9,7 +9,8 @@ private with sharing class ContentVersionTriggerHandlerTest {
           Title = 'Test',
           PathOnClient = '/test.pdf',
           VersionData = Blob.valueOf('Test'),
-          Description = 'Test description 1234-5678-9101 check mask'
+          Description = 'Test description 1234-5678-9101 check mask',
+          RecordTypeId = IDRConstants.COMPLAINT_FILE_RT_ID
         )
       );
     }

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Group the permissions to be granted to EDW integration user in order to extract CMOS data and files.</description>
+    <label>IDR EDW User</label>
+    <permissionSets>API_Only</permissionSets>
+    <permissionSets>Complaint_Read_Only</permissionSets>
+    <permissionSets>Enforce_mTLS</permissionSets>
+    <permissionSets>IDR_EDW_Integration</permissionSets>
+    <permissionSets>Product_Read_Only</permissionSets>
+    <permissionSets>View_All_Files</permissionSets>
+    <permissionSets>Systemic_Issue_Read_Only</permissionSets>
+    <status>Updated</status>
+</PermissionSetGroup>
