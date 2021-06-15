@@ -19,7 +19,7 @@ public class KnowledgeTrigggerHandlerTest {
     insert article;
 
     article = [
-      SELECT Id, Reason_for_Change__c
+      SELECT Id, Reason_for_Change__c, urlName
       FROM Knowledge__kav
       WHERE Id = :article.Id
     ];
@@ -27,5 +27,16 @@ public class KnowledgeTrigggerHandlerTest {
       (article.Reason_for_Change__c == null) ||
       (article.Reason_for_Change__c == '')
     );
+    System.assertEquals('testnullreasonunit', article.urlName);
+
+    article.urlName = 'UpdatedUrlName';
+    update article;
+
+    article = [
+      SELECT Id, Reason_for_Change__c, urlName
+      FROM Knowledge__kav
+      WHERE Id = :article.Id
+    ];
+    System.assertEquals('updatedurlname', article.urlName);
   }
 }

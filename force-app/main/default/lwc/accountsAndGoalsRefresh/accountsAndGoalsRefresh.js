@@ -98,7 +98,8 @@ export default class AccountsAndGoals extends LightningElement {
                 FinServ__CurrentPostedBalance__c: account.currentBalance.value.replace(
                   "$",
                   ""
-                )
+                ),
+                BSB__c: account.bsb.toString()
               };
 
               this.accountDetails.push(accountInformation);

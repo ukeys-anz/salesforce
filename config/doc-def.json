@@ -72,9 +72,8 @@
     {
       "name": "Engineer",
       "profile": "No Access",
-      "permissionsetgroups": [],
-      "permissionsets": ["SFDX_Snapshots"],
-      "note": "SFDX_Full_Dev_Hub_Access is not in org",
+      "permissionsetgroups": ["Engineer"],
+      "permissionsets": [],
       "type": "user"
     },
     {

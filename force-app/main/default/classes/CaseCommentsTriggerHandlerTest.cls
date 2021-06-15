@@ -209,34 +209,23 @@ public with sharing class CaseCommentsTriggerHandlerTest {
       insert generalEnquiryCase;
 
       // Create a FraudX User with 'FraudX Agent' role
-      Profile profile = [
-        SELECT Id
-        FROM Profile
-        WHERE Name = 'ANZx Standard User'
-        LIMIT 1
-      ];
-      UserRole role = [
-        SELECT Id
-        FROM UserRole
-        WHERE DeveloperName = 'FraudX_Agent'
-      ];
+      Profile profile = CommonUtil.getProfileByName('ANZx Standard User');
+      UserRole role = CommonUtil.getUserRoleByDevName('FraudX_Agent');
 
-      fraudXAgent = (User) FakerFactory.make(new FakerUserFactory());
-      fraudXAgent.FirstName = 'FraudX';
-      fraudXAgent.ProfileId = profile.Id;
-      fraudXAgent.UserRoleId = role.Id;
+      fraudXAgent = TestUtil.createTestUser(
+        new Map<String, Object>{
+          'FirstName' => 'FraudX',
+          'ProfileId' => profile.Id,
+          'UserRoleId' => role.Id
+        }
+      );
       insert fraudXAgent;
 
       // Assign Case related PS
-      PermissionSet ps = [
-        SELECT Id
-        FROM PermissionSet
-        WHERE Name = 'Case_Read_Write_Fraud_Agent'
-      ];
-      insert new PermissionSetAssignment(
-        AssigneeId = fraudXAgent.id,
-        PermissionSetId = ps.Id
+      PermissionSet ps = CommonUtil.getPermissionSetByName(
+        'Case_Read_Write_Fraud_Agent'
       );
+      insert TestUtil.createPSAssignment(fraudXAgent.id, ps.Id);
 
       // Sharing Case record manually with FraudX user, as Criteria Based Sharing Rules won't apply in Test Classes
       CaseShare cs = new CaseShare();
@@ -299,30 +288,23 @@ public with sharing class CaseCommentsTriggerHandlerTest {
       insert generalEnquiryCase;
 
       // Create a non-Fraud User
-      Profile profile = [
-        SELECT Id
-        FROM Profile
-        WHERE Name = 'ANZx Standard User'
-        LIMIT 1
-      ];
-      UserRole role = [SELECT Id FROM UserRole WHERE DeveloperName = 'Coach'];
+      Profile profile = CommonUtil.getProfileByName('ANZx Standard User');
+      UserRole role = CommonUtil.getUserRoleByDevName('Coach');
 
-      coachUser = (User) FakerFactory.make(new FakerUserFactory());
-      coachUser.FirstName = 'Caoch';
-      coachUser.ProfileId = profile.Id;
-      coachUser.UserRoleId = role.Id;
+      coachUser = TestUtil.createTestUser(
+        new Map<String, Object>{
+          'FirstName' => 'Caoch',
+          'ProfileId' => profile.Id,
+          'UserRoleId' => role.Id
+        }
+      );
       insert coachUser;
 
       // Assign Case related PS
-      PermissionSet ps = [
-        SELECT Id
-        FROM PermissionSet
-        WHERE Name = 'Case_Read_Write_Get_Help'
-      ];
-      insert new PermissionSetAssignment(
-        AssigneeId = coachUser.id,
-        PermissionSetId = ps.Id
+      PermissionSet ps = CommonUtil.getPermissionSetByName(
+        'Case_Read_Write_Get_Help'
       );
+      insert TestUtil.createPSAssignment(coachUser.id, ps.Id);
 
       // Sharing Case record manually with Coach user, as Criteria Based Sharing Rules won't apply in Test Classes
       CaseShare cs = new CaseShare();
