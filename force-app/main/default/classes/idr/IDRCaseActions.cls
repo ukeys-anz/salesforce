@@ -652,68 +652,6 @@ public with sharing class IDRCaseActions {
   }
 
   /**
-   * @description  sendNotifications method is to send out platform events for notifications to customers. Mulesoft subscribes to these notifications and makes Notification Broker API call.
-   * @param records The records for which notifications needs to be sent out
-   */
-  private static void sendNotifications(List<Case> records) {
-    if (records.isEmpty()) {
-      return;
-    }
-    idrNotifications = new List<IDR_Notification_Event__e>();
-    for (Case c : records) {
-      // Don't publish to NB if there's no mobile nor email to send to
-      if (
-        c.RecordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID ||
-        !String.isBlank(c.IDR_NC_Mobile__c) ||
-        !String.isBlank(c.IDR_NC_Email__c) ||
-        !String.isBlank(c.IDR_3rdParty_Mobile__c) ||
-        !String.isBlank(c.IDR_3rdParty_Email__c)
-      ) {
-        idrNotifications.add(
-          new IDR_Notification_Event__e(
-            AuthorisedEmail__c = c.IDR_3rdParty_Email__c,
-            AuthorisedFirstName__c = c.IDR_3rdParty_Name__c,
-            AuthorisedMobile__c = c.IDR_3rdParty_Mobile__c,
-            CAP_CIS_ID__c = c.IDR_Customer_Number__c,
-            Case_ID__c = c.ID,
-            Case_Number__c = IDRCaseActions.getFormattedCaseNumberToNotify(c),
-            Case_Status__c = c.Status,
-            Case_Status_Change_Date__c = System.now(),
-            ComplainantEmail__c = c.IDR_NC_Email__c,
-            ComplainantFirstName__c = c.IDR_NC_Is_Consent_Obtained__c == false
-              ? ''
-              : c.IDR_NC_First_Name__c,
-            ComplainantMobile__c = c.IDR_NC_Mobile__c,
-            EmailFlag__c = true,
-            EmailTemplate__c = c.Isescalated
-              ? TEMPLATE_ID_MAP.get(ESCALATED_STATUS)
-              : TEMPLATE_ID_MAP.get(c.Status),
-            MessageID__c = '' + c.ID + Datetime.now().millisecond(),
-            SMSFlag__c = true,
-            SMSTemplate__c = c.Isescalated
-              ? TEMPLATE_ID_MAP.get(ESCALATED_STATUS)
-              : TEMPLATE_ID_MAP.get(c.Status)
-          )
-        );
-      }
-    }
-    if (!idrNotifications.isEmpty()) {
-      List<Database.SaveResult> results = EventBus.publish(idrNotifications);
-      Lib_SystemLog log = new Lib_SystemLog(
-        IDRCaseActions.class.getName(),
-        'sendNotifications'
-      );
-      log.addDatabaseSaveResult(
-        'IDR_Notification_Event__e',
-        results,
-        idrNotifications
-      );
-      log.insertLog();
-    }
-    //Todo handle errors further if needed.
-  }
-
-  /**
    * @description isIDRComplaintType check if record type is of IDR type.
    * As this Trigger will be used across various teams we identify case record based on IDR record Type.
    *
