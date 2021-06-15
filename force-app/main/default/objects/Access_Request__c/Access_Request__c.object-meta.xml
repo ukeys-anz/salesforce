@@ -167,6 +167,24 @@
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Access Requests</pluralLabel>
+    <profileSearchLayouts>
+        <fields>NAME</fields>
+        <fields>Requestor__c</fields>
+        <fields>Status__c</fields>
+        <fields>Access_Type__c</fields>
+        <fields>When__c</fields>
+        <fields>Duration_hrs__c</fields>
+        <profileName>System Administrator</profileName>
+    </profileSearchLayouts>
+    <profileSearchLayouts>
+        <fields>NAME</fields>
+        <fields>Requestor__c</fields>
+        <fields>Status__c</fields>
+        <fields>Access_Type__c</fields>
+        <fields>When__c</fields>
+        <fields>Duration_hrs__c</fields>
+        <profileName>No Access</profileName>
+    </profileSearchLayouts>
     <searchLayouts/>
     <sharingModel>Private</sharingModel>
     <startsWith>Vowel</startsWith>
