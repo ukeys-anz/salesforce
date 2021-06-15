@@ -62,7 +62,7 @@ private with sharing class IDRCaseAssignmentRulesTest {
         Priority = 'Standard',
         Type = '1',
         IDR_Subsequent_Issue__c = '52',
-        Description = 'EDR_Early_Resolution' //default workbasket
+        Description = 'IDR_Early_Resolution' //default workbasket
       )
     );
     insert cases;
