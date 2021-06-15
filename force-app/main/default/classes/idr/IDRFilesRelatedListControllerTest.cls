@@ -25,6 +25,7 @@ public class IDRFilesRelatedListControllerTest {
     cv.Party_who_sent_created_file__c = 'Internal business unit';
     cv.Document_Category__c = 'Internal Correspondence';
     cv.FirstPublishLocationId = c.id;
+    cv.RecordTypeId = IDRConstants.COMPLAINT_FILE_RT_ID;
     insert cv;
   }
   /**

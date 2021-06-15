@@ -32,6 +32,14 @@ public with sharing class IDRConstants {
     .get('Systemic_Issue')
     .getRecordTypeId();
 
+  //CMOS ContentVersion record type Ids
+  public static final Id EMAIL_ATTACHMENT_RT_ID = Schema.SObjectType.ContentVersion.getRecordTypeInfosByDeveloperName()
+    .get('IDR_Attachment')
+    .getRecordTypeId();
+  public static final Id COMPLAINT_FILE_RT_ID = Schema.SObjectType.ContentVersion.getRecordTypeInfosByDeveloperName()
+    .get('IDR_File')
+    .getRecordTypeId();
+
   //AR&C products record type Id
   public static final Id ANZ_PRODUCT_RT_ID = Schema.SObjectType.Product2.getRecordTypeInfosByDeveloperName()
     .get('ANZ_Product_or_Service')

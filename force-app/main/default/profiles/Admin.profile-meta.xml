@@ -324,7 +324,7 @@
         <field>Account.Anniversay_Duration__c</field>
         <readable>true</readable>
     </fieldPermissions>
-        <fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Account.ANZx_Customer__c</field>
         <readable>true</readable>
@@ -909,7 +909,7 @@
         <field>Case.IDR_Complainant_Desired_Outcome__c</field>
         <readable>true</readable>
     </fieldPermissions>
-     <fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.IDR_Customer_Identifier__c</field>
         <readable>true</readable>
@@ -1350,6 +1350,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.IDR_Parent_Systemic_Issue__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_Update_Notification_Flag__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2307,7 +2312,7 @@
         <field>FinServ__FinancialAccount__c.Primary_Owner_Start_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
-   <fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>FinServ__FinancialAccount__c.Product_Type__c</field>
         <readable>true</readable>
@@ -2901,7 +2906,36 @@
         <recordType>Case.Urgent_Dishonour_Request_Dispute</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case_Product__c-Relevant Product Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case_Product__c-Relevant Product Layout</layout>
+        <recordType>Case_Product__c.Systemic_Issues_and_Products</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ContentVersion-Content Version</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ContentVersion-Content Version</layout>
+        <recordType>ContentVersion.IDR_Attachment</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ContentVersion-Content Version</layout>
+        <recordType>ContentVersion.File</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ContentVersion-Content Version</layout>
+        <recordType>ContentVersion.IDR_File</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ContentVersion-Content Version</layout>
+        <recordType>ContentVersion.Systemic_Issue_File</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Customer_Feedback__c-Customer Feedback Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>EmailMessage-Email Message Layout - Email-to-Case</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>FinServ__FinancialAccount__c-Financial Account %28Staging Account%29 Layout</layout>
@@ -2920,13 +2954,6 @@
     <layoutAssignments>
         <layout>Product2-ANZ Product and Service Layout</layout>
         <recordType>Product2.ANZ_Product_or_Service</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Case_Product__c-Relevant Product Layout</layout>
-        <recordType>Case_Product__c.Systemic_Issues_and_Products</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>ContentVersion-Content Version</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Release__c-Release Layout</layout>
@@ -3193,6 +3220,32 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
+        <default>true</default>
+        <recordType>Case_Product__c.Systemic_Issues_and_Products</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>ContentVersion.IDR_Attachment</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>true</default>
+        <personAccountDefault>true</personAccountDefault>
+        <recordType>ContentVersion.File</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>ContentVersion.IDR_File</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>ContentVersion.Systemic_Issue_File</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
         <recordType>FinServ__FinancialAccount__c.FinServ__AutoLoan</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
@@ -3280,6 +3333,21 @@
     <recordTypeVisibilities>
         <default>true</default>
         <recordType>Task.Call_Log</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Task.IDR_System_Task</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Task.IDR_Task</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Task.Systemic_Issue_Task</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <tabVisibilities>

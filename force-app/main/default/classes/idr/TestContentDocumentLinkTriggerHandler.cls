@@ -61,6 +61,7 @@ public class TestContentDocumentLinkTriggerHandler {
       cv.Title = 'Test File Delete';
       cv.PathOnClient = 'Test File Delete' + '.txt';
       cv.VersionData = Blob.valueOf('Test File Delete functionality');
+      cv.RecordTypeId = IDRConstants.COMPLAINT_FILE_RT_ID;
 
       insert cv;
 
