@@ -1,5 +1,5 @@
 @isTest
-private class TestIDRCaseNotificationManager {
+private class IDRCaseNotificationManagerTest {
   @testSetup
   static void setup() {
     String complaintRecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID;
@@ -10,11 +10,15 @@ private class TestIDRCaseNotificationManager {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = complaintRecordTypeId,
-          IDR_Customer_Number__c = '1234567890',
-          Status = IDRConstants.OPEN_STATUS,
           IDR_Account_Card_Policy_Number__c = '000001234',
-          Description = 'Test decription'
+          Description = 'Test Description',
+          IDR_Complainant_Desired_Outcome__c = 'Test Outcome',
+          IDR_Description_of_Outcome__c = 'Test Outcome',
+          IDR_Systemic_Issue_Description__c = 'None',
+          RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+          IDR_Customer_Number__c = '1234567890',
+          Status = 'Open',
+          IDR_Date_Received__c = System.now()
         )
       );
     }
@@ -55,8 +59,11 @@ private class TestIDRCaseNotificationManager {
 
   @isTest
   static void testBankerNotifcationForCaseEscalation() {
-    List<Case> complaintCaselist = new List<Case>();
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+    List<Case> complaintCaselist = [
+      SELECT Id, IDR_Date_Received__c, IDR_Milestone_Sla__c
+      FROM Case
+    ];
+    /*for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       complaintCaselist.add(
         new Case(
           IDR_Account_Card_Policy_Number__c = '000001234',
@@ -70,9 +77,9 @@ private class TestIDRCaseNotificationManager {
           IDR_Date_Received__c = System.now()
         )
       );
-    }
+    }*/
 
-    insert complaintCaselist;
+    //insert complaintCaselist;
     Test.startTest();
 
     for (Case c : complaintCaselist) {
