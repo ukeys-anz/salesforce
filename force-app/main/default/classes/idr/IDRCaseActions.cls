@@ -224,7 +224,7 @@ public with sharing class IDRCaseActions {
       }
     }
     IDRCaseCommentActions.escalateExistingCommentsToCFMS(oldMap, records);
-    notifyBankersForEscalation(records, oldMap);
+    IDRCaseNotificationManager.notifyBankersForEscalation(records, oldMap);
     IDRTaskActions.possibleSystemicIssueActions(records, oldMap);
     IDRTaskActions.updateIDRMilestoneTask(records, oldMap);
     IDRCollectionActions.stopCollections(records, oldMap);
