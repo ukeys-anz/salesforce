@@ -312,8 +312,8 @@ public inherited sharing class GetHelpCaseActionsHelper {
 
   /**
    * @description getCaseNumberByTransactionId is called to get all open cases that are linked to a transaction Id
-   * @param List<String> list of transaction Ids
-   * @return transactionIds a map of case number by their transaction Id
+   * @param transactionIds list of transaction Ids
+   * @return Map<String, String> a map of case number by their transaction Id
    */
   public static Map<String, String> getCaseNumberByTransactionId(Set<String> transactionIds){
     Map<String, String> caseNumberByTransactionId = new Map<String, String>();
