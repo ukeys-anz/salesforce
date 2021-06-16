@@ -234,9 +234,7 @@ public with sharing class IDRCaseNotificationManager {
       .Manager.FirstName;
     nEvent.MessageID__c = '' + c.ID + Datetime.now().millisecond();
     nEvent.EmailFlag__c = true;
-    nEvent.EmailTemplate__c = IDRCaseActions.TEMPLATE_ID_MAP.get(
-      BANKER_ESCALATION_EMAIL
-    );
+    nEvent.EmailTemplate__c = IDRConstants.BANKER_EMAIL_NOTIFICATION_TEMPLATE;
 
     return nEvent;
   }
