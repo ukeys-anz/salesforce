@@ -417,7 +417,7 @@ public with sharing class GetHelpCaseActions {
   /**
    * @description checkOpenDisputeOnTransaction is called onBeforeInsert to check if there is already an open dispute for a particular transaction, if so,
    * throw an exception to prevent a duplicate dispute from being created
-   * @param List<Case> a list of cases
+   * @param records a list of cases
    */
   public static void checkOpenDisputeOnTransaction(List<Case> records){
     Set<String> transactionIds = new Set<String>();
