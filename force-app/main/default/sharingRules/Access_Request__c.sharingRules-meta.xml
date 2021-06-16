@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Engineer_Role_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Engineer Role RO</label>
+        <sharedTo>
+            <role>Engineer</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Requestor__c</field>
+            <operation>notEqual</operation>
+            <value>null</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+</SharingRules>

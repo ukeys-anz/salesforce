@@ -12,21 +12,15 @@ private class CaseTriggerHandlerTest {
     User thisUser = new User(Id = UserInfo.getUserId());
     System.runAs(thisUser) {
       // Create a FraudX User with 'FraudX Agent' role
-      Profile profile = [
-        SELECT Id
-        FROM Profile
-        WHERE Name = 'ANZx Standard User'
-        LIMIT 1
-      ];
-      UserRole role = [
-        SELECT Id
-        FROM UserRole
-        WHERE DeveloperName = 'FraudX_Agent'
-      ];
-      User fraudXAgent = (User) FakerFactory.make(new FakerUserFactory());
-      fraudXAgent.FirstName = 'FraudXTest';
-      fraudXAgent.ProfileId = profile.Id;
-      fraudXAgent.UserRoleId = role.Id;
+      Profile profile = CommonUtil.getProfileByName('ANZx Standard User');
+      UserRole role = CommonUtil.getUserRoleByDevName('FraudX_Agent');
+      User fraudXAgent = TestUtil.createTestUser(
+        new Map<String, Object>{
+          'FirstName' => 'FraudXTest',
+          'ProfileId' => profile.Id,
+          'UserRoleId' => role.Id
+        }
+      );
       insert fraudXAgent;
 
       // Assign related PSs
@@ -42,11 +36,7 @@ private class CaseTriggerHandlerTest {
 
       List<PermissionSetAssignment> psaList = new List<PermissionSetAssignment>();
       for (PermissionSet ps : psList) {
-        PermissionSetAssignment psa = new PermissionSetAssignment(
-          AssigneeId = fraudXAgent.id,
-          PermissionSetId = ps.Id
-        );
-        psaList.add(psa);
+        psaList.add(TestUtil.createPSAssignment(fraudXAgent.id, ps.Id));
       }
       insert psaList;
 
@@ -453,7 +443,7 @@ private class CaseTriggerHandlerTest {
     );
 
     // GIVEN complaint is reassigned to another User
-    Profile p = [SELECT Id FROM Profile WHERE Name = 'Standard USer'];
+    Profile p = CommonUtil.getProfileByName('Standard User');
     User idrUser = new User(
       Alias = 'idruse',
       Email = 'idruser@anztest.com',
@@ -884,7 +874,7 @@ private class CaseTriggerHandlerTest {
 
     // GIVEN FraudX Agent user has required acces
     // Query for API User
-    User usr = [SELECT Id FROM User WHERE FirstName = 'FraudXTest' LIMIT 1];
+    User usr = TestUtil.getUserByFirstName('FraudXTest');
 
     // WHEN FraudX Agent user creates or updates a Fraud case
     Case[] newCases = new List<Case>();
@@ -1081,7 +1071,7 @@ private class CaseTriggerHandlerTest {
 
     // GIVEN FraudX Agent user has required acces
     // Query for API User
-    User usr = [SELECT Id FROM User WHERE FirstName = 'FraudXTest' LIMIT 1];
+    User usr = TestUtil.getUserByFirstName('FraudXTest');
 
     // WHEN FraudX Agent user creates or updates a Fraud case
     Case[] newCases = new List<Case>();

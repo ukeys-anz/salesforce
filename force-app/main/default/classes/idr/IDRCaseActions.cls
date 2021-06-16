@@ -149,13 +149,14 @@ public with sharing class IDRCaseActions {
         if (NOTIFICATION_STATUS.contains(record.Status)) {
           notificationCaseList.add(record);
         }
-        checkForCRCEscalation(record);
+        checkForCRCEscalation(record, null);
       }
     }
     IDRTaskActions.possibleSystemicIssueActions(records, null);
     IDRCollectionActions.stopCollections(records, null);
     IDRCollectionActions.startCollections(records, null);
     IDRComplaintFlagActions.setComplaintsFlag(records, null);
+    escalateToCFMS(caseEscalationList);
   }
 
   /**
@@ -209,8 +210,7 @@ public with sharing class IDRCaseActions {
    * @param records from the trigger
    */
   public static void afterUpdate(Map<Id, SObject> oldMap, List<Case> records) {
-    for (Integer i = 0; i < records.size(); i++) {
-      Case record = records[i];
+    for (Case record : records) {
       Case oldRec = (Case) oldMap.get(record.id);
       if (
         record.Status != oldRec.Status ||
@@ -220,11 +220,12 @@ public with sharing class IDRCaseActions {
         if (NOTIFICATION_STATUS.contains(record.Status)) {
           notificationCaseList.add(record);
         }
-        checkForCRCEscalation(record);
+        checkForCRCEscalation(record, oldRec);
       }
     }
     IDRCaseCommentActions.escalateExistingCommentsToCFMS(oldMap, records);
     IDRCaseNotificationManager.notifyBankersForEscalation(records, oldMap);
+    escalateToCFMS(caseEscalationList);
     IDRTaskActions.possibleSystemicIssueActions(records, oldMap);
     IDRTaskActions.updateIDRMilestoneTask(records, oldMap);
     IDRCollectionActions.stopCollections(records, oldMap);
@@ -250,13 +251,13 @@ public with sharing class IDRCaseActions {
   /**
    * @description Check if this case record needs to be assigned to a CRP workbasket
    * @param record case record
+   * @param oldRec old case record from trigger
    */
-  private static void checkForCRCEscalation(Case record) {
+  private static void checkForCRCEscalation(Case record, Case oldRec) {
     if (
       record.Status == ESCALATED_STATUS &&
-      (record.IDR_Escalated_to__c == ESCALATED_TO_CRC_API_NAME ||
-      (record.OwnerId.getSobjectType() == Group.SobjectType &&
-      record.OwnerId == queue.Id))
+      (oldRec == null ||
+      oldRec.Status != ESCALATED_STATUS)
     ) {
       caseEscalationList.add(record);
     }
@@ -534,12 +535,7 @@ public with sharing class IDRCaseActions {
    * @description Escalate the list of Records to CRC by publishing a platform event.
    * @param recordsToBeEscalated the cases which data will be escalated
    */
-  @InvocableMethod(
-    label='Escalate complaint to CFMS'
-    description='Publishes complaint escalation platform events'
-    category='Platform Event'
-  )
-  public static void escalateToCFMS(List<Case> recordsToBeEscalated) {
+  private static void escalateToCFMS(List<Case> recordsToBeEscalated) {
     if (!recordsToBeEscalated.isEmpty()) {
       Map<Id, Group> queueMap = getQueuesToEscalate(recordsToBeEscalated);
       idrCaseEscalations = new List<IDR_CRC_Escalation_Event__e>();

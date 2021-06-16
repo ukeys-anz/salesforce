@@ -3,6 +3,7 @@
  * @since 05/2021
  * @description  This class is contains helper methods for IDREmailService class
  */
+@SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class IDREmailServiceHelper {
   /**
    * @description Creates a new email message record
@@ -17,13 +18,26 @@ public with sharing class IDREmailServiceHelper {
     Id caseId
   ) {
     EmailMessage emailMessage = new EmailMessage();
-    emailMessage.parentId = caseId;
-    emailMessage.fromAddress = email.fromAddress;
-    emailMessage.fromName = email.fromName;
-    emailMessage.subject = email.subject;
-    emailMessage.htmlBody = email.htmlBody.replaceAll('<a.*<.{1}a>', 'REMOVED');
-    if (Case.sObjectType.getDescribe().isCreateable()) {
+    emailMessage.ParentId = caseId;
+    emailMessage.FromAddress = email.fromAddress;
+    emailMessage.FromName = email.fromName;
+    emailMessage.Subject = email.subject;
+    emailMessage.HtmlBody = email.htmlBody.replaceAll('<a.*<.{1}a>', 'REMOVED');
+    if (
+      Schema.EmailMessage.sObjectType.getDescribe().isCreateable() &&
+      Schema.sObjectType.EmailMessage.fields.ParentId.isCreateable() &&
+      Schema.sObjectType.EmailMessage.fields.FromAddress.isCreateable() &&
+      Schema.sObjectType.EmailMessage.fields.FromName.isCreateable() &&
+      Schema.sObjectType.EmailMessage.fields.Subject.isCreateable() &&
+      Schema.sObjectType.EmailMessage.fields.HtmlBody.isCreateable()
+    ) {
       insert emailMessage;
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'CreateCommsController',
+        'createComms',
+        'Not enough permissions to create EmailMessage.'
+      );
     }
   }
 
@@ -41,9 +55,9 @@ public with sharing class IDREmailServiceHelper {
     List<ContentVersion> contentVersionList = new List<ContentVersion>();
 
     //Get all text attachments
-    contentVersionList.addAll(getTextFileAttachments(tAttachments));
+    contentVersionList.addAll(getTextFileAttachments(tAttachments, caseId));
     //Get all binary attachments
-    contentVersionList.addAll(getTextBinaryAttachments(bAttachments));
+    contentVersionList.addAll(getTextBinaryAttachments(bAttachments, caseId));
 
     if (contentVersionList.size() > 0) {
       if (ContentVersion.sObjectType.getDescribe().isCreateable()) {
@@ -135,14 +149,25 @@ public with sharing class IDREmailServiceHelper {
         ContentDocumentLink contentLink = new ContentDocumentLink();
         contentLink.LinkedEntityId = caseId;
         contentLink.ContentDocumentId = cv.ContentDocumentId;
-        contentLink.shareType = 'V';
+        contentLink.ShareType = 'V';
         contentDocLinkList.add(contentLink);
       }
     }
 
     if (contentDocLinkList.size() > 0) {
-      if (ContentDocumentLink.sObjectType.getDescribe().isCreateable()) {
+      if (
+        ContentDocumentLink.sObjectType.getDescribe().isCreateable() &&
+        Schema.sObjectType.ContentDocumentLink.fields.ContentDocumentId.isCreateable() &&
+        Schema.sObjectType.ContentDocumentLink.fields.LinkedEntityId.isCreateable() &&
+        Schema.sObjectType.ContentDocumentLink.fields.ShareType.isCreateable()
+      ) {
         insert contentDocLinkList;
+      } else {
+        CommonUtil.logAndThrowIAE(
+          'CreateCommsController',
+          'createComms',
+          'Not enough permissions to create ContentDocumentLink.'
+        );
       }
     }
   }
@@ -190,10 +215,12 @@ public with sharing class IDREmailServiceHelper {
   /**
    * @description Fetches the text attachments from the email
    * @param tAttachments The messaging inbound email text attachments
+   * @param caseId The case Id that needs to be related to
    * @return List<ContentVersion> Wraps through content version
    */
   public static List<ContentVersion> getTextFileAttachments(
-    List<Messaging.Inboundemail.TextAttachment> tAttachments
+    List<Messaging.Inboundemail.TextAttachment> tAttachments,
+    Id caseId
   ) {
     List<ContentVersion> returnConVerList = new List<ContentVersion>();
     if (tAttachments != null && tAttachments.size() > 0) {
@@ -202,7 +229,8 @@ public with sharing class IDREmailServiceHelper {
           ContentVersion cv = new ContentVersion(
             Title = tAttachment.fileName,
             PathOnClient = tAttachment.fileName,
-            VersionData = Blob.valueOf(tAttachment.body)
+            VersionData = Blob.valueOf(tAttachment.body),
+            RecordTypeId = IDRConstants.EMAIL_ATTACHMENT_RT_ID
           );
           returnConVerList.add(cv);
         } else {
@@ -211,7 +239,9 @@ public with sharing class IDREmailServiceHelper {
             'Discarded an attachment as the type was unsupported => filename : ' +
             tAttachment.fileName +
             ' , mimesubtype : ' +
-            tAttachment.mimeTypeSubType,
+            tAttachment.mimeTypeSubType +
+            ', For the case : ' +
+            caseId,
             null,
             null,
             IDREmailServiceHelper.class.getName(),
@@ -227,10 +257,12 @@ public with sharing class IDREmailServiceHelper {
   /**
    * @description Fetches the text attachments from the email
    * @param bAttachments The messaging inbound email binary attachments
+   * @param caseId The case Id that needs to be related to
    * @return List<ContentVersion> Wraps through content version
    */
   public static List<ContentVersion> getTextBinaryAttachments(
-    List<Messaging.Inboundemail.BinaryAttachment> bAttachments
+    List<Messaging.Inboundemail.BinaryAttachment> bAttachments,
+    Id caseId
   ) {
     List<ContentVersion> returnConVerList = new List<ContentVersion>();
     if (bAttachments != null && bAttachments.size() > 0) {
@@ -239,7 +271,8 @@ public with sharing class IDREmailServiceHelper {
           ContentVersion cv = new ContentVersion(
             Title = bAttachment.fileName,
             PathOnClient = bAttachment.fileName,
-            VersionData = bAttachment.body
+            VersionData = bAttachment.body,
+            RecordTypeId = IDRConstants.EMAIL_ATTACHMENT_RT_ID
           );
           returnConVerList.add(cv);
         } else {
@@ -248,7 +281,9 @@ public with sharing class IDREmailServiceHelper {
             'Discarded a binary attachment as the type was unsupported => filename : ' +
             bAttachment.fileName +
             ' , mimesubtype : ' +
-            bAttachment.mimeTypeSubType,
+            bAttachment.mimeTypeSubType +
+            ', For the case : ' +
+            caseId,
             null,
             null,
             IDREmailServiceHelper.class.getName(),
@@ -268,7 +303,11 @@ public with sharing class IDREmailServiceHelper {
   public static void updateCaseWithQueue(Case newCase) {
     //Get Indexing Queue
     List<Group> queueList = getGroupDetails('Queue', 'Indexing_Queue');
-    if (queueList.size() > 0 && Case.sObjectType.getDescribe().isUpdateable()) {
+    if (
+      queueList.size() > 0 &&
+      Case.sObjectType.getDescribe().isUpdateable() &&
+      Schema.sObjectType.Case.fields.OwnerId.isUpdateable()
+    ) {
       newCase.OwnerId = queueList[0].Id;
       try {
         update newCase;

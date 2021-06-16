@@ -4,195 +4,119 @@
     <dataCategory>
         <dataCategory>
             <dataCategory>
-                <label>ANZx</label>
-                <name>ANZx</name>
+                <label>About ANZ Plus</label>
+                <name>About_ANZ_Plus</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Privacy</label>
+                <name>Privacy</name>
+            </dataCategory>
+            <dataCategory>
+                <label>ANZ branches</label>
+                <name>ANZ_branches</name>
             </dataCategory>
             <label>About Us</label>
             <name>About_Us</name>
         </dataCategory>
         <dataCategory>
             <dataCategory>
-                <label>Fees, Rates, Charges, Interest</label>
-                <name>Fees_Rates_Charges_Interest</name>
+                <label>Lost or stolen card</label>
+                <name>Lost_or_stolen_card</name>
             </dataCategory>
             <dataCategory>
-                <label>Balance</label>
-                <name>Balance</name>
+                <label>Damaged card</label>
+                <name>Damaged_card</name>
             </dataCategory>
             <dataCategory>
-                <label>Savings Features</label>
-                <name>Savings_Features</name>
+                <label>Using card</label>
+                <name>Using_card</name>
             </dataCategory>
-            <dataCategory>
-                <label>Closure</label>
-                <name>Closure</name>
-            </dataCategory>
-            <dataCategory>
-                <label>Statement</label>
-                <name>Statement</name>
-            </dataCategory>
-            <label>Account</label>
-            <name>Account</name>
+            <label>Cards</label>
+            <name>Cards</name>
         </dataCategory>
         <dataCategory>
             <dataCategory>
-                <label>Digital Wallet</label>
-                <name>Digital_Wallet</name>
+                <label>Using account</label>
+                <name>Using_account</name>
             </dataCategory>
             <dataCategory>
-                <label>Device</label>
-                <name>Device</name>
+                <label>Savings and goals</label>
+                <name>Savings_and_goals</name>
             </dataCategory>
             <dataCategory>
-                <label>PIN</label>
-                <name>PIN_Appsupport</name>
+                <label>Money tiles</label>
+                <name>Money_tiles</name>
             </dataCategory>
-            <label>App Support</label>
-            <name>App_Support</name>
+            <dataCategory>
+                <label>Account closure</label>
+                <name>Account_closure</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Statements</label>
+                <name>Statements</name>
+            </dataCategory>
+            <label>Money</label>
+            <name>Money</name>
         </dataCategory>
         <dataCategory>
             <dataCategory>
-                <label>Replacement</label>
-                <name>Replacement</name>
+                <label>Making payments</label>
+                <name>Making_payments</name>
             </dataCategory>
-            <dataCategory>
-                <label>Declined</label>
-                <name>Declined</name>
-            </dataCategory>
-            <dataCategory>
-                <label>Activate</label>
-                <name>Activate</name>
-            </dataCategory>
-            <dataCategory>
-                <label>Pin</label>
-                <name>Pin_Card</name>
-            </dataCategory>
-            <label>Card</label>
-            <name>Card</name>
+            <label>Payments</label>
+            <name>Payments</name>
         </dataCategory>
         <dataCategory>
             <dataCategory>
-                <label>Complaint</label>
-                <name>Complaint</name>
+                <label>Updating details</label>
+                <name>Updating_details</name>
             </dataCategory>
-            <label>Feedback</label>
-            <name>Feedback</name>
+            <dataCategory>
+                <label>Lost or new phone</label>
+                <name>Lost_or_new_phone</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Power of attorney</label>
+                <name>Power_of_attorney</name>
+            </dataCategory>
+            <label>Profile</label>
+            <name>Profile</name>
         </dataCategory>
         <dataCategory>
             <dataCategory>
-                <label>Goals</label>
-                <name>Goals</name>
+                <label>General Fraud Enquiry</label>
+                <name>General_Fraud_Enquiry</name>
             </dataCategory>
             <dataCategory>
-                <label>Coach</label>
-                <name>Coach</name>
+                <label>Card/Device Block Enquiry</label>
+                <name>Card_Device_Block_Enquiry</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Falcon Transaction Confirmation</label>
+                <name>Falcon_Transaction_Confirmation</name>
+            </dataCategory>
+            <label>Fraud</label>
+            <name>Fraud</name>
+        </dataCategory>
+        <dataCategory>
+            <dataCategory>
+                <label>Hardship</label>
+                <name>Hardship</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Coaching</label>
+                <name>Coaching</name>
             </dataCategory>
             <label>Financial Wellbeing</label>
             <name>Financial_Wellbeing</name>
         </dataCategory>
         <dataCategory>
-            <dataCategory>
-                <label>Access</label>
-                <name>Access</name>
-            </dataCategory>
-            <dataCategory>
-                <label>Verify ID</label>
-                <name>Verify_ID</name>
-            </dataCategory>
-            <dataCategory>
-                <label>Personal Details and Preferences</label>
-                <name>Personal_Details_and_Preferences</name>
-            </dataCategory>
-            <label>Join ANZx</label>
-            <name>Join_ANZx</name>
+            <label>Other Enquiries</label>
+            <name>Other_Enquiries</name>
         </dataCategory>
         <dataCategory>
-            <dataCategory>
-                <label>Phone</label>
-                <name>Phone</name>
-            </dataCategory>
-            <dataCategory>
-                <label>Card</label>
-                <name>Card_LS</name>
-            </dataCategory>
-            <label>Lost/Stolen</label>
-            <name>Lost_Stolen</name>
-        </dataCategory>
-        <dataCategory>
-            <dataCategory>
-                <label>Upcoming Expenses</label>
-                <name>Upcoming_Expenses</name>
-            </dataCategory>
-            <dataCategory>
-                <label>Dispute</label>
-                <name>Dispute</name>
-            </dataCategory>
-            <dataCategory>
-                <label>Payment or Transfer</label>
-                <name>Payment_or_Transfer</name>
-            </dataCategory>
-            <dataCategory>
-                <label>Direct Debit</label>
-                <name>Direct_Debit</name>
-            </dataCategory>
-            <dataCategory>
-                <label>Transaction</label>
-                <name>Transaction</name>
-            </dataCategory>
-            <dataCategory>
-                <label>Limit</label>
-                <name>Limit</name>
-            </dataCategory>
-            <dataCategory>
-                <label>Transfer</label>
-                <name>Transfer</name>
-            </dataCategory>
-            <dataCategory>
-                <label>International</label>
-                <name>International</name>
-            </dataCategory>
-            <dataCategory>
-                <label>PayID</label>
-                <name>PayID</name>
-            </dataCategory>
-            <dataCategory>
-                <label>OSKO</label>
-                <name>OSKO</name>
-            </dataCategory>
-            <dataCategory>
-                <label>Cheques</label>
-                <name>Cheques</name>
-            </dataCategory>
-            <label>Payments, Transactions, Transfers</label>
-            <name>Payments_Transactions_Transfers</name>
-        </dataCategory>
-        <dataCategory>
-            <dataCategory>
-                <label>Marketing</label>
-                <name>Marketing</name>
-            </dataCategory>
-            <dataCategory>
-                <label>Personal Information</label>
-                <name>Personal_Information</name>
-            </dataCategory>
-            <label>Privacy</label>
-            <name>Privacy</name>
-        </dataCategory>
-        <dataCategory>
-            <dataCategory>
-                <label>Joint Account</label>
-                <name>Joint_Account</name>
-            </dataCategory>
-            <dataCategory>
-                <label>Business</label>
-                <name>Business</name>
-            </dataCategory>
-            <dataCategory>
-                <label>Credit Card</label>
-                <name>Credit_Card</name>
-            </dataCategory>
-            <label>Product</label>
-            <name>Product</name>
+            <label>Deceased estate</label>
+            <name>Deceased_estate</name>
         </dataCategory>
         <label>All</label>
         <name>All</name>

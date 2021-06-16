@@ -69,16 +69,22 @@ public with sharing class IDRCaseAssignmentRules {
       if (rec.Origin == '9' || rec.Origin == '10') {
         return QUEUE_MAP.get('IDR_CEO');
       }
-      
+
       //Product-based rules
-      if (rec.Origin != IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED && 
-      IDRConstants.CASE_ASSIGNMENT_PRODUCT_MAP.containsKey(product)) {
+      if (
+        rec.Origin != IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED &&
+        IDRConstants.caseAssignmentProductMap.containsKey(product)
+      ) {
         return QUEUE_MAP.get(
-          IDRConstants.CASE_ASSIGNMENT_PRODUCT_MAP.get(product)
+          IDRConstants.caseAssignmentProductMap.get(product)
         );
       }
       //Default workbasket
-      return QUEUE_MAP.get('EDR_Early_Resolution');
+      if (rec.Origin == IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED) {
+        return QUEUE_MAP.get('EDR_Early_Resolution');
+      } else {
+        return QUEUE_MAP.get('IDR_Early_Resolution');
+      }
     }
     //Not escalated, don't change owner
     return rec.OwnerId;

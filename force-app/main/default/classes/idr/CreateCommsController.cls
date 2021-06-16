@@ -195,7 +195,8 @@ public with sharing class CreateCommsController {
           .isCreateable() &&
         Schema.sObjectType.IDR_Letter_Approval_Details__c.fields.IDR_Field_Name__c.isCreateable() &&
         Schema.sObjectType.IDR_Letter_Approval_Details__c.fields.IDR_Value__c.isCreateable() &&
-        Schema.sObjectType.IDR_Letter_Approval_Details__c.fields.Name.isCreateable()
+        Schema.sObjectType.IDR_Letter_Approval_Details__c.fields.Name.isCreateable() &&
+        Schema.sObjectType.IDR_Letter_Approval_Details__c.fields.IDR_Letter_Approval__c.isCreateable()
       ) {
         insert commsLineItemsList;
       } else {

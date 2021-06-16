@@ -309,11 +309,13 @@ public with sharing class GetHelpCaseActions {
     List<Case> records,
     List<Case> oldRecords
   ) {
-    if (Reported_Bug__c.SObjectType.getDescribe().isAccessible()) {
-      Set<Id> bugIdSet = new Set<Id>();
-      bugIdSet = GetHelpCaseActionsHelper.getBugIdSet(records, bugIdSet);
-      bugIdSet = GetHelpCaseActionsHelper.getBugIdSet(oldRecords, bugIdSet);
-
+    Set<Id> bugIdSet = new Set<Id>();
+    bugIdSet = GetHelpCaseActionsHelper.getBugIdSet(records, bugIdSet);
+    bugIdSet = GetHelpCaseActionsHelper.getBugIdSet(oldRecords, bugIdSet);
+    if (
+      !bugIdSet.isEmpty() &&
+      Reported_Bug__c.SObjectType.getDescribe().isAccessible()
+    ) {
       List<Reported_Bug__c> bugs = new List<Reported_Bug__c>();
       bugs = GetHelpCaseActionsHelper.getReportedBugs(bugIdSet);
 

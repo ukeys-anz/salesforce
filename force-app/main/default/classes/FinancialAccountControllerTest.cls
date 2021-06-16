@@ -1,5 +1,11 @@
 @isTest
 public with sharing class FinancialAccountControllerTest {
+  private static User thisUser = [
+    SELECT Id
+    FROM User
+    WHERE Id = :UserInfo.getUserId()
+  ];
+
   @testSetup
   static void setup() {
     Account accnt = new Account();
@@ -28,12 +34,14 @@ public with sharing class FinancialAccountControllerTest {
 
     insert financialAccounts;
 
-    TestUtil.addAccountsGoalsPs();
+    // Inserting as current user, to get around MIXED_DML_OPERATION error
+    System.runAs(thisUser) {
+      TestUtil.addAccountsGoalsPs();
+    }
   }
 
   @isTest
   public static void testFinAccountRetrieval() {
-    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
     System.runAs(thisUser) {
       Account accnt = [
         SELECT Id
