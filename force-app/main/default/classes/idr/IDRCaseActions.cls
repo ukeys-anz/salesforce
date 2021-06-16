@@ -144,9 +144,7 @@ public with sharing class IDRCaseActions {
   public static void afterInsert(List<Case> records) {
     for (Case record : records) {
       if (isIDRComplaintType(record)) {
-        if (NOTIFICATION_STATUS.contains(record.Status)) {
-          notificationCaseList.add(record);
-        }
+        notificationCaseList.add(record);
         checkForCRCEscalation(record, null);
       }
     }
@@ -211,13 +209,10 @@ public with sharing class IDRCaseActions {
     for (Case record : records) {
       Case oldRec = (Case) oldMap.get(record.id);
       if (
-        record.Status != oldRec.Status ||
         (oldRec.RecordTypeId == IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID &&
         isIDRComplaintType(record))
       ) {
-        if (NOTIFICATION_STATUS.contains(record.Status)) {
-          notificationCaseList.add(record);
-        }
+        notificationCaseList.add(record);
         checkForCRCEscalation(record, oldRec);
       }
     }
