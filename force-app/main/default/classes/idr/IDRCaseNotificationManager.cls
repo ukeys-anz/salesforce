@@ -161,7 +161,7 @@ public with sharing class IDRCaseNotificationManager {
    * @param records list of case record in current trigger context
    * @param oldMap Old copy of case records before this transaction intiated
    */
-  private static void notifyBankersForEscalation(
+  public static void notifyBankersForEscalation(
     List<Case> records,
     Map<Id, Sobject> oldMap
   ) {
