@@ -16,6 +16,9 @@ public with sharing class IDRConstants {
   //Case Priority
   public static final String CASE_PRIORITY_STANDARD = 'Standard';
 
+  //Customer Notification Template
+  public static final String CUSTOMER_NOTIFICATION_TEMPLATE_ID = 'TO_BE_PROVIDED_BY_NB';
+
   public static final String QUEUE_TYPE = 'Queue';
 
   //CMOS Case record type Ids
