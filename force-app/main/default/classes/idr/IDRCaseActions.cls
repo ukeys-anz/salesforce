@@ -17,6 +17,7 @@ public with sharing class IDRCaseActions {
   private static final String CLOSED_STATUS = 'Closed';
   private static final String RESOLVED_STATUS = 'Resolved';
   private static final String WITHDRAWN_STATUS = 'Withdrawn';
+  private static final string BANKER_ESCALATION_EMAIL = 'EscalationEmailNotification';
   @TestVisible
   private static final string DAY_5_ESCALATION_REASON = 'Day 5 auto escalation';
 
@@ -40,7 +41,8 @@ public with sharing class IDRCaseActions {
     REOPENED_STATUS => 'AgCaseReopen',
     CLOSED_STATUS => 'AgCaseClosed',
     RESOLVED_STATUS => 'AgCaseRslvd',
-    WITHDRAWN_STATUS => 'AgCaseWthdrwn'
+    WITHDRAWN_STATUS => 'AgCaseWthdrwn',
+    BANKER_ESCALATION_EMAIL => 'TO_BE_PROVIDED_FROM_NB'
   };
 
   private static final String ESCALATED_TO_CRC_API_NAME = '1';
@@ -222,6 +224,7 @@ public with sharing class IDRCaseActions {
       }
     }
     IDRCaseCommentActions.escalateExistingCommentsToCFMS(oldMap, records);
+    IDRCaseNotificationManager.notifyBankersForEscalation(records, oldMap);
     escalateToCFMS(caseEscalationList);
     IDRTaskActions.possibleSystemicIssueActions(records, oldMap);
     IDRTaskActions.updateIDRMilestoneTask(records, oldMap);
