@@ -169,7 +169,7 @@ export default class FinancialGoals extends NavigationMixin(LightningElement) {
             );
 
             finGoal.recommendedSavings = finGoal.balanceRemaining
-              ? finGoal.balanceRemaining / finGoal.daysRemaining
+              ? (finGoal.balanceRemaining / finGoal.daysRemaining) * 7
               : "";
 
             finGoal.daysRemainingText += finGoal.daysRemaining;
