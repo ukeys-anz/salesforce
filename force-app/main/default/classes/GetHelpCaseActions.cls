@@ -419,17 +419,19 @@ public with sharing class GetHelpCaseActions {
    * throw an exception to prevent a duplicate dispute from being created
    * @param records a list of cases
    */
-  public static void checkOpenDisputeOnTransaction(List<Case> records){
+  public static void checkOpenDisputeOnTransaction(List<Case> records) {
     Set<String> transactionIds = new Set<String>();
-    for (Case c : records){
-      if (GetHelpCaseActionsHelper.isDispute(c)){
+    for (Case c : records) {
+      if (GetHelpCaseActionsHelper.isDispute(c)) {
         transactionIds.add(c.Transaction_Id__c);
       }
     }
-    Map<String, String> caseNumberByTransactionId = GetHelpCaseActionsHelper.getCaseNumberByTransactionId(transactionIds);
-    for (Case c : records){
+    Map<String, String> caseNumberByTransactionId = GetHelpCaseActionsHelper.getCaseNumberByTransactionId(
+      transactionIds
+    );
+    for (Case c : records) {
       String caseNumber = caseNumberByTransactionId.get(c.Transaction_Id__c);
-      if (caseNumber != null){
+      if (caseNumber != null) {
         c.addError(DUPLICATE_DISPUTE_ERROR + caseNumber);
       }
     }
