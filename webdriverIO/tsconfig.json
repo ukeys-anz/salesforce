@@ -18,9 +18,5 @@
     ],
     "target": "es6"
   },
-  "include": [
-    "./suite/**/*.ts",
-    "./suite/**/*.js",
-    "./suite/**/*.d.ts"
-  ]
+  "include": ["./suite/**/*.ts", "./suite/**/*.js", "./suite/**/*.d.ts"]
 }

@@ -11,7 +11,7 @@ jobs:
     runs-on: [self-hosted, salesforce]
     outputs:
       is_valid: ${{ steps.isValid.outputs.is_valid }}
-      
+
     steps:
       - name: Set Branch Name
         run: echo BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/}) >> $GITHUB_ENV

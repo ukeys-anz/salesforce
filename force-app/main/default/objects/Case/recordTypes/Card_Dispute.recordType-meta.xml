@@ -258,29 +258,7 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Fraud_EV_Consent__c</picklist>
-        <values>
-            <fullName>No</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Yes</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>Fraud_EV_Match__c</picklist>
-        <values>
-            <fullName>No</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Yes</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Fraud_EV_Rules_Met__c</picklist>
         <values>
             <fullName>No</fullName>
             <default>false</default>
