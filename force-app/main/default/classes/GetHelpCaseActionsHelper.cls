@@ -309,4 +309,17 @@ public inherited sharing class GetHelpCaseActionsHelper {
       return false;
     }
   }
+
+  /**
+   * @description getCaseNumberByTransactionId is called to get all open cases that are linked to a transaction Id
+   * @param List<String> list of transaction Ids
+   * @return Map<String, String> a map of case number by their transaction Id
+   */
+  public static Map<String, String> getCaseNumberByTransactionId(Set<String> transactionIds){
+    Map<String, String> caseNumberByTransactionId = new Map<String, String>();
+    for (Case c : [SELECT CaseNumber, Transaction_Id__c FROM Case WHERE Transaction_Id__c IN: transactionIds AND Status != 'Closed']){
+      caseNumberByTransactionId.put(c.Transaction_Id__c, c.CaseNumber);
+    }
+    return caseNumberByTransactionId;
+  }
 }
