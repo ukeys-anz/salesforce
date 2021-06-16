@@ -1058,7 +1058,7 @@ private class CaseTriggerHandlerTest {
     insert disputeCase1;
 
     Case existingDisputeCase = [
-      SELECT CaseNumber
+      SELECT CaseNumber__c
       FROM Case
       WHERE Transaction_Id__c = 'c5aad076-ea65-4fa9-bc8c-f348c39cd0d6'
       LIMIT 1
@@ -1078,7 +1078,7 @@ private class CaseTriggerHandlerTest {
       System.assertEquals(
         e.getDmlMessage(0),
         GetHelpCaseActions.DUPLICATE_DISPUTE_ERROR +
-        existingDisputeCase.CaseNumber,
+        existingDisputeCase.CaseNumber__c,
         'Error messages do not match'
       );
     }
@@ -1103,13 +1103,6 @@ private class CaseTriggerHandlerTest {
     disputeCase1.Transaction_Id__c = 'c5aad076-ea65-4fa9-bc8c-f348c39cd0d6';
     disputeCase1.Status = 'Closed';
     insert disputeCase1;
-
-    Case existingDisputeCase = [
-      SELECT CaseNumber
-      FROM Case
-      WHERE Transaction_Id__c = 'c5aad076-ea65-4fa9-bc8c-f348c39cd0d6'
-      LIMIT 1
-    ];
 
     // WHEN a new dispute case is created on the same transaction
     Case disputeCase2 = new Case();

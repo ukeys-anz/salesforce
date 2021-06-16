@@ -320,11 +320,11 @@ public inherited sharing class GetHelpCaseActionsHelper {
   ) {
     Map<String, String> caseNumberByTransactionId = new Map<String, String>();
     for (Case c : [
-      SELECT CaseNumber, Transaction_Id__c
+      SELECT CaseNumber__c, Transaction_Id__c
       FROM Case
       WHERE Transaction_Id__c IN :transactionIds AND Status != 'Closed'
     ]) {
-      caseNumberByTransactionId.put(c.Transaction_Id__c, c.CaseNumber);
+      caseNumberByTransactionId.put(c.Transaction_Id__c, c.CaseNumber__c);
     }
     return caseNumberByTransactionId;
   }
