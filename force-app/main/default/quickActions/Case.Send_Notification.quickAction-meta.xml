@@ -5,8 +5,12 @@
         <formula>Case.Id</formula>
     </fieldOverrides>
     <fieldOverrides>
+        <field>Case_Status__c</field>
+        <formula>Text(Case.Status )</formula>
+    </fieldOverrides>
+    <fieldOverrides>
         <field>Description__c</field>
-        <formula>(&quot;Notification will be sent out to customer with the case details.&quot;)</formula>
+        <formula>(&quot;Notification will be sent for the case status as &quot;) +  Text(Case.Status)</formula>
     </fieldOverrides>
     <fieldOverrides>
         <field>Status__c</field>
