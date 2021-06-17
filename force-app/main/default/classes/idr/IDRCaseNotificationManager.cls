@@ -155,4 +155,87 @@ public with sharing class IDRCaseNotificationManager {
   public static List<Schema.FieldSetMember> getFields() {
     return SObjectType.Case.FieldSets.IDR_Notification_Fields.getFields();
   }
+
+  /**
+   * @description To notify banker and their line manager when case is due to esclate in 1 business day
+   * @param records list of case record in current trigger context
+   * @param oldMap Old copy of case records before this transaction intiated
+   */
+  public static void notifyBankersForEscalation(
+    List<Case> records,
+    Map<Id, Sobject> oldMap
+  ) {
+    List<Case> toBeEsclationCases = new List<Case>();
+    Set<Id> caseOwnerIds = new Set<Id>();
+    Set<Id> caseOwnersManagerIds = new Set<Id>();
+    List<IDR_Notification_Event__e> notificationList = new List<IDR_Notification_Event__e>();
+
+    for (Case record : records) {
+      Case oldCase = (oldMap.containsKey(record.Id)
+        ? (Case) oldMap.get(record.Id)
+        : null);
+      if (
+        oldCase != null &&
+        oldCase.IDR_Milestone_Sla__c != record.IDR_Milestone_Sla__c &&
+        record.IDR_Milestone_Sla__c == IDRConstants.MILESTONE_SLA_RED
+      ) {
+        toBeEsclationCases.add(record);
+        caseOwnerIds.add(record.OwnerId);
+      }
+    }
+    Map<Id, User> ownerMap = new Map<Id, User>(
+      [
+        SELECT
+          Id,
+          Email,
+          FirstName,
+          Manager.Name,
+          Manager.FirstName,
+          Manager.Email
+        FROM User
+        WHERE Id IN :caseOwnerIds
+      ]
+    );
+    for (Case record : toBeEsclationCases) {
+      notificationList.add(buildEscalationNotificationEvent(record, ownerMap));
+    }
+    List<Database.SaveResult> sr = EventBus.publish(notificationList);
+
+    Lib_SystemLog log = new Lib_SystemLog(
+      IDRCaseActions.class.getName(),
+      'notifyBankersForEscalation'
+    );
+    log.addDatabaseSaveResult(
+      'IDR_Notification_Event__e',
+      sr,
+      notificationList
+    );
+    log.insertLog();
+  }
+
+  /**
+   * @description Build Platform Event record with details related to banker and line manager
+   * @param c Case record
+   * @param ownerMap Map containing details of owner and line manager
+   * @return IDR_Notification_Event__e notification event
+   */
+  private static IDR_Notification_Event__e buildEscalationNotificationEvent(
+    Case c,
+    Map<Id, User> ownerMap
+  ) {
+    IDR_Notification_Event__e nEvent = new IDR_Notification_Event__e();
+    nEvent.Case_ID__c = c.Id;
+    nEvent.Case_Number__c = c.CaseNumber;
+    nEvent.Is_Banker_Notification__c = true;
+    nEvent.Case_Owner_Email__c = ownerMap.get(c.OwnerId).Email;
+    nEvent.Case_Owner_First_Name__c = ownerMap.get(c.OwnerId).FirstName;
+    nEvent.Line_Manager_Email__c = ownerMap.get(c.OwnerId).Manager.Email;
+    nEvent.Line_Manager_First_Name__c = ownerMap.get(c.OwnerId)
+      .Manager.FirstName;
+    nEvent.MessageID__c = '' + c.ID + Datetime.now().millisecond();
+    nEvent.EmailFlag__c = true;
+    nEvent.EmailTemplate__c = IDRConstants.BANKER_EMAIL_NOTIFICATION_TEMPLATE;
+
+    return nEvent;
+  }
 }
