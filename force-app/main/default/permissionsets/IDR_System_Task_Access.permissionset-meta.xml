@@ -18,11 +18,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Task.IDR_Key_Business_Contact__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Task.PSI_or_DSI__c</field>
         <readable>true</readable>
     </fieldPermissions>
