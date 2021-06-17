@@ -2,10 +2,10 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>SI_Key_Business_Contacts__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <complianceGroup>Integrity - Accurate;Source - Salesforce;Privacy - Non Personal Information</complianceGroup>
     <description>Key business contacts to be linked to a systemic issue.</description>
     <externalId>false</externalId>
-    <label>Key Business Contacts</label>
+    <label>Assigned Business Contact</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
