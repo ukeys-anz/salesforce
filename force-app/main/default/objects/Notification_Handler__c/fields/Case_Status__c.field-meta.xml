@@ -8,7 +8,7 @@
     <externalId>false</externalId>
     <label>Case Status</label>
     <length>50</length>
-    <required>true</required>
+    <required>false</required>
     <securityClassification>Confidential</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
