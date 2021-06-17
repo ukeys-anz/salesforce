@@ -19,6 +19,9 @@ public with sharing class IDRConstants {
   //Customer Notification Template
   public static final String CUSTOMER_NOTIFICATION_TEMPLATE_ID = 'TO_BE_PROVIDED_BY_NB';
 
+  //Banker Notification Template
+  public static final String BANKER_EMAIL_NOTIFICATION_TEMPLATE = 'Standard';
+
   public static final String QUEUE_TYPE = 'Queue';
 
   //CMOS Case record type Ids
