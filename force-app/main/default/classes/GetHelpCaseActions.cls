@@ -64,7 +64,7 @@ public with sharing class GetHelpCaseActions {
     'ANZx_Complaint'
   );
 
-  public static final String DUPLICATE_DISPUTE_ERROR = 'Error occured while creating dispute. An open dispute already exists for this transaction. Case number: ';
+  public static final String DUPLICATE_DISPUTE_ERROR = 'Error occurred while creating dispute. An open dispute already exists for this transaction. Case number: ';
 
   private static Map<String, String> caseTypeLabelByValue = new Map<String, String>();
 
