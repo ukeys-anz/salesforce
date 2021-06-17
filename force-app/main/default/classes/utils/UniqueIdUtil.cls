@@ -30,7 +30,7 @@ public with sharing class UniqueIdUtil {
    */
   public static String getParentId() {
     if (parentId == '') {
-      String orgId = UserInfo.getOrganizationId();
+      String orgId = SFConstants.ORG_ID;
       String composedStr = orgId.subString(3, 5) + orgId.subString(9, 15);
       Blob sampleBlob = Blob.valueOf(composedStr);
       parentId = EncodingUtil.convertToHex(sampleBlob);
