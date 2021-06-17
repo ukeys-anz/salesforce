@@ -35,20 +35,30 @@
             <value>
                 <fullName>4</fullName>
                 <default>false</default>
-                <label>Customer Remediation</label>
+                <label>Customer Remediation - financial</label>
             </value>
             <value>
                 <fullName>5</fullName>
                 <default>false</default>
-                <label>Customer Communication</label>
+                <label>Customer Remediation - non-financial</label>
             </value>
             <value>
                 <fullName>6</fullName>
                 <default>false</default>
-                <label>Process / Policy Change</label>
+                <label>Data Remediation</label>
             </value>
             <value>
                 <fullName>7</fullName>
+                <default>false</default>
+                <label>Process Change</label>
+            </value>
+            <value>
+                <fullName>8</fullName>
+                <default>false</default>
+                <label>Policy Change</label>
+            </value>
+            <value>
+                <fullName>9</fullName>
                 <default>false</default>
                 <label>Other</label>
             </value>
@@ -75,11 +85,19 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Yes</controllingFieldValue>
-            <valueName>6</valueName>
+            <valueName>9</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Yes</controllingFieldValue>
             <valueName>7</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>6</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>8</valueName>
         </valueSettings>
     </valueSet>
     <visibleLines>7</visibleLines>
