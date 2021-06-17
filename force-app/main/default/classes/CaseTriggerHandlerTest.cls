@@ -1116,6 +1116,22 @@ private class CaseTriggerHandlerTest {
     } catch (DmlException e) {
       // THEN the case should be created
       System.assertEquals(null, e, 'An error has occurred');
+      Case createdDispute = [
+        SELECT Id, Dispute_Reason__c, Transaction_Id__c
+        FROM Case
+        WHERE AccountId = :acc.Id
+        LIMIT 1
+      ];
+      System.assertEquals(
+        'Error Correction',
+        createdDispute.Dispute_Reason__c,
+        'Dispute reasons do not match'
+      );
+      System.assertEquals(
+        'c5aad076-ea65-4fa9-bc8c-f348c39cd0d6',
+        createdDispute.Transaction_Id__c,
+        'Transaction Ids do not match'
+      );
     }
   }
 }
