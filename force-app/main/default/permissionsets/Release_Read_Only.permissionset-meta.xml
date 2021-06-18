@@ -21,6 +21,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Release__c.Release_Image__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Release__c.Release_Notes__c</field>
         <readable>true</readable>
     </fieldPermissions>

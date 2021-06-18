@@ -7,7 +7,7 @@
       "transactionType": "TRANSACTION_TYPE_CARD",
       "status": "TRANSACTION_STATUS_PENDING",
       "card": { "scheme": "CARD_SCHEME_VISA" },
-      "transactionDate": "2020-01-01d18:19",
+      "transactionDate": "2020-10-06T15:19:43Z",
       "tags": [{ "name": "test" }, { "name": "testsuperlooooooooongStr" }],
       "merchant": {
         "name": "test",

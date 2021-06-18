@@ -98,7 +98,8 @@ export default class AccountsAndGoals extends LightningElement {
                 FinServ__CurrentPostedBalance__c: account.currentBalance.value.replace(
                   "$",
                   ""
-                )
+                ),
+                BSB__c: account.bsb.toString()
               };
 
               this.accountDetails.push(accountInformation);
@@ -108,9 +109,12 @@ export default class AccountsAndGoals extends LightningElement {
                   name: account.goal.name,
                   accountNumber: account.accountNumber,
                   targetAmount: account.goal.targetAmount
-                    ? account.goal.targetAmount.value.replace("$", "")
+                    ? account.goal.targetAmount.value.replace(/[$,]/g, "")
                     : "",
-                  currentBalance: account.currentBalance.value.replace("$", ""),
+                  currentBalance: account.currentBalance.value.replace(
+                    /[$,]/g,
+                    ""
+                  ),
                   startDate: account.goal.startDate,
                   targetDate: account.goal.targetDate
                     ? account.goal.targetDate

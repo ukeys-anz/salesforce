@@ -8,7 +8,7 @@
 public class RBACPermissionCheckTest {
   @isTest
   static void testPermission() {
-    Profile p = [SELECT Id FROM Profile WHERE Name = 'ANZ Standard User'];
+    Profile p = CommonUtil.getProfileByName('ANZ Standard User');
     List<PermissionSet> pSets = new List<PermissionSet>(
       [
         SELECT Id, Name
@@ -17,17 +17,13 @@ public class RBACPermissionCheckTest {
       ]
     );
     //Create IDR User
-    User idrUser = (User) FakerFactory.make(new FakerUserFactory());
-    idrUser.ProfileId = p.Id;
+    User idrUser = TestUtil.createTestUser(
+      new Map<String, Object>{ 'ProfileId' => p.Id }
+    );
     insert idrUser;
     List<PermissionSetAssignment> pSetAssignments = new List<PermissionSetAssignment>();
     for (PermissionSet ps : pSets) {
-      pSetAssignments.add(
-        new PermissionSetAssignment(
-          AssigneeId = idrUser.id,
-          PermissionSetId = ps.Id
-        )
-      );
+      pSetAssignments.add(TestUtil.createPSAssignment(idrUser.id, ps.Id));
     }
     insert pSetAssignments;
 

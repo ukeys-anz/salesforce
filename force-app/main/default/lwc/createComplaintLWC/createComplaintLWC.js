@@ -142,7 +142,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   //systemic fields
   commonComplaint = IS_COMMON_COMPLAINT_FIELD;
-  isRealFormNeeded = IS_REAL_FORM_NEED_FIELD;
+  isRealFormNeeded = false;
   systemicIssueDescription = SYSTEMIC_ISSUE_DESCRIPTION;
 
   // escalation fields
