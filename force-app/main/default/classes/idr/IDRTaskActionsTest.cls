@@ -14,6 +14,35 @@ private with sharing class IDRTaskActionsTest {
       );
     }
     insert newTasks;
+    // Insert User as current user, to get around MIXED_DML_OPERATION error
+    User thisUser = new User(Id = UserInfo.getUserId());
+    System.runAs(thisUser) {
+      // Create a Systemic Issue User with Systemic Issue Team role
+      Profile profile = CommonUtil.getProfileByName('ANZ Standard User');
+      UserRole role = CommonUtil.getUserRoleByDevName('Systemic_Issue_Team');
+      User siUser = TestUtil.createTestUser(
+        new Map<String, Object>{
+          'FirstName' => 'siUser',
+          'ProfileId' => profile.Id,
+          'UserRoleId' => role.Id
+        }
+      );
+      insert siUser;
+
+      // Assign related PSs
+      List<String> siPsets = new List<String>{ 'Systemic_Issue_User_Base' };
+      List<PermissionSet> psList = [
+        SELECT Id
+        FROM PermissionSet
+        WHERE Name IN :siPsets
+      ];
+
+      List<PermissionSetAssignment> psaList = new List<PermissionSetAssignment>();
+      for (PermissionSet ps : psList) {
+        psaList.add(TestUtil.createPSAssignment(siUser.id, ps.Id));
+      }
+      insert psaList;
+    }
   }
 
   @isTest
@@ -34,5 +63,49 @@ private with sharing class IDRTaskActionsTest {
     //THEN long numbers in free text fields are masked, showing only the last four digits
     t = [SELECT Subject FROM Task LIMIT 1];
     System.assertEquals('*****4321', t.Subject, 'Subject should be masked.');
+  }
+
+  @isTest
+  static void testSITaskDueDateUpdate() {
+    User siUser = TestUtil.getUserByFirstName('siUser');
+    List<Case> newSIs = new List<Case>();
+    Task siTask = new Task();
+
+    System.runAs(siUser) {
+      // SI records
+      for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+        newSIs.add(
+          new Case(
+            RecordTypeId = IDRConstants.SI_RT_ID,
+            Status = 'Open',
+            SI_Workflow_step__c = 'Assessing'
+          )
+        );
+      }
+      insert newSIs;
+
+      // GIVEN a SI task created by Systemic Issue Team
+      siTask = new Task(
+        Subject = IDRTaskActions.IDR_TASK_SUBJECT,
+        RecordTypeId = IDRConstants.SI_TASK_RT_ID,
+        Priority = 'Normal',
+        ActivityDate = system.today().addDays(10),
+        WhatId = newSIs[0].Id
+      );
+
+      insert siTask;
+    }
+
+    //WHEN the task due date is updated by someone other than the case owner
+    try {
+      siTask.ActivityDate = system.today().adddays(15);
+      update siTask;
+    } catch (DMLexception e) {
+      //THEN restrict the user from updating task due date
+      system.assertEquals(
+        IDRTaskActions.SI_DUE_DATE_ERROR_MESSAGE,
+        e.getDmlMessage(0)
+      );
+    }
   }
 }

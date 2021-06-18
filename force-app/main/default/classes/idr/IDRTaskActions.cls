@@ -20,6 +20,9 @@ public without sharing class IDRTaskActions {
   @TestVisible
   public static final String IDR_TASK_SUBJECT = 'Please Review PSI';
 
+  @TestVisible
+  private static final String SI_DUE_DATE_ERROR_MESSAGE = 'Only the case owner is allowed to edit the due date';
+
   public static Group siQueue = [
     SELECT id
     FROM group
@@ -133,7 +136,9 @@ public without sharing class IDRTaskActions {
         populateFieldsOnTask(record, oldRecord);
       }
     }
+    validateSIDueDate(records, oldMap);
   }
+
   /**
    * @description afterUpdateActions is called onAfterUpdate. any logic that needs to be executed on after Update is executed from here
    * @param records The Task record list.
@@ -588,5 +593,45 @@ public without sharing class IDRTaskActions {
       IsReminderSet = true,
       ReminderDateTime = (DateTime) (activityDate - 2)
     );
+  }
+
+  /**
+   * @description validate SI Task due date and throw error if the due date is updated by anyone who is not the case owner
+   * @param records from the trigger
+   * @param oldMap This Map<Id, SObject> contains the map which holds the previous values
+   */
+  private static void validateSIDueDate(
+    list<Task> records,
+    Map<Id, Task> oldMap
+  ) {
+    Set<Id> caseIds = new Set<Id>();
+    List<Task> siTasks = new List<Task>();
+    Map<Id, Id> caseOwnerMap = new Map<Id, Id>();
+
+    for (Task record : records) {
+      Task oldRec = (Task) oldMap.get(record.id);
+      if (
+        record.RecordTypeId == IDRConstants.SI_TASK_RT_ID &&
+        record.ActivityDate != oldRec.ActivityDate &&
+        oldRec.ActivityDate != null
+      ) {
+        caseIds.add(record.WhatId);
+        siTasks.add(record);
+      }
+    }
+    if (Case.sObjectType.getDescribe().isQueryable()) {
+      for (Case caseRec : [SELECT Id, OwnerId FROM Case WHERE Id IN :caseIds]) {
+        caseOwnerMap.put(caseRec.Id, caseRec.OwnerId);
+      }
+    }
+
+    for (Task siTask : siTasks) {
+      if (
+        caseOwnerMap.containsKey(siTask.WhatId) &&
+        caseOwnerMap.get(siTask.WhatId) != UserInfo.getUserId()
+      ) {
+        siTask.addError(SI_DUE_DATE_ERROR_MESSAGE);
+      }
+    }
   }
 }
