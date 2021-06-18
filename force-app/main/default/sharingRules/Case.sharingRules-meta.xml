@@ -28,9 +28,9 @@
             <value>Customer Complaint,Non-Customer Complaint</value>
         </criteriaItems>
         <criteriaItems>
-            <field>IDR_Restriction_Level__c</field>
+            <field>IDR_Is_Restricted__c</field>
             <operation>notEqual</operation>
-            <value>Restricted Case</value>
+            <value>True</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -61,9 +61,9 @@
             <value>Customer Complaint,Non-Customer Complaint</value>
         </criteriaItems>
         <criteriaItems>
-            <field>IDR_Restriction_Level__c</field>
+            <field>IDR_Is_Restricted__c</field>
             <operation>notEqual</operation>
-            <value>Restricted Case</value>
+            <value>True</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
