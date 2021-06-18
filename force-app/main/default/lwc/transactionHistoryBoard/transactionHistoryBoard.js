@@ -349,15 +349,26 @@ export default class TransactionHistoryBoard extends LightningElement {
     if (this.startDate && this.endDate) {
       this.loading = true;
 
-      //Need to convert dates to ISO string for search params
-      let urlParam = `?account_number=${
-        this.accountNumber
-      }&start_date=${new Date(
-        this.startDate + " 00:00:00 UTC"
-      ).toISOString()}&end_date=${new Date(
-        this.endDate + " 23:59:59 UTC"
-      ).toISOString()}`;
+      //Create dates based off the user selection
+      let startDate = new Date(this.startDate + " 00:00:00");
+      let endDate = new Date(this.endDate + " 23:59:59");
 
+      //Create new UTC dates to match fabric timezone
+      //We +1 to month as getUTCMonth starts at 0 = Jan
+      let utcStartDate = new Date(
+        `${
+          startDate.getUTCMonth() + 1
+        }-${startDate.getUTCDate()}-${startDate.getUTCFullYear()} 00:00:00 UTC`
+      ).toISOString();
+
+      let utcEndDate = new Date(
+        `${
+          endDate.getUTCMonth() + 1
+        }-${endDate.getUTCDate()}-${endDate.getUTCFullYear()} 00:00:00 UTC`
+      ).toISOString();
+
+      //Need to convert dates to ISO string for search params
+      let urlParam = `?account_number=${this.accountNumber}&start_date=${utcStartDate}&end_date=${utcEndDate}`;
       this.fetchTransactions(urlParam, true);
     }
   }
