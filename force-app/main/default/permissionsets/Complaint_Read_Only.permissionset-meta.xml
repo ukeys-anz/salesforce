@@ -243,6 +243,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.IDR_Is_Restricted__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.IDR_Is_Written_Resp_Requested__c</field>
         <readable>true</readable>
     </fieldPermissions>
