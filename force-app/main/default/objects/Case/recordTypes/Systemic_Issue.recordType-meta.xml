@@ -360,11 +360,11 @@
         <picklist>SI_Definite__c</picklist>
         <values>
             <fullName>No</fullName>
-            <default>true</default>
+            <default>false</default>
         </values>
         <values>
             <fullName>Not Yet Determined</fullName>
-            <default>false</default>
+            <default>true</default>
         </values>
         <values>
             <fullName>Yes</fullName>
