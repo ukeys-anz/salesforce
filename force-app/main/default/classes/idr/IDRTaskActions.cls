@@ -81,7 +81,7 @@ public without sharing class IDRTaskActions {
       (oldRec == null ||
       oldRec.Status != 'Completed')
     ) {
-      record.CompletedDate__c = Date.today();
+      record.Completed_Date__c = Date.today();
     }
   }
   /**
