@@ -599,12 +599,12 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.IDR_Complaint_Outcome__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.IDR_Complaint_Remedy__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -744,7 +744,7 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.IDR_Non_Financial_Remedy__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
