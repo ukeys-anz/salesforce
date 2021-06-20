@@ -21,30 +21,6 @@ public with sharing class IDRCaseActions {
   @TestVisible
   private static final string DAY_5_ESCALATION_REASON = 'Day 5 auto escalation';
 
-  // IDR Case Status for which notifications need to be sent.
-  private static final Set<String> NOTIFICATION_STATUS = new Set<String>{
-    OPEN_STATUS,
-    UNDER_INVESTIGATION_STATUS,
-    ESCALATED_STATUS,
-    REOPENED_STATUS,
-    CLOSED_STATUS,
-    RESOLVED_STATUS,
-    WITHDRAWN_STATUS
-  };
-
-  //These templates ids are email and sms template ids which are setup on notification broker.
-  //These templates is used in platform events to send it to mulesoft which inturn invokes notification broker.
-  private static final Map<String, String> TEMPLATE_ID_MAP = new Map<String, String>{
-    OPEN_STATUS => 'AgCaseOpen',
-    UNDER_INVESTIGATION_STATUS => 'AgCaseUdInvest',
-    ESCALATED_STATUS => 'AgCaseEsclt',
-    REOPENED_STATUS => 'AgCaseReopen',
-    CLOSED_STATUS => 'AgCaseClosed',
-    RESOLVED_STATUS => 'AgCaseRslvd',
-    WITHDRAWN_STATUS => 'AgCaseWthdrwn',
-    BANKER_ESCALATION_EMAIL => 'TO_BE_PROVIDED_FROM_NB'
-  };
-
   private static final String ESCALATED_TO_CRC_API_NAME = '1';
 
   private static final String YES_VALUE = 'Yes';
@@ -56,10 +32,6 @@ public with sharing class IDRCaseActions {
   private static final String DELETE_ERROR = 'You cannot delete cases';
 
   private static final String CUSTOMER_NUMBER_VALIDATION_ERROR = 'This field can no longer be edited. In the event that the Customer Number/Identifier is incorrect, the case must be withdrawn and a new case created with the correct Customer Number.';
-
-  //IDR_Notification_Event__e for sending notifications to Notification Broker based on status.
-  @TestVisible
-  private static List<IDR_Notification_Event__e> idrNotifications;
 
   @TestVisible
   private static List<IDR_CRC_Escalation_Event__e> idrCaseEscalations;
