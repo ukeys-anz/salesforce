@@ -419,18 +419,16 @@ export default class TransactionHistoryBoard extends LightningElement {
       case "Canberra":
         if (daylightSavings) {
           return { startTime: "13:00:00", endTime: "12:59:59" };
-        } else {
-          return { startTime: "14:00:00", endTime: "13:59:59" };
         }
+        return { startTime: "14:00:00", endTime: "13:59:59" };
       case "Brisbane":
         return { startTime: "14:00:00", endTime: "13:59:59" };
       case "Adelaide":
       case "Broken Hill":
         if (daylightSavings) {
           return { startTime: "13:30:00", endTime: "13:29:59" };
-        } else {
-          return { startTime: "14:30:00", endTime: "14:29:59" };
         }
+        return { startTime: "14:30:00", endTime: "14:29:59" };
       case "Darwin":
         return { startTime: "14:30:00", endTime: "14:29:59" };
       case "Perth":
@@ -473,9 +471,8 @@ export default class TransactionHistoryBoard extends LightningElement {
     //Check if we are in AEST or AEDT
     if (today > aprilDate && today < octoberDate) {
       return false;
-    } else {
-      return true;
     }
+    return true;
   }
 
   //This function is required as some errors are returned
