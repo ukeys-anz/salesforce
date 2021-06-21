@@ -24,7 +24,8 @@ public with sharing class ReleaseLogServerController {
           Fixes__c,
           Release_Date__c,
           Release_Notes__c,
-          Version__c
+          Version__c,
+          Release_Image__c
         FROM Release__c
         ORDER BY Release_Date__c DESC, Version__c DESC
         LIMIT :recordLimit

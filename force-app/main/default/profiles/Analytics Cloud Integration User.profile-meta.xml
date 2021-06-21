@@ -323,17 +323,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Case.Fraud_EV_Consent__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Case.Fraud_EV_Match__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Case.Fraud_EV_Rules_Met__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

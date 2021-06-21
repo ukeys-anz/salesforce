@@ -67,6 +67,7 @@ export default class ReleaseLog extends LightningElement {
         if (total <= 2) {
           this.loadMore = false;
         }
+
         this.totalPages = Math.round(total / RECORDS_PER_PAGE);
       });
     }

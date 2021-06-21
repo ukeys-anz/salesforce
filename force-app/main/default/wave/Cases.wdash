@@ -111,7 +111,7 @@
               }
             },
             {
-              "colspan": 5,
+              "colspan": 7,
               "column": 26,
               "name": "text_3",
               "row": 4,
@@ -1357,7 +1357,7 @@
     },
     "text_3": {
       "parameters": {
-        "content": { "displayTemplate": "Ticket Status" },
+        "content": { "displayTemplate": "Current Ticket Status" },
         "fontSize": 12,
         "showActionMenu": true,
         "textAlignment": "left",
@@ -1514,7 +1514,7 @@
     "text_4": {
       "parameters": {
         "content": { "displayTemplate": "Filter by Case Type" },
-        "fontSize": 16,
+        "fontSize": 12,
         "showActionMenu": true,
         "textAlignment": "left",
         "textColor": "#091A3E"

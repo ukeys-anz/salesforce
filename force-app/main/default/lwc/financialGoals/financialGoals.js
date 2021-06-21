@@ -153,7 +153,7 @@ export default class FinancialGoals extends NavigationMixin(LightningElement) {
           finGoal.fillPercent = finGoal.currentBalance > 0 ? 100 : 0;
         }
 
-        finGoal.daysRemaining = "Days remaining: ";
+        finGoal.daysRemainingText = "Days remaining: ";
         // Override potential null values with generic values
         if (finGoal.targetDate) {
           const targetDate = new Date(finGoal.targetDate);
@@ -164,13 +164,15 @@ export default class FinancialGoals extends NavigationMixin(LightningElement) {
             let timeDifference = targetDate.getTime() - today.getTime();
 
             //Calculate days remaining
-            finGoal.daysRemaining += Math.round(
-              timeDifference / (1000 * 3600 * 24)
+            finGoal.daysRemaining = Math.round(
+              timeDifference / (1000 * 60 * 60 * 24)
             );
 
             finGoal.recommendedSavings = finGoal.balanceRemaining
-              ? finGoal.balanceRemaining / finGoal.daysRemaining
+              ? (finGoal.balanceRemaining / finGoal.daysRemaining) * 7
               : "";
+
+            finGoal.daysRemainingText += finGoal.daysRemaining;
           }
 
           finGoal.targetDate =

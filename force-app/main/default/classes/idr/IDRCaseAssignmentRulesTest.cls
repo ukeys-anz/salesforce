@@ -6,9 +6,8 @@
  */
 @isTest
 private with sharing class IDRCaseAssignmentRulesTest {
-
   @TestSetup
-  static void makeData(){
+  static void makeData() {
     Case[] cases = new List<Case>();
     cases.add(
       new Case(
@@ -140,7 +139,10 @@ private with sharing class IDRCaseAssignmentRulesTest {
   @isTest
   static void testNonProductAssignmentRulesOnUpdate() {
     //GIVEN open complaints
-    Case[] cases = [SELECT Id, Status, IDR_Escalated_to__c, IDR_Escalation_Reason__c FROM Case];
+    Case[] cases = [
+      SELECT Id, Status, IDR_Escalated_to__c, IDR_Escalation_Reason__c
+      FROM Case
+    ];
 
     Test.startTest();
     //WHEN escalated
