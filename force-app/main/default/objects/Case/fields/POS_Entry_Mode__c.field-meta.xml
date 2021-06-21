@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>POS_Entry_Mode__c</fullName>
+    <description>Point of Sale entry, how we describe the card use for chargebacks</description>
+    <externalId>false</externalId>
+    <formula>IF(
+OR( Card_Method__c = &apos;CONTACTLESS&apos;,Card_Method__c = &apos;SWIPE&apos;),&apos;PayWave&apos;,
+IF(
+OR( Card_Method__c = &apos;CHIP&apos;,Card_Method__c = &apos;ONLINE&apos;,Card_Method__c = &apos;DIGITAL&apos;,Card_Method__c = &apos;IN_APP&apos;),&apos;Card and Pin&apos;,
+IF(
+OR( Card_Method__c = &apos;CARD_ON_FILE&apos;,Card_Method__c = &apos;MANUAL&apos;),&apos;Online&apos;,&apos;N/A&apos;
+) ) )</formula>
+    <label>POS Entry Mode</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
