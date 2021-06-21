@@ -162,9 +162,6 @@ export default class TransactionHistoryBoard extends LightningElement {
               currentTransaction.TransactionDate = currentTransaction.transactionDate
                 ? currentTransaction.transactionDate.slice(0, 10)
                 : "Unknown";
-              currentTransaction.TransactionTime = this.timeConversion(
-                currentTransaction.TransactionTime
-              );
 
               if (i === 0) {
                 currentTransaction.showDateTitle = true;
