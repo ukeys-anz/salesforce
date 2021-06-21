@@ -4,10 +4,13 @@ name: Deploy
 # This workflow will only run on pushes to master , develop and epic/*
 on:
   push:
+    paths:
+      - "force-app/**"
     branches:
       - develop
       - master
       - epic/*
+      - "!epic/lock-card"
 
 jobs:
   prepare:

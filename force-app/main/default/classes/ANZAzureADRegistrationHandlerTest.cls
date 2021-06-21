@@ -14,7 +14,7 @@ private class ANZAzureADRegistrationHandlerTest {
   static void testCreateAndUpdateUser() {
     Faker faker = new Faker('AU');
     String testFedId = faker.randomString(8);
-    Profile p = [SELECT Id FROM Profile WHERE Name = 'Standard User'];
+    Profile p = CommonUtil.getProfileByName('Standard User');
 
     ANZAzureADRegistrationHandler handler = new ANZAzureADRegistrationHandler();
 
@@ -42,9 +42,12 @@ private class ANZAzureADRegistrationHandlerTest {
     User u = handler.createUser(null, sampleData);
 
     //Create user with Federation Id - testFedId
-    User testUser = (User) FakerFactory.make(new FakerUserFactory());
-    testUser.ProfileId = p.Id;
-    testUser.FederationIdentifier = testFedId;
+    User testUser = TestUtil.createTestUser(
+      new Map<String, Object>{
+        'ProfileId' => p.Id,
+        'FederationIdentifier' => testFedId
+      }
+    );
     insert testUser;
 
     //Call createUser again

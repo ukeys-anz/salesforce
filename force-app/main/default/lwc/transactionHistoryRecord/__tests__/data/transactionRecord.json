@@ -1,8 +1,8 @@
 {
   "transactionId": "123",
   "amount": {
-    "charged": { "value": "50.00" },
-    "converted": { "value": "50.00" },
+    "charged": { "value": "50" },
+    "converted": { "value": "50" },
     "exchangeRate": { "value": "50.00" }
   },
   "type": "Card",

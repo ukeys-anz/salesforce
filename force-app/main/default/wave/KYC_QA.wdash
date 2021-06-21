@@ -1,1 +1,484 @@
-{"dataSourceLinks":[],"filters":[{"dataset":{"name":"KYC_QA"},"dependent":true,"fields":["CreatedDate"],"locked":false,"operator":">=<=","value":"[[[\"month\",0],[\"month\",0]]]"}],"gridLayouts":[{"name":"Default","numColumns":12,"pages":[{"label":"KYC","name":"f43d0065-8b42-4072-ad5d-c80ad2c21b85","navigationHidden":false,"widgets":[{"colspan":10,"column":0,"name":"chart_1","row":3,"rowspan":10,"widgetStyle":{"backgroundColor":"#FFFFFF","borderColor":"#091A3E","borderEdges":["all"],"borderRadius":4,"borderWidth":2}},{"colspan":10,"column":0,"name":"filterpanel_1","row":2,"rowspan":1,"widgetStyle":{"backgroundColor":"#FFFFFF","borderColor":"#E6ECF2","borderEdges":["all"],"borderRadius":4,"borderWidth":1}},{"colspan":10,"column":0,"name":"text_1","row":0,"rowspan":2,"widgetStyle":{"borderEdges":[]}},{"colspan":10,"column":0,"name":"chart_2","row":13,"rowspan":6,"widgetStyle":{"backgroundColor":"#FFFFFF","borderColor":"#091A3E","borderEdges":["all"],"borderRadius":4,"borderWidth":2}},{"colspan":10,"column":0,"name":"container_1","row":0,"rowspan":3,"widgetStyle":{"backgroundColor":"#FFFFFF","borderColor":"#091A3E","borderEdges":["all"],"borderRadius":4,"borderWidth":2}}]}],"rowHeight":"normal","selectors":[],"style":{"alignmentX":"left","alignmentY":"top","backgroundColor":"#FFFFFF","cellSpacingX":8,"cellSpacingY":8,"fit":"original","gutterColor":"#FFFFFF"},"version":1.0}],"layouts":[],"steps":{"Days_1":{"broadcastFacet":true,"columns":{"Display":{"type":"string"}},"label":"Days","selectMode":"single","type":"staticflex","values":["{\"Display\":\"0\"}","{\"Display\":\"1\"}","{\"Display\":\"2\"}","{\"Display\":\"3\"}","{\"Display\":\"4\"}","{\"Display\":\"5\"}","{\"Display\":\"6\"}","{\"Display\":\"7\"}","{\"Display\":\"8+\"}"]},"lens_1":{"broadcastFacet":true,"groups":[],"numbers":[],"query":"q = load \"KYC_QA\";\nq0 = filter q by 'Fraud_EV_Consent__c' == \"Yes\";\nq1 = filter q by 'Fraud_EV_Consent__c' == \"No\";\nresult = cogroup q by all full, q0 by all full, q1 by all;\nconsent = foreach result generate \"EV Consent has been Obtained & Recorded\" as 'Question', count(q0) as 'Yes', count(q1) as 'No'; \n\nq = load \"KYC_QA\";\nq0 = filter q by 'Fraud_ID_True_Document__c' == \"Yes\";\nq1 = filter q by 'Fraud_ID_True_Document__c' == \"No\";\nresult = cogroup q by all full, q0 by all full, q1 by all;\nvalid_identity = foreach result generate \"Valid Identity Document Provided\" as 'Question', count(q0) as 'Yes', count(q1) as 'No'; \n\n\nq = load \"KYC_QA\";\nq0 = filter q by 'Fraud_EV_Match__c' == \"Yes\";\nq1 = filter q by 'Fraud_EV_Match__c' == \"No\";\nresult = cogroup q by all full, q0 by all full, q1 by all;\nmatch = foreach result generate \"EV Information is a Match & Complete\" as 'Question', count(q0) as 'Yes', count(q1) as 'No'; \n\nq = load \"KYC_QA\";\nq0 = filter q by 'Fraud_ID_Legible__c' == \"Yes\";\nq1 = filter q by 'Fraud_ID_Legible__c' == \"No\";\nresult = cogroup q by all full, q0 by all full, q1 by all;\nidentity_legible = foreach result generate \"Identity Document is Legible\" as 'Question', count(q0) as 'Yes', count(q1) as 'No'; \n\nq = load \"KYC_QA\";\nq0 = filter q by 'Fraud_EV_Rules_Met__c' == \"Yes\";\nq1 = filter q by 'Fraud_EV_Rules_Met__c' == \"No\";\nresult = cogroup q by all full, q0 by all full, q1 by all;\nev_rules = foreach result generate \"EV Rules Have Been Met\" as 'Question', count(q0) as 'Yes', count(q1) as 'No'; \n\nq = load \"KYC_QA\";\nq0 = filter q by 'Fraud_ID_Not_Picture__c' == \"Yes\";\nq1 = filter q by 'Fraud_ID_Not_Picture__c' == \"No\";\nresult = cogroup q by all full, q0 by all full, q1 by all;\nimage = foreach result generate \"Image is not a Picture of ID Document\" as 'Question', count(q0) as 'Yes', count(q1) as 'No'; \n\nq = load \"KYC_QA\";\nq0 = filter q by 'Fraud_Customer_Details__c' == \"Yes\";\nq1 = filter q by 'Fraud_Customer_Details__c' == \"No\";\nresult = cogroup q by all full, q0 by all full, q1 by all;\nkyc = foreach result generate \"KYC Information is a Match & Complete\" as 'Question', count(q0) as 'Yes', count(q1) as 'No'; \n\nq = load \"KYC_QA\";\nq0 = filter q by 'Fraud_Customer_Photo_Modified__c' == \"Yes\";\nq1 = filter q by 'Fraud_Customer_Photo_Modified__c' == \"No\";\nresult = cogroup q by all full, q0 by all full, q1 by all;\nnot_modified = foreach result generate \"Customer's Photo is Not Modified\" as 'Question', count(q0) as 'Yes', count(q1) as 'No'; \n\nq = load \"KYC_QA\";\nq0 = filter q by 'Fraud_Middle_Name__c' == \"Yes\";\nq1 = filter q by 'Fraud_Middle_Name__c' == \"No\";\nresult = cogroup q by all full, q0 by all full, q1 by all;\nmiddle_name = foreach result generate \"Middle Name Matches\" as 'Question', count(q0) as 'Yes', count(q1) as 'No'; \n\nq = load \"KYC_QA\";\nq0 = filter q by 'Fraud_Security_Features__c' == \"Yes\";\nq1 = filter q by 'Fraud_Security_Features__c' == \"No\";\nresult = cogroup q by all full, q0 by all full, q1 by all;\nsecurity = foreach result generate \"Security Features Visible\" as 'Question', coalesce(count(q0),0) as 'Yes', coalesce(count(q1),0) as 'No'; \n\n\nq = load \"KYC_QA\";\nq0 = filter q by 'Fraud_PO_Box__c' == \"Yes\";\nq1 = filter q by 'Fraud_PO_Box__c' == \"No\";\nresult = cogroup q by all full, q0 by all full, q1 by all;\nresidential = foreach result generate \"Residential Address is Not a PO Box\" as 'Question', count(q0) as 'Yes', count(q1) as 'No'; \n\n\nq = union consent, valid_identity, match, identity_legible, ev_rules, image, kyc, not_modified, middle_name, security, residential;\n","receiveFacetSource":{"mode":"all","steps":[]},"selectMode":"single","strings":[],"type":"saql","useGlobal":true,"visualizationParameters":{"parameters":{"autoFitMode":"keepLabels","showValues":true,"bins":{"breakpoints":{"high":100,"low":0},"bands":{"high":{"color":"#008000","label":""},"low":{"color":"#B22222","label":""},"medium":{"color":"#ffa500","label":""}}},"legend":{"descOrder":false,"showHeader":true,"show":true,"customSize":"auto","position":"right-top","inside":false},"axisMode":"multi","tooltip":{"showBinLabel":true,"measures":"","showNullValues":true,"showPercentage":true,"showDimensions":true,"showMeasures":true,"customizeTooltip":false,"dimensions":""},"visualizationType":"hbar","title":{"fontSize":14,"subtitleFontSize":11,"label":"","align":"center","subtitleLabel":""},"binValues":false,"trellis":{"flipLabels":false,"showGridLines":true,"size":[100,100],"enable":false,"type":"x","chartsPerLine":4},"showActionMenu":true,"measureAxis2":{"sqrtScale":false,"showTitle":true,"showAxis":true,"title":"","customDomain":{"showDomain":false}},"measureAxis1":{"sqrtScale":false,"showTitle":true,"showAxis":true,"title":"","customDomain":{"showDomain":false}},"theme":"wave","dimensionAxis":{"showTitle":true,"customSize":"auto","showAxis":true,"title":"","icons":{"useIcons":false,"iconProps":{"fit":"cover","column":"","type":"round"}}},"applyConditionalFormatting":true},"type":"chart"}},"lens_2":{"broadcastFacet":true,"groups":[],"numbers":[],"query":"q = load \"KYC_QA\";\nq_count = filter q by 'CaseAge' == 0;\nresult = cogroup q by all full, q_count by all;\nq0 = foreach result generate \"0\" as 'Days', count(q_count) as 'Cases';\n\nq = load \"KYC_QA\";\nq_count = filter q by 'CaseAge' == 1;\nresult = cogroup q by all full, q_count by all;\nq1 = foreach result generate \"1\" as 'Days', count(q_count) as 'Cases';\n\nq = load \"KYC_QA\";\nq_count = filter q by 'CaseAge' == 2;\nresult = cogroup q by all full, q_count by all;\nq2 = foreach result generate \"2\" as 'Days', count(q_count) as 'Cases';\n\nq = load \"KYC_QA\";\nq_count = filter q by 'CaseAge' == 3;\nresult = cogroup q by all full, q_count by all;\nq3 = foreach result generate \"3\" as 'Days', count(q_count) as 'Cases';\n\nq = load \"KYC_QA\";\nq_count = filter q by 'CaseAge' == 4;\nresult = cogroup q by all full, q_count by all;\nq4 = foreach result generate \"4\" as 'Days', count(q_count) as 'Cases';\n\nq = load \"KYC_QA\";\nq_count = filter q by 'CaseAge' == 5;\nresult = cogroup q by all full, q_count by all;\nq5 = foreach result generate \"5\" as 'Days', count(q_count) as 'Cases';\n\nq = load \"KYC_QA\";\nq_count = filter q by 'CaseAge' == 6;\nresult = cogroup q by all full, q_count by all;\nq6 = foreach result generate \"6\" as 'Days', count(q_count) as 'Cases';\n\nq = load \"KYC_QA\";\nq_count = filter q by 'CaseAge' == 7;\nresult = cogroup q by all full, q_count by all;\nq7 = foreach result generate \"7\" as 'Days', count(q_count) as 'Cases';\n\nq = load \"KYC_QA\";\nq_count = filter q by 'CaseAge' > 8;\nresult = cogroup q by all full, q_count by all;\nq8 = foreach result generate \"8+\" as 'Days', count(q_count) as 'Cases';\n\n\nr = union q0, q1, q2, q3, q4, q5, q6, q7, q8;","receiveFacetSource":{"mode":"all","steps":[]},"selectMode":"single","strings":[],"type":"saql","useGlobal":true,"visualizationParameters":{"parameters":{"autoFitMode":"keepLabels","showValues":true,"bins":{"breakpoints":{"high":100,"low":0},"bands":{"high":{"color":"#008000","label":""},"low":{"color":"#B22222","label":""},"medium":{"color":"#ffa500","label":""}}},"legend":{"descOrder":false,"showHeader":true,"show":true,"customSize":"auto","position":"right-top","inside":false},"axisMode":"multi","tooltip":{"showBinLabel":true,"measures":"","showNullValues":true,"showPercentage":true,"showDimensions":true,"showMeasures":true,"customizeTooltip":false,"dimensions":""},"visualizationType":"hbar","title":{"fontSize":14,"subtitleFontSize":11,"label":"","align":"center","subtitleLabel":""},"binValues":false,"trellis":{"flipLabels":false,"showGridLines":true,"size":[100,100],"enable":false,"type":"x","chartsPerLine":4},"showActionMenu":true,"measureAxis2":{"sqrtScale":false,"showTitle":true,"showAxis":true,"title":"","customDomain":{"showDomain":false}},"measureAxis1":{"sqrtScale":false,"showTitle":true,"showAxis":true,"title":"","customDomain":{"showDomain":false}},"theme":"wave","dimensionAxis":{"showTitle":true,"customSize":"auto","showAxis":true,"title":"","icons":{"useIcons":false,"iconProps":{"fit":"cover","column":"","type":"round"}}},"applyConditionalFormatting":true},"type":"chart"}}},"widgetStyle":{"backgroundColor":"#FFFFFF","borderColor":"#E6ECF2","borderEdges":[],"borderRadius":0,"borderWidth":1},"widgets":{"container_1":{"parameters":{"alignmentX":"left","alignmentY":"top","fit":"original"},"type":"container"},"text_1":{"parameters":{"content":{"displayTemplate":"KYC QA Dashboard"},"fontSize":32,"showActionMenu":true,"textAlignment":"left","textColor":"#091A3E"},"type":"text"},"filterpanel_1":{"parameters":{"filterItemOptions":{"propertyColor":"#54698D","valueColor":"#16325C"},"filters":[{"dataset":{"name":"KYC_QA"},"field":"CreatedDate"}],"showAllFilters":false},"type":"filterpanel"},"chart_2":{"parameters":{"autoFitMode":"keepLabels","showValues":true,"bins":{"breakpoints":{"high":100,"low":0},"bands":{"high":{"color":"#008000","label":""},"low":{"color":"#B22222","label":""},"medium":{"color":"#ffa500","label":""}}},"legend":{"descOrder":false,"showHeader":true,"show":false,"customSize":"auto","position":"right-top","inside":false},"axisMode":"multi","tooltip":{"showBinLabel":true,"measures":"","showNullValues":true,"showPercentage":true,"showDimensions":true,"showMeasures":true,"customizeTooltip":false,"dimensions":""},"visualizationType":"vbar","exploreLink":true,"title":{"fontSize":14,"subtitleFontSize":11,"label":"QA Case Days Open","align":"center","subtitleLabel":""},"binValues":false,"trellis":{"flipLabels":false,"showGridLines":true,"size":[100,100],"enable":false,"type":"x","chartsPerLine":4},"showActionMenu":true,"measureAxis2":{"sqrtScale":false,"showTitle":true,"showAxis":true,"title":"","customDomain":{"showDomain":false}},"measureAxis1":{"sqrtScale":false,"showTitle":false,"showAxis":false,"title":"","customDomain":{"showDomain":false}},"theme":"wave","step":"lens_2","dimensionAxis":{"showTitle":true,"customSize":"auto","showAxis":true,"title":"","icons":{"useIcons":false,"iconProps":{"fit":"cover","column":"Days","type":"round"}}},"applyConditionalFormatting":true},"type":"chart"},"chart_1":{"parameters":{"autoFitMode":"fit","showValues":true,"legend":{"descOrder":false,"showHeader":true,"show":false,"customSize":"auto","position":"right-top","inside":false},"showMeasureTitle":true,"tooltip":{"showBinLabel":true,"measures":"","showNullValues":true,"showPercentage":true,"showDimensions":true,"showMeasures":true,"customizeTooltip":false,"dimensions":""},"visualizationType":"pyramid","exploreLink":true,"title":{"fontSize":14,"subtitleFontSize":11,"label":"","align":"left","subtitleLabel":""},"trellis":{"flipLabels":false,"showGridLines":true,"size":[100,100],"enable":false,"type":"x","chartsPerLine":4},"showMeasure":false,"showActionMenu":true,"measureAxis2":{"sqrtScale":false,"title":"No","customDomain":{"showDomain":false}},"measureAxis1":{"sqrtScale":false,"title":"Yes","customDomain":{"showDomain":false}},"theme":"wave","step":"lens_1","rightColor":"#e16032","leftColor":"#52b7d8","dimensionAxis":{"customSize":40,"showAxis":true},"applyConditionalFormatting":true},"type":"chart"}}}
+{
+  "dataSourceLinks": [],
+  "filters": [
+    {
+      "dataset": { "name": "KYC_QA" },
+      "dependent": true,
+      "fields": ["CreatedDate"],
+      "locked": false,
+      "operator": ">=<=",
+      "value": "[[[\"month\",0],[\"month\",0]]]"
+    }
+  ],
+  "gridLayouts": [
+    {
+      "name": "Default",
+      "numColumns": 12,
+      "pages": [
+        {
+          "label": "KYC",
+          "name": "f43d0065-8b42-4072-ad5d-c80ad2c21b85",
+          "navigationHidden": false,
+          "widgets": [
+            {
+              "colspan": 10,
+              "column": 0,
+              "name": "chart_1",
+              "row": 3,
+              "rowspan": 10,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#091A3E",
+                "borderEdges": ["all"],
+                "borderRadius": 4,
+                "borderWidth": 2
+              }
+            },
+            {
+              "colspan": 10,
+              "column": 0,
+              "name": "filterpanel_1",
+              "row": 2,
+              "rowspan": 1,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#E6ECF2",
+                "borderEdges": ["all"],
+                "borderRadius": 4,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 10,
+              "column": 0,
+              "name": "text_1",
+              "row": 0,
+              "rowspan": 2,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 10,
+              "column": 0,
+              "name": "chart_2",
+              "row": 13,
+              "rowspan": 6,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#091A3E",
+                "borderEdges": ["all"],
+                "borderRadius": 4,
+                "borderWidth": 2
+              }
+            },
+            {
+              "colspan": 10,
+              "column": 0,
+              "name": "container_1",
+              "row": 0,
+              "rowspan": 3,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#091A3E",
+                "borderEdges": ["all"],
+                "borderRadius": 4,
+                "borderWidth": 2
+              }
+            }
+          ]
+        }
+      ],
+      "rowHeight": "normal",
+      "selectors": [],
+      "style": {
+        "alignmentX": "left",
+        "alignmentY": "top",
+        "backgroundColor": "#FFFFFF",
+        "cellSpacingX": 8,
+        "cellSpacingY": 8,
+        "fit": "original",
+        "gutterColor": "#FFFFFF"
+      },
+      "version": 1.0
+    }
+  ],
+  "layouts": [],
+  "steps": {
+    "Days_1": {
+      "broadcastFacet": true,
+      "columns": { "Display": { "type": "string" } },
+      "label": "Days",
+      "selectMode": "single",
+      "type": "staticflex",
+      "values": [
+        "{\"Display\":\"0\"}",
+        "{\"Display\":\"1\"}",
+        "{\"Display\":\"2\"}",
+        "{\"Display\":\"3\"}",
+        "{\"Display\":\"4\"}",
+        "{\"Display\":\"5\"}",
+        "{\"Display\":\"6\"}",
+        "{\"Display\":\"7\"}",
+        "{\"Display\":\"8+\"}"
+      ]
+    },
+    "lens_1": {
+      "broadcastFacet": true,
+      "groups": [],
+      "numbers": [],
+      "query": "\nq = load \"KYC_QA\";\nq0 = filter q by 'Fraud_ID_True_Document__c' == \"Yes\";\nq1 = filter q by 'Fraud_ID_True_Document__c' == \"No\";\nresult = cogroup q by all full, q0 by all full, q1 by all;\nvalid_identity = foreach result generate \"Valid Identity Document Provided\" as 'Question', count(q0) as 'Yes', count(q1) as 'No'; \n\n\nq = load \"KYC_QA\";\nq0 = filter q by 'Fraud_EV_Match__c' == \"Yes\";\nq1 = filter q by 'Fraud_EV_Match__c' == \"No\";\nresult = cogroup q by all full, q0 by all full, q1 by all;\nmatch = foreach result generate \"EV Information is a Match & Complete\" as 'Question', count(q0) as 'Yes', count(q1) as 'No'; \n\nq = load \"KYC_QA\";\nq0 = filter q by 'Fraud_ID_Legible__c' == \"Yes\";\nq1 = filter q by 'Fraud_ID_Legible__c' == \"No\";\nresult = cogroup q by all full, q0 by all full, q1 by all;\nidentity_legible = foreach result generate \"Identity Document is Legible\" as 'Question', count(q0) as 'Yes', count(q1) as 'No'; \n\nq = load \"KYC_QA\";\nq0 = filter q by 'Fraud_ID_Not_Picture__c' == \"Yes\";\nq1 = filter q by 'Fraud_ID_Not_Picture__c' == \"No\";\nresult = cogroup q by all full, q0 by all full, q1 by all;\nimage = foreach result generate \"Image is not a Picture of ID Document\" as 'Question', count(q0) as 'Yes', count(q1) as 'No'; \n\nq = load \"KYC_QA\";\nq0 = filter q by 'Fraud_Customer_Details__c' == \"Yes\";\nq1 = filter q by 'Fraud_Customer_Details__c' == \"No\";\nresult = cogroup q by all full, q0 by all full, q1 by all;\nkyc = foreach result generate \"KYC Information is a Match & Complete\" as 'Question', count(q0) as 'Yes', count(q1) as 'No'; \n\nq = load \"KYC_QA\";\nq0 = filter q by 'Fraud_Customer_Photo_Modified__c' == \"Yes\";\nq1 = filter q by 'Fraud_Customer_Photo_Modified__c' == \"No\";\nresult = cogroup q by all full, q0 by all full, q1 by all;\nnot_modified = foreach result generate \"Customer's Photo is Not Modified\" as 'Question', count(q0) as 'Yes', count(q1) as 'No'; \n\nq = load \"KYC_QA\";\nq0 = filter q by 'Fraud_Middle_Name__c' == \"Yes\";\nq1 = filter q by 'Fraud_Middle_Name__c' == \"No\";\nresult = cogroup q by all full, q0 by all full, q1 by all;\nmiddle_name = foreach result generate \"Middle Name Matches\" as 'Question', count(q0) as 'Yes', count(q1) as 'No'; \n\nq = load \"KYC_QA\";\nq0 = filter q by 'Fraud_Security_Features__c' == \"Yes\";\nq1 = filter q by 'Fraud_Security_Features__c' == \"No\";\nresult = cogroup q by all full, q0 by all full, q1 by all;\nsecurity = foreach result generate \"Security Features Visible\" as 'Question', coalesce(count(q0),0) as 'Yes', coalesce(count(q1),0) as 'No'; \n\n\nq = load \"KYC_QA\";\nq0 = filter q by 'Fraud_PO_Box__c' == \"Yes\";\nq1 = filter q by 'Fraud_PO_Box__c' == \"No\";\nresult = cogroup q by all full, q0 by all full, q1 by all;\nresidential = foreach result generate \"Residential Address is Not a PO Box\" as 'Question', count(q0) as 'Yes', count(q1) as 'No'; \n\nq = union valid_identity, match, identity_legible, image, kyc, not_modified, middle_name, security, residential;\n",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "lens_2": {
+      "broadcastFacet": true,
+      "groups": [],
+      "numbers": [],
+      "query": "q = load \"KYC_QA\";\nq_count = filter q by 'CaseAge' == 0;\nresult = cogroup q by all full, q_count by all;\nq0 = foreach result generate \"0\" as 'Days', count(q_count) as 'Cases';\n\nq = load \"KYC_QA\";\nq_count = filter q by 'CaseAge' == 1;\nresult = cogroup q by all full, q_count by all;\nq1 = foreach result generate \"1\" as 'Days', count(q_count) as 'Cases';\n\nq = load \"KYC_QA\";\nq_count = filter q by 'CaseAge' == 2;\nresult = cogroup q by all full, q_count by all;\nq2 = foreach result generate \"2\" as 'Days', count(q_count) as 'Cases';\n\nq = load \"KYC_QA\";\nq_count = filter q by 'CaseAge' == 3;\nresult = cogroup q by all full, q_count by all;\nq3 = foreach result generate \"3\" as 'Days', count(q_count) as 'Cases';\n\nq = load \"KYC_QA\";\nq_count = filter q by 'CaseAge' == 4;\nresult = cogroup q by all full, q_count by all;\nq4 = foreach result generate \"4\" as 'Days', count(q_count) as 'Cases';\n\nq = load \"KYC_QA\";\nq_count = filter q by 'CaseAge' == 5;\nresult = cogroup q by all full, q_count by all;\nq5 = foreach result generate \"5\" as 'Days', count(q_count) as 'Cases';\n\nq = load \"KYC_QA\";\nq_count = filter q by 'CaseAge' == 6;\nresult = cogroup q by all full, q_count by all;\nq6 = foreach result generate \"6\" as 'Days', count(q_count) as 'Cases';\n\nq = load \"KYC_QA\";\nq_count = filter q by 'CaseAge' == 7;\nresult = cogroup q by all full, q_count by all;\nq7 = foreach result generate \"7\" as 'Days', count(q_count) as 'Cases';\n\nq = load \"KYC_QA\";\nq_count = filter q by 'CaseAge' > 8;\nresult = cogroup q by all full, q_count by all;\nq8 = foreach result generate \"8+\" as 'Days', count(q_count) as 'Cases';\n\n\nr = union q0, q1, q2, q3, q4, q5, q6, q7, q8;",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    }
+  },
+  "widgetStyle": {
+    "backgroundColor": "#FFFFFF",
+    "borderColor": "#E6ECF2",
+    "borderEdges": [],
+    "borderRadius": 0,
+    "borderWidth": 1
+  },
+  "widgets": {
+    "container_1": {
+      "parameters": {
+        "alignmentX": "left",
+        "alignmentY": "top",
+        "fit": "original"
+      },
+      "type": "container"
+    },
+    "text_1": {
+      "parameters": {
+        "content": { "displayTemplate": "KYC QA Dashboard" },
+        "fontSize": 32,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#091A3E"
+      },
+      "type": "text"
+    },
+    "filterpanel_1": {
+      "parameters": {
+        "filterItemOptions": {
+          "propertyColor": "#54698D",
+          "valueColor": "#16325C"
+        },
+        "filters": [
+          { "dataset": { "name": "KYC_QA" }, "field": "CreatedDate" }
+        ],
+        "showAllFilters": false
+      },
+      "type": "filterpanel"
+    },
+    "chart_2": {
+      "parameters": {
+        "autoFitMode": "keepLabels",
+        "showValues": true,
+        "bins": {
+          "breakpoints": { "high": 100, "low": 0 },
+          "bands": {
+            "high": { "color": "#008000", "label": "" },
+            "low": { "color": "#B22222", "label": "" },
+            "medium": { "color": "#ffa500", "label": "" }
+          }
+        },
+        "legend": {
+          "descOrder": false,
+          "showHeader": true,
+          "show": false,
+          "customSize": "auto",
+          "position": "right-top",
+          "inside": false
+        },
+        "axisMode": "multi",
+        "tooltip": {
+          "showBinLabel": true,
+          "measures": "",
+          "showNullValues": true,
+          "showPercentage": true,
+          "showDimensions": true,
+          "showMeasures": true,
+          "customizeTooltip": false,
+          "dimensions": ""
+        },
+        "visualizationType": "vbar",
+        "exploreLink": true,
+        "title": {
+          "fontSize": 14,
+          "subtitleFontSize": 11,
+          "label": "QA Case Days Open",
+          "align": "center",
+          "subtitleLabel": ""
+        },
+        "binValues": false,
+        "trellis": {
+          "flipLabels": false,
+          "showGridLines": true,
+          "size": [100, 100],
+          "enable": false,
+          "type": "x",
+          "chartsPerLine": 4
+        },
+        "showActionMenu": true,
+        "measureAxis2": {
+          "sqrtScale": false,
+          "showTitle": true,
+          "showAxis": true,
+          "title": "",
+          "customDomain": { "showDomain": false }
+        },
+        "measureAxis1": {
+          "sqrtScale": false,
+          "showTitle": false,
+          "showAxis": false,
+          "title": "",
+          "customDomain": { "showDomain": false }
+        },
+        "theme": "wave",
+        "step": "lens_2",
+        "dimensionAxis": {
+          "showTitle": true,
+          "customSize": "auto",
+          "showAxis": true,
+          "title": "",
+          "icons": {
+            "useIcons": false,
+            "iconProps": { "fit": "cover", "column": "Days", "type": "round" }
+          }
+        },
+        "applyConditionalFormatting": true
+      },
+      "type": "chart"
+    },
+    "chart_1": {
+      "parameters": {
+        "autoFitMode": "fit",
+        "showValues": true,
+        "legend": {
+          "descOrder": false,
+          "showHeader": true,
+          "show": false,
+          "customSize": "auto",
+          "position": "right-top",
+          "inside": false
+        },
+        "showMeasureTitle": true,
+        "tooltip": {
+          "showBinLabel": true,
+          "measures": "",
+          "showNullValues": true,
+          "showPercentage": true,
+          "showDimensions": true,
+          "showMeasures": true,
+          "customizeTooltip": false,
+          "dimensions": ""
+        },
+        "visualizationType": "pyramid",
+        "exploreLink": true,
+        "title": {
+          "fontSize": 14,
+          "subtitleFontSize": 11,
+          "label": "",
+          "align": "left",
+          "subtitleLabel": ""
+        },
+        "trellis": {
+          "flipLabels": false,
+          "showGridLines": true,
+          "size": [100, 100],
+          "enable": false,
+          "type": "x",
+          "chartsPerLine": 4
+        },
+        "showMeasure": false,
+        "showActionMenu": true,
+        "measureAxis2": {
+          "sqrtScale": false,
+          "title": "No",
+          "customDomain": { "showDomain": false }
+        },
+        "measureAxis1": {
+          "sqrtScale": false,
+          "title": "Yes",
+          "customDomain": { "showDomain": false }
+        },
+        "theme": "wave",
+        "step": "lens_1",
+        "rightColor": "#e16032",
+        "leftColor": "#52b7d8",
+        "dimensionAxis": { "customSize": 40, "showAxis": true },
+        "applyConditionalFormatting": true
+      },
+      "type": "chart"
+    }
+  }
+}

@@ -2,7 +2,6 @@
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Articles_Submitted_for_Approval</fullName>
     <columns>TITLE</columns>
-    <columns>ABSTRACT</columns>
     <columns>LAST_UPDATE</columns>
     <columns>UPDATEDBY_USER</columns>
     <columns>LAST_PUBLISHED_DATE</columns>

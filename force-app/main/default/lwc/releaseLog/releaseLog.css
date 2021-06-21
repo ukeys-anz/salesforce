@@ -18,6 +18,10 @@
   border-color: #706e6b;
 }
 
+.image-box {
+  border-color: #3eb8ff;
+}
+
 .slds-badge {
   position: relative;
   top: 44%;

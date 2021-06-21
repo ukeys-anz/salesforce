@@ -6,6 +6,8 @@ import ExpandCollapseAll from "@salesforce/messageChannel/ListCollapseExpandAll_
 import { NavigationMixin } from "lightning/navigation";
 import canRaiseDispute from "@salesforce/customPermission/ANZx_Raise_Dispute";
 
+import TIMEZONE from "@salesforce/i18n/timeZone";
+
 export default class TransactionHistoryRecord extends NavigationMixin(
   LightningElement
 ) {
@@ -13,6 +15,7 @@ export default class TransactionHistoryRecord extends NavigationMixin(
   @api expandAll;
   @track showTransactionDetails;
   zoomLevel = 15;
+
   @wire(MessageContext)
   messageContext;
   subscription = null;
@@ -21,6 +24,7 @@ export default class TransactionHistoryRecord extends NavigationMixin(
   selectedDisputeRecordType;
   @api personContactId;
   @api financialAccountId;
+  userTimezone = TIMEZONE;
 
   connectedCallback() {
     this.subscription = subscribe(
@@ -126,32 +130,11 @@ export default class TransactionHistoryRecord extends NavigationMixin(
   }
 
   get transactionDate() {
-    let recordDate = new Date(this.transactionRecord.TransactionDate);
-    let dateStr = "";
-    let today = new Date();
-    let yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-
-    if (recordDate.toDateString() === today.toDateString()) {
-      dateStr = "Today";
-    } else if (recordDate.toDateString() === yesterday.toDateString()) {
-      dateStr = "Yesterday";
-    } else {
-      dateStr =
-        recordDate.toLocaleString("en-AU", {
-          weekday: "long"
-        }) +
-        ", " +
-        recordDate.getDate() +
-        " " +
-        recordDate.toLocaleString("en-AU", {
-          month: "long"
-        }) +
-        " " +
-        recordDate.getFullYear();
-    }
-
-    return dateStr;
+    //new date to ISO format to pass to lwc
+    let recordDate = new Date(
+      this.transactionRecord.TransactionDate
+    ).toISOString();
+    return recordDate;
   }
 
   handleDetailsToggle() {

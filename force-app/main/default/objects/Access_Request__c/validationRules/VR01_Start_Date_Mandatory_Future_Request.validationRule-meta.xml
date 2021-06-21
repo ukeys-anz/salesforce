@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR01_Start_Date_Mandatory_Future_Request</fullName>
+    <active>true</active>
+    <description>Expected Start Date/Time mandatory for future privileged access requests</description>
+    <errorConditionFormula>ISPICKVAL(When__c, &apos;Future&apos;) &amp;&amp; ISNULL(Expected_Start__c)</errorConditionFormula>
+    <errorDisplayField>Expected_Start__c</errorDisplayField>
+    <errorMessage>Expected Start Date/Time mandatory for future privileged access requests</errorMessage>
+</ValidationRule>
