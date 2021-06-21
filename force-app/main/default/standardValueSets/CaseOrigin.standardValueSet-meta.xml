@@ -72,11 +72,6 @@
         <label>Referred from AFCA</label>
     </standardValue>
     <standardValue>
-        <fullName>13</fullName>
-        <default>false</default>
-        <label>Frontline BU</label>
-    </standardValue>
-    <standardValue>
         <fullName>Chat</fullName>
         <default>false</default>
         <label>Chat</label>
