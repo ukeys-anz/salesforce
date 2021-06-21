@@ -21,30 +21,6 @@ public with sharing class IDRCaseActions {
   @TestVisible
   private static final string DAY_5_ESCALATION_REASON = 'Day 5 auto escalation';
 
-  // IDR Case Status for which notifications need to be sent.
-  private static final Set<String> NOTIFICATION_STATUS = new Set<String>{
-    OPEN_STATUS,
-    UNDER_INVESTIGATION_STATUS,
-    ESCALATED_STATUS,
-    REOPENED_STATUS,
-    CLOSED_STATUS,
-    RESOLVED_STATUS,
-    WITHDRAWN_STATUS
-  };
-
-  //These templates ids are email and sms template ids which are setup on notification broker.
-  //These templates is used in platform events to send it to mulesoft which inturn invokes notification broker.
-  private static final Map<String, String> TEMPLATE_ID_MAP = new Map<String, String>{
-    OPEN_STATUS => 'AgCaseOpen',
-    UNDER_INVESTIGATION_STATUS => 'AgCaseUdInvest',
-    ESCALATED_STATUS => 'AgCaseEsclt',
-    REOPENED_STATUS => 'AgCaseReopen',
-    CLOSED_STATUS => 'AgCaseClosed',
-    RESOLVED_STATUS => 'AgCaseRslvd',
-    WITHDRAWN_STATUS => 'AgCaseWthdrwn',
-    BANKER_ESCALATION_EMAIL => 'TO_BE_PROVIDED_FROM_NB'
-  };
-
   private static final String ESCALATED_TO_CRC_API_NAME = '1';
 
   private static final String YES_VALUE = 'Yes';
@@ -56,10 +32,6 @@ public with sharing class IDRCaseActions {
   private static final String DELETE_ERROR = 'You cannot delete cases';
 
   private static final String CUSTOMER_NUMBER_VALIDATION_ERROR = 'This field can no longer be edited. In the event that the Customer Number/Identifier is incorrect, the case must be withdrawn and a new case created with the correct Customer Number.';
-
-  //IDR_Notification_Event__e for sending notifications to Notification Broker based on status.
-  @TestVisible
-  private static List<IDR_Notification_Event__e> idrNotifications;
 
   @TestVisible
   private static List<IDR_CRC_Escalation_Event__e> idrCaseEscalations;
@@ -146,9 +118,7 @@ public with sharing class IDRCaseActions {
   public static void afterInsert(List<Case> records) {
     for (Case record : records) {
       if (isIDRComplaintType(record)) {
-        if (NOTIFICATION_STATUS.contains(record.Status)) {
-          notificationCaseList.add(record);
-        }
+        notificationCaseList.add(record);
         checkForCRCEscalation(record, null);
       }
     }
@@ -213,13 +183,10 @@ public with sharing class IDRCaseActions {
     for (Case record : records) {
       Case oldRec = (Case) oldMap.get(record.id);
       if (
-        record.Status != oldRec.Status ||
         (oldRec.RecordTypeId == IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID &&
         isIDRComplaintType(record))
       ) {
-        if (NOTIFICATION_STATUS.contains(record.Status)) {
-          notificationCaseList.add(record);
-        }
+        notificationCaseList.add(record);
         checkForCRCEscalation(record, oldRec);
       }
     }
@@ -652,68 +619,6 @@ public with sharing class IDRCaseActions {
       queues = [SELECT DeveloperName FROM Group WHERE Id IN :queueIds];
     }
     return new Map<Id, Group>(queues);
-  }
-
-  /**
-   * @description  sendNotifications method is to send out platform events for notifications to customers. Mulesoft subscribes to these notifications and makes Notification Broker API call.
-   * @param records The records for which notifications needs to be sent out
-   */
-  private static void sendNotifications(List<Case> records) {
-    if (records.isEmpty()) {
-      return;
-    }
-    idrNotifications = new List<IDR_Notification_Event__e>();
-    for (Case c : records) {
-      // Don't publish to NB if there's no mobile nor email to send to
-      if (
-        c.RecordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID ||
-        !String.isBlank(c.IDR_NC_Mobile__c) ||
-        !String.isBlank(c.IDR_NC_Email__c) ||
-        !String.isBlank(c.IDR_3rdParty_Mobile__c) ||
-        !String.isBlank(c.IDR_3rdParty_Email__c)
-      ) {
-        idrNotifications.add(
-          new IDR_Notification_Event__e(
-            AuthorisedEmail__c = c.IDR_3rdParty_Email__c,
-            AuthorisedFirstName__c = c.IDR_3rdParty_Name__c,
-            AuthorisedMobile__c = c.IDR_3rdParty_Mobile__c,
-            CAP_CIS_ID__c = c.IDR_Customer_Number__c,
-            Case_ID__c = c.ID,
-            Case_Number__c = IDRCaseActions.getFormattedCaseNumberToNotify(c),
-            Case_Status__c = c.Status,
-            Case_Status_Change_Date__c = System.now(),
-            ComplainantEmail__c = c.IDR_NC_Email__c,
-            ComplainantFirstName__c = c.IDR_NC_Is_Consent_Obtained__c == false
-              ? ''
-              : c.IDR_NC_First_Name__c,
-            ComplainantMobile__c = c.IDR_NC_Mobile__c,
-            EmailFlag__c = true,
-            EmailTemplate__c = c.Isescalated
-              ? TEMPLATE_ID_MAP.get(ESCALATED_STATUS)
-              : TEMPLATE_ID_MAP.get(c.Status),
-            MessageID__c = '' + c.ID + Datetime.now().millisecond(),
-            SMSFlag__c = true,
-            SMSTemplate__c = c.Isescalated
-              ? TEMPLATE_ID_MAP.get(ESCALATED_STATUS)
-              : TEMPLATE_ID_MAP.get(c.Status)
-          )
-        );
-      }
-    }
-    if (!idrNotifications.isEmpty()) {
-      List<Database.SaveResult> results = EventBus.publish(idrNotifications);
-      Lib_SystemLog log = new Lib_SystemLog(
-        IDRCaseActions.class.getName(),
-        'sendNotifications'
-      );
-      log.addDatabaseSaveResult(
-        'IDR_Notification_Event__e',
-        results,
-        idrNotifications
-      );
-      log.insertLog();
-    }
-    //Todo handle errors further if needed.
   }
 
   /**

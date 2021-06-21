@@ -18,6 +18,7 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
   private static IDR_Notification_Hours__c nHours;
   private static List<Notification_Handler__c> notificationList;
   private static List<Database.SaveResult> peSaveResults;
+  private static String cusComplaintRecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID;
 
   /**
    * @description Constructor to call the trigger framework
@@ -139,7 +140,8 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
           IDR_Customer_Identifier__c,
           CaseNumber,
           IDR_NC_First_Name__c,
-          IDR_NC_Mobile__c
+          IDR_NC_Mobile__c,
+          RecordTypeId
         FROM Case
         WHERE id IN :caseIds
       ]
@@ -191,25 +193,21 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
       : c.IDR_Customer_Identifier__c);
     notification.Case_ID__c = c.ID;
     notification.Case_Number__c = getFormattedCaseNumberToNotify(c);
-    notification.Case_Status__c = handler.Case_Status__c;
-    notification.Case_Status_Change_Date__c = handler.CreatedDate;
-    notification.ComplainantEmail__c = c.IDR_NC_Email__c;
-    notification.ComplainantFirstName__c = c.IDR_NC_Is_Consent_Obtained__c ==
-      false
+    notification.ComplainantEmail__c = (c.RecordTypeId ==
+      cusComplaintRecordTypeId
+      ? ''
+      : c.IDR_NC_Email__c);
+    notification.ComplainantFirstName__c = (c.IDR_NC_Is_Consent_Obtained__c ==
+      false ||
+      c.RecordTypeId == cusComplaintRecordTypeId)
       ? ''
       : c.IDR_NC_First_Name__c;
     notification.ComplainantMobile__c = c.IDR_NC_Mobile__c;
     notification.EmailFlag__c = true;
-    notification.EmailTemplate__c = handler.Case_Status__c ==
-      IDRConstants.ESCALATED_STATUS
-      ? TEMPLATE_ID_MAP.get(IDRConstants.ESCALATED_STATUS)
-      : TEMPLATE_ID_MAP.get(handler.Case_Status__c);
+    notification.EmailTemplate__c = IDRConstants.CUSTOMER_NOTIFICATION_TEMPLATE_ID;
     notification.MessageID__c = '' + c.ID + Datetime.now().millisecond();
     notification.SMSFlag__c = true;
-    notification.SMSTemplate__c = handler.Case_Status__c ==
-      IDRConstants.ESCALATED_STATUS
-      ? TEMPLATE_ID_MAP.get(IDRConstants.ESCALATED_STATUS)
-      : TEMPLATE_ID_MAP.get(handler.Case_Status__c);
+    notification.SMSTemplate__c = IDRConstants.CUSTOMER_NOTIFICATION_TEMPLATE_ID;
 
     return notification;
   }
@@ -243,7 +241,6 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
         Notification_Handler__c handler = new Notification_Handler__c();
         handler.Case__c = c.Id;
         handler.Status__c = IDRConstants.NOTIFICATION_PENDING_PUBLISH_STATUS;
-        handler.Case_Status__c = c.Status;
 
         notificationHandlerList.add(handler);
       }
@@ -252,7 +249,6 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
       if (
         Schema.sObjectType.Notification_Handler__c.isCreateable() &&
         Schema.sObjectType.Notification_Handler__c.fields.Case__c.isCreateable() &&
-        Schema.sObjectType.Notification_Handler__c.fields.Case_Status__c.isCreateable() &&
         Schema.sObjectType.Notification_Handler__c.fields.Status__c.isCreateable()
       ) {
         insert notificationHandlerList;
