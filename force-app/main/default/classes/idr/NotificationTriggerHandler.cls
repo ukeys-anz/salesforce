@@ -140,7 +140,8 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
           IDR_Customer_Identifier__c,
           CaseNumber,
           IDR_NC_First_Name__c,
-          IDR_NC_Mobile__c
+          IDR_NC_Mobile__c,
+          RecordTypeId
         FROM Case
         WHERE id IN :caseIds
       ]
