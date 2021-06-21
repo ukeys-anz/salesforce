@@ -4829,10 +4829,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Savings and goals</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Statements</fullName>
             <default>false</default>
         </values>
