@@ -427,7 +427,7 @@ export default class TransactionHistoryBoard extends LightningElement {
       case "Adelaide":
       case "Broken Hill":
         if (daylightSavings) {
-          return { startTime: "13:30:00", endTime: "12:29:59" };
+          return { startTime: "13:30:00", endTime: "13:29:59" };
         } else {
           return { startTime: "14:30:00", endTime: "14:29:59" };
         }
