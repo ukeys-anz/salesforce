@@ -88,6 +88,8 @@ force-app/main/default/classes/GetAccountsAndGoals.cls
 force-app/main/default/classes/utils/CommonUtils.cls
 
 #Ignoring destructive changes temporarily inorder to deploy to idrqa
+force-app/main/default/classes/idr/TestIDRCaseNotificationManager.cls
+force-app/main/default/classes/idr/TestIDRCaseNotificationManager.cls-meta.xml
 force-app/main/default/customMetadata/User_Provisioning_Setting.CMoS_CRP_LT.md-meta.xml
 force-app/main/default/customMetadata/User_Provisioning_Setting.CMoS_Banker.md-meta.xml
 force-app/main/default/customMetadata/User_Provisioning_Setting.CMoS_SI_Team.md-meta.xml
