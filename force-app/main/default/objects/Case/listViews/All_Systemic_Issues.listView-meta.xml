@@ -15,7 +15,7 @@
         <operation>equals</operation>
         <value>Case.Systemic_Issue</value>
     </filters>
-    <label>All Systemic Issues</label>
+    <label>All Possible Systemic Issues</label>
     <sharedTo>
         <roleAndSubordinates>ANZ</roleAndSubordinates>
     </sharedTo>
