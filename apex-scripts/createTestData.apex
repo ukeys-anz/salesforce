@@ -1,9 +1,3 @@
-/**
- *
- * @author Shermal Warnakula
- * @since 06/2021
- * @description Script to pre-load sample data while creating scratch orgs
- */
 Id presonAccountRTId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
   .get('PersonAccount')
   .getRecordTypeId();
@@ -17,38 +11,22 @@ Id checkingRTId = Schema.SObjectType.FinServ__FinancialAccount__c.getRecordTypeI
   .get('CheckingAccount')
   .getRecordTypeId();
 
+Faker faker = new Faker('AU');
+Integer personAccount_count = 3;
+
 // Insert Person Accounts
 List<Account> personAccounts = new List<Account>();
-Account acc1 = new Account(
-  FirstName = 'Sean',
-  LastName = 'Fry',
-  OCV_ID__c = '1987654OCV',
-  ANZx_Customer__c = true,
-  RecordTypeId = presonAccountRTId,
-  External_Id__c = 'CAPSYS1987654OCV'
-);
-personAccounts.add(acc1);
-
-Account acc2 = new Account(
-  FirstName = 'Cameron',
-  LastName = 'V',
-  OCV_ID__c = '2987654OCV',
-  ANZx_Customer__c = true,
-  RecordTypeId = presonAccountRTId,
-  External_Id__c = 'CAPSYS2987654OCV'
-);
-personAccounts.add(acc2);
-
-Account acc3 = new Account(
-  FirstName = 'Mcgowan',
-  LastName = 'C',
-  OCV_ID__c = '3987654OCV',
-  ANZx_Customer__c = true,
-  RecordTypeId = presonAccountRTId,
-  External_Id__c = 'CAPSYS3987654OCV'
-);
-personAccounts.add(acc3);
-
+for (Integer i = 0; i < personAccount_count; i++) {
+  Account acc = new Account(
+    FirstName = faker.person.firstName(),
+    LastName = faker.person.lastName(),
+    OCV_ID__c = faker.randomString(10) + String.valueOf(i),
+    ANZx_Customer__c = true,
+    RecordTypeId = presonAccountRTId,
+    External_Id__c = faker.randomString(15) + String.valueOf(i)
+  );
+  personAccounts.add(acc);
+}
 insert personAccounts;
 
 // Inserting General Enquiry Cases and Financial Accounts per Person Account
@@ -74,7 +52,7 @@ for (Account acc : personAccounts) {
     FinServ__Status__c = 'Active',
     FinServ__Stage__c = 'Active',
     Primary_Owner_Start_Date__c = system.today(),
-    Account_Key__c = acc.OCV_ID__c + 'SAVINGSKEY',
+    Account_Key__c = acc.OCV_ID__c + faker.randomString(5),
     FinServ__Balance__c = 598.99,
     FinServ__CurrentPostedBalance__c = 598.99,
     RecordTypeId = savingsRTId
@@ -90,7 +68,7 @@ for (Account acc : personAccounts) {
     FinServ__Status__c = 'Active',
     FinServ__Stage__c = 'Active',
     Primary_Owner_Start_Date__c = system.today(),
-    Account_Key__c = acc.OCV_ID__c + 'CHECKINGKEY',
+    Account_Key__c = acc.OCV_ID__c + faker.randomString(6),
     FinServ__Balance__c = 259.00,
     FinServ__CurrentPostedBalance__c = 259.00,
     RecordTypeId = checkingRTId
