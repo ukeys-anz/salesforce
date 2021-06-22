@@ -74,6 +74,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>Merchant_Address__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>Transaction_Authorised_Date__c</field>
             </layoutItems>
             <layoutItems>
@@ -83,6 +87,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Date_Goods_Were_Returned_Or_Services_can__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Goods_Or_Services_Returned__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
