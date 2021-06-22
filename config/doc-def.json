@@ -1,6 +1,7 @@
 {
   "folder": "docs",
   "objectwhitelist": [
+    "Access_Request__c",
     "Account",
     "Activity",
     "Application_Log__c",
@@ -10,6 +11,7 @@
     "FinServ__FinancialAccount__c",
     "FinServ__FinancialAccountRole__c",
     "Knowledge__kav",
+    "Privileged_Access_Request__c",
     "Product2",
     "Release__c",
     "Reported_Bug__c",
