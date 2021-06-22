@@ -72,6 +72,12 @@ fi
 JOB_END_TIME=$(date +%s)
 echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
 
+echo "$(date): Pre-loading sample data..."
+JOB_START_TIME=$(date +%s)
+sfdx force:apex:execute -f apex-scripts/createTestData.apex
+JOB_END_TIME=$(date +%s)
+echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
+
 case ${testdata:0:1} in
 y | Y)
     echo "$(date): Import test data and users..."
