@@ -12,9 +12,9 @@ public with sharing class GetHelpTaskActions {
 
   @TestVisible
   public static final String TASK_SUBTYPE_CALL = 'Call';
-  public static final String CONFERENCE_SID_IDENTIFIER = 'Sid: CF';
-  public static final Integer CONFERENCE_SID_PREFIX_LENGTH = 5; // 'Sid: '
-  public static final Integer CONFERENCE_SID_LENGTH = 34;
+  public static final String CALL_SID_IDENTIFIER = 'Call Sid: CA';
+  public static final Integer CALL_SID_PREFIX_LENGTH = 10; // 'Call Sid: '
+  public static final Integer CALL_SID_LENGTH = 34;
 
   /**
    * @description beforeInsertActions is called onBeforeInsert. any logic that needs to be executed on before insert is executed from here
@@ -41,7 +41,7 @@ public with sharing class GetHelpTaskActions {
         record.TaskSubtype = TASK_SUBTYPE_CALL;
 
         // Read Call SID from comments (description field) and add it on Voice Call SID field.
-        record.Voice_Call_SID__c = extractConfCallSID(record.Description);
+        record.Voice_Call_SID__c = extractCallSID(record.Description);
 
         // Append 'Comments' with information on 'Subject'
         record.Description += '\n' + record.Subject;
@@ -106,28 +106,27 @@ public with sharing class GetHelpTaskActions {
   }
 
   /**
-   * @description extracts and returns Twilio Conference SID from comments
+   * @description extracts and returns Twilio Call SID from comments
    * @param comments comments passed in from Twilio in Task description field
    * @return `String`
    */
-  private static String extractConfCallSID(String comments) {
-    String conferenceSID = null;
+  private static String extractCallSID(String comments) {
+    String callSID = null;
     if (!String.isBlank(comments)) {
-      Integer lableIndex = comments.indexOf(CONFERENCE_SID_IDENTIFIER, 0);
+      Integer lableIndex = comments.indexOf(CALL_SID_IDENTIFIER, 0);
       if (lableIndex >= 0) {
         String voiceCallSID = comments.substring(
-          lableIndex + CONFERENCE_SID_PREFIX_LENGTH,
+          lableIndex + CALL_SID_PREFIX_LENGTH,
           lableIndex +
-          CONFERENCE_SID_PREFIX_LENGTH +
-          CONFERENCE_SID_LENGTH
+          CALL_SID_PREFIX_LENGTH +
+          CALL_SID_LENGTH
         );
-
-        // Re-validate Voice Call Conference SID length
+        // Re-validate Voice Call SID length
         if (!voiceCallSID.containsWhitespace() && voiceCallSID.length() == 34) {
-          conferenceSID = voiceCallSID;
+          callSID = voiceCallSID;
         }
       }
     }
-    return conferenceSID;
+    return callSID;
   }
 }
