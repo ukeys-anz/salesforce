@@ -130,6 +130,56 @@ public without sharing class Lib_SystemLog {
   }
 
   /**
+   * @description The method is used to generate a record to log list at trace level.
+   * @param message Information message
+   */
+  public void trace(String message) {
+    addMessage('', message, Severity.TRACE);
+  }
+
+  /**
+   * @description The method is used to generate a record to log list at debug level.
+   * @param message Information message
+   */
+  public void debug(String message) {
+    addMessage('', message, Severity.DEBUG);
+  }
+
+  /**
+   * @description The method is used to generate a record to log list at info level.
+   * @param message Information message
+   */
+  public void info(String message) {
+    addMessage('', message, Severity.INFO);
+  }
+
+  /**
+   * @description The method is used to generate a record to log list at warn level.
+   * @param message Information message
+   */
+  public void warning(String message) {
+    addMessage('', message, Severity.WARNING);
+  }
+
+  /**
+   * @description The method is used to generate a record to log list at error level.
+   @param errorNo Error code used to create the log record.
+   * @param message Information message
+   */
+  public void error(String errorNo, String message) {
+    addMessage(errorNo, message, Severity.ERROR);
+  }
+
+  /**
+   * @description The method is used to generate a record to log list at fatal level.
+   @param errorNo Error code used to create the log record.
+   * @param message Information message
+   */
+  public void fatal(String errorNo, String message) {
+    addMessage(errorNo, message, Severity.FATAL);
+  }
+
+  /**
    * @description  The method addMessage is used to add a record to log list. We can add multiple logs by calling this method and at the end the caller should call {@link insertLog()} method
    * to create record/records in Application_Log__c object
    * @param errorNo Error code used to create the log record.
@@ -153,7 +203,13 @@ public without sharing class Lib_SystemLog {
     resourceMap.put('BatchId', batchId);
     curLog.Resource__c = JSON.serialize(resourceMap);
 
-    curLog.Body__c = errorDescription;
+    Map<String, String> bodyMap = new Map<String, String>();
+    bodyMap.put('Message', errorDescription);
+    if(errorNo != '' && errorNo != null) {
+      bodyMap.put('ErrorNo', errorNo);
+    }
+
+    curLog.Body__c = JSON.serialize(bodyMap);
 
     this.logList.add(curLog);
   }
@@ -196,6 +252,9 @@ public without sharing class Lib_SystemLog {
     if (response != null) {
       bodyMap.put('Response', response);
     }
+    if(errorNo != '' && errorNo != null) {
+      bodyMap.put('ErrorNo', errorNo);
+    }
 
     curLog.Body__c = JSON.serialize(bodyMap);
 
@@ -235,6 +294,9 @@ public without sharing class Lib_SystemLog {
     bodyMap.put('Message', errorDescription);
     bodyMap.put('objectName', objectName);
     bodyMap.put('recordId', recordId);
+    if(errorNo != '' && errorNo != null) {
+      bodyMap.put('ErrorNo', errorNo);
+    }
 
     curLog.Body__c = JSON.serialize(bodyMap);
 
@@ -350,11 +412,49 @@ public without sharing class Lib_SystemLog {
    * specifically for api calls using request response integration patterns.
    * The trigger {@link Lib_ApplicationLoggingEvents} will listen to these events and inserts the data to Application_Log__c object
    * The caller should call {@link insertLog()} method
+   * Remove this method when all the references are removed. Should be calling the function without error Identifier param
    * @param processName Process name used to generate the log.
    * @param functionName Name of the funtion to generate the log.
    * @param errorDescription Error description used to create the log record.
    * @param errorNo Error code used to create the log record.
    * @param errorIdentifier Error Identifier for the log.
+   * @param request Request body in the request response integration pattern
+   * @param response Response body in the request response integration pattern
+   * @deprecated
+   */
+  public static void logAPIError(
+    String processName,
+    String functionName,
+    String errorDescription,
+    String errorNo,
+    String errorIdentifier,
+    String request,
+    String response
+  ) {
+    lib_SystemLog sfLog = new lib_SystemLog(
+      processName,
+      functionName,
+      null
+    );
+    sfLog.addMessageWithRequestResponse(
+      errorNo,
+      errorDescription,
+      lib_systemLog.Severity.ERROR,
+      request,
+      response
+    );
+    sfLog.publishEvent();
+  }
+
+  /**
+   * @description The method logAPIError is used for creating a platform event for Async logging
+   * specifically for api calls using request response integration patterns.
+   * The trigger {@link Lib_ApplicationLoggingEvents} will listen to these events and inserts the data to Application_Log__c object
+   * The caller should call {@link insertLog()} method
+   * @param processName Process name used to generate the log.
+   * @param functionName Name of the funtion to generate the log.
+   * @param errorDescription Error description used to create the log record.
+   * @param errorNo Error code used to create the log record.
    * @param request Request body in the request response integration pattern
    * @param response Response body in the request response integration pattern
    */
@@ -363,7 +463,6 @@ public without sharing class Lib_SystemLog {
     String functionName,
     String errorDescription,
     String errorNo,
-    String errorIdentifier,
     String request,
     String response
   ) {
@@ -392,11 +491,13 @@ public without sharing class Lib_SystemLog {
     ) {
       Database.insertImmediate(logList);
     }
+    this.logList = new Application_Trace_Log__b[0];
   }
 
   public void insertLogAsync() {
     String logStr = JSON.serialize(this);
     Lib_SystemLog.insertLogStaticAsync(logStr);
+    this.logList = new Application_Trace_Log__b[0];
   }
 
   @future
