@@ -67,7 +67,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>CompletedDate__c</field>
+                <field>Completed_Date__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

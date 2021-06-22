@@ -42,7 +42,6 @@ public class TestNotificationHandlerTrigger {
     Notification_Handler__c handlerRecord = new Notification_Handler__c();
     handlerRecord.Case__c = c.Id;
     handlerRecord.Status__c = IDRConstants.NOTIFICATION_PUBLISH_STATUS;
-    handlerRecord.Case_Status__c = IDRConstants.OPEN_STATUS;
     insert handlerRecord;
 
     Test.stopTest();
