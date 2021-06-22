@@ -6,7 +6,7 @@
     <description>The Id of the big object record, created by using the record Id, User Id and timestamp</description>
     <externalId>false</externalId>
     <label>Access Id</label>
-    <length>100</length>
+    <length>70</length>
     <required>true</required>
     <securityClassification>Internal</securityClassification>
     <type>Text</type>
