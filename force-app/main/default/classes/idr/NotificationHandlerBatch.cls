@@ -12,7 +12,7 @@ public with sharing class NotificationHandlerBatch implements Database.Batchable
    */
   public Database.QueryLocator start(Database.BatchableContext bc) {
     return Database.getQueryLocator(
-      'SELECT Id, Case__c, Status__c, CreatedDate FROM Notification_Handler__c ' +
+      'SELECT Id, Case__c, Status__c, Case_Status__c, CreatedDate FROM Notification_Handler__c ' +
       'WHERE Status__c = \'' +
       IDRConstants.NOTIFICATION_PENDING_PUBLISH_STATUS +
       '\''
