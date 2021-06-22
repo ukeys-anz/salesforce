@@ -2,6 +2,6 @@
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <deploymentStatus>Deployed</deploymentStatus>
     <description>This big object contains the access logs of records. It stores the user id, record id, date/time and browser/version</description>
-    <label>Record Access Log</label>
-    <pluralLabel>Record Access Logs</pluralLabel>
+    <label>Accessed Record Log</label>
+    <pluralLabel>Accessed Record Logs</pluralLabel>
 </CustomObject>
