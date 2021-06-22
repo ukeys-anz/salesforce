@@ -13,6 +13,7 @@ import { publish, MessageContext } from "lightning/messageService";
 import UpdateAccounts from "@salesforce/messageChannel/FinancialAccountsUpdate__c";
 import RetrieveGoals from "@salesforce/messageChannel/RetrieveFinancialGoals__c";
 import TriggerLoading from "@salesforce/messageChannel/FinancialAccountsTriggerLoading__c";
+import TriggerBalanceLoading from "@salesforce/messageChannel/FinancialAccountsBalanceTriggerLoading__c";
 
 import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
 
@@ -53,12 +54,15 @@ export default class AccountsAndGoals extends LightningElement {
 
   connectedCallback() {
     if (hasAccountsGoalsPermission) {
-      publish(this.messageContext, TriggerLoading, {
-        update: true
-      });
       if (this.objectName === "Account") {
+        publish(this.messageContext, TriggerLoading, {
+          update: true
+        });
         this.objectFields = [ACCOUNT_OCV_ID_FIELD];
       } else {
+        publish(this.messageContext, TriggerBalanceLoading, {
+          update: true
+        });
         this.objectFields = [
           FIN_ACCOUNT_OCV_ID_FIELD,
           FIN_ACCOUNT_PRIMARY_OWNER_FIELD
