@@ -2,16 +2,45 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Card_Scheme__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Fabric</complianceGroup>
     <description>Who facilitated the transaction e.g VISA, EFTPOS, Mastercard</description>
     <externalId>false</externalId>
     <label>Card Scheme</label>
-    <length>255</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
-    <type>Text</type>
-    <unique>false</unique>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>0</fullName>
+                <default>false</default>
+                <label>OTHER</label>
+            </value>
+            <value>
+                <fullName>1</fullName>
+                <default>false</default>
+                <label>VISA</label>
+            </value>
+            <value>
+                <fullName>2</fullName>
+                <default>false</default>
+                <label>MASTERCARD</label>
+            </value>
+            <value>
+                <fullName>3</fullName>
+                <default>false</default>
+                <label>EFTPOS</label>
+            </value>
+            <value>
+                <fullName>4</fullName>
+                <default>false</default>
+                <label>AMERICAN_EXPRESS</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
 </CustomField>
