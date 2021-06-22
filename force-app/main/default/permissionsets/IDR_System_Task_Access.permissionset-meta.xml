@@ -8,17 +8,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Task.CompletedDate__c</field>
+        <field>Task.Completed_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Task.IDR_COR_ID__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Task.IDR_Key_Business_Contact__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

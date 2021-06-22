@@ -16,6 +16,9 @@ public with sharing class IDRConstants {
   //Case Priority
   public static final String CASE_PRIORITY_STANDARD = 'Standard';
 
+  //Customer Notification Template
+  public static final String CUSTOMER_NOTIFICATION_TEMPLATE_ID = 'AgCaseOpen';
+
   //Banker Notification Template
   public static final String BANKER_EMAIL_NOTIFICATION_TEMPLATE = 'Standard';
 

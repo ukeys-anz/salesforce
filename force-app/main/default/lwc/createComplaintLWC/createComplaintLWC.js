@@ -66,7 +66,6 @@ import STATUS_FIELD from "@salesforce/schema/Case.Status";
 import IS_COMMON_COMPLAINT_FIELD from "@salesforce/schema/Case.IDR_Is_Common__c";
 import IS_REAL_FORM_NEED_FIELD from "@salesforce/schema/Case.IDR_Real_Form_Req__c";
 import SYSTEMIC_ISSUE_DESCRIPTION from "@salesforce/schema/Case.IDR_Systemic_Issue_Description__c";
-import SYSTEMIC_ISSUE_LOOKUP_FIELD from "@salesforce/schema/Case.IDR_Parent_Systemic_Issue__c";
 import SYSTEMIC_ISSUE_CATEGORY from "@salesforce/schema/Case.IDR_Systemic_Issue_Category__c";
 import POSSIBLE_SYSTEMIC_ISSUES from "@salesforce/schema/Case.IDR_Possible_Systemic_Issues__c";
 
@@ -175,7 +174,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
   commonComplaint = IS_COMMON_COMPLAINT_FIELD;
   isRealFormNeeded = false;
   systemicIssueDescription = SYSTEMIC_ISSUE_DESCRIPTION;
-  SystemicIssue = SYSTEMIC_ISSUE_LOOKUP_FIELD;
   systemicIssueCategory = SYSTEMIC_ISSUE_CATEGORY;
   possibleSystemicIssues = POSSIBLE_SYSTEMIC_ISSUES;
 
@@ -220,7 +218,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
   productValue;
   showComplianceFields;
   showSections;
-  systemicIssueValue;
   isComplaintResolved;
   isComplaintEscalated;
   // future use: isComplaintOnhold;
@@ -443,10 +440,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.description = event.detail.value;
   }
 
-  handleSystemicIssueChange(event) {
-    this.systemicIssueValue = event.detail.value[0];
-  }
-
   //form validation.
   validateFields() {
     this.loading = true;
@@ -599,9 +592,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
       }
       fields[DESCRIPTION_FIELD.fieldApiName] = this.description;
       fields[PRODUCT_LOOKUP_FIELD.fieldApiName] = this.productValue;
-      fields[
-        SYSTEMIC_ISSUE_LOOKUP_FIELD.fieldApiName
-      ] = this.systemicIssueValue;
       fields[CAP_CIS_ID_FIELD.fieldApiName] = this.customerIdValue.replace(
         /^0+/,
         ""
