@@ -86,6 +86,19 @@ force-app/main/default/messageChannels/FinancialAccountsGoalsUpdate.messageChann
 force-app/main/default/classes/GetAccountsAndGoals.cls
 force-app/main/default/classes/utils/CommonUtils.cls
 
+#Ignoring destructive changes temporarily inorder to deploy to idrqa
+force-app/main/default/classes/TestIDRCaseNotificationManager.cls
+force-app/main/default/customMetadata/User_Provisioning_Setting.CMoS_CRP_LT
+force-app/main/default/customMetadata/User_Provisioning_Setting.CMoS_Banker
+force-app/main/default/customMetadata/User_Provisioning_Setting.CMoS_SI_Team
+force-app/main/default/customMetadata/User_Provisioning_Setting.CMoS_Manager
+force-app/main/default/customMetadata/User_Provisioning_Setting.CMoS_Customer_Resolution
+force-app/main/default/customField/Knowledge__kav.Question__c
+force-app/main/default/customField/Knowledge__kav.Answer__c
+force-app/main/default/customField/ContentVersion.Type_of_Document__c
+force-app/main/default/validaionRule/Case.VR13_SI_Mandatory_Fields_If_Definite
+force-app/main/default/validaionRule/Case.VR14_SI_Allowed_Workflow
+
 #Ignore Knowledge validation status field as it is not supported in metadata API
 KnowledgeValidationStatus
 type:DataCategoryGroup
