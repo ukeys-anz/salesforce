@@ -2250,7 +2250,7 @@
         </values>
         <values>
             <fullName>NA</fullName>
-            <default>false</default>
+            <default>true</default>
         </values>
         <values>
             <fullName>Y</fullName>
