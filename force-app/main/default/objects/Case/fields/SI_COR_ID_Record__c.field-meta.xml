@@ -6,7 +6,7 @@
     <description>COR ID Record</description>
     <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
     <externalId>true</externalId>
-    <label>COR ID Record</label>
+    <label>Event ID</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

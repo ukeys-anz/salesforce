@@ -78,11 +78,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.SI_AFCA_Outcome_Provided__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Case.SI_Assigned_to_Portfolios__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -104,11 +99,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.SI_Complaint_Count__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Case.SI_Definite_Action_Completed_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -289,11 +279,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Task.IDR_COR_ID__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Task.IDR_Key_Business_Contact__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
