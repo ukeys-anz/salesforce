@@ -12,7 +12,7 @@
  * log.addDatabaseSaveResult(results, 'Contact', contactToUpdate);
  * @group Library
  */
-@SuppressWarnings('PMD.ExcessiveParameterList, PMD.ExcessivePublicCount')
+@SuppressWarnings('PMD.ExcessiveParameterList, PMD.ExcessivePublicCount, PMD.CyclomaticComplexity')
 public without sharing class Lib_SystemLog {
   public enum Severity {
     TRACE,
@@ -483,7 +483,7 @@ public without sharing class Lib_SystemLog {
   }
 
   /**
-   *  @description  The method insertLog is used creating/inserting log records in Application_Log__c object.
+   *  @description  The method insertLog is used creating/inserting log records in Application_Trace_Log__b object.
    */
   public void insertLog() {
     if (
@@ -497,12 +497,18 @@ public without sharing class Lib_SystemLog {
     this.logList = new List<Application_Trace_Log__b>(0);
   }
 
+  /**
+   *  @description  The method insertLog is used creating/inserting log records in Application_Trace_Log__b object asynchronously.
+   */
   public void insertLogAsync() {
     String logStr = JSON.serialize(this);
     Lib_SystemLog.insertLogStaticAsync(logStr);
     this.logList = new List<Application_Trace_Log__b>(0);
   }
 
+  /**
+   *  @description This is the helper future method to insert logs asynchronously
+   */
   @future
   public static void insertLogStaticAsync(String logStr) {
     lib_SystemLog sfLog = (lib_SystemLog) JSON.deserialize(
