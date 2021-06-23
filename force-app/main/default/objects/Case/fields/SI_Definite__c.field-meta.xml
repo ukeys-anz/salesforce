@@ -26,6 +26,11 @@
                 <default>false</default>
                 <label>No</label>
             </value>
+            <value>
+                <fullName>Not Yet Determined</fullName>
+                <default>false</default>
+                <label>Not Yet Determined</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

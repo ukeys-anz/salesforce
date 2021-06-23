@@ -34,8 +34,8 @@ public with sharing class IDREmailServiceHelper {
       insert emailMessage;
     } else {
       CommonUtil.logAndThrowIAE(
-        'CreateCommsController',
-        'createComms',
+        IDREmailServiceHelper.class.getName(),
+        'createEmailMessage',
         'Not enough permissions to create EmailMessage.'
       );
     }
@@ -64,7 +64,7 @@ public with sharing class IDREmailServiceHelper {
         insert contentVersionList;
       } else {
         CommonUtil.logAndThrowIAE(
-          'IDREmailServiceHelper',
+          IDREmailServiceHelper.class.getName(),
           'createAttachmentFiles',
           'Not enough permissions to create ContentVersion.'
         );
@@ -164,8 +164,8 @@ public with sharing class IDREmailServiceHelper {
         insert contentDocLinkList;
       } else {
         CommonUtil.logAndThrowIAE(
-          'CreateCommsController',
-          'createComms',
+          IDREmailServiceHelper.class.getName(),
+          'linkContentWithCase',
           'Not enough permissions to create ContentDocumentLink.'
         );
       }
@@ -313,18 +313,18 @@ public with sharing class IDREmailServiceHelper {
         update newCase;
       } catch (Exception err) {
         Lib_SystemLog.logAPIError(
-          IDREmailServiceHandler.class.getName(),
+          IDREmailServiceHelper.class.getName(),
           'Error in updating case with queue for caseId :' + newCase.Id,
           err.getMessage(),
           null,
-          IDREmailServiceHandler.class.getName(),
+          IDREmailServiceHelper.class.getName(),
           null,
           null
         );
       }
     } else {
       CommonUtil.logAndThrowIAE(
-        'IDREmailServiceHelper',
+        IDREmailServiceHelper.class.getName(),
         'updateCaseWithQueue',
         'Case is not updateable for the current user.'
       );

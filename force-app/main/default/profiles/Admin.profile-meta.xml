@@ -1016,6 +1016,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.IDR_Is_Restricted__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.IDR_Is_Written_Resp_Requested__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1404,11 +1409,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.SI_AFCA_Outcome_Provided__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Case.SI_Assigned_to_Portfolios__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1430,11 +1430,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.SI_Complaint_Count__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Case.SI_Definite_Action_Completed_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1674,7 +1669,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Event.CompletedDate__c</field>
+        <field>Event.Completed_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2688,16 +2683,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>IDR_Notification_Event__e.Case_Status_Change_Date__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>IDR_Notification_Event__e.Case_Status__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>IDR_Notification_Event__e.ComplainantEmail__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2927,6 +2912,10 @@
     <layoutAssignments>
         <layout>Case-KYC QA Layout</layout>
         <recordType>Case.KYC_QA</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-Non-Customer Complaint Layout</layout>
+        <recordType>Case.CFMS_Migrated_Case</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Case-Non-Customer Complaint Layout</layout>
@@ -3222,6 +3211,11 @@
     <recordTypeVisibilities>
         <default>false</default>
         <recordType>Case.Card_Dispute</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Case.CFMS_Migrated_Case</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>

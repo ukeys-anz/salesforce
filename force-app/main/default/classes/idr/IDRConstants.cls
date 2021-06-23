@@ -16,6 +16,9 @@ public with sharing class IDRConstants {
   //Case Priority
   public static final String CASE_PRIORITY_STANDARD = 'Standard';
 
+  //Customer Notification Template
+  public static final String CUSTOMER_NOTIFICATION_TEMPLATE_ID = 'AgCaseOpen';
+
   //Banker Notification Template
   public static final String BANKER_EMAIL_NOTIFICATION_TEMPLATE = 'Standard';
 
@@ -33,6 +36,9 @@ public with sharing class IDRConstants {
     .getRecordTypeId();
   public static final Id SI_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('Systemic_Issue')
+    .getRecordTypeId();
+  public static final Id CFMS_MIGRATED_CASE_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+    .get('CFMS_Migrated_Case')
     .getRecordTypeId();
 
   //CMOS ContentVersion record type Ids
