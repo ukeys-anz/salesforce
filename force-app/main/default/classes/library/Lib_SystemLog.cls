@@ -50,7 +50,9 @@ public without sharing class Lib_SystemLog {
    * @description The log records
    */
   public List<Application_Log__c> log { get; private set; }
-
+  /**
+   * @description The Big object log records
+   */
   public List<Application_Trace_Log__b> logList { get; private set; }
 
   /**
@@ -508,6 +510,7 @@ public without sharing class Lib_SystemLog {
 
   /**
    *  @description This is the helper future method to insert logs asynchronously
+   *  @param logStr json string of log information to be stored
    */
   @future
   public static void insertLogStaticAsync(String logStr) {
