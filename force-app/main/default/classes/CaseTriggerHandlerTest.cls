@@ -580,8 +580,8 @@ private class CaseTriggerHandlerTest {
       newCases.add(
         new Case(
           RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
-          Type = 'Card',
-          Additional_Type__c = 'App Support;Coaching',
+          Type = 'Cards',
+          Sub_Type__c = 'Damaged card',
           AccountId = acc.Id
         )
       );
@@ -589,16 +589,13 @@ private class CaseTriggerHandlerTest {
 
     insert newCases;
 
-    newCases[0].Type = 'Dispute';
-    newCases[0].Additional_Type__c = 'My Security;Product Information';
+    newCases[0].Type = 'Cards';
+    newCases[0].Sub_Type__c = 'Damaged card';
     update newCases;
 
     newCases = [SELECT Subject FROM Case WHERE id = :newCases[0].id];
 
-    system.assertEquals(
-      'Dispute, My Security, Product Information',
-      newCases[0].Subject
-    );
+    system.assertEquals('Cards - Damaged card', newCases[0].Subject);
   }
 
   @isTest
