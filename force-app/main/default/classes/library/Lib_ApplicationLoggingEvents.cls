@@ -15,6 +15,8 @@ public without sharing class Lib_ApplicationLoggingEvents extends Lib_TriggerHan
     super();
   }
 
+  public static BigObjectHelper bigObjectHelper = new BigObjectHelper();
+
   /**
    * @description The method onAfterInsert overridden method from {@link Lib_TriggerHandler} which gets called automatically as part of the Trigger.
    * In this method we extract the sfLog__c to get the event as JSON and deserialize to {@link lib_SystemLog} and store the events as
@@ -25,9 +27,8 @@ public without sharing class Lib_ApplicationLoggingEvents extends Lib_TriggerHan
     for (SObject record : records) {
       applicationLogs.addAll(juiceLogs(record));
     }
-    if (Application_Trace_Log__b.sObjectType.getDescribe().isCreateable()) {
-      Database.insertImmediate(applicationLogs);
-    }
+
+    bigObjectHelper.insertBigObject(applicationLogs, 'Application_Trace_Log__b');
   }
 
   /**

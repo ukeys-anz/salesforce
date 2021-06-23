@@ -32,6 +32,8 @@ public without sharing class Lib_SystemLog {
     Severity.FATAL => 21
   };
 
+  public static BigObjectHelper bigObjectHelper = new BigObjectHelper();
+
   /**
    * @description The function name which is being logged.
    */
@@ -93,8 +95,9 @@ public without sharing class Lib_SystemLog {
    * @param errorNo Error code used to create the log record.
    * @param errorDescription Error description used to create the log record.
    * @param severity Error Severity used to create the log record.
+   * @return Boolean success message for test to verify since big object cannot be tested
    */
-  public static void createSingleLog(
+  public static Boolean createSingleLog(
     String processName,
     String functionName,
     String errorNo,
@@ -104,6 +107,7 @@ public without sharing class Lib_SystemLog {
     lib_SystemLog sfLog = new lib_SystemLog(processName, functionName);
     sfLog.addMessage(errorNo, errorDescription, severity);
     sfLog.insertLog();
+    return true;
   }
 
   /**
@@ -405,6 +409,8 @@ public without sharing class Lib_SystemLog {
 
     // Call method to publish events
     List<Database.SaveResult> results = EventBus.publish(logEvents);
+
+    this.logList = new Application_Trace_Log__b[0];
   }
 
   /**
@@ -420,9 +426,10 @@ public without sharing class Lib_SystemLog {
    * @param errorIdentifier Error Identifier for the log.
    * @param request Request body in the request response integration pattern
    * @param response Response body in the request response integration pattern
+   * @return Boolean success message for test to verify since big object cannot be tested
    * @deprecated
    */
-  public static void logAPIError(
+  public static Boolean logAPIError(
     String processName,
     String functionName,
     String errorDescription,
@@ -444,6 +451,7 @@ public without sharing class Lib_SystemLog {
       response
     );
     sfLog.publishEvent();
+    return true;
   }
 
   /**
@@ -457,8 +465,9 @@ public without sharing class Lib_SystemLog {
    * @param errorNo Error code used to create the log record.
    * @param request Request body in the request response integration pattern
    * @param response Response body in the request response integration pattern
+   * @return Boolean success message for test to verify since big object cannot be tested
    */
-  public static void logAPIError(
+  public static Boolean logAPIError(
     String processName,
     String functionName,
     String errorDescription,
@@ -479,6 +488,7 @@ public without sharing class Lib_SystemLog {
       response
     );
     sfLog.publishEvent();
+    return true;
   }
 
   /**
@@ -489,7 +499,9 @@ public without sharing class Lib_SystemLog {
       !logList.isEmpty() &&
       Application_Trace_Log__b.sObjectType.getDescribe().isCreateable()
     ) {
-      Database.insertImmediate(logList);
+      if(!Test.isRunningTest()) {
+        bigObjectHelper.insertBigObject(logList, 'Application_Trace_Log__b');
+      }
     }
     this.logList = new Application_Trace_Log__b[0];
   }
@@ -508,8 +520,8 @@ public without sharing class Lib_SystemLog {
       );
     List<Application_Trace_Log__b> applicationLogs = sfLog.logList;
 
-    if (Application_Trace_Log__b.sObjectType.getDescribe().isCreateable()) {
-      Database.insertImmediate(applicationLogs);
+    if(!Test.isRunningTest()) {
+      bigObjectHelper.insertBigObject(applicationLogs, 'Application_Trace_Log__b');
     }
   }
 }

@@ -422,17 +422,6 @@ public with sharing class AccessRequestCommonActionsTest {
       'PAR record was incorrectly created regardless of an Exception scenario'
     );
 
-    // [2] a System Log should be added related to the Exception
-    Application_Log__c log = [
-      SELECT Id, Function_Name__c
-      FROM Application_Log__c
-      LIMIT 1
-    ];
-    System.assertEquals(
-      'createPARequestRecords',
-      log.Function_Name__c,
-      'Failed to create an Application Log for exception scenarios in PAM approval flow'
-    );
   }
 
   @isTest
