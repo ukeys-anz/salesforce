@@ -37,6 +37,9 @@ public with sharing class IDRConstants {
   public static final Id SI_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('Systemic_Issue')
     .getRecordTypeId();
+  public static final Id CFMS_MIGRATED_CASE_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+    .get('CFMS_Migrated_Case')
+    .getRecordTypeId();
 
   //CMOS ContentVersion record type Ids
   public static final Id EMAIL_ATTACHMENT_RT_ID = Schema.SObjectType.ContentVersion.getRecordTypeInfosByDeveloperName()

@@ -42,7 +42,8 @@ public without sharing class IDRRestrictedCasesController {
         WHERE
           IDR_Restriction_Level__c = 'Restricted Case'
           AND (RecordTypeId = :IDRConstants.CUSTOMER_COMPLAINT_RT_ID
-          OR RecordTypeId = :IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID)
+          OR RecordTypeId = :IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID
+          OR RecordTypeId = :IDRConstants.CFMS_MIGRATED_CASE_RT_ID)
           AND (CaseNumber LIKE :key
           OR Status LIKE :key
           OR IDR_Customer_Number__c LIKE :key
