@@ -17,7 +17,10 @@
         <useOther>false</useOther>
         <values>
             <sourceValues>
-                <sourceValue>Referred from AFCA</sourceValue>
+                <sourceValue>16</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>17</sourceValue>
             </sourceValues>
             <value>AFCA</value>
         </values>
@@ -26,10 +29,13 @@
                 <sourceValue>12</sourceValue>
             </sourceValues>
             <sourceValues>
-                <sourceValue>13</sourceValue>
+                <sourceValue>Other</sourceValue>
             </sourceValues>
             <sourceValues>
-                <sourceValue>Other</sourceValue>
+                <sourceValue>20</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>21</sourceValue>
             </sourceValues>
             <value>Internal</value>
         </values>
