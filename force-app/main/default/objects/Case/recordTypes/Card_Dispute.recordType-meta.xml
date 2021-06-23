@@ -2245,15 +2245,15 @@
     <picklistValues>
         <picklist>Goods_Or_Services_Returned__c</picklist>
         <values>
-            <fullName>N</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>NA</fullName>
             <default>true</default>
         </values>
         <values>
-            <fullName>Y</fullName>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
             <default>false</default>
         </values>
     </picklistValues>
