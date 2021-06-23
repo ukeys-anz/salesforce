@@ -421,7 +421,6 @@ public with sharing class AccessRequestCommonActionsTest {
       [SELECT COUNT() FROM Privileged_Access_Request__c] == 0,
       'PAR record was incorrectly created regardless of an Exception scenario'
     );
-
   }
 
   @isTest

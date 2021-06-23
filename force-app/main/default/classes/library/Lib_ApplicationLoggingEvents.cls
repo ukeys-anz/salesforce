@@ -28,7 +28,10 @@ public without sharing class Lib_ApplicationLoggingEvents extends Lib_TriggerHan
       applicationLogs.addAll(juiceLogs(record));
     }
 
-    bigObjectHelper.insertBigObject(applicationLogs, 'Application_Trace_Log__b');
+    bigObjectHelper.insertBigObject(
+      applicationLogs,
+      'Application_Trace_Log__b'
+    );
   }
 
   /**

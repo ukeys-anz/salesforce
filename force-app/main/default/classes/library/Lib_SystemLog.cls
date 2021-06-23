@@ -28,7 +28,7 @@ public without sharing class Lib_SystemLog {
     Severity.DEBUG => 5,
     Severity.INFO => 9,
     Severity.WARNING => 13,
-    Severity.ERROR => 17, 
+    Severity.ERROR => 17,
     Severity.FATAL => 21
   };
 
@@ -51,7 +51,7 @@ public without sharing class Lib_SystemLog {
    */
   public List<Application_Log__c> log { get; private set; }
 
-  public List<Application_Trace_Log__b> logList {get; private set;}
+  public List<Application_Trace_Log__b> logList { get; private set; }
 
   /**
    * @description Constructor
@@ -81,8 +81,8 @@ public without sharing class Lib_SystemLog {
     String functionName,
     String batchId
   ) {
-    this.log = new Application_Log__c[0];
-    this.logList = new Application_Trace_Log__b[0];
+    this.log = new List<Application_Log__c>(0);
+    this.logList = new List<Application_Trace_Log__b>(0);
     this.processName = processName;
     this.functionName = functionName;
     this.batchId = batchId;
@@ -209,7 +209,7 @@ public without sharing class Lib_SystemLog {
 
     Map<String, String> bodyMap = new Map<String, String>();
     bodyMap.put('Message', errorDescription);
-    if(errorNo != '' && errorNo != null) {
+    if (errorNo != '' && errorNo != null) {
       bodyMap.put('ErrorNo', errorNo);
     }
 
@@ -235,7 +235,6 @@ public without sharing class Lib_SystemLog {
     String request,
     String response
   ) {
-
     Application_Trace_Log__b curLog = new Application_Trace_Log__b();
     curLog.Timestamp__c = DateTime.Now();
     curLog.Trace_Id__c = UniqueIdUtil.getTraceId();
@@ -250,13 +249,13 @@ public without sharing class Lib_SystemLog {
 
     Map<String, String> bodyMap = new Map<String, String>();
     bodyMap.put('Message', errorDescription);
-    if(request != null) {
+    if (request != null) {
       bodyMap.put('Request', request);
     }
     if (response != null) {
       bodyMap.put('Response', response);
     }
-    if(errorNo != '' && errorNo != null) {
+    if (errorNo != '' && errorNo != null) {
       bodyMap.put('ErrorNo', errorNo);
     }
 
@@ -298,7 +297,7 @@ public without sharing class Lib_SystemLog {
     bodyMap.put('Message', errorDescription);
     bodyMap.put('objectName', objectName);
     bodyMap.put('recordId', recordId);
-    if(errorNo != '' && errorNo != null) {
+    if (errorNo != '' && errorNo != null) {
       bodyMap.put('ErrorNo', errorNo);
     }
 
@@ -410,7 +409,7 @@ public without sharing class Lib_SystemLog {
     // Call method to publish events
     List<Database.SaveResult> results = EventBus.publish(logEvents);
 
-    this.logList = new Application_Trace_Log__b[0];
+    this.logList = new List<Application_Trace_Log__b>(0);
   }
 
   /**
@@ -438,11 +437,7 @@ public without sharing class Lib_SystemLog {
     String request,
     String response
   ) {
-    lib_SystemLog sfLog = new lib_SystemLog(
-      processName,
-      functionName,
-      null
-    );
+    lib_SystemLog sfLog = new lib_SystemLog(processName, functionName, null);
     sfLog.addMessageWithRequestResponse(
       errorNo,
       errorDescription,
@@ -475,11 +470,7 @@ public without sharing class Lib_SystemLog {
     String request,
     String response
   ) {
-    lib_SystemLog sfLog = new lib_SystemLog(
-      processName,
-      functionName,
-      null
-    );
+    lib_SystemLog sfLog = new lib_SystemLog(processName, functionName, null);
     sfLog.addMessageWithRequestResponse(
       errorNo,
       errorDescription,
@@ -499,29 +490,32 @@ public without sharing class Lib_SystemLog {
       !logList.isEmpty() &&
       Application_Trace_Log__b.sObjectType.getDescribe().isCreateable()
     ) {
-      if(!Test.isRunningTest()) {
+      if (!Test.isRunningTest()) {
         bigObjectHelper.insertBigObject(logList, 'Application_Trace_Log__b');
       }
     }
-    this.logList = new Application_Trace_Log__b[0];
+    this.logList = new List<Application_Trace_Log__b>(0);
   }
 
   public void insertLogAsync() {
     String logStr = JSON.serialize(this);
     Lib_SystemLog.insertLogStaticAsync(logStr);
-    this.logList = new Application_Trace_Log__b[0];
+    this.logList = new List<Application_Trace_Log__b>(0);
   }
 
   @future
   public static void insertLogStaticAsync(String logStr) {
     lib_SystemLog sfLog = (lib_SystemLog) JSON.deserialize(
-        logStr,
-        lib_SystemLog.class
-      );
+      logStr,
+      lib_SystemLog.class
+    );
     List<Application_Trace_Log__b> applicationLogs = sfLog.logList;
 
-    if(!Test.isRunningTest()) {
-      bigObjectHelper.insertBigObject(applicationLogs, 'Application_Trace_Log__b');
+    if (!Test.isRunningTest()) {
+      bigObjectHelper.insertBigObject(
+        applicationLogs,
+        'Application_Trace_Log__b'
+      );
     }
   }
 }
