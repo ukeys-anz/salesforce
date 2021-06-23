@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>ANZx_View_Cards</name>
+    </customPermissions>
+    <description>Provides access to the apex classes required for calling the cards API. Also provides access to the custom setting for viewing cards.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>View Card Details</label>
+</PermissionSet>
