@@ -421,15 +421,17 @@ public with sharing class GetHelpCaseActions {
    */
   public static void checkOpenDisputeOnTransaction(List<Case> records) {
     Set<String> transactionIds = new Set<String>();
+    List<Case> disputeCases = new List<Case>();
     for (Case c : records) {
       if (GetHelpCaseActionsHelper.isDispute(c)) {
         transactionIds.add(c.Transaction_Id__c);
+        disputeCases.add(c);
       }
     }
     Map<String, String> caseNumberByTransactionId = GetHelpCaseActionsHelper.getCaseNumberByTransactionId(
       transactionIds
     );
-    for (Case c : records) {
+    for (Case c : disputeCases) {
       String caseNumber = caseNumberByTransactionId.get(c.Transaction_Id__c);
       if (caseNumber != null) {
         c.addError(DUPLICATE_DISPUTE_ERROR + caseNumber);
