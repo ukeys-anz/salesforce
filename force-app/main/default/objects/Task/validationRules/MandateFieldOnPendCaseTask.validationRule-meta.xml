@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MandateFieldOnPendCaseTask</fullName>
+    <active>true</active>
+    <description>Ensure all the relevant fields are chosen when Pend Case type is selected</description>
+    <errorConditionFormula>$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false &amp;&amp;
+ISPICKVAL(Type, &apos;Pend Case&apos;) &amp;&amp;
+RecordType.DeveloperName == &apos;IDR_Task&apos; &amp;&amp;
+(ISBLANK(IDR_Key_Contact_Name__c) ||
+ISPICKVAL(IDR_Pended_To__c,&apos;&apos;) ||
+ISPICKVAL(IDR_Pend_Reason__c, &apos;&apos;) ||
+ISPICKVAL(IDR_Portfolio_or_Business_Unit__c, &apos;&apos;) ||
+ISPICKVAL(IDR_Tribe__c, &apos;&apos;) ||
+ISPICKVAL(IDR_Team__c, &apos;&apos;) ||
+ISBLANK(ActivityDate))</errorConditionFormula>
+    <errorMessage>Key Contact Name, Pended To, Pend Reason, Portfolio or Business Unit, Tribe, Team and Due date fields are mandatory for a pend case task.</errorMessage>
+</ValidationRule>
