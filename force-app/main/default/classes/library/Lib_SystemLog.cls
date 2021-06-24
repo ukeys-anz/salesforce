@@ -12,14 +12,28 @@
  * log.addDatabaseSaveResult(results, 'Contact', contactToUpdate);
  * @group Library
  */
-@SuppressWarnings('PMD.ExcessiveParameterList, PMD.ExcessivePublicCount')
+@SuppressWarnings('PMD.ExcessiveParameterList, PMD.ExcessivePublicCount, PMD.CyclomaticComplexity')
 public without sharing class Lib_SystemLog {
   public enum Severity {
+    TRACE,
+    DEBUG,
     INFO,
     WARNING,
     ERROR,
     FATAL
   }
+
+  private Map<Severity, Integer> severityMap = new Map<Severity, Integer>{
+    Severity.TRACE => 1,
+    Severity.DEBUG => 5,
+    Severity.INFO => 9,
+    Severity.WARNING => 13,
+    Severity.ERROR => 17,
+    Severity.FATAL => 21
+  };
+
+  public static BigObjectHelper bigObjectHelper = new BigObjectHelper();
+
   /**
    * @description The function name which is being logged.
    */
@@ -33,26 +47,13 @@ public without sharing class Lib_SystemLog {
    */
   private String batchId { get; set; }
   /**
-   * @description The error Code.
-   */
-  private String errorCode { get; private set; }
-  /**
    * @description The log records
    */
   public List<Application_Log__c> log { get; private set; }
-
   /**
-   * @description This generates the unique ID as the error identifier
-   * @return `String` which is error Identifier
+   * @description The Big object log records
    */
-  private static String generateLogGuid() {
-    return EncodingUtil.convertToHex(
-      Crypto.generateDigest(
-        'MD5',
-        Blob.valueOf(DateTime.now().getTime().format())
-      )
-    );
-  }
+  public List<Application_Trace_Log__b> logList { get; private set; }
 
   /**
    * @description Constructor
@@ -82,28 +83,13 @@ public without sharing class Lib_SystemLog {
     String functionName,
     String batchId
   ) {
-    this(processName, functionName, batchId, generateLogGuid());
-  }
-
-  /**
-   * @description Constructor
-   * @param processName Process name used to generate the log.
-   * @param functionName Name of the funtion to generate the log.
-   * @param batchId BatchId for generating the log.
-   * @param errorIdentifier Error Identifier for the log.
-   */
-  public Lib_SystemLog(
-    String processName,
-    String functionName,
-    String batchId,
-    String errorIdentifier
-  ) {
-    this.log = new Application_Log__c[0];
+    this.log = new List<Application_Log__c>(0);
+    this.logList = new List<Application_Trace_Log__b>(0);
     this.processName = processName;
     this.functionName = functionName;
     this.batchId = batchId;
-    this.errorCode = errorIdentifier;
   }
+
   /**
    * @description The method is used to create a single log record in Application_Log__c object
    * @param processName Process name used to generate the log.
@@ -111,8 +97,9 @@ public without sharing class Lib_SystemLog {
    * @param errorNo Error code used to create the log record.
    * @param errorDescription Error description used to create the log record.
    * @param severity Error Severity used to create the log record.
+   * @return Boolean success message for test to verify since big object cannot be tested
    */
-  public static void createSingleLog(
+  public static Boolean createSingleLog(
     String processName,
     String functionName,
     String errorNo,
@@ -122,6 +109,7 @@ public without sharing class Lib_SystemLog {
     lib_SystemLog sfLog = new lib_SystemLog(processName, functionName);
     sfLog.addMessage(errorNo, errorDescription, severity);
     sfLog.insertLog();
+    return true;
   }
 
   /**
@@ -148,6 +136,56 @@ public without sharing class Lib_SystemLog {
   }
 
   /**
+   * @description The method is used to generate a record to log list at trace level.
+   * @param message Information message
+   */
+  public void trace(String message) {
+    addMessage('', message, Severity.TRACE);
+  }
+
+  /**
+   * @description The method is used to generate a record to log list at debug level.
+   * @param message Information message
+   */
+  public void debug(String message) {
+    addMessage('', message, Severity.DEBUG);
+  }
+
+  /**
+   * @description The method is used to generate a record to log list at info level.
+   * @param message Information message
+   */
+  public void info(String message) {
+    addMessage('', message, Severity.INFO);
+  }
+
+  /**
+   * @description The method is used to generate a record to log list at warn level.
+   * @param message Information message
+   */
+  public void warning(String message) {
+    addMessage('', message, Severity.WARNING);
+  }
+
+  /**
+   * @description The method is used to generate a record to log list at error level.
+   @param errorNo Error code used to create the log record.
+   * @param message Information message
+   */
+  public void error(String errorNo, String message) {
+    addMessage(errorNo, message, Severity.ERROR);
+  }
+
+  /**
+   * @description The method is used to generate a record to log list at fatal level.
+   @param errorNo Error code used to create the log record.
+   * @param message Information message
+   */
+  public void fatal(String errorNo, String message) {
+    addMessage(errorNo, message, Severity.FATAL);
+  }
+
+  /**
    * @description  The method addMessage is used to add a record to log list. We can add multiple logs by calling this method and at the end the caller should call {@link insertLog()} method
    * to create record/records in Application_Log__c object
    * @param errorNo Error code used to create the log record.
@@ -159,17 +197,27 @@ public without sharing class Lib_SystemLog {
     String errorDescription,
     Severity severity
   ) {
-    this.add(
-      new Application_Log__c(
-        Process_Name__c = processName,
-        Batch_Id__c = batchId,
-        Function_Name__c = functionName,
-        Error_No__c = errorNo,
-        Error_Description__c = errorDescription,
-        Severity__c = severity.name(),
-        Error_Code__c = errorCode
-      )
-    );
+    Application_Trace_Log__b curLog = new Application_Trace_Log__b();
+    curLog.Timestamp__c = DateTime.Now();
+    curLog.Trace_Id__c = UniqueIdUtil.getTraceId();
+    curLog.Span_Id__c = UniqueIdUtil.getParentId();
+    curLog.Severity_Text__c = severity.name();
+    curLog.Severity_Number__c = severityMap.get(severity);
+    Map<String, String> resourceMap = new Map<String, String>();
+    resourceMap.put('Process', processName);
+    resourceMap.put('Function', functionName);
+    resourceMap.put('BatchId', batchId);
+    curLog.Resource__c = JSON.serialize(resourceMap);
+
+    Map<String, String> bodyMap = new Map<String, String>();
+    bodyMap.put('Message', errorDescription);
+    if (errorNo != '' && errorNo != null) {
+      bodyMap.put('ErrorNo', errorNo);
+    }
+
+    curLog.Body__c = JSON.serialize(bodyMap);
+
+    this.logList.add(curLog);
   }
 
   /**
@@ -189,19 +237,33 @@ public without sharing class Lib_SystemLog {
     String request,
     String response
   ) {
-    this.add(
-      new Application_Log__c(
-        Process_Name__c = processName,
-        Batch_Id__c = batchId,
-        Function_Name__c = functionName,
-        Error_No__c = errorNo,
-        Error_Description__c = errorDescription,
-        Severity__c = severity.name(),
-        Error_Code__c = errorCode,
-        Request_Body__c = request,
-        Response_Body__c = response
-      )
-    );
+    Application_Trace_Log__b curLog = new Application_Trace_Log__b();
+    curLog.Timestamp__c = DateTime.Now();
+    curLog.Trace_Id__c = UniqueIdUtil.getTraceId();
+    curLog.Span_Id__c = UniqueIdUtil.getParentId();
+    curLog.Severity_Text__c = severity.name();
+    curLog.Severity_Number__c = severityMap.get(severity);
+    Map<String, String> resourceMap = new Map<String, String>();
+    resourceMap.put('Process', processName);
+    resourceMap.put('Function', functionName);
+    resourceMap.put('BatchId', batchId);
+    curLog.Resource__c = JSON.serialize(resourceMap);
+
+    Map<String, String> bodyMap = new Map<String, String>();
+    bodyMap.put('Message', errorDescription);
+    if (request != null) {
+      bodyMap.put('Request', request);
+    }
+    if (response != null) {
+      bodyMap.put('Response', response);
+    }
+    if (errorNo != '' && errorNo != null) {
+      bodyMap.put('ErrorNo', errorNo);
+    }
+
+    curLog.Body__c = JSON.serialize(bodyMap);
+
+    this.logList.add(curLog);
   }
 
   /**
@@ -221,19 +283,29 @@ public without sharing class Lib_SystemLog {
     String errorDescription,
     Severity severity
   ) {
-    this.add(
-      new Application_Log__c(
-        Process_Name__c = processName,
-        Record_ID__c = recordId,
-        Object_Name__c = objectName,
-        Batch_Id__c = batchId,
-        Function_Name__c = functionName,
-        Error_No__c = errorNo,
-        Error_Description__c = errorDescription,
-        Severity__c = severity.name(),
-        Error_Code__c = errorCode
-      )
-    );
+    Application_Trace_Log__b curLog = new Application_Trace_Log__b();
+    curLog.Timestamp__c = DateTime.Now();
+    curLog.Trace_Id__c = UniqueIdUtil.getTraceId();
+    curLog.Span_Id__c = UniqueIdUtil.getParentId();
+    curLog.Severity_Text__c = severity.name();
+    curLog.Severity_Number__c = severityMap.get(severity);
+    Map<String, String> resourceMap = new Map<String, String>();
+    resourceMap.put('Process', processName);
+    resourceMap.put('Function', functionName);
+    resourceMap.put('BatchId', batchId);
+    curLog.Resource__c = JSON.serialize(resourceMap);
+
+    Map<String, String> bodyMap = new Map<String, String>();
+    bodyMap.put('Message', errorDescription);
+    bodyMap.put('objectName', objectName);
+    bodyMap.put('recordId', recordId);
+    if (errorNo != '' && errorNo != null) {
+      bodyMap.put('ErrorNo', errorNo);
+    }
+
+    curLog.Body__c = JSON.serialize(bodyMap);
+
+    this.logList.add(curLog);
   }
 
   /**
@@ -338,6 +410,45 @@ public without sharing class Lib_SystemLog {
 
     // Call method to publish events
     List<Database.SaveResult> results = EventBus.publish(logEvents);
+
+    this.logList = new List<Application_Trace_Log__b>(0);
+  }
+
+  /**
+   * @description The method logAPIError is used for creating a platform event for Async logging
+   * specifically for api calls using request response integration patterns.
+   * The trigger {@link Lib_ApplicationLoggingEvents} will listen to these events and inserts the data to Application_Log__c object
+   * The caller should call {@link insertLog()} method
+   * Remove this method when all the references are removed. Should be calling the function without error Identifier param
+   * @param processName Process name used to generate the log.
+   * @param functionName Name of the funtion to generate the log.
+   * @param errorDescription Error description used to create the log record.
+   * @param errorNo Error code used to create the log record.
+   * @param errorIdentifier Error Identifier for the log.
+   * @param request Request body in the request response integration pattern
+   * @param response Response body in the request response integration pattern
+   * @return Boolean success message for test to verify since big object cannot be tested
+   * @deprecated
+   */
+  public static Boolean logAPIError(
+    String processName,
+    String functionName,
+    String errorDescription,
+    String errorNo,
+    String errorIdentifier,
+    String request,
+    String response
+  ) {
+    lib_SystemLog sfLog = new lib_SystemLog(processName, functionName, null);
+    sfLog.addMessageWithRequestResponse(
+      errorNo,
+      errorDescription,
+      lib_systemLog.Severity.ERROR,
+      request,
+      response
+    );
+    sfLog.publishEvent();
+    return true;
   }
 
   /**
@@ -349,25 +460,19 @@ public without sharing class Lib_SystemLog {
    * @param functionName Name of the funtion to generate the log.
    * @param errorDescription Error description used to create the log record.
    * @param errorNo Error code used to create the log record.
-   * @param errorIdentifier Error Identifier for the log.
    * @param request Request body in the request response integration pattern
    * @param response Response body in the request response integration pattern
+   * @return Boolean success message for test to verify since big object cannot be tested
    */
-  public static void logAPIError(
+  public static Boolean logAPIError(
     String processName,
     String functionName,
     String errorDescription,
     String errorNo,
-    String errorIdentifier,
     String request,
     String response
   ) {
-    lib_SystemLog sfLog = new lib_SystemLog(
-      processName,
-      functionName,
-      null,
-      errorIdentifier
-    );
+    lib_SystemLog sfLog = new lib_SystemLog(processName, functionName, null);
     sfLog.addMessageWithRequestResponse(
       errorNo,
       errorDescription,
@@ -376,37 +481,50 @@ public without sharing class Lib_SystemLog {
       response
     );
     sfLog.publishEvent();
+    return true;
   }
 
   /**
-   * @description  The method add is used for adding Application_Log__c to list of Application_Log__c logs.
-   * The caller should call {@link Lib_SystemLog.insertLog} method
-   * @param exc record object to be added to the list of log records to be inserted
-   */
-  public void add(Application_Log__c exc) {
-    log.add(exc);
-  }
-
-  /**
-   *  @description  The method insertLog is used creating/inserting log records in Application_Log__c object.
+   *  @description  The method insertLog is used creating/inserting log records in Application_Trace_Log__b object.
    */
   public void insertLog() {
     if (
-      !log.isEmpty() &&
-      Application_Log__c.sObjectType.getDescribe().isCreateable()
+      !logList.isEmpty() &&
+      Application_Trace_Log__b.sObjectType.getDescribe().isCreateable()
     ) {
-      insert log;
+      if (!Test.isRunningTest()) {
+        bigObjectHelper.insertBigObject(logList, 'Application_Trace_Log__b');
+      }
     }
+    this.logList = new List<Application_Trace_Log__b>(0);
   }
 
   /**
-   * @description  The method getLogErrorCode is used retrun the Error_Code__c value of the first object in the list
-   * @return `String` retrun the Error_Code__c value of the first object in the list
+   *  @description  The method insertLog is used creating/inserting log records in Application_Trace_Log__b object asynchronously.
    */
-  public String getLogErrorCode() {
-    if (!log.isEmpty() && log[0].Error_Code__c != null) {
-      return log[0].Error_Code__c;
+  public void insertLogAsync() {
+    String logStr = JSON.serialize(this);
+    Lib_SystemLog.insertLogStaticAsync(logStr);
+    this.logList = new List<Application_Trace_Log__b>(0);
+  }
+
+  /**
+   *  @description This is the helper future method to insert logs asynchronously
+   *  @param logStr json string of log information to be stored
+   */
+  @future
+  public static void insertLogStaticAsync(String logStr) {
+    lib_SystemLog sfLog = (lib_SystemLog) JSON.deserialize(
+      logStr,
+      lib_SystemLog.class
+    );
+    List<Application_Trace_Log__b> applicationLogs = sfLog.logList;
+
+    if (!Test.isRunningTest()) {
+      bigObjectHelper.insertBigObject(
+        applicationLogs,
+        'Application_Trace_Log__b'
+      );
     }
-    return null;
   }
 }

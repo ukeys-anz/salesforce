@@ -15,19 +15,23 @@ public without sharing class Lib_ApplicationLoggingEvents extends Lib_TriggerHan
     super();
   }
 
+  public static BigObjectHelper bigObjectHelper = new BigObjectHelper();
+
   /**
    * @description The method onAfterInsert overridden method from {@link Lib_TriggerHandler} which gets called automatically as part of the Trigger.
    * In this method we extract the sfLog__c to get the event as JSON and deserialize to {@link lib_SystemLog} and store the events as
    * Application_Log__c records.
    */
   public override void onAfterInsert() {
-    List<Application_Log__c> applicationLogs = new List<Application_Log__c>();
+    List<Application_Trace_Log__b> applicationLogs = new List<Application_Trace_Log__b>();
     for (SObject record : records) {
       applicationLogs.addAll(juiceLogs(record));
     }
-    if (Application_Log__c.sObjectType.getDescribe().isCreateable()) {
-      insert applicationLogs;
-    }
+
+    bigObjectHelper.insertBigObject(
+      applicationLogs,
+      'Application_Trace_Log__b'
+    );
   }
 
   /**
@@ -35,7 +39,7 @@ public without sharing class Lib_ApplicationLoggingEvents extends Lib_TriggerHan
    * @param record which contains sfLog__c column which has serialized json log
    * @return `List<Application_Log__c>` which is list of log records that needs to be inserted in Application_Log__c Object
    */
-  private static List<Application_Log__c> juiceLogs(SObject record) {
+  private static List<Application_Trace_Log__b> juiceLogs(SObject record) {
     String sfLogJson = (String) record.get('sfLog__c') != null
       ? (String) record.get('sfLog__c')
       : null;
@@ -45,7 +49,7 @@ public without sharing class Lib_ApplicationLoggingEvents extends Lib_TriggerHan
         sfLogJson,
         lib_SystemLog.class
       );
-      return sfLog.log;
+      return sfLog.logList;
     }
 
     return null;
