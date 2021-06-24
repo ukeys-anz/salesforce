@@ -14,7 +14,7 @@
     <filters>
         <field>CASES.RECORDTYPE</field>
         <operation>equals</operation>
-        <value>Case.Customer_Complaint,Case.Non_Customer_Complaint</value>
+        <value>Case.CFMS_Migrated_Case,Case.Customer_Complaint,Case.Non_Customer_Complaint</value>
     </filters>
     <label>All Complaints</label>
     <sharedTo>
