@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_Pend_Reason__c</fullName>
+    <externalId>false</externalId>
+    <label>Pend Reason</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>IDR_Pended_To__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Awaiting information to be provided</fullName>
+                <default>false</default>
+                <label>Awaiting information to be provided</label>
+            </value>
+            <value>
+                <fullName>Awaiting determination</fullName>
+                <default>false</default>
+                <label>Awaiting determination</label>
+            </value>
+            <value>
+                <fullName>Awaiting recommendation or preliminary view</fullName>
+                <default>false</default>
+                <label>Awaiting recommendation or preliminary view</label>
+            </value>
+            <value>
+                <fullName>Other (please provide detail in Comments)</fullName>
+                <default>false</default>
+                <label>Other (please provide detail in Comments)</label>
+            </value>
+            <value>
+                <fullName>Awaiting response on an offer made to customer</fullName>
+                <default>false</default>
+                <label>Awaiting response on an offer made to customer</label>
+            </value>
+            <value>
+                <fullName>Awaiting approval for proposed resolution</fullName>
+                <default>false</default>
+                <label>Awaiting approval for proposed resolution</label>
+            </value>
+            <value>
+                <fullName>Awaiting implementation of agreed outcome</fullName>
+                <default>false</default>
+                <label>Awaiting implementation of agreed outcome</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Wealth Product Manufacturer: QBE</controllingFieldValue>
+            <controllingFieldValue>Wealth Product Manufacturer: Zurich</controllingFieldValue>
+            <controllingFieldValue>Wealth Product Manufacturer: Other</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <controllingFieldValue>AFCA</controllingFieldValue>
+            <controllingFieldValue>Customer</controllingFieldValue>
+            <controllingFieldValue>Internal Business Unit</controllingFieldValue>
+            <controllingFieldValue>Nominated 3rd Party Representative of Customer</controllingFieldValue>
+            <controllingFieldValue>Office of the Australian Information Commissioner (OAIC)</controllingFieldValue>
+            <controllingFieldValue>Small Business Ombudsman</controllingFieldValue>
+            <controllingFieldValue>State Tribunal</controllingFieldValue>
+            <controllingFieldValue>Wealth Product Manufacturer: Allianz</controllingFieldValue>
+            <controllingFieldValue>Wealth Product Manufacturer: IOOF</controllingFieldValue>
+            <controllingFieldValue>Wealth Product Manufacturer: Netwealth</controllingFieldValue>
+            <valueName>Awaiting information to be provided</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>AFCA</controllingFieldValue>
+            <valueName>Awaiting determination</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>AFCA</controllingFieldValue>
+            <valueName>Awaiting recommendation or preliminary view</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>AFCA</controllingFieldValue>
+            <valueName>Other (please provide detail in Comments)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer</controllingFieldValue>
+            <controllingFieldValue>Nominated 3rd Party Representative of Customer</controllingFieldValue>
+            <valueName>Awaiting response on an offer made to customer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Internal Business Unit</controllingFieldValue>
+            <valueName>Awaiting approval for proposed resolution</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Internal Business Unit</controllingFieldValue>
+            <valueName>Awaiting implementation of agreed outcome</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>
