@@ -43,14 +43,16 @@ public with sharing class GetCustomerInformation {
           return customerData;
         }
       } catch (Exception e) {
-        Lib_SystemLog.logAPIError(
+        Boolean logResult = Lib_SystemLog.logAPIError(
           GetCustomerInformation.class.getName(),
           'getCustomerData',
           e.getMessage(),
           e.getTypeName(),
-          GetCustomerInformation.class.getName(),
           null,
-          response != null ? response.getBody() : null
+          response != null ? response.getBody() : null,
+          request.getEndpoint(),
+          HTTP_METHOD.HTTP_GET,
+          response.getStatusCode()
         );
         //throw new AuraHandledException(e.getMessage());
         AuraHandledException ahe = new AuraHandledException(e.getMessage());

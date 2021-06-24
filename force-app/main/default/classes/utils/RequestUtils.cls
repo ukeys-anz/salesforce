@@ -78,14 +78,16 @@ public with sharing class RequestUtils {
         throw new CalloutException(response.getBody());
       }
     } catch (Exception e) {
-      Lib_SystemLog.logAPIError(
+      Boolean logResult = Lib_SystemLog.logAPIError(
         processName,
         functionName,
         e.getMessage(),
         e.getTypeName(),
-        errorIdentifier,
         null,
-        response != null ? response.getBody() : null
+        response != null ? response.getBody() : null,
+        request.getEndpoint(),
+        request.getMethod(),
+        response.getStatusCode()
       );
 
       if (usedInLWC) {

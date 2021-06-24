@@ -12,7 +12,9 @@
  * log.addDatabaseSaveResult(results, 'Contact', contactToUpdate);
  * @group Library
  */
-@SuppressWarnings('PMD.ExcessiveParameterList, PMD.ExcessivePublicCount, PMD.CyclomaticComplexity')
+@SuppressWarnings(
+  'PMD.ExcessiveParameterList, PMD.ExcessivePublicCount, PMD.CyclomaticComplexity'
+)
 public without sharing class Lib_SystemLog {
   public enum Severity {
     TRACE,
@@ -83,8 +85,8 @@ public without sharing class Lib_SystemLog {
     String functionName,
     String batchId
   ) {
-    this.log = new List<Application_Log__c>(0);
-    this.logList = new List<Application_Trace_Log__b>(0);
+    this.log = new Application_Log__c[0];
+    this.logList = new Application_Trace_Log__b[0];
     this.processName = processName;
     this.functionName = functionName;
     this.batchId = batchId;
@@ -227,6 +229,9 @@ public without sharing class Lib_SystemLog {
    * @param errorNo Error code used to create the log record.
    * @param errorDescription Error description used to create the log record.
    * @param severity Error Severity used to create the log record.
+   * @param endpoint The endpoint used to make the request.
+   * @param httpMethod The HTTP method used to make the request.
+   * @param statusCode The HTTP status code of the response.
    * @param request Request body in the request response integration pattern
    * @param response Response body in the request response integration pattern
    */
@@ -234,6 +239,9 @@ public without sharing class Lib_SystemLog {
     String errorNo,
     String errorDescription,
     Severity severity,
+    String endpoint,
+    HTTP_METHOD httpMethod,
+    Integer statusCode,
     String request,
     String response
   ) {
@@ -243,6 +251,19 @@ public without sharing class Lib_SystemLog {
     curLog.Span_Id__c = UniqueIdUtil.getParentId();
     curLog.Severity_Text__c = severity.name();
     curLog.Severity_Number__c = severityMap.get(severity);
+
+    Map<String, String> attributesMap = new Map<String, String>();
+    if (endpoint != null) {
+      attributesMap.put('Endpoint', endpoint);
+    }
+    if (httpMethod != null) {
+      attributesMap.put('HTTPMethod', httpMethod.name());
+    }
+    if (statusCode != null) {
+      attributesMap.put('StatusCode', String.valueOf(statusCode));
+    }
+    curLog.Attributes__c = JSON.serialize(attributesMap);
+
     Map<String, String> resourceMap = new Map<String, String>();
     resourceMap.put('Process', processName);
     resourceMap.put('Function', functionName);
@@ -411,44 +432,7 @@ public without sharing class Lib_SystemLog {
     // Call method to publish events
     List<Database.SaveResult> results = EventBus.publish(logEvents);
 
-    this.logList = new List<Application_Trace_Log__b>(0);
-  }
-
-  /**
-   * @description The method logAPIError is used for creating a platform event for Async logging
-   * specifically for api calls using request response integration patterns.
-   * The trigger {@link Lib_ApplicationLoggingEvents} will listen to these events and inserts the data to Application_Log__c object
-   * The caller should call {@link insertLog()} method
-   * Remove this method when all the references are removed. Should be calling the function without error Identifier param
-   * @param processName Process name used to generate the log.
-   * @param functionName Name of the funtion to generate the log.
-   * @param errorDescription Error description used to create the log record.
-   * @param errorNo Error code used to create the log record.
-   * @param errorIdentifier Error Identifier for the log.
-   * @param request Request body in the request response integration pattern
-   * @param response Response body in the request response integration pattern
-   * @return Boolean success message for test to verify since big object cannot be tested
-   * @deprecated
-   */
-  public static Boolean logAPIError(
-    String processName,
-    String functionName,
-    String errorDescription,
-    String errorNo,
-    String errorIdentifier,
-    String request,
-    String response
-  ) {
-    lib_SystemLog sfLog = new lib_SystemLog(processName, functionName, null);
-    sfLog.addMessageWithRequestResponse(
-      errorNo,
-      errorDescription,
-      lib_systemLog.Severity.ERROR,
-      request,
-      response
-    );
-    sfLog.publishEvent();
-    return true;
+    this.logList = new Application_Trace_Log__b[0];
   }
 
   /**
@@ -462,6 +446,9 @@ public without sharing class Lib_SystemLog {
    * @param errorNo Error code used to create the log record.
    * @param request Request body in the request response integration pattern
    * @param response Response body in the request response integration pattern
+   * @param endpoint The endpoint used to make the request.
+   * @param httpMethod The HTTP method used to make the request.
+   * @param statusCode The HTTP status code of the response.
    * @return Boolean success message for test to verify since big object cannot be tested
    */
   public static Boolean logAPIError(
@@ -470,13 +457,19 @@ public without sharing class Lib_SystemLog {
     String errorDescription,
     String errorNo,
     String request,
-    String response
+    String response,
+    String endpoint,
+    HTTP_METHOD httpMethod,
+    Integer statusCode
   ) {
     lib_SystemLog sfLog = new lib_SystemLog(processName, functionName, null);
     sfLog.addMessageWithRequestResponse(
       errorNo,
       errorDescription,
       lib_systemLog.Severity.ERROR,
+      endpoint,
+      httpMethod,
+      statusCode,
       request,
       response
     );
@@ -496,7 +489,7 @@ public without sharing class Lib_SystemLog {
         bigObjectHelper.insertBigObject(logList, 'Application_Trace_Log__b');
       }
     }
-    this.logList = new List<Application_Trace_Log__b>(0);
+    this.logList = new Application_Trace_Log__b[0];
   }
 
   /**
@@ -505,7 +498,7 @@ public without sharing class Lib_SystemLog {
   public void insertLogAsync() {
     String logStr = JSON.serialize(this);
     Lib_SystemLog.insertLogStaticAsync(logStr);
-    this.logList = new List<Application_Trace_Log__b>(0);
+    this.logList = new Application_Trace_Log__b[0];
   }
 
   /**

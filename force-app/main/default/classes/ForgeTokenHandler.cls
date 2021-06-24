@@ -16,14 +16,14 @@ public with sharing class ForgeTokenHandler {
     try {
       idToken = AuthTokenCacheUtil.getSessionIdToken();
     } catch (Exception e) {
-      Lib_SystemLog.logAPIError(
-        ForgeTokenHandler.class.getName(),
-        'getForgeJWTToken',
-        e.getMessage(),
+      lib_systemLog log = new lib_systemLog(
+        'ForgeTokenHandler',
+        'getForgeJWTToken'
+      );
+      log.addMessage(
         e.getTypeName(),
-        ForgeTokenHandler.class.getName(),
-        null,
-        'No active token found, please log out, and back into Salesforce'
+        e.getMessage(),
+        Lib_SystemLog.Severity.ERROR
       );
 
       AuraHandledException ahe = new AuraHandledException(e.getMessage());
