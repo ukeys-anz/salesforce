@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_Key_Contact_Name__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Trusted;Privacy - Personal Information;Source - Salesforce</complianceGroup>
+    <complianceGroup>Integrity_Trusted;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Key contact name of the internal party does not have access to CMOS.</description>
     <externalId>false</externalId>
     <inlineHelpText>Provide the key contact name of the internal or external party you&apos;re waiting on information from</inlineHelpText>
