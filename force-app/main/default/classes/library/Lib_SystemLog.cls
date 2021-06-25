@@ -240,7 +240,7 @@ public without sharing class Lib_SystemLog {
     String errorDescription,
     Severity severity,
     String endpoint,
-    HTTP_METHOD httpMethod,
+    string httpMethod,
     Integer statusCode,
     String request,
     String response
@@ -257,7 +257,7 @@ public without sharing class Lib_SystemLog {
       attributesMap.put('Endpoint', endpoint);
     }
     if (httpMethod != null) {
-      attributesMap.put('HTTPMethod', httpMethod.name());
+      attributesMap.put('HTTPMethod', httpMethod);
     }
     if (statusCode != null) {
       attributesMap.put('StatusCode', String.valueOf(statusCode));
@@ -459,7 +459,7 @@ public without sharing class Lib_SystemLog {
     String request,
     String response,
     String endpoint,
-    HTTP_METHOD httpMethod,
+    String httpMethod,
     Integer statusCode
   ) {
     lib_SystemLog sfLog = new lib_SystemLog(processName, functionName, null);

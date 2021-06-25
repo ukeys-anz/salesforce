@@ -49,7 +49,7 @@ public class Lib_TestSyncLogs {
       'Request body',
       'Response body',
       'RequestEndpoint',
-      HTTP_METHOD.HTTP_GET,
+      HTTP_METHOD.HTTP_GET.name(),
       500
     );
     Test.stopTest();
@@ -71,7 +71,7 @@ public class Lib_TestSyncLogs {
       'Some Info',
       lib_SystemLog.Severity.INFO,
       'https//:endpoint',
-      HTTP_METHOD.HTTP_GET,
+      HTTP_METHOD.HTTP_GET.name(),
       200,
       'Request Body',
       'Response Body'

@@ -53,7 +53,7 @@ public with sharing class CardTempBlockController {
           null,
           response != null ? response.getBody() : null,
           request.getEndpoint(),
-          HTTP_METHOD.HTTP_PUT,
+          HTTP_METHOD.HTTP_PUT.name(),
           response.getStatusCode()
         );
         AuraHandledException ahe = new AuraHandledException(e.getMessage());
