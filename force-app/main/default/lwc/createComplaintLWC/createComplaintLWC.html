@@ -870,18 +870,6 @@
                     data-id="siCategory-id"
                   ></lightning-input-field>
                 </div>
-                <div
-                  class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
-                >
-                  <lightning-input-field
-                    variant="label-stacked"
-                    aria-label="Autocomplete parent systemic issue"
-                    field-name={SystemicIssue}
-                    value={systemicIssueValue}
-                    onchange={handleSystemicIssueChange}
-                    data-id="systemic-issue-id"
-                  ></lightning-input-field>
-                </div>
                 <template if:true={hasSecondIssue}>
                   <div
                     class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
