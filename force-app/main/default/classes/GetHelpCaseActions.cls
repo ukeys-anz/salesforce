@@ -64,6 +64,8 @@ public with sharing class GetHelpCaseActions {
     'ANZx_Complaint'
   );
 
+  public static final String DUPLICATE_DISPUTE_ERROR = 'Error occurred while creating dispute. An open dispute already exists for this transaction. Case number: ';
+
   private static Map<String, String> caseTypeLabelByValue = new Map<String, String>();
 
   /**
@@ -408,6 +410,31 @@ public with sharing class GetHelpCaseActions {
     for (Case record : records) {
       if (GetHelpCaseActionsHelper.isANZPlusCaseType(record)) {
         setBusinessHours(record);
+      }
+    }
+  }
+
+  /**
+   * @description checkOpenDisputeOnTransaction is called onBeforeInsert to check if there is already an open dispute for a particular transaction, if so,
+   * throw an exception to prevent a duplicate dispute from being created
+   * @param records a list of cases
+   */
+  public static void checkOpenDisputeOnTransaction(List<Case> records) {
+    Set<String> transactionIds = new Set<String>();
+    List<Case> disputeCases = new List<Case>();
+    for (Case c : records) {
+      if (GetHelpCaseActionsHelper.isDispute(c)) {
+        transactionIds.add(c.Transaction_Id__c);
+        disputeCases.add(c);
+      }
+    }
+    Map<String, String> caseNumberByTransactionId = GetHelpCaseActionsHelper.getCaseNumberByTransactionId(
+      transactionIds
+    );
+    for (Case c : disputeCases) {
+      String caseNumber = caseNumberByTransactionId.get(c.Transaction_Id__c);
+      if (caseNumber != null) {
+        c.addError(DUPLICATE_DISPUTE_ERROR + caseNumber);
       }
     }
   }

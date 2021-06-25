@@ -1037,4 +1037,101 @@ private class CaseTriggerHandlerTest {
       'Failed to auto-populate Contact lookup on ANZ Plus cases while inserting'
     );
   }
+
+  // Test if a  dispute can be created on a transaction that already has an open dispute
+  @isTest
+  static void testCheckOpenDisputeOnTransactionWithException() {
+    // GIVEN an open dispute already exists for a transaction
+    Account acc = [
+      SELECT Id, PersonContactId
+      FROM Account
+      WHERE OCV_ID__c = 'PERSONOCV879879'
+      LIMIT 1
+    ];
+
+    Case disputeCase1 = new Case();
+    disputeCase1.RecordTypeId = GetHelpCaseActions.ATM_DISPUTE_RT_ID;
+    disputeCase1.AccountId = acc.Id;
+    disputeCase1.Dispute_Reason__c = 'Cash Dispense Error';
+    disputeCase1.Origin = 'Phone';
+    disputeCase1.Transaction_Id__c = 'c5aad076-ea65-4fa9-bc8c-f348c39cd0d6';
+    insert disputeCase1;
+
+    Case existingDisputeCase = [
+      SELECT CaseNumber__c
+      FROM Case
+      WHERE Transaction_Id__c = 'c5aad076-ea65-4fa9-bc8c-f348c39cd0d6'
+      LIMIT 1
+    ];
+
+    // WHEN a new dispute case is created on the same transaction
+    Case disputeCase2 = new Case();
+    disputeCase2.RecordTypeId = GetHelpCaseActions.ATM_DISPUTE_RT_ID;
+    disputeCase2.AccountId = acc.Id;
+    disputeCase2.Dispute_Reason__c = 'Error Correction';
+    disputeCase2.Origin = 'In Person';
+    disputeCase2.Transaction_Id__c = 'c5aad076-ea65-4fa9-bc8c-f348c39cd0d6';
+    try {
+      insert disputeCase2;
+    } catch (DmlException e) {
+      // THEN an error should occur indicating that there is already an open dispute linked to this transaction
+      System.assertEquals(
+        e.getDmlMessage(0),
+        GetHelpCaseActions.DUPLICATE_DISPUTE_ERROR +
+        existingDisputeCase.CaseNumber__c,
+        'Error messages do not match'
+      );
+    }
+  }
+
+  // Test if a  dispute can be created on a transaction that has a closed dispute
+  @isTest
+  static void testCheckOpenDisputeOnTransactionSuccessful() {
+    // GIVEN an open dispute already exists for a transaction
+    Account acc = [
+      SELECT Id, PersonContactId
+      FROM Account
+      WHERE OCV_ID__c = 'PERSONOCV879879'
+      LIMIT 1
+    ];
+
+    Case disputeCase1 = new Case();
+    disputeCase1.RecordTypeId = GetHelpCaseActions.ATM_DISPUTE_RT_ID;
+    disputeCase1.AccountId = acc.Id;
+    disputeCase1.Dispute_Reason__c = 'Cash Dispense Error';
+    disputeCase1.Origin = 'Phone';
+    disputeCase1.Transaction_Id__c = 'c5aad076-ea65-4fa9-bc8c-f348c39cd0d6';
+    disputeCase1.Status = 'Closed';
+    insert disputeCase1;
+
+    // WHEN a new dispute case is created on the same transaction
+    Case disputeCase2 = new Case();
+    disputeCase2.RecordTypeId = GetHelpCaseActions.ATM_DISPUTE_RT_ID;
+    disputeCase2.AccountId = acc.Id;
+    disputeCase2.Dispute_Reason__c = 'Error Correction';
+    disputeCase2.Origin = 'In Person';
+    disputeCase2.Transaction_Id__c = 'c5aad076-ea65-4fa9-bc8c-f348c39cd0d6';
+    try {
+      insert disputeCase2;
+    } catch (DmlException e) {
+      // THEN the case should be created
+      System.assertEquals(null, e, 'An error has occurred');
+      Case createdDispute = [
+        SELECT Id, Dispute_Reason__c, Transaction_Id__c
+        FROM Case
+        WHERE AccountId = :acc.Id
+        LIMIT 1
+      ];
+      System.assertEquals(
+        'Error Correction',
+        createdDispute.Dispute_Reason__c,
+        'Dispute reasons do not match'
+      );
+      System.assertEquals(
+        'c5aad076-ea65-4fa9-bc8c-f348c39cd0d6',
+        createdDispute.Transaction_Id__c,
+        'Transaction Ids do not match'
+      );
+    }
+  }
 }

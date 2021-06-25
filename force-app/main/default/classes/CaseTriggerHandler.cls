@@ -31,6 +31,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     GetHelpCaseActions.handlePopulateCaseSubject(records, null);
     GetHelpCaseActions.updateEntitlement(records);
     GetHelpCaseActionsHelper.populateContactLookupForANZPlus(records);
+    GetHelpCaseActions.checkOpenDisputeOnTransaction(records);
   }
 
   /**
