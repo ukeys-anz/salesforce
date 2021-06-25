@@ -120,10 +120,6 @@
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>ParentId</field>
-            </layoutItems>
-            <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>IDR_Office__c</field>
             </layoutItems>
@@ -163,6 +159,10 @@
             <layoutItems>
                 <behavior>Required</behavior>
                 <field>IDR_Complainant_Desired_Outcome__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>ParentId</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
