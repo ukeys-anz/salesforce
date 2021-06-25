@@ -9,9 +9,7 @@ RecordType.DeveloperName == &apos;IDR_Task&apos; &amp;&amp;
 (ISBLANK(IDR_Key_Contact_Name__c) ||
 ISPICKVAL(IDR_Pended_To__c,&apos;&apos;) ||
 ISPICKVAL(IDR_Pend_Reason__c, &apos;&apos;) ||
-ISPICKVAL(IDR_Portfolio_or_Business_Unit__c, &apos;&apos;) ||
-ISPICKVAL(IDR_Tribe__c, &apos;&apos;) ||
-ISPICKVAL(IDR_Team__c, &apos;&apos;) ||
-ISBLANK(ActivityDate))</errorConditionFormula>
+ISBLANK(ActivityDate)||
+ISBLANK(Description))</errorConditionFormula>
     <errorMessage>Key Contact Name, Pended To, Pend Reason, Portfolio or Business Unit, Tribe, Team and Due date fields are mandatory for a pend case task.</errorMessage>
 </ValidationRule>
