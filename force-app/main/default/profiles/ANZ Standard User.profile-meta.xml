@@ -1729,6 +1729,9 @@
         <layout>Application_Log__c-Application Log Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>CFMS_Migrated_Document__c-CFMS Migrated Document Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case-Complaint Layout</layout>
         <recordType>Case.Customer_Complaint</recordType>
     </layoutAssignments>
@@ -1737,7 +1740,7 @@
         <recordType>Case.General_Inquiry_CMOS</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Case-Non-Customer Complaint Layout</layout>
+        <layout>Case-CFMS Migrated Complaint Layout</layout>
         <recordType>Case.CFMS_Migrated_Case</recordType>
     </layoutAssignments>
     <layoutAssignments>
