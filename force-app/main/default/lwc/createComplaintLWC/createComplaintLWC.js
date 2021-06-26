@@ -442,7 +442,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   }
 
   handleRealFormSubmitted(event) {
-    this.isRealFormSubmitted = event.detail.value == YES_VALUE ? true : false;
+    this.isRealFormSubmitted = event.detail.value === YES_VALUE ? true : false;
   }
 
   handleProductChange(event) {
@@ -541,6 +541,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
           this.missingDataFields += inputCmp.label + ", ";
         }
       }
+      return isValidSoFar;
     });
     if (this.missingDataFields !== "") {
       this.missingDataFields =
