@@ -304,7 +304,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   handleCustomerIdentifierChange(event) {
     this.customerIdentifierValue = event.target.value;
   }
-  
+
   handleComplaintTypeChange(event) {
     this.isBusiness = event.detail.value === BUSINESS_TYPE_API;
   }
