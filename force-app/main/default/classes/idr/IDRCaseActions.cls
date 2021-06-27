@@ -171,8 +171,8 @@ public with sharing class IDRCaseActions {
     for (Integer i = 0; i < records.size(); i++) {
       if (isIDRComplaintType(records.get(i))) {
         CommonUtil.handleMasking(
-          record,
-          oldRecord,
+          records.get(i),
+          (Case) oldMap.get(records.get(i).id),
           SObjectType.Case.FieldSets.IDR_Masked_Fields.getFields()
         );
         handleAnonymousNames(records.get(i));
@@ -190,7 +190,7 @@ public with sharing class IDRCaseActions {
           (case) oldMap.get(records.get(i).id)
         );
         if (record.IDR_Is_Common__c != oldRecord.IDR_Is_Common__c) {
-          updatePsiTicked.add(record);
+          updatePsiTicked.add(records.get(i));
         }
       }
       //calling handleOfficeAssignment for all case records for which the IDR_Office__c needs to be updated.
