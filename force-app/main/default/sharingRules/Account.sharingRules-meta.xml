@@ -30,7 +30,7 @@
         <description>Share Complaint Entitlement Account with all ANZ users.</description>
         <label>Share Complaint Entitlement Account</label>
         <sharedTo>
-            <group>All_IDR_Users</group>
+            <roleAndSubordinates>ANZ</roleAndSubordinates>
         </sharedTo>
         <criteriaItems>
             <field>AR_C_Customer__c</field>
