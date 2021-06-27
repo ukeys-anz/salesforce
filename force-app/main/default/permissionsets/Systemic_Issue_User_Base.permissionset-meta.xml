@@ -312,10 +312,6 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
-        <recordType>ContentVersion.Systemic_Issue_File</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
         <recordType>Task.Systemic_Issue_Task</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>

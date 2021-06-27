@@ -189,7 +189,10 @@ public with sharing class IDRCaseActions {
           records.get(i),
           (case) oldMap.get(records.get(i).id)
         );
-        if (record.IDR_Is_Common__c != oldRecord.IDR_Is_Common__c) {
+        if (
+          records.get(i).IDR_Is_Common__c !=
+          ((Case) oldMap.get(records.get(i).id)).IDR_Is_Common__c
+        ) {
           updatePsiTicked.add(records.get(i));
         }
       }
