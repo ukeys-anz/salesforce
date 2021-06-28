@@ -82,7 +82,7 @@ public with sharing class Lib_HttpCallout {
       Lib_SystemLog.createSingleLog(
         Lib_HttpCallout.class.getName(),
         'performCallout',
-        'COM0001',
+        '',
         e.getMessage(),
         Lib_SystemLog.Severity.ERROR
       );
