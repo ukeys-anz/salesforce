@@ -98,7 +98,7 @@ public inherited sharing class IDRCaseCommentActions {
         results,
         idrCaseCommentEscalationEvents
       );
-      log.insertLog();
+      log.insertLogAsync();
     }
   }
 

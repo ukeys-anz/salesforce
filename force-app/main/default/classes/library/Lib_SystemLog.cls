@@ -12,7 +12,9 @@
  * log.addDatabaseSaveResult(results, 'Contact', contactToUpdate);
  * @group Library
  */
-@SuppressWarnings('PMD.ExcessiveParameterList, PMD.ExcessivePublicCount, PMD.CyclomaticComplexity')
+@SuppressWarnings(
+  'PMD.ExcessiveParameterList, PMD.ExcessivePublicCount, PMD.CyclomaticComplexity'
+)
 public without sharing class Lib_SystemLog {
   public enum Severity {
     TRACE,
@@ -169,11 +171,27 @@ public without sharing class Lib_SystemLog {
 
   /**
    * @description The method is used to generate a record to log list at error level.
-   @param errorNo Error code used to create the log record.
+   * @param message Information message
+   */
+  public void error(String message) {
+    error('', message);
+  }
+
+  /**
+   * @description The method is used to generate a record to log list at error level.
+   * @param errorNo Error code used to create the log record.
    * @param message Information message
    */
   public void error(String errorNo, String message) {
     addMessage(errorNo, message, Severity.ERROR);
+  }
+
+  /**
+   * @description The method is used to generate a record to log list at fatal level.
+   * @param message Information message
+   */
+  public void fatal(String message) {
+    fatal('', message);
   }
 
   /**

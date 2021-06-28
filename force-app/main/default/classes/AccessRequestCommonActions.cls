@@ -31,7 +31,7 @@ public without sharing class AccessRequestCommonActions {
       Lib_SystemLog.createSingleLogAsync(
         AccessRequestCommonActions.class.getName(),
         'getApproverUserInfo',
-        'PAM001',
+        '',
         e.getMessage()
       );
     }
@@ -64,7 +64,7 @@ public without sharing class AccessRequestCommonActions {
         Lib_SystemLog.createSingleLogAsync(
           AccessRequestCommonActions.class.getName(),
           'calculateApprover',
-          'PAM002',
+          '',
           errorMessage
         );
       }
@@ -113,7 +113,7 @@ public without sharing class AccessRequestCommonActions {
       Lib_SystemLog.createSingleLogAsync(
         AccessRequestCommonActions.class.getName(),
         'createPARequestRecords',
-        'PAM002',
+        '',
         e.getMessage()
       );
     }

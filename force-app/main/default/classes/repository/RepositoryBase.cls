@@ -22,7 +22,7 @@ public virtual with sharing class RepositoryBase {
       Lib_SystemLog.createSingleLog(
         apexType.getName(),
         'RepositoryBase-handleErrors',
-        'JE0001',
+        '',
         err.getMessage(),
         Lib_SystemLog.Severity.ERROR
       );
@@ -40,7 +40,7 @@ public virtual with sharing class RepositoryBase {
       Lib_SystemLog.createSingleLog(
         apexType.getName(),
         'RepositoryBase-handleErrors',
-        'GE0001',
+        '',
         err.getMessage(),
         Lib_SystemLog.Severity.ERROR
       );
