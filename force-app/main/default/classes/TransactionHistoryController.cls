@@ -38,14 +38,19 @@ public with sharing class TransactionHistoryController {
   @AuraEnabled
   public static String getPersonContactId(String financialAccountId) {
     Id personAccountId = getPersonAccountId(financialAccountId);
-    Lib_SystemLog log = new Lib_SystemLog('TransactionHistoryController', 'getPersonContactId');
+    Lib_SystemLog log = new Lib_SystemLog(
+      'TransactionHistoryController',
+      'getPersonContactId'
+    );
     if (Account.SObjectType.getDescribe().isAccessible()) {
       for (Account personAccount : [
         SELECT Id, PersonContactId
         FROM Account
         WHERE Id = :personAccountId AND isPersonAccount = TRUE
       ]) {
-        log.trace('Person Contace retrieved with Id: ' + personAccount.PersonContactId);
+        log.trace(
+          'Person Contace retrieved with Id: ' + personAccount.PersonContactId
+        );
         log.insertLogAsync();
         return personAccount.PersonContactId;
       }
@@ -64,14 +69,20 @@ public with sharing class TransactionHistoryController {
    */
   @AuraEnabled
   public static String getPersonAccountId(String financialAccountId) {
-    Lib_SystemLog log = new Lib_SystemLog('TransactionHistoryController', 'getPersonAccountId');
+    Lib_SystemLog log = new Lib_SystemLog(
+      'TransactionHistoryController',
+      'getPersonAccountId'
+    );
     if (Account.SObjectType.getDescribe().isAccessible()) {
       for (FinServ__FinancialAccount__c financialAccount : [
         SELECT Id, FinServ__PrimaryOwner__c
         FROM FinServ__FinancialAccount__c
         WHERE Id = :financialAccountId
       ]) {
-        log.trace('Person Account retrieved with Id: ' + financialAccount.FinServ__PrimaryOwner__c);
+        log.trace(
+          'Person Account retrieved with Id: ' +
+          financialAccount.FinServ__PrimaryOwner__c
+        );
         log.insertLogAsync();
         return financialAccount.FinServ__PrimaryOwner__c;
       }
