@@ -229,7 +229,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   isAddressRequired;
   isRealFormNeeded;
   isRealFormSubmitted;
-  realFormRefNo;
+  realFormRefNo = "";
   consentOptions = [
     { label: "Agrees", value: "Agrees" },
     { label: "Disagrees", value: "Disagrees" }
@@ -451,6 +451,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   handleDescriptionChange(event) {
     this.description = event.detail.value;
+  }
+
+  handleRealFormRefNoChange(event) {
+    this.realFormRefNo = event.detail.value;
   }
 
   //form validation.
