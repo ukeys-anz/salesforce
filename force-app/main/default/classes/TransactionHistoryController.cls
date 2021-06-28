@@ -49,7 +49,7 @@ public with sharing class TransactionHistoryController {
         WHERE Id = :personAccountId AND isPersonAccount = TRUE
       ]) {
         log.trace(
-          'Person Contace retrieved with Id: ' + personAccount.PersonContactId
+          'Person Contact retrieved with Id: ' + personAccount.PersonContactId
         );
         log.insertLogAsync();
         return personAccount.PersonContactId;
