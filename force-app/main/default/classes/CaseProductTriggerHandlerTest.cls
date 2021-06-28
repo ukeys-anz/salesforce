@@ -1,5 +1,5 @@
 @isTest
-public with sharing class TestCaseProductTriggerHandler {
+public with sharing class CaseProductTriggerHandlerTest {
   @isTest
   static void testCreateUpdateCaseProducts() {
     //GIVEN Case and Product records
