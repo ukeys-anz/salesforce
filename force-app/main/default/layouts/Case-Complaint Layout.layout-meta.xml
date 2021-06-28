@@ -236,8 +236,12 @@
                 <field>IDR_Systemic_Issue_Category__c</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_Real_Form_Req__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Required</behavior>
-                <field>IDR_Is_Written_Resp_Requested__c</field>
+                <field>IDR_Is_Written_Resp_Required__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -247,11 +251,15 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>IDR_Real_Form_Req__c</field>
+                <field>IDR_Parent_Systemic_Issue__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>IDR_Datetime_PSI_Ticked__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
-                <field>IDR_Is_Written_Resp_Required__c</field>
+                <field>IDR_Is_Written_Resp_Requested__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>

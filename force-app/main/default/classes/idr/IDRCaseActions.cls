@@ -110,10 +110,15 @@ public with sharing class IDRCaseActions {
    */
   public static void applyDefaults(List<Case> records) {
     Id entitlementId = getEntitlement();
+    Case[] updatePsiTicked = new List<Case>();
     for (Case record : records) {
       if (isIDRComplaintType(record)) {
         record.EntitlementId = entitlementId;
-        handleMasking(record);
+        CommonUtil.handleMasking(
+          record,
+          null,
+          SObjectType.Case.FieldSets.IDR_Masked_Fields.getFields()
+        );
         handleAnonymousNames(record);
         handleCaseStatusChanges(record);
         if (((String) record.OwnerId).startsWith(Label.ID_Prefix_User)) {
@@ -121,11 +126,18 @@ public with sharing class IDRCaseActions {
           changeOfficeCaseList.add(record);
         }
         handleCaseEscalationRules(record, null);
+        if (record.IDR_Is_Common__c == 'Yes') {
+          updatePsiTicked.add(record);
+        }
       }
     }
     handleOfficeAssignment(changeOfficeCaseList);
     IDRCaseAssignmentRules.assignCases(records, null);
     stampQueueName(records, null);
+    //Update Date/Time PSI Ticked if complaint is flagged as PSI
+    if (!updatePsiTicked.isEmpty()) {
+      updateDateTimePsiTicked(updatePsiTicked);
+    }
   }
 
   /**
@@ -141,6 +153,7 @@ public with sharing class IDRCaseActions {
         checkForCRCEscalation(record, null);
       }
     }
+    IDRTaskActions.possibleSystemicIssueActions(records, null);
     escalateToCFMS(caseEscalationList);
   }
 
@@ -154,9 +167,14 @@ public with sharing class IDRCaseActions {
    * @param records from the trigger
    */
   public static void beforeUpdate(Map<Id, SObject> oldMap, List<Case> records) {
+    Case[] updatePsiTicked = new List<Case>();
     for (Integer i = 0; i < records.size(); i++) {
       if (isIDRComplaintType(records.get(i))) {
-        handleMasking(records.get(i));
+        CommonUtil.handleMasking(
+          records.get(i),
+          (Case) oldMap.get(records.get(i).id),
+          SObjectType.Case.FieldSets.IDR_Masked_Fields.getFields()
+        );
         handleAnonymousNames(records.get(i));
         identifyOwnerChangeRecords(
           records.get(i),
@@ -171,12 +189,22 @@ public with sharing class IDRCaseActions {
           records.get(i),
           (case) oldMap.get(records.get(i).id)
         );
+        if (
+          records.get(i).IDR_Is_Common__c !=
+          ((Case) oldMap.get(records.get(i).id)).IDR_Is_Common__c
+        ) {
+          updatePsiTicked.add(records.get(i));
+        }
       }
       //calling handleOfficeAssignment for all case records for which the IDR_Office__c needs to be updated.
       handleOfficeAssignment(changeOfficeCaseList);
-      IDRCaseAssignmentRules.assignCases(records, (Map<Id, Case>) oldMap);
     }
+    IDRCaseAssignmentRules.assignCases(records, (Map<Id, Case>) oldMap);
     stampQueueName(records, (Map<Id, Case>) oldMap);
+    //Update Date/Time PSI Ticked if complaint is flagged as PSI
+    if (!updatePsiTicked.isEmpty()) {
+      updateDateTimePsiTicked(updatePsiTicked);
+    }
   }
 
   /**
@@ -199,6 +227,7 @@ public with sharing class IDRCaseActions {
     }
     escalateToCFMS(caseEscalationList);
     IDRCaseCommentActions.escalateExistingCommentsToCFMS(oldMap, records);
+    IDRTaskActions.possibleSystemicIssueActions(records, oldMap);
   }
 
   /**
@@ -232,7 +261,10 @@ public with sharing class IDRCaseActions {
    */
   public static void onBeforeDelete(List<Case> records) {
     for (Case record : records) {
-      if (isIDRComplaintType(record)) {
+      if (
+        isIDRComplaintType(record) ||
+        record.recordTypeId == IDRConstants.SI_RT_ID
+      ) {
         record.addError(DELETE_ERROR);
       }
     }
@@ -313,25 +345,6 @@ public with sharing class IDRCaseActions {
     }
   }
 
-  /**
-   * @description handleMasking method is used to mask the Account/Policy number as we dont want to store the account number in SF. So, we mask the number and store only last last 4 digits unmasked.
-   * @param record The actual case record from the trigger
-   */
-  private static void handleMasking(Case record) {
-    record.IDR_Account_Card_Policy_Number__c = TextUtils.maskData(
-      record.IDR_Account_Card_Policy_Number__c
-    );
-    record.Description = TextUtils.maskData(record.Description);
-    record.IDR_Complainant_Desired_Outcome__c = TextUtils.maskData(
-      record.IDR_Complainant_Desired_Outcome__c
-    );
-    record.IDR_Description_of_Outcome__c = TextUtils.maskData(
-      record.IDR_Description_of_Outcome__c
-    );
-    record.IDR_Systemic_Issue_Description__c = TextUtils.maskData(
-      record.IDR_Systemic_Issue_Description__c
-    );
-  }
   /**
    * @description  handleCaseEscalationRules method is used to handle the case escalations
    * 1.First condition check is for auto esclated cases
@@ -657,5 +670,19 @@ public with sharing class IDRCaseActions {
         String.isNotBlank(c.CaseNumber__c) ? c.CaseNumber__c : c.CaseNumber
       )
     );
+  }
+
+  /**
+   * @description Update Date/Time PSI Ticked when complaint is flagged or unflagged. Before calling, check whether all cases are complaints and the PSI flag has just been ticked or unticked
+   * @param records from the trigger
+   */
+  private static void updateDateTimePsiTicked(List<Case> records) {
+    for (Case record : records) {
+      if (record.IDR_Is_Common__c == 'Yes') {
+        record.IDR_Datetime_PSI_Ticked__c = Datetime.now();
+      } else {
+        record.IDR_Datetime_PSI_Ticked__c = null;
+      }
+    }
   }
 }

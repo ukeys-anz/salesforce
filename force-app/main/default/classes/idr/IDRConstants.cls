@@ -4,6 +4,50 @@
  * @description  IDRConstants consists of all the IDR constants
  */
 public with sharing class IDRConstants {
+  //Complaint Status
+  public static final String OPEN_STATUS = 'Open';
+  public static final String UNDER_INVESTIGATION_STATUS = 'Under Investigation';
+  public static final String ESCALATED_STATUS = 'Escalated';
+  public static final String REOPENED_STATUS = 'Re-opened';
+  public static final String CLOSED_STATUS = 'Closed';
+  public static final String RESOLVED_STATUS = 'Resolved';
+  public static final String WITHDRAWN_STATUS = 'Withdrawn';
+
+  //Case Priority
+  public static final String CASE_PRIORITY_STANDARD = 'Standard';
+
+  //Customer Notification Template
+  public static final String CUSTOMER_NOTIFICATION_TEMPLATE_ID = 'AgCaseRegister';
+
+  //Banker Notification Template
+  public static final String BANKER_EMAIL_NOTIFICATION_TEMPLATE = 'AgCaseAutoEsclate';
+
+  public static final String QUEUE_TYPE = 'Queue';
+
+  //CMOS Case record type Ids
+  public static final Id CUSTOMER_COMPLAINT_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+    .get('Customer_Complaint')
+    .getRecordTypeId();
+  public static final Id NON_CUSTOMER_COMPLAINT_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+    .get('Non_Customer_Complaint')
+    .getRecordTypeId();
+  public static final Id SI_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+    .get('Systemic_Issue')
+    .getRecordTypeId();
+
+  //AR&C products record type Id
+  public static final Id ANZ_PRODUCT_RT_ID = Schema.SObjectType.Product2.getRecordTypeInfosByDeveloperName()
+    .get('ANZ_Product_or_Service')
+    .getRecordTypeId();
+
+  //CMOS Task record type Ids
+  public static final Id IDR_TASK_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
+    .get('IDR_Task')
+    .getRecordTypeId();
+  public static final Id SI_TASK_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
+    .get('Systemic_Issue_Task')
+    .getRecordTypeId();
+
   //Milestone Sla
   public static final string COMPLAINTS_ENTITLMENT_ACCT = 'Complaint Entitlement Account';
   public static final string COMPLAINTS_ENTITLMENT_PROCESS = 'complaints';

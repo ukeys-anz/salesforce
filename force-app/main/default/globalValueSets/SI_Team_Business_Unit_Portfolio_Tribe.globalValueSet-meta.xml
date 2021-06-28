@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>AMU &amp; Collections</fullName>
+        <default>false</default>
+        <label>AMU &amp; Collections</label>
+    </customValue>
+    <customValue>
+        <fullName>APRA Home Loans</fullName>
+        <default>false</default>
+        <label>APRA Home Loans</label>
+    </customValue>
+    <customValue>
+        <fullName>Business Lending Tribe</fullName>
+        <default>false</default>
+        <label>Business Lending Tribe</label>
+    </customValue>
+    <customValue>
+        <fullName>Business Owners Portfolio</fullName>
+        <default>false</default>
+        <label>Business Owners Portfolio</label>
+    </customValue>
+    <customValue>
+        <fullName>Commercial</fullName>
+        <default>false</default>
+        <label>Commercial</label>
+    </customValue>
+    <customValue>
+        <fullName>Commercial &amp; Consumer Cards and Personal Lending (CCPL) Tribe</fullName>
+        <default>false</default>
+        <label>Commercial &amp; Consumer Cards and Personal Lending (CCPL) Tribe</label>
+    </customValue>
+    <customValue>
+        <fullName>Customer Resolution Portfolio (CRP)</fullName>
+        <default>false</default>
+        <label>Customer Resolution Portfolio (CRP)</label>
+    </customValue>
+    <customValue>
+        <fullName>Customer Service Operations (CSO)</fullName>
+        <default>false</default>
+        <label>Customer Service Operations (CSO)</label>
+    </customValue>
+    <customValue>
+        <fullName>Deposits Tribe</fullName>
+        <default>false</default>
+        <label>Deposits Tribe</label>
+    </customValue>
+    <customValue>
+        <fullName>Digital Portfolio</fullName>
+        <default>false</default>
+        <label>Digital Portfolio</label>
+    </customValue>
+    <customValue>
+        <fullName>Digital Sales Experience Tribe</fullName>
+        <default>false</default>
+        <label>Digital Sales Experience Tribe</label>
+    </customValue>
+    <customValue>
+        <fullName>Group Payments</fullName>
+        <default>false</default>
+        <label>Group Payments</label>
+    </customValue>
+    <customValue>
+        <fullName>Group Payments Tribe</fullName>
+        <default>false</default>
+        <label>Group Payments Tribe</label>
+    </customValue>
+    <customValue>
+        <fullName>Home Loans Tribe</fullName>
+        <default>false</default>
+        <label>Home Loans Tribe</label>
+    </customValue>
+    <customValue>
+        <fullName>Home Owners Tribe</fullName>
+        <default>false</default>
+        <label>Home Owners Tribe</label>
+    </customValue>
+    <customValue>
+        <fullName>Payments &amp; Merchant Tribe</fullName>
+        <default>false</default>
+        <label>Payments &amp; Merchant Tribe</label>
+    </customValue>
+    <customValue>
+        <fullName>Private Banking &amp; Advice (PB&amp;A)</fullName>
+        <default>false</default>
+        <label>Private Banking &amp; Advice (PB&amp;A)</label>
+    </customValue>
+    <customValue>
+        <fullName>Responsible Banking Portfolio</fullName>
+        <default>false</default>
+        <label>Responsible Banking Portfolio</label>
+    </customValue>
+    <customValue>
+        <fullName>Retail Governance &amp; Operational Governance</fullName>
+        <default>false</default>
+        <label>Retail Governance &amp; Operational Governance</label>
+    </customValue>
+    <customValue>
+        <fullName>Systemic Issues</fullName>
+        <default>false</default>
+        <label>Systemic Issues</label>
+    </customValue>
+    <customValue>
+        <fullName>Wealth Tribe</fullName>
+        <default>false</default>
+        <label>Wealth Tribe</label>
+    </customValue>
+    <description>List of Teams/Business Units/Portfolios/Tribes potentially relevant to, or impacted by a systemic issue.</description>
+    <masterLabel>Teams/Business Units/Portfolios/Tribes</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>
