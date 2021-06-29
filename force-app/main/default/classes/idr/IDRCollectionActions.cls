@@ -154,7 +154,9 @@ public with sharing class IDRCollectionActions {
       !IDRConstants.ISSUE_TYPE_COLLECTIONS.contains(oldRec.Type) ||
       !IDRConstants.SUB_ISSUE_TYPE_COLLECTIONS.contains(
         oldRec.IDR_Subsequent_Issue__c
-      )) &&
+      ) ||
+      (oldRec.status != c.status &&
+      c.status == IDRConstants.REOPENED_STATUS)) &&
       String.isNotBlank(c.IDR_Collection_Number__c) &&
       productNameMap.containsKey(c.Product__c) &&
       IDRConstants.ISSUE_TYPE_COLLECTIONS.contains(c.Type) &&
@@ -182,7 +184,9 @@ public with sharing class IDRCollectionActions {
       ) ||
       !IDRConstants.SUB_ISSUE_TYPE_COLLECTIONS.contains(
         oldRec.IDR_Subsequent_Issue_2__c
-      )) &&
+      ) ||
+      (oldRec.status != c.status &&
+      c.status == IDRConstants.REOPENED_STATUS)) &&
       String.isNotBlank(c.IDR_Collection_Number_2__c) &&
       productNameMap.containsKey(c.IDR_Product_2__c) &&
       IDRConstants.ISSUE_TYPE_COLLECTIONS.contains(c.IDR_Issue_Type_2__c) &&
@@ -210,7 +214,9 @@ public with sharing class IDRCollectionActions {
       ) ||
       !IDRConstants.SUB_ISSUE_TYPE_COLLECTIONS.contains(
         oldRec.IDR_Subsequent_Issue_3__c
-      )) &&
+      ) ||
+      (oldRec.status != c.status &&
+      c.status == IDRConstants.REOPENED_STATUS)) &&
       String.isNotBlank(c.IDR_Collection_Number_3__c) &&
       productNameMap.containsKey(c.IDR_Product_3__c) &&
       IDRConstants.ISSUE_TYPE_COLLECTIONS.contains(c.IDR_Issue_Type_3__c) &&
