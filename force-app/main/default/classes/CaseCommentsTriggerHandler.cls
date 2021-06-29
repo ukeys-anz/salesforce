@@ -53,6 +53,9 @@ public with sharing class CaseCommentsTriggerHandler extends Lib_TriggerHandler 
    * @description onAfterInsert to perform processing during the after insert phase
    */
   public override void onAfterInsert() {
+    IDRCaseCommentsNotificationManager.manageNotification(
+      (List<CaseComment>) records
+    );
     IDRCaseCommentActions.escalateNewCommentsToCFMS(records);
   }
 }

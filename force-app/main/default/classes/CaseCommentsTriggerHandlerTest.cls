@@ -1,10 +1,52 @@
 @isTest
 public with sharing class CaseCommentsTriggerHandlerTest {
+  @testSetup
+  static void setup() {
+    Profile p = [SELECT Id FROM Profile WHERE Name = 'ANZ Standard User'];
+    UserRole bankerRole = [SELECT Id FROM UserRole WHERE Name = 'Banker'];
+    UserRole leadershipRole = [
+      SELECT Id
+      FROM UserRole
+      WHERE Name = 'Customer Resolution'
+    ];
+    User idrUser = (User) FakerFactory.make(new FakerUserFactory());
+    idrUser.ProfileId = p.Id;
+    idrUser.Business_Function__c = 'CMOS';
+    idrUser.Business_Role__c = 'Customer Resolution';
+    idrUser.FirstName = 'IDRL3';
+    idrUser.IsActive = true;
+    idrUser.UserRoleId = bankerRole.id;
+    insert idrUser;
+
+    List<String> idrPsets = new List<String>{ 'IDR_User', 'IDR_User_Level_1' };
+    List<PermissionSet> idrPsetList = [
+      SELECT Id
+      FROM PermissionSet
+      WHERE Name IN :idrPsets
+    ];
+
+    User usr = (User) FakerFactory.make(new FakerUserFactory());
+    usr.ProfileId = p.Id;
+    usr.Business_Function__c = 'CMOS';
+    usr.Business_Role__c = 'Customer Resolution';
+    usr.FirstName = 'IDRL1';
+    usr.IsActive = true;
+    usr.UserRoleId = leadershipRole.Id;
+    insert usr;
+
+    List<PermissionSetAssignment> idrPsaList = new List<PermissionSetAssignment>();
+    for (PermissionSet ps : idrPsetList) {
+      PermissionSetAssignment psa = new PermissionSetAssignment(
+        AssigneeId = usr.id,
+        PermissionSetId = ps.Id
+      );
+      idrPsaList.add(psa);
+    }
+    insert idrPsaList;
+  }
   @istest
   static void testCaseCommentsDelete() {
-    Case c = new Case(
-      RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID
-    );
+    Case c = new Case(RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID);
     insert c;
     CaseComment[] newCaseComments = new List<CaseComment>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
@@ -35,9 +77,7 @@ public with sharing class CaseCommentsTriggerHandlerTest {
 
   @isTest
   static void testCaseCommentMasking() {
-    Case c = new Case(
-      RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID
-    );
+    Case c = new Case(RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID);
     insert c;
     CaseComment[] newCaseComments = new List<CaseComment>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
@@ -70,9 +110,7 @@ public with sharing class CaseCommentsTriggerHandlerTest {
     setting.Object_API_Name__c = 'CaseComment';
     setting.Bypass_Delete__c = true;
     insert setting;
-    Case c = new Case(
-      RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID
-    );
+    Case c = new Case(RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID);
     insert c;
     CaseComment[] newCaseComments = new List<CaseComment>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
@@ -92,6 +130,54 @@ public with sharing class CaseCommentsTriggerHandlerTest {
       WHERE ParentId = :c.id
     ];
     System.assert(deletedComments.size() == 0);
+  }
+
+  @isTest
+  static void testCaseCommentNotification() {
+    User idrUser1 = [SELECT Id FROM user WHERE FirstName = 'IDRL3'];
+    User idrUser2 = [SELECT Id FROM user WHERE FirstName = 'IDRL1'];
+
+    //Given a compliant case record
+    List<Case> newCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
+          Status = IDRConstants.OPEN_STATUS,
+          Description = 'Test decription',
+          OwnerId = idrUser1.Id
+        )
+      );
+    }
+    insert newCases;
+
+    // Sharing Case record manually to avoid deployment issues
+    CaseShare cs = new CaseShare();
+    cs.CaseId = newCases[0].id;
+    cs.UserOrGroupId = idrUser2.Id;
+    cs.CaseAccessLevel = 'Edit';
+    insert cs;
+
+    System.runAs(idrUser2) {
+      Test.startTest();
+      //When another user adds a case comment
+      CaseComment testComment = new CaseComment(
+        CommentBody = 'Test',
+        ParentId = newCases[0].id
+      );
+      insert testComment;
+
+      Case c = [
+        SELECT Id, IDR_Update_Notification_Flag__c, OwnerId, Owner.isActive
+        FROM Case
+        WHERE Id = :newCases[0].id
+      ];
+
+      //THEN notification flag is set to true in the case record
+      System.assertEquals(true, c.IDR_Update_Notification_Flag__c);
+
+      Test.stopTest();
+    }
   }
 
   @istest
