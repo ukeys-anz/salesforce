@@ -314,6 +314,31 @@ describe("c-create-complaint-l-w-c", () => {
     writtenRequired.dispatchEvent(
       new CustomEvent("change", { detail: { value: "No" } })
     );
+    //Populate user input - is real form required
+    const realFormRequired = element.shadowRoot.querySelector(
+      "lightning-radio-group[data-id=realFormRequiredGroup-id]"
+    );
+    //Populate user input - is real form submitted
+    const realFormSubmitted = element.shadowRoot.querySelector(
+      "lightning-radio-group[data-id=realFormSubmittedGroup-id]"
+    );
+    //Populate user input - real form reference number
+    const realFormRefNo = element.shadowRoot.querySelector(
+      "lightning-input[data-id=realFormRefNoGroup]"
+    );
+    realFormRequired.dispatchEvent(
+      new CustomEvent("change", { detail: { value: "Yes" } }),
+      () => {
+        realFormSubmitted.dispatchEvent(
+          new CustomEvent("change", { detail: { value: "Yes" } }),
+          () => {
+            realFormRefNo.dispatchEvent(
+              new CustomEvent("change", { detail: { value: "123456789" } })
+            );
+          }
+        );
+      }
+    );
     //Populate user input - possible systemic issue
     const possibleSystemicIssue = element.shadowRoot.querySelector(
       "lightning-radio-group[data-id=commoncomplaintGroup-id]"
