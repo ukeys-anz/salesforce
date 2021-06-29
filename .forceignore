@@ -89,8 +89,3 @@ force-app/main/default/classes/GetAccountsAndGoals.cls
 KnowledgeValidationStatus
 type:DataCategoryGroup
 
-#Ignoring two deleted case fields to allow successfull deployment of EA data flows which previously referenced them
-#(below entries should be removed from here once changes have gone live)
-force-app/main/default/objects/Case/fields/Fraud_EV_Consent__c.field-meta.xml
-force-app/main/default/objects/Case/fields/Fraud_EV_Rules_Met__c.field-meta.xml
-
