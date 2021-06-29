@@ -1,0 +1,624 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_Tribe__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Tribe details a task is pending with.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>If Internal Business Unit selected as Pended to (Party), please select the Tribe case is pending with.</inlineHelpText>
+    <label>Tribe</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>IDR_Portfolio_or_Business_Unit__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Business Lending Tribe</fullName>
+                <default>false</default>
+                <label>Business Lending Tribe</label>
+            </value>
+            <value>
+                <fullName>Business Owner Engagement Tribe</fullName>
+                <default>false</default>
+                <label>Business Owner Engagement Tribe</label>
+            </value>
+            <value>
+                <fullName>Digital Orientation &amp; Innovation Tribe</fullName>
+                <default>false</default>
+                <label>Digital Orientation &amp; Innovation Tribe</label>
+            </value>
+            <value>
+                <fullName>Payments &amp; Merchants Tribe</fullName>
+                <default>false</default>
+                <label>Payments &amp; Merchants Tribe</label>
+            </value>
+            <value>
+                <fullName>Business Banking</fullName>
+                <default>false</default>
+                <label>Business Banking</label>
+            </value>
+            <value>
+                <fullName>Business Execution</fullName>
+                <default>false</default>
+                <label>Business Execution</label>
+            </value>
+            <value>
+                <fullName>Commercial Broker</fullName>
+                <default>false</default>
+                <label>Commercial Broker</label>
+            </value>
+            <value>
+                <fullName>Private Banking &amp; Advice (PB&amp;A)</fullName>
+                <default>false</default>
+                <label>Private Banking &amp; Advice (PB&amp;A)</label>
+            </value>
+            <value>
+                <fullName>Risk Engagement</fullName>
+                <default>false</default>
+                <label>Risk Engagement</label>
+            </value>
+            <value>
+                <fullName>Small Business Banking</fullName>
+                <default>false</default>
+                <label>Small Business Banking</label>
+            </value>
+            <value>
+                <fullName>Specialised Distribution</fullName>
+                <default>false</default>
+                <label>Specialised Distribution</label>
+            </value>
+            <value>
+                <fullName>Specialist Product Sales</fullName>
+                <default>false</default>
+                <label>Specialist Product Sales</label>
+            </value>
+            <value>
+                <fullName>Accessibility</fullName>
+                <default>false</default>
+                <label>Accessibility</label>
+            </value>
+            <value>
+                <fullName>Complaint Resolution</fullName>
+                <default>false</default>
+                <label>Complaint Resolution</label>
+            </value>
+            <value>
+                <fullName>Complaint Transformation</fullName>
+                <default>false</default>
+                <label>Complaint Transformation</label>
+            </value>
+            <value>
+                <fullName>Complaints Insights</fullName>
+                <default>false</default>
+                <label>Complaints Insights</label>
+            </value>
+            <value>
+                <fullName>Customer Advocate</fullName>
+                <default>false</default>
+                <label>Customer Advocate</label>
+            </value>
+            <value>
+                <fullName>Portfolio Performance</fullName>
+                <default>false</default>
+                <label>Portfolio Performance</label>
+            </value>
+            <value>
+                <fullName>Project Augur</fullName>
+                <default>false</default>
+                <label>Project Augur</label>
+            </value>
+            <value>
+                <fullName>Systemic Issues</fullName>
+                <default>false</default>
+                <label>Systemic Issues</label>
+            </value>
+            <value>
+                <fullName>Business Governance</fullName>
+                <default>false</default>
+                <label>Business Governance</label>
+            </value>
+            <value>
+                <fullName>Business Owners</fullName>
+                <default>false</default>
+                <label>Business Owners</label>
+            </value>
+            <value>
+                <fullName>Customer Collections &amp; Service Centre</fullName>
+                <default>false</default>
+                <label>Customer Collections &amp; Service Centre</label>
+            </value>
+            <value>
+                <fullName>Retail Customer Lending</fullName>
+                <default>false</default>
+                <label>Retail Customer Lending</label>
+            </value>
+            <value>
+                <fullName>Customer Protection</fullName>
+                <default>false</default>
+                <label>Customer Protection</label>
+            </value>
+            <value>
+                <fullName>Customer Servicing</fullName>
+                <default>false</default>
+                <label>Customer Servicing</label>
+            </value>
+            <value>
+                <fullName>Hardship and Vulnerable Customers</fullName>
+                <default>false</default>
+                <label>Hardship and Vulnerable Customers</label>
+            </value>
+            <value>
+                <fullName>Home Owners &amp; Service Centres</fullName>
+                <default>false</default>
+                <label>Home Owners &amp; Service Centres</label>
+            </value>
+            <value>
+                <fullName>Performance</fullName>
+                <default>false</default>
+                <label>Performance</label>
+            </value>
+            <value>
+                <fullName>Retail Credit Control &amp; Quality</fullName>
+                <default>false</default>
+                <label>Retail Credit Control &amp; Quality</label>
+            </value>
+            <value>
+                <fullName>Transformation and Transforming Customer Service Tribe</fullName>
+                <default>false</default>
+                <label>Transformation and Transforming Customer Service Tribe</label>
+            </value>
+            <value>
+                <fullName>Data</fullName>
+                <default>false</default>
+                <label>Data</label>
+            </value>
+            <value>
+                <fullName>ANZi</fullName>
+                <default>false</default>
+                <label>ANZi</label>
+            </value>
+            <value>
+                <fullName>ANZx</fullName>
+                <default>false</default>
+                <label>ANZx</label>
+            </value>
+            <value>
+                <fullName>Capabilities (Human-Centred Design and Group Marketing)</fullName>
+                <default>false</default>
+                <label>Capabilities (Human-Centred Design and Group Marketing)</label>
+            </value>
+            <value>
+                <fullName>Office of the Chief Operations Officer</fullName>
+                <default>false</default>
+                <label>Office of the Chief Operations Officer</label>
+            </value>
+            <value>
+                <fullName>Banker Experience Tribe</fullName>
+                <default>false</default>
+                <label>Banker Experience Tribe</label>
+            </value>
+            <value>
+                <fullName>Customer Authentication Tribe</fullName>
+                <default>false</default>
+                <label>Customer Authentication Tribe</label>
+            </value>
+            <value>
+                <fullName>Customer Self-Service Tribe</fullName>
+                <default>false</default>
+                <label>Customer Self-Service Tribe</label>
+            </value>
+            <value>
+                <fullName>Digital Customer Experience Tribe</fullName>
+                <default>false</default>
+                <label>Digital Customer Experience Tribe</label>
+            </value>
+            <value>
+                <fullName>Digital Sales &amp; Sales Optimisation Tribe</fullName>
+                <default>false</default>
+                <label>Digital Sales &amp; Sales Optimisation Tribe</label>
+            </value>
+            <value>
+                <fullName>Omni-Channel Platform Technology</fullName>
+                <default>false</default>
+                <label>Omni-Channel Platform Technology</label>
+            </value>
+            <value>
+                <fullName>ANZ Command Centre</fullName>
+                <default>false</default>
+                <label>ANZ Command Centre</label>
+            </value>
+            <value>
+                <fullName>Assurance</fullName>
+                <default>false</default>
+                <label>Assurance</label>
+            </value>
+            <value>
+                <fullName>Enablement</fullName>
+                <default>false</default>
+                <label>Enablement</label>
+            </value>
+            <value>
+                <fullName>Payment Operations</fullName>
+                <default>false</default>
+                <label>Payment Operations</label>
+            </value>
+            <value>
+                <fullName>Reconciliations</fullName>
+                <default>false</default>
+                <label>Reconciliations</label>
+            </value>
+            <value>
+                <fullName>Remove Image Capture (RIC)</fullName>
+                <default>false</default>
+                <label>Remove Image Capture (RIC)</label>
+            </value>
+            <value>
+                <fullName>Credit Cards and Personal Lending (CCPL) Tribe</fullName>
+                <default>false</default>
+                <label>Credit Cards and Personal Lending (CCPL) Tribe</label>
+            </value>
+            <value>
+                <fullName>Deposits Tribe</fullName>
+                <default>false</default>
+                <label>Deposits Tribe</label>
+            </value>
+            <value>
+                <fullName>Everyday Banking Tribe</fullName>
+                <default>false</default>
+                <label>Everyday Banking Tribe</label>
+            </value>
+            <value>
+                <fullName>Home Lending Tribe</fullName>
+                <default>false</default>
+                <label>Home Lending Tribe</label>
+            </value>
+            <value>
+                <fullName>Home Owners Tribe</fullName>
+                <default>false</default>
+                <label>Home Owners Tribe</label>
+            </value>
+            <value>
+                <fullName>Wealth Tribe</fullName>
+                <default>false</default>
+                <label>Wealth Tribe</label>
+            </value>
+            <value>
+                <fullName>Responsible Lending Tribe</fullName>
+                <default>false</default>
+                <label>Responsible Lending Tribe</label>
+            </value>
+            <value>
+                <fullName>Remediation</fullName>
+                <default>false</default>
+                <label>Remediation</label>
+            </value>
+            <value>
+                <fullName>Prevention and Detection</fullName>
+                <default>false</default>
+                <label>Prevention and Detection</label>
+            </value>
+            <value>
+                <fullName>Australian Branch Network</fullName>
+                <default>false</default>
+                <label>Australian Branch Network</label>
+            </value>
+            <value>
+                <fullName>Customer Contact Centre</fullName>
+                <default>false</default>
+                <label>Customer Contact Centre</label>
+            </value>
+            <value>
+                <fullName>Mobile Lending</fullName>
+                <default>false</default>
+                <label>Mobile Lending</label>
+            </value>
+            <value>
+                <fullName>Retail Broker Distribution</fullName>
+                <default>false</default>
+                <label>Retail Broker Distribution</label>
+            </value>
+            <value>
+                <fullName>Retail Business Execution</fullName>
+                <default>false</default>
+                <label>Retail Business Execution</label>
+            </value>
+            <value>
+                <fullName>Retail Governance &amp; Operational Excellence</fullName>
+                <default>false</default>
+                <label>Retail Governance &amp; Operational Excellence</label>
+            </value>
+            <value>
+                <fullName>Retail Transformation</fullName>
+                <default>false</default>
+                <label>Retail Transformation</label>
+            </value>
+            <value>
+                <fullName>Wealth Customer Resolution</fullName>
+                <default>false</default>
+                <label>Wealth Customer Resolution</label>
+            </value>
+            <value>
+                <fullName>Wealth Operations</fullName>
+                <default>false</default>
+                <label>Wealth Operations</label>
+            </value>
+            <value>
+                <fullName>Wealth Technology</fullName>
+                <default>false</default>
+                <label>Wealth Technology</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Wealth (AR&amp;C)</controllingFieldValue>
+            <valueName>Wealth Customer Resolution</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Wealth (AR&amp;C)</controllingFieldValue>
+            <valueName>Wealth Operations</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Wealth (AR&amp;C)</controllingFieldValue>
+            <valueName>Wealth Technology</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business Owners (AR&amp;C)</controllingFieldValue>
+            <valueName>Business Lending Tribe</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business Owners (AR&amp;C)</controllingFieldValue>
+            <valueName>Business Owner Engagement Tribe</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business Owners (AR&amp;C)</controllingFieldValue>
+            <valueName>Digital Orientation &amp; Innovation Tribe</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business Owners (AR&amp;C)</controllingFieldValue>
+            <valueName>Payments &amp; Merchants Tribe</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Commercial (AR&amp;C)</controllingFieldValue>
+            <valueName>Business Banking</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Commercial (AR&amp;C)</controllingFieldValue>
+            <valueName>Business Execution</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Commercial (AR&amp;C)</controllingFieldValue>
+            <valueName>Commercial Broker</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Commercial (AR&amp;C)</controllingFieldValue>
+            <valueName>Private Banking &amp; Advice (PB&amp;A)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Commercial (AR&amp;C)</controllingFieldValue>
+            <valueName>Risk Engagement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Commercial (AR&amp;C)</controllingFieldValue>
+            <valueName>Small Business Banking</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Commercial (AR&amp;C)</controllingFieldValue>
+            <valueName>Specialised Distribution</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Commercial (AR&amp;C)</controllingFieldValue>
+            <valueName>Specialist Product Sales</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Resolution Portfolio (AR&amp;C)</controllingFieldValue>
+            <valueName>Accessibility</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Resolution Portfolio (AR&amp;C)</controllingFieldValue>
+            <valueName>Complaint Resolution</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Resolution Portfolio (AR&amp;C)</controllingFieldValue>
+            <valueName>Complaint Transformation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Resolution Portfolio (AR&amp;C)</controllingFieldValue>
+            <valueName>Complaints Insights</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Resolution Portfolio (AR&amp;C)</controllingFieldValue>
+            <valueName>Customer Advocate</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Resolution Portfolio (AR&amp;C)</controllingFieldValue>
+            <valueName>Portfolio Performance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Resolution Portfolio (AR&amp;C)</controllingFieldValue>
+            <valueName>Project Augur</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Resolution Portfolio (AR&amp;C)</controllingFieldValue>
+            <valueName>Systemic Issues</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Service Operations Portfolio (AR&amp;C)</controllingFieldValue>
+            <valueName>Business Governance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Service Operations Portfolio (AR&amp;C)</controllingFieldValue>
+            <valueName>Business Owners</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Service Operations Portfolio (AR&amp;C)</controllingFieldValue>
+            <valueName>Customer Collections &amp; Service Centre</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Service Operations Portfolio (AR&amp;C)</controllingFieldValue>
+            <valueName>Retail Customer Lending</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Service Operations Portfolio (AR&amp;C)</controllingFieldValue>
+            <valueName>Customer Protection</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Service Operations Portfolio (AR&amp;C)</controllingFieldValue>
+            <valueName>Customer Servicing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Service Operations Portfolio (AR&amp;C)</controllingFieldValue>
+            <valueName>Hardship and Vulnerable Customers</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Service Operations Portfolio (AR&amp;C)</controllingFieldValue>
+            <valueName>Home Owners &amp; Service Centres</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Service Operations Portfolio (AR&amp;C)</controllingFieldValue>
+            <valueName>Performance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Service Operations Portfolio (AR&amp;C)</controllingFieldValue>
+            <valueName>Retail Credit Control &amp; Quality</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Service Operations Portfolio (AR&amp;C)</controllingFieldValue>
+            <valueName>Transformation and Transforming Customer Service Tribe</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Data (Digital &amp; Transformation Australia)</controllingFieldValue>
+            <valueName>Data</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Data (Digital &amp; Transformation Australia)</controllingFieldValue>
+            <valueName>ANZi</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Data (Digital &amp; Transformation Australia)</controllingFieldValue>
+            <valueName>ANZx</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Data (Digital &amp; Transformation Australia)</controllingFieldValue>
+            <valueName>Capabilities (Human-Centred Design and Group Marketing)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Data (Digital &amp; Transformation Australia)</controllingFieldValue>
+            <valueName>Office of the Chief Operations Officer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Digital Portfolio (AR&amp;C)</controllingFieldValue>
+            <valueName>Banker Experience Tribe</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Digital Portfolio (AR&amp;C)</controllingFieldValue>
+            <valueName>Customer Authentication Tribe</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Digital Portfolio (AR&amp;C)</controllingFieldValue>
+            <valueName>Customer Self-Service Tribe</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Digital Portfolio (AR&amp;C)</controllingFieldValue>
+            <valueName>Digital Customer Experience Tribe</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Digital Portfolio (AR&amp;C)</controllingFieldValue>
+            <valueName>Digital Sales &amp; Sales Optimisation Tribe</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Digital Portfolio (AR&amp;C)</controllingFieldValue>
+            <valueName>Omni-Channel Platform Technology</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Group Services (AR&amp;C)</controllingFieldValue>
+            <valueName>ANZ Command Centre</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Group Services (AR&amp;C)</controllingFieldValue>
+            <valueName>Assurance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Group Services (AR&amp;C)</controllingFieldValue>
+            <controllingFieldValue>Responsible Banking Portfolio (AR&amp;C)</controllingFieldValue>
+            <valueName>Enablement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Group Services (AR&amp;C)</controllingFieldValue>
+            <valueName>Payment Operations</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Group Services (AR&amp;C)</controllingFieldValue>
+            <valueName>Reconciliations</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Group Services (AR&amp;C)</controllingFieldValue>
+            <valueName>Remove Image Capture (RIC)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Owners Portfolio (AR&amp;C)</controllingFieldValue>
+            <valueName>Credit Cards and Personal Lending (CCPL) Tribe</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Owners Portfolio (AR&amp;C)</controllingFieldValue>
+            <valueName>Deposits Tribe</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Owners Portfolio (AR&amp;C)</controllingFieldValue>
+            <valueName>Everyday Banking Tribe</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Owners Portfolio (AR&amp;C)</controllingFieldValue>
+            <valueName>Home Lending Tribe</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Owners Portfolio (AR&amp;C)</controllingFieldValue>
+            <valueName>Home Owners Tribe</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Owners Portfolio (AR&amp;C)</controllingFieldValue>
+            <valueName>Wealth Tribe</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Owners Portfolio (AR&amp;C)</controllingFieldValue>
+            <valueName>Responsible Lending Tribe</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Responsible Banking Portfolio (AR&amp;C)</controllingFieldValue>
+            <valueName>Remediation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Responsible Banking Portfolio (AR&amp;C)</controllingFieldValue>
+            <valueName>Prevention and Detection</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Retail (AR&amp;C)</controllingFieldValue>
+            <valueName>Australian Branch Network</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Retail (AR&amp;C)</controllingFieldValue>
+            <valueName>Customer Contact Centre</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Retail (AR&amp;C)</controllingFieldValue>
+            <valueName>Mobile Lending</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Retail (AR&amp;C)</controllingFieldValue>
+            <valueName>Retail Broker Distribution</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Retail (AR&amp;C)</controllingFieldValue>
+            <valueName>Retail Business Execution</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Retail (AR&amp;C)</controllingFieldValue>
+            <valueName>Retail Governance &amp; Operational Excellence</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Retail (AR&amp;C)</controllingFieldValue>
+            <valueName>Retail Transformation</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

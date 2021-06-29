@@ -83,6 +83,12 @@ public without sharing class IDRTaskActions {
     ) {
       record.Completed_Date__c = Date.today();
     }
+    if (
+      record.Type == IDRConstants.TASK_TYPE_PEND_CASE &&
+      record.Subject != IDRConstants.SUBJECT_PEND_CASE_TASK
+    ) {
+      record.Subject = IDRConstants.SUBJECT_PEND_CASE_TASK;
+    }
   }
   /**
    * @description assignToCollectionQueue method is used to validate the collection task created by mulesoft and assign to respective collections queue

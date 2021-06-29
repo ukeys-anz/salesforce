@@ -124,6 +124,10 @@ public with sharing class IDRConstants {
   public static final String CASE_NO_REGEX = '\\d{4,8}';
   public static final String CASE_EMAIL_REGEX = '(?<=\\<)(.*?)(?=\\>)';
 
+  //Task fields Constants
+  public static final String TASK_TYPE_PEND_CASE = 'Pend Case';
+  public static final String SUBJECT_PEND_CASE_TASK = 'Case Pended - provide update in case comment';
+
   //Anz.com constants
   /**
    * @description Static variable to map anz.com field with case fields

@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Trusted;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Textual description of the task, input by the Salesforce user</description>
+    <inlineHelpText>Please provide further information regarding this task</inlineHelpText>
     <encryptionScheme>ProbabilisticEncryption</encryptionScheme>
     <securityClassification>Confidential</securityClassification>
 </CustomField>
