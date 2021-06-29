@@ -34,9 +34,6 @@ public with sharing class IDRBankerNotificationBuilder {
 
       if (!recipientIds.isEmpty()) {
         sendInAppNotification(wrapperRecord, type.Id, recipientIds);
-        if (wrapperRecord.relatedCaseRecord != null) {
-          caseUpdateFlag(wrapperRecord.relatedCaseRecord);
-        }
       }
     }
   }
@@ -97,33 +94,6 @@ public with sharing class IDRBankerNotificationBuilder {
         null,
         null
       );
-    }
-  }
-
-  /**
-   * @description Update the case flag
-   * @param c case to be updated
-   */
-  public static void caseUpdateFlag(Case c) {
-    //avoid DML update if the flag is already true and the user is l2 or l3
-    if (
-      c.IDR_Update_Notification_Flag__c == false &&
-      !(FeatureManagement.checkPermission('IDR_Level_2') ||
-      FeatureManagement.checkPermission('IDR_Level_3'))
-    ) {
-      c.IDR_Update_Notification_Flag__c = true;
-      if (
-        Case.sObjectType.getDescribe().isUpdateable() &&
-        Schema.sObjectType.Case.fields.IDR_Update_Notification_Flag__c.isUpdateable()
-      ) {
-        update c;
-      } else {
-        CommonUtil.logAndThrowIAE(
-          'IDRBankerNotificationBuilder',
-          'caseUpdateFlag',
-          'Not enough permissions to update Case.'
-        );
-      }
     }
   }
 

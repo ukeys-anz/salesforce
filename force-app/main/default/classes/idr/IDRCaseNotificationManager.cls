@@ -76,7 +76,6 @@ public with sharing class IDRCaseNotificationManager {
           IDRCaseActions.isIDRComplaintType(records[i])
         ) {
           //Set notification flag to true in here itself to avoid update in IDRBankerNotificationBuilder
-          records[i].IDR_Update_Notification_Flag__c = true;
           wrapperList.add(createNotification(fieldLabel, records[i], null));
         }
       }

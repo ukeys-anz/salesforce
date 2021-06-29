@@ -65,12 +65,7 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
     }
 
     for (Case c : [
-      SELECT
-        Id,
-        RecordTypeId,
-        CaseNumber,
-        OwnerId,
-        IDR_Update_Notification_Flag__c
+      SELECT Id, RecordTypeId, CaseNumber, OwnerId
       FROM Case
       WHERE Id IN :caseIds AND Owner.isActive = TRUE
     ]) {
