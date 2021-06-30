@@ -19,4 +19,10 @@
         <label>Completed</label>
         <closed>true</closed>
     </standardValue>
+    <standardValue>
+        <fullName>Expired</fullName>
+        <default>false</default>
+        <label>Expired</label>
+        <closed>true</closed>
+    </standardValue>
 </StandardValueSet>
