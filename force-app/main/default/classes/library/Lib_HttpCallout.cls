@@ -66,6 +66,7 @@ public with sharing class Lib_HttpCallout {
       null,
       null
     );
+    log.insertLog();
     try {
       Http http = new Http();
       response = http.send(request);
@@ -101,6 +102,7 @@ public with sharing class Lib_HttpCallout {
         null,
         null
       );
+      log.insertLog();
       return callResponse;
     } catch (Exception e) {
       //Log failure
@@ -115,6 +117,7 @@ public with sharing class Lib_HttpCallout {
         request.getMethod(),
         response.getStatusCode()
       );
+      log.insertLog();
       callResponse.successful = false;
       callResponse.error = e;
       return callResponse;

@@ -89,6 +89,7 @@ public with sharing class RequestUtils {
         request.getMethod(),
         response.getStatusCode()
       );
+      log.insertLog();
 
       if (usedInLWC) {
         AuraHandledException ahe = new AuraHandledException(e.getMessage());

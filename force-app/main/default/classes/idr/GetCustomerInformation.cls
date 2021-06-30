@@ -54,6 +54,7 @@ public with sharing class GetCustomerInformation {
           HTTP_METHOD.HTTP_GET.name(),
           response.getStatusCode()
         );
+        log.insertLog();
         //throw new AuraHandledException(e.getMessage());
         AuraHandledException ahe = new AuraHandledException(e.getMessage());
         ahe.setMessage(e.getMessage());

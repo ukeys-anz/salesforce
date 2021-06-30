@@ -241,6 +241,7 @@ public with sharing class AuthTokenCacheUtil {
         null,
         res.getStatusCode()
       );
+      log.insertLog();
     }
 
     return (String) idToken;

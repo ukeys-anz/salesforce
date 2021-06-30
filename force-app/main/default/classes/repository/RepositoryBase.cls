@@ -38,6 +38,7 @@ public virtual with sharing class RepositoryBase {
         null,
         response.statusCode
       );
+      log.insertLog();
     } else {
       Lib_SystemLog.createSingleLog(
         apexType.getName(),

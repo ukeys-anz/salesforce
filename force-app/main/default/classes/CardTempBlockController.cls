@@ -56,6 +56,7 @@ public with sharing class CardTempBlockController {
           HTTP_METHOD.HTTP_PUT.name(),
           response.getStatusCode()
         );
+        log.insertLog();
         AuraHandledException ahe = new AuraHandledException(e.getMessage());
         ahe.setMessage(e.getMessage());
         throw ahe;
