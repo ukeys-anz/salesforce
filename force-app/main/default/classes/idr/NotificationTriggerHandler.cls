@@ -137,7 +137,6 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
           IDR_NC_Email__c,
           IDR_NC_Is_Consent_Obtained__c,
           CaseNumber__c,
-          IDR_Customer_Identifier__c,
           CaseNumber,
           IDR_NC_First_Name__c,
           IDR_NC_Mobile__c,
@@ -186,11 +185,6 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
     notification.AuthorisedFirstName__c = c.IDR_3rdParty_Name__c;
     notification.AuthorisedMobile__c = c.IDR_3rdParty_Mobile__c;
     notification.CAP_CIS_ID__c = c.IDR_Customer_Number__c;
-    notification.Customer_Identifier__c = ((String.isNotBlank(
-        c.IDR_Customer_Identifier__c
-      ) && c.IDR_Customer_Identifier__c.contains('CAP ID'))
-      ? 'CAP ID'
-      : c.IDR_Customer_Identifier__c);
     notification.Case_ID__c = c.ID;
     notification.Case_Number__c = getFormattedCaseNumberToNotify(c);
     notification.ComplainantEmail__c = (c.RecordTypeId ==
