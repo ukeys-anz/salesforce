@@ -110,7 +110,7 @@ public with sharing class Lib_HttpCallout {
         Lib_HttpCallout.class.getName(),
         'performCallout',
         e.getMessage(),
-        'COM0001',
+        '',
         null,
         null,
         request.getEndpoint(),

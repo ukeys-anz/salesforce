@@ -509,7 +509,7 @@ public with sharing class IDRCaseActions {
         results,
         idrCaseEscalations
       );
-      log.insertLog();
+      log.insertLogAsync();
     }
     //Todo handle errors further if needed.
   }
@@ -591,7 +591,7 @@ public with sharing class IDRCaseActions {
         results,
         idrNotifications
       );
-      log.insertLog();
+      log.insertLogAsync();
     }
     //Todo handle errors further if needed.
   }
