@@ -128,17 +128,6 @@
           { "name": "ContactId" },
           { "name": "CreatedById" },
           { "name": "CreatedDate" },
-          { "name": "Fraud_Complicit_in_Fraud__c" },
-          { "name": "Fraud_Customer_Event_Age__c" },
-          { "name": "Fraud_Repeat_Victim__c" },
-          { "name": "Fraud_Total_Customer_Loss__c" },
-          { "name": "Fraud_Total_Falcon_Recalled__c" },
-          { "name": "Fraud_Total_Fraud_Received__c" },
-          { "name": "Fraud_Total_Fraud_Value__c" },
-          { "name": "Fraud_Total_Recipient_Loss__c" },
-          { "name": "Fraud_Total_Recovered__c" },
-          { "name": "Fraud_Total_Reimbursed__c" },
-          { "name": "Fraud_Total_Scam_Value__c" },
           { "name": "ClosedDate" },
           { "name": "Id" },
           { "name": "IsClosed" },
@@ -271,7 +260,9 @@
     },
     "FilterRemedyPicklist": {
       "action": "filter",
-      "parameters": { "filter": "EntityParticleId:EQ:Case.00N2N00000CJHhy" },
+      "parameters": {
+        "filter": "EntityParticleId:EQ:Case.00N2N00000CJHhy|Case.00N5m000000PSfr"
+      },
       "sources": ["PullPicklistValues"]
     },
     "MergeCaseProduct": {
@@ -387,7 +378,7 @@
           { "name": "EntityParticleId" }
         ],
         "object": "PicklistValueInfo",
-        "passthroughFilter": "EntityParticleId = 'Case.Type' OR EntityParticleId = 'Case.00N2N00000AA4RW' OR EntityParticleId = 'Case.00N2N00000CJHhy' OR EntityParticleId = 'Case.IDR_Complaint_Remedy__c'",
+        "passthroughFilter": "EntityParticleId = 'Case.Type' OR EntityParticleId = 'Case.00N2N00000AA4RW' OR EntityParticleId = 'Case.00N2N00000CJHhy' OR EntityParticleId = 'Case.IDR_Complaint_Remedy__c'\nOR EntityParticleId = 'Case.00N5m000000PSfr'",
         "runtime": { "enablePKChunking": false }
       }
     },

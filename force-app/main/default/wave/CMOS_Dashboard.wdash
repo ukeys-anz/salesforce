@@ -41,13 +41,13 @@
       "numColumns": 24,
       "pages": [
         {
-          "label": "Untitled",
+          "label": "Home",
           "name": "a282deda-b864-4fdf-b350-9b109fec619a",
           "navigationHidden": false,
           "widgets": [
             {
-              "colspan": 12,
-              "column": 6,
+              "colspan": 11,
+              "column": 0,
               "name": "container_4",
               "row": 6,
               "rowspan": 28,
@@ -74,8 +74,8 @@
               }
             },
             {
-              "colspan": 12,
-              "column": 6,
+              "colspan": 11,
+              "column": 0,
               "name": "chart_7",
               "row": 19,
               "rowspan": 14,
@@ -266,8 +266,8 @@
               }
             },
             {
-              "colspan": 6,
-              "column": 0,
+              "colspan": 7,
+              "column": 11,
               "name": "listselector_1",
               "row": 6,
               "rowspan": 28,
@@ -294,11 +294,11 @@
               }
             },
             {
-              "colspan": 6,
-              "column": 9,
+              "colspan": 8,
+              "column": 8,
               "name": "text_9",
               "row": 87,
-              "rowspan": 3,
+              "rowspan": 4,
               "widgetStyle": { "borderEdges": [] }
             },
             {
@@ -316,8 +316,8 @@
               }
             },
             {
-              "colspan": 12,
-              "column": 6,
+              "colspan": 11,
+              "column": 0,
               "name": "chart_1",
               "row": 7,
               "rowspan": 11,
@@ -367,6 +367,65 @@
               "name": "chart_11",
               "row": 84,
               "rowspan": 24,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 7,
+              "column": 16,
+              "name": "link_2",
+              "row": 78,
+              "rowspan": 3,
+              "widgetStyle": { "borderEdges": [] }
+            }
+          ]
+        },
+        {
+          "label": "Case Details",
+          "name": "7682d4f8-901e-4334-9d3c-da7d7bc9f0d5",
+          "navigationHidden": false,
+          "widgets": [
+            {
+              "colspan": 24,
+              "column": 0,
+              "name": "container_2",
+              "row": 0,
+              "rowspan": 59,
+              "widgetStyle": {
+                "backgroundColor": "#091A3E",
+                "borderColor": "#E6ECF2",
+                "borderEdges": [],
+                "borderRadius": 16,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 12,
+              "column": 11,
+              "name": "text_6",
+              "row": 1,
+              "rowspan": 7,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 22,
+              "column": 1,
+              "name": "table_1",
+              "row": 9,
+              "rowspan": 48,
+              "widgetStyle": {
+                "backgroundColor": "rgba(255, 255, 255, 0)",
+                "borderColor": "#E6ECF2",
+                "borderEdges": [],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 4,
+              "column": 1,
+              "name": "link_1",
+              "row": 3,
+              "rowspan": 3,
               "widgetStyle": { "borderEdges": [] }
             }
           ]
@@ -2480,6 +2539,45 @@
         "type": "chart"
       }
     },
+    "lens_5": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "lens_5",
+      "numbers": [],
+      "query": "q = load \"CMOS_Cases\";\nq = foreach q generate 'CaseNumber' as 'CaseNumber', 'Origin' as 'Origin', 'Picklist.Type.Label' as 'Issue Type', 'SLA_Status__c' as 'SLA_Status__c', 'Status' as 'Status', 'Picklist.Remedy.Label' as 'Remedy';\nq = limit q 100;",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "borderColor": "#e0e5ee",
+          "borderWidth": 1,
+          "cell": {
+            "backgroundColor": "#ffffff",
+            "fontColor": "#16325c",
+            "fontSize": 12
+          },
+          "columnProperties": {},
+          "columns": [],
+          "customBulkActions": [],
+          "header": {
+            "backgroundColor": "#f4f6f9",
+            "fontColor": "#16325c",
+            "fontSize": 12
+          },
+          "innerMajorBorderColor": "#a8b7c7",
+          "innerMinorBorderColor": "#e0e5ee",
+          "mode": "fittocontainer",
+          "numberOfLines": 1,
+          "showActionMenu": true,
+          "totals": true,
+          "verticalPadding": 12
+        },
+        "type": "table"
+      }
+    },
     "lens_3": {
       "broadcastFacet": true,
       "groups": [],
@@ -2789,6 +2887,14 @@
   },
   "widgets": {
     "container_1": {
+      "parameters": {
+        "alignmentX": "left",
+        "alignmentY": "top",
+        "fit": "original"
+      },
+      "type": "container"
+    },
+    "container_2": {
       "parameters": {
         "alignmentX": "left",
         "alignmentY": "top",
@@ -3279,6 +3385,16 @@
       },
       "type": "chart"
     },
+    "text_6": {
+      "parameters": {
+        "content": { "displayTemplate": "Case Details\n" },
+        "fontSize": 16,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#091A3E"
+      },
+      "type": "text"
+    },
     "chart_4": {
       "parameters": {
         "autoFitMode": "keepLabels",
@@ -3381,13 +3497,14 @@
         "axisMode": "multi",
         "tooltip": {
           "showBinLabel": true,
-          "measures": "",
+          "measures": ["count"],
           "showNullValues": true,
           "showPercentage": true,
+          "customText": "",
           "showDimensions": true,
           "showMeasures": true,
-          "customizeTooltip": false,
-          "dimensions": ""
+          "customizeTooltip": true,
+          "dimensions": ["Picklist.Type.Label"]
         },
         "visualizationType": "pie",
         "exploreLink": true,
@@ -3471,6 +3588,59 @@
         "textColor": "#091A3E"
       },
       "type": "text"
+    },
+    "link_1": {
+      "parameters": {
+        "destinationLink": { "name": "a282deda-b864-4fdf-b350-9b109fec619a" },
+        "destinationType": "page",
+        "fontSize": 16,
+        "includeState": false,
+        "text": "< Back",
+        "textAlignment": "left",
+        "textColor": "#FFFFFF"
+      },
+      "type": "link"
+    },
+    "link_2": {
+      "parameters": {
+        "destinationLink": { "name": "7682d4f8-901e-4334-9d3c-da7d7bc9f0d5" },
+        "destinationType": "page",
+        "fontSize": 14,
+        "includeState": false,
+        "text": "See Case Details >",
+        "textAlignment": "right",
+        "textColor": "#FFFFFF"
+      },
+      "type": "link"
+    },
+    "table_1": {
+      "parameters": {
+        "borderColor": "#e0e5ee",
+        "borderWidth": 1,
+        "cell": {
+          "backgroundColor": "#ffffff",
+          "fontColor": "#16325c",
+          "fontSize": 12
+        },
+        "columnProperties": {},
+        "columns": [],
+        "customBulkActions": [],
+        "exploreLink": true,
+        "header": {
+          "backgroundColor": "#f4f6f9",
+          "fontColor": "#16325c",
+          "fontSize": 12
+        },
+        "innerMajorBorderColor": "#a8b7c7",
+        "innerMinorBorderColor": "#e0e5ee",
+        "mode": "fittocontainer",
+        "numberOfLines": 1,
+        "showActionMenu": true,
+        "step": "lens_5",
+        "totals": true,
+        "verticalPadding": 12
+      },
+      "type": "table"
     },
     "number_2": {
       "parameters": {
