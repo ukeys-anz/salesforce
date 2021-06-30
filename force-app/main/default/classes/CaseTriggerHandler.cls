@@ -55,6 +55,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     IDRCaseActions.beforeUpdate(oldMap, records);
     GetHelpCaseActions.beforeUpdate(oldMap, records);
+    GetHelpCaseActions.handlePopulateCaseSubject(records, null);
   }
 
   /**
