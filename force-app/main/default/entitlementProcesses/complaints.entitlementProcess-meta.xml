@@ -12,7 +12,7 @@
     </exitCriteriaFilterItems>
     <milestones>
         <businessHours>Case Business Hours</businessHours>
-        <criteriaBooleanFilter>(1 OR 2) AND 5 AND (3 OR 4)</criteriaBooleanFilter>
+        <criteriaBooleanFilter>(1 OR 2) AND (3 OR 4)</criteriaBooleanFilter>
         <milestoneCriteriaFilterItems>
             <field>Case.Status</field>
             <operation>equals</operation>
@@ -32,11 +32,6 @@
             <field>Case.RecordTypeId</field>
             <operation>equals</operation>
             <value>Non-Customer Complaint</value>
-        </milestoneCriteriaFilterItems>
-        <milestoneCriteriaFilterItems>
-            <field>Case.IDR_Inbox_Email_Address__c</field>
-            <operation>equals</operation>
-            <value/>
         </milestoneCriteriaFilterItems>
         <milestoneName>Open_Escalation_Time</milestoneName>
         <minutesToComplete>7680</minutesToComplete>
