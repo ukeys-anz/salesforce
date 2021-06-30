@@ -4,7 +4,7 @@
  * @description  To test ContentDocumentLinkTriggerHandler
  */
 @isTest
-public class TestContentDocumentLinkTriggerHandler {
+public class ContentDocumentLinkTriggerHandlerTest {
   /**
    * @description Test data setup required for this test class
    */
@@ -61,7 +61,6 @@ public class TestContentDocumentLinkTriggerHandler {
       cv.Title = 'Test File Delete';
       cv.PathOnClient = 'Test File Delete' + '.txt';
       cv.VersionData = Blob.valueOf('Test File Delete functionality');
-      cv.RecordTypeId = IDRConstants.COMPLAINT_FILE_RT_ID;
 
       insert cv;
 
@@ -78,12 +77,12 @@ public class TestContentDocumentLinkTriggerHandler {
 
       Test.stopTest();
 
-      List<Case> caseList = [
-        SELECT Id, IDR_Update_Notification_Flag__c
-        FROM Case
+      List<Application_Log__c> appLogs = [
+        SELECT ID
+        FROM Application_Log__c
+        WHERE Process_Name__c = 'IDRBankerNotificationBuilder'
       ];
-      //THEN notification flag is set to true in the case record
-      System.assertEquals(true, caseList[0].IDR_Update_Notification_Flag__c);
+      System.assertEquals(0, appLogs.size());
     }
   }
 }

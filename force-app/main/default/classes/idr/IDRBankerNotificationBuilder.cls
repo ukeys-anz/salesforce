@@ -54,12 +54,6 @@ public with sharing class IDRBankerNotificationBuilder {
         if (userPreferenceMap.get(recipient).inApp) {
           recipients.add(recipient);
         }
-        if (userPreferenceMap.get(recipient).email) {
-          emailRecipients.add(recipient);
-        }
-        if (userPreferenceMap.get(recipient).caseFlag) {
-          recipients.add(recipient);
-        }
       } else {
         recipients.add(recipient);
       }
