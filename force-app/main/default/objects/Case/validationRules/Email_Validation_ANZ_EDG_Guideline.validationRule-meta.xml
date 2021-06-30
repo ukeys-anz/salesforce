@@ -3,9 +3,17 @@
     <fullName>Email_Validation_ANZ_EDG_Guideline</fullName>
     <active>true</active>
     <description>Validating email inputs to make sure they meet ANZ EDG data capture guidelines outlined related to CODEX PAC-224</description>
-    <errorConditionFormula>AND(
-NOT(ISBLANK(SuppliedEmail)),
-NOT(REGEX(SuppliedEmail,&quot;^[a-zA-Z0-9._+-]{2,}@[a-zA-Z0-9.-]{2,}\\.[a-zA-Z]{2,}$&quot;))
+    <errorConditionFormula>OR(
+   CONTAINS(LOWER(SuppliedEmail),&quot;notwanted&quot;),
+   CONTAINS(LOWER(SuppliedEmail),&quot;xxx&quot;),
+   CONTAINS(LOWER(SuppliedEmail),&quot;unknown&quot;),
+   CONTAINS(LOWER(SuppliedEmail),&quot;unkown&quot;),
+   CONTAINS(LOWER(SuppliedEmail),&quot;notprovided&quot;),
+   CONTAINS(LOWER(SuppliedEmail),&quot;noemail&quot;),
+   AND(
+   NOT(ISBLANK(SuppliedEmail)),
+   NOT(REGEX(SuppliedEmail,&quot;^[a-zA-Z0-9._+-]{2,}@[a-zA-Z0-9.-]{2,}\\.[a-zA-Z]{2,}$&quot;))
+   )
 )</errorConditionFormula>
     <errorDisplayField>SuppliedEmail</errorDisplayField>
     <errorMessage>Entered email does not comply with ANZ data capture guidelines</errorMessage>
