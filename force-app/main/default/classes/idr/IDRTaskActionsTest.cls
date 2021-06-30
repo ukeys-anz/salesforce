@@ -46,6 +46,26 @@ private with sharing class IDRTaskActionsTest {
   }
 
   @isTest
+  static void testTaskFieldMasking() {
+    //GIVEN tasks
+    //WHEN they're inserted
+    //THEN long numbers in free text fields are masked, showing only the last four digits
+    Task t = [SELECT Subject, Description FROM Task LIMIT 1];
+    System.assertEquals('*****1234', t.Subject, 'Subject should be masked.');
+    System.assertEquals(
+      'Test description ********9101 check mask',
+      t.Description,
+      'Description should be masked.'
+    );
+    //AND WHEN updated
+    t.Subject = '987654321';
+    update t;
+    //THEN long numbers in free text fields are masked, showing only the last four digits
+    t = [SELECT Subject FROM Task LIMIT 1];
+    System.assertEquals('*****4321', t.Subject, 'Subject should be masked.');
+  }
+
+  @isTest
   static void testSITaskDueDateUpdate() {
     User siUser = TestUtil.getUserByFirstName('siUser');
     List<Case> newSIs = new List<Case>();
