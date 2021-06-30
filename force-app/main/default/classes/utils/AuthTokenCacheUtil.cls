@@ -9,7 +9,7 @@ public with sharing class AuthTokenCacheUtil {
   private final static String SESSIONPART = 'local.SessionAzureTokens.';
   @TestVisible
   private final static String STAFFPART = 'local.ForgeToken.';
-  private final static Non_Prod_Settings__c NON_PROD_SETTINGS = Non_Prod_Settings__c.getOrgDefaults();
+  private final static Non_Prod_Settings__c NON_PROD_SETTINGS = Non_Prod_Settings__c.getInstance(UserInfo.getUserId());
 
   /**
    * @description move the tokens for the current user from org to session cache
