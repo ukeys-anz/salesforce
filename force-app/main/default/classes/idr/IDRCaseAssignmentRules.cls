@@ -37,9 +37,9 @@ public with sharing class IDRCaseAssignmentRules {
   private static ID getOwnerId(Case rec, String product, Case oldCase) {
     //rules to run only on escalation
     if (
-      rec.Status == IDRCaseActions.ESCALATED_STATUS &&
+      rec.Status == IDRConstants.ESCALATED_STATUS &&
       (oldCase == null ||
-      oldCase.Status != IDRCaseActions.ESCALATED_STATUS)
+      oldCase.Status != IDRConstants.ESCALATED_STATUS)
     ) {
       //Priority
       if (
