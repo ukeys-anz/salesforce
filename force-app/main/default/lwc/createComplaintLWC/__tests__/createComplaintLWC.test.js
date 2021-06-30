@@ -329,6 +329,8 @@ describe("c-create-complaint-l-w-c", () => {
     realFormRequired.dispatchEvent(
       new CustomEvent("change", { detail: { value: "Yes" } }),
       () => {
+        //Asserting for required scenario (positive)
+        expect(realFormSubmitted.required).toBe(true);
         realFormSubmitted.dispatchEvent(
           new CustomEvent("change", { detail: { value: "Yes" } }),
           () => {
@@ -337,6 +339,13 @@ describe("c-create-complaint-l-w-c", () => {
             );
           }
         );
+      }
+    );
+    realFormRequired.dispatchEvent(
+      new CustomEvent("change", { detail: { value: "No" } }),
+      () => {
+        //Asserting for not required scenario (negative)
+        expect(realFormSubmitted.required).toBe(false);
       }
     );
     //Populate user input - possible systemic issue
