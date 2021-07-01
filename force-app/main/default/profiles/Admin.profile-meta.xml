@@ -2566,6 +2566,7 @@
         <field>Task.Voice_Call_SID__c</field>
         <readable>true</readable>
     </fieldPermissions>
+
     <fieldPermissions>
         <editable>true</editable>
         <field>IDR_Notification_Event__e.ComplainantMobile__c</field>
@@ -2619,6 +2620,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Privileged_Access_Request__c.Actual_Access_Revoked_Time__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Notification_Handler__c.Description__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2738,6 +2744,7 @@
         <layout>Application_Log__c-Application Log Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
+    <layoutAssignments>
         <layout>Case-ATM Dispute Layout</layout>
         <recordType>Case.ATM_Dispute</recordType>
     </layoutAssignments>
@@ -2830,6 +2837,10 @@
     <layoutAssignments>
         <layout>Task-Call Log Layout</layout>
         <recordType>Task.Call_Log</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Task-IDR System Task</layout>
+        <recordType>Task.IDR_System_Task</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Task-IDR Task Layout</layout>
@@ -2990,6 +3001,15 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
         <object>Knowledge__kav</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>Notification_Handler__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
@@ -3186,6 +3206,11 @@
     <recordTypeVisibilities>
         <default>true</default>
         <recordType>Task.Call_Log</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Task.IDR_System_Task</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
