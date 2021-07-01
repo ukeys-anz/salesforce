@@ -5,7 +5,7 @@
  * @group Services
  */
 public with sharing class ServiceProvider {
-  private final static Non_Prod_Settings__c NON_PROD_SETTINGS = Non_Prod_Settings__c.getOrgDefaults();
+  private final static Non_Prod_Settings__c NON_PROD_SETTINGS = Non_Prod_Settings__c.getInstance(UserInfo.getUserId());
   private static Map<String, Service> servicesMap = new Map<String, Service>();
 
   /**
