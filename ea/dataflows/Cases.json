@@ -55,7 +55,7 @@
         "rightKey": ["CaseId"],
         "rightSelect": ["CountOfTransfers"]
       },
-      "sources": ["IncludeOnly:ANZx_Enquiry_Disputes", "CalcCountOfTransfers"]
+      "sources": ["AgedTicketsBucket", "CalcCountOfTransfers"]
     },
     "MergeCaseProduct": {
       "action": "augment",
@@ -157,7 +157,8 @@
           { "name": "ProductId" },
           { "name": "Status" },
           { "name": "IDR_Date_Received__c" },
-          { "name": "RecordTypeId" }
+          { "name": "RecordTypeId" },
+          { "name": "IDR_Escalation_Reason__c" }
         ],
         "object": "Case"
       }
@@ -201,13 +202,6 @@
         "rightSelect": ["Name", "DeveloperName"]
       },
       "sources": ["MergeIssuePicklist", "RecordType"]
-    },
-    "IncludeOnly:ANZx_Enquiry_Disputes": {
-      "action": "filter",
-      "parameters": {
-        "saqlFilter": "'Record.DeveloperName' in [\"ANZx_Complaint\", \"General_Inquiry\", \"ATM_Dispute\", \"Direct_Debit_Dispute\", \"Card_Dispute\", \"Direct_Entry_Dispute\", \"Urgent_Dishonour_Request_Dispute\"]"
-      },
-      "sources": ["AgedTicketsBucket"]
     },
     "AgedTicketsBucket": {
       "action": "computeExpression",
