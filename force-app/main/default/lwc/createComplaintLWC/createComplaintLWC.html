@@ -702,7 +702,7 @@
                   <lightning-radio-group
                     required={isRealFormNeeded}
                     name="realFormSubmittedGroup"
-                    label="Is a REAL form submitted?"
+                    label="Has a REAL form been submitted?"
                     onchange={handleRealFormSubmitted}
                     options={realFormReqOptions}
                     type="button"
@@ -716,7 +716,7 @@
                 >
                   <lightning-input
                     type="text"
-                    label="Real Form Reference No."
+                    label="Risk Event ID"
                     value={realFormRefNo}
                     max-length="50"
                     onchange={handleRealFormRefNoChange}

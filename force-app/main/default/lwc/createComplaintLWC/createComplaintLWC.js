@@ -438,7 +438,11 @@ export default class CreateComplaintLWC extends NavigationMixin(
   }
 
   handleRealFormNeeded(event) {
-    this.isRealFormNeeded = event.detail.value === YES_VALUE ? true : false;
+    if (event.detail.value !== YES_VALUE) {
+      this.isRealFormNeeded = this.isRealFormSubmitted = false;
+    } else {
+      this.isRealFormNeeded = true;
+    }
   }
 
   handleRealFormSubmitted(event) {

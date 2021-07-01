@@ -5,7 +5,7 @@
     <complianceGroup>Source_Salesforce;Integrity_Accurate</complianceGroup>
     <description>The Real form reference number - Optional recorded if the IDR Real form is submitted</description>
     <externalId>false</externalId>
-    <label>REAL Form Ref No</label>
+    <label>Risk Event ID</label>
     <length>50</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>

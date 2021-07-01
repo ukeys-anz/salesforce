@@ -6,7 +6,7 @@
     <defaultValue>false</defaultValue>
     <description>Checking if the Real form is submitted, if the Real form was required.</description>
     <externalId>false</externalId>
-    <label>Is a REAL Form Submitted?</label>
+    <label>Has a REAL form been submitted?</label>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
