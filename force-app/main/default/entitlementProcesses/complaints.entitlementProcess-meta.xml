@@ -12,27 +12,18 @@
     </exitCriteriaFilterItems>
     <milestones>
         <businessHours>Case Business Hours</businessHours>
-        <criteriaBooleanFilter>(1 OR 2) AND (3 OR 4)</criteriaBooleanFilter>
-        <milestoneCriteriaFilterItems>
-            <field>Case.Status</field>
-            <operation>equals</operation>
-            <value>Open</value>
-        </milestoneCriteriaFilterItems>
-        <milestoneCriteriaFilterItems>
-            <field>Case.Status</field>
-            <operation>equals</operation>
-            <value>Under Investigation</value>
-        </milestoneCriteriaFilterItems>
-        <milestoneCriteriaFilterItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Customer Complaint</value>
-        </milestoneCriteriaFilterItems>
-        <milestoneCriteriaFilterItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Non-Customer Complaint</value>
-        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFormula>AND(
+OR(  
+ISPICKVAL(Status, &apos;Open&apos;),
+ISPICKVAL(Status, &apos;Under Investigation&apos;) 
+),
+OR(
+RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
+RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
+),
+NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution_Leadership&apos;),
+NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
+)</milestoneCriteriaFormula>
         <milestoneName>Open_Escalation_Time</milestoneName>
         <minutesToComplete>7680</minutesToComplete>
         <timeTriggers>
