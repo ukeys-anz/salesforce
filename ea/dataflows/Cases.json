@@ -3,7 +3,7 @@
     "CasesOutput": {
       "action": "register",
       "parameters": { "label": "Cases w/Duration", "name": "cases_duration" },
-      "sources": ["CaseDurationInSeconds"]
+      "sources": ["AddUserRoleInfo"]
     },
     "CaseTypePickList": {
       "action": "sobjectDigest",
@@ -117,6 +117,13 @@
       },
       "sources": ["CalcHasBeenTransferred"]
     },
+    "UserDigest": {
+      "action": "sobjectDigest",
+      "parameters": {
+        "fields": [{ "name": "Id" }, { "name": "UserRoleId" }],
+        "object": "User"
+      }
+    },
     "CaseDigest": {
       "action": "sobjectDigest",
       "parameters": {
@@ -191,6 +198,17 @@
         ],
         "object": "RecordType"
       }
+    },
+    "AddUserRoleInfo": {
+      "action": "augment",
+      "parameters": {
+        "leftKey": ["OwnerId"],
+        "operation": "LookupSingleValue",
+        "relationship": "Role",
+        "rightKey": ["Id"],
+        "rightSelect": ["UserRoleId"]
+      },
+      "sources": ["CaseDurationInSeconds", "UserDigest"]
     },
     "JoinRecordType": {
       "action": "augment",

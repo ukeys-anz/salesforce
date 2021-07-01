@@ -237,7 +237,7 @@
           ]
         },
         {
-          "label": "Grid Expanded",
+          "label": "Cases Expanded",
           "name": "Page_Grid_Expansion",
           "navigationHidden": false,
           "widgets": [
