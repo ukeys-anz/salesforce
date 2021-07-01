@@ -685,17 +685,49 @@
                   content="A REAL form is required if there has been an Operational Risk Event: a failure of internal process, people and/or systems, or an external event (i.e. something has gone wrong). The event could/will have financial, reputation or compliance impacts for ANZ"
                 >
                 </lightning-helptext>
-                <lightning-input
-                  type="toggle"
+                <lightning-radio-group
+                  required
+                  name="realFormRequiredGroup"
                   label="Is a REAL form required?"
                   onchange={handleRealFormNeeded}
-                  message-toggle-active="Yes"
-                  message-toggle-inactive="No"
-                >
-                </lightning-input>
+                  options={realFormReqOptions}
+                  type="button"
+                  data-id="realFormRequiredGroup-id"
+                ></lightning-radio-group>
               </div>
+              <template if:true={isRealFormNeeded}>
+                <div
+                  class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
+                >
+                  <lightning-radio-group
+                    required={isRealFormNeeded}
+                    name="realFormSubmittedGroup"
+                    label="Is a REAL form submitted?"
+                    onchange={handleRealFormSubmitted}
+                    options={realFormReqOptions}
+                    type="button"
+                    data-id="realFormSubmittedGroup-id"
+                  ></lightning-radio-group>
+                </div>
+              </template>
+              <template if:true={isRealFormSubmitted}>
+                <div
+                  class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
+                >
+                  <lightning-input
+                    type="text"
+                    label="Real Form Reference No."
+                    value={realFormRefNo}
+                    max-length="50"
+                    onchange={handleRealFormRefNoChange}
+                    data-id="realFormRefNoGroup-id"
+                  ></lightning-input>
+                </div>
+              </template>
               <!--Complaint Status-->
-              <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+              <div
+                class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
+              >
                 <lightning-combobox
                   name="ComplaintStatus"
                   label="Complaint Status"
@@ -707,7 +739,9 @@
                 ></lightning-combobox>
               </div>
               <template if:true={isComplaintEscalated}>
-                <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                <div
+                  class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
+                >
                   <lightning-input-field
                     variant="label-stacked"
                     aria-label="Dropdown Complaint Escalation Reason"
@@ -716,7 +750,9 @@
                     data-id="escalationReason-id"
                   ></lightning-input-field>
                 </div>
-                <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                <div
+                  class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
+                >
                   <lightning-input-field
                     variant="label-stacked"
                     aria-label="Restriction Level"
@@ -728,7 +764,9 @@
                 </div>
               </template>
               <template if:true={isComplaintResolved}>
-                <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                <div
+                  class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
+                >
                   <lightning-input-field
                     variant="label-stacked"
                     aria-label="Dropdown Complaint Outcome"
@@ -737,7 +775,9 @@
                     data-id="compOutCome-id"
                   ></lightning-input-field>
                 </div>
-                <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                <div
+                  class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
+                >
                   <lightning-input-field
                     variant="label-stacked"
                     required={isComplaintResolved}
@@ -745,7 +785,9 @@
                     data-id="descOutcome-id"
                   ></lightning-input-field>
                 </div>
-                <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                <div
+                  class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
+                >
                   <lightning-input-field
                     variant="label-stacked"
                     aria-label="Dropdown Complaint Remedy"
@@ -755,7 +797,9 @@
                     data-id="compRemedy-id"
                   ></lightning-input-field>
                 </div>
-                <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                <div
+                  class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
+                >
                   <template if:true={isFinancialComplaintRemedy}>
                     <label
                       class="slds-form-element__label"
@@ -808,7 +852,9 @@
                 </lightning-radio-group>
               </div>
               <template if:true={isCommonComplaint}>
-                <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                <div
+                  class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
+                >
                   <lightning-input-field
                     variant="label-stacked"
                     required={isCommonComplaint}
@@ -816,7 +862,9 @@
                     data-id="siDescription-id"
                   ></lightning-input-field>
                 </div>
-                <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                <div
+                  class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
+                >
                   <lightning-input-field
                     variant="label-stacked"
                     required={isCommonComplaint}
@@ -825,7 +873,9 @@
                   ></lightning-input-field>
                 </div>
                 <template if:true={hasSecondIssue}>
-                  <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                  <div
+                    class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
+                  >
                     <lightning-input-field
                       variant="label-stacked"
                       field-name={possibleSystemicIssues}

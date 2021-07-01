@@ -68,6 +68,8 @@ import IS_REAL_FORM_NEED_FIELD from "@salesforce/schema/Case.IDR_Real_Form_Req__
 import SYSTEMIC_ISSUE_DESCRIPTION from "@salesforce/schema/Case.IDR_Systemic_Issue_Description__c";
 import SYSTEMIC_ISSUE_CATEGORY from "@salesforce/schema/Case.IDR_Systemic_Issue_Category__c";
 import POSSIBLE_SYSTEMIC_ISSUES from "@salesforce/schema/Case.IDR_Possible_Systemic_Issues__c";
+import IS_REAL_FORM_SUBMITTED from "@salesforce/schema/Case.IDR_Real_Form_Submitted__c";
+import REAL_FORM_REF_NO from "@salesforce/schema/Case.IDR_Real_Form_Ref_No__c";
 
 //Is Escalated fields
 import ESCALATED_TO from "@salesforce/schema/Case.IDR_Escalated_to__c";
@@ -172,7 +174,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   //systemic fields
   commonComplaint = IS_COMMON_COMPLAINT_FIELD;
-  isRealFormNeeded = false;
   systemicIssueDescription = SYSTEMIC_ISSUE_DESCRIPTION;
   systemicIssueCategory = SYSTEMIC_ISSUE_CATEGORY;
   possibleSystemicIssues = POSSIBLE_SYSTEMIC_ISSUES;
@@ -226,6 +227,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
   isCommonComplaintYesNo;
   isCommonComplaint;
   isAddressRequired;
+  isRealFormNeeded;
+  isRealFormSubmitted;
+  realFormRefNo = "";
   consentOptions = [
     { label: "Agrees", value: "Agrees" },
     { label: "Disagrees", value: "Disagrees" }
@@ -243,6 +247,11 @@ export default class CreateComplaintLWC extends NavigationMixin(
   accountNumberOptions = [{ label: "N/A", value: "N/A" }];
 
   commoncomplaintoptions = [
+    { label: "Yes", value: "Yes" },
+    { label: "No", value: "No" }
+  ];
+
+  realFormReqOptions = [
     { label: "Yes", value: "Yes" },
     { label: "No", value: "No" }
   ];
@@ -328,10 +337,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.isCommonComplaintYesNo = event.target.value;
     this.isCommonComplaint =
       this.isCommonComplaintYesNo === "Yes" ? true : false;
-  }
-
-  handleRealFormNeeded(event) {
-    this.isRealFormNeeded = event.target.checked;
   }
   handleStatusChange(event) {
     this.caseStatus = event.target.value;
@@ -432,12 +437,24 @@ export default class CreateComplaintLWC extends NavigationMixin(
         this.writtenResponseValue === YES_VALUE);
   }
 
+  handleRealFormNeeded(event) {
+    this.isRealFormNeeded = event.detail.value === YES_VALUE ? true : false;
+  }
+
+  handleRealFormSubmitted(event) {
+    this.isRealFormSubmitted = event.detail.value === YES_VALUE ? true : false;
+  }
+
   handleProductChange(event) {
     this.productValue = event.detail.value[0];
   }
 
   handleDescriptionChange(event) {
     this.description = event.detail.value;
+  }
+
+  handleRealFormRefNoChange(event) {
+    this.realFormRefNo = event.detail.value;
   }
 
   //form validation.
@@ -516,6 +533,20 @@ export default class CreateComplaintLWC extends NavigationMixin(
       isFieldValid = false;
       this.missingDataFields += "Is this a possible systemic issue?, ";
     }
+    //Check for Real Form Validations
+    let isRadioGroupValid = [
+      ...this.template.querySelectorAll("lightning-radio-group")
+    ].reduce((isValidSoFar, inputCmp) => {
+      let getId = inputCmp.getAttribute("data-id").split("-");
+      //Currently only checking for realFormRequiredGroup Validations within radio-group
+      if (getId[0].includes("realFormRequiredGroup")) {
+        if (typeof inputCmp.value === "undefined") {
+          isValidSoFar = false;
+          this.missingDataFields += inputCmp.label + ", ";
+        }
+      }
+      return isValidSoFar;
+    });
     if (this.missingDataFields !== "") {
       this.missingDataFields =
         ERROR_REQUIRED_TITLE + this.missingDataFields.replace(/,\s$/, ". ");
@@ -567,7 +598,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
       isEmailValid &&
       isFinCompValid &&
       isDescValid &&
-      isComboboxValid
+      isComboboxValid &&
+      isRadioGroupValid
     );
   }
 
@@ -621,6 +653,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
       }
       if (this.isRealFormNeeded) {
         fields[IS_REAL_FORM_NEED_FIELD.fieldApiName] = true;
+        fields[IS_REAL_FORM_SUBMITTED.fieldApiName] = this.isRealFormSubmitted;
+        if (this.isRealFormSubmitted) {
+          fields[REAL_FORM_REF_NO.fieldApiName] = this.realFormRefNo;
+        }
       }
       if (this.hasSecondIssue) {
         fields[HAS_SECOND_ISSUE.fieldApiName] = true;
