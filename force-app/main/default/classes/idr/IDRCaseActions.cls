@@ -173,7 +173,6 @@ public with sharing class IDRCaseActions {
     for (Case record : records) {
       Case oldRec = (Case) oldMap.get(record.id);
       if (isIDRComplaintType(record)) {
-        notificationCaseList.add(record);
         checkForCRCEscalation(record, oldRec);
       }
     }
