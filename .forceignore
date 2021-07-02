@@ -90,3 +90,4 @@ force-app/main/default/classes/utils/CommonUtils.cls
 #Ignore Knowledge validation status field as it is not supported in metadata API
 KnowledgeValidationStatus
 type:DataCategoryGroup
+force-app/main/default/objects/Case/fields/IDR_Update_Notification_Flag__c.field-meta.xml

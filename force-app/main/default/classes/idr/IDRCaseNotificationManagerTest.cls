@@ -51,9 +51,12 @@ private class IDRCaseNotificationManagerTest {
       }
       update caseToUpdate;
 
-      for (Case c : [SELECT Id, IDR_Update_Notification_Flag__c FROM Case]) {
-        System.assertEquals(true, c.IDR_Update_Notification_Flag__c);
-      }
+      List<Application_Log__c> appLogs = [
+        SELECT ID
+        FROM Application_Log__c
+        WHERE Process_Name__c = 'IDRBankerNotificationBuilder'
+      ];
+      System.assertEquals(0, appLogs.size());
     }
   }
 

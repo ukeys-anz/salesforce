@@ -44,12 +44,7 @@ public with sharing class IDRCaseCommentsNotificationManager {
     }
 
     for (Case c : [
-      SELECT
-        Id,
-        RecordTypeId,
-        CaseNumber,
-        OwnerId,
-        IDR_Update_Notification_Flag__c
+      SELECT Id, RecordTypeId, CaseNumber, OwnerId
       FROM Case
       WHERE Id IN :caseIds AND Owner.isActive = TRUE
     ]) {

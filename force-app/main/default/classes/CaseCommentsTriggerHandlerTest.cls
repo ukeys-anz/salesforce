@@ -168,13 +168,17 @@ public with sharing class CaseCommentsTriggerHandlerTest {
       insert testComment;
 
       Case c = [
-        SELECT Id, IDR_Update_Notification_Flag__c, OwnerId, Owner.isActive
+        SELECT Id, OwnerId, Owner.isActive
         FROM Case
         WHERE Id = :newCases[0].id
       ];
 
-      //THEN notification flag is set to true in the case record
-      System.assertEquals(true, c.IDR_Update_Notification_Flag__c);
+      List<Application_Log__c> appLogs = [
+        SELECT ID
+        FROM Application_Log__c
+        WHERE Process_Name__c = 'IDRBankerNotificationBuilder'
+      ];
+      System.assertEquals(0, appLogs.size());
 
       Test.stopTest();
     }
