@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ReportFolder xmlns="http://soap.sforce.com/2006/04/metadata">
-    <name>Service Status Reports</name>
     <sharedTo>
         <role>Support_Coach</role>
         <role>Super_Support_Admin</role>
@@ -15,4 +14,5 @@
         <sharedTo>Super_Support_Admin</sharedTo>
         <sharedToType>Role</sharedToType>
     </folderShares>
+    <name>Service Reports</name>
 </ReportFolder>

@@ -563,11 +563,6 @@
             <field>Sub_Type__c</field>
             <table>Product2.Cases__r</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Actual_Outcome_Text__c</field>
-            <table>Product2.Cases__r</table>
-        </columns>
         <masterLabel>Cases</masterLabel>
     </sections>
 </ReportType>
