@@ -131,7 +131,7 @@ export default class TransactionHistoryBoard extends LightningElement {
                 currentTransaction.amount.charged.value
               ) {
                 currentTransaction.amount.charged.value = parseFloat(
-                  currentTransaction.amount.charged.value.replace("$", ""),
+                  currentTransaction.amount.charged.value,
                   10
                 ).toFixed(2);
               } else {
@@ -145,7 +145,7 @@ export default class TransactionHistoryBoard extends LightningElement {
                 currentTransaction.amount.converted.value
               ) {
                 currentTransaction.amount.converted.value = parseFloat(
-                  currentTransaction.amount.converted.value.replace("$", ""),
+                  currentTransaction.amount.converted.value,
                   10
                 ).toFixed(2);
               }

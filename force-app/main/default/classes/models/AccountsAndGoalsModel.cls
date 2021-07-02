@@ -40,8 +40,8 @@ public with sharing class AccountsAndGoalsModel extends CalloutModel {
     public Boolean isValid {
       get {
         return (String.isNotBlank(this.accountNumber) &&
-          String.isNotBlank(this.balance.value) &&
-          String.isNotBlank(this.currentBalance.value) &&
+          this.balance.value != null &&
+          this.currentBalance.value != null &&
           String.isNotBlank(this.accountType))
           ? true
           : false;
@@ -60,7 +60,7 @@ public with sharing class AccountsAndGoalsModel extends CalloutModel {
     @AuraEnabled
     public String currencyCode;
     @AuraEnabled
-    public String value;
+    public Decimal value;
   }
 
   /**
