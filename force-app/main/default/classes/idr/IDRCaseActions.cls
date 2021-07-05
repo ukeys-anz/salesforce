@@ -122,7 +122,6 @@ public with sharing class IDRCaseActions {
         checkForCRCEscalation(record, null);
       }
     }
-    completeMilestone(records, null);
     IDRTaskActions.possibleSystemicIssueActions(records, null);
     IDRCollectionActions.stopCollections(records, null);
     IDRCollectionActions.startCollections(records, null);
@@ -215,8 +214,6 @@ public with sharing class IDRCaseActions {
       if (
         (oldCase != null &&
         oldCase.Status != IDRConstants.ESCALATED_STATUS &&
-        c.Status == IDRConstants.ESCALATED_STATUS) ||
-        (oldCase == null &&
         c.Status == IDRConstants.ESCALATED_STATUS)
       ) {
         escalationCases.add(c.Id);
@@ -226,9 +223,7 @@ public with sharing class IDRCaseActions {
         (oldCase.Status != IDRConstants.CLOSED_STATUS &&
         c.Status == IDRConstants.CLOSED_STATUS ||
         (oldCase.Status != IDRConstants.RESOLVED_STATUS &&
-        c.Status == IDRConstants.RESOLVED_STATUS))) ||
-        (oldCase == null && c.Status == IDRConstants.CLOSED_STATUS ||
-        c.Status == IDRConstants.RESOLVED_STATUS)
+        c.Status == IDRConstants.RESOLVED_STATUS)))
       ) {
         maxTimeFrameCases.add(c.Id);
       }
