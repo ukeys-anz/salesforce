@@ -43,4 +43,42 @@ public with sharing class MilestoneUtils {
       );
     }
   }
+
+  /**
+   * @description completeMilestone is called before onBeforeUpdate and will mark a milestone as completed
+   * based on the params
+   * @param caseIds case ids to mark milestone as completed
+   * @param milestoneName the name of the milestone to mark as complete
+   * @param complDate the date/time the milestone was completed
+   */
+  public static void completeMilestone(
+    Set<Id> caseIds,
+    List<String> milestoneNames,
+    DateTime complDate
+  ) {
+    List<CaseMilestone> cmsToUpdate = new List<CaseMilestone>();
+    for (CaseMilestone cm : [
+      SELECT Id, CompletionDate
+      FROM CaseMilestone cm
+      WHERE
+        caseId IN :caseIds
+        AND cm.MilestoneType.Name IN :milestoneNames
+        AND CompletionDate = NULL
+    ]) {
+      cm.CompletionDate = complDate;
+      cmsToUpdate.add(cm);
+    }
+    if (
+      CaseMilestone.SObjectType.getDescribe().isUpdateable() &&
+      Schema.sObjectType.CaseMilestone.fields.CompletionDate.isUpdateable()
+    ) {
+      update cmsToUpdate;
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'MilestoneUtils',
+        'completeMilestone',
+        'Not enough permissions to update CaseMilestone.'
+      );
+    }
+  }
 }

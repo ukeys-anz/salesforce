@@ -122,6 +122,7 @@ public with sharing class IDRCaseActions {
         checkForCRCEscalation(record, null);
       }
     }
+    completeMilestone(records, null);
     IDRTaskActions.possibleSystemicIssueActions(records, null);
     IDRCollectionActions.stopCollections(records, null);
     IDRCollectionActions.startCollections(records, null);
@@ -190,6 +191,7 @@ public with sharing class IDRCaseActions {
         checkForCRCEscalation(record, oldRec);
       }
     }
+    completeMilestone(records, oldMap);
     IDRCaseCommentActions.escalateExistingCommentsToCFMS(oldMap, records);
     IDRCaseNotificationManager.notifyBankersForEscalation(records, oldMap);
     escalateToCFMS(caseEscalationList);
@@ -198,6 +200,59 @@ public with sharing class IDRCaseActions {
     IDRCollectionActions.stopCollections(records, oldMap);
     IDRCollectionActions.startCollections(records, oldMap);
     IDRComplaintFlagActions.setComplaintsFlag(records, oldMap);
+  }
+
+  public static void completeMilestone(
+    List<Case> records,
+    Map<Id, SObject> oldMap
+  ) {
+    Set<Id> escalationCases = new Set<Id>();
+    Set<Id> maxTimeFrameCases = new Set<Id>();
+    for (Case c : records) {
+      Case oldCase = (oldMap != null && oldMap.containsKey(c.Id))
+        ? (Case) oldMap.get(c.Id)
+        : null;
+      if (
+        (oldCase != null &&
+        oldCase.Status != IDRConstants.ESCALATED_STATUS &&
+        c.Status == IDRConstants.ESCALATED_STATUS) ||
+        (oldCase == null &&
+        c.Status == IDRConstants.ESCALATED_STATUS)
+      ) {
+        escalationCases.add(c.Id);
+      }
+      if (
+        (oldCase != null &&
+        (oldCase.Status != IDRConstants.CLOSED_STATUS &&
+        c.Status == IDRConstants.CLOSED_STATUS ||
+        (oldCase.Status != IDRConstants.RESOLVED_STATUS &&
+        c.Status == IDRConstants.RESOLVED_STATUS))) ||
+        (oldCase == null && c.Status == IDRConstants.CLOSED_STATUS ||
+        c.Status == IDRConstants.RESOLVED_STATUS)
+      ) {
+        maxTimeFrameCases.add(c.Id);
+      }
+
+      if (!escalationCases.isEmpty()) {
+        MilestoneUtils.completeMilestone(
+          escalationCases,
+          new List<String>{ 'Open_Escalation_Time' },
+          System.now()
+        );
+      }
+
+      if (!maxTimeFrameCases.isEmpty()) {
+        MilestoneUtils.completeMilestone(
+          maxTimeFrameCases,
+          new List<String>{
+            '21-day IDR Response Due',
+            '30-day IDR Response Due',
+            'Open_Escalation_Time'
+          },
+          System.now()
+        );
+      }
+    }
   }
 
   /**
