@@ -99,15 +99,21 @@ export default class AccountsAndGoals extends LightningElement {
                 Name: account.name,
                 FinServ__FinancialAccountNumber__c: account.accountNumber,
                 FinServ__Balance__c: account.balance.value.replace("$", ""),
+                FinServ__OpenDate__c: account.DateOpened,
                 FinServ__CurrentPostedBalance__c: account.currentBalance.value.replace(
                   "$",
                   ""
                 ),
                 BSB__c: account.bsb.toString()
               };
+              if (accountType === "Transaction") {
+                accountInformation.Product_Type__c = "ANZ Plus";
+              }
 
               this.accountDetails.push(accountInformation);
               if (account.accountType === "Savings") {
+                accountInformation.Product_Type__c = "ANZ Save";
+
                 this.goalAccountNumbers.push(account.accountNumber);
                 let goalInformation = {
                   name: account.goal.name,
