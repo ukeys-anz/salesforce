@@ -27,7 +27,8 @@ public virtual with sharing class RepositoryBase {
         Lib_SystemLog.Severity.ERROR
       );
     } else if (err instanceof CalloutException) {
-      Boolean logResult = Lib_SystemLog.logAPIError(
+      lib_systemLog log = new lib_systemLog('RepositoryBase', 'handleErrors');
+      Boolean logResult = lib_systemLog.logAPIError(
         apexType.getName(),
         'RepositoryBase-handleErrors',
         err.getMessage(),

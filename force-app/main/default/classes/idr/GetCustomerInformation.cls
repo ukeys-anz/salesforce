@@ -43,7 +43,11 @@ public with sharing class GetCustomerInformation {
           return customerData;
         }
       } catch (Exception e) {
-        Boolean logResult = Lib_SystemLog.logAPIError(
+        lib_systemLog log = new lib_systemLog(
+          'GetCustomerInformation',
+          'getCustomerData'
+        );
+        Boolean logResult = lib_systemLog.logAPIError(
           GetCustomerInformation.class.getName(),
           'getCustomerData',
           e.getMessage(),

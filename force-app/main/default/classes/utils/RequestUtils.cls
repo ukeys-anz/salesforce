@@ -78,7 +78,8 @@ public with sharing class RequestUtils {
         throw new CalloutException(response.getBody());
       }
     } catch (Exception e) {
-      Boolean logResult = Lib_SystemLog.logAPIError(
+      lib_systemLog log = new lib_systemLog('RequestUtils', 'processRequest');
+      Boolean logResult = lib_systemLog.logAPIError(
         processName,
         functionName,
         e.getMessage(),
