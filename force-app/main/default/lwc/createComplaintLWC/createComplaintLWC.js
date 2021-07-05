@@ -415,7 +415,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     let isRadioGroupValid = [
       ...this.template.querySelectorAll("lightning-radio-group")
     ].reduce((isValidSoFar, inputCmp) => {
-      let getId = inputCmp.getAttribute("data-id").split("-");
+      let getId = inputCmp.id.split("-");
       //Currently only checking for realFormRequiredGroup Validations within radio-group
       if (getId[0].includes("realFormRequiredGroup")) {
         if (typeof inputCmp.value === "undefined") {
