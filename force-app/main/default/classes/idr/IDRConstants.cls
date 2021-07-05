@@ -44,14 +44,39 @@ public with sharing class IDRConstants {
   public static final Id IDR_TASK_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
     .get('IDR_Task')
     .getRecordTypeId();
+  public static final Id IDR_SYSTEM_TASK_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
+    .get('IDR_System_Task')
+    .getRecordTypeId();
   public static final Id SI_TASK_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
     .get('Systemic_Issue_Task')
     .getRecordTypeId();
 
+  //NotificationHandler Status
+  public static final String NOTIFICATION_PUBLISH_STATUS = 'Published';
+  public static final String NOTIFICATION_PENDING_PUBLISH_STATUS = 'Pending Publish';
+  public static final String NOTIFICATION_ERROR_PUBLISH_STATUS = 'Error while Publish';
+
   //Milestone Sla
+  public static final String MILESTONE_SLA_NORMAL = 'Normal';
+  public static final String MILESTONE_SLA_RED = '1 business day';
+  public static final String MILESTONE_SLA_AMBER = '2 business days';
+  public static final string MILESTONE_SLA_VIOLATED = 'Violated';
   public static final string COMPLAINTS_ENTITLMENT_ACCT = 'Complaint Entitlement Account';
   public static final string COMPLAINTS_ENTITLMENT_PROCESS = 'complaints';
   public static final string COMPLAINTS_ENTITLEMENT_NAME = 'Complaints Entitlement';
+
+  //Field labels
+  public static final String MILESTONE_SLA_FIELD_LABEL = 'Milestone Sla';
+  public static final String CASE_OWNER_ID = 'Owner ID';
+
+  //IDR Maximum time constants
+  public static final string TASK_SUBJECT_DAY5 = 'IDR Response due in 5-days';
+  public static final string TASK_SUBJECT_DAY1 = 'IDR Response Due in 1-day';
+  public static final string TASK_STANDARD_PRIORITY = 'Standard';
+  public static final string TASK_STATUS_EXPIRED = 'Expired';
+  public static final string TASK_STATUS_COMPLETED = 'Completed';
+  public static final string MILESTONE_STANDARD = '30-day IDR Response Due';
+  public static final string MILESTONE_PRIORITY = '21-day IDR Response Due';
 
   //Channel Recieved
   public static final string CHANNEL_RECEIVED_AFCA_REFERRED = '11';

@@ -6,54 +6,20 @@
  * Note: Since Case Owner is a lookup of either User or Group Salesforce has common object in which only few fields are accessible as found in the link https://skaruz.com/salesforce-how-to-access-owner-custom-fields-in-a-soql-query/
  * So we need to query the Users and update the records accordingly.
  */
-@SuppressWarnings('PMD.CyclomaticComplexity')
+@SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
 public with sharing class IDRCaseActions {
-  // IDR Customer Record Type ID
-  @TestVisible
-  static final Id CUSTOMER_COMPLAINT_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get('Customer_Complaint')
-    .getRecordTypeId();
-
-  // IDR Non Customer Record Type ID
-  @TestVisible
-  static final Id NON_CUSTOMER_COMPLAINT_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get('Non_Customer_Complaint')
-    .getRecordTypeId();
-
   @TestVisible
   private static final String OPEN_STATUS = 'Open';
   @TestVisible
   private static final String UNDER_INVESTIGATION_STATUS = 'Under Investigation';
-  public static final String ESCALATED_STATUS = 'Escalated';
+  private static final String ESCALATED_STATUS = 'Escalated';
   private static final String REOPENED_STATUS = 'Re-opened';
   private static final String CLOSED_STATUS = 'Closed';
   private static final String RESOLVED_STATUS = 'Resolved';
   private static final String WITHDRAWN_STATUS = 'Withdrawn';
+  private static final string BANKER_ESCALATION_EMAIL = 'EscalationEmailNotification';
   @TestVisible
   private static final string DAY_5_ESCALATION_REASON = 'Day 5 auto escalation';
-
-  // IDR Case Status for which notifications need to be sent.
-  private static final Set<String> NOTIFICATION_STATUS = new Set<String>{
-    OPEN_STATUS,
-    UNDER_INVESTIGATION_STATUS,
-    ESCALATED_STATUS,
-    REOPENED_STATUS,
-    CLOSED_STATUS,
-    RESOLVED_STATUS,
-    WITHDRAWN_STATUS
-  };
-
-  //These templates ids are email and sms template ids which are setup on notification broker.
-  //These templates is used in platform events to send it to mulesoft which inturn invokes notification broker.
-  private static final Map<String, String> TEMPLATE_ID_MAP = new Map<String, String>{
-    OPEN_STATUS => 'AgCaseOpen',
-    UNDER_INVESTIGATION_STATUS => 'AgCaseUdInvest',
-    ESCALATED_STATUS => 'AgCaseEsclt',
-    REOPENED_STATUS => 'AgCaseReopen',
-    CLOSED_STATUS => 'AgCaseClosed',
-    RESOLVED_STATUS => 'AgCaseRslvd',
-    WITHDRAWN_STATUS => 'AgCaseWthdrwn'
-  };
 
   private static final String ESCALATED_TO_CRC_API_NAME = '1';
 
@@ -64,10 +30,6 @@ public with sharing class IDRCaseActions {
   public static final String QUEUE_TYPE = 'Queue';
 
   private static final String DELETE_ERROR = 'You cannot delete cases';
-
-  //IDR_Notification_Event__e for sending notifications to Notification Broker based on status.
-  @TestVisible
-  private static List<IDR_Notification_Event__e> idrNotifications;
 
   @TestVisible
   private static List<IDR_CRC_Escalation_Event__e> idrCaseEscalations;
@@ -99,21 +61,26 @@ public with sharing class IDRCaseActions {
 
   /**
    * @description applyDefaults is called onBeforeInsert to set the following values as defaults
-   * 1. IDR_Account_Card_Policy_Number__c field masking as part of Customer Complaint Recording in IDR {@link #handleMasking(record) handleMasking}.
-   * 2. Handle anonymous names if complainant doesnt want to share their info. This is for NON ANZ Customer rasing a complaint {@link #handleAnonymousNames(record) handleAnonymousNames}.
-   * 3. Handle case stutus changes such as updating IsEscalated to true if the case is created as escalated case. Change the reopen date if case is created with re-opened status {@link #handleCaseStatusChanges(record) handleCaseStatusChanges}.
-   * 4. Handle office assignment based on the case Owner's Division of the current case. {@link handleOfficeAssignment(cases) handleOfficeAssignment}.
    * @param records The record list form which we need to apply defaults
-   * <p>
-   * <b>Note:</b> It is always good to change/update values in on onBeforeInsert rather than in onAfterInsert
-   * However in situations where the ID or CaseNumber is used which is only generated in onAfterInsert that logic needs to go in onAfterInsert.
    */
   public static void applyDefaults(List<Case> records) {
     Id entitlementId = getEntitlement();
+    //future use do not remove the below commented code
+    // salesforce limitation ,business hours id is not populated at this point in time get the  complaints business hours (default value) for SLA calculation;
+    /*Id businessHoursId ;
+    if(BusinessHours.sObjectType.getDescribe().isQueryable()) {
+      list<BusinessHours> bh = new list<BusinessHours>();
+      bh = [SELECT Id FROM BusinessHours WHERE IsDefault=true];
+      if(bh.size() > 0){
+         businessHoursId = bh[0].Id ;
+      }      
+    }*/
     Case[] updatePsiTicked = new List<Case>();
     for (Case record : records) {
       if (isIDRComplaintType(record)) {
         record.EntitlementId = entitlementId;
+        record.IDR_Milestone_Sla__c = IDRConstants.MILESTONE_SLA_NORMAL;
+        // record.IDR_Milestone_Sla__c = getMilestoneSla(record.Status, record.IDR_Date_Received__c , businessHoursId);
         CommonUtil.handleMasking(
           record,
           null,
@@ -147,9 +114,7 @@ public with sharing class IDRCaseActions {
   public static void afterInsert(List<Case> records) {
     for (Case record : records) {
       if (isIDRComplaintType(record)) {
-        if (NOTIFICATION_STATUS.contains(record.Status)) {
-          notificationCaseList.add(record);
-        }
+        notificationCaseList.add(record);
         checkForCRCEscalation(record, null);
       }
     }
@@ -158,47 +123,35 @@ public with sharing class IDRCaseActions {
   }
 
   /**
-   * @description beforeUpdate(oldMap, records) method handles the following
-   * 1. Handle Masking - IDR_Account_Card_Policy_Number__c field masking as part of Customer Complaint Recording in IDR {@link #handleMasking(record) handleMasking}.
-   * 2. Handle anonymous names if complainant doesnt want to share their info. This is for NON ANZ Customer rasing a complaint {@link #handleAnonymousNames(record) handleAnonymousNames}.
-   * 3. Identify records for which owner is changed for IDR_Office__c to be updated. Note we need to update only the records for which the owner has changed and the owner is User(not Group).
-   * 4. Handle case stutus changes only for records which had a status change. Actions such as updating IsEscalated to true if the case is created as escalated case. Change the reopen date if case is created with re-opened status {@link #handleCaseStatusChanges(record) handleCaseStatusChanges}.
+   * @description beforeUpdate(oldMap, records) method handles before update automations for CMOS complaints. Refer to the doc of each method invoked.
    * @param oldMap This Map<Id, SObject> contains the map which holds the previous values which can be used to check what value has changed in onBeforeUpdate. Example to check if the Case Status value has changed we use the following to check record.Status != ((Case) oldMap.get(record.id)).Status
    * @param records from the trigger
    */
   public static void beforeUpdate(Map<Id, SObject> oldMap, List<Case> records) {
+    Id entitlementId = getEntitlement();
     Case[] updatePsiTicked = new List<Case>();
-    for (Integer i = 0; i < records.size(); i++) {
-      if (isIDRComplaintType(records.get(i))) {
+    for (Case record : records) {
+      if (isIDRComplaintType(record)) {
+        Case oldRecord = (case) oldMap.get(record.id);
         CommonUtil.handleMasking(
-          records.get(i),
-          (Case) oldMap.get(records.get(i).id),
+          record,
+          oldRecord,
           SObjectType.Case.FieldSets.IDR_Masked_Fields.getFields()
         );
-        handleAnonymousNames(records.get(i));
-        identifyOwnerChangeRecords(
-          records.get(i),
-          ((Case) oldMap.get(records.get(i).id)).OwnerId
-        );
-        if (
-          records.get(i).Status != ((Case) oldMap.get(records.get(i).id)).Status
-        ) {
-          handleCaseStatusChanges(records.get(i));
+        handleAnonymousNames(record);
+        handleEntitlementForUpdate(record, oldRecord, entitlementId);
+        identifyOwnerChangeRecords(record, (oldRecord).OwnerId);
+        if (record.Status != oldRecord.Status) {
+          handleCaseStatusChanges(record);
         }
-        handleCaseEscalationRules(
-          records.get(i),
-          (case) oldMap.get(records.get(i).id)
-        );
-        if (
-          records.get(i).IDR_Is_Common__c !=
-          ((Case) oldMap.get(records.get(i).id)).IDR_Is_Common__c
-        ) {
-          updatePsiTicked.add(records.get(i));
+        handleCaseEscalationRules(record, oldRecord);
+        if (record.IDR_Is_Common__c != oldRecord.IDR_Is_Common__c) {
+          updatePsiTicked.add(record);
         }
       }
-      //calling handleOfficeAssignment for all case records for which the IDR_Office__c needs to be updated.
-      handleOfficeAssignment(changeOfficeCaseList);
     }
+    //calling handleOfficeAssignment for all case records for which the IDR_Office__c needs to be updated.
+    handleOfficeAssignment(changeOfficeCaseList);
     IDRCaseAssignmentRules.assignCases(records, (Map<Id, Case>) oldMap);
     stampQueueName(records, (Map<Id, Case>) oldMap);
     //Update Date/Time PSI Ticked if complaint is flagged as PSI
@@ -211,27 +164,27 @@ public with sharing class IDRCaseActions {
    * @description afterUpdate(oldMap, records) method handles the following
    * 1. Validates the case status and add them into notification list.
    * 2. Calls checkForCRCEscalation method to check if the case record needs to be sent for CRC escalation.
-   * 3. Call escalateExistingCommentsToCFMS to escalation case comments upon receiving COM IDs from CFMS
+   * 3. Calls escalateExistingCommentsToCFMS to escalation case comments upon receiving COM IDs from CFMS
+   * 4. Calls rollupToParentSI to update the counter of linked complaints on the parent systemic issue record
    * @param oldMap This Map<Id, SObject> contains the map which holds the previous values which can be used to check what value has changed in onAfterUpdate. Example to check if the Case Status value has changed we use the following to check record.Status != ((Case) oldMap.get(record.id)).Status
    * @param records from the trigger
    */
   public static void afterUpdate(Map<Id, SObject> oldMap, List<Case> records) {
     for (Case record : records) {
       Case oldRec = (Case) oldMap.get(record.id);
-      if (record.Status != oldRec.Status && isIDRComplaintType(record)) {
-        if (NOTIFICATION_STATUS.contains(record.Status)) {
-          notificationCaseList.add(record);
-        }
+      if (isIDRComplaintType(record)) {
         checkForCRCEscalation(record, oldRec);
       }
     }
-    escalateToCFMS(caseEscalationList);
     IDRCaseCommentActions.escalateExistingCommentsToCFMS(oldMap, records);
+    IDRCaseNotificationManager.notifyBankersForEscalation(records, oldMap);
+    escalateToCFMS(caseEscalationList);
     IDRTaskActions.possibleSystemicIssueActions(records, oldMap);
+    IDRTaskActions.updateIDRMilestoneTask(records, oldMap);
   }
 
   /**
-   * @description Check if this case record needs to be sent for CRC escalation
+   * @description Check if this case record needs to be assigned to a CRP workbasket
    * @param record case record
    * @param oldRec old case record from trigger
    */
@@ -249,15 +202,16 @@ public with sharing class IDRCaseActions {
    * @description completeAfterActions() is called post onAfterInsert and onAfterUpdate
    */
   public static void completeAfterActions() {
-    sendNotifications(notificationCaseList);
     CheckRecursive.run();
+    NotificationTriggerHandler.insertNotificationHandler(notificationCaseList);
     notificationCaseList.clear();
     caseEscalationList.clear();
   }
 
   /**
-   * @description Check if its IDR record type and prevent deleting for anzx can handle other scenarios
-   * @param records from the trigger
+   * @description onBeforeDelete of IDR Case records. No user is allowed to delete a complaint or a systemic issue.
+   * Check if its IDR record type and prevent deleteing for anzx can handle other scenarios
+   * @param records
    */
   public static void onBeforeDelete(List<Case> records) {
     for (Case record : records) {
@@ -315,13 +269,15 @@ public with sharing class IDRCaseActions {
       }
     }
 
-    Map<Id, Group> queueMap = new Map<Id, Group>(
-      [SELECT id, Name FROM Group WHERE Id IN :queueIds]
-    );
+    if (!queueIds.isEmpty()) {
+      Map<Id, Group> queueMap = new Map<Id, Group>(
+        [SELECT id, Name FROM Group WHERE Id IN :queueIds]
+      );
 
-    for (Case c : caseList) {
-      if (queueMap.containsKey(c.OwnerId)) {
-        c.Queue__c = queueMap.get(c.OwnerId).Name;
+      for (Case c : caseList) {
+        if (queueMap.containsKey(c.OwnerId)) {
+          c.Queue__c = queueMap.get(c.OwnerId).Name;
+        }
       }
     }
   }
@@ -333,7 +289,7 @@ public with sharing class IDRCaseActions {
    */
   private static void handleAnonymousNames(Case record) {
     if (
-      record.RecordTypeId == NON_CUSTOMER_COMPLAINT_RT_ID &&
+      record.RecordTypeId == IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID &&
       record.IDR_NC_Is_Consent_Obtained__c == false &&
       record.IDR_NC_First_Name__c != Label.Anonymous_Complainant &&
       record.IDR_NC_Middle_Names__c != Label.Anonymous_Complainant &&
@@ -346,19 +302,17 @@ public with sharing class IDRCaseActions {
   }
 
   /**
-   * @description  handleCaseEscalationRules method is used to handle the case escalations
-   * 1.First condition check is for auto esclated cases
-   * 2.second condition checks for cases created as escalated.
-   * 3.third condition checks for cases that have been esclated after create.
-   * 4.Fourth condition checks for cases that have a change in 'escalated to' after the case is already escalated.
+   * @description  handleCaseEscalationRules method is used to handle the case escalations.
    * @param record The actual case record from the trigger
    * @param oldRec trigger context variable to check on old values.
    */
   private static void handleCaseEscalationRules(Case record, Case oldRec) {
-    if (record.IsEscalated && record.Status != ESCALATED_STATUS) {
-      // set default values for auto escalated cases , change status to escalated,
-      //assign to CRC queue and send notifcation to CFMS
-      record.IDR_Escalated_to__c = ESCALATED_TO_CRC_API_NAME;
+    if (
+      record.IsEscalated &&
+      record.Status != ESCALATED_STATUS &&
+      String.isBlank(record.IDR_Escalation_Reason__c)
+    ) {
+      // set default values for auto escalated cases: Status, Escalated To, Escalation Reason
       record.Status = ESCALATED_STATUS;
       if (
         oldRec != null &&
@@ -367,13 +321,12 @@ public with sharing class IDRCaseActions {
       ) {
         record.IDR_Escalation_Reason__c = DAY_5_ESCALATION_REASON;
       }
-    } else if (
-      record.IsEscalated &&
-      record.Status != ESCALATED_STATUS &&
-      !string.isBlank(record.IDR_Escalation_Reason__c)
+    }
+    if (
+      record.Status == ESCALATED_STATUS &&
+      String.isBlank(record.IDR_Escalated_to__c)
     ) {
-      // escalated on insert cases , change status to escalated, assign to CRC queue and send notifcation to CFMS
-      record.Status = ESCALATED_STATUS;
+      record.IDR_Escalated_to__c = ESCALATED_TO_CRC_API_NAME;
     }
   }
 
@@ -399,7 +352,97 @@ public with sharing class IDRCaseActions {
       record.IsEscalated = false;
     }
   }
+  /**
+   * @description  handleEntitlementForUpdate method is used to update the entitlment and time to escalation flag.
+   * 1. when a case is updated by the indexing team. entitlment ID and Flag both need to be calculated.
+   * 2. when a case has a status change. Flag status is needs to be recalculated.
+   * Note : IDR_Milestone_Sla__c is updated by entitlment process. this code is to handle the edge case scenarios.
+   * where the date received is back dated and milestones warning actions will not execute.
+   * @param record The actual case record from the trigger
+   * @param oldRec The old record values for the case
+   * @param entitlementId Entitlment ID that needs to be populated on the complaints case.
+   */
+  private static void handleEntitlementForUpdate(
+    Case record,
+    Case oldRec,
+    Id entitlementId
+  ) {
+    // this is a case where indexing team as updated the details and identified it as a complaint.
+    // in this case we need to update the entitlement && flag on the case.
+    if (string.isBlank(record.EntitlementId)) {
+      record.EntitlementId = entitlementId;
+      record.IDR_Milestone_Sla__c = getMilestoneSla(
+        record.Status,
+        record.IDR_Date_Received__c,
+        record.BusinessHoursId
+      );
+    }
 
+    // this is a case where complaint has changed status. we need to recalculate the flag status.
+    if (
+      record.Status != oldRec.Status &&
+      (record.Status == UNDER_INVESTIGATION_STATUS ||
+      record.Status == OPEN_STATUS)
+    ) {
+      record.IDR_Milestone_Sla__c = getMilestoneSla(
+        record.Status,
+        record.IDR_Date_Received__c,
+        record.BusinessHoursId
+      );
+    }
+  }
+
+  /**
+   * @description  getMilestoneSla method is used to identify the appropriate SLA flag that needs to be shown on the case.
+   * 1. when a case is open for less than 1 business day or is under investgation for less than 3 days it should be green (normal)
+   * 2. when a case is open for  1-2 business days or  is under investigation for  3-4 business days it should be flagged as amber
+   * 3. when a case is open for more than 2 business days or  is under investigation for more than 4 business days it shoud be flagged as red.
+   * 4. if the case is open 3 days  or more / is under investgation for 5 days/more it will be auto escalated ,mark as violated.
+   * @param caseStatus status of the case record
+   * @param dateReceived IDR_Date_Recieved field of the case
+   * @param businessHoursId business hours of the case record.
+   * @return string value of the flag calculated based on the time elapsed from dateReceuved
+   */
+  private static string getMilestoneSla(
+    string caseStatus,
+    dateTime dateReceived,
+    ID businessHoursId
+  ) {
+    string milestoneSla;
+    decimal duration = DateTimeUtils.calculateHoursBetween(
+      dateReceived,
+      system.NOW(),
+      businessHoursId
+    );
+    if (
+      (caseStatus == UNDER_INVESTIGATION_STATUS && duration.intValue() < 72) ||
+      (caseStatus == OPEN_STATUS &&
+      duration.intValue() < 24)
+    ) {
+      milestoneSla = IDRConstants.MILESTONE_SLA_NORMAL;
+    } else if (
+      (caseStatus == UNDER_INVESTIGATION_STATUS &&
+      duration.intValue() >= 72 &&
+      duration.intValue() < 96) ||
+      (caseStatus == OPEN_STATUS &&
+      duration.intValue() >= 24 &&
+      duration.intValue() < 48)
+    ) {
+      milestoneSla = IDRConstants.MILESTONE_SLA_AMBER;
+    } else if (
+      (caseStatus == UNDER_INVESTIGATION_STATUS &&
+      duration.intValue() >= 96 &&
+      duration.intValue() < 120) ||
+      (caseStatus == OPEN_STATUS &&
+      duration.intValue() >= 48 &&
+      duration.intValue() < 72)
+    ) {
+      milestoneSla = IDRConstants.MILESTONE_SLA_RED;
+    } else {
+      milestoneSla = IDRConstants.MILESTONE_SLA_VIOLATED;
+    }
+    return milestoneSla;
+  }
   /**
    * @description Get the EntitlmentId that will be associated with this case
    * @return Id  - the Id of the entitlment record
@@ -448,7 +491,7 @@ public with sharing class IDRCaseActions {
               Case.IDR_AuthRep_Licence_or_registration_type__c,
               c.IDR_AuthRep_Licence_or_registration_type__c
             ),
-            ANZ_Received_Date__c = c.IDR_Date_Received__c,
+            ANZ_Received_Date__c = c.IDR_Date_Received__c.date(),
             Case_Number__c = String.isNotBlank(c.CaseNumber__c)
               ? c.CaseNumber__c
               : c.CaseNumber,
@@ -524,7 +567,6 @@ public with sharing class IDRCaseActions {
       );
       log.insertLog();
     }
-    //Todo handle errors further if needed.
   }
 
   /**
@@ -548,68 +590,6 @@ public with sharing class IDRCaseActions {
   }
 
   /**
-   * @description  sendNotifications method is to send out platform events for notifications to customers. Mulesoft subscribes to these notifications and makes Notification Broker API call.
-   * @param records The records for which notifications needs to be sent out
-   */
-  private static void sendNotifications(List<Case> records) {
-    if (records.isEmpty()) {
-      return;
-    }
-    idrNotifications = new List<IDR_Notification_Event__e>();
-    for (Case c : records) {
-      // Don't publish to NB if there's no mobile nor email to send to
-      if (
-        c.RecordTypeId == CUSTOMER_COMPLAINT_RT_ID ||
-        !String.isBlank(c.IDR_NC_Mobile__c) ||
-        !String.isBlank(c.IDR_NC_Email__c) ||
-        !String.isBlank(c.IDR_3rdParty_Mobile__c) ||
-        !String.isBlank(c.IDR_3rdParty_Email__c)
-      ) {
-        idrNotifications.add(
-          new IDR_Notification_Event__e(
-            AuthorisedEmail__c = c.IDR_3rdParty_Email__c,
-            AuthorisedFirstName__c = c.IDR_3rdParty_Name__c,
-            AuthorisedMobile__c = c.IDR_3rdParty_Mobile__c,
-            CAP_CIS_ID__c = c.IDR_Customer_Number__c,
-            Case_ID__c = c.ID,
-            Case_Number__c = IDRCaseActions.getFormattedCaseNumberToNotify(c),
-            Case_Status__c = c.Status,
-            Case_Status_Change_Date__c = System.now(),
-            ComplainantEmail__c = c.IDR_NC_Email__c,
-            ComplainantFirstName__c = c.IDR_NC_Is_Consent_Obtained__c == false
-              ? ''
-              : c.IDR_NC_First_Name__c,
-            ComplainantMobile__c = c.IDR_NC_Mobile__c,
-            EmailFlag__c = true,
-            EmailTemplate__c = c.Isescalated
-              ? TEMPLATE_ID_MAP.get(ESCALATED_STATUS)
-              : TEMPLATE_ID_MAP.get(c.Status),
-            MessageID__c = '' + c.ID + Datetime.now().millisecond(),
-            SMSFlag__c = true,
-            SMSTemplate__c = c.Isescalated
-              ? TEMPLATE_ID_MAP.get(ESCALATED_STATUS)
-              : TEMPLATE_ID_MAP.get(c.Status)
-          )
-        );
-      }
-    }
-    if (!idrNotifications.isEmpty()) {
-      List<Database.SaveResult> results = EventBus.publish(idrNotifications);
-      Lib_SystemLog log = new Lib_SystemLog(
-        IDRCaseActions.class.getName(),
-        'sendNotifications'
-      );
-      log.addDatabaseSaveResult(
-        'IDR_Notification_Event__e',
-        results,
-        idrNotifications
-      );
-      log.insertLog();
-    }
-    //Todo handle errors further if needed.
-  }
-
-  /**
    * @description isIDRComplaintType check if record type is of IDR type.
    * As this Trigger will be used across various teams we identify case record based on IDR record Type.
    *
@@ -618,8 +598,8 @@ public with sharing class IDRCaseActions {
    */
   public static Boolean isIDRComplaintType(Case record) {
     if (
-      record.RecordTypeId == CUSTOMER_COMPLAINT_RT_ID ||
-      record.RecordTypeId == NON_CUSTOMER_COMPLAINT_RT_ID
+      record.RecordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID ||
+      record.RecordTypeId == IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID
     ) {
       return true;
     }
