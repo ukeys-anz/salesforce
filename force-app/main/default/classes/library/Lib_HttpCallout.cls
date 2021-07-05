@@ -54,6 +54,19 @@ public with sharing class Lib_HttpCallout {
   private HttpCalloutResponse performCallout(HttpRequest request) {
     HttpCalloutResponse callResponse = new HttpCalloutResponse();
     HTTPResponse response = null;
+    lib_systemLog log = new lib_systemLog('Lib_HttpCallout', 'performCallout');
+    //Log start of transaction
+    log.addMessageWithRequestResponse(
+      null,
+      null,
+      Lib_SystemLog.Severity.INFO,
+      request.getEndpoint(),
+      request.getMethod(),
+      null,
+      null,
+      null
+    );
+    log.insertLog();
     try {
       Http http = new Http();
       response = http.send(request);
@@ -77,15 +90,34 @@ public with sharing class Lib_HttpCallout {
         callResponse.successful = false;
         callResponse.error = new CalloutException(response.getBody());
       }
+
+      //Log successful transaction
+      log.addMessageWithRequestResponse(
+        null,
+        null,
+        Lib_SystemLog.Severity.INFO,
+        request.getEndpoint(),
+        request.getMethod(),
+        response.getStatusCode(),
+        null,
+        null
+      );
+      log.insertLog();
       return callResponse;
     } catch (Exception e) {
-      Lib_SystemLog.createSingleLog(
+      //Log failure
+      Boolean logResult = Lib_SystemLog.logAPIError(
         Lib_HttpCallout.class.getName(),
         'performCallout',
-        '',
         e.getMessage(),
-        Lib_SystemLog.Severity.ERROR
+        '',
+        null,
+        null,
+        request.getEndpoint(),
+        request.getMethod(),
+        response.getStatusCode()
       );
+      log.insertLog();
       callResponse.successful = false;
       callResponse.error = e;
       return callResponse;

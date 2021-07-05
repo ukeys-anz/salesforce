@@ -230,15 +230,22 @@ public with sharing class AuthTokenCacheUtil {
         true
       );
     } catch (Exception e) {
-      Lib_SystemLog.logAPIError(
+      lib_systemLog log = new lib_systemLog(
+        'AuthTokenCacheUtil',
+        'refreshIdToken'
+      );
+      Boolean logResult = lib_systemLog.logAPIError(
         AuthTokenCacheUtil.class.getName(),
         'refreshIdToken',
         e.getMessage(),
         e.getTypeName(),
         null,
+        res != null ? res.getBody() : null,
         null,
-        res != null ? res.getBody() : null
+        null,
+        res.getStatusCode()
       );
+      log.insertLog();
     }
 
     return (String) idToken;

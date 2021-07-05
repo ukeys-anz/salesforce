@@ -46,11 +46,12 @@ public class Lib_TestSyncLogs {
       'SomeMethod',
       'Failed',
       '200',
-      '0000',
       'Request body',
-      'Response body'
+      'Response body',
+      'RequestEndpoint',
+      HTTP_METHOD.HTTP_GET.name(),
+      500
     );
-
     Test.stopTest();
     System.assertEquals(true, result);
   }
@@ -69,6 +70,9 @@ public class Lib_TestSyncLogs {
       '200',
       'Some Info',
       lib_SystemLog.Severity.INFO,
+      'https//:endpoint',
+      HTTP_METHOD.HTTP_GET.name(),
+      200,
       'Request Body',
       'Response Body'
     );
