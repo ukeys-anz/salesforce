@@ -201,6 +201,11 @@ public with sharing class IDRCaseActions {
     IDRComplaintFlagActions.setComplaintsFlag(records, oldMap);
   }
 
+  /**
+   * @description Complete the CMOS Complaints Milestone when case is escalated or closed
+   * @param records from the trigger
+   * @param oldMap previous values of cases in current context of trigger
+   */
   public static void completeMilestone(
     List<Case> records,
     Map<Id, SObject> oldMap

@@ -45,11 +45,10 @@ public with sharing class MilestoneUtils {
   }
 
   /**
-   * @description completeMilestone is called before onBeforeUpdate and will mark a milestone as completed
-   * based on the params
-   * @param caseIds case ids to mark milestone as completed
-   * @param milestoneName the name of the milestone to mark as complete
-   * @param complDate the date/time the milestone was completed
+   * @description completeMilestone the milestones associated with the records based on the params
+   * @param caseIds Set of case ids to mark milestone as completed
+   * @param milestoneName list of milestones to mark as complete
+   * @param complDate the date/time the milestone is completed
    */
   public static void completeMilestone(
     Set<Id> caseIds,

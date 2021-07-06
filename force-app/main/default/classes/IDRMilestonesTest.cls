@@ -1,3 +1,8 @@
+/**
+ * @author Afreen Khan
+ * @since 07/2021
+ * @description  Test Class to test CMOS Milestones features
+ */
 @isTest
 public class IDRMilestonesTest {
   @testSetup
