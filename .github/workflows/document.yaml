@@ -17,13 +17,13 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: anzx/salesforce-docs
-          token: ${{ secrets.ORG_GITHUB_TOKEN }}
+          token: ${{ secrets.SALESFORCE_DOCS_TOKEN }}
 
       - name: Checkout doc plugin
         uses: actions/checkout@v2
         with:
           repository: anzx/salesforce-doc-gen
-          token: ${{ secrets.ORG_GITHUB_TOKEN }}
+          token: ${{ secrets.SALESFORCE_DOC_GEN_TOKEN }}
           path: plugin
 
       - name: Checkout salesforce repo
@@ -88,4 +88,4 @@ jobs:
         run: |
           if git branch | grep -q -w ${GITHUB_RUN_ID}; then hub pull-request -b master -h ${GITHUB_RUN_ID} --no-edit -m "${GITHUB_REF#refs/heads/}-${GITHUB_RUN_ID} Release Update" -m "An automated PR to update access and schema documentation from https://github.com/anzx/salesforce/releases/tag/${GITHUB_REF#refs/heads/}-${GITHUB_RUN_ID}"; fi
         env:
-          GITHUB_TOKEN: ${{ secrets.ORG_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.SALESFORCE_DOCS_TOKEN }}
