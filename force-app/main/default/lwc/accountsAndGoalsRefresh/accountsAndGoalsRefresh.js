@@ -55,14 +55,8 @@ export default class AccountsAndGoals extends LightningElement {
   connectedCallback() {
     if (hasAccountsGoalsPermission) {
       if (this.objectName === "Account") {
-        publish(this.messageContext, TriggerLoading, {
-          update: true
-        });
         this.objectFields = [ACCOUNT_OCV_ID_FIELD];
       } else {
-        publish(this.messageContext, TriggerBalanceLoading, {
-          update: true
-        });
         this.objectFields = [
           FIN_ACCOUNT_OCV_ID_FIELD,
           FIN_ACCOUNT_PRIMARY_OWNER_FIELD
@@ -76,6 +70,16 @@ export default class AccountsAndGoals extends LightningElement {
   }
 
   update() {
+    if (this.objectName === "Account") {
+      publish(this.messageContext, TriggerLoading, {
+        update: true
+      });
+    } else {
+      publish(this.messageContext, TriggerBalanceLoading, {
+        update: true
+      });
+    }
+
     //Reset values
     this.accountDetails = [];
     this.goalDetails = [];
