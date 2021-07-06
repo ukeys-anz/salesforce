@@ -4,7 +4,7 @@ import getBalances from "@salesforce/apex/AccountBalancesController.getBalances"
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
 import { subscribe, MessageContext } from "lightning/messageService";
-import UpdateAccountsBalance from "@salesforce/messageChannel/FinancialAccountsBalanceUpdate__c";
+import UpdateAccounts from "@salesforce/messageChannel/FinancialAccountsUpdate__c";
 import TriggerBalanceLoading from "@salesforce/messageChannel/FinancialAccountsBalanceTriggerLoading__c";
 
 import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
@@ -37,7 +37,7 @@ export default class AccountBalances extends LightningElement {
 
       this.subscription = subscribe(
         this.messageContext,
-        UpdateAccountsBalance,
+        UpdateAccounts,
         (message) => {
           if (message.update) {
             this.timestamp = "";
