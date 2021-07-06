@@ -78,19 +78,12 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
 
     // WHEN
     // for some reason, the Fabric API response returns “balance” attribute as empty
-
-    // manipulate “balance” attribute value to be blank on the mock response coming from "mock_accountsAndGoals.json"
-    Integer valueStartIndex = validResponse.indexOf(
-      '"',
-      validResponse.indexOf('"value"', validResponse.indexOf('"balance"')) + 7
-    );
-    Integer valueEndIndex = validResponse.indexOf('"', valueStartIndex + 1);
-    String balanceValue = validResponse.substring(
-      valueStartIndex + 1,
-      valueEndIndex
-    );
-    String manipulatedResponse = validResponse.replace(balanceValue, '');
-
+    //clean up data
+    validResponse = validResponse.replaceAll('\n', '');
+    validResponse = validResponse.replaceAll(' ', '');
+    // manipulate “balance” attribute value to be empty on the mock response coming from "mock_accountsAndGoals.json"
+    String matchString = '(?i)(,"value":259)';
+    String manipulatedResponse = validResponse.replaceFirst(matchString, '');
     // THEN
     // resonse should be validated before it reaches the UI layer
     Test.startTest();
@@ -119,19 +112,11 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
     // for some reason, the Fabric API response returns “currentBalance” attribute as empty
 
     // manipulate “currentBalance” attribute value to be blank on the mock response coming from "mock_accountsAndGoals.json"
-    Integer valueStartIndex = validResponse.indexOf(
-      '"',
-      validResponse.indexOf(
-        '"value"',
-        validResponse.indexOf('"currentBalance"')
-      ) + 7
-    );
-    Integer valueEndIndex = validResponse.indexOf('"', valueStartIndex + 1);
-    String currentBalanceValue = validResponse.substring(
-      valueStartIndex + 1,
-      valueEndIndex
-    );
-    String manipulatedResponse = validResponse.replace(currentBalanceValue, '');
+    validResponse = validResponse.replaceAll('\n', '');
+    validResponse = validResponse.replaceAll(' ', '');
+    // manipulate “balance” attribute value to be empty on the mock response coming from "mock_accountsAndGoals.json"
+    String matchString = '(?i)(,"value":260)';
+    String manipulatedResponse = validResponse.replaceFirst(matchString, '');
 
     // THEN
     // resonse should be validated before it reaches the UI layer

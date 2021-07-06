@@ -6,11 +6,11 @@
       "name": "FAKE S",
       "balance": {
         "currency": "AUD",
-        "value": "$259"
+        "value": 259
       },
       "currentBalance": {
         "currency": "AUD",
-        "value": "$259"
+        "value": 260
       },
       "balanceValidAsOf": "2021-02-09T23:18:09.559214981Z",
       "openDate": "2020-08-14",
@@ -23,11 +23,11 @@
       "name": "FAKE S",
       "balance": {
         "currency": "AUD",
-        "value": "$598.99"
+        "value": 598.99
       },
       "currentBalance": {
         "currency": "AUD",
-        "value": "$598.99"
+        "value": 598.99
       },
       "balanceValidAsOf": "2021-02-09T23:18:09.559221757Z",
       "openDate": "2020-08-13",
@@ -44,7 +44,7 @@
         "targetDateTime": "2023-02-04T05:46:55Z",
         "targetAmount": {
           "currency": "AUD",
-          "value": "$5,000"
+          "value": 5000
         }
       }
     }
