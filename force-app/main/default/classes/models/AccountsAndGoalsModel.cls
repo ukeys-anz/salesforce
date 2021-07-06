@@ -40,8 +40,10 @@ public with sharing class AccountsAndGoalsModel extends CalloutModel {
     public Boolean isValid {
       get {
         return (String.isNotBlank(this.accountNumber) &&
-         (this.balance != null && this.balance.value != null) &&
-          (this.currentBalance != null && this.currentBalance.value != null) &&
+          (this.balance != null &&
+          this.balance.value != null) &&
+          (this.currentBalance != null &&
+          this.currentBalance.value != null) &&
           String.isNotBlank(this.accountType))
           ? true
           : false;

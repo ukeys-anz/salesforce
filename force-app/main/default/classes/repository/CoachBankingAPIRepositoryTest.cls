@@ -78,7 +78,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
 
     // WHEN
     // for some reason, the Fabric API response returns “balance” attribute as empty
-   //clean up data
+    //clean up data
     validResponse = validResponse.replaceAll('\n', '');
     validResponse = validResponse.replaceAll(' ', '');
     // manipulate “balance” attribute value to be empty on the mock response coming from "mock_accountsAndGoals.json"
