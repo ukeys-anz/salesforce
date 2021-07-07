@@ -213,7 +213,7 @@ public with sharing class IDRCaseActions {
     Set<Id> escalationCases = new Set<Id>();
     Set<Id> maxTimeFrameCases = new Set<Id>();
     for (Case c : records) {
-      Case oldCase = (oldMap != null && oldMap.containsKey(c.Id))
+      Case oldCase = (oldMap.containsKey(c.Id))
         ? (Case) oldMap.get(c.Id)
         : null;
       if (
@@ -223,13 +223,7 @@ public with sharing class IDRCaseActions {
       ) {
         escalationCases.add(c.Id);
       }
-      if (
-        (oldCase != null &&
-        (oldCase.Status != IDRConstants.CLOSED_STATUS &&
-        c.Status == IDRConstants.CLOSED_STATUS ||
-        (oldCase.Status != IDRConstants.RESOLVED_STATUS &&
-        c.Status == IDRConstants.RESOLVED_STATUS)))
-      ) {
+      if ((oldCase != null && (!oldCase.isClosed && c.isClosed))) {
         maxTimeFrameCases.add(c.Id);
       }
 
