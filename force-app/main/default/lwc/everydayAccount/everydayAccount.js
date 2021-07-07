@@ -12,8 +12,8 @@ import { NavigationMixin } from "lightning/navigation";
 import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
 
 const ACCOUNT_TYPES = {
-  checking: "Everyday Account - ANZ Plus Everyday",
-  savings: "Savings Account - ANZ Plus Save"
+  checking: "Everyday - ANZ Plus Account",
+  savings: "Savings - ANZ Save Account"
 };
 
 export default class EverydayAccount extends NavigationMixin(LightningElement) {

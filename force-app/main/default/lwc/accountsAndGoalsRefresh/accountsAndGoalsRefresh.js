@@ -79,7 +79,6 @@ export default class AccountsAndGoals extends LightningElement {
         update: true
       });
     }
-
     //Reset values
     this.accountDetails = [];
     this.goalDetails = [];
@@ -104,9 +103,11 @@ export default class AccountsAndGoals extends LightningElement {
                 FinServ__FinancialAccountNumber__c: account.accountNumber,
                 FinServ__Balance__c: account.balance.value,
                 FinServ__CurrentPostedBalance__c: account.currentBalance.value,
-                BSB__c: account.bsb.toString()
+                BSB__c: account.bsb.toString(),
+                FinServ__OpenDate__c: account.openDate,
+                Product_Type__c:
+                  account.accountType === "Savings" ? "ANZ Save" : "ANZ Plus"
               };
-
               this.accountDetails.push(accountInformation);
               if (account.accountType === "Savings") {
                 this.goalAccountNumbers.push(account.accountNumber);
