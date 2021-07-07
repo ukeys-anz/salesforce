@@ -359,7 +359,7 @@ public with sharing class GetHelpCaseActions {
       'futureRollupRelatedBug'
     );
     log.addDatabaseSaveResult('Case', results, new List<Case>());
-    log.insertLogAsync();
+    log.insertLog();
   }
 
   /**
