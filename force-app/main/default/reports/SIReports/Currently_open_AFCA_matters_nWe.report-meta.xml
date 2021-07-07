@@ -57,7 +57,7 @@
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
-            <value>Referred from AFCA</value>
+            <value>11,16,17</value>
         </criteriaItems>
         <criteriaItems>
             <column>CLOSED</column>
