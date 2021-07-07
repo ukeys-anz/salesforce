@@ -59,6 +59,10 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     GetHelpCaseActions.beforeUpdate(oldMap, records);
     SICaseActions.beforeUpdate((List<Case>) records, (Map<Id, Case>) oldMap);
     GetHelpCaseActions.handlePopulateCaseSubject(records, null);
+    IDRCaseNotificationManager.manageNotification(
+      records,
+      (Map<Id, Case>) oldMap
+    );
   }
 
   /**
