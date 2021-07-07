@@ -55,14 +55,8 @@ export default class AccountsAndGoals extends LightningElement {
   connectedCallback() {
     if (hasAccountsGoalsPermission) {
       if (this.objectName === "Account") {
-        publish(this.messageContext, TriggerLoading, {
-          update: true
-        });
         this.objectFields = [ACCOUNT_OCV_ID_FIELD];
       } else {
-        publish(this.messageContext, TriggerBalanceLoading, {
-          update: true
-        });
         this.objectFields = [
           FIN_ACCOUNT_OCV_ID_FIELD,
           FIN_ACCOUNT_PRIMARY_OWNER_FIELD
@@ -76,6 +70,15 @@ export default class AccountsAndGoals extends LightningElement {
   }
 
   update() {
+    if (this.objectName === "Account") {
+      publish(this.messageContext, TriggerLoading, {
+        update: true
+      });
+    } else {
+      publish(this.messageContext, TriggerBalanceLoading, {
+        update: true
+      });
+    }
     //Reset values
     this.accountDetails = [];
     this.goalDetails = [];
@@ -98,20 +101,13 @@ export default class AccountsAndGoals extends LightningElement {
               let accountInformation = {
                 Name: account.name,
                 FinServ__FinancialAccountNumber__c: account.accountNumber,
-                FinServ__Balance__c: account.balance.value.replace("$", ""),
-                FinServ__CurrentPostedBalance__c: account.currentBalance.value.replace(
-                  "$",
-                  ""
-                ),
+                FinServ__Balance__c: account.balance.value,
+                FinServ__CurrentPostedBalance__c: account.currentBalance.value,
+                BSB__c: account.bsb.toString(),
                 FinServ__OpenDate__c: account.openDate,
-
-                BSB__c: account.bsb.toString()
+                Product_Type__c:
+                  account.accountType == "Savings" ? "ANZ Save" : "ANZ Plus"
               };
-              if (account.accountType == "Savings") {
-                Product_Type__c = "ANZ Save";
-              } else if (account.accountType == "Transaction") {
-                Product_Type__c = "ANZ Plus";
-              }
               this.accountDetails.push(accountInformation);
               if (account.accountType === "Savings") {
                 this.goalAccountNumbers.push(account.accountNumber);
