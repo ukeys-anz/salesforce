@@ -170,16 +170,6 @@ private with sharing class NewCaseFlowWrapperControllerTest {
       response,
       'Response should have a list of Channel SIDs when multiple Active Chat Topics were found against an Account record'
     );
-
-    List<Application_Log__c> logs = [
-      SELECT Id, Function_Name__c
-      FROM Application_Log__c
-      WHERE Function_Name__c = 'getActiveChatTopicIDsByCustomer'
-    ];
-    System.assert(
-      !logs.isEmpty(),
-      'An Application Log entry was not added when multiple Active Chat Topics were found against an Account record'
-    );
   }
 
   class MockValidMultipleChatTopics implements HttpCalloutMock {
