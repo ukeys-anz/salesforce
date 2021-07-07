@@ -56,7 +56,7 @@ public with sharing class GetCustomerInformation {
           response != null ? response.getBody() : null,
           request.getEndpoint(),
           HTTP_METHOD.HTTP_GET.name(),
-          response.getStatusCode()
+          response != null ? response.getStatusCode() : 400
         );
         log.insertLog();
         //throw new AuraHandledException(e.getMessage());
