@@ -4,6 +4,7 @@
  * @group IDR(Internal Dispute Resolution)
  * @description  GetCustomerInformation is a class that handles all the information of the customer related to a case in IDR.
  */
+@SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class GetCustomerInformation {
   /**
    * @description Currently the Case record page has a lwc which needs to fetch the customer information on demand on a case record page based on CAP SIS ID.
