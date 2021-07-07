@@ -33,7 +33,7 @@ public with sharing class AuthTokenCacheUtil {
       Lib_SystemLog.createSingleLog(
         AuthTokenCacheUtil.class.getName(),
         'moveAuthTokens',
-        '1',
+        '',
         'Unable to query user to check if ANZx user to perform token caching',
         Lib_SystemLog.Severity.ERROR
       );
@@ -119,7 +119,7 @@ public with sharing class AuthTokenCacheUtil {
         Lib_SystemLog.createSingleLogAsync(
           AuthTokenCacheUtil.class.getName(),
           'storeAzureSessionTokens',
-          '1',
+          '',
           'Login Flow Invocable method did not receive Azure Refresh or Id Token for user: ' +
           userId
         );
@@ -145,7 +145,7 @@ public with sharing class AuthTokenCacheUtil {
       Lib_SystemLog.createSingleLog(
         AuthTokenCacheUtil.class.getName(),
         'getSessionRefreshToken',
-        '1',
+        '',
         'Session Refresh Token not found for user ' + userId,
         Lib_SystemLog.Severity.WARNING
       );
@@ -183,7 +183,7 @@ public with sharing class AuthTokenCacheUtil {
       Lib_SystemLog.createSingleLog(
         AuthTokenCacheUtil.class.getName(),
         'getSessionIdToken',
-        '1',
+        '',
         'Session Id Token not found for user ' + userId,
         Lib_SystemLog.Severity.WARNING
       );
@@ -232,15 +232,22 @@ public with sharing class AuthTokenCacheUtil {
         true
       );
     } catch (Exception e) {
-      Lib_SystemLog.logAPIError(
+      lib_systemLog log = new lib_systemLog(
+        'AuthTokenCacheUtil',
+        'refreshIdToken'
+      );
+      Boolean logResult = lib_systemLog.logAPIError(
         AuthTokenCacheUtil.class.getName(),
         'refreshIdToken',
         e.getMessage(),
         e.getTypeName(),
         null,
+        res != null ? res.getBody() : null,
         null,
-        res != null ? res.getBody() : null
+        null,
+        res.getStatusCode()
       );
+      log.insertLog();
     }
 
     return (String) idToken;

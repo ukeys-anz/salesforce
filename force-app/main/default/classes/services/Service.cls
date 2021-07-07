@@ -127,6 +127,7 @@ public with sharing virtual class Service {
   public Map<String, String> setMuleCommonHeaders(Map<String, String> headers) {
     headers.put('client_id', '{!$Credential.Username}');
     headers.put('client_secret', '{!$Credential.Password}');
+    headers.put('x-correlation-id', UniqueIdUtil.getTraceId());
     return headers;
   }
 

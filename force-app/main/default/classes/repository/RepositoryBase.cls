@@ -22,25 +22,29 @@ public virtual with sharing class RepositoryBase {
       Lib_SystemLog.createSingleLog(
         apexType.getName(),
         'RepositoryBase-handleErrors',
-        'JE0001',
+        '',
         err.getMessage(),
         Lib_SystemLog.Severity.ERROR
       );
     } else if (err instanceof CalloutException) {
-      Lib_SystemLog.logAPIError(
+      lib_systemLog log = new lib_systemLog('RepositoryBase', 'handleErrors');
+      Boolean logResult = lib_systemLog.logAPIError(
         apexType.getName(),
         'RepositoryBase-handleErrors',
         err.getMessage(),
         err.getTypeName(),
-        RequestUtils.getRequestId(),
         null,
-        response.body != null ? response.body : null
+        null,
+        null,
+        null,
+        response.statusCode
       );
+      log.insertLog();
     } else {
       Lib_SystemLog.createSingleLog(
         apexType.getName(),
         'RepositoryBase-handleErrors',
-        'GE0001',
+        '',
         err.getMessage(),
         Lib_SystemLog.Severity.ERROR
       );

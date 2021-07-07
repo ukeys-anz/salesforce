@@ -6,13 +6,23 @@
  */
 @isTest
 public class Lib_TestSyncLogs {
+  static void setup() {
+    BigObjectHelper bigObjectHelper = (BigObjectHelper) Lib_MockService.createMock(
+      BigObjectHelper.class,
+      new Map<String, Object>{ 'insertBigObject' => true }
+    );
+
+    Lib_SystemLog.bigObjectHelper = bigObjectHelper;
+  }
+
   @isTest
   static void testSingleLog() {
+    setup();
     Test.startTest();
 
     // GIVEN a single log record is created
     // WHEN the log is inserted
-    lib_SystemLog.createSingleLog(
+    Boolean result = lib_SystemLog.createSingleLog(
       'Process',
       'Function',
       '1111',
@@ -21,44 +31,34 @@ public class Lib_TestSyncLogs {
     );
 
     Test.stopTest();
-
-    // THEN an application log record should be created
-    List<Application_Log__c> appLog = [SELECT Id FROM Application_Log__c];
-    System.assertEquals(1, appLog.size(), 'Matches the log record size');
+    System.assertEquals(true, result);
   }
 
   @isTest
   static void testLogAPIError() {
+    setup();
     Test.startTest();
 
     // GIVEN a single api log record is created
     // WHEN the log is inserted
-    lib_SystemLog.logAPIError(
+    Boolean result = lib_SystemLog.logAPIError(
       'SomeProcess',
       'SomeMethod',
       'Failed',
       '200',
-      '0000',
       'Request body',
-      'Response body'
+      'Response body',
+      'RequestEndpoint',
+      HTTP_METHOD.HTTP_GET.name(),
+      500
     );
-
     Test.stopTest();
-
-    // THEN an application log record should be created
-    List<Application_Log__c> appLog = [
-      SELECT Id, Request_Body__c
-      FROM Application_Log__c
-    ];
-    System.assertEquals(1, appLog.size(), 'Matches the log record size');
-    System.assert(
-      applog[0].Request_Body__c.length() > 0,
-      'Request body has content'
-    );
+    System.assertEquals(true, result);
   }
 
   @isTest
   static void testMultipleLogs() {
+    setup();
     // GIVEN multiple log records are created
     lib_SystemLog log = new lib_SystemLog('Test Process', 'getSomething');
 
@@ -70,6 +70,9 @@ public class Lib_TestSyncLogs {
       '200',
       'Some Info',
       lib_SystemLog.Severity.INFO,
+      'https//:endpoint',
+      HTTP_METHOD.HTTP_GET.name(),
+      200,
       'Request Body',
       'Response Body'
     );
@@ -81,17 +84,18 @@ public class Lib_TestSyncLogs {
       lib_SystemLog.Severity.FATAL
     );
 
+    System.assertNotEquals(0, log.logList.size());
+
     log.insertLog();
 
     Test.stopTest();
 
-    // THEN an application log record should be created for each log recorded
-    List<Application_Log__c> appLog = [SELECT Id FROM Application_Log__c];
-    System.assertEquals(3, appLog.size(), 'Matches the log record size');
+    System.assertEquals(0, log.logList.size());
   }
 
   @isTest
   static void testDatabaseSaveResultError() {
+    setup();
     // GIVEN a programmatic database insert fails
     Contact c = new Contact();
     lib_SystemLog log = new lib_SystemLog('Contacts', 'saveContact');
@@ -99,7 +103,6 @@ public class Lib_TestSyncLogs {
     Test.startTest();
 
     // WHEN the event is captured in a log and inserted
-    String errorCode = log.getLogErrorCode();
 
     Database.SaveResult sr = Database.insert(c, false);
     if (!sr.isSuccess()) {
@@ -110,14 +113,12 @@ public class Lib_TestSyncLogs {
       );
     }
 
+    System.assertNotEquals(0, log.logList.size());
+
     log.insertLog();
-    System.debug(LoggingLevel.DEBUG, log.Log[0]);
-    errorCode = log.getLogErrorCode();
 
     Test.stopTest();
 
-    // THEN an application log record should be created
-    List<Application_Log__c> appLog = [SELECT Id FROM Application_Log__c];
-    System.assertEquals(1, appLog.size(), 'Matches the log record size');
+    System.assertEquals(0, log.logList.size());
   }
 }
