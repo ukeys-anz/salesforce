@@ -3,6 +3,10 @@
     <label>ANZx_Quality_Analyst</label>
     <protected>false</protected>
     <values>
+        <field>Call_Center_Name__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
         <field>Permission_Set_Groups__c</field>
         <value xsi:type="xsd:string">Quality_Analyst;</value>
     </values>

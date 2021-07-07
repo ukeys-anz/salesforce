@@ -1,7 +1,7 @@
 /**
  * @description TaskTriggerHandler is the handler class for Task Trigger which extends Lib_TriggerHandler the trigger framework used.
- * @author Boobalakrishnan Duraisamy
- * @since 02/2021
+ * @author Shermal Warnakula, Boobalakrishnan Duraisamy
+ * @since 03/2021
  */
 public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
   /**
@@ -15,6 +15,7 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onBeforeInsert() {
     IDRTaskActions.beforeInsertActions(records);
+    GetHelpTaskActions.beforeInsertActions(records);
   }
   /**
    * @description onAfterInsert to perform processing during the after insert phase

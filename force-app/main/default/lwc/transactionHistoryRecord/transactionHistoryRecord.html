@@ -1,7 +1,14 @@
 <template>
   <template if:true={transactionRecord.showDateTitle}>
     <div class="slds-text-color_weak slds-card__header-title transaction-date">
-      {transactionDate}
+      <lightning-formatted-date-time
+        value={transactionDate}
+        year="numeric"
+        month="long"
+        day="2-digit"
+        weekday="long"
+        time-zone={userTimezone}
+      ></lightning-formatted-date-time>
     </div>
   </template>
   <article class={transactionRecord.rowColour}>
@@ -21,26 +28,38 @@
       </div>
       <div class="slds-col slds-size--1-of-7">
         <div class="slds-grid slds-form-element__label">Transaction Time</div>
-        <div class="slds-grid">{transactionRecord.TransactionTime}</div>
+        <div class="slds-grid">
+          <lightning-formatted-date-time
+            value={transactionRecord.transactionDate}
+            hour="2-digit"
+            minute="2-digit"
+            time-zone={userTimezone}
+          ></lightning-formatted-date-time>
+        </div>
       </div>
       <div class="slds-col slds-size--1-of-7">
         <div class="slds-grid slds-form-element__label">Short Description</div>
-        <div class="slds-grid">{transactionRecord.enrichmentId}</div>
+        <div class="slds-grid slds-hyphenate">
+          {transactionRecord.enrichmentId}
+        </div>
       </div>
       <div class="slds-col slds-size--1-of-7">
         <div class="slds-grid slds-form-element__label">Amount</div>
         <div class="slds-grid">
           <template if:true={positiveAmount}>
             <span class="positive-amount"
-              >+$<lightning-formatted-number
+              >+<lightning-formatted-number
                 value={amountNumber}
+                format-style="currency"
+                data-id="amount"
               ></lightning-formatted-number
             ></span>
           </template>
           <template if:true={negativeAmount}>
             <span
-              >$<lightning-formatted-number
+              ><lightning-formatted-number
                 value={amountNumber}
+                format-style="currency"
               ></lightning-formatted-number
             ></span>
           </template>
@@ -146,7 +165,12 @@
               <div class="slds-grid slds-form-element__label">
                 Converted Amount
               </div>
-              <div class="slds-grid">{amountConvertedValue}</div>
+              <div class="slds-grid">
+                <lightning-formatted-number
+                  value={amountConvertedValue}
+                  format-style="currency"
+                ></lightning-formatted-number>
+              </div>
             </div>
             <div class="slds-col slds-size--1-of-7">
               <div class="slds-grid slds-form-element__label">
