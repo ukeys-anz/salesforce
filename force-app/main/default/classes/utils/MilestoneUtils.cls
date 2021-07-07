@@ -34,7 +34,6 @@ public with sharing class MilestoneUtils {
       update cmsToUpdate;
     }
   }
-}
 
   /**
    * @description completeMilestone the milestones associated with the records based on the params
