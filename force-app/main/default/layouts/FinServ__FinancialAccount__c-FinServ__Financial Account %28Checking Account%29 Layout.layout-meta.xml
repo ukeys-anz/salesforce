@@ -59,7 +59,7 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>FinServ__ProductName__c</field>
+                <field>FinServ__Product_Type__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
