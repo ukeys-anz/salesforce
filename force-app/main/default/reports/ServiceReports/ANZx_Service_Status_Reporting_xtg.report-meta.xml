@@ -48,7 +48,7 @@
         <field>Case.Actual_Outcome__c</field>
     </columns>
     <format>Tabular</format>
-    <name>\ANZx Service Status Reporting</name>
+    <name>ANZx Service Status Reporting</name>
     <params>
         <name>units</name>
         <value>h</value>
