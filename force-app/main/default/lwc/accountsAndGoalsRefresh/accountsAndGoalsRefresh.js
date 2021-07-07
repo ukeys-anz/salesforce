@@ -55,8 +55,14 @@ export default class AccountsAndGoals extends LightningElement {
   connectedCallback() {
     if (hasAccountsGoalsPermission) {
       if (this.objectName === "Account") {
+        publish(this.messageContext, TriggerLoading, {
+          update: true
+        });
         this.objectFields = [ACCOUNT_OCV_ID_FIELD];
       } else {
+        publish(this.messageContext, TriggerBalanceLoading, {
+          update: true
+        });
         this.objectFields = [
           FIN_ACCOUNT_OCV_ID_FIELD,
           FIN_ACCOUNT_PRIMARY_OWNER_FIELD
@@ -70,16 +76,6 @@ export default class AccountsAndGoals extends LightningElement {
   }
 
   update() {
-    if (this.objectName === "Account") {
-      publish(this.messageContext, TriggerLoading, {
-        update: true
-      });
-    } else {
-      publish(this.messageContext, TriggerBalanceLoading, {
-        update: true
-      });
-    }
-
     //Reset values
     this.accountDetails = [];
     this.goalDetails = [];
@@ -103,21 +99,21 @@ export default class AccountsAndGoals extends LightningElement {
                 Name: account.name,
                 FinServ__FinancialAccountNumber__c: account.accountNumber,
                 FinServ__Balance__c: account.balance.value.replace("$", ""),
-                FinServ__OpenDate__c: account.DateOpened,
                 FinServ__CurrentPostedBalance__c: account.currentBalance.value.replace(
                   "$",
                   ""
                 ),
+                FinServ__OpenDate__c: account.openDate,
+
                 BSB__c: account.bsb.toString()
               };
-              if (accountType === "Transaction") {
-                accountInformation.Product_Type__c = "ANZ Plus";
+              if (account.accountType == "Savings") {
+                Product_Type__c = "ANZ Save";
+              } else if (account.accountType == "Transaction") {
+                Product_Type__c = "ANZ Plus";
               }
-
               this.accountDetails.push(accountInformation);
               if (account.accountType === "Savings") {
-                accountInformation.Product_Type__c = "ANZ Save";
-
                 this.goalAccountNumbers.push(account.accountNumber);
                 let goalInformation = {
                   name: account.goal.name,
