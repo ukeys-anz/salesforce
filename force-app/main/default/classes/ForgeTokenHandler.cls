@@ -25,6 +25,7 @@ public with sharing class ForgeTokenHandler {
         e.getMessage(),
         Lib_SystemLog.Severity.ERROR
       );
+      log.insertLogAsync();
 
       AuraHandledException ahe = new AuraHandledException(e.getMessage());
       ahe.setMessage(e.getMessage());
