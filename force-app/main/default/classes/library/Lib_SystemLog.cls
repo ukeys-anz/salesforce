@@ -338,6 +338,9 @@ public without sharing class Lib_SystemLog {
       errorNo,
       errorDescription,
       severity,
+      endpoint,
+      httpMethod,
+      statusCode,
       request,
       response,
       UniqueIdUtil.getTraceId()
@@ -351,6 +354,9 @@ public without sharing class Lib_SystemLog {
    * @param errorNo Error code used to create the log record.
    * @param errorDescription Error description used to create the log record.
    * @param severity Error Severity used to create the log record.
+   * @param endpoint The endpoint used to make the request.
+   * @param httpMethod The HTTP method used to make the request.
+   * @param statusCode The HTTP status code of the response.
    * @param request Request body in the request response integration pattern
    * @param response Response body in the request response integration pattern
    * @param traceId Trace Id from a previous related log.
@@ -359,6 +365,9 @@ public without sharing class Lib_SystemLog {
     String errorNo,
     String errorDescription,
     Severity severity,
+    String endpoint,
+    string httpMethod,
+    Integer statusCode,
     String request,
     String response,
     String traceId
