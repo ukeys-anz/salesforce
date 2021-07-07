@@ -119,12 +119,9 @@ export default class AccountsAndGoals extends LightningElement {
                   name: account.goal.name,
                   accountNumber: account.accountNumber,
                   targetAmount: account.goal.targetAmount
-                    ? account.goal.targetAmount.value.replace(/[$,]/g, "")
+                    ? account.goal.targetAmount.value
                     : "",
-                  currentBalance: account.currentBalance.value.replace(
-                    /[$,]/g,
-                    ""
-                  ),
+                  currentBalance: account.currentBalance.value,
                   startDate: account.goal.startDate,
                   targetDate: account.goal.targetDate
                     ? account.goal.targetDate
