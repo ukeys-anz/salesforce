@@ -87,16 +87,18 @@ public with sharing class IDRCaseNotificationManager {
   }
 
   public static void manageCaseNotificationForTaskReminders(
-    List<case> caseList,
-    Map<Id, Integer> caseIdWithDueDaysMap
+    List<IDRPendCaseTaskReminderWrapper> pendCaseTaskWrapperList
   ) {
     List<IDRBankerNotificationWrapper> wrapperList = new List<IDRBankerNotificationWrapper>();
-    for (Case c : caseList) {
+    for (
+      IDRPendCaseTaskReminderWrapper pendCaseTaskWrapper : pendCaseTaskWrapperList
+    ) {
       wrapperList.add(
-        createNotification(
-          String.valueOf(caseIdWithDueDaysMap.get(c.Id)),
-          c,
-          null
+        createNotificationForTaskReminders(
+          'Task Reminder',
+          pendCaseTaskWrapper.caseRecord,
+          pendCaseTaskWrapper.taskRecord,
+          pendCaseTaskWrapper.daysBetweenTaskDueDate
         )
       );
     }
@@ -109,7 +111,9 @@ public with sharing class IDRCaseNotificationManager {
   ) {
     List<IDRBankerNotificationWrapper> wrapperList = new List<IDRBankerNotificationWrapper>();
     for (Case c : caseList) {
-      wrapperList.add(createNotification('Task Creation', c, null));
+      wrapperList.add(
+        createNotificationForTaskReminders('Task Creation', c, null, null)
+      );
     }
 
     IDRBankerNotificationBuilder.sendNotification(wrapperList);
@@ -129,34 +133,7 @@ public with sharing class IDRCaseNotificationManager {
   ) {
     IDRBankerNotificationWrapper wrapper;
     String msgBody;
-    if (fieldLabel == 'Task Creation') {
-      msgBody =
-        'Your case ' +
-        c.CaseNumber +
-        ' has a new Task assigned, ' +
-        'Please ensure they are actioned';
-      wrapper = new IDRBankerNotificationWrapper(
-        c,
-        new List<Id>{ c.OwnerId },
-        c.CaseNumber,
-        msgBody,
-        null
-      );
-    } else if (fieldLabel.isNumeric()) {
-      msgBody =
-        'Your case ' +
-        c.CaseNumber +
-        ' has Tasks that are due in ' +
-        fieldLabel +
-        ' days, Please ensure they are actioned';
-      wrapper = new IDRBankerNotificationWrapper(
-        c,
-        new List<Id>{ c.OwnerId },
-        c.CaseNumber,
-        msgBody,
-        null
-      );
-    } else if (fieldLabel == 'Parent Updated') {
+    if (fieldLabel == 'Parent Updated') {
       msgBody =
         'Your case ' +
         c.CaseNumber +
@@ -197,6 +174,52 @@ public with sharing class IDRCaseNotificationManager {
         c.CaseNumber,
         msgBody,
         c
+      );
+    }
+
+    return wrapper;
+  }
+
+  public static IDRBankerNotificationWrapper createNotificationForTaskReminders(
+    String whichNotification,
+    Case c,
+    Task t,
+    Integer daysForDue
+  ) {
+    IDRBankerNotificationWrapper wrapper;
+    String msgBody;
+    if (whichNotification == 'Task Creation') {
+      msgBody =
+        'Your case ' +
+        c.CaseNumber +
+        ' has a new task assigned, Please ensure they are actioned';
+      wrapper = new IDRBankerNotificationWrapper(
+        c,
+        new List<Id>{ c.OwnerId },
+        c.CaseNumber,
+        msgBody,
+        null
+      );
+    } else if (whichNotification == 'Task Reminder') {
+      if (daysForDue == 1) {
+        msgBody =
+          'A task you assigned for complaint ' +
+          c.CaseNumber +
+          ' is due in tomorrow';
+      } else {
+        msgBody =
+          'A task you assigned for complaint ' +
+          c.CaseNumber +
+          ' is due in ' +
+          daysForDue +
+          ' days';
+      }
+      wrapper = new IDRBankerNotificationWrapper(
+        c,
+        new List<Id>{ c.OwnerId },
+        t.Subject,
+        msgBody,
+        null
       );
     }
 

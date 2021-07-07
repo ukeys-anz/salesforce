@@ -1,11 +1,12 @@
 public with sharing class IDRPendCaseTaskRemindersHandler {
-  public static void sendRemindersToCaseOwners(List<Task> taskList) {
+  public static void createWrapper(List<Task> taskList){
     List<Id> caseIdList = new List<Id>();
-    Map<Id, Integer> caseIdWithDueDaysMap = new Map<Id, Integer>();
+    List<IDRPendCaseTaskReminderWrapper> pendCaseTaskWrapperList = new List<IDRPendCaseTaskReminderWrapper>();
     List<String> windowForTaskReminders = Label.IDR_Window_For_Task_Reminders.split(
       ','
     );
     for (Task t : taskList) {
+      IDRPendCaseTaskReminderWrapper pendCaseTaskWrapper = new IDRPendCaseTaskReminderWrapper();
       Integer daysBetweenTaskDueDate = Date.today().daysBetween(t.ActivityDate);
       Boolean isDueDateWithinWindow = windowForTaskReminders.contains(
           String.valueOf(Date.today().daysBetween(t.ActivityDate))
@@ -14,17 +15,28 @@ public with sharing class IDRPendCaseTaskRemindersHandler {
         : false;
       if (isDueDateWithinWindow) {
         caseIdList.add(t.WhatId);
-        caseIdWithDueDaysMap.put(t.WhatId, daysBetweenTaskDueDate);
+        pendCaseTaskWrapper.taskId = t.Id;
+        pendCaseTaskWrapper.caseId = t.WhatId;
+        pendCaseTaskWrapper.taskRecord = t;
+        pendCaseTaskWrapper.daysBetweenTaskDueDate = daysBetweenTaskDueDate;
+        pendCaseTaskWrapperList.add(pendCaseTaskWrapper);
       }
     }
     List<Case> caseListForReminders = IDRPendCaseTaskRemindersHelper.getCasesHelper(
       caseIdList
     );
-    IDRCaseNotificationManager.manageCaseNotificationForTaskReminders(
-      caseListForReminders,
-      caseIdWithDueDaysMap
-    );
-  }
+    for (IDRPendCaseTaskReminderWrapper pctw : pendCaseTaskWrapperList) {
+      for (Case c : caseListForReminders) {
+        if (pctw.caseId == c.Id) {
+          pctw.caseRecord = c;
+        }
+      }
+    }
+
+    IDRPendCaseTaskRemindersHelper.sendRemindersToTaskOwners(pendCaseTaskWrapperList);
+    IDRPendCaseTaskRemindersHelper.sendRemindersToCaseOwners(pendCaseTaskWrapperList);
+
+  } 
 
   public static void taskCreationNotificationToCaseOwners(List<Task> taskList) {
     List<Id> caseIdList = new List<Id>();

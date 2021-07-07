@@ -11,8 +11,7 @@ public with sharing class IDRPendCaseTaskRemindersBatch implements Database.Batc
   }
 
   public void execute(Database.BatchableContext bc, List<Task> taskScope) {
-    IDRTaskNotificationManager.manageNotificationForTaskReminders(taskScope);
-    IDRPendCaseTaskRemindersHandler.sendRemindersToCaseOwners(taskScope);
+    IDRPendCaseTaskRemindersHandler.createWrapper(taskScope);
   }
 
   public void finish(Database.BatchableContext bc) {

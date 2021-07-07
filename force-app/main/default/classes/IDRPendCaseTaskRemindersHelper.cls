@@ -15,4 +15,15 @@ public with sharing class IDRPendCaseTaskRemindersHelper {
       return null;
     }
   }
+
+  public static void sendRemindersToCaseOwners(List<IDRPendCaseTaskReminderWrapper> pendCaseTaskWrapperList) {
+    IDRCaseNotificationManager.manageCaseNotificationForTaskReminders(
+      pendCaseTaskWrapperList
+    );
+  }
+
+  public static void sendRemindersToTaskOwners(List<IDRPendCaseTaskReminderWrapper> pendCaseTaskWrapperList){
+    IDRTaskNotificationManager.manageNotificationForTaskReminders(pendCaseTaskWrapperList);
+  }
+  
 }
