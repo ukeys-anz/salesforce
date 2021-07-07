@@ -86,6 +86,35 @@ public with sharing class IDRCaseNotificationManager {
     }
   }
 
+  public static void manageCaseNotificationForTaskReminders(
+    List<case> caseList,
+    Map<Id, Integer> caseIdWithDueDaysMap
+  ) {
+    List<IDRBankerNotificationWrapper> wrapperList = new List<IDRBankerNotificationWrapper>();
+    for (Case c : caseList) {
+      wrapperList.add(
+        createNotification(
+          String.valueOf(caseIdWithDueDaysMap.get(c.Id)),
+          c,
+          null
+        )
+      );
+    }
+
+    IDRBankerNotificationBuilder.sendNotification(wrapperList);
+  }
+
+  public static void manageCaseNotificationForTaskCreation(
+    List<case> caseList
+  ) {
+    List<IDRBankerNotificationWrapper> wrapperList = new List<IDRBankerNotificationWrapper>();
+    for (Case c : caseList) {
+      wrapperList.add(createNotification('Task Creation', c, null));
+    }
+
+    IDRBankerNotificationBuilder.sendNotification(wrapperList);
+  }
+
   /**
    * @description Builds a notification using IDRBankerNotificationWrapper class
    * @param fieldLabel Field label where the change has been detected
@@ -100,7 +129,34 @@ public with sharing class IDRCaseNotificationManager {
   ) {
     IDRBankerNotificationWrapper wrapper;
     String msgBody;
-    if (fieldLabel == 'Parent Updated') {
+    if (fieldLabel == 'Task Creation') {
+      msgBody =
+        'Your case ' +
+        c.CaseNumber +
+        ' has a new Task assigned, ' +
+        'Please ensure they are actioned';
+      wrapper = new IDRBankerNotificationWrapper(
+        c,
+        new List<Id>{ c.OwnerId },
+        c.CaseNumber,
+        msgBody,
+        null
+      );
+    } else if (fieldLabel.isNumeric()) {
+      msgBody =
+        'Your case ' +
+        c.CaseNumber +
+        ' has Tasks that are due in ' +
+        fieldLabel +
+        ' days, Please ensure they are actioned';
+      wrapper = new IDRBankerNotificationWrapper(
+        c,
+        new List<Id>{ c.OwnerId },
+        c.CaseNumber,
+        msgBody,
+        null
+      );
+    } else if (fieldLabel == 'Parent Updated') {
       msgBody =
         'Your case ' +
         c.CaseNumber +

@@ -43,19 +43,29 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
    */
   private static void manageNotification(List<Task> records) {
     List<IDRBankerNotificationWrapper> wrapperList = new List<IDRBankerNotificationWrapper>();
-
+    List<Task> taskRemindersForCaseOwners = new List<Task>();
     for (Task record : (List<Task>) records) {
       if (
-        record.RecordTypeId == IDRConstants.IDR_TASK_RT_ID &&
+        (record.RecordTypeId == IDRConstants.IDR_TASK_RT_ID &&
         record.Subject == IDRTaskActions.IDR_TASK_SUBJECT &&
-        record.OwnerId == IDRTaskActions.siQueue.id
+        record.OwnerId == IDRTaskActions.siQueue.id) ||
+        record.Type == IDRConstants.TASK_TYPE_PEND_CASE
       ) {
         wrapperList.add(createNotification(record));
+        if (record.Type == IDRConstants.TASK_TYPE_PEND_CASE) {
+          taskRemindersForCaseOwners.add(record);
+        }
       }
     }
 
     if (!wrapperList.isEmpty()) {
       IDRBankerNotificationBuilder.sendNotification(wrapperList);
+    }
+
+    if (!taskRemindersForCaseOwners.isEmpty()) {
+      IDRPendCaseTaskRemindersHandler.taskCreationNotificationToCaseOwners(
+        taskRemindersForCaseOwners
+      );
     }
   }
   /**
