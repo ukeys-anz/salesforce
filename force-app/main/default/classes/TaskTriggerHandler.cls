@@ -35,6 +35,7 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
    * @param oldMap old trigger values
    */
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
+    manageNotification((List<Task>) records);
     IDRTaskActions.afterUpdateActions(records);
   }
   /**
@@ -48,8 +49,10 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
       if (
         (record.RecordTypeId == IDRConstants.IDR_TASK_RT_ID &&
         record.Subject == IDRTaskActions.IDR_TASK_SUBJECT &&
-        record.OwnerId == IDRTaskActions.siQueue.id) ||
-        record.Type == IDRConstants.TASK_TYPE_PEND_CASE
+        record.OwnerId == IDRTaskActions.siQueue.id &&
+        !Trigger.isUpdate) ||
+        (record.Type == IDRConstants.TASK_TYPE_PEND_CASE &&
+        record.OwnerId != Userinfo.getUserId())
       ) {
         wrapperList.add(createNotification(record));
         if (record.Type == IDRConstants.TASK_TYPE_PEND_CASE) {
@@ -63,8 +66,17 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
     }
 
     if (!taskRemindersForCaseOwners.isEmpty()) {
+      //InApp notification
       IDRPendCaseTaskRemindersHandler.taskCreationNotificationToCaseOwners(
         taskRemindersForCaseOwners
+      );
+      //Email notification
+      List<IDRPendCaseTaskReminderWrapper> pendCaseTaskWrapperList = IDRPendCaseTaskRemindersHandler.createWrapper(
+        (List<Task>) records
+      );
+      IDRPendCaseTaskRemindersHandler.sendEmailNotificationToTaskOwners(
+        pendCaseTaskWrapperList,
+        'Task Assignment'
       );
     }
   }

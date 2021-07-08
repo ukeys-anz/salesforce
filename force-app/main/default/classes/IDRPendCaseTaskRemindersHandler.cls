@@ -1,5 +1,7 @@
 public with sharing class IDRPendCaseTaskRemindersHandler {
-  public static void createWrapper(List<Task> taskList){
+  public static List<IDRPendCaseTaskReminderWrapper> createWrapper(
+    List<Task> taskList
+  ) {
     List<Id> caseIdList = new List<Id>();
     List<IDRPendCaseTaskReminderWrapper> pendCaseTaskWrapperList = new List<IDRPendCaseTaskReminderWrapper>();
     List<String> windowForTaskReminders = Label.IDR_Window_For_Task_Reminders.split(
@@ -33,10 +35,37 @@ public with sharing class IDRPendCaseTaskRemindersHandler {
       }
     }
 
-    IDRPendCaseTaskRemindersHelper.sendRemindersToTaskOwners(pendCaseTaskWrapperList);
-    IDRPendCaseTaskRemindersHelper.sendRemindersToCaseOwners(pendCaseTaskWrapperList);
+    return pendCaseTaskWrapperList;
+  }
 
-  } 
+  public static void sendInAppNotificationToTaskOwners(
+    List<IDRPendCaseTaskReminderWrapper> pendCaseTaskWrapperList
+  ) {
+    IDRPendCaseTaskRemindersHelper.sendRemindersToTaskOwners(
+      pendCaseTaskWrapperList
+    );
+  }
+
+  public static void sendInAppNotificationToCaseOwners(
+    List<IDRPendCaseTaskReminderWrapper> pendCaseTaskWrapperList
+  ) {
+    IDRPendCaseTaskRemindersHelper.sendRemindersToCaseOwners(
+      pendCaseTaskWrapperList
+    );
+  }
+
+  public static void sendEmailNotificationToTaskOwners(
+    List<IDRPendCaseTaskReminderWrapper> pendCaseTaskWrapperList,
+    String whichNotification
+  ) {
+    List<IDRPendCaseTaskReminderWrapper> verifiedPendCaseTaskWrapperList = IDRPendCaseTaskRemindersHelper.verifyIfEmailNotificationIsRequired(
+      pendCaseTaskWrapperList
+    );
+    IDRPendCaseTaskRemindersHelper.sendEmailNotification(
+      verifiedPendCaseTaskWrapperList,
+      whichNotification
+    );
+  }
 
   public static void taskCreationNotificationToCaseOwners(List<Task> taskList) {
     List<Id> caseIdList = new List<Id>();
