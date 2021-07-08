@@ -13,6 +13,7 @@ public with sharing class UniqueIdUtil {
    * @return a hex string which suits w3 standard
    */
   public static String getTraceId() {
+    // if session id is null, we are in a session where Request class will fail with internal exception, such as SSO context
     if (traceId == '' && UserInfo.getSessionId() != null) {
       Request reqInfo = Request.getCurrent();
       String currentRequestId = reqInfo.getRequestId();
