@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Version__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information</complianceGroup>
+    <complianceGroup>Privacy - Non Personal Information;Integrity - Accurate</complianceGroup>
     <description>Version number that this specific release record describes</description>
     <externalId>false</externalId>
     <label>Version</label>

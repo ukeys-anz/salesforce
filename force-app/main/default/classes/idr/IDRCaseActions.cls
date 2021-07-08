@@ -614,7 +614,7 @@ public with sharing class IDRCaseActions {
         results,
         idrCaseEscalations
       );
-      log.insertLog();
+      log.insertLogAsync();
     }
   }
 

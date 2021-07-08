@@ -13,6 +13,7 @@ import { publish, MessageContext } from "lightning/messageService";
 import UpdateAccounts from "@salesforce/messageChannel/FinancialAccountsUpdate__c";
 import RetrieveGoals from "@salesforce/messageChannel/RetrieveFinancialGoals__c";
 import TriggerLoading from "@salesforce/messageChannel/FinancialAccountsTriggerLoading__c";
+import TriggerBalanceLoading from "@salesforce/messageChannel/FinancialAccountsBalanceTriggerLoading__c";
 
 import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
 
@@ -53,9 +54,6 @@ export default class AccountsAndGoals extends LightningElement {
 
   connectedCallback() {
     if (hasAccountsGoalsPermission) {
-      publish(this.messageContext, TriggerLoading, {
-        update: true
-      });
       if (this.objectName === "Account") {
         this.objectFields = [ACCOUNT_OCV_ID_FIELD];
       } else {
@@ -72,6 +70,15 @@ export default class AccountsAndGoals extends LightningElement {
   }
 
   update() {
+    if (this.objectName === "Account") {
+      publish(this.messageContext, TriggerLoading, {
+        update: true
+      });
+    } else {
+      publish(this.messageContext, TriggerBalanceLoading, {
+        update: true
+      });
+    }
     //Reset values
     this.accountDetails = [];
     this.goalDetails = [];
@@ -94,14 +101,13 @@ export default class AccountsAndGoals extends LightningElement {
               let accountInformation = {
                 Name: account.name,
                 FinServ__FinancialAccountNumber__c: account.accountNumber,
-                FinServ__Balance__c: account.balance.value.replace("$", ""),
-                FinServ__CurrentPostedBalance__c: account.currentBalance.value.replace(
-                  "$",
-                  ""
-                ),
-                BSB__c: account.bsb.toString()
+                FinServ__Balance__c: account.balance.value,
+                FinServ__CurrentPostedBalance__c: account.currentBalance.value,
+                BSB__c: account.bsb.toString(),
+                FinServ__OpenDate__c: account.openDate,
+                Product_Type__c:
+                  account.accountType === "Savings" ? "ANZ Save" : "ANZ Plus"
               };
-
               this.accountDetails.push(accountInformation);
               if (account.accountType === "Savings") {
                 this.goalAccountNumbers.push(account.accountNumber);
@@ -109,9 +115,9 @@ export default class AccountsAndGoals extends LightningElement {
                   name: account.goal.name,
                   accountNumber: account.accountNumber,
                   targetAmount: account.goal.targetAmount
-                    ? account.goal.targetAmount.value.replace("$", "")
+                    ? account.goal.targetAmount.value
                     : "",
-                  currentBalance: account.currentBalance.value.replace("$", ""),
+                  currentBalance: account.currentBalance.value,
                   startDate: account.goal.startDate,
                   targetDate: account.goal.targetDate
                     ? account.goal.targetDate

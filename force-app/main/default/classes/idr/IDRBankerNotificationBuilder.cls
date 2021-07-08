@@ -79,15 +79,16 @@ public with sharing class IDRBankerNotificationBuilder {
     try {
       notification.send(recipientIds);
     } catch (Exception e) {
-      Lib_SystemLog.logAPIError(
+      lib_systemLog log = new lib_systemLog(
         IDRBankerNotificationBuilder.class.getName(),
+        'sendInAppNotification'
+      );
+      log.error(
         'Problem sending in app notification: ' + recipientIds,
         e.getMessage(),
-        null,
-        IDRBankerNotificationBuilder.class.getName(),
-        null,
-        null
+        UserInfo.getUserId()
       );
+      log.publishEvent();
     }
   }
 

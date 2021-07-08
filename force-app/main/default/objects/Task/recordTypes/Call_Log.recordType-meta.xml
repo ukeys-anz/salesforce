@@ -5,6 +5,21 @@
     <description>Captures logs related to voice calls</description>
     <label>Call Log</label>
     <picklistValues>
+        <picklist>Authentication_Method__c</picklist>
+        <values>
+            <fullName>Authenticated by Coach</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer cannot be authenticated</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non Customer Call</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>FinServ__Regarding__c</picklist>
         <values>
             <fullName>Service</fullName>

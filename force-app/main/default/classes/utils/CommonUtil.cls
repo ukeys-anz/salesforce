@@ -129,15 +129,13 @@ public with sharing class CommonUtil {
     String functionName,
     String errorDescription
   ) {
-    Lib_SystemLog.logAPIError(
-      processName,
-      functionName,
-      errorDescription,
+    lib_systemLog log = new lib_systemLog(processName, functionName);
+    log.error(
       'InsufficientAccessException',
-      UserInfo.getUserId(),
-      null,
-      null
+      errorDescription,
+      UserInfo.getUserId()
     );
+    log.publishEvent();
     throw new InsufficientAccessException(errorDescription);
   }
 

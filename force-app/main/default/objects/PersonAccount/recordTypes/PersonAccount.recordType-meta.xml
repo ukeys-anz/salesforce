@@ -741,6 +741,14 @@
             <fullName>Unknown</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>NoMatch</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Purged</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>FinServ__LastUsedChannel__c</picklist>

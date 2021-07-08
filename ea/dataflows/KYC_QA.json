@@ -5,9 +5,7 @@
       "parameters": {
         "fields": [
           { "name": "Fraud_Customer_Details__c" },
-          { "name": "Fraud_EV_Consent__c" },
           { "name": "Fraud_EV_Match__c" },
-          { "name": "Fraud_EV_Rules_Met__c" },
           { "name": "Id" },
           { "name": "CaseNumber" },
           { "name": "Status" },

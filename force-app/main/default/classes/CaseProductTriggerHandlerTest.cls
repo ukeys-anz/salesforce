@@ -186,16 +186,5 @@ public with sharing class CaseProductTriggerHandlerTest {
       );
     }
     Test.stopTest();
-
-    // AND THEN an application log record will be created
-    List<Application_Log__c> appLog = [
-      SELECT Id, Request_Body__c
-      FROM Application_Log__c
-    ];
-    System.assertEquals(
-      1,
-      appLog.size(),
-      'Should have found one record in Application_Log__c'
-    );
   }
 }
