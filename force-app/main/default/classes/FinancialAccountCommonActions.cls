@@ -56,7 +56,7 @@ public with sharing class FinancialAccountCommonActions {
         Lib_SystemLog.createSingleLogAsync(
           FinancialAccountCommonActions.class.getName(),
           'checkPrimaryOwnerStartDate',
-          '1',
+          '',
           errorMessage
         );
       }

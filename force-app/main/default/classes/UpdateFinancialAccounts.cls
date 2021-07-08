@@ -37,7 +37,7 @@ public without sharing class UpdateFinancialAccounts {
       results,
       financialAccounts
     );
-    log.insertLog();
+    log.insertLogAsync();
 
     if (hasError) {
       throw new AuraHandledException(

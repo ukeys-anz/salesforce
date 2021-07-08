@@ -4,6 +4,7 @@
  * @group IDR(Internal Dispute Resolution)
  * @description  GetCustomerInformation is a class that handles all the information of the customer related to a case in IDR.
  */
+@SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class GetCustomerInformation {
   /**
    * @description Currently the Case record page has a lwc which needs to fetch the customer information on demand on a case record page based on CAP SIS ID.
@@ -43,14 +44,17 @@ public with sharing class GetCustomerInformation {
           return customerData;
         }
       } catch (Exception e) {
-        Lib_SystemLog.logAPIError(
+
+        Boolean logResult = Lib_SystemLog.logAPIError(
           GetCustomerInformation.class.getName(),
           'getCustomerData',
           e.getMessage(),
           e.getTypeName(),
-          GetCustomerInformation.class.getName(),
           null,
-          response != null ? response.getBody() : null
+          response != null ? response.getBody() : null,
+          request.getEndpoint(),
+          HTTP_METHOD.HTTP_GET.name(),
+          response != null ? response.getStatusCode() : 400
         );
         //throw new AuraHandledException(e.getMessage());
         AuraHandledException ahe = new AuraHandledException(e.getMessage());
