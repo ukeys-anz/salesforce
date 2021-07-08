@@ -13,7 +13,7 @@ public with sharing class UniqueIdUtil {
    * @return a hex string which suits w3 standard
    */
   public static String getTraceId() {
-    if (traceId == '') {
+    if (traceId == '' && UserInfo.getSessionId() != null) {
       Request reqInfo = Request.getCurrent();
       String currentRequestId = reqInfo.getRequestId();
       traceId = EncodingUtil.convertToHex(
