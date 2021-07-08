@@ -360,6 +360,10 @@
                 <field>ClosedDate</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_Date_Received__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>ContactId</field>
             </layoutItems>
