@@ -45,11 +45,8 @@ public with sharing class CardTempBlockController {
           throw new CalloutException(response.getBody());
         }
       } catch (Exception e) {
-        lib_systemLog log = new lib_systemLog(
-          'CardTempBlockController',
-          'blockCard'
-        );
-        Boolean logResult = lib_systemLog.logAPIError(
+
+        Boolean logResult = Lib_SystemLog.logAPIError(
           CardTempBlockController.class.getName(),
           'blockCard',
           e.getMessage(),
@@ -60,7 +57,6 @@ public with sharing class CardTempBlockController {
           HTTP_METHOD.HTTP_PUT.name(),
           response.getStatusCode()
         );
-        log.insertLog();
         AuraHandledException ahe = new AuraHandledException(e.getMessage());
         ahe.setMessage(e.getMessage());
         throw ahe;

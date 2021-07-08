@@ -44,11 +44,8 @@ public with sharing class GetCustomerInformation {
           return customerData;
         }
       } catch (Exception e) {
-        lib_systemLog log = new lib_systemLog(
-          'GetCustomerInformation',
-          'getCustomerData'
-        );
-        Boolean logResult = lib_systemLog.logAPIError(
+
+        Boolean logResult = Lib_SystemLog.logAPIError(
           GetCustomerInformation.class.getName(),
           'getCustomerData',
           e.getMessage(),
@@ -59,7 +56,6 @@ public with sharing class GetCustomerInformation {
           HTTP_METHOD.HTTP_GET.name(),
           response != null ? response.getStatusCode() : 400
         );
-        log.insertLog();
         //throw new AuraHandledException(e.getMessage());
         AuraHandledException ahe = new AuraHandledException(e.getMessage());
         ahe.setMessage(e.getMessage());

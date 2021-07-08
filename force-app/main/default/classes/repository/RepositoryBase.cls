@@ -27,7 +27,6 @@ public virtual with sharing class RepositoryBase {
         Lib_SystemLog.Severity.ERROR
       );
     } else if (err instanceof CalloutException) {
-      lib_systemLog log = new lib_systemLog('RepositoryBase', 'handleErrors');
       Boolean logResult = lib_systemLog.logAPIError(
         apexType.getName(),
         'RepositoryBase-handleErrors',
@@ -39,7 +38,6 @@ public virtual with sharing class RepositoryBase {
         null,
         response.statusCode
       );
-      log.insertLog();
     } else {
       Lib_SystemLog.createSingleLog(
         apexType.getName(),
