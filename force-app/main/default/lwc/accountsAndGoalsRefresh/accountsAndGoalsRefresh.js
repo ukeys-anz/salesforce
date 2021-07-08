@@ -104,9 +104,7 @@ export default class AccountsAndGoals extends LightningElement {
                 FinServ__Balance__c: account.balance.value,
                 FinServ__CurrentPostedBalance__c: account.currentBalance.value,
                 BSB__c: account.bsb.toString(),
-                FinServ__OpenDate__c: account.openDate,
-                Product_Type__c:
-                  account.accountType === "Savings" ? "ANZ Save" : "ANZ Plus"
+                FinServ__OpenDate__c: account.openDate
               };
               this.accountDetails.push(accountInformation);
               if (account.accountType === "Savings") {
