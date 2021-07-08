@@ -52,6 +52,21 @@
         <label>Board Complaint</label>
     </standardValue>
     <standardValue>
+        <fullName>12</fullName>
+        <default>false</default>
+        <label>Complaints IDR</label>
+    </standardValue>
+    <standardValue>
+        <fullName>14</fullName>
+        <default>false</default>
+        <label>Complaints EDR</label>
+    </standardValue>
+    <standardValue>
+        <fullName>15</fullName>
+        <default>false</default>
+        <label>Customer Advocate</label>
+    </standardValue>
+    <standardValue>
         <fullName>11</fullName>
         <default>false</default>
         <label>Referred from AFCA</label>
@@ -130,5 +145,35 @@
         <fullName>Other</fullName>
         <default>false</default>
         <label>Other</label>
+    </standardValue>
+    <standardValue>
+        <fullName>16</fullName>
+        <default>false</default>
+        <label>AFCA Query</label>
+    </standardValue>
+    <standardValue>
+        <fullName>17</fullName>
+        <default>false</default>
+        <label>AFCA PSI</label>
+    </standardValue>
+    <standardValue>
+        <fullName>18</fullName>
+        <default>false</default>
+        <label>SI identified from complaints</label>
+    </standardValue>
+    <standardValue>
+        <fullName>19</fullName>
+        <default>false</default>
+        <label>SI identified from events</label>
+    </standardValue>
+    <standardValue>
+        <fullName>20</fullName>
+        <default>false</default>
+        <label>BU identified from complaints</label>
+    </standardValue>
+    <standardValue>
+        <fullName>21</fullName>
+        <default>false</default>
+        <label>BU identified other</label>
     </standardValue>
 </StandardValueSet>
