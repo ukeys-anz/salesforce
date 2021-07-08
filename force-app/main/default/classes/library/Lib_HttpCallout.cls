@@ -101,25 +101,23 @@ public with sharing class Lib_HttpCallout {
         null,
         null
       );
-      log.insertLogAsync();
-      return callResponse;
     } catch (Exception e) {
       //Log failure
-      Boolean logResult = Lib_SystemLog.logAPIError(
-        Lib_HttpCallout.class.getName(),
-        'performCallout',
-        e.getMessage(),
+      log.addMessageWithRequestResponse(
         '',
-        null,
-        null,
+        e.getMessage(),
+        lib_systemLog.Severity.ERROR,
         request.getEndpoint(),
         request.getMethod(),
-        response.getStatusCode()
-      );
-      log.insertLogAsync();
+        response.getStatusCode(),
+        '',
+        ''
+      );      
       callResponse.successful = false;
       callResponse.error = e;
-      return callResponse;
     }
+    log.publishEvent();
+    return callResponse;
+
   }
 }

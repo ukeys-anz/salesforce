@@ -22,12 +22,12 @@ public class Lib_TestSyncLogs {
 
     // GIVEN a single log record is created
     // WHEN the log is inserted
-    Boolean result = lib_SystemLog.createSingleLog(
+    Boolean result = Lib_SystemLog.createSingleLog(
       'Process',
       'Function',
       '1111',
       'Desc',
-      lib_SystemLog.Severity.ERROR
+      Lib_SystemLog.Severity.ERROR
     );
 
     Test.stopTest();
@@ -41,7 +41,7 @@ public class Lib_TestSyncLogs {
 
     // GIVEN a single api log record is created
     // WHEN the log is inserted
-    Boolean result = lib_SystemLog.logAPIError(
+    Boolean result = Lib_SystemLog.logAPIError(
       'SomeProcess',
       'SomeMethod',
       'Failed',
@@ -60,16 +60,16 @@ public class Lib_TestSyncLogs {
   static void testMultipleLogs() {
     setup();
     // GIVEN multiple log records are created
-    lib_SystemLog log = new lib_SystemLog('Test Process', 'getSomething');
+    Lib_SystemLog log = new Lib_SystemLog('Test Process', 'getSomething');
 
     Test.startTest();
 
     // WHEN the logs are inserted
-    log.addMessage('100', 'An error occurred', lib_SystemLog.Severity.ERROR);
+    log.addMessage('100', 'An error occurred', Lib_SystemLog.Severity.ERROR);
     log.addMessageWithRequestResponse(
       '200',
       'Some Info',
-      lib_SystemLog.Severity.INFO,
+      Lib_SystemLog.Severity.INFO,
       'https//:endpoint',
       HTTP_METHOD.HTTP_GET.name(),
       200,
@@ -81,7 +81,7 @@ public class Lib_TestSyncLogs {
       '00000',
       '300',
       'An error occurred',
-      lib_SystemLog.Severity.FATAL
+      Lib_SystemLog.Severity.FATAL
     );
 
     System.assertNotEquals(0, log.logList.size());
@@ -98,7 +98,7 @@ public class Lib_TestSyncLogs {
     setup();
     // GIVEN a programmatic database insert fails
     Contact c = new Contact();
-    lib_SystemLog log = new lib_SystemLog('Contacts', 'saveContact');
+    Lib_SystemLog log = new Lib_SystemLog('Contacts', 'saveContact');
 
     Test.startTest();
 
