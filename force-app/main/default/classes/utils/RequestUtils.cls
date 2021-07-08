@@ -78,7 +78,6 @@ public with sharing class RequestUtils {
         throw new CalloutException(response.getBody());
       }
     } catch (Exception e) {
-      lib_systemLog log = new lib_systemLog('RequestUtils', 'processRequest');
       Boolean logResult = lib_systemLog.logAPIError(
         processName,
         functionName,
@@ -90,7 +89,6 @@ public with sharing class RequestUtils {
         request.getMethod(),
         response.getStatusCode()
       );
-      log.insertLog();
 
       if (usedInLWC) {
         AuraHandledException ahe = new AuraHandledException(e.getMessage());
