@@ -45,7 +45,6 @@ public with sharing class CardTempBlockController {
           throw new CalloutException(response.getBody());
         }
       } catch (Exception e) {
-
         Boolean logResult = Lib_SystemLog.logAPIError(
           CardTempBlockController.class.getName(),
           'blockCard',
