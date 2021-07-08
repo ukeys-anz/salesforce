@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SI_Category__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information</complianceGroup>
+    <description>Enables categorisation of the systemic issue records.</description>
+    <externalId>false</externalId>
+    <label>Category</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Account Authorisation &amp; Instructions</fullName>
+                <default>false</default>
+                <label>Account Authorisation &amp; Instructions</label>
+            </value>
+            <value>
+                <fullName>Account Set up &amp; Maintenance (excl. fees)</fullName>
+                <default>false</default>
+                <label>Account Set up &amp; Maintenance (excl. fees)</label>
+            </value>
+            <value>
+                <fullName>Charges, Fees &amp; Commissions</fullName>
+                <default>false</default>
+                <label>Charges, Fees &amp; Commissions</label>
+            </value>
+            <value>
+                <fullName>Credit/Responsible Lending</fullName>
+                <default>false</default>
+                <label>Credit/Responsible Lending</label>
+            </value>
+            <value>
+                <fullName>Customer Service</fullName>
+                <default>false</default>
+                <label>Customer Service</label>
+            </value>
+            <value>
+                <fullName>Disclosure/Misleading Conduct/Mis-selling/Promotions</fullName>
+                <default>false</default>
+                <label>Disclosure/Misleading Conduct/Mis-selling/Promotions</label>
+            </value>
+            <value>
+                <fullName>Hardship &amp; Collections</fullName>
+                <default>false</default>
+                <label>Hardship &amp; Collections</label>
+            </value>
+            <value>
+                <fullName>IDR/EDR</fullName>
+                <default>false</default>
+                <label>IDR/EDR</label>
+            </value>
+            <value>
+                <fullName>Personal Advice/Conduct of Representatives (Wealth only)</fullName>
+                <default>false</default>
+                <label>Personal Advice/Conduct of Representatives (Wealth only)</label>
+            </value>
+            <value>
+                <fullName>Privacy, Confidentiality &amp; Credit Reporting</fullName>
+                <default>false</default>
+                <label>Privacy, Confidentiality &amp; Credit Reporting</label>
+            </value>
+            <value>
+                <fullName>Remediation</fullName>
+                <default>false</default>
+                <label>Remediation</label>
+            </value>
+            <value>
+                <fullName>Transactions &amp; Payments</fullName>
+                <default>false</default>
+                <label>Transactions &amp; Payments</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>External events</fullName>
+                <default>false</default>
+                <label>External events</label>
+            </value>
+            <value>
+                <fullName>People</fullName>
+                <default>false</default>
+                <label>People</label>
+            </value>
+            <value>
+                <fullName>Process</fullName>
+                <default>false</default>
+                <label>Process</label>
+            </value>
+            <value>
+                <fullName>Systems</fullName>
+                <default>false</default>
+                <label>Systems</label>
+            </value>
+            <value>
+                <fullName>Internal fraud: unauthorised activity</fullName>
+                <default>false</default>
+                <label>Internal fraud: unauthorised activity</label>
+            </value>
+            <value>
+                <fullName>Internal fraud: theft and fraud</fullName>
+                <default>false</default>
+                <label>Internal fraud: theft and fraud</label>
+            </value>
+            <value>
+                <fullName>External fraud: theft and fraud</fullName>
+                <default>false</default>
+                <label>External fraud: theft and fraud</label>
+            </value>
+            <value>
+                <fullName>External fraud: systems security</fullName>
+                <default>false</default>
+                <label>External fraud: systems security</label>
+            </value>
+            <value>
+                <fullName>Employment practices and workplace safety: employee relations</fullName>
+                <default>false</default>
+                <label>Employment practices and workplace safety: employee relations</label>
+            </value>
+            <value>
+                <fullName>Employment practices and workplace safety: safe environment</fullName>
+                <default>false</default>
+                <label>Employment practices and workplace safety: safe environment</label>
+            </value>
+            <value>
+                <fullName>Employment practices and workplace safety: diversity and discrimination</fullName>
+                <default>false</default>
+                <label>Employment practices and workplace safety: diversity and discrimination</label>
+            </value>
+            <value>
+                <fullName>Clients, products and business practices: suitability, disclosure and fiduciary</fullName>
+                <default>false</default>
+                <label>Clients, products and business practices: suitability, disclosure and fiduciary</label>
+            </value>
+            <value>
+                <fullName>Clients, products and business practices: improper business or market practices</fullName>
+                <default>false</default>
+                <label>Clients, products and business practices: improper business or market practices</label>
+            </value>
+            <value>
+                <fullName>Clients, products and business practices: advisory activities</fullName>
+                <default>false</default>
+                <label>Clients, products and business practices: advisory activities</label>
+            </value>
+            <value>
+                <fullName>Clients, products and business practices: product flaws</fullName>
+                <default>false</default>
+                <label>Clients, products and business practices: product flaws</label>
+            </value>
+            <value>
+                <fullName>Clients, products and business practices: selection, sponsorship and exposure</fullName>
+                <default>false</default>
+                <label>Clients, products and business practices: selection, sponsorship and exposure</label>
+            </value>
+            <value>
+                <fullName>Damage to physical assets: disasters and other events</fullName>
+                <default>false</default>
+                <label>Damage to physical assets: disasters and other events</label>
+            </value>
+            <value>
+                <fullName>Business disruption: systems</fullName>
+                <default>false</default>
+                <label>Business disruption: systems</label>
+            </value>
+            <value>
+                <fullName>Execution, delivery and process management: transaction capture, execution and maintenance</fullName>
+                <default>false</default>
+                <label>Execution, delivery and process management: transaction capture, execution and maintenance</label>
+            </value>
+            <value>
+                <fullName>Execution, delivery and process management: customer intake and documentation</fullName>
+                <default>false</default>
+                <label>Execution, delivery and process management: customer intake and documentation</label>
+            </value>
+            <value>
+                <fullName>Execution, delivery and process management: customer/client account management</fullName>
+                <default>false</default>
+                <label>Execution, delivery and process management: customer/client account management</label>
+            </value>
+            <value>
+                <fullName>Execution, delivery and process management: trade counterparties</fullName>
+                <default>false</default>
+                <label>Execution, delivery and process management: trade counterparties</label>
+            </value>
+            <value>
+                <fullName>Execution, delivery and process management: vendors and suppliers</fullName>
+                <default>false</default>
+                <label>Execution, delivery and process management: vendors and suppliers</label>
+            </value>
+            <value>
+                <fullName>Execution, delivery and process management: monitoring and reporting</fullName>
+                <default>false</default>
+                <label>Execution, delivery and process management: monitoring and reporting</label>
+            </value>
+            <value>
+                <fullName>System/Process</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>System/Process</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

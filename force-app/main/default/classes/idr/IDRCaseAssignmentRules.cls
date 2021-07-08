@@ -37,9 +37,9 @@ public with sharing class IDRCaseAssignmentRules {
   private static ID getOwnerId(Case rec, String product, Case oldCase) {
     //rules to run only on escalation
     if (
-      rec.Status == IDRCaseActions.ESCALATED_STATUS &&
+      rec.Status == IDRConstants.ESCALATED_STATUS &&
       (oldCase == null ||
-      oldCase.Status != IDRCaseActions.ESCALATED_STATUS)
+      oldCase.Status != IDRConstants.ESCALATED_STATUS)
     ) {
       //Priority
       if (
@@ -69,14 +69,18 @@ public with sharing class IDRCaseAssignmentRules {
       //Product-based rules
       if (
         rec.Origin != IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED &&
-        IDRConstants.CASE_ASSIGNMENT_PRODUCT_MAP.containsKey(product)
+        IDRConstants.caseAssignmentProductMap.containsKey(product)
       ) {
         return QUEUE_MAP.get(
-          IDRConstants.CASE_ASSIGNMENT_PRODUCT_MAP.get(product)
+          IDRConstants.caseAssignmentProductMap.get(product)
         );
       }
       //Default workbasket
-      return QUEUE_MAP.get('EDR_Early_Resolution');
+      if (rec.Origin == IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED) {
+        return QUEUE_MAP.get('EDR_Early_Resolution');
+      } else {
+        return QUEUE_MAP.get('IDR_Early_Resolution');
+      }
     }
     //Not escalated, don't change owner
     return rec.OwnerId;

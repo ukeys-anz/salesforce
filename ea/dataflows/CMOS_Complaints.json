@@ -36,7 +36,7 @@
         ],
         "mergeWithSource": true
       },
-      "sources": ["AppendCount"]
+      "sources": ["MergePickRemedyPicklist"]
     },
     "AppendCount": {
       "action": "augment",
@@ -58,7 +58,7 @@
             "label": "CaseDuration_epoch",
             "name": "CaseDuration_epoch",
             "precision": 10,
-            "saqlExpression": "(CreatedDate_sec_epoch - ClosedDate_sec_epoch)",
+            "saqlExpression": "case \nwhen (CreatedDate_sec_epoch - ClosedDate_sec_epoch) < 0\nthen 0\nelse\n(CreatedDate_sec_epoch - ClosedDate_sec_epoch)\nend",
             "scale": 0,
             "type": "Numeric"
           },
@@ -108,6 +108,17 @@
       "action": "dataset",
       "parameters": { "name": "CMOS_Cases" }
     },
+    "MergePickRemedyPicklist": {
+      "action": "augment",
+      "parameters": {
+        "leftKey": ["IDR_Complaint_Remedy__c"],
+        "operation": "LookupSingleValue",
+        "relationship": "Picklist.Remedy",
+        "rightKey": ["Value"],
+        "rightSelect": ["Label"]
+      },
+      "sources": ["AppendCount", "FilterRemedyPicklist"]
+    },
     "CaseDigest": {
       "action": "sobjectDigest",
       "parameters": {
@@ -117,17 +128,6 @@
           { "name": "ContactId" },
           { "name": "CreatedById" },
           { "name": "CreatedDate" },
-          { "name": "Fraud_Complicit_in_Fraud__c" },
-          { "name": "Fraud_Customer_Event_Age__c" },
-          { "name": "Fraud_Repeat_Victim__c" },
-          { "name": "Fraud_Total_Customer_Loss__c" },
-          { "name": "Fraud_Total_Falcon_Recalled__c" },
-          { "name": "Fraud_Total_Fraud_Received__c" },
-          { "name": "Fraud_Total_Fraud_Value__c" },
-          { "name": "Fraud_Total_Recipient_Loss__c" },
-          { "name": "Fraud_Total_Recovered__c" },
-          { "name": "Fraud_Total_Reimbursed__c" },
-          { "name": "Fraud_Total_Scam_Value__c" },
           { "name": "ClosedDate" },
           { "name": "Id" },
           { "name": "IsClosed" },
@@ -146,7 +146,10 @@
           { "name": "IDR_Date_Received__c" },
           { "name": "RecordTypeId" },
           { "name": "IDR_Financial_Compensation__c" },
-          { "name": "IDR_Escalation_Reason__c" }
+          { "name": "IDR_Escalation_Reason__c" },
+          { "name": "IDR_Non_Financial_Remedy__c" },
+          { "name": "IDR_Complaint_Outcome__c" },
+          { "name": "IDR_Complaint_Remedy__c" }
         ],
         "object": "Case"
       }
@@ -173,6 +176,11 @@
         ],
         "object": "RecordType"
       }
+    },
+    "FilterEscalationPicklist": {
+      "action": "filter",
+      "parameters": { "filter": "EntityParticleId:EQ:Case.00N2N00000AA4RW" },
+      "sources": ["PullPicklistValues"]
     },
     "CountOfTransfers": {
       "action": "sobjectDigest",
@@ -218,11 +226,6 @@
       },
       "sources": ["MergeUserInfo", "digest_cmos_onboarding_csv"]
     },
-    "FilterEscalationPickList": {
-      "action": "filter",
-      "parameters": { "filter": "EntityParticleId:EQ:Case.00N2N00000AA4RW" },
-      "sources": ["PullPicklist"]
-    },
     "snapshot_date": {
       "action": "computeExpression",
       "parameters": {
@@ -249,11 +252,18 @@
         "rightKey": ["Value"],
         "rightSelect": ["Label"]
       },
-      "sources": ["JoinRecordType", "FilterEscalationPickList"]
+      "sources": ["JoinRecordType", "FilterEscalationPicklist"]
     },
     "digest_cmos_onboarding_csv": {
       "action": "dataset",
       "parameters": { "name": "CMOS_OnBoarding" }
+    },
+    "FilterRemedyPicklist": {
+      "action": "filter",
+      "parameters": {
+        "filter": "EntityParticleId:EQ:Case.00N2N00000CJHhy|Case.00N5m000000PSfr"
+      },
+      "sources": ["PullPicklistValues"]
     },
     "MergeCaseProduct": {
       "action": "augment",
@@ -272,8 +282,8 @@
         "leftKey": ["Type"],
         "operation": "LookupSingleValue",
         "relationship": "Picklist.Type",
-        "rightKey": ["Label"],
-        "rightSelect": ["Value", "Label"]
+        "rightKey": ["Value"],
+        "rightSelect": ["Label"]
       },
       "sources": ["MergeCaseProduct", "FilterCaseTypes"]
     },
@@ -312,20 +322,6 @@
       },
       "sources": ["FilterOwnerOnly"]
     },
-    "PullPicklist": {
-      "action": "sobjectDigest",
-      "parameters": {
-        "fields": [
-          { "name": "DurableId" },
-          { "name": "Label" },
-          { "name": "Value" },
-          { "name": "EntityParticleId" }
-        ],
-        "object": "PicklistValueInfo",
-        "passthroughFilter": "EntityParticleId = 'Case.Type' OR EntityParticleId = 'Case.00N2N00000AA4RW'",
-        "runtime": { "enablePKChunking": false }
-      }
-    },
     "Snapshot_Text_Date": {
       "action": "computeExpression",
       "parameters": {
@@ -344,7 +340,7 @@
     "FilterCaseTypes": {
       "action": "filter",
       "parameters": { "filter": "EntityParticleId:EQ:Case.Type" },
-      "sources": ["PullPicklist"]
+      "sources": ["PullPicklistValues"]
     },
     "JoinRecordType": {
       "action": "augment",
@@ -371,6 +367,20 @@
         "mergeWithSource": true
       },
       "sources": ["Extract_Existing_Data"]
+    },
+    "PullPicklistValues": {
+      "action": "sobjectDigest",
+      "parameters": {
+        "fields": [
+          { "name": "DurableId" },
+          { "name": "Label" },
+          { "name": "Value" },
+          { "name": "EntityParticleId" }
+        ],
+        "object": "PicklistValueInfo",
+        "passthroughFilter": "EntityParticleId = 'Case.Type' OR EntityParticleId = 'Case.00N2N00000AA4RW' OR EntityParticleId = 'Case.00N2N00000CJHhy' OR EntityParticleId = 'Case.IDR_Complaint_Remedy__c'\nOR EntityParticleId = 'Case.00N5m000000PSfr'",
+        "runtime": { "enablePKChunking": false }
+      }
     },
     "Filter1Year": {
       "action": "filter",

@@ -88,6 +88,64 @@ public with sharing class CommonUtil {
   }
 
   /**
+   * @description handleMasking method is used to mask free text fields as we dont want to store e.g. card numbers in SF.
+   * So, we mask the number and store only last 4 digits unmasked.
+   * @param record The actual record from Trigger.new
+   * @param oldRecord The actual record from Trigger.old, null if in a before insert trigger
+   * @param fieldsToMask a list of fields from a field set, storing the data to be masked
+   */
+  public static void handleMasking(
+    sObject record,
+    sObject oldRecord,
+    Schema.FieldSetMember[] fieldsToMask
+  ) {
+    for (Schema.FieldSetMember fsm : fieldsToMask) {
+      String fieldName = fsm.getFieldPath();
+      //System.debug(fieldName + ': ' + String.valueOf(fsm.getType()));
+      if (
+        (String.valueOf(fsm.getType()) == 'STRING' ||
+        String.valueOf(fsm.getType()) == 'COMBOBOX' ||
+        String.valueOf(fsm.getType()) == 'TEXTAREA') &&
+        (oldRecord == null ||
+        String.valueOf(record.get(fieldName)) !=
+        String.valueOf(oldRecord.get(fieldName)))
+      ) {
+        record.put(
+          fieldName,
+          TextUtils.maskData((String) record.get(fieldName))
+        );
+      }
+    }
+  }
+
+  /**
+   * @description Log an error and throw an exception if user doen't have the required permissions
+   * @param processName Process name used to generate the log.
+   * @param functionName Name of the funtion to generate the log.
+   * @param errorDescription Error description used to create the log record.
+   */
+  public static void logAndThrowIAE(
+    String processName,
+    String functionName,
+    String errorDescription
+  ) {
+    lib_systemLog log = new lib_systemLog(processName, functionName);
+    log.error(
+      'InsufficientAccessException',
+      errorDescription,
+      UserInfo.getUserId()
+    );
+    log.publishEvent();
+    throw new InsufficientAccessException(errorDescription);
+  }
+
+  /**
+   * @description extend the Exception class to allow errors to be thrown if the user does not have access
+   */
+  private class InsufficientAccessException extends Exception {
+  }
+
+  /**
    * @description Get Profile by Profile Name
    * @param profileName name of the Profile
    * @return Profile

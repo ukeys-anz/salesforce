@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Alexander.Burns@anz.com</fullName>
+        <default>false</default>
+        <label>Alex Burns</label>
+    </customValue>
+    <customValue>
+        <fullName>Alia.Ayoub@anz.com</fullName>
+        <default>false</default>
+        <label>Alia Ayoub</label>
+    </customValue>
+    <customValue>
+        <fullName>Alissia.Watt@anz.com</fullName>
+        <default>false</default>
+        <label>Alissia Watt</label>
+    </customValue>
+    <customValue>
+        <fullName>Amit.Chopra@anz.com</fullName>
+        <default>false</default>
+        <label>Amit Chopra</label>
+    </customValue>
+    <customValue>
+        <fullName>Andrew.Beck@anz.com</fullName>
+        <default>false</default>
+        <label>Andrew Beck</label>
+    </customValue>
+    <customValue>
+        <fullName>Andrew.Savvas@anz.com</fullName>
+        <default>false</default>
+        <label>Andrew Savvas</label>
+    </customValue>
+    <customValue>
+        <fullName>belinda.sutcliffe@anz.com</fullName>
+        <default>false</default>
+        <label>Belinda Sutcliffe </label>
+    </customValue>
+    <customValue>
+        <fullName>Bindhiya.Sivaprakasam2@anz.com</fullName>
+        <default>false</default>
+        <label>Bindhiya Sivaprakasam</label>
+    </customValue>
+    <customValue>
+        <fullName>Caitlin.Rudorfer@anz.com</fullName>
+        <default>false</default>
+        <label>Caitlin Rudorfer</label>
+    </customValue>
+    <customValue>
+        <fullName>Clement.Yeung@anz.com</fullName>
+        <default>false</default>
+        <label>Clem Yeung</label>
+    </customValue>
+    <customValue>
+        <fullName>Darren.Caudell@anz.com</fullName>
+        <default>false</default>
+        <label>Darren Caudell</label>
+    </customValue>
+    <customValue>
+        <fullName>Darren.Keyte@anz.com</fullName>
+        <default>false</default>
+        <label>Darren Keyte</label>
+    </customValue>
+    <customValue>
+        <fullName>Darren.LaPonder@anz.com</fullName>
+        <default>false</default>
+        <label>Darren La Ponder</label>
+    </customValue>
+    <customValue>
+        <fullName>David.Kerr@anz.com</fullName>
+        <default>false</default>
+        <label>David Kerr</label>
+    </customValue>
+    <customValue>
+        <fullName>David.Sagato@anz.com</fullName>
+        <default>false</default>
+        <label>David Sagato</label>
+    </customValue>
+    <customValue>
+        <fullName>Edward.Tawil@anz.com</fullName>
+        <default>false</default>
+        <label>Edward Tawil</label>
+    </customValue>
+    <customValue>
+        <fullName>Elizabeth.Houteas@anz.com</fullName>
+        <default>false</default>
+        <label>Elizabeth Houteas</label>
+    </customValue>
+    <customValue>
+        <fullName>Felicity.Hanger@anz.com</fullName>
+        <default>false</default>
+        <label>Felicity Hanger</label>
+    </customValue>
+    <customValue>
+        <fullName>Gabriel.Abdel-messih@anz.com</fullName>
+        <default>false</default>
+        <label>Gabriel Abdel-messih</label>
+    </customValue>
+    <customValue>
+        <fullName>Gopika.Nieroshan@anz.com</fullName>
+        <default>false</default>
+        <label>Gopika Nieroshan</label>
+    </customValue>
+    <customValue>
+        <fullName>Gulnaz.Hayat@anz.com</fullName>
+        <default>false</default>
+        <label>Gulnaz Hayat</label>
+    </customValue>
+    <customValue>
+        <fullName>Hong.Le@anz.com</fullName>
+        <default>false</default>
+        <label>Hong Le</label>
+    </customValue>
+    <customValue>
+        <fullName>Isabelle.Thomson@anz.com</fullName>
+        <default>false</default>
+        <label>Isabelle Thomson</label>
+    </customValue>
+    <customValue>
+        <fullName>Jacobus.Briers@anz.com</fullName>
+        <default>false</default>
+        <label>Jaco Briers</label>
+    </customValue>
+    <customValue>
+        <fullName>Jacqulyn.Kelaart@anz.com</fullName>
+        <default>false</default>
+        <label>Jacqulyn Kelaart</label>
+    </customValue>
+    <customValue>
+        <fullName>james.clark@anz.com</fullName>
+        <default>false</default>
+        <label>James Clark</label>
+    </customValue>
+    <customValue>
+        <fullName>Jhan.Svoboda@anz.com</fullName>
+        <default>false</default>
+        <label>Jhan Svoboda</label>
+    </customValue>
+    <customValue>
+        <fullName>Jiben.Shrestha@anz.com</fullName>
+        <default>false</default>
+        <label>Jiben Shrestha</label>
+    </customValue>
+    <customValue>
+        <fullName>joe.skinner@anz.com</fullName>
+        <default>false</default>
+        <label>Joe Skinner</label>
+    </customValue>
+    <customValue>
+        <fullName>Jo.Ham@anz.com</fullName>
+        <default>false</default>
+        <label>Jo Ham</label>
+    </customValue>
+    <customValue>
+        <fullName>Kelly.Holland@anz.com</fullName>
+        <default>false</default>
+        <label>Kelly Holland</label>
+    </customValue>
+    <customValue>
+        <fullName>Kim.Pearson@anz.com</fullName>
+        <default>false</default>
+        <label>Kim Pearson</label>
+    </customValue>
+    <customValue>
+        <fullName>kristy.barwald@anz.com</fullName>
+        <default>false</default>
+        <label>Kristy Barwald</label>
+    </customValue>
+    <customValue>
+        <fullName>Kylee.Millis@anz.com</fullName>
+        <default>false</default>
+        <label>Kylee Millis</label>
+    </customValue>
+    <customValue>
+        <fullName>Lee.Wells@anz.com</fullName>
+        <default>false</default>
+        <label>Lee Wells</label>
+    </customValue>
+    <customValue>
+        <fullName>Leo.Chan@anz.com</fullName>
+        <default>false</default>
+        <label>Leo Chan</label>
+    </customValue>
+    <customValue>
+        <fullName>Luke.Manning@anz.com</fullName>
+        <default>false</default>
+        <label>Luke Manning</label>
+    </customValue>
+    <customValue>
+        <fullName>Malar.Asokan@anz.com</fullName>
+        <default>false</default>
+        <label>Malar Asokan</label>
+    </customValue>
+    <customValue>
+        <fullName>Manjushree.Datar2@anz.com</fullName>
+        <default>false</default>
+        <label>Manjushree Datar</label>
+    </customValue>
+    <customValue>
+        <fullName>Mark.Cole2@anz.com</fullName>
+        <default>false</default>
+        <label>Mark Cole</label>
+    </customValue>
+    <customValue>
+        <fullName>Maya.Augustus@anz.com</fullName>
+        <default>false</default>
+        <label>Maya Augustus</label>
+    </customValue>
+    <customValue>
+        <fullName>Meagan.Whiteman@anz.com</fullName>
+        <default>false</default>
+        <label>Meagan Whiteman</label>
+    </customValue>
+    <customValue>
+        <fullName>Neena.Mitchell@anz.com</fullName>
+        <default>false</default>
+        <label>Neena Mitchell</label>
+    </customValue>
+    <customValue>
+        <fullName>Nicolette.Ball@anz.com</fullName>
+        <default>false</default>
+        <label>Nikki Ball</label>
+    </customValue>
+    <customValue>
+        <fullName>Nosheen.Sarwar@anz.com</fullName>
+        <default>false</default>
+        <label>Nosheen Sarwar</label>
+    </customValue>
+    <customValue>
+        <fullName>Patrizia.Torres@anz.com</fullName>
+        <default>false</default>
+        <label>Patrizia Torres</label>
+    </customValue>
+    <customValue>
+        <fullName>Penny.Stephens@anz.com</fullName>
+        <default>false</default>
+        <label>Penny Stephens</label>
+    </customValue>
+    <customValue>
+        <fullName>Phil.Cvetanovski@anz.com</fullName>
+        <default>false</default>
+        <label>Phil Cvetanovski</label>
+    </customValue>
+    <customValue>
+        <fullName>Rachel.MacKenzie@anz.com</fullName>
+        <default>false</default>
+        <label>Rachel Mackenzie</label>
+    </customValue>
+    <customValue>
+        <fullName>Rob.Daniel@anz.com</fullName>
+        <default>false</default>
+        <label>Rob Daniel</label>
+    </customValue>
+    <customValue>
+        <fullName>Robert.Harris@anz.com</fullName>
+        <default>false</default>
+        <label>Robert Harris</label>
+    </customValue>
+    <customValue>
+        <fullName>Sarah.Clark@anz.com</fullName>
+        <default>false</default>
+        <label>Sarah Clark</label>
+    </customValue>
+    <customValue>
+        <fullName>Swati.Jain2@anz.com</fullName>
+        <default>false</default>
+        <label>Swati Jain</label>
+    </customValue>
+    <customValue>
+        <fullName>Swetha.Chaparala@anz.com</fullName>
+        <default>false</default>
+        <label>Swetha Chaparala</label>
+    </customValue>
+    <customValue>
+        <fullName>Tegan.Bronkhorst@anz.com</fullName>
+        <default>false</default>
+        <label>Tegan Bronkhorst</label>
+    </customValue>
+    <customValue>
+        <fullName>Zoe.Flannery@anz.com</fullName>
+        <default>false</default>
+        <label>Zoe Flannery</label>
+    </customValue>
+    <customValue>
+        <fullName>Lawrence.Virgo@anz.com</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Lawrence.Virgo@anz.com</label>
+    </customValue>
+    <customValue>
+        <fullName>Michael.Shurlin@anz.com</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Michael.Shurlin@anz.com</label>
+    </customValue>
+    <customValue>
+        <fullName>Maria.Serrano2@anz.com</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Maria.Serrano2@anz.com</label>
+    </customValue>
+    <customValue>
+        <fullName>Rose.Schupak@anz.com</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Rose.Schupak@anz.com</label>
+    </customValue>
+    <customValue>
+        <fullName>Areti.Rapakousios@anz.com</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Areti.Rapakousios@anz.com</label>
+    </customValue>
+    <customValue>
+        <fullName>Joanne.Quek@anz.com</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Joanne.Quek@anz.com</label>
+    </customValue>
+    <customValue>
+        <fullName>Ashish.PandeyMel@anz.com</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Ashish.PandeyMel@anz.com</label>
+    </customValue>
+    <customValue>
+        <fullName>Marco.Pagliaro@anz.com</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Marco.Pagliaro@anz.com</label>
+    </customValue>
+    <customValue>
+        <fullName>Samantha.O&apos;Neill@anz.com</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Samantha.O&apos;Neill@anz.com</label>
+    </customValue>
+    <customValue>
+        <fullName>Adrian.Kennedy@anz.com</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Adrian.Kennedy@anz.com</label>
+    </customValue>
+    <customValue>
+        <fullName>Matt.Jordan@anz.com</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Matt.Jordan@anz.com</label>
+    </customValue>
+    <customValue>
+        <fullName>Stephen.Hill@anz.com</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Stephen.Hill@anz.com</label>
+    </customValue>
+    <customValue>
+        <fullName>Christopher.Fox@anz.com</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Christopher.Fox@anz.com</label>
+    </customValue>
+    <customValue>
+        <fullName>Aisea.Filihia@anz.com</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Aisea.Filihia@anz.com</label>
+    </customValue>
+    <customValue>
+        <fullName>Elizabeth.Feldmann@anz.com</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Elizabeth.Feldmann@anz.com</label>
+    </customValue>
+    <customValue>
+        <fullName>Dean.Faglioni@anz.com</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Dean.Faglioni@anz.com</label>
+    </customValue>
+    <customValue>
+        <fullName>Amy.Comben@anz.com</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Amy.Comben@anz.com</label>
+    </customValue>
+    <customValue>
+        <fullName>Jason.Chiu@anz.com</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Jason.Chiu@anz.com</label>
+    </customValue>
+    <customValue>
+        <fullName>Greta.Chan@anz.com</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Greta.Chan@anz.com</label>
+    </customValue>
+    <customValue>
+        <fullName>Christine.Bui@anz.com</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Christine.Bui@anz.com</label>
+    </customValue>
+    <customValue>
+        <fullName>Craig.Brooke@anz.com</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Craig.Brooke@anz.com</label>
+    </customValue>
+    <customValue>
+        <fullName>assurancecoe_comm@anz.com</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>assurancecoe_comm@anz.com</label>
+    </customValue>
+    <customValue>
+        <fullName>Martin.Anderson@anz.com</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Martin.Anderson@anz.com</label>
+    </customValue>
+    <customValue>
+        <fullName>Katrien.vanDerSpiegel@anz.com</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Katrien.vanDerSpiegel@anz.com</label>
+    </customValue>
+    <customValue>
+        <fullName>Justin.Tang@anz.com</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Justin.Tang@anz.com</label>
+    </customValue>
+    <description>Key business contacts to be linked to a systemic issue.</description>
+    <masterLabel>Key Business Contacts</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

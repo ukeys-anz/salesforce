@@ -11,6 +11,6 @@
     <label>IDR Home Owners</label>
     <queue>IDR_Home_Owners</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <roleAndSubordinates>ANZ</roleAndSubordinates>
     </sharedTo>
 </ListView>

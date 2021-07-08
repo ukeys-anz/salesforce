@@ -112,12 +112,11 @@ public with sharing class Lib_HttpCallout {
         response.getStatusCode(),
         '',
         ''
-      );      
+      );
       callResponse.successful = false;
       callResponse.error = e;
     }
     log.publishEvent();
     return callResponse;
-
   }
 }
