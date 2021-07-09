@@ -58,7 +58,7 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentName>home:assistant</componentName>
+                <componentName>runtime_sales_activities:todayTaskContainer</componentName>
             </componentInstance>
         </itemInstances>
         <itemInstances>
