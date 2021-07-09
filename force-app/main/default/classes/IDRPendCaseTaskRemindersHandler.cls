@@ -1,4 +1,14 @@
+/**
+ * @author Adnan
+ * @since  09/2021
+ * @description Handler class for IDRPendCaseTaskRemindersBatch and for creating and sending task notifications
+ */
 public with sharing class IDRPendCaseTaskRemindersHandler {
+  /**
+   * @description method for creating wrapper to send notifications
+   * @param taskList list of task records that are used for creating wrapper
+   * @return List<IDRPendCaseTaskReminderWrapper> returns the created wrapper
+   */
   public static List<IDRPendCaseTaskReminderWrapper> createWrapper(
     List<Task> taskList
   ) {
@@ -38,6 +48,10 @@ public with sharing class IDRPendCaseTaskRemindersHandler {
     return pendCaseTaskWrapperList;
   }
 
+  /**
+   * @description method for sending in app notification to task owners
+   * @param pendCaseTaskWrapperList list of IDRPendCaseTaskReminderWrapper
+   */
   public static void sendInAppNotificationToTaskOwners(
     List<IDRPendCaseTaskReminderWrapper> pendCaseTaskWrapperList
   ) {
@@ -46,6 +60,10 @@ public with sharing class IDRPendCaseTaskRemindersHandler {
     );
   }
 
+  /**
+   * @description method for sending in app notification to case owners
+   * @param pendCaseTaskWrapperList list of IDRPendCaseTaskReminderWrapper
+   */
   public static void sendInAppNotificationToCaseOwners(
     List<IDRPendCaseTaskReminderWrapper> pendCaseTaskWrapperList
   ) {
@@ -54,6 +72,11 @@ public with sharing class IDRPendCaseTaskRemindersHandler {
     );
   }
 
+  /**
+   * @description method for sending email notification to task owners
+   * @param pendCaseTaskWrapperList list of IDRPendCaseTaskReminderWrapper
+   * @param whichNotification specifies which type of notification for eg Task Creation / Task Reminder etc
+   */
   public static void sendEmailNotificationToTaskOwners(
     List<IDRPendCaseTaskReminderWrapper> pendCaseTaskWrapperList,
     String whichNotification
@@ -61,12 +84,16 @@ public with sharing class IDRPendCaseTaskRemindersHandler {
     List<IDRPendCaseTaskReminderWrapper> verifiedPendCaseTaskWrapperList = IDRPendCaseTaskRemindersHelper.verifyIfEmailNotificationIsRequired(
       pendCaseTaskWrapperList
     );
-    IDRPendCaseTaskRemindersHelper.sendEmailNotification(
+    IDRPendCaseTaskEmailNotification.sendEmailNotification(
       verifiedPendCaseTaskWrapperList,
       whichNotification
     );
   }
 
+  /**
+   * @description method for sending in app notification to case owners when a task is created
+   * @param taskList list of task records, whose case owners will recieve in app notification
+   */
   public static void taskCreationNotificationToCaseOwners(List<Task> taskList) {
     List<Id> caseIdList = new List<Id>();
     for (Task t : taskList) {

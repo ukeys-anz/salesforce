@@ -1,4 +1,13 @@
+/**
+ * @author Adnan
+ * @since  09/2021
+ * @description Responsible for creating and sending task notifications.
+ */
 public with sharing class IDRTaskNotificationManager {
+  /**
+   * @description Assesses whether or not to generate a task notification for various scenarios
+   * @param pendCaseTaskWrapperList list of IDRPendCaseTaskReminderWrapper
+   */
   public static void manageNotificationForTaskReminders(
     List<IDRPendCaseTaskReminderWrapper> pendCaseTaskWrapperList
   ) {
@@ -18,6 +27,13 @@ public with sharing class IDRTaskNotificationManager {
     IDRBankerNotificationBuilder.sendNotification(wrapperList);
   }
 
+  /**
+   * @description Builds a notification using IDRBankerNotificationWrapper class
+   * @param c the case record
+   * @param t the task record
+   * @param daysRemainingFromDue no of days between task due date and today
+   * @return IDRBankerNotificationWrapper new instance of wrapper class
+   */
   public static IDRBankerNotificationWrapper createNotification(
     Case c,
     Task t,

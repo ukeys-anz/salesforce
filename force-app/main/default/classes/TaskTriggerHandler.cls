@@ -35,7 +35,6 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
    * @param oldMap old trigger values
    */
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
-    manageNotification((List<Task>) records);
     IDRTaskActions.afterUpdateActions(records);
   }
   /**
@@ -44,20 +43,16 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
    */
   private static void manageNotification(List<Task> records) {
     List<IDRBankerNotificationWrapper> wrapperList = new List<IDRBankerNotificationWrapper>();
-    List<Task> taskRemindersForCaseOwners = new List<Task>();
+    List<Task> taskReminders = new List<Task>();
     for (Task record : (List<Task>) records) {
       if (
-        (record.RecordTypeId == IDRConstants.IDR_TASK_RT_ID &&
+        record.RecordTypeId == IDRConstants.IDR_TASK_RT_ID &&
         record.Subject == IDRTaskActions.IDR_TASK_SUBJECT &&
-        record.OwnerId == IDRTaskActions.siQueue.id &&
-        !Trigger.isUpdate) ||
-        (record.Type == IDRConstants.TASK_TYPE_PEND_CASE &&
-        record.OwnerId != Userinfo.getUserId())
+        record.OwnerId == IDRTaskActions.siQueue.id
       ) {
         wrapperList.add(createNotification(record));
-        if (record.Type == IDRConstants.TASK_TYPE_PEND_CASE) {
-          taskRemindersForCaseOwners.add(record);
-        }
+      } else if (record.Type == IDRConstants.TASK_TYPE_PEND_CASE) {
+        taskReminders.add(record);
       }
     }
 
@@ -65,18 +60,18 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
       IDRBankerNotificationBuilder.sendNotification(wrapperList);
     }
 
-    if (!taskRemindersForCaseOwners.isEmpty()) {
+    sendTaskReminders(taskReminders);
+  }
+
+  /**
+   * @description method used for sending task reminders
+   * @param taskRemindersList list of task records
+   */
+  public static void sendTaskReminders(List<Task> taskRemindersList) {
+    if (!taskRemindersList.isEmpty()) {
       //InApp notification
       IDRPendCaseTaskRemindersHandler.taskCreationNotificationToCaseOwners(
-        taskRemindersForCaseOwners
-      );
-      //Email notification
-      List<IDRPendCaseTaskReminderWrapper> pendCaseTaskWrapperList = IDRPendCaseTaskRemindersHandler.createWrapper(
-        (List<Task>) records
-      );
-      IDRPendCaseTaskRemindersHandler.sendEmailNotificationToTaskOwners(
-        pendCaseTaskWrapperList,
-        'Task Assignment'
+        taskRemindersList
       );
     }
   }

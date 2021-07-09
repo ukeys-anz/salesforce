@@ -5,6 +5,9 @@
  * @description Responsible to trigger the Notification for banker.
  *
  */
+@SuppressWarnings(
+  'PMD.CyclomaticComplexity'
+) //Since it handles all the case in app notifications
 public with sharing class IDRCaseNotificationManager {
   /**
    * @description Assesses whether or not to generate a banker notification for AfterUpdate scenario
@@ -86,6 +89,10 @@ public with sharing class IDRCaseNotificationManager {
     }
   }
 
+  /**
+   * @description Assesses whether or not to generate a in app notification for task reminder
+   * @param pendCaseTaskWrapperList list of IDRPendCaseTaskReminderWrapper
+   */
   public static void manageCaseNotificationForTaskReminders(
     List<IDRPendCaseTaskReminderWrapper> pendCaseTaskWrapperList
   ) {
@@ -106,6 +113,10 @@ public with sharing class IDRCaseNotificationManager {
     IDRBankerNotificationBuilder.sendNotification(wrapperList);
   }
 
+  /**
+   * @description Assesses whether or not to generate a in app notification for task creation
+   * @param caseList list of case records
+   */
   public static void manageCaseNotificationForTaskCreation(
     List<case> caseList
   ) {
@@ -180,6 +191,17 @@ public with sharing class IDRCaseNotificationManager {
     return wrapper;
   }
 
+  /**
+   * @description Builds a notification using IDRBankerNotificationWrapper class
+   * @param whichNotification specifies which notification for eg Task Creation/Task Reminder etc
+   * @param c the case record
+   * @param t the task record
+   * @param daysForDue no of days between task due date and today
+   * @return IDRBankerNotificationWrapper new instance of wrapper class
+   */
+  @SuppressWarnings(
+    'PMD.ExcessiveParameterList'
+  ) //Can't calculate again daysForDue as its being done in parent classes, hence passing directly to save processing time
   public static IDRBankerNotificationWrapper createNotificationForTaskReminders(
     String whichNotification,
     Case c,
