@@ -1091,12 +1091,12 @@
         "type": "chart"
       }
     },
-    "IDR_Date_Received__c_Day_1": {
+    "CreatedDate_Day_1": {
       "broadcastFacet": true,
       "groups": [],
-      "label": "IDR_Date_Received__c_Day_1",
+      "label": "CreatedDate_Day_1",
       "numbers": [],
-      "query": "q = load \"cases_duration\";\nq = filter q by {{cell(My_Records_Filter_1.selection,0,\"SAQL\").asObject()}};q = filter q by date('IDR_Date_Received__c_Year', 'IDR_Date_Received__c_Month', 'IDR_Date_Received__c_Day') in [\"30 days ago\"..\"current day\"];\nq = group q by ('IDR_Date_Received__c_Year', 'IDR_Date_Received__c_Month', 'IDR_Date_Received__c_Day');\nq = foreach q generate 'IDR_Date_Received__c_Year' + \"~~~\" + 'IDR_Date_Received__c_Month' + \"~~~\" + 'IDR_Date_Received__c_Day' as 'IDR_Date_Received__c_Year~~~IDR_Date_Received__c_Month~~~IDR_Date_Received__c_Day', count() as 'count';\nq = order q by 'IDR_Date_Received__c_Year~~~IDR_Date_Received__c_Month~~~IDR_Date_Received__c_Day' asc;\nq = limit q 2000;",
+      "query": "q = load \"cases_duration\";\nq = filter q by {{cell(My_Records_Filter_1.selection,0,\"SAQL\").asObject()}};q = filter q by date('CreatedDate_Year', 'CreatedDate_Month', 'CreatedDate_Day') in [\"30 days ago\"..\"current day\"];\nq = group q by ('CreatedDate_Year', 'CreatedDate_Month', 'CreatedDate_Day');\nq = foreach q generate 'CreatedDate_Year' + \"~~~\" + 'CreatedDate_Month' + \"~~~\" + 'CreatedDate_Day' as 'CreatedDate_Year~~~CreatedDate_Month~~~CreatedDate_Day', count() as 'count';\nq = order q by 'CreatedDate_Year~~~CreatedDate_Month~~~CreatedDate_Day' asc;\nq = limit q 2000;",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "start": "[]",
@@ -1591,7 +1591,7 @@
         },
         "valueType": "none",
         "theme": "dark",
-        "step": "IDR_Date_Received__c_Day_1",
+        "step": "CreatedDate_Day_1",
         "dimensionAxis": {
           "showTitle": false,
           "customSize": "auto",

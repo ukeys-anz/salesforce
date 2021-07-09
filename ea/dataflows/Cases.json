@@ -108,7 +108,7 @@
             "label": "CaseDuration_epoch",
             "name": "CaseDuration_epoch",
             "precision": 10,
-            "saqlExpression": "(CreatedDate_sec_epoch - ClosedDate_sec_epoch)",
+            "saqlExpression": "(ClosedDate_sec_epoch - CreatedDate_sec_epoch)",
             "scale": 0,
             "type": "Numeric"
           }
