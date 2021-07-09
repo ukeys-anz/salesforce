@@ -53,7 +53,7 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
         <useCriteriaStartTime>false</useCriteriaStartTime>
     </milestones>
     <milestones>
-        <businessHours>Case Business Hours</businessHours>
+        <businessHours>Default</businessHours>
         <milestoneCriteriaFilterItems>
             <field>Case.Status</field>
             <operation>notEqual</operation>
@@ -100,7 +100,7 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
         <useCriteriaStartTime>false</useCriteriaStartTime>
     </milestones>
     <milestones>
-        <businessHours>Case Business Hours</businessHours>
+        <businessHours>Default</businessHours>
         <criteriaBooleanFilter>1 AND 2 AND 3 AND (4 OR ((5 AND 6) OR (7 AND 8) OR (9 AND 10) OR (11 AND 12)))</criteriaBooleanFilter>
         <milestoneCriteriaFilterItems>
             <field>Case.Status</field>
