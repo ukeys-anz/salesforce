@@ -8,7 +8,6 @@ public with sharing class IDRPendCaseTaskEmailNotification {
    * @description method to get task owner details
    * @param verifiedPendCaseTaskWrapperList list of IDRPendCaseTaskReminderWrapper, which contains email details
    * @param whichNotification specifies which notification for eg Task Creation/Task Reminder etc
-   * @return Map<Id, User> returns map of task owner user record with its id
    */
   public static void sendEmailNotification(
     List<IDRPendCaseTaskReminderWrapper> verifiedPendCaseTaskWrapperList,
