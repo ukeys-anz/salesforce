@@ -72,17 +72,22 @@ fi
 JOB_END_TIME=$(date +%s)
 echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
 
-echo "$(date): Pre-loading sample data..."
-JOB_START_TIME=$(date +%s)
-sfdx force:apex:execute -f ./apex-scripts/createTestData.apex
-JOB_END_TIME=$(date +%s)
-echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
-
-echo "$(date): Creating test users (inactive by default) with different roles..."
-JOB_START_TIME=$(date +%s)
-sfdx force:apex:execute -f ./apex-scripts/createTestUsers.apex
-JOB_END_TIME=$(date +%s)
-echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
+read -rp "Preload ANZ Plus test data? " preloadANZPlusData
+case ${preloadANZPlusData:0:1} in
+y | Y)
+    echo "$(date): Pre-loading sample data..."
+    JOB_START_TIME=$(date +%s)
+    sfdx force:apex:execute -f ./apex-scripts/createTestData.apex
+    JOB_END_TIME=$(date +%s)
+    echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
+    echo "$(date): Creating test users (inactive by default) with different roles..."
+    JOB_START_TIME=$(date +%s)
+    sfdx force:apex:execute -f ./apex-scripts/createTestUsers.apex
+    JOB_END_TIME=$(date +%s)
+    echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
+    ;;
+*) echo "Skipping ANZ plus test data preload" ;;
+esac
 
 case ${testdata:0:1} in
 y | Y)
