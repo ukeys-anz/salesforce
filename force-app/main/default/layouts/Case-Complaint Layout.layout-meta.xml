@@ -151,10 +151,6 @@
                 <behavior>Required</behavior>
                 <field>IDR_Complainant_Desired_Outcome__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Comments</field>
-            </layoutItems>
         </layoutColumns>
         <style>OneColumn</style>
     </layoutSections>
@@ -236,6 +232,14 @@
                 <field>IDR_Systemic_Issue_Category__c</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_Real_Form_Req__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Required</behavior>
+                <field>IDR_Is_Written_Resp_Required__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Required</behavior>
                 <field>IDR_Is_Written_Resp_Requested__c</field>
             </layoutItems>
@@ -247,11 +251,19 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>IDR_Real_Form_Req__c</field>
+                <field>IDR_Parent_Systemic_Issue__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Required</behavior>
-                <field>IDR_Is_Written_Resp_Required__c</field>
+                <behavior>Readonly</behavior>
+                <field>IDR_Datetime_PSI_Ticked__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_Real_Form_Submitted__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_Real_Form_Ref_No__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -465,7 +477,7 @@
     <showRunAssignmentRulesCheckbox>true</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>true</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2N0000018y07</masterLabel>
+        <masterLabel>00h2O000001CixT</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

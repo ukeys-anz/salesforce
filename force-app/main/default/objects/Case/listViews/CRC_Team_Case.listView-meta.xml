@@ -15,6 +15,6 @@
     <label>Customer Resolution Portfolio</label>
     <queue>CRC_Team</queue>
     <sharedTo>
-        <group>All_IDR_Users</group>
+        <roleAndSubordinates>ANZ</roleAndSubordinates>
     </sharedTo>
 </ListView>

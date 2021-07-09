@@ -11,6 +11,6 @@
     <label>EDR CM Everyday Banking/Wealth</label>
     <queue>EDR_CM_Everyday_Banking_Wealth</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <roleAndSubordinates>ANZ</roleAndSubordinates>
     </sharedTo>
 </ListView>
