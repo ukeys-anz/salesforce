@@ -228,6 +228,7 @@ public with sharing class IDRCaseActions {
           },
           System.now()
         );
+        IDRTaskActions.closeMaxTimeFrameTasks(maxTimeFrameCases);
       }
     }
   }
