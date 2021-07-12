@@ -593,17 +593,36 @@ public without sharing class IDRTaskActions {
    * @param cases Set of case Ids
    */
   public static void closeMaxTimeFrameTasks(Set<Id> cases) {
-    List<Task> tasksToClose = [
-      SELECT ID, Status
-      FROM Task
-      WHERE
-        whatId IN :cases
-        AND RecordTypeId = :IDRConstants.IDR_SYSTEM_TASK_RT_ID
-        AND isClosed = FALSE
-    ];
-    for (Task task : tasksToClose) {
-      task.Status = IDRConstants.TASK_STATUS_COMPLETED;
+    if (Task.sObjectType.getDescribe().isQueryable()) {
+      List<Task> tasksToClose = [
+        SELECT ID, Status
+        FROM Task
+        WHERE
+          whatId IN :cases
+          AND RecordTypeId = :IDRConstants.IDR_SYSTEM_TASK_RT_ID
+          AND isClosed = FALSE
+      ];
+      for (Task task : tasksToClose) {
+        task.Status = IDRConstants.TASK_STATUS_COMPLETED;
+      }
+      if (
+        Task.sObjectType.getDescribe().isUpdateable() &&
+        Schema.sObjectType.Task.fields.Status.isUpdateable()
+      ) {
+        update tasksToClose;
+      } else {
+        CommonUtil.logAndThrowIAE(
+          'IDRTaskActions',
+          'closeMaxTimeFrameTasks',
+          'Not enough permissions to update Task.'
+        );
+      }
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'IDRTaskActions',
+        'closeMaxTimeFrameTasks',
+        'Not enough permissions to query Task.'
+      );
     }
-    update tasksToClose;
   }
 }
