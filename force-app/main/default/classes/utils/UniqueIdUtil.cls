@@ -17,9 +17,11 @@ public with sharing class UniqueIdUtil {
     if (traceId == '' && UserInfo.getSessionId() != null) {
       Request reqInfo = Request.getCurrent();
       String currentRequestId = reqInfo.getRequestId();
-      traceId = EncodingUtil.convertToHex(
-        Crypto.generateDigest('MD5', Blob.valueOf(currentRequestId))
-      );
+      if (!String.isBlank(currentRequestId)) {
+        traceId = EncodingUtil.convertToHex(
+          Crypto.generateDigest('MD5', Blob.valueOf(currentRequestId))
+        );
+      }
     }
 
     return traceId;

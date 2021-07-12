@@ -68,7 +68,7 @@
             "label": "CaseAge",
             "name": "CaseAge",
             "precision": 2,
-            "saqlExpression": "daysBetween(toDate('IDR_Date_Received__c', \"yyyy-MM-dd\") , now() )",
+            "saqlExpression": "daysBetween(toDate(CreatedDate_epoch) , now() )",
             "scale": 1,
             "type": "Numeric"
           }

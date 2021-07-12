@@ -1117,12 +1117,12 @@
         "type": "chart"
       }
     },
-    "IDR_Date_Received__c_2": {
+    "CreatedDate_2": {
       "broadcastFacet": true,
       "groups": [],
-      "label": "IDR_Date_Received__c_2",
+      "label": "CreatedDate_2",
       "numbers": [],
-      "query": "q = load \"CMOS_Cases\";\nq = filter q by 'Onboarding.Team_Branch' in [\"MOUNT GAMBIER\"];\nq = group q by ('CaseNumber', 'IDR_Date_Received__c_Year', 'IDR_Date_Received__c_Month', 'IDR_Date_Received__c_Day', 'Onboarding.Team_Branch');\nq = foreach q generate 'CaseNumber', 'IDR_Date_Received__c_Year', 'IDR_Date_Received__c_Month', 'IDR_Date_Received__c_Day', 'Onboarding.Team_Branch';\nq = group q by ('IDR_Date_Received__c_Year', 'IDR_Date_Received__c_Month', 'IDR_Date_Received__c_Day', 'Onboarding.Team_Branch');\nq = foreach q generate 'IDR_Date_Received__c_Year' + \"~~~\" + 'IDR_Date_Received__c_Month' + \"~~~\" + 'IDR_Date_Received__c_Day' as 'IDR_Date_Received__c_Year~~~IDR_Date_Received__c_Month~~~IDR_Date_Received__c_Day', 'Onboarding.Team_Branch', count() as 'count';\nq = order q by 'IDR_Date_Received__c_Year~~~IDR_Date_Received__c_Month~~~IDR_Date_Received__c_Day' asc;\n",
+      "query": "q = load \"CMOS_Cases\";\nq = filter q by 'Onboarding.Team_Branch' in [\"MOUNT GAMBIER\"];\nq = group q by ('CaseNumber', 'CreatedDate_Year', 'CreatedDate_Month', 'CreatedDate_Day', 'Onboarding.Team_Branch');\nq = foreach q generate 'CaseNumber', 'CreatedDate_Year', 'CreatedDate_Month', 'CreatedDate_Day', 'Onboarding.Team_Branch';\nq = group q by ('CreatedDate_Year', 'CreatedDate_Month', 'CreatedDate_Day', 'Onboarding.Team_Branch');\nq = foreach q generate 'CreatedDate_Year' + \"~~~\" + 'CreatedDate_Month' + \"~~~\" + 'CreatedDate_Day' as 'CreatedDate_Year~~~CreatedDate_Month~~~CreatedDate_Day', 'Onboarding.Team_Branch', count() as 'count';\nq = order q by 'CreatedDate_Year~~~CreatedDate_Month~~~CreatedDate_Day' asc;\n",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -1209,7 +1209,7 @@
           "columnMap": {
             "split": [],
             "timeAxis": [
-              "IDR_Date_Received__c_Year~~~IDR_Date_Received__c_Month~~~IDR_Date_Received__c_Day"
+              "CreatedDate_Year~~~CreatedDate_Month~~~CreatedDate_Day"
             ],
             "trellis": [],
             "plots": ["count"]
