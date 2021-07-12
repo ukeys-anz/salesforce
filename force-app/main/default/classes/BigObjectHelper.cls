@@ -20,7 +20,7 @@ public with sharing class BigObjectHelper {
       results,
       new List<SObject>()
     );
-    if (bigObjectName != 'Application_Trace_Log__b') {
+    if (bigObjectName != 'Traced_Application_Log__b') {
       //To avoid infinite loop
       log.insertLog();
     }
