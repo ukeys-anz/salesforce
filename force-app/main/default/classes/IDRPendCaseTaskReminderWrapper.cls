@@ -32,4 +32,16 @@ public with sharing class IDRPendCaseTaskReminderWrapper {
    * @description user record of task owner
    */
   public User taskOwnerUserRecord { get; set; }
+  /**
+   * @description boolean to notify owner or not
+   */
+  public Boolean notifyOwner { get; set; }
+  /**
+   * @description boolean to notify manager or not
+   */
+  public Boolean notifyManager { get; set; }
+  /**
+   * @description user record of case owner
+   */
+  public User caseOwnerUserRecord { get; set; }
 }

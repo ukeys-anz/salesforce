@@ -15,7 +15,7 @@ public with sharing class IDRPendCaseTaskRemindersBatch implements Database.Batc
     return Database.getQueryLocator(
       'SELECT Id, ActivityDate, OwnerId, WhatId, Subject ' +
       'FROM Task ' +
-      'WHERE Type = \'Pend Case\' AND WhatId != null AND ActivityDate <=: windowFromToday AND Owner.Type = \'User\' AND Status != \'Completed\''
+      'WHERE Type = \'Pend Case\' AND WhatId != null AND Owner.Type = \'User\' AND Status != \'Completed\' AND ( ActivityDate <=: windowFromToday OR ActivityDate > TODAY )'
     );
   }
 

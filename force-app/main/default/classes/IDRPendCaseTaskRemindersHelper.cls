@@ -79,6 +79,8 @@ public with sharing class IDRPendCaseTaskRemindersHelper {
           ) {
             pctw.emailNotificationRequired = true;
             pctw.taskOwnerUserRecord = taskOwnerMap.get(psa.AssigneeId);
+          } else {
+            pctw.emailNotificationRequired = false;
           }
         }
       }

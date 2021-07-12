@@ -21,7 +21,7 @@ public with sharing class IDRPendCaseTaskRemindersHandler {
       IDRPendCaseTaskReminderWrapper pendCaseTaskWrapper = new IDRPendCaseTaskReminderWrapper();
       Integer daysBetweenTaskDueDate = Date.today().daysBetween(t.ActivityDate);
       Boolean isDueDateWithinWindow = windowForTaskReminders.contains(
-          String.valueOf(Date.today().daysBetween(t.ActivityDate))
+          String.valueOf(daysBetweenTaskDueDate)
         )
         ? true
         : false;
@@ -31,6 +31,19 @@ public with sharing class IDRPendCaseTaskRemindersHandler {
         pendCaseTaskWrapper.caseId = t.WhatId;
         pendCaseTaskWrapper.taskRecord = t;
         pendCaseTaskWrapper.daysBetweenTaskDueDate = daysBetweenTaskDueDate;
+        pendCaseTaskWrapper.notifyOwner = true;
+        pendCaseTaskWrapper.notifyManager = daysBetweenTaskDueDate == 1
+          ? true
+          : false;
+        pendCaseTaskWrapperList.add(pendCaseTaskWrapper);
+      } else if (t.ActivityDate > Date.today()) {
+        caseIdList.add(t.WhatId);
+        pendCaseTaskWrapper.taskId = t.Id;
+        pendCaseTaskWrapper.caseId = t.WhatId;
+        pendCaseTaskWrapper.taskRecord = t;
+        pendCaseTaskWrapper.daysBetweenTaskDueDate = daysBetweenTaskDueDate;
+        pendCaseTaskWrapper.notifyManager = true;
+        pendCaseTaskWrapper.notifyOwner = false;
         pendCaseTaskWrapperList.add(pendCaseTaskWrapper);
       }
     }
@@ -41,6 +54,7 @@ public with sharing class IDRPendCaseTaskRemindersHandler {
       for (Case c : caseListForReminders) {
         if (pctw.caseId == c.Id) {
           pctw.caseRecord = c;
+          pctw.caseOwnerUserRecord = c.Owner;
         }
       }
     }

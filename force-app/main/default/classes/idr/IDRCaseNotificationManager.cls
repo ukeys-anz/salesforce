@@ -100,14 +100,16 @@ public with sharing class IDRCaseNotificationManager {
     for (
       IDRPendCaseTaskReminderWrapper pendCaseTaskWrapper : pendCaseTaskWrapperList
     ) {
-      wrapperList.add(
-        createNotificationForTaskReminders(
-          'Task Reminder',
-          pendCaseTaskWrapper.caseRecord,
-          pendCaseTaskWrapper.taskRecord,
-          pendCaseTaskWrapper.daysBetweenTaskDueDate
-        )
-      );
+      if (pendCaseTaskWrapper.notifyOwner == true) {
+        wrapperList.add(
+          createNotificationForTaskReminders(
+            'Task Reminder',
+            pendCaseTaskWrapper.caseRecord,
+            pendCaseTaskWrapper.taskRecord,
+            pendCaseTaskWrapper.daysBetweenTaskDueDate
+          )
+        );
+      }
     }
 
     IDRBankerNotificationBuilder.sendNotification(wrapperList);

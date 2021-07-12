@@ -14,7 +14,13 @@ public with sharing class IDRPendCaseTaskRemindersSelector {
   ) //CRUD check is done in parent class
   public static List<Case> getCasesFromIds(List<Id> caseIdList) {
     return [
-      SELECT Id, CaseNumber, OwnerId
+      SELECT
+        Id,
+        CaseNumber,
+        OwnerId,
+        TYPEOF Owner
+          WHEN User THEN Id, FirstName, ManagerId
+        END
       FROM Case
       WHERE Id IN :caseIdList AND Owner.Type = 'User'
     ];
