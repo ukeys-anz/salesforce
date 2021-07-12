@@ -58,7 +58,7 @@
             "label": "CaseDuration_epoch",
             "name": "CaseDuration_epoch",
             "precision": 10,
-            "saqlExpression": "case \nwhen (CreatedDate_sec_epoch - ClosedDate_sec_epoch) < 0\nthen 0\nelse\n(CreatedDate_sec_epoch - ClosedDate_sec_epoch)\nend",
+            "saqlExpression": "case \nwhen (ClosedDate_sec_epoch - CreatedDate_sec_epoch) < 0\nthen 0\nelse\n(ClosedDate_sec_epoch - CreatedDate_sec_epoch)\nend",
             "scale": 0,
             "type": "Numeric"
           },
