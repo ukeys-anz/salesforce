@@ -3,7 +3,7 @@
     <fullName>Access_Index</fullName>
     <fields>
         <name>Access_Id__c</name>
-        <sortDirection>ASC</sortDirection>
+        <sortDirection>DESC</sortDirection>
     </fields>
     <label>Access Index</label>
 </Index>

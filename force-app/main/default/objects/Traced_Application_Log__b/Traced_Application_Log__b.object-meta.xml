@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Exception logging, from batch and web services.</description>
+    <label>Traced Application Log</label>
+    <pluralLabel>Traced Application Logs</pluralLabel>
+</CustomObject>

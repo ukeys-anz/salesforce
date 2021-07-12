@@ -3,7 +3,7 @@
     <fullName>Timestamp</fullName>
     <fields>
         <name>Timestamp__c</name>
-        <sortDirection>DESC</sortDirection>
+        <sortDirection>ASC</sortDirection>
     </fields>
     <label>Timestamp</label>
 </Index>
