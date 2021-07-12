@@ -42,16 +42,16 @@ public with sharing class IDRTaskNotificationManager {
     String msgBody;
     if (daysRemainingFromDue == 1) {
       msgBody =
-        'Your task ' +
+        'Your task \'' +
         t.Subject +
-        ' for complaint ' +
+        '\' for complaint ' +
         c.CaseNumber +
         ' is due in tomorrow';
     } else {
       msgBody =
-        'Your task ' +
+        'Your task \'' +
         t.Subject +
-        ' for complaint ' +
+        '\' for complaint ' +
         c.CaseNumber +
         ' is due in ' +
         daysRemainingFromDue +

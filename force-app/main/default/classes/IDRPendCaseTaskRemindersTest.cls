@@ -74,7 +74,11 @@ public with sharing class IDRPendCaseTaskRemindersTest {
     );
     insert t;
 
-    Database.executeBatch(new IDRPendCaseTaskRemindersBatch());
+    SchedulableContext sc = null;
+    IDRPendCaseTaskRemindersScheduler schedule = new IDRPendCaseTaskRemindersScheduler();
+    schedule.execute(sc);
+
+    //Asserts
     //We cannot check if the notification is sent or not, hence verifying the wrapper if its properly built
     List<IDRPendCaseTaskReminderWrapper> pendCaseTaskWrapper = IDRPendCaseTaskRemindersHandler.createWrapper(
       new List<Task>{ t }
