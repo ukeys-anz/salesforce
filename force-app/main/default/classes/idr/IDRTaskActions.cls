@@ -588,6 +588,10 @@ public without sharing class IDRTaskActions {
     }
   }
 
+  /**
+   * @description close all the max IDR Timeframe task when case is closed
+   * @param cases Set of case Ids
+   */
   public static void closeMaxTimeFrameTasks(Set<Id> cases) {
     List<Task> tasksToClose = [
       SELECT ID, Status
