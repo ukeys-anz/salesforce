@@ -81,6 +81,10 @@ public with sharing class IDRConstants {
   //Channel Recieved
   public static final string CHANNEL_RECEIVED_AFCA_REFERRED = '11';
 
+  //Task fields Constants
+  public static final String TASK_TYPE_PEND_CASE = 'Pend Case';
+  public static final String SUBJECT_PEND_CASE_TASK = 'Case Pended - provide update in case comment';
+
   /**
    * @description Static variable to list CMOS workbaskets' API names
    * @return List CMOS workbaskets' API names

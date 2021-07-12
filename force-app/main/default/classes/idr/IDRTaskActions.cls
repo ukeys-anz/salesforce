@@ -56,6 +56,12 @@ public without sharing class IDRTaskActions {
     ) {
       record.Completed_Date__c = Date.today();
     }
+    if (
+      record.Type == IDRConstants.TASK_TYPE_PEND_CASE &&
+      record.Subject != IDRConstants.SUBJECT_PEND_CASE_TASK
+    ) {
+      record.Subject = IDRConstants.SUBJECT_PEND_CASE_TASK;
+    }
   }
 
   /**
