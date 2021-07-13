@@ -480,7 +480,7 @@
       "groups": [],
       "label": "HasBeenAutoEscalated%",
       "numbers": [],
-      "query": "-- Collect total Cases.\nq = load \"CMOS_Cases\";\nq1 = group q by Id;\nq1 = foreach q1 generate Id, 1 as 'C';\nq1 = group q1 by all;\ntotal = foreach q1 generate sum('C') as 'Total';\n\n\n--Filter cases that are not auto esclated\nesc = foreach q generate case when 'IDR_Escalation_Reason__c' is null \nthen \"None\" else 'IDR_Escalation_Reason__c' end\nas 'IDR_Escalation_Reason__c', 'Id' as 'Id';\nesc = group esc by ('Id', 'IDR_Escalation_Reason__c');\nesc = foreach esc generate 'IDR_Escalation_Reason__c', count() as 'C';\nesc = group esc by 'IDR_Escalation_Reason__c';\nesc = filter esc by 'IDR_Escalation_Reason__c' != \"Auto Escalation\";\nesc = foreach esc generate 'IDR_Escalation_Reason__c', count() as 'C';\nesc = group esc by all;\nesc = foreach esc generate sum('C') as 'Filter';\n\n--Compare the total cases against the filtered cases\ncombine = union total, esc;\ncombine = group combine by all;\nresult = foreach combine generate \n1-(sum(sum(Total)) over([..] partition by all) / sum(sum(Filter)) over([..] partition by all)) as 'percentile';\n\n\nresult = foreach result generate \ncase when percentile == 0 then \n\"0%\" else number_to_string(percentile, \"#%\") end as 'perc';\n",
+      "query": "-- Collect total Cases.\nq = load \"CMOS_Cases\";\nq1 = group q by Id;\nq1 = foreach q1 generate Id, 1 as 'C';\nq1 = group q1 by all;\ntotal = foreach q1 generate sum('C') as 'Total';\n\n\n--Filter cases that are not auto esclated\nesc = foreach q generate case when 'IDR_Escalation_Reason__c' is null \nthen \"None\" else 'IDR_Escalation_Reason__c' end\nas 'IDR_Escalation_Reason__c', 'Id' as 'Id';\nesc = group esc by ('Id', 'IDR_Escalation_Reason__c');\nesc = foreach esc generate 'IDR_Escalation_Reason__c', count() as 'C';\nesc = group esc by 'IDR_Escalation_Reason__c';\nesc = filter esc by 'IDR_Escalation_Reason__c' != \"Auto Escalation\";\nesc = foreach esc generate 'IDR_Escalation_Reason__c', count() as 'C';\nesc = group esc by all;\nesc = foreach esc generate sum('C') as 'Filter';\n\n--Compare the total cases against the filtered cases\ncombine = union total, esc;\ncombine = group combine by all;\nresult = foreach combine generate \n1-(sum(sum(Total)) over([..] partition by all) / sum(sum(Filter)) over([..] partition by all)) as 'percentile';\n\n\nresult = foreach result generate \ncase when percentile == 0 then \n\"0%\" else number_to_string(percentile, \"#%\") end as 'perc';",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -2191,7 +2191,7 @@
       "groups": [],
       "label": "Onboard_Business_1",
       "numbers": [],
-      "query": "q = load \"CMOS_Historic_User_Data\";\nq = group q by ('EmployeeNumber', 'Onboard.Business');\nq = foreach q generate 'EmployeeNumber', 'Onboard.Business';\n\nq = group q by 'Onboard.Business';\nq = foreach q generate 'Onboard.Business' as 'Onboard.Business', count() as 'count';\n\n",
+      "query": "q = load \"CMOS_Historic_User_Data\";\nq = group q by ('EmployeeNumber', 'Onboard.Business');\nq = foreach q generate 'EmployeeNumber', 'Onboard.Business';\n\nq = group q by 'Onboard.Business';\nq = foreach q generate 'Onboard.Business' as 'Onboard.Business', count() as 'count';",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "start": "[]",
@@ -2701,7 +2701,7 @@
       "groups": [],
       "label": "lens_3",
       "numbers": [],
-      "query": "q = load \"CMOS_Cases\";\nq = filter q by IsClosed == \"true\";\nq = group q by Id;\nq = foreach q generate Id, min('CaseDuration_Hours') as 'avg_CaseDuration_Hours';\n\nq = group q by all;\nq = foreach q generate sum('avg_CaseDuration_Hours') / count() as 'avg_CaseDuration_Hours';\n\nq = limit q 2000;",
+      "query": "q = load \"CMOS_Cases\";\nq = filter q by IsClosed == \"true\";\nq = group q by Id;\nq = foreach q generate Id, (min('CaseDuration_Hours')/24) as 'avg_CaseDuration_Hours';\n\nq = group q by all;\nq = foreach q generate sum('avg_CaseDuration_Hours') / count() as 'avg_CaseDuration_Hours';\n\nq = limit q 2000;",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -2711,6 +2711,12 @@
         "parameters": {
           "autoFitMode": "keepLabels",
           "max": 100,
+          "legend": {
+            "showHeader": true,
+            "show": false,
+            "position": "right-top",
+            "inside": false
+          },
           "tooltip": {
             "showBinLabel": true,
             "measures": "",
@@ -2726,9 +2732,9 @@
           "title": {
             "fontSize": 14,
             "subtitleFontSize": 11,
-            "label": "",
+            "label": "Average Days for Resolution",
             "align": "center",
-            "subtitleLabel": "Closed Cases"
+            "subtitleLabel": "Absolute Days from Open to Close Date"
           },
           "trellis": {
             "flipLabels": false,
@@ -2747,7 +2753,6 @@
             "highColor2": "#169913"
           },
           "high": 66,
-          "columnMap": { "trellis": [], "plots": ["avg_CaseDuration_Hours"] },
           "showActionMenu": true,
           "min": 0,
           "valueType": "compactNumber",
@@ -2852,7 +2857,7 @@
       "groups": [],
       "label": "lens_1",
       "numbers": [],
-      "query": "q = load \"CMOS_Historic_User_Data\";\n\nq = foreach q generate case when 'DaysSinceLogin' > {{cell(static_1.selection, 0, \"Days\").asObject()}} then \"true\" else \"false\" end as 'logged_in', 'LastLoginDate_sec_epoch', 'EmployeeNumber';\nq = group q by 'logged_in';\nq = foreach q generate logged_in, unique('EmployeeNumber') as 'Login';\n\nq = group q by 'logged_in';\nq = foreach q generate logged_in, sum('Login')/sum(sum('Login')) over ([..] partition by all) as 'B';\n\nq = filter q by logged_in == \"false\";\nq = foreach q generate 'B';\n\n",
+      "query": "q = load \"CMOS_Historic_User_Data\";\n\nq = foreach q generate case when 'DaysSinceLogin' > {{cell(static_1.selection, 0, \"Days\").asObject()}} then \"true\" else \"false\" end as 'logged_in', 'LastLoginDate_sec_epoch', 'EmployeeNumber';\nq = group q by 'logged_in';\nq = foreach q generate logged_in, unique('EmployeeNumber') as 'Login';\n\nq = group q by 'logged_in';\nq = foreach q generate logged_in, sum('Login')/sum(sum('Login')) over ([..] partition by all) as 'B';\n\nq = filter q by logged_in == \"false\";\nq = foreach q generate 'B';",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -3183,7 +3188,7 @@
     "text_2": {
       "parameters": {
         "content": {
-          "displayTemplate": "Report Date:\n[min_1] to [max_1]\n",
+          "displayTemplate": "Report Date:\n[min_1] to [max_1]",
           "values": {
             "min_1": {
               "field": "min",
@@ -3262,7 +3267,7 @@
     "text_5": {
       "parameters": {
         "content": {
-          "displayTemplate": "[Result_1]\n",
+          "displayTemplate": "[Result_1]",
           "values": {
             "Result_1": {
               "field": "Result",
@@ -3465,7 +3470,7 @@
     "text_4": {
       "parameters": {
         "content": {
-          "displayTemplate": "Complaints resolved at First Point of Contact:\n"
+          "displayTemplate": "Complaints resolved at First Point of Contact:"
         },
         "fontSize": 16,
         "showActionMenu": true,
@@ -3476,7 +3481,7 @@
     },
     "text_7": {
       "parameters": {
-        "content": { "displayTemplate": "User Adoption\n" },
+        "content": { "displayTemplate": "User Adoption" },
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
@@ -3534,7 +3539,7 @@
     },
     "text_6": {
       "parameters": {
-        "content": { "displayTemplate": "Case Details\n" },
+        "content": { "displayTemplate": "Case Details" },
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
@@ -3611,7 +3616,7 @@
     },
     "text_8": {
       "parameters": {
-        "content": { "displayTemplate": "Cases that have been escalated\n" },
+        "content": { "displayTemplate": "Cases that have been escalated" },
         "fontSize": 16,
         "showActionMenu": false,
         "textAlignment": "left",
@@ -3728,7 +3733,7 @@
     },
     "text_1": {
       "parameters": {
-        "content": { "displayTemplate": "Complaints\n" },
+        "content": { "displayTemplate": "Complaints" },
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
@@ -4008,7 +4013,6 @@
           "highColor2": "#169913"
         },
         "high": 66,
-        "columnMap": { "trellis": [], "plots": ["avg_CaseDuration_Hours"] },
         "showActionMenu": true,
         "min": 0,
         "valueType": "compactNumber",
