@@ -5,15 +5,14 @@
  */
 @isTest
 private class TaskTriggerHandlerTest {
-  public static final String TEST_CONFERENCE_SID = 'CF7bce65a854ead770c7ecec580fd8a36a';
+  public static final String TEST_CALL_SID = 'CA52ac7c0cf5891c04e1873e1f147f9ed6';
   public static final String ORIGINAL_LOG_SUBJECT_IDENTIFIER = 'THIS WAS IN SUBJECT';
   public static Task outboundCallLogTemplate = new Task(
     ActivityDate = Date.Today(),
     CallType = 'Outbound',
     Description = '[Completed] outbound voice. Details: Conference:' +
       '\n' +
-      'Sid: ' +
-      TEST_CONFERENCE_SID +
+      'Sid: CF7bce65a854ead770c7ecec580fd8a36a' +
       '\n' +
       'Participants:' +
       '\n' +
@@ -21,7 +20,8 @@ private class TaskTriggerHandlerTest {
       '\n' +
       'Customer: CA52ac7c0cf5891c04e1873e1f147f9ed6' +
       '\n' +
-      'Call Sid: CA52ac7c0cf5891c04e1873e1f147f9ed6' +
+      'Call Sid: ' +
+      TEST_CALL_SID +
       '\n' +
       'From: +61480022699' +
       '\n' +
@@ -104,9 +104,9 @@ private class TaskTriggerHandlerTest {
       'Failed to assign Task Subtype as `Call` while creating outbound call logs'
     );
     System.assertEquals(
-      TEST_CONFERENCE_SID,
+      TEST_CALL_SID,
       insertedTask.Voice_Call_SID__c,
-      'Failed to extract Call/Conference SID from Description (comments) while creating outbound call logs'
+      'Failed to extract Call SID from Description (comments) while creating outbound call logs'
     );
     System.assert(
       insertedTask.Description.contains(ORIGINAL_LOG_SUBJECT_IDENTIFIER),
@@ -184,7 +184,7 @@ private class TaskTriggerHandlerTest {
     // THEN the custom `outbound Call Log data population logic` should not be applied
     // verify inbound Call Log fields
     System.assertNotEquals(
-      TEST_CONFERENCE_SID,
+      TEST_CALL_SID,
       inboundTask.Voice_Call_SID__c,
       'Call Log data population logic should not apply on manually created Inbound Call Logs'
     );
@@ -205,7 +205,7 @@ private class TaskTriggerHandlerTest {
     outboundTask.WhatId = caseRec.Id;
     outboundTask.Description = '[Completed] outbound voice.';
 
-    // WHEN the auto-created Call Log Description does not have a Conference SID in it
+    // WHEN the auto-created Call Log Description does not have a Call Sid in it
     Test.startTest();
 
     GetHelpTaskActions.enrichOutboundCallLogs(new List<Task>{ outboundTask });
@@ -217,7 +217,7 @@ private class TaskTriggerHandlerTest {
     System.assertEquals(
       null,
       outboundTask.Voice_Call_SID__c,
-      'Voice_Call_SID__c should not have any value populated if Call SID was not part of the Description (comments) while creating outbound call logs'
+      'Voice_Call_SID__c should not have any value populated if Call Sid was not part of the Description (comments) while creating outbound call logs'
     );
   }
 

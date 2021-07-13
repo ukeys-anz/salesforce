@@ -21,10 +21,19 @@ public with sharing class AccessRequestTriggerHandler extends Lib_TriggerHandler
   }
 
   /**
+   * @description onBeforeUpdate to handle before update trigger actions.
+   * @param oldMap old trigger values
+   */
+  public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    AccessRequestCommonActions.logSubmission(records, oldMap);
+  }
+
+  /**
    * @description onAfterUpdate to handle after update trigger actions.
    * @param oldMap old trigger values
    */
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
     AccessRequestCommonActions.createPARequestRecords(records, oldMap);
+    AccessRequestCommonActions.logApprovalDecision(records, oldMap);
   }
 }

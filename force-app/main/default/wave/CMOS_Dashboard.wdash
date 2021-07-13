@@ -31,6 +31,22 @@
       ],
       "label": "User <Team> Complaints",
       "name": "Link_961"
+    },
+    {
+      "fields": [
+        {
+          "dataSourceName": "CMOS_Historic_User_Data",
+          "dataSourceType": "dataset",
+          "fieldName": "Onboard.Division"
+        },
+        {
+          "dataSourceName": "CMOS_Cases",
+          "dataSourceType": "dataset",
+          "fieldName": "Onboarding.Division"
+        }
+      ],
+      "label": "CMOS Divisions",
+      "name": "Link_1075"
     }
   ],
   "filters": [],
@@ -41,27 +57,13 @@
       "numColumns": 24,
       "pages": [
         {
-          "label": "Untitled",
+          "label": "Home",
           "name": "a282deda-b864-4fdf-b350-9b109fec619a",
           "navigationHidden": false,
           "widgets": [
             {
-              "colspan": 7,
-              "column": 5,
-              "name": "chart_5",
-              "row": 6,
-              "rowspan": 28,
-              "widgetStyle": {
-                "backgroundColor": "#FFFFFF",
-                "borderColor": "#E6ECF2",
-                "borderEdges": [],
-                "borderRadius": 16,
-                "borderWidth": 1
-              }
-            },
-            {
-              "colspan": 6,
-              "column": 12,
+              "colspan": 11,
+              "column": 0,
               "name": "container_4",
               "row": 6,
               "rowspan": 28,
@@ -72,22 +74,6 @@
                 "borderRadius": 16,
                 "borderWidth": 1
               }
-            },
-            {
-              "colspan": 6,
-              "column": 12,
-              "name": "chart_11",
-              "row": 7,
-              "rowspan": 12,
-              "widgetStyle": { "borderEdges": [] }
-            },
-            {
-              "colspan": 6,
-              "column": 12,
-              "name": "chart_12",
-              "row": 19,
-              "rowspan": 13,
-              "widgetStyle": { "borderEdges": [] }
             },
             {
               "colspan": 6,
@@ -108,22 +94,22 @@
               "column": 18,
               "name": "chart_7",
               "row": 7,
-              "rowspan": 12,
+              "rowspan": 9,
               "widgetStyle": { "borderEdges": [] }
             },
             {
               "colspan": 6,
               "column": 18,
               "name": "chart_9",
-              "row": 19,
-              "rowspan": 13,
+              "row": 17,
+              "rowspan": 15,
               "widgetStyle": { "borderEdges": [] }
             },
             {
               "colspan": 24,
               "column": 0,
               "name": "container_1",
-              "row": 35,
+              "row": 82,
               "rowspan": 28,
               "widgetStyle": {
                 "backgroundColor": "#FFFFFF",
@@ -137,7 +123,7 @@
               "colspan": 8,
               "column": 8,
               "name": "chart_4",
-              "row": 44,
+              "row": 91,
               "rowspan": 19,
               "widgetStyle": {
                 "backgroundColor": "#FFFFFF",
@@ -148,19 +134,11 @@
               }
             },
             {
-              "colspan": 8,
-              "column": 16,
-              "name": "chart_6",
-              "row": 36,
-              "rowspan": 26,
-              "widgetStyle": { "borderEdges": [] }
-            },
-            {
               "colspan": 5,
-              "column": 0,
+              "column": 1,
               "name": "number_1",
-              "row": 6,
-              "rowspan": 28,
+              "row": 89,
+              "rowspan": 14,
               "widgetStyle": {
                 "backgroundColor": "#FFFFFF",
                 "borderColor": "#E6ECF2",
@@ -173,7 +151,7 @@
               "colspan": 24,
               "column": 0,
               "name": "container_5",
-              "row": 64,
+              "row": 35,
               "rowspan": 46,
               "widgetStyle": {
                 "backgroundColor": "#091A3E",
@@ -187,7 +165,7 @@
               "colspan": 3,
               "column": 0,
               "name": "text_1",
-              "row": 65,
+              "row": 36,
               "rowspan": 4,
               "widgetStyle": {
                 "backgroundColor": "rgba(255, 255, 255, 0)",
@@ -198,24 +176,10 @@
               }
             },
             {
-              "colspan": 8,
-              "column": 8,
-              "name": "chart_2",
-              "row": 69,
-              "rowspan": 17,
-              "widgetStyle": {
-                "backgroundColor": "rgba(255, 255, 255, 0)",
-                "borderColor": "#E6ECF2",
-                "borderEdges": [],
-                "borderRadius": 0,
-                "borderWidth": 1
-              }
-            },
-            {
-              "colspan": 8,
-              "column": 0,
+              "colspan": 6,
+              "column": 1,
               "name": "number_2",
-              "row": 71,
+              "row": 42,
               "rowspan": 14,
               "widgetStyle": {
                 "backgroundColor": "rgba(255, 255, 255, 0)",
@@ -226,29 +190,29 @@
               }
             },
             {
-              "colspan": 6,
-              "column": 17,
+              "colspan": 5,
+              "column": 8,
               "name": "text_4",
-              "row": 73,
+              "row": 67,
               "rowspan": 5,
               "widgetStyle": {
                 "backgroundColor": "rgba(255, 255, 255, 0)",
                 "borderColor": "#E6ECF2",
-                "borderEdges": [],
+                "borderEdges": ["bottom"],
                 "borderRadius": 0,
                 "borderWidth": 1
               }
             },
             {
-              "colspan": 4,
-              "column": 18,
+              "colspan": 3,
+              "column": 13,
               "name": "text_3",
-              "row": 78,
-              "rowspan": 8,
+              "row": 67,
+              "rowspan": 5,
               "widgetStyle": {
                 "backgroundColor": "rgba(255, 255, 255, 0)",
                 "borderColor": "#E6ECF2",
-                "borderEdges": [],
+                "borderEdges": ["bottom"],
                 "borderRadius": 0,
                 "borderWidth": 1
               }
@@ -290,86 +254,44 @@
               }
             },
             {
-              "colspan": 6,
-              "column": 1,
-              "name": "text_6",
-              "row": 90,
+              "colspan": 3,
+              "column": 13,
+              "name": "text_5",
+              "row": 61,
               "rowspan": 5,
               "widgetStyle": {
                 "backgroundColor": "rgba(255, 255, 255, 0)",
                 "borderColor": "#E6ECF2",
-                "borderEdges": [],
+                "borderEdges": ["bottom"],
                 "borderRadius": 0,
                 "borderWidth": 1
               }
             },
             {
-              "colspan": 6,
-              "column": 1,
-              "name": "text_7",
-              "row": 96,
-              "rowspan": 8,
+              "colspan": 5,
+              "column": 8,
+              "name": "text_8",
+              "row": 61,
+              "rowspan": 5,
               "widgetStyle": {
                 "backgroundColor": "rgba(255, 255, 255, 0)",
                 "borderColor": "#E6ECF2",
-                "borderEdges": [],
+                "borderEdges": ["bottom"],
                 "borderRadius": 0,
                 "borderWidth": 1
               }
             },
             {
               "colspan": 7,
-              "column": 9,
-              "name": "chart_3",
-              "row": 88,
-              "rowspan": 20,
-              "widgetStyle": {
-                "backgroundColor": "rgba(255, 255, 255, 0)",
-                "borderColor": "#E6ECF2",
-                "borderEdges": [],
-                "borderRadius": 0,
-                "borderWidth": 1
-              }
-            },
-            {
-              "colspan": 4,
-              "column": 18,
-              "name": "text_5",
-              "row": 96,
-              "rowspan": 8,
-              "widgetStyle": {
-                "backgroundColor": "rgba(255, 255, 255, 0)",
-                "borderColor": "#E6ECF2",
-                "borderEdges": [],
-                "borderRadius": 0,
-                "borderWidth": 1
-              }
-            },
-            {
-              "colspan": 6,
-              "column": 17,
-              "name": "text_8",
-              "row": 91,
-              "rowspan": 5,
-              "widgetStyle": {
-                "backgroundColor": "rgba(255, 255, 255, 0)",
-                "borderColor": "#E6ECF2",
-                "borderEdges": [],
-                "borderRadius": 0,
-                "borderWidth": 1
-              }
-            },
-            {
-              "colspan": 8,
-              "column": 0,
+              "column": 11,
               "name": "listselector_1",
-              "row": 36,
-              "rowspan": 26,
+              "row": 6,
+              "rowspan": 28,
               "widgetStyle": {
                 "backgroundColor": "#FFFFFF",
                 "borderColor": "#E6ECF2",
                 "borderEdges": ["all"],
-                "borderRadius": 4,
+                "borderRadius": 16,
                 "borderWidth": 1
               }
             },
@@ -377,7 +299,7 @@
               "colspan": 6,
               "column": 9,
               "name": "pillbox_1",
-              "row": 36,
+              "row": 83,
               "rowspan": 3,
               "widgetStyle": {
                 "backgroundColor": "#FFFFFF",
@@ -388,10 +310,165 @@
               }
             },
             {
-              "colspan": 6,
-              "column": 9,
+              "colspan": 8,
+              "column": 8,
               "name": "text_9",
-              "row": 40,
+              "row": 87,
+              "rowspan": 4,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 9,
+              "column": 0,
+              "name": "text_7",
+              "row": 83,
+              "rowspan": 4,
+              "widgetStyle": {
+                "backgroundColor": "rgba(255, 255, 255, 0)",
+                "borderColor": "#E6ECF2",
+                "borderEdges": [],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 11,
+              "column": 0,
+              "name": "chart_1",
+              "row": 6,
+              "rowspan": 27,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 8,
+              "column": 0,
+              "name": "chart_5",
+              "row": 58,
+              "rowspan": 21,
+              "widgetStyle": {
+                "backgroundColor": "rgba(255, 255, 255, 0)",
+                "borderColor": "#E6ECF2",
+                "borderEdges": [],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 8,
+              "column": 16,
+              "name": "chart_3",
+              "row": 58,
+              "rowspan": 20,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 7,
+              "column": 9,
+              "name": "chart_8",
+              "row": 42,
+              "rowspan": 15,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 6,
+              "column": 17,
+              "name": "chart_10",
+              "row": 41,
+              "rowspan": 15,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 7,
+              "column": 16,
+              "name": "chart_11",
+              "row": 84,
+              "rowspan": 24,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 7,
+              "column": 16,
+              "name": "link_2",
+              "row": 78,
+              "rowspan": 3,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 5,
+              "column": 8,
+              "name": "text_10",
+              "row": 73,
+              "rowspan": 5,
+              "widgetStyle": {
+                "backgroundColor": "rgba(255, 255, 255, 0)",
+                "borderColor": "#E6ECF2",
+                "borderEdges": ["bottom"],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 3,
+              "column": 13,
+              "name": "text_11",
+              "row": 73,
+              "rowspan": 5,
+              "widgetStyle": {
+                "backgroundColor": "rgba(255, 255, 255, 0)",
+                "borderColor": "#E6ECF2",
+                "borderEdges": ["bottom"],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            }
+          ]
+        },
+        {
+          "label": "Case Details",
+          "name": "7682d4f8-901e-4334-9d3c-da7d7bc9f0d5",
+          "navigationHidden": false,
+          "widgets": [
+            {
+              "colspan": 24,
+              "column": 0,
+              "name": "container_2",
+              "row": 0,
+              "rowspan": 59,
+              "widgetStyle": {
+                "backgroundColor": "#091A3E",
+                "borderColor": "#E6ECF2",
+                "borderEdges": [],
+                "borderRadius": 16,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 12,
+              "column": 11,
+              "name": "text_6",
+              "row": 1,
+              "rowspan": 7,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 22,
+              "column": 1,
+              "name": "table_1",
+              "row": 9,
+              "rowspan": 48,
+              "widgetStyle": {
+                "backgroundColor": "rgba(255, 255, 255, 0)",
+                "borderColor": "#E6ECF2",
+                "borderEdges": [],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 4,
+              "column": 1,
+              "name": "link_1",
+              "row": 3,
               "rowspan": 3,
               "widgetStyle": { "borderEdges": [] }
             }
@@ -414,6 +491,1248 @@
   ],
   "layouts": [],
   "steps": {
+    "HasBeenAutoEscalated_1": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "HasBeenAutoEscalated%",
+      "numbers": [],
+      "query": "-- Collect total Cases.\nq = load \"CMOS_Cases\";\nq1 = group q by Id;\nq1 = foreach q1 generate Id, 1 as 'C';\nq1 = group q1 by all;\ntotal = foreach q1 generate sum('C') as 'Total';\n\n\n--Filter cases that are not auto esclated\nesc = foreach q generate case when 'IDR_Escalation_Reason__c' is null \nthen \"None\" else 'IDR_Escalation_Reason__c' end\nas 'IDR_Escalation_Reason__c', 'Id' as 'Id';\nesc = group esc by ('Id', 'IDR_Escalation_Reason__c');\nesc = foreach esc generate 'IDR_Escalation_Reason__c', count() as 'C';\nesc = group esc by 'IDR_Escalation_Reason__c';\nesc = filter esc by 'IDR_Escalation_Reason__c' != \"Auto Escalation\";\nesc = foreach esc generate 'IDR_Escalation_Reason__c', count() as 'C';\nesc = group esc by all;\nesc = foreach esc generate sum('C') as 'Filter';\n\n--Compare the total cases against the filtered cases\ncombine = union total, esc;\ncombine = group combine by all;\nresult = foreach combine generate \n1-(sum(sum(Total)) over([..] partition by all) / sum(sum(Filter)) over([..] partition by all)) as 'percentile';\n\n\nresult = foreach result generate \ncase when percentile == 0 then \n\"0%\" else number_to_string(percentile, \"#%\") end as 'perc';\n",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "Picklist_Type_Label_1": {
+      "broadcastFacet": true,
+      "datasets": [{ "name": "CMOS_Cases" }],
+      "isGlobal": false,
+      "query": {
+        "query": "{\"measures\":[[\"count\",\"*\"]],\"groups\":[\"Picklist.Type.Label\"]}",
+        "version": -1.0
+      },
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "type": "aggregateflex",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "centerText": "",
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "showMeasureTitle": true,
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "pie",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "inner": 60,
+          "columnMap": {
+            "trellis": [],
+            "dimension": ["Picklist.Type.Label"],
+            "plots": ["count"]
+          },
+          "showActionMenu": true,
+          "centerValueType": "number",
+          "valueType": "compactNumber",
+          "theme": "wave",
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "Number_of_Escalated__1": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "Number of Escalated Cases%",
+      "numbers": [],
+      "query": "q = load \"CMOS_Cases\";\n\n\nresult = group q by ('IsEscalated');\nresult = foreach result generate q.'IsEscalated' as 'IsEscalated', count(q) as 'A';\n\n--Get All the IsEscalated \nresult = group result by 'IsEscalated';\nresult = foreach result generate 'IsEscalated', (sum(A)/sum(sum(A)) over ([..] partition by all)) as 'Perc';\nresult = order result by 'IsEscalated' asc;\n\n--We are assuming that there will always be some tickets that are not in escalated\nresult = filter result by 'IsEscalated' == \"false\";\n\n\nresult = foreach result generate number_to_string((1-'Perc'), \"#0%\") as 'Result'\n",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "Onboard_Region_1": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "Onboard_Region_1",
+      "numbers": [],
+      "query": "q = load \"CMOS_Historic_User_Data\";\nq = group q by ('EmployeeNumber', 'Onboard.Region');\n\nq = foreach q generate 'EmployeeNumber', 'Onboard.Region';\nq = group q by ('Onboard.Region');\nq = foreach q generate 'Onboard.Region' as 'Onboard.Region', count() as 'count';\nq = limit q 2000;",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "start": "[]",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showMeasureTitle": false,
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": false,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "origami",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": "Active Users By Region"
+          },
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [150, 150],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "columnMap": {
+            "trellis": [],
+            "dimension": ["Onboard.Region"],
+            "plots": ["count"]
+          },
+          "showActionMenu": true,
+          "valueType": "compactNumber",
+          "showTotal": true,
+          "theme": "wave",
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "Onboard_Division_1": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "Onboard_Division_1",
+      "numbers": [],
+      "query": "q = load \"CMOS_Historic_User_Data\";\nq = group q by 'Onboard.Division';\nq = foreach q generate 'Onboard.Division' as 'Onboard.Division', count() as 'count', 1 as 'segment_size';\nq = order q by 'Onboard.Division' asc;",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": false,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "columnMap": {
+            "trellis": [],
+            "dimension": ["Onboard.Division"],
+            "plots": ["count"]
+          },
+          "showActionMenu": true,
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": false,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": ["count"],
+            "showNullValues": false,
+            "showPercentage": true,
+            "customText": "[Onboard.Division]\nUsers:  [count]",
+            "showDimensions": false,
+            "showMeasures": false,
+            "customizeTooltip": true,
+            "dimensions": ["Onboard.Division"]
+          },
+          "visualizationType": "treemap",
+          "theme": "wave",
+          "title": {
+            "fontSize": 10,
+            "subtitleFontSize": 10,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": "Division"
+          },
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "Has_Been_Transferred_1": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "Has Been Transferred%",
+      "numbers": [],
+      "query": "q = load \"CMOS_Cases\";\nresult = group q by 'HasBeenTransferred';\nresult = foreach result generate q.'HasBeenTransferred' as 'HasBeenTransferred', count(q) as 'A', count(q) as 'C';\nresult = group result by 'HasBeenTransferred';\nresult = foreach result generate 'HasBeenTransferred', first(A) as 'A', first(C) as 'C', (sum(A)/sum(sum(A)) over ([..] partition by all)) as 'Perc';\n\nresult = foreach result generate (case when first('HasBeenTransferred') == \"false\" then 1 else result.'Perc' end) as 'D';\n\nresult = foreach result generate number_to_string('D', \"#%\") as 'Result'\n",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": ["Result"],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "FirstName_1": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "FirstName_1",
+      "numbers": [],
+      "query": "q = load \"CMOS_Historic_User_Data\";\n\nq = group q by ('FirstName', 'EmployeeNumber');\nq = foreach q generate 'FirstName' as 'FirstName', first('MediumPhotoUrl') as 'MediumPhotoUrl', max('DaysSinceLogin') as 'sum_DaysSinceLogin';\nq = order q by ('sum_DaysSinceLogin' desc);\nq = limit q 2000;",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "start": "[]",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "fit",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": false,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "sync",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "Days Since Login",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [150, 80],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "binValues": false,
+          "showActionMenu": false,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": false,
+            "showAxis": false,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "applyConditionalFormatting": true,
+          "dimensionAxis": {
+            "showTitle": false,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": true,
+              "iconProps": {
+                "fit": "cover",
+                "column": "MediumPhotoUrl",
+                "type": "round"
+              }
+            }
+          }
+        },
+        "type": "chart"
+      }
+    },
+    "min_max_dates_1": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "min-max-dates",
+      "numbers": [],
+      "query": "q = load \"CMOS_Historic_User_Data\";\nq = group q by all;\nq = foreach q generate toString(toDate(min('Snapshot_Date_sec_epoch')),\"dd-MM-yyyy\") as 'min', toString(toDate(max('Snapshot_Date_sec_epoch')),\"dd-MM-yyyy\") as 'max';\n",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "CreatedDate_2": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "CreatedDate_2",
+      "numbers": [],
+      "query": "q = load \"CMOS_Cases\";\nq = filter q by 'Onboarding.Team_Branch' in [\"MOUNT GAMBIER\"];\nq = group q by ('CaseNumber', 'CreatedDate_Year', 'CreatedDate_Month', 'CreatedDate_Day', 'Onboarding.Team_Branch');\nq = foreach q generate 'CaseNumber', 'CreatedDate_Year', 'CreatedDate_Month', 'CreatedDate_Day', 'Onboarding.Team_Branch';\nq = group q by ('CreatedDate_Year', 'CreatedDate_Month', 'CreatedDate_Day', 'Onboarding.Team_Branch');\nq = foreach q generate 'CreatedDate_Year' + \"~~~\" + 'CreatedDate_Month' + \"~~~\" + 'CreatedDate_Day' as 'CreatedDate_Year~~~CreatedDate_Month~~~CreatedDate_Day', 'Onboarding.Team_Branch', count() as 'count';\nq = order q by 'CreatedDate_Year~~~CreatedDate_Month~~~CreatedDate_Day' asc;\n",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "showValues": true,
+          "showPoints": true,
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": false,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "time",
+          "missingValue": "connect",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": "Cases Recieved"
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "showZero": true,
+          "valueType": "none",
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true,
+          "drawArea": {
+            "measure": "",
+            "showDrawArea": false,
+            "bounding1": "",
+            "bounding2": ""
+          },
+          "autoFitMode": "keepLabels",
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "dashLine": { "measures": ["count"], "showDashLine": false },
+          "timeAxis": {
+            "showTitle": false,
+            "predictiveLine": { "color": "#FFCD95", "label": "TODAY" },
+            "showAxis": true,
+            "title": ""
+          },
+          "fillArea": true,
+          "columnMap": {
+            "split": [],
+            "timeAxis": [
+              "CreatedDate_Year~~~CreatedDate_Month~~~CreatedDate_Day"
+            ],
+            "trellis": [],
+            "plots": ["count"]
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": false,
+            "showAxis": true,
+            "title": "Cases",
+            "customDomain": { "showDomain": false }
+          }
+        },
+        "type": "chart"
+      }
+    },
+    "all_1": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "all_1",
+      "numbers": [],
+      "query": "q = load \"CMOS_Historic_User_Data\";\nq = group q by all;\nq = foreach q generate unique('EmployeeNumber') as 'count';\nq = limit q 2000;",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "none",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "columnMap": {
+            "trellis": [],
+            "dimensionAxis": [],
+            "plots": ["count"]
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "all_3": {
+      "broadcastFacet": true,
+      "datasets": [{ "name": "CMOS_Cases" }],
+      "isGlobal": false,
+      "query": {
+        "query": "{\"measures\":[[\"count\",\"*\"]]}",
+        "version": -1.0
+      },
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "type": "aggregateflex",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "columnProperties": {},
+          "columnMap": {
+            "trellis": [],
+            "dimensionAxis": [],
+            "plots": ["count"]
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "Onboard_State_Provin_1": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "Onboard_State_Provin_1",
+      "numbers": [],
+      "query": "q = load \"CMOS_Historic_User_Data\";\nq = group q by 'Onboard.State_Province';\nq = foreach q generate 'Onboard.State_Province' as 'Onboard.State_Province', count() as 'count';\nq = limit q 2000;",
+      "receiveFacetSource": { "mode": "include", "steps": [] },
+      "selectMode": "single",
+      "start": "[]",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "boundingBox": {
+            "top": -4.971631445680856,
+            "left": 103.84007377183539,
+            "bottom": -48,
+            "right": 180.0626159809817
+          },
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": false,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": true
+          },
+          "autoZoom": false,
+          "axisMode": "multi",
+          "highColor": "#1674D9",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "projectionType": "Mercator",
+          "lowColor": "#C5DBF7",
+          "visualizationType": "choropleth",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": false,
+            "size": [50, 50],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 3
+          },
+          "columnProperties": {},
+          "showActionMenu": false,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "map": "Custom: map_1618905930284",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "all_2": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "all_2",
+      "numbers": ["count"],
+      "query": "q = load \"CMOS_Cases\";\nq = group q by 'CaseNumber';\nq = foreach q generate count() as 'count';\nq = group q by all;\nq = foreach q generate count() as 'count';",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "columnMap": {
+            "trellis": [],
+            "dimensionAxis": [],
+            "plots": ["count"]
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "Average_Cases_1": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "Average Cases",
+      "numbers": [],
+      "query": "q = load \"CMOS_Cases\";\nq = group q by ('Id', 'UserInfo.EmployeeNumber');\nq = foreach q generate Id, 'UserInfo.EmployeeNumber';\n\nq = group q by ('UserInfo.EmployeeNumber');\nq = foreach q generate 'UserInfo.EmployeeNumber', count() as 'Count';\n\nq = group q by all;\nq = foreach q generate sum(sum('Count')) over ([..] partition by all) / count() as 'C';\n\n\n\nq = limit q 2000;",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
     "Snapshot_Date_1": {
       "broadcastFacet": true,
       "datasets": [{ "name": "CMOS_Historic_User_Data" }],
@@ -887,160 +2206,6 @@
         "type": "chart"
       }
     },
-    "Number_of_Escalated__1": {
-      "broadcastFacet": true,
-      "groups": [],
-      "label": "Number of Escalated Cases%",
-      "numbers": [],
-      "query": "q = load \"CMOS_Cases\";\n\n\nresult = group q by ('IsEscalated');\nresult = foreach result generate q.'IsEscalated' as 'IsEscalated', count(q) as 'A';\n\n--Get All the IsEscalated \nresult = group result by 'IsEscalated';\nresult = foreach result generate 'IsEscalated', (sum(A)/sum(sum(A)) over ([..] partition by all)) as 'Perc';\nresult = order result by 'IsEscalated' asc;\n\n--We are assuming that there will always be some tickets that are not in escalated\nresult = filter result by 'IsEscalated' == \"false\";\n\n\nresult = foreach result generate number_to_string((1-'Perc'), \"#0%\") as 'Result'\n",
-      "receiveFacetSource": { "mode": "all", "steps": [] },
-      "selectMode": "single",
-      "strings": [],
-      "type": "saql",
-      "useGlobal": true,
-      "visualizationParameters": {
-        "parameters": {
-          "autoFitMode": "keepLabels",
-          "showValues": true,
-          "bins": {
-            "breakpoints": { "high": 100, "low": 0 },
-            "bands": {
-              "high": { "color": "#008000", "label": "" },
-              "low": { "color": "#B22222", "label": "" },
-              "medium": { "color": "#ffa500", "label": "" }
-            }
-          },
-          "legend": {
-            "descOrder": false,
-            "showHeader": true,
-            "show": true,
-            "customSize": "auto",
-            "position": "right-top",
-            "inside": false
-          },
-          "axisMode": "multi",
-          "tooltip": {
-            "showBinLabel": true,
-            "measures": "",
-            "showNullValues": true,
-            "showPercentage": true,
-            "showDimensions": true,
-            "showMeasures": true,
-            "customizeTooltip": false,
-            "dimensions": ""
-          },
-          "visualizationType": "hbar",
-          "title": {
-            "fontSize": 14,
-            "subtitleFontSize": 11,
-            "label": "",
-            "align": "center",
-            "subtitleLabel": ""
-          },
-          "binValues": false,
-          "trellis": {
-            "flipLabels": false,
-            "showGridLines": true,
-            "size": [100, 100],
-            "enable": false,
-            "type": "x",
-            "chartsPerLine": 4
-          },
-          "showActionMenu": true,
-          "measureAxis2": {
-            "sqrtScale": false,
-            "showTitle": true,
-            "showAxis": true,
-            "title": "",
-            "customDomain": { "showDomain": false }
-          },
-          "measureAxis1": {
-            "sqrtScale": false,
-            "showTitle": true,
-            "showAxis": true,
-            "title": "",
-            "customDomain": { "showDomain": false }
-          },
-          "theme": "wave",
-          "dimensionAxis": {
-            "showTitle": true,
-            "customSize": "auto",
-            "showAxis": true,
-            "title": "",
-            "icons": {
-              "useIcons": false,
-              "iconProps": { "fit": "cover", "column": "", "type": "round" }
-            }
-          },
-          "applyConditionalFormatting": true
-        },
-        "type": "chart"
-      }
-    },
-    "Onboard_Region_1": {
-      "broadcastFacet": true,
-      "groups": [],
-      "label": "Onboard_Region_1",
-      "numbers": [],
-      "query": "q = load \"CMOS_Historic_User_Data\";\nq = group q by ('EmployeeNumber', 'Onboard.Region');\n\nq = foreach q generate 'EmployeeNumber', 'Onboard.Region';\nq = group q by ('Onboard.Region');\nq = foreach q generate 'Onboard.Region' as 'Onboard.Region', count() as 'count';\nq = limit q 2000;",
-      "receiveFacetSource": { "mode": "all", "steps": [] },
-      "selectMode": "single",
-      "start": "[]",
-      "strings": [],
-      "type": "saql",
-      "useGlobal": true,
-      "visualizationParameters": {
-        "parameters": {
-          "autoFitMode": "keepLabels",
-          "showMeasureTitle": false,
-          "legend": {
-            "descOrder": false,
-            "showHeader": true,
-            "show": false,
-            "customSize": "auto",
-            "position": "right-top",
-            "inside": false
-          },
-          "tooltip": {
-            "showBinLabel": true,
-            "measures": "",
-            "showNullValues": true,
-            "showPercentage": true,
-            "showDimensions": true,
-            "showMeasures": true,
-            "customizeTooltip": false,
-            "dimensions": ""
-          },
-          "visualizationType": "origami",
-          "title": {
-            "fontSize": 14,
-            "subtitleFontSize": 11,
-            "label": "",
-            "align": "center",
-            "subtitleLabel": "Active Users By Region"
-          },
-          "trellis": {
-            "flipLabels": false,
-            "showGridLines": true,
-            "size": [150, 150],
-            "enable": false,
-            "type": "x",
-            "chartsPerLine": 4
-          },
-          "columnMap": {
-            "trellis": [],
-            "dimension": ["Onboard.Region"],
-            "plots": ["count"]
-          },
-          "showActionMenu": true,
-          "valueType": "compactNumber",
-          "showTotal": true,
-          "theme": "wave",
-          "applyConditionalFormatting": true
-        },
-        "type": "chart"
-      }
-    },
     "Onboard_Business_1": {
       "broadcastFacet": true,
       "groups": [],
@@ -1135,20 +2300,21 @@
         "type": "chart"
       }
     },
-    "Has_Been_Transferred_1": {
+    "Status_1": {
       "broadcastFacet": true,
       "groups": [],
-      "label": "Has Been Transferred%",
+      "label": "Status_1",
       "numbers": [],
-      "query": "q = load \"CMOS_Cases\";\nresult = group q by 'HasBeenTransferred';\nresult = foreach result generate q.'HasBeenTransferred' as 'HasBeenTransferred', count(q) as 'A', count(q) as 'C';\nresult = group result by 'HasBeenTransferred';\nresult = foreach result generate 'HasBeenTransferred', first(A) as 'A', first(C) as 'C', (sum(A)/sum(sum(A)) over ([..] partition by all)) as 'Perc';\n\nresult = foreach result generate (case when first('HasBeenTransferred') == \"false\" then 1 else result.'Perc' end) as 'D';\n\nresult = foreach result generate number_to_string('D', \"#%\") as 'Result'\n",
+      "query": "q = load \"CMOS_Cases\";\nq = group q by 'Status';\nq = foreach q generate 'Status' as 'Status', count() as 'count';\nq = order q by 'Status' asc;\nq = limit q 2000;",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
-      "strings": ["Result"],
+      "strings": [],
       "type": "saql",
       "useGlobal": true,
       "visualizationParameters": {
         "parameters": {
           "autoFitMode": "keepLabels",
+          "centerText": "",
           "showValues": true,
           "bins": {
             "breakpoints": { "high": 100, "low": 0 },
@@ -1166,6 +2332,7 @@
             "position": "right-top",
             "inside": false
           },
+          "showMeasureTitle": true,
           "axisMode": "multi",
           "tooltip": {
             "showBinLabel": true,
@@ -1177,7 +2344,7 @@
             "customizeTooltip": false,
             "dimensions": ""
           },
-          "visualizationType": "hbar",
+          "visualizationType": "pie",
           "title": {
             "fontSize": 14,
             "subtitleFontSize": 11,
@@ -1194,7 +2361,14 @@
             "type": "x",
             "chartsPerLine": 4
           },
+          "inner": 60,
+          "columnMap": {
+            "trellis": [],
+            "dimension": ["Status"],
+            "plots": ["count"]
+          },
           "showActionMenu": true,
+          "centerValueType": "number",
           "measureAxis2": {
             "sqrtScale": false,
             "showTitle": true,
@@ -1209,6 +2383,7 @@
             "title": "",
             "customDomain": { "showDomain": false }
           },
+          "valueType": "compactNumber",
           "theme": "wave",
           "dimensionAxis": {
             "showTitle": true,
@@ -1225,39 +2400,30 @@
         "type": "chart"
       }
     },
-    "FirstName_1": {
+    "IDR_Complaint_Remedy_1": {
       "broadcastFacet": true,
-      "groups": [],
-      "label": "FirstName_1",
-      "numbers": [],
-      "query": "q = load \"CMOS_Historic_User_Data\";\n\nq = group q by ('FirstName', 'EmployeeNumber');\nq = foreach q generate 'FirstName' as 'FirstName', first('MediumPhotoUrl') as 'MediumPhotoUrl', max('DaysSinceLogin') as 'sum_DaysSinceLogin';\nq = order q by ('sum_DaysSinceLogin' desc);\nq = limit q 2000;",
+      "groups": ["Picklist.Remedy.Label"],
+      "label": "Complaint Remedy %",
+      "numbers": ["A", "Perc", "%"],
+      "query": "q = load \"CMOS_Cases\";\nresult = group q by 'Picklist.Remedy.Label';\nresult = foreach result generate q.'Picklist.Remedy.Label' as 'Picklist.Remedy.Label', count(q) as 'A';\nresult = group result by 'Picklist.Remedy.Label';\nresult = foreach result generate 'Picklist.Remedy.Label', first(A) as 'A', sum(A)/sum(sum(A)) over ([..] partition by all) as 'Perc';\n\nresult = foreach result generate 'Picklist.Remedy.Label', A, Perc, round('Perc',3)*100 as '%';\n\n\nresult = limit result 2000;",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
-      "start": "[]",
-      "strings": [],
+      "strings": ["Picklist.Remedy.Label"],
       "type": "saql",
       "useGlobal": true,
       "visualizationParameters": {
         "parameters": {
-          "autoFitMode": "fit",
-          "showValues": true,
-          "bins": {
-            "breakpoints": { "high": 100, "low": 0 },
-            "bands": {
-              "high": { "color": "#008000", "label": "" },
-              "low": { "color": "#B22222", "label": "" },
-              "medium": { "color": "#ffa500", "label": "" }
-            }
-          },
+          "autoFitMode": "keepLabels",
+          "centerText": "{{cell(IDR_Complaint_Remedy_1.result, 0, \"%\").asString()}}",
           "legend": {
             "descOrder": false,
-            "showHeader": true,
-            "show": false,
+            "showHeader": false,
+            "show": true,
             "customSize": "auto",
-            "position": "right-top",
+            "position": "bottom-center",
             "inside": false
           },
-          "axisMode": "sync",
+          "showMeasureTitle": true,
           "tooltip": {
             "showBinLabel": true,
             "measures": "",
@@ -1268,54 +2434,33 @@
             "customizeTooltip": false,
             "dimensions": ""
           },
-          "visualizationType": "hbar",
+          "visualizationType": "pie",
           "title": {
             "fontSize": 14,
             "subtitleFontSize": 11,
-            "label": "Days Since Login",
+            "label": "",
             "align": "center",
             "subtitleLabel": ""
           },
           "trellis": {
             "flipLabels": false,
             "showGridLines": true,
-            "size": [150, 80],
+            "size": [100, 100],
             "enable": false,
             "type": "x",
             "chartsPerLine": 4
           },
-          "binValues": false,
-          "showActionMenu": false,
-          "measureAxis2": {
-            "sqrtScale": false,
-            "showTitle": true,
-            "showAxis": true,
-            "title": "",
-            "customDomain": { "showDomain": false }
+          "inner": 50,
+          "columnMap": {
+            "trellis": [],
+            "dimension": ["Picklist.Remedy.Label"],
+            "plots": ["Perc"]
           },
-          "measureAxis1": {
-            "sqrtScale": false,
-            "showTitle": false,
-            "showAxis": false,
-            "title": "",
-            "customDomain": { "showDomain": false }
-          },
+          "showActionMenu": true,
+          "centerValueType": "text",
+          "valueType": "compactNumber",
           "theme": "wave",
-          "applyConditionalFormatting": true,
-          "dimensionAxis": {
-            "showTitle": false,
-            "customSize": "auto",
-            "showAxis": true,
-            "title": "",
-            "icons": {
-              "useIcons": true,
-              "iconProps": {
-                "fit": "cover",
-                "column": "MediumPhotoUrl",
-                "type": "round"
-              }
-            }
-          }
+          "applyConditionalFormatting": true
         },
         "type": "chart"
       }
@@ -1334,205 +2479,6 @@
         "{\"Display\":\"Monthly\",\"Days\":28}",
         "{\"Display\":\"Daily\",\"Days\":1}"
       ]
-    },
-    "min_max_dates_1": {
-      "broadcastFacet": true,
-      "groups": [],
-      "label": "min-max-dates",
-      "numbers": [],
-      "query": "q = load \"CMOS_Historic_User_Data\";\nq = group q by all;\nq = foreach q generate toString(toDate(min('Snapshot_Date_sec_epoch')),\"dd-MM-yyyy\") as 'min', toString(toDate(max('Snapshot_Date_sec_epoch')),\"dd-MM-yyyy\") as 'max';\n",
-      "receiveFacetSource": { "mode": "all", "steps": [] },
-      "selectMode": "single",
-      "strings": [],
-      "type": "saql",
-      "useGlobal": true,
-      "visualizationParameters": {
-        "parameters": {
-          "autoFitMode": "keepLabels",
-          "showValues": true,
-          "bins": {
-            "breakpoints": { "high": 100, "low": 0 },
-            "bands": {
-              "high": { "color": "#008000", "label": "" },
-              "low": { "color": "#B22222", "label": "" },
-              "medium": { "color": "#ffa500", "label": "" }
-            }
-          },
-          "legend": {
-            "descOrder": false,
-            "showHeader": true,
-            "show": true,
-            "customSize": "auto",
-            "position": "right-top",
-            "inside": false
-          },
-          "axisMode": "multi",
-          "tooltip": {
-            "showBinLabel": true,
-            "measures": "",
-            "showNullValues": true,
-            "showPercentage": true,
-            "showDimensions": true,
-            "showMeasures": true,
-            "customizeTooltip": false,
-            "dimensions": ""
-          },
-          "visualizationType": "hbar",
-          "title": {
-            "fontSize": 14,
-            "subtitleFontSize": 11,
-            "label": "",
-            "align": "center",
-            "subtitleLabel": ""
-          },
-          "binValues": false,
-          "trellis": {
-            "flipLabels": false,
-            "showGridLines": true,
-            "size": [100, 100],
-            "enable": false,
-            "type": "x",
-            "chartsPerLine": 4
-          },
-          "showActionMenu": true,
-          "measureAxis2": {
-            "sqrtScale": false,
-            "showTitle": true,
-            "showAxis": true,
-            "title": "",
-            "customDomain": { "showDomain": false }
-          },
-          "measureAxis1": {
-            "sqrtScale": false,
-            "showTitle": true,
-            "showAxis": true,
-            "title": "",
-            "customDomain": { "showDomain": false }
-          },
-          "theme": "wave",
-          "dimensionAxis": {
-            "showTitle": true,
-            "customSize": "auto",
-            "showAxis": true,
-            "title": "",
-            "icons": {
-              "useIcons": false,
-              "iconProps": { "fit": "cover", "column": "", "type": "round" }
-            }
-          },
-          "applyConditionalFormatting": true
-        },
-        "type": "chart"
-      }
-    },
-    "IDR_Date_Received__c_2": {
-      "broadcastFacet": true,
-      "groups": [],
-      "label": "IDR_Date_Received__c_2",
-      "numbers": [],
-      "query": "q = load \"CMOS_Cases\";\nq = filter q by 'Onboarding.Team_Branch' in [\"MOUNT GAMBIER\"];\nq = group q by ('CaseNumber', 'IDR_Date_Received__c_Year', 'IDR_Date_Received__c_Month', 'IDR_Date_Received__c_Day', 'Onboarding.Team_Branch');\nq = foreach q generate 'CaseNumber', 'IDR_Date_Received__c_Year', 'IDR_Date_Received__c_Month', 'IDR_Date_Received__c_Day', 'Onboarding.Team_Branch';\nq = group q by ('IDR_Date_Received__c_Year', 'IDR_Date_Received__c_Month', 'IDR_Date_Received__c_Day', 'Onboarding.Team_Branch');\nq = foreach q generate 'IDR_Date_Received__c_Year' + \"~~~\" + 'IDR_Date_Received__c_Month' + \"~~~\" + 'IDR_Date_Received__c_Day' as 'IDR_Date_Received__c_Year~~~IDR_Date_Received__c_Month~~~IDR_Date_Received__c_Day', 'Onboarding.Team_Branch', count() as 'count';\nq = order q by 'IDR_Date_Received__c_Year~~~IDR_Date_Received__c_Month~~~IDR_Date_Received__c_Day' asc;\n",
-      "receiveFacetSource": { "mode": "all", "steps": [] },
-      "selectMode": "single",
-      "start": "[]",
-      "strings": [],
-      "type": "saql",
-      "useGlobal": true,
-      "visualizationParameters": {
-        "parameters": {
-          "autoFitMode": "keepLabels",
-          "showValues": true,
-          "bins": {
-            "breakpoints": { "high": 100, "low": 0 },
-            "bands": {
-              "high": { "color": "#008000", "label": "" },
-              "low": { "color": "#B22222", "label": "" },
-              "medium": { "color": "#ffa500", "label": "" }
-            }
-          },
-          "showPoints": true,
-          "legend": {
-            "descOrder": false,
-            "showHeader": true,
-            "show": false,
-            "customSize": "auto",
-            "position": "right-top",
-            "inside": false
-          },
-          "axisMode": "multi",
-          "tooltip": {
-            "showBinLabel": true,
-            "measures": "",
-            "showNullValues": true,
-            "showPercentage": true,
-            "showDimensions": true,
-            "showMeasures": true,
-            "customizeTooltip": false,
-            "dimensions": ""
-          },
-          "visualizationType": "time",
-          "missingValue": "connect",
-          "dashLine": { "measures": ["count"], "showDashLine": false },
-          "timeAxis": {
-            "showTitle": false,
-            "predictiveLine": { "color": "#FFCD95", "label": "TODAY" },
-            "showAxis": true,
-            "title": ""
-          },
-          "title": {
-            "fontSize": 14,
-            "subtitleFontSize": 11,
-            "label": "",
-            "align": "center",
-            "subtitleLabel": "Cases Recieved"
-          },
-          "binValues": false,
-          "trellis": {
-            "flipLabels": false,
-            "showGridLines": true,
-            "size": [100, 100],
-            "enable": false,
-            "type": "x",
-            "chartsPerLine": 4
-          },
-          "fillArea": true,
-          "showActionMenu": true,
-          "showZero": true,
-          "measureAxis2": {
-            "sqrtScale": false,
-            "showTitle": true,
-            "showAxis": true,
-            "title": "",
-            "customDomain": { "showDomain": false }
-          },
-          "valueType": "none",
-          "measureAxis1": {
-            "sqrtScale": false,
-            "showTitle": false,
-            "showAxis": true,
-            "title": "Cases",
-            "customDomain": { "showDomain": false }
-          },
-          "theme": "wave",
-          "dimensionAxis": {
-            "showTitle": true,
-            "customSize": "auto",
-            "showAxis": true,
-            "title": "",
-            "icons": {
-              "useIcons": false,
-              "iconProps": { "fit": "cover", "column": "", "type": "round" }
-            }
-          },
-          "applyConditionalFormatting": true,
-          "drawArea": {
-            "measure": "",
-            "showDrawArea": false,
-            "bounding1": "",
-            "bounding2": ""
-          }
-        },
-        "type": "chart"
-      }
     },
     "Onboard_Team_Branch_1": {
       "broadcastFacet": true,
@@ -1640,107 +2586,12 @@
       "useGlobal": true,
       "visualizationParameters": {}
     },
-    "all_1": {
-      "broadcastFacet": true,
-      "groups": [],
-      "label": "all_1",
-      "numbers": [],
-      "query": "q = load \"CMOS_Historic_User_Data\";\nq = group q by all;\nq = foreach q generate unique('EmployeeNumber') as 'count';\nq = limit q 2000;",
-      "receiveFacetSource": { "mode": "all", "steps": [] },
-      "selectMode": "none",
-      "strings": [],
-      "type": "saql",
-      "useGlobal": true,
-      "visualizationParameters": {
-        "parameters": {
-          "autoFitMode": "keepLabels",
-          "showValues": true,
-          "bins": {
-            "breakpoints": { "high": 100, "low": 0 },
-            "bands": {
-              "high": { "color": "#008000", "label": "" },
-              "low": { "color": "#B22222", "label": "" },
-              "medium": { "color": "#ffa500", "label": "" }
-            }
-          },
-          "legend": {
-            "descOrder": false,
-            "showHeader": true,
-            "show": true,
-            "customSize": "auto",
-            "position": "right-top",
-            "inside": false
-          },
-          "axisMode": "multi",
-          "tooltip": {
-            "showBinLabel": true,
-            "measures": "",
-            "showNullValues": true,
-            "showPercentage": true,
-            "showDimensions": true,
-            "showMeasures": true,
-            "customizeTooltip": false,
-            "dimensions": ""
-          },
-          "visualizationType": "hbar",
-          "title": {
-            "fontSize": 14,
-            "subtitleFontSize": 11,
-            "label": "",
-            "align": "center",
-            "subtitleLabel": ""
-          },
-          "binValues": false,
-          "trellis": {
-            "flipLabels": false,
-            "showGridLines": true,
-            "size": [100, 100],
-            "enable": false,
-            "type": "x",
-            "chartsPerLine": 4
-          },
-          "columnMap": {
-            "trellis": [],
-            "dimensionAxis": [],
-            "plots": ["count"]
-          },
-          "showActionMenu": true,
-          "measureAxis2": {
-            "sqrtScale": false,
-            "showTitle": true,
-            "showAxis": true,
-            "title": "",
-            "customDomain": { "showDomain": false }
-          },
-          "measureAxis1": {
-            "sqrtScale": false,
-            "showTitle": true,
-            "showAxis": true,
-            "title": "",
-            "customDomain": { "showDomain": false }
-          },
-          "theme": "wave",
-          "dimensionAxis": {
-            "showTitle": true,
-            "customSize": "auto",
-            "showAxis": true,
-            "title": "",
-            "icons": {
-              "useIcons": false,
-              "iconProps": { "fit": "cover", "column": "", "type": "round" }
-            }
-          },
-          "applyConditionalFormatting": true
-        },
-        "type": "chart"
-      }
-    },
-    "all_3": {
+    "CreatedDate_Year_Cre_2": {
       "broadcastFacet": true,
       "datasets": [{ "name": "CMOS_Cases" }],
       "isGlobal": false,
       "query": {
-        "query": "{\"measures\":[[\"count\",\"*\"]]}",
+        "query": "{\"measures\":[[\"count\",\"*\"]],\"groups\":[[\"CreatedDate_Year\",\"CreatedDate_Month\",\"CreatedDate_Day\"]]}",
         "version": -1.0
       },
       "receiveFacetSource": { "mode": "all", "steps": [] },
@@ -1749,6 +2600,201 @@
       "useGlobal": true,
       "visualizationParameters": {
         "parameters": {
+          "showPoints": false,
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "time",
+          "missingValue": "connect",
+          "dashLine": { "measures": "", "showDashLine": false },
+          "timeAxis": { "showTitle": true, "showAxis": true, "title": "" },
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "columnMap": {
+            "split": [],
+            "timeAxis": [
+              "CreatedDate_Year~~~CreatedDate_Month~~~CreatedDate_Day"
+            ],
+            "trellis": [],
+            "plots": ["count"]
+          },
+          "fillArea": true,
+          "showActionMenu": true,
+          "showZero": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "valueType": "none",
+          "theme": "wave",
+          "applyConditionalFormatting": true,
+          "drawArea": {
+            "measure": "",
+            "showDrawArea": false,
+            "bounding1": "",
+            "bounding2": ""
+          }
+        },
+        "type": "chart"
+      }
+    },
+    "lens_5": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "lens_5",
+      "numbers": [],
+      "query": "q = load \"CMOS_Cases\";\nq = foreach q generate 'CaseNumber' as 'CaseNumber', 'Origin' as 'Origin', 'Status' as 'Status';\nq = limit q 100;",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "borderColor": "#e0e5ee",
+          "borderWidth": 1,
+          "cell": {
+            "backgroundColor": "#ffffff",
+            "fontColor": "#16325c",
+            "fontSize": 12
+          },
+          "columnProperties": {},
+          "columns": [],
+          "customBulkActions": [],
+          "header": {
+            "backgroundColor": "#f4f6f9",
+            "fontColor": "#16325c",
+            "fontSize": 12
+          },
+          "innerMajorBorderColor": "#a8b7c7",
+          "innerMinorBorderColor": "#e0e5ee",
+          "mode": "fittocontainer",
+          "numberOfLines": 1,
+          "showActionMenu": true,
+          "totals": true,
+          "verticalPadding": 12
+        },
+        "type": "table"
+      }
+    },
+    "lens_3": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "lens_3",
+      "numbers": [],
+      "query": "q = load \"CMOS_Cases\";\nq = filter q by IsClosed == \"true\";\nq = group q by Id;\nq = foreach q generate Id, abs(min('CaseDuration_Hours')/24) as 'avg_CaseDuration_Hours';\n\nq = group q by all;\nq = foreach q generate sum('avg_CaseDuration_Hours') / count() as 'avg_CaseDuration_Hours';\n\nq = limit q 2000;",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "max": 100,
+          "legend": {
+            "showHeader": true,
+            "show": false,
+            "position": "right-top",
+            "inside": false
+          },
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "flatgauge",
+          "medium": 33,
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "Average Days for Resolution",
+            "align": "center",
+            "subtitleLabel": "Absolute Days from Open to Close Date"
+          },
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "colors": {
+            "mediumColor2": "#F29946",
+            "mediumColor1": "#FED444",
+            "lowColor1": "#F71979",
+            "lowColor2": "#CC203D",
+            "highColor1": "#7BDE4E",
+            "highColor2": "#169913"
+          },
+          "high": 66,
+          "showActionMenu": true,
+          "min": 0,
+          "valueType": "compactNumber",
+          "theme": "wave",
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "lens_4": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "lens_4",
+      "numbers": [],
+      "query": "q = load \"CMOS_Cases\";\nq = group q by ('Id', 'UserInfo.FirstName', 'UserInfo.LastName');\nq = foreach q generate 'UserInfo.FirstName' + \" \" + 'UserInfo.LastName' as 'UserInfo.FirstName', count() as 'count';\nq = order q by 'UserInfo.FirstName' asc;\nq = limit q 2000;",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
           "autoFitMode": "keepLabels",
           "showValues": true,
           "bins": {
@@ -1782,7 +2828,7 @@
           "title": {
             "fontSize": 14,
             "subtitleFontSize": 11,
-            "label": "",
+            "label": "Cases Created Per Team Member",
             "align": "center",
             "subtitleLabel": ""
           },
@@ -1795,114 +2841,6 @@
             "type": "x",
             "chartsPerLine": 4
           },
-          "columnProperties": {},
-          "columnMap": {
-            "trellis": [],
-            "dimensionAxis": [],
-            "plots": ["count"]
-          },
-          "showActionMenu": true,
-          "measureAxis2": {
-            "sqrtScale": false,
-            "showTitle": true,
-            "showAxis": true,
-            "title": "",
-            "customDomain": { "showDomain": false }
-          },
-          "measureAxis1": {
-            "sqrtScale": false,
-            "showTitle": true,
-            "showAxis": true,
-            "title": "",
-            "customDomain": { "showDomain": false }
-          },
-          "theme": "wave",
-          "dimensionAxis": {
-            "showTitle": true,
-            "customSize": "auto",
-            "showAxis": true,
-            "title": "",
-            "icons": {
-              "useIcons": false,
-              "iconProps": { "fit": "cover", "column": "", "type": "round" }
-            }
-          },
-          "applyConditionalFormatting": true
-        },
-        "type": "chart"
-      }
-    },
-    "Onboard_State_Provin_1": {
-      "broadcastFacet": true,
-      "groups": [],
-      "label": "Onboard_State_Provin_1",
-      "numbers": [],
-      "query": "q = load \"CMOS_Historic_User_Data\";\nq = group q by 'Onboard.State_Province';\nq = foreach q generate 'Onboard.State_Province' as 'Onboard.State_Province', count() as 'count';\nq = limit q 2000;",
-      "receiveFacetSource": { "mode": "include", "steps": [] },
-      "selectMode": "single",
-      "start": "[]",
-      "strings": [],
-      "type": "saql",
-      "useGlobal": true,
-      "visualizationParameters": {
-        "parameters": {
-          "autoFitMode": "keepLabels",
-          "boundingBox": {
-            "top": -4.971631445680856,
-            "left": 103.84007377183539,
-            "bottom": -48,
-            "right": 180.0626159809817
-          },
-          "showValues": true,
-          "bins": {
-            "breakpoints": { "high": 100, "low": 0 },
-            "bands": {
-              "high": { "color": "#008000", "label": "" },
-              "low": { "color": "#B22222", "label": "" },
-              "medium": { "color": "#ffa500", "label": "" }
-            }
-          },
-          "legend": {
-            "descOrder": false,
-            "showHeader": true,
-            "show": false,
-            "customSize": "auto",
-            "position": "right-top",
-            "inside": true
-          },
-          "autoZoom": false,
-          "axisMode": "multi",
-          "highColor": "#1674D9",
-          "tooltip": {
-            "showBinLabel": true,
-            "measures": "",
-            "showNullValues": true,
-            "showPercentage": true,
-            "showDimensions": true,
-            "showMeasures": true,
-            "customizeTooltip": false,
-            "dimensions": ""
-          },
-          "projectionType": "Mercator",
-          "lowColor": "#C5DBF7",
-          "visualizationType": "choropleth",
-          "title": {
-            "fontSize": 14,
-            "subtitleFontSize": 11,
-            "label": "",
-            "align": "center",
-            "subtitleLabel": ""
-          },
-          "binValues": false,
-          "trellis": {
-            "flipLabels": false,
-            "showGridLines": false,
-            "size": [50, 50],
-            "enable": false,
-            "type": "x",
-            "chartsPerLine": 3
-          },
-          "columnProperties": {},
           "showActionMenu": false,
           "measureAxis2": {
             "sqrtScale": false,
@@ -1919,107 +2857,11 @@
             "customDomain": { "showDomain": false }
           },
           "theme": "wave",
-          "map": "Custom: map_1618905930284",
           "dimensionAxis": {
             "showTitle": true,
             "customSize": "auto",
             "showAxis": true,
-            "title": "",
-            "icons": {
-              "useIcons": false,
-              "iconProps": { "fit": "cover", "column": "", "type": "round" }
-            }
-          },
-          "applyConditionalFormatting": true
-        },
-        "type": "chart"
-      }
-    },
-    "all_2": {
-      "broadcastFacet": true,
-      "groups": [],
-      "label": "all_2",
-      "numbers": ["count"],
-      "query": "q = load \"CMOS_Cases\";\nq = group q by 'CaseNumber';\nq = foreach q generate count() as 'count';\nq = group q by all;\nq = foreach q generate count() as 'count';",
-      "receiveFacetSource": { "mode": "all", "steps": [] },
-      "selectMode": "single",
-      "strings": [],
-      "type": "saql",
-      "useGlobal": true,
-      "visualizationParameters": {
-        "parameters": {
-          "autoFitMode": "keepLabels",
-          "showValues": true,
-          "bins": {
-            "breakpoints": { "high": 100, "low": 0 },
-            "bands": {
-              "high": { "color": "#008000", "label": "" },
-              "low": { "color": "#B22222", "label": "" },
-              "medium": { "color": "#ffa500", "label": "" }
-            }
-          },
-          "legend": {
-            "descOrder": false,
-            "showHeader": true,
-            "show": true,
-            "customSize": "auto",
-            "position": "right-top",
-            "inside": false
-          },
-          "axisMode": "multi",
-          "tooltip": {
-            "showBinLabel": true,
-            "measures": "",
-            "showNullValues": true,
-            "showPercentage": true,
-            "showDimensions": true,
-            "showMeasures": true,
-            "customizeTooltip": false,
-            "dimensions": ""
-          },
-          "visualizationType": "hbar",
-          "title": {
-            "fontSize": 14,
-            "subtitleFontSize": 11,
-            "label": "",
-            "align": "center",
-            "subtitleLabel": ""
-          },
-          "binValues": false,
-          "trellis": {
-            "flipLabels": false,
-            "showGridLines": true,
-            "size": [100, 100],
-            "enable": false,
-            "type": "x",
-            "chartsPerLine": 4
-          },
-          "columnMap": {
-            "trellis": [],
-            "dimensionAxis": [],
-            "plots": ["count"]
-          },
-          "showActionMenu": true,
-          "measureAxis2": {
-            "sqrtScale": false,
-            "showTitle": true,
-            "showAxis": true,
-            "title": "",
-            "customDomain": { "showDomain": false }
-          },
-          "measureAxis1": {
-            "sqrtScale": false,
-            "showTitle": true,
-            "showAxis": true,
-            "title": "",
-            "customDomain": { "showDomain": false }
-          },
-          "theme": "wave",
-          "dimensionAxis": {
-            "showTitle": true,
-            "customSize": "auto",
-            "showAxis": true,
-            "title": "",
+            "title": "First Name",
             "icons": {
               "useIcons": false,
               "iconProps": { "fit": "cover", "column": "", "type": "round" }
@@ -2180,14 +3022,51 @@
     }
   },
   "widgetStyle": {
-    "backgroundColor": "#FFFFFF",
+    "backgroundColor": "rgba(255, 255, 255, 0)",
     "borderColor": "#E6ECF2",
     "borderEdges": [],
     "borderRadius": 0,
     "borderWidth": 1
   },
   "widgets": {
+    "text_10": {
+      "parameters": {
+        "content": { "displayTemplate": "Cases Auto Escalated\n" },
+        "fontSize": 16,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#091A3E"
+      },
+      "type": "text"
+    },
+    "text_11": {
+      "parameters": {
+        "content": {
+          "displayTemplate": "[perc_1]\n",
+          "values": {
+            "perc_1": {
+              "field": "perc",
+              "sourceType": "result",
+              "step": "HasBeenAutoEscalated_1"
+            }
+          }
+        },
+        "fontSize": 16,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#091A3E"
+      },
+      "type": "text"
+    },
     "container_1": {
+      "parameters": {
+        "alignmentX": "left",
+        "alignmentY": "top",
+        "fit": "original"
+      },
+      "type": "container"
+    },
+    "container_2": {
       "parameters": {
         "alignmentX": "left",
         "alignmentY": "top",
@@ -2226,13 +3105,14 @@
         "axisMode": "multi",
         "tooltip": {
           "showBinLabel": true,
-          "measures": "",
-          "showNullValues": true,
+          "measures": ["count"],
+          "showNullValues": false,
           "showPercentage": true,
-          "showDimensions": true,
-          "showMeasures": true,
-          "customizeTooltip": false,
-          "dimensions": ""
+          "customText": "[Onboard.Team_Branch] - Users:  [count]",
+          "showDimensions": false,
+          "showMeasures": false,
+          "customizeTooltip": true,
+          "dimensions": ["Onboard.Team_Branch"]
         },
         "visualizationType": "hbar",
         "exploreLink": true,
@@ -2299,94 +3179,10 @@
       },
       "type": "container"
     },
-    "chart_6": {
-      "parameters": {
-        "autoFitMode": "fit",
-        "showValues": true,
-        "bins": {
-          "breakpoints": { "high": 100, "low": 0 },
-          "bands": {
-            "high": { "color": "#008000", "label": "" },
-            "low": { "color": "#B22222", "label": "" },
-            "medium": { "color": "#ffa500", "label": "" }
-          }
-        },
-        "legend": {
-          "descOrder": false,
-          "showHeader": true,
-          "show": false,
-          "customSize": "auto",
-          "position": "right-top",
-          "inside": false
-        },
-        "axisMode": "sync",
-        "tooltip": {
-          "showBinLabel": true,
-          "measures": "",
-          "showNullValues": true,
-          "showPercentage": true,
-          "showDimensions": true,
-          "showMeasures": true,
-          "customizeTooltip": false,
-          "dimensions": ""
-        },
-        "visualizationType": "hbar",
-        "exploreLink": true,
-        "title": {
-          "fontSize": 14,
-          "subtitleFontSize": 11,
-          "label": "Max Days since login",
-          "align": "center",
-          "subtitleLabel": ""
-        },
-        "trellis": {
-          "flipLabels": false,
-          "showGridLines": true,
-          "size": [150, 80],
-          "enable": false,
-          "type": "x",
-          "chartsPerLine": 4
-        },
-        "binValues": false,
-        "showActionMenu": false,
-        "measureAxis2": {
-          "sqrtScale": false,
-          "showTitle": true,
-          "showAxis": true,
-          "title": "",
-          "customDomain": { "showDomain": false }
-        },
-        "measureAxis1": {
-          "sqrtScale": false,
-          "showTitle": false,
-          "showAxis": false,
-          "title": "",
-          "customDomain": { "showDomain": false }
-        },
-        "theme": "wave",
-        "step": "FirstName_1",
-        "applyConditionalFormatting": true,
-        "dimensionAxis": {
-          "showTitle": false,
-          "customSize": "auto",
-          "showAxis": true,
-          "title": "",
-          "icons": {
-            "useIcons": true,
-            "iconProps": {
-              "fit": "cover",
-              "column": "MediumPhotoUrl",
-              "type": "round"
-            }
-          }
-        }
-      },
-      "type": "chart"
-    },
     "text_3": {
       "parameters": {
         "content": {
-          "displayTemplate": "[Result]",
+          "displayTemplate": "[Result]\n",
           "values": {
             "Result": {
               "field": "Result",
@@ -2395,10 +3191,10 @@
             }
           }
         },
-        "fontSize": 48,
+        "fontSize": 16,
         "showActionMenu": true,
-        "textAlignment": "center",
-        "textColor": "#FFFFFF"
+        "textAlignment": "left",
+        "textColor": "#091A3E"
       },
       "type": "text"
     },
@@ -2410,102 +3206,10 @@
       },
       "type": "container"
     },
-    "chart_5": {
-      "parameters": {
-        "boundingBox": {
-          "top": -4.971631445680856,
-          "left": 103.84007377183539,
-          "bottom": -48,
-          "right": 180.0626159809817
-        },
-        "showValues": true,
-        "legend": {
-          "descOrder": false,
-          "showHeader": true,
-          "show": false,
-          "customSize": "auto",
-          "position": "right-top",
-          "inside": true
-        },
-        "axisMode": "multi",
-        "highColor": "#1674D9",
-        "tooltip": {
-          "showBinLabel": true,
-          "measures": "",
-          "showNullValues": true,
-          "showPercentage": true,
-          "showDimensions": true,
-          "showMeasures": true,
-          "customizeTooltip": false,
-          "dimensions": ""
-        },
-        "projectionType": "Mercator",
-        "visualizationType": "choropleth",
-        "exploreLink": false,
-        "title": {
-          "fontSize": 14,
-          "subtitleFontSize": 11,
-          "label": "",
-          "align": "center",
-          "subtitleLabel": ""
-        },
-        "binValues": false,
-        "trellis": {
-          "flipLabels": false,
-          "showGridLines": false,
-          "size": [50, 50],
-          "enable": false,
-          "type": "x",
-          "chartsPerLine": 3
-        },
-        "theme": "wave",
-        "map": "Custom: map_1618905930284",
-        "dimensionAxis": {
-          "showTitle": true,
-          "customSize": "auto",
-          "showAxis": true,
-          "title": "",
-          "icons": {
-            "useIcons": false,
-            "iconProps": { "fit": "cover", "column": "", "type": "round" }
-          }
-        },
-        "applyConditionalFormatting": true,
-        "autoFitMode": "keepLabels",
-        "bins": {
-          "breakpoints": { "high": 100, "low": 0 },
-          "bands": {
-            "high": { "color": "#008000", "label": "" },
-            "low": { "color": "#B22222", "label": "" },
-            "medium": { "color": "#ffa500", "label": "" }
-          }
-        },
-        "autoZoom": true,
-        "lowColor": "#C5DBF7",
-        "columnProperties": {},
-        "showActionMenu": false,
-        "measureAxis2": {
-          "sqrtScale": false,
-          "showTitle": true,
-          "showAxis": true,
-          "title": "",
-          "customDomain": { "showDomain": false }
-        },
-        "measureAxis1": {
-          "sqrtScale": false,
-          "showTitle": true,
-          "showAxis": true,
-          "title": "",
-          "customDomain": { "showDomain": false }
-        },
-        "step": "Onboard_State_Provin_1"
-      },
-      "type": "chart"
-    },
     "text_2": {
       "parameters": {
         "content": {
-          "displayTemplate": "Report Date:\n[min_1] to [max_1]",
+          "displayTemplate": "Report Date:\n[min_1] to [max_1]\n",
           "values": {
             "min_1": {
               "field": "min",
@@ -2526,47 +3230,19 @@
       },
       "type": "text"
     },
-    "text_5": {
-      "parameters": {
-        "content": {
-          "displayTemplate": "[Result_1]",
-          "values": {
-            "Result_1": {
-              "field": "Result",
-              "sourceType": "result",
-              "step": "Number_of_Escalated__1"
-            }
-          }
-        },
-        "fontSize": 48,
-        "showActionMenu": true,
-        "textAlignment": "center",
-        "textColor": "#FFFFFF"
-      },
-      "type": "text"
-    },
-    "chart_7": {
+    "chart_5": {
       "parameters": {
         "autoFitMode": "keepLabels",
-        "showValues": true,
-        "bins": {
-          "breakpoints": { "high": 100, "low": 0 },
-          "bands": {
-            "high": { "color": "#008000", "label": "" },
-            "low": { "color": "#B22222", "label": "" },
-            "medium": { "color": "#ffa500", "label": "" }
-          }
-        },
+        "centerText": "{{cell(IDR_Complaint_Remedy_1.result, 0, \"%\").asString()}}%",
         "legend": {
           "descOrder": false,
-          "showHeader": true,
-          "show": false,
+          "showHeader": false,
+          "show": true,
           "customSize": "auto",
-          "position": "right-top",
+          "position": "bottom-center",
           "inside": false
         },
         "showMeasureTitle": false,
-        "axisMode": "multi",
         "tooltip": {
           "showBinLabel": true,
           "measures": "",
@@ -2577,16 +3253,15 @@
           "customizeTooltip": false,
           "dimensions": ""
         },
-        "visualizationType": "origami",
-        "exploreLink": true,
+        "visualizationType": "pie",
+        "exploreLink": false,
         "title": {
           "fontSize": 14,
           "subtitleFontSize": 11,
           "label": "",
           "align": "center",
-          "subtitleLabel": "Active users by Business Units"
+          "subtitleLabel": "% Resolved with Financial Remedy"
         },
-        "binValues": false,
         "trellis": {
           "flipLabels": false,
           "showGridLines": true,
@@ -2595,59 +3270,48 @@
           "type": "x",
           "chartsPerLine": 4
         },
+        "inner": 60,
+        "columnMap": {
+          "trellis": [],
+          "dimension": ["Picklist.Remedy.Label"],
+          "plots": ["Perc"]
+        },
         "showActionMenu": true,
-        "measureAxis2": {
-          "sqrtScale": false,
-          "showTitle": true,
-          "showAxis": true,
-          "title": "",
-          "customDomain": { "showDomain": false }
-        },
-        "measureAxis1": {
-          "sqrtScale": false,
-          "showTitle": true,
-          "showAxis": true,
-          "title": "",
-          "customDomain": { "showDomain": false }
-        },
+        "centerValueType": "text",
         "valueType": "compactNumber",
-        "showTotal": false,
-        "theme": "wave",
-        "step": "Onboard_Business_1",
-        "dimensionAxis": {
-          "showTitle": true,
-          "customSize": "auto",
-          "showAxis": true,
-          "title": "",
-          "icons": {
-            "useIcons": false,
-            "iconProps": { "fit": "cover", "column": "", "type": "round" }
-          }
-        },
+        "theme": "dark",
+        "step": "IDR_Complaint_Remedy_1",
         "applyConditionalFormatting": true
       },
       "type": "chart"
     },
-    "text_4": {
+    "text_5": {
       "parameters": {
         "content": {
-          "displayTemplate": "Complaints resolved at First Point of Contact:"
+          "displayTemplate": "[Result_1]\n",
+          "values": {
+            "Result_1": {
+              "field": "Result",
+              "sourceType": "result",
+              "step": "Number_of_Escalated__1"
+            }
+          }
         },
         "fontSize": 16,
         "showActionMenu": true,
-        "textAlignment": "center",
-        "textColor": "#FFFFFF"
+        "textAlignment": "left",
+        "textColor": "#091A3E"
       },
       "type": "text"
     },
-    "chart_2": {
+    "chart_8": {
       "parameters": {
         "showValues": true,
-        "showPoints": true,
+        "showPoints": false,
         "legend": {
           "descOrder": false,
           "showHeader": true,
-          "show": false,
+          "show": true,
           "customSize": "auto",
           "position": "right-top",
           "inside": false
@@ -2663,15 +3327,15 @@
           "customizeTooltip": false,
           "dimensions": ""
         },
-        "visualizationType": "time",
         "missingValue": "connect",
+        "visualizationType": "time",
         "exploreLink": true,
         "title": {
           "fontSize": 14,
           "subtitleFontSize": 11,
           "label": "",
           "align": "center",
-          "subtitleLabel": "Cases Recieved"
+          "subtitleLabel": ""
         },
         "binValues": false,
         "trellis": {
@@ -2711,14 +3375,87 @@
             "medium": { "color": "#ffa500", "label": "" }
           }
         },
-        "dashLine": { "measures": ["count"], "showDashLine": false },
-        "timeAxis": {
-          "showTitle": false,
-          "predictiveLine": { "color": "#FFCD95", "label": "TODAY" },
-          "showAxis": true,
-          "title": ""
-        },
+        "dashLine": { "measures": "", "showDashLine": false },
+        "timeAxis": { "showTitle": true, "showAxis": false, "title": "" },
         "fillArea": true,
+        "columnMap": {
+          "split": [],
+          "timeAxis": [
+            "CreatedDate_Year~~~CreatedDate_Month~~~CreatedDate_Day"
+          ],
+          "trellis": [],
+          "plots": ["count"]
+        },
+        "showActionMenu": false,
+        "measureAxis2": {
+          "sqrtScale": false,
+          "showTitle": true,
+          "showAxis": true,
+          "title": "",
+          "customDomain": { "showDomain": false }
+        },
+        "measureAxis1": {
+          "sqrtScale": false,
+          "showTitle": true,
+          "showAxis": true,
+          "title": "Cases Created",
+          "customDomain": { "showDomain": false }
+        },
+        "step": "CreatedDate_Year_Cre_2"
+      },
+      "type": "chart"
+    },
+    "chart_7": {
+      "parameters": {
+        "autoFitMode": "keepLabels",
+        "showValues": true,
+        "bins": {
+          "breakpoints": { "high": 100, "low": 0 },
+          "bands": {
+            "high": { "color": "#008000", "label": "" },
+            "low": { "color": "#B22222", "label": "" },
+            "medium": { "color": "#ffa500", "label": "" }
+          }
+        },
+        "legend": {
+          "descOrder": false,
+          "showHeader": true,
+          "show": false,
+          "customSize": "auto",
+          "position": "right-top",
+          "inside": false
+        },
+        "showMeasureTitle": false,
+        "axisMode": "multi",
+        "tooltip": {
+          "showBinLabel": true,
+          "measures": ["count"],
+          "showNullValues": false,
+          "showPercentage": true,
+          "customText": "[Onboard.Business]",
+          "showDimensions": false,
+          "showMeasures": false,
+          "customizeTooltip": true,
+          "dimensions": ["Onboard.Business"]
+        },
+        "visualizationType": "origami",
+        "exploreLink": true,
+        "title": {
+          "fontSize": 14,
+          "subtitleFontSize": 11,
+          "label": "",
+          "align": "center",
+          "subtitleLabel": "Active users by Business Units"
+        },
+        "binValues": false,
+        "trellis": {
+          "flipLabels": false,
+          "showGridLines": true,
+          "size": [100, 100],
+          "enable": false,
+          "type": "x",
+          "chartsPerLine": 4
+        },
         "showActionMenu": true,
         "measureAxis2": {
           "sqrtScale": false,
@@ -2729,41 +3466,110 @@
         },
         "measureAxis1": {
           "sqrtScale": false,
-          "showTitle": false,
+          "showTitle": true,
           "showAxis": true,
-          "title": "Cases",
+          "title": "",
           "customDomain": { "showDomain": false }
         },
-        "step": "IDR_Date_Received__c_2"
+        "valueType": "compactNumber",
+        "showTotal": false,
+        "theme": "light",
+        "step": "Onboard_Business_1",
+        "dimensionAxis": {
+          "showTitle": true,
+          "customSize": "auto",
+          "showAxis": true,
+          "title": "",
+          "icons": {
+            "useIcons": false,
+            "iconProps": { "fit": "cover", "column": "", "type": "round" }
+          }
+        },
+        "applyConditionalFormatting": true
       },
       "type": "chart"
     },
-    "text_7": {
+    "text_4": {
       "parameters": {
         "content": {
-          "displayTemplate": "$[Total]",
-          "values": {
-            "Total": {
-              "field": "Total",
-              "sourceType": "result",
-              "step": "IDR_Financial_Compen_1"
-            }
-          }
+          "displayTemplate": "Complaints resolved at First Point of Contact:\n"
         },
-        "fontSize": 48,
+        "fontSize": 16,
         "showActionMenu": true,
-        "textAlignment": "center",
-        "textColor": "#FFFFFF"
+        "textAlignment": "left",
+        "textColor": "#091A3E"
       },
       "type": "text"
     },
-    "text_6": {
+    "text_7": {
       "parameters": {
-        "content": { "displayTemplate": "Average Financial Compensation" },
+        "content": { "displayTemplate": "User Adoption\n\n" },
         "fontSize": 16,
         "showActionMenu": true,
-        "textAlignment": "center",
-        "textColor": "#FFFFFF"
+        "textAlignment": "left",
+        "textColor": "#091A3E"
+      },
+      "type": "text"
+    },
+    "chart_1": {
+      "parameters": {
+        "autoFitMode": "keepLabels",
+        "showValues": true,
+        "legend": {
+          "descOrder": false,
+          "showHeader": true,
+          "show": false,
+          "customSize": "auto",
+          "position": "right-top",
+          "inside": false
+        },
+        "tooltip": {
+          "showBinLabel": true,
+          "measures": ["count"],
+          "showNullValues": false,
+          "showPercentage": true,
+          "customText": "[Onboard.Division]\nUsers:  [count]",
+          "showDimensions": false,
+          "showMeasures": false,
+          "customizeTooltip": true,
+          "dimensions": ["Onboard.Division"]
+        },
+        "visualizationType": "treemap",
+        "exploreLink": true,
+        "title": {
+          "fontSize": 10,
+          "subtitleFontSize": 10,
+          "label": "",
+          "align": "center",
+          "subtitleLabel": "Division"
+        },
+        "trellis": {
+          "flipLabels": false,
+          "showGridLines": true,
+          "size": [100, 100],
+          "enable": false,
+          "type": "x",
+          "chartsPerLine": 4
+        },
+        "columnMap": {
+          "trellis": [],
+          "dimension": ["Onboard.Division"],
+          "plots": ["count"]
+        },
+        "showActionMenu": true,
+        "theme": "light",
+        "step": "Onboard_Division_1",
+        "applyConditionalFormatting": true
+      },
+      "type": "chart"
+    },
+    "text_6": {
+      "parameters": {
+        "content": { "displayTemplate": "Case Details\n\n" },
+        "fontSize": 16,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#091A3E"
       },
       "type": "text"
     },
@@ -2817,7 +3623,7 @@
     "text_9": {
       "parameters": {
         "content": {
-          "displayTemplate": "Calculates the number of users who have not logged \n[Days] day(s) or more during the reporting period",
+          "displayTemplate": "Calculates the number of users who have not logged \n[Days] day(s) or more during the reporting period\n",
           "values": {
             "Days": {
               "field": "Days",
@@ -2826,11 +3632,21 @@
             }
           }
         },
-        "fontSize": 12,
+        "fontSize": 16,
         "showActionMenu": false,
-        "textAlignment": "center",
-        "textColor": "#7D98B3",
+        "textAlignment": "left",
+        "textColor": "#091A3E",
         "tooltip": ""
+      },
+      "type": "text"
+    },
+    "text_8": {
+      "parameters": {
+        "content": { "displayTemplate": "Cases that have been escalated\n" },
+        "fontSize": 16,
+        "showActionMenu": false,
+        "textAlignment": "left",
+        "textColor": "#091A3E"
       },
       "type": "text"
     },
@@ -2852,7 +3668,7 @@
           "showHeader": false,
           "show": true,
           "customSize": "auto",
-          "position": "bottom-center",
+          "position": "right-top",
           "inside": false
         },
         "showMeasureTitle": false,
@@ -2860,22 +3676,22 @@
         "tooltip": {
           "showBinLabel": true,
           "measures": ["count"],
-          "showNullValues": false,
-          "showPercentage": false,
-          "customText": "[Escalation.Label]:  [count]",
-          "showDimensions": false,
-          "showMeasures": false,
+          "showNullValues": true,
+          "showPercentage": true,
+          "customText": "",
+          "showDimensions": true,
+          "showMeasures": true,
           "customizeTooltip": true,
-          "dimensions": ["Escalation.Label"]
+          "dimensions": ["Picklist.Type.Label"]
         },
         "visualizationType": "pie",
         "exploreLink": true,
         "title": {
           "fontSize": 14,
           "subtitleFontSize": 11,
-          "label": "Escalated Reason",
+          "label": "",
           "align": "center",
-          "subtitleLabel": ""
+          "subtitleLabel": "Cases by issue type"
         },
         "binValues": false,
         "trellis": {
@@ -2886,7 +3702,12 @@
           "type": "x",
           "chartsPerLine": 4
         },
-        "inner": 60,
+        "inner": 50,
+        "columnMap": {
+          "trellis": [],
+          "dimension": ["Picklist.Type.Label"],
+          "plots": ["count"]
+        },
         "showActionMenu": false,
         "centerValueType": "number",
         "measureAxis2": {
@@ -2905,7 +3726,7 @@
         },
         "valueType": "compactNumber",
         "theme": "dark",
-        "step": "IDR_Escalation_Reaso_1",
+        "step": "Picklist_Type_Label_1",
         "dimensionAxis": {
           "showTitle": true,
           "customSize": "auto",
@@ -2920,16 +3741,6 @@
       },
       "type": "chart"
     },
-    "text_8": {
-      "parameters": {
-        "content": { "displayTemplate": "Cases that have been escalated" },
-        "fontSize": 16,
-        "showActionMenu": true,
-        "textAlignment": "center",
-        "textColor": "#FFFFFF"
-      },
-      "type": "text"
-    },
     "dateselector_1": {
       "parameters": {
         "absoluteModeEnabled": true,
@@ -2942,19 +3753,72 @@
         "relativeModeEnabled": true,
         "showActionMenu": true,
         "step": "Snapshot_Date_1",
-        "title": "Report Date"
+        "title": "Change Report Date"
       },
       "type": "dateselector"
     },
     "text_1": {
       "parameters": {
-        "content": { "displayTemplate": "Complaints" },
-        "fontSize": 24,
+        "content": { "displayTemplate": "Complaints\n\n" },
+        "fontSize": 16,
         "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#091A3E"
+      },
+      "type": "text"
+    },
+    "link_1": {
+      "parameters": {
+        "destinationLink": { "name": "a282deda-b864-4fdf-b350-9b109fec619a" },
+        "destinationType": "page",
+        "fontSize": 16,
+        "includeState": false,
+        "text": "< Back",
         "textAlignment": "left",
         "textColor": "#FFFFFF"
       },
-      "type": "text"
+      "type": "link"
+    },
+    "link_2": {
+      "parameters": {
+        "destinationLink": { "name": "7682d4f8-901e-4334-9d3c-da7d7bc9f0d5" },
+        "destinationType": "page",
+        "fontSize": 14,
+        "includeState": false,
+        "text": "See Case Details >",
+        "textAlignment": "right",
+        "textColor": "#FFFFFF"
+      },
+      "type": "link"
+    },
+    "table_1": {
+      "parameters": {
+        "borderColor": "#e0e5ee",
+        "borderWidth": 1,
+        "cell": {
+          "backgroundColor": "#ffffff",
+          "fontColor": "#16325c",
+          "fontSize": 12
+        },
+        "columnProperties": {},
+        "columns": [],
+        "customBulkActions": [],
+        "exploreLink": true,
+        "header": {
+          "backgroundColor": "#f4f6f9",
+          "fontColor": "#16325c",
+          "fontSize": 12
+        },
+        "innerMajorBorderColor": "#a8b7c7",
+        "innerMinorBorderColor": "#e0e5ee",
+        "mode": "fittocontainer",
+        "numberOfLines": 1,
+        "showActionMenu": true,
+        "step": "lens_5",
+        "totals": true,
+        "verticalPadding": 12
+      },
+      "type": "table"
     },
     "number_2": {
       "parameters": {
@@ -2968,7 +3832,8 @@
         "textAlignment": "center",
         "title": "Cases",
         "titleColor": "#FFFFFF",
-        "titleSize": 16
+        "titleSize": 16,
+        "tooltip": { "customizeTooltip": false }
       },
       "type": "number"
     },
@@ -2984,7 +3849,8 @@
         "textAlignment": "center",
         "title": "Active Users",
         "titleColor": "#091A3E",
-        "titleSize": 16
+        "titleSize": 16,
+        "tooltip": { "customizeTooltip": false }
       },
       "type": "number"
     },
@@ -3022,7 +3888,7 @@
       },
       "type": "listselector"
     },
-    "chart_12": {
+    "chart_11": {
       "parameters": {
         "autoFitMode": "keepLabels",
         "showValues": true,
@@ -3045,24 +3911,24 @@
         "axisMode": "multi",
         "tooltip": {
           "showBinLabel": true,
-          "measures": "",
-          "showNullValues": true,
-          "showPercentage": true,
-          "showDimensions": true,
-          "showMeasures": true,
-          "customizeTooltip": false,
-          "dimensions": ""
+          "measures": ["count"],
+          "showNullValues": false,
+          "showPercentage": false,
+          "customText": "[UserInfo.FirstName] -  [count]",
+          "showDimensions": false,
+          "showMeasures": false,
+          "customizeTooltip": true,
+          "dimensions": ["UserInfo.FirstName"]
         },
         "visualizationType": "hbar",
         "exploreLink": true,
         "title": {
           "fontSize": 14,
           "subtitleFontSize": 11,
-          "label": "",
+          "label": "Cases Created Per Team Member",
           "align": "center",
-          "subtitleLabel": "Active Users by District"
+          "subtitleLabel": ""
         },
-        "binValues": false,
         "trellis": {
           "flipLabels": false,
           "showGridLines": true,
@@ -3071,7 +3937,8 @@
           "type": "x",
           "chartsPerLine": 4
         },
-        "showActionMenu": true,
+        "binValues": false,
+        "showActionMenu": false,
         "measureAxis2": {
           "sqrtScale": false,
           "showTitle": true,
@@ -3080,19 +3947,42 @@
           "customDomain": { "showDomain": false }
         },
         "measureAxis1": {
-          "sqrtScale": false,
+          "sqrtScale": true,
           "showTitle": false,
-          "showAxis": false,
-          "title": "",
+          "showAxis": true,
+          "referenceLines": [
+            {
+              "color": "#0D33B6",
+              "label": {
+                "data": {
+                  "displayTemplate": "AVG: [C]",
+                  "sourceType": "result",
+                  "step": "Average_Cases_1"
+                },
+                "type": "dynamic"
+              },
+              "value": {
+                "data": {
+                  "field": "C",
+                  "sourceType": "result",
+                  "step": "Average_Cases_1"
+                },
+                "type": "dynamic"
+              }
+            }
+          ],
+          "title": "Number of Open Cases",
           "customDomain": { "showDomain": false }
         },
+        "referenceLine": [{ "color": "#9271E8", "label": "Avg", "value": "4" }],
         "theme": "wave",
-        "step": "District_1",
+        "step": "lens_4",
+        "markers": [],
         "dimensionAxis": {
           "showTitle": false,
           "customSize": "auto",
           "showAxis": true,
-          "title": "",
+          "title": "First Name",
           "icons": {
             "useIcons": false,
             "iconProps": { "fit": "cover", "column": "", "type": "round" }
@@ -3102,15 +3992,13 @@
       },
       "type": "chart"
     },
-    "chart_11": {
+    "chart_10": {
       "parameters": {
         "autoFitMode": "keepLabels",
-        "showMeasureTitle": false,
+        "max": 100,
         "legend": {
-          "descOrder": false,
           "showHeader": true,
           "show": false,
-          "customSize": "auto",
           "position": "right-top",
           "inside": false
         },
@@ -3124,33 +4012,38 @@
           "customizeTooltip": false,
           "dimensions": ""
         },
-        "visualizationType": "origami",
+        "visualizationType": "flatgauge",
         "exploreLink": true,
+        "medium": 33,
         "title": {
           "fontSize": 14,
           "subtitleFontSize": 11,
-          "label": "",
+          "label": "Average Days for Resolution",
           "align": "center",
-          "subtitleLabel": "Active Users By Region"
+          "subtitleLabel": "Absolute Days from Open to Close Date"
         },
         "trellis": {
           "flipLabels": false,
           "showGridLines": true,
-          "size": [150, 150],
+          "size": [100, 100],
           "enable": false,
           "type": "x",
           "chartsPerLine": 4
         },
-        "columnMap": {
-          "trellis": [],
-          "dimension": ["Onboard.Region"],
-          "plots": ["count"]
+        "colors": {
+          "mediumColor2": "#F29946",
+          "mediumColor1": "#FED444",
+          "lowColor1": "#F71979",
+          "lowColor2": "#CC203D",
+          "highColor1": "#7BDE4E",
+          "highColor2": "#169913"
         },
+        "high": 66,
         "showActionMenu": true,
+        "min": 0,
         "valueType": "compactNumber",
-        "showTotal": true,
-        "theme": "wave",
-        "step": "Onboard_Region_1",
+        "theme": "dark",
+        "step": "lens_3",
         "applyConditionalFormatting": true
       },
       "type": "chart"

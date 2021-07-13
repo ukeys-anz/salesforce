@@ -5,7 +5,10 @@
  * @description Common Access Request Action methods
  */
 public without sharing class AccessRequestCommonActions {
+  @testVisible
+  private static final String STATUS_SUBMITTED = 'Submitted';
   private static final String STATUS_APPROVED = 'Approved';
+  private static final String STATUS_REJECTED = 'Rejected';
   @testVisible
   private static final String REQUEST_IMMEDIATE = 'Immediate';
 
@@ -86,11 +89,10 @@ public without sharing class AccessRequestCommonActions {
     List<Id> requesterIdList = new List<Id>();
     Map<Id, User> requesterUserMap = new Map<Id, User>();
     List<Privileged_Access_Request__c> parRequests = new List<Privileged_Access_Request__c>();
-
     try {
       // identify approved Access Requests and Requesting users
       for (Access_Request__c newRequest : newRecords) {
-        if (isRequestApproved(newRequest, oldRecordMap)) {
+        if (STATUS_APPROVED == getApprovalDecision(newRequest, oldRecordMap)) {
           approvedRequests.add(newRequest);
           requesterIdList.add(newRequest.Requestor__c);
         }
@@ -113,7 +115,7 @@ public without sharing class AccessRequestCommonActions {
       Lib_SystemLog.createSingleLogAsync(
         AccessRequestCommonActions.class.getName(),
         'createPARequestRecords',
-        'PAM002',
+        'PAM003',
         e.getMessage()
       );
     }
@@ -123,18 +125,24 @@ public without sharing class AccessRequestCommonActions {
    * @description checks if the Access Request has been Approved now
    * @param newRecord new updated instance of the Access Request
    * @param oldRecordMap map of old Access Request records
-   * @return Boolean
+   * @return String
    */
-  private static Boolean isRequestApproved(
+  private static String getApprovalDecision(
     Access_Request__c newRecord,
     Map<Id, SObject> oldRecordMap
   ) {
+    String approvalDecision = '';
     Access_Request__c oldRecord = (Access_Request__c) oldRecordMap.get(
       newRecord.Id
     );
-
-    return STATUS_APPROVED.equals(newRecord.Status__c) &&
-      oldRecord.Status__c != newRecord.Status__c;
+    if (oldRecord.Status__c != newRecord.Status__c) {
+      if (STATUS_APPROVED.equals(newRecord.Status__c)) {
+        approvalDecision = STATUS_APPROVED;
+      } else if (STATUS_REJECTED.equals(newRecord.Status__c)) {
+        approvalDecision = STATUS_REJECTED;
+      }
+    }
+    return approvalDecision;
   }
 
   /**
@@ -211,96 +219,85 @@ public without sharing class AccessRequestCommonActions {
   }
 
   /**
-   * @description Process the requests sent from flow and update the timestamp on privileged access requests
-   * @param requests update timestamp requests sent from PAM - Grant/Revoke Access flow
+   * @description loggs PAM request submission for approval
+   * @param newRecords list of new Access Request records
+   * @param oldRecordMap map of old Access Request records
    */
-  @InvocableMethod(
-    label='Set Access Granted/Revoked Timestamp'
-    description='Set Access Granted/Revoked Timestamp'
-    category='Apex'
-  )
-  public static void setTimestamp(List<UpdateTimestampRequest> requests) {
-    if (!requests.isEmpty()) {
-      Map<String, String> processTypeByRequestId = new Map<String, String>();
-      for (UpdateTimestampRequest req : requests) {
-        processTypeByRequestId.put(req.privilegedAccReqId, req.processType);
-      }
-      handleUpdatePrivilegedAccReq(processTypeByRequestId);
-    }
-  }
-
-  /**
-   * @description Update the timestamp on the requests using a future method to avoid MIXED_DML_OPERATION error
-   * @param processTypeByRequestId a map of the privileged access request id and its corresponding process type (grant/revoke)
-   */
-  @future
-  private static void handleUpdatePrivilegedAccReq(
-    Map<String, String> processTypeByRequestId
+  public static void logSubmission(
+    List<Access_Request__c> newRecords,
+    Map<Id, SObject> oldRecordMap
   ) {
-    if (!processTypeByRequestId.isEmpty()) {
-      List<Privileged_Access_Request__c> pars = getPrivilegedAccessRequests(
-        processTypeByRequestId.keySet()
-      );
-
-      updateTimestamp(pars, processTypeByRequestId);
-
-      List<Database.SaveResult> srList = Database.update(pars, true);
-
-      //log errors to application log
-      lib_systemLog log = new lib_systemLog(
-        'AccessRequestCommonActions',
-        'setTimestamp'
-      );
-      log.addDatabaseSaveResult('Privileged_Access_Request__c', srList, pars);
-      log.insertLog();
-    }
-  }
-
-  /**
-   * @description Get a list of privileged access requests
-   * @param recordIds ids of the privileged access requests that need to be retrieved
-   * @return List<Privileged_Access_Request__c> a list of privileged access requests
-   */
-  private static List<Privileged_Access_Request__c> getPrivilegedAccessRequests(
-    Set<String> recordIds
-  ) {
-    if (Schema.sObjectType.Privileged_Access_Request__c.isQueryable()) {
-      List<Privileged_Access_Request__c> pars = [
-        SELECT Id, Actual_Access_Granted_Time__c, Actual_Access_Revoked_Time__c
-        FROM Privileged_Access_Request__c
-        WHERE Id IN :recordIds
-      ];
-      return pars;
-    }
-    return null;
-  }
-
-  /**
-   * @description Update either Actual_Access_Granted_Time__c/Actual_Access_Revoked_Time__c field on each privileged access request record
-   * @param pars a list of privileged access requests
-   * @param processTypeByRequestId a map of the privileged access request id and its corresponding process type (grant/revoke)
-   */
-  private static void updateTimestamp(
-    List<Privileged_Access_Request__c> pars,
-    Map<String, String> processTypeByRequestId
-  ) {
-    for (Privileged_Access_Request__c par : pars) {
-      if (processTypeByRequestId.get(par.Id) == 'grant') {
-        par.Actual_Access_Granted_Time__c = System.now();
-      } else if (processTypeByRequestId.get(par.Id) == 'revoke') {
-        par.Actual_Access_Revoked_Time__c = System.now();
+    String uniquePamTraceId = UniqueIdUtil.getTraceId();
+    lib_systemLog log = new lib_systemLog(
+      AccessRequestCommonActions.class.getName(),
+      'logSubmission'
+    );
+    List<Access_Request__c> recordsToUpdate = new List<Access_Request__c>();
+    // identify Submitted Access Requests
+    for (Access_Request__c newRequest : newRecords) {
+      if (isRequestSubmitted(newRequest, oldRecordMap)) {
+        log.info(
+          'PAM request ' +
+          newRequest.Name +
+          ' requesting ' +
+          newRequest.Access_Type__c +
+          ' access has been submitted for approval by ' +
+          newRequest.Requestor__c +
+          ', and awaiting approval by ' +
+          newRequest.Approver__c,
+          uniquePamTraceId
+        );
+        newRequest.Trace_Id__c = uniquePamTraceId;
+        recordsToUpdate.add(newRequest);
       }
     }
+    log.insertLogAsync();
   }
 
   /**
-   * @description Wrapper class for requests sent from PAM - Grant/Revoke Access flow
+   * @description loggs PAM request approval decision
+   * @param newRecords list of new Access Request records
+   * @param oldRecordMap map of old Access Request records
    */
-  public class UpdateTimestampRequest {
-    @InvocableVariable
-    public Id privilegedAccReqId;
+  public static void logApprovalDecision(
+    List<Access_Request__c> newRecords,
+    Map<Id, SObject> oldRecordMap
+  ) {
+    lib_systemLog log = new lib_systemLog(
+      AccessRequestCommonActions.class.getName(),
+      'logApprovalDecision'
+    );
+    for (Access_Request__c newRequest : newRecords) {
+      String approvalDecision = getApprovalDecision(newRequest, oldRecordMap);
+      if (!String.isBlank(approvalDecision)) {
+        log.info(
+          'PAM request ' +
+          newRequest.Name +
+          ' requesting ' +
+          newRequest.Access_Type__c +
+          ' access has been ' +
+          approvalDecision,
+          newRequest.Trace_Id__c
+        );
+      }
+    }
+    log.insertLogAsync();
+  }
 
-    @InvocableVariable
-    public String processType;
+  /**
+   * @description checks if the Access Request has been Submitted now
+   * @param newRecord new updated instance of the Access Request
+   * @param oldRecordMap map of old Access Request records
+   * @return Boolean
+   */
+  private static Boolean isRequestSubmitted(
+    Access_Request__c newRecord,
+    Map<Id, SObject> oldRecordMap
+  ) {
+    Access_Request__c oldRecord = (Access_Request__c) oldRecordMap.get(
+      newRecord.Id
+    );
+    return STATUS_SUBMITTED.equals(newRecord.Status__c) &&
+      oldRecord.Status__c != newRecord.Status__c;
   }
 }

@@ -5,7 +5,7 @@ import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
 import { subscribe, MessageContext } from "lightning/messageService";
 import UpdateAccounts from "@salesforce/messageChannel/FinancialAccountsUpdate__c";
-import TriggerLoading from "@salesforce/messageChannel/FinancialAccountsTriggerLoading__c";
+import TriggerBalanceLoading from "@salesforce/messageChannel/FinancialAccountsBalanceTriggerLoading__c";
 
 import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
 
@@ -27,7 +27,7 @@ export default class AccountBalances extends LightningElement {
     if (hasAccountsGoalsPermission) {
       this.loadingSubscription = subscribe(
         this.messageContext,
-        TriggerLoading,
+        TriggerBalanceLoading,
         (message) => {
           if (message.update) {
             this.loading = true;

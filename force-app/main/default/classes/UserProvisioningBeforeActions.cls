@@ -112,11 +112,13 @@ public with sharing class UserProvisioningBeforeActions {
     if (!businessFunctionMap.isEmpty()) {
       Map<String, Profile> profileMap = UserProvisioningCommonActions.getAllProfileMap();
       Map<String, UserRole> userRoleMap = UserProvisioningCommonActions.getAllUserRoleMap();
+      Map<String, CallCenter> callCenterMap = UserProvisioningCommonActions.getAllCallCenterMap();
 
       for (User record : (List<User>) records) {
         if (UserProvisioningCommonActions.isValidRecordForProcessing(record)) {
           assignProfileToRecord(record, businessFunctionMap, profileMap);
           assignRoleToRecord(record, businessFunctionMap, userRoleMap);
+          assignCallCenterToRecord(record, businessFunctionMap, callCenterMap);
         }
       }
     }
@@ -168,6 +170,32 @@ public with sharing class UserProvisioningBeforeActions {
     }
     if (userRoleMap.containskey(roleName)) {
       record.UserRoleId = userRoleMap.get(roleName).Id;
+    }
+  }
+
+  /**
+   * @description This method is used to assign call center to users by fetching the call center name from Custom metadata based on user Business Function and Role.
+   * @param record user record from trigger
+   * @param businessFunctionMap Business Function Map from Custom metadata
+   * @param callCenterMap CallCenter Map with InternalName as a key
+   */
+  private static void assignCallCenterToRecord(
+    User record,
+    Map<String, User_Provisioning_Setting__mdt> businessFunctionMap,
+    Map<String, CallCenter> callCenterMap
+  ) {
+    String callCenterName;
+    String businessFunctionRoleKey = UserProvisioningCommonActions.generateKey(
+      record
+    );
+    if (businessFunctionMap.containskey(businessFunctionRoleKey)) {
+      callCenterName = businessFunctionMap.get(businessFunctionRoleKey)
+        .Call_Center_Name__c;
+    }
+    if (String.isBlank(callCenterName)) {
+      record.CallCenterId = null;
+    } else if (callCenterMap.containskey(callCenterName)) {
+      record.CallCenterId = callCenterMap.get(callCenterName).Id;
     }
   }
 }

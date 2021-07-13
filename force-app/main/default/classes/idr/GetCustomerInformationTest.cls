@@ -74,13 +74,6 @@ private with sharing class GetCustomerInformationTest {
       );
     }
     Test.stopTest();
-
-    // THEN an application log record should be created
-    List<Application_Log__c> appLog = [
-      SELECT Id, Request_Body__c
-      FROM Application_Log__c
-    ];
-    System.assertEquals(1, appLog.size(), 'Matches the log record size');
   }
 
   /**
@@ -108,13 +101,6 @@ private with sharing class GetCustomerInformationTest {
       );
     }
     Test.stopTest();
-
-    // THEN an application log record should be created
-    List<Application_Log__c> appLog = [
-      SELECT Id, Request_Body__c
-      FROM Application_Log__c
-    ];
-    System.assertEquals(1, appLog.size(), 'Matches the log record size');
   }
 
   /**

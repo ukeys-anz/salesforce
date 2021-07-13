@@ -401,9 +401,9 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Case.ContactId</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -753,7 +753,7 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.SuppliedEmail</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -1587,16 +1587,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>IDR_Notification_Event__e.Case_Status_Change_Date__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>IDR_Notification_Event__e.Case_Status__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>IDR_Notification_Event__e.ComplainantEmail__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -1672,6 +1662,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Task.WhoId</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>User.Business_Function__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -1742,6 +1737,10 @@
         <recordType>Case.Non_Customer_Complaint</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-Systemic Issue Layout</layout>
+        <recordType>Case.Systemic_Issue</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Knowledge__kav-Knowledge Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -1752,7 +1751,23 @@
         <layout>Product2-Product Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case_Product__c-Relevant Product Layout</layout>
+        <recordType>Case_Product__c.Systemic_Issues_and_Products</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Release__c-Release Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Task-IDR System Task</layout>
+        <recordType>Task.IDR_System_Task</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Task-IDR Task Layout</layout>
+        <recordType>Task.IDR_Task</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Task-SI Task Layout</layout>
+        <recordType>Task.Systemic_Issue_Task</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>User-User Layout</layout>
@@ -1869,6 +1884,11 @@
     <recordTypeVisibilities>
         <default>false</default>
         <recordType>Case.Non_Customer_Complaint</recordType>
+        <visible>false</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Case.Systemic_Issue</recordType>
         <visible>false</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
