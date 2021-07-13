@@ -31,6 +31,22 @@
       ],
       "label": "User <Team> Complaints",
       "name": "Link_961"
+    },
+    {
+      "fields": [
+        {
+          "dataSourceName": "CMOS_Historic_User_Data",
+          "dataSourceType": "dataset",
+          "fieldName": "Onboard.Division"
+        },
+        {
+          "dataSourceName": "CMOS_Cases",
+          "dataSourceType": "dataset",
+          "fieldName": "Onboarding.Division"
+        }
+      ],
+      "label": "CMOS Divisions",
+      "name": "Link_1075"
     }
   ],
   "filters": [],
@@ -74,19 +90,19 @@
               }
             },
             {
-              "colspan": 11,
-              "column": 0,
+              "colspan": 6,
+              "column": 18,
               "name": "chart_7",
-              "row": 19,
-              "rowspan": 14,
+              "row": 7,
+              "rowspan": 9,
               "widgetStyle": { "borderEdges": [] }
             },
             {
               "colspan": 6,
               "column": 18,
               "name": "chart_9",
-              "row": 7,
-              "rowspan": 25,
+              "row": 17,
+              "rowspan": 15,
               "widgetStyle": { "borderEdges": [] }
             },
             {
@@ -319,8 +335,8 @@
               "colspan": 11,
               "column": 0,
               "name": "chart_1",
-              "row": 7,
-              "rowspan": 11,
+              "row": 6,
+              "rowspan": 27,
               "widgetStyle": { "borderEdges": [] }
             },
             {
@@ -789,15 +805,21 @@
       "groups": [],
       "label": "Onboard_Division_1",
       "numbers": [],
-      "query": "q = load \"CMOS_Historic_User_Data\";\nq = group q by ('EmployeeNumber', 'Onboard.Division');\nq = foreach q generate 'Onboard.Division' as 'Onboard.Division', count() as 'count';\nq = order q by 'Onboard.Division' asc;\nq = limit q 2000;",
+      "query": "q = load \"CMOS_Historic_User_Data\";\nq = group q by 'Onboard.Division';\nq = foreach q generate 'Onboard.Division' as 'Onboard.Division', count() as 'count', 1 as 'segment_size';\nq = order q by 'Onboard.Division' asc;",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
       "type": "saql",
-      "useGlobal": true,
+      "useGlobal": false,
       "visualizationParameters": {
         "parameters": {
           "autoFitMode": "keepLabels",
+          "showValues": true,
+          "columnMap": {
+            "trellis": [],
+            "dimension": ["Onboard.Division"],
+            "plots": ["count"]
+          },
           "showActionMenu": true,
           "legend": {
             "descOrder": false,
@@ -807,27 +829,25 @@
             "position": "right-top",
             "inside": false
           },
-          "showMeasureTitle": false,
-          "valueType": "compactNumber",
-          "showTotal": true,
           "tooltip": {
             "showBinLabel": true,
-            "measures": "",
-            "showNullValues": true,
+            "measures": ["count"],
+            "showNullValues": false,
             "showPercentage": true,
-            "showDimensions": true,
-            "showMeasures": true,
-            "customizeTooltip": false,
-            "dimensions": ""
+            "customText": "[Onboard.Division]\nUsers:  [count]",
+            "showDimensions": false,
+            "showMeasures": false,
+            "customizeTooltip": true,
+            "dimensions": ["Onboard.Division"]
           },
-          "visualizationType": "origami",
+          "visualizationType": "treemap",
           "theme": "wave",
           "title": {
-            "fontSize": 14,
-            "subtitleFontSize": 11,
+            "fontSize": 10,
+            "subtitleFontSize": 10,
             "label": "",
             "align": "center",
-            "subtitleLabel": "Division "
+            "subtitleLabel": "Division"
           },
           "trellis": {
             "flipLabels": false,
@@ -2662,7 +2682,7 @@
       "groups": [],
       "label": "lens_5",
       "numbers": [],
-      "query": "q = load \"CMOS_Cases\";\nq = foreach q generate 'CaseNumber' as 'CaseNumber', 'Origin' as 'Origin', 'Picklist.Type.Label' as 'Issue Type', 'SLA_Status__c' as 'SLA_Status__c', 'Status' as 'Status', 'Picklist.Remedy.Label' as 'Remedy';\nq = limit q 100;",
+      "query": "q = load \"CMOS_Cases\";\nq = foreach q generate 'CaseNumber' as 'CaseNumber', 'Origin' as 'Origin', 'Status' as 'Status';\nq = limit q 100;",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -2701,7 +2721,7 @@
       "groups": [],
       "label": "lens_3",
       "numbers": [],
-      "query": "q = load \"CMOS_Cases\";\nq = filter q by IsClosed == \"true\";\nq = group q by Id;\nq = foreach q generate Id, min('CaseDuration_Hours') as 'avg_CaseDuration_Hours';\n\nq = group q by all;\nq = foreach q generate sum('avg_CaseDuration_Hours') / count() as 'avg_CaseDuration_Hours';\n\nq = limit q 2000;",
+      "query": "q = load \"CMOS_Cases\";\nq = filter q by IsClosed == \"true\";\nq = group q by Id;\nq = foreach q generate Id, abs(min('CaseDuration_Hours')/24) as 'avg_CaseDuration_Hours';\n\nq = group q by all;\nq = foreach q generate sum('avg_CaseDuration_Hours') / count() as 'avg_CaseDuration_Hours';\n\nq = limit q 2000;",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -2711,6 +2731,12 @@
         "parameters": {
           "autoFitMode": "keepLabels",
           "max": 100,
+          "legend": {
+            "showHeader": true,
+            "show": false,
+            "position": "right-top",
+            "inside": false
+          },
           "tooltip": {
             "showBinLabel": true,
             "measures": "",
@@ -2726,9 +2752,9 @@
           "title": {
             "fontSize": 14,
             "subtitleFontSize": 11,
-            "label": "",
+            "label": "Average Days for Resolution",
             "align": "center",
-            "subtitleLabel": "Closed Cases"
+            "subtitleLabel": "Absolute Days from Open to Close Date"
           },
           "trellis": {
             "flipLabels": false,
@@ -2747,7 +2773,6 @@
             "highColor2": "#169913"
           },
           "high": 66,
-          "columnMap": { "trellis": [], "plots": ["avg_CaseDuration_Hours"] },
           "showActionMenu": true,
           "min": 0,
           "valueType": "compactNumber",
@@ -3080,13 +3105,14 @@
         "axisMode": "multi",
         "tooltip": {
           "showBinLabel": true,
-          "measures": "",
-          "showNullValues": true,
+          "measures": ["count"],
+          "showNullValues": false,
           "showPercentage": true,
-          "showDimensions": true,
-          "showMeasures": true,
-          "customizeTooltip": false,
-          "dimensions": ""
+          "customText": "[Onboard.Team_Branch] - Users:  [count]",
+          "showDimensions": false,
+          "showMeasures": false,
+          "customizeTooltip": true,
+          "dimensions": ["Onboard.Team_Branch"]
         },
         "visualizationType": "hbar",
         "exploreLink": true,
@@ -3403,13 +3429,14 @@
         "axisMode": "multi",
         "tooltip": {
           "showBinLabel": true,
-          "measures": "",
-          "showNullValues": true,
+          "measures": ["count"],
+          "showNullValues": false,
           "showPercentage": true,
-          "showDimensions": true,
-          "showMeasures": true,
-          "customizeTooltip": false,
-          "dimensions": ""
+          "customText": "[Onboard.Business]",
+          "showDimensions": false,
+          "showMeasures": false,
+          "customizeTooltip": true,
+          "dimensions": ["Onboard.Business"]
         },
         "visualizationType": "origami",
         "exploreLink": true,
@@ -3476,7 +3503,7 @@
     },
     "text_7": {
       "parameters": {
-        "content": { "displayTemplate": "User Adoption\n" },
+        "content": { "displayTemplate": "User Adoption\n\n" },
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
@@ -3487,6 +3514,7 @@
     "chart_1": {
       "parameters": {
         "autoFitMode": "keepLabels",
+        "showValues": true,
         "legend": {
           "descOrder": false,
           "showHeader": true,
@@ -3495,25 +3523,25 @@
           "position": "right-top",
           "inside": false
         },
-        "showMeasureTitle": false,
         "tooltip": {
           "showBinLabel": true,
-          "measures": "",
-          "showNullValues": true,
+          "measures": ["count"],
+          "showNullValues": false,
           "showPercentage": true,
-          "showDimensions": true,
-          "showMeasures": true,
-          "customizeTooltip": false,
-          "dimensions": ""
+          "customText": "[Onboard.Division]\nUsers:  [count]",
+          "showDimensions": false,
+          "showMeasures": false,
+          "customizeTooltip": true,
+          "dimensions": ["Onboard.Division"]
         },
-        "visualizationType": "origami",
+        "visualizationType": "treemap",
         "exploreLink": true,
         "title": {
-          "fontSize": 14,
-          "subtitleFontSize": 11,
+          "fontSize": 10,
+          "subtitleFontSize": 10,
           "label": "",
           "align": "center",
-          "subtitleLabel": "Active users by Division "
+          "subtitleLabel": "Division"
         },
         "trellis": {
           "flipLabels": false,
@@ -3523,10 +3551,13 @@
           "type": "x",
           "chartsPerLine": 4
         },
+        "columnMap": {
+          "trellis": [],
+          "dimension": ["Onboard.Division"],
+          "plots": ["count"]
+        },
         "showActionMenu": true,
-        "valueType": "compactNumber",
-        "showTotal": true,
-        "theme": "wave",
+        "theme": "light",
         "step": "Onboard_Division_1",
         "applyConditionalFormatting": true
       },
@@ -3534,7 +3565,7 @@
     },
     "text_6": {
       "parameters": {
-        "content": { "displayTemplate": "Case Details\n" },
+        "content": { "displayTemplate": "Case Details\n\n" },
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
@@ -3728,7 +3759,7 @@
     },
     "text_1": {
       "parameters": {
-        "content": { "displayTemplate": "Complaints\n" },
+        "content": { "displayTemplate": "Complaints\n\n" },
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
@@ -4008,7 +4039,6 @@
           "highColor2": "#169913"
         },
         "high": 66,
-        "columnMap": { "trellis": [], "plots": ["avg_CaseDuration_Hours"] },
         "showActionMenu": true,
         "min": 0,
         "valueType": "compactNumber",
