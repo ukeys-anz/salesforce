@@ -97,20 +97,6 @@
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>CRI_RT_Complaints_PG_AllIDRUsers_RW</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>All the cases records owned by All IDR Users public group needs to be shared with.</description>
-        <label>CRI_RT-Complaints_PG-AllIDRUsers-RW</label>
-        <sharedTo>
-            <group>All_IDR_Users</group>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Customer Complaint,Non-Customer Complaint</value>
-        </criteriaItems>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
         <fullName>Dispute_RTs_Coaches_RW</fullName>
         <accessLevel>Edit</accessLevel>
         <description>All Cases having Dispute related record types are to be shared with Coaches with Read/Write access.</description>
