@@ -10,7 +10,7 @@ export SFDX_DOMAIN_RETRY=0
 
 read -rp "Enter scratch org alias (optional): " scratchorgalias
 read -rp "Is test data needed for this scratch org (y/n)? " testdata
-read -rp "Preload ANZ Plus test data? " preloadANZPlusData
+read -rp "Preload ANZ Plus test data (y/n)? " preloadANZPlusData
 
 ALL_START_TIME=$(date +%s)
 
