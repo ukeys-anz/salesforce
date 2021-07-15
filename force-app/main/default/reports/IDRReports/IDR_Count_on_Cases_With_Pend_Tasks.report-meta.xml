@@ -43,6 +43,13 @@
             <operator>equals</operator>
             <value>Open,Under Investigation,Escalated</value>
         </criteriaItems>
+        <criteriaItems>
+            <column>RECORDTYPE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Task.IDR_Task</value>
+        </criteriaItems>
     </filter>
     <format>Summary</format>
     <groupingsDown>
@@ -78,5 +85,5 @@
     <timeFrameFilter>
         <dateColumn>DUE_DATE</dateColumn>
         <interval>INTERVAL_CUSTOM</interval>
-    </timeFrameFilter> 
+    </timeFrameFilter>
 </Report>
