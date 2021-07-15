@@ -481,6 +481,11 @@
                 <default>false</default>
                 <label>Calculation Dispute</label>
             </value>
+            <value>
+                <fullName>95</fullName>
+                <default>false</default>
+                <label>Guarantee Issue/Error</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>19</controllingFieldValue>
@@ -767,6 +772,10 @@
         <valueSettings>
             <controllingFieldValue>6</controllingFieldValue>
             <valueName>37</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>6</controllingFieldValue>
+            <valueName>95</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>15</controllingFieldValue>
