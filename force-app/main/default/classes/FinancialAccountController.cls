@@ -29,7 +29,6 @@ public with sharing class FinancialAccountController {
           Id,
           Name,
           FinServ__Balance__c,
-          FinServ__CurrentPostedBalance__c,
           FinServ__Status__c,
           FinServ__FinancialAccountNumber__c,
           LastModifiedDate
