@@ -15,7 +15,16 @@ public with sharing class IDRPendCaseTaskRemindersBatch implements Database.Batc
     return Database.getQueryLocator(
       'SELECT Id, ActivityDate, OwnerId, WhatId, Subject ' +
       'FROM Task ' +
-      'WHERE Type = \'Pend Case\' AND WhatId != null AND Owner.Type = \'User\' AND Status != \'Completed\' AND ( ActivityDate <=: windowFromToday OR ActivityDate > TODAY )'
+      'WHERE Type = \'' +
+      IDRConstants.TASK_TYPE_PEND_CASE +
+      '\'' +
+      ' AND WhatId != null AND Owner.Type = \'User\' AND Status != \'' +
+      IDRConstants.TASK_STATUS_COMPLETED +
+      '\'' +
+      ' AND ( ActivityDate <=: windowFromToday OR ActivityDate > TODAY )' +
+      ' AND RecordTypeId = \'' +
+      IDRConstants.IDR_TASK_RT_ID +
+      '\''
     );
   }
 
@@ -33,10 +42,6 @@ public with sharing class IDRPendCaseTaskRemindersBatch implements Database.Batc
     );
     IDRPendCaseTaskRemindersHandler.sendInAppNotificationToCaseOwners(
       pendCaseTaskWrapperList
-    );
-    IDRPendCaseTaskRemindersHandler.sendEmailNotificationToTaskOwners(
-      pendCaseTaskWrapperList,
-      'Task Reminder'
     );
   }
 

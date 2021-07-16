@@ -87,24 +87,6 @@ public with sharing class IDRPendCaseTaskRemindersHandler {
   }
 
   /**
-   * @description method for sending email notification to task owners
-   * @param pendCaseTaskWrapperList list of IDRPendCaseTaskReminderWrapper
-   * @param whichNotification specifies which type of notification for eg Task Creation / Task Reminder etc
-   */
-  public static void sendEmailNotificationToTaskOwners(
-    List<IDRPendCaseTaskReminderWrapper> pendCaseTaskWrapperList,
-    String whichNotification
-  ) {
-    List<IDRPendCaseTaskReminderWrapper> verifiedPendCaseTaskWrapperList = IDRPendCaseTaskRemindersHelper.verifyIfEmailNotificationIsRequired(
-      pendCaseTaskWrapperList
-    );
-    IDRPendCaseTaskEmailNotification.sendEmailNotification(
-      verifiedPendCaseTaskWrapperList,
-      whichNotification
-    );
-  }
-
-  /**
    * @description method for sending in app notification to case owners when a task is created
    * @param taskList list of task records, whose case owners will recieve in app notification
    */

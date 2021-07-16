@@ -27,26 +27,6 @@ public with sharing class IDRPendCaseTaskRemindersSelector {
   }
 
   /**
-   * @description method to get permission set asssignment from soql query
-   * @param userIdList list of user ids
-   * @param permissionsList list containing permission set names
-   * @return List<PermissionSetAssignment> returns list of permission set assignment records
-   */
-  @SuppressWarnings(
-    'PMD.ApexCRUDViolation'
-  ) //CRUD check is done in parent class
-  public static List<PermissionSetAssignment> getPermissionSetAssignment(
-    List<Id> userIdList,
-    List<String> permissionsList
-  ) {
-    return [
-      SELECT PermissionSetId, AssigneeId
-      FROM PermissionSetAssignment
-      WHERE AssigneeId IN :userIdList AND PermissionSet.Name IN :permissionsList
-    ];
-  }
-
-  /**
    * @description method to get user records from soql query
    * @param userIdList list of user ids
    * @return Map<Id, User> returns a map of user records with its id
