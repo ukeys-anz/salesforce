@@ -74,9 +74,9 @@
     },
     {
       "name": "Engineer",
-      "profile": "No Access",
+      "profile": "Minimum Access - Salesforce",
       "permissionsetgroups": ["Engineer"],
-      "permissionsets": [],
+      "permissionsets": ["Enforce_SSO", "SFDX_Full_Dev_Hub_Access"],
       "type": "user"
     },
     {

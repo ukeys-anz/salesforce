@@ -21,7 +21,6 @@ const APEX_FACCOUNTS_SUCCESS = [
   {
     Id: "a0c2O00000197sUQAQ",
     FinServ__Balance__c: 50,
-    FinServ__CurrentPostedBalance__c: 50,
     LastModifiedDate: "2021-01-05T04:56:48.000+0000"
   }
 ];
@@ -30,7 +29,6 @@ const APEX_FACCOUNTS_EMPTY = [
   {
     Id: "",
     FinServ__Balance__c: null,
-    FinServ__CurrentPostedBalance__c: null,
     LastModifiedDate: null
   }
 ];
@@ -162,8 +160,10 @@ describe("c-accountsBalances", () => {
     publish(MessageContext, UpdateAccountsBalance, payload);
 
     return flushPromises().then(() => {
-      const balanceEle = element.shadowRoot.querySelector("article");
-      expect(balanceEle).toBeNull();
+      let div = element.shadowRoot.querySelector(
+        "div[data-id='balance-container']"
+      );
+      expect(div).toBeNull();
     });
   });
 
