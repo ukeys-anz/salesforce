@@ -68,7 +68,7 @@
             "label": "CaseAge",
             "name": "CaseAge",
             "precision": 2,
-            "saqlExpression": "daysBetween(toDate(CreatedDate_epoch) , now() )",
+            "saqlExpression": "daysBetween(toDate(CreatedDate_sec_epoch) , now())",
             "scale": 1,
             "type": "Numeric"
           }
