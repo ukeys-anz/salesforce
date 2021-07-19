@@ -43,6 +43,7 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
    */
   private static void manageNotification(List<Task> records) {
     List<IDRBankerNotificationWrapper> wrapperList = new List<IDRBankerNotificationWrapper>();
+    
     for (Task record : (List<Task>) records) {
       if (
         record.RecordTypeId == IDRConstants.IDR_TASK_RT_ID &&
@@ -52,12 +53,10 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
         wrapperList.add(createNotification(record));
       }
     }
-
     if (!wrapperList.isEmpty()) {
       IDRBankerNotificationBuilder.sendNotification(wrapperList);
     }
   }
-
   /**
    * @description Builds a notification using IDRBankerNotificationWrapper class
    * @param record task record from the trigger

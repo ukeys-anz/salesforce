@@ -5,9 +5,6 @@
  * @description Responsible to trigger the Notification for banker.
  *
  */
-@SuppressWarnings(
-  'PMD.CyclomaticComplexity'
-) //Since it handles all the case in app notifications
 public with sharing class IDRCaseNotificationManager {
   /**
    * @description Assesses whether or not to generate a banker notification for AfterUpdate scenario
@@ -83,7 +80,6 @@ public with sharing class IDRCaseNotificationManager {
         }
       }
     }
-
     if (!wrapperList.isEmpty()) {
       IDRBankerNotificationBuilder.sendNotification(wrapperList);
     }
