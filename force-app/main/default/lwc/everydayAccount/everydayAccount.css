@@ -45,3 +45,24 @@
 .account-footer {
   margin-bottom: 15px;
 }
+
+.tooltip {
+  cursor: pointer;
+  margin-left: 4px;
+  position: relative;
+  bottom: 2px;
+}
+
+.tooltip:hover {
+  --sds-c-icon-color-foreground-default: #014486;
+}
+
+.close-modal {
+  cursor: pointer;
+  --sds-c-icon-color-foreground-default: #fff;
+}
+
+.modal-header {
+  background: #1e164c;
+  color: #fff;
+}
