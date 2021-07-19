@@ -4,7 +4,8 @@
     {
       "TransactionID": "123",
       "amount": { "charged": { "value": "50.00" } },
-      "transactionType": "TRANSACTION_TYPE_CARD"
+      "transactionType": "TRANSACTION_TYPE_CARD",
+      "transactionDate": "2020-10-06T15:19:43Z"
     }
   ]
 }

@@ -2,7 +2,8 @@
 
 # Any subsequent(*) commands which fail will cause the shell script to exit immediately
 set -e
-
+# Using SOAP over REST is much faster for scratch org creations while pushing content.
+sfdx config:set restDeploy=false
 # Bypass the Lightning Experience custom domain check entirely, wich takes very long when connected to ANZ network
 # TODO Consider a switch to bypass it when connected elsewhere (e.g. from GCB)
 export SFDX_DOMAIN_RETRY=0
@@ -73,11 +74,24 @@ if [[ ($(cat stderr) == *'ERROR'*) ]]; then
 fi
 JOB_END_TIME=$(date +%s)
 echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
+
+echo "$(date): Pre-loading sample data..."
+JOB_START_TIME=$(date +%s)
+sfdx force:apex:execute -f ./apex-scripts/createTestData.apex
+JOB_END_TIME=$(date +%s)
+echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
+
+echo "$(date): Creating test users (inactive by default) with different roles..."
+JOB_START_TIME=$(date +%s)
+sfdx force:apex:execute -f ./apex-scripts/createTestUsers.apex
+JOB_END_TIME=$(date +%s)
+echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
+
 case ${testdata:0:1} in
 y | Y)
     echo "$(date): Import test data and users..."
     JOB_START_TIME=$(date +%s)
-    tsc --build
+    tsc --project webdriverIO
     cp webdriverIO/.env.example webdriverIO/.env
     node webdriverIO/setup-scripts/envSetup.js
     #below will fetch the latest changes from the remote master branch as its the branch specified in salesforce-scripts submodule

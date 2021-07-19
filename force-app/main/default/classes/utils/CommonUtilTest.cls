@@ -63,42 +63,5 @@ public with sharing class CommonUtilTest {
       );
     }
     Test.stopTest();
-
-    //AND THEN an error is logged
-    Application_Log__c log = [
-      SELECT
-        Process_Name__c,
-        Function_Name__c,
-        Error_Description__c,
-        Error_No__c,
-        Error_Code__c
-      FROM Application_Log__c
-      LIMIT 1
-    ];
-    System.assertEquals(
-      'CommonUtilTest',
-      log.Process_Name__c,
-      'Error should be logged'
-    );
-    System.assertEquals(
-      'logAndThrowTest',
-      log.Function_Name__c,
-      'Error should be logged'
-    );
-    System.assertEquals(
-      'Error message',
-      log.Error_Description__c,
-      'Error should be logged'
-    );
-    System.assertEquals(
-      'InsufficientAccessException',
-      log.Error_No__c,
-      'Error should be logged'
-    );
-    System.assertEquals(
-      UserInfo.getUserId(),
-      log.Error_Code__c,
-      'Error should be logged'
-    );
   }
 }

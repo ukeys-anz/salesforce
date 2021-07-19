@@ -84,14 +84,14 @@ public with sharing class QueueAccountDeletion implements Queueable {
     }
 
     //finally delete the account record only if all the related records are deleted successfully.
-    if (log.log.isEmpty()) {
+    if (log.logList.isEmpty()) {
       Database.DeleteResult result = Database.delete(accountToDelete, false);
       if (!result.isSuccess()) {
         logError('Account', result);
       }
     }
 
-    log.insertLog();
+    log.insertLogAsync();
   }
 
   /**

@@ -3,7 +3,7 @@
     "CasesOutput": {
       "action": "register",
       "parameters": { "label": "Cases w/Duration", "name": "cases_duration" },
-      "sources": ["CaseDurationInSeconds"]
+      "sources": ["AddUserRoleInfo"]
     },
     "CaseTypePickList": {
       "action": "sobjectDigest",
@@ -55,7 +55,7 @@
         "rightKey": ["CaseId"],
         "rightSelect": ["CountOfTransfers"]
       },
-      "sources": ["IncludeOnly:ANZx_Enquiry_Disputes", "CalcCountOfTransfers"]
+      "sources": ["AgedTicketsBucket", "CalcCountOfTransfers"]
     },
     "MergeCaseProduct": {
       "action": "augment",
@@ -108,7 +108,7 @@
             "label": "CaseDuration_epoch",
             "name": "CaseDuration_epoch",
             "precision": 10,
-            "saqlExpression": "(CreatedDate_sec_epoch - ClosedDate_sec_epoch)",
+            "saqlExpression": "(ClosedDate_sec_epoch - CreatedDate_sec_epoch)",
             "scale": 0,
             "type": "Numeric"
           }
@@ -116,6 +116,13 @@
         "mergeWithSource": true
       },
       "sources": ["CalcHasBeenTransferred"]
+    },
+    "UserDigest": {
+      "action": "sobjectDigest",
+      "parameters": {
+        "fields": [{ "name": "Id" }, { "name": "UserRoleId" }],
+        "object": "User"
+      }
     },
     "CaseDigest": {
       "action": "sobjectDigest",
@@ -157,7 +164,8 @@
           { "name": "ProductId" },
           { "name": "Status" },
           { "name": "IDR_Date_Received__c" },
-          { "name": "RecordTypeId" }
+          { "name": "RecordTypeId" },
+          { "name": "IDR_Escalation_Reason__c" }
         ],
         "object": "Case"
       }
@@ -191,6 +199,17 @@
         "object": "RecordType"
       }
     },
+    "AddUserRoleInfo": {
+      "action": "augment",
+      "parameters": {
+        "leftKey": ["OwnerId"],
+        "operation": "LookupSingleValue",
+        "relationship": "Role",
+        "rightKey": ["Id"],
+        "rightSelect": ["UserRoleId"]
+      },
+      "sources": ["CaseDurationInSeconds", "UserDigest"]
+    },
     "JoinRecordType": {
       "action": "augment",
       "parameters": {
@@ -202,13 +221,6 @@
       },
       "sources": ["MergeIssuePicklist", "RecordType"]
     },
-    "IncludeOnly:ANZx_Enquiry_Disputes": {
-      "action": "filter",
-      "parameters": {
-        "saqlFilter": "'Record.DeveloperName' in [\"ANZx_Complaint\", \"General_Inquiry\", \"ATM_Dispute\", \"Direct_Debit_Dispute\", \"Card_Dispute\", \"Direct_Entry_Dispute\", \"Urgent_Dishonour_Request_Dispute\"]"
-      },
-      "sources": ["AgedTicketsBucket"]
-    },
     "AgedTicketsBucket": {
       "action": "computeExpression",
       "parameters": {
@@ -217,7 +229,7 @@
             "label": "AgedDates",
             "name": "AgedDates",
             "precision": 10,
-            "saqlExpression": "case\nwhen daysBetween(toDate('IDR_Date_Received__c', \"yyyy-MM-dd\") , now() ) == 0 then \"0\"\nwhen daysBetween(toDate('IDR_Date_Received__c', \"yyyy-MM-dd\") , now() ) == 1 then \"1\"\nwhen daysBetween(toDate('IDR_Date_Received__c', \"yyyy-MM-dd\") , now() ) == 2 then \"2\"\nwhen daysBetween(toDate('IDR_Date_Received__c', \"yyyy-MM-dd\") , now() ) == 3 then \"3\"\nwhen daysBetween(toDate('IDR_Date_Received__c', \"yyyy-MM-dd\") , now() ) > 3 then \"4+\"\nelse \"0\"\nend",
+            "saqlExpression": "case\nwhen daysBetween(toDate(CreatedDate_sec_epoch), now() ) == 0 then \"0\"\nwhen daysBetween(toDate(CreatedDate_sec_epoch), now() ) == 1 then \"1\"\nwhen daysBetween(toDate(CreatedDate_sec_epoch), now() ) == 2 then \"2\"\nwhen daysBetween(toDate(CreatedDate_sec_epoch), now() ) == 3 then \"3\"\nwhen daysBetween(toDate(CreatedDate_sec_epoch), now() ) > 3 then \"4+\"\nelse \"0\"\nend\n",
             "type": "Text"
           }
         ],

@@ -21,27 +21,23 @@ const APEX_FACCOUNTS_SUCCESS = [
   {
     Id: "a0c2O00000197sUQAA",
     FinServ__Balance__c: 50,
-    FinServ__CurrentPostedBalance__c: 50,
     FinServ__Status__c: "Closed",
     LastModifiedDate: "2021-01-05T04:56:48.000+0000"
   },
   {
     Id: "a0c2O00000197sUQAB",
     FinServ__Balance__c: 50,
-    FinServ__CurrentPostedBalance__c: 50,
     FinServ__Status__c: "Active",
     LastModifiedDate: "2021-01-05T04:56:48.000+0000"
   },
   {
     Id: "a0c2O00000197sUQAC",
     FinServ__Balance__c: 50,
-    FinServ__CurrentPostedBalance__c: 50,
     LastModifiedDate: "2021-01-05T04:56:48.000+0000"
   },
   {
     Id: "a0c2O00000197sUQAD",
     FinServ__Balance__c: 50,
-    FinServ__CurrentPostedBalance__c: 50,
     LastModifiedDate: "2021-01-05T04:56:48.000+0000"
   }
 ];
@@ -50,7 +46,6 @@ const APEX_FACCOUNTS_EMPTY = [
   {
     Id: "",
     FinServ__Balance__c: null,
-    FinServ__CurrentPostedBalance__c: null,
     FinServ__Status__c: null,
     LastModifiedDate: null
   }

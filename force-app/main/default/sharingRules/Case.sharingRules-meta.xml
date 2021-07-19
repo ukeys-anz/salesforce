@@ -8,7 +8,7 @@
         <sharedTo>
             <role>Super_Support_Admin</role>
         </sharedTo>
-        <booleanFilter>1 AND 2 AND 3 AND 4</booleanFilter>
+        <booleanFilter>1 AND 2</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>notEqual</operation>
@@ -18,44 +18,6 @@
             <field>RecordTypeId</field>
             <operation>notEqual</operation>
             <value>Non-Customer Complaint</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>notEqual</operation>
-            <value>General Inquiry CMOS</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>notEqual</operation>
-            <value>CFMS Migrated Case</value>
-        </criteriaItems>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>Complaint_RTs_ANZRole_RO</fullName>
-        <accessLevel>Read</accessLevel>
-        <description>Great Read only access to Complaint and General Inquiry CMOS record types for all ANZ Role users.</description>
-        <label>Complaint_RTs_ANZRole_RO</label>
-        <sharedTo>
-            <role>ANZ</role>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>General Inquiry CMOS,Non-Customer Complaint,Customer Complaint,CFMS Migrated Case</value>
-        </criteriaItems>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>Complaint_RTs_BankerManager_RW</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>Great Read write access to complaint records for Bankers and Line Managers</description>
-        <label>Complaint_RTs_BankerManager_RW</label>
-        <sharedTo>
-            <roleAndSubordinates>Banker_Line_Manager</roleAndSubordinates>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Customer Complaint,Non-Customer Complaint</value>
         </criteriaItems>
         <criteriaItems>
             <field>IDR_Is_Restricted__c</field>
@@ -111,38 +73,79 @@
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>Complaint_RTs_ANZRole_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Great Read only access to Complaint and General Inquiry CMOS record types for all ANZ Role users.</description>
+        <label>Complaint_RTs_ANZRole_RO</label>
+        <sharedTo>
+            <role>ANZ</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Non-Customer Complaint,Customer Complaint</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Complaint_RTs_BankerManager_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Great Read write access to complaint records for Bankers and Line Managers</description>
+        <label>Complaint_RTs_BankerManager_RW</label>
+        <sharedTo>
+            <roleAndSubordinates>Banker_Line_Manager</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Complaint,Non-Customer Complaint</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Complaint_RTs_CRPUsers_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Great Read write access to complaint records for Customer Resolution Users</description>
+        <label>Complaint_RTs_CRPUsers_RW</label>
+        <sharedTo>
+            <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Complaint,Non-Customer Complaint</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Complaint_RTs_SIUsers_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Give read only access to Systemic issue users for customer and non customer complaints</description>
+        <label>Complaint_RTs_SIUsers_RO</label>
+        <sharedTo>
+            <role>Systemic_Issue_Team</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Complaint,Non-Customer Complaint</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>Dispute_RT_FraudXAgents_RO</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All Cases having &quot;Dispute&quot; record types are to be shared with FraudX Agents with Read-Only access.</description>
-        <label>Dispute_RT-FraudXAgents-RO</label>
+        <description>All cases record types except AR&amp;C are to be shared with Super Support Admin users with Read-Only access.</description>
+        <label>AllExceptARC_RTs_SSA_RO</label>
         <sharedTo>
-            <role>FraudX_Agent</role>
+            <role>Super_Support_Admin</role>
         </sharedTo>
-        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5</booleanFilter>
+        <booleanFilter>1 AND 2</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>ATM</value>
+            <operation>notEqual</operation>
+            <value>Customer Complaint</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Card</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Direct Debit</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Direct Entry</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Urgent Dishonour Request</value>
+            <operation>notEqual</operation>
+            <value>Non-Customer Complaint</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -152,153 +155,6 @@
         <label>Dispute_RTs-Coaches-RW</label>
         <sharedTo>
             <role>Coach</role>
-        </sharedTo>
-        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8</booleanFilter>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>ATM</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Card</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Direct Debit</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Direct Entry</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Urgent Dishonour Request</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Complaint</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>General Enquiry</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Bug Enquiry</value>
-        </criteriaItems>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>Dispute_RTs_QA_RO</fullName>
-        <accessLevel>Read</accessLevel>
-        <label>Dispute_RTs_QA_RO</label>
-        <sharedTo>
-            <role>Quality_Analyst</role>
-        </sharedTo>
-        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8</booleanFilter>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>ATM</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Card</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Direct Debit</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Direct Entry</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Urgent Dishonour Request</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Complaint</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>General Enquiry</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Bug Enquiry</value>
-        </criteriaItems>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>Dispute_RTs_Support_Coaches_RW</fullName>
-        <accessLevel>Edit</accessLevel>
-        <label>Dispute_RTs_Support_Coaches_RW</label>
-        <sharedTo>
-            <role>Support_Coach</role>
-        </sharedTo>
-        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8</booleanFilter>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>ATM</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Card</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Direct Debit</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Direct Entry</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Urgent Dishonour Request</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Complaint</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>General Enquiry</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Bug Enquiry</value>
-        </criteriaItems>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>Dispute_RTs_Support_Staff_RO</fullName>
-        <accessLevel>Read</accessLevel>
-        <label>Dispute_RTs_Support_Staff_RO</label>
-        <sharedTo>
-            <role>Support_Staff_ARC</role>
         </sharedTo>
         <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7</booleanFilter>
         <criteriaItems>
@@ -329,12 +185,152 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>General Enquiry</value>
+            <value>Complaint</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Bug Enquiry</value>
+            <value>General Enquiry</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Dispute_RTs_QA_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Dispute_RTs_QA_RO</label>
+        <sharedTo>
+            <role>Quality_Analyst</role>
+        </sharedTo>
+        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7</booleanFilter>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>ATM</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Card</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Direct Debit</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Direct Entry</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Urgent Dishonour Request</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>General Enquiry</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Dispute_RTs_Support_Coaches_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Dispute_RTs_Support_Coaches_RW</label>
+        <sharedTo>
+            <role>Support_Coach</role>
+        </sharedTo>
+        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7</booleanFilter>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>ATM</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Card</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Direct Debit</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Direct Entry</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Urgent Dishonour Request</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>General Enquiry</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Dispute_RTs_Support_Staff_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Dispute_RTs_Support_Staff_RO</label>
+        <sharedTo>
+            <role>Support_Staff_ARC</role>
+        </sharedTo>
+        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6</booleanFilter>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>ATM</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Card</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Direct Debit</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Direct Entry</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Urgent Dishonour Request</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>General Enquiry</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Dispute_RTs_Support_Staff_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Dispute_RTs_Support_Staff_RW</label>
+        <sharedTo>
+            <role>Support_Staff_ARC</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Complaint</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -361,21 +357,83 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Fraud,Scam,KYC QA,Identity,Recipient/Mule</value>
+            <value>Direct Debit,Recipient/Mule,Direct Entry,ATM,Fraud,General Enquiry,KYC QA,Scam,Identity,Urgent Dishonour Request,Card</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>GeneralEnquiry_RT_FraudXAgents_RO</fullName>
+        <fullName>IDR_RT_Data_Analyst_RO</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All Cases having &quot;General Enquiry&quot; record type are to be shared with FraudX Agents with Read-Only access.</description>
-        <label>GeneralEnquiry_RT-FraudXAgents-RO</label>
+        <description>Grant read only access to Data Analyst for Complaint and SI record types</description>
+        <label>IDR_RT_Data_Analyst_RO</label>
         <sharedTo>
-            <role>FraudX_Agent</role>
+            <role>Data_Analyst</role>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>General Enquiry</value>
+            <value>Systemic Issue,Non-Customer Complaint,Customer Complaint</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>PSIComplaint_RTs_SITeam_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Grant edit access to possible systemic issue complaint records for systemic issue team</description>
+        <label>PSIComplaint_RTs_SITeam_RW</label>
+        <sharedTo>
+            <role>Systemic_Issue_Team</role>
+        </sharedTo>
+        <booleanFilter>1 AND 2</booleanFilter>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Complaint,Non-Customer Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IDR_Is_Common__c</field>
+            <operation>equals</operation>
+            <value>Yes</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>SI_RT_CRP_LT_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Grant Read only access to Systemic issue records for Customer Resolution Leadership Team</description>
+        <label>SI_RT_CRP_LT_RO</label>
+        <sharedTo>
+            <role>Customer_Resolution_Leadership</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Systemic Issue</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>SI_RT_SI_Business_Contacts_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Grant Read Only access to systemic issue records for SI Key business contacts</description>
+        <label>SI_RT_SI_Business_Contacts_RO</label>
+        <sharedTo>
+            <group>SI_Business_Contacts</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Systemic Issue</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>SI_RTs_SITeam_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Grant read and write access on systemic issue records for SI team members</description>
+        <label>SI_RTs_SITeam_RW</label>
+        <sharedTo>
+            <role>Systemic_Issue_Team</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Systemic Issue</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>

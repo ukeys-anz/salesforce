@@ -25,6 +25,11 @@ public with sharing class FabricServiceMock extends Service {
     'mock_transactionHistory'
   );
 
+  @TestVisible
+  private static final String CARD_LIST_SUCCESS_RESPONSE = getStaticResource(
+    'mock_cardList'
+  );
+
   /**
    * @param ocvId customer id to retrieve accounts and goals for
    * @return `HttpCalloutResponse` the api response
@@ -44,6 +49,18 @@ public with sharing class FabricServiceMock extends Service {
   ) {
     if (!preset) {
       response.body = FabricServiceMock.TRANSACTION_HISTORY_SUCCESS_RESPONSE;
+    }
+    return response;
+  }
+
+  /**
+   * @param ocvId customer id to retrieve accounts and goals for
+   * @return `HttpCalloutResponse` the api response
+   * @description fetches card list fake response
+   */
+  public override HttpCalloutResponse getCardList(String ocvId) {
+    if (!preset) {
+      response.body = FabricServiceMock.CARD_LIST_SUCCESS_RESPONSE;
     }
     return response;
   }

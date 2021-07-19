@@ -38,17 +38,18 @@
         "rightKey": ["Salary_ID"],
         "rightSelect": [
           "Access_Level",
-          "Business",
-          "Country",
-          "District",
-          "First_Name",
-          "Last_Name",
-          "Region",
-          "Role",
-          "Salary_ID",
           "State_Province",
+          "Team_Code",
+          "First_Name",
+          "Role",
           "Team_Branch",
-          "Team_Code"
+          "Last_Name",
+          "Salary_ID",
+          "Country",
+          "Region",
+          "District",
+          "Business",
+          "Division"
         ]
       },
       "sources": ["augment_User", "digest_cmos_onboarding_csv"]

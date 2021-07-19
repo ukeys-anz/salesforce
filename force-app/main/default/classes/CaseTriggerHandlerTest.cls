@@ -69,7 +69,7 @@ private class CaseTriggerHandlerTest {
       Account a = new Account(
         Name = 'Complaint Entitlement Account',
         OCV_ID__c = faker.randomString(10),
-        ANZx_Customer__c = false
+        AR_C_Customer__c = true
       );
       accnts.add(a);
       insert accnts;
@@ -620,7 +620,7 @@ private class CaseTriggerHandlerTest {
     }
   }
 
-  //Tests if the Case Subject is populated correctly based on case type and additional type.
+  //Tests if the Case Subject is populated correctly based on case type and sub type.
   @isTest
   static void testPopulateCaseSubject() {
     Case[] newCases = new List<Case>();
@@ -634,8 +634,8 @@ private class CaseTriggerHandlerTest {
       newCases.add(
         new Case(
           RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
-          Type = 'Card',
-          Additional_Type__c = 'App Support;Coaching',
+          Type = 'Cards',
+          Sub_Type__c = 'Damaged card',
           AccountId = acc.Id
         )
       );
@@ -643,14 +643,77 @@ private class CaseTriggerHandlerTest {
 
     insert newCases;
 
-    newCases[0].Type = 'Dispute';
-    newCases[0].Additional_Type__c = 'My Security;Product Information';
+    newCases[0].Type = 'Cards';
+    newCases[0].Sub_Type__c = 'Damaged card';
+    update newCases;
+
+    newCases = [SELECT Subject FROM Case WHERE id = :newCases[0].id];
+
+    system.assertEquals('Cards - Damaged card', newCases[0].Subject);
+  }
+
+  //Tests if the Case Subject is populated correctly when no sub types.
+  @isTest
+  static void testNoSubTypeCaseSubject() {
+    Case[] newCases = new List<Case>();
+    Account acc = [
+      SELECT Id
+      FROM Account
+      WHERE Display_Name__c = 'TestAccount'
+      LIMIT 1
+    ];
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
+          Type = 'Cards',
+          Sub_Type__c = '',
+          AccountId = acc.Id
+        )
+      );
+    }
+
+    insert newCases;
+
+    newCases[0].Type = 'Cards';
+    newCases[0].Sub_Type__c = '';
+    update newCases;
+
+    newCases = [SELECT Subject FROM Case WHERE id = :newCases[0].id];
+
+    system.assertEquals('Cards', newCases[0].Subject);
+  }
+  //Tests if the Case Subject is populated correctly when adding two sub types.
+  @isTest
+  static void testMultipleSubTypeCaseSubject() {
+    Case[] newCases = new List<Case>();
+    Account acc = [
+      SELECT Id
+      FROM Account
+      WHERE Display_Name__c = 'TestAccount'
+      LIMIT 1
+    ];
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
+          Type = 'Cards',
+          Sub_Type__c = 'Damaged card;Using card',
+          AccountId = acc.Id
+        )
+      );
+    }
+
+    insert newCases;
+
+    newCases[0].Type = 'Cards';
+    newCases[0].Sub_Type__c = 'Damaged card;Using card';
     update newCases;
 
     newCases = [SELECT Subject FROM Case WHERE id = :newCases[0].id];
 
     system.assertEquals(
-      'Dispute, My Security, Product Information',
+      'Cards - Damaged card - Using card',
       newCases[0].Subject
     );
   }
@@ -658,12 +721,7 @@ private class CaseTriggerHandlerTest {
   //Tests if the complaints entitlment logic in working as expected.
   @isTest
   static void testComplaintEntilement() {
-    Account a = [
-      SELECT Id
-      FROM Account
-      WHERE Name = 'Complaint Entitlement Account'
-      LIMIT 1
-    ];
+    Account a = [SELECT Id FROM Account WHERE AR_C_Customer__c = TRUE LIMIT 1];
     Slaprocess sla = [
       SELECT Id, NAME
       FROM Slaprocess

@@ -85,6 +85,15 @@ public with sharing virtual class Service {
   }
 
   /**
+   * @param ocvId customer id
+   * @return `HttpCalloutResponse` api response
+   * @description virtual card list callout
+   */
+  public virtual HttpCalloutResponse getCardList(String ocvId) {
+    return null;
+  }
+
+  /**
    * @param response HttpCalloutResponse to test various error codes
    * @description setter method for response property
    */
@@ -118,6 +127,7 @@ public with sharing virtual class Service {
   public Map<String, String> setMuleCommonHeaders(Map<String, String> headers) {
     headers.put('client_id', '{!$Credential.Username}');
     headers.put('client_secret', '{!$Credential.Password}');
+    headers.put('x-correlation-id', UniqueIdUtil.getTraceId());
     return headers;
   }
 
