@@ -304,7 +304,7 @@ public with sharing class IDRCollectionActions {
     );
     log.addDatabaseSaveResult(
       'IDR_Collections_Event__e',
-      sr,
+      publishResults,
       collectionsEventList
     );
     log.insertLog();
