@@ -312,17 +312,16 @@ public with sharing class GetHelpCaseActions {
     Set<Id> bugIdSet = new Set<Id>();
     bugIdSet = GetHelpCaseActionsHelper.getBugIdSet(records, bugIdSet);
     bugIdSet = GetHelpCaseActionsHelper.getBugIdSet(oldRecords, bugIdSet);
-    if (
-      !bugIdSet.isEmpty() &&
-      Reported_Bug__c.SObjectType.getDescribe().isAccessible()
-    ) {
-      List<Reported_Bug__c> bugs = new List<Reported_Bug__c>();
-      bugs = GetHelpCaseActionsHelper.getReportedBugs(bugIdSet);
 
-      for (Reported_Bug__c bug : bugs) {
-        bug.Number_of_Related_Cases__c = bug.Cases__r.size();
-      }
-      if (
+    List<Reported_Bug__c> bugs = new List<Reported_Bug__c>();
+    if (Reported_Bug__c.SObjectType.getDescribe().isAccessible()) {
+      bugs = GetHelpCaseActionsHelper.getReportedBugs(bugIdSet);
+    }
+
+    for (Reported_Bug__c bug : bugs) {
+      bug.Number_of_Related_Cases__c = bug.Cases__r.size();
+    }
+       if (
         Reported_Bug__c.SObjectType.getDescribe().isUpdateable() &&
         Schema.sObjectType.Reported_Bug__c.fields.Number_of_Related_Cases__c.isUpdateable()
       ) {
@@ -361,14 +360,17 @@ public with sharing class GetHelpCaseActions {
   @future
   @SuppressWarnings('PMD.ApexCRUDViolation')
   public static void futureRollupRelatedBug(Set<Id> bugIdSet) {
-    if (Reported_Bug__c.SObjectType.getDescribe().isAccessible()) {
-      List<Reported_Bug__c> bugs = GetHelpCaseActionsHelper.getReportedBugs(
-        bugIdSet
-      );
+    List<Reported_Bug__c> bugs = new List<Reported_Bug__c>();
+    if (
+      Reported_Bug__c.SObjectType.getDescribe().isAccessible() &&
+      Reported_Bug__c.SObjectType.getDescribe().isUpdateable()
+    ) {
+      bugs = GetHelpCaseActionsHelper.getReportedBugs(bugIdSet);
+    }
 
-      for (Reported_Bug__c bug : bugs) {
-        bug.Number_of_Related_Cases__c = bug.Cases__r.size();
-      }
+    for (Reported_Bug__c bug : bugs) {
+      bug.Number_of_Related_Cases__c = bug.Cases__r.size();
+    }
 
       if (
         Reported_Bug__c.SObjectType.getDescribe().isUpdateable() &&
