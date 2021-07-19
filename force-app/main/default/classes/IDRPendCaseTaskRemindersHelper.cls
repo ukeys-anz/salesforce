@@ -7,47 +7,10 @@ public with sharing class IDRPendCaseTaskRemindersHelper {
   /**
    * @description Helper method to get all the cases from specified caseIdList
    * @param caseIdList list of case ids
-   * @return List<case> list of case records
+   * @return Map<Id, Case> map of case with its id
    */
-  public static List<Case> getCasesHelper(List<Id> caseIdList) {
-    if (
-      Case.SObjectType.getDescribe().isQueryable() &&
-      Schema.SObjectType.Case.fields.CaseNumber.isAccessible() &&
-      Schema.SObjectType.Case.fields.OwnerId.isAccessible()
-    ) {
-      return IDRPendCaseTaskRemindersSelector.getCasesFromIds(caseIdList);
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'IDRPendCaseTaskRemindersHelper',
-        'getCasesHelper',
-        'Not enough permissions to query/access Case Object/Fields.'
-      );
-      return null;
-    }
+  public static Map<Id, Case> getCasesHelper(List<Id> caseIdList) {
+    //No need for CRUD validation as all the profiles will have access to CaseNumber, OwnerId of Case Object
+    return IDRPendCaseTaskRemindersSelector.getCasesFromIds(caseIdList);
   }
-
-  /**
-   * @description method to send reminders to case owners
-   * @param pendCaseTaskWrapperList list of IDRPendCaseTaskReminderWrapper
-   */
-  public static void sendRemindersToCaseOwners(
-    List<IDRPendCaseTaskReminderWrapper> pendCaseTaskWrapperList
-  ) {
-    IDRCaseNotificationManager.manageCaseNotificationForTaskReminders(
-      pendCaseTaskWrapperList
-    );
-  }
-
-  /**
-   * @description method to send reminders to task owners
-   * @param pendCaseTaskWrapperList list of IDRPendCaseTaskReminderWrapper
-   */
-  public static void sendRemindersToTaskOwners(
-    List<IDRPendCaseTaskReminderWrapper> pendCaseTaskWrapperList
-  ) {
-    IDRTaskNotificationManager.manageNotificationForTaskReminders(
-      pendCaseTaskWrapperList
-    );
-  }
-
 }

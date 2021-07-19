@@ -88,50 +88,7 @@ public with sharing class IDRCaseNotificationManager {
       IDRBankerNotificationBuilder.sendNotification(wrapperList);
     }
   }
-
-  /**
-   * @description Assesses whether or not to generate a in app notification for task reminder
-   * @param pendCaseTaskWrapperList list of IDRPendCaseTaskReminderWrapper
-   */
-  public static void manageCaseNotificationForTaskReminders(
-    List<IDRPendCaseTaskReminderWrapper> pendCaseTaskWrapperList
-  ) {
-    List<IDRBankerNotificationWrapper> wrapperList = new List<IDRBankerNotificationWrapper>();
-    for (
-      IDRPendCaseTaskReminderWrapper pendCaseTaskWrapper : pendCaseTaskWrapperList
-    ) {
-      if (pendCaseTaskWrapper.notifyOwner == true) {
-        wrapperList.add(
-          createNotificationForTaskReminders(
-            'Task Reminder',
-            pendCaseTaskWrapper.caseRecord,
-            pendCaseTaskWrapper.taskRecord,
-            pendCaseTaskWrapper.daysBetweenTaskDueDate
-          )
-        );
-      }
-    }
-
-    IDRBankerNotificationBuilder.sendNotification(wrapperList);
-  }
-
-  /**
-   * @description Assesses whether or not to generate a in app notification for task creation
-   * @param caseList list of case records
-   */
-  public static void manageCaseNotificationForTaskCreation(
-    List<case> caseList
-  ) {
-    List<IDRBankerNotificationWrapper> wrapperList = new List<IDRBankerNotificationWrapper>();
-    for (Case c : caseList) {
-      wrapperList.add(
-        createNotificationForTaskReminders('Task Creation', c, null, null)
-      );
-    }
-
-    IDRBankerNotificationBuilder.sendNotification(wrapperList);
-  }
-
+  
   /**
    * @description Builds a notification using IDRBankerNotificationWrapper class
    * @param fieldLabel Field label where the change has been detected
@@ -187,63 +144,6 @@ public with sharing class IDRCaseNotificationManager {
         c.CaseNumber,
         msgBody,
         c
-      );
-    }
-
-    return wrapper;
-  }
-
-  /**
-   * @description Builds a notification using IDRBankerNotificationWrapper class
-   * @param whichNotification specifies which notification for eg Task Creation/Task Reminder etc
-   * @param c the case record
-   * @param t the task record
-   * @param daysForDue no of days between task due date and today
-   * @return IDRBankerNotificationWrapper new instance of wrapper class
-   */
-  @SuppressWarnings(
-    'PMD.ExcessiveParameterList'
-  ) //Can't calculate again daysForDue as its being done in parent classes, hence passing directly to save processing time
-  public static IDRBankerNotificationWrapper createNotificationForTaskReminders(
-    String whichNotification,
-    Case c,
-    Task t,
-    Integer daysForDue
-  ) {
-    IDRBankerNotificationWrapper wrapper;
-    String msgBody;
-    if (whichNotification == 'Task Creation') {
-      msgBody =
-        'Your case ' +
-        c.CaseNumber +
-        ' has a new task assigned, Please ensure they are actioned';
-      wrapper = new IDRBankerNotificationWrapper(
-        c,
-        new List<Id>{ c.OwnerId },
-        c.CaseNumber,
-        msgBody,
-        null
-      );
-    } else if (whichNotification == 'Task Reminder') {
-      if (daysForDue == 1) {
-        msgBody =
-          'A task you assigned for complaint ' +
-          c.CaseNumber +
-          ' is due in tomorrow';
-      } else {
-        msgBody =
-          'A task you assigned for complaint ' +
-          c.CaseNumber +
-          ' is due in ' +
-          daysForDue +
-          ' days';
-      }
-      wrapper = new IDRBankerNotificationWrapper(
-        c,
-        new List<Id>{ c.OwnerId },
-        t.Subject,
-        msgBody,
-        null
       );
     }
 

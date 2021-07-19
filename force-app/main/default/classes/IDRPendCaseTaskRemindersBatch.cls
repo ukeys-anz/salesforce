@@ -10,15 +10,20 @@ public with sharing class IDRPendCaseTaskRemindersBatch implements Database.Batc
    * @return Database.QueryLocator scope
    */
   public Database.QueryLocator start(Database.BatchableContext bc) {
-    Date windowFromToday = Date.today()
-      .addDays(Integer.valueOf(Label.IDR_Max_Window_For_Task_Reminders));
     return Database.getQueryLocator(
-      'SELECT Id, ActivityDate, OwnerId, WhatId, Subject ' +
+      'SELECT Id, ActivityDate, OwnerId, WhatId, Subject, Due_in_Days__c ' +
       'FROM Task ' +
-        'WHERE Type = \'' + IDRConstants.TASK_TYPE_PEND_CASE + '\'' +
-          ' AND WhatId != null AND Owner.Type = \'User\' AND Status != \'' + IDRConstants.TASK_STATUS_COMPLETED + '\'' +
-          ' AND ( ActivityDate <=: windowFromToday OR ActivityDate > TODAY )' +
-          ' AND RecordTypeId = \'' + IDRConstants.IDR_TASK_RT_ID + '\''
+      'WHERE Type = \'' +
+      IDRConstants.TASK_TYPE_PEND_CASE +
+      '\'' +
+      ' AND WhatId != null AND Owner.Type = \'User\' AND Status != \'' +
+      IDRConstants.TASK_STATUS_COMPLETED +
+      '\'' +
+      ' AND Due_in_Days__c <= ' +
+      Label.IDR_Max_Window_For_Task_Reminders +
+      ' AND RecordTypeId = \'' +
+      IDRConstants.IDR_TASK_RT_ID +
+      '\''
     );
   }
 
@@ -28,15 +33,10 @@ public with sharing class IDRPendCaseTaskRemindersBatch implements Database.Batc
    * @param taskScope from start method
    */
   public void execute(Database.BatchableContext bc, List<Task> taskScope) {
-    List<IDRPendCaseTaskReminderWrapper> pendCaseTaskWrapperList = IDRPendCaseTaskRemindersHandler.createWrapper(
+    List<IDRBankerNotificationWrapper> notificaitonWrapperList = IDRPendCaseTaskRemindersHandler.createWrapper(
       taskScope
     );
-    IDRPendCaseTaskRemindersHandler.sendInAppNotificationToTaskOwners(
-      pendCaseTaskWrapperList
-    );
-    IDRPendCaseTaskRemindersHandler.sendInAppNotificationToCaseOwners(
-      pendCaseTaskWrapperList
-    );
+    IDRBankerNotificationBuilder.sendNotification(notificaitonWrapperList);
   }
 
   /**

@@ -1,42 +1,61 @@
 /**
  * @author Adnan
  * @since  09/2021
- * @description Selector class which contains queries for IDRPendCaseTaskRemindersBatch and for creating and sending task notifications
+ * @description Handler class for IDRPendCaseTaskRemindersBatch and for creating and sending task notifications
  */
-public with sharing class IDRPendCaseTaskRemindersSelector {
+public with sharing class IDRPendCaseTaskRemindersHandler {
   /**
-   * @description method to get case records from soql query
-   * @param caseIdList list of case ids
-   * @return List<Case> returns list of case records
+   * @description method for creating wrapper to send notifications
+   * @param taskList list of task records that are used for creating wrapper
+   * @return List<IDRBankerNotificationWrapper> returns the created wrapper
    */
-  @SuppressWarnings(
-    'PMD.ApexCRUDViolation'
-  ) //CRUD check is done in parent class
-  public static List<Case> getCasesFromIds(List<Id> caseIdList) {
-    return [
-      SELECT
-        Id,
-        CaseNumber,
-        OwnerId,
-        TYPEOF Owner
-          WHEN User THEN Id, FirstName, ManagerId
-        END
-      FROM Case
-      WHERE Id IN :caseIdList AND Owner.Type = 'User'
-    ];
-  }
+  public static List<IDRBankerNotificationWrapper> createWrapper(
+    List<Task> taskList
+  ) {
+    List<Id> caseIdList = new List<Id>();
+    List<IDRBankerNotificationWrapper> wrapperList = new List<IDRBankerNotificationWrapper>();
 
-  /**
-   * @description method to get user records from soql query
-   * @param userIdList list of user ids
-   * @return Map<Id, User> returns a map of user records with its id
-   */
-  @SuppressWarnings(
-    'PMD.ApexCRUDViolation'
-  ) //CRUD check is done in parent class
-  public static Map<Id, User> getUserDetails(List<Id> userIdList) {
-    return new Map<Id, User>(
-      [SELECT Id, Email, FirstName FROM User WHERE Id IN :userIdList]
+    List<String> windowForTaskReminders = Label.IDR_Window_For_Task_Reminders.split(
+      ','
     );
+    for (Task t : taskList) {
+      caseIdList.add(t.WhatId);
+    }
+    Map<Id, Case> caseMap = IDRPendCaseTaskRemindersHelper.getCasesHelper(
+      caseIdList
+    );
+    for (Task t : taskList) {
+      List<Id> recipientList = new List<Id>();
+      String msgBody;
+      if (
+        windowForTaskReminders.contains(
+          String.valueOf(Integer.valueOf(t.Due_in_Days__c))
+        )
+      ) {
+        recipientList.add(t.OwnerId);
+        recipientList.add(caseMap.get(t.WhatId)?.OwnerId);
+        msgBody =
+          'Pend Task for Case : ' +
+          caseMap.get(t.WhatId)?.CaseNumber +
+          ' is due in ' +
+          Integer.valueOf(t.Due_in_Days__c) +
+          ' Days.';
+      } else if (t.Due_in_Days__c < 0) {
+        recipientList.add(((User) caseMap.get(t.WhatId)?.Owner).ManagerId);
+        msgBody =
+          'Pend Task for Case : ' +
+          caseMap.get(t.WhatId)?.CaseNumber +
+          ' is Overdue.';
+      }
+      IDRBankerNotificationWrapper wrapper = new IDRBankerNotificationWrapper(
+        t,
+        recipientList,
+        'Pend Case Task Reminder',
+        msgBody,
+        caseMap.get(t.WhatId)
+      );
+      wrapperList.add(wrapper);
+    }
+    return wrapperList;
   }
 }
