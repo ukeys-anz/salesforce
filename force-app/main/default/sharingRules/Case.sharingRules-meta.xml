@@ -8,7 +8,7 @@
         <sharedTo>
             <role>Super_Support_Admin</role>
         </sharedTo>
-        <booleanFilter>1 AND 2</booleanFilter>
+        <booleanFilter>1 AND 2 AND 3</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>notEqual</operation>
