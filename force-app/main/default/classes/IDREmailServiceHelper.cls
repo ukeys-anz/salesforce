@@ -312,15 +312,16 @@ public with sharing class IDREmailServiceHelper {
       try {
         update newCase;
       } catch (Exception err) {
-        Lib_SystemLog.logAPIError(
+        Lib_SystemLog log = new Lib_SystemLog(
           IDREmailServiceHelper.class.getName(),
-          'Error in updating case with queue for caseId :' + newCase.Id,
-          err.getMessage(),
-          null,
-          IDREmailServiceHelper.class.getName(),
-          null,
-          null
+          'updateCaseWithQueue'
         );
+        log.error(
+          'EmailServiceException',
+          'Error in updating case with queue for caseId :' + newCase.Id,
+          err.getMessage()
+        );
+        log.publishEvent();
       }
     } else {
       CommonUtil.logAndThrowIAE(
