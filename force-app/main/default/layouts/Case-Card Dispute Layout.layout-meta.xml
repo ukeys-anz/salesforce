@@ -12,12 +12,24 @@
                 <field>Transaction_Id__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Effective_Date__c</field>
+                <behavior>Edit</behavior>
+                <field>Transaction_UUID__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Transaction_Description__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>Amount__c</field>
+                <field>Transaction_Amount__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Posted_Amount__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Effective_Date__c</field>
             </layoutItems>
         </layoutColumns>
         <style>OneColumn</style>
@@ -66,18 +78,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Merchant_Name__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Merchant_Description__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Merchant_Address__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>Transaction_Authorised_Date__c</field>
             </layoutItems>
             <layoutItems>
@@ -90,10 +90,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Goods_Or_Services_Returned__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>Date_Of_Expected_Delivery_Service__c</field>
             </layoutItems>
             <layoutItems>
@@ -101,16 +97,12 @@
                 <field>Regular_Payment_Cancellation_Date__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>POS_Entry_Mode__c</field>
+                <behavior>Edit</behavior>
+                <field>Card_Status__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Card_Method__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Card_Scheme__c</field>
+                <field>Card_Token_Number__c</field>
             </layoutItems>
         </layoutColumns>
         <style>OneColumn</style>
@@ -244,7 +236,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>true</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2N000001m8NM</masterLabel>
+        <masterLabel>00h2N000001scOg</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>
