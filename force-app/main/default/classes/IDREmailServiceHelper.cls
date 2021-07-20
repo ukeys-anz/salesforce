@@ -283,9 +283,9 @@ public with sharing class IDREmailServiceHelper {
           log.error(
             'EmailServiceException',
             'Discarded a binary attachment as the type was unsupported => filename : ' +
-            tAttachment.fileName +
+            bAttachment.fileName +
             ' , mimesubtype : ' +
-            tAttachment.mimeTypeSubType +
+            bAttachment.mimeTypeSubType +
             ', For the case : ' +
             caseId
           );
