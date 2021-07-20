@@ -43,7 +43,7 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
    */
   private static void manageNotification(List<Task> records) {
     List<IDRBankerNotificationWrapper> wrapperList = new List<IDRBankerNotificationWrapper>();
-    
+
     for (Task record : (List<Task>) records) {
       if (
         record.RecordTypeId == IDRConstants.IDR_TASK_RT_ID &&
