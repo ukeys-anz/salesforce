@@ -25,15 +25,15 @@ public with sharing class IDRPendCaseTaskRemindersHandler {
       caseIdList
     );
     for (Task t : taskList) {
-      Set<Id> recipientList = new Set<Id>();
+      Set<Id> recipientSet = new Set<Id>();
       String msgBody;
       if (
         windowForTaskReminders.contains(
           String.valueOf(Integer.valueOf(t.Due_in_Days__c))
         )
       ) {
-        recipientList.add(t.OwnerId);
-        recipientList.add(caseMap.get(t.WhatId)?.OwnerId);
+        recipientSet.add(t.OwnerId);
+        recipientSet.add(caseMap.get(t.WhatId)?.OwnerId);
         msgBody =
           'Pend Task for Case : ' +
           caseMap.get(t.WhatId)?.CaseNumber +
@@ -41,12 +41,14 @@ public with sharing class IDRPendCaseTaskRemindersHandler {
           Integer.valueOf(t.Due_in_Days__c) +
           ' Days.';
       } else if (t.Due_in_Days__c < 0) {
-        recipientList.add(((User) caseMap.get(t.WhatId)?.Owner).ManagerId);
+        recipientSet.add(((User) caseMap.get(t.WhatId)?.Owner).ManagerId);
         msgBody =
           'Pend Task for Case : ' +
           caseMap.get(t.WhatId)?.CaseNumber +
           ' is Overdue.';
       }
+      List<Id> recipientList = new List<Id>();
+      recipientList.addAll(recipientSet);
       IDRBankerNotificationWrapper wrapper = new IDRBankerNotificationWrapper(
         t,
         recipientList,
