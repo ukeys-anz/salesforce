@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Task_Sub_Type__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Privacy_Non_Personal_Information;Integrity_Accurate;Source_Salesforce</complianceGroup>
+    <description>Displays task sub type</description>
+    <inlineHelpText>Only required if creating a task related to an AFCA Due Date</inlineHelpText>
+    <securityClassification>Internal</securityClassification>
+    <externalId>false</externalId>
+    <label>Task Sub-Type</label>
+    <required>false</required>
+    <type>Picklist</type> 
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Reg response</fullName>
+                <default>false</default>
+                <label>Reg response</label>
+            </value>
+            <value>
+                <fullName>Information request</fullName>
+                <default>false</default>
+                <label>Information request</label>
+            </value>
+            <value>
+                <fullName>TCC</fullName>
+                <default>false</default>
+                <label>TCC</label>
+            </value>
+            <value>
+                <fullName>PA/PV/Recommendation</fullName>
+                <default>false</default>
+                <label>PA/PV/Recommendation</label>
+            </value>
+            <value>
+                <fullName>Determination</fullName>
+                <default>false</default>
+                <label>Determination</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
