@@ -22,18 +22,18 @@ public with sharing class IDREmailServiceHandler {
   ) {
     Boolean isSpam = false;
     if (senderEmail != null && technicalEmailAddress.contains(senderEmail)) {
-      Lib_SystemLog.logAPIError(
+      Lib_SystemLog log = new Lib_SystemLog(
         IDREmailServiceHandler.class.getName(),
+        'checkSpamming'
+      );
+      log.error(
         'Spam detected from IDR apex email service',
         'Recieved email from --' +
         fromEmail +
         ' Subject --' +
-        subject,
-        null,
-        IDREmailServiceHandler.class.getName(),
-        null,
-        null
+        subject
       );
+      log.publishEvent();
       isSpam = true;
     }
     return isSpam;
@@ -83,31 +83,33 @@ public with sharing class IDREmailServiceHandler {
           }
         );
       } catch (Exception err) {
-        Lib_SystemLog.logAPIError(
+        Lib_SystemLog log = new Lib_SystemLog(
           IDREmailServiceHandler.class.getName(),
-          'Error in creating email message from service class, which needs to be attached to existing case :' +
-          caseToUpd.Id,
-          err.getMessage(),
-          null,
-          IDREmailServiceHandler.class.getName(),
-          null,
-          null
+          'updateExistingEmail'
         );
+        log.error(
+          'EmailServiceException',
+          'Error in creating email message from service class, which needs to be attached to existing case :' +
+          caseToUpd.Id +
+          err.getMessage()
+        );
+        log.publishEvent();
       }
       try {
         //Create files from attachments
         IDREmailServiceHelper.createAttachmentFiles(email, caseToUpd.Id);
       } catch (Exception err) {
-        Lib_SystemLog.logAPIError(
+        Lib_SystemLog log = new Lib_SystemLog(
           IDREmailServiceHandler.class.getName(),
-          'Error in creating attachments from service class, which needs to be attached to existing case :' +
-          caseToUpd.Id,
-          err.getMessage(),
-          null,
-          IDREmailServiceHandler.class.getName(),
-          null,
-          null
+          'updateExistingEmail'
         );
+        log.error(
+          'EmailServiceException',
+          'Error in creating email message from service class, which needs to be attached to existing case :' +
+          caseToUpd.Id +
+          err.getMessage()
+        );
+        log.publishEvent();
       }
       return false;
     } else {
@@ -152,15 +154,16 @@ public with sharing class IDREmailServiceHandler {
         insert newCase;
       }
     } catch (Exception err) {
-      Lib_SystemLog.logAPIError(
+      Lib_SystemLog log = new Lib_SystemLog(
         IDREmailServiceHandler.class.getName(),
-        'Error in creating new case from email service class',
-        err.getMessage(),
-        null,
-        IDREmailServiceHandler.class.getName(),
-        null,
-        null
+        'createNewCase'
       );
+      log.error(
+        'EmailServiceException',
+        'Error in creating new case from email service class :' +
+        err.getMessage()
+      );
+      log.publishEvent();
     }
 
     if (newCase.Id != null) {
@@ -168,31 +171,33 @@ public with sharing class IDREmailServiceHandler {
         //Create email message
         IDREmailServiceHelper.createEmailMessage(email, newCase.Id);
       } catch (Exception err) {
-        Lib_SystemLog.logAPIError(
+        Lib_SystemLog log = new Lib_SystemLog(
           IDREmailServiceHandler.class.getName(),
-          'Error in creating email message from email service class for new case :' +
-          newCase.Id,
-          err.getMessage(),
-          null,
-          IDREmailServiceHandler.class.getName(),
-          null,
-          null
+          'createNewCase'
         );
+        log.error(
+          'EmailServiceException',
+          'Error in creating email message from email service class for new case :' +
+          newCase.Id +
+          err.getMessage()
+        );
+        log.publishEvent();
       }
       try {
         //Create files from attachments
         IDREmailServiceHelper.createAttachmentFiles(email, newCase.Id);
       } catch (Exception err) {
-        Lib_SystemLog.logAPIError(
+        Lib_SystemLog log = new Lib_SystemLog(
           IDREmailServiceHandler.class.getName(),
-          'Error in creating attachments from email service class for new case :' +
-          newCase.Id,
-          err.getMessage(),
-          null,
-          IDREmailServiceHandler.class.getName(),
-          null,
-          null
+          'createNewCase'
         );
+        log.error(
+          'EmailServiceException',
+          'Error in creating attachments from email service class for new case :' +
+          newCase.Id +
+          err.getMessage()
+        );
+        log.publishEvent();
       }
       IDREmailServiceHelper.updateCaseWithQueue(newCase);
     }
