@@ -265,6 +265,10 @@ public with sharing class IDREmailServiceHelper {
     Id caseId
   ) {
     List<ContentVersion> returnConVerList = new List<ContentVersion>();
+    Lib_SystemLog log = new Lib_SystemLog(
+      IDREmailServiceHelper.class.getName(),
+      'getTextBinaryAttachments'
+    );
     if (bAttachments != null && bAttachments.size() > 0) {
       for (Messaging.Inboundemail.BinaryAttachment bAttachment : bAttachments) {
         if (checkExtension(bAttachment.mimeTypeSubType)) {
@@ -276,23 +280,19 @@ public with sharing class IDREmailServiceHelper {
           );
           returnConVerList.add(cv);
         } else {
-          Lib_SystemLog.logAPIError(
-            IDREmailServiceHelper.class.getName(),
+          log.error(
+            'EmailServiceException',
             'Discarded a binary attachment as the type was unsupported => filename : ' +
-            bAttachment.fileName +
+            tAttachment.fileName +
             ' , mimesubtype : ' +
-            bAttachment.mimeTypeSubType +
+            tAttachment.mimeTypeSubType +
             ', For the case : ' +
-            caseId,
-            null,
-            null,
-            IDREmailServiceHelper.class.getName(),
-            null,
-            null
+            caseId
           );
         }
       }
     }
+    log.publishEvent();
     return returnConVerList;
   }
 
