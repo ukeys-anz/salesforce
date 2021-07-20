@@ -11,7 +11,7 @@ public with sharing class IDRPendCaseTaskRemindersSelector {
    */
   @SuppressWarnings(
     'PMD.ApexCRUDViolation'
-  ) //CRUD check is done in parent class
+  ) //No need for CRUD validation as all the profiles will have access to CaseNumber, OwnerId of Case Object
   public static Map<Id, Case> getCasesFromIds(List<Id> caseIdList) {
     return new Map<Id, Case>(
       [

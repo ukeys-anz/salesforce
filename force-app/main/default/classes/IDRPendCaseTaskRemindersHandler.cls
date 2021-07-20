@@ -25,7 +25,7 @@ public with sharing class IDRPendCaseTaskRemindersHandler {
       caseIdList
     );
     for (Task t : taskList) {
-      List<Id> recipientList = new List<Id>();
+      Set<Id> recipientList = new Set<Id>();
       String msgBody;
       if (
         windowForTaskReminders.contains(

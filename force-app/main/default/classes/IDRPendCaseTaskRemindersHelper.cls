@@ -10,7 +10,6 @@ public with sharing class IDRPendCaseTaskRemindersHelper {
    * @return Map<Id, Case> map of case with its id
    */
   public static Map<Id, Case> getCasesHelper(List<Id> caseIdList) {
-    //No need for CRUD validation as all the profiles will have access to CaseNumber, OwnerId of Case Object
     return IDRPendCaseTaskRemindersSelector.getCasesFromIds(caseIdList);
   }
 }
