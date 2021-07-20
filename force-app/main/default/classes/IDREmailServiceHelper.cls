@@ -318,7 +318,8 @@ public with sharing class IDREmailServiceHelper {
         );
         log.error(
           'EmailServiceException',
-          'Error in updating case with queue for caseId :' + newCase.Id,
+          'Error in updating case with queue for caseId :' +
+          newCase.Id +
           err.getMessage()
         );
         log.publishEvent();
