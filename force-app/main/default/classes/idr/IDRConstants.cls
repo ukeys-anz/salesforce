@@ -128,11 +128,6 @@ public with sharing class IDRConstants {
   public static final String TASK_TYPE_PEND_CASE = 'Pend Case';
   public static final String SUBJECT_PEND_CASE_TASK = 'Case Pended - provide update in case comment';
 
-  public static final List<String> ELIGIBLE_TASK_REMINDERS_PERMISSION_SETS = new List<String>{
-    'IDR_User_Level_2',
-    'IDR_User_Level_3'
-  };
-
   //Anz.com constants
   /**
    * @description Static variable to map anz.com field with case fields
