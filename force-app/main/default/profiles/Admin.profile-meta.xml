@@ -2706,6 +2706,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Activity.Task_Sub_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Task.Voice_Call_SID__c</field>
         <readable>true</readable>
@@ -2723,6 +2728,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Task.IDR_Internal_or_External_Party__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Task.IDR_Is_Task_Completed_Within_Due_Dt__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
