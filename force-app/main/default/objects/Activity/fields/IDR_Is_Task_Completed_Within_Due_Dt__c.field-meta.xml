@@ -5,7 +5,7 @@
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Check if the task is completed within due date</description>
     <externalId>false</externalId>
-    <formula>(ActivityDate  -  Completed_Date__c) &gt; 0</formula>
+    <formula>ActivityDate  &gt;=  Completed_Date__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>IDR Is Task Completed Within Due Dt</label>
     <securityClassification>Internal</securityClassification>
