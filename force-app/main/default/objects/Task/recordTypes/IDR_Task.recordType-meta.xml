@@ -4,6 +4,25 @@
     <active>true</active>
     <label>Complaints Task</label>
     <picklistValues>
+        <picklist>Action__c</picklist>
+        <values>
+            <fullName>Event new</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Event pre-existing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No further action</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reassign</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>FinServ__Regarding__c</picklist>
         <values>
             <fullName>Client Retention</fullName>
@@ -785,6 +804,21 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>PSI_or_DSI__c</picklist>
+        <values>
+            <fullName>DSI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PSI</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Priority</picklist>
         <values>
             <fullName>High</fullName>
@@ -830,21 +864,40 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Task_Sub_Type__c</picklist>
+        <values>
+            <fullName>Determination</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Information request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA%2FPV%2FRecommendation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reg response</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TCC</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Type</picklist>
         <values>
-            <fullName>Call</fullName>
+            <fullName>AFCA Due Date</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Email</fullName>
+            <fullName>General Task%2F Reminder</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Meeting</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other</fullName>
+            <fullName>Letter QC</fullName>
             <default>false</default>
         </values>
         <values>

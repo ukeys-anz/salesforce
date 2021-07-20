@@ -190,6 +190,7 @@ public with sharing class IDRCaseActions {
         checkForCRCEscalation(record, oldRec);
       }
     }
+    completeMilestone(records, oldMap);
     IDRCaseCommentActions.escalateExistingCommentsToCFMS(oldMap, records);
     IDRCaseNotificationManager.notifyBankersForEscalation(records, oldMap);
     escalateToCFMS(caseEscalationList);
@@ -198,6 +199,54 @@ public with sharing class IDRCaseActions {
     IDRCollectionActions.stopCollections(records, oldMap);
     IDRCollectionActions.startCollections(records, oldMap);
     IDRComplaintFlagActions.setComplaintsFlag(records, oldMap);
+  }
+
+  /**
+   * @description Complete the CMOS Complaints Milestone when case is escalated or closed
+   * @param records from the trigger
+   * @param oldMap previous values of cases in current context of trigger
+   */
+  public static void completeMilestone(
+    List<Case> records,
+    Map<Id, SObject> oldMap
+  ) {
+    Set<Id> escalationCases = new Set<Id>();
+    Set<Id> maxTimeFrameCases = new Set<Id>();
+    for (Case c : records) {
+      Case oldCase = (oldMap.containsKey(c.Id))
+        ? (Case) oldMap.get(c.Id)
+        : null;
+      if (
+        (oldCase != null &&
+        oldCase.Status != IDRConstants.ESCALATED_STATUS &&
+        c.Status == IDRConstants.ESCALATED_STATUS)
+      ) {
+        escalationCases.add(c.Id);
+      }
+      if ((oldCase != null && (!oldCase.isClosed && c.isClosed))) {
+        maxTimeFrameCases.add(c.Id);
+      }
+
+      if (!escalationCases.isEmpty()) {
+        MilestoneUtils.completeMilestone(
+          escalationCases,
+          new List<String>{ 'Open_Escalation_Time' },
+          System.now()
+        );
+      }
+
+      if (!maxTimeFrameCases.isEmpty()) {
+        MilestoneUtils.completeMilestone(
+          maxTimeFrameCases,
+          new List<String>{
+            '21-day IDR Response Due',
+            '30-day IDR Response Due',
+            'Open_Escalation_Time'
+          },
+          System.now()
+        );
+      }
+    }
   }
 
   /**
