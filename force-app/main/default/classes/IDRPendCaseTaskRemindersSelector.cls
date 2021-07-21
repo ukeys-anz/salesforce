@@ -9,22 +9,32 @@ public with sharing class IDRPendCaseTaskRemindersSelector {
    * @param caseIdList list of case ids
    * @return Map<Id, Case> returns map of case with its id
    */
-  @SuppressWarnings(
-    'PMD.ApexCRUDViolation'
-  ) //No need for CRUD validation as all the profiles will have access to CaseNumber, OwnerId of Case Object
   public static Map<Id, Case> getCasesFromIds(List<Id> caseIdList) {
-    return new Map<Id, Case>(
-      [
-        SELECT
-          Id,
-          CaseNumber,
-          OwnerId,
-          TYPEOF Owner
-            WHEN User THEN Id, FirstName, ManagerId
-          END
-        FROM Case
-        WHERE Id IN :caseIdList AND Owner.Type = 'User'
-      ]
-    );
+    if (
+      Case.SObjectType.getDescribe().isQueryable() &&
+      Schema.SObjectType.Case.fields.CaseNumber.isAccessible() &&
+      Schema.SObjectType.Case.fields.OwnerId.isAccessible()
+    ) {
+      return new Map<Id, Case>(
+        [
+          SELECT
+            Id,
+            CaseNumber,
+            OwnerId,
+            TYPEOF Owner
+              WHEN User THEN Id, FirstName, ManagerId
+            END
+          FROM Case
+          WHERE Id IN :caseIdList AND Owner.Type = 'User'
+        ]
+      );
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'IDRPendCaseTaskRemindersSelector',
+        'getCasesFromIds',
+        'Not enough permissions to query/access Case Object/Fields.'
+      );
+      return null;
+    }
   }
 }
