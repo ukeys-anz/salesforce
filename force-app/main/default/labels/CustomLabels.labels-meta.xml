@@ -161,4 +161,20 @@
         <shortDescription>Trailhead Assignment List Trail Icon</shortDescription>
         <value>https://trailhead-web.s3.amazonaws.com/uploads/users/5396019/photos/thumb_030804d3576dab0cdc2a558055816208e421312a9d1495117d57928ef380d7f2.png?updatedAt=20180906113753</value>
     </labels>
+    <labels>
+        <fullName>IDR_Max_Window_For_Task_Reminders</fullName>
+        <categories>IDR</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>IDR_Max_Window_For_Task_Reminders</shortDescription>
+        <value>7</value>
+    </labels>
+    <labels>
+        <fullName>IDR_Window_For_Task_Reminders</fullName>
+        <categories>IDR</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>IDR_Window_For_Task_Reminders</shortDescription>
+        <value>1,3,5,7</value>
+    </labels>
 </CustomLabels>
