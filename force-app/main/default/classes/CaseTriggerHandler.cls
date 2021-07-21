@@ -20,6 +20,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onApplyDefaults() {
     IDRCaseActions.applyDefaults((List<Case>) records);
+    SICaseActions.applyDefaults((List<Case>) records);
     GetHelpCaseActions.applyDefaults((List<Case>) records);
   }
 
@@ -47,6 +48,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
   public override void onAfterInsert() {
     IDRCaseActions.completeAfterActions();
     GetHelpCaseActions.rollupRelatedBug(records, new List<Case>());
+    SICaseActions.afterInsert(records);
   }
 
   /**
@@ -56,6 +58,12 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     IDRCaseActions.beforeUpdate(oldMap, records);
     GetHelpCaseActions.beforeUpdate(oldMap, records);
+    SICaseActions.beforeUpdate((List<Case>) records, (Map<Id, Case>) oldMap);
+    GetHelpCaseActions.handlePopulateCaseSubject(records, null);
+    IDRCaseNotificationManager.manageNotification(
+      records,
+      (Map<Id, Case>) oldMap
+    );
   }
 
   /**
@@ -79,6 +87,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
         records,
         (List<Case>) oldMap.values()
       );
+      SICaseActions.afterUpdate(records, (Map<Id, Case>) oldMap);
     }
   }
 

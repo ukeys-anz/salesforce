@@ -17,12 +17,13 @@
       <template if:false={hasError}>
         <template if:true={showWarning}>
           <div
-            class="slds-notify slds-notify_alert slds-alert_warning slds-m-bottom_small"
+            class="slds-notify slds-notify_alert slds-m-bottom_small"
             role="alert"
           >
             <h2>
-              Please be aware the transaction date and times below reflect your
-              current timezone, <strong>NOT</strong> the customer's.
+              Note: the transaction date and time is based on your location and
+              timezone. For example, you're in Perth and it’s 9am, but for a
+              customer in Sydney, it’s 11am.
             </h2>
             <div class="slds-notify__close">
               <button

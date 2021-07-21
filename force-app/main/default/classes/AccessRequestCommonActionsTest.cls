@@ -84,6 +84,8 @@ public with sharing class AccessRequestCommonActionsTest {
       ar.When__c = 'Immediate';
       ar.Duration_hrs__c = '2';
       insert ar;
+      ar.Status__c = AccessRequestCommonActions.STATUS_SUBMITTED;
+      update ar;
 
       // Create a privileged access request
       Privileged_Access_Request__c par = new Privileged_Access_Request__c();
@@ -264,6 +266,8 @@ public with sharing class AccessRequestCommonActionsTest {
     User engineerUser = TestUtil.getUserByFirstName('PAM_Engineer');
     Access_Request__c pamRequest = getAccessRequest(engineerUser.Id);
     insert pamRequest;
+    pamRequest.Status__c = AccessRequestCommonActions.STATUS_SUBMITTED;
+    update pamRequest;
 
     // WHEN
     // the Access Request gets Approved
@@ -421,17 +425,94 @@ public with sharing class AccessRequestCommonActionsTest {
       [SELECT COUNT() FROM Privileged_Access_Request__c] == 0,
       'PAR record was incorrectly created regardless of an Exception scenario'
     );
+  }
 
-    // [2] a System Log should be added related to the Exception
-    Application_Log__c log = [
-      SELECT Id, Function_Name__c
-      FROM Application_Log__c
-      LIMIT 1
-    ];
-    System.assertEquals(
-      'createPARequestRecords',
-      log.Function_Name__c,
-      'Failed to create an Application Log for exception scenarios in PAM approval flow'
+  @isTest
+  private static void testupdateUserProfile() {
+    // GIVEN
+    // a PAM Request has been Approved and a new PAR has been created
+    User engineerUser = TestUtil.getUserByFirstName('PAM_Engineer');
+    Profile adminProfile = CommonUtil.getProfileByName('System Administrator');
+    Privileged_Access_Request__c par = getPrivilegedAccessRequest();
+    AccessRequestFlowHandler.ProfileUpdateWrapper req = new AccessRequestFlowHandler.ProfileUpdateWrapper();
+    req.privilegedAccReqId = par.Id;
+    req.processType = 'grant';
+    req.userId = engineerUser.Id;
+    req.profileId = adminProfile.Id;
+
+    // WHEN
+    // the flow tries to assign System Administrator (priviileged) acces to a user
+    List<Boolean> results;
+    Test.startTest();
+    results = AccessRequestFlowHandler.updateUserProfile(
+      new List<AccessRequestFlowHandler.ProfileUpdateWrapper>{ req }
+    );
+    Test.stopTest();
+
+    // THEN
+    // updateUserProfile() invocable method should return success response
+    System.assert(
+      results[0],
+      'Error occured while assigning profiles via PAM flow'
+    );
+  }
+
+  @isTest
+  private static void testupdateUserSameProfile() {
+    // GIVEN
+    // a PAM Request has been Approved and a new PAR has been created
+    User engineerUser = TestUtil.getUserByFirstName('PAM_Engineer');
+    Profile noAccessProfile = CommonUtil.getProfileByName('No Access');
+    Privileged_Access_Request__c par = getPrivilegedAccessRequest();
+    AccessRequestFlowHandler.ProfileUpdateWrapper req = new AccessRequestFlowHandler.ProfileUpdateWrapper();
+    req.privilegedAccReqId = par.Id;
+    req.processType = 'grant';
+    req.userId = engineerUser.Id;
+    req.profileId = noAccessProfile.Id;
+
+    // WHEN
+    // the flow tries to assign same Profile as the existing one to a user
+    List<Boolean> results;
+    Test.startTest();
+    results = AccessRequestFlowHandler.updateUserProfile(
+      new List<AccessRequestFlowHandler.ProfileUpdateWrapper>{ req }
+    );
+    Test.stopTest();
+
+    // THEN
+    // the status response should not have any success values
+    System.assert(
+      results.isEmpty(),
+      'Flow should not try to assign profiles on irrelevant user records'
+    );
+  }
+
+  @isTest
+  private static void testupdateUserProfileException() {
+    // GIVEN
+    // a PAM Request has been Approved and a new PAR has been created
+    User engineerUser = TestUtil.getUserByFirstName('PAM_Engineer');
+    Privileged_Access_Request__c par = getPrivilegedAccessRequest();
+    AccessRequestFlowHandler.ProfileUpdateWrapper req = new AccessRequestFlowHandler.ProfileUpdateWrapper();
+    req.privilegedAccReqId = par.Id;
+    req.processType = 'grant';
+    req.userId = engineerUser.Id;
+    req.profileId = 'invalid_profileid'; // setting an invalid profile Id to generate an exception
+
+    // WHEN
+    // the flow tries to assign an invalid Profile to a user
+    List<Boolean> results;
+    Test.startTest();
+    results = AccessRequestFlowHandler.updateUserProfile(
+      new List<AccessRequestFlowHandler.ProfileUpdateWrapper>{ req }
+    );
+    Test.stopTest();
+
+    // THEN
+    // the status response should not have any success values
+    System.assert(
+      results.isEmpty(),
+      'Flow should not try to assign invalid profiles on user records'
     );
   }
 
@@ -440,16 +521,15 @@ public with sharing class AccessRequestCommonActionsTest {
     // GIVEN
     // A Privileged Access Request has been process and requestor has been granted with System Admin access
     Privileged_Access_Request__c par = getPrivilegedAccessRequest();
-    AccessRequestCommonActions.UpdateTimestampRequest req = new AccessRequestCommonActions.UpdateTimestampRequest();
-    req.privilegedAccReqId = par.Id;
-    req.processType = 'grant';
-    List<AccessRequestCommonActions.UpdateTimestampRequest> requests = new List<AccessRequestCommonActions.UpdateTimestampRequest>();
-    requests.add(req);
 
     // WHEN
-    // setTimestamp() is invoked
+    // updateSuccessTimeStamp() is invoked
     Test.startTest();
-    AccessRequestCommonActions.setTimestamp(requests);
+    AccessRequestFlowHandler.updateSuccessTimeStamp(
+      par.Id,
+      'grant',
+      System.now()
+    );
     Test.stopTest();
 
     // THEN
@@ -467,16 +547,15 @@ public with sharing class AccessRequestCommonActionsTest {
     // GIVEN
     // A Privileged Access Request has been process and System Admin access has been revoked
     Privileged_Access_Request__c par = getPrivilegedAccessRequest();
-    AccessRequestCommonActions.UpdateTimestampRequest req = new AccessRequestCommonActions.UpdateTimestampRequest();
-    req.privilegedAccReqId = par.Id;
-    req.processType = 'revoke';
-    List<AccessRequestCommonActions.UpdateTimestampRequest> requests = new List<AccessRequestCommonActions.UpdateTimestampRequest>();
-    requests.add(req);
 
     // WHEN
-    // setTimestamp() is invoked
+    // updateSuccessTimeStamp() is invoked
     Test.startTest();
-    AccessRequestCommonActions.setTimestamp(requests);
+    AccessRequestFlowHandler.updateSuccessTimeStamp(
+      par.Id,
+      'revoke',
+      System.now()
+    );
     Test.stopTest();
 
     // THEN
@@ -485,7 +564,53 @@ public with sharing class AccessRequestCommonActionsTest {
     System.assertNotEquals(
       null,
       parResult.Actual_Access_Revoked_Time__c,
-      'Actual Access Granted Time is null'
+      'Actual Access Revoked Time is null'
+    );
+  }
+
+  @isTest
+  private static void testGrantFlowFailures() {
+    // GIVEN
+    // a Privileged Access Request is being processed
+    Privileged_Access_Request__c par = getPrivilegedAccessRequest();
+    AccessRequestFlowHandler.ProfileUpdateWrapper req = new AccessRequestFlowHandler.ProfileUpdateWrapper();
+    req.privilegedAccReqId = par.Id;
+    req.processType = 'grant';
+
+    // WHEN
+    // an error occurs in the Grant flow which resulted in calling logGrantRevokeFailures()
+    Test.startTest();
+    String traceId = AccessRequestFlowHandler.logFailures(req, '');
+    Test.stopTest();
+
+    // THEN
+    // an Application Trace Log should be created with a Trace Id (cannot query big objects in test context)
+    System.assert(
+      !String.isBlank(traceId),
+      'Error occured while creating an Application Trace Log for grant flow failures'
+    );
+  }
+
+  @isTest
+  private static void testRevokeFlowFailures() {
+    // GIVEN
+    // a Privileged Access Request is being processed
+    Privileged_Access_Request__c par = getPrivilegedAccessRequest();
+    AccessRequestFlowHandler.ProfileUpdateWrapper req = new AccessRequestFlowHandler.ProfileUpdateWrapper();
+    req.privilegedAccReqId = par.Id;
+    req.processType = 'revoke';
+
+    // WHEN
+    // an error occurs in the Revoke flow which resulted in calling logGrantRevokeFailures()
+    Test.startTest();
+    String traceId = AccessRequestFlowHandler.logFailures(req, '');
+    Test.stopTest();
+
+    // THEN
+    // an Application Trace Log should be created with a Trace Id (cannot query big objects in test context)
+    System.assert(
+      !String.isBlank(traceId),
+      'Error occured while creating an Application Trace Log for revoke flow failures'
     );
   }
 

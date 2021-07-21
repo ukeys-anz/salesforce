@@ -4,8 +4,8 @@ import getBalances from "@salesforce/apex/AccountBalancesController.getBalances"
 import { publish, subscribe } from "lightning/messageService";
 import { createTestWireAdapter } from "@salesforce/wire-service-jest-util";
 
-import UpdateAccounts from "@salesforce/messageChannel/FinancialAccountsUpdate__c";
-import TriggerLoading from "@salesforce/messageChannel/FinancialAccountsTriggerLoading__c";
+import UpdateAccountsBalance from "@salesforce/messageChannel/FinancialAccountsBalanceUpdate__c";
+import TriggerBalanceLoading from "@salesforce/messageChannel/FinancialAccountsTriggerBalanceLoading__c";
 
 jest.mock(
   "@salesforce/apex/AccountBalancesController.getBalances",
@@ -21,7 +21,6 @@ const APEX_FACCOUNTS_SUCCESS = [
   {
     Id: "a0c2O00000197sUQAQ",
     FinServ__Balance__c: 50,
-    FinServ__CurrentPostedBalance__c: 50,
     LastModifiedDate: "2021-01-05T04:56:48.000+0000"
   }
 ];
@@ -30,7 +29,6 @@ const APEX_FACCOUNTS_EMPTY = [
   {
     Id: "",
     FinServ__Balance__c: null,
-    FinServ__CurrentPostedBalance__c: null,
     LastModifiedDate: null
   }
 ];
@@ -86,7 +84,7 @@ describe("c-accountsBalances", () => {
     const payload = {
       update: true
     };
-    publish(MessageContext, TriggerLoading, payload);
+    publish(MessageContext, TriggerBalanceLoading, payload);
 
     return Promise.resolve().then(() => {
       const loadingEle = element.shadowRoot.querySelector("lightning-spinner");
@@ -119,7 +117,7 @@ describe("c-accountsBalances", () => {
       update: true
     };
 
-    publish(MessageContext, UpdateAccounts, payload);
+    publish(MessageContext, UpdateAccountsBalance, payload);
 
     return flushPromises().then(() => {
       const balanceEle = element.shadowRoot.querySelector("article");
@@ -139,7 +137,7 @@ describe("c-accountsBalances", () => {
       message: "test error message"
     };
 
-    publish(MessageContext, UpdateAccounts, payload);
+    publish(MessageContext, UpdateAccountsBalance, payload);
 
     return flushPromises().then(() => {
       const balanceEle = element.shadowRoot.querySelector("article");
@@ -159,11 +157,13 @@ describe("c-accountsBalances", () => {
       message: "test error message"
     };
 
-    publish(MessageContext, UpdateAccounts, payload);
+    publish(MessageContext, UpdateAccountsBalance, payload);
 
     return flushPromises().then(() => {
-      const balanceEle = element.shadowRoot.querySelector("article");
-      expect(balanceEle).toBeNull();
+      let div = element.shadowRoot.querySelector(
+        "div[data-id='balance-container']"
+      );
+      expect(div).toBeNull();
     });
   });
 
@@ -179,7 +179,7 @@ describe("c-accountsBalances", () => {
       message: "test error message"
     };
 
-    publish(MessageContext, UpdateAccounts, payload);
+    publish(MessageContext, UpdateAccountsBalance, payload);
 
     return flushPromises().then(() => {
       const balanceEle = element.shadowRoot.querySelector("article");
@@ -199,7 +199,7 @@ describe("c-accountsBalances", () => {
       message: "test error message"
     };
 
-    publish(MessageContext, UpdateAccounts, payload);
+    publish(MessageContext, UpdateAccountsBalance, payload);
 
     return flushPromises().then(() => {
       const balanceEle = element.shadowRoot.querySelector("article");

@@ -22,11 +22,8 @@
 }
 
 .lastUpdated {
-  float: right;
   font-size: 12px;
-  position: relative;
-  bottom: 24px;
-  right: 12px;
+  float: right;
 }
 
 .not-found {
@@ -37,10 +34,14 @@
   transform: translate(-50%, -50%);
 }
 
-.field-padding {
-  padding: 10px;
+.balance-padding {
+  padding-right: 48px;
 }
 
 .message-padding {
   padding: 20px;
+}
+
+.account-footer {
+  margin-bottom: 15px;
 }

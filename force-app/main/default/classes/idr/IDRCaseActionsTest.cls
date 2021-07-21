@@ -8,9 +8,7 @@
 private with sharing class IDRCaseActionsTest {
   @isTest
   static void testFormatedCaseNumber() {
-    Case c = new Case(
-      RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID
-    );
+    Case c = new Case(RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID);
     insert c;
     c.CaseNumber__c = '00009999';
     update c;
@@ -37,7 +35,7 @@ private with sharing class IDRCaseActionsTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
+          RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
           IDR_Customer_Number__c = '1234567890',
           Status = 'Escalated',
           IDR_Escalated_to__c = '1',
@@ -46,9 +44,14 @@ private with sharing class IDRCaseActionsTest {
       );
     }
     insert newCases;
+    List<Notification_Handler__c> nhList = [
+      SELECT Id
+      FROM Notification_Handler__c
+    ];
+
     System.assertEquals(
       Integer.valueOf(Label.Test_Bulk_Size),
-      IDRCaseActions.idrNotifications.size(),
+      nhList.size(),
       'Matching no of events'
     );
   }
@@ -59,17 +62,18 @@ private with sharing class IDRCaseActionsTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID,
+          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
           Status = 'Open'
         )
       );
     }
     insert newCases;
-    System.assertEquals(
-      0,
-      IDRCaseActions.idrNotifications.size(),
-      'Matching no of events'
-    );
+    List<Notification_Handler__c> nhList = [
+      SELECT Id
+      FROM Notification_Handler__c
+    ];
+
+    System.assertEquals(0, nhList.size(), 'Matching no of events');
   }
 
   @isTest
@@ -79,7 +83,7 @@ private with sharing class IDRCaseActionsTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID,
+          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
           Status = IDRCaseActions.OPEN_STATUS,
           isEscalated = false
         )
@@ -93,6 +97,7 @@ private with sharing class IDRCaseActionsTest {
     for (Case c : newCases) {
       c.OwnerId = IDRCaseActions.queue.id;
       c.IsEscalated = true;
+      c.IDR_Escalated_to__c = '1';
     }
     update newCases;
 
@@ -116,7 +121,7 @@ private with sharing class IDRCaseActionsTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID,
+          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
           Status = IDRCaseActions.UNDER_INVESTIGATION_STATUS,
           isEscalated = false
         )
@@ -130,6 +135,7 @@ private with sharing class IDRCaseActionsTest {
     for (Case c : newCases) {
       c.OwnerId = IDRCaseActions.queue.id;
       c.IsEscalated = true;
+      c.IDR_Escalated_to__c = '1';
     }
     update newCases;
 
@@ -143,6 +149,41 @@ private with sharing class IDRCaseActionsTest {
       IDRCaseActions.DAY_5_ESCALATION_REASON,
       c.IDR_Escalation_Reason__c,
       'Escalation reason should be auto-escalated'
+    );
+  }
+
+  @isTest
+  static void testUpdateDateTimePsiTicked() {
+    //GIVEN new PSIs
+    Case[] newCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
+          IDR_Is_Common__c = 'yes',
+          IDR_Systemic_Issue_Category__c = '1',
+          IDR_Systemic_Issue_Description__c = 'Test'
+        )
+      );
+    }
+    //WHEN they're inserted
+    insert newCases;
+    //THEN Date/Time flag is populated
+    Case c = [SELECT IDR_Datetime_PSI_Ticked__c FROM Case LIMIT 1];
+    System.assert(
+      c.IDR_Datetime_PSI_Ticked__c != null,
+      'Date/Time flag should have been populated'
+    );
+    //AND WHEN they're unflagged
+    for (Case newCase : newCases) {
+      newCase.IDR_Is_Common__c = 'No';
+    }
+    update newCases;
+    //THEN Date/Time flag is cleared
+    c = [SELECT IDR_Datetime_PSI_Ticked__c FROM Case LIMIT 1];
+    System.assert(
+      c.IDR_Datetime_PSI_Ticked__c == null,
+      'Date/Time flag should have been cleared'
     );
   }
 }

@@ -13,9 +13,9 @@ jobs:
         with:
           repository: anzx/pr-title-action
           ref: v2
-          token: ${{ secrets.ORG_GITHUB_TOKEN }}
+          token: ${{ secrets.SALESFORCE_PR_TITLE_ACTION_TOKEN }}
           path: .github/actions/pr-title-action
       - name: Check PR Title for Ticket
         uses: ./.github/actions/pr-title-action
         with:
-          jira-project: "(ABT|IDR)"
+          jira-project: "(ABT|IDR|ANZX)"

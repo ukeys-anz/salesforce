@@ -107,19 +107,19 @@ jobs:
   create_documentation:
     runs-on: [self-hosted, salesforce]
     needs: build_and_deploy
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/develop'
     steps:
       - name: Checkout docs repo
         uses: actions/checkout@v2
         with:
           repository: anzx/salesforce-docs
-          token: ${{ secrets.ORG_GITHUB_TOKEN }}
+          token: ${{ secrets.SALESFORCE_DOCS_TOKEN }}
 
       - name: Checkout doc plugin
         uses: actions/checkout@v2
         with:
           repository: anzx/salesforce-doc-gen
-          token: ${{ secrets.ORG_GITHUB_TOKEN }}
+          token: ${{ secrets.SALESFORCE_DOC_GEN_TOKEN }}
           path: plugin
 
       - name: Checkout salesforce repo
@@ -149,42 +149,17 @@ jobs:
         working-directory: salesforce
         run: npx sfdx force:auth:sfdxurl:store -a systest --sfdxurlfile=./SFDX_URL_SYSTEST.txt
 
-      - name: Generate schema and access docs
+      - name: Generate sysl
         working-directory: salesforce
         shell: bash
         run: |
-          ../plugin/bin/run doc:schema -f config/doc-def.json -u systest
-          ../plugin/bin/run doc:access -f config/doc-def.json -u systest
           ../plugin/bin/run doc:sysl -f config/doc-def.json -u systest
 
       - name: Copy docs
         run: |
-          rm -rf ./docs/governance/access
-          rm -rf ./docs/governance/schema
           rm -rf ./sysl/salesforce.edg.sysl
-          mkdir -p ./docs/governance/
           mkdir -p ./sysl/
-          cp -r salesforce/docs/access ./docs/governance/
-          cp -r salesforce/docs/schema ./docs/governance/
           cp -r salesforce/docs/sysl ./
-
-      - name: Generate apex docs
-        working-directory: salesforce
-        shell: bash
-        run: |
-          find force-app/main/default/classes -mindepth 2 -type f -print -exec cp {} force-app/main/default/classes \;
-          java -jar apexdoc/apexdoc.jar -s force-app/main/default/classes -t apexdoc/ -a apexdoc/banner.htm -h apexdoc/home.htm
-
-      - name: Copy apex docs
-        run: |
-          rm -rf ./docs/static/ApexDocumentation
-          mkdir -p ./docs/static/
-          cp -r salesforce/apexdoc/ApexDocumentation ./docs/static/
-
-      - name: Reindex sidebar
-        run: |
-          npm i lodash@4.17.19
-          node reindex
 
       - name: Create new branch on anzx/salesforce-docs
         shell: bash
@@ -192,13 +167,13 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
           git checkout -b ${GITHUB_RUN_ID}
-          git add docs/static docs/governance sidebars.js sysl/
+          git add sysl/
           git commit -m "Update salesforce documentation"
           git push origin ${GITHUB_RUN_ID}
 
       - name: Create a PR on anzx/salesforce-docs
         shell: bash
         run: |
-          if git branch | grep -q -w ${GITHUB_RUN_ID}; then hub pull-request -b master -h ${GITHUB_RUN_ID} --no-edit -m "${GITHUB_REF#refs/heads/}-${GITHUB_RUN_ID} Release Update" -m "An automated PR to update access and schema documentation from https://github.com/anzx/salesforce/releases/tag/${GITHUB_REF#refs/heads/}-${GITHUB_RUN_ID}"; fi
+          if git branch | grep -q -w ${GITHUB_RUN_ID}; then hub pull-request -b master -h ${GITHUB_RUN_ID} --no-edit -m "${GITHUB_REF#refs/heads/}-${GITHUB_RUN_ID} Sysl Update" -m "An automated PR to update access and schema documentation from https://github.com/anzx/salesforce/releases/tag/${GITHUB_REF#refs/heads/}-${GITHUB_RUN_ID}"; fi
         env:
-          GITHUB_TOKEN: ${{ secrets.ORG_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.SALESFORCE_DOCS_TOKEN }}

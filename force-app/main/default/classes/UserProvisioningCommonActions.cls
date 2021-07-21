@@ -89,6 +89,7 @@ public with sharing class UserProvisioningCommonActions {
         Id,
         Label,
         DeveloperName,
+        Call_Center_Name__c,
         Profile_Name__c,
         Role_Name__c,
         Permission_Sets__c,
@@ -132,6 +133,20 @@ public with sharing class UserProvisioningCommonActions {
       userRoleMap.put(uRole.DeveloperName, uRole);
     }
     return userRoleMap;
+  }
+
+  /**
+   * @description This method is called to get all call center names and their ids.
+   * @return `Map<String, CallCenter>`
+   */
+
+  public static Map<String, CallCenter> getAllCallCenterMap() {
+    Map<String, CallCenter> callCenterMap = new Map<String, CallCenter>();
+
+    for (CallCenter cc : [SELECT Id, InternalName FROM CallCenter]) {
+      callCenterMap.put(cc.InternalName, cc);
+    }
+    return callCenterMap;
   }
 
   /**

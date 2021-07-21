@@ -200,12 +200,12 @@ public with sharing class GetHelpCaseActions {
       fetchCaseTypeLabelsByValues();
       caseTypeList.add(caseTypeLabelByValue.get(record.Type));
     }
-    if (String.isNotBlank(record.Additional_Type__c)) {
-      caseTypeList.addAll(record.Additional_Type__c.split(';'));
+    if (String.isNotBlank(record.Sub_Type__c)) {
+      caseTypeList.addAll(record.Sub_Type__c.split(';'));
     }
     //populate case subject
     if (!caseTypeList.isEmpty()) {
-      record.Subject = String.join(caseTypeList, ', ');
+      record.Subject = String.join(caseTypeList, ' - ');
     }
   }
 
@@ -331,7 +331,7 @@ public with sharing class GetHelpCaseActions {
       'rollupRelatedBug'
     );
     log.addDatabaseSaveResult('Case', results, new List<Case>());
-    log.insertLog();
+    log.insertLogAsync();
   }
 
   /**
