@@ -168,7 +168,7 @@ public with sharing class TransactionHistoryModel extends CalloutModel {
    */
   public class Charged {
     @AuraEnabled
-    public String value;
+    public Decimal value;
     @AuraEnabled
     public String currencyCode;
   }

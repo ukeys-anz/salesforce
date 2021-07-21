@@ -131,7 +131,7 @@ export default class TransactionHistoryBoard extends LightningElement {
                 currentTransaction.amount.charged.value
               ) {
                 currentTransaction.amount.charged.value = parseFloat(
-                  currentTransaction.amount.charged.value.replace("$", ""),
+                  currentTransaction.amount.charged.value,
                   10
                 ).toFixed(2);
               } else {
@@ -145,7 +145,7 @@ export default class TransactionHistoryBoard extends LightningElement {
                 currentTransaction.amount.converted.value
               ) {
                 currentTransaction.amount.converted.value = parseFloat(
-                  currentTransaction.amount.converted.value.replace("$", ""),
+                  currentTransaction.amount.converted.value,
                   10
                 ).toFixed(2);
               }
@@ -348,16 +348,32 @@ export default class TransactionHistoryBoard extends LightningElement {
   handleSearch() {
     if (this.startDate && this.endDate) {
       this.loading = true;
+      let convertedTimes = this.getUTCTimeFromTimezone();
+
+      //Create dates based off the user selection
+      let startDate = new Date(this.startDate + " 00:00:00");
+      let endDate = new Date(this.endDate + " 23:59:59");
+
+      //Create new UTC dates to match fabric timezone
+      //We +1 to month as getUTCMonth starts at 0 = Jan
+      let utcStartDate = new Date(
+        `${
+          startDate.getUTCMonth() + 1
+        }-${startDate.getUTCDate()}-${startDate.getUTCFullYear()} ${
+          convertedTimes.startTime
+        } UTC`
+      ).toISOString();
+
+      let utcEndDate = new Date(
+        `${
+          endDate.getUTCMonth() + 1
+        }-${endDate.getUTCDate()}-${endDate.getUTCFullYear()} ${
+          convertedTimes.endTime
+        } UTC`
+      ).toISOString();
 
       //Need to convert dates to ISO string for search params
-      let urlParam = `?account_number=${
-        this.accountNumber
-      }&start_date=${new Date(
-        this.startDate + " 00:00:00 UTC"
-      ).toISOString()}&end_date=${new Date(
-        this.endDate + " 23:59:59 UTC"
-      ).toISOString()}`;
-
+      let urlParam = `?account_number=${this.accountNumber}&start_date=${utcStartDate}&end_date=${utcEndDate}`;
       this.fetchTransactions(urlParam, true);
     }
   }
@@ -385,6 +401,78 @@ export default class TransactionHistoryBoard extends LightningElement {
     } else {
       this.disableSearch = true;
     }
+  }
+
+  //This function retrieves the UTC time equivalent of midnight from
+  //the users current timezone
+  getUTCTimeFromTimezone() {
+    let daylightSavings = this.isDaylightSavings();
+    //Get city from timezone used in Salesforce
+    let city = userTimezone.replace("Australia/", "");
+
+    //Check city to return start and end times
+    //of UTC equivalent of midnight of current location
+    switch (city) {
+      case "Sydney":
+      case "Melbourne":
+      case "Hobart":
+      case "Canberra":
+        if (daylightSavings) {
+          return { startTime: "13:00:00", endTime: "12:59:59" };
+        }
+        return { startTime: "14:00:00", endTime: "13:59:59" };
+      case "Brisbane":
+        return { startTime: "14:00:00", endTime: "13:59:59" };
+      case "Adelaide":
+      case "Broken Hill":
+        if (daylightSavings) {
+          return { startTime: "13:30:00", endTime: "13:29:59" };
+        }
+        return { startTime: "14:30:00", endTime: "14:29:59" };
+      case "Darwin":
+        return { startTime: "14:30:00", endTime: "14:29:59" };
+      case "Perth":
+        return { startTime: "16:00:00", endTime: "15:59:59" };
+      default:
+        return { startTime: "00:00:00", endTime: "23:59:59" };
+    }
+  }
+
+  //Check if we should be using AEST or AEDT
+  //AEDT begins first Sunday of October until first Sunday of April
+  isDaylightSavings() {
+    let today = new Date();
+    let daylightDate = new Date();
+
+    //Set month to April and get first Sunday of month
+    daylightDate.setMonth(3);
+    let aprilDate = new Date(
+      daylightDate.getFullYear(),
+      daylightDate.getMonth(),
+      1,
+      0,
+      0,
+      0
+    );
+    aprilDate.setDate(aprilDate.getDate() + 7 - aprilDate.getDay());
+
+    //Set month to October and get first Sunday of month
+    daylightDate.setMonth(9);
+    let octoberDate = new Date(
+      daylightDate.getFullYear(),
+      daylightDate.getMonth(),
+      1,
+      0,
+      0,
+      0
+    );
+    octoberDate.setDate(octoberDate.getDate() + 7 - octoberDate.getDay());
+
+    //Check if we are in AEST or AEDT
+    if (today > aprilDate && today < octoberDate) {
+      return false;
+    }
+    return true;
   }
 
   //This function is required as some errors are returned

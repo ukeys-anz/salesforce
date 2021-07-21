@@ -8,6 +8,10 @@
   left: 50%;
 }
 
+.slds-button_icon-small {
+  color: white;
+}
+
 .expand-collapse {
   position: relative;
 }

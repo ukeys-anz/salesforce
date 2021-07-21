@@ -84,7 +84,8 @@
           { "name": "BillingCountry" },
           { "name": "BillingLatitude" },
           { "name": "BillingLongitude" },
-          { "name": "BillingPostalCode" }
+          { "name": "BillingPostalCode" },
+          { "name": "OCV_ID__c" }
         ],
         "object": "Account"
       }
@@ -107,7 +108,8 @@
           "BillingCountry",
           "BillingLatitude",
           "BillingLongitude",
-          "BillingPostalCode"
+          "BillingPostalCode",
+          "OCV_ID__c"
         ]
       },
       "sources": ["FilterFraudOnly", "AccountInfo"]

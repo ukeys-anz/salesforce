@@ -54,7 +54,6 @@ private class CaseTriggerHandlerTest {
           )
         );
       }
-
       // Create a PersonAccount
       Account personAcc = new Account(
         RecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
@@ -67,7 +66,47 @@ private class CaseTriggerHandlerTest {
       );
       accnts.add(personAcc);
 
+      Account a = new Account(
+        Name = 'Complaint Entitlement Account',
+        OCV_ID__c = faker.randomString(10),
+        AR_C_Customer__c = true
+      );
+      accnts.add(a);
       insert accnts;
+
+      // Create IDR L1 user
+      Profile anzProfile = [
+        SELECT Id
+        FROM Profile
+        WHERE Name = 'ANZ Standard User'
+        LIMIT 1
+      ];
+
+      User idrUser = (User) FakerFactory.make(new FakerUserFactory());
+      idrUser.FirstName = 'IDRL1';
+      idrUser.ProfileId = anzProfile.Id;
+      insert idrUser;
+
+      // Assign related PSs
+      List<String> idrPsets = new List<String>{
+        'IDR_User',
+        'IDR_User_Level_1'
+      };
+      List<PermissionSet> idrPsetList = [
+        SELECT Id
+        FROM PermissionSet
+        WHERE Name IN :idrPsets
+      ];
+
+      List<PermissionSetAssignment> idrPsaList = new List<PermissionSetAssignment>();
+      for (PermissionSet ps : idrPsetList) {
+        PermissionSetAssignment psa = new PermissionSetAssignment(
+          AssigneeId = idrUser.id,
+          PermissionSetId = ps.Id
+        );
+        idrPsaList.add(psa);
+      }
+      insert idrPsaList;
     }
   }
 
@@ -77,7 +116,7 @@ private class CaseTriggerHandlerTest {
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
-        new Case(RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID)
+        new Case(RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID)
       );
     }
     // WHEN they are inserted
@@ -109,7 +148,7 @@ private class CaseTriggerHandlerTest {
       casesWithCopiedCaseNumber.add(
         new Case(
           CaseNumber__c = '123' + i,
-          RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID
+          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID
         )
       );
     }
@@ -144,7 +183,7 @@ private class CaseTriggerHandlerTest {
           IDR_Complainant_Desired_Outcome__c = 'Test decription 1234 5678 9101 check mask',
           IDR_Description_of_Outcome__c = 'Test decription 123456789101 check mask',
           IDR_Systemic_Issue_Description__c = 'Test decription 1234-5678-9101 check mask',
-          RecordTypeId = IDRCaseActions.CUSTOMER_COMPLAINT_RT_ID,
+          RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
           IDR_Customer_Number__c = '1234567890'
         )
       );
@@ -201,7 +240,7 @@ private class CaseTriggerHandlerTest {
           Status = 'Escalated',
           IDR_Escalated_to__c = '1',
           IDR_Escalation_Reason__c = '1',
-          RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID
+          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID
         )
       );
     }
@@ -222,7 +261,7 @@ private class CaseTriggerHandlerTest {
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
-        new Case(RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID)
+        new Case(RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID)
       );
     }
     // WHEN they are inserted
@@ -255,26 +294,41 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID,
-          IsEscalated = true,
-          IDR_Escalated_to__c = '2',
-          IDR_Escalation_Reason__c = '1',
-          OwnerId = IDRCaseActions.queue.Id
+          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
+          Status = 'Open',
+          IDR_Escalated_to__c = '1'
         )
       );
     }
-    // WHEN they are inserted
     insert newCases;
-    // THEN check if IsEscalated is false
+
+    // WHEN they are auto-escalated (kind of)
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases[i].IsEscalated = true;
+      newCases[i].OwnerId = IDRCaseActions.queue.Id;
+    }
+    update newCases;
+
+    // THEN check escalation fields
     Case c = [
-      SELECT CaseNumber, IDR_Escalated_to__c, Status, IsEscalated
+      SELECT Status, IDR_Escalated_to__c, IDR_Escalation_Reason__c
       FROM Case
       WHERE id = :newCases[0].id
     ];
-    System.assert(c.Status == 'Escalated', 'Status is Escalated ');
-    System.assert(
-      c.IDR_Escalated_to__c == '1',
-      'Escalated is changed to Customer Resolution Portfolio'
+    System.assertEquals(
+      'Escalated',
+      c.Status,
+      'Status should have been updated to Escalated '
+    );
+    System.assertEquals(
+      '1',
+      c.IDR_Escalated_to__c,
+      'Escalated To should have been updated to CRP '
+    );
+    System.assertEquals(
+      IDRCaseActions.DAY_5_ESCALATION_REASON,
+      c.IDR_Escalation_Reason__c,
+      'Escalation Reason should have been updated to DAY_5_ESCALATION_REASON '
     );
   }
 
@@ -285,7 +339,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID,
+          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
           Status = 'Closed',
           IDR_Complaint_Outcome__c = '1',
           IDR_Description_of_Outcome__c = 'test'
@@ -331,7 +385,7 @@ private class CaseTriggerHandlerTest {
       newCases.add(
         new Case(
           IDR_NC_Is_Consent_Obtained__c = false,
-          RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID
+          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID
         )
       );
     }
@@ -370,7 +424,7 @@ private class CaseTriggerHandlerTest {
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
-        new Case(RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID)
+        new Case(RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID)
       );
     }
     // WHEN they are inserted
@@ -426,7 +480,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID,
+          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
           Status = 'Escalated',
           IDR_Escalated_to__c = '1',
           IDR_Escalation_Reason__c = '1'
@@ -445,7 +499,7 @@ private class CaseTriggerHandlerTest {
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
-        new Case(RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID)
+        new Case(RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID)
       );
     }
     insert newCases;
@@ -566,7 +620,7 @@ private class CaseTriggerHandlerTest {
     }
   }
 
-  //Tests if the Case Subject is populated correctly based on case type and additional type.
+  //Tests if the Case Subject is populated correctly based on case type and sub type.
   @isTest
   static void testPopulateCaseSubject() {
     Case[] newCases = new List<Case>();
@@ -580,8 +634,8 @@ private class CaseTriggerHandlerTest {
       newCases.add(
         new Case(
           RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
-          Type = 'Card',
-          Additional_Type__c = 'App Support;Coaching',
+          Type = 'Cards',
+          Sub_Type__c = 'Damaged card',
           AccountId = acc.Id
         )
       );
@@ -589,16 +643,133 @@ private class CaseTriggerHandlerTest {
 
     insert newCases;
 
-    newCases[0].Type = 'Dispute';
-    newCases[0].Additional_Type__c = 'My Security;Product Information';
+    newCases[0].Type = 'Cards';
+    newCases[0].Sub_Type__c = 'Damaged card';
+    update newCases;
+
+    newCases = [SELECT Subject FROM Case WHERE id = :newCases[0].id];
+
+    system.assertEquals('Cards - Damaged card', newCases[0].Subject);
+  }
+
+  //Tests if the Case Subject is populated correctly when no sub types.
+  @isTest
+  static void testNoSubTypeCaseSubject() {
+    Case[] newCases = new List<Case>();
+    Account acc = [
+      SELECT Id
+      FROM Account
+      WHERE Display_Name__c = 'TestAccount'
+      LIMIT 1
+    ];
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
+          Type = 'Cards',
+          Sub_Type__c = '',
+          AccountId = acc.Id
+        )
+      );
+    }
+
+    insert newCases;
+
+    newCases[0].Type = 'Cards';
+    newCases[0].Sub_Type__c = '';
+    update newCases;
+
+    newCases = [SELECT Subject FROM Case WHERE id = :newCases[0].id];
+
+    system.assertEquals('Cards', newCases[0].Subject);
+  }
+  //Tests if the Case Subject is populated correctly when adding two sub types.
+  @isTest
+  static void testMultipleSubTypeCaseSubject() {
+    Case[] newCases = new List<Case>();
+    Account acc = [
+      SELECT Id
+      FROM Account
+      WHERE Display_Name__c = 'TestAccount'
+      LIMIT 1
+    ];
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
+          Type = 'Cards',
+          Sub_Type__c = 'Damaged card;Using card',
+          AccountId = acc.Id
+        )
+      );
+    }
+
+    insert newCases;
+
+    newCases[0].Type = 'Cards';
+    newCases[0].Sub_Type__c = 'Damaged card;Using card';
     update newCases;
 
     newCases = [SELECT Subject FROM Case WHERE id = :newCases[0].id];
 
     system.assertEquals(
-      'Dispute, My Security, Product Information',
+      'Cards - Damaged card - Using card',
       newCases[0].Subject
     );
+  }
+
+  //Tests if the complaints entitlment logic in working as expected.
+  @isTest
+  static void testComplaintEntilement() {
+    Account a = [SELECT Id FROM Account WHERE AR_C_Customer__c = TRUE LIMIT 1];
+    Slaprocess sla = [
+      SELECT Id, NAME
+      FROM Slaprocess
+      WHERE Name = 'complaints'
+      LIMIT 1
+    ];
+    Entitlement et = new Entitlement(
+      Name = 'Complaints Entitlement',
+      AccountId = a.Id,
+      StartDate = Date.valueof(System.now().addDays(-2)),
+      SlaProcessId = sla.Id
+    );
+    insert et;
+    Case[] complaintCaselist = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      complaintCaselist.add(
+        new Case(
+          IDR_Account_Card_Policy_Number__c = '000001234',
+          Description = 'Test check entitlement',
+          IDR_Complainant_Desired_Outcome__c = 'entitlement id populated',
+          IDR_Description_of_Outcome__c = 'entitlement id populated',
+          IDR_Systemic_Issue_Description__c = 'None',
+          RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+          IDR_Customer_Number__c = '1234567890'
+        )
+      );
+    }
+    insert complaintCaselist;
+    case checkEntitlment = [
+      SELECT Id, EntitlementId, Status, IDR_Milestone_Sla__c
+      FROM Case
+      WHERE Id = :complaintCaselist[0].Id
+      LIMIT 1
+    ];
+    system.assertEquals(et.Id, checkEntitlment.EntitlementId);
+    system.assertEquals('Normal', checkEntitlment.IDR_Milestone_Sla__c);
+    CheckRecursive.firstCall = false;
+
+    checkEntitlment.Status = 'Under Investigation';
+    checkEntitlment.IDR_Milestone_Sla__c = '2 business days';
+    update checkEntitlment;
+    case checkMilestone = [
+      SELECT Id, EntitlementId, Status, IDR_Milestone_Sla__c
+      FROM Case
+      WHERE Id = :complaintCaselist[0].Id
+      LIMIT 1
+    ];
+    system.assertEquals('Normal', checkMilestone.IDR_Milestone_Sla__c);
   }
 
   @isTest
@@ -825,6 +996,43 @@ private class CaseTriggerHandlerTest {
       'Failed to autopopulate Subject on Fraud cases as expected, while updating'
     );
   }
+  @isTest
+  static void testPSITaskCreation() {
+    // GIVEN complaint cases which are possibly systemic issues
+    Case[] caseList1 = new List<Case>();
+    Case[] caseList2 = new List<Case>();
+    User level1User = [SELECT Id FROM User WHERE FirstName = 'IDRL1'];
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      caseList1.add(
+        new Case(
+          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
+          IDR_Is_Common__c = 'Yes',
+          IDR_Systemic_Issue_Description__c = 'Test Description',
+          IDR_Systemic_Issue_Category__c = '1'
+        )
+      );
+    }
+    test.startTest();
+    System.runAs(level1User) {
+      // WHEN they are inserted or updated by L1 User
+      insert caseList1;
+    }
+    // When they are Escalated and Resolved by any user
+    insert caseList2;
+    for (Case updateCase : caseList2) {
+      updateCase.Status = 'Resolved';
+      updateCase.IDR_Complaint_Outcome__c = '1';
+      updateCase.IDR_Complaint_Remedy__c = '2';
+      updateCase.IDR_Non_Financial_Remedy__c = '5';
+      updateCase.IDR_Description_of_Outcome__c = 'Test';
+    }
+    update caseList2;
+    test.stopTest();
+    // THEN new tasks are created and assigned to PSI queue
+    List<Task> psiTasks = [SELECT Id, Subject, OwnerId FROM Task];
+    System.assertEquals(IDRTaskActions.siQueue.Id, psiTasks[0].OwnerId);
+    System.assertEquals(IDRTaskActions.IDR_TASK_SUBJECT, psiTasks[0].Subject);
+  }
 
   //Tests if the Dispute Case Subject is populated correctly based on case record type and dispute reason
   @isTest
@@ -842,11 +1050,8 @@ private class CaseTriggerHandlerTest {
         )
       );
     }
-
     insert newCases;
-
     newCases = [SELECT Subject FROM Case WHERE id = :newCases[0].id];
-
     system.assertEquals(
       'Card - Cardholder does not recognise transaction',
       newCases[0].Subject
@@ -990,7 +1195,7 @@ private class CaseTriggerHandlerTest {
   @istest
   static void testBusinessHoursAssignment() {
     Case newCase = new Case();
-    newCase.RecordTypeId = IDRCaseActions.NON_CUSTOMER_COMPLAINT_RT_ID;
+    newCase.RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID;
     insert newCase;
 
     BusinessHours bhs = [
@@ -1002,6 +1207,49 @@ private class CaseTriggerHandlerTest {
     Case c = [SELECT BusinessHoursId FROM Case WHERE id = :newCase.id];
 
     System.assertEquals(bhs.Id, c.BusinessHoursId);
+  }
+
+  @istest
+  static void testIDRCaseDateRecievedUpdate() {
+    Case[] newCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
+          IDR_Date_Received__c = system.now()
+        )
+      );
+    }
+    insert newCases;
+
+    case testCase = [
+      SELECT Id, BusinessHoursId
+      FROM case
+      WHERE id = :newCases[0].Id
+    ];
+
+    task idrTask = new task(
+      whatId = testCase.Id,
+      Subject = IDRConstants.TASK_SUBJECT_DAY5,
+      RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID,
+      Priority = 'Standard',
+      ActivityDate = system.today()
+    );
+    insert idrTask;
+
+    checkRecursive.firstCall = false;
+
+    Test.startTest();
+    case updateCase = new case(
+      Id = testCase.Id,
+      IDR_Date_Received__c = system.now().addDays(-1)
+    );
+    update updateCase;
+    Test.stopTest();
+
+    task checkTask = [SELECT ActivityDate FROM Task WHERE id = :idrTask.Id];
+
+    system.assertNotEquals(idrTask.ActivityDate, checkTask.ActivityDate);
   }
 
   //Tests if ANZ Plus Case ContactId is populated correctly based on Account.
@@ -1037,101 +1285,89 @@ private class CaseTriggerHandlerTest {
       'Failed to auto-populate Contact lookup on ANZ Plus cases while inserting'
     );
   }
-
-  // Test if a  dispute can be created on a transaction that already has an open dispute
-  @isTest
-  static void testCheckOpenDisputeOnTransactionWithException() {
-    // GIVEN an open dispute already exists for a transaction
-    Account acc = [
-      SELECT Id, PersonContactId
-      FROM Account
-      WHERE OCV_ID__c = 'PERSONOCV879879'
-      LIMIT 1
+  //test the workbasket assignment for Afca referred compalints on insert
+  @istest
+  static void testEDRWorkbasketAssignmentOnInsert() {
+    Case[] newCases = new List<Case>();
+    List<Group> queueList = [
+      SELECT id, developername
+      FROM group
+      WHERE
+        developername = 'Specialised_Early_Resolution_Hardship'
+        AND Type = 'Queue'
     ];
 
-    Case disputeCase1 = new Case();
-    disputeCase1.RecordTypeId = GetHelpCaseActions.ATM_DISPUTE_RT_ID;
-    disputeCase1.AccountId = acc.Id;
-    disputeCase1.Dispute_Reason__c = 'Cash Dispense Error';
-    disputeCase1.Origin = 'Phone';
-    disputeCase1.Transaction_Id__c = 'c5aad076-ea65-4fa9-bc8c-f348c39cd0d6';
-    insert disputeCase1;
-
-    Case existingDisputeCase = [
-      SELECT CaseNumber__c
-      FROM Case
-      WHERE Transaction_Id__c = 'c5aad076-ea65-4fa9-bc8c-f348c39cd0d6'
-      LIMIT 1
-    ];
-
-    // WHEN a new dispute case is created on the same transaction
-    Case disputeCase2 = new Case();
-    disputeCase2.RecordTypeId = GetHelpCaseActions.ATM_DISPUTE_RT_ID;
-    disputeCase2.AccountId = acc.Id;
-    disputeCase2.Dispute_Reason__c = 'Error Correction';
-    disputeCase2.Origin = 'In Person';
-    disputeCase2.Transaction_Id__c = 'c5aad076-ea65-4fa9-bc8c-f348c39cd0d6';
-    try {
-      insert disputeCase2;
-    } catch (DmlException e) {
-      // THEN an error should occur indicating that there is already an open dispute linked to this transaction
-      System.assertEquals(
-        e.getDmlMessage(0),
-        GetHelpCaseActions.DUPLICATE_DISPUTE_ERROR +
-        existingDisputeCase.CaseNumber__c,
-        'Error messages do not match'
+    Test.startTest();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+          Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
+          IDR_Customer_Number__c = '1234567890',
+          Priority = 'Financial Hardship',
+          Type = '9',
+          IDR_Subsequent_Issue__c = '57',
+          Status = 'Escalated',
+          IDR_Escalation_Reason__c = '1'
+        )
       );
     }
+    insert newCases;
+    for (Case c : [SELECT Id, OwnerId FROM Case WHERE id IN :newCases]) {
+      System.assertEquals(c.OwnerId.getSobjectType(), Group.SobjectType);
+      System.assertEquals(queueList[0].Id, c.OwnerId);
+    }
+
+    Test.stopTest();
   }
 
-  // Test if a  dispute can be created on a transaction that has a closed dispute
-  @isTest
-  static void testCheckOpenDisputeOnTransactionSuccessful() {
-    // GIVEN an open dispute already exists for a transaction
-    Account acc = [
-      SELECT Id, PersonContactId
-      FROM Account
-      WHERE OCV_ID__c = 'PERSONOCV879879'
-      LIMIT 1
+  //test the workbasket assignment for Afca referred compalints on update
+  @istest
+  static void testEDRWorkbasketAssignmentOnUpdate() {
+    Case[] newCases = new List<Case>();
+    List<Group> queueList = [
+      SELECT id, developername
+      FROM group
+      WHERE
+        developername IN (
+          'Specialised_EarlyRes_Responsible_Lending',
+          'EDR_Early_Resolution'
+        )
+        AND Type = 'Queue'
     ];
 
-    Case disputeCase1 = new Case();
-    disputeCase1.RecordTypeId = GetHelpCaseActions.ATM_DISPUTE_RT_ID;
-    disputeCase1.AccountId = acc.Id;
-    disputeCase1.Dispute_Reason__c = 'Cash Dispense Error';
-    disputeCase1.Origin = 'Phone';
-    disputeCase1.Transaction_Id__c = 'c5aad076-ea65-4fa9-bc8c-f348c39cd0d6';
-    disputeCase1.Status = 'Closed';
-    insert disputeCase1;
-
-    // WHEN a new dispute case is created on the same transaction
-    Case disputeCase2 = new Case();
-    disputeCase2.RecordTypeId = GetHelpCaseActions.ATM_DISPUTE_RT_ID;
-    disputeCase2.AccountId = acc.Id;
-    disputeCase2.Dispute_Reason__c = 'Error Correction';
-    disputeCase2.Origin = 'In Person';
-    disputeCase2.Transaction_Id__c = 'c5aad076-ea65-4fa9-bc8c-f348c39cd0d6';
-    try {
-      insert disputeCase2;
-    } catch (DmlException e) {
-      // THEN the case should be created
-      System.assertEquals(null, e, 'An error has occurred');
-      Case createdDispute = [
-        SELECT Id, Dispute_Reason__c, Transaction_Id__c
-        FROM Case
-        WHERE AccountId = :acc.Id
-        LIMIT 1
-      ];
-      System.assertEquals(
-        'Error Correction',
-        createdDispute.Dispute_Reason__c,
-        'Dispute reasons do not match'
-      );
-      System.assertEquals(
-        'c5aad076-ea65-4fa9-bc8c-f348c39cd0d6',
-        createdDispute.Transaction_Id__c,
-        'Transaction Ids do not match'
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+          Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
+          IDR_Customer_Number__c = '1234567890',
+          Priority = 'Standard',
+          Type = '5',
+          IDR_Subsequent_Issue__c = '38'
+        )
       );
     }
+    insert newCases;
+    Test.startTest();
+    newCases[0].Status = 'Escalated';
+    newCases[0].IDR_Escalation_Reason__c = '1';
+
+    update newCases[0];
+
+    Case caseRec = [SELECT Id, OwnerId FROM Case WHERE id = :newCases[0].id];
+    System.assertEquals(Group.SobjectType, caseRec.OwnerId.getSobjectType());
+    System.assertEquals(queueList[1].Id, caseRec.OwnerId);
+
+    newCases[1].IDR_Subsequent_Issue__c = '39';
+    newCases[1].Status = 'Escalated';
+    newCases[1].IDR_Escalation_Reason__c = '1';
+    update newCases[1];
+
+    Case caseRec1 = [SELECT Id, OwnerId FROM Case WHERE id = :newCases[1].id];
+    System.assertEquals(Group.SobjectType, caseRec1.OwnerId.getSobjectType());
+    System.assertEquals(queueList[0].Id, caseRec1.OwnerId);
+
+    Test.stopTest();
   }
 }

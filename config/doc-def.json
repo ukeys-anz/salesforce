@@ -1,20 +1,23 @@
 {
   "folder": "docs",
   "objectwhitelist": [
+    "Access_Request__c",
     "Account",
     "Activity",
-    "Application_Log__c",
     "CaseComment",
     "Case",
     "Contact",
     "FinServ__FinancialAccount__c",
     "FinServ__FinancialAccountRole__c",
     "Knowledge__kav",
+    "Log_Record_Access__b",
+    "Privileged_Access_Request__c",
     "Product2",
     "Release__c",
     "Reported_Bug__c",
     "SkyhighNetworks__SHNEvent__c",
     "Task",
+    "Traced_Application_Log__b",
     "trailheadapp__Badge__c",
     "trailheadapp__Debug_Log__c",
     "trailheadapp__Trail__c",
@@ -71,9 +74,9 @@
     },
     {
       "name": "Engineer",
-      "profile": "No Access",
+      "profile": "Minimum Access - Salesforce",
       "permissionsetgroups": ["Engineer"],
-      "permissionsets": [],
+      "permissionsets": ["Enforce_SSO", "SFDX_Full_Dev_Hub_Access"],
       "type": "user"
     },
     {
