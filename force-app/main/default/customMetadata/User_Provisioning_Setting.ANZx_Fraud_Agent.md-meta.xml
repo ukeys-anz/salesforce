@@ -3,6 +3,10 @@
     <label>ANZx_Fraud_Agent</label>
     <protected>false</protected>
     <values>
+        <field>Call_Center_Name__c</field>
+        <value xsi:type="xsd:string">TwilioFlexAdapterOpenCTI</value>
+    </values>
+    <values>
         <field>Permission_Set_Groups__c</field>
         <value xsi:type="xsd:string">FraudX_Agent;</value>
     </values>

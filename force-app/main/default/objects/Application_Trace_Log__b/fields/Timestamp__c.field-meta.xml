@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Timestamp__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>Time when the event occurred measured by the origin clock. This field is optional, it may be missing if the timestamp is unknown.</description>
+    <externalId>false</externalId>
+    <label>Timestamp</label>
+    <required>true</required>
+    <securityClassification>Internal</securityClassification>
+    <type>DateTime</type>
+</CustomField>

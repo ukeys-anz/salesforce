@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>CMOS Systemic Issue BU Contacts</label>
+    <protected>false</protected>
+    <values>
+        <field>Permission_Set_Groups__c</field>
+        <value xsi:type="xsd:string">IDR_SI_Business_Contact;</value>
+    </values>
+    <values>
+        <field>Permission_Set_Licences__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Permission_Sets__c</field>
+        <value xsi:type="xsd:string">Enforce_SSO;</value>
+    </values>
+    <values>
+        <field>Profile_Name__c</field>
+        <value xsi:type="xsd:string">ANZ Standard User</value>
+    </values>
+    <values>
+        <field>Public_Groups__c</field>
+        <value xsi:type="xsd:string">SI_Business_Contacts;</value>
+    </values>
+    <values>
+        <field>Role_Name__c</field>
+        <value xsi:type="xsd:string">Banker</value>
+    </values>
+</CustomMetadata>

@@ -1,86 +1,48 @@
 <template>
   <template if:true={displayContent}>
-    <template if:true={loading}>
-      <div class="slds-align_absolute-center" style="height: 4rem">
-        <div role="status" class="slds-spinner_inline">
-          <lightning-spinner
-            alternative-text="Loading"
-            variant="brand"
-          ></lightning-spinner>
+    <article class="slds-card slds-m-bottom_small">
+      <template if:true={loading}>
+        <div class="slds-align_absolute-center" style="height: 4rem">
+          <div role="status" class="slds-spinner_inline">
+            <lightning-spinner
+              alternative-text="Loading"
+              variant="brand"
+            ></lightning-spinner>
+          </div>
         </div>
-      </div>
-    </template>
-    <template if:false={loading}>
-      <template if:true={hasError}>
-        <c-error message={error}></c-error>
       </template>
-      <template if:false={hasError}>
-        <article class="balances slds-card slds-m-bottom_small">
-          <div class="slds-card__body slds-card__body_inner">
-            <ul class="slds-grid slds-wrap slds-grid_pull-padded">
-              <li
-                class="slds-p-horizontal_small slds-size_1-of-1 slds-medium-size_1-of-2"
-                style="padding-left: 20px"
-              >
+      <template if:false={loading}>
+        <template if:true={hasError}>
+          <c-error message={error}></c-error>
+        </template>
+        <template if:false={hasError}>
+          <div class="slds-grid slds-wrap" data-id="balance-container">
+            <div class="slds-col slds-grid slds-size_1-of-1">
+              <div class="slds-grid slds-wrap slds-size_1-of-1">
                 <div
-                  class="slds-grid slds-grid_align-spread slds-has-flexi-truncate slds-m-left_small"
+                  class="slds-col slds-size_1-of-1 slds-large-size_1-of-1 slds-align_absolute-center slds-p-top_medium"
                 >
-                  <h3
-                    class="slds-tile__title slds-truncate"
-                    title="Available Balance"
-                  >
-                    Available Balance
-                  </h3>
+                  <div class="header-column">
+                    <p class="slds-tile__title slds-text-color_weak">
+                      {balanceTitle}
+                    </p>
+                    <p class="slds-item_label">{availableBalance}</p>
+                  </div>
                 </div>
-                <div class="slds-tile__detail slds-m-left_small">
-                  <dl class="slds-list_horizontal slds-wrap">
-                    <dt
-                      class="slds-item_label slds-text-color_weak"
-                      title="Total Balance"
-                    >
-                      {availableBalance}
-                    </dt>
-                  </dl>
-                </div>
-              </li>
-              <li
-                class="slds-p-horizontal_small slds-size_1-of-1 slds-medium-size_1-of-2"
-                style="padding-left: 20px"
-              >
-                <div
-                  class="slds-grid slds-grid_align-spread slds-has-flexi-truncate slds-m-left_small"
-                >
-                  <h3
-                    class="slds-tile__title slds-truncate"
-                    title="Current Balance"
-                  >
-                    Current Balance
-                  </h3>
-                </div>
-                <div class="slds-tile__detail slds-m-left_small">
-                  <dl class="slds-list_horizontal slds-wrap">
-                    <dt
-                      class="slds-item_label slds-text-color_weak"
-                      title="Current Balance"
-                    >
-                      {currentBalance}
-                    </dt>
-                  </dl>
-                </div>
-              </li>
-            </ul>
+              </div>
+            </div>
           </div>
           <footer class="slds-card__footer">
             <span class="lastUpdated">Last Updated {timestamp}</span>
           </footer>
-        </article>
+        </template>
       </template>
-    </template>
+    </article>
   </template>
   <template if:false={displayContent}>
     <article class="balances slds-card slds-m-bottom_small">
       <div class="slds-card__body">
-        <p class="field-padding">
+        <p class="slds-var-p-around_small">
           Don’t worry, it’s not broken. To view this you need a higher
           permission level.
         </p>

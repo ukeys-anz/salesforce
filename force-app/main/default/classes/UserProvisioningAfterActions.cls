@@ -513,7 +513,7 @@ public with sharing class UserProvisioningAfterActions {
         : 'Completed');
     }
 
-    if (!uprMap.isEmpty() || !log.log.isEmpty()) {
+    if (!uprMap.isEmpty() || !log.logList.isEmpty()) {
       system.enqueueJob(new QueueUPRStatusUpdate(uprMAP.values(), log));
     }
   }

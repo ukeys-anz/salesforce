@@ -2,13 +2,15 @@
 
 # Any subsequent(*) commands which fail will cause the shell script to exit immediately
 set -e
-
+# Using SOAP over REST is much faster for scratch org creations while pushing content.
+sfdx config:set restDeploy=false
 # Bypass the Lightning Experience custom domain check entirely, wich takes very long when connected to ANZ network
 # TODO Consider a switch to bypass it when connected elsewhere (e.g. from GCB)
 export SFDX_DOMAIN_RETRY=0
 
 read -rp "Enter scratch org alias (optional): " scratchorgalias
 read -rp "Is test data needed for this scratch org (y/n)? " testdata
+read -rp "Preload ANZ Plus test data (y/n)? " preloadANZPlusData
 
 ALL_START_TIME=$(date +%s)
 
@@ -65,6 +67,8 @@ echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
 echo "$(date): Import post-deployment plan..."
 JOB_START_TIME=$(date +%s)
 sfdx force:data:tree:import -p data/Post-Plan.json 2>&1 | tee stderr
+sfdx force:data:tree:import -p data/IDR-CustomSetting.json 2>&1 | tee stderr
+node createCmosEntitlment.js 2>&1 | tee stderr
 sfdx force:data:tree:import -f data/Non_Prod_Settings__c.json 2>&1 | tee stderr
 if [[ ($(cat stderr) == *'ERROR'*) ]]; then
     exit 1
@@ -72,11 +76,27 @@ fi
 JOB_END_TIME=$(date +%s)
 echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
 
+case ${preloadANZPlusData:0:1} in
+y | Y)
+    echo "$(date): Pre-loading sample data..."
+    JOB_START_TIME=$(date +%s)
+    sfdx force:apex:execute -f ./apex-scripts/createTestData.apex
+    JOB_END_TIME=$(date +%s)
+    echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
+    echo "$(date): Creating test users (inactive by default) with different roles..."
+    JOB_START_TIME=$(date +%s)
+    sfdx force:apex:execute -f ./apex-scripts/createTestUsers.apex
+    JOB_END_TIME=$(date +%s)
+    echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
+    ;;
+*) echo "Skipping ANZ plus test data preload" ;;
+esac
+
 case ${testdata:0:1} in
 y | Y)
     echo "$(date): Import test data and users..."
     JOB_START_TIME=$(date +%s)
-    tsc --build
+    tsc --project webdriverIO
     cp webdriverIO/.env.example webdriverIO/.env
     node webdriverIO/setup-scripts/envSetup.js
     #below will fetch the latest changes from the remote master branch as its the branch specified in salesforce-scripts submodule

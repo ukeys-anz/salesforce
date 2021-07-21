@@ -5,18 +5,33 @@ import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
 import { subscribe, MessageContext } from "lightning/messageService";
 import UpdateAccounts from "@salesforce/messageChannel/FinancialAccountsUpdate__c";
-import TriggerLoading from "@salesforce/messageChannel/FinancialAccountsTriggerLoading__c";
+import TriggerBalanceLoading from "@salesforce/messageChannel/FinancialAccountsBalanceTriggerLoading__c";
 
 import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
+import { getRecord } from "lightning/uiRecordApi";
+import RECORDTYPEID from "@salesforce/schema/FinServ__FinancialAccount__c.RecordTypeId";
 
 export default class AccountBalances extends LightningElement {
   @api recordId;
-  currentBalance;
   availableBalance;
   @track timestamp;
   @track loading = true;
   hasError = false;
   error;
+  balanceTitle;
+
+  @wire(getRecord, {
+    recordId: "$recordId",
+    fields: [RECORDTYPEID]
+  })
+  wiredProject({ data }) {
+    if (data) {
+      this.balanceTitle =
+        data.recordTypeInfo.name === "Checking Account"
+          ? "Everyday Funds"
+          : "Total Saved";
+    }
+  }
 
   @wire(MessageContext)
   messageContext;
@@ -27,7 +42,7 @@ export default class AccountBalances extends LightningElement {
     if (hasAccountsGoalsPermission) {
       this.loadingSubscription = subscribe(
         this.messageContext,
-        TriggerLoading,
+        TriggerBalanceLoading,
         (message) => {
           if (message.update) {
             this.loading = true;
@@ -43,7 +58,7 @@ export default class AccountBalances extends LightningElement {
             this.timestamp = "";
             this.fetchBalances();
 
-            if (this.availableBalance && this.currentBalance) {
+            if (this.availableBalance) {
               this.loading = false;
             }
           } else {
@@ -80,11 +95,6 @@ export default class AccountBalances extends LightningElement {
               style: "currency",
               currency: "AUD"
             }).format(finAccount.FinServ__Balance__c);
-
-            this.currentBalance = new Intl.NumberFormat("en-AU", {
-              style: "currency",
-              currency: "AUD"
-            }).format(finAccount.FinServ__CurrentPostedBalance__c);
           });
         }
         this.loading = false;

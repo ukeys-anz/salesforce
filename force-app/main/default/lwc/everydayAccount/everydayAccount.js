@@ -12,8 +12,8 @@ import { NavigationMixin } from "lightning/navigation";
 import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
 
 const ACCOUNT_TYPES = {
-  checking: "Everyday Account - ANZ Money",
-  savings: "Savings Account - ANZ Save"
+  checking: "Everyday - ANZ Plus Account",
+  savings: "Savings - ANZ Save Account"
 };
 
 export default class EverydayAccount extends NavigationMixin(LightningElement) {
@@ -26,6 +26,7 @@ export default class EverydayAccount extends NavigationMixin(LightningElement) {
   hasError = false;
   error;
   componentTitle;
+  balanceTitle;
 
   @wire(MessageContext)
   messageContext;
@@ -38,6 +39,10 @@ export default class EverydayAccount extends NavigationMixin(LightningElement) {
 
   connectedCallback() {
     this.componentTitle = ACCOUNT_TYPES[this.accountType.toLowerCase()];
+    this.balanceTitle =
+      this.accountType.toLowerCase() === "checking"
+        ? "Everyday Funds"
+        : "Total Saved";
     if (hasAccountsGoalsPermission) {
       this.loadingSubscription = subscribe(
         this.messageContext,
@@ -139,13 +144,6 @@ export default class EverydayAccount extends NavigationMixin(LightningElement) {
               style: "currency",
               currency: "AUD"
             }).format(finAccount.FinServ__Balance__c);
-            finAccount.FinServ__CurrentPostedBalance__c = new Intl.NumberFormat(
-              "en-AU",
-              {
-                style: "currency",
-                currency: "AUD"
-              }
-            ).format(finAccount.FinServ__CurrentPostedBalance__c);
           });
         }
         this.financialAccounts = result;
