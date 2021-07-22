@@ -25,6 +25,33 @@
     <columns>
         <field>Activity.Due_in_Days__c</field>
     </columns>
+    <columns>
+        <field>Activity.IDR_Pended_To__c</field>
+    </columns>
+    <columns>
+        <field>Activity.IDR_Pend_Reason__c</field>
+    </columns>
+    <columns>
+        <field>Activity.IDR_Key_Contact_Name__c</field>
+    </columns>
+    <columns>
+        <field>Activity.IDR_Portfolio_or_Business_Unit__c</field>
+    </columns>
+    <columns>
+        <field>Activity.IDR_Internal_or_External_Party__c</field>
+    </columns>
+    <columns>
+        <field>Activity.IDR_Tribe__c</field>
+    </columns>
+    <columns>
+        <field>Activity.IDR_Team__c</field>
+    </columns>
+    <columns>
+        <field>ASSIGNED</field>
+    </columns>
+    <columns>
+        <field>CASE_OWNER_ALIAS</field>
+    </columns>
     <description>Total time that the &apos;pend case&apos; task was open for for each case and the average across all cases</description>
     <filter>
         <criteriaItems>
