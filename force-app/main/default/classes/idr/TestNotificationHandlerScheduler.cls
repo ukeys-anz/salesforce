@@ -29,7 +29,8 @@ public with sharing class TestNotificationHandlerScheduler {
       testCase.Status = IDRConstants.ESCALATED_STATUS;
       testCase.IDR_Escalated_to__c = '1';
       testCase.IDR_Escalation_Reason__c = '1';
-
+      testCase.IDR_Nominated_3rd_Party_Notification__c = true;
+      testCase.IDR_Customer_Notification__c = true;
       caseList.add(testCase);
     }
 
