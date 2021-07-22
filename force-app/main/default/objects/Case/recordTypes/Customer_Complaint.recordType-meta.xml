@@ -5643,6 +5643,14 @@
             <fullName>Phone</fullName>
             <default>true</default>
         </values>
+        <values>
+            <fullName>Chat</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ Plus App</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>Priority</picklist>
