@@ -16,18 +16,18 @@
               "colspan": 10,
               "column": 1,
               "name": "text_1",
-              "row": 4,
+              "row": 2,
               "rowspan": 2,
               "widgetStyle": {
                 "backgroundColor": "rgba(255, 255, 255, 0)",
                 "borderColor": "rgba(230, 236, 242, 0)",
-                "borderEdges": ["left"],
+                "borderEdges": [],
                 "borderRadius": 0,
                 "borderWidth": 8
               }
             },
             {
-              "colspan": 4,
+              "colspan": 6,
               "column": 1,
               "name": "number_1",
               "row": 6,
@@ -42,16 +42,16 @@
             },
             {
               "colspan": 6,
-              "column": 5,
+              "column": 7,
               "name": "chart_1",
-              "row": 6,
+              "row": 5,
               "rowspan": 4,
               "widgetStyle": {
-                "backgroundColor": "rgba(255, 255, 255, 0)",
-                "borderColor": "rgba(9, 26, 62, 0)",
-                "borderEdges": ["bottom"],
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#E6ECF2",
+                "borderEdges": [],
                 "borderRadius": 0,
-                "borderWidth": 8
+                "borderWidth": 1
               }
             },
             {
@@ -100,21 +100,21 @@
               "colspan": 49,
               "column": 0,
               "name": "container_8",
-              "row": 2,
-              "rowspan": 9,
+              "row": 0,
+              "rowspan": 11,
               "widgetStyle": {
                 "backgroundColor": "rgba(255, 255, 255, 0)",
-                "borderColor": "rgb(51, 87, 121)",
+                "borderColor": "#C6D3E1",
                 "borderEdges": ["bottom"],
                 "borderRadius": 0,
                 "borderWidth": 1
               }
             },
             {
-              "colspan": 7,
+              "colspan": 9,
               "column": 26,
               "name": "text_3",
-              "row": 4,
+              "row": 1,
               "rowspan": 3,
               "widgetStyle": { "borderEdges": [] }
             },
@@ -135,23 +135,23 @@
               "widgetStyle": { "borderEdges": [] }
             },
             {
-              "colspan": 46,
-              "column": 2,
+              "colspan": 44,
+              "column": 3,
               "name": "chart_8",
               "row": 18,
-              "rowspan": 10,
+              "rowspan": 11,
               "widgetStyle": { "borderEdges": [] }
             },
             {
               "colspan": 11,
               "column": 37,
               "name": "pillbox_1",
-              "row": 7,
+              "row": 4,
               "rowspan": 3,
               "widgetStyle": {
                 "backgroundColor": "#C6D3E1",
-                "borderColor": "#E6ECF2",
-                "borderEdges": [],
+                "borderColor": "#091A3E",
+                "borderEdges": ["all"],
                 "borderRadius": 8,
                 "borderWidth": 1
               }
@@ -160,10 +160,10 @@
               "colspan": 46,
               "column": 2,
               "name": "container_3",
-              "row": 29,
-              "rowspan": 24,
+              "row": 18,
+              "rowspan": 35,
               "widgetStyle": {
-                "backgroundColor": "#335779",
+                "backgroundColor": "#FFFFFF",
                 "borderColor": "#FFFFFF",
                 "borderEdges": [],
                 "borderRadius": 8,
@@ -188,12 +188,12 @@
               "colspan": 9,
               "column": 26,
               "name": "pillbox_2",
-              "row": 7,
+              "row": 4,
               "rowspan": 3,
               "widgetStyle": {
                 "backgroundColor": "#FFFFFF",
-                "borderColor": "#E6ECF2",
-                "borderEdges": [],
+                "borderColor": "#091A3E",
+                "borderEdges": ["all"],
                 "borderRadius": 8,
                 "borderWidth": 1
               }
@@ -206,18 +206,18 @@
               "rowspan": 5,
               "widgetStyle": {
                 "backgroundColor": "#FFFFFF",
-                "borderColor": "#E6ECF2",
-                "borderEdges": [],
+                "borderColor": "#091A3E",
+                "borderEdges": ["all"],
                 "borderRadius": 4,
                 "borderWidth": 1
               }
             },
             {
-              "colspan": 8,
-              "column": 3,
+              "colspan": 9,
+              "column": 2,
               "name": "text_4",
-              "row": 13,
-              "rowspan": 3,
+              "row": 12,
+              "rowspan": 5,
               "widgetStyle": { "borderEdges": [] }
             },
             {
@@ -227,7 +227,7 @@
               "row": 12,
               "rowspan": 5,
               "widgetStyle": {
-                "backgroundColor": "#FFFFFF",
+                "backgroundColor": "rgb(0, 112, 210)",
                 "borderColor": "#E6ECF2",
                 "borderEdges": [],
                 "borderRadius": 8,
@@ -292,7 +292,7 @@
               "widgetStyle": {
                 "backgroundColor": "rgba(255, 255, 255, 0)",
                 "borderColor": "rgba(230, 236, 242, 0)",
-                "borderEdges": ["left"],
+                "borderEdges": [],
                 "borderRadius": 0,
                 "borderWidth": 8
               }
@@ -304,11 +304,11 @@
               "row": 7,
               "rowspan": 4,
               "widgetStyle": {
-                "backgroundColor": "rgba(255, 255, 255, 0)",
-                "borderColor": "rgba(9, 26, 62, 0)",
-                "borderEdges": ["bottom"],
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#E6ECF2",
+                "borderEdges": [],
                 "borderRadius": 0,
-                "borderWidth": 8
+                "borderWidth": 1
               }
             },
             {
@@ -333,7 +333,7 @@
       "style": {
         "alignmentX": "left",
         "alignmentY": "top",
-        "backgroundColor": "rgb(0, 65, 101)",
+        "backgroundColor": "#FFFFFF",
         "cellSpacingX": 0,
         "cellSpacingY": 0,
         "fit": "fitwidth",
@@ -403,6 +403,98 @@
             "chartsPerLine": 4
           },
           "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "CreatedDate_Day_1": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "CreatedDate_Day_1",
+      "numbers": [],
+      "query": "q = load \"cases_duration\";\nq = filter q by {{cell(My_Records_Filter_1.selection,0,\"SAQL\").asObject()}};q = filter q by date('CreatedDate_Year', 'CreatedDate_Month', 'CreatedDate_Day') in [\"30 days ago\"..\"current day\"];\nq = group q by ('CreatedDate_Year', 'CreatedDate_Month', 'CreatedDate_Day');\nq = foreach q generate 'CreatedDate_Year' + \"~~~\" + 'CreatedDate_Month' + \"~~~\" + 'CreatedDate_Day' as 'CreatedDate_Year~~~CreatedDate_Month~~~CreatedDate_Day', count() as 'count';\nq = order q by 'CreatedDate_Year~~~CreatedDate_Month~~~CreatedDate_Day' asc;\nq = limit q 2000;",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "start": "[]",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "fit",
+          "showPoints": false,
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": false,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "line",
+          "dashLine": { "measures": "", "showDashLine": false },
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "fillArea": true,
+          "showActionMenu": true,
+          "showZero": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": false,
+            "showAxis": false,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "valueType": "none",
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": false,
+            "customSize": "auto",
+            "showAxis": false,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": false,
+          "drawArea": {
+            "measure": "",
+            "showDrawArea": false,
+            "bounding1": "",
+            "bounding2": ""
+          }
         },
         "type": "chart"
       }
@@ -916,7 +1008,7 @@
       "groups": ["Record.Name"],
       "label": "Case Type filter",
       "numbers": ["count"],
-      "query": "q = load \"cases_duration\";\nq = group q by 'Record.Name';\nq = foreach q generate 'Record.Name' as 'Record.Name', count() as 'count';\nq = order q by 'Record.Name' asc;\nq = limit q 2000;",
+      "query": "q = load \"cases_duration\";\nq = filter q by {{cell(My_Records_Filter_1.selection, 0, \"SAQL\").asString()}};\nq = group q by 'Record.Name';\nq = foreach q generate 'Record.Name' as 'Record.Name', count() as 'count';\nq = order q by 'Record.Name' asc;\nq = limit q 2000;",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "multi",
       "strings": ["Record.Name"],
@@ -1087,98 +1179,6 @@
             }
           },
           "applyConditionalFormatting": true
-        },
-        "type": "chart"
-      }
-    },
-    "IDR_Date_Received__c_Day_1": {
-      "broadcastFacet": true,
-      "groups": [],
-      "label": "IDR_Date_Received__c_Day_1",
-      "numbers": [],
-      "query": "q = load \"cases_duration\";\nq = filter q by {{cell(My_Records_Filter_1.selection,0,\"SAQL\").asObject()}};q = filter q by date('IDR_Date_Received__c_Year', 'IDR_Date_Received__c_Month', 'IDR_Date_Received__c_Day') in [\"30 days ago\"..\"current day\"];\nq = group q by ('IDR_Date_Received__c_Year', 'IDR_Date_Received__c_Month', 'IDR_Date_Received__c_Day');\nq = foreach q generate 'IDR_Date_Received__c_Year' + \"~~~\" + 'IDR_Date_Received__c_Month' + \"~~~\" + 'IDR_Date_Received__c_Day' as 'IDR_Date_Received__c_Year~~~IDR_Date_Received__c_Month~~~IDR_Date_Received__c_Day', count() as 'count';\nq = order q by 'IDR_Date_Received__c_Year~~~IDR_Date_Received__c_Month~~~IDR_Date_Received__c_Day' asc;\nq = limit q 2000;",
-      "receiveFacetSource": { "mode": "all", "steps": [] },
-      "selectMode": "single",
-      "start": "[]",
-      "strings": [],
-      "type": "saql",
-      "useGlobal": true,
-      "visualizationParameters": {
-        "parameters": {
-          "autoFitMode": "fit",
-          "showPoints": false,
-          "legend": {
-            "descOrder": false,
-            "showHeader": true,
-            "show": false,
-            "customSize": "auto",
-            "position": "right-top",
-            "inside": false
-          },
-          "axisMode": "multi",
-          "tooltip": {
-            "showBinLabel": true,
-            "measures": "",
-            "showNullValues": true,
-            "showPercentage": true,
-            "showDimensions": true,
-            "showMeasures": true,
-            "customizeTooltip": false,
-            "dimensions": ""
-          },
-          "visualizationType": "line",
-          "dashLine": { "measures": "", "showDashLine": false },
-          "title": {
-            "fontSize": 14,
-            "subtitleFontSize": 11,
-            "label": "",
-            "align": "center",
-            "subtitleLabel": ""
-          },
-          "trellis": {
-            "flipLabels": false,
-            "showGridLines": true,
-            "size": [100, 100],
-            "enable": false,
-            "type": "x",
-            "chartsPerLine": 4
-          },
-          "fillArea": true,
-          "showActionMenu": true,
-          "showZero": true,
-          "measureAxis2": {
-            "sqrtScale": false,
-            "showTitle": true,
-            "showAxis": true,
-            "title": "",
-            "customDomain": { "showDomain": false }
-          },
-          "measureAxis1": {
-            "sqrtScale": false,
-            "showTitle": false,
-            "showAxis": false,
-            "title": "",
-            "customDomain": { "showDomain": false }
-          },
-          "valueType": "none",
-          "theme": "wave",
-          "dimensionAxis": {
-            "showTitle": false,
-            "customSize": "auto",
-            "showAxis": false,
-            "title": "",
-            "icons": {
-              "useIcons": false,
-              "iconProps": { "fit": "cover", "column": "", "type": "round" }
-            }
-          },
-          "applyConditionalFormatting": false,
-          "drawArea": {
-            "measure": "",
-            "showDrawArea": false,
-            "bounding1": "",
-            "bounding2": ""
-          }
         },
         "type": "chart"
       }
@@ -1434,7 +1434,7 @@
           "title": "",
           "customDomain": { "showDomain": false }
         },
-        "theme": "dark",
+        "theme": "wave",
         "step": "Origin_1",
         "dimensionAxis": {
           "showTitle": false,
@@ -1486,7 +1486,7 @@
           "subtitleFontSize": 11,
           "label": "",
           "align": "center",
-          "subtitleLabel": ""
+          "subtitleLabel": " "
         },
         "trellis": {
           "flipLabels": false,
@@ -1504,7 +1504,7 @@
         "showActionMenu": false,
         "valueType": "compactNumber",
         "showTotal": true,
-        "theme": "dark",
+        "theme": "wave",
         "step": "Status_1",
         "markers": [],
         "applyConditionalFormatting": true
@@ -1523,7 +1523,7 @@
     },
     "text_7": {
       "parameters": {
-        "content": { "displayTemplate": "\n" },
+        "content": { "displayTemplate": "\n\n" },
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
@@ -1590,8 +1590,8 @@
           "customDomain": { "showDomain": false }
         },
         "valueType": "none",
-        "theme": "dark",
-        "step": "IDR_Date_Received__c_Day_1",
+        "theme": "wave",
+        "step": "CreatedDate_Day_1",
         "dimensionAxis": {
           "showTitle": false,
           "customSize": "auto",
@@ -1661,7 +1661,7 @@
         "showActionMenu": true,
         "centerValueType": "number",
         "valueType": "compactNumber",
-        "theme": "dark",
+        "theme": "wave",
         "step": "SLA_Status__c_1",
         "applyConditionalFormatting": true
       },
@@ -1794,7 +1794,13 @@
             "parameters": { "alignment": "left", "styles": { "bold": true } },
             "type": "text"
           },
-          "Subject": { "parameters": { "alignment": "left" }, "type": "text" }
+          "Subject": {
+            "parameters": {
+              "alignment": "left",
+              "styles": { "linkColor": "#006dcc" }
+            },
+            "type": "text"
+          }
         },
         "columns": [],
         "customBulkActions": [],
@@ -1855,14 +1861,15 @@
         "compact": true,
         "exploreLink": true,
         "measureField": "count",
-        "numberColor": "#FFFFFF",
-        "numberSize": 16,
+        "numberColor": "#091A3E",
+        "numberSize": 32,
         "showActionMenu": true,
         "step": "Duration_Hours__c_1",
         "textAlignment": "right",
         "title": "",
         "titleColor": "#091A3E",
-        "titleSize": 16
+        "titleSize": 16,
+        "tooltip": { "customizeTooltip": false }
       },
       "type": "number"
     },
@@ -1886,7 +1893,7 @@
         "fontSize": 14,
         "measureField": "count",
         "selectedTab": {
-          "backgroundColor": "#0070D2",
+          "backgroundColor": "rgb(0, 112, 210)",
           "borderColor": "#C6D3E1",
           "borderEdges": ["all"],
           "borderWidth": 1,
@@ -1934,11 +1941,11 @@
       "parameters": {
         "destinationLink": { "name": "Page_Grid_Expansion" },
         "destinationType": "page",
-        "fontSize": 14,
+        "fontSize": 16,
         "includeState": false,
         "text": "Expand",
         "textAlignment": "right",
-        "textColor": "rgb(0, 112, 210)"
+        "textColor": "#091A3E"
       },
       "type": "link"
     },
@@ -2011,7 +2018,7 @@
         "showActionMenu": false,
         "centerValueType": "number",
         "valueType": "compactNumber",
-        "theme": "dark",
+        "theme": "wave",
         "step": "Product__c_4",
         "applyConditionalFormatting": false
       },

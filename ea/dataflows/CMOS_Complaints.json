@@ -47,7 +47,7 @@
         "rightKey": ["CaseId"],
         "rightSelect": ["CountOfTransfers"]
       },
-      "sources": ["IncludeComplaintsOnly", "CalcCountOfTransfers"]
+      "sources": ["FilterComplaintsOnly", "CalcCountOfTransfers"]
     },
     "CaseDuration": {
       "action": "computeExpression",
@@ -58,7 +58,7 @@
             "label": "CaseDuration_epoch",
             "name": "CaseDuration_epoch",
             "precision": 10,
-            "saqlExpression": "case \nwhen (CreatedDate_sec_epoch - ClosedDate_sec_epoch) < 0\nthen 0\nelse\n(CreatedDate_sec_epoch - ClosedDate_sec_epoch)\nend",
+            "saqlExpression": "case \nwhen (ClosedDate_sec_epoch - CreatedDate_sec_epoch) < 0\nthen 0\nelse\n(ClosedDate_sec_epoch - CreatedDate_sec_epoch)\nend",
             "scale": 0,
             "type": "Numeric"
           },
@@ -149,7 +149,9 @@
           { "name": "IDR_Escalation_Reason__c" },
           { "name": "IDR_Non_Financial_Remedy__c" },
           { "name": "IDR_Complaint_Outcome__c" },
-          { "name": "IDR_Complaint_Remedy__c" }
+          { "name": "IDR_Complaint_Remedy__c" },
+          { "name": "IDR_Office_Created_By__c" },
+          { "name": "IDR_Office__c" }
         ],
         "object": "Case"
       }
@@ -179,7 +181,9 @@
     },
     "FilterEscalationPicklist": {
       "action": "filter",
-      "parameters": { "filter": "EntityParticleId:EQ:Case.00N2N00000AA4RW" },
+      "parameters": {
+        "filter": "EntityParticleId:EQ:Case.00N2N00000AA4RW|Case.00N5m000000PSfy"
+      },
       "sources": ["PullPicklistValues"]
     },
     "CountOfTransfers": {
@@ -214,14 +218,15 @@
         "relationship": "Onboarding",
         "rightKey": ["Salary_ID"],
         "rightSelect": [
-          "Role",
-          "Region",
           "State_Province",
-          "Team_Branch",
           "Team_Code",
-          "District",
+          "Role",
+          "Team_Branch",
           "Country",
-          "Business"
+          "Region",
+          "District",
+          "Business",
+          "Division"
         ]
       },
       "sources": ["MergeUserInfo", "digest_cmos_onboarding_csv"]
@@ -287,13 +292,6 @@
       },
       "sources": ["MergeCaseProduct", "FilterCaseTypes"]
     },
-    "IncludeComplaintsOnly": {
-      "action": "filter",
-      "parameters": {
-        "saqlFilter": "'Record.DeveloperName' in [\"Customer_Complaint\"]"
-      },
-      "sources": ["MergeOnBoardingData"]
-    },
     "FilterOwnerOnly": {
       "action": "filter",
       "parameters": { "filter": "Field:EQ:Owner" },
@@ -342,6 +340,13 @@
       "parameters": { "filter": "EntityParticleId:EQ:Case.Type" },
       "sources": ["PullPicklistValues"]
     },
+    "FilterComplaintsOnly": {
+      "action": "filter",
+      "parameters": {
+        "saqlFilter": "'Record.DeveloperName' in [\"Customer_Complaint\", \"Non-Customer Complaints\"]"
+      },
+      "sources": ["MergeOnBoardingData"]
+    },
     "JoinRecordType": {
       "action": "augment",
       "parameters": {
@@ -378,7 +383,7 @@
           { "name": "EntityParticleId" }
         ],
         "object": "PicklistValueInfo",
-        "passthroughFilter": "EntityParticleId = 'Case.Type' OR EntityParticleId = 'Case.00N2N00000AA4RW' OR EntityParticleId = 'Case.00N2N00000CJHhy' OR EntityParticleId = 'Case.IDR_Complaint_Remedy__c'\nOR EntityParticleId = 'Case.00N5m000000PSfr'",
+        "passthroughFilter": "EntityParticleId = 'Case.Type' OR \nEntityParticleId = 'Case.IDR_Escalation_Reason__c' \nOR EntityParticleId = 'Case.00N2N00000AA4RW' \nOR EntityParticleId = 'Case.00N2N00000CJHhy'\nOR EntityParticleId = 'Case.00N5m000000PSfy'\nOR EntityParticleId = 'Case.IDR_Complaint_Remedy__c'\nOR EntityParticleId = 'Case.00N5m000000PSfr'",
         "runtime": { "enablePKChunking": false }
       }
     },

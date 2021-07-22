@@ -51,7 +51,7 @@ public without sharing class Lib_SystemLog {
   /**
    * @description The Big object log records
    */
-  public List<Application_Trace_Log__b> logList { get; private set; }
+  public List<Traced_Application_Log__b> logList { get; private set; }
 
   /**
    * @description Constructor
@@ -81,14 +81,14 @@ public without sharing class Lib_SystemLog {
     String functionName,
     String batchId
   ) {
-    this.logList = new Application_Trace_Log__b[0];
+    this.logList = new Traced_Application_Log__b[0];
     this.processName = processName;
     this.functionName = functionName;
     this.batchId = batchId;
   }
 
   /**
-   * @description The method is used to create a single log record in Application_Trace_Log__b object
+   * @description The method is used to create a single log record in Traced_Application_Log__b object
    * @param processName Process name used to generate the log.
    * @param functionName Function name used to generate the log.
    * @param errorNo Error code used to create the log record.
@@ -110,7 +110,7 @@ public without sharing class Lib_SystemLog {
   }
 
   /**
-   * @description The method is used to create a single log record in Application_Trace_Log__b object in async mode
+   * @description The method is used to create a single log record in Traced_Application_Log__b object in async mode
    * @param processName Process name used to generate the log.
    * @param functionName Function name used to generate the log.
    * @param errorNo Error code used to create the log record.
@@ -256,7 +256,7 @@ public without sharing class Lib_SystemLog {
 
   /**
    * @description  The method addMessage is used to add a record to log list. We can add multiple logs by calling this method and at the end the caller should call {@link insertLog()} method
-   * to create record/records in Application_Trace_Log__b object
+   * to create record/records in Traced_Application_Log__b object
    * @param errorNo Error code used to create the log record.
    * @param errorDescription Error description used to create the log record.
    * @param severity Error Severity used to create the log record.
@@ -271,7 +271,7 @@ public without sharing class Lib_SystemLog {
 
   /**
    * @description  The method addMessage is used to add a record with existing Tace Id to log list. We can add multiple logs by calling this method and at the end the caller should call {@link insertLog()} method
-   * to create record/records in Application_Trace_Log__b object
+   * to create record/records in Traced_Application_Log__b object
    * @param errorNo Error code used to create the log record.
    * @param errorDescription Error description used to create the log record.
    * @param severity Error Severity used to create the log record.
@@ -283,7 +283,7 @@ public without sharing class Lib_SystemLog {
     Severity severity,
     String traceId
   ) {
-    Application_Trace_Log__b curLog = new Application_Trace_Log__b();
+    Traced_Application_Log__b curLog = new Traced_Application_Log__b();
     curLog.Timestamp__c = DateTime.Now();
     curLog.Trace_Id__c = traceId;
     curLog.Span_Id__c = UniqueIdUtil.getParentId();
@@ -309,7 +309,7 @@ public without sharing class Lib_SystemLog {
   /**
    * @description  The method addMessageWithRequestResponse is used to add a record to log list which is specifically for request response integration pattern
    * which logs request body and response body. We can add multiple logs by calling this method and at the end the caller should call {@link insertLog()} method
-   * to create record/records in Application_Trace_Log__b object
+   * to create record/records in Traced_Application_Log__b object
    * @param errorNo Error code used to create the log record.
    * @param errorDescription Error description used to create the log record.
    * @param severity Error Severity used to create the log record.
@@ -345,7 +345,7 @@ public without sharing class Lib_SystemLog {
   /**
    * @description  The method addMessageWithRequestResponse is used to add a record with existing Tace Id to log list which is specifically for request response integration pattern
    * which logs request body and response body. We can add multiple logs by calling this method and at the end the caller should call {@link insertLog()} method
-   * to create record/records in Application_Trace_Log__b object
+   * to create record/records in Traced_Application_Log__b object
    * @param errorNo Error code used to create the log record.
    * @param errorDescription Error description used to create the log record.
    * @param severity Error Severity used to create the log record.
@@ -367,7 +367,7 @@ public without sharing class Lib_SystemLog {
     String response,
     String traceId
   ) {
-    Application_Trace_Log__b curLog = new Application_Trace_Log__b();
+    Traced_Application_Log__b curLog = new Traced_Application_Log__b();
     curLog.Timestamp__c = DateTime.Now();
     curLog.Trace_Id__c = traceId;
     curLog.Span_Id__c = UniqueIdUtil.getParentId();
@@ -412,7 +412,7 @@ public without sharing class Lib_SystemLog {
   /**
    * @description  The method addObjectMessage is used to add a record to log list which is specific for an Object
    * We can add multiple logs by calling this method and at the end the caller should call {@link insertLog()} method
-   * to create record/records in Application_Trace_Log__b object
+   * to create record/records in Traced_Application_Log__b object
    * @param objectName The name of the object used to create the log record.
    * @param recordId The record Id of the record of a Object to be logged.
    * @param errorNo Error code used to create the log record.
@@ -439,7 +439,7 @@ public without sharing class Lib_SystemLog {
   /**
    * @description  The method addObjectMessage is used to add a record with existing Tace Id to log list which is specific for an Object
    * We can add multiple logs by calling this method and at the end the caller should call {@link insertLog()} method
-   * to create record/records in Application_Trace_Log__b object
+   * to create record/records in Traced_Application_Log__b object
    * @param objectName The name of the object used to create the log record.
    * @param recordId The record Id of the record of a Object to be logged.
    * @param errorNo Error code used to create the log record.
@@ -455,7 +455,7 @@ public without sharing class Lib_SystemLog {
     Severity severity,
     String traceId
   ) {
-    Application_Trace_Log__b curLog = new Application_Trace_Log__b();
+    Traced_Application_Log__b curLog = new Traced_Application_Log__b();
     curLog.Timestamp__c = DateTime.Now();
     curLog.Trace_Id__c = traceId;
     curLog.Span_Id__c = UniqueIdUtil.getParentId();
@@ -483,7 +483,7 @@ public without sharing class Lib_SystemLog {
   /**
    * @description  The method addDatabaseSaveResult is used for for creating logs when permorfing DML operations insert or update
    * The save results are checked to see if its successful and if there are any failures we add to the log list. At the end the caller should call {@link insertLog()} method
-   * to create record/records in Application_Trace_Log__b object. If an error is found, a boolean is returned so users can easily identify and throw errors
+   * to create record/records in Traced_Application_Log__b object. If an error is found, a boolean is returned so users can easily identify and throw errors
    * @param objectName The name of the object used to create the log record.
    * @param results List of save results which will be evaluated for logging.
    * @param records actual records which are used for DML insert/update.
@@ -505,7 +505,7 @@ public without sharing class Lib_SystemLog {
   /**
    * @description  The method addDatabaseSaveResult is used for for creating logs with existing Tace Id when permorfing DML operations insert or update
    * The save results are checked to see if its successful and if there are any failures we add to the log list. At the end the caller should call {@link insertLog()} method
-   * to create record/records in Application_Trace_Log__b object. If an error is found, a boolean is returned so users can easily identify and throw errors
+   * to create record/records in Traced_Application_Log__b object. If an error is found, a boolean is returned so users can easily identify and throw errors
    * @param objectName The name of the object used to create the log record.
    * @param results List of save results which will be evaluated for logging.
    * @param records actual records which are used for DML insert/update.
@@ -553,7 +553,7 @@ public without sharing class Lib_SystemLog {
   /**
    * @description  The method addDatabaseUpsertResult is used for for creating logs when permorfing DML operation upsert
    * The upsert results are checked to see if its successful and if there are any failures we add to the log list. At the end the caller should call {@link insertLog()} method
-   * to create record/records in Application_Trace_Log__b object. If an error is found, a boolean is returned so users can easily identify and throw errors
+   * to create record/records in Traced_Application_Log__b object. If an error is found, a boolean is returned so users can easily identify and throw errors
    * @param objectName The name of the object used to create the log record.
    * @param results List of upsert results which will be evaluated for logging.
    * @param records actual records which are used for DML insert/update.
@@ -599,7 +599,7 @@ public without sharing class Lib_SystemLog {
    * @description  The method publishEvent is used for creating a platform event for Async logging
    * The Lib_SystemLog object needs to be created with required fields  before calling this method
    * The information used to create the object is serialized as JSON and published as platform event.
-   * The trigger {@link Lib_ApplicationLoggingEvents} will listen to these events and inserts the data to Application_Trace_Log__b object
+   * The trigger {@link Lib_ApplicationLoggingEvents} will listen to these events and inserts the data to Traced_Application_Log__b object
    */
   public void publishEvent() {
     List<Application_Logging__e> logEvents = new List<Application_Logging__e>();
@@ -608,13 +608,13 @@ public without sharing class Lib_SystemLog {
     // Call method to publish events
     List<Database.SaveResult> results = EventBus.publish(logEvents);
 
-    this.logList = new Application_Trace_Log__b[0];
+    this.logList = new Traced_Application_Log__b[0];
   }
 
   /**
    * @description The method logAPIError is used for creating a platform event for Async logging
    * specifically for api calls using request response integration patterns.
-   * The trigger {@link Lib_ApplicationLoggingEvents} will listen to these events and inserts the data to Application_Trace_Log__b object
+   * The trigger {@link Lib_ApplicationLoggingEvents} will listen to these events and inserts the data to Traced_Application_Log__b object
    * The caller should call {@link insertLog()} method
    * @param processName Process name used to generate the log.
    * @param functionName Name of the funtion to generate the log.
@@ -654,27 +654,27 @@ public without sharing class Lib_SystemLog {
   }
 
   /**
-   *  @description  The method insertLog is used creating/inserting log records in Application_Trace_Log__b object.
+   *  @description  The method insertLog is used creating/inserting log records in Traced_Application_Log__b object.
    */
   public void insertLog() {
     if (
       !logList.isEmpty() &&
-      Application_Trace_Log__b.sObjectType.getDescribe().isCreateable()
+      Traced_Application_Log__b.sObjectType.getDescribe().isCreateable()
     ) {
       if (!Test.isRunningTest()) {
-        bigObjectHelper.insertBigObject(logList, 'Application_Trace_Log__b');
+        bigObjectHelper.insertBigObject(logList, 'Traced_Application_Log__b');
       }
     }
-    this.logList = new Application_Trace_Log__b[0];
+    this.logList = new Traced_Application_Log__b[0];
   }
 
   /**
-   *  @description  The method insertLog is used creating/inserting log records in Application_Trace_Log__b object asynchronously.
+   *  @description  The method insertLog is used creating/inserting log records in Traced_Application_Log__b object asynchronously.
    */
   public void insertLogAsync() {
     String logStr = JSON.serialize(this);
     Lib_SystemLog.insertLogStaticAsync(logStr);
-    this.logList = new Application_Trace_Log__b[0];
+    this.logList = new Traced_Application_Log__b[0];
   }
 
   /**
@@ -687,12 +687,12 @@ public without sharing class Lib_SystemLog {
       logStr,
       lib_SystemLog.class
     );
-    List<Application_Trace_Log__b> applicationLogs = sfLog.logList;
+    List<Traced_Application_Log__b> applicationLogs = sfLog.logList;
 
     if (!Test.isRunningTest()) {
       bigObjectHelper.insertBigObject(
         applicationLogs,
-        'Application_Trace_Log__b'
+        'Traced_Application_Log__b'
       );
     }
   }

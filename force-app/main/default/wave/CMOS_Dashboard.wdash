@@ -31,6 +31,38 @@
       ],
       "label": "User <Team> Complaints",
       "name": "Link_961"
+    },
+    {
+      "fields": [
+        {
+          "dataSourceName": "CMOS_Historic_User_Data",
+          "dataSourceType": "dataset",
+          "fieldName": "Onboard.Division"
+        },
+        {
+          "dataSourceName": "CMOS_Cases",
+          "dataSourceType": "dataset",
+          "fieldName": "Onboarding.Division"
+        }
+      ],
+      "label": "CMOS Divisions",
+      "name": "Link_1075"
+    },
+    {
+      "fields": [
+        {
+          "dataSourceName": "CMOS_Historic_User_Data",
+          "dataSourceType": "dataset",
+          "fieldName": "Onboard.Team_Branch"
+        },
+        {
+          "dataSourceName": "CMOS_Cases",
+          "dataSourceType": "dataset",
+          "fieldName": "IDR_Office_Created_By__c"
+        }
+      ],
+      "label": "Office",
+      "name": "Link_920"
     }
   ],
   "filters": [],
@@ -74,19 +106,19 @@
               }
             },
             {
-              "colspan": 11,
-              "column": 0,
+              "colspan": 6,
+              "column": 18,
               "name": "chart_7",
-              "row": 19,
-              "rowspan": 14,
+              "row": 7,
+              "rowspan": 9,
               "widgetStyle": { "borderEdges": [] }
             },
             {
               "colspan": 6,
               "column": 18,
               "name": "chart_9",
-              "row": 7,
-              "rowspan": 25,
+              "row": 17,
+              "rowspan": 15,
               "widgetStyle": { "borderEdges": [] }
             },
             {
@@ -319,8 +351,8 @@
               "colspan": 11,
               "column": 0,
               "name": "chart_1",
-              "row": 7,
-              "rowspan": 11,
+              "row": 6,
+              "rowspan": 27,
               "widgetStyle": { "borderEdges": [] }
             },
             {
@@ -404,6 +436,22 @@
                 "borderRadius": 0,
                 "borderWidth": 1
               }
+            },
+            {
+              "colspan": 8,
+              "column": 8,
+              "name": "text_12",
+              "row": 59,
+              "rowspan": 2,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 2,
+              "column": 0,
+              "name": "link_3",
+              "row": 110,
+              "rowspan": 3,
+              "widgetStyle": { "borderEdges": [] }
             }
           ]
         },
@@ -457,6 +505,53 @@
               "widgetStyle": { "borderEdges": [] }
             }
           ]
+        },
+        {
+          "label": "Debug",
+          "name": "b058189d-7c92-4f00-9af6-e660f95382db",
+          "navigationHidden": true,
+          "widgets": [
+            {
+              "colspan": 6,
+              "column": 2,
+              "name": "chart_12",
+              "row": 38,
+              "rowspan": 11,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 24,
+              "column": 0,
+              "name": "navigation_1",
+              "row": 0,
+              "rowspan": 5,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 6,
+              "column": 9,
+              "name": "chart_13",
+              "row": 40,
+              "rowspan": 11,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 6,
+              "column": 16,
+              "name": "chart_14",
+              "row": 39,
+              "rowspan": 11,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 6,
+              "column": 11,
+              "name": "chart_2",
+              "row": 21,
+              "rowspan": 11,
+              "widgetStyle": { "borderEdges": [] }
+            }
+          ]
         }
       ],
       "rowHeight": "fine",
@@ -480,8 +575,11 @@
       "groups": [],
       "label": "HasBeenAutoEscalated%",
       "numbers": [],
-      "query": "-- Collect total Cases.\nq = load \"CMOS_Cases\";\nq1 = group q by Id;\nq1 = foreach q1 generate Id, 1 as 'C';\nq1 = group q1 by all;\ntotal = foreach q1 generate sum('C') as 'Total';\n\n\n--Filter cases that are not auto esclated\nesc = foreach q generate case when 'IDR_Escalation_Reason__c' is null \nthen \"None\" else 'IDR_Escalation_Reason__c' end\nas 'IDR_Escalation_Reason__c', 'Id' as 'Id';\nesc = group esc by ('Id', 'IDR_Escalation_Reason__c');\nesc = foreach esc generate 'IDR_Escalation_Reason__c', count() as 'C';\nesc = group esc by 'IDR_Escalation_Reason__c';\nesc = filter esc by 'IDR_Escalation_Reason__c' != \"Auto Escalation\";\nesc = foreach esc generate 'IDR_Escalation_Reason__c', count() as 'C';\nesc = group esc by all;\nesc = foreach esc generate sum('C') as 'Filter';\n\n--Compare the total cases against the filtered cases\ncombine = union total, esc;\ncombine = group combine by all;\nresult = foreach combine generate \n1-(sum(sum(Total)) over([..] partition by all) / sum(sum(Filter)) over([..] partition by all)) as 'percentile';\n\n\nresult = foreach result generate \ncase when percentile == 0 then \n\"0%\" else number_to_string(percentile, \"#%\") end as 'perc';\n",
-      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "query": "-- Collect total Cases.\nq = load \"CMOS_Cases\";\nq = filter q by {{ column(Onboard_Team_Branch_2.selection, [\"Onboard.Team_Branch\"]).asEquality(\"IDR_Office__c\") }};\nq1 = group q by Id;\nq1 = foreach q1 generate Id, 1 as 'C';\nq1 = group q1 by all;\ntotal = foreach q1 generate sum('C') as 'Total';\n\n\n--Filter cases that are not auto esclated\nesc = foreach q generate case when 'IDR_Escalation_Reason__c' is null \nthen \"None\" else 'IDR_Escalation_Reason__c' end\nas 'IDR_Escalation_Reason__c', 'Id' as 'Id';\nesc = group esc by ('IDR_Escalation_Reason__c');\nesc = foreach esc generate 'IDR_Escalation_Reason__c', count() as 'C';\nesc = filter esc by 'IDR_Escalation_Reason__c' like \"%auto%\";\nesc = foreach esc generate 'IDR_Escalation_Reason__c', sum('C') as 'Filter';\nesc = group esc by all;\nesc = foreach esc generate sum('Filter') as 'Filter';\n\n\n--Compare the total cases against the filtered cases\ncombine = union total, esc;\ncombine = group combine by all;\nresult = foreach combine generate number_to_string( (sum(Filter)/sum(Total)) , \"#.00%\") as 'perc';",
+      "receiveFacetSource": {
+        "mode": "exclude",
+        "steps": ["Onboard_Team_Branch_2", "Onboard_Division_1"]
+      },
       "selectMode": "single",
       "strings": [],
       "type": "saql",
@@ -575,6 +673,7 @@
       },
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
+      "start": "[]",
       "type": "aggregateflex",
       "useGlobal": true,
       "visualizationParameters": {
@@ -635,8 +734,11 @@
       "groups": [],
       "label": "Number of Escalated Cases%",
       "numbers": [],
-      "query": "q = load \"CMOS_Cases\";\n\n\nresult = group q by ('IsEscalated');\nresult = foreach result generate q.'IsEscalated' as 'IsEscalated', count(q) as 'A';\n\n--Get All the IsEscalated \nresult = group result by 'IsEscalated';\nresult = foreach result generate 'IsEscalated', (sum(A)/sum(sum(A)) over ([..] partition by all)) as 'Perc';\nresult = order result by 'IsEscalated' asc;\n\n--We are assuming that there will always be some tickets that are not in escalated\nresult = filter result by 'IsEscalated' == \"false\";\n\n\nresult = foreach result generate number_to_string((1-'Perc'), \"#0%\") as 'Result'\n",
-      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "query": "-- Collect total Cases.\nq = load \"CMOS_Cases\";\nq = filter q by {{ column(Onboard_Team_Branch_2.selection, [\"Onboard.Team_Branch\"]).asEquality(\"IDR_Office__c\") }};\nq1 = group q by Id;\nq1 = foreach q1 generate Id, 1 as 'C';\nq1 = group q1 by all;\ntotal = foreach q1 generate sum('C') as 'Total';\n\n--Filter cases that are not auto esclated\nesc = foreach q generate case when 'IDR_Escalation_Reason__c' is null \nthen \"None\" else 'IDR_Escalation_Reason__c' end\nas 'IDR_Escalation_Reason__c', 'Id' as 'Id';\nesc = group esc by ('Id', 'IDR_Escalation_Reason__c');\nesc = foreach esc generate 'IDR_Escalation_Reason__c', count() as 'C';\nesc = group esc by 'IDR_Escalation_Reason__c';\nesc = filter esc by 'IDR_Escalation_Reason__c' != \"None\";\nesc = foreach esc generate 'IDR_Escalation_Reason__c', count() as 'C';\nesc = group esc by all;\nesc = foreach esc generate sum('C') as 'Filter';\n\n\n--Compare the total cases against the filtered cases\ncombine = union total, esc;\ncombine = group combine by all;\nresult = foreach combine generate \n(sum(sum(Filter)) over([..] partition by all) / sum(sum(Total)) over([..] partition by all) ) as 'percentile';\n\n\nresult = foreach result generate number_to_string(percentile, \"#%\") as 'perc';\n\n",
+      "receiveFacetSource": {
+        "mode": "exclude",
+        "steps": ["Onboard_Team_Branch_2", "Onboard_Division_1"]
+      },
       "selectMode": "single",
       "strings": [],
       "type": "saql",
@@ -789,15 +891,22 @@
       "groups": [],
       "label": "Onboard_Division_1",
       "numbers": [],
-      "query": "q = load \"CMOS_Historic_User_Data\";\nq = group q by ('EmployeeNumber', 'Onboard.Division');\nq = foreach q generate 'Onboard.Division' as 'Onboard.Division', count() as 'count';\nq = order q by 'Onboard.Division' asc;\nq = limit q 2000;",
+      "query": "q = load \"CMOS_Historic_User_Data\";\nq = group q by 'Onboard.Division';\nq = foreach q generate 'Onboard.Division' as 'Onboard.Division', count() as 'count', 1 as 'segment_size';\nq = order q by 'Onboard.Division' asc;",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
+      "start": "[]",
       "strings": [],
       "type": "saql",
-      "useGlobal": true,
+      "useGlobal": false,
       "visualizationParameters": {
         "parameters": {
           "autoFitMode": "keepLabels",
+          "showValues": true,
+          "columnMap": {
+            "trellis": [],
+            "dimension": ["Onboard.Division"],
+            "plots": ["count"]
+          },
           "showActionMenu": true,
           "legend": {
             "descOrder": false,
@@ -807,27 +916,25 @@
             "position": "right-top",
             "inside": false
           },
-          "showMeasureTitle": false,
-          "valueType": "compactNumber",
-          "showTotal": true,
           "tooltip": {
             "showBinLabel": true,
-            "measures": "",
-            "showNullValues": true,
+            "measures": ["count"],
+            "showNullValues": false,
             "showPercentage": true,
-            "showDimensions": true,
-            "showMeasures": true,
-            "customizeTooltip": false,
-            "dimensions": ""
+            "customText": "[Onboard.Division]\nUsers:  [count]",
+            "showDimensions": false,
+            "showMeasures": false,
+            "customizeTooltip": true,
+            "dimensions": ["Onboard.Division"]
           },
-          "visualizationType": "origami",
+          "visualizationType": "treemap",
           "theme": "wave",
           "title": {
-            "fontSize": 14,
-            "subtitleFontSize": 11,
+            "fontSize": 10,
+            "subtitleFontSize": 10,
             "label": "",
             "align": "center",
-            "subtitleLabel": "Division "
+            "subtitleLabel": "Division"
           },
           "trellis": {
             "flipLabels": false,
@@ -847,10 +954,13 @@
       "groups": [],
       "label": "Has Been Transferred%",
       "numbers": [],
-      "query": "q = load \"CMOS_Cases\";\nresult = group q by 'HasBeenTransferred';\nresult = foreach result generate q.'HasBeenTransferred' as 'HasBeenTransferred', count(q) as 'A', count(q) as 'C';\nresult = group result by 'HasBeenTransferred';\nresult = foreach result generate 'HasBeenTransferred', first(A) as 'A', first(C) as 'C', (sum(A)/sum(sum(A)) over ([..] partition by all)) as 'Perc';\n\nresult = foreach result generate (case when first('HasBeenTransferred') == \"false\" then 1 else result.'Perc' end) as 'D';\n\nresult = foreach result generate number_to_string('D', \"#%\") as 'Result'\n",
-      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "query": "q = load \"CMOS_Cases\";\nq = filter q by {{ column(Onboard_Team_Branch_2.selection, [\"Onboard.Team_Branch\"]).asEquality(\"IDR_Office__c\") }};\nresult = group q by ('Id', 'HasBeenTransferred');\nresult = foreach result generate q.'HasBeenTransferred' as 'HasBeenTransferred', count(q) as 'A', count(q) as 'C';\nresult = group result by 'HasBeenTransferred';\nresult = foreach result generate 'HasBeenTransferred', first(A) as 'A', first(C) as 'C', (sum(A)/sum(sum(A)) over ([..] partition by all)) as 'Perc';\n\n--Assume there will always be cases that have never been transferred\nresult = filter result by 'HasBeenTransferred' == \"false\";\nresult = foreach result generate result.'Perc' as 'D';\nresult = foreach result generate number_to_string(('D'), \"#0%\") as 'Result'\n",
+      "receiveFacetSource": {
+        "mode": "exclude",
+        "steps": ["Onboard_Team_Branch_2", "Onboard_Division_1"]
+      },
       "selectMode": "single",
-      "strings": ["Result"],
+      "strings": [],
       "type": "saql",
       "useGlobal": true,
       "visualizationParameters": {
@@ -1117,12 +1227,12 @@
         "type": "chart"
       }
     },
-    "IDR_Date_Received__c_2": {
+    "CreatedDate_2": {
       "broadcastFacet": true,
       "groups": [],
-      "label": "IDR_Date_Received__c_2",
+      "label": "CreatedDate_2",
       "numbers": [],
-      "query": "q = load \"CMOS_Cases\";\nq = filter q by 'Onboarding.Team_Branch' in [\"MOUNT GAMBIER\"];\nq = group q by ('CaseNumber', 'IDR_Date_Received__c_Year', 'IDR_Date_Received__c_Month', 'IDR_Date_Received__c_Day', 'Onboarding.Team_Branch');\nq = foreach q generate 'CaseNumber', 'IDR_Date_Received__c_Year', 'IDR_Date_Received__c_Month', 'IDR_Date_Received__c_Day', 'Onboarding.Team_Branch';\nq = group q by ('IDR_Date_Received__c_Year', 'IDR_Date_Received__c_Month', 'IDR_Date_Received__c_Day', 'Onboarding.Team_Branch');\nq = foreach q generate 'IDR_Date_Received__c_Year' + \"~~~\" + 'IDR_Date_Received__c_Month' + \"~~~\" + 'IDR_Date_Received__c_Day' as 'IDR_Date_Received__c_Year~~~IDR_Date_Received__c_Month~~~IDR_Date_Received__c_Day', 'Onboarding.Team_Branch', count() as 'count';\nq = order q by 'IDR_Date_Received__c_Year~~~IDR_Date_Received__c_Month~~~IDR_Date_Received__c_Day' asc;\n",
+      "query": "q = load \"CMOS_Cases\";\nq = filter q by 'Onboarding.Team_Branch' in [\"MOUNT GAMBIER\"];\nq = group q by ('CaseNumber', 'CreatedDate_Year', 'CreatedDate_Month', 'CreatedDate_Day', 'Onboarding.Team_Branch');\nq = foreach q generate 'CaseNumber', 'CreatedDate_Year', 'CreatedDate_Month', 'CreatedDate_Day', 'Onboarding.Team_Branch';\nq = group q by ('CreatedDate_Year', 'CreatedDate_Month', 'CreatedDate_Day', 'Onboarding.Team_Branch');\nq = foreach q generate 'CreatedDate_Year' + \"~~~\" + 'CreatedDate_Month' + \"~~~\" + 'CreatedDate_Day' as 'CreatedDate_Year~~~CreatedDate_Month~~~CreatedDate_Day', 'Onboarding.Team_Branch', count() as 'count';\nq = order q by 'CreatedDate_Year~~~CreatedDate_Month~~~CreatedDate_Day' asc;\n",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -1209,7 +1319,7 @@
           "columnMap": {
             "split": [],
             "timeAxis": [
-              "IDR_Date_Received__c_Year~~~IDR_Date_Received__c_Month~~~IDR_Date_Received__c_Day"
+              "CreatedDate_Year~~~CreatedDate_Month~~~CreatedDate_Day"
             ],
             "trellis": [],
             "plots": ["count"]
@@ -1532,8 +1642,8 @@
       "broadcastFacet": true,
       "groups": [],
       "label": "all_2",
-      "numbers": ["count"],
-      "query": "q = load \"CMOS_Cases\";\nq = group q by 'CaseNumber';\nq = foreach q generate count() as 'count';\nq = group q by all;\nq = foreach q generate count() as 'count';",
+      "numbers": [],
+      "query": "q = load \"CMOS_Cases\";\nq = group q by 'Id';\nq = foreach q generate count() as 'count';\nq = group q by all;\nq = foreach q generate count() as 'count';",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -1586,11 +1696,6 @@
             "enable": false,
             "type": "x",
             "chartsPerLine": 4
-          },
-          "columnMap": {
-            "trellis": [],
-            "dimensionAxis": [],
-            "plots": ["count"]
           },
           "showActionMenu": true,
           "measureAxis2": {
@@ -1723,7 +1828,7 @@
       },
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
-      "start": "[]",
+      "start": "[[[\"day\",-7],[\"day\",0]]]",
       "type": "aggregateflex",
       "useGlobal": true,
       "visualizationParameters": {}
@@ -2388,6 +2493,7 @@
       "query": "q = load \"CMOS_Cases\";\nresult = group q by 'Picklist.Remedy.Label';\nresult = foreach result generate q.'Picklist.Remedy.Label' as 'Picklist.Remedy.Label', count(q) as 'A';\nresult = group result by 'Picklist.Remedy.Label';\nresult = foreach result generate 'Picklist.Remedy.Label', first(A) as 'A', sum(A)/sum(sum(A)) over ([..] partition by all) as 'Perc';\n\nresult = foreach result generate 'Picklist.Remedy.Label', A, Perc, round('Perc',3)*100 as '%';\n\n\nresult = limit result 2000;",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
+      "start": "[]",
       "strings": ["Picklist.Remedy.Label"],
       "type": "saql",
       "useGlobal": true,
@@ -2553,18 +2659,98 @@
     },
     "Onboard_Team_Branch_2": {
       "broadcastFacet": true,
-      "datasets": [{ "name": "CMOS_Historic_User_Data" }],
-      "isGlobal": false,
-      "query": {
-        "query": "{\"measures\":[[\"count\",\"*\"]],\"groups\":[\"Onboard.Team_Branch\"]}",
-        "version": -1.0
-      },
+      "groups": [],
+      "label": "Onboard_Team_Branch_2",
+      "numbers": [],
+      "query": "q = load \"CMOS_Historic_User_Data\";\nq = group q by 'Onboard.Team_Branch';\nq = foreach q generate 'Onboard.Team_Branch' as 'Onboard.Team_Branch', count() as 'count';\nq = order q by 'Onboard.Team_Branch' asc;\nq = limit q 2000;",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "multi",
-      "start": "[]",
-      "type": "aggregateflex",
+      "strings": [],
+      "type": "saql",
       "useGlobal": true,
-      "visualizationParameters": {}
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "columnMap": {
+            "trellis": [],
+            "dimensionAxis": ["Onboard.Team_Branch"],
+            "plots": ["count"]
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
     },
     "CreatedDate_Year_Cre_2": {
       "broadcastFacet": true,
@@ -2576,6 +2762,7 @@
       },
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
+      "start": "[]",
       "type": "aggregateflex",
       "useGlobal": true,
       "visualizationParameters": {
@@ -2662,7 +2849,7 @@
       "groups": [],
       "label": "lens_5",
       "numbers": [],
-      "query": "q = load \"CMOS_Cases\";\nq = foreach q generate 'CaseNumber' as 'CaseNumber', 'Origin' as 'Origin', 'Picklist.Type.Label' as 'Issue Type', 'SLA_Status__c' as 'SLA_Status__c', 'Status' as 'Status', 'Picklist.Remedy.Label' as 'Remedy';\nq = limit q 100;",
+      "query": "q = load \"CMOS_Cases\";\nq = foreach q generate 'CaseNumber' as 'CaseNumber', 'Origin' as 'Origin', 'Status' as 'Status';\nq = limit q 100;",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -2701,7 +2888,7 @@
       "groups": [],
       "label": "lens_3",
       "numbers": [],
-      "query": "q = load \"CMOS_Cases\";\nq = filter q by IsClosed == \"true\";\nq = group q by Id;\nq = foreach q generate Id, min('CaseDuration_Hours') as 'avg_CaseDuration_Hours';\n\nq = group q by all;\nq = foreach q generate sum('avg_CaseDuration_Hours') / count() as 'avg_CaseDuration_Hours';\n\nq = limit q 2000;",
+      "query": "q = load \"CMOS_Cases\";\nq = filter q by IsClosed == \"true\";\nq = group q by Id;\nq = foreach q generate Id, ((( (min(ClosedDate_sec_epoch) - min(CreatedDate_sec_epoch)) / 60) /60 ) / 24) as 'avg_CaseDuration_Hours';\n\nq = group q by all;\nq = foreach q generate sum('avg_CaseDuration_Hours') / count() as 'avg_CaseDuration_Hours';\n\n\n--( max(ClosedDate_sec_epoch) - max(CreatedDate_sec_epoch) )/60/24 as 'avg_CaseDuration_Hours';\n\n",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -2711,6 +2898,12 @@
         "parameters": {
           "autoFitMode": "keepLabels",
           "max": 100,
+          "legend": {
+            "showHeader": true,
+            "show": false,
+            "position": "right-top",
+            "inside": false
+          },
           "tooltip": {
             "showBinLabel": true,
             "measures": "",
@@ -2726,9 +2919,9 @@
           "title": {
             "fontSize": 14,
             "subtitleFontSize": 11,
-            "label": "",
+            "label": "Average Days for Resolution",
             "align": "center",
-            "subtitleLabel": "Closed Cases"
+            "subtitleLabel": "Absolute Days from Open to Close Date"
           },
           "trellis": {
             "flipLabels": false,
@@ -2747,7 +2940,6 @@
             "highColor2": "#169913"
           },
           "high": 66,
-          "columnMap": { "trellis": [], "plots": ["avg_CaseDuration_Hours"] },
           "showActionMenu": true,
           "min": 0,
           "valueType": "compactNumber",
@@ -2762,9 +2954,10 @@
       "groups": [],
       "label": "lens_4",
       "numbers": [],
-      "query": "q = load \"CMOS_Cases\";\nq = group q by ('Id', 'UserInfo.FirstName', 'UserInfo.LastName');\nq = foreach q generate 'UserInfo.FirstName' + \" \" + 'UserInfo.LastName' as 'UserInfo.FirstName', count() as 'count';\nq = order q by 'UserInfo.FirstName' asc;\nq = limit q 2000;",
+      "query": "q = load \"CMOS_Cases\";\nq = group q by ('Id', 'OwnerId', 'UserInfo.EmployeeNumber', 'UserInfo.FirstName', 'UserInfo.LastName');\nq = foreach q generate 'OwnerId', 'UserInfo.EmployeeNumber', 'UserInfo.FirstName' + \" \" + 'UserInfo.LastName' as 'Name', count() as 'count';\nq = group q by ('OwnerId', 'UserInfo.EmployeeNumber', 'Name');\nq = foreach q generate 'OwnerId', 'UserInfo.EmployeeNumber', 'Name', count() as 'count';\nq = order q by 'Name' asc;\n",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
+      "start": "[]",
       "strings": [],
       "type": "saql",
       "useGlobal": true,
@@ -2783,7 +2976,7 @@
           "legend": {
             "descOrder": false,
             "showHeader": true,
-            "show": true,
+            "show": false,
             "customSize": "auto",
             "position": "right-top",
             "inside": false
@@ -2791,13 +2984,14 @@
           "axisMode": "multi",
           "tooltip": {
             "showBinLabel": true,
-            "measures": "",
-            "showNullValues": true,
-            "showPercentage": true,
-            "showDimensions": true,
-            "showMeasures": true,
-            "customizeTooltip": false,
-            "dimensions": ""
+            "measures": ["count"],
+            "showNullValues": false,
+            "showPercentage": false,
+            "customText": "[UserInfo.FirstName] -  [count]",
+            "showDimensions": false,
+            "showMeasures": false,
+            "customizeTooltip": true,
+            "dimensions": ["UserInfo.FirstName"]
           },
           "visualizationType": "hbar",
           "title": {
@@ -2807,7 +3001,6 @@
             "align": "center",
             "subtitleLabel": ""
           },
-          "binValues": false,
           "trellis": {
             "flipLabels": false,
             "showGridLines": true,
@@ -2815,6 +3008,12 @@
             "enable": false,
             "type": "x",
             "chartsPerLine": 4
+          },
+          "binValues": false,
+          "columnMap": {
+            "trellis": [],
+            "dimensionAxis": ["Name"],
+            "plots": ["count"]
           },
           "showActionMenu": false,
           "measureAxis2": {
@@ -2825,15 +3024,39 @@
             "customDomain": { "showDomain": false }
           },
           "measureAxis1": {
-            "sqrtScale": false,
-            "showTitle": true,
+            "sqrtScale": true,
+            "showTitle": false,
             "showAxis": true,
-            "title": "",
+            "referenceLines": [
+              {
+                "color": "#0D33B6",
+                "label": {
+                  "data": {
+                    "displayTemplate": "AVG: [C]",
+                    "sourceType": "result",
+                    "step": "Average_Cases_1"
+                  },
+                  "type": "dynamic"
+                },
+                "value": {
+                  "data": {
+                    "field": "C",
+                    "sourceType": "result",
+                    "step": "Average_Cases_1"
+                  },
+                  "type": "dynamic"
+                }
+              }
+            ],
+            "title": "Number of Open Cases",
             "customDomain": { "showDomain": false }
           },
+          "referenceLine": [
+            { "color": "#9271E8", "label": "Avg", "value": "4" }
+          ],
           "theme": "wave",
           "dimensionAxis": {
-            "showTitle": true,
+            "showTitle": false,
             "customSize": "auto",
             "showAxis": true,
             "title": "First Name",
@@ -2899,6 +3122,99 @@
           "min": 0,
           "angle": 180,
           "theme": "wave",
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "ResolvedFirstPointCo_1": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "ResolvedFirstPointContact%",
+      "numbers": [],
+      "query": "-- Collect total Cases.\nq = load \"CMOS_Cases\";\nq = filter q by {{ column(Onboard_Team_Branch_2.selection, [\"Onboard.Team_Branch\"]).asEquality(\"IDR_Office__c\") }};\nq = filter q by 'IDR_Office__c' in all;\nq1 = group q by Id;\nq1 = foreach q1 generate Id, 1 as 'C';\nq1 = group q1 by all;\ntotal = foreach q1 generate sum('C') as 'Total';\n\n--Filter cases that are not auto esclated\nesc = foreach q generate case when 'IDR_Escalation_Reason__c' is null \nthen \"None\" else 'IDR_Escalation_Reason__c' end\nas 'IDR_Escalation_Reason__c', 'Id' as 'Id';\nesc = group esc by ('Id', 'IDR_Escalation_Reason__c');\nesc = foreach esc generate 'IDR_Escalation_Reason__c', count() as 'C';\nesc = group esc by 'IDR_Escalation_Reason__c';\nesc = filter esc by 'IDR_Escalation_Reason__c' != \"None\";\nesc = foreach esc generate 'IDR_Escalation_Reason__c', count() as 'C';\nesc = group esc by all;\nesc = foreach esc generate sum('C') as 'Filter';\n\n\n--Compare the total cases against the filtered cases\ncombine = union total, esc;\ncombine = group combine by all;\nresult = foreach combine generate \n1-(sum(sum(Filter)) over([..] partition by all) / sum(sum(Total)) over([..] partition by all) ) as 'percentile';\n\n\nresult = foreach result generate number_to_string(percentile, \"#%\") as 'perc';\n\n",
+      "receiveFacetSource": {
+        "mode": "exclude",
+        "steps": ["Onboard_Team_Branch_2", "Onboard_Division_1"]
+      },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
           "applyConditionalFormatting": true
         },
         "type": "chart"
@@ -3014,6 +3330,18 @@
       },
       "type": "text"
     },
+    "text_12": {
+      "parameters": {
+        "content": {
+          "displayTemplate": "The below metrics will only update when a team is selected\n"
+        },
+        "fontSize": 16,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#091A3E"
+      },
+      "type": "text"
+    },
     "text_11": {
       "parameters": {
         "content": {
@@ -3080,13 +3408,14 @@
         "axisMode": "multi",
         "tooltip": {
           "showBinLabel": true,
-          "measures": "",
-          "showNullValues": true,
+          "measures": ["count"],
+          "showNullValues": false,
           "showPercentage": true,
-          "showDimensions": true,
-          "showMeasures": true,
-          "customizeTooltip": false,
-          "dimensions": ""
+          "customText": "[Onboard.Team_Branch] - Users:  [count]",
+          "showDimensions": false,
+          "showMeasures": false,
+          "customizeTooltip": true,
+          "dimensions": ["Onboard.Team_Branch"]
         },
         "visualizationType": "hbar",
         "exploreLink": true,
@@ -3156,12 +3485,12 @@
     "text_3": {
       "parameters": {
         "content": {
-          "displayTemplate": "[Result]\n",
+          "displayTemplate": "[perc]\n",
           "values": {
-            "Result": {
-              "field": "Result",
+            "perc": {
+              "field": "perc",
               "sourceType": "result",
-              "step": "Has_Been_Transferred_1"
+              "step": "ResolvedFirstPointCo_1"
             }
           }
         },
@@ -3262,10 +3591,10 @@
     "text_5": {
       "parameters": {
         "content": {
-          "displayTemplate": "[Result_1]\n",
+          "displayTemplate": "[perc]\n",
           "values": {
-            "Result_1": {
-              "field": "Result",
+            "perc": {
+              "field": "perc",
               "sourceType": "result",
               "step": "Number_of_Escalated__1"
             }
@@ -3360,7 +3689,7 @@
           "trellis": [],
           "plots": ["count"]
         },
-        "showActionMenu": false,
+        "showActionMenu": true,
         "measureAxis2": {
           "sqrtScale": false,
           "showTitle": true,
@@ -3403,13 +3732,14 @@
         "axisMode": "multi",
         "tooltip": {
           "showBinLabel": true,
-          "measures": "",
-          "showNullValues": true,
+          "measures": ["count"],
+          "showNullValues": false,
           "showPercentage": true,
-          "showDimensions": true,
-          "showMeasures": true,
-          "customizeTooltip": false,
-          "dimensions": ""
+          "customText": "[Onboard.Business]",
+          "showDimensions": false,
+          "showMeasures": false,
+          "customizeTooltip": true,
+          "dimensions": ["Onboard.Business"]
         },
         "visualizationType": "origami",
         "exploreLink": true,
@@ -3476,7 +3806,7 @@
     },
     "text_7": {
       "parameters": {
-        "content": { "displayTemplate": "User Adoption\n" },
+        "content": { "displayTemplate": "User Adoption\n\n" },
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
@@ -3484,9 +3814,11 @@
       },
       "type": "text"
     },
+    "chart_2": { "parameters": {}, "type": "chart" },
     "chart_1": {
       "parameters": {
         "autoFitMode": "keepLabels",
+        "showValues": true,
         "legend": {
           "descOrder": false,
           "showHeader": true,
@@ -3495,25 +3827,25 @@
           "position": "right-top",
           "inside": false
         },
-        "showMeasureTitle": false,
         "tooltip": {
           "showBinLabel": true,
-          "measures": "",
-          "showNullValues": true,
+          "measures": ["count"],
+          "showNullValues": false,
           "showPercentage": true,
-          "showDimensions": true,
-          "showMeasures": true,
-          "customizeTooltip": false,
-          "dimensions": ""
+          "customText": "[Onboard.Division]\nUsers:  [count]",
+          "showDimensions": false,
+          "showMeasures": false,
+          "customizeTooltip": true,
+          "dimensions": ["Onboard.Division"]
         },
-        "visualizationType": "origami",
+        "visualizationType": "treemap",
         "exploreLink": true,
         "title": {
-          "fontSize": 14,
-          "subtitleFontSize": 11,
+          "fontSize": 10,
+          "subtitleFontSize": 10,
           "label": "",
           "align": "center",
-          "subtitleLabel": "Active users by Division "
+          "subtitleLabel": "Division"
         },
         "trellis": {
           "flipLabels": false,
@@ -3523,10 +3855,13 @@
           "type": "x",
           "chartsPerLine": 4
         },
+        "columnMap": {
+          "trellis": [],
+          "dimension": ["Onboard.Division"],
+          "plots": ["count"]
+        },
         "showActionMenu": true,
-        "valueType": "compactNumber",
-        "showTotal": true,
-        "theme": "wave",
+        "theme": "light",
         "step": "Onboard_Division_1",
         "applyConditionalFormatting": true
       },
@@ -3534,7 +3869,7 @@
     },
     "text_6": {
       "parameters": {
-        "content": { "displayTemplate": "Case Details\n" },
+        "content": { "displayTemplate": "Case Details\n\n" },
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
@@ -3728,13 +4063,25 @@
     },
     "text_1": {
       "parameters": {
-        "content": { "displayTemplate": "Complaints\n" },
+        "content": { "displayTemplate": "Complaints\n\n" },
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
         "textColor": "#091A3E"
       },
       "type": "text"
+    },
+    "link_3": {
+      "parameters": {
+        "destinationLink": { "name": "b058189d-7c92-4f00-9af6-e660f95382db" },
+        "destinationType": "page",
+        "fontSize": 10,
+        "includeState": false,
+        "text": "Debug",
+        "textAlignment": "center",
+        "textColor": "#E6ECF2"
+      },
+      "type": "link"
     },
     "link_1": {
       "parameters": {
@@ -3759,6 +4106,21 @@
         "textColor": "#FFFFFF"
       },
       "type": "link"
+    },
+    "navigation_1": {
+      "parameters": {
+        "fontSize": 16,
+        "selectedTab": {
+          "backgroundColor": "#FFFFFF",
+          "borderColor": "#0070D2",
+          "borderEdges": ["bottom"],
+          "borderWidth": 2,
+          "textColor": "#0070D2"
+        },
+        "tabCount": 5,
+        "textColor": "#54698D"
+      },
+      "type": "navigation"
     },
     "table_1": {
       "parameters": {
@@ -3850,12 +4212,252 @@
         "exploreLink": false,
         "filterStyle": { "titleColor": "#54698D", "valueColor": "#16325C" },
         "instant": true,
-        "measureField": "none",
+        "measureField": "count",
         "showActionMenu": true,
         "step": "Onboard_Team_Branch_2",
         "title": "Search your Team"
       },
       "type": "listselector"
+    },
+    "chart_14": {
+      "parameters": {
+        "autoFitMode": "keepLabels",
+        "showValues": true,
+        "bins": {
+          "breakpoints": { "high": 100, "low": 0 },
+          "bands": {
+            "high": { "color": "#008000", "label": "" },
+            "low": { "color": "#B22222", "label": "" },
+            "medium": { "color": "#ffa500", "label": "" }
+          }
+        },
+        "legend": {
+          "descOrder": false,
+          "showHeader": true,
+          "show": true,
+          "customSize": "auto",
+          "position": "right-top",
+          "inside": false
+        },
+        "axisMode": "multi",
+        "tooltip": {
+          "showBinLabel": true,
+          "measures": "",
+          "showNullValues": true,
+          "showPercentage": true,
+          "showDimensions": true,
+          "showMeasures": true,
+          "customizeTooltip": false,
+          "dimensions": ""
+        },
+        "visualizationType": "hbar",
+        "exploreLink": true,
+        "title": {
+          "fontSize": 14,
+          "subtitleFontSize": 11,
+          "label": "",
+          "align": "center",
+          "subtitleLabel": ""
+        },
+        "binValues": false,
+        "trellis": {
+          "flipLabels": false,
+          "showGridLines": true,
+          "size": [100, 100],
+          "enable": false,
+          "type": "x",
+          "chartsPerLine": 4
+        },
+        "showActionMenu": true,
+        "measureAxis2": {
+          "sqrtScale": false,
+          "showTitle": true,
+          "showAxis": true,
+          "title": "",
+          "customDomain": { "showDomain": false }
+        },
+        "measureAxis1": {
+          "sqrtScale": false,
+          "showTitle": true,
+          "showAxis": true,
+          "title": "",
+          "customDomain": { "showDomain": false }
+        },
+        "theme": "wave",
+        "step": "Number_of_Escalated__1",
+        "dimensionAxis": {
+          "showTitle": true,
+          "customSize": "auto",
+          "showAxis": true,
+          "title": "",
+          "icons": {
+            "useIcons": false,
+            "iconProps": { "fit": "cover", "column": "", "type": "round" }
+          }
+        },
+        "applyConditionalFormatting": true
+      },
+      "type": "chart"
+    },
+    "chart_13": {
+      "parameters": {
+        "autoFitMode": "keepLabels",
+        "showValues": true,
+        "bins": {
+          "breakpoints": { "high": 100, "low": 0 },
+          "bands": {
+            "high": { "color": "#008000", "label": "" },
+            "low": { "color": "#B22222", "label": "" },
+            "medium": { "color": "#ffa500", "label": "" }
+          }
+        },
+        "legend": {
+          "descOrder": false,
+          "showHeader": true,
+          "show": true,
+          "customSize": "auto",
+          "position": "right-top",
+          "inside": false
+        },
+        "axisMode": "multi",
+        "tooltip": {
+          "showBinLabel": true,
+          "measures": "",
+          "showNullValues": true,
+          "showPercentage": true,
+          "showDimensions": true,
+          "showMeasures": true,
+          "customizeTooltip": false,
+          "dimensions": ""
+        },
+        "visualizationType": "hbar",
+        "exploreLink": true,
+        "title": {
+          "fontSize": 14,
+          "subtitleFontSize": 11,
+          "label": "",
+          "align": "center",
+          "subtitleLabel": ""
+        },
+        "binValues": false,
+        "trellis": {
+          "flipLabels": false,
+          "showGridLines": true,
+          "size": [100, 100],
+          "enable": false,
+          "type": "x",
+          "chartsPerLine": 4
+        },
+        "showActionMenu": true,
+        "measureAxis2": {
+          "sqrtScale": false,
+          "showTitle": true,
+          "showAxis": true,
+          "title": "",
+          "customDomain": { "showDomain": false }
+        },
+        "measureAxis1": {
+          "sqrtScale": false,
+          "showTitle": true,
+          "showAxis": true,
+          "title": "",
+          "customDomain": { "showDomain": false }
+        },
+        "theme": "wave",
+        "step": "HasBeenAutoEscalated_1",
+        "dimensionAxis": {
+          "showTitle": true,
+          "customSize": "auto",
+          "showAxis": true,
+          "title": "",
+          "icons": {
+            "useIcons": false,
+            "iconProps": { "fit": "cover", "column": "", "type": "round" }
+          }
+        },
+        "applyConditionalFormatting": true
+      },
+      "type": "chart"
+    },
+    "chart_12": {
+      "parameters": {
+        "autoFitMode": "keepLabels",
+        "showValues": true,
+        "bins": {
+          "breakpoints": { "high": 100, "low": 0 },
+          "bands": {
+            "high": { "color": "#008000", "label": "" },
+            "low": { "color": "#B22222", "label": "" },
+            "medium": { "color": "#ffa500", "label": "" }
+          }
+        },
+        "legend": {
+          "descOrder": false,
+          "showHeader": true,
+          "show": true,
+          "customSize": "auto",
+          "position": "right-top",
+          "inside": false
+        },
+        "axisMode": "multi",
+        "tooltip": {
+          "showBinLabel": true,
+          "measures": "",
+          "showNullValues": true,
+          "showPercentage": true,
+          "showDimensions": true,
+          "showMeasures": true,
+          "customizeTooltip": false,
+          "dimensions": ""
+        },
+        "visualizationType": "hbar",
+        "exploreLink": true,
+        "title": {
+          "fontSize": 14,
+          "subtitleFontSize": 11,
+          "label": "",
+          "align": "center",
+          "subtitleLabel": ""
+        },
+        "binValues": false,
+        "trellis": {
+          "flipLabels": false,
+          "showGridLines": true,
+          "size": [100, 100],
+          "enable": false,
+          "type": "x",
+          "chartsPerLine": 4
+        },
+        "showActionMenu": true,
+        "measureAxis2": {
+          "sqrtScale": false,
+          "showTitle": true,
+          "showAxis": true,
+          "title": "",
+          "customDomain": { "showDomain": false }
+        },
+        "measureAxis1": {
+          "sqrtScale": false,
+          "showTitle": true,
+          "showAxis": true,
+          "title": "",
+          "customDomain": { "showDomain": false }
+        },
+        "theme": "wave",
+        "step": "Has_Been_Transferred_1",
+        "dimensionAxis": {
+          "showTitle": true,
+          "customSize": "auto",
+          "showAxis": true,
+          "title": "",
+          "icons": {
+            "useIcons": false,
+            "iconProps": { "fit": "cover", "column": "", "type": "round" }
+          }
+        },
+        "applyConditionalFormatting": true
+      },
+      "type": "chart"
     },
     "chart_11": {
       "parameters": {
@@ -3907,6 +4509,11 @@
           "chartsPerLine": 4
         },
         "binValues": false,
+        "columnMap": {
+          "trellis": [],
+          "dimensionAxis": ["Name"],
+          "plots": ["count"]
+        },
         "showActionMenu": false,
         "measureAxis2": {
           "sqrtScale": false,
@@ -3946,7 +4553,6 @@
         "referenceLine": [{ "color": "#9271E8", "label": "Avg", "value": "4" }],
         "theme": "wave",
         "step": "lens_4",
-        "markers": [],
         "dimensionAxis": {
           "showTitle": false,
           "customSize": "auto",
@@ -3964,7 +4570,7 @@
     "chart_10": {
       "parameters": {
         "autoFitMode": "keepLabels",
-        "max": 100,
+        "max": 14,
         "legend": {
           "showHeader": true,
           "show": false,
@@ -4008,7 +4614,6 @@
           "highColor2": "#169913"
         },
         "high": 66,
-        "columnMap": { "trellis": [], "plots": ["avg_CaseDuration_Hours"] },
         "showActionMenu": true,
         "min": 0,
         "valueType": "compactNumber",

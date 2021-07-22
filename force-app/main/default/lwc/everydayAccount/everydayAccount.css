@@ -34,8 +34,8 @@
   transform: translate(-50%, -50%);
 }
 
-.field-padding {
-  padding: 10px;
+.balance-padding {
+  padding-right: 48px;
 }
 
 .message-padding {

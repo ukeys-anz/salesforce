@@ -108,7 +108,7 @@
             "label": "CaseDuration_epoch",
             "name": "CaseDuration_epoch",
             "precision": 10,
-            "saqlExpression": "(CreatedDate_sec_epoch - ClosedDate_sec_epoch)",
+            "saqlExpression": "(ClosedDate_sec_epoch - CreatedDate_sec_epoch)",
             "scale": 0,
             "type": "Numeric"
           }
@@ -229,7 +229,7 @@
             "label": "AgedDates",
             "name": "AgedDates",
             "precision": 10,
-            "saqlExpression": "case\nwhen daysBetween(toDate('IDR_Date_Received__c', \"yyyy-MM-dd\") , now() ) == 0 then \"0\"\nwhen daysBetween(toDate('IDR_Date_Received__c', \"yyyy-MM-dd\") , now() ) == 1 then \"1\"\nwhen daysBetween(toDate('IDR_Date_Received__c', \"yyyy-MM-dd\") , now() ) == 2 then \"2\"\nwhen daysBetween(toDate('IDR_Date_Received__c', \"yyyy-MM-dd\") , now() ) == 3 then \"3\"\nwhen daysBetween(toDate('IDR_Date_Received__c', \"yyyy-MM-dd\") , now() ) > 3 then \"4+\"\nelse \"0\"\nend",
+            "saqlExpression": "case\nwhen daysBetween(toDate(CreatedDate_sec_epoch), now() ) == 0 then \"0\"\nwhen daysBetween(toDate(CreatedDate_sec_epoch), now() ) == 1 then \"1\"\nwhen daysBetween(toDate(CreatedDate_sec_epoch), now() ) == 2 then \"2\"\nwhen daysBetween(toDate(CreatedDate_sec_epoch), now() ) == 3 then \"3\"\nwhen daysBetween(toDate(CreatedDate_sec_epoch), now() ) > 3 then \"4+\"\nelse \"0\"\nend\n",
             "type": "Text"
           }
         ],
