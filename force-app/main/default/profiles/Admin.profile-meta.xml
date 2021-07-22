@@ -691,6 +691,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Customer_Description__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Date_Account_Last_Debited__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1295,6 +1300,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Posted_Currency__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Fraud_ID_Not_Picture__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1580,6 +1590,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Sub_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Transaction_Currency__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

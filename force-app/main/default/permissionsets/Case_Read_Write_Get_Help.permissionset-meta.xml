@@ -175,6 +175,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Customer_Description__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Date_Account_Last_Debited__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -475,6 +480,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Posted_Currency__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Priority</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -566,6 +576,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Transaction_Authorised_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Transaction_Currency__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
