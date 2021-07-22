@@ -142,7 +142,7 @@ private with sharing class IDRTaskActionsTest {
       pendCaseTask.Subject,
       'Pend case task subject must default to a defined value'
     );
-    
+  }
   @isTest  
   static void testIDRTaskClosureOnCaseClose() {
     Case[] newCases = new List<Case>();
