@@ -31,4 +31,19 @@
         <default>false</default>
         <label>Pend Case</label>
     </standardValue>
+    <standardValue>
+        <fullName>AFCA Due Date</fullName>
+        <default>false</default>
+        <label>AFCA Due Date</label>
+    </standardValue>
+    <standardValue>
+        <fullName>General Task/ Reminder</fullName>
+        <default>false</default>
+        <label>General Task/ Reminder</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Letter QC</fullName>
+        <default>false</default>
+        <label>Letter QC</label>
+    </standardValue>
 </StandardValueSet>
