@@ -5645,11 +5645,11 @@
         </values>
         <values>
             <fullName>Chat</fullName>
-            <default>true</default>
+            <default>false</default>
         </values>
         <values>
             <fullName>ANZ Plus App</fullName>
-            <default>true</default>
+            <default>false</default>
         </values>
     </picklistValues>
     <picklistValues>
