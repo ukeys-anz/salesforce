@@ -3,7 +3,7 @@
  * @since 07/2021
  * @description  To schedule IDRPendCaseTaskRemindersBatch class
  */
-public with sharing class IDRPendCaseTaskRemindersScheduler {
+public with sharing class IDRPendCaseTaskRemindersScheduler implements Schedulable {
   /**
    * @description execute method to run batch class
    * @param sc SchedulableContext
