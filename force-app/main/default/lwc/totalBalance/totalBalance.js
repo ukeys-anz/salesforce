@@ -16,6 +16,8 @@ export default class TotalBalance extends LightningElement {
   @track loading = true;
   hasError = false;
   error;
+  showInfoModal = false;
+  totalFinPositionClicked;
 
   @wire(MessageContext)
   messageContext;
@@ -107,5 +109,11 @@ export default class TotalBalance extends LightningElement {
         }
         this.hasError = true;
       });
+  }
+
+  handleInfoModal(event) {
+    this.totalFinPositionClicked =
+      event.target.dataset.id === "total-fin-position" ? true : false;
+    this.showInfoModal = !this.showInfoModal;
   }
 }
