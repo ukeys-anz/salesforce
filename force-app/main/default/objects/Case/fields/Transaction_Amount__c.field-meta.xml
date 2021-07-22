@@ -2,10 +2,9 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Transaction_Amount__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Source - Salesforce;Integrity - Trusted;Privacy - Non Personal Information</complianceGroup>
-    <description>Credit or debit transaction amount</description>
+    <complianceGroup>Privacy - Non Personal Information;Source - Salesforce;Integrity - Trusted</complianceGroup>
+    <description>Original amount value debited from the customer&apos;s account during transaction</description>
     <externalId>false</externalId>
-    <inlineHelpText>Credit or debit transaction amount</inlineHelpText>
     <label>Transaction Amount</label>
     <precision>12</precision>
     <required>false</required>
