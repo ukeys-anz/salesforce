@@ -46,21 +46,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>PSI_or_DSI__c</picklist>
-        <values>
-            <fullName>DSI</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>N%2FA</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>PSI</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>IDR_Pended_To__c</picklist>
         <values>
             <fullName>AFCA</fullName>
