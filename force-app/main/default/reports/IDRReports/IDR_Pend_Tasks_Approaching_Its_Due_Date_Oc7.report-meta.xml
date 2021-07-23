@@ -45,7 +45,7 @@
         <chartType>HorizontalBar</chartType>
         <enableHoverLabels>false</enableHoverLabels>
         <expandOthers>true</expandOthers>
-        <groupingColumn>CASE_NUMBER</groupingColumn>
+        <groupingColumn>BucketField_70287156</groupingColumn>
         <location>CHART_BOTTOM</location>
         <showAxisLabels>false</showAxisLabels>
         <showPercentage>false</showPercentage>
@@ -58,9 +58,6 @@
         <titleColor>#000000</titleColor>
         <titleSize>18</titleSize>
     </chart>
-    <columns>
-        <field>DUE_DATE</field>
-    </columns>
     <columns>
         <field>CASE_CREATED_DATE</field>
     </columns>
@@ -81,13 +78,16 @@
         <field>STATUS</field>
     </columns>
     <columns>
+        <field>DUE_DATE</field>
+    </columns>
+    <columns>
         <field>Activity.IDR_Pended_To__c</field>
     </columns>
     <columns>
         <aggregateTypes>Sum</aggregateTypes>
         <field>Activity.Due_in_Days__c</field>
     </columns>
-    <description>Report for count of how many cases there are where the &apos;Pend Case&apos; task is completed within the due date</description>
+    <description>To determine the count of Pend Tasks approaching its due date.</description>
     <filter>
         <criteriaItems>
             <column>RECORDTYPE</column>
@@ -111,30 +111,35 @@
             <value>Open,Under Investigation,Escalated</value>
         </criteriaItems>
         <criteriaItems>
-            <column>STATUS</column>
+            <column>Activity.Due_in_Days__c</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
-            <operator>equals</operator>
-            <value>Completed</value>
+            <operator>lessOrEqual</operator>
+            <value>7</value>
         </criteriaItems>
         <criteriaItems>
-            <column>Activity.IDR_Is_Task_Completed_Within_Due_Dt__c</column>
+            <column>Activity.Due_in_Days__c</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
-            <operator>equals</operator>
+            <operator>greaterOrEqual</operator>
             <value>1</value>
         </criteriaItems>
     </filter>
     <format>Summary</format>
     <groupingsDown>
         <dateGranularity>Day</dateGranularity>
-        <field>CASE_NUMBER</field>
-        <sortOrder>Desc</sortOrder>
+        <field>BucketField_70287156</field>
+        <sortOrder>Asc</sortOrder>
     </groupingsDown>
-    <name>IDR Pend Cases Completed Within Due Date</name>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>CASE_NUMBER</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>IDR Pend Tasks Approaching Its Due Date</name>
     <params>
         <name>closed</name>
-        <value>all</value>
+        <value>open</value>
     </params>
     <params>
         <name>type</name>
@@ -149,12 +154,12 @@
         <value>1</value>
     </params>
     <reportType>CaseActivity</reportType>
-    <scope>organization</scope>
+    <scope>team</scope>
     <showDetails>true</showDetails>
     <showGrandTotal>true</showGrandTotal>
     <showSubTotals>true</showSubTotals>
     <timeFrameFilter>
         <dateColumn>DUE_DATE</dateColumn>
-        <interval>INTERVAL_CUSTOM</interval>
+        <interval>INTERVAL_CURFY</interval>
     </timeFrameFilter>
 </Report>

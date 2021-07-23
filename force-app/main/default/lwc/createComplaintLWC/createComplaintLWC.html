@@ -486,9 +486,9 @@
                     data-id="accPolicyNum-id"
                   ></lightning-input-field>-->
                   <lightning-combobox
-                    name="Account/Card/Policy Number"
-                    label="Account/Card/Policy Number"
-                    aria-label="Account/Card/Policy Number"
+                    name="Account/Policy Number"
+                    label="Account/Policy Number"
+                    aria-label="Account/Policy Number"
                     value={accountOrPolicyNumber}
                     options={accountNumberOptions}
                     onchange={handleAccountNumberChange}
@@ -502,6 +502,7 @@
                   required
                   label="Description of Issue"
                   maxlength="3000"
+                  field-level-help="Provide a detailed, accurate and grammatically correct description of the customer's concern, from Customer's perspective. This field should not display subjective comments from your, or ANZ's perspective."
                   onchange={handleDescriptionChange}
                   data-id="descOfIssue-id"
                 ></lightning-textarea>
@@ -554,9 +555,9 @@
                 <template if:true={isCustomerComplaint}>
                   <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                     <lightning-combobox
-                      name="Account/Card/Policy Number"
-                      label="Account/Card/Policy Number"
-                      aria-label="Account/Card/Policy Number"
+                      name="Account/Policy Number 2"
+                      label="Account/Policy Number 2"
+                      aria-label="Account/Policy Number 2"
                       value={accountOrPolicyNumber2}
                       options={accountNumberOptions}
                       onchange={handleAccountNumber2Change}
@@ -609,9 +610,9 @@
                 <template if:true={isCustomerComplaint}>
                   <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                     <lightning-combobox
-                      name="Account/Card/Policy Number"
-                      label="Account/Card/Policy Number"
-                      aria-label="Account/Card/Policy Number"
+                      name="Account/Policy Number 3"
+                      label="Account/Policy Number 3"
+                      aria-label="Account/Policy Number 3"
                       value={accountOrPolicyNumber3}
                       options={accountNumberOptions}
                       onchange={handleAccountNumber3Change}
