@@ -351,4 +351,16 @@
             <value>Systemic Issue</value>
         </criteriaItems>
     </sharingCriteriaRules>
+    <sharingOwnerRules>
+        <fullName>Fraud_FraudXAgent_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All Cases having Fraud Case Owners are to be shared with FraudX Agents with Read/Write access.</description>
+        <label>Fraud_FraudXAgent_RW</label>
+        <sharedTo>
+            <role>FraudX_Agent</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>FraudX_Agent</role>
+        </sharedFrom>
+    </sharingOwnerRules>
 </SharingRules>
