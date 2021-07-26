@@ -114,7 +114,12 @@ public with sharing class IDRCaseActions {
   public static void afterInsert(List<Case> records) {
     for (Case record : records) {
       if (isIDRComplaintType(record)) {
-        notificationCaseList.add(record);
+        if (
+          record.IDR_Customer_Notification__c ||
+          record.IDR_Nominated_3rd_Party_Notification__c
+        ) {
+          notificationCaseList.add(record);
+        }
         checkForCRCEscalation(record, null);
       }
     }
