@@ -167,6 +167,19 @@ describe("c-create-complaint-l-w-c", () => {
       );
       expect(nominated3rdPartyState).toBeTruthy();
 
+      const nominated3rdPartyComms = element.shadowRoot.querySelector(
+        "lightning-input[data-id=thirdPartyNotification-id]"
+      );
+      expect(nominated3rdPartyComms).toBeTruthy();
+
+      nominated3rdPartyComms.dispatchEvent(
+        new CustomEvent("change", {
+          detail: {
+            value: "true"
+          }
+        })
+      );
+
       //click Create Case button to improve code coverage
       const saveButton = element.shadowRoot.querySelector(".saveButton");
       saveButton.click();
@@ -234,6 +247,20 @@ describe("c-create-complaint-l-w-c", () => {
         }
       })
     );
+
+    const customerComms = element.shadowRoot.querySelector(
+      "lightning-input[data-id=customerNotification-id]"
+    );
+    expect(customerComms).toBeTruthy();
+
+    customerComms.dispatchEvent(
+      new CustomEvent("change", {
+        detail: {
+          value: "true"
+        }
+      })
+    );
+
     //Populate user input - Issue Type
     const issueType = element.shadowRoot.querySelector(
       "lightning-input-field[data-id=issueType-id]"
