@@ -17,9 +17,10 @@ import THIRD_PARTY_POSTCODE_FIELD from "@salesforce/schema/Case.IDR_3rdParty_Pos
 import THIRD_PARTY_COUNTRY_FIELD from "@salesforce/schema/Case.IDR_3rdParty_Country__c";
 import THIRD_PARTY_STATE_FIELD from "@salesforce/schema/Case.IDR_3rdParty_State__c";
 import THIRD_PARTY_RELATIONSHIP from "@salesforce/schema/Case.IDR_3rdParty_Relationship_To_Complainant__c";
+import THIRD_PARTY_COMMS from "@salesforce/schema/Case.IDR_Nominated_3rd_Party_Notification__c";
 import RECORDTYPE_FIELD from "@salesforce/schema/Case.RecordTypeId";
 
-//Non Customer complaints
+//Non Customer complaint
 import COMPLAINT_TYPE_FIELD from "@salesforce/schema/Case.IDR_Complainant_Type__c";
 import BUSINESS_NAME_FIELD from "@salesforce/schema/Case.IDR_NC_Business_Name__c";
 import FIRST_NAME_FIELD from "@salesforce/schema/Case.IDR_NC_First_Name__c";
@@ -39,6 +40,7 @@ import CONSENT_OBTAINED from "@salesforce/schema/Case.IDR_NC_Is_Consent_Obtained
 import OCV_ID from "@salesforce/schema/Case.OCV_Id__c";
 import CP_ID from "@salesforce/schema/Case.CPID__c";
 import RM_COMPLAINT from "@salesforce/schema/Case.Relationship_Managed_Complaint__c";
+import CUSTOMER_COMMS from "@salesforce/schema/Case.IDR_Customer_Notification__c";
 
 //Is written Response Needed Fields
 import WRITTEN_RESPONSE_REQUESTED_FIELD from "@salesforce/schema/Case.IDR_Is_Written_Resp_Requested__c";
@@ -201,7 +203,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
   @api contextRecordId;
 
   isCustomerDetails = false;
+  isCustomerNotification = false;
   hasNominatedThirdParty = false;
+  is3rdPartyNotification = false;
   hasSecondIssue = false;
   hasThirdIssue = false;
   activeSections = ["A", "B", "C"];
@@ -309,8 +313,16 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.isBusiness = event.detail.value === BUSINESS_TYPE_API;
   }
 
+  handleCustomerNotificationChange(event) {
+    this.isCustomerNotification = event.target.checked;
+  }
+
   handle3rdPartyToggleChange(event) {
     this.hasNominatedThirdParty = event.target.checked;
+  }
+
+  handle3rdPartyNotificationChange(event) {
+    this.is3rdPartyNotification = event.target.checked;
   }
 
   handlePriorityChange(event) {
@@ -668,6 +680,14 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
       if (this.hasThirdIssue) {
         fields[HAS_THIRD_ISSUE.fieldApiName] = true;
+      }
+
+      if (this.isCustomerNotification) {
+        fields[CUSTOMER_COMMS.fieldApiName] = true;
+      }
+
+      if (this.is3rdPartyNotification) {
+        fields[THIRD_PARTY_COMMS.fieldApiName] = true;
       }
 
       fields[
