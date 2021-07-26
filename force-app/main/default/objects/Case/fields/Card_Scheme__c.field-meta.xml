@@ -17,27 +17,27 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>0</fullName>
+                <fullName>CARD_SCHEME_UNSPECIFIED</fullName>
                 <default>false</default>
                 <label>OTHER</label>
             </value>
             <value>
-                <fullName>1</fullName>
+                <fullName>CARD_SCHEME_VISA</fullName>
                 <default>false</default>
                 <label>VISA</label>
             </value>
             <value>
-                <fullName>2</fullName>
+                <fullName>CARD_SCHEME_MASTERCARD</fullName>
                 <default>false</default>
                 <label>MASTERCARD</label>
             </value>
             <value>
-                <fullName>3</fullName>
+                <fullName>CARD_SCHEME_EFTPOS</fullName>
                 <default>false</default>
                 <label>EFTPOS</label>
             </value>
             <value>
-                <fullName>4</fullName>
+                <fullName>CARD_SCHEME_AMERICAN_EXPRESS</fullName>
                 <default>false</default>
                 <label>AMERICAN_EXPRESS</label>
             </value>

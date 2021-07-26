@@ -114,23 +114,23 @@
     <picklistValues>
         <picklist>Card_Scheme__c</picklist>
         <values>
-            <fullName>0</fullName>
+            <fullName>CARD_SCHEME_AMERICAN_EXPRESS</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>1</fullName>
+            <fullName>CARD_SCHEME_EFTPOS</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>2</fullName>
+            <fullName>CARD_SCHEME_MASTERCARD</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>3</fullName>
+            <fullName>CARD_SCHEME_UNSPECIFIED</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>4</fullName>
+            <fullName>CARD_SCHEME_VISA</fullName>
             <default>false</default>
         </values>
     </picklistValues>
