@@ -423,6 +423,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.IDR_Customer_Notification__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.IDR_Nominated_3rd_Party_Notification__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Entitlement.SlaProcessId</field>
         <readable>true</readable>
     </fieldPermissions>

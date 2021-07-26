@@ -313,6 +313,16 @@
               </div>
             </template>
 
+            <lightning-input
+              type="toggle"
+              label="Customer Notifications"
+              onchange={handleCustomerNotificationChange}
+              message-toggle-active="Yes"
+              message-toggle-inactive="No"
+              data-id="customerNotification-id"
+            >
+            </lightning-input>
+
             <!-- Nominated Third party details -->
             <template if:true={consentValue}>
               <lightning-input
@@ -326,6 +336,15 @@
               </lightning-input>
             </template>
             <template if:true={hasNominatedThirdParty}>
+              <lightning-input
+                type="toggle"
+                label="3rd Party Notifications"
+                onchange={handle3rdPartyNotificationChange}
+                message-toggle-active="Yes"
+                message-toggle-inactive="No"
+                data-id="thirdPartyNotification-id"
+              >
+              </lightning-input>
               <div class="slds-grid slds-wrap">
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
