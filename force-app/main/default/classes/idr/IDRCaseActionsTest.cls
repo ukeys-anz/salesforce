@@ -39,7 +39,9 @@ private with sharing class IDRCaseActionsTest {
           IDR_Customer_Number__c = '1234567890',
           Status = 'Escalated',
           IDR_Escalated_to__c = '1',
-          IDR_Escalation_Reason__c = '1'
+          IDR_Escalation_Reason__c = '1',
+          IDR_Nominated_3rd_Party_Notification__c = true,
+          IDR_Customer_Notification__c = true
         )
       );
     }
