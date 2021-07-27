@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SI_Tribe_BU__c</fullName>
+    <description>To capture the Business Unit for SI task</description>
+    <externalId>false</externalId>
+    <label>Tribe/BU</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>AMU &amp; Collections</fullName>
+                <default>false</default>
+                <label>AMU &amp; Collections</label>
+            </value>
+            <value>
+                <fullName>APRA Home Loans</fullName>
+                <default>false</default>
+                <label>APRA Home Loans</label>
+            </value>
+            <value>
+                <fullName>Business Lending Tribe</fullName>
+                <default>false</default>
+                <label>Business Lending Tribe</label>
+            </value>
+            <value>
+                <fullName>Business Owners Portfolio</fullName>
+                <default>false</default>
+                <label>Business Owners Portfolio</label>
+            </value>
+            <value>
+                <fullName>Commercial</fullName>
+                <default>false</default>
+                <label>Commercial</label>
+            </value>
+            <value>
+                <fullName>Commercial &amp; Consumer Cards and Personal Lending (CCPL) Tribe</fullName>
+                <default>false</default>
+                <label>Commercial &amp; Consumer Cards and Personal Lending (CCPL) Tribe</label>
+            </value>
+            <value>
+                <fullName>Customer Resolution Portfolio (CRP)</fullName>
+                <default>false</default>
+                <label>Customer Resolution Portfolio (CRP)</label>
+            </value>
+            <value>
+                <fullName>Customer Service Operations (CSO)</fullName>
+                <default>false</default>
+                <label>Customer Service Operations (CSO)</label>
+            </value>
+            <value>
+                <fullName>Deposits Tribe</fullName>
+                <default>false</default>
+                <label>Deposits Tribe</label>
+            </value>
+            <value>
+                <fullName>Digital Portfolio</fullName>
+                <default>false</default>
+                <label>Digital Portfolio</label>
+            </value>
+            <value>
+                <fullName>Digital Sales Experience Tribe</fullName>
+                <default>false</default>
+                <label>Digital Sales Experience Tribe</label>
+            </value>
+            <value>
+                <fullName>Group Payments</fullName>
+                <default>false</default>
+                <label>Group Payments</label>
+            </value>
+            <value>
+                <fullName>Group Payments Tribe</fullName>
+                <default>false</default>
+                <label>Group Payments Tribe</label>
+            </value>
+            <value>
+                <fullName>Home Loans Tribe</fullName>
+                <default>false</default>
+                <label>Home Loans Tribe</label>
+            </value>
+            <value>
+                <fullName>Home Owners Tribe</fullName>
+                <default>false</default>
+                <label>Home Owners Tribe</label>
+            </value>
+            <value>
+                <fullName>Payments &amp; Merchant Tribe</fullName>
+                <default>false</default>
+                <label>Payments &amp; Merchant Tribe</label>
+            </value>
+            <value>
+                <fullName>Private Banking &amp; Advice (PB&amp;A)</fullName>
+                <default>false</default>
+                <label>Private Banking &amp; Advice (PB&amp;A)</label>
+            </value>
+            <value>
+                <fullName>Responsible Banking Portfolio</fullName>
+                <default>false</default>
+                <label>Responsible Banking Portfolio</label>
+            </value>
+            <value>
+                <fullName>Retail Governance &amp; Operational Governance</fullName>
+                <default>false</default>
+                <label>Retail Governance &amp; Operational Governance</label>
+            </value>
+            <value>
+                <fullName>Systemic Issues</fullName>
+                <default>false</default>
+                <label>Systemic Issues</label>
+            </value>
+            <value>
+                <fullName>Wealth Tribe</fullName>
+                <default>false</default>
+                <label>Wealth Tribe</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
