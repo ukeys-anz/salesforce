@@ -268,7 +268,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <fieldPermissions>
         <editable>true</editable>
         <field>Case.SI_Strategic_Fix__c</field>
         <readable>true</readable>
