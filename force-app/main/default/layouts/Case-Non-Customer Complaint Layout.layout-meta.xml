@@ -86,6 +86,10 @@
                 <behavior>Edit</behavior>
                 <field>IDR_NC_Country__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>IDR_Customer_Notification__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
@@ -136,6 +140,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>IDR_3rdParty_Mobile__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>IDR_Nominated_3rd_Party_Notification__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -500,21 +508,23 @@
     </relatedContent>
     <relatedLists>
         <fields>TASK.SUBJECT</fields>
-        <fields>TASK.WHO_NAME</fields>
-        <fields>ACTIVITY.TASK</fields>
-        <fields>TASK.DUE_DATE</fields>
+        <fields>TASK.TYPE</fields>
         <fields>TASK.STATUS</fields>
+        <fields>TASK.CREATED_DATE</fields>
+        <fields>TASK.DUE_DATE</fields>
         <fields>TASK.PRIORITY</fields>
         <fields>CORE.USERS.FULL_NAME</fields>
         <relatedList>RelatedActivityList</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>TASK.SUBJECT</fields>
-        <fields>TASK.WHO_NAME</fields>
-        <fields>ACTIVITY.TASK</fields>
+        <fields>TASK.TYPE</fields>
+        <fields>TASK.STATUS</fields>
+        <fields>TASK.CREATED_DATE</fields>
         <fields>TASK.DUE_DATE</fields>
+        <fields>Completed_Date__c</fields>
+        <fields>TASK.PRIORITY</fields>
         <fields>CORE.USERS.FULL_NAME</fields>
-        <fields>TASK.LAST_UPDATE</fields>
         <relatedList>RelatedHistoryList</relatedList>
     </relatedLists>
     <relatedLists>
