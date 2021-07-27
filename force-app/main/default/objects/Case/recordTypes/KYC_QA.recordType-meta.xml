@@ -57,6 +57,29 @@
         </values>
     </picklistValues>
     <picklistValues>
+    <picklistValues>
+        <picklist>Fraud_Address_Valid__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Fraud_Citizenship_Updated__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Fraud_Complicit_in_Fraud__c</picklist>
         <values>
             <fullName>No</fullName>
