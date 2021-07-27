@@ -75,7 +75,6 @@ public with sharing class IDRCaseNotificationManager {
           Userinfo.getUserId() != records[i].ownerId &&
           IDRCaseActions.isIDRComplaintType(records[i])
         ) {
-          //Set notification flag to true in here itself to avoid update in IDRBankerNotificationBuilder
           wrapperList.add(createNotification(fieldLabel, records[i], null));
         }
       }
@@ -176,7 +175,8 @@ public with sharing class IDRCaseNotificationManager {
       if (
         oldCase != null &&
         oldCase.IDR_Milestone_Sla__c != record.IDR_Milestone_Sla__c &&
-        record.IDR_Milestone_Sla__c == IDRConstants.MILESTONE_SLA_RED
+        record.IDR_Milestone_Sla__c == IDRConstants.MILESTONE_SLA_RED &&
+        record.IsEscalated == false
       ) {
         toBeEsclationCases.add(record);
         caseOwnerIds.add(record.OwnerId);

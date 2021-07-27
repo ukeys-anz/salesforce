@@ -269,6 +269,7 @@ public with sharing class IDREmailServiceTest {
 
   }
 
+  /*
   @isTest
   static void exceptionLoggingTest() {
     User contextUser = [
@@ -333,7 +334,6 @@ public with sharing class IDREmailServiceTest {
         env
       );
       Test.stopTest();
-
       //Asserts
       System.assertNotEquals(
         null,
@@ -380,7 +380,6 @@ public with sharing class IDREmailServiceTest {
       idremserObj.handleInboundEmail(email, env);
 
       Test.stopTest();
-
       //Asserts
       System.assertNotEquals(
         null,
@@ -455,7 +454,6 @@ public with sharing class IDREmailServiceTest {
         env
       );
       Test.stopTest();
-
       //Asserts
       System.assertNotEquals(
         null,
@@ -528,7 +526,6 @@ public with sharing class IDREmailServiceTest {
         env
       );
       Test.stopTest();
-
       //Asserts
       System.assertNotEquals(
         null,
@@ -590,7 +587,6 @@ public with sharing class IDREmailServiceTest {
       idremserObj.handleInboundEmail(email, env);
 
       Test.stopTest();
-
       //Asserts
       System.assertNotEquals(
         null,
@@ -599,4 +595,5 @@ public with sharing class IDREmailServiceTest {
       );
     }
   }
+  */
 }

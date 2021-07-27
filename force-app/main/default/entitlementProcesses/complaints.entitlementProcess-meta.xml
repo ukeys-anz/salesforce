@@ -12,32 +12,18 @@
     </exitCriteriaFilterItems>
     <milestones>
         <businessHours>Case Business Hours</businessHours>
-        <criteriaBooleanFilter>(1 OR 2) AND 5 AND (3 OR 4)</criteriaBooleanFilter>
-        <milestoneCriteriaFilterItems>
-            <field>Case.Status</field>
-            <operation>equals</operation>
-            <value>Open</value>
-        </milestoneCriteriaFilterItems>
-        <milestoneCriteriaFilterItems>
-            <field>Case.Status</field>
-            <operation>equals</operation>
-            <value>Under Investigation</value>
-        </milestoneCriteriaFilterItems>
-        <milestoneCriteriaFilterItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Customer Complaint</value>
-        </milestoneCriteriaFilterItems>
-        <milestoneCriteriaFilterItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Non-Customer Complaint</value>
-        </milestoneCriteriaFilterItems>
-        <milestoneCriteriaFilterItems>
-            <field>Case.IDR_Inbox_Email_Address__c</field>
-            <operation>equals</operation>
-            <value/>
-        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFormula>AND(
+OR(  
+ISPICKVAL(Status, &apos;Open&apos;),
+ISPICKVAL(Status, &apos;Under Investigation&apos;) 
+),
+OR(
+RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
+RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
+),
+NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution_Leadership&apos;),
+NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
+)</milestoneCriteriaFormula>
         <milestoneName>Open_Escalation_Time</milestoneName>
         <minutesToComplete>7680</minutesToComplete>
         <timeTriggers>
@@ -67,7 +53,7 @@
         <useCriteriaStartTime>false</useCriteriaStartTime>
     </milestones>
     <milestones>
-        <businessHours>Case Business Hours</businessHours>
+        <businessHours>Default</businessHours>
         <milestoneCriteriaFilterItems>
             <field>Case.Status</field>
             <operation>notEqual</operation>
@@ -87,6 +73,11 @@
             <field>Case.Priority</field>
             <operation>equals</operation>
             <value>Standard</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.IDR_Subsequent_Issue__c</field>
+            <operation>notContain</operation>
+            <value>20, 21, 22, 23, 24, 25, 26, 27, 28, 38, 42</value>
         </milestoneCriteriaFilterItems>
         <milestoneName>30-day IDR Response Due</milestoneName>
         <minutesToComplete>43200</minutesToComplete>
@@ -109,8 +100,8 @@
         <useCriteriaStartTime>false</useCriteriaStartTime>
     </milestones>
     <milestones>
-        <businessHours>Case Business Hours</businessHours>
-        <criteriaBooleanFilter>1 AND 2 AND 3 AND 4 AND ((5 AND 6) OR (7 AND 8) OR (9 AND 10) OR (11 AND 12) OR (13 AND 14) OR (15 AND 16) OR (17 AND 18) OR (19 AND 20) OR (21 AND 22) OR (23 AND 24))</criteriaBooleanFilter>
+        <businessHours>Default</businessHours>
+        <criteriaBooleanFilter>1 AND 2 AND 3 AND (4 OR (5 AND 6) OR (7 AND 8) OR (9 AND 10) OR (11 AND 12) OR (13 AND 14) OR (15 AND 16) OR (17 AND 18) OR (19 AND 20) OR (21 AND 22) OR (23 AND 24))</criteriaBooleanFilter>
         <milestoneCriteriaFilterItems>
             <field>Case.Status</field>
             <operation>notEqual</operation>

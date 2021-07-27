@@ -87,15 +87,12 @@ public with sharing class CaseProductTriggerHandler extends Lib_TriggerHandler {
         WITH SECURITY_ENFORCED
       ];
     } catch (System.QueryException e) {
-      Lib_SystemLog.logAPIError(
+      lib_systemLog log = new lib_systemLog(
         CaseProductTriggerHandler.class.getName(),
-        'errorIfDuplicate',
-        e.getMessage(),
-        e.getTypeName(),
-        CaseProductTriggerHandler.class.getName(),
-        null,
-        null
+        'errorIfDuplicate'
       );
+      log.error('InsufficientAccessException', e.getMessage(), e.getTypeName());
+      log.publishEvent();
       records[0].AddError('Insufficient permissions');
       return;
     }

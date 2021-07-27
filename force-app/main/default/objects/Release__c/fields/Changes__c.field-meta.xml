@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Changes__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information</complianceGroup>
+    <complianceGroup>Privacy - Non Personal Information;Integrity - Accurate</complianceGroup>
     <description>Changes in this release</description>
     <externalId>false</externalId>
     <label>Changes</label>

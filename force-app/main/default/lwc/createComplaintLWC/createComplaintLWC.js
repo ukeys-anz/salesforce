@@ -64,7 +64,7 @@ import NON_FINANCIAL_REMEDY from "@salesforce/schema/Case.IDR_Non_Financial_Reme
 import OUTCOME_DESCRIPTION from "@salesforce/schema/Case.IDR_Description_of_Outcome__c";
 import STATUS_FIELD from "@salesforce/schema/Case.Status";
 
-//Systemic issue fields
+//Systemic issue & compliance fields
 import IS_COMMON_COMPLAINT_FIELD from "@salesforce/schema/Case.IDR_Is_Common__c";
 import IS_REAL_FORM_NEED_FIELD from "@salesforce/schema/Case.IDR_Real_Form_Req__c";
 import SYSTEMIC_ISSUE_DESCRIPTION from "@salesforce/schema/Case.IDR_Systemic_Issue_Description__c";
@@ -174,7 +174,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   outcomeDescription = OUTCOME_DESCRIPTION;
   nonFinancialRemedy = NON_FINANCIAL_REMEDY;
 
-  //systemic fields
+  //systemic issue & compliance fields
   commonComplaint = IS_COMMON_COMPLAINT_FIELD;
   systemicIssueDescription = SYSTEMIC_ISSUE_DESCRIPTION;
   systemicIssueCategory = SYSTEMIC_ISSUE_CATEGORY;

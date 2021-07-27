@@ -61,6 +61,42 @@
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
+        <fullName>Grant_Read_Access_on_Engineer_User_Records_for_Engineers</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Rule to provide &apos;Read&apos; access to all Engineer User records for Engineers.</description>
+        <label>Grant Read Access on Engineer User Records for Engineers</label>
+        <sharedTo>
+            <role>Engineer</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>Engineer</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>OWN_RO_ANZUsers_RO_ANZUsers_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Necessary for IDR users to transfer complaints to other IDR users</description>
+        <label>OWN_RO-ANZUsers_RO-ANZUsers_RO</label>
+        <sharedTo>
+            <roleAndSubordinates>ANZ</roleAndSubordinates>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>ANZ</roleAndSubordinates>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Grant_Read_Access_on_Manager_User_Records_for_Coaches</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Rule to provide &apos;Read&apos; access to all Manager User records for Coaches.</description>
+        <label>Grant Read Access on Manager User Records for Coaches</label>
+        <sharedTo>
+            <role>Coach</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>Manager</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
         <fullName>OWN_RO_ANZUsers_RO_ANZUsers_RO</fullName>
         <accessLevel>Read</accessLevel>
         <description>Necessary for IDR users to transfer complaints to other IDR users</description>

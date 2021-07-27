@@ -11,15 +11,6 @@
   </template>
   <template if:false={loading}>
     <article class="total-amounts slds-card slds-m-bottom_small">
-      <div class="slds-grid">
-        <header class="slds-has-flexi-truncate">
-          <h1
-            class="slds-card__header-title slds-m-top_small slds-m-left_small"
-          >
-            <span>Total Balance</span>
-          </h1>
-        </header>
-      </div>
       <template if:true={displayContent}>
         <template if:true={hasError}>
           <c-error message={error}></c-error>

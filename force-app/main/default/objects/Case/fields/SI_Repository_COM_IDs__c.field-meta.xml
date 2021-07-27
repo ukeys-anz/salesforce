@@ -6,7 +6,7 @@
     <description>Related CFMS COM IDs, migrated from the previous SI repository.</description>
     <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
     <externalId>true</externalId>
-    <label>SI Repository COM IDs</label>
+    <label>SI Repository COM ID's</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

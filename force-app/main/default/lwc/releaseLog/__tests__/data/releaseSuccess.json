@@ -1,0 +1,49 @@
+[
+  {
+    "Id": 1,
+    "Additions__c": "A new 'Only me' dashboard, to our Coaches workbench where coaches are able to view their own work without having to scroll through the large list of cases.\r\nCoaches can now create a Bug Enquiry case. \r\nCoaches now have access to edit a Bug Enquiry case, remove related bugs in General Enquiry page layout and link multiple bug enquiry cases to one master bug record.\r\nWe have allowed coaches to view customers transaction history on their Everyday and Goals account \r\nWe applied shield platform encryption to all fields, by clicking Sync on the encryption statistics setup page.",
+    "Name": "Alpha 5 Release 1 - Accounts and Goals and Transactions",
+    "Release_Date__c": "2021-02-01",
+    "Release_Notes__c": "https://docs.salesforce.apps.x.gcpnp.anz/docs/release/alpha-5-release-1",
+    "Version__c": 5.1
+  },
+  {
+    "Id": 2,
+    "Additions__c": "Create permissions and entitlements for the various Salesforce roles that are intended to be used in the future Beta release (such as QA, support coach, etc.)\r\nAdd dispute functionality, such as ability for a coach to raise a dispute case using existing case management process, view the dispute case created, edit dispute case when required to facilitate the assistance of customers who would like to raise a dispute for an ANZx transaction\r\nAdd a UI integration to Twilio to allow a coach to receive inbound voice calls from ANZx customers\r\nAdd basic complaints case functionality, such as ability for a coach to create and view an ANZx customer complaint\r\nAdd some additional granularity on user interface controls on customer Accounts and Goals\r\nGeneral technical debt items",
+    "Fixes__c": "Bug fixes within Dispute Management, Fraud Management, Complaints Management, Voice Calling and Transaction History.",
+    "Name": "Alpha 5 Release 3 - Disputes , UAM, Tech Debt",
+    "Release_Date__c": "2021-03-26",
+    "Release_Notes__c": "https://docs.salesforce.apps.x.gcpnp.anz/docs/release/alpha-5-release-3",
+    "Version__c": 5.31,
+    "Release_Image__c": "https://i.stack.imgur.com/eiz1c.jpg"
+  },
+  {
+    "Id": 3,
+    "Additions__c": "We expanded upon our existing case duration lightning web component build.\r\nFraudX users can now log notes related to a fraud case.\r\nAdded new record types so that FraudX staff are now presented with only the relevant fields for the selected case type.\r\nWe have applied shield platform encryption to all fields by enabling sync on the encryption statistics setup page.",
+    "Fixes__c": "Within this release, we seperated business hours for ANZx cases. There was an issue where business hours had been updated for all cases including CMOS.\r\nissue during BVT where the transaction page was throwing an error due to a JSON parsing issue. This was fixed by adding null checks to all elements we were trying to read and display if it had value.",
+    "Name": "Alpha 5 Release 2 - OCV integration and Fraud",
+    "Release_Date__c": "2021-02-15",
+    "Release_Notes__c": "https://docs.salesforce.apps.x.gcpnp.anz/docs/release/alpha-5-release-2",
+    "Version__c": 5.22,
+    "Release_Image__c": "https://media2.giphy.com/media/c47duTcO0xypO/giphy.gif?cid=ecf05e473serkph4nizo1nzy8lp3xutsh9zf2h317ajpys89&rid=giphy.gif&ct=g"
+  },
+  {
+    "Id": 4,
+    "Additions__c": "Coaches Workbench Home Page\r\nStaff Knowledge Base\r\nCase Management\r\nCustomer View",
+    "Name": "Alpha 3 Release 1",
+    "Release_Date__c": "2020-07-07",
+    "Release_Notes__c": "https://docs.salesforce.apps.x.gcpnp.anz/docs/release/alpha-3-release-1",
+    "Version__c": 0.03,
+    "Release_Image__c": "https://upload.wikimedia.org/wikipedia/commons/1/11/Test-Logo.svg"
+  },
+  {
+    "Id": 5,
+    "Additions__c": "Customer Feedback\r\nSupport User Profile",
+    "Fixes__c": "CMOS Various bug fixes",
+    "Name": "Alpha 3 Release 2",
+    "Release_Date__c": "2020-09-03",
+    "Release_Notes__c": "https://docs.salesforce.apps.x.gcpnp.anz/docs/release/alpha-3-release-2",
+    "Version__c": 0.04,
+    "Release_Image__c": ""
+  }
+]

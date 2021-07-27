@@ -20,27 +20,18 @@ public with sharing class MilestoneUtils {
   ) {
     List<CaseMilestone> cmsToUpdate = new List<CaseMilestone>();
     for (CaseMilestone cm : [
-      SELECT Id, CompletionDate
+      SELECT Id, completionDate
       FROM CaseMilestone cm
       WHERE
         caseId IN :caseIds
         AND cm.MilestoneType.Name = :milestoneName
-        AND CompletionDate = NULL
+        AND completionDate = NULL
     ]) {
-      cm.CompletionDate = complDate;
+      cm.completionDate = complDate;
       cmsToUpdate.add(cm);
     }
-    if (
-      CaseMilestone.SObjectType.getDescribe().isUpdateable() &&
-      Schema.sObjectType.CaseMilestone.fields.CompletionDate.isUpdateable()
-    ) {
+    if (CaseMilestone.SObjectType.getDescribe().isUpdateable()) {
       update cmsToUpdate;
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'MilestoneUtils',
-        'completeMilestone',
-        'Not enough permissions to update CaseMilestone.'
-      );
     }
   }
 

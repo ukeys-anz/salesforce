@@ -16,11 +16,7 @@ public with sharing class AccountBalancesController {
     List<FinServ__FinancialAccount__c> financialAccount;
     if (FinServ__FinancialAccount__c.sObjectType.getDescribe().isQueryable()) {
       financialAccount = [
-        SELECT
-          Id,
-          FinServ__Balance__c,
-          FinServ__CurrentPostedBalance__c,
-          LastModifiedDate
+        SELECT Id, FinServ__Balance__c, LastModifiedDate
         FROM FinServ__FinancialAccount__c
         WHERE Id = :recordId
       ];

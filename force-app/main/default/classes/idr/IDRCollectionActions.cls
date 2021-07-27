@@ -294,23 +294,20 @@ public with sharing class IDRCollectionActions {
       collectionsEventList
     );
     for (Integer i = 0; i < publishResults.size(); i++) {
-      Database.SaveResult sr = publishResults[i];
       if (!publishResults[i].isSuccess()) {
         isCollectionEventFailed = true;
-        for (Database.Error err : publishResults[i].getErrors()) {
-          Lib_SystemLog.logAPIError(
-            IDRCollectionActions.class.getName(),
-            'Error in publishing collection platform event for Case' +
-            collectionsEventList[i].IDR_Complaint_Number__c,
-            err.getMessage(),
-            null,
-            IDRCollectionActions.class.getName(),
-            null,
-            null
-          );
-        }
       }
     }
+    Lib_SystemLog log = new Lib_SystemLog(
+      IDRCollectionActions.class.getName(),
+      'publishCollectionEvent'
+    );
+    log.addDatabaseSaveResult(
+      'IDR_Collections_Event__e',
+      publishResults,
+      collectionsEventList
+    );
+    log.insertLog();
   }
 
   /**

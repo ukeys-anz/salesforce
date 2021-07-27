@@ -65,6 +65,14 @@
         <value>/anz-exp-sfdc-coach-banking-api/api/accounts</value>
     </labels>
     <labels>
+        <fullName>MS_Get_Cards</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_Cards</shortDescription>
+        <value>/anz-exp-sfdc-coach-banking-api/api/cards</value>
+    </labels>
+    <labels>
         <fullName>MS_Get_CaseChatChannel</fullName>
         <categories>MS</categories>
         <language>en_US</language>

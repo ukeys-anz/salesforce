@@ -196,23 +196,20 @@ public with sharing class IDRComplaintFlagActions {
       complaintEventList
     );
     for (Integer i = 0; i < publishResults.size(); i++) {
-      Database.SaveResult sr = publishResults[i];
       if (!publishResults[i].isSuccess()) {
         isComplaintEventFailed = true;
-        for (Database.Error err : publishResults[i].getErrors()) {
-          Lib_SystemLog.logAPIError(
-            IDRComplaintFlagActions.class.getName(),
-            'Error in publishing complaint platform event for Case' +
-            complaintEventList[i].IDR_Complaint_Number__c,
-            err.getMessage(),
-            null,
-            IDRComplaintFlagActions.class.getName(),
-            null,
-            null
-          );
-        }
       }
     }
+    Lib_SystemLog log = new Lib_SystemLog(
+      IDRComplaintFlagActions.class.getName(),
+      'publishComplaintEvent'
+    );
+    log.addDatabaseSaveResult(
+      'IDR_Complaints_Event__e',
+      publishResults,
+      complaintEventList
+    );
+    log.insertLog();
     complaintEventList.clear();
   }
 }

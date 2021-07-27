@@ -198,12 +198,12 @@ public with sharing class GetHelpCaseActions {
       fetchCaseTypeLabelsByValues();
       caseTypeList.add(caseTypeLabelByValue.get(record.Type));
     }
-    if (String.isNotBlank(record.Additional_Type__c)) {
-      caseTypeList.addAll(record.Additional_Type__c.split(';'));
+    if (String.isNotBlank(record.Sub_Type__c)) {
+      caseTypeList.addAll(record.Sub_Type__c.split(';'));
     }
     //populate case subject
     if (!caseTypeList.isEmpty()) {
-      record.Subject = String.join(caseTypeList, ', ');
+      record.Subject = String.join(caseTypeList, ' - ');
     }
   }
 
@@ -312,37 +312,24 @@ public with sharing class GetHelpCaseActions {
     Set<Id> bugIdSet = new Set<Id>();
     bugIdSet = GetHelpCaseActionsHelper.getBugIdSet(records, bugIdSet);
     bugIdSet = GetHelpCaseActionsHelper.getBugIdSet(oldRecords, bugIdSet);
-    if (
-      !bugIdSet.isEmpty() &&
-      Reported_Bug__c.SObjectType.getDescribe().isAccessible()
-    ) {
-      List<Reported_Bug__c> bugs = new List<Reported_Bug__c>();
+
+    List<Reported_Bug__c> bugs = new List<Reported_Bug__c>();
+    if (Reported_Bug__c.SObjectType.getDescribe().isAccessible()) {
       bugs = GetHelpCaseActionsHelper.getReportedBugs(bugIdSet);
-
-      for (Reported_Bug__c bug : bugs) {
-        bug.Number_of_Related_Cases__c = bug.Cases__r.size();
-      }
-      if (
-        Reported_Bug__c.SObjectType.getDescribe().isUpdateable() &&
-        Schema.sObjectType.Reported_Bug__c.fields.Number_of_Related_Cases__c.isUpdateable()
-      ) {
-        List<Database.SaveResult> results = Database.Update(bugs, false);
-
-        //log errors to application log
-        lib_systemLog log = new lib_systemLog(
-          'GetHelpCaseActions',
-          'rollupRelatedBug'
-        );
-        log.addDatabaseSaveResult('Case', results, new List<Case>());
-        log.insertLog();
-      } else {
-        CommonUtil.logAndThrowIAE(
-          'GetHelpCaseActions',
-          'rollupRelatedBug',
-          'Not enough permissions to update Reported_Bug__c.'
-        );
-      }
     }
+
+    for (Reported_Bug__c bug : bugs) {
+      bug.Number_of_Related_Cases__c = bug.Cases__r.size();
+    }
+    List<Database.SaveResult> results = Database.Update(bugs, false);
+
+    //log errors to application log
+    lib_systemLog log = new lib_systemLog(
+      'GetHelpCaseActions',
+      'rollupRelatedBug'
+    );
+    log.addDatabaseSaveResult('Case', results, new List<Case>());
+    log.insertLogAsync();
   }
 
   /**
@@ -352,36 +339,27 @@ public with sharing class GetHelpCaseActions {
   @future
   @SuppressWarnings('PMD.ApexCRUDViolation')
   public static void futureRollupRelatedBug(Set<Id> bugIdSet) {
-    if (Reported_Bug__c.SObjectType.getDescribe().isAccessible()) {
-      List<Reported_Bug__c> bugs = GetHelpCaseActionsHelper.getReportedBugs(
-        bugIdSet
-      );
-
-      for (Reported_Bug__c bug : bugs) {
-        bug.Number_of_Related_Cases__c = bug.Cases__r.size();
-      }
-
-      if (
-        Reported_Bug__c.SObjectType.getDescribe().isUpdateable() &&
-        Schema.sObjectType.Reported_Bug__c.fields.Number_of_Related_Cases__c.isUpdateable()
-      ) {
-        List<Database.SaveResult> results = Database.Update(bugs, false);
-
-        //log errors to application log
-        lib_systemLog log = new lib_systemLog(
-          'GetHelpCaseActions',
-          'futureRollupRelatedBug'
-        );
-        log.addDatabaseSaveResult('Case', results, new List<Case>());
-        log.insertLog();
-      } else {
-        CommonUtil.logAndThrowIAE(
-          'GetHelpCaseActions',
-          'futureRollupRelatedBug',
-          'Not enough permissions to update Reported_Bug__c.'
-        );
-      }
+    List<Reported_Bug__c> bugs = new List<Reported_Bug__c>();
+    if (
+      Reported_Bug__c.SObjectType.getDescribe().isAccessible() &&
+      Reported_Bug__c.SObjectType.getDescribe().isUpdateable()
+    ) {
+      bugs = GetHelpCaseActionsHelper.getReportedBugs(bugIdSet);
     }
+
+    for (Reported_Bug__c bug : bugs) {
+      bug.Number_of_Related_Cases__c = bug.Cases__r.size();
+    }
+
+    List<Database.SaveResult> results = Database.Update(bugs, false);
+
+    //log errors to application log
+    lib_systemLog log = new lib_systemLog(
+      'GetHelpCaseActions',
+      'futureRollupRelatedBug'
+    );
+    log.addDatabaseSaveResult('Case', results, new List<Case>());
+    log.insertLog();
   }
 
   /**

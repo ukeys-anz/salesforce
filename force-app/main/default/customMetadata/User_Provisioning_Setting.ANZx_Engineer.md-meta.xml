@@ -3,6 +3,10 @@
     <label>ANZx_Engineer</label>
     <protected>false</protected>
     <values>
+        <field>Call_Center_Name__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
         <field>Permission_Set_Groups__c</field>
         <value xsi:type="xsd:string">Engineer</value>
     </values>
@@ -12,11 +16,11 @@
     </values>
     <values>
         <field>Permission_Sets__c</field>
-        <value xsi:nil="true"/>
+        <value xsi:type="xsd:string">Enforce_SSO;SFDX_Full_Dev_Hub_Access;</value>
     </values>
     <values>
         <field>Profile_Name__c</field>
-        <value xsi:type="xsd:string">No Access</value>
+        <value xsi:type="xsd:string">Minimum Access - Salesforce</value>
     </values>
     <values>
         <field>Public_Groups__c</field>
@@ -24,6 +28,6 @@
     </values>
     <values>
         <field>Role_Name__c</field>
-        <value xsi:type="xsd:string">ANZx</value>
+        <value xsi:type="xsd:string">Engineer</value>
     </values>
 </CustomMetadata>
