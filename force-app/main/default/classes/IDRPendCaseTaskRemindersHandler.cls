@@ -35,7 +35,7 @@ public with sharing class IDRPendCaseTaskRemindersHandler {
         recipientList.add(t.OwnerId);
         recipientList.add(caseMap.get(t.WhatId)?.OwnerId);
         if (Integer.valueOf(t.Due_in_Days__c) == 1) {
-          recipientList.add(((User) caseMap.get(t.WhatId)?.Owner).ManagerId);
+          recipientList.add(((User) caseMap.get(t.WhatId)?.Owner)?.ManagerId);
         }
         msgBody =
           'Pend Task for Case : ' +
@@ -44,7 +44,7 @@ public with sharing class IDRPendCaseTaskRemindersHandler {
           Integer.valueOf(t.Due_in_Days__c) +
           ' Days.';
       } else if (t.Due_in_Days__c < 0) {
-        recipientList.add(((User) caseMap.get(t.WhatId)?.Owner).ManagerId);
+        recipientList.add(((User) caseMap.get(t.WhatId)?.Owner)?.ManagerId);
         msgBody =
           'Pend Task for Case : ' +
           caseMap.get(t.WhatId)?.CaseNumber +
