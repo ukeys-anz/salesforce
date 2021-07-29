@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Interest_Accrued__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Source_Caps;Integrity - Accurate;Privacy - Personal Information</complianceGroup>
+    <complianceGroup>Source_Caps;Integrity_Accurate;Privacy_Personal_Information</complianceGroup>
     <description>Field representing accrued interest</description>
     <externalId>false</externalId>
     <inlineHelpText>Field representing accrued interest</inlineHelpText>

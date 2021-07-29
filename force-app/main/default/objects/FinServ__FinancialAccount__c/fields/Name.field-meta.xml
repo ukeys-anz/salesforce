@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Name</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Source_Fabric;Privacy - Personal Information;Integrity - Accurate</complianceGroup>
+    <complianceGroup>Source_Fabric;Privacy_Personal_Information;Integrity_Accurate</complianceGroup>
     <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
     <securityClassification>Confidential</securityClassification>
 </CustomField>

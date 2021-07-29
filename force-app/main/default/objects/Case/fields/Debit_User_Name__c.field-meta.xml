@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Debit_User_Name__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Trusted;Source - Salesforce;Privacy - Personal Information</complianceGroup>
+    <complianceGroup>Integrity_Trusted;Source_Salesforce;Privacy_Personal_Information</complianceGroup>
     <description>The name of the merchant which has performed the direct debit as derived from the transaction description</description>
     <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
     <externalId>false</externalId>

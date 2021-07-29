@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>MobilePhone</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Trusted;Source - Azure;Privacy - Personal Information</complianceGroup>
+    <complianceGroup>Integrity_Trusted;Source_Azure;Privacy_Personal_Information</complianceGroup>
     <description>Mobile number</description>
     <securityClassification>Internal</securityClassification>
 </CustomField>

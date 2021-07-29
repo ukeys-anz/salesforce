@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <fullName>What_Customer_was_Trying_to_Do__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Trusted;Source - Salesforce;Privacy_Personal_Information</complianceGroup>
+    <complianceGroup>Integrity_Trusted;Source_Salesforce;Privacy_Personal_Information</complianceGroup>
     <description>What the customer was attempting to do when they encountered the bug.</description>
     <externalId>false</externalId>
     <inlineHelpText>Textual description of what a customer was doing at the time they encountered a bug with ANZx, eg with the mobile app or website.</inlineHelpText>
