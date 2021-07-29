@@ -194,9 +194,9 @@ ANZ Frequent Flyer Visa Gold,194,1,2,9,TRUE
 ANZ Prepaid Card,195,1,2,9,TRUE
 ANZ Rewards Visa Gold,196,1,2,9,TRUE
 Aussie Mastercard,197,1,2,9,TRUE
-ANZ Balance Visa,198,1,2,9,TRUE
+Balance Visa,198,1,2,9,TRUE
 Verified by Visa,199,1,2,9,TRUE
-East Start Residential Investment Loan,200,1,2,13,TRUE
+Easy Start Residential Investment Loan,200,1,2,13,TRUE
 Easy Start Home Loan,201,1,2,13,TRUE
 Equity Release Fixed Rate Loan,202,1,2,13,TRUE
 Equity Release Variable Rate Loan,203,1,2,13,TRUE
@@ -205,7 +205,7 @@ Home Loan Interest Saver,205,1,2,13,TRUE
 Money saver Home Loan,206,1,2,13,TRUE
 Money Saver Residential Investment Loan,207,1,2,13,TRUE
 Business Cash Management,208,2,5,24,TRUE
-Negotiable Certficate of Deposit,209,2,5,24,TRUE
+Negotiable Certificate of Deposit,209,2,5,24,TRUE
 Premium Business Cash Account,210,2,5,24,TRUE
 Premium Business Cash Management,211,2,5,24,TRUE
 Short Term or Call Deposit,212,2,5,24,TRUE
@@ -213,29 +213,29 @@ Structured Bill Investment,213,2,5,24,TRUE
 Corporate Transaction Account,214,2,5,24,TRUE
 Client Money Account (Cache),215,2,5,24,TRUE
 Corporate Statutory Trust (Cache),216,2,5,24,TRUE
-ANZ Access Deeming,217,2,5,28,TRUE
-ANZ Design My Card,218,2,5,28,TRUE
-ANZ Online Investment Account,219,2,5,28,TRUE
-Esanda Term Deposit,220,2,5,28,TRUE
-Safe Deposit/ Locked Box/ Sealed Packet,221,2,5,28,TRUE
-Seniors Privilege,222,2,5,28,TRUE
-Access Deeming,223,2,5,28,TRUE
-Access Simplicity,224,2,5,28,TRUE
-Premier Cheque Account,225,2,5,28,TRUE
-Premier Cheque Account - with Overdraft,226,2,5,28,TRUE
-ANZ Plus Account – Transaction Account (ANZ Plus only),227,2,5,28,TRUE
-ANZ Save - Savings Account (ANZ Plus only),228,2,5,28,TRUE
-Corporate Term Deposit (Cache),230,2,7,34,TRUE
-Corporate Notice Term Deposit,231,2,7,34,TRUE
-Money Market Deposits,232,2,7,34,TRUE
-"FX - Spot, Value Today and Value Tomorrow",233,4,12,76,TRUE
-FX - Flexible Forwards,234,4,12,77,TRUE
-FX - Forward Exchange Contracts,235,4,12,77,TRUE
-FX - Foreign Currency Options,236,4,12,79,TRUE
-Commodity Swap Facilities,237,4,12,80,TRUE
-Agri Commodity Swap,238,4,12,80,TRUE
-International Money Transfers,239,6,19,134,TRUE
-Digital Wallets,240,6,20,138,TRUE
-ANZ Plus App (ANZ Plus only),241,6,20,138,TRUE
-ANZ Cash Escrow Facility,242,6,20,138,TRUE
+ANZ Design My Card,217,2,5,28,TRUE
+ANZ Online Investment Account,218,2,5,28,TRUE
+Esanda Term Deposit,219,2,5,28,TRUE
+Safe Deposit/ Locked Box/ Sealed Packet,220,2,5,28,TRUE
+Seniors Privilege,221,2,5,28,TRUE
+Access Deeming,222,2,5,28,TRUE
+Access Simplicity,223,2,5,28,TRUE
+Premier Cheque Account,224,2,5,28,TRUE
+Premier Cheque Account - with Overdraft,225,2,5,28,TRUE
+ANZ Plus Account – Transaction Account (ANZ Plus only),226,2,5,28,TRUE
+ANZ Save - Savings Account (ANZ Plus only),227,2,5,28,TRUE
+Corporate Term Deposit (Cache),228,2,7,34,TRUE
+Corporate Notice Term Deposit,229,2,7,34,TRUE
+Money Market Deposits,230,2,7,34,TRUE
+"FX - Spot, Value Today and Value Tomorrow",231,4,12,76,TRUE
+FX - Flexible Forwards,232,4,12,77,TRUE
+FX - Forward Exchange Contracts,233,4,12,77,TRUE
+FX - Foreign Currency Options,234,4,12,79,TRUE
+Commodity Swap Facilities,235,4,12,80,TRUE
+Agri Commodity Swap,236,4,12,80,TRUE
+International Money Transfers,237,6,19,134,TRUE
+Digital Wallets,238,6,20,138,TRUE
+ANZ Plus App (ANZ Plus only),239,6,20,138,TRUE
+ANZ Cash Escrow Facility,240,6,20,138,TRUE
+Home Loan Protection Insurance,241,3,8,35,TRUE
 N/A,999,"","","",TRUE
