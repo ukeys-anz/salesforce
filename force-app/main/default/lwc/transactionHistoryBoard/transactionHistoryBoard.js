@@ -10,7 +10,6 @@ import { publish, MessageContext } from "lightning/messageService";
 import ExpandCollapseAll from "@salesforce/messageChannel/ListCollapseExpandAll__c";
 import { handleErrorShowToast } from "c/utils";
 import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
-import TIMEZONE from "@salesforce/i18n/timeZone";
 
 //Remapping the status and types returned from the API so they
 //are more readable on the UI
@@ -39,8 +38,6 @@ const cardMapping = {
   CARD_SCHEME_EFTPOS: "EFTPOS",
   CARD_SCHEME_AMERICAN_EXPRESS: "American Express"
 };
-
-const userTimezone = TIMEZONE;
 
 export default class TransactionHistoryBoard extends LightningElement {
   @api recordId;
