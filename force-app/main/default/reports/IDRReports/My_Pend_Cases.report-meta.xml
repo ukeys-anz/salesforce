@@ -108,7 +108,7 @@
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
-            <value>Open,Under Investigation,Escalated</value>
+            <value>Open,Under Investigation,Escalated,Re-opened</value>
         </criteriaItems>
         <criteriaItems>
             <column>Case.IsOwner__c</column>
