@@ -157,13 +157,13 @@ export default class TransactionHistoryBoard extends LightningElement {
 
               //Slice the returned date time to get only the date
               currentTransaction.TransactionDate = currentTransaction.transactionDateLocal
-                ? currentTransaction.transactionDateLocal.slice(0, 10)
+                ? currentTransaction.transactionDateLocal
                 : "Unknown";
 
               if (i === 0) {
                 currentTransaction.showDateTitle = true;
               } else if (
-                currentTransaction.TransactionDate !==
+                currentTransaction.TransactionDate.slice(0, 10) !==
                 this.fullTransactionList[i - 1].transactionDateLocal.slice(
                   0,
                   10
@@ -173,12 +173,6 @@ export default class TransactionHistoryBoard extends LightningElement {
               } else {
                 currentTransaction.showDateTitle = false;
               }
-
-              //Create new date with user timezone but in US format
-              //US format required for lightning-formatted-date-time
-              currentTransaction.TransactionDate = new Date(
-                currentTransaction.TransactionDate
-              );
 
               //Apply odd or even for each item to determine background
               currentTransaction.rowColour =

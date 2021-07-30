@@ -131,9 +131,7 @@ export default class TransactionHistoryRecord extends NavigationMixin(
 
   get transactionDate() {
     //new date to ISO format to pass to lwc
-    let recordDate = new Date(
-      this.transactionRecord.TransactionDate
-    ).toISOString();
+    let recordDate = new Date(this.transactionRecord.TransactionDate);
     return recordDate;
   }
 
