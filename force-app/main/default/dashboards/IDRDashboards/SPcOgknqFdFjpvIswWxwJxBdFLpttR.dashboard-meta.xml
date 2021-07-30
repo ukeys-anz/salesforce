@@ -168,6 +168,7 @@
                         <sortOrder>a</sortOrder>
                     </groupingSorts>
                 </groupingSortProperties>
+                <header>My Oldest Case</header>
                 <legendPosition>Bottom</legendPosition>
                 <report>IDRReports/My_Pend_Cases</report>
                 <showPercentage>false</showPercentage>
