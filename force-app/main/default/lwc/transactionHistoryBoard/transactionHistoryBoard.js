@@ -159,15 +159,18 @@ export default class TransactionHistoryBoard extends LightningElement {
                 : "Unknown";
 
               //Slice the returned date time to get only the date
-              currentTransaction.TransactionDate = currentTransaction.transactionDate
-                ? currentTransaction.transactionDate.slice(0, 10)
+              currentTransaction.TransactionDate = currentTransaction.transactionDateLocal
+                ? currentTransaction.transactionDateLocal.slice(0, 10)
                 : "Unknown";
 
               if (i === 0) {
                 currentTransaction.showDateTitle = true;
               } else if (
                 currentTransaction.TransactionDate !==
-                this.fullTransactionList[i - 1].transactionDate.slice(0, 10)
+                this.fullTransactionList[i - 1].transactionDateLocal.slice(
+                  0,
+                  10
+                )
               ) {
                 currentTransaction.showDateTitle = true;
               } else {
@@ -177,8 +180,8 @@ export default class TransactionHistoryBoard extends LightningElement {
               //Create new date with user timezone but in US format
               //US format required for lightning-formatted-date-time
               currentTransaction.TransactionDate = new Date(
-                currentTransaction.transactionDate
-              ).toLocaleDateString("en-US", { timeZone: userTimezone });
+                currentTransaction.TransactionDate
+              );
 
               //Apply odd or even for each item to determine background
               currentTransaction.rowColour =
@@ -401,78 +404,6 @@ export default class TransactionHistoryBoard extends LightningElement {
     } else {
       this.disableSearch = true;
     }
-  }
-
-  //This function retrieves the UTC time equivalent of midnight from
-  //the users current timezone
-  getUTCTimeFromTimezone() {
-    let daylightSavings = this.isDaylightSavings();
-    //Get city from timezone used in Salesforce
-    let city = userTimezone.replace("Australia/", "");
-
-    //Check city to return start and end times
-    //of UTC equivalent of midnight of current location
-    switch (city) {
-      case "Sydney":
-      case "Melbourne":
-      case "Hobart":
-      case "Canberra":
-        if (daylightSavings) {
-          return { startTime: "13:00:00", endTime: "12:59:59" };
-        }
-        return { startTime: "14:00:00", endTime: "13:59:59" };
-      case "Brisbane":
-        return { startTime: "14:00:00", endTime: "13:59:59" };
-      case "Adelaide":
-      case "Broken Hill":
-        if (daylightSavings) {
-          return { startTime: "13:30:00", endTime: "13:29:59" };
-        }
-        return { startTime: "14:30:00", endTime: "14:29:59" };
-      case "Darwin":
-        return { startTime: "14:30:00", endTime: "14:29:59" };
-      case "Perth":
-        return { startTime: "16:00:00", endTime: "15:59:59" };
-      default:
-        return { startTime: "00:00:00", endTime: "23:59:59" };
-    }
-  }
-
-  //Check if we should be using AEST or AEDT
-  //AEDT begins first Sunday of October until first Sunday of April
-  isDaylightSavings() {
-    let today = new Date();
-    let daylightDate = new Date();
-
-    //Set month to April and get first Sunday of month
-    daylightDate.setMonth(3);
-    let aprilDate = new Date(
-      daylightDate.getFullYear(),
-      daylightDate.getMonth(),
-      1,
-      0,
-      0,
-      0
-    );
-    aprilDate.setDate(aprilDate.getDate() + 7 - aprilDate.getDay());
-
-    //Set month to October and get first Sunday of month
-    daylightDate.setMonth(9);
-    let octoberDate = new Date(
-      daylightDate.getFullYear(),
-      daylightDate.getMonth(),
-      1,
-      0,
-      0,
-      0
-    );
-    octoberDate.setDate(octoberDate.getDate() + 7 - octoberDate.getDay());
-
-    //Check if we are in AEST or AEDT
-    if (today > aprilDate && today < octoberDate) {
-      return false;
-    }
-    return true;
   }
 
   //This function is required as some errors are returned

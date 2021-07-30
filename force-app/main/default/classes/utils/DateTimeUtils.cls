@@ -65,4 +65,14 @@ public with sharing class DateTimeUtils {
     datetime returnValue = date.valueOf(ausDate);
     return returnValue;
   }
+
+  /**
+   *@description Calculate local time based on user time zone.
+   * @param utcDateTime UTC datetime to be converted to local time
+   * @return datetime the local date time based on user's timezone
+   */
+  public static String getLocalTime(DateTime utcDateTime){
+    if (utcDateTime == null) return null;
+    return utcDateTime.format();
+  }
 }

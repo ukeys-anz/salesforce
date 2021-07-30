@@ -94,7 +94,7 @@ public with sharing class TransactionHistoryModel extends CalloutModel {
     @AuraEnabled
     public String href;
   }
-
+   
   /**
    * @description transaction information
    */
@@ -104,7 +104,15 @@ public with sharing class TransactionHistoryModel extends CalloutModel {
     @AuraEnabled
     public Account account;
     @AuraEnabled
-    public String transactionDate;
+    public DateTime transactionDate;
+    @AuraEnabled
+      public String transactionDateLocal{
+          get{
+              return DateTimeUtils.getLocalTime(this.transactionDate);
+          }
+          set{}
+      }
+    
     @AuraEnabled
     public String lastUpdated;
     @AuraEnabled
