@@ -2,7 +2,7 @@
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingCriteriaRules>
         <fullName>AllExceptARC_RTs_SSA_RO</fullName>
-        <accessLevel>Read</accessLevel>
+        <accessLevel>Edit</accessLevel>
         <description>All cases record types except AR&amp;C are to be shared with Super Support Admin users with Read-Only access.</description>
         <label>AllExceptARC_RTs_SSA_RO</label>
         <sharedTo>
@@ -88,26 +88,6 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Customer Complaint,Non-Customer Complaint</value>
-        </criteriaItems>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>Dispute_RT_FraudXAgents_RO</fullName>
-        <accessLevel>Read</accessLevel>
-        <description>All cases record types except AR&amp;C are to be shared with Super Support Admin users with Read-Only access.</description>
-        <label>AllExceptARC_RTs_SSA_RO</label>
-        <sharedTo>
-            <role>Super_Support_Admin</role>
-        </sharedTo>
-        <booleanFilter>1 AND 2</booleanFilter>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>notEqual</operation>
-            <value>Customer Complaint</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>notEqual</operation>
-            <value>Non-Customer Complaint</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
