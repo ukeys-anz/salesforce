@@ -105,12 +105,14 @@ public with sharing class TransactionHistoryModel extends CalloutModel {
     public Account account;
     @AuraEnabled
     public DateTime transactionDate;
+    /**
+     * @description transaction date in user's local time
+     */
     @AuraEnabled
       public String transactionDateLocal{
           get{
               return DateTimeUtils.getLocalTime(this.transactionDate);
           }
-          set{}
       }
     
     @AuraEnabled

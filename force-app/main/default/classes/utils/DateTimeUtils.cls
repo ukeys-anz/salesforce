@@ -72,7 +72,9 @@ public with sharing class DateTimeUtils {
    * @return datetime the local date time based on user's timezone
    */
   public static String getLocalTime(DateTime utcDateTime){
-    if (utcDateTime == null) return null;
-    return utcDateTime.format();
+    if (utcDateTime != null){
+      return utcDateTime.format();
+    }
+    return null;
   }
 }
