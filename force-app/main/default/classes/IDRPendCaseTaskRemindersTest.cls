@@ -69,6 +69,7 @@ public with sharing class IDRPendCaseTaskRemindersTest {
       OwnerId = contextUser.Id,
       ActivityDate = Date.today().addDays(3),
       IDR_Key_Contact_Name__c = 'Test KeyContact',
+      IDR_Internal_or_External_Party__c = 'External',
       IDR_Pended_To__c = 'Other',
       IDR_Pend_Reason__c = 'Awaiting information to be provided'
     );
