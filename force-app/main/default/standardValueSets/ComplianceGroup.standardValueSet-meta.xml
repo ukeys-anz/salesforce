@@ -86,4 +86,9 @@
         <default>false</default>
         <label>Source - Azure</label>
     </standardValue>
+    <standardValue>
+        <fullName>Source_myTrailhead</fullName>
+        <default>false</default>
+        <label>Source - myTrailhead</label>
+    </standardValue>
 </StandardValueSet>
