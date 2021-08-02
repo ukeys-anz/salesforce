@@ -47,7 +47,7 @@ export default class TransactionHistoryBoard extends LightningElement {
   @track filterList = [];
   @track savedMaxIndex = 0;
   expandAll = false;
-  startDate;
+  startDate = new Date().toISOString().slice(0, 10);
   endDate = new Date().toISOString().slice(0, 10);
   todayDate = new Date().toISOString().slice(0, 10);
   disableSearch = true;
@@ -91,19 +91,21 @@ export default class TransactionHistoryBoard extends LightningElement {
     return this.links && this.links.next && this.links.next.href ? true : false;
   }
 
-  fetchTransactions(paramUrl = "", isSearch = false) {
+  fetchTransactions(isSearch = false, startDateString = "", endDateString = "") {
     //This check here is to prevent Salesforce from triggering
     //the API and appending duplicate transactions into our list
     //ie: modifying the financial account record triggers the API
     //and appends the initial transaction results onto our list
-    if (this.transactionList.length > 0 && !paramUrl) {
+    if (this.transactionList.length > 0 && !startDateString && !endDateString) {
       this.loading = false;
       return;
     }
+    
     getTransactions({
       ocvId: this.ocvId,
       accountNumber: this.accountNumber,
-      paramUrl: paramUrl
+      startDate: startDateString,
+      endDate: endDateString
     })
       .then((result) => {
         if (result) {
@@ -342,33 +344,12 @@ export default class TransactionHistoryBoard extends LightningElement {
   handleSearch() {
     if (this.startDate && this.endDate) {
       this.loading = true;
-      let convertedTimes = this.getUTCTimeFromTimezone();
-
+      
       //Create dates based off the user selection
-      let startDate = new Date(this.startDate + " 00:00:00");
-      let endDate = new Date(this.endDate + " 23:59:59");
+      let startDate = this.startDate + " 00:00:00";
+      let endDate = this.endDate + " 23:59:59";
 
-      //Create new UTC dates to match fabric timezone
-      //We +1 to month as getUTCMonth starts at 0 = Jan
-      let utcStartDate = new Date(
-        `${
-          startDate.getUTCMonth() + 1
-        }-${startDate.getUTCDate()}-${startDate.getUTCFullYear()} ${
-          convertedTimes.startTime
-        } UTC`
-      ).toISOString();
-
-      let utcEndDate = new Date(
-        `${
-          endDate.getUTCMonth() + 1
-        }-${endDate.getUTCDate()}-${endDate.getUTCFullYear()} ${
-          convertedTimes.endTime
-        } UTC`
-      ).toISOString();
-
-      //Need to convert dates to ISO string for search params
-      let urlParam = `?account_number=${this.accountNumber}&start_date=${utcStartDate}&end_date=${utcEndDate}`;
-      this.fetchTransactions(urlParam, true);
+      this.fetchTransactions(true, startDate, endDate);
     }
   }
 

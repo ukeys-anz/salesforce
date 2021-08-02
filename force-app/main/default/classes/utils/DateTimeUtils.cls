@@ -77,4 +77,16 @@ public with sharing class DateTimeUtils {
     }
     return null;
   }
+
+  /**
+   *@description Calculate UTC time
+   * @param localDateTimeString Local datetime string to be converted to UTC datetime
+   * @return String datetime String in the GMT time zone so we can use in param URL construction.
+   */
+  public static String getUTCTimeFromString(String localDateTimeString){
+    if (localDateTimeString != null){
+      return DateTime.valueOf(localDateTimeString).formatGMT('yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\'');
+    }
+    return null;
+  }
 }
