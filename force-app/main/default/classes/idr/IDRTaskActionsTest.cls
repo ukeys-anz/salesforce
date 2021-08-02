@@ -129,9 +129,10 @@ private with sharing class IDRTaskActionsTest {
       WhatId = customerCase.Id,
       Description = 'test Description',
       IDR_Key_Contact_Name__c = 'John Doe',
-      IDR_Pended_To__c = 'Customer',
-      IDR_Pend_Reason__c = 'Awaiting information to be provided',
-      IDR_Portfolio_or_Business_Unit__c = 'Wealth (AR&C)'
+      IDR_Internal_or_External_Party__c = 'External',
+      IDR_Pended_To__c = 'Other',
+      IDR_Pend_Reason__c = 'Awaiting information to be provided'
+      //IDR_Portfolio_or_Business_Unit__c = 'Wealth (AR&C)'
     );
 
     insert pendTask;
@@ -143,7 +144,7 @@ private with sharing class IDRTaskActionsTest {
       'Pend case task subject must default to a defined value'
     );
   }
-  @isTest  
+  @isTest
   static void testIDRTaskClosureOnCaseClose() {
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
