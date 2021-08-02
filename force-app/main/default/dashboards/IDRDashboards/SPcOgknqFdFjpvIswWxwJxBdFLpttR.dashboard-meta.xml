@@ -168,7 +168,7 @@
                         <sortOrder>a</sortOrder>
                     </groupingSorts>
                 </groupingSortProperties>
-                <header>My Oldest Case</header>
+                <header>My Pend Cases</header>
                 <legendPosition>Bottom</legendPosition>
                 <report>IDRReports/My_Pend_Cases</report>
                 <showPercentage>false</showPercentage>
@@ -286,30 +286,6 @@
             </dashboardComponent>
             <rowIndex>12</rowIndex>
             <rowSpan>8</rowSpan>
-        </dashboardGridComponents>
-        <dashboardGridComponents>
-            <colSpan>3</colSpan>
-            <columnIndex>0</columnIndex>
-            <dashboardComponent>
-                <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
-                <chartSummary>
-                    <column>RowCount</column>
-                </chartSummary>
-                <componentType>Metric</componentType>
-                <decimalPrecision>-1</decimalPrecision>
-                <displayUnits>Auto</displayUnits>
-                <groupingSortProperties/>
-                <header>Cases assigned to Case Manager</header>
-                <indicatorBreakpoint1>33.0</indicatorBreakpoint1>
-                <indicatorBreakpoint2>67.0</indicatorBreakpoint2>
-                <indicatorHighColor>#00716B</indicatorHighColor>
-                <indicatorLowColor>#C23934</indicatorLowColor>
-                <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
-                <report>IDRReports/IDR_Pend_Tasks_Approaching_Its_Due_Date_Oc7</report>
-                <showRange>false</showRange>
-            </dashboardComponent>
-            <rowIndex>20</rowIndex>
-            <rowSpan>6</rowSpan>
         </dashboardGridComponents>
         <numberOfColumns>12</numberOfColumns>
         <rowHeight>36</rowHeight>
