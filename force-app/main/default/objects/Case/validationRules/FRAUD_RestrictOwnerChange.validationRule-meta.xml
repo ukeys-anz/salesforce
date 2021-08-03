@@ -4,8 +4,8 @@
     <active>true</active>
     <description>Restrict Fraud Agents from changing case owner of record types that are not Fraud, Disputes or ANZx Complaints.</description>
     <errorConditionFormula>AND(
-ISCHANGED(OwnerId),
 NOT(ISNEW()),
+ISCHANGED(OwnerId),
 $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
 $UserRole.DeveloperName = &apos;FraudX_Agent&apos;,
 NOT(
