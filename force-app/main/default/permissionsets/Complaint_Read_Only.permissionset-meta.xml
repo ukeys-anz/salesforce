@@ -438,7 +438,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Case.IDR_Customer_Notification__c</field>
+        <field>Case.IDR_SwitchOff_Customer_Notification__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -488,7 +488,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-         <field>Case.IDR_Nominated_3rd_Party_Notification__c</field>
+         <field>Case.IDR_SwicthOff_3rd_Party_Notification__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
