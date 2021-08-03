@@ -76,3 +76,24 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.tooltip-modal {
+  cursor: pointer;
+  margin-left: 4px;
+  position: relative;
+  bottom: 2px;
+}
+
+.tooltip-modal:hover {
+  --sds-c-icon-color-foreground-default: #014486;
+}
+
+.close-modal {
+  cursor: pointer;
+  --sds-c-icon-color-foreground-default: #fff;
+}
+
+.modal-header {
+  background: #014486;
+  color: #fff;
+}

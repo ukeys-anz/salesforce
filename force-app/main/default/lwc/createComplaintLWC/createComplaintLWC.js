@@ -16,7 +16,7 @@ import THIRD_PARTY_POSTCODE_FIELD from "@salesforce/schema/Case.IDR_3rdParty_Pos
 import THIRD_PARTY_COUNTRY_FIELD from "@salesforce/schema/Case.IDR_3rdParty_Country__c";
 import THIRD_PARTY_STATE_FIELD from "@salesforce/schema/Case.IDR_3rdParty_State__c";
 import THIRD_PARTY_RELATIONSHIP from "@salesforce/schema/Case.IDR_3rdParty_Relationship_To_Complainant__c";
-import THIRD_PARTY_COMMS from "@salesforce/schema/Case.IDR_Nominated_3rd_Party_Notification__c";
+import THIRD_PARTY_COMMS from "@salesforce/schema/Case.IDR_SwicthOff_3rd_Party_Notification__c";
 import RECORDTYPE_FIELD from "@salesforce/schema/Case.RecordTypeId";
 
 //Non Customer complaints
@@ -36,7 +36,7 @@ import POSTCODE_FIELD from "@salesforce/schema/Case.IDR_NC_Postcode__c";
 import COUNTRY_FIELD from "@salesforce/schema/Case.IDR_NC_Country__c";
 import STATE_FIELD from "@salesforce/schema/Case.IDR_NC_State__c";
 import CONSENT_OBTAINED from "@salesforce/schema/Case.IDR_NC_Is_Consent_Obtained__c";
-import CUSTOMER_COMMS from "@salesforce/schema/Case.IDR_Customer_Notification__c";
+import CUSTOMER_COMMS from "@salesforce/schema/Case.IDR_SwitchOff_Customer_Notification__c";
 
 //Is written Response Needed Fields
 import WRITTEN_RESPONSE_REQUESTED_FIELD from "@salesforce/schema/Case.IDR_Is_Written_Resp_Requested__c";
@@ -533,11 +533,11 @@ export default class CreateComplaintLWC extends NavigationMixin(
       }
 
       if (this.isCustomerNotification) {
-        fields[CUSTOMER_COMMS.fieldApiName] = true;
+        fields[CUSTOMER_COMMS.fieldApiName] = this.isCustomerNotification;
       }
 
       if (this.is3rdPartyNotification) {
-        fields[THIRD_PARTY_COMMS.fieldApiName] = true;
+        fields[THIRD_PARTY_COMMS.fieldApiName] = this.is3rdPartyNotification;
       }
 
       fields[
