@@ -250,9 +250,7 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
         Schema.sObjectType.Notification_Handler__c.fields.Case__c.isCreateable() &&
         Schema.sObjectType.Notification_Handler__c.fields.Status__c.isCreateable()
       ) {
-        System.debug('Afreen3');
         insert notificationHandlerList;
-        System.debug('Afreen2');
       } else {
         CommonUtil.logAndThrowIAE(
           'NotificationTriggerHandler',
