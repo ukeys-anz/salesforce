@@ -9,11 +9,6 @@
         <sharedToType>Role</sharedToType>
     </shares>
     <shares>
-        <accessLevel>View</accessLevel>
-        <sharedTo>Manager</sharedTo>
-        <sharedToType>Role</sharedToType>
-    </shares>
-    <shares>
         <accessLevel>EditAllContents</accessLevel>
         <sharedTo>Super_Support_Admin</sharedTo>
         <sharedToType>Role</sharedToType>

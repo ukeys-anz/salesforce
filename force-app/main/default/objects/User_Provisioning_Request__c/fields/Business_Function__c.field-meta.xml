@@ -21,9 +21,9 @@
                 <label>ANZx</label>
             </value>
             <value>
-                <fullName>CMoS</fullName>
+                <fullName>CMOS</fullName>
                 <default>false</default>
-                <label>CMoS</label>
+                <label>CMOS</label>
             </value>
             <value>
                 <fullName>Test Business Function</fullName>
