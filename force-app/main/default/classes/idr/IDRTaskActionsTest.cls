@@ -110,6 +110,41 @@ private with sharing class IDRTaskActionsTest {
   }
 
   @isTest
+  static void testPendCaseTaskSubject() {
+    Case customerCase = new Case(
+      RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+      Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
+      IDR_Customer_Number__c = '1234567890',
+      Priority = 'Standard',
+      Type = '5',
+      IDR_Subsequent_Issue__c = '38'
+    );
+    insert customerCase;
+
+    Task pendTask = new Task(
+      RecordTypeId = IDRConstants.IDR_TASK_RT_ID,
+      Type = IDRConstants.TASK_TYPE_PEND_CASE,
+      Priority = 'Normal',
+      ActivityDate = system.today().addDays(10),
+      WhatId = customerCase.Id,
+      Description = 'test Description',
+      IDR_Key_Contact_Name__c = 'John Doe',
+      IDR_Internal_or_External_Party__c = 'External',
+      IDR_Pended_To__c = 'Other',
+      IDR_Pend_Reason__c = 'Awaiting information to be provided'
+      //IDR_Portfolio_or_Business_Unit__c = 'Wealth (AR&C)'
+    );
+
+    insert pendTask;
+
+    Task pendCaseTask = [SELECT Subject FROM Task WHERE Id = :pendTask.Id];
+    System.assertEquals(
+      IDRConstants.SUBJECT_PEND_CASE_TASK,
+      pendCaseTask.Subject,
+      'Pend case task subject must default to a defined value'
+    );
+  }
+  @isTest
   static void testIDRTaskClosureOnCaseClose() {
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {

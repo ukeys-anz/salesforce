@@ -26,4 +26,9 @@
         <default>false</default>
         <label>Email Attachment Failure</label>
     </standardValue>
+    <standardValue>
+        <fullName>Case Pended - provide update in case comment</fullName>
+        <default>false</default>
+        <label>Case Pended - provide update in case comment</label>
+    </standardValue>
 </StandardValueSet>
