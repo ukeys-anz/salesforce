@@ -10,11 +10,6 @@
     </shares>
     <shares>
         <accessLevel>View</accessLevel>
-        <sharedTo>Manager</sharedTo>
-        <sharedToType>Role</sharedToType>
-    </shares>
-    <shares>
-        <accessLevel>View</accessLevel>
         <sharedTo>Support_Coach</sharedTo>
         <sharedToType>Role</sharedToType>
     </shares>
