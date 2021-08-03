@@ -350,7 +350,7 @@
     <dashboardType>SpecifiedUser</dashboardType>
     <description>Dashboard for statistics on workbaskets</description>
     <isGridLayout>true</isGridLayout>
-    <runningUser>test-hajzbo7loerq@example.com</runningUser>
+    <runningUser>anzx.user@anzx.com</runningUser>
     <textColor>#000000</textColor>
     <title>IDR Workbasket Statistics</title>
     <titleColor>#000000</titleColor>
