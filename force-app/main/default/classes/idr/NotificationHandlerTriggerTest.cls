@@ -26,8 +26,8 @@ public class NotificationHandlerTriggerTest {
       testCase.RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID;
       testCase.IDR_Customer_Number__c = '1234567890';
       testCase.Status = IDRConstants.OPEN_STATUS;
-      testCase.IDR_Nominated_3rd_Party_Notification__c = true;
-      testCase.IDR_Customer_Notification__c = true;
+      testCase.IDR_SwicthOff_3rd_Party_Notification__c = false;
+      testCase.IDR_SwitchOff_Customer_Notification__c = false;
       testCase.IDR_3rdParty_Email__c = 'testEmail@email.com';
       testCase.IDR_3rdParty_Name__c = 'testName';
       testCase.IDR_3rdParty_Mobile__c = '035464838276';

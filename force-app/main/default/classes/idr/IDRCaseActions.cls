@@ -115,8 +115,8 @@ public with sharing class IDRCaseActions {
     for (Case record : records) {
       if (isIDRComplaintType(record)) {
         if (
-          record.IDR_Customer_Notification__c ||
-          record.IDR_Nominated_3rd_Party_Notification__c
+          !record.IDR_SwitchOff_Customer_Notification__c  ||
+          !record.IDR_SwicthOff_3rd_Party_Notification__c
         ) {
           notificationCaseList.add(record);
         }

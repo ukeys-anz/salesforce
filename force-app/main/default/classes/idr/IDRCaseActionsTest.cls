@@ -40,8 +40,8 @@ private with sharing class IDRCaseActionsTest {
           Status = 'Escalated',
           IDR_Escalated_to__c = '1',
           IDR_Escalation_Reason__c = '1',
-          IDR_Nominated_3rd_Party_Notification__c = true,
-          IDR_Customer_Notification__c = true
+          IDR_SwicthOff_3rd_Party_Notification__c = false,
+          IDR_SwitchOff_Customer_Notification__c = false
         )
       );
     }
