@@ -6,7 +6,7 @@
     <description>Executive Owner</description>
     <externalId>false</externalId>
     <label>Exec Owner</label>
-    <length>100</length>
+    <length>255</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

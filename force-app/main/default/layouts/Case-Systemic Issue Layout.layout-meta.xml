@@ -216,11 +216,11 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>SI_Other_Action_Required__c</field>
+                <field>SI_Definite_Action_Required__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>SI_Definite_Action_Required__c</field>
+                <field>SI_Other_Action_Required__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
