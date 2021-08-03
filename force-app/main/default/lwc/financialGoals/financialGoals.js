@@ -18,6 +18,7 @@ export default class FinancialGoals extends NavigationMixin(LightningElement) {
   accountNumbers = [];
   hasError = false;
   error;
+  showInfoModal = false;
 
   @wire(MessageContext)
   messageContext;
@@ -220,5 +221,9 @@ export default class FinancialGoals extends NavigationMixin(LightningElement) {
         actionName: "view"
       }
     });
+  }
+
+  handleInfoModal() {
+    this.showInfoModal = !this.showInfoModal;
   }
 }

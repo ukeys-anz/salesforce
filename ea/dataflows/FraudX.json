@@ -38,7 +38,8 @@
           { "name": "Sub_Type__c" },
           { "name": "RecordTypeId" },
           { "name": "Fraud_Customer_Event_Age__c", "scale": 0 },
-          { "name": "Fraud_Total_Customer_Exposure__c" }
+          { "name": "Fraud_Total_Customer_Exposure__c" },
+          { "name": "Origin" }
         ],
         "object": "Case"
       }
