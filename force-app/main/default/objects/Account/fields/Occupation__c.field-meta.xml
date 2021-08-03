@@ -585,7 +585,7 @@
                 <label>Other Labourers</label>
             </value>
             <value>
-                <fullName>14</fullName>
+                <fullName>0014</fullName>
                 <default>false</default>
                 <label>SPECIALIST EXECUTIVE CONSULTANT</label>
             </value>
@@ -595,67 +595,67 @@
                 <label>Unknown</label>
             </value>
             <value>
-                <fullName>15</fullName>
+                <fullName>0015</fullName>
                 <default>false</default>
                 <label>OTHER PROFESSIONAL</label>
             </value>
             <value>
-                <fullName>28</fullName>
+                <fullName>0028</fullName>
                 <default>false</default>
                 <label>OTHER TECHNICAL</label>
             </value>
             <value>
-                <fullName>34</fullName>
+                <fullName>0034</fullName>
                 <default>false</default>
                 <label>KEY PUNCH OPERATOR</label>
             </value>
             <value>
-                <fullName>54</fullName>
+                <fullName>0054</fullName>
                 <default>false</default>
                 <label>TAILOR</label>
             </value>
             <value>
-                <fullName>60</fullName>
+                <fullName>0060</fullName>
                 <default>false</default>
                 <label>WAREHOUSEMAN</label>
             </value>
             <value>
-                <fullName>64</fullName>
+                <fullName>0064</fullName>
                 <default>false</default>
                 <label>BEAUTICIAN</label>
             </value>
             <value>
-                <fullName>65</fullName>
+                <fullName>0065</fullName>
                 <default>false</default>
                 <label>HAIRDRESSER</label>
             </value>
             <value>
-                <fullName>67</fullName>
+                <fullName>0067</fullName>
                 <default>false</default>
                 <label>DENTAL ASSISTANT</label>
             </value>
             <value>
-                <fullName>70</fullName>
+                <fullName>0070</fullName>
                 <default>false</default>
                 <label>USHER</label>
             </value>
             <value>
-                <fullName>71</fullName>
+                <fullName>0071</fullName>
                 <default>false</default>
                 <label>PORTER</label>
             </value>
             <value>
-                <fullName>75</fullName>
+                <fullName>0075</fullName>
                 <default>false</default>
                 <label>OTHER SERVICE WORKER</label>
             </value>
             <value>
-                <fullName>84</fullName>
+                <fullName>0084</fullName>
                 <default>false</default>
                 <label>OTHER</label>
             </value>
             <value>
-                <fullName>86</fullName>
+                <fullName>0086</fullName>
                 <default>false</default>
                 <label>SMALL BUSINESS PROPRIETOR</label>
             </value>
