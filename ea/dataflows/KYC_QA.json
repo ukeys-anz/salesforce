@@ -22,7 +22,10 @@
           { "name": "ClosedDate" },
           { "name": "IDR_Date_Received__c" },
           { "name": "CreatedDate" },
-          { "name": "Fraud_Defects_Rectified__c" }
+          { "name": "Fraud_Defects_Rectified__c" },
+          { "name": "IsClosed" },
+          { "name": "Fraud_Citizenship_Updated__c" },
+          { "name": "Fraud_Address_Valid__c" }
         ],
         "object": "Case"
       }

@@ -19,6 +19,9 @@ export default class AccountBalances extends LightningElement {
   hasError = false;
   error;
   balanceTitle;
+  isCheckingAccount;
+  showInfoModal = false;
+  productTitle;
 
   @wire(getRecord, {
     recordId: "$recordId",
@@ -30,6 +33,10 @@ export default class AccountBalances extends LightningElement {
         data.recordTypeInfo.name === "Checking Account"
           ? "Everyday Funds"
           : "Total Saved";
+      this.productTitle =
+        data.recordTypeInfo.name === "Checking Account"
+          ? "ANZ Plus"
+          : "ANZ Save";
     }
   }
 
@@ -133,5 +140,9 @@ export default class AccountBalances extends LightningElement {
       message: theMessage
     });
     this.dispatchEvent(event);
+  }
+
+  handleInfoModal() {
+    this.showInfoModal = !this.showInfoModal;
   }
 }
