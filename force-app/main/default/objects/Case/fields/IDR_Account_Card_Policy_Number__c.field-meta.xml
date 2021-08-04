@@ -4,9 +4,10 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Trusted;Privacy_Personal_Information</complianceGroup>
     <description>Account/Card/Policy the complaint relates to. Contents will be automatically masked leaving last 4 digits identifiable.</description>
+    <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
     <externalId>false</externalId>
-    <inlineHelpText>Account/Card/Policy the complaint relates to. Contents will be automatically masked leaving last 4 digits identifiable.</inlineHelpText>
-    <label>Account/Card/Policy Number</label>
+    <inlineHelpText>Account/Policy the complaint relates to. Contents will be automatically masked leaving last 4 digits identifiable.</inlineHelpText>
+    <label>Account/Policy Number</label>
     <length>42</length>
     <securityClassification>Confidential</securityClassification>
     <required>false</required>

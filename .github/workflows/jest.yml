@@ -4,8 +4,6 @@ name: Unit Tests
 # This workflow will only run on Pull Requests against master , develop and epic/*
 on:
   pull_request:
-    paths:
-      - "force-app/main/default/lwc/**"
     branches: [develop, master, epic/*]
 
 jobs:

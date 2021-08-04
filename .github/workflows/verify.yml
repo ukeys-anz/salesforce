@@ -4,8 +4,6 @@ name: Verify
 # This workflow will only run on Pull Reqeusts against master , develop and epic/*
 on:
   pull_request:
-    paths:
-      - "force-app/**"
     branches:
       - develop
       - master
@@ -34,9 +32,10 @@ jobs:
           echo "::set-output name=IS_SANDBOX_SECRET_SET::${{ env.MY_SECRET != '' }}" 
           echo ${{ steps.checksecret.outputs.IS_SANDBOX_SECRET_SET }}
 
+
   build_and_deploy:
+    # requires above step to execute
     needs: [prepare]
-    if: needs.prepare.outputs.IS_SANDBOX_SECRET_SET == 'true'
     runs-on: [self-hosted, salesforce]
     env:
       BASE_BRANCH: ${{ github.base_ref }}
@@ -48,36 +47,38 @@ jobs:
 
     steps:
       - name: Set Sandbox Name
+        if:   needs.prepare.outputs.IS_SANDBOX_SECRET_SET == 'true'
         run: |
           if [ ${{ env.BASE_BRANCH }} == 'develop' ]; then echo SANDBOX_NAME=$(echo SYSTEST) >> $GITHUB_ENV; elif [ ${{ env.BASE_BRANCH }} == 'master' ]; then echo SANDBOX_NAME=$(echo STAGING) >> $GITHUB_ENV; else echo SANDBOX_NAME=$(echo ${{ env.BASE_BRANCH }} |  tr -d '-' | tr 'a-z' 'A-Z' | cut -d'/' -f 2 | cut -c1-10) >> $GITHUB_ENV; fi
-
       - name: Set secret prefix
+        if:   needs.prepare.outputs.IS_SANDBOX_SECRET_SET == 'true'
         run: echo SANDBOX_SECRET=SALESFORCE_${{ env.SANDBOX_NAME }} >> $GITHUB_ENV
 
       - uses: actions/checkout@v2
+        if:   needs.prepare.outputs.IS_SANDBOX_SECRET_SET == 'true'
         with:
           ref: ${{ github.ref }}
           fetch-depth: 0
 
       - name: "Install npm packages"
+        if:   needs.prepare.outputs.IS_SANDBOX_SECRET_SET == 'true'
         run: |
           mv ci.npmrc .npmrc
           npm ci
-
       - name: "Authenticate the org"
+        if:   needs.prepare.outputs.IS_SANDBOX_SECRET_SET == 'true'
         shell: bash
         run: |
           echo 'Authenticating ${{ env.SANDBOX_NAME }}'
           echo ${{ secrets[env.SANDBOX_SECRET] }} > ./SFDX_URL_${{ env.SANDBOX_NAME }}.txt
           npx sfdx force:auth:sfdxurl:store -a ${{ env.SANDBOX_NAME }} --sfdxurlfile=./SFDX_URL_${{ env.SANDBOX_NAME }}.txt
-
       - name: "Generate package"
+        if:   needs.prepare.outputs.IS_SANDBOX_SECRET_SET == 'true'
         id: package
         shell: bash
         run: |
           git fetch --tags 
           ci/package.sh
-
       - uses: actions/upload-artifact@v1
         if: ${{ steps.package.outputs.ARTEFACT_GENERATED }}
         with:
@@ -85,6 +86,7 @@ jobs:
           path: ./artefact/
 
       - name: "Validate Package"
+        if:   needs.prepare.outputs.IS_SANDBOX_SECRET_SET == 'true'
         shell: bash
         run: ci/deploy.sh
         env:
