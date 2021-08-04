@@ -1216,6 +1216,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Fraud_Recipient_Remitter__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Fraud_Review_Outcome__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1301,6 +1306,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Fraud_ID_True_Document__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Fraud_Loss_Reason_Code__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -26,7 +26,6 @@
           { "name": "IsClosed" },
           { "name": "Fraud_Citizenship_Updated__c" },
           { "name": "Fraud_Address_Valid__c" }
-          { "name": "IsClosed" }
         ],
         "object": "Case"
       }

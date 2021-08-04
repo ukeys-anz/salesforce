@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Fraud_Loss_Reason_Code__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>The root cause which has led to the bank and/or it&apos;s customer suffering a loss</description>
+    <externalId>false</externalId>
+    <label>Loss Reason Code</label>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Awaiting Recovery</fullName>
+                <default>false</default>
+                <label>Awaiting Recovery</label>
+            </value>
+            <value>
+                <fullName>Customer Delay</fullName>
+                <default>false</default>
+                <label>Customer Delay</label>
+            </value>
+            <value>
+                <fullName>Customer Denial</fullName>
+                <default>false</default>
+                <label>Customer Denial</label>
+            </value>
+            <value>
+                <fullName>Delayed Detection</fullName>
+                <default>false</default>
+                <label>Delayed Detection</label>
+            </value>
+            <value>
+                <fullName>Fraud Agent Delay</fullName>
+                <default>false</default>
+                <label>Fraud Agent Delay</label>
+            </value>
+            <value>
+                <fullName>Fraud Agent Error</fullName>
+                <default>false</default>
+                <label>Fraud Agent Error</label>
+            </value>
+            <value>
+                <fullName>Full Recovery</fullName>
+                <default>false</default>
+                <label>Full Recovery</label>
+            </value>
+            <value>
+                <fullName>Funds never left</fullName>
+                <default>false</default>
+                <label>Funds never left</label>
+            </value>
+            <value>
+                <fullName>OFI Delay</fullName>
+                <default>false</default>
+                <label>OFI Delay</label>
+            </value>
+            <value>
+                <fullName>Undetected</fullName>
+                <default>false</default>
+                <label>Undetected</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
