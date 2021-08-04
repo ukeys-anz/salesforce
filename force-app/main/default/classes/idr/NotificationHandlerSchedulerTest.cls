@@ -29,6 +29,8 @@ public with sharing class NotificationHandlerSchedulerTest {
       testCase.Status = IDRConstants.ESCALATED_STATUS;
       testCase.IDR_Escalated_to__c = '1';
       testCase.IDR_Escalation_Reason__c = '1';
+      testCase.IDR_SwicthOff_3rd_Party_Notification__c = false;
+      testCase.IDR_SwitchOff_Customer_Notification__c = false;
 
       caseList.add(testCase);
     }
