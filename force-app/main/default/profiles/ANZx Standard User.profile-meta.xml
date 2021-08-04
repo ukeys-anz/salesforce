@@ -1381,7 +1381,7 @@
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <field>Account.Anniversay_Duration__c</field>
+    <field>Account.Anniversary_Duration__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
