@@ -17,9 +17,14 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>ATM</fullName>
+                <fullName>NPP</fullName>
                 <default>false</default>
-                <label>ATM</label>
+                <label>NPP</label>
+            </value>
+            <value>
+                <fullName>Direct Entry</fullName>
+                <default>false</default>
+                <label>Direct Entry</label>
             </value>
             <value>
                 <fullName>BPay</fullName>
@@ -27,19 +32,19 @@
                 <label>BPay</label>
             </value>
             <value>
-                <fullName>EFTPOS</fullName>
-                <default>false</default>
-                <label>EFTPOS</label>
-            </value>
-            <value>
                 <fullName>IMT</fullName>
                 <default>false</default>
                 <label>IMT</label>
             </value>
             <value>
-                <fullName>Pay Anyone</fullName>
+                <fullName>ATM</fullName>
                 <default>false</default>
-                <label>Pay Anyone</label>
+                <label>ATM</label>
+            </value>
+            <value>
+                <fullName>EFTPOS</fullName>
+                <default>false</default>
+                <label>EFTPOS</label>
             </value>
         </valueSetDefinition>
     </valueSet>
