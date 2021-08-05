@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_Is_Free_Text__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Privacy - Non Personal Information;Integrity - Accurate;Source_Salesforce</complianceGroup>
+    <defaultValue>false</defaultValue>
+    <description>when checked,  this field on the template needs to be populated with user input , also the letter will need to go through approval process</description>
+    <externalId>false</externalId>
+    <label>Is Free Text ?</label>
+    <securityClassification>Internal</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

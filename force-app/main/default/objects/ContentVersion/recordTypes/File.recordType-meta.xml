@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>File</fullName>
+    <active>true</active>
+    <description>Default record type for files</description>
+    <label>File</label>
+    <picklistValues>
+        <picklist>Document_Category__c</picklist>
+        <values>
+            <fullName>AFCA Correspondence</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>AFCA Decision</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ Letter%2FEmail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Account Statements</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CAD Approval</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Acceptance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Letter%2FEmail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Evidence of Implementation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>File Note</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Final Response to Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Internal Correspondence</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Statement of Financial Position</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Third Party Authority</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Document_Flag__c</picklist>
+        <values>
+            <fullName>1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>10</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>6</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>7</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>8</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>9</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Party_who_sent_created_file__c</picklist>
+        <values>
+            <fullName>AFCA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Internal business unit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nominated 3rd Party Representative of Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Office of the Australian Information Commissioner %28OAIC%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Small Business Ombudsman</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>State Tribunal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wealth Product Manufacturer</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Wealth_Product_Manufacturer__c</picklist>
+        <values>
+            <fullName>Allianz</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IOOF</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Netwealth</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>QBE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Zurich</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

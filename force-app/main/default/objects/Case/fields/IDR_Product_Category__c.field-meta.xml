@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_Product_Category__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate</complianceGroup>
+    <description>Anz.com complain web-from field</description>
+    <externalId>false</externalId>
+    <label>Product Category</label>
+    <required>false</required>
+    <securityClassification>Public</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Credit card</fullName>
+                <default>false</default>
+                <label>Credit card</label>
+            </value>
+            <value>
+                <fullName>Checking/Savings accounts</fullName>
+                <default>false</default>
+                <label>Checking/Savings accounts</label>
+            </value>
+            <value>
+                <fullName>Home loans</fullName>
+                <default>false</default>
+                <label>Home loans</label>
+            </value>
+            <value>
+                <fullName>Business accounts</fullName>
+                <default>false</default>
+                <label>Business accounts</label>
+            </value>
+            <value>
+                <fullName>Personal loan</fullName>
+                <default>false</default>
+                <label>Personal loan</label>
+            </value>
+            <value>
+                <fullName>Business loans</fullName>
+                <default>false</default>
+                <label>Business loans</label>
+            </value>
+            <value>
+                <fullName>Insurance/wealth products</fullName>
+                <default>false</default>
+                <label>Insurance/wealth products</label>
+            </value>
+            <value>
+                <fullName>Commercial cards</fullName>
+                <default>false</default>
+                <label>Commercial cards</label>
+            </value>
+            <value>
+                <fullName>Asset finance</fullName>
+                <default>false</default>
+                <label>Asset finance</label>
+            </value>
+            <value>
+                <fullName>Foreign exchange</fullName>
+                <default>false</default>
+                <label>Foreign exchange</label>
+            </value>
+            <value>
+                <fullName>Merchants</fullName>
+                <default>false</default>
+                <label>Merchants</label>
+            </value>
+            <value>
+                <fullName>Not product related</fullName>
+                <default>false</default>
+                <label>Not product related</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

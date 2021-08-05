@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Case_Status_Change_Date__c</fullName>
-    <description>Case Status change date to send notification a date whenever the status is chnaged</description>
+    <fullName>IDR_Customer_Number__c</fullName>
+    <description>Unique Customer Number</description>
     <externalId>false</externalId>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>false</isSortingDisabled>
-    <label>Case Status Change Date</label>
-    <required>false</required>
-    <type>DateTime</type>
+    <label>Customer Number (CAP CIS)</label>
+    <length>50</length>
+    <required>true</required>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>

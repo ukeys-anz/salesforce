@@ -154,6 +154,31 @@ private with sharing class IDRCaseActionsTest {
     );
   }
 
+  @istest
+  static void testCustomerNumberValidation() {
+    Case[] newCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+          IDR_Customer_Number__c = '1234567890'
+        )
+      );
+    }
+    insert newCases;
+
+    for (Case c : newCases) {
+      c.IDR_Customer_Number__c = '0987654321';
+    }
+    try {
+      update newCases;
+    } catch (DMLexception e) {
+      system.assert(
+        e.getMessage().contains('This field can no longer be edited.')
+      );
+    }
+  }
+
   @isTest
   static void testUpdateDateTimePsiTicked() {
     //GIVEN new PSIs

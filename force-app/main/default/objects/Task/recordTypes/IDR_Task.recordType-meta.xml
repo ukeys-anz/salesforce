@@ -4,6 +4,44 @@
     <active>true</active>
     <label>Complaints Task</label>
     <picklistValues>
+        <picklist>Action__c</picklist>
+        <values>
+            <fullName>Event new</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Event pre-existing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No further action</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reassign</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>FinServ__Regarding__c</picklist>
+        <values>
+            <fullName>Client Retention</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Onboarding</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prospecting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>IDR_Internal_or_External_Party__c</picklist>
         <values>
             <fullName>External</fullName>
@@ -762,6 +800,21 @@
         </values>
         <values>
             <fullName>Wealth Tribe</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>PSI_or_DSI__c</picklist>
+        <values>
+            <fullName>DSI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PSI</fullName>
             <default>false</default>
         </values>
     </picklistValues>

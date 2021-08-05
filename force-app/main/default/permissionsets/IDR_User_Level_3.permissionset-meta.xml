@@ -4,6 +4,10 @@
         <apexClass>IDRCaseActions</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>IDRRestrictedCasesController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <customPermissions>
         <enabled>true</enabled>
         <name>IDR_Level_3</name>
@@ -11,4 +15,8 @@
     <description>The IDR user Level 3 permission which will be used by Agents or Bankers in call centers and branches</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>IDR User Level 3</label>
+    <tabSettings>
+        <tab>Restricted_Cases</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
 </PermissionSet>

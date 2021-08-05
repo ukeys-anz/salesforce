@@ -53,7 +53,11 @@ public with sharing class IDRCaseAssignmentRules {
         }
       }
       //Inappropriate lending/maladministration
-      if (rec.IDR_Subsequent_Issue__c == '38') {
+      if (
+        rec.IDR_Subsequent_Issue__c == '38' ||
+        rec.IDR_Subsequent_Issue_2__c == '38' ||
+        rec.IDR_Subsequent_Issue_3__c == '38'
+      ) {
         if (rec.Origin == IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED) {
           return QUEUE_MAP.get('Specialised_EarlyRes_Responsible_Lending');
         } else {

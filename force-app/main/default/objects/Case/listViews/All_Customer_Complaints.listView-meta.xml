@@ -8,6 +8,8 @@
     <columns>IDR_Date_Received__c</columns>
     <columns>IDR_Office_Created_By__c</columns>
     <columns>OWNER_NAME</columns>
+    <columns>IDR_NC_First_Name__c</columns>
+    <columns>IDR_NC_Last_Name__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>CASES.RECORDTYPE</field>

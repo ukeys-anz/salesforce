@@ -1,0 +1,166 @@
+<template>
+  <lightning-card>
+    <div style="width: 35%; margin: auto">
+      <lightning-input
+        label="Search Restricted Cases"
+        type="search"
+        class="slds-m-bottom_small"
+        onkeyup={handleSearch}
+        onchange={handleKeyChange}
+        placeholder="Type your key and press Enter"
+        value={searchKey}
+      ></lightning-input>
+    </div>
+    <template if:true={loading}>
+      <div class="slds-align_absolute-center" style="height: 4rem">
+        <div role="status" class="slds-spinner_inline">
+          <lightning-spinner
+            alternative-text="Loading"
+            variant="brand"
+          ></lightning-spinner>
+        </div>
+      </div>
+    </template>
+    <template if:true={showData}>
+      <div style="height: 500px">
+        <lightning-datatable
+          key-field="Id"
+          data={data}
+          columns={columns}
+          sorted-by={sortedBy}
+          sorted-direction={sortDirection}
+          onsort={onHandleSort}
+          onrowaction={handleRowActions}
+          show-row-number-column
+          hide-checkbox-column
+        >
+        </lightning-datatable>
+      </div>
+    </template>
+    <template if:true={noData}>
+      <div style="height: 100px">
+        <br />
+        <h1 class="slds-align_absolute-center">
+          <span>No Records Found!</span>
+        </h1>
+      </div>
+    </template>
+  </lightning-card>
+  <template if:true={isEditForm}>
+    <section
+      role="dialog"
+      tabindex="-1"
+      aria-labelledby="modal-heading-01"
+      aria-modal="true"
+      aria-describedby="modal-content-id-1"
+      class="slds-modal slds-fade-in-open"
+    >
+      <div class="slds-modal__container">
+        <!-- Modal/Popup Box LWC header here -->
+        <header class="slds-modal__header">
+          <button
+            class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+            title="Close"
+            onclick={closeModal}
+          >
+            <lightning-icon
+              icon-name="utility:close"
+              alternative-text="close"
+              variant="inverse"
+              size="small"
+            ></lightning-icon>
+            <span class="slds-assistive-text">Close</span>
+          </button>
+          <h2
+            id="modal-heading-01"
+            class="slds-text-heading_medium slds-hyphenate"
+          >
+            Create Case Comment
+          </h2>
+        </header>
+        <!-- Modal/Popup Box LWC body starts here -->
+        <div
+          class="slds-modal__content slds-p-around_medium"
+          id="modal-content-id-1"
+        >
+          <lightning-textarea
+            name="Body"
+            required
+            label="Body"
+            onchange={handleCommentChange}
+            placeholder="type here..."
+          ></lightning-textarea>
+        </div>
+        <!-- Modal/Popup Box LWC footer starts here -->
+        <footer class="slds-modal__footer">
+          <template if:true={showSave}>
+            <lightning-button
+              class="slds-m-top_small"
+              variant="brand"
+              type="submit"
+              onclick={handleSubmit}
+              name="update"
+              label="Save"
+            ></lightning-button>
+          </template>
+        </footer>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+  </template>
+  <template if:true={isUploadFile}>
+    <section
+      role="dialog"
+      tabindex="-1"
+      aria-labelledby="modal-heading-01"
+      aria-modal="true"
+      aria-describedby="modal-content-id-1"
+      class="slds-modal slds-fade-in-open"
+    >
+      <div class="slds-modal__container">
+        <!-- Modal/Popup Box Header starts here-->
+        <header class="slds-modal__header">
+          <button
+            class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+            title="Close"
+            onclick={closeModal}
+          >
+            <lightning-icon
+              icon-name="utility:close"
+              alternative-text="close"
+              variant="inverse"
+              size="small"
+            ></lightning-icon>
+            <span class="slds-assistive-text">Close</span>
+          </button>
+          <h2
+            id="modal-heading-02"
+            class="slds-text-heading_medium slds-hyphenate"
+          >
+            Upload Files
+          </h2>
+        </header>
+        <!-- Upload File starts here -->
+        <div class="slds-theme_shade slds-text-align_center">
+          <lightning-file-upload
+            name="fileUploader"
+            accept={acceptedFormats}
+            onuploadfinished={handleUploadFinished}
+            multiple
+          >
+          </lightning-file-upload>
+        </div>
+        <!-- Modal/Popup Box LWC footer starts here -->
+        <footer class="slds-modal__footer">
+          <lightning-button
+            variant="brand"
+            label="Close"
+            title="Close"
+            onclick={closeModal}
+          ></lightning-button>
+        </footer>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+  </template>
+</template>

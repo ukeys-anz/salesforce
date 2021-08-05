@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Amount_Of_Credit_Due__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Trusted;Source - Salesforce;Privacy_Non_Personal_Information</complianceGroup>
+    <complianceGroup>Integrity_Trusted;Source_Salesforce;Privacy_Non_Personal_Information</complianceGroup>
     <description>Amount which the merchant owes to the customer</description>
     <externalId>false</externalId>
     <inlineHelpText>The pending amount which the merchant owes to the customer.

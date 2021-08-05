@@ -6,7 +6,7 @@
     <isNameField>false</isNameField>
     <isSortingDisabled>false</isSortingDisabled>
     <label>Why is this a possible systemic issue?</label>
-    <length>3000</length>
+    <length>4000</length>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>
 </CustomField>

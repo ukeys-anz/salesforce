@@ -16,7 +16,9 @@ if (!users.isEmpty() && !roles.isEmpty()) {
         new User(Id = u.Id, UserRoleId = roleNameToId.get('Content Writer'))
       );
     } else if (u.Alias.contains('IDR')) {
-      updateUser.add(new User(Id = u.Id, UserRoleId = roleNameToId.get('ANZ')));
+      updateUser.add(
+        new User(Id = u.Id, UserRoleId = roleNameToId.get('Banker'))
+      );
     }
   }
   Database.update(updateUser);

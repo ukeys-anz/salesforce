@@ -8,7 +8,7 @@
         <sharedTo>
             <role>Super_Support_Admin</role>
         </sharedTo>
-        <booleanFilter>1 AND 2</booleanFilter>
+        <booleanFilter>1 AND 2 AND 3 AND 4</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>notEqual</operation>
@@ -18,6 +18,16 @@
             <field>RecordTypeId</field>
             <operation>notEqual</operation>
             <value>Non-Customer Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>notEqual</operation>
+            <value>General Inquiry CMOS</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>notEqual</operation>
+            <value>CFMS Migrated Case</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -31,7 +41,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Non-Customer Complaint,Customer Complaint</value>
+            <value>General Inquiry CMOS,Non-Customer Complaint,Customer Complaint,CFMS Migrated Case</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -57,9 +67,37 @@
             <group>CFMS_Integration_User_Group</group>
         </sharedTo>
         <criteriaItems>
+            <field>IDR_Is_Restricted__c</field>
+            <operation>notEqual</operation>
+            <value>True</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Complaint_RTs_CFMSUser_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>to provide read write access to CFMS integration user</description>
+        <label>Complaint_RTs_CFMSUser_RW</label>
+        <sharedTo>
+            <group>CFMS_Integration_User_Group</group>
+        </sharedTo>
+        <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Customer Complaint,Non-Customer Complaint</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Complaint_RTs_CRPUsers_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Grant read-only access to CFMS migrated complaint records for Customer Resolution Users</description>
+        <label>Complaint_RTs_CRPUsers_RO</label>
+        <sharedTo>
+            <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>CFMS Migrated Case</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -87,7 +125,12 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Customer Complaint,Non-Customer Complaint</value>
+            <value>Customer Complaint,Non-Customer Complaint,CFMS Migrated Case</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IDR_Is_Restricted__c</field>
+            <operation>notEqual</operation>
+            <value>True</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -300,7 +343,69 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Systemic Issue,Non-Customer Complaint,Customer Complaint</value>
+            <value>Systemic Issue,General Inquiry CMOS,Non-Customer Complaint,Customer Complaint,CFMS Migrated Case</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>PSIComplaint_RTs_SITeam_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Grant edit access to possible systemic issue complaint records for systemic issue team</description>
+        <label>PSIComplaint_RTs_SITeam_RW</label>
+        <sharedTo>
+            <role>Systemic_Issue_Team</role>
+        </sharedTo>
+        <booleanFilter>1 AND 2</booleanFilter>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Complaint,Non-Customer Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IDR_Is_Common__c</field>
+            <operation>equals</operation>
+            <value>Yes</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>SI_RT_CRP_LT_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Grant Read only access to Systemic issue records for Customer Resolution Leadership Team</description>
+        <label>SI_RT_CRP_LT_RO</label>
+        <sharedTo>
+            <role>Customer_Resolution_Leadership</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Systemic Issue</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>SI_RT_SI_Business_Contacts_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Grant Read Only access to systemic issue records for SI Key business contacts</description>
+        <label>SI_RT_SI_Business_Contacts_RO</label>
+        <sharedTo>
+            <group>SI_Business_Contacts</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Systemic Issue</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>SI_RTs_SITeam_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Grant read and write access on systemic issue records for SI team members</description>
+        <label>SI_RTs_SITeam_RW</label>
+        <sharedTo>
+            <role>Systemic_Issue_Team</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Systemic Issue</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>

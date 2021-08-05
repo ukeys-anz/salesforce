@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR01_Restrict_file_types</fullName>
+    <active>true</active>
+    <description>Restrict the file types that can be uploaded to salesforce</description>
+    <errorConditionFormula>AND(
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+!(RIGHT( LOWER(PathOnClient) , 5) = &apos;.tiff&apos;),
+!(RIGHT( LOWER(PathOnClient) , 4) = &apos;.tif&apos;),
+!(RIGHT( LOWER(PathOnClient) , 5) = &apos;.jpeg&apos;),
+!(RIGHT( LOWER(PathOnClient) , 4) = &apos;.jpg&apos;),
+!(RIGHT( LOWER(PathOnClient) , 4) = &apos;.gif&apos;),
+!(RIGHT( LOWER(PathOnClient) , 4) = &apos;.bmp&apos;),
+!(RIGHT( LOWER(PathOnClient) , 4) = &apos;.png&apos;),
+!(RIGHT( LOWER(PathOnClient) , 4) = &apos;.pdf&apos;),
+!(RIGHT( LOWER(PathOnClient) , 4) = &apos;.doc&apos;),
+!(RIGHT( LOWER(PathOnClient) , 5) = &apos;.docx&apos;),
+!(RIGHT( LOWER(PathOnClient) , 4) = &apos;.xls&apos;),
+!(RIGHT( LOWER(PathOnClient) , 5) = &apos;.xlsx&apos;),
+!(RIGHT( LOWER(PathOnClient) , 5) = &apos;.xlsb&apos;),
+!(RIGHT( LOWER(PathOnClient) , 4) = &apos;.ppt&apos;),
+!(RIGHT( LOWER(PathOnClient) , 5) = &apos;.pptx&apos;),
+!(RIGHT( LOWER(PathOnClient) , 4) = &apos;.msg&apos;),
+!(RIGHT( LOWER(PathOnClient) , 4) = &apos;.eml&apos;),
+!(RIGHT( LOWER(PathOnClient) , 4) = &apos;.rtf&apos;),
+!(RIGHT( LOWER(PathOnClient) , 4) = &apos;.txt&apos;),
+!(RIGHT( LOWER(PathOnClient) , 4) = &apos;.csv&apos;),
+!(RIGHT( LOWER(PathOnClient) , 4) = &apos;.zip&apos;))</errorConditionFormula>
+    <errorMessage>This file has a file type which is not supported by CMOS.  Please note it is not possible to load this file onto CMOS</errorMessage>
+</ValidationRule>

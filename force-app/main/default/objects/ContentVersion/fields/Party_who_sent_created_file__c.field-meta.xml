@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Party_who_sent_created_file__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <externalId>false</externalId>
+    <label>Party who sent/created file</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>true</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Wealth Product Manufacturer</fullName>
+                <default>false</default>
+                <label>Wealth Product Manufacturer</label>
+            </value>
+            <value>
+                <fullName>AFCA</fullName>
+                <default>false</default>
+                <label>AFCA</label>
+            </value>
+            <value>
+                <fullName>Small Business Ombudsman</fullName>
+                <default>false</default>
+                <label>Small Business Ombudsman</label>
+            </value>
+            <value>
+                <fullName>Office of the Australian Information Commissioner (OAIC)</fullName>
+                <default>false</default>
+                <label>Office of the Australian Information Commissioner (OAIC)</label>
+            </value>
+            <value>
+                <fullName>State Tribunal</fullName>
+                <default>false</default>
+                <label>State Tribunal</label>
+            </value>
+            <value>
+                <fullName>Customer</fullName>
+                <default>false</default>
+                <label>Customer</label>
+            </value>
+            <value>
+                <fullName>Nominated 3rd Party Representative of Customer</fullName>
+                <default>false</default>
+                <label>Nominated 3rd Party Representative of Customer</label>
+            </value>
+            <value>
+                <fullName>Internal business unit</fullName>
+                <default>false</default>
+                <label>Internal business unit</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

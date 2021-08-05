@@ -50,7 +50,7 @@
                 <field>Status__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>Number_of_Related_Cases__c</field>
             </layoutItems>
         </layoutColumns>

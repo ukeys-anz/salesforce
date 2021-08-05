@@ -3,6 +3,7 @@
  * @since  04/2020
  * @description This class will be called in User Provisioning Request Trigger to update User Object based on the Request Type.
  */
+@SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
 public with sharing class UPRAfterActions {
   /**
    * @description This function is called to update User object with Business Function, Business Role and Manager id for Modify Request type.
@@ -51,10 +52,23 @@ public with sharing class UPRAfterActions {
       modifyUserList = getModifyUserList(uprModifyMap, managerMap);
     }
     if (!modifyUserList.isEmpty()) {
-      List<Database.SaveResult> updateUserList = Database.update(
-        modifyUserList,
-        false
-      );
+      if (
+        User.sObjectType.getDescribe().isUpdateable() &&
+        Schema.sObjectType.User.fields.Business_Function__c.isUpdateable() &&
+        Schema.sObjectType.User.fields.Business_Role__c.isUpdateable() &&
+        Schema.sObjectType.User.fields.ManagerId.isUpdateable()
+      ) {
+        List<Database.SaveResult> updateUserList = Database.update(
+          modifyUserList,
+          false
+        );
+      } else {
+        CommonUtil.logAndThrowIAE(
+          'UPRAfterActions',
+          'modifyUserAccess',
+          'Not enough permissions to update User.'
+        );
+      }
     }
   }
 
@@ -119,7 +133,7 @@ public with sharing class UPRAfterActions {
 
     if (Schema.sObjectType.User.isQueryable()) {
       userList = [
-        SELECT Id, FederationIdentifier, isActive
+        SELECT isActive
         FROM User
         WHERE FederationIdentifier IN :uprRevokeIds AND isActive = TRUE
       ];
@@ -130,10 +144,21 @@ public with sharing class UPRAfterActions {
     }
 
     if (!userList.isEmpty()) {
-      List<Database.SaveResult> updateUserList = Database.update(
-        userList,
-        false
-      );
+      if (
+        User.sObjectType.getDescribe().isUpdateable() &&
+        Schema.sObjectType.User.fields.IsActive.isUpdateable()
+      ) {
+        List<Database.SaveResult> updateUserList = Database.update(
+          userList,
+          false
+        );
+      } else {
+        CommonUtil.logAndThrowIAE(
+          'UPRAfterActions',
+          'revokeUserAccess',
+          'Not enough permissions to update User.'
+        );
+      }
     }
   }
 }

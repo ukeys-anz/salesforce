@@ -3,7 +3,8 @@
  * @since 08/2020
  * @description Queueable apex class to delete Account and their related records asynchronously
  */
-public class QueueAccountDeletion implements Queueable {
+@SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
+public with sharing class QueueAccountDeletion implements Queueable {
   Account accountToDelete;
 
   //call application log function to log results incase of failure
@@ -25,7 +26,26 @@ public class QueueAccountDeletion implements Queueable {
    * @param context QueueableContext
    */
   public void execute(QueueableContext context) {
-    //delete releted case records
+    // We want to delete accounts only after all related records were successfully deleted,
+    // hence everything must be deletable for the current user
+    if (
+      !Case.sObjectType.getDescribe().isDeletable() ||
+      !Entitlement.sObjectType.getDescribe().isDeletable() ||
+      !Account.sObjectType.getDescribe().isDeletable()
+    ) {
+      Lib_SystemLog.createSingleLog(
+        QueueAccountDeletion.class.getName(),
+        'execute',
+        '',
+        'Must be deletable: Case, Entitlement, Account.',
+        Lib_SystemLog.Severity.ERROR
+      );
+      new QueueAccountDeletionException(
+        'Must be deletable: Case, Entitlement, Account.'
+      );
+    }
+
+    //delete related case records
     List<Case> deleteCaseList = getRelatedRecordIds(
       accountToDelete.Id,
       Case.SobjectType,
@@ -44,6 +64,7 @@ public class QueueAccountDeletion implements Queueable {
       }
     }
 
+    //delete related entitlement records
     List<Entitlement> deleteEntitlementList = getRelatedRecordIds(
       accountToDelete.Id,
       Entitlement.SobjectType,
@@ -122,5 +143,11 @@ public class QueueAccountDeletion implements Queueable {
         lib_systemLog.Severity.ERROR
       );
     }
+  }
+
+  /**
+   * @description extend the Exception class to allow errors to be thrown if the user does not have access
+   */
+  private class QueueAccountDeletionException extends Exception {
   }
 }

@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Fraud_Customer_Provided_Selfie__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Privacy_Personal_Information;Integrity - Trusted;Source - Salesforce</complianceGroup>
+    <complianceGroup>Privacy_Personal_Information;Integrity_Trusted;Source_Salesforce</complianceGroup>
     <defaultValue>false</defaultValue>
     <description>To denote whether a customer provided a selfie in an assisted ID event</description>
     <externalId>false</externalId>

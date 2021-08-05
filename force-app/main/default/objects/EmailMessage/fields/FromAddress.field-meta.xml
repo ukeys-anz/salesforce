@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FromAddress</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>The address that originated the email.</description>
+    <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
+    <securityClassification>Confidential</securityClassification>
+</CustomField>

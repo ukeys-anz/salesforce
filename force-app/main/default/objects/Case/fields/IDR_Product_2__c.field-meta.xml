@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_Product_2__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Foreign key to Product2 table, if secondary issue within the complaint case relates to a specific product, this links to that product</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Start typing the ANZ product or Service the issue relates to for available options to appear</inlineHelpText>
+    <label>Product or Service Name 2</label>
+    <referenceTo>Product2</referenceTo>
+    <relationshipLabel>Related Issues 2</relationshipLabel>
+    <relationshipName>RelatedIssues2</relationshipName>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

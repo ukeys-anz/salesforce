@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
     <fieldOverrides>
+        <field>IDR_Escalated_to__c</field>
+        <literalValue>1</literalValue>
+    </fieldOverrides>
+    <fieldOverrides>
         <field>IsEscalated</field>
         <formula>True</formula>
     </fieldOverrides>
@@ -15,12 +19,12 @@
         <quickActionLayoutColumns>
             <quickActionLayoutItems>
                 <emptySpace>false</emptySpace>
-                <field>IDR_Escalated_to__c</field>
+                <field>IDR_Escalation_Reason__c</field>
                 <uiBehavior>Required</uiBehavior>
             </quickActionLayoutItems>
             <quickActionLayoutItems>
                 <emptySpace>false</emptySpace>
-                <field>IDR_Escalation_Reason__c</field>
+                <field>IDR_Restriction_Level__c</field>
                 <uiBehavior>Required</uiBehavior>
             </quickActionLayoutItems>
         </quickActionLayoutColumns>

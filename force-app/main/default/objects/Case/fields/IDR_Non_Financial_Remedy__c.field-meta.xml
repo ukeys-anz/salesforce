@@ -12,7 +12,6 @@
     <type>Picklist</type>
     <valueSet>
         <controllingField>IDR_Complaint_Remedy__c</controllingField>
-        <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
