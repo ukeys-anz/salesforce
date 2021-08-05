@@ -35,7 +35,10 @@ public with sharing class IDRPendCaseTaskRemindersHandler {
         recipientList.add(t.OwnerId);
         recipientList.add(caseMap.get(t.WhatId)?.OwnerId);
         if (Integer.valueOf(t.Due_in_Days__c) == 1) {
-          recipientList.add(((User) caseMap.get(t.WhatId)?.Owner)?.ManagerId);
+          User caseOwnerUser = (User) caseMap.get(t.WhatId).Owner;
+          if (caseOwnerUser.ManagerId != null) {
+            recipientList.add(caseOwnerUser.ManagerId);
+          }
         }
         msgBody =
           'Pend Task for Case : ' +
