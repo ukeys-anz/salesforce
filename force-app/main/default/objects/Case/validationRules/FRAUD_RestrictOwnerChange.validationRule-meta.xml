@@ -20,7 +20,8 @@ RecordType.DeveloperName = &apos;Card_Dispute&apos; ,
 RecordType.DeveloperName = &apos;Direct_Debit_Dispute&apos; ,
 RecordType.DeveloperName = &apos;Direct_Entry_Dispute&apos; ,
 RecordType.DeveloperName = &apos;Urgent_Dishonour_Request_Dispute&apos;,
-RecordType.DeveloperName = &apos;ANZx_Complaint&apos;
+RecordType.DeveloperName = &apos;ANZx_Complaint&apos;,
+RecordType.DeveloperName = &apos;General_Inquiry&apos;
 )
 )
 )</errorConditionFormula>
