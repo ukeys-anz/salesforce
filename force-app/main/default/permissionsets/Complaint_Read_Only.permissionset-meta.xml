@@ -742,7 +742,6 @@
         <field>Task.SI_Other_Tribe_BU__c </field>
         <readable>true</readable>
     </fieldPermissions>
-
     <fieldPermissions>
         <editable>false</editable>
         <field>Task.Completed_Date__c</field>
