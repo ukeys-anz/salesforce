@@ -472,7 +472,7 @@
     </dashboardGridLayout>
     <dashboardType>SpecifiedUser</dashboardType>
     <isGridLayout>true</isGridLayout>
-    <runningUser>David.dawson@anzx.com</runningUser>
+    <runningUser>anzx.user@anzx.com</runningUser>
     <textColor>#000000</textColor>
     <title>User Adoption</title>
     <titleColor>#000000</titleColor>

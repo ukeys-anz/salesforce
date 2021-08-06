@@ -338,6 +338,16 @@
             >
             </lightning-input>
 
+            <lightning-input
+              type="toggle"
+              label="Switch off Customer Notifications?"
+              onchange={handleCustomerNotificationChange}
+              message-toggle-active="Yes"
+              message-toggle-inactive="No"
+              data-id="customerNotification-id"
+            >
+            </lightning-input>
+
             <!-- Nominated Third party details -->
             <template if:true={consentValue}>
               <lightning-input
@@ -354,7 +364,7 @@
             <template if:true={hasNominatedThirdParty}>
               <lightning-input
                 type="toggle"
-                label="3rd Party Notifications"
+                label="Switch off 3rd Party Notifications?"
                 onchange={handle3rdPartyNotificationChange}
                 message-toggle-active="Yes"
                 message-toggle-inactive="No"

@@ -93,7 +93,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>IDR_Customer_Notification__c</field>
+                <field>IDR_SwitchOff_Customer_Notification__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -148,7 +148,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>IDR_Nominated_3rd_Party_Notification__c</field>
+                <field>IDR_SwicthOff_3rd_Party_Notification__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>

@@ -437,7 +437,7 @@ public with sharing class IDRConstants {
           'ANZ Prepaid Card' => 'IDR_Everyday_Banking',
           'ANZ Rewards Visa Gold' => 'IDR_Everyday_Banking',
           'Aussie Mastercard' => 'IDR_Everyday_Banking',
-          'ANZ Balance Visa' => 'IDR_Everyday_Banking',
+          'Balance Visa' => 'IDR_Everyday_Banking',
           'Verified by Visa' => 'IDR_Everyday_Banking',
           'Easy Start Residential Investment Loan' => 'IDR_Home_Owners',
           'Easy Start Home Loan' => 'IDR_Home_Owners',

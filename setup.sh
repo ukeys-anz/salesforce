@@ -10,6 +10,7 @@ export SFDX_DOMAIN_RETRY=0
 
 read -rp "Enter scratch org alias (optional): " scratchorgalias
 read -rp "Is test data needed for this scratch org (y/n)? " testdata
+read -rp "Preload ANZ Plus test data (y/n)? " preloadANZPlusData
 
 ALL_START_TIME=$(date +%s)
 
@@ -75,17 +76,21 @@ fi
 JOB_END_TIME=$(date +%s)
 echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
 
-echo "$(date): Pre-loading sample data..."
-JOB_START_TIME=$(date +%s)
-sfdx force:apex:execute -f ./apex-scripts/createTestData.apex
-JOB_END_TIME=$(date +%s)
-echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
-
-echo "$(date): Creating test users (inactive by default) with different roles..."
-JOB_START_TIME=$(date +%s)
-sfdx force:apex:execute -f ./apex-scripts/createTestUsers.apex
-JOB_END_TIME=$(date +%s)
-echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
+case ${preloadANZPlusData:0:1} in
+y | Y)
+    echo "$(date): Pre-loading sample data..."
+    JOB_START_TIME=$(date +%s)
+    sfdx force:apex:execute -f ./apex-scripts/createTestData.apex
+    JOB_END_TIME=$(date +%s)
+    echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
+    echo "$(date): Creating test users (inactive by default) with different roles..."
+    JOB_START_TIME=$(date +%s)
+    sfdx force:apex:execute -f ./apex-scripts/createTestUsers.apex
+    JOB_END_TIME=$(date +%s)
+    echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
+    ;;
+*) echo "Skipping ANZ plus test data preload" ;;
+esac
 
 case ${testdata:0:1} in
 y | Y)

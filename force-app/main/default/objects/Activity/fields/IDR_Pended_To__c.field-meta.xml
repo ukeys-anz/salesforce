@@ -2,14 +2,15 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_Pended_To__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Source_Salesforce;Privacy_Non_Personal_Information;Integrity_Accurate</complianceGroup>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>exact party name a task is pending with</description>
     <externalId>false</externalId>
-    <label>Pended To</label>
+    <label>Pended To (Party)</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <type>Picklist</type>
     <valueSet>
+        <controllingField>IDR_Internal_or_External_Party__c</controllingField>
         <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
@@ -84,5 +85,62 @@
                 <label>Other</label>
             </value>
         </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Internal (ANZ)</controllingFieldValue>
+            <valueName>Internal Business Unit</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Internal (ANZ)</controllingFieldValue>
+            <controllingFieldValue>External</controllingFieldValue>
+            <valueName>Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>External</controllingFieldValue>
+            <valueName>AFCA</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>External</controllingFieldValue>
+            <valueName>Customer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>External</controllingFieldValue>
+            <valueName>Nominated 3rd Party Representative of Customer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>External</controllingFieldValue>
+            <valueName>Office of the Australian Information Commissioner (OAIC)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>External</controllingFieldValue>
+            <valueName>Small Business Ombudsman</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>External</controllingFieldValue>
+            <valueName>State Tribunal</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>External</controllingFieldValue>
+            <valueName>Wealth Product Manufacturer: Allianz</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>External</controllingFieldValue>
+            <valueName>Wealth Product Manufacturer: IOOF</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>External</controllingFieldValue>
+            <valueName>Wealth Product Manufacturer: Netwealth</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>External</controllingFieldValue>
+            <valueName>Wealth Product Manufacturer: QBE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>External</controllingFieldValue>
+            <valueName>Wealth Product Manufacturer: Zurich</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>External</controllingFieldValue>
+            <valueName>Wealth Product Manufacturer: Other</valueName>
+        </valueSettings>
     </valueSet>
 </CustomField>

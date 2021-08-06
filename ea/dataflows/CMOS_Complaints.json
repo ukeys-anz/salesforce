@@ -47,7 +47,7 @@
         "rightKey": ["CaseId"],
         "rightSelect": ["CountOfTransfers"]
       },
-      "sources": ["IncludeComplaintsOnly", "CalcCountOfTransfers"]
+      "sources": ["FilterComplaintsOnly", "CalcCountOfTransfers"]
     },
     "CaseDuration": {
       "action": "computeExpression",
@@ -149,7 +149,9 @@
           { "name": "IDR_Escalation_Reason__c" },
           { "name": "IDR_Non_Financial_Remedy__c" },
           { "name": "IDR_Complaint_Outcome__c" },
-          { "name": "IDR_Complaint_Remedy__c" }
+          { "name": "IDR_Complaint_Remedy__c" },
+          { "name": "IDR_Office_Created_By__c" },
+          { "name": "IDR_Office__c" }
         ],
         "object": "Case"
       }
@@ -290,13 +292,6 @@
       },
       "sources": ["MergeCaseProduct", "FilterCaseTypes"]
     },
-    "IncludeComplaintsOnly": {
-      "action": "filter",
-      "parameters": {
-        "saqlFilter": "'Record.DeveloperName' in [\"Customer_Complaint\"]"
-      },
-      "sources": ["MergeOnBoardingData"]
-    },
     "FilterOwnerOnly": {
       "action": "filter",
       "parameters": { "filter": "Field:EQ:Owner" },
@@ -344,6 +339,13 @@
       "action": "filter",
       "parameters": { "filter": "EntityParticleId:EQ:Case.Type" },
       "sources": ["PullPicklistValues"]
+    },
+    "FilterComplaintsOnly": {
+      "action": "filter",
+      "parameters": {
+        "saqlFilter": "'Record.DeveloperName' in [\"Customer_Complaint\", \"Non-Customer Complaints\"]"
+      },
+      "sources": ["MergeOnBoardingData"]
     },
     "JoinRecordType": {
       "action": "augment",

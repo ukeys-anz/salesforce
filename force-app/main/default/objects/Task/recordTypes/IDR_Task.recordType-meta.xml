@@ -839,11 +839,19 @@
             <fullName>Not Started</fullName>
             <default>true</default>
         </values>
+        <values>
+            <fullName>Open</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>Subject</picklist>
         <values>
             <fullName>Call</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Case Pended - provide update in case comment</fullName>
             <default>false</default>
         </values>
         <values>
@@ -894,7 +902,7 @@
         </values>
         <values>
             <fullName>General Task%2F Reminder</fullName>
-            <default>false</default>
+            <default>true</default>
         </values>
         <values>
             <fullName>Letter QC</fullName>

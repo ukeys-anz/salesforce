@@ -129,9 +129,10 @@ private with sharing class IDRTaskActionsTest {
       WhatId = customerCase.Id,
       Description = 'test Description',
       IDR_Key_Contact_Name__c = 'John Doe',
-      IDR_Pended_To__c = 'Customer',
-      IDR_Pend_Reason__c = 'Awaiting information to be provided',
-      IDR_Portfolio_or_Business_Unit__c = 'Wealth (AR&C)'
+      IDR_Internal_or_External_Party__c = 'External',
+      IDR_Pended_To__c = 'Other',
+      IDR_Pend_Reason__c = 'Awaiting information to be provided'
+      //IDR_Portfolio_or_Business_Unit__c = 'Wealth (AR&C)'
     );
 
     insert pendTask;
@@ -142,5 +143,48 @@ private with sharing class IDRTaskActionsTest {
       pendCaseTask.Subject,
       'Pend case task subject must default to a defined value'
     );
+  }
+  @isTest
+  static void testIDRTaskClosureOnCaseClose() {
+    Case[] newCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
+          IDR_Date_Received__c = system.now()
+        )
+      );
+    }
+    insert newCases;
+
+    List<Task> taskToinsert = new List<Task>();
+    for (Case c : newCases) {
+      task idrTask = new task(
+        whatId = c.Id,
+        Subject = IDRConstants.TASK_SUBJECT_DAY5,
+        RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID,
+        Priority = 'Standard',
+        ActivityDate = system.today()
+      );
+      taskToinsert.add(idrTask);
+    }
+
+    insert taskToinsert;
+
+    checkRecursive.firstCall = false;
+
+    Test.startTest();
+    for (Case c : newCases) {
+      c.Status = IDRConstants.CLOSED_STATUS;
+      c.IDR_Complaint_Outcome__c = '1';
+      c.IDR_Description_of_Outcome__c = 'test';
+    }
+    update newCases;
+
+    Test.stopTest();
+
+    for (Task task : [SELECT Status FROM Task WHERE id = :taskToinsert]) {
+      system.assertEquals(IDRConstants.TASK_STATUS_COMPLETED, task.Status);
+    }
   }
 }

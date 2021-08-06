@@ -7,9 +7,10 @@
     <inlineHelpText>If Internal Business Unit is selected as Pended to (Party), please select the Portfolio case is pending with.</inlineHelpText>
     <label>Portfolio or Business Unit</label>
     <required>false</required>
-    <securityClassification>Internal</securityClassification>\
+    <securityClassification>Internal</securityClassification>
     <type>Picklist</type>
     <valueSet>
+        <controllingField>IDR_Pended_To__c</controllingField>
         <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
@@ -69,5 +70,49 @@
                 <label>Wealth (AR&amp;C)</label>
             </value>
         </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Internal Business Unit</controllingFieldValue>
+            <valueName>Business Owners (AR&amp;C)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Internal Business Unit</controllingFieldValue>
+            <valueName>Commercial (AR&amp;C)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Internal Business Unit</controllingFieldValue>
+            <valueName>Customer Resolution Portfolio (AR&amp;C)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Internal Business Unit</controllingFieldValue>
+            <valueName>Customer Service Operations Portfolio (AR&amp;C)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Internal Business Unit</controllingFieldValue>
+            <valueName>Data (Digital &amp; Transformation Australia)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Internal Business Unit</controllingFieldValue>
+            <valueName>Digital Portfolio (AR&amp;C)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Internal Business Unit</controllingFieldValue>
+            <valueName>Group Services (AR&amp;C)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Internal Business Unit</controllingFieldValue>
+            <valueName>Home Owners Portfolio (AR&amp;C)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Internal Business Unit</controllingFieldValue>
+            <valueName>Responsible Banking Portfolio (AR&amp;C)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Internal Business Unit</controllingFieldValue>
+            <valueName>Retail (AR&amp;C)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Internal Business Unit</controllingFieldValue>
+            <valueName>Wealth (AR&amp;C)</valueName>
+        </valueSettings>
     </valueSet>
 </CustomField>

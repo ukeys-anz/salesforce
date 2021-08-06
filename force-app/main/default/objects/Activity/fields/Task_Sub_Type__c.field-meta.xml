@@ -9,7 +9,7 @@
     <externalId>false</externalId>
     <label>Task Sub-Type</label>
     <required>false</required>
-    <type>Picklist</type> 
+    <type>Picklist</type>
     <valueSet>
         <restricted>true</restricted>
         <valueSetDefinition>

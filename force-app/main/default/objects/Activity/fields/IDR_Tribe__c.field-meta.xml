@@ -6,7 +6,7 @@
     <description>Tribe details a task is pending with.</description>
     <externalId>false</externalId>
     <inlineHelpText>If Internal Business Unit selected as Pended to (Party), please select the Tribe case is pending with.</inlineHelpText>
-    <label>Tribe</label>
+    <label>Tribe or Segment</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <type>Picklist</type>

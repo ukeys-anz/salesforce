@@ -31,6 +31,11 @@
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <mode>Replace</mode>
+        <name>main</name>
+        <type>Region</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
         <itemInstances>
             <componentInstance>
                 <componentName>runtime_sales_activities:activityPanel</componentName>
