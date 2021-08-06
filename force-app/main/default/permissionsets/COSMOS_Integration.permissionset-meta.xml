@@ -273,7 +273,6 @@
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>COSMOS Integration</label>
-    <license>Salesforce</license>
     <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
@@ -281,7 +280,6 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>Case</object>
-        <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <recordTypeVisibilities>
         <recordType>Case.Fraud</recordType>
