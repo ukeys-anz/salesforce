@@ -192,8 +192,6 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
     notification.Case_Number__c = getFormattedCaseNumberToNotify(c);
     if (!c.IDR_SwitchOff_Customer_Notification__c) {
       notification.CAP_CIS_ID__c = c.IDR_Customer_Number__c;
-    }
-    if (c.IDR_Customer_Notification__c) {
       notification.Customer_Identifier__c = ((String.isNotBlank(
           c.IDR_Customer_Identifier__c
         ) && c.IDR_Customer_Identifier__c.contains('CAP ID'))
