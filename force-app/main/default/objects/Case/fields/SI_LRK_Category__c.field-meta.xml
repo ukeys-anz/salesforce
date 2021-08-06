@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SI_LRK_Category__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Privacy_Non_Personal_Information;Source_Salesforce;Integrity - Accurate</complianceGroup>
+    <description>to capture LRK Category</description>
+    <externalId>false</externalId>
+    <label>LRK Category</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>LRK001: Rogue trading involving ANZ staff (including intentional mismarking / unrecorded / unauthorised transactions)</fullName>
+                <default>false</default>
+                <label>LRK001: Rogue trading involving ANZ staff (including intentional mismarking / unrecorded / unauthorised transactions)</label>
+            </value>
+            <value>
+                <fullName>LRK002: Internal fraud involving ANZ staff</fullName>
+                <default>false</default>
+                <label>LRK002: Internal fraud involving ANZ staff</label>
+            </value>
+            <value>
+                <fullName>LRK003: Intentional theft and/or malicious damage, destruction or sabotage of assets involving ANZ staff</fullName>
+                <default>false</default>
+                <label>LRK003: Intentional theft and/or malicious damage, destruction or sabotage of assets involving ANZ staff</label>
+            </value>
+            <value>
+                <fullName>LRK004: Unethical and/or corrupt activities (smuggling, tax evasion, bribes, kick-backs) involving ANZ staff</fullName>
+                <default>false</default>
+                <label>LRK004: Unethical and/or corrupt activities (smuggling, tax evasion, bribes, kick-backs) involving ANZ staff</label>
+            </value>
+            <value>
+                <fullName>LRK005: Insider trading activities (not on ANZs account) involving ANZ staff</fullName>
+                <default>false</default>
+                <label>LRK005: Insider trading activities (not on ANZs account) involving ANZ staff</label>
+            </value>
+            <value>
+                <fullName>LRK006: Theft or robbery by an external party</fullName>
+                <default>false</default>
+                <label>LRK006: Theft or robbery by an external party</label>
+            </value>
+            <value>
+                <fullName>LRK007: Fraud by an external party</fullName>
+                <default>false</default>
+                <label>LRK007: Fraud by an external party</label>
+            </value>
+            <value>
+                <fullName>LRK008: Damage to ANZ systems due to external hacking or malware</fullName>
+                <default>false</default>
+                <label>LRK008: Damage to ANZ systems due to external hacking or malware</label>
+            </value>
+            <value>
+                <fullName>LRK009: Theft of and/or unauthorised access to information held within ANZ systems by an external party</fullName>
+                <default>false</default>
+                <label>LRK009: Theft of and/or unauthorised access to information held within ANZ systems by an external party</label>
+            </value>
+            <value>
+                <fullName>LRK010: Inappropriate employee termination, redundancy and/or retrenchment</fullName>
+                <default>false</default>
+                <label>LRK010: Inappropriate employee termination, redundancy and/or retrenchment</label>
+            </value>
+            <value>
+                <fullName>LRK011: Employee remuneration / benefits / conditions are not in accordance with employment agreement or law</fullName>
+                <default>false</default>
+                <label>LRK011: Employee remuneration / benefits / conditions are not in accordance with employment agreement or law</label>
+            </value>
+            <value>
+                <fullName>LRK012: Inability to attract, retain or effectively deploy / train capable ANZ staff of required skill or experience</fullName>
+                <default>false</default>
+                <label>LRK012: Inability to attract, retain or effectively deploy / train capable ANZ staff of required skill or experience</label>
+            </value>
+            <value>
+                <fullName>LRK013: Inadequate workplace health, safety or wellbeing provided to ANZ staff or the public</fullName>
+                <default>false</default>
+                <label>LRK013: Inadequate workplace health, safety or wellbeing provided to ANZ staff or the public</label>
+            </value>
+            <value>
+                <fullName>LRK014: Inadequate diversity and/or anti-discrimination practices within the workplace</fullName>
+                <default>false</default>
+                <label>LRK014: Inadequate diversity and/or anti-discrimination practices within the workplace</label>
+            </value>
+            <value>
+                <fullName>LRK015: Mismanagement of client/customer/ member funds entrusted to ANZ</fullName>
+                <default>false</default>
+                <label>LRK015: Mismanagement of client/customer/ member funds entrusted to ANZ</label>
+            </value>
+            <value>
+                <fullName>LRK016: Inadequate identification of client/customers and their needs in order to provide suitable products or services</fullName>
+                <default>false</default>
+                <label>LRK016: Inadequate identification of client/customers and their needs in order to provide suitable products or services</label>
+            </value>
+            <value>
+                <fullName>LRK017: Inadequate disclosure of required information to clients/customers</fullName>
+                <default>false</default>
+                <label>LRK017: Inadequate disclosure of required information to clients/customers</label>
+            </value>
+            <value>
+                <fullName>LRK018: Inadequate protection of client/customer/ employee data, including misuse of restricted / confidential or commercially sensitive information</fullName>
+                <default>false</default>
+                <label>LRK018: Inadequate protection of client/customer/ employee data, including misuse of restricted / confidential or commercially sensitive information</label>
+            </value>
+            <value>
+                <fullName>LRK019: Inappropriate sales practices to maximise sales rather than in client/customers best interests</fullName>
+                <default>false</default>
+                <label>LRK019: Inappropriate sales practices to maximise sales rather than in client/customers best interests</label>
+            </value>
+            <value>
+                <fullName>LRK020: Inappropriate client/customer lending practices</fullName>
+                <default>false</default>
+                <label>LRK020: Inappropriate client/customer lending practices</label>
+            </value>
+            <value>
+                <fullName>LRK021: Anti-competitive practices / behaviour and/or market manipulation</fullName>
+                <default>false</default>
+                <label>LRK021: Anti-competitive practices / behaviour and/or market manipulation</label>
+            </value>
+            <value>
+                <fullName>LRK022: Unethical, improper business or unconscionable trade/market practices</fullName>
+                <default>false</default>
+                <label>LRK022: Unethical, improper business or unconscionable trade/market practices</label>
+            </value>
+            <value>
+                <fullName>LRK023: Insider trading activities (on ANZs account)</fullName>
+                <default>false</default>
+                <label>LRK023: Insider trading activities (on ANZs account)</label>
+            </value>
+            <value>
+                <fullName>LRK024: Activities are undertaken outside of relevant banking or regulatory license agreements including failure to obtain relevant licenses</fullName>
+                <default>false</default>
+                <label>LRK024: Activities are undertaken outside of relevant banking or regulatory license agreements including failure to obtain relevant licenses</label>
+            </value>
+            <value>
+                <fullName>LRK025: Involvement in money laundering / terrorist financing activities</fullName>
+                <default>false</default>
+                <label>LRK025: Involvement in money laundering / terrorist financing activities</label>
+            </value>
+            <value>
+                <fullName>LRK026: Incorrect advisory process provided to client/customer</fullName>
+                <default>false</default>
+                <label>LRK026: Incorrect advisory process provided to client/customer</label>
+            </value>
+            <value>
+                <fullName>LRK027: Product defects due to inadequate product design, delivery or maintenance.</fullName>
+                <default>false</default>
+                <label>LRK027: Product defects due to inadequate product design, delivery or maintenance.</label>
+            </value>
+            <value>
+                <fullName>LRK028: Model error due to inadequate model design, delivery or operation</fullName>
+                <default>false</default>
+                <label>LRK028: Model error due to inadequate model design, delivery or operation</label>
+            </value>
+            <value>
+                <fullName>LRK029: Exceeding customer/client exposure limits</fullName>
+                <default>false</default>
+                <label>LRK029: Exceeding customer/client exposure limits</label>
+            </value>
+            <value>
+                <fullName>LRK030: Damage to physical assets due to natural disaster or disruption event</fullName>
+                <default>false</default>
+                <label>LRK030: Damage to physical assets due to natural disaster or disruption event</label>
+            </value>
+            <value>
+                <fullName>LRK031: Business disruption due to natural disaster or disruption event</fullName>
+                <default>false</default>
+                <label>LRK031: Business disruption due to natural disaster or disruption event</label>
+            </value>
+            <value>
+                <fullName>LRK032: Business disruption due to hardware or software failure</fullName>
+                <default>false</default>
+                <label>LRK032: Business disruption due to hardware or software failure</label>
+            </value>
+            <value>
+                <fullName>LRK033: Business disruption due to external telecommunications or utility failure</fullName>
+                <default>false</default>
+                <label>LRK033: Business disruption due to external telecommunications or utility failure</label>
+            </value>
+            <value>
+                <fullName>LRK034: Transaction error due to human processing error</fullName>
+                <default>false</default>
+                <label>LRK034: Transaction error due to human processing error</label>
+            </value>
+            <value>
+                <fullName>LRK035: Transaction errors due to system development, programming or logical error</fullName>
+                <default>false</default>
+                <label>LRK035: Transaction errors due to system development, programming or logical error</label>
+            </value>
+            <value>
+                <fullName>LRK036: Inadequate maintenance of transaction and/or product reference data</fullName>
+                <default>false</default>
+                <label>LRK036: Inadequate maintenance of transaction and/or product reference data</label>
+            </value>
+            <value>
+                <fullName>LRK037: Inadequate management of collateral / security</fullName>
+                <default>false</default>
+                <label>LRK037: Inadequate management of collateral / security</label>
+            </value>
+            <value>
+                <fullName>LRK038: Inadequate preparation, collection or maintenance of client/customer and legal documentation</fullName>
+                <default>false</default>
+                <label>LRK038: Inadequate preparation, collection or maintenance of client/customer and legal documentation</label>
+            </value>
+            <value>
+                <fullName>LRK039: Inadequate onboarding of client/customer</fullName>
+                <default>false</default>
+                <label>LRK039: Inadequate onboarding of client/customer</label>
+            </value>
+            <value>
+                <fullName>LRK040: Unauthorised access granted to client/customer accounts</fullName>
+                <default>false</default>
+                <label>LRK040: Unauthorised access granted to client/customer accounts</label>
+            </value>
+            <value>
+                <fullName>LRK041: Inadequate maintenance of client/customer electronic records</fullName>
+                <default>false</default>
+                <label>LRK041: Inadequate maintenance of client/customer electronic records</label>
+            </value>
+            <value>
+                <fullName>LRK042: Negligent loss or damage of client/customer assets</fullName>
+                <default>false</default>
+                <label>LRK042: Negligent loss or damage of client/customer assets</label>
+            </value>
+            <value>
+                <fullName>LRK043: Trade Counterparty misperformance or dispute</fullName>
+                <default>false</default>
+                <label>LRK043: Trade Counterparty misperformance or dispute</label>
+            </value>
+            <value>
+                <fullName>LRK044: Vendor / supplier / outsource provider dispute</fullName>
+                <default>false</default>
+                <label>LRK044: Vendor / supplier / outsource provider dispute</label>
+            </value>
+            <value>
+                <fullName>LRK045: Vendor / supplier / outsourced provider misperformance or permanent loss</fullName>
+                <default>false</default>
+                <label>LRK045: Vendor / supplier / outsourced provider misperformance or permanent loss</label>
+            </value>
+            <value>
+                <fullName>LRK046: Failure to meet external mandatory reporting, disclosure and approval obligations</fullName>
+                <default>false</default>
+                <label>LRK046: Failure to meet external mandatory reporting, disclosure and approval obligations</label>
+            </value>
+            <value>
+                <fullName>LRK047: Dealing in a manner that contravenes global economic and trade sanctions</fullName>
+                <default>false</default>
+                <label>LRK047: Dealing in a manner that contravenes global economic and trade sanctions</label>
+            </value>
+            <value>
+                <fullName>LRK048: Failure to establish mandated governance and/or prudential arrangements</fullName>
+                <default>false</default>
+                <label>LRK048: Failure to establish mandated governance and/or prudential arrangements</label>
+            </value>
+            <value>
+                <fullName>LRK049: Inadequate customer/client/member complaints management</fullName>
+                <default>false</default>
+                <label>LRK049: Inadequate customer/client/member complaints management</label>
+            </value>
+            <value>
+                <fullName>LRK050: Failure to actively identify / manage a conflict of interest</fullName>
+                <default>false</default>
+                <label>LRK050: Failure to actively identify / manage a conflict of interest</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

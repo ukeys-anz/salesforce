@@ -4,6 +4,7 @@
     <active>true</active>
     <compactLayoutAssignment>IDR_System_Task_Compact_Layout</compactLayoutAssignment>
     <label>IDR System Task</label>
+  
     <picklistValues>
         <picklist>Priority</picklist>
         <values>
@@ -34,6 +35,48 @@
         <picklist>Subject</picklist>
         <values>
             <fullName>Email Attachment Failure</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Task_Sub_Type__c</picklist>
+        <values>
+            <fullName>Determination</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Information request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA%2FPV%2FRecommendation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reg response</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TCC</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type</picklist>
+        <values>
+            <fullName>AFCA Due Date</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>General Task%2F Reminder</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Letter QC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pend Case</fullName>
             <default>false</default>
         </values>
     </picklistValues>
