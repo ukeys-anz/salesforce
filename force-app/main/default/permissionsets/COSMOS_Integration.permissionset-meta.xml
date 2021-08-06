@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Provides access to MuleSoft to extract Fraud case fields on behalf of xDE. Read only access for ANZx users, view only the fields used in Fraud.</description>
+    <description>Provides access to MuleSoft to extract Fraud case fields on behalf of xDE. Read only access, view only the fields used in Fraud.</description>
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.AccountId</field>
@@ -280,25 +280,6 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>Case</object>
+        <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
-    <recordTypeVisibilities>
-        <recordType>Case.Fraud</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
-        <recordType>Case.Identity</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
-        <recordType>Case.KYC_QA</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
-        <recordType>Case.Recipient_Mule</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
-        <recordType>Case.Scam</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
 </PermissionSet>
