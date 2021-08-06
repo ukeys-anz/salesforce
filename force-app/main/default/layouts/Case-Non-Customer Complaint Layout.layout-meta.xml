@@ -21,7 +21,6 @@
                 <field>IDR_NC_Is_Consent_Obtained__c</field>
             </layoutItems>
         </layoutColumns>
-        <layoutColumns/>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
     <layoutSections>
