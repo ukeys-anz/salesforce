@@ -3,6 +3,11 @@
     <description>Provides access to MuleSoft to extract Fraud case fields on behalf of xDE. Read only access, view only the fields used in Fraud.</description>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.OCV_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.AccountId</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -273,6 +278,15 @@
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>COSMOS Integration</label>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>Account</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
     <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
