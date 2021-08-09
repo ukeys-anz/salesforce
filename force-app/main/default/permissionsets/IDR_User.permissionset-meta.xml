@@ -132,6 +132,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.IDR_AFCA_Due_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.IDR_Account_Card_Policy_Number_2__c</field>
         <readable>true</readable>
     </fieldPermissions>
