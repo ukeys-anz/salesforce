@@ -26,6 +26,66 @@
                 <default>false</default>
                 <label>No</label>
             </value>
+            <value>
+                <fullName>3</fullName>
+                <default>false</default>
+                <label>Case Management Level 1</label>
+            </value>
+            <value>
+                <fullName>4</fullName>
+                <default>false</default>
+                <label>Case Management Level 2</label>
+            </value>
+            <value>
+                <fullName>5</fullName>
+                <default>false</default>
+                <label>Confirm Resolution With Complainant</label>
+            </value>
+            <value>
+                <fullName>6</fullName>
+                <default>false</default>
+                <label>Decision</label>
+            </value>
+            <value>
+                <fullName>7</fullName>
+                <default>false</default>
+                <label>Fast Track - Case Management Level 1</label>
+            </value>
+            <value>
+                <fullName>8</fullName>
+                <default>false</default>
+                <label>Fast Track - Decision</label>
+            </value>
+            <value>
+                <fullName>9</fullName>
+                <default>false</default>
+                <label>Fast Track - Preliminary View</label>
+            </value>
+            <value>
+                <fullName>10</fullName>
+                <default>false</default>
+                <label>IDR Referral</label>
+            </value>
+            <value>
+                <fullName>11</fullName>
+                <default>false</default>
+                <label>Post-IDR Referral</label>
+            </value>
+            <value>
+                <fullName>12</fullName>
+                <default>false</default>
+                <label>Preliminary View</label>
+            </value>
+            <value>
+                <fullName>13</fullName>
+                <default>false</default>
+                <label>Rules review</label>
+            </value>
+            <value>
+                <fullName>14</fullName>
+                <default>false</default>
+                <label>Workflow</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
