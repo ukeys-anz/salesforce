@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <sorted>false</sorted>
-    <standardValue>
-        <fullName>Integrity_Uncontrolled</fullName>
-        <default>false</default>
-        <label>Integrity - Uncontrolled</label>
-    </standardValue>
+    <sorted>true</sorted>
     <standardValue>
         <fullName>Integrity_Accurate</fullName>
         <default>false</default>
         <label>Integrity - Accurate</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Integrity_Highly_Trusted</fullName>
+        <default>false</default>
+        <label>Integrity - Highly Trusted</label>
     </standardValue>
     <standardValue>
         <fullName>Integrity_Trusted</fullName>
@@ -17,9 +17,14 @@
         <label>Integrity - Trusted</label>
     </standardValue>
     <standardValue>
-        <fullName>Integrity_Highly_Trusted</fullName>
+        <fullName>Integrity_Uncontrolled</fullName>
         <default>false</default>
-        <label>Integrity - Highly Trusted</label>
+        <label>Integrity - Uncontrolled</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Privacy_Non_Personal_Information</fullName>
+        <default>false</default>
+        <label>Privacy - Non Personal Information</label>
     </standardValue>
     <standardValue>
         <fullName>Privacy_Personal_Information</fullName>
@@ -32,24 +37,9 @@
         <label>Privacy - Sensitive Personal Information</label>
     </standardValue>
     <standardValue>
-        <fullName>Privacy_Non_Personal_Information</fullName>
+        <fullName>Source_Azure</fullName>
         <default>false</default>
-        <label>Privacy - Non Personal Information</label>
-    </standardValue>
-    <standardValue>
-        <fullName>Source_Caps</fullName>
-        <default>false</default>
-        <label>Source - CAPS</label>
-    </standardValue>
-    <standardValue>
-        <fullName>Source_Zafin</fullName>
-        <default>false</default>
-        <label>Source - Zafin</label>
-    </standardValue>
-    <standardValue>
-        <fullName>Source_CTM</fullName>
-        <default>false</default>
-        <label>Source - CTM</label>
+        <label>Source - Azure</label>
     </standardValue>
     <standardValue>
         <fullName>Source_BTR_CIS</fullName>
@@ -57,24 +47,19 @@
         <label>Source - BTR-CIS</label>
     </standardValue>
     <standardValue>
+        <fullName>Source_Caps</fullName>
+        <default>false</default>
+        <label>Source - CAPS</label>
+    </standardValue>
+    <standardValue>
         <fullName>Source_COSMOS</fullName>
         <default>false</default>
         <label>Source - COSMOS</label>
     </standardValue>
     <standardValue>
-        <fullName>Source_OCV</fullName>
+        <fullName>Source_CTM</fullName>
         <default>false</default>
-        <label>Source - OCV</label>
-    </standardValue>
-    <standardValue>
-        <fullName>Source_Twilio</fullName>
-        <default>false</default>
-        <label>Source - Twilio</label>
-    </standardValue>
-    <standardValue>
-        <fullName>Source_Salesforce</fullName>
-        <default>false</default>
-        <label>Source - Salesforce</label>
+        <label>Source - CTM</label>
     </standardValue>
     <standardValue>
         <fullName>Source_Fabric</fullName>
@@ -82,8 +67,28 @@
         <label>Source - Fabric</label>
     </standardValue>
     <standardValue>
-        <fullName>Source_Azure</fullName>
+        <fullName>Source_myTrailhead</fullName>
         <default>false</default>
-        <label>Source - Azure</label>
+        <label>Source - myTrailhead</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Source_OCV</fullName>
+        <default>false</default>
+        <label>Source - OCV</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Source_Salesforce</fullName>
+        <default>false</default>
+        <label>Source - Salesforce</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Source_Twilio</fullName>
+        <default>false</default>
+        <label>Source - Twilio</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Source_Zafin</fullName>
+        <default>false</default>
+        <label>Source - Zafin</label>
     </standardValue>
 </StandardValueSet>

@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Fraud_Customer_Photo_Modified__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Privacy - Non Personal Information;Integrity - Trusted;Source - Salesforce</complianceGroup>
+    <complianceGroup>Privacy_Non_Personal_Information;Integrity_Trusted;Source_Salesforce</complianceGroup>
     <description>Confirm:
 
 Customer&apos;s photograph on the identity document is not superimposed or replaced with another person&apos;s photograph.</description>

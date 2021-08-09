@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_Subsequent_Issue__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Trusted</complianceGroup>
+    <complianceGroup>Integrity_Trusted</complianceGroup>
     <externalId>false</externalId>
     <label>Subsequent Issue Type</label>
     <required>false</required>
