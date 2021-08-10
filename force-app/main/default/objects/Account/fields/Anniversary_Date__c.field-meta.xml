@@ -3,9 +3,9 @@
     <fullName>Anniversary_Date__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Personal_Information</complianceGroup>
-    <description>Date customer joined</description>
+    <description>Date the customer joined ANZ Plus</description>
     <externalId>false</externalId>
-    <inlineHelpText>Customer Joining Date</inlineHelpText>
+    <inlineHelpText>Date the customer joined ANZ Plus</inlineHelpText>
     <label>Anniversary Date</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

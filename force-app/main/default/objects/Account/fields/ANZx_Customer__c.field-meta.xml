@@ -4,9 +4,9 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Source_OCV;Privacy_Personal_Information</complianceGroup>
     <defaultValue>false</defaultValue>
-    <description>Customer has an ANZx account</description>
+    <description>Customer has ANZ Plus account(s)</description>
     <externalId>false</externalId>
-    <inlineHelpText>Customer has an ANZx account</inlineHelpText>
+    <inlineHelpText>Customer has ANZ Plus account(s)</inlineHelpText>
     <label>ANZx Customer</label>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
