@@ -333,6 +333,13 @@ public with sharing class IDREmailServiceTest {
         env
       );
       Test.stopTest();
+      //Asserts
+      List<EmailMessage> emailMessageList = [
+        SELECT parentId
+        FROM EmailMessage
+        LIMIT 1
+      ];
+      System.assertEquals(0, emailMessageList.size());
     }
   }
 
@@ -373,6 +380,13 @@ public with sharing class IDREmailServiceTest {
       idremserObj.handleInboundEmail(email, env);
 
       Test.stopTest();
+      //Asserts
+      List<EmailMessage> emailMessageList = [
+        SELECT parentId
+        FROM EmailMessage
+        LIMIT 1
+      ];
+      System.assertEquals(0, emailMessageList.size());
     }
   }
 
@@ -441,6 +455,9 @@ public with sharing class IDREmailServiceTest {
         env
       );
       Test.stopTest();
+      //Asserts
+      List<ContentVersion> conVerList = [SELECT Id FROM ContentVersion LIMIT 1];
+      System.assertEquals(0, conVerList.size());
     }
   }
 
@@ -507,6 +524,9 @@ public with sharing class IDREmailServiceTest {
         env
       );
       Test.stopTest();
+      //Asserts
+      List<ContentVersion> conVerList = [SELECT Id FROM ContentVersion LIMIT 1];
+      System.assertEquals(0, conVerList.size());
     }
   }
 
@@ -516,6 +536,9 @@ public with sharing class IDREmailServiceTest {
     Test.startTest();
     IDREmailServiceHelper.updateCaseWithQueue(c);
     Test.stopTest();
+    //Asserts
+    List<Case> caseList = [SELECT Id FROM Case LIMIT 1];
+    System.assertEquals(0, caseList.size());
   }
 
   @IsTest
@@ -556,6 +579,13 @@ public with sharing class IDREmailServiceTest {
       idremserObj.handleInboundEmail(email, env);
 
       Test.stopTest();
+      //Asserts
+      List<EmailMessage> emailMessageList = [
+        SELECT parentId
+        FROM EmailMessage
+        LIMIT 1
+      ];
+      System.assertEquals(0, emailMessageList.size());
     }
   }
 }
