@@ -10,6 +10,8 @@ global class ANZAzureADAuthProvider extends Auth.AuthProviderPluginClass {
   public static final String FIELD_AUTH_URL = 'Auth_URL__c';
   public static final String FIELD_CID = 'clientID__c';
   public static final String FIELD_USER_ENDPOINT = 'UserEndpoint__c';
+  public static final String PROMP = 'select_account'; // Optional, indicates the type of user interaction that is required. If we do not specify the default is "none" and the user isn't presented with any interactive prompt whatsoever.
+                                                // If the request can't be completed silently via single-sign on, the Microsoft identity platform will return an interaction_required error.
 
   public String redirectUrl; // use this URL for the endpoint that the authentication provider calls back to for configuration
   private String key;
@@ -52,7 +54,8 @@ global class ANZAzureADAuthProvider extends Auth.AuthProviderPluginClass {
       redirectUrl +
       '&state=' +
       stateToPropagate +
-      '&scope=openid+offline_access+profile';
+      '&scope=openid+offline_access+profile' + 
+      '&prompt=' + PROMP;
     return new PageReference(url);
   }
 
