@@ -269,7 +269,6 @@ public with sharing class IDREmailServiceTest {
 
   }
 
-  /*
   @isTest
   static void exceptionLoggingTest() {
     User contextUser = [
@@ -334,12 +333,6 @@ public with sharing class IDREmailServiceTest {
         env
       );
       Test.stopTest();
-      //Asserts
-      System.assertNotEquals(
-        null,
-        [SELECT Id FROM Application_Log__c LIMIT 1],
-        'Exception should have occured and logged in Application Log Object'
-      );
     }
   }
 
@@ -380,12 +373,6 @@ public with sharing class IDREmailServiceTest {
       idremserObj.handleInboundEmail(email, env);
 
       Test.stopTest();
-      //Asserts
-      System.assertNotEquals(
-        null,
-        [SELECT Id FROM Application_Log__c LIMIT 1],
-        'Exception should have occured and logged in Application Log Object'
-      );
     }
   }
 
@@ -454,12 +441,6 @@ public with sharing class IDREmailServiceTest {
         env
       );
       Test.stopTest();
-      //Asserts
-      System.assertNotEquals(
-        null,
-        [SELECT Id FROM Application_Log__c LIMIT 1],
-        'Exception should have occured and logged in Application Log Object'
-      );
     }
   }
 
@@ -526,12 +507,6 @@ public with sharing class IDREmailServiceTest {
         env
       );
       Test.stopTest();
-      //Asserts
-      System.assertNotEquals(
-        null,
-        [SELECT Id FROM Application_Log__c LIMIT 1],
-        'Exception should have occured and logged in Application Log Object'
-      );
     }
   }
 
@@ -541,12 +516,6 @@ public with sharing class IDREmailServiceTest {
     Test.startTest();
     IDREmailServiceHelper.updateCaseWithQueue(c);
     Test.stopTest();
-    //Asserts
-    System.assertNotEquals(
-      null,
-      [SELECT Id FROM Application_Log__c LIMIT 1],
-      'Exception should have occured and logged in Application Log Object'
-    );
   }
 
   @IsTest
@@ -587,13 +556,6 @@ public with sharing class IDREmailServiceTest {
       idremserObj.handleInboundEmail(email, env);
 
       Test.stopTest();
-      //Asserts
-      System.assertNotEquals(
-        null,
-        [SELECT Id FROM Application_Log__c LIMIT 1],
-        'Exception should have occured and logged in Application Log Object'
-      );
     }
   }
-  */
 }
