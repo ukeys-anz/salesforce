@@ -6,7 +6,7 @@
     <defaultValue>false</defaultValue>
     <description>Checkbox if the person is an employee</description>
     <externalId>false</externalId>
-    <label>Employee Indicator</label>
+    <label>ANZ Employee</label>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <type>Checkbox</type>
