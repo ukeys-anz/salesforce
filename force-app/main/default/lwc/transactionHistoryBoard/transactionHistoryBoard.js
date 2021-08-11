@@ -91,7 +91,11 @@ export default class TransactionHistoryBoard extends LightningElement {
     return this.links && this.links.next && this.links.next.href ? true : false;
   }
 
-  fetchTransactions(isSearch = false, startDateString = "", endDateString = "") {
+  fetchTransactions(
+    isSearch = false,
+    startDateString = "",
+    endDateString = ""
+  ) {
     //This check here is to prevent Salesforce from triggering
     //the API and appending duplicate transactions into our list
     //ie: modifying the financial account record triggers the API
@@ -100,7 +104,7 @@ export default class TransactionHistoryBoard extends LightningElement {
       this.loading = false;
       return;
     }
-    
+
     getTransactions({
       ocvId: this.ocvId,
       accountNumber: this.accountNumber,
@@ -344,7 +348,7 @@ export default class TransactionHistoryBoard extends LightningElement {
   handleSearch() {
     if (this.startDate && this.endDate) {
       this.loading = true;
-      
+
       //Create dates based off the user selection
       let startDate = this.startDate + " 00:00:00";
       let endDate = this.endDate + " 23:59:59";
@@ -449,5 +453,28 @@ export default class TransactionHistoryBoard extends LightningElement {
 
   closeWarning() {
     this.showWarning = false;
+  }
+
+  // Get date object
+  getDateObject(localTimeString) {
+    let dt = new Date(localTimeString);
+    let transactionDateObject = new Date(
+      dt.getUTCFullYear(),
+      dt.getUTCMonth(),
+      dt.getUTCDate(),
+      dt.getUTCHours(),
+      dt.getUTCMinutes(),
+      dt.getUTCSeconds()
+    );
+    return transactionDateObject;
+  }
+
+  // Compare date object
+  isSameDate(date1, date2) {
+    return (
+      date1.getDate() == date2.getDate() &&
+      date1.getMonth() == date2.getMonth() &&
+      date1.getFullYear() == date2.getFullYear()
+    );
   }
 }
