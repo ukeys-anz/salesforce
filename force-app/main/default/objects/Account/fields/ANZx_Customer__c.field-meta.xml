@@ -7,7 +7,7 @@
     <description>Customer has ANZ Plus account(s)</description>
     <externalId>false</externalId>
     <inlineHelpText>Customer has ANZ Plus account(s)</inlineHelpText>
-    <label>ANZx Customer</label>
+    <label>ANZ Plus Customer</label>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <type>Checkbox</type>
