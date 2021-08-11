@@ -18,6 +18,7 @@ public with sharing class TransactionHistoryModel extends CalloutModel {
   public List<Transactions> transactions;
   @AuraEnabled
   public Links links;
+  public static final String TIMEZONE = 'Australia/Sydney';
 
   /**
    * @description the bsb and account number of the transaction
@@ -94,7 +95,7 @@ public with sharing class TransactionHistoryModel extends CalloutModel {
     @AuraEnabled
     public String href;
   }
-   
+
   /**
    * @description transaction information
    */
@@ -109,9 +110,13 @@ public with sharing class TransactionHistoryModel extends CalloutModel {
      * @description transaction date in user's local time
      */
     @AuraEnabled
-    public String transactionDateLocal{
-      get{
-        return DateTimeUtils.getLocalTime(this.transactionDate);
+    public String transactionDateLocal {
+      get {
+        return DateTimeUtils.getLocalTime(
+          this.transactionDate,
+          TIMEZONE,
+          'yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\''
+        );
       }
     }
     @AuraEnabled
