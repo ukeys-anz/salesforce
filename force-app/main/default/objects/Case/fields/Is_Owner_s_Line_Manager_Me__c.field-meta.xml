@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Is_Owner_s_Line_Manager_Me__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Trusted;Source_Salesforce;Privacy - Personal Information</complianceGroup>
+    <complianceGroup>Integrity_Trusted;Source_Salesforce;Privacy_Personal_Information</complianceGroup>
     <description>Check if current user is the line manager of the record&#39;s owner.</description>
     <externalId>false</externalId>
     <formula>Owner:User.ManagerId = $User.Id</formula>

@@ -4,10 +4,6 @@ name: Scan
 # This workflow will only run on Pull Requests against master , develop and epic/*
 on:
   pull_request:
-    paths:
-      - "**/*.cls"
-      - "**/*.trigger"
-      - "**/*.apex"
     branches: [develop, master, epic/*]
 
 jobs:

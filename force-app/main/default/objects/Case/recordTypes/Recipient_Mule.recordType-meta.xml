@@ -971,6 +971,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Direct Entry</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>EFTPOS</fullName>
             <default>false</default>
         </values>
@@ -979,7 +983,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Pay Anyone</fullName>
+            <fullName>NPP</fullName>
             <default>false</default>
         </values>
     </picklistValues>

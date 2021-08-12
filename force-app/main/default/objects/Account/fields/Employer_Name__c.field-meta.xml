@@ -3,7 +3,7 @@
     <fullName>Employer_Name__c</fullName>
     <businessStatus>Active</businessStatus>
     <description>The name of the customer&apos;s employer</description>
-    <complianceGroup>Integrity - Accurate;Privacy - Personal Information</complianceGroup>
+    <complianceGroup>Integrity_Accurate;Privacy_Personal_Information</complianceGroup>
     <externalId>false</externalId>
     <label>Employer Name</label>
     <length>50</length>

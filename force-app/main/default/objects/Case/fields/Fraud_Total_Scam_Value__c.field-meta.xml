@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Fraud_Total_Scam_Value__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Privacy_Personal_Information;Source_Salesforce;Integrity - Trusted</complianceGroup>
+    <complianceGroup>Privacy_Personal_Information;Source_Salesforce;Integrity_Trusted</complianceGroup>
     <description>The total amount transacted on an account due to a scam event</description>
     <externalId>false</externalId>
     <label>Total Scam Value</label>
