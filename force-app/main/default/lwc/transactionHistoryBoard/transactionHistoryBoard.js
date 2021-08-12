@@ -163,21 +163,25 @@ export default class TransactionHistoryBoard extends LightningElement {
 
               //Slice the returned date time to get only the date
               currentTransaction.TransactionDate = currentTransaction.transactionDateLocal
-                ? currentTransaction.transactionDateLocal
+                ? this.getDateObject(currentTransaction.transactionDateLocal)
                 : "Unknown";
 
               if (i === 0) {
                 currentTransaction.showDateTitle = true;
-              } else if (
-                currentTransaction.TransactionDate.slice(0, 10) !==
-                this.fullTransactionList[i - 1].transactionDateLocal.slice(
-                  0,
-                  10
-                )
-              ) {
-                currentTransaction.showDateTitle = true;
               } else {
-                currentTransaction.showDateTitle = false;
+                let prevTransactionDate = this.getDateObject(
+                  this.fullTransactionList[i - 1].transactionDateLocal
+                );
+                if (
+                  this.isSameDate(
+                    currentTransaction.TransactionDate,
+                    prevTransactionDate
+                  )
+                ) {
+                  currentTransaction.showDateTitle = false;
+                } else {
+                  currentTransaction.showDateTitle = true;
+                }
               }
 
               //Apply odd or even for each item to determine background
@@ -455,10 +459,10 @@ export default class TransactionHistoryBoard extends LightningElement {
     this.showWarning = false;
   }
 
-  // Get date object
+  // Get date object from the local time string returned from Apex
   getDateObject(localTimeString) {
-    let dt = new Date(localTimeString);
-    let transactionDateObject = new Date(
+    let dt = new Date(localTimeString); // JS automatically convert a string into the local time when a new date object is created, causing double-converting
+    let transactionDateObject = new Date( // hence we are using UTC functions here to convert it back to the local time that was returned from Apex
       dt.getUTCFullYear(),
       dt.getUTCMonth(),
       dt.getUTCDate(),
@@ -469,7 +473,7 @@ export default class TransactionHistoryBoard extends LightningElement {
     return transactionDateObject;
   }
 
-  // Compare date object
+  // Compare date objects and check if both are the same date
   isSameDate(date1, date2) {
     return (
       date1.getDate() == date2.getDate() &&
