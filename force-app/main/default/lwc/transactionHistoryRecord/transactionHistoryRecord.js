@@ -5,9 +5,6 @@ import ExpandCollapseAll from "@salesforce/messageChannel/ListCollapseExpandAll_
 
 import { NavigationMixin } from "lightning/navigation";
 import canRaiseDispute from "@salesforce/customPermission/ANZx_Raise_Dispute";
-
-import TIMEZONE from "@salesforce/i18n/timeZone";
-
 export default class TransactionHistoryRecord extends NavigationMixin(
   LightningElement
 ) {
@@ -24,7 +21,6 @@ export default class TransactionHistoryRecord extends NavigationMixin(
   selectedDisputeRecordType;
   @api personContactId;
   @api financialAccountId;
-  userTimezone = TIMEZONE;
 
   connectedCallback() {
     this.subscription = subscribe(
@@ -130,9 +126,28 @@ export default class TransactionHistoryRecord extends NavigationMixin(
   }
 
   get transactionDate() {
-    //new date to ISO format to pass to lwc
-    let recordDate = new Date(this.transactionRecord.TransactionDate);
-    return recordDate;
+    // No time conversion is done here, purely transform the date object from parent to a string with the desired format
+    let options = {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    };
+    return this.transactionRecord.TransactionDate.toLocaleDateString(
+      "en-AU",
+      options
+    );
+  }
+
+  get transactionTime() {
+    // No time conversion is done here, purely transform the date object from parent to a string with the desired format
+    let options = { hour: "2-digit", minute: "2-digit" };
+    return (
+      this.transactionRecord.TransactionDate.toLocaleTimeString(
+        "en-AU",
+        options
+      ) + " AEST/AEDT"
+    );
   }
 
   handleDetailsToggle() {
