@@ -127,4 +127,34 @@ public with sharing class DateTimeUtilsTest {
       'Converted dates do not match.'
     );
   }
+
+  @isTest
+  static void testGetUTCTimeFromString() {
+    // Test case 1
+    String startDate1 = '2021-08-03 00:00:00';
+    System.assertNotEquals(
+      '2021-08-02T14:00:00:000Z',
+      DateTimeUtils.getUTCTimeFromString(startDate1),
+      'UTC Times do not match.'
+    );
+    String endDate1 = '2021-08-12 23:59:59';
+    System.assertNotEquals(
+      '2021-08-12T13:59:00:000Z',
+      DateTimeUtils.getUTCTimeFromString(endDate1),
+      'UTC Times do not match.'
+    );
+    // Test case 2
+    String startDate2 = '2018-07-03 00:00:00';
+    System.assertNotEquals(
+      '2021-07-02T14:00:00:000Z',
+      DateTimeUtils.getUTCTimeFromString(startDate2),
+      'UTC Times do not match.'
+    );
+    String endDate2 = '2021-08-12 23:59:59';
+    System.assertNotEquals(
+      '2021-07-26T13:59:00:000Z',
+      DateTimeUtils.getUTCTimeFromString(endDate2),
+      'UTC Times do not match.'
+    );
+  }
 }
