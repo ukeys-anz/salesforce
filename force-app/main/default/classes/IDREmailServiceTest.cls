@@ -269,7 +269,6 @@ public with sharing class IDREmailServiceTest {
 
   }
 
-  /*
   @isTest
   static void exceptionLoggingTest() {
     User contextUser = [
@@ -335,11 +334,12 @@ public with sharing class IDREmailServiceTest {
       );
       Test.stopTest();
       //Asserts
-      System.assertNotEquals(
-        null,
-        [SELECT Id FROM Application_Log__c LIMIT 1],
-        'Exception should have occured and logged in Application Log Object'
-      );
+      List<EmailMessage> emailMessageList = [
+        SELECT parentId
+        FROM EmailMessage
+        LIMIT 1
+      ];
+      System.assertEquals(0, emailMessageList.size());
     }
   }
 
@@ -381,11 +381,12 @@ public with sharing class IDREmailServiceTest {
 
       Test.stopTest();
       //Asserts
-      System.assertNotEquals(
-        null,
-        [SELECT Id FROM Application_Log__c LIMIT 1],
-        'Exception should have occured and logged in Application Log Object'
-      );
+      List<EmailMessage> emailMessageList = [
+        SELECT parentId
+        FROM EmailMessage
+        LIMIT 1
+      ];
+      System.assertEquals(0, emailMessageList.size());
     }
   }
 
@@ -455,11 +456,8 @@ public with sharing class IDREmailServiceTest {
       );
       Test.stopTest();
       //Asserts
-      System.assertNotEquals(
-        null,
-        [SELECT Id FROM Application_Log__c LIMIT 1],
-        'Exception should have occured and logged in Application Log Object'
-      );
+      List<ContentVersion> conVerList = [SELECT Id FROM ContentVersion LIMIT 1];
+      System.assertEquals(0, conVerList.size());
     }
   }
 
@@ -527,11 +525,8 @@ public with sharing class IDREmailServiceTest {
       );
       Test.stopTest();
       //Asserts
-      System.assertNotEquals(
-        null,
-        [SELECT Id FROM Application_Log__c LIMIT 1],
-        'Exception should have occured and logged in Application Log Object'
-      );
+      List<ContentVersion> conVerList = [SELECT Id FROM ContentVersion LIMIT 1];
+      System.assertEquals(0, conVerList.size());
     }
   }
 
@@ -542,11 +537,8 @@ public with sharing class IDREmailServiceTest {
     IDREmailServiceHelper.updateCaseWithQueue(c);
     Test.stopTest();
     //Asserts
-    System.assertNotEquals(
-      null,
-      [SELECT Id FROM Application_Log__c LIMIT 1],
-      'Exception should have occured and logged in Application Log Object'
-    );
+    List<Case> caseList = [SELECT Id FROM Case LIMIT 1];
+    System.assertEquals(0, caseList.size());
   }
 
   @IsTest
@@ -588,12 +580,12 @@ public with sharing class IDREmailServiceTest {
 
       Test.stopTest();
       //Asserts
-      System.assertNotEquals(
-        null,
-        [SELECT Id FROM Application_Log__c LIMIT 1],
-        'Exception should have occured and logged in Application Log Object'
-      );
+      List<EmailMessage> emailMessageList = [
+        SELECT parentId
+        FROM EmailMessage
+        LIMIT 1
+      ];
+      System.assertEquals(0, emailMessageList.size());
     }
   }
-  */
 }
