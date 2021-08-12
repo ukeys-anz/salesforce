@@ -69,6 +69,8 @@ public with sharing class DateTimeUtils {
   /**
    *@description Calculate local time based on user time zone.
    * @param utcDateTime UTC datetime to be converted to local time
+   * @param timezone the timezone used to convert datetime
+   * @param format the desired format for the converted datetime
    * @return datetime the local date time based on user's timezone
    */
   public static String getLocalTime(
@@ -76,7 +78,11 @@ public with sharing class DateTimeUtils {
     String timezone,
     String format
   ) {
-    if (utcDateTime != null) {
+    if (
+      utcDateTime != null &&
+      String.isNotBlank(timezone) &&
+      String.isNotBlank(format)
+    ) {
       return utcDateTime.format(format, timezone);
     }
     return null;
