@@ -18,7 +18,8 @@ public with sharing class TransactionHistoryModel extends CalloutModel {
   public List<Transactions> transactions;
   @AuraEnabled
   public Links links;
-  public static final String TIMEZONE = 'Australia/Sydney';
+  public static final String TIMEZONE = 'Australia/Sydney'; // According to AZNX-1314, all transactions to be aligned to Melbourne (AEST/AEDT) time as opposed to the coach’s local geographic time
+  // Salesforce only supports 'Australia/Sydney' which is the same timezone with Melbourne timezone
 
   /**
    * @description the bsb and account number of the transaction
