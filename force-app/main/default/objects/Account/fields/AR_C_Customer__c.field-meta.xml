@@ -4,9 +4,9 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Source_OCV;Privacy_Non_Personal_Information</complianceGroup>
     <defaultValue>false</defaultValue>
-    <description>Customer has an AR&amp;C account</description>
+    <description>Customer has AR&amp;C account(s)</description>
     <externalId>false</externalId>
-    <inlineHelpText>Customer has an AR&amp;C account</inlineHelpText>
+    <inlineHelpText>Customer has AR&amp;C account(s)</inlineHelpText>
     <label>AR&amp;C Customer</label>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
