@@ -50,6 +50,7 @@ public with sharing class IDRPendCaseTaskRemindersHandler {
           caseMap.get(t.WhatId)?.CaseNumber +
           ' is Overdue.';
       }
+      recipientList.remove(null);
       IDRBankerNotificationWrapper wrapper = new IDRBankerNotificationWrapper(
         t,
         new List<Id>(recipientList),
