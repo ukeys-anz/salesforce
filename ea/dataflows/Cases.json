@@ -2,8 +2,12 @@
   "nodes": {
     "CasesOutput": {
       "action": "register",
-      "parameters": { "label": "Cases w/Duration", "name": "cases_duration" },
-      "sources": ["AddUserRoleInfo"]
+      "parameters": {
+        "label": "Cases w/Duration",
+        "name": "cases_duration",
+        "rowLevelSecurityFilter": "false"
+      },
+      "sources": ["MergeLastClosedData"]
     },
     "CaseTypePickList": {
       "action": "sobjectDigest",
@@ -30,6 +34,10 @@
         "object": "Product2"
       }
     },
+    "DigestLastTouchedData": {
+      "action": "dataset",
+      "parameters": { "name": "CaseLastTouchedData" }
+    },
     "CalcHasBeenTransferred": {
       "action": "computeExpression",
       "parameters": {
@@ -45,6 +53,17 @@
         "mergeWithSource": true
       },
       "sources": ["AppendCount"]
+    },
+    "MergeLastClosedData": {
+      "action": "augment",
+      "parameters": {
+        "leftKey": ["Id"],
+        "operation": "LookupSingleValue",
+        "relationship": "LastClosedBy",
+        "rightKey": ["CaseId"],
+        "rightSelect": ["LatestClosedDate", "User.FirstName", "User.LastName"]
+      },
+      "sources": ["AddUserRoleInfo", "DigestLastTouchedData"]
     },
     "AppendCount": {
       "action": "augment",
