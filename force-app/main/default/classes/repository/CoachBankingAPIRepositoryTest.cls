@@ -236,6 +236,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
   static void transactionHistoryValidResponse() {
     Test.startTest();
     TransactionHistoryModel transactionModel = CoachBankingAPIRepository.getTransactionHistoryAura(
+      '',
       '1111',
       '000000000',
       '2018-07-03 00:00:00',
@@ -290,6 +291,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
   static void transactionHistoryAuraResponse() {
     Test.startTest();
     TransactionHistoryModel transactionModel = CoachBankingAPIRepository.getTransactionHistoryAura(
+      '',
       '1111',
       '000000000',
       '2018-07-03 00:00:00',

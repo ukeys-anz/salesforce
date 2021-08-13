@@ -110,13 +110,16 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
   @SuppressWarnings('PMD.ExcessiveParameterList')
   @AuraEnabled(cacheable=false)
   public static TransactionHistoryModel getTransactionHistoryAura(
+    String paramUrl,
     String ocvId,
     String accountNumber,
     String startDate,
     String endDate
   ) {
     CoachBankingAPIRepository coachapi = new CoachBankingAPIRepository();
-    String paramUrl = getTransactionParamUrl(startDate, endDate, accountNumber);
+    paramUrl = String.isBlank(paramUrl)
+      ? getTransactionParamUrl(startDate, endDate, accountNumber)
+      : paramUrl;
     try {
       TransactionHistoryModel responseModel = coachapi.getTransactionHistory(
         ocvId,

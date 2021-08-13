@@ -92,6 +92,7 @@ export default class TransactionHistoryBoard extends LightningElement {
   }
 
   fetchTransactions(
+    paramUrl = "",
     isSearch = false,
     startDateString = "",
     endDateString = ""
@@ -100,7 +101,12 @@ export default class TransactionHistoryBoard extends LightningElement {
     //the API and appending duplicate transactions into our list
     //ie: modifying the financial account record triggers the API
     //and appends the initial transaction results onto our list
-    if (this.transactionList.length > 0 && !startDateString && !endDateString) {
+    if (
+      this.transactionList.length > 0 &&
+      !startDateString &&
+      !endDateString &&
+      !paramUrl
+    ) {
       this.loading = false;
       return;
     }
@@ -109,7 +115,8 @@ export default class TransactionHistoryBoard extends LightningElement {
       ocvId: this.ocvId,
       accountNumber: this.accountNumber,
       startDate: startDateString,
-      endDate: endDateString
+      endDate: endDateString,
+      paramUrl: paramUrl
     })
       .then((result) => {
         if (result) {
@@ -357,7 +364,7 @@ export default class TransactionHistoryBoard extends LightningElement {
       let startDate = this.startDate + " 00:00:00";
       let endDate = this.endDate + " 23:59:59";
 
-      this.fetchTransactions(true, startDate, endDate);
+      this.fetchTransactions("", true, startDate, endDate);
     }
   }
 
