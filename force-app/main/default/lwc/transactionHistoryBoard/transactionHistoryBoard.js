@@ -62,6 +62,8 @@ export default class TransactionHistoryBoard extends LightningElement {
   transactionTypeDisputeIdMap = {};
   personContactId = "";
   showWarning = true;
+  lastDateInPayload;
+  payloadCounter = 0;
 
   @wire(MessageContext)
   messageContext;
@@ -124,7 +126,7 @@ export default class TransactionHistoryBoard extends LightningElement {
           this.fullTransactionList = result.transactions;
           this.links = result.links;
           let updatedFullList = [];
-
+          console.log("###TRANS_LIST: " + this.fullTransactionList);
           if (this.fullTransactionList) {
             for (let i = 0; i < this.fullTransactionList.length; i++) {
               let currentTransaction = { ...this.fullTransactionList[i] };
@@ -168,26 +170,60 @@ export default class TransactionHistoryBoard extends LightningElement {
                 ? transactionStatusMapping[currentTransaction.status]
                 : "Unknown";
 
-              //Slice the returned date time to get only the date
-              currentTransaction.TransactionDate = currentTransaction.transactionDateLocal
+              //Convert into a date object for comparison
+              currentTransaction.TransactionDate = currentTransaction.transactionDateLocal // The date of the current transaction
                 ? this.getDateObject(currentTransaction.transactionDateLocal)
                 : "Unknown";
 
-              if (i === 0) {
-                currentTransaction.showDateTitle = true;
-              } else {
-                let prevTransactionDate = this.getDateObject(
-                  this.fullTransactionList[i - 1].transactionDateLocal
-                );
-                if (
-                  this.areSameDate(
+              if (i === this.fullTransactionList.length - 1) {
+                this.lastDateInPayload = currentTransaction.TransactionDate; // The date of the last transaction in the current payload
+              }
+
+              let prevTransactionDate =
+                i > 0
+                  ? this.getDateObject(
+                      this.fullTransactionList[i - 1].transactionDateLocal // The date of the previous transaction
+                    )
+                  : "";
+
+              /* 
+              To prevent the issue where the first transaction the next payload has the same date as the last transaction in the previous payload and
+              show its date title again (date title showing twice), we will keep track of the payload count and the last date in the previous payload for comparison
+              More details below
+              */
+              if (this.payloadCounter === 0) {
+                // If this is first payload
+                if (i === 0) {
+                  currentTransaction.showDateTitle = true; // And this is the first transaction, show date title
+                } else {
+                  currentTransaction.showDateTitle = this.areSameDate(
+                    // If this is not the first transaction in the payload, check if the date == the previous transaction's date
                     currentTransaction.TransactionDate,
                     prevTransactionDate
                   )
-                ) {
-                  currentTransaction.showDateTitle = false;
+                    ? false // If the same, do not show date title
+                    : true; // If not, show date title
+                }
+              } else {
+                // If this is NOT the first payload
+                if (i === 0) {
+                  // And this is the fist transaction in the payload
+                  currentTransaction.showDateTitle = this.areSameDate(
+                    // Check if the transaction's date == the last date in the previous payload
+                    currentTransaction.TransactionDate,
+                    this.lastDateInPayload
+                  )
+                    ? false // If the same, do not show date title
+                    : true; // If not, show date title
                 } else {
-                  currentTransaction.showDateTitle = true;
+                  // If this is NOT the first transaction in the payload
+                  currentTransaction.showDateTitle = this.areSameDate(
+                    // Check if the transaction's date == the previous transaction's date
+                    currentTransaction.TransactionDate,
+                    prevTransactionDate
+                  )
+                    ? false // If the same, do not show date title
+                    : true; // If not, show date title
                 }
               }
 
@@ -246,7 +282,7 @@ export default class TransactionHistoryBoard extends LightningElement {
             this.transactionList.push(e);
           });
         }
-
+        this.payloadCounter++;
         this.loading = false;
       })
       .catch((error) => {
