@@ -100,6 +100,7 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
    * @description  The getTransactionHistory is the method to make the Http callout to Mulesoft to fetch the transaction history details from Fabric.
    * {@link Lib_SystemLog.logAPIError} is called when ever the call fails to Fabric to have the logs recorded for monitoring.
    *
+   * @param paramUrl Used to fetch the next lot of transactions or search by date
    * @param ocvId customer id
    * @param accountNumber Account number for which we want to fetch the transactions
    * @param startDate start date of the transaction search filter
