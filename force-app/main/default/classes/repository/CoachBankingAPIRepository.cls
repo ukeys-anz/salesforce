@@ -107,6 +107,7 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
    * @return String
    * @exception CalloutException
    */
+  @SuppressWarnings('PMD.ExcessiveParameterList')
   @AuraEnabled(cacheable=false)
   public static TransactionHistoryModel getTransactionHistoryAura(
     String ocvId,
@@ -186,14 +187,27 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
    * @description Construct the transaction param URL from startDate and endDate
    * @param startDate start date in the transaction search
    * @param endDate end date in the transaction search
-   * @param accountName account number for which we want to fetch the transactions
+   * @param accountNumber account number for which we want to fetch the transactions
    * @return String the url with params to retrieve transactions
    */
-  private static String getTransactionParamUrl(String startDate, String endDate, String accountNumber){
-    if (String.isNotBlank(startDate) && String.isNotBlank(endDate) && String.isNotBlank(accountNumber)){
+  private static String getTransactionParamUrl(
+    String startDate,
+    String endDate,
+    String accountNumber
+  ) {
+    if (
+      String.isNotBlank(startDate) &&
+      String.isNotBlank(endDate) &&
+      String.isNotBlank(accountNumber)
+    ) {
       String utcStartDate = DateTimeUtils.getUTCTimeFromString(startDate);
       String utcEndDate = DateTimeUtils.getUTCTimeFromString(endDate);
-      return '?account_number=' + accountNumber + '&start_date=' + utcStartDate + '&end_date=' + utcEndDate;
+      return '?account_number=' +
+        accountNumber +
+        '&start_date=' +
+        utcStartDate +
+        '&end_date=' +
+        utcEndDate;
     }
     return null;
   }
