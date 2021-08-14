@@ -71,42 +71,15 @@ export default class TransactionHistoryRecord extends NavigationMixin(
   }
 
   get amountConvertedValue() {
-    let amountConValue;
-    if (
-      this.transactionRecord.amount &&
-      this.transactionRecord.amount.converted
-    ) {
-      amountConValue = this.transactionRecord.amount.converted.value;
-    } else {
-      amountConValue = "Unknown";
-    }
-    return amountConValue;
+    return this.transactionRecord.amount.converted.value;
   }
 
   get amountConvertedCurrency() {
-    let amountConCurrency;
-    if (
-      this.transactionRecord.amount &&
-      this.transactionRecord.amount.converted
-    ) {
-      amountConCurrency = this.transactionRecord.amount.converted.currency;
-    } else {
-      amountConCurrency = "Unknown";
-    }
-    return amountConCurrency;
+    return this.transactionRecord.amount.converted.currencyCode;
   }
 
   get amountExchangeRateValue() {
-    let amountExchangeRate;
-    if (
-      this.transactionRecord.amount &&
-      this.transactionRecord.amount.exchangeRate
-    ) {
-      amountExchangeRate = this.transactionRecord.amount.exchangeRate.value;
-    } else {
-      amountExchangeRate = "Unknown";
-    }
-    return amountExchangeRate;
+    return this.transactionRecord.amount.exchangeRate.value;
   }
 
   get amountNumber() {

@@ -136,31 +136,14 @@ export default class TransactionHistoryBoard extends LightningElement {
                 currentTransaction.transactionType
               ];
 
-              //Remove $ from value and convert to int
-              if (
-                currentTransaction.amount &&
-                currentTransaction.amount.charged &&
-                currentTransaction.amount.charged.value
-              ) {
-                currentTransaction.amount.charged.value = parseFloat(
-                  currentTransaction.amount.charged.value,
-                  10
-                ).toFixed(2);
-              } else {
-                currentTransaction.amount.charged.value = 0;
-              }
+              // Get charged, converted, exchangeRate amounts
+              this.getAmountByType(currentTransaction, "charged");
+              this.getAmountByType(currentTransaction, "converted");
+              this.getAmountByType(currentTransaction, "exchangeRate");
 
-              //Remove $ from value and convert to int
-              if (
-                currentTransaction.amount &&
-                currentTransaction.amount.converted &&
-                currentTransaction.amount.converted.value
-              ) {
-                currentTransaction.amount.converted.value = parseFloat(
-                  currentTransaction.amount.converted.value,
-                  10
-                ).toFixed(2);
-              }
+              // Get charged, converted currencies
+              this.getCurrencyByType(currentTransaction, "charged");
+              this.getCurrencyByType(currentTransaction, "converted");
 
               //Remap type and status
               currentTransaction.transactionType = currentTransaction.transactionType
@@ -523,5 +506,36 @@ export default class TransactionHistoryBoard extends LightningElement {
       date1.getMonth() === date2.getMonth() &&
       date1.getFullYear() === date2.getFullYear()
     );
+  }
+
+  // Based on the type, get the according amount
+  getAmountByType(transaction, amountType) {
+    if (
+      transaction.amount &&
+      transaction.amount[`${amountType}`] &&
+      transaction.amount[`${amountType}`]["value"]
+    ) {
+      transaction.amount[`${amountType}`].value = parseFloat(
+        transaction.amount[`${amountType}`].value,
+        10
+      ).toFixed(2);
+    } else {
+      transaction.amount[`${amountType}`] = {}; // Have to create the nested object before create a property
+      transaction.amount[`${amountType}`]["value"] =
+        amountType === "charged" ? 0 : "Unknown";
+    }
+    return transaction;
+  }
+
+  getCurrencyByType(transaction, currencyType) {
+    if (
+      transaction.amount &&
+      (!transaction.amount[`${currencyType}`] ||
+        !transaction.amount[`${currencyType}`]["currencyCode"])
+    ) {
+      transaction.amount[`${currencyType}`] = {}; // Have to create the nested object before create a property
+      transaction.amount[`${currencyType}`]["currencyCode"] = "Unknown";
+    }
+    return transaction;
   }
 }
