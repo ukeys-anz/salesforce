@@ -126,7 +126,7 @@ export default class TransactionHistoryBoard extends LightningElement {
           this.fullTransactionList = result.transactions;
           this.links = result.links;
           let updatedFullList = [];
-          console.log("###TRANS_LIST: " + this.fullTransactionList);
+
           if (this.fullTransactionList) {
             for (let i = 0; i < this.fullTransactionList.length; i++) {
               let currentTransaction = { ...this.fullTransactionList[i] };
@@ -188,7 +188,7 @@ export default class TransactionHistoryBoard extends LightningElement {
 
               /* 
               To prevent the issue where the first transaction the next payload has the same date as the last transaction in the previous payload and
-              show its date title again (date title showing twice), we will keep track of the payload count and the last date in the previous payload for comparison
+              shows its date title again (date title showing twice), we will keep track of the payload count and the last date in the previous payload for comparison
               More details below
               */
               if (this.payloadCounter === 0) {
