@@ -513,7 +513,7 @@ export default class TransactionHistoryBoard extends LightningElement {
     if (
       transaction.amount &&
       transaction.amount[`${amountType}`] &&
-      transaction.amount[`${amountType}`]["value"]
+      transaction.amount[`${amountType}`].value
     ) {
       transaction.amount[`${amountType}`].value = parseFloat(
         transaction.amount[`${amountType}`].value,
@@ -521,7 +521,7 @@ export default class TransactionHistoryBoard extends LightningElement {
       ).toFixed(2);
     } else {
       transaction.amount[`${amountType}`] = {}; // Have to create the nested object before create a property
-      transaction.amount[`${amountType}`]["value"] =
+      transaction.amount[`${amountType}`].value =
         amountType === "charged" ? 0 : "Unknown";
     }
     return transaction;
@@ -531,10 +531,10 @@ export default class TransactionHistoryBoard extends LightningElement {
     if (
       transaction.amount &&
       (!transaction.amount[`${currencyType}`] ||
-        !transaction.amount[`${currencyType}`]["currencyCode"])
+        !transaction.amount[`${currencyType}`].currencyCode)
     ) {
       transaction.amount[`${currencyType}`] = {}; // Have to create the nested object before create a property
-      transaction.amount[`${currencyType}`]["currencyCode"] = "Unknown";
+      transaction.amount[`${currencyType}`].currencyCode = "Unknown";
     }
     return transaction;
   }
