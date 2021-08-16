@@ -101,11 +101,27 @@
     <picklistValues>
         <picklist>Dispute_Reason__c</picklist>
         <values>
+            <fullName>Customer Error</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Customer entered incorrect account details</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Customer selected wrong payee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Invalid BSB%2FAccount</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Third party claiming non-receipt</fullName>
             <default>false</default>
         </values>
         <values>

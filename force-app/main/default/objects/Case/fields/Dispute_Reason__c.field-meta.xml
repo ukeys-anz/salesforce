@@ -122,6 +122,26 @@
                 <default>false</default>
                 <label>Urgent Dishonour Request</label>
             </value>
+            <value>
+                <fullName>Invalid BSB/Account</fullName>
+                <default>false</default>
+                <label>Invalid BSB/Account</label>
+            </value>
+            <value>
+                <fullName>Customer Error</fullName>
+                <default>false</default>
+                <label>Customer Error</label>
+            </value>
+            <value>
+                <fullName>Third party claiming non-receipt</fullName>
+                <default>false</default>
+                <label>Third party claiming non-receipt</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
