@@ -11,6 +11,9 @@ on:
       - master
       - epic/*
       - "!epic/lock-card"
+      - "!epic/disputes"
+      - "!epic/fraud"
+      - "!epic/anzx-bau"
 
 jobs:
   prepare:
