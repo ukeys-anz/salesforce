@@ -124,7 +124,7 @@
     <picklistValues>
         <picklist>Dispute_Reason__c</picklist>
         <values>
-            <fullName>Cash Dispense Error</fullName>
+            <fullName>Cash Dispensing Error</fullName>
             <default>false</default>
         </values>
         <values>
