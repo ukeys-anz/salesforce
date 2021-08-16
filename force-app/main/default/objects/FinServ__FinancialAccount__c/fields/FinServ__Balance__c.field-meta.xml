@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>FinServ__Balance__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Source_CTM;Integrity - Accurate;Privacy - Personal Information</complianceGroup>
+    <complianceGroup>Source_CTM;Integrity_Accurate;Privacy_Personal_Information</complianceGroup>
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Balance</label>

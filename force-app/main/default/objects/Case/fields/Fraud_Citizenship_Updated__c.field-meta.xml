@@ -8,7 +8,7 @@
     <inlineHelpText>Check: Has the customer&apos;s citizenship been updated in source systems such as iKnow/Siebel?</inlineHelpText>
     <label>Citizenship updated in source systems</label>
     <required>false</required>
-    <securityClassification>Internal</securityClassification>
+    <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

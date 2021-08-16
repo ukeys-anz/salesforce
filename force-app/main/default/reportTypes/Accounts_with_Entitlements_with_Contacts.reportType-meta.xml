@@ -696,7 +696,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Anniversay_Duration__c</field>
+            <field>Anniversary_Duration__c</field>
             <table>Account</table>
         </columns>
         <columns>

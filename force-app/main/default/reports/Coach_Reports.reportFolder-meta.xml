@@ -5,16 +5,10 @@
     <publicFolderAccess>ReadOnly</publicFolderAccess>
     <sharedTo>
         <role>Coach</role>
-        <role>Manager</role>
     </sharedTo>
     <folderShares>
         <accessLevel>View</accessLevel>
         <sharedTo>Coach</sharedTo>
-        <sharedToType>Role</sharedToType>
-    </folderShares>
-    <folderShares>
-        <accessLevel>View</accessLevel>
-        <sharedTo>Manager</sharedTo>
         <sharedToType>Role</sharedToType>
     </folderShares>
 </ReportFolder>
