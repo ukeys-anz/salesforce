@@ -5,7 +5,11 @@ name: Deploy
 on:
   push:
     branches:
+      - "develop"
       - "epic/lock-card"
+      - "epic/disputes"
+      - "epic/fraud"
+      - "epic/anzx-bau"
 
 jobs:
   harness-deploy:
