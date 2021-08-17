@@ -527,6 +527,7 @@ export default class TransactionHistoryBoard extends LightningElement {
     return transaction;
   }
 
+  // Based on the type, get the according currency
   getCurrencyByType(transaction, currencyType) {
     if (
       transaction.amount &&
