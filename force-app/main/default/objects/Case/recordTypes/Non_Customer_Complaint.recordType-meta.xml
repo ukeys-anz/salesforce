@@ -1859,6 +1859,21 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Has_complaint_met_RG_271_delay_criteria__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Yes %E2%80%93 Matter is particularly complex</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes %E2%80%93 Matters outside of ANZ%E2%80%99s control are causing delays</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>IDR_3rdParty_Country__c</picklist>
         <values>
             <fullName>Afghanistan</fullName>
