@@ -523,6 +523,7 @@ export default class TransactionHistoryBoard extends LightningElement {
     return transaction;
   }
 
+  // Compare two dates and set the showDateTitle on the current transaction accordingly
   setShowDateTitle(transaction, date1, date2) {
     transaction.showDateTitle = this.areSameDate(date1, date2)
       ? false // If the same, do not show date title
