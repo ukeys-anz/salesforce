@@ -55,7 +55,7 @@
       "name": "COSMOS Integration User",
       "profile": "Integration User",
       "permissionsetgroups": [],
-      "permissionsets": ["Enforce_mTLS", "COSMOS_Integration"],
+      "permissionsets": ["Enforce_mTLS","COSMOS_Integration"],
       "type": "system"
     },
     {
