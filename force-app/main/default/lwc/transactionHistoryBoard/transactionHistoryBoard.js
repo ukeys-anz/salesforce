@@ -172,42 +172,25 @@ export default class TransactionHistoryBoard extends LightningElement {
               /* 
               To prevent the issue where the first transaction the next payload has the same date as the last transaction in the previous payload and
               shows its date title again (date title showing twice), we will keep track of the payload count and the last date in the previous payload for comparison
-              More details below
+              More details below.
               */
-              if (this.payloadCounter === 0) {
-                // If this is first payload
-                if (i === 0) {
-                  currentTransaction.showDateTitle = true; // And this is the first transaction, show date title
-                } else {
-                  currentTransaction.showDateTitle = this.areSameDate(
-                    // If this is not the first transaction in the payload, check if the date == the previous transaction's date
-                    currentTransaction.TransactionDate,
-                    prevTransactionDate
-                  )
-                    ? false // If the same, do not show date title
-                    : true; // If not, show date title
-                }
-              } else {
-                // If this is NOT the first payload
-                if (i === 0) {
-                  // And this is the fist transaction in the payload
-                  currentTransaction.showDateTitle = this.areSameDate(
-                    // Check if the transaction's date == the last date in the previous payload
-                    currentTransaction.TransactionDate,
-                    this.lastDateInPayload
-                  )
-                    ? false // If the same, do not show date title
-                    : true; // If not, show date title
-                } else {
-                  // If this is NOT the first transaction in the payload
-                  currentTransaction.showDateTitle = this.areSameDate(
-                    // Check if the transaction's date == the previous transaction's date
-                    currentTransaction.TransactionDate,
-                    prevTransactionDate
-                  )
-                    ? false // If the same, do not show date title
-                    : true; // If not, show date title
-                }
+              // If this is first payload and first transaction
+              if (this.payloadCounter === 0 && i === 0) {
+                currentTransaction.showDateTitle = true; // Show date title
+              } else if (this.payloadCounter > 0 && i === 0) {
+                // If this is the first transaction in the 2nd/after payloads
+                this.setShowDateTitle(
+                  currentTransaction,
+                  currentTransaction.TransactionDate,
+                  this.lastDateInPayload
+                ); // Check if the transaction's date == the last date in the previous payload and set showDateTitle accordingly
+              } else if (i > 0) {
+                // If this is NOT the first transaction
+                this.setShowDateTitle(
+                  currentTransaction,
+                  currentTransaction.TransactionDate,
+                  prevTransactionDate
+                ); // Check if the transaction's date == the previous transaction's date and set showDateTitle accordingly
               }
 
               //Apply odd or even for each item to determine background
@@ -538,5 +521,11 @@ export default class TransactionHistoryBoard extends LightningElement {
       transaction.amount[`${currencyType}`].currencyCode = "Unknown";
     }
     return transaction;
+  }
+
+  setShowDateTitle(transaction, date1, date2) {
+    transaction.showDateTitle = this.areSameDate(date1, date2)
+      ? false // If the same, do not show date title
+      : true; // If not, show date title
   }
 }
