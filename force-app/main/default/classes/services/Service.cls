@@ -128,16 +128,7 @@ public with sharing virtual class Service {
     headers.put('client_id', '{!$Credential.Username}');
     headers.put('client_secret', '{!$Credential.Password}');
     // version and trace flag is hardcoded in util methods as a temporary solve, this has scope to change in future
-    headers.put(
-      'x-correlation-id',
-      UniqueIdUtil.getVersion() +
-      '-' +
-      UniqueIdUtil.getTraceId() +
-      '-' +
-      UniqueIdUtil.getParentId() +
-      '-' +
-      UniqueIdUtil.getTraceFlag()
-    );
+    headers.put('x-correlation-id', UniqueIdUtil.getVersion()+'-'+UniqueIdUtil.getTraceId()+'-'+UniqueIdUtil.getParentId()+'-'+UniqueIdUtil.getTraceFlag());
     return headers;
   }
 
