@@ -26,7 +26,7 @@ jobs:
           token: ${{ secrets.SALESFORCE_DOC_GEN_TOKEN }}
           path: plugin
           ref: '17f9f5d'
-
+        
       - name: Checkout salesforce repo
         uses: actions/checkout@v2
         with:
