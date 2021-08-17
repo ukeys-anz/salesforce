@@ -70,6 +70,16 @@
                 <default>false</default>
                 <label>Privacy breach</label>
             </value>
+            <value>
+                <fullName>18</fullName>
+                <default>false</default>
+                <label>Indexing</label>
+            </value>
+            <value>
+                <fullName>19</fullName>
+                <default>false</default>
+                <label>Document management required</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
