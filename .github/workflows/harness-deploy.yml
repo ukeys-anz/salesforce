@@ -6,6 +6,9 @@ on:
   push:
     branches:
       - "epic/lock-card"
+      - "epic/disputes"
+      - "epic/fraud"
+      - "epic/anzx-bau"
 
 jobs:
   harness-deploy:

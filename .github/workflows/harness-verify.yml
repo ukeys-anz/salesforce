@@ -6,9 +6,12 @@ on:
   pull_request:
     branches:
       - "epic/lock-card"
+      - "epic/disputes"
+      - "epic/fraud"
+      - "epic/anzx-bau"
 
 jobs:
-  verify:
+  build_and_deploy:
     runs-on: [self-hosted, salesforce]
     steps:
       - name: Trigger Harness Job
