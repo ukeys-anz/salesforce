@@ -17,7 +17,7 @@ on:
       - "epic/cmos-r2"
 
 jobs:
-  verify:
+  build_and_deploy:
     runs-on: [self-hosted, salesforce]
     steps:
       - name: Trigger Harness Job
