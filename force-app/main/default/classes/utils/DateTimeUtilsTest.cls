@@ -50,10 +50,10 @@ public with sharing class DateTimeUtilsTest {
     String result1 = DateTimeUtils.getLocalTime(
       dt1,
       'Australia/Sydney',
-      'yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\''
+      'yyyy-MM-dd HH:mm:ss.SSS Z'
     );
     System.assertEquals(
-      '2021-10-16T07:52:00.000Z',
+      '2021-10-16 07:52:00.000 +1100',
       result1,
       'Converted dates do not match.'
     );
@@ -61,10 +61,10 @@ public with sharing class DateTimeUtilsTest {
     String result2 = DateTimeUtils.getLocalTime(
       dt2,
       'Australia/Sydney',
-      'yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\''
+      'yyyy-MM-dd HH:mm:ss.SSS Z'
     );
     System.assertEquals(
-      '2020-04-07T13:15:00.000Z',
+      '2020-04-07 13:15:00.000 +1000',
       result2,
       'Converted dates do not match.'
     );
@@ -73,10 +73,10 @@ public with sharing class DateTimeUtilsTest {
     String result3 = DateTimeUtils.getLocalTime(
       dt3,
       'Australia/Adelaide',
-      'yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\''
+      'yyyy-MM-dd HH:mm:ss.SSS Z'
     );
     System.assertEquals(
-      '2017-10-04T15:07:00.000Z',
+      '2017-10-04 15:07:00.000 +1030',
       result3,
       'Converted dates do not match.'
     );
@@ -84,34 +84,34 @@ public with sharing class DateTimeUtilsTest {
     String result4 = DateTimeUtils.getLocalTime(
       dt4,
       'Australia/Adelaide',
-      'yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\''
+      'yyyy-MM-dd HH:mm:ss.SSS Z'
     );
     System.assertEquals(
-      '2015-04-07T04:13:00.000Z',
+      '2015-04-07 04:13:00.000 +0930',
       result4,
       'Converted dates do not match.'
     );
-    // Test converting to Australia/Perth time (GMT+08:80)
+    // Test converting to Australia/Perth time (GMT+08:00)
     DateTime dt5 = DateTime.newInstanceGmt(2021, 7, 22, 16, 21, 0); // No DST required
     String result5 = DateTimeUtils.getLocalTime(
       dt5,
       'Australia/Perth',
-      'yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\''
+      'yyyy-MM-dd HH:mm:ss.SSS Z'
     );
     System.assertEquals(
-      '2021-07-23T00:21:00.000Z',
+      '2021-07-23 00:21:00.000 +0800',
       result5,
       'Converted dates do not match.'
     );
-    // Test converting to America/Los_Angeles time (GMT-07:80)
+    // Test converting to America/Los_Angeles time (GMT-07:00)
     DateTime dt6 = DateTime.newInstanceGmt(2019, 3, 16, 4, 17, 0); // DST starts
     String result6 = DateTimeUtils.getLocalTime(
       dt6,
       'America/Los_Angeles',
-      'yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\''
+      'yyyy-MM-dd HH:mm:ss.SSS Z'
     );
     System.assertEquals(
-      '2019-03-15T21:17:00.000Z',
+      '2019-03-15 21:17:00.000 -0700',
       result6,
       'Converted dates do not match.'
     );
@@ -119,10 +119,10 @@ public with sharing class DateTimeUtilsTest {
     String result7 = DateTimeUtils.getLocalTime(
       dt7,
       'America/Los_Angeles',
-      'yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\''
+      'yyyy-MM-dd HH:mm:ss.SSS Z'
     );
     System.assertEquals(
-      '2018-11-09T14:15:00.000Z',
+      '2018-11-09 14:15:00.000 -0800',
       result7,
       'Converted dates do not match.'
     );
