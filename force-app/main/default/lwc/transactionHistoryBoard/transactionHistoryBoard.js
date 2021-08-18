@@ -182,7 +182,7 @@ export default class TransactionHistoryBoard extends LightningElement {
               }
 
               if (i === this.fullTransactionList.length - 1) {
-                this.lastDateInPayload = currentTransaction.TransactionDate; // The date of the last transaction in the current payload
+                this.lastDateInPayload = currentDate; // The date of the last transaction in the current payload
               }
 
               if (i > 0) {
