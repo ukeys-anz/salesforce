@@ -70,10 +70,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Debit_User_Name__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>Debit_User_ID_Number__c</field>
             </layoutItems>
             <layoutItems>
