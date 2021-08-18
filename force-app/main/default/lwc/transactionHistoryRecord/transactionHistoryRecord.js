@@ -99,28 +99,11 @@ export default class TransactionHistoryRecord extends NavigationMixin(
   }
 
   get transactionDate() {
-    // No time conversion is done here, purely transform the date object from parent to a string with the desired format
-    let options = {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric"
-    };
-    return this.transactionRecord.TransactionDate.toLocaleDateString(
-      "en-AU",
-      options
-    );
+    return this.transactionRecord.TransactionDate;
   }
 
   get transactionTime() {
-    // No time conversion is done here, purely transform the date object from parent to a string with the desired format
-    let options = { hour: "2-digit", minute: "2-digit" };
-    return (
-      this.transactionRecord.TransactionDate.toLocaleTimeString(
-        "en-AU",
-        options
-      ) + " AEST/AEDT"
-    );
+    return this.transactionRecord.TransactionTime;
   }
 
   handleDetailsToggle() {

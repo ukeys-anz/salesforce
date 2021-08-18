@@ -39,6 +39,15 @@ const cardMapping = {
   CARD_SCHEME_AMERICAN_EXPRESS: "American Express"
 };
 
+const dateOptions = {
+  weekday: "long",
+  year: "numeric",
+  month: "long",
+  day: "numeric"
+};
+
+const timeOptions = { hour: "2-digit", minute: "2-digit" };
+
 export default class TransactionHistoryBoard extends LightningElement {
   @api recordId;
   fullTransactionList = [];
@@ -153,21 +162,34 @@ export default class TransactionHistoryBoard extends LightningElement {
                 ? transactionStatusMapping[currentTransaction.status]
                 : "Unknown";
 
-              //Convert into a date object for comparison
-              currentTransaction.TransactionDate = currentTransaction.transactionDateLocal // The date of the current transaction
-                ? this.getDateObject(currentTransaction.transactionDateLocal)
-                : "Unknown";
+              //Process date and time, set showDateTitle
+              let currentDate;
+              let prevTransactionDate;
+              if (currentTransaction.transactionDateLocal) {
+                currentTransaction.TransactionDate = this.getDateObject(
+                  currentTransaction.transactionDateLocal
+                ).toLocaleDateString("en-AU", dateOptions); // No time conversion is done here, just formatting to a string with the desired format
+                currentTransaction.TransactionTime =
+                  this.getDateObject(
+                    currentTransaction.transactionDateLocal
+                  ).toLocaleTimeString("en-AU", timeOptions) + " AEST/AEDT"; // No time conversion is done here, just formatting to a string with the desired format
+                currentDate = this.getDateObject(
+                  currentTransaction.TransactionDate
+                ); // Create a date object from current date for comparion purpose
+              } else {
+                currentTransaction.TransactionDate = currentTransaction.TransactionTime =
+                  "Unknown";
+              }
 
               if (i === this.fullTransactionList.length - 1) {
                 this.lastDateInPayload = currentTransaction.TransactionDate; // The date of the last transaction in the current payload
               }
 
-              let prevTransactionDate =
-                i > 0
-                  ? this.getDateObject(
-                      this.fullTransactionList[i - 1].transactionDateLocal // The date of the previous transaction
-                    )
-                  : "";
+              if (i > 0) {
+                prevTransactionDate = this.getDateObject(
+                  this.fullTransactionList[i - 1].transactionDateLocal // The date of the previous transaction
+                );
+              }
 
               /* 
               To prevent the issue where the first transaction the next payload has the same date as the last transaction in the previous payload and
@@ -181,14 +203,14 @@ export default class TransactionHistoryBoard extends LightningElement {
                 // If this is the first transaction in the 2nd/after payloads
                 this.setShowDateTitle(
                   currentTransaction,
-                  currentTransaction.TransactionDate,
+                  currentDate,
                   this.lastDateInPayload
                 ); // Check if the transaction's date == the last date in the previous payload and set showDateTitle accordingly
               } else if (i > 0) {
                 // If this is NOT the first transaction
                 this.setShowDateTitle(
                   currentTransaction,
-                  currentTransaction.TransactionDate,
+                  currentDate,
                   prevTransactionDate
                 ); // Check if the transaction's date == the previous transaction's date and set showDateTitle accordingly
               }
@@ -470,16 +492,7 @@ export default class TransactionHistoryBoard extends LightningElement {
 
   // Get date object from the local time string returned from Apex
   getDateObject(localTimeString) {
-    let dt = new Date(localTimeString); // JS automatically convert a string into the local time when a new date object is created, causing double-converting
-    let transactionDateObject = new Date( // hence we are using UTC functions here to convert it back to the local time that was returned from Apex
-      dt.getUTCFullYear(),
-      dt.getUTCMonth(),
-      dt.getUTCDate(),
-      dt.getUTCHours(),
-      dt.getUTCMinutes(),
-      dt.getUTCSeconds()
-    );
-    return transactionDateObject;
+    return new Date(localTimeString);
   }
 
   // Compare date objects and check if both are the same date

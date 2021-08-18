@@ -116,7 +116,8 @@ public with sharing class TransactionHistoryModel extends CalloutModel {
         return DateTimeUtils.getLocalTime(
           this.transactionDate,
           TIMEZONE,
-          'yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\''
+          'yyyy-MM-dd HH:mm:ss.SSS Z' /* Intentionally leaving a space before Z so JS understands that this datetime already
+           has timezone it it and does not try to convert it again*/
         );
       }
     }
