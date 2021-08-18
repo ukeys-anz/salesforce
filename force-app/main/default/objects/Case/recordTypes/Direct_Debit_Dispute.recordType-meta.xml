@@ -101,8 +101,28 @@
     <picklistValues>
         <picklist>Dispute_Reason__c</picklist>
         <values>
-            <fullName>Direct Debit Cancellation Request</fullName>
-            <default>true</default>
+            <fullName>Claim not for value%5BClaim requesting direct debit agreement and not amount%5D</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fraudulent transaction</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Payment Duplicated</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Payment Overdrawn</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Payment debited after the debit authority has been cancelled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unauthorised Transaction</fullName>
+            <default>false</default>
         </values>
     </picklistValues>
     <picklistValues>
