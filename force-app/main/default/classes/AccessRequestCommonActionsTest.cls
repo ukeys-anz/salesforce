@@ -482,7 +482,7 @@ public with sharing class AccessRequestCommonActionsTest {
     // THEN
     // the status response should not have any success values
     System.assert(
-      results.isEmpty(),
+      !results[0],
       'Flow should not try to assign profiles on irrelevant user records'
     );
   }
@@ -511,7 +511,7 @@ public with sharing class AccessRequestCommonActionsTest {
     // THEN
     // the status response should not have any success values
     System.assert(
-      results.isEmpty(),
+      !results[0],
       'Flow should not try to assign invalid profiles on user records'
     );
   }
