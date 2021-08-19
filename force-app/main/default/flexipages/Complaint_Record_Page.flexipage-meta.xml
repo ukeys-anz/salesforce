@@ -112,6 +112,19 @@
                     <value>Delay Decision</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!$Permission.CustomPermission.IDR_Level_1}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Leadership</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -139,10 +152,16 @@
                 </componentInstanceProperties>
                 <componentName>console:relatedRecord</componentName>
                 <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
                     <criteria>
                         <leftValue>{!$Permission.CustomPermission.IDR_Level_1}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Leadership</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
