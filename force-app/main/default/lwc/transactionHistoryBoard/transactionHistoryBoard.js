@@ -163,57 +163,19 @@ export default class TransactionHistoryBoard extends LightningElement {
                 : "Unknown";
 
               //Process date and time, set showDateTitle
-              let currentDate;
-              let prevTransactionDate;
-              if (currentTransaction.transactionDateLocal) {
-                currentTransaction.TransactionDate = this.getDateObject(
+              let currentDate = this.getDateObject(
                   currentTransaction.transactionDateLocal
-                ).toLocaleDateString("en-AU", dateOptions); // No time conversion is done here, just formatting to a string with the desired format
-                currentTransaction.TransactionTime =
-                  this.getDateObject(
-                    currentTransaction.transactionDateLocal
-                  ).toLocaleTimeString("en-AU", timeOptions) + " AEST/AEDT"; // No time conversion is done here, just formatting to a string with the desired format
-                currentDate = this.getDateObject(
-                  currentTransaction.TransactionDate
-                ); // Create a date object from current date for comparion purpose
-              } else {
-                currentTransaction.TransactionDate = currentTransaction.TransactionTime =
-                  "Unknown";
-              }
-
-              if (i === this.fullTransactionList.length - 1) {
-                this.lastDateInPayload = currentDate; // The date of the last transaction in the current payload
-              }
-
-              if (i > 0) {
-                prevTransactionDate = this.getDateObject(
-                  this.fullTransactionList[i - 1].transactionDateLocal // The date of the previous transaction
                 );
-              }
 
+              this.setTransactionDisplayDateTime(currentTransaction);        
               /* 
               To prevent the issue where the first transaction the next payload has the same date as the last transaction in the previous payload and
               shows its date title again (date title showing twice), we will keep track of the payload count and the last date in the previous payload for comparison
               More details below.
               */
               // If this is first payload and first transaction
-              if (this.payloadCounter === 0 && i === 0) {
-                currentTransaction.showDateTitle = true; // Show date title
-              } else if (this.payloadCounter > 0 && i === 0) {
-                // If this is the first transaction in the 2nd/after payloads
-                this.setShowDateTitle(
-                  currentTransaction,
-                  currentDate,
-                  this.lastDateInPayload
-                ); // Check if the transaction's date == the last date in the previous payload and set showDateTitle accordingly
-              } else if (i > 0) {
-                // If this is NOT the first transaction
-                this.setShowDateTitle(
-                  currentTransaction,
-                  currentDate,
-                  prevTransactionDate
-                ); // Check if the transaction's date == the previous transaction's date and set showDateTitle accordingly
-              }
+              currentTransaction.showDateTitle = this.showDateTitle(currentDate, this.lastDateInPayload);
+              this.lastDateInPayload = currentDate;
 
               //Apply odd or even for each item to determine background
               currentTransaction.rowColour =
@@ -495,6 +457,15 @@ export default class TransactionHistoryBoard extends LightningElement {
     return new Date(localTimeString);
   }
 
+
+  showDateTitle(currentDate, previousDate){
+    if (previousDate == null) {
+     return true; // Show date title
+    } else  {     
+      return !this.areSameDate(currentDate, this.lastDateInPayload)
+    }
+  }
+
   // Compare date objects and check if both are the same date
   areSameDate(date1, date2) {
     return (
@@ -502,6 +473,24 @@ export default class TransactionHistoryBoard extends LightningElement {
       date1.getMonth() === date2.getMonth() &&
       date1.getFullYear() === date2.getFullYear()
     );
+  }
+
+ 
+
+  setTransactionDisplayDateTime(transaction){
+    if (transaction.transactionDateLocal) {
+      transaction.TransactionDate = this.getDateObject(
+        transaction.transactionDateLocal
+      ).toLocaleDateString("en-AU", dateOptions); // No time conversion is done here, just formatting to a string with the desired format
+      transaction.TransactionTime =
+        this.getDateObject(
+          transaction.transactionDateLocal
+        ).toLocaleTimeString("en-AU", timeOptions) + " AEST/AEDT"; // No time conversion is done here, just formatting to a string with the desired format
+    } else {
+      currentTransaction.TransactionDate = currentTransaction.TransactionTime =
+        "Unknown";
+    }
+
   }
 
   // Based on the type, get the according amount
@@ -536,10 +525,5 @@ export default class TransactionHistoryBoard extends LightningElement {
     return transaction;
   }
 
-  // Compare two dates and set the showDateTitle on the current transaction accordingly
-  setShowDateTitle(transaction, date1, date2) {
-    transaction.showDateTitle = this.areSameDate(date1, date2)
-      ? false // If the same, do not show date title
-      : true; // If not, show date title
-  }
+
 }
