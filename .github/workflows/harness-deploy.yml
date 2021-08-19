@@ -14,6 +14,7 @@ on:
       - "epic/ccrm-qa"
       - "epic/ccrm-party"
       - "epic/cmos-r2"
+      - "epic/cmos-bau"
 
 jobs:
   harness-deploy:
