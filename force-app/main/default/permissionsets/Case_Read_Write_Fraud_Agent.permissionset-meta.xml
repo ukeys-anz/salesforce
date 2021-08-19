@@ -125,7 +125,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.Crediting_Receipt__c</field>
+        <field>Case.Receipt__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
