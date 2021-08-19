@@ -5,13 +5,15 @@ name: Verify
 on:
   pull_request:
     branches:
-      - develop
-      - master
       - epic/*
       - "!epic/lock-card"
       - "!epic/disputes"
       - "!epic/fraud"
       - "!epic/anzx-bau"
+      - "!epic/ccrm-dev"
+      - "!epic/ccrm-qa"
+      - "!epic/ccrm-party"
+      - "!epic/cmos-r2"
 
 jobs:
   prepare:
