@@ -1708,6 +1708,7 @@
         <field>Case.Transaction_Description__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.IDR_SwitchOff_Customer_Notification__c</field>
         <readable>true</readable>
