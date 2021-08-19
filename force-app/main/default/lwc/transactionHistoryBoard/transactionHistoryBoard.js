@@ -146,13 +146,13 @@ export default class TransactionHistoryBoard extends LightningElement {
               ];
 
               // Get charged, converted, exchangeRate amounts
-              this.getAmountByType(currentTransaction, "charged");
-              this.getAmountByType(currentTransaction, "converted");
-              this.getAmountByType(currentTransaction, "exchangeRate");
+              this.setAmountByType(currentTransaction, "charged");
+              this.setAmountByType(currentTransaction, "converted");
+              this.setAmountByType(currentTransaction, "exchangeRate");
 
               // Get charged, converted currencies
-              this.getCurrencyByType(currentTransaction, "charged");
-              this.getCurrencyByType(currentTransaction, "converted");
+              this.setCurrencyByType(currentTransaction, "charged");
+              this.setCurrencyByType(currentTransaction, "converted");
 
               //Remap type and status
               currentTransaction.transactionType = currentTransaction.transactionType
@@ -505,7 +505,7 @@ export default class TransactionHistoryBoard extends LightningElement {
   }
 
   // Based on the type, get the according amount
-  getAmountByType(transaction, amountType) {
+  setAmountByType(transaction, amountType) {
     if (
       transaction.amount &&
       transaction.amount[`${amountType}`] &&
@@ -524,7 +524,7 @@ export default class TransactionHistoryBoard extends LightningElement {
   }
 
   // Based on the type, get the according currency
-  getCurrencyByType(transaction, currencyType) {
+  setCurrencyByType(transaction, currencyType) {
     if (
       transaction.amount &&
       (!transaction.amount[`${currencyType}`] ||
