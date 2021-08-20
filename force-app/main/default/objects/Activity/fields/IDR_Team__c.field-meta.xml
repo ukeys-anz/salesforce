@@ -1,0 +1,830 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_Team__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Team details a task is pending with</description>
+    <externalId>false</externalId>
+    <inlineHelpText>If Internal Business Unit selected as Pended to (Party), please select the team case is pending with</inlineHelpText>
+    <label>Team</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>IDR_Tribe__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>N/A</fullName>
+                <default>false</default>
+                <label>N/A</label>
+            </value>
+            <value>
+                <fullName>Private Banking</fullName>
+                <default>false</default>
+                <label>Private Banking</label>
+            </value>
+            <value>
+                <fullName>Private Bank Advice &amp; Enablement</fullName>
+                <default>false</default>
+                <label>Private Bank Advice &amp; Enablement</label>
+            </value>
+            <value>
+                <fullName>Advice</fullName>
+                <default>false</default>
+                <label>Advice</label>
+            </value>
+            <value>
+                <fullName>Advice Assurance</fullName>
+                <default>false</default>
+                <label>Advice Assurance</label>
+            </value>
+            <value>
+                <fullName>Agribusiness</fullName>
+                <default>false</default>
+                <label>Agribusiness</label>
+            </value>
+            <value>
+                <fullName>Emerging Corporate</fullName>
+                <default>false</default>
+                <label>Emerging Corporate</label>
+            </value>
+            <value>
+                <fullName>Health</fullName>
+                <default>false</default>
+                <label>Health</label>
+            </value>
+            <value>
+                <fullName>Industry Specialisation</fullName>
+                <default>false</default>
+                <label>Industry Specialisation</label>
+            </value>
+            <value>
+                <fullName>Internal Business Development</fullName>
+                <default>false</default>
+                <label>Internal Business Development</label>
+            </value>
+            <value>
+                <fullName>Property</fullName>
+                <default>false</default>
+                <label>Property</label>
+            </value>
+            <value>
+                <fullName>Early Resolution</fullName>
+                <default>false</default>
+                <label>Early Resolution</label>
+            </value>
+            <value>
+                <fullName>Internal Dispute Resolution (IDR)</fullName>
+                <default>false</default>
+                <label>Internal Dispute Resolution (IDR)</label>
+            </value>
+            <value>
+                <fullName>External Dispute Resolution (EDR)</fullName>
+                <default>false</default>
+                <label>External Dispute Resolution (EDR)</label>
+            </value>
+            <value>
+                <fullName>Specialised Resolution</fullName>
+                <default>false</default>
+                <label>Specialised Resolution</label>
+            </value>
+            <value>
+                <fullName>Customer Value</fullName>
+                <default>false</default>
+                <label>Customer Value</label>
+            </value>
+            <value>
+                <fullName>Business Customer Solutions</fullName>
+                <default>false</default>
+                <label>Business Customer Solutions</label>
+            </value>
+            <value>
+                <fullName>Home Loans</fullName>
+                <default>false</default>
+                <label>Home Loans</label>
+            </value>
+            <value>
+                <fullName>Everyday Banking</fullName>
+                <default>false</default>
+                <label>Everyday Banking</label>
+            </value>
+            <value>
+                <fullName>Regulatory Affairs</fullName>
+                <default>false</default>
+                <label>Regulatory Affairs</label>
+            </value>
+            <value>
+                <fullName>Recoveries</fullName>
+                <default>false</default>
+                <label>Recoveries</label>
+            </value>
+            <value>
+                <fullName>Settlements</fullName>
+                <default>false</default>
+                <label>Settlements</label>
+            </value>
+            <value>
+                <fullName>Assessment</fullName>
+                <default>false</default>
+                <label>Assessment</label>
+            </value>
+            <value>
+                <fullName>Customer Optimisation</fullName>
+                <default>false</default>
+                <label>Customer Optimisation</label>
+            </value>
+            <value>
+                <fullName>Customer Support</fullName>
+                <default>false</default>
+                <label>Customer Support</label>
+            </value>
+            <value>
+                <fullName>Customer Settlement Enquiries</fullName>
+                <default>false</default>
+                <label>Customer Settlement Enquiries</label>
+            </value>
+            <value>
+                <fullName>Unsecured Lending</fullName>
+                <default>false</default>
+                <label>Unsecured Lending</label>
+            </value>
+            <value>
+                <fullName>Fraud Analytics</fullName>
+                <default>false</default>
+                <label>Fraud Analytics</label>
+            </value>
+            <value>
+                <fullName>Customer Protection Operations</fullName>
+                <default>false</default>
+                <label>Customer Protection Operations</label>
+            </value>
+            <value>
+                <fullName>Complex Investigation</fullName>
+                <default>false</default>
+                <label>Complex Investigation</label>
+            </value>
+            <value>
+                <fullName>Statutory Compliance</fullName>
+                <default>false</default>
+                <label>Statutory Compliance</label>
+            </value>
+            <value>
+                <fullName>Customer Due Diligence</fullName>
+                <default>false</default>
+                <label>Customer Due Diligence</label>
+            </value>
+            <value>
+                <fullName>Customer Lending Business Banking</fullName>
+                <default>false</default>
+                <label>Customer Lending Business Banking</label>
+            </value>
+            <value>
+                <fullName>Business Banking Client Service &amp; On-boarding</fullName>
+                <default>false</default>
+                <label>Business Banking Client Service &amp; On-boarding</label>
+            </value>
+            <value>
+                <fullName>Private Bank Support</fullName>
+                <default>false</default>
+                <label>Private Bank Support</label>
+            </value>
+            <value>
+                <fullName>Private Bank Specialist Support</fullName>
+                <default>false</default>
+                <label>Private Bank Specialist Support</label>
+            </value>
+            <value>
+                <fullName>Wealth Management Call Centre</fullName>
+                <default>false</default>
+                <label>Wealth Management Call Centre</label>
+            </value>
+            <value>
+                <fullName>Wealth Support</fullName>
+                <default>false</default>
+                <label>Wealth Support</label>
+            </value>
+            <value>
+                <fullName>Retail Servicing</fullName>
+                <default>false</default>
+                <label>Retail Servicing</label>
+            </value>
+            <value>
+                <fullName>Hardship</fullName>
+                <default>false</default>
+                <label>Hardship</label>
+            </value>
+            <value>
+                <fullName>Home Loans Hardship</fullName>
+                <default>false</default>
+                <label>Home Loans Hardship</label>
+            </value>
+            <value>
+                <fullName>Everyday Banking Hardship and Estates</fullName>
+                <default>false</default>
+                <label>Everyday Banking Hardship and Estates</label>
+            </value>
+            <value>
+                <fullName>Business Owners Hardship</fullName>
+                <default>false</default>
+                <label>Business Owners Hardship</label>
+            </value>
+            <value>
+                <fullName>Homeowners Lighthouse</fullName>
+                <default>false</default>
+                <label>Homeowners Lighthouse</label>
+            </value>
+            <value>
+                <fullName>Customer and Quality</fullName>
+                <default>false</default>
+                <label>Customer and Quality</label>
+            </value>
+            <value>
+                <fullName>Customer Experience</fullName>
+                <default>false</default>
+                <label>Customer Experience</label>
+            </value>
+            <value>
+                <fullName>Operations</fullName>
+                <default>false</default>
+                <label>Operations</label>
+            </value>
+            <value>
+                <fullName>Credit Support</fullName>
+                <default>false</default>
+                <label>Credit Support</label>
+            </value>
+            <value>
+                <fullName>Credit Control</fullName>
+                <default>false</default>
+                <label>Credit Control</label>
+            </value>
+            <value>
+                <fullName>Supplier Relationship Management</fullName>
+                <default>false</default>
+                <label>Supplier Relationship Management</label>
+            </value>
+            <value>
+                <fullName>Data Event Management</fullName>
+                <default>false</default>
+                <label>Data Event Management</label>
+            </value>
+            <value>
+                <fullName>Privacy Hub</fullName>
+                <default>false</default>
+                <label>Privacy Hub</label>
+            </value>
+            <value>
+                <fullName>Retention, Retrieval &amp; Disposal</fullName>
+                <default>false</default>
+                <label>Retention, Retrieval &amp; Disposal</label>
+            </value>
+            <value>
+                <fullName>Enterprise Data Governance</fullName>
+                <default>false</default>
+                <label>Enterprise Data Governance</label>
+            </value>
+            <value>
+                <fullName>Payment Flow &amp; Paper clearing</fullName>
+                <default>false</default>
+                <label>Payment Flow &amp; Paper clearing</label>
+            </value>
+            <value>
+                <fullName>Investigations</fullName>
+                <default>false</default>
+                <label>Investigations</label>
+            </value>
+            <value>
+                <fullName>Clearing Streams</fullName>
+                <default>false</default>
+                <label>Clearing Streams</label>
+            </value>
+            <value>
+                <fullName>Transaction Processing Centre</fullName>
+                <default>false</default>
+                <label>Transaction Processing Centre</label>
+            </value>
+            <value>
+                <fullName>Schemes System Accounting</fullName>
+                <default>false</default>
+                <label>Schemes System Accounting</label>
+            </value>
+            <value>
+                <fullName>RIC Project</fullName>
+                <default>false</default>
+                <label>RIC Project</label>
+            </value>
+            <value>
+                <fullName>TPC</fullName>
+                <default>false</default>
+                <label>TPC</label>
+            </value>
+            <value>
+                <fullName>Lockbox and Imagining</fullName>
+                <default>false</default>
+                <label>Lockbox and Imagining</label>
+            </value>
+            <value>
+                <fullName>Voucher Processing</fullName>
+                <default>false</default>
+                <label>Voucher Processing</label>
+            </value>
+            <value>
+                <fullName>Dishonours &amp; Voucher Management</fullName>
+                <default>false</default>
+                <label>Dishonours &amp; Voucher Management</label>
+            </value>
+            <value>
+                <fullName>Retail Reconciliations</fullName>
+                <default>false</default>
+                <label>Retail Reconciliations</label>
+            </value>
+            <value>
+                <fullName>IB Reconciliations</fullName>
+                <default>false</default>
+                <label>IB Reconciliations</label>
+            </value>
+            <value>
+                <fullName>Lenders Mortgage Insurance</fullName>
+                <default>false</default>
+                <label>Lenders Mortgage Insurance</label>
+            </value>
+            <value>
+                <fullName>General Insurance</fullName>
+                <default>false</default>
+                <label>General Insurance</label>
+            </value>
+            <value>
+                <fullName>Life &amp; Consumer Credit Insurance</fullName>
+                <default>false</default>
+                <label>Life &amp; Consumer Credit Insurance</label>
+            </value>
+            <value>
+                <fullName>Share Investing &amp; Investment Lending</fullName>
+                <default>false</default>
+                <label>Share Investing &amp; Investment Lending</label>
+            </value>
+            <value>
+                <fullName>Marketing &amp; Propositions</fullName>
+                <default>false</default>
+                <label>Marketing &amp; Propositions</label>
+            </value>
+            <value>
+                <fullName>Services</fullName>
+                <default>false</default>
+                <label>Services</label>
+            </value>
+            <value>
+                <fullName>Sales</fullName>
+                <default>false</default>
+                <label>Sales</label>
+            </value>
+            <value>
+                <fullName>Complex</fullName>
+                <default>false</default>
+                <label>Complex</label>
+            </value>
+            <value>
+                <fullName>Residential Broker</fullName>
+                <default>false</default>
+                <label>Residential Broker</label>
+            </value>
+            <value>
+                <fullName>Third Party Deposits</fullName>
+                <default>false</default>
+                <label>Third Party Deposits</label>
+            </value>
+            <value>
+                <fullName>Customer Resolution</fullName>
+                <default>false</default>
+                <label>Customer Resolution</label>
+            </value>
+            <value>
+                <fullName>Advice Review</fullName>
+                <default>false</default>
+                <label>Advice Review</label>
+            </value>
+            <value>
+                <fullName>Project Fee Remediation</fullName>
+                <default>false</default>
+                <label>Project Fee Remediation</label>
+            </value>
+            <value>
+                <fullName>Regulatory Projects</fullName>
+                <default>false</default>
+                <label>Regulatory Projects</label>
+            </value>
+            <value>
+                <fullName>Insurance Operations</fullName>
+                <default>false</default>
+                <label>Insurance Operations</label>
+            </value>
+            <value>
+                <fullName>Pensions &amp; Investment Operations</fullName>
+                <default>false</default>
+                <label>Pensions &amp; Investment Operations</label>
+            </value>
+            <value>
+                <fullName>Wealth Contact Centre</fullName>
+                <default>false</default>
+                <label>Wealth Contact Centre</label>
+            </value>
+            <value>
+                <fullName>Technology Insurance</fullName>
+                <default>false</default>
+                <label>Technology Insurance</label>
+            </value>
+            <value>
+                <fullName>Technology Pension &amp; Investments</fullName>
+                <default>false</default>
+                <label>Technology Pension &amp; Investments</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Assurance</controllingFieldValue>
+            <controllingFieldValue>Enablement</controllingFieldValue>
+            <controllingFieldValue>Remove Image Capture (RIC)</controllingFieldValue>
+            <controllingFieldValue>Credit Cards and Personal Lending (CCPL) Tribe</controllingFieldValue>
+            <controllingFieldValue>Deposits Tribe</controllingFieldValue>
+            <controllingFieldValue>Everyday Banking Tribe</controllingFieldValue>
+            <controllingFieldValue>Home Lending Tribe</controllingFieldValue>
+            <controllingFieldValue>Home Owners Tribe</controllingFieldValue>
+            <controllingFieldValue>Small Business Banking</controllingFieldValue>
+            <controllingFieldValue>Responsible Lending Tribe</controllingFieldValue>
+            <controllingFieldValue>Specialist Product Sales</controllingFieldValue>
+            <controllingFieldValue>Remediation</controllingFieldValue>
+            <controllingFieldValue>Accessibility</controllingFieldValue>
+            <controllingFieldValue>Prevention and Detection</controllingFieldValue>
+            <controllingFieldValue>Australian Branch Network</controllingFieldValue>
+            <controllingFieldValue>Complaint Transformation</controllingFieldValue>
+            <controllingFieldValue>Complaints Insights</controllingFieldValue>
+            <controllingFieldValue>Customer Advocate</controllingFieldValue>
+            <controllingFieldValue>Portfolio Performance</controllingFieldValue>
+            <controllingFieldValue>Project Augur</controllingFieldValue>
+            <controllingFieldValue>Business Lending Tribe</controllingFieldValue>
+            <controllingFieldValue>Business Owner Engagement Tribe</controllingFieldValue>
+            <controllingFieldValue>Digital Orientation &amp; Innovation Tribe</controllingFieldValue>
+            <controllingFieldValue>Payments &amp; Merchants Tribe</controllingFieldValue>
+            <controllingFieldValue>Business Banking</controllingFieldValue>
+            <controllingFieldValue>Business Execution</controllingFieldValue>
+            <controllingFieldValue>Commercial Broker</controllingFieldValue>
+            <controllingFieldValue>Risk Engagement</controllingFieldValue>
+            <controllingFieldValue>Mobile Lending</controllingFieldValue>
+            <controllingFieldValue>Retail Business Execution</controllingFieldValue>
+            <controllingFieldValue>Retail Governance &amp; Operational Excellence</controllingFieldValue>
+            <controllingFieldValue>Systemic Issues</controllingFieldValue>
+            <controllingFieldValue>Retail Transformation</controllingFieldValue>
+            <controllingFieldValue>Business Governance</controllingFieldValue>
+            <controllingFieldValue>Performance</controllingFieldValue>
+            <controllingFieldValue>ANZi</controllingFieldValue>
+            <controllingFieldValue>ANZx</controllingFieldValue>
+            <controllingFieldValue>Capabilities (Human-Centred Design and Group Marketing)</controllingFieldValue>
+            <controllingFieldValue>Office of the Chief Operations Officer</controllingFieldValue>
+            <controllingFieldValue>Banker Experience Tribe</controllingFieldValue>
+            <controllingFieldValue>Customer Authentication Tribe</controllingFieldValue>
+            <controllingFieldValue>Customer Self-Service Tribe</controllingFieldValue>
+            <controllingFieldValue>Digital Customer Experience Tribe</controllingFieldValue>
+            <controllingFieldValue>Digital Sales &amp; Sales Optimisation Tribe</controllingFieldValue>
+            <controllingFieldValue>Omni-Channel Platform Technology</controllingFieldValue>
+            <controllingFieldValue>ANZ Command Centre</controllingFieldValue>
+            <valueName>N/A</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payment Operations</controllingFieldValue>
+            <valueName>Payment Flow &amp; Paper clearing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payment Operations</controllingFieldValue>
+            <valueName>Investigations</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payment Operations</controllingFieldValue>
+            <valueName>Clearing Streams</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payment Operations</controllingFieldValue>
+            <valueName>Transaction Processing Centre</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payment Operations</controllingFieldValue>
+            <valueName>Schemes System Accounting</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payment Operations</controllingFieldValue>
+            <valueName>RIC Project</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payment Operations</controllingFieldValue>
+            <valueName>TPC</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payment Operations</controllingFieldValue>
+            <valueName>Lockbox and Imagining</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payment Operations</controllingFieldValue>
+            <valueName>Voucher Processing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payment Operations</controllingFieldValue>
+            <valueName>Dishonours &amp; Voucher Management</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Reconciliations</controllingFieldValue>
+            <valueName>Retail Reconciliations</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Reconciliations</controllingFieldValue>
+            <valueName>IB Reconciliations</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Wealth Tribe</controllingFieldValue>
+            <valueName>Lenders Mortgage Insurance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Wealth Tribe</controllingFieldValue>
+            <valueName>General Insurance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Wealth Tribe</controllingFieldValue>
+            <valueName>Life &amp; Consumer Credit Insurance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Wealth Tribe</controllingFieldValue>
+            <valueName>Share Investing &amp; Investment Lending</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Wealth Tribe</controllingFieldValue>
+            <valueName>Marketing &amp; Propositions</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Specialised Distribution</controllingFieldValue>
+            <valueName>Agribusiness</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Specialised Distribution</controllingFieldValue>
+            <valueName>Emerging Corporate</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Specialised Distribution</controllingFieldValue>
+            <valueName>Health</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Specialised Distribution</controllingFieldValue>
+            <valueName>Industry Specialisation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Specialised Distribution</controllingFieldValue>
+            <valueName>Internal Business Development</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Specialised Distribution</controllingFieldValue>
+            <valueName>Property</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Complaint Resolution</controllingFieldValue>
+            <valueName>Early Resolution</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Complaint Resolution</controllingFieldValue>
+            <valueName>Internal Dispute Resolution (IDR)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Complaint Resolution</controllingFieldValue>
+            <valueName>External Dispute Resolution (EDR)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Complaint Resolution</controllingFieldValue>
+            <valueName>Specialised Resolution</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Contact Centre</controllingFieldValue>
+            <valueName>Services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Contact Centre</controllingFieldValue>
+            <valueName>Sales</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Contact Centre</controllingFieldValue>
+            <valueName>Complex</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Private Banking &amp; Advice (PB&amp;A)</controllingFieldValue>
+            <valueName>Private Banking</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Private Banking &amp; Advice (PB&amp;A)</controllingFieldValue>
+            <valueName>Private Bank Advice &amp; Enablement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Private Banking &amp; Advice (PB&amp;A)</controllingFieldValue>
+            <valueName>Advice</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Private Banking &amp; Advice (PB&amp;A)</controllingFieldValue>
+            <valueName>Advice Assurance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Retail Broker Distribution</controllingFieldValue>
+            <valueName>Residential Broker</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Retail Broker Distribution</controllingFieldValue>
+            <valueName>Third Party Deposits</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Wealth Customer Resolution</controllingFieldValue>
+            <valueName>Customer Resolution</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Wealth Customer Resolution</controllingFieldValue>
+            <valueName>Advice Review</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Wealth Customer Resolution</controllingFieldValue>
+            <valueName>Project Fee Remediation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Wealth Customer Resolution</controllingFieldValue>
+            <valueName>Regulatory Projects</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business Owners</controllingFieldValue>
+            <valueName>Customer Value</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business Owners</controllingFieldValue>
+            <valueName>Business Customer Solutions</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Wealth Operations</controllingFieldValue>
+            <valueName>Insurance Operations</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Wealth Operations</controllingFieldValue>
+            <valueName>Pensions &amp; Investment Operations</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Wealth Operations</controllingFieldValue>
+            <valueName>Wealth Contact Centre</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Collections &amp; Service Centre</controllingFieldValue>
+            <valueName>Home Loans</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Collections &amp; Service Centre</controllingFieldValue>
+            <valueName>Everyday Banking</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Collections &amp; Service Centre</controllingFieldValue>
+            <valueName>Regulatory Affairs</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Collections &amp; Service Centre</controllingFieldValue>
+            <valueName>Recoveries</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Wealth Technology</controllingFieldValue>
+            <valueName>Technology Insurance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Wealth Technology</controllingFieldValue>
+            <valueName>Technology Pension &amp; Investments</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Retail Customer Lending</controllingFieldValue>
+            <valueName>Settlements</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Retail Customer Lending</controllingFieldValue>
+            <valueName>Assessment</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Retail Customer Lending</controllingFieldValue>
+            <valueName>Customer Optimisation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Retail Customer Lending</controllingFieldValue>
+            <valueName>Customer Support</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Retail Customer Lending</controllingFieldValue>
+            <valueName>Customer Settlement Enquiries</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Retail Customer Lending</controllingFieldValue>
+            <valueName>Unsecured Lending</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Protection</controllingFieldValue>
+            <valueName>Fraud Analytics</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Protection</controllingFieldValue>
+            <valueName>Customer Protection Operations</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Protection</controllingFieldValue>
+            <valueName>Complex Investigation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Protection</controllingFieldValue>
+            <valueName>Statutory Compliance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Protection</controllingFieldValue>
+            <valueName>Customer Due Diligence</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Servicing</controllingFieldValue>
+            <valueName>Customer Lending Business Banking</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Servicing</controllingFieldValue>
+            <valueName>Business Banking Client Service &amp; On-boarding</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Servicing</controllingFieldValue>
+            <valueName>Private Bank Support</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Servicing</controllingFieldValue>
+            <valueName>Private Bank Specialist Support</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Servicing</controllingFieldValue>
+            <valueName>Wealth Management Call Centre</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Servicing</controllingFieldValue>
+            <valueName>Wealth Support</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Servicing</controllingFieldValue>
+            <valueName>Retail Servicing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Hardship and Vulnerable Customers</controllingFieldValue>
+            <valueName>Hardship</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Hardship and Vulnerable Customers</controllingFieldValue>
+            <valueName>Home Loans Hardship</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Hardship and Vulnerable Customers</controllingFieldValue>
+            <valueName>Everyday Banking Hardship and Estates</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Hardship and Vulnerable Customers</controllingFieldValue>
+            <valueName>Business Owners Hardship</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Owners &amp; Service Centres</controllingFieldValue>
+            <valueName>Homeowners Lighthouse</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Retail Credit Control &amp; Quality</controllingFieldValue>
+            <valueName>Customer and Quality</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Retail Credit Control &amp; Quality</controllingFieldValue>
+            <valueName>Customer Experience</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Retail Credit Control &amp; Quality</controllingFieldValue>
+            <valueName>Operations</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Retail Credit Control &amp; Quality</controllingFieldValue>
+            <valueName>Credit Support</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Retail Credit Control &amp; Quality</controllingFieldValue>
+            <valueName>Credit Control</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transformation and Transforming Customer Service Tribe</controllingFieldValue>
+            <valueName>Supplier Relationship Management</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Data</controllingFieldValue>
+            <valueName>Data Event Management</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Data</controllingFieldValue>
+            <valueName>Privacy Hub</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Data</controllingFieldValue>
+            <valueName>Retention, Retrieval &amp; Disposal</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Data</controllingFieldValue>
+            <valueName>Enterprise Data Governance</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

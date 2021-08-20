@@ -63,6 +63,22 @@
       ],
       "label": "Office",
       "name": "Link_920"
+    },
+    {
+      "fields": [
+        {
+          "dataSourceName": "CMOS_Cases",
+          "dataSourceType": "dataset",
+          "fieldName": "UserInfo.EmployeeNumber"
+        },
+        {
+          "dataSourceName": "CMOS_Historic_User_Data",
+          "dataSourceType": "dataset",
+          "fieldName": "EmployeeNumber"
+        }
+      ],
+      "label": "Cases to Users",
+      "name": "Link_14202"
     }
   ],
   "filters": [],
@@ -320,7 +336,7 @@
               "widgetStyle": {
                 "backgroundColor": "#FFFFFF",
                 "borderColor": "#E6ECF2",
-                "borderEdges": [],
+                "borderEdges": ["all"],
                 "borderRadius": 8,
                 "borderWidth": 1
               }
@@ -394,11 +410,11 @@
               "widgetStyle": { "borderEdges": [] }
             },
             {
-              "colspan": 7,
+              "colspan": 8,
               "column": 16,
               "name": "chart_11",
-              "row": 84,
-              "rowspan": 24,
+              "row": 87,
+              "rowspan": 21,
               "widgetStyle": { "borderEdges": [] }
             },
             {
@@ -450,6 +466,28 @@
               "column": 0,
               "name": "link_3",
               "row": 110,
+              "rowspan": 3,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 5,
+              "column": 18,
+              "name": "pillbox_2",
+              "row": 83,
+              "rowspan": 3,
+              "widgetStyle": {
+                "backgroundColor": "rgba(255, 255, 255, 0)",
+                "borderColor": "#E6ECF2",
+                "borderEdges": ["all"],
+                "borderRadius": 8,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 2,
+              "column": 16,
+              "name": "text_65",
+              "row": 83,
               "rowspan": 3,
               "widgetStyle": { "borderEdges": [] }
             }
@@ -665,38 +703,49 @@
     },
     "Picklist_Type_Label_1": {
       "broadcastFacet": true,
-      "datasets": [{ "name": "CMOS_Cases" }],
-      "isGlobal": false,
-      "query": {
-        "query": "{\"measures\":[[\"count\",\"*\"]],\"groups\":[\"Picklist.Type.Label\"]}",
-        "version": -1.0
-      },
+      "groups": [],
+      "label": "Picklist_Type_Label_1",
+      "numbers": [],
+      "query": "q = load \"CMOS_Cases\";\nq = group q by ('Id', 'Picklist.Type.Label');\nq = foreach q generate 'Id', 'Picklist.Type.Label' as 'Picklist.Type.Label', count() as 'count';\n\nq = group q by 'Picklist.Type.Label';\nq = foreach q generate 'Picklist.Type.Label' as 'Picklist.Type.Label', count() as 'count';\nq = order q by 'Picklist.Type.Label' asc;\n",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "start": "[]",
-      "type": "aggregateflex",
+      "strings": [],
+      "type": "saql",
       "useGlobal": true,
       "visualizationParameters": {
         "parameters": {
+          "autoFitMode": "keepLabels",
           "centerText": "",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
           "legend": {
             "descOrder": false,
-            "showHeader": true,
+            "showHeader": false,
             "show": true,
             "customSize": "auto",
             "position": "right-top",
             "inside": false
           },
-          "showMeasureTitle": true,
+          "showMeasureTitle": false,
+          "axisMode": "multi",
           "tooltip": {
             "showBinLabel": true,
-            "measures": "",
+            "measures": ["count"],
             "showNullValues": true,
             "showPercentage": true,
+            "customText": "",
             "showDimensions": true,
             "showMeasures": true,
-            "customizeTooltip": false,
-            "dimensions": ""
+            "customizeTooltip": true,
+            "dimensions": ["Picklist.Type.Label"]
           },
           "visualizationType": "pie",
           "title": {
@@ -704,8 +753,9 @@
             "subtitleFontSize": 11,
             "label": "",
             "align": "center",
-            "subtitleLabel": ""
+            "subtitleLabel": "Cases by issue type"
           },
+          "binValues": false,
           "trellis": {
             "flipLabels": false,
             "showGridLines": true,
@@ -714,16 +764,35 @@
             "type": "x",
             "chartsPerLine": 4
           },
-          "inner": 60,
-          "columnMap": {
-            "trellis": [],
-            "dimension": ["Picklist.Type.Label"],
-            "plots": ["count"]
-          },
-          "showActionMenu": true,
+          "inner": 50,
+          "showActionMenu": false,
           "centerValueType": "number",
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
           "valueType": "compactNumber",
           "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
           "applyConditionalFormatting": true
         },
         "type": "chart"
@@ -891,7 +960,7 @@
       "groups": [],
       "label": "Onboard_Division_1",
       "numbers": [],
-      "query": "q = load \"CMOS_Historic_User_Data\";\nq = group q by 'Onboard.Division';\nq = foreach q generate 'Onboard.Division' as 'Onboard.Division', count() as 'count', 1 as 'segment_size';\nq = order q by 'Onboard.Division' asc;",
+      "query": "q = load \"CMOS_Historic_User_Data\";\nq = group q by ('Id', 'Onboard.Division');\nq = foreach q generate 'Id', 'Onboard.Division';\n\nq = group q by 'Onboard.Division';\nq = foreach q generate 'Onboard.Division' as 'Onboard.Division', count() as 'count';\nq = order q by 'Onboard.Division' asc;",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "start": "[]",
@@ -902,11 +971,6 @@
         "parameters": {
           "autoFitMode": "keepLabels",
           "showValues": true,
-          "columnMap": {
-            "trellis": [],
-            "dimension": ["Onboard.Division"],
-            "plots": ["count"]
-          },
           "showActionMenu": true,
           "legend": {
             "descOrder": false,
@@ -2485,6 +2549,20 @@
         "type": "chart"
       }
     },
+    "static_2": {
+      "broadcastFacet": true,
+      "columns": {
+        "Text2": { "type": "string" },
+        "Display": { "type": "string" }
+      },
+      "label": "",
+      "selectMode": "singlerequired",
+      "type": "staticflex",
+      "values": [
+        "{\"Display\":\"Name\",\"Text2\":\"'Name' asc\"}",
+        "{\"Display\":\"Cases\",\"Text2\":\"'count' desc\"}"
+      ]
+    },
     "IDR_Complaint_Remedy_1": {
       "broadcastFacet": true,
       "groups": ["Picklist.Remedy.Label"],
@@ -2559,7 +2637,7 @@
       },
       "label": "",
       "selectMode": "single",
-      "start": "{\"Display\":[\"Daily\"]}",
+      "start": "{\"Display\":[\"Monthly\"]}",
       "type": "staticflex",
       "values": [
         "{\"Display\":\"Monthly\",\"Days\":28}",
@@ -2665,6 +2743,7 @@
       "query": "q = load \"CMOS_Historic_User_Data\";\nq = group q by 'Onboard.Team_Branch';\nq = foreach q generate 'Onboard.Team_Branch' as 'Onboard.Team_Branch', count() as 'count';\nq = order q by 'Onboard.Team_Branch' asc;\nq = limit q 2000;",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "multi",
+      "start": "[]",
       "strings": [],
       "type": "saql",
       "useGlobal": true,
@@ -2754,19 +2833,18 @@
     },
     "CreatedDate_Year_Cre_2": {
       "broadcastFacet": true,
-      "datasets": [{ "name": "CMOS_Cases" }],
-      "isGlobal": false,
-      "query": {
-        "query": "{\"measures\":[[\"count\",\"*\"]],\"groups\":[[\"CreatedDate_Year\",\"CreatedDate_Month\",\"CreatedDate_Day\"]]}",
-        "version": -1.0
-      },
+      "groups": [],
+      "label": "CreatedDate_Year_Cre_2",
+      "numbers": [],
+      "query": "q = load \"CMOS_Cases\";\nq = group q by ('CreatedDate_Year', 'CreatedDate_Month', 'CreatedDate_Day');\nq = foreach q generate 'CreatedDate_Year' + \"~~~\" + 'CreatedDate_Month' + \"~~~\" + 'CreatedDate_Day' as 'CreatedDate_Year~~~CreatedDate_Month~~~CreatedDate_Day', count() as 'count';\nq = order q by 'CreatedDate_Year~~~CreatedDate_Month~~~CreatedDate_Day' asc;\nq = limit q 2000;",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
-      "start": "[]",
-      "type": "aggregateflex",
+      "strings": [],
+      "type": "saql",
       "useGlobal": true,
       "visualizationParameters": {
         "parameters": {
+          "showValues": true,
           "showPoints": false,
           "legend": {
             "descOrder": false,
@@ -2789,8 +2867,6 @@
           },
           "visualizationType": "time",
           "missingValue": "connect",
-          "dashLine": { "measures": "", "showDashLine": false },
-          "timeAxis": { "showTitle": true, "showAxis": true, "title": "" },
           "title": {
             "fontSize": 14,
             "subtitleFontSize": 11,
@@ -2798,6 +2874,7 @@
             "align": "center",
             "subtitleLabel": ""
           },
+          "binValues": false,
           "trellis": {
             "flipLabels": false,
             "showGridLines": true,
@@ -2806,6 +2883,38 @@
             "type": "x",
             "chartsPerLine": 4
           },
+          "showZero": true,
+          "valueType": "none",
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true,
+          "drawArea": {
+            "measure": "",
+            "showDrawArea": false,
+            "bounding1": "",
+            "bounding2": ""
+          },
+          "autoFitMode": "keepLabels",
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "dashLine": { "measures": "", "showDashLine": false },
+          "timeAxis": { "showTitle": true, "showAxis": false, "title": "" },
+          "fillArea": true,
           "columnMap": {
             "split": [],
             "timeAxis": [
@@ -2814,9 +2923,7 @@
             "trellis": [],
             "plots": ["count"]
           },
-          "fillArea": true,
           "showActionMenu": true,
-          "showZero": true,
           "measureAxis2": {
             "sqrtScale": false,
             "showTitle": true,
@@ -2828,17 +2935,8 @@
             "sqrtScale": false,
             "showTitle": true,
             "showAxis": true,
-            "title": "",
+            "title": "Cases Created",
             "customDomain": { "showDomain": false }
-          },
-          "valueType": "none",
-          "theme": "wave",
-          "applyConditionalFormatting": true,
-          "drawArea": {
-            "measure": "",
-            "showDrawArea": false,
-            "bounding1": "",
-            "bounding2": ""
           }
         },
         "type": "chart"
@@ -2849,7 +2947,7 @@
       "groups": [],
       "label": "lens_5",
       "numbers": [],
-      "query": "q = load \"CMOS_Cases\";\nq = foreach q generate 'CaseNumber' as 'CaseNumber', 'Origin' as 'Origin', 'Status' as 'Status';\nq = limit q 100;",
+      "query": "q = load \"CMOS_Cases\";\nq = foreach q generate 'CaseNumber' as 'CaseNumber', 'Origin' as 'Origin', 'Status' as 'Status', 'UserInfo.FirstName' + \" \" + 'UserInfo.LastName' as 'Created By', date_to_string(toDate(CreatedDate_sec_epoch), \"dd/MM/yy\") as 'CreatedDate'; \n",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -2954,7 +3052,7 @@
       "groups": [],
       "label": "lens_4",
       "numbers": [],
-      "query": "q = load \"CMOS_Cases\";\nq = group q by ('Id', 'OwnerId', 'UserInfo.EmployeeNumber', 'UserInfo.FirstName', 'UserInfo.LastName');\nq = foreach q generate 'OwnerId', 'UserInfo.EmployeeNumber', 'UserInfo.FirstName' + \" \" + 'UserInfo.LastName' as 'Name', count() as 'count';\nq = group q by ('OwnerId', 'UserInfo.EmployeeNumber', 'Name');\nq = foreach q generate 'OwnerId', 'UserInfo.EmployeeNumber', 'Name', count() as 'count';\nq = order q by 'Name' asc;\n",
+      "query": "q = load \"CMOS_Cases\";\nq = group q by 'UserInfo.EmployeeNumber';\nq = group q by ('Id', 'CreatedById', 'UserInfo.FirstName', 'UserInfo.LastName');\nq = foreach q generate 'Id', 'CreatedById', 'UserInfo.EmployeeNumber', 'UserInfo.FirstName' + \" \" + 'UserInfo.LastName' as 'Name', count() as 'count';\nq = group q by ('UserInfo.EmployeeNumber', 'UserInfo.EmployeeNumber', 'Name');\nq = foreach q generate 'UserInfo.EmployeeNumber', 'Name', count() as 'count';\nq = order q by {{cell(static_2.selection, 0, \"Text2\").asString()}};\n",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "start": "[]",
@@ -3010,11 +3108,6 @@
             "chartsPerLine": 4
           },
           "binValues": false,
-          "columnMap": {
-            "trellis": [],
-            "dimensionAxis": ["Name"],
-            "plots": ["count"]
-          },
           "showActionMenu": false,
           "measureAxis2": {
             "sqrtScale": false,
@@ -3630,8 +3723,8 @@
           "customizeTooltip": false,
           "dimensions": ""
         },
-        "missingValue": "connect",
         "visualizationType": "time",
+        "missingValue": "connect",
         "exploreLink": true,
         "title": {
           "fontSize": 14,
@@ -3819,6 +3912,7 @@
       "parameters": {
         "autoFitMode": "keepLabels",
         "showValues": true,
+        "showActionMenu": true,
         "legend": {
           "descOrder": false,
           "showHeader": true,
@@ -3839,6 +3933,8 @@
           "dimensions": ["Onboard.Division"]
         },
         "visualizationType": "treemap",
+        "theme": "light",
+        "step": "Onboard_Division_1",
         "exploreLink": true,
         "title": {
           "fontSize": 10,
@@ -3855,14 +3951,6 @@
           "type": "x",
           "chartsPerLine": 4
         },
-        "columnMap": {
-          "trellis": [],
-          "dimension": ["Onboard.Division"],
-          "plots": ["count"]
-        },
-        "showActionMenu": true,
-        "theme": "light",
-        "step": "Onboard_Division_1",
         "applyConditionalFormatting": true
       },
       "type": "chart"
@@ -4007,11 +4095,6 @@
           "chartsPerLine": 4
         },
         "inner": 50,
-        "columnMap": {
-          "trellis": [],
-          "dimension": ["Picklist.Type.Label"],
-          "plots": ["count"]
-        },
         "showActionMenu": false,
         "centerValueType": "number",
         "measureAxis2": {
@@ -4107,6 +4190,16 @@
       },
       "type": "link"
     },
+    "text_65": {
+      "parameters": {
+        "content": { "displayTemplate": "Sort by:\n" },
+        "fontSize": 16,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#091A3E"
+      },
+      "type": "text"
+    },
     "navigation_1": {
       "parameters": {
         "fontSize": 16,
@@ -4184,6 +4277,24 @@
         "tooltip": { "customizeTooltip": false }
       },
       "type": "number"
+    },
+    "pillbox_2": {
+      "parameters": {
+        "compact": false,
+        "exploreLink": false,
+        "fontSize": 14,
+        "selectedTab": {
+          "backgroundColor": "#091A3E",
+          "borderColor": "#C6D3E1",
+          "borderEdges": ["all"],
+          "borderWidth": 1,
+          "textColor": "#FFFFFF"
+        },
+        "showActionMenu": true,
+        "step": "static_2",
+        "textColor": "#0070D2"
+      },
+      "type": "pillbox"
     },
     "pillbox_1": {
       "parameters": {
@@ -4496,9 +4607,9 @@
         "title": {
           "fontSize": 14,
           "subtitleFontSize": 11,
-          "label": "Cases Created Per Team Member",
+          "label": "",
           "align": "center",
-          "subtitleLabel": ""
+          "subtitleLabel": "Cases Created Per Team Member"
         },
         "trellis": {
           "flipLabels": false,
@@ -4509,11 +4620,6 @@
           "chartsPerLine": 4
         },
         "binValues": false,
-        "columnMap": {
-          "trellis": [],
-          "dimensionAxis": ["Name"],
-          "plots": ["count"]
-        },
         "showActionMenu": false,
         "measureAxis2": {
           "sqrtScale": false,
@@ -4547,7 +4653,7 @@
               }
             }
           ],
-          "title": "Number of Open Cases",
+          "title": "",
           "customDomain": { "showDomain": false }
         },
         "referenceLine": [{ "color": "#9271E8", "label": "Avg", "value": "4" }],
@@ -4555,7 +4661,7 @@
         "step": "lens_4",
         "dimensionAxis": {
           "showTitle": false,
-          "customSize": "auto",
+          "customSize": 50,
           "showAxis": true,
           "title": "First Name",
           "icons": {
