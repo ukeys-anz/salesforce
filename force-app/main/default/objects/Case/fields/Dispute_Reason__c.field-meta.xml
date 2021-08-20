@@ -135,6 +135,7 @@
             <value>
                 <fullName>Claim not for value[Claim requesting direct debit agreement and not amount]</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>Claim not for value[Claim requesting direct debit agreement and not amount]</label>
             </value>
         </valueSetDefinition>
