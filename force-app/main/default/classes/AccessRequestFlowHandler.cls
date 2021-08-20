@@ -20,17 +20,23 @@ public without sharing class AccessRequestFlowHandler {
   public static List<Boolean> updateUserProfile(
     List<ProfileUpdateWrapper> requests
   ) {
-    // Note: Not handling bulk, as one flow instance always maps to a single PAR/user record in this use case
     List<Boolean> resultStatus = new List<Boolean>();
-    // Modify privileged access by updating user profile
-    if (modifyPrivilegedAccess(requests[0])) {
-      // Update PAR record with Grant/Revoke timestamp
-      updateSuccessTimeStamp(
-        requests[0].privilegedAccReqId,
-        requests[0].processType,
-        System.now()
-      );
-      resultStatus.add(true);
+    // Note: Informed decision to compromise the Golden Rule of no DMLs/Qeries inside for loops.
+    // There is only a little chance of having multiple PAR/user records in a single flow instance (multiple users requesting PAM access to start at the same time).
+    // So even if it does, it would only be a couple of records.
+    for (ProfileUpdateWrapper req : requests) {
+      // Modify privileged access by updating user profile
+      if (modifyPrivilegedAccess(req)) {
+        // Update PAR record with Grant/Revoke timestamp
+        updateSuccessTimeStamp(
+          req.privilegedAccReqId,
+          req.processType,
+          System.now()
+        );
+        resultStatus.add(true);
+      } else {
+        resultStatus.add(false);
+      }
     }
 
     return resultStatus;

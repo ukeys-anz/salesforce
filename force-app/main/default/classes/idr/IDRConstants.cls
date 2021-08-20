@@ -81,6 +81,10 @@ public with sharing class IDRConstants {
   //Channel Recieved
   public static final string CHANNEL_RECEIVED_AFCA_REFERRED = '11';
 
+  //Task fields Constants
+  public static final String TASK_TYPE_PEND_CASE = 'Pend Case';
+  public static final String SUBJECT_PEND_CASE_TASK = 'Case Pended - provide update in case comment';
+
   /**
    * @description Static variable to list CMOS workbaskets' API names
    * @return List CMOS workbaskets' API names
@@ -293,7 +297,72 @@ public with sharing class IDRConstants {
           'OneAnswer Frontier' => 'IDR_Wealth',
           'BT Wrap' => 'IDR_Wealth',
           'Netwealth' => 'IDR_Wealth',
-          'Self Managed Super Fund (SMSF)' => 'IDR_Wealth'
+          'Self Managed Super Fund (SMSF)' => 'IDR_Wealth',
+          'Business One' => 'IDR_Business_Owners',
+          'Salary Packaging Card' => 'IDR_Business_Owners',
+          'Business Overdraft' => 'IDR_Business_Owners',
+          'Business Select Package' => 'IDR_Business_Owners',
+          'Residential Property Investment Loan' => 'IDR_Business_Owners',
+          'Documentary Credit Facility' => 'IDR_Business_Owners',
+          'Import Credit & Trade Facility' => 'IDR_Business_Owners',
+          'Trade Finance Loan' => 'IDR_Business_Owners',
+          'Export Trade Facility ' => 'IDR_Business_Owners',
+          'Encashment Facility' => 'IDR_Business_Owners',
+          'Commercial Bills' => 'IDR_Business_Owners',
+          'Asset Finance - Car Loans' => 'IDR_Business_Owners',
+          'Asset Finance - Esanda Business Equipment finance' => 'IDR_Business_Owners',
+          'Asset Finance - Hire purchase' => 'IDR_Business_Owners',
+          'Letter of Credit' => 'IDR_Business_Owners',
+          'Standby Letter of Credit' => 'IDR_Business_Owners',
+          'ANZ Frequent Flyer Visa Gold' => 'IDR_Everyday_Banking',
+          'ANZ Prepaid Card' => 'IDR_Everyday_Banking',
+          'ANZ Rewards Visa Gold' => 'IDR_Everyday_Banking',
+          'Aussie Mastercard' => 'IDR_Everyday_Banking',
+          'Balance Visa' => 'IDR_Everyday_Banking',
+          'Verified by Visa' => 'IDR_Everyday_Banking',
+          'Easy Start Residential Investment Loan' => 'IDR_Home_Owners',
+          'Easy Start Home Loan' => 'IDR_Home_Owners',
+          'Equity Release Fixed Rate Loan' => 'IDR_Home_Owners',
+          'Equity Release Variable Rate Loan' => 'IDR_Home_Owners',
+          'Fixed Rate' => 'IDR_Home_Owners',
+          'Home Loan Interest Saver' => 'IDR_Home_Owners',
+          'Money saver Home Loan' => 'IDR_Home_Owners',
+          'Money Saver Residential Investment Loan' => 'IDR_Home_Owners',
+          'Business Cash Management' => 'IDR_Business_Owners',
+          'Negotiable Certificate of Deposit' => 'IDR_Business_Owners',
+          'Premium Business Cash Account' => 'IDR_Business_Owners',
+          'Premium Business Cash Management' => 'IDR_Business_Owners',
+          'Short Term or Call Deposit' => 'IDR_Business_Owners',
+          'Structured Bill Investment' => 'IDR_Business_Owners',
+          'Corporate Transaction Account' => 'IDR_Business_Owners',
+          'Client Money Account (Cache)' => 'IDR_Business_Owners',
+          'Corporate Statutory Trust (Cache)' => 'IDR_Business_Owners',
+          'ANZ Design My Card' => 'IDR_Everyday_Banking',
+          'ANZ Online Investment Account' => 'IDR_Everyday_Banking',
+          'Esanda Term Deposit' => 'IDR_Everyday_Banking',
+          'Safe Deposit/ Locked Box/ Sealed Packet' => 'IDR_Everyday_Banking',
+          'Seniors Privilege' => 'IDR_Everyday_Banking',
+          'Esanda Term Deposit' => 'IDR_Everyday_Banking',
+          'Access Deeming' => 'IDR_Everyday_Banking',
+          'Access Simplicity' => 'IDR_Everyday_Banking',
+          'Premier Cheque Account' => 'IDR_Everyday_Banking',
+          'Premier Cheque Account - with Overdraft' => 'IDR_Everyday_Banking',
+          'ANZ Plus Account – Transaction Account (ANZ Plus only)' => 'IDR_Everyday_Banking',
+          'ANZ Save - Savings Account (ANZ Plus only)' => 'IDR_Everyday_Banking',
+          'Corporate Term Deposit (Cache)' => 'IDR_Business_Owners',
+          'Corporate Notice Term Deposit' => 'IDR_Business_Owners',
+          'Money Market Deposits' => 'IDR_Business_Owners',
+          'FX - Spot, Value Today and Value Tomorrow' => 'IDR_Business_Owners',
+          'FX - Flexible Forwards' => 'IDR_Business_Owners',
+          'FX - Forward Exchange Contracts' => 'IDR_Business_Owners',
+          'FX - Foreign Currency Options' => 'IDR_Business_Owners',
+          'Commodity Swap Facilities' => 'IDR_Business_Owners',
+          'Agri Commodity Swap' => 'IDR_Business_Owners',
+          'International Money Transfers' => 'IDR_Business_Owners',
+          'Digital Wallets' => 'IDR_Everyday_Banking',
+          'ANZ Plus App (ANZ Plus only)' => 'IDR_Everyday_Banking',
+          'ANZ Cash Escrow Facility' => 'IDR_Business_Owners',
+          'Home Loan Protection Insurance' => 'IDR_Home_Owners'
         };
       }
       return caseAssignmentProductMap;
