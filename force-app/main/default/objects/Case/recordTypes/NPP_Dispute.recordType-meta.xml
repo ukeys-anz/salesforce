@@ -177,67 +177,7 @@
     <picklistValues>
         <picklist>Dispute_Reason__c</picklist>
         <values>
-            <fullName>Additional transactions for an existing lost%2Fstolen%2Ffraud case</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Cancel current dispute</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Cancellation of regular payment arrangement was unsuccessful</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Cardholder did not authorise transaction %28Fraud%29</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Cardholder does not recognise transaction</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Cash Dispensing Error</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Credit has not been processed or processed incorrectly</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Customer Error</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Customer entered incorrect account details</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Customer selected wrong payee</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Duplicate Amount</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Duplicate Transaction</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Error Correction</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>General Enquiry</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Goods or services defective or not as described</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Goods or services purchased but not received</fullName>
             <default>false</default>
         </values>
         <values>
@@ -246,42 +186,6 @@
         </values>
         <values>
             <fullName>Incorrect Payee or Payment Address</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Invalid BSB%2FAccount</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Purchase was charged incorrectly</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Purchase was charged more than once</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Third party claiming non-receipt</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Trace Request</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Transaction Services Only - Bank initiated chargeback</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Unauthorised Transaction</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Urgent Dishonour Request</fullName>
             <default>false</default>
         </values>
     </picklistValues>
