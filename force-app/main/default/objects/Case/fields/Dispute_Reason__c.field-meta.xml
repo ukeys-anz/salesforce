@@ -73,9 +73,9 @@
                 <label>Transaction Services Only - Bank initiated chargeback</label>
             </value>
             <value>
-                <fullName>Cash Dispense Error</fullName>
+                <fullName>Cash Dispensing Error</fullName>
                 <default>false</default>
-                <label>Cash Dispense Error</label>
+                <label>Cash Dispensing Error</label>
             </value>
             <value>
                 <fullName>Duplicate Transaction</fullName>
