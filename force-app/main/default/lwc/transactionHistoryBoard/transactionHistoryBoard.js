@@ -166,7 +166,7 @@ export default class TransactionHistoryBoard extends LightningElement {
                 currentTransaction.transactionDateLocal
               );
 
-              this.setTransactionDisplayDateTime(currentTransaction);
+              this.setTransactionDisplayDateTime(currentTransaction);    
               /* 
               To prevent the issue where the first transaction the next payload has the same date as the last transaction in the previous payload and
               shows its date title again (date title showing twice), we will keep track of the payload count and the last date in the previous payload for comparison
@@ -486,7 +486,7 @@ export default class TransactionHistoryBoard extends LightningElement {
           timeOptions
         ) + " AEST/AEDT"; // No time conversion is done here, just formatting to a string with the desired format
     } else {
-      currentTransaction.TransactionDate = currentTransaction.TransactionTime =
+      transaction.TransactionDate = transaction.TransactionTime =
         "Unknown";
     }
   }
