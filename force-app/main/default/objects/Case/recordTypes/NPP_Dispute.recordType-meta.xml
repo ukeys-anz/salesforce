@@ -201,10 +201,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Claim not for value%5BClaim requesting direct debit agreement and not amount%5D</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Credit has not been processed or processed incorrectly</fullName>
             <default>false</default>
         </values>
@@ -233,10 +229,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Fraudulent transaction</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>General Enquiry</fullName>
             <default>false</default>
         </values>
@@ -262,18 +254,6 @@
         </values>
         <values>
             <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Payment Duplicated</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Payment Overdrawn</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Payment debited after the debit authority has been cancelled</fullName>
             <default>false</default>
         </values>
         <values>
