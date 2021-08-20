@@ -118,9 +118,19 @@
                 <label>Direct Debit Cancellation Request</label>
             </value>
             <value>
-                <fullName>Urgent Dishonour Request</fullName>
+                <fullName>Incorrect Payee or Payment Address</fullName>
                 <default>false</default>
-                <label>Urgent Dishonour Request</label>
+                <label>Incorrect Payee or Payment Address</label>
+            </value>
+            <value>
+                <fullName>Duplicate Amount</fullName>
+                <default>false</default>
+                <label>Duplicate Amount</label>
+            </value>
+            <value>
+                <fullName>Incorrect Amount</fullName>
+                <default>false</default>
+                <label>Incorrect Amount</label>
             </value>
         </valueSetDefinition>
     </valueSet>
