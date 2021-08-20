@@ -1044,7 +1044,7 @@ private class CaseTriggerHandlerTest {
         new Case(
           RecordTypeId = GetHelpCaseActions.CARD_DISPUTE_RT_ID,
           Type = '',
-          Dispute_Reason__c = 'Cardholder does not recognise transaction',
+          Dispute_Reason__c = 'Charged for a cancelled payment',
           AccountId = acc.Id,
           Is_The_Card_Lost_Stolen__c = 'Lost'
         )
@@ -1053,7 +1053,7 @@ private class CaseTriggerHandlerTest {
     insert newCases;
     newCases = [SELECT Subject FROM Case WHERE id = :newCases[0].id];
     system.assertEquals(
-      'Card - Cardholder does not recognise transaction',
+      'Card - Charged for a cancelled payment',
       newCases[0].Subject
     );
   }
