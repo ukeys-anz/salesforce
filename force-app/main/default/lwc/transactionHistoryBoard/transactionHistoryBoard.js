@@ -140,9 +140,10 @@ export default class TransactionHistoryBoard extends LightningElement {
               let currentTransaction = { ...this.fullTransactionList[i] };
 
               // Set the transaction's dispute record type Id
-              currentTransaction.disputeRecordTypeId = this.transactionTypeDisputeIdMap[
-                currentTransaction.transactionType
-              ];
+              currentTransaction.disputeRecordTypeId =
+                this.transactionTypeDisputeIdMap[
+                  currentTransaction.transactionType
+                ];
 
               // Get charged, converted, exchangeRate amounts
               this.setAmountByType(currentTransaction, "charged", 0);
@@ -154,9 +155,10 @@ export default class TransactionHistoryBoard extends LightningElement {
               this.setCurrencyByType(currentTransaction, "converted");
 
               //Remap type and status
-              currentTransaction.transactionType = currentTransaction.transactionType
-                ? transactionTypeMapping[currentTransaction.transactionType]
-                : "Unknown";
+              currentTransaction.transactionType =
+                currentTransaction.transactionType
+                  ? transactionTypeMapping[currentTransaction.transactionType]
+                  : "Unknown";
               currentTransaction.status = currentTransaction.status
                 ? transactionStatusMapping[currentTransaction.status]
                 : "Unknown";
@@ -166,14 +168,17 @@ export default class TransactionHistoryBoard extends LightningElement {
                 currentTransaction.transactionDateLocal
               );
 
-              this.setTransactionDisplayDateTime(currentTransaction);        
+              this.setTransactionDisplayDateTime(currentTransaction);
               /* 
               To prevent the issue where the first transaction the next payload has the same date as the last transaction in the previous payload and
               shows its date title again (date title showing twice), we will keep track of the payload count and the last date in the previous payload for comparison
               More details below.
               */
               // If this is first payload and first transaction
-              currentTransaction.showDateTitle = this.showDateTitle(currentDate, this.lastDateInPayload);
+              currentTransaction.showDateTitle = this.showDateTitle(
+                currentDate,
+                this.lastDateInPayload
+              );
               this.lastDateInPayload = currentDate;
 
               //Apply odd or even for each item to determine background
@@ -195,9 +200,8 @@ export default class TransactionHistoryBoard extends LightningElement {
 
               //Handle merchant details
               if (currentTransaction.merchant) {
-                currentTransaction = this.handleMerchantDetails(
-                  currentTransaction
-                );
+                currentTransaction =
+                  this.handleMerchantDetails(currentTransaction);
               }
 
               //Remap card scheme to be user friendly
@@ -456,12 +460,11 @@ export default class TransactionHistoryBoard extends LightningElement {
     return new Date(localTimeString);
   }
 
-
-  showDateTitle(currentDate, previousDate){
+  showDateTitle(currentDate, previousDate) {
     if (previousDate == null) {
-     return true; // Show date title
-    } else  {     
-      return !this.areSameDate(currentDate, this.lastDateInPayload)
+      return true; // Show date title
+    } else {
+      return !this.areSameDate(currentDate, this.lastDateInPayload);
     }
   }
 
@@ -474,29 +477,25 @@ export default class TransactionHistoryBoard extends LightningElement {
     );
   }
 
- 
-
-  setTransactionDisplayDateTime(transaction){
+  setTransactionDisplayDateTime(transaction) {
     if (transaction.transactionDateLocal) {
       transaction.TransactionDate = this.getDateObject(
         transaction.transactionDateLocal
       ).toLocaleDateString("en-AU", dateOptions); // No time conversion is done here, just formatting to a string with the desired format
       transaction.TransactionTime =
-        this.getDateObject(
-          transaction.transactionDateLocal
-        ).toLocaleTimeString("en-AU", timeOptions) + " AEST/AEDT"; // No time conversion is done here, just formatting to a string with the desired format
+        this.getDateObject(transaction.transactionDateLocal).toLocaleTimeString(
+          "en-AU",
+          timeOptions
+        ) + " AEST/AEDT"; // No time conversion is done here, just formatting to a string with the desired format
     } else {
       currentTransaction.TransactionDate = currentTransaction.TransactionTime =
         "Unknown";
     }
-
   }
 
   // Based on the type, get the according amount
-  setAmountByType(transaction, amountType, defaultValue = 'Unknown') {
-    if (
-      transaction.amount?.[amountType]?.value
-    ) {
+  setAmountByType(transaction, amountType, defaultValue = "Unknown") {
+    if (transaction.amount?.[amountType]?.value) {
       transaction.amount[amountType].value = parseFloat(
         transaction.amount[amountType].value,
         10
@@ -504,9 +503,8 @@ export default class TransactionHistoryBoard extends LightningElement {
     } else {
       transaction.amount[amountType] = {
         value: defaultValue
-      }; 
-     
-     }
+      };
+    }
     return transaction;
   }
 
@@ -514,14 +512,12 @@ export default class TransactionHistoryBoard extends LightningElement {
   setCurrencyByType(transaction, currencyType) {
     if (
       transaction.amount &&
-      !transaction.amount?.[currencyType]?.currencyCode 
+      !transaction.amount?.[currencyType]?.currencyCode
     ) {
       transaction.amount[currencyType] = {
-        currencyCode : "Unknown"
-      }; 
+        currencyCode: "Unknown"
+      };
     }
     return transaction;
   }
-
-
 }
