@@ -115,7 +115,7 @@ describe("c-transactionHistoryBoard", () => {
         getTransactions.mockResolvedValue(APEX_TRANSACTIONS_SUCCESS_SECOND);
         const searchBtn = element.shadowRoot.querySelector("lightning-button");
         searchBtn.click();
-    
+
         const titleDiv = element.shadowRoot.querySelector(
           "div.slds-text-title_bold"
         );

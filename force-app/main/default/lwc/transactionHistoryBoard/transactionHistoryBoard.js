@@ -140,10 +140,9 @@ export default class TransactionHistoryBoard extends LightningElement {
               let currentTransaction = { ...this.fullTransactionList[i] };
 
               // Set the transaction's dispute record type Id
-              currentTransaction.disputeRecordTypeId =
-                this.transactionTypeDisputeIdMap[
-                  currentTransaction.transactionType
-                ];
+              currentTransaction.disputeRecordTypeId = this.transactionTypeDisputeIdMap[
+                currentTransaction.transactionType
+              ];
 
               // Get charged, converted, exchangeRate amounts
               this.setAmountByType(currentTransaction, "charged", 0);
@@ -155,10 +154,9 @@ export default class TransactionHistoryBoard extends LightningElement {
               this.setCurrencyByType(currentTransaction, "converted");
 
               //Remap type and status
-              currentTransaction.transactionType =
-                currentTransaction.transactionType
-                  ? transactionTypeMapping[currentTransaction.transactionType]
-                  : "Unknown";
+              currentTransaction.transactionType = currentTransaction.transactionType
+                ? transactionTypeMapping[currentTransaction.transactionType]
+                : "Unknown";
               currentTransaction.status = currentTransaction.status
                 ? transactionStatusMapping[currentTransaction.status]
                 : "Unknown";
@@ -200,8 +198,9 @@ export default class TransactionHistoryBoard extends LightningElement {
 
               //Handle merchant details
               if (currentTransaction.merchant) {
-                currentTransaction =
-                  this.handleMerchantDetails(currentTransaction);
+                currentTransaction = this.handleMerchantDetails(
+                  currentTransaction
+                );
               }
 
               //Remap card scheme to be user friendly
