@@ -120,19 +120,7 @@
     <picklistValues>
         <picklist>Dispute_Subtype__c</picklist>
         <values>
-            <fullName>Incorrect Account</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Incorrect Amount</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Incorrect Payee</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Unknown Sender</fullName>
+            <fullName>NPP Subtype Placeholder</fullName>
             <default>false</default>
         </values>
     </picklistValues>
