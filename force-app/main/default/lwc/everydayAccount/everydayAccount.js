@@ -27,6 +27,8 @@ export default class EverydayAccount extends NavigationMixin(LightningElement) {
   error;
   componentTitle;
   balanceTitle;
+  showInfoModal = false;
+  productTitle;
 
   @wire(MessageContext)
   messageContext;
@@ -39,10 +41,14 @@ export default class EverydayAccount extends NavigationMixin(LightningElement) {
 
   connectedCallback() {
     this.componentTitle = ACCOUNT_TYPES[this.accountType.toLowerCase()];
-    this.balanceTitle =
-      this.accountType.toLowerCase() === "checking"
-        ? "Everyday Funds"
-        : "Total Saved";
+    if (this.accountType.toLowerCase() === "checking") {
+      this.balanceTitle = "Everyday Funds";
+      this.productTitle = "ANZ Plus";
+    } else {
+      this.balanceTitle = "Total Saved";
+      this.productTitle = "ANZ Save";
+    }
+
     if (hasAccountsGoalsPermission) {
       this.loadingSubscription = subscribe(
         this.messageContext,
@@ -166,5 +172,9 @@ export default class EverydayAccount extends NavigationMixin(LightningElement) {
         actionName: "view"
       }
     });
+  }
+
+  handleInfoModal() {
+    this.showInfoModal = !this.showInfoModal;
   }
 }
