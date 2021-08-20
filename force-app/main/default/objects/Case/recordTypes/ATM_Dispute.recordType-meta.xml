@@ -132,10 +132,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Error Correction</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>General Enquiry</fullName>
             <default>false</default>
         </values>
