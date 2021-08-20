@@ -122,13 +122,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Dispute_Subtype__c</picklist>
-        <values>
-            <fullName>NPP Subtype Placeholder</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>Fraud_Assisted_ID_Event_Type__c</picklist>
         <values>
             <fullName>Failed Electronic Verification</fullName>
