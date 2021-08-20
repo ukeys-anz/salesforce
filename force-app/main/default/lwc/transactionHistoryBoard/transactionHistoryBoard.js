@@ -463,9 +463,8 @@ export default class TransactionHistoryBoard extends LightningElement {
   showDateTitle(currentDate, previousDate) {
     if (previousDate == null) {
       return true; // Show date title
-    } else {
-      return !this.areSameDate(currentDate, this.lastDateInPayload);
     }
+    return !this.areSameDate(currentDate, this.lastDateInPayload);
   }
 
   // Compare date objects and check if both are the same date
