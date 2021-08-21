@@ -118,19 +118,24 @@
                 <label>Direct Debit Cancellation Request</label>
             </value>
             <value>
-                <fullName>Incorrect Payee or Payment Address</fullName>
+                <fullName>Unsolicited</fullName>
                 <default>false</default>
-                <label>Incorrect Payee or Payment Address</label>
+                <label>Unsolicited</label>
             </value>
             <value>
-                <fullName>Duplicate Amount</fullName>
+                <fullName>Solicited - I want to return this money?</fullName>
                 <default>false</default>
-                <label>Duplicate Amount</label>
+                <label>Solicited - I want to return this money?</label>
             </value>
             <value>
-                <fullName>Incorrect Amount</fullName>
+                <fullName>Remittance - Where did this money come from?</fullName>
                 <default>false</default>
-                <label>Incorrect Amount</label>
+                <label>Remittance - Where did this money come from?</label>
+            </value>
+            <value>
+                <fullName>Final Destination - Did my money get to where I sent it?</fullName>
+                <default>false</default>
+                <label>Final Destination - Did my money get to where I sent it?</label>
             </value>
         </valueSetDefinition>
     </valueSet>
