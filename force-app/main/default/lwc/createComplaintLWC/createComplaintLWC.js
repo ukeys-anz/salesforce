@@ -194,7 +194,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   isRealFormSubmitted;
   realFormRefNo = "";
   isReferredToProductManufacturer = false;
-  isOtherProductManufacturer;
+  isOtherProductManufacturer = false;
   thirdPartyIsDetailsProvidedToProductManufacturer = false;
   consentOptions = [
     { label: "Agrees", value: "Agrees" },
