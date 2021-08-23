@@ -697,7 +697,46 @@
                       id="nonFinancialRemedy-id"
                     ></lightning-input-field>
                   </template>
+                  <template if:true={isReferredToProductManufacturer}>
+                    <lightning-input-field
+                      variant="label-stacked"
+                      required
+                      field-name={thirdPartyProductManufacturer}
+                      onchange={handleThirdPartyProductManufacturer}
+                      id="thirdPartyProductManufacturer-id"
+                    >
+                    </lightning-input-field>
+                  </template>
                 </div>
+                <template if:true={isOtherProductManufacturer}>
+                  <div
+                    class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
+                  >
+                    <lightning-input-field
+                      variant="label-stacked"
+                      required
+                      field-name={thirdPartyOtherProductManufacturer}
+                      id="thirdPartyOtherProductManufacturer-id"
+                    >
+                    </lightning-input-field>
+                  </div>
+                </template>
+                <template if:true={isReferredToProductManufacturer}>
+                  <div
+                    class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
+                  >
+                    <lightning-input
+                      type="checkbox"
+                      label="Has the product manufacturer been provided with the details of this complaint?"
+                      name="thirdPartyIsDetailsProvidedToProductManufacturer"
+                      required
+                      message-when-value-missing="Details of the complaint have not been acknowledged by the product manufacturer."
+                      field-level-help="Evidence that this complaint has been passed onto the product manufacture must be included in this CMOS complaint record."
+                      id="thirdPartyIsDetailsProvidedToProductManufacturer-id"
+                      onchange={handleIsDetailsProvidedToProductManufacturer}
+                    ></lightning-input>
+                  </div>
+                </template>
               </template>
             </div>
             <!--Systemic issues-->
