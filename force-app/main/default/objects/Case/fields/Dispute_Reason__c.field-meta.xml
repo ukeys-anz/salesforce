@@ -63,9 +63,15 @@
                 <label>Customer entered incorrect account details</label>
             </value>
             <value>
+<<<<<<< HEAD
                 <fullName>Direct Debit Cancellation Request</fullName>
                 <default>false</default>
                 <label>Direct Debit Cancellation Request</label>
+=======
+                <fullName>Cash Dispensing Error</fullName>
+                <default>false</default>
+                <label>Cash Dispensing Error</label>
+>>>>>>> epic/disputes
             </value>
             <value>
                 <fullName>Urgent Dishonour Request</fullName>
@@ -111,6 +117,26 @@
                 <fullName>Product Defective or Unsatisfactory</fullName>
                 <default>false</default>
                 <label>Product Defective or Unsatisfactory</label>
+            </value>
+            <value>
+                <fullName>Unsolicited</fullName>
+                <default>false</default>
+                <label>Unsolicited</label>
+            </value>
+            <value>
+                <fullName>Solicited - I want to return this money?</fullName>
+                <default>false</default>
+                <label>Solicited - I want to return this money?</label>
+            </value>
+            <value>
+                <fullName>Remittance - Where did this money come from?</fullName>
+                <default>false</default>
+                <label>Remittance - Where did this money come from?</label>
+            </value>
+            <value>
+                <fullName>Final Destination - Did my money get to where I sent it?</fullName>
+                <default>false</default>
+                <label>Final Destination - Did my money get to where I sent it?</label>
             </value>
         </valueSetDefinition>
     </valueSet>
