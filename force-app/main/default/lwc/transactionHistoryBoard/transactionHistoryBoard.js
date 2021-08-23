@@ -56,9 +56,9 @@ export default class TransactionHistoryBoard extends LightningElement {
   @track filterList = [];
   @track savedMaxIndex = 0;
   expandAll = false;
-  startDate = new Date().toISOString().slice(0, 10);
-  endDate = new Date().toISOString().slice(0, 10);
-  todayDate = new Date().toISOString().slice(0, 10);
+  startDate = this.getDefaultDate();
+  endDate = this.getDefaultDate();
+  todayDate = this.getDefaultDate();
   disableSearch = true;
   ocvId;
   accountNumber;
@@ -513,5 +513,10 @@ export default class TransactionHistoryBoard extends LightningElement {
       };
     }
     return transaction;
+  }
+
+  // Get today's date as string in format YYYY-MM-DD
+  getDefaultDate(){
+    return new Date().toISOString().slice(0, 10);
   }
 }
