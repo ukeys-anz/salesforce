@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>This permission set group is for CRP LT users</description>
-    <label>IDR CRP LT</label>
+    <description>To manage permissions of customer resolution team leaders</description>
+    <label>IDR CRP Team Leaders</label>
     <permissionSets>IDR_User</permissionSets>
     <permissionSets>IDR_User_Level_1</permissionSets>
     <permissionSets>IDR_User_CRP_Leaders</permissionSets>
     <permissionSets>Product_Read_Only</permissionSets>
-    <permissionSets>Systemic_Issue_Read_Only</permissionSets>
     <permissionSets>force__EinsteinAnalyticsPlusUser</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>
