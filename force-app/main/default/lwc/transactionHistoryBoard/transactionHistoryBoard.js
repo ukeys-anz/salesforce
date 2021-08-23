@@ -516,7 +516,7 @@ export default class TransactionHistoryBoard extends LightningElement {
   }
 
   // Get today's date as string in format YYYY-MM-DD
-  getDefaultDate(){
+  getDefaultDate() {
     return new Date().toISOString().slice(0, 10);
   }
 }
