@@ -144,6 +144,10 @@
                 <behavior>Edit</behavior>
                 <field>SI_Subject_of_Breach_Report_Comments__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_AFCA_Reference_Number__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -216,11 +220,11 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>SI_Definite_Action_Required__c</field>
+                <field>SI_Other_Action_Required__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>SI_Other_Action_Required__c</field>
+                <field>SI_Definite_Action_Required__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -431,7 +435,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>true</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2O000001BikI</masterLabel>
+        <masterLabel>00h2N000001uqE4</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>
