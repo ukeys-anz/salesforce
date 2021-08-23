@@ -118,11 +118,6 @@
                 <label>Product Defective or Unsatisfactory</label>
             </value>
             <value>
-                <fullName>Urgent Dishonour Request</fullName>
-                <default>false</default>
-                <label>Urgent Dishonour Request</label>
-            </value>
-            <value>
                 <fullName>Incorrect BSB/ Account number</fullName>
                 <default>false</default>
                 <label>Incorrect BSB/ Account number</label>
