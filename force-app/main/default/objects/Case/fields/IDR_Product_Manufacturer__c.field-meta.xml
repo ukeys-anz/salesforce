@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_Product_Manufacturer__c</fullName>
+    <complianceGroup>Source_Salesforce;Integrity - Accurate;Privacy - Non Personal Information</complianceGroup>
+    <description>Captures the third party product manufacturer</description>
+    <externalId>false</externalId>
+    <label>Product Manufacturer</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>IDR_Complaint_Remedy__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Zurich</fullName>
+                <default>false</default>
+                <label>Zurich</label>
+            </value>
+            <value>
+                <fullName>IOOF</fullName>
+                <default>false</default>
+                <label>IOOF</label>
+            </value>
+            <value>
+                <fullName>QBE</fullName>
+                <default>false</default>
+                <label>QBE</label>
+            </value>
+            <value>
+                <fullName>CMC Markets</fullName>
+                <default>false</default>
+                <label>CMC Markets</label>
+            </value>
+            <value>
+                <fullName>Allianz</fullName>
+                <default>false</default>
+                <label>Allianz</label>
+            </value>
+            <value>
+                <fullName>Netwealth</fullName>
+                <default>false</default>
+                <label>Netwealth</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>3</controllingFieldValue>
+            <valueName>Zurich</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>3</controllingFieldValue>
+            <valueName>IOOF</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>3</controllingFieldValue>
+            <valueName>QBE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>3</controllingFieldValue>
+            <valueName>CMC Markets</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>3</controllingFieldValue>
+            <valueName>Allianz</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>3</controllingFieldValue>
+            <valueName>Netwealth</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>3</controllingFieldValue>
+            <valueName>Other</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

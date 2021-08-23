@@ -234,6 +234,14 @@
                 <behavior>Edit</behavior>
                 <field>IDR_Financial_Compensation__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_Product_Manufacturer__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Provided_details_to_Product_Manufacturer__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -243,6 +251,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>IDR_Non_Financial_Remedy__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Name_of_product_manufacturer__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
