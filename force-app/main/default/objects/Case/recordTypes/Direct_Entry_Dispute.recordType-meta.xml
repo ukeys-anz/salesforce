@@ -101,19 +101,19 @@
     <picklistValues>
         <picklist>Dispute_Reason__c</picklist>
         <values>
-            <fullName>Customer Error</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Invalid BSB%2FAccount</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Other</fullName>
+            <fullName>Incorrect Amount</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Third party claiming non-receipt</fullName>
+            <fullName>Duplicate Transactions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Payee has not received funds</fullName>
             <default>false</default>
         </values>
     </picklistValues>
