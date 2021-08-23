@@ -63,15 +63,9 @@
                 <label>Customer entered incorrect account details</label>
             </value>
             <value>
-<<<<<<< HEAD
-                <fullName>Direct Debit Cancellation Request</fullName>
-                <default>false</default>
-                <label>Direct Debit Cancellation Request</label>
-=======
                 <fullName>Cash Dispensing Error</fullName>
                 <default>false</default>
                 <label>Cash Dispensing Error</label>
->>>>>>> epic/disputes
             </value>
             <value>
                 <fullName>Urgent Dishonour Request</fullName>
@@ -87,6 +81,11 @@
                 <fullName>Didn&apos;t authorise transaction</fullName>
                 <default>false</default>
                 <label>Didn&apos;t authorise transaction</label>
+            </value>
+            <value>
+                <fullName>Duplicate Transactions</fullName>
+                <default>false</default>
+                <label>Duplicate Transactions</label>
             </value>
             <value>
                 <fullName>Charged more than once</fullName>
@@ -117,6 +116,52 @@
                 <fullName>Product Defective or Unsatisfactory</fullName>
                 <default>false</default>
                 <label>Product Defective or Unsatisfactory</label>
+            </value>
+            <value>
+                <fullName>Urgent Dishonour Request</fullName>
+                <default>false</default>
+                <label>Urgent Dishonour Request</label>
+            </value>
+            <value>
+                <fullName>Incorrect BSB/ Account number</fullName>
+                <default>false</default>
+                <label>Incorrect BSB/ Account number</label>
+            </value>
+            <value>
+                <fullName>Incorrect Amount</fullName>
+                <default>false</default>
+                <label>Incorrect Amount</label>
+            </value>
+            <value>
+                <fullName>Payee has not received funds</fullName>
+                <default>false</default>
+                <label>Payee has not received funds</label>
+            </value>
+            <value>
+                <fullName>Fraudulent transaction</fullName>
+                <default>false</default>
+                <label>Fraudulent transaction</label>
+            </value>
+            <value>
+                <fullName>Payment debited after the debit authority has been cancelled</fullName>
+                <default>false</default>
+                <label>Payment debited after the debit authority has been cancelled</label>
+            </value>
+            <value>
+                <fullName>Payment Duplicated</fullName>
+                <default>false</default>
+                <label>Payment Duplicated</label>
+            </value>
+            <value>
+                <fullName>Payment Overdrawn</fullName>
+                <default>false</default>
+                <label>Payment Overdrawn</label>
+            </value>
+            <value>
+                <fullName>Claim not for value[Claim requesting direct debit agreement and not amount]</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Claim not for value[Claim requesting direct debit agreement and not amount]</label>
             </value>
             <value>
                 <fullName>Unsolicited</fullName>

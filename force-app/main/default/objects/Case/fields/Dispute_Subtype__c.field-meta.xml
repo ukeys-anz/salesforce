@@ -35,15 +35,15 @@
             </value>
         </valueSetDefinition>
         <valueSettings>
-            <controllingFieldValue>Solicited - I want to return this money?</controllingFieldValue>
+            <controllingFieldValue>Unsolicited</controllingFieldValue>
             <valueName>Incorrect Payee or Payment Address</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Solicited - I want to return this money?</controllingFieldValue>
+            <controllingFieldValue>Unsolicited</controllingFieldValue>
             <valueName>Duplicate Amount</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Solicited - I want to return this money?</controllingFieldValue>
+            <controllingFieldValue>Unsolicited</controllingFieldValue>
             <valueName>Incorrect Amount</valueName>
         </valueSettings>
     </valueSet>

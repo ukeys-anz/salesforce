@@ -124,15 +124,11 @@
     <picklistValues>
         <picklist>Dispute_Reason__c</picklist>
         <values>
-            <fullName>Cash Dispense Error</fullName>
+            <fullName>Cash Dispensing Error</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Duplicate Transaction</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Error Correction</fullName>
+            <fullName>Duplicate Transactions</fullName>
             <default>false</default>
         </values>
         <values>
@@ -141,21 +137,6 @@
         </values>
         <values>
             <fullName>Unauthorised Transaction</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Dispute_Subtype__c</picklist>
-        <values>
-            <fullName>Incorrect Account</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Incorrect Amount</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Incorrect Payee</fullName>
             <default>false</default>
         </values>
     </picklistValues>
