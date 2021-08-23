@@ -369,11 +369,15 @@
                 <behavior>Edit</behavior>
                 <field>IDR_AFCA_Date__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_AFCA_Number__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>IDR_AFCA_Number__c</field>
+                <field>IDR_AFCA_Reference_Number__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
