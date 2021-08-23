@@ -149,7 +149,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Crediting_Receipt__c</field>
+                <field>Receipt__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>

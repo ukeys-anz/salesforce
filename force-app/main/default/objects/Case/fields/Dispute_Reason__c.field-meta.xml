@@ -108,14 +108,50 @@
                 <label>Customer entered incorrect account details</label>
             </value>
             <value>
-                <fullName>Direct Debit Cancellation Request</fullName>
+                <fullName>Fraudulent transaction</fullName>
                 <default>false</default>
-                <label>Direct Debit Cancellation Request</label>
+                <label>Fraudulent transaction</label>
             </value>
             <value>
-                <fullName>Urgent Dishonour Request</fullName>
+                <fullName>Payment debited after the debit authority has been cancelled</fullName>
                 <default>false</default>
-                <label>Urgent Dishonour Request</label>
+                <label>Payment debited after the debit authority has been cancelled</label>
+            </value>
+            <value>
+                <fullName>Payment Duplicated</fullName>
+                <default>false</default>
+                <label>Payment Duplicated</label>
+            </value>
+            <value>
+                <fullName>Payment Overdrawn</fullName>
+                <default>false</default>
+                <label>Payment Overdrawn</label>
+            </value>
+            <value>
+                <fullName>Claim not for value[Claim requesting direct debit agreement and not amount]</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Claim not for value[Claim requesting direct debit agreement and not amount]</label>
+            </value>
+            <value>
+                <fullName>Unsolicited</fullName>
+                <default>false</default>
+                <label>Unsolicited</label>
+            </value>
+            <value>
+                <fullName>Solicited - I want to return this money?</fullName>
+                <default>false</default>
+                <label>Solicited - I want to return this money?</label>
+            </value>
+            <value>
+                <fullName>Remittance - Where did this money come from?</fullName>
+                <default>false</default>
+                <label>Remittance - Where did this money come from?</label>
+            </value>
+            <value>
+                <fullName>Final Destination - Did my money get to where I sent it?</fullName>
+                <default>false</default>
+                <label>Final Destination - Did my money get to where I sent it?</label>
             </value>
         </valueSetDefinition>
     </valueSet>
