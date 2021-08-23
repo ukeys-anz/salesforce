@@ -72,7 +72,6 @@ export default class TransactionHistoryBoard extends LightningElement {
   personContactId = "";
   showWarning = true;
   lastDateInPayload;
-  payloadCounter = 0;
 
   @wire(MessageContext)
   messageContext;
@@ -169,10 +168,8 @@ export default class TransactionHistoryBoard extends LightningElement {
               this.setTransactionDisplayDateTime(currentTransaction);
               /* 
               To prevent the issue where the first transaction the next payload has the same date as the last transaction in the previous payload and
-              shows its date title again (date title showing twice), we will keep track of the payload count and the last date in the previous payload for comparison
-              More details below.
+              shows its date title again (date title showing twice), we will compare the current date with the previous date
               */
-              // If this is first payload and first transaction
               currentTransaction.showDateTitle = this.showDateTitle(
                 currentDate,
                 this.lastDateInPayload
@@ -234,7 +231,7 @@ export default class TransactionHistoryBoard extends LightningElement {
             this.transactionList.push(e);
           });
         }
-        this.payloadCounter++;
+
         this.loading = false;
       })
       .catch((error) => {
