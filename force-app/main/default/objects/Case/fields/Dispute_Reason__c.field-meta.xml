@@ -73,9 +73,9 @@
                 <label>Transaction Services Only - Bank initiated chargeback</label>
             </value>
             <value>
-                <fullName>Cash Dispense Error</fullName>
+                <fullName>Cash Dispensing Error</fullName>
                 <default>false</default>
-                <label>Cash Dispense Error</label>
+                <label>Cash Dispensing Error</label>
             </value>
             <value>
                 <fullName>Duplicate Transaction</fullName>
@@ -137,6 +137,26 @@
                 <default>false</default>
                 <isActive>false</isActive>
                 <label>Claim not for value[Claim requesting direct debit agreement and not amount]</label>
+            </value>
+            <value>
+                <fullName>Unsolicited</fullName>
+                <default>false</default>
+                <label>Unsolicited</label>
+            </value>
+            <value>
+                <fullName>Solicited - I want to return this money?</fullName>
+                <default>false</default>
+                <label>Solicited - I want to return this money?</label>
+            </value>
+            <value>
+                <fullName>Remittance - Where did this money come from?</fullName>
+                <default>false</default>
+                <label>Remittance - Where did this money come from?</label>
+            </value>
+            <value>
+                <fullName>Final Destination - Did my money get to where I sent it?</fullName>
+                <default>false</default>
+                <label>Final Destination - Did my money get to where I sent it?</label>
             </value>
         </valueSetDefinition>
     </valueSet>
