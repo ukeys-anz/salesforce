@@ -101,7 +101,7 @@
     <picklistValues>
         <picklist>Dispute_Reason__c</picklist>
         <values>
-            <fullName>Invalid BSB%2FAccount</fullName>
+            <fullName>Incorrect BSB/ Account number</fullName>
             <default>false</default>
         </values>
         <values>

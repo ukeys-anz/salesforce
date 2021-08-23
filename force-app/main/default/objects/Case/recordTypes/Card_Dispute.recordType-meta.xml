@@ -163,62 +163,35 @@
     <picklistValues>
         <picklist>Dispute_Reason__c</picklist>
         <values>
-            <fullName>Additional transactions for an existing lost%2Fstolen%2Ffraud case</fullName>
+            <fullName>Charged Incorrect Amount</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Cancel current dispute</fullName>
+            <fullName>Charged for a cancelled payment</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Cancellation of regular payment arrangement was unsuccessful</fullName>
+            <fullName>Charged more than once</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Cardholder did not authorise transaction %28Fraud%29</fullName>
+            <fullName>Didn%27t authorise transaction</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Cardholder does not recognise transaction</fullName>
+            <fullName>Don%27t recognise the transaction</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Credit has not been processed or processed incorrectly</fullName>
+            <fullName>Product Defective or Unsatisfactory</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Goods or services defective or not as described</fullName>
+            <fullName>Product Didn%27t Arrive</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Goods or services purchased but not received</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Purchase was charged incorrectly</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Purchase was charged more than once</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Transaction Services Only - Bank initiated chargeback</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Dispute_Subtype__c</picklist>
-        <values>
-            <fullName>Incorrect Account</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Incorrect Amount</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Incorrect Payee</fullName>
+            <fullName>Refund error</fullName>
             <default>false</default>
         </values>
     </picklistValues>
