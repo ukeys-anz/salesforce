@@ -510,7 +510,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       isFinCompValid = this.validateFinancialCompensation();
     }
     if (
-      this.caseStatus === CLOSED_STATUS_API_NAME &&
+      this.isComplaintResolved &&
       this.isReferredToProductManufacturer &&
       !this.thirdPartyIsDetailsProvidedToProductManufacturer
     ) {
@@ -549,10 +549,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
             FINANCIAL_COMPENSATION.fieldApiName
           ] = this.financialCompensation;
         }
-        if (
-          this.caseStatus === CLOSED_STATUS_API_NAME &&
-          this.isReferredToProductManufacturer
-        ) {
+        if (this.isReferredToProductManufacturer) {
           fields[
             THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER.fieldApiName
           ] = this.thirdPartyIsDetailsProvidedToProductManufacturer;
@@ -648,10 +645,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       requiredFields.compOutCome = "Complaint Outcome";
       requiredFields.compRemedy = "Complaint Remedy";
       requiredFields.descOutcome = "Description of Outcome";
-      if (
-        this.caseStatus === CLOSED_STATUS_API_NAME &&
-        this.isReferredToProductManufacturer
-      ) {
+      if (this.isReferredToProductManufacturer) {
         requiredFields.thirdPartyProductManufacturer = "Product Manufacturer";
       }
     }
