@@ -78,14 +78,9 @@
                 <label>Cash Dispensing Error</label>
             </value>
             <value>
-                <fullName>Duplicate Transaction</fullName>
+                <fullName>Duplicate Transactions</fullName>
                 <default>false</default>
-                <label>Duplicate Transaction</label>
-            </value>
-            <value>
-                <fullName>Error Correction</fullName>
-                <default>false</default>
-                <label>Error Correction</label>
+                <label>Duplicate Transactions</label>
             </value>
             <value>
                 <fullName>General Enquiry</fullName>
