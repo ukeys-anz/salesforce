@@ -93,19 +93,34 @@
                 <label>Unauthorised Transaction</label>
             </value>
             <value>
-                <fullName>Trace Request</fullName>
+                <fullName>Direct Debit Cancellation Request</fullName>
                 <default>false</default>
-                <label>Trace Request</label>
+                <label>Direct Debit Cancellation Request</label>
             </value>
             <value>
-                <fullName>Customer selected wrong payee</fullName>
+                <fullName>Urgent Dishonour Request</fullName>
                 <default>false</default>
-                <label>Customer selected wrong payee</label>
+                <label>Urgent Dishonour Request</label>
             </value>
             <value>
-                <fullName>Customer entered incorrect account details</fullName>
+                <fullName>Invalid BSB/Account</fullName>
                 <default>false</default>
-                <label>Customer entered incorrect account details</label>
+                <label>Invalid BSB/Account</label>
+            </value>
+            <value>
+                <fullName>Incorrect BSB/ Account number</fullName>
+                <default>false</default>
+                <label>Incorrect BSB/ Account number</label>
+            </value>
+            <value>
+                <fullName>Incorrect Amount</fullName>
+                <default>false</default>
+                <label>Incorrect Amount</label>
+            </value>
+            <value>
+                <fullName>Payee has not received funds</fullName>
+                <default>false</default>
+                <label>Payee has not received funds</label>
             </value>
             <value>
                 <fullName>Fraudulent transaction</fullName>
