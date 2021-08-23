@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Separate permission set for CRP Team Leaders</description>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Has_complaint_met_RG_271_delay_criteria__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.How_has_delay_criteria_been_met_not_met__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>IDR User CRP Leaders</label>
+</PermissionSet>

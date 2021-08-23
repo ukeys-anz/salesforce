@@ -22,6 +22,7 @@ RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
 RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
 ),
 NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution_Leadership&apos;),
+NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution_Team_Leaders&apos;),
 NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
 )</milestoneCriteriaFormula>
         <milestoneName>Open_Escalation_Time</milestoneName>
