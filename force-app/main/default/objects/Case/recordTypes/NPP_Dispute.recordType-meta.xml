@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Direct_Debit_Dispute</fullName>
+    <fullName>NPP_Dispute</fullName>
     <active>true</active>
     <businessProcess>ANZx Dispute Process</businessProcess>
-    <compactLayoutAssignment>Dispute</compactLayoutAssignment>
-    <description>ANZx Direct Debit Dispute Record Type</description>
-    <label>Direct Debit</label>
+    <description>ANZx NPP Dispute Record Type</description>
+    <label>NPP</label>
+    <picklistValues>
+        <picklist>ANZx_Product__c</picklist>
+        <values>
+            <fullName>ANZ Money - Everyday Account</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ Save - Savings Account</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Product Related</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
     <picklistValues>
         <picklist>Additional_Type__c</picklist>
         <values>
@@ -61,7 +75,7 @@
         <picklist>Card_In_Possession_During_Transaction__c</picklist>
         <values>
             <fullName>NA</fullName>
-            <default>false</default>
+            <default>true</default>
         </values>
         <values>
             <fullName>No</fullName>
@@ -73,10 +87,72 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Card_Method__c</picklist>
+        <values>
+            <fullName>0</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>6</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>7</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>8</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Card_Scheme__c</picklist>
+        <values>
+            <fullName>CARD_SCHEME_AMERICAN_EXPRESS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CARD_SCHEME_EFTPOS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CARD_SCHEME_MASTERCARD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CARD_SCHEME_UNSPECIFIED</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CARD_SCHEME_VISA</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Customer_Contacted_Merchant__c</picklist>
         <values>
             <fullName>NA</fullName>
-            <default>false</default>
+            <default>true</default>
         </values>
         <values>
             <fullName>No</fullName>
@@ -101,23 +177,34 @@
     <picklistValues>
         <picklist>Dispute_Reason__c</picklist>
         <values>
-            <fullName>Fraudulent transaction</fullName>
+            <fullName>Final Destination - Did my money get to where I sent it%3F</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Payment Duplicated</fullName>
+            <fullName>Remittance - Where did this money come from%3F</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Payment Overdrawn</fullName>
+            <fullName>Solicited - I want to return this money%3F</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Payment debited after the debit authority has been cancelled</fullName>
+            <fullName>Unsolicited</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Dispute_Subtype__c</picklist>
+        <values>
+            <fullName>Duplicate Amount</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Unauthorised Transaction</fullName>
+            <fullName>Incorrect Amount</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect Payee or Payment Address</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -200,6 +287,14 @@
         </values>
         <values>
             <fullName>Not Applicable</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Referred for Exit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Referred to Fraud</fullName>
             <default>false</default>
         </values>
         <values>
@@ -2142,10 +2237,25 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Has_The_Card_Been_Stopped__c</picklist>
+        <picklist>Goods_Or_Services_Returned__c</picklist>
+        <values>
+            <fullName>N</fullName>
+            <default>false</default>
+        </values>
         <values>
             <fullName>NA</fullName>
             <default>false</default>
+        </values>
+        <values>
+            <fullName>Y</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Has_The_Card_Been_Stopped__c</picklist>
+        <values>
+            <fullName>NA</fullName>
+            <default>true</default>
         </values>
         <values>
             <fullName>No</fullName>
@@ -2208,7 +2318,7 @@
         </values>
         <values>
             <fullName>Australia</fullName>
-            <default>false</default>
+            <default>true</default>
         </values>
         <values>
             <fullName>Austria</fullName>
@@ -3068,7 +3178,7 @@
         </values>
         <values>
             <fullName>United States</fullName>
-            <default>true</default>
+            <default>false</default>
         </values>
         <values>
             <fullName>Uruguay</fullName>
@@ -3384,6 +3494,25 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>IDR_Milestone_Sla__c</picklist>
+        <values>
+            <fullName>1 business day</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2 business days</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Normal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Violated</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>IDR_NC_Age__c</picklist>
         <values>
             <fullName>1</fullName>
@@ -3470,7 +3599,7 @@
         </values>
         <values>
             <fullName>Australia</fullName>
-            <default>false</default>
+            <default>true</default>
         </values>
         <values>
             <fullName>Austria</fullName>
@@ -4330,7 +4459,7 @@
         </values>
         <values>
             <fullName>United States</fullName>
-            <default>true</default>
+            <default>false</default>
         </values>
         <values>
             <fullName>Uruguay</fullName>
@@ -4902,6 +5031,30 @@
             <fullName>94</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>Digital only service</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No direct phone line</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not enough stores</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not working on device</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Request won%27t be actioned</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Stores are cashless</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>IDR_Systemic_Issue_Category__c</picklist>
@@ -4927,6 +5080,25 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Intended_Pay_Id_Type__c</picklist>
+        <values>
+            <fullName>ABN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ACN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Email Address</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mobile number</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Is_The_Card_Lost_Stolen__c</picklist>
         <values>
             <fullName>Lost</fullName>
@@ -4934,7 +5106,7 @@
         </values>
         <values>
             <fullName>NA</fullName>
-            <default>false</default>
+            <default>true</default>
         </values>
         <values>
             <fullName>No</fullName>
@@ -4942,6 +5114,17 @@
         </values>
         <values>
             <fullName>Stolen</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Is_this_a_Business_Customer__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -4957,6 +5140,42 @@
         </values>
         <values>
             <fullName>11</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>12</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>14</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>15</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>16</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>17</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>18</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>19</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>20</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>21</fullName>
             <default>false</default>
         </values>
         <values>
@@ -4981,6 +5200,10 @@
         </values>
         <values>
             <fullName>9</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ Plus App</fullName>
             <default>false</default>
         </values>
         <values>
@@ -5024,6 +5247,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Other ANZx Staff</fullName>
             <default>false</default>
         </values>
@@ -5041,6 +5268,17 @@
         </values>
         <values>
             <fullName>Voice Call</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Posted_Currency__c</picklist>
+        <values>
+            <fullName>AUD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>USD</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -5076,6 +5314,21 @@
         </values>
         <values>
             <fullName>Vulnerable Customer</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>RAG_Status__c</picklist>
+        <values>
+            <fullName>Amber</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Green</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Red</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -5123,6 +5376,18 @@
     <picklistValues>
         <picklist>Sub_Type__c</picklist>
         <values>
+            <fullName>ANZ branches</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>About ANZ Plus</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Account closure</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Add Life Event</fullName>
             <default>false</default>
         </values>
@@ -5159,11 +5424,31 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Card%2Fdevice block enquiry</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Coaching</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Coaching%2FNeeds based Discussion</fullName>
             <default>false</default>
         </values>
         <values>
+            <fullName>Damaged card</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Device Support</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Extra Care</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Falcon transaction confirmation</fullName>
             <default>false</default>
         </values>
         <values>
@@ -5179,6 +5464,14 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>General fraud enquiry</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hardship</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Hoax Email%2FSMS</fullName>
             <default>false</default>
         </values>
@@ -5187,11 +5480,35 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Lost or new phone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lost or stolen card</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Making payments</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Money tiles</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>New Dispute</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Overdraft</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Power of attorney</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Privacy</fullName>
             <default>false</default>
         </values>
         <values>
@@ -5215,7 +5532,38 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Savings and goals</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Statements</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Transaction</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Updating details</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Using account</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Using card</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Transaction_Currency__c</picklist>
+        <values>
+            <fullName>AUD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>USD</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -5306,6 +5654,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>About Us</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Account Takeover</fullName>
             <default>false</default>
         </values>
@@ -5362,7 +5714,19 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Deceased Estate</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Dispute</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial Wellbeing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fraud</fullName>
             <default>false</default>
         </values>
         <values>
@@ -5402,6 +5766,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Money</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>My Security</fullName>
             <default>false</default>
         </values>
@@ -5422,6 +5790,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Payments</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Phishing</fullName>
             <default>false</default>
         </values>
@@ -5430,7 +5802,15 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Potential Recipient</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Product Information</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Profile</fullName>
             <default>false</default>
         </values>
         <values>

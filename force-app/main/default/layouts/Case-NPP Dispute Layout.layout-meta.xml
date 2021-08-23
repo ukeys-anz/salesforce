@@ -28,6 +28,18 @@
                 <field>Transaction_Currency__c</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Posted_Amount__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Posted_Currency__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Date_Posted__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Effective_Date__c</field>
             </layoutItems>
@@ -54,31 +66,27 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Customer_Account_BSB__c</field>
+                <field>Intended_Account_Name__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Customer_Account_Number__c</field>
+                <field>Intended_Account_BSB__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Customer_Account_Name__c</field>
+                <field>Intended_Amount__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Signed_Instructions_Supplied__c</field>
+                <field>Intended_Pay_Id_Type__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Merchant_ID__c</field>
+                <field>Intended_Pay_Id_Value__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Date_Account_Last_Debited__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Reason_for_Direct_Debit_Cancellation__c</field>
+                <field>Payment_ID__c</field>
             </layoutItems>
         </layoutColumns>
         <style>OneColumn</style>
@@ -203,7 +211,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>true</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2N000001t2AG</masterLabel>
+        <masterLabel>00h2O000001Kv6k</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

@@ -88,7 +88,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.Crediting_Receipt__c</field>
+        <field>Case.Receipt__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -138,12 +138,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.Debit_User_ID_Number__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Case.Debit_User_Name__c</field>
+        <field>Case.Merchant_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

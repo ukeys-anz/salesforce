@@ -19,10 +19,32 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>NPP Subtype Placeholder</fullName>
+                <fullName>Incorrect Payee or Payment Address</fullName>
                 <default>false</default>
-                <label>NPP Subtype Placeholder</label>
+                <label>Incorrect Payee or Payment Address</label>
+            </value>
+            <value>
+                <fullName>Duplicate Amount</fullName>
+                <default>false</default>
+                <label>Duplicate Amount</label>
+            </value>
+            <value>
+                <fullName>Incorrect Amount</fullName>
+                <default>false</default>
+                <label>Incorrect Amount</label>
             </value>
         </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Unsolicited</controllingFieldValue>
+            <valueName>Incorrect Payee or Payment Address</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Unsolicited</controllingFieldValue>
+            <valueName>Duplicate Amount</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Unsolicited</controllingFieldValue>
+            <valueName>Incorrect Amount</valueName>
+        </valueSettings>
     </valueSet>
 </CustomField>

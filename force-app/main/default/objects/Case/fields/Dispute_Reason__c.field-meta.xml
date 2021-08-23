@@ -73,19 +73,14 @@
                 <label>Transaction Services Only - Bank initiated chargeback</label>
             </value>
             <value>
-                <fullName>Cash Dispense Error</fullName>
+                <fullName>Cash Dispensing Error</fullName>
                 <default>false</default>
-                <label>Cash Dispense Error</label>
+                <label>Cash Dispensing Error</label>
             </value>
             <value>
-                <fullName>Duplicate Transaction</fullName>
+                <fullName>Duplicate Transactions</fullName>
                 <default>false</default>
-                <label>Duplicate Transaction</label>
-            </value>
-            <value>
-                <fullName>Error Correction</fullName>
-                <default>false</default>
-                <label>Error Correction</label>
+                <label>Duplicate Transactions</label>
             </value>
             <value>
                 <fullName>General Enquiry</fullName>
@@ -113,21 +108,6 @@
                 <label>Invalid BSB/Account</label>
             </value>
             <value>
-                <fullName>Customer Error</fullName>
-                <default>false</default>
-                <label>Customer Error</label>
-            </value>
-            <value>
-                <fullName>Third party claiming non-receipt</fullName>
-                <default>false</default>
-                <label>Third party claiming non-receipt</label>
-            </value>
-            <value>
-                <fullName>Other</fullName>
-                <default>false</default>
-                <label>Other</label>
-            </value>
-            <value>
                 <fullName>Incorrect BSB/ Account number</fullName>
                 <default>false</default>
                 <label>Incorrect BSB/ Account number</label>
@@ -141,6 +121,52 @@
                 <fullName>Payee has not received funds</fullName>
                 <default>false</default>
                 <label>Payee has not received funds</label>
+            </value>
+            <value>
+                <fullName>Fraudulent transaction</fullName>
+                <default>false</default>
+                <label>Fraudulent transaction</label>
+            </value>
+            <value>
+                <fullName>Payment debited after the debit authority has been cancelled</fullName>
+                <default>false</default>
+                <label>Payment debited after the debit authority has been cancelled</label>
+            </value>
+            <value>
+                <fullName>Payment Duplicated</fullName>
+                <default>false</default>
+                <label>Payment Duplicated</label>
+            </value>
+            <value>
+                <fullName>Payment Overdrawn</fullName>
+                <default>false</default>
+                <label>Payment Overdrawn</label>
+            </value>
+            <value>
+                <fullName>Claim not for value[Claim requesting direct debit agreement and not amount]</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Claim not for value[Claim requesting direct debit agreement and not amount]</label>
+            </value>
+            <value>
+                <fullName>Unsolicited</fullName>
+                <default>false</default>
+                <label>Unsolicited</label>
+            </value>
+            <value>
+                <fullName>Solicited - I want to return this money?</fullName>
+                <default>false</default>
+                <label>Solicited - I want to return this money?</label>
+            </value>
+            <value>
+                <fullName>Remittance - Where did this money come from?</fullName>
+                <default>false</default>
+                <label>Remittance - Where did this money come from?</label>
+            </value>
+            <value>
+                <fullName>Final Destination - Did my money get to where I sent it?</fullName>
+                <default>false</default>
+                <label>Final Destination - Did my money get to where I sent it?</label>
             </value>
         </valueSetDefinition>
     </valueSet>
