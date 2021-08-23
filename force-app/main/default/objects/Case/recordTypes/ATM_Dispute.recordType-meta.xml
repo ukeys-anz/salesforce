@@ -132,10 +132,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>General Enquiry</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Unauthorised Transaction</fullName>
             <default>false</default>
         </values>
