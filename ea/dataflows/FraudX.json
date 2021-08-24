@@ -41,7 +41,8 @@
           { "name": "Fraud_Total_Customer_Exposure__c" },
           { "name": "Origin" },
           { "name": "LastModifiedDate" },
-          { "name": "LastModifiedById" }
+          { "name": "LastModifiedById" },
+          { "name": "Fraud_Loss_Reason_Code__c" }
         ],
         "object": "Case"
       }
