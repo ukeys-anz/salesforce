@@ -1862,7 +1862,7 @@
         <picklist>Has_complaint_met_RG_271_delay_criteria__c</picklist>
         <values>
             <fullName>No</fullName>
-            <default>true</default>
+            <default>false</default>
         </values>
         <values>
             <fullName>Yes %E2%80%93 Matter is particularly complex</fullName>
