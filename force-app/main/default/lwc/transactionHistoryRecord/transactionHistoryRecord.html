@@ -1,14 +1,7 @@
 <template>
   <template if:true={transactionRecord.showDateTitle}>
     <div class="slds-text-color_weak slds-card__header-title transaction-date">
-      <lightning-formatted-date-time
-        value={transactionDate}
-        year="numeric"
-        month="long"
-        day="2-digit"
-        weekday="long"
-        time-zone={userTimezone}
-      ></lightning-formatted-date-time>
+      {transactionDate}
     </div>
   </template>
   <article class={transactionRecord.rowColour}>
@@ -28,14 +21,7 @@
       </div>
       <div class="slds-col slds-size--1-of-7">
         <div class="slds-grid slds-form-element__label">Transaction Time</div>
-        <div class="slds-grid">
-          <lightning-formatted-date-time
-            value={transactionRecord.transactionDate}
-            hour="2-digit"
-            minute="2-digit"
-            time-zone={userTimezone}
-          ></lightning-formatted-date-time>
-        </div>
+        <div class="slds-grid">{transactionTime}</div>
       </div>
       <div class="slds-col slds-size--1-of-7">
         <div class="slds-grid slds-form-element__label">Short Description</div>
@@ -118,7 +104,7 @@
         <div class="slds-col slds-size--1-of-7">
           <div class="slds-grid slds-form-element__label">Currency Code</div>
           <div class="slds-grid">
-            {transactionRecord.amount.charged.currency}
+            {transactionRecord.amount.charged.currencyCode}
           </div>
         </div>
       </div>

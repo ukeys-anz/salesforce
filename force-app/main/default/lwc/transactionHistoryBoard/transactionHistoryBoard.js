@@ -10,7 +10,6 @@ import { publish, MessageContext } from "lightning/messageService";
 import ExpandCollapseAll from "@salesforce/messageChannel/ListCollapseExpandAll__c";
 import { handleErrorShowToast } from "c/utils";
 import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
-import TIMEZONE from "@salesforce/i18n/timeZone";
 
 //Remapping the status and types returned from the API so they
 //are more readable on the UI
@@ -40,7 +39,14 @@ const cardMapping = {
   CARD_SCHEME_AMERICAN_EXPRESS: "American Express"
 };
 
-const userTimezone = TIMEZONE;
+const dateOptions = {
+  weekday: "long",
+  year: "numeric",
+  month: "long",
+  day: "numeric"
+};
+
+const timeOptions = { hour: "2-digit", minute: "2-digit" };
 
 export default class TransactionHistoryBoard extends LightningElement {
   @api recordId;
@@ -50,9 +56,9 @@ export default class TransactionHistoryBoard extends LightningElement {
   @track filterList = [];
   @track savedMaxIndex = 0;
   expandAll = false;
-  startDate;
-  endDate = new Date().toISOString().slice(0, 10);
-  todayDate = new Date().toISOString().slice(0, 10);
+  startDate = this.getDefaultDate();
+  endDate = this.getDefaultDate();
+  todayDate = this.getDefaultDate();
   disableSearch = true;
   ocvId;
   accountNumber;
@@ -65,6 +71,7 @@ export default class TransactionHistoryBoard extends LightningElement {
   transactionTypeDisputeIdMap = {};
   personContactId = "";
   showWarning = true;
+  lastDateInPayload;
 
   @wire(MessageContext)
   messageContext;
@@ -94,18 +101,30 @@ export default class TransactionHistoryBoard extends LightningElement {
     return this.links && this.links.next && this.links.next.href ? true : false;
   }
 
-  fetchTransactions(paramUrl = "", isSearch = false) {
+  fetchTransactions(
+    paramUrl = "",
+    isSearch = false,
+    startDateString = "",
+    endDateString = ""
+  ) {
     //This check here is to prevent Salesforce from triggering
     //the API and appending duplicate transactions into our list
     //ie: modifying the financial account record triggers the API
     //and appends the initial transaction results onto our list
-    if (this.transactionList.length > 0 && !paramUrl) {
+    if (
+      this.transactionList.length > 0 &&
+      !startDateString &&
+      !endDateString &&
+      !paramUrl
+    ) {
       this.loading = false;
       return;
     }
     getTransactions({
       ocvId: this.ocvId,
       accountNumber: this.accountNumber,
+      startDate: startDateString,
+      endDate: endDateString,
       paramUrl: paramUrl
     })
       .then((result) => {
@@ -124,31 +143,14 @@ export default class TransactionHistoryBoard extends LightningElement {
                 currentTransaction.transactionType
               ];
 
-              //Remove $ from value and convert to int
-              if (
-                currentTransaction.amount &&
-                currentTransaction.amount.charged &&
-                currentTransaction.amount.charged.value
-              ) {
-                currentTransaction.amount.charged.value = parseFloat(
-                  currentTransaction.amount.charged.value,
-                  10
-                ).toFixed(2);
-              } else {
-                currentTransaction.amount.charged.value = 0;
-              }
+              // Get charged, converted, exchangeRate amounts
+              this.setAmountByType(currentTransaction, "charged", 0);
+              this.setAmountByType(currentTransaction, "converted");
+              this.setAmountByType(currentTransaction, "exchangeRate");
 
-              //Remove $ from value and convert to int
-              if (
-                currentTransaction.amount &&
-                currentTransaction.amount.converted &&
-                currentTransaction.amount.converted.value
-              ) {
-                currentTransaction.amount.converted.value = parseFloat(
-                  currentTransaction.amount.converted.value,
-                  10
-                ).toFixed(2);
-              }
+              // Get charged, converted currencies
+              this.setCurrencyByType(currentTransaction, "charged");
+              this.setCurrencyByType(currentTransaction, "converted");
 
               //Remap type and status
               currentTransaction.transactionType = currentTransaction.transactionType
@@ -158,27 +160,21 @@ export default class TransactionHistoryBoard extends LightningElement {
                 ? transactionStatusMapping[currentTransaction.status]
                 : "Unknown";
 
-              //Slice the returned date time to get only the date
-              currentTransaction.TransactionDate = currentTransaction.transactionDate
-                ? currentTransaction.transactionDate.slice(0, 10)
-                : "Unknown";
+              //Process date and time, set showDateTitle
+              let currentDate = this.getDateObject(
+                currentTransaction.transactionDateLocal
+              );
 
-              if (i === 0) {
-                currentTransaction.showDateTitle = true;
-              } else if (
-                currentTransaction.TransactionDate !==
-                this.fullTransactionList[i - 1].transactionDate.slice(0, 10)
-              ) {
-                currentTransaction.showDateTitle = true;
-              } else {
-                currentTransaction.showDateTitle = false;
-              }
-
-              //Create new date with user timezone but in US format
-              //US format required for lightning-formatted-date-time
-              currentTransaction.TransactionDate = new Date(
-                currentTransaction.transactionDate
-              ).toLocaleDateString("en-US", { timeZone: userTimezone });
+              this.setTransactionDisplayDateTime(currentTransaction);
+              /* 
+              To prevent the issue where the first transaction the next payload has the same date as the last transaction in the previous payload and
+              shows its date title again (date title showing twice), we will compare the current date with the previous date
+              */
+              currentTransaction.showDateTitle = this.showDateTitle(
+                currentDate,
+                this.lastDateInPayload
+              );
+              this.lastDateInPayload = currentDate;
 
               //Apply odd or even for each item to determine background
               currentTransaction.rowColour =
@@ -348,33 +344,12 @@ export default class TransactionHistoryBoard extends LightningElement {
   handleSearch() {
     if (this.startDate && this.endDate) {
       this.loading = true;
-      let convertedTimes = this.getUTCTimeFromTimezone();
 
       //Create dates based off the user selection
-      let startDate = new Date(this.startDate + " 00:00:00");
-      let endDate = new Date(this.endDate + " 23:59:59");
+      let startDate = this.startDate + " 00:00:00";
+      let endDate = this.endDate + " 23:59:59";
 
-      //Create new UTC dates to match fabric timezone
-      //We +1 to month as getUTCMonth starts at 0 = Jan
-      let utcStartDate = new Date(
-        `${
-          startDate.getUTCMonth() + 1
-        }-${startDate.getUTCDate()}-${startDate.getUTCFullYear()} ${
-          convertedTimes.startTime
-        } UTC`
-      ).toISOString();
-
-      let utcEndDate = new Date(
-        `${
-          endDate.getUTCMonth() + 1
-        }-${endDate.getUTCDate()}-${endDate.getUTCFullYear()} ${
-          convertedTimes.endTime
-        } UTC`
-      ).toISOString();
-
-      //Need to convert dates to ISO string for search params
-      let urlParam = `?account_number=${this.accountNumber}&start_date=${utcStartDate}&end_date=${utcEndDate}`;
-      this.fetchTransactions(urlParam, true);
+      this.fetchTransactions("", true, startDate, endDate);
     }
   }
 
@@ -401,78 +376,6 @@ export default class TransactionHistoryBoard extends LightningElement {
     } else {
       this.disableSearch = true;
     }
-  }
-
-  //This function retrieves the UTC time equivalent of midnight from
-  //the users current timezone
-  getUTCTimeFromTimezone() {
-    let daylightSavings = this.isDaylightSavings();
-    //Get city from timezone used in Salesforce
-    let city = userTimezone.replace("Australia/", "");
-
-    //Check city to return start and end times
-    //of UTC equivalent of midnight of current location
-    switch (city) {
-      case "Sydney":
-      case "Melbourne":
-      case "Hobart":
-      case "Canberra":
-        if (daylightSavings) {
-          return { startTime: "13:00:00", endTime: "12:59:59" };
-        }
-        return { startTime: "14:00:00", endTime: "13:59:59" };
-      case "Brisbane":
-        return { startTime: "14:00:00", endTime: "13:59:59" };
-      case "Adelaide":
-      case "Broken Hill":
-        if (daylightSavings) {
-          return { startTime: "13:30:00", endTime: "13:29:59" };
-        }
-        return { startTime: "14:30:00", endTime: "14:29:59" };
-      case "Darwin":
-        return { startTime: "14:30:00", endTime: "14:29:59" };
-      case "Perth":
-        return { startTime: "16:00:00", endTime: "15:59:59" };
-      default:
-        return { startTime: "00:00:00", endTime: "23:59:59" };
-    }
-  }
-
-  //Check if we should be using AEST or AEDT
-  //AEDT begins first Sunday of October until first Sunday of April
-  isDaylightSavings() {
-    let today = new Date();
-    let daylightDate = new Date();
-
-    //Set month to April and get first Sunday of month
-    daylightDate.setMonth(3);
-    let aprilDate = new Date(
-      daylightDate.getFullYear(),
-      daylightDate.getMonth(),
-      1,
-      0,
-      0,
-      0
-    );
-    aprilDate.setDate(aprilDate.getDate() + 7 - aprilDate.getDay());
-
-    //Set month to October and get first Sunday of month
-    daylightDate.setMonth(9);
-    let octoberDate = new Date(
-      daylightDate.getFullYear(),
-      daylightDate.getMonth(),
-      1,
-      0,
-      0,
-      0
-    );
-    octoberDate.setDate(octoberDate.getDate() + 7 - octoberDate.getDay());
-
-    //Check if we are in AEST or AEDT
-    if (today > aprilDate && today < octoberDate) {
-      return false;
-    }
-    return true;
   }
 
   //This function is required as some errors are returned
@@ -546,5 +449,74 @@ export default class TransactionHistoryBoard extends LightningElement {
 
   closeWarning() {
     this.showWarning = false;
+  }
+
+  // Get date object from the local time string returned from Apex
+  getDateObject(localTimeString) {
+    return new Date(localTimeString);
+  }
+
+  showDateTitle(currentDate, previousDate) {
+    if (previousDate == null) {
+      return true; // Show date title
+    }
+    return !this.areSameDate(currentDate, this.lastDateInPayload);
+  }
+
+  // Compare date objects and check if both are the same date
+  areSameDate(date1, date2) {
+    return (
+      date1.getDate() === date2.getDate() &&
+      date1.getMonth() === date2.getMonth() &&
+      date1.getFullYear() === date2.getFullYear()
+    );
+  }
+
+  setTransactionDisplayDateTime(transaction) {
+    if (transaction.transactionDateLocal) {
+      transaction.TransactionDate = this.getDateObject(
+        transaction.transactionDateLocal
+      ).toLocaleDateString("en-AU", dateOptions); // No time conversion is done here, just formatting to a string with the desired format
+      transaction.TransactionTime =
+        this.getDateObject(transaction.transactionDateLocal).toLocaleTimeString(
+          "en-AU",
+          timeOptions
+        ) + " AEST/AEDT"; // No time conversion is done here, just formatting to a string with the desired format
+    } else {
+      transaction.TransactionDate = transaction.TransactionTime = "Unknown";
+    }
+  }
+
+  // Based on the type, get the according amount
+  setAmountByType(transaction, amountType, defaultValue = "Unknown") {
+    if (transaction.amount?.[amountType]?.value) {
+      transaction.amount[amountType].value = parseFloat(
+        transaction.amount[amountType].value,
+        10
+      ).toFixed(2);
+    } else {
+      transaction.amount[amountType] = {
+        value: defaultValue
+      };
+    }
+    return transaction;
+  }
+
+  // Based on the type, get the according currency
+  setCurrencyByType(transaction, currencyType) {
+    if (
+      transaction.amount &&
+      !transaction.amount?.[currencyType]?.currencyCode
+    ) {
+      transaction.amount[currencyType] = {
+        currencyCode: "Unknown"
+      };
+    }
+    return transaction;
+  }
+
+  // Get today's date as string in format YYYY-MM-DD
+  getDefaultDate() {
+    return new Date().toISOString().slice(0, 10);
   }
 }
