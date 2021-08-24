@@ -2,10 +2,10 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>OCV_ID__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information</complianceGroup>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information</complianceGroup>
     <description>Customer Master will employ the use of database sequence while assigning a &apos;One Customer ID&apos; when a new party is created in the Customer Master.</description>
     <externalId>false</externalId>
-    <inlineHelpText>One Customer View ID</inlineHelpText>
+    <inlineHelpText>Customer&apos;s unique ID from One Customer View</inlineHelpText>
     <label>OCV ID</label>
     <length>50</length>
     <required>true</required>

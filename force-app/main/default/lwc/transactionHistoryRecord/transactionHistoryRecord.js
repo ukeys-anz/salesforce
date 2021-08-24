@@ -5,9 +5,6 @@ import ExpandCollapseAll from "@salesforce/messageChannel/ListCollapseExpandAll_
 
 import { NavigationMixin } from "lightning/navigation";
 import canRaiseDispute from "@salesforce/customPermission/ANZx_Raise_Dispute";
-
-import TIMEZONE from "@salesforce/i18n/timeZone";
-
 export default class TransactionHistoryRecord extends NavigationMixin(
   LightningElement
 ) {
@@ -24,7 +21,6 @@ export default class TransactionHistoryRecord extends NavigationMixin(
   selectedDisputeRecordType;
   @api personContactId;
   @api financialAccountId;
-  userTimezone = TIMEZONE;
 
   connectedCallback() {
     this.subscription = subscribe(
@@ -75,42 +71,15 @@ export default class TransactionHistoryRecord extends NavigationMixin(
   }
 
   get amountConvertedValue() {
-    let amountConValue;
-    if (
-      this.transactionRecord.amount &&
-      this.transactionRecord.amount.converted
-    ) {
-      amountConValue = this.transactionRecord.amount.converted.value;
-    } else {
-      amountConValue = "Unknown";
-    }
-    return amountConValue;
+    return this.transactionRecord.amount.converted.value;
   }
 
   get amountConvertedCurrency() {
-    let amountConCurrency;
-    if (
-      this.transactionRecord.amount &&
-      this.transactionRecord.amount.converted
-    ) {
-      amountConCurrency = this.transactionRecord.amount.converted.currency;
-    } else {
-      amountConCurrency = "Unknown";
-    }
-    return amountConCurrency;
+    return this.transactionRecord.amount.converted.currencyCode;
   }
 
   get amountExchangeRateValue() {
-    let amountExchangeRate;
-    if (
-      this.transactionRecord.amount &&
-      this.transactionRecord.amount.exchangeRate
-    ) {
-      amountExchangeRate = this.transactionRecord.amount.exchangeRate.value;
-    } else {
-      amountExchangeRate = "Unknown";
-    }
-    return amountExchangeRate;
+    return this.transactionRecord.amount.exchangeRate.value;
   }
 
   get amountNumber() {
@@ -130,11 +99,11 @@ export default class TransactionHistoryRecord extends NavigationMixin(
   }
 
   get transactionDate() {
-    //new date to ISO format to pass to lwc
-    let recordDate = new Date(
-      this.transactionRecord.TransactionDate
-    ).toISOString();
-    return recordDate;
+    return this.transactionRecord.TransactionDate;
+  }
+
+  get transactionTime() {
+    return this.transactionRecord.TransactionTime;
   }
 
   handleDetailsToggle() {

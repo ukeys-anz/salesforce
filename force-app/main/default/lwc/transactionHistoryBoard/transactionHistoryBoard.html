@@ -15,27 +15,6 @@
         <c-error message={error}></c-error>
       </template>
       <template if:false={hasError}>
-        <template if:true={showWarning}>
-          <div
-            class="slds-notify slds-notify_alert slds-m-bottom_small"
-            role="alert"
-          >
-            <h2>
-              Note: the transaction date and time is based on your location and
-              timezone. For example, you're in Perth and it’s 9am, but for a
-              customer in Sydney, it’s 11am.
-            </h2>
-            <div class="slds-notify__close">
-              <button
-                class="slds-button slds-button_icon slds-button_icon-small"
-                title="Close"
-                onclick={closeWarning}
-              >
-                &#x2715;
-              </button>
-            </div>
-          </div>
-        </template>
         <div class="search-section">
           <div class="slds-text-title_bold slds-m-bottom_medium">
             Transaction History

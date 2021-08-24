@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Number_of_PIN_Failures__c</fullName>
     <businessStatus>Hidden</businessStatus>
-    <complianceGroup>Integrity_Accurate;Privacy - Personal Information</complianceGroup>
+    <complianceGroup>Integrity_Accurate;Privacy_Personal_Information</complianceGroup>
     <description>Number of times PIN has been entered incorrectly</description>
     <externalId>false</externalId>
     <label>Number of PIN Failures</label>
