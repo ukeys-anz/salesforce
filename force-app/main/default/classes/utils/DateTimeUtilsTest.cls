@@ -55,7 +55,7 @@ public with sharing class DateTimeUtilsTest {
     System.assertEquals(
       '2021-10-16 07:52:00.000 +1100',
       result1,
-      'Converted dates do not match.'
+      'Converted dates match.'
     );
     DateTime dt2 = DateTime.newInstanceGmt(2020, 4, 7, 3, 15, 0); // DST ends
     String result2 = DateTimeUtils.getLocalTime(
@@ -132,27 +132,27 @@ public with sharing class DateTimeUtilsTest {
   static void testGetUTCTimeFromString() {
     // Test case 1
     String startDate1 = '2021-08-03 00:00:00';
-    System.assertNotEquals(
-      '2021-08-02T14:00:00:000Z',
+    System.assertEquals(
+      '2021-08-02T14:00:00.000Z',
       DateTimeUtils.getUTCTimeFromString(startDate1),
       'UTC Times match.'
     );
     String endDate1 = '2021-08-12 23:59:59';
-    System.assertNotEquals(
-      '2021-08-12T13:59:00:000Z',
+    System.assertEquals(
+      '2021-08-12T13:59:59.000Z',
       DateTimeUtils.getUTCTimeFromString(endDate1),
       'UTC Times match.'
     );
     // Test case 2
     String startDate2 = '2018-07-03 00:00:00';
-    System.assertNotEquals(
-      '2021-07-02T14:00:00:000Z',
+    System.assertEquals(
+      '2018-07-02T14:00:00.000Z',
       DateTimeUtils.getUTCTimeFromString(startDate2),
       'UTC Times match.'
     );
-    String endDate2 = '2021-08-12 23:59:59';
-    System.assertNotEquals(
-      '2021-07-26T13:59:00:000Z',
+    String endDate2 = '2018-07-12 23:59:59';
+    System.assertEquals(
+      '2018-07-12T13:59:59.000Z',
       DateTimeUtils.getUTCTimeFromString(endDate2),
       'UTC Times match.'
     );
