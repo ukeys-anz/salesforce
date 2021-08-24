@@ -144,6 +144,10 @@
                 <behavior>Edit</behavior>
                 <field>SI_Subject_of_Breach_Report_Comments__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_AFCA_Reference_Number__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

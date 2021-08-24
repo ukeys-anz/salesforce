@@ -25,7 +25,7 @@ public with sharing class IDRPendCaseTaskRemindersSelector {
               WHEN User THEN Id, FirstName, ManagerId
             END
           FROM Case
-          WHERE Id IN :caseIdList AND Owner.Type = 'User'
+          WHERE Id IN :caseIdList
         ]
       );
     } else {

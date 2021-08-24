@@ -22,6 +22,11 @@
     </folderShares>
     <folderShares>
         <accessLevel>View</accessLevel>
+        <sharedTo>Customer_Resolution_Team_Leaders</sharedTo>
+        <sharedToType>Role</sharedToType>
+    </folderShares>
+    <folderShares>
+        <accessLevel>View</accessLevel>
         <sharedTo>Data_Analyst</sharedTo>
         <sharedToType>Role</sharedToType>
     </folderShares>
