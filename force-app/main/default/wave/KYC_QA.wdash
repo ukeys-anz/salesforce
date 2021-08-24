@@ -8,14 +8,6 @@
       "locked": false,
       "operator": ">=<=",
       "value": "[[[\"month\",0],[\"month\",0]]]"
-    },
-    {
-      "dataset": { "name": "KYC_QA" },
-      "dependent": true,
-      "fields": ["IsClosed"],
-      "locked": false,
-      "operator": "in",
-      "value": "[\"false\"]"
     }
   ],
   "gridLayouts": [
@@ -69,8 +61,8 @@
               "colspan": 12,
               "column": 0,
               "name": "chart_2",
-              "row": 13,
-              "rowspan": 6,
+              "row": 14,
+              "rowspan": 5,
               "widgetStyle": {
                 "backgroundColor": "#FFFFFF",
                 "borderColor": "#091A3E",
@@ -136,10 +128,10 @@
               }
             },
             {
-              "colspan": 4,
-              "column": 8,
+              "colspan": 12,
+              "column": 0,
               "name": "text_2",
-              "row": 2,
+              "row": 13,
               "rowspan": 1,
               "widgetStyle": { "borderEdges": [] }
             }
@@ -298,8 +290,9 @@
     "lens_2": {
       "broadcastFacet": true,
       "groups": [],
+      "label": "lens_2",
       "numbers": [],
-      "query": "q = load \"KYC_QA\";\nq_count = filter q by 'CaseAge' == 0;\nresult = cogroup q by all full, q_count by all;\nq0 = foreach result generate \"0\" as 'Days', count(q_count) as 'Cases';\n\nq = load \"KYC_QA\";\nq_count = filter q by 'CaseAge' == 1;\nresult = cogroup q by all full, q_count by all;\nq1 = foreach result generate \"1\" as 'Days', count(q_count) as 'Cases';\n\nq = load \"KYC_QA\";\nq_count = filter q by 'CaseAge' == 2;\nresult = cogroup q by all full, q_count by all;\nq2 = foreach result generate \"2\" as 'Days', count(q_count) as 'Cases';\n\nq = load \"KYC_QA\";\nq_count = filter q by 'CaseAge' == 3;\nresult = cogroup q by all full, q_count by all;\nq3 = foreach result generate \"3\" as 'Days', count(q_count) as 'Cases';\n\nq = load \"KYC_QA\";\nq_count = filter q by 'CaseAge' == 4;\nresult = cogroup q by all full, q_count by all;\nq4 = foreach result generate \"4\" as 'Days', count(q_count) as 'Cases';\n\nq = load \"KYC_QA\";\nq_count = filter q by 'CaseAge' == 5;\nresult = cogroup q by all full, q_count by all;\nq5 = foreach result generate \"5\" as 'Days', count(q_count) as 'Cases';\n\nq = load \"KYC_QA\";\nq_count = filter q by 'CaseAge' == 6;\nresult = cogroup q by all full, q_count by all;\nq6 = foreach result generate \"6\" as 'Days', count(q_count) as 'Cases';\n\nq = load \"KYC_QA\";\nq_count = filter q by 'CaseAge' == 7;\nresult = cogroup q by all full, q_count by all;\nq7 = foreach result generate \"7\" as 'Days', count(q_count) as 'Cases';\n\nq = load \"KYC_QA\";\nq_count = filter q by 'CaseAge' > 8;\nresult = cogroup q by all full, q_count by all;\nq8 = foreach result generate \"8+\" as 'Days', count(q_count) as 'Cases';\n\n\nr = union q0, q1, q2, q3, q4, q5, q6, q7, q8;",
+      "query": "q = load \"KYC_QA\";\nq_base = filter q by IsClosed == \"false\";\n\nq_count = filter q_base by 'CaseAge' == 0;\nresult = cogroup q by all full, q_count by all;\nq0 = foreach result generate \"0\" as 'Days', count(q_count) as 'Cases';\n\nq_count = filter q_base by 'CaseAge' == 1;\nresult = cogroup q by all full, q_count by all;\nq1 = foreach result generate \"1\" as 'Days', count(q_count) as 'Cases';\n\nq_count = filter q_base by 'CaseAge' == 2;\nresult = cogroup q by all full, q_count by all;\nq2 = foreach result generate \"2\" as 'Days', count(q_count) as 'Cases';\n\nq_count = filter q_base by 'CaseAge' == 3;\nresult = cogroup q by all full, q_count by all;\nq3 = foreach result generate \"3\" as 'Days', count(q_count) as 'Cases';\n\nq_count = filter q_base by 'CaseAge' == 4;\nresult = cogroup q by all full, q_count by all;\nq4 = foreach result generate \"4\" as 'Days', count(q_count) as 'Cases';\n\nq_count = filter q_base by 'CaseAge' == 5;\nresult = cogroup q by all full, q_count by all;\nq5 = foreach result generate \"5\" as 'Days', count(q_count) as 'Cases';\n\nq_count = filter q_base by 'CaseAge' == 6;\nresult = cogroup q by all full, q_count by all;\nq6 = foreach result generate \"6\" as 'Days', count(q_count) as 'Cases';\n\n\nq_count = filter q_base by 'CaseAge' == 7;\nresult = cogroup q by all full, q_count by all;\nq7 = foreach result generate \"7\" as 'Days', count(q_count) as 'Cases';\n\nq_count = filter q_base by 'CaseAge' > 8;\nresult = cogroup q by all full, q_count by all;\nq8 = foreach result generate \"8+\" as 'Days', count(q_count) as 'Cases';\n\n\nr = union q0, q1, q2, q3, q4, q5, q6, q7, q8;\n\nr = foreach r generate 'Days' as 'CaseAge', Cases as 'Cases';",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -320,7 +313,7 @@
           "legend": {
             "descOrder": false,
             "showHeader": true,
-            "show": true,
+            "show": false,
             "customSize": "auto",
             "position": "right-top",
             "inside": false
@@ -336,11 +329,11 @@
             "customizeTooltip": false,
             "dimensions": ""
           },
-          "visualizationType": "hbar",
+          "visualizationType": "vbar",
           "title": {
             "fontSize": 14,
             "subtitleFontSize": 11,
-            "label": "",
+            "label": "QA Case Days Open",
             "align": "center",
             "subtitleLabel": ""
           },
@@ -363,8 +356,8 @@
           },
           "measureAxis1": {
             "sqrtScale": false,
-            "showTitle": true,
-            "showAxis": true,
+            "showTitle": false,
+            "showAxis": false,
             "title": "",
             "customDomain": { "showDomain": false }
           },
@@ -376,7 +369,7 @@
             "title": "",
             "icons": {
               "useIcons": false,
-              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+              "iconProps": { "fit": "cover", "column": "Days", "type": "round" }
             }
           },
           "applyConditionalFormatting": true
@@ -448,7 +441,7 @@
     },
     "text_1": {
       "parameters": {
-        "content": { "displayTemplate": "KYC QA Dashboard\n\n" },
+        "content": { "displayTemplate": "KYC QA Dashboard\n\n\n\n" },
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
@@ -472,7 +465,7 @@
     "text_2": {
       "parameters": {
         "content": {
-          "displayTemplate": "This report will only show cases that are currently open. Closed cases will be filtered from the below view.\n"
+          "displayTemplate": "The below visualisation will only show cases that are currently open. \n\n"
         },
         "fontSize": 16,
         "showActionMenu": true,
