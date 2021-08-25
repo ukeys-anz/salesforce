@@ -10,7 +10,8 @@ global class ANZAzureADAuthProvider extends Auth.AuthProviderPluginClass {
   public static final String FIELD_AUTH_URL = 'Auth_URL__c';
   public static final String FIELD_CID = 'clientID__c';
   public static final String FIELD_USER_ENDPOINT = 'UserEndpoint__c';
-
+  public static final String PROMPT = 'select_account'; /* Indicates the type of user interaction that is required.
+   More details here: https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow*/
   public String redirectUrl; // use this URL for the endpoint that the authentication provider calls back to for configuration
   private String key;
   private String secret;
@@ -52,7 +53,9 @@ global class ANZAzureADAuthProvider extends Auth.AuthProviderPluginClass {
       redirectUrl +
       '&state=' +
       stateToPropagate +
-      '&scope=openid+offline_access+profile';
+      '&scope=openid+offline_access+profile' +
+      '&prompt=' +
+      PROMPT;
     return new PageReference(url);
   }
 
