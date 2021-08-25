@@ -516,7 +516,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     ) {
       isFieldValid = false;
       this.missingDataFields +=
-        "Details of the complaint have not been acknowledged by the product manufacturer.";
+        "Acknowledgement that the complaint details have been provided to the product manufacturer is required";
     }
 
     return isFieldValid && isEmailValid && isFinCompValid && isRadioGroupValid;
