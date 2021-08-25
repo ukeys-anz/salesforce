@@ -5,7 +5,7 @@
       "parameters": {
         "label": "Cases w/Duration",
         "name": "cases_duration",
-        "rowLevelSecurityFilter": "false"
+        "rowLevelSecurityFilter": ""
       },
       "sources": ["MergeLastClosedData"]
     },
@@ -76,6 +76,21 @@
       },
       "sources": ["AgedTicketsBucket", "CalcCountOfTransfers"]
     },
+    "ComputeFilterTitle": {
+      "action": "computeExpression",
+      "parameters": {
+        "computedFields": [
+          {
+            "label": "FilterTitle",
+            "name": "FilterTitle",
+            "saqlExpression": "case 'Record.Name' \nwhen \"ATM\" then \"Transaction Dispute\"\nwhen \"Card\" then \"Transaction Dispute\"\nwhen \"Direct Debit\" then \"Transaction Dispute\"\nwhen \"Direct Entry\" then \"Transaction Dispute\"\nwhen \"Urgent Dishonour Request\" then \"Transaction Dispute\"\nelse 'Record.Name'\nend\n",
+            "type": "Text"
+          }
+        ],
+        "mergeWithSource": true
+      },
+      "sources": ["JoinRecordType"]
+    },
     "MergeCaseProduct": {
       "action": "augment",
       "parameters": {
@@ -111,7 +126,7 @@
         ],
         "mergeWithSource": true
       },
-      "sources": ["JoinRecordType"]
+      "sources": ["ComputeFilterTitle"]
     },
     "FilterOwnerOnly": {
       "action": "filter",
