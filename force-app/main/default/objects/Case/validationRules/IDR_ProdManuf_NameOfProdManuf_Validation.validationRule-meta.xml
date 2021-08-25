@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_ProdManuf_NameOfProdManuf_Validation</fullName>
+    <active>true</active>
+    <description>Name of product manufacturer cannot be edit if product manufacturer is not other</description>
+    <errorConditionFormula>AND(
+	$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+	NOT(ISNEW()),
+	OR(
+		RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;,
+		RecordType.DeveloperName = &apos;Customer_Complaint&apos;
+	),
+	NOT(ISPICKVAL(IDR_Product_Manufacturer__c, &apos;Other&apos;)),
+	ISCHANGED(Name_of_product_manufacturer__c)
+)</errorConditionFormula>
+    <errorDisplayField>Name_of_product_manufacturer__c</errorDisplayField>
+    <errorMessage>Name of product manufacturer can only be updated if product manufacturer is not other</errorMessage>
+</ValidationRule>
