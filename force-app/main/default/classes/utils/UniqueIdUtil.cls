@@ -10,7 +10,7 @@ public with sharing class UniqueIdUtil {
   private static String parentId = '';
   private static String traceFlag = '';
 
-   /**
+  /**
    * @description Assign 00 as a hardcoded value, scope to change this in future
    * @return a hex string which suits w3 standard
    */
@@ -21,7 +21,7 @@ public with sharing class UniqueIdUtil {
 
     return version;
   }
-   /**
+  /**
    * @description Get a unique w3 standard 16 byte hex string
    * @return a hex string which suits w3 standard
    */
@@ -54,8 +54,8 @@ public with sharing class UniqueIdUtil {
 
     return parentId;
   }
-    
-   /**
+
+  /**
    * @description Assign 01 as a hardcoded value, scope to change this in future
    * @return a hex string which suits w3 standard
    */
@@ -63,7 +63,7 @@ public with sharing class UniqueIdUtil {
     if (traceFlag == '') {
       traceFlag = '01';
     }
-      
+
     return traceFlag;
   }
 }
