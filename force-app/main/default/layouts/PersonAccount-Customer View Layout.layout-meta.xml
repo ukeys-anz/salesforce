@@ -213,13 +213,12 @@
     <relatedLists>
         <excludeButtons>MassChangeOwner</excludeButtons>
         <fields>CASES.CASE_NUMBER</fields>
-        <fields>CASES.SUBJECT</fields>
-        <fields>CASES.CREATED_DATE_DATE_ONLY</fields>
+        <fields>CASES.TYPE</fields>
+        <fields>Sub_Type__c</fields>
         <fields>CASES.STATUS</fields>
+        <fields>CASES.CREATED_DATE</fields>
         <fields>OWNER_NAME</fields>
         <relatedList>RelatedCaseList</relatedList>
-        <sortField>CASES.CREATED_DATE_DATE_ONLY</sortField>
-        <sortOrder>Desc</sortOrder>
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>

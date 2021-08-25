@@ -100,19 +100,27 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
    * @description  The getTransactionHistory is the method to make the Http callout to Mulesoft to fetch the transaction history details from Fabric.
    * {@link Lib_SystemLog.logAPIError} is called when ever the call fails to Fabric to have the logs recorded for monitoring.
    *
+   * @param paramUrl Used to fetch the next lot of transactions or search by date
    * @param ocvId customer id
    * @param accountNumber Account number for which we want to fetch the transactions
-   * @param paramUrl Used to fetch the next lot of transactions or search by date
+   * @param startDate start date of the transaction search filter
+   * @param endDate end date of the transaction search filter
    * @return String
    * @exception CalloutException
    */
+  @SuppressWarnings('PMD.ExcessiveParameterList')
   @AuraEnabled(cacheable=false)
   public static TransactionHistoryModel getTransactionHistoryAura(
+    String paramUrl,
     String ocvId,
     String accountNumber,
-    String paramUrl
+    String startDate,
+    String endDate
   ) {
     CoachBankingAPIRepository coachapi = new CoachBankingAPIRepository();
+    paramUrl = String.isBlank(paramUrl)
+      ? getTransactionParamUrl(startDate, endDate, accountNumber)
+      : paramUrl;
     try {
       TransactionHistoryModel responseModel = coachapi.getTransactionHistory(
         ocvId,
@@ -177,6 +185,35 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
     CoachBankingAPIRepository coachapi = new CoachBankingAPIRepository();
     CardListModel result = coachapi.getCardList(ocvId);
     return result;
+  }
+
+  /**
+   * @description Construct the transaction param URL from startDate and endDate
+   * @param startDate start date in the transaction search
+   * @param endDate end date in the transaction search
+   * @param accountNumber account number for which we want to fetch the transactions
+   * @return String the url with params to retrieve transactions
+   */
+  private static String getTransactionParamUrl(
+    String startDate,
+    String endDate,
+    String accountNumber
+  ) {
+    if (
+      String.isNotBlank(startDate) &&
+      String.isNotBlank(endDate) &&
+      String.isNotBlank(accountNumber)
+    ) {
+      String utcStartDate = DateTimeUtils.getUTCTimeFromString(startDate);
+      String utcEndDate = DateTimeUtils.getUTCTimeFromString(endDate);
+      return '?account_number=' +
+        accountNumber +
+        '&start_date=' +
+        utcStartDate +
+        '&end_date=' +
+        utcEndDate;
+    }
+    return null;
   }
 
   /**
