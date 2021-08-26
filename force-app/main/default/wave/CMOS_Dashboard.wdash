@@ -109,7 +109,7 @@
             },
             {
               "colspan": 6,
-              "column": 18,
+              "column": 11,
               "name": "container_3",
               "row": 6,
               "rowspan": 28,
@@ -123,7 +123,7 @@
             },
             {
               "colspan": 6,
-              "column": 18,
+              "column": 11,
               "name": "chart_7",
               "row": 7,
               "rowspan": 9,
@@ -131,7 +131,7 @@
             },
             {
               "colspan": 6,
-              "column": 18,
+              "column": 11,
               "name": "chart_9",
               "row": 17,
               "rowspan": 15,
@@ -315,7 +315,7 @@
             },
             {
               "colspan": 7,
-              "column": 11,
+              "column": 17,
               "name": "listselector_1",
               "row": 6,
               "rowspan": 28,
