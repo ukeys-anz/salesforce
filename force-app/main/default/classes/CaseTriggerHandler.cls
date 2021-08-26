@@ -79,13 +79,8 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
     IDRCaseActions.completeAfterActions();
-    if (!checkRecursive.firstCall) {
-      GetHelpCaseActions.rollupRelatedBug(
-        records,
-        (List<Case>) oldMap.values()
-      );
-      SICaseActions.afterUpdate(records, (Map<Id, Case>) oldMap);
-    }
+    GetHelpCaseActions.rollupRelatedBug(records, (List<Case>) oldMap.values());
+    SICaseActions.afterUpdate(records, (Map<Id, Case>) oldMap);
   }
 
   /**
