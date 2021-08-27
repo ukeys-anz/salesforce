@@ -647,6 +647,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
       requiredFields.descOutcome = "Description of Outcome";
       if (this.isReferredToProductManufacturer) {
         requiredFields.thirdPartyProductManufacturer = "Product Manufacturer";
+        if (this.isOtherProductManufacturer) {
+          requiredFields.thirdPartyOtherProductManufacturer =
+            "Name of the product manufacturer";
+        }
       }
     }
     if (this.isComplaintEscalated) {
