@@ -503,7 +503,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       }
       return isValidSoFar;
     }, true);
-    
+
     // ensure data in the financial compensation field is correct if this complaint has financial remedy
     let isFinCompValid = true;
     if (this.isFinancialComplaintRemedy) {
@@ -647,8 +647,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
       requiredFields.descOutcome = "Description of Outcome";
       if (this.isReferredToProductManufacturer) {
         requiredFields.thirdPartyProductManufacturer = "Product Manufacturer";
-        if(this.isOtherProductManufacturer){
-          requiredFields.thirdPartyOtherProductManufacturer = "Name of the product manufacturer";
+        if (this.isOtherProductManufacturer) {
+          requiredFields.thirdPartyOtherProductManufacturer =
+            "Name of the product manufacturer";
         }
       }
     }
