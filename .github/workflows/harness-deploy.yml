@@ -1,6 +1,5 @@
 # This workflow deploys changes to a Salesforce project to a Salesforce org
 name: Deploy
-
 # This workflow will only run on pushes to master , develop and epic/*
 on:
   push:

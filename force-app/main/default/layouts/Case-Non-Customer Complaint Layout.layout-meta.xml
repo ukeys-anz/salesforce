@@ -174,10 +174,6 @@
                 <behavior>Required</behavior>
                 <field>Product__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>IDR_Escalation_Reason__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -198,7 +194,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>IDR_Escalated_to__c</field>
+                <field>IDR_Escalation_Reason__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -238,6 +234,14 @@
                 <behavior>Edit</behavior>
                 <field>IDR_Financial_Compensation__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_Product_Manufacturer__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Provided_details_to_Product_Manufacturer__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -247,6 +251,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>IDR_Non_Financial_Remedy__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Name_of_product_manufacturer__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -361,11 +369,19 @@
                 <behavior>Edit</behavior>
                 <field>IDR_AFCA_Date__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_AFCA_Number__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>IDR_AFCA_Number__c</field>
+                <field>IDR_AFCA_Reference_Number__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_AFCA_Due_Date__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -507,6 +523,7 @@
         </relatedContentItems>
     </relatedContent>
     <relatedLists>
+        <excludeButtons>NewEvent</excludeButtons>
         <fields>TASK.SUBJECT</fields>
         <fields>TASK.TYPE</fields>
         <fields>TASK.STATUS</fields>

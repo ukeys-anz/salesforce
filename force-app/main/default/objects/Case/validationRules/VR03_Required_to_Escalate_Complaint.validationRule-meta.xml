@@ -9,10 +9,7 @@
 		RecordType.DeveloperName = &#39;Non_Customer_Complaint&#39;
 	),
 	ISPICKVAL(Status, &#39;Escalated&#39;),
-	OR(
-		ISBLANK(TEXT(IDR_Escalated_to__c)),
-		ISBLANK(TEXT(IDR_Escalation_Reason__c))
-	)
+	ISBLANK(TEXT(IDR_Escalation_Reason__c))
 )</errorConditionFormula>
-    <errorMessage>These fields are required in order to escalate a complaint: Escalated to, Escalation Reason.</errorMessage>
+    <errorMessage>These fields are required in order to escalate a complaint: Escalation Reason.</errorMessage>
 </ValidationRule>

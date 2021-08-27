@@ -109,7 +109,7 @@
             },
             {
               "colspan": 6,
-              "column": 18,
+              "column": 11,
               "name": "container_3",
               "row": 6,
               "rowspan": 28,
@@ -123,7 +123,7 @@
             },
             {
               "colspan": 6,
-              "column": 18,
+              "column": 11,
               "name": "chart_7",
               "row": 7,
               "rowspan": 9,
@@ -131,7 +131,7 @@
             },
             {
               "colspan": 6,
-              "column": 18,
+              "column": 11,
               "name": "chart_9",
               "row": 17,
               "rowspan": 15,
@@ -315,7 +315,7 @@
             },
             {
               "colspan": 7,
-              "column": 11,
+              "column": 17,
               "name": "listselector_1",
               "row": 6,
               "rowspan": 28,
@@ -1412,7 +1412,7 @@
       "groups": [],
       "label": "all_1",
       "numbers": [],
-      "query": "q = load \"CMOS_Historic_User_Data\";\nq = group q by all;\nq = foreach q generate unique('EmployeeNumber') as 'count';\nq = limit q 2000;",
+      "query": "q = load \"CMOS_Historic_User_Data\";\nq = group q by all;\nq = filter q by IsActive == \"true\";\nq = foreach q generate unique('EmployeeNumber') as 'count';\nq = limit q 2000;",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "none",
       "strings": [],
@@ -1465,11 +1465,6 @@
             "enable": false,
             "type": "x",
             "chartsPerLine": 4
-          },
-          "columnMap": {
-            "trellis": [],
-            "dimensionAxis": [],
-            "plots": ["count"]
           },
           "showActionMenu": true,
           "measureAxis2": {
@@ -1797,7 +1792,7 @@
       "groups": [],
       "label": "Average Cases",
       "numbers": [],
-      "query": "q = load \"CMOS_Cases\";\nq = group q by ('Id', 'UserInfo.EmployeeNumber');\nq = foreach q generate Id, 'UserInfo.EmployeeNumber';\n\nq = group q by ('UserInfo.EmployeeNumber');\nq = foreach q generate 'UserInfo.EmployeeNumber', count() as 'Count';\n\nq = group q by all;\nq = foreach q generate sum(sum('Count')) over ([..] partition by all) / count() as 'C';\n\n\n\nq = limit q 2000;",
+      "query": "q = load \"CMOS_Cases\";\nq = group q by ('Id', 'UserInfo.EmployeeNumber');\nq = foreach q generate Id, 'UserInfo.EmployeeNumber';\n\nq = group q by ('UserInfo.EmployeeNumber');\nq = foreach q generate 'UserInfo.EmployeeNumber', count() as 'Count';\n\nq = group q by all;\nq = foreach q generate sum(sum('Count')) over ([..] partition by all) / {{coalesce(cell(all_1.result, 0, \"count\"), 0).asObject()}} as 'C';\n\n\n\nq = limit q 2000;",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -2947,7 +2942,7 @@
       "groups": [],
       "label": "lens_5",
       "numbers": [],
-      "query": "q = load \"CMOS_Cases\";\nq = foreach q generate 'CaseNumber' as 'CaseNumber', 'Origin' as 'Origin', 'Status' as 'Status', 'UserInfo.FirstName' + \" \" + 'UserInfo.LastName' as 'Created By', date_to_string(toDate(CreatedDate_sec_epoch), \"dd/MM/yy\") as 'CreatedDate'; \n",
+      "query": "q = load \"CMOS_Cases\";\nq = group q by ('CaseNumber', 'Origin', 'Status', 'UserInfo.FirstName', 'UserInfo.LastName', 'Picklist.IDR_Sub_type.Label');\nq = foreach q generate 'CaseNumber' as 'CaseNumber', 'Origin' as 'Origin', 'Picklist.IDR_Sub_type.Label' as 'Issue Subtype', 'Status' as 'Status', 'UserInfo.FirstName' + \" \" + 'UserInfo.LastName' as 'Created By', date_to_string(toDate(max(CreatedDate_sec_epoch)), \"dd/MM/yy\") as 'Date Received'; \n",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -2974,7 +2969,9 @@
           "innerMinorBorderColor": "#e0e5ee",
           "mode": "fittocontainer",
           "numberOfLines": 1,
+          "pivoted": false,
           "showActionMenu": true,
+          "showRowIndexColumn": true,
           "totals": true,
           "verticalPadding": 12
         },
@@ -3052,10 +3049,9 @@
       "groups": [],
       "label": "lens_4",
       "numbers": [],
-      "query": "q = load \"CMOS_Cases\";\nq = group q by 'UserInfo.EmployeeNumber';\nq = group q by ('Id', 'CreatedById', 'UserInfo.FirstName', 'UserInfo.LastName');\nq = foreach q generate 'Id', 'CreatedById', 'UserInfo.EmployeeNumber', 'UserInfo.FirstName' + \" \" + 'UserInfo.LastName' as 'Name', count() as 'count';\nq = group q by ('UserInfo.EmployeeNumber', 'UserInfo.EmployeeNumber', 'Name');\nq = foreach q generate 'UserInfo.EmployeeNumber', 'Name', count() as 'count';\nq = order q by {{cell(static_2.selection, 0, \"Text2\").asString()}};\n",
+      "query": "q = load \"CMOS_Cases\";\nq = group q by 'Creator_UserInfo.EmployeeNumber';\nq = group q by ('Id', 'CreatedById', 'Creator_UserInfo.FirstName', 'Creator_UserInfo.LastName');\nq = foreach q generate 'Id', 'CreatedById', 'Creator_UserInfo.EmployeeNumber', 'Creator_UserInfo.FirstName' + \" \" + 'Creator_UserInfo.LastName' as 'Name', count() as 'count';\nq = group q by ('Creator_UserInfo.EmployeeNumber', 'Creator_UserInfo.EmployeeNumber', 'Name');\nq = foreach q generate 'Creator_UserInfo.EmployeeNumber', 'Name', count() as 'count';\nq = order q by {{cell(static_2.selection, 0, \"Text2\").asString()}};",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
-      "start": "[]",
       "strings": [],
       "type": "saql",
       "useGlobal": true,
@@ -3095,9 +3091,9 @@
           "title": {
             "fontSize": 14,
             "subtitleFontSize": 11,
-            "label": "Cases Created Per Team Member",
+            "label": "",
             "align": "center",
-            "subtitleLabel": ""
+            "subtitleLabel": "Cases Created Per Team Member"
           },
           "trellis": {
             "flipLabels": false,
@@ -3108,6 +3104,11 @@
             "chartsPerLine": 4
           },
           "binValues": false,
+          "columnMap": {
+            "trellis": [],
+            "dimensionAxis": ["Name"],
+            "plots": ["count"]
+          },
           "showActionMenu": false,
           "measureAxis2": {
             "sqrtScale": false,
@@ -3141,7 +3142,7 @@
                 }
               }
             ],
-            "title": "Number of Open Cases",
+            "title": "",
             "customDomain": { "showDomain": false }
           },
           "referenceLine": [
@@ -3150,7 +3151,7 @@
           "theme": "wave",
           "dimensionAxis": {
             "showTitle": false,
-            "customSize": "auto",
+            "customSize": 50,
             "showAxis": true,
             "title": "First Name",
             "icons": {
@@ -4015,7 +4016,7 @@
     "text_9": {
       "parameters": {
         "content": {
-          "displayTemplate": "Calculates the number of users who have not logged \n[Days] day(s) or more during the reporting period\n",
+          "displayTemplate": "Calculates the number of users who have logged in within the last [Days] day(s)\n",
           "values": {
             "Days": {
               "field": "Days",
@@ -4237,7 +4238,9 @@
         "innerMinorBorderColor": "#e0e5ee",
         "mode": "fittocontainer",
         "numberOfLines": 1,
+        "pivoted": false,
         "showActionMenu": true,
+        "showRowIndexColumn": true,
         "step": "lens_5",
         "totals": true,
         "verticalPadding": 12
@@ -4271,7 +4274,7 @@
         "showActionMenu": true,
         "step": "all_1",
         "textAlignment": "center",
-        "title": "Active Users",
+        "title": "Total Users",
         "titleColor": "#091A3E",
         "titleSize": 16,
         "tooltip": { "customizeTooltip": false }
@@ -4620,6 +4623,11 @@
           "chartsPerLine": 4
         },
         "binValues": false,
+        "columnMap": {
+          "trellis": [],
+          "dimensionAxis": ["Name"],
+          "plots": ["count"]
+        },
         "showActionMenu": false,
         "measureAxis2": {
           "sqrtScale": false,
