@@ -76,17 +76,6 @@
       },
       "sources": ["CalcHasBeenTransferred"]
     },
-    "MergeUserInfo": {
-      "action": "augment",
-      "parameters": {
-        "leftKey": ["OwnerId"],
-        "operation": "LookupSingleValue",
-        "relationship": "UserInfo",
-        "rightKey": ["Id"],
-        "rightSelect": ["EmployeeNumber", "FirstName", "LastName"]
-      },
-      "sources": ["MergeEsclationList", "digest_User"]
-    },
     "GenerateDaysSinceSnap": {
       "action": "computeExpression",
       "parameters": {
@@ -151,7 +140,8 @@
           { "name": "IDR_Complaint_Outcome__c" },
           { "name": "IDR_Complaint_Remedy__c" },
           { "name": "IDR_Office_Created_By__c" },
-          { "name": "IDR_Office__c" }
+          { "name": "IDR_Office__c" },
+          { "name": "IDR_Subsequent_Issue__c" }
         ],
         "object": "Case"
       }
@@ -167,6 +157,17 @@
         ],
         "object": "User"
       }
+    },
+    "MergeCurrentOwnerUserInfo": {
+      "action": "augment",
+      "parameters": {
+        "leftKey": ["OwnerId"],
+        "operation": "LookupSingleValue",
+        "relationship": "UserInfo",
+        "rightKey": ["Id"],
+        "rightSelect": ["EmployeeNumber", "FirstName", "LastName"]
+      },
+      "sources": ["MergeEsclationList", "digest_User"]
     },
     "RecordType": {
       "action": "sobjectDigest",
@@ -229,7 +230,7 @@
           "Division"
         ]
       },
-      "sources": ["MergeUserInfo", "digest_cmos_onboarding_csv"]
+      "sources": ["MergeCurrentOwnerUserInfo", "digest_cmos_onboarding_csv"]
     },
     "snapshot_date": {
       "action": "computeExpression",
@@ -290,7 +291,7 @@
         "rightKey": ["Value"],
         "rightSelect": ["Label"]
       },
-      "sources": ["MergeCaseProduct", "FilterCaseTypes"]
+      "sources": ["MergeIDRSubType", "FilterCaseTypes"]
     },
     "FilterOwnerOnly": {
       "action": "filter",
@@ -335,6 +336,17 @@
       },
       "sources": ["snapshot_date"]
     },
+    "MergeOwnerInfo": {
+      "action": "augment",
+      "parameters": {
+        "leftKey": ["CreatedById"],
+        "operation": "LookupSingleValue",
+        "relationship": "Creator_UserInfo",
+        "rightKey": ["Id"],
+        "rightSelect": ["EmployeeNumber", "FirstName", "LastName"]
+      },
+      "sources": ["MergeOnBoardingData", "digest_User"]
+    },
     "FilterCaseTypes": {
       "action": "filter",
       "parameters": { "filter": "EntityParticleId:EQ:Case.Type" },
@@ -343,9 +355,9 @@
     "FilterComplaintsOnly": {
       "action": "filter",
       "parameters": {
-        "saqlFilter": "'Record.DeveloperName' in [\"Customer_Complaint\", \"Non-Customer Complaints\"]"
+        "saqlFilter": "'Record.DeveloperName' in [\"Customer_Complaint\", \"Non_Customer_Complaint\"]"
       },
-      "sources": ["MergeOnBoardingData"]
+      "sources": ["MergeOwnerInfo"]
     },
     "JoinRecordType": {
       "action": "augment",
@@ -383,14 +395,32 @@
           { "name": "EntityParticleId" }
         ],
         "object": "PicklistValueInfo",
-        "passthroughFilter": "EntityParticleId = 'Case.Type' OR \nEntityParticleId = 'Case.IDR_Escalation_Reason__c' \nOR EntityParticleId = 'Case.00N2N00000AA4RW' \nOR EntityParticleId = 'Case.00N2N00000CJHhy'\nOR EntityParticleId = 'Case.00N5m000000PSfy'\nOR EntityParticleId = 'Case.IDR_Complaint_Remedy__c'\nOR EntityParticleId = 'Case.00N5m000000PSfr'",
+        "passthroughFilter": "EntityParticleId = 'Case.Type' OR \nEntityParticleId = 'Case.IDR_Escalation_Reason__c' \nOR EntityParticleId = 'Case.00N2N00000AA4RW' \nOR EntityParticleId = 'Case.00N2N00000CJHhy'\nOR EntityParticleId = 'Case.00N5m000000PSfy'\nOR EntityParticleId = 'Case.IDR_Complaint_Remedy__c'\nOR EntityParticleId = 'Case.00N5m000000PSfr'\nOR EntityParticleId = 'Case.IDR_Subsequent_Issue__c'\nOR EntityParticleId = 'Case.00N2O000008555A'\nOR EntityParticleId = 'Case.00N5m000000Pdov'",
         "runtime": { "enablePKChunking": false }
       }
+    },
+    "FilterIDRSubIssueType": {
+      "action": "filter",
+      "parameters": {
+        "filter": "EntityParticleId:EQ:Case.IDR_Subsequent_Issue__c|Case.00N2O000008555A|Case.00N5m000000Pdov"
+      },
+      "sources": ["PullPicklistValues"]
     },
     "Filter1Year": {
       "action": "filter",
       "parameters": { "saqlFilter": "'days_since_snapshot' < 365" },
       "sources": ["GenerateDaysSinceSnap"]
+    },
+    "MergeIDRSubType": {
+      "action": "augment",
+      "parameters": {
+        "leftKey": ["IDR_Subsequent_Issue__c"],
+        "operation": "LookupSingleValue",
+        "relationship": "Picklist.IDR_Sub_type",
+        "rightKey": ["Value"],
+        "rightSelect": ["Label"]
+      },
+      "sources": ["MergeCaseProduct", "FilterIDRSubIssueType"]
     }
   }
 }

@@ -697,7 +697,46 @@
                       id="nonFinancialRemedy-id"
                     ></lightning-input-field>
                   </template>
+                  <template if:true={isReferredToProductManufacturer}>
+                    <lightning-input-field
+                      variant="label-stacked"
+                      required
+                      field-name={thirdPartyProductManufacturer}
+                      onchange={handleThirdPartyProductManufacturer}
+                      id="thirdPartyProductManufacturer-id"
+                    >
+                    </lightning-input-field>
+                  </template>
                 </div>
+                <template if:true={isOtherProductManufacturer}>
+                  <div
+                    class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
+                  >
+                    <lightning-input-field
+                      variant="label-stacked"
+                      required
+                      field-name={thirdPartyOtherProductManufacturer}
+                      id="thirdPartyOtherProductManufacturer-id"
+                    >
+                    </lightning-input-field>
+                  </div>
+                </template>
+                <template if:true={isReferredToProductManufacturer}>
+                  <div
+                    class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
+                  >
+                    <lightning-input
+                      type="checkbox"
+                      label="The details of this complaint have been provided to the product manufacturer"
+                      name="thirdPartyIsDetailsProvidedToProductManufacturer"
+                      required
+                      message-when-value-missing="Acknowledgement that the complaint details have been provided to the product manufacturer is required"
+                      field-level-help="Evidence that the details of the complaint have been passed onto the product manufacturer must be included on the case"
+                      id="thirdPartyIsDetailsProvidedToProductManufacturer-id"
+                      onchange={handleIsDetailsProvidedToProductManufacturer}
+                    ></lightning-input>
+                  </div>
+                </template>
               </template>
             </div>
             <!--Systemic issues-->
