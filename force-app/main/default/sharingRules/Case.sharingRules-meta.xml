@@ -134,6 +134,11 @@
             <operation>equals</operation>
             <value>General Enquiry</value>
         </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>NPP</value>
+        </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Dispute_RTs_QA_RO</fullName>
@@ -221,6 +226,11 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>General Enquiry</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>NPP</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
