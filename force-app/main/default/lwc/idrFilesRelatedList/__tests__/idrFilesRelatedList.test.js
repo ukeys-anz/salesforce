@@ -87,4 +87,32 @@ describe("c-idr-files-related-list suite", () => {
       //expect(handler.mock.calls[0][0].detail.variant).toBe(mockGetCaseRelatedFilesError.variant);
     });
   });
+
+  /************Jest testing for search functionlaity***************/
+
+  /******************Positive/Happy scenario*******************/
+  it("search files from file name search", () => {
+    getCaseRelatedFiles.mockResolvedValue(mockGetCaseRelatedFiles);
+    const element = createElement("c-idr-files-related-list", {
+      is: IdrFilesRelatedList
+    });
+    element.recordId = RECORD_ID;
+    document.body.appendChild(element);
+
+    return Promise.resolve().then(() => {
+      const fileNameSearchElement = element.shadowRoot.querySelector(
+        ".fileNameSearch"
+      );
+      fileNameSearchElement.value = "Screen";
+      fileNameSearchElement.dispatchEvent(new CustomEvent("change"));
+      return Promise.resolve().then(() => {
+        const dataTableElement = element.shadowRoot.querySelector(
+          "lightning-datatable"
+        );
+        expect(dataTableElement.data[0]).toStrictEqual(mockGetCaseRelatedFiles[0]);
+      });
+    });
+  });
+
+  /******************Negative scenario*************************/
 });
