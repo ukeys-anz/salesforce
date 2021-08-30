@@ -315,7 +315,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       CardListModel cardsModel = coachAPI.getCardList('1111');
       Test.stopTest();
 
-      System.assertEquals(3, cardsModel.cards.size());
+      System.assertEquals(4, cardsModel.cards.size());
     }
   }
 
@@ -371,6 +371,60 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
     }
   }
 
+  @isTest
+  static void replaceCardValidResponse() {
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      Test.startTest();
+      CoachBankingAPIRepository coachAPI = new CoachBankingAPIRepository();
+      String replaceNumber = coachAPI.replaceCard('1111', '1234', 'stolen');
+      Test.stopTest();
+
+      System.assertEquals('9741329257534100', replaceNumber);
+    }
+  }
+
+  @isTest
+  static void replaceCardInvalidReason() {
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      Test.startTest();
+      CoachBankingAPIRepository coachAPI = new CoachBankingAPIRepository();
+      String errorMsg = '';
+      try {
+        String replaceNumber = coachAPI.replaceCard(
+          '1111',
+          '1234',
+          'invalidReason'
+        );
+      } catch (CoachBankingAPIRepository.InvalidInformationException e) {
+        errorMsg = e.getMessage();
+      }
+      System.assertEquals('The replace reason is not valid.', errorMsg);
+      Test.stopTest();
+    }
+  }
+
+  @isTest
+  static void replaceCardWithInvalidResponse() {
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      HttpCalloutResponse res = replaceCardInvalidResponse();
+      Service s = ServiceProvider.getService(FabricService.class);
+      s.setCalloutResponse(res);
+      Exception resultException;
+      Test.startTest();
+      CoachBankingAPIRepository coachAPI = new CoachBankingAPIRepository();
+      try {
+        coachAPI.replaceCard('1111', '1234', 'stolen');
+      } catch (Exception e) {
+        resultException = e;
+      }
+      Test.stopTest();
+      System.assertEquals('Replace card failed', resultException.getMessage());
+    }
+  }
+
   private static HttpCalloutResponse getCardListIncompleteInformation() {
     HttpCalloutResponse response = new HttpCalloutResponse();
     response.statusCode = 200;
@@ -382,6 +436,14 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
   private static HttpCalloutResponse getCardListInvalidResponse() {
     HttpCalloutResponse response = new HttpCalloutResponse();
     response.error = new CalloutException('Get card list failed');
+    response.statusCode = 500;
+    response.successful = false;
+    return response;
+  }
+
+  private static HttpCalloutResponse replaceCardInvalidResponse() {
+    HttpCalloutResponse response = new HttpCalloutResponse();
+    response.error = new CalloutException('Replace card failed');
     response.statusCode = 500;
     response.successful = false;
     return response;

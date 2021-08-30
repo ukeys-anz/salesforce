@@ -94,6 +94,31 @@ public with sharing virtual class Service {
   }
 
   /**
+   * @param cardNumber card number to get blocked
+   * @param ocvId customer id
+   * @return `HttpCalloutResponse` the api response
+   * @description virtual temporarily lock cards api
+   */
+  public virtual HttpCalloutResponse lockCard(String cardNumber, String ocvId) {
+    return null;
+  }
+
+  /**
+   * @param cardNumber card number to get replaced
+   * @param ocvId customer id
+   * @param reason reason to replace the card
+   * @return `HttpCalloutResponse` the api response
+   * @description replace cards api
+   */
+  public virtual HttpCalloutResponse replaceCard(
+    String cardNumber,
+    String ocvId,
+    String reason
+  ) {
+    return null;
+  }
+
+  /**
    * @param response HttpCalloutResponse to test various error codes
    * @description setter method for response property
    */

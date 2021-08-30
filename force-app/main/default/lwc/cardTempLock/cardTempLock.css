@@ -7,14 +7,8 @@
 }
 
 .header-div {
-  background-color: grey;
+  background-color: #014486;
   padding-bottom: 10px;
-}
-
-.cancel-button {
-  color: red;
-  float: right;
-  margin-right: 20px;
 }
 
 .body-wording-section {
@@ -24,6 +18,11 @@
   max-width: 80%;
 }
 
-.block-button {
+.lock-button {
   margin-left: 20px;
+}
+
+.slds-backdrop_open,
+.slds-backdrop--open {
+  opacity: 0.6;
 }

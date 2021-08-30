@@ -1,7 +1,7 @@
 import { createElement } from "lwc";
-import CardTempBlock from "c/cardTempBlock";
+import CardTempLock from "c/cardTempLock";
 
-describe("c-card-temp-block", () => {
+describe("c-card-temp-lock", () => {
   afterEach(() => {
     // The jsdom instance is shared across test cases in a single file so reset the DOM
     while (document.body.firstChild) {
@@ -16,15 +16,15 @@ describe("c-card-temp-block", () => {
     return new Promise((resolve) => setImmediate(resolve));
   }
 
-  it("checks if block button visible", () => {
-    const element = createElement("c-card-temp-block", {
-      is: CardTempBlock
+  it("checks if lock button visible", () => {
+    const element = createElement("c-card-temp-lock", {
+      is: CardTempLock
     });
     document.body.appendChild(element);
 
     return flushPromises().then(() => {
       let button = element.shadowRoot.querySelector(
-        "button[data-id='block-button']"
+        "button[data-id='lock-button']"
       );
 
       expect(button).toBeTruthy();

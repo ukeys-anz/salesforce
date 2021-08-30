@@ -217,6 +217,53 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
   }
 
   /**
+   * @param cardNumber card number to get locked
+   * @param ocvId customer id
+   * @return `Boolean` the status of the response
+   * @description temporarily block cards api
+   */
+  public Boolean lockCard(String cardNumber, String ocvId) {
+    Service s = ServiceProvider.getService(FabricService.class);
+    HttpCalloutResponse response = s.lockCard(cardNumber, ocvId);
+    if (!response.successful) {
+      handleErrors(response, null, CoachBankingAPIRepository.class);
+    }
+    Map<String, Object> responseMap = (Map<String, Object>) JSON.deserializeUntyped(
+      response.body
+    );
+    return (Boolean) responseMap.get('status');
+  }
+
+  /**
+   * @param cardNumber card number to get replaced
+   * @param ocvId customer id
+   * @param reason reason to replace the card
+   * @return `String` the new replaced card number
+   * @description replace card with a new one when lost, stolen or damaged situation
+   */
+  public String replaceCard(String cardNumber, String ocvId, String reason) {
+    String reasonFormatted = reason.toUpperCase();
+    //Reason list found here: https://github.com/anzx/fabricapis/blob/28e579f0a95a94ff45eaf667197f81c0a3b0d7a6/proto/fabric/service/card/v1beta1/card_api.proto#L359
+    List<String> reasonList = new List<String>{ 'LOST', 'STOLEN', 'DAMAGED' };
+    if (!reasonList.contains(reasonFormatted)) {
+      handleErrors(
+        null,
+        new InvalidInformationException('The replace reason is not valid.'),
+        CoachBankingAPIRepository.class
+      );
+    }
+    Service s = ServiceProvider.getService(FabricService.class);
+    HttpCalloutResponse response = s.replaceCard(cardNumber, ocvId, reason);
+    if (!response.successful) {
+      handleErrors(response, null, CoachBankingAPIRepository.class);
+    }
+    Map<String, Object> responseMap = (Map<String, Object>) JSON.deserializeUntyped(
+      response.body
+    );
+    return (String) responseMap.get('newTokenizedCardNumber');
+  }
+
+  /**
    * @author Lance
    * @since April 2021
    * @description invaid information exception
