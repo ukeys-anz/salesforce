@@ -355,7 +355,7 @@
     "FilterComplaintsOnly": {
       "action": "filter",
       "parameters": {
-        "saqlFilter": "'Record.DeveloperName' in [\"Customer_Complaint\", \"Non-Customer Complaints\"]"
+        "saqlFilter": "'Record.DeveloperName' in [\"Customer_Complaint\", \"Non_Customer_Complaint\"]"
       },
       "sources": ["MergeOwnerInfo"]
     },
