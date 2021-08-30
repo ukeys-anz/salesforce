@@ -16,6 +16,6 @@
     </filters>
     <label>All Dispute Cases</label>
     <sharedTo>
-        <roleAndSubordinates>ANZ</roleAndSubordinates>
+        <roleAndSubordinates>ANZx</roleAndSubordinates>
     </sharedTo>
 </ListView>

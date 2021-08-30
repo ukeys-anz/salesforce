@@ -6,6 +6,7 @@
     <columns>CASES.TYPE</columns>
     <columns>Sub_Type__c</columns>
     <columns>CASES.STATUS</columns>
+    <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
     <columns>OWNER_NAME</columns>
     <filterScope>Everything</filterScope>
     <filters>
@@ -20,6 +21,6 @@
     </filters>
     <label>Open Complaints</label>
     <sharedTo>
-        <roleAndSubordinates>ANZ</roleAndSubordinates>
+        <roleAndSubordinates>ANZx</roleAndSubordinates>
     </sharedTo>
 </ListView>
