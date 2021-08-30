@@ -1,7 +1,7 @@
 import { createElement } from "lwc";
 import IdrFilesRelatedList from "c/idrFilesRelatedList";
 import getCaseRelatedFiles from "@salesforce/apex/IDRFilesRelatedListController.getCaseRelatedFiles";
-import {ShowToastEventName} from 'lightning/platformShowToastEvent';
+import { ShowToastEventName } from "lightning/platformShowToastEvent";
 
 const RECORD_ID = "a0c2O00000197sUQAD";
 const mockGetCaseRelatedFiles = require("./data/getCaseRelatedFiles.json");
@@ -79,10 +79,12 @@ describe("c-idr-files-related-list suite", () => {
     const handler = jest.fn();
     element.addEventListener(ShowToastEventName, handler);
     return new Promise(setImmediate).then(() => {
-        expect(handler).toHaveBeenCalled();
-        //expect(handler.mock.calls[0][0].detail.title).toBe(mockGetCaseRelatedFilesError.title);
-        expect(handler.mock.calls[0][0].detail.message).toBe(mockGetCaseRelatedFilesError.body.message);
-        //expect(handler.mock.calls[0][0].detail.variant).toBe(mockGetCaseRelatedFilesError.variant);
+      expect(handler).toHaveBeenCalled();
+      //expect(handler.mock.calls[0][0].detail.title).toBe(mockGetCaseRelatedFilesError.title);
+      expect(handler.mock.calls[0][0].detail.message).toBe(
+        mockGetCaseRelatedFilesError.body.message
+      );
+      //expect(handler.mock.calls[0][0].detail.variant).toBe(mockGetCaseRelatedFilesError.variant);
     });
   });
 });
