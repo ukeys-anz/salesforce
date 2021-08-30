@@ -89,8 +89,6 @@ describe("c-idr-files-related-list suite", () => {
   });
 
   /************Jest testing for search functionlaity***************/
-
-  /******************Positive/Happy scenario*******************/
   it("search files from file name search", () => {
     getCaseRelatedFiles.mockResolvedValue(mockGetCaseRelatedFiles);
     const element = createElement("c-idr-files-related-list", {
@@ -114,5 +112,95 @@ describe("c-idr-files-related-list suite", () => {
     });
   });
 
-  /******************Negative scenario*************************/
+  it("search files from file type search", () => {
+    getCaseRelatedFiles.mockResolvedValue(mockGetCaseRelatedFiles);
+    const element = createElement("c-idr-files-related-list", {
+      is: IdrFilesRelatedList
+    });
+    element.recordId = RECORD_ID;
+    document.body.appendChild(element);
+
+    return Promise.resolve().then(() => {
+      const fileTypeSearchElement = element.shadowRoot.querySelector(
+        ".fileTypeSearch"
+      );
+      fileTypeSearchElement.value = "png";
+      fileTypeSearchElement.dispatchEvent(new CustomEvent("change"));
+      return Promise.resolve().then(() => {
+        const dataTableElement = element.shadowRoot.querySelector(
+          "lightning-datatable"
+        );
+        expect(dataTableElement.data[0]).toStrictEqual(mockGetCaseRelatedFiles[0]);
+      });
+    });
+  });
+  
+  it("search files from file owner search", () => {
+    getCaseRelatedFiles.mockResolvedValue(mockGetCaseRelatedFiles);
+    const element = createElement("c-idr-files-related-list", {
+      is: IdrFilesRelatedList
+    });
+    element.recordId = RECORD_ID;
+    document.body.appendChild(element);
+
+    return Promise.resolve().then(() => {
+      const fileOwnerSearchElement = element.shadowRoot.querySelector(
+        ".fileOwnerSearch"
+      );
+      fileOwnerSearchElement.value = "User";
+      fileOwnerSearchElement.dispatchEvent(new CustomEvent("change"));
+      return Promise.resolve().then(() => {
+        const dataTableElement = element.shadowRoot.querySelector(
+          "lightning-datatable"
+        );
+        expect(dataTableElement.data).toStrictEqual(mockGetCaseRelatedFiles);
+      });
+    });
+  });
+
+  it("search files from file start date search", () => {
+    getCaseRelatedFiles.mockResolvedValue(mockGetCaseRelatedFiles);
+    const element = createElement("c-idr-files-related-list", {
+      is: IdrFilesRelatedList
+    });
+    element.recordId = RECORD_ID;
+    document.body.appendChild(element);
+
+    return Promise.resolve().then(() => {
+      const fileStartDateSearchElement = element.shadowRoot.querySelector(
+        ".fileStartDateSearch"
+      );
+      fileStartDateSearchElement.value = '2021-08-30';
+      fileStartDateSearchElement.dispatchEvent(new CustomEvent("change"));
+      return Promise.resolve().then(() => {
+        const dataTableElement = element.shadowRoot.querySelector(
+          "lightning-datatable"
+        );
+        expect(dataTableElement.data[0]).toStrictEqual(mockGetCaseRelatedFiles[0]);
+      });
+    });
+  });
+
+  it("search files from file end date search", () => {
+    getCaseRelatedFiles.mockResolvedValue(mockGetCaseRelatedFiles);
+    const element = createElement("c-idr-files-related-list", {
+      is: IdrFilesRelatedList
+    });
+    element.recordId = RECORD_ID;
+    document.body.appendChild(element);
+
+    return Promise.resolve().then(() => {
+      const fileEndDateSearchElement = element.shadowRoot.querySelector(
+        ".fileEndDateSearch"
+      );
+      fileEndDateSearchElement.value = '2021-08-30';
+      fileEndDateSearchElement.dispatchEvent(new CustomEvent("change"));
+      return Promise.resolve().then(() => {
+        const dataTableElement = element.shadowRoot.querySelector(
+          "lightning-datatable"
+        );
+        expect(dataTableElement.data).toStrictEqual(mockGetCaseRelatedFiles);
+      });
+    });
+  });
 });
