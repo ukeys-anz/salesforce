@@ -3,7 +3,6 @@
     <fullName>Open_Direct_Entry_Disputes</fullName>
     <columns>CASES.CASE_NUMBER</columns>
     <columns>NAME</columns>
-    <columns>CASES.RECORDTYPE</columns>
     <columns>Dispute_Reason__c</columns>
     <columns>CASES.STATUS</columns>
     <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
@@ -21,6 +20,6 @@
     </filters>
     <label>Open Direct Entry Disputes</label>
     <sharedTo>
-        <roleAndSubordinates>ANZ</roleAndSubordinates>
+        <roleAndSubordinates>ANZx</roleAndSubordinates>
     </sharedTo>
 </ListView>
