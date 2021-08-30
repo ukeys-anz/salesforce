@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>trailheadapp__Status__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - myTrailhead</complianceGroup>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_myTrailhead</complianceGroup>
     <deprecated>false</deprecated>
     <description>Two types of status, &quot;In Progress&quot;, or &quot;Completed&quot; are available to represent the status of a user&apos;s trailmix. While we always expect a value, this is not a required field to enable FLS for trailmix assigners.</description>
     <externalId>false</externalId>

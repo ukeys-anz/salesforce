@@ -5,5 +5,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Content Writer</name>
     <opportunityAccessLevel>Read</opportunityAccessLevel>
-    <parentRole>Content_Manager</parentRole>
+    <parentRole>ANZx</parentRole>
 </Role>

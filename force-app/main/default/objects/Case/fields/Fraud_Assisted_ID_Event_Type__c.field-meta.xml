@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Fraud_Assisted_ID_Event_Type__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Privacy_Non_Personal_Information;Integrity - Trusted;Source - Salesforce</complianceGroup>
+    <complianceGroup>Privacy_Non_Personal_Information;Integrity_Trusted;Source_Salesforce</complianceGroup>
     <description>The event which led to a customer needing their identity being verified manually</description>
     <externalId>false</externalId>
     <label>Assisted ID Event Type</label>

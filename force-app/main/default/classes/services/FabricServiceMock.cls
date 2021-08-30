@@ -17,6 +17,9 @@ public with sharing class FabricServiceMock extends Service {
   private static final String FORGE_TOKEN_RESPONSE = '{"access_token":"xxxxx","expires_in":900}';
 
   @TestVisible
+  private static final String LOCK_CARD_RESPONSE = '{"status": true,"eligibilities": ["ELIGIBILITY_CARD_REPLACEMENT_LOST","ELIGIBILITY_CARD_REPLACEMENT_STOLEN","ELIGIBILITY_CARD_REPLACEMENT_DAMAGED","ELIGIBILITY_UNBLOCK"]}';
+
+  @TestVisible
   private static final String ACCOUNTS_AND_GOALS_SUCCESS_RESPONSE = getStaticResource(
     'mock_accountsAndGoals'
   );
@@ -28,6 +31,11 @@ public with sharing class FabricServiceMock extends Service {
   @TestVisible
   private static final String CARD_LIST_SUCCESS_RESPONSE = getStaticResource(
     'mock_cardList'
+  );
+
+  @TestVisible
+  private static final String REPLACE_CARD = getStaticResource(
+    'mock_replaceCard'
   );
 
   /**
@@ -79,6 +87,41 @@ public with sharing class FabricServiceMock extends Service {
   ) {
     if (!preset) {
       response.body = FabricServiceMock.FORGE_TOKEN_RESPONSE;
+    }
+    return response;
+  }
+
+  /**
+   * @param cardNumber card number to get locked
+   * @param ocvId customer id
+   * @return `HttpCalloutResponse` the api response
+   * @description fake lock card api
+   */
+  public override HttpCalloutResponse lockCard(
+    String cardNumber,
+    String ocvId
+  ) {
+    if (!preset) {
+      response.body = FabricServiceMock.LOCK_CARD_RESPONSE;
+    }
+
+    return response;
+  }
+
+  /**
+   * @param cardNumber card number to get replaced
+   * @param ocvId customer id
+   * @param reason reason to replace the card
+   * @return `HttpCalloutResponse` the api response
+   * @description replace cards api
+   */
+  public override HttpCalloutResponse replaceCard(
+    String cardNumber,
+    String ocvId,
+    String reason
+  ) {
+    if (!preset) {
+      response.body = FabricServiceMock.REPLACE_CARD;
     }
     return response;
   }
