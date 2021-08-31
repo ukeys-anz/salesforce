@@ -82,6 +82,7 @@ describe("c-idr-files-related-list suite", () => {
     });
   });
 
+  /********************Negative Scenario Testing********************/
   it("On onload error while fetching files", () => {
     getCaseRelatedFiles.mockRejectedValue(mockGetCaseRelatedFilesError);
     const element = createElement("c-idr-files-related-list", {
@@ -291,6 +292,7 @@ describe("c-idr-files-related-list suite", () => {
     });
   });
 
+  /********************Negative Scenario Testing*********************/
   it("error occured when render files related to case on file upload finished", () => {
     getCaseRelatedFiles.mockRejectedValue(mockGetCaseRelatedFilesError);
     const element = createElement("c-idr-files-related-list", {
@@ -314,6 +316,7 @@ describe("c-idr-files-related-list suite", () => {
     });
   });
 
+  /********************Jest test for sorting the data table functionality************/
   it("sorting data check", () => {
     getCaseRelatedFiles.mockResolvedValue(mockGetCaseRelatedFiles);
     const element = createElement("c-idr-files-related-list", {
