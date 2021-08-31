@@ -7,6 +7,11 @@
     <description>Grants Read/Write permissions for asynchronous chat related objects and fields</description>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Account.PPID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.AccountId</field>
         <readable>true</readable>
     </fieldPermissions>
