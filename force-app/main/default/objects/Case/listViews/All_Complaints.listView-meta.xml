@@ -8,11 +8,13 @@
     <columns>IDR_Date_Received__c</columns>
     <columns>IDR_Office_Created_By__c</columns>
     <columns>OWNER_NAME</columns>
+    <columns>IDR_NC_First_Name__c</columns>
+    <columns>IDR_NC_Last_Name__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>CASES.RECORDTYPE</field>
         <operation>equals</operation>
-        <value>Case.Customer_Complaint,Case.Non_Customer_Complaint</value>
+        <value>Case.CFMS_Migrated_Case,Case.Customer_Complaint,Case.Non_Customer_Complaint</value>
     </filters>
     <label>All Complaints</label>
     <sharedTo>

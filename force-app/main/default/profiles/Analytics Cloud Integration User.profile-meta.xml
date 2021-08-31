@@ -1903,16 +1903,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>IDR_Notification_Event__e.Case_Status_Change_Date__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>IDR_Notification_Event__e.Case_Status__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>IDR_Notification_Event__e.ComplainantEmail__c</field>
         <readable>false</readable>
     </fieldPermissions>

@@ -4,7 +4,7 @@
     <description>Placeholder to store Salesforce permission set groups for each business functions</description>
     <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
-    <inlineHelpText>Enter the API Name of Permission Set Group. Split permission set grups with Semi Colon If you are entering more than one Permission Set Group</inlineHelpText>
+    <inlineHelpText>Enter the API Name of Permission Set Group. Split permission set groups with Semi Colon If you are entering more than one Permission Set Group</inlineHelpText>
     <label>Permission Set Groups</label>
     <length>32768</length>
     <type>LongTextArea</type>

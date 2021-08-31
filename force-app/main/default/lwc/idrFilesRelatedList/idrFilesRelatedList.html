@@ -1,0 +1,87 @@
+<template>
+  <div
+    class="slds-box slds-box_xx-small slds-theme_shade slds-align_absolute-center"
+  >
+    <c-file-Upload
+      customer-id={customerId}
+      onnewfileupload={refreshFileList}
+      record-id={recordId}
+    >
+    </c-file-Upload>
+  </div>
+  <br />
+  <div class="slds-box slds-theme_shade">
+    <h1 style="font-size: medium">Search</h1>
+    <lightning-layout horizontal-align="space">
+      <lightning-layout-item padding="around-small">
+        <lightning-input
+          type="search"
+          label="File Name"
+          value={searchFileName}
+          onchange={UpdateFileNameSearch}
+        >
+        </lightning-input>
+      </lightning-layout-item>
+      <lightning-layout-item padding="around-small">
+        <lightning-input
+          type="search"
+          label="File Type"
+          value={searchFileType}
+          onchange={UpdateFileTypeSearch}
+        >
+        </lightning-input>
+      </lightning-layout-item>
+      <lightning-layout-item padding="around-small">
+        <lightning-input
+          type="search"
+          label="Owner"
+          value={searchOwner}
+          onchange={UpdateOwnerSearch}
+        >
+        </lightning-input>
+      </lightning-layout-item>
+      <lightning-layout-item padding="around-small">
+        <lightning-input
+          type="search"
+          label="Contains"
+          value={searchContains}
+          onchange={UpdateContainsSearch}
+        >
+        </lightning-input>
+      </lightning-layout-item>
+      <lightning-layout-item padding="around-small">
+        <lightning-input
+          type="date"
+          label="Start Date"
+          value={searchStartDate}
+          onchange={UpdateStartDateSearch}
+        >
+        </lightning-input>
+      </lightning-layout-item>
+      <lightning-layout-item padding="around-small">
+        <lightning-input
+          type="date"
+          label="End Date"
+          value={searchEndDate}
+          onchange={UpdateEndDateSearch}
+        >
+        </lightning-input>
+      </lightning-layout-item>
+    </lightning-layout>
+  </div>
+  <br />
+  <template if:true={files}>
+    <lightning-datatable
+      key-field="fileId"
+      data={filesToDisplay}
+      columns={columns}
+      hide-checkbox-column
+      default-sort-direction={defaultSortDirection}
+      sorted-direction={sortDirection}
+      sorted-by={sortedBy}
+      onsort={onHandleSort}
+      wrap-text-max-lines="6"
+    >
+    </lightning-datatable>
+  </template>
+</template>

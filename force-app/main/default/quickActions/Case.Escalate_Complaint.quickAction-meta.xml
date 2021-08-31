@@ -22,6 +22,11 @@
                 <field>IDR_Escalation_Reason__c</field>
                 <uiBehavior>Required</uiBehavior>
             </quickActionLayoutItems>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>IDR_Restriction_Level__c</field>
+                <uiBehavior>Required</uiBehavior>
+            </quickActionLayoutItems>
         </quickActionLayoutColumns>
         <quickActionLayoutColumns/>
     </quickActionLayout>
