@@ -31,6 +31,8 @@ public with sharing class IDRCaseActions {
 
   private static final String DELETE_ERROR = 'You cannot delete cases';
 
+  private static final String CANNOT_CLOSE_CASE_WITH_PENDING_TASK_ERROR = 'You cannot close the case as there is currently an open \'Pend Case\' task. Please review and action the open \'Pend Case\' task before closing the case.';
+
   @TestVisible
   private static List<IDR_CRC_Escalation_Event__e> idrCaseEscalations;
 
@@ -148,6 +150,7 @@ public with sharing class IDRCaseActions {
         handleEntitlementForUpdate(record, oldRecord, entitlementId);
         identifyOwnerChangeRecords(record, (oldRecord).OwnerId);
         if (record.Status != oldRecord.Status) {
+          preventCloseStatusOnCaseWithPendingTask(record);
           handleCaseStatusChanges(record);
         }
         handleCaseEscalationRules(record, oldRecord);
@@ -721,4 +724,18 @@ public with sharing class IDRCaseActions {
       }
     }
   }
+
+  /**
+   * @description Prevents a complaints case moving to Closed status when it has any non-complete complaints task with 'Pending Case' type
+   * @param c Case to get the number from
+   */
+  private static void preventCloseStatusOnCaseWithPendingTask(Case c){
+    if(c.Status == CLOSED_STATUS){
+      List<Task> openpendingtasks = [SELECT Id FROM Task WHERE WhatId =:c.Id AND RecordTypeId=:IDRConstants.IDR_TASK_RT_ID AND Status!='Completed' AND Type = 'Pend Case'];
+      if(!openpendingtasks.isEmpty()){
+        c.addError(CANNOT_CLOSE_CASE_WITH_PENDING_TASK_ERROR);
+      }
+    }
+  }
+
 }
