@@ -5,7 +5,7 @@
     <complianceGroup>Source_Salesforce;Integrity_Trusted;Privacy_Non_Personal_Information</complianceGroup>
     <description>Capture the date ANZ is required to provide a response to AFCA</description>
     <externalId>false</externalId>
-    <label>AFCA Due Date</label>
+    <label>AFCA Response Due Date</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

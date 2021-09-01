@@ -7,16 +7,10 @@ on:
     branches:
       - "master"
       - "develop"
-      - "epic/lock-card"
-      - "epic/disputes"
-      - "epic/fraud"
-      - "epic/anzx-bau"
-      - "epic/ccrm-dev"
-      - "epic/ccrm-qa"
-      - "epic/ccrm-party"
-      - "epic/cmos-r2"
+      - "epic/*"
 
 jobs:
+  # This job only does the validation, even though it reads as build_and_deploy. This is due to a name mismatch in terraform.
   build_and_deploy:
     runs-on: [self-hosted, salesforce]
     steps:

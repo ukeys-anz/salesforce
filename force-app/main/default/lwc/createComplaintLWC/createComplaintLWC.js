@@ -19,6 +19,9 @@ import THIRD_PARTY_STATE_FIELD from "@salesforce/schema/Case.IDR_3rdParty_State_
 import THIRD_PARTY_RELATIONSHIP from "@salesforce/schema/Case.IDR_3rdParty_Relationship_To_Complainant__c";
 import THIRD_PARTY_COMMS from "@salesforce/schema/Case.IDR_SwicthOff_3rd_Party_Notification__c";
 import RECORDTYPE_FIELD from "@salesforce/schema/Case.RecordTypeId";
+import THIRD_PARTY_PRODUCT_MANUFACTURER from "@salesforce/schema/Case.IDR_Product_Manufacturer__c";
+import THIRD_PARTY_OTHER_PRODUCT_MANUFACTURER from "@salesforce/schema/Case.Name_of_product_manufacturer__c";
+import THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER from "@salesforce/schema/Case.Provided_details_to_Product_Manufacturer__c";
 
 //Non Customer complaint
 import COMPLAINT_TYPE_FIELD from "@salesforce/schema/Case.IDR_Complainant_Type__c";
@@ -106,6 +109,7 @@ const CLOSED_STATUS_API_NAME = "Closed";
 const YES_VALUE = "Yes";
 const COMPLAINT_REMEDY_FIN_VALUE = "1";
 const COMPLAINT_REMEDY_NON_FIN_VALUE = "2";
+const OTHER = "Other";
 
 const CUS_IDENTIFIER_CAPCIS_ID = "Customer/Business CAP ID";
 const CUS_IDENTIFIER_CACHE_ID = "CACHE ID";
@@ -162,6 +166,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
   thirdPartyCountry = THIRD_PARTY_COUNTRY_FIELD;
   thirdPartyState = THIRD_PARTY_STATE_FIELD;
   thirdPartyRelationShip = THIRD_PARTY_RELATIONSHIP;
+  thirdPartyProductManufacturer = THIRD_PARTY_PRODUCT_MANUFACTURER;
+  thirdPartyOtherProductManufacturer = THIRD_PARTY_OTHER_PRODUCT_MANUFACTURER;
 
   //written response fields
   writtenResponseRequested = WRITTEN_RESPONSE_REQUESTED_FIELD;
@@ -234,6 +240,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
   isRealFormNeeded;
   isRealFormSubmitted;
   realFormRefNo = "";
+  isReferredToProductManufacturer = false;
+  isOtherProductManufacturer = false;
+  thirdPartyIsDetailsProvidedToProductManufacturer = false;
   consentOptions = [
     { label: "Agrees", value: "Agrees" },
     { label: "Disagrees", value: "Disagrees" }
@@ -378,13 +387,30 @@ export default class CreateComplaintLWC extends NavigationMixin(
     if (event.detail.value === COMPLAINT_REMEDY_FIN_VALUE) {
       this.isFinancialComplaintRemedy = true;
       this.isNonFinancialComplaintRemedy = false;
+      this.isReferredToProductManufacturer = false;
+      this.isOtherProductManufacturer = false;
     } else if (event.detail.value === COMPLAINT_REMEDY_NON_FIN_VALUE) {
       this.isFinancialComplaintRemedy = false;
       this.isNonFinancialComplaintRemedy = true;
+      this.isReferredToProductManufacturer = false;
+      this.isOtherProductManufacturer = false;
     } else {
       this.isFinancialComplaintRemedy = false;
       this.isNonFinancialComplaintRemedy = false;
+      this.isReferredToProductManufacturer = true;
     }
+  }
+
+  handleThirdPartyProductManufacturer(event) {
+    if (event.detail.value === OTHER) {
+      this.isOtherProductManufacturer = true;
+    } else {
+      this.isOtherProductManufacturer = false;
+    }
+  }
+  handleIsDetailsProvidedToProductManufacturer(event) {
+    this.thirdPartyIsDetailsProvidedToProductManufacturer =
+      event.detail.checked;
   }
 
   handleFinancialCompensation(event) {
@@ -608,6 +634,15 @@ export default class CreateComplaintLWC extends NavigationMixin(
     if (this.isFinancialComplaintRemedy) {
       isFinCompValid = this.validateFinancialCompensation();
     }
+    if (
+      this.isComplaintResolved &&
+      this.isReferredToProductManufacturer &&
+      !this.thirdPartyIsDetailsProvidedToProductManufacturer
+    ) {
+      isFieldValid = false;
+      this.missingDataFields +=
+        "Acknowledgement that the complaint details have been provided to the product manufacturer is required";
+    }
 
     return (
       isFieldValid &&
@@ -658,6 +693,11 @@ export default class CreateComplaintLWC extends NavigationMixin(
           fields[
             FINANCIAL_COMPENSATION.fieldApiName
           ] = this.financialCompensation;
+        }
+        if (this.isReferredToProductManufacturer) {
+          fields[
+            THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER.fieldApiName
+          ] = this.thirdPartyIsDetailsProvidedToProductManufacturer;
         }
       }
       //If user wants to create an escalated case. Set the case status to default status and set the isEscalated flag.
@@ -776,6 +816,13 @@ export default class CreateComplaintLWC extends NavigationMixin(
       requiredFields.compOutCome = "Complaint Outcome";
       requiredFields.compRemedy = "Complaint Remedy";
       requiredFields.descOutcome = "Description of Outcome";
+      if (this.isReferredToProductManufacturer) {
+        requiredFields.thirdPartyProductManufacturer = "Product Manufacturer";
+        if (this.isOtherProductManufacturer) {
+          requiredFields.thirdPartyOtherProductManufacturer =
+            "Name of the product manufacturer";
+        }
+      }
     }
     if (this.isComplaintEscalated) {
       requiredFields.escalatedTo = "Escalated To";

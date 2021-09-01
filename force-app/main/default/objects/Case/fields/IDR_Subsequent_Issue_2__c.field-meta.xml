@@ -486,6 +486,36 @@
                 <default>false</default>
                 <label>Guarantee Issue/Error</label>
             </value>
+            <value>
+                <fullName>Not working on device</fullName>
+                <default>false</default>
+                <label>Not working on device</label>
+            </value>
+            <value>
+                <fullName>Request won&apos;t be actioned</fullName>
+                <default>false</default>
+                <label>Request won&apos;t be actioned</label>
+            </value>
+            <value>
+                <fullName>No direct phone line</fullName>
+                <default>false</default>
+                <label>No direct phone line</label>
+            </value>
+            <value>
+                <fullName>Stores are cashless</fullName>
+                <default>false</default>
+                <label>Stores are cashless</label>
+            </value>
+            <value>
+                <fullName>Not enough stores</fullName>
+                <default>false</default>
+                <label>Not enough stores</label>
+            </value>
+            <value>
+                <fullName>Digital only service</fullName>
+                <default>false</default>
+                <label>Digital only service</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>19</controllingFieldValue>

@@ -70,9 +70,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
    * @param oldMap old trigger values
    */
   public override void onValidate(Map<Id, SObject> oldMap) {
-    if (!checkRecursive.firstCall) {
-      IDRCaseActions.afterUpdate(oldMap, records);
-    }
+    IDRCaseActions.afterUpdate(oldMap, records);
   }
 
   /**
@@ -80,18 +78,9 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
    * @param oldMap old trigger values
    */
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
-    if (!checkRecursive.firstCall) {
-      IDRCaseActions.completeAfterActions();
-      GetHelpCaseActions.rollupRelatedBug(
-        records,
-        (List<Case>) oldMap.values()
-      );
-      SICaseActions.afterUpdate(records, (Map<Id, Case>) oldMap);
-      IDRCaseNotificationManager.manageNotificationAfterUpdate(
-        records,
-        (Map<Id, Case>) oldMap
-      );
-    }
+    IDRCaseActions.completeAfterActions();
+    GetHelpCaseActions.rollupRelatedBug(records, (List<Case>) oldMap.values());
+    SICaseActions.afterUpdate(records, (Map<Id, Case>) oldMap);
   }
 
   /**
