@@ -731,7 +731,7 @@ public with sharing class IDRCaseActions {
    */
   private static void preventCloseStatusOnCaseWithPendingTask(Case c){
     if(c.Status == CLOSED_STATUS){
-      List<Task> openpendingtasks = [SELECT Id FROM Task WHERE WhatId =:c.Id AND RecordTypeId=:IDRConstants.IDR_TASK_RT_ID AND Status!='Completed' AND Type = 'Pend Case'];
+      List<Task> openpendingtasks = [SELECT Id FROM Task WHERE WhatId =:c.Id AND RecordTypeId=:IDRConstants.IDR_TASK_RT_ID AND Status!='Completed' AND Type = 'Pend Case' WITH SECURITY_ENFORCED];
       if(!openpendingtasks.isEmpty()){
         c.addError(CANNOT_CLOSE_CASE_WITH_PENDING_TASK_ERROR);
       }
