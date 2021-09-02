@@ -188,4 +188,68 @@ private with sharing class IDRCaseActionsTest {
       'Date/Time flag should have been cleared'
     );
   }
+
+  @isTest
+    static void testPreventCloseStatusOnCaseWithPendingTask() {
+        //data setup
+        Case[] newCases = new List<Case>();
+        newCases.add(
+            new Case(
+                RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
+                Status = 'Open',
+                isEscalated = false
+            )
+        );
+        insert newCases;
+        Task[] newTasks = new List<Task>();
+        newTasks.add(
+            new Task(
+                RecordTypeId = IDRConstants.IDR_TASK_RT_ID,
+                Status = 'Open',
+                Subject = 'Call',
+                Type = 'Pend Case',
+                //Below are fields inserted due to validation rules based on the 'Pend Case' status
+                IDR_Key_Contact_Name__c = 'Test',
+                IDR_Pended_To__c = 'Customer',
+                IDR_Internal_or_External_Party__c = 'External',
+                IDR_Pend_Reason__c = 'Awaiting information to be provided',
+                ActivityDate = Date.today() + 1,
+                WhatId = newCases[0].Id
+            )
+        );
+        insert newTasks;
+        Boolean preventCaseCloseErrorThrown = false;
+        
+        //Scenario where it Case Closure should be prevented
+        newCases[0].Status = 'Closed';
+        newCases[0].IDR_Complaint_Outcome__c = '3';
+        newCases[0].IDR_Description_of_Outcome__c = 'Test';
+        try {
+            update newCases;
+            Case testcase = [SELECT Id, Status FROM Case LIMIT 1];
+        } catch(Exception e) {
+            if(e.getMessage().contains( 
+                'You cannot close the case as there is currently an open \'Pend Case\' task. Please review and action the open \'Pend Case\' task before closing the case.')){
+                    preventCaseCloseErrorThrown = true;
+                }
+        }
+        System.assertEquals(
+            true, 
+            preventCaseCloseErrorThrown, 
+            'Expected update to Closed status to be prevented, however no error was thrown/wrong error thrown');
+        
+        //Scenario where it Case Closure should be allowed
+        newTasks[0].Status = 'Completed';
+        update newTasks;
+        preventCaseCloseErrorThrown = false;
+        try{
+            update newCases;
+        } catch(Exception e){
+            preventCaseCloseErrorThrown = true;
+        }
+        System.assertEquals(
+            false, 
+            preventCaseCloseErrorThrown, 
+            'Expected update to Closed status to be allowed, however Status update was prevented, throwing an error');
+    }
 }
