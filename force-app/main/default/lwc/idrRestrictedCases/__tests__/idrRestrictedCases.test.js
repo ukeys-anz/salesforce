@@ -87,10 +87,7 @@ describe("c-idr-restricted-cases suite", () => {
 
   it("Comments box should be rendered", () => {
     getRestrictedCaseData.mockResolvedValue(mockGetRestrictedCaseData);
-    insertCaseComment.mockResolvedValue();
     const element = document.body.querySelector("c-idr-restricted-cases");
-    const handler = jest.fn();
-    element.addEventListener(ShowToastEventName, handler);
     const inputElement = element.shadowRoot.querySelector("lightning-input");
     inputElement.value = "test";
     const event = new KeyboardEvent("keyup", { keyCode: 13 });
@@ -392,4 +389,27 @@ describe("c-idr-restricted-cases suite", () => {
       });
     });
   });
+
+  it("sorting data check", () => {
+    getRestrictedCaseData.mockResolvedValue(mockGetRestrictedCaseData);
+    const element = document.body.querySelector("c-idr-restricted-cases");
+    const inputElement = element.shadowRoot.querySelector("lightning-input");
+    inputElement.value = "test";
+    const event = new KeyboardEvent("keyup", { keyCode: 13 });
+    inputElement.dispatchEvent(event);
+    return new Promise(setImmediate).then(() => {
+      const dataTableElement = element.shadowRoot.querySelector(
+        "lightning-datatable"
+      );
+      dataTableElement.dispatchEvent(
+        new CustomEvent("sort", {
+          detail: { fieldName: "firstName", sortDirection: "asc" }
+        })
+      );
+      return Promise.resolve().then(() => {
+        expect(dataTableElement.data).toStrictEqual(mockGetRestrictedCaseData);
+      });  
+    });
+  });
+
 });
