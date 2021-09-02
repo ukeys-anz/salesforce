@@ -177,31 +177,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Business disruption%3A systems</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Charges%2C Fees %26 Commissions</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Clients%2C products and business practices%3A advisory activities</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Clients%2C products and business practices%3A improper business or market practices</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Clients%2C products and business practices%3A product flaws</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Clients%2C products and business practices%3A selection%2C sponsorship and exposure</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Clients%2C products and business practices%3A suitability%2C disclosure and fiduciary</fullName>
             <default>false</default>
         </values>
         <values>
@@ -213,59 +189,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Damage to physical assets%3A disasters and other events</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Disclosure%2FMisleading Conduct%2FMis-selling%2FPromotions</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Employment practices and workplace safety%3A diversity and discrimination</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Employment practices and workplace safety%3A employee relations</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Employment practices and workplace safety%3A safe environment</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Execution%2C delivery and process management%3A customer intake and documentation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Execution%2C delivery and process management%3A customer%2Fclient account management</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Execution%2C delivery and process management%3A monitoring and reporting</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Execution%2C delivery and process management%3A trade counterparties</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Execution%2C delivery and process management%3A transaction capture%2C execution and maintenance</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Execution%2C delivery and process management%3A vendors and suppliers</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>External events</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>External fraud%3A systems security</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>External fraud%3A theft and fraud</fullName>
             <default>false</default>
         </values>
         <values>
@@ -274,14 +202,6 @@
         </values>
         <values>
             <fullName>IDR%2FEDR</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Internal fraud%3A theft and fraud</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Internal fraud%3A unauthorised activity</fullName>
             <default>false</default>
         </values>
         <values>

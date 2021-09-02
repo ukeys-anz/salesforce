@@ -1,0 +1,43 @@
+<template>
+  <section class="slds-modal slds-fade-in-open">
+    <div class="slds-modal__container">
+      <article class="slds-card">
+        <div class="slds-card__header slds-grid header-div">
+          <header class="slds-has-flexi-truncate card-header">
+            <h2>Temporary Card Lock</h2>
+          </header>
+        </div>
+        <div class="slds-card__body slds-p-horizontal--small">
+          <div class="body-wording-section">
+            <p>
+              Are you sure you want to place a temporary lock on the customer's
+              card?
+            </p>
+            <br />
+            <p>
+              This will<span class="slds-text-title_bold"> not</span> trigger an
+              automated card replacement, and the customer will be able to
+              unlock their card via their mobile app.
+            </p>
+          </div>
+          <button
+            class="slds-button slds-button--brand lock-button"
+            onclick={handleLock}
+            data-id="lock-button"
+          >
+            Temporarily Lock Card
+          </button>
+        </div>
+        <footer class="slds-modal__footer">
+          <button
+            class="slds-button slds-button--neutral"
+            onclick={closeAction}
+          >
+            Cancel
+          </button>
+        </footer>
+      </article>
+    </div>
+  </section>
+  <div class="slds-backdrop slds-backdrop_open"></div>
+</template>

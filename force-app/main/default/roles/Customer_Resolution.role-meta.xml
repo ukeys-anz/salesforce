@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Customer Resolution</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>Customer_Resolution_Leadership</parentRole>
+    <parentRole>Customer_Resolution_Team_Leaders</parentRole>
 </Role>

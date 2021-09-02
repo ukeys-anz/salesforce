@@ -1,19 +1,11 @@
 # This workflow deploys changes to a Salesforce project to a Salesforce org
 name: Deploy
-
 # This workflow will only run on pushes to master , develop and epic/*
 on:
   push:
     branches:
       - "develop"
-      - "epic/lock-card"
-      - "epic/disputes"
-      - "epic/fraud"
-      - "epic/anzx-bau"
-      - "epic/ccrm-dev"
-      - "epic/ccrm-qa"
-      - "epic/ccrm-party"
-      - "epic/cmos-r2"
+      - "epic/*"
 
 jobs:
   harness-deploy:

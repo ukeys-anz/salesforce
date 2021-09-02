@@ -3,7 +3,7 @@
     <fullName>IDR_NC_Country__c</fullName>
     <businessStatus>Active</businessStatus>
     <description>Customer&apos;s country of residence.</description>
-    <complianceGroup>Integrity - Accurate;Privacy - Personal Information</complianceGroup>
+    <complianceGroup>Integrity_Accurate;Privacy_Personal_Information</complianceGroup>
     <externalId>false</externalId>
     <label>Country</label>
     <required>false</required>

@@ -1140,10 +1140,6 @@
             <fullName>IMT</fullName>
             <default>false</default>
         </values>
-        <values>
-            <fullName>Pay Anyone</fullName>
-            <default>false</default>
-        </values>
     </picklistValues>
     <picklistValues>
         <picklist>Fraud_Funds_to_Geography__c</picklist>
@@ -3338,6 +3334,14 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>18</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>19</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>7</fullName>
             <default>false</default>
         </values>
@@ -5367,10 +5371,6 @@
         </values>
         <values>
             <fullName>ID Takeover Mule</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Inheritance %26 Unexpected Winnings</fullName>
             <default>false</default>
         </values>
         <values>

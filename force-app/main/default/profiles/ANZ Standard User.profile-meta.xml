@@ -372,7 +372,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Anniversay_Duration__c</field>
+        <field>Account.Anniversary_Duration__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3006,4 +3006,8 @@
         <enabled>false</enabled>
         <name>ViewSetup</name>
     </userPermissions>
+    <userPermissions>
+        <enabled>false</enabled>
+        <name>EditEvent</name>
+      </userPermissions>
 </Profile>
