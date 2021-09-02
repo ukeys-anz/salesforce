@@ -5,38 +5,18 @@
     <fieldName>Status</fieldName>
     <masterLabel>Coaches Workbench Case Path</masterLabel>
     <pathAssistantSteps>
-        <fieldNames>AccountId</fieldNames>
-        <fieldNames>CaseNumber</fieldNames>
-        <fieldNames>OwnerId</fieldNames>
-        <fieldNames>ClosedDate</fieldNames>
         <picklistValueName>Closed</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
-        <fieldNames>AccountId</fieldNames>
-        <fieldNames>CaseNumber</fieldNames>
-        <fieldNames>OwnerId</fieldNames>
-        <fieldNames>Reason</fieldNames>
         <picklistValueName>Escalated</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
-        <fieldNames>AccountId</fieldNames>
-        <fieldNames>CaseNumber</fieldNames>
-        <fieldNames>OwnerId</fieldNames>
-        <fieldNames>Reason</fieldNames>
         <picklistValueName>On Hold</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
-        <fieldNames>AccountId</fieldNames>
-        <fieldNames>CaseNumber</fieldNames>
-        <fieldNames>OwnerId</fieldNames>
-        <fieldNames>Reason</fieldNames>
         <picklistValueName>Open</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
-        <fieldNames>AccountId</fieldNames>
-        <fieldNames>CaseNumber</fieldNames>
-        <fieldNames>OwnerId</fieldNames>
-        <fieldNames>Reason</fieldNames>
         <picklistValueName>Under Investigation</picklistValueName>
     </pathAssistantSteps>
     <recordTypeName>General_Inquiry</recordTypeName>

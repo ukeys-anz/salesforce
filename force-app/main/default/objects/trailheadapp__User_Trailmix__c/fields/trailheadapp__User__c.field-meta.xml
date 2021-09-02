@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>trailheadapp__User__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate;Privacy - Personal Information;Source - myTrailhead</complianceGroup>
+    <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_myTrailhead</complianceGroup>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <externalId>false</externalId>

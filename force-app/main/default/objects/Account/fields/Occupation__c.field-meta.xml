@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Occupation__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Trusted;Privacy - Personal Information</complianceGroup>
+    <complianceGroup>Integrity_Trusted;Privacy_Personal_Information</complianceGroup>
     <description>Occupation of the customer</description>
     <externalId>false</externalId>
     <label>Occupation</label>

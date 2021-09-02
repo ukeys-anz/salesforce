@@ -6,7 +6,7 @@ on:
 jobs:
   check-pr-title:
     name: 🎫 Check Title for Jira Ticket
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Checkout Action Repo
         uses: actions/checkout@v2

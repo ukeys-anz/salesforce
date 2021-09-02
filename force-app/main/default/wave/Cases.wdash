@@ -1005,13 +1005,13 @@
     },
     "recordType": {
       "broadcastFacet": true,
-      "groups": ["Record.Name"],
+      "groups": [],
       "label": "Case Type filter",
-      "numbers": ["count"],
-      "query": "q = load \"cases_duration\";\nq = filter q by {{cell(My_Records_Filter_1.selection, 0, \"SAQL\").asString()}};\nq = group q by 'Record.Name';\nq = foreach q generate 'Record.Name' as 'Record.Name', count() as 'count';\nq = order q by 'Record.Name' asc;\nq = limit q 2000;",
+      "numbers": [],
+      "query": "q = load \"cases_duration\";\nq = filter q by {{cell(My_Records_Filter_1.selection, 0, \"SAQL\").asString()}};\nq = group q by 'FilterTitle';\nq = foreach q generate 'FilterTitle' as 'FilterTitle', count() as 'count';\nq = order q by 'FilterTitle' asc;\nq = limit q 2000;",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "multi",
-      "strings": ["Record.Name"],
+      "strings": [],
       "type": "saql",
       "useGlobal": true,
       "visualizationParameters": {
@@ -1240,7 +1240,7 @@
       "groups": [],
       "label": "lens_2",
       "numbers": [],
-      "query": "q = load \"cases_duration\";\nq = filter q by {{cell(My_Records_Filter_1.selection,0,\"SAQL\").asObject()}};q = foreach q generate 'CaseNumber' as 'CaseNumber', 'Subject', 'SLA_Status__c' as 'SLA Status', 'Status';\nq = limit q 100;",
+      "query": "q = load \"cases_duration\";\nq = filter q by {{cell(My_Records_Filter_1.selection,0,\"SAQL\").asObject()}};q = foreach q generate 'CaseNumber' as 'CaseNumber', 'Subject', 'SLA_Status__c' as 'SLA Status', 'Status', 'Record.Name' as 'Type';\nq = limit q 100;",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -1357,7 +1357,7 @@
     },
     "text_3": {
       "parameters": {
-        "content": { "displayTemplate": "Current Ticket Status\n" },
+        "content": { "displayTemplate": "Current Ticket Status\n\n" },
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
@@ -1523,7 +1523,7 @@
     },
     "text_7": {
       "parameters": {
-        "content": { "displayTemplate": "\n\n" },
+        "content": { "displayTemplate": "\n\n\n" },
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
@@ -1669,7 +1669,7 @@
     },
     "text_1": {
       "parameters": {
-        "content": { "displayTemplate": "Total Cases: \n" },
+        "content": { "displayTemplate": "Total Cases: \n\n" },
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
@@ -1951,18 +1951,19 @@
     },
     "pillbox_3": {
       "parameters": {
-        "compact": true,
+        "compact": false,
+        "displayTemplate": "[FilterTitle]",
         "exploreLink": false,
         "fontSize": 14,
         "measureField": "none",
         "selectedTab": {
-          "backgroundColor": "#335779",
+          "backgroundColor": "#0070D2",
           "borderColor": "#C6D3E1",
           "borderEdges": ["all"],
           "borderWidth": 1,
           "textColor": "#FFFFFF"
         },
-        "showActionMenu": true,
+        "showActionMenu": false,
         "step": "recordType",
         "textColor": "#0070D2"
       },

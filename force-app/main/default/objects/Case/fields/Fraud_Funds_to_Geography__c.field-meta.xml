@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Fraud_Funds_to_Geography__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Privacy_Personal_Information;Source_Salesforce;Integrity - Trusted</complianceGroup>
+    <complianceGroup>Privacy_Personal_Information;Source_Salesforce;Integrity_Trusted</complianceGroup>
     <description>The geographical location to which funds left a customer account due to a fraud event</description>
     <externalId>false</externalId>
     <label>Funds to Geography</label>

@@ -5,5 +5,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Coach</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>Manager</parentRole>
+    <parentRole>ANZx</parentRole>
 </Role>

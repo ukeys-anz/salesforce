@@ -23,7 +23,14 @@
     <template if:false={hasError}>
       <div class="slds-m-bottom_xx-small">
         <lightning-card>
-          <h1 class="card-title">Card Details</h1>
+          <h1 class="card-title">
+            <lightning-icon
+              icon-name="custom:custom40"
+              size="small"
+              class="slds-m-right_small"
+            ></lightning-icon>
+            Card Details
+          </h1>
           <template if:true={showFetch}>
             <lightning-button
               label="Get Card Details"
@@ -35,7 +42,7 @@
               <div class="slds-col slds-size_1-of-3">
                 <img
                   src={defaultImage}
-                  class="slds-carousel__image slds-carousel__image card-image"
+                  class="slds-carousel__image slds-carousel__image"
                 />
               </div>
             </div>
@@ -58,6 +65,28 @@
             </template>
             <div class="slds-m-bottom_xx-small">
               <lightning-card>
+                <template if:false={initialCardDetails.hideTempLock}>
+                  <lightning-button
+                    label="Lock Card"
+                    slot="actions"
+                    onclick={handleShowLock}
+                    data-id={initialCardDetails.cardId}
+                    data-button="initial-lock-card-button"
+                    disabled={initialCardDetails.preventLock}
+                    class="slds-m-left_small"
+                  ></lightning-button>
+                </template>
+                <template if:false={initialCardDetails.hideReplaceCard}>
+                  <lightning-button
+                    label="Replace Card"
+                    slot="actions"
+                    onclick={handleShowReplace}
+                    data-id={initialCardDetails.cardId}
+                    data-button="initial-replace-card-button"
+                    disabled={initialCardDetails.preventReplace}
+                    class="slds-m-left_small"
+                  ></lightning-button>
+                </template>
                 <div
                   class="slds-card__body slds-card__body_inner"
                   data-id="first-card-details"
@@ -67,7 +96,7 @@
                       <div class="slds-col slds-size_1-of-3">
                         <img
                           src={initialCardDetails.image}
-                          class="slds-carousel__image card-image"
+                          class="slds-carousel__image"
                         />
                       </div>
                       <div class="slds-col slds-size_1-of-3">
@@ -99,7 +128,15 @@
                         </div>
                         <div class="slds-col slds-size_1-of-1">
                           <div class="slds-p-bottom_medium">
-                            <p class="slds-text-title_bold">Status</p>
+                            <p class="slds-text-title_bold">
+                              Status
+                              <template if:true={initialCardDetails.isLocked}>
+                                <lightning-helptext
+                                  class="tooltip"
+                                  content="Coaches don't have the ability to remove a temporary lock. Customers can unlock their card anytime on their mobile app."
+                                ></lightning-helptext>
+                              </template>
+                            </p>
                             <p
                               class="slds-text-body_regular"
                               data-id="initial-status"
@@ -122,6 +159,26 @@
                   key={card.name}
                 >
                   <lightning-card>
+                    <template if:false={card.hideTempLock}>
+                      <lightning-button
+                        label="Lock Card"
+                        slot="actions"
+                        onclick={handleShowLock}
+                        data-id={card.cardId}
+                        disabled={card.preventLock}
+                        class="slds-m-left_small"
+                      ></lightning-button>
+                    </template>
+                    <template if:false={card.hideReplaceCard}>
+                      <lightning-button
+                        label="Replace Card"
+                        slot="actions"
+                        onclick={handleShowReplace}
+                        data-id={card.cardId}
+                        disabled={card.preventReplace}
+                        class="slds-m-left_small"
+                      ></lightning-button>
+                    </template>
                     <div
                       class="slds-card__body slds-card__body_inner"
                       data-id="loaded-card-details"
@@ -131,7 +188,7 @@
                           <div class="slds-col slds-size_1-of-3">
                             <img
                               src={card.image}
-                              class="slds-carousel__image card-image"
+                              class="slds-carousel__image"
                             />
                           </div>
                           <div class="slds-col slds-size_1-of-3">
@@ -165,7 +222,15 @@
                             </div>
                             <div class="slds-col slds-size_1-of-1">
                               <div class="slds-p-bottom_medium">
-                                <p class="slds-text-title_bold">Status</p>
+                                <p class="slds-text-title_bold">
+                                  Status
+                                  <template if:true={card.isLocked}>
+                                    <lightning-helptext
+                                      class="tooltip"
+                                      content="Coaches don't have the ability to remove a temporary lock. Customers can unlock their card anytime on their mobile app."
+                                    ></lightning-helptext>
+                                  </template>
+                                </p>
                                 <p class="slds-text-body_regular">
                                   {card.status}
                                 </p>
@@ -178,6 +243,24 @@
                   </lightning-card>
                 </div>
               </template>
+            </template>
+            <template if:true={showLock}>
+              <c-card-temp-lock
+                show-modal={showLock}
+                card-number={tokenizedCardNumber}
+                record-id={recordId}
+              ></c-card-temp-lock>
+            </template>
+            <template if:true={showReplace}>
+              <c-replace-card
+                show-modal={showReplace}
+                card-number={tokenizedCardNumber}
+                record-id={recordId}
+                replace-lost-unavailable={replaceLostUnavailable}
+                replace-stolen-unavailable={replaceStolenUnavailable}
+                replace-damaged-unavailable={replaceDamagedUnavailable}
+                replace-lock-unavailable={replaceLockUnavailable}
+              ></c-replace-card>
             </template>
           </template>
           <template if:true={showViewAllButton}>

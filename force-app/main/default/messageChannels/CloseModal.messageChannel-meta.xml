@@ -12,6 +12,10 @@
     <description>Provide a success/error message</description>
   </lightningMessageFields>
   <lightningMessageFields>
+    <fieldName>name</fieldName>
+    <description>Provide a name of the modal when using multiple modals on same lwc</description>
+  </lightningMessageFields>
+  <lightningMessageFields>
     <fieldName>success</fieldName>
     <description>Provide a boolean to determine potential actions in modal were successful</description>
   </lightningMessageFields>

@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Fraud_Middle_Name__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Privacy - Non Personal Information;Integrity - Trusted;Source - Salesforce</complianceGroup>
+    <complianceGroup>Privacy_Non_Personal_Information;Integrity_Trusted;Source_Salesforce</complianceGroup>
     <description>Check:
 
 If a middle name or initial exists on the document it is recorded on customer profile as a matching name AND if a middle initial exists in SalesForce then obtain the full middle name. </description>

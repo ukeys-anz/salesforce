@@ -39,15 +39,28 @@
           { "name": "RecordTypeId" },
           { "name": "Fraud_Customer_Event_Age__c", "scale": 0 },
           { "name": "Fraud_Total_Customer_Exposure__c" },
-          { "name": "Origin" }
+          { "name": "Origin" },
+          { "name": "LastModifiedDate" },
+          { "name": "LastModifiedById" },
+          { "name": "Fraud_Loss_Reason_Code__c" }
         ],
         "object": "Case"
       }
     },
-    "FraudX": {
-      "action": "register",
-      "parameters": { "label": "FraudX Cases", "name": "FraudX" },
-      "sources": ["AgeBucket"]
+    "CaseHistoryDigest": {
+      "action": "sobjectDigest",
+      "parameters": {
+        "fields": [
+          { "name": "CaseId" },
+          { "name": "CreatedById" },
+          { "name": "Field" },
+          { "name": "NewValue" },
+          { "name": "OldValue" },
+          { "name": "CreatedDate" }
+        ],
+        "object": "CaseHistory",
+        "passthroughFilter": "(CreatedDate = LAST_N_DAYS:365 AND Field = 'Status')"
+      }
     },
     "AgeBucket": {
       "action": "computeExpression",
@@ -64,12 +77,106 @@
       },
       "sources": ["JoinAccountInfo"]
     },
+    "MergeLastModifiedUser": {
+      "action": "augment",
+      "parameters": {
+        "leftKey": ["LastModifiedById"],
+        "operation": "LookupSingleValue",
+        "relationship": "LastModified",
+        "rightKey": ["Id"],
+        "rightSelect": ["FirstName", "LastName"]
+      },
+      "sources": ["MergeClosedBy", "DigestUser"]
+    },
+    "DigestUser": {
+      "action": "sobjectDigest",
+      "parameters": {
+        "fields": [
+          { "name": "Id" },
+          { "name": "FirstName" },
+          { "name": "LastName" }
+        ],
+        "object": "User"
+      }
+    },
     "FilterFraudOnly": {
       "action": "filter",
       "parameters": {
         "saqlFilter": "'Record.Name' in [\"Fraud\", \"Identity\", \"Recipient/Mule\",\"Scam\"]"
       },
       "sources": ["JoinRecordCases"]
+    },
+    "GetLatestDate": {
+      "action": "computeRelative",
+      "parameters": {
+        "computedFields": [
+          {
+            "description": "Retrieves the latest date of the Closed Date",
+            "expression": {
+              "offset": "first()",
+              "sourceField": "CreatedDate",
+              "default": "current()"
+            },
+            "label": "LatestClosedDate",
+            "name": "LatestClosedDate"
+          }
+        ],
+        "orderBy": [{ "direction": "asc", "name": "CreatedDate" }],
+        "partitionBy": ["CaseId"]
+      },
+      "sources": ["FilterCaseHistory"]
+    },
+    "ExportCaseLastTouchedFraud": {
+      "action": "register",
+      "parameters": {
+        "label": "CaseLastTouchedData",
+        "name": "CaseLastTouchedData",
+        "rowLevelSecurityFilter": ""
+      },
+      "sources": ["JoinCaseHistoryWithUsers"]
+    },
+    "JoinCaseHistoryWithUsers": {
+      "action": "augment",
+      "parameters": {
+        "leftKey": ["CreatedById"],
+        "operation": "LookupSingleValue",
+        "relationship": "User",
+        "rightKey": ["Id"],
+        "rightSelect": ["FirstName", "LastName"]
+      },
+      "sources": ["GetLatestDate", "DigestUser"]
+    },
+    "JoinRecordCases": {
+      "action": "augment",
+      "parameters": {
+        "leftKey": ["RecordTypeId"],
+        "operation": "LookupSingleValue",
+        "relationship": "Record",
+        "rightKey": ["Id"],
+        "rightSelect": ["Name"]
+      },
+      "sources": ["FraudCases", "RecordTypes"]
+    },
+    "FraudX": {
+      "action": "register",
+      "parameters": { "label": "FraudX Cases", "name": "FraudX" },
+      "sources": ["MergeLastModifiedUser"]
+    },
+    "FilterCaseHistory": {
+      "action": "filter",
+      "parameters": { "filter": "NewValue:EQ:Closed||Resolved" },
+      "sources": ["CaseHistoryDigest"]
+    },
+    "MergeClosedBy": {
+      "action": "augment",
+      "parameters": {
+        "leftKey": ["Id"],
+        "operation": "LookupSingleValue",
+        "relationship": "ClosedBy",
+        "rightKey": ["CaseId"],
+        "rightSelect": ["User.FirstName", "User.LastName", "LatestClosedDate"]
+      },
+      "sources": ["AgeBucket", "JoinCaseHistoryWithUsers"]
     },
     "AccountInfo": {
       "action": "sobjectDigest",
@@ -121,17 +228,6 @@
         "fields": [{ "name": "Id" }, { "name": "Name" }],
         "object": "RecordType"
       }
-    },
-    "JoinRecordCases": {
-      "action": "augment",
-      "parameters": {
-        "leftKey": ["RecordTypeId"],
-        "operation": "LookupSingleValue",
-        "relationship": "Record",
-        "rightKey": ["Id"],
-        "rightSelect": ["Name"]
-      },
-      "sources": ["FraudCases", "RecordTypes"]
     }
   }
 }

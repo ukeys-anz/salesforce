@@ -1,5 +1,49 @@
 {
   "nodes": {
+    "DigestLastTouchedData": {
+      "action": "dataset",
+      "parameters": { "name": "CaseLastTouchedData" }
+    },
+    "MergeLastClosedData": {
+      "action": "augment",
+      "parameters": {
+        "leftKey": ["Id"],
+        "operation": "LookupSingleValue",
+        "relationship": "LastClosedBy",
+        "rightKey": ["CaseId"],
+        "rightSelect": ["LatestClosedDate", "User.FirstName", "User.LastName"]
+      },
+      "sources": ["AppendClosedData", "DigestLastTouchedData"]
+    },
+    "TicketAge": {
+      "action": "computeExpression",
+      "parameters": {
+        "computedFields": [
+          {
+            "defaultValue": "0",
+            "label": "CaseAge",
+            "name": "CaseAge",
+            "precision": 2,
+            "saqlExpression": "daysBetween(toDate(CreatedDate_sec_epoch) , now())",
+            "scale": 1,
+            "type": "Numeric"
+          }
+        ],
+        "mergeWithSource": true
+      },
+      "sources": ["FilterOnlyKYCQA"]
+    },
+    "JoinRecordName": {
+      "action": "augment",
+      "parameters": {
+        "leftKey": ["RecordTypeId"],
+        "operation": "LookupSingleValue",
+        "relationship": "Record",
+        "rightKey": ["Id"],
+        "rightSelect": ["Name"]
+      },
+      "sources": ["sfdcDigest_Case", "RecordType"]
+    },
     "sfdcDigest_Case": {
       "action": "sobjectDigest",
       "parameters": {
@@ -53,7 +97,7 @@
     "register_KYC QA": {
       "action": "register",
       "parameters": { "label": "KYC QA", "name": "KYC_QA" },
-      "sources": ["AppendClosedData"]
+      "sources": ["MergeLastClosedData"]
     },
     "RecordType": {
       "action": "sobjectDigest",
@@ -61,24 +105,6 @@
         "fields": [{ "name": "Id" }, { "name": "Name" }],
         "object": "RecordType"
       }
-    },
-    "TicketAge": {
-      "action": "computeExpression",
-      "parameters": {
-        "computedFields": [
-          {
-            "defaultValue": "0",
-            "label": "CaseAge",
-            "name": "CaseAge",
-            "precision": 2,
-            "saqlExpression": "daysBetween(toDate(CreatedDate_sec_epoch) , now())",
-            "scale": 1,
-            "type": "Numeric"
-          }
-        ],
-        "mergeWithSource": true
-      },
-      "sources": ["FilterOnlyKYCQA"]
     },
     "ClosedDateBucket": {
       "action": "computeExpression",
@@ -114,17 +140,6 @@
         "mergeWithSource": true
       },
       "sources": ["LatestCloseDate"]
-    },
-    "JoinRecordName": {
-      "action": "augment",
-      "parameters": {
-        "leftKey": ["RecordTypeId"],
-        "operation": "LookupSingleValue",
-        "relationship": "Record",
-        "rightKey": ["Id"],
-        "rightSelect": ["Name"]
-      },
-      "sources": ["sfdcDigest_Case", "RecordType"]
     },
     "FilterOnlyClosedRecords": {
       "action": "filter",

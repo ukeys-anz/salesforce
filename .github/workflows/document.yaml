@@ -25,7 +25,7 @@ jobs:
           repository: anzx/salesforce-doc-gen
           token: ${{ secrets.SALESFORCE_DOC_GEN_TOKEN }}
           path: plugin
-          ref: "9d35775"
+          ref: "9c6c8d6"
 
       - name: Checkout salesforce repo
         uses: actions/checkout@v2

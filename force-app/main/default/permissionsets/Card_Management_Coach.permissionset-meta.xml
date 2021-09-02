@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <classAccesses>
+        <apexClass>CardReplaceController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>CardTempLockController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>ANZx_Replace_Card</name>
+    </customPermissions>
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>ANZx_Temp_Lock_Card</name>
+    </customPermissions>
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>ANZx_View_Cards</name>
+    </customPermissions>
+    <description>This permission set grants access to card management tools such as Lock card for coach users.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Card Management - Coach</label>
+</PermissionSet>

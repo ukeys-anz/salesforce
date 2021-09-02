@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Fraud_Customer_Details__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Privacy - Non Personal Information;Integrity - Trusted;Source - Salesforce</complianceGroup>
+    <complianceGroup>Privacy_Non_Personal_Information;Integrity_Trusted;Source_Salesforce</complianceGroup>
     <description>Check:
 
 The following customer data on SalesForce customer profile is complete and matches customer details on the identity document image (where applicable):
