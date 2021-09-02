@@ -89,10 +89,6 @@
     <picklistValues>
         <picklist>Dispute_Reason__c</picklist>
         <values>
-            <fullName>Additional transactions for an existing lost%2Fstolen%2Ffraud case</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Cancel current dispute</fullName>
             <default>false</default>
         </values>
