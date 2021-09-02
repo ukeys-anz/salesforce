@@ -7,7 +7,7 @@
 (RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos; || RecordType.DeveloperName = &apos;Customer_Complaint&apos;) &amp;&amp; 
 (TEXT(Status) = &apos;Closed&apos; || TEXT(Status) = &apos;Resolved&apos;) &amp;&amp;
 TEXT(IDR_Complaint_Remedy__c) = &apos;3&apos; &amp;&amp; 
-ISCHANGED(IDR_Financial_Compensation__c)</errorConditionFormula>
+NOT(ISBLANK(IDR_Financial_Compensation__c))</errorConditionFormula>
     <errorDisplayField>IDR_Financial_Compensation__c</errorDisplayField>
-    <errorMessage>If Complaint Remedy is Referred to Product Manufacturer then you must not update the Financial Amount</errorMessage>
+    <errorMessage>If the complaint remedy is Referred to Product Manufacturer, the financial amount field must be blank.</errorMessage>
 </ValidationRule>
