@@ -33,7 +33,7 @@ describe("c-idr-restricted-cases suite", () => {
     const element = document.body.querySelector("c-idr-restricted-cases");
     const inputElement = element.shadowRoot.querySelector("lightning-input");
     inputElement.value = "test";
-    const event = new KeyboardEvent('keyup',{keyCode:13});
+    const event = new KeyboardEvent("keyup", { keyCode: 13 });
     inputElement.dispatchEvent(event);
     return new Promise(setImmediate).then(() => {
       const dataTableElement = element.shadowRoot.querySelector(
