@@ -17,7 +17,7 @@
             <sorted>false</sorted>
             <value>
                 <fullName>No</fullName>
-                <default>true</default>
+                <default>false</default>
                 <label>No</label>
             </value>
             <value>

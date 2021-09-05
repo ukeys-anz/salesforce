@@ -3025,4 +3025,8 @@
         <enabled>false</enabled>
         <name>ViewSetup</name>
     </userPermissions>
+    <userPermissions>
+        <enabled>false</enabled>
+        <name>EditEvent</name>
+      </userPermissions>
 </Profile>
