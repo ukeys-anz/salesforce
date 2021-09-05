@@ -435,4 +435,58 @@ describe("c-create-complaint-l-w-c", () => {
       expect(handler.mock.calls[0][0].detail.variant).toBe(TOAST_VARIANT);
     });
   });
+
+  it("check third party product manuf for closed complaint case", () => {
+    const element = createElement("c-create-complaint-l-w-c", {
+      is: CreateComplaintForm
+    });
+    element.recordTypeDevName = "Customer_Complaint";
+    document.body.appendChild(element);
+
+    const complaintStatus = element.shadowRoot.querySelector(
+      "lightning-combobox[data-id=caseStatus-id]"
+    );
+    complaintStatus.value = "Closed";
+    complaintStatus.dispatchEvent(new CustomEvent("change"));
+
+    return flushPromises().then(() => {
+      expect(complaintStatus.value).toBe("Closed");
+      const compRemedy = element.shadowRoot.querySelector(
+        "lightning-input-field[data-id=compRemedy-id]"
+      );
+      compRemedy.dispatchEvent(
+        new CustomEvent("change", {
+          detail: {
+            value: "3"
+          }
+        })
+      );
+
+      return flushPromises().then(() => {
+        const productManufElement = element.shadowRoot.querySelector(
+          "lightning-input-field[data-id=thirdPartyProductManufacturer-id]"
+        );
+        expect(productManufElement).toBeTruthy();
+        productManufElement.value = "Other";
+        productManufElement.dispatchEvent(
+          new CustomEvent("change", {
+            detail: {
+              value: "Other"
+            }
+          })
+        );
+        return flushPromises().then(() => {
+          const nameOfOtherPMELement = element.shadowRoot.querySelector(
+            "lightning-input-field[data-id=thirdPartyOtherProductManufacturer-id]"
+          );
+          nameOfOtherPMELement.value = "Test ABC Manufacturers";
+          expect(nameOfOtherPMELement).toBeTruthy();
+
+          //click Create Case button to improve code coverage
+          const saveButton = element.shadowRoot.querySelector(".saveButton");
+          saveButton.click();
+        });
+      });
+    });
+  });
 });

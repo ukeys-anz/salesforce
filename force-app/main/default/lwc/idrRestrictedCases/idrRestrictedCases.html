@@ -38,7 +38,7 @@
       </div>
     </template>
     <template if:true={noData}>
-      <div style="height: 100px">
+      <div style="height: 100px" class="noDataFound">
         <br />
         <h1 class="slds-align_absolute-center">
           <span>No Records Found!</span>
@@ -73,7 +73,7 @@
           </button>
           <h2
             id="modal-heading-01"
-            class="slds-text-heading_medium slds-hyphenate"
+            class="slds-text-heading_medium slds-hyphenate caseCommentsHeading"
           >
             Create Case Comment
           </h2>
@@ -85,6 +85,7 @@
         >
           <lightning-textarea
             name="Body"
+            class="commentInput"
             required
             label="Body"
             onchange={handleCommentChange}
@@ -95,7 +96,7 @@
         <footer class="slds-modal__footer">
           <template if:true={showSave}>
             <lightning-button
-              class="slds-m-top_small"
+              class="slds-m-top_small commentSaveBtn"
               variant="brand"
               type="submit"
               onclick={handleSubmit}
@@ -135,7 +136,7 @@
           </button>
           <h2
             id="modal-heading-02"
-            class="slds-text-heading_medium slds-hyphenate"
+            class="slds-text-heading_medium slds-hyphenate uploadFilesHeading"
           >
             Upload Files
           </h2>
