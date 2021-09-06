@@ -741,13 +741,13 @@ public with sharing class IDRCaseActions {
     if(!closedComplaintCases.isEmpty()){
     List<Task> openpendingtasks = [SELECT Id, WhatId FROM Task WHERE WhatId=:closedComplaintCases AND RecordTypeId=:IDRConstants.IDR_TASK_RT_ID AND Status!='Completed' AND Type='Pend Case' WITH SECURITY_ENFORCED];
  
-    Map<Id, Task> CaseTaskMap = new Map<Id, Task>();
+    Map<Id, Task> caseTaskMap = new Map<Id, Task>();
     for(Task t : openpendingtasks){
-      CaseTaskMap.put(t.WhatId, t);
+      caseTaskMap.put(t.WhatId, t);
     }
    
     for(Case c : closedComplaintCases){
-      if(CaseTaskMap.containskey(c.id)){
+      if(caseTaskMap.containskey(c.id)){
         c.addError(CANNOT_CLOSE_CASE_WITH_PENDING_TASK_ERROR);
       }
     }
