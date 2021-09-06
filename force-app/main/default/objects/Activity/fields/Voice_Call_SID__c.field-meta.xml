@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Voice_Call_SID__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Source - Twilio;Integrity - Accurate;Privacy - Non Personal Information</complianceGroup>
+    <complianceGroup>Source_Twilio;Integrity_Accurate;Privacy_Non_Personal_Information</complianceGroup>
     <description>Used to store the unique Twilio Call SID related to particular call interaction being logged</description>
     <externalId>false</externalId>
     <inlineHelpText>Unique Twilio Call SID related to particular call interaction being logged</inlineHelpText>

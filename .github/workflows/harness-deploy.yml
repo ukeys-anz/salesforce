@@ -1,11 +1,11 @@
 # This workflow deploys changes to a Salesforce project to a Salesforce org
 name: Deploy
-
 # This workflow will only run on pushes to master , develop and epic/*
 on:
   push:
     branches:
-      - "epic/lock-card"
+      - "develop"
+      - "epic/*"
 
 jobs:
   harness-deploy:
@@ -26,6 +26,12 @@ jobs:
             --target-type=WORKFLOW \
             --variables='GITHUB_BASE_REF=${{ env.BASE_REF }};GITHUB_REF=${{ env.GITHUB_REF }}' \
             --wait
+
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+
       - name: "Tag Release"
         shell: bash
         run: |

@@ -147,11 +147,6 @@
         <label>Remediation</label>
     </standardValue>
     <standardValue>
-        <fullName>11</fullName>
-        <default>false</default>
-        <label>Other</label>
-    </standardValue>
-    <standardValue>
         <fullName>App Support</fullName>
         <default>false</default>
         <label>App Support</label>
@@ -227,19 +222,19 @@
         <label>Threats &amp; Extortion</label>
     </standardValue>
     <standardValue>
-        <fullName>Inheritance &amp; Unexpected Winnings</fullName>
+        <fullName>Fake Charity</fullName>
         <default>false</default>
-        <label>Inheritance &amp; Unexpected Winnings</label>
-    </standardValue>
-    <standardValue>
-        <fullName>Not a Scam</fullName>
-        <default>false</default>
-        <label>Not a Scam</label>
+        <label>Fake Charity</label>
     </standardValue>
     <standardValue>
         <fullName>Jobs &amp; Employment</fullName>
         <default>false</default>
         <label>Jobs &amp; Employment</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Unexpected Money/Winnings</fullName>
+        <default>false</default>
+        <label>Unexpected Money/Winnings</label>
     </standardValue>
     <standardValue>
         <fullName>ID Takeover Mule</fullName>
@@ -317,6 +312,11 @@
         <label>Awaiting Details</label>
     </standardValue>
     <standardValue>
+        <fullName>Not a Scam</fullName>
+        <default>false</default>
+        <label>Not a Scam</label>
+    </standardValue>
+    <standardValue>
         <fullName>KYC QA Sample</fullName>
         <default>false</default>
         <label>KYC QA Sample</label>
@@ -325,5 +325,10 @@
         <fullName>Potential Recipient</fullName>
         <default>false</default>
         <label>Potential Recipient</label>
+    </standardValue>
+    <standardValue>
+        <fullName>11</fullName>
+        <default>false</default>
+        <label>Other</label>
     </standardValue>
 </StandardValueSet>

@@ -5,10 +5,13 @@ name: Verify
 on:
   pull_request:
     branches:
-      - "epic/lock-card"
+      - "master"
+      - "develop"
+      - "epic/*"
 
 jobs:
-  verify:
+  # This job only does the validation, even though it reads as build_and_deploy. This is due to a name mismatch in terraform.
+  build_and_deploy:
     runs-on: [self-hosted, salesforce]
     steps:
       - name: Trigger Harness Job

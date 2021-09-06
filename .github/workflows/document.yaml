@@ -25,6 +25,7 @@ jobs:
           repository: anzx/salesforce-doc-gen
           token: ${{ secrets.SALESFORCE_DOC_GEN_TOKEN }}
           path: plugin
+          ref: "9c6c8d6"
 
       - name: Checkout salesforce repo
         uses: actions/checkout@v2
@@ -44,10 +45,10 @@ jobs:
         shell: bash
         run: yarn install
 
-      - name: "Create auth files with SFDX_URL secret"
-        working-directory: salesforce
-        shell: bash
-        run: echo ${{ secrets.SALESFORCE_STAGING}} > ./SFDX_URL_STAGING.txt
+      # - name: "Create auth files with SFDX_URL secret"
+      #   working-directory: salesforce
+      #   shell: bash
+      #   run: echo ${{ secrets.SALESFORCE_STAGING}} > ./SFDX_URL_STAGING.txt
 
       - name: "Authenticate all orgs in SFDX CLI"
         working-directory: salesforce
