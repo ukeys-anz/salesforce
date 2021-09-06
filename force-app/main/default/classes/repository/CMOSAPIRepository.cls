@@ -6,7 +6,7 @@ public with sharing class CMOSAPIRepository extends RepositoryBase {
   ) {
     CMOSAPIRepository cmosapi = new CMOSAPIRepository();
     try {
-      return cmosapi.getCustomer(customerId, customerIdentifier);
+      return cmosapi.getCustomerInfo(customerId, customerIdentifier);
     } catch (Exception e) {
       throw new AuraHandledException(e.getMessage());
     }

@@ -9,7 +9,7 @@ public with sharing class CustomerProfileService extends Service {
     headers.put('Content-type', 'application/json');
     String body = getBody(customerId, customerIdentifier);
     return calloutService.makeRestCallout(
-      'callout:Mulesoft' + Label.SF_MS_Fabric,
+      'callout:Mulesoft' + Label.MS_Get_Customer,
       HTTP_METHOD.HTTP_POST,
       headers,
       body
