@@ -143,4 +143,8 @@ public with sharing virtual class Service {
     }
     return sr.body.toString();
   }
+
+  public virtual HttpCalloutResponse getCustomerInformation(String customerId, String customerIdentifier){
+    return null;
+  } 
 }
