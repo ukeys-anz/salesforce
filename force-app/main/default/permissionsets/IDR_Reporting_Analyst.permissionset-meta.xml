@@ -5,7 +5,7 @@
         <visible>true</visible>
     </applicationVisibilities>
     <classAccesses>
-        <apexClass>GetCustomerInformation</apexClass>
+        <apexClass>CMOSAPIRepository</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>

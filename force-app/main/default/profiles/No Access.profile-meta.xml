@@ -141,7 +141,7 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>GetCustomerInformation</apexClass>
+        <apexClass>CMOSAPIRepository</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -201,7 +201,7 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>GetCustomerInformationTest</apexClass>
+        <apexClass>CMOSAPIRepositoryTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
