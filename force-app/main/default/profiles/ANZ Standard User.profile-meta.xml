@@ -2643,7 +2643,11 @@
   </tabVisibilities>
   <tabVisibilities>
     <tab>standard-CollaborationGroup</tab>
-    <visibility>DefaultOff</visibility>
+    <visibility>Hidden</visibility>
+  </tabVisibilities>
+  <tabVisibilities>
+    <tab>standard-Chatter</tab>
+    <visibility>Hidden</visibility>
   </tabVisibilities>
   <tabVisibilities>
     <tab>standard-Contact</tab>
@@ -2965,6 +2969,10 @@
     <userPermissions>
         <enabled>false</enabled>
         <name>CreateCustomizeReports</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>false</enabled>
+        <name>CreateOwnNewChatterGroups</name>
     </userPermissions>
     <userPermissions>
         <enabled>false</enabled>
