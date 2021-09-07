@@ -53,7 +53,7 @@ public with sharing class ChatterFeedItemTriggerHandlerTest {
       delete post;
     } catch (Exception e) {
       exceptionThrown = (e.getMessage()
-          .contains('You cannot delete feed items.'))
+          .contains('You do not have permission to delete this comment'))
         ? true
         : false;
     }
