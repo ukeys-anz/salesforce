@@ -156,11 +156,7 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentInstanceProperties>
-                    <name>context</name>
-                    <value>RECORD</value>
-                </componentInstanceProperties>
-                <componentName>forceChatter:publisher</componentName>
+                <componentName>caseLogACall</componentName>
             </componentInstance>
         </itemInstances>
         <itemInstances>
