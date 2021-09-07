@@ -1,4 +1,16 @@
+/**
+ * @author Adnan
+ * @since Sep 2021
+ * @description CMOS API repository for all CMOS callouts
+ * @group Repository
+ */
 public with sharing class CMOSAPIRepository extends RepositoryBase {
+  /**
+   * @param customerId customer id to be searched
+   * @param customerIdentifier customer identifier
+   * @return Map<String, Object>
+   * @description called from create complaint lwc page during customer search
+   */
   @AuraEnabled(cacheable=false)
   public static Map<String, Object> getCustomerInfoLWC(
     String customerId,
@@ -12,6 +24,12 @@ public with sharing class CMOSAPIRepository extends RepositoryBase {
     }
   }
 
+  /**
+   * @param customerId customer id to be searched
+   * @param customerIdentifier customer identifier
+   * @return Map<String, Object>
+   * @description calls the service class methods for integration/callout
+   */
   public Map<String, Object> getCustomerInfo(
     String customerId,
     String customerIdentifier

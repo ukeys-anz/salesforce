@@ -1,4 +1,16 @@
+/**
+ * @author Adnan
+ * @since Sep 2021
+ * @description extended service class for CMOS customer search callout
+ * @group Service
+ */
 public with sharing class CustomerProfileService extends Service {
+  /**
+   * @param customerId customer id to be searched
+   * @param customerIdentifier customer identifier
+   * @return HttpCalloutResponse
+   * @description gathers all the parameters required for callout
+   */
   public override HttpCalloutResponse getCustomerInformation(
     String customerId,
     String customerIdentifier
@@ -16,6 +28,12 @@ public with sharing class CustomerProfileService extends Service {
     );
   }
 
+  /**
+   * @param customerId customer id to be searched
+   * @param customerIdentifier customer identifier
+   * @return String
+   * @description creates the request body for callout
+   */
   public static String getBody(String customerId, String customerIdentifier) {
     CustomerIdentifiers cusIden = new CustomerIdentifiers();
     IdentifierDetails cls = new IdentifierDetails();

@@ -1,3 +1,9 @@
+/**
+ * @author Adnan
+ * @since Sep 2021
+ * @description test class for CMOSAPIRepository
+ * @group Repository
+ */
 @isTest
 public with sharing class CMOSAPIRepositoryTest {
   @isTest

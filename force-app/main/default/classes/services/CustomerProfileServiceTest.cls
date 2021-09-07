@@ -1,13 +1,21 @@
+/**
+ * @author Adnan
+ * @since Sep 2021
+ * @description test class for CustomerProfileService
+ * @group Service
+ */
 @isTest
 public with sharing class CustomerProfileServiceTest {
-
-    @isTest
+  @isTest
   static void testGetCustomerInformation() {
     Test.setMock(HttpCalloutMock.class, new MockCMOSGetCustomerInfoCallout());
 
     Test.startTest();
     CustomerProfileService service = new CustomerProfileService();
-    HttpCalloutResponse response = service.getCustomerInformation('1234567890','OCV');
+    HttpCalloutResponse response = service.getCustomerInformation(
+      '1234567890',
+      'OCV'
+    );
     Test.stopTest();
 
     System.assertEquals(201, response.statusCode);
