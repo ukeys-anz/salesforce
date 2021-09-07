@@ -7,7 +7,7 @@ public with sharing class CustomerProfileServiceMock extends Service{
     @TestVisible
     private static final String CUSTOMER_INFO_SUCCESS_RESPONSE = '{"profile": {"firstname": "TestFirstName","lastname": "TestLastName","mobile": "TestMobile"}}';
 
-    public override getCustomerInformation(String customerId, String customerIdentifier){
+    public override HttpCalloutResponse getCustomerInformation(String customerId, String customerIdentifier){
         if(!preset){
             response.body = CustomerProfileServiceMock.CUSTOMER_INFO_SUCCESS_RESPONSE;
         }
