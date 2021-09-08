@@ -2,13 +2,13 @@ import { createElement } from "lwc";
 import { registerLdsTestWireAdapter } from "@salesforce/sfdx-lwc-jest";
 import CustomerInfoComponent from "c/customerInformation";
 import { getRecord } from "lightning/uiRecordApi";
-import getCustomerData from "@salesforce/apex/CMOSAPIRepository.getCustomerInfoLWC";
+import getCustomerData from "@salesforce/apex/GetCustomerInformation.getCustomerData";
 const mockGetCustomerData = require("./data/getRecord.json");
 const getRecordWireAdapter = registerLdsTestWireAdapter(getRecord);
 const mockOCVCustomerDataResponse = require("./data/getCustomerData.json");
 
 jest.mock(
-  "@salesforce/apex/CMOSAPIRepository.getCustomerInfoLWC",
+  "@salesforce/apex/GetCustomerInformation.getCustomerData",
   () => {
     return {
       default: jest.fn()

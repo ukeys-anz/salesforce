@@ -61,7 +61,7 @@ public with sharing class IDRLetterApprovalActions {
     String customerIdentifier,
     String approvalRecId
   ) {
-    Map<String, Object> responseMap = CMOSAPIRepository.getCustomerInfoLWC(
+    Map<String, Object> responseMap = GetCustomerInformation.getCustomerData(
       customerNumber,
       customerIdentifier
     );
