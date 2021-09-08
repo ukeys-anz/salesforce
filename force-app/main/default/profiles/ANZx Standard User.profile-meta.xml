@@ -1353,7 +1353,7 @@
     <enabled>false</enabled>
   </classAccesses>
   <classAccesses>
-    <apexClass>CMOSAPIRepositoryest</apexClass>
+    <apexClass>CMOSAPIRepositoryTest</apexClass>
     <enabled>false</enabled>
   </classAccesses>
   <classAccesses>
