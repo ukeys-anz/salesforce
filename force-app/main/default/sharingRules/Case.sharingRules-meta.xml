@@ -52,10 +52,16 @@
         <sharedTo>
             <roleAndSubordinates>Banker_Line_Manager</roleAndSubordinates>
         </sharedTo>
+        <booleanFilter>1 AND 2</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Customer Complaint,Non-Customer Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IDR_Is_Restricted__c</field>
+            <operation>notEqual</operation>
+            <value>True</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -66,12 +72,6 @@
         <sharedTo>
             <group>CFMS_Integration_User_Group</group>
         </sharedTo>
-        <booleanFilter>1 AND 2</booleanFilter>
-        <criteriaItems>
-            <field>IDR_Is_Restricted__c</field>
-            <operation>notEqual</operation>
-            <value>True</value>
-        </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
