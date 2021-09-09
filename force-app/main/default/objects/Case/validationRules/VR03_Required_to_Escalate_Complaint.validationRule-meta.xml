@@ -5,8 +5,8 @@
     <errorConditionFormula>AND(
 	$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
 	OR(
-		RecordType.DeveloperName = &#39;Customer_Complaint&#39;,
-		RecordType.DeveloperName = &#39;Non_Customer_Complaint&#39;
+		RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
+		RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
 	),
 	ISPICKVAL(Status, &#39;Escalated&#39;),
 	ISBLANK(TEXT(IDR_Escalation_Reason__c))

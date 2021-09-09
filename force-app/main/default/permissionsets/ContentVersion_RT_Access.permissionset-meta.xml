@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Permission to be temporarily assigned to EDW user if ever it came to need to restore files.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>ContentVersion RT Access</label>
+    <recordTypeVisibilities>
+        <recordType>ContentVersion.File</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>ContentVersion.IDR_Attachment</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>ContentVersion.IDR_File</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>ContentVersion.Systemic_Issue_File</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+</PermissionSet>

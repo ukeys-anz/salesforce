@@ -8,6 +8,10 @@
         <apexClass>GetCustomerInformation</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>IDRFilesRelatedListController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <description>Permissions for CMOS Data analyst user to access complaint mgt app and export data from salesforce.</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>IDR Reporting Analyst</label>

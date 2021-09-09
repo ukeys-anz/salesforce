@@ -111,30 +111,44 @@
         active-section-name={activeSections}
       >
         <template if:true={showSections}>
-          <lightning-accordion-section name="A" label="Customer Details">
+          <lightning-accordion-section
+            name="A"
+            label="Customer Details"
+            data-id="customer-details"
+          >
             <template if:true={isCustomerComplaint}>
               <div class="slds-grid slds-wrap" tabindex="0">
+                <div
+                  class="slds-col slds-size_1-of-4 slds-m-right_large"
+                  tabindex="0"
+                >
+                  <lightning-combobox
+                    name="Customer Identifier"
+                    label="Customer Identifier"
+                    aria-label="Customer Identifier"
+                    value={customerIdentifierValue}
+                    options={customerNumberTypeOptions}
+                    onchange={handleCustomerIdentifierChange}
+                    data-id="idtype-id"
+                    title="Select which customer identifier (i.e. the type of customer number) you would like to use to search"
+                    required
+                  ></lightning-combobox>
+                </div>
                 <div class="slds-col slds-size_1-of-6" tabindex="0">
                   <label class="slds-form-element__label" for="text-input-id-1">
                     <abbr class="slds-required" title="required">* </abbr
                     >Customer Number</label
                   >
-                  <lightning-helptext
-                    content="Also known as Customer CAP CIS ID. Copy and paste this from MAUD"
-                  >
-                  </lightning-helptext>
                   <lightning-input
                     class="input inputCapCisId"
                     variant="label-hidden"
                     required
-                    minlength="10"
-                    maxlength="15"
-                    pattern="\d{10,15}"
-                    message-when-pattern-mismatch="Customer number must be numbers and at least 10 digits long"
                     onchange={handleCustomerNumberChange}
+                    data-id="customerNumber-id"
                   >
                   </lightning-input>
                 </div>
+
                 <div class="slds-col slds-size_1-of-12 slds-m-right_large">
                   <div class="searchButtonDiv">
                     <lightning-button
@@ -144,6 +158,7 @@
                       label="Search"
                       onclick={handleSearch}
                       disabled={searchDisabled}
+                      data-id="searchButton-id"
                     ></lightning-button>
                   </div>
                 </div>
@@ -151,6 +166,7 @@
 
               <template if:true={displayCustomerInfo}>
                 <c-customer-information
+                  cust-identifier={customerIdentifierValue}
                   customer-id={customerId}
                   show-as-grid="true"
                   oncustinfochecked={handleCustNumValidated}
@@ -166,7 +182,7 @@
                     aria-label="Dropdown Customer Type"
                     onchange={handleComplaintTypeChange}
                     field-name={complaintType}
-                    id="customerType-id"
+                    data-id="customerType-id"
                   ></lightning-input-field>
                 </div>
                 <div
@@ -190,7 +206,7 @@
                     aria-label="Dropdown Customer Type"
                     onchange={handleComplaintTypeChange}
                     field-name={complaintType}
-                    id="customerType2-id"
+                    data-id="customerType2-id"
                   ></lightning-input-field>
                 </div>
                 <div
@@ -207,7 +223,7 @@
                     variant="label-stacked"
                     required={consentValue}
                     field-name={firstName}
-                    id="firstName-id"
+                    data-id="firstName-id"
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
@@ -221,7 +237,7 @@
                     variant="label-stacked"
                     required={consentValue}
                     field-name={lastName}
-                    id="lastName-id"
+                    data-id="lastName-id"
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
@@ -230,7 +246,7 @@
                     aria-label="Dropdown Age"
                     required
                     field-name={age}
-                    id="age-id"
+                    data-id="age-id"
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
@@ -239,14 +255,14 @@
                     required
                     aria-label="Dropdown Gender"
                     field-name={gender}
-                    id="gender-id"
+                    data-id="gender-id"
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
                     variant="label-stacked"
                     field-name={email}
-                    id="email-id"
+                    data-id="email-id"
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
@@ -255,7 +271,7 @@
                       >Mobile e.g. 61474977148</label
                     >
                     <lightning-input-field
-                      id="mobileinput-id"
+                      data-id="mobileinput-id"
                       variant="label-hidden"
                       field-name={mobile}
                     >
@@ -273,7 +289,7 @@
                     required={isAddressRequired}
                     variant="label-stacked"
                     field-name={street}
-                    id="street-id"
+                    data-id="street-id"
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
@@ -281,7 +297,7 @@
                     required={isAddressRequired}
                     variant="label-stacked"
                     field-name={suburb}
-                    id="suburb-id"
+                    data-id="suburb-id"
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
@@ -289,7 +305,7 @@
                     required={isAddressRequired}
                     variant="label-stacked"
                     field-name={postcode}
-                    id="postcode-id"
+                    data-id="postcode-id"
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
@@ -298,7 +314,7 @@
                     required
                     aria-label="Dropdown Country"
                     field-name={country}
-                    id="country-id"
+                    data-id="country-id"
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
@@ -307,11 +323,20 @@
                     required
                     aria-label="Dropdown State"
                     field-name={state}
-                    id="state-id"
+                    data-id="state-id"
                   ></lightning-input-field>
                 </div>
               </div>
             </template>
+            <lightning-input
+              type="toggle"
+              label="Customer Notifications"
+              onchange={handleCustomerNotificationChange}
+              message-toggle-active="Yes"
+              message-toggle-inactive="No"
+              data-id="customerNotification-id"
+            >
+            </lightning-input>
 
             <lightning-input
               type="toggle"
@@ -332,6 +357,7 @@
                 onchange={handle3rdPartyToggleChange}
                 message-toggle-active="Yes"
                 message-toggle-inactive="No"
+                data-id="nominatedThirdParty-id"
               >
               </lightning-input>
             </template>
@@ -351,7 +377,7 @@
                     variant="label-stacked"
                     required
                     field-name={thirdPartyName}
-                    id="thirdPartyName-id"
+                    data-id="thirdPartyName-id"
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
@@ -360,7 +386,7 @@
                     required={hasNominatedThirdParty}
                     aria-label="Dropdown Relationship to the complainant"
                     field-name={thirdPartyRelationShip}
-                    id="thirdPartyRelationShip-id"
+                    data-id="thirdPartyRelationShip-id"
                   >
                   </lightning-input-field>
                 </div>
@@ -368,14 +394,14 @@
                   <lightning-input-field
                     variant="label-stacked"
                     field-name={thirdPartyEmail}
-                    id="thirdPartyEmail-id"
+                    data-id="thirdPartyEmail-id"
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
                     variant="label-stacked"
                     field-name={thirdPartyMobile}
-                    id="thirdPartyMobile-id"
+                    data-id="thirdPartyMobile-id"
                   ></lightning-input-field>
                   <div class="slds-form-element__help">ex: 61474977148</div>
                 </div>
@@ -409,7 +435,7 @@
                     required={hasNominatedThirdParty}
                     aria-label="Dropdown Nominated 3rd party country"
                     field-name={thirdPartyCountry}
-                    id="thirdPartyCountry-id"
+                    data-id="thirdPartyCountry-id"
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
@@ -418,14 +444,18 @@
                     required={hasNominatedThirdParty}
                     aria-label="Dropdown Nominated 3rd party state"
                     field-name={thirdPartyState}
-                    id="thirdPartyState-id"
+                    data-id="thirdPartyState-id"
                   ></lightning-input-field>
                 </div>
               </div>
             </template>
           </lightning-accordion-section>
 
-          <lightning-accordion-section name="B" label="Complaint Details">
+          <lightning-accordion-section
+            name="B"
+            label="Complaint Details"
+            data-id="complaint-details"
+          >
             <div class="slds-grid slds-wrap">
               <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                 <lightning-input-field
@@ -433,7 +463,8 @@
                   aria-label="Dropdown Priority"
                   required
                   field-name={Priority}
-                  id="priority-id"
+                  data-id="priority-id"
+                  onchange={handlePriorityChange}
                 ></lightning-input-field>
               </div>
               <div class="slds-col slds-size_1-of-4 slds-m-right_large">
@@ -442,27 +473,25 @@
                   required
                   aria-label="Dropdown Channel Received"
                   field-name={ChannelReceived}
-                  id="channelReceived-id"
+                  data-id="channelReceived-id"
                 ></lightning-input-field>
               </div>
               <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                 <lightning-input-field
                   variant="label-stacked"
-                  placeholder="Select"
                   aria-label="Dropdown Issue Type"
                   required
                   field-name={complaintIssue}
-                  id="issueType-id"
+                  data-id="issueType-id"
                 ></lightning-input-field>
               </div>
               <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                 <lightning-input-field
                   variant="label-stacked"
-                  placeholder="Select"
                   aria-label="Dropdown Subsequent Issue Type"
                   required
                   field-name={complaintSubIssue}
-                  id="subsequentIssue-id"
+                  data-id="subsequentIssue-id"
                 ></lightning-input-field>
               </div>
               <div class="slds-col slds-size_1-of-4 slds-m-right_large">
@@ -473,17 +502,27 @@
                   field-name={Product}
                   value={productValue}
                   onchange={handleProductChange}
-                  id="product-id"
+                  data-id="product-id"
                 ></lightning-input-field>
               </div>
               <template if:true={isCustomerComplaint}>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
-                  <lightning-input-field
+                  <!--<lightning-input-field
                     variant="label-stacked"
                     required
                     field-name={accountOrPolicyNumber}
-                    id="accPolicyNum-id"
-                  ></lightning-input-field>
+                    data-id="accPolicyNum-id"
+                  ></lightning-input-field>-->
+                  <lightning-combobox
+                    name="Account/Policy Number"
+                    label="Account/Policy Number"
+                    aria-label="Account/Policy Number"
+                    value={accountOrPolicyNumber}
+                    options={accountNumberOptions}
+                    onchange={handleAccountNumberChange}
+                    data-id="accPolicyNum-id"
+                    required
+                  ></lightning-combobox>
                 </div>
               </template>
               <div class="slds-col slds-size_1-of-4 slds-m-right_large">
@@ -493,6 +532,7 @@
                   maxlength="3000"
                   field-level-help="Provide a detailed, accurate and grammatically correct description of the customer's concern, from Customer's perspective. This field should not display subjective comments from your, or ANZ's perspective."
                   onchange={handleDescriptionChange}
+                  data-id="descOfIssue-id"
                 ></lightning-textarea>
               </div>
               <div class="slds-col slds-size_1-of-4 slds-m-right_large">
@@ -500,10 +540,118 @@
                   variant="label-stacked"
                   required
                   field-name={ComplainantDesiredOutcome}
-                  id="custOutCome"
+                  data-id="custOutCome"
                 ></lightning-input-field>
               </div>
             </div>
+            <!-- Issue2 starts here -->
+            <lightning-input
+              type="toggle"
+              label="Is there an another Issue?"
+              onchange={handle2ndIssueToggleChange}
+              message-toggle-active="Yes"
+              message-toggle-inactive="No"
+              data-id="issue2-id"
+            >
+            </lightning-input>
+            <template if:true={hasSecondIssue}>
+              <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                  <lightning-input-field
+                    variant="label-stacked"
+                    required={hasSecondIssue}
+                    field-name={issueType2}
+                    data-id="issueType2-id"
+                  ></lightning-input-field>
+                </div>
+                <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                  <lightning-input-field
+                    variant="label-stacked"
+                    required={hasSecondIssue}
+                    field-name={subsequentIssue2}
+                    data-id="subsequentIssue2-id"
+                  ></lightning-input-field>
+                </div>
+                <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                  <lightning-input-field
+                    variant="label-stacked"
+                    required={hasSecondIssue}
+                    field-name={productValue2}
+                    data-id="productValue2-id"
+                  ></lightning-input-field>
+                </div>
+                <template if:true={isCustomerComplaint}>
+                  <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                    <lightning-combobox
+                      name="Account/Policy Number 2"
+                      label="Account/Policy Number 2"
+                      aria-label="Account/Policy Number 2"
+                      value={accountOrPolicyNumber2}
+                      options={accountNumberOptions}
+                      onchange={handleAccountNumber2Change}
+                      data-id="accPolicyNum2-id"
+                      required
+                    ></lightning-combobox>
+                  </div>
+                </template>
+              </div>
+            </template>
+            <!-- Issue2 end here -->
+            <!-- Issue3 starts here -->
+            <template if:true={hasSecondIssue}>
+              <lightning-input
+                type="toggle"
+                label="Is there an another Issue?"
+                onchange={handle3rdIssueToggleChange}
+                message-toggle-active="Yes"
+                message-toggle-inactive="No"
+                data-id="issue3-id"
+              >
+              </lightning-input>
+            </template>
+            <template if:true={hasThirdIssue}>
+              <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                  <lightning-input-field
+                    variant="label-stacked"
+                    required={hasThirdIssue}
+                    field-name={issueType3}
+                    data-id="issueType3-id"
+                  ></lightning-input-field>
+                </div>
+                <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                  <lightning-input-field
+                    variant="label-stacked"
+                    required={hasThirdIssue}
+                    field-name={subsequentIssue3}
+                    data-id="subsequentIssue3-id"
+                  ></lightning-input-field>
+                </div>
+                <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                  <lightning-input-field
+                    variant="label-stacked"
+                    required={hasThirdIssue}
+                    field-name={productValue3}
+                    data-id="productValue3-id"
+                  ></lightning-input-field>
+                </div>
+                <template if:true={isCustomerComplaint}>
+                  <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                    <lightning-combobox
+                      name="Account/Policy Number 3"
+                      label="Account/Policy Number 3"
+                      aria-label="Account/Policy Number 3"
+                      value={accountOrPolicyNumber3}
+                      options={accountNumberOptions}
+                      onchange={handleAccountNumber3Change}
+                      data-id="accPolicyNum3-id"
+                      required
+                    ></lightning-combobox>
+                  </div>
+                </template>
+              </div>
+            </template>
+            <!-- Issue3 end here -->
           </lightning-accordion-section>
 
           <lightning-accordion-section name="C" label="Resolution Information">
@@ -521,6 +669,7 @@
                     options={writtenresponseoptions}
                     value={writtenResponseValue}
                     type="button"
+                    data-id="writtenResponseGroup-id"
                   >
                   </lightning-radio-group>
                 </div>
@@ -533,6 +682,7 @@
                     options={writtenrequiredoptions}
                     value={writtenRequiredValue}
                     type="button"
+                    data-id="writtenRequiredGroup-id"
                   ></lightning-radio-group>
                 </div>
               </template>
@@ -573,7 +723,7 @@
                   onchange={handleRealFormNeeded}
                   options={realFormReqOptions}
                   type="button"
-                  id="realFormRequiredGroup-id"
+                  data-id="realFormRequiredGroup-id"
                 ></lightning-radio-group>
               </div>
               <template if:true={isRealFormNeeded}>
@@ -587,7 +737,7 @@
                     onchange={handleRealFormSubmitted}
                     options={realFormReqOptions}
                     type="button"
-                    id="realFormSubmittedGroup-id"
+                    data-id="realFormSubmittedGroup-id"
                   ></lightning-radio-group>
                 </div>
               </template>
@@ -601,7 +751,7 @@
                     value={realFormRefNo}
                     max-length="50"
                     onchange={handleRealFormRefNoChange}
-                    id="realFormRefNoGroup-id"
+                    data-id="realFormRefNoGroup-id"
                   ></lightning-input>
                 </div>
               </template>
@@ -616,7 +766,7 @@
                   value={caseStatus}
                   options={statusOptions}
                   onchange={handleStatusChange}
-                  id="caseStatus-id"
+                  data-id="caseStatus-id"
                 ></lightning-combobox>
               </div>
               <template if:true={isComplaintEscalated}>
@@ -628,7 +778,19 @@
                     aria-label="Dropdown Complaint Escalation Reason"
                     required={isComplaintEscalated}
                     field-name={escalationReason}
-                    id="escalationReason-id"
+                    data-id="escalationReason-id"
+                  ></lightning-input-field>
+                </div>
+                <div
+                  class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
+                >
+                  <lightning-input-field
+                    variant="label-stacked"
+                    aria-label="Restriction Level"
+                    required={isComplaintEscalated}
+                    onchange={handleRestrictionLevel}
+                    field-name={restrictionLevel}
+                    data-id="restrictionLevel-id"
                   ></lightning-input-field>
                 </div>
               </template>
@@ -641,7 +803,7 @@
                     aria-label="Dropdown Complaint Outcome"
                     required={isComplaintResolved}
                     field-name={complaintOutcome}
-                    id="compOutCome-id"
+                    data-id="compOutCome-id"
                   ></lightning-input-field>
                 </div>
                 <div
@@ -651,7 +813,7 @@
                     variant="label-stacked"
                     required={isComplaintResolved}
                     field-name={outcomeDescription}
-                    id="descOutcome-id"
+                    data-id="descOutcome-id"
                   ></lightning-input-field>
                 </div>
                 <div
@@ -663,7 +825,7 @@
                     required={isComplaintResolved}
                     field-name={complaintRemedy}
                     onchange={handleComplaintRemedy}
-                    id="compRemedy-id"
+                    data-id="compRemedy-id"
                   ></lightning-input-field>
                 </div>
                 <div
@@ -687,6 +849,7 @@
                       onchange={handleFinancialCompensation}
                       class="input inputFinCompensation"
                       message-when-pattern-mismatch="Must be a positive value with up to 7 whole digits and 2 decimal digits"
+                      data-id="finAmount-id"
                     ></lightning-input>
                   </template>
                   <template if:true={isNonFinancialComplaintRemedy}>
@@ -694,7 +857,7 @@
                       variant="label-stacked"
                       required
                       field-name={nonFinancialRemedy}
-                      id="nonFinancialRemedy-id"
+                      data-id="nonFinancialRemedy-id"
                     ></lightning-input-field>
                   </template>
                   <template if:true={isReferredToProductManufacturer}>
@@ -703,7 +866,7 @@
                       required
                       field-name={thirdPartyProductManufacturer}
                       onchange={handleThirdPartyProductManufacturer}
-                      id="thirdPartyProductManufacturer-id"
+                      data-id="thirdPartyProductManufacturer-id"
                     >
                     </lightning-input-field>
                   </template>
@@ -716,7 +879,7 @@
                       variant="label-stacked"
                       required
                       field-name={thirdPartyOtherProductManufacturer}
-                      id="thirdPartyOtherProductManufacturer-id"
+                      data-id="thirdPartyOtherProductManufacturer-id"
                     >
                     </lightning-input-field>
                   </div>
@@ -732,7 +895,7 @@
                       required
                       message-when-value-missing="Acknowledgement that the complaint details have been provided to the product manufacturer is required"
                       field-level-help="Evidence that the details of the complaint have been passed onto the product manufacturer must be included on the case"
-                      id="thirdPartyIsDetailsProvidedToProductManufacturer-id"
+                      data-id="thirdPartyIsDetailsProvidedToProductManufacturer-id"
                       onchange={handleIsDetailsProvidedToProductManufacturer}
                     ></lightning-input>
                   </div>
@@ -754,6 +917,7 @@
                   options={commoncomplaintoptions}
                   value={isCommonComplaintYesNo}
                   type="button"
+                  data-id="commoncomplaintGroup-id"
                 >
                 </lightning-radio-group>
               </div>
@@ -765,7 +929,7 @@
                     variant="label-stacked"
                     required={isCommonComplaint}
                     field-name={systemicIssueDescription}
-                    id="systemicIssueDescription-id"
+                    data-id="siDescription-id"
                   ></lightning-input-field>
                 </div>
                 <div
@@ -775,9 +939,20 @@
                     variant="label-stacked"
                     required={isCommonComplaint}
                     field-name={systemicIssueCategory}
-                    id="systemicIssueCategory-id"
+                    data-id="siCategory-id"
                   ></lightning-input-field>
                 </div>
+                <template if:true={hasSecondIssue}>
+                  <div
+                    class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
+                  >
+                    <lightning-input-field
+                      variant="label-stacked"
+                      field-name={possibleSystemicIssues}
+                      data-id="possibleSystemicIssues-id"
+                    ></lightning-input-field>
+                  </div>
+                </template>
               </template>
             </div>
           </lightning-accordion-section>
@@ -831,7 +1006,6 @@
             class="slds-float_right"
             onclick={closeModal}
             alternative-text="close"
-            arial-label="Press to close the dialog and return to the form"
           ></lightning-button-icon>
           <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
             {modalHeader}
@@ -849,7 +1023,6 @@
           <lightning-button
             variant="brand"
             label="Close"
-            arial-label="Press to close the dialog and return to the form"
             title="Close"
             onclick={closeModal}
             class="slds-m-left_x-small"
