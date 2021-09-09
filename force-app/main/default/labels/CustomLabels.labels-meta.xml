@@ -105,6 +105,14 @@
         <value>/anz-exp-sfdc-coach-banking-api/api/transactions</value>
     </labels>
     <labels>
+        <fullName>MS_Replace_Card</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Replace_Card</shortDescription>
+        <value>/anz-exp-sfdc-coach-banking-api/api/cards/</value>
+    </labels>
+    <labels>
         <fullName>MS_Temp_Block_Card</fullName>
         <categories>MS</categories>
         <language>en_US</language>

@@ -109,7 +109,7 @@ public with sharing class Lib_HttpCallout {
         lib_systemLog.Severity.ERROR,
         request.getEndpoint(),
         request.getMethod(),
-        response.getStatusCode(),
+        response?.getStatusCode(),
         '',
         ''
       );

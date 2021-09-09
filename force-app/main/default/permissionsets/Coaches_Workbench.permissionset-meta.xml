@@ -7,4 +7,8 @@
     <description>This permission set gives users access to the Coaches Workbench app</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Coaches Workbench</label>
+    <tabSettings>
+        <tab>Release_Notes</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
 </PermissionSet>
