@@ -143,4 +143,17 @@ public with sharing virtual class Service {
     }
     return sr.body.toString();
   }
+
+  /**
+   * @param customerId customer id to be searched
+   * @param customerIdentifier customer identifier
+   * @return `HttpCalloutResponse` api response
+   * @description virtual fetches customer info api callout
+   */
+  public virtual HttpCalloutResponse getCustomerInformation(
+    String customerId,
+    String customerIdentifier
+  ) {
+    return null;
+  }
 }

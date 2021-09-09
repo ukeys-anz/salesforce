@@ -190,7 +190,7 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>GetCustomerInformation</apexClass>
+        <apexClass>IDRAPIRepository</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -286,7 +286,7 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>GetCustomerInformationTest</apexClass>
+        <apexClass>IDRAPIRepositoryTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
