@@ -1,5 +1,5 @@
 import { LightningElement, api, wire, track } from "lwc";
-import getCustomerData from "@salesforce/apex/CMOSAPIRepository.getCustomerInfoLWC";
+import getCustomerData from "@salesforce/apex/IDRAPIRepository.getCustomerInfoLWC";
 import { getRecord, getFieldValue } from "lightning/uiRecordApi";
 import { updateRecord } from "lightning/uiRecordApi";
 import { refreshApex } from "@salesforce/apex";

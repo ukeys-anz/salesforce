@@ -1,14 +1,14 @@
 /**
  * @author Adnan
  * @since Sep 2021
- * @description test class for CMOSAPIRepository
+ * @description test class for IDRAPIRepository
  * @group Repository
  */
 @isTest
-public with sharing class CMOSAPIRepositoryTest {
+public with sharing class IDRAPIRepositoryTest {
   @isTest
   static void testGetCustomerInfoLWC() {
-    Map<String, Object> info = CMOSAPIRepository.getCustomerInfoLWC(
+    Map<String, Object> info = IDRAPIRepository.getCustomerInfoLWC(
       '12345',
       'CAP ID'
     );

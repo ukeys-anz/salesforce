@@ -4,7 +4,7 @@
  * @description CMOS API repository for all CMOS callouts
  * @group Repository
  */
-public with sharing class CMOSAPIRepository extends RepositoryBase {
+public with sharing class IDRAPIRepository extends RepositoryBase {
   /**
    * @param customerId customer id to be searched
    * @param customerIdentifier customer identifier
@@ -16,7 +16,7 @@ public with sharing class CMOSAPIRepository extends RepositoryBase {
     String customerId,
     String customerIdentifier
   ) {
-    CMOSAPIRepository cmosapi = new CMOSAPIRepository();
+    IDRAPIRepository cmosapi = new IDRAPIRepository();
     try {
       return cmosapi.getCustomerInfo(customerId, customerIdentifier);
     } catch (Exception e) {
@@ -44,10 +44,10 @@ public with sharing class CMOSAPIRepository extends RepositoryBase {
       try {
         result = IDRCustomerInformationModel.parse(response.body);
       } catch (Exception e) {
-        handleErrors(null, e, CMOSAPIRepository.class);
+        handleErrors(null, e, IDRAPIRepository.class);
       }
     } else {
-      handleErrors(response, null, CMOSAPIRepository.class);
+      handleErrors(response, null, IDRAPIRepository.class);
     }
     return result;
   }

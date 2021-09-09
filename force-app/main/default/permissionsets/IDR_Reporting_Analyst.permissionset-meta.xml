@@ -5,7 +5,7 @@
         <visible>true</visible>
     </applicationVisibilities>
     <classAccesses>
-        <apexClass>CMOSAPIRepository</apexClass>
+        <apexClass>IDRAPIRepository</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>

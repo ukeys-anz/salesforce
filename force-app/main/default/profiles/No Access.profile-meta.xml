@@ -141,7 +141,7 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>CMOSAPIRepository</apexClass>
+        <apexClass>IDRAPIRepository</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -201,7 +201,7 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>CMOSAPIRepositoryTest</apexClass>
+        <apexClass>IDRAPIRepositoryTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>

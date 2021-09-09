@@ -1,7 +1,7 @@
 /**
  * @author Adnan
  * @since Sep 2021
- * @description model for CMOS get customer information API (CMOSAPIRepository), extending the base
+ * @description model for CMOS get customer information API (IDRAPIRepository), extending the base
  * @group Models
  */
 public with sharing class IDRCustomerInformationModel extends CalloutModel {
