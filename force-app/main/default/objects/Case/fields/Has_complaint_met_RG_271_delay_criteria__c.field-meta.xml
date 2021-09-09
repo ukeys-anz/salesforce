@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Has_complaint_met_RG_271_delay_criteria__c</fullName>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Field used to record / flag complex complaints</description>
+    <externalId>false</externalId>
+    <label>Has complaint met RG 271 delay criteria?</label>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>No</fullName>
+                <default>false</default>
+                <label>No</label>
+            </value>
+            <value>
+                <fullName>Yes – Matter is particularly complex</fullName>
+                <default>false</default>
+                <label>Yes – Matter is particularly complex</label>
+            </value>
+            <value>
+                <fullName>Yes – Matters outside of ANZ’s control are causing delays</fullName>
+                <default>false</default>
+                <label>Yes – Matters outside of ANZ’s control are causing delays</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
