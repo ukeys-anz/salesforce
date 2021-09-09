@@ -5,9 +5,7 @@
     <publicFolderAccess>ReadOnly</publicFolderAccess>
     <sharedTo>
         <role>Coach</role>
-        <role>Content_Manager</role>
         <role>Content_Writer</role>
-        <role>Manager</role>
     </sharedTo>
     <folderShares>
         <accessLevel>View</accessLevel>
@@ -16,17 +14,7 @@
     </folderShares>
     <folderShares>
         <accessLevel>View</accessLevel>
-        <sharedTo>Content_Manager</sharedTo>
-        <sharedToType>Role</sharedToType>
-    </folderShares>
-    <folderShares>
-        <accessLevel>View</accessLevel>
         <sharedTo>Content_Writer</sharedTo>
-        <sharedToType>Role</sharedToType>
-    </folderShares>
-    <folderShares>
-        <accessLevel>View</accessLevel>
-        <sharedTo>Manager</sharedTo>
         <sharedToType>Role</sharedToType>
     </folderShares>
 </ReportFolder>

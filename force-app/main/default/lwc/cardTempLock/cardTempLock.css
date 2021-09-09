@@ -1,0 +1,28 @@
+.card-header {
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.header-div {
+  background-color: #014486;
+  padding-bottom: 10px;
+}
+
+.body-wording-section {
+  margin-top: 20px;
+  margin-bottom: 40px;
+  margin-left: 20px;
+  max-width: 80%;
+}
+
+.lock-button {
+  margin-left: 20px;
+}
+
+.slds-backdrop_open,
+.slds-backdrop--open {
+  opacity: 0.6;
+}

@@ -241,7 +241,7 @@ public with sharing class AuthTokenCacheUtil {
         res != null ? res.getBody() : null,
         null,
         null,
-        res.getStatusCode()
+        res?.getStatusCode()
       );
     }
 
