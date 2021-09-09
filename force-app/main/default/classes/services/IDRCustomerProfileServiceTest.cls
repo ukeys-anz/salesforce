@@ -1,17 +1,17 @@
 /**
  * @author Adnan
  * @since Sep 2021
- * @description test class for CustomerProfileService
+ * @description test class for IDRCustomerProfileService
  * @group Service
  */
 @isTest
-public with sharing class CustomerProfileServiceTest {
+public with sharing class IDRCustomerProfileServiceTest {
   @isTest
   static void testGetCustomerInformation() {
     Test.setMock(HttpCalloutMock.class, new MockCMOSGetCustomerInfoCallout());
 
     Test.startTest();
-    CustomerProfileService service = new CustomerProfileService();
+    IDRCustomerProfileService service = new IDRCustomerProfileService();
     HttpCalloutResponse response = service.getCustomerInformation(
       '1234567890',
       'OCV'
@@ -25,10 +25,10 @@ public with sharing class CustomerProfileServiceTest {
   static void getRealService() {
     Test.startTest();
     Service serviceResult = (Service) ServiceProvider.getService(
-      CustomerProfileService.class
+      IDRCustomerProfileService.class
     );
     Test.stopTest();
-    System.assert(serviceResult instanceof CustomerProfileServiceMock);
+    System.assert(serviceResult instanceof IDRCustomerProfileServiceMock);
   }
 
   @isTest
@@ -58,7 +58,7 @@ public with sharing class CustomerProfileServiceTest {
       HTTPResponse res = new HTTPResponse();
       res.setStatusCode(201);
       res.setHeader('Content-Type', 'application/json');
-      res.setBody(CustomerProfileServiceMock.CUSTOMER_INFO_SUCCESS_RESPONSE);
+      res.setBody(IDRCustomerProfileServiceMock.CUSTOMER_INFO_SUCCESS_RESPONSE);
 
       return res;
     }

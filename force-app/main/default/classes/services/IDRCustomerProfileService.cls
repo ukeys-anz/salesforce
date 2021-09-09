@@ -4,7 +4,7 @@
  * @description extended service class for CMOS customer search callout
  * @group Service
  */
-public with sharing class CustomerProfileService extends Service {
+public with sharing class IDRCustomerProfileService extends Service {
   /**
    * @param customerId customer id to be searched
    * @param customerIdentifier customer identifier

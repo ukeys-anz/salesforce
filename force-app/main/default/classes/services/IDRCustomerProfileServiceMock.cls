@@ -4,11 +4,11 @@
  * @description extended service class for mocking CMOS customer search callout
  * @group Service
  */
-public with sharing class CustomerProfileServiceMock extends Service {
+public with sharing class IDRCustomerProfileServiceMock extends Service {
   /**
    * @description constructor which sets default status code and successful
    */
-  public CustomerProfileServiceMock() {
+  public IDRCustomerProfileServiceMock() {
     response.statusCode = 200;
     response.successful = true;
   }
@@ -27,7 +27,7 @@ public with sharing class CustomerProfileServiceMock extends Service {
     String customerIdentifier
   ) {
     if (!preset) {
-      response.body = CustomerProfileServiceMock.CUSTOMER_INFO_SUCCESS_RESPONSE;
+      response.body = IDRCustomerProfileServiceMock.CUSTOMER_INFO_SUCCESS_RESPONSE;
     }
     return response;
   }

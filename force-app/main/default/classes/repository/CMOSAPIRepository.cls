@@ -35,7 +35,7 @@ public with sharing class CMOSAPIRepository extends RepositoryBase {
     String customerIdentifier
   ) {
     map<String, Object> result;
-    Service s = ServiceProvider.getService(CustomerProfileService.class);
+    Service s = ServiceProvider.getService(IDRCustomerProfileService.class);
     HttpCalloutResponse response = s.getCustomerInformation(
       customerId,
       customerIdentifier
