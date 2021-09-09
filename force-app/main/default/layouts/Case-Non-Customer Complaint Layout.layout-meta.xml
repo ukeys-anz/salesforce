@@ -282,10 +282,6 @@
                 <behavior>Readonly</behavior>
                 <field>IDR_Date_Re_Opened__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>IDR_Date_closed_after_re_opening__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

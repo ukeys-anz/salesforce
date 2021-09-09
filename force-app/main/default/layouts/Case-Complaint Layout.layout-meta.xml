@@ -220,10 +220,6 @@
                 <behavior>Readonly</behavior>
                 <field>IDR_Date_Re_Opened__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>IDR_Date_closed_after_re_opening__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -411,11 +407,6 @@
     <platformActionList>
         <actionListContext>Record</actionListContext>
         <platformActionListItems>
-            <actionName>Edit</actionName>
-            <actionType>StandardButton</actionType>
-            <sortOrder>0</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
             <actionName>Case.Escalate_Complaint</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>1</sortOrder>
@@ -424,6 +415,11 @@
             <actionName>Case.Resolve_Complaint</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>2</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>Edit</actionName>
+            <actionType>StandardButton</actionType>
+            <sortOrder>0</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
             <actionName>Case.Re_open_Complaint</actionName>
