@@ -42,7 +42,7 @@ public with sharing class CMOSAPIRepository extends RepositoryBase {
     );
     if (response.successful) {
       try {
-        result = CMOSCustomerInformationModel.parse(response.body);
+        result = IDRCustomerInformationModel.parse(response.body);
       } catch (Exception e) {
         handleErrors(null, e, CMOSAPIRepository.class);
       }

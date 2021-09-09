@@ -4,7 +4,7 @@
  * @description model for CMOS get customer information API (CMOSAPIRepository), extending the base
  * @group Models
  */
-public with sharing class CMOSCustomerInformationModel extends CalloutModel {
+public with sharing class IDRCustomerInformationModel extends CalloutModel {
   /**
    * @param responseString input string to deserialize
    * @return Map<String, Object>
