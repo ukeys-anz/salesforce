@@ -13,23 +13,15 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Display_Name__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>FinServ__MaritalStatus__pc</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>Occupation__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>PersonBirthdate</field>
+                <field>Employer_Name__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Gender__pc</field>
+                <field>PersonBirthdate</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
@@ -38,10 +30,6 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Employee_Indicator__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Employer_Name__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -90,7 +78,7 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>Anniversay_Duration__c</field>
+                <field>Anniversary_Duration__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -226,12 +214,9 @@
         <excludeButtons>MassChangeOwner</excludeButtons>
         <fields>CASES.CASE_NUMBER</fields>
         <fields>CASES.SUBJECT</fields>
-        <fields>CASES.CREATED_DATE_DATE_ONLY</fields>
-        <fields>OWNER_NAME</fields>
+        <fields>CASES.CREATED_DATE</fields>
         <fields>CASES.STATUS</fields>
         <relatedList>RelatedCaseList</relatedList>
-        <sortField>CASES.CREATED_DATE_DATE_ONLY</sortField>
-        <sortOrder>Desc</sortOrder>
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>

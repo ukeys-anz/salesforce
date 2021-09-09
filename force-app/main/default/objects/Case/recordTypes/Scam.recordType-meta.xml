@@ -971,6 +971,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Direct Entry</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>EFTPOS</fullName>
             <default>false</default>
         </values>
@@ -979,7 +983,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Pay Anyone</fullName>
+            <fullName>NPP</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -1854,6 +1858,64 @@
         </values>
         <values>
             <fullName>Westpac</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Fraud_Loss_Reason_Code__c</picklist>
+        <values>
+            <fullName>Awaiting Recovery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Delay</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Denial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Delayed Detection</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fraud Agent Delay</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fraud Agent Error</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Full Recovery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Funds never left</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OFI Delay</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Undetected</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Fraud_Recipient_Remitter__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unknown</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -4829,11 +4891,15 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Inheritance %26 Unexpected Winnings</fullName>
+            <fullName>Fake Charity</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Investment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Jobs %26 Employment</fullName>
             <default>false</default>
         </values>
         <values>
@@ -4846,6 +4912,10 @@
         </values>
         <values>
             <fullName>Threats %26 Extortion</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unexpected Money%2FWinnings</fullName>
             <default>false</default>
         </values>
     </picklistValues>

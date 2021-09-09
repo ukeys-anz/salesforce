@@ -3,7 +3,9 @@
     <fullName>IDR_NC_Business_Name__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_Salesforce;Integrity_Trusted;Privacy_Non_Personal_Information</complianceGroup>
-    <description>Where customer complaint relates to a business customer, business name is input.</description>
+    <description>Where customer complaint relates to a business customer, business name is input.
+
+Business name, for a business account (input for non customers)</description>
     <externalId>false</externalId>
     <label>Business Name (if Bus account)</label>
     <length>255</length>

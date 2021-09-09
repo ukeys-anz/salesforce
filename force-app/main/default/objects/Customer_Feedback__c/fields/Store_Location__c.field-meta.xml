@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Store_Location__c</fullName>
     <businessStatus>Hidden</businessStatus>
-    <complianceGroup>Integrity_Trusted;Privacy - Personal Information</complianceGroup>
+    <complianceGroup>Integrity_Trusted;Privacy_Personal_Information</complianceGroup>
     <description>Field for store location if the feedback is related to particular store</description>
     <externalId>false</externalId>
     <label>Store Location</label>
