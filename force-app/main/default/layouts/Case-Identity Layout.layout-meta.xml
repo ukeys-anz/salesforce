@@ -61,6 +61,10 @@
                 <field>Origin</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Twilio_Channel_SID__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Required</behavior>
                 <field>Status</field>
             </layoutItems>
@@ -254,7 +258,7 @@
     <showRunAssignmentRulesCheckbox>true</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>true</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2N000001RoFG</masterLabel>
+        <masterLabel>00h2N0000024W5m</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>
