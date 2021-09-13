@@ -138,9 +138,6 @@
         </relatedContentItems>
     </relatedContent>
     <relatedLists>
-        <relatedList>RelatedCommentsList</relatedList>
-    </relatedLists>
-    <relatedLists>
         <fields>TITLE</fields>
         <fields>LAST_UPDATE</fields>
         <fields>CREATEDBY_USER</fields>
