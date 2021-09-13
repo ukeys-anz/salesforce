@@ -14,6 +14,7 @@ jest.mock(
 
 const APEX_CARDS_SUCCESS = require("./data/response.json");
 const APEX_CARDS_INVALID = require("./data/invalidResp.json");
+const APEX_CARDS_NO_ELIGIBILITIES = require("./data/responseNoEligibilities.json");
 
 describe("c-view-cards", () => {
   afterEach(() => {
@@ -142,6 +143,106 @@ describe("c-view-cards", () => {
           expect(initialCard).toBeTruthy();
         });
       });
+    });
+  });
+
+  it("tests if lock card is enabled", () => {
+    getCardList.mockResolvedValue(APEX_CARDS_SUCCESS);
+    const element = createElement("c-view-cards", {
+      is: ViewCards
+    });
+
+    document.body.appendChild(element);
+    let button = element.shadowRoot.querySelector(
+      "lightning-button[data-id='get-cards-button']"
+    );
+    button.click();
+    return flushPromises().then(() => {
+      let card = element.shadowRoot.querySelector(
+        "div[data-id='first-card-details']"
+      );
+      expect(card).toBeTruthy();
+
+      let lockButton = element.shadowRoot.querySelector(
+        "lightning-button[data-button='initial-lock-card-button']"
+      );
+
+      expect(lockButton).toHaveProperty("disabled", false);
+    });
+  });
+
+  it("tests if lock card is disabled", () => {
+    getCardList.mockResolvedValue(APEX_CARDS_NO_ELIGIBILITIES);
+    const element = createElement("c-view-cards", {
+      is: ViewCards
+    });
+
+    document.body.appendChild(element);
+    let button = element.shadowRoot.querySelector(
+      "lightning-button[data-id='get-cards-button']"
+    );
+    button.click();
+    return flushPromises().then(() => {
+      let card = element.shadowRoot.querySelector(
+        "div[data-id='first-card-details']"
+      );
+      expect(card).toBeTruthy();
+
+      let lockButton = element.shadowRoot.querySelector(
+        "lightning-button[data-button='initial-lock-card-button']"
+      );
+
+      expect(lockButton).toHaveProperty("disabled", true);
+    });
+  });
+
+  it("tests if replace card is enabled", () => {
+    getCardList.mockResolvedValue(APEX_CARDS_SUCCESS);
+    const element = createElement("c-view-cards", {
+      is: ViewCards
+    });
+
+    document.body.appendChild(element);
+    let button = element.shadowRoot.querySelector(
+      "lightning-button[data-id='get-cards-button']"
+    );
+    button.click();
+    return flushPromises().then(() => {
+      let card = element.shadowRoot.querySelector(
+        "div[data-id='first-card-details']"
+      );
+      expect(card).toBeTruthy();
+
+      let replaceButton = element.shadowRoot.querySelector(
+        "lightning-button[data-button='initial-replace-card-button']"
+      );
+
+      expect(replaceButton).toHaveProperty("disabled", false);
+    });
+  });
+
+  it("tests if replace card is disabled", () => {
+    getCardList.mockResolvedValue(APEX_CARDS_NO_ELIGIBILITIES);
+    const element = createElement("c-view-cards", {
+      is: ViewCards
+    });
+
+    document.body.appendChild(element);
+    let button = element.shadowRoot.querySelector(
+      "lightning-button[data-id='get-cards-button']"
+    );
+    button.click();
+    return flushPromises().then(() => {
+      let card = element.shadowRoot.querySelector(
+        "div[data-id='first-card-details']"
+      );
+      expect(card).toBeTruthy();
+
+      let replaceButton = element.shadowRoot.querySelector(
+        "lightning-button[data-button='initial-replace-card-button']"
+      );
+
+      expect(replaceButton).toHaveProperty("disabled", true);
     });
   });
 });

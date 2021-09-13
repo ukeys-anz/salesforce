@@ -328,15 +328,6 @@
                 </div>
               </div>
             </template>
-            <lightning-input
-              type="toggle"
-              label="Customer Notifications"
-              onchange={handleCustomerNotificationChange}
-              message-toggle-active="Yes"
-              message-toggle-inactive="No"
-              data-id="customerNotification-id"
-            >
-            </lightning-input>
 
             <lightning-input
               type="toggle"
@@ -529,7 +520,6 @@
                 <lightning-textarea
                   required
                   label="Description of Issue"
-                  maxlength="3000"
                   field-level-help="Provide a detailed, accurate and grammatically correct description of the customer's concern, from Customer's perspective. This field should not display subjective comments from your, or ANZ's perspective."
                   onchange={handleDescriptionChange}
                   data-id="descOfIssue-id"

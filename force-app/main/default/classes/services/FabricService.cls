@@ -115,4 +115,63 @@ public with sharing class FabricService extends Service {
     );
     return response;
   }
+
+  /**
+   * @param cardNumber card number to get blocked
+   * @param ocvId customer id
+   * @return `HttpCalloutResponse` the api response
+   * @description temporarily lock cards api
+   */
+  public override HttpCalloutResponse lockCard(
+    String cardNumber,
+    String ocvId
+  ) {
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    Map<String, String> headers = new Map<String, String>();
+    setFabricCommonHeaders(ocvID, headers);
+    headers.put('Content-Type', 'application/json');
+
+    //Actions accepted found here: https://github.com/anzx/fabricapis/blob/28e579f0a95a94ff45eaf667197f81c0a3b0d7a6/proto/fabric/service/cardcontrols/v1beta1/card_control_api.proto#L245
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      'callout:SF_MS_Fabric' +
+      Label.MS_Temp_Block_Card +
+      cardNumber +
+      '/block',
+      HTTP_METHOD.HTTP_POST,
+      headers,
+      '{"action":"ACTION_BLOCK"}'
+    );
+    return response;
+  }
+
+  /**
+   * @param cardNumber card number to get replaced
+   * @param ocvId customer id
+   * @param reason reason to replace the card
+   * @return `HttpCalloutResponse` the api response
+   * @description replace cards api
+   */
+  public override HttpCalloutResponse replaceCard(
+    String cardNumber,
+    String ocvId,
+    String reason
+  ) {
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    Map<String, String> headers = new Map<String, String>();
+    setFabricCommonHeaders(ocvID, headers);
+    headers.put('Content-Type', 'application/json');
+
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      'callout:SF_MS_Fabric' +
+      Label.MS_Replace_Card +
+      cardNumber +
+      '/replace',
+      HTTP_METHOD.HTTP_POST,
+      headers,
+      '{"reason":"REASON_' +
+      reason.toUpperCase() +
+      '"}'
+    );
+    return response;
+  }
 }

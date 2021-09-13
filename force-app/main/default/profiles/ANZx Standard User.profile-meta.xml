@@ -1381,7 +1381,7 @@
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <field>Account.Anniversay_Duration__c</field>
+    <field>Account.Anniversary_Duration__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
@@ -9867,7 +9867,7 @@
     <name>RunReports</name>
   </userPermissions>
   <userPermissions>
-    <enabled>true</enabled>
+    <enabled>false</enabled>
     <name>SelectFilesFromSalesforce</name>
   </userPermissions>
   <userPermissions>

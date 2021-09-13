@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>PAM_Approver_Username__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Privacy - Personal Information;Integrity - Trusted;Source - Salesforce</complianceGroup>
+    <complianceGroup>Privacy_Personal_Information;Integrity_Trusted;Source_Salesforce</complianceGroup>
     <description>Username of global PAM approval user</description>
     <externalId>false</externalId>
     <inlineHelpText>Username of global PAM approver user</inlineHelpText>
