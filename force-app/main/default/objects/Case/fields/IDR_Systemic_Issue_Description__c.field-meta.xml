@@ -7,7 +7,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Describe why this complaint is likely to impact more than one customer</inlineHelpText>
     <label>Why is this a possible systemic issue?</label>
-    <length>3000</length>
+    <length>32768</length>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>

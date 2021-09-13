@@ -88,7 +88,6 @@ public with sharing class ChatTopicRelatedListControllerTest {
       '',
       ''
     );
-
     Test.stopTest();
 
     System.assertEquals(null, response, 'Response is not null.');

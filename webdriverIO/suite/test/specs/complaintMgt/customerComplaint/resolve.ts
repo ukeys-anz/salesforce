@@ -12,10 +12,14 @@ let caseId: any;
 const recordType = "Customer_Complaint";
 
 describe("Customer Complaint Record Resolve", () => {
-  before(() => {
+  /*before(() => {
     createCaseList(1, recordType, "idrlvl3").then((cases: any) => {
       caseId = cases[0].CaseNumber.toString();
     });
+  });*/
+  before(async () => {
+    const cases: any = await createCaseList(1, recordType, "idrlvl3");
+    caseId = cases[0].CaseNumber.toString();
   });
 
   it("should resolve a customer complaint case record", () => {

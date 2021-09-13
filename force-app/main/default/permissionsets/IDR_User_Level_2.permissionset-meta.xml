@@ -4,6 +4,10 @@
         <apexClass>IDRCaseActions</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>IDRRestrictedCasesController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <customPermissions>
         <enabled>true</enabled>
         <name>IDR_Level_2</name>
@@ -11,4 +15,8 @@
     <description>The IDR user Level 2 permission which will be used by Team Lead or Area Managers in call centers and branches</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>IDR User Level 2</label>
+    <tabSettings>
+        <tab>Restricted_Cases</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
 </PermissionSet>

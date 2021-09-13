@@ -13,19 +13,25 @@ public with sharing class GetCustomerInformation {
    * The cache is turned off as we need to get the latest data from cap everytime.
    * {@link Lib_SystemLog.logAPIError} is called when ever the call fails to cap to have the logs recorded for monitoring.
    *
-   * @param capId
+   * @param customerId Customer Identidfier Id
+   * @param customerIdentifier Customer Identidfier Type
    * @return `map<String, Object>`
    * @exception CalloutException
    */
   @AuraEnabled(cacheable=false)
-  public static map<String, Object> getCustomerData(String capId) {
+  public static map<String, Object> getCustomerData(
+    String customerId,
+    String customerIdentifier
+  ) {
     map<String, Object> customerData = new Map<String, Object>();
     String responseBody = null;
-    if (String.isNotBlank(capId)) {
+    if (String.isNotBlank(customerId)) {
       HttpRequest request = new HttpRequest();
-      request.setEndpoint('callout:Mulesoft' + Label.MS_Get_Customer + capId);
-      request.setMethod('GET');
-      request.setHeader('x-mule-clientId', 'salesforce-cap');
+      request.setEndpoint('callout:Mulesoft' + Label.MS_Get_Customer);
+      request.setMethod('POST');
+      request.setHeader('consumer_id', 'salesforce');
+      request.setHeader('Content-type', 'application/json');
+      request.setBody(getBody(customerId, customerIdentifier));
       HTTPResponse response = null;
       try {
         Http http = new Http();
@@ -64,5 +70,42 @@ public with sharing class GetCustomerInformation {
     } else {
       return customerData;
     }
+  }
+
+  /**
+   * @description prepares the body for the callout
+   * @param customerId Customer Identifier Id
+   * @param customerIdentifier Customer Identifier Type
+   * @return `map<String, Object>`
+   * @exception CalloutException
+   */
+  public static String getBody(String customerId, String customerIdentifier) {
+    CustomerIdentifiers cusIden = new CustomerIdentifiers();
+    IdentifierDetails cls = new IdentifierDetails();
+    cls.identifierUsageType = ((String.isNotBlank(customerIdentifier) &&
+      customerIdentifier.contains('CAP ID'))
+      ? 'CAP ID'
+      : customerIdentifier);
+    cls.identifier = customerId;
+    cusIden.identifiers.add(cls);
+
+    return Json.serialize(cusIden);
+  }
+
+  /**
+   * @description  Wrapper class to build the body
+   *
+   */
+  public class CustomerIdentifiers {
+    public List<IdentifierDetails> identifiers = new List<IdentifierDetails>();
+  }
+
+  /**
+   * @description  Wrapper class to build the body
+   *
+   */
+  public class IdentifierDetails {
+    public String identifierUsageType = '';
+    public String identifier = '';
   }
 }
