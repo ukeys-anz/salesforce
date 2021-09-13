@@ -3,9 +3,17 @@ import { registerLdsTestWireAdapter } from "@salesforce/sfdx-lwc-jest";
 import CustomerInfoComponent from "c/customerInformation";
 import { getRecord } from "lightning/uiRecordApi";
 import getCustomerData from "@salesforce/apex/IDRAPIRepository.getCustomerInfoLWC";
+import { ShowToastEventName } from "lightning/platformShowToastEvent";
+
+const SUCCESS_TOAST_TITLE = "Success";
 const mockGetCustomerData = require("./data/getRecord.json");
 const getRecordWireAdapter = registerLdsTestWireAdapter(getRecord);
 const mockOCVCustomerDataResponse = require("./data/getCustomerData.json");
+const mockGetCustomerDataUpdate = require("./data/getRecordCustomerUpdate.json");
+const getRecordCustomerUpdateWireAdapter = registerLdsTestWireAdapter(
+  getRecord
+);
+const mockGetCustomerDataError = require("./data/getCustomerInfoError.json");
 
 jest.mock(
   "@salesforce/apex/IDRAPIRepository.getCustomerInfoLWC",
@@ -121,6 +129,48 @@ describe("c-customer-information", () => {
         const customerdataElements1 = element.shadowRoot.querySelectorAll("li");
         expect(customerdataElements1).not.toBeNull();
       });
+    });
+  });
+
+  it("Display stored customer data along with customer update", () => {
+    const element = createElement("c-customer-information", {
+      is: CustomerInfoComponent
+    });
+
+    document.body.appendChild(element);
+    element.showMore = false;
+    getCustomerData.mockResolvedValue(mockOCVCustomerDataResponse);
+
+    getRecordWireAdapter.emit(mockGetCustomerDataUpdate);
+    const handler = jest.fn();
+    element.addEventListener(ShowToastEventName, handler);
+    // Resolve a promise to wait for a rerender of the new content.
+    return flushPromises().then(() => {
+      const customerdataElements = element.shadowRoot.querySelectorAll("li");
+      expect(customerdataElements).not.toBeNull();
+      element.customerId = "4021733054";
+      element.custIdentifier = "Customer/Business CAP ID";
+      return flushPromises().then(() => {
+        return new Promise(setImmediate).then(() => {
+          expect(handler).toHaveBeenCalled();
+          expect(handler.mock.calls[0][0].detail.title).toBe(
+            SUCCESS_TOAST_TITLE
+          );
+        });
+      });
+    });
+  });
+
+  it("Error occured while fetching customer data", () => {
+    const element = createElement("c-customer-information", {
+      is: CustomerInfoComponent
+    });
+    document.body.appendChild(element);
+    getCustomerData.mockRejectedValue(mockGetCustomerDataError);
+    element.customerId = "1234567890";
+    element.custIdentifier = "Customer/Business CAP ID";
+    return flushPromises().then(() => {
+      expect(element.error).not.toBeNull();
     });
   });
 });
