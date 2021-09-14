@@ -4,7 +4,7 @@
  * @description CMOS CaseComment Action methods
  * @group IDR(Internal Dispute Resolution) Igor Matkovic
  */
-public inherited sharing class IDRCaseCommentActions {
+public without sharing class IDRCaseCommentActions {
   //list of platform events to publish
   @testVisible
   private static IDR_CaseComment_Event__e[] idrCaseCommentEscalationEvents;

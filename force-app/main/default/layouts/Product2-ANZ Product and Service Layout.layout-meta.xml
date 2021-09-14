@@ -12,24 +12,12 @@
                 <field>Name</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Required</behavior>
-                <field>ANZ_Product_Code__c</field>
-            </layoutItems>
-            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>IsActive</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Product_Classification__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Product_Start_Date__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>ProductCode</field>
+                <field>ANZ_Product_Code__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -44,14 +32,6 @@
             <layoutItems>
                 <behavior>Required</behavior>
                 <field>IDR_Product_or_Service_Type__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Interest_Rate__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Product_End_Date__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
@@ -102,13 +82,35 @@
         <fields>OWNER_NAME</fields>
         <relatedList>Case.Product__c</relatedList>
     </relatedLists>
+    <relatedLists>
+        <fields>CASES.CASE_NUMBER</fields>
+        <fields>CASES.STATUS</fields>
+        <fields>CASES.PRIORITY</fields>
+        <fields>IDR_Issue_Type_2__c</fields>
+        <fields>IDR_Date_Received__c</fields>
+        <fields>OWNER_NAME</fields>
+        <relatedList>Case.IDR_Product_2__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>CASES.CASE_NUMBER</fields>
+        <fields>CASES.STATUS</fields>
+        <fields>CASES.PRIORITY</fields>
+        <fields>IDR_Issue_Type_3__c</fields>
+        <fields>IDR_Date_Received__c</fields>
+        <fields>OWNER_NAME</fields>
+        <relatedList>Case.IDR_Product_3__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>Case__c</fields>
+        <relatedList>Case_Product__c.Product__c</relatedList>
+    </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>true</showHighlightsPanel>
     <showInteractionLogPanel>true</showInteractionLogPanel>
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2N000000dR1h</masterLabel>
+        <masterLabel>00h2O000000yBs5</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

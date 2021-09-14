@@ -29,7 +29,8 @@ if (argv.help) {
     "content author\n",
     "idr level 1\n",
     "idr level 2\n",
-    "idr level 3"
+    "idr level 3",
+    "idr si"
   );
   process.exit();
 } else if (argv.profile) {
@@ -68,6 +69,13 @@ if (argv.help) {
       profileName = "ANZ Standard User";
       email = faker.name.firstName() + lastName + "@anzxtesting.com";
       break;
+
+    case "idr si":
+      permSets = ["IDR_Level_1", "Systemic_Issue_User_Base"];
+      alias = "IdrSi";
+      profileName = "ANZ Standard User";
+      email = faker.name.firstName() + lastName + "@anzxtesting.com";
+      break;
     default:
       console.error(
         "Invalid profile provided. Please enter one of the following:"
@@ -77,7 +85,8 @@ if (argv.help) {
         "content author\n",
         "idr level 1\n",
         "idr level 2\n",
-        "idr level 3"
+        "idr level 3",
+        "idr si"
       );
       process.exit();
   }

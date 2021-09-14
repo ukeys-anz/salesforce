@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_Complaint_Received_Date__c</fullName>
+    <description>Datetime which complaint was recieved</description>
+    <externalId>false</externalId>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Complaint Received Date</label>
+    <required>false</required>
+    <type>DateTime</type>
+</CustomField>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Document_Category__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <externalId>false</externalId>
+    <label>Document Category</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>true</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Account Statements</fullName>
+                <default>false</default>
+                <label>Account Statements</label>
+            </value>
+            <value>
+                <fullName>AFCA Correspondence</fullName>
+                <default>false</default>
+                <label>AFCA Correspondence</label>
+            </value>
+            <value>
+                <fullName>AFCA Decision</fullName>
+                <default>false</default>
+                <label>AFCA Decision</label>
+            </value>
+            <value>
+                <fullName>ANZ Letter/Email</fullName>
+                <default>false</default>
+                <label>ANZ Letter/Email</label>
+            </value>
+            <value>
+                <fullName>CAD Approval</fullName>
+                <default>false</default>
+                <label>CAD Approval</label>
+            </value>
+            <value>
+                <fullName>Customer Acceptance</fullName>
+                <default>false</default>
+                <label>Customer Acceptance</label>
+            </value>
+            <value>
+                <fullName>Customer Letter/Email</fullName>
+                <default>false</default>
+                <label>Customer Letter/Email</label>
+            </value>
+            <value>
+                <fullName>Evidence of Implementation</fullName>
+                <default>false</default>
+                <label>Evidence of Implementation</label>
+            </value>
+            <value>
+                <fullName>File Note</fullName>
+                <default>false</default>
+                <label>File Note</label>
+            </value>
+            <value>
+                <fullName>Final Response to Customer</fullName>
+                <default>false</default>
+                <label>Final Response to Customer</label>
+            </value>
+            <value>
+                <fullName>Internal Correspondence</fullName>
+                <default>false</default>
+                <label>Internal Correspondence</label>
+            </value>
+            <value>
+                <fullName>Statement of Financial Position</fullName>
+                <default>false</default>
+                <label>Statement of Financial Position</label>
+            </value>
+            <value>
+                <fullName>Third Party Authority</fullName>
+                <default>false</default>
+                <label>Third Party Authority</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
