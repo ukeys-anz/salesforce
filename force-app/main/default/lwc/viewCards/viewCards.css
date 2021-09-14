@@ -28,10 +28,6 @@
   top: 150px;
 }
 
-.card-image {
-  filter: drop-shadow(4px 4px 3px #034082);
-}
-
 .load-all {
   position: relative;
   left: 44%;
@@ -48,4 +44,10 @@
   font-size: 16px;
   margin-left: 1%;
   border-radius: 0.25em;
+}
+
+.tooltip {
+  margin-left: 2px;
+  position: relative;
+  bottom: 3px;
 }

@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Temporary_Lock__c</fullName>
     <businessStatus>Hidden</businessStatus>
-    <complianceGroup>Integrity_Accurate;Privacy - Personal Information</complianceGroup>
+    <complianceGroup>Integrity_Accurate;Privacy_Personal_Information</complianceGroup>
     <externalId>false</externalId>
     <label>Temporary Lock</label>
     <required>false</required>

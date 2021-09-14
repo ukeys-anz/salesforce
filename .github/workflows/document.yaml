@@ -18,14 +18,14 @@ jobs:
         with:
           repository: anzx/salesforce-docs
           token: ${{ secrets.SALESFORCE_DOCS_TOKEN }}
-
+          
       - name: Checkout doc plugin
         uses: actions/checkout@v2
         with:
           repository: anzx/salesforce-doc-gen
           token: ${{ secrets.SALESFORCE_DOC_GEN_TOKEN }}
           path: plugin
-          ref: "9d35775"
+          ref: "9c6c8d6"
 
       - name: Checkout salesforce repo
         uses: actions/checkout@v2

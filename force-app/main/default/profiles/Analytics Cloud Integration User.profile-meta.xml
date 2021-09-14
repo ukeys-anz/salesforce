@@ -18,7 +18,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Anniversay_Duration__c</field>
+        <field>Account.Anniversary_Duration__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -389,6 +389,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.Fraud_Middle_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.Fraud_Loss_Reason_Code__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

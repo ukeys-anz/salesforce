@@ -351,7 +351,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Anniversay_Duration__c</field>
+        <field>Account.Anniversary_Duration__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1251,6 +1251,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Fraud_Recipient_Remitter__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Fraud_Review_Outcome__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1336,6 +1341,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Fraud_ID_True_Document__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Fraud_Loss_Reason_Code__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

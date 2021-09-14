@@ -65,4 +65,39 @@ public with sharing class DateTimeUtils {
     datetime returnValue = date.valueOf(ausDate);
     return returnValue;
   }
+
+  /**
+   *@description Calculate local time based on user time zone.
+   * @param utcDateTime UTC datetime to be converted to local time
+   * @param timezone the timezone used to convert datetime
+   * @param format the desired format for the converted datetime
+   * @return datetime the local date time based on user's timezone
+   */
+  public static String getLocalTime(
+    DateTime utcDateTime,
+    String timezone,
+    String format
+  ) {
+    if (
+      utcDateTime != null &&
+      String.isNotBlank(timezone) &&
+      String.isNotBlank(format)
+    ) {
+      return utcDateTime.format(format, timezone);
+    }
+    return null;
+  }
+
+  /**
+   *@description Calculate UTC time
+   * @param localDateTimeString Local datetime string to be converted to UTC datetime
+   * @return String datetime String in the GMT time zone so we can use in param URL construction.
+   */
+  public static String getUTCTimeFromString(String localDateTimeString) {
+    if (localDateTimeString != null) {
+      return DateTime.valueOf(localDateTimeString)
+        .formatGMT('yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\'');
+    }
+    return null;
+  }
 }

@@ -3,9 +3,7 @@
     <label>Login As Test Users</label>
     <loginAccess>true</loginAccess>
     <roles>ANZ</roles>
-    <roles>Content Manager</roles>
     <roles>FraudX Agent</roles>
-    <roles>Manager</roles>
     <roles>Quality Analyst</roles>
     <roles>Super Support Admin</roles>
     <roles>Support Coach</roles>
