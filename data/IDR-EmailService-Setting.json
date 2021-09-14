@@ -5,7 +5,7 @@
                 "type": "IDR_Email_Settings__c",
                 "referenceId": "EmailServANZEDRRefId"
             },
-            "Inbox_Email__c": "ANZEDR-cmos@anz.com",
+            "Inbox_Email__c": "ANZEDR@anz.com",
             "Technical_Email_Address__c": "",
             "Origin__c": "11",
             "Name": "ANZ_EDR"
@@ -25,7 +25,7 @@
                 "type": "IDR_Email_Settings__c",
                 "referenceId": "EmailServAICMNFLRefId"
             },
-            "Inbox_Email__c": "ICMNFL-cmos@anz.com",
+            "Inbox_Email__c": "ICMNFL@anz.com",
             "Technical_Email_Address__c": "",
             "Origin__c": "Email",
             "Name": "ICMNFL"
