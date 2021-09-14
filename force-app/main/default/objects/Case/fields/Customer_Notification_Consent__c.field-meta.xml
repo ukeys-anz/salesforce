@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>ANZx_Product__c</fullName>
+    <fullName>Customer_Notification_Consent__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_Salesforce;Integrity_Trusted;Privacy_Non_Personal_Information</complianceGroup>
-    <description>The ANZ Plus product or service that this complaint relates to.</description>
+    <description>A One-off SMS would be sent to the customer to notify them of the complaint reference number.</description>
     <externalId>false</externalId>
-    <label>Product or Service</label>
+    <inlineHelpText>A One-off SMS would be sent to the customer to notify them of the complaint reference number.</inlineHelpText>
+    <label>Customer Notification Consent</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
@@ -17,19 +18,14 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>ANZ Money - Everyday Account</fullName>
+                <fullName>Yes</fullName>
                 <default>false</default>
-                <label>ANZ Money - Everyday Account</label>
+                <label>Yes</label>
             </value>
             <value>
-                <fullName>ANZ Save - Savings Account</fullName>
+                <fullName>No</fullName>
                 <default>false</default>
-                <label>ANZ Save - Savings Account</label>
-            </value>
-            <value>
-                <fullName>Not Product Related</fullName>
-                <default>false</default>
-                <label>Not Product Related</label>
+                <label>No</label>
             </value>
         </valueSetDefinition>
     </valueSet>

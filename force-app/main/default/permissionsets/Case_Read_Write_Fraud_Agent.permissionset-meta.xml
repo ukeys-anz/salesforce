@@ -150,6 +150,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Customer_Notification_Consent__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Date_Account_Last_Debited__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -535,6 +540,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.IDR_Issue_Type_2__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_Issue_Type_3__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.IDR_Is_Common__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -560,12 +575,37 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.IDR_Product_2__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_Product_3__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.IDR_Real_Form_Req__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.IDR_Second_Issue__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.IDR_Subsequent_Issue__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_Subsequent_Issue_2__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_Subsequent_Issue_3__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -576,6 +616,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.IDR_Systemic_Issue_Description__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_Third_Issue__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -615,7 +660,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.OCV_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Origin</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Original_Case_Owner__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
