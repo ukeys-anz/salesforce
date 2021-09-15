@@ -116,6 +116,10 @@
                 <behavior>Edit</behavior>
                 <field>Card_Token_Number__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Refund_Request_Date__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>OneColumn</style>
     </layoutSections>
