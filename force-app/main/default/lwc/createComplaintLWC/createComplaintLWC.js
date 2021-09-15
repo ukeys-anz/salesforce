@@ -113,8 +113,6 @@ const OTHER = "Other";
 
 const CUS_IDENTIFIER_CAPCIS_ID = "Customer/Business CAP ID";
 const CUS_IDENTIFIER_CACHE_ID = "CACHE ID";
-const CUS_IDENTIFIER_RAZOR_ID = "RAZOR ID";
-const CUS_IDENTIFIER_CRN_ID = "CRN";
 
 export default class CreateComplaintLWC extends NavigationMixin(
   LightningElement
@@ -295,9 +293,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       {
         label: CUS_IDENTIFIER_CACHE_ID,
         value: CUS_IDENTIFIER_CACHE_ID
-      },
-      { label: CUS_IDENTIFIER_RAZOR_ID, value: CUS_IDENTIFIER_RAZOR_ID },
-      { label: CUS_IDENTIFIER_CRN_ID, value: CUS_IDENTIFIER_CRN_ID }
+      }
     ];
   }
 

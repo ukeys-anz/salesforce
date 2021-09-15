@@ -3052,15 +3052,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>CRN</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Customer/Business CAP ID</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>RAZOR ID</fullName>
             <default>false</default>
         </values>
     </picklistValues>
