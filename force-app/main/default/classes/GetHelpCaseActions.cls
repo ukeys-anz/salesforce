@@ -68,6 +68,8 @@ public with sharing class GetHelpCaseActions {
 
   private static Map<String, String> caseTypeLabelByValue = new Map<String, String>();
 
+  public static final String MILESTONE_NAME = 'Resolution Time';
+
   /**
    * @description beforeUpdate(oldMap, records) method handles the following
    * 1. Validate Additional Type - Validates the selected additional types and addError if it has more than 2 values selected or if the Type value is same as one of the additional values
@@ -371,7 +373,7 @@ public with sharing class GetHelpCaseActions {
    */
   public static void completeCaseMilestone(List<Id> caseIds) {
     //Mark milestones as completed
-    MilestoneUtils.completeMilestone(caseIds, 'Resolution Time', System.now());
+    MilestoneUtils.completeMilestone(caseIds, MILESTONE_NAME, System.now());
   }
 
   /**

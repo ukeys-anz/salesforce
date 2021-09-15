@@ -31,7 +31,6 @@
     var parentInfo = this.extractParentInfo(parentIdParameter);
     // Manually populating the related parent Account record ID when new case creation was originated from a related list
     if (this.isParentObjectAccount(parentInfo)) {
-      // Fetch active Chat Topic ID (if there is any) related to the Customer
       let workspaceAPI = component.find("workspace");
       workspaceAPI.getFocusedTabInfo().then((response) => {
         var navigationUrl =
@@ -59,54 +58,6 @@
         parentObjectName: context.attributes.objectApiName
       };
     } else return {};
-  },
-  getCaseRecordOpenBaseonChatCallBack: function (
-    component,
-    parentRecID,
-    recordTypeId
-  ) {
-    this.startSpinner(component);
-
-    return (topicID) => {
-      var defaultFieldValues = {};
-      if (topicID) {
-        if (this.isMultipleChatTopic(topicID)) {
-          defaultFieldValues = {
-            AccountId: parentRecID,
-            Auto_matched_Chat_Topic_IDs__c: topicID
-          };
-
-          this.showToast(
-            "warning",
-            "More than one Active Chat Topics found ! Chat Topic will not be auto-populated on Case.",
-            "Warning!"
-          );
-        } else {
-          defaultFieldValues = {
-            AccountId: parentRecID,
-            Twilio_Channel_SID__c: topicID,
-            Origin: "Chat"
-          };
-
-          this.showToast(
-            "success",
-            "Active Chat Topic was successfully auto-populated on Case !",
-            "Success!"
-          );
-        }
-      } else {
-        // Chat Topic population faild, fallback option
-        defaultFieldValues = {
-          AccountId: parentRecID
-        };
-      }
-      this.openCaseRecordPage(component, recordTypeId, defaultFieldValues);
-      // Stop loading spinner
-      this.stopSpinner(component);
-    };
-  },
-  isMultipleChatTopic: function (topicID) {
-    return topicID.split("|").length > 1;
   },
   openCaseRecordPage: function (
     component,
@@ -146,26 +97,6 @@
       return context.attributes.recordId;
     }
     return null;
-  },
-  getActiveChatTopicID: function (component, parentRecID, callback) {
-    // Identify which record type was selected
-    var action = component.get("c.getActiveChatTopicIDsByCustomer");
-    action.setParams({
-      accountID: parentRecID
-    });
-    action.setCallback(this, function (response) {
-      var state = response.getState();
-      if (state === "SUCCESS") {
-        if (callback) {
-          callback(response.getReturnValue());
-        }
-      } else {
-        callback("");
-        console.log("Failed with state: " + state);
-      }
-    });
-    this.startSpinner(component);
-    $A.enqueueAction(action);
   },
   navigateToNewCaseClosePreviousTab: function (
     workspaceAPI,
@@ -290,62 +221,13 @@
     navigationUrl =
       navigationUrl + "&defaultFieldValues=AccountId=" + parentInfo.parentRecID;
 
-    this.getActiveChatTopicID(
-      component,
-      parentInfo.parentRecID,
-      this.handleConsoleChatCaseCreationCallback(
-        component,
-        navigationUrl,
-        workspaceAPI,
-        tabId
-      )
+    // When raising a case from the account page, the new record type selection page is open as a subtab
+    // therefore after the user selects a record type and proceed, we need to open the form as a sub tab and close the previous one
+    this.navigateToNewCaseClosePreviousSubTab(
+      workspaceAPI,
+      navigationUrl,
+      tabId
     );
-  },
-  handleConsoleChatCaseCreationCallback: function (
-    component,
-    navigationUrl,
-    workspaceAPI,
-    tabId
-  ) {
-    return (topicID) => {
-      //Also pre-populating/linking Chat Topic record, if the Case is related to an on-going active chat.
-      var defaultFieldValues = "";
-      if (topicID) {
-        if (this.isMultipleChatTopic(topicID)) {
-          navigationUrl =
-            navigationUrl + ",Auto_matched_Chat_Topic_IDs__c=" + topicID;
-
-          this.showToast(
-            "warning",
-            "More than one Active Chat Topics found ! Chat Topic will not be auto-populated on Case.",
-            "Warning!"
-          );
-        } else {
-          navigationUrl =
-            navigationUrl +
-            ",Twilio_Channel_SID__c=" +
-            topicID +
-            ",Origin=Chat";
-
-          this.showToast(
-            "success",
-            "Active Chat Topic was successfully auto-populated on Case !",
-            "Success!"
-          );
-        }
-      }
-
-      // Stop loading spinner
-      this.stopSpinner(component);
-
-      // When raising a case from the account page, the new record type selection page is open as a subtab
-      // therefore after the user selects a record type and proceed, we need to open the form as a sub tab and close the previous one
-      this.navigateToNewCaseClosePreviousSubTab(
-        workspaceAPI,
-        navigationUrl,
-        tabId
-      );
-    };
   },
 
   // Handle get available case record types

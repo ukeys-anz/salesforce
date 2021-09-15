@@ -61,6 +61,10 @@
                 <field>Origin</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Twilio_Channel_SID__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Required</behavior>
                 <field>Status</field>
             </layoutItems>
@@ -201,7 +205,7 @@
     <platformActionList>
         <actionListContext>Record</actionListContext>
         <platformActionListItems>
-            <actionName>Case.LogVoiceCall</actionName>
+            <actionName>FeedItem.TextPost</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>0</sortOrder>
         </platformActionListItems>
@@ -247,9 +251,6 @@
         <relatedList>RelatedArticleList</relatedList>
     </relatedLists>
     <relatedLists>
-        <relatedList>RelatedCommentsList</relatedList>
-    </relatedLists>
-    <relatedLists>
         <excludeButtons>LogCall</excludeButtons>
         <excludeButtons>MailMerge</excludeButtons>
         <excludeButtons>SendEmail</excludeButtons>
@@ -270,7 +271,7 @@
     <showRunAssignmentRulesCheckbox>true</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>true</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2O000001GBX1</masterLabel>
+        <masterLabel>00h2N0000027KUW</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

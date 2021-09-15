@@ -15,6 +15,7 @@ jobs:
           ref: v2
           token: ${{ secrets.SALESFORCE_PR_TITLE_ACTION_TOKEN }}
           path: .github/actions/pr-title-action
+
       - name: Check PR Title for Ticket
         uses: ./.github/actions/pr-title-action
         with:
