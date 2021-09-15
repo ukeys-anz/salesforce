@@ -40,6 +40,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.AuxDomId__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.Bank_ATM__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -191,11 +196,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Date_Time_Bug_Occurred__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Case.Merchant_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
