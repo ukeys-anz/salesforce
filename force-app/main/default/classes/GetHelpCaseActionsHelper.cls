@@ -5,7 +5,7 @@
  * @description Helper class for @link GetHelpCaseActions
  */
 @SuppressWarnings('PMD.CyclomaticComplexity')
-public inherited sharing class GetHelpCaseActionsHelper {
+public with sharing class GetHelpCaseActionsHelper {
   // Parent Case validation error message
   private static final String PARENT_CASE_ERROR = 'You cannot add parent case. This case is associated with child cases';
 

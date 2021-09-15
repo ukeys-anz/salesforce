@@ -11,6 +11,8 @@
     <columns>IDR_CFMS_Complaint_Number__c</columns>
     <columns>UPDATEDBY_USER.ALIAS</columns>
     <columns>CASES.LAST_UPDATE_DATE_ONLY</columns>
+    <columns>IDR_NC_First_Name__c</columns>
+    <columns>IDR_NC_Last_Name__c</columns>
     <filterScope>Queue</filterScope>
     <label>Customer Resolution Portfolio</label>
     <queue>CRC_Team</queue>

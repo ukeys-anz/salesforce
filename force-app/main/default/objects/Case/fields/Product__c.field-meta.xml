@@ -9,10 +9,10 @@
     <inlineHelpText>Start typing the ANZ product or Service the complaint relates to for available options to appear</inlineHelpText>
     <label>Product or Service Name</label>
     <referenceTo>Product2</referenceTo>
-    <relationshipLabel>Cases</relationshipLabel>
+    <relationshipLabel>Related Issues</relationshipLabel>
     <relationshipName>Cases</relationshipName>
     <required>false</required>
-    <securityClassification>Confidential</securityClassification>
+    <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
