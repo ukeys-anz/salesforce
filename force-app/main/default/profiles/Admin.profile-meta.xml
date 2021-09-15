@@ -726,7 +726,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.Merchant_ID__c</field>
+        <field>Case.AuxDomId__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
