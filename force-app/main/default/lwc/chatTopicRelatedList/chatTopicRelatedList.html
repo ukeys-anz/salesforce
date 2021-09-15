@@ -29,7 +29,9 @@
                 class="slds-card__header-link slds-truncate"
                 title="Card Header"
               >
-                <span>Chat Topics ({totalRecordCount}) </span>
+                <span data-id="component-header"
+                  >Chat Topics ({totalRecordCount})</span
+                >
               </a>
             </h2>
           </div>
@@ -68,7 +70,11 @@
               <template for:each={data} for:item="chatTopic">
                 <tr class="slds-hint-parent" key={chatTopic.Id}>
                   <td data-label="Name">
-                    <div class="slds-truncate slds-cell-wrap" title="Name">
+                    <div
+                      class="slds-truncate slds-cell-wrap"
+                      title="Name"
+                      data-id="topic-name"
+                    >
                       {chatTopic.name}
                     </div>
                   </td>

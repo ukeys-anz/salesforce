@@ -14,6 +14,7 @@ public with sharing class ChatTopicRelatedListControllerTest {
     Account accnt = new Account(
       Name = 'TestAccount',
       OCV_ID__c = '1234567891',
+      PPID__c = '12431313',
       ANZx_Customer__c = true
     );
     Id accId = Lib_FakeIdGenerator.getMockId(accnt.getSObjectType());
