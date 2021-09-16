@@ -18,7 +18,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Anniversay_Duration__c</field>
+        <field>Account.Anniversary_Duration__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -389,6 +389,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.Fraud_Middle_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.Fraud_Loss_Reason_Code__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1899,16 +1904,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>IDR_Notification_Event__e.Case_Number__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>IDR_Notification_Event__e.Case_Status_Change_Date__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>IDR_Notification_Event__e.Case_Status__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>

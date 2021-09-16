@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Priority</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Source_Salesforce;Integrity - Trusted;Privacy - Personal Information</complianceGroup>
+    <complianceGroup>Source_Salesforce;Integrity_Trusted;Privacy_Personal_Information</complianceGroup>
     <description>Priority of the case as per ANZ process guidelines.</description>
     <inlineHelpText>A ‘Customer experiencing Financial Hardship’ is when a customer wants to pay but can&apos;t.
 A ‘Customer experiencing Vulnerability’ is when, as a result of their personal circumstances or characteristics, the customer may be more likely than others to experience financial harm or detriment. For further information, search ‘Customer Vulnerability’ on Max.</inlineHelpText>

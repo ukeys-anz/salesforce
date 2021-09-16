@@ -32,7 +32,7 @@ public class MockHttpMulesoftCallouts implements HttpCalloutMock {
    * @return `HTTPResponse`
    */
   public HTTPResponse respond(HTTPRequest req) {
-    System.assertEquals('GET', req.getMethod());
+    System.assertEquals('POST', req.getMethod());
     if (callException == null) {
       // Create a fake response
       HttpResponse res = new HttpResponse();

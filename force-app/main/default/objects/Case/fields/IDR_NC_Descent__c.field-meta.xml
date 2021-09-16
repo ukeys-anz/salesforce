@@ -2,13 +2,13 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_NC_Descent__c</fullName>
     <businessStatus>Hidden</businessStatus>
-    <complianceGroup>Integrity - Accurate;Privacy - Sensitive Personal Information</complianceGroup>
+    <complianceGroup>Integrity_Accurate;Privacy_Sensitive_Personal_Information</complianceGroup>
     <description>Collection of Aboriginal and Torres Strait Islander (ATSI) is required by the regulator.  As this information is Sensitive under the privacy act we recommend stricter treatment of the information.  The information should only be used and disclosed for the regulatory purpose.  It should not be presented to ANZ employees in association or linkage with an identified individual once it has been collected.</description>
     <externalId>false</externalId>
     <label>Aboriginal or Torres Strait Islander</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
-    <trackHistory>true</trackHistory>
+    <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

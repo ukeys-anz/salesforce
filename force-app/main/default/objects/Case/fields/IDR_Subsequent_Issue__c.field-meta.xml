@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_Subsequent_Issue__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Trusted</complianceGroup>
+    <complianceGroup>Integrity_Trusted</complianceGroup>
     <externalId>false</externalId>
     <label>Subsequent Issue Type</label>
     <required>false</required>
@@ -13,7 +13,6 @@
     <type>Picklist</type>
     <valueSet>
         <controllingField>Type</controllingField>
-        <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
@@ -518,6 +517,130 @@
             </value>
         </valueSetDefinition>
         <valueSettings>
+            <controllingFieldValue>9</controllingFieldValue>
+            <valueName>57</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>9</controllingFieldValue>
+            <valueName>59</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>9</controllingFieldValue>
+            <valueName>60</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>9</controllingFieldValue>
+            <valueName>61</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>9</controllingFieldValue>
+            <valueName>62</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>9</controllingFieldValue>
+            <valueName>Request won&apos;t be actioned</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>9</controllingFieldValue>
+            <valueName>Stores are cashless</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>13</controllingFieldValue>
+            <valueName>2</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>13</controllingFieldValue>
+            <valueName>3</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>13</controllingFieldValue>
+            <valueName>4</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>13</controllingFieldValue>
+            <valueName>5</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>13</controllingFieldValue>
+            <valueName>6</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>13</controllingFieldValue>
+            <valueName>7</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>13</controllingFieldValue>
+            <valueName>9</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>13</controllingFieldValue>
+            <valueName>Not working on device</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>13</controllingFieldValue>
+            <valueName>No direct phone line</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>13</controllingFieldValue>
+            <valueName>Not enough stores</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>13</controllingFieldValue>
+            <valueName>Digital only service</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>18</controllingFieldValue>
+            <valueName>11</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>18</controllingFieldValue>
+            <valueName>12</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>18</controllingFieldValue>
+            <valueName>63</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>18</controllingFieldValue>
+            <valueName>64</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>18</controllingFieldValue>
+            <valueName>65</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>18</controllingFieldValue>
+            <valueName>66</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>2</controllingFieldValue>
+            <valueName>13</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>2</controllingFieldValue>
+            <valueName>14</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>2</controllingFieldValue>
+            <valueName>15</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>2</controllingFieldValue>
+            <valueName>16</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>2</controllingFieldValue>
+            <valueName>17</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>2</controllingFieldValue>
+            <valueName>18</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>2</controllingFieldValue>
+            <valueName>19</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>4</controllingFieldValue>
             <valueName>20</valueName>
         </valueSettings>
@@ -745,130 +868,6 @@
         <valueSettings>
             <controllingFieldValue>20</controllingFieldValue>
             <valueName>92</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>9</controllingFieldValue>
-            <valueName>57</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>9</controllingFieldValue>
-            <valueName>59</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>9</controllingFieldValue>
-            <valueName>60</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>9</controllingFieldValue>
-            <valueName>61</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>9</controllingFieldValue>
-            <valueName>62</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>9</controllingFieldValue>
-            <valueName>Request won&apos;t be actioned</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>9</controllingFieldValue>
-            <valueName>Stores are cashless</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>13</controllingFieldValue>
-            <valueName>2</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>13</controllingFieldValue>
-            <valueName>3</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>13</controllingFieldValue>
-            <valueName>4</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>13</controllingFieldValue>
-            <valueName>5</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>13</controllingFieldValue>
-            <valueName>6</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>13</controllingFieldValue>
-            <valueName>7</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>13</controllingFieldValue>
-            <valueName>9</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>13</controllingFieldValue>
-            <valueName>Not working on device</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>13</controllingFieldValue>
-            <valueName>No direct phone line</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>13</controllingFieldValue>
-            <valueName>Not enough stores</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>13</controllingFieldValue>
-            <valueName>Digital only service</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>18</controllingFieldValue>
-            <valueName>11</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>18</controllingFieldValue>
-            <valueName>12</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>18</controllingFieldValue>
-            <valueName>63</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>18</controllingFieldValue>
-            <valueName>64</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>18</controllingFieldValue>
-            <valueName>65</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>18</controllingFieldValue>
-            <valueName>66</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>2</controllingFieldValue>
-            <valueName>13</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>2</controllingFieldValue>
-            <valueName>14</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>2</controllingFieldValue>
-            <valueName>15</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>2</controllingFieldValue>
-            <valueName>16</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>2</controllingFieldValue>
-            <valueName>17</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>2</controllingFieldValue>
-            <valueName>18</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>2</controllingFieldValue>
-            <valueName>19</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>8</controllingFieldValue>

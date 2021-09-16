@@ -83,6 +83,8 @@ public with sharing class IDRCaseActions {
         record.EntitlementId = entitlementId;
         record.IDR_Milestone_Sla__c = IDRConstants.MILESTONE_SLA_NORMAL;
         // record.IDR_Milestone_Sla__c = getMilestoneSla(record.Status, record.IDR_Date_Received__c , businessHoursId);
+        populateSuppliedEmail(record, null);
+        IDRCollectionActions.populateCollectionNumber(record);
         CommonUtil.handleMasking(
           record,
           null,
@@ -127,6 +129,9 @@ public with sharing class IDRCaseActions {
       }
     }
     IDRTaskActions.possibleSystemicIssueActions(records, null);
+    IDRCollectionActions.stopCollections(records, null);
+    IDRCollectionActions.startCollections(records, null);
+    IDRComplaintFlagActions.setComplaintsFlag(records, null);
     escalateToCFMS(caseEscalationList);
   }
 
@@ -141,6 +146,9 @@ public with sharing class IDRCaseActions {
     for (Case record : records) {
       if (isIDRComplaintType(record)) {
         Case oldRecord = (case) oldMap.get(record.id);
+        populateSuppliedEmail(record, oldRecord);
+        validateCaseNumber(record, oldRecord);
+        IDRCollectionActions.populateCollectionNumber(record);
         CommonUtil.handleMasking(
           record,
           oldRecord,
@@ -181,7 +189,11 @@ public with sharing class IDRCaseActions {
   public static void afterUpdate(Map<Id, SObject> oldMap, List<Case> records) {
     for (Case record : records) {
       Case oldRec = (Case) oldMap.get(record.id);
-      if (isIDRComplaintType(record)) {
+      if (
+        (oldRec.RecordTypeId == IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID &&
+        isIDRComplaintType(record))
+      ) {
+        notificationCaseList.add(record);
         checkForCRCEscalation(record, oldRec);
       }
     }
@@ -191,6 +203,9 @@ public with sharing class IDRCaseActions {
     escalateToCFMS(caseEscalationList);
     IDRTaskActions.possibleSystemicIssueActions(records, oldMap);
     IDRTaskActions.updateIDRMilestoneTask(records, oldMap);
+    IDRCollectionActions.stopCollections(records, oldMap);
+    IDRCollectionActions.startCollections(records, oldMap);
+    IDRComplaintFlagActions.setComplaintsFlag(records, oldMap);
   }
 
   /**
@@ -239,6 +254,21 @@ public with sharing class IDRCaseActions {
         );
         IDRTaskActions.closeMaxTimeFrameTasks(maxTimeFrameCases);
       }
+    }
+  }
+
+  /**
+   * @description Prepopulate Case Fields
+   * @param record case record
+   * @param oldCase Old copy of case record before this transaction intiated
+   */
+  private static void populateSuppliedEmail(Case record, Case oldCase) {
+    if (
+      oldCase == null ||
+      (String.IsBlank(oldCase.IDR_NC_Email__c) &&
+      String.IsNotBlank(record.IDR_NC_Email__c))
+    ) {
+      record.SuppliedEmail = record.IDR_NC_Email__c;
     }
   }
 
@@ -709,6 +739,22 @@ public with sharing class IDRCaseActions {
         String.isNotBlank(c.CaseNumber__c) ? c.CaseNumber__c : c.CaseNumber
       )
     );
+  }
+
+  /**
+   * @description  This method is used to restrict users from editing case number based on certain conditions
+   * @param record The actual case record from the trigger
+   * @param oldRec trigger context variable to check on old values.
+   */
+  private static void validateCaseNumber(Case record, Case oldRec) {
+    if (
+      record.RecordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID &&
+      (record.IDR_Customer_Number__c != oldRec.IDR_Customer_Number__c ||
+      record.IDR_Customer_Identifier__c != oldRec.IDR_Customer_Identifier__c) &&
+      oldRec.RecordTypeId != IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID
+    ) {
+      record.addError(CUSTOMER_NUMBER_VALIDATION_ERROR);
+    }
   }
 
   /**

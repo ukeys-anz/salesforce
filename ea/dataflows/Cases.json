@@ -2,8 +2,12 @@
   "nodes": {
     "CasesOutput": {
       "action": "register",
-      "parameters": { "label": "Cases w/Duration", "name": "cases_duration" },
-      "sources": ["AddUserRoleInfo"]
+      "parameters": {
+        "label": "Cases w/Duration",
+        "name": "cases_duration",
+        "rowLevelSecurityFilter": ""
+      },
+      "sources": ["MergeLastClosedData"]
     },
     "CaseTypePickList": {
       "action": "sobjectDigest",
@@ -30,6 +34,10 @@
         "object": "Product2"
       }
     },
+    "DigestLastTouchedData": {
+      "action": "dataset",
+      "parameters": { "name": "CaseLastTouchedData" }
+    },
     "CalcHasBeenTransferred": {
       "action": "computeExpression",
       "parameters": {
@@ -46,6 +54,17 @@
       },
       "sources": ["AppendCount"]
     },
+    "MergeLastClosedData": {
+      "action": "augment",
+      "parameters": {
+        "leftKey": ["Id"],
+        "operation": "LookupSingleValue",
+        "relationship": "LastClosedBy",
+        "rightKey": ["CaseId"],
+        "rightSelect": ["LatestClosedDate", "User.FirstName", "User.LastName"]
+      },
+      "sources": ["AddUserRoleInfo", "DigestLastTouchedData"]
+    },
     "AppendCount": {
       "action": "augment",
       "parameters": {
@@ -56,6 +75,21 @@
         "rightSelect": ["CountOfTransfers"]
       },
       "sources": ["AgedTicketsBucket", "CalcCountOfTransfers"]
+    },
+    "ComputeFilterTitle": {
+      "action": "computeExpression",
+      "parameters": {
+        "computedFields": [
+          {
+            "label": "FilterTitle",
+            "name": "FilterTitle",
+            "saqlExpression": "case 'Record.Name' \nwhen \"ATM\" then \"Transaction Dispute\"\nwhen \"Card\" then \"Transaction Dispute\"\nwhen \"Direct Debit\" then \"Transaction Dispute\"\nwhen \"Direct Entry\" then \"Transaction Dispute\"\nwhen \"Urgent Dishonour Request\" then \"Transaction Dispute\"\nelse 'Record.Name'\nend\n",
+            "type": "Text"
+          }
+        ],
+        "mergeWithSource": true
+      },
+      "sources": ["JoinRecordType"]
     },
     "MergeCaseProduct": {
       "action": "augment",
@@ -92,7 +126,7 @@
         ],
         "mergeWithSource": true
       },
-      "sources": ["JoinRecordType"]
+      "sources": ["ComputeFilterTitle"]
     },
     "FilterOwnerOnly": {
       "action": "filter",

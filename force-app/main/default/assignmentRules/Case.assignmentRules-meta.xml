@@ -25,7 +25,7 @@
         <ruleEntry>
             <assignedTo>IDR_Responsible_Lending</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND 2 AND 3</booleanFilter>
+            <booleanFilter>1 AND 2 AND (3 OR 4 OR  5)</booleanFilter>
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>equals</operation>
@@ -38,6 +38,16 @@
             </criteriaItems>
             <criteriaItems>
                 <field>Case.IDR_Subsequent_Issue__c</field>
+                <operation>equals</operation>
+                <value>38</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.IDR_Subsequent_Issue_2__c</field>
+                <operation>equals</operation>
+                <value>38</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.IDR_Subsequent_Issue_3__c</field>
                 <operation>equals</operation>
                 <value>38</value>
             </criteriaItems>
@@ -61,7 +71,7 @@
                 <value>9,10</value>
             </criteriaItems>
         </ruleEntry>
-       <ruleEntry>
+        <ruleEntry>
             <assignedTo>IDR_Business_Owners</assignedTo>
             <assignedToType>Queue</assignedToType>
             <formula>(RecordType.Name = &apos;Customer Complaint&apos;||
@@ -125,22 +135,151 @@ Product__r.Name = &apos;ANZ Transactive&apos;)</formula>
         <ruleEntry>
             <assignedTo>IDR_Everyday_Banking</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <formula>(RecordType.Name=&apos;Customer Complaint&apos;|| RecordType.Name=&apos;Non-Customer Complaint&apos;)&amp;&amp; ISPICKVAL(Status,&apos;Escalated&apos;)&amp;&amp; (Product__r.Name=&apos;ANZ First Credit Card&apos;|| Product__r.Name=&apos;ANZ Platinum Credit Card&apos;|| Product__r.Name=&apos;ANZ First (for Students) Credit Card&apos;|| Product__r.Name=&apos;ANZ Low Rate Credit Card&apos;|| Product__r.Name=&apos;ANZ Low Rate Platinum Credit Card&apos;|| Product__r.Name=&apos;ANZ Rewards Black Credit Card&apos;|| Product__r.Name=&apos;ANZ Rewards Platinum Credit Card&apos;|| Product__r.Name=&apos;ANZ Rewards Credit Card&apos;|| Product__r.Name=&apos;ANZ Rewards Travel Adventures Credit Card&apos;|| Product__r.Name=&apos;ANZ Frequent Flyer Credit Card&apos;|| Product__r.Name=&apos;ANZ Frequent Flyer Platinum Credit Card&apos;|| Product__r.Name=&apos;ANZ Frequent Flyer Black Credit Card&apos;|| Product__r.Name=&apos;Foreign Currency Accountx&apos;|| Product__r.Name=&apos;ANZ Passbook Pensioner Advantage&apos;|| Product__r.Name=&apos;ANZ Passbook Savings&apos;|| Product__r.Name=&apos;ANZ Access Select&apos;|| Product__r.Name=&apos;ANZ Everyday Visa Debit&apos;|| Product__r.Name=&apos;ANZ V2Plus (Retail)&apos;|| Product__r.Name=&apos;ANZ First Home Saver&apos;|| Product__r.Name=&apos;ANZ Cash Management Account&apos;|| Product__r.Name=&apos;ANZ Access Advantage&apos;|| Product__r.Name=&apos;ANZ Pensioner Advantage&apos;|| Product__r.Name=&apos;ANZ Access Basic&apos;|| Product__r.Name=&apos;Staff Cheque Account&apos;|| Product__r.Name=&apos;Retired Officers Cheque Account&apos;|| Product__r.Name=&apos;Security Deposit&apos;|| Product__r.Name=&apos;ANZ Access Limited&apos;|| Product__r.Name=&apos;V2 Plus&apos;|| Product__r.Name=&apos;V2 Plus Broking&apos;|| Product__r.Name=&apos;V2 Plus including Margin Lending&apos;|| Product__r.Name=&apos;V2 Plus Intermediary&apos;|| Product__r.Name=&apos;ANZ Access Visa Debit card (AAVD)&apos;|| Product__r.Name=&apos;Custodial Services&apos;|| Product__r.Name=&apos;Safe Deposit Box&apos;|| Product__r.Name=&apos;ANZ Premium Cash Management Account&apos;|| Product__r.Name=&apos;ANZ Cash Investment Account&apos;|| Product__r.Name=&apos;Investor Cash Hub&apos;|| Product__r.Name=&apos;ANZ Cash Advantage&apos;|| Product__r.Name=&apos;Prime Cash Management Account&apos;|| Product__r.Name=&apos;Prime Cash Management Account - Pension&apos;|| Product__r.Name=&apos;ANZ Online Saver&apos;|| Product__r.Name=&apos;ANZ Progress Saver&apos;|| Product__r.Name=&apos;ANZ Term Deposit&apos;|| Product__r.Name=&apos;ANZ Advance Notice Term Deposit&apos;|| Product__r.Name=&apos;Seniors Term Deposit&apos;|| Product__r.Name=&apos;Travel Money&apos;|| Product__r.Name=&apos;ANZ ATM&apos;|| Product__r.Name=&apos;Bank Drafts&apos;|| Product__r.Name=&apos;Cheque&apos;|| Product__r.Name=&apos;Branch Transaction&apos;|| Product__r.Name=&apos;Direct Debit&apos;|| Product__r.Name=&apos;EFTPOS Transaction&apos;|| Product__r.Name=&apos;Foreign Currency Transaction&apos;|| Product__r.Name=&apos;FOREX&apos;|| Product__r.Name=&apos;International payments&apos;|| Product__r.Name=&apos;Cash Pack&apos; )</formula>
+            <formula>(RecordType.Name=&apos;Customer Complaint&apos;||
+RecordType.Name=&apos;Non-Customer Complaint&apos;)&amp;&amp;
+ISPICKVAL(Status,&apos;Escalated&apos;)&amp;&amp;
+(Product__r.Name=&apos;ANZ First Credit Card&apos;||
+Product__r.Name=&apos;ANZ Platinum Credit Card&apos;||
+Product__r.Name=&apos;ANZ First (for Students) Credit Card&apos;||
+Product__r.Name=&apos;ANZ Low Rate Credit Card&apos;||
+Product__r.Name=&apos;ANZ Low Rate Platinum Credit Card&apos;||
+Product__r.Name=&apos;ANZ Rewards Black Credit Card&apos;||
+Product__r.Name=&apos;ANZ Rewards Platinum Credit Card&apos;||
+Product__r.Name=&apos;ANZ Rewards Credit Card&apos;||
+Product__r.Name=&apos;ANZ Rewards Travel Adventures Credit Card&apos;||
+Product__r.Name=&apos;ANZ Frequent Flyer Credit Card&apos;||
+Product__r.Name=&apos;ANZ Frequent Flyer Platinum Credit Card&apos;||
+Product__r.Name=&apos;ANZ Frequent Flyer Black Credit Card&apos;||
+Product__r.Name=&apos;Foreign Currency Accountx&apos;||
+Product__r.Name=&apos;ANZ Passbook Pensioner Advantage&apos;||
+Product__r.Name=&apos;ANZ Passbook Savings&apos;||
+Product__r.Name=&apos;ANZ Access Select&apos;||
+Product__r.Name=&apos;ANZ Everyday Visa Debit&apos;||
+Product__r.Name=&apos;ANZ V2Plus (Retail)&apos;||
+Product__r.Name=&apos;ANZ First Home Saver&apos;||
+Product__r.Name=&apos;ANZ Cash Management Account&apos;||
+Product__r.Name=&apos;ANZ Access Advantage&apos;||
+Product__r.Name=&apos;ANZ Pensioner Advantage&apos;||
+Product__r.Name=&apos;ANZ Access Basic&apos;||
+Product__r.Name=&apos;Staff Cheque Account&apos;||
+Product__r.Name=&apos;Retired Officers Cheque Account&apos;||
+Product__r.Name=&apos;Security Deposit&apos;||
+Product__r.Name=&apos;ANZ Access Limited&apos;||
+Product__r.Name=&apos;V2 Plus&apos;||
+Product__r.Name=&apos;V2 Plus Broking&apos;||
+Product__r.Name=&apos;V2 Plus including Margin Lending&apos;||
+Product__r.Name=&apos;V2 Plus Intermediary&apos;||
+Product__r.Name=&apos;ANZ Access Visa Debit card (AAVD)&apos;||
+Product__r.Name=&apos;Custodial Services&apos;||
+Product__r.Name=&apos;Safe Deposit Box&apos;||
+Product__r.Name=&apos;ANZ Premium Cash Management Account&apos;||
+Product__r.Name=&apos;ANZ Cash Investment Account&apos;||
+Product__r.Name=&apos;Investor Cash Hub&apos;||
+Product__r.Name=&apos;ANZ Cash Advantage&apos;||
+Product__r.Name=&apos;Prime Cash Management Account&apos;||
+Product__r.Name=&apos;Prime Cash Management Account - Pension&apos;||
+Product__r.Name=&apos;ANZ Online Saver&apos;||
+Product__r.Name=&apos;ANZ Progress Saver&apos;||
+Product__r.Name=&apos;ANZ Term Deposit&apos;||
+Product__r.Name=&apos;ANZ Advance Notice Term Deposit&apos;||
+Product__r.Name=&apos;Seniors Term Deposit&apos;||
+Product__r.Name=&apos;Travel Money&apos;||
+Product__r.Name=&apos;ANZ ATM&apos;||
+Product__r.Name=&apos;Bank Drafts&apos;||
+Product__r.Name=&apos;Cheque&apos;||
+Product__r.Name=&apos;Branch Transaction&apos;||
+Product__r.Name=&apos;Direct Debit&apos;||
+Product__r.Name=&apos;EFTPOS Transaction&apos;||
+Product__r.Name=&apos;Foreign Currency Transaction&apos;||
+Product__r.Name=&apos;FOREX&apos;||
+Product__r.Name=&apos;International payments&apos;||
+Product__r.Name=&apos;Cash Pack&apos;
+)</formula>
         </ruleEntry>
         <ruleEntry>
             <assignedTo>IDR_Everyday_Banking</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <formula>(RecordType.Name=&apos;Customer Complaint&apos;|| RecordType.Name=&apos;Non-Customer Complaint&apos;)&amp;&amp; ISPICKVAL(Status,&apos;Escalated&apos;)&amp;&amp; (Product__r.Name=&apos;Telegraphic Transfer&apos;|| Product__r.Name=&apos;ANZ Reward Points&apos;|| Product__r.Name=&apos;Qantas Frequent Flyer Points&apos;|| Product__r.Name=&apos;ANZ Internet Banking&apos;|| Product__r.Name=&apos;ANZ App&apos;|| Product__r.Name=&apos;ANZ FX Online&apos;|| Product__r.Name=&apos;ANZ Private FX Online&apos;|| Product__r.Name=&apos;ANZ Cashactive Virtual&apos;|| Product__r.Name=&apos;Currency by ANZ (app)&apos;|| Product__r.Name=&apos;ANZ Shield&apos;|| Product__r.Name=&apos;Phone Banking&apos;|| Product__r.Name=&apos;ANZ Travel Card (Multi Currency)&apos;|| Product__r.Name=&apos;Power of Attorney&apos;|| Product__r.Name=&apos;Wills&apos;|| Product__r.Name=&apos;Deceased Estates&apos;|| Product__r.Name=&apos;Open Banking/Data Sharing&apos;|| Product__r.Name=&apos;IVR&apos;||Product__r.Name=&apos;N/A&apos;)</formula>
+            <formula>(RecordType.Name=&apos;Customer Complaint&apos;||
+RecordType.Name=&apos;Non-Customer Complaint&apos;)&amp;&amp;
+ISPICKVAL(Status,&apos;Escalated&apos;)&amp;&amp;
+(Product__r.Name=&apos;Telegraphic Transfer&apos;||
+Product__r.Name=&apos;ANZ Reward Points&apos;||
+Product__r.Name=&apos;Qantas Frequent Flyer Points&apos;||
+Product__r.Name=&apos;ANZ Internet Banking&apos;||
+Product__r.Name=&apos;ANZ App&apos;||
+Product__r.Name=&apos;ANZ FX Online&apos;||
+Product__r.Name=&apos;ANZ Private FX Online&apos;||
+Product__r.Name=&apos;ANZ Cashactive Virtual&apos;||
+Product__r.Name=&apos;Currency by ANZ (app)&apos;||
+Product__r.Name=&apos;ANZ Shield&apos;||
+Product__r.Name=&apos;Phone Banking&apos;||
+Product__r.Name=&apos;ANZ Travel Card (Multi Currency)&apos;||
+Product__r.Name=&apos;Power of Attorney&apos;||
+Product__r.Name=&apos;Wills&apos;||
+Product__r.Name=&apos;Deceased Estates&apos;||
+Product__r.Name=&apos;Open Banking/Data Sharing&apos;||
+Product__r.Name=&apos;IVR&apos;||Product__r.Name=&apos;N/A&apos;)</formula>
         </ruleEntry>
         <ruleEntry>
             <assignedTo>IDR_Home_Owners</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <formula>(RecordType.Name = &apos;Customer Complaint&apos; ||  RecordType.Name = &apos;Non-Customer Complaint&apos;) &amp;&amp;  ISPICKVAL(Status,&apos;Escalated&apos;) &amp;&amp;  ( Product__r.Name=&apos;ANZ Breakfree Package&apos; ||  Product__r.Name=&apos;ANZ Standard Variable Home Loan&apos;||  Product__r.Name=&apos;ANZ Fixed Home Loan&apos;||  Product__r.Name=&apos;ANZ Simplicity Plus Home Loan&apos;||  Product__r.Name=&apos;ANZ Standard Variable Investment Property Loan&apos;||  Product__r.Name=&apos;ANZ Fixed Investment Property Loan&apos;||  Product__r.Name=&apos;ANZ Simplicity Plus Investment Property Loan&apos;||  Product__r.Name=&apos;ANZ Assured&apos;||  Product__r.Name=&apos;ANZ Personal Overdraft&apos;||  Product__r.Name=&apos;ANZ Equity Manager&apos;||  Product__r.Name=&apos;ANZ Variable Rate Personal Loan&apos;||  Product__r.Name=&apos;ANZ Fixed Rate Personal Loan&apos;||  Product__r.Name=&apos;ANZ One Offset Account&apos;  )</formula>
+            <formula>(RecordType.Name = &apos;Customer Complaint&apos; || 
+RecordType.Name = &apos;Non-Customer Complaint&apos;) &amp;&amp; 
+ISPICKVAL(Status,&apos;Escalated&apos;) &amp;&amp; 
+( Product__r.Name=&apos;ANZ Breakfree Package&apos; || 
+Product__r.Name=&apos;ANZ Standard Variable Home Loan&apos;|| 
+Product__r.Name=&apos;ANZ Fixed Home Loan&apos;|| 
+Product__r.Name=&apos;ANZ Simplicity Plus Home Loan&apos;|| 
+Product__r.Name=&apos;ANZ Standard Variable Investment Property Loan&apos;|| 
+Product__r.Name=&apos;ANZ Fixed Investment Property Loan&apos;|| 
+Product__r.Name=&apos;ANZ Simplicity Plus Investment Property Loan&apos;|| 
+Product__r.Name=&apos;ANZ Assured&apos;|| 
+Product__r.Name=&apos;ANZ Personal Overdraft&apos;|| 
+Product__r.Name=&apos;ANZ Equity Manager&apos;|| 
+Product__r.Name=&apos;ANZ Variable Rate Personal Loan&apos;|| 
+Product__r.Name=&apos;ANZ Fixed Rate Personal Loan&apos;|| 
+Product__r.Name=&apos;ANZ One Offset Account&apos;  )</formula>
         </ruleEntry>
         <ruleEntry>
             <assignedTo>IDR_Wealth</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <formula>(RecordType.Name = &apos;Customer Complaint&apos; ||  RecordType.Name = &apos;Non-Customer Complaint&apos;) &amp;&amp;  ISPICKVAL(Status,&apos;Escalated&apos;) &amp;&amp;  ( Product__r.Name=&apos;Margin Lending&apos; ||  Product__r.Name=&apos;ANZ SMSF Cash Hub&apos;||  Product__r.Name=&apos;OnePath Life Term Deposit&apos;||  Product__r.Name=&apos;ANZ Term Deposit via External Platforms &amp; Oasis Wrap&apos;||  Product__r.Name=&apos;ANZ Credit Card Insurance&apos;||  Product__r.Name=&apos;ANZ Loan Protection Insurance&apos;|| Product__r.Name=&apos;ANZ Mortgage Protection Insurance&apos;||  Product__r.Name=&apos;ANZ Lenders Mortgage Insurance&apos;||  Product__r.Name=&apos;ANZ Home and Contents Insurance&apos;||  Product__r.Name=&apos;ANZ Landlord Insurance&apos;||  Product__r.Name=&apos;ANZ Contents Insurance&apos;||  Product__r.Name=&apos;ANZ Car Insurance (Comprehensive)&apos;||  Product__r.Name=&apos;ANZ Car Insurance (Third Party Property Damage, Fire and Theft)&apos;||  Product__r.Name=&apos;ANZ Car Insurance (Third Party Property Damage)&apos;||  Product__r.Name=&apos;ANZ Travel Insurance&apos;|| Product__r.Name=&apos;ANZ Share Investment Loan&apos;|| Product__r.Name=&apos;White-Label ANZ Share Investing Service&apos;||  Product__r.Name=&apos;ANZ Accident Cover Plus&apos;||  Product__r.Name=&apos;ANZ Critical Illness Cover&apos;||  Product__r.Name=&apos;ANZ Income Cover&apos;||  Product__r.Name=&apos;ANZ Income Protection&apos;||  Product__r.Name=&apos;ANZ 50+ Life Cover&apos;||  Product__r.Name=&apos;ANZ Life Insurance&apos;||  Product__r.Name=&apos;ANZ Recover Well&apos;||  Product__r.Name=&apos;ANZ Credit Cover Plus&apos;||  Product__r.Name=&apos;ANZ Credit Cover&apos;||  Product__r.Name=&apos;ANZ Smart Choice Super for Employers and their Employees&apos;|| Product__r.Name=&apos;ANZ Smart Choice Pension&apos;||  Product__r.Name=&apos;ANZ Smart Choice Super&apos;||  Product__r.Name=&apos;IPO &amp; Capital Raising Campaigns&apos;||  Product__r.Name=&apos;Direct Investments&apos;||  Product__r.Name=&apos;ANZ OneAnswer&apos;||  Product__r.Name=&apos;OneAnswer Frontier&apos;||  Product__r.Name=&apos;BT Wrap&apos;||  Product__r.Name=&apos;Netwealth&apos;||  Product__r.Name=&apos;Self Managed Super Fund (SMSF)&apos;)</formula>
+            <formula>(RecordType.Name = &apos;Customer Complaint&apos; || 
+RecordType.Name = &apos;Non-Customer Complaint&apos;) &amp;&amp; 
+ISPICKVAL(Status,&apos;Escalated&apos;) &amp;&amp; 
+( Product__r.Name=&apos;Margin Lending&apos; || 
+Product__r.Name=&apos;ANZ SMSF Cash Hub&apos;|| 
+Product__r.Name=&apos;OnePath Life Term Deposit&apos;|| 
+Product__r.Name=&apos;ANZ Term Deposit via External Platforms &amp; Oasis Wrap&apos;|| 
+Product__r.Name=&apos;ANZ Credit Card Insurance&apos;|| 
+Product__r.Name=&apos;ANZ Loan Protection Insurance&apos;||
+Product__r.Name=&apos;ANZ Mortgage Protection Insurance&apos;|| 
+Product__r.Name=&apos;ANZ Lenders Mortgage Insurance&apos;|| 
+Product__r.Name=&apos;ANZ Home and Contents Insurance&apos;|| 
+Product__r.Name=&apos;ANZ Landlord Insurance&apos;|| 
+Product__r.Name=&apos;ANZ Contents Insurance&apos;|| 
+Product__r.Name=&apos;ANZ Car Insurance (Comprehensive)&apos;|| 
+Product__r.Name=&apos;ANZ Car Insurance (Third Party Property Damage, Fire and Theft)&apos;|| 
+Product__r.Name=&apos;ANZ Car Insurance (Third Party Property Damage)&apos;|| 
+Product__r.Name=&apos;ANZ Travel Insurance&apos;|| Product__r.Name=&apos;ANZ Share Investment Loan&apos;||
+Product__r.Name=&apos;White-Label ANZ Share Investing Service&apos;|| 
+Product__r.Name=&apos;ANZ Accident Cover Plus&apos;|| 
+Product__r.Name=&apos;ANZ Critical Illness Cover&apos;|| 
+Product__r.Name=&apos;ANZ Income Cover&apos;|| 
+Product__r.Name=&apos;ANZ Income Protection&apos;|| 
+Product__r.Name=&apos;ANZ 50+ Life Cover&apos;|| 
+Product__r.Name=&apos;ANZ Life Insurance&apos;|| 
+Product__r.Name=&apos;ANZ Recover Well&apos;|| 
+Product__r.Name=&apos;ANZ Credit Cover Plus&apos;|| 
+Product__r.Name=&apos;ANZ Credit Cover&apos;|| 
+Product__r.Name=&apos;ANZ Smart Choice Super for Employers and their Employees&apos;|| Product__r.Name=&apos;ANZ Smart Choice Pension&apos;|| 
+Product__r.Name=&apos;ANZ Smart Choice Super&apos;|| 
+Product__r.Name=&apos;IPO &amp; Capital Raising Campaigns&apos;|| 
+Product__r.Name=&apos;Direct Investments&apos;|| 
+Product__r.Name=&apos;ANZ OneAnswer&apos;|| 
+Product__r.Name=&apos;OneAnswer Frontier&apos;|| 
+Product__r.Name=&apos;BT Wrap&apos;|| 
+Product__r.Name=&apos;Netwealth&apos;|| 
+Product__r.Name=&apos;Self Managed Super Fund (SMSF)&apos;)</formula>
         </ruleEntry>
         <ruleEntry>
             <assignedTo>IDR_Early_Resolution</assignedTo>
