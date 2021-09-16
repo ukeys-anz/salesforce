@@ -80,9 +80,11 @@ public with sharing class IDRCollectionActions {
     }
     if (!collectionsCasesEventList.isEmpty()) {
       publishCollectionEvent(collectionsCasesEventList);
+      stopCollectionAccList.clear();
     }
     if (!isCollectionEventFailed && !stopCollectionTaskList.isEmpty()) {
       insertSystemTasks(stopCollectionTaskList);
+      stopCollectionTaskList.clear();
     }
   }
 
@@ -307,7 +309,7 @@ public with sharing class IDRCollectionActions {
       publishResults,
       collectionsEventList
     );
-    log.insertLog();
+    log.insertLogAsync();
   }
 
   /**
@@ -324,7 +326,7 @@ public with sharing class IDRCollectionActions {
       'insertSystemTasks'
     );
     log.addDatabaseSaveResult('Task', results, collectionTaskList);
-    log.insertLog();
+    log.insertLogAsync();
   }
 
   /**
@@ -405,9 +407,11 @@ public with sharing class IDRCollectionActions {
 
     if (!collectionsStartEventList.isEmpty()) {
       publishCollectionEvent(collectionsStartEventList);
+      startCollectionAccList.clear();
     }
     if (!isCollectionEventFailed && !startCollectionTaskList.isEmpty()) {
       insertSystemTasks(startCollectionTaskList);
+      startCollectionTaskList.clear();
     }
   }
 
