@@ -31,6 +31,8 @@ public with sharing class IDRCaseActions {
 
   private static final String DELETE_ERROR = 'You cannot delete cases';
 
+  private static final String CUSTOMER_NUMBER_VALIDATION_ERROR = 'This field can no longer be edited. In the event that the Customer Number/Identifier is incorrect, the case must be withdrawn and a new case created with the correct Customer Number.';
+
   private static final String CANNOT_CLOSE_CASE_WITH_PENDING_TASK_ERROR = 'You cannot close the case as there is currently an open \'Pend Case\' task. Please review and action the open \'Pend Case\' task before closing the case.';
 
   @TestVisible
