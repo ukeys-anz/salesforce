@@ -13,7 +13,8 @@
     ISBLANK(TEXT(IDR_Escalation_Reason__c))) ,
 
     AND (NOT((ISPICKVAL(Status, &apos;Escalated&apos;))),
-    NOT(ISBLANK(TEXT(IDR_Escalation_Reason__c)))))
+    NOT(ISPICKVAL(PRIORVALUE(Status),&apos;Escalated&apos;)),
+    ISCHANGED(IDR_Escalation_Reason__c)))
     )</errorConditionFormula>
     <errorMessage>Please make sure these fields are populated : Status, Escalation Reason</errorMessage>
 </ValidationRule>
