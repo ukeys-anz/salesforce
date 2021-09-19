@@ -51,15 +51,7 @@ public with sharing class IDREmailToCase {
         fieldValue = fieldValue.replaceFirst('^[ \t]+', ''); //replacing the leading spaces
 
         if (IDRConstants.anzComFieldMapping.containsKey(fieldName)) {
-          if (
-            fieldName == 'Feedback Topic' &&
-            IDRConstants.anzComIssueTypeMapping.containsKey(fieldValue)
-          ) {
-            c.put(
-              IDRConstants.anzComFieldMapping.get(fieldName),
-              IDRConstants.anzComIssueTypeMapping.get(fieldValue)
-            );
-          } else if (fieldName == 'Email address') {
+          if (fieldName == 'Email') {
             List<String> emailValues = fieldValue.split('<', 2);
             c.put(
               IDRConstants.anzComFieldMapping.get(fieldName),

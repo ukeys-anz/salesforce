@@ -133,7 +133,7 @@ public with sharing class IDRConstants {
    * @description Static variable to map anz.com field with case fields
    * @return anzComFieldMapping map of anz.com field with case fields
    */
-  public static final Map<String, String> anzComFieldMapping {
+  /*public static final Map<String, String> anzComFieldMapping {
     get {
       if (anzComFieldMapping == null) {
         anzComFieldMapping = new Map<String, String>{
@@ -157,31 +157,42 @@ public with sharing class IDRConstants {
       return anzComFieldMapping;
     }
     set;
-  }
+  }*/
 
-  /**
-   * @description Static variable to map anz.com Issue type field with case type field
-   * @return anzComIssueTypeMapping map of anz.com Issue type field with case type field
-   */
-  public static final Map<String, String> anzComIssueTypeMapping {
+  public static final Map<String, String> anzComFieldMapping {
     get {
-      if (anzComIssueTypeMapping == null) {
-        anzComIssueTypeMapping = new Map<String, String>{
-          'Account set up/Maitenence/Closure' => 'Account set-up & maintenance',
-          'Branch/Merchant/System issue' => 'Channel accessibility',
-          'Collections' => 'Collections',
-          'Credit card/Loan assessment' => 'Credit assessment',
-          'Fees/Interest/Rewards' => 'Fees, interest, rewards',
-          'Fraud/Dispute' => 'Transaction Disputes',
-          'Hardship' => 'Financial difficulty & hardship',
-          'Loan settlement/Drawdown' => 'Lending fulfilment',
-          'Payments' => 'Transactions & payments',
-          'Product features/Marketing/Sales' => 'Product features, offers, sales',
-          'Service Quality' => 'Service quality',
-          'Other' => 'Other'
+      if (anzComFieldMapping == null) {
+        anzComFieldMapping = new Map<String, String>{
+          //'This feedback is a' => 'IDR_Feedback_Category__c',
+          //'Previously raised?' => 'IDR_Previously_raised_with_ANZ__c',
+          'Product Category' => 'IDR_Product_Category__c',
+          'Issue Type' => 'Type',
+          'Description of Issue' => 'Description',
+          'Customer Desired Outcome' => 'IDR_Complainant_Desired_Outcome__c',
+          'Existing ANZ Customer' => 'IDR_Existing_ANZ_Customer__c',
+          //'Relationship to Customer' => ?,
+          //'Agent details' => ?,
+          //'Agent Company Name' => ?,
+          //'Agent phone' => ?,
+          //'Agent email' => ?,
+          //'Date' => ?,
+          //'Complaint resolved' => ?,
+          //'Date complaint resolved' => ?,
+          //'Resolution summary' => ?,
+          //'Vulnerable customer' => ?,
+          'First Name' => 'IDR_NC_First_Name__c',
+          'Last Name' => 'IDR_NC_Last_Name__c',
+          //'CRN' => ?,
+          'Street Address' => 'IDR_NC_Street__c',
+          'Suburb' => 'IDR_NC_Suburb__c',
+          'Postcode' => 'IDR_NC_Postcode__c',
+          'Country' => 'IDR_NC_Country__c',
+          //'Preferred contact method' => ?,
+          'Phone' => 'IDR_NC_Phone__c',
+          'Email' => 'IDR_NC_Email__c'
         };
       }
-      return anzComIssueTypeMapping;
+      return anzComFieldMapping;
     }
     set;
   }
