@@ -236,7 +236,7 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>GetCustomerInformation</apexClass>
+        <apexClass>IDRAPIRepository</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -312,7 +312,7 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>GetCustomerInformationTest</apexClass>
+        <apexClass>IDRAPIRepositoryTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -1819,8 +1819,19 @@
         <layout>Application_Log__c-Application Log Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>CFMS_Migrated_Document__c-CFMS Migrated Document Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case-Complaint Layout</layout>
         <recordType>Case.Customer_Complaint</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-General Inquiry CMOS Layout</layout>
+        <recordType>Case.General_Inquiry_CMOS</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-CFMS Migrated Complaint Layout</layout>
+        <recordType>Case.CFMS_Migrated_Case</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Case-Non-Customer Complaint Layout</layout>
@@ -1843,6 +1854,9 @@
     <layoutAssignments>
         <layout>Case_Product__c-Relevant Product Layout</layout>
         <recordType>Case_Product__c.Systemic_Issues_and_Products</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ContentVersion-Content Version</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Release__c-Release Layout</layout>
@@ -2422,6 +2436,11 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <default>false</default>
+        <recordType>Case.CFMS_Migrated_Case</recordType>
+        <visible>false</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
         <recordType>Case.Customer_Complaint</recordType>
         <visible>false</visible>
     </recordTypeVisibilities>
@@ -2949,6 +2968,14 @@
     <userPermissions>
         <enabled>true</enabled>
         <name>AllowViewKnowledge</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>false</enabled>
+        <name>ApexRestServices</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>false</enabled>
+        <name>ApiEnabled</name>
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>

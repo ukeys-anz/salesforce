@@ -86,7 +86,6 @@ class NonCustomerComplaint extends Base {
       "//lightning-accordion-section[1]/section/div[2]/slot/div/div[6]/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[1]/input"
     );
   }
-
   get country() {
     return $(
       "//lightning-accordion-section[1]/section/div[2]/slot/div/div[13]/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[1]/input"

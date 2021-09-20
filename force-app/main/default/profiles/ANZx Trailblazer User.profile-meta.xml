@@ -75,10 +75,6 @@
     </userPermissions>
     <userPermissions>
         <enabled>false</enabled>
-        <name>DistributeFromPersWksp</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
         <name>EditTopics</name>
     </userPermissions>
     <userPermissions>

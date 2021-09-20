@@ -4,6 +4,7 @@ import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { NavigationMixin } from "lightning/navigation";
 import CASE_OBJECT from "@salesforce/schema/Case";
 import CAP_CIS_ID_FIELD from "@salesforce/schema/Case.IDR_Customer_Number__c";
+import CUS_IDENTIFIER_FIELD from "@salesforce/schema/Case.IDR_Customer_Identifier__c";
 
 //3rd Party Fields
 import THIRD_PARTY_NAME_FIELD from "@salesforce/schema/Case.IDR_3rdParty_Name__c";
@@ -22,7 +23,7 @@ import THIRD_PARTY_PRODUCT_MANUFACTURER from "@salesforce/schema/Case.IDR_Produc
 import THIRD_PARTY_OTHER_PRODUCT_MANUFACTURER from "@salesforce/schema/Case.Name_of_product_manufacturer__c";
 import THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER from "@salesforce/schema/Case.Provided_details_to_Product_Manufacturer__c";
 
-//Non Customer complaints
+//Non Customer complaint
 import COMPLAINT_TYPE_FIELD from "@salesforce/schema/Case.IDR_Complainant_Type__c";
 import BUSINESS_NAME_FIELD from "@salesforce/schema/Case.IDR_NC_Business_Name__c";
 import FIRST_NAME_FIELD from "@salesforce/schema/Case.IDR_NC_First_Name__c";
@@ -40,6 +41,9 @@ import COUNTRY_FIELD from "@salesforce/schema/Case.IDR_NC_Country__c";
 import STATE_FIELD from "@salesforce/schema/Case.IDR_NC_State__c";
 import CONSENT_OBTAINED from "@salesforce/schema/Case.IDR_NC_Is_Consent_Obtained__c";
 import CUSTOMER_COMMS from "@salesforce/schema/Case.IDR_SwitchOff_Customer_Notification__c";
+import OCV_ID from "@salesforce/schema/Case.OCV_Id__c";
+import CP_ID from "@salesforce/schema/Case.CPID__c";
+import RM_COMPLAINT from "@salesforce/schema/Case.Relationship_Managed_Complaint__c";
 
 //Is written Response Needed Fields
 import WRITTEN_RESPONSE_REQUESTED_FIELD from "@salesforce/schema/Case.IDR_Is_Written_Resp_Requested__c";
@@ -68,12 +72,28 @@ import IS_COMMON_COMPLAINT_FIELD from "@salesforce/schema/Case.IDR_Is_Common__c"
 import IS_REAL_FORM_NEED_FIELD from "@salesforce/schema/Case.IDR_Real_Form_Req__c";
 import SYSTEMIC_ISSUE_DESCRIPTION from "@salesforce/schema/Case.IDR_Systemic_Issue_Description__c";
 import SYSTEMIC_ISSUE_CATEGORY from "@salesforce/schema/Case.IDR_Systemic_Issue_Category__c";
+import POSSIBLE_SYSTEMIC_ISSUES from "@salesforce/schema/Case.IDR_Possible_Systemic_Issues__c";
 import IS_REAL_FORM_SUBMITTED from "@salesforce/schema/Case.IDR_Real_Form_Submitted__c";
 import REAL_FORM_REF_NO from "@salesforce/schema/Case.IDR_Real_Form_Ref_No__c";
 
 //Is Escalated fields
 import ESCALATED_TO from "@salesforce/schema/Case.IDR_Escalated_to__c";
 import ESCALATION_REASON from "@salesforce/schema/Case.IDR_Escalation_Reason__c";
+import RESTRICTION_LEVEL from "@salesforce/schema/Case.IDR_Restriction_Level__c";
+
+//Issue 2 fields
+import HAS_SECOND_ISSUE from "@salesforce/schema/Case.IDR_Second_Issue__c";
+import ISSUE_TYPE_2 from "@salesforce/schema/Case.IDR_Issue_Type_2__c";
+import SUBSEQUENT_ISSUE_TYPE_2 from "@salesforce/schema/Case.IDR_Subsequent_Issue_2__c";
+import PRODUCT_LOOKUP_FIELD_2 from "@salesforce/schema/Case.IDR_Product_2__c";
+import ACCOUNT_POLICY_FIELD_2 from "@salesforce/schema/Case.IDR_Account_Card_Policy_Number_2__c";
+
+//Issue 3 fields
+import HAS_THIRD_ISSUE from "@salesforce/schema/Case.IDR_Third_Issue__c";
+import ISSUE_TYPE_3 from "@salesforce/schema/Case.IDR_Issue_Type_3__c";
+import SUBSEQUENT_ISSUE_TYPE_3 from "@salesforce/schema/Case.IDR_Subsequent_Issue_3__c";
+import PRODUCT_LOOKUP_FIELD_3 from "@salesforce/schema/Case.IDR_Product_3__c";
+import ACCOUNT_POLICY_FIELD_3 from "@salesforce/schema/Case.IDR_Account_Card_Policy_Number_3__c";
 
 const ERROR_REQUIRED_TITLE = "Please complete all required fields:\n";
 const ERROR_UNKNOWN_TITLE = "An error has occurred.";
@@ -91,6 +111,11 @@ const COMPLAINT_REMEDY_FIN_VALUE = "1";
 const COMPLAINT_REMEDY_NON_FIN_VALUE = "2";
 const OTHER = "Other";
 
+const CUS_IDENTIFIER_CAPCIS_ID = "Customer/Business CAP ID";
+const CUS_IDENTIFIER_CACHE_ID = "CACHE ID";
+const CUS_IDENTIFIER_RAZOR_ID = "RAZOR ID";
+const CUS_IDENTIFIER_CRN_ID = "CRN";
+
 export default class CreateComplaintLWC extends NavigationMixin(
   LightningElement
 ) {
@@ -105,8 +130,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
   ComplainantDesiredOutcome = DESIRED_OUTCOME_FIELD;
 
   //Customer complaint details
-  accountOrPolicyNumber = ACCOUNT_POLICY_FIELD;
+  accountOrPolicyNumber = "";
   CapCisID = CAP_CIS_ID_FIELD;
+  customerIdentifierValue = CUS_IDENTIFIER_CAPCIS_ID;
 
   //Non customer complaint details
   complaintType = COMPLAINT_TYPE_FIELD;
@@ -125,6 +151,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
   country = COUNTRY_FIELD;
   state = STATE_FIELD;
   consentObtained = CONSENT_OBTAINED;
+  ocvId = OCV_ID;
+  cpId = CP_ID;
+  isRmComplaint = RM_COMPLAINT;
 
   //3rd Party Fields
   thirdPartyName = THIRD_PARTY_NAME_FIELD;
@@ -155,18 +184,36 @@ export default class CreateComplaintLWC extends NavigationMixin(
   commonComplaint = IS_COMMON_COMPLAINT_FIELD;
   systemicIssueDescription = SYSTEMIC_ISSUE_DESCRIPTION;
   systemicIssueCategory = SYSTEMIC_ISSUE_CATEGORY;
+  possibleSystemicIssues = POSSIBLE_SYSTEMIC_ISSUES;
 
   // escalation fields
   escalatedTo = ESCALATED_TO;
   escalationReason = ESCALATION_REASON;
+  restrictionLevel = RESTRICTION_LEVEL;
+  restrictionLevelValue = "";
+
+  // Issue 2 fields
+  issueType2 = ISSUE_TYPE_2;
+  subsequentIssue2 = SUBSEQUENT_ISSUE_TYPE_2;
+  productValue2 = PRODUCT_LOOKUP_FIELD_2;
+  accountOrPolicyNumber2 = "";
+
+  // Issue 3 fields
+  issueType3 = ISSUE_TYPE_3;
+  subsequentIssue3 = SUBSEQUENT_ISSUE_TYPE_3;
+  productValue3 = PRODUCT_LOOKUP_FIELD_3;
+  accountOrPolicyNumber3 = "";
 
   @api recordTypeId;
   @api recordTypeDevName;
   @api contextRecordId;
 
+  isCustomerDetails = false;
   isCustomerNotification = false;
   hasNominatedThirdParty = false;
   is3rdPartyNotification = false;
+  hasSecondIssue = false;
+  hasThirdIssue = false;
   activeSections = ["A", "B", "C"];
   displayCustomerInfo = false;
   customerIdValue = "";
@@ -210,6 +257,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     { label: "Yes", value: "Yes" },
     { label: "No", value: "No" }
   ];
+  accountNumberOptions = [{ label: "N/A", value: "N/A" }];
 
   commoncomplaintoptions = [
     { label: "Yes", value: "Yes" },
@@ -230,6 +278,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   //initialize components
   connectedCallback() {
     this.recordType = this.recordTypeId;
+    //prepopulate the lookup when creating a new complaint from a product record page
     this.productValue =
       this.contextRecordId && this.contextRecordId.match(/01t[a-z0-9]+/i)
         ? this.contextRecordId
@@ -238,6 +287,18 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.showComplianceFields = this.isCustomerComplaint || this.consentValue;
     this.showSections = this.isCustomerComplaint;
     this.isAddressRequired = false;
+  }
+
+  get customerNumberTypeOptions() {
+    return [
+      { label: CUS_IDENTIFIER_CAPCIS_ID, value: CUS_IDENTIFIER_CAPCIS_ID },
+      {
+        label: CUS_IDENTIFIER_CACHE_ID,
+        value: CUS_IDENTIFIER_CACHE_ID
+      },
+      { label: CUS_IDENTIFIER_RAZOR_ID, value: CUS_IDENTIFIER_RAZOR_ID },
+      { label: CUS_IDENTIFIER_CRN_ID, value: CUS_IDENTIFIER_CRN_ID }
+    ];
   }
 
   get statusOptions() {
@@ -253,6 +314,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
       { label: CLOSED_STATUS_API_NAME, value: CLOSED_STATUS_API_NAME }
     ];
   }
+  handleCustomerIdentifierChange(event) {
+    this.customerIdentifierValue = event.target.value;
+  }
+
   handleComplaintTypeChange(event) {
     this.isBusiness = event.detail.value === BUSINESS_TYPE_API;
   }
@@ -269,13 +334,32 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.is3rdPartyNotification = event.target.checked;
   }
 
+  handlePriorityChange(event) {
+    this.ComplaintPriority = event.detail.value;
+  }
+
+  handle2ndIssueToggleChange(event) {
+    this.hasSecondIssue = event.target.checked;
+  }
+
+  handle3rdIssueToggleChange(event) {
+    this.hasThirdIssue = event.target.checked;
+  }
+  handleAccountNumberChange(event) {
+    this.accountOrPolicyNumber = event.target.value;
+  }
+  handleAccountNumber2Change(event) {
+    this.accountOrPolicyNumber2 = event.target.value;
+  }
+  handleAccountNumber3Change(event) {
+    this.accountOrPolicyNumber3 = event.target.value;
+  }
   handleCommonComplaint(event) {
     this.isCommonComplaintYesNo = event.target.value;
     this.isCommonComplaint =
       this.isCommonComplaintYesNo === "Yes" ? true : false;
   }
   handleStatusChange(event) {
-    console.log("event.target.value:" + event.target.value);
     this.caseStatus = event.target.value;
     this.isComplaintEscalated = false;
     this.isComplaintResolved = false;
@@ -333,6 +417,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.financialCompensation = event.target.value;
   }
 
+  handleRestrictionLevel(event) {
+    this.restrictionLevelValue = event.target.value;
+  }
+
   handleSectionToggle() {}
 
   handleConsentChange(event) {
@@ -350,13 +438,25 @@ export default class CreateComplaintLWC extends NavigationMixin(
   }
 
   handleCustomerNumberChange(event) {
+    let customerNumberField = this.template.querySelector(".inputCapCisId");
     this.isCustNumValidated = false;
     this.customerIdValue = event.target.value;
-    if (this.customerIdValue.match("^[0-9]{10,15}$")) {
-      this.searchDisabled = false;
+    this.searchDisabled = false;
+    if (this.customerIdentifierValue === CUS_IDENTIFIER_CAPCIS_ID) {
+      if (this.customerIdValue.match("^[0-9]{10,15}$")) {
+        customerNumberField.setCustomValidity("");
+        this.searchDisabled = false;
+      } else {
+        customerNumberField.setCustomValidity(
+          "Customer number must be numbers and at least 10 digits long"
+        );
+        this.searchDisabled = true;
+      }
     } else {
-      this.searchDisabled = true;
+      customerNumberField.setCustomValidity("");
+      this.searchDisabled = false;
     }
+    customerNumberField.reportValidity();
   }
 
   handleWrittenResponseChange(event) {
@@ -417,8 +517,34 @@ export default class CreateComplaintLWC extends NavigationMixin(
     let isFieldValid = [
       ...this.template.querySelectorAll("lightning-input-field")
     ].reduce((isValidSoFar, inputCmp) => {
-      if (inputCmp.id) {
-        let getId = inputCmp.id.split("-");
+      if (inputCmp.getAttribute("data-id")) {
+        let getId = inputCmp.getAttribute("data-id").split("-");
+        if (requiredFields[getId[0]] && !inputCmp.value) {
+          isValidSoFar = false;
+          this.missingDataFields += requiredFields[getId[0]] + ", ";
+        }
+      }
+      return isValidSoFar;
+    }, true);
+
+    let isDescValid = [
+      ...this.template.querySelectorAll("lightning-textarea")
+    ].reduce((isValidSoFar, inputCmp) => {
+      if (inputCmp.getAttribute("data-id")) {
+        let getId = inputCmp.getAttribute("data-id").split("-");
+        if (requiredFields[getId[0]] && !inputCmp.value) {
+          isValidSoFar = false;
+          this.missingDataFields += requiredFields[getId[0]] + ", ";
+        }
+      }
+      return isValidSoFar;
+    }, true);
+
+    let isComboboxValid = [
+      ...this.template.querySelectorAll("lightning-combobox")
+    ].reduce((isValidSoFar, inputCmp) => {
+      if (inputCmp.getAttribute("data-id")) {
+        let getId = inputCmp.getAttribute("data-id").split("-");
         if (requiredFields[getId[0]] && !inputCmp.value) {
           isValidSoFar = false;
           this.missingDataFields += requiredFields[getId[0]] + ", ";
@@ -453,7 +579,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     let isRadioGroupValid = [
       ...this.template.querySelectorAll("lightning-radio-group")
     ].reduce((isValidSoFar, inputCmp) => {
-      let getId = inputCmp.id.split("-");
+      let getId = inputCmp.getAttribute("data-id").split("-");
       //Currently only checking for realFormRequiredGroup Validations within radio-group
       if (getId[0].includes("realFormRequiredGroup")) {
         if (typeof inputCmp.value === "undefined") {
@@ -471,6 +597,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     // validate the data in customer number is as expected.
     if (
       this.isCustomerComplaint &&
+      this.customerIdentifierValue === CUS_IDENTIFIER_CAPCIS_ID &&
       !this.customerIdValue.match("^[0-9]{10,}$")
     ) {
       isFieldValid = false;
@@ -485,19 +612,17 @@ export default class CreateComplaintLWC extends NavigationMixin(
     let isEmailValid = [
       ...this.template.querySelectorAll("lightning-input-field")
     ].reduce((isValidSoFar, inputCmp) => {
-      if (inputCmp.id) {
-        let getId = inputCmp.id.split("-");
+      if (inputCmp.getAttribute("data-id")) {
+        let getId = inputCmp.getAttribute("data-id").split("-");
         if (
           (getId[0].includes("email") || getId[0].includes("Email")) &&
-          requiredFields[getId[0]] &&
           inputCmp.value
         ) {
           let emailRegex =
             '^(([^<>()\\[\\]\\.,;:\\s@"]+(\\.+[^<>()\\[\\]\\.,;:\\s@"]+)*)|(".+"))@(([^<>()[\\]\\.,;:\\s@"]+\\.)+[^<>()[\\]\\.,;:\\s@"]{2,})$';
           if (!inputCmp.value.match(emailRegex)) {
             isValidSoFar = false;
-            this.missingDataFields +=
-              requiredFields[getId[0]] + " is invalid. ";
+            this.missingDataFields += inputCmp.value + " is invalid. ";
           }
         }
       }
@@ -519,7 +644,14 @@ export default class CreateComplaintLWC extends NavigationMixin(
         "Acknowledgement that the complaint details have been provided to the product manufacturer is required";
     }
 
-    return isFieldValid && isEmailValid && isFinCompValid && isRadioGroupValid;
+    return (
+      isFieldValid &&
+      isEmailValid &&
+      isFinCompValid &&
+      isDescValid &&
+      isComboboxValid &&
+      isRadioGroupValid
+    );
   }
 
   handleSubmit(event) {
@@ -528,6 +660,19 @@ export default class CreateComplaintLWC extends NavigationMixin(
     if (this.isDataValid) {
       this.template.querySelector(".saveButton").disabled = true;
       const fields = event.detail.fields;
+
+      if (this.isCustomerDetails && this.isCustomerComplaint) {
+        fields[FIRST_NAME_FIELD.fieldApiName] = this.firstName;
+        fields[LAST_NAME_FIELD.fieldApiName] = this.lastName;
+        fields[MIDDLE_NAME_FIELD.fieldApiName] = this.middleNames;
+        fields[OCV_ID.fieldApiName] = this.ocvId;
+        fields[CP_ID.fieldApiName] = this.cpId;
+        fields[RM_COMPLAINT.fieldApiName] = this.isRmComplaint;
+        fields[EMAIL_FIELD.fieldApiName] = this.email;
+        fields[
+          CUS_IDENTIFIER_FIELD.fieldApiName
+        ] = this.customerIdentifierValue;
+      }
       fields[DESCRIPTION_FIELD.fieldApiName] = this.description;
       fields[PRODUCT_LOOKUP_FIELD.fieldApiName] = this.productValue;
       fields[CAP_CIS_ID_FIELD.fieldApiName] = this.customerIdValue.replace(
@@ -558,12 +703,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
       //If user wants to create an escalated case. Set the case status to default status and set the isEscalated flag.
       // This is required to handle afterUpdate trigger logic.
       // Status will be set to escalated in 'HandleCaseEscalationRules' of IDRCaseActions class from the trigger.
-      if (
-        this.isComplaintEscalated &&
-        fields[ESCALATED_TO.fieldApiName] === "1"
-      ) {
-        fields[STATUS_FIELD.fieldApiName] = OPEN_STATUS_API_NAME;
+      if (this.isComplaintEscalated) {
         fields.IsEscalated = true;
+        fields[ESCALATED_TO.fieldApiName] = "1";
       }
       if (this.isRealFormNeeded) {
         fields[IS_REAL_FORM_NEED_FIELD.fieldApiName] = true;
@@ -572,13 +714,20 @@ export default class CreateComplaintLWC extends NavigationMixin(
           fields[REAL_FORM_REF_NO.fieldApiName] = this.realFormRefNo;
         }
       }
+      if (this.hasSecondIssue) {
+        fields[HAS_SECOND_ISSUE.fieldApiName] = true;
+      }
+
+      if (this.hasThirdIssue) {
+        fields[HAS_THIRD_ISSUE.fieldApiName] = true;
+      }
 
       if (this.isCustomerNotification) {
-        fields[CUSTOMER_COMMS.fieldApiName] = this.isCustomerNotification;
+        fields[CUSTOMER_COMMS.fieldApiName] = true;
       }
 
       if (this.is3rdPartyNotification) {
-        fields[THIRD_PARTY_COMMS.fieldApiName] = this.is3rdPartyNotification;
+        fields[THIRD_PARTY_COMMS.fieldApiName] = true;
       }
 
       fields[
@@ -588,6 +737,20 @@ export default class CreateComplaintLWC extends NavigationMixin(
       if (!this.hasNominatedThirdParty) {
         fields[THIRD_PARTY_COUNTRY_FIELD.fieldApiName] = "";
       }
+      fields[ACCOUNT_POLICY_FIELD.fieldApiName] = this.accountOrPolicyNumber;
+
+      if (this.hasSecondIssue) {
+        fields[
+          ACCOUNT_POLICY_FIELD_2.fieldApiName
+        ] = this.accountOrPolicyNumber2;
+      }
+
+      if (this.hasThirdIssue) {
+        fields[
+          ACCOUNT_POLICY_FIELD_3.fieldApiName
+        ] = this.accountOrPolicyNumber3;
+      }
+
       const recordInput = { apiName: CASE_OBJECT.objectApiName, fields };
       createRecord(recordInput)
         .then((response) => {
@@ -598,7 +761,15 @@ export default class CreateComplaintLWC extends NavigationMixin(
           }
         })
         .catch((error) => {
-          this.handleError(error);
+          if (
+            error.body.enhancedErrorType === "RecordError" &&
+            error.body.output.errors[0].errorCode === "INSUFFICIENT_ACCESS" &&
+            this.restrictionLevelValue === "Restricted Case"
+          ) {
+            this.handleRestrictedCase(error);
+          } else {
+            this.handleError(error);
+          }
         });
     }
   }
@@ -656,6 +827,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     if (this.isComplaintEscalated) {
       requiredFields.escalatedTo = "Escalated To";
       requiredFields.escalationReason = "Complaint Escalation Reason";
+      requiredFields.restrictionLevel = "Restriction Level";
     }
     if (this.isNonFinancialComplaintRemedy) {
       requiredFields.nonFinancialRemedy = "Non-Financial Remedy";
@@ -664,6 +836,18 @@ export default class CreateComplaintLWC extends NavigationMixin(
       requiredFields.systemicIssueDescription =
         "Why is this a possible systemic issue?";
       requiredFields.systemicIssueCategory = "Possible Systemic Issue Category";
+    }
+    if (this.hasSecondIssue) {
+      requiredFields.issueType2 = "Issue Type 2";
+      requiredFields.subsequentIssue2 = "Subsequent Issue Type 2";
+      requiredFields.productValue2 = "Product or Service Name 2";
+      requiredFields.accPolicyNum2 = "Account/Card/Policy Number 2";
+    }
+    if (this.hasThirdIssue) {
+      requiredFields.issueType3 = "Issue Type 3";
+      requiredFields.subsequentIssue3 = "Subsequent Issue Type 3";
+      requiredFields.productValue3 = "Product or Service Name 3";
+      requiredFields.accPolicyNum3 = "Account/Card/Policy Number 3";
     }
     return requiredFields;
   }
@@ -681,6 +865,26 @@ export default class CreateComplaintLWC extends NavigationMixin(
   handleCustNumValidated(event) {
     if (event) {
       this.isCustNumValidated = true;
+      if (event.detail) {
+        this.firstName = event.detail.first_name;
+        this.middleNames = event.detail.middlename;
+        this.lastName = event.detail.last_name;
+        this.cpId = event.detail.cpId;
+        this.ocvId = event.detail.ocvId;
+        this.isRmComplaint = event.detail.isRmPresent;
+        this.email = event.detail.email;
+        this.isCustomerDetails = true;
+        this.accountNumberOptions = [{ label: "N/A", value: "N/A" }];
+        let x;
+        for (x in event.detail.accounts) {
+          if (event.detail.accounts[x] != null) {
+            this.accountNumberOptions.push({
+              label: event.detail.accounts[x],
+              value: event.detail.accounts[x]
+            });
+          }
+        }
+      }
     }
   }
 
@@ -712,6 +916,21 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.loading = false;
     this.template.querySelector(".saveButton").disabled = false;
     this.openModal(msg);
+  }
+
+  handleRestrictedCase() {
+    this.loading = false;
+    const toastEvent = new ShowToastEvent({
+      message: SUCCESS_TITLE,
+      variant: SUCCESS
+    });
+    this.dispatchEvent(toastEvent);
+    this[NavigationMixin.Navigate]({
+      type: "standard__navItemPage",
+      attributes: {
+        apiName: "Restricted_Cases"
+      }
+    });
   }
 
   showModal = false;
