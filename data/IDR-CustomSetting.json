@@ -12,7 +12,7 @@
     "saveRefs": false,
     "resolveRefs": true,
     "files": [
-      "IDR-EmailService-Setting.json"
+      "IDR-EmailService-Setting-NonProd.json"
     ]
   }
 ]
