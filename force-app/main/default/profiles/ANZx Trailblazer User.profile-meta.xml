@@ -51,7 +51,11 @@
     </userPermissions>
     <userPermissions>
         <enabled>false</enabled>
+<<<<<<< HEAD
         <name>ChatterFileLink</name>
+=======
+        <name>ChatterEditOwnPost</name>
+>>>>>>> epic/cmos-bau
     </userPermissions>
     <userPermissions>
         <enabled>false</enabled>
@@ -72,10 +76,6 @@
     <userPermissions>
         <enabled>false</enabled>
         <name>CreateTopics</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>DistributeFromPersWksp</name>
     </userPermissions>
     <userPermissions>
         <enabled>false</enabled>

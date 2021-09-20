@@ -1370,4 +1370,49 @@ private class CaseTriggerHandlerTest {
 
     Test.stopTest();
   }
+
+  @isTest
+  static void testCaseNotifiationAfterUpdate() {
+    Case parentCase = new Case(
+      RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+      Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
+      IDR_Customer_Number__c = '1234567890',
+      Priority = 'Standard',
+      Type = '5',
+      IDR_Subsequent_Issue__c = '38'
+    );
+    insert parentCase;
+    Case[] newCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+          Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
+          IDR_Customer_Number__c = '1234567890',
+          Priority = 'Standard',
+          Type = '5',
+          IDR_Subsequent_Issue__c = '38'
+        )
+      );
+    }
+    insert newCases;
+    Test.startTest();
+    List<Case> caseList = [
+      SELECT Id, Origin, CaseNumber, ParentId
+      FROM Case
+      WHERE Id != :parentCase.Id
+    ];
+    for (Case c : caseList) {
+      c.ParentId = parentCase.Id;
+    }
+    CheckRecursive.firstCall = false;
+    update caseList;
+    Test.stopTest();
+    System.assertEquals(
+      parentCase.Id,
+      [SELECT ParentId FROM Case WHERE Id != :parentCase.Id LIMIT 1]
+      .ParentId,
+      'Issue while updating parentId'
+    );
+  }
 }

@@ -31,6 +31,10 @@ public with sharing class IDRCaseActions {
 
   private static final String DELETE_ERROR = 'You cannot delete cases';
 
+  private static final String CUSTOMER_NUMBER_VALIDATION_ERROR = 'This field can no longer be edited. In the event that the Customer Number/Identifier is incorrect, the case must be withdrawn and a new case created with the correct Customer Number.';
+
+  private static final String CANNOT_CLOSE_CASE_WITH_PENDING_TASK_ERROR = 'You cannot close the case as there is currently an open \'Pend Case\' task. Please review and action the open \'Pend Case\' task before closing the case.';
+
   @TestVisible
   private static List<IDR_CRC_Escalation_Event__e> idrCaseEscalations;
 
@@ -81,6 +85,8 @@ public with sharing class IDRCaseActions {
         record.EntitlementId = entitlementId;
         record.IDR_Milestone_Sla__c = IDRConstants.MILESTONE_SLA_NORMAL;
         // record.IDR_Milestone_Sla__c = getMilestoneSla(record.Status, record.IDR_Date_Received__c , businessHoursId);
+        populateSuppliedEmail(record, null);
+        IDRCollectionActions.populateCollectionNumber(record);
         CommonUtil.handleMasking(
           record,
           null,
@@ -125,6 +131,9 @@ public with sharing class IDRCaseActions {
       }
     }
     IDRTaskActions.possibleSystemicIssueActions(records, null);
+    IDRCollectionActions.stopCollections(records, null);
+    IDRCollectionActions.startCollections(records, null);
+    IDRComplaintFlagActions.setComplaintsFlag(records, null);
     escalateToCFMS(caseEscalationList);
   }
 
@@ -139,6 +148,9 @@ public with sharing class IDRCaseActions {
     for (Case record : records) {
       if (isIDRComplaintType(record)) {
         Case oldRecord = (case) oldMap.get(record.id);
+        populateSuppliedEmail(record, oldRecord);
+        validateCaseNumber(record, oldRecord);
+        IDRCollectionActions.populateCollectionNumber(record);
         CommonUtil.handleMasking(
           record,
           oldRecord,
@@ -156,6 +168,7 @@ public with sharing class IDRCaseActions {
         }
       }
     }
+    preventCloseStatusOnCaseWithPendingTask(records, (Map<Id, Case>) oldMap);
     //calling handleOfficeAssignment for all case records for which the IDR_Office__c needs to be updated.
     handleOfficeAssignment(changeOfficeCaseList);
     IDRCaseAssignmentRules.assignCases(records, (Map<Id, Case>) oldMap);
@@ -178,7 +191,11 @@ public with sharing class IDRCaseActions {
   public static void afterUpdate(Map<Id, SObject> oldMap, List<Case> records) {
     for (Case record : records) {
       Case oldRec = (Case) oldMap.get(record.id);
-      if (isIDRComplaintType(record)) {
+      if (
+        (oldRec.RecordTypeId == IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID &&
+        isIDRComplaintType(record))
+      ) {
+        notificationCaseList.add(record);
         checkForCRCEscalation(record, oldRec);
       }
     }
@@ -188,6 +205,9 @@ public with sharing class IDRCaseActions {
     escalateToCFMS(caseEscalationList);
     IDRTaskActions.possibleSystemicIssueActions(records, oldMap);
     IDRTaskActions.updateIDRMilestoneTask(records, oldMap);
+    IDRCollectionActions.stopCollections(records, oldMap);
+    IDRCollectionActions.startCollections(records, oldMap);
+    IDRComplaintFlagActions.setComplaintsFlag(records, oldMap);
   }
 
   /**
@@ -236,6 +256,21 @@ public with sharing class IDRCaseActions {
         );
         IDRTaskActions.closeMaxTimeFrameTasks(maxTimeFrameCases);
       }
+    }
+  }
+
+  /**
+   * @description Prepopulate Case Fields
+   * @param record case record
+   * @param oldCase Old copy of case record before this transaction intiated
+   */
+  private static void populateSuppliedEmail(Case record, Case oldCase) {
+    if (
+      oldCase == null ||
+      (String.IsBlank(oldCase.IDR_NC_Email__c) &&
+      String.IsNotBlank(record.IDR_NC_Email__c))
+    ) {
+      record.SuppliedEmail = record.IDR_NC_Email__c;
     }
   }
 
@@ -709,6 +744,22 @@ public with sharing class IDRCaseActions {
   }
 
   /**
+   * @description  This method is used to restrict users from editing case number based on certain conditions
+   * @param record The actual case record from the trigger
+   * @param oldRec trigger context variable to check on old values.
+   */
+  private static void validateCaseNumber(Case record, Case oldRec) {
+    if (
+      record.RecordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID &&
+      (record.IDR_Customer_Number__c != oldRec.IDR_Customer_Number__c ||
+      record.IDR_Customer_Identifier__c != oldRec.IDR_Customer_Identifier__c) &&
+      oldRec.RecordTypeId != IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID
+    ) {
+      record.addError(CUSTOMER_NUMBER_VALIDATION_ERROR);
+    }
+  }
+
+  /**
    * @description Update Date/Time PSI Ticked when complaint is flagged or unflagged. Before calling, check whether all cases are complaints and the PSI flag has just been ticked or unticked
    * @param records from the trigger
    */
@@ -721,4 +772,34 @@ public with sharing class IDRCaseActions {
       }
     }
   }
+
+  /**
+   * @description Prevents a complaints case moving to Closed or Resolved status when it has any non-complete complaints task with 'Pending Case' type
+   * @param records  List of cases from the trigger 
+   * @param oldMap Map of pre-update cases supplied from the trigger as well
+   */
+  private static void preventCloseStatusOnCaseWithPendingTask(List<Case> records, Map<Id, Case> oldMap){
+ 
+    List<Case> closedComplaintCases = new List<Case>();
+    for(Case c : records){
+      if((c.Status == 'Closed' || c.Status == 'Resolved') && oldMap.get(c.Id).Status != c.Status && isIDRComplaintType(c)){
+        closedComplaintCases.add(c);
+      }
+    }
+    if(!closedComplaintCases.isEmpty()){
+    List<Task> openpendingtasks = [SELECT Id, WhatId FROM Task WHERE WhatId=:closedComplaintCases AND RecordTypeId=:IDRConstants.IDR_TASK_RT_ID AND Status!='Completed' AND Type='Pend Case' WITH SECURITY_ENFORCED];
+ 
+    Map<Id, Task> caseTaskMap = new Map<Id, Task>();
+    for(Task t : openpendingtasks){
+      caseTaskMap.put(t.WhatId, t);
+    }
+   
+    for(Case c : closedComplaintCases){
+      if(caseTaskMap.containskey(c.id)){
+        c.addError(CANNOT_CLOSE_CASE_WITH_PENDING_TASK_ERROR);
+      }
+    }
+    }
+  }
+
 }
