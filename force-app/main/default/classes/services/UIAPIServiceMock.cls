@@ -6,8 +6,9 @@
  */
 public with sharing class UIAPIServiceMock extends Service {
   @TestVisible
-  private static final String PICKLIST_RESPONSE = '{\"controllerValues\":{\"About Us\":0,\"Cards\":1,\"Money\":2},\"defaultValue\":null,\"eTag\":\"7acf377aebdf734d453c3147b54exxxx\",\"url\":\"/services/data/v52.0/ui-api/object-info/Case/picklist-values/0122N000001oDnSQAU/Sub_Type__c\",\"values\":[{\"attributes\":null,\"label\":\"Savings Goals\",\"validFor\":[0],\"value\":\"Savings Goals\"},{\"attributes\":null,\"label\":\"About ANZ Plus\",\"validFor\":[1],\"value\":\"About ANZ Plus\"},{\"attributes\":null,\"label\":\"Privacy\",\"validFor\":[2],\"value\":\"Privacy\"},{\"attributes\":null,\"label\":\"ANZ branches\",\"validFor\":[0,1],\"value\":\"ANZ branches\"}]}';
-
+  private static final String PICKLIST_RESPONSE = getStaticResource(
+    'mock_uiAPIPicklist'
+  );
   public override HttpCalloutResponse getPickListValueInfo(String endPoint) {
     if (response.statusCode == null) {
       response.statusCode = 200;

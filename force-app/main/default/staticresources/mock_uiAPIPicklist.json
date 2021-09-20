@@ -1,0 +1,32 @@
+{
+  "controllerValues": { "About Us": 0, "Cards": 1, "Money": 2 },
+  "defaultValue": null,
+  "eTag": "7acf377aebdf734d453c3147b54exxxx",
+  "url": "/services/data/v52.0/ui-api/object-info/Case/picklist-values/0122N000001oDnSQAU/Sub_Type__c",
+  "values": [
+    {
+      "attributes": null,
+      "label": "Privacy",
+      "validFor": [0],
+      "value": "Privacy"
+    },
+    {
+      "attributes": null,
+      "label": "About ANZ Plus",
+      "validFor": [0],
+      "value": "About ANZ Plus"
+    },
+    {
+      "attributes": null,
+      "label": "Damaged card",
+      "validFor": [1],
+      "value": "Damaged card"
+    },
+    {
+      "attributes": null,
+      "label": "Using account",
+      "validFor": [1, 2],
+      "value": "Using account"
+    }
+  ]
+}
