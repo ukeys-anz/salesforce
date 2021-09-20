@@ -1,0 +1,104 @@
+.title-banner {
+  background-color: var(--lwc-colorBackground, rgb(243, 242, 242));
+  border-bottom: var(--lwc-borderWidthThin, 1px) solid
+    var(--lwc-colorBorderButtonDefault, rgb(221, 219, 218));
+  border-radius: var(--lwc-borderRadiusMedium, 0.25rem)
+    var(--lwc-borderRadiusMedium, 0.25rem) 0 0;
+  white-space: nowrap;
+  display: flex;
+}
+
+.card-inner {
+  border: 1px #ccc solid;
+  border-radius: 5px;
+}
+
+.error-text {
+  color: red;
+  font-size: 0.85em;
+}
+
+.container {
+  padding: 0.75em 0.75em 4em;
+  max-height: 45px;
+  overflow: hidden;
+  z-index: 10;
+  transition: all 0.3s ease-out;
+}
+
+.container.container-show {
+  max-height: 350px;
+  box-shadow: none;
+  transition: max-height 0.3s ease-out;
+}
+.container.container-show.finished {
+  overflow: visible;
+}
+
+.title-banner .title {
+  background-color: var(--lwc-colorBackgroundAlt, rgb(255, 255, 255));
+  color: var(--lwc-brandAccessible, rgb(1, 118, 211));
+  border-color: var(--lwc-colorBorder, rgb(221, 219, 218));
+  overflow: hidden;
+  padding: var(--lwc-varSpacingVerticalMedium, 1rem)
+    var(--lwc-varSpacingHorizontalMedium, 1rem);
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-left: var(--lwc-spacingXSmall, 0.5rem);
+  padding-right: var(--lwc-spacingXSmall, 0.5rem);
+  width: 92px;
+  border-left: none;
+  border-radius: var(--lwc-borderRadiusMedium, 0.25rem) 0 0 0;
+  margin-bottom: -1px;
+  border-right: 1px #ccc solid;
+}
+
+.paddingMargin {
+  padding: 5px;
+  margin: 0 auto;
+}
+
+label {
+  margin-top: 10px;
+  display: block;
+}
+.text-area .slds-form-element__label {
+  display: none !important;
+}
+.auth-label {
+  margin-bottom: -15px;
+}
+
+.no-margin {
+  margin: 0px;
+}
+
+.card {
+  padding: 1px auto;
+}
+
+.showError {
+  color: rgb(234, 0, 30);
+  font-size: 12px;
+  padding: 5px;
+}
+
+.error {
+  margin-top: 2px;
+  background: rgb(234, 0, 30);
+  color: white;
+}
+
+.button-padding {
+  padding: 5px;
+}
+
+.required {
+  color: rgb(234, 0, 30);
+}
+
+.slds-dropdown_fluid {
+  width: 95%;
+  margin-top: -5px;
+}

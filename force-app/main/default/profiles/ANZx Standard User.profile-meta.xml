@@ -9431,7 +9431,7 @@
   </tabVisibilities>
   <tabVisibilities>
     <tab>standard-Chatter</tab>
-    <visibility>DefaultOff</visibility>
+    <visibility>Hidden</visibility>
   </tabVisibilities>
   <tabVisibilities>
     <tab>standard-Claim</tab>
@@ -9439,7 +9439,7 @@
   </tabVisibilities>
   <tabVisibilities>
     <tab>standard-CollaborationGroup</tab>
-    <visibility>DefaultOff</visibility>
+    <visibility>Hidden</visibility>
   </tabVisibilities>
   <tabVisibilities>
     <tab>standard-Contact</tab>
@@ -9515,7 +9515,7 @@
   </tabVisibilities>
   <tabVisibilities>
     <tab>standard-Feed</tab>
-    <visibility>DefaultOff</visibility>
+    <visibility>Hidden</visibility>
   </tabVisibilities>
   <tabVisibilities>
     <tab>standard-File</tab>
@@ -9768,18 +9768,14 @@
   </userPermissions>
   <userPermissions>
     <enabled>true</enabled>
-    <name>ChatterEditOwnPost</name>
-  </userPermissions>
-  <userPermissions>
-    <enabled>true</enabled>
     <name>ChatterInternalUser</name>
   </userPermissions>
   <userPermissions>
-    <enabled>true</enabled>
+    <enabled>false</enabled>
     <name>ChatterInviteExternalUsers</name>
   </userPermissions>
   <userPermissions>
-    <enabled>true</enabled>
+    <enabled>false</enabled>
     <name>ChatterOwnGroups</name>
   </userPermissions>
   <userPermissions>
@@ -9921,5 +9917,9 @@
   <userPermissions>
     <enabled>false</enabled>
     <name>ViewAllForecasts</name>
+  </userPermissions>
+  <userPermissions>
+    <enabled>false</enabled>
+    <name>ModifyMetadata</name>
   </userPermissions>
 </Profile>
