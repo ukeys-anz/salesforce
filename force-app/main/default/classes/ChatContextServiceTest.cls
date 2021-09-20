@@ -70,7 +70,8 @@ public with sharing class ChatContextServiceTest {
     List<ChatContextService.ChatContextRequest> contextRequests = prepareRequest(
       'OCVID887766',
       faker.randomString(34),
-      'Coaching'
+      'Coaching',
+      '1231'
     );
 
     Test.startTest();
@@ -116,7 +117,8 @@ public with sharing class ChatContextServiceTest {
     List<ChatContextService.ChatContextRequest> contextRequests = prepareRequest(
       'OCVID887766',
       '',
-      'Coaching'
+      'Coaching',
+      '1231'
     );
 
     Test.startTest();
@@ -160,7 +162,8 @@ public with sharing class ChatContextServiceTest {
     List<ChatContextService.ChatContextRequest> contextRequests = prepareRequest(
       'OCVID888888',
       faker.randomString(32),
-      'Coaching'
+      'Coaching',
+      '1231'
     );
 
     Test.startTest();
@@ -216,7 +219,8 @@ public with sharing class ChatContextServiceTest {
     List<ChatContextService.ChatContextRequest> contextRequests = prepareRequest(
       'OCVID887766',
       'CH123456789',
-      'Coaching'
+      'Coaching',
+      '1231'
     );
 
     Test.startTest();
@@ -261,7 +265,8 @@ public with sharing class ChatContextServiceTest {
     List<ChatContextService.ChatContextRequest> contextRequests = prepareRequest(
       'OCVID887766',
       faker.randomString(32),
-      ''
+      '',
+      '1231'
     );
 
     Test.startTest();
@@ -299,18 +304,23 @@ public with sharing class ChatContextServiceTest {
    * @param ocvId OCV Id
    * @param channelSid Twilio Channel SID
    * @param caseType Case Type
+   * @param ppid PPID
    * @return `List<ChatContextService.ChatContextRequest>` List of 'ChatContextService.ChatContextRequest'
    */
+  //Suppress warnings for parameters to prepare request
+  @SuppressWarnings('PMD.ExcessiveParameterList')
   public static List<ChatContextService.ChatContextRequest> prepareRequest(
     String ocvId,
     String channelSid,
-    String caseType
+    String caseType,
+    String ppid
   ) {
     List<ChatContextService.ChatContextRequest> contextRequests = new List<ChatContextService.ChatContextRequest>();
     ChatContextService.ChatContextRequest contextReq = new ChatContextService.ChatContextRequest();
     contextReq.ocvId = ocvId;
     contextReq.channelSID = channelSid;
     contextReq.caseType = caseType;
+    contextReq.PPID = ppid;
     contextRequests.add(contextReq);
 
     //Setup request
