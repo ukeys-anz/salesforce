@@ -163,31 +163,18 @@ public with sharing class IDRConstants {
     get {
       if (anzComFieldMapping == null) {
         anzComFieldMapping = new Map<String, String>{
-          //'This feedback is a' => 'IDR_Feedback_Category__c',
-          //'Previously raised?' => 'IDR_Previously_raised_with_ANZ__c',
           'Product Category' => 'IDR_Product_Category__c',
           'Issue Type' => 'Type',
           'Description of Issue' => 'Description',
           'Customer Desired Outcome' => 'IDR_Complainant_Desired_Outcome__c',
           'Existing ANZ Customer' => 'IDR_Existing_ANZ_Customer__c',
-          //'Relationship to Customer' => ?,
-          //'Agent details' => ?,
-          //'Agent Company Name' => ?,
-          //'Agent phone' => ?,
-          //'Agent email' => ?,
-          //'Date' => ?,
-          //'Complaint resolved' => ?,
-          //'Date complaint resolved' => ?,
-          //'Resolution summary' => ?,
-          //'Vulnerable customer' => ?,
+          'Date' => 'IDR_Date_Received__c',
           'First Name' => 'IDR_NC_First_Name__c',
           'Last Name' => 'IDR_NC_Last_Name__c',
-          //'CRN' => ?,
           'Street Address' => 'IDR_NC_Street__c',
           'Suburb' => 'IDR_NC_Suburb__c',
           'Postcode' => 'IDR_NC_Postcode__c',
           'Country' => 'IDR_NC_Country__c',
-          //'Preferred contact method' => ?,
           'Phone' => 'IDR_NC_Phone__c',
           'Email' => 'IDR_NC_Email__c'
         };
