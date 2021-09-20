@@ -133,32 +133,6 @@ public with sharing class IDRConstants {
    * @description Static variable to map anz.com field with case fields
    * @return anzComFieldMapping map of anz.com field with case fields
    */
-  /*public static final Map<String, String> anzComFieldMapping {
-    get {
-      if (anzComFieldMapping == null) {
-        anzComFieldMapping = new Map<String, String>{
-          'This feedback is a' => 'IDR_Feedback_Category__c',
-          'Previously raised?' => 'IDR_Previously_raised_with_ANZ__c',
-          'Which product' => 'IDR_Product_Category__c',
-          'Feedback topic' => 'Type',
-          'Feedback summary' => 'Description',
-          'Details and outcome' => 'IDR_Complainant_Desired_Outcome__c',
-          'ANZ Customer?' => 'IDR_Existing_ANZ_Customer__c',
-          'First name' => 'IDR_NC_First_Name__c',
-          'Last name' => 'IDR_NC_Last_Name__c',
-          'Contact number' => 'IDR_NC_Phone__c',
-          'Email address' => 'IDR_NC_Email__c',
-          'Street address' => 'IDR_NC_Street__c',
-          'Suburb' => 'IDR_NC_Suburb__c',
-          'Postcode' => 'IDR_NC_Postcode__c',
-          'Country' => 'IDR_NC_Country__c'
-        };
-      }
-      return anzComFieldMapping;
-    }
-    set;
-  }*/
-
   public static final Map<String, String> anzComFieldMapping {
     get {
       if (anzComFieldMapping == null) {
