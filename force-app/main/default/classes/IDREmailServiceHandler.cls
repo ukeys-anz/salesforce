@@ -149,21 +149,24 @@ public with sharing class IDREmailServiceHandler {
     if (fromEmail == System.Label.ANZ_com_Sender_Address) {
       IDREmailToCase.parseWebFormEmail(newCase);
     }
-    try {
-      if (Case.sObjectType.getDescribe().isCreateable()) {
-        insert newCase;
-      }
-    } catch (Exception err) {
+    AccessCheckUtil.AccessCheckWrapper acw = AccessCheckUtil.checkAccess(
+      'Case',
+      AccessType.CREATABLE,
+      new List<Case>{ newCase }
+    );
+    if (acw.inAccessibleFields != null) {
       Lib_SystemLog log = new Lib_SystemLog(
         IDREmailServiceHandler.class.getName(),
         'createNewCase'
       );
       log.error(
         'EmailServiceException',
-        'Error in creating new case from email service class :' +
-        err.getMessage()
+        'User does not have create access to fields --' + acw.inAccessibleFields
       );
       log.publishEvent();
+    } else {
+      //newCase = (Case) acw.records[0];
+      insert newCase;
     }
 
     if (newCase.Id != null) {
