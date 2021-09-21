@@ -299,7 +299,6 @@ public with sharing class ChatContextServiceTest {
       'Unable to find a matching Type for sub type "About ANZ Plu".',
       responseDto[0].errorMessage
     );
-    System.assertEquals('Other Enquiries', responseDto[0].chatLabel);
   }
 
   @isTest
@@ -346,7 +345,6 @@ public with sharing class ChatContextServiceTest {
       'The sub type "Using account" has more than 1 type associated to it.',
       responseDto[0].errorMessage
     );
-    System.assertEquals('Other Enquiries', responseDto[0].chatLabel);
   }
 
   @isTest
