@@ -196,7 +196,6 @@ public with sharing class IDRCaseActions {
         checkForCRCEscalation(record, oldRec);
       }
     }
-    completeMilestone(records, oldMap);
     IDRCaseCommentActions.escalateExistingCommentsToCFMS(oldMap, records);
     IDRCaseNotificationManager.notifyBankersForEscalation(records, oldMap);
     escalateToCFMS(caseEscalationList);
@@ -205,6 +204,7 @@ public with sharing class IDRCaseActions {
     IDRCollectionActions.stopCollections(records, oldMap);
     IDRCollectionActions.startCollections(records, oldMap);
     IDRComplaintFlagActions.setComplaintsFlag(records, oldMap);
+    completeMilestone(records, oldMap);
   }
 
   /**
@@ -232,27 +232,27 @@ public with sharing class IDRCaseActions {
       if ((oldCase != null && (!oldCase.isClosed && c.isClosed))) {
         maxTimeFrameCases.add(c.Id);
       }
+    }
 
-      if (!escalationCases.isEmpty()) {
-        MilestoneUtils.completeMilestone(
-          escalationCases,
-          new List<String>{ 'Open_Escalation_Time' },
-          System.now()
-        );
-      }
+    if (!escalationCases.isEmpty()) {
+      MilestoneUtils.completeMilestone(
+        escalationCases,
+        new List<String>{ 'Open_Escalation_Time' },
+        System.now()
+      );
+    }
 
-      if (!maxTimeFrameCases.isEmpty()) {
-        MilestoneUtils.completeMilestone(
-          maxTimeFrameCases,
-          new List<String>{
-            '21-day IDR Response Due',
-            '30-day IDR Response Due',
-            'Open_Escalation_Time'
-          },
-          System.now()
-        );
-        IDRTaskActions.closeMaxTimeFrameTasks(maxTimeFrameCases);
-      }
+    if (!maxTimeFrameCases.isEmpty()) {
+      MilestoneUtils.completeMilestone(
+        maxTimeFrameCases,
+        new List<String>{
+          '21-day IDR Response Due',
+          '30-day IDR Response Due',
+          'Open_Escalation_Time'
+        },
+        System.now()
+      );
+      IDRTaskActions.closeMaxTimeFrameTasks(maxTimeFrameCases);
     }
   }
 
