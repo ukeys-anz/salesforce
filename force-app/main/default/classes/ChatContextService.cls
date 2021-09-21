@@ -341,7 +341,6 @@ global with sharing class ChatContextService {
     response.statusCode = 400;
     response.sfdcSearchString = sfdcSearchString;
     response.errorMessage = errMsg;
-    response.chatLabel = 'Other Enquiries';
     return response;
   }
 
