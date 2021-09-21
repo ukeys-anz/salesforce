@@ -3,8 +3,7 @@
  * @since  11/2020
  * @description APEX REST API class to handle incoming requests from Twilio.
  */
-// Ignore excessive param list as functions require certain params
-@SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.ExcessiveParameterList')
+@SuppressWarnings('PMD.StdCyclomaticComplexity')
 @RestResource(urlMapping='/ChatContextRequests/*')
 global with sharing class ChatContextService {
   // General Inquiry Record Type Id
@@ -405,6 +404,8 @@ global with sharing class ChatContextService {
    * @param acc related Account (customer) record
    * @param responseList list of response instances
    */
+  //Need parameters to handle case inferring
+  @SuppressWarnings('PMD.ExcessiveParameterList')
   private static void populateTypeFromSubtype(
     Case newCase,
     String subtype,
