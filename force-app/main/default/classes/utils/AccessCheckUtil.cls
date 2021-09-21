@@ -10,6 +10,7 @@ public with sharing class AccessCheckUtil {
   * @param sObjtectName object name for which the access needs to be checked
   * @param access AccessType Enum for specifying which type of access we need to check
   * @param sObjectList list of records on which the access needs to be checked
+  * @return AccessCheckWrapper details present in wrapper
   */
   public static AccessCheckWrapper checkAccess(
     String sObjtectName,
@@ -36,9 +37,13 @@ public with sharing class AccessCheckUtil {
    * @description Wrapper class for containing data/information regarding access check
    */
   public with sharing class AccessCheckWrapper {
-    //contains all the inaccessible fields for a particular operation  
+    /**
+    * @description contains all the inaccessible fields for a particular operation
+    */ 
     public string inAccessibleFields { get; set; }
-    //contains sanitized list of records returned from stripInaccessible method
+    /**
+    * @description contains sanitized list of records returned from stripInaccessible method
+    */ 
     public List<SObject> records { get; set; }
   }
 }
