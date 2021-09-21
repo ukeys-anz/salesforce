@@ -69,7 +69,7 @@ public with sharing class ChatContextServiceTest {
     // Prepare request test data
     List<ChatContextService.ChatContextRequest> contextRequests = prepareRequest(
       'OCVID887766',
-      faker.randomString(34),
+      'CH' + faker.randomString(32),
       'Coaching',
       '1231'
     );
@@ -161,7 +161,7 @@ public with sharing class ChatContextServiceTest {
     //Prepare request test data (setting an invalid OCV ID)
     List<ChatContextService.ChatContextRequest> contextRequests = prepareRequest(
       'OCVID888888',
-      faker.randomString(32),
+      'CH' + faker.randomString(32),
       'Coaching',
       '1231'
     );
@@ -207,7 +207,7 @@ public with sharing class ChatContextServiceTest {
       LIMIT 1
     ];
     Case newCase = new Case(
-      Twilio_Channel_SID__c = 'CH123456789',
+      Twilio_Channel_SID__c = 'CH12345678910111213141516171819202',
       AccountId = acc.Id,
       Origin = 'Chat',
       RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID
@@ -218,7 +218,7 @@ public with sharing class ChatContextServiceTest {
     //Prepare request test data (setting aa known Channel SID)
     List<ChatContextService.ChatContextRequest> contextRequests = prepareRequest(
       'OCVID887766',
-      'CH123456789',
+      'CH12345678910111213141516171819202',
       'Coaching',
       '1231'
     );
@@ -264,7 +264,7 @@ public with sharing class ChatContextServiceTest {
     //Prepare request test data
     List<ChatContextService.ChatContextRequest> contextRequests = prepareRequest(
       'OCVID887766',
-      faker.randomString(32),
+      'CH' + faker.randomString(32),
       '',
       '1231'
     );
