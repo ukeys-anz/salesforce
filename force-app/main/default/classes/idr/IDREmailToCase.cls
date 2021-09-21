@@ -57,6 +57,10 @@ public with sharing class IDREmailToCase {
               IDRConstants.anzComFieldMapping.get(fieldName),
               emailValues[0]
             );
+          } else if(fieldName == 'Date'){
+            if(fieldValue != '' && fieldValue != null){
+              c.put(IDRConstants.anzComFieldMapping.get(fieldName), DateTime.parse(fieldValue));
+            }      
           } else {
             c.put(IDRConstants.anzComFieldMapping.get(fieldName), fieldValue);
           }
