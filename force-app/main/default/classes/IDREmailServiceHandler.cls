@@ -125,7 +125,7 @@ public with sharing class IDREmailServiceHandler {
    * @param caseOrigin The case origin
    */
   @SuppressWarnings(
-    'PMD.CyclomaticComplexity, PMD.StdCyclomaticComplexity, PMD.ExcessiveParameterList'
+    'PMD.CyclomaticComplexity, PMD.StdCyclomaticComplexity, PMD.ExcessiveParameterList, PMD.ApexCRUDViolation'
   ) //Since the method is already refined to reduce complexity
   public static void createNewCase(
     Messaging.InboundEmail email,
