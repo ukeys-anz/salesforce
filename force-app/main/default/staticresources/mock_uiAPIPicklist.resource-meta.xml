@@ -2,5 +2,5 @@
 <StaticResource xmlns="http://soap.sforce.com/2006/04/metadata">
     <cacheControl>Private</cacheControl>
     <contentType>application/json</contentType>
-    <description>Mock ui api call that contains sample response of gen enq record</description>
+    <description>Mock ui api call that contains sample response of general enquiry record</description>
 </StaticResource>
