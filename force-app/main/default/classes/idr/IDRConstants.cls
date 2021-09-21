@@ -142,7 +142,6 @@ public with sharing class IDRConstants {
           'Description of Issue' => 'Description',
           'Customer Desired Outcome' => 'IDR_Complainant_Desired_Outcome__c',
           'Existing ANZ Customer' => 'IDR_Existing_ANZ_Customer__c',
-          'Date' => 'IDR_Date_Received__c',
           'First Name' => 'IDR_NC_First_Name__c',
           'Last Name' => 'IDR_NC_Last_Name__c',
           'Street Address' => 'IDR_NC_Street__c',
