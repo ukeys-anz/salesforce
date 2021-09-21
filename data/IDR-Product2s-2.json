@@ -1,0 +1,508 @@
+{
+    "records": [
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref200"
+        },
+        "Name": "Easy Start Residential Investment Loan",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "200",
+        "IDR_Product_or_Service_Category__c": "2",
+        "IDR_Product_or_Service_Line__c": "1",
+        "IDR_Product_or_Service_Type__c": "13"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref201"
+        },
+        "Name": "Easy Start Home Loan",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "201",
+        "IDR_Product_or_Service_Category__c": "2",
+        "IDR_Product_or_Service_Line__c": "1",
+        "IDR_Product_or_Service_Type__c": "13"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref202"
+        },
+        "Name": "Equity Release Fixed Rate Loan",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "202",
+        "IDR_Product_or_Service_Category__c": "2",
+        "IDR_Product_or_Service_Line__c": "1",
+        "IDR_Product_or_Service_Type__c": "13"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref203"
+        },
+        "Name": "Equity Release Variable Rate Loan",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "203",
+        "IDR_Product_or_Service_Category__c": "2",
+        "IDR_Product_or_Service_Line__c": "1",
+        "IDR_Product_or_Service_Type__c": "13"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref204"
+        },
+        "Name": "Fixed Rate",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "204",
+        "IDR_Product_or_Service_Category__c": "2",
+        "IDR_Product_or_Service_Line__c": "1",
+        "IDR_Product_or_Service_Type__c": "13"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref205"
+        },
+        "Name": "Home Loan Interest Saver",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "205",
+        "IDR_Product_or_Service_Category__c": "2",
+        "IDR_Product_or_Service_Line__c": "1",
+        "IDR_Product_or_Service_Type__c": "13"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref206"
+        },
+        "Name": "Money saver Home Loan",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "206",
+        "IDR_Product_or_Service_Category__c": "2",
+        "IDR_Product_or_Service_Line__c": "1",
+        "IDR_Product_or_Service_Type__c": "13"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref207"
+        },
+        "Name": "Money Saver Residential Investment Loan",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "207",
+        "IDR_Product_or_Service_Category__c": "2",
+        "IDR_Product_or_Service_Line__c": "1",
+        "IDR_Product_or_Service_Type__c": "13"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref208"
+        },
+        "Name": "Business Cash Management",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "208",
+        "IDR_Product_or_Service_Category__c": "5",
+        "IDR_Product_or_Service_Line__c": "2",
+        "IDR_Product_or_Service_Type__c": "24"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref209"
+        },
+        "Name": "Negotiable Certificate of Deposit",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "209",
+        "IDR_Product_or_Service_Category__c": "5",
+        "IDR_Product_or_Service_Line__c": "2",
+        "IDR_Product_or_Service_Type__c": "24"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref210"
+        },
+        "Name": "Premium Business Cash Account",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "210",
+        "IDR_Product_or_Service_Category__c": "5",
+        "IDR_Product_or_Service_Line__c": "2",
+        "IDR_Product_or_Service_Type__c": "24"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref211"
+        },
+        "Name": "Premium Business Cash Management",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "211",
+        "IDR_Product_or_Service_Category__c": "5",
+        "IDR_Product_or_Service_Line__c": "2",
+        "IDR_Product_or_Service_Type__c": "24"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref212"
+        },
+        "Name": "Short Term or Call Deposit",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "212",
+        "IDR_Product_or_Service_Category__c": "5",
+        "IDR_Product_or_Service_Line__c": "2",
+        "IDR_Product_or_Service_Type__c": "24"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref213"
+        },
+        "Name": "Structured Bill Investment",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "213",
+        "IDR_Product_or_Service_Category__c": "5",
+        "IDR_Product_or_Service_Line__c": "2",
+        "IDR_Product_or_Service_Type__c": "24"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref214"
+        },
+        "Name": "Corporate Transaction Account",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "214",
+        "IDR_Product_or_Service_Category__c": "5",
+        "IDR_Product_or_Service_Line__c": "2",
+        "IDR_Product_or_Service_Type__c": "24"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref215"
+        },
+        "Name": "Client Money Account (Cache)",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "215",
+        "IDR_Product_or_Service_Category__c": "5",
+        "IDR_Product_or_Service_Line__c": "2",
+        "IDR_Product_or_Service_Type__c": "24"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref216"
+        },
+        "Name": "Corporate Statutory Trust (Cache)",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "216",
+        "IDR_Product_or_Service_Category__c": "5",
+        "IDR_Product_or_Service_Line__c": "2",
+        "IDR_Product_or_Service_Type__c": "24"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref217"
+        },
+        "Name": "ANZ Design My Card",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "217",
+        "IDR_Product_or_Service_Category__c": "5",
+        "IDR_Product_or_Service_Line__c": "2",
+        "IDR_Product_or_Service_Type__c": "28"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref218"
+        },
+        "Name": "ANZ Online Investment Account",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "218",
+        "IDR_Product_or_Service_Category__c": "5",
+        "IDR_Product_or_Service_Line__c": "2",
+        "IDR_Product_or_Service_Type__c": "28"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref219"
+        },
+        "Name": "Esanda Term Deposit",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "219",
+        "IDR_Product_or_Service_Category__c": "5",
+        "IDR_Product_or_Service_Line__c": "2",
+        "IDR_Product_or_Service_Type__c": "28"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref220"
+        },
+        "Name": "Safe Deposit/ Locked Box/ Sealed Packet",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "220",
+        "IDR_Product_or_Service_Category__c": "5",
+        "IDR_Product_or_Service_Line__c": "2",
+        "IDR_Product_or_Service_Type__c": "28"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref221"
+        },
+        "Name": "Seniors Privilege",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "221",
+        "IDR_Product_or_Service_Category__c": "5",
+        "IDR_Product_or_Service_Line__c": "2",
+        "IDR_Product_or_Service_Type__c": "28"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref222"
+        },
+        "Name": "Access Deeming",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "222",
+        "IDR_Product_or_Service_Category__c": "5",
+        "IDR_Product_or_Service_Line__c": "2",
+        "IDR_Product_or_Service_Type__c": "28"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref223"
+        },
+        "Name": "Access Simplicity",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "223",
+        "IDR_Product_or_Service_Category__c": "5",
+        "IDR_Product_or_Service_Line__c": "2",
+        "IDR_Product_or_Service_Type__c": "28"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref224"
+        },
+        "Name": "Premier Cheque Account",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "224",
+        "IDR_Product_or_Service_Category__c": "5",
+        "IDR_Product_or_Service_Line__c": "2",
+        "IDR_Product_or_Service_Type__c": "28"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref225"
+        },
+        "Name": "Premier Cheque Account - with Overdraft",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "225",
+        "IDR_Product_or_Service_Category__c": "5",
+        "IDR_Product_or_Service_Line__c": "2",
+        "IDR_Product_or_Service_Type__c": "28"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref226"
+        },
+        "Name": "ANZ Plus Account – Transaction Account (ANZ Plus only)",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "226",
+        "IDR_Product_or_Service_Category__c": "5",
+        "IDR_Product_or_Service_Line__c": "2",
+        "IDR_Product_or_Service_Type__c": "28"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref227"
+        },
+        "Name": "ANZ Save - Savings Account (ANZ Plus only)",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "227",
+        "IDR_Product_or_Service_Category__c": "5",
+        "IDR_Product_or_Service_Line__c": "2",
+        "IDR_Product_or_Service_Type__c": "28"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref228"
+        },
+        "Name": "Corporate Term Deposit (Cache)",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "228",
+        "IDR_Product_or_Service_Category__c": "7",
+        "IDR_Product_or_Service_Line__c": "2",
+        "IDR_Product_or_Service_Type__c": "34"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref229"
+        },
+        "Name": "Corporate Notice Term Deposit",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "229",
+        "IDR_Product_or_Service_Category__c": "7",
+        "IDR_Product_or_Service_Line__c": "2",
+        "IDR_Product_or_Service_Type__c": "34"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref230"
+        },
+        "Name": "Money Market Deposits",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "230",
+        "IDR_Product_or_Service_Category__c": "7",
+        "IDR_Product_or_Service_Line__c": "2",
+        "IDR_Product_or_Service_Type__c": "34"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref231"
+        },
+        "Name": "FX - Spot, Value Today and Value Tomorrow",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "231",
+        "IDR_Product_or_Service_Category__c": "12",
+        "IDR_Product_or_Service_Line__c": "4",
+        "IDR_Product_or_Service_Type__c": "76"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref232"
+        },
+        "Name": "FX - Flexible Forwards",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "232",
+        "IDR_Product_or_Service_Category__c": "12",
+        "IDR_Product_or_Service_Line__c": "4",
+        "IDR_Product_or_Service_Type__c": "77"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref233"
+        },
+        "Name": "FX - Forward Exchange Contracts",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "233",
+        "IDR_Product_or_Service_Category__c": "12",
+        "IDR_Product_or_Service_Line__c": "4",
+        "IDR_Product_or_Service_Type__c": "77"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref234"
+        },
+        "Name": "FX - Foreign Currency Options",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "234",
+        "IDR_Product_or_Service_Category__c": "12",
+        "IDR_Product_or_Service_Line__c": "4",
+        "IDR_Product_or_Service_Type__c": "79"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref235"
+        },
+        "Name": "Commodity Swap Facilities",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "235",
+        "IDR_Product_or_Service_Category__c": "12",
+        "IDR_Product_or_Service_Line__c": "4",
+        "IDR_Product_or_Service_Type__c": "80"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref236"
+        },
+        "Name": "Agri Commodity Swap",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "236",
+        "IDR_Product_or_Service_Category__c": "12",
+        "IDR_Product_or_Service_Line__c": "4",
+        "IDR_Product_or_Service_Type__c": "80"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref237"
+        },
+        "Name": "International Money Transfers",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "237",
+        "IDR_Product_or_Service_Category__c": "19",
+        "IDR_Product_or_Service_Line__c": "6",
+        "IDR_Product_or_Service_Type__c": "134"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref238"
+        },
+        "Name": "Digital Wallets",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "238",
+        "IDR_Product_or_Service_Category__c": "20",
+        "IDR_Product_or_Service_Line__c": "6",
+        "IDR_Product_or_Service_Type__c": "138"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref239"
+        },
+        "Name": "ANZ Plus App (ANZ Plus only)",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "239",
+        "IDR_Product_or_Service_Category__c": "20",
+        "IDR_Product_or_Service_Line__c": "6",
+        "IDR_Product_or_Service_Type__c": "138"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref240"
+        },
+        "Name": "ANZ Cash Escrow Facility",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "240",
+        "IDR_Product_or_Service_Category__c": "20",
+        "IDR_Product_or_Service_Line__c": "6",
+        "IDR_Product_or_Service_Type__c": "138"
+      },
+      {
+        "attributes": {
+          "type": "Product2",
+          "referenceId": "Product2Ref241"
+        },
+        "Name": "Home Loan Protection Insurance",
+        "IsActive": true,
+        "ANZ_Product_Code__c": "241",
+        "IDR_Product_or_Service_Category__c": "8",
+        "IDR_Product_or_Service_Line__c": "3",
+        "IDR_Product_or_Service_Type__c": "35"
+      }
+    ]
+  }

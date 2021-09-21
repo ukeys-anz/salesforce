@@ -49,10 +49,12 @@ public with sharing class IDRComplaintFlagActions {
 
     if (!complaintEventList.isEmpty()) {
       publishComplaintEvent(complaintEventList);
+      complaintEventList.clear();
     }
 
     if (!isComplaintEventFailed && !complaintTaskList.isEmpty()) {
       IDRCollectionActions.insertSystemTasks(complaintTaskList);
+      complaintTaskList.clear();
     }
   }
 
@@ -209,7 +211,6 @@ public with sharing class IDRComplaintFlagActions {
       publishResults,
       complaintEventList
     );
-    log.insertLog();
-    complaintEventList.clear();
+    log.insertLogAsync();
   }
 }

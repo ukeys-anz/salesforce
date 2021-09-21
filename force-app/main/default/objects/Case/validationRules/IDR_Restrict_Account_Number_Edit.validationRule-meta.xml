@@ -3,9 +3,10 @@
     <fullName>IDR_Restrict_Account_Number_Edit</fullName>
     <active>true</active>
     <description>Restrict editing the account number once entered to support the collections process</description>
-    <errorConditionFormula>OR(AND (PRIORVALUE(IDR_Second_Issue__c) == true ,  ISCHANGED(IDR_Account_Card_Policy_Number_2__c) ), 
+    <errorConditionFormula>AND(
+OR(AND (PRIORVALUE(IDR_Second_Issue__c) == true ,  ISCHANGED(IDR_Account_Card_Policy_Number_2__c) ), 
 AND (PRIORVALUE(IDR_Third_Issue__c) == true ,  ISCHANGED(IDR_Account_Card_Policy_Number_3__c) ),
 ISCHANGED(IDR_Account_Card_Policy_Number__c)
-)</errorConditionFormula>
+),NOT(ISCHANGED(RecordTypeId)))</errorConditionFormula>
     <errorMessage>You are not authorised to edit the account numbers.</errorMessage>
 </ValidationRule>
