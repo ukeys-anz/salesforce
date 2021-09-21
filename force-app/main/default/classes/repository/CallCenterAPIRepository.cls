@@ -10,12 +10,14 @@ public with sharing class CallCenterAPIRepository extends RepositoryBase {
 
   /**
    * @param ocvId customer id
+   * @param ppid ppid from twilio
    * @param nextURL the url to fetch the next set of records
    * @return `ChatChannelModel` model class constructed from api response
    * @description fetches chat channels by customer from Twilio, deserialized to a model
    */
   public ChatChannelModel getChatTopicsByCustomer(
     String ocvId,
+    String ppid,
     String nextURL
   ) {
     // Construct the endpoint
@@ -26,7 +28,7 @@ public with sharing class CallCenterAPIRepository extends RepositoryBase {
     String endPoint =
       'callout:SF_MS_Twilio' +
       Label.MS_Get_CustomerChatChannels +
-      ocvID +
+      ppid +
       CHANNELS_ENDPOINT_SUFFIX +
       urlParams;
 
