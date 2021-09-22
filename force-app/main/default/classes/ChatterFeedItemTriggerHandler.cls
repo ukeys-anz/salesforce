@@ -4,7 +4,7 @@
  * @since 07/2021
  */
 public with sharing class ChatterFeedItemTriggerHandler extends Lib_TriggerHandler {
-  private static final String DELETE_ERROR = 'You cannot delete feed items.';
+  private static final String DELETE_ERROR = 'You do not have permission to delete this comment';
   private static final String EDIT_ERROR = 'You cannot edit feed items.';
   private static final string FILE_ERROR = 'Files cannot be shared via chatter. Please remove the file from your message before you post.';
   private static final string IMAGE_ERROR = 'Images cannot be shared via chatter. Please remove the image from your message before you post.';

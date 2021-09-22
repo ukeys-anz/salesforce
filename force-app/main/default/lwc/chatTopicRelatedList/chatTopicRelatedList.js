@@ -1,9 +1,13 @@
 import { LightningElement, api, track, wire } from "lwc";
+import { getRecord } from "lightning/uiRecordApi";
 import getChatTopicsOnAccount from "@salesforce/apex/ChatTopicRelatedListController.getChatTopicsOnAccount";
 import getChatTopicInfoOnCase from "@salesforce/apex/ChatTopicRelatedListController.getChatTopicInfoOnCase";
 import { publish, MessageContext } from "lightning/messageService";
 import chatReChannel from "@salesforce/messageChannel/ReinitiateChatTopic__c";
 import chatHistoryChannel from "@salesforce/messageChannel/ViewChatTopicHistory__c";
+
+import ACCOUNT_PPID_FIELD from "@salesforce/schema/Account.PPID__c";
+import CASE_CHANNEL_SID_FIELD from "@salesforce/schema/Case.Twilio_Channel_SID__c";
 
 // Util methods
 import { handleErrorShowToast } from "c/utils";
@@ -36,19 +40,41 @@ export default class ChatTopicRelatedList extends LightningElement {
   @track data = []; //data to be displayed in the table
   @track totalRecordCount = 0; //total record count received from all retrieved records
   @track loading = true;
-
   links;
+  objectFields = [];
 
   @wire(MessageContext)
   messageContext;
 
+  @wire(getRecord, {
+    recordId: "$recordId",
+    fields: "$objectFields"
+  })
+  wiredProject({ data }) {
+    if (data) {
+      if (this.objectName === "Account") {
+        //Check if there is PPID otherwise no chat topics
+        if (data.fields && data.fields.PPID__c.value) {
+          this.fetchChatTopicsOnAccount();
+        }
+      } else if (this.objectName === "Case") {
+        //Check if there is channelSID otherwise no chat topics
+        if (data.fields && data.fields.Twilio_Channel_SID__c.value) {
+          this.fetchChatTopicInfoOnCase();
+        }
+      } else {
+        this.loading = false;
+      }
+    } else {
+      this.loading = false;
+    }
+  }
+
   connectedCallback() {
-    if (this.objectName === "Account") {
-      this.fetchChatTopicsOnAccount();
-    }
-    if (this.objectName === "Case") {
-      this.fetchChatTopicInfoOnCase();
-    }
+    this.objectFields =
+      this.objectName === "Account"
+        ? [ACCOUNT_PPID_FIELD]
+        : [CASE_CHANNEL_SID_FIELD];
   }
 
   fetchChatTopicsOnAccount(nextUrl = "") {
@@ -97,7 +123,7 @@ export default class ChatTopicRelatedList extends LightningElement {
       caseId: this.recordId
     })
       .then((result) => {
-        if (result) {
+        if (Object.keys(result).length !== 0) {
           // TODO: More error handling
           this.data.push(this.generateRowData(result));
           this.totalRecordCount = this.data.length;
@@ -156,7 +182,7 @@ export default class ChatTopicRelatedList extends LightningElement {
       this.publishLightningMessage(
         chatHistoryChannel,
         message,
-        "Error occured while displaying related Chat History"
+        "Error occurred while displaying related Chat History"
       );
     }
   }

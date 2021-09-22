@@ -1,0 +1,122 @@
+<template>
+  <lightning-card class="card">
+    <lightning-layout>
+      <lightning-layout-item class="card-inner" size="12">
+        <div class="slds-box error" if:true={errorMessage}>{errorMessage}</div>
+
+        <div class="title-banner">
+          <div class="title">Log a call</div>
+        </div>
+
+        <div class={containerClass}>
+          <div class="container-inner">
+            <div if:false={showMore}>
+              <button
+                class="slds-button slds-button_neutral slds-button_stretch button-padding"
+                onclick={openLWC}
+              >
+                Add your Call
+              </button>
+            </div>
+
+            <div>
+              <lightning-input
+                variant="label-hidden"
+                type="hidden"
+                id="searchInput"
+                data-id="searchInput"
+                onkeyup={handleFieldChange}
+                data-field="subject"
+                value={fields.subject}
+                class="slds-form-element__control"
+                max-length="255"
+              ></lightning-input>
+              <p if:true={errorString.subject} class="error-text">
+                {errorString.subject}
+              </p>
+            </div>
+
+            <!-- input for voiceCallSID -->
+            <div>
+              <label for="voiceCallinput">
+                <div class="helpText">
+                  <span class="required">*</span>Voice Call SID
+                  <lightning-helptext
+                    content="Unique Twilio Call SID related to particular call interaction being
+              logged"
+                  ></lightning-helptext>
+                </div>
+              </label>
+            </div>
+            <lightning-input
+              id="voiceCallinput"
+              onkeyup={handleFieldChange}
+              value={fields.voiceCall}
+              data-field="voiceCall"
+              variant="label-hidden"
+              max-length="34"
+              message-when-too-long={fieldErrorMessages.voiceCall}
+            ></lightning-input>
+            <p if:true={errorString.voiceCall} class="error-text">
+              {errorString.voiceCall}
+            </p>
+
+            <!-- combobox for authentication picklist values  -->
+            <div>
+              <label for="authCombo" class="auth-label">
+                <span class="required">*</span>Authentication Method
+              </label>
+            </div>
+            <lightning-combobox
+              id="authCombo"
+              data-id="authCombo"
+              class="authCombo slds-m-vertical_medium"
+              name="Authentication"
+              options={authOptions}
+              onchange={handleFieldChange}
+              data-field="auth"
+              value={fields.auth}
+              variant="label-hidden"
+            >
+            </lightning-combobox>
+            <p if:true={errorString.auth} class="error-text">
+              {errorString.auth}
+            </p>
+
+            <!-- textarea for comment -->
+            <label>Comments</label>
+            <lightning-textarea
+              id="commentsInput"
+              data-id="commentsInput"
+              class="text-area"
+              maxlength="32000"
+              aria-describedby="quickTextKeyboardTip"
+              role="textbox"
+              variant="label-hidden"
+              placeholder="Optional"
+              onkeyup={handleFieldChange}
+              data-field="comment"
+              value={fields.comment}
+            ></lightning-textarea>
+            <p if:true={errorString.comment} class="error-text">
+              {errorString.comment}
+            </p>
+
+            <div if:true={isLoading}>
+              <lightning-spinner alternative-text="Loading..." variant="brand">
+              </lightning-spinner>
+            </div>
+
+            <lightning-button
+              class="slds-float_right"
+              variant="brand"
+              label="Save"
+              onclick={handleSaveTask}
+            ></lightning-button>
+          </div>
+          <!-- / Container inner -->
+        </div>
+      </lightning-layout-item>
+    </lightning-layout>
+  </lightning-card>
+</template>
