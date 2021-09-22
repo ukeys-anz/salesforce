@@ -25,7 +25,7 @@ global with sharing class ChatContextService {
 
   global static Map<Id, Account> accountsById = new Map<Id, Account>();
 
-  global static String subTypeLabel;
+  private static String subTypeLabel;
 
   /**
    * @description HTTP POST method passing incoming Chat context in to Salesforce.
