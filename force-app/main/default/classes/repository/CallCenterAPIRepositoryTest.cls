@@ -15,6 +15,7 @@ public with sharing class CallCenterAPIRepositoryTest {
     CallCenterAPIRepository callCenterAPI = new CallCenterAPIRepository();
     ChatChannelModel model = callCenterAPI.getChatTopicsByCustomer(
       '4017640246',
+      '3267346723',
       ''
     );
     Test.stopTest();
@@ -69,7 +70,11 @@ public with sharing class CallCenterAPIRepositoryTest {
     Test.startTest();
     CallCenterAPIRepository callCenterAPI = new CallCenterAPIRepository();
     try {
-      model = callCenterAPI.getChatTopicsByCustomer('4017640246', '');
+      model = callCenterAPI.getChatTopicsByCustomer(
+        '4017640246',
+        '3267346723',
+        ''
+      );
     } catch (Exception e) {
       resultException = e;
     }

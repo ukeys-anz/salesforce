@@ -17,6 +17,11 @@
             <operation>equals</operation>
             <value>Complaint</value>
         </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>notEqual</operation>
+            <value>Closed</value>
+        </milestoneCriteriaFilterItems>
         <milestoneName>Resolution Time</milestoneName>
         <minutesToComplete>2400</minutesToComplete>
         <timeTriggers>
@@ -43,6 +48,11 @@
             <field>Case.RecordTypeId</field>
             <operation>equals</operation>
             <value>General Enquiry</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>notEqual</operation>
+            <value>Closed</value>
         </milestoneCriteriaFilterItems>
         <milestoneName>Resolution Time</milestoneName>
         <minutesToComplete>1440</minutesToComplete>

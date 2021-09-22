@@ -309,4 +309,27 @@ public inherited sharing class GetHelpCaseActionsHelper {
       return false;
     }
   }
+
+  /**
+   * @description This method check if a case has "Closed" status
+   * @param record The case record
+   * @return Boolean if a case's status is "Closed"
+   */
+  public static Boolean isClosed(Case record) {
+    Boolean isClosed = record.Status == 'Closed' ? true : false;
+    return isClosed;
+  }
+
+  /**
+   * @description Complete milestone on Closed cases
+   * @param closedCaseIds  list of closed case ids
+   */
+  @future
+  public static void completeMilestoneOnClosedCases(List<Id> closedCaseIds) {
+    MilestoneUtils.completeMilestone(
+      closedCaseIds,
+      GetHelpCaseActions.MILESTONE_NAME,
+      System.now()
+    );
+  }
 }

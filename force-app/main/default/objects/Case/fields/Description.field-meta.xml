@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Description</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Source_Salesforce;Integrity - Trusted;Privacy - Personal Information</complianceGroup>
+    <complianceGroup>Source_Salesforce;Integrity_Trusted;Privacy_Personal_Information</complianceGroup>
     <description>Description of issue</description>
     <encryptionScheme>ProbabilisticEncryption</encryptionScheme>
     <inlineHelpText>Provide a detailed, accurate and grammatically correct description of the customer&apos;s concern, from Customer&apos;s perspective. This field should not display subjective comments from your, or ANZ&apos;s perspective.</inlineHelpText>

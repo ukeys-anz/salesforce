@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>AccountId</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate;Privacy - Personal Information</complianceGroup>
+    <complianceGroup>Integrity_Accurate;Privacy_Personal_Information</complianceGroup>
     <description>The account identification of the customer who has raised an issue.</description>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

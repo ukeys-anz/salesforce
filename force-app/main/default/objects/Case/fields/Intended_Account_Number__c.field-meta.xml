@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Intended_Account_Number__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Trusted;Source - Salesforce;Privacy - Personal Information</complianceGroup>
+    <complianceGroup>Integrity_Trusted;Source_Salesforce;Privacy_Personal_Information</complianceGroup>
     <description>Unique account number provided to the customer</description>
     <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
     <externalId>false</externalId>

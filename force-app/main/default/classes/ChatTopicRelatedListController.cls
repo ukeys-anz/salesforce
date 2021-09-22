@@ -22,17 +22,20 @@ public with sharing class ChatTopicRelatedListController {
   ) {
     // Query for Customer OCV ID by passing in the Account ID
     String ocvId;
+    String ppid;
     if (Account.sObjectType.getDescribe().isQueryable()) {
       List<Account> accounts = accountHelper.findAccountsByAccountId(accountId);
       if (!accounts.isEmpty()) {
         ocvId = accounts[0].OCV_ID__c;
+        ppid = accounts[0].PPID__c;
       }
 
-      if (String.isNotBlank(ocvID)) {
+      if (String.isNotBlank(ocvID) && String.isNotBlank(ppid)) {
         // Make a callout to Twilio Service to fetch all Chat Topics related to the customer
         CallCenterAPIRepository ccap = new CallCenterAPIRepository();
         ChatChannelModel responseBody = ccap.getChatTopicsByCustomer(
           ocvId,
+          ppid,
           nextURL
         );
 

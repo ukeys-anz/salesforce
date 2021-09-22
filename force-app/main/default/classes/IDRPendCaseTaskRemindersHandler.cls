@@ -35,10 +35,7 @@ public with sharing class IDRPendCaseTaskRemindersHandler {
         recipientList.add(t.OwnerId);
         recipientList.add(caseMap.get(t.WhatId)?.OwnerId);
         if (Integer.valueOf(t.Due_in_Days__c) == 1) {
-          User caseOwnerUser = (User) caseMap.get(t.WhatId).Owner;
-          if (caseOwnerUser.ManagerId != null) {
-            recipientList.add(caseOwnerUser.ManagerId);
-          }
+          recipientList.add(((User) caseMap.get(t.WhatId)?.Owner)?.ManagerId);
         }
         msgBody =
           'Pend Task for Case : ' +
@@ -53,6 +50,7 @@ public with sharing class IDRPendCaseTaskRemindersHandler {
           caseMap.get(t.WhatId)?.CaseNumber +
           ' is Overdue.';
       }
+      recipientList.remove(null);
       IDRBankerNotificationWrapper wrapper = new IDRBankerNotificationWrapper(
         t,
         new List<Id>(recipientList),

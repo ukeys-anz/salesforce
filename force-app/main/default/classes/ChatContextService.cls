@@ -30,7 +30,9 @@ global with sharing class ChatContextService {
    * Salesforce would then return a unique customer identifier, or a related Case Number to include on Twilio tasks as "sfdcSearchString".
    * @param contextRequests List of Chat Context Requests
    */
-  @SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
+  @SuppressWarnings(
+    'PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity, PMD.NcssMethodCount'
+  )
   @HttpPost
   global static void doPost(List<ChatContextRequest> contextRequests) {
     List<ChatContextResponse> responseList = new List<ChatContextResponse>();
@@ -57,18 +59,30 @@ global with sharing class ChatContextService {
     Map<String, Account> accountByOCVId = new Map<String, Account>();
     Map<String, Boolean> responseStatusByOCVId = new Map<String, Boolean>();
     List<Case> newCases = new List<Case>();
+    List<Account> accountsToUpdate = new List<Account>();
 
     for (Account acc : [
       SELECT
         Id,
         External_Id__c,
         OCV_ID__c,
+        PPID__c,
         (SELECT Id, Twilio_Channel_SID__c, CaseNumber FROM Cases)
       FROM Account
       WHERE OCV_ID__c IN :requestByOCVId.keySet() AND ANZx_Customer__c = TRUE
     ]) {
       accountByOCVId.put(acc.OCV_ID__c, acc);
       accountsById.put(acc.Id, acc);
+
+      //Only update PPID once or if its changed
+      if (
+        String.isNotBlank(requestByOCVId.get(acc.OCV_ID__c).PPID) &&
+        (String.isBlank(acc.PPID__C) ||
+        acc.PPID__C != requestByOCVId.get(acc.OCV_ID__c).PPID)
+      ) {
+        acc.PPID__C = requestByOCVId.get(acc.OCV_ID__c).PPID;
+        accountsToUpdate.add(acc);
+      }
 
       Boolean caseExists = false;
       // Check if the customer already has a Case created against the Channel SID being passed
@@ -105,6 +119,27 @@ global with sharing class ChatContextService {
           newCase.OwnerId = generalInquiryQueue.Id;
         }
         newCases.add(newCase);
+      }
+    }
+
+    if (
+      !accountsToUpdate.isEmpty() &&
+      Account.sObjectType.getDescribe().isUpdateable()
+    ) {
+      List<Database.SaveResult> results = Database.Update(
+        accountsToUpdate,
+        false
+      );
+
+      lib_systemLog log = new lib_systemLog('ChatContextService', 'doPost');
+      Boolean hasError = log.addDatabaseSaveResult(
+        'Account',
+        results,
+        accountsToUpdate
+      );
+      if (hasError) {
+        //log errors to application log
+        log.insertLog();
       }
     }
 
@@ -223,8 +258,17 @@ global with sharing class ChatContextService {
    * @return `Boolean` true if the record is valid. Otherwise return false.
    */
   private static Boolean isValidRequest(ChatContextRequest chatContext) {
-    Boolean isValid = false;
-    //Check to make sure OCV ID and Channel ID is present
+    //Check if PPID is present but don't cancel flow if not present
+    if (String.isBlank(chatContext.PPID)) {
+      //log errors to application log
+      lib_systemLog log = new lib_systemLog(
+        'ChatContextService',
+        'isValidRequest'
+      );
+      log.error('Missing PPID from request');
+      log.insertLog();
+    }
+    //Check to make sure OCV ID and Channel ID are present
     return String.isNotBlank(chatContext.ocvId) &&
       String.isNotBlank(chatContext.channelSID);
   }
@@ -289,6 +333,10 @@ global with sharing class ChatContextService {
      * @description Case Type as a String based on Chat contexed passed from App in to Twilio
      */
     public String caseType { get; set; }
+    /**
+     * @description PPID from Twilio
+     */
+    public String ppid { get; set; }
   }
 
   /**
