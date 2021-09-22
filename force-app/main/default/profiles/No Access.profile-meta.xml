@@ -1304,15 +1304,11 @@
     </userPermissions>
     <userPermissions>
         <enabled>false</enabled>
-<<<<<<< HEAD
         <name>ChatterFileLink</name>
-=======
-        <name>ChatterEditOwnPost</name>
     </userPermissions>
     <userPermissions>
         <enabled>false</enabled>
         <name>ChatterEditOwnRecordPost</name>
->>>>>>> epic/cmos-bau
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
