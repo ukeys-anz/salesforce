@@ -82,7 +82,7 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
         result,
         notificationList
       );
-      log.insertLog();
+      log.insertLogAsync();
     } else {
       CommonUtil.logAndThrowIAE(
         'NotificationTriggerHandler',
@@ -166,7 +166,7 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
         peSaveResults,
         idrNotifications
       );
-      log.insertLog();
+      log.insertLogAsync();
       return peSaveResults;
     }
     return null;
