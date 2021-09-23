@@ -51,10 +51,6 @@
     </userPermissions>
     <userPermissions>
         <enabled>false</enabled>
-        <name>ChatterFileLink</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
         <name>ChatterInternalUser</name>
     </userPermissions>
     <userPermissions>
