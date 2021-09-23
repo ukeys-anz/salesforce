@@ -166,7 +166,7 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
         peSaveResults,
         idrNotifications
       );
-      log.insertLogAsync();
+      log.insertLog();
       return peSaveResults;
     }
     return null;
