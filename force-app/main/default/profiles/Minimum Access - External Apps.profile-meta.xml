@@ -1713,10 +1713,6 @@
     </userPermissions>
     <userPermissions>
         <enabled>false</enabled>
-        <name>ChatterFileLink</name>
-     </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
         <name>ChatterEditOwnRecordPost</name>
     </userPermissions>
     <userPermissions>
