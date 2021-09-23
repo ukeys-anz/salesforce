@@ -543,12 +543,12 @@ public with sharing class IDREmailServiceTest {
 
   @IsTest
   static void createNewCaseExceptionTest2() {
-    User contextUser = [
-      SELECT Id
-      FROM User
-      WHERE FirstName = 'ESContextUser'
-      LIMIT 1
-    ];
+    Profile profile = [SELECT Id FROM Profile WHERE Name = 'No Access' LIMIT 1];
+    User contextUser = (User) FakerFactory.make(new FakerUserFactory());
+    contextUser.FirstName = 'ESContextUser1';
+    contextUser.ProfileId = profile.Id;
+    insert contextUser;
+
     Test.startTest();
     System.runAs(contextuser) {
       // Create a new email and envelope object.
