@@ -2978,10 +2978,6 @@
         <name>ApiEnabled</name>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
-        <name>ChatterInternalUser</name>
-    </userPermissions>
-    <userPermissions>
         <enabled>false</enabled>
         <name>ConvertLeads</name>
     </userPermissions>
@@ -2995,11 +2991,7 @@
     </userPermissions>
     <userPermissions>
         <enabled>false</enabled>
-<<<<<<< HEAD
         <name>ChatterFileLink</name>
-=======
-        <name>ChatterEditOwnPost</name>
->>>>>>> epic/cmos-bau
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
