@@ -70,7 +70,7 @@ public with sharing class NotificationHandlerBatch implements Database.Batchable
         result,
         handlerRecords
       );
-      log.insertLogAsync();
+      log.insertLog();
     } else {
       CommonUtil.logAndThrowIAE(
         'NotificationHandlerBatch',
