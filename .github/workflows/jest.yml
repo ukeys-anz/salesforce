@@ -18,6 +18,6 @@ jobs:
         run: |
           mv ci.npmrc .npmrc
           npm ci
-
+          
       - name: Running JEST tests for LWC
         run: npx jest --coverage
