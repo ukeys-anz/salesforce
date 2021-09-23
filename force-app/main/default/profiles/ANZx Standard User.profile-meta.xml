@@ -9767,10 +9767,6 @@
     <name>AssignTopics</name>
   </userPermissions>
   <userPermissions>
-    <enabled>false</enabled>
-    <name>ChatterFileLink</name>
-  </userPermissions>
-  <userPermissions>
     <enabled>true</enabled>
     <name>ChatterInternalUser</name>
   </userPermissions>
