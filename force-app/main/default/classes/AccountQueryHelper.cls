@@ -12,7 +12,7 @@ public with sharing class AccountQueryHelper {
    */
   public List<Account> findAccountsByAccountId(String accountId) {
     List<Account> accounts = [
-      SELECT OCV_ID__c
+      SELECT OCV_ID__c, PPID__c
       FROM Account
       WHERE Id = :accountId
     ];

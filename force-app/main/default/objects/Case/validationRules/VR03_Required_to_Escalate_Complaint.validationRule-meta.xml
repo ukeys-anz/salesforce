@@ -3,13 +3,18 @@
     <fullName>VR03_Required_to_Escalate_Complaint</fullName>
     <active>true</active>
     <errorConditionFormula>AND(
-	$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
-	OR(
-		RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
-		RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
-	),
-	ISPICKVAL(Status, &#39;Escalated&#39;),
-	ISBLANK(TEXT(IDR_Escalation_Reason__c))
-)</errorConditionFormula>
-    <errorMessage>These fields are required in order to escalate a complaint: Escalation Reason.</errorMessage>
+    $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+    OR(
+    RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
+    RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
+    ),
+    OR(
+    AND (ISPICKVAL(Status, &apos;Escalated&apos;),
+    ISBLANK(TEXT(IDR_Escalation_Reason__c))) ,
+
+    AND (NOT((ISPICKVAL(Status, &apos;Escalated&apos;))),
+    NOT(ISPICKVAL(PRIORVALUE(Status),&apos;Escalated&apos;)),
+    ISCHANGED(IDR_Escalation_Reason__c)))
+    )</errorConditionFormula>
+    <errorMessage>Please make sure these fields are populated : Status, Escalation Reason</errorMessage>
 </ValidationRule>

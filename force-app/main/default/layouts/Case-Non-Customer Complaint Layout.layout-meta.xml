@@ -198,7 +198,7 @@
                 <field>IDR_Subsequent_Issue__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
+                <behavior>Edit</behavior>
                 <field>IDR_Escalation_Reason__c</field>
             </layoutItems>
         </layoutColumns>

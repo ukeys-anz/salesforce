@@ -33,6 +33,8 @@ public with sharing class IDRCaseActions {
 
   private static final String CUSTOMER_NUMBER_VALIDATION_ERROR = 'This field can no longer be edited. In the event that the Customer Number/Identifier is incorrect, the case must be withdrawn and a new case created with the correct Customer Number.';
 
+  private static final String CANNOT_CLOSE_CASE_WITH_PENDING_TASK_ERROR = 'You cannot close the case as there is currently an open \'Pend Case\' task. Please review and action the open \'Pend Case\' task before closing the case.';
+
   @TestVisible
   private static List<IDR_CRC_Escalation_Event__e> idrCaseEscalations;
 
@@ -166,6 +168,7 @@ public with sharing class IDRCaseActions {
         }
       }
     }
+    preventCloseStatusOnCaseWithPendingTask(records, (Map<Id, Case>) oldMap);
     //calling handleOfficeAssignment for all case records for which the IDR_Office__c needs to be updated.
     handleOfficeAssignment(changeOfficeCaseList);
     IDRCaseAssignmentRules.assignCases(records, (Map<Id, Case>) oldMap);
@@ -769,4 +772,34 @@ public with sharing class IDRCaseActions {
       }
     }
   }
+
+  /**
+   * @description Prevents a complaints case moving to Closed or Resolved status when it has any non-complete complaints task with 'Pending Case' type
+   * @param records  List of cases from the trigger 
+   * @param oldMap Map of pre-update cases supplied from the trigger as well
+   */
+  private static void preventCloseStatusOnCaseWithPendingTask(List<Case> records, Map<Id, Case> oldMap){
+ 
+    List<Case> closedComplaintCases = new List<Case>();
+    for(Case c : records){
+      if((c.Status == 'Closed' || c.Status == 'Resolved') && oldMap.get(c.Id).Status != c.Status && isIDRComplaintType(c)){
+        closedComplaintCases.add(c);
+      }
+    }
+    if(!closedComplaintCases.isEmpty()){
+    List<Task> openpendingtasks = [SELECT Id, WhatId FROM Task WHERE WhatId=:closedComplaintCases AND RecordTypeId=:IDRConstants.IDR_TASK_RT_ID AND Status!='Completed' AND Type='Pend Case' WITH SECURITY_ENFORCED];
+ 
+    Map<Id, Task> caseTaskMap = new Map<Id, Task>();
+    for(Task t : openpendingtasks){
+      caseTaskMap.put(t.WhatId, t);
+    }
+   
+    for(Case c : closedComplaintCases){
+      if(caseTaskMap.containskey(c.id)){
+        c.addError(CANNOT_CLOSE_CASE_WITH_PENDING_TASK_ERROR);
+      }
+    }
+    }
+  }
+
 }

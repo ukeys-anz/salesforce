@@ -51,7 +51,7 @@
     </userPermissions>
     <userPermissions>
         <enabled>false</enabled>
-        <name>ChatterEditOwnPost</name>
+        <name>ChatterFileLink</name>
     </userPermissions>
     <userPermissions>
         <enabled>false</enabled>
