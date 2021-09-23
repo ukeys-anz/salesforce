@@ -540,5 +540,4 @@ public with sharing class IDREmailServiceTest {
     List<Case> caseList = [SELECT Id FROM Case LIMIT 1];
     System.assertEquals(0, caseList.size());
   }
-
 }
