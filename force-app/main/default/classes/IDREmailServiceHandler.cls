@@ -69,48 +69,22 @@ public with sharing class IDREmailServiceHandler {
     }
     if (caseToUpdList.size() > 0) {
       caseToUpd = caseToUpdList[0];
-      try {
-        //Create email message
-        IDREmailServiceHelper.createEmailMessage(email, caseToUpd.Id);
-        //Notify Case Owner
-        IDRBankerNotificationBuilder.sendNotification(
-          new List<IDRBankerNotificationWrapper>{
-            IDRCaseNotificationManager.createNotification(
-              'Email Response Attached',
-              caseToUpd,
-              null
-            )
-          }
-        );
-      } catch (Exception err) {
-        Lib_SystemLog log = new Lib_SystemLog(
-          IDREmailServiceHandler.class.getName(),
-          'updateExistingEmail'
-        );
-        log.error(
-          'EmailServiceException',
-          'Error in creating email message from service class, which needs to be attached to existing case :' +
-          caseToUpd.Id +
-          err.getMessage()
-        );
-        log.publishEvent();
-      }
-      try {
-        //Create files from attachments
-        IDREmailServiceHelper.createAttachmentFiles(email, caseToUpd.Id);
-      } catch (Exception err) {
-        Lib_SystemLog log = new Lib_SystemLog(
-          IDREmailServiceHandler.class.getName(),
-          'updateExistingEmail'
-        );
-        log.error(
-          'EmailServiceException',
-          'Error in creating email message from service class, which needs to be attached to existing case :' +
-          caseToUpd.Id +
-          err.getMessage()
-        );
-        log.publishEvent();
-      }
+
+      //Create email message
+      IDREmailServiceHelper.createEmailMessage(email, caseToUpd.Id);
+      //Notify Case Owner
+      IDRBankerNotificationBuilder.sendNotification(
+        new List<IDRBankerNotificationWrapper>{
+          IDRCaseNotificationManager.createNotification(
+            'Email Response Attached',
+            caseToUpd,
+            null
+          )
+        }
+      );
+      //Create files from attachments
+      IDREmailServiceHelper.createAttachmentFiles(email, caseToUpd.Id);
+
       return false;
     } else {
       return true;
@@ -167,38 +141,11 @@ public with sharing class IDREmailServiceHandler {
     }
 
     if (newCase.Id != null) {
-      try {
-        //Create email message
-        IDREmailServiceHelper.createEmailMessage(email, newCase.Id);
-      } catch (Exception err) {
-        Lib_SystemLog log = new Lib_SystemLog(
-          IDREmailServiceHandler.class.getName(),
-          'createNewCase'
-        );
-        log.error(
-          'EmailServiceException',
-          'Error in creating email message from email service class for new case :' +
-          newCase.Id +
-          err.getMessage()
-        );
-        log.publishEvent();
-      }
-      try {
-        //Create files from attachments
-        IDREmailServiceHelper.createAttachmentFiles(email, newCase.Id);
-      } catch (Exception err) {
-        Lib_SystemLog log = new Lib_SystemLog(
-          IDREmailServiceHandler.class.getName(),
-          'createNewCase'
-        );
-        log.error(
-          'EmailServiceException',
-          'Error in creating attachments from email service class for new case :' +
-          newCase.Id +
-          err.getMessage()
-        );
-        log.publishEvent();
-      }
+      //Create email message
+      IDREmailServiceHelper.createEmailMessage(email, newCase.Id);
+      //Create files from attachments
+      IDREmailServiceHelper.createAttachmentFiles(email, newCase.Id);
+      //assign indexing queue to the case
       IDREmailServiceHelper.updateCaseWithQueue(newCase);
     }
   }

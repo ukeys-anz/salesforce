@@ -10,34 +10,48 @@ public with sharing class IDREmailServiceHelper {
    * @param email Inbound email object
    * @param caseId The case Id that needs to be related to
    */
-  @SuppressWarnings(
-    'PMD.ApexCRUDViolation'
-  ) //Since we ApexCRUD cannot be done on emailMessage object
   public static void createEmailMessage(
     Messaging.InboundEmail email,
     Id caseId
   ) {
-    EmailMessage emailMessage = new EmailMessage();
-    emailMessage.ParentId = caseId;
-    emailMessage.FromAddress = email.fromAddress;
-    emailMessage.FromName = email.fromName;
-    emailMessage.Subject = email.subject;
-    emailMessage.HtmlBody = email.htmlBody.replaceAll('<a.*<.{1}a>', 'REMOVED');
-    if (
-      Schema.EmailMessage.sObjectType.getDescribe().isCreateable() &&
-      Schema.sObjectType.EmailMessage.fields.ParentId.isCreateable() &&
-      Schema.sObjectType.EmailMessage.fields.FromAddress.isCreateable() &&
-      Schema.sObjectType.EmailMessage.fields.FromName.isCreateable() &&
-      Schema.sObjectType.EmailMessage.fields.Subject.isCreateable() &&
-      Schema.sObjectType.EmailMessage.fields.HtmlBody.isCreateable()
-    ) {
-      insert emailMessage;
-    } else {
-      CommonUtil.logAndThrowIAE(
-        IDREmailServiceHelper.class.getName(),
-        'createEmailMessage',
-        'Not enough permissions to create EmailMessage.'
+    try {
+      EmailMessage emailMessage = new EmailMessage();
+      emailMessage.ParentId = caseId;
+      emailMessage.FromAddress = email.fromAddress;
+      emailMessage.FromName = email.fromName;
+      emailMessage.Subject = email.subject;
+      emailMessage.HtmlBody = email.htmlBody.replaceAll(
+        '<a.*<.{1}a>',
+        'REMOVED'
       );
+      if (
+        Schema.EmailMessage.sObjectType.getDescribe().isCreateable() &&
+        Schema.sObjectType.EmailMessage.fields.ParentId.isCreateable() &&
+        Schema.sObjectType.EmailMessage.fields.FromAddress.isCreateable() &&
+        Schema.sObjectType.EmailMessage.fields.FromName.isCreateable() &&
+        Schema.sObjectType.EmailMessage.fields.Subject.isCreateable() &&
+        Schema.sObjectType.EmailMessage.fields.HtmlBody.isCreateable()
+      ) {
+        insert emailMessage;
+      } else {
+        CommonUtil.logAndThrowIAE(
+          IDREmailServiceHelper.class.getName(),
+          'createEmailMessage',
+          'Not enough permissions to create EmailMessage.'
+        );
+      }
+    } catch (Exception err) {
+      Lib_SystemLog log = new Lib_SystemLog(
+        IDREmailServiceHelper.class.getName(),
+        'createEmailMessage'
+      );
+      log.error(
+        'EmailServiceException',
+        'Error in creating email message from service class, which needs to be attached to existing case :' +
+        caseId +
+        err.getMessage()
+      );
+      log.publishEvent();
     }
   }
 
@@ -61,7 +75,20 @@ public with sharing class IDREmailServiceHelper {
 
     if (contentVersionList.size() > 0) {
       if (ContentVersion.sObjectType.getDescribe().isCreateable()) {
-        insert contentVersionList;
+        List<Database.SaveResult> results = Database.insert(
+          contentVersionList,
+          false
+        );
+        lib_systemLog log = new lib_systemLog(
+          'IDREmailServiceHelper',
+          'createAttachmentFiles'
+        );
+        log.addDatabaseSaveResult(
+          'ContentVersion',
+          results,
+          contentVersionList
+        );
+        log.insertLogAsync();
       } else {
         CommonUtil.logAndThrowIAE(
           IDREmailServiceHelper.class.getName(),
@@ -161,7 +188,20 @@ public with sharing class IDREmailServiceHelper {
         Schema.sObjectType.ContentDocumentLink.fields.LinkedEntityId.isCreateable() &&
         Schema.sObjectType.ContentDocumentLink.fields.ShareType.isCreateable()
       ) {
-        insert contentDocLinkList;
+        List<Database.SaveResult> results = Database.insert(
+          contentDocLinkList,
+          false
+        );
+        lib_systemLog log = new lib_systemLog(
+          'IDREmailServiceHelper',
+          'linkContentWithCase'
+        );
+        log.addDatabaseSaveResult(
+          'ContentDocumentLink',
+          results,
+          contentDocLinkList
+        );
+        log.insertLogAsync();
       } else {
         CommonUtil.logAndThrowIAE(
           IDREmailServiceHelper.class.getName(),
