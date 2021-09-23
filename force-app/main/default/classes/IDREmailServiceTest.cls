@@ -557,8 +557,7 @@ public with sharing class IDREmailServiceTest {
       email.subject = 'New case creation subject test';
       email.plainTextBody = 'Test email body.';
       email.htmlBody = 'Test html email body.';
-      //Incorrect Address for exception
-      env.fromAddress = 'userdummyemailforexception';
+      env.fromAddress = 'userdummyemail@abc.com';
 
       //Create email header
       List<Messaging.InboundEmail.Header> emailHeaders = new List<Messaging.InboundEmail.Header>();
@@ -569,8 +568,7 @@ public with sharing class IDREmailServiceTest {
 
       Messaging.InboundEmail.Header fromEmail = new Messaging.InboundEmail.Header();
       fromEmail.name = 'From';
-      //Incorrect Address for exception
-      fromEmail.value = 'userdummyemailforexception';
+      fromEmail.value = 'userdummyemail@abc.com';
       emailHeaders.add(fromEmail);
 
       email.headers = emailHeaders;
