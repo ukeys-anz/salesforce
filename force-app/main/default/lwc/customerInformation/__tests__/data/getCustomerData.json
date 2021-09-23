@@ -19,6 +19,19 @@
     "postCode": "4109",
     "country": "AUS"
   },
+  "relationshipManager": {
+    "details": {
+      "name": "TestName",
+      "phoneNumber": "0401354444",
+      "address": [
+        {
+          "addressLine1": "Test Address Line 1",
+          "addressLine2": "Test Address Line 2"
+        }
+      ]
+    },
+    "error": null
+  },
   "accounts": [
     {
       "accountNumber": "708405438",
