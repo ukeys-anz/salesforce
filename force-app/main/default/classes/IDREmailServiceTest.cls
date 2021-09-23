@@ -541,49 +541,4 @@ public with sharing class IDREmailServiceTest {
     System.assertEquals(0, caseList.size());
   }
 
-  @IsTest
-  static void createNewCaseExceptionTest2() {
-    Profile profile = [SELECT Id FROM Profile WHERE Name = 'No Access' LIMIT 1];
-    User contextUser = (User) FakerFactory.make(new FakerUserFactory());
-    contextUser.FirstName = 'ESContextUser1';
-    contextUser.ProfileId = profile.Id;
-    insert contextUser;
-
-    Test.startTest();
-    System.runAs(contextuser) {
-      // Create a new email and envelope object.
-      Messaging.InboundEmail email = new Messaging.InboundEmail();
-      Messaging.InboundEnvelope env = new Messaging.InboundEnvelope();
-      email.subject = 'New case creation subject test';
-      email.plainTextBody = 'Test email body.';
-      email.htmlBody = 'Test html email body.';
-      env.fromAddress = 'userdummyemail@abc.com';
-
-      //Create email header
-      List<Messaging.InboundEmail.Header> emailHeaders = new List<Messaging.InboundEmail.Header>();
-      Messaging.InboundEmail.Header sendTo = new Messaging.InboundEmail.Header();
-      sendTo.name = 'To';
-      sendTo.value = 'ANZEDRNonProd@anz.com';
-      emailHeaders.add(sendTo);
-
-      Messaging.InboundEmail.Header fromEmail = new Messaging.InboundEmail.Header();
-      fromEmail.name = 'From';
-      fromEmail.value = 'userdummyemail@abc.com';
-      emailHeaders.add(fromEmail);
-
-      email.headers = emailHeaders;
-
-      IDREmailService idremserObj = new IDREmailService();
-      idremserObj.handleInboundEmail(email, env);
-
-      Test.stopTest();
-      //Asserts
-      List<EmailMessage> emailMessageList = [
-        SELECT parentId
-        FROM EmailMessage
-        LIMIT 1
-      ];
-      System.assertEquals(0, emailMessageList.size());
-    }
-  }
 }
