@@ -16,6 +16,8 @@ jobs:
       - name: Trigger Harness Job
         env:
           GITHUB_REF: ${{ github.ref }}
+          GITHUB_SHA: ${{ github.sha }}
+          UPLOAD_ARTIFACT: ${{ contains(github.base_ref, 'develop') || contains(github.base_ref, 'master') }}
         run: |
           docker run --rm \
             anzx-docker.artifactory.gcp.anz/github-actions-harness-trigger:ede3323 \
@@ -24,7 +26,7 @@ jobs:
             --application-name=salesforce \
             --target-name=salesforce-cd-np \
             --target-type=WORKFLOW \
-            --variables='GITHUB_BASE_REF=${{ env.BASE_REF }};GITHUB_REF=${{ env.GITHUB_REF }}' \
+            --variables='GITHUB_BASE_REF=${{ env.BASE_REF }};GITHUB_REF=${{ env.GITHUB_REF }};GITHUB_SHA=${{ env.GITHUB_SHA }};UPLOAD_ARTIFACT=${{ env.UPLOAD_ARTIFACT }}' \
             --wait
 
       - uses: actions/checkout@v2
