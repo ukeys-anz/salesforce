@@ -1021,7 +1021,7 @@ private class CaseTriggerHandlerTest {
     System.runAs(level1User) {
       // WHEN they are inserted or updated by L1 User
       insert caseList1;
-    // When they are Escalated then Resolved by L1 User
+      // When they are Escalated then Resolved by L1 User
       insert caseList2;
     }
     for (Case updateCase : caseList2) {
