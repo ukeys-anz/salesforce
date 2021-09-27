@@ -561,18 +561,21 @@ public without sharing class IDRTaskActions {
    * @return Boolean returns true or false based on validation
    */
   private static Boolean validateCaseForPSITask(Case record, Case oldRec) {
-    if(
+    if (
       IDRCaseActions.isIDRComplaintType(record) && //is it complaint?
       record.IDR_Is_Common__c == 'Yes' && //is case PSI
       FeatureManagement.checkPermission('IDR_Level_1') && //is user level 1 or higher?
-      ( oldRec == null ||  
-       (record.isEscalated != oldRec.isEscalated && oldRec.isEscalated == true) //if case is updated, has it been escalated?
-      ) &&
-      record.isClosed == true 
+      (oldRec == null ||
+      (record.isEscalated != oldRec.isEscalated &&
+      oldRec.isEscalated == true)) && //if case is updated, has it been escalated?
+      ((oldRec == null &&
+      record.isClosed == true) || //if case is created closed
+      (oldRec.isClosed == false &&
+      record.isClosed == true)) //if case is updated from non-closed to closed status
     ) {
-        return true;
+      return true;
     } else {
-        return false;
+      return false;
     }
   }
   /**
