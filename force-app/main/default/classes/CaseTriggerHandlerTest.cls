@@ -1008,7 +1008,12 @@ private class CaseTriggerHandlerTest {
           RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
           IDR_Is_Common__c = 'Yes',
           IDR_Systemic_Issue_Description__c = 'Test Description',
-          IDR_Systemic_Issue_Category__c = '1'
+          IDR_Systemic_Issue_Category__c = '1',
+          Status = 'Resolved',
+          IDR_Complaint_Outcome__c = '1',
+          IDR_Complaint_Remedy__c = '2',
+          IDR_Non_Financial_Remedy__c = '5',
+          IDR_Description_of_Outcome__c = 'Test'
         )
       );
     }
@@ -1016,9 +1021,9 @@ private class CaseTriggerHandlerTest {
     System.runAs(level1User) {
       // WHEN they are inserted or updated by L1 User
       insert caseList1;
+    // When they are Escalated then Resolved by L1 User
+      insert caseList2;
     }
-    // When they are Escalated and Resolved by any user
-    insert caseList2;
     for (Case updateCase : caseList2) {
       updateCase.Status = 'Resolved';
       updateCase.IDR_Complaint_Outcome__c = '1';
@@ -1026,7 +1031,9 @@ private class CaseTriggerHandlerTest {
       updateCase.IDR_Non_Financial_Remedy__c = '5';
       updateCase.IDR_Description_of_Outcome__c = 'Test';
     }
-    update caseList2;
+    System.runAs(level1User) {
+      update caseList2;
+    }
     test.stopTest();
     // THEN new tasks are created and assigned to PSI queue
     List<Task> psiTasks = [SELECT Id, Subject, OwnerId FROM Task];
@@ -1369,50 +1376,5 @@ private class CaseTriggerHandlerTest {
     System.assertEquals(queueList[0].Id, caseRec1.OwnerId);
 
     Test.stopTest();
-  }
-
-  @isTest
-  static void testCaseNotifiationAfterUpdate() {
-    Case parentCase = new Case(
-      RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
-      Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
-      IDR_Customer_Number__c = '1234567890',
-      Priority = 'Standard',
-      Type = '5',
-      IDR_Subsequent_Issue__c = '38'
-    );
-    insert parentCase;
-    Case[] newCases = new List<Case>();
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
-        new Case(
-          RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
-          Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
-          IDR_Customer_Number__c = '1234567890',
-          Priority = 'Standard',
-          Type = '5',
-          IDR_Subsequent_Issue__c = '38'
-        )
-      );
-    }
-    insert newCases;
-    Test.startTest();
-    List<Case> caseList = [
-      SELECT Id, Origin, CaseNumber, ParentId
-      FROM Case
-      WHERE Id != :parentCase.Id
-    ];
-    for (Case c : caseList) {
-      c.ParentId = parentCase.Id;
-    }
-    CheckRecursive.firstCall = false;
-    update caseList;
-    Test.stopTest();
-    System.assertEquals(
-      parentCase.Id,
-      [SELECT ParentId FROM Case WHERE Id != :parentCase.Id LIMIT 1]
-      .ParentId,
-      'Issue while updating parentId'
-    );
   }
 }
