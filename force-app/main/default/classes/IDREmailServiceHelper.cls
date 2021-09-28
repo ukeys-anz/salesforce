@@ -108,6 +108,7 @@ public with sharing class IDREmailServiceHelper {
   /**
    * @description Checks the extension of attachments
    * @param mimeType Mime type of attachments
+   * @param fileName Name of file for extension check
    * @return Boolean return true/false if the extension is valid
    */
   public static Boolean checkExtension(String mimeType, String fileName) {
