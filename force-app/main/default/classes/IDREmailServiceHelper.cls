@@ -112,7 +112,9 @@ public with sharing class IDREmailServiceHelper {
    */
   public static Boolean checkExtension(String mimeType) {
     List<String> extensions = getExtensions(mimeType);
-    if (extensions != null) {
+    if (
+      extensions != null && extensions.contains(fileName.substringAfter('.'))
+    ) {
       return true;
     } else {
       return false;
@@ -269,7 +271,7 @@ public with sharing class IDREmailServiceHelper {
     );
     if (tAttachments != null && tAttachments.size() > 0) {
       for (Messaging.Inboundemail.TextAttachment tAttachment : tAttachments) {
-        if (checkExtension(tAttachment.mimeTypeSubType)) {
+        if (checkExtension(tAttachment.mimeTypeSubType, tAttachment.fileName)) {
           ContentVersion cv = new ContentVersion(
             Title = tAttachment.fileName,
             PathOnClient = tAttachment.fileName,
@@ -311,7 +313,7 @@ public with sharing class IDREmailServiceHelper {
     );
     if (bAttachments != null && bAttachments.size() > 0) {
       for (Messaging.Inboundemail.BinaryAttachment bAttachment : bAttachments) {
-        if (checkExtension(bAttachment.mimeTypeSubType)) {
+        if (checkExtension(bAttachment.mimeTypeSubType, bAttachment.fileName)) {
           ContentVersion cv = new ContentVersion(
             Title = bAttachment.fileName,
             PathOnClient = bAttachment.fileName,
