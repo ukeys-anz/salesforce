@@ -88,4 +88,3 @@ force-app/main/default/classes/GetAccountsAndGoals.cls
 #Ignore Knowledge validation status field as it is not supported in metadata API
 KnowledgeValidationStatus
 type:DataCategoryGroup
-
