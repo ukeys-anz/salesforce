@@ -996,6 +996,10 @@ private class CaseTriggerHandlerTest {
       'Failed to autopopulate Subject on Fraud cases as expected, while updating'
     );
   }
+
+  // Note: this test class only tests the create scenario, not the update scenario.
+  // A separate test method was created for update scenario, insufficient permissions cause it to fail
+  // Code is now consolidated in here, to only create caseList2 code is required
   @isTest
   static void testPSITaskCreation() {
     // GIVEN complaint cases which are possibly systemic issues

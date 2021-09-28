@@ -588,6 +588,7 @@ public without sharing class IDRTaskActions {
     return new Task(
       RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID,
       Type = IDRConstants.TASK_TYPE_SYSTEMIC_ISSUE,
+      Priority = 'Normal',
       OwnerId = siQueue.Id,
       WhatId = c.Id,
       Subject = IDR_TASK_SUBJECT,
