@@ -110,7 +110,7 @@ public with sharing class IDREmailServiceHelper {
    * @param mimeType Mime type of attachments
    * @return Boolean return true/false if the extension is valid
    */
-  public static Boolean checkExtension(String mimeType) {
+  public static Boolean checkExtension(String mimeType, String fileName) {
     List<String> extensions = getExtensions(mimeType);
     if (
       extensions != null && extensions.contains(fileName.substringAfter('.'))
