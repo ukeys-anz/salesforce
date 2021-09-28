@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_CFMS_Complaint_Number__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Source_Salesforce;Integrity_Trusted;Privacy_Non_Personal_Information</complianceGroup>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information</complianceGroup>
     <description>Complaints Financial Management System (CFMS) generated Complaint Number, potentially useful to relate cases between SF and CFMS.</description>
     <externalId>true</externalId>
     <label>CFMS Complaint Number</label>

@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>SI_Complaint_Count__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Source_Salesforce;Integrity_Accurate;Privacy_Non_Personal_Information</complianceGroup>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information</complianceGroup>
     <defaultValue>0</defaultValue>
     <description>Total count (number) of complaints linked under the (possible) systemic issue record.</description>
     <externalId>false</externalId>

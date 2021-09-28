@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ContactMobile</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Source_OCV;Integrity_Accurate;Privacy_Personal_Information</complianceGroup>
+    <complianceGroup>Integrity_Accurate;Privacy_Personal_Information</complianceGroup>
     <description>Customer’s mobile number, used for voice calling via Twilio</description>
     <securityClassification>Confidential</securityClassification>
     <trackTrending>false</trackTrending>

@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Origin_Other__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Source_Salesforce;Privacy_Non_Personal_Information</complianceGroup>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information</complianceGroup>
     <description>Free text field for when case originates from &apos;Other&apos; channel</description>
     <externalId>false</externalId>
     <inlineHelpText>&apos;Other&apos; channel selected: Please describe the channel in which the issue was received.</inlineHelpText>

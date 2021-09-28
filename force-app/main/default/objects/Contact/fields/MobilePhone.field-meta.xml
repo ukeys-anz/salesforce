@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>MobilePhone</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Source_OCV;Integrity_Accurate;Privacy_Personal_Information</complianceGroup>
+    <complianceGroup>Integrity_Accurate;Privacy_Personal_Information</complianceGroup>
     <description>Mobile Phone number of the customer owning the account</description>
     <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
     <securityClassification>Confidential</securityClassification>

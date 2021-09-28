@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_Customer_Number__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Source_Salesforce;Integrity_Trusted;Privacy_Personal_Information</complianceGroup>
+    <complianceGroup>Integrity_Trusted;Privacy_Personal_Information</complianceGroup>
     <description>Customer CIS Number from CAP</description>
     <externalId>true</externalId>
     <inlineHelpText>Also known as Customer CAP CIS ID. Copy and paste this from MAUD</inlineHelpText>

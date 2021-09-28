@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_Account_Card_Policy_Number__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Source_Salesforce;Integrity_Trusted;Privacy_Personal_Information</complianceGroup>
+    <complianceGroup>Integrity_Trusted;Privacy_Personal_Information</complianceGroup>
     <description>Account/Card/Policy the complaint relates to. Contents will be automatically masked leaving last 4 digits identifiable.</description>
     <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
     <externalId>false</externalId>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>FinServ__MailingAddress__c</fullName>
-    <businessStatus>Hidden</businessStatus>
+    <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Personal_Information</complianceGroup>
     <description>Compound field for Mailing Address.</description>
     <formula>if(ISBLANK(MailingStreet),  &quot;&quot; , MailingStreet &amp; br()) &amp;

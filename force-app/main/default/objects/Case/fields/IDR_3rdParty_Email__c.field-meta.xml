@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_3rdParty_Email__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Source_Salesforce;Integrity_Trusted;Privacy_Personal_Information</complianceGroup>
+    <complianceGroup>Integrity_Trusted;Privacy_Personal_Information</complianceGroup>
     <description>Nominated 3rd party email address (Also used in Get Help for Preferred Contact details)</description>
     <externalId>false</externalId>
     <label>Nominated 3rd party email address</label>
