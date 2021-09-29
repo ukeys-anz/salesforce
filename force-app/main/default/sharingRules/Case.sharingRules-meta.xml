@@ -81,7 +81,7 @@
     <sharingCriteriaRules>
         <fullName>Complaint_RTs_CRPUsers_RO</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Grant read-only access to CFMS migrated complaint records for Customer Resolution Users</description>
+        <description>Grant edit access to CFMS migrated complaint records for Customer Resolution Users</description>
         <label>Complaint_RTs_CRPUsers_RO</label>
         <sharedTo>
             <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
