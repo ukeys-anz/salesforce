@@ -70,7 +70,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Merchant_ID__c</field>
+                <field>AuxDomId__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
