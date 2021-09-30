@@ -46,4 +46,9 @@
         <default>false</default>
         <label>Letter QC</label>
     </standardValue>
+    <standardValue>
+        <fullName>Systemic Issue</fullName>
+        <default>false</default>
+        <label>Systemic Issue</label>
+    </standardValue>
 </StandardValueSet>

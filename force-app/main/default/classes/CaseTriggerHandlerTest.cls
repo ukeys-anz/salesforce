@@ -996,6 +996,10 @@ private class CaseTriggerHandlerTest {
       'Failed to autopopulate Subject on Fraud cases as expected, while updating'
     );
   }
+
+  // Note: this test class only tests the create scenario, not the update scenario.
+  // A separate test method was created for update scenario, insufficient permissions cause it to fail
+  // Code is now consolidated in here, to only create caseList2 code is required
   @isTest
   static void testPSITaskCreation() {
     // GIVEN complaint cases which are possibly systemic issues
@@ -1008,7 +1012,13 @@ private class CaseTriggerHandlerTest {
           RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
           IDR_Is_Common__c = 'Yes',
           IDR_Systemic_Issue_Description__c = 'Test Description',
-          IDR_Systemic_Issue_Category__c = '1'
+          IDR_Systemic_Issue_Category__c = '1',
+          Status = 'Resolved',
+          IDR_Complaint_Outcome__c = '1',
+          IDR_Complaint_Remedy__c = '2',
+          IDR_Non_Financial_Remedy__c = '5',
+          IDR_Description_of_Outcome__c = 'Test',
+          Priority = 'Medium'
         )
       );
     }
@@ -1016,9 +1026,9 @@ private class CaseTriggerHandlerTest {
     System.runAs(level1User) {
       // WHEN they are inserted or updated by L1 User
       insert caseList1;
+      // When they are Escalated then Resolved by L1 User
+      insert caseList2;
     }
-    // When they are Escalated and Resolved by any user
-    insert caseList2;
     for (Case updateCase : caseList2) {
       updateCase.Status = 'Resolved';
       updateCase.IDR_Complaint_Outcome__c = '1';
@@ -1026,7 +1036,9 @@ private class CaseTriggerHandlerTest {
       updateCase.IDR_Non_Financial_Remedy__c = '5';
       updateCase.IDR_Description_of_Outcome__c = 'Test';
     }
-    update caseList2;
+    System.runAs(level1User) {
+      update caseList2;
+    }
     test.stopTest();
     // THEN new tasks are created and assigned to PSI queue
     List<Task> psiTasks = [SELECT Id, Subject, OwnerId FROM Task];
