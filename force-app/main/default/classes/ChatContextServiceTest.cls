@@ -302,52 +302,6 @@ public with sharing class ChatContextServiceTest {
   }
 
   @isTest
-  static void testDuplicateTypeForSubType() {
-    Faker faker = new Faker('AU');
-    // GIVEN Twilio API user has required access to Salesforce API
-    // Query for API User
-    User usr = TestUtil.getUserByFirstName('APIUserTest');
-
-    // WHEN Twilio API user sends a request with valid OCV ID and Channel SID, but with a Sub Type that has multiple controlling parent values
-    // Prepare request test data
-    List<ChatContextService.ChatContextRequest> contextRequests = prepareRequest(
-      'OCVID887766',
-      'CH' + faker.randomString(32),
-      'Using account',
-      '1231'
-    );
-
-    Test.startTest();
-    System.runAs(usr) {
-      ChatContextService.doPost(contextRequests);
-    }
-    Test.stopTest();
-
-    // THEN the request must succeed. Value on Account 'External ID' field will be returned.
-    List<Case> newCases = [
-      SELECT Id, CaseNumber, Account.OCV_ID__c
-      FROM Case
-      WHERE Account.OCV_ID__c = 'OCVID887766'
-    ];
-
-    List<ChatContextService.ChatContextResponse> responseDto = (List<ChatContextService.ChatContextResponse>) JSON.deserialize(
-      RestContext.response.responseBody.toString(),
-      List<ChatContextService.ChatContextResponse>.class
-    );
-    System.assertEquals(false, responseDto[0].success);
-    System.assertEquals(400, responseDto[0].statusCode);
-    System.assertEquals('OCVID887766', responseDto[0].ocvId);
-    System.assertEquals(
-      'OCVID887766CAPSYSID123',
-      responseDto[0].sfdcSearchString
-    );
-    System.assertEquals(
-      'The sub type "Using account" has more than 1 type associated to it.',
-      responseDto[0].errorMessage
-    );
-  }
-
-  @isTest
   static void testSuccessCaseCreationNoSubType() {
     Faker faker = new Faker('AU');
 

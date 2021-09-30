@@ -25,8 +25,6 @@ global with sharing class ChatContextService {
 
   global static Map<Id, Account> accountsById = new Map<Id, Account>();
 
-  private static String subTypeLabel;
-
   /**
    * @description HTTP POST method passing incoming Chat context in to Salesforce.
    * Salesforce would then return a unique customer identifier, or a related Case Number to include on Twilio tasks as "sfdcSearchString".
@@ -50,7 +48,8 @@ global with sharing class ChatContextService {
             generateErrorResponse(
               req.ocvId,
               '',
-              'Invalid or insufficient request parameters. ' + req
+              'Invalid or insufficient request parameters. ' + req,
+              ''
             )
           );
         }
@@ -95,10 +94,14 @@ global with sharing class ChatContextService {
           (String) existingCase.Twilio_Channel_SID__c ==
           requestByOCVId.get(acc.OCV_ID__c).channelSID
         ) {
-          subTypeLabel = existingCase.Sub_Type__c;
           // Customer already have a Case against the same Chat Channel
           responseList.add(
-            generateResponse(acc.OCV_ID__c, existingCase.CaseNumber, '')
+            generateResponse(
+              acc.OCV_ID__c,
+              existingCase.CaseNumber,
+              '',
+              existingCase.Sub_Type__c
+            )
           );
           caseExists = true;
           break;
@@ -166,9 +169,6 @@ global with sharing class ChatContextService {
       }
     }
 
-    if (String.isBlank(subTypeLabel)) {
-      subTypeLabel = 'Other Enquiries';
-    }
     // Insert new Case records to represent the Chat Topic, if there weren't any related Cases
     createNewCases(newCases, responseStatusByOCVId, responseList);
 
@@ -177,7 +177,12 @@ global with sharing class ChatContextService {
     for (String ocvId : accountByOCVId.keySet()) {
       if (!responseStatusByOCVId.get(ocvId)) {
         responseList.add(
-          generateResponse(ocvId, accountByOCVId.get(ocvId).External_Id__c, '')
+          generateResponse(
+            ocvId,
+            accountByOCVId.get(ocvId).External_Id__c,
+            '',
+            ''
+          )
         );
       }
     }
@@ -189,7 +194,7 @@ global with sharing class ChatContextService {
           'Could not find a matching ANZx customer record based on OCV ID: ' +
           ocvId;
 
-        responseList.add(generateErrorResponse(ocvId, '', errorMessage));
+        responseList.add(generateErrorResponse(ocvId, '', errorMessage, ''));
       }
     }
 
@@ -224,10 +229,15 @@ global with sharing class ChatContextService {
     if (!newCases.isEmpty()) {
       List<Database.SaveResult> results = Database.insert(newCases, false);
 
-      // Query newly inserted Cases to retrive Case Number
+      // Query newly inserted Cases to retrieve Case Number
       Map<ID, Case> newCaseMap = new Map<ID, Case>(
         [
-          SELECT Id, CaseNumber, Account.OCV_ID__c, Account.External_Id__c
+          SELECT
+            Id,
+            CaseNumber,
+            Account.OCV_ID__c,
+            Account.External_Id__c,
+            Sub_Type__c
           FROM Case
           WHERE Id IN :newCases
         ]
@@ -235,13 +245,18 @@ global with sharing class ChatContextService {
 
       for (Integer i = 0; i < newCases.size(); i++) {
         Database.SaveResult sr = results[i];
-
         if (sr.isSuccess()) {
           responseList.add(
             generateResponse(
               newCaseMap.get(newCases[i].Id).Account.OCV_ID__c,
               newCaseMap.get(newCases[i].Id).CaseNumber,
-              ''
+              '',
+              newCases[i].Type == 'Other Enquiries'
+                ? 'Other Enquiries'
+                : CommonUtil.getSinglePicklistLabel(
+                    Case.Sub_Type__c,
+                    newCases[i].Sub_Type__c
+                  )
             )
           );
 
@@ -255,15 +270,31 @@ global with sharing class ChatContextService {
             'Failed to auto create a new Case against the customer customer. OCV ID: ' +
             accountsById.get(newCases[i].AccountId).OCV_ID__c +
             '. Error: ';
+          String subtype = CommonUtil.getSinglePicklistLabel(
+            Case.Sub_Type__c,
+            newCases[i].Sub_Type__c
+          );
+
           for (Database.Error err : sr.getErrors()) {
             errorMessage += err;
+            // if one of the errors was that the subtype is invalid, the chatlabel returned should be null
+            if (
+              err.getStatusCode() ==
+              System.StatusCode.INVALID_OR_NULL_FOR_RESTRICTED_PICKLIST &&
+              err.getFields().contains('Sub_Type__c')
+            ) {
+              subtype = '';
+            }
           }
 
           responseList.add(
             generateResponse(
               accountsById.get(newCases[i].AccountId).OCV_ID__c,
               accountsById.get(newCases[i].AccountId).External_Id__c,
-              errorMessage
+              errorMessage,
+              newCases[i].Type == 'Other Enquiries'
+                ? 'Other Enquiries'
+                : subtype
             )
           );
 
@@ -304,12 +335,15 @@ global with sharing class ChatContextService {
    * @param ocvId OCV ID related to the original request
    * @param sfdcSearchString Search String to be used on related Twilio Task
    * @param errMsg error message
+   * @param subTypeLabel subtype parsed through
    * @return `ChatContextResponse`
    */
+  @SuppressWarnings('PMD.ExcessiveParameterList')
   private static ChatContextResponse generateResponse(
     String ocvId,
     String sfdcSearchString,
-    String errMsg
+    String errMsg,
+    String subTypeLabel
   ) {
     ChatContextResponse response = new ChatContextResponse();
     response.ocvId = ocvId;
@@ -328,12 +362,15 @@ global with sharing class ChatContextService {
    * @param ocvId OCV ID related to the original request
    * @param sfdcSearchString Search String to be used on related Twilio Task
    * @param errMsg error message
+   * @param subTypeLabel subtype parsed through
    * @return `ChatContextResponse`
    */
+  @SuppressWarnings('PMD.ExcessiveParameterList')
   private static ChatContextResponse generateErrorResponse(
     String ocvId,
     String sfdcSearchString,
-    String errMsg
+    String errMsg,
+    String subTypeLabel
   ) {
     ChatContextResponse response = new ChatContextResponse();
     response.ocvId = ocvId;
@@ -341,6 +378,7 @@ global with sharing class ChatContextService {
     response.statusCode = 400;
     response.sfdcSearchString = sfdcSearchString;
     response.errorMessage = errMsg;
+    response.chatLabel = subTypeLabel;
     return response;
   }
 
@@ -411,59 +449,42 @@ global with sharing class ChatContextService {
     Account acc,
     List<ChatContextResponse> responseList
   ) {
-    UIAPIRepository uiRepo = new UIAPIRepository();
-    Map<String, String> response = new Map<String, String>();
-
-    //Get list of general enquiry sub types and their controlling values
-    List<PicklistWrapper> plValues = uiRepo.getPickListValuesByRecordType(
+    Map<String, List<String>> picklistDependencies = PicklistUtil.getCachedPicklistDependencyMap(
       'Case',
-      'Sub_Type__c',
-      GENERAL_INQUIRY_RT_ID
+      'Sub_Type__c'
     );
 
-    String errorMessage;
-
-    //Loop through picklist values
-    for (PicklistWrapper pickListValue : plValues) {
-      //Check to see if returned values match the provided sub type
-      if (pickListValue.value == subtype) {
-        //Ensure there's only 1 controlling value for sub type
-        if (pickListValue.controllingPLValues.size() > 1) {
-          errorMessage =
-            'The sub type "' +
-            subtype +
-            '" has more than 1 type associated to it.';
-
-          Lib_SystemLog.createSingleLog(
-            ChatContextService.class.getName(),
-            'populateTypeFromSubtype',
-            '',
-            errorMessage,
-            Lib_SystemLog.Severity.ERROR
-          );
-        } else {
-          // Assign Subtype label
-          subTypeLabel = pickListValue.label;
-          // Assign case Type and Subtype
-          newCase.Sub_Type__c = pickListValue.value;
-          newCase.Type = pickListValue.controllingPLValues[0];
-        }
-        break;
-      }
-    }
-
-    if (newCase.Type == null && String.isBlank(errorMessage)) {
-      errorMessage =
-        'Unable to find a matching Type for sub type "' +
-        subtype +
-        '".';
-    }
-
-    if (String.isNotBlank(errorMessage)) {
+    if (!picklistDependencies.containsKey(subtype)) {
       //Generate an error response
       responseList.add(
-        generateErrorResponse(acc.OCV_ID__c, acc.External_Id__c, errorMessage)
+        generateErrorResponse(
+          acc.OCV_ID__c,
+          acc.External_Id__c,
+          'Unable to find a matching Type for sub type "' +
+          subtype +
+          '".',
+          ''
+        )
       );
+      return;
     }
+
+    if (picklistDependencies.get(subtype).size() > 1) {
+      //Generate an error response
+      responseList.add(
+        generateErrorResponse(
+          acc.OCV_ID__c,
+          acc.External_Id__c,
+          'The sub type "' +
+          subtype +
+          '" has more than 1 type associated to it.',
+          ''
+        )
+      );
+      return;
+    }
+
+    newCase.Sub_Type__c = subtype;
+    newCase.Type = picklistDependencies.get(subtype)[0];
   }
 }
