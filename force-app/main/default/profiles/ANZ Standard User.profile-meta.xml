@@ -111,6 +111,16 @@
     <default>false</default>
     <visible>false</visible>
   </applicationVisibilities>
+  <applicationVisibilities>
+    <application>TwilioSF__Twilio</application>
+    <default>false</default>
+    <visible>false</visible>
+  </applicationVisibilities>
+  <applicationVisibilities>
+    <application>TwilioSF__Twilio_Classic</application>
+    <default>false</default>
+    <visible>false</visible>
+  </applicationVisibilities>
     <classAccesses>
         <apexClass>AuthTokenCacheUtil</apexClass>
         <enabled>true</enabled>
@@ -2939,6 +2949,38 @@
   </tabVisibilities>
   <tabVisibilities>
     <tab>trailheadapp__TrailheadSetup</tab>
+    <visibility>Hidden</visibility>
+  </tabVisibilities>
+  <tabVisibilities>
+    <tab>TwilioSF__BulkMessage__c</tab>
+    <visibility>Hidden</visibility>
+  </tabVisibilities>
+  <tabVisibilities>
+    <tab>TwilioSF__Log__c</tab>
+    <visibility>Hidden</visibility>
+  </tabVisibilities>
+  <tabVisibilities>
+    <tab>TwilioSF__Message__c</tab>
+    <visibility>Hidden</visibility>
+  </tabVisibilities>
+  <tabVisibilities>
+    <tab>TwilioSF__Opt_In_Keyword__c</tab>
+    <visibility>Hidden</visibility>
+  </tabVisibilities>
+  <tabVisibilities>
+    <tab>TwilioSF__TwilioConfigurationClassic</tab>
+    <visibility>Hidden</visibility>
+  </tabVisibilities>
+  <tabVisibilities>
+    <tab>TwilioSF__Twilio_Inbox</tab>
+    <visibility>Hidden</visibility>
+  </tabVisibilities>
+  <tabVisibilities>
+    <tab>TwilioSF__Twilio_Inbox_Lightning</tab>
+    <visibility>Hidden</visibility>
+  </tabVisibilities>
+  <tabVisibilities>
+    <tab>TwilioSF__Twilio_Personal_Number__c</tab>
     <visibility>Hidden</visibility>
   </tabVisibilities>
     <userLicense>Salesforce</userLicense>
