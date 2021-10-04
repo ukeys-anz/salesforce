@@ -130,8 +130,14 @@ global with sharing class ChatContextService {
             newCase,
             requestByOCVId.get(acc.OCV_ID__c).caseSubtype,
             acc,
-            responseList
+            responseList,
+            responseStatusByOCVId
           );
+
+          // Check if Type was populated. If not, stop creating a new case
+          if (String.isEmpty(newCase.Type)) {
+            continue;
+          }
         } else {
           //If no sub type received, log warning and populate case type with "Other Enquiries"
           Lib_SystemLog.createSingleLog(
@@ -440,6 +446,7 @@ global with sharing class ChatContextService {
    * @param subtype Subtype value passed in by Twilio
    * @param acc related Account (customer) record
    * @param responseList list of response instances
+   * @param responseStatusByOCVId response status by OCVId
    */
   //Need parameters to handle case inferring
   @SuppressWarnings('PMD.ExcessiveParameterList')
@@ -447,7 +454,8 @@ global with sharing class ChatContextService {
     Case newCase,
     String subtype,
     Account acc,
-    List<ChatContextResponse> responseList
+    List<ChatContextResponse> responseList,
+    Map<String, Boolean> responseStatusByOCVId
   ) {
     Map<String, List<String>> picklistDependencies = PicklistUtil.getCachedPicklistDependencyMap(
       'Case',
@@ -466,6 +474,7 @@ global with sharing class ChatContextService {
           ''
         )
       );
+      responseStatusByOCVId.put(acc.OCV_ID__c, true);
       return;
     }
 
@@ -481,6 +490,7 @@ global with sharing class ChatContextService {
           ''
         )
       );
+      responseStatusByOCVId.put(acc.OCV_ID__c, true);
       return;
     }
 
