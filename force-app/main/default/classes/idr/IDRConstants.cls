@@ -383,7 +383,7 @@ public with sharing class IDRConstants {
           'Home Loan Protection Insurance' => 'IDR_Home_Owners'
         };
       }
-      return caseAssignmentProductMap;
+      return caseAssignmentProductMap; 
     }
     set;
   }
