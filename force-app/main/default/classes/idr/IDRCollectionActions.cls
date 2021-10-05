@@ -354,7 +354,9 @@ public with sharing class IDRCollectionActions {
         rec.isClosed &&
         (oldRec == null || !oldRec.isClosed)
       ) {
-        collectionAcctsList.add(rec.IDR_Collection_Number__c);
+        if (String.isNotBlank(rec.IDR_Collection_Number__c)) {
+          collectionAcctsList.add(rec.IDR_Collection_Number__c);
+        }
         if (String.isNotBlank(rec.IDR_Collection_Number_2__c)) {
           collectionAcctsList.add(rec.IDR_Collection_Number_2__c);
         }
