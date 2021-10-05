@@ -222,24 +222,36 @@ public with sharing class UserProvisioningAfterActions {
   private static void insertPsetLicenseAssign(
     List<PermissionSetLicenseAssign> psetLicenseAssignmentList
   ) {
-    //no logic written to check if the user is already having that membership, Database.insert(list,false) is used to handle those records.
-    List<Database.SaveResult> results = Database.insert(
-      psetLicenseAssignmentList,
-      false
-    );
+    if (
+      PermissionSetLicenseAssign.sObjectType.getDescribe().isCreateable() &&
+      Schema.sObjectType.PermissionSetLicenseAssign.fields.AssigneeId.isCreateable() &&
+      Schema.sObjectType.PermissionSetLicenseAssign.fields.PermissionSetLicenseId.isCreateable()
+    ) {
+      //no logic written to check if the user is already having that membership, Database.insert(list,false) is used to handle those records.
+      List<Database.SaveResult> results = Database.insert(
+        psetLicenseAssignmentList,
+        false
+      );
 
-    for (Integer i = 0; i < psetLicenseAssignmentList.size(); i++) {
-      Database.SaveResult sr = results[i];
-      PermissionSetLicenseAssign rec = psetLicenseAssignmentList[i];
+      for (Integer i = 0; i < psetLicenseAssignmentList.size(); i++) {
+        Database.SaveResult sr = results[i];
+        PermissionSetLicenseAssign rec = psetLicenseAssignmentList[i];
 
-      if (!sr.isSuccess()) {
-        for (Database.Error err : sr.getErrors()) {
-          if (String.valueOf(err.getStatusCode()) != 'DUPLICATE_VALUE') {
-            failedRecordIds.add(rec.AssigneeId);
-            logError(rec.AssigneeId, err);
+        if (!sr.isSuccess()) {
+          for (Database.Error err : sr.getErrors()) {
+            if (String.valueOf(err.getStatusCode()) != 'DUPLICATE_VALUE') {
+              failedRecordIds.add(rec.AssigneeId);
+              logError(rec.AssigneeId, err);
+            }
           }
         }
       }
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'UserProvisioningAfterActions',
+        'insertPsetLicenseAssign',
+        'Not enough permissions to create PermissionSetLicenseAssign.'
+      );
     }
   }
 
@@ -250,24 +262,37 @@ public with sharing class UserProvisioningAfterActions {
   private static void insertPsetAssignment(
     List<PermissionSetAssignment> psetAssignmentList
   ) {
-    //no logic written to check if the user is already having that membership, Database.insert(list,false) is used to handle those records.
-    List<Database.SaveResult> results = Database.insert(
-      psetAssignmentList,
-      false
-    );
+    if (
+      PermissionSetAssignment.sObjectType.getDescribe().isCreateable() &&
+      Schema.sObjectType.PermissionSetAssignment.fields.PermissionSetGroupId.isCreateable() &&
+      Schema.sObjectType.PermissionSetAssignment.fields.AssigneeId.isCreateable() &&
+      Schema.sObjectType.PermissionSetAssignment.fields.PermissionSetId.isCreateable()
+    ) {
+      //no logic written to check if the user is already having that membership, Database.insert(list,false) is used to handle those records.
+      List<Database.SaveResult> results = Database.insert(
+        psetAssignmentList,
+        false
+      );
 
-    for (Integer i = 0; i < psetAssignmentList.size(); i++) {
-      Database.SaveResult sr = results[i];
-      PermissionSetAssignment rec = psetAssignmentList[i];
+      for (Integer i = 0; i < psetAssignmentList.size(); i++) {
+        Database.SaveResult sr = results[i];
+        PermissionSetAssignment rec = psetAssignmentList[i];
 
-      if (!sr.isSuccess()) {
-        for (Database.Error err : sr.getErrors()) {
-          if (String.valueOf(err.getStatusCode()) != 'DUPLICATE_VALUE') {
-            failedRecordIds.add(rec.AssigneeId);
-            logError(rec.AssigneeId, err);
+        if (!sr.isSuccess()) {
+          for (Database.Error err : sr.getErrors()) {
+            if (String.valueOf(err.getStatusCode()) != 'DUPLICATE_VALUE') {
+              failedRecordIds.add(rec.AssigneeId);
+              logError(rec.AssigneeId, err);
+            }
           }
         }
       }
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'UserProvisioningAfterActions',
+        'insertPsetAssignment',
+        'Not enough permissions to create PermissionSetAssignment.'
+      );
     }
   }
 
@@ -276,18 +301,33 @@ public with sharing class UserProvisioningAfterActions {
    * @param groupMemberList Group Member List
    */
   private static void insertGroupAssignment(List<GroupMember> groupMemberList) {
-    List<Database.SaveResult> results = Database.insert(groupMemberList, false);
+    if (
+      GroupMember.sObjectType.getDescribe().isCreateable() &&
+      Schema.sObjectType.GroupMember.fields.UserOrGroupId.isCreateable() &&
+      Schema.sObjectType.GroupMember.fields.GroupId.isCreateable()
+    ) {
+      List<Database.SaveResult> results = Database.insert(
+        groupMemberList,
+        false
+      );
 
-    for (Integer i = 0; i < groupMemberList.size(); i++) {
-      Database.SaveResult sr = results[i];
-      GroupMember rec = groupMemberList[i];
+      for (Integer i = 0; i < groupMemberList.size(); i++) {
+        Database.SaveResult sr = results[i];
+        GroupMember rec = groupMemberList[i];
 
-      if (!sr.isSuccess()) {
-        for (Database.Error err : sr.getErrors()) {
-          failedRecordIds.add(rec.UserOrGroupId);
-          logError(rec.UserOrGroupId, err);
+        if (!sr.isSuccess()) {
+          for (Database.Error err : sr.getErrors()) {
+            failedRecordIds.add(rec.UserOrGroupId);
+            logError(rec.UserOrGroupId, err);
+          }
         }
       }
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'UserProvisioningAfterActions',
+        'insertGroupAssignment',
+        'Not enough permissions to create GroupMember.'
+      );
     }
   }
 
@@ -430,19 +470,29 @@ public with sharing class UserProvisioningAfterActions {
   private static void deletePsetAssignment(
     List<PermissionSetAssignment> deletePsetList
   ) {
-    List<Database.DeleteResult> deleteResult = Database.delete(
-      deletePsetList,
-      false
-    );
-    for (Integer i = 0; i < deletePsetList.size(); i++) {
-      Database.DeleteResult sr = deleteResult[i];
-      PermissionSetAssignment rec = deletePsetList[i];
-      if (!sr.isSuccess()) {
-        for (Database.Error err : sr.getErrors()) {
-          failedRecordIds.add(rec.AssigneeId);
-          logError(rec.AssigneeId, err);
+    if (PermissionSetAssignment.sObjectType.getDescribe().isDeletable()) {
+      List<Database.DeleteResult> deleteResult = Database.delete(
+        deletePsetList,
+        false
+      );
+      for (Integer i = 0; i < deletePsetList.size(); i++) {
+        Database.DeleteResult sr = deleteResult[i];
+        PermissionSetAssignment rec = deletePsetList[i];
+        if (!sr.isSuccess()) {
+          for (Database.Error err : sr.getErrors()) {
+            failedRecordIds.add(rec.AssigneeId);
+            logError(rec.AssigneeId, err);
+          }
         }
       }
+    } else {
+      Lib_SystemLog.createSingleLog(
+        'UserProvisioningAfterActions',
+        'deletePsetAssignment',
+        '',
+        'PermissionSetAssignment is not deletable',
+        Lib_SystemLog.Severity.ERROR
+      );
     }
   }
 
@@ -453,19 +503,29 @@ public with sharing class UserProvisioningAfterActions {
   private static void deleteGroupAssignment(
     List<GroupMember> deleteGroupMemberList
   ) {
-    List<Database.DeleteResult> deleteResult = Database.delete(
-      deleteGroupMemberList,
-      false
-    );
-    for (Integer i = 0; i < deleteGroupMemberList.size(); i++) {
-      Database.DeleteResult sr = deleteResult[i];
-      GroupMember rec = deleteGroupMemberList[i];
-      if (!sr.isSuccess()) {
-        for (Database.Error err : sr.getErrors()) {
-          failedRecordIds.add(rec.UserOrGroupId);
-          logError(rec.UserOrGroupId, err);
+    if (GroupMember.sObjectType.getDescribe().isDeletable()) {
+      List<Database.DeleteResult> deleteResult = Database.delete(
+        deleteGroupMemberList,
+        false
+      );
+      for (Integer i = 0; i < deleteGroupMemberList.size(); i++) {
+        Database.DeleteResult sr = deleteResult[i];
+        GroupMember rec = deleteGroupMemberList[i];
+        if (!sr.isSuccess()) {
+          for (Database.Error err : sr.getErrors()) {
+            failedRecordIds.add(rec.UserOrGroupId);
+            logError(rec.UserOrGroupId, err);
+          }
         }
       }
+    } else {
+      Lib_SystemLog.createSingleLog(
+        'UserProvisioningAfterActions',
+        'deleteGroupAssignment',
+        '',
+        'GroupMember is not deletable',
+        Lib_SystemLog.Severity.ERROR
+      );
     }
   }
 

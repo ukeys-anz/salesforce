@@ -4,6 +4,6 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>The object that this call log (or task) is related to; can refer to multiple different objects (Account, Case etc.).</description>
-    <securityClassification>Confidential</securityClassification>
+    <securityClassification>Internal</securityClassification>
     <type>Lookup</type>
 </CustomField>

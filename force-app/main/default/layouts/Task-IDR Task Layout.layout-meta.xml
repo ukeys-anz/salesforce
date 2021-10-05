@@ -171,6 +171,12 @@
                 <field>WhoId</field>
             </layoutItem>
         </relatedContentItems>
+        <relatedContentItems>
+            <layoutItem>
+                <behavior>Readonly</behavior>
+                <field>WhatId</field>
+            </layoutItem>
+        </relatedContentItems>
     </relatedContent>
     <relatedObjects>WhoId</relatedObjects>
     <relatedObjects>WhatId</relatedObjects>
@@ -178,7 +184,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2N000001uqEB</masterLabel>
+        <masterLabel>00h2N000001hPlj</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

@@ -8,6 +8,16 @@
         <isRequired>false</isRequired>
     </displayedFields>
     <displayedFields>
+        <field>IDR_Account_Card_Policy_Number_2__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <displayedFields>
+        <field>IDR_Account_Card_Policy_Number_3__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <displayedFields>
         <field>Description</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>

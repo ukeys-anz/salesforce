@@ -49,11 +49,15 @@
     <navType>Console</navType>
     <tabs>standard-home</tabs>
     <tabs>standard-Case</tabs>
+    <tabs>Restricted_Cases</tabs>
     <tabs>standard-Task</tabs>
     <tabs>standard-Product2</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>IDR_Console_UtilityBar</utilityBar>
     <workspaceConfig>
+        <mappings>
+            <tab>Restricted_Cases</tab>
+        </mappings>
         <mappings>
             <tab>standard-Case</tab>
         </mappings>

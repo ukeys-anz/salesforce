@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_Customer_Notification__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Privacy_Non_Personal_Information;Source_Salesforce;Integrity - Accurate</complianceGroup>
+    <defaultValue>false</defaultValue>
+    <description>This is to control the Customer notifications to go out.</description>
+    <externalId>false</externalId>
+    <label>Customer Notification</label>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>
