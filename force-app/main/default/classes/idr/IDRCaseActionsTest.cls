@@ -333,7 +333,7 @@ private with sharing class IDRCaseActionsTest {
     System.assertEquals(
       true,
       preventCaseCloseErrorThrown,
-      'Expected update to \'Resolved\' status to be prevented, however no error was thrown/wrong error thrown'
+      'Expected update to \'Closed\' status to be prevented, however no error was thrown/wrong error thrown'
     );
   }
 
