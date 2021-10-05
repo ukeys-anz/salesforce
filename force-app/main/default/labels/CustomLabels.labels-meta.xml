@@ -1,12 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
     <labels>
+        <fullName>ANZ_com_Sender_Address</fullName>
+        <categories>IDR</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Anz.com email address to send complaint on YourFeedback@anz.com inbox</shortDescription>
+        <value>interacc@anz.com</value>
+    </labels>
+    <labels>
         <fullName>Anonymous_Complainant</fullName>
         <categories>IDR</categories>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Anonymous Customer</shortDescription>
         <value>Anonymous</value>
+    </labels>
+    <labels>
+        <fullName>XpressionSenderAddress</fullName>
+        <categories>IDR</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Xpression will use this address to send letters to Xpression recipient address</shortDescription>
+        <value>Yourfeedback@anz.com</value>
+    </labels>
+    <labels>
+        <fullName>XpressionRecepientInboxAddress</fullName>
+        <categories>IDR</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Xpression will BCC this address to insert letters into CMOS</shortDescription>
+        <value>ICMNFL@anz.com</value>
     </labels>
     <labels>
         <fullName>ID_Prefix_User</fullName>
@@ -62,7 +86,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Customer</shortDescription>
-        <value>/anz-exp-sfdc-customers-api/api/v1/public/customers/</value>
+        <value>/anz-exp-sfdc-customers-api/api/v2/public/customers/search?relationship_manager_required=true&amp;all_accounts_required=true</value>
     </labels>
     <labels>
         <fullName>MS_Get_CustomerChatChannels</fullName>

@@ -39,7 +39,7 @@ echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
 
 echo "$(date): Deploy settings..."
 JOB_START_TIME=$(date +%s)
-sfdx force:source:deploy -p force-app/main/default/settings 2>&1 | tee stderr
+sfdx force:source:deploy -p force-app/main/default/settings/BusinessHours.settings-meta.xml,force-app/main/default/settings/Quote.settings-meta.xml,force-app/main/default/settings/Forecasting.settings-meta.xml  2>&1 | tee stderr
 if [[ ($(cat stderr) == *'ERROR'*) ]]; then
     exit 1
 fi

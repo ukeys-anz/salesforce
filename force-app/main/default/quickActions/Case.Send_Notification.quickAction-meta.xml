@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldOverrides>
+        <field>Case__c</field>
+        <formula>Case.Id</formula>
+    </fieldOverrides>
+    <fieldOverrides>
+        <field>Description__c</field>
+        <formula>(&quot;Notification will be sent out to customer with the case details.&quot;)</formula>   </fieldOverrides>
+    <fieldOverrides>
+        <field>Status__c</field>
+        <literalValue>Pending Publish</literalValue>
+    </fieldOverrides>
+    <label>Send Notification</label>
+    <optionsCreateFeedItem>true</optionsCreateFeedItem>
+    <quickActionLayout>
+        <layoutSectionStyle>TwoColumnsLeftToRight</layoutSectionStyle>
+        <quickActionLayoutColumns>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Description__c</field>
+                <uiBehavior>Readonly</uiBehavior>
+            </quickActionLayoutItems>
+        </quickActionLayoutColumns>
+        <quickActionLayoutColumns/>
+    </quickActionLayout>
+    <successMessage>Communication triggered successfully</successMessage>
+    <targetObject>Notification_Handler__c</targetObject>
+    <targetParentField>Case__c</targetParentField>
+    <type>Create</type>
+</QuickAction>

@@ -63,6 +63,11 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
+                <componentName>runtime_approval_process:pendingApprovalCard</componentName>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentName>home:recentRecordContainer</componentName>
             </componentInstance>
         </itemInstances>

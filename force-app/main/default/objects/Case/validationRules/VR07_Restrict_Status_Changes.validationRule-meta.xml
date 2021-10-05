@@ -4,8 +4,9 @@
     <active>true</active>
     <description>Restrict the status changes to go backwards.</description>
     <errorConditionFormula>$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false &amp;&amp;
-(RecordType.DeveloperName = &#39;Customer_Complaint&#39; ||
-RecordType.DeveloperName = &#39;Non_Customer_Complaint&#39;) &amp;&amp;
+(RecordType.DeveloperName = &apos;Customer_Complaint&apos; ||
+RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos; ||
+RecordType.DeveloperName = &apos;General_Inquiry_CMOS&apos;) &amp;&amp;
 !ISNew() &amp;&amp;
 ISCHANGED(Status) &amp;&amp;
 IF(
