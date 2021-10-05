@@ -2,6 +2,7 @@
  * @author Boobalakrishnan Duraisamy
  * @since 05/2021
  * @description  IDRCollectionActions class is used to handle all collection related activities in case trigger
+ * @group IDR(Internal Dispute Resolution)
  */
 @SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
 public with sharing class IDRCollectionActions {

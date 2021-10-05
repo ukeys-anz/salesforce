@@ -15,7 +15,7 @@ public with sharing class GetCustomerInformation {
    *
    * @param customerId Customer Identidfier Id
    * @param customerIdentifier Customer Identidfier Type
-   * @return `map<String, Object>`
+   * @return `map<String, Object>` 
    * @exception CalloutException
    */
   @AuraEnabled(cacheable=false)

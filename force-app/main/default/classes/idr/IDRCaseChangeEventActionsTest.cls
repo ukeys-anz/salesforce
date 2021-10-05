@@ -2,6 +2,7 @@
  * @description Test class to cover tests for {@link IDRCaseChangeEventActions}
  * @author Olivier Saier
  * @since 06/2021
+ * @group IDR(Internal Dispute Resolution)
  */
 @isTest
 public with sharing class IDRCaseChangeEventActionsTest {

@@ -2,6 +2,7 @@
  * @author Adnan
  * @since 05/2021
  * @description  This class is contains helper methods for IDREmailService class
+ * @group IDR(Internal Dispute Resolution)
  */
 @SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class IDREmailServiceHelper {
@@ -240,9 +241,9 @@ public with sharing class IDREmailServiceHelper {
    * @description Queries through the group object
    * @param type The type of group
    * @param queueName The devveloper name of group
-   * @return List<Group>
+   * @return Group
    */
-  public static List<Group> getGroupDetails(String type, String queueName) {
+  public static Group getGroupDetails(String type, String queueName) {
     if (Group.sObjectType.getDescribe().isQueryable()) {
       return [
         SELECT Id
@@ -345,13 +346,13 @@ public with sharing class IDREmailServiceHelper {
    */
   public static void updateCaseWithQueue(Case newCase) {
     //Get Indexing Queue
-    List<Group> queueList = getGroupDetails('Queue', 'Indexing_Queue');
+    Group queue = getGroupDetails('Queue', 'Indexing_Queue');
     if (
-      queueList.size() > 0 &&
+      queue != null &&
       Case.sObjectType.getDescribe().isUpdateable() &&
       Schema.sObjectType.Case.fields.OwnerId.isUpdateable()
     ) {
-      newCase.OwnerId = queueList[0].Id;
+      newCase.OwnerId = queue.Id;
       try {
         update newCase;
       } catch (Exception err) {

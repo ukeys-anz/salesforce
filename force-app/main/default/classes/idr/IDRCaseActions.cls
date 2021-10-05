@@ -67,22 +67,11 @@ public with sharing class IDRCaseActions {
    */
   public static void applyDefaults(List<Case> records) {
     Id entitlementId = getEntitlement();
-    //future use do not remove the below commented code
-    // salesforce limitation ,business hours id is not populated at this point in time get the  complaints business hours (default value) for SLA calculation;
-    /*Id businessHoursId ;
-    if(BusinessHours.sObjectType.getDescribe().isQueryable()) {
-      list<BusinessHours> bh = new list<BusinessHours>();
-      bh = [SELECT Id FROM BusinessHours WHERE IsDefault=true];
-      if(bh.size() > 0){
-         businessHoursId = bh[0].Id ;
-      }      
-    }*/
     Case[] updatePsiTicked = new List<Case>();
     for (Case record : records) {
       if (isIDRComplaintType(record)) {
         record.EntitlementId = entitlementId;
         record.IDR_Milestone_Sla__c = IDRConstants.MILESTONE_SLA_NORMAL;
-        // record.IDR_Milestone_Sla__c = getMilestoneSla(record.Status, record.IDR_Date_Received__c , businessHoursId);
         populateSuppliedEmail(record, null);
         IDRCollectionActions.populateCollectionNumber(record);
         CommonUtil.handleMasking(
@@ -346,8 +335,7 @@ public with sharing class IDRCaseActions {
     for (Case c : caseList) {
       if (c.OwnerId.getSobjectType() == Group.SobjectType) {
         if (
-          oldCaseMap != null &&
-          oldCaseMap.containsKey(c.id) &&
+          oldCaseMap != null && oldCaseMap.containsKey(c.id) &&
           c.OwnerId != oldCaseMap.get(c.id).OwnerId
         ) {
           queueIds.add(c.OwnerId);

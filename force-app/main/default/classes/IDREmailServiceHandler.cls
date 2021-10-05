@@ -2,6 +2,7 @@
  * @author Adnan
  * @since 05/2021
  * @description  This class is contains handler methods for IDREmailService class
+ * @group IDR(Internal Dispute Resolution)
  */
 @SuppressWarnings('PMD.StdCyclomaticComplexity')
 public with sharing class IDREmailServiceHandler {

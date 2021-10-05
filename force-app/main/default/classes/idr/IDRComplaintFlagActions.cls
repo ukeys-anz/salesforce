@@ -2,6 +2,7 @@
  * @author Boobalakrishnan Duraisamy
  * @since 05/2021
  * @description  IDRComplaintFlagActions class is used to publish complaint flag event during case creation and closure.
+ * @group IDR(Internal Dispute Resolution)
  */
 @SuppressWarnings('PMD.StdCyclomaticComplexity')
 public with sharing class IDRComplaintFlagActions {

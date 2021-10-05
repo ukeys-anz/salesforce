@@ -2,7 +2,7 @@
  * @author Himabindu Nekkanti
  * @since  11/2020
  * @description IDRFilesRelatedListController provides the backend functionality with sosl search for IDRFilesRelatedList lwc
- *
+ * @group IDR(Internal Dispute Resolution)
  */
 public with sharing class IDRFilesRelatedListController {
   /**
@@ -65,7 +65,6 @@ public with sharing class IDRFilesRelatedListController {
       );
       tempData.partyWhoSent = doc.ContentDocument.LatestPublishedVersion.Party_who_sent_created_file__c;
       tempData.documentType = doc.ContentDocument.LatestPublishedVersion.Document_Category__c;
-      // list<string> flagList = new list<string>();
       string flagString;
       if (
         !string.isBlank(
@@ -94,8 +93,6 @@ public with sharing class IDRFilesRelatedListController {
       tempData.flag = flagString;
       tempDatalist.add(tempData);
     }
-    //filesDataString = json.serialize(fileslist);
-    //system.debug('result:'+filesDataString)
     return tempDatalist;
   }
   /**

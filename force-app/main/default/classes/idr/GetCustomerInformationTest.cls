@@ -7,7 +7,7 @@
  */
 
 @isTest
-private with sharing class GetCustomerInformationTest {
+private with sharing class GetCustomerInformationTest  {
   //Success response body
   private static final String SUCCESS_RESPONSE_BODY = '{"profile": {"firstname": "TestFirstName","lastname": "TestLastName","mobile": "TestMobile"}}';
 

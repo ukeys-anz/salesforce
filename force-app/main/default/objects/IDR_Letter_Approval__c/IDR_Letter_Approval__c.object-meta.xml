@@ -86,14 +86,14 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>New</actionName>
-        <content>CreateComms</content>
+        <content>createComms</content>
         <formFactor>Large</formFactor>
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>LightningComponent</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>New</actionName>
-        <content>CreateComms</content>
+        <content>createComms</content>
         <formFactor>Small</formFactor>
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>LightningComponent</type>

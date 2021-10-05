@@ -128,6 +128,9 @@ public with sharing class IDRConstants {
   public static final String TASK_TYPE_PEND_CASE = 'Pend Case';
   public static final String SUBJECT_PEND_CASE_TASK = 'Case Pended - provide update in case comment';
 
+  //Migrated Document 
+  public static final String DELETION_NOT_ALLOWED = 'You may not delete CFMS migrated documents.';
+
   //Anz.com constants
   /**
    * @description Static variable to map anz.com field with case fields
@@ -484,7 +487,7 @@ public with sharing class IDRConstants {
           'Home Loan Protection Insurance' => 'IDR_Home_Owners'
         };
       }
-      return caseAssignmentProductMap;
+      return caseAssignmentProductMap; 
     }
     set;
   }

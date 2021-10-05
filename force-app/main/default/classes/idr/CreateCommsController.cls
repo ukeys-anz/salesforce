@@ -12,8 +12,8 @@ public with sharing class CreateCommsController {
    * @return List<string>  list of all the templates that have been set up
    */
   @auraEnabled
-  public static list<string> getTemplateList() {
-    list<string> returnList = new List<string>();
+  public static List<string> getTemplateList() {
+    List<string> returnList = new List<string>();
     list<IDR_Template_Detail__c> templatedetails = new List<IDR_Template_Detail__c>();
     if (IDR_Template_Detail__c.sObjectType.getDescribe().isQueryable()) {
       templatedetails = [
@@ -71,15 +71,13 @@ public with sharing class CreateCommsController {
       parentCase = Database.query(caseQuery); //NOPMD
     }
     for (IDR_Template_Detail__c td : templatedetails) {
-      CreateCommsData singleFieldData = new CreateCommsData();
       string caseValue = '';
       if (string.isNotBlank(td.IDR_Case_Field_Name__c)) {
         caseValue = getValueFromCaseMap(td.IDR_Case_Field_Name__c, parentCase);
       }
-      singleFieldData.fieldLabel = td.IDR_Template_Field_Name__c;
-      singleFieldData.fieldValue = caseValue;
-      singleFieldData.fieldId = td.id;
-      singleFieldData.fieldDesc = td.IDR_Field_Description__c;
+
+      CreateCommsData singleFieldData = new CreateCommsData(td.IDR_Template_Field_Name__c, caseValue, td.id, td.IDR_Field_Description__c);
+     
       returnFieldList.add(singleFieldData);
     }
     return returnFieldList;
@@ -138,16 +136,16 @@ public with sharing class CreateCommsController {
     Map<Object, Object> letterDetails = (Map<Object, Object>) otherDetails[0];
     string template = (string) letterDetails.get('template');
     string caseID = (string) letterDetails.get('caseId');
-    IDR_Letter_Approval__c caseComms = new IDR_Letter_Approval__c();
-    caseComms.IDR_Send_As_Email__c = (Boolean) letterDetails.get('isEmail');
-    caseComms.IDR_Send_As_Letter__c = (Boolean) letterDetails.get('isLetter');
-    caseComms.IDR_case__c = caseID;
-    caseComms.IDR_Template_Name__c = IDRConstants.xpressiontemplateName.get(
-      template
-    );
-    caseComms.IDR_Status__c = 'Submitted';
+    IDR_Letter_Approval__c caseComms = new IDR_Letter_Approval__c( 
+      IDR_Send_As_Email__c = (Boolean) letterDetails.get('isEmail'),
+      IDR_Send_As_Letter__c = (Boolean) letterDetails.get('isLetter'),
+      IDR_case__c = caseID,
+      IDR_Template_Name__c = IDRConstants.xpressiontemplateName.get(
+      template),
+      IDR_Status__c = 'Submitted');
+
     if (lineItems.size() == 0) {
-      caseComms.IDR_Auto_Approve__c = true;
+        caseComms.IDR_Auto_Approve__c = true;
     }
 
     if (

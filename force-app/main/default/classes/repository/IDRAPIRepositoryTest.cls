@@ -8,17 +8,20 @@
 public with sharing class IDRAPIRepositoryTest {
   @isTest
   static void testGetCustomerInfoLWC() {
-    Map<String, Object> info = IDRAPIRepository.getCustomerInfoLWC(
-      '12345',
-      'CAP ID'
-    );
-    Map<String, Object> profile = (Map<String, Object>) info.get('profile');
+    Test.startTest();
+      Map<String, Object> info = IDRAPIRepository.getCustomerInfoLWC(
+        '12345',
+        'CAP ID'
+      );
+      Map<String, Object> profile = (Map<String, Object>) info.get('profile');
 
-    // Verify response received contains fake values
-    System.assertEquals(
-      'TestFirstName',
-      profile.get('firstname'),
-      'Matches the first name'
-    );
-  }
+      // Verify response received contains fake values
+      System.assertEquals(
+        'TestFirstName',
+        profile.get('firstname'),
+        'Matches the first name'
+      );
+      Test.stopTest();
+
+    }
 }
