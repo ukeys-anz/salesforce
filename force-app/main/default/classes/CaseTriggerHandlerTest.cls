@@ -1013,7 +1013,7 @@ private class CaseTriggerHandlerTest {
           IDR_Is_Common__c = 'Yes',
           IDR_Systemic_Issue_Description__c = 'Test Description',
           IDR_Systemic_Issue_Category__c = '1',
-          Status = 'Resolved',
+          Status = 'Closed',
           IDR_Complaint_Outcome__c = '1',
           IDR_Complaint_Remedy__c = '2',
           IDR_Non_Financial_Remedy__c = '5',
@@ -1030,7 +1030,7 @@ private class CaseTriggerHandlerTest {
       insert caseList2;
     }
     for (Case updateCase : caseList2) {
-      updateCase.Status = 'Resolved';
+      updateCase.Status = 'Closed';
       updateCase.IDR_Complaint_Outcome__c = '1';
       updateCase.IDR_Complaint_Remedy__c = '2';
       updateCase.IDR_Non_Financial_Remedy__c = '5';
