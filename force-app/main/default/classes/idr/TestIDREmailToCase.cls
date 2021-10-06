@@ -2,6 +2,7 @@
 public with sharing class TestIDREmailToCase {
   @isTest
   static void testANZComCaseParsing() {
+    Test.startTest();
     List<Case> caseList = new List<Case>();
     for (Integer i = 0; i <= Integer.valueOf(Label.Test_Bulk_Size); i++) {
       Case c = new Case();
@@ -11,12 +12,17 @@ public with sharing class TestIDREmailToCase {
 
       caseList.add(c);
     }
-      
-    IDREmailToCase.processEmail(caseList);  
+
+    IDREmailToCase.processEmail(caseList);
 
     insert caseList;
 
     Case queriedCase = [SELECT Id, Type FROM Case LIMIT 1];
-    System.assertEquals('Credit assessment', queriedCase.Type, 'Case Type is not correct');
+    System.assertEquals(
+      'Credit assessment',
+      queriedCase.Type,
+      'Case Type is not correct'
+    );
+    Test.stopTest();
   }
 }

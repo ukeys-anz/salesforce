@@ -33,8 +33,6 @@ public with sharing class IDRCaseActions {
 
   private static final String CUSTOMER_NUMBER_VALIDATION_ERROR = 'This field can no longer be edited. In the event that the Customer Number/Identifier is incorrect, the case must be withdrawn and a new case created with the correct Customer Number.';
 
-  private static final String CANNOT_CLOSE_CASE_WITH_PENDING_TASK_ERROR = 'You cannot close the case as there is currently an open \'Pend Case\' task. Please review and action the open \'Pend Case\' task before closing the case.';
-
   @TestVisible
   private static List<IDR_CRC_Escalation_Event__e> idrCaseEscalations;
 
@@ -69,22 +67,11 @@ public with sharing class IDRCaseActions {
    */
   public static void applyDefaults(List<Case> records) {
     Id entitlementId = getEntitlement();
-    //future use do not remove the below commented code
-    // salesforce limitation ,business hours id is not populated at this point in time get the  complaints business hours (default value) for SLA calculation;
-    /*Id businessHoursId ;
-    if(BusinessHours.sObjectType.getDescribe().isQueryable()) {
-      list<BusinessHours> bh = new list<BusinessHours>();
-      bh = [SELECT Id FROM BusinessHours WHERE IsDefault=true];
-      if(bh.size() > 0){
-         businessHoursId = bh[0].Id ;
-      }      
-    }*/
     Case[] updatePsiTicked = new List<Case>();
     for (Case record : records) {
       if (isIDRComplaintType(record)) {
         record.EntitlementId = entitlementId;
         record.IDR_Milestone_Sla__c = IDRConstants.MILESTONE_SLA_NORMAL;
-        // record.IDR_Milestone_Sla__c = getMilestoneSla(record.Status, record.IDR_Date_Received__c , businessHoursId);
         populateSuppliedEmail(record, null);
         IDRCollectionActions.populateCollectionNumber(record);
         CommonUtil.handleMasking(
@@ -199,7 +186,6 @@ public with sharing class IDRCaseActions {
         checkForCRCEscalation(record, oldRec);
       }
     }
-    completeMilestone(records, oldMap);
     IDRCaseCommentActions.escalateExistingCommentsToCFMS(oldMap, records);
     IDRCaseNotificationManager.notifyBankersForEscalation(records, oldMap);
     escalateToCFMS(caseEscalationList);
@@ -208,6 +194,7 @@ public with sharing class IDRCaseActions {
     IDRCollectionActions.stopCollections(records, oldMap);
     IDRCollectionActions.startCollections(records, oldMap);
     IDRComplaintFlagActions.setComplaintsFlag(records, oldMap);
+    completeMilestone(records, oldMap);
   }
 
   /**
@@ -235,27 +222,42 @@ public with sharing class IDRCaseActions {
       if ((oldCase != null && (!oldCase.isClosed && c.isClosed))) {
         maxTimeFrameCases.add(c.Id);
       }
+    }
 
-      if (!escalationCases.isEmpty()) {
-        MilestoneUtils.completeMilestone(
-          escalationCases,
-          new List<String>{ 'Open_Escalation_Time' },
-          System.now()
-        );
-      }
+    if (!escalationCases.isEmpty()) {
+      MilestoneUtils.completeMilestone(
+        escalationCases,
+        new List<String>{ 'Open_Escalation_Time' },
+        System.now()
+      );
+    }
 
-      if (!maxTimeFrameCases.isEmpty()) {
-        MilestoneUtils.completeMilestone(
-          maxTimeFrameCases,
-          new List<String>{
-            '21-day IDR Response Due',
-            '30-day IDR Response Due',
-            'Open_Escalation_Time'
-          },
-          System.now()
-        );
-        IDRTaskActions.closeMaxTimeFrameTasks(maxTimeFrameCases);
-      }
+    if (!maxTimeFrameCases.isEmpty()) {
+      MilestoneUtils.completeMilestone(
+        maxTimeFrameCases,
+        new List<String>{
+          '21-day IDR Response Due',
+          '30-day IDR Response Due',
+          'Open_Escalation_Time'
+        },
+        System.now()
+      );
+      IDRTaskActions.closeMaxTimeFrameTasks(maxTimeFrameCases);
+    }
+  }
+
+  /**
+   * @description Prepopulate Case Fields
+   * @param record case record
+   * @param oldCase Old copy of case record before this transaction intiated
+   */
+  private static void populateSuppliedEmail(Case record, Case oldCase) {
+    if (
+      oldCase == null ||
+      (String.IsBlank(oldCase.IDR_NC_Email__c) &&
+      String.IsNotBlank(record.IDR_NC_Email__c))
+    ) {
+      record.SuppliedEmail = record.IDR_NC_Email__c;
     }
   }
 
@@ -775,31 +777,46 @@ public with sharing class IDRCaseActions {
 
   /**
    * @description Prevents a complaints case moving to Closed or Resolved status when it has any non-complete complaints task with 'Pending Case' type
-   * @param records  List of cases from the trigger 
+   * @param records  List of cases from the trigger
    * @param oldMap Map of pre-update cases supplied from the trigger as well
    */
-  private static void preventCloseStatusOnCaseWithPendingTask(List<Case> records, Map<Id, Case> oldMap){
- 
+  private static void preventCloseStatusOnCaseWithPendingTask(
+    List<Case> records,
+    Map<Id, Case> oldMap
+  ) {
     List<Case> closedComplaintCases = new List<Case>();
-    for(Case c : records){
-      if((c.Status == 'Closed' || c.Status == 'Resolved') && oldMap.get(c.Id).Status != c.Status && isIDRComplaintType(c)){
+    for (Case c : records) {
+      if (
+        (c.Status == 'Closed' ||
+        c.Status == 'Resolved') &&
+        oldMap.get(c.Id).Status != c.Status &&
+        isIDRComplaintType(c)
+      ) {
         closedComplaintCases.add(c);
       }
     }
-    if(!closedComplaintCases.isEmpty()){
-    List<Task> openpendingtasks = [SELECT Id, WhatId FROM Task WHERE WhatId=:closedComplaintCases AND RecordTypeId=:IDRConstants.IDR_TASK_RT_ID AND Status!='Completed' AND Type='Pend Case' WITH SECURITY_ENFORCED];
- 
-    Map<Id, Task> caseTaskMap = new Map<Id, Task>();
-    for(Task t : openpendingtasks){
-      caseTaskMap.put(t.WhatId, t);
-    }
-   
-    for(Case c : closedComplaintCases){
-      if(caseTaskMap.containskey(c.id)){
-        c.addError(CANNOT_CLOSE_CASE_WITH_PENDING_TASK_ERROR);
+    if (!closedComplaintCases.isEmpty()) {
+      List<Task> openpendingtasks = [
+        SELECT Id, WhatId
+        FROM Task
+        WHERE
+          WhatId = :closedComplaintCases
+          AND RecordTypeId = :IDRConstants.IDR_TASK_RT_ID
+          AND Status != 'Completed'
+          AND Type = 'Pend Case'
+        WITH SECURITY_ENFORCED
+      ];
+
+      Map<Id, Task> caseTaskMap = new Map<Id, Task>();
+      for (Task t : openpendingtasks) {
+        caseTaskMap.put(t.WhatId, t);
+      }
+
+      for (Case c : closedComplaintCases) {
+        if (caseTaskMap.containskey(c.id)) {
+          c.addError(CANNOT_CLOSE_CASE_WITH_PENDING_TASK_ERROR);
+        }
       }
     }
-    }
   }
-
 }

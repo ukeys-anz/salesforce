@@ -77,12 +77,13 @@ public class ContentDocumentLinkTriggerHandlerTest {
 
       Test.stopTest();
 
-      List<Application_Log__c> appLogs = [
-        SELECT ID
-        FROM Application_Log__c
-        WHERE Process_Name__c = 'IDRBankerNotificationBuilder'
+      //assert to validate document link with case
+      List<ContentDocumentLink> cdList = [
+        SELECT Id, LinkedEntityId
+        FROM ContentDocumentLink
+        WHERE LinkedEntityId = :testCase.Id
       ];
-      System.assertEquals(0, appLogs.size());
+      System.assertEquals(testCase.Id, cdList[0].LinkedEntityId);
     }
   }
 }

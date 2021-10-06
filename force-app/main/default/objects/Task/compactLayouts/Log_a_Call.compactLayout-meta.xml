@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Log_a_Call</fullName>
+    <fields>CallType</fields>
+    <fields>Voice_Call_SID__c</fields>
+    <label>Log a Call</label>
+</CompactLayout>

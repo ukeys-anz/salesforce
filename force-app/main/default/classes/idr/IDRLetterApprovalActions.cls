@@ -2,7 +2,7 @@
  * @author Afreen Khan
  * @since 04/2021
  * @description  IDRLetterApprovalActions contains all the operations related to Letter Approval record and is called from LetterApprovalTriggerhandler.
- *
+ * @group IDR(Internal Dispute Resolution)
  */
 public with sharing class IDRLetterApprovalActions {
   /**
@@ -70,41 +70,24 @@ public with sharing class IDRLetterApprovalActions {
     );
 
     List<IDR_Letter_Approval_Details__c> appDetailsList = new List<IDR_Letter_Approval_Details__c>();
-    appDetailsList.add(
-      createAppDetailRecord(
-        customerData.get('street'),
-        'AddressStreet',
-        approvalRecId
-      )
-    );
-    appDetailsList.add(
-      createAppDetailRecord(
-        customerData.get('suburb'),
-        'AddressSuburb',
-        approvalRecId
-      )
-    );
-    appDetailsList.add(
-      createAppDetailRecord(
-        customerData.get('state'),
-        'AddressState',
-        approvalRecId
-      )
-    );
-    appDetailsList.add(
-      createAppDetailRecord(
-        customerData.get('postCode'),
-        'AddressPostCode',
-        approvalRecId
-      )
-    );
-    appDetailsList.add(
-      createAppDetailRecord(
-        customerData.get('email'),
-        'EmailAddress',
-        approvalRecId
-      )
-    );
+
+    Map<String, String> customerFields = new Map<String, String>{
+      'street' => 'AddressStreet',
+      'suburb' => 'AddressSuburb',
+      'state' => 'AddressState',
+      'postCode' => 'AddressPostCode',
+      'email' => 'EmailAddress'
+    };
+
+    for (String field : customerFields.keySet()) {
+      appDetailsList.add(
+        createAppDetailRecord(
+          customerData.get(field),
+          customerFields.get(field),
+          approvalRecId
+        )
+      );
+    }
 
     if (
       IDR_Letter_Approval_Details__c.sObjectType.getDescribe().isCreateable() &&

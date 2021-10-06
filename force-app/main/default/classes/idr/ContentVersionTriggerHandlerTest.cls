@@ -22,6 +22,7 @@ private with sharing class ContentVersionTriggerHandlerTest {
     //GIVEN files
     //WHEN they're inserted
     //THEN long numbers in free text fields are masked, showing only the last four digits
+    Test.startTest();
     ContentVersion cv = [SELECT Description FROM ContentVersion LIMIT 1];
     System.assertEquals(
       'Test description ********9101 check mask',
@@ -38,6 +39,7 @@ private with sharing class ContentVersionTriggerHandlerTest {
       cv.Description,
       'Description should be masked.'
     );
+    Test.stopTest();
   }
 
   @isTest
@@ -46,11 +48,13 @@ private with sharing class ContentVersionTriggerHandlerTest {
     //WHEN they're inserted
     //THEN UUIDs have been generated
     //(Uniqueness and pattern have already been tested in CommonUtilTest)
+    Test.startTest();
     ContentVersion cv = [SELECT UUID__c FROM ContentVersion LIMIT 1];
     System.assertEquals(
       false,
       String.isBlank(cv.UUID__c),
       'A UUID should have been generated'
     );
+    Test.stopTest();
   }
 }
