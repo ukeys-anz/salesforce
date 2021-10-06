@@ -33,6 +33,8 @@ public with sharing class IDRCaseActions {
 
   private static final String CUSTOMER_NUMBER_VALIDATION_ERROR = 'This field can no longer be edited. In the event that the Customer Number/Identifier is incorrect, the case must be withdrawn and a new case created with the correct Customer Number.';
 
+  private static final String CANNOT_CLOSE_CASE_WITH_PENDING_TASK_ERROR = 'You cannot close the case as there is currently an open \'Pend Case\' task. Please review and action the open \'Pend Case\' task before closing the case.';
+
   @TestVisible
   private static List<IDR_CRC_Escalation_Event__e> idrCaseEscalations;
 
@@ -243,21 +245,6 @@ public with sharing class IDRCaseActions {
         System.now()
       );
       IDRTaskActions.closeMaxTimeFrameTasks(maxTimeFrameCases);
-    }
-  }
-
-  /**
-   * @description Prepopulate Case Fields
-   * @param record case record
-   * @param oldCase Old copy of case record before this transaction intiated
-   */
-  private static void populateSuppliedEmail(Case record, Case oldCase) {
-    if (
-      oldCase == null ||
-      (String.IsBlank(oldCase.IDR_NC_Email__c) &&
-      String.IsNotBlank(record.IDR_NC_Email__c))
-    ) {
-      record.SuppliedEmail = record.IDR_NC_Email__c;
     }
   }
 
