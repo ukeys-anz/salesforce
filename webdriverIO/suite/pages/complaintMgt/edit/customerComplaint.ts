@@ -115,7 +115,8 @@ class CustomerComplaint extends Base {
 
   /****** BUTTONS ******/
   get save() {
-    return $("//div/div[2]/button[3]");
+    //return $("//div/div[2]/button[3]");
+    return $("//div/div[2]/div/div/div[3]/button[3]");
   }
 
   get refreshBtn() {

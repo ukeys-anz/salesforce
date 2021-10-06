@@ -60,7 +60,12 @@ export default class CaseLogACall extends NavigationMixin(LightningElement) {
   })
   wiredSubject({ data }) {
     if (data) {
-      this.fields.subject = data.fields.Subject.value;
+      /**
+      /* Prefix "Call" to Subject so it's obvious that this is a call
+      /* when looking at the Activity History / Chatter feed
+      */
+
+      this.fields.subject = "Call: " + data.fields.Subject.value;
     }
   }
 

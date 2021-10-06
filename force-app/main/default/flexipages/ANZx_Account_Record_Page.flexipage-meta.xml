@@ -35,6 +35,51 @@
                 <componentName>force:detailPanel</componentName>
             </componentInstance>
         </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>dashboardId</name>
+                    <value>Customer_Feedback_NPS_Metrics</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>enableNotifications</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>enableSubscriptions</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>height</name>
+                    <value>170</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>hideOnError</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>openLinksInNewWindow</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>openLocation</name>
+                    <value>OPEN_IN_STUDIO</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showHeader</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showSharing</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showTitle</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentName>wave:waveDashboard</componentName>
+            </componentInstance>
+        </itemInstances>
         <name>leftsidebar</name>
         <type>Region</type>
     </flexiPageRegions>
@@ -185,43 +230,6 @@
                     <value>Facet-08b365a4-1c43-4e93-aeee-74e6a75d9888</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>dashboardId</name>
-                    <value>Customer_Feedback_NPS_Metrics</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>height</name>
-                    <value>400</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>hideOnError</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>openLinksInNewWindow</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>openLocation</name>
-                    <value>OPEN_IN_STUDIO</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>showHeader</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>showSharing</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>showTitle</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentName>wave:waveDashboard</componentName>
             </componentInstance>
         </itemInstances>
         <itemInstances>

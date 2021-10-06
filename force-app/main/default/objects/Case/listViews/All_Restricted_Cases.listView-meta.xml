@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Restricted_Cases</fullName>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>IDR_Customer_Number__c</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>CASES.PRIORITY</columns>
+    <columns>CORE.USERS.ALIAS</columns>
+    <columns>IDR_NC_First_Name__c</columns>
+    <columns>IDR_NC_Last_Name__c</columns>
+    <columns>CASES.LAST_UPDATE_DATE_ONLY</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>IDR_Restriction_Level__c</field>
+        <operation>equals</operation>
+        <value>Restricted Case</value>
+    </filters>
+    <label>All Restricted Cases</label>
+    <sharedTo>
+        <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
+    </sharedTo>
+</ListView>
