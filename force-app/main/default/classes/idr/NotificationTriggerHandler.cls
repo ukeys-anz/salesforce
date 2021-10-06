@@ -11,7 +11,6 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
     IDRConstants.ESCALATED_STATUS => 'AgCaseEsclt',
     IDRConstants.REOPENED_STATUS => 'AgCaseReopen',
     IDRConstants.CLOSED_STATUS => 'AgCaseClosed',
-    IDRConstants.RESOLVED_STATUS => 'AgCaseRslvd',
     IDRConstants.WITHDRAWN_STATUS => 'AgCaseWthdrwn'
   };
   public static List<IDR_Notification_Event__e> idrNotifications;
