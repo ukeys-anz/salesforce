@@ -6,7 +6,7 @@
         pageReference: {
           type: "standard__component",
           attributes: {
-            componentName: "c:CreateComms"
+            componentName: "c:createComms"
           },
           state: {
             c__recordId: cmp.get("v.recordId")

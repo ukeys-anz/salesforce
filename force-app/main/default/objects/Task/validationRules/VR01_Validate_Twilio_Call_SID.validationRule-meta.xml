@@ -6,16 +6,13 @@
     <errorConditionFormula>AND(
  $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
  RecordType.DeveloperName = &apos;Call_Log&apos;,
- NOT( ISBLANK(Voice_Call_SID__c) ),
- OR(
-  NOT(
+ NOT(LEN(Voice_Call_SID__c)  = 34),
+ NOT(
    OR(
    BEGINS(Voice_Call_SID__c, &apos;CF&apos;),
    BEGINS(Voice_Call_SID__c, &apos;CA&apos;)
    )
-  ),
-  NOT(LEN(Voice_Call_SID__c)  = 34)
- )
+  )
 )</errorConditionFormula>
     <errorDisplayField>Voice_Call_SID__c</errorDisplayField>
     <errorMessage>Voice Call SID must start with &apos;CF&apos; or &apos;CA&apos; and should have 34 characters in total</errorMessage>

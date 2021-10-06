@@ -2,6 +2,7 @@
  * @author Adnan
  * @since 05/2021
  * @description  This class is contains helper methods for IDREmailService class
+ * @group IDR(Internal Dispute Resolution)
  */
 @SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class IDREmailServiceHelper {
@@ -10,34 +11,48 @@ public with sharing class IDREmailServiceHelper {
    * @param email Inbound email object
    * @param caseId The case Id that needs to be related to
    */
-  @SuppressWarnings(
-    'PMD.ApexCRUDViolation'
-  ) //Since we ApexCRUD cannot be done on emailMessage object
   public static void createEmailMessage(
     Messaging.InboundEmail email,
     Id caseId
   ) {
-    EmailMessage emailMessage = new EmailMessage();
-    emailMessage.ParentId = caseId;
-    emailMessage.FromAddress = email.fromAddress;
-    emailMessage.FromName = email.fromName;
-    emailMessage.Subject = email.subject;
-    emailMessage.HtmlBody = email.htmlBody.replaceAll('<a.*<.{1}a>', 'REMOVED');
-    if (
-      Schema.EmailMessage.sObjectType.getDescribe().isCreateable() &&
-      Schema.sObjectType.EmailMessage.fields.ParentId.isCreateable() &&
-      Schema.sObjectType.EmailMessage.fields.FromAddress.isCreateable() &&
-      Schema.sObjectType.EmailMessage.fields.FromName.isCreateable() &&
-      Schema.sObjectType.EmailMessage.fields.Subject.isCreateable() &&
-      Schema.sObjectType.EmailMessage.fields.HtmlBody.isCreateable()
-    ) {
-      insert emailMessage;
-    } else {
-      CommonUtil.logAndThrowIAE(
-        IDREmailServiceHelper.class.getName(),
-        'createEmailMessage',
-        'Not enough permissions to create EmailMessage.'
+    try {
+      EmailMessage emailMessage = new EmailMessage();
+      emailMessage.ParentId = caseId;
+      emailMessage.FromAddress = email.fromAddress;
+      emailMessage.FromName = email.fromName;
+      emailMessage.Subject = email.subject;
+      emailMessage.HtmlBody = email.htmlBody.replaceAll(
+        '<a.*<.{1}a>',
+        'REMOVED'
       );
+      if (
+        Schema.EmailMessage.sObjectType.getDescribe().isCreateable() &&
+        Schema.sObjectType.EmailMessage.fields.ParentId.isCreateable() &&
+        Schema.sObjectType.EmailMessage.fields.FromAddress.isCreateable() &&
+        Schema.sObjectType.EmailMessage.fields.FromName.isCreateable() &&
+        Schema.sObjectType.EmailMessage.fields.Subject.isCreateable() &&
+        Schema.sObjectType.EmailMessage.fields.HtmlBody.isCreateable()
+      ) {
+        insert emailMessage;
+      } else {
+        CommonUtil.logAndThrowIAE(
+          IDREmailServiceHelper.class.getName(),
+          'createEmailMessage',
+          'Not enough permissions to create EmailMessage.'
+        );
+      }
+    } catch (Exception err) {
+      Lib_SystemLog log = new Lib_SystemLog(
+        IDREmailServiceHelper.class.getName(),
+        'createEmailMessage'
+      );
+      log.error(
+        'EmailServiceException',
+        'Error in creating email message from service class, which needs to be attached to existing case :' +
+        caseId +
+        err.getMessage()
+      );
+      log.publishEvent();
     }
   }
 
@@ -61,7 +76,20 @@ public with sharing class IDREmailServiceHelper {
 
     if (contentVersionList.size() > 0) {
       if (ContentVersion.sObjectType.getDescribe().isCreateable()) {
-        insert contentVersionList;
+        List<Database.SaveResult> results = Database.insert(
+          contentVersionList,
+          false
+        );
+        lib_systemLog log = new lib_systemLog(
+          'IDREmailServiceHelper',
+          'createAttachmentFiles'
+        );
+        log.addDatabaseSaveResult(
+          'ContentVersion',
+          results,
+          contentVersionList
+        );
+        log.insertLogAsync();
       } else {
         CommonUtil.logAndThrowIAE(
           IDREmailServiceHelper.class.getName(),
@@ -81,11 +109,14 @@ public with sharing class IDREmailServiceHelper {
   /**
    * @description Checks the extension of attachments
    * @param mimeType Mime type of attachments
+   * @param fileName Name of file for extension check
    * @return Boolean return true/false if the extension is valid
    */
-  public static Boolean checkExtension(String mimeType) {
+  public static Boolean checkExtension(String mimeType, String fileName) {
     List<String> extensions = getExtensions(mimeType);
-    if (extensions != null) {
+    if (
+      extensions != null && extensions.contains(fileName.substringAfter('.'))
+    ) {
       return true;
     } else {
       return false;
@@ -161,7 +192,20 @@ public with sharing class IDREmailServiceHelper {
         Schema.sObjectType.ContentDocumentLink.fields.LinkedEntityId.isCreateable() &&
         Schema.sObjectType.ContentDocumentLink.fields.ShareType.isCreateable()
       ) {
-        insert contentDocLinkList;
+        List<Database.SaveResult> results = Database.insert(
+          contentDocLinkList,
+          false
+        );
+        lib_systemLog log = new lib_systemLog(
+          'IDREmailServiceHelper',
+          'linkContentWithCase'
+        );
+        log.addDatabaseSaveResult(
+          'ContentDocumentLink',
+          results,
+          contentDocLinkList
+        );
+        log.insertLogAsync();
       } else {
         CommonUtil.logAndThrowIAE(
           IDREmailServiceHelper.class.getName(),
@@ -197,9 +241,9 @@ public with sharing class IDREmailServiceHelper {
    * @description Queries through the group object
    * @param type The type of group
    * @param queueName The devveloper name of group
-   * @return List<Group>
+   * @return Group
    */
-  public static List<Group> getGroupDetails(String type, String queueName) {
+  public static Group getGroupDetails(String type, String queueName) {
     if (Group.sObjectType.getDescribe().isQueryable()) {
       return [
         SELECT Id
@@ -229,7 +273,7 @@ public with sharing class IDREmailServiceHelper {
     );
     if (tAttachments != null && tAttachments.size() > 0) {
       for (Messaging.Inboundemail.TextAttachment tAttachment : tAttachments) {
-        if (checkExtension(tAttachment.mimeTypeSubType)) {
+        if (checkExtension(tAttachment.mimeTypeSubType, tAttachment.fileName)) {
           ContentVersion cv = new ContentVersion(
             Title = tAttachment.fileName,
             PathOnClient = tAttachment.fileName,
@@ -271,7 +315,7 @@ public with sharing class IDREmailServiceHelper {
     );
     if (bAttachments != null && bAttachments.size() > 0) {
       for (Messaging.Inboundemail.BinaryAttachment bAttachment : bAttachments) {
-        if (checkExtension(bAttachment.mimeTypeSubType)) {
+        if (checkExtension(bAttachment.mimeTypeSubType, bAttachment.fileName)) {
           ContentVersion cv = new ContentVersion(
             Title = bAttachment.fileName,
             PathOnClient = bAttachment.fileName,
@@ -302,13 +346,13 @@ public with sharing class IDREmailServiceHelper {
    */
   public static void updateCaseWithQueue(Case newCase) {
     //Get Indexing Queue
-    List<Group> queueList = getGroupDetails('Queue', 'Indexing_Queue');
+    Group queue = getGroupDetails('Queue', 'Indexing_Queue');
     if (
-      queueList.size() > 0 &&
+      queue != null &&
       Case.sObjectType.getDescribe().isUpdateable() &&
       Schema.sObjectType.Case.fields.OwnerId.isUpdateable()
     ) {
-      newCase.OwnerId = queueList[0].Id;
+      newCase.OwnerId = queue.Id;
       try {
         update newCase;
       } catch (Exception err) {

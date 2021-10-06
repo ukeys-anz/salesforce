@@ -8,6 +8,26 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>IDR EDW Integration</label>
     <license>Salesforce</license>
+    <fieldPermissions>
+        <editable>false</editable>
+         <field>Case.IDR_Collection_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+         <field>Case.IDR_Collection_Number_2__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+         <field>Case.IDR_Collection_Number_3__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Task.IDR_Collection_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <tabSettings>
         <tab>standard-Case</tab>
         <visibility>Visible</visibility>

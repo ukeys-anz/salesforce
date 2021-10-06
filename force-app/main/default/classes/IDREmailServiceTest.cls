@@ -2,6 +2,7 @@
  * @author Adnan
  * @since 05/2021
  * @description  Test class for IDREmailService class
+ * @group IDR(Internal Dispute Resolution)
  */
 @isTest
 public with sharing class IDREmailServiceTest {
@@ -76,15 +77,25 @@ public with sharing class IDREmailServiceTest {
       idremserObj.handleInboundEmail(email, env);
 
       Test.stopTest();
-
-      //Asserts
-      System.assertNotEquals(
-        null,
-        [SELECT Id FROM Case LIMIT 1],
-        'A new case is not created'
-      );
     }
 
+    List<Case> caseList = [
+      SELECT Id, Description, SuppliedEmail
+      FROM Case
+      LIMIT 1
+    ];
+    //Asserts
+    System.assertNotEquals(null, caseList, 'A new case is not created');
+    System.assertNotEquals(
+      null,
+      caseList[0].Description,
+      'Case Description is null'
+    );
+    System.assertNotEquals(
+      'testFrom@abc.com',
+      caseList[0].SuppliedEmail,
+      'Supplied email is not populated'
+    );
   }
 
   @IsTest

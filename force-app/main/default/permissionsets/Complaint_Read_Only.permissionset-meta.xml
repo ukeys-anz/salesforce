@@ -684,21 +684,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-         <field>Case.IDR_Collection_Number__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-         <field>Case.IDR_Collection_Number_2__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-         <field>Case.IDR_Collection_Number_3__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>IDR_Letter_Approval__c.IDR_Auto_Approve__c</field>
         <readable>true</readable>
     </fieldPermissions>

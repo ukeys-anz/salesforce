@@ -52,10 +52,16 @@
         <sharedTo>
             <roleAndSubordinates>Banker_Line_Manager</roleAndSubordinates>
         </sharedTo>
+        <booleanFilter>1 AND 2</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Customer Complaint,Non-Customer Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IDR_Is_Restricted__c</field>
+            <operation>notEqual</operation>
+            <value>True</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -80,8 +86,8 @@
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Complaint_RTs_CRPUsers_RO</fullName>
-        <accessLevel>Read</accessLevel>
-        <description>Grant read-only access to CFMS migrated complaint records for Customer Resolution Users</description>
+        <accessLevel>Edit</accessLevel>
+        <description>Grant edit access to CFMS migrated complaint records for Customer Resolution Users</description>
         <label>Complaint_RTs_CRPUsers_RO</label>
         <sharedTo>
             <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>

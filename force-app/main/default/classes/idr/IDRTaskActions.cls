@@ -2,6 +2,7 @@
  * @author Himabindu Nekkanti
  * @since  02/2021
  * @description IDRTaskActions is class to handle all the IDR (Internal Dispute Resolution) Actions
+ * @group IDR(Internal Dispute Resolution)
  */
 @SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
 public without sharing class IDRTaskActions {
@@ -100,10 +101,12 @@ public without sharing class IDRTaskActions {
         record.RecordTypeId == IDRConstants.IDR_SYSTEM_TASK_RT_ID &&
         record.Status == IDRConstants.OPEN_STATUS
       ) {
-        if (record.Subject.contains(STOP_COLLECTIONS_SUBJECT)) {
+        if (record.Subject.containsIgnoreCase(STOP_COLLECTIONS_SUBJECT)) {
           record.OwnerId = stopQueue.Id;
           record.ActivityDate = Date.today();
-        } else if (record.Subject.contains(START_COLLECTIONS_SUBJECT)) {
+        } else if (
+          record.Subject.containsIgnoreCase(START_COLLECTIONS_SUBJECT)
+        ) {
           record.OwnerId = startQueue.Id;
           record.ActivityDate = Date.today().addDays(14);
         }

@@ -13,42 +13,31 @@ public class TestCreateCommsController {
   static void setup() {
     List<IDR_Template_Detail__c> tdList = new List<IDR_Template_Detail__c>();
 
-    IDR_Template_Detail__c td1 = new IDR_Template_Detail__c(
-      IDR_Template__c = '21 Day Letter',
-      IDR_Template_Field_Name__c = 'CaseNumber',
-      IDR_Case_Field_Name__c = 'CaseNumber'
+    tdlist.addAll(
+      new List<IDR_Template_Detail__c>{
+        new IDR_Template_Detail__c(
+          IDR_Template__c = '21 Day Letter',
+          IDR_Template_Field_Name__c = 'CaseNumber',
+          IDR_Case_Field_Name__c = 'CaseNumber'
+        ),
+        new IDR_Template_Detail__c(
+          IDR_Template__c = 'Declined Application Letter',
+          IDR_Template_Field_Name__c = 'StaffFullName',
+          IDR_Case_Field_Name__c = 'OwnerId'
+        ),
+        new IDR_Template_Detail__c(
+          IDR_Template__c = 'Declined Application Letter',
+          IDR_Template_Field_Name__c = 'Description',
+          IDR_Case_Field_Name__c = 'Description',
+          IDR_Is_Free_Text__c = true
+        ),
+        new IDR_Template_Detail__c(
+          IDR_Template__c = 'Declined Application Letter',
+          IDR_Template_Field_Name__c = 'Input Text 1',
+          IDR_Is_Free_Text__c = true
+        )
+      }
     );
-    tdlist.add(td1);
-
-    // commenting the below code due to slaesforce limitation and deployment issue
-    /* IDR_Template_Detail__c td2 = new IDR_Template_Detail__c(
-      IDR_Template__c = '21 Day Letter',
-      IDR_Template_Field_Name__c = 'StaffFullName',
-      IDR_Case_Field_Name__c = 'Owner.Name'
-    );
-    tdList.add(td2);*/
-
-    IDR_Template_Detail__c td3 = new IDR_Template_Detail__c(
-      IDR_Template__c = 'Declined Application Letter',
-      IDR_Template_Field_Name__c = 'StaffFullName',
-      IDR_Case_Field_Name__c = 'OwnerId'
-    );
-    tdList.add(td3);
-
-    IDR_Template_Detail__c td4 = new IDR_Template_Detail__c(
-      IDR_Template__c = 'Declined Application Letter',
-      IDR_Template_Field_Name__c = 'Description',
-      IDR_Case_Field_Name__c = 'Description',
-      IDR_Is_Free_Text__c = true
-    );
-    tdList.add(td4);
-
-    IDR_Template_Detail__c td5 = new IDR_Template_Detail__c(
-      IDR_Template__c = 'Declined Application Letter',
-      IDR_Template_Field_Name__c = 'Input Text 1',
-      IDR_Is_Free_Text__c = true
-    );
-    tdList.add(td5);
 
     insert tdList;
 
@@ -80,7 +69,21 @@ public class TestCreateCommsController {
       'Declined Application Letter',
       testCase.Id
     );
-    system.assertEquals(2, returnList.size());
+    System.assertEquals(
+      2,
+      returnList.size(),
+      'Expetected 2 rows to be returned'
+    );
+    System.assertEquals(
+      returnList[0].fieldLabel,
+      'Description',
+      'Field Label did not match'
+    );
+    System.assertEquals(
+      returnList[1].fieldLabel,
+      'Input Text 1',
+      'Field Label did not match'
+    );
   }
 
   /**

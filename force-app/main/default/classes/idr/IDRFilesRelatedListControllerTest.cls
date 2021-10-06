@@ -2,7 +2,7 @@
  * @author Himabindu Nekkanti
  * @since  11/2020
  * @description TestIDRFilesRelatedListController is the test class for  IDRFilesRelatedListController.
- *
+ * @group IDR(Internal Dispute Resolution)
  */
 @isTest
 public class IDRFilesRelatedListControllerTest {
