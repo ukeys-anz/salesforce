@@ -3,6 +3,7 @@
  * @author Afreen
  * @since 01/2021
  * @description Process IDR case orginated from emails
+ * @group IDR(Internal Dispute Resolution)
  */
 public with sharing class IDREmailToCase {
   /**

@@ -4,5 +4,11 @@
     "saveRefs": false,
     "resolveRefs": true,
     "files": ["IDR-Notification-Hours.json"]
+  },
+  {
+    "sobject": "IDR_Email_Settings__c",
+    "saveRefs": false,
+    "resolveRefs": true,
+    "files": ["IDR-EmailService-Setting-NonProd.json"]
   }
 ]

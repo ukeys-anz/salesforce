@@ -57,7 +57,7 @@ private class TaskTriggerHandlerTest {
     insert generalEnquiryCase;
 
     // create complaint entitlement account
-    account a = new account(
+    Account a = new Account(
       Name = 'Complaint Entitlement Account',
       OCV_ID__c = faker.randomString(10),
       ANZx_Customer__c = false
@@ -79,32 +79,31 @@ private class TaskTriggerHandlerTest {
     insert et;
     Case[] complaintCaselist = new List<Case>();
 
-    complaintCaselist.add(
-      new Case(
-        IDR_Account_Card_Policy_Number__c = '000001234',
-        Description = 'Test IDR Maximum Time Standard',
-        IDR_Complainant_Desired_Outcome__c = 'Test IDR Maximum Time Standard',
-        IDR_Description_of_Outcome__c = 'Test IDR Maximum Time Standard',
-        IDR_Systemic_Issue_Description__c = 'None',
-        IDR_Date_Received__c = system.now(),
-        RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
-        IDR_Customer_Number__c = '1234567890',
-        Priority = 'Standard'
-      )
-    );
-
-    complaintCaselist.add(
-      new Case(
-        IDR_Account_Card_Policy_Number__c = '000001234',
-        Description = 'Test IDR Maximum Time Priority',
-        IDR_Complainant_Desired_Outcome__c = 'Test IDR Maximum Time Priority',
-        IDR_Description_of_Outcome__c = 'Test IDR Maximum Time Priority',
-        IDR_Systemic_Issue_Description__c = 'None',
-        IDR_Date_Received__c = system.now(),
-        RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
-        IDR_Customer_Number__c = '1234567890',
-        Priority = 'Vulnerable Customer'
-      )
+    complaintCaselist.addAll(
+      new List<Case>{
+        new Case(
+          IDR_Account_Card_Policy_Number__c = '000001234',
+          Description = 'Test IDR Maximum Time Standard',
+          IDR_Complainant_Desired_Outcome__c = 'Test IDR Maximum Time Standard',
+          IDR_Description_of_Outcome__c = 'Test IDR Maximum Time Standard',
+          IDR_Systemic_Issue_Description__c = 'None',
+          IDR_Date_Received__c = system.now(),
+          RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+          IDR_Customer_Number__c = '1234567890',
+          Priority = 'Standard'
+        ),
+        new Case(
+          IDR_Account_Card_Policy_Number__c = '000001234',
+          Description = 'Test IDR Maximum Time Priority',
+          IDR_Complainant_Desired_Outcome__c = 'Test IDR Maximum Time Priority',
+          IDR_Description_of_Outcome__c = 'Test IDR Maximum Time Priority',
+          IDR_Systemic_Issue_Description__c = 'None',
+          IDR_Date_Received__c = system.now(),
+          RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+          IDR_Customer_Number__c = '1234567890',
+          Priority = 'Vulnerable Customer'
+        )
+      }
     );
     insert complaintCaselist;
   }
@@ -129,37 +128,36 @@ private class TaskTriggerHandlerTest {
     ];
     List<Task> listofTasks = new List<Task>();
 
-    Task standard5day = new Task(
-      Subject = IDRConstants.TASK_SUBJECT_DAY5,
-      Priority = 'Normal',
-      ActivityDate = system.today().addDays(60),
-      WhatId = standardComplaint.Id
+    listofTasks.addAll(
+      new List<Task>{
+        new Task(
+          Subject = IDRConstants.TASK_SUBJECT_DAY5,
+          Priority = 'Normal',
+          ActivityDate = system.today().addDays(60),
+          WhatId = standardComplaint.Id
+        ),
+        new Task(
+          Subject = IDRConstants.TASK_SUBJECT_DAY1,
+          Priority = 'High',
+          ActivityDate = system.today().addDays(60),
+          WhatId = standardComplaint.Id
+        ),
+        new Task(
+          Subject = IDRConstants.TASK_SUBJECT_DAY5,
+          Priority = 'Normal',
+          ActivityDate = system.today().addDays(60),
+          WhatId = priorityComplaint.Id
+        ),
+        new Task(
+          Subject = IDRConstants.TASK_SUBJECT_DAY1,
+          Priority = 'High',
+          ActivityDate = system.today().addDays(60),
+          WhatId = priorityComplaint.Id
+        )
+      }
     );
-    insert standard5day;
-    Task standard1day = new Task(
-      Subject = IDRConstants.TASK_SUBJECT_DAY1,
-      Priority = 'High',
-      ActivityDate = system.today().addDays(60),
-      WhatId = standardComplaint.Id
-    );
-    listofTasks.add(standard1day);
 
-    Task priority5day = new Task(
-      Subject = IDRConstants.TASK_SUBJECT_DAY5,
-      Priority = 'Normal',
-      ActivityDate = system.today().addDays(60),
-      WhatId = priorityComplaint.Id
-    );
-    listofTasks.add(priority5day);
-    Task priority1day = new Task(
-      Subject = IDRConstants.TASK_SUBJECT_DAY1,
-      Priority = 'High',
-      ActivityDate = system.today().addDays(60),
-      WhatId = priorityComplaint.Id
-    );
-    listofTasks.add(priority1day);
-
-    insert ListofTasks;
+    insert listofTasks;
 
     //check standard5Day Task is closed
     task checkTask = [

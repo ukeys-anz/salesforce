@@ -12,8 +12,7 @@ RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
 ),
 ISCHANGED(IDR_Restriction_Level__c),
 ISPICKVAL(IDR_Restriction_Level__c , &apos;Restricted Case&apos;),
-NOT($UserRole.DeveloperName = &apos;Customer_Resolution_Leadership&apos;),
-NOT($UserRole.DeveloperName = &apos;Customer_Resolution&apos;),
+NOT($Permission.IDR_Level_1),
 NOT(ISPICKVAL(Status, &apos;Escalated&apos;))
 )</errorConditionFormula>
     <errorDisplayField>IDR_Restriction_Level__c</errorDisplayField>

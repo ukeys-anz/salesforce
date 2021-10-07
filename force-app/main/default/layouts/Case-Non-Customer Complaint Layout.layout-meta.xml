@@ -92,7 +92,7 @@
                 <field>IDR_NC_Country__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
+                <behavior>Edit</behavior>
                 <field>IDR_SwitchOff_Customer_Notification__c</field>
             </layoutItems>
         </layoutColumns>
@@ -147,7 +147,7 @@
                 <field>IDR_3rdParty_Mobile__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
+                <behavior>Edit</behavior>
                 <field>IDR_SwicthOff_3rd_Party_Notification__c</field>
             </layoutItems>
         </layoutColumns>

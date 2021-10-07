@@ -2,6 +2,7 @@
  * @author Boobalakrishnan Duraisamy
  * @since 05/2021
  * @description  IDRCollectionActions class is used to handle all collection related activities in case trigger
+ * @group IDR(Internal Dispute Resolution)
  */
 @SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
 public with sharing class IDRCollectionActions {
@@ -80,9 +81,11 @@ public with sharing class IDRCollectionActions {
     }
     if (!collectionsCasesEventList.isEmpty()) {
       publishCollectionEvent(collectionsCasesEventList);
+      stopCollectionAccList.clear();
     }
     if (!isCollectionEventFailed && !stopCollectionTaskList.isEmpty()) {
       insertSystemTasks(stopCollectionTaskList);
+      stopCollectionTaskList.clear();
     }
   }
 
@@ -307,7 +310,7 @@ public with sharing class IDRCollectionActions {
       publishResults,
       collectionsEventList
     );
-    log.insertLog();
+    log.insertLogAsync();
   }
 
   /**
@@ -324,7 +327,7 @@ public with sharing class IDRCollectionActions {
       'insertSystemTasks'
     );
     log.addDatabaseSaveResult('Task', results, collectionTaskList);
-    log.insertLog();
+    log.insertLogAsync();
   }
 
   /**
@@ -351,7 +354,9 @@ public with sharing class IDRCollectionActions {
         rec.isClosed &&
         (oldRec == null || !oldRec.isClosed)
       ) {
-        collectionAcctsList.add(rec.IDR_Collection_Number__c);
+        if (String.isNotBlank(rec.IDR_Collection_Number__c)) {
+          collectionAcctsList.add(rec.IDR_Collection_Number__c);
+        }
         if (String.isNotBlank(rec.IDR_Collection_Number_2__c)) {
           collectionAcctsList.add(rec.IDR_Collection_Number_2__c);
         }
@@ -405,9 +410,11 @@ public with sharing class IDRCollectionActions {
 
     if (!collectionsStartEventList.isEmpty()) {
       publishCollectionEvent(collectionsStartEventList);
+      startCollectionAccList.clear();
     }
     if (!isCollectionEventFailed && !startCollectionTaskList.isEmpty()) {
       insertSystemTasks(startCollectionTaskList);
+      startCollectionTaskList.clear();
     }
   }
 

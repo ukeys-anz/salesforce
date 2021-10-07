@@ -68,22 +68,11 @@ public with sharing class IDRCaseActions {
    */
   public static void applyDefaults(List<Case> records) {
     Id entitlementId = getEntitlement();
-    //future use do not remove the below commented code
-    // salesforce limitation ,business hours id is not populated at this point in time get the  complaints business hours (default value) for SLA calculation;
-    /*Id businessHoursId ;
-    if(BusinessHours.sObjectType.getDescribe().isQueryable()) {
-      list<BusinessHours> bh = new list<BusinessHours>();
-      bh = [SELECT Id FROM BusinessHours WHERE IsDefault=true];
-      if(bh.size() > 0){
-         businessHoursId = bh[0].Id ;
-      }      
-    }*/
     Case[] updatePsiTicked = new List<Case>();
     for (Case record : records) {
       if (isIDRComplaintType(record)) {
         record.EntitlementId = entitlementId;
         record.IDR_Milestone_Sla__c = IDRConstants.MILESTONE_SLA_NORMAL;
-        // record.IDR_Milestone_Sla__c = getMilestoneSla(record.Status, record.IDR_Date_Received__c , businessHoursId);
         populateSuppliedEmail(record, null);
         IDRCollectionActions.populateCollectionNumber(record);
         CommonUtil.handleMasking(
@@ -198,7 +187,6 @@ public with sharing class IDRCaseActions {
         checkForCRCEscalation(record, oldRec);
       }
     }
-    completeMilestone(records, oldMap);
     IDRCaseCommentActions.escalateExistingCommentsToCFMS(oldMap, records);
     IDRCaseNotificationManager.notifyBankersForEscalation(records, oldMap);
     escalateToCFMS(caseEscalationList);
@@ -207,6 +195,7 @@ public with sharing class IDRCaseActions {
     IDRCollectionActions.stopCollections(records, oldMap);
     IDRCollectionActions.startCollections(records, oldMap);
     IDRComplaintFlagActions.setComplaintsFlag(records, oldMap);
+    completeMilestone(records, oldMap);
   }
 
   /**
@@ -234,27 +223,27 @@ public with sharing class IDRCaseActions {
       if ((oldCase != null && (!oldCase.isClosed && c.isClosed))) {
         maxTimeFrameCases.add(c.Id);
       }
+    }
 
-      if (!escalationCases.isEmpty()) {
-        MilestoneUtils.completeMilestone(
-          escalationCases,
-          new List<String>{ 'Open_Escalation_Time' },
-          System.now()
-        );
-      }
+    if (!escalationCases.isEmpty()) {
+      MilestoneUtils.completeMilestone(
+        escalationCases,
+        new List<String>{ 'Open_Escalation_Time' },
+        System.now()
+      );
+    }
 
-      if (!maxTimeFrameCases.isEmpty()) {
-        MilestoneUtils.completeMilestone(
-          maxTimeFrameCases,
-          new List<String>{
-            '21-day IDR Response Due',
-            '30-day IDR Response Due',
-            'Open_Escalation_Time'
-          },
-          System.now()
-        );
-        IDRTaskActions.closeMaxTimeFrameTasks(maxTimeFrameCases);
-      }
+    if (!maxTimeFrameCases.isEmpty()) {
+      MilestoneUtils.completeMilestone(
+        maxTimeFrameCases,
+        new List<String>{
+          '21-day IDR Response Due',
+          '30-day IDR Response Due',
+          'Open_Escalation_Time'
+        },
+        System.now()
+      );
+      IDRTaskActions.closeMaxTimeFrameTasks(maxTimeFrameCases);
     }
   }
 
@@ -770,7 +759,11 @@ public with sharing class IDRCaseActions {
   }
 
   /**
+<<<<<<< HEAD
    * @description Prevents a complaints case moving to Closed status when it has any non-complete complaints task with 'Pending Case' type
+=======
+   * @description Prevents a complaints case moving to Closed or Resolved status when it has any non-complete complaints task with 'Pending Case' type
+>>>>>>> epic/cmos-bau
    * @param records  List of cases from the trigger
    * @param oldMap Map of pre-update cases supplied from the trigger as well
    */
@@ -781,7 +774,12 @@ public with sharing class IDRCaseActions {
     List<Case> closedComplaintCases = new List<Case>();
     for (Case c : records) {
       if (
+<<<<<<< HEAD
         (c.Status == 'Closed') &&
+=======
+        (c.Status == 'Closed' ||
+        c.Status == 'Resolved') &&
+>>>>>>> epic/cmos-bau
         oldMap.get(c.Id).Status != c.Status &&
         isIDRComplaintType(c)
       ) {
