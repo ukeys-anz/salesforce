@@ -3,7 +3,7 @@
  * @date May 2021
  * @description Test class for {@link IDRCaseAssignmentRules}
  * @group IDR(Internal Dispute Resolution)
- */ 
+ */
 @isTest
 private with sharing class IDRCaseAssignmentRulesTest {
   @TestSetup
