@@ -759,11 +759,7 @@ public with sharing class IDRCaseActions {
   }
 
   /**
-<<<<<<< HEAD
    * @description Prevents a complaints case moving to Closed status when it has any non-complete complaints task with 'Pending Case' type
-=======
-   * @description Prevents a complaints case moving to Closed or Resolved status when it has any non-complete complaints task with 'Pending Case' type
->>>>>>> epic/cmos-bau
    * @param records  List of cases from the trigger
    * @param oldMap Map of pre-update cases supplied from the trigger as well
    */
@@ -774,12 +770,7 @@ public with sharing class IDRCaseActions {
     List<Case> closedComplaintCases = new List<Case>();
     for (Case c : records) {
       if (
-<<<<<<< HEAD
         (c.Status == 'Closed') &&
-=======
-        (c.Status == 'Closed' ||
-        c.Status == 'Resolved') &&
->>>>>>> epic/cmos-bau
         oldMap.get(c.Id).Status != c.Status &&
         isIDRComplaintType(c)
       ) {
