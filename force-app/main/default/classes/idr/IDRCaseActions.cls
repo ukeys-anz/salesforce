@@ -15,7 +15,6 @@ public with sharing class IDRCaseActions {
   private static final String ESCALATED_STATUS = 'Escalated';
   private static final String REOPENED_STATUS = 'Re-opened';
   private static final String CLOSED_STATUS = 'Closed';
-  private static final String RESOLVED_STATUS = 'Resolved';
   private static final String WITHDRAWN_STATUS = 'Withdrawn';
   private static final string BANKER_ESCALATION_EMAIL = 'EscalationEmailNotification';
   @TestVisible
@@ -414,7 +413,7 @@ public with sharing class IDRCaseActions {
    * @description  handleCaseStatusChanges method is used to handle the case status changes as follows
    * 1. when a case is escalated mark the case's IsEscalated value to true and
    * 2. when a case is reopened mark the IDR_Date_Re_Opened__c as current date.
-   * 3. When an escalated case is resolved or closed, mark the case's IsEscalated value to false
+   * 3. When an escalated case is closed, mark the case's IsEscalated value to false
    * @param record The actual case record from the trigger
    */
   private static void handleCaseStatusChanges(Case record) {
@@ -425,10 +424,7 @@ public with sharing class IDRCaseActions {
       record.IDR_Date_Re_Opened__c = System.today();
       record.IsEscalated = false;
     }
-    if (
-      (record.Status == RESOLVED_STATUS || record.Status == CLOSED_STATUS) &&
-      record.IsEscalated
-    ) {
+    if ((record.Status == CLOSED_STATUS) && record.IsEscalated) {
       record.IsEscalated = false;
     }
   }
@@ -763,7 +759,7 @@ public with sharing class IDRCaseActions {
   }
 
   /**
-   * @description Prevents a complaints case moving to Closed or Resolved status when it has any non-complete complaints task with 'Pending Case' type
+   * @description Prevents a complaints case moving to Closed status when it has any non-complete complaints task with 'Pending Case' type
    * @param records  List of cases from the trigger
    * @param oldMap Map of pre-update cases supplied from the trigger as well
    */
@@ -774,8 +770,7 @@ public with sharing class IDRCaseActions {
     List<Case> closedComplaintCases = new List<Case>();
     for (Case c : records) {
       if (
-        (c.Status == 'Closed' ||
-        c.Status == 'Resolved') &&
+        (c.Status == 'Closed') &&
         oldMap.get(c.Id).Status != c.Status &&
         isIDRComplaintType(c)
       ) {
