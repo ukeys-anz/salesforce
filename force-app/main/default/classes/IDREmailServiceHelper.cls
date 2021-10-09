@@ -21,10 +21,11 @@ public with sharing class IDREmailServiceHelper {
       emailMessage.FromAddress = email.fromAddress;
       emailMessage.FromName = email.fromName;
       emailMessage.Subject = email.subject;
-      emailMessage.HtmlBody = email.htmlBody.replaceAll(
+      emailMessage.HtmlBody = email?.htmlBody?.replaceAll(
         '<a.*<.{1}a>',
         'REMOVED'
       );
+      emailMessage.TextBody = email?.plainTextBody;
       if (
         Schema.EmailMessage.sObjectType.getDescribe().isCreateable() &&
         Schema.sObjectType.EmailMessage.fields.ParentId.isCreateable() &&
