@@ -14,4 +14,5 @@
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>
+    <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
 </CustomField>
