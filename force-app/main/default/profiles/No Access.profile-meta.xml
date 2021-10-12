@@ -141,7 +141,7 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>GetCustomerInformation</apexClass>
+        <apexClass>IDRAPIRepository</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -201,7 +201,7 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>GetCustomerInformationTest</apexClass>
+        <apexClass>IDRAPIRepositoryTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -1025,16 +1025,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>IDR_Notification_Event__e.Case_Status_Change_Date__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>IDR_Notification_Event__e.Case_Status__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>IDR_Notification_Event__e.ComplainantEmail__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -1313,10 +1303,13 @@
         <name>ChangeDashboardColors</name>
     </userPermissions>
     <userPermissions>
+<<<<<<< HEAD
         <enabled>false</enabled>
         <name>ChatterFileLink</name>
     </userPermissions>
     <userPermissions>
+=======
+>>>>>>> develop
         <enabled>true</enabled>
         <name>ChatterInternalUser</name>
     </userPermissions>
@@ -1379,10 +1372,6 @@
     <userPermissions>
         <enabled>false</enabled>
         <name>DeleteTopics</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>DistributeFromPersWksp</name>
     </userPermissions>
     <userPermissions>
         <enabled>false</enabled>

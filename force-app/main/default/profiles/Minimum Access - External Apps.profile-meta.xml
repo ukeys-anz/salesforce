@@ -190,7 +190,7 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>GetCustomerInformation</apexClass>
+        <apexClass>IDRAPIRepository</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -286,7 +286,7 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>GetCustomerInformationTest</apexClass>
+        <apexClass>IDRAPIRepositoryTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -1712,10 +1712,13 @@
         <name>ChatterComposeUiCodesnippet</name>
     </userPermissions>
     <userPermissions>
+<<<<<<< HEAD
         <enabled>false</enabled>
         <name>ChatterFileLink</name>
     </userPermissions>
     <userPermissions>
+=======
+>>>>>>> develop
         <enabled>true</enabled>
         <name>ChatterInternalUser</name>
     </userPermissions>
@@ -1818,10 +1821,6 @@
     <userPermissions>
         <enabled>false</enabled>
         <name>DeleteTopics</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>DistributeFromPersWksp</name>
     </userPermissions>
     <userPermissions>
         <enabled>false</enabled>

@@ -93,10 +93,13 @@
     </userPermissions>
     <userPermissions>
         <enabled>false</enabled>
+<<<<<<< HEAD
         <name>ChatterFileLink</name>
     </userPermissions>
     <userPermissions>
         <enabled>false</enabled>
+=======
+>>>>>>> develop
         <name>ChatterInternalUser</name>
     </userPermissions>
     <userPermissions>
@@ -114,10 +117,6 @@
     <userPermissions>
         <enabled>false</enabled>
         <name>CreateTopics</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>DistributeFromPersWksp</name>
     </userPermissions>
     <userPermissions>
         <enabled>false</enabled>

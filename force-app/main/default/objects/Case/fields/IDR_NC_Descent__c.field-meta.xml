@@ -8,7 +8,7 @@
     <label>Aboriginal or Torres Strait Islander</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
-    <trackHistory>true</trackHistory>
+    <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
