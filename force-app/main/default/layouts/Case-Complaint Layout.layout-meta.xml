@@ -189,14 +189,6 @@
                 <behavior>Edit</behavior>
                 <field>IDR_Account_Card_Policy_Number_2__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>IDR_Product_Manufacturer__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Provided_details_to_Product_Manufacturer__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -528,7 +520,7 @@
             <sortOrder>5</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>ChangeRecordType</actionName>
+            <actionName>Share</actionName>
             <actionType>StandardButton</actionType>
              <sortOrder>6</sortOrder>
         </platformActionListItems>
@@ -541,11 +533,6 @@
             <actionName>Case.Send_Letter_Email</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>8</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
-            <actionName>Share</actionName>
-            <actionType>StandardButton</actionType>
-            <sortOrder>7</sortOrder>
         </platformActionListItems>
     </platformActionList>
     <quickActionList>
@@ -574,7 +561,6 @@
         </relatedContentItems>
     </relatedContent>
     <relatedLists>
-        <excludeButtons>NewEvent</excludeButtons>
         <fields>TASK.SUBJECT</fields>
         <fields>TASK.TYPE</fields>
         <fields>TASK.STATUS</fields>
