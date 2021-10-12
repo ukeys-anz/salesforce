@@ -236,21 +236,12 @@
         <label>Second Issue</label>
         <layoutColumns>
             <layoutItems>
-<<<<<<< HEAD
-                <behavior>Readonly</behavior>
-                <field>IDR_Complaint_Outcome__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>IDR_Financial_Compensation__c</field>
-=======
                 <behavior>Edit</behavior>
                 <field>IDR_Second_Issue__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>IDR_Subsequent_Issue_2__c</field>
->>>>>>> develop
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
@@ -263,12 +254,6 @@
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
-<<<<<<< HEAD
-                <behavior>Readonly</behavior>
-                <field>IDR_Complaint_Remedy__c</field>
-            </layoutItems>
-            <layoutItems>
-=======
                 <behavior>Edit</behavior>
                 <field>IDR_Issue_Type_2__c</field>
             </layoutItems>
@@ -335,7 +320,6 @@
                 <field>IDR_Complaint_Remedy__c</field>
             </layoutItems>
             <layoutItems>
->>>>>>> develop
                 <behavior>Readonly</behavior>
                 <field>IDR_Non_Financial_Remedy__c</field>
             </layoutItems>
@@ -582,14 +566,6 @@
             <actionName>Case.Re_open_Complaint</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>3</sortOrder>
-<<<<<<< HEAD
-        </platformActionListItems>
-        <platformActionListItems>
-            <actionName>PrintableView</actionName>
-            <actionType>StandardButton</actionType>
-            <sortOrder>4</sortOrder>
-=======
->>>>>>> develop
         </platformActionListItems>
         <platformActionListItems>
             <actionName>PrintableView</actionName>
