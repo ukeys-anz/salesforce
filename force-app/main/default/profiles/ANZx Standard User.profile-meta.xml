@@ -9809,13 +9809,6 @@
     <name>AssignTopics</name>
   </userPermissions>
   <userPermissions>
-<<<<<<< HEAD
-    <enabled>false</enabled>
-    <name>ChatterFileLink</name>
-  </userPermissions>
-  <userPermissions>
-=======
->>>>>>> develop
     <enabled>true</enabled>
     <name>ChatterInternalUser</name>
   </userPermissions>
