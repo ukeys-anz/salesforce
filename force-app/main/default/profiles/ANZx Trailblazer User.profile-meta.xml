@@ -93,13 +93,6 @@
     </userPermissions>
     <userPermissions>
         <enabled>false</enabled>
-<<<<<<< HEAD
-        <name>ChatterFileLink</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-=======
->>>>>>> develop
         <name>ChatterInternalUser</name>
     </userPermissions>
     <userPermissions>
