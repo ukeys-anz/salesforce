@@ -95,7 +95,7 @@
     <sharingCriteriaRules>
         <fullName>Complaint_RTs_CRPUsers_RW</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Great Read write access to complaint records for Customer Resolution Users</description>
+        <description>Great Read write access to complaint records and General Inquiry CMOS records for Customer Resolution Users</description>
         <label>Complaint_RTs_CRPUsers_RW</label>
         <sharedTo>
             <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
@@ -103,7 +103,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Customer Complaint,Non-Customer Complaint</value>
+            <value>Customer Complaint,General Inquiry CMOS,Non-Customer Complaint</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
