@@ -3,20 +3,12 @@
     <fullName>VR21_IDR_Delay_Decision_Criteria</fullName>
     <active>true</active>
     <description>Mandating to fill out a reason when a CMOS complaint meet or does not meet RG 271 delay criteria</description>
-<<<<<<< HEAD
-    <errorConditionFormula>$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false &amp;&amp;
-!ISNEW() &amp;&amp; 
-(RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos; || RecordType.DeveloperName = &apos;Customer_Complaint&apos;) &amp;&amp; 
-(NOT(ISBLANK(TEXT(Has_complaint_met_RG_271_delay_criteria__c)))) &amp;&amp;
-(ISBLANK(How_has_delay_criteria_been_met_not_met__c) || (ISCHANGED(Has_complaint_met_RG_271_delay_criteria__c) &amp;&amp; NOT(ISCHANGED(How_has_delay_criteria_been_met_not_met__c))))</errorConditionFormula>
-=======
     <errorConditionFormula>$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false &amp;&amp;
 !ISNEW() &amp;&amp; 
 (RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos; || RecordType.DeveloperName = &apos;Customer_Complaint&apos;) &amp;&amp; 
 (NOT(ISBLANK(TEXT(Has_complaint_met_RG_271_delay_criteria__c)))) &amp;&amp;
 (ISBLANK(How_has_delay_criteria_been_met_not_met__c) || (ISCHANGED(Has_complaint_met_RG_271_delay_criteria__c) &amp;&amp; NOT(ISCHANGED(How_has_delay_criteria_been_met_not_met__c)))) &amp;&amp;
 NOT(ISCHANGED(RecordTypeId))</errorConditionFormula>
->>>>>>> develop
     <errorDisplayField>How_has_delay_criteria_been_met_not_met__c</errorDisplayField>
     <errorMessage>Please update, How the delay criteria been met/not met.</errorMessage>
 </ValidationRule>
