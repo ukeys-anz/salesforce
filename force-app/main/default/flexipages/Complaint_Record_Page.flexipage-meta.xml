@@ -139,8 +139,6 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>body</name>
-<<<<<<< HEAD
-=======
                     <value>Facet-1a7aad35-5631-48e7-b8d5-d4041114f2d7</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -154,7 +152,6 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>body</name>
->>>>>>> develop
                     <value>Facet-36e6d156-b418-4036-99ae-b01ded837d53</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
