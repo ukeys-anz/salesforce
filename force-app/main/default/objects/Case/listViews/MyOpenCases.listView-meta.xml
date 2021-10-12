@@ -8,11 +8,8 @@
     <columns>CASES.STATUS</columns>
     <columns>CASES.PRIORITY</columns>
     <columns>OWNER_NAME</columns>
-<<<<<<< HEAD
-=======
     <columns>IDR_NC_First_Name__c</columns>
     <columns>IDR_NC_Last_Name__c</columns>
->>>>>>> develop
     <filterScope>Mine</filterScope>
     <filters>
         <field>CASES.CLOSED</field>
