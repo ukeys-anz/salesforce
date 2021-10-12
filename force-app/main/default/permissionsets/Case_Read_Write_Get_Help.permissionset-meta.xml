@@ -59,11 +59,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.Card_Expiry_Date__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Case.Card_In_Possession_During_Transaction__c</field>
         <readable>true</readable>
     </fieldPermissions>

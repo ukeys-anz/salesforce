@@ -7,7 +7,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Provide a detailed, accurate and grammatically correct description of the customer&apos;s desired outcome - regardless of whether ANZ is able to achieve this outcome</inlineHelpText>
     <label>Customer Desired Outcome</label>
-    <length>3000</length>
+    <length>32000</length>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>

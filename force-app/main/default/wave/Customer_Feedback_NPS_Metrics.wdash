@@ -1,1 +1,338 @@
-{"dataSourceLinks":[],"filters":[],"gridLayouts":[{"name":"Default","numColumns":1,"pages":[{"label":"Customer Feedback","name":"609aa746-5382-4925-a51b-b5a9aca88213","navigationHidden":false,"widgets":[{"colspan":1,"column":0,"name":"chart_1","row":0,"rowspan":24,"widgetStyle":{"backgroundColor":"#FFFFFF","borderColor":"#C6D3E1","borderEdges":["all"],"borderRadius":0,"borderWidth":2}},{"colspan":1,"column":0,"name":"number_2","row":24,"rowspan":3,"widgetStyle":{"backgroundColor":"#FFFFFF","borderColor":"#E6ECF2","borderEdges":["all"],"borderRadius":0,"borderWidth":2}}]}],"rowHeight":"fine","selectors":[],"style":{"alignmentX":"left","alignmentY":"top","backgroundColor":"#FFFFFF","cellSpacingX":0,"cellSpacingY":0,"fit":"original","gutterColor":"#C5D3E0"},"version":1.0}],"layouts":[],"steps":{"Advocacy_Rating__c_1":{"broadcastFacet":true,"datasets":[{"name":"Customer_Feedback"}],"isGlobal":false,"label":"Advocacy_Rating__c_1","query":{"query":"{\"measures\":[[\"avg\",\"Advocacy_Rating__c\"]]}","version":-1.0},"receiveFacetSource":{"mode":"all","steps":[]},"selectMode":"single","type":"aggregateflex","useGlobal":true,"visualizationParameters":{"parameters":{"autoFitMode":"keepLabels","max":10,"showPercentage":false,"legend":{"showHeader":true,"show":false,"position":"right-top","inside":false},"visualizationType":"gauge","medium":33,"title":{"fontSize":18,"subtitleFontSize":11,"label":"Average NPS","align":"center","subtitleLabel":""},"trellis":{"flipLabels":false,"showGridLines":true,"size":[100,100],"enable":false,"type":"x","chartsPerLine":4},"bands":{"high":{"color":"#008000","label":"High"},"low":{"color":"#B22222","label":"Low"},"medium":{"color":"#ffa500","label":"Medium"}},"showRange":false,"showLabel":false,"showValue":true,"high":66,"columnMap":{"trellis":[],"plots":["avg_Advocacy_Rating__c"]},"showActionMenu":true,"min":0,"angle":180,"theme":"wave","applyConditionalFormatting":true},"type":"chart"}},"all_2":{"broadcastFacet":true,"datasets":[{"name":"Customer_Feedback"}],"isGlobal":false,"label":"Total Feedback Provided","query":{"query":"{\"measures\":[[\"count\",\"*\"]]}","version":-1.0},"receiveFacetSource":{"mode":"all","steps":[]},"selectMode":"single","type":"aggregateflex","useGlobal":true,"visualizationParameters":{"parameters":{"autoFitMode":"keepLabels","showValues":true,"bins":{"breakpoints":{"high":100,"low":0},"bands":{"high":{"color":"#008000","label":""},"low":{"color":"#B22222","label":""},"medium":{"color":"#ffa500","label":""}}},"legend":{"descOrder":false,"showHeader":true,"show":true,"customSize":"auto","position":"right-top","inside":false},"axisMode":"multi","tooltip":{"showBinLabel":true,"measures":"","showNullValues":true,"showPercentage":true,"showDimensions":true,"showMeasures":true,"customizeTooltip":false,"dimensions":""},"visualizationType":"hbar","title":{"fontSize":14,"subtitleFontSize":11,"label":"","align":"center","subtitleLabel":""},"binValues":false,"trellis":{"flipLabels":false,"showGridLines":true,"size":[100,100],"enable":false,"type":"x","chartsPerLine":4},"columnMap":{"trellis":[],"dimensionAxis":[],"plots":["count"]},"showActionMenu":true,"measureAxis2":{"sqrtScale":false,"showTitle":true,"showAxis":true,"title":"","customDomain":{"showDomain":false}},"measureAxis1":{"sqrtScale":false,"showTitle":true,"showAxis":true,"title":"","customDomain":{"showDomain":false}},"theme":"wave","dimensionAxis":{"showTitle":true,"customSize":"auto","showAxis":true,"title":"","icons":{"useIcons":false,"iconProps":{"fit":"cover","column":"","type":"round"}}},"applyConditionalFormatting":true},"type":"chart"}}},"widgetStyle":{"backgroundColor":"#FFFFFF","borderColor":"#E6ECF2","borderEdges":[],"borderRadius":0,"borderWidth":1},"widgets":{"number_2":{"parameters":{"compact":false,"exploreLink":true,"measureField":"count","numberColor":"#091A3E","numberSize":18,"showActionMenu":false,"step":"all_2","textAlignment":"left","title":"Total Feedback Provided","titleColor":"#091A3E","titleSize":18},"type":"number"},"chart_1":{"parameters":{"autoFitMode":"keepLabels","max":10,"showPercentage":false,"legend":{"showHeader":true,"show":false,"position":"right-top","inside":false},"visualizationType":"gauge","exploreLink":false,"medium":33,"title":{"fontSize":18,"subtitleFontSize":11,"label":"Average Advocacy Score","align":"center","subtitleLabel":""},"trellis":{"flipLabels":false,"showGridLines":true,"size":[100,100],"enable":false,"type":"x","chartsPerLine":4},"bands":{"high":{"color":"#008000","label":"High"},"low":{"color":"#B22222","label":"Low"},"medium":{"color":"#ffa500","label":"Medium"}},"showRange":false,"showLabel":false,"showValue":true,"high":66,"columnMap":{"trellis":[],"plots":["avg_Advocacy_Rating__c"]},"showActionMenu":false,"min":0,"angle":180,"theme":"wave","step":"Advocacy_Rating__c_1","applyConditionalFormatting":true},"type":"chart"}}}
+{
+  "dataSourceLinks": [],
+  "filters": [],
+  "gridLayouts": [
+    {
+      "name": "Default",
+      "numColumns": 1,
+      "pages": [
+        {
+          "label": "Customer Feedback",
+          "name": "609aa746-5382-4925-a51b-b5a9aca88213",
+          "navigationHidden": false,
+          "widgets": [
+            {
+              "colspan": 1,
+              "column": 0,
+              "name": "chart_1",
+              "row": 0,
+              "rowspan": 8,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#C6D3E1",
+                "borderEdges": [],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 1,
+              "column": 0,
+              "name": "number_2",
+              "row": 11,
+              "rowspan": 3,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#E6ECF2",
+                "borderEdges": ["all"],
+                "borderRadius": 0,
+                "borderWidth": 2
+              }
+            },
+            {
+              "colspan": 1,
+              "column": 0,
+              "name": "text_1",
+              "row": 8,
+              "rowspan": 3,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 1,
+              "column": 0,
+              "name": "container_1",
+              "row": 0,
+              "rowspan": 11,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#E6ECF2",
+                "borderEdges": ["all"],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            }
+          ]
+        }
+      ],
+      "rowHeight": "fine",
+      "selectors": [],
+      "style": {
+        "alignmentX": "left",
+        "alignmentY": "top",
+        "backgroundColor": "#FFFFFF",
+        "cellSpacingX": 0,
+        "cellSpacingY": 0,
+        "fit": "original",
+        "gutterColor": "#C5D3E0"
+      },
+      "version": 1.0
+    }
+  ],
+  "layouts": [],
+  "steps": {
+    "Advocacy_Rating__c_1": {
+      "broadcastFacet": true,
+      "datasets": [{ "name": "Customer_Feedback" }],
+      "isGlobal": false,
+      "label": "Advocacy_Rating__c_1",
+      "query": {
+        "query": "{\"measures\":[[\"avg\",\"Advocacy_Rating__c\"]]}",
+        "version": -1.0
+      },
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "type": "aggregateflex",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "max": 10,
+          "showPercentage": false,
+          "legend": {
+            "showHeader": true,
+            "show": false,
+            "position": "right-top",
+            "inside": false
+          },
+          "visualizationType": "gauge",
+          "medium": 33,
+          "title": {
+            "fontSize": 18,
+            "subtitleFontSize": 11,
+            "label": "Average NPS",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "bands": {
+            "high": { "color": "#008000", "label": "High" },
+            "low": { "color": "#B22222", "label": "Low" },
+            "medium": { "color": "#ffa500", "label": "Medium" }
+          },
+          "showRange": false,
+          "showLabel": false,
+          "showValue": true,
+          "high": 66,
+          "columnMap": { "trellis": [], "plots": ["avg_Advocacy_Rating__c"] },
+          "showActionMenu": true,
+          "min": 0,
+          "angle": 180,
+          "theme": "wave",
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "all_2": {
+      "broadcastFacet": true,
+      "datasets": [{ "name": "Customer_Feedback" }],
+      "isGlobal": false,
+      "label": "Total Feedback Provided",
+      "query": {
+        "query": "{\"measures\":[[\"count\",\"*\"]]}",
+        "version": -1.0
+      },
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "type": "aggregateflex",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "columnMap": {
+            "trellis": [],
+            "dimensionAxis": [],
+            "plots": ["count"]
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    }
+  },
+  "widgetStyle": {
+    "backgroundColor": "#FFFFFF",
+    "borderColor": "#E6ECF2",
+    "borderEdges": [],
+    "borderRadius": 0,
+    "borderWidth": 1
+  },
+  "widgets": {
+    "number_2": {
+      "parameters": {
+        "compact": false,
+        "exploreLink": true,
+        "measureField": "count",
+        "numberColor": "#091A3E",
+        "numberSize": 10,
+        "showActionMenu": false,
+        "step": "all_2",
+        "textAlignment": "left",
+        "title": "Total Feedback Provided",
+        "titleColor": "#091A3E",
+        "titleSize": 10,
+        "tooltip": { "customizeTooltip": false }
+      },
+      "type": "number"
+    },
+    "container_1": {
+      "parameters": {
+        "alignmentX": "left",
+        "alignmentY": "top",
+        "fit": "original"
+      },
+      "type": "container"
+    },
+    "text_1": {
+      "parameters": {
+        "content": {
+          "displayTemplate": "[Avg_of_Advocacy_Rati]\n",
+          "values": {
+            "Avg_of_Advocacy_Rati": {
+              "field": "avg_Advocacy_Rating__c",
+              "sourceType": "result",
+              "step": "Advocacy_Rating__c_1"
+            }
+          }
+        },
+        "fontSize": 16,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#091A3E"
+      },
+      "type": "text"
+    },
+    "chart_1": {
+      "parameters": {
+        "autoFitMode": "keepLabels",
+        "max": 10,
+        "legend": {
+          "showHeader": true,
+          "show": false,
+          "position": "right-top",
+          "inside": false
+        },
+        "icon": "circle",
+        "iconRounding": "none",
+        "visualizationType": "rating",
+        "exploreLink": false,
+        "title": {
+          "fontSize": 14,
+          "subtitleFontSize": 11,
+          "label": "Average Advocacy Score",
+          "align": "center",
+          "subtitleLabel": ""
+        },
+        "trellis": {
+          "flipLabels": false,
+          "showGridLines": true,
+          "size": [100, 100],
+          "enable": false,
+          "type": "x",
+          "chartsPerLine": 4
+        },
+        "colors": { "lowColor1": "#1674D9", "highColor1": "#1674D9" },
+        "high": 66,
+        "columnMap": { "trellis": [], "plots": ["avg_Advocacy_Rating__c"] },
+        "showActionMenu": false,
+        "min": 0,
+        "numberOfIcons": 10,
+        "valueType": "none",
+        "valuesOnLeft": false,
+        "theme": "wave",
+        "step": "Advocacy_Rating__c_1",
+        "applyConditionalFormatting": true,
+        "showMax": false
+      },
+      "type": "chart"
+    }
+  }
+}

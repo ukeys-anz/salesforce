@@ -102,7 +102,7 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
     </milestones>
     <milestones>
         <businessHours>Default</businessHours>
-        <criteriaBooleanFilter>1 AND 2 AND 3 AND (4 OR ((5 AND 6) OR (7 AND 8) OR (9 AND 10) OR (11 AND 12)))</criteriaBooleanFilter>
+        <criteriaBooleanFilter>1 AND 2 AND 3 AND (4 OR (5 AND 6) OR (7 AND 8) OR (9 AND 10) OR (11 AND 12) OR (13 AND 14) OR (15 AND 16) OR (17 AND 18) OR (19 AND 20) OR (21 AND 22) OR (23 AND 24))</criteriaBooleanFilter>
         <milestoneCriteriaFilterItems>
             <field>Case.Status</field>
             <operation>notEqual</operation>
@@ -162,6 +162,66 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
             <field>Case.IDR_Subsequent_Issue__c</field>
             <operation>equals</operation>
             <value>42</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.IDR_Issue_Type_2__c</field>
+            <operation>equals</operation>
+            <value>4</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.IDR_Subsequent_Issue_2__c</field>
+            <operation>contains</operation>
+            <value>20, 21, 22, 23</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.IDR_Issue_Type_2__c</field>
+            <operation>equals</operation>
+            <value>17</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.IDR_Subsequent_Issue_2__c</field>
+            <operation>contains</operation>
+            <value>24, 25, 26, 27, 28</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.IDR_Issue_Type_2__c</field>
+            <operation>contains</operation>
+            <value>5, 19</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.IDR_Subsequent_Issue_2__c</field>
+            <operation>contains</operation>
+            <value>38, 42</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.IDR_Issue_Type_3__c</field>
+            <operation>equals</operation>
+            <value>4</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.IDR_Subsequent_Issue_3__c</field>
+            <operation>contains</operation>
+            <value>20, 21, 22, 23</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.IDR_Issue_Type_3__c</field>
+            <operation>equals</operation>
+            <value>17</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.IDR_Subsequent_Issue_3__c</field>
+            <operation>contains</operation>
+            <value>24, 25, 26, 27, 28</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.IDR_Issue_Type_3__c</field>
+            <operation>contains</operation>
+            <value>5, 19</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.IDR_Subsequent_Issue_3__c</field>
+            <operation>contains</operation>
+            <value>38, 42</value>
         </milestoneCriteriaFilterItems>
         <milestoneName>21-day IDR Response Due</milestoneName>
         <minutesToComplete>30240</minutesToComplete>

@@ -112,6 +112,16 @@
     <default>false</default>
     <visible>false</visible>
   </applicationVisibilities>
+  <applicationVisibilities>
+    <application>TwilioSF__Twilio</application>
+    <default>false</default>
+    <visible>false</visible>
+  </applicationVisibilities>
+  <applicationVisibilities>
+    <application>TwilioSF__Twilio_Classic</application>
+    <default>false</default>
+    <visible>false</visible>
+  </applicationVisibilities>
   <classAccesses>
     <apexClass>AuthTokenCacheUtil</apexClass>
     <enabled>true</enabled>
@@ -1313,7 +1323,7 @@
     <enabled>true</enabled>
   </classAccesses>
   <classAccesses>
-    <apexClass>GetCustomerInformation</apexClass>
+    <apexClass>IDRAPIRepository</apexClass>
     <enabled>false</enabled>
   </classAccesses>
   <classAccesses>
@@ -1353,7 +1363,7 @@
     <enabled>false</enabled>
   </classAccesses>
   <classAccesses>
-    <apexClass>GetCustomerInformationTest</apexClass>
+    <apexClass>IDRAPIRepositoryTest</apexClass>
     <enabled>false</enabled>
   </classAccesses>
   <classAccesses>
@@ -9741,6 +9751,38 @@
     <tab>trailheadapp__TrailheadSetup</tab>
     <visibility>Hidden</visibility>
   </tabVisibilities>
+  <tabVisibilities>
+    <tab>TwilioSF__BulkMessage__c</tab>
+    <visibility>Hidden</visibility>
+  </tabVisibilities>
+  <tabVisibilities>
+    <tab>TwilioSF__Log__c</tab>
+    <visibility>Hidden</visibility>
+  </tabVisibilities>
+  <tabVisibilities>
+    <tab>TwilioSF__Message__c</tab>
+    <visibility>Hidden</visibility>
+  </tabVisibilities>
+  <tabVisibilities>
+    <tab>TwilioSF__Opt_In_Keyword__c</tab>
+    <visibility>Hidden</visibility>
+  </tabVisibilities>
+  <tabVisibilities>
+    <tab>TwilioSF__TwilioConfigurationClassic</tab>
+    <visibility>Hidden</visibility>
+  </tabVisibilities>
+  <tabVisibilities>
+    <tab>TwilioSF__Twilio_Inbox</tab>
+    <visibility>Hidden</visibility>
+  </tabVisibilities>
+  <tabVisibilities>
+    <tab>TwilioSF__Twilio_Inbox_Lightning</tab>
+    <visibility>Hidden</visibility>
+  </tabVisibilities>
+  <tabVisibilities>
+    <tab>TwilioSF__Twilio_Personal_Number__c</tab>
+    <visibility>Hidden</visibility>
+  </tabVisibilities>
   <userLicense>Salesforce</userLicense>
   <userPermissions>
     <enabled>true</enabled>
@@ -9769,10 +9811,6 @@
   <userPermissions>
     <enabled>true</enabled>
     <name>AssignTopics</name>
-  </userPermissions>
-  <userPermissions>
-    <enabled>false</enabled>
-    <name>ChatterFileLink</name>
   </userPermissions>
   <userPermissions>
     <enabled>true</enabled>
@@ -9805,10 +9843,6 @@
   <userPermissions>
     <enabled>true</enabled>
     <name>CreateTopics</name>
-  </userPermissions>
-  <userPermissions>
-    <enabled>true</enabled>
-    <name>DistributeFromPersWksp</name>
   </userPermissions>
   <userPermissions>
     <enabled>true</enabled>

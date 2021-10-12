@@ -8,7 +8,7 @@
         <sharedTo>
             <role>Super_Support_Admin</role>
         </sharedTo>
-        <booleanFilter>1 AND 2</booleanFilter>
+        <booleanFilter>1 AND 2 AND 3 AND 4</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>notEqual</operation>
@@ -18,6 +18,16 @@
             <field>RecordTypeId</field>
             <operation>notEqual</operation>
             <value>Non-Customer Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>notEqual</operation>
+            <value>General Inquiry CMOS</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>notEqual</operation>
+            <value>CFMS Migrated Case</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -31,7 +41,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Non-Customer Complaint,Customer Complaint</value>
+            <value>General Inquiry CMOS,Non-Customer Complaint,Customer Complaint,CFMS Migrated Case</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -42,10 +52,16 @@
         <sharedTo>
             <roleAndSubordinates>Banker_Line_Manager</roleAndSubordinates>
         </sharedTo>
+        <booleanFilter>1 AND 2</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Customer Complaint,Non-Customer Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IDR_Is_Restricted__c</field>
+            <operation>notEqual</operation>
+            <value>True</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -60,6 +76,20 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Customer Complaint,Non-Customer Complaint</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Complaint_RTs_CRPUsers_RO</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Grant edit access to CFMS migrated complaint records for Customer Resolution Users</description>
+        <label>Complaint_RTs_CRPUsers_RO</label>
+        <sharedTo>
+            <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>CFMS Migrated Case</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -87,7 +117,12 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Customer Complaint,Non-Customer Complaint</value>
+            <value>Customer Complaint,Non-Customer Complaint,CFMS Migrated Case</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IDR_Is_Restricted__c</field>
+            <operation>notEqual</operation>
+            <value>True</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -310,7 +345,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Systemic Issue,Non-Customer Complaint,Customer Complaint</value>
+            <value>Systemic Issue,General Inquiry CMOS,Non-Customer Complaint,Customer Complaint,CFMS Migrated Case</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>

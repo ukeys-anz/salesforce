@@ -7,7 +7,7 @@
  */
 
 @isTest
-private with sharing class GetCustomerInformationTest {
+private with sharing class GetCustomerInformationTest  {
   //Success response body
   private static final String SUCCESS_RESPONSE_BODY = '{"profile": {"firstname": "TestFirstName","lastname": "TestLastName","mobile": "TestMobile"}}';
 
@@ -26,7 +26,10 @@ private with sharing class GetCustomerInformationTest {
     // Call method to test.
     // This causes a fake response to be sent
     // from the class that implements HttpCalloutMock.
-    Map<String, Object> info = GetCustomerInformation.getCustomerData('12345');
+    Map<String, Object> info = GetCustomerInformation.getCustomerData(
+      '12345',
+      'CAP ID'
+    );
     Map<String, Object> profile = (Map<String, Object>) info.get('profile');
 
     // Verify response received contains fake values
@@ -42,7 +45,7 @@ private with sharing class GetCustomerInformationTest {
    */
   @isTest
   static void testCustomerDataWithBlankCapId() {
-    Map<String, Object> info = GetCustomerInformation.getCustomerData('');
+    Map<String, Object> info = GetCustomerInformation.getCustomerData('', '');
     System.assertEquals(
       new Map<String, Object>(),
       info,
@@ -65,7 +68,8 @@ private with sharing class GetCustomerInformationTest {
     Test.startTest();
     try {
       Map<String, Object> info = GetCustomerInformation.getCustomerData(
-        '12345'
+        '12345',
+        'CAP ID'
       );
     } catch (Exception e) {
       System.Assert(
@@ -92,7 +96,8 @@ private with sharing class GetCustomerInformationTest {
     Test.startTest();
     try {
       Map<String, Object> info = GetCustomerInformation.getCustomerData(
-        '12345'
+        '12345',
+        'CAP ID'
       );
     } catch (Exception e) {
       System.Assert(
@@ -115,7 +120,7 @@ private with sharing class GetCustomerInformationTest {
       HttpCalloutMock.class,
       new MockHttpMulesoftCallouts(200, '{}')
     );
-    custInfo = GetCustomerInformation.getCustomerData('12345');
+    custInfo = GetCustomerInformation.getCustomerData('12345', 'CAP ID');
     System.assertEquals(
       new Map<String, Object>(),
       custInfo,
@@ -127,7 +132,7 @@ private with sharing class GetCustomerInformationTest {
       new MockHttpMulesoftCallouts(200, null)
     );
     try {
-      custInfo = GetCustomerInformation.getCustomerData('12345');
+      custInfo = GetCustomerInformation.getCustomerData('12345', 'CAP ID');
     } catch (Exception e) {
       System.assertEquals(
         new Map<String, Object>(),

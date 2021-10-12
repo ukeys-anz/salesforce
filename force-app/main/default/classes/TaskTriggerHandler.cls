@@ -54,7 +54,6 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
         wrapperList.add(createNotification(record));
       }
     }
-
     if (!wrapperList.isEmpty()) {
       IDRBankerNotificationBuilder.sendNotification(wrapperList);
     }
