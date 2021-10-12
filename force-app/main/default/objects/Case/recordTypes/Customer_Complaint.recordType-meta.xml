@@ -3044,8 +3044,6 @@
             <fullName>3</fullName>
             <default>false</default>
         </values>
-<<<<<<< HEAD
-=======
     </picklistValues>
     <picklistValues>
         <picklist>IDR_Customer_Identifier__c</picklist>
@@ -3065,7 +3063,6 @@
             <fullName>RAZOR ID</fullName>
             <default>false</default>
         </values>
->>>>>>> develop
     </picklistValues>
     <picklistValues>
         <picklist>IDR_Escalated_to__c</picklist>
@@ -4902,8 +4899,6 @@
             <default>false</default>
         </values>
     </picklistValues>
-<<<<<<< HEAD
-=======
     <picklistValues>
         <picklist>IDR_Subsequent_Issue_3__c</picklist>
         <values>
@@ -5682,7 +5677,6 @@
             <default>false</default>
         </values>
     </picklistValues>
->>>>>>> develop
     <picklistValues>
         <picklist>IDR_Product_Manufacturer__c</picklist>
         <values>
@@ -5715,42 +5709,7 @@
         </values>
     </picklistValues>
     <picklistValues>
-<<<<<<< HEAD
-        <picklist>IDR_Product_Manufacturer__c</picklist>
-        <values>
-            <fullName>Allianz</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>CMC Markets</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>IOOF</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Netwealth</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>QBE</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Zurich</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Origin</picklist>
-=======
 =        <picklist>IDR_Systemic_Issue_Category__c</picklist>
->>>>>>> develop
         <values>
             <fullName>1</fullName>
             <default>false</default>
