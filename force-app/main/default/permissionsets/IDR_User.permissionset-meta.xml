@@ -152,8 +152,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-<<<<<<< HEAD
-=======
         <field>Case.IDR_Account_Card_Policy_Number_2__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -164,7 +162,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
->>>>>>> develop
         <field>Case.IDR_Account_Card_Policy_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
