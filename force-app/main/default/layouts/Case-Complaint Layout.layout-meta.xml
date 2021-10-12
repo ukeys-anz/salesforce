@@ -178,14 +178,6 @@
         <label>Second Issue</label>
         <layoutColumns>
             <layoutItems>
-<<<<<<< HEAD
-                <behavior>Readonly</behavior>
-                <field>IDR_Complaint_Outcome__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>IDR_Financial_Compensation__c</field>
-=======
                 <behavior>Edit</behavior>
                 <field>IDR_Second_Issue__c</field>
             </layoutItems>
@@ -196,7 +188,6 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>IDR_Account_Card_Policy_Number_2__c</field>
->>>>>>> develop
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
@@ -209,12 +200,6 @@
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
-<<<<<<< HEAD
-                <behavior>Readonly</behavior>
-                <field>IDR_Complaint_Remedy__c</field>
-            </layoutItems>
-            <layoutItems>
-=======
                 <behavior>Edit</behavior>
                 <field>IDR_Issue_Type_2__c</field>
             </layoutItems>
@@ -285,7 +270,6 @@
                 <field>IDR_Complaint_Remedy__c</field>
             </layoutItems>
             <layoutItems>
->>>>>>> develop
                 <behavior>Readonly</behavior>
                 <field>IDR_Non_Financial_Remedy__c</field>
             </layoutItems>
