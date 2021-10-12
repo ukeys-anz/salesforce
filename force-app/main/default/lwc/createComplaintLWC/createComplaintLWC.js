@@ -110,14 +110,11 @@ const YES_VALUE = "Yes";
 const COMPLAINT_REMEDY_FIN_VALUE = "1";
 const COMPLAINT_REMEDY_NON_FIN_VALUE = "2";
 const OTHER = "Other";
-<<<<<<< HEAD
-=======
 
 const CUS_IDENTIFIER_CAPCIS_ID = "Customer/Business CAP ID";
 const CUS_IDENTIFIER_CACHE_ID = "CACHE ID";
 const CUS_IDENTIFIER_RAZOR_ID = "RAZOR ID";
 const CUS_IDENTIFIER_CRN_ID = "CRN";
->>>>>>> develop
 
 export default class CreateComplaintLWC extends NavigationMixin(
   LightningElement
@@ -401,8 +398,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
       this.isFinancialComplaintRemedy = false;
       this.isNonFinancialComplaintRemedy = false;
       this.isReferredToProductManufacturer = true;
-<<<<<<< HEAD
-=======
     }
   }
 
@@ -411,7 +406,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
       this.isOtherProductManufacturer = true;
     } else {
       this.isOtherProductManufacturer = false;
->>>>>>> develop
     }
   }
   handleIsDetailsProvidedToProductManufacturer(event) {
@@ -662,9 +656,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
         "Acknowledgement that the complaint details have been provided to the product manufacturer is required";
     }
 
-<<<<<<< HEAD
-    return isFieldValid && isEmailValid && isFinCompValid && isRadioGroupValid;
-=======
     return (
       isFieldValid &&
       isEmailValid &&
@@ -673,7 +664,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
       isComboboxValid &&
       isRadioGroupValid
     );
->>>>>>> develop
   }
 
   handleSubmit(event) {
