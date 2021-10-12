@@ -3,9 +3,10 @@
     {
       "id": "CH147c6128b4864e0aaadc58d87d74e50c",
       "name": "Demo1",
-      "status": "active",
-      "chatFlowStatus": "NEW",
-      "lastModified": "2021-02-18T03:53:45Z"
+      "status": "inactive",
+      "chatFlowStatus": "ON_HOLD",
+      "lastModified": "2021-02-18T03:53:45Z",
+      "onHoldReason": "WAITING_ON_CUSTOMER"
     },
     {
       "id": "CH07de552ae10641328a77758d2dc9c777",
