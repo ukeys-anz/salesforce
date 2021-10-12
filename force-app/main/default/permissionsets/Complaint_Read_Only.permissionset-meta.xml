@@ -142,8 +142,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-<<<<<<< HEAD
-=======
         <field>Case.IDR_Account_Card_Policy_Number_2__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -153,7 +151,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
->>>>>>> develop
         <editable>false</editable>
         <field>Case.IDR_Account_Card_Policy_Number__c</field>
         <readable>true</readable>
@@ -404,32 +401,24 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-<<<<<<< HEAD
-=======
         <field>Case.IDR_Possible_Systemic_Issues__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
->>>>>>> develop
         <editable>false</editable>
         <field>Case.Name_of_product_manufacturer__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-<<<<<<< HEAD
-=======
         <field>Case.IDR_Previously_raised_with_ANZ__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
->>>>>>> develop
         <editable>false</editable>
         <field>Case.Provided_details_to_Product_Manufacturer__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-<<<<<<< HEAD
-=======
         <field>Case.IDR_Product_2__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -444,7 +433,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
->>>>>>> develop
         <editable>false</editable>
         <field>Case.IDR_Real_Form_Req__c</field>
         <readable>true</readable>
