@@ -20,14 +20,11 @@
             <quickActionLayoutItems>
                 <emptySpace>false</emptySpace>
                 <field>IDR_Escalation_Reason__c</field>
-<<<<<<< HEAD
-=======
                 <uiBehavior>Required</uiBehavior>
             </quickActionLayoutItems>
             <quickActionLayoutItems>
                 <emptySpace>false</emptySpace>
                 <field>IDR_Restriction_Level__c</field>
->>>>>>> develop
                 <uiBehavior>Required</uiBehavior>
             </quickActionLayoutItems>
         </quickActionLayoutColumns>
