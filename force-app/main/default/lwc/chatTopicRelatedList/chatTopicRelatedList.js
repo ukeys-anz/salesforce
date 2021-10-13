@@ -112,7 +112,7 @@ export default class ChatTopicRelatedList extends LightningElement {
           // To check if there were more records that what was retrieved against the same Customer
           // Check if links is not undefined before processing, avoid throwing error when user has the case tab open along with
           // the account tab which will call fetchChatTopicInfoOnCase() and return a single channel which might not have links
-          this.links = result.links !== undefined ? result.links.links : "";
+          this.links = result.links !== undefined ? result.links : "";
 
           // TODO: More error handling
           // Check if there are channels before processing, avoid throwing error when user has the case tab open along with
