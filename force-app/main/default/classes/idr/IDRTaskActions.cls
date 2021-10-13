@@ -2,10 +2,21 @@
  * @author Himabindu Nekkanti
  * @since  02/2021
  * @description IDRTaskActions is class to handle all the IDR (Internal Dispute Resolution) Actions
+ * @group IDR(Internal Dispute Resolution)
  */
 @SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
 public without sharing class IDRTaskActions {
   private static final String SI_QUEUE_DEVELOPER_NAME = 'Systemic_Issue_Team';
+
+  private static final String STOP_COLLECTIONS_QUEUE_NAME = 'IDR_Stop_Collections';
+
+  private static final String START_COLLECTIONS_QUEUE_NAME = 'IDR_Restart_Collections';
+
+  @testVisible
+  private static final String STOP_COLLECTIONS_SUBJECT = 'STOP Collection';
+
+  @testVisible
+  private static final String START_COLLECTIONS_SUBJECT = 'START Collection';
 
   @TestVisible
   public static final String IDR_TASK_SUBJECT = 'Please Review PSI';
@@ -19,6 +30,22 @@ public without sharing class IDRTaskActions {
     WHERE
       developername = :SI_QUEUE_DEVELOPER_NAME
       AND Type = :IDRConstants.QUEUE_TYPE
+  ];
+
+  public static Group stopQueue = [
+    SELECT id
+    FROM group
+    WHERE
+      developername = :STOP_COLLECTIONS_QUEUE_NAME
+      AND Type = :IDRCaseActions.QUEUE_TYPE
+  ];
+
+  public static Group startQueue = [
+    SELECT id
+    FROM group
+    WHERE
+      developername = :START_COLLECTIONS_QUEUE_NAME
+      AND Type = :IDRCaseActions.QUEUE_TYPE
   ];
 
   /**
@@ -41,6 +68,7 @@ public without sharing class IDRTaskActions {
       }
     }
     checkIDRMaximumTimeTasks(records);
+    assignToCollectionsQueue(records);
   }
 
   /**
@@ -61,6 +89,28 @@ public without sharing class IDRTaskActions {
       record.Subject != IDRConstants.SUBJECT_PEND_CASE_TASK
     ) {
       record.Subject = IDRConstants.SUBJECT_PEND_CASE_TASK;
+    }
+  }
+  /**
+   * @description assignToCollectionQueue method is used to validate the collection task created by mulesoft and assign to respective collections queue
+   * @param records The Task record list.
+   */
+  public static void assignToCollectionsQueue(list<Task> records) {
+    for (Task record : records) {
+      if (
+        record.RecordTypeId == IDRConstants.IDR_SYSTEM_TASK_RT_ID &&
+        record.Status == IDRConstants.OPEN_STATUS
+      ) {
+        if (record.Subject.containsIgnoreCase(STOP_COLLECTIONS_SUBJECT)) {
+          record.OwnerId = stopQueue.Id;
+          record.ActivityDate = Date.today();
+        } else if (
+          record.Subject.containsIgnoreCase(START_COLLECTIONS_SUBJECT)
+        ) {
+          record.OwnerId = startQueue.Id;
+          record.ActivityDate = Date.today().addDays(14);
+        }
+      }
     }
   }
 

@@ -4,7 +4,7 @@
  * @since 01/06/2020
  * @group Utils
  */
-public without sharing class TextUtils {
+public with sharing class TextUtils {
   private static final String ACCOUNT_OR_CARD_REGEX_PATTERN = '[0-9][^a-zA-Z]{6,}[0-9]';
   private static final Integer UNMASK_LENGTH = 4;
   private static Pattern accountOrCardPattern = Pattern.compile(

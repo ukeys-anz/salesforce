@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Subject</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>The subject line of the email.</description>
+    <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
+    <securityClassification>Confidential</securityClassification>
+</CustomField>

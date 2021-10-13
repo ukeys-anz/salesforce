@@ -3,7 +3,7 @@
  * @since  09/2020
  * @description QueueUPRStatusUpdate class is called in UserTriggerHandler to update User Provisioning Request status Asynchronously to avoid Mixed_DML_Error
  */
-public class QueueUPRStatusUpdate implements Queueable {
+public with sharing class QueueUPRStatusUpdate implements Queueable {
   List<User_Provisioning_Request__c> updateUPRList;
   Lib_SystemLog log;
 

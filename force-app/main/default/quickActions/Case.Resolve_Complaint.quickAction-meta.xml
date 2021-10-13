@@ -61,6 +61,6 @@
         </quickActionLayoutColumns>
         <quickActionLayoutColumns/>
     </quickActionLayout>
-    <successMessage>Resolved!</successMessage>
+    <successMessage>Case is updated successfully!</successMessage>
     <type>Update</type>
 </QuickAction>

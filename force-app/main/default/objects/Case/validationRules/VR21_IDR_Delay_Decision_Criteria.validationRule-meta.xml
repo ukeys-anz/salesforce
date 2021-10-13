@@ -7,7 +7,8 @@
 !ISNEW() &amp;&amp; 
 (RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos; || RecordType.DeveloperName = &apos;Customer_Complaint&apos;) &amp;&amp; 
 (NOT(ISBLANK(TEXT(Has_complaint_met_RG_271_delay_criteria__c)))) &amp;&amp;
-(ISBLANK(How_has_delay_criteria_been_met_not_met__c) || (ISCHANGED(Has_complaint_met_RG_271_delay_criteria__c) &amp;&amp; NOT(ISCHANGED(How_has_delay_criteria_been_met_not_met__c))))</errorConditionFormula>
+(ISBLANK(How_has_delay_criteria_been_met_not_met__c) || (ISCHANGED(Has_complaint_met_RG_271_delay_criteria__c) &amp;&amp; NOT(ISCHANGED(How_has_delay_criteria_been_met_not_met__c)))) &amp;&amp;
+NOT(ISCHANGED(RecordTypeId))</errorConditionFormula>
     <errorDisplayField>How_has_delay_criteria_been_met_not_met__c</errorDisplayField>
     <errorMessage>Please update, How the delay criteria been met/not met.</errorMessage>
 </ValidationRule>

@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_NC_Business_Name__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information</complianceGroup>
+    <complianceGroup>Source_Salesforce;Integrity_Trusted;Privacy_Non_Personal_Information</complianceGroup>
     <description>Where customer complaint relates to a business customer, business name is input.
 
 Business name, for a business account (input for non customers)</description>
@@ -10,7 +10,7 @@ Business name, for a business account (input for non customers)</description>
     <label>Business Name (if Bus account)</label>
     <length>255</length>
     <required>false</required>
-    <securityClassification>Confidential</securityClassification>
+    <securityClassification>Public</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>

@@ -209,7 +209,7 @@ public with sharing class IDRCaseNotificationManager {
       sr,
       notificationList
     );
-    log.insertLog();
+    log.insertLogAsync();
   }
 
   /**
