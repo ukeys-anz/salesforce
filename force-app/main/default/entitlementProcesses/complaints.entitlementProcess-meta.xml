@@ -29,14 +29,6 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
         <minutesToComplete>7680</minutesToComplete>
         <timeTriggers>
             <actions>
-                <name>EscalationtoAmber</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <timeLength>-2</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <actions>
                 <name>Escalate_The_Case</name>
                 <type>FieldUpdate</type>
             </actions>
@@ -49,6 +41,14 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
                 <type>FieldUpdate</type>
             </actions>
             <timeLength>-1</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>EscalationtoAmber</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>-2</timeLength>
             <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
         </timeTriggers>
         <useCriteriaStartTime>false</useCriteriaStartTime>
@@ -97,7 +97,7 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
     </milestones>
     <milestones>
         <businessHours>Default</businessHours>
-        <criteriaBooleanFilter>1 AND 2 AND (3 OR (4 AND 5) OR (6 AND 7) OR (8 AND 9) OR (10 AND 11) OR (12 AND 13) OR (14 AND 15) OR (16 AND 17) OR (18 AND 19) OR (20 AND 21) OR (22 AND 23))</criteriaBooleanFilter>
+        <criteriaBooleanFilter>1 AND 2 AND (3 OR (4 AND 5) OR (6 AND 7) OR (8 AND 9) OR (10 AND 11) OR (12 AND 13) OR (14 AND 15) OR (16 AND 17) OR (18 AND 19) OR (20 AND 21) OR (22 AND 23)) AND 24</criteriaBooleanFilter>
         <milestoneCriteriaFilterItems>
             <field>Case.Status</field>
             <operation>notEqual</operation>
@@ -212,6 +212,11 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
             <field>Case.IDR_Subsequent_Issue_3__c</field>
             <operation>contains</operation>
             <value>38, 42</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>notEqual</operation>
+            <value>Provisionally Closed</value>
         </milestoneCriteriaFilterItems>
         <milestoneName>21-day IDR Response Due</milestoneName>
         <minutesToComplete>30240</minutesToComplete>
