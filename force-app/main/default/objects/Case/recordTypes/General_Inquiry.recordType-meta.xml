@@ -87,53 +87,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Dispute_Reason__c</picklist>
-        <values>
-            <fullName>Additional transactions for an existing lost%2Fstolen%2Ffraud case</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Cancel current dispute</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Cancellation of regular payment arrangement was unsuccessful</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Cardholder did not authorise transaction %28Fraud%29</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Cardholder does not recognise transaction</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Credit has not been processed or processed incorrectly</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Goods or services defective or not as described</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Goods or services purchased but not received</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Purchase was charged incorrectly</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Purchase was charged more than once</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Transaction Services Only - Bank initiated chargeback</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>Fraud_Complicit_in_Fraud__c</picklist>
         <values>
             <fullName>No</fullName>
@@ -4854,10 +4807,6 @@
         </values>
         <values>
             <fullName>Privacy</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Savings Goals</fullName>
             <default>false</default>
         </values>
         <values>

@@ -408,8 +408,7 @@ describe("c-idr-restricted-cases suite", () => {
       );
       return Promise.resolve().then(() => {
         expect(dataTableElement.data).toStrictEqual(mockGetRestrictedCaseData);
-      });  
+      });
     });
   });
-
 });

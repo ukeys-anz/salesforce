@@ -18,59 +18,9 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Cardholder does not recognise transaction</fullName>
-                <default>false</default>
-                <label>Cardholder does not recognise transaction</label>
-            </value>
-            <value>
-                <fullName>Cardholder did not authorise transaction (Fraud)</fullName>
-                <default>false</default>
-                <label>Cardholder did not authorise transaction (Fraud)</label>
-            </value>
-            <value>
-                <fullName>Purchase was charged more than once</fullName>
-                <default>false</default>
-                <label>Purchase was charged more than once</label>
-            </value>
-            <value>
-                <fullName>Purchase was charged incorrectly</fullName>
-                <default>false</default>
-                <label>Purchase was charged incorrectly</label>
-            </value>
-            <value>
                 <fullName>Cancellation of regular payment arrangement was unsuccessful</fullName>
                 <default>false</default>
                 <label>Cancellation of regular payment arrangement was unsuccessful</label>
-            </value>
-            <value>
-                <fullName>Credit has not been processed or processed incorrectly</fullName>
-                <default>false</default>
-                <label>Credit has not been processed or processed incorrectly</label>
-            </value>
-            <value>
-                <fullName>Goods or services purchased but not received</fullName>
-                <default>false</default>
-                <label>Goods or services purchased but not received</label>
-            </value>
-            <value>
-                <fullName>Goods or services defective or not as described</fullName>
-                <default>false</default>
-                <label>Goods or services defective or not as described</label>
-            </value>
-            <value>
-                <fullName>Additional transactions for an existing lost/stolen/fraud case</fullName>
-                <default>false</default>
-                <label>Additional transactions for an existing lost/stolen/fraud case</label>
-            </value>
-            <value>
-                <fullName>Cancel current dispute</fullName>
-                <default>false</default>
-                <label>Cancel current dispute</label>
-            </value>
-            <value>
-                <fullName>Transaction Services Only - Bank initiated chargeback</fullName>
-                <default>false</default>
-                <label>Transaction Services Only - Bank initiated chargeback</label>
             </value>
             <value>
                 <fullName>Cash Dispense Error</fullName>
@@ -113,14 +63,120 @@
                 <label>Customer entered incorrect account details</label>
             </value>
             <value>
-                <fullName>Direct Debit Cancellation Request</fullName>
+                <fullName>Cash Dispensing Error</fullName>
                 <default>false</default>
-                <label>Direct Debit Cancellation Request</label>
+                <label>Cash Dispensing Error</label>
             </value>
             <value>
                 <fullName>Urgent Dishonour Request</fullName>
                 <default>false</default>
                 <label>Urgent Dishonour Request</label>
+            </value>
+            <value>
+                <fullName>Don&apos;t recognise the transaction</fullName>
+                <default>false</default>
+                <label>Don&apos;t recognise the transaction</label>
+            </value>
+            <value>
+                <fullName>Didn&apos;t authorise transaction</fullName>
+                <default>false</default>
+                <label>Didn&apos;t authorise transaction</label>
+            </value>
+            <value>
+                <fullName>Duplicate Transactions</fullName>
+                <default>false</default>
+                <label>Duplicate Transactions</label>
+            </value>
+            <value>
+                <fullName>Charged more than once</fullName>
+                <default>false</default>
+                <label>Charged more than once</label>
+            </value>
+            <value>
+                <fullName>Charged Incorrect Amount</fullName>
+                <default>false</default>
+                <label>Charged Incorrect Amount</label>
+            </value>
+            <value>
+                <fullName>Charged for a cancelled payment</fullName>
+                <default>false</default>
+                <label>Charged for a cancelled payment</label>
+            </value>
+            <value>
+                <fullName>Refund error</fullName>
+                <default>false</default>
+                <label>Refund error</label>
+            </value>
+            <value>
+                <fullName>Product Didn&apos;t Arrive</fullName>
+                <default>false</default>
+                <label>Product Didn&apos;t Arrive</label>
+            </value>
+            <value>
+                <fullName>Product Defective or Unsatisfactory</fullName>
+                <default>false</default>
+                <label>Product Defective or Unsatisfactory</label>
+            </value>
+            <value>
+                <fullName>Incorrect BSB/ Account number</fullName>
+                <default>false</default>
+                <label>Incorrect BSB/ Account number</label>
+            </value>
+            <value>
+                <fullName>Incorrect Amount</fullName>
+                <default>false</default>
+                <label>Incorrect Amount</label>
+            </value>
+            <value>
+                <fullName>Payee has not received funds</fullName>
+                <default>false</default>
+                <label>Payee has not received funds</label>
+            </value>
+            <value>
+                <fullName>Fraudulent transaction</fullName>
+                <default>false</default>
+                <label>Fraudulent transaction</label>
+            </value>
+            <value>
+                <fullName>Payment debited after the debit authority has been cancelled</fullName>
+                <default>false</default>
+                <label>Payment debited after the debit authority has been cancelled</label>
+            </value>
+            <value>
+                <fullName>Payment Duplicated</fullName>
+                <default>false</default>
+                <label>Payment Duplicated</label>
+            </value>
+            <value>
+                <fullName>Payment Overdrawn</fullName>
+                <default>false</default>
+                <label>Payment Overdrawn</label>
+            </value>
+            <value>
+                <fullName>Claim not for value[Claim requesting direct debit agreement and not amount]</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Claim not for value[Claim requesting direct debit agreement and not amount]</label>
+            </value>
+            <value>
+                <fullName>Unsolicited</fullName>
+                <default>false</default>
+                <label>Unsolicited</label>
+            </value>
+            <value>
+                <fullName>Solicited - I want to return this money?</fullName>
+                <default>false</default>
+                <label>Solicited - I want to return this money?</label>
+            </value>
+            <value>
+                <fullName>Remittance - Where did this money come from?</fullName>
+                <default>false</default>
+                <label>Remittance - Where did this money come from?</label>
+            </value>
+            <value>
+                <fullName>Final Destination - Did my money get to where I sent it?</fullName>
+                <default>false</default>
+                <label>Final Destination - Did my money get to where I sent it?</label>
             </value>
         </valueSetDefinition>
     </valueSet>
