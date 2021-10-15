@@ -3271,6 +3271,11 @@
         <field>User_Provisioning_Setting__mdt.Role_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>User_Provisioning_Setting__mdt.Call_Center_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <layoutAssignments>
         <layout>Access_Request__c-Access Request Layout</layout>
     </layoutAssignments>
