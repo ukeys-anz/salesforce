@@ -54,7 +54,7 @@ public with sharing class IDRComplaintFlagActions {
     }
 
     if (!isComplaintEventFailed && !complaintTaskList.isEmpty()) {
-      IDRCollectionActions.insertSystemTasks(complaintTaskList);
+      IDRTaskActions.insertSystemTasks(complaintTaskList);
       complaintTaskList.clear();
     }
   }
