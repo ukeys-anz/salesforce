@@ -65,6 +65,7 @@ public with sharing class GetHelpCaseActions {
   );
 
   private static Map<String, String> caseTypeLabelByValue = new Map<String, String>();
+  private static Map<String, String> caseSubtypeLabelByValue = new Map<String, String>();
 
   public static final String MILESTONE_NAME = 'Resolution Time';
 
@@ -201,7 +202,10 @@ public with sharing class GetHelpCaseActions {
       caseTypeList.add(caseTypeLabelByValue.get(record.Type));
     }
     if (String.isNotBlank(record.Sub_Type__c)) {
-      caseTypeList.addAll(record.Sub_Type__c.split(';'));
+      fetchCaseSubtypeLabelsByValues();
+      for (String subTypeValue : record.Sub_Type__c.split(';')) {
+        caseTypeList.add(caseSubtypeLabelByValue.get(subTypeValue));
+      }
     }
     //populate case subject
     if (!caseTypeList.isEmpty()) {
@@ -272,6 +276,17 @@ public with sharing class GetHelpCaseActions {
   public static void fetchCaseTypeLabelsByValues() {
     if (caseTypeLabelByValue.isEmpty()) {
       caseTypeLabelByValue = CommonUtil.getPicklistLabelsByValues(Case.Type);
+    }
+  }
+
+  /**
+   * @description Fetches (if not already available) a map of Case 'Sub_Type__c' Picklist Labels by Values
+   */
+  public static void fetchCaseSubtypeLabelsByValues() {
+    if (caseSubtypeLabelByValue.isEmpty()) {
+      caseSubtypeLabelByValue = CommonUtil.getPicklistLabelsByValues(
+        Case.Sub_Type__c
+      );
     }
   }
 
