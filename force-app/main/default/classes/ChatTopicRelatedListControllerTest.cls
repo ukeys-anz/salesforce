@@ -60,7 +60,7 @@ public with sharing class ChatTopicRelatedListControllerTest {
     Test.stopTest();
 
     System.assertEquals(
-      2,
+      3,
       response.channels.size(),
       'Number of chat topics returned does not match with mock values size.'
     );
