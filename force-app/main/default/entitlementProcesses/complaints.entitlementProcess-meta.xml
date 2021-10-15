@@ -63,6 +63,11 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
         <milestoneCriteriaFilterItems>
             <field>Case.Status</field>
             <operation>notEqual</operation>
+            <value>Provisionally Closed</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>notEqual</operation>
             <value>Withdrawn</value>
         </milestoneCriteriaFilterItems>
         <milestoneCriteriaFilterItems>

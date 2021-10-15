@@ -17,6 +17,14 @@
                 ISBLANK(TEXT(IDR_Complaint_Outcome__c)),
                 ISBLANK(IDR_Description_of_Outcome__c)
             )
+        ),
+        AND(
+            ISPICKVAL(Status, &apos;Provisionally Closed&apos;),
+            OR(
+                ISBLANK(TEXT(IDR_Complaint_Outcome__c)),
+                ISBLANK(IDR_Description_of_Outcome__c),
+                ISPICKVAL( IDR_Complaint_Remedy__c , &apos;&apos;)
+            )
         )
     )
 )</errorConditionFormula>

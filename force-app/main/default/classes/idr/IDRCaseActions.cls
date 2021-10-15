@@ -424,7 +424,11 @@ public with sharing class IDRCaseActions {
       record.IDR_Date_Re_Opened__c = System.today();
       record.IsEscalated = false;
     }
-    if ((record.Status == CLOSED_STATUS) && record.IsEscalated) {
+    if (
+      (record.Status == CLOSED_STATUS ||
+      record.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS) &&
+      record.IsEscalated
+    ) {
       record.IsEscalated = false;
     }
   }
@@ -770,7 +774,8 @@ public with sharing class IDRCaseActions {
     List<Case> closedComplaintCases = new List<Case>();
     for (Case c : records) {
       if (
-        (c.Status == 'Closed') &&
+        (c.Status == CLOSED_STATUS ||
+        c.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS) &&
         oldMap.get(c.Id).Status != c.Status &&
         isIDRComplaintType(c)
       ) {
