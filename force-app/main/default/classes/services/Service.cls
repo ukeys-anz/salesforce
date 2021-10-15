@@ -191,13 +191,4 @@ public with sharing virtual class Service {
   ) {
     return null;
   }
-
-  /*
-   * @param endPoint endPoint
-   * @return `HttpCalloutResponse` api response
-   * @description virtual UI API callout to fetch picklist related information
-   */
-  public virtual HttpCalloutResponse getPickListValueInfo(String endPoint) {
-    return null;
-  }
 }
