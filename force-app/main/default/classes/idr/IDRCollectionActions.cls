@@ -4,7 +4,9 @@
  * @description  IDRCollectionActions class is used to handle all collection related activities in case trigger
  * @group IDR(Internal Dispute Resolution)
  */
-@SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
+@SuppressWarnings(
+  'PMD.ApexCRUDViolation,PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity'
+)
 public with sharing class IDRCollectionActions {
   private static final String STOP_COLLEC_TASK_SUBJECT = 'STOP Collection is triggered from Salesforce for ';
 
