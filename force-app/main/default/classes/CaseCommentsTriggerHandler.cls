@@ -49,6 +49,5 @@ public with sharing class CaseCommentsTriggerHandler extends Lib_TriggerHandler 
     IDRCaseCommentsNotificationManager.manageNotification(
       (List<CaseComment>) records
     );
-    IDRCaseCommentActions.escalateNewCommentsToCFMS(records);
   }
 }

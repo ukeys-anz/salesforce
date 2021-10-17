@@ -86,7 +86,7 @@ private with sharing class IDRCaseActionsTest {
       newCases.add(
         new Case(
           RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
-          Status = IDRCaseActions.OPEN_STATUS,
+          Status = IDRConstants.OPEN_STATUS,
           isEscalated = false
         )
       );
@@ -124,7 +124,7 @@ private with sharing class IDRCaseActionsTest {
       newCases.add(
         new Case(
           RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
-          Status = IDRCaseActions.UNDER_INVESTIGATION_STATUS,
+          Status = IDRConstants.UNDER_INVESTIGATION_STATUS,
           isEscalated = false
         )
       );
