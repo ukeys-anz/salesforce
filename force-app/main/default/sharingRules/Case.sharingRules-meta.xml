@@ -65,20 +65,6 @@
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>Complaint_RTs_CFMSUser_RW</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>to provide read write access to CFMS integration user</description>
-        <label>Complaint_RTs_CFMSUser_RW</label>
-        <sharedTo>
-            <group>CFMS_Integration_User_Group</group>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Customer Complaint,Non-Customer Complaint</value>
-        </criteriaItems>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
         <fullName>Complaint_RTs_CRPUsers_RO</fullName>
         <accessLevel>Edit</accessLevel>
         <description>Grant edit access to CFMS migrated complaint records for Customer Resolution Users</description>
@@ -103,7 +89,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Customer Complaint,Non-Customer Complaint</value>
+            <value>Customer Complaint,Non-Customer ComplaPGetint</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>

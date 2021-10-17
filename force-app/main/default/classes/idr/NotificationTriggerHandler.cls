@@ -158,7 +158,7 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
     if (!idrNotifications.isEmpty()) {
       peSaveResults = EventBus.publish(idrNotifications);
       Lib_SystemLog log = new Lib_SystemLog(
-        IDRCaseActions.class.getName(),
+        NotificationTriggerHandler.class.getName(),
         'sendNotifications'
       );
       log.addDatabaseSaveResult(
