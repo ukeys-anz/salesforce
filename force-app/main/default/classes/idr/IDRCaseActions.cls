@@ -410,7 +410,7 @@ public with sharing class IDRCaseActions {
       record.IsEscalated = false;
     }
     if (
-      (record.Status == CLOSED_STATUS ||
+      (record.Status == IDRConstants.CLOSED_STATUS ||
       record.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS) &&
       record.IsEscalated
     ) {
@@ -657,7 +657,7 @@ public with sharing class IDRCaseActions {
     List<Case> closedComplaintCases = new List<Case>();
     for (Case c : records) {
       if (
-        (c.Status == CLOSED_STATUS ||
+        (c.Status == IDRConstants.CLOSED_STATUS ||
         c.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS) &&
         oldMap.get(c.Id).Status != c.Status &&
         isIDRComplaintType(c)
