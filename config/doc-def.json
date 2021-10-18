@@ -149,6 +149,12 @@
       "type": "user"
     },
     {
+      "name": "PEGA Integration User",
+      "profile": "Integration User",
+      "permissionsets": ["Enforce_mTLS", "PEGA_Integration"],
+      "type": "system"
+    },
+    {
       "name": "Qualtrics Integration User",
       "profile": "Integration User (External Apps)",
       "permissionsetgroups": [],
