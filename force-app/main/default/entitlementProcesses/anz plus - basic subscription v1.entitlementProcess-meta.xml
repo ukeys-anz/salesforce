@@ -15,12 +15,17 @@
         <milestoneCriteriaFilterItems>
             <field>Case.RecordTypeId</field>
             <operation>equals</operation>
-            <value>Complaint</value>
+            <value>ANZ Plus Complaint</value>
         </milestoneCriteriaFilterItems>
         <milestoneCriteriaFilterItems>
             <field>Case.Status</field>
             <operation>notEqual</operation>
             <value>Closed</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Origin</field>
+            <operation>notEqual</operation>
+            <value>Chat</value>
         </milestoneCriteriaFilterItems>
         <milestoneName>Resolution Time</milestoneName>
         <minutesToComplete>2400</minutesToComplete>
@@ -30,6 +35,43 @@
                 <type>FieldUpdate</type>
             </actions>
             <timeLength>-1440</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>SLA_Status_Violation_Update</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <businessHours>ANZx Case Business Hours</businessHours>
+        <milestoneCriteriaFilterItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>ANZ Plus Complaint</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>notEqual</operation>
+            <value>Closed</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Origin</field>
+            <operation>equals</operation>
+            <value>Chat</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>Resolution Time</milestoneName>
+        <minutesToComplete>1920</minutesToComplete>
+        <timeTriggers>
+            <actions>
+                <name>SLA_Status_Warning_Update</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>-960</timeLength>
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
         </timeTriggers>
         <timeTriggers>
