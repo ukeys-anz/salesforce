@@ -462,52 +462,53 @@ public with sharing class GetHelpCaseActions {
    * @param records The list of cases whose financial accounts need to be validated
    */
   public static void validateFinancialAccByAccId(List<Case> records) {
-    Map<Id, Case> caseByCaseIdMap = new Map<Id, Case>();
-    Map<Id, String> accountCombinedKeyByCaseIdMap = new Map<Id, String>();
-    Map<Id, Id> finAccIdByAccIdMap = new Map<Id, Id>();
-    for (Case record : records) {
+    Map<Integer, Case> caseByIndexMap = new Map<Integer, Case>();
+    Map<Integer, String> combinedKeyByCaseIndexMap = new Map<Integer, String>();
+    Set<Id> customerAccountIdSet = new Set<Id>();
+    Set<Id> financialAccountIdSet = new Set<Id>();
+    for (Integer i = 0; i < records.size(); i++) {
+      Case record = records[i];
       if (
-        record.FinServ__FinancialAccount__c != null &&
-        record.AccountId != null
+        record.AccountId != null &&
+        record.FinServ__FinancialAccount__c != null
       ) {
-        caseByCaseIdMap.put(record.Id, record); // Get a map of case and its Id
-        accountCombinedKeyByCaseIdMap.put(
-          record.Id,
+        caseByIndexMap.put(i, record); // Get a map of each case by its index
+        combinedKeyByCaseIndexMap.put(
+          i,
           String.valueOf(record.FinServ__FinancialAccount__c) +
-          String.valueOf(record.AccountId)
-        ); // Get a map of a case key (combination of its customer account Id and financial account Id) and its Id
-        finAccIdByAccIdMap.put(
-          record.AccountId,
-          record.FinServ__FinancialAccount__c
-        ); // Get a map of a case customer Id and its financial account Id
+          String.valueOf(record.AccountId) // Get a map of each case's combined key (financial account Id + customer account Id) by the case's index
+        );
+        customerAccountIdSet.add(record.AccountId);
+        financialAccountIdSet.add(record.FinServ__FinancialAccount__c);
       }
     }
+
     Map<Id, FinServ__FinancialAccountRole__c> financialAccRolesByIdMap = GetHelpCaseActionsHelper.getFinancialAccountRolesMap(
-      finAccIdByAccIdMap.values(),
-      finAccIdByAccIdMap.keyset(),
+      customerAccountIdSet,
+      financialAccountIdSet,
       true
     ); // Get a list of ACTIVE financial account roles which are linked to the provided customer accounts and financial accounts
 
-    Map<Id, String> combinedKeyByRoleIdMap = new Map<Id, String>();
-
+    Map<String, FinServ__FinancialAccountRole__c> roleByCombinedKeyMap = new Map<String, FinServ__FinancialAccountRole__c>();
     for (
       FinServ__FinancialAccountRole__c record : financialAccRolesByIdMap.values()
     ) {
-      // Loop through the list of ACTIVE financial account roles, get a list of keys that constructed from each role's financial account Id and customer account Id
-      combinedKeyByRoleIdMap.put(
-        record.Id,
+      // Loop through the list of ACTIVE financial account roles, get a map of each role and its combined key (financial account Id + customer account Id)
+      roleByCombinedKeyMap.put(
         String.valueOf(record.FinServ__FinancialAccount__c) +
-        String.valueOf(record.FinServ__RelatedAccount__c)
+        String.valueOf(record.FinServ__RelatedAccount__c),
+        record
       );
     }
 
-    for (String caseId : accountCombinedKeyByCaseIdMap.keySet()) {
+    for (Integer caseIndex : combinedKeyByCaseIndexMap.keySet()) {
       if (
-        !combinedKeyByRoleIdMap.values()
-          .contains(accountCombinedKeyByCaseIdMap.get(caseId)) // If a case's combination key does not exist in the list of combine keys above, aka this case does not have an ACTIVE financial role between its customer account and financial account
+        !roleByCombinedKeyMap.containsKey(
+          combinedKeyByCaseIndexMap.get(caseIndex)
+        ) // If an active financial role does not exist for a case's combined key, aka this case does not have an ACTIVE financial role between its customer account and financial account
       ) {
-        caseByCaseIdMap.get(caseId)
-          .addError(MISALIGNED_FINANCIAL_ACCOUNT_ERROR); // The case should not be created
+        caseByIndexMap.get(caseIndex)
+          .addError(MISALIGNED_FINANCIAL_ACCOUNT_ERROR); // The case will not be created
       }
     }
   }

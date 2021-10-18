@@ -354,14 +354,14 @@ public with sharing class GetHelpCaseActionsHelper {
 
   /**
    * @description Gett a list of financial account roles based on financial account id, account ids and if the role should be active
-   * @param financialAccIds Set of financial account Ids
    * @param accountIds List of account Ids
+   * @param financialAccIds Set of financial account Ids
    * @param isActive If the financial account role is active
    * @return Map<Id, FinServ__FinancialAccountRole__c> a map of financial account roles and their Ids
    */
   public static Map<Id, FinServ__FinancialAccountRole__c> getFinancialAccountRolesMap(
-    List<Id> financialAccIds,
     Set<Id> accountIds,
+    Set<Id> financialAccIds,
     Boolean isActive
   ) {
     Map<Id, FinServ__FinancialAccountRole__c> financialRolesMap = new Map<Id, FinServ__FinancialAccountRole__c>();
