@@ -668,8 +668,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
         fields[CP_ID.fieldApiName] = this.cpId;
         fields[RM_COMPLAINT.fieldApiName] = this.isRmComplaint;
         fields[EMAIL_FIELD.fieldApiName] = this.email;
-        fields[CUS_IDENTIFIER_FIELD.fieldApiName] =
-          this.customerIdentifierValue;
+        fields[
+          CUS_IDENTIFIER_FIELD.fieldApiName
+        ] = this.customerIdentifierValue;
       }
       fields[DESCRIPTION_FIELD.fieldApiName] = this.description;
       fields[PRODUCT_LOOKUP_FIELD.fieldApiName] = this.productValue;
@@ -677,17 +678,20 @@ export default class CreateComplaintLWC extends NavigationMixin(
         /^0+/,
         ""
       );
-      fields[WRITTEN_RESPONSE_REQUESTED_FIELD.fieldApiName] =
-        this.writtenResponseValue;
-      fields[WRITTEN_RESPONSE_REQUIRED_FIELD.fieldApiName] =
-        this.writtenRequiredValue;
+      fields[
+        WRITTEN_RESPONSE_REQUESTED_FIELD.fieldApiName
+      ] = this.writtenResponseValue;
+      fields[
+        WRITTEN_RESPONSE_REQUIRED_FIELD.fieldApiName
+      ] = this.writtenRequiredValue;
       fields[CONSENT_OBTAINED.fieldApiName] = this.consentValue;
       fields[RECORDTYPE_FIELD.fieldApiName] = this.recordType;
       fields[STATUS_FIELD.fieldApiName] = this.caseStatus;
       if (this.isComplaintResolved) {
         if (this.isFinancialComplaintRemedy) {
-          fields[FINANCIAL_COMPENSATION.fieldApiName] =
-            this.financialCompensation;
+          fields[
+            FINANCIAL_COMPENSATION.fieldApiName
+          ] = this.financialCompensation;
         }
         if (this.isReferredToProductManufacturer) {
           fields[
@@ -725,8 +729,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
         fields[THIRD_PARTY_COMMS.fieldApiName] = true;
       }
 
-      fields[IS_COMMON_COMPLAINT_FIELD.fieldApiName] =
-        this.isCommonComplaintYesNo;
+      fields[
+        IS_COMMON_COMPLAINT_FIELD.fieldApiName
+      ] = this.isCommonComplaintYesNo;
 
       if (!this.hasNominatedThirdParty) {
         fields[THIRD_PARTY_COUNTRY_FIELD.fieldApiName] = "";
@@ -734,13 +739,15 @@ export default class CreateComplaintLWC extends NavigationMixin(
       fields[ACCOUNT_POLICY_FIELD.fieldApiName] = this.accountOrPolicyNumber;
 
       if (this.hasSecondIssue) {
-        fields[ACCOUNT_POLICY_FIELD_2.fieldApiName] =
-          this.accountOrPolicyNumber2;
+        fields[
+          ACCOUNT_POLICY_FIELD_2.fieldApiName
+        ] = this.accountOrPolicyNumber2;
       }
 
       if (this.hasThirdIssue) {
-        fields[ACCOUNT_POLICY_FIELD_3.fieldApiName] =
-          this.accountOrPolicyNumber3;
+        fields[
+          ACCOUNT_POLICY_FIELD_3.fieldApiName
+        ] = this.accountOrPolicyNumber3;
       }
 
       const recordInput = { apiName: CASE_OBJECT.objectApiName, fields };
