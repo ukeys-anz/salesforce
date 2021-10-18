@@ -38,22 +38,38 @@ public class CaseEscalateToCMOSTest {
    */
   @isTest
   public static void testCaseEscalatetoCMOSChatterToComments() {
-    Case newCase = [
+    List<Case> newCase = [
       SELECT
         Id,
         Customer_Notification_Consent__c,
         AccountID,
         Account.Source_System_ID__c
       FROM Case
-      LIMIT 1
     ];
 
-    CaseEscalateToCMOS.escalateChatterToComments(newCase);
+    Test.startTest();
+    List<CaseComment> comments = CaseEscalateToCMOS.prepareChatterToCaseComments(
+      newCase
+    );
+    Boolean published = CaseEscalateToCMOS.publishChatterToCaseComments(
+      comments
+    );
+    Test.stopTest();
+
+    system.assert(
+      (comments.size() == 2),
+      'Expected PrepareChatterToCaseComments list size to be 2'
+    );
+
+    system.assert(
+      published,
+      'Bulk publish chatter to Case Comment Failed at insert'
+    );
 
     List<CaseComment> caseComments = [
       SELECT Id, CommentBody, IsPublished, ParentId
       FROM CaseComment
-      WHERE ParentId = :newCase.Id
+      WHERE ParentId = :newCase[0].Id
     ];
 
     system.assert(

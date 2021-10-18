@@ -7,6 +7,7 @@
     <label>Original Case Owner</label>
     <length>255</length>
     <required>false</required>
+    <description>The original case owner of the case before its escalated or transferred</description>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>

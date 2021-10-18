@@ -34,8 +34,11 @@ public with sharing class CaseEscalateToCMOS {
     Database.SaveResult updatingRecord = Database.update(record);
 
     if (updatingRecord.isSuccess()) {
-      escalateChatterToComments(record);
-      return true;
+      List<Case> records = new List<Case>{ record };
+
+      return publishChatterToCaseComments(
+        prepareChatterToCaseComments(records)
+      );
     }
 
     String errorMessage = 'Failed Manual Escalation from ANZx to CMOS / CRC: ';
@@ -70,15 +73,18 @@ public with sharing class CaseEscalateToCMOS {
       Schema.SObjectType.Account.fields.Source_System_ID__c.isAccessible()
     ) {
       Case caseData = [
-        SELECT Customer_Notification_Consent__c, Account.Source_System_ID__c
+        SELECT
+          Customer_Notification_Consent__c,
+          Account.Source_System_ID__c,
+          OwnerId
         FROM Case
         WHERE Id = :Record.Id
       ];
 
+      record.Original_Case_Owner__c = caseData.OwnerId;
       record.IDR_Customer_Number__c = record.Account.Source_System_ID__c;
       record.IDR_Customer_Notification__c = (Boolean) (caseData.Customer_Notification_Consent__c ==
       'Yes');
-
       record.IDR_SwitchOff_Customer_Notification__c = (caseData.Customer_Notification_Consent__c ==
       'No');
     }
@@ -91,6 +97,8 @@ public with sharing class CaseEscalateToCMOS {
    * @param records A List of records which are tested to see if they need to be escalated
    */
   public static void beforeUpdateCaseToCMOS(List<Case> records) {
+    List<Case> recordsChatterUpdate = new List<Case>{};
+
     for (Case record : records) {
       if (
         record.RecordTypeId == GetHelpCaseActions.COMPLAINT_ID &&
@@ -100,60 +108,91 @@ public with sharing class CaseEscalateToCMOS {
         record = updateCaseInfo(record);
         record.IDR_Escalation_Reason__c = DAY_5_ESCALATION_REASON;
 
-        escalateChatterToComments(record);
+        recordsChatterUpdate.add(record);
       }
     }
+
+    publishChatterToCaseComments(
+      prepareChatterToCaseComments(recordsChatterUpdate)
+    );
   }
 
   /**
-   * @description Queries Chatter for the case and duplicates them to Case Comments
-   * @param record The record that will be updated
+   * @description Prepares the Chatter to Case Comments into a List of case comments
+   * @param records A List of Cases where Chatter comments need to change to Case Comments
+   * @return newComments - A List of CaseComments which can be bulk inserted
    */
-  public static void escalateChatterToComments(Case record) {
+  public static List<CaseComment> prepareChatterToCaseComments(
+    List<Case> records
+  ) {
+    List<CaseComment> newComments = new List<CaseComment>{};
+
     if (
       FeedItem.SObjectType.getDescribe().isAccessible() &&
       Schema.SObjectType.FeedItem.fields.Body.isAccessible() &&
       Schema.SObjectType.FeedItem.fields.CreatedDate.isAccessible()
     ) {
-      List<CaseComment> newComments = new List<CaseComment>{};
+      try {
+        Set<Id> resultIds = (new Map<Id, SObject>(records)).keySet();
+        for (FeedItem comment : [
+          SELECT Id, Body, CreatedDate, ParentId
+          FROM FeedItem
+          WHERE Type = 'TextPost' AND ParentId = :resultIds
+        ]) {
+          String text =
+            '[' +
+            comment.CreatedDate.format('d MMMM yy - K:m a') +
+            '] ' +
+            comment.Body.stripHtmlTags();
 
-      for (FeedItem comment : [
-        SELECT Id, Body, CreatedDate, ParentId
-        FROM FeedItem
-        WHERE Type = 'TextPost' AND ParentId = :record.Id
-      ]) {
-        String text =
-          '[' +
-          comment.CreatedDate.format('d MMMM yy - K:m a') +
-          '] ' +
-          comment.Body.stripHtmlTags();
-
-        newComments.add(
-          new CaseComment(
-            CommentBody = text,
-            IsPublished = true,
-            ParentId = comment.ParentId
-          )
+          newComments.add(
+            new CaseComment(
+              CommentBody = text,
+              IsPublished = true,
+              ParentId = comment.ParentId
+            )
+          );
+        }
+      } catch (Exception e) {
+        Lib_SystemLog.createSingleLogAsync(
+          CaseEscalateToCMOS.class.getName(),
+          'prepareChatterToCaseComments',
+          'CMOSESC-005',
+          e.getMessage()
         );
       }
+    }
+    return newComments;
+  }
 
+  /**
+   * @description Inserts a CaseComment List
+   * @param comments A List<CaseComment> object which contains all the Case Comments that need to be inserted
+   * @return Boolean - True/False if the operation was successful
+   */
+  public static Boolean publishChatterToCaseComments(
+    List<CaseComment> comments
+  ) {
+    if (!comments.isEmpty()) {
       if (
         Schema.sObjectType.CaseComment.fields.CommentBody.isCreateable() &&
         Schema.sObjectType.CaseComment.fields.IsPublished.isCreateable()
       ) {
         try {
-          if (!newComments.isEmpty()) {
-            insert newComments;
-          }
+          insert comments;
         } catch (Exception e) {
           Lib_SystemLog.createSingleLogAsync(
             CaseEscalateToCMOS.class.getName(),
-            'escalateChatterToComments',
+            'publishChatterToCaseComments',
             'CMOSESC-002',
             e.getMessage()
           );
+
+          return false;
         }
       }
     }
+
+    return true;
   }
 }
