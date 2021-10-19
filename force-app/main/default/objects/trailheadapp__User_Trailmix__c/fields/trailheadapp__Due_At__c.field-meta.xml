@@ -3,7 +3,6 @@
     <fullName>trailheadapp__Due_At__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_myTrailhead</complianceGroup>
-    <description>The due time of the Trailmix.</description>
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <inlineHelpText>This due date may display differently for users not in the assigner&apos;s same timezone.</inlineHelpText>
