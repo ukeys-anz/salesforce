@@ -3,6 +3,7 @@
     <fullName>trailheadapp__First_Attempted_At__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_myTrailhead</complianceGroup>
+    <description>The first time the user try to complete the Trailmix.</description>
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>First Attempted</label>
