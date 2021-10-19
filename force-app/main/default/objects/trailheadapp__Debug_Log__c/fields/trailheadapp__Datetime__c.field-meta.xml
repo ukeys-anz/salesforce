@@ -3,7 +3,6 @@
     <fullName>trailheadapp__Datetime__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_myTrailhead</complianceGroup>
-    <description>The date/time of the log message.</description>
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <inlineHelpText>The date/time of the log message.</inlineHelpText>
