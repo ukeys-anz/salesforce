@@ -4,7 +4,6 @@
  * @description  This class is contains helper methods for IDREmailService class
  * @group IDR(Internal Dispute Resolution)
  */
-@SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class IDREmailServiceHelper {
   /**
    * @description Creates a new email message record
@@ -103,157 +102,7 @@ public with sharing class IDREmailServiceHelper {
     for (ContentVersion cv : contentVersionList) {
       contentVerIds.add(cv.Id);
     }
-    linkContentWithCase(contentVerIds, caseId);
-  }
-
-  /**
-   * @description Checks the extension of attachments
-   * @param mimeType Mime type of attachments
-   * @param fileName Name of file for extension check
-   * @return Boolean return true/false if the extension is valid
-   */
-  public static Boolean checkExtension(String mimeType, String fileName) {
-    List<String> extensions = getExtensions(mimeType);
-    if (
-      extensions != null && extensions.contains(fileName.substringAfter('.'))
-    ) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  /**
-   * @description Gets the extension of attachments
-   * @param mimeType Mime type of attachments
-   * @return List<String> List of extension type
-   */
-  public static List<String> getExtensions(String mimeType) {
-    if (mimeTypeToFileExtensionsMap.containsKey(mimeType)) {
-      return mimeTypeToFileExtensionsMap.get(mimeType).split(',');
-    }
-    return null;
-  }
-
-  private static Map<String, String> mimeTypeToFileExtensionsMap = new Map<String, String>{
-    'text/plain' => 'txt,text,conf,def,list,log,in',
-    'application/rtf' => 'rtf',
-    'text/rtf' => 'rtf',
-    'application/pdf' => 'pdf',
-    'application/msword' => 'doc',
-    'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => 'docx',
-    'image/tiff' => 'tiff,tif',
-    'image/jpeg' => 'jpeg,jpg',
-    'image/gif' => 'gif',
-    'image/bmp' => 'bmp',
-    'image/png' => 'png',
-    'application/vnd.ms-excel' => 'xls',
-    'application/octet-stream' => 'xls',
-    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => 'xlsx',
-    'application/vnd.ms-excel.sheet.binary.macroenabled.12' => 'xlsb',
-    'application/vnd.ms-powerpoint' => 'ppt',
-    'application/vnd.openxmlformats-officedocument.presentationml.presentation' => 'pptx',
-    'message/rfc822' => 'eml',
-    'application/vnd.ms-outlook' => 'msg',
-    'text/csv' => 'csv',
-    'application/zip' => 'zip',
-    'application/x-zip-compressed' => 'zip'
-  };
-
-  /**
-   * @description method to link attachment with case records
-   * @param contentVerIds Content Version Ids
-   * @param caseId The case Id that needs to be related to
-   */
-  public static void linkContentWithCase(List<Id> contentVerIds, Id caseId) {
-    List<ContentDocumentLink> contentDocLinkList = new List<ContentDocumentLink>();
-    List<ContentVersion> contentVersionList;
-    if (ContentVersion.sObjectType.getDescribe().isQueryable()) {
-      contentVersionList = [
-        SELECT Id, Title, ContentDocumentId
-        FROM ContentVersion
-        WHERE Id IN :contentVerIds
-      ];
-    }
-    if (contentVersionList.size() > 0) {
-      for (ContentVersion cv : contentVersionList) {
-        ContentDocumentLink contentLink = new ContentDocumentLink();
-        contentLink.LinkedEntityId = caseId;
-        contentLink.ContentDocumentId = cv.ContentDocumentId;
-        contentLink.ShareType = 'V';
-        contentDocLinkList.add(contentLink);
-      }
-    }
-
-    if (contentDocLinkList.size() > 0) {
-      if (
-        ContentDocumentLink.sObjectType.getDescribe().isCreateable() &&
-        Schema.sObjectType.ContentDocumentLink.fields.ContentDocumentId.isCreateable() &&
-        Schema.sObjectType.ContentDocumentLink.fields.LinkedEntityId.isCreateable() &&
-        Schema.sObjectType.ContentDocumentLink.fields.ShareType.isCreateable()
-      ) {
-        List<Database.SaveResult> results = Database.insert(
-          contentDocLinkList,
-          false
-        );
-        lib_systemLog log = new lib_systemLog(
-          'IDREmailServiceHelper',
-          'linkContentWithCase'
-        );
-        log.addDatabaseSaveResult(
-          'ContentDocumentLink',
-          results,
-          contentDocLinkList
-        );
-        log.insertLogAsync();
-      } else {
-        CommonUtil.logAndThrowIAE(
-          IDREmailServiceHelper.class.getName(),
-          'linkContentWithCase',
-          'Not enough permissions to create ContentDocumentLink.'
-        );
-      }
-    }
-  }
-
-  /**
-   * @description Gets the filtered string using Regular Expression
-   * @param pattern The RegEx pattern
-   * @param matcher The string with which the matching is performed
-   * @return returnString The filtered String
-   */
-  public static String filterStringUsingRegEx(String pattern, String matcher) {
-    String returnString;
-    Matcher m = System.Pattern.compile(pattern).matcher(matcher);
-    if (m.find()) {
-      if (pattern == IDRConstants.CASE_NO_REGEX) {
-        returnString = m.group().leftPad(8, '0');
-      } else {
-        returnString = m.group();
-      }
-    } else {
-      returnString = matcher;
-    }
-    return returnString;
-  }
-
-  /**
-   * @description Queries through the group object
-   * @param type The type of group
-   * @param queueName The devveloper name of group
-   * @return Group
-   */
-  public static Group getGroupDetails(String type, String queueName) {
-    if (Group.sObjectType.getDescribe().isQueryable()) {
-      return [
-        SELECT Id
-        FROM Group
-        WHERE Type = :type AND developername = :queueName
-        LIMIT 1
-      ];
-    } else {
-      return null;
-    }
+    FileUtil.linkContentWithRecord(contentVerIds, caseId);
   }
 
   /**
@@ -273,7 +122,12 @@ public with sharing class IDREmailServiceHelper {
     );
     if (tAttachments != null && tAttachments.size() > 0) {
       for (Messaging.Inboundemail.TextAttachment tAttachment : tAttachments) {
-        if (checkExtension(tAttachment.mimeTypeSubType, tAttachment.fileName)) {
+        if (
+          FileUtil.checkExtension(
+            tAttachment.mimeTypeSubType,
+            tAttachment.fileName
+          )
+        ) {
           ContentVersion cv = new ContentVersion(
             Title = tAttachment.fileName,
             PathOnClient = tAttachment.fileName,
@@ -315,7 +169,12 @@ public with sharing class IDREmailServiceHelper {
     );
     if (bAttachments != null && bAttachments.size() > 0) {
       for (Messaging.Inboundemail.BinaryAttachment bAttachment : bAttachments) {
-        if (checkExtension(bAttachment.mimeTypeSubType, bAttachment.fileName)) {
+        if (
+          FileUtil.checkExtension(
+            bAttachment.mimeTypeSubType,
+            bAttachment.fileName
+          )
+        ) {
           ContentVersion cv = new ContentVersion(
             Title = bAttachment.fileName,
             PathOnClient = bAttachment.fileName,
@@ -338,42 +197,5 @@ public with sharing class IDREmailServiceHelper {
     }
     log.publishEvent();
     return returnConVerList;
-  }
-
-  /**
-   * @description Updates the case with queue
-   * @param newCase The case record
-   */
-  public static void updateCaseWithQueue(Case newCase) {
-    //Get Indexing Queue
-    Group queue = getGroupDetails('Queue', 'Indexing_Queue');
-    if (
-      queue != null &&
-      Case.sObjectType.getDescribe().isUpdateable() &&
-      Schema.sObjectType.Case.fields.OwnerId.isUpdateable()
-    ) {
-      newCase.OwnerId = queue.Id;
-      try {
-        update newCase;
-      } catch (Exception err) {
-        Lib_SystemLog log = new Lib_SystemLog(
-          IDREmailServiceHelper.class.getName(),
-          'updateCaseWithQueue'
-        );
-        log.error(
-          'EmailServiceException',
-          'Error in updating case with queue for caseId :' +
-          newCase.Id +
-          err.getMessage()
-        );
-        log.publishEvent();
-      }
-    } else {
-      CommonUtil.logAndThrowIAE(
-        IDREmailServiceHelper.class.getName(),
-        'updateCaseWithQueue',
-        'Case is not updateable for the current user.'
-      );
-    }
   }
 }

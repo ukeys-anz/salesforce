@@ -161,7 +161,7 @@ public with sharing class IDREmailServiceHandler {
     //Create files from attachments
     IDREmailServiceHelper.createAttachmentFiles(email, newCase.Id);
     //assign indexing queue to the case
-    IDREmailServiceHelper.updateCaseWithQueue(newCase);
+    CaseUtil.updateCaseWithQueue(newCase, 'Queue', 'Indexing_Queue');
   }
 
   /**

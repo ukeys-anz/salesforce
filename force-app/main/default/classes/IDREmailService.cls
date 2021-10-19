@@ -23,11 +23,11 @@ global with sharing class IDREmailService implements Messaging.InboundEmailHandl
     for (Messaging.InboundEmail.Header emailHeader : emailHeaders) {
       headerMap.put(emailHeader.name, emailHeader.value);
     }
-    String senderEmail = IDREmailServiceHelper.filterStringUsingRegEx(
+    String senderEmail = CommonUtil.filterStringUsingRegEx(
       IDRConstants.CASE_EMAIL_REGEX,
       headerMap.get('To')
     );
-    String fromEmail = IDREmailServiceHelper.filterStringUsingRegEx(
+    String fromEmail = CommonUtil.filterStringUsingRegEx(
       IDRConstants.CASE_EMAIL_REGEX,
       headerMap.get('From')
     );
@@ -58,7 +58,7 @@ global with sharing class IDREmailService implements Messaging.InboundEmailHandl
     );
 
     //Extracting case number from subject
-    String caseNumber = IDREmailServiceHelper.filterStringUsingRegEx(
+    String caseNumber = CommonUtil.filterStringUsingRegEx(
       IDRConstants.CASE_NO_REGEX,
       email.subject
     );
