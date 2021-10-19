@@ -3,6 +3,7 @@
     <fullName>trailheadapp__URL__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_myTrailhead</complianceGroup>
+    <description>Link to the module on the trailhead platform</description>
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>URL</label>

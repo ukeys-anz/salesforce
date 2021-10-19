@@ -3,6 +3,7 @@
     <fullName>trailheadapp__Roles__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_myTrailhead</complianceGroup>
+    <description>The type of personas relevant to the training, for example, developer, or administrator</description>
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Roles</label>
