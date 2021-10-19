@@ -402,6 +402,14 @@ public with sharing class GetHelpCaseActions {
   }
 
   /**
+   * @description Escalates the Record to CMOS IDR Everyday Banking Queue
+   * @param records The record list to which we escalate
+   */
+  public static void beforeUpdateCaseToCMOS(List<Case> records) {
+    CaseEscalateToCMOS.beforeUpdateCaseToCMOS(records);
+  }
+
+  /**
    * @description applyDefaults is called onBeforeInsert to set the following values as defaults
    * 1. Update business hours field to match ANZ Plus business hours
    * @param records The record list form which we need to apply defaults
