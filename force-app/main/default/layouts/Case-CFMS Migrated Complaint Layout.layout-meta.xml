@@ -91,6 +91,10 @@
                 <behavior>Edit</behavior>
                 <field>IDR_NC_Country__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_SwitchOff_Customer_Notification__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
@@ -141,6 +145,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>IDR_3rdParty_Mobile__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_SwicthOff_3rd_Party_Notification__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -220,7 +228,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Comments</field>
+                <field>ParentId</field>
             </layoutItems>
         </layoutColumns>
         <style>OneColumn</style>
@@ -301,6 +309,14 @@
                 <behavior>Edit</behavior>
                 <field>IDR_Financial_Compensation__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_Product_Manufacturer__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Provided_details_to_Product_Manufacturer__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -310,6 +326,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>IDR_Non_Financial_Remedy__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Name_of_product_manufacturer__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -336,10 +356,6 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>IDR_Date_Re_Opened__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>IDR_Date_closed_after_re_opening__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -376,6 +392,10 @@
                 <behavior>Required</behavior>
                 <field>IDR_Is_Written_Resp_Required__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Required</behavior>
+                <field>IDR_Is_Written_Resp_Requested__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -391,8 +411,12 @@
                 <field>IDR_Datetime_PSI_Ticked__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Required</behavior>
-                <field>IDR_Is_Written_Resp_Requested__c</field>
+                <behavior>Edit</behavior>
+                <field>IDR_Real_Form_Submitted__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_Real_Form_Ref_No__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -420,11 +444,19 @@
                 <behavior>Edit</behavior>
                 <field>IDR_AFCA_Date__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_AFCA_Number__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>IDR_AFCA_Number__c</field>
+                <field>IDR_AFCA_Reference_Number__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_AFCA_Due_Date__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -520,11 +552,6 @@
     <platformActionList>
         <actionListContext>Record</actionListContext>
         <platformActionListItems>
-            <actionName>Edit</actionName>
-            <actionType>StandardButton</actionType>
-            <sortOrder>0</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
             <actionName>Case.Escalate_Complaint</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>1</sortOrder>
@@ -558,6 +585,11 @@
             <actionName>Case.Send_Letter_Email</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>7</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>Edit</actionName>
+            <actionType>StandardButton</actionType>
+            <sortOrder>0</sortOrder>
         </platformActionListItems>
     </platformActionList>
     <relatedContent>
@@ -632,7 +664,7 @@
     <showRunAssignmentRulesCheckbox>true</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>true</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2O000001Aibb</masterLabel>
+        <masterLabel>00h2O000001Ak3o</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>
