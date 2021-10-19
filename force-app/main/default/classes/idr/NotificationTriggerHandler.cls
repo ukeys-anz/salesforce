@@ -10,6 +10,7 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
     IDRConstants.UNDER_INVESTIGATION_STATUS => 'AgCaseUdInvest',
     IDRConstants.ESCALATED_STATUS => 'AgCaseEsclt',
     IDRConstants.REOPENED_STATUS => 'AgCaseReopen',
+    IDRConstants.PROVISIONALLY_CLOSED_STATUS => 'AgCaseProvisClosed',
     IDRConstants.CLOSED_STATUS => 'AgCaseClosed',
     IDRConstants.WITHDRAWN_STATUS => 'AgCaseWthdrwn'
   };

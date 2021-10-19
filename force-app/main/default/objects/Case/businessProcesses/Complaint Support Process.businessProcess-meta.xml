@@ -16,6 +16,10 @@
         <default>true</default>
     </values>
     <values>
+        <fullName>Provisionally Closed</fullName>
+        <default>false</default>
+    </values>
+    <values>
         <fullName>Re-opened</fullName>
         <default>false</default>
     </values>

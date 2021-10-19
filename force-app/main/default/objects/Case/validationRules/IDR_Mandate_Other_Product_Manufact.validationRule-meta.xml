@@ -5,7 +5,7 @@
     <description>If there is other thiird party manufacturer then only the name of the product manufacturer must be added and it cannot be blank</description>
     <errorConditionFormula>$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false &amp;&amp; !ISNEW() &amp;&amp;
 (RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos; || RecordType.DeveloperName = &apos;Customer_Complaint&apos;) &amp;&amp;
-(TEXT(Status) = &apos;Closed&apos;) &amp;&amp; ((
+(TEXT(Status) = &apos;Closed&apos; || TEXT(Status) = &apos;Provisionally Closed&apos;) &amp;&amp; ((
 TEXT(IDR_Product_Manufacturer__c) = &apos;Other&apos; &amp;&amp;
 ISBLANK(Name_of_product_manufacturer__c)
 )||(

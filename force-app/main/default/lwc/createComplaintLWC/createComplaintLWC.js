@@ -104,6 +104,7 @@ const OPEN_STATUS_API_NAME = "Open";
 // Future use : const ONHOLD_STATUS_API_NAME = "On Hold";
 const ESCALATED_STATUS_API_NAME = "Escalated";
 const UNDERINVESTIGATION_STATUS_API_NAME = "Under Investigation";
+const PROVISIONALLYCLOSED_STATUS_API_NAME = "Provisionally Closed";
 const CLOSED_STATUS_API_NAME = "Closed";
 const YES_VALUE = "Yes";
 const COMPLAINT_REMEDY_FIN_VALUE = "1";
@@ -305,6 +306,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
         value: UNDERINVESTIGATION_STATUS_API_NAME
       },
       { label: ESCALATED_STATUS_API_NAME, value: ESCALATED_STATUS_API_NAME },
+      {
+        label: PROVISIONALLYCLOSED_STATUS_API_NAME,
+        value: PROVISIONALLYCLOSED_STATUS_API_NAME
+      },
       { label: CLOSED_STATUS_API_NAME, value: CLOSED_STATUS_API_NAME }
     ];
   }
@@ -362,6 +367,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
           this.isComplaintOnhold = true;
           break;*/
     switch (this.caseStatus) {
+      case "Provisionally Closed":
+        this.isComplaintResolved = true;
+        break;
       case "Escalated":
         this.isComplaintEscalated = true;
         break;
