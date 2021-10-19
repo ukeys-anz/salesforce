@@ -3,7 +3,6 @@
     <fullName>trailheadapp__Total_Points__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_myTrailhead</complianceGroup>
-    <description>The total points amassed by completed trailheads</description>
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Total_Points</label>

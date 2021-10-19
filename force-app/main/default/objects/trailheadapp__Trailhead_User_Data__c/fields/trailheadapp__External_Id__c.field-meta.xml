@@ -3,7 +3,6 @@
     <fullName>trailheadapp__External_Id__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_myTrailhead</complianceGroup>
-    <description>Identifier for the trailhead user</description>
     <deprecated>false</deprecated>
     <externalId>true</externalId>
     <label>External_Id</label>
