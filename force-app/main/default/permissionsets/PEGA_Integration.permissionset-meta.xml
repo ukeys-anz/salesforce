@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>This permission set grants PEGA Integration User read/write access to ATM/Card fields and record types.</description>
+    <description>This permission set grants PEGA Integration User read access to ATM/Card fields and record types and write access to External System fields.</description>
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.Display_Name__c</field>
