@@ -3,7 +3,6 @@
     <fullName>trailheadapp__API_Name__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_myTrailhead</complianceGroup>
-    <description>Unique name for the trail</description>
     <caseSensitive>false</caseSensitive>
     <deprecated>false</deprecated>
     <externalId>true</externalId>

@@ -3,7 +3,6 @@
     <fullName>trailheadapp__Icon__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_myTrailhead</complianceGroup>
-    <description>Iconography describing the trail (URL to a picture)</description>
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Icon</label>
