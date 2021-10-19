@@ -3,6 +3,7 @@
     <fullName>trailheadapp__Created_By_Profile__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_myTrailhead</complianceGroup>
+    <description>Id of user used to create trailmix</description>
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Created By Profile</label>

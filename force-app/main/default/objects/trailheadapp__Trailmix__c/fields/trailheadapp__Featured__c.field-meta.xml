@@ -3,6 +3,7 @@
     <fullName>trailheadapp__Featured__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_myTrailhead</complianceGroup>
+    <description>Flag to mark a trailmix as featured</description>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <externalId>false</externalId>

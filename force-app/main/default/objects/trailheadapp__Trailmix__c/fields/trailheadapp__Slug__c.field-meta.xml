@@ -3,6 +3,7 @@
     <fullName>trailheadapp__Slug__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_myTrailhead</complianceGroup>
+    <description>URL safe name for the trailmix, in kebab case</description>
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>API Name</label>
