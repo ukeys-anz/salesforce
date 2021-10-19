@@ -151,7 +151,7 @@
     {
       "name": "PEGA Integration User",
       "profile": "Integration User",
-      "permissionsets": ["Enforce_mTLS", "PEGA_Integration"],
+      "permissionsets": ["API_Only", "Enforce_mTLS", "PEGA_Integration"],
       "type": "system"
     },
     {
