@@ -3,7 +3,6 @@
     <fullName>trailheadapp__Assigned_Date__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_myTrailhead</complianceGroup>
-    <description>When the module(s) was/were assigned to the user.</description>
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <inlineHelpText>Represents the date the badge is assigned for the purposes of tracking a user&apos;s activity before they start working on it</inlineHelpText>
