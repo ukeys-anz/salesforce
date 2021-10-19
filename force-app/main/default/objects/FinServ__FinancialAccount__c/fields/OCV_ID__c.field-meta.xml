@@ -3,6 +3,7 @@
     <fullName>OCV_ID__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_OCV;Integrity_Accurate;Privacy_Personal_Information</complianceGroup>
+    <description>Customer identifier from OCV</description>
     <externalId>false</externalId>
     <formula>FinServ__PrimaryOwner__r.OCV_ID__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
