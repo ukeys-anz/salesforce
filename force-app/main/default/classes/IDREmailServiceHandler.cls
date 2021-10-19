@@ -4,7 +4,6 @@
  * @description  This class is contains handler methods for IDREmailService class
  * @group IDR(Internal Dispute Resolution)
  */
-@SuppressWarnings('PMD.StdCyclomaticComplexity')
 public with sharing class IDREmailServiceHandler {
   /**
    * @description Checks if the email is a spam email
