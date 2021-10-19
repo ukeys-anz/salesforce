@@ -3,6 +3,7 @@
     <fullName>trailheadapp__Avatar__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_myTrailhead</complianceGroup>
+    <description>The trailhead users avatar on their profile</description>
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Avatar</label>

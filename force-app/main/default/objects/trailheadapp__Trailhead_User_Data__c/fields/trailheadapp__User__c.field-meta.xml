@@ -3,6 +3,7 @@
     <fullName>trailheadapp__User__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_myTrailhead</complianceGroup>
+    <description>The trailhead user</description>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <externalId>false</externalId>

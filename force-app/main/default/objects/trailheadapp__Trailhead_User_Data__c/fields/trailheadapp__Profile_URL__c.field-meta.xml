@@ -3,6 +3,7 @@
     <fullName>trailheadapp__Profile_URL__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_myTrailhead</complianceGroup>
+    <description>The URL of the trailhead users profile</description>
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Profile_URL</label>
