@@ -3,6 +3,7 @@
     <fullName>Product_Classification__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>The type of product, as classified by ANZ.</description>
     <externalId>false</externalId>
     <label>Product Classification</label>
     <length>255</length>

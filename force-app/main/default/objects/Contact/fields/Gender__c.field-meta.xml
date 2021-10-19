@@ -3,6 +3,7 @@
     <fullName>Gender__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_OCV;Integrity_Accurate;Privacy_Sensitive_Personal_Information</complianceGroup>
+    <description>Gender of the customer (eg: M, F, N, U)</description>
     <label>Gender</label>
     <securityClassification>Confidential</securityClassification>
     <type>Picklist</type>

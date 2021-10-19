@@ -3,6 +3,7 @@
     <fullName>Product_End_Date__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>The date this product will no longer be available to the market.</description>
     <externalId>false</externalId>
     <label>Product End Date</label>
     <required>false</required>
