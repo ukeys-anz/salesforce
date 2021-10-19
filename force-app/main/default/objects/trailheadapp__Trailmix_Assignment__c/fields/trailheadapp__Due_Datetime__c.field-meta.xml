@@ -3,7 +3,6 @@
     <fullName>trailheadapp__Due_Datetime__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_myTrailhead</complianceGroup>
-    <description>The due date of the trailmix assignment, by which the traimix has to be completed.</description>
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <inlineHelpText>The datetime the Trailmix is to be completed.</inlineHelpText>
