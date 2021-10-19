@@ -3,6 +3,7 @@
     <fullName>Interest_Rate__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>The interest rate associated to this product.</description>
     <externalId>false</externalId>
     <label>Interest Rate</label>
     <precision>7</precision>
