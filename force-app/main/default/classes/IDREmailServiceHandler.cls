@@ -2,6 +2,7 @@
  * @author Adnan
  * @since 05/2021
  * @description  This class is contains handler methods for IDREmailService class
+ * @group IDR(Internal Dispute Resolution)
  */
 @SuppressWarnings('PMD.StdCyclomaticComplexity')
 public with sharing class IDREmailServiceHandler {
@@ -69,48 +70,22 @@ public with sharing class IDREmailServiceHandler {
     }
     if (caseToUpdList.size() > 0) {
       caseToUpd = caseToUpdList[0];
-      try {
-        //Create email message
-        IDREmailServiceHelper.createEmailMessage(email, caseToUpd.Id);
-        //Notify Case Owner
-        IDRBankerNotificationBuilder.sendNotification(
-          new List<IDRBankerNotificationWrapper>{
-            IDRCaseNotificationManager.createNotification(
-              'Email Response Attached',
-              caseToUpd,
-              null
-            )
-          }
-        );
-      } catch (Exception err) {
-        Lib_SystemLog log = new Lib_SystemLog(
-          IDREmailServiceHandler.class.getName(),
-          'updateExistingEmail'
-        );
-        log.error(
-          'EmailServiceException',
-          'Error in creating email message from service class, which needs to be attached to existing case :' +
-          caseToUpd.Id +
-          err.getMessage()
-        );
-        log.publishEvent();
-      }
-      try {
-        //Create files from attachments
-        IDREmailServiceHelper.createAttachmentFiles(email, caseToUpd.Id);
-      } catch (Exception err) {
-        Lib_SystemLog log = new Lib_SystemLog(
-          IDREmailServiceHandler.class.getName(),
-          'updateExistingEmail'
-        );
-        log.error(
-          'EmailServiceException',
-          'Error in creating email message from service class, which needs to be attached to existing case :' +
-          caseToUpd.Id +
-          err.getMessage()
-        );
-        log.publishEvent();
-      }
+
+      //Create email message
+      IDREmailServiceHelper.createEmailMessage(email, caseToUpd.Id);
+      //Notify Case Owner
+      IDRBankerNotificationBuilder.sendNotification(
+        new List<IDRBankerNotificationWrapper>{
+          IDRCaseNotificationManager.createNotification(
+            'Email Response Attached',
+            caseToUpd,
+            null
+          )
+        }
+      );
+      //Create files from attachments
+      IDREmailServiceHelper.createAttachmentFiles(email, caseToUpd.Id);
+
       return false;
     } else {
       return true;
@@ -125,7 +100,7 @@ public with sharing class IDREmailServiceHandler {
    * @param caseOrigin The case origin
    */
   @SuppressWarnings(
-    'PMD.CyclomaticComplexity, PMD.StdCyclomaticComplexity, PMD.ExcessiveParameterList, PMD.ApexCRUDViolation'
+    'PMD.ExcessiveParameterList, PMD.ApexCRUDViolation'
   ) //Since the method is already refined to reduce complexity
   public static void createNewCase(
     Messaging.InboundEmail email,
@@ -134,6 +109,7 @@ public with sharing class IDREmailServiceHandler {
     String caseOrigin
   ) {
     //Create new case
+    /*************** LOGIC FOR CREATING NEW CASE - START *******************************/
     Case newCase = new Case(
       Description = email.plainTextBody?.replaceAll('<.*>', 'REMOVED'),
       Priority = IDRConstants.CASE_PRIORITY_STANDARD,
@@ -141,14 +117,13 @@ public with sharing class IDREmailServiceHandler {
       Subject = email.subject,
       SuppliedEmail = fromEmail,
       IDR_Inbox_Email_Address__c = senderEmail,
-      recordTypeId = IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID
+      recordTypeId = IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID,
+      Origin = caseOrigin
     );
-    if (caseOrigin != '') {
-      newCase.Origin = caseOrigin;
-    }
     if (fromEmail == System.Label.ANZ_com_Sender_Address) {
       IDREmailToCase.parseWebFormEmail(newCase);
     }
+
     AccessCheckUtil.AccessCheckWrapper acw = AccessCheckUtil.checkAccess(
       'Case',
       AccessType.CREATABLE,
@@ -165,45 +140,29 @@ public with sharing class IDREmailServiceHandler {
       );
       log.publishEvent();
     } else {
-      //newCase = (Case) acw.records[0];
-      insert newCase;
+      try {
+        insert newCase;
+      } catch (Exception err) {
+        Lib_SystemLog log = new Lib_SystemLog(
+          IDREmailServiceHandler.class.getName(),
+          'createNewCase'
+        );
+        log.error(
+          'EmailServiceException',
+          'Error in creating new case from email service class :' +
+          err.getMessage()
+        );
+        log.publishEvent();
+      }
     }
+    /*************** LOGIC FOR CREATING NEW CASE - END *******************************/
 
-    if (newCase.Id != null) {
-      try {
-        //Create email message
-        IDREmailServiceHelper.createEmailMessage(email, newCase.Id);
-      } catch (Exception err) {
-        Lib_SystemLog log = new Lib_SystemLog(
-          IDREmailServiceHandler.class.getName(),
-          'createNewCase'
-        );
-        log.error(
-          'EmailServiceException',
-          'Error in creating email message from email service class for new case :' +
-          newCase.Id +
-          err.getMessage()
-        );
-        log.publishEvent();
-      }
-      try {
-        //Create files from attachments
-        IDREmailServiceHelper.createAttachmentFiles(email, newCase.Id);
-      } catch (Exception err) {
-        Lib_SystemLog log = new Lib_SystemLog(
-          IDREmailServiceHandler.class.getName(),
-          'createNewCase'
-        );
-        log.error(
-          'EmailServiceException',
-          'Error in creating attachments from email service class for new case :' +
-          newCase.Id +
-          err.getMessage()
-        );
-        log.publishEvent();
-      }
-      IDREmailServiceHelper.updateCaseWithQueue(newCase);
-    }
+    //Create email message
+    IDREmailServiceHelper.createEmailMessage(email, newCase.Id);
+    //Create files from attachments
+    IDREmailServiceHelper.createAttachmentFiles(email, newCase.Id);
+    //assign indexing queue to the case
+    IDREmailServiceHelper.updateCaseWithQueue(newCase);
   }
 
   /**
