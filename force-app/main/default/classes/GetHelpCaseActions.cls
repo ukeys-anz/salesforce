@@ -6,63 +6,21 @@
  */
 @SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
 public with sharing class GetHelpCaseActions {
-  // General Inquiry Record Type Id
-  @TestVisible
-  public static final Id GENERAL_INQUIRY_RT_ID = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
-    'General_Inquiry'
-  );
-  public static final Id FRAUD_RT_ID = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
-    'Fraud'
-  );
-  public static final Id IDENTITY_RT_ID = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
-    'Identity'
-  );
-  public static final Id RECIPIENT_MULE_RT_ID = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
-    'Recipient_Mule'
-  );
-  public static final Id SCAM_RT_ID = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
-    'Scam'
-  );
-  public static final Id KYCQA_RT_ID = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
-    'KYC_QA'
-  );
-  public static final Id BUG_RT_ID = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
-    'Bug_Enquiry'
-  );
-  @TestVisible
   public static final List<Id> FRAUD_RT_IDS = new List<Id>{
-    FRAUD_RT_ID,
-    IDENTITY_RT_ID,
-    RECIPIENT_MULE_RT_ID,
-    SCAM_RT_ID,
-    KYCQA_RT_ID
+    GetHelpConstants.FRAUD_RT_ID,
+    GetHelpConstants.IDENTITY_RT_ID,
+    GetHelpConstants.RECIPIENT_MULE_RT_ID,
+    GetHelpConstants.SCAM_RT_ID,
+    GetHelpConstants.KYCQA_RT_ID
   };
-  public static final Id ATM_DISPUTE_RT_ID = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
-    'ATM_Dispute'
-  );
-  public static final Id CARD_DISPUTE_RT_ID = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
-    'Card_Dispute'
-  );
-  public static final Id DIRECT_DEBIT_DISPUTE_RT_ID = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
-    'Direct_Debit_Dispute'
-  );
-  public static final Id DIRECT_ENTRY_DISPUTE_RT_ID = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
-    'Direct_Entry_Dispute'
-  );
-  public static final Id URGENT_DISHONOUR_DISPUTE_RT_ID = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
-    'Urgent_Dishonour_Request_Dispute'
-  );
-  @TestVisible
+
   public static final List<Id> DISPUTE_RT_IDS = new List<Id>{
-    ATM_DISPUTE_RT_ID,
-    CARD_DISPUTE_RT_ID,
-    DIRECT_DEBIT_DISPUTE_RT_ID,
-    DIRECT_ENTRY_DISPUTE_RT_ID,
-    URGENT_DISHONOUR_DISPUTE_RT_ID
+    GetHelpConstants.ATM_DISPUTE_RT_ID,
+    GetHelpConstants.CARD_DISPUTE_RT_ID,
+    GetHelpConstants.DIRECT_DEBIT_DISPUTE_RT_ID,
+    GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID,
+    GetHelpConstants.URGENT_DISHONOUR_DISPUTE_RT_ID
   };
-  public static final Id COMPLAINT_ID = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
-    'ANZx_Complaint'
-  );
 
   private static Map<String, String> caseTypeLabelByValue = new Map<String, String>();
   private static Map<String, String> caseSubtypeLabelByValue = new Map<String, String>();
@@ -86,11 +44,14 @@ public with sharing class GetHelpCaseActions {
 
     for (Case record : (List<Case>) records) {
       Case oldRecord = (Case) oldMap.get(record.id);
-      if (oldRecord.Status != 'Closed' && record.Status == 'Closed') {
+      if (
+        oldRecord.Status != GetHelpConstants.CLOSED_STATUS &&
+        record.Status == GetHelpConstants.CLOSED_STATUS
+      ) {
         updateCaseDurationTime(record);
       }
 
-      if (record.RecordTypeId == GENERAL_INQUIRY_RT_ID) {
+      if (record.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID) {
         if (
           String.isNotBlank(record.ParentId) &&
           record.ParentId != oldRecord.ParentId
@@ -99,19 +60,22 @@ public with sharing class GetHelpCaseActions {
           validateCaseList.add(record);
         }
 
-        if (oldRecord.Status != 'Closed' && record.Status == 'Closed') {
+        if (
+          oldRecord.Status != GetHelpConstants.CLOSED_STATUS &&
+          record.Status == GetHelpConstants.CLOSED_STATUS
+        ) {
           milestoneIds.add(record.Id);
         }
-      } else if (record.RecordTypeId == COMPLAINT_ID) {
+      } else if (record.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID) {
         if (
-          oldRecord.Status != 'Closed' &&
-          oldRecord.Status != 'Escalated' &&
-          oldRecord.Status != 'Withdrawn' &&
-          oldRecord.Status != 'Resolved' &&
-          (record.Status == 'Closed' ||
-          record.Status == 'Escalated' ||
-          record.Status == 'Withdrawn' ||
-          record.Status == 'Resolved')
+          oldRecord.Status != GetHelpConstants.CLOSED_STATUS &&
+          oldRecord.Status != GetHelpConstants.ESCALATED_STATUS &&
+          oldRecord.Status != GetHelpConstants.WITHDRAWN_STATUS &&
+          oldRecord.Status != GetHelpConstants.RESOLVED_STATUS &&
+          (record.Status == GetHelpConstants.CLOSED_STATUS ||
+          record.Status == GetHelpConstants.ESCALATED_STATUS ||
+          record.Status == GetHelpConstants.WITHDRAWN_STATUS ||
+          record.Status == GetHelpConstants.RESOLVED_STATUS)
         ) {
           milestoneIds.add(record.Id);
         }
@@ -223,7 +187,7 @@ public with sharing class GetHelpCaseActions {
     if (String.isNotBlank(record.Type)) {
       fetchCaseTypeLabelsByValues();
       // Setting a different Subject format for KYC QA Cases
-      if (KYCQA_RT_ID == record.RecordTypeId) {
+      if (record.RecordTypeId == GetHelpConstants.KYCQA_RT_ID) {
         record.Subject = caseTypeLabelByValue.get(record.Type);
       } else {
         record.Subject =

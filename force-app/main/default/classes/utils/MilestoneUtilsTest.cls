@@ -28,7 +28,7 @@ private class MilestoneUtilsTest {
     for (Account acc : accnts) {
       caseList.add(
         new Case(
-          RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
+          RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID,
           AccountId = acc.Id,
           Status = 'Open'
         )
