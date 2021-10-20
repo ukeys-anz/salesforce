@@ -95,5 +95,9 @@
             <fullName>Other</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>Systemic Issue</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
 </RecordType>

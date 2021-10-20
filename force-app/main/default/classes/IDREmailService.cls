@@ -3,6 +3,7 @@
  * @since 05/2021
  * @description  This class is used to create or update cases(IDR Complaints), It fetches email addresses
  *               from IDREmailService email services.
+ * @group IDR(Internal Dispute Resolution)
  */
 @SuppressWarnings('PMD.AvoidGlobalModifier')
 global with sharing class IDREmailService implements Messaging.InboundEmailHandler {

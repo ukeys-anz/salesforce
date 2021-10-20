@@ -2,6 +2,7 @@
  * @author Boobalakrishnan Duraisamy
  * @since 04/2021
  * @description  Controller for IDRRestrictedCases lwc component
+ * @group IDR(Internal Dispute Resolution)
  */
 public without sharing class IDRRestrictedCasesController {
   /**

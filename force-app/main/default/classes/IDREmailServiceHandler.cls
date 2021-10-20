@@ -58,7 +58,7 @@ public with sharing class IDREmailServiceHandler {
     Case caseToUpd;
     List<Case> caseToUpdList;
     if (Case.sObjectType.getDescribe().isQueryable()) {
-      String queryString = 'SELECT Id, CaseNumber, OwnerId FROM Case WHERE CaseNumber = :caseNo AND Status != \'Closed\' AND Status != \'Resolved\' ';
+      String queryString = 'SELECT Id, CaseNumber, OwnerId FROM Case WHERE CaseNumber = :caseNo AND Status != \'Closed\' AND Status!= \'Provisionally Closed\' ';
       if (
         fromEmail != System.Label.XpressionSenderAddress &&
         senderEmail != System.Label.XpressionRecepientInboxAddress

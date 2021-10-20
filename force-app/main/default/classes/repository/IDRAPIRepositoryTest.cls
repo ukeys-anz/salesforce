@@ -8,6 +8,7 @@
 public with sharing class IDRAPIRepositoryTest {
   @isTest
   static void testGetCustomerInfoLWC() {
+    Test.startTest();
     Map<String, Object> info = IDRAPIRepository.getCustomerInfoLWC(
       '12345',
       'CAP ID'
@@ -20,5 +21,6 @@ public with sharing class IDRAPIRepositoryTest {
       profile.get('firstname'),
       'Matches the first name'
     );
+    Test.stopTest();
   }
 }

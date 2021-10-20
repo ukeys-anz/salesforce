@@ -10,8 +10,8 @@ public with sharing class IDRConstants {
   public static final String UNDER_INVESTIGATION_STATUS = 'Under Investigation';
   public static final String ESCALATED_STATUS = 'Escalated';
   public static final String REOPENED_STATUS = 'Re-opened';
+  public static final String PROVISIONALLY_CLOSED_STATUS = 'Provisionally Closed';
   public static final String CLOSED_STATUS = 'Closed';
-  public static final String RESOLVED_STATUS = 'Resolved';
   public static final String WITHDRAWN_STATUS = 'Withdrawn';
 
   //Case Priority
@@ -128,6 +128,10 @@ public with sharing class IDRConstants {
   //Task fields Constants
   public static final String TASK_TYPE_PEND_CASE = 'Pend Case';
   public static final String SUBJECT_PEND_CASE_TASK = 'Case Pended - provide update in case comment';
+  public static final String TASK_TYPE_SYSTEMIC_ISSUE = 'Systemic Issue';
+
+  //Migrated Document
+  public static final String DELETION_NOT_ALLOWED = 'You may not delete CFMS migrated documents.';
 
   //Anz.com constants
   /**

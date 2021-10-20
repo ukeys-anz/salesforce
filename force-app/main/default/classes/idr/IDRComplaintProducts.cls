@@ -2,6 +2,7 @@
  * @author Boobalakrishnan Duraisamy
  * @since  05/2021
  * @description Wrapper class to send product details for complaint flag event
+ * @group IDR(Internal Dispute Resolution)
  */
 public with sharing class IDRComplaintProducts {
   public String issueType;

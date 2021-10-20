@@ -3,6 +3,7 @@
  * This fires after all database transactions on case completed, avoiding problems when a banker marks a case as restricted and looses access to it.
  * @author Olivier Saier
  * @since 06/2021
+ * @group IDR(Internal Dispute Resolution)
  */
 public with sharing class IDRCaseChangeEventActions {
   /**

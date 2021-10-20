@@ -19,7 +19,7 @@ public with sharing class CFMSMigratedDocumentTriggerHandler extends Lib_Trigger
     for (
       CFMS_Migrated_Document__c record : (List<CFMS_Migrated_Document__c>) records
     ) {
-      record.addError('You may not delete CFMS migrated documents.');
+      record.addError(IDRConstants.DELETION_NOT_ALLOWED);
     }
   }
 

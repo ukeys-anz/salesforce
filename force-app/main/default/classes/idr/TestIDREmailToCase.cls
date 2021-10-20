@@ -2,6 +2,7 @@
 public with sharing class TestIDREmailToCase {
   @isTest
   static void testANZComCaseParsing() {
+    Test.startTest();
     List<Case> caseList = new List<Case>();
     for (Integer i = 0; i <= Integer.valueOf(Label.Test_Bulk_Size); i++) {
       Case c = new Case();
@@ -14,7 +15,7 @@ public with sharing class TestIDREmailToCase {
     IDREmailToCase.processEmail(caseList);
 
     insert caseList;
-
+    Test.stopTest();
     Case queriedCase = [SELECT Id, Type FROM Case LIMIT 1];
     System.assertEquals(
       'Account set up and maintenance',
