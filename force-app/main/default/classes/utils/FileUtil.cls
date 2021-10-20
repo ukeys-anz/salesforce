@@ -62,7 +62,7 @@ public with sharing class FileUtil {
   /**
    * @description method to link attachment with case records
    * @param contentVerIds Content Version Ids
-   * @param caseId The case Id that needs to be related to
+   * @param recordId The case Id that needs to be related to
    */
   public static void linkContentWithRecord(
     List<Id> contentVerIds,

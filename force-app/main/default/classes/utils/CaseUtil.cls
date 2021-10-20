@@ -8,6 +8,8 @@ public with sharing class CaseUtil {
   /**
    * @description Updates the case with queue
    * @param newCase The case record
+   * @param type The type of group
+   * @param queueName The name of queue
    */
   public static void updateCaseWithQueue(
     Case newCase,
