@@ -32,7 +32,8 @@ public with sharing class IDREmailServiceHandler {
         fromEmail +
         ' Subject of email : ' +
         subject +
-        ' Email sent to : '+senderEmail
+        ' Email sent to : ' +
+        senderEmail
       );
       log.publishEvent();
       isSpam = true;
@@ -154,7 +155,8 @@ public with sharing class IDREmailServiceHandler {
           fromEmail +
           ' Subject of email : ' +
           email.subject +
-          ' Email sent to : '+ senderEmail +
+          ' Email sent to : ' +
+          senderEmail +
           err.getMessage()
         );
         log.publishEvent();

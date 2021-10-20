@@ -38,9 +38,12 @@ global with sharing class IDREmailService implements Messaging.InboundEmailHandl
     String technicalEmailAddress = '';
     Map<String, IDR_Email_Settings__c> idrSettingWithSenderEmailMap = IDREmailServiceHandler.getIDREmailServiceSetting();
     if (idrSettingWithSenderEmailMap.size() > 0) {
-      technicalEmailAddress = idrSettingWithSenderEmailMap.get(senderEmail.toLowerCase())
+      technicalEmailAddress = idrSettingWithSenderEmailMap.get(
+          senderEmail.toLowerCase()
+        )
         ?.Technical_Email_Address__c;
-      caseOrigin = idrSettingWithSenderEmailMap.get(senderEmail.toLowerCase())?.Origin__c;
+      caseOrigin = idrSettingWithSenderEmailMap.get(senderEmail.toLowerCase())
+        ?.Origin__c;
       if (technicalEmailAddress == null) {
         for (
           IDR_Email_Settings__c idrem : idrSettingWithSenderEmailMap.values()
