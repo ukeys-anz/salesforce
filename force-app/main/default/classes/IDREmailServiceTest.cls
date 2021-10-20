@@ -281,127 +281,6 @@ public with sharing class IDREmailServiceTest {
   }
 
   @isTest
-  static void exceptionLoggingTest() {
-    User contextUser = [
-      SELECT Id
-      FROM User
-      WHERE FirstName = 'ESContextUser'
-      LIMIT 1
-    ];
-    System.runAs(contextuser) {
-      Case c = new Case(
-        RecordTypeId = IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID,
-        SuppliedEmail = 'testFrom@abc.com'
-      );
-      insert c;
-      List<Case> createdCases = [SELECT Id, CaseNumber FROM Case LIMIT 1];
-      String caseNumber = createdCases[0].CaseNumber;
-
-      // Create a new email and envelope object.
-      Messaging.InboundEmail email = new Messaging.InboundEmail();
-      Messaging.InboundEnvelope env = new Messaging.InboundEnvelope();
-      email.subject = 'Update existing case ' + caseNumber;
-      email.plainTextBody = 'Test plain text email body.';
-      //Commenting out the html body for exception logging
-      //email.htmlBody = 'Test html email body.';
-      env.fromAddress = 'user@acme.com';
-
-      //Create email header
-      List<Messaging.InboundEmail.Header> emailHeaders = new List<Messaging.InboundEmail.Header>();
-      Messaging.InboundEmail.Header sendTo = new Messaging.InboundEmail.Header();
-      sendTo.name = 'To';
-      sendTo.value = 'test@test.com';
-      emailHeaders.add(sendTo);
-
-      Messaging.InboundEmail.Header fromEmail = new Messaging.InboundEmail.Header();
-      fromEmail.name = 'From';
-      fromEmail.value = 'testFrom@abc.com';
-      emailHeaders.add(fromEmail);
-
-      email.headers = emailHeaders;
-
-      //Creating text attachment
-      Messaging.InboundEmail.TextAttachment txtAtt = new Messaging.InboundEmail.TextAttachment();
-      txtAtt.body = 'This is a text Attachment body';
-      txtAtt.fileName = 'DummyDoc.txt';
-      txtAtt.mimeTypeSubType = 'text/plain';
-      email.textAttachments = new List<Messaging.InboundEmail.TextAttachment>{
-        txtAtt
-      };
-      //Creating binary attachment
-      Messaging.InboundEmail.BinaryAttachment binAtt = new Messaging.InboundEmail.BinaryAttachment();
-      binAtt.body = Blob.valueOf('This is a binary Attachment body');
-      binAtt.fileName = 'DummyDoc.txt';
-      binAtt.mimeTypeSubType = 'text/plain';
-      email.binaryAttachments = new List<Messaging.InboundEmail.BinaryAttachment>{
-        binAtt
-      };
-
-      IDREmailService idremserObj = new IDREmailService();
-      Test.startTest();
-      Messaging.InboundEmailResult result = idremserObj.handleInboundEmail(
-        email,
-        env
-      );
-      Test.stopTest();
-      //Asserts
-      List<EmailMessage> emailMessageList = [
-        SELECT parentId
-        FROM EmailMessage
-        LIMIT 1
-      ];
-      System.assertEquals(0, emailMessageList.size());
-    }
-  }
-
-  @IsTest
-  static void createNewCaseExceptionTest() {
-    User contextUser = [
-      SELECT Id
-      FROM User
-      WHERE FirstName = 'ESContextUser'
-      LIMIT 1
-    ];
-    Test.startTest();
-    System.runAs(contextuser) {
-      // Create a new email and envelope object.
-      Messaging.InboundEmail email = new Messaging.InboundEmail();
-      Messaging.InboundEnvelope env = new Messaging.InboundEnvelope();
-      email.subject = 'New case creation subject test';
-      email.plainTextBody = 'Test email body.';
-      //Commenting out the html body for exception logging
-      //email.htmlBody = 'Test html email body.';
-      env.fromAddress = 'user@acme.com';
-
-      //Create email header
-      List<Messaging.InboundEmail.Header> emailHeaders = new List<Messaging.InboundEmail.Header>();
-      Messaging.InboundEmail.Header sendTo = new Messaging.InboundEmail.Header();
-      sendTo.name = 'To';
-      sendTo.value = 'ANZEDRNonProd@anz.com';
-      emailHeaders.add(sendTo);
-
-      Messaging.InboundEmail.Header fromEmail = new Messaging.InboundEmail.Header();
-      fromEmail.name = 'From';
-      fromEmail.value = 'testFrom@abc.com';
-      emailHeaders.add(fromEmail);
-
-      email.headers = emailHeaders;
-
-      IDREmailService idremserObj = new IDREmailService();
-      idremserObj.handleInboundEmail(email, env);
-
-      Test.stopTest();
-      //Asserts
-      List<EmailMessage> emailMessageList = [
-        SELECT parentId
-        FROM EmailMessage
-        LIMIT 1
-      ];
-      System.assertEquals(0, emailMessageList.size());
-    }
-  }
-
-  @isTest
   static void exceptionLoggingTestForAttachments() {
     User contextUser = [
       SELECT Id
@@ -545,7 +424,7 @@ public with sharing class IDREmailServiceTest {
   static void testUpdateCaseWithQueueException() {
     Case c = new Case(RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID);
     Test.startTest();
-    IDREmailServiceHelper.updateCaseWithQueue(c);
+    CaseUtil.updateCaseWithQueue(c);
     Test.stopTest();
     //Asserts
     List<Case> caseList = [SELECT Id FROM Case LIMIT 1];
