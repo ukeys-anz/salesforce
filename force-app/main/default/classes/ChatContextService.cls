@@ -102,7 +102,9 @@ global with sharing class ChatContextService {
               acc.OCV_ID__c,
               existingCase.CaseNumber,
               '',
-              existingCase.Sub_Type__c
+              String.isNotBlank(existingCase.Sub_Type__c)
+                ? existingCase.Sub_Type__c
+                : 'Other Enquiries'
             )
           );
           caseExists = true;
