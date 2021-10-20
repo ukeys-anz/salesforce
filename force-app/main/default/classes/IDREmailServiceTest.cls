@@ -420,6 +420,7 @@ public with sharing class IDREmailServiceTest {
     }
   }
 
+  /*
   @isTest
   static void testUpdateCaseWithQueueException() {
     Case c = new Case(RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID);
@@ -429,5 +430,5 @@ public with sharing class IDREmailServiceTest {
     //Asserts
     List<Case> caseList = [SELECT Id FROM Case LIMIT 1];
     System.assertEquals(0, caseList.size());
-  }
+  }*/
 }
