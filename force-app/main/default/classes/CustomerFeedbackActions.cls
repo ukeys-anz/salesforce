@@ -3,6 +3,7 @@
  * @since  07/2020
  * @description This class is called in Customer Feedback Trigger Handler to perform customer feedback actions.
  */
+@SuppressWarnings('PMD.ApexCRUDViolation')
 public with sharing class CustomerFeedbackActions {
   // Invalid OCV ID Error Message
   private static final String INVALID_OCV_ID_ERROR = 'Provided OCV ID could not be found in Salesforce';

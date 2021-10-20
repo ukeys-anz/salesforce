@@ -9953,6 +9953,10 @@
     <name>ViewSetup</name>
   </userPermissions>
   <userPermissions>
+    <enabled>true</enabled>
+    <name>ViewDeveloperName</name>
+  </userPermissions>
+  <userPermissions>
     <enabled>false</enabled>
     <name>OverrideForecasts</name>
   </userPermissions>

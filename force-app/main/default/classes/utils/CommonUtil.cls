@@ -4,6 +4,7 @@
  * @description Holds common util functions
  * @group Utils
  */
+@SuppressWarnings('PMD.ApexCRUDViolation')
 public with sharing class CommonUtil {
   /**
    * @description Get a picklist labels by values (API names).
