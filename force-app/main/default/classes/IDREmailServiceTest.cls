@@ -424,7 +424,7 @@ public with sharing class IDREmailServiceTest {
   static void testUpdateCaseWithQueueException() {
     Case c = new Case(RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID);
     Test.startTest();
-    CaseUtil.updateCaseWithQueue(c);
+    CaseUtil.updateCaseWithQueue(c, 'Queue', 'Indexing_Queue');
     Test.stopTest();
     //Asserts
     List<Case> caseList = [SELECT Id FROM Case LIMIT 1];
