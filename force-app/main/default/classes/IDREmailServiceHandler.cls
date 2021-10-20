@@ -154,7 +154,7 @@ public with sharing class IDREmailServiceHandler {
           fromEmail +
           ' Subject of email : ' +
           email.subject +
-          ' Email sent to : '+senderEmail
+          ' Email sent to : '+ senderEmail +
           err.getMessage()
         );
         log.publishEvent();
