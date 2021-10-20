@@ -176,6 +176,14 @@
     <relatedLists>
         <relatedList>RelatedEntityHistoryList</relatedList>
     </relatedLists>
+    <relatedLists>
+        <excludeButtons>MassChangeOwner</excludeButtons>
+        <fields>NAME</fields>
+        <fields>Interaction_Type__c</fields>
+        <fields>Interaction_Owner__c</fields>
+        <fields>Interaction_Date_Time__c</fields>
+        <relatedList>Quality_Assessment__c.Related_Case__c</relatedList>
+    </relatedLists>
     <relatedObjects>ContactId</relatedObjects>
     <relatedObjects>AccountId</relatedObjects>
     <showEmailCheckbox>false</showEmailCheckbox>

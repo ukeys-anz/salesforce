@@ -5709,7 +5709,7 @@
         </values>
     </picklistValues>
     <picklistValues>
-=        <picklist>IDR_Systemic_Issue_Category__c</picklist>
+        <picklist>IDR_Systemic_Issue_Category__c</picklist>
         <values>
             <fullName>1</fullName>
             <default>false</default>

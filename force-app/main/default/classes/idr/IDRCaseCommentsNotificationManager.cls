@@ -4,6 +4,7 @@
  * @since 12/2020
  * @description Responsible to trigger the Notification when another user adds a case comment
  */
+@SuppressWarnings('PMD.ApexCRUDViolation')
 public with sharing class IDRCaseCommentsNotificationManager {
   /**
    * @description Assesses whether or not to generate a banker notification
