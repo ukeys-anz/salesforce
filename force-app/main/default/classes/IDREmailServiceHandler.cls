@@ -28,10 +28,11 @@ public with sharing class IDREmailServiceHandler {
       );
       log.error(
         'Spam detected from IDR apex email service',
-        'Recieved email from --' +
+        'Recieved email from : ' +
         fromEmail +
-        ' Subject --' +
-        subject
+        ' Subject of email : ' +
+        subject +
+        ' Email sent to : '+senderEmail
       );
       log.publishEvent();
       isSpam = true;
@@ -148,7 +149,12 @@ public with sharing class IDREmailServiceHandler {
         );
         log.error(
           'EmailServiceException',
-          'Error in creating new case from email service class :' +
+          'Error in creating new case from email service class : ' +
+          'Recieved email from : ' +
+          fromEmail +
+          ' Subject of email : ' +
+          email.subject +
+          ' Email sent to : '+senderEmail
           err.getMessage()
         );
         log.publishEvent();
