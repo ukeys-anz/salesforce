@@ -2,12 +2,12 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>DISPUTE_ATM_Card_Queue</fullName>
     <active>true</active>
-    <description>Throws error if the Case changes to the Card Disputes - General Queue and the Record Type is not ATM Dispute or Card Dispute.</description>
+    <description>Throws error if the Case is not in the Support Coach Queue or Digital Fraud Queue and the Record Type is not ATM Dispute or Card Dispute.</description>
     <errorConditionFormula>AND(
 $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
-AND(
-ISCHANGED(Queue__c),
-Owner:Queue.QueueName = &apos;Card Disputes - General Queue&apos;),
+OR(
+Owner:Queue.QueueName != &apos;Support Coach Queue&apos;,
+Owner:Queue.QueueName != &apos;Digital Fraud Queue&apos;),
 OR(
 RecordType.DeveloperName != &apos;ATM_Dispute&apos;,
 RecordType.DeveloperName != &apos;Card_Dispute&apos;)
