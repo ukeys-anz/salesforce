@@ -5,12 +5,12 @@
     <description>Throws error when the External System or External Case ID is changed and one of the values is null.</description>
     <errorConditionFormula>AND(
 $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
-OR(
+AND(
 ISCHANGED(External_System__c),
-ISCHANGED(External_Case_ID__c)),
-OR(
-ISPICKVAL(External_System__c,&apos;&apos;),
-ISNULL(External_Case_ID__c))
+ISNULL(External_Case_ID__c)) ||
+AND(
+ISCHANGED(External_Case_ID__c),
+ISPICKVAL(External_System__c,&apos;&apos;))
 )</errorConditionFormula>
     <errorMessage>Please select an External System and acknowledge that External System ID has been provided.</errorMessage>
 </ValidationRule>

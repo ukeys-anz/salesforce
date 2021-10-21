@@ -19,5 +19,5 @@ ISPICKVAL(External_System__c,&apos;&apos;),
 ISNULL(External_Case_ID__c)
 )
 )</errorConditionFormula>
-    <errorMessage>These fields are required in order to change Status to Under Investigation - External System and External Case ID.</errorMessage>
+    <errorMessage>These fields are required in order to change Status from open - External System and External Case ID.</errorMessage>
 </ValidationRule>
