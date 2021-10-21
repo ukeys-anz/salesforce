@@ -163,6 +163,47 @@ public with sharing class IDRConstants {
   }
 
   /**
+
+* @description Static variable to map anz.com Issue type field with case type field
+
+* @return anzComIssueTypeMapping map of anz.com Issue type field with case type field
+
+*/
+
+  public static final Map<String, String> anzComIssueTypeMapping {
+    get {
+      if (anzComIssueTypeMapping == null) {
+        anzComIssueTypeMapping = new Map<String, String>{
+          'Service quality' => '9',
+          'Channel accessibility' => '13',
+          'Account set-up & maintenance' => '18',
+          'Fees, interest, rewards' => '2',
+          'Financial difficulty & hardship' => '4',
+          'Collections' => '17',
+          'Lending fulfilment' => '6',
+          'Product features, offers, sales' => '15',
+          'Closure process' => '16',
+          'Credit assessment' => '5',
+          'Credit reporting' => '16',
+          'Transactions & payments' => '10',
+          'Fraud & Scams' => '14',
+          'Transaction Disputes' => '20',
+          'Privacy and Confidentiality' => '8',
+          'Advice' => '1',
+          'Insurance Claims' => '7',
+          'Disclosure' => '3',
+          'Organisational Structure & Marketing ' => '12',
+          'Remediation' => '21',
+          'Other' => '11'
+        };
+      }
+
+      return anzComIssueTypeMapping;
+    }
+    set;
+  }
+
+  /**
    * @description Static variable to list CMOS workbaskets' API names
    * @return List CMOS workbaskets' API names
    */
