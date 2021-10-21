@@ -5,9 +5,9 @@
     <description>Throws error if the Case is not in the Support Coach Queue or Digital Fraud Queue and the Record Type is not ATM Dispute or Card Dispute.</description>
     <errorConditionFormula>AND(
 $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
-AND(
-Owner:Queue.QueueName != &apos;Support Coach Queue&apos;,
-Owner:Queue.QueueName != &apos;Digital Fraud Queue&apos;),
+OR(
+NOT(Owner:Queue.QueueName = &apos;Support Coach Queue&apos;),
+NOT(Owner:Queue.QueueName = &apos;Digital Fraud Queue&apos;)),
 OR(
 RecordType.DeveloperName != &apos;ATM_Dispute&apos;,
 RecordType.DeveloperName != &apos;Card_Dispute&apos;)
