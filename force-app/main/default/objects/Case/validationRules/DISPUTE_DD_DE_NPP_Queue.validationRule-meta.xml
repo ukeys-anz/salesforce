@@ -10,8 +10,10 @@ RecordType.DeveloperName = &apos;Direct_Debit_Dispute&apos;,
 RecordType.DeveloperName = &apos;Direct_Entry_Dispute&apos;,
 RecordType.DeveloperName = &apos;NPP_Dispute&apos;),
 OR(
-Owner:Queue.QueueName != &apos;Support Coach Queue&apos;,
-Owner:Queue.QueueName != &apos;Digital Fraud Queue&apos;)
+Queue__c != &apos;Support Coach Queue&apos;,
+Queue__c != &apos;Digital Fraud Queue&apos;,
+NOT(ISNULL(Queue__c))
+)
 )</errorConditionFormula>
     <errorMessage>For this Dispute Type, please select either Support Coach Queue or Digital Fraud Queue.</errorMessage>
 </ValidationRule>
