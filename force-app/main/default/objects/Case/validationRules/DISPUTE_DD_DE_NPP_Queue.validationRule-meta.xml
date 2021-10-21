@@ -12,7 +12,7 @@ RecordType.DeveloperName = &apos;NPP_Dispute&apos;),
 OR(
 NOT(Queue__c = &apos;Support Coach Queue&apos;),
 NOT(Queue__c = &apos;Digital Fraud Queue&apos;),
-NOT(ISNULL(Queue__c))
+ISNULL(Queue__c)
 )
 )</errorConditionFormula>
     <errorMessage>For this Dispute Type, please select either Support Coach Queue or Digital Fraud Queue.</errorMessage>

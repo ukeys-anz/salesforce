@@ -11,7 +11,7 @@ RecordType.DeveloperName = &apos;Card_Dispute&apos;),
 OR(
 NOT(Queue__c = &apos;Card Disputes - General Queue&apos;),
 NOT(Queue__c = &apos;Card Disputes - Fraud Queue&apos;),
-NOT(ISNULL(Queue__c)))
+ISNULL(Queue__c))
 
 )</errorConditionFormula>
     <errorMessage>For this Dispute Type, please select either Card Disputes - General Queue or Card Disputes - Fraud Queue.</errorMessage>
