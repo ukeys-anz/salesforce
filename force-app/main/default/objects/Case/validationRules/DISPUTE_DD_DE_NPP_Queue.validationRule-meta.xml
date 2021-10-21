@@ -2,7 +2,7 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>DISPUTE_DD_DE_NPP_Queue</fullName>
     <active>true</active>
-    <description>Throws error if the Case is not in the Card Disputes - General Queue or Card Disputes - Fraud Queue and the Record Type is not Direct Debit or Direct Entry.</description>
+    <description>Throws error if the Case Record Type is Direct Debit or Direct Entry or NPP and not in the Support Coach Queue or Digital Fraud Queue.</description>
     <errorConditionFormula>AND(
 $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
 OR(
@@ -10,8 +10,8 @@ RecordType.DeveloperName = &apos;Direct_Debit_Dispute&apos;,
 RecordType.DeveloperName = &apos;Direct_Entry_Dispute&apos;,
 RecordType.DeveloperName = &apos;NPP_Dispute&apos;),
 OR(
-Queue__c != &apos;Support Coach Queue&apos;,
-Queue__c != &apos;Digital Fraud Queue&apos;,
+NOT(Queue__c = &apos;Support Coach Queue&apos;),
+NOT(Queue__c = &apos;Digital Fraud Queue&apos;),
 NOT(ISNULL(Queue__c))
 )
 )</errorConditionFormula>
