@@ -94,82 +94,33 @@ public with sharing class IDREmailServiceHandler {
   }
 
   /**
-   * @description Creates a new case
+   * @description Creates a new case, email message, attachments and updates case with queue.
    * @param email Inbound email object
    * @param senderEmail The email address sent to
    * @param fromEmail The email address recieved from
    * @param caseOrigin The case origin
    */
-  @SuppressWarnings(
-    'PMD.ExcessiveParameterList, PMD.ApexCRUDViolation'
-  ) //Since the method is already refined to reduce complexity
-  public static void createNewCase(
+  public static void createNewCaseAndEmailMsg(
     Messaging.InboundEmail email,
     String senderEmail,
     String fromEmail,
     String caseOrigin
   ) {
     //Create new case
-    /*************** LOGIC FOR CREATING NEW CASE - START *******************************/
-    Case newCase = new Case(
-      Description = email.plainTextBody?.replaceAll('<.*>', 'REMOVED'),
-      Priority = IDRConstants.CASE_PRIORITY_STANDARD,
-      Status = IDRConstants.OPEN_STATUS,
-      Subject = email.subject,
-      SuppliedEmail = fromEmail,
-      IDR_Inbox_Email_Address__c = senderEmail,
-      recordTypeId = IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID,
-      Origin = caseOrigin
+    Case newCase = IDREmailServiceHelper.createNewCase(
+      email,
+      senderEmail,
+      fromEmail,
+      caseOrigin
     );
-    if (fromEmail == System.Label.ANZ_com_Sender_Address) {
-      IDREmailToCase.parseWebFormEmail(newCase);
+    if (newCase.Id != null) {
+      //Create email message
+      IDREmailServiceHelper.createEmailMessage(email, newCase.Id);
+      //Create files from attachments
+      IDREmailServiceHelper.createAttachmentFiles(email, newCase.Id);
+      //assign indexing queue to the case
+      CaseUtil.updateCaseWithQueue(newCase, 'Queue', 'Indexing_Queue');
     }
-
-    AccessCheckUtil.AccessCheckWrapper acw = AccessCheckUtil.checkAccess(
-      'Case',
-      AccessType.CREATABLE,
-      new List<Case>{ newCase }
-    );
-    if (acw.inAccessibleFields != null) {
-      Lib_SystemLog log = new Lib_SystemLog(
-        IDREmailServiceHandler.class.getName(),
-        'createNewCase'
-      );
-      log.error(
-        'EmailServiceException',
-        'User does not have create access to fields --' + acw.inAccessibleFields
-      );
-      log.publishEvent();
-    } else {
-      try {
-        insert newCase;
-      } catch (Exception err) {
-        Lib_SystemLog log = new Lib_SystemLog(
-          IDREmailServiceHandler.class.getName(),
-          'createNewCase'
-        );
-        log.error(
-          'EmailServiceException',
-          'Error in creating new case from email service class : ' +
-          'Recieved email from : ' +
-          fromEmail +
-          ' Subject of email : ' +
-          email.subject +
-          ' Email sent to : ' +
-          senderEmail +
-          err.getMessage()
-        );
-        log.publishEvent();
-      }
-    }
-    /*************** LOGIC FOR CREATING NEW CASE - END *******************************/
-
-    //Create email message
-    IDREmailServiceHelper.createEmailMessage(email, newCase.Id);
-    //Create files from attachments
-    IDREmailServiceHelper.createAttachmentFiles(email, newCase.Id);
-    //assign indexing queue to the case
-    CaseUtil.updateCaseWithQueue(newCase, 'Queue', 'Indexing_Queue');
   }
 
   /**

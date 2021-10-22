@@ -80,7 +80,7 @@ global with sharing class IDREmailService implements Messaging.InboundEmailHandl
         createNewCase = true;
       }
       if (createNewCase) {
-        IDREmailServiceHandler.createNewCase(
+        IDREmailServiceHandler.createNewCaseAndEmailMsg(
           email,
           senderEmail,
           fromEmail,
