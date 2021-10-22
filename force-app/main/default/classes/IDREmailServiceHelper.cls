@@ -12,6 +12,7 @@ public with sharing class IDREmailServiceHelper {
    * @param senderEmail The email address sent to
    * @param fromEmail The email address recieved from
    * @param caseOrigin The case origin
+   * @return Case record
    */
   public static Case createNewCase(
     Messaging.InboundEmail email,
@@ -84,6 +85,7 @@ public with sharing class IDREmailServiceHelper {
    * @param email Inbound email object
    * @param caseId The case Id that needs to be related to
    */
+  @SuppressWarnings('PMD.ApexCRUDViolation')
   public static void createEmailMessage(
     Messaging.InboundEmail email,
     Id caseId

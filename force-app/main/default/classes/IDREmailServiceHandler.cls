@@ -100,6 +100,7 @@ public with sharing class IDREmailServiceHandler {
    * @param fromEmail The email address recieved from
    * @param caseOrigin The case origin
    */
+  @SuppressWarnings('PMD.ExcessiveParameterList')
   public static void createNewCaseAndEmailMsg(
     Messaging.InboundEmail email,
     String senderEmail,
