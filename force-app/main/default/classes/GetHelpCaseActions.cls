@@ -118,6 +118,10 @@ public with sharing class GetHelpCaseActions {
         ) {
           milestoneIds.add(record.Id);
         }
+      } else if (DISPUTE_RT_IDS.contains(record.RecordTypeId)) {
+        if (oldRecord.Status == 'Open' && record.Status != 'Open') {
+          milestoneIds.add(record.Id);
+        }
       }
     }
 
