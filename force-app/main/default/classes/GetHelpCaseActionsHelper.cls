@@ -207,7 +207,8 @@ public with sharing class GetHelpCaseActionsHelper {
     for (Case c : caseList) {
       if (
         (c.RecordTypeId == GetHelpCaseActions.GENERAL_INQUIRY_RT_ID ||
-        c.RecordTypeId == GetHelpCaseActions.COMPLAINT_ID) &&
+        c.RecordTypeId == GetHelpCaseActions.COMPLAINT_ID ||
+        GetHelpCaseActions.DISPUTE_RT_IDS.contains(c.RecordTypeId)) &&
         c.AccountId != null
       ) {
         if (!entMap.containsKey(c.AccountId)) {
