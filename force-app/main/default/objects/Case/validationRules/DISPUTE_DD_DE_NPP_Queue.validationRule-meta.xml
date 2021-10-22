@@ -9,9 +9,9 @@ OR(
 RecordType.DeveloperName = &apos;Direct_Debit_Dispute&apos;,
 RecordType.DeveloperName = &apos;Direct_Entry_Dispute&apos;,
 RecordType.DeveloperName = &apos;NPP_Dispute&apos;),
-OR(
-Owner:Queue.QueueName = &apos;Card Disputes - General Queue&apos;,
-Owner:Queue.QueueName = &apos;Card Disputes - Fraud Queue&apos;)
+AND(
+NOT(Owner:Queue.QueueName = &apos;Support Coach Queue&apos;),
+NOT(Owner:Queue.QueueName = &apos;Digital Fraud Queue&apos;))
 )</errorConditionFormula>
-    <errorMessage>For this Dispute Type, please select either Support Coach Queue or Digital Fraud Queue.</errorMessage>
+    <errorMessage>For Direct Debit, Direct Entry or NPP record types, please select either Support Coach Queue or Digital Fraud Queue.</errorMessage>
 </ValidationRule>
