@@ -45,7 +45,14 @@ public with sharing class IDREmailServiceHelper {
       );
       log.error(
         'EmailServiceException',
-        'User does not have create access to fields --' + acw.inAccessibleFields
+        'User does not have create access to fields --' +
+        acw.inAccessibleFields +
+        ' Recieved email from : ' +
+        fromEmail +
+        ' Subject of email : ' +
+        email.subject +
+        ' Email sent to : ' +
+        senderEmail
       );
       log.publishEvent();
     } else {
@@ -91,21 +98,20 @@ public with sharing class IDREmailServiceHelper {
         ?.htmlBody
         ?.replaceAll('<a.*<.{1}a>', 'REMOVED');
       emailMessage.TextBody = email?.plainTextBody;
-      if (
-        Schema.EmailMessage.sObjectType.getDescribe().isCreateable() &&
-        Schema.sObjectType.EmailMessage.fields.ParentId.isCreateable() &&
-        Schema.sObjectType.EmailMessage.fields.FromAddress.isCreateable() &&
-        Schema.sObjectType.EmailMessage.fields.FromName.isCreateable() &&
-        Schema.sObjectType.EmailMessage.fields.Subject.isCreateable() &&
-        Schema.sObjectType.EmailMessage.fields.HtmlBody.isCreateable()
-      ) {
-        insert emailMessage;
-      } else {
+      AccessCheckUtil.AccessCheckWrapper acw = AccessCheckUtil.checkAccess(
+        'EmailMessage',
+        AccessType.CREATABLE,
+        new List<EmailMessage>{ emailMessage }
+      );
+      if (acw.inAccessibleFields != null) {
         CommonUtil.logAndThrowIAE(
           IDREmailServiceHelper.class.getName(),
           'createEmailMessage',
-          'Not enough permissions to create EmailMessage.'
+          'User does not have create access to fields -- ' +
+          acw.inAccessibleFields
         );
+      } else {
+        insert emailMessage;
       }
     } catch (Exception err) {
       Lib_SystemLog log = new Lib_SystemLog(
