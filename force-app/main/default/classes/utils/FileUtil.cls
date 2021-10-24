@@ -88,12 +88,19 @@ public with sharing class FileUtil {
     }
 
     if (contentDocLinkList.size() > 0) {
-      if (
-        ContentDocumentLink.sObjectType.getDescribe().isCreateable() &&
-        Schema.sObjectType.ContentDocumentLink.fields.ContentDocumentId.isCreateable() &&
-        Schema.sObjectType.ContentDocumentLink.fields.LinkedEntityId.isCreateable() &&
-        Schema.sObjectType.ContentDocumentLink.fields.ShareType.isCreateable()
-      ) {
+      AccessCheckUtil.AccessCheckWrapper acw = AccessCheckUtil.checkAccess(
+        'ContentDocumentLink',
+        AccessType.CREATABLE,
+        contentDocLinkList
+      );
+      if (acw.inAccessibleFields != null) {
+        CommonUtil.logAndThrowIAE(
+          FileUtil.class.getName(),
+          'linkContentWithRecord',
+          'User does not have create access to fields of ContentDocumentLink --' +
+          acw.inAccessibleFields
+        );
+      } else {
         List<Database.SaveResult> results = Database.insert(
           contentDocLinkList,
           false
@@ -108,12 +115,6 @@ public with sharing class FileUtil {
           contentDocLinkList
         );
         log.insertLogAsync();
-      } else {
-        CommonUtil.logAndThrowIAE(
-          FileUtil.class.getName(),
-          'linkContentWithRecord',
-          'Not enough permissions to create ContentDocumentLink.'
-        );
       }
     }
   }

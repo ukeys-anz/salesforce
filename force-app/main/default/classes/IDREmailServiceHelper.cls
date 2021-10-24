@@ -149,7 +149,19 @@ public with sharing class IDREmailServiceHelper {
     contentVersionList.addAll(getTextBinaryAttachments(bAttachments, caseId));
 
     if (contentVersionList.size() > 0) {
-      if (ContentVersion.sObjectType.getDescribe().isCreateable()) {
+      AccessCheckUtil.AccessCheckWrapper acw = AccessCheckUtil.checkAccess(
+        'ContentVersion',
+        AccessType.CREATABLE,
+        contentVersionList
+      );
+      if (acw.inAccessibleFields != null) {
+        CommonUtil.logAndThrowIAE(
+          IDREmailServiceHelper.class.getName(),
+          'createAttachmentFiles',
+          'User does not have create access to fields of ContentVersion --' +
+          acw.inAccessibleFields
+        );
+      } else {
         List<Database.SaveResult> results = Database.insert(
           contentVersionList,
           false
@@ -164,12 +176,6 @@ public with sharing class IDREmailServiceHelper {
           contentVersionList
         );
         log.insertLogAsync();
-      } else {
-        CommonUtil.logAndThrowIAE(
-          IDREmailServiceHelper.class.getName(),
-          'createAttachmentFiles',
-          'Not enough permissions to create ContentVersion.'
-        );
       }
     }
 
@@ -286,11 +292,19 @@ public with sharing class IDREmailServiceHelper {
     String queueName
   ) {
     Group queue = CommonUtil.getGroupDetails(type, queueName);
-    if (
-      queue != null &&
-      Case.sObjectType.getDescribe().isUpdateable() &&
-      Schema.sObjectType.Case.fields.OwnerId.isUpdateable()
-    ) {
+    AccessCheckUtil.AccessCheckWrapper acw = AccessCheckUtil.checkAccess(
+      'Case',
+      AccessType.UPDATABLE,
+      new List<Case>{ newCase }
+    );
+    if (acw.inAccessibleFields != null) {
+      CommonUtil.logAndThrowIAE(
+        IDREmailServiceHelper.class.getName(),
+        'updateCaseWithQueue',
+        'User does not have edit access to fields of Case --' +
+        acw.inAccessibleFields
+      );
+    } else {
       newCase.OwnerId = queue.Id;
       try {
         update newCase;
@@ -307,12 +321,6 @@ public with sharing class IDREmailServiceHelper {
         );
         log.publishEvent();
       }
-    } else {
-      CommonUtil.logAndThrowIAE(
-        IDREmailServiceHelper.class.getName(),
-        'updateCaseWithQueue',
-        'Case is not updateable for the current user.'
-      );
     }
   }
 }

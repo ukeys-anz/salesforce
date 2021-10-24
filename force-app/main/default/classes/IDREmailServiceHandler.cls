@@ -115,11 +115,8 @@ public with sharing class IDREmailServiceHandler {
       caseOrigin
     );
     if (newCase.Id != null) {
-      //Create email message
       IDREmailServiceHelper.createEmailMessage(email, newCase.Id);
-      //Create files from attachments
       IDREmailServiceHelper.createAttachmentFiles(email, newCase.Id);
-      //assign indexing queue to the case
       IDREmailServiceHelper.updateCaseWithQueue(
         newCase,
         'Queue',
