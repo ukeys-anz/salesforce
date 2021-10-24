@@ -286,6 +286,7 @@ public with sharing class IDREmailServiceHelper {
    * @param type The type of group
    * @param queueName The name of queue
    */
+  @SuppressWarnings('PMD.ApexCRUDViolation')
   public static void updateCaseWithQueue(
     Case newCase,
     String type,
