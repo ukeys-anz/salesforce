@@ -120,7 +120,11 @@ public with sharing class IDREmailServiceHandler {
       //Create files from attachments
       IDREmailServiceHelper.createAttachmentFiles(email, newCase.Id);
       //assign indexing queue to the case
-      CaseUtil.updateCaseWithQueue(newCase, 'Queue', 'Indexing_Queue');
+      IDREmailServiceHelper.updateCaseWithQueue(
+        newCase,
+        'Queue',
+        'Indexing_Queue'
+      );
     }
   }
 
