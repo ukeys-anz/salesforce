@@ -413,11 +413,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
       event.detail.checked;
   }
 
-  handleIsDetailsProvidedToProductManufacturer(event) {
-    this.thirdPartyIsDetailsProvidedToProductManufacturer =
-      event.detail.checked;
-  }
-
   handleFinancialCompensation(event) {
     this.financialCompensation = event.target.value;
   }
