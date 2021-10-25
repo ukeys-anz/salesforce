@@ -472,6 +472,7 @@
         <editable>false</editable>
         <field>Case.Fraud_Total_Scam_Value__c</field>
         <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.Goods_Or_Services_Returned__c</field>

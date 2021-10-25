@@ -460,32 +460,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-<<<<<<< HEAD
-=======
-        <field>Case.Goods_Or_Services_Returned__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Case.IDR_NC_Email__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
->>>>>>> epic/disputes
         <field>Case.Has_The_Card_Been_Stopped__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-<<<<<<< HEAD
-=======
-        <field>Case.Has_The_Card_Been_Stopped__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
->>>>>>> epic/disputes
         <field>Case.IDR_3rdParty_Country__c</field>
         <readable>true</readable>
     </fieldPermissions>
