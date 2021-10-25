@@ -8,7 +8,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Account/Policy the complaint relates to. Contents will be automatically masked leaving last 4 digits identifiable.</inlineHelpText>
     <label>Account/Policy Number</label>
-    <length>42</length>
+    <length>255</length>
     <securityClassification>Confidential</securityClassification>
     <required>false</required>
     <trackHistory>false</trackHistory>
