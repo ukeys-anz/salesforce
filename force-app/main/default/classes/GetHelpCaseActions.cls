@@ -29,8 +29,6 @@ public with sharing class GetHelpCaseActions {
 
   public static final String MILESTONE_NAME = 'Resolution Time';
 
-  public static final String MILESTONE_NAME = 'Resolution Time';
-
   public static final String MISALIGNED_FINANCIAL_ACCOUNT_ERROR = 'Error occurred while create dispute.  There is a misalignment between customer\'s OCV ID and Financial Account';
 
   /**
