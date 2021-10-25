@@ -121,6 +121,22 @@
         <value>/anz-exp-sfdc-coach-banking-api/api/cards/</value>
     </labels>
     <labels>
+        <fullName>MS_Get_StatementList</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_StatementList</shortDescription>
+        <value>/anz-exp-sfdc-coach-banking-api/api/cards/</value>
+    </labels>
+    <labels>
+        <fullName>MS_Get_StatementUrl</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_StatementUrl</shortDescription>
+        <value>/anz-exp-sfdc-coach-banking-api/api/cards/</value>
+    </labels>
+    <labels>
         <fullName>Test_Bulk_Size</fullName>
         <categories>Technical</categories>
         <language>en_US</language>

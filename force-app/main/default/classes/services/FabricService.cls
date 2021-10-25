@@ -174,4 +174,46 @@ public with sharing class FabricService extends Service {
     );
     return response;
   }
+  /**
+   * @param ocvId required to make the callout to Mulesoft
+   * @param accountNumber Account number for which we want to fetch the statements
+   * @return `HttpCalloutResponse` the api response
+   * @description fetches statements from the fabric API
+   */
+  public override HttpCalloutResponse getStatements(
+    String ocvId,
+    String accountNumber
+  ) {
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    Map<String, String> headers = new Map<String, String>();
+    setFabricCommonHeaders(ocvID, headers);
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      'callout:SF_MS_Fabric' + Label.MS_Get_StatementList,
+      HTTP_METHOD.HTTP_GET,
+      headers,
+      null
+    );
+    return response;
+  }
+  /**
+   * @param ocvId required to make the callout to Mulesoft
+   * @param statementId for which we want to fetch the statement url
+   * @return `HttpCalloutResponse` the api response
+   * @description fetches statement URL from the fabric API against the statement url mentioned
+   */
+  public override HttpCalloutResponse getStatementUrl(
+    String ocvId,
+    String statementId
+  ) {
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    Map<String, String> headers = new Map<String, String>();
+    setFabricCommonHeaders(ocvID, headers);
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      'callout:SF_MS_Fabric' + Label.MS_Get_StatementUrl,
+      HTTP_METHOD.HTTP_GET,
+      headers,
+      null
+    );
+    return response;
+  }
 }
