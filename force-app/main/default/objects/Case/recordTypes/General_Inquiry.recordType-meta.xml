@@ -4809,6 +4809,14 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Digital wallet issue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Digital wallet provisioning</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Extra Care</fullName>
             <default>false</default>
         </values>
@@ -4853,11 +4861,19 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Raising a concern</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Savings and goals</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Statements</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transaction disputes</fullName>
             <default>false</default>
         </values>
         <values>
