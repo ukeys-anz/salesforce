@@ -119,10 +119,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>External_System_Create_Datetime__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>Submitted__c</field>
             </layoutItems>
             <layoutItems>
