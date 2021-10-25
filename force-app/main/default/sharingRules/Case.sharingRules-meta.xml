@@ -126,6 +126,51 @@
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>Dispute_RTs_Coach_Lead_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All Cases having Dispute related record types are to be shared with Coach Lead with Read/Write access.</description>
+        <label>Dispute_RTs-Coach-Lead-RW</label>
+        <sharedTo>
+            <role>Coach_Lead</role>
+        </sharedTo>
+        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7</booleanFilter>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>ATM</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Card</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Direct Debit</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Direct Entry</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Urgent Dishonour Request</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>General Enquiry</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>Dispute_RTs_Coaches_RW</fullName>
         <accessLevel>Edit</accessLevel>
         <description>All Cases having Dispute related record types are to be shared with Coaches with Read/Write access.</description>
@@ -173,7 +218,8 @@
     <sharingCriteriaRules>
         <fullName>Dispute_RTs_QA_RO</fullName>
         <accessLevel>Read</accessLevel>
-        <label>Dispute_RTs_QA_RO</label>
+        <description>All Cases having Dispute related record types are to be shared with Quality Analyst with Read access.</description>
+        <label>Dispute_RTs-QA-RO</label>
         <sharedTo>
             <role>Quality_Analyst</role>
         </sharedTo>
