@@ -345,13 +345,23 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.hasThirdIssue = event.target.checked;
   }
   handleAccountNumberChange(event) {
-    this.accountOrPolicyNumber = event.target.value;
+    var myArray = event.detail.payload.values;
+    let myString = myArray.toString();
+    let final = myString.replace(/,/g, ";");
+    this.accountOrPolicyNumber = final;
   }
+
   handleAccountNumber2Change(event) {
-    this.accountOrPolicyNumber2 = event.target.value;
+    var myArray = event.detail.payload.values;
+    let myString = myArray.toString();
+    let final = myString.replace(/,/g, ";");
+    this.accountOrPolicyNumber2 = final;
   }
   handleAccountNumber3Change(event) {
-    this.accountOrPolicyNumber3 = event.target.value;
+    var myArray = event.detail.payload.values;
+    let myString = myArray.toString();
+    let final = myString.replace(/,/g, ";");
+    this.accountOrPolicyNumber3 = final;
   }
   handleCommonComplaint(event) {
     this.isCommonComplaintYesNo = event.target.value;

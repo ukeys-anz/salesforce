@@ -498,22 +498,13 @@
               </div>
               <template if:true={isCustomerComplaint}>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
-                  <!--<lightning-input-field
-                    variant="label-stacked"
-                    required
-                    field-name={accountOrPolicyNumber}
-                    data-id="accPolicyNum-id"
-                  ></lightning-input-field>-->
-                  <lightning-combobox
-                    name="Account/Policy Number"
-                    label="Account/Policy Number"
-                    aria-label="Account/Policy Number"
-                    value={accountOrPolicyNumber}
+                  <c-multi-select-combobox
+                    multi-select="true"
                     options={accountNumberOptions}
-                    onchange={handleAccountNumberChange}
+                    onselect={handleAccountNumberChange}
+                    label="Account/Policy Number"
                     data-id="accPolicyNum-id"
-                    required
-                  ></lightning-combobox>
+                  ></c-multi-select-combobox>
                 </div>
               </template>
               <div class="slds-col slds-size_1-of-4 slds-m-right_large">
@@ -572,16 +563,13 @@
                 </div>
                 <template if:true={isCustomerComplaint}>
                   <div class="slds-col slds-size_1-of-4 slds-m-right_large">
-                    <lightning-combobox
-                      name="Account/Policy Number 2"
-                      label="Account/Policy Number 2"
-                      aria-label="Account/Policy Number 2"
-                      value={accountOrPolicyNumber2}
+                    <c-multi-select-combobox
+                      multi-select="true"
                       options={accountNumberOptions}
-                      onchange={handleAccountNumber2Change}
+                      onselect={handleAccountNumber2Change}
+                      label="Account/Policy Number 2"
                       data-id="accPolicyNum2-id"
-                      required
-                    ></lightning-combobox>
+                    ></c-multi-select-combobox>
                   </div>
                 </template>
               </div>
@@ -627,16 +615,13 @@
                 </div>
                 <template if:true={isCustomerComplaint}>
                   <div class="slds-col slds-size_1-of-4 slds-m-right_large">
-                    <lightning-combobox
-                      name="Account/Policy Number 3"
-                      label="Account/Policy Number 3"
-                      aria-label="Account/Policy Number 3"
-                      value={accountOrPolicyNumber3}
+                    <c-multi-select-combobox
+                      multi-select="true"
                       options={accountNumberOptions}
-                      onchange={handleAccountNumber3Change}
+                      onselect={handleAccountNumber3Change}
+                      label="Account/Policy Number 3"
                       data-id="accPolicyNum3-id"
-                      required
-                    ></lightning-combobox>
+                    ></c-multi-select-combobox>
                   </div>
                 </template>
               </div>
