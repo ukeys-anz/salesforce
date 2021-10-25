@@ -68,9 +68,13 @@ public with sharing class GetHelpCaseActions {
 
   private static Map<String, String> caseTypeLabelByValue = new Map<String, String>();
 
-  public static final String MILESTONE_NAME = 'Resolution Time';
+  public static final String RESOLUTION_TIME_MILESTONE = 'Resolution Time';
+
+  public static final String INVESTIGATION_TIME_MILESTONE = 'Investigation Time';
 
   public static final String MISALIGNED_FINANCIAL_ACCOUNT_ERROR = 'Error occurred while create dispute.  There is a misalignment between customer\'s OCV ID and Financial Account';
+
+  private static final String UNDER_INVESTIGATION_STATUS = 'Under Investigation';
 
   /**
    * @description beforeUpdate(oldMap, records) method handles the following
@@ -85,7 +89,7 @@ public with sharing class GetHelpCaseActions {
   public static void beforeUpdate(Map<Id, SObject> oldMap, List<Case> records) {
     List<Id> caseIds = new List<Id>();
     List<Case> validateCaseList = new List<Case>();
-    List<Id> milestoneIds = new List<Id>();
+    Set<Id> milestoneCaseIds = new Set<Id>();
 
     for (Case record : (List<Case>) records) {
       Case oldRecord = (Case) oldMap.get(record.id);
@@ -103,7 +107,7 @@ public with sharing class GetHelpCaseActions {
         }
 
         if (oldRecord.Status != 'Closed' && record.Status == 'Closed') {
-          milestoneIds.add(record.Id);
+          milestoneCaseIds.add(record.Id);
         }
       } else if (record.RecordTypeId == COMPLAINT_ID) {
         if (
@@ -116,11 +120,17 @@ public with sharing class GetHelpCaseActions {
           record.Status == 'Withdrawn' ||
           record.Status == 'Resolved')
         ) {
-          milestoneIds.add(record.Id);
+          milestoneCaseIds.add(record.Id);
         }
       } else if (GetHelpCaseActionsHelper.isDispute(record)) {
         if (oldRecord.Status == 'Open' && record.Status != 'Open') {
-          milestoneIds.add(record.Id);
+          milestoneCaseIds.add(record.Id);
+        }
+        if (
+          oldRecord.Status == UNDER_INVESTIGATION_STATUS &&
+          record.Status == 'Closed'
+        ) {
+          milestoneCaseIds.add(record.Id);
         }
       }
     }
@@ -131,8 +141,16 @@ public with sharing class GetHelpCaseActions {
     if (!caseIds.isEmpty()) {
       GetHelpCaseActionsHelper.validateParentCase(caseIds, validateCaseList);
     }
-    if (!milestoneIds.isEmpty()) {
-      completeCaseMilestone(milestoneIds);
+
+    if (!milestoneCaseIds.isEmpty()) {
+      MilestoneUtils.completeMilestone(
+        milestoneCaseIds,
+        new List<String>{
+          RESOLUTION_TIME_MILESTONE,
+          INVESTIGATION_TIME_MILESTONE
+        },
+        System.now()
+      );
     }
   }
 
@@ -370,16 +388,6 @@ public with sharing class GetHelpCaseActions {
     );
     log.addDatabaseSaveResult('Case', results, new List<Case>());
     log.insertLog();
-  }
-
-  /**
-   * @description This method updates the milestone to closed when
-   * the case status is updated to clsoed
-   * @param caseIds list of case ids from the trigger
-   */
-  public static void completeCaseMilestone(List<Id> caseIds) {
-    //Mark milestones as completed
-    MilestoneUtils.completeMilestone(caseIds, MILESTONE_NAME, System.now());
   }
 
   /**
