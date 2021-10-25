@@ -4,7 +4,6 @@
  * @description  This class is contains handler methods for IDREmailService class
  * @group IDR(Internal Dispute Resolution)
  */
-@SuppressWarnings('PMD.StdCyclomaticComplexity')
 public with sharing class IDREmailServiceHandler {
   /**
    * @description Checks if the email is a spam email
@@ -29,10 +28,12 @@ public with sharing class IDREmailServiceHandler {
       );
       log.error(
         'Spam detected from IDR apex email service',
-        'Recieved email from --' +
+        'Recieved email from : ' +
         fromEmail +
-        ' Subject --' +
-        subject
+        ' Subject of email : ' +
+        subject +
+        ' Email sent to : ' +
+        senderEmail
       );
       log.publishEvent();
       isSpam = true;
@@ -93,61 +94,34 @@ public with sharing class IDREmailServiceHandler {
   }
 
   /**
-   * @description Creates a new case
+   * @description Creates a new case, email message, attachments and updates case with queue.
    * @param email Inbound email object
    * @param senderEmail The email address sent to
    * @param fromEmail The email address recieved from
    * @param caseOrigin The case origin
    */
-  @SuppressWarnings(
-    'PMD.CyclomaticComplexity, PMD.StdCyclomaticComplexity, PMD.ExcessiveParameterList'
-  ) //Since the method is already refined to reduce complexity
-  public static void createNewCase(
+  @SuppressWarnings('PMD.ExcessiveParameterList')
+  public static void createNewCaseAndEmailMsg(
     Messaging.InboundEmail email,
     String senderEmail,
     String fromEmail,
     String caseOrigin
   ) {
     //Create new case
-    Case newCase = new Case(
-      Description = email.plainTextBody?.replaceAll('<.*>', 'REMOVED'),
-      Priority = IDRConstants.CASE_PRIORITY_STANDARD,
-      Status = IDRConstants.OPEN_STATUS,
-      Subject = email.subject,
-      SuppliedEmail = fromEmail,
-      IDR_Inbox_Email_Address__c = senderEmail,
-      recordTypeId = IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID
+    Case newCase = IDREmailServiceHelper.createNewCase(
+      email,
+      senderEmail,
+      fromEmail,
+      caseOrigin
     );
-    if (caseOrigin != '') {
-      newCase.Origin = caseOrigin;
-    }
-    if (fromEmail == System.Label.ANZ_com_Sender_Address) {
-      IDREmailToCase.parseWebFormEmail(newCase);
-    }
-    try {
-      if (Case.sObjectType.getDescribe().isCreateable()) {
-        insert newCase;
-      }
-    } catch (Exception err) {
-      Lib_SystemLog log = new Lib_SystemLog(
-        IDREmailServiceHandler.class.getName(),
-        'createNewCase'
-      );
-      log.error(
-        'EmailServiceException',
-        'Error in creating new case from email service class :' +
-        err.getMessage()
-      );
-      log.publishEvent();
-    }
-
     if (newCase.Id != null) {
-      //Create email message
       IDREmailServiceHelper.createEmailMessage(email, newCase.Id);
-      //Create files from attachments
       IDREmailServiceHelper.createAttachmentFiles(email, newCase.Id);
-      //assign indexing queue to the case
-      IDREmailServiceHelper.updateCaseWithQueue(newCase);
+      IDREmailServiceHelper.updateCaseWithQueue(
+        newCase,
+        'Queue',
+        'Indexing_Queue'
+      );
     }
   }
 
