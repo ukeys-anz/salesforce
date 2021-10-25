@@ -155,11 +155,11 @@ public with sharing class GetHelpCaseActionsHelper {
   }
 
   /**
-   * @description Get a list of account Ids from general enquiry cases
+   * @description Get a list of account Ids related to entitlement enabled cases
    * @param caseList a list of cases that we need to get account ids from
    * @return list of account ids
    */
-  public static List<Id> getGeneralEnquiryAccountIds(List<Case> caseList) {
+  public static List<Id> getEntitlementAccountIds(List<Case> caseList) {
     List<Id> accountIds = new List<Id>();
     for (Case c : caseList) {
       if (

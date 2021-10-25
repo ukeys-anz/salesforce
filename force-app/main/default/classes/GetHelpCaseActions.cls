@@ -285,14 +285,14 @@ public with sharing class GetHelpCaseActions {
 
   /**
    * @description This method updates the entitlement field on the case
-   * if the case is of General Inquiry or ANZX Complaint record type
+   * if the case is of General Inquiry, ANZX Complaint, or any of the Dispute record types
    * @param caseList list of cases from the trigger
    */
   public static void updateEntitlement(List<Case> caseList) {
     List<Id> accountIds = new List<Id>();
     Map<Id, Id> entMap = new Map<Id, Id>();
 
-    accountIds = GetHelpCaseActionsHelper.getGeneralEnquiryAccountIds(caseList);
+    accountIds = GetHelpCaseActionsHelper.getEntitlementAccountIds(caseList);
 
     if (Entitlement.sObjectType.getDescribe().isQueryable()) {
       List<Entitlement> entList;
