@@ -22,10 +22,16 @@ public with sharing class GetHelpCaseActions {
     GetHelpConstants.URGENT_DISHONOUR_DISPUTE_RT_ID
   };
 
+  public static final String DUPLICATE_DISPUTE_ERROR = 'Error occurred while creating dispute. An open dispute already exists for this transaction. Case number: ';
+
   private static Map<String, String> caseTypeLabelByValue = new Map<String, String>();
   private static Map<String, String> caseSubtypeLabelByValue = new Map<String, String>();
 
   public static final String MILESTONE_NAME = 'Resolution Time';
+
+  public static final String MILESTONE_NAME = 'Resolution Time';
+
+  public static final String MISALIGNED_FINANCIAL_ACCOUNT_ERROR = 'Error occurred while create dispute.  There is a misalignment between customer\'s OCV ID and Financial Account';
 
   /**
    * @description beforeUpdate(oldMap, records) method handles the following
@@ -394,6 +400,31 @@ public with sharing class GetHelpCaseActions {
   }
 
   /**
+   * @description checkOpenDisputeOnTransaction is called onBeforeInsert to check if there is already an open dispute for a particular transaction, if so,
+   * throw an exception to prevent a duplicate dispute from being created
+   * @param records a list of cases
+   */
+  public static void checkOpenDisputeOnTransaction(List<Case> records) {
+    Set<String> transactionIds = new Set<String>();
+    List<Case> disputeCases = new List<Case>();
+    for (Case c : records) {
+      if (GetHelpCaseActionsHelper.isDispute(c)) {
+        transactionIds.add(c.Transaction_Id__c);
+        disputeCases.add(c);
+      }
+    }
+    Map<String, String> caseNumberByTransactionId = GetHelpCaseActionsHelper.getCaseNumberByTransactionId(
+      transactionIds
+    );
+    for (Case c : disputeCases) {
+      String caseNumber = caseNumberByTransactionId.get(c.Transaction_Id__c);
+      if (caseNumber != null) {
+        c.addError(DUPLICATE_DISPUTE_ERROR + caseNumber);
+      }
+    }
+  }
+
+  /**
    * @description Disable the milestone on cases that are Closed upon creation to avoid breaching SLA
    * @param records The list of cases that will check if they are closed and complete milestone accordingly
    */
@@ -405,5 +436,61 @@ public with sharing class GetHelpCaseActions {
       }
     }
     GetHelpCaseActionsHelper.completeMilestoneOnClosedCases(closedCaseIds);
+  }
+
+  /**
+   * @description Check if the provided financial account is ACTIVE and linked to the provided customer account
+   * @param records The list of cases whose financial accounts need to be validated
+   */
+  public static void validateFinancialAccByAccId(List<Case> records) {
+    Map<Integer, Case> caseByIndexMap = new Map<Integer, Case>();
+    Map<Integer, String> combinedKeyByCaseIndexMap = new Map<Integer, String>();
+    Set<Id> customerAccountIdSet = new Set<Id>();
+    Set<Id> financialAccountIdSet = new Set<Id>();
+    for (Integer i = 0; i < records.size(); i++) {
+      Case record = records[i];
+      if (
+        record.AccountId != null &&
+        record.FinServ__FinancialAccount__c != null
+      ) {
+        caseByIndexMap.put(i, record); // Get a map of each case by its index
+        combinedKeyByCaseIndexMap.put(
+          i,
+          String.valueOf(record.FinServ__FinancialAccount__c) +
+          String.valueOf(record.AccountId) // Get a map of each case's combined key (financial account Id + customer account Id) by the case's index
+        );
+        customerAccountIdSet.add(record.AccountId);
+        financialAccountIdSet.add(record.FinServ__FinancialAccount__c);
+      }
+    }
+
+    Map<Id, FinServ__FinancialAccountRole__c> financialAccRolesByIdMap = GetHelpCaseActionsHelper.getFinancialAccountRolesMap(
+      customerAccountIdSet,
+      financialAccountIdSet,
+      true
+    ); // Get a list of ACTIVE financial account roles which are linked to the provided customer accounts and financial accounts
+
+    Map<String, FinServ__FinancialAccountRole__c> roleByCombinedKeyMap = new Map<String, FinServ__FinancialAccountRole__c>();
+    for (
+      FinServ__FinancialAccountRole__c record : financialAccRolesByIdMap.values()
+    ) {
+      // Loop through the list of ACTIVE financial account roles, get a map of each role and its combined key (financial account Id + customer account Id)
+      roleByCombinedKeyMap.put(
+        String.valueOf(record.FinServ__FinancialAccount__c) +
+        String.valueOf(record.FinServ__RelatedAccount__c),
+        record
+      );
+    }
+
+    for (Integer caseIndex : combinedKeyByCaseIndexMap.keySet()) {
+      if (
+        !roleByCombinedKeyMap.containsKey(
+          combinedKeyByCaseIndexMap.get(caseIndex)
+        ) // If an active financial role does not exist for a case's combined key, aka this case does not have an ACTIVE financial role between its customer account and financial account
+      ) {
+        caseByIndexMap.get(caseIndex)
+          .addError(MISALIGNED_FINANCIAL_ACCOUNT_ERROR); // The case will not be created
+      }
+    }
   }
 }

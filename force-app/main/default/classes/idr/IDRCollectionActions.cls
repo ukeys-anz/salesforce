@@ -86,7 +86,11 @@ public with sharing class IDRCollectionActions {
       stopCollectionAccList.clear();
     }
     if (!isCollectionEventFailed && !stopCollectionTaskList.isEmpty()) {
+<<<<<<< HEAD
       IDRTaskActions.insertSystemTasks(stopCollectionTaskList);
+=======
+      insertSystemTasks(stopCollectionTaskList);
+>>>>>>> epic/disputes
       stopCollectionTaskList.clear();
     }
   }
@@ -316,6 +320,26 @@ public with sharing class IDRCollectionActions {
   }
 
   /**
+<<<<<<< HEAD
+=======
+   * @description method to insert collection tasks and handle errors
+   * @param collectionTaskList List of collection tasks
+   */
+  public static void insertSystemTasks(List<Task> collectionTaskList) {
+    List<Database.SaveResult> results = Database.insert(
+      collectionTaskList,
+      false
+    );
+    lib_systemLog log = new lib_systemLog(
+      'IDRCollectionActions',
+      'insertSystemTasks'
+    );
+    log.addDatabaseSaveResult('Task', results, collectionTaskList);
+    log.insertLogAsync();
+  }
+
+  /**
+>>>>>>> epic/disputes
    * @description method to trigger start collections activity in downstream systems when collections flag is turned on for an account number on a complaint.
    * @param records List of Case records in current  trigger context
    * @param oldMap old Map of Case records in current  trigger context
@@ -398,7 +422,11 @@ public with sharing class IDRCollectionActions {
       startCollectionAccList.clear();
     }
     if (!isCollectionEventFailed && !startCollectionTaskList.isEmpty()) {
+<<<<<<< HEAD
       IDRTaskActions.insertSystemTasks(startCollectionTaskList);
+=======
+      insertSystemTasks(startCollectionTaskList);
+>>>>>>> epic/disputes
       startCollectionTaskList.clear();
     }
   }

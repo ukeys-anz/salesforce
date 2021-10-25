@@ -3,10 +3,16 @@
     {
       "id": "CH147c6128b4864e0aaadc58d87d74e50c",
       "name": "Demo1",
+<<<<<<< HEAD
       "status": "inactive",
       "chatFlowStatus": "ON_HOLD",
       "lastModified": "2021-02-18T03:53:45Z",
       "onHoldReason": "WAITING_ON_CUSTOMER"
+=======
+      "status": "active",
+      "chatFlowStatus": "NEW",
+      "lastModified": "2021-02-18T03:53:45Z"
+>>>>>>> epic/disputes
     },
     {
       "id": "CH07de552ae10641328a77758d2dc9c777",
@@ -17,8 +23,15 @@
     }
   ],
   "_links": {
+<<<<<<< HEAD
     "next": "/chat/users/4017631302/channels?limit=3&sortBy=lastModified&order=desc&offset=PTCH2e701f0ed62b4e2689a37ef09290251e",
     "self": "/chat/users/4017631302/channels?limit=3&sortBy=lastModified&order=desc"
+=======
+    "_links": {
+      "next": "/chat/users/4017631302/channels?limit=3&sortBy=lastModified&order=desc&offset=PTCH2e701f0ed62b4e2689a37ef09290251e",
+      "self": "/chat/users/4017631302/channels?limit=3&sortBy=lastModified&order=desc"
+    }
+>>>>>>> epic/disputes
   },
   "failures": [
     {

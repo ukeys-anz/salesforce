@@ -34,11 +34,14 @@ const getRecordAdapter = registerLdsTestWireAdapter(getRecord);
 const MOCK_ACCOUNT_RECORD = require("./data/getAccountRecord.json");
 const MOCK_CASE_RECORD = require("./data/getCaseRecord.json");
 
+<<<<<<< HEAD
 //This record also includes some account data as we are unable
 //to make multiple mock wire calls in one test
 const MOCK_QA_USER_RECORD = require("./data/getQAUserRecord.json");
 const MOCK_COACH_USER_RECORD = require("./data/getCoachUserRecord.json");
 
+=======
+>>>>>>> epic/disputes
 describe("c-chat-topic-related-list", () => {
   afterEach(() => {
     // The jsdom instance is shared across test cases in a single file so reset the DOM
@@ -67,6 +70,10 @@ describe("c-chat-topic-related-list", () => {
       let header = element.shadowRoot.querySelector(
         "span[data-id='component-header']"
       );
+<<<<<<< HEAD
+=======
+
+>>>>>>> epic/disputes
       expect(header.textContent).toBe("Chat Topics (0)");
     });
   });
@@ -138,6 +145,7 @@ describe("c-chat-topic-related-list", () => {
       expect(topicName.textContent).toBe("April2021");
     });
   });
+<<<<<<< HEAD
 
   it("tests re-initiate is visible", () => {
     getChatTopicsOnAccount.mockResolvedValue(CHAT_TOPIC_MULTIPLE);
@@ -176,4 +184,6 @@ describe("c-chat-topic-related-list", () => {
       expect(reInitiateButton).toBeFalsy();
     });
   });
+=======
+>>>>>>> epic/disputes
 });

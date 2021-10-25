@@ -10,6 +10,9 @@ import USERROLE_FIELD from "@salesforce/schema/User.UserRole.DeveloperName";
 import ACCOUNT_PPID_FIELD from "@salesforce/schema/Account.PPID__c";
 import CASE_CHANNEL_SID_FIELD from "@salesforce/schema/Case.Twilio_Channel_SID__c";
 
+import ACCOUNT_PPID_FIELD from "@salesforce/schema/Account.PPID__c";
+import CASE_CHANNEL_SID_FIELD from "@salesforce/schema/Case.Twilio_Channel_SID__c";
+
 // Util methods
 import { handleErrorShowToast } from "c/utils";
 

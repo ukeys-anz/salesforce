@@ -5709,30 +5709,38 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>IDR_Systemic_Issue_Category__c</picklist>
+        <picklist>IDR_Product_Manufacturer__c</picklist>
         <values>
-            <fullName>1</fullName>
+            <fullName>Allianz</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>2</fullName>
+            <fullName>CMC Markets</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>3</fullName>
+            <fullName>IOOF</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>4</fullName>
+            <fullName>Netwealth</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>5</fullName>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>QBE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Zurich</fullName>
             <default>false</default>
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Origin</picklist>
+=        <picklist>IDR_Systemic_Issue_Category__c</picklist>
         <values>
             <fullName>1</fullName>
             <default>false</default>

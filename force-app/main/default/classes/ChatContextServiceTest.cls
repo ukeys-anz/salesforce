@@ -115,7 +115,11 @@ public with sharing class ChatContextServiceTest {
     List<ChatContextService.ChatContextRequest> contextRequests = prepareRequest(
       'OCVID887766',
       '',
+<<<<<<< HEAD
       'About ANZ Plus',
+=======
+      'Coaching',
+>>>>>>> epic/disputes
       '1231'
     );
 

@@ -1072,7 +1072,7 @@ private class CaseTriggerHandlerTest {
         new Case(
           RecordTypeId = GetHelpConstants.CARD_DISPUTE_RT_ID,
           Type = '',
-          Dispute_Reason__c = 'Cardholder does not recognise transaction',
+          Dispute_Reason__c = 'Charged for a cancelled payment',
           AccountId = acc.Id,
           Is_The_Card_Lost_Stolen__c = 'Lost'
         )
@@ -1081,7 +1081,7 @@ private class CaseTriggerHandlerTest {
     insert newCases;
     newCases = [SELECT Subject FROM Case WHERE id = :newCases[0].id];
     system.assertEquals(
-      'Card - Cardholder does not recognise transaction',
+      'Card - Charged for a cancelled payment',
       newCases[0].Subject
     );
   }
@@ -1567,5 +1567,489 @@ private class CaseTriggerHandlerTest {
     }
 
     Test.stopTest();
+  }
+  // Test when a dispute is created with an active financial account that is not associated with its customer account,
+  // the dispute should not be created
+  @isTest
+  static void testValidateFinancialAccByAccIdWithError() {
+    // GIVEN there are 2 customer accounts, and an active financial account that is linked to customer 2
+    Faker faker = new Faker('AU');
+    Account customerAccount1 = new Account(
+      Name = 'Customer Account 1',
+      OCV_ID__c = faker.randomString(10),
+      ANZx_Customer__c = true,
+      External_Id__c = faker.randomString(10)
+    );
+    insert customerAccount1;
+
+    FinServ__FinancialAccount__c finAccountCustomer1 = new FinServ__FinancialAccount__c();
+    finAccountCustomer1.Name = 'Everyday Account';
+    finAccountCustomer1.FinServ__Balance__c = 400;
+    finAccountCustomer1.FinServ__CurrentPostedBalance__c = 400;
+    finAccountCustomer1.FinServ__Status__c = 'Active';
+    finAccountCustomer1.FinServ__FinancialAccountType__c = 'Checking';
+    finAccountCustomer1.FinServ__PrimaryOwner__c = customerAccount1.Id;
+    finAccountCustomer1.Account_Key__c = '8420742691';
+    finAccountCustomer1.Primary_Owner_Start_Date__c = Date.valueOf(
+      '2021-01-21'
+    );
+
+    insert finAccountCustomer1;
+
+    Account customerAccount2 = new Account(
+      Name = 'Customer Account 2',
+      OCV_ID__c = faker.randomString(10),
+      ANZx_Customer__c = true,
+      External_Id__c = faker.randomString(10)
+    );
+    insert customerAccount2;
+
+    FinServ__FinancialAccount__c finAccountCustomer2 = new FinServ__FinancialAccount__c();
+    finAccountCustomer2.Name = 'Everyday Account';
+    finAccountCustomer2.FinServ__Balance__c = 200;
+    finAccountCustomer2.FinServ__CurrentPostedBalance__c = 200;
+    finAccountCustomer2.FinServ__Status__c = 'Active';
+    finAccountCustomer2.FinServ__FinancialAccountType__c = 'Checking';
+    finAccountCustomer2.FinServ__PrimaryOwner__c = customerAccount2.Id;
+    finAccountCustomer2.Account_Key__c = '342490981';
+    finAccountCustomer2.Primary_Owner_Start_Date__c = Date.valueOf(
+      '2021-02-11'
+    );
+
+    insert finAccountCustomer2;
+
+    // WHEN a dispute is created with customer 1's account and customer 2's financial account
+    Case atmDispute = new Case();
+    atmDispute.AccountId = customerAccount1.Id;
+    atmDispute.FinServ__FinancialAccount__c = finAccountCustomer2.Id;
+    atmDispute.RecordTypeId = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
+      'ATM_Dispute'
+    );
+    atmDispute.Dispute_Reason__c = 'Unauthorised Transaction';
+    atmDispute.Origin = 'Chat';
+    atmDispute.Status = 'Open';
+
+    Test.startTest();
+    try {
+      insert atmDispute;
+    } catch (DmlException e) {
+      // THEN the dispute should not be created and an error is thrown indicating that there is a misalignment
+      // between the customer account and the financial account
+      System.assertEquals(
+        true,
+        e.getMessage()
+          .contains(GetHelpCaseActions.MISALIGNED_FINANCIAL_ACCOUNT_ERROR),
+        'Error messages match.'
+      );
+    }
+    Test.stopTest();
+
+    List<Case> createdDisputes = [
+      SELECT Id
+      FROM Case
+      WHERE Dispute_Reason__c = 'Unauthorised Transaction'
+    ];
+    System.assertEquals(0, createdDisputes.size(), 'Disputes were created.'); // Check that no disputes have created
+  }
+
+  // Test when several disputes are created with an active financial account that is not associated with its customer account,
+  // the disputes should not be created
+  @isTest
+  static void testValidateFinancialAccByAccIdWithErrorBothWrong() {
+    // GIVEN there are 2 customer accounts, and an active financial account that is linked to customer 2
+    Faker faker = new Faker('AU');
+    Account customerAccount1 = new Account(
+      Name = 'Customer Account 1',
+      OCV_ID__c = faker.randomString(10),
+      ANZx_Customer__c = true,
+      External_Id__c = faker.randomString(10)
+    );
+    insert customerAccount1;
+
+    FinServ__FinancialAccount__c finAccountCustomer1 = new FinServ__FinancialAccount__c();
+    finAccountCustomer1.Name = 'Everyday Account';
+    finAccountCustomer1.FinServ__Balance__c = 400;
+    finAccountCustomer1.FinServ__CurrentPostedBalance__c = 400;
+    finAccountCustomer1.FinServ__Status__c = 'Active';
+    finAccountCustomer1.FinServ__FinancialAccountType__c = 'Checking';
+    finAccountCustomer1.FinServ__PrimaryOwner__c = customerAccount1.Id;
+    finAccountCustomer1.Account_Key__c = '8420742691';
+    finAccountCustomer1.Primary_Owner_Start_Date__c = Date.valueOf(
+      '2021-01-21'
+    );
+
+    insert finAccountCustomer1;
+
+    Account customerAccount2 = new Account(
+      Name = 'Customer Account 2',
+      OCV_ID__c = faker.randomString(10),
+      ANZx_Customer__c = true,
+      External_Id__c = faker.randomString(10)
+    );
+    insert customerAccount2;
+
+    FinServ__FinancialAccount__c finAccountCustomer2 = new FinServ__FinancialAccount__c();
+    finAccountCustomer2.Name = 'Everyday Account';
+    finAccountCustomer2.FinServ__Balance__c = 200;
+    finAccountCustomer2.FinServ__CurrentPostedBalance__c = 200;
+    finAccountCustomer2.FinServ__Status__c = 'Active';
+    finAccountCustomer2.FinServ__FinancialAccountType__c = 'Checking';
+    finAccountCustomer2.FinServ__PrimaryOwner__c = customerAccount2.Id;
+    finAccountCustomer2.Account_Key__c = '342490981';
+    finAccountCustomer2.Primary_Owner_Start_Date__c = Date.valueOf(
+      '2021-02-11'
+    );
+
+    insert finAccountCustomer2;
+
+    // WHEN several disputes are created with customer 1's account and customer 2's financial account
+    List<Case> disputes = new List<Case>();
+    for (Integer i = 0; i <= 2; i++) {
+      Case atmDispute = new Case();
+      atmDispute.AccountId = customerAccount1.Id;
+      atmDispute.FinServ__FinancialAccount__c = finAccountCustomer2.Id;
+      atmDispute.RecordTypeId = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
+        'ATM_Dispute'
+      );
+      atmDispute.Dispute_Reason__c = 'Unauthorised Transaction';
+      atmDispute.Origin = 'Chat';
+      atmDispute.Status = 'Open';
+
+      disputes.add(atmDispute);
+    }
+
+    Test.startTest();
+    try {
+      insert disputes;
+    } catch (DmlException e) {
+      // THEN the disputes should not be created and an error is thrown indicating that there is a misalignment
+      // between the customer account and the financial account
+      System.assertEquals(
+        true,
+        e.getMessage()
+          .contains(GetHelpCaseActions.MISALIGNED_FINANCIAL_ACCOUNT_ERROR),
+        'Error messages match.'
+      );
+    }
+
+    List<Case> createdDisputes = [
+      SELECT Id
+      FROM Case
+      WHERE Dispute_Reason__c = 'Unauthorised Transaction'
+    ];
+    System.assertEquals(0, createdDisputes.size(), 'Disputes were created.'); // Check that no disputes have created
+    Test.stopTest();
+  }
+
+  // Test when several disputes are created, 1 with and 1 without  an active financial role between its customer and financial account
+  // the dispute with the active financial account role should be created
+  @isTest
+  static void testValidateFinancialAccByAccIdWithErrorSingleCorrect() {
+    // GIVEN there are 2 customer accounts, and an active financial account that is linked to customer 2
+    Faker faker = new Faker('AU');
+    Account customerAccount1 = new Account(
+      Name = 'Customer Account 1',
+      OCV_ID__c = faker.randomString(10),
+      ANZx_Customer__c = true,
+      External_Id__c = faker.randomString(10)
+    );
+    insert customerAccount1;
+
+    FinServ__FinancialAccount__c finAccountCustomer1 = new FinServ__FinancialAccount__c();
+    finAccountCustomer1.Name = 'Everyday Account';
+    finAccountCustomer1.FinServ__Balance__c = 400;
+    finAccountCustomer1.FinServ__CurrentPostedBalance__c = 400;
+    finAccountCustomer1.FinServ__Status__c = 'Active';
+    finAccountCustomer1.FinServ__FinancialAccountType__c = 'Checking';
+    finAccountCustomer1.FinServ__PrimaryOwner__c = customerAccount1.Id;
+    finAccountCustomer1.Account_Key__c = '8420742691';
+    finAccountCustomer1.Primary_Owner_Start_Date__c = Date.valueOf(
+      '2021-01-21'
+    );
+
+    insert finAccountCustomer1;
+
+    Account customerAccount2 = new Account(
+      Name = 'Customer Account 2',
+      OCV_ID__c = faker.randomString(10),
+      ANZx_Customer__c = true,
+      External_Id__c = faker.randomString(10)
+    );
+    insert customerAccount2;
+
+    FinServ__FinancialAccount__c finAccountCustomer2 = new FinServ__FinancialAccount__c();
+    finAccountCustomer2.Name = 'Everyday Account';
+    finAccountCustomer2.FinServ__Balance__c = 200;
+    finAccountCustomer2.FinServ__CurrentPostedBalance__c = 200;
+    finAccountCustomer2.FinServ__Status__c = 'Active';
+    finAccountCustomer2.FinServ__FinancialAccountType__c = 'Checking';
+    finAccountCustomer2.FinServ__PrimaryOwner__c = customerAccount2.Id;
+    finAccountCustomer2.Account_Key__c = '342490981';
+    finAccountCustomer2.Primary_Owner_Start_Date__c = Date.valueOf(
+      '2021-02-11'
+    );
+
+    insert finAccountCustomer2;
+    // WHEN several disputes are created with customer 1's account and customer 2's financial account
+    List<Case> disputes = new List<Case>();
+    Case atmDispute1 = new Case();
+    atmDispute1.AccountId = customerAccount1.Id;
+    atmDispute1.FinServ__FinancialAccount__c = finAccountCustomer1.Id;
+    atmDispute1.RecordTypeId = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
+      'ATM_Dispute'
+    );
+    atmDispute1.Dispute_Reason__c = 'Unauthorised Transaction';
+    atmDispute1.Origin = 'Chat';
+    atmDispute1.Status = 'Open';
+
+    disputes.add(atmDispute1);
+
+    Case atmDispute2 = new Case();
+    atmDispute2.AccountId = customerAccount1.Id;
+    atmDispute2.FinServ__FinancialAccount__c = finAccountCustomer2.Id;
+    atmDispute2.RecordTypeId = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
+      'ATM_Dispute'
+    );
+    atmDispute2.Dispute_Reason__c = 'Unauthorised Transaction';
+    atmDispute2.Origin = 'Chat';
+    atmDispute2.Status = 'Open';
+
+    disputes.add(atmDispute2);
+
+    Test.startTest();
+    Database.SaveResult[] srList = Database.insert(disputes, false);
+
+    for (Database.SaveResult record : srList) {
+      if (!record.isSuccess()) {
+        System.assertEquals(
+          true,
+          record.getErrors()[0]
+            .getMessage()
+            .contains(GetHelpCaseActions.MISALIGNED_FINANCIAL_ACCOUNT_ERROR),
+          'Error messages match.'
+        );
+      }
+    }
+
+    List<Case> createdDisputes = [
+      SELECT Id
+      FROM Case
+      WHERE Dispute_Reason__c = 'Unauthorised Transaction'
+    ];
+    System.assertEquals(1, createdDisputes.size(), '1 dispute was created.'); // Check that 1 dispute was created
+    Test.stopTest();
+  }
+
+  // Test when a dispute is created with an active financial account that is associated with its customer account,
+  // the dispute should be created
+  @isTest
+  static void testValidateFinancialAccByAccIdWithoutError() {
+    // GIVEN there are 2 customer accounts, and an active financial account that is linked to customer 2
+    Faker faker = new Faker('AU');
+    Account customerAccount1 = new Account(
+      Name = 'Customer Account 1',
+      OCV_ID__c = faker.randomString(10),
+      ANZx_Customer__c = true
+    );
+    insert customerAccount1;
+    Account customerAccount2 = new Account(
+      Name = 'Customer Account 2',
+      OCV_ID__c = faker.randomString(10),
+      ANZx_Customer__c = true,
+      External_Id__c = faker.randomString(10)
+    );
+    insert customerAccount2;
+
+    FinServ__FinancialAccount__c finAccount = new FinServ__FinancialAccount__c();
+    finAccount.Name = 'Everyday Account';
+    finAccount.FinServ__Balance__c = 200;
+    finAccount.FinServ__CurrentPostedBalance__c = 200;
+    finAccount.FinServ__Status__c = 'Active';
+    finAccount.FinServ__FinancialAccountType__c = 'Checking';
+    finAccount.FinServ__PrimaryOwner__c = customerAccount2.Id;
+    finAccount.Account_Key__c = '342490981';
+    finAccount.Primary_Owner_Start_Date__c = Date.valueOf('2021-02-11');
+
+    insert finAccount;
+
+    // WHEN a dispute is created with customer 2's account and financial account
+    Case atmDispute = new Case();
+    atmDispute.AccountId = customerAccount2.Id;
+    atmDispute.FinServ__FinancialAccount__c = finAccount.Id;
+    atmDispute.RecordTypeId = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
+      'ATM_Dispute'
+    );
+    atmDispute.Dispute_Reason__c = 'Unauthorised Transaction';
+    atmDispute.Origin = 'Chat';
+    atmDispute.Status = 'Open';
+
+    Test.startTest();
+    try {
+      insert atmDispute;
+    } catch (DmlException e) {
+      System.debug(LoggingLevel.ERROR, 'An error has occurred.');
+    }
+    Test.stopTest();
+
+    List<Case> createdDispute = [
+      SELECT Id
+      FROM Case
+      WHERE
+        Dispute_Reason__c = 'Unauthorised Transaction'
+        AND AccountId = :customerAccount2.Id
+    ];
+    System.assertEquals(
+      1,
+      createdDispute.size(),
+      'Dispute case was created successfully.' // THEN the dispute should be created
+    );
+  }
+
+  // Test when several disputes are created with an active financial account that is associated with its customer account,
+  // the disputes should be created
+  @isTest
+  static void testValidateFinancialAccByAccIdWithoutErrorMultipleCases() {
+    // GIVEN there are 2 customer accounts, and each has an active financial account
+    Faker faker = new Faker('AU');
+    Account customerAccount1 = new Account(
+      Name = 'Customer Account 1',
+      OCV_ID__c = faker.randomString(10),
+      ANZx_Customer__c = true,
+      External_Id__c = faker.randomString(10)
+    );
+    insert customerAccount1;
+
+    FinServ__FinancialAccount__c finAccountCustomer1 = new FinServ__FinancialAccount__c();
+    finAccountCustomer1.Name = 'Everyday Account';
+    finAccountCustomer1.FinServ__Balance__c = 400;
+    finAccountCustomer1.FinServ__CurrentPostedBalance__c = 400;
+    finAccountCustomer1.FinServ__Status__c = 'Active';
+    finAccountCustomer1.FinServ__FinancialAccountType__c = 'Checking';
+    finAccountCustomer1.FinServ__PrimaryOwner__c = customerAccount1.Id;
+    finAccountCustomer1.Account_Key__c = '8420742691';
+    finAccountCustomer1.Primary_Owner_Start_Date__c = Date.valueOf(
+      '2021-01-21'
+    );
+
+    insert finAccountCustomer1;
+
+    Account customerAccount2 = new Account(
+      Name = 'Customer Account 2',
+      OCV_ID__c = faker.randomString(10),
+      ANZx_Customer__c = true,
+      External_Id__c = faker.randomString(10)
+    );
+    insert customerAccount2;
+
+    FinServ__FinancialAccount__c finAccountCustomer2 = new FinServ__FinancialAccount__c();
+    finAccountCustomer2.Name = 'Everyday Account';
+    finAccountCustomer2.FinServ__Balance__c = 200;
+    finAccountCustomer2.FinServ__CurrentPostedBalance__c = 200;
+    finAccountCustomer2.FinServ__Status__c = 'Active';
+    finAccountCustomer2.FinServ__FinancialAccountType__c = 'Checking';
+    finAccountCustomer2.FinServ__PrimaryOwner__c = customerAccount2.Id;
+    finAccountCustomer2.Account_Key__c = '342490981';
+    finAccountCustomer2.Primary_Owner_Start_Date__c = Date.valueOf(
+      '2021-02-11'
+    );
+
+    insert finAccountCustomer2;
+
+    // WHEN 2 disputes are created, 1 with customer 1's account and financial account
+    // 1 with customer 2's account and financial account
+    List<Case> disputes = new List<Case>();
+    Case atmDispute1 = new Case();
+    atmDispute1.AccountId = customerAccount1.Id;
+    atmDispute1.FinServ__FinancialAccount__c = finAccountCustomer1.Id;
+    atmDispute1.RecordTypeId = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
+      'ATM_Dispute'
+    );
+    atmDispute1.Dispute_Reason__c = 'Unauthorised Transaction';
+    atmDispute1.Origin = 'Chat';
+    atmDispute1.Status = 'Open';
+    disputes.add(atmDispute1);
+
+    Case atmDispute2 = new Case();
+    atmDispute2.AccountId = customerAccount2.Id;
+    atmDispute2.FinServ__FinancialAccount__c = finAccountCustomer2.Id;
+    atmDispute2.RecordTypeId = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
+      'ATM_Dispute'
+    );
+    atmDispute2.Dispute_Reason__c = 'Unauthorised Transaction';
+    atmDispute2.Origin = 'Chat';
+    atmDispute2.Status = 'Open';
+
+    disputes.add(atmDispute2);
+
+    Test.startTest();
+    try {
+      insert disputes;
+    } catch (DmlException e) {
+      // THEN the disputes should not be created and an error is thrown indicating that there is a misalignment
+      // between the customer account and the financial account
+      System.assertEquals(
+        true,
+        e.getMessage()
+          .contains(GetHelpCaseActions.MISALIGNED_FINANCIAL_ACCOUNT_ERROR),
+        'Error messages match.'
+      );
+    }
+
+    List<Case> createdDisputes = [
+      SELECT Id
+      FROM Case
+      WHERE Dispute_Reason__c = 'Unauthorised Transaction'
+    ];
+    System.assertEquals(
+      2,
+      createdDisputes.size(),
+      'Both disputes were created.'
+    ); // Check that both disputes have been created
+    Test.stopTest();
+  }
+
+  @isTest
+  static void testCaseNotifiationAfterUpdate() {
+    Case parentCase = new Case(
+      RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+      Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
+      IDR_Customer_Number__c = '1234567890',
+      Priority = 'Standard',
+      Type = '5',
+      IDR_Subsequent_Issue__c = '38'
+    );
+    insert parentCase;
+    Case[] newCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+          Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
+          IDR_Customer_Number__c = '1234567890',
+          Priority = 'Standard',
+          Type = '5',
+          IDR_Subsequent_Issue__c = '38'
+        )
+      );
+    }
+    insert newCases;
+    Test.startTest();
+    List<Case> caseList = [
+      SELECT Id, Origin, CaseNumber, ParentId
+      FROM Case
+      WHERE Id != :parentCase.Id
+    ];
+    for (Case c : caseList) {
+      c.ParentId = parentCase.Id;
+    }
+    CheckRecursive.firstCall = false;
+    update caseList;
+    Test.stopTest();
+    System.assertEquals(
+      parentCase.Id,
+      [SELECT ParentId FROM Case WHERE Id != :parentCase.Id LIMIT 1]
+      .ParentId,
+      'Issue while updating parentId'
+    );
   }
 }

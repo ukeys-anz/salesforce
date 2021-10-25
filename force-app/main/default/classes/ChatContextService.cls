@@ -237,8 +237,18 @@ global with sharing class ChatContextService {
   ) {
     // Insert new Case records to represent the Chat Topic
     if (!newCases.isEmpty()) {
-      List<Database.SaveResult> results = Database.insert(newCases, false);
+      if (
+        Case.sObjectType.getDescribe().isCreateable() &&
+        Schema.sObjectType.Case.fields.AccountId.isCreateable() &&
+        Schema.sObjectType.Case.fields.Origin.isCreateable() &&
+        Schema.sObjectType.Case.fields.OwnerId.isCreateable() &&
+        Schema.sObjectType.Case.fields.RecordTypeId.isCreateable() &&
+        Schema.sObjectType.Case.fields.Type.isCreateable() &&
+        Schema.sObjectType.Case.fields.Twilio_Channel_SID__c.isCreateable()
+      ) {
+        List<Database.SaveResult> results = Database.insert(newCases, false);
 
+<<<<<<< HEAD
       // Query newly inserted Cases to retrieve Case Number
       Map<ID, Case> newCaseMap = new Map<ID, Case>(
         [
@@ -296,10 +306,54 @@ global with sharing class ChatContextService {
               subtype = '';
             }
           }
+=======
+        // Query newly inserted Cases to retrive Case Number
+        Map<ID, Case> newCaseMap = new Map<ID, Case>(
+          [
+            SELECT Id, CaseNumber, Account.OCV_ID__c, Account.External_Id__c
+            FROM Case
+            WHERE Id IN :newCases
+          ]
+        );
 
-          responseList.add(
-            generateResponse(
+        for (Integer i = 0; i < newCases.size(); i++) {
+          Database.SaveResult sr = results[i];
+
+          if (sr.isSuccess()) {
+            responseList.add(
+              generateResponse(
+                newCaseMap.get(newCases[i].Id).Account.OCV_ID__c,
+                newCaseMap.get(newCases[i].Id).CaseNumber,
+                ''
+              )
+            );
+
+            responseStatusByOCVId.put(
+              newCaseMap.get(newCases[i].Id).Account.OCV_ID__c,
+              true
+            );
+          } else {
+            // Returning a success response with an error message, since Twilio could still create Tasks with Customer Identifier
+            String errorMessage =
+              'Faled to auto create a new Case against the customer customer. OCV ID: ' +
+              accountsById.get(newCases[i].AccountId).OCV_ID__c +
+              '. Error: ';
+            for (Database.Error err : sr.getErrors()) {
+              errorMessage += err;
+            }
+
+            responseList.add(
+              generateResponse(
+                accountsById.get(newCases[i].AccountId).OCV_ID__c,
+                accountsById.get(newCases[i].AccountId).External_Id__c,
+                errorMessage
+              )
+            );
+>>>>>>> epic/disputes
+
+            responseStatusByOCVId.put(
               accountsById.get(newCases[i].AccountId).OCV_ID__c,
+<<<<<<< HEAD
               accountsById.get(newCases[i].AccountId).External_Id__c,
               errorMessage,
               newCases[i].Type == 'Other Enquiries'
@@ -312,7 +366,18 @@ global with sharing class ChatContextService {
             accountsById.get(newCases[i].AccountId).OCV_ID__c,
             true
           );
+=======
+              true
+            );
+          }
+>>>>>>> epic/disputes
         }
+      } else {
+        CommonUtil.logAndThrowIAE(
+          'ChatContextService',
+          'createNewCases',
+          'Not enough permissions to create Case.'
+        );
       }
     }
 
@@ -411,6 +476,13 @@ global with sharing class ChatContextService {
     /**
      * @description PPID from Twilio
      */
+<<<<<<< HEAD
+=======
+    public String caseType { get; set; }
+    /**
+     * @description PPID from Twilio
+     */
+>>>>>>> epic/disputes
     public String ppid { get; set; }
   }
 
