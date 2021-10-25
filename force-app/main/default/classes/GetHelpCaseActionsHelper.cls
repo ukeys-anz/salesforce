@@ -341,19 +341,6 @@ public with sharing class GetHelpCaseActionsHelper {
   }
 
   /**
-   * @description Complete milestone on Closed cases
-   * @param closedCaseIds  list of closed case ids
-   */
-  @future
-  public static void completeMilestoneOnClosedCases(List<Id> closedCaseIds) {
-    MilestoneUtils.completeMilestone(
-      closedCaseIds,
-      GetHelpCaseActions.MILESTONE_NAME,
-      System.now()
-    );
-  }
-
-  /**
    * @description Gett a list of financial account roles based on financial account id, account ids and if the role should be active
    * @param financialAccIds Set of financial account Ids
    * @param accountIds List of account Ids

@@ -448,20 +448,6 @@ public with sharing class GetHelpCaseActions {
   }
 
   /**
-   * @description Disable the milestone on cases that are Closed upon creation to avoid breaching SLA
-   * @param records The list of cases that will check if they are closed and complete milestone accordingly
-   */
-  public static void disableClosedCasesMilestone(List<Case> records) {
-    List<Id> closedCaseIds = new List<Id>();
-    for (Case c : records) {
-      if (GetHelpCaseActionsHelper.isClosed(c)) {
-        closedCaseIds.add(c.Id);
-      }
-    }
-    GetHelpCaseActionsHelper.completeMilestoneOnClosedCases(closedCaseIds);
-  }
-
-  /**
    * @description Check if the provided financial account is ACTIVE and linked to the provided customer account
    * @param records The list of cases whose financial accounts need to be validated
    */
