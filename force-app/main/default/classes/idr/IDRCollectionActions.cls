@@ -343,7 +343,7 @@ public with sharing class IDRCollectionActions {
    * @param oldMap old Map of Case records in current  trigger context
    */
   @SuppressWarnings(
-    'PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity, PMD.NcssMethodCount'
+    'PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity'
   )
   public static void startCollections(
     List<Case> records,
@@ -379,35 +379,8 @@ public with sharing class IDRCollectionActions {
         }
       }
 
-      //query all stop collections task and put it in map with key as account number
-      if (!collectionAcctsList.isEmpty()) {
-        for (Task taskRec : [
-          SELECT WhatId, IDR_Collection_Number__c
-          FROM Task
-          WHERE
-            IDR_Collection_Number__c IN :collectionAcctsList
-            AND WhatId IN (
-              SELECT id
-              FROM case
-              WHERE isClosed = FALSE OR Id IN :caseIds
-            )
-        ]) {
-          if (!startCollecMap.containsKey(taskRec.IDR_Collection_Number__c)) {
-            startCollecMap.put(
-              taskRec.IDR_Collection_Number__c,
-              new Set<Id>{ taskRec.WhatId }
-            );
-          } else if (
-            startCollecMap.containsKey(taskRec.IDR_Collection_Number__c)
-          ) {
-            Set<Id> caseIdSet = startCollecMap.get(
-              taskRec.IDR_Collection_Number__c
-            );
-            caseIdSet.add(taskRec.WhatId);
-            startCollecMap.put(taskRec.IDR_Collection_Number__c, caseIdSet);
-          }
-        }
-      }
+      //Build collection map
+      startCollecMap = getStartCollecMap(collectionAcctsList, caseIds);
 
       //validate all closed records whether the stop collection is already triggered or not
       for (Case rec : finalList) {
@@ -428,6 +401,49 @@ public with sharing class IDRCollectionActions {
         startCollectionTaskList.clear();
       }
     }
+  }
+
+  /**
+   * @description method for building start collection map.
+   * @param collectionAcctsList collection accounts list
+   * @param caseIds list of case ids
+   * @return startCollecMap start collection map
+   */
+  public static Map<String, Set<Id>> getStartCollecMap(
+    Set<String> collectionAcctsList,
+    List<Id> caseIds
+  ) {
+    Map<String, Set<Id>> startCollecMap = new Map<String, Set<Id>>();
+    //query all stop collections task and put it in map with key as account number
+    if (!collectionAcctsList.isEmpty()) {
+      for (Task taskRec : [
+        SELECT WhatId, IDR_Collection_Number__c
+        FROM Task
+        WHERE
+          IDR_Collection_Number__c IN :collectionAcctsList
+          AND WhatId IN (
+            SELECT id
+            FROM case
+            WHERE isClosed = FALSE OR Id IN :caseIds
+          )
+      ]) {
+        if (!startCollecMap.containsKey(taskRec.IDR_Collection_Number__c)) {
+          startCollecMap.put(
+            taskRec.IDR_Collection_Number__c,
+            new Set<Id>{ taskRec.WhatId }
+          );
+        } else if (
+          startCollecMap.containsKey(taskRec.IDR_Collection_Number__c)
+        ) {
+          Set<Id> caseIdSet = startCollecMap.get(
+            taskRec.IDR_Collection_Number__c
+          );
+          caseIdSet.add(taskRec.WhatId);
+          startCollecMap.put(taskRec.IDR_Collection_Number__c, caseIdSet);
+        }
+      }
+    }
+    return startCollecMap;
   }
 
   /**
