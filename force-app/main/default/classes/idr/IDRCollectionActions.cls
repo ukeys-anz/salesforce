@@ -342,7 +342,9 @@ public with sharing class IDRCollectionActions {
    * @param records List of Case records in current  trigger context
    * @param oldMap old Map of Case records in current  trigger context
    */
-  @SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
+  @SuppressWarnings(
+    'PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity, PMD.NcssMethodCount'
+  )
   public static void startCollections(
     List<Case> records,
     Map<Id, SObject> oldMap
