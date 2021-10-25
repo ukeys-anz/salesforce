@@ -78,12 +78,7 @@ public with sharing class IDRCollectionActions {
         Case oldRec = (oldMap != null ? (Case) oldMap.get(rec.Id) : null);
         if (rec.recordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID) {
           validateRecordForStopCollection(rec, oldRec);
-          if (
-            (!stopCollectionAccList.isEmpty() && !rec.IsClosedOnCreate) ||
-            (!stopCollectionAccList.isEmpty() &&
-            rec.IsClosedOnCreate &&
-            oldRec != null)
-          ) {
+          if (!stopCollectionAccList.isEmpty() && !rec.IsClosedOnCreate) {
             collectionsCasesEventList.add(
               buildCollectionEvent(rec, stopCollectionAccList)
             );
