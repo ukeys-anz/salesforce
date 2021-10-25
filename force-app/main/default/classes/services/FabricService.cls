@@ -84,7 +84,7 @@ public with sharing class FabricService extends Service {
 
     String endPointParams = String.isNotBlank(paramUrl)
       ? paramUrl
-      : '?account_number=' + accountNumber;
+      : '?account_numbers=' + accountNumber;
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
       'callout:SF_MS_Fabric' +

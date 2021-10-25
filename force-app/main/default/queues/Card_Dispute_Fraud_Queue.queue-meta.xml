@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Queue xmlns="http://soap.sforce.com/2006/04/metadata">
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
-    <name>Support Coach Queue</name>
+    <name>Card Dispute - Fraud Queue</name>
     <queueMembers>
         <roles>
-            <role>Support_Coach</role>
+            <role>Card_Dispute_Agent</role>
         </roles>
     </queueMembers>
     <queueSobject>
         <sobjectType>Case</sobjectType>
+    </queueSobject>
+    <queueSobject>
+        <sobjectType>Task</sobjectType>
     </queueSobject>
 </Queue>
