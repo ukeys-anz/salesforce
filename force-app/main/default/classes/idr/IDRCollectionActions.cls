@@ -96,51 +96,77 @@ public with sharing class IDRCollectionActions {
    */
   private static void validateRecordForStopCollection(Case rec, Case oldRec) {
     if (checkIssueOne(rec, oldRec)) {
+      stopCollectionForIssueOne(rec, oldRec);
+    }
+    if (checkIssueTwo(rec, oldRec)) {
+      stopCollectionForIssueTwo(rec, oldRec);
+    }
+    if (checkIssueThree(rec, oldRec)) {
+      stopCollectionForIssueThree(rec, oldRec);
+    }
+  }
+
+  /**
+   * @description method to add issue one into stop collection event and task creation if it is eligible
+   * @param rec Case record from the trigger
+   * @param oldRec Old Case record from the trigger
+   */
+  private static void stopCollectionForIssueOne(Case rec, Case oldRec) {
+    for (
+      String accNumber : String.valueOf(rec.IDR_Collection_Number__c).split(';')
+    ) {
       stopCollectionAccList.add(
         new IDRCollectionsAccounts(
-          rec.IDR_Collection_Number__c,
+          accNumber,
           productNameMap.get(rec.Product__c).Name
         )
       );
       stopCollectionTaskList.add(
-        populateSystemTask(
-          rec,
-          STOP_COLLEC_TASK_SUBJECT,
-          rec.IDR_Account_Card_Policy_Number__c,
-          rec.IDR_Collection_Number__c
-        )
+        populateSystemTask(rec, STOP_COLLEC_TASK_SUBJECT, accNumber)
       );
     }
-    if (checkIssueTwo(rec, oldRec)) {
+  }
+
+  /**
+   * @description method to add issue two into stop collection event and task creation if it is eligible
+   * @param rec Case record from the trigger
+   * @param oldRec Old Case record from the trigger
+   */
+  private static void stopCollectionForIssueTwo(Case rec, Case oldRec) {
+    for (
+      String accNumber2 : String.valueOf(rec.IDR_Collection_Number_2__c)
+        .split(';')
+    ) {
       stopCollectionAccList.add(
         new IDRCollectionsAccounts(
-          rec.IDR_Collection_Number_2__c,
+          accNumber2,
           productNameMap.get(rec.IDR_Product_2__c).Name
         )
       );
       stopCollectionTaskList.add(
-        populateSystemTask(
-          rec,
-          STOP_COLLEC_TASK_SUBJECT,
-          rec.IDR_Account_Card_Policy_Number_2__c,
-          rec.IDR_Collection_Number_2__c
-        )
+        populateSystemTask(rec, STOP_COLLEC_TASK_SUBJECT, accNumber2)
       );
     }
-    if (checkIssueThree(rec, oldRec)) {
+  }
+
+  /**
+   * @description method to add issue three into stop collection event and task creation if it is eligible
+   * @param rec Case record from the trigger
+   * @param oldRec Old Case record from the trigger
+   */
+  private static void stopCollectionForIssueThree(Case rec, Case oldRec) {
+    for (
+      String accNumber3 : String.valueOf(rec.IDR_Collection_Number_3__c)
+        .split(';')
+    ) {
       stopCollectionAccList.add(
         new IDRCollectionsAccounts(
-          rec.IDR_Collection_Number_3__c,
+          accNumber3,
           productNameMap.get(rec.IDR_Product_3__c).Name
         )
       );
       stopCollectionTaskList.add(
-        populateSystemTask(
-          rec,
-          STOP_COLLEC_TASK_SUBJECT,
-          rec.IDR_Account_Card_Policy_Number_3__c,
-          rec.IDR_Collection_Number_3__c
-        )
+        populateSystemTask(rec, STOP_COLLEC_TASK_SUBJECT, accNumber3)
       );
     }
   }
@@ -237,19 +263,17 @@ public with sharing class IDRCollectionActions {
    * @param c case record from the trigger
    * @param subject of the task record
    * @param accountNumber of the each issue
-   * @param collectionNumber of the each issue
    * @return An instance of a Task
    */
   @SuppressWarnings('PMD.ExcessiveParameterList')
   public static Task populateSystemTask(
     Case c,
     String subject,
-    String accountNumber,
-    String collectionNumber
+    String accountNumber
   ) {
     return new Task(
       RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID,
-      IDR_Collection_Number__c = collectionNumber,
+      IDR_Collection_Number__c = accountNumber,
       WhatId = c.Id,
       Subject = subject + accountNumber,
       Status = 'Completed',
@@ -355,13 +379,19 @@ public with sharing class IDRCollectionActions {
         (oldRec == null || !oldRec.isClosed)
       ) {
         if (String.isNotBlank(rec.IDR_Collection_Number__c)) {
-          collectionAcctsList.add(rec.IDR_Collection_Number__c);
+          collectionAcctsList.addAll(
+            String.valueOf(rec.IDR_Collection_Number__c).split(';')
+          );
         }
         if (String.isNotBlank(rec.IDR_Collection_Number_2__c)) {
-          collectionAcctsList.add(rec.IDR_Collection_Number_2__c);
+          collectionAcctsList.addAll(
+            String.valueOf(rec.IDR_Collection_Number_2__c).split(';')
+          );
         }
         if (String.isNotBlank(rec.IDR_Collection_Number_3__c)) {
-          collectionAcctsList.add(rec.IDR_Collection_Number_3__c);
+          collectionAcctsList.addAll(
+            String.valueOf(rec.IDR_Collection_Number_3__c).split(';')
+          );
         }
         caseIds.add(rec.Id);
         finalList.add(rec);
@@ -427,68 +457,109 @@ public with sharing class IDRCollectionActions {
     Case rec,
     Map<String, Set<Id>> startCollecMap
   ) {
-    if (
-      startCollecMap.containsKey(rec.IDR_Collection_Number__c) &&
-      startCollecMap.get(rec.IDR_Collection_Number__c).contains(rec.Id) &&
-      startCollecMap.get(rec.IDR_Collection_Number__c).size() == 1 &&
-      productNameMap.containsKey(rec.Product__c)
-    ) {
-      startCollectionAccList.add(
-        new IDRCollectionsAccounts(
-          rec.IDR_Collection_Number__c,
-          productNameMap.get(rec.Product__c).Name
-        )
-      );
-      startCollectionTaskList.add(
-        populateSystemTask(
-          rec,
-          START_COLLEC_TASK_SUBJECT,
-          rec.IDR_Account_Card_Policy_Number__c,
-          null
-        )
-      );
+    if (String.isNotBlank(rec.IDR_Collection_Number__c)) {
+      startCollectionForIssueOne(rec, startCollecMap);
     }
-    if (
-      startCollecMap.containsKey(rec.IDR_Collection_Number_2__c) &&
-      startCollecMap.get(rec.IDR_Collection_Number_2__c).contains(rec.Id) &&
-      startCollecMap.get(rec.IDR_Collection_Number_2__c).size() == 1 &&
-      productNameMap.containsKey(rec.IDR_Product_2__c)
-    ) {
-      startCollectionAccList.add(
-        new IDRCollectionsAccounts(
-          rec.IDR_Collection_Number_2__c,
-          productNameMap.get(rec.IDR_Product_2__c).Name
-        )
-      );
-      startCollectionTaskList.add(
-        populateSystemTask(
-          rec,
-          START_COLLEC_TASK_SUBJECT,
-          rec.IDR_Account_Card_Policy_Number_2__c,
-          null
-        )
-      );
+    if (String.isNotBlank(rec.IDR_Collection_Number_2__c)) {
+      startCollectionForIssueTwo(rec, startCollecMap);
     }
-    if (
-      startCollecMap.containsKey(rec.IDR_Collection_Number_3__c) &&
-      startCollecMap.get(rec.IDR_Collection_Number_3__c).contains(rec.Id) &&
-      startCollecMap.get(rec.IDR_Collection_Number_3__c).size() == 1 &&
-      productNameMap.containsKey(rec.IDR_Product_3__c)
+    if (String.isNotBlank(rec.IDR_Collection_Number_3__c)) {
+      startCollectionForIssueThree(rec, startCollecMap);
+    }
+  }
+
+  /**
+   * @description method to add issue one into start collection event and task list
+   * @param rec current case record from the trigger
+   * @param startCollecMap Map with account number as key and set of case ids as values
+   */
+  private static void startCollectionForIssueOne(
+    Case rec,
+    Map<String, Set<Id>> startCollecMap
+  ) {
+    for (
+      String accNumber : String.valueOf(rec.IDR_Collection_Number__c).split(';')
     ) {
-      startCollectionAccList.add(
-        new IDRCollectionsAccounts(
-          rec.IDR_Collection_Number_3__c,
-          productNameMap.get(rec.IDR_Product_3__c).Name
-        )
-      );
-      startCollectionTaskList.add(
-        populateSystemTask(
-          rec,
-          START_COLLEC_TASK_SUBJECT,
-          rec.IDR_Account_Card_Policy_Number_3__c,
-          null
-        )
-      );
+      if (
+        startCollecMap.containsKey(accNumber) &&
+        startCollecMap.get(accNumber).contains(rec.Id) &&
+        startCollecMap.get(accNumber).size() == 1 &&
+        productNameMap.containsKey(rec.Product__c)
+      ) {
+        startCollectionAccList.add(
+          new IDRCollectionsAccounts(
+            accNumber,
+            productNameMap.get(rec.Product__c).Name
+          )
+        );
+        startCollectionTaskList.add(
+          populateSystemTask(rec, START_COLLEC_TASK_SUBJECT, accNumber)
+        );
+      }
+    }
+  }
+
+  /**
+   * @description method to add issue two into start collection event and task list
+   * @param rec current case record from the trigger
+   * @param startCollecMap Map with account number as key and set of case ids as values
+   */
+  private static void startCollectionForIssueTwo(
+    Case rec,
+    Map<String, Set<Id>> startCollecMap
+  ) {
+    for (
+      String accNumber2 : String.valueOf(rec.IDR_Collection_Number_2__c)
+        .split(';')
+    ) {
+      if (
+        startCollecMap.containsKey(accNumber2) &&
+        startCollecMap.get(accNumber2).contains(rec.Id) &&
+        startCollecMap.get(accNumber2).size() == 1 &&
+        productNameMap.containsKey(rec.IDR_Product_2__c)
+      ) {
+        startCollectionAccList.add(
+          new IDRCollectionsAccounts(
+            accNumber2,
+            productNameMap.get(rec.IDR_Product_2__c).Name
+          )
+        );
+        startCollectionTaskList.add(
+          populateSystemTask(rec, START_COLLEC_TASK_SUBJECT, accNumber2)
+        );
+      }
+    }
+  }
+
+  /**
+   * @description method to add issue three into start collection event and task list
+   * @param rec current case record from the trigger
+   * @param startCollecMap Map with account number as key and set of case ids as values
+   */
+  private static void startCollectionForIssueThree(
+    Case rec,
+    Map<String, Set<Id>> startCollecMap
+  ) {
+    for (
+      String accNumber3 : String.valueOf(rec.IDR_Collection_Number_3__c)
+        .split(';')
+    ) {
+      if (
+        startCollecMap.containsKey(accNumber3) &&
+        startCollecMap.get(accNumber3).contains(rec.Id) &&
+        startCollecMap.get(accNumber3).size() == 1 &&
+        productNameMap.containsKey(rec.IDR_Product_3__c)
+      ) {
+        startCollectionAccList.add(
+          new IDRCollectionsAccounts(
+            accNumber3,
+            productNameMap.get(rec.IDR_Product_3__c).Name
+          )
+        );
+        startCollectionTaskList.add(
+          populateSystemTask(rec, START_COLLEC_TASK_SUBJECT, accNumber3)
+        );
+      }
     }
   }
 
