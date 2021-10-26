@@ -39,7 +39,7 @@ public class CaseEscalateToCMOSControllerTest {
       FROM Case
     ];
 
-    Boolean result = CaseEscalateToCMOSController.actionEscalateCaseToCMOS(
+    Boolean result = CaseEscalateToCMOSController.escalateCaseToCMOS(
       newCase[0].Id
     );
     Test.stopTest();

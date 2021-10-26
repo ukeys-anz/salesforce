@@ -5,14 +5,14 @@
  */
 
 public with sharing class CaseEscalateToCMOSController {
-  @AuraEnabled
   /**
    * @description Manually Triggers the Case to Escalate to CMOS from Aura component
    * @param recordId The record ID that will be escalated
    * @return boolean - Returns manualEscalationCaseToCMOS Function result
    */
-  public static Boolean actionEscalateCaseToCMOS(String recordId) {
-    Case record = new Case(id = recordId);
+  @AuraEnabled
+  public static Boolean escalateCaseToCMOS(String recordId) {
+    Case record = new Case(Id = recordId);
 
     if (CaseEscalateToCMOS.manualEscalateCaseToCMOS(record)) {
       return true;
