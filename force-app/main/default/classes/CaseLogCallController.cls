@@ -7,21 +7,6 @@
 
 public with sharing class CaseLogCallController {
   /**
-   * @description Returns the RecordTypeId Developer name passed through
-   * @param developerName String - The developer name of the Record Type you wish to query.
-   * @return Id Returns the RecordTypeId
-   */
-  public static Id getCaseRecordTypeIdByDeveloperName(String developerName) {
-    if (String.isNotBlank(developerName)) {
-      return Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
-        .get(developerName)
-        .getRecordTypeId();
-    }
-
-    return null;
-  }
-
-  /**
    * @description Creates the Task with the data presented
    * @param fields An Object with <String, String>, must include Subject, Auth, VoiceCall, Comment and RecordID
    * @return Task Returns the newly created Task as a Task Object
