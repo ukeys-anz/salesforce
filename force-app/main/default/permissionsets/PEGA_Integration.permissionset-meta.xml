@@ -43,6 +43,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.Claimed_Amount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.Crediting_Account_BSB__c</field>
         <readable>true</readable>
     </fieldPermissions>

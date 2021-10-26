@@ -6,67 +6,26 @@
  */
 @SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
 public with sharing class GetHelpCaseActions {
-  // General Inquiry Record Type Id
-  @TestVisible
-  public static final Id GENERAL_INQUIRY_RT_ID = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
-    'General_Inquiry'
-  );
-  public static final Id FRAUD_RT_ID = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
-    'Fraud'
-  );
-  public static final Id IDENTITY_RT_ID = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
-    'Identity'
-  );
-  public static final Id RECIPIENT_MULE_RT_ID = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
-    'Recipient_Mule'
-  );
-  public static final Id SCAM_RT_ID = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
-    'Scam'
-  );
-  public static final Id KYCQA_RT_ID = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
-    'KYC_QA'
-  );
-  public static final Id BUG_RT_ID = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
-    'Bug_Enquiry'
-  );
-  @TestVisible
   public static final List<Id> FRAUD_RT_IDS = new List<Id>{
-    FRAUD_RT_ID,
-    IDENTITY_RT_ID,
-    RECIPIENT_MULE_RT_ID,
-    SCAM_RT_ID,
-    KYCQA_RT_ID
+    GetHelpConstants.FRAUD_RT_ID,
+    GetHelpConstants.IDENTITY_RT_ID,
+    GetHelpConstants.RECIPIENT_MULE_RT_ID,
+    GetHelpConstants.SCAM_RT_ID,
+    GetHelpConstants.KYCQA_RT_ID
   };
-  public static final Id ATM_DISPUTE_RT_ID = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
-    'ATM_Dispute'
-  );
-  public static final Id CARD_DISPUTE_RT_ID = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
-    'Card_Dispute'
-  );
-  public static final Id DIRECT_DEBIT_DISPUTE_RT_ID = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
-    'Direct_Debit_Dispute'
-  );
-  public static final Id DIRECT_ENTRY_DISPUTE_RT_ID = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
-    'Direct_Entry_Dispute'
-  );
-  public static final Id URGENT_DISHONOUR_DISPUTE_RT_ID = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
-    'Urgent_Dishonour_Request_Dispute'
-  );
-  @TestVisible
+
   public static final List<Id> DISPUTE_RT_IDS = new List<Id>{
-    ATM_DISPUTE_RT_ID,
-    CARD_DISPUTE_RT_ID,
-    DIRECT_DEBIT_DISPUTE_RT_ID,
-    DIRECT_ENTRY_DISPUTE_RT_ID,
-    URGENT_DISHONOUR_DISPUTE_RT_ID
+    GetHelpConstants.ATM_DISPUTE_RT_ID,
+    GetHelpConstants.CARD_DISPUTE_RT_ID,
+    GetHelpConstants.DIRECT_DEBIT_DISPUTE_RT_ID,
+    GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID,
+    GetHelpConstants.URGENT_DISHONOUR_DISPUTE_RT_ID
   };
-  public static final Id COMPLAINT_ID = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
-    'ANZx_Complaint'
-  );
 
   public static final String DUPLICATE_DISPUTE_ERROR = 'Error occurred while creating dispute. An open dispute already exists for this transaction. Case number: ';
 
   private static Map<String, String> caseTypeLabelByValue = new Map<String, String>();
+  private static Map<String, String> caseSubtypeLabelByValue = new Map<String, String>();
 
   public static final String MILESTONE_NAME = 'Resolution Time';
 
@@ -89,11 +48,14 @@ public with sharing class GetHelpCaseActions {
 
     for (Case record : (List<Case>) records) {
       Case oldRecord = (Case) oldMap.get(record.id);
-      if (oldRecord.Status != 'Closed' && record.Status == 'Closed') {
+      if (
+        oldRecord.Status != GetHelpConstants.CLOSED_STATUS &&
+        record.Status == GetHelpConstants.CLOSED_STATUS
+      ) {
         updateCaseDurationTime(record);
       }
 
-      if (record.RecordTypeId == GENERAL_INQUIRY_RT_ID) {
+      if (record.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID) {
         if (
           String.isNotBlank(record.ParentId) &&
           record.ParentId != oldRecord.ParentId
@@ -102,19 +64,22 @@ public with sharing class GetHelpCaseActions {
           validateCaseList.add(record);
         }
 
-        if (oldRecord.Status != 'Closed' && record.Status == 'Closed') {
+        if (
+          oldRecord.Status != GetHelpConstants.CLOSED_STATUS &&
+          record.Status == GetHelpConstants.CLOSED_STATUS
+        ) {
           milestoneIds.add(record.Id);
         }
-      } else if (record.RecordTypeId == COMPLAINT_ID) {
+      } else if (record.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID) {
         if (
-          oldRecord.Status != 'Closed' &&
-          oldRecord.Status != 'Escalated' &&
-          oldRecord.Status != 'Withdrawn' &&
-          oldRecord.Status != 'Resolved' &&
-          (record.Status == 'Closed' ||
-          record.Status == 'Escalated' ||
-          record.Status == 'Withdrawn' ||
-          record.Status == 'Resolved')
+          oldRecord.Status != GetHelpConstants.CLOSED_STATUS &&
+          oldRecord.Status != GetHelpConstants.ESCALATED_STATUS &&
+          oldRecord.Status != GetHelpConstants.WITHDRAWN_STATUS &&
+          oldRecord.Status != GetHelpConstants.RESOLVED_STATUS &&
+          (record.Status == GetHelpConstants.CLOSED_STATUS ||
+          record.Status == GetHelpConstants.ESCALATED_STATUS ||
+          record.Status == GetHelpConstants.WITHDRAWN_STATUS ||
+          record.Status == GetHelpConstants.RESOLVED_STATUS)
         ) {
           milestoneIds.add(record.Id);
         }
@@ -205,7 +170,10 @@ public with sharing class GetHelpCaseActions {
       caseTypeList.add(caseTypeLabelByValue.get(record.Type));
     }
     if (String.isNotBlank(record.Sub_Type__c)) {
-      caseTypeList.addAll(record.Sub_Type__c.split(';'));
+      fetchCaseSubtypeLabelsByValues();
+      for (String subTypeValue : record.Sub_Type__c.split(';')) {
+        caseTypeList.add(caseSubtypeLabelByValue.get(subTypeValue));
+      }
     }
     //populate case subject
     if (!caseTypeList.isEmpty()) {
@@ -223,7 +191,7 @@ public with sharing class GetHelpCaseActions {
     if (String.isNotBlank(record.Type)) {
       fetchCaseTypeLabelsByValues();
       // Setting a different Subject format for KYC QA Cases
-      if (KYCQA_RT_ID == record.RecordTypeId) {
+      if (record.RecordTypeId == GetHelpConstants.KYCQA_RT_ID) {
         record.Subject = caseTypeLabelByValue.get(record.Type);
       } else {
         record.Subject =
@@ -276,6 +244,17 @@ public with sharing class GetHelpCaseActions {
   public static void fetchCaseTypeLabelsByValues() {
     if (caseTypeLabelByValue.isEmpty()) {
       caseTypeLabelByValue = CommonUtil.getPicklistLabelsByValues(Case.Type);
+    }
+  }
+
+  /**
+   * @description Fetches (if not already available) a map of Case 'Sub_Type__c' Picklist Labels by Values
+   */
+  public static void fetchCaseSubtypeLabelsByValues() {
+    if (caseSubtypeLabelByValue.isEmpty()) {
+      caseSubtypeLabelByValue = CommonUtil.getPicklistLabelsByValues(
+        Case.Sub_Type__c
+      );
     }
   }
 
@@ -462,52 +441,53 @@ public with sharing class GetHelpCaseActions {
    * @param records The list of cases whose financial accounts need to be validated
    */
   public static void validateFinancialAccByAccId(List<Case> records) {
-    Map<Id, Case> caseByCaseIdMap = new Map<Id, Case>();
-    Map<Id, String> accountCombinedKeyByCaseIdMap = new Map<Id, String>();
-    Map<Id, Id> finAccIdByAccIdMap = new Map<Id, Id>();
-    for (Case record : records) {
+    Map<Integer, Case> caseByIndexMap = new Map<Integer, Case>();
+    Map<Integer, String> combinedKeyByCaseIndexMap = new Map<Integer, String>();
+    Set<Id> customerAccountIdSet = new Set<Id>();
+    Set<Id> financialAccountIdSet = new Set<Id>();
+    for (Integer i = 0; i < records.size(); i++) {
+      Case record = records[i];
       if (
-        record.FinServ__FinancialAccount__c != null &&
-        record.AccountId != null
+        record.AccountId != null &&
+        record.FinServ__FinancialAccount__c != null
       ) {
-        caseByCaseIdMap.put(record.Id, record); // Get a map of case and its Id
-        accountCombinedKeyByCaseIdMap.put(
-          record.Id,
+        caseByIndexMap.put(i, record); // Get a map of each case by its index
+        combinedKeyByCaseIndexMap.put(
+          i,
           String.valueOf(record.FinServ__FinancialAccount__c) +
-          String.valueOf(record.AccountId)
-        ); // Get a map of a case key (combination of its customer account Id and financial account Id) and its Id
-        finAccIdByAccIdMap.put(
-          record.AccountId,
-          record.FinServ__FinancialAccount__c
-        ); // Get a map of a case customer Id and its financial account Id
+          String.valueOf(record.AccountId) // Get a map of each case's combined key (financial account Id + customer account Id) by the case's index
+        );
+        customerAccountIdSet.add(record.AccountId);
+        financialAccountIdSet.add(record.FinServ__FinancialAccount__c);
       }
     }
+
     Map<Id, FinServ__FinancialAccountRole__c> financialAccRolesByIdMap = GetHelpCaseActionsHelper.getFinancialAccountRolesMap(
-      finAccIdByAccIdMap.values(),
-      finAccIdByAccIdMap.keyset(),
+      customerAccountIdSet,
+      financialAccountIdSet,
       true
     ); // Get a list of ACTIVE financial account roles which are linked to the provided customer accounts and financial accounts
 
-    Map<Id, String> combinedKeyByRoleIdMap = new Map<Id, String>();
-
+    Map<String, FinServ__FinancialAccountRole__c> roleByCombinedKeyMap = new Map<String, FinServ__FinancialAccountRole__c>();
     for (
       FinServ__FinancialAccountRole__c record : financialAccRolesByIdMap.values()
     ) {
-      // Loop through the list of ACTIVE financial account roles, get a list of keys that constructed from each role's financial account Id and customer account Id
-      combinedKeyByRoleIdMap.put(
-        record.Id,
+      // Loop through the list of ACTIVE financial account roles, get a map of each role and its combined key (financial account Id + customer account Id)
+      roleByCombinedKeyMap.put(
         String.valueOf(record.FinServ__FinancialAccount__c) +
-        String.valueOf(record.FinServ__RelatedAccount__c)
+        String.valueOf(record.FinServ__RelatedAccount__c),
+        record
       );
     }
 
-    for (String caseId : accountCombinedKeyByCaseIdMap.keySet()) {
+    for (Integer caseIndex : combinedKeyByCaseIndexMap.keySet()) {
       if (
-        !combinedKeyByRoleIdMap.values()
-          .contains(accountCombinedKeyByCaseIdMap.get(caseId)) // If a case's combination key does not exist in the list of combine keys above, aka this case does not have an ACTIVE financial role between its customer account and financial account
+        !roleByCombinedKeyMap.containsKey(
+          combinedKeyByCaseIndexMap.get(caseIndex)
+        ) // If an active financial role does not exist for a case's combined key, aka this case does not have an ACTIVE financial role between its customer account and financial account
       ) {
-        caseByCaseIdMap.get(caseId)
-          .addError(MISALIGNED_FINANCIAL_ACCOUNT_ERROR); // The case should not be created
+        caseByIndexMap.get(caseIndex)
+          .addError(MISALIGNED_FINANCIAL_ACCOUNT_ERROR); // The case will not be created
       }
     }
   }

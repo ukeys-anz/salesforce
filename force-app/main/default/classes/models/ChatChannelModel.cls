@@ -69,15 +69,6 @@ public with sharing class ChatChannelModel extends CalloutModel {
    * @description Wrapper class representing first level '_links' attributes
    */
   public class Links_Z {
-    // Object to store second level '_links' in json
-    @AuraEnabled
-    public Links links;
-  }
-
-  /**
-   * @description Wrapper class representing second level '_links' attributes
-   */
-  public class Links {
     // Endpoint URL to retrieve the next set of Channels
     @AuraEnabled
     public String next;
@@ -103,8 +94,8 @@ public with sharing class ChatChannelModel extends CalloutModel {
   @AuraEnabled
   public String getNextUrl() {
     String nextUrl;
-    if (links != null && links.links != null && links.links.next != null) {
-      nextUrl = this.links.links.next.substring(links.links.next.indexOf('?'));
+    if (links != null && links.next != null) {
+      nextUrl = this.links.next.substring(links.next.indexOf('?'));
     }
     return nextUrl;
   }
