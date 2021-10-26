@@ -50,6 +50,10 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     IDRCaseActions.completeAfterActions();
     GetHelpCaseActions.rollupRelatedBug(records, new List<Case>());
     SICaseActions.afterInsert(records);
+    QualityAssessmentActions.createQualityAssessmentWithRelatedCase(
+      records,
+      null
+    );
   }
 
   /**
@@ -83,6 +87,10 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     IDRCaseActions.completeAfterActions();
     GetHelpCaseActions.rollupRelatedBug(records, (List<Case>) oldMap.values());
     SICaseActions.afterUpdate(records, (Map<Id, Case>) oldMap);
+    QualityAssessmentActions.createQualityAssessmentWithRelatedCase(
+      records,
+      (Map<Id, Case>) oldMap
+    );
   }
 
   /**
@@ -93,7 +101,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     if (!System.isFuture()) {
       Set<Id> bugIdSet = new Set<Id>();
       for (Case c : (List<Case>) records) {
-        if (c.RecordTypeId == GetHelpCaseActions.GENERAL_INQUIRY_RT_ID) {
+        if (c.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID) {
           bugIdSet.add(c.Related_Bug__c);
         }
       }

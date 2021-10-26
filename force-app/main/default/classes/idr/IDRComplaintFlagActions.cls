@@ -4,7 +4,7 @@
  * @description  IDRComplaintFlagActions class is used to publish complaint flag event during case creation and closure.
  * @group IDR(Internal Dispute Resolution)
  */
-@SuppressWarnings('PMD.StdCyclomaticComplexity')
+@SuppressWarnings('PMD.ApexCRUDViolation,PMD.StdCyclomaticComplexity')
 public with sharing class IDRComplaintFlagActions {
   private static final String ADD_COMPLAINT_TASK_SUBJECT = 'Add Complaint event is triggered from Salesforce';
 
@@ -54,7 +54,7 @@ public with sharing class IDRComplaintFlagActions {
     }
 
     if (!isComplaintEventFailed && !complaintTaskList.isEmpty()) {
-      IDRCollectionActions.insertSystemTasks(complaintTaskList);
+      IDRTaskActions.insertSystemTasks(complaintTaskList);
       complaintTaskList.clear();
     }
   }

@@ -5469,10 +5469,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Money tiles</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>New Dispute</fullName>
             <default>false</default>
         </values>
