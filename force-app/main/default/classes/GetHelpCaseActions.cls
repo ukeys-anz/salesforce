@@ -71,7 +71,7 @@ public with sharing class GetHelpCaseActions {
           oldRecord.Status != GetHelpConstants.CLOSED_STATUS &&
           record.Status == GetHelpConstants.CLOSED_STATUS
         ) {
-          milestoneIds.add(record.Id);
+          milestoneCaseIds.add(record.Id);
         }
       } else if (record.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID) {
         if (
@@ -87,7 +87,10 @@ public with sharing class GetHelpCaseActions {
           milestoneCaseIds.add(record.Id);
         }
       } else if (GetHelpCaseActionsHelper.isDispute(record)) {
-        if (oldRecord.Status == GetHelpConstants.OPEN_STATUS && record.Status != GetHelpConstants.OPEN_STATUS) {
+        if (
+          oldRecord.Status == GetHelpConstants.OPEN_STATUS &&
+          record.Status != GetHelpConstants.OPEN_STATUS
+        ) {
           milestoneCaseIds.add(record.Id);
         }
         if (

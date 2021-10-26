@@ -164,8 +164,8 @@ public with sharing class GetHelpCaseActionsHelper {
 
     for (Case c : caseList) {
       if (
-        (c.RecordTypeId == GetHelpCaseActions.GENERAL_INQUIRY_RT_ID ||
-        c.RecordTypeId == GetHelpCaseActions.COMPLAINT_ID ||
+        (c.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID ||
+        c.RecordTypeId == GetHelpConstants.COMPLAINT_ID ||
         isDispute(c)) && c.AccountId != null
       ) {
         accountIds.add(c.AccountId);
@@ -207,8 +207,8 @@ public with sharing class GetHelpCaseActionsHelper {
   ) {
     for (Case c : caseList) {
       if (
-        (c.RecordTypeId == GetHelpCaseActions.GENERAL_INQUIRY_RT_ID ||
-        c.RecordTypeId == GetHelpCaseActions.COMPLAINT_ID ||
+        (c.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID ||
+        c.RecordTypeId == GetHelpConstants.COMPLAINT_ID ||
         isDispute(c)) && c.AccountId != null
       ) {
         if (!entMap.containsKey(c.AccountId)) {
