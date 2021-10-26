@@ -448,7 +448,7 @@ public with sharing class IDRCollectionActions {
       startCollecMap.containsKey(rec.IDR_Collection_Number__c) &&
       startCollecMap.get(rec.IDR_Collection_Number__c).contains(rec.Id) &&
       (startCollecMap.get(rec.IDR_Collection_Number__c).size() == 1 ||
-      rec.isClosed) &&
+      rec.IsClosedOnCreate) &&
       productNameMap.containsKey(rec.Product__c)
     ) {
       startCollectionAccList.add(
@@ -470,7 +470,7 @@ public with sharing class IDRCollectionActions {
       startCollecMap.containsKey(rec.IDR_Collection_Number_2__c) &&
       startCollecMap.get(rec.IDR_Collection_Number_2__c).contains(rec.Id) &&
       (startCollecMap.get(rec.IDR_Collection_Number_2__c).size() == 1 ||
-      rec.isClosed) &&
+      rec.IsClosedOnCreate) &&
       productNameMap.containsKey(rec.IDR_Product_2__c)
     ) {
       startCollectionAccList.add(
@@ -492,7 +492,7 @@ public with sharing class IDRCollectionActions {
       startCollecMap.containsKey(rec.IDR_Collection_Number_3__c) &&
       startCollecMap.get(rec.IDR_Collection_Number_3__c).contains(rec.Id) &&
       (startCollecMap.get(rec.IDR_Collection_Number_3__c).size() == 1 ||
-      rec.isClosed) &&
+      rec.IsClosedOnCreate) &&
       productNameMap.containsKey(rec.IDR_Product_3__c)
     ) {
       startCollectionAccList.add(
