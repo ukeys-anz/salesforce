@@ -14,18 +14,15 @@ public with sharing class IDRCollectionActions {
 
   private static Boolean isCollectionEventFailed = false;
 
-  public static List<IDRCollectionsAccounts> stopCollectionAccList = new List<IDRCollectionsAccounts>();
+  private static List<IDRCollectionsAccounts> stopCollectionAccList = new List<IDRCollectionsAccounts>();
 
   private static List<Task> stopCollectionTaskList = new List<Task>();
 
-  public static List<IDRCollectionsAccounts> startCollectionAccList = new List<IDRCollectionsAccounts>();
+  private static List<IDRCollectionsAccounts> startCollectionAccList = new List<IDRCollectionsAccounts>();
 
   private static List<Task> startCollectionTaskList = new List<Task>();
 
   public static Map<Id, Product2> productNameMap = new Map<Id, Product2>();
-
-  public static Boolean firstcallStopCollection = false;
-  public static Boolean firstcallStartCollection = false;
 
   /**
    * @description method to copy customer account number in bankend field for collection purposes
@@ -66,33 +63,29 @@ public with sharing class IDRCollectionActions {
     List<Case> records,
     Map<Id, SObject> oldMap
   ) {
-    if (!firstcallStopCollection) {
-      firstcallStopCollection = true;
+    //get product names from Product2 table and store the mapping in local variable
+    productNameMap = getProductNames(records);
 
-      //get product names from Product2 table and store the mapping in local variable
-      productNameMap = getProductNames(records);
+    List<IDR_Collections_Event__e> collectionsCasesEventList = new List<IDR_Collections_Event__e>();
 
-      List<IDR_Collections_Event__e> collectionsCasesEventList = new List<IDR_Collections_Event__e>();
-
-      for (Case rec : records) {
-        Case oldRec = (oldMap != null ? (Case) oldMap.get(rec.Id) : null);
-        if (rec.recordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID) {
-          validateRecordForStopCollection(rec, oldRec);
-          if (!stopCollectionAccList.isEmpty() && !rec.IsClosedOnCreate) {
-            collectionsCasesEventList.add(
-              buildCollectionEvent(rec, stopCollectionAccList)
-            );
-          }
+    for (Case rec : records) {
+      Case oldRec = (oldMap != null ? (Case) oldMap.get(rec.Id) : null);
+      if (rec.recordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID) {
+        validateRecordForStopCollection(rec, oldRec);
+        if (!stopCollectionAccList.isEmpty() && !rec.IsClosedOnCreate) {
+          collectionsCasesEventList.add(
+            buildCollectionEvent(rec, stopCollectionAccList)
+          );
         }
       }
-      if (!collectionsCasesEventList.isEmpty()) {
-        publishCollectionEvent(collectionsCasesEventList);
-        stopCollectionAccList.clear();
-      }
-      if (!isCollectionEventFailed && !stopCollectionTaskList.isEmpty()) {
-        insertSystemTasks(stopCollectionTaskList);
-        stopCollectionTaskList.clear();
-      }
+    }
+    if (!collectionsCasesEventList.isEmpty()) {
+      publishCollectionEvent(collectionsCasesEventList);
+      stopCollectionAccList.clear();
+    }
+    if (!isCollectionEventFailed && !stopCollectionTaskList.isEmpty()) {
+      insertSystemTasks(stopCollectionTaskList);
+      stopCollectionTaskList.clear();
     }
   }
   /**
@@ -342,64 +335,60 @@ public with sharing class IDRCollectionActions {
    * @param records List of Case records in current  trigger context
    * @param oldMap old Map of Case records in current  trigger context
    */
-  @SuppressWarnings(
-    'PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity'
-  )
+  @SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
   public static void startCollections(
     List<Case> records,
     Map<Id, SObject> oldMap
   ) {
-    if (!firstcallStartCollection) {
-      firstcallStartCollection = true;
-      Set<String> collectionAcctsList = new Set<String>();
-      List<Case> finalList = new List<Case>();
-      List<Id> caseIds = new List<Id>();
-      Map<String, Set<Id>> startCollecMap = new Map<String, Set<Id>>();
-      List<IDR_Collections_Event__e> collectionsStartEventList = new List<IDR_Collections_Event__e>();
+    Set<String> collectionAcctsList = new Set<String>();
+    List<Case> finalList = new List<Case>();
+    List<Id> caseIds = new List<Id>();
+    Map<String, Set<Id>> startCollecMap = new Map<String, Set<Id>>();
+    List<IDR_Collections_Event__e> collectionsStartEventList = new List<IDR_Collections_Event__e>();
 
-      //get only closed records for start collections
-      for (Case rec : records) {
-        Case oldRec = (oldMap != null ? (Case) oldMap.get(rec.Id) : null);
-        if (
-          rec.recordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID &&
-          rec.isClosed &&
-          (oldRec == null || !oldRec.isClosed)
-        ) {
-          if (String.isNotBlank(rec.IDR_Collection_Number__c)) {
-            collectionAcctsList.add(rec.IDR_Collection_Number__c);
-          }
-          if (String.isNotBlank(rec.IDR_Collection_Number_2__c)) {
-            collectionAcctsList.add(rec.IDR_Collection_Number_2__c);
-          }
-          if (String.isNotBlank(rec.IDR_Collection_Number_3__c)) {
-            collectionAcctsList.add(rec.IDR_Collection_Number_3__c);
-          }
-          caseIds.add(rec.Id);
-          finalList.add(rec);
+    //get only closed records for start collections
+    for (Case rec : records) {
+      Case oldRec = (oldMap != null ? (Case) oldMap.get(rec.Id) : null);
+      if (
+        rec.recordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID &&
+        rec.isClosed &&
+        (oldRec == null ||
+        oldRec.Status != rec.Status)
+      ) {
+        if (String.isNotBlank(rec.IDR_Collection_Number__c)) {
+          collectionAcctsList.add(rec.IDR_Collection_Number__c);
         }
-      }
-
-      //Build collection map
-      startCollecMap = getStartCollecMap(collectionAcctsList, caseIds);
-
-      //validate all closed records whether the stop collection is already triggered or not
-      for (Case rec : finalList) {
-        validateRecordForStartCollection(rec, startCollecMap);
-        if (!startCollectionAccList.isEmpty()) {
-          collectionsStartEventList.add(
-            buildCollectionEvent(rec, startCollectionAccList)
-          );
+        if (String.isNotBlank(rec.IDR_Collection_Number_2__c)) {
+          collectionAcctsList.add(rec.IDR_Collection_Number_2__c);
         }
+        if (String.isNotBlank(rec.IDR_Collection_Number_3__c)) {
+          collectionAcctsList.add(rec.IDR_Collection_Number_3__c);
+        }
+        caseIds.add(rec.Id);
+        finalList.add(rec);
       }
+    }
 
-      if (!collectionsStartEventList.isEmpty()) {
-        publishCollectionEvent(collectionsStartEventList);
-        startCollectionAccList.clear();
+    //Build collection map
+    startCollecMap = getStartCollecMap(collectionAcctsList, caseIds);
+
+    //validate all closed records whether the stop collection is already triggered or not
+    for (Case rec : finalList) {
+      validateRecordForStartCollection(rec, startCollecMap);
+      if (!startCollectionAccList.isEmpty()) {
+        collectionsStartEventList.add(
+          buildCollectionEvent(rec, startCollectionAccList)
+        );
       }
-      if (!isCollectionEventFailed && !startCollectionTaskList.isEmpty()) {
-        insertSystemTasks(startCollectionTaskList);
-        startCollectionTaskList.clear();
-      }
+    }
+
+    if (!collectionsStartEventList.isEmpty()) {
+      publishCollectionEvent(collectionsStartEventList);
+      startCollectionAccList.clear();
+    }
+    if (!isCollectionEventFailed && !startCollectionTaskList.isEmpty()) {
+      insertSystemTasks(startCollectionTaskList);
+      startCollectionTaskList.clear();
     }
   }
 
@@ -458,7 +447,8 @@ public with sharing class IDRCollectionActions {
     if (
       startCollecMap.containsKey(rec.IDR_Collection_Number__c) &&
       startCollecMap.get(rec.IDR_Collection_Number__c).contains(rec.Id) &&
-      startCollecMap.get(rec.IDR_Collection_Number__c).size() == 1 &&
+      (startCollecMap.get(rec.IDR_Collection_Number__c).size() == 1 ||
+      rec.isClosed) &&
       productNameMap.containsKey(rec.Product__c)
     ) {
       startCollectionAccList.add(
@@ -479,7 +469,8 @@ public with sharing class IDRCollectionActions {
     if (
       startCollecMap.containsKey(rec.IDR_Collection_Number_2__c) &&
       startCollecMap.get(rec.IDR_Collection_Number_2__c).contains(rec.Id) &&
-      startCollecMap.get(rec.IDR_Collection_Number_2__c).size() == 1 &&
+      (startCollecMap.get(rec.IDR_Collection_Number_2__c).size() == 1 ||
+      rec.isClosed) &&
       productNameMap.containsKey(rec.IDR_Product_2__c)
     ) {
       startCollectionAccList.add(
@@ -500,7 +491,8 @@ public with sharing class IDRCollectionActions {
     if (
       startCollecMap.containsKey(rec.IDR_Collection_Number_3__c) &&
       startCollecMap.get(rec.IDR_Collection_Number_3__c).contains(rec.Id) &&
-      startCollecMap.get(rec.IDR_Collection_Number_3__c).size() == 1 &&
+      (startCollecMap.get(rec.IDR_Collection_Number_3__c).size() == 1 ||
+      rec.isClosed) &&
       productNameMap.containsKey(rec.IDR_Product_3__c)
     ) {
       startCollectionAccList.add(
