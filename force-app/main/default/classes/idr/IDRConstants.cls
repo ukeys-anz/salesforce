@@ -2,6 +2,7 @@
  * @author Afreen Khan
  * @since 10/2020
  * @description  IDRConstants consists of all the IDR constants
+ * @group IDR(Internal Dispute Resolution)
  */
 public with sharing class IDRConstants {
   //Complaint Status
@@ -141,21 +142,19 @@ public with sharing class IDRConstants {
     get {
       if (anzComFieldMapping == null) {
         anzComFieldMapping = new Map<String, String>{
-          'This feedback is a' => 'IDR_Feedback_Category__c',
-          'Previously raised?' => 'IDR_Previously_raised_with_ANZ__c',
-          'Which product' => 'IDR_Product_Category__c',
-          'Feedback topic' => 'Type',
-          'Feedback summary' => 'Description',
-          'Details and outcome' => 'IDR_Complainant_Desired_Outcome__c',
-          'ANZ Customer?' => 'IDR_Existing_ANZ_Customer__c',
-          'First name' => 'IDR_NC_First_Name__c',
-          'Last name' => 'IDR_NC_Last_Name__c',
-          'Contact number' => 'IDR_NC_Phone__c',
-          'Email address' => 'IDR_NC_Email__c',
-          'Street address' => 'IDR_NC_Street__c',
+          'Product Category' => 'IDR_Product_Category__c',
+          'Issue Type' => 'Type',
+          'Description of Issue' => 'Description',
+          'Customer Desired Outcome' => 'IDR_Complainant_Desired_Outcome__c',
+          'Existing ANZ Customer' => 'IDR_Existing_ANZ_Customer__c',
+          'First Name' => 'IDR_NC_First_Name__c',
+          'Last Name' => 'IDR_NC_Last_Name__c',
+          'Street Address' => 'IDR_NC_Street__c',
           'Suburb' => 'IDR_NC_Suburb__c',
           'Postcode' => 'IDR_NC_Postcode__c',
-          'Country' => 'IDR_NC_Country__c'
+          'Country' => 'IDR_NC_Country__c',
+          'Phone' => 'IDR_NC_Phone__c',
+          'Email' => 'IDR_NC_Email__c'
         };
       }
       return anzComFieldMapping;
@@ -164,27 +163,41 @@ public with sharing class IDRConstants {
   }
 
   /**
-   * @description Static variable to map anz.com Issue type field with case type field
-   * @return anzComIssueTypeMapping map of anz.com Issue type field with case type field
-   */
+
+* @description Static variable to map anz.com Issue type field with case type field
+
+* @return anzComIssueTypeMapping map of anz.com Issue type field with case type field
+
+*/
+
   public static final Map<String, String> anzComIssueTypeMapping {
     get {
       if (anzComIssueTypeMapping == null) {
         anzComIssueTypeMapping = new Map<String, String>{
-          'Account set up/Maitenence/Closure' => 'Account set-up & maintenance',
-          'Branch/Merchant/System issue' => 'Channel accessibility',
-          'Collections' => 'Collections',
-          'Credit card/Loan assessment' => 'Credit assessment',
-          'Fees/Interest/Rewards' => 'Fees, interest, rewards',
-          'Fraud/Dispute' => 'Transaction Disputes',
-          'Hardship' => 'Financial difficulty & hardship',
-          'Loan settlement/Drawdown' => 'Lending fulfilment',
-          'Payments' => 'Transactions & payments',
-          'Product features/Marketing/Sales' => 'Product features, offers, sales',
-          'Service Quality' => 'Service quality',
-          'Other' => 'Other'
+          'Service quality' => '9',
+          'Channel accessibility' => '13',
+          'Account set-up & maintenance' => '18',
+          'Fees, interest, rewards' => '2',
+          'Financial difficulty & hardship' => '4',
+          'Collections' => '17',
+          'Lending fulfilment' => '6',
+          'Product features, offers, sales' => '15',
+          'Closure process' => '16',
+          'Credit assessment' => '5',
+          'Credit reporting' => '16',
+          'Transactions & payments' => '10',
+          'Fraud & Scams' => '14',
+          'Transaction Disputes' => '20',
+          'Privacy and Confidentiality' => '8',
+          'Advice' => '1',
+          'Insurance Claims' => '7',
+          'Disclosure' => '3',
+          'Organisational Structure & Marketing ' => '12',
+          'Remediation' => '21',
+          'Other' => '11'
         };
       }
+
       return anzComIssueTypeMapping;
     }
     set;
