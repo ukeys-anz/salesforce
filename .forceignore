@@ -35,7 +35,7 @@ force-app/main/default/permissionsets/SFDX_Full_Dev_Hub_Access.permissionset
 force-app/main/default/sharingRules/Case.sharingRules-meta.xml
 force-app/main/default/sharingRules/User.sharingRules-meta.xml
 force-app/main/default/sharingRules/Account.sharingRules-meta.xml
-git 
+
 # Don't pull because delegated authenticaton (and therefore IsSsoEnabled permission) cannot currently be enabled in scratch orgs
 Enforce_SSO.permissionset
 
