@@ -123,6 +123,18 @@ export default class MultiSelectCombobox extends LightningElement {
     }
     this.optionData = options;
     this.searchString = count + " Option(s) Selected";
+
+    this.dispatchEvent(
+      new CustomEvent("select", {
+        detail: {
+          payloadType: "multi-select",
+          payload: {
+            value: this.value,
+            values: this.values
+          }
+        }
+      })
+    );
   }
 
   blurEvent() {
