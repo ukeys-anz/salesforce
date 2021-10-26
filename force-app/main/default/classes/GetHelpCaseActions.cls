@@ -25,7 +25,7 @@ public with sharing class GetHelpCaseActions {
   public static final String DUPLICATE_DISPUTE_ERROR = 'Error occurred while creating dispute. An open dispute already exists for this transaction. Case number: ';
 
   private static Map<String, String> caseTypeLabelByValue = new Map<String, String>();
-  
+
   private static Map<String, String> caseSubtypeLabelByValue = new Map<String, String>();
   @TestVisible
   public static final String RESOLUTION_TIME_MILESTONE = 'Resolution Time';
@@ -33,8 +33,6 @@ public with sharing class GetHelpCaseActions {
   public static final String INVESTIGATION_TIME_MILESTONE = 'Investigation Time';
 
   public static final String MISALIGNED_FINANCIAL_ACCOUNT_ERROR = 'Error occurred while create dispute.  There is a misalignment between customer\'s OCV ID and Financial Account';
-  @TestVisible
-  public static final String UNDER_INVESTIGATION_STATUS = 'Under Investigation';
 
   /**
    * @description beforeUpdate(oldMap, records) method handles the following
@@ -89,11 +87,11 @@ public with sharing class GetHelpCaseActions {
           milestoneCaseIds.add(record.Id);
         }
       } else if (GetHelpCaseActionsHelper.isDispute(record)) {
-        if (oldRecord.Status == 'Open' && record.Status != 'Open') {
+        if (oldRecord.Status == GetHelpConstants.OPEN_STATUS && record.Status != GetHelpConstants.OPEN_STATUS) {
           milestoneCaseIds.add(record.Id);
         }
         if (
-          oldRecord.Status == UNDER_INVESTIGATION_STATUS &&
+          oldRecord.Status == GetHelpConstants.UNDER_INVESTIGATION_STATUS &&
           record.Status == GetHelpConstants.CLOSED_STATUS
         ) {
           milestoneCaseIds.add(record.Id);

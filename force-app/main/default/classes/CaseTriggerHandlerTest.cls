@@ -2024,7 +2024,7 @@ private class CaseTriggerHandlerTest {
     Test.startTest();
 
     Case disputeCase = new Case(
-      RecordTypeId = GetHelpCaseActions.DIRECT_ENTRY_DISPUTE_RT_ID,
+      RecordTypeId = GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID,
       AccountId = acc.Id,
       Auto_Created__c = false,
       Dispute_Reason__c = 'Duplicate Transactions',
@@ -2065,7 +2065,7 @@ private class CaseTriggerHandlerTest {
     // GIVEN
     // a Dispute case is created against an ANZ Plus customer, and correct entitlement process is applied
     Case disputeCase = new Case(
-      RecordTypeId = GetHelpCaseActions.DIRECT_ENTRY_DISPUTE_RT_ID,
+      RecordTypeId = GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID,
       AccountId = acc.Id,
       Auto_Created__c = false,
       Dispute_Reason__c = 'Duplicate Transactions',
@@ -2079,7 +2079,7 @@ private class CaseTriggerHandlerTest {
     // case status is being changed from 'Open' to something else
     Test.startTest();
 
-    disputeCase.Status = GetHelpCaseActions.UNDER_INVESTIGATION_STATUS;
+    disputeCase.Status = GetHelpConstants.UNDER_INVESTIGATION_STATUS;
     update disputeCase;
 
     Test.stopTest();
@@ -2111,7 +2111,7 @@ private class CaseTriggerHandlerTest {
     // GIVEN
     // an ANZ Plus Dispute case is in status 'Under Investigation'
     Case disputeCase = new Case(
-      RecordTypeId = GetHelpCaseActions.DIRECT_ENTRY_DISPUTE_RT_ID,
+      RecordTypeId = GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID,
       AccountId = acc.Id,
       Auto_Created__c = false,
       Dispute_Reason__c = 'Duplicate Transactions',
@@ -2122,7 +2122,7 @@ private class CaseTriggerHandlerTest {
     insert disputeCase;
 
     // Update to 'Under Investigation'
-    disputeCase.Status = GetHelpCaseActions.UNDER_INVESTIGATION_STATUS;
+    disputeCase.Status = GetHelpConstants.UNDER_INVESTIGATION_STATUS;
     update disputeCase;
 
     // WHEN
