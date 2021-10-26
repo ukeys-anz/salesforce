@@ -125,6 +125,10 @@ public with sharing class IDRConstants {
   public static final String CASE_NO_REGEX = '\\d{4,8}';
   public static final String CASE_EMAIL_REGEX = '(?<=\\<)(.*?)(?=\\>)';
 
+  //IDR Account number pattern
+  public static final String MULTIPLE_ACCOUNT_NO_REGEX = '^[0-9]{8,42}(;[0-9]{8,42})*$';
+  public static final String INVALID_ACC_NO_MESSAGE = 'Please seperate account numbers with semicolon';
+
   //Task fields Constants
   public static final String TASK_TYPE_PEND_CASE = 'Pend Case';
   public static final String SUBJECT_PEND_CASE_TASK = 'Case Pended - provide update in case comment';

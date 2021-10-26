@@ -55,6 +55,43 @@ public with sharing class IDRCollectionActions {
   }
 
   /**
+   * @description  validates the account number pattern when the user enters multiple account numbers in issue two or issue three
+   * @param record The actual case record from the trigger
+   * @param oldRecord trigger context variable to check on old values.
+   */
+  public static void validateAccNumberPattern(Case record, Case oldRecord) {
+    if (record.recordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID) {
+      if (
+        record.IDR_Account_Card_Policy_Number_2__c !=
+        oldRecord.IDR_Account_Card_Policy_Number_2__c &&
+        record.IDR_Account_Card_Policy_Number_2__c != ACC_NUMBER_NA &&
+        !isAccountNumberRegexValid(record.IDR_Account_Card_Policy_Number_2__c)
+      ) {
+        record.addError(IDRConstants.INVALID_ACC_NO_MESSAGE);
+      }
+      if (
+        record.IDR_Account_Card_Policy_Number_3__c !=
+        oldRecord.IDR_Account_Card_Policy_Number_3__c &&
+        record.IDR_Account_Card_Policy_Number_3__c != ACC_NUMBER_NA &&
+        !isAccountNumberRegexValid(record.IDR_Account_Card_Policy_Number_3__c)
+      ) {
+        record.addError(IDRConstants.INVALID_ACC_NO_MESSAGE);
+      }
+    }
+  }
+
+  /**
+   * @description  returns true if the account number matches the regex pattern
+   * @param matcherValue value to match with regex pattern
+   * @return true or false
+   */
+  private static Boolean isAccountNumberRegexValid(String matcherValue) {
+    Matcher m = System.Pattern.compile(IDRConstants.MULTIPLE_ACCOUNT_NO_REGEX)
+      .matcher(matcherValue);
+    return m.matches();
+  }
+
+  /**
    * @description method to trigger stop collections activity in downstream systems when collections flag is turned on for an account number on a complaint.
    * @param records List of Case records in current  trigger context
    * @param oldMap old Map of Case records in current  trigger context

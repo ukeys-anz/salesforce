@@ -126,6 +126,7 @@ public with sharing class IDRCaseActions {
         populateSuppliedEmail(record, oldRecord);
         validateCaseNumber(record, oldRecord);
         IDRCollectionActions.populateCollectionNumber(record);
+        IDRCollectionActions.validateAccNumberPattern(record, oldRecord);
         CommonUtil.handleMasking(
           record,
           oldRecord,
