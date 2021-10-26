@@ -118,14 +118,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-<<<<<<< HEAD
-        <field>Case.Receipt__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-=======
->>>>>>> epic/disputes-assisted
         <field>Case.Crediting_Recipient__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -316,14 +308,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-<<<<<<< HEAD
-=======
         <field>Case.Receipt__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
->>>>>>> epic/disputes-assisted
         <field>Case.Received_Amount__c</field>
         <readable>true</readable>
     </fieldPermissions>

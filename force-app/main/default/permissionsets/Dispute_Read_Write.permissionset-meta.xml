@@ -331,8 +331,6 @@
         <allowEdit>false</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
-<<<<<<< HEAD
-<<<<<<< HEAD
         <object>FinServ__FinancialAccountRole__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
@@ -342,10 +340,6 @@
         <allowEdit>false</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
-=======
->>>>>>> epic/disputes-assisted
-=======
->>>>>>> epic/disputes
         <object>FinServ__FinancialAccount__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>

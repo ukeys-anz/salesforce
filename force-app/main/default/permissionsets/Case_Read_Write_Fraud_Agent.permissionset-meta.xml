@@ -810,14 +810,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-<<<<<<< HEAD
         <field>Case.Transaction_UUID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-=======
->>>>>>> epic/disputes
         <field>Case.Twilio_Channel_SID__c</field>
         <readable>true</readable>
     </fieldPermissions>
