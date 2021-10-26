@@ -8,7 +8,6 @@
 public with sharing class GetHelpCaseActionsHelper {
   // Parent Case validation error message
   private static final String PARENT_CASE_ERROR = 'You cannot add parent case. This case is associated with child cases';
-  private static Map<Id, Id> accountIdByContactId = new Map<Id, Id>();
 
   /**
    * @description  This method checks if Additional_Type__c has more than 2 values selected or
@@ -162,31 +161,15 @@ public with sharing class GetHelpCaseActionsHelper {
    */
   public static List<Id> getEntitlementAccountIds(List<Case> caseList) {
     List<Id> accountIds = new List<Id>();
-    List<Id> contactIds = new List<Id>();
 
     for (Case c : caseList) {
       if (
         c.RecordTypeId == GetHelpCaseActions.GENERAL_INQUIRY_RT_ID ||
         c.RecordTypeId == GetHelpCaseActions.COMPLAINT_ID ||
-        isDispute(c)
+        isDispute(c) && c.AccountId != null
       ) {
-        if (c.AccountId != null) {
-          accountIds.add(c.AccountId);
-        } else if (c.ContactId != null) {
-          contactIds.add(c.ContactId);
-        }
+        accountIds.add(c.AccountId);
       }
-    }
-
-    // Get Account Ids for Cases which didn't had AccountId.
-    // (only the ContactId is prepopulated on Dispute Cases created via Transaction History LWC)
-    for (Contact linkedContact : [
-      SELECT Id, AccountId
-      FROM Contact
-      WHERE Id IN :contactIds
-    ]) {
-      accountIds.add(linkedContact.AccountId);
-      accountIdByContactId.put(linkedContact.Id, linkedContact.AccountId);
     }
     return accountIds;
   }
@@ -223,24 +206,15 @@ public with sharing class GetHelpCaseActionsHelper {
     Map<Id, Id> entMap
   ) {
     for (Case c : caseList) {
-      String accountId = c.AccountId;
-      if (
-        accountId == null &&
-        c.ContactId != null &&
-        accountIdByContactId.get(c.ContactId) != null
-      ) {
-        accountId = accountIdByContactId.get(c.ContactId);
-      }
-
       if (
         (c.RecordTypeId == GetHelpCaseActions.GENERAL_INQUIRY_RT_ID ||
         c.RecordTypeId == GetHelpCaseActions.COMPLAINT_ID ||
-        isDispute(c)) && accountId != null
+        isDispute(c)) && c.AccountId != null
       ) {
-        if (!entMap.containsKey(accountId)) {
+        if (!entMap.containsKey(c.AccountId)) {
           c.addError('No entitlement found for account.');
         } else {
-          c.EntitlementId = entMap.get(accountId);
+          c.EntitlementId = entMap.get(c.AccountId);
         }
       }
     }
