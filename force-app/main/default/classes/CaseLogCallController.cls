@@ -29,7 +29,7 @@ public with sharing class CaseLogCallController {
         WhatId = recordId,
         Status = 'Completed',
         CallType = 'Inbound',
-        RecordTypeId = getCaseRecordTypeIdByDeveloperName('Call_Log')
+        RecordTypeId = TaskUtils.getTaskRecordTypeIdByDeveloperName('Call_Log')
       );
 
       if (Task.sObjectType.getDescribe().isCreateable()) {
