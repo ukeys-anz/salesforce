@@ -1622,7 +1622,7 @@ private class CaseTriggerHandlerTest {
     Case atmDispute = new Case();
     atmDispute.AccountId = customerAccount1.Id;
     atmDispute.FinServ__FinancialAccount__c = finAccountCustomer2.Id;
-    atmDispute.RecordTypeId = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
+    atmDispute.RecordTypeId = CaseUtils.getCaseRecordTypeIdByDeveloperName(
       'ATM_Dispute'
     );
     atmDispute.Dispute_Reason__c = 'Unauthorised Transaction';
@@ -1708,7 +1708,7 @@ private class CaseTriggerHandlerTest {
       Case atmDispute = new Case();
       atmDispute.AccountId = customerAccount1.Id;
       atmDispute.FinServ__FinancialAccount__c = finAccountCustomer2.Id;
-      atmDispute.RecordTypeId = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
+      atmDispute.RecordTypeId = CaseUtils.getCaseRecordTypeIdByDeveloperName(
         'ATM_Dispute'
       );
       atmDispute.Dispute_Reason__c = 'Unauthorised Transaction';
@@ -1795,7 +1795,7 @@ private class CaseTriggerHandlerTest {
     Case atmDispute1 = new Case();
     atmDispute1.AccountId = customerAccount1.Id;
     atmDispute1.FinServ__FinancialAccount__c = finAccountCustomer1.Id;
-    atmDispute1.RecordTypeId = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
+    atmDispute1.RecordTypeId = CaseUtils.getCaseRecordTypeIdByDeveloperName(
       'ATM_Dispute'
     );
     atmDispute1.Dispute_Reason__c = 'Unauthorised Transaction';
@@ -1807,7 +1807,7 @@ private class CaseTriggerHandlerTest {
     Case atmDispute2 = new Case();
     atmDispute2.AccountId = customerAccount1.Id;
     atmDispute2.FinServ__FinancialAccount__c = finAccountCustomer2.Id;
-    atmDispute2.RecordTypeId = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
+    atmDispute2.RecordTypeId = CaseUtils.getCaseRecordTypeIdByDeveloperName(
       'ATM_Dispute'
     );
     atmDispute2.Dispute_Reason__c = 'Unauthorised Transaction';
@@ -1876,7 +1876,7 @@ private class CaseTriggerHandlerTest {
     Case atmDispute = new Case();
     atmDispute.AccountId = customerAccount2.Id;
     atmDispute.FinServ__FinancialAccount__c = finAccount.Id;
-    atmDispute.RecordTypeId = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
+    atmDispute.RecordTypeId = CaseUtils.getCaseRecordTypeIdByDeveloperName(
       'ATM_Dispute'
     );
     atmDispute.Dispute_Reason__c = 'Unauthorised Transaction';
@@ -1961,7 +1961,7 @@ private class CaseTriggerHandlerTest {
     Case atmDispute1 = new Case();
     atmDispute1.AccountId = customerAccount1.Id;
     atmDispute1.FinServ__FinancialAccount__c = finAccountCustomer1.Id;
-    atmDispute1.RecordTypeId = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
+    atmDispute1.RecordTypeId = CaseUtils.getCaseRecordTypeIdByDeveloperName(
       'ATM_Dispute'
     );
     atmDispute1.Dispute_Reason__c = 'Unauthorised Transaction';
@@ -1972,7 +1972,7 @@ private class CaseTriggerHandlerTest {
     Case atmDispute2 = new Case();
     atmDispute2.AccountId = customerAccount2.Id;
     atmDispute2.FinServ__FinancialAccount__c = finAccountCustomer2.Id;
-    atmDispute2.RecordTypeId = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
+    atmDispute2.RecordTypeId = CaseUtils.getCaseRecordTypeIdByDeveloperName(
       'ATM_Dispute'
     );
     atmDispute2.Dispute_Reason__c = 'Unauthorised Transaction';
