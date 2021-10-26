@@ -64,7 +64,6 @@ export default class TransactionHistoryBoard extends LightningElement {
   accountNumber;
   hasError = false;
   errorMessage;
-  totalTransactions;
   links;
   loading = true;
   disputeRecordTypes = [];
@@ -72,6 +71,8 @@ export default class TransactionHistoryBoard extends LightningElement {
   personContactId = "";
   showWarning = true;
   lastDateInPayload;
+  allTags;
+  allMerchants;
 
   @wire(MessageContext)
   messageContext;
@@ -129,9 +130,10 @@ export default class TransactionHistoryBoard extends LightningElement {
     })
       .then((result) => {
         if (result) {
-          this.totalTransactions = result.total;
-          this.fullTransactionList = result.transactions;
+          this.fullTransactionList = result.embedded.transactions;
           this.links = result.links;
+          this.allMerchants = result.embedded.merchants;
+          this.allTags = result.embedded.tags;
           let updatedFullList = [];
 
           if (this.fullTransactionList) {
@@ -140,21 +142,12 @@ export default class TransactionHistoryBoard extends LightningElement {
 
               // Set the transaction's dispute record type Id
               currentTransaction.disputeRecordTypeId = this.transactionTypeDisputeIdMap[
-                currentTransaction.transactionType
+                currentTransaction.type
               ];
 
-              // Get charged, converted, exchangeRate amounts
-              this.setAmountByType(currentTransaction, "charged", 0);
-              this.setAmountByType(currentTransaction, "converted");
-              this.setAmountByType(currentTransaction, "exchangeRate");
-
-              // Get charged, converted currencies
-              this.setCurrencyByType(currentTransaction, "charged");
-              this.setCurrencyByType(currentTransaction, "converted");
-
               //Remap type and status
-              currentTransaction.transactionType = currentTransaction.transactionType
-                ? transactionTypeMapping[currentTransaction.transactionType]
+              currentTransaction.type = currentTransaction.type
+                ? transactionTypeMapping[currentTransaction.type]
                 : "Unknown";
               currentTransaction.status = currentTransaction.status
                 ? transactionStatusMapping[currentTransaction.status]
@@ -181,10 +174,14 @@ export default class TransactionHistoryBoard extends LightningElement {
                 "slds-card slds-m-bottom_small transaction-item ";
               currentTransaction.rowColour += i % 2 === 0 ? "even" : "odd";
 
-              if (currentTransaction.tags) {
+              if (
+                currentTransaction.tags &&
+                currentTransaction.tags.length > 0
+              ) {
                 currentTransaction.tagList = [];
+                let tagDetails = this.getTagDetails(currentTransaction.tags);
                 //loop through tags
-                currentTransaction.tags.forEach((tag) => {
+                tagDetails.forEach((tag) => {
                   //Truncate tag name
                   if (tag.name && tag.name.length > 15) {
                     tag.name = tag.name.substring(0, 14) + "...";
@@ -194,7 +191,7 @@ export default class TransactionHistoryBoard extends LightningElement {
               }
 
               //Handle merchant details
-              if (currentTransaction.merchant) {
+              if (currentTransaction.merchantId?.value) {
                 currentTransaction = this.handleMerchantDetails(
                   currentTransaction
                 );
@@ -208,11 +205,7 @@ export default class TransactionHistoryBoard extends LightningElement {
               }
 
               //Check if international transaction
-              if (
-                currentTransaction.amount &&
-                currentTransaction.amount.transactionType ===
-                  "EXCHANGE_TYPE_INTERNATIONAL"
-              ) {
+              if (currentTransaction.international_amount) {
                 currentTransaction.internationalDetails = true;
               }
 
@@ -255,30 +248,35 @@ export default class TransactionHistoryBoard extends LightningElement {
   }
 
   handleMerchantDetails(transaction) {
+    //Fetch first response as transactions should only have 1 merchant
+    let merchantDetails = this.getMerchantDetails(
+      transaction.merchantId.value
+    )[0];
     transaction.merchantDetails = true;
-    transaction.name = transaction.merchant.chain_name
-      ? transaction.merchant.chain_name.value
-      : transaction.merchant.name;
 
-    if (transaction.merchant.address) {
+    transaction.merchantName = merchantDetails.name
+      ? merchantDetails.name
+      : merchantDetails.alternateName;
+
+    if (merchantDetails.address) {
       if (
-        transaction.merchant.address.line_one &&
-        transaction.merchant.address.suburb &&
-        transaction.merchant.address.state &&
-        transaction.merchant.address.postcode
+        merchantDetails.address.line_one &&
+        merchantDetails.address.suburb &&
+        merchantDetails.address.state &&
+        merchantDetails.address.postcode
       ) {
-        transaction.merchantLocation = `${transaction.merchant.address.line_one.value}, ${transaction.merchant.address.suburb.value} ${transaction.merchant.address.state.value} ${transaction.merchant.address.postcode.value}`;
+        transaction.merchantLocation = `${merchantDetails.address.line_one.value}, ${merchantDetails.address.suburb.value} ${merchantDetails.address.state.value} ${merchantDetails.address.postcode.value}`;
       } else {
         transaction.merchantLocation = "Unknown";
       }
 
-      if (transaction.merchant.address.coordinates) {
+      if (merchantDetails.address.coordinates) {
         //Set the map markers for the map
         transaction.mapMarkers = [
           {
             location: {
-              Latitude: transaction.merchant.address.coordinates.latitude,
-              Longitude: transaction.merchant.address.coordinates.longitude
+              Latitude: merchantDetails.address.coordinates.latitude.value,
+              Longitude: merchantDetails.address.coordinates.longitude.value
             }
           }
         ];
@@ -286,17 +284,28 @@ export default class TransactionHistoryBoard extends LightningElement {
     }
 
     if (
-      transaction.merchant.image_details &&
-      transaction.merchant.image_details.light_url
+      merchantDetails.image_details &&
+      (merchantDetails.image_details.light_url ||
+        merchantDetails.image_details.dark_url)
     ) {
-      transaction.logo = transaction.merchant.image_details.light_url.value;
+      transaction.logo = merchantDetails.image_details.light_url
+        ? merchantDetails.image_details.light_url.value
+        : merchantDetails.image_details.dark_url.value;
     } else {
       transaction.logo = null;
     }
 
-    transaction.merchant.email = transaction.merchant.email
-      ? transaction.merchant.email.value
-      : "Unknown";
+    transaction.merchantEmail = this.getOptionalFieldValue(
+      merchantDetails.email
+    );
+
+    transaction.merchantPhoneNumber = this.getOptionalFieldValue(
+      merchantDetails.phone_number
+    );
+
+    transaction.merchantWebsiteUrl = this.getOptionalFieldValue(
+      merchantDetails.website_url
+    );
 
     return transaction;
   }
@@ -477,46 +486,41 @@ export default class TransactionHistoryBoard extends LightningElement {
       transaction.TransactionDate = this.getDateObject(
         transaction.transactionDateLocal
       ).toLocaleDateString("en-AU", dateOptions); // No time conversion is done here, just formatting to a string with the desired format
-      transaction.TransactionTime =
+      transaction.transaction_time =
         this.getDateObject(transaction.transactionDateLocal).toLocaleTimeString(
           "en-AU",
           timeOptions
         ) + " AEST/AEDT"; // No time conversion is done here, just formatting to a string with the desired format
     } else {
-      transaction.TransactionDate = transaction.TransactionTime = "Unknown";
+      transaction.TransactionDate = transaction.transaction_time = "Unknown";
     }
-  }
-
-  // Based on the type, get the according amount
-  setAmountByType(transaction, amountType, defaultValue = "Unknown") {
-    if (transaction.amount?.[amountType]?.value) {
-      transaction.amount[amountType].value = parseFloat(
-        transaction.amount[amountType].value,
-        10
-      ).toFixed(2);
-    } else {
-      transaction.amount[amountType] = {
-        value: defaultValue
-      };
-    }
-    return transaction;
-  }
-
-  // Based on the type, get the according currency
-  setCurrencyByType(transaction, currencyType) {
-    if (
-      transaction.amount &&
-      !transaction.amount?.[currencyType]?.currencyCode
-    ) {
-      transaction.amount[currencyType] = {
-        currencyCode: "Unknown"
-      };
-    }
-    return transaction;
   }
 
   // Get today's date as string in format YYYY-MM-DD
   getDefaultDate() {
     return new Date().toISOString().slice(0, 10);
+  }
+
+  //This function retrieves the details of the merchant based on the id
+  //provided from the list of merchants given in the response.
+  getMerchantDetails(merchantId) {
+    return this.allMerchants.filter((merchant) => {
+      return merchantId === merchant.merchantId;
+    });
+  }
+
+  // //This function retrieves the details of the tag based on the id
+  // //provided from the list of tags given in the response. Tag Ids
+  // //sent as array
+  getTagDetails(tagIds) {
+    return this.allTags.filter((tag) => {
+      return tagIds.indexOf(tag.tag_id) > -1;
+    });
+  }
+
+  //This function checks if an optional value exists and returns it else
+  //returns unknown
+  getOptionalFieldValue(field) {
+    return field ? field.value : "Unknown";
   }
 }

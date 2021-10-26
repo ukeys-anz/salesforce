@@ -2,7 +2,7 @@
  * Suppressing PMD naming convention warnings as some fields return in snake case formatting from the API.
  */
 @SuppressWarnings(
-  'PMD.ExcessivePublicCount, PMD.FieldNamingConventions, PMD.VariableNamingConventions'
+  'PMD.ExcessivePublicCount, PMD.FieldNamingConventions, PMD.VariableNamingConventions, PMD.TooManyFields, PMD.PropertyNamingConventions'
 )
 /**
  * @author Peter Charalambous
@@ -10,16 +10,187 @@
  * @description Model for transaction history API
  */
 public with sharing class TransactionHistoryModel extends CalloutModel {
+  public static final String TIMEZONE = 'Australia/Sydney'; // According to AZNX-1314, all transactions to be aligned to Melbourne (AEST/AEDT) time as opposed to the coach’s local geographic time
+  // Salesforce only supports 'Australia/Sydney' which is the same timezone with Melbourne timezone
+
   @AuraEnabled
   public String count;
   @AuraEnabled
-  public String total;
-  @AuraEnabled
-  public List<Transactions> transactions;
+  public Embedded embedded;
   @AuraEnabled
   public Links links;
-  public static final String TIMEZONE = 'Australia/Sydney'; // According to AZNX-1314, all transactions to be aligned to Melbourne (AEST/AEDT) time as opposed to the coach’s local geographic time
-  // Salesforce only supports 'Australia/Sydney' which is the same timezone with Melbourne timezone
+
+  /**
+   * @description embedded is the parent containing all information, such as transaction, categories, merchants and tags
+   */
+  public class Embedded {
+    @AuraEnabled
+    public List<Transactions> transactions;
+    @AuraEnabled
+    public List<Categories> categories;
+    @AuraEnabled
+    public List<Tags> tags;
+    @AuraEnabled
+    public List<Merchants> merchants;
+  }
+
+  /**
+   * @description transactions is the parent containing all information of the transaction
+   */
+  public class Transactions {
+    @AuraEnabled
+    public String transaction_id;
+    @AuraEnabled
+    public Account account;
+    @AuraEnabled
+    public DateTime transaction_time;
+    /**
+     * @description transaction date in user's local time
+     */
+    @AuraEnabled
+    public String transactionDateLocal {
+      get {
+        return DateTimeUtils.getLocalTime(
+          this.transaction_time,
+          TIMEZONE,
+          'yyyy-MM-dd HH:mm:ss.SSS Z' /* Intentionally leaving a space before Z so JS understands that this datetime already
+           has timezone it it and does not try to convert it again*/
+        );
+      }
+    }
+    @AuraEnabled
+    public String last_update_time;
+    @AuraEnabled
+    public String status;
+    @AuraEnabled
+    public String long_desc;
+    @AuraEnabled
+    public String short_desc;
+    @AuraEnabled
+    public Amount amount;
+    @AuraEnabled
+    public International_amount international_amount;
+    @AuraEnabled
+    public String enrichment_id;
+    @AuraEnabled
+    public List<String> categories;
+    @AuraEnabled
+    public FieldValue merchantId;
+    @AuraEnabled
+    public List<String> tags;
+    @AuraEnabled
+    public String type;
+    @AuraEnabled
+    public Card card;
+    @AuraEnabled
+    public Cash cash;
+    @AuraEnabled
+    public Bpay bpay;
+    @AuraEnabled
+    public Pay_anyone pay_anyone;
+    @AuraEnabled
+    public Transfer transfer;
+    @AuraEnabled
+    public String primary_anzx_category;
+    @AuraEnabled
+    public DateTime transaction_posted_time;
+    /**
+     * @description transaction posted date/time in user's local time
+     */
+    @AuraEnabled
+    public String transaction_posted_date {
+      get {
+        return DateTimeUtils.getLocalTime(
+          this.transaction_posted_time,
+          TIMEZONE,
+          'yyyy-MM-dd HH:mm:ss.SSS Z' /* Intentionally leaving a space before Z so JS understands that this datetime already
+           has timezone it it and does not try to convert it again*/
+        );
+      }
+    }
+    @AuraEnabled
+    public String transaction_value_time;
+    @AuraEnabled
+    public Boolean is_npp_details_available;
+    @AuraEnabled
+    public String traceId;
+    @AuraEnabled
+    public String origination_id;
+    @AuraEnabled
+    public FieldValue ob_transaction_type;
+    @AuraEnabled
+    public FieldValue ob_extension_u_type;
+    @AuraEnabled
+    public FieldValue payment_crn;
+    @AuraEnabled
+    public FieldValue merchant_category_code;
+    @AuraEnabled
+    public FieldValue de_user_id;
+    @AuraEnabled
+    public FieldValue aux_dom;
+    @AuraEnabled
+    public String original_anzx_category;
+    @AuraEnabled
+    public String title;
+  }
+
+  /**
+   * @description details of the merchant involved in the transaction
+   */
+  public class Merchants {
+    @AuraEnabled
+    public String merchantId;
+    @AuraEnabled
+    public String lastUpdateTime;
+    @AuraEnabled
+    public String name;
+    @AuraEnabled
+    public String alternateName;
+    @AuraEnabled
+    public Boolean isSensitive;
+    @AuraEnabled
+    public String presence;
+    @AuraEnabled
+    public Address address;
+    @AuraEnabled
+    public FieldValue phone_number;
+    @AuraEnabled
+    public FieldValue website_url;
+    @AuraEnabled
+    public Boolean is_sensitive;
+    @AuraEnabled
+    public Image_details image_details;
+    @AuraEnabled
+    public FieldValue email;
+  }
+
+  /**
+   * @description tags associated with the transaction
+   */
+  public class Tags {
+    @AuraEnabled
+    public String tag_id;
+    @AuraEnabled
+    public String name;
+  }
+
+  /**
+   * @description categories associated with the transaction
+   */
+  public class Categories {
+    @AuraEnabled
+    public String id;
+    @AuraEnabled
+    public String name;
+    @AuraEnabled
+    public String categorySet; // actual value is set but is reserved
+    @AuraEnabled
+    public String type;
+    @AuraEnabled
+    public FieldValue image_url_light_large;
+    @AuraEnabled
+    public FieldValue color_hex;
+  }
 
   /**
    * @description the bsb and account number of the transaction
@@ -32,19 +203,29 @@ public with sharing class TransactionHistoryModel extends CalloutModel {
   }
 
   /**
-   * @description the exchange rate of the transaction
-   */
-  public class ExchangeRate {
-    @AuraEnabled
-    public Double value;
-  }
-
-  /**
    * @description the image details of the merchant
    */
   public class Image_details {
     @AuraEnabled
-    public BillerName light_url;
+    public FieldValue light_url;
+    @AuraEnabled
+    public FieldValue dark_url;
+  }
+
+  /**
+   * @description the source account of the transfer
+   */
+  public class Source_account {
+    @AuraEnabled
+    public Account account;
+  }
+
+  /**
+   * @description the exchange rate of the transaction
+   */
+  public class Exchange_rate {
+    @AuraEnabled
+    public Integer value;
   }
 
   /**
@@ -52,15 +233,29 @@ public with sharing class TransactionHistoryModel extends CalloutModel {
    */
   public class Address {
     @AuraEnabled
-    public BillerName line_one;
+    public FieldValue line_one;
     @AuraEnabled
-    public BillerName state;
+    public FieldValue line_two;
     @AuraEnabled
-    public BillerName suburb;
+    public FieldValue state;
     @AuraEnabled
-    public BillerName postcode;
+    public FieldValue suburb;
+    @AuraEnabled
+    public FieldValue postcode;
+    @AuraEnabled
+    public FieldValue country;
     @AuraEnabled
     public Coordinates coordinates;
+  }
+
+  /**
+   * @description the internation amount details
+   */
+  public class International_amount {
+    @AuraEnabled
+    public Amount charged;
+    @AuraEnabled
+    public Exchange_rate exchange_rate;
   }
 
   /**
@@ -68,13 +263,25 @@ public with sharing class TransactionHistoryModel extends CalloutModel {
    */
   public class Amount {
     @AuraEnabled
-    public String transactionType; // actual value is type but is reserved
+    public String currency_code;
     @AuraEnabled
-    public Charged charged;
+    public String units;
     @AuraEnabled
-    public Charged converted;
+    public Double nanos;
+    /**
+     * @description calculate the value of the amount charged
+     */
     @AuraEnabled
-    public ExchangeRate exchangeRate;
+    public Double value {
+      get {
+        //Need to check if units and nanos exist as they aren't always returned
+        Double unitValue = String.isNotBlank(this.units)
+          ? double.valueOf(this.units)
+          : 0;
+        Double nanoValue = this.nanos != null ? this.nanos : 0;
+        return unitValue + (nanoValue / 1000000000);
+      }
+    }
   }
 
   /**
@@ -82,11 +289,27 @@ public with sharing class TransactionHistoryModel extends CalloutModel {
    */
   public class Coordinates {
     @AuraEnabled
-    public Double latitude;
+    public Integer lat_lon_precision;
     @AuraEnabled
-    public Double longitude;
+    public CoordinateValues latitude;
     @AuraEnabled
-    public String lat_lon_precision;
+    public CoordinateValues longitude;
+  }
+
+  /**
+   * @description the value of nested fields
+   */
+  public class FieldValue {
+    @AuraEnabled
+    public String value;
+  }
+
+  /**
+   * @description the value of latitude and longitude
+   */
+  public class CoordinateValues {
+    @AuraEnabled
+    public Double value;
   }
 
   /**
@@ -98,111 +321,77 @@ public with sharing class TransactionHistoryModel extends CalloutModel {
   }
 
   /**
-   * @description transaction information
+   * @description information related to the type of card/cash transaction
    */
-  public class Transactions {
+  public class Cash {
     @AuraEnabled
-    public String transactionId;
+    public String card_scheme;
     @AuraEnabled
-    public Account account;
+    public String method;
     @AuraEnabled
-    public DateTime transactionDate;
-    /**
-     * @description transaction date in user's local time
-     */
-    @AuraEnabled
-    public String transactionDateLocal {
-      get {
-        return DateTimeUtils.getLocalTime(
-          this.transactionDate,
-          TIMEZONE,
-          'yyyy-MM-dd HH:mm:ss.SSS Z' /* Intentionally leaving a space before Z so JS understands that this datetime already
-           has timezone it it and does not try to convert it again*/
-        );
-      }
-    }
-    @AuraEnabled
-    public String lastUpdated;
-    @AuraEnabled
-    public String status;
-    @AuraEnabled
-    public String transactionType; // actual value is number but is reserved
-    @AuraEnabled
-    public String longDesc;
-    @AuraEnabled
-    public Amount amount;
-    @AuraEnabled
-    public String enrichmentId;
-    @AuraEnabled
-    public Bpay bpay;
-    @AuraEnabled
-    public PayAnyone payAnyone;
-    @AuraEnabled
-    public List<Tags> tags;
-    @AuraEnabled
-    public Merchant merchant;
+    public String wallet;
   }
 
   /**
    * @description details of other entity invovled in transaction
    */
-  public class OtherEntity {
+  public class Other_entity {
     @AuraEnabled
     public String name;
     @AuraEnabled
-    public BillerName aliasId;
+    public FieldValue alias_id;
     @AuraEnabled
-    public BillerName aliasName;
+    public FieldValue alias_name;
+    @AuraEnabled
+    public Account account;
   }
 
   /**
-   * @description details of the merchant involved in the transaction
+   * @description the card details used for the transaction
    */
-  public class Merchant {
+  public class Card {
     @AuraEnabled
-    public String merchant_id;
+    public String last_four_digits;
     @AuraEnabled
-    public String last_updated;
+    public String scheme;
     @AuraEnabled
-    public String name;
+    public String method;
     @AuraEnabled
-    public BillerName chain_name;
-    @AuraEnabled
-    public Address address;
-    @AuraEnabled
-    public BillerName phone_number;
-    @AuraEnabled
-    public BillerName website_url;
-    @AuraEnabled
-    public Image_details image_details;
-    @AuraEnabled
-    public BillerName email;
+    public String wallet;
   }
 
   /**
-   * @description details of the charge placed on the transaction
+   * @description transfer information related to the transaction
    */
-  public class Charged {
+  public class Transfer {
     @AuraEnabled
-    public Decimal value;
+    public String payment_id;
     @AuraEnabled
-    public String currencyCode;
+    public String platform;
+    @AuraEnabled
+    public FieldValue message;
+    @AuraEnabled
+    public FieldValue payment_receipt_number;
+    @AuraEnabled
+    public Source_account source_account;
+    @AuraEnabled
+    public Source_account destination_account;
   }
 
   /**
-   * @description bpay information
+   * @description bpay information related to the transaction
    */
   public class Bpay {
     @AuraEnabled
-    public BillerName billerName;
+    public FieldValue biller_name;
     @AuraEnabled
-    public BillerName billerCode;
+    public FieldValue biller_code;
     @AuraEnabled
-    public BillerName referenceNum;
+    public FieldValue customer_reference_number;
   }
 
   /**
-   * @description links to load current, next and previous set of transactions
+   * @description links to load the current, next, previous and first set of transactions
    */
   public class Links {
     @AuraEnabled
@@ -210,37 +399,33 @@ public with sharing class TransactionHistoryModel extends CalloutModel {
     @AuraEnabled
     public Self first;
     @AuraEnabled
+    public Self prev;
+    @AuraEnabled
     public Self next;
   }
 
   /**
-   * @description bpay biller name
+   * @description pay anyone information related to the transaction
    */
-  public class BillerName {
+  public class Pay_anyone {
     @AuraEnabled
-    public String value;
-  }
-
-  /**
-   * @description pay anyone information
-   */
-  public class PayAnyone {
+    public String payment_id;
     @AuraEnabled
-    public String paymentId;
+    public String platform;
     @AuraEnabled
-    public BillerName message;
+    public FieldValue message;
     @AuraEnabled
-    public OtherEntity otherEntity;
-  }
-
-  /**
-   * @description tags associated with the transaction
-   */
-  public class Tags {
+    public Other_entity other_entity;
     @AuraEnabled
-    public String tagId;
+    public FieldValue npp_customer_reference_number;
     @AuraEnabled
-    public String name;
+    public String clearing_method;
+    @AuraEnabled
+    public String clearing_sub_method;
+    @AuraEnabled
+    public FieldValue payment_receipt_number;
+    @AuraEnabled
+    public FieldValue fabric_payee_id;
   }
 
   /**
