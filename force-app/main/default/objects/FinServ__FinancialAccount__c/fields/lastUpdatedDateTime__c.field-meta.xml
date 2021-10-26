@@ -3,6 +3,7 @@
     <fullName>lastUpdatedDateTime__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_CTM</complianceGroup>
+    <description>Date and time when a financial account update was received from OCV</description>
     <externalId>false</externalId>
     <label>last Updated DateTime</label>
     <required>false</required>

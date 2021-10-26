@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_Financial_Compensation__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Privacy_Personal_Information;Integrity_Trusted</complianceGroup>
+    <complianceGroup>Source_Salesforce;Privacy_Personal_Information;Integrity_Trusted</complianceGroup>
     <description>The dollar amount of the compensation paid as a result of the complaint</description>
     <externalId>false</externalId>
     <label>Financial Amount</label>
