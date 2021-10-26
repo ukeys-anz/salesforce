@@ -67,14 +67,14 @@ public with sharing class GetHelpCaseActions {
   public static final String DUPLICATE_DISPUTE_ERROR = 'Error occurred while creating dispute. An open dispute already exists for this transaction. Case number: ';
 
   private static Map<String, String> caseTypeLabelByValue = new Map<String, String>();
-
+  @TestVisible
   public static final String RESOLUTION_TIME_MILESTONE = 'Resolution Time';
-
+  @TestVisible
   public static final String INVESTIGATION_TIME_MILESTONE = 'Investigation Time';
 
   public static final String MISALIGNED_FINANCIAL_ACCOUNT_ERROR = 'Error occurred while create dispute.  There is a misalignment between customer\'s OCV ID and Financial Account';
-
-  private static final String UNDER_INVESTIGATION_STATUS = 'Under Investigation';
+  @TestVisible
+  public static final String UNDER_INVESTIGATION_STATUS = 'Under Investigation';
 
   /**
    * @description beforeUpdate(oldMap, records) method handles the following

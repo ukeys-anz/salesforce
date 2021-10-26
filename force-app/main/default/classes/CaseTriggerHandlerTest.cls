@@ -1652,4 +1652,145 @@ private class CaseTriggerHandlerTest {
       'Issue while updating parentId'
     );
   }
+
+  @isTest
+  static void testEntitlementOnDisputes() {
+    // GIVEN
+    // an ANZ Plus customer record is created with relevant entitlements
+    Account acc = [
+      SELECT Id
+      FROM Account
+      WHERE ANZx_Customer__c = TRUE
+      LIMIT 1
+    ];
+
+    // WHEN
+    // a new Dispute case is created against the same customer
+    Test.startTest();
+
+    Case disputeCase = new Case(
+      RecordTypeId = GetHelpCaseActions.DIRECT_ENTRY_DISPUTE_RT_ID,
+      AccountId = acc.Id,
+      Auto_Created__c = false,
+      Dispute_Reason__c = 'Duplicate Transactions',
+      Origin = '1',
+      Priority = 'High',
+      Transaction_Id__c = '9be08660-23bb-4f12-b124-7cfe561ba086'
+    );
+    insert disputeCase;
+
+    Test.stopTest();
+
+    // THEN
+    // the same Entitlement record on Account should be linked on the Case
+    Entitlement accountEntitlement = [
+      SELECT Id
+      FROM Entitlement
+      WHERE AccountId = :acc.Id
+      LIMIT 1
+    ];
+
+    System.assertEquals(
+      accountEntitlement.Id,
+      [SELECT EntitlementId FROM Case WHERE Id = :disputeCase.Id LIMIT 1]
+      .EntitlementId,
+      'Failed to link Entitlement from Account on Dispute cases'
+    );
+  }
+
+  @isTest
+  static void testDisputesSwitchFromOpen() {
+    Account acc = [
+      SELECT Id
+      FROM Account
+      WHERE ANZx_Customer__c = TRUE
+      LIMIT 1
+    ];
+
+    // GIVEN
+    // a Dispute case is created against an ANZ Plus customer, and correct entitlement process is applied
+    Case disputeCase = new Case(
+      RecordTypeId = GetHelpCaseActions.DIRECT_ENTRY_DISPUTE_RT_ID,
+      AccountId = acc.Id,
+      Auto_Created__c = false,
+      Dispute_Reason__c = 'Duplicate Transactions',
+      Origin = '1',
+      Priority = 'High',
+      Transaction_Id__c = '9be08660-23bb-4f12-b124-7cfe561ba086'
+    );
+    insert disputeCase;
+
+    // WHEN
+    // case status is being changed from 'Open' to something else
+    Test.startTest();
+
+    disputeCase.Status = GetHelpCaseActions.UNDER_INVESTIGATION_STATUS;
+    update disputeCase;
+
+    Test.stopTest();
+
+    // THEN
+    // it should mark related "Resolution Time" milestone as Completed
+    System.assert(
+      [
+        SELECT COUNT()
+        FROM CaseMilestone
+        WHERE
+          CaseId = :disputeCase.Id
+          AND MilestoneType.Name = :GetHelpCaseActions.RESOLUTION_TIME_MILESTONE
+          AND IsCompleted = TRUE
+      ] > 0,
+      'Failed to mark Dispute milestone as completed, when status is changed from Open'
+    );
+  }
+
+  @isTest
+  static void testDisputesSwitchFromInvestigation() {
+    Account acc = [
+      SELECT Id
+      FROM Account
+      WHERE ANZx_Customer__c = TRUE
+      LIMIT 1
+    ];
+
+    // GIVEN
+    // an ANZ Plus Dispute case is in status 'Under Investigation'
+    Case disputeCase = new Case(
+      RecordTypeId = GetHelpCaseActions.DIRECT_ENTRY_DISPUTE_RT_ID,
+      AccountId = acc.Id,
+      Auto_Created__c = false,
+      Dispute_Reason__c = 'Duplicate Transactions',
+      Origin = '1',
+      Priority = 'High',
+      Transaction_Id__c = '9be08660-23bb-4f12-b124-7cfe561ba086'
+    );
+    insert disputeCase;
+
+    // Update to 'Under Investigation'
+    disputeCase.Status = GetHelpCaseActions.UNDER_INVESTIGATION_STATUS;
+    update disputeCase;
+
+    // WHEN
+    // case status is being changed from 'Under Investigation' to 'Closed'
+    Test.startTest();
+
+    disputeCase.Status = 'Closed';
+    update disputeCase;
+
+    Test.stopTest();
+
+    // THEN
+    // it should mark related "Investigation Time" milestone as Completed
+    System.assert(
+      [
+        SELECT COUNT()
+        FROM CaseMilestone
+        WHERE
+          CaseId = :disputeCase.Id
+          AND MilestoneType.Name = :GetHelpCaseActions.INVESTIGATION_TIME_MILESTONE
+          AND IsCompleted = TRUE
+      ] > 0,
+      'Failed to mark Dispute milestone as completed, when status is changed from Under Investigation to Closed'
+    );
+  }
 }
