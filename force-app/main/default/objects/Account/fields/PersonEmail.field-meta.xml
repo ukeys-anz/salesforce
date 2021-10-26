@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>PersonEmail</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Privacy_Personal_Information</complianceGroup>
+    <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_OCV</complianceGroup>
     <description>Email of the customer owning the account</description>
     <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
     <inlineHelpText>Customer&apos;s Registered email</inlineHelpText>

@@ -40,6 +40,34 @@ private class CaseTriggerHandlerTest {
       }
       insert psaList;
 
+      UserRole coachRole = CommonUtil.getUserRoleByDevName('Coach');
+      User coach = TestUtil.createTestUser(
+        new Map<String, Object>{
+          'FirstName' => 'CoachTest',
+          'ProfileId' => profile.Id,
+          'UserRoleId' => coachRole.Id
+        }
+      );
+      insert coach;
+
+      // Assign related PSs
+      List<String> coachPSs = new List<String>{
+        'Case_Read_Write_Get_Help',
+        'Customer_Read_Only',
+        'Quality_Assessment_Read_Only'
+      };
+      List<PermissionSet> coachPsList = [
+        SELECT Id
+        FROM PermissionSet
+        WHERE Name IN :coachPSs
+      ];
+
+      List<PermissionSetAssignment> coachPsaList = new List<PermissionSetAssignment>();
+      for (PermissionSet ps : coachPsList) {
+        coachPsaList.add(TestUtil.createPSAssignment(coach.id, ps.Id));
+      }
+      insert coachPsaList;
+
       Account[] accnts = new List<Account>();
       for (Integer i = 0; i < 2; i++) {
         accnts.add(
@@ -528,7 +556,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < 2; i++) {
       parentCaseList.add(
         new Case(
-          RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
+          RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID,
           AccountId = accList[0].Id
         )
       );
@@ -538,7 +566,7 @@ private class CaseTriggerHandlerTest {
     // create a child case
     Case childCase = new Case(
       ParentId = parentCaseList[0].Id,
-      RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
+      RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID,
       AccountId = accList[1].Id
     );
     insert childCase;
@@ -568,7 +596,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
+          RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID,
           AccountId = acc.Id,
           Type = 'Card',
           Additional_Type__c = 'App Support;Card;'
@@ -602,7 +630,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
+          RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID,
           AccountId = acc.Id,
           Additional_Type__c = 'App Support;Card;Coaching'
         )
@@ -633,7 +661,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
+          RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID,
           Type = 'Cards',
           Sub_Type__c = 'Damaged card',
           AccountId = acc.Id
@@ -665,7 +693,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
+          RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID,
           Type = 'Cards',
           Sub_Type__c = '',
           AccountId = acc.Id
@@ -696,7 +724,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
+          RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID,
           Type = 'Cards',
           Sub_Type__c = 'Damaged card;Using card',
           AccountId = acc.Id
@@ -783,7 +811,7 @@ private class CaseTriggerHandlerTest {
       newCases.add(
         new Case(
           Related_Bug__c = bugId,
-          RecordTypeId = GetHelpCaseActions.BUG_RT_ID,
+          RecordTypeId = GetHelpConstants.BUG_RT_ID,
           AccountId = accountId
         )
       );
@@ -818,7 +846,7 @@ private class CaseTriggerHandlerTest {
       newCases.add(
         new Case(
           Related_Bug__c = bugId,
-          RecordTypeId = GetHelpCaseActions.BUG_RT_ID,
+          RecordTypeId = GetHelpConstants.BUG_RT_ID,
           AccountId = accountId
         )
       );
@@ -826,7 +854,7 @@ private class CaseTriggerHandlerTest {
     insert newCases;
 
     Case updateCase = new Case(
-      RecordTypeId = GetHelpCaseActions.BUG_RT_ID,
+      RecordTypeId = GetHelpConstants.BUG_RT_ID,
       AccountId = accountId
     );
     insert updateCase;
@@ -863,7 +891,7 @@ private class CaseTriggerHandlerTest {
       newCases.add(
         new Case(
           Related_Bug__c = bugId,
-          RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
+          RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID,
           AccountId = accountId
         )
       );
@@ -900,7 +928,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
+          RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID,
           AccountId = accountId
         )
       );
@@ -1042,7 +1070,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = GetHelpCaseActions.CARD_DISPUTE_RT_ID,
+          RecordTypeId = GetHelpConstants.CARD_DISPUTE_RT_ID,
           Type = '',
           Dispute_Reason__c = 'Charged for a cancelled payment',
           AccountId = acc.Id,
@@ -1076,7 +1104,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = GetHelpCaseActions.SCAM_RT_ID,
+          RecordTypeId = GetHelpConstants.SCAM_RT_ID,
           Type = faker.randomElement(caseTypes),
           AccountId = acc.Id
         )
@@ -1268,7 +1296,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
+          RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID,
           AccountId = acc.Id
         )
       );
@@ -1285,6 +1313,7 @@ private class CaseTriggerHandlerTest {
       'Failed to auto-populate Contact lookup on ANZ Plus cases while inserting'
     );
   }
+
   //test the workbasket assignment for Afca referred compalints on insert
   @istest
   static void testEDRWorkbasketAssignmentOnInsert() {
@@ -1371,6 +1400,174 @@ private class CaseTriggerHandlerTest {
     Test.stopTest();
   }
 
+  @isTest
+  static void testCaseNotifiationAfterUpdate() {
+    Case parentCase = new Case(
+      RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+      Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
+      IDR_Customer_Number__c = '1234567890',
+      Priority = 'Standard',
+      Type = '5',
+      IDR_Subsequent_Issue__c = '38'
+    );
+    insert parentCase;
+    Case[] newCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+          Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
+          IDR_Customer_Number__c = '1234567890',
+          Priority = 'Standard',
+          Type = '5',
+          IDR_Subsequent_Issue__c = '38'
+        )
+      );
+    }
+    insert newCases;
+    Test.startTest();
+    List<Case> caseList = [
+      SELECT Id, Origin, CaseNumber, ParentId
+      FROM Case
+      WHERE Id != :parentCase.Id
+    ];
+    for (Case c : caseList) {
+      c.ParentId = parentCase.Id;
+    }
+    CheckRecursive.firstCall = false;
+    update caseList;
+    Test.stopTest();
+    System.assertEquals(
+      parentCase.Id,
+      [SELECT ParentId FROM Case WHERE Id != :parentCase.Id LIMIT 1]
+      .ParentId,
+      'Issue while updating parentId'
+    );
+  }
+
+  //test the Quality Assessment record creation when ANZX case is created with closed status
+  @isTest
+  static void testCreateQualityAssessmentWhenAnzxCaseIsClosedWhenCreated() {
+    Case[] newCases = new List<Case>();
+
+    User usr = TestUtil.getUserByFirstName('CoachTest');
+
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = GetHelpConstants.COMPLAINT_RT_ID,
+          Status = GetHelpConstants.CLOSED_STATUS_NO_FIX
+        )
+      );
+    }
+
+    Test.startTest();
+
+    Integer qaRecordCount = [SELECT COUNT() FROM Quality_Assessment__c];
+
+    System.assertEquals(
+      0,
+      qaRecordCount,
+      'No Quality Assessment record should exists before creating closed status cases.'
+    );
+
+    System.runAs(usr) {
+      insert newCases;
+    }
+
+    List<Quality_Assessment__c> newQARecords = [
+      SELECT Id
+      FROM Quality_Assessment__c
+    ];
+
+    System.assertEquals(
+      Integer.valueOf(Label.Test_Bulk_Size),
+      newQARecords.size(),
+      'Should have ' +
+      Label.Test_Bulk_Size +
+      ' new Quality Assessments records.'
+    );
+
+    for (Case record : [
+      SELECT Id, Closed_Once__c
+      FROM Case
+      WHERE RecordTypeId = :GetHelpConstants.COMPLAINT_RT_ID
+    ]) {
+      System.assertEquals(
+        true,
+        record.Closed_Once__c,
+        'Closed Case should mark Closed Once field as true.'
+      );
+    }
+
+    Test.stopTest();
+  }
+
+  //test the Quality Assessment record creation when ANZx case was not closed but moved to closed status
+  @isTest
+  static void testCreateQualityAssessmentWhenAnzxCaseIsMovedToClosed() {
+    Case[] newCases = new List<Case>();
+
+    User usr = TestUtil.getUserByFirstName('CoachTest');
+
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = GetHelpConstants.COMPLAINT_RT_ID,
+          Status = GetHelpConstants.OPEN_STATUS
+        )
+      );
+    }
+
+    Test.startTest();
+
+    System.runAs(usr) {
+      insert newCases;
+    }
+
+    Integer qaRecordCount = [SELECT COUNT() FROM Quality_Assessment__c];
+
+    System.assertEquals(
+      0,
+      qaRecordCount,
+      'No Quality Assessment record should exists before closing cases.'
+    );
+
+    System.runAs(usr) {
+      for (Integer i = 0; i < newCases.size(); i++) {
+        newCases[i].Status = GetHelpConstants.CLOSED_STATUS;
+      }
+
+      update newCases;
+    }
+
+    List<Quality_Assessment__c> newQARecords = [
+      SELECT Id
+      FROM Quality_Assessment__c
+    ];
+
+    System.assertEquals(
+      Integer.valueOf(Label.Test_Bulk_Size),
+      newQARecords.size(),
+      'Should have ' +
+      Label.Test_Bulk_Size +
+      ' new Quality Assessments records.'
+    );
+
+    for (Case record : [
+      SELECT Id, Closed_Once__c
+      FROM Case
+      WHERE RecordTypeId = :GetHelpConstants.COMPLAINT_RT_ID
+    ]) {
+      System.assertEquals(
+        true,
+        record.Closed_Once__c,
+        'Closed Case should mark Closed Once field as true.'
+      );
+    }
+
+    Test.stopTest();
+  }
   // Test when a dispute is created with an active financial account that is not associated with its customer account,
   // the dispute should not be created
   @isTest
@@ -1425,7 +1622,7 @@ private class CaseTriggerHandlerTest {
     Case atmDispute = new Case();
     atmDispute.AccountId = customerAccount1.Id;
     atmDispute.FinServ__FinancialAccount__c = finAccountCustomer2.Id;
-    atmDispute.RecordTypeId = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
+    atmDispute.RecordTypeId = CaseUtils.getCaseRecordTypeIdByDeveloperName(
       'ATM_Dispute'
     );
     atmDispute.Dispute_Reason__c = 'Unauthorised Transaction';
@@ -1458,7 +1655,7 @@ private class CaseTriggerHandlerTest {
   // Test when several disputes are created with an active financial account that is not associated with its customer account,
   // the disputes should not be created
   @isTest
-  static void testValidateFinancialAccByAccIdWithErrorMultipleCases() {
+  static void testValidateFinancialAccByAccIdWithErrorBothWrong() {
     // GIVEN there are 2 customer accounts, and an active financial account that is linked to customer 2
     Faker faker = new Faker('AU');
     Account customerAccount1 = new Account(
@@ -1511,7 +1708,7 @@ private class CaseTriggerHandlerTest {
       Case atmDispute = new Case();
       atmDispute.AccountId = customerAccount1.Id;
       atmDispute.FinServ__FinancialAccount__c = finAccountCustomer2.Id;
-      atmDispute.RecordTypeId = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
+      atmDispute.RecordTypeId = CaseUtils.getCaseRecordTypeIdByDeveloperName(
         'ATM_Dispute'
       );
       atmDispute.Dispute_Reason__c = 'Unauthorised Transaction';
@@ -1541,6 +1738,105 @@ private class CaseTriggerHandlerTest {
       WHERE Dispute_Reason__c = 'Unauthorised Transaction'
     ];
     System.assertEquals(0, createdDisputes.size(), 'Disputes were created.'); // Check that no disputes have created
+    Test.stopTest();
+  }
+
+  // Test when several disputes are created, 1 with and 1 without  an active financial role between its customer and financial account
+  // the dispute with the active financial account role should be created
+  @isTest
+  static void testValidateFinancialAccByAccIdWithErrorSingleCorrect() {
+    // GIVEN there are 2 customer accounts, and an active financial account that is linked to customer 2
+    Faker faker = new Faker('AU');
+    Account customerAccount1 = new Account(
+      Name = 'Customer Account 1',
+      OCV_ID__c = faker.randomString(10),
+      ANZx_Customer__c = true,
+      External_Id__c = faker.randomString(10)
+    );
+    insert customerAccount1;
+
+    FinServ__FinancialAccount__c finAccountCustomer1 = new FinServ__FinancialAccount__c();
+    finAccountCustomer1.Name = 'Everyday Account';
+    finAccountCustomer1.FinServ__Balance__c = 400;
+    finAccountCustomer1.FinServ__CurrentPostedBalance__c = 400;
+    finAccountCustomer1.FinServ__Status__c = 'Active';
+    finAccountCustomer1.FinServ__FinancialAccountType__c = 'Checking';
+    finAccountCustomer1.FinServ__PrimaryOwner__c = customerAccount1.Id;
+    finAccountCustomer1.Account_Key__c = '8420742691';
+    finAccountCustomer1.Primary_Owner_Start_Date__c = Date.valueOf(
+      '2021-01-21'
+    );
+
+    insert finAccountCustomer1;
+
+    Account customerAccount2 = new Account(
+      Name = 'Customer Account 2',
+      OCV_ID__c = faker.randomString(10),
+      ANZx_Customer__c = true,
+      External_Id__c = faker.randomString(10)
+    );
+    insert customerAccount2;
+
+    FinServ__FinancialAccount__c finAccountCustomer2 = new FinServ__FinancialAccount__c();
+    finAccountCustomer2.Name = 'Everyday Account';
+    finAccountCustomer2.FinServ__Balance__c = 200;
+    finAccountCustomer2.FinServ__CurrentPostedBalance__c = 200;
+    finAccountCustomer2.FinServ__Status__c = 'Active';
+    finAccountCustomer2.FinServ__FinancialAccountType__c = 'Checking';
+    finAccountCustomer2.FinServ__PrimaryOwner__c = customerAccount2.Id;
+    finAccountCustomer2.Account_Key__c = '342490981';
+    finAccountCustomer2.Primary_Owner_Start_Date__c = Date.valueOf(
+      '2021-02-11'
+    );
+
+    insert finAccountCustomer2;
+    // WHEN several disputes are created with customer 1's account and customer 2's financial account
+    List<Case> disputes = new List<Case>();
+    Case atmDispute1 = new Case();
+    atmDispute1.AccountId = customerAccount1.Id;
+    atmDispute1.FinServ__FinancialAccount__c = finAccountCustomer1.Id;
+    atmDispute1.RecordTypeId = CaseUtils.getCaseRecordTypeIdByDeveloperName(
+      'ATM_Dispute'
+    );
+    atmDispute1.Dispute_Reason__c = 'Unauthorised Transaction';
+    atmDispute1.Origin = 'Chat';
+    atmDispute1.Status = 'Open';
+
+    disputes.add(atmDispute1);
+
+    Case atmDispute2 = new Case();
+    atmDispute2.AccountId = customerAccount1.Id;
+    atmDispute2.FinServ__FinancialAccount__c = finAccountCustomer2.Id;
+    atmDispute2.RecordTypeId = CaseUtils.getCaseRecordTypeIdByDeveloperName(
+      'ATM_Dispute'
+    );
+    atmDispute2.Dispute_Reason__c = 'Unauthorised Transaction';
+    atmDispute2.Origin = 'Chat';
+    atmDispute2.Status = 'Open';
+
+    disputes.add(atmDispute2);
+
+    Test.startTest();
+    Database.SaveResult[] srList = Database.insert(disputes, false);
+
+    for (Database.SaveResult record : srList) {
+      if (!record.isSuccess()) {
+        System.assertEquals(
+          true,
+          record.getErrors()[0]
+            .getMessage()
+            .contains(GetHelpCaseActions.MISALIGNED_FINANCIAL_ACCOUNT_ERROR),
+          'Error messages match.'
+        );
+      }
+    }
+
+    List<Case> createdDisputes = [
+      SELECT Id
+      FROM Case
+      WHERE Dispute_Reason__c = 'Unauthorised Transaction'
+    ];
+    System.assertEquals(1, createdDisputes.size(), '1 dispute was created.'); // Check that 1 dispute was created
     Test.stopTest();
   }
 
@@ -1580,7 +1876,7 @@ private class CaseTriggerHandlerTest {
     Case atmDispute = new Case();
     atmDispute.AccountId = customerAccount2.Id;
     atmDispute.FinServ__FinancialAccount__c = finAccount.Id;
-    atmDispute.RecordTypeId = GetHelpCaseActionsHelper.getCaseRecordTypeIdByDeveloperName(
+    atmDispute.RecordTypeId = CaseUtils.getCaseRecordTypeIdByDeveloperName(
       'ATM_Dispute'
     );
     atmDispute.Dispute_Reason__c = 'Unauthorised Transaction';
@@ -1608,49 +1904,108 @@ private class CaseTriggerHandlerTest {
       'Dispute case was created successfully.' // THEN the dispute should be created
     );
   }
+
+  // Test when several disputes are created with an active financial account that is associated with its customer account,
+  // the disputes should be created
   @isTest
-  static void testCaseNotifiationAfterUpdate() {
-    Case parentCase = new Case(
-      RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
-      Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
-      IDR_Customer_Number__c = '1234567890',
-      Priority = 'Standard',
-      Type = '5',
-      IDR_Subsequent_Issue__c = '38'
+  static void testValidateFinancialAccByAccIdWithoutErrorMultipleCases() {
+    // GIVEN there are 2 customer accounts, and each has an active financial account
+    Faker faker = new Faker('AU');
+    Account customerAccount1 = new Account(
+      Name = 'Customer Account 1',
+      OCV_ID__c = faker.randomString(10),
+      ANZx_Customer__c = true,
+      External_Id__c = faker.randomString(10)
     );
-    insert parentCase;
-    Case[] newCases = new List<Case>();
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
-        new Case(
-          RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
-          Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
-          IDR_Customer_Number__c = '1234567890',
-          Priority = 'Standard',
-          Type = '5',
-          IDR_Subsequent_Issue__c = '38'
-        )
+    insert customerAccount1;
+
+    FinServ__FinancialAccount__c finAccountCustomer1 = new FinServ__FinancialAccount__c();
+    finAccountCustomer1.Name = 'Everyday Account';
+    finAccountCustomer1.FinServ__Balance__c = 400;
+    finAccountCustomer1.FinServ__CurrentPostedBalance__c = 400;
+    finAccountCustomer1.FinServ__Status__c = 'Active';
+    finAccountCustomer1.FinServ__FinancialAccountType__c = 'Checking';
+    finAccountCustomer1.FinServ__PrimaryOwner__c = customerAccount1.Id;
+    finAccountCustomer1.Account_Key__c = '8420742691';
+    finAccountCustomer1.Primary_Owner_Start_Date__c = Date.valueOf(
+      '2021-01-21'
+    );
+
+    insert finAccountCustomer1;
+
+    Account customerAccount2 = new Account(
+      Name = 'Customer Account 2',
+      OCV_ID__c = faker.randomString(10),
+      ANZx_Customer__c = true,
+      External_Id__c = faker.randomString(10)
+    );
+    insert customerAccount2;
+
+    FinServ__FinancialAccount__c finAccountCustomer2 = new FinServ__FinancialAccount__c();
+    finAccountCustomer2.Name = 'Everyday Account';
+    finAccountCustomer2.FinServ__Balance__c = 200;
+    finAccountCustomer2.FinServ__CurrentPostedBalance__c = 200;
+    finAccountCustomer2.FinServ__Status__c = 'Active';
+    finAccountCustomer2.FinServ__FinancialAccountType__c = 'Checking';
+    finAccountCustomer2.FinServ__PrimaryOwner__c = customerAccount2.Id;
+    finAccountCustomer2.Account_Key__c = '342490981';
+    finAccountCustomer2.Primary_Owner_Start_Date__c = Date.valueOf(
+      '2021-02-11'
+    );
+
+    insert finAccountCustomer2;
+
+    // WHEN 2 disputes are created, 1 with customer 1's account and financial account
+    // 1 with customer 2's account and financial account
+    List<Case> disputes = new List<Case>();
+    Case atmDispute1 = new Case();
+    atmDispute1.AccountId = customerAccount1.Id;
+    atmDispute1.FinServ__FinancialAccount__c = finAccountCustomer1.Id;
+    atmDispute1.RecordTypeId = CaseUtils.getCaseRecordTypeIdByDeveloperName(
+      'ATM_Dispute'
+    );
+    atmDispute1.Dispute_Reason__c = 'Unauthorised Transaction';
+    atmDispute1.Origin = 'Chat';
+    atmDispute1.Status = 'Open';
+    disputes.add(atmDispute1);
+
+    Case atmDispute2 = new Case();
+    atmDispute2.AccountId = customerAccount2.Id;
+    atmDispute2.FinServ__FinancialAccount__c = finAccountCustomer2.Id;
+    atmDispute2.RecordTypeId = CaseUtils.getCaseRecordTypeIdByDeveloperName(
+      'ATM_Dispute'
+    );
+    atmDispute2.Dispute_Reason__c = 'Unauthorised Transaction';
+    atmDispute2.Origin = 'Chat';
+    atmDispute2.Status = 'Open';
+
+    disputes.add(atmDispute2);
+
+    Test.startTest();
+    try {
+      insert disputes;
+    } catch (DmlException e) {
+      // THEN the disputes should not be created and an error is thrown indicating that there is a misalignment
+      // between the customer account and the financial account
+      System.assertEquals(
+        true,
+        e.getMessage()
+          .contains(GetHelpCaseActions.MISALIGNED_FINANCIAL_ACCOUNT_ERROR),
+        'Error messages match.'
       );
     }
-    insert newCases;
-    Test.startTest();
-    List<Case> caseList = [
-      SELECT Id, Origin, CaseNumber, ParentId
+
+    List<Case> createdDisputes = [
+      SELECT Id
       FROM Case
-      WHERE Id != :parentCase.Id
+      WHERE Dispute_Reason__c = 'Unauthorised Transaction'
     ];
-    for (Case c : caseList) {
-      c.ParentId = parentCase.Id;
-    }
-    CheckRecursive.firstCall = false;
-    update caseList;
-    Test.stopTest();
     System.assertEquals(
-      parentCase.Id,
-      [SELECT ParentId FROM Case WHERE Id != :parentCase.Id LIMIT 1]
-      .ParentId,
-      'Issue while updating parentId'
-    );
+      2,
+      createdDisputes.size(),
+      'Both disputes were created.'
+    ); // Check that both disputes have been created
+    Test.stopTest();
   }
 
   @isTest
