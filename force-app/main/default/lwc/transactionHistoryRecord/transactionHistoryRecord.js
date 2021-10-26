@@ -44,46 +44,20 @@ export default class TransactionHistoryRecord extends NavigationMixin(
     return !canRaiseDispute;
   }
 
-  get merchantPhoneNumber() {
-    let merPhoneNumber;
-    if (
-      this.transactionRecord.merchant &&
-      this.transactionRecord.merchant.phone_number
-    ) {
-      merPhoneNumber = this.transactionRecord.merchant.phone_number.value;
-    } else {
-      merPhoneNumber = "Unknown";
-    }
-    return merPhoneNumber;
-  }
-
-  get merchantWebsiteUrl() {
-    let merWebsiteUrl;
-    if (
-      this.transactionRecord.merchant &&
-      this.transactionRecord.merchant.website_url
-    ) {
-      merWebsiteUrl = this.transactionRecord.merchant.website_url.value;
-    } else {
-      merWebsiteUrl = "Unknown";
-    }
-    return merWebsiteUrl;
-  }
-
   get amountConvertedValue() {
-    return this.transactionRecord.amount.converted.value;
+    return this.transactionRecord.international_amount.charged.value;
   }
 
   get amountConvertedCurrency() {
-    return this.transactionRecord.amount.converted.currencyCode;
+    return this.transactionRecord.international_amount.charged.currency_code;
   }
 
   get amountExchangeRateValue() {
-    return this.transactionRecord.amount.exchangeRate.value;
+    return this.transactionRecord.international_amount.exchange_rate.value;
   }
 
   get amountNumber() {
-    let relatedAmount = this.transactionRecord.amount.charged.value;
+    let relatedAmount = this.transactionRecord.amount.value;
     if (relatedAmount < 0) {
       relatedAmount = -relatedAmount;
     }
@@ -91,11 +65,11 @@ export default class TransactionHistoryRecord extends NavigationMixin(
   }
 
   get positiveAmount() {
-    return this.transactionRecord.amount.charged.value >= 0;
+    return this.transactionRecord.amount.value >= 0;
   }
 
   get negativeAmount() {
-    return this.transactionRecord.amount.charged.value < 0;
+    return this.transactionRecord.amount.value < 0;
   }
 
   get transactionDate() {
@@ -103,7 +77,7 @@ export default class TransactionHistoryRecord extends NavigationMixin(
   }
 
   get transactionTime() {
-    return this.transactionRecord.TransactionTime;
+    return this.transactionRecord.transaction_time;
   }
 
   handleDetailsToggle() {
@@ -139,9 +113,9 @@ export default class TransactionHistoryRecord extends NavigationMixin(
     if (this.financialAccountId)
       defaultFieldValues +=
         ",FinServ__FinancialAccount__c=" + this.financialAccountId;
-    if (this.transactionRecord.transactionId)
+    if (this.transactionRecord.transaction_id)
       defaultFieldValues +=
-        ",Transaction_Id__c=" + this.transactionRecord.transactionId;
+        ",Transaction_Id__c=" + this.transactionRecord.transaction_id;
     if (this.transactionRecord.transactionDate)
       defaultFieldValues +=
         ",Effective_Date__c=" +
