@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_AFCA_Number__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information</complianceGroup>
+    <complianceGroup>Source_Salesforce;Integrity - Trusted;Privacy - Non Personal Information</complianceGroup>
     <description>The identification number of the issue provided by the Australian Financial Complaints Authority for Possbile Systemic Issues</description>
     <externalId>true</externalId>
     <label>AFCA PSI Ref No</label>

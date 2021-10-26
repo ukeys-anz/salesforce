@@ -178,9 +178,9 @@
                 <label>Savings and goals</label>
             </value>
             <value>
-                <fullName>Money tiles</fullName>
+                <fullName>Using tiles</fullName>
                 <default>false</default>
-                <label>Money tiles</label>
+                <label>Using tiles</label>
             </value>
             <value>
                 <fullName>Account closure</fullName>
@@ -265,7 +265,7 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Money</controllingFieldValue>
-            <valueName>Money tiles</valueName>
+            <valueName>Using tiles</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Money</controllingFieldValue>

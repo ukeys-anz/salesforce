@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <applicationVisibilities>
-        <application>Coaches_Console</application>
-        <visible>true</visible>
-    </applicationVisibilities>
     <description>Should only have required permissions to view Custom related information.</description>
     <fieldPermissions>
         <editable>false</editable>

@@ -28,14 +28,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-<<<<<<< HEAD
-=======
-        <field>Case.AuxDomId__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
->>>>>>> epic/disputes-assisted
         <field>Case.Bank_ATM__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -176,8 +168,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-<<<<<<< HEAD
-=======
         <field>Case.External_Case_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -193,7 +183,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
->>>>>>> epic/disputes-assisted
         <field>Case.FinServ__FinancialAccount__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -259,14 +248,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-<<<<<<< HEAD
-=======
-        <field>Case.Receipt__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
->>>>>>> epic/disputes-assisted
         <field>Case.Received_Amount__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -281,14 +262,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-<<<<<<< HEAD
-=======
         <editable>false</editable>
         <field>Case.Submitted__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
->>>>>>> epic/disputes-assisted
         <editable>true</editable>
         <field>Case.Trace_Request_Date_and_Time_Posted__c</field>
         <readable>true</readable>
@@ -354,6 +332,7 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <object>FinServ__FinancialAccountRole__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
@@ -365,6 +344,8 @@
         <modifyAllRecords>false</modifyAllRecords>
 =======
 >>>>>>> epic/disputes-assisted
+=======
+>>>>>>> epic/disputes
         <object>FinServ__FinancialAccount__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>

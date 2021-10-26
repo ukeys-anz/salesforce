@@ -47,7 +47,7 @@ public with sharing class ChatTopicRelatedListController {
   }
 
   /**
-   * @description This method is used to chatTopicRelatedList lwc component to retrive chat topic related to case.
+   * @description This method is used to chatTopicRelatedList lwc component to retrieve chat topic related to case.
    *
    * @param caseId from lwc component
    * @return `ChatChannelModel.Channel` a single channel
