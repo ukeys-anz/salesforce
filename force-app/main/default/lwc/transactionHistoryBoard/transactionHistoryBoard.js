@@ -1,7 +1,7 @@
 import { LightningElement, track, wire, api } from "lwc";
 import getTransactions from "@salesforce/apex/CoachBankingAPIRepository.getTransactionHistoryAura";
 import getDisputeRecordTypeMap from "@salesforce/apex/TransactionHistoryController.getDisputeRecordTypeMap";
-import getPersonContactId from "@salesforce/apex/TransactionHistoryController.getPersonContactId";
+import getPersonAccountId from "@salesforce/apex/TransactionHistoryController.getPersonAccountId";
 import { getRecord } from "lightning/uiRecordApi";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import FIN_ACCOUNT_OCV_ID_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.OCV_ID__c";
@@ -68,7 +68,7 @@ export default class TransactionHistoryBoard extends LightningElement {
   loading = true;
   disputeRecordTypes = [];
   transactionTypeDisputeIdMap = {};
-  personContactId = "";
+  personAccountId = "";
   showWarning = true;
   lastDateInPayload;
   allTags;
@@ -86,7 +86,7 @@ export default class TransactionHistoryBoard extends LightningElement {
     if (data && hasAccountsGoalsPermission) {
       this.ocvId = data.fields.OCV_ID__c.value;
       this.accountNumber = data.fields.FinServ__FinancialAccountNumber__c.value;
-      this.handleGetPersonContactId();
+      this.handleGetPersonAccountId();
       if (this.disputeRecordTypes.length === 0) {
         this.handleGetDisputeRecordTypeDetails();
       }
@@ -157,7 +157,13 @@ export default class TransactionHistoryBoard extends LightningElement {
               let currentDate = this.getDateObject(
                 currentTransaction.transactionDateLocal
               );
-
+              currentTransaction.transaction_date = new Date(
+                currentTransaction.transactionDateLocal
+              ).toLocaleDateString("en-CA");
+              currentTransaction.transaction_posted_date = new Date(
+                currentTransaction.transaction_posted_date
+              ).toLocaleDateString("en-CA");
+              // Date only value to be passed to default field values, use locale "en-CA" to get YYYY-MM-DD format
               this.setTransactionDisplayDateTime(currentTransaction);
               /* 
               To prevent the issue where the first transaction the next payload has the same date as the last transaction in the previous payload and
@@ -199,7 +205,8 @@ export default class TransactionHistoryBoard extends LightningElement {
 
               //Remap card scheme to be user friendly
               if (currentTransaction.card) {
-                currentTransaction.card.scheme = currentTransaction.card.scheme
+                currentTransaction.card.formatted_scheme = currentTransaction
+                  .card.scheme
                   ? cardMapping[currentTransaction.card.scheme]
                   : "Unknown";
               }
@@ -436,13 +443,13 @@ export default class TransactionHistoryBoard extends LightningElement {
   }
 
   // Getting person contact Id so we can pre-populated it on the data capture form
-  handleGetPersonContactId() {
-    getPersonContactId({
+  handleGetPersonAccountId() {
+    getPersonAccountId({
       financialAccountId: this.recordId
     })
       .then((result) => {
         if (result != null) {
-          this.personContactId = result;
+          this.personAccountId = result;
         }
       })
       .catch((error) => {
