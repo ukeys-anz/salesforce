@@ -7,7 +7,9 @@ public with sharing class DisputesValidationTest {
       SetupOwnerId = UserInfo.getOrganizationId(),
       Disable_Triggers__c = true
     );
-    @SuppressWarnings('AvoidHardcodingId')
+    Id cardRTId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+      .get('Card_Dispute')
+      .getRecordTypeId();
     // Create test data for account case
     Account acc = new Account(
       Name = 'TestAccount',
@@ -17,7 +19,7 @@ public with sharing class DisputesValidationTest {
     );
     insert acc;
     insert new Case(
-      RecordTypeID = '0122P0000004OxkQAE',
+      RecordTypeID = cardRTId,
       Subject = 'Test Disputes',
       Type = 'Cards',
       Dispute_Reason__c = 'Charged for a cancelled payment',
