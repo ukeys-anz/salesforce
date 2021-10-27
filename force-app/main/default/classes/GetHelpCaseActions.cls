@@ -280,16 +280,16 @@ public with sharing class GetHelpCaseActions {
         if (System.Today().isSameDay(c.Effective_Date__c)) {
           c.Priority = 'High';
         } else {
-          Datetime currentDateTime = Datetime.now();
+          Datetime currentDate = System.Today();
           Datetime previousWorkingDay = DateTimeUtils.substractBusinessDays(
             c.BusinessHoursId,
-            currentDateTime,
+            currentDate,
             1
           );
           if (
             previousWorkingDay.isSameDay(c.Effective_Date__c) &&
-            (currentDateTime.hour() <= 15 &&
-            currentDateTime.minute() <= 30)
+            (Datetime.now().hour() <= 15 &&
+            Datetime.now().minute() <= 30)
           ) {
             c.Priority = 'High';
           }
