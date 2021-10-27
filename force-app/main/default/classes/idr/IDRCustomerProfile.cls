@@ -10,13 +10,13 @@ public with sharing class IDRCustomerProfile {
   @AuraEnabled
   public String ocvId;
   @AuraEnabled
-  public Object cpId;
+  public String cpId;
   @AuraEnabled
   public String complainantType;
   @AuraEnabled
-  public Object businessName;
+  public String businessName;
   @AuraEnabled
-  public Object companyName;
+  public String companyName;
   @AuraEnabled
   public String firstName;
   @AuraEnabled
