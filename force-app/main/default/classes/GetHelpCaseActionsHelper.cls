@@ -6,6 +6,23 @@
  */
 @SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class GetHelpCaseActionsHelper {
+  public static final List<Id> FRAUD_RT_IDS = new List<Id>{
+    GetHelpConstants.FRAUD_RT_ID,
+    GetHelpConstants.IDENTITY_RT_ID,
+    GetHelpConstants.RECIPIENT_MULE_RT_ID,
+    GetHelpConstants.SCAM_RT_ID,
+    GetHelpConstants.KYCQA_RT_ID
+  };
+
+  public static final List<Id> DISPUTE_RT_IDS = new List<Id>{
+    GetHelpConstants.ATM_DISPUTE_RT_ID,
+    GetHelpConstants.CARD_DISPUTE_RT_ID,
+    GetHelpConstants.DIRECT_DEBIT_DISPUTE_RT_ID,
+    GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID,
+    GetHelpConstants.URGENT_DISHONOUR_DISPUTE_RT_ID,
+    GetHelpConstants.NPP_DISPUTE_RT_ID
+  };
+
   // Parent Case validation error message
   private static final String PARENT_CASE_ERROR = 'You cannot add parent case. This case is associated with child cases';
 
@@ -77,11 +94,11 @@ public with sharing class GetHelpCaseActionsHelper {
    */
   public static Boolean isANZPlusCaseType(Case record) {
     if (
-      GetHelpCaseActions.FRAUD_RT_IDS.contains(record.RecordTypeId) ||
+      FRAUD_RT_IDS.contains(record.RecordTypeId) ||
       record.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID ||
       record.RecordTypeId == GetHelpConstants.BUG_RT_ID ||
       record.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID ||
-      GetHelpCaseActions.DISPUTE_RT_IDS.contains(record.RecordTypeId)
+      DISPUTE_RT_IDS.contains(record.RecordTypeId)
     ) {
       return true;
     }
@@ -255,7 +272,7 @@ public with sharing class GetHelpCaseActionsHelper {
    */
   public static Boolean isFraud(Case record, Map<Id, Case> oldCaseMap) {
     if (
-      GetHelpCaseActions.FRAUD_RT_IDS.contains(record.RecordTypeId) &&
+      FRAUD_RT_IDS.contains(record.RecordTypeId) &&
       String.isNotBlank(record.Type) &&
       (oldCaseMap == null ||
       record.Type != oldCaseMap.get(record.Id).Type ||
@@ -273,7 +290,7 @@ public with sharing class GetHelpCaseActionsHelper {
    * @return if the case is a Dispute Case
    */
   public static Boolean isDispute(Case record) {
-    if (GetHelpCaseActions.DISPUTE_RT_IDS.contains(record.RecordTypeId)) {
+    if (DISPUTE_RT_IDS.contains(record.RecordTypeId)) {
       return true;
     } else {
       return false;
