@@ -95,7 +95,7 @@ public with sharing class DateTimeUtils {
   }
 
   /**
-   * Recursive function to get previous working day
+   * @description Recursive function to get previous working day
    * If date passed to this function is on a working day, this will return same date
    * If date passed to this function is not on a working day, this will return previous working day
    * *********************
