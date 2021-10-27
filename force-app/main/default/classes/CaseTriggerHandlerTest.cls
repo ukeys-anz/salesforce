@@ -2148,4 +2148,91 @@ private class CaseTriggerHandlerTest {
       'Failed to mark Dispute milestone as completed, when status is changed from Under Investigation to Closed'
     );
   }
+
+  @isTest
+  static void testDisputePrioritySameDay() {
+    Account acc = [
+      SELECT Id
+      FROM Account
+      WHERE ANZx_Customer__c = TRUE
+      LIMIT 1
+    ];
+
+    // GIVEN
+    // a Direct Debit / Direct Entry dispute Case is being created
+    List<Case> disputes = new List<Case>();
+    Case disputeCase = new Case(
+      RecordTypeId = GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID,
+      AccountId = acc.Id,
+      Auto_Created__c = false,
+      Dispute_Reason__c = 'Duplicate Transactions',
+      Origin = '1',
+      Priority = 'Medium',
+      Effective_Date__c = Date.valueof(System.now()),
+      Transaction_Id__c = '9be08660-23bb-4f12-b124-7cfe561ba086'
+    );
+
+    // WHEN
+    // the Transaction Date (Effective Date) is the same date as the case creation date
+    Test.startTest();
+
+    disputeCase.Effective_Date__c = Date.valueof(System.now());
+    disputes.add(disputeCase);
+
+    GetHelpCaseActions.setPriority(disputes);
+
+    Test.stopTest();
+
+    // THEN
+    // case Priority should be marked as 'High'
+    System.assertEquals(
+      'High',
+      disputeCase.Priority,
+      'Failed to set the Priority to High when Dispute case is created on the same day as the transaction'
+    );
+  }
+
+  @isTest
+  static void testDisputePriorityBeforeLastBusinessDay() {
+    Account acc = [
+      SELECT Id
+      FROM Account
+      WHERE ANZx_Customer__c = TRUE
+      LIMIT 1
+    ];
+
+    // GIVEN
+    // a Direct Debit / Direct Entry dispute Case is being created
+    List<Case> disputes = new List<Case>();
+    Case disputeCase = new Case(
+      RecordTypeId = GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID,
+      AccountId = acc.Id,
+      Auto_Created__c = false,
+      Dispute_Reason__c = 'Duplicate Transactions',
+      Origin = '1',
+      Priority = 'Medium',
+      Effective_Date__c = Date.valueof(System.now()),
+      Transaction_Id__c = '9be08660-23bb-4f12-b124-7cfe561ba086',
+      BusinessHoursId = CommonUtil.getBusinessHours().Id
+    );
+
+    // WHEN
+    // the Transaction Date (Effective Date) is more than one business days ago
+    Test.startTest();
+
+    disputeCase.Effective_Date__c = Date.valueof(System.now().addDays(-3));
+    disputes.add(disputeCase);
+
+    GetHelpCaseActions.setPriority(disputes);
+
+    Test.stopTest();
+
+    // THEN
+    // case Priority should remain as 'Medium'
+    System.assertEquals(
+      'Medium',
+      disputeCase.Priority,
+      'Priority should be left as Medium when Dispute case is created after more than one business days from transaction'
+    );
+  }
 }

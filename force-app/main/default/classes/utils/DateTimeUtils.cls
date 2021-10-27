@@ -67,6 +67,60 @@ public with sharing class DateTimeUtils {
   }
 
   /**
+   *@description Substract business days from a date.
+   *@param businessHrs Business Hours Id to consider working hours and public holidays
+   * @param startDate start date in DateTime
+   * @param daysToSubstract number of business days to be substracted
+   * @return datetime final date after substracting days from startDate
+   */
+  public static datetime substractBusinessDays(
+    id businessHrs,
+    datetime startDate,
+    integer daysToSubstract
+  ) {
+    datetime newDatetime = startDate;
+    for (integer i = 1; i <= daysToSubstract; i++) {
+      newDatetime = getPreviousBusinessDay(
+        businessHrs,
+        newDatetime.addDays(-1)
+      );
+    }
+
+    string ausDate = newDatetime.format(
+      'yyyy-MM-dd HH:mm:ss',
+      'Australia/Sydney'
+    ); // Format the date time Australian time zone.
+    datetime returnValue = date.valueOf(ausDate);
+    return returnValue;
+  }
+
+  /**
+   * Recursive function to get previous working day
+   * If date passed to this function is on a working day, this will return same date
+   * If date passed to this function is not on a working day, this will return previous working day
+   * *********************
+   * For Example, if day passed to this function is Monday, this will return Monday
+   * but if day passed to the function is Sunday, then this will return Friday
+   * *********************
+   * @param businessHrsId BusinessHours Id
+   * @param startDate Datetime to operate on
+   */
+  private static Datetime getPreviousBusinessDay(
+    Id businessHrsId,
+    Datetime startDate
+  ) {
+    //Check if new date is within business days
+    if (!BusinessHours.isWithin(businessHrsId, startDate)) {
+      //New date is not within business days, recursively call same function to get previous date by subtracting 1 day
+      startDate = startDate.addDays(-1);
+      return getPreviousBusinessDay(businessHrsId, startDate);
+    } else {
+      //New date is within business days, return this date
+      return startDate;
+    }
+  }
+
+  /**
    *@description Calculate local time based on user time zone.
    * @param utcDateTime UTC datetime to be converted to local time
    * @param timezone the timezone used to convert datetime

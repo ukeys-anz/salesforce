@@ -266,6 +266,38 @@ public with sharing class GetHelpCaseActions {
     }
   }
 
+  /*
+   * @description Sets default values on Priority based on different Case record types
+   * @param caseList list of cases from the trigger
+   */
+  public static void setPriority(List<Case> caseList) {
+    for (Case c : caseList) {
+      if (
+        (c.RecordTypeId == GetHelpConstants.DIRECT_DEBIT_DISPUTE_RT_ID ||
+        c.RecordTypeId == GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID) &&
+        c.Effective_Date__c != null
+      ) {
+        if (System.Today().isSameDay(c.Effective_Date__c)) {
+          c.Priority = 'High';
+        } else {
+          Datetime currentDateTime = Datetime.now();
+          Datetime previousWorkingDay = DateTimeUtils.substractBusinessDays(
+            c.BusinessHoursId,
+            currentDateTime,
+            1
+          );
+          if (
+            previousWorkingDay.isSameDay(c.Effective_Date__c) &&
+            (currentDateTime.hour() <= 15 &&
+            currentDateTime.minute() <= 30)
+          ) {
+            c.Priority = 'High';
+          }
+        }
+      }
+    }
+  }
+
   /**
    * @description This method updates the entitlement field on the case
    * if the case is of General Inquiry, ANZX Complaint, or any of the Dispute record types
