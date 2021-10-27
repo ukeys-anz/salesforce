@@ -23,9 +23,7 @@ public with sharing class DisputesValidationTest {
       Dispute_Reason__c = 'Charged for a cancelled payment',
       AccountId = acc.Id,
       Is_The_Card_Lost_Stolen__c = 'Lost',
-      External_System__c = 'Pega PRS',
-      External_Case_ID__c = 'CASE123456',
-      Status = 'Under Investigation',
+      Status = 'Open',
       Queue__c = null
     );
   }
