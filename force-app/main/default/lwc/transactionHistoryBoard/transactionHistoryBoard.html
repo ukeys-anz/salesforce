@@ -76,7 +76,7 @@
         <template if:true={transactionList}>
           <template for:each={transactionList} for:item="transRecord">
             <c-transaction-history-record
-              key={transRecord.TransactionID}
+              key={transRecord.transaction_id}
               transaction-record={transRecord}
               expand-all={expandAll}
               dispute-record-types={disputeRecordTypes}

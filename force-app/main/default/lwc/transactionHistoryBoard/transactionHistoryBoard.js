@@ -10,6 +10,7 @@ import { publish, MessageContext } from "lightning/messageService";
 import ExpandCollapseAll from "@salesforce/messageChannel/ListCollapseExpandAll__c";
 import { handleErrorShowToast } from "c/utils";
 import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
+import { getOptionalFieldValue, processTransaction } from "./helpers/util";
 
 //Remapping the status and types returned from the API so they
 //are more readable on the UI
@@ -146,7 +147,7 @@ export default class TransactionHistoryBoard extends LightningElement {
               ];
 
               //Remap type and status
-              currentTransaction.type = currentTransaction.type
+              currentTransaction.formattedType = currentTransaction.type
                 ? transactionTypeMapping[currentTransaction.type]
                 : "Unknown";
               currentTransaction.status = currentTransaction.status
@@ -219,6 +220,10 @@ export default class TransactionHistoryBoard extends LightningElement {
               currentTransaction.error = currentTransaction.error
                 ? currentTransaction.error
                 : "N/A";
+
+              //Handle processing of transaction optional fields
+              currentTransaction = processTransaction(currentTransaction);
+
               updatedFullList.push(currentTransaction);
             }
           }
@@ -231,7 +236,6 @@ export default class TransactionHistoryBoard extends LightningElement {
             this.transactionList.push(e);
           });
         }
-
         this.loading = false;
       })
       .catch((error) => {
@@ -302,15 +306,13 @@ export default class TransactionHistoryBoard extends LightningElement {
       transaction.logo = null;
     }
 
-    transaction.merchantEmail = this.getOptionalFieldValue(
-      merchantDetails.email
-    );
+    transaction.merchantEmail = getOptionalFieldValue(merchantDetails.email);
 
-    transaction.merchantPhoneNumber = this.getOptionalFieldValue(
+    transaction.merchantPhoneNumber = getOptionalFieldValue(
       merchantDetails.phone_number
     );
 
-    transaction.merchantWebsiteUrl = this.getOptionalFieldValue(
+    transaction.merchantWebsiteUrl = getOptionalFieldValue(
       merchantDetails.website_url
     );
 
@@ -523,11 +525,5 @@ export default class TransactionHistoryBoard extends LightningElement {
     return this.allTags.filter((tag) => {
       return tagIds.indexOf(tag.tag_id) > -1;
     });
-  }
-
-  //This function checks if an optional value exists and returns it else
-  //returns unknown
-  getOptionalFieldValue(field) {
-    return field ? field.value : "Unknown";
   }
 }
