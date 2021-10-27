@@ -810,6 +810,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Transaction_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Transaction_UUID__c</field>
         <readable>true</readable>
     </fieldPermissions>

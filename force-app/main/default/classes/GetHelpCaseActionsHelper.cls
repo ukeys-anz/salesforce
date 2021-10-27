@@ -80,7 +80,8 @@ public with sharing class GetHelpCaseActionsHelper {
       GetHelpCaseActions.FRAUD_RT_IDS.contains(record.RecordTypeId) ||
       record.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID ||
       record.RecordTypeId == GetHelpConstants.BUG_RT_ID ||
-      record.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID
+      record.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID ||
+      GetHelpCaseActions.DISPUTE_RT_IDS.contains(record.RecordTypeId)
     ) {
       return true;
     }

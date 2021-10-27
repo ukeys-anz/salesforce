@@ -32,38 +32,6 @@ public with sharing class TransactionHistoryController {
    * @author Jasmine Nguyen
    * @since 02/2021
    * @description Get the contact Id of the person account that will linked to the case
-   * @param financialAccountId Financial Account Id
-   * @return Person Contact Id
-   */
-  @AuraEnabled
-  public static String getPersonContactId(String financialAccountId) {
-    Id personAccountId = getPersonAccountId(financialAccountId);
-    Lib_SystemLog log = new Lib_SystemLog(
-      'TransactionHistoryController',
-      'getPersonContactId'
-    );
-    if (Account.SObjectType.getDescribe().isAccessible()) {
-      for (Account personAccount : [
-        SELECT Id, PersonContactId
-        FROM Account
-        WHERE Id = :personAccountId AND isPersonAccount = TRUE
-      ]) {
-        log.trace(
-          'Person Contact retrieved with Id: ' + personAccount.PersonContactId
-        );
-        log.insertLogAsync();
-        return personAccount.PersonContactId;
-      }
-    }
-    log.trace('Unable to retrieve person contact');
-    log.insertLogAsync();
-    return null;
-  }
-
-  /**
-   * @author Jasmine Nguyen
-   * @since 02/2021
-   * @description Get the contact Id of the person account that will linked to the case
    * @param financialAccountId Financial Account Id related
    * @return the Id of the person account used as the primary owner of this financial account
    */
