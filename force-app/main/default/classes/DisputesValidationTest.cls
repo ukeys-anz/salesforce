@@ -3,10 +3,6 @@ public with sharing class DisputesValidationTest {
   @TestSetup
   // Turn off triggers to run tests
   static void turnOffTriggers() {
-    insert new Salesforce_Library_Settings__c(
-      SetupOwnerId = UserInfo.getOrganizationId(),
-      Disable_Triggers__c = true
-    );
     Id cardRTId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
       .get('Card_Dispute')
       .getRecordTypeId();
@@ -27,6 +23,10 @@ public with sharing class DisputesValidationTest {
       Is_The_Card_Lost_Stolen__c = 'Lost',
       Status = 'Open',
       Queue__c = null
+    );
+    insert new Salesforce_Library_Settings__c(
+      SetupOwnerId = UserInfo.getOrganizationId(),
+      Disable_Triggers__c = true
     );
   }
   // When Case Owner is manually re-assigned from Queue to a User
