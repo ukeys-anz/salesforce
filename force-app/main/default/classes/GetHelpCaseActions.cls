@@ -111,7 +111,7 @@ public with sharing class GetHelpCaseActions {
     }
 
     if (!milestoneCaseIds.isEmpty()) {
-      MilestoneUtils.completeMilestone(
+      MilestoneUtils.completeMilestones(
         milestoneCaseIds,
         new List<String>{
           RESOLUTION_TIME_MILESTONE,
