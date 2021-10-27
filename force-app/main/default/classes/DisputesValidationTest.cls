@@ -17,7 +17,7 @@ public with sharing class DisputesValidationTest {
     );
     insert acc;
     insert new Case(
-      RecordTypeId = GetHelpCaseActions.CARD_DISPUTE_RT_ID,
+      RecordType.DeveloperName = Card_Dispute,
       Subject = 'Test Disputes',
       Type = 'Cards',
       Dispute_Reason__c = 'Charged for a cancelled payment',
@@ -29,7 +29,7 @@ public with sharing class DisputesValidationTest {
   }
   // When Case Owner is manually re-assigned from Queue to a User
   @isTest
-  static void testOne() {
+  static void testDisputesQueuetoUser() {
     Case c = (Case) [SELECT Id FROM Case LIMIT 1];
     c.OwnerId = UserInfo.getUserId();
     Test.startTest();
@@ -50,7 +50,7 @@ public with sharing class DisputesValidationTest {
 
   // When manually re-assigned to a valid Queue to pass
   @isTest
-  static void testTwo() {
+  static void testDisputesValidQueue() {
     Case c = (Case) [SELECT Id FROM Case LIMIT 1];
     c.Queue__c = 'Card Disputes - General Queue';
     Test.startTest();
@@ -71,7 +71,7 @@ public with sharing class DisputesValidationTest {
 
   // When the Status changes to closed and the External Case ID is null
   @isTest
-  static void testThree() {
+  static void testDisputesStatusClosedNullExternal() {
     Case c = (Case) [SELECT Id, External_System__c, Status FROM Case LIMIT 1];
     c.External_Case_ID__c = null;
     c.Status = 'Closed';
@@ -93,7 +93,7 @@ public with sharing class DisputesValidationTest {
 
   // When External System is changed and External Case ID is null
   @isTest
-  static void testFour() {
+  static void testDisputesChangedButNullExternal() {
     Case c = (Case) [
       SELECT Id, External_System__c, External_Case_ID__c
       FROM Case
