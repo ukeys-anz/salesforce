@@ -27,7 +27,7 @@ public with sharing class IDREmailToCase {
     String emailBody = c.Description.trim();
     emailBody = emailBody.removeStart('[');
     emailBody = emailBody.replaceAll(
-      '"This e-mail and any attachments to it \\(the "Communication"\\) is, unless otherwise stated, confidential, may contain copyright material and is for the use only of the intended.+',
+      '"This e-mail and any attachments to it \\(the "Communication"\\) is, unless otherwise stated, confidential, may contain copyright material and is for the use only of the intended +',
       ''
     );
     emailBody = emailBody.trim();
