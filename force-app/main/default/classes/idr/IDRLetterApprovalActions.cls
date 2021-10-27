@@ -61,12 +61,12 @@ public with sharing class IDRLetterApprovalActions {
     String customerIdentifier,
     String approvalRecId
   ) {
-    Map<String, Object> responseMap = IDRAPIRepository.getCustomerInfoLWC(
+    IDRCustomerInformationModel responseMap = IDRAPIRepository.getCustomerInfoLWC(
       customerNumber,
       customerIdentifier
     );
-    Map<String, Object> customerData = (Map<String, Object>) responseMap.get(
-      'profile'
+    Map<String, Object> customerData = (Map<String, Object>) System.JSON.deserializeUntyped(
+      System.JSON.serialize(responseMap.profile)
     );
 
     List<IDR_Letter_Approval_Details__c> appDetailsList = new List<IDR_Letter_Approval_Details__c>();
