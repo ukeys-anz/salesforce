@@ -67,8 +67,8 @@ public with sharing class DateTimeUtils {
   }
 
   /**
-   *@description Substract business days from a date.
-   *@param businessHrs Business Hours Id to consider working hours and public holidays
+   * @description Substract business days from a date
+   * @param businessHrs Business Hours Id to consider working hours and public holidays
    * @param startDate start date in DateTime
    * @param daysToSubstract number of business days to be substracted
    * @return datetime final date after substracting days from startDate
@@ -104,6 +104,7 @@ public with sharing class DateTimeUtils {
    * *********************
    * @param businessHrsId BusinessHours Id
    * @param startDate Datetime to operate on
+   * @return `Datetime`
    */
   private static Datetime getPreviousBusinessDay(
     Id businessHrsId,

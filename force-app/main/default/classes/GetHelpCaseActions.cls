@@ -266,7 +266,7 @@ public with sharing class GetHelpCaseActions {
     }
   }
 
-  /*
+  /**
    * @description Sets default values on Priority based on different Case record types
    * @param caseList list of cases from the trigger
    */
