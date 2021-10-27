@@ -44,7 +44,7 @@ describe("c-transactionHistoryRecord", () => {
       //We can't confirm that the value is formatted in Jest
       //so we confirm the format style of the amount plus the value
       expect(amount.formatStyle).toEqual("currency");
-      expect(amount.value).toEqual("50");
+      expect(amount.value).toEqual(50);
 
       const descriptionDiv = element.shadowRoot.querySelector(
         "div.description-tooltip"
@@ -56,7 +56,7 @@ describe("c-transactionHistoryRecord", () => {
         'div[data-id="transactionId"]'
       );
       expect(transIdDiv).not.toBeNull();
-      expect(transIdDiv.textContent).toBe("123");
+      expect(transIdDiv.textContent).toBe("4313ds-51d2-4ve2-ba7e-0b339p157da1");
 
       const errorDiv = element.shadowRoot.querySelector(
         'div[data-id="transError"]'
@@ -92,7 +92,7 @@ describe("c-transactionHistoryRecord", () => {
         'div[data-id="transactionId"]'
       );
       expect(transIdDiv).not.toBeNull();
-      expect(transIdDiv.textContent).toBe("123");
+      expect(transIdDiv.textContent).toBe("4313ds-51d2-4ve2-ba7e-0b339p157da1");
 
       const errorDiv = element.shadowRoot.querySelector(
         'div[data-id="transError"]'
@@ -128,7 +128,7 @@ describe("c-transactionHistoryRecord", () => {
         'div[data-id="transactionId"]'
       );
       expect(transIdDiv).not.toBeNull();
-      expect(transIdDiv.textContent).toBe("123");
+      expect(transIdDiv.textContent).toBe("4313ds-51d2-4ve2-ba7e-0b339p157da1");
 
       const errorDiv = element.shadowRoot.querySelector(
         'div[data-id="transError"]'

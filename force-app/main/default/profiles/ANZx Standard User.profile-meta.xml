@@ -8158,9 +8158,20 @@
     <recordType>PersonAccount.PersonAccount</recordType>
   </layoutAssignments>
   <layoutAssignments>
+    <layout>Quality_Assessment__c-General Layout</layout>
+    <recordType>Quality_Assessment__c.General</recordType>
+  </layoutAssignments>
+  <layoutAssignments>
+      <layout>Quality_Assessment__c-Quality Assessment Layout</layout>
+  </layoutAssignments>
+  <layoutAssignments>
       <layout>Task-Call Log Layout</layout>
       <recordType>Task.Call_Log</recordType>
   </layoutAssignments>
+  <layoutAssignments>
+    <layout>Task-Compliance Task Layout</layout>
+    <recordType>Task.Compliance_Task</recordType>
+</layoutAssignments>
   <layoutAssignments>
       <layout>User-User Layout</layout>
   </layoutAssignments>
@@ -9717,7 +9728,7 @@
   </tabVisibilities>
   <tabVisibilities>
     <tab>standard-Task</tab>
-    <visibility>DefaultOff</visibility>
+    <visibility>DefaultOn</visibility>
   </tabVisibilities>
   <tabVisibilities>
     <tab>standard-Today</tab>
@@ -9955,6 +9966,10 @@
   <userPermissions>
     <enabled>false</enabled>
     <name>ViewSetup</name>
+  </userPermissions>
+  <userPermissions>
+    <enabled>true</enabled>
+    <name>ViewDeveloperName</name>
   </userPermissions>
   <userPermissions>
     <enabled>false</enabled>

@@ -51,10 +51,6 @@
             <fullName>Product Information</fullName>
             <default>false</default>
         </values>
-        <values>
-            <fullName>Transaction %26 Savings enquiry</fullName>
-            <default>false</default>
-        </values>
     </picklistValues>
     <picklistValues>
         <picklist>Card_In_Possession_During_Transaction__c</picklist>
@@ -4794,7 +4790,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Money tiles</fullName>
+            <fullName>Using tiles</fullName>
             <default>false</default>
         </values>
         <values>
@@ -4862,10 +4858,6 @@
         </values>
         <values>
             <fullName>Payments</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Transaction %26 Savings enquiry</fullName>
             <default>false</default>
         </values>
         <values>
