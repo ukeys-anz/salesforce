@@ -41,7 +41,15 @@ public with sharing class IDRCustomerInformationModel extends CalloutModel {
     @AuraEnabled
     public Details details;
     @AuraEnabled
-    public Object error;
+    public Error error;
+  }
+
+  /**
+   * @description error wrapper containing error message
+   */
+  public class Error {
+    @AuraEnabled
+    public String message;
   }
 
   /**
