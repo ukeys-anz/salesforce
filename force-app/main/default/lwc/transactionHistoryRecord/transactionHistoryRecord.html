@@ -17,7 +17,7 @@
       </div>
       <div class="slds-col slds-size--1-of-7">
         <div class="slds-grid slds-form-element__label">Transaction Type</div>
-        <div class="slds-grid">{transactionRecord.type}</div>
+        <div class="slds-grid">{transactionRecord.formattedType}</div>
       </div>
       <div class="slds-col slds-size--1-of-7">
         <div class="slds-grid slds-form-element__label">Transaction Time</div>
@@ -191,6 +191,97 @@
               </div>
               <div class="slds-grid">
                 {transactionRecord.card.last_four_digits}
+              </div>
+            </div>
+          </div>
+        </div>
+      </template>
+
+      <template if:true={transactionRecord.transfer}>
+        <div class="transaction-section">
+          <h3 class="section-title">Transfer Details</h3>
+          <div class="slds-grid slds-m-bottom_small">
+            <div class="slds-col slds-size--1-of-7"></div>
+            <div class="slds-col slds-size--1-of-7">
+              <div class="slds-grid slds-form-element__label">
+                Payer Account Number
+              </div>
+              <div class="slds-grid">
+                {transactionRecord.transfer.source_account.account.transactionAccountNumber}
+              </div>
+            </div>
+            <div class="slds-col slds-size--1-of-7">
+              <div class="slds-grid slds-form-element__label">
+                Payer BSB Number
+              </div>
+              <div class="slds-grid">
+                {transactionRecord.transfer.source_account.account.bsb}
+              </div>
+            </div>
+            <div class="slds-col slds-size--1-of-7">
+              <div class="slds-grid slds-form-element__label">Message</div>
+              <div class="slds-grid">{transactionRecord.transfer.message}</div>
+            </div>
+          </div>
+        </div>
+      </template>
+
+      <template if:true={transactionRecord.bpay}>
+        <div class="transaction-section">
+          <h3 class="section-title">BPAY Details</h3>
+          <div class="slds-grid slds-m-bottom_small">
+            <div class="slds-col slds-size--1-of-7"></div>
+            <div class="slds-col slds-size--1-of-7">
+              <div class="slds-grid slds-form-element__label">Biller Name</div>
+              <div class="slds-grid">{transactionRecord.bpay.biller_name}</div>
+            </div>
+            <div class="slds-col slds-size--1-of-7">
+              <div class="slds-grid slds-form-element__label">Biller Code</div>
+              <div class="slds-grid">{transactionRecord.bpay.biller_code}</div>
+            </div>
+            <div class="slds-col slds-size--1-of-7">
+              <div class="slds-grid slds-form-element__label">
+                Biller Reference Number
+              </div>
+              <div class="slds-grid">
+                {transactionRecord.bpay.customer_reference_number}
+              </div>
+            </div>
+          </div>
+        </div>
+      </template>
+
+      <template if:true={transactionRecord.pay_anyone}>
+        <div class="transaction-section">
+          <h3 class="section-title">Pay Anyone Details</h3>
+          <div class="slds-grid slds-m-bottom_small">
+            <div class="slds-col slds-size--1-of-7"></div>
+            <div class="slds-col slds-size--1-of-7">
+              <div class="slds-grid slds-form-element__label">
+                Payer Account Number
+              </div>
+              <div class="slds-grid">
+                {transactionRecord.pay_anyone.other_entity.account.transactionAccountNumber}
+              </div>
+            </div>
+            <div class="slds-col slds-size--1-of-7">
+              <div class="slds-grid slds-form-element__label">
+                Payer BSB Number
+              </div>
+              <div class="slds-grid">
+                {transactionRecord.pay_anyone.other_entity.account.bsb}
+              </div>
+            </div>
+            <div class="slds-col slds-size--1-of-7">
+              <div class="slds-grid slds-form-element__label">Alias Name</div>
+              <div class="slds-grid">
+                {transactionRecord.pay_anyone.other_entity.alias_name}
+              </div>
+            </div>
+            <div class="slds-col slds-size--1-of-7">
+              <div class="slds-grid slds-form-element__label">Alias ID</div>
+              <div class="slds-grid">
+                {transactionRecord.pay_anyone.other_entity.alias_id}
               </div>
             </div>
           </div>
