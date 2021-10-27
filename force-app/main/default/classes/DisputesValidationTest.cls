@@ -50,25 +50,22 @@ public with sharing class DisputesValidationTest {
     Test.stopTest();
   }
 
-  // When manually re-assigned to a valid Queue to pass
+  // When manually re-assigned to a invalid Queue to pass
   @isTest
   static void testDisputesValidQueue() {
+    Group cardDisputesQueue = CommonUtil.getQueueByName(
+      'Card_Dispute_General_Queue'
+    );
     Case c = (Case) [SELECT Id FROM Case LIMIT 1];
-    c.Queue__c = 'Card Disputes - General Queue';
+    c.OwnerId = cardDisputesQueue.Id;
     Test.startTest();
-    try {
-      update c;
-    } catch (Exception e) {
-      System.assertEquals(
-        false,
-        e.getMessage()
-          .contains(
-            'For ATM or Card record types, please select either Card Disputes - General Queue or Card Disputes - Fraud Queue.'
-          ),
-        'Incorrect error message.'
-      );
-    }
+    update c;
     Test.stopTest();
+    System.assertEquals(
+      c.OwnerId,
+      cardDisputesQueue.Id,
+      'Update was not successful.'
+    );
   }
 
   // When the Status changes to closed and the External Case ID is null

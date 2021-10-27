@@ -10,8 +10,8 @@ OR(
 RecordType.DeveloperName = &apos;ATM_Dispute&apos;,
 RecordType.DeveloperName = &apos;Card_Dispute&apos;),
 AND(
-NOT(Owner:Queue.QueueName = &apos;Card Disputes - General Queue&apos;),
-NOT(Owner:Queue.QueueName = &apos;Card Disputes - Fraud Queue&apos;))
+NOT(Owner:Queue.QueueName = &apos;Card Dispute - General Queue&apos;),
+NOT(Owner:Queue.QueueName = &apos;Card Dispute - Fraud Queue&apos;))
 )</errorConditionFormula>
     <errorMessage>For ATM or Card record types, please select either Card Disputes - General Queue or Card Disputes - Fraud Queue.</errorMessage>
 </ValidationRule>
