@@ -73,7 +73,7 @@ public with sharing class DateTimeUtils {
    * @param daysToSubstract number of business days to be substracted
    * @return Datetime final date after substracting days from startDate
    */
-  public static Datetime substractBusinessDays(
+  public static Datetime subtractBusinessDays(
     Id businessHrs,
     Datetime startDate,
     Integer daysToSubstract
