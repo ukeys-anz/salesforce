@@ -6,7 +6,7 @@
  */
 @SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class GetHelpCaseActionsHelper {
-  public static final List<Id> FRAUD_RT_IDS = new List<Id>{
+  public static final Set<Id> FRAUD_RT_IDS = new Set<Id>{
     GetHelpConstants.FRAUD_RT_ID,
     GetHelpConstants.IDENTITY_RT_ID,
     GetHelpConstants.RECIPIENT_MULE_RT_ID,
@@ -14,7 +14,7 @@ public with sharing class GetHelpCaseActionsHelper {
     GetHelpConstants.KYCQA_RT_ID
   };
 
-  public static final List<Id> DISPUTE_RT_IDS = new List<Id>{
+  public static final Set<Id> DISPUTE_RT_IDS = new Set<Id>{
     GetHelpConstants.ATM_DISPUTE_RT_ID,
     GetHelpConstants.CARD_DISPUTE_RT_ID,
     GetHelpConstants.DIRECT_DEBIT_DISPUTE_RT_ID,

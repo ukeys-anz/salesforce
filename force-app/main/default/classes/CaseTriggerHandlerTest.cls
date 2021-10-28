@@ -974,7 +974,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = GetHelpCaseActionsHelper.FRAUD_RT_IDS[
+          RecordTypeId = new List<Id>(GetHelpCaseActionsHelper.FRAUD_RT_IDS)[
             faker.randomIntegerBetween(1, 4)
           ],
           Type = faker.randomElement(caseTypes),
@@ -1171,7 +1171,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = GetHelpCaseActionsHelper.FRAUD_RT_IDS[4],
+          RecordTypeId = new List<Id>(GetHelpCaseActionsHelper.FRAUD_RT_IDS)[4],
           Type = 'KYC QA Sample',
           AccountId = acc.Id
         )
