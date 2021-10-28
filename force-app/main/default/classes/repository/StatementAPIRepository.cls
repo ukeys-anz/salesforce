@@ -55,19 +55,22 @@ public with sharing class StatementAPIRepository extends RepositoryBase {
   /**
    * @param ocvId required to make the callout to Mulesoft
    * @param statementId for which we want to fetch the statements Url
+   * @param additionalDetails map which contains the additional params required to log for statement access  
    * @return StatementModel model class constructed from api response
    * @description fetches statement Url from fabric based on the statement id, deserialized to a model
    */
   @AuraEnabled
   public static StatementModel getStatementUrlAura(
     String ocvId,
-    String statementId
+    String statementId,
+    Map<String,String> additionalDetails
   ) {
     StatementAPIRepository statementapi = new StatementAPIRepository();
     try {
-      StatementModel responseModel = statementapi.getStatements(
+      StatementModel responseModel = statementapi.getStatementUrl(
         ocvId,
-        statementId
+        statementId,
+        additionalDetails
       );
       return responseModel;
     } catch (Exception e) {
@@ -79,16 +82,34 @@ public with sharing class StatementAPIRepository extends RepositoryBase {
   /**
    * @param ocvId required to make the callout to Mulesoft
    * @param statementId for which we want to fetch the statements Url
+   * @param additionalDetails map which contains the additional params required to log for statement access
    * @return StatementModel model class constructed from api response
-   * @description fetches statement Url from fabric based on the statement id, deserialized to a model
+   * @description fetches statement Url from fabric based on the statement id, deserialized to a model also logs the access to statements into the application loggin big object
    */
-  public StatementModel getStatementUrl(String ocvId, String statementId) {
+  public StatementModel getStatementUrl(String ocvId, String statementId, Map<String,String> additionalDetails) {
     StatementModel result;
+    Map<String, String> responseMap = new Map<String, String>();
     Service s = ServiceProvider.getService(FabricService.class);
     HttpCalloutResponse response = s.getStatements(ocvId, statementId);
     if (response.successful) {
       try {
         result = StatementModel.parse(response.body);
+        responseMap.put('sfUserId',userinfo.getUserId());
+        responseMap.put('accountId',additionaldetails.get('accountId'));
+        responseMap.put('financialAccountId',additionaldetails.get('financialAccountId'));
+        responseMap.put('fromDate',additionaldetails.get('fromDate'));
+        responseMap.put('toDate',additionaldetails.get('toDate'));
+        responseMap.put('statementType',additionaldetails.get('statementType'));
+        Lib_SystemLog log = new Lib_SystemLog(
+        StatementAPIRepository.class.getName(),
+       'getStatementUrl'
+       );
+       log.addMessage(
+      'access-statement',
+      JSON.serialize(responseMap),
+      lib_systemlog.Severity.TRACE
+        );
+       log.publishEvent(); 
       } catch (Exception e) {
         handleErrors(null, e, StatementAPIRepository.class);
       }
