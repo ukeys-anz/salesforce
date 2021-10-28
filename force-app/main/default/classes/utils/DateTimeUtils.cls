@@ -43,15 +43,15 @@ public with sharing class DateTimeUtils {
    *@param businessHrs Business Hours Id to consider working hours and public holidays
    * @param startDate start date in DateTime
    * @param daysToAdd number of business days to be added
-   * @return datetime final date after adding days to startDate
+   * @return Datetime final date after adding days to startDate
    */
-  public static datetime addBusinessDays(
-    id businessHrs,
-    datetime startDate,
-    integer daysToAdd
+  public static Datetime addBusinessDays(
+    Id businessHrs,
+    Datetime startDate,
+    Integer daysToAdd
   ) {
-    datetime newDatetime = startDate;
-    for (integer i = 1; i <= daysToAdd; i++) {
+    Datetime newDatetime = startDate;
+    for (Integer i = 1; i <= daysToAdd; i++) {
       newDatetime = newDatetime.addDays(1);
       if (!BusinessHours.isWithin(businessHrs, newDatetime)) {
         newDatetime = BusinessHours.nextStartDate(BusinessHrs, newDatetime);
@@ -62,7 +62,7 @@ public with sharing class DateTimeUtils {
       'yyyy-MM-dd HH:mm:ss',
       'Australia/Sydney'
     ); // Format the date time Australian time zone.
-    datetime returnValue = date.valueOf(ausDate);
+    Datetime returnValue = date.valueOf(ausDate);
     return returnValue;
   }
 
@@ -71,15 +71,15 @@ public with sharing class DateTimeUtils {
    * @param businessHrs Business Hours Id to consider working hours and public holidays
    * @param startDate start date in DateTime
    * @param daysToSubstract number of business days to be substracted
-   * @return datetime final date after substracting days from startDate
+   * @return Datetime final date after substracting days from startDate
    */
-  public static datetime substractBusinessDays(
-    id businessHrs,
-    datetime startDate,
-    integer daysToSubstract
+  public static Datetime substractBusinessDays(
+    Id businessHrs,
+    Datetime startDate,
+    Integer daysToSubstract
   ) {
-    datetime newDatetime = startDate;
-    for (integer i = 1; i <= daysToSubstract; i++) {
+    Datetime newDatetime = startDate;
+    for (Integer i = 1; i <= daysToSubstract; i++) {
       newDatetime = getPreviousBusinessDay(
         businessHrs,
         newDatetime.addDays(-1)
@@ -90,7 +90,7 @@ public with sharing class DateTimeUtils {
       'yyyy-MM-dd HH:mm:ss',
       'Australia/Sydney'
     ); // Format the date time Australian time zone.
-    datetime returnValue = date.valueOf(ausDate);
+    Datetime returnValue = date.valueOf(ausDate);
     return returnValue;
   }
 
@@ -123,10 +123,10 @@ public with sharing class DateTimeUtils {
 
   /**
    *@description Calculate local time based on user time zone.
-   * @param utcDateTime UTC datetime to be converted to local time
-   * @param timezone the timezone used to convert datetime
-   * @param format the desired format for the converted datetime
-   * @return datetime the local date time based on user's timezone
+   * @param utcDateTime UTC Datetime to be converted to local time
+   * @param timezone the timezone used to convert Datetime
+   * @param format the desired format for the converted Datetime
+   * @return Datetime the local date time based on user's timezone
    */
   public static String getLocalTime(
     DateTime utcDateTime,
@@ -145,8 +145,8 @@ public with sharing class DateTimeUtils {
 
   /**
    *@description Calculate UTC time
-   * @param localDateTimeString Local datetime string to be converted to UTC datetime
-   * @return String datetime String in the GMT time zone so we can use in param URL construction.
+   * @param localDateTimeString Local Datetime string to be converted to UTC Datetime
+   * @return String Datetime String in the GMT time zone so we can use in param URL construction.
    */
   public static String getUTCTimeFromString(String localDateTimeString) {
     if (localDateTimeString != null) {
