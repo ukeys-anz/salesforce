@@ -565,22 +565,17 @@ public without sharing class IDRTaskActions {
    */
   private static Boolean validateCaseForPSITask(Case record, Case oldRec) {
     if (
-      IDRCaseActions.isIDRComplaintType(record) &&
-      record.IDR_Is_Common__c == 'Yes' &&
-      FeatureManagement.checkPermission('IDR_Level_1') &&
+      IDRCaseActions.isIDRComplaintType(record) && //is it complaint?
+      record.IDR_Is_Common__c == 'Yes' && //is case PSI
+      FeatureManagement.checkPermission('IDR_Level_1') && //is user level 1 or higher?
       (oldRec == null ||
-      record.IDR_Is_Common__c != oldRec.IDR_Is_Common__c)
+      (record.isEscalated != oldRec.isEscalated &&
+      oldRec.isEscalated == true)) && //if case is updated, has it been escalated?
+      ((oldRec == null &&
+      record.isClosed == true) || //if case is created closed
+      (oldRec.isClosed == false &&
+      record.isClosed == true)) //if case is updated from non-closed to closed status
     ) {
-      //create task if it is a possible systemic issue and level 1 user is making the change
-      return true;
-    } else if (
-      oldRec != null &&
-      IDRCaseActions.isIDRComplaintType(record) &&
-      record.IDR_Is_Common__c == 'Yes' &&
-      record.isClosed == true &&
-      oldRec.isEscalated == true
-    ) {
-      //create task if the complaint is a PSI, escalated and closed.
       return true;
     } else {
       return false;
@@ -594,7 +589,9 @@ public without sharing class IDRTaskActions {
   private static Task populateTaskFields(Case c) {
     Date activityDate = Date.today().addDays(5);
     return new Task(
-      RecordTypeId = IDRConstants.IDR_TASK_RT_ID,
+      RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID,
+      Type = IDRConstants.TASK_TYPE_SYSTEMIC_ISSUE,
+      Priority = 'Normal',
       OwnerId = siQueue.Id,
       WhatId = c.Id,
       Subject = IDR_TASK_SUBJECT,

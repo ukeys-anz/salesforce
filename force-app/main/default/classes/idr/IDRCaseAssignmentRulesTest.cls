@@ -15,7 +15,7 @@ private with sharing class IDRCaseAssignmentRulesTest {
         Priority = 'Customer in Collections',
         Description = 'IDR_Hardship'
       )
-    ); 
+    );
     cases.add(
       new Case(
         RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
