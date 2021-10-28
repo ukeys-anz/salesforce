@@ -25,6 +25,8 @@ public with sharing class CardListModel extends CalloutModel {
     public String accountNumber;
     @AuraEnabled
     public List<String> eligibilities;
+    @AuraEnabled
+    public Map<String, Integer> wallets;
 
     /**
      * @description validates response for expected values by the UI
@@ -38,6 +40,38 @@ public with sharing class CardListModel extends CalloutModel {
           String.isNotBlank(this.status))
           ? true
           : false;
+      }
+      set;
+    }
+
+    /**
+     * @description translate the wallet map into a list to be displayed on the UI
+     */
+    @AuraEnabled
+    public List<String> walletList {
+      get {
+        List<String> wList = new List<String>();
+        for (String key : this.wallets.keySet()) {
+          if (this.wallets.get(key) != 0) {
+            String keyStr = key;
+            if (keyStr != 'eCommerce') {
+              keyStr = keyStr.capitalize();
+            }
+            wList.add(keyStr + ' - ' + this.wallets.get(key));
+          }
+        }
+        return wList;
+      }
+      set;
+    }
+
+    /**
+     * @description tells whether this card has any digital wallet
+     */
+    @AuraEnabled
+    public Boolean hasWallet {
+      get {
+        return !walletList.isEmpty();
       }
       set;
     }
