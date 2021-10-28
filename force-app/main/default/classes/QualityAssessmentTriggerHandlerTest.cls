@@ -438,6 +438,8 @@ private class QualityAssessmentTriggerHandlerTest {
       complaintCases[i].Status = 'Closed';
       complaintCases[i].IDR_Complaint_Outcome__c = '1';
       complaintCases[i].IDR_Description_of_Outcome__c = 'test';
+      complaintCases[i].Has_complaint_met_RG_271_delay_criteria__c = 'No';
+      complaintCases[i].How_has_delay_criteria_been_met_not_met__c = 'test';
     }
 
     Test.startTest();
