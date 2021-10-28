@@ -70,16 +70,16 @@ public with sharing class DateTimeUtils {
    * @description Substract business days from a date
    * @param businessHrs Business Hours Id to consider working hours and public holidays
    * @param startDate start date in DateTime
-   * @param daysToSubstract number of business days to be substracted
+   * @param daysToSusbstract number of business days to be substracted
    * @return Datetime final date after substracting days from startDate
    */
-  public static Datetime subtractBusinessDays(
+  public static Datetime substractBusinessDays(
     Id businessHrs,
     Datetime startDate,
-    Integer daysToSubtract
+    Integer daysToSusbstract
   ) {
     Datetime newDatetime = startDate;
-    for (Integer i = 1; i <= daysToSubstract; i++) {
+    for (Integer i = 1; i <= daysToSusbstract; i++) {
       newDatetime = getPreviousBusinessDay(
         businessHrs,
         newDatetime.addDays(-1)
