@@ -59,19 +59,51 @@
     <picklistValues>
         <picklist>Fraud_Assisted_ID_Event_Type__c</picklist>
         <values>
-            <fullName>Failed Electronic Verification</fullName>
+            <fullName>Customer Overseas</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Failed ID to Face Bio-metric Match</fullName>
+            <fullName>Digital Wallet Issues</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Failed Self-Service PIN Recovery</fullName>
+            <fullName>Digital Wallet Provisioning</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Update Legal Name</fullName>
+            <fullName>Extract Data Sharing History</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mobile Outdated or Not Listed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Device Access</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Mobile Reception</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Revoke Data Sharing Consent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Suspect Fraud</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Token Activation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Token Suspension</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>None</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -4911,6 +4943,22 @@
         </values>
         <values>
             <fullName>Mobile Number Dispute</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Digital Wallet Provisioning</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Open Banking</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Verified by Visa</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Assisted Tax Verification</fullName>
             <default>false</default>
         </values>
     </picklistValues>
