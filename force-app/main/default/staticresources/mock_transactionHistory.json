@@ -162,6 +162,26 @@
           "method": "CARD_METHOD_SWIPE",
           "wallet": "CARD_WALLET_OTHER_NFC_WALLET"
         },
+        "pay_anyone": {
+          "payment_id": "AX12354143093760",
+          "message": {
+            "value": "Synthetic Transfer for Settlement at 2021-01-27 04:02:37.002208775 +0000 UTC m=+910202.095270876"
+          },
+          "other_entity": {
+            "name": "Peter Charalambous",
+            "alias_id": {
+              "value": "231231231"
+            },
+            "alias_name": {
+              "value": "Peter Chara"
+            },
+            "account": {
+              "bsb": "123456",
+              "number": "1234567890"
+            }
+          },
+          "clearing_method": "PAYMENT_TYPE_BKT"
+        },
         "primary_anzx_category": "329db79d-9093-5ce4-b9f2-dc533bc559d3",
         "transaction_posted_time": "2021-08-22T00:00:00Z",
         "transaction_value_time": "2021-08-22T14:00:00Z",
@@ -220,13 +240,13 @@
         "type": "TRANSACTION_TYPE_BPAY",
         "bpay": {
           "biller_name": {
-            "value": "biller-name"
+            "value": "Peter Charalambous"
           },
           "biller_code": {
-            "value": "biller-code"
+            "value": "011211"
           },
           "customer_reference_number": {
-            "value": "customer-reference-number"
+            "value": "24681012"
           }
         },
         "primary_anzx_category": "329db79d-9093-5ce4-b9f2-dc533bc559d3",
@@ -294,10 +314,10 @@
           "other_entity": {
             "name": "Peter Charalambous",
             "alias_id": {
-              "value": "alias-id"
+              "value": "231231231"
             },
             "alias_name": {
-              "value": "alias-name"
+              "value": "Peter Chara"
             },
             "account": {
               "bsb": "123456",
@@ -379,7 +399,7 @@
             "value": "Heres money for food"
           },
           "payment_receipt_number": {
-            "value": "payment-receipt-number"
+            "value": "0987654321123"
           },
           "source_account": {
             "account": {
@@ -457,7 +477,7 @@
             "value": "Heres money for food"
           },
           "payment_receipt_number": {
-            "value": "payment-receipt-number"
+            "value": "12345678907"
           },
           "source_account": {
             "account": {
@@ -521,7 +541,17 @@
             "value": "Synthetic Transfer for Settlement at 2021-01-27 04:02:37.002208775 +0000 UTC m=+910202.095270876"
           },
           "other_entity": {
-            "name": "Cameron V"
+            "name": "Peter Charalambous",
+            "alias_id": {
+              "value": "231231231"
+            },
+            "alias_name": {
+              "value": "Peter Chara"
+            },
+            "account": {
+              "bsb": "123456",
+              "number": "1234567890"
+            }
           },
           "clearing_method": "PAYMENT_TYPE_BKT"
         },
@@ -554,7 +584,11 @@
             "value": "Synthetic Transfer for Settlement at 2021-01-27 04:02:37.002208775 +0000 UTC m=+910202.095270876"
           },
           "other_entity": {
-            "name": "Cameron V"
+            "name": "Peter Charalambous",
+            "account": {
+              "bsb": "123456",
+              "number": "1234567890"
+            }
           },
           "clearing_method": "PAYMENT_TYPE_BKT"
         },
