@@ -55,7 +55,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
-                <field>ANZx_Product__c</field>
+                <field>Product__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

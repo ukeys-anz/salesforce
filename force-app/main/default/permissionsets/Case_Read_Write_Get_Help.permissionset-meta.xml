@@ -499,6 +499,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Product__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Reason_for_Direct_Debit_Cancellation__c</field>
         <readable>true</readable>
     </fieldPermissions>
