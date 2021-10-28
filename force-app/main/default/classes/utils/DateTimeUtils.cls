@@ -76,7 +76,7 @@ public with sharing class DateTimeUtils {
   public static Datetime subtractBusinessDays(
     Id businessHrs,
     Datetime startDate,
-    Integer daysToSubstract
+    Integer daysToSubtract
   ) {
     Datetime newDatetime = startDate;
     for (Integer i = 1; i <= daysToSubstract; i++) {
