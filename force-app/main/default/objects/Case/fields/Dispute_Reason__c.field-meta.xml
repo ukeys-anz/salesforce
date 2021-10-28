@@ -178,6 +178,26 @@
                 <default>false</default>
                 <label>Final Destination - Did my money get to where I sent it?</label>
             </value>
+          <value>
+                <fullName>Incorrect Account Details</fullName>
+                <default>false</default>
+                <label>Incorrect Account Details</label>
+            </value>
+            <value>
+                <fullName>Incorrect Amount Transferred</fullName>
+                <default>false</default>
+                <label>Incorrect Amount Transferred</label>
+            </value>
+            <value>
+                <fullName>Confirm Payee Name (Only for Salesforce)</fullName>
+                <default>false</default>
+                <label>Confirm Payee Name (Only for Salesforce)</label>
+            </value>
+            <value>
+                <fullName>Return money received from an unknown person</fullName>
+                <default>false</default>
+                <label>Return money received from an unknown person</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
