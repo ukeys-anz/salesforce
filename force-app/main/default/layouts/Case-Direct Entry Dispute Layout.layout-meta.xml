@@ -41,7 +41,7 @@
                 <behavior>Edit</behavior>
                 <field>Customer_Description__c</field>
             </layoutItems>
-            <layoutItems>
+            ß<layoutItems>
                 <behavior>Edit</behavior>
                 <field>Is_this_a_Business_Customer__c</field>
             </layoutItems>
@@ -203,6 +203,18 @@
             <layoutItems>
                 <behavior>Required</behavior>
                 <field>Status</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>External_System__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>External_Case_ID__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Submitted__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>

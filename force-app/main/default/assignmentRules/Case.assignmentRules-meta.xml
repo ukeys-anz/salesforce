@@ -1,4 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <AssignmentRules xmlns="http://soap.sforce.com/2006/04/metadata">
-
+    <assignmentRule>
+        <fullName>Dispute Case Allocation Rule</fullName>
+        <active>true</active>
+        <ruleEntry>
+            <assignedTo>Digital_Fraud_Queue</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>NPP</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Dispute_Reason__c</field>
+                <operation>equals</operation>
+                <value>Unauthorised Transaction,Didn&apos;t authorise transaction</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>Support_Coach_Queue</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>NPP</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Dispute_Reason__c</field>
+                <operation>notEqual</operation>
+                <value>Unauthorised Transaction,Didn&apos;t authorise transaction</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>Support_Coach_Queue</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Direct Debit,Direct Entry</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Status</field>
+                <operation>equals</operation>
+                <value>New</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>Card_Dispute_General_Queue</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>ATM,Card</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Dispute_Reason__c</field>
+                <operation>notEqual</operation>
+                <value>Unauthorised Transaction,Didn&apos;t authorise transaction,Fraudulent transaction</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>Card_Dispute_Fraud_Queue</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>ATM,Card</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Dispute_Reason__c</field>
+                <operation>equals</operation>
+                <value>Unauthorised Transaction,Didn&apos;t authorise transaction,Fraudulent transaction</value>
+            </criteriaItems>
+        </ruleEntry>
+    </assignmentRule>
 </AssignmentRules>
