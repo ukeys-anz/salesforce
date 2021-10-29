@@ -573,7 +573,8 @@ public without sharing class IDRTaskActions {
       oldRec.isEscalated == true)) && //if case is updated, has it been escalated?
       ((oldRec == null &&
       record.isClosed == true) || //if case is created closed
-      (oldRec.isClosed == false &&
+      (oldRec != null &&
+      oldRec.isClosed == false &&
       record.isClosed == true)) //if case is updated from non-closed to closed status
     ) {
       return true;
