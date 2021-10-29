@@ -1074,7 +1074,11 @@ private class CaseTriggerHandlerTest {
           Type = '',
           Dispute_Reason__c = 'Charged for a cancelled payment',
           AccountId = acc.Id,
-          Is_The_Card_Lost_Stolen__c = 'Lost'
+          Is_The_Card_Lost_Stolen__c = 'Lost',
+          Customer_Description__c = 'Some description',
+          Regular_Payment_Cancellation_Date__c = Date.valueOf('2021-10-15'),
+          Customer_Contacted_Merchant__c = 'Yes',
+          Merchant_Description__c = 'Coles'
         )
       );
     }
