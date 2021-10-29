@@ -16,10 +16,6 @@
         <default>true</default>
     </values>
     <values>
-        <fullName>Transferred to AR%26C</fullName>
-        <default>false</default>
-    </values>
-    <values>
         <fullName>Under Investigation</fullName>
         <default>false</default>
     </values>

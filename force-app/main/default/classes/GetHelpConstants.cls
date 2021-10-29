@@ -78,6 +78,7 @@ public with sharing class GetHelpConstants {
   public static final String RESOLVED_STATUS = 'Resolved';
   public static final String WITHDRAWN_STATUS = 'Withdrawn';
   public static final String ESCALATED_STATUS = 'Escalated';
+  public static final String UNDER_INVESTIGATION_STATUS = 'Under Investigation';
   public static final String CLOSED_STATUS_EDUCATED = 'Closed - Customer Educated';
   public static final String CLOSED_STATUS_FUTURE_RELEASE = 'Closed - Future Release';
   public static final String CLOSED_STATUS_RESOLVED = 'Closed - Resolved';

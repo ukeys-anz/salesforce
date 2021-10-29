@@ -37,12 +37,12 @@ public with sharing class MilestoneUtils {
   }
 
   /**
-   * @description completeMilestone the milestones associated with the records based on the params
+   * @description completes milestones associated with the records based on the params
    * @param caseIds Set of case ids to mark milestone as completed
    * @param milestoneNames list of milestones to mark as complete
    * @param complDate the date/time the milestone is completed
    */
-  public static void completeMilestone(
+  public static void completeMilestones(
     Set<Id> caseIds,
     List<String> milestoneNames,
     DateTime complDate
@@ -67,7 +67,7 @@ public with sharing class MilestoneUtils {
     } else {
       CommonUtil.logAndThrowIAE(
         'MilestoneUtils',
-        'completeMilestone',
+        'completeMilestones',
         'Not enough permissions to update CaseMilestone.'
       );
     }

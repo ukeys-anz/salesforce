@@ -224,7 +224,7 @@ public with sharing class IDRCaseActions {
     }
 
     if (!escalationCases.isEmpty()) {
-      MilestoneUtils.completeMilestone(
+      MilestoneUtils.completeMilestones(
         escalationCases,
         new List<String>{ 'Open_Escalation_Time' },
         System.now()
@@ -232,7 +232,7 @@ public with sharing class IDRCaseActions {
     }
 
     if (!maxTimeFrameCases.isEmpty()) {
-      MilestoneUtils.completeMilestone(
+      MilestoneUtils.completeMilestones(
         maxTimeFrameCases,
         new List<String>{
           '21-day IDR Response Due',
@@ -335,7 +335,8 @@ public with sharing class IDRCaseActions {
     for (Case c : caseList) {
       if (c.OwnerId.getSobjectType() == Group.SobjectType) {
         if (
-          oldCaseMap != null && oldCaseMap.containsKey(c.id) &&
+          oldCaseMap != null &&
+          oldCaseMap.containsKey(c.id) &&
           c.OwnerId != oldCaseMap.get(c.id).OwnerId
         ) {
           queueIds.add(c.OwnerId);
