@@ -657,8 +657,7 @@ public with sharing class IDRCaseActions {
     List<Case> closedComplaintCases = new List<Case>();
     for (Case c : records) {
       if (
-        (c.Status == IDRConstants.CLOSED_STATUS ||
-        c.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS) &&
+        (c.Status == IDRConstants.CLOSED_STATUS) &&
         oldMap.get(c.Id).Status != c.Status &&
         isIDRComplaintType(c)
       ) {
