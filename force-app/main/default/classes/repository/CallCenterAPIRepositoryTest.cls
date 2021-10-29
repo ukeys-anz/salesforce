@@ -21,7 +21,7 @@ public with sharing class CallCenterAPIRepositoryTest {
     Test.stopTest();
 
     System.assertEquals(
-      2,
+      3,
       model.channels.size(),
       'Number of chat topics returned does not match with mock values size.'
     );

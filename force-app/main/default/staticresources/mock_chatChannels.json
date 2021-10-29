@@ -13,13 +13,19 @@
       "status": "active",
       "chatFlowStatus": "ACCEPTED",
       "lastModified": "2021-02-13T03:37:25Z"
+    },
+    {
+      "id": "CH07de552ae10641328a77758d2dc9c788",
+      "name": "Card Enquiry",
+      "status": "inactive",
+      "chatFlowStatus": "ON_HOLD",
+      "onHoldReason": "WAITING_ON_CUSTOMER",
+      "lastModified": "2021-04-21T04:51:25Z"
     }
   ],
   "_links": {
-    "_links": {
-      "next": "/chat/users/4017631302/channels?limit=3&sortBy=lastModified&order=desc&offset=PTCH2e701f0ed62b4e2689a37ef09290251e",
-      "self": "/chat/users/4017631302/channels?limit=3&sortBy=lastModified&order=desc"
-    }
+    "next": "/chat/users/4017631302/channels?limit=3&sortBy=lastModified&order=desc&offset=PTCH2e701f0ed62b4e2689a37ef09290251e",
+    "self": "/chat/users/4017631302/channels?limit=3&sortBy=lastModified&order=desc"
   },
   "failures": [
     {
