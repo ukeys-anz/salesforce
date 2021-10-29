@@ -126,7 +126,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_StatementList</shortDescription>
-        <value>/anz-exp-sfdc-coach-banking-api/api/cards/</value>
+        <value>/document-management/v1beta2/statements/list</value>
     </labels>
     <labels>
         <fullName>MS_Get_StatementUrl</fullName>
@@ -134,7 +134,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_StatementUrl</shortDescription>
-        <value>/anz-exp-sfdc-coach-banking-api/api/cards/</value>
+        <value>/document-management/v1beta2/statements/signed_url/</value>
     </labels>
     <labels>
         <fullName>Test_Bulk_Size</fullName>

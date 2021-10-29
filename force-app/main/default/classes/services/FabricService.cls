@@ -187,11 +187,14 @@ public with sharing class FabricService extends Service {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
     setFabricCommonHeaders(ocvID, headers);
+    headers.put('Content-Type', 'application/json');
     HttpCalloutResponse response = calloutService.makeRestCallout(
       'callout:SF_MS_Fabric' + Label.MS_Get_StatementList,
-      HTTP_METHOD.HTTP_GET,
+      HTTP_METHOD.HTTP_POST,
       headers,
-      null
+      '{"account_numbers": ['+
+      accountNumber+
+      ']}'
     );
     return response;
   }
@@ -209,7 +212,8 @@ public with sharing class FabricService extends Service {
     Map<String, String> headers = new Map<String, String>();
     setFabricCommonHeaders(ocvID, headers);
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' + Label.MS_Get_StatementUrl,
+      'callout:SF_MS_Fabric' + Label.MS_Get_StatementUrl+
+      statementId,
       HTTP_METHOD.HTTP_GET,
       headers,
       null
