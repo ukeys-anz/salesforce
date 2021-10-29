@@ -17,10 +17,6 @@ public with sharing class TestIDREmailToCase {
     insert caseList;
     Test.stopTest();
     Case queriedCase = [SELECT Id, Type FROM Case LIMIT 1];
-    System.assertEquals(
-      '18',
-      queriedCase.Type,
-      'Case Type is not correct'
-    );
+    System.assertEquals('18', queriedCase.Type, 'Case Type is not correct');
   }
 }

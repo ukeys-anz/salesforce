@@ -2935,5 +2935,5 @@
     <userPermissions>
         <enabled>false</enabled>
         <name>EditEvent</name>
-      </userPermissions>
+    </userPermissions>
 </Profile>
