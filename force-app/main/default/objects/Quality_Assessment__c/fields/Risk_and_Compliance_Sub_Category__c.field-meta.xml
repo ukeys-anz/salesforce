@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Risk_and_Compliance_Sub_Category__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Dependent picklist based on risk and compliance category to capture the appropriate sub category</description>
+    <externalId>false</externalId>
+    <label>Risk and Compliance Sub Category</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Risk_and_Compliance_Category__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Customer not identified correctly</fullName>
+                <default>false</default>
+                <label>Customer not identified correctly</label>
+            </value>
+            <value>
+                <fullName>Privacy Breach</fullName>
+                <default>false</default>
+                <label>Privacy Breach</label>
+            </value>
+            <value>
+                <fullName>Incorrect Customer Profile</fullName>
+                <default>false</default>
+                <label>Incorrect Customer Profile</label>
+            </value>
+            <value>
+                <fullName>Privacy Disclaimer not provided when required</fullName>
+                <default>false</default>
+                <label>Privacy Disclaimer not provided when required</label>
+            </value>
+            <value>
+                <fullName>Recording not stopped when requested / required</fullName>
+                <default>false</default>
+                <label>Recording not stopped when requested / required</label>
+            </value>
+            <value>
+                <fullName>Relevant disclaimers / warnings not provided</fullName>
+                <default>false</default>
+                <label>Relevant disclaimers / warnings not provided</label>
+            </value>
+            <value>
+                <fullName>Appropriate customer consent not obtained</fullName>
+                <default>false</default>
+                <label>Appropriate customer consent not obtained</label>
+            </value>
+            <value>
+                <fullName>Advice / information provided for non-accredited solutions</fullName>
+                <default>false</default>
+                <label>Advice / information provided for non-accredited solutions</label>
+            </value>
+            <value>
+                <fullName>Required scripting not completed</fullName>
+                <default>false</default>
+                <label>Required scripting not completed</label>
+            </value>
+            <value>
+                <fullName>Recommendation made was not made based on identified customer needs / circumstances</fullName>
+                <default>false</default>
+                <label>Recommendation made was not made based on identified customer needs / circumstances</label>
+            </value>
+            <value>
+                <fullName>Complaint not logged</fullName>
+                <default>false</default>
+                <label>Complaint not logged</label>
+            </value>
+            <value>
+                <fullName>Fraud / Vulnerable Customer / Hardship not appropriately referred</fullName>
+                <default>false</default>
+                <label>Fraud / Vulnerable Customer / Hardship not appropriately referred</label>
+            </value>
+            <value>
+                <fullName>Opt out of marketing request not followed</fullName>
+                <default>false</default>
+                <label>Opt out of marketing request not followed</label>
+            </value>
+            <value>
+                <fullName>Personal details not updated when requested</fullName>
+                <default>false</default>
+                <label>Personal details not updated when requested</label>
+            </value>
+            <value>
+                <fullName>Anti-hawking requirements not followed</fullName>
+                <default>false</default>
+                <label>Anti-hawking requirements not followed</label>
+            </value>
+            <value>
+                <fullName>DDO obligations not met</fullName>
+                <default>false</default>
+                <label>DDO obligations not met</label>
+            </value>
+            <value>
+                <fullName>Incorrect or incomplete information (No financial impact)</fullName>
+                <default>false</default>
+                <label>Incorrect or incomplete information (No financial impact)</label>
+            </value>
+            <value>
+                <fullName>Incorrect or incomplete information (Financial impact)</fullName>
+                <default>false</default>
+                <label>Incorrect or incomplete information (Financial impact)</label>
+            </value>
+            <value>
+                <fullName>Action not completed (No financial impact)</fullName>
+                <default>false</default>
+                <label>Action not completed (No financial impact)</label>
+            </value>
+            <value>
+                <fullName>Action not completed (Financial impact)</fullName>
+                <default>false</default>
+                <label>Action not completed (Financial impact)</label>
+            </value>
+            <value>
+                <fullName>Action completed incorrectly (No financial impact)</fullName>
+                <default>false</default>
+                <label>Action completed incorrectly (No financial impact)</label>
+            </value>
+            <value>
+                <fullName>Action completed incorrectly (Financial impact)</fullName>
+                <default>false</default>
+                <label>Action completed incorrectly (Financial impact)</label>
+            </value>
+            <value>
+                <fullName>False or misleading information</fullName>
+                <default>false</default>
+                <label>False or misleading information</label>
+            </value>
+            <value>
+                <fullName>Sensitive / inappropriate notes left in system (specifics about medical conditions, non-factual etc.)</fullName>
+                <default>false</default>
+                <label>Sensitive / inappropriate notes left in system (specifics about medical conditions, non-factual etc.)</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>ID &amp; Privacy Category</controllingFieldValue>
+            <valueName>Customer not identified correctly</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ID &amp; Privacy Category</controllingFieldValue>
+            <valueName>Privacy Breach</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ID &amp; Privacy Category</controllingFieldValue>
+            <valueName>Incorrect Customer Profile</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ID &amp; Privacy Category</controllingFieldValue>
+            <valueName>Privacy Disclaimer not provided when required</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ID &amp; Privacy Category</controllingFieldValue>
+            <valueName>Recording not stopped when requested / required</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Advice / Consent / Disclaimers / Warnings Category</controllingFieldValue>
+            <valueName>Relevant disclaimers / warnings not provided</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Advice / Consent / Disclaimers / Warnings Category</controllingFieldValue>
+            <valueName>Appropriate customer consent not obtained</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Advice / Consent / Disclaimers / Warnings Category</controllingFieldValue>
+            <valueName>Advice / information provided for non-accredited solutions</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Advice / Consent / Disclaimers / Warnings Category</controllingFieldValue>
+            <valueName>Required scripting not completed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Advice / Consent / Disclaimers / Warnings Category</controllingFieldValue>
+            <valueName>Recommendation made was not made based on identified customer needs / circumstances</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Obligations / Anti-Hawking Category</controllingFieldValue>
+            <valueName>Complaint not logged</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Obligations / Anti-Hawking Category</controllingFieldValue>
+            <valueName>Fraud / Vulnerable Customer / Hardship not appropriately referred</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Obligations / Anti-Hawking Category</controllingFieldValue>
+            <valueName>Opt out of marketing request not followed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Obligations / Anti-Hawking Category</controllingFieldValue>
+            <valueName>Personal details not updated when requested</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Obligations / Anti-Hawking Category</controllingFieldValue>
+            <valueName>Anti-hawking requirements not followed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Obligations / Anti-Hawking Category</controllingFieldValue>
+            <valueName>DDO obligations not met</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Potential Financial Impacts, Information &amp; Actions Category</controllingFieldValue>
+            <valueName>Incorrect or incomplete information (No financial impact)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Potential Financial Impacts, Information &amp; Actions Category</controllingFieldValue>
+            <valueName>Incorrect or incomplete information (Financial impact)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Potential Financial Impacts, Information &amp; Actions Category</controllingFieldValue>
+            <valueName>Action not completed (No financial impact)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Potential Financial Impacts, Information &amp; Actions Category</controllingFieldValue>
+            <valueName>Action not completed (Financial impact)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Potential Financial Impacts, Information &amp; Actions Category</controllingFieldValue>
+            <valueName>Action completed incorrectly (No financial impact)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Potential Financial Impacts, Information &amp; Actions Category</controllingFieldValue>
+            <valueName>Action completed incorrectly (Financial impact)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Potential Financial Impacts, Information &amp; Actions Category</controllingFieldValue>
+            <valueName>False or misleading information</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Potential Financial Impacts, Information &amp; Actions Category</controllingFieldValue>
+            <valueName>Sensitive / inappropriate notes left in system (specifics about medical conditions, non-factual etc.)</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

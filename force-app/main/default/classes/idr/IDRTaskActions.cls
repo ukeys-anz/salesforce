@@ -679,4 +679,21 @@ public without sharing class IDRTaskActions {
       );
     }
   }
+
+  /**
+   * @description method to insert collection tasks and handle errors
+   * @param collectionTaskList List of collection tasks
+   */
+  public static void insertSystemTasks(List<Task> collectionTaskList) {
+    List<Database.SaveResult> results = Database.insert(
+      collectionTaskList,
+      false
+    );
+    lib_systemLog log = new lib_systemLog(
+      'IDRCollectionActions',
+      'insertSystemTasks'
+    );
+    log.addDatabaseSaveResult('Task', results, collectionTaskList);
+    log.insertLogAsync();
+  }
 }

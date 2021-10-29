@@ -6,7 +6,7 @@
  */
 @isTest
 public with sharing class IDRCustomerInformationModelTest {
-  @isTest  
+  @isTest
   static void testParse() {
     String json =
       '{' +

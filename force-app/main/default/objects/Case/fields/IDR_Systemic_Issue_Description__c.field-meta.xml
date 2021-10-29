@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_Systemic_Issue_Description__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Trusted;Privacy_Personal_Information</complianceGroup>
+    <complianceGroup>Source_Salesforce;Integrity_Trusted;Privacy_Personal_Information</complianceGroup>
     <description>Free text explanation of the systemic issue that led to the complaint https://confluence.service.anz/display/IDR/8.2.5+Systemic+Issues+Fields</description>
     <externalId>false</externalId>
     <inlineHelpText>Describe why this complaint is likely to impact more than one customer</inlineHelpText>
