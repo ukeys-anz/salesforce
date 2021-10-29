@@ -21,7 +21,7 @@ public with sharing class ChatTopicRelatedListControllerTest {
     accnt.put('Id', accId);
     accList = new List<Account>{ accnt };
     Case newCase = new Case(
-      RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
+      RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID,
       AccountId = accnt.Id,
       Account = accnt,
       Twilio_Channel_SID__c = 'CHc6ad9b34eb3e4788a12eb1caa07aefd5',
@@ -60,7 +60,7 @@ public with sharing class ChatTopicRelatedListControllerTest {
     Test.stopTest();
 
     System.assertEquals(
-      2,
+      3,
       response.channels.size(),
       'Number of chat topics returned does not match with mock values size.'
     );
