@@ -71,7 +71,15 @@ public with sharing class CardListModel extends CalloutModel {
     @AuraEnabled
     public Boolean hasWallet {
       get {
-        return !walletList.isEmpty();
+        if (
+          !walletList.isEmpty() &&
+          (status == 'Issued' ||
+          status == 'Temporary Block')
+        ) {
+          return true;
+        } else {
+          return false;
+        }
       }
       set;
     }
