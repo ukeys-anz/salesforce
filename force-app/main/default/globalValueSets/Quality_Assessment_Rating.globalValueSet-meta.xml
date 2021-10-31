@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Outstanding</fullName>
+        <default>false</default>
+        <label>Outstanding</label>
+    </customValue>
+    <customValue>
+        <fullName>Effective</fullName>
+        <default>false</default>
+        <label>Effective</label>
+    </customValue>
+    <customValue>
+        <fullName>Almost There</fullName>
+        <default>false</default>
+        <label>Almost There</label>
+    </customValue>
+    <customValue>
+        <fullName>Not There Yet</fullName>
+        <default>false</default>
+        <label>Not There Yet</label>
+    </customValue>
+    <customValue>
+        <fullName>N/A</fullName>
+        <default>false</default>
+        <label>N/A</label>
+    </customValue>
+    <description>Used by multiple fields on Quality Assessment object</description>
+    <masterLabel>Quality Assessment Rating</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

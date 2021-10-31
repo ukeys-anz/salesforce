@@ -84,7 +84,6 @@ force-app/main/default/classes/FinancialGoalsComponentController.cls
 force-app/main/default/classes/UpdateAccountsAndGoals.cls
 force-app/main/default/messageChannels/FinancialAccountsGoalsUpdate.messageChannel-meta.xml
 force-app/main/default/classes/GetAccountsAndGoals.cls
-force-app/main/default/classes/utils/CommonUtils.cls
 
 #Ignore Knowledge validation status field as it is not supported in metadata API
 KnowledgeValidationStatus

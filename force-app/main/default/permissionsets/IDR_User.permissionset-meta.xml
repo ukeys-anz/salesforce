@@ -66,6 +66,16 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.Has_complaint_met_RG_271_delay_criteria__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.How_has_delay_criteria_been_met_not_met__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.Has_complaint_met_RG_271_delay_criteria__c</field>
         <readable>true</readable>
