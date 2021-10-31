@@ -141,16 +141,5 @@
             <controllingFieldValue>Verified by Visa</controllingFieldValue>
             <valueName>No Device Access</valueName>
         </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Digital Wallet Provisioning</controllingFieldValue>
-            <controllingFieldValue>Verified by Visa</controllingFieldValue>
-            <controllingFieldValue>Open Banking</controllingFieldValue>
-            <controllingFieldValue>Assisted Tax Verification</controllingFieldValue>
-            <controllingFieldValue>Assisted PIN Recovery</controllingFieldValue>
-            <controllingFieldValue>Assisted Verification</controllingFieldValue>
-            <controllingFieldValue>Mobile Number Dispute</controllingFieldValue>
-            <controllingFieldValue>Legal Name Update</controllingFieldValue>
-            <valueName>None</valueName>
-        </valueSettings>
     </valueSet>
 </CustomField>
