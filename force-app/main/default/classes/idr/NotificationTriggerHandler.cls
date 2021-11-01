@@ -240,7 +240,7 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
     for (Case c : records) {
       if (
         c.RecordTypeId == customerComplaintRecordId ||
-        c.RecordTypeId == GetHelpCaseActions.COMPLAINT_ID ||
+        c.RecordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID ||
         !String.isBlank(c.IDR_NC_Mobile__c) ||
         !String.isBlank(c.IDR_NC_Email__c)
       ) {
