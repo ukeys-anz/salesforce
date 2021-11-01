@@ -25,6 +25,11 @@ const directEntryDisputesFieldsMapping = {
   Crediting_Trace_Line__c: "traceId"
 };
 
+const nppDisputesFieldsMapping = {
+  Payment_ID__c: "pay_anyone.payment_id",
+  Receipt__c: "pay_anyone.payment_receipt_number.value"
+};
+
 const commonFieldsMapping = {
   Effective_Date__c: "transaction_date",
   Posted_Amount__c: "amount.value",
@@ -77,6 +82,8 @@ export function prepopulateDisputesFields(
       mappingObj = directDebitDisputesFieldsMapping;
     case "Direct Entry":
       mappingObj = directEntryDisputesFieldsMapping;
+    case "NPP":
+      mappingObj = nppDisputesFieldsMapping;
   }
 
   defaultFieldValuesObj = mappingObj
