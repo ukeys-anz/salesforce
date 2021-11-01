@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+<<<<<<< HEAD:force-app/main/default/objects/IDR_Collections_Event__e/fields/IDR_Complaint_Resolved_Date__c.field-meta.xml
     <fullName>IDR_Complaint_Resolved_Date__c</fullName>
     <description>Closed/Resolved Date of a complaint</description>
+=======
+    <fullName>IDR_Complaint_Received_Date__c</fullName>
+    <description>Datetime which complaint was recieved</description>
+>>>>>>> epic/comptnew:force-app/main/default/objects/IDR_Collections_Event__e/fields/IDR_Complaint_Received_Date__c.field-meta.xml
     <externalId>false</externalId>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>false</isSortingDisabled>
+<<<<<<< HEAD:force-app/main/default/objects/IDR_Collections_Event__e/fields/IDR_Complaint_Resolved_Date__c.field-meta.xml
     <label>Complaint Resolved Date</label>
+=======
+    <label>Complaint Received Date</label>
+>>>>>>> epic/comptnew:force-app/main/default/objects/IDR_Collections_Event__e/fields/IDR_Complaint_Received_Date__c.field-meta.xml
     <required>false</required>
     <type>DateTime</type>
 </CustomField>

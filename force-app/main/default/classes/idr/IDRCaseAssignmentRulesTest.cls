@@ -1,7 +1,7 @@
 /**
  * @author Olivier Saier
  * @date May 2021
- * @description Test class for {@link IDRCaseAssignmentRules}
+ * @description Test class for {@link IDRCaseAssignmentRules} assignment rule test
  * @group IDR(Internal Dispute Resolution)
  */
 @isTest
@@ -15,7 +15,7 @@ private with sharing class IDRCaseAssignmentRulesTest {
         Priority = 'Customer in Collections',
         Description = 'IDR_Hardship'
       )
-    ); 
+    );
     cases.add(
       new Case(
         RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
