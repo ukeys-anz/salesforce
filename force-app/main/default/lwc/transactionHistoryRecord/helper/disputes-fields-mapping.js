@@ -6,6 +6,15 @@ const cardDisputesFieldsMapping = {
   Transaction_Currency__c: "international_amount.charged.currency_code"
 };
 
+const atmDisputesFieldsMapping = {
+  Transaction_Amount__c: "international_amount.charged.value",
+  Transaction_Currency__c: "international_amount.charged.currency_code",
+  Bank_ATM__c: "long_desc",
+  Location__c: "long_desc",
+  Card_Number__c: "card.last_four_digits",
+  Card_Scheme__c: "card.scheme"
+};
+
 const commonFieldsMapping = {
   Effective_Date__c: "transaction_date",
   Posted_Amount__c: "amount.value",
@@ -48,18 +57,23 @@ export function prepopulateDisputesFields(
     financialAccountId,
     transaction
   );
+  let mappingObj;
   switch (disputeType) {
     case "Card":
-      defaultFieldValuesObj = prepopulateFieldsValues(
-        cardDisputesFieldsMapping,
+      mappingObj = cardDisputesFieldsMapping;
+    case "ATM":
+      mappingObj = atmDisputesFieldsMapping;
+  }
+
+  defaultFieldValuesObj = mappingObj
+    ? prepopulateFieldsValues(
+        atmDisputesFieldsMapping,
         transaction,
         defaultFieldValuesObj
-      );
-      return defaultFieldValuesObj;
-    //  Other dispute types to be added here
-    default:
-      return defaultFieldValuesObj;
-  }
+      )
+    : defaultFieldValuesObj;
+
+  return defaultFieldValuesObj;
 }
 
 // Pre-populate default field values object using the mappings above
