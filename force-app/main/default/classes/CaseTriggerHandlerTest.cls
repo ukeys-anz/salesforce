@@ -2173,7 +2173,8 @@ private class CaseTriggerHandlerTest {
       Origin = '1',
       Priority = 'Medium',
       Effective_Date__c = Date.valueof(System.now()),
-      Transaction_Id__c = '9be08660-23bb-4f12-b124-7cfe561ba086'
+      Transaction_Id__c = '9be08660-23bb-4f12-b124-7cfe561ba086',
+      BusinessHoursId = CommonUtil.getBusinessHours().Id
     );
 
     // WHEN
@@ -2223,7 +2224,7 @@ private class CaseTriggerHandlerTest {
     // the Transaction Date (Effective Date) is more than one business days ago
     Test.startTest();
 
-    disputeCase.Effective_Date__c = Date.valueof(System.now().addDays(-3));
+    disputeCase.Effective_Date__c = Date.valueof(System.now().addDays(-5));
     disputes.add(disputeCase);
 
     GetHelpCaseActions.setPriority(disputes);
