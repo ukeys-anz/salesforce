@@ -17,7 +17,7 @@
       </div>
       <div class="slds-col slds-size--1-of-7">
         <div class="slds-grid slds-form-element__label">Transaction Type</div>
-        <div class="slds-grid">{transactionRecord.formattedType}</div>
+        <div class="slds-grid">{transactionRecord.type}</div>
       </div>
       <div class="slds-col slds-size--1-of-7">
         <div class="slds-grid slds-form-element__label">Transaction Time</div>
@@ -74,6 +74,16 @@
             disabled={disableRaiseDisputeBtn}
           >
           </lightning-menu-item>
+          <template if:true={disableRaiseDisputeBtn}>
+            <div
+              class="slds-popover slds-popover_tooltip slds-nubbin_left-top"
+              role="tooltip"
+              id="help"
+              style="position: absolute; top: 20px; left: 120px; width: 150px"
+            >
+              <div class="slds-popover__body">{disputeButtonTooltip}</div>
+            </div>
+          </template>
         </lightning-button-menu>
       </div>
     </div>

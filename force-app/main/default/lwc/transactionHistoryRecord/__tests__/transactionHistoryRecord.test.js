@@ -196,8 +196,8 @@ describe("c-transactionHistoryRecord", () => {
     const element = createElement("c-transactionHistoryRecord", {
       is: TransactionHistoryRecord
     });
-    // Set the dispute record type to be undefined to trigger the modal to display
-    transRecord.disputeRecordTypeId = undefined;
+    // Set the dispute record type to be empty to trigger the modal to display
+    transRecord.disputeRecordTypeId = "";
     element.transactionRecord = transRecord;
     element.expandAll = true;
     document.body.appendChild(element);

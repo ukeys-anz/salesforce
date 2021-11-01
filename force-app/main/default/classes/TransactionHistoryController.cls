@@ -15,15 +15,25 @@ public with sharing class TransactionHistoryController {
   @AuraEnabled
   public static String getDisputeRecordTypeMap() {
     if (Schema.sObjectType.Case.isAccessible()) {
-      Map<String, RecordType> disputeRecordTypeMap = new Map<String, RecordType>();
-      for (RecordType rt : [
-        SELECT Id, Name, DeveloperName
-        FROM RecordType
-        WHERE SobjectType = 'Case' AND DeveloperName LIKE '%Dispute%'
-      ]) {
-        disputeRecordTypeMap.put(rt.DeveloperName, rt);
+      if (!Cache.Org.contains('local.Utility.disputeRecordTypeMap')) {
+        Map<String, RecordType> disputeRecordTypeMap = new Map<String, RecordType>();
+        for (RecordType rt : [
+          SELECT Id, Name, DeveloperName
+          FROM RecordType
+          WHERE SobjectType = 'Case' AND DeveloperName LIKE '%Dispute%'
+          ORDER BY DeveloperName DESC
+        ]) {
+          disputeRecordTypeMap.put(rt.DeveloperName, rt);
+        }
+        Cache.Org.put(
+          'local.Utility.disputeRecordTypeMap',
+          JSON.serialize(disputeRecordTypeMap)
+        );
+        return JSON.serialize(disputeRecordTypeMap);
       }
-      return JSON.serialize(disputeRecordTypeMap);
+      return String.valueOf(
+        Cache.Org.get('local.Utility.disputeRecordTypeMap')
+      );
     }
     return null;
   }

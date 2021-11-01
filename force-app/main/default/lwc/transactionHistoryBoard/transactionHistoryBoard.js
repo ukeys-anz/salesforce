@@ -12,32 +12,45 @@ import { handleErrorShowToast } from "c/utils";
 import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
 import { getOptionalFieldValue, processTransaction } from "./helpers/util";
 
+import {
+  TRANSACTION_STATUSES,
+  TRANSACTION_TYPES,
+  CARD_TYPES,
+  TRANSACTION_HISTORY_RETRIEVE_ERROR,
+  DISPUTE_RECORD_TYPES_RETRIEVE_ERROR,
+  PERSON_ACCOUNT_ID_RETRIEVE_ERROR,
+  PAYMENT_TYPES,
+  PAYMENT_SUB_TYPES
+} from "c/transactionHistoryService";
+
 //Remapping the status and types returned from the API so they
 //are more readable on the UI
 const transactionStatusMapping = {
-  TRANSACTION_STATUS_UNSPECIFIED: "Unknown",
-  TRANSACTION_STATUS_PENDING: "Pending",
-  TRANSACTION_STATUS_POSTED: "Posted"
+  TRANSACTION_STATUS_UNSPECIFIED: TRANSACTION_STATUSES.Unspecified,
+  TRANSACTION_STATUS_PENDING: TRANSACTION_STATUSES.Pending,
+  TRANSACTION_STATUS_POSTED: TRANSACTION_STATUSES.Posted
 };
 const transactionTypeMapping = {
-  TRANSACTION_TYPE_UNSPECIFIED: "Unknown",
-  TRANSACTION_TYPE_CARD: "Card",
-  TRANSACTION_TYPE_DIRECT_DEBIT: "Direct Debit",
-  TRANSACTION_TYPE_FEE: "Fee",
-  TRANSACTION_TYPE_INTEREST: "Interest",
-  TRANSACTION_TYPE_DEPOSIT_WITHDRAWAL: "Deposit Withdrawal",
-  TRANSACTION_TYPE_TRANSFER: "Transfer",
-  TRANSACTION_TYPE_PAYID: "PAYID",
-  TRANSACTION_TYPE_BSB_ACC_NUM: "BSB/ACC",
-  TRANSACTION_TYPE_BPAY: "BPAY",
-  TRANSACTION_TYPE_OTHER: "Other"
+  TRANSACTION_TYPE_UNSPECIFIED: TRANSACTION_TYPES.Unknown,
+  TRANSACTION_TYPE_CARD: TRANSACTION_TYPES.Card,
+  TRANSACTION_TYPE_DIRECT_DEBIT: TRANSACTION_TYPES.Direct_Debit,
+  TRANSACTION_TYPE_FEE: TRANSACTION_TYPES.Fee,
+  TRANSACTION_TYPE_INTEREST: TRANSACTION_TYPES.Interest,
+  TRANSACTION_TYPE_DEPOSIT_WITHDRAWAL: TRANSACTION_TYPES.Deposit_Withdrawal,
+  TRANSACTION_TYPE_TRANSFER: TRANSACTION_TYPES.Transfer,
+  TRANSACTION_TYPE_PAYID: TRANSACTION_TYPES.PAYID,
+  TRANSACTION_TYPE_BSB_ACC_NUM: TRANSACTION_TYPES.BSB_ACC,
+  TRANSACTION_TYPE_BPAY: TRANSACTION_TYPES.BPAY,
+  TRANSACTION_TYPE_OTHER: TRANSACTION_TYPES.Other,
+  TRANSACTION_TYPE_SALARY: TRANSACTION_TYPES.Salary,
+  TRANSACTION_TYPE_PAYMENT: TRANSACTION_TYPES.Payment
 };
 const cardMapping = {
-  CARD_SCHEME_UNSPECIFIED: "Unknown",
-  CARD_SCHEME_VISA: "Visa",
-  CARD_SCHEME_MASTERCARD: "MasterCard",
-  CARD_SCHEME_EFTPOS: "EFTPOS",
-  CARD_SCHEME_AMERICAN_EXPRESS: "American Express"
+  CARD_SCHEME_UNSPECIFIED: CARD_TYPES.Unknown,
+  CARD_SCHEME_VISA: CARD_TYPES.Visa,
+  CARD_SCHEME_MASTERCARD: CARD_TYPES.Mastercard,
+  CARD_SCHEME_EFTPOS: CARD_TYPES.EFTPOS,
+  CARD_SCHEME_AMERICAN_EXPRESS: CARD_TYPES.American_Express
 };
 
 const dateOptions = {
@@ -141,18 +154,18 @@ export default class TransactionHistoryBoard extends LightningElement {
             for (let i = 0; i < this.fullTransactionList.length; i++) {
               let currentTransaction = { ...this.fullTransactionList[i] };
 
-              // Set the transaction's dispute record type Id
-              currentTransaction.disputeRecordTypeId = this.transactionTypeDisputeIdMap[
-                currentTransaction.type
-              ];
-
               //Remap type and status
-              currentTransaction.formattedType = currentTransaction.type
+              currentTransaction.type = currentTransaction.type
                 ? transactionTypeMapping[currentTransaction.type]
                 : "Unknown";
               currentTransaction.status = currentTransaction.status
                 ? transactionStatusMapping[currentTransaction.status]
                 : "Unknown";
+
+              // Set the transaction's dispute record type Id
+              currentTransaction.disputeRecordTypeId = this.getRecordTypeId(
+                currentTransaction
+              );
 
               //Process date and time, set showDateTitle
               let currentDate = this.getDateObject(
@@ -239,8 +252,7 @@ export default class TransactionHistoryBoard extends LightningElement {
         this.loading = false;
       })
       .catch((error) => {
-        this.errorMessage =
-          "Failed to retrieve transaction history. Please refresh and try again. If the problem persists, please contact your System Administrator.";
+        this.errorMessage = TRANSACTION_HISTORY_RETRIEVE_ERROR;
         if (error.body && error.body.message) {
           let message = this.handleError(error.body.message);
           //Catch any system error messages (most readable errors wont be a single word)
@@ -413,18 +425,9 @@ export default class TransactionHistoryBoard extends LightningElement {
       .then((result) => {
         if (result) {
           const returnedMap = JSON.parse(result);
-          this.transactionTypeDisputeIdMap.TRANSACTION_TYPE_CARD =
-            returnedMap.Card_Dispute.Id;
-          this.transactionTypeDisputeIdMap.TRANSACTION_TYPE_DEPOSIT_WITHDRAWAL =
-            returnedMap.ATM_Dispute.Id;
-          this.transactionTypeDisputeIdMap.TRANSACTION_TYPE_BSB_ACC_NUM =
-            returnedMap.Direct_Entry_Dispute.Id;
-          // Sort the map so record types will be presented in A-Z order
-          const sortedReturnedMap = Object.fromEntries(
-            Object.entries(returnedMap).sort()
-          );
-          // Construct a map of dispute record type's label and Id to send to transaction record
-          for (const [key, value] of Object.entries(sortedReturnedMap)) {
+          // Construct a list of dispute record type's label and Id to send to transaction record to construct the modal
+          for (const [key, value] of Object.entries(returnedMap)) {
+            this.transactionTypeDisputeIdMap[key] = value.Id; // This map is used in getRecordTypeId() below to determine which page layout the user should be directed to
             let recordTypeItem = {};
             recordTypeItem.developerName = key;
             recordTypeItem.label = value.Name;
@@ -438,7 +441,7 @@ export default class TransactionHistoryBoard extends LightningElement {
           this,
           "Failed To Retrieve Dispute Record Types",
           error,
-          "Failed to retrieve dispute record types. Please refresh and try again. If the problem persists, please contact your System Administrator.",
+          DISPUTE_RECORD_TYPES_RETRIEVE_ERROR,
           "pester"
         );
       });
@@ -457,9 +460,9 @@ export default class TransactionHistoryBoard extends LightningElement {
       .catch((error) => {
         handleErrorShowToast(
           this,
-          "Failed To Retrieve Contact Id",
+          "Failed To Retrieve Person Account Id",
           error,
-          "Failed to retrieve contact Id. Please refresh and try again. If the problem persists, please contact your System Administrator.",
+          PERSON_ACCOUNT_ID_RETRIEVE_ERROR,
           "pester"
         );
       });
@@ -525,5 +528,37 @@ export default class TransactionHistoryBoard extends LightningElement {
     return this.allTags.filter((tag) => {
       return tagIds.indexOf(tag.tag_id) > -1;
     });
+  }
+
+  // Get record type Id to direct user to the corresponding page layout
+  getRecordTypeId(transaction) {
+    switch (true) {
+      case transaction.type === TRANSACTION_TYPES.Card:
+        return this.transactionTypeDisputeIdMap.Card_Dispute;
+      case transaction.type === TRANSACTION_TYPES.Deposit_Withdrawal:
+        return this.transactionTypeDisputeIdMap.ATM_Dispute;
+      case transaction.type === TRANSACTION_TYPES.BSB_ACC &&
+        transaction.pay_anyone?.clearing_method !==
+          PAYMENT_TYPES.PAYMENT_TYPE_FAST &&
+        ![
+          PAYMENT_SUB_TYPES.PAYMENT_SUB_TYPE_ICS1,
+          PAYMENT_SUB_TYPES.PAYMENT_SUB_TYPE_ONUS
+        ].includes(transaction.pay_anyone?.clearing_sub_method):
+        return this.transactionTypeDisputeIdMap.Direct_Entry_Dispute;
+      case [TRANSACTION_TYPES.BSB_ACC, TRANSACTION_TYPES.PAYID].includes(
+        transaction.type
+      ) &&
+        transaction.pay_anyone?.clearing_method ===
+          PAYMENT_TYPES.PAYMENT_TYPE_FAST &&
+        [
+          PAYMENT_SUB_TYPES.PAYMENT_SUB_TYPE_ICS1,
+          PAYMENT_SUB_TYPES.PAYMENT_SUB_TYPE_ONUS
+        ].includes(transaction.pay_anyone?.clearing_sub_method):
+        return this.transactionTypeDisputeIdMap.NPP_Dispute;
+      case transaction.type === TRANSACTION_TYPES.BSB_ACC.Direct_Debit:
+        return this.transactionTypeDisputeIdMap.Direct_Debit_Dispute;
+      default:
+        return "";
+    }
   }
 }

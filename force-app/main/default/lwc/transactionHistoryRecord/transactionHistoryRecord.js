@@ -5,8 +5,38 @@ import ExpandCollapseAll from "@salesforce/messageChannel/ListCollapseExpandAll_
 
 import { NavigationMixin } from "lightning/navigation";
 import canRaiseDispute from "@salesforce/customPermission/ANZx_Raise_Dispute";
+
 import { prepopulateDisputesFields } from "./helper/disputes-fields-mapping";
 import { encodeDefaultFieldValues } from "lightning/pageReferenceUtils";
+
+import {
+  TRANSACTION_STATUSES,
+  TRANSACTION_TYPES
+} from "c/transactionHistoryService";
+
+const ALLOWED_TRANSACTION_TYPES = [
+  TRANSACTION_TYPES.BSB_ACC,
+  TRANSACTION_TYPES.Card,
+  TRANSACTION_TYPES.Direct_Debit,
+  TRANSACTION_TYPES.Deposit_Withdrawal,
+  TRANSACTION_TYPES.Unknown,
+  TRANSACTION_TYPES.Salary,
+  TRANSACTION_TYPES.Payment,
+  TRANSACTION_TYPES.Interest,
+  TRANSACTION_TYPES.PAYID
+]; // Transaction types that a coach can raise a dispute for, as specified in ANZX-5492
+
+const ALLOWED_DISPUTE_TYPES_FOR_SALARY = [
+  "NPP_Dispute",
+  "Direct_Entry_Dispute"
+]; //Allowed dispute types for salary transaction
+
+const BPAY_AND_TRANSFER_MESSAGE =
+  "You can't raise a transaction dispute for a transfer between the ANZ Plus and ANZ Save accounts. Please let the customer know they can amend the payment themselves in the app.";
+const PENDING_TRANSACTION_MESSAGE =
+  "You can’t raise a dispute on a pending transaction. Please try again once payment has cleared.";
+const UNKNOWN_TRANSACTION_MESSAGE =
+  "You can’t raise a dispute on a transaction with unknown status.";
 
 export default class TransactionHistoryRecord extends NavigationMixin(
   LightningElement
@@ -20,7 +50,8 @@ export default class TransactionHistoryRecord extends NavigationMixin(
   messageContext;
   subscription = null;
   showRecordTypeSelection = false;
-  @api disputeRecordTypes;
+  @api disputeRecordTypesFromParent;
+  disputeRecordTypes;
   selectedDisputeRecordType;
   @api personAccountId;
   @api financialAccountId;
@@ -41,10 +72,41 @@ export default class TransactionHistoryRecord extends NavigationMixin(
     if (this.expandAll) {
       this.showTransactionDetails = true;
     }
+
+    // Process the dispute type that will show up on the modal based on the transaction type, as specified in ANZX-5492
+    this.disputeRecordTypes =
+      this.transactionRecord.type === TRANSACTION_TYPES.Salary
+        ? this.handleFilterModalDisputeTypes(
+            this.disputeRecordTypesFromParent,
+            ALLOWED_DISPUTE_TYPES_FOR_SALARY
+          )
+        : this.disputeRecordTypesFromParent;
   }
 
+  // Tooltip for Raise Dispute button if disabled
+  get disputeButtonTooltip() {
+    switch (true) {
+      case [TRANSACTION_TYPES.BPAY, TRANSACTION_TYPES.Transfer].includes(
+        this.transactionRecord.type
+      ):
+        return BPAY_AND_TRANSFER_MESSAGE;
+      case this.transactionRecord.status === TRANSACTION_STATUSES.Pending:
+        return PENDING_TRANSACTION_MESSAGE;
+      case this.transactionRecord.status === TRANSACTION_STATUSES.Unspecified:
+        return UNKNOWN_TRANSACTION_MESSAGE;
+      default:
+        return "";
+    }
+  }
+
+  // Check if user should be able to raise a dispute, including the Raise Dispute custom permisison and
+  // other conditions specified in ANZX-5492
   get disableRaiseDisputeBtn() {
-    return !canRaiseDispute;
+    return (
+      !canRaiseDispute ||
+      !(this.transactionRecord.status === TRANSACTION_STATUSES.Posted) ||
+      !ALLOWED_TRANSACTION_TYPES.includes(this.transactionRecord.type)
+    );
   }
 
   get amountConvertedValue() {
@@ -89,7 +151,7 @@ export default class TransactionHistoryRecord extends NavigationMixin(
 
   // Handle raising dispute
   handleRaiseDispute() {
-    if (typeof this.transactionRecord.disputeRecordTypeId === "undefined") {
+    if (this.transactionRecord.disputeRecordTypeId === "") {
       this.showRecordTypeSelection = true;
     } else {
       this.selectedDisputeRecordType = this.transactionRecord.disputeRecordTypeId;
@@ -109,10 +171,13 @@ export default class TransactionHistoryRecord extends NavigationMixin(
 
   // Navigating to dispute capture form
   handleNavigateToDisputeForm() {
+    let disputeType = this.handleGetDisputeTypeFromRecordTypeId(
+      this.selectedDisputeRecordType
+    );
     let defaultFieldValuesObj = prepopulateDisputesFields(
       this.personAccountId,
       this.financialAccountId,
-      this.transactionRecord.type,
+      disputeType,
       this.transactionRecord
     );
 
@@ -130,5 +195,20 @@ export default class TransactionHistoryRecord extends NavigationMixin(
     });
     // Close modal after user clicks Next
     this.showRecordTypeSelection = false;
+  }
+
+  // Filter the list of dispute types that will be displayed on the modal
+  handleFilterModalDisputeTypes(disputeTypesFromParent, allowedDisputeTypes) {
+    return disputeTypesFromParent.filter((disputeType) =>
+      allowedDisputeTypes.includes(disputeType.developerName)
+    );
+  }
+
+  // Get this dispute type from record type Id
+  handleGetDisputeTypeFromRecordTypeId(recordTypeId) {
+    let disputeType = this.disputeRecordTypesFromParent.filter(
+      (disputeRecordType) => disputeRecordType.value === recordTypeId
+    )[0].label;
+    return disputeType;
   }
 }
