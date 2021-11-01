@@ -15,6 +15,11 @@ const atmDisputesFieldsMapping = {
   Card_Scheme__c: "card.scheme"
 };
 
+const directDebitDisputesFieldsMapping = {
+  AuxDomId__c: "aux_dom.value",
+  Crediting_Trace_Line__c: "traceId"
+};
+
 const commonFieldsMapping = {
   Effective_Date__c: "transaction_date",
   Posted_Amount__c: "amount.value",
@@ -63,6 +68,8 @@ export function prepopulateDisputesFields(
       mappingObj = cardDisputesFieldsMapping;
     case "ATM":
       mappingObj = atmDisputesFieldsMapping;
+    case "Direct Debit":
+        mappingObj = directDebitDisputesFieldsMapping;
   }
 
   defaultFieldValuesObj = mappingObj
