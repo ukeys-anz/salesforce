@@ -20,6 +20,11 @@ const directDebitDisputesFieldsMapping = {
   Crediting_Trace_Line__c: "traceId"
 };
 
+const directEntryDisputesFieldsMapping = {
+  Receipt__c: "pay_anyone.payment_receipt_number.value",
+  Crediting_Trace_Line__c: "traceId"
+};
+
 const commonFieldsMapping = {
   Effective_Date__c: "transaction_date",
   Posted_Amount__c: "amount.value",
@@ -69,7 +74,9 @@ export function prepopulateDisputesFields(
     case "ATM":
       mappingObj = atmDisputesFieldsMapping;
     case "Direct Debit":
-        mappingObj = directDebitDisputesFieldsMapping;
+      mappingObj = directDebitDisputesFieldsMapping;
+    case "Direct Entry":
+      mappingObj = directEntryDisputesFieldsMapping;
   }
 
   defaultFieldValuesObj = mappingObj
