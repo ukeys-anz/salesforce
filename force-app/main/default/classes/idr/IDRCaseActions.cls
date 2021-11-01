@@ -117,7 +117,7 @@ public with sharing class IDRCaseActions {
         checkForCRCEscalation(record, null);
       }
 
-      if (record.RecordTypeId == GetHelpCaseActions.COMPLAINT_ID) {
+      if (record.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID) {
         if (record.Customer_Notification_Consent__c == 'Yes') {
           notificationCaseList.add(record);
         }
