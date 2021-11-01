@@ -1,0 +1,38 @@
+{
+  "apiName": "FinServ__FinancialAccount__c",
+  "childRelationships": {},
+  "fields": {
+    "FinServ__FinancialAccountNumber__c": {
+      "displayValue": null,
+      "value": "111111111"
+    },
+    "FinServ__PrimaryOwner__c": {
+      "displayValue": null,
+      "value": "0012O00000JZYauQAH"
+    },
+    "Id": {
+      "displayValue": null,
+      "value": "a0c2O000002XttOQAS"
+    },
+    "OCV_ID__c": {
+      "displayValue": null,
+      "value": "fDKLSfQFtV1"
+    },
+    "Product_Name__c": {
+      "displayValue": null,
+      "value": "ANZ Save"
+    }
+  },
+  "id": "a0c2O000002XttOQAS",
+  "lastModifiedById": "0052O000002Ut3QQAS",
+  "lastModifiedDate": "2021-10-28T16:24:04.000Z",
+  "recordTypeId": "0122O000001ANjKQAW",
+  "recordTypeInfo": {
+    "available": true,
+    "defaultRecordTypeMapping": true,
+    "master": false,
+    "name": "Savings Account",
+    "recordTypeId": "0122O000001ANjKQAW"
+  },
+  "systemModstamp": "2021-10-28T16:24:04.000Z"
+}

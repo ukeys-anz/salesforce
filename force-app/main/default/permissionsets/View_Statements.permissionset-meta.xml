@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>ANZx_View_Statements</name>
+    </customPermissions>
+    <description>This grants access to view and download financial account statements.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>View Statements</label>
+</PermissionSet>

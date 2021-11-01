@@ -1,0 +1,32 @@
+[
+  {
+    "statementId": "53c49a77-f25c-4d28-927b-ca9cd7cd0215",
+    "productName": "ANZ Save",
+    "startDate": "9/8/2021",
+    "endDate": "5/8/2021"
+  },
+  {
+    "statementId": "53c49a77-f25c-4d28-927b-ca9cd7cd0215",
+    "productName": "ANZ Save",
+    "startDate": "9/7/2021",
+    "endDate": "5/8/2021"
+  },
+  {
+    "statementId": "634ff321-5db9-47bd-8b38-2a311e657e7e",
+    "productName": "ANZ Save",
+    "startDate": "6/7/2021",
+    "endDate": "5/8/2021"
+  },
+  {
+    "statementId": "9e51911d-faa0-4051-aaa4-c326552d4701",
+    "productName": "ANZ Save",
+    "startDate": "5/4/2021",
+    "endDate": "4/9/2021"
+  },
+  {
+    "statementId": "8867b542-78e5-4a86-a230-410dce103eb3",
+    "productName": "ANZ Save",
+    "startDate": "5/4/2021",
+    "endDate": "4/9/2021"
+  }
+]
