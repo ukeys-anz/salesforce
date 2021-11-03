@@ -30,7 +30,22 @@ public without sharing class CaseEscalateToCMOS {
    * @return boolean
    */
   public static Boolean manualEscalateCaseToCMOS(Case record) {
-    record = updateCaseInfo(record);
+    if (
+      Case.SObjectType.getDescribe().isAccessible() &&
+      Schema.SObjectType.Case.fields.Customer_Notification_Consent__c.isAccessible() &&
+      Schema.SObjectType.Account.fields.Source_System_ID__c.isAccessible()
+    ) {
+      Case caseData = [
+        SELECT
+          Customer_Notification_Consent__c,
+          Account.Source_System_ID__c,
+          OwnerId
+        FROM Case
+        WHERE Id = :record.Id
+      ];
+
+      record = updateCaseInfo(record, caseData);
+    }
     record.IDR_Escalation_Reason__c = MANUAL_ESCALATION_REASON;
 
     Database.SaveResult updatingRecord = Database.update(record);
@@ -61,36 +76,22 @@ public without sharing class CaseEscalateToCMOS {
   /**
    * @description Handles the field changes that happen for both manual and auto-escalated cases
    * @param record The record that will be updated
+   * @param caseData the same case but contains more information
    * @return The record that was updated
    */
-  private static Case updateCaseInfo(Case record) {
+  private static Case updateCaseInfo(Case record, Case caseData) {
     record.OwnerId = queue.Id;
     record.Status = IDRConstants.ESCALATED_STATUS;
     record.SLA_Status__C = BREACHED_STATUS;
 
     record.RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID;
 
-    if (
-      Case.SObjectType.getDescribe().isAccessible() &&
-      Schema.SObjectType.Case.fields.Customer_Notification_Consent__c.isAccessible() &&
-      Schema.SObjectType.Account.fields.Source_System_ID__c.isAccessible()
-    ) {
-      Case caseData = [
-        SELECT
-          Customer_Notification_Consent__c,
-          Account.Source_System_ID__c,
-          OwnerId
-        FROM Case
-        WHERE Id = :Record.Id
-      ];
-
-      record.Original_Case_Owner__c = caseData.OwnerId;
-      record.IDR_Customer_Number__c = caseData.Account.Source_System_ID__c;
-      record.IDR_Customer_Notification__c = (Boolean) (caseData.Customer_Notification_Consent__c ==
-      'Yes');
-      record.IDR_SwitchOff_Customer_Notification__c = (caseData.Customer_Notification_Consent__c ==
-      'No');
-    }
+    record.Original_Case_Owner__c = caseData.OwnerId;
+    record.IDR_Customer_Number__c = caseData.Account.Source_System_ID__c;
+    record.IDR_Customer_Notification__c = (Boolean) (caseData.Customer_Notification_Consent__c ==
+    'Yes');
+    record.IDR_SwitchOff_Customer_Notification__c = (caseData.Customer_Notification_Consent__c ==
+    'No');
 
     return record;
   }
@@ -101,16 +102,35 @@ public without sharing class CaseEscalateToCMOS {
    */
   public static void beforeUpdateCaseToCMOS(List<Case> records) {
     List<Case> recordsChatterUpdate = new List<Case>{};
+    Map<Id, Case> caseDataMap = new Map<Id, Case>();
+    if (
+      Case.SObjectType.getDescribe().isAccessible() &&
+      Schema.SObjectType.Case.fields.Customer_Notification_Consent__c.isAccessible() &&
+      Schema.SObjectType.Account.fields.Source_System_ID__c.isAccessible()
+    ) {
+      caseDataMap = new Map<Id, Case>(
+        [
+          SELECT
+            Customer_Notification_Consent__c,
+            Account.Source_System_ID__c,
+            OwnerId
+          FROM Case
+          WHERE Id IN :records
+        ]
+      );
+    }
 
     for (Case record : records) {
       if (
-        record.RecordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID &&
+        record.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID &&
         record.SLA_Status__C == BREACHED_STATUS &&
-        !record.isClosed &&
-        String.isEmpty(record.IDR_Escalation_Reason__c)
+        !record.isClosed
       ) {
-        record = updateCaseInfo(record);
-        record.IDR_Escalation_Reason__c = DAY_5_ESCALATION_REASON;
+        Case caseData = CaseDataMap.get(record.Id);
+        record = updateCaseInfo(record, caseData);
+        if (String.isEmpty(record.IDR_Escalation_Reason__c)) {
+          record.IDR_Escalation_Reason__c = DAY_5_ESCALATION_REASON;
+        }
 
         recordsChatterUpdate.add(record);
       }
