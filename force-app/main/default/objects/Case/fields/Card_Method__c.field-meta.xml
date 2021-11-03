@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Card_Method__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Source_Fabric;Privacy - Non Personal Information;Integrity - Trusted</complianceGroup>
+    <description>How the card was used</description>
+    <externalId>false</externalId>
+    <label>Card Method</label>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>4</fullName>
+                <default>false</default>
+                <label>CONTACTLESS</label>
+            </value>
+            <value>
+                <fullName>2</fullName>
+                <default>false</default>
+                <label>SWIPE</label>
+            </value>
+            <value>
+                <fullName>3</fullName>
+                <default>false</default>
+                <label>CHIP</label>
+            </value>
+            <value>
+                <fullName>7</fullName>
+                <default>false</default>
+                <label>ONLINE</label>
+            </value>
+            <value>
+                <fullName>8</fullName>
+                <default>false</default>
+                <label>DIGITAL</label>
+            </value>
+            <value>
+                <fullName>6</fullName>
+                <default>false</default>
+                <label>IN_APP</label>
+            </value>
+            <value>
+                <fullName>5</fullName>
+                <default>false</default>
+                <label>CARD_ON_FILE</label>
+            </value>
+            <value>
+                <fullName>1</fullName>
+                <default>false</default>
+                <label>MANUAL</label>
+            </value>
+            <value>
+                <fullName>0</fullName>
+                <default>false</default>
+                <label>OTHER</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

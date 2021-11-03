@@ -5,8 +5,7 @@
       "parameters": {
         "label": "Cases w/Duration",
         "name": "cases_duration",
-        "rowLevelSecurityFilter": "false",
-        "rowLevelSharingSource": "Case"
+        "rowLevelSecurityFilter": ""
       },
       "sources": ["MergeLastClosedData"]
     },
