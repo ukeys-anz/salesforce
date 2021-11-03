@@ -19,7 +19,8 @@ public with sharing class GetHelpCaseActions {
     GetHelpConstants.CARD_DISPUTE_RT_ID,
     GetHelpConstants.DIRECT_DEBIT_DISPUTE_RT_ID,
     GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID,
-    GetHelpConstants.URGENT_DISHONOUR_DISPUTE_RT_ID
+    GetHelpConstants.URGENT_DISHONOUR_DISPUTE_RT_ID,
+    GetHelpConstants.NPP_DISPUTE_RT_ID
   };
 
   public static final String DUPLICATE_DISPUTE_ERROR = 'Error occurred while creating dispute. An open dispute already exists for this transaction. Case number: ';
