@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ANZ_Product_Code__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information</complianceGroup>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <caseSensitive>false</caseSensitive>
     <description>Code identifying the ANZ product related to the Case.
 
@@ -11,7 +11,7 @@ Unique identifier for the ANZ product, from Zafin</description>
     <label>Code</label>
     <length>255</length>
     <required>false</required>
-    <securityClassification>Public</securityClassification>
+    <securityClassification>Internal</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>true</unique>

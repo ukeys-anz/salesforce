@@ -72,21 +72,21 @@ public with sharing class IDRLetterApprovalActions {
     List<IDR_Letter_Approval_Details__c> appDetailsList = new List<IDR_Letter_Approval_Details__c>();
 
     Map<String, String> customerFields = new Map<String, String>{
-      'street' => 'AddressStreet',
-      'suburb' => 'AddressSuburb',
+      'street' => 'AddressStreet', 
+      'suburb' => 'AddressSuburb', 
       'state' => 'AddressState',
       'postCode' => 'AddressPostCode',
       'email' => 'EmailAddress'
     };
 
     for (String field : customerFields.keySet()) {
-      appDetailsList.add(
-        createAppDetailRecord(
-          customerData.get(field),
-          customerFields.get(field),
-          approvalRecId
-        )
-      );
+        appDetailsList.add(
+      createAppDetailRecord(
+        customerData.get(field),
+        customerFields.get(field),
+        approvalRecId
+      )
+    );
     }
 
     if (

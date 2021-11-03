@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Compliance_Reviews</fullName>
+    <columns>NAME</columns>
+    <columns>Interaction_Owner__c</columns>
+    <columns>Interaction_Date_Time__c</columns>
+    <columns>Customer__c</columns>
+    <columns>Related_Case__c</columns>
+    <filterScope>Queue</filterScope>
+    <label>Compliance Reviews</label>
+    <queue>Coach_Lead_Escalation</queue>
+    <sharedTo>
+        <role>Coach_Lead</role>
+    </sharedTo>
+</ListView>

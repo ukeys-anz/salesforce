@@ -27,6 +27,11 @@
             <operation>notEqual</operation>
             <value>Chat</value>
         </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>notEqual</operation>
+            <value>Closed</value>
+        </milestoneCriteriaFilterItems>
         <milestoneName>Resolution Time</milestoneName>
         <minutesToComplete>2400</minutesToComplete>
         <timeTriggers>

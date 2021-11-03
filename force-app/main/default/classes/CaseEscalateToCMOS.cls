@@ -101,7 +101,7 @@ public with sharing class CaseEscalateToCMOS {
 
     for (Case record : records) {
       if (
-        record.RecordTypeId == GetHelpCaseActions.COMPLAINT_ID &&
+        record.RecordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID &&
         record.SLA_Status__C == BREACHED_STATUS &&
         !record.isClosed
       ) {

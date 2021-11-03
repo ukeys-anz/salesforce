@@ -101,7 +101,7 @@
     <sharingCriteriaRules>
         <fullName>Complaint_RTs_CRPUsers_RW</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Great Read write access to complaint records for Customer Resolution Users</description>
+        <description>Great Read write access to complaint records and General Inquiry CMOS records for Customer Resolution Users</description>
         <label>Complaint_RTs_CRPUsers_RW</label>
         <sharedTo>
             <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
@@ -109,7 +109,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Customer Complaint,Non-Customer Complaint</value>
+            <value>Customer Complaint,General Inquiry CMOS,Non-Customer Complaint</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -132,12 +132,12 @@
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>Dispute_RTs_Coaches_RW</fullName>
+        <fullName>Dispute_RTs_Coach_Lead_RW</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All Cases having Dispute related record types are to be shared with Coaches with Read/Write access.</description>
-        <label>Dispute_RTs-Coaches-RW</label>
+        <description>All Cases having Dispute related record types are to be shared with Coach Lead with Read/Write access.</description>
+        <label>Dispute_RTs-Coach-Lead-RW</label>
         <sharedTo>
-            <role>Coach</role>
+            <role>Coach_Lead</role>
         </sharedTo>
         <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7</booleanFilter>
         <criteriaItems>
@@ -177,9 +177,60 @@
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>Dispute_RTs_Coaches_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All Cases having Dispute related record types are to be shared with Coaches with Read/Write access.</description>
+        <label>Dispute_RTs-Coaches-RW</label>
+        <sharedTo>
+            <role>Coach</role>
+        </sharedTo>
+        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8</booleanFilter>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>ATM</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Card</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Direct Debit</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Direct Entry</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Urgent Dishonour Request</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>ANZ Plus Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>General Enquiry</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>NPP</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>Dispute_RTs_QA_RO</fullName>
         <accessLevel>Read</accessLevel>
-        <label>Dispute_RTs_QA_RO</label>
+        <description>All Cases having Dispute related record types are to be shared with Quality Analyst with Read access.</description>
+        <label>Dispute_RTs-QA-RO</label>
         <sharedTo>
             <role>Quality_Analyst</role>
         </sharedTo>
@@ -227,7 +278,7 @@
         <sharedTo>
             <role>Support_Coach</role>
         </sharedTo>
-        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7</booleanFilter>
+        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -262,6 +313,11 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>General Enquiry</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>NPP</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>

@@ -1,34 +1,34 @@
 {
-  "records": [
-    {
-      "attributes": {
-        "type": "IDR_Email_Settings__c",
-        "referenceId": "EmailServANZEDRRefId"
-      },
-      "Inbox_Email__c": "ANZEDR-cmos-np@anz.com",
-      "Technical_Email_Address__c": "",
-      "Origin__c": "11",
-      "Name": "ANZ_EDR"
-    },
-    {
-      "attributes": {
-        "type": "IDR_Email_Settings__c",
-        "referenceId": "EmailServYourFdbRefId"
-      },
-      "Inbox_Email__c": "Yourfeedback-np@anz.com",
-      "Technical_Email_Address__c": "",
-      "Origin__c": "Email",
-      "Name": "Yourfeedback"
-    },
-    {
-      "attributes": {
-        "type": "IDR_Email_Settings__c",
-        "referenceId": "EmailServAICMNFLRefId"
-      },
-      "Inbox_Email__c": "ICMNFL-cmos-np@anz.com",
-      "Technical_Email_Address__c": "",
-      "Origin__c": "Email",
-      "Name": "ICMNFL"
-    }
-  ]
+    "records": [
+        {
+            "attributes": {
+                "type": "IDR_Email_Settings__c",
+                "referenceId": "EmailServANZEDRRefId"
+            },
+            "Inbox_Email__c": "ANZEDR-cmos-np@anz.com",
+            "Technical_Email_Address__c": "",
+            "Origin__c": "11",
+            "Name": "ANZ_EDR"
+        },
+        {
+            "attributes": {
+                "type": "IDR_Email_Settings__c",
+                "referenceId": "EmailServYourFdbRefId"
+            },
+            "Inbox_Email__c": "Yourfeedback-np@anz.com",
+            "Technical_Email_Address__c": "",
+            "Origin__c": "Email",
+            "Name": "Yourfeedback"
+        },
+        {
+            "attributes": {
+                "type": "IDR_Email_Settings__c",
+                "referenceId": "EmailServAICMNFLRefId"
+            },
+            "Inbox_Email__c": "ICMNFL-cmos-np@anz.com",
+            "Technical_Email_Address__c": "",
+            "Origin__c": "Email",
+            "Name": "ICMNFL"
+        }
+    ]
 }
