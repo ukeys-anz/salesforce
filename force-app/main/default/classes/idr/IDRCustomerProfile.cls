@@ -20,6 +20,10 @@ public with sharing class IDRCustomerProfile {
   @AuraEnabled
   public String firstName;
   @AuraEnabled
+  public String lastName;
+  @AuraEnabled
+  public String middleName;
+  @AuraEnabled
   public String mobile;
   @AuraEnabled
   public String phone;
