@@ -8138,6 +8138,10 @@
     <recordType>Case.Non_Customer_Complaint</recordType>
   </layoutAssignments>
   <layoutAssignments>
+    <layout>Case-NPP Dispute Layout</layout>
+    <recordType>Case.NPP_Dispute</recordType>
+  </layoutAssignments>
+  <layoutAssignments>
     <layout>Case-Recipient%2FMule Layout</layout>
     <recordType>Case.Recipient_Mule</recordType>
   </layoutAssignments>
