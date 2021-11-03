@@ -34,7 +34,7 @@ const commonFieldsMapping = {
   Effective_Date__c: "transaction_date",
   Posted_Amount__c: "amount.value",
   Posted_Currency__c: "amount.currency_code",
-  Description: "long_desc",
+  Description: "short_desc",
   Date_Posted__c: "transaction_posted_date",
   Transaction_Id__c: "origination_id",
   Transaction_UUID__c: "transaction_id",
