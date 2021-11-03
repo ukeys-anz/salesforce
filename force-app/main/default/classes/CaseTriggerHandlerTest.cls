@@ -1970,4 +1970,125 @@ private class CaseTriggerHandlerTest {
     ); // Check that both disputes have been created
     Test.stopTest();
   }
+
+  // Test creating a dispute with the same transaction Id in another open dispute
+  // the new dispute should not be created
+  @isTest
+  static void testCheckOpenDisputeOnTransactionWithError() {
+    // GIVEN there is an open dispute on a customer account with a specific transaction Id
+    Faker faker = new Faker('AU');
+    String transactionId = faker.randomString(10);
+
+    List<Account> accounts = [
+      SELECT Id, Name
+      FROM Account
+      WHERE ANZx_Customer__c = TRUE
+    ];
+    Account customerAccount1 = accounts[0];
+
+    Case openDispute1 = new Case(
+      AccountId = customerAccount1.Id,
+      RecordTypeId = GetHelpConstants.CARD_DISPUTE_RT_ID,
+      Dispute_Reason__c = 'Charged Incorrect Amount',
+      Origin = 'Chat',
+      Transaction_Id__c = transactionId
+    );
+
+    insert openDispute1;
+
+    // WHEN a new dispute is being created with the same transaction Id
+    Case openDispute2 = new Case(
+      AccountId = customerAccount1.Id,
+      RecordTypeId = GetHelpConstants.CARD_DISPUTE_RT_ID,
+      Dispute_Reason__c = 'Charged Incorrect Amount',
+      Origin = 'Chat',
+      Transaction_Id__c = transactionId
+    );
+    Test.startTest();
+    try {
+      insert openDispute2;
+    } catch (DmlException e) {
+      System.assertEquals(
+        true,
+        e.getMessage().contains(GetHelpCaseActions.DUPLICATE_DISPUTE_ERROR),
+        'Error messages match.'
+      );
+    }
+    Test.stopTest();
+
+    // THEN the 2nd dispute should not be inserted
+    List<Case> disputeCases = [
+      SELECT Id
+      FROM Case
+      WHERE
+        AccountId = :customerAccount1.Id
+        AND RecordTypeId = :GetHelpConstants.CARD_DISPUTE_RT_ID
+    ];
+    System.assertEquals(
+      1,
+      disputeCases.size(),
+      'New dispute was created when there is an open dispute exists with the same transaction Id.'
+    );
+  }
+
+  // Test creating a dispute with the same transaction Id in another closed dispute
+  // the new dispute should be created
+  @isTest
+  static void testCheckOpenDisputeOnTransactionWithoutError() {
+    // GIVEN there is a closed dispute on a customer account with a specific transaction Id
+    Faker faker = new Faker('AU');
+    String transactionId = faker.randomString(10);
+
+    List<Account> accounts = [
+      SELECT Id, Name
+      FROM Account
+      WHERE ANZx_Customer__c = TRUE
+    ];
+    Account customerAccount1 = accounts[0];
+
+    Case openDispute1 = new Case(
+      AccountId = customerAccount1.Id,
+      RecordTypeId = GetHelpConstants.CARD_DISPUTE_RT_ID,
+      Dispute_Reason__c = 'Charged Incorrect Amount',
+      Origin = 'Chat',
+      Transaction_Id__c = transactionId,
+      Status = 'Closed'
+    );
+
+    insert openDispute1;
+
+    // WHEN a new dispute is being created with the same transaction Id
+    Case openDispute2 = new Case(
+      AccountId = customerAccount1.Id,
+      RecordTypeId = GetHelpConstants.CARD_DISPUTE_RT_ID,
+      Dispute_Reason__c = 'Charged Incorrect Amount',
+      Origin = 'Chat',
+      Transaction_Id__c = transactionId
+    );
+    Test.startTest();
+    try {
+      insert openDispute2;
+    } catch (DmlException e) {
+      System.assertEquals(
+        null,
+        e,
+        'New dispute case was not successfully inserted.'
+      );
+    }
+    Test.stopTest();
+
+    // THEN the 2nd dispute should be inserted
+    List<Case> disputeCases = [
+      SELECT Id
+      FROM Case
+      WHERE
+        AccountId = :customerAccount1.Id
+        AND RecordTypeId = :GetHelpConstants.CARD_DISPUTE_RT_ID
+    ];
+    System.assertEquals(
+      2,
+      disputeCases.size(),
+      'New dispute was not created when there is a closed dispute case with the same transaction Id'
+    );
+  }
 }
