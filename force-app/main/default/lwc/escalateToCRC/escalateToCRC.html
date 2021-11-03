@@ -1,0 +1,44 @@
+<template>
+  <lightning-quick-action-panel title="Escalate to CRC" class="maxwidth">
+    <div>
+      <b
+        >Are you sure you want to escalate this case to the Complaints
+        Resolution Centre (CRC)? This can't be undone.</b
+      >
+      <ul style="list-style: disc; margin: 10px">
+        <li>
+          Make sure your case details and notes reflect the situation and
+          discussion held so far.
+        </li>
+        <li>Ensure the escalation reason is correct.</li>
+        <li>
+          Once escalated, a CRC Case Manager will be in contact with the
+          customer soon.
+        </li>
+        <li>The customer can contact the CRC directly on 1800 805 154.</li>
+      </ul>
+
+      <div if:true={isLoading}>
+        <lightning-spinner alternative-text="Loading..." variant="brand">
+        </lightning-spinner>
+      </div>
+    </div>
+
+    <div slot="footer">
+      <div if:false={isLoading}>
+        <lightning-button
+          class="btn"
+          variant="neutral"
+          label="Cancel"
+          onclick={closeAction}
+        ></lightning-button>
+        <lightning-button
+          class="btn"
+          variant="brand"
+          label="Continue"
+          onclick={escalate}
+        ></lightning-button>
+      </div>
+    </div>
+  </lightning-quick-action-panel>
+</template>
