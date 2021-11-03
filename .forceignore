@@ -83,3 +83,6 @@ force-app/main/default/classes/GetAccountsAndGoals.cls
 KnowledgeValidationStatus
 type:DataCategoryGroup
 
+#Ignoring deleted platform event for Nov 10 develop merge - CMOS
+force-app/main/default/objects/IDR_CRC_Escalation_Event__e
+

@@ -1612,8 +1612,8 @@ private class CaseTriggerHandlerTest {
       new Set<Id>{ custCompCase.Id },
       'Incorrect caseId/whatId mapping in starCollectionMap for :' +
       custCompCase.IDR_Collection_Number__c
-      );
-    }
+    );
+  }
 
   // Test when a dispute is created with an active financial account that is not associated with its customer account,
   // the dispute should not be created
