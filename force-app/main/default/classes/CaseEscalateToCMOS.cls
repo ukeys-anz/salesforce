@@ -2,8 +2,8 @@
  * @author Mouhamed "Mo" Assafiri
  * @since Sept 2021
  * @description Escalates Cases from ANZx to CMOS IDR EveryDay Banking
- * Set the whole class to without sharing since the escalation process should not worry
- * whether the current user has access or not to certain fields to complete the process
+ * Set the whole class to without sharing since we need to enable the user to generate
+ * Case comments regardless of whether current user is the owner or not
  */
 
 public without sharing class CaseEscalateToCMOS {
