@@ -155,7 +155,7 @@ export default class TransactionHistoryBoard extends LightningElement {
               let currentTransaction = { ...this.fullTransactionList[i] };
 
               //Remap type and status
-              currentTransaction.type = currentTransaction.type
+              currentTransaction.formatted_type = currentTransaction.type
                 ? transactionTypeMapping[currentTransaction.type]
                 : "Unknown";
               currentTransaction.status = currentTransaction.status
@@ -533,11 +533,11 @@ export default class TransactionHistoryBoard extends LightningElement {
   // Get record type Id to direct user to the corresponding page layout
   getRecordTypeId(transaction) {
     switch (true) {
-      case transaction.type === TRANSACTION_TYPES.Card:
+      case transaction.formatted_type === TRANSACTION_TYPES.Card:
         return this.transactionTypeDisputeIdMap.Card_Dispute;
-      case transaction.type === TRANSACTION_TYPES.Deposit_Withdrawal:
+      case transaction.formatted_type === TRANSACTION_TYPES.Deposit_Withdrawal:
         return this.transactionTypeDisputeIdMap.ATM_Dispute;
-      case transaction.type === TRANSACTION_TYPES.BSB_ACC &&
+      case transaction.formatted_type === TRANSACTION_TYPES.BSB_ACC &&
         transaction.pay_anyone?.clearing_method !==
           PAYMENT_TYPES.PAYMENT_TYPE_FAST &&
         ![
@@ -546,7 +546,7 @@ export default class TransactionHistoryBoard extends LightningElement {
         ].includes(transaction.pay_anyone?.clearing_sub_method):
         return this.transactionTypeDisputeIdMap.Direct_Entry_Dispute;
       case [TRANSACTION_TYPES.BSB_ACC, TRANSACTION_TYPES.PAYID].includes(
-        transaction.type
+        transaction.formatted_type
       ) &&
         transaction.pay_anyone?.clearing_method ===
           PAYMENT_TYPES.PAYMENT_TYPE_FAST &&
@@ -555,7 +555,7 @@ export default class TransactionHistoryBoard extends LightningElement {
           PAYMENT_SUB_TYPES.PAYMENT_SUB_TYPE_ONUS
         ].includes(transaction.pay_anyone?.clearing_sub_method):
         return this.transactionTypeDisputeIdMap.NPP_Dispute;
-      case transaction.type === TRANSACTION_TYPES.Direct_Debit:
+      case transaction.formatted_type === TRANSACTION_TYPES.Direct_Debit:
         return this.transactionTypeDisputeIdMap.Direct_Debit_Dispute;
       default:
         return "";

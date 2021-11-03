@@ -76,7 +76,7 @@ export default class TransactionHistoryRecord extends NavigationMixin(
 
     // Process the dispute type that will show up on the modal based on the transaction type, as specified in ANZX-5492
     this.disputeRecordTypes =
-      this.transactionRecord.type === TRANSACTION_TYPES.Salary
+      this.transactionRecord.formatted_type === TRANSACTION_TYPES.Salary
         ? this.handleFilterModalDisputeTypes(
             this.disputeRecordTypesFromParent,
             ALLOWED_DISPUTE_TYPES_FOR_SALARY
@@ -88,7 +88,7 @@ export default class TransactionHistoryRecord extends NavigationMixin(
   get disputeButtonTooltip() {
     switch (true) {
       case [TRANSACTION_TYPES.BPAY, TRANSACTION_TYPES.Transfer].includes(
-        this.transactionRecord.type
+        this.transactionRecord.formatted_type
       ):
         return BPAY_AND_TRANSFER_MESSAGE;
       case this.transactionRecord.status === TRANSACTION_STATUSES.Pending:
@@ -106,7 +106,7 @@ export default class TransactionHistoryRecord extends NavigationMixin(
     return (
       !canRaiseDispute ||
       !(this.transactionRecord.status === TRANSACTION_STATUSES.Posted) ||
-      !ALLOWED_TRANSACTION_TYPES.includes(this.transactionRecord.type)
+      !ALLOWED_TRANSACTION_TYPES.includes(this.transactionRecord.formatted_type)
     );
   }
 
@@ -185,7 +185,7 @@ export default class TransactionHistoryRecord extends NavigationMixin(
     //If we fail to automatically infer record type, log error
     if (this.transactionRecord.disputeRecordTypeId === "") {
       let logDetails = {
-        transactionType: this.transactionRecord.type,
+        transactionType: this.transactionRecord.formatted_type,
         selectedRecordType: this.selectedDisputeRecordType,
         transactionId: this.transactionRecord.transaction_id,
         financialAccountId: this.financialAccountId
