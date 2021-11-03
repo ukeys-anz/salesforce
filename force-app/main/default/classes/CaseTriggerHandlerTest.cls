@@ -1561,9 +1561,9 @@ private class CaseTriggerHandlerTest {
     Test.stopTest();
   }
 
-  // test IDRCollectionAction getStartCollecMap method
+  // test IDRCollectionAction getStartCollectionMap method
   @isTest
-  static void testGetStartCollecMap() {
+  static void testGetStartCollectionMap() {
     //Create a customer complaint
     Case custCompCase = new Case(
       RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
@@ -1595,7 +1595,7 @@ private class CaseTriggerHandlerTest {
     }
     insert taskList;
     Test.startTest();
-    Map<String, Set<Id>> startCollecMap = IDRCollectionActions.getStartCollecMap(
+    Map<String, Set<Id>> startCollecMap = IDRCollectionActions.getStartCollectionMap(
       collectionAcctsList,
       caseIds
     );

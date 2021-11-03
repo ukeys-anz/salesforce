@@ -370,7 +370,7 @@ public with sharing class IDRCollectionActions {
     }
 
     //Build collection map
-    startCollecMap = getStartCollecMap(collectionAcctsList, caseIds);
+    startCollecMap = getStartCollectionMap(collectionAcctsList, caseIds);
 
     //validate all closed records whether the stop collection is already triggered or not
     for (Case rec : finalList) {
@@ -398,8 +398,10 @@ public with sharing class IDRCollectionActions {
    * @param caseIds list of case ids
    * @return startCollecMap start collection map
    */
-  @SuppressWarnings('PMD.ApexCRUDViolation') //Apex CRUD validation already added below
-  public static Map<String, Set<Id>> getStartCollecMap(
+  @SuppressWarnings(
+    'PMD.ApexCRUDViolation'
+  ) //Apex CRUD validation already added below
+  public static Map<String, Set<Id>> getStartCollectionMap(
     Set<String> collectionAcctsList,
     List<Id> caseIds
   ) {
@@ -424,14 +426,9 @@ public with sharing class IDRCollectionActions {
               taskRec.IDR_Collection_Number__c,
               new Set<Id>{ taskRec.WhatId }
             );
-          } else if (
-            startCollecMap.containsKey(taskRec.IDR_Collection_Number__c)
-          ) {
-            Set<Id> caseIdSet = startCollecMap.get(
-              taskRec.IDR_Collection_Number__c
-            );
-            caseIdSet.add(taskRec.WhatId);
-            startCollecMap.put(taskRec.IDR_Collection_Number__c, caseIdSet);
+          } else {
+            startCollecMap.get(taskRec.IDR_Collection_Number__c)
+              .add(taskRec.WhatId);
           }
         }
       }
