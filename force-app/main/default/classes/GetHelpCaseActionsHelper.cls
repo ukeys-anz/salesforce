@@ -78,9 +78,9 @@ public with sharing class GetHelpCaseActionsHelper {
   public static Boolean isANZPlusCaseType(Case record) {
     if (
       GetHelpCaseActions.FRAUD_RT_IDS.contains(record.RecordTypeId) ||
-      record.RecordTypeId == GetHelpCaseActions.GENERAL_INQUIRY_RT_ID ||
-      record.RecordTypeId == GetHelpCaseActions.BUG_RT_ID ||
-      record.RecordTypeId == GetHelpCaseActions.COMPLAINT_ID
+      record.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID ||
+      record.RecordTypeId == GetHelpConstants.BUG_RT_ID ||
+      record.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID
     ) {
       return true;
     }
@@ -130,7 +130,7 @@ public with sharing class GetHelpCaseActionsHelper {
     for (Case c : records) {
       if (
         c.Related_Bug__c != null &&
-        c.RecordTypeId == GetHelpCaseActions.BUG_RT_ID
+        c.RecordTypeId == GetHelpConstants.BUG_RT_ID
       ) {
         bugIdSet.add(c.Related_Bug__c);
       }
@@ -163,8 +163,8 @@ public with sharing class GetHelpCaseActionsHelper {
     List<Id> accountIds = new List<Id>();
     for (Case c : caseList) {
       if (
-        (c.RecordTypeId == GetHelpCaseActions.GENERAL_INQUIRY_RT_ID ||
-        c.RecordTypeId == GetHelpCaseActions.COMPLAINT_ID) &&
+        (c.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID ||
+        c.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID) &&
         c.AccountId != null
       ) {
         accountIds.add(c.AccountId);
@@ -206,8 +206,8 @@ public with sharing class GetHelpCaseActionsHelper {
   ) {
     for (Case c : caseList) {
       if (
-        (c.RecordTypeId == GetHelpCaseActions.GENERAL_INQUIRY_RT_ID ||
-        c.RecordTypeId == GetHelpCaseActions.COMPLAINT_ID) &&
+        (c.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID ||
+        c.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID) &&
         c.AccountId != null
       ) {
         if (!entMap.containsKey(c.AccountId)) {
@@ -217,20 +217,6 @@ public with sharing class GetHelpCaseActionsHelper {
         }
       }
     }
-  }
-
-  /**
-   * @description Get the Id of a record type using its developer name
-   * @param developerName The developer name of the record type
-   * @return the Id of the record type
-   */
-  public static Id getCaseRecordTypeIdByDeveloperName(String developerName) {
-    if (String.isNotBlank(developerName)) {
-      return Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-        .get(developerName)
-        .getRecordTypeId();
-    }
-    return null;
   }
 
   /**
@@ -244,7 +230,7 @@ public with sharing class GetHelpCaseActionsHelper {
     Map<Id, Case> oldCaseMap
   ) {
     if (
-      record.RecordTypeId == GetHelpCaseActions.GENERAL_INQUIRY_RT_ID &&
+      record.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID &&
       (String.isNotBlank(record.Type) ||
       String.isNotBlank(record.Additional_Type__c)) &&
       (oldCaseMap == null ||
@@ -300,7 +286,7 @@ public with sharing class GetHelpCaseActionsHelper {
    */
   public static Boolean isComplaint(Case record, Map<Id, Case> oldCaseMap) {
     if (
-      record.RecordTypeId == GetHelpCaseActions.COMPLAINT_ID &&
+      record.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID &&
       (oldCaseMap == null ||
       record.Type != oldCaseMap.get(record.Id).Type)
     ) {
@@ -308,6 +294,25 @@ public with sharing class GetHelpCaseActionsHelper {
     } else {
       return false;
     }
+  }
+
+  /**
+   * @description getCaseNumberByTransactionId is called to get all open cases that are linked to a set of transaction Ids
+   * @param transactionIds set of transaction Ids
+   * @return Map<String, String> a map of case number by their transaction Id
+   */
+  public static Map<String, String> getCaseNumberByTransactionId(
+    Set<String> transactionIds
+  ) {
+    Map<String, String> caseNumberByTransactionId = new Map<String, String>();
+    for (Case c : [
+      SELECT CaseNumber__c, Transaction_Id__c
+      FROM Case
+      WHERE Transaction_Id__c IN :transactionIds AND Status != 'Closed'
+    ]) {
+      caseNumberByTransactionId.put(c.Transaction_Id__c, c.CaseNumber__c);
+    }
+    return caseNumberByTransactionId;
   }
 
   /**
@@ -331,5 +336,35 @@ public with sharing class GetHelpCaseActionsHelper {
       GetHelpCaseActions.MILESTONE_NAME,
       System.now()
     );
+  }
+
+  /**
+   * @description Gett a list of financial account roles based on financial account id, account ids and if the role should be active
+   * @param accountIds List of account Ids
+   * @param financialAccIds Set of financial account Ids
+   * @param isActive If the financial account role is active
+   * @return Map<Id, FinServ__FinancialAccountRole__c> a map of financial account roles and their Ids
+   */
+  public static Map<Id, FinServ__FinancialAccountRole__c> getFinancialAccountRolesMap(
+    Set<Id> accountIds,
+    Set<Id> financialAccIds,
+    Boolean isActive
+  ) {
+    Map<Id, FinServ__FinancialAccountRole__c> financialRolesMap = new Map<Id, FinServ__FinancialAccountRole__c>();
+    if (
+      FinServ__FinancialAccountRole__c.SObjectType.getDescribe().isAccessible()
+    ) {
+      financialRolesMap = new Map<Id, FinServ__FinancialAccountRole__c>(
+        [
+          SELECT Id, FinServ__FinancialAccount__c, FinServ__RelatedAccount__c
+          FROM FinServ__FinancialAccountRole__c
+          WHERE
+            FinServ__FinancialAccount__c IN :financialAccIds
+            AND FinServ__RelatedAccount__c IN :accountIds
+            AND FinServ__Active__c = :isActive
+        ]
+      );
+    }
+    return financialRolesMap;
   }
 }
