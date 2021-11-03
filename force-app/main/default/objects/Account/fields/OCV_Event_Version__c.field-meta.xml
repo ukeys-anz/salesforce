@@ -6,7 +6,7 @@
     <description>Refers to the event version number of the latest information sent from OCV to update Salesforce</description>
     <externalId>false</externalId>
     <label>OCV Event Version</label>
-    <precision>5</precision>
+    <precision>8</precision>
     <required>false</required>
     <scale>2</scale>
     <securityClassification>Confidential</securityClassification>
