@@ -1560,4 +1560,50 @@ private class CaseTriggerHandlerTest {
 
     Test.stopTest();
   }
+
+  // test IDRCollectionAction getStartCollecMap method
+  @isTest
+  static void testGetStartCollecMap() {
+    //Create a customer complaint
+    Case custCompCase = new Case(
+      RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+      Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
+      IDR_Customer_Number__c = '1234567890',
+      Priority = 'Standard',
+      Type = '5',
+      IDR_Subsequent_Issue__c = '38',
+      IDR_Collection_Number__c = '1234567890'
+    );
+    insert custCompCase;
+    Set<String> collectionAcctsList = new Set<String>();
+    collectionAcctsList.add(custCompCase.IDR_Collection_Number__c);
+    List<Id> caseIds = new List<Id>();
+    caseIds.add(custCompCase.Id);
+    List<Task> taskList = new List<Task>();
+    for (Integer i = 0; i < 2; i++) {
+      Task t = new Task();
+      t.WhatId = custCompCase.Id;
+      t.IDR_Collection_Number__c = custCompCase.IDR_Collection_Number__c;
+      t.RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID;
+      t.Status = 'Open';
+      t.Priority = 'High';
+      t.ActivityDate = system.today();
+      t.Subject =
+        IDRTaskActions.STOP_COLLECTIONS_SUBJECT +
+        '- Account with 3rd Party/Asset Finance';
+      taskList.add(t);
+    }
+    insert taskList;
+    Test.startTest();
+    Map<String, Set<Id>> startCollecMap = IDRCollectionActions.getStartCollecMap(
+      collectionAcctsList,
+      caseIds
+    );
+    Test.stopTest();
+    System.assertNotEquals(
+      startCollecMap,
+      null,
+      'Issue in generating start collection map in IDRCollectionActions'
+    );
+  }
 }
