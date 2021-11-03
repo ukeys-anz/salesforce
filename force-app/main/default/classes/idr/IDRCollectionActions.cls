@@ -396,7 +396,7 @@ public with sharing class IDRCollectionActions {
    * @description method for building start collection map.
    * @param collectionAcctsList collection accounts list
    * @param caseIds list of case ids
-   * @return startCollecMap start collection map
+   * @return startCollectionMap start collection map
    */
   @SuppressWarnings(
     'PMD.ApexCRUDViolation'
@@ -405,7 +405,7 @@ public with sharing class IDRCollectionActions {
     Set<String> collectionAcctsList,
     List<Id> caseIds
   ) {
-    Map<String, Set<Id>> startCollecMap = new Map<String, Set<Id>>();
+    Map<String, Set<Id>> startCollectionMap = new Map<String, Set<Id>>();
 
     //query all stop collections task and put it in map with key as account number
     if (Task.sObjectType.getDescribe().isQueryable()) {
@@ -421,19 +421,19 @@ public with sharing class IDRCollectionActions {
               WHERE isClosed = FALSE OR Id IN :caseIds
             )
         ]) {
-          if (!startCollecMap.containsKey(taskRec.IDR_Collection_Number__c)) {
-            startCollecMap.put(
+          if (!startCollectionMap.containsKey(taskRec.IDR_Collection_Number__c)) {
+            startCollectionMap.put(
               taskRec.IDR_Collection_Number__c,
               new Set<Id>{ taskRec.WhatId }
             );
           } else {
-            startCollecMap.get(taskRec.IDR_Collection_Number__c)
+            startCollectionMap.get(taskRec.IDR_Collection_Number__c)
               .add(taskRec.WhatId);
           }
         }
       }
     }
-    return startCollecMap;
+    return startCollectionMap;
   }
 
   /**
