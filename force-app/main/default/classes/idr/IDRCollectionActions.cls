@@ -403,32 +403,35 @@ public with sharing class IDRCollectionActions {
     List<Id> caseIds
   ) {
     Map<String, Set<Id>> startCollecMap = new Map<String, Set<Id>>();
+
     //query all stop collections task and put it in map with key as account number
-    if (!collectionAcctsList.isEmpty()) {
-      for (Task taskRec : [
-        SELECT WhatId, IDR_Collection_Number__c
-        FROM Task
-        WHERE
-          IDR_Collection_Number__c IN :collectionAcctsList
-          AND WhatId IN (
-            SELECT id
-            FROM case
-            WHERE isClosed = FALSE OR Id IN :caseIds
-          )
-      ]) {
-        if (!startCollecMap.containsKey(taskRec.IDR_Collection_Number__c)) {
-          startCollecMap.put(
-            taskRec.IDR_Collection_Number__c,
-            new Set<Id>{ taskRec.WhatId }
-          );
-        } else if (
-          startCollecMap.containsKey(taskRec.IDR_Collection_Number__c)
-        ) {
-          Set<Id> caseIdSet = startCollecMap.get(
-            taskRec.IDR_Collection_Number__c
-          );
-          caseIdSet.add(taskRec.WhatId);
-          startCollecMap.put(taskRec.IDR_Collection_Number__c, caseIdSet);
+    if (Task.sObjectType.getDescribe().isQueryable()) {
+      if (!collectionAcctsList.isEmpty()) {
+        for (Task taskRec : [
+          SELECT WhatId, IDR_Collection_Number__c
+          FROM Task
+          WHERE
+            IDR_Collection_Number__c IN :collectionAcctsList
+            AND WhatId IN (
+              SELECT id
+              FROM case
+              WHERE isClosed = FALSE OR Id IN :caseIds
+            )
+        ]) {
+          if (!startCollecMap.containsKey(taskRec.IDR_Collection_Number__c)) {
+            startCollecMap.put(
+              taskRec.IDR_Collection_Number__c,
+              new Set<Id>{ taskRec.WhatId }
+            );
+          } else if (
+            startCollecMap.containsKey(taskRec.IDR_Collection_Number__c)
+          ) {
+            Set<Id> caseIdSet = startCollecMap.get(
+              taskRec.IDR_Collection_Number__c
+            );
+            caseIdSet.add(taskRec.WhatId);
+            startCollecMap.put(taskRec.IDR_Collection_Number__c, caseIdSet);
+          }
         }
       }
     }
