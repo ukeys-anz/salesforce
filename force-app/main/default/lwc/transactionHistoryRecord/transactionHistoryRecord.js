@@ -8,6 +8,7 @@ import canRaiseDispute from "@salesforce/customPermission/ANZx_Raise_Dispute";
 
 import { prepopulateDisputesFields } from "./helper/disputes-fields-mapping";
 import { encodeDefaultFieldValues } from "lightning/pageReferenceUtils";
+import logMissedTransaction from "@salesforce/apex/TransactionHistoryController.logMissedTransaction";
 
 import {
   TRANSACTION_STATUSES,
@@ -180,6 +181,20 @@ export default class TransactionHistoryRecord extends NavigationMixin(
       disputeType,
       this.transactionRecord
     );
+
+    //If we fail to automatically infer record type, log error
+    if (this.transactionRecord.disputeRecordTypeId === "") {
+      let logDetails = {
+        transactionType: this.transactionRecord.type,
+        selectedRecordType: this.selectedDisputeRecordType,
+        transactionId: this.transactionRecord.transaction_id,
+        financialAccountId: this.financialAccountId
+      };
+
+      logMissedTransaction({
+        logDetails: logDetails
+      });
+    }
 
     this[NavigationMixin.Navigate]({
       type: "standard__objectPage",

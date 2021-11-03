@@ -32,7 +32,7 @@
         "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
         "merchantId": { "value": "M12345" },
         "tags": ["T12345"],
-        "type": "TRANSACTION_TYPE_CARD",
+        "type": "TRANSACTION_TYPE_UNSPECIFIED",
         "card": {
           "last_four_digits": "7265",
           "scheme": "CARD_SCHEME_EFTPOS",

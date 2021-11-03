@@ -69,4 +69,32 @@ public with sharing class TransactionHistoryController {
     log.insertLogAsync();
     return null;
   }
+
+  /**
+   * @description Add a log for when a record type isn't automatically inferred when raising a dispute
+   * @param logDetails map containing information for log
+   */
+  @AuraEnabled
+  public static void logMissedTransaction(Map<String, String> logDetails) {
+    //Get the developer name of the record type
+    String recordTypeName = Schema.SObjectType.Case.getRecordTypeInfosById()
+      .get(logDetails.get('selectedRecordType'))
+      .getName();
+    Lib_SystemLog.createSingleLog(
+      TransactionHistoryController.class.getName(),
+      'logMissedTransaction',
+      '',
+      'Failed to automatically infer dispute type for transaction ' +
+      logDetails.get('transactionId') +
+      ' of type ' +
+      logDetails.get('transactionType') +
+      '. Using ' +
+      recordTypeName +
+      ' as a result. Financial account: ' +
+      logDetails.get('financialAccountId') +
+      ' | User Id: ' +
+      UserInfo.getUserId(),
+      Lib_SystemLog.Severity.ERROR
+    );
+  }
 }
