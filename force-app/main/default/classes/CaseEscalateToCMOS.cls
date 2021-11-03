@@ -2,9 +2,11 @@
  * @author Mouhamed "Mo" Assafiri
  * @since Sept 2021
  * @description Escalates Cases from ANZx to CMOS IDR EveryDay Banking
+ * Set the whole class to without sharing since the escalation process should not worry
+ * whether the current user has access or not to certain fields to complete the process
  */
 
-public with sharing class CaseEscalateToCMOS {
+public without sharing class CaseEscalateToCMOS {
   private static final String QUEUE_DEV_NAME = 'IDR_Everyday_Banking';
   private static final String QUEUE_TYPE = 'Queue';
   private static final String BREACHED_STATUS = 'Breached';
@@ -64,6 +66,7 @@ public with sharing class CaseEscalateToCMOS {
   private static Case updateCaseInfo(Case record) {
     record.OwnerId = queue.Id;
     record.Status = IDRConstants.ESCALATED_STATUS;
+    record.SLA_Status__C = BREACHED_STATUS;
 
     record.RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID;
 
@@ -82,7 +85,7 @@ public with sharing class CaseEscalateToCMOS {
       ];
 
       record.Original_Case_Owner__c = caseData.OwnerId;
-      record.IDR_Customer_Number__c = record.Account.Source_System_ID__c;
+      record.IDR_Customer_Number__c = caseData.Account.Source_System_ID__c;
       record.IDR_Customer_Notification__c = (Boolean) (caseData.Customer_Notification_Consent__c ==
       'Yes');
       record.IDR_SwitchOff_Customer_Notification__c = (caseData.Customer_Notification_Consent__c ==
@@ -103,7 +106,8 @@ public with sharing class CaseEscalateToCMOS {
       if (
         record.RecordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID &&
         record.SLA_Status__C == BREACHED_STATUS &&
-        !record.isClosed
+        !record.isClosed &&
+        String.isEmpty(record.IDR_Escalation_Reason__c)
       ) {
         record = updateCaseInfo(record);
         record.IDR_Escalation_Reason__c = DAY_5_ESCALATION_REASON;
