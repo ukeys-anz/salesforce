@@ -555,7 +555,7 @@ export default class TransactionHistoryBoard extends LightningElement {
           PAYMENT_SUB_TYPES.PAYMENT_SUB_TYPE_ONUS
         ].includes(transaction.pay_anyone?.clearing_sub_method):
         return this.transactionTypeDisputeIdMap.NPP_Dispute;
-      case transaction.type === TRANSACTION_TYPES.BSB_ACC.Direct_Debit:
+      case transaction.type === TRANSACTION_TYPES.Direct_Debit:
         return this.transactionTypeDisputeIdMap.Direct_Debit_Dispute;
       default:
         return "";
