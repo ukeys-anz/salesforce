@@ -106,25 +106,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Dispute_Subtype__c</picklist>
-        <values>
-            <fullName>Incorrect Account</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Incorrect Amount</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Incorrect Payee</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Unknown Sender</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>Fraud_Assisted_ID_Event_Type__c</picklist>
         <values>
             <fullName>None</fullName>
@@ -1110,25 +1091,6 @@
         </values>
         <values>
             <fullName>Westpac</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Fraud_Funds_to_Channel__c</picklist>
-        <values>
-            <fullName>ATM</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>BPay</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>EFTPOS</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>IMT</fullName>
             <default>false</default>
         </values>
     </picklistValues>

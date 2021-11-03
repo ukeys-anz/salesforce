@@ -208,4 +208,21 @@ public with sharing class CommonUtil {
 
     return permSet;
   }
+
+  /**
+   * @description Get queue by queue name
+   * @param name name of the queue
+   * @return queue
+   */
+  public static Group getQueueByName(String name) {
+    Group queue = [
+      SELECT Id
+      FROM Group
+      WHERE DeveloperName = :name AND Type = 'Queue'
+      WITH SECURITY_ENFORCED
+      LIMIT 1
+    ];
+
+    return queue;
+  }
 }

@@ -209,7 +209,7 @@ public with sharing class AccessRequestCommonActionsTest {
     Test.stopTest();
 
     // THEN
-    // the PAM approver should should not be re-calculated
+    // the PAM approver should not be re-calculated
     User approverUser = TestUtil.getUserByFirstName('PAM_Global_Approver');
     System.assertNotEquals(
       approverUser.Id,

@@ -101,26 +101,23 @@
     <picklistValues>
         <picklist>Dispute_Reason__c</picklist>
         <values>
-            <fullName>Direct Debit Cancellation Request</fullName>
-            <default>true</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Dispute_Subtype__c</picklist>
-        <values>
-            <fullName>Incorrect Account</fullName>
+            <fullName>Fraudulent transaction</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Incorrect Amount</fullName>
+            <fullName>Payment Duplicated</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Incorrect Payee</fullName>
+            <fullName>Payment Overdrawn</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Unknown Sender</fullName>
+            <fullName>Payment debited after debit authority cancelled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unauthorised Transaction</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -1110,25 +1107,6 @@
         </values>
         <values>
             <fullName>Westpac</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Fraud_Funds_to_Channel__c</picklist>
-        <values>
-            <fullName>ATM</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>BPay</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>EFTPOS</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>IMT</fullName>
             <default>false</default>
         </values>
     </picklistValues>

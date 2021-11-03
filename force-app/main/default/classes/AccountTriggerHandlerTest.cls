@@ -18,7 +18,7 @@ private class AccountTriggerHandlerTest {
   //   for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
   //     newCases.add(
   //       new Case(
-  //         RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
+  //         RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID,
   //         AccountId = testAccount.Id,
   //         Type = 'Card',
   //         Additional_Type__c = 'App Support;Coaching'
