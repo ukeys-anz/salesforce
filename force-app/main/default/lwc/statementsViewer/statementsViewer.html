@@ -1,0 +1,42 @@
+<template>
+  <template if:true={isLoading}>
+    <div class="slds-is-relative spinner-height">
+      <lightning-spinner
+        alternative-text="Loading..."
+        variant="brand"
+        size="medium"
+        data-text="Loading..."
+        class="loader"
+      >
+      </lightning-spinner>
+    </div>
+  </template>
+
+  <template if:false={isLoading}>
+    <template if:true={hasPermissionIssue}>
+      <c-error permission-issue={hasPermissionIssue}></c-error>
+    </template>
+
+    <template if:false={hasPermissionIssue}>
+      <template if:true={hasError}>
+        <c-error message={error}></c-error>
+      </template>
+
+      <template if:false={hasError}>
+        <lightning-datatable
+          key-field="statementId"
+          columns={columns}
+          data={statements}
+          hide-checkbox-column
+          onrowaction={handleRowAction}
+          default-sort-direction={defaultSortDirection}
+          sorted-direction={sortDirection}
+          sorted-by={sortedBy}
+          onsort={handleSort}
+          data-id="statements_table"
+        >
+        </lightning-datatable>
+      </template>
+    </template>
+  </template>
+</template>
