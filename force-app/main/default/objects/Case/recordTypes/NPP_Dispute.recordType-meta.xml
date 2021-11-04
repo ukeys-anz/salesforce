@@ -181,7 +181,19 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Incorrect Account Details</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect Amount Transferred</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Remittance - Where did this money come from%3F</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Return money received from an unknown person</fullName>
             <default>false</default>
         </values>
         <values>

@@ -2033,6 +2033,7 @@ private class CaseTriggerHandlerTest {
       Auto_Created__c = false,
       Dispute_Reason__c = 'Duplicate Transactions',
       Origin = '1',
+      Customer_Description__c = 'Charged more than once for same purchase',
       Priority = 'High',
       Transaction_Id__c = '9be08660-23bb-4f12-b124-7cfe561ba086'
     );
@@ -2074,6 +2075,7 @@ private class CaseTriggerHandlerTest {
       Auto_Created__c = false,
       Dispute_Reason__c = 'Duplicate Transactions',
       Origin = '1',
+      Customer_Description__c = 'Charged more than once for same purchase',
       Priority = 'High',
       Transaction_Id__c = '9be08660-23bb-4f12-b124-7cfe561ba086'
     );
@@ -2120,6 +2122,7 @@ private class CaseTriggerHandlerTest {
       Auto_Created__c = false,
       Dispute_Reason__c = 'Duplicate Transactions',
       Origin = '1',
+      Customer_Description__c = 'Charged more than once for same purchase',
       Priority = 'High',
       Transaction_Id__c = '9be08660-23bb-4f12-b124-7cfe561ba086'
     );
@@ -2172,6 +2175,7 @@ private class CaseTriggerHandlerTest {
       Dispute_Reason__c = 'Duplicate Transactions',
       Origin = '1',
       Priority = 'Medium',
+      Customer_Description__c = 'Charged more than once for same purchase',
       Effective_Date__c = Date.valueof(System.now()),
       Transaction_Id__c = '9be08660-23bb-4f12-b124-7cfe561ba086',
       BusinessHoursId = CommonUtil.getBusinessHours().Id
