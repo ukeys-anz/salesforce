@@ -10,8 +10,8 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
     IDRConstants.UNDER_INVESTIGATION_STATUS => 'AgCaseUdInvest',
     IDRConstants.ESCALATED_STATUS => 'AgCaseEsclt',
     IDRConstants.REOPENED_STATUS => 'AgCaseReopen',
+    IDRConstants.PROVISIONALLY_CLOSED_STATUS => 'AgCaseProvisClosed',
     IDRConstants.CLOSED_STATUS => 'AgCaseClosed',
-    IDRConstants.RESOLVED_STATUS => 'AgCaseRslvd',
     IDRConstants.WITHDRAWN_STATUS => 'AgCaseWthdrwn'
   };
   public static List<IDR_Notification_Event__e> idrNotifications;
@@ -158,7 +158,7 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
     if (!idrNotifications.isEmpty()) {
       peSaveResults = EventBus.publish(idrNotifications);
       Lib_SystemLog log = new Lib_SystemLog(
-        IDRCaseActions.class.getName(),
+        NotificationTriggerHandler.class.getName(),
         'sendNotifications'
       );
       log.addDatabaseSaveResult(
@@ -240,6 +240,7 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
     for (Case c : records) {
       if (
         c.RecordTypeId == customerComplaintRecordId ||
+        c.RecordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID ||
         !String.isBlank(c.IDR_NC_Mobile__c) ||
         !String.isBlank(c.IDR_NC_Email__c)
       ) {

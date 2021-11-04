@@ -13,28 +13,30 @@ public class TestCreateCommsController {
   static void setup() {
     List<IDR_Template_Detail__c> tdList = new List<IDR_Template_Detail__c>();
 
-    tdlist.addAll(new List<IDR_Template_Detail__c>{ 
-      new IDR_Template_Detail__c(
-      IDR_Template__c = '21 Day Letter',
-      IDR_Template_Field_Name__c = 'CaseNumber',
-      IDR_Case_Field_Name__c = 'CaseNumber'
-    ),
-    new IDR_Template_Detail__c(
-      IDR_Template__c = 'Declined Application Letter',
-      IDR_Template_Field_Name__c = 'StaffFullName',
-      IDR_Case_Field_Name__c = 'OwnerId'
-    ), 
-    new IDR_Template_Detail__c(
-      IDR_Template__c = 'Declined Application Letter',
-      IDR_Template_Field_Name__c = 'Description',
-      IDR_Case_Field_Name__c = 'Description',
-      IDR_Is_Free_Text__c = true
-    ), 
-    new IDR_Template_Detail__c(
-      IDR_Template__c = 'Declined Application Letter',
-      IDR_Template_Field_Name__c = 'Input Text 1',
-      IDR_Is_Free_Text__c = true
-    )}
+    tdlist.addAll(
+      new List<IDR_Template_Detail__c>{
+        new IDR_Template_Detail__c(
+          IDR_Template__c = '21 Day Letter',
+          IDR_Template_Field_Name__c = 'CaseNumber',
+          IDR_Case_Field_Name__c = 'CaseNumber'
+        ),
+        new IDR_Template_Detail__c(
+          IDR_Template__c = 'Declined Application Letter',
+          IDR_Template_Field_Name__c = 'StaffFullName',
+          IDR_Case_Field_Name__c = 'OwnerId'
+        ),
+        new IDR_Template_Detail__c(
+          IDR_Template__c = 'Declined Application Letter',
+          IDR_Template_Field_Name__c = 'Description',
+          IDR_Case_Field_Name__c = 'Description',
+          IDR_Is_Free_Text__c = true
+        ),
+        new IDR_Template_Detail__c(
+          IDR_Template__c = 'Declined Application Letter',
+          IDR_Template_Field_Name__c = 'Input Text 1',
+          IDR_Is_Free_Text__c = true
+        )
+      }
     );
 
     insert tdList;
@@ -67,9 +69,21 @@ public class TestCreateCommsController {
       'Declined Application Letter',
       testCase.Id
     );
-    System.assertEquals(2, returnList.size(), 'Expetected 2 rows to be returned');
-    System.assertEquals(returnList[0].fieldLabel, 'Description', 'Field Label did not match');
-    System.assertEquals(returnList[1].fieldLabel, 'Input Text 1', 'Field Label did not match');
+    System.assertEquals(
+      2,
+      returnList.size(),
+      'Expetected 2 rows to be returned'
+    );
+    System.assertEquals(
+      returnList[0].fieldLabel,
+      'Description',
+      'Field Label did not match'
+    );
+    System.assertEquals(
+      returnList[1].fieldLabel,
+      'Input Text 1',
+      'Field Label did not match'
+    );
   }
 
   /**

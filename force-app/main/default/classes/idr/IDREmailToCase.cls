@@ -27,7 +27,7 @@ public with sharing class IDREmailToCase {
     String emailBody = c.Description.trim();
     emailBody = emailBody.removeStart('[');
     emailBody = emailBody.replaceAll(
-      '"This e-mail and any attachments to it \\(the "Communication"\\) is, unless otherwise stated, confidential, may contain copyright material and is for the use only of the intended.+',
+      'This e-mail and any attachments to it \\(the "Communication"\\) is, unless otherwise stated, confidential, may contain copyright material and is for the use only of the intended.+',
       ''
     );
     emailBody = emailBody.trim();
@@ -53,14 +53,14 @@ public with sharing class IDREmailToCase {
 
         if (IDRConstants.anzComFieldMapping.containsKey(fieldName)) {
           if (
-            fieldName == 'Feedback Topic' &&
+            fieldName == 'Issue Type' &&
             IDRConstants.anzComIssueTypeMapping.containsKey(fieldValue)
           ) {
             c.put(
               IDRConstants.anzComFieldMapping.get(fieldName),
               IDRConstants.anzComIssueTypeMapping.get(fieldValue)
             );
-          } else if (fieldName == 'Email address') {
+          } else if (fieldName == 'Email') {
             List<String> emailValues = fieldValue.split('<', 2);
             c.put(
               IDRConstants.anzComFieldMapping.get(fieldName),

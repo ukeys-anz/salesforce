@@ -3,7 +3,9 @@
  * @since  11/2020
  * @description APEX REST API class to handle incoming requests from Twilio.
  */
-@SuppressWarnings('PMD.StdCyclomaticComplexity')
+@SuppressWarnings(
+  'PMD.ApexCRUDViolation,PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity'
+)
 @RestResource(urlMapping='/ChatContextRequests/*')
 global with sharing class ChatContextService {
   // General Inquiry Record Type Id
@@ -100,7 +102,9 @@ global with sharing class ChatContextService {
               acc.OCV_ID__c,
               existingCase.CaseNumber,
               '',
-              existingCase.Sub_Type__c
+              String.isNotBlank(existingCase.Sub_Type__c)
+                ? existingCase.Sub_Type__c
+                : 'Other Enquiries'
             )
           );
           caseExists = true;

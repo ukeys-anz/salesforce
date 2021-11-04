@@ -61,32 +61,32 @@ public with sharing class IDRLetterApprovalActions {
     String customerIdentifier,
     String approvalRecId
   ) {
-    Map<String, Object> responseMap = IDRAPIRepository.getCustomerInfoLWC(
+    IDRCustomerInformationModel responseMap = IDRAPIRepository.getCustomerInfoLWC(
       customerNumber,
       customerIdentifier
     );
-    Map<String, Object> customerData = (Map<String, Object>) responseMap.get(
-      'profile'
+    Map<String, Object> customerData = (Map<String, Object>) System.JSON.deserializeUntyped(
+      System.JSON.serialize(responseMap.profile)
     );
 
     List<IDR_Letter_Approval_Details__c> appDetailsList = new List<IDR_Letter_Approval_Details__c>();
 
     Map<String, String> customerFields = new Map<String, String>{
-      'street' => 'AddressStreet', 
-      'suburb' => 'AddressSuburb', 
+      'street' => 'AddressStreet',
+      'suburb' => 'AddressSuburb',
       'state' => 'AddressState',
       'postCode' => 'AddressPostCode',
       'email' => 'EmailAddress'
     };
 
     for (String field : customerFields.keySet()) {
-        appDetailsList.add(
-      createAppDetailRecord(
-        customerData.get(field),
-        customerFields.get(field),
-        approvalRecId
-      )
-    );
+      appDetailsList.add(
+        createAppDetailRecord(
+          customerData.get(field),
+          customerFields.get(field),
+          approvalRecId
+        )
+      );
     }
 
     if (

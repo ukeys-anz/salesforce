@@ -242,6 +242,26 @@
                 <default>false</default>
                 <label>Extra Care</label>
             </value>
+            <value>
+                <fullName>Digital wallet provisioning</fullName>
+                <default>false</default>
+                <label>Digital wallet provisioning</label>
+            </value>
+            <value>
+                <fullName>Digital wallet issue</fullName>
+                <default>false</default>
+                <label>Digital wallet issue</label>
+            </value>
+            <value>
+                <fullName>Transaction disputes</fullName>
+                <default>false</default>
+                <label>Transaction disputes</label>
+            </value>
+            <value>
+                <fullName>Raising a concern</fullName>
+                <default>false</default>
+                <label>Raising a concern</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>About Us</controllingFieldValue>
@@ -274,6 +294,10 @@
         <valueSettings>
             <controllingFieldValue>Money</controllingFieldValue>
             <valueName>Statements</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money</controllingFieldValue>
+            <valueName>Transaction disputes</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Payments</controllingFieldValue>
@@ -316,6 +340,10 @@
             <valueName>Extra Care</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Other Enquiries</controllingFieldValue>
+            <valueName>Raising a concern</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>App Support</controllingFieldValue>
             <valueName>App Guide</valueName>
         </valueSettings>
@@ -342,6 +370,14 @@
         <valueSettings>
             <controllingFieldValue>Cards</controllingFieldValue>
             <valueName>Using card</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Cards</controllingFieldValue>
+            <valueName>Digital wallet provisioning</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Cards</controllingFieldValue>
+            <valueName>Digital wallet issue</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Coaching</controllingFieldValue>

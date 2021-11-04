@@ -31,6 +31,14 @@
                 <label>Using card</label>
                 <name>Using_card</name>
             </dataCategory>
+            <dataCategory>
+                <label>Digital wallet provisioning</label>
+                <name>Digital_wallet_provisioning</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Digital wallet issue</label>
+                <name>Digital_wallet_issue</name>
+            </dataCategory>
             <label>Cards</label>
             <name>Cards</name>
         </dataCategory>
@@ -54,6 +62,10 @@
             <dataCategory>
                 <label>Statements</label>
                 <name>Statements</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Transaction disputes</label>
+                <name>Transaction_disputes</name>
             </dataCategory>
             <label>Money</label>
             <name>Money</name>
@@ -107,10 +119,18 @@
                 <label>Coaching</label>
                 <name>Coaching</name>
             </dataCategory>
+            <dataCategory>
+                <label>Extra Care</label>
+                <name>Extra_Care</name>
+            </dataCategory>
             <label>Financial Wellbeing</label>
             <name>Financial_Wellbeing</name>
         </dataCategory>
         <dataCategory>
+            <dataCategory>
+                <label>Raising a concern</label>
+                <name>Raising_a_concern</name>
+            </dataCategory>
             <label>Other Enquiries</label>
             <name>Other_Enquiries</name>
         </dataCategory>

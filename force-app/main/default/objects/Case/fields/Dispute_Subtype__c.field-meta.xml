@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Dispute_Subtype__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Trusted;Source_Salesforce;Privacy_Non_Personal_Information</complianceGroup>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Incorrect Payee/Incorrect Account number/Payment not received by Recipient</description>
     <externalId>false</externalId>
     <inlineHelpText>Incorrect Payee/Incorrect Account number/Payment not received by Recipient</inlineHelpText>
@@ -19,19 +19,14 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Unknown Sender</fullName>
+                <fullName>Incorrect Payee or Payment Address</fullName>
                 <default>false</default>
-                <label>Unknown Sender</label>
+                <label>Incorrect Payee or Payment Address</label>
             </value>
             <value>
-                <fullName>Incorrect Payee</fullName>
+                <fullName>Duplicate Amount</fullName>
                 <default>false</default>
-                <label>Incorrect Payee</label>
-            </value>
-            <value>
-                <fullName>Incorrect Account</fullName>
-                <default>false</default>
-                <label>Incorrect Account</label>
+                <label>Duplicate Amount</label>
             </value>
             <value>
                 <fullName>Incorrect Amount</fullName>
@@ -40,19 +35,15 @@
             </value>
         </valueSetDefinition>
         <valueSettings>
-            <controllingFieldValue>Trace Request</controllingFieldValue>
-            <valueName>Unknown Sender</valueName>
+            <controllingFieldValue>Unsolicited</controllingFieldValue>
+            <valueName>Incorrect Payee or Payment Address</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Customer selected wrong payee</controllingFieldValue>
-            <valueName>Incorrect Payee</valueName>
+            <controllingFieldValue>Unsolicited</controllingFieldValue>
+            <valueName>Duplicate Amount</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Customer entered incorrect account details</controllingFieldValue>
-            <valueName>Incorrect Account</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Customer entered incorrect account details</controllingFieldValue>
+            <controllingFieldValue>Unsolicited</controllingFieldValue>
             <valueName>Incorrect Amount</valueName>
         </valueSettings>
     </valueSet>

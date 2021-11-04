@@ -1,7 +1,6 @@
-# List files or directories below to ignore them when running force:source:push, force:source:pull, and force:source:status
-# More information: https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_exclude_source.htm
-#
+# .forceignore v2
 
+*.md
 package.xml
 
 # LWC configuration files
@@ -24,17 +23,14 @@ Trial Customer Portal User.profile
 #force-app/main/default/profiles/Admin.profile-meta.xml
 
 # SFDX based permissions that are only available in Production
-force-app/main/default/permissionsets/SFDX_Full_Dev_Hub_Access.permissionset
+force-app/main/default/permissionsets/SFDX_Full_Dev_Hub_Access.permissionset-meta.xml
 
-# Ignore all .md files (like README.md, not custom metadata types)
-**.md
-!**.md-meta.xml
-force-app/main/default/aura/README.md
 # Ignoring sharing rules for now until the dx issue is fixed https://github.com/forcedotcom/cli/issues/136
 # The sharing rule calculations makes scratch org creation to timeout with error sharing operation already in progress
-force-app/main/default/sharingRules/Case.sharingRules-meta.xml
-force-app/main/default/sharingRules/User.sharingRules-meta.xml
+force-app/main/default/sharingRules/Access_Request__c.sharingRules-meta.xml
 force-app/main/default/sharingRules/Account.sharingRules-meta.xml
+#force-app/main/default/sharingRules/Case.sharingRules-meta.xml
+force-app/main/default/sharingRules/User.sharingRules-meta.xml
 
 # Don't pull because delegated authenticaton (and therefore IsSsoEnabled permission) cannot currently be enabled in scratch orgs
 Enforce_SSO.permissionset
@@ -59,7 +55,6 @@ force-app/main/default/objects/ServiceAppointment/
 force-app/main/default/objects/ServiceResource/
 force-app/main/default/objects/ServiceTerritory/
 force-app/main/default/objects/WorkTypeGroup/
-force-app/main/default/objects/Lead/
 force-app/main/default/objects/Location/
 force-app/main/default/objects/Opportunity/
 force-app/main/default/objects/Individual/
@@ -84,8 +79,12 @@ force-app/main/default/classes/FinancialGoalsComponentController.cls
 force-app/main/default/classes/UpdateAccountsAndGoals.cls
 force-app/main/default/messageChannels/FinancialAccountsGoalsUpdate.messageChannel-meta.xml
 force-app/main/default/classes/GetAccountsAndGoals.cls
+force-app/main/default/classes/utils/CommonUtils.cls
 
 #Ignore Knowledge validation status field as it is not supported in metadata API
 KnowledgeValidationStatus
 type:DataCategoryGroup
+
+#Ignoring deleted platform event for Nov 10 develop merge - CMOS
+force-app/main/default/objects/IDR_CRC_Escalation_Event__e
 

@@ -6,11 +6,73 @@
  */
 public with sharing class IDRCustomerInformationModel extends CalloutModel {
   /**
-   * @param responseString input string to deserialize
-   * @return Map<String, Object>
+   * @description details wrapper
+   */
+  public class Details {
+    @AuraEnabled
+    public String name;
+    @AuraEnabled
+    public String phoneNumber;
+    @AuraEnabled
+    public List<Address> address;
+  }
+
+  @AuraEnabled
+  public IDRCustomerProfile profile;
+  @AuraEnabled
+  public RelationshipManager relationshipManager;
+  @AuraEnabled
+  public List<Accounts> accounts;
+
+  /**
+   * @description address wrapper
+   */
+  public class Address {
+    @AuraEnabled
+    public String addressLine1;
+    @AuraEnabled
+    public String addressLine2;
+  }
+
+  /**
+   * @description relationship manager wrapper wrapper
+   */
+  public class RelationshipManager {
+    @AuraEnabled
+    public Details details;
+    @AuraEnabled
+    public Error error;
+  }
+
+  /**
+   * @description error wrapper containing error message
+   */
+  public class Error {
+    @AuraEnabled
+    public String message;
+  }
+
+  /**
+   * @description accounts wrapper
+   */
+  public class Accounts {
+    @AuraEnabled
+    public String accountNumber;
+    @AuraEnabled
+    public String productCode;
+    @AuraEnabled
+    public String subProductCode;
+  }
+
+  /**
+   * @param json input string to deserialize
+   * @return IDRCustomerInformationModel
    * @description deserializes the input string into the model
    */
-  public static Map<String, Object> parse(String responseString) {
-    return (Map<String, Object>) System.JSON.deserializeUntyped(responseString);
+  public static IDRCustomerInformationModel parse(String json) {
+    return (IDRCustomerInformationModel) System.JSON.deserialize(
+      json,
+      IDRCustomerInformationModel.class
+    );
   }
 }
