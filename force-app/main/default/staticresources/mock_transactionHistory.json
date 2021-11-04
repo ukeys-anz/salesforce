@@ -1,5 +1,5 @@
 {
-  "count": "9",
+  "count": "12",
   "embedded": {
     "transactions": [
       {
@@ -32,7 +32,7 @@
         "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
         "merchantId": { "value": "M12345" },
         "tags": ["T12345"],
-        "type": "TRANSACTION_TYPE_UNSPECIFIED",
+        "type": "TRANSACTION_TYPE_CARD",
         "card": {
           "last_four_digits": "7265",
           "scheme": "CARD_SCHEME_EFTPOS",
@@ -44,7 +44,7 @@
         "transaction_value_time": "2021-08-22T14:00:00Z",
         "is_npp_details_available": false,
         "traceId": "trace-id-12345",
-        "origination_id": "CT5M000000244034",
+        "origination_id": "CT5M00000024404234",
         "ob_transaction_type": {
           "value": "ob-transaction-type"
         },
@@ -106,7 +106,7 @@
         "transaction_value_time": "2021-08-22T14:00:00Z",
         "is_npp_details_available": false,
         "traceId": "trace-id-12345",
-        "origination_id": "CT5M000000244034",
+        "origination_id": "CT5M000000243242",
         "ob_transaction_type": {
           "value": "ob-transaction-type"
         },
@@ -134,7 +134,7 @@
         },
         "transaction_time": "2021-08-21T18:57:58Z",
         "last_update_time": "2021-08-23T11:49:14.025984Z",
-        "status": "TRANSACTION_STATUS_PENDING",
+        "status": "TRANSACTION_STATUS_POSTED",
         "long_desc": "This is the cash purchase",
         "short_desc": "Cash purpose",
         "amount": {
@@ -156,7 +156,7 @@
         "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
         "merchantId": { "value": "M12345" },
         "tags": ["T12345"],
-        "type": "TRANSACTION_TYPE_BSB_ACC_NUM",
+        "type": "TRANSACTION_TYPE_DEPOSIT_WITHDRAWAL",
         "cash": {
           "card_scheme": "CARD_SCHEME_MASTERCARD",
           "method": "CARD_METHOD_SWIPE",
@@ -187,7 +187,7 @@
         "transaction_value_time": "2021-08-22T14:00:00Z",
         "is_npp_details_available": false,
         "traceId": "trace-id-12345",
-        "origination_id": "CT5M000000244034",
+        "origination_id": "CT5M0000002484032",
         "ob_transaction_type": {
           "value": "ob-transaction-type"
         },
@@ -208,45 +208,65 @@
         "title": "Osmosis"
       },
       {
-        "transaction_id": "ofn31383-21d1-3be2-a67e-p90a19b57da1",
+        "transaction_id": "l0pa0w33-51d1-7be2-967e-9b3gh9b57da1",
         "account": {
           "bsb": "014111",
           "number": "210433904"
         },
-        "transaction_time": "2021-08-21T23:57:58Z",
-        "last_update_time": "2021-08-23T11:49:14.025984Z",
+        "transaction_time": "2021-08-23T19:57:58Z",
+        "last_update_time": "2021-08-24T11:49:14.025984Z",
         "status": "TRANSACTION_STATUS_POSTED",
-        "long_desc": "BPAY payment somewhere",
-        "short_desc": "BPAY payment",
+        "long_desc": "Pay Anyone purchase",
+        "short_desc": "Pay Anyone payment",
         "amount": {
           "currency_code": "AUD",
-          "units": "19",
-          "nanos": 9000
+          "units": "-19",
+          "nanos": -98100
         },
         "international_amount": {
           "charged": {
             "currency_code": "AUD",
-            "units": "20",
-            "nanos": 10000
+            "units": "-13",
+            "nanos": -92100
           },
           "exchange_rate": {
             "value": 1
           }
         },
-        "enrichment_id": "Payment via BPAY",
+        "enrichment_id": "Pay Anyone payment",
         "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
         "merchantId": { "value": "M12345" },
         "tags": ["T12345"],
-        "type": "TRANSACTION_TYPE_BPAY",
-        "bpay": {
-          "biller_name": {
-            "value": "Peter Charalambous"
+        "type": "TRANSACTION_TYPE_BSB_ACC_NUM",
+        "pay_anyone": {
+          "payment_id": "AX13273458188920",
+          "platform": "PAYMENT_PLATFORM_OSKO",
+          "message": {
+            "value": "Transferring money for food"
           },
-          "biller_code": {
-            "value": "011211"
+          "other_entity": {
+            "name": "Peter Charalambous",
+            "alias_id": {
+              "value": "231231231"
+            },
+            "alias_name": {
+              "value": "Peter Chara"
+            },
+            "account": {
+              "bsb": "123456",
+              "number": "1234567890"
+            }
           },
-          "customer_reference_number": {
-            "value": "24681012"
+          "npp_customer_reference_number": {
+            "value": "npp-customer-reference-number"
+          },
+          "clearing_method": "PAYMENT_TYPE_SLOW",
+          "clearing_sub_method": "PAYMENT_SUB_TYPE_SOLICITED",
+          "payment_receipt_number": {
+            "value": "082278"
+          },
+          "fabric_payee_id": {
+            "value": "82647d0a-94dc-556f-867f-c5d5b547ba50"
           }
         },
         "primary_anzx_category": "329db79d-9093-5ce4-b9f2-dc533bc559d3",
@@ -272,7 +292,7 @@
         },
         "aux_dom": { "value": "aux-dom" },
         "original_anzx_category": "329db79d-9093-5ce4-b9f2-dc533bc559d3",
-        "title": "VicRoads"
+        "title": "KFC"
       },
       {
         "transaction_id": "l0pa0w33-51d1-7be2-967e-9b3gh9b57da1",
@@ -282,7 +302,7 @@
         },
         "transaction_time": "2021-08-23T19:57:58Z",
         "last_update_time": "2021-08-24T11:49:14.025984Z",
-        "status": "TRANSACTION_STATUS_PENDING",
+        "status": "TRANSACTION_STATUS_POSTED",
         "long_desc": "Pay Anyone purchase",
         "short_desc": "Pay Anyone payment",
         "amount": {
@@ -341,7 +361,335 @@
         "transaction_value_time": "2021-08-22T14:00:00Z",
         "is_npp_details_available": false,
         "traceId": "trace-id-12345",
-        "origination_id": "CT5M000000244034",
+        "origination_id": "CT5M00000028087",
+        "ob_transaction_type": {
+          "value": "ob-transaction-type"
+        },
+        "ob_extension_u_type": {
+          "value": "ob-extension-u-type"
+        },
+        "payment_crn": {
+          "value": "payment-crn"
+        },
+        "merchant_category_code": {
+          "value": "merchant-category-code"
+        },
+        "de_user_id": {
+          "value": "0000000"
+        },
+        "aux_dom": { "value": "aux-dom" },
+        "original_anzx_category": "329db79d-9093-5ce4-b9f2-dc533bc559d3",
+        "title": "KFC"
+      },
+      {
+        "transaction_id": "ofn31383-21d1-3be2-a67e-p90a19b57da1",
+        "account": {
+          "bsb": "014111",
+          "number": "210433904"
+        },
+        "transaction_time": "2021-08-21T23:57:58Z",
+        "last_update_time": "2021-08-23T11:49:14.025984Z",
+        "status": "TRANSACTION_STATUS_POSTED",
+        "long_desc": "BPAY payment somewhere",
+        "short_desc": "BPAY payment",
+        "amount": {
+          "currency_code": "AUD",
+          "units": "19",
+          "nanos": 9000
+        },
+        "international_amount": {
+          "charged": {
+            "currency_code": "AUD",
+            "units": "20",
+            "nanos": 10000
+          },
+          "exchange_rate": {
+            "value": 1
+          }
+        },
+        "enrichment_id": "Payment via BPAY",
+        "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
+        "merchantId": { "value": "M12345" },
+        "tags": ["T12345"],
+        "type": "TRANSACTION_TYPE_DIRECT_DEBIT",
+        "bpay": {
+          "biller_name": {
+            "value": "Peter Charalambous"
+          },
+          "biller_code": {
+            "value": "011211"
+          },
+          "customer_reference_number": {
+            "value": "24681012"
+          }
+        },
+        "primary_anzx_category": "329db79d-9093-5ce4-b9f2-dc533bc559d3",
+        "transaction_posted_time": "2021-08-22T00:00:00Z",
+        "transaction_value_time": "2021-08-22T14:00:00Z",
+        "is_npp_details_available": false,
+        "traceId": "trace-id-12345",
+        "origination_id": "CT5M000000098034",
+        "ob_transaction_type": {
+          "value": "ob-transaction-type"
+        },
+        "ob_extension_u_type": {
+          "value": "ob-extension-u-type"
+        },
+        "payment_crn": {
+          "value": "payment-crn"
+        },
+        "merchant_category_code": {
+          "value": "merchant-category-code"
+        },
+        "de_user_id": {
+          "value": "0000000"
+        },
+        "aux_dom": { "value": "aux-dom" },
+        "original_anzx_category": "329db79d-9093-5ce4-b9f2-dc533bc559d3",
+        "title": "VicRoads"
+      },
+      {
+        "transaction_id": "l0pa0w33-51d1-7be2-967e-9b3gh9b57da1",
+        "account": {
+          "bsb": "014111",
+          "number": "210433904"
+        },
+        "transaction_time": "2021-08-23T19:57:58Z",
+        "last_update_time": "2021-08-24T11:49:14.025984Z",
+        "status": "TRANSACTION_STATUS_POSTED",
+        "long_desc": "Pay Anyone purchase",
+        "short_desc": "Pay Anyone payment",
+        "amount": {
+          "currency_code": "AUD",
+          "units": "-19",
+          "nanos": -98100
+        },
+        "international_amount": {
+          "charged": {
+            "currency_code": "AUD",
+            "units": "-13",
+            "nanos": -92100
+          },
+          "exchange_rate": {
+            "value": 1
+          }
+        },
+        "enrichment_id": "Pay Anyone payment",
+        "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
+        "merchantId": { "value": "M12345" },
+        "tags": ["T12345"],
+        "type": "TRANSACTION_TYPE_UNSPECIFIED",
+        "pay_anyone": {
+          "payment_id": "AX13273458188920",
+          "platform": "PAYMENT_PLATFORM_OSKO",
+          "message": {
+            "value": "Transferring money for food"
+          },
+          "other_entity": {
+            "name": "Peter Charalambous",
+            "alias_id": {
+              "value": "231231231"
+            },
+            "alias_name": {
+              "value": "Peter Chara"
+            },
+            "account": {
+              "bsb": "123456",
+              "number": "1234567890"
+            }
+          },
+          "npp_customer_reference_number": {
+            "value": "npp-customer-reference-number"
+          },
+          "clearing_method": "PAYMENT_TYPE_FAST",
+          "clearing_sub_method": "PAYMENT_SUB_TYPE_ONUS",
+          "payment_receipt_number": {
+            "value": "082278"
+          },
+          "fabric_payee_id": {
+            "value": "82647d0a-94dc-556f-867f-c5d5b547ba50"
+          }
+        },
+        "primary_anzx_category": "329db79d-9093-5ce4-b9f2-dc533bc559d3",
+        "transaction_posted_time": "2021-08-22T00:00:00Z",
+        "transaction_value_time": "2021-08-22T14:00:00Z",
+        "is_npp_details_available": false,
+        "traceId": "trace-id-12345",
+        "origination_id": "CT5M000000456034",
+        "ob_transaction_type": {
+          "value": "ob-transaction-type"
+        },
+        "ob_extension_u_type": {
+          "value": "ob-extension-u-type"
+        },
+        "payment_crn": {
+          "value": "payment-crn"
+        },
+        "merchant_category_code": {
+          "value": "merchant-category-code"
+        },
+        "de_user_id": {
+          "value": "0000000"
+        },
+        "aux_dom": { "value": "aux-dom" },
+        "original_anzx_category": "329db79d-9093-5ce4-b9f2-dc533bc559d3",
+        "title": "KFC"
+      },
+      {
+        "transaction_id": "l0pa0w33-51d1-7be2-967e-9b3gh9b57da1",
+        "account": {
+          "bsb": "014111",
+          "number": "210433904"
+        },
+        "transaction_time": "2021-08-23T19:57:58Z",
+        "last_update_time": "2021-08-24T11:49:14.025984Z",
+        "status": "TRANSACTION_STATUS_POSTED",
+        "long_desc": "Pay Anyone purchase",
+        "short_desc": "Pay Anyone payment",
+        "amount": {
+          "currency_code": "AUD",
+          "units": "-19",
+          "nanos": -98100
+        },
+        "international_amount": {
+          "charged": {
+            "currency_code": "AUD",
+            "units": "-13",
+            "nanos": -92100
+          },
+          "exchange_rate": {
+            "value": 1
+          }
+        },
+        "enrichment_id": "Pay Anyone payment",
+        "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
+        "merchantId": { "value": "M12345" },
+        "tags": ["T12345"],
+        "type": "TRANSACTION_TYPE_PAYMENT",
+        "pay_anyone": {
+          "payment_id": "AX13273458188920",
+          "platform": "PAYMENT_PLATFORM_OSKO",
+          "message": {
+            "value": "Transferring money for food"
+          },
+          "other_entity": {
+            "name": "Peter Charalambous",
+            "alias_id": {
+              "value": "231231231"
+            },
+            "alias_name": {
+              "value": "Peter Chara"
+            },
+            "account": {
+              "bsb": "123456",
+              "number": "1234567890"
+            }
+          },
+          "npp_customer_reference_number": {
+            "value": "npp-customer-reference-number"
+          },
+          "clearing_method": "PAYMENT_TYPE_FAST",
+          "clearing_sub_method": "PAYMENT_SUB_TYPE_ONUS",
+          "payment_receipt_number": {
+            "value": "082278"
+          },
+          "fabric_payee_id": {
+            "value": "82647d0a-94dc-556f-867f-c5d5b547ba50"
+          }
+        },
+        "primary_anzx_category": "329db79d-9093-5ce4-b9f2-dc533bc559d3",
+        "transaction_posted_time": "2021-08-22T00:00:00Z",
+        "transaction_value_time": "2021-08-22T14:00:00Z",
+        "is_npp_details_available": false,
+        "traceId": "trace-id-12345",
+        "origination_id": "CT5M000000123034",
+        "ob_transaction_type": {
+          "value": "ob-transaction-type"
+        },
+        "ob_extension_u_type": {
+          "value": "ob-extension-u-type"
+        },
+        "payment_crn": {
+          "value": "payment-crn"
+        },
+        "merchant_category_code": {
+          "value": "merchant-category-code"
+        },
+        "de_user_id": {
+          "value": "0000000"
+        },
+        "aux_dom": { "value": "aux-dom" },
+        "original_anzx_category": "329db79d-9093-5ce4-b9f2-dc533bc559d3",
+        "title": "KFC"
+      },
+      {
+        "transaction_id": "l0pa0w33-51d1-7be2-967e-9b3gh9b57da1",
+        "account": {
+          "bsb": "014111",
+          "number": "210433904"
+        },
+        "transaction_time": "2021-08-23T19:57:58Z",
+        "last_update_time": "2021-08-24T11:49:14.025984Z",
+        "status": "TRANSACTION_STATUS_POSTED",
+        "long_desc": "Pay Anyone purchase",
+        "short_desc": "Pay Anyone payment",
+        "amount": {
+          "currency_code": "AUD",
+          "units": "-19",
+          "nanos": -98100
+        },
+        "international_amount": {
+          "charged": {
+            "currency_code": "AUD",
+            "units": "-13",
+            "nanos": -92100
+          },
+          "exchange_rate": {
+            "value": 1
+          }
+        },
+        "enrichment_id": "Pay Anyone payment",
+        "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
+        "merchantId": { "value": "M12345" },
+        "tags": ["T12345"],
+        "type": "TRANSACTION_TYPE_INTEREST",
+        "pay_anyone": {
+          "payment_id": "AX13273458188920",
+          "platform": "PAYMENT_PLATFORM_OSKO",
+          "message": {
+            "value": "Transferring money for food"
+          },
+          "other_entity": {
+            "name": "Peter Charalambous",
+            "alias_id": {
+              "value": "231231231"
+            },
+            "alias_name": {
+              "value": "Peter Chara"
+            },
+            "account": {
+              "bsb": "123456",
+              "number": "1234567890"
+            }
+          },
+          "npp_customer_reference_number": {
+            "value": "npp-customer-reference-number"
+          },
+          "clearing_method": "PAYMENT_TYPE_FAST",
+          "clearing_sub_method": "PAYMENT_SUB_TYPE_ONUS",
+          "payment_receipt_number": {
+            "value": "082278"
+          },
+          "fabric_payee_id": {
+            "value": "82647d0a-94dc-556f-867f-c5d5b547ba50"
+          }
+        },
+        "primary_anzx_category": "329db79d-9093-5ce4-b9f2-dc533bc559d3",
+        "transaction_posted_time": "2021-08-22T00:00:00Z",
+        "transaction_value_time": "2021-08-22T14:00:00Z",
+        "is_npp_details_available": false,
+        "traceId": "trace-id-12345",
+        "origination_id": "CT5M000000209867",
         "ob_transaction_type": {
           "value": "ob-transaction-type"
         },
@@ -391,7 +739,7 @@
         "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
         "merchantId": { "value": "M12345" },
         "tags": ["T12345"],
-        "type": "TRANSACTION_TYPE_TRANSFER",
+        "type": "TRANSACTION_TYPE_SALARY",
         "transfer": {
           "payment_id": "1234",
           "platform": "PAYMENT_PLATFORM_OSKO",
@@ -419,7 +767,7 @@
         "transaction_value_time": "2021-08-22T14:00:00Z",
         "is_npp_details_available": false,
         "traceId": "trace-id-12345",
-        "origination_id": "CT5M000000244034",
+        "origination_id": "CT5M000000245786",
         "ob_transaction_type": {
           "value": "ob-transaction-type"
         },
@@ -447,7 +795,7 @@
         },
         "transaction_time": "2021-08-23T22:57:58Z",
         "last_update_time": "2021-08-24T11:49:14.025984Z",
-        "status": "TRANSACTION_STATUS_PENDING",
+        "status": "TRANSACTION_STATUS_POSTED",
         "long_desc": "Transfer to some place pending",
         "short_desc": "Transfer payment pending",
         "amount": {
@@ -497,7 +845,7 @@
         "transaction_value_time": "2021-08-22T14:00:00Z",
         "is_npp_details_available": false,
         "traceId": "trace-id-12345",
-        "origination_id": "CT5M000000244034",
+        "origination_id": "CT5M000000242245",
         "ob_transaction_type": {
           "value": "ob-transaction-type"
         },
@@ -518,84 +866,82 @@
         "title": "OSKO"
       },
       {
-        "transaction_id": "a436db85-0704-417a-aeee-f629db47c561",
+        "transaction_id": "tkba0389-5e41-0g9e-b60e-la1i19b57da1",
         "account": {
-          "bsb": "016267",
-          "number": "456068628"
+          "bsb": "014111",
+          "number": "210433904"
         },
-        "transaction_time": "2021-01-27T04:02:37Z",
-        "last_update_time": "2021-04-01T07:06:58.772804Z",
-        "status": "TRANSACTION_STATUS_PENDING",
-        "long_desc": "ANZ mobile banking channel fund transfer 341141 from 525366769",
-        "short_desc": "From 525366769",
-        "amount": {
-          "currency_code": "AUD",
-          "nanos": 10000000,
-          "units": "19"
-        },
-        "enrichment_id": "anz mobile banking channel fund transfer 341141 from 525366769",
-        "type": "TRANSACTION_TYPE_BSB_ACC_NUM",
-        "pay_anyone": {
-          "payment_id": "AX12354143093760",
-          "message": {
-            "value": "Synthetic Transfer for Settlement at 2021-01-27 04:02:37.002208775 +0000 UTC m=+910202.095270876"
-          },
-          "other_entity": {
-            "name": "Peter Charalambous",
-            "alias_id": {
-              "value": "231231231"
-            },
-            "alias_name": {
-              "value": "Peter Chara"
-            },
-            "account": {
-              "bsb": "123456",
-              "number": "1234567890"
-            }
-          },
-          "clearing_method": "PAYMENT_TYPE_BKT"
-        },
-        "transaction_posted_time": "2016-08-31T00:00:00Z",
-        "transaction_value_time": "2016-08-31T00:00:00Z",
-        "origination_id": "CT5H000000101068",
-        "title": "Land Purchase"
-      },
-      {
-        "transaction_id": "a436db85-0704-417a-aeee-f629db47c561",
-        "account": {
-          "bsb": "016267",
-          "number": "456068628"
-        },
-        "transaction_time": "2021-01-27T04:02:37Z",
-        "last_update_time": "2021-04-01T07:06:58.772804Z",
+        "transaction_time": "2021-08-23T22:57:58Z",
+        "last_update_time": "2021-08-24T11:49:14.025984Z",
         "status": "TRANSACTION_STATUS_POSTED",
-        "long_desc": "ANZ mobile banking channel fund transfer 341141 from 525366769",
-        "short_desc": "From 525366769",
+        "long_desc": "Transfer to some place pending",
+        "short_desc": "Transfer payment pending",
         "amount": {
           "currency_code": "AUD",
-          "nanos": 10000000,
-          "units": "19"
+          "units": "19",
+          "nanos": 52000000
         },
-        "enrichment_id": "anz mobile banking channel fund transfer 341141 from 525366769",
-        "type": "TRANSACTION_TYPE_BSB_ACC_NUM",
-        "pay_anyone": {
-          "payment_id": "AX12354143093760",
-          "message": {
-            "value": "Synthetic Transfer for Settlement at 2021-01-27 04:02:37.002208775 +0000 UTC m=+910202.095270876"
+        "international_amount": {
+          "charged": {
+            "currency_code": "AUD",
+            "units": "17",
+            "nanos": 8000000
           },
-          "other_entity": {
-            "name": "Peter Charalambous",
+          "exchange_rate": {
+            "value": 1
+          }
+        },
+        "enrichment_id": "Transfer from some place thats pending",
+        "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
+        "merchantId": { "value": "M12345" },
+        "tags": ["T12345"],
+        "type": "TRANSACTION_TYPE_BPAY",
+        "transfer": {
+          "payment_id": "1234",
+          "platform": "PAYMENT_PLATFORM_OSKO",
+          "message": {
+            "value": "Heres money for food"
+          },
+          "payment_receipt_number": {
+            "value": "12345678907"
+          },
+          "source_account": {
             "account": {
-              "bsb": "123456",
-              "number": "1234567890"
+              "bsb": "246800",
+              "number": "1111111111"
             }
           },
-          "clearing_method": "PAYMENT_TYPE_BKT"
+          "destination_account": {
+            "account": {
+              "bsb": "135799",
+              "number": "9999999999"
+            }
+          }
         },
-        "transaction_posted_time": "2016-08-31T00:00:00Z",
-        "transaction_value_time": "2016-08-31T00:00:00Z",
-        "origination_id": "CT5H000000101068",
-        "title": "House Purchase"
+        "primary_anzx_category": "329db79d-9093-5ce4-b9f2-dc533bc559d3",
+        "transaction_posted_time": "2021-08-22T00:00:00Z",
+        "transaction_value_time": "2021-08-22T14:00:00Z",
+        "is_npp_details_available": false,
+        "traceId": "trace-id-12345",
+        "origination_id": "CT5M000000241122",
+        "ob_transaction_type": {
+          "value": "ob-transaction-type"
+        },
+        "ob_extension_u_type": {
+          "value": "ob-extension-u-type"
+        },
+        "payment_crn": {
+          "value": "payment-crn"
+        },
+        "merchant_category_code": {
+          "value": "merchant-category-code"
+        },
+        "de_user_id": {
+          "value": "0000000"
+        },
+        "aux_dom": { "value": "aux-dom" },
+        "original_anzx_category": "329db79d-9093-5ce4-b9f2-dc533bc559d3",
+        "title": "OSKO"
       }
     ],
     "categories": [

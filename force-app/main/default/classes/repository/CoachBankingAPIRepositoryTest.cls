@@ -244,7 +244,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
     );
     Test.stopTest();
 
-    System.assertEquals(9, transactionModel.embedded.transactions.size());
+    System.assertEquals(12, transactionModel.embedded.transactions.size());
   }
 
   /**
@@ -299,7 +299,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
     );
     Test.stopTest();
 
-    System.assertEquals(9, transactionModel.embedded.transactions.size());
+    System.assertEquals(12, transactionModel.embedded.transactions.size());
   }
 
   /**
