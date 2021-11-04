@@ -788,7 +788,7 @@
         "title": "Alex Hamilton"
       },
       {
-        "transaction_id": "tkba0389-5e41-0g9e-b60e-la1i19b57da1",
+        "transaction_id": "lkaa0383-51d1-3o9e-b67e-m8q319b57da1",
         "account": {
           "bsb": "014111",
           "number": "210433904"
@@ -796,24 +796,24 @@
         "transaction_time": "2021-08-23T22:57:58Z",
         "last_update_time": "2021-08-24T11:49:14.025984Z",
         "status": "TRANSACTION_STATUS_POSTED",
-        "long_desc": "Transfer to some place pending",
-        "short_desc": "Transfer payment pending",
+        "long_desc": "Transfer to some place",
+        "short_desc": "Transfer payment",
         "amount": {
           "currency_code": "AUD",
           "units": "19",
-          "nanos": 52000000
+          "nanos": 50000000
         },
         "international_amount": {
           "charged": {
             "currency_code": "AUD",
-            "units": "17",
-            "nanos": 8000000
+            "units": "16",
+            "nanos": 23000000
           },
           "exchange_rate": {
             "value": 1
           }
         },
-        "enrichment_id": "Transfer from some place thats pending",
+        "enrichment_id": "Transfer from some place",
         "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
         "merchantId": { "value": "M12345" },
         "tags": ["T12345"],
@@ -825,7 +825,7 @@
             "value": "Heres money for food"
           },
           "payment_receipt_number": {
-            "value": "12345678907"
+            "value": "0987654321123"
           },
           "source_account": {
             "account": {
@@ -845,7 +845,7 @@
         "transaction_value_time": "2021-08-22T14:00:00Z",
         "is_npp_details_available": false,
         "traceId": "trace-id-12345",
-        "origination_id": "CT5M000000242245",
+        "origination_id": "CT5M000000957034",
         "ob_transaction_type": {
           "value": "ob-transaction-type"
         },
@@ -863,59 +863,48 @@
         },
         "aux_dom": { "value": "aux-dom" },
         "original_anzx_category": "329db79d-9093-5ce4-b9f2-dc533bc559d3",
-        "title": "OSKO"
+        "title": "Alex Hamilton"
       },
       {
-        "transaction_id": "tkba0389-5e41-0g9e-b60e-la1i19b57da1",
+        "transaction_id": "ofn31383-21d1-3be2-a67e-p90a19b57da1",
         "account": {
           "bsb": "014111",
           "number": "210433904"
         },
-        "transaction_time": "2021-08-23T22:57:58Z",
-        "last_update_time": "2021-08-24T11:49:14.025984Z",
+        "transaction_time": "2021-08-21T23:57:58Z",
+        "last_update_time": "2021-08-23T11:49:14.025984Z",
         "status": "TRANSACTION_STATUS_POSTED",
-        "long_desc": "Transfer to some place pending",
-        "short_desc": "Transfer payment pending",
+        "long_desc": "BPAY payment somewhere",
+        "short_desc": "BPAY payment",
         "amount": {
           "currency_code": "AUD",
           "units": "19",
-          "nanos": 52000000
+          "nanos": 9000
         },
         "international_amount": {
           "charged": {
             "currency_code": "AUD",
-            "units": "17",
-            "nanos": 8000000
+            "units": "20",
+            "nanos": 10000
           },
           "exchange_rate": {
             "value": 1
           }
         },
-        "enrichment_id": "Transfer from some place thats pending",
+        "enrichment_id": "Payment via BPAY",
         "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
         "merchantId": { "value": "M12345" },
         "tags": ["T12345"],
         "type": "TRANSACTION_TYPE_BPAY",
-        "transfer": {
-          "payment_id": "1234",
-          "platform": "PAYMENT_PLATFORM_OSKO",
-          "message": {
-            "value": "Heres money for food"
+        "bpay": {
+          "biller_name": {
+            "value": "Peter Charalambous"
           },
-          "payment_receipt_number": {
-            "value": "12345678907"
+          "biller_code": {
+            "value": "011211"
           },
-          "source_account": {
-            "account": {
-              "bsb": "246800",
-              "number": "1111111111"
-            }
-          },
-          "destination_account": {
-            "account": {
-              "bsb": "135799",
-              "number": "9999999999"
-            }
+          "customer_reference_number": {
+            "value": "24681012"
           }
         },
         "primary_anzx_category": "329db79d-9093-5ce4-b9f2-dc533bc559d3",
@@ -941,7 +930,7 @@
         },
         "aux_dom": { "value": "aux-dom" },
         "original_anzx_category": "329db79d-9093-5ce4-b9f2-dc533bc559d3",
-        "title": "OSKO"
+        "title": "VicRoads"
       }
     ],
     "categories": [
