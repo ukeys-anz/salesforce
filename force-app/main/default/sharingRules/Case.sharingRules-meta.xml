@@ -65,26 +65,6 @@
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>Complaint_RTs_CFMSUser_RW</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>to provide read write access to CFMS integration user</description>
-        <label>Complaint_RTs_CFMSUser_RW</label>
-        <sharedTo>
-            <group>CFMS_Integration_User_Group</group>
-        </sharedTo>
-        <booleanFilter>1 AND 2</booleanFilter>
-        <criteriaItems>
-            <field>IDR_Is_Restricted__c</field>
-            <operation>notEqual</operation>
-            <value>True</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Customer Complaint,Non-Customer Complaint</value>
-        </criteriaItems>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
         <fullName>Complaint_RTs_CRPUsers_RO</fullName>
         <accessLevel>Edit</accessLevel>
         <description>Grant edit access to ANZx and CFMS migrated complaint records for Customer Resolution Users</description>
@@ -139,7 +119,7 @@
         <sharedTo>
             <role>Coach_Lead</role>
         </sharedTo>
-        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7</booleanFilter>
+        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -174,6 +154,11 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>General Enquiry</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>NPP</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -234,7 +219,7 @@
         <sharedTo>
             <role>Quality_Analyst</role>
         </sharedTo>
-        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7</booleanFilter>
+        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -269,6 +254,11 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>General Enquiry</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>NPP</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -327,7 +317,7 @@
         <sharedTo>
             <role>Support_Staff_ARC</role>
         </sharedTo>
-        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6</booleanFilter>
+        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -357,6 +347,11 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>General Enquiry</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>NPP</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -422,7 +417,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Direct Debit,Recipient/Mule,Direct Entry,ATM,Fraud,General Enquiry,KYC QA,Scam,Identity,Urgent Dishonour Request,Card</value>
+            <value>Direct Debit,Recipient/Mule,Direct Entry,ATM,Fraud,General Enquiry,KYC QA,Scam,Identity,Urgent Dishonour Request,Card,NPP</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
