@@ -11,8 +11,7 @@ const atmDisputesFieldsMapping = {
   Transaction_Currency__c: "international_amount.charged.currency_code",
   Bank_ATM__c: "long_desc",
   Location__c: "long_desc",
-  Card_Number__c: "card.last_four_digits",
-  Card_Scheme__c: "card.scheme"
+  Card_Scheme__c: "cash.scheme"
 };
 
 const directDebitDisputesFieldsMapping = {
@@ -76,19 +75,24 @@ export function prepopulateDisputesFields(
   switch (disputeType) {
     case "Card":
       mappingObj = cardDisputesFieldsMapping;
+      break;
     case "ATM":
       mappingObj = atmDisputesFieldsMapping;
+      break;
     case "Direct Debit":
       mappingObj = directDebitDisputesFieldsMapping;
+      break;
     case "Direct Entry":
       mappingObj = directEntryDisputesFieldsMapping;
+      break;
     case "NPP":
       mappingObj = nppDisputesFieldsMapping;
+      break;
   }
 
   defaultFieldValuesObj = mappingObj
     ? prepopulateFieldsValues(
-        atmDisputesFieldsMapping,
+        mappingObj,
         transaction,
         defaultFieldValuesObj
       )
