@@ -39,23 +39,33 @@ public with sharing class StatementAPIRepository extends RepositoryBase {
    */
   public StatementModel getStatements(String ocvId, String accountNumber) {
     StatementModel result;
-    Service s = ServiceProvider.getService(FabricService.class);
-    HttpCalloutResponse response = s.getStatements(ocvId, accountNumber);
-    if (response.successful) {
-      try {
-        result = StatementModel.parse(response.body);
-      } catch (Exception e) {
-        handleErrors(null, e, StatementAPIRepository.class);
+    if (FeatureManagement.checkPermission('ANZx_View_Statements')) {
+      Service s = ServiceProvider.getService(FabricService.class);
+      HttpCalloutResponse response = s.getStatements(ocvId, accountNumber);
+      if (response.successful) {
+        try {
+          result = StatementModel.parse(response.body);
+        } catch (Exception e) {
+          handleErrors(null, e, StatementAPIRepository.class);
+        }
+      } else {
+        handleErrors(response, null, StatementAPIRepository.class);
       }
     } else {
-      handleErrors(response, null, StatementAPIRepository.class);
+      handleErrors(
+        null,
+        new PermissionException(
+          'User does not have the view statements permission.'
+        ),
+        StatementAPIRepository.class
+      );
     }
     return result;
   }
   /**
    * @param ocvId required to make the callout to Mulesoft
    * @param statementId for which we want to fetch the statements Url
-   * @param additionalDetails map which contains the additional params required to log for statement access  
+   * @param additionalDetails map which contains the additional params required to log for statement access
    * @return StatementModel model class constructed from api response
    * @description fetches statement Url from fabric based on the statement id, deserialized to a model
    */
@@ -63,7 +73,7 @@ public with sharing class StatementAPIRepository extends RepositoryBase {
   public static StatementModel getStatementUrlAura(
     String ocvId,
     String statementId,
-    Map<String,String> additionalDetails
+    Map<String, String> additionalDetails
   ) {
     StatementAPIRepository statementapi = new StatementAPIRepository();
     try {
@@ -86,43 +96,63 @@ public with sharing class StatementAPIRepository extends RepositoryBase {
    * @return StatementModel model class constructed from api response
    * @description fetches statement Url from fabric based on the statement id, deserialized to a model also logs the access to statements into the application loggin big object
    */
-  public StatementModel getStatementUrl(String ocvId, String statementId, Map<String,String> additionalDetails) {
+  public StatementModel getStatementUrl(
+    String ocvId,
+    String statementId,
+    Map<String, String> additionalDetails
+  ) {
     StatementModel result;
-    Map<String, String> responseMap = new Map<String, String>();
-    Service s = ServiceProvider.getService(FabricService.class);
-    HttpCalloutResponse response = s.getStatements(ocvId, statementId);
-    if (response.successful) {
-      try {
-        result = StatementModel.parse(response.body);
-        responseMap.put('sfUserId',userinfo.getUserId());
-        responseMap.put('accountId',additionaldetails.get('accountId'));
-        responseMap.put('financialAccountId',additionaldetails.get('financialAccountId'));
-        responseMap.put('fromDate',additionaldetails.get('fromDate'));
-        responseMap.put('toDate',additionaldetails.get('toDate'));
-        responseMap.put('statementType',additionaldetails.get('statementType'));
-        Lib_SystemLog log = new Lib_SystemLog(
-        StatementAPIRepository.class.getName(),
-       'getStatementUrl'
-       );
-       log.addMessage(
-      'access-statement',
-      JSON.serialize(responseMap),
-      lib_systemlog.Severity.TRACE
-        );
-       log.publishEvent(); 
-      } catch (Exception e) {
-        handleErrors(null, e, StatementAPIRepository.class);
+    if (FeatureManagement.checkPermission('ANZx_View_Statements')) {
+      Map<String, String> responseMap = new Map<String, String>();
+      Service s = ServiceProvider.getService(FabricService.class);
+      HttpCalloutResponse response = s.getStatements(ocvId, statementId);
+      if (response.successful) {
+        try {
+          result = StatementModel.parse(response.body);
+          responseMap.put('sfUserId', userinfo.getUserId());
+          responseMap.put('accountId', additionaldetails.get('accountId'));
+          responseMap.put(
+            'financialAccountId',
+            additionaldetails.get('financialAccountId')
+          );
+          responseMap.put('fromDate', additionaldetails.get('fromDate'));
+          responseMap.put('toDate', additionaldetails.get('toDate'));
+          responseMap.put(
+            'statementType',
+            additionaldetails.get('statementType')
+          );
+          Lib_SystemLog log = new Lib_SystemLog(
+            StatementAPIRepository.class.getName(),
+            'getStatementUrl'
+          );
+          log.addMessage(
+            'access-statement',
+            JSON.serialize(responseMap),
+            lib_systemlog.Severity.TRACE
+          );
+          log.publishEvent();
+        } catch (Exception e) {
+          handleErrors(null, e, StatementAPIRepository.class);
+        }
+      } else {
+        handleErrors(response, null, StatementAPIRepository.class);
       }
     } else {
-      handleErrors(response, null, StatementAPIRepository.class);
+      handleErrors(
+        null,
+        new PermissionException(
+          'User does not have the view statements permission.'
+        ),
+        StatementAPIRepository.class
+      );
     }
+
     return result;
   }
+
   /**
-   * @author Chiranjeeb
-   * @since October 2021
-   * @description invaid information exception
+   * @description insufficient permission exception
    */
-  public class InvalidInformationException extends Exception {
+  public class PermissionException extends Exception {
   }
 }
