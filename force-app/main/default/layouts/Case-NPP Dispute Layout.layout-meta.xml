@@ -65,7 +65,7 @@
                 <field>Dispute_Subtype__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>Description</field>
             </layoutItems>
             <layoutItems>

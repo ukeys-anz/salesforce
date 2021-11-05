@@ -137,7 +137,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Case.Date_Posted__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -682,7 +682,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Case.Transaction_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
