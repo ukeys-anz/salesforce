@@ -24,6 +24,7 @@ export function processTransaction(transaction) {
       return processBPAY(transaction);
     case "TRANSACTION_TYPE_BSB_ACC_NUM":
     case "TRANSACTION_TYPE_PAYID":
+    case "TRANSACTION_TYPE_PAYMENT":
       return processPayAnyone(transaction);
     default:
       return transaction;
