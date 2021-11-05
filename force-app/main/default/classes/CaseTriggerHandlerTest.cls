@@ -2243,4 +2243,55 @@ private class CaseTriggerHandlerTest {
       'Priority should be left as Medium when Dispute case is created after more than one business days from transaction'
     );
   }
+
+  @isTest
+  static void testHandleSLANotifications() {
+    Faker faker = new Faker('AU');
+    // GIVEN
+    // a case is created linked to an ANZ Plus customer
+    Case[] newCases = new List<Case>();
+    Account acc = [
+      SELECT Id
+      FROM Account
+      WHERE ANZx_Customer__c = TRUE
+      LIMIT 1
+    ];
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID,
+          Type = 'Cards',
+          Sub_Type__c = 'Damaged card',
+          AccountId = acc.Id
+        )
+      );
+    }
+    insert newCases;
+
+    // WHEN
+    // the SLA_Status__c field gets updated to 'Warning' or 'Breached'
+    Boolean exceptionThrown = false;
+    Test.startTest();
+
+    try {
+      List<String> slaOptions = new List<String>{ 'Warning', 'Breached' };
+      for (Case c : newCases) {
+        c.SLA_Status__c = faker.randomElement(slaOptions);
+      }
+      update newCases;
+    } catch (Exception e) {
+      exceptionThrown = true;
+    }
+
+    Test.stopTest();
+
+    // THEN
+    // a custom notification should be triggered to Case owner
+    // (currently APEX does not support an easy way to assert on custom notifications)
+    System.assertEquals(
+      false,
+      exceptionThrown,
+      'An exception should not have been thrown while triggering SLA notifications.'
+    );
+  }
 }

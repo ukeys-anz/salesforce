@@ -92,6 +92,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       records,
       (Map<Id, Case>) oldMap
     );
+    GetHelpCaseActions.handleSLANotifications(records, (Map<Id, Case>) oldMap);
   }
 
   /**

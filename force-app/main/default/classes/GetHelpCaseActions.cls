@@ -18,6 +18,11 @@ public with sharing class GetHelpCaseActions {
 
   public static final String MISALIGNED_FINANCIAL_ACCOUNT_ERROR = 'Error occurred while create dispute.  There is a misalignment between customer\'s OCV ID and Financial Account';
 
+  public static final String SLA_BREACH = 'Breached';
+  public static final String SLA_WARNING = 'Warning';
+  public static final String SLA_BREACH_NOTIFICATION_BODY = 'Please review and ensure case is being managed by Customer Resolution Centre.';
+  public static final String SLA_WARNING_NOTIFICATION_BODY = 'Please review and action this case.';
+
   /**
    * @description beforeUpdate(oldMap, records) method handles the following
    * 1. Validate Additional Type - Validates the selected additional types and addError if it has more than 2 values selected or if the Type value is same as one of the additional values
@@ -504,6 +509,62 @@ public with sharing class GetHelpCaseActions {
       ) {
         caseByIndexMap.get(caseIndex)
           .addError(MISALIGNED_FINANCIAL_ACCOUNT_ERROR); // The case will not be created
+      }
+    }
+  }
+
+  /**
+   * @description handle SLA related notifications
+   * @param records New record instances to process
+   * @param oldMap Map of the old values of the records to process
+   */
+  public static void handleSLANotifications(
+    List<Case> records,
+    Map<Id, Case> oldMap
+  ) {
+    if (!oldMap.isEmpty()) {
+      CustomNotificationType type = CommonUtil.getCustomNotificationTypeByName(
+        'Case_SLA'
+      );
+
+      for (Case newCase : records) {
+        if (
+          newCase.SLA_Status__c != null &&
+          !newCase.SLA_Status__c.Equals(oldMap.get(newCase.Id).SLA_Status__c)
+        ) {
+          String messageBody = '';
+
+          if (newCase.SLA_Status__c == SLA_WARNING) {
+            messageBody = SLA_WARNING_NOTIFICATION_BODY;
+          } else if (newCase.SLA_Status__c == SLA_BREACH) {
+            messageBody = SLA_BREACH_NOTIFICATION_BODY;
+          }
+
+          if (!String.isBlank(messageBody)) {
+            String messageTitle =
+              'SLA status for ' +
+              Schema.getGlobalDescribe()
+                .get('Case')
+                .getDescribe()
+                .getRecordTypeInfosById()
+                .get(newCase.RecordTypeId)
+                .getName() +
+              ' ' +
+              newCase.CaseNumber +
+              ' has changed to ' +
+              newCase.SLA_Status__c;
+
+            InAppNotificationWrapper notificationWrapper = new InAppNotificationWrapper(
+              type.Id,
+              newCase.Id,
+              newCase.OwnerId,
+              messageTitle,
+              messageBody
+            );
+
+            CommonUtil.sendInAppNotification(notificationWrapper);
+          }
+        }
       }
     }
   }
