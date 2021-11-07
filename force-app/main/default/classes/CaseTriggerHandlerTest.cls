@@ -2176,7 +2176,7 @@ private class CaseTriggerHandlerTest {
       Origin = '1',
       Priority = 'Medium',
       Customer_Description__c = 'Charged more than once for same purchase',
-      Effective_Date__c = Date.valueof(System.now()),
+      Effective_Date__c = Date.valueof(System.today()),
       Transaction_Id__c = '9be08660-23bb-4f12-b124-7cfe561ba086',
       BusinessHoursId = CommonUtil.getBusinessHours().Id
     );
@@ -2185,7 +2185,6 @@ private class CaseTriggerHandlerTest {
     // the Transaction Date (Effective Date) is the same date as the case creation date
     Test.startTest();
 
-    disputeCase.Effective_Date__c = Date.valueof(System.now());
     disputes.add(disputeCase);
 
     GetHelpCaseActions.setPriority(disputes);
