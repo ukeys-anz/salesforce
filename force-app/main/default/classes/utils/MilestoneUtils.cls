@@ -5,6 +5,7 @@
  * Util function is based on https://help.salesforce.com/articleView?id=entitlements_milestones_trigger.htm&type=5
  * @group Utils
  */
+@SuppressWarnings('PMD.ApexCRUDViolation')
 public with sharing class MilestoneUtils {
   /**
    * @description completeMilestone is called before onBeforeUpdate and will mark a milestone as completed

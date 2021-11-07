@@ -166,7 +166,7 @@
     <dashboardType>SpecifiedUser</dashboardType>
     <description>Dashboard to view stop/start collection reports</description>
     <isGridLayout>true</isGridLayout>
-    <runningUser>david.dawson@anzx.com</runningUser>
+    <runningUser>anzx.user@anzx.com</runningUser>
     <textColor>#000000</textColor>
     <title>Stop/Restart Collections QC check</title>
     <titleColor>#000000</titleColor>

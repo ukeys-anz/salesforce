@@ -573,7 +573,8 @@ public without sharing class IDRTaskActions {
       oldRec.isEscalated == true)) && //if case is updated, has it been escalated?
       ((oldRec == null &&
       record.isClosed == true) || //if case is created closed
-      (oldRec.isClosed == false &&
+      (oldRec != null &&
+      oldRec.isClosed == false &&
       record.isClosed == true)) //if case is updated from non-closed to closed status
     ) {
       return true;
@@ -677,5 +678,22 @@ public without sharing class IDRTaskActions {
         'Not enough permissions to query Task.'
       );
     }
+  }
+
+  /**
+   * @description method to insert collection tasks and handle errors
+   * @param collectionTaskList List of collection tasks
+   */
+  public static void insertSystemTasks(List<Task> collectionTaskList) {
+    List<Database.SaveResult> results = Database.insert(
+      collectionTaskList,
+      false
+    );
+    lib_systemLog log = new lib_systemLog(
+      'IDRCollectionActions',
+      'insertSystemTasks'
+    );
+    log.addDatabaseSaveResult('Task', results, collectionTaskList);
+    log.insertLogAsync();
   }
 }

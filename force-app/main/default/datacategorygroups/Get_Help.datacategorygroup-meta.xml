@@ -44,8 +44,8 @@
                 <name>Savings_and_goals</name>
             </dataCategory>
             <dataCategory>
-                <label>Money tiles</label>
-                <name>Money_tiles</name>
+                <label>Using tiles</label>
+                <name>Using_tiles</name>
             </dataCategory>
             <dataCategory>
                 <label>Account closure</label>

@@ -78,9 +78,9 @@ public with sharing class GetHelpCaseActionsHelper {
   public static Boolean isANZPlusCaseType(Case record) {
     if (
       GetHelpCaseActions.FRAUD_RT_IDS.contains(record.RecordTypeId) ||
-      record.RecordTypeId == GetHelpCaseActions.GENERAL_INQUIRY_RT_ID ||
-      record.RecordTypeId == GetHelpCaseActions.BUG_RT_ID ||
-      record.RecordTypeId == GetHelpCaseActions.COMPLAINT_ID
+      record.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID ||
+      record.RecordTypeId == GetHelpConstants.BUG_RT_ID ||
+      record.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID
     ) {
       return true;
     }
@@ -130,7 +130,7 @@ public with sharing class GetHelpCaseActionsHelper {
     for (Case c : records) {
       if (
         c.Related_Bug__c != null &&
-        c.RecordTypeId == GetHelpCaseActions.BUG_RT_ID
+        c.RecordTypeId == GetHelpConstants.BUG_RT_ID
       ) {
         bugIdSet.add(c.Related_Bug__c);
       }
@@ -163,8 +163,8 @@ public with sharing class GetHelpCaseActionsHelper {
     List<Id> accountIds = new List<Id>();
     for (Case c : caseList) {
       if (
-        (c.RecordTypeId == GetHelpCaseActions.GENERAL_INQUIRY_RT_ID ||
-        c.RecordTypeId == GetHelpCaseActions.COMPLAINT_ID) &&
+        (c.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID ||
+        c.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID) &&
         c.AccountId != null
       ) {
         accountIds.add(c.AccountId);
@@ -206,8 +206,8 @@ public with sharing class GetHelpCaseActionsHelper {
   ) {
     for (Case c : caseList) {
       if (
-        (c.RecordTypeId == GetHelpCaseActions.GENERAL_INQUIRY_RT_ID ||
-        c.RecordTypeId == GetHelpCaseActions.COMPLAINT_ID) &&
+        (c.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID ||
+        c.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID) &&
         c.AccountId != null
       ) {
         if (!entMap.containsKey(c.AccountId)) {
@@ -217,20 +217,6 @@ public with sharing class GetHelpCaseActionsHelper {
         }
       }
     }
-  }
-
-  /**
-   * @description Get the Id of a record type using its developer name
-   * @param developerName The developer name of the record type
-   * @return the Id of the record type
-   */
-  public static Id getCaseRecordTypeIdByDeveloperName(String developerName) {
-    if (String.isNotBlank(developerName)) {
-      return Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-        .get(developerName)
-        .getRecordTypeId();
-    }
-    return null;
   }
 
   /**
@@ -244,7 +230,7 @@ public with sharing class GetHelpCaseActionsHelper {
     Map<Id, Case> oldCaseMap
   ) {
     if (
-      record.RecordTypeId == GetHelpCaseActions.GENERAL_INQUIRY_RT_ID &&
+      record.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID &&
       (String.isNotBlank(record.Type) ||
       String.isNotBlank(record.Additional_Type__c)) &&
       (oldCaseMap == null ||
@@ -300,7 +286,7 @@ public with sharing class GetHelpCaseActionsHelper {
    */
   public static Boolean isComplaint(Case record, Map<Id, Case> oldCaseMap) {
     if (
-      record.RecordTypeId == GetHelpCaseActions.COMPLAINT_ID &&
+      record.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID &&
       (oldCaseMap == null ||
       record.Type != oldCaseMap.get(record.Id).Type)
     ) {

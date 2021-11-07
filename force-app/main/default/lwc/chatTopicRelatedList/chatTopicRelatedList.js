@@ -5,7 +5,8 @@ import getChatTopicInfoOnCase from "@salesforce/apex/ChatTopicRelatedListControl
 import { publish, MessageContext } from "lightning/messageService";
 import chatReChannel from "@salesforce/messageChannel/ReinitiateChatTopic__c";
 import chatHistoryChannel from "@salesforce/messageChannel/ViewChatTopicHistory__c";
-
+import UserId from "@salesforce/user/Id";
+import USERROLE_FIELD from "@salesforce/schema/User.UserRole.DeveloperName";
 import ACCOUNT_PPID_FIELD from "@salesforce/schema/Account.PPID__c";
 import CASE_CHANNEL_SID_FIELD from "@salesforce/schema/Case.Twilio_Channel_SID__c";
 
@@ -40,11 +41,35 @@ export default class ChatTopicRelatedList extends LightningElement {
   @track data = []; //data to be displayed in the table
   @track totalRecordCount = 0; //total record count received from all retrieved records
   @track loading = true;
+  @track isPrivilegedRole = true; // show button by default
   links;
   objectFields = [];
 
   @wire(MessageContext)
   messageContext;
+  // get current user and role field
+  @wire(getRecord, { recordId: UserId, fields: [USERROLE_FIELD] })
+  wireuser({ error, data }) {
+    if (data && data.fields.UserRole) {
+      if (
+        // if the user role is QA
+        data.fields.UserRole.value.fields.DeveloperName.value ===
+        "Quality_Analyst"
+      ) {
+        // make this variable false
+        this.isPrivilegedRole = false;
+      } else if (error) {
+        // error handling
+        handleErrorShowToast(
+          this,
+          "Unable to resolve role privileges",
+          error,
+          error.body.message,
+          "pester"
+        );
+      }
+    }
+  }
 
   @wire(getRecord, {
     recordId: "$recordId",
@@ -87,7 +112,7 @@ export default class ChatTopicRelatedList extends LightningElement {
           // To check if there were more records that what was retrieved against the same Customer
           // Check if links is not undefined before processing, avoid throwing error when user has the case tab open along with
           // the account tab which will call fetchChatTopicInfoOnCase() and return a single channel which might not have links
-          this.links = result.links !== undefined ? result.links.links : "";
+          this.links = result.links !== undefined ? result.links : "";
 
           // TODO: More error handling
           // Check if there are channels before processing, avoid throwing error when user has the case tab open along with
@@ -150,6 +175,7 @@ export default class ChatTopicRelatedList extends LightningElement {
   generateRowData(row) {
     row.status = this.resolveStatuses(row);
     if (
+      this.isPrivilegedRole === true &&
       row.status &&
       row.status !== STATUS_CLOSED &&
       row.chatFlowStatus === CHAT_FLOW_STATUS_ONHOLD
@@ -202,7 +228,6 @@ export default class ChatTopicRelatedList extends LightningElement {
 
   resolveStatuses(row) {
     let topicStatus;
-
     if (row.status) {
       if (row.chatFlowStatus) {
         // IF row status is 'active'
@@ -248,7 +273,6 @@ export default class ChatTopicRelatedList extends LightningElement {
     if (!topicStatus) {
       topicStatus = TOPIC_STATUS_UNDEFINED;
     }
-
     return topicStatus;
   }
 

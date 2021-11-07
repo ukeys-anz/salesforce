@@ -6,7 +6,7 @@
     <description>A unique ID that will be used to fetch chat related topics</description>
     <externalId>false</externalId>
     <label>PPID</label>
-    <length>50</length>
+    <length>65</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
