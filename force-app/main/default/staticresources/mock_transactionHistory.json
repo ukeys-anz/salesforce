@@ -156,7 +156,7 @@
         "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
         "merchantId": { "value": "M12345" },
         "tags": ["T12345"],
-        "type": "TRANSACTION_TYPE_DEPOSIT_WITHDRAWAL",
+        "type": "TRANSACTION_TYPE_DEPOSIT_WITHDRAWL",
         "cash": {
           "card_scheme": "CARD_SCHEME_MASTERCARD",
           "method": "CARD_METHOD_SWIPE",

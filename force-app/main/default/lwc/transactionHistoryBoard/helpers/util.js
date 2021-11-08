@@ -10,7 +10,7 @@ to process the optional fields related to that transaction. The below mapping sh
 and the key associated with it in the transaction, taken from the fabric proto doc
   Mappings: https://github.com/anzx/fabricapis/blob/28e579f0a95a94ff45eaf667197f81c0a3b0d7a6/proto/fabric/type/transactions/v1beta1/transaction.proto#L116
     card - TRANSACTION_TYPE_CARD
-    cash - TRANSACTION_TYPE_DEPOSIT_WITHDRAWAL
+    cash - TRANSACTION_TYPE_DEPOSIT_WITHDRAWL // TRANSACTION_TYPE_DEPOSIT_WITHDRAWL with typo as this is what Fabric sends, confirmed with their team
     pay_anyone - [TRANSACTION_TYPE_BSB_ACC_NUM, TRANSACTION_TYPE_PAYID]
     bpay - TRANSACTION_TYPE_BPAY
     empty - [TRANSACTION_TYPE_UNSPECIFIED]
