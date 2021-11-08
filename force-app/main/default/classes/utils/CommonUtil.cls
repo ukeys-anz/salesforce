@@ -111,18 +111,18 @@ public with sharing class CommonUtil {
         String.valueOf(oldRecord.get(fieldName))) &&
         String.isNotBlank(String.valueOf(record.get(fieldName)))
       ) {
-        maskFieldData(fieldName, record);
+        maskAccountNumbers(fieldName, record);
       }
     }
   }
 
   /**
-   * @description maskFieldData method is used to mask free text fields as we dont want to store e.g. card numbers in SF.
+   * @description maskAccountNumbers method is used to mask free text fields as we dont want to store e.g. card numbers in SF.
    * So, we mask the number and store only last 4 digits unmasked.
    * @param fieldName name of the field to mask
    * @param record The actual record from Trigger.new
    */
-  private static void maskFieldData(String fieldName, sObject record) {
+  private static void maskAccountNumbers(String fieldName, sObject record) {
     if (
       fieldName == 'IDR_Account_Card_Policy_Number__c' ||
       fieldName == 'IDR_Account_Card_Policy_Number_2__c' ||
