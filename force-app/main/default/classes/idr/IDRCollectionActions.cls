@@ -298,7 +298,6 @@ public with sharing class IDRCollectionActions {
    * @param accountNumber of the each issue
    * @return An instance of a Task
    */
-  @SuppressWarnings('PMD.ExcessiveParameterList')
   public static Task populateSystemTask(
     Case c,
     String subject,
