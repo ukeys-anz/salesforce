@@ -132,22 +132,21 @@ public with sharing class IDRCollectionActions {
    */
   private static void validateRecordForStopCollection(Case rec, Case oldRec) {
     if (checkIssueOne(rec, oldRec)) {
-      stopCollectionForIssueOne(rec, oldRec);
+      stopCollectionForIssueOne(rec);
     }
     if (checkIssueTwo(rec, oldRec)) {
-      stopCollectionForIssueTwo(rec, oldRec);
+      stopCollectionForIssueTwo(rec);
     }
     if (checkIssueThree(rec, oldRec)) {
-      stopCollectionForIssueThree(rec, oldRec);
+      stopCollectionForIssueThree(rec);
     }
   }
 
   /**
    * @description method to add issue one into stop collection event and task creation if it is eligible
    * @param rec Case record from the trigger
-   * @param oldRec Old Case record from the trigger
    */
-  private static void stopCollectionForIssueOne(Case rec, Case oldRec) {
+  private static void stopCollectionForIssueOne(Case rec) {
     for (
       String accNumber : String.valueOf(rec.IDR_Collection_Number__c).split(';')
     ) {
@@ -166,9 +165,8 @@ public with sharing class IDRCollectionActions {
   /**
    * @description method to add issue two into stop collection event and task creation if it is eligible
    * @param rec Case record from the trigger
-   * @param oldRec Old Case record from the trigger
    */
-  private static void stopCollectionForIssueTwo(Case rec, Case oldRec) {
+  private static void stopCollectionForIssueTwo(Case rec) {
     for (
       String accNumber2 : String.valueOf(rec.IDR_Collection_Number_2__c)
         .split(';')
@@ -188,9 +186,8 @@ public with sharing class IDRCollectionActions {
   /**
    * @description method to add issue three into stop collection event and task creation if it is eligible
    * @param rec Case record from the trigger
-   * @param oldRec Old Case record from the trigger
    */
-  private static void stopCollectionForIssueThree(Case rec, Case oldRec) {
+  private static void stopCollectionForIssueThree(Case rec) {
     for (
       String accNumber3 : String.valueOf(rec.IDR_Collection_Number_3__c)
         .split(';')
