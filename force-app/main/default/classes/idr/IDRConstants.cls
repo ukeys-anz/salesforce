@@ -126,8 +126,8 @@ public with sharing class IDRConstants {
   public static final String CASE_EMAIL_REGEX = '(?<=\\<)(.*?)(?=\\>)';
 
   //IDR Account number pattern
-  public static final String MULTIPLE_ACCOUNT_NO_REGEX = '^[0-9]{8,42}(;[0-9]{8,42})*$';
-  public static final String INVALID_ACC_NO_MESSAGE = 'Please seperate account numbers with semicolon';
+  public static final String MULTIPLE_ACCOUNT_NO_REGEX = '^[0-9]{6,42}(;[0-9]{6,42})*$';
+  public static final String INVALID_ACC_NO_MESSAGE = 'Account numbers can not include any symbols or special characters. Only use a Semicolon to separate account numbers if more than 1 account';
 
   //Task fields Constants
   public static final String TASK_TYPE_PEND_CASE = 'Pend Case';
