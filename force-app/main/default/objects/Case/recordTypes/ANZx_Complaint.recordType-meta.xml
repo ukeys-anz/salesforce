@@ -4,7 +4,7 @@
     <active>true</active>
     <businessProcess>ANZx Complaint Support Process</businessProcess>
     <description>Record and track complaints lodged by ANZ Plus customers</description>
-    <label>Complaint</label>
+    <label>ANZ Plus Complaint</label> 
     <picklistValues>
         <picklist>ANZx_Product__c</picklist>
         <values>
@@ -74,19 +74,7 @@
     <picklistValues>
         <picklist>Fraud_Assisted_ID_Event_Type__c</picklist>
         <values>
-            <fullName>Failed Electronic Verification</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Failed ID to Face Bio-metric Match</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Failed Self-Service PIN Recovery</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Update Legal Name</fullName>
+            <fullName>None</fullName>
             <default>false</default>
         </values>
     </picklistValues>

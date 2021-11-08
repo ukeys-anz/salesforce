@@ -18,7 +18,7 @@
                 <fullName>iOS</fullName>
                 <default>false</default>
                 <label>iOS</label>
-            </value>
+            </value> 
             <value>
                 <fullName>Android</fullName>
                 <default>false</default>

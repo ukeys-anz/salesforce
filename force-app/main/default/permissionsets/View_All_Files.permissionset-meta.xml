@@ -596,15 +596,6 @@ Note that only a stub is deployed from the codebase, because the dependent permi
         <allowEdit>false</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
-        <object>IDR_CRC_Escalation_Event__e</object>
-        <viewAllRecords>false</viewAllRecords>
-    </objectPermissions>
-    <objectPermissions>
-        <allowCreate>false</allowCreate>
-        <allowDelete>false</allowDelete>
-        <allowEdit>false</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>false</modifyAllRecords>
         <object>IDR_Notification_Event__e</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>

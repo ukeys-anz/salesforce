@@ -21,6 +21,7 @@
     "Log_Record_Access__b",
     "Privileged_Access_Request__c",
     "Product2",
+    "Quality_Assessment__c",
     "Release__c",
     "Reported_Bug__c",
     "SkyhighNetworks__SHNEvent__c",
@@ -34,7 +35,6 @@
     "trailheadapp__Trailmix_Assignment__c",
     "trailheadapp__User_Badge__c",
     "trailheadapp__User_Trailmix__c",
-    "User_Provisioning_Request__c",
     "User"
   ],
   "usermap": [

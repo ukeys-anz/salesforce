@@ -1,0 +1,145 @@
+ANZx :: Salesforce:
+
+    !type Access_Request__c:
+        @edg_data_domain_entity = ""
+        @edg_business_term = ""
+        @description =:
+            | Holds information related to Privileged Access Management request submissions by users
+
+        Access_Type__c <: string:
+            @edg_panther_id = "IA-2468715"
+            @edg_business_term = ""
+
+        Approver__c <: string?:
+            @edg_panther_id = "IA-2468715"
+            @edg_business_term = ""
+
+        CreatedById <: string?:
+            @edg_panther_id = "IA-2468715"
+            @edg_business_term = ""
+
+        CreatedDate <: string?:
+            @edg_panther_id = "IA-2468715"
+            @edg_business_term = ""
+
+        Duration_hrs__c <: string:
+            @edg_panther_id = "IA-2468715"
+            @edg_business_term = ""
+
+        Expected_Start__c <: datetime?:
+            @edg_panther_id = "IA-2468715"
+            @edg_business_term = ""
+
+        Id <: string?:
+            @edg_panther_id = "IA-2468715"
+            @edg_business_term = ""
+
+        LastModifiedById <: string?:
+            @edg_panther_id = "IA-2468715"
+            @edg_business_term = ""
+
+        LastModifiedDate <: string?:
+            @edg_panther_id = "IA-2468715"
+            @edg_business_term = ""
+
+        Reason__c <: string(255) [~unique]:
+            @edg_panther_id = "IA-2468715"
+            @edg_business_term = ""
+
+        Reference_Number__c <: string(150)? [~unique]:
+            @edg_panther_id = "IA-2468715"
+            @edg_business_term = ""
+
+        Requestor__c <: string?:
+            @edg_panther_id = "IA-2468715"
+            @edg_business_term = ""
+
+        Status__c <: string?:
+            @edg_panther_id = "IA-2468715"
+            @edg_business_term = ""
+
+        Trace_Id__c <: string(32)? [~unique]:
+            @edg_panther_id = "IA-2468715"
+            @edg_business_term = ""
+
+    !type Activity:
+        @edg_data_domain_entity = ""
+        @edg_business_term = ""
+        @description =:
+            | 
+
+        Action__c <: string?:
+            @edg_panther_id = "IA-2453595"
+            @edg_business_term = ""
+
+        Authentication_Method__c <: string?:
+            @edg_panther_id = "IA-2453595"
+            @edg_business_term = ""
+
+        Completed_Date__c <: date?:
+            @edg_panther_id = "IA-2453595"
+            @edg_business_term = ""
+
+        Due_in_Days__c <: float? [~unique]:
+            @edg_panther_id = "IA-2453595"
+            @edg_business_term = ""
+
+        IDR_COR_ID__c <: string(255)? [~unique]:
+            @edg_panther_id = "IA-2453595"
+            @edg_business_term = ""
+
+        IDR_Collection_Number__c <: string(42)? [~unique]:
+            @edg_panther_id = "IA-2453595"
+            @edg_business_term = ""
+
+        IDR_Internal_or_External_Party__c <: string?:
+            @edg_panther_id = "IA-2453595"
+            @edg_business_term = ""
+
+        IDR_Is_Task_Completed_Within_Due_Dt__c <: bool?:
+            @edg_panther_id = "IA-2453595"
+            @edg_business_term = ""
+
+        IDR_Key_Contact_Name__c <: string(60)? [~unique]:
+            @edg_panther_id = "IA-2453595"
+            @edg_business_term = ""
+
+        IDR_Pend_Reason__c <: string?:
+            @edg_panther_id = "IA-2453595"
+            @edg_business_term = ""
+
+        IDR_Pended_To__c <: string?:
+            @edg_panther_id = "IA-2453595"
+            @edg_business_term = ""
+
+        IDR_Portfolio_or_Business_Unit__c <: string?:
+            @edg_panther_id = "IA-2453595"
+            @edg_business_term = ""
+
+        IDR_Team__c <: string?:
+            @edg_panther_id = "IA-2453595"
+            @edg_business_term = ""
+
+        IDR_Tribe__c <: string?:
+            @edg_panther_id = "IA-2453595"
+            @edg_business_term = ""
+
+        Interaction_Owner__c <: string(255)? [~unique]:
+            @edg_panther_id = "IA-2460507"
+            @edg_business_term = ""
+
+        PSI_or_DSI__c <: string?:
+            @edg_panther_id = "IA-2453595"
+            @edg_business_term = ""
+
+        SI_Other_Tribe_BU__c <: string(255)? [~unique]:
+            @edg_panther_id = "IA-2453595"
+            @edg_business_term = ""
+
+        Task_Sub_Type__c <: string?:
+            @edg_panther_id = "IA-2453595"
+            @edg_business_term = ""
+
+        Voice_Call_SID__c <: string(255)? [~unique]:
+            @edg_panther_id = "IA-2453595"
+            @edg_business_term = ""

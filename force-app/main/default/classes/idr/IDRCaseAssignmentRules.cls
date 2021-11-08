@@ -5,7 +5,7 @@
  * @group IDR(Internal Dispute Resolution)
  */
 @SuppressWarnings(
-  'PMD.CyclomaticComplexity, PMD.StdCyclomaticComplexity, PMD.CognitiveComplexity'
+  'PMD.ApexCRUDViolation,PMD.CyclomaticComplexity, PMD.StdCyclomaticComplexity, PMD.CognitiveComplexity'
 )
 public with sharing class IDRCaseAssignmentRules {
   private static final Map<String, Id> QUEUE_MAP = getWorkbaskets();

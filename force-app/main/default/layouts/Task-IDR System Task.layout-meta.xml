@@ -22,6 +22,10 @@
                 <behavior>Required</behavior>
                 <field>OwnerId</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Type</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -110,6 +114,12 @@
             <layoutItem>
                 <behavior>Readonly</behavior>
                 <field>WhoId</field>
+            </layoutItem>
+        </relatedContentItems>
+        <relatedContentItems>
+            <layoutItem>
+                <behavior>Readonly</behavior>
+                <field>WhatId</field>
             </layoutItem>
         </relatedContentItems>
     </relatedContent>

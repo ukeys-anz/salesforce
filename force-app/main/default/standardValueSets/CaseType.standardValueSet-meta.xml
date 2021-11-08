@@ -331,4 +331,24 @@
         <default>false</default>
         <label>Other</label>
     </standardValue>
+    <standardValue>
+        <fullName>Digital Wallet Provisioning</fullName>
+        <default>false</default>
+        <label>Digital Wallet Provisioning</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Open Banking</fullName>
+        <default>false</default>
+        <label>Open Banking</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Verified by Visa</fullName>
+        <default>false</default>
+        <label>Verified by Visa</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Assisted Tax Verification</fullName>
+        <default>false</default>
+        <label>Assisted Tax Verification</label>
+    </standardValue>
 </StandardValueSet>

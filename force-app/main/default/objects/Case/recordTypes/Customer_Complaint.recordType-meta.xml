@@ -3052,15 +3052,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>CRN</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Customer/Business CAP ID</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>RAZOR ID</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -3123,6 +3115,21 @@
         </values>
         <values>
             <fullName>9</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IDR_Existing_ANZ_Customer__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>other</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -5709,7 +5716,7 @@
         </values>
     </picklistValues>
     <picklistValues>
-=        <picklist>IDR_Systemic_Issue_Category__c</picklist>
+        <picklist>IDR_Systemic_Issue_Category__c</picklist>
         <values>
             <fullName>1</fullName>
             <default>false</default>

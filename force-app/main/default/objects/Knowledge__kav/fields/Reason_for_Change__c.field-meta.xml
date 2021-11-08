@@ -3,6 +3,7 @@
     <fullName>Reason_for_Change__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_Salesforce;Integrity_Accurate;Privacy_Personal_Information</complianceGroup>
+    <description>Text describing the changes from the latest version</description>
     <externalId>false</externalId>
     <label>Reason for Change</label>
     <required>false</required>

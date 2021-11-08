@@ -8,11 +8,11 @@ public with sharing class IDRAPIRepository extends RepositoryBase {
   /**
    * @param customerId customer id to be searched
    * @param customerIdentifier customer identifier
-   * @return Map<String, Object>
+   * @return IDRCustomerInformationModel
    * @description called from create complaint lwc page during customer search
    */
   @AuraEnabled(cacheable=false)
-  public static Map<String, Object> getCustomerInfoLWC(
+  public static IDRCustomerInformationModel getCustomerInfoLWC(
     String customerId,
     String customerIdentifier
   ) {
@@ -27,14 +27,14 @@ public with sharing class IDRAPIRepository extends RepositoryBase {
   /**
    * @param customerId customer id to be searched
    * @param customerIdentifier customer identifier
-   * @return Map<String, Object>
+   * @return IDRCustomerInformationModel result
    * @description calls the service class methods for integration/callout
    */
-  public Map<String, Object> getCustomerInfo(
+  public IDRCustomerInformationModel getCustomerInfo(
     String customerId,
     String customerIdentifier
   ) {
-    map<String, Object> result;
+    IDRCustomerInformationModel result;
     Service s = ServiceProvider.getService(IDRCustomerProfileService.class);
     HttpCalloutResponse response = s.getCustomerInformation(
       customerId,

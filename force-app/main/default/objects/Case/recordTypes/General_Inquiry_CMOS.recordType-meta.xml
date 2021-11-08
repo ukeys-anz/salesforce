@@ -981,6 +981,21 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>IDR_Existing_ANZ_Customer__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>other</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>IDR_Feedback_Category__c</picklist>
         <values>
             <fullName>Complaint</fullName>

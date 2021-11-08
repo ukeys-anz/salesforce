@@ -208,7 +208,7 @@ public with sharing class ChatContextServiceTest {
       Twilio_Channel_SID__c = 'CH12345678910111213141516171819202',
       AccountId = acc.Id,
       Origin = 'Chat',
-      RecordTypeId = GetHelpCaseActions.GENERAL_INQUIRY_RT_ID,
+      RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID,
       Type = 'About Us',
       Sub_Type__c = 'About ANZ Plus'
     );
