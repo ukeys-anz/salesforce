@@ -5,7 +5,7 @@
     <description>If complaint remedy is refer to product manufacturer then other financial options should not be available to edit</description>
     <errorConditionFormula>$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false &amp;&amp; !ISNEW() &amp;&amp; 
 (RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos; || RecordType.DeveloperName = &apos;Customer_Complaint&apos;) &amp;&amp; 
-(TEXT(Status) = &apos;Closed&apos; || TEXT(Status) = &apos;Resolved&apos;) &amp;&amp;
+(TEXT(Status) = &apos;Closed&apos; || TEXT(Status) = &apos;Provisionally Closed&apos;) &amp;&amp;
 TEXT(IDR_Complaint_Remedy__c) = &apos;3&apos; &amp;&amp; 
 NOT(ISBLANK(IDR_Financial_Compensation__c))</errorConditionFormula>
     <errorDisplayField>IDR_Financial_Compensation__c</errorDisplayField>

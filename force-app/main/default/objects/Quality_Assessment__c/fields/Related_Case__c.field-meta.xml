@@ -7,7 +7,7 @@
     <description>The original case being assessed</description>
     <externalId>false</externalId>
     <label>Related Case</label>
-    <lookupFilter>
+<!--    <lookupFilter>
         <active>true</active>
         <booleanFilter>1 OR (2 AND 3)</booleanFilter>
         <errorMessage>Related Case must under same Customer selected.</errorMessage>
@@ -27,7 +27,7 @@
             <value/>
         </filterItems>
         <isOptional>false</isOptional>
-    </lookupFilter>
+    </lookupFilter> -->
     <referenceTo>Case</referenceTo>
     <relationshipLabel>Quality Assessments</relationshipLabel>
     <relationshipName>Quality_Assessments</relationshipName>

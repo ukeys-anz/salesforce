@@ -297,6 +297,25 @@ public with sharing class GetHelpCaseActionsHelper {
   }
 
   /**
+   * @description getCaseNumberByTransactionId is called to get all open cases that are linked to a set of transaction Ids
+   * @param transactionIds set of transaction Ids
+   * @return Map<String, String> a map of case number by their transaction Id
+   */
+  public static Map<String, String> getCaseNumberByTransactionId(
+    Set<String> transactionIds
+  ) {
+    Map<String, String> caseNumberByTransactionId = new Map<String, String>();
+    for (Case c : [
+      SELECT CaseNumber__c, Transaction_Id__c
+      FROM Case
+      WHERE Transaction_Id__c IN :transactionIds AND Status != 'Closed'
+    ]) {
+      caseNumberByTransactionId.put(c.Transaction_Id__c, c.CaseNumber__c);
+    }
+    return caseNumberByTransactionId;
+  }
+
+  /**
    * @description This method check if a case has "Closed" status
    * @param record The case record
    * @return Boolean if a case's status is "Closed"
@@ -317,5 +336,35 @@ public with sharing class GetHelpCaseActionsHelper {
       GetHelpCaseActions.MILESTONE_NAME,
       System.now()
     );
+  }
+
+  /**
+   * @description Gett a list of financial account roles based on financial account id, account ids and if the role should be active
+   * @param accountIds List of account Ids
+   * @param financialAccIds Set of financial account Ids
+   * @param isActive If the financial account role is active
+   * @return Map<Id, FinServ__FinancialAccountRole__c> a map of financial account roles and their Ids
+   */
+  public static Map<Id, FinServ__FinancialAccountRole__c> getFinancialAccountRolesMap(
+    Set<Id> accountIds,
+    Set<Id> financialAccIds,
+    Boolean isActive
+  ) {
+    Map<Id, FinServ__FinancialAccountRole__c> financialRolesMap = new Map<Id, FinServ__FinancialAccountRole__c>();
+    if (
+      FinServ__FinancialAccountRole__c.SObjectType.getDescribe().isAccessible()
+    ) {
+      financialRolesMap = new Map<Id, FinServ__FinancialAccountRole__c>(
+        [
+          SELECT Id, FinServ__FinancialAccount__c, FinServ__RelatedAccount__c
+          FROM FinServ__FinancialAccountRole__c
+          WHERE
+            FinServ__FinancialAccount__c IN :financialAccIds
+            AND FinServ__RelatedAccount__c IN :accountIds
+            AND FinServ__Active__c = :isActive
+        ]
+      );
+    }
+    return financialRolesMap;
   }
 }

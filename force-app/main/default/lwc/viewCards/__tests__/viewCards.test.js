@@ -61,6 +61,21 @@ describe("c-view-cards", () => {
       );
 
       expect(status.textContent).toBe("Issued");
+
+      let initialWalletSection = element.shadowRoot.querySelector(
+        ".dig-wallet-initial"
+      );
+      expect(initialWalletSection).toBeTruthy();
+
+      let initialWallets = Array.from(
+        element.shadowRoot.querySelectorAll(
+          ".dig-wallet-initial>.wallet-detail"
+        )
+      );
+      expect(initialWallets.length).toBe(2);
+
+      let walletList = initialWallets.map((p) => p.textContent);
+      expect(walletList[0]).toBe("SamsungPay - 1");
     });
   });
 
