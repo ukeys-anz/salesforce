@@ -15,7 +15,7 @@ AND(
 ISCHANGED(Status),
 NOT(ISPICKVAL(Status,&apos;Open&apos;))),
 OR(
-ISPICKVAL(External_System__c,&apos;&apos;),
+ISBLANK(TEXT(External_System__c)),
 ISNULL(External_Case_ID__c)
 )
 )</errorConditionFormula>

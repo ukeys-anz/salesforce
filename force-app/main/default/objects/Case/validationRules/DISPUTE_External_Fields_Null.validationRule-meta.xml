@@ -10,7 +10,7 @@ ISCHANGED(External_System__c),
 ISCHANGED(External_Case_ID__c)),
 OR(
 ISNULL(External_Case_ID__c),
-ISPICKVAL(External_System__c,&apos;&apos;))
+ISBLANK(TEXT(External_System__c)))
 )</errorConditionFormula>
     <errorMessage>Please select an External System and acknowledge that External System ID has been provided.</errorMessage>
 </ValidationRule>

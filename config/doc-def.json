@@ -53,6 +53,13 @@
       "type": "user"
     },
     {
+      "name": "Card Dispute Agent",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["Card_Dispute_Agent"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
       "name": "Content Author",
       "profile": "ANZx Standard User",
       "permissionsetgroups": ["Content_Author_PSG"],

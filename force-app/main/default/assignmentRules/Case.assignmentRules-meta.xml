@@ -4,6 +4,10 @@
         <fullName>Dispute Case Allocation Rule</fullName>
         <active>true</active>
         <ruleEntry>
+            <formula>OR(Submitted__c = true,
+ISCHANGED(Dispute_Reason__c))</formula>
+        </ruleEntry>
+        <ruleEntry>
             <assignedTo>Digital_Fraud_Queue</assignedTo>
             <assignedToType>Queue</assignedToType>
             <criteriaItems>
