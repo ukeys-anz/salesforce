@@ -2,19 +2,55 @@
 
 # Any subsequent(*) commands which fail will cause the shell script to exit immediately
 set -e
+
+stepNo=0
+# first argument: description of the step
+# second argument: step number
+# third argument: start of a step of end of that
+function echoMessageCreator(){
+    if [ $3 = true ]; then
+        echo ""
+        echo "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+        echo ""
+        if [ $2 = 0 ]; then    
+            echo "Step 0 : Input scratch org alias and data"
+        else
+            echo ""
+            echo "Step $2 : $1"
+            echo ""
+            echo "Start time and date: $(date)"
+        fi
+        echo ""
+    else
+        if [ $2 != 0 ]; then
+            echo ""
+            echo "Finish time and date: $(date)"
+            echo ""
+            echo "Job finished in $((JOB_END_TIME - JOB_START_TIME)) s."
+        fi
+        echo ""
+        echo "*****************************************"
+        echo ""
+        stepNo=$(($stepNo+1))
+    fi
+}
+
+echo "WARNING: Disable ANZ Proxy to run this script\n(You can leave alpaca running and proxy variables set to localhost:3128)"
 # Using SOAP over REST is much faster for scratch org creations while pushing content.
 sfdx config:set restDeploy=false
 # Bypass the Lightning Experience custom domain check entirely, wich takes very long when connected to ANZ network
 # TODO Consider a switch to bypass it when connected elsewhere (e.g. from GCB)
 export SFDX_DOMAIN_RETRY=0
 
+echoMessageCreator "Input: Scratch org alias and Data" $stepNo true
 read -rp "Enter scratch org alias (optional): " scratchorgalias
 read -rp "Is test data needed for this scratch org (y/n)? " testdata
 read -rp "Preload ANZ Plus test data (y/n)? " preloadANZPlusData
+echoMessageCreator "" $stepNo false
 
 ALL_START_TIME=$(date +%s)
 
-echo "$(date): Create scratch org..."
+echoMessageCreator "Create scratch org" $stepNo true
 JOB_START_TIME=$(date +%s)
 if [ -n "$scratchorgalias" ]; then
     sfdx force:org:create -f config/snapshot-scratch-def-template.json -d 30 --setdefaultusername -w 10 --setalias "$scratchorgalias" 2>&1 | tee stderr
@@ -25,46 +61,36 @@ if [[ ($(cat stderr) == *'ERROR'*) && ($(cat stderr) != *'Some commands may not 
     exit 1
 fi
 JOB_END_TIME=$(date +%s)
-echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
+echoMessageCreator "" $stepNo false
 
-echo "$(date): Assign Pset..."
+echoMessageCreator "Assign Permission sets" $stepNo true
 JOB_START_TIME=$(date +%s)
-sfdx force:user:permset:assign -n FinancialServicesCloudStandard 2>&1 | tee stderr
-sfdx force:user:permset:assign -n EinsteinAnalyticsPlusAdmin 2>&1 | tee stderr
+sfdx force:user:permset:assign -n "FinancialServicesCloudStandard,EinsteinAnalyticsPlusAdmin" 2>&1 | tee stderr
 if [[ ($(cat stderr) == *'ERROR'*) && ($(cat stderr) != *'Duplicate PermissionSetAssignment'*)]]; then
     exit 1
 fi
 JOB_END_TIME=$(date +%s)
-echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
+echoMessageCreator "" $stepNo false
 
-echo "$(date): Deploy settings..."
+echoMessageCreator "Deploy settings and content assets" $stepNo true
 JOB_START_TIME=$(date +%s)
-sfdx force:source:deploy -p force-app/main/default/settings/BusinessHours.settings-meta.xml,force-app/main/default/settings/Quote.settings-meta.xml,force-app/main/default/settings/Forecasting.settings-meta.xml  2>&1 | tee stderr
+sfdx force:source:deploy -p force-app/main/default/settings/BusinessHours.settings-meta.xml,force-app/main/default/settings/Quote.settings-meta.xml,force-app/main/default/settings/Forecasting.settings-meta.xml,force-app/main/default/contentassets 2>&1 | tee stderr
 if [[ ($(cat stderr) == *'ERROR'*) ]]; then
     exit 1
 fi
 JOB_END_TIME=$(date +%s)
-echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
+echoMessageCreator "" $stepNo false
 
-echo "$(date): Deploy content assets......"
-JOB_START_TIME=$(date +%s)
-sfdx force:source:deploy -p force-app/main/default/contentassets 2>&1 | tee stderr
-if [[ ($(cat stderr) == *'ERROR'*) ]]; then
-    exit 1
-fi
-JOB_END_TIME=$(date +%s)
-echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
-
-echo "$(date): Push metadata..."
+echoMessageCreator "Push metadata" $stepNo true
 JOB_START_TIME=$(date +%s)
 sfdx force:source:push -f 2>&1 | tee stderr
 if [[ ($(cat stderr) == *'ERROR'*) ]]; then
     exit 1
 fi
 JOB_END_TIME=$(date +%s)
-echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
+echoMessageCreator "" $stepNo false
 
-echo "$(date): Import post-deployment plan..."
+echoMessageCreator "Import post-deployment plan" $stepNo true
 JOB_START_TIME=$(date +%s)
 sfdx force:data:tree:import -p data/Post-Plan.json 2>&1 | tee stderr
 sfdx force:data:tree:import -p data/IDR-CustomSetting.json 2>&1 | tee stderr
@@ -74,27 +100,28 @@ if [[ ($(cat stderr) == *'ERROR'*) ]]; then
     exit 1
 fi
 JOB_END_TIME=$(date +%s)
-echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
+echoMessageCreator "" $stepNo false
 
 case ${preloadANZPlusData:0:1} in
 y | Y)
-    echo "$(date): Pre-loading sample data..."
+    echoMessageCreator "Pre-loading sample data" $stepNo true
     JOB_START_TIME=$(date +%s)
     sfdx force:apex:execute -f ./apex-scripts/createTestData.apex
     JOB_END_TIME=$(date +%s)
-    echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
-    echo "$(date): Creating test users (inactive by default) with different roles..."
+    echoMessageCreator "" $stepNo false
+
+    echoMessageCreator "Creating test users (inactive by default) with different roles" $stepNo true
     JOB_START_TIME=$(date +%s)
     sfdx force:apex:execute -f ./apex-scripts/createTestUsers.apex
     JOB_END_TIME=$(date +%s)
-    echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
+    echoMessageCreator "" $stepNo false
     ;;
 *) echo "Skipping ANZ plus test data preload" ;;
 esac
 
 case ${testdata:0:1} in
 y | Y)
-    echo "$(date): Import test data and users..."
+    echoMessageCreator "Import test data and users" $stepNo true
     JOB_START_TIME=$(date +%s)
     tsc --project webdriverIO
     cp webdriverIO/.env.example webdriverIO/.env
@@ -111,29 +138,37 @@ y | Y)
         exit 1
     fi
     
-    echo "Creating Coach user"
+    echo ""
+    echo "-=- Creating Coach user -=-"
+    echo ""
     node webdriverIO/setup-scripts/createUser.js --profile "coach"
-
-    echo "Creating IDR user"
+    echo ""
+    echo "-=- Creating IDR user -=-"
+    echo ""
     node webdriverIO/setup-scripts/createUser.js --profile "idr level 3"
-
-    echo "Assigning user roles"
+    echo ""
+    echo "-=- Assigning user roles -=-"
+    echo ""
     sfdx force:apex:execute -f ./apex-scripts/assignUserRole.apex
-
-    echo "Create users json for webdriverIO"
+    echo ""
+    echo "-=- Create users json for webdriverIO -=-"
+    echo ""
     node webdriverIO/setup-scripts/createUserJsonList.js
 
     JOB_END_TIME=$(date +%s)
-    echo "$(date): Finished in $((JOB_END_TIME - JOB_START_TIME)) s."
+    echoMessageCreator "" $stepNo false
     ;;
 *) echo "Skipping test data creation" ;;
 esac
 
 ALL_END_TIME=$(date +%s)
+echo ""
 echo "$(date): All done in $((ALL_END_TIME - ALL_START_TIME)) s."
 
-echo "Resetting source tracking..."
+echoMessageCreator "Resetting source tracking" $stepNo true
 sfdx force:source:tracking:reset -p
+echoMessageCreator "" $stepNo false
 
-echo "Open scratch org..."
+echoMessageCreator "Open scratch org" $stepNo true
 sfdx force:org:open
+echoMessageCreator "" $stepNo false

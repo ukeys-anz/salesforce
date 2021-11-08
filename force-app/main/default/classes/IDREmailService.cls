@@ -24,11 +24,11 @@ global with sharing class IDREmailService implements Messaging.InboundEmailHandl
     for (Messaging.InboundEmail.Header emailHeader : emailHeaders) {
       headerMap.put(emailHeader.name, emailHeader.value);
     }
-    String senderEmail = IDREmailServiceHelper.filterStringUsingRegEx(
+    String senderEmail = CommonUtil.filterStringUsingRegEx(
       IDRConstants.CASE_EMAIL_REGEX,
       headerMap.get('To')
     );
-    String fromEmail = IDREmailServiceHelper.filterStringUsingRegEx(
+    String fromEmail = CommonUtil.filterStringUsingRegEx(
       IDRConstants.CASE_EMAIL_REGEX,
       headerMap.get('From')
     );
@@ -38,9 +38,12 @@ global with sharing class IDREmailService implements Messaging.InboundEmailHandl
     String technicalEmailAddress = '';
     Map<String, IDR_Email_Settings__c> idrSettingWithSenderEmailMap = IDREmailServiceHandler.getIDREmailServiceSetting();
     if (idrSettingWithSenderEmailMap.size() > 0) {
-      technicalEmailAddress = idrSettingWithSenderEmailMap.get(senderEmail)
+      technicalEmailAddress = idrSettingWithSenderEmailMap.get(
+          senderEmail.toLowerCase()
+        )
         ?.Technical_Email_Address__c;
-      caseOrigin = idrSettingWithSenderEmailMap.get(senderEmail)?.Origin__c;
+      caseOrigin = idrSettingWithSenderEmailMap.get(senderEmail.toLowerCase())
+        ?.Origin__c;
       if (technicalEmailAddress == null) {
         for (
           IDR_Email_Settings__c idrem : idrSettingWithSenderEmailMap.values()
@@ -59,7 +62,7 @@ global with sharing class IDREmailService implements Messaging.InboundEmailHandl
     );
 
     //Extracting case number from subject
-    String caseNumber = IDREmailServiceHelper.filterStringUsingRegEx(
+    String caseNumber = CommonUtil.filterStringUsingRegEx(
       IDRConstants.CASE_NO_REGEX,
       email.subject
     );
@@ -77,7 +80,7 @@ global with sharing class IDREmailService implements Messaging.InboundEmailHandl
         createNewCase = true;
       }
       if (createNewCase) {
-        IDREmailServiceHandler.createNewCase(
+        IDREmailServiceHandler.createNewCaseAndEmailMsg(
           email,
           senderEmail,
           fromEmail,

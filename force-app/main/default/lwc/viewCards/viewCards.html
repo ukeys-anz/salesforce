@@ -116,6 +116,27 @@
                             </p>
                           </div>
                         </div>
+                        <div class="slds-col slds-size_1-of-1">
+                          <div class="slds-p-bottom_medium dig-wallet-initial">
+                            <p class="slds-text-title_bold">Digital Wallet</p>
+                            <template if:true={initialCardDetails.hasWallet}>
+                              <template
+                                for:each={initialCardDetails.walletList}
+                                for:item="wallet"
+                              >
+                                <p
+                                  class="slds-text-body_regular wallet-detail"
+                                  key={wallet}
+                                >
+                                  {wallet}
+                                </p>
+                              </template>
+                            </template>
+                            <template if:false={initialCardDetails.hasWallet}>
+                              <p class="slds-text-body_regular">N/A</p>
+                            </template>
+                          </div>
+                        </div>
                       </div>
                       <div class="slds-col slds-size_1-of-3">
                         <div class="slds-col slds-size_1-of-1">
@@ -208,6 +229,29 @@
                                 <p class="slds-text-body_regular">
                                   {card.last4Digits}
                                 </p>
+                              </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1">
+                              <div class="slds-p-bottom_medium">
+                                <p class="slds-text-title_bold">
+                                  Digital Wallet
+                                </p>
+                                <template if:true={card.hasWallet}>
+                                  <template
+                                    for:each={card.walletList}
+                                    for:item="wallet"
+                                  >
+                                    <p
+                                      class="slds-text-body_regular"
+                                      key={wallet}
+                                    >
+                                      {wallet}
+                                    </p>
+                                  </template>
+                                </template>
+                                <template if:false={card.hasWallet}>
+                                  <p class="slds-text-body_regular">N/A</p>
+                                </template>
                               </div>
                             </div>
                           </div>

@@ -73,6 +73,29 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Card_Scheme__c</picklist>
+        <values>
+            <fullName>CARD_SCHEME_AMERICAN_EXPRESS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CARD_SCHEME_EFTPOS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CARD_SCHEME_MASTERCARD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CARD_SCHEME_UNSPECIFIED</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CARD_SCHEME_VISA</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Customer_Contacted_Merchant__c</picklist>
         <values>
             <fullName>NA</fullName>
@@ -101,19 +124,11 @@
     <picklistValues>
         <picklist>Dispute_Reason__c</picklist>
         <values>
-            <fullName>Cash Dispense Error</fullName>
+            <fullName>Cash Dispensing Error</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Duplicate Transaction</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Error Correction</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>General Enquiry</fullName>
+            <fullName>Duplicate Transactions</fullName>
             <default>false</default>
         </values>
         <values>
@@ -122,36 +137,9 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Dispute_Subtype__c</picklist>
-        <values>
-            <fullName>Incorrect Account</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Incorrect Amount</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Incorrect Payee</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>Fraud_Assisted_ID_Event_Type__c</picklist>
         <values>
-            <fullName>Failed Electronic Verification</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Failed ID to Face Bio-metric Match</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Failed Self-Service PIN Recovery</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Update Legal Name</fullName>
+            <fullName>None</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -1134,25 +1122,6 @@
         </values>
         <values>
             <fullName>Westpac</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Fraud_Funds_to_Channel__c</picklist>
-        <values>
-            <fullName>ATM</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>BPay</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>EFTPOS</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>IMT</fullName>
             <default>false</default>
         </values>
     </picklistValues>

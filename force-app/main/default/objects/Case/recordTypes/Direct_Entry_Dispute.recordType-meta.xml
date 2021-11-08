@@ -101,22 +101,7 @@
     <picklistValues>
         <picklist>Dispute_Reason__c</picklist>
         <values>
-            <fullName>Customer entered incorrect account details</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Customer selected wrong payee</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Trace Request</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Dispute_Subtype__c</picklist>
-        <values>
-            <fullName>Incorrect Account</fullName>
+            <fullName>Incorrect BSB/ Account number</fullName>
             <default>false</default>
         </values>
         <values>
@@ -124,30 +109,18 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Incorrect Payee</fullName>
+            <fullName>Duplicate Transactions</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Unknown Sender</fullName>
+            <fullName>Payee has not received funds</fullName>
             <default>false</default>
         </values>
     </picklistValues>
     <picklistValues>
         <picklist>Fraud_Assisted_ID_Event_Type__c</picklist>
         <values>
-            <fullName>Failed Electronic Verification</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Failed ID to Face Bio-metric Match</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Failed Self-Service PIN Recovery</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Update Legal Name</fullName>
+            <fullName>None</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -1130,25 +1103,6 @@
         </values>
         <values>
             <fullName>Westpac</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Fraud_Funds_to_Channel__c</picklist>
-        <values>
-            <fullName>ATM</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>BPay</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>EFTPOS</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>IMT</fullName>
             <default>false</default>
         </values>
     </picklistValues>

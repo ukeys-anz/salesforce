@@ -53,14 +53,14 @@ public with sharing class IDREmailToCase {
 
         if (IDRConstants.anzComFieldMapping.containsKey(fieldName)) {
           if (
-            fieldName == 'Feedback Topic' &&
+            fieldName == 'Issue Type' &&
             IDRConstants.anzComIssueTypeMapping.containsKey(fieldValue)
           ) {
             c.put(
               IDRConstants.anzComFieldMapping.get(fieldName),
               IDRConstants.anzComIssueTypeMapping.get(fieldValue)
             );
-          } else if (fieldName == 'Email address') {
+          } else if (fieldName == 'Email') {
             List<String> emailValues = fieldValue.split('<', 2);
             c.put(
               IDRConstants.anzComFieldMapping.get(fieldName),

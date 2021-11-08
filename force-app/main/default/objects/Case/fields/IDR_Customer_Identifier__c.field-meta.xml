@@ -26,16 +26,6 @@
                 <default>false</default>
                 <label>CACHE ID</label>
             </value>
-            <value>
-                <fullName>RAZOR ID</fullName>
-                <default>false</default>
-                <label>RAZOR ID</label>
-            </value>
-            <value>
-                <fullName>CRN</fullName>
-                <default>false</default>
-                <label>CRN</label>
-            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

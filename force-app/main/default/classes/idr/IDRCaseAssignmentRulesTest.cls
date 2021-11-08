@@ -1,7 +1,7 @@
 /**
  * @author Olivier Saier
  * @date May 2021
- * @description Test class for {@link IDRCaseAssignmentRules}
+ * @description Test class for {@link IDRCaseAssignmentRules} assignment rule test
  * @group IDR(Internal Dispute Resolution)
  */
 @isTest
