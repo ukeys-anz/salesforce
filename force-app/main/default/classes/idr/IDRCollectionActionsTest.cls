@@ -29,16 +29,21 @@ private with sharing class IDRCollectionActionsTest {
         new Case(
           RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
           IDR_Customer_Number__c = '1234567890',
-          IDR_Account_Card_Policy_Number__c = '111111111;2222222222;333333333',
+          IDR_Account_Card_Policy_Number__c = '111111111;2222222222;333333333;444444444;555555555;666666666;777777777;888888888;999999999;1234567890',
           Type = '4',
           IDR_Subsequent_Issue__c = '20',
           Status = 'Open',
           Product__c = p.Id,
           IDR_Second_Issue__c = true,
-          IDR_Account_Card_Policy_Number_2__c = '444444444;5555555555;6666666666',
+          IDR_Account_Card_Policy_Number_2__c = '2134565778;283273273;4393483833;823748237;8423742374;672354763;273647234;678263478;463724622;234324324',
           IDR_Issue_Type_2__c = '4',
           IDR_Subsequent_Issue_2__c = '21',
-          IDR_Product_2__c = p.Id
+          IDR_Product_2__c = p.Id,
+          IDR_Third_Issue__c = true,
+          IDR_Account_Card_Policy_Number_3__c = '132342343;534764565;645656456;678765665;3422323423;645676556;896875567;432241244;565423545;432431211',
+          IDR_Issue_Type_3__c = '4',
+          IDR_Subsequent_Issue_3__c = '21',
+          IDR_Product_3__c = p.Id
         )
       );
     }
@@ -54,7 +59,7 @@ private with sharing class IDRCollectionActionsTest {
       FROM Task
       WHERE WhatId = :collectionCases[0].id AND Subject LIKE 'STOP Collection%'
     ];
-    System.assertEquals(6, collectionTasks.size());
+    System.assertEquals(30, collectionTasks.size());
   }
 
   @isTest
