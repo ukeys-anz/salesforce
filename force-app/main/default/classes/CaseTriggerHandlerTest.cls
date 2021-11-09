@@ -955,7 +955,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = GetHelpCaseActions.FRAUD_RT_IDS[
+          RecordTypeId = new List<Id>(GetHelpCaseActionsHelper.FRAUD_RT_IDS)[
             faker.randomIntegerBetween(1, 4)
           ],
           Type = faker.randomElement(caseTypes),
@@ -1067,7 +1067,11 @@ private class CaseTriggerHandlerTest {
           Type = '',
           Dispute_Reason__c = 'Charged for a cancelled payment',
           AccountId = acc.Id,
-          Is_The_Card_Lost_Stolen__c = 'Lost'
+          Is_The_Card_Lost_Stolen__c = 'Lost',
+          Customer_Description__c = 'Some description',
+          Regular_Payment_Cancellation_Date__c = Date.valueOf('2021-10-15'),
+          Customer_Contacted_Merchant__c = 'Yes',
+          Merchant_Description__c = 'Coles'
         )
       );
     }
@@ -1164,7 +1168,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = GetHelpCaseActions.FRAUD_RT_IDS[4],
+          RecordTypeId = new List<Id>(GetHelpCaseActionsHelper.FRAUD_RT_IDS)[4],
           Type = 'KYC QA Sample',
           AccountId = acc.Id
         )
@@ -2135,6 +2139,286 @@ private class CaseTriggerHandlerTest {
       2,
       disputeCases.size(),
       'New dispute was not created when there is a closed dispute case with the same transaction Id'
+  }
+  @isTest
+  static void testEntitlementOnDisputes() {
+    // GIVEN
+    // an ANZ Plus customer record is created with relevant entitlements
+    Account acc = [
+      SELECT Id
+      FROM Account
+      WHERE ANZx_Customer__c = TRUE
+      LIMIT 1
+    ];
+
+    // WHEN
+    // a new Dispute case is created against the same customer
+    Test.startTest();
+
+    Case disputeCase = new Case(
+      RecordTypeId = GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID,
+      AccountId = acc.Id,
+      Auto_Created__c = false,
+      Dispute_Reason__c = 'Duplicate Transactions',
+      Origin = '1',
+      Customer_Description__c = 'Charged more than once for same purchase',
+      Priority = 'High',
+      Transaction_Id__c = '9be08660-23bb-4f12-b124-7cfe561ba086'
+    );
+    insert disputeCase;
+
+    Test.stopTest();
+
+    // THEN
+    // the same Entitlement record on Account should be linked on the Case
+    Entitlement accountEntitlement = [
+      SELECT Id
+      FROM Entitlement
+      WHERE AccountId = :acc.Id
+      LIMIT 1
+    ];
+
+    System.assertEquals(
+      accountEntitlement.Id,
+      [SELECT EntitlementId FROM Case WHERE Id = :disputeCase.Id LIMIT 1]
+      .EntitlementId,
+      'Failed to link Entitlement from Account on Dispute cases'
+    );
+  }
+
+  @isTest
+  static void testDisputesSwitchFromOpen() {
+    Account acc = [
+      SELECT Id
+      FROM Account
+      WHERE ANZx_Customer__c = TRUE
+      LIMIT 1
+    ];
+
+    // GIVEN
+    // a Dispute case is created against an ANZ Plus customer, and correct entitlement process is applied
+    Case disputeCase = new Case(
+      RecordTypeId = GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID,
+      AccountId = acc.Id,
+      Auto_Created__c = false,
+      Dispute_Reason__c = 'Duplicate Transactions',
+      Origin = '1',
+      Customer_Description__c = 'Charged more than once for same purchase',
+      Priority = 'High',
+      Transaction_Id__c = '9be08660-23bb-4f12-b124-7cfe561ba086'
+    );
+    insert disputeCase;
+
+    // WHEN
+    // case status is being changed from 'Open' to something else
+    Test.startTest();
+
+    disputeCase.Status = GetHelpConstants.UNDER_INVESTIGATION_STATUS;
+    update disputeCase;
+
+    Test.stopTest();
+
+    // THEN
+    // it should mark related "Resolution Time" milestone as Completed
+    System.assert(
+      [
+        SELECT COUNT()
+        FROM CaseMilestone
+        WHERE
+          CaseId = :disputeCase.Id
+          AND MilestoneType.Name = :GetHelpCaseActions.RESOLUTION_TIME_MILESTONE
+          AND IsCompleted = TRUE
+      ] > 0,
+      'Failed to mark Dispute milestone as completed, when status is changed from Open'
+    );
+  }
+
+  @isTest
+  static void testDisputesSwitchFromInvestigation() {
+    Account acc = [
+      SELECT Id
+      FROM Account
+      WHERE ANZx_Customer__c = TRUE
+      LIMIT 1
+    ];
+
+    // GIVEN
+    // an ANZ Plus Dispute case is in status 'Under Investigation'
+    Case disputeCase = new Case(
+      RecordTypeId = GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID,
+      AccountId = acc.Id,
+      Auto_Created__c = false,
+      Dispute_Reason__c = 'Duplicate Transactions',
+      Origin = '1',
+      Customer_Description__c = 'Charged more than once for same purchase',
+      Priority = 'High',
+      Transaction_Id__c = '9be08660-23bb-4f12-b124-7cfe561ba086'
+    );
+    insert disputeCase;
+
+    // Update to 'Under Investigation'
+    disputeCase.Status = GetHelpConstants.UNDER_INVESTIGATION_STATUS;
+    update disputeCase;
+
+    // WHEN
+    // case status is being changed from 'Under Investigation' to 'Closed'
+    Test.startTest();
+
+    disputeCase.Status = 'Closed';
+    update disputeCase;
+
+    Test.stopTest();
+
+    // THEN
+    // it should mark related "Investigation Time" milestone as Completed
+    System.assert(
+      [
+        SELECT COUNT()
+        FROM CaseMilestone
+        WHERE
+          CaseId = :disputeCase.Id
+          AND MilestoneType.Name = :GetHelpCaseActions.INVESTIGATION_TIME_MILESTONE
+          AND IsCompleted = TRUE
+      ] > 0,
+      'Failed to mark Dispute milestone as completed, when status is changed from Under Investigation to Closed'
+    );
+  }
+
+  @isTest
+  static void testDisputePrioritySameDay() {
+    Account acc = [
+      SELECT Id
+      FROM Account
+      WHERE ANZx_Customer__c = TRUE
+      LIMIT 1
+    ];
+
+    // GIVEN
+    // a Direct Debit / Direct Entry dispute Case is being created
+    List<Case> disputes = new List<Case>();
+    Case disputeCase = new Case(
+      RecordTypeId = GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID,
+      AccountId = acc.Id,
+      Auto_Created__c = false,
+      Dispute_Reason__c = 'Duplicate Transactions',
+      Origin = '1',
+      Priority = 'Medium',
+      Customer_Description__c = 'Charged more than once for same purchase',
+      Effective_Date__c = Date.valueof(System.today()),
+      Transaction_Id__c = '9be08660-23bb-4f12-b124-7cfe561ba086',
+      BusinessHoursId = CommonUtil.getBusinessHours().Id
+    );
+
+    // WHEN
+    // the Transaction Date (Effective Date) is the same date as the case creation date
+    Test.startTest();
+
+    disputes.add(disputeCase);
+
+    GetHelpCaseActions.setPriority(disputes);
+
+    Test.stopTest();
+
+    // THEN
+    // case Priority should be marked as 'High'
+    System.assertEquals(
+      'High',
+      disputeCase.Priority,
+      'Failed to set the Priority to High when Dispute case is created on the same day as the transaction'
+    );
+  }
+
+  @isTest
+  static void testDisputePriorityBeforeLastBusinessDay() {
+    Account acc = [
+      SELECT Id
+      FROM Account
+      WHERE ANZx_Customer__c = TRUE
+      LIMIT 1
+    ];
+
+    // GIVEN
+    // a Direct Debit / Direct Entry dispute Case is being created
+    List<Case> disputes = new List<Case>();
+    Case disputeCase = new Case(
+      RecordTypeId = GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID,
+      AccountId = acc.Id,
+      Auto_Created__c = false,
+      Dispute_Reason__c = 'Duplicate Transactions',
+      Origin = '1',
+      Priority = 'Medium',
+      Transaction_Id__c = '9be08660-23bb-4f12-b124-7cfe561ba086',
+      BusinessHoursId = CommonUtil.getBusinessHours().Id
+    );
+
+    // WHEN
+    // the Transaction Date (Effective Date) is more than one business days ago
+    Test.startTest();
+
+    disputeCase.Effective_Date__c = Date.valueof(System.now().addDays(-5));
+    disputes.add(disputeCase);
+
+    GetHelpCaseActions.setPriority(disputes);
+
+    Test.stopTest();
+
+    // THEN
+    // case Priority should remain as 'Medium'
+    System.assertEquals(
+      'Medium',
+      disputeCase.Priority,
+      'Priority should be left as Medium when Dispute case is created after more than one business days from transaction'
+    );
+  }
+
+  @isTest
+  static void testHandleSLANotifications() {
+    Faker faker = new Faker('AU');
+    // GIVEN
+    // a case is created linked to an ANZ Plus customer
+    Case[] newCases = new List<Case>();
+    Account acc = [
+      SELECT Id
+      FROM Account
+      WHERE ANZx_Customer__c = TRUE
+      LIMIT 1
+    ];
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID,
+          Type = 'Cards',
+          Sub_Type__c = 'Damaged card',
+          AccountId = acc.Id
+        )
+      );
+    }
+    insert newCases;
+
+    // WHEN
+    // the SLA_Status__c field gets updated to 'Warning' or 'Breached'
+    Boolean exceptionThrown = false;
+    Test.startTest();
+
+    try {
+      List<String> slaOptions = new List<String>{ 'Warning', 'Breached' };
+      for (Case c : newCases) {
+        c.SLA_Status__c = faker.randomElement(slaOptions);
+      }
+      update newCases;
+    } catch (Exception e) {
+      exceptionThrown = true;
+    }
+
+    Test.stopTest();
+
+    // THEN
+    // a custom notification should be triggered to Case owner
+    // (currently APEX does not support an easy way to assert on custom notifications)
+    System.assertEquals(
+      false,
+      exceptionThrown,
+      'An exception should not have been thrown while triggering SLA notifications.'
     );
   }
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DISPUTE_DIRECT_ENTRY_VR3</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+RecordType.DeveloperName = &apos;Direct_Entry_Dispute&apos;,
+ISPICKVAL(Dispute_Reason__c, &apos;Incorrect Amount&apos;),
+OR(
+ISBLANK(Customer_Description__c),
+ISPICKVAL(Is_this_a_Business_Customer__c,&apos;&apos;),
+ISBLANK(Intended_Amount__c)
+)
+)</errorConditionFormula>
+    <errorMessage>These fields are required: Customer Description, Is this a Business Customer, Intended Amount.</errorMessage>
+</ValidationRule>

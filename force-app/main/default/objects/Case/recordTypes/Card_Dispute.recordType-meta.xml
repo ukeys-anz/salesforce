@@ -170,6 +170,44 @@
             <fullName>Charged for a cancelled payment</fullName>
             <default>false</default>
         </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Debit_or_Credit__c</picklist>
+        <values>
+            <fullName>Charged more than once</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Didn%27t authorise transaction</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Don%27t recognise the transaction</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product Defective or Unsatisfactory</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product Didn%27t Arrive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Refund error</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Dispute_Reason__c</picklist>
+        <values>
+            <fullName>Charged Incorrect Amount</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Charged for a cancelled payment</fullName>
+            <default>false</default>
+        </values>
         <values>
             <fullName>Charged more than once</fullName>
             <default>false</default>

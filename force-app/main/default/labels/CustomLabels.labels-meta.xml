@@ -102,7 +102,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Transactions</shortDescription>
-        <value>/anz-exp-sfdc-coach-banking-api/api/transactions</value>
+        <value>/coach-banking/v1beta1/transactions</value>
     </labels>
     <labels>
         <fullName>MS_Replace_Card</fullName>

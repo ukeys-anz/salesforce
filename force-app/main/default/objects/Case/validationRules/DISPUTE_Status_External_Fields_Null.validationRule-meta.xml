@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DISPUTE_Status_External_Fields_Null</fullName>
+    <active>true</active>
+    <description>Throws an error when the Status changes and External System or External Case ID is null.</description>
+    <errorConditionFormula>AND(
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+OR(
+RecordType.DeveloperName = &apos;ATM_Dispute&apos;,
+RecordType.DeveloperName = &apos;Card_Dispute&apos;,
+RecordType.DeveloperName = &apos;Direct_Debit_Dispute&apos;,
+RecordType.DeveloperName = &apos;Direct_Entry_Dispute&apos;,
+RecordType.DeveloperName = &apos;NPP_Dispute&apos;),
+AND(
+ISCHANGED(Status),
+NOT(ISPICKVAL(Status,&apos;Open&apos;))),
+OR(
+ISBLANK(TEXT(External_System__c)),
+ISNULL(External_Case_ID__c)
+)
+)</errorConditionFormula>
+    <errorMessage>These fields are required in order to change Status from open - External System and External Case ID.</errorMessage>
+</ValidationRule>

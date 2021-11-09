@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DISPUTE_NPP_VR1</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+RecordType.DeveloperName = &apos;NPP_Dispute&apos;,
+ISPICKVAL(Dispute_Reason__c, &quot;Incorrect Account Details&quot;),
+Transaction_Type__c = &apos;TRANSACTION_TYPE_BSB_ACC_NUM&apos;,
+OR(
+ISBLANK(Customer_Description__c),
+ISBLANK(Intended_Account_BSB__c),
+ISBLANK(Intended_Account_Name__c),
+ISBLANK(Intended_Account_Number__c)
+)
+)</errorConditionFormula>
+    <errorMessage>These fields are required: Customer Description, Intended Account BSB, Intended Account Name, Intended Account Number.</errorMessage>
+</ValidationRule>

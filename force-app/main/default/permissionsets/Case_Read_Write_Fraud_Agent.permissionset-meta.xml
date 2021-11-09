@@ -188,6 +188,15 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <field>Case.Customer_Description__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Date_Account_Last_Debited__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.Customer_Description__c</field>
         <readable>true</readable>
@@ -469,6 +478,21 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Goods_Or_Services_Returned__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_NC_Email__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Has_The_Card_Been_Stopped__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Has_The_Card_Been_Stopped__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -694,6 +718,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+<<<<<<< HEAD
         <field>Case.Priority</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -704,6 +729,8 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+=======
+>>>>>>> epic/disputes-assisted
         <field>Case.Is_this_a_Business_Customer__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -860,6 +887,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Transaction_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Transaction_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Transaction_UUID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
