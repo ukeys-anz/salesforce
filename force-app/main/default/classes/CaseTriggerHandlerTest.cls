@@ -2139,7 +2139,9 @@ private class CaseTriggerHandlerTest {
       2,
       disputeCases.size(),
       'New dispute was not created when there is a closed dispute case with the same transaction Id'
+    );
   }
+
   @isTest
   static void testEntitlementOnDisputes() {
     // GIVEN
