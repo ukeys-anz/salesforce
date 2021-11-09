@@ -33,19 +33,7 @@
             <roleAndSubordinates>ANZ</roleAndSubordinates>
         </sharedTo>
         <sharedFrom>
-            <role>Coach</role>
-        </sharedFrom>
-    </sharingOwnerRules>
-    <sharingOwnerRules>
-        <fullName>Grant_Read_Access_on_Content_Manager_User_Records_for_Content_Writers</fullName>
-        <accessLevel>Read</accessLevel>
-        <description>Rule to provide ‘Read’ access to all Content Manager User records for Content Writers.</description>
-        <label>Grant Read Access on Content Manager User Records for Content Writers</label>
-        <sharedTo>
-            <role>Content_Writer</role>
-        </sharedTo>
-        <sharedFrom>
-            <role>Content_Manager</role>
+            <roleAndSubordinates>ANZ</roleAndSubordinates>
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
@@ -58,21 +46,6 @@
         </sharedTo>
         <sharedFrom>
             <role>Content_Writer</role>
-        </sharedFrom>
-    </sharingOwnerRules>
-    <sharingOwnerRules>
-        <fullName>Grant_Read_Access_on_Manager_User_Records_for_Coaches</fullName>
-        <accessLevel>Read</accessLevel>
-        <description>Rule to provide &apos;Read&apos; access to all Manager User records for Coaches.</description>
-        <label>Grant Read Access on Manager User Records for Coaches</label>
-        <sharedTo>
-            <role>Coach</role>
-        </sharedTo>
-        <sharedFrom>
-            <role>Manager</role>
-        </sharedFrom>
-    </sharingOwnerRules>
-            <roleAndSubordinates>ANZ</roleAndSubordinates>
         </sharedFrom>
     </sharingOwnerRules>
 </SharingRules>
