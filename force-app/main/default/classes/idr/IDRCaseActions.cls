@@ -105,6 +105,12 @@ public with sharing class IDRCaseActions {
         }
         checkForCRCEscalation(record, null);
       }
+
+      if (record.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID) {
+        if (record.Customer_Notification_Consent__c == 'Yes') {
+          notificationCaseList.add(record);
+        }
+      }
     }
     IDRTaskActions.possibleSystemicIssueActions(records, null);
     IDRCollectionActions.stopCollections(records, null);
@@ -629,7 +635,8 @@ public with sharing class IDRCaseActions {
       record.RecordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID &&
       (record.IDR_Customer_Number__c != oldRec.IDR_Customer_Number__c ||
       record.IDR_Customer_Identifier__c != oldRec.IDR_Customer_Identifier__c) &&
-      oldRec.RecordTypeId != IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID
+      oldRec.RecordTypeId != IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID &&
+      oldRec.RecordTypeId != GetHelpConstants.COMPLAINT_RT_ID
     ) {
       record.addError(CUSTOMER_NUMBER_VALIDATION_ERROR);
     }

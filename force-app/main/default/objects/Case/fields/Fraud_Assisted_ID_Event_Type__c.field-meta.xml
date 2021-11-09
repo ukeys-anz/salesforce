@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Fraud_Assisted_ID_Event_Type__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Privacy_Non_Personal_Information;Integrity_Trusted;Source_Salesforce</complianceGroup>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>The event which led to a customer needing their identity being verified manually</description>
     <externalId>false</externalId>
     <label>Assisted ID Event Type</label>
@@ -13,29 +13,133 @@
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
+        <controllingField>Type</controllingField>
         <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Failed ID to Face Bio-metric Match</fullName>
+                <fullName>None</fullName>
                 <default>false</default>
-                <label>Failed ID to Face Bio-metric Match</label>
+                <label>None</label>
+            </value>
+            <value>
+                <fullName>Digital Wallet Provisioning</fullName>
+                <default>false</default>
+                <label>Digital Wallet Provisioning</label>
+            </value>
+            <value>
+                <fullName>Digital Wallet Issues</fullName>
+                <default>false</default>
+                <label>Digital Wallet Issues</label>
+            </value>
+            <value>
+                <fullName>Token Suspension</fullName>
+                <default>false</default>
+                <label>Token Suspension</label>
+            </value>
+            <value>
+                <fullName>Token Activation</fullName>
+                <default>false</default>
+                <label>Token Activation</label>
+            </value>
+            <value>
+                <fullName>Suspect Fraud</fullName>
+                <default>false</default>
+                <label>Suspect Fraud</label>
+            </value>
+            <value>
+                <fullName>Revoke Data Sharing Consent</fullName>
+                <default>false</default>
+                <label>Revoke Data Sharing Consent</label>
+            </value>
+            <value>
+                <fullName>Extract Data Sharing History</fullName>
+                <default>false</default>
+                <label>Extract Data Sharing History</label>
+            </value>
+            <value>
+                <fullName>Customer Overseas</fullName>
+                <default>false</default>
+                <label>Customer Overseas</label>
+            </value>
+            <value>
+                <fullName>No Mobile Reception</fullName>
+                <default>false</default>
+                <label>No Mobile Reception</label>
+            </value>
+            <value>
+                <fullName>Mobile Outdated or Not Listed</fullName>
+                <default>false</default>
+                <label>Mobile Outdated or Not Listed</label>
+            </value>
+            <value>
+                <fullName>No Device Access</fullName>
+                <default>false</default>
+                <label>No Device Access</label>
             </value>
             <value>
                 <fullName>Failed Electronic Verification</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>Failed Electronic Verification</label>
+            </value>
+            <value>
+                <fullName>Failed ID to Face Bio-metric Match</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Failed ID to Face Bio-metric Match</label>
             </value>
             <value>
                 <fullName>Failed Self-Service PIN Recovery</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>Failed Self-Service PIN Recovery</label>
             </value>
-            <value>
-                <fullName>Update Legal Name</fullName>
-                <default>false</default>
-                <label>Update Legal Name</label>
-            </value>
         </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Digital Wallet Provisioning</controllingFieldValue>
+            <valueName>Digital Wallet Provisioning</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Digital Wallet Provisioning</controllingFieldValue>
+            <valueName>Digital Wallet Issues</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Digital Wallet Provisioning</controllingFieldValue>
+            <valueName>Token Suspension</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Digital Wallet Provisioning</controllingFieldValue>
+            <valueName>Token Activation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Digital Wallet Provisioning</controllingFieldValue>
+            <controllingFieldValue>Verified by Visa</controllingFieldValue>
+            <valueName>Suspect Fraud</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Open Banking</controllingFieldValue>
+            <valueName>Revoke Data Sharing Consent</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Open Banking</controllingFieldValue>
+            <valueName>Extract Data Sharing History</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Verified by Visa</controllingFieldValue>
+            <valueName>Customer Overseas</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Verified by Visa</controllingFieldValue>
+            <valueName>No Mobile Reception</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Verified by Visa</controllingFieldValue>
+            <valueName>Mobile Outdated or Not Listed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Verified by Visa</controllingFieldValue>
+            <valueName>No Device Access</valueName>
+        </valueSettings>
     </valueSet>
 </CustomField>

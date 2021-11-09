@@ -137,6 +137,8 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
           IDR_NC_Email__c,
           IDR_NC_Is_Consent_Obtained__c,
           CaseNumber__c,
+          Customer_Notification_Consent__c,
+          Account.Source_System_ID__c,
           IDR_Customer_Identifier__c,
           CaseNumber,
           IDR_NC_First_Name__c,
@@ -183,15 +185,22 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
     Notification_Handler__c handler
   ) {
     IDR_Notification_Event__e notification = new IDR_Notification_Event__e();
-    if (!c.IDR_SwicthOff_3rd_Party_Notification__c) {
+    if (c.IDR_SwicthOff_3rd_Party_Notification__c == false) {
+      //Avoid null scenario
       notification.AuthorisedEmail__c = c.IDR_3rdParty_Email__c;
       notification.AuthorisedFirstName__c = c.IDR_3rdParty_Name__c;
       notification.AuthorisedMobile__c = c.IDR_3rdParty_Mobile__c;
     }
     notification.Case_ID__c = c.ID;
     notification.Case_Number__c = getFormattedCaseNumberToNotify(c);
-    if (!c.IDR_SwitchOff_Customer_Notification__c) {
+    if (
+      c.IDR_SwitchOff_Customer_Notification__c == false ||
+      c.Customer_Notification_Consent__c == 'Yes'
+    ) {
       notification.CAP_CIS_ID__c = c.IDR_Customer_Number__c;
+      if (String.isBlank(c.IDR_Customer_Number__c)) {
+        notification.CAP_CIS_ID__c = c.Account.Source_System_ID__c;
+      }
       notification.Customer_Identifier__c = ((String.isNotBlank(
           c.IDR_Customer_Identifier__c
         ) && c.IDR_Customer_Identifier__c.contains('CAP ID'))
@@ -240,6 +249,7 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
     for (Case c : records) {
       if (
         c.RecordTypeId == customerComplaintRecordId ||
+        c.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID ||
         !String.isBlank(c.IDR_NC_Mobile__c) ||
         !String.isBlank(c.IDR_NC_Email__c)
       ) {
