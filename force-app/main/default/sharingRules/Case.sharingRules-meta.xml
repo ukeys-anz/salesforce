@@ -419,14 +419,19 @@
         <fullName>Fraud_RTs_CardDisputeAgents_RO</fullName>
         <accessLevel>Read</accessLevel>
         <description>All Cases having Fraud related record types are to be shared with Card Dispute Agents with Read access.</description>
-        <label>Fraud_RTs_CardDisputeAgents_RW</label>
+        <label>Fraud_RTs_CardDisputeAgents_RO</label>
         <sharedTo>
             <role>Card_Dispute_Agent</role>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Recipient/MuleFraud</value>
+            <value>Recipient/Mule</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Fraud</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
