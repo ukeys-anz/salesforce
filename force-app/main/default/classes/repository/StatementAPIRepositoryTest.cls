@@ -71,7 +71,7 @@ public with sharing class StatementAPIRepositoryTest {
       Test.stopTest();
 
       System.assertEquals(
-        'Get statement failed',
+        'Statement retrieve failed',
         resultException.getMessage(),
         'Should return exception message.'
       );
@@ -84,7 +84,7 @@ public with sharing class StatementAPIRepositoryTest {
    */
   private static HttpCalloutResponse getStatementInvalidResponse() {
     HttpCalloutResponse response = new HttpCalloutResponse();
-    response.error = new CalloutException('Get statement failed');
+    response.error = new CalloutException('Statement retrieve failed');
     response.statusCode = 500;
     response.successful = false;
     return response;
@@ -150,5 +150,72 @@ public with sharing class StatementAPIRepositoryTest {
         .contains('Statements Information is invalid.'),
       'Should return Statements Information is invalid. exception message.'
     );
+  }
+
+  /**
+   * @description fetch statement statement id for a account number
+   */
+  @isTest
+  public static void statementsAuraTest() {
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      Test.startTest();
+      StatementModel statement = StatementAPIRepository.getStatementsAura(
+        '1234',
+        '1111'
+      );
+      Test.stopTest();
+      System.assertEquals(4, statement.statements.size());
+    }
+  }
+  /**
+   * @description fetch statement url for a valid statement id
+   */
+  @isTest
+  static void statementUrlTest() {
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      Map<String, String> additionaldetails = new Map<String, String>();
+      additionaldetails.put('statementId', 'test1234');
+      additionaldetails.put('url', 'https://test.invalid.com');
+      additionaldetails.put('sfUserId', '005134242');
+      additionaldetails.put('statementId', '12345');
+      additionaldetails.put('url', '2453535');
+      Test.startTest();
+      StatementModel statement = StatementAPIRepository.getStatementUrlAura(
+        '1234',
+        '1111',
+        additionaldetails
+      );
+      Test.stopTest();
+      System.assert(statement != null);
+    }
+  }
+
+  /**
+   * @description fetch invalid statement
+   */
+  @isTest
+  static void statementInvalidResponse() {
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      StatementModel statementModel;
+      HttpCalloutResponse res = getStatementInvalidResponse();
+      Service s = ServiceProvider.getService(FabricService.class);
+      s.setCalloutResponse(res);
+      Exception resultException;
+      Test.startTest();
+      StatementAPIRepository statementAPI = new StatementAPIRepository();
+      try {
+        statementModel = statementAPI.getStatements('1111', '2222');
+      } catch (Exception e) {
+        resultException = e;
+      }
+      Test.stopTest();
+      System.assertEquals(
+        'Statement retrieve failed',
+        resultException.getMessage()
+      );
+    }
   }
 }
