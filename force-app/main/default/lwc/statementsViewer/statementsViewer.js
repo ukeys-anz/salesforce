@@ -5,9 +5,6 @@ import hasViewStatementsPermission from "@salesforce/customPermission/ANZx_View_
 import getStatements from "@salesforce/apex/StatementAPIRepository.getStatementsAura";
 import getStatementUrl from "@salesforce/apex/StatementAPIRepository.getStatementUrlAura";
 
-import noStatementsPage from "./noStatements.html";
-import statementsViewer from "./statementsViewer.html";
-
 import FINANCIAL_ACCOUNT_NUMBER_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__FinancialAccountNumber__c";
 import FINANCIAL_ACCOUNT_PRIMARY_OWNER_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__PrimaryOwner__c";
 import FINANCIAL_ACCOUNT_ID_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.Id";
@@ -82,14 +79,6 @@ export default class StatementsViewer extends LightningElement {
     }
   }
 
-  render() {
-    return hasViewStatementsPermission &&
-      this.statements &&
-      this.statements.length === 0
-      ? noStatementsPage
-      : statementsViewer;
-  }
-
   async handleRowAction(event) {
     this.isLoading = true;
 
@@ -131,6 +120,7 @@ export default class StatementsViewer extends LightningElement {
 
       if (statements.length === 0) {
         this.statements = [];
+        this.error = "There are currently no statements for this account.";
       } else if (statements.length > 0) {
         const formattedData = this.formatStatements(
           statements,
