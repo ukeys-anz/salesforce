@@ -177,12 +177,14 @@ public with sharing class FabricService extends Service {
   /**
    * @param ocvId required to make the callout to Mulesoft
    * @param accountNumber Account number for which we want to fetch the statements
+   * @param pageSize number of statement records to be returned from Fabric
    * @return `HttpCalloutResponse` the api response
    * @description fetches statements from the fabric API
    */
   public override HttpCalloutResponse getStatements(
     String ocvId,
-    String accountNumber
+    String accountNumber,
+    String pageSize
   ) {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
@@ -192,7 +194,9 @@ public with sharing class FabricService extends Service {
       'callout:SF_MS_Fabric' + Label.MS_Get_StatementList,
       HTTP_METHOD.HTTP_POST,
       headers,
-      '{"account_numbers": ['+
+      '{"page_size":'+
+      pageSize+','+
+      '"account_numbers": ['+
       accountNumber+
       ']}'
     );

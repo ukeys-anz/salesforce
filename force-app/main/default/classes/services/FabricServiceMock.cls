@@ -82,12 +82,14 @@ public with sharing class FabricServiceMock extends Service {
 /**
    * @param ocvId customer id
    * @param accountNumber to retrieve statements for the specific account
+   * @param pageSize number of statement records to be returned from Fabric
    * @return `HttpCalloutResponse` the api response
    * @description fetches statement list fake response
    */
   public override HttpCalloutResponse getStatements(
     String ocvId,
-    String accountNumber
+    String accountNumber,
+    String pageSize
     ) {
     if (!preset) {
       response.body = FabricServiceMock.GET_STATEMENT;

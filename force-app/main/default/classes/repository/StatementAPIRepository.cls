@@ -10,19 +10,22 @@ public with sharing class StatementAPIRepository extends RepositoryBase {
    * {@link Lib_SystemLog.logAPIError} is called when ever the call fails to Fabric to have the logs recorded for monitoring.
    * @param ocvId required to make the callout to Mulesoft
    * @param accountNumber Account number for which we want to fetch the statements
+   * @param pageSize number of statement records to be returned from Fabric
    * @return String
    * @exception CalloutException
    */
   @AuraEnabled(cacheable=true)
   public static StatementModel getStatementsAura(
     String ocvId,
-    String accountNumber
+    String accountNumber,
+    String pageSize
   ) {
     StatementAPIRepository statementapi = new StatementAPIRepository();
     try {
       StatementModel responseModel = statementapi.getStatements(
         ocvId,
-        accountNumber
+        accountNumber,
+        pageSize
       );
       return responseModel;
     } catch (Exception e) {
@@ -34,14 +37,15 @@ public with sharing class StatementAPIRepository extends RepositoryBase {
   /**
    * @param ocvId required to make the callout to Mulesoft
    * @param accountNumber Account number for which we want to fetch the statements
+   * @param pageSize number of statement records to be returned from Fabric
    * @return StatementModel model class constructed from api response
    * @description fetches statements from fabric based on the account number, deserialized to a model
    */
-  public StatementModel getStatements(String ocvId, String accountNumber) {
+  public StatementModel getStatements(String ocvId, String accountNumber, String pageSize) {
     StatementModel result;
     if (FeatureManagement.checkPermission('ANZx_View_Statements')) {
       Service s = ServiceProvider.getService(FabricService.class);
-      HttpCalloutResponse response = s.getStatements(ocvId, accountNumber);
+      HttpCalloutResponse response = s.getStatements(ocvId, accountNumber, pageSize);
       if (response.successful) {
         try {
           result = StatementModel.parse(response.body);
@@ -105,7 +109,7 @@ public with sharing class StatementAPIRepository extends RepositoryBase {
     if (FeatureManagement.checkPermission('ANZx_View_Statements')) {
       Map<String, String> responseMap = new Map<String, String>();
       Service s = ServiceProvider.getService(FabricService.class);
-      HttpCalloutResponse response = s.getStatements(ocvId, statementId);
+      HttpCalloutResponse response = s.getStatementUrl(ocvId, statementId);
       if (response.successful) {
         try {
           result = StatementModel.parse(response.body);

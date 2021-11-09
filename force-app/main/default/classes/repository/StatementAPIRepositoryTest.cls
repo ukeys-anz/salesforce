@@ -38,7 +38,8 @@ public with sharing class StatementAPIRepositoryTest {
       Test.startTest();
       StatementModel model = StatementAPIRepository.getStatementsAura(
         '1111',
-        null
+        null,
+        '10'
       );
       Test.stopTest();
 
@@ -64,7 +65,7 @@ public with sharing class StatementAPIRepositoryTest {
       Test.startTest();
       StatementAPIRepository statementapi = new StatementAPIRepository();
       try {
-        model = statementapi.getStatements('1111', '1111');
+        model = statementapi.getStatements('1111', '1111','10');
       } catch (Exception e) {
         resultException = e;
       }
@@ -102,7 +103,8 @@ public with sharing class StatementAPIRepositoryTest {
       try {
         StatementModel model = StatementAPIRepository.getStatementsAura(
           '1111',
-          null
+          null,
+          '10'
         );
       } catch (Exception e) {
         resultException = e;
@@ -123,7 +125,7 @@ public with sharing class StatementAPIRepositoryTest {
   @isTest
   static void missingYearInResponse() {
     Service s = ServiceProvider.getService(FabricService.class);
-    HttpCalloutResponse response = s.getStatements('1111', '1111');
+    HttpCalloutResponse response = s.getStatements('1111', '1111', '10');
     String validResponse = response.body;
 
     validResponse = validResponse.replaceAll('\n', '');
@@ -162,7 +164,8 @@ public with sharing class StatementAPIRepositoryTest {
       Test.startTest();
       StatementModel statement = StatementAPIRepository.getStatementsAura(
         '1234',
-        '1111'
+        '1111',
+        '10'
       );
       Test.stopTest();
       System.assertEquals(4, statement.statements.size());
@@ -207,7 +210,7 @@ public with sharing class StatementAPIRepositoryTest {
       Test.startTest();
       StatementAPIRepository statementAPI = new StatementAPIRepository();
       try {
-        statementModel = statementAPI.getStatements('1111', '2222');
+        statementModel = statementAPI.getStatements('1111', '2222', '10');
       } catch (Exception e) {
         resultException = e;
       }
