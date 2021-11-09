@@ -39,9 +39,7 @@ public with sharing class GetHelpCaseActions {
   public static final String SLA_WARNING = 'Warning';
   public static final String SLA_BREACH_NOTIFICATION_BODY = 'Please review and ensure case is being managed by Customer Resolution Centre.';
   public static final String SLA_WARNING_NOTIFICATION_BODY = 'Please review and action this case.';
-
-  public static final String MISALIGNED_FINANCIAL_ACCOUNT_ERROR = 'Error occurred while create dispute.  There is a misalignment between customer\'s OCV ID and Financial Account';
-
+  
   /**
    * @description beforeUpdate(oldMap, records) method handles the following
    * 1. Validate Additional Type - Validates the selected additional types and addError if it has more than 2 values selected or if the Type value is same as one of the additional values
@@ -592,62 +590,6 @@ public with sharing class GetHelpCaseActions {
             CommonUtil.sendInAppNotification(notificationWrapper);
           }
         }
-      }
-    }
-  }
-
-  /**
-   * @description Check if the provided financial account is ACTIVE and linked to the provided customer account
-   * @param records The list of cases whose financial accounts need to be validated
-   */
-  public static void validateFinancialAccByAccId(List<Case> records) {
-    Map<Integer, Case> caseByIndexMap = new Map<Integer, Case>();
-    Map<Integer, String> combinedKeyByCaseIndexMap = new Map<Integer, String>();
-    Set<Id> customerAccountIdSet = new Set<Id>();
-    Set<Id> financialAccountIdSet = new Set<Id>();
-    for (Integer i = 0; i < records.size(); i++) {
-      Case record = records[i];
-      if (
-        record.AccountId != null &&
-        record.FinServ__FinancialAccount__c != null
-      ) {
-        caseByIndexMap.put(i, record); // Get a map of each case by its index
-        combinedKeyByCaseIndexMap.put(
-          i,
-          String.valueOf(record.FinServ__FinancialAccount__c) +
-          String.valueOf(record.AccountId) // Get a map of each case's combined key (financial account Id + customer account Id) by the case's index
-        );
-        customerAccountIdSet.add(record.AccountId);
-        financialAccountIdSet.add(record.FinServ__FinancialAccount__c);
-      }
-    }
-
-    Map<Id, FinServ__FinancialAccountRole__c> financialAccRolesByIdMap = GetHelpCaseActionsHelper.getFinancialAccountRolesMap(
-      customerAccountIdSet,
-      financialAccountIdSet,
-      true
-    ); // Get a list of ACTIVE financial account roles which are linked to the provided customer accounts and financial accounts
-
-    Map<String, FinServ__FinancialAccountRole__c> roleByCombinedKeyMap = new Map<String, FinServ__FinancialAccountRole__c>();
-    for (
-      FinServ__FinancialAccountRole__c record : financialAccRolesByIdMap.values()
-    ) {
-      // Loop through the list of ACTIVE financial account roles, get a map of each role and its combined key (financial account Id + customer account Id)
-      roleByCombinedKeyMap.put(
-        String.valueOf(record.FinServ__FinancialAccount__c) +
-        String.valueOf(record.FinServ__RelatedAccount__c),
-        record
-      );
-    }
-
-    for (Integer caseIndex : combinedKeyByCaseIndexMap.keySet()) {
-      if (
-        !roleByCombinedKeyMap.containsKey(
-          combinedKeyByCaseIndexMap.get(caseIndex)
-        ) // If an active financial role does not exist for a case's combined key, aka this case does not have an ACTIVE financial role between its customer account and financial account
-      ) {
-        caseByIndexMap.get(caseIndex)
-          .addError(MISALIGNED_FINANCIAL_ACCOUNT_ERROR); // The case will not be created
       }
     }
   }
