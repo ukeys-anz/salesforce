@@ -12,10 +12,41 @@
                         <valueListItems>
                             <value>Share</value>
                             <visibilityRule>
+                                <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7)</booleanFilter>
+                                <criteria>
+                                    <leftValue>{!Record.Status__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Complete</rightValue>
+                                </criteria>
                                 <criteria>
                                     <leftValue>{!Record.Compliance_Outcome__c}</leftValue>
                                     <operator>EQUAL</operator>
                                     <rightValue>Yes - Requirements met</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Compliance_Outcome__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>ID &amp; Privacy Category</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Compliance_Outcome__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Advice / Consent / Disclaimers / Warnings Category</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Compliance_Outcome__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Obligations / Anti-Hawking Category</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Compliance_Outcome__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Potential Financial Impacts, Information &amp; Actions Category</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Compliance_Outcome__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Multiple Categories</rightValue>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
