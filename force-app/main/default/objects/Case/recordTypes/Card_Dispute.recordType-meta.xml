@@ -161,17 +161,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Dispute_Reason__c</picklist>
-        <values>
-            <fullName>Charged Incorrect Amount</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Charged for a cancelled payment</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>Debit_or_Credit__c</picklist>
         <values>
             <fullName>Charged more than once</fullName>
