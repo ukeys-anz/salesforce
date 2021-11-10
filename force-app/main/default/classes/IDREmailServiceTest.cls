@@ -420,62 +420,15 @@ public with sharing class IDREmailServiceTest {
     }
   }
 
+  /*
   @isTest
   static void testUpdateCaseWithQueueException() {
     Case c = new Case(RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID);
     Test.startTest();
-    IDREmailServiceHelper.updateCaseWithQueue(c);
+    CaseUtil.updateCaseWithQueue(c, 'Queue', 'Indexing_Queue');
     Test.stopTest();
     //Asserts
     List<Case> caseList = [SELECT Id FROM Case LIMIT 1];
     System.assertEquals(0, caseList.size());
-  }
-
-  @IsTest
-  static void createNewCaseExceptionTest2() {
-    User contextUser = [
-      SELECT Id
-      FROM User
-      WHERE FirstName = 'ESContextUser'
-      LIMIT 1
-    ];
-    Test.startTest();
-    System.runAs(contextuser) {
-      // Create a new email and envelope object.
-      Messaging.InboundEmail email = new Messaging.InboundEmail();
-      Messaging.InboundEnvelope env = new Messaging.InboundEnvelope();
-      email.subject = 'New case creation subject test';
-      email.plainTextBody = 'Test email body.';
-      email.htmlBody = 'Test html email body.';
-      //Incorrect Address for exception
-      env.fromAddress = 'userdummyemailforexception';
-
-      //Create email header
-      List<Messaging.InboundEmail.Header> emailHeaders = new List<Messaging.InboundEmail.Header>();
-      Messaging.InboundEmail.Header sendTo = new Messaging.InboundEmail.Header();
-      sendTo.name = 'To';
-      sendTo.value = 'ANZEDRNonProd@anz.com';
-      emailHeaders.add(sendTo);
-
-      Messaging.InboundEmail.Header fromEmail = new Messaging.InboundEmail.Header();
-      fromEmail.name = 'From';
-      //Incorrect Address for exception
-      fromEmail.value = 'userdummyemailforexception';
-      emailHeaders.add(fromEmail);
-
-      email.headers = emailHeaders;
-
-      IDREmailService idremserObj = new IDREmailService();
-      idremserObj.handleInboundEmail(email, env);
-
-      Test.stopTest();
-      //Asserts
-      List<EmailMessage> emailMessageList = [
-        SELECT parentId
-        FROM EmailMessage
-        LIMIT 1
-      ];
-      System.assertEquals(0, emailMessageList.size());
-    }
-  }
+  }*/
 }

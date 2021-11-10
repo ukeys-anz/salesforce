@@ -1019,15 +1019,6 @@
         <allowEdit>false</allowEdit>
         <allowRead>false</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
-        <object>IDR_CRC_Escalation_Event__e</object>
-        <viewAllRecords>false</viewAllRecords>
-    </objectPermissions>
-    <objectPermissions>
-        <allowCreate>false</allowCreate>
-        <allowDelete>false</allowDelete>
-        <allowEdit>false</allowEdit>
-        <allowRead>false</allowRead>
-        <modifyAllRecords>false</modifyAllRecords>
         <object>IDR_Notification_Event__e</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
@@ -1599,9 +1590,24 @@
         <startAddress>59.154.134.107</startAddress>
     </loginIpRanges>
     <loginIpRanges>
-        <description>Sailpoint Internet Proxy Prod</description>
+        <description>Sailpoint/Harness DC AU Prod</description>
         <endAddress>203.110.235.255</endAddress>
         <startAddress>203.110.235.0</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>GCP PROD for Harness</description>
+        <endAddress>35.189.53.62</endAddress>
+        <startAddress>35.189.53.62</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>GCP PROD2 for Harness</description>
+        <endAddress>34.87.219.182</endAddress>
+        <startAddress>34.87.219.182</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>GCP NP3 for Harness</description>
+        <endAddress>35.238.133.229</endAddress>
+        <startAddress>35.238.133.229</startAddress>
     </loginIpRanges>
     <userPermissions>
         <enabled>false</enabled>

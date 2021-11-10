@@ -76,8 +76,13 @@ public with sharing class CreateCommsController {
         caseValue = getValueFromCaseMap(td.IDR_Case_Field_Name__c, parentCase);
       }
 
-      CreateCommsData singleFieldData = new CreateCommsData(td.IDR_Template_Field_Name__c, caseValue, td.id, td.IDR_Field_Description__c);
-     
+      CreateCommsData singleFieldData = new CreateCommsData(
+        td.IDR_Template_Field_Name__c,
+        caseValue,
+        td.id,
+        td.IDR_Field_Description__c
+      );
+
       returnFieldList.add(singleFieldData);
     }
     return returnFieldList;
@@ -136,16 +141,16 @@ public with sharing class CreateCommsController {
     Map<Object, Object> letterDetails = (Map<Object, Object>) otherDetails[0];
     string template = (string) letterDetails.get('template');
     string caseID = (string) letterDetails.get('caseId');
-    IDR_Letter_Approval__c caseComms = new IDR_Letter_Approval__c( 
+    IDR_Letter_Approval__c caseComms = new IDR_Letter_Approval__c(
       IDR_Send_As_Email__c = (Boolean) letterDetails.get('isEmail'),
       IDR_Send_As_Letter__c = (Boolean) letterDetails.get('isLetter'),
       IDR_case__c = caseID,
-      IDR_Template_Name__c = IDRConstants.xpressiontemplateName.get(
-      template),
-      IDR_Status__c = 'Submitted');
+      IDR_Template_Name__c = IDRConstants.xpressiontemplateName.get(template),
+      IDR_Status__c = 'Submitted'
+    );
 
     if (lineItems.size() == 0) {
-        caseComms.IDR_Auto_Approve__c = true;
+      caseComms.IDR_Auto_Approve__c = true;
     }
 
     if (

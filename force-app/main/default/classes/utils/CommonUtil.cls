@@ -227,6 +227,46 @@ public with sharing class CommonUtil {
   }
 
   /**
+   * @description Gets the filtered string using Regular Expression
+   * @param pattern The RegEx pattern
+   * @param matcher The string with which the matching is performed
+   * @return returnString The filtered String
+   */
+  public static String filterStringUsingRegEx(String pattern, String matcher) {
+    String returnString;
+    Matcher m = System.Pattern.compile(pattern).matcher(matcher);
+    if (m.find()) {
+      if (pattern == IDRConstants.CASE_NO_REGEX) {
+        returnString = m.group().leftPad(8, '0');
+      } else {
+        returnString = m.group();
+      }
+    } else {
+      returnString = matcher;
+    }
+    return returnString;
+  }
+
+  /**
+   * @description Queries through the group object
+   * @param type The type of group
+   * @param queueName The devveloper name of group
+   * @return Group
+   */
+  public static Group getGroupDetails(String type, String queueName) {
+    if (Group.sObjectType.getDescribe().isQueryable()) {
+      return [
+        SELECT Id
+        FROM Group
+        WHERE Type = :type AND developername = :queueName
+        LIMIT 1
+      ];
+    } else {
+      return null;
+    }
+  }
+
+  /**
    * @description Get CustomNotificationType by name
    * @param notificationName developer name of the CustomNotificationType
    * @return `CustomNotificationType`

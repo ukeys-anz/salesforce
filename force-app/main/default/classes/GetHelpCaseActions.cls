@@ -6,6 +6,23 @@
  */
 @SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
 public with sharing class GetHelpCaseActions {
+  public static final List<Id> FRAUD_RT_IDS = new List<Id>{
+    GetHelpConstants.FRAUD_RT_ID,
+    GetHelpConstants.IDENTITY_RT_ID,
+    GetHelpConstants.RECIPIENT_MULE_RT_ID,
+    GetHelpConstants.SCAM_RT_ID,
+    GetHelpConstants.KYCQA_RT_ID
+  };
+
+  public static final List<Id> DISPUTE_RT_IDS = new List<Id>{
+    GetHelpConstants.ATM_DISPUTE_RT_ID,
+    GetHelpConstants.CARD_DISPUTE_RT_ID,
+    GetHelpConstants.DIRECT_DEBIT_DISPUTE_RT_ID,
+    GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID,
+    GetHelpConstants.URGENT_DISHONOUR_DISPUTE_RT_ID,
+    GetHelpConstants.NPP_DISPUTE_RT_ID
+  };
+
   public static final String DUPLICATE_DISPUTE_ERROR = 'Error occurred while creating dispute. An open dispute already exists for this transaction. Case number: ';
 
   private static Map<String, String> caseTypeLabelByValue = new Map<String, String>();
@@ -417,6 +434,14 @@ public with sharing class GetHelpCaseActions {
       BusinessHours bhs = CommonUtil.getBusinessHours();
       record.BusinessHoursId = bhs.Id;
     }
+  }
+
+  /**
+   * @description Escalates the Record to CMOS IDR Everyday Banking Queue
+   * @param records The record list to which we escalate
+   */
+  public static void beforeUpdateCaseToCMOS(List<Case> records) {
+    CaseEscalateToCMOS.beforeUpdateCaseToCMOS(records);
   }
 
   /**

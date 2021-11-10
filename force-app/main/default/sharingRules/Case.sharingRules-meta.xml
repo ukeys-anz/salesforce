@@ -65,23 +65,9 @@
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>Complaint_RTs_CFMSUser_RW</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>to provide read write access to CFMS integration user</description>
-        <label>Complaint_RTs_CFMSUser_RW</label>
-        <sharedTo>
-            <group>CFMS_Integration_User_Group</group>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Customer Complaint,Non-Customer Complaint</value>
-        </criteriaItems>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
         <fullName>Complaint_RTs_CRPUsers_RO</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Grant edit access to CFMS migrated complaint records for Customer Resolution Users</description>
+        <description>Grant edit access to ANZx and CFMS migrated complaint records for Customer Resolution Users</description>
         <label>Complaint_RTs_CRPUsers_RO</label>
         <sharedTo>
             <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
@@ -89,7 +75,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>CFMS Migrated Case</value>
+            <value>ANZ Plus Complaint,CFMS Migrated Case</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -133,7 +119,7 @@
         <sharedTo>
             <role>Coach_Lead</role>
         </sharedTo>
-        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7</booleanFilter>
+        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -162,12 +148,17 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Complaint</value>
+            <value>ANZ Plus Complaint</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>General Enquiry</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>NPP</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -207,7 +198,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Complaint</value>
+            <value>ANZ Plus Complaint</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -228,7 +219,7 @@
         <sharedTo>
             <role>Quality_Analyst</role>
         </sharedTo>
-        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7</booleanFilter>
+        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -257,12 +248,17 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Complaint</value>
+            <value>ANZ Plus Complaint</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>General Enquiry</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>NPP</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -301,7 +297,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Complaint</value>
+            <value>ANZ Plus Complaint</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -370,7 +366,7 @@
         <sharedTo>
             <role>Support_Staff_ARC</role>
         </sharedTo>
-        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6</booleanFilter>
+        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -401,6 +397,11 @@
             <operation>equals</operation>
             <value>General Enquiry</value>
         </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>NPP</value>
+        </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Dispute_RTs_Support_Staff_RW</fullName>
@@ -412,7 +413,46 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Complaint</value>
+            <value>ANZ Plus Complaint</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Escalated_Complaint_for_Coaches_Role_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Escalated Complaint for Coaches Role RO</label>
+        <sharedTo>
+            <role>Coach</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Original_Case_Owner__c</field>
+            <operation>notEqual</operation>
+            <value/>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Escalated_Complaint_for_FraudX_Agent_Role_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Escalated Complaint for FraudX Agent Role RO</label>
+        <sharedTo>
+            <role>FraudX_Agent</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Original_Case_Owner__c</field>
+            <operation>notEqual</operation>
+            <value/>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Escalated_Complaint_for_Support_Coaches_Role_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Escalated Complaint for Support Coaches Role RO</label>
+        <sharedTo>
+            <role>Support_Coach</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Original_Case_Owner__c</field>
+            <operation>notEqual</operation>
+            <value/>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -460,7 +500,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Direct Debit,Recipient/Mule,Direct Entry,ATM,Fraud,General Enquiry,KYC QA,Scam,Identity,Urgent Dishonour Request,Card</value>
+            <value>Direct Debit,Recipient/Mule,Direct Entry,ATM,Fraud,General Enquiry,KYC QA,Scam,Identity,Urgent Dishonour Request,Card,NPP</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>

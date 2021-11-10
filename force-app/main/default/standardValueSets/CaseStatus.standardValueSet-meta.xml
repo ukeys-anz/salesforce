@@ -139,4 +139,10 @@
         <label>Pending Documents</label>
         <closed>false</closed>
     </standardValue>
+    <standardValue>
+        <fullName>Provisionally Closed</fullName>
+        <default>false</default>
+        <label>Provisionally Closed</label>
+        <closed>false</closed>
+    </standardValue>
 </StandardValueSet>

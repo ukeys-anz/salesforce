@@ -138,9 +138,9 @@
                 <label>Fraudulent transaction</label>
             </value>
             <value>
-                <fullName>Payment debited after the debit authority has been cancelled</fullName>
+                <fullName>Payment debited after debit authority cancelled</fullName>
                 <default>false</default>
-                <label>Payment debited after the debit authority has been cancelled</label>
+                <label>Payment debited after debit authority cancelled</label>
             </value>
             <value>
                 <fullName>Payment Duplicated</fullName>
@@ -153,10 +153,10 @@
                 <label>Payment Overdrawn</label>
             </value>
             <value>
-                <fullName>Claim not for value[Claim requesting direct debit agreement and not amount]</fullName>
+                <fullName>Claim not for value</fullName>
                 <default>false</default>
                 <isActive>false</isActive>
-                <label>Claim not for value[Claim requesting direct debit agreement and not amount]</label>
+                <label>Claim not for value</label>
             </value>
             <value>
                 <fullName>Unsolicited</fullName>
