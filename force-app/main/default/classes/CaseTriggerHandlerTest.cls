@@ -2041,7 +2041,9 @@ private class CaseTriggerHandlerTest {
       RecordTypeId = GetHelpConstants.CARD_DISPUTE_RT_ID,
       Dispute_Reason__c = 'Charged Incorrect Amount',
       Origin = 'Chat',
-      Transaction_Id__c = transactionId
+      Transaction_Id__c = transactionId,
+      Description = 'Sample description',
+      Amount_Of_Credit_Due__c = 50
     );
 
     insert openDispute1;
@@ -2052,7 +2054,9 @@ private class CaseTriggerHandlerTest {
       RecordTypeId = GetHelpConstants.CARD_DISPUTE_RT_ID,
       Dispute_Reason__c = 'Charged Incorrect Amount',
       Origin = 'Chat',
-      Transaction_Id__c = transactionId
+      Transaction_Id__c = transactionId,
+      Description = 'Sample description',
+      Amount_Of_Credit_Due__c = 50
     );
     Test.startTest();
     try {
@@ -2102,7 +2106,9 @@ private class CaseTriggerHandlerTest {
       Dispute_Reason__c = 'Charged Incorrect Amount',
       Origin = 'Chat',
       Transaction_Id__c = transactionId,
-      Status = 'Closed'
+      Status = 'Closed',
+      Description = 'Sample description',
+      Amount_Of_Credit_Due__c = 50
     );
 
     insert openDispute1;
@@ -2113,7 +2119,9 @@ private class CaseTriggerHandlerTest {
       RecordTypeId = GetHelpConstants.CARD_DISPUTE_RT_ID,
       Dispute_Reason__c = 'Charged Incorrect Amount',
       Origin = 'Chat',
-      Transaction_Id__c = transactionId
+      Transaction_Id__c = transactionId,
+      Description = 'Sample description',
+      Amount_Of_Credit_Due__c = 50
     );
     Test.startTest();
     try {
