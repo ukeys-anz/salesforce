@@ -75,9 +75,15 @@
     },
     {
       "name": "Deployment User",
-      "profile": "No Access",
+      "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
-      "permissionsets": ["SFDX_GCB", "EinsteinAnalyticsPlusAdmin"],
+      "permissionsets": [
+        "API_Only",
+        "Key_Manager",
+        "SFDX_GCB",
+        "EinsteinAnalyticsPlusAdmin",
+        "SFDX_Deploy"
+      ],
       "type": "system"
     },
     {
