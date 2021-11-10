@@ -9,8 +9,8 @@ ISPICKVAL(Dispute_Reason__c, &quot;Product Defective or Unsatisfactory&quot;),
 OR(
 ISBLANK(Description),
 ISPICKVAL(Goods_Or_Services_Returned__c,&apos;&apos;),
-ISPICKVAL(Goods_Or_Services_Returned__c,&apos;Yes&apos;) &amp;&amp;
-ISBLANK(Date_Goods_Were_Returned_Or_Services_can__c),
+AND(ISPICKVAL(Goods_Or_Services_Returned__c,&apos;Y&apos;),
+ISBLANK(Date_Goods_Were_Returned_Or_Services_can__c)),
 ISBLANK(Merchant_Description__c)
 )
 )</errorConditionFormula>

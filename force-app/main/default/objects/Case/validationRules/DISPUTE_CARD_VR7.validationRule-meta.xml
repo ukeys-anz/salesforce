@@ -9,7 +9,8 @@ ISPICKVAL(Dispute_Reason__c, &quot;Product Didn&apos;t Arrive&quot;),
 OR(
 ISBLANK(Description),
 ISBLANK(Date_Of_Expected_Delivery_Service__c),
-ISPICKVAL(Customer_Contacted_Merchant__c,&apos;&apos;),
+OR(ISPICKVAL(Customer_Contacted_Merchant__c, &apos;&apos;),
+ISPICKVAL(Customer_Contacted_Merchant__c, &apos;NA&apos;)),
 ISBLANK(Merchant_Description__c)
 )
 )</errorConditionFormula>

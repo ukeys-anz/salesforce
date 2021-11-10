@@ -9,7 +9,8 @@ ISPICKVAL(Dispute_Reason__c, &quot;Charged more than once&quot;),
 OR(
 ISBLANK(Description),
 ISBLANK(Amount_Of_Credit_Due__c),
-ISPICKVAL(Customer_Contacted_Merchant__c, &apos;&apos;),
+OR(ISPICKVAL(Customer_Contacted_Merchant__c, &apos;&apos;),
+ISPICKVAL(Customer_Contacted_Merchant__c, &apos;NA&apos;)),
 ISBLANK(Merchant_Description__c)
 )
 )</errorConditionFormula>

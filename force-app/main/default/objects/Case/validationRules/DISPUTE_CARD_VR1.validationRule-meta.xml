@@ -9,10 +9,15 @@ RecordType.DeveloperName = &apos;Card_Dispute&apos;,
 ISPICKVAL(Dispute_Reason__c, &quot;Don&apos;t recognise the transaction&quot;),
 OR(
  ISBLANK(Description),
- ISPICKVAL(Is_The_Card_Lost_Stolen__c, &apos;&apos;),
- ISPICKVAL(Is_The_Card_Lost_Stolen__c, &apos;No&apos;) &amp;&amp;
- ISPICKVAL(Card_In_Possession_During_Transaction__c,&apos;&apos;),
- ISPICKVAL(Has_The_Card_Been_Stopped__c,&apos;&apos;)
+ OR(ISPICKVAL(Is_The_Card_Lost_Stolen__c, &apos;&apos;), 
+ ISPICKVAL(Is_The_Card_Lost_Stolen__c, &apos;NA&apos;)),
+ AND(
+ ISPICKVAL(Is_The_Card_Lost_Stolen__c, &apos;No&apos;),
+ OR(ISPICKVAL(Card_In_Possession_During_Transaction__c,&apos;&apos;),
+ ISPICKVAL(Card_In_Possession_During_Transaction__c,&apos;NA&apos;))
+ ),
+ OR(ISPICKVAL(Has_The_Card_Been_Stopped__c, &apos;&apos;), 
+ ISPICKVAL(Has_The_Card_Been_Stopped__c, &apos;NA&apos;))
 )
 )</errorConditionFormula>
     <errorMessage>These fields are required: Description of Issue, Is The Card Lost/Stolen and Has The Card Been Stopped. If the Card In Possession During Transaction is No, then Card In Possession During Transaction is required.</errorMessage>
