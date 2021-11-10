@@ -7,9 +7,9 @@ $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
 RecordType.DeveloperName = &apos;NPP_Dispute&apos;,
 ISPICKVAL(Dispute_Reason__c, &quot;Incorrect Amount Transferred&quot;),
 OR(
-ISBLANK(Customer_Description__c),
+ISBLANK(Description),
 ISBLANK(Intended_Amount__c)
 )
 )</errorConditionFormula>
-    <errorMessage>These fields are required: Customer Description, Intended Amount.</errorMessage>
+    <errorMessage>These fields are required: Description of Issue, Intended Amount.</errorMessage>
 </ValidationRule>

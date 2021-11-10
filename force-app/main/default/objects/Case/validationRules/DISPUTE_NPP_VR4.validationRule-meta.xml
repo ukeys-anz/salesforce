@@ -9,7 +9,7 @@ OR(
 ISPICKVAL(Dispute_Reason__c, &quot;Return money received from an unknown person&quot;),
 ISPICKVAL(Dispute_Reason__c, &quot;Confirm Payee Name (Only for Salesforce)&quot;),
 ISPICKVAL(Dispute_Reason__c, &quot;Duplicate Transaction&quot;)),
-ISBLANK(Customer_Description__c)
+ISBLANK(Description)
 )</errorConditionFormula>
-    <errorMessage>Please provide Customer Description.</errorMessage>
+    <errorMessage>Please provide Description of Issue.</errorMessage>
 </ValidationRule>

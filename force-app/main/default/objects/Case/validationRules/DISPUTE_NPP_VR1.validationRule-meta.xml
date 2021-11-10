@@ -8,11 +8,11 @@ RecordType.DeveloperName = &apos;NPP_Dispute&apos;,
 ISPICKVAL(Dispute_Reason__c, &quot;Incorrect Account Details&quot;),
 Transaction_Type__c = &apos;TRANSACTION_TYPE_BSB_ACC_NUM&apos;,
 OR(
-ISBLANK(Customer_Description__c),
+ISBLANK(Description),
 ISBLANK(Intended_Account_BSB__c),
 ISBLANK(Intended_Account_Name__c),
 ISBLANK(Intended_Account_Number__c)
 )
 )</errorConditionFormula>
-    <errorMessage>These fields are required: Customer Description, Intended Account BSB, Intended Account Name, Intended Account Number.</errorMessage>
+    <errorMessage>These fields are required: Description of Issue, Intended Account BSB, Intended Account Name, Intended Account Number.</errorMessage>
 </ValidationRule>

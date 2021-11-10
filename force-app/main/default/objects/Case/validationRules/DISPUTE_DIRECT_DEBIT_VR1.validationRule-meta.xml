@@ -5,7 +5,7 @@
     <errorConditionFormula>AND(
 $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
 RecordType.DeveloperName = &apos;Direct_Debit_Dispute&apos;,
-ISBLANK(Customer_Description__c)
+ISBLANK(Description)
 )</errorConditionFormula>
-    <errorMessage>Please provide Customer Description.</errorMessage>
+    <errorMessage>Please provide Description of Issue.</errorMessage>
 </ValidationRule>

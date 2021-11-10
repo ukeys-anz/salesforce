@@ -8,10 +8,10 @@ RecordType.DeveloperName = &apos;NPP_Dispute&apos;,
 ISPICKVAL(Dispute_Reason__c, &quot;Incorrect Account Details&quot;),
 Transaction_Type__c = &apos;TRANSACTION_TYPE_PAYID&apos;,
 OR(
-ISBLANK(Customer_Description__c),
+ISBLANK(Description),
 ISPICKVAL(Intended_Pay_Id_Type__c,&apos;&apos;),
 ISBLANK(Intended_Pay_Id_Value__c)
 )
 )</errorConditionFormula>
-    <errorMessage>These fields are required: Customer Description, Intended Pay Id Type, Intended Pay Id Value.</errorMessage>
+    <errorMessage>These fields are required: Description of Issue, Intended Pay Id Type, Intended Pay Id Value.</errorMessage>
 </ValidationRule>
