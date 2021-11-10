@@ -4,8 +4,10 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Customer describing what happened between them and the merchant</description>
+    <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
-    <label>Merchant Description</label>
+    <inlineHelpText>Describe any interactions with the merchant or why customer hasn&apos;t contacted them directly.</inlineHelpText>
+    <label>What Happened With Merchant</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

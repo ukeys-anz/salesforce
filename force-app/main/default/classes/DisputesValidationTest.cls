@@ -53,7 +53,7 @@ public with sharing class DisputesValidationTest {
         Is_The_Card_Lost_Stolen__c = 'Lost',
         Status = 'Open',
         Queue__c = null,
-        Customer_Description__c = 'Some description',
+        Description = 'Some description',
         Regular_Payment_Cancellation_Date__c = Date.valueOf('2021-10-15'),
         Customer_Contacted_Merchant__c = 'Yes',
         Merchant_Description__c = 'Coles'

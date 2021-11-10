@@ -7,10 +7,10 @@ $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
 RecordType.DeveloperName = &apos;ATM_Dispute&apos;,
 ISPICKVAL(Dispute_Reason__c, &quot;Cash Dispensing Error&quot;),
 OR(
-ISBLANK(Customer_Description__c),
+ISBLANK(Description),
 ISBLANK(Received_Amount__c),
 ISBLANK(Refund_Request_Date__c)
 )
 )</errorConditionFormula>
-    <errorMessage>These fields are required: Customer Description, Received Amount,  Refund Request Date.</errorMessage>
+    <errorMessage>These fields are required: Description of Issue, Received Amount,  Refund Request Date.</errorMessage>
 </ValidationRule>

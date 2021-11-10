@@ -5,6 +5,7 @@
     <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Name of the system where case was created.</description>
     <externalId>false</externalId>
+    <inlineHelpText>Name of external system.</inlineHelpText>
     <label>External System</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>

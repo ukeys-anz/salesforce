@@ -7,11 +7,11 @@ $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
 RecordType.DeveloperName = &apos;Card_Dispute&apos;,
 ISPICKVAL(Dispute_Reason__c, &quot;Product Didn&apos;t Arrive&quot;),
 OR(
-ISBLANK(Customer_Description__c),
+ISBLANK(Description),
 ISBLANK(Date_Of_Expected_Delivery_Service__c),
 ISPICKVAL(Customer_Contacted_Merchant__c,&apos;&apos;),
 ISBLANK(Merchant_Description__c)
 )
 )</errorConditionFormula>
-    <errorMessage>These fields are required: Customer Description, Date of Expected Delivery/Service,  Customer Contacted Merchant, Merchant Description.</errorMessage>
+    <errorMessage>These fields are required: Description of Issue, Date of Expected Delivery/Service,  Customer Contacted Merchant, Merchant Description.</errorMessage>
 </ValidationRule>

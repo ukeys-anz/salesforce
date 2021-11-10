@@ -5,7 +5,7 @@
     <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Incorrect Payee/Incorrect Account number/Payment not received by Recipient</description>
     <externalId>false</externalId>
-    <inlineHelpText>Incorrect Payee/Incorrect Account number/Payment not received by Recipient</inlineHelpText>
+    <inlineHelpText>Please select a dispute subtype.</inlineHelpText>
     <label>Dispute Subtype</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
