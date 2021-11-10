@@ -315,7 +315,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       CardListModel cardsModel = coachAPI.getCardList('1111');
       Test.stopTest();
 
-      System.assertEquals(4, cardsModel.cards.size());
+      System.assertEquals(5, cardsModel.cards.size());
     }
   }
 
@@ -422,6 +422,34 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       }
       Test.stopTest();
       System.assertEquals('Replace card failed', resultException.getMessage());
+    }
+  }
+
+  /**
+   * @description fetch invalid card list
+   */
+  @isTest
+  static void cardListCheckNullOnWalletAttribute() {
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      // GIVEN
+      // a user clicks on "Get Card Details" button resulting in a call to getCardList()
+      CardListModel cardsModel;
+
+      // WHEN
+      // the card Fabric API does not return the 'wallet' attribute at all in the payload for at least one card
+      Test.startTest();
+      CoachBankingAPIRepository coachAPI = new CoachBankingAPIRepository();
+      cardsModel = coachAPI.getCardList('1111');
+      Test.stopTest();
+
+      // THEN
+      // parsing data on to CardListModel should not fail
+      System.assertEquals(
+        5,
+        cardsModel.cards.size(),
+        'Error occured while parsing JSON payload related to cards'
+      );
     }
   }
 
