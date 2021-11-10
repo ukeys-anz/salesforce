@@ -356,7 +356,7 @@
         <label>Nikki Ball</label>
     </customValue>
     <customValue>
-        <fullName>Swati.Jain@anz.com</fullName>
+        <fullName>Swati.Jain2@anz.com</fullName>
         <default>false</default>
         <label>Swati Jain</label>
     </customValue>
@@ -601,12 +601,6 @@
         <label>Sarah Clark</label>
     </customValue>
     <customValue>
-        <fullName>Swati.Jain2@anz.com</fullName>
-        <default>false</default>
-        <isActive>false</isActive>
-        <label>Swati Jain</label>
-    </customValue>
-    <customValue>
         <fullName>Swetha.Chaparala@anz.com</fullName>
         <default>false</default>
         <isActive>false</isActive>
@@ -635,12 +629,6 @@
         <default>false</default>
         <isActive>false</isActive>
         <label>Maria.Serrano2@anz.com</label>
-    </customValue>
-    <customValue>
-        <fullName>Neena Mitchell</fullName>
-        <default>false</default>
-        <isActive>false</isActive>
-        <label>Neena Mitchell</label>
     </customValue>
     <customValue>
         <fullName>Rose.Schupak@anz.com</fullName>
