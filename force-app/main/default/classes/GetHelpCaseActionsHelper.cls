@@ -323,6 +323,8 @@ public with sharing class GetHelpCaseActionsHelper {
   public static Map<String, String> getCaseNumberByTransactionId(
     Set<String> transactionIds
   ) {
+    //remove any null values from the set to ensure case can be created
+    transactionIds.remove(null);
     Map<String, String> caseNumberByTransactionId = new Map<String, String>();
     for (Case c : [
       SELECT CaseNumber__c, Transaction_Id__c

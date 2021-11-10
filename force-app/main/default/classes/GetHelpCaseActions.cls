@@ -441,7 +441,10 @@ public with sharing class GetHelpCaseActions {
     Set<String> transactionIds = new Set<String>();
     List<Case> disputeCases = new List<Case>();
     for (Case c : records) {
-      if (GetHelpCaseActionsHelper.isDispute(c)) {
+      if (
+        String.isNotBlank(c.Transaction_Id__c) &&
+        GetHelpCaseActionsHelper.isDispute(c)
+      ) {
         transactionIds.add(c.Transaction_Id__c);
         disputeCases.add(c);
       }
