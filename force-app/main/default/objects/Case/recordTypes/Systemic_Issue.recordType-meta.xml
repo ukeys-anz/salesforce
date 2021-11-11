@@ -350,6 +350,65 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>SI_Lead_Portfolio__c</picklist>
+        <values>
+            <fullName>Banking Services Portfolio %28Institutional%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Owners Portfolio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Resolution Portfolio %28CRP%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Service Operations %28CSO%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Data %28Digital %26 Transformation Australia%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Digital Portfolio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Group Services %28AR%26C%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Owners Portfolio %28AR%26C%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Responsible Banking Portfolio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retail %28AR%26C%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Risk Australia %28Group Risk%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SMADS %28AR%26C%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wealth %28AR%26C%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>SI_Key_Business_Contacts__c</picklist>
         <values>
             <fullName>Aimee%2ENgo%40anz%2Ecom</fullName>
