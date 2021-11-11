@@ -1,10 +1,10 @@
 {
   "statements": [
     {
-      "statementId": "0000000-1111111",
-      "accountNumber": "00000000",
+      "statement_id": "0000000-1111111",
+      "account_number": "00000000",
       "bsb": "1111111",
-      "statementFrom": {
+      "statement_from": {
         "year": {
           "value": 2021
         },
@@ -15,7 +15,7 @@
           "value": 5
         }
       },
-      "statementTo": {
+      "statement_to": {
         "year": {
           "value": 2021
         },
@@ -28,10 +28,10 @@
       }
     },
     {
-      "statementId": "22222222-1111111",
-      "accountNumber": "010101010101",
+      "statement_id": "22222222-1111111",
+      "account_number": "010101010101",
       "bsb": "000000",
-      "statementFrom": {
+      "statement_from": {
         "year": {
           "value": 2021
         },
@@ -42,7 +42,7 @@
           "value": 5
         }
       },
-      "statementTo": {
+      "statement_to": {
         "year": {
           "value": 2021
         },
@@ -55,10 +55,10 @@
       }
     },
     {
-      "statementId": "33333-444444",
-      "accountNumber": "0000000",
+      "statement_id": "33333-444444",
+      "account_number": "0000000",
       "bsb": "00000",
-      "statementFrom": {
+      "statement_from": {
         "year": {
           "value": 2021
         },
@@ -69,7 +69,7 @@
           "value": 6
         }
       },
-      "statementTo": {
+      "statement_to": {
         "year": {
           "value": 2021
         },
@@ -82,10 +82,10 @@
       }
     },
     {
-      "statementId": "555555555-4444444",
-      "accountNumber": "000000000",
+      "statement_id": "555555555-4444444",
+      "account_number": "000000000",
       "bsb": "333333",
-      "statementFrom": {
+      "statement_from": {
         "year": {
           "value": 2021
         },
@@ -96,7 +96,7 @@
           "value": 6
         }
       },
-      "statementTo": {
+      "statement_to": {
         "year": {
           "value": 2021
         },

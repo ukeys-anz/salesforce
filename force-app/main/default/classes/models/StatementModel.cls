@@ -1,4 +1,10 @@
 /**
+ * Suppressing PMD naming convention warnings as some fields return in snake case formatting from the API.
+ */
+@SuppressWarnings(
+  'PMD.FieldNamingConventions'
+)
+/**
  * @author Chiranjeeb Dhar
  * @since October 2021
  * @description Model for statements API
@@ -13,26 +19,26 @@ public with sharing class StatementModel extends CalloutModel {
    */
   public class Statements {
     @AuraEnabled
-    public String statementId;
+    public String statement_id;
     @AuraEnabled
-    public String accountNumber;
+    public String account_number;
     @AuraEnabled
-    public StatementFrom statementFrom;
+    public StatementFrom statement_from;
     @AuraEnabled
-    public StatementTo statementTo;
+    public StatementTo statement_to;
     /**
      * @description validates the response for expected values by the UI
      */
     @AuraEnabled
     public Boolean isValid {
       get {
-        return (String.isNotBlank(this.accountNumber) &&
-        (this.statementFrom?.year?.value != null &&
-        this.statementFrom?.month?.value != null &&
-        this.statementFrom?.day?.value != null) &&
-        (this.statementTo?.year?.value != null &&
-        this.statementTo?.month?.value != null &&
-        this.statementTo?.day?.value != null));
+        return (String.isNotBlank(this.account_number) &&
+        (this.statement_from?.year?.value != null &&
+        this.statement_from?.month?.value != null &&
+        this.statement_from?.day?.value != null) &&
+        (this.statement_to?.year?.value != null &&
+        this.statement_to?.month?.value != null &&
+        this.statement_to?.day?.value != null));
       }
       set;
     }
@@ -82,7 +88,7 @@ public with sharing class StatementModel extends CalloutModel {
    */
   public class StatementUrl {
     @AuraEnabled
-    public String statementId;
+    public String statement_id;
     @AuraEnabled
     public String url;
   }
@@ -134,22 +140,22 @@ public with sharing class StatementModel extends CalloutModel {
     String errorMsg = '';
 
     if (
-      statement.statementFrom?.year?.value == null ||
-      statement.statementTo?.year?.value == null
+      statement.statement_from?.year?.value == null ||
+      statement.statement_to?.year?.value == null
     ) {
       errorMsg += 'Year ';
     }
 
     if (
-      statement.statementFrom?.month?.value == null ||
-      statement.statementTo?.month?.value == null
+      statement.statement_from?.month?.value == null ||
+      statement.statement_to?.month?.value == null
     ) {
       errorMsg += 'Month ';
     }
 
     if (
-      statement.statementFrom?.day?.value == null ||
-      statement.statementTo?.day?.value == null
+      statement.statement_from?.day?.value == null ||
+      statement.statement_to?.day?.value == null
     ) {
       errorMsg += 'Day ';
     }

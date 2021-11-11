@@ -196,9 +196,9 @@ public with sharing class FabricService extends Service {
       headers,
       '{"page_size":'+
       pageSize+','+
-      '"account_numbers": ['+
+      '"account_numbers": ["'+
       accountNumber+
-      ']}'
+      '"]}'
     );
     return response;
   }
@@ -215,6 +215,7 @@ public with sharing class FabricService extends Service {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
     setFabricCommonHeaders(ocvID, headers);
+    headers.put('cache-control', 'no-store');
     HttpCalloutResponse response = calloutService.makeRestCallout(
       'callout:SF_MS_Fabric' + Label.MS_Get_StatementUrl+
       statementId,
