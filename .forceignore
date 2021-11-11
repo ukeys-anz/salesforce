@@ -88,9 +88,5 @@ type:DataCategoryGroup
 #Ignoring deleted platform event for Nov 10 develop merge - CMOS
 force-app/main/default/objects/IDR_CRC_Escalation_Event__e
 
-#Ignoring entitlement process for dispute-assisted sandbox as entitlment versioning is enabled in this sandbox and caused issue
-#during deployment, entitlement process will be deployed to this sandbox manually
-force-app/main/default/entitlementProcesses 
-
 #Ignoring SFDX_Deploy permission set as this caused too many issues during deployment
 force-app/main/default/permissionsets/SFDX_Deploy.permissionset-meta.xml
