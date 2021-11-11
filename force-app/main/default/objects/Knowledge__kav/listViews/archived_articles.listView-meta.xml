@@ -17,5 +17,6 @@
     <label>Archived Articles</label>
     <sharedTo>
         <role>Content_Writer</role>
+        <role>IDR_Content_Writer</role>
     </sharedTo>
 </ListView>
