@@ -1086,6 +1086,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>IDR_Letter_Approval__c.Customer_Data_updated__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>IDR_Letter_Approval__c.IDR_Auto_Approve__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2855,6 +2860,15 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
         <object>Task</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>Case_Record_Type_To_Exclude__mdt</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <userPermissions>
