@@ -18,6 +18,6 @@ public class TransactionHistoryModelTest {
     System.assert(obj.embedded.tags != null);
     System.assert(obj.embedded.merchants != null);
     System.assert(obj.embedded.categories != null);
-    System.assert(obj.count == '12');
+    System.assert(obj.count == '14');
   }
 }

@@ -91,6 +91,8 @@ public with sharing class TransactionHistoryModel extends CalloutModel {
     @AuraEnabled
     public Transfer transfer;
     @AuraEnabled
+    public Interest interest;
+    @AuraEnabled
     public String primary_anzx_category;
     @AuraEnabled
     public DateTime transaction_posted_time;
@@ -426,6 +428,14 @@ public with sharing class TransactionHistoryModel extends CalloutModel {
     public FieldValue payment_receipt_number;
     @AuraEnabled
     public FieldValue fabric_payee_id;
+  }
+
+  /**
+   * @description interest information related to the transaction
+   */
+  public class Interest {
+    @AuraEnabled
+    public String sub_type;
   }
 
   /**
