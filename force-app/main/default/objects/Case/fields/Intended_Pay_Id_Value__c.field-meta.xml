@@ -6,7 +6,7 @@
     <description>The pay id value where the fund was supposed to go</description>
     <externalId>false</externalId>
     <inlineHelpText>Details of the PayID eg mobile, ABN/ACN number or email address.</inlineHelpText>
-    <label>Intended PayID Value</label>
+    <label>Intended PayID Details</label>
     <length>12</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

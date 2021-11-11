@@ -7,7 +7,7 @@
     <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
     <inlineHelpText>Describe any interactions with the merchant or why customer hasn&apos;t contacted them directly.</inlineHelpText>
-    <label>What Happened With Merchant</label>
+    <label>What Happened with Merchant?</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

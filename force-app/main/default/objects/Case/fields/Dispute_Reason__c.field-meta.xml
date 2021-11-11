@@ -153,12 +153,6 @@
                 <label>Payment Overdrawn</label>
             </value>
             <value>
-                <fullName>Claim not for value</fullName>
-                <default>false</default>
-                <isActive>false</isActive>
-                <label>Claim not for value</label>
-            </value>
-            <value>
                 <fullName>Unsolicited</fullName>
                 <default>false</default>
                 <label>Unsolicited</label>
@@ -197,6 +191,11 @@
                 <fullName>Return money received from an unknown person</fullName>
                 <default>false</default>
                 <label>Return money received from an unknown person</label>
+            </value>
+            <value>
+                <fullName>Claim not for value</fullName>
+                <default>false</default>
+                <label>Claim not for value</label>
             </value>
         </valueSetDefinition>
     </valueSet>

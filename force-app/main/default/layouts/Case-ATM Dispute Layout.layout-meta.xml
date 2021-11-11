@@ -65,7 +65,7 @@
                 <field>Posted_Currency__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>Date_Posted__c</field>
             </layoutItems>
             <layoutItems>
@@ -120,6 +120,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Merchant_Description__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Refund_Request_Date__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>

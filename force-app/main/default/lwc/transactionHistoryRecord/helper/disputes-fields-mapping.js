@@ -21,7 +21,10 @@ const directDebitDisputesFieldsMapping = {
 
 const directEntryDisputesFieldsMapping = {
   Receipt__c: "pay_anyone.payment_receipt_number.value",
-  Crediting_Trace_Line__c: "traceId"
+  Crediting_Trace_Line__c: "traceId",
+  Crediting_Account_Name__c: "pay_anyone.other_entity.name",
+  Crediting_Account_Number__c: "pay_anyone.other_entity.account.transactionAccountNumber",
+  Crediting_Account_BSB__c: "pay_anyone.other_entity.account.bsb"
 };
 
 const nppDisputesFieldsMapping = {
