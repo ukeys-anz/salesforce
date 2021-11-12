@@ -16,6 +16,10 @@
         <apexClass>CaseHistoryObject</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>SubmitDisputeController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <description>Should only have required/minimum permissions to Read/Write Case related information for FraudX Agents.</description>
     <fieldPermissions>
         <editable>false</editable>
