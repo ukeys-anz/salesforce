@@ -1,10 +1,10 @@
 {
   "statements": [
     {
-      "statementId": "9e51911d-faa0-4051-aaa4-c326552d4701",
+      "statement_id": "9e51911d-faa0-4051-aaa4-c326552d4701",
       "accountNumber": "276658006",
       "bsb": "016338",
-      "statementFrom": {
+      "statement_from": {
         "year": {
           "value": 2021
         },
@@ -15,7 +15,7 @@
           "value": 5
         }
       },
-      "statementTo": {
+      "statement_to": {
         "year": {
           "value": 2021
         },
@@ -28,26 +28,26 @@
       }
     },
     {
-      "statementId": "8867b542-78e5-4a86-a230-410dce103eb3",
+      "statement_id": "8867b542-78e5-4a86-a230-410dce103eb3",
       "accountNumber": "186229638",
       "bsb": "016338",
-      "statementFrom": {
+      "statement_from": {
         "year": {
           "value": 2021
         },
         "month": {
-          "value": 4
+          "value": 3
         },
         "day": {
           "value": 5
         }
       },
-      "statementTo": {
+      "statement_to": {
         "year": {
           "value": 2021
         },
         "month": {
-          "value": 9
+          "value": 8
         },
         "day": {
           "value": 4
@@ -55,10 +55,10 @@
       }
     },
     {
-      "statementId": "634ff321-5db9-47bd-8b38-2a311e657e7e",
+      "statement_id": "634ff321-5db9-47bd-8b38-2a311e657e7e",
       "accountNumber": "276658006",
       "bsb": "016338",
-      "statementFrom": {
+      "statement_from": {
         "year": {
           "value": 2021
         },
@@ -69,7 +69,7 @@
           "value": 6
         }
       },
-      "statementTo": {
+      "statement_to": {
         "year": {
           "value": 2021
         },
@@ -82,10 +82,10 @@
       }
     },
     {
-      "statementId": "53c49a77-f25c-4d28-927b-ca9cd7cd0215",
+      "statement_id": "53c49a77-f25c-4d28-927b-ca9cd7cd0215",
       "accountNumber": "186229638",
       "bsb": "016338",
-      "statementFrom": {
+      "statement_from": {
         "year": {
           "value": 2021
         },
@@ -96,7 +96,7 @@
           "value": 9
         }
       },
-      "statementTo": {
+      "statement_to": {
         "year": {
           "value": 2021
         },
@@ -104,15 +104,15 @@
           "value": 8
         },
         "day": {
-          "value": 5
+          "value": 13
         }
       }
     },
     {
-      "statementId": "53c49a77-f25c-4d28-927b-ca9cd7cd0215",
+      "statement_id": "53c49a77-f25c-4d28-927b-ca9cd7cd0215",
       "accountNumber": "186229638",
       "bsb": "016338",
-      "statementFrom": {
+      "statement_from": {
         "year": {
           "value": 2021
         },
@@ -123,12 +123,147 @@
           "value": 9
         }
       },
-      "statementTo": {
+      "statement_to": {
+        "year": {
+          "value": 2021
+        },
+        "month": {
+          "value": 11
+        },
+        "day": {
+          "value": 20
+        }
+      }
+    },
+    {
+      "statement_id": "9e51911d-faa0-4051-aaa4-c326552d4701",
+      "accountNumber": "276658006",
+      "bsb": "016338",
+      "statement_from": {
+        "year": {
+          "value": 2021
+        },
+        "month": {
+          "value": 3
+        },
+        "day": {
+          "value": 5
+        }
+      },
+      "statement_to": {
         "year": {
           "value": 2021
         },
         "month": {
           "value": 8
+        },
+        "day": {
+          "value": 4
+        }
+      }
+    },
+    {
+      "statement_id": "8867b542-78e5-4a86-a230-410dce103eb3",
+      "accountNumber": "186229638",
+      "bsb": "016338",
+      "statement_from": {
+        "year": {
+          "value": 2021
+        },
+        "month": {
+          "value": 2
+        },
+        "day": {
+          "value": 5
+        }
+      },
+      "statement_to": {
+        "year": {
+          "value": 2021
+        },
+        "month": {
+          "value": 7
+        },
+        "day": {
+          "value": 4
+        }
+      }
+    },
+    {
+      "statement_id": "634ff321-5db9-47bd-8b38-2a311e657e7e",
+      "accountNumber": "276658006",
+      "bsb": "016338",
+      "statement_from": {
+        "year": {
+          "value": 2021
+        },
+        "month": {
+          "value": 1
+        },
+        "day": {
+          "value": 6
+        }
+      },
+      "statement_to": {
+        "year": {
+          "value": 2021
+        },
+        "month": {
+          "value": 6
+        },
+        "day": {
+          "value": 5
+        }
+      }
+    },
+    {
+      "statement_id": "53c49a77-f25c-4d28-927b-ca9cd7cd0215",
+      "accountNumber": "186229638",
+      "bsb": "016338",
+      "statement_from": {
+        "year": {
+          "value": 2021
+        },
+        "month": {
+          "value": 11
+        },
+        "day": {
+          "value": 9
+        }
+      },
+      "statement_to": {
+        "year": {
+          "value": 2021
+        },
+        "month": {
+          "value": 12
+        },
+        "day": {
+          "value": 5
+        }
+      }
+    },
+    {
+      "statement_id": "53c49a77-f25c-4d28-927b-ca9cd7cd0215",
+      "accountNumber": "186229638",
+      "bsb": "016338",
+      "statement_from": {
+        "year": {
+          "value": 2021
+        },
+        "month": {
+          "value": 10
+        },
+        "day": {
+          "value": 9
+        }
+      },
+      "statement_to": {
+        "year": {
+          "value": 2021
+        },
+        "month": {
+          "value": 11
         },
         "day": {
           "value": 5

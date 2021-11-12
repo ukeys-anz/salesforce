@@ -1,6 +1,6 @@
 {
   "statement": {
-    "statementId": "0000-11111-22222",
+    "statement_id": "0000-11111-22222",
     "url": "https://test.invalid.com",
     "expiry": "2021-08-21T00:46:22.941790910Z"
   }

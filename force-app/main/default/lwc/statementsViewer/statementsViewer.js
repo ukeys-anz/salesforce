@@ -11,6 +11,8 @@ import FINANCIAL_ACCOUNT_ID_FIELD from "@salesforce/schema/FinServ__FinancialAcc
 import PRODUCT_NAME_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.Product_Name__c";
 import OCV_ID_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.OCV_ID__c";
 
+const DEFAULT_PAGE_SIZE = 10;
+
 const FIELDS = [
   FINANCIAL_ACCOUNT_NUMBER_FIELD,
   FINANCIAL_ACCOUNT_PRIMARY_OWNER_FIELD,
@@ -31,8 +33,8 @@ const columns = [
       variant: "base"
     }
   },
-  { label: "Start Date", fieldName: "startDate", sortable: true },
-  { label: "End Date", fieldName: "endDate" }
+  { label: "Start Date", fieldName: "startDate", type: "date", sortable: true },
+  { label: "End Date", fieldName: "endDate", type: "date" }
 ];
 
 const ERROR_UNKNOWN_TITLE = "An error has occurred.";
@@ -51,6 +53,7 @@ export default class StatementsViewer extends LightningElement {
   defaultSortDirection = "desc";
   sortDirection = "desc";
   isLoading = true;
+  showLoadMoreButton = true;
   error;
 
   get hasPermissionIssue() {
@@ -59,6 +62,14 @@ export default class StatementsViewer extends LightningElement {
 
   get hasError() {
     return this.error !== undefined && this.error !== null;
+  }
+
+  get hasStatements() {
+    return this.statements && this.statements.length > 0;
+  }
+
+  get hasMoreStatements() {
+    return this.showLoadMoreButton;
   }
 
   @wire(getRecord, {
@@ -73,10 +84,58 @@ export default class StatementsViewer extends LightningElement {
       this.financialAccountId = data.fields.Id.value;
       this.productName = data.fields.Product_Name__c.value;
       this.ocvId = data.fields.OCV_ID__c.value;
-      this.getStatementsData(this.ocvId, accountNumber);
+      this.getStatementsData(
+        this.ocvId,
+        accountNumber,
+        DEFAULT_PAGE_SIZE.toString()
+      );
     } else if (error) {
       this.handleError(error);
     }
+  }
+
+  async getStatementsData(ocvId, accountNumber, pageSize) {
+    try {
+      const { statements } = await getStatements({
+        ocvId,
+        accountNumber,
+        pageSize
+      });
+
+      if (!statements || (statements && !Array.isArray(statements))) {
+        throw new Error("Error: Unknown data.");
+      }
+
+      if (statements.length === 0) {
+        this.statements = [];
+      } else if (statements.length > 0) {
+        // if no more statements, hide load more button and no need to process data
+        if (this.statements && this.statements.length === statements.length) {
+          this.showLoadMoreButton = false;
+          this.isLoading = false;
+          return;
+        }
+
+        const formattedData = this.formatStatements(
+          statements,
+          this.productName
+        );
+
+        this.sortStatements(formattedData, "startDate", "desc");
+      }
+    } catch (error) {
+      this.handleError(error);
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  async handleLoadMore() {
+    this.isLoading = true;
+
+    const pageSize = this.statements.length + DEFAULT_PAGE_SIZE;
+
+    this.getStatementsData(this.ocvId, this.accountNumber, pageSize.toString());
   }
 
   async handleRowAction(event) {
@@ -93,41 +152,13 @@ export default class StatementsViewer extends LightningElement {
         statementType: this.productName
       };
 
-      const signedUrl = await getStatementUrl({
+      const { statement } = await getStatementUrl({
         ocvId: this.ocvId,
         statementId: row.statementId,
         additionalDetails: additionalDetails
       });
 
-      window.open(signedUrl, "_blank");
-    } catch (error) {
-      this.handleError(error);
-    } finally {
-      this.isLoading = false;
-    }
-  }
-
-  async getStatementsData(ocvId, accountNumber) {
-    try {
-      const { statements } = await getStatements({
-        ocvId,
-        accountNumber
-      });
-
-      if (!statements || (statements && !Array.isArray(statements))) {
-        throw new Error("Error: Unknown data.");
-      }
-
-      if (statements.length === 0) {
-        this.statements = [];
-        this.error = "There are currently no statements for this account.";
-      } else if (statements.length > 0) {
-        const formattedData = this.formatStatements(
-          statements,
-          this.productName
-        );
-        this.sortStatements(formattedData, "startDate", "desc");
-      }
+      window.open(statement.url, "_blank");
     } catch (error) {
       this.handleError(error);
     } finally {
@@ -138,9 +169,9 @@ export default class StatementsViewer extends LightningElement {
   formatStatements(data, productName) {
     return data.map((item) => {
       const statement = {};
-      statement.statementId = item.statementId;
-      statement.startDate = this.formatDate(item.statementFrom);
-      statement.endDate = this.formatDate(item.statementTo);
+      statement.statementId = item.statement_id;
+      statement.startDate = this.formatDate(item.statement_from);
+      statement.endDate = this.formatDate(item.statement_to);
       statement.productName = productName;
 
       return statement;
@@ -148,7 +179,12 @@ export default class StatementsViewer extends LightningElement {
   }
 
   formatDate(data) {
-    return `${data.day.value}/${data.month.value}/${data.year.value}`;
+    const month =
+      Number(data.month.value) >= 1 && Number(data.month.value) <= 9
+        ? `0${data.month.value}`
+        : data.month.value;
+
+    return `${data.year.value}-${month}-${data.day.value}`;
   }
 
   handleSort(event) {
@@ -157,29 +193,28 @@ export default class StatementsViewer extends LightningElement {
   }
 
   sortStatements(data, sortedBy, sortDirection) {
-    const cloneData = [...data];
+    // create a copy of statements data before sorting
+    let cloneData = [...data];
 
-    cloneData.sort(this.sortBy(sortedBy, sortDirection === "asc" ? 1 : -1));
+    let parser = (v) => v;
+
+    if (sortedBy.type === "date") {
+      parser = (v) => v && new Date(v);
+    }
+
+    let sortMult = sortDirection === "asc" ? 1 : -1;
+
+    cloneData.sort((a, b) => {
+      let a1 = parser(a[sortedBy]),
+        b1 = parser(b[sortedBy]);
+      let r1 = a1 < b1,
+        r2 = a1 === b1;
+      return r2 ? 0 : r1 ? -sortMult : sortMult;
+    });
 
     this.statements = cloneData;
     this.sortDirection = sortDirection;
     this.sortedBy = sortedBy;
-  }
-
-  sortBy(field, reverse, primer) {
-    const key = primer
-      ? function (x) {
-          return primer(x[field]);
-        }
-      : function (x) {
-          return x[field];
-        };
-
-    return function (a, b) {
-      a = key(a);
-      b = key(b);
-      return reverse * ((a > b) - (b > a));
-    };
   }
 
   handleError(error) {

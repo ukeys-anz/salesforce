@@ -23,19 +23,44 @@
       </template>
 
       <template if:false={hasError}>
-        <lightning-datatable
-          key-field="statementId"
-          columns={columns}
-          data={statements}
-          hide-checkbox-column
-          onrowaction={handleRowAction}
-          default-sort-direction={defaultSortDirection}
-          sorted-direction={sortDirection}
-          sorted-by={sortedBy}
-          onsort={handleSort}
-          data-id="statements_table"
-        >
-        </lightning-datatable>
+        <template if:false={hasStatements}>
+          <span
+            class="slds-var-m-vertical_large slds-align_absolute-center slds-text-heading_small slds-text-title_bold"
+          >
+            There are currently no statements for this account.
+          </span>
+        </template>
+        <template if:true={hasStatements}>
+          <span
+            class="slds-var-m-vertical_large slds-align_absolute-center slds-text-heading_small slds-text-title_bold"
+          >
+            Only save statements in the permitted share folder and delete
+            immediately after it's been sent to the customer.
+          </span>
+          <lightning-datatable
+            key-field="statementId"
+            columns={columns}
+            data={statements}
+            hide-checkbox-column
+            onrowaction={handleRowAction}
+            default-sort-direction={defaultSortDirection}
+            sorted-direction={sortDirection}
+            sorted-by={sortedBy}
+            onsort={handleSort}
+            data-id="statements_table"
+          >
+          </lightning-datatable>
+        </template>
+        <template if:true={hasMoreStatements}>
+          <lightning-button
+            variant="base"
+            label="Load More"
+            title="Load More Statements"
+            onclick={handleLoadMore}
+            class="slds-align_absolute-center slds-var-m-top_x-small"
+            data-id="load_more_button"
+          ></lightning-button>
+        </template>
       </template>
     </template>
   </template>

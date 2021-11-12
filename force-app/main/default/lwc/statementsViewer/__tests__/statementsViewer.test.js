@@ -86,6 +86,37 @@ describe("c-statements-viewer", () => {
     expect(dataTableEl).toBeTruthy();
   });
 
+  it("test load more button", async () => {
+    getStatements.mockResolvedValue(APEX_GET_STATEMENTS_SUCCESS);
+
+    const element = createElement("c-statements-viewer", {
+      is: statementsViewer
+    });
+
+    element.recordId = RECORD_ID;
+    document.body.appendChild(element);
+
+    wireAdapter.emit(WIRED_FINANCIAL_ACCOUNT);
+
+    // Wait for any asynchronous DOM updates
+    await flushPromises();
+
+    let loadBtnEl = element.shadowRoot.querySelector(
+      "[data-id='load_more_button']"
+    );
+
+    expect(loadBtnEl).toBeTruthy();
+
+    loadBtnEl.click();
+
+    await flushPromises();
+
+    let dataTableEl = element.shadowRoot.querySelector(
+      "[data-id='statements_table']"
+    );
+    expect(dataTableEl).toBeTruthy();
+  });
+
   it("test sort statement table", async () => {
     getStatements.mockResolvedValue(APEX_GET_STATEMENTS_SUCCESS);
 

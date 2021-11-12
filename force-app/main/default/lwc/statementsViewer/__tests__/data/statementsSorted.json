@@ -1,32 +1,62 @@
 [
   {
-    "statementId": "53c49a77-f25c-4d28-927b-ca9cd7cd0215",
+    "endDate": "2021-12-5",
     "productName": "ANZ Save",
-    "startDate": "9/8/2021",
-    "endDate": "5/8/2021"
+    "startDate": "2021-11-9",
+    "statementId": "53c49a77-f25c-4d28-927b-ca9cd7cd0215"
   },
   {
-    "statementId": "53c49a77-f25c-4d28-927b-ca9cd7cd0215",
+    "endDate": "2021-11-5",
     "productName": "ANZ Save",
-    "startDate": "9/7/2021",
-    "endDate": "5/8/2021"
+    "startDate": "2021-10-9",
+    "statementId": "53c49a77-f25c-4d28-927b-ca9cd7cd0215"
   },
   {
-    "statementId": "634ff321-5db9-47bd-8b38-2a311e657e7e",
+    "endDate": "2021-11-20",
     "productName": "ANZ Save",
-    "startDate": "6/7/2021",
-    "endDate": "5/8/2021"
+    "startDate": "2021-08-9",
+    "statementId": "53c49a77-f25c-4d28-927b-ca9cd7cd0215"
   },
   {
-    "statementId": "9e51911d-faa0-4051-aaa4-c326552d4701",
+    "endDate": "2021-08-13",
     "productName": "ANZ Save",
-    "startDate": "5/4/2021",
-    "endDate": "4/9/2021"
+    "startDate": "2021-07-9",
+    "statementId": "53c49a77-f25c-4d28-927b-ca9cd7cd0215"
   },
   {
-    "statementId": "8867b542-78e5-4a86-a230-410dce103eb3",
+    "endDate": "2021-08-5",
     "productName": "ANZ Save",
-    "startDate": "5/4/2021",
-    "endDate": "4/9/2021"
+    "startDate": "2021-07-6",
+    "statementId": "634ff321-5db9-47bd-8b38-2a311e657e7e"
+  },
+  {
+    "endDate": "2021-09-4",
+    "productName": "ANZ Save",
+    "startDate": "2021-04-5",
+    "statementId": "9e51911d-faa0-4051-aaa4-c326552d4701"
+  },
+  {
+    "endDate": "2021-08-4",
+    "productName": "ANZ Save",
+    "startDate": "2021-03-5",
+    "statementId": "8867b542-78e5-4a86-a230-410dce103eb3"
+  },
+  {
+    "endDate": "2021-08-4",
+    "productName": "ANZ Save",
+    "startDate": "2021-03-5",
+    "statementId": "9e51911d-faa0-4051-aaa4-c326552d4701"
+  },
+  {
+    "endDate": "2021-07-4",
+    "productName": "ANZ Save",
+    "startDate": "2021-02-5",
+    "statementId": "8867b542-78e5-4a86-a230-410dce103eb3"
+  },
+  {
+    "endDate": "2021-06-5",
+    "productName": "ANZ Save",
+    "startDate": "2021-01-6",
+    "statementId": "634ff321-5db9-47bd-8b38-2a311e657e7e"
   }
 ]
