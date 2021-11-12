@@ -9,16 +9,6 @@
 @SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
 public with sharing class IDRCaseActions {
   @TestVisible
-  private static final String OPEN_STATUS = 'Open';
-  @TestVisible
-  private static final String UNDER_INVESTIGATION_STATUS = 'Under Investigation';
-  private static final String ESCALATED_STATUS = 'Escalated';
-  private static final String REOPENED_STATUS = 'Re-opened';
-  private static final String CLOSED_STATUS = 'Closed';
-  private static final String RESOLVED_STATUS = 'Resolved';
-  private static final String WITHDRAWN_STATUS = 'Withdrawn';
-  private static final string BANKER_ESCALATION_EMAIL = 'EscalationEmailNotification';
-  @TestVisible
   private static final string DAY_5_ESCALATION_REASON = 'Day 5 auto escalation';
 
   private static final String ESCALATED_TO_CRC_API_NAME = '1';
@@ -33,8 +23,7 @@ public with sharing class IDRCaseActions {
 
   private static final String CUSTOMER_NUMBER_VALIDATION_ERROR = 'This field can no longer be edited. In the event that the Customer Number/Identifier is incorrect, the case must be withdrawn and a new case created with the correct Customer Number.';
 
-  @TestVisible
-  private static List<IDR_CRC_Escalation_Event__e> idrCaseEscalations;
+  private static final String CANNOT_CLOSE_CASE_WITH_PENDING_TASK_ERROR = 'You cannot close the case as there is currently an open \'Pend Case\' task. Please review and action the open \'Pend Case\' task before closing the case.';
 
   //Case Owner Id's for getting the Division to be copied in IDR_Office__c.
   private static Set<ID> caseOwnerIds = new Set<Id>();
@@ -116,12 +105,17 @@ public with sharing class IDRCaseActions {
         }
         checkForCRCEscalation(record, null);
       }
+
+      if (record.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID) {
+        if (record.Customer_Notification_Consent__c == 'Yes') {
+          notificationCaseList.add(record);
+        }
+      }
     }
     IDRTaskActions.possibleSystemicIssueActions(records, null);
     IDRCollectionActions.stopCollections(records, null);
     IDRCollectionActions.startCollections(records, null);
     IDRComplaintFlagActions.setComplaintsFlag(records, null);
-    escalateToCFMS(caseEscalationList);
   }
 
   /**
@@ -138,6 +132,7 @@ public with sharing class IDRCaseActions {
         populateSuppliedEmail(record, oldRecord);
         validateCaseNumber(record, oldRecord);
         IDRCollectionActions.populateCollectionNumber(record);
+        IDRCollectionActions.validateAccNumberPattern(record, oldRecord);
         CommonUtil.handleMasking(
           record,
           oldRecord,
@@ -155,6 +150,7 @@ public with sharing class IDRCaseActions {
         }
       }
     }
+    preventCloseStatusOnCaseWithPendingTask(records, (Map<Id, Case>) oldMap);
     //calling handleOfficeAssignment for all case records for which the IDR_Office__c needs to be updated.
     handleOfficeAssignment(changeOfficeCaseList);
     IDRCaseAssignmentRules.assignCases(records, (Map<Id, Case>) oldMap);
@@ -185,9 +181,7 @@ public with sharing class IDRCaseActions {
         checkForCRCEscalation(record, oldRec);
       }
     }
-    IDRCaseCommentActions.escalateExistingCommentsToCFMS(oldMap, records);
     IDRCaseNotificationManager.notifyBankersForEscalation(records, oldMap);
-    escalateToCFMS(caseEscalationList);
     IDRTaskActions.possibleSystemicIssueActions(records, oldMap);
     IDRTaskActions.updateIDRMilestoneTask(records, oldMap);
     IDRCollectionActions.stopCollections(records, oldMap);
@@ -218,7 +212,11 @@ public with sharing class IDRCaseActions {
       ) {
         escalationCases.add(c.Id);
       }
-      if ((oldCase != null && (!oldCase.isClosed && c.isClosed))) {
+      if (
+        (oldCase != null &&
+        (!oldCase.isClosed &&
+        (c.isClosed || c.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS)))
+      ) {
         maxTimeFrameCases.add(c.Id);
       }
     }
@@ -267,9 +265,9 @@ public with sharing class IDRCaseActions {
    */
   private static void checkForCRCEscalation(Case record, Case oldRec) {
     if (
-      record.Status == ESCALATED_STATUS &&
+      record.Status == IDRConstants.ESCALATED_STATUS &&
       (oldRec == null ||
-      oldRec.Status != ESCALATED_STATUS)
+      oldRec.Status != IDRConstants.ESCALATED_STATUS)
     ) {
       caseEscalationList.add(record);
     }
@@ -335,7 +333,8 @@ public with sharing class IDRCaseActions {
     for (Case c : caseList) {
       if (c.OwnerId.getSobjectType() == Group.SobjectType) {
         if (
-          oldCaseMap != null && oldCaseMap.containsKey(c.id) &&
+          oldCaseMap != null &&
+          oldCaseMap.containsKey(c.id) &&
           c.OwnerId != oldCaseMap.get(c.id).OwnerId
         ) {
           queueIds.add(c.OwnerId);
@@ -385,21 +384,21 @@ public with sharing class IDRCaseActions {
   private static void handleCaseEscalationRules(Case record, Case oldRec) {
     if (
       record.IsEscalated &&
-      record.Status != ESCALATED_STATUS &&
+      record.Status != IDRConstants.ESCALATED_STATUS &&
       String.isBlank(record.IDR_Escalation_Reason__c)
     ) {
       // set default values for auto escalated cases: Status, Escalated To, Escalation Reason
-      record.Status = ESCALATED_STATUS;
+      record.Status = IDRConstants.ESCALATED_STATUS;
       if (
         oldRec != null &&
-        (oldRec.Status == UNDER_INVESTIGATION_STATUS ||
-        oldRec.Status == OPEN_STATUS)
+        (oldRec.Status == IDRConstants.UNDER_INVESTIGATION_STATUS ||
+        oldRec.Status == IDRConstants.OPEN_STATUS)
       ) {
         record.IDR_Escalation_Reason__c = DAY_5_ESCALATION_REASON;
       }
     }
     if (
-      record.Status == ESCALATED_STATUS &&
+      record.Status == IDRConstants.ESCALATED_STATUS &&
       String.isBlank(record.IDR_Escalated_to__c)
     ) {
       record.IDR_Escalated_to__c = ESCALATED_TO_CRC_API_NAME;
@@ -410,19 +409,20 @@ public with sharing class IDRCaseActions {
    * @description  handleCaseStatusChanges method is used to handle the case status changes as follows
    * 1. when a case is escalated mark the case's IsEscalated value to true and
    * 2. when a case is reopened mark the IDR_Date_Re_Opened__c as current date.
-   * 3. When an escalated case is resolved or closed, mark the case's IsEscalated value to false
+   * 3. When an escalated case is closed, mark the case's IsEscalated value to false
    * @param record The actual case record from the trigger
    */
   private static void handleCaseStatusChanges(Case record) {
-    if (record.Status == ESCALATED_STATUS && !record.IsEscalated) {
+    if (record.Status == IDRConstants.ESCALATED_STATUS && !record.IsEscalated) {
       record.IsEscalated = true;
     }
-    if (record.Status == REOPENED_STATUS) {
+    if (record.Status == IDRConstants.REOPENED_STATUS) {
       record.IDR_Date_Re_Opened__c = System.today();
       record.IsEscalated = false;
     }
     if (
-      (record.Status == RESOLVED_STATUS || record.Status == CLOSED_STATUS) &&
+      (record.Status == IDRConstants.CLOSED_STATUS ||
+      record.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS) &&
       record.IsEscalated
     ) {
       record.IsEscalated = false;
@@ -457,8 +457,8 @@ public with sharing class IDRCaseActions {
     // this is a case where complaint has changed status. we need to recalculate the flag status.
     if (
       record.Status != oldRec.Status &&
-      (record.Status == UNDER_INVESTIGATION_STATUS ||
-      record.Status == OPEN_STATUS)
+      (record.Status == IDRConstants.UNDER_INVESTIGATION_STATUS ||
+      record.Status == IDRConstants.OPEN_STATUS)
     ) {
       record.IDR_Milestone_Sla__c = getMilestoneSla(
         record.Status,
@@ -491,25 +491,26 @@ public with sharing class IDRCaseActions {
       businessHoursId
     );
     if (
-      (caseStatus == UNDER_INVESTIGATION_STATUS && duration.intValue() < 72) ||
-      (caseStatus == OPEN_STATUS &&
+      (caseStatus == IDRConstants.UNDER_INVESTIGATION_STATUS &&
+      duration.intValue() < 72) ||
+      (caseStatus == IDRConstants.OPEN_STATUS &&
       duration.intValue() < 24)
     ) {
       milestoneSla = IDRConstants.MILESTONE_SLA_NORMAL;
     } else if (
-      (caseStatus == UNDER_INVESTIGATION_STATUS &&
+      (caseStatus == IDRConstants.UNDER_INVESTIGATION_STATUS &&
       duration.intValue() >= 72 &&
       duration.intValue() < 96) ||
-      (caseStatus == OPEN_STATUS &&
+      (caseStatus == IDRConstants.OPEN_STATUS &&
       duration.intValue() >= 24 &&
       duration.intValue() < 48)
     ) {
       milestoneSla = IDRConstants.MILESTONE_SLA_AMBER;
     } else if (
-      (caseStatus == UNDER_INVESTIGATION_STATUS &&
+      (caseStatus == IDRConstants.UNDER_INVESTIGATION_STATUS &&
       duration.intValue() >= 96 &&
       duration.intValue() < 120) ||
-      (caseStatus == OPEN_STATUS &&
+      (caseStatus == IDRConstants.OPEN_STATUS &&
       duration.intValue() >= 48 &&
       duration.intValue() < 72)
     ) {
@@ -539,109 +540,6 @@ public with sharing class IDRCaseActions {
       return et[0].Id;
     } else {
       return null;
-    }
-  }
-
-  /**
-   * @description Escalate the list of Records to CRC by publishing a platform event.
-   * @param recordsToBeEscalated the cases which data will be escalated
-   */
-  private static void escalateToCFMS(List<Case> recordsToBeEscalated) {
-    if (!recordsToBeEscalated.isEmpty()) {
-      Map<Id, Group> queueMap = getQueuesToEscalate(recordsToBeEscalated);
-      idrCaseEscalations = new List<IDR_CRC_Escalation_Event__e>();
-      for (Case c : recordsToBeEscalated) {
-        idrCaseEscalations.add(
-          new IDR_CRC_Escalation_Event__e(
-            Account_Number__c = c.IDR_Account_Card_Policy_Number__c,
-            Address_Line1__c = c.IDR_NC_Street__c,
-            AFCA_Date__c = c.IDR_AFCA_Date__c,
-            AFCA_Number__c = c.IDR_AFCA_Number__c,
-            Age__c = CommonUtil.getSinglePicklistLabel(
-              Case.IDR_NC_Age__c,
-              c.IDR_NC_Age__c
-            ),
-            Non_Financial_Remedy__c = c.IDR_Non_Financial_Remedy__c,
-            Agent_License_Number__c = c.IDR_AuthRep_Licence_Number__c,
-            Agent_License_Type__c = CommonUtil.getSinglePicklistLabel(
-              Case.IDR_AuthRep_Licence_or_registration_type__c,
-              c.IDR_AuthRep_Licence_or_registration_type__c
-            ),
-            ANZ_Received_Date__c = c.IDR_Date_Received__c.date(),
-            Case_Number__c = String.isNotBlank(c.CaseNumber__c)
-              ? c.CaseNumber__c
-              : c.CaseNumber,
-            Customer_First_Name__c = c.IDR_NC_First_Name__c,
-            Customer_Middle_Names__c = c.IDR_NC_Middle_Names__c,
-            Customer_Last_Name__c = c.IDR_NC_Last_Name__c,
-            Customer_Business_Name__c = c.IDR_NC_Business_Name__c,
-            Complainant_Type__c = CommonUtil.getSinglePicklistLabel(
-              Case.IDR_Complainant_Type__c,
-              c.IDR_Complainant_Type__c
-            ),
-            Complaint_Description__c = c.Description,
-            Complaint_Desired_Outcome__c = c.IDR_Complainant_Desired_Outcome__c,
-            Complaint_Issue__c = CommonUtil.getSinglePicklistLabel(
-              Case.Type,
-              c.Type
-            ),
-            Complaint_Issue_Key__c = c.Type,
-            Complaint_Subsequent_Issue__c = c.IDR_Subsequent_Issue__c,
-            Country__c = c.IDR_NC_Country__c,
-            Customer_Number__c = c.IDR_Customer_Number__c,
-            Email__c = c.IDR_NC_Email__c,
-            Gender__c = CommonUtil.getSinglePicklistLabel(
-              Case.IDR_NC_Gender__c,
-              c.IDR_NC_Gender__c
-            ),
-            Is_Written_Response_Requested__c = c.IDR_Is_Written_Resp_Requested__c ==
-              YES_VALUE
-              ? true
-              : false,
-            Is_Written_Response_Required__c = c.IDR_Is_Written_Resp_Required__c ==
-              YES_VALUE
-              ? true
-              : false,
-            Mobile__c = c.IDR_NC_Mobile__c,
-            Phone__c = c.IDR_NC_Phone__c,
-            Post_Code__c = c.IDR_NC_Postcode__c,
-            Remedy__c = CommonUtil.getSinglePicklistLabel(
-              Case.IDR_Complaint_Remedy__c,
-              c.IDR_Complaint_Remedy__c
-            ),
-            State__c = c.IDR_NC_State__c == '11'
-              ? 'OTHER TERRITORIES'
-              : CommonUtil.getSinglePicklistLabel(
-                  Case.IDR_NC_State__c,
-                  c.IDR_NC_State__c
-                ),
-            Suburb__c = c.IDR_NC_Suburb__c,
-            Priority__c = c.Priority,
-            Channel_Received__c = CommonUtil.getSinglePicklistLabel(
-              Case.Origin,
-              c.Origin
-            ),
-            Relationship_To_Complainant__c = c.IDR_3rdParty_Relationship_To_Complainant__c,
-            IDR_Is_Common__c = c.IDR_Is_Common__c,
-            IDR_Systemic_Issue_Category__c = c.IDR_Systemic_Issue_Category__c,
-            IDR_Systemic_Issue_Description__c = c.IDR_Systemic_Issue_Description__c,
-            Queue_DeveloperName__c = queueMap.containsKey(c.OwnerId)
-              ? queueMap.get(c.OwnerId).DeveloperName
-              : null
-          )
-        );
-      }
-      List<Database.SaveResult> results = EventBus.publish(idrCaseEscalations);
-      Lib_SystemLog log = new Lib_SystemLog(
-        IDRCaseActions.class.getName(),
-        'escalateToCFMS'
-      );
-      log.addDatabaseSaveResult(
-        'IDR_CRC_Escalation_Event__e',
-        results,
-        idrCaseEscalations
-      );
-      log.insertLogAsync();
     }
   }
 
@@ -738,7 +636,8 @@ public with sharing class IDRCaseActions {
       record.RecordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID &&
       (record.IDR_Customer_Number__c != oldRec.IDR_Customer_Number__c ||
       record.IDR_Customer_Identifier__c != oldRec.IDR_Customer_Identifier__c) &&
-      oldRec.RecordTypeId != IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID
+      oldRec.RecordTypeId != IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID &&
+      oldRec.RecordTypeId != GetHelpConstants.COMPLAINT_RT_ID
     ) {
       record.addError(CUSTOMER_NUMBER_VALIDATION_ERROR);
     }
@@ -754,6 +653,50 @@ public with sharing class IDRCaseActions {
         record.IDR_Datetime_PSI_Ticked__c = Datetime.now();
       } else {
         record.IDR_Datetime_PSI_Ticked__c = null;
+      }
+    }
+  }
+
+  /**
+   * @description Prevents a complaints case moving to Closed status when it has any non-complete complaints task with 'Pending Case' type
+   * @param records  List of cases from the trigger
+   * @param oldMap Map of pre-update cases supplied from the trigger as well
+   */
+  private static void preventCloseStatusOnCaseWithPendingTask(
+    List<Case> records,
+    Map<Id, Case> oldMap
+  ) {
+    List<Case> closedComplaintCases = new List<Case>();
+    for (Case c : records) {
+      if (
+        (c.Status == IDRConstants.CLOSED_STATUS) &&
+        oldMap.get(c.Id).Status != c.Status &&
+        isIDRComplaintType(c)
+      ) {
+        closedComplaintCases.add(c);
+      }
+    }
+    if (!closedComplaintCases.isEmpty()) {
+      List<Task> openpendingtasks = [
+        SELECT Id, WhatId
+        FROM Task
+        WHERE
+          WhatId = :closedComplaintCases
+          AND RecordTypeId = :IDRConstants.IDR_TASK_RT_ID
+          AND Status != 'Completed'
+          AND Type = 'Pend Case'
+        WITH SECURITY_ENFORCED
+      ];
+
+      Map<Id, Task> caseTaskMap = new Map<Id, Task>();
+      for (Task t : openpendingtasks) {
+        caseTaskMap.put(t.WhatId, t);
+      }
+
+      for (Case c : closedComplaintCases) {
+        if (caseTaskMap.containskey(c.id)) {
+          c.addError(CANNOT_CLOSE_CASE_WITH_PENDING_TASK_ERROR);
+        }
       }
     }
   }

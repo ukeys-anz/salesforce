@@ -57,7 +57,9 @@ public with sharing class IDRFilesRelatedListController {
       tempData.fileUrl = baseUrl + '/' + doc.ContentDocumentId;
       tempData.fileName = doc.ContentDocument.title;
       tempData.fileType = doc.ContentDocument.FileExtension;
-      tempData.createdDate = date.valueOf(doc.ContentDocument.CreatedDate);
+      tempData.createdDate = date.parse(
+        doc.ContentDocument.CreatedDate.format('dd/MM/yyyy')
+      );
       tempData.ownerName = doc.ContentDocument.Owner.Name;
       tempData.fileId = doc.ContentDocumentId;
       tempData.dateOfDocument = date.valueOf(

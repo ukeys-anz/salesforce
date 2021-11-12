@@ -89,7 +89,7 @@ public with sharing class CommonUtil {
   }
 
   /**
-   * @description handleMasking method is used to mask free text fields as we dont want to store e.g. card numbers in SF.
+   * @description handleMasking method is used to validate free text fields for masking as we dont want to store e.g. card numbers in SF.
    * So, we mask the number and store only last 4 digits unmasked.
    * @param record The actual record from Trigger.new
    * @param oldRecord The actual record from Trigger.old, null if in a before insert trigger
@@ -102,20 +102,41 @@ public with sharing class CommonUtil {
   ) {
     for (Schema.FieldSetMember fsm : fieldsToMask) {
       String fieldName = fsm.getFieldPath();
-      //System.debug(fieldName + ': ' + String.valueOf(fsm.getType()));
       if (
         (String.valueOf(fsm.getType()) == 'STRING' ||
         String.valueOf(fsm.getType()) == 'COMBOBOX' ||
         String.valueOf(fsm.getType()) == 'TEXTAREA') &&
         (oldRecord == null ||
         String.valueOf(record.get(fieldName)) !=
-        String.valueOf(oldRecord.get(fieldName)))
+        String.valueOf(oldRecord.get(fieldName))) &&
+        String.isNotBlank(String.valueOf(record.get(fieldName)))
       ) {
-        record.put(
-          fieldName,
-          TextUtils.maskData((String) record.get(fieldName))
-        );
+        maskAccountNumbers(fieldName, record);
       }
+    }
+  }
+
+  /**
+   * @description maskAccountNumbers method is used to mask free text fields as we dont want to store e.g. card numbers in SF.
+   * So, we mask the number and store only last 4 digits unmasked.
+   * @param fieldName name of the field to mask
+   * @param record The actual record from Trigger.new
+   */
+  private static void maskAccountNumbers(String fieldName, sObject record) {
+    if (
+      fieldName == 'IDR_Account_Card_Policy_Number__c' ||
+      fieldName == 'IDR_Account_Card_Policy_Number_2__c' ||
+      fieldName == 'IDR_Account_Card_Policy_Number_3__c'
+    ) {
+      List<String> maskedAccList = new List<String>();
+      for (
+        String accNumber : String.valueOf(record.get(fieldName)).split(';')
+      ) {
+        maskedAccList.add(TextUtils.maskData(accNumber));
+      }
+      record.put(fieldName, String.join(maskedAccList, ';'));
+    } else {
+      record.put(fieldName, TextUtils.maskData((String) record.get(fieldName)));
     }
   }
 
@@ -224,5 +245,45 @@ public with sharing class CommonUtil {
     ];
 
     return queue;
+  }
+
+  /**
+   * @description Gets the filtered string using Regular Expression
+   * @param pattern The RegEx pattern
+   * @param matcher The string with which the matching is performed
+   * @return returnString The filtered String
+   */
+  public static String filterStringUsingRegEx(String pattern, String matcher) {
+    String returnString;
+    Matcher m = System.Pattern.compile(pattern).matcher(matcher);
+    if (m.find()) {
+      if (pattern == IDRConstants.CASE_NO_REGEX) {
+        returnString = m.group().leftPad(8, '0');
+      } else {
+        returnString = m.group();
+      }
+    } else {
+      returnString = matcher;
+    }
+    return returnString;
+  }
+
+  /**
+   * @description Queries through the group object
+   * @param type The type of group
+   * @param queueName The devveloper name of group
+   * @return Group
+   */
+  public static Group getGroupDetails(String type, String queueName) {
+    if (Group.sObjectType.getDescribe().isQueryable()) {
+      return [
+        SELECT Id
+        FROM Group
+        WHERE Type = :type AND developername = :queueName
+        LIMIT 1
+      ];
+    } else {
+      return null;
+    }
   }
 }

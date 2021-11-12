@@ -104,7 +104,7 @@ const OPEN_STATUS_API_NAME = "Open";
 // Future use : const ONHOLD_STATUS_API_NAME = "On Hold";
 const ESCALATED_STATUS_API_NAME = "Escalated";
 const UNDERINVESTIGATION_STATUS_API_NAME = "Under Investigation";
-const RESOLVED_STATUS_API_NAME = "Resolved";
+const PROVISIONALLYCLOSED_STATUS_API_NAME = "Provisionally Closed";
 const CLOSED_STATUS_API_NAME = "Closed";
 const YES_VALUE = "Yes";
 const COMPLAINT_REMEDY_FIN_VALUE = "1";
@@ -113,8 +113,6 @@ const OTHER = "Other";
 
 const CUS_IDENTIFIER_CAPCIS_ID = "Customer/Business CAP ID";
 const CUS_IDENTIFIER_CACHE_ID = "CACHE ID";
-const CUS_IDENTIFIER_RAZOR_ID = "RAZOR ID";
-const CUS_IDENTIFIER_CRN_ID = "CRN";
 
 export default class CreateComplaintLWC extends NavigationMixin(
   LightningElement
@@ -295,9 +293,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       {
         label: CUS_IDENTIFIER_CACHE_ID,
         value: CUS_IDENTIFIER_CACHE_ID
-      },
-      { label: CUS_IDENTIFIER_RAZOR_ID, value: CUS_IDENTIFIER_RAZOR_ID },
-      { label: CUS_IDENTIFIER_CRN_ID, value: CUS_IDENTIFIER_CRN_ID }
+      }
     ];
   }
 
@@ -310,7 +306,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
         value: UNDERINVESTIGATION_STATUS_API_NAME
       },
       { label: ESCALATED_STATUS_API_NAME, value: ESCALATED_STATUS_API_NAME },
-      { label: RESOLVED_STATUS_API_NAME, value: RESOLVED_STATUS_API_NAME },
+      {
+        label: PROVISIONALLYCLOSED_STATUS_API_NAME,
+        value: PROVISIONALLYCLOSED_STATUS_API_NAME
+      },
       { label: CLOSED_STATUS_API_NAME, value: CLOSED_STATUS_API_NAME }
     ];
   }
@@ -346,13 +345,23 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.hasThirdIssue = event.target.checked;
   }
   handleAccountNumberChange(event) {
-    this.accountOrPolicyNumber = event.target.value;
+    var myArray = event.detail.payload.values;
+    let myString = myArray.toString();
+    let final = myString.replace(/,/g, ";");
+    this.accountOrPolicyNumber = final;
   }
+
   handleAccountNumber2Change(event) {
-    this.accountOrPolicyNumber2 = event.target.value;
+    var myArray = event.detail.payload.values;
+    let myString = myArray.toString();
+    let final = myString.replace(/,/g, ";");
+    this.accountOrPolicyNumber2 = final;
   }
   handleAccountNumber3Change(event) {
-    this.accountOrPolicyNumber3 = event.target.value;
+    var myArray = event.detail.payload.values;
+    let myString = myArray.toString();
+    let final = myString.replace(/,/g, ";");
+    this.accountOrPolicyNumber3 = final;
   }
   handleCommonComplaint(event) {
     this.isCommonComplaintYesNo = event.target.value;
@@ -368,7 +377,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
           this.isComplaintOnhold = true;
           break;*/
     switch (this.caseStatus) {
-      case "Resolved":
+      case "Provisionally Closed":
         this.isComplaintResolved = true;
         break;
       case "Escalated":
@@ -552,7 +561,18 @@ export default class CreateComplaintLWC extends NavigationMixin(
       }
       return isValidSoFar;
     }, true);
-
+    if (this.accountOrPolicyNumber === "") {
+      isFieldValid = false;
+      this.missingDataFields += "Account/Policy Number, ";
+    }
+    if (this.hasSecondIssue && this.accountOrPolicyNumber2 === "") {
+      isFieldValid = false;
+      this.missingDataFields += "Account/Policy Number 2, ";
+    }
+    if (this.hasThirdIssue && this.accountOrPolicyNumber3 === "") {
+      isFieldValid = false;
+      this.missingDataFields += "Account/Policy Number 3, ";
+    }
     if (!this.isCustomerComplaint && !this.showSections) {
       isFieldValid = false;
       this.missingDataFields += "Customer Decision";
@@ -607,6 +627,18 @@ export default class CreateComplaintLWC extends NavigationMixin(
       isFieldValid = false;
       this.missingDataFields +=
         "Customer number is not valid or has not been validated, check the number and try again. ";
+    }
+
+    if (
+      this.accountOrPolicyNumber.includes("N/A;") ||
+      this.accountOrPolicyNumber.includes(";N/A") ||
+      this.accountOrPolicyNumber2.includes("N/A;") ||
+      this.accountOrPolicyNumber2.includes(";N/A") ||
+      this.accountOrPolicyNumber3.includes("N/A;") ||
+      this.accountOrPolicyNumber3.includes(";N/A")
+    ) {
+      isFieldValid = false;
+      this.missingDataFields += "Please select only account numbers or N/A";
     }
     // validate the data in email address fields is correct.
     let isEmailValid = [

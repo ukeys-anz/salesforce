@@ -6,9 +6,9 @@
     </fieldOverrides>
     <fieldOverrides>
         <field>Status</field>
-        <literalValue>Resolved</literalValue>
+        <literalValue>Closed</literalValue>
     </fieldOverrides>
-    <label>Resolve</label>
+    <label>Close</label>
     <optionsCreateFeedItem>false</optionsCreateFeedItem>
     <quickActionLayout>
         <layoutSectionStyle>TwoColumnsLeftToRight</layoutSectionStyle>

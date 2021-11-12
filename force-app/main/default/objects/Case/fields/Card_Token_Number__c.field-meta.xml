@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Card_Token_Number__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Privacy - Non Personal Information;Integrity - Trusted;Source - Fabric</complianceGroup>
+    <description>Tokenised number of the credit card as per ANZ data policies</description>
+    <externalId>false</externalId>
+    <label>Card Token Number</label>
+    <length>255</length>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+    <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
+</CustomField>

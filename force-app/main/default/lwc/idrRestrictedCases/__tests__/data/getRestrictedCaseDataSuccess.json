@@ -1,11 +1,11 @@
 [
-    {
-        "caseId": "5002O000008uAc2QAE",
-        "caseNumber": "00001041",
-        "caseOwner": "User User",
-        "customerType": "Individual",
-        "firstName": "Test",
-        "lastName": "Test",
-        "status": "Closed"
-    }
+  {
+    "caseId": "5002O000008uAc2QAE",
+    "caseNumber": "00001041",
+    "caseOwner": "User User",
+    "customerType": "Individual",
+    "firstName": "Test",
+    "lastName": "Test",
+    "status": "Closed"
+  }
 ]

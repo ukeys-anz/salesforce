@@ -114,11 +114,11 @@ describe("c-create-complaint-l-w-c", () => {
     const complaintStatus = element.shadowRoot.querySelector(
       "lightning-combobox[data-id=caseStatus-id]"
     );
-    complaintStatus.value = "Resolved";
+    complaintStatus.value = "Closed";
     complaintStatus.dispatchEvent(new CustomEvent("change"));
 
     return flushPromises().then(() => {
-      expect(complaintStatus.value).toBe("Resolved");
+      expect(complaintStatus.value).toBe("Closed");
       const compRemedy = element.shadowRoot.querySelector(
         "lightning-input-field[data-id=compRemedy-id]"
       );
@@ -296,7 +296,7 @@ describe("c-create-complaint-l-w-c", () => {
     );
     //Populate user input - Account Number
     const accNumber = element.shadowRoot.querySelector(
-      "lightning-combobox[data-id=accPolicyNum-id]"
+      "c-multi-select-combobox[data-id=accPolicyNum-id]"
     );
     accNumber.dispatchEvent(
       new CustomEvent("change", {

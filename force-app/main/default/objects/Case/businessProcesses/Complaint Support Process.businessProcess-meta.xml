@@ -16,11 +16,11 @@
         <default>true</default>
     </values>
     <values>
-        <fullName>Re-opened</fullName>
+        <fullName>Provisionally Closed</fullName>
         <default>false</default>
     </values>
     <values>
-        <fullName>Resolved</fullName>
+        <fullName>Re-opened</fullName>
         <default>false</default>
     </values>
     <values>

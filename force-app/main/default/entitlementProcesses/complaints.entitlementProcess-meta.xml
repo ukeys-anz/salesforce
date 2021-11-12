@@ -29,14 +29,6 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
         <minutesToComplete>7680</minutesToComplete>
         <timeTriggers>
             <actions>
-                <name>EscalationtoAmber</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <timeLength>-2</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <actions>
                 <name>Escalate_The_Case</name>
                 <type>FieldUpdate</type>
             </actions>
@@ -51,10 +43,19 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
             <timeLength>-1</timeLength>
             <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
         </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>EscalationtoAmber</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>-2</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
         <useCriteriaStartTime>false</useCriteriaStartTime>
     </milestones>
     <milestones>
         <businessHours>Default</businessHours>
+        <criteriaBooleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6</criteriaBooleanFilter>
         <milestoneCriteriaFilterItems>
             <field>Case.Status</field>
             <operation>notEqual</operation>
@@ -63,12 +64,17 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
         <milestoneCriteriaFilterItems>
             <field>Case.Status</field>
             <operation>notEqual</operation>
-            <value>Resolved</value>
+            <value>Provisionally Closed</value>
         </milestoneCriteriaFilterItems>
         <milestoneCriteriaFilterItems>
             <field>Case.Status</field>
             <operation>notEqual</operation>
             <value>Withdrawn</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>notEqual</operation>
+            <value>Re-opened</value>
         </milestoneCriteriaFilterItems>
         <milestoneCriteriaFilterItems>
             <field>Case.Priority</field>
@@ -102,7 +108,7 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
     </milestones>
     <milestones>
         <businessHours>Default</businessHours>
-        <criteriaBooleanFilter>1 AND 2 AND 3 AND (4 OR (5 AND 6) OR (7 AND 8) OR (9 AND 10) OR (11 AND 12) OR (13 AND 14) OR (15 AND 16) OR (17 AND 18) OR (19 AND 20) OR (21 AND 22) OR (23 AND 24))</criteriaBooleanFilter>
+        <criteriaBooleanFilter>1 AND 2 AND (3 OR (4 AND 5) OR (6 AND 7) OR (8 AND 9) OR (10 AND 11) OR (12 AND 13) OR (14 AND 15) OR (16 AND 17) OR (18 AND 19) OR (20 AND 21) OR (22 AND 23)) AND 24 AND 25</criteriaBooleanFilter>
         <milestoneCriteriaFilterItems>
             <field>Case.Status</field>
             <operation>notEqual</operation>
@@ -112,11 +118,6 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
             <field>Case.Status</field>
             <operation>notEqual</operation>
             <value>Withdrawn</value>
-        </milestoneCriteriaFilterItems>
-        <milestoneCriteriaFilterItems>
-            <field>Case.Status</field>
-            <operation>notEqual</operation>
-            <value>Resolved</value>
         </milestoneCriteriaFilterItems>
         <milestoneCriteriaFilterItems>
             <field>Case.Priority</field>
@@ -222,6 +223,16 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
             <field>Case.IDR_Subsequent_Issue_3__c</field>
             <operation>contains</operation>
             <value>38, 42</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>notEqual</operation>
+            <value>Provisionally Closed</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>notEqual</operation>
+            <value>Re-opened</value>
         </milestoneCriteriaFilterItems>
         <milestoneName>21-day IDR Response Due</milestoneName>
         <minutesToComplete>30240</minutesToComplete>

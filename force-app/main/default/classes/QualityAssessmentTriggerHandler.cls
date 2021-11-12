@@ -51,4 +51,38 @@ public with sharing class QualityAssessmentTriggerHandler extends Lib_TriggerHan
   public override void onApplyDefaults() {
     QualityAssessmentActions.assignToQueue(records, null);
   }
+
+  /**
+   * @description onValidate method is called on after insert and after update to validate qa values
+   */
+  public override void onValidate() {
+    validateQArecords(records);
+  }
+
+  /**
+   * @description validates qa records
+   * @param records the QA records being validated
+   */
+  private static void validateQArecords(List<Quality_Assessment__c> records) {
+    Map<Id, Quality_Assessment__c> qaMap = new Map<Id, Quality_Assessment__c>(
+      records
+    );
+    if (Quality_Assessment__c.SObjectType.getDescribe().isAccessible()) {
+      for (Quality_Assessment__c record : [
+        SELECT Id, Customer__c, Related_Case__r.AccountId
+        FROM Quality_Assessment__c
+        WHERE Id IN :records
+      ]) {
+        if (
+          record.Customer__c != null &&
+          record.Customer__c != record.Related_Case__r?.AccountId
+        ) {
+          qaMap.get(record.Id)
+            .addError(
+              'Related case must be under the same customer as the QA record.'
+            );
+        }
+      }
+    }
+  }
 }

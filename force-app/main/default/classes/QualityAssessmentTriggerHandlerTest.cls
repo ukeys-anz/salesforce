@@ -456,4 +456,66 @@ private class QualityAssessmentTriggerHandlerTest {
       'Should have no QA record been created if cases are originates as ANZx Complaints but were escalated to CRC.'
     );
   }
+
+  @istest
+  static void testQAvalidation() {
+    Faker faker = new Faker('AU');
+    // insert an account
+    Account caseTestAccount = new Account(
+      Name = 'TestAccount',
+      Display_Name__c = 'TestAccount',
+      OCV_ID__c = faker.randomString(10),
+      ANZx_Customer__c = true
+    );
+    insert caseTestAccount;
+
+    Account unlinkedTestAccount = new Account(
+      Name = 'TestAccount2',
+      Display_Name__c = 'TestAccount2',
+      OCV_ID__c = faker.randomString(10),
+      ANZx_Customer__c = true
+    );
+    insert unlinkedTestAccount;
+
+    // insert one case record, with caseTestAccount as the customer
+    Case caseRecord = new Case(
+      Subject = 'Dispute Case',
+      RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID,
+      Origin = 'Chat',
+      AccountId = caseTestAccount.Id
+    );
+    insert caseRecord;
+
+    // create QA records with the unlinkedTestAccount as a customer, and the case with a different account
+    List<Quality_Assessment__c> newQArecords = new List<Quality_Assessment__c>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newQArecords.add(
+        new Quality_Assessment__c(
+          RecordTypeId = GetHelpConstants.QUALITY_ASSESSMENT_GENERAL_RT_ID,
+          Related_Case__c = caseRecord.Id,
+          Interaction_Type__c = 'Email',
+          Customer__c = unlinkedTestAccount.Id
+        )
+      );
+    }
+
+    Boolean exceptionWasThrown = false;
+
+    Test.startTest();
+    try {
+      insert newQArecords;
+    } catch (Exception e) {
+      System.assert(
+        e.getMessage()
+          .contains(
+            'Related case must be under the same customer as the QA record'
+          ),
+        'Incorrect error message.'
+      );
+      exceptionWasThrown = true;
+    }
+    Test.stopTest();
+
+    System.assert(exceptionWasThrown);
+  }
 }

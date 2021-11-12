@@ -134,13 +134,21 @@
             <sortOrder>2</sortOrder>
         </platformActionListItems>
     </platformActionList>
+    <relatedContent>
+        <relatedContentItems>
+            <layoutItem>
+                <behavior>Readonly</behavior>
+                <field>WhatId</field>
+            </layoutItem>
+        </relatedContentItems>
+    </relatedContent>
     <relatedObjects>WhoId</relatedObjects>
     <relatedObjects>WhatId</relatedObjects>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2O0000018sR0</masterLabel>
+        <masterLabel>00h2O000001MyHw</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>
