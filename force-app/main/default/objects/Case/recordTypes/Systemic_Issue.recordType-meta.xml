@@ -771,6 +771,22 @@
     <picklistValues>
         <picklist>SI_Relevant_Tribes__c</picklist>
         <values>
+            <fullName>Home Lending Tribe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Owners</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Responsible Lending Tribe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Digital Sales Experience</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>ANZ Command Centre</fullName>
             <default>false</default>
         </values>
