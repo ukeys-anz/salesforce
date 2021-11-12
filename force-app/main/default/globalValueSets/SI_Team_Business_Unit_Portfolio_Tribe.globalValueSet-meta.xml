@@ -416,6 +416,32 @@
         <label>Retail Governance &amp; Operational Governance</label>
     </customValue>
     <customValue>
+        <fullName>Home Lending Tribe</fullName>
+        <default>false</default>
+        <label>Home Lending Tribe</label>
+    </customValue>
+    <customValue>
+        <fullName>Responsible Lending Tribe</fullName>
+        <default>false</default>
+        <label>Responsible Lending Tribe</label>
+    </customValue>
+    <customValue>
+        <fullName>Business Owners</fullName>
+        <default>false</default>
+        <label>Business Owners</label>
+    </customValue>
+    <customValue>
+        <fullName>Digital Sales Experience</fullName>
+        <default>false</default>
+        <label>Digital Sales Experience</label>
+    </customValue>
+    <customValue>
+        <fullName>AMU &amp; Collections</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>AMU &amp; Collections</label>
+    </customValue>
+    <customValue>
         <fullName>Digital Sales Experience Tribe</fullName>
         <default>false</default>
         <isActive>false</isActive>
@@ -432,12 +458,6 @@
         <default>false</default>
         <isActive>false</isActive>
         <label>APRA Home Loans</label>
-    </customValue>
-    <customValue>
-        <fullName>AMU &amp; Collections</fullName>
-        <default>false</default>
-        <isActive>false</isActive>
-        <label>AMU &amp; Collections</label>
     </customValue>
     <description>List of Teams/Business Units/Portfolios/Tribes potentially relevant to, or impacted by a systemic issue.</description>
     <masterLabel>Teams/Business Units/Portfolios/Tribes</masterLabel>
