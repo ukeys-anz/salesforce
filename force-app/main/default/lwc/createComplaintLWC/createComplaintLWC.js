@@ -1,4 +1,4 @@
-import { LightningElement, track, api } from "lwc";
+import { LightningElement, api } from "lwc";
 import { createRecord } from "lightning/uiRecordApi";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { NavigationMixin } from "lightning/navigation";
@@ -255,7 +255,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     { label: "Yes", value: "Yes" },
     { label: "No", value: "No" }
   ];
-  @track accountNumberOptions = [{ label: "N/A", value: "N/A" }];
+  accountNumberOptions = [{ label: "N/A", value: "N/A" }];
 
   commoncomplaintoptions = [
     { label: "Yes", value: "Yes" },
