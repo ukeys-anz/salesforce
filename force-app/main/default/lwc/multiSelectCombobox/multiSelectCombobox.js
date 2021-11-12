@@ -40,6 +40,31 @@ export default class MultiSelectCombobox extends LightningElement {
     this.optionData = optionData;
   }
 
+  @api
+  processMyData(array) {
+    this.showDropdown = false;
+    let optionData = array ? JSON.parse(JSON.stringify(array)) : null;
+    let value = this.selectedValue
+      ? JSON.parse(JSON.stringify(this.selectedValue))
+      : null;
+    let values = this.selectedValues
+      ? JSON.parse(JSON.stringify(this.selectedValues))
+      : null;
+    if (value || values) {
+      let count = 0;
+      for (let i = 0; i < optionData.length; i++) {
+        if (values.includes(optionData[i].value)) {
+          optionData[i].selected = true;
+          count++;
+        }
+      }
+      this.searchString = count + " Option(s) Selected";
+    }
+    this.value = value;
+    this.values = values;
+    this.optionData = optionData;
+  }
+
   filterOptions(event) {
     this.searchString = event.target.value;
     if (this.searchString && this.searchString.length > 0) {

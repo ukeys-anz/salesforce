@@ -908,6 +908,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
         this.isCustomerDetails = true;
         this.accountNumberOptions = [{ label: "N/A", value: "N/A" }];
         let x;
+        this.accountNumberOptions = [];
         for (x in event.detail.accounts) {
           if (event.detail.accounts[x] != null) {
             this.accountNumberOptions.push({
@@ -916,6 +917,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
             });
           }
         }
+        this.accountNumberOptions.push({ label: "N/A", value: "N/A" });
+        this.template
+          .querySelectorAll("c-multi-select-combobox")[0]
+          .processMyData(this.accountNumberOptions);
       }
     }
   }
