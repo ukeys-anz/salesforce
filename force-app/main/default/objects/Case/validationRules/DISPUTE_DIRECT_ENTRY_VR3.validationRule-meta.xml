@@ -9,8 +9,8 @@ ISPICKVAL(Dispute_Reason__c, &apos;Incorrect Amount&apos;),
 OR(
 ISBLANK(Description),
 ISPICKVAL(Is_this_a_Business_Customer__c,&apos;&apos;),
-ISBLANK(Intended_Amount__c)
+ISBLANK(Amount_Of_Authorised_Transaction__c)
 )
 )</errorConditionFormula>
-    <errorMessage>These fields are required: Description of Issue, Is this a Business Customer, Intended Amount.</errorMessage>
+    <errorMessage>These fields are required: Description of Issue, Is this a Business Customer, Amount Of Authorised Transaction.</errorMessage>
 </ValidationRule>

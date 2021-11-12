@@ -148,9 +148,6 @@
                 <behavior>Edit</behavior>
                 <field>Intended_Account_Name__c</field>
             </layoutItems>
-            <layoutItems>
-                <emptySpace>true</emptySpace>
-            </layoutItems>
         </layoutColumns>
         <style>OneColumn</style>
     </layoutSections>
