@@ -1,4 +1,4 @@
-import { LightningElement, api } from "lwc";
+import { LightningElement, track, api } from "lwc";
 import { createRecord } from "lightning/uiRecordApi";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { NavigationMixin } from "lightning/navigation";
@@ -255,7 +255,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     { label: "Yes", value: "Yes" },
     { label: "No", value: "No" }
   ];
-  accountNumberOptions = [{ label: "N/A", value: "N/A" }];
+  @track accountNumberOptions = [{ label: "N/A", value: "N/A" }];
 
   commoncomplaintoptions = [
     { label: "Yes", value: "Yes" },
@@ -785,14 +785,14 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
       const recordInput = { apiName: CASE_OBJECT.objectApiName, fields };
       createRecord(recordInput)
-        .then((response) => {
+        .then(response => {
           if (response) {
             let caseId = response.id;
             this.template.querySelector(".saveButton").disabled = false;
             this.handleCaseSuccess(caseId);
           }
         })
-        .catch((error) => {
+        .catch(error => {
           if (
             error.body.enhancedErrorType === "RecordError" &&
             error.body.output.errors[0].errorCode === "INSUFFICIENT_ACCESS" &&
@@ -908,6 +908,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
         this.isCustomerDetails = true;
         this.accountNumberOptions = [{ label: "N/A", value: "N/A" }];
         let x;
+        this.accountNumberOptions = [];
         for (x in event.detail.accounts) {
           if (event.detail.accounts[x] != null) {
             this.accountNumberOptions.push({
@@ -916,6 +917,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
             });
           }
         }
+        this.accountNumberOptions.push({ label: "N/A", value: "N/A" });
+        this.template
+          .querySelectorAll("c-multi-select-combobox")[0]
+          .processMyData(this.accountNumberOptions);
       }
     }
   }
@@ -940,7 +945,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       msg = error.replace(/\.\s?/gm, ".<br><br>");
     } else if (error.body) {
       if (Array.isArray(error.body)) {
-        msg = error.body.map((e) => e.message).join(", ");
+        msg = error.body.map(e => e.message).join(", ");
       } else if (typeof error.body.message === "string") {
         msg = error.body.message;
       }
