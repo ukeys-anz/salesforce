@@ -7,9 +7,9 @@
     <duplicateRuleFilter>
         <booleanFilter xsi:nil="true"/>
         <duplicateRuleFilterItems>
-            <field>Profile</field>
-            <operation>notEqual</operation>
-            <value>Integration User</value>
+            <field>Username</field>
+            <operation>notContain</operation>
+            <value>ocvintegration.user</value>
             <sortOrder>1</sortOrder>
             <table>User</table>
         </duplicateRuleFilterItems>
