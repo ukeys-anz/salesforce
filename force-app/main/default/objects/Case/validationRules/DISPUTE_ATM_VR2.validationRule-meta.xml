@@ -8,5 +8,6 @@ RecordType.DeveloperName = &apos;ATM_Dispute&apos;,
 ISPICKVAL(Dispute_Reason__c, &quot;Duplicate Transactions&quot;),
 ISBLANK(Description)
 )</errorConditionFormula>
+    <errorDisplayField>Description</errorDisplayField>
     <errorMessage>Please provide Description of Issue.</errorMessage>
 </ValidationRule>
