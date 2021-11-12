@@ -51,13 +51,15 @@ public with sharing class CardListModel extends CalloutModel {
     public List<String> walletList {
       get {
         List<String> wList = new List<String>();
-        for (String key : this.wallets.keySet()) {
-          if (this.wallets.get(key) != 0) {
-            String keyStr = key;
-            if (keyStr != 'eCommerce') {
-              keyStr = keyStr.capitalize();
+        if (wallets != null && !wallets.isEmpty()) {
+          for (String key : this.wallets.keySet()) {
+            if (this.wallets.get(key) != 0) {
+              String keyStr = key;
+              if (keyStr != 'eCommerce') {
+                keyStr = keyStr.capitalize();
+              }
+              wList.add(keyStr + ' - ' + this.wallets.get(key));
             }
-            wList.add(keyStr + ' - ' + this.wallets.get(key));
           }
         }
         return wList;
