@@ -18,29 +18,19 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
+                <fullName>Amount not received by payee</fullName>
+                <default>false</default>
+                <label>Amount not received by payee</label>
+            </value>
+            <value>
                 <fullName>Cancellation of regular payment arrangement was unsuccessful</fullName>
                 <default>false</default>
                 <label>Cancellation of regular payment arrangement was unsuccessful</label>
             </value>
             <value>
-                <fullName>Cash Dispense Error</fullName>
-                <default>false</default>
-                <label>Cash Dispense Error</label>
-            </value>
-            <value>
                 <fullName>Duplicate Transaction</fullName>
                 <default>false</default>
                 <label>Duplicate Transaction</label>
-            </value>
-            <value>
-                <fullName>Error Correction</fullName>
-                <default>false</default>
-                <label>Error Correction</label>
-            </value>
-            <value>
-                <fullName>General Enquiry</fullName>
-                <default>false</default>
-                <label>General Enquiry</label>
             </value>
             <value>
                 <fullName>Unauthorised Transaction</fullName>
@@ -51,16 +41,6 @@
                 <fullName>Trace Request</fullName>
                 <default>false</default>
                 <label>Trace Request</label>
-            </value>
-            <value>
-                <fullName>Customer selected wrong payee</fullName>
-                <default>false</default>
-                <label>Customer selected wrong payee</label>
-            </value>
-            <value>
-                <fullName>Customer entered incorrect account details</fullName>
-                <default>false</default>
-                <label>Customer entered incorrect account details</label>
             </value>
             <value>
                 <fullName>Cash Dispensing Error</fullName>
@@ -158,21 +138,6 @@
                 <label>Unsolicited</label>
             </value>
             <value>
-                <fullName>Solicited - I want to return this money?</fullName>
-                <default>false</default>
-                <label>Solicited - I want to return this money?</label>
-            </value>
-            <value>
-                <fullName>Remittance - Where did this money come from?</fullName>
-                <default>false</default>
-                <label>Remittance - Where did this money come from?</label>
-            </value>
-            <value>
-                <fullName>Final Destination - Did my money get to where I sent it?</fullName>
-                <default>false</default>
-                <label>Final Destination - Did my money get to where I sent it?</label>
-            </value>
-          <value>
                 <fullName>Incorrect Account Details</fullName>
                 <default>false</default>
                 <label>Incorrect Account Details</label>

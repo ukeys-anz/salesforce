@@ -23,16 +23,16 @@ public with sharing class DisputesValidationTest {
       );
       insert coach;
       // Assign related PSs
-      PermissionSetGroup coachPSG = [
-        SELECT Id
-        FROM PermissionSetGroup
-        WHERE DeveloperName = 'Coach'
-        LIMIT 1
-      ];
+      List<String> coachPSs = new List<String>{
+        'Case_Read_Write_Get_Help',
+        'Customer_Read_Only',
+        'Quality_Assessment_Read_Only',
+        'Dispute_Read_Write'
+      };
       List<PermissionSet> coachPsList = [
         SELECT Id
         FROM PermissionSet
-        WHERE PermissionSetGroupId = :coachPSG.Id
+        WHERE Name IN :coachPSs
       ];
       List<PermissionSetAssignment> coachPsaList = new List<PermissionSetAssignment>();
       for (PermissionSet ps : coachPsList) {
