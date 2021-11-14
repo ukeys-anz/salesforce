@@ -8,7 +8,7 @@
           "bsb": "014111",
           "number": "210433904"
         },
-        "transaction_time": "2021-08-20T20:57:58Z",
+        "transaction_time": "2021-11-12T02:57:58Z",
         "last_update_time": "2021-08-23T11:49:14.025984Z",
         "status": "TRANSACTION_STATUS_POSTED",
         "long_desc": "Payment with card at some place",
@@ -70,7 +70,7 @@
           "bsb": "014111",
           "number": "210433904"
         },
-        "transaction_time": "2021-08-20T20:57:58Z",
+        "transaction_time": "2021-11-12T03:21:58Z",
         "last_update_time": "2021-08-23T11:49:14.025984Z",
         "status": "TRANSACTION_STATUS_PENDING",
         "long_desc": "Card payment of location unknown",
@@ -132,7 +132,7 @@
           "bsb": "014111",
           "number": "210433904"
         },
-        "transaction_time": "2021-08-21T18:57:58Z",
+        "transaction_time": "2021-11-12T03:27:58Z",
         "last_update_time": "2021-08-23T11:49:14.025984Z",
         "status": "TRANSACTION_STATUS_POSTED",
         "long_desc": "This is the cash purchase",
@@ -193,7 +193,7 @@
           "bsb": "014111",
           "number": "210433904"
         },
-        "transaction_time": "2021-08-23T19:57:58Z",
+        "transaction_time": "2021-11-12T04:07:58Z",
         "last_update_time": "2021-08-24T11:49:14.025984Z",
         "status": "TRANSACTION_STATUS_POSTED",
         "long_desc": "Pay Anyone purchase",
@@ -231,10 +231,6 @@
             },
             "alias_name": {
               "value": "Peter Chara"
-            },
-            "account": {
-              "bsb": "123456",
-              "number": "1234567890"
             }
           },
           "npp_customer_reference_number": {
@@ -280,7 +276,7 @@
           "bsb": "014111",
           "number": "210433904"
         },
-        "transaction_time": "2021-08-23T19:57:58Z",
+        "transaction_time": "2021-11-12T05:37:58Z",
         "last_update_time": "2021-08-24T11:49:14.025984Z",
         "status": "TRANSACTION_STATUS_POSTED",
         "long_desc": "Pay Anyone purchase",
@@ -367,7 +363,7 @@
           "bsb": "014111",
           "number": "210433904"
         },
-        "transaction_time": "2021-08-21T23:57:58Z",
+        "transaction_time": "2021-11-12T01:17:58Z",
         "last_update_time": "2021-08-23T11:49:14.025984Z",
         "status": "TRANSACTION_STATUS_POSTED",
         "long_desc": "BPAY payment somewhere",
@@ -424,7 +420,7 @@
           "bsb": "014111",
           "number": "210433904"
         },
-        "transaction_time": "2021-08-23T19:57:58Z",
+        "transaction_time": "2021-11-12T05:46:58Z",
         "last_update_time": "2021-08-24T11:49:14.025984Z",
         "status": "TRANSACTION_STATUS_POSTED",
         "long_desc": "Pay Anyone purchase",
@@ -480,7 +476,7 @@
           "bsb": "014111",
           "number": "210433904"
         },
-        "transaction_time": "2021-08-23T19:57:58Z",
+        "transaction_time": "2021-11-12T02:57:58Z",
         "last_update_time": "2021-08-24T11:49:14.025984Z",
         "status": "TRANSACTION_STATUS_POSTED",
         "long_desc": "Pay Anyone purchase",
@@ -567,7 +563,7 @@
           "bsb": "014111",
           "number": "210433904"
         },
-        "transaction_time": "2021-08-23T19:57:58Z",
+        "transaction_time": "2021-11-12T01:12:58Z",
         "last_update_time": "2021-08-24T11:49:14.025984Z",
         "status": "TRANSACTION_STATUS_POSTED",
         "long_desc": "Pay Anyone purchase",
@@ -626,7 +622,7 @@
           "bsb": "014111",
           "number": "210433904"
         },
-        "transaction_time": "2021-08-23T22:57:58Z",
+        "transaction_time": "2021-11-12T06:27:58Z",
         "last_update_time": "2021-08-24T11:49:14.025984Z",
         "status": "TRANSACTION_STATUS_POSTED",
         "long_desc": "Transfer to some place",
@@ -683,7 +679,7 @@
           "bsb": "014111",
           "number": "210433904"
         },
-        "transaction_time": "2021-08-23T22:57:58Z",
+        "transaction_time": "2021-11-12T06:37:58Z",
         "last_update_time": "2021-08-24T11:49:14.025984Z",
         "status": "TRANSACTION_STATUS_POSTED",
         "long_desc": "Transfer to some place",
@@ -761,7 +757,7 @@
           "bsb": "014111",
           "number": "210433904"
         },
-        "transaction_time": "2021-08-21T23:57:58Z",
+        "transaction_time": "2021-11-12T05:23:58Z",
         "last_update_time": "2021-08-23T11:49:14.025984Z",
         "status": "TRANSACTION_STATUS_POSTED",
         "long_desc": "BPAY payment somewhere",
@@ -828,7 +824,7 @@
           "bsb": "014111",
           "number": "210433904"
         },
-        "transaction_time": "2021-08-23T19:57:58Z",
+        "transaction_time": "2021-11-12T01:19:58Z",
         "last_update_time": "2021-08-24T11:49:14.025984Z",
         "status": "TRANSACTION_STATUS_POSTED",
         "long_desc": "Pay Anyone purchase",
@@ -915,7 +911,7 @@
           "bsb": "014111",
           "number": "210433904"
         },
-        "transaction_time": "2021-11-11T04:57:58Z",
+        "transaction_time": "2021-11-12T04:23:58Z",
         "last_update_time": "2021-11-11T04:58:14.025984Z",
         "status": "TRANSACTION_STATUS_POSTED",
         "long_desc": "BPAY payment somewhere",
@@ -1016,12 +1012,8 @@
           },
           "coordinates": {
             "lat_lon_precision": 8,
-            "latitude": {
-              "value": -37.822097
-            },
-            "longitude": {
-              "value": 144.945717
-            }
+            "latitude": -37.822097,
+            "longitude": 144.945717
           }
         },
         "phone_number": {

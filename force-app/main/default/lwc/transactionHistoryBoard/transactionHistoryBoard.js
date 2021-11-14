@@ -298,8 +298,8 @@ export default class TransactionHistoryBoard extends LightningElement {
         transaction.mapMarkers = [
           {
             location: {
-              Latitude: merchantDetails.address.coordinates.latitude.value,
-              Longitude: merchantDetails.address.coordinates.longitude.value
+              Latitude: merchantDetails.address.coordinates.latitude,
+              Longitude: merchantDetails.address.coordinates.longitude
             }
           }
         ];

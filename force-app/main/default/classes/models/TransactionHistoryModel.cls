@@ -293,9 +293,9 @@ public with sharing class TransactionHistoryModel extends CalloutModel {
     @AuraEnabled
     public Integer lat_lon_precision;
     @AuraEnabled
-    public CoordinateValues latitude;
+    public Double latitude;
     @AuraEnabled
-    public CoordinateValues longitude;
+    public Double longitude;
   }
 
   /**
@@ -304,14 +304,6 @@ public with sharing class TransactionHistoryModel extends CalloutModel {
   public class FieldValue {
     @AuraEnabled
     public String value;
-  }
-
-  /**
-   * @description the value of latitude and longitude
-   */
-  public class CoordinateValues {
-    @AuraEnabled
-    public Double value;
   }
 
   /**
