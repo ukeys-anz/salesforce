@@ -8,7 +8,9 @@ RecordType.DeveloperName = &apos;ATM_Dispute&apos;,
 ISPICKVAL(Dispute_Reason__c, &quot;Unauthorised Transaction&quot;),
 OR(
 ISPICKVAL(Card_In_Possession_During_Transaction__c,&apos;&apos;),
-ISPICKVAL(Has_The_Card_Been_Stopped__c,&apos;&apos;)
+ISPICKVAL(Has_The_Card_Been_Stopped__c,&apos;&apos;),
+ISPICKVAL(Card_In_Possession_During_Transaction__c,&apos;NA&apos;),
+ISPICKVAL(Has_The_Card_Been_Stopped__c,&apos;NA&apos;)
 )
 )</errorConditionFormula>
     <errorMessage>These fields are required: Card In Possession During Transaction, Has The Card Been Stopped.</errorMessage>

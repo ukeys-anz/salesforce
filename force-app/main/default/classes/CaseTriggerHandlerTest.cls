@@ -1829,6 +1829,8 @@ private class CaseTriggerHandlerTest {
     atmDispute1.Dispute_Reason__c = 'Unauthorised Transaction';
     atmDispute1.Origin = 'Chat';
     atmDispute1.Status = 'Open';
+    atmDispute1.Card_In_Possession_During_Transaction__c = 'Yes';
+    atmDispute1.Has_The_Card_Been_Stopped__c = 'No';
 
     disputes.add(atmDispute1);
 
@@ -1841,6 +1843,8 @@ private class CaseTriggerHandlerTest {
     atmDispute2.Dispute_Reason__c = 'Unauthorised Transaction';
     atmDispute2.Origin = 'Chat';
     atmDispute2.Status = 'Open';
+    atmDispute2.Card_In_Possession_During_Transaction__c = 'Yes';
+    atmDispute2.Has_The_Card_Been_Stopped__c = 'No';
 
     disputes.add(atmDispute2);
 
@@ -1903,6 +1907,8 @@ private class CaseTriggerHandlerTest {
     atmDispute.Dispute_Reason__c = 'Unauthorised Transaction';
     atmDispute.Origin = 'Chat';
     atmDispute.Status = 'Open';
+    atmDispute.Card_In_Possession_During_Transaction__c = 'Yes';
+    atmDispute.Has_The_Card_Been_Stopped__c = 'No';
 
     Test.startTest();
     try {
@@ -1980,6 +1986,8 @@ private class CaseTriggerHandlerTest {
     atmDispute1.Dispute_Reason__c = 'Unauthorised Transaction';
     atmDispute1.Origin = 'Chat';
     atmDispute1.Status = 'Open';
+    atmDispute1.Card_In_Possession_During_Transaction__c = 'Yes';
+    atmDispute1.Has_The_Card_Been_Stopped__c = 'No';
     disputes.add(atmDispute1);
 
     Case atmDispute2 = new Case();
@@ -1991,7 +1999,8 @@ private class CaseTriggerHandlerTest {
     atmDispute2.Dispute_Reason__c = 'Unauthorised Transaction';
     atmDispute2.Origin = 'Chat';
     atmDispute2.Status = 'Open';
-
+    atmDispute2.Card_In_Possession_During_Transaction__c = 'Yes';
+    atmDispute2.Has_The_Card_Been_Stopped__c = 'No';
     disputes.add(atmDispute2);
 
     Test.startTest();
