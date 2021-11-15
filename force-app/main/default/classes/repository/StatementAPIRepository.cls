@@ -113,6 +113,7 @@ public with sharing class StatementAPIRepository extends RepositoryBase {
       if (response.successful) {
         try {
           result = StatementModel.parse(response.body);
+          responseMap.put('traceid', UniqueIdUtil.getTraceId());
           responseMap.put('sfUserId', userinfo.getUserId());
           responseMap.put('accountId', additionaldetails.get('accountId'));
           responseMap.put(
