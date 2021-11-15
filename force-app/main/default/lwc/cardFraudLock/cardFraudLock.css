@@ -1,0 +1,65 @@
+.card-header {
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.header-div {
+  background-color: #014486;
+  padding-bottom: 10px;
+}
+
+.body-wording-section,
+.body-wording-section-submission {
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+.body-wording-section-submission {
+  margin-left: 20px;
+  max-width: 80%;
+}
+
+.submit-button,
+.confirm-button {
+  margin-left: 20px;
+}
+
+.slds-backdrop_open,
+.slds-backdrop--open {
+  opacity: 0.6;
+}
+
+.dialogBox {
+  margin: 0 auto;
+  width: 80%;
+}
+.messageBox {
+  margin: 0 auto;
+  width: 100%;
+}
+.btnDiv {
+  width: 80%;
+  margin: 0 auto;
+}
+.messageDiv {
+  width: 100%;
+  margin: 0 auto;
+}
+.btnGroup {
+  margin: 0 auto;
+  text-align: center;
+}
+.btnWidth {
+  margin: 10px 0;
+}
+.btn {
+  display: grid;
+  width: 100%;
+}
+
+.headerBorder {
+  border-radius: 5px;
+}

@@ -49,6 +49,14 @@
         <value>/account-details-api-sandbox/api/accountbalance?ocvid=</value>
     </labels>
     <labels>
+        <fullName>MS_Fraud_Lock_Card</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Fraud_Lock_Card</shortDescription>
+        <value>/card-management/v1/cards/</value>
+    </labels>
+    <labels>
         <fullName>MS_Forge_Token</fullName>
         <categories>MS</categories>
         <language>en_US</language>
