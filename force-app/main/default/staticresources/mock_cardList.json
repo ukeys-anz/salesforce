@@ -108,6 +108,26 @@
         "eCommerce": 0,
         "other": 0
       }
+    },
+    {
+      "name": "Al Pacino",
+      "tokenizedCardNumber": "746377948",
+      "last4Digits": "9874",
+      "status": "Replace Status",
+      "expiryDate": "9/12",
+      "accountNumber": "",
+      "eligibilities": [
+        "ELIGIBILITY_APPLE_PAY",
+        "ELIGIBILITY_GOOGLE_PAY",
+        "ELIGIBILITY_SAMSUNG_PAY",
+        "ELIGIBILITY_SET_PIN",
+        "ELIGIBILITY_CHANGE_PIN",
+        "ELIGIBILITY_CARD_REPLACEMENT_LOST",
+        "ELIGIBILITY_CARD_REPLACEMENT_STOLEN",
+        "ELIGIBILITY_CARD_REPLACEMENT_DAMAGED",
+        "ELIGIBILITY_CARD_CONTROLS",
+        "ELIGIBILITY_BLOCK"
+      ]
     }
   ]
 }
