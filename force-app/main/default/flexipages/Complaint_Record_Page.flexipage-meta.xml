@@ -250,6 +250,11 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
+                <componentName>forceKnowledge:articleSearchDesktop</componentName>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentName>customerInformation</componentName>
                 <visibilityRule>
                     <criteria>
