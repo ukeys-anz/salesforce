@@ -25,10 +25,6 @@ public with sharing class GetHelpConstants {
     .get('Direct_Entry_Dispute')
     .getRecordTypeId();
 
-  public static final Id URGENT_DISHONOUR_DISPUTE_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get('Urgent_Dishonour_Request_Dispute')
-    .getRecordTypeId();
-
   public static final Id NPP_DISPUTE_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('NPP_Dispute')
     .getRecordTypeId();

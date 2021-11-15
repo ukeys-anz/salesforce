@@ -89,3 +89,7 @@ type:DataCategoryGroup
 force-app/main/default/objects/IDR_CRC_Escalation_Event__e
 
 force-app/main/default/permissionsets/SFDX_Deploy.permissionset-meta.xml
+
+#Ignore Urgent Dishonour Request dispute type, the deletion will be done as a pre-deployment step 
+#as metadata API does not support deleting record type, to avoid destructive change error
+force-app/main/default/objects/Case/recordTypes/Urgent_Dishonour_Request_Dispute.recordType-meta.xml

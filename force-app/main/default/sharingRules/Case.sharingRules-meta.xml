@@ -119,7 +119,7 @@
         <sharedTo>
             <role>Coach_Lead</role>
         </sharedTo>
-        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8</booleanFilter>
+        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -139,11 +139,6 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Direct Entry</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Urgent Dishonour Request</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -169,7 +164,7 @@
         <sharedTo>
             <role>Coach</role>
         </sharedTo>
-        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8</booleanFilter>
+        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -189,11 +184,6 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Direct Entry</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Urgent Dishonour Request</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -219,7 +209,7 @@
         <sharedTo>
             <role>Quality_Analyst</role>
         </sharedTo>
-        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8</booleanFilter>
+        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -239,11 +229,6 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Direct Entry</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Urgent Dishonour Request</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -268,7 +253,7 @@
         <sharedTo>
             <role>Support_Coach</role>
         </sharedTo>
-        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8</booleanFilter>
+        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -288,11 +273,6 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Direct Entry</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Urgent Dishonour Request</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -317,7 +297,7 @@
         <sharedTo>
             <role>Card_Dispute_Agent</role>
         </sharedTo>
-        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7</booleanFilter>
+        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -337,11 +317,6 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Direct Entry</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Urgent Dishonour Request</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -361,7 +336,7 @@
         <sharedTo>
             <role>Support_Staff_ARC</role>
         </sharedTo>
-        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7</booleanFilter>
+        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -381,11 +356,6 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Direct Entry</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Urgent Dishonour Request</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -495,7 +465,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Direct Debit,Recipient/Mule,Direct Entry,ATM,Fraud,General Enquiry,KYC QA,Scam,Identity,Urgent Dishonour Request,Card,NPP</value>
+            <value>Direct Debit,Recipient/Mule,Direct Entry,ATM,Fraud,General Enquiry,KYC QA,Scam,Identity,Card,NPP</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
