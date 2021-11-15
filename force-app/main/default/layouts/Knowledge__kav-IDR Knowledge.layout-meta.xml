@@ -25,9 +25,6 @@
             <layoutItems>
                 <field>Title</field>
             </layoutItems>
-            <layoutItems>
-                <field>Reason_for_Change__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -135,5 +132,8 @@
         <fields>Actor</fields>
         <fields>Comments</fields>
         <relatedList>RelatedProcessHistoryList</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <relatedList>KnowledgeArticleVersionFilesRelatedList</relatedList>
     </relatedLists>
 </Layout>
