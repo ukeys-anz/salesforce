@@ -102,12 +102,16 @@ public with sharing class TransactionHistoryModel extends CalloutModel {
     @AuraEnabled
     public String transaction_posted_date {
       get {
-        return DateTimeUtils.getLocalTime(
-          this.transaction_posted_time,
-          TIMEZONE,
-          'yyyy-MM-dd HH:mm:ss.SSS Z' /* Intentionally leaving a space before Z so JS understands that this datetime already
-           has timezone it it and does not try to convert it again*/
-        );
+        if (this.transaction_posted_time != null) {
+          return DateTimeUtils.getLocalTime(
+            this.transaction_posted_time,
+            TIMEZONE,
+            'yyyy-MM-dd HH:mm:ss.SSS Z' /* Intentionally leaving a space before Z so JS understands that this datetime already
+             has timezone it it and does not try to convert it again*/
+          );
+        }
+
+        return null;
       }
     }
     @AuraEnabled

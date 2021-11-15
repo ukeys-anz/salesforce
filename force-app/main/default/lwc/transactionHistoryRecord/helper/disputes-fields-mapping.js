@@ -23,7 +23,8 @@ const directEntryDisputesFieldsMapping = {
   Receipt__c: "pay_anyone.payment_receipt_number.value",
   Crediting_Trace_Line__c: "traceId",
   Crediting_Account_Name__c: "pay_anyone.other_entity.name",
-  Crediting_Account_Number__c: "pay_anyone.other_entity.account.transactionAccountNumber",
+  Crediting_Account_Number__c:
+    "pay_anyone.other_entity.account.transactionAccountNumber",
   Crediting_Account_BSB__c: "pay_anyone.other_entity.account.bsb"
 };
 
@@ -95,11 +96,7 @@ export function prepopulateDisputesFields(
   }
 
   defaultFieldValuesObj = mappingObj
-    ? prepopulateFieldsValues(
-        mappingObj,
-        transaction,
-        defaultFieldValuesObj
-      )
+    ? prepopulateFieldsValues(mappingObj, transaction, defaultFieldValuesObj)
     : defaultFieldValuesObj;
 
   return defaultFieldValuesObj;
@@ -112,6 +109,15 @@ const prepopulateFieldsValues = (
   defaultFieldValuesObj
 ) => {
   Object.entries(fieldMappings).forEach(([key, value], index) => {
+    //Posted date is only available the day after the transaction is made,
+    //so we need to have this check here to make sure we don't populate the date field
+    //if its invalid
+    if (
+      value === "transaction_posted_date" &&
+      (!transaction[value] || transaction[value] === "Invalid Date")
+    ) {
+      return;
+    }
     let keyString = value;
     defaultFieldValuesObj[key] = !keyString.includes(".") // If this key does not contain nested value
       ? transaction[keyString] // extract the value using the native way
