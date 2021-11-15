@@ -31,6 +31,15 @@
             <field>
                 <name>Type</name>
             </field>
+            <field>
+                <name>IDR_Subsequent_Issue__c</name>
+            </field>
+            <field>
+                <name>IDR_Subsequent_Issue_2__c</name>
+            </field>
+            <field>
+                <name>IDR_Subsequent_Issue_3__c</name>
+            </field>
         </caseFields>
         <useSuggestedArticlesForCase>true</useSuggestedArticlesForCase>
         <workOrderFields>
