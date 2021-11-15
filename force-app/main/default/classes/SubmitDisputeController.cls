@@ -14,7 +14,11 @@ public with sharing class SubmitDisputeController {
   @AuraEnabled
   public static Boolean updateSubmitFlag(Id caseId) {
     if (Schema.sObjectType.Case.isUpdateable()) {
-      update new Case(Id = caseId, Submitted__c = true);
+      Database.DMLOptions dmo = new Database.DMLOptions();
+      dmo.assignmentRuleHeader.useDefaultRule = true;
+      Case disputeCase = new Case(Id = caseId, Submitted__c = true);
+      disputeCase.setOptions(dmo);
+      update disputeCase;
       return true;
     } else {
       CommonUtil.logAndThrowIAE(
