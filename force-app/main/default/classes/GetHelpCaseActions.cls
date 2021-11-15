@@ -104,6 +104,14 @@ public with sharing class GetHelpCaseActions {
         ) {
           milestoneCaseIds.add(record.Id);
         }
+
+        // Reset case SLA Status on Dispute cases to blank/none when switching case status.
+        // This would aid notifications based on SLA_Status__c to work correctly;
+        //    * when "Resolution Time" mielstone resulted in a SLA Status change before entering "Investigation Time" milestone
+        //    * if/when the same case enters "Investigation Time" milestone more than once
+        if (oldRecord.Status != record.Status) {
+          record.SLA_Status__c = '';
+        }
       }
     }
 

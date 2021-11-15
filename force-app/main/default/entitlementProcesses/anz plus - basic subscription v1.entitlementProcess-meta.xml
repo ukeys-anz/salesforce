@@ -420,10 +420,6 @@
         </milestoneCriteriaFilterItems>
         <milestoneName>Investigation Time</milestoneName>
         <minutesToComplete>7200</minutesToComplete>
-        <successActions>
-            <name>SLA_Status_None_Update</name>
-            <type>FieldUpdate</type>
-        </successActions>
         <timeTriggers>
             <actions>
                 <name>SLA_Status_Warning_Update</name>
@@ -480,10 +476,6 @@
         </milestoneCriteriaFilterItems>
         <milestoneName>Investigation Time</milestoneName>
         <minutesToComplete>10080</minutesToComplete>
-        <successActions>
-            <name>SLA_Status_None_Update</name>
-            <type>FieldUpdate</type>
-        </successActions>
         <timeTriggers>
             <actions>
                 <name>SLA_Status_None_Update</name>
@@ -540,10 +532,6 @@
         </milestoneCriteriaFilterItems>
         <milestoneName>Investigation Time</milestoneName>
         <minutesToComplete>43200</minutesToComplete>
-        <successActions>
-            <name>SLA_Status_None_Update</name>
-            <type>FieldUpdate</type>
-        </successActions>
         <timeTriggers>
             <actions>
                 <name>SLA_Status_None_Update</name>

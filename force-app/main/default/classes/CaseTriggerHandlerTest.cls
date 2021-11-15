@@ -2444,4 +2444,54 @@ private class CaseTriggerHandlerTest {
       'An exception should not have been thrown while triggering SLA notifications.'
     );
   }
+
+  @isTest
+  static void testDisputeSLAReset() {
+    Faker faker = new Faker('AU');
+    // GIVEN
+    // a dispute case has gone through mielstones and have reached a SLA Status (Warning/Breached)
+    Account acc = [
+      SELECT Id
+      FROM Account
+      WHERE ANZx_Customer__c = TRUE
+      LIMIT 1
+    ];
+    Case disputeCase = new Case(
+      RecordTypeId = GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID,
+      AccountId = acc.Id,
+      Auto_Created__c = false,
+      Dispute_Reason__c = 'Duplicate Transactions',
+      Origin = '1',
+      Priority = 'Medium',
+      Transaction_Id__c = '9be08660-23bb-4f12-b124-7cfe561ba086',
+      BusinessHoursId = CommonUtil.getBusinessHours().Id,
+      Description = 'sample issue description',
+      External_System__c = 'CARBe',
+      External_Case_ID__c = '45234234',
+      Status = GetHelpConstants.OPEN_STATUS,
+      SLA_Status__c = 'Warning'
+    );
+    insert disputeCase;
+
+    // WHEN
+    // the case Status is switched
+    Test.startTest();
+    disputeCase.Status = GetHelpConstants.UNDER_INVESTIGATION_STATUS;
+    update disputeCase;
+    Test.stopTest();
+
+    // THEN
+    // the SLA_Status__c field should get reset to blank/none
+    Case updatedCase = [
+      SELECT SLA_Status__c
+      FROM Case
+      WHERE Id = :disputeCase.Id
+      LIMIT 1
+    ];
+    System.assertEquals(
+      null,
+      updatedCase.SLA_Status__c,
+      'Failed to reset SLA Status to blank when Dispute case Status is changed.'
+    );
+  }
 }
