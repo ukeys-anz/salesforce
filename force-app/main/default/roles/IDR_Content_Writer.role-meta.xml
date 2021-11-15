@@ -3,7 +3,7 @@
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>None</contactAccessLevel>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>CMOS KB Content Owner</name>
+    <name>IDR Content Writer</name>
     <opportunityAccessLevel>Edit</opportunityAccessLevel>
     <parentRole>ANZ</parentRole>
 </Role>
