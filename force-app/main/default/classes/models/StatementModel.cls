@@ -1,9 +1,7 @@
 /**
  * Suppressing PMD naming convention warnings as some fields return in snake case formatting from the API.
  */
-@SuppressWarnings(
-  'PMD.FieldNamingConventions'
-)
+@SuppressWarnings('PMD.FieldNamingConventions')
 /**
  * @author Chiranjeeb Dhar
  * @since October 2021
@@ -69,18 +67,21 @@ public with sharing class StatementModel extends CalloutModel {
    * @description year value information
    */
   public class Year {
+    @AuraEnabled
     public Integer value;
   }
   /**
    * @description statement month value information
    */
   public class Month {
+    @AuraEnabled
     public Integer value;
   }
   /**
    * @description statement day value information
    */
   public class Day {
+    @AuraEnabled
     public Integer value;
   }
   /**

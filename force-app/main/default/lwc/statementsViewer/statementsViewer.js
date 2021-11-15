@@ -47,6 +47,7 @@ export default class StatementsViewer extends LightningElement {
   financialAccountId;
   ocvId;
   productName;
+  accountNumber;
 
   columns = columns;
   sortedBy;
@@ -78,15 +79,14 @@ export default class StatementsViewer extends LightningElement {
   })
   wiredFinancialAccount({ data, error }) {
     if (data) {
-      const accountNumber =
-        data.fields.FinServ__FinancialAccountNumber__c.value;
+      this.accountNumber = data.fields.FinServ__FinancialAccountNumber__c.value;
       this.accountId = data.fields.FinServ__PrimaryOwner__c.value;
       this.financialAccountId = data.fields.Id.value;
       this.productName = data.fields.Product_Name__c.value;
       this.ocvId = data.fields.OCV_ID__c.value;
       this.getStatementsData(
         this.ocvId,
-        accountNumber,
+        this.accountNumber,
         DEFAULT_PAGE_SIZE.toString()
       );
     } else if (error) {
