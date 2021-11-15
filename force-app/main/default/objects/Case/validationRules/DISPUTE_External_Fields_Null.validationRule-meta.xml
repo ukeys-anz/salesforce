@@ -9,8 +9,12 @@ OR(
 ISCHANGED(External_System__c),
 ISCHANGED(External_Case_ID__c)),
 OR(
-ISNULL(External_Case_ID__c),
-ISBLANK(TEXT(External_System__c)))
+NOT(ISPICKVAL(External_System__c,&apos;&apos;)) &amp;&amp; ISBLANK(External_Case_ID__c),
+ISPICKVAL(External_System__c,&apos;NA&apos;) &amp;&amp; ISBLANK(External_Case_ID__c),
+ISPICKVAL(External_System__c,&apos;NA&apos;) &amp;&amp; NOT(ISBLANK(External_Case_ID__c)),
+ISPICKVAL(External_System__c,&apos;&apos;) &amp;&amp; ISBLANK(External_Case_ID__c),
+ISPICKVAL(External_System__c,&apos;&apos;) &amp;&amp; NOT(ISBLANK(External_Case_ID__c)))
 )</errorConditionFormula>
+    <errorDisplayField>External_System__c</errorDisplayField>
     <errorMessage>Please select an External System and acknowledge that External System ID has been provided.</errorMessage>
 </ValidationRule>
