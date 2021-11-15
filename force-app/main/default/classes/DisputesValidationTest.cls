@@ -1,7 +1,7 @@
 @isTest
 public with sharing class DisputesValidationTest {
-  public static final String DISPUTE_CARD_VR1_ERROR = 'These fields are required: Description of Issue, Is The Card Lost/Stolen and Has The Card Been Stopped. If the Card In Possession During Transaction is No, then Card In Possession During Transaction is required.';
-  public static final String DISPUTE_CARD_VR8_ERROR = 'These fields are required: Description of Issue, Goods Or Services Returned and Merchant Description. If Goods or Services Returned is equal to Yes, then Goods Returned or Service Cancelled Date cannot be null.';
+  public static final String DISPUTE_CARD_VR1_ERROR = 'These fields are required: Description of Issue, Is The card Lost/Stolen, Card In Possession During Transaction, Has The Card Been Stopped.';
+  public static final String DISPUTE_CARD_VR8_ERROR = 'These fields are required: Description of Issue, Goods Or Services Returned, Goods Returned or Service Cancelled Date, Merchant Description.';
   public static final String DISPUTE_ATM_VR2_ERROR = 'Please provide Description of Issue.';
   public static final String DISPUTE_NPP_VR1_ERROR = 'These fields are required: Description of Issue, Intended Account BSB, Intended Account Name, Intended Account Number.';
 

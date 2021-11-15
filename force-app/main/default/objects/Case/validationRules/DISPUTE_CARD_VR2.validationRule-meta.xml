@@ -3,19 +3,21 @@
     <fullName>DISPUTE_CARD_VR2</fullName>
     <active>true</active>
     <errorConditionFormula>AND(
-$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
-RecordType.DeveloperName = &apos;Card_Dispute&apos;,
-ISPICKVAL(Dispute_Reason__c, &quot;Don&apos;t recognise the transaction&quot;),
-OR(
-ISBLANK(Description),
-OR(ISPICKVAL(Is_The_Card_Lost_Stolen__c, &apos;&apos;),
-ISPICKVAL(Is_The_Card_Lost_Stolen__c, &apos;NA&apos;)),
-AND(
-NOT(ISPICKVAL(Is_The_Card_Lost_Stolen__c, &apos;No&apos;)),
-OR(ISPICKVAL(Has_The_Card_Been_Stopped__c,&apos;&apos;),
-ISPICKVAL(Has_The_Card_Been_Stopped__c,&apos;NA&apos;))
-)
-)
+    $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+    RecordType.DeveloperName = &apos;Card_Dispute&apos;,
+    ISPICKVAL(Dispute_Reason__c, &quot;Don&apos;t recognise the transaction&quot;),
+    NOT(ISPICKVAL(Is_The_Card_Lost_Stolen__c, &apos;No&apos;)),
+    OR(
+        ISBLANK(Description),
+        OR(
+            ISPICKVAL(Is_The_Card_Lost_Stolen__c, &apos;&apos;),
+            ISPICKVAL(Is_The_Card_Lost_Stolen__c, &apos;NA&apos;)
+        ),
+        OR(
+            ISPICKVAL(Has_The_Card_Been_Stopped__c,&apos;&apos;),
+            ISPICKVAL(Has_The_Card_Been_Stopped__c,&apos;NA&apos;)
+        )
+    )
 )</errorConditionFormula>
     <errorMessage>These fields are required: Description of Issue, Is The Card Lost/Stolen, Has The Card Been Stopped.</errorMessage>
 </ValidationRule>
