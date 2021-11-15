@@ -191,4 +191,30 @@ public with sharing virtual class Service {
   ) {
     return null;
   }
+  /**
+   * @param ocvId required to make the callout to Mulesoft
+   * @param accountNumber used to fetch the statements from Mulesoft related to the Account Number
+   * @param pageSize number of statement records to be returned from Fabric
+   * @return `HttpCalloutResponse` api response
+   * @description virtual statement callout
+   */
+  public virtual HttpCalloutResponse getStatements(
+    String ocvId,
+    String accountNumber,
+    String pageSize
+  ) {
+    return null;
+  }
+  /**
+   * @param ocvId required to make the callout to Mulesoft
+   * @param statementId  used to fetch the statements from Mulesoft related to the Account Number
+   * @return `HttpCalloutResponse` api response
+   * @description virtual statement callout
+   */
+  public virtual HttpCalloutResponse getStatementUrl(
+    String ocvId,
+    String statementId
+  ) {
+    return null;
+  }
 }

@@ -17,6 +17,7 @@
     <permissionSets>TwilioSF__Twilio_User</permissionSets>
     <permissionSets>force__EinsteinAnalyticsPlusUser</permissionSets>
     <permissionSets>View_Card_Details</permissionSets>
+    <permissionSets>View_Statements</permissionSets>
     <permissionSets>force__FSCInsurance</permissionSets>
     <permissionSets>Tableau_CRM_Allow_CSV_Download</permissionSets>
     <status>Updated</status>
