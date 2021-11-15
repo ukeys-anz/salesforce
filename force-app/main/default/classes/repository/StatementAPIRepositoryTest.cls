@@ -65,7 +65,7 @@ public with sharing class StatementAPIRepositoryTest {
       Test.startTest();
       StatementAPIRepository statementapi = new StatementAPIRepository();
       try {
-        model = statementapi.getStatements('1111', '1111','10');
+        model = statementapi.getStatements('1111', '1111', '10');
       } catch (Exception e) {
         resultException = e;
       }

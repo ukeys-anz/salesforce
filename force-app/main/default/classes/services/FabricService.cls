@@ -194,10 +194,11 @@ public with sharing class FabricService extends Service {
       'callout:SF_MS_Fabric' + Label.MS_Get_StatementList,
       HTTP_METHOD.HTTP_POST,
       headers,
-      '{"page_size":'+
-      pageSize+','+
-      '"account_numbers": ["'+
-      accountNumber+
+      '{"page_size":' +
+      pageSize +
+      ',' +
+      '"account_numbers": ["' +
+      accountNumber +
       '"]}'
     );
     return response;
@@ -217,7 +218,8 @@ public with sharing class FabricService extends Service {
     setFabricCommonHeaders(ocvID, headers);
     headers.put('cache-control', 'no-store');
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' + Label.MS_Get_StatementUrl+
+      'callout:SF_MS_Fabric' +
+      Label.MS_Get_StatementUrl +
       statementId,
       HTTP_METHOD.HTTP_GET,
       headers,

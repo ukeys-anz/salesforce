@@ -41,11 +41,19 @@ public with sharing class StatementAPIRepository extends RepositoryBase {
    * @return StatementModel model class constructed from api response
    * @description fetches statements from fabric based on the account number, deserialized to a model
    */
-  public StatementModel getStatements(String ocvId, String accountNumber, String pageSize) {
+  public StatementModel getStatements(
+    String ocvId,
+    String accountNumber,
+    String pageSize
+  ) {
     StatementModel result;
     if (FeatureManagement.checkPermission('ANZx_View_Statements')) {
       Service s = ServiceProvider.getService(FabricService.class);
-      HttpCalloutResponse response = s.getStatements(ocvId, accountNumber, pageSize);
+      HttpCalloutResponse response = s.getStatements(
+        ocvId,
+        accountNumber,
+        pageSize
+      );
       if (response.successful) {
         try {
           result = StatementModel.parse(response.body);

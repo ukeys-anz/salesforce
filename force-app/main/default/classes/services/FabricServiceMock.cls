@@ -79,7 +79,7 @@ public with sharing class FabricServiceMock extends Service {
     }
     return response;
   }
-/**
+  /**
    * @param ocvId customer id
    * @param accountNumber to retrieve statements for the specific account
    * @param pageSize number of statement records to be returned from Fabric
@@ -90,7 +90,7 @@ public with sharing class FabricServiceMock extends Service {
     String ocvId,
     String accountNumber,
     String pageSize
-    ) {
+  ) {
     if (!preset) {
       response.body = FabricServiceMock.GET_STATEMENT;
     }
@@ -105,7 +105,7 @@ public with sharing class FabricServiceMock extends Service {
   public override HttpCalloutResponse getStatementUrl(
     String ocvId,
     String statementId
-    ) {
+  ) {
     if (!preset) {
       response.body = FabricServiceMock.GET_STATEMENTURL;
     }
