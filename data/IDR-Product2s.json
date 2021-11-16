@@ -8,9 +8,10 @@
       "Name": "ANZ Business Black Credit Card",
       "IsActive": true,
       "ANZ_Product_Code__c": "1",
-      "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "1"
+      "IDR_Product_or_Service_Category__c": "1",
+      "IDR_Product_or_Service_Type__c": "1",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -20,9 +21,10 @@
       "Name": "ANZ Business 55 Days Interest Free Credit Card",
       "IsActive": true,
       "ANZ_Product_Code__c": "2",
-      "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "1"
+      "IDR_Product_or_Service_Category__c": "1",
+      "IDR_Product_or_Service_Type__c": "1",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -32,9 +34,10 @@
       "Name": "ANZ Business Rewards Options Credit Card",
       "IsActive": true,
       "ANZ_Product_Code__c": "3",
-      "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "1"
+      "IDR_Product_or_Service_Category__c": "1",
+      "IDR_Product_or_Service_Type__c": "1",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -44,9 +47,10 @@
       "Name": "ANZ Business Low Rate Credit Card",
       "IsActive": true,
       "ANZ_Product_Code__c": "4",
-      "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "1"
+      "IDR_Product_or_Service_Category__c": "1",
+      "IDR_Product_or_Service_Type__c": "1",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -56,9 +60,10 @@
       "Name": "ANZ Visa Purchasing Card",
       "IsActive": true,
       "ANZ_Product_Code__c": "5",
-      "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "1"
+      "IDR_Product_or_Service_Category__c": "1",
+      "IDR_Product_or_Service_Type__c": "1",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -68,9 +73,10 @@
       "Name": "ANZ Virtual Card",
       "IsActive": true,
       "ANZ_Product_Code__c": "6",
-      "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "1"
+      "IDR_Product_or_Service_Category__c": "1",
+      "IDR_Product_or_Service_Type__c": "1",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -80,9 +86,10 @@
       "Name": "ANZ Travel Account",
       "IsActive": true,
       "ANZ_Product_Code__c": "7",
-      "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "1"
+      "IDR_Product_or_Service_Category__c": "1",
+      "IDR_Product_or_Service_Type__c": "1",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -92,9 +99,10 @@
       "Name": "ANZ Corporate Card",
       "IsActive": true,
       "ANZ_Product_Code__c": "8",
-      "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "1"
+      "IDR_Product_or_Service_Category__c": "1",
+      "IDR_Product_or_Service_Type__c": "1",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -104,9 +112,10 @@
       "Name": "AGRI Finance Loan",
       "IsActive": true,
       "ANZ_Product_Code__c": "9",
-      "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "2"
+      "IDR_Product_or_Service_Category__c": "1",
+      "IDR_Product_or_Service_Type__c": "2",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -116,9 +125,10 @@
       "Name": "ANZ Business Loan (ABL) for Personal Investment",
       "IsActive": true,
       "ANZ_Product_Code__c": "10",
-      "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "2"
+      "IDR_Product_or_Service_Category__c": "1",
+      "IDR_Product_or_Service_Type__c": "2",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -128,9 +138,10 @@
       "Name": "ANZ Business Loan (ABL)",
       "IsActive": true,
       "ANZ_Product_Code__c": "11",
-      "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "2"
+      "IDR_Product_or_Service_Category__c": "1",
+      "IDR_Product_or_Service_Type__c": "2",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -140,9 +151,10 @@
       "Name": "ANZ Business Mortgage Loan (BML)",
       "IsActive": true,
       "ANZ_Product_Code__c": "12",
-      "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "2"
+      "IDR_Product_or_Service_Category__c": "1",
+      "IDR_Product_or_Service_Type__c": "2",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -152,21 +164,23 @@
       "Name": "ANZ Business Saver Loan",
       "IsActive": true,
       "ANZ_Product_Code__c": "13",
-      "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "2"
+      "IDR_Product_or_Service_Category__c": "1",
+      "IDR_Product_or_Service_Type__c": "2",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
         "type": "Product2",
         "referenceId": "Product2Ref14"
       },
-      "Name": "Investment Property Loan (GF)",
+      "Name": "Investment Property Loan (Grand Fathered)",
       "IsActive": true,
       "ANZ_Product_Code__c": "14",
-      "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "2"
+      "IDR_Product_or_Service_Category__c": "1",
+      "IDR_Product_or_Service_Type__c": "2",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -176,9 +190,10 @@
       "Name": "Tailored Commercial Facility (TCF) - VARIABLE INT",
       "IsActive": true,
       "ANZ_Product_Code__c": "15",
-      "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "3"
+      "IDR_Product_or_Service_Category__c": "1",
+      "IDR_Product_or_Service_Type__c": "3",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -188,9 +203,10 @@
       "Name": "Tailored Commercial Facility (TCF) - RANGE INT",
       "IsActive": true,
       "ANZ_Product_Code__c": "16",
-      "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "3"
+      "IDR_Product_or_Service_Category__c": "1",
+      "IDR_Product_or_Service_Type__c": "3",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -200,9 +216,10 @@
       "Name": "Tailored Commercial Facility (TCF) - FIXED INT",
       "IsActive": true,
       "ANZ_Product_Code__c": "17",
-      "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "3"
+      "IDR_Product_or_Service_Category__c": "1",
+      "IDR_Product_or_Service_Type__c": "3",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -212,9 +229,10 @@
       "Name": "Tailored Commercial Facility (TCF) - FIX INT IN ADV",
       "IsActive": true,
       "ANZ_Product_Code__c": "18",
-      "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "3"
+      "IDR_Product_or_Service_Category__c": "1",
+      "IDR_Product_or_Service_Type__c": "3",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -224,9 +242,10 @@
       "Name": "Tailored Commercial Facility (TCF) - CAPPED INT",
       "IsActive": true,
       "ANZ_Product_Code__c": "19",
-      "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "3"
+      "IDR_Product_or_Service_Category__c": "1",
+      "IDR_Product_or_Service_Type__c": "3",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -236,9 +255,10 @@
       "Name": "Tailored Commercial Facility (TCF)",
       "IsActive": true,
       "ANZ_Product_Code__c": "20",
-      "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "3"
+      "IDR_Product_or_Service_Category__c": "1",
+      "IDR_Product_or_Service_Type__c": "3",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -248,9 +268,10 @@
       "Name": "ANZ Tailored Business Facility",
       "IsActive": true,
       "ANZ_Product_Code__c": "21",
-      "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "3"
+      "IDR_Product_or_Service_Category__c": "1",
+      "IDR_Product_or_Service_Type__c": "3",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -260,9 +281,10 @@
       "Name": "Chattel Mortgage",
       "IsActive": true,
       "ANZ_Product_Code__c": "22",
-      "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "4"
+      "IDR_Product_or_Service_Category__c": "1",
+      "IDR_Product_or_Service_Type__c": "4",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -272,9 +294,10 @@
       "Name": "Finance Lease",
       "IsActive": true,
       "ANZ_Product_Code__c": "23",
-      "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "4"
+      "IDR_Product_or_Service_Category__c": "1",
+      "IDR_Product_or_Service_Type__c": "4",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -284,9 +307,10 @@
       "Name": "Novated Lease",
       "IsActive": true,
       "ANZ_Product_Code__c": "24",
-      "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "4"
+      "IDR_Product_or_Service_Category__c": "1",
+      "IDR_Product_or_Service_Type__c": "4",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -296,9 +320,10 @@
       "Name": "Luxury Asset Lease",
       "IsActive": true,
       "ANZ_Product_Code__c": "25",
-      "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "4"
+      "IDR_Product_or_Service_Category__c": "1",
+      "IDR_Product_or_Service_Type__c": "4",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -308,9 +333,10 @@
       "Name": "Offer to Hire",
       "IsActive": true,
       "ANZ_Product_Code__c": "26",
-      "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "4"
+      "IDR_Product_or_Service_Category__c": "1",
+      "IDR_Product_or_Service_Type__c": "4",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -320,21 +346,23 @@
       "Name": "ANZ Revolving AGRI Line overdraft",
       "IsActive": true,
       "ANZ_Product_Code__c": "27",
-      "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "6"
+      "IDR_Product_or_Service_Category__c": "1",
+      "IDR_Product_or_Service_Type__c": "6",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
         "type": "Product2",
         "referenceId": "Product2Ref28"
       },
-      "Name": "Business Credit Facility",
+      "Name": "Business Credit Facility (Commercial Overdraft)",
       "IsActive": true,
       "ANZ_Product_Code__c": "28",
-      "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "6"
+      "IDR_Product_or_Service_Category__c": "1",
+      "IDR_Product_or_Service_Type__c": "6",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -344,9 +372,10 @@
       "Name": "Business Advantage Overdraft",
       "IsActive": true,
       "ANZ_Product_Code__c": "29",
-      "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "6"
+      "IDR_Product_or_Service_Category__c": "1",
+      "IDR_Product_or_Service_Type__c": "6",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -356,9 +385,10 @@
       "Name": "Agri Finance Offset Account",
       "IsActive": true,
       "ANZ_Product_Code__c": "30",
-      "IDR_Product_or_Service_Category__c": "5",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "24"
+      "IDR_Product_or_Service_Category__c": "5",
+      "IDR_Product_or_Service_Type__c": "24",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -368,9 +398,10 @@
       "Name": "ANZ Business Offset",
       "IsActive": true,
       "ANZ_Product_Code__c": "31",
-      "IDR_Product_or_Service_Category__c": "5",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "24"
+      "IDR_Product_or_Service_Category__c": "5",
+      "IDR_Product_or_Service_Type__c": "24",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -380,9 +411,10 @@
       "Name": "BML Offset Account - with Cheque Book",
       "IsActive": true,
       "ANZ_Product_Code__c": "32",
-      "IDR_Product_or_Service_Category__c": "5",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "24"
+      "IDR_Product_or_Service_Category__c": "5",
+      "IDR_Product_or_Service_Type__c": "24",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -392,9 +424,10 @@
       "Name": "ANZ First Credit Card",
       "IsActive": true,
       "ANZ_Product_Code__c": "33",
-      "IDR_Product_or_Service_Category__c": "2",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "9"
+      "IDR_Product_or_Service_Category__c": "2",
+      "IDR_Product_or_Service_Type__c": "9",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -404,9 +437,10 @@
       "Name": "ANZ Platinum Credit Card",
       "IsActive": true,
       "ANZ_Product_Code__c": "34",
-      "IDR_Product_or_Service_Category__c": "2",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "9"
+      "IDR_Product_or_Service_Category__c": "2",
+      "IDR_Product_or_Service_Type__c": "9",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -416,9 +450,10 @@
       "Name": "ANZ First (for Students) Credit Card",
       "IsActive": true,
       "ANZ_Product_Code__c": "35",
-      "IDR_Product_or_Service_Category__c": "2",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "9"
+      "IDR_Product_or_Service_Category__c": "2",
+      "IDR_Product_or_Service_Type__c": "9",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -428,9 +463,10 @@
       "Name": "ANZ Low Rate Credit Card",
       "IsActive": true,
       "ANZ_Product_Code__c": "36",
-      "IDR_Product_or_Service_Category__c": "2",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "9"
+      "IDR_Product_or_Service_Category__c": "2",
+      "IDR_Product_or_Service_Type__c": "9",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -440,9 +476,10 @@
       "Name": "ANZ Rewards Black Credit Card",
       "IsActive": true,
       "ANZ_Product_Code__c": "37",
-      "IDR_Product_or_Service_Category__c": "2",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "9"
+      "IDR_Product_or_Service_Category__c": "2",
+      "IDR_Product_or_Service_Type__c": "9",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -452,9 +489,10 @@
       "Name": "ANZ Rewards Travel Adventures Credit Card",
       "IsActive": true,
       "ANZ_Product_Code__c": "38",
-      "IDR_Product_or_Service_Category__c": "2",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "9"
+      "IDR_Product_or_Service_Category__c": "2",
+      "IDR_Product_or_Service_Type__c": "9",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -464,9 +502,10 @@
       "Name": "ANZ Rewards Platinum Credit Card",
       "IsActive": true,
       "ANZ_Product_Code__c": "39",
-      "IDR_Product_or_Service_Category__c": "2",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "9"
+      "IDR_Product_or_Service_Category__c": "2",
+      "IDR_Product_or_Service_Type__c": "9",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -476,9 +515,10 @@
       "Name": "ANZ Rewards Credit Card",
       "IsActive": true,
       "ANZ_Product_Code__c": "40",
-      "IDR_Product_or_Service_Category__c": "2",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "9"
+      "IDR_Product_or_Service_Category__c": "2",
+      "IDR_Product_or_Service_Type__c": "9",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -488,9 +528,10 @@
       "Name": "ANZ Frequent Flyer Credit Card",
       "IsActive": true,
       "ANZ_Product_Code__c": "41",
-      "IDR_Product_or_Service_Category__c": "2",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "9"
+      "IDR_Product_or_Service_Category__c": "2",
+      "IDR_Product_or_Service_Type__c": "9",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -500,9 +541,10 @@
       "Name": "ANZ Frequent Flyer Platinum Credit Card",
       "IsActive": true,
       "ANZ_Product_Code__c": "42",
-      "IDR_Product_or_Service_Category__c": "2",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "9"
+      "IDR_Product_or_Service_Category__c": "2",
+      "IDR_Product_or_Service_Type__c": "9",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -512,9 +554,10 @@
       "Name": "ANZ Frequent Flyer Black Credit Card",
       "IsActive": true,
       "ANZ_Product_Code__c": "43",
-      "IDR_Product_or_Service_Category__c": "2",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "9"
+      "IDR_Product_or_Service_Category__c": "2",
+      "IDR_Product_or_Service_Type__c": "9",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -524,9 +567,10 @@
       "Name": "Travel Money",
       "IsActive": true,
       "ANZ_Product_Code__c": "44",
-      "IDR_Product_or_Service_Category__c": "2",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "9"
+      "IDR_Product_or_Service_Category__c": "2",
+      "IDR_Product_or_Service_Type__c": "9",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -536,9 +580,10 @@
       "Name": "ANZ Travel Card (Multi Currency)",
       "IsActive": true,
       "ANZ_Product_Code__c": "45",
-      "IDR_Product_or_Service_Category__c": "20",
       "IDR_Product_or_Service_Line__c": "6",
-      "IDR_Product_or_Service_Type__c": "139"
+      "IDR_Product_or_Service_Category__c": "20",
+      "IDR_Product_or_Service_Type__c": "139",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -550,7 +595,8 @@
       "ANZ_Product_Code__c": "46",
       "IDR_Product_or_Service_Category__c": "2",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "13"
+      "IDR_Product_or_Service_Type__c": "13",
+      "IDR_Workbasket__c": "IDR_Home_Owners"
     },
     {
       "attributes": {
@@ -562,7 +608,8 @@
       "ANZ_Product_Code__c": "47",
       "IDR_Product_or_Service_Category__c": "2",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "13"
+      "IDR_Product_or_Service_Type__c": "13",
+      "IDR_Workbasket__c": "IDR_Home_Owners"
     },
     {
       "attributes": {
@@ -574,7 +621,8 @@
       "ANZ_Product_Code__c": "48",
       "IDR_Product_or_Service_Category__c": "2",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "13"
+      "IDR_Product_or_Service_Type__c": "13",
+      "IDR_Workbasket__c": "IDR_Home_Owners"
     },
     {
       "attributes": {
@@ -586,7 +634,8 @@
       "ANZ_Product_Code__c": "49",
       "IDR_Product_or_Service_Category__c": "2",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "13"
+      "IDR_Product_or_Service_Type__c": "13",
+      "IDR_Workbasket__c": "IDR_Home_Owners"
     },
     {
       "attributes": {
@@ -598,7 +647,8 @@
       "ANZ_Product_Code__c": "50",
       "IDR_Product_or_Service_Category__c": "2",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "16"
+      "IDR_Product_or_Service_Type__c": "16",
+      "IDR_Workbasket__c": "IDR_Home_Owners"
     },
     {
       "attributes": {
@@ -610,7 +660,8 @@
       "ANZ_Product_Code__c": "51",
       "IDR_Product_or_Service_Category__c": "2",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "16"
+      "IDR_Product_or_Service_Type__c": "16",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -622,7 +673,8 @@
       "ANZ_Product_Code__c": "52",
       "IDR_Product_or_Service_Category__c": "2",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "16"
+      "IDR_Product_or_Service_Type__c": "16",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -634,7 +686,8 @@
       "ANZ_Product_Code__c": "53",
       "IDR_Product_or_Service_Category__c": "2",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "18"
+      "IDR_Product_or_Service_Type__c": "18",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -646,7 +699,8 @@
       "ANZ_Product_Code__c": "54",
       "IDR_Product_or_Service_Category__c": "2",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "18"
+      "IDR_Product_or_Service_Type__c": "18",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -658,7 +712,8 @@
       "ANZ_Product_Code__c": "55",
       "IDR_Product_or_Service_Category__c": "3",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "20"
+      "IDR_Product_or_Service_Type__c": "20",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -670,7 +725,8 @@
       "ANZ_Product_Code__c": "56",
       "IDR_Product_or_Service_Category__c": "3",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "20"
+      "IDR_Product_or_Service_Type__c": "20",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -682,7 +738,8 @@
       "ANZ_Product_Code__c": "57",
       "IDR_Product_or_Service_Category__c": "3",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "20"
+      "IDR_Product_or_Service_Type__c": "20",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -694,7 +751,8 @@
       "ANZ_Product_Code__c": "58",
       "IDR_Product_or_Service_Category__c": "5",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "24"
+      "IDR_Product_or_Service_Type__c": "24",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -706,7 +764,8 @@
       "ANZ_Product_Code__c": "59",
       "IDR_Product_or_Service_Category__c": "5",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "24"
+      "IDR_Product_or_Service_Type__c": "24",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -718,7 +777,8 @@
       "ANZ_Product_Code__c": "60",
       "IDR_Product_or_Service_Category__c": "5",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "24"
+      "IDR_Product_or_Service_Type__c": "24",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -730,7 +790,8 @@
       "ANZ_Product_Code__c": "61",
       "IDR_Product_or_Service_Category__c": "5",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "24"
+      "IDR_Product_or_Service_Type__c": "24",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -742,7 +803,8 @@
       "ANZ_Product_Code__c": "62",
       "IDR_Product_or_Service_Category__c": "5",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "24"
+      "IDR_Product_or_Service_Type__c": "24",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -754,7 +816,8 @@
       "ANZ_Product_Code__c": "63",
       "IDR_Product_or_Service_Category__c": "5",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "24"
+      "IDR_Product_or_Service_Type__c": "24",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -766,7 +829,8 @@
       "ANZ_Product_Code__c": "64",
       "IDR_Product_or_Service_Category__c": "5",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "24"
+      "IDR_Product_or_Service_Type__c": "24",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -778,7 +842,8 @@
       "ANZ_Product_Code__c": "65",
       "IDR_Product_or_Service_Category__c": "5",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "24"
+      "IDR_Product_or_Service_Type__c": "24",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -790,7 +855,8 @@
       "ANZ_Product_Code__c": "66",
       "IDR_Product_or_Service_Category__c": "5",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "24"
+      "IDR_Product_or_Service_Type__c": "24",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -802,7 +868,8 @@
       "ANZ_Product_Code__c": "67",
       "IDR_Product_or_Service_Category__c": "5",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "24"
+      "IDR_Product_or_Service_Type__c": "24",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -814,7 +881,8 @@
       "ANZ_Product_Code__c": "68",
       "IDR_Product_or_Service_Category__c": "5",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "24"
+      "IDR_Product_or_Service_Type__c": "24",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -826,7 +894,8 @@
       "ANZ_Product_Code__c": "69",
       "IDR_Product_or_Service_Category__c": "5",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "26"
+      "IDR_Product_or_Service_Type__c": "26",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -838,7 +907,8 @@
       "ANZ_Product_Code__c": "70",
       "IDR_Product_or_Service_Category__c": "5",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "28"
+      "IDR_Product_or_Service_Type__c": "28",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -850,7 +920,8 @@
       "ANZ_Product_Code__c": "71",
       "IDR_Product_or_Service_Category__c": "5",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "28"
+      "IDR_Product_or_Service_Type__c": "28",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -862,7 +933,8 @@
       "ANZ_Product_Code__c": "72",
       "IDR_Product_or_Service_Category__c": "5",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "28"
+      "IDR_Product_or_Service_Type__c": "28",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -874,7 +946,8 @@
       "ANZ_Product_Code__c": "73",
       "IDR_Product_or_Service_Category__c": "5",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "28"
+      "IDR_Product_or_Service_Type__c": "28",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -886,7 +959,8 @@
       "ANZ_Product_Code__c": "74",
       "IDR_Product_or_Service_Category__c": "5",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "28"
+      "IDR_Product_or_Service_Type__c": "28",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -898,7 +972,8 @@
       "ANZ_Product_Code__c": "75",
       "IDR_Product_or_Service_Category__c": "5",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "28"
+      "IDR_Product_or_Service_Type__c": "28",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -910,7 +985,8 @@
       "ANZ_Product_Code__c": "76",
       "IDR_Product_or_Service_Category__c": "5",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "28"
+      "IDR_Product_or_Service_Type__c": "28",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -922,7 +998,8 @@
       "ANZ_Product_Code__c": "77",
       "IDR_Product_or_Service_Category__c": "5",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "28"
+      "IDR_Product_or_Service_Type__c": "28",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -934,7 +1011,8 @@
       "ANZ_Product_Code__c": "78",
       "IDR_Product_or_Service_Category__c": "5",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "28"
+      "IDR_Product_or_Service_Type__c": "28",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -946,7 +1024,8 @@
       "ANZ_Product_Code__c": "79",
       "IDR_Product_or_Service_Category__c": "5",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "28"
+      "IDR_Product_or_Service_Type__c": "28",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -958,7 +1037,8 @@
       "ANZ_Product_Code__c": "80",
       "IDR_Product_or_Service_Category__c": "5",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "28"
+      "IDR_Product_or_Service_Type__c": "28",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -970,7 +1050,8 @@
       "ANZ_Product_Code__c": "81",
       "IDR_Product_or_Service_Category__c": "5",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "28"
+      "IDR_Product_or_Service_Type__c": "28",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -982,7 +1063,8 @@
       "ANZ_Product_Code__c": "82",
       "IDR_Product_or_Service_Category__c": "5",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "28"
+      "IDR_Product_or_Service_Type__c": "28",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -994,7 +1076,8 @@
       "ANZ_Product_Code__c": "83",
       "IDR_Product_or_Service_Category__c": "5",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "28"
+      "IDR_Product_or_Service_Type__c": "28",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -1006,7 +1089,8 @@
       "ANZ_Product_Code__c": "84",
       "IDR_Product_or_Service_Category__c": "5",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "28"
+      "IDR_Product_or_Service_Type__c": "28",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -1018,7 +1102,8 @@
       "ANZ_Product_Code__c": "85",
       "IDR_Product_or_Service_Category__c": "5",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "28"
+      "IDR_Product_or_Service_Type__c": "28",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -1030,7 +1115,8 @@
       "ANZ_Product_Code__c": "86",
       "IDR_Product_or_Service_Category__c": "5",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "28"
+      "IDR_Product_or_Service_Type__c": "28",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -1042,7 +1128,8 @@
       "ANZ_Product_Code__c": "87",
       "IDR_Product_or_Service_Category__c": "5",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "28"
+      "IDR_Product_or_Service_Type__c": "28",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -1054,7 +1141,8 @@
       "ANZ_Product_Code__c": "88",
       "IDR_Product_or_Service_Category__c": "6",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "29"
+      "IDR_Product_or_Service_Type__c": "29",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -1066,7 +1154,8 @@
       "ANZ_Product_Code__c": "89",
       "IDR_Product_or_Service_Category__c": "7",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "31"
+      "IDR_Product_or_Service_Type__c": "31",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -1078,7 +1167,8 @@
       "ANZ_Product_Code__c": "90",
       "IDR_Product_or_Service_Category__c": "7",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "31"
+      "IDR_Product_or_Service_Type__c": "31",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -1090,7 +1180,8 @@
       "ANZ_Product_Code__c": "91",
       "IDR_Product_or_Service_Category__c": "7",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "31"
+      "IDR_Product_or_Service_Type__c": "31",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -1102,7 +1193,8 @@
       "ANZ_Product_Code__c": "92",
       "IDR_Product_or_Service_Category__c": "7",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "31"
+      "IDR_Product_or_Service_Type__c": "31",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -1114,7 +1206,8 @@
       "ANZ_Product_Code__c": "93",
       "IDR_Product_or_Service_Category__c": "7",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "31"
+      "IDR_Product_or_Service_Type__c": "31",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -1126,19 +1219,21 @@
       "ANZ_Product_Code__c": "94",
       "IDR_Product_or_Service_Category__c": "7",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "31"
+      "IDR_Product_or_Service_Type__c": "31",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
         "type": "Product2",
         "referenceId": "Product2Ref95"
       },
-      "Name": "Prime CMA - Pension",
+      "Name": "Prime Cash Management Account - Pension",
       "IsActive": true,
       "ANZ_Product_Code__c": "95",
       "IDR_Product_or_Service_Category__c": "7",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "31"
+      "IDR_Product_or_Service_Type__c": "31",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -1150,7 +1245,8 @@
       "ANZ_Product_Code__c": "97",
       "IDR_Product_or_Service_Category__c": "7",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "33"
+      "IDR_Product_or_Service_Type__c": "33",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -1162,7 +1258,8 @@
       "ANZ_Product_Code__c": "98",
       "IDR_Product_or_Service_Category__c": "7",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "33"
+      "IDR_Product_or_Service_Type__c": "33",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -1174,7 +1271,8 @@
       "ANZ_Product_Code__c": "99",
       "IDR_Product_or_Service_Category__c": "7",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "33"
+      "IDR_Product_or_Service_Type__c": "33",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -1186,7 +1284,8 @@
       "ANZ_Product_Code__c": "100",
       "IDR_Product_or_Service_Category__c": "7",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "34"
+      "IDR_Product_or_Service_Type__c": "34",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -1198,7 +1297,8 @@
       "ANZ_Product_Code__c": "101",
       "IDR_Product_or_Service_Category__c": "7",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "34"
+      "IDR_Product_or_Service_Type__c": "34",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -1210,7 +1310,8 @@
       "ANZ_Product_Code__c": "102",
       "IDR_Product_or_Service_Category__c": "7",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "34"
+      "IDR_Product_or_Service_Type__c": "34",
+      "IDR_Workbasket__c": "IDR_Wealth"
     },
     {
       "attributes": {
@@ -1222,7 +1323,8 @@
       "ANZ_Product_Code__c": "103",
       "IDR_Product_or_Service_Category__c": "7",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "34"
+      "IDR_Product_or_Service_Type__c": "34",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -1234,7 +1336,8 @@
       "ANZ_Product_Code__c": "104",
       "IDR_Product_or_Service_Category__c": "7",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "34"
+      "IDR_Product_or_Service_Type__c": "34",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -1246,7 +1349,8 @@
       "ANZ_Product_Code__c": "105",
       "IDR_Product_or_Service_Category__c": "7",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "34"
+      "IDR_Product_or_Service_Type__c": "34",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -1258,7 +1362,8 @@
       "ANZ_Product_Code__c": "106",
       "IDR_Product_or_Service_Category__c": "7",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "34"
+      "IDR_Product_or_Service_Type__c": "34",
+      "IDR_Workbasket__c": "IDR_Wealth"
     },
     {
       "attributes": {
@@ -1270,7 +1375,8 @@
       "ANZ_Product_Code__c": "107",
       "IDR_Product_or_Service_Category__c": "8",
       "IDR_Product_or_Service_Line__c": "3",
-      "IDR_Product_or_Service_Type__c": "35"
+      "IDR_Product_or_Service_Type__c": "35",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -1282,7 +1388,8 @@
       "ANZ_Product_Code__c": "108",
       "IDR_Product_or_Service_Category__c": "8",
       "IDR_Product_or_Service_Line__c": "3",
-      "IDR_Product_or_Service_Type__c": "35"
+      "IDR_Product_or_Service_Type__c": "35",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -1294,7 +1401,8 @@
       "ANZ_Product_Code__c": "109",
       "IDR_Product_or_Service_Category__c": "8",
       "IDR_Product_or_Service_Line__c": "3",
-      "IDR_Product_or_Service_Type__c": "35"
+      "IDR_Product_or_Service_Type__c": "35",
+      "IDR_Workbasket__c": "IDR_Home_Owners"
     },
     {
       "attributes": {
@@ -1306,7 +1414,8 @@
       "ANZ_Product_Code__c": "111",
       "IDR_Product_or_Service_Category__c": "8",
       "IDR_Product_or_Service_Line__c": "3",
-      "IDR_Product_or_Service_Type__c": "36"
+      "IDR_Product_or_Service_Type__c": "36",
+      "IDR_Workbasket__c": "IDR_Wealth"
     },
     {
       "attributes": {
@@ -1318,7 +1427,8 @@
       "ANZ_Product_Code__c": "112",
       "IDR_Product_or_Service_Category__c": "8",
       "IDR_Product_or_Service_Line__c": "3",
-      "IDR_Product_or_Service_Type__c": "38"
+      "IDR_Product_or_Service_Type__c": "38",
+      "IDR_Workbasket__c": "IDR_Wealth"
     },
     {
       "attributes": {
@@ -1330,7 +1440,8 @@
       "ANZ_Product_Code__c": "113",
       "IDR_Product_or_Service_Category__c": "8",
       "IDR_Product_or_Service_Line__c": "3",
-      "IDR_Product_or_Service_Type__c": "39"
+      "IDR_Product_or_Service_Type__c": "39",
+      "IDR_Workbasket__c": "IDR_Wealth"
     },
     {
       "attributes": {
@@ -1342,7 +1453,8 @@
       "ANZ_Product_Code__c": "114",
       "IDR_Product_or_Service_Category__c": "8",
       "IDR_Product_or_Service_Line__c": "3",
-      "IDR_Product_or_Service_Type__c": "40"
+      "IDR_Product_or_Service_Type__c": "40",
+      "IDR_Workbasket__c": "IDR_Wealth"
     },
     {
       "attributes": {
@@ -1354,7 +1466,8 @@
       "ANZ_Product_Code__c": "115",
       "IDR_Product_or_Service_Category__c": "8",
       "IDR_Product_or_Service_Line__c": "3",
-      "IDR_Product_or_Service_Type__c": "53"
+      "IDR_Product_or_Service_Type__c": "53",
+      "IDR_Workbasket__c": "IDR_Wealth"
     },
     {
       "attributes": {
@@ -1366,7 +1479,8 @@
       "ANZ_Product_Code__c": "116",
       "IDR_Product_or_Service_Category__c": "15",
       "IDR_Product_or_Service_Line__c": "4",
-      "IDR_Product_or_Service_Type__c": "103"
+      "IDR_Product_or_Service_Type__c": "103",
+      "IDR_Workbasket__c": "IDR_Wealth"
     },
     {
       "attributes": {
@@ -1378,7 +1492,8 @@
       "ANZ_Product_Code__c": "117",
       "IDR_Product_or_Service_Category__c": "15",
       "IDR_Product_or_Service_Line__c": "4",
-      "IDR_Product_or_Service_Type__c": "103"
+      "IDR_Product_or_Service_Type__c": "103",
+      "IDR_Workbasket__c": "IDR_Wealth"
     },
     {
       "attributes": {
@@ -1390,7 +1505,8 @@
       "ANZ_Product_Code__c": "118",
       "IDR_Product_or_Service_Category__c": "17",
       "IDR_Product_or_Service_Line__c": "5",
-      "IDR_Product_or_Service_Type__c": "118"
+      "IDR_Product_or_Service_Type__c": "118",
+      "IDR_Workbasket__c": "IDR_Wealth"
     },
     {
       "attributes": {
@@ -1402,7 +1518,8 @@
       "ANZ_Product_Code__c": "119",
       "IDR_Product_or_Service_Category__c": "17",
       "IDR_Product_or_Service_Line__c": "5",
-      "IDR_Product_or_Service_Type__c": "118"
+      "IDR_Product_or_Service_Type__c": "118",
+      "IDR_Workbasket__c": "IDR_Wealth"
     },
     {
       "attributes": {
@@ -1414,7 +1531,8 @@
       "ANZ_Product_Code__c": "120",
       "IDR_Product_or_Service_Category__c": "17",
       "IDR_Product_or_Service_Line__c": "5",
-      "IDR_Product_or_Service_Type__c": "118"
+      "IDR_Product_or_Service_Type__c": "118",
+      "IDR_Workbasket__c": "IDR_Wealth"
     },
     {
       "attributes": {
@@ -1426,7 +1544,8 @@
       "ANZ_Product_Code__c": "121",
       "IDR_Product_or_Service_Category__c": "17",
       "IDR_Product_or_Service_Line__c": "5",
-      "IDR_Product_or_Service_Type__c": "118"
+      "IDR_Product_or_Service_Type__c": "118",
+      "IDR_Workbasket__c": "IDR_Wealth"
     },
     {
       "attributes": {
@@ -1438,7 +1557,8 @@
       "ANZ_Product_Code__c": "122",
       "IDR_Product_or_Service_Category__c": "18",
       "IDR_Product_or_Service_Line__c": "5",
-      "IDR_Product_or_Service_Type__c": "121"
+      "IDR_Product_or_Service_Type__c": "121",
+      "IDR_Workbasket__c": "IDR_Wealth"
     },
     {
       "attributes": {
@@ -1450,7 +1570,8 @@
       "ANZ_Product_Code__c": "123",
       "IDR_Product_or_Service_Category__c": "18",
       "IDR_Product_or_Service_Line__c": "5",
-      "IDR_Product_or_Service_Type__c": "123"
+      "IDR_Product_or_Service_Type__c": "123",
+      "IDR_Workbasket__c": "IDR_Wealth"
     },
     {
       "attributes": {
@@ -1462,7 +1583,8 @@
       "ANZ_Product_Code__c": "124",
       "IDR_Product_or_Service_Category__c": "18",
       "IDR_Product_or_Service_Line__c": "5",
-      "IDR_Product_or_Service_Type__c": "124"
+      "IDR_Product_or_Service_Type__c": "124",
+      "IDR_Workbasket__c": "IDR_Wealth"
     },
     {
       "attributes": {
@@ -1474,7 +1596,8 @@
       "ANZ_Product_Code__c": "125",
       "IDR_Product_or_Service_Category__c": "18",
       "IDR_Product_or_Service_Line__c": "5",
-      "IDR_Product_or_Service_Type__c": "124"
+      "IDR_Product_or_Service_Type__c": "124",
+      "IDR_Workbasket__c": "IDR_Wealth"
     },
     {
       "attributes": {
@@ -1486,7 +1609,8 @@
       "ANZ_Product_Code__c": "126",
       "IDR_Product_or_Service_Category__c": "18",
       "IDR_Product_or_Service_Line__c": "5",
-      "IDR_Product_or_Service_Type__c": "124"
+      "IDR_Product_or_Service_Type__c": "124",
+      "IDR_Workbasket__c": "IDR_Wealth"
     },
     {
       "attributes": {
@@ -1498,7 +1622,8 @@
       "ANZ_Product_Code__c": "127",
       "IDR_Product_or_Service_Category__c": "24",
       "IDR_Product_or_Service_Line__c": "8",
-      "IDR_Product_or_Service_Type__c": "154"
+      "IDR_Product_or_Service_Type__c": "154",
+      "IDR_Workbasket__c": "IDR_Wealth"
     },
     {
       "attributes": {
@@ -1510,7 +1635,8 @@
       "ANZ_Product_Code__c": "128",
       "IDR_Product_or_Service_Category__c": "28",
       "IDR_Product_or_Service_Line__c": "8",
-      "IDR_Product_or_Service_Type__c": "177"
+      "IDR_Product_or_Service_Type__c": "177",
+      "IDR_Workbasket__c": "IDR_Wealth"
     },
     {
       "attributes": {
@@ -1522,7 +1648,8 @@
       "ANZ_Product_Code__c": "129",
       "IDR_Product_or_Service_Category__c": "28",
       "IDR_Product_or_Service_Line__c": "8",
-      "IDR_Product_or_Service_Type__c": "178"
+      "IDR_Product_or_Service_Type__c": "178",
+      "IDR_Workbasket__c": "IDR_Wealth"
     },
     {
       "attributes": {
@@ -1534,7 +1661,8 @@
       "ANZ_Product_Code__c": "130",
       "IDR_Product_or_Service_Category__c": "8",
       "IDR_Product_or_Service_Line__c": "3",
-      "IDR_Product_or_Service_Type__c": "35"
+      "IDR_Product_or_Service_Type__c": "35",
+      "IDR_Workbasket__c": "IDR_Home_Owners"
     },
     {
       "attributes": {
@@ -1546,7 +1674,8 @@
       "ANZ_Product_Code__c": "131",
       "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "4"
+      "IDR_Product_or_Service_Type__c": "4",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -1558,7 +1687,8 @@
       "ANZ_Product_Code__c": "132",
       "IDR_Product_or_Service_Category__c": "2",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "9"
+      "IDR_Product_or_Service_Type__c": "9",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -1570,7 +1700,8 @@
       "ANZ_Product_Code__c": "133",
       "IDR_Product_or_Service_Category__c": "2",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "15"
+      "IDR_Product_or_Service_Type__c": "15",
+      "IDR_Workbasket__c": "IDR_Home_Owners"
     },
     {
       "attributes": {
@@ -1582,7 +1713,8 @@
       "ANZ_Product_Code__c": "134",
       "IDR_Product_or_Service_Category__c": "2",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "15"
+      "IDR_Product_or_Service_Type__c": "15",
+      "IDR_Workbasket__c": "IDR_Home_Owners"
     },
     {
       "attributes": {
@@ -1594,7 +1726,8 @@
       "ANZ_Product_Code__c": "135",
       "IDR_Product_or_Service_Category__c": "2",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "15"
+      "IDR_Product_or_Service_Type__c": "15",
+      "IDR_Workbasket__c": "IDR_Home_Owners"
     },
     {
       "attributes": {
@@ -1606,7 +1739,8 @@
       "ANZ_Product_Code__c": "136",
       "IDR_Product_or_Service_Category__c": "4",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "23"
+      "IDR_Product_or_Service_Type__c": "23",
+      "IDR_Workbasket__c": "IDR_Wealth"
     },
     {
       "attributes": {
@@ -1618,7 +1752,8 @@
       "ANZ_Product_Code__c": "137",
       "IDR_Product_or_Service_Category__c": "5",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "24"
+      "IDR_Product_or_Service_Type__c": "24",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -1630,7 +1765,8 @@
       "ANZ_Product_Code__c": "138",
       "IDR_Product_or_Service_Category__c": "5",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "24"
+      "IDR_Product_or_Service_Type__c": "24",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
@@ -1642,7 +1778,8 @@
       "ANZ_Product_Code__c": "139",
       "IDR_Product_or_Service_Category__c": "5",
       "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Type__c": "28"
+      "IDR_Product_or_Service_Type__c": "28",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -1654,7 +1791,8 @@
       "ANZ_Product_Code__c": "140",
       "IDR_Product_or_Service_Category__c": "8",
       "IDR_Product_or_Service_Line__c": "3",
-      "IDR_Product_or_Service_Type__c": "36"
+      "IDR_Product_or_Service_Type__c": "36",
+      "IDR_Workbasket__c": "IDR_Wealth"
     },
     {
       "attributes": {
@@ -1666,7 +1804,8 @@
       "ANZ_Product_Code__c": "141",
       "IDR_Product_or_Service_Category__c": "8",
       "IDR_Product_or_Service_Line__c": "3",
-      "IDR_Product_or_Service_Type__c": "37"
+      "IDR_Product_or_Service_Type__c": "37",
+      "IDR_Workbasket__c": "IDR_Wealth"
     },
     {
       "attributes": {
@@ -1678,7 +1817,8 @@
       "ANZ_Product_Code__c": "142",
       "IDR_Product_or_Service_Category__c": "19",
       "IDR_Product_or_Service_Line__c": "6",
-      "IDR_Product_or_Service_Type__c": "127"
+      "IDR_Product_or_Service_Type__c": "127",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -1690,7 +1830,8 @@
       "ANZ_Product_Code__c": "143",
       "IDR_Product_or_Service_Category__c": "19",
       "IDR_Product_or_Service_Line__c": "6",
-      "IDR_Product_or_Service_Type__c": "128"
+      "IDR_Product_or_Service_Type__c": "128",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -1702,7 +1843,8 @@
       "ANZ_Product_Code__c": "144",
       "IDR_Product_or_Service_Category__c": "19",
       "IDR_Product_or_Service_Line__c": "6",
-      "IDR_Product_or_Service_Type__c": "129"
+      "IDR_Product_or_Service_Type__c": "129",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -1714,7 +1856,8 @@
       "ANZ_Product_Code__c": "145",
       "IDR_Product_or_Service_Category__c": "19",
       "IDR_Product_or_Service_Line__c": "6",
-      "IDR_Product_or_Service_Type__c": "130"
+      "IDR_Product_or_Service_Type__c": "130",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -1726,7 +1869,8 @@
       "ANZ_Product_Code__c": "146",
       "IDR_Product_or_Service_Category__c": "19",
       "IDR_Product_or_Service_Line__c": "6",
-      "IDR_Product_or_Service_Type__c": "131"
+      "IDR_Product_or_Service_Type__c": "131",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -1738,7 +1882,8 @@
       "ANZ_Product_Code__c": "147",
       "IDR_Product_or_Service_Category__c": "19",
       "IDR_Product_or_Service_Line__c": "6",
-      "IDR_Product_or_Service_Type__c": "132"
+      "IDR_Product_or_Service_Type__c": "132",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -1750,7 +1895,8 @@
       "ANZ_Product_Code__c": "148",
       "IDR_Product_or_Service_Category__c": "19",
       "IDR_Product_or_Service_Line__c": "6",
-      "IDR_Product_or_Service_Type__c": "134"
+      "IDR_Product_or_Service_Type__c": "134",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -1762,7 +1908,8 @@
       "ANZ_Product_Code__c": "149",
       "IDR_Product_or_Service_Category__c": "19",
       "IDR_Product_or_Service_Line__c": "6",
-      "IDR_Product_or_Service_Type__c": "134"
+      "IDR_Product_or_Service_Type__c": "134",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -1774,7 +1921,8 @@
       "ANZ_Product_Code__c": "150",
       "IDR_Product_or_Service_Category__c": "19",
       "IDR_Product_or_Service_Line__c": "6",
-      "IDR_Product_or_Service_Type__c": "134"
+      "IDR_Product_or_Service_Type__c": "134",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -1786,7 +1934,8 @@
       "ANZ_Product_Code__c": "151",
       "IDR_Product_or_Service_Category__c": "19",
       "IDR_Product_or_Service_Line__c": "6",
-      "IDR_Product_or_Service_Type__c": "134"
+      "IDR_Product_or_Service_Type__c": "134",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
@@ -1798,574 +1947,645 @@
       "ANZ_Product_Code__c": "152",
       "IDR_Product_or_Service_Category__c": "19",
       "IDR_Product_or_Service_Line__c": "6",
-      "IDR_Product_or_Service_Type__c": "135"
+      "IDR_Product_or_Service_Type__c": "135",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
         "type": "Product2",
         "referenceId": "Product2Ref151"
       },
-      "Name": "Telegraphic Transfer",
+      "Name": "ANZ Reward Points",
       "IsActive": true,
-      "ANZ_Product_Code__c": "153",
-      "IDR_Product_or_Service_Category__c": "19",
+      "ANZ_Product_Code__c": "154",
+      "IDR_Product_or_Service_Category__c": "20",
       "IDR_Product_or_Service_Line__c": "6",
-      "IDR_Product_or_Service_Type__c": "136"
+      "IDR_Product_or_Service_Type__c": "137",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
         "type": "Product2",
         "referenceId": "Product2Ref152"
       },
-      "Name": "ANZ Reward Points",
+      "Name": "Qantas Frequent Flyer Points",
       "IsActive": true,
-      "ANZ_Product_Code__c": "154",
+      "ANZ_Product_Code__c": "155",
       "IDR_Product_or_Service_Category__c": "20",
       "IDR_Product_or_Service_Line__c": "6",
-      "IDR_Product_or_Service_Type__c": "137"
+      "IDR_Product_or_Service_Type__c": "137",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
         "type": "Product2",
         "referenceId": "Product2Ref153"
       },
-      "Name": "Qantas Frequent Flyer Points",
+      "Name": "ANZ App",
       "IsActive": true,
-      "ANZ_Product_Code__c": "155",
+      "ANZ_Product_Code__c": "156",
       "IDR_Product_or_Service_Category__c": "20",
       "IDR_Product_or_Service_Line__c": "6",
-      "IDR_Product_or_Service_Type__c": "137"
+      "IDR_Product_or_Service_Type__c": "138",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
         "type": "Product2",
         "referenceId": "Product2Ref154"
       },
-      "Name": "ANZ App",
+      "Name": "ANZ Cashactive Virtual",
       "IsActive": true,
-      "ANZ_Product_Code__c": "156",
+      "ANZ_Product_Code__c": "157",
       "IDR_Product_or_Service_Category__c": "20",
       "IDR_Product_or_Service_Line__c": "6",
-      "IDR_Product_or_Service_Type__c": "138"
+      "IDR_Product_or_Service_Type__c": "138",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
         "type": "Product2",
         "referenceId": "Product2Ref155"
       },
-      "Name": "ANZ Cashactive Virtual",
+      "Name": "ANZ FX Online",
       "IsActive": true,
-      "ANZ_Product_Code__c": "157",
+      "ANZ_Product_Code__c": "158",
       "IDR_Product_or_Service_Category__c": "20",
       "IDR_Product_or_Service_Line__c": "6",
-      "IDR_Product_or_Service_Type__c": "138"
+      "IDR_Product_or_Service_Type__c": "138",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
         "type": "Product2",
         "referenceId": "Product2Ref156"
       },
-      "Name": "ANZ FX Online",
+      "Name": "ANZ IB4B - Internet Banking for Business",
       "IsActive": true,
-      "ANZ_Product_Code__c": "158",
+      "ANZ_Product_Code__c": "159",
       "IDR_Product_or_Service_Category__c": "20",
       "IDR_Product_or_Service_Line__c": "6",
-      "IDR_Product_or_Service_Type__c": "138"
+      "IDR_Product_or_Service_Type__c": "138",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
         "type": "Product2",
         "referenceId": "Product2Ref157"
       },
-      "Name": "ANZ IB4B - Internet Banking for Business",
+      "Name": "ANZ Internet Banking",
       "IsActive": true,
-      "ANZ_Product_Code__c": "159",
+      "ANZ_Product_Code__c": "160",
       "IDR_Product_or_Service_Category__c": "20",
       "IDR_Product_or_Service_Line__c": "6",
-      "IDR_Product_or_Service_Type__c": "138"
+      "IDR_Product_or_Service_Type__c": "138",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
         "type": "Product2",
         "referenceId": "Product2Ref158"
       },
-      "Name": "ANZ Internet Banking",
+      "Name": "ANZ Private FX Online",
       "IsActive": true,
-      "ANZ_Product_Code__c": "160",
+      "ANZ_Product_Code__c": "161",
       "IDR_Product_or_Service_Category__c": "20",
       "IDR_Product_or_Service_Line__c": "6",
-      "IDR_Product_or_Service_Type__c": "138"
+      "IDR_Product_or_Service_Type__c": "138",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
         "type": "Product2",
         "referenceId": "Product2Ref159"
       },
-      "Name": "ANZ Private FX Online",
+      "Name": "ANZ Transactive",
       "IsActive": true,
-      "ANZ_Product_Code__c": "161",
+      "ANZ_Product_Code__c": "162",
       "IDR_Product_or_Service_Category__c": "20",
       "IDR_Product_or_Service_Line__c": "6",
-      "IDR_Product_or_Service_Type__c": "138"
+      "IDR_Product_or_Service_Type__c": "138",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
         "type": "Product2",
         "referenceId": "Product2Ref160"
       },
-      "Name": "ANZ Transactive",
+      "Name": "Currency by ANZ (app)",
       "IsActive": true,
-      "ANZ_Product_Code__c": "162",
+      "ANZ_Product_Code__c": "163",
       "IDR_Product_or_Service_Category__c": "20",
       "IDR_Product_or_Service_Line__c": "6",
-      "IDR_Product_or_Service_Type__c": "138"
+      "IDR_Product_or_Service_Type__c": "138",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
         "type": "Product2",
         "referenceId": "Product2Ref161"
       },
-      "Name": "Currency by ANZ (app)",
+      "Name": "Power of Attorney",
       "IsActive": true,
-      "ANZ_Product_Code__c": "163",
-      "IDR_Product_or_Service_Category__c": "20",
-      "IDR_Product_or_Service_Line__c": "6",
-      "IDR_Product_or_Service_Type__c": "138"
+      "ANZ_Product_Code__c": "164",
+      "IDR_Product_or_Service_Category__c": "21",
+      "IDR_Product_or_Service_Line__c": "7",
+      "IDR_Product_or_Service_Type__c": "141",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
         "type": "Product2",
         "referenceId": "Product2Ref162"
       },
-      "Name": "Power of Attorney",
+      "Name": "Wills",
       "IsActive": true,
-      "ANZ_Product_Code__c": "164",
+      "ANZ_Product_Code__c": "165",
       "IDR_Product_or_Service_Category__c": "21",
       "IDR_Product_or_Service_Line__c": "7",
-      "IDR_Product_or_Service_Type__c": "141"
+      "IDR_Product_or_Service_Type__c": "142",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
         "type": "Product2",
         "referenceId": "Product2Ref163"
       },
-      "Name": "Wills",
+      "Name": "Direct Investments",
       "IsActive": true,
-      "ANZ_Product_Code__c": "165",
-      "IDR_Product_or_Service_Category__c": "21",
-      "IDR_Product_or_Service_Line__c": "7",
-      "IDR_Product_or_Service_Type__c": "142"
+      "ANZ_Product_Code__c": "166",
+      "IDR_Product_or_Service_Category__c": "31",
+      "IDR_Product_or_Service_Line__c": "9",
+      "IDR_Product_or_Service_Type__c": "194",
+      "IDR_Workbasket__c": "IDR_Wealth"
     },
     {
       "attributes": {
         "type": "Product2",
         "referenceId": "Product2Ref164"
       },
-      "Name": "Direct Investments",
+      "Name": "IPO & Capital Raising Campaigns",
       "IsActive": true,
-      "ANZ_Product_Code__c": "166",
+      "ANZ_Product_Code__c": "167",
       "IDR_Product_or_Service_Category__c": "31",
       "IDR_Product_or_Service_Line__c": "9",
-      "IDR_Product_or_Service_Type__c": "194"
+      "IDR_Product_or_Service_Type__c": "194",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
         "type": "Product2",
         "referenceId": "Product2Ref165"
       },
-      "Name": "IPO & Capital Raising Campaigns",
+      "Name": "OneAnswer Frontier",
       "IsActive": true,
-      "ANZ_Product_Code__c": "167",
-      "IDR_Product_or_Service_Category__c": "31",
+      "ANZ_Product_Code__c": "171",
+      "IDR_Product_or_Service_Category__c": "32",
       "IDR_Product_or_Service_Line__c": "9",
-      "IDR_Product_or_Service_Type__c": "194"
+      "IDR_Product_or_Service_Type__c": "195",
+      "IDR_Workbasket__c": "IDR_Wealth"
     },
     {
       "attributes": {
         "type": "Product2",
         "referenceId": "Product2Ref166"
       },
-      "Name": "ANZ OneAnswer",
+      "Name": "Self Managed Super Fund (SMSF)",
       "IsActive": true,
-      "ANZ_Product_Code__c": "168",
+      "ANZ_Product_Code__c": "172",
       "IDR_Product_or_Service_Category__c": "32",
       "IDR_Product_or_Service_Line__c": "9",
-      "IDR_Product_or_Service_Type__c": "195"
+      "IDR_Product_or_Service_Type__c": "195",
+      "IDR_Workbasket__c": "IDR_Wealth"
     },
     {
       "attributes": {
         "type": "Product2",
         "referenceId": "Product2Ref167"
       },
-      "Name": "BT Wrap",
+      "Name": "Open Banking/Data Sharing",
       "IsActive": true,
-      "ANZ_Product_Code__c": "169",
-      "IDR_Product_or_Service_Category__c": "32",
-      "IDR_Product_or_Service_Line__c": "9",
-      "IDR_Product_or_Service_Type__c": "195"
+      "ANZ_Product_Code__c": "173",
+      "IDR_Product_or_Service_Category__c": "",
+      "IDR_Product_or_Service_Line__c": "",
+      "IDR_Product_or_Service_Type__c": "",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
         "type": "Product2",
         "referenceId": "Product2Ref168"
       },
-      "Name": "Netwealth",
+      "Name": "N/A",
       "IsActive": true,
-      "ANZ_Product_Code__c": "170",
-      "IDR_Product_or_Service_Category__c": "32",
-      "IDR_Product_or_Service_Line__c": "9",
-      "IDR_Product_or_Service_Type__c": "195"
+      "ANZ_Product_Code__c": "999",
+      "IDR_Product_or_Service_Category__c": "",
+      "IDR_Product_or_Service_Line__c": "",
+      "IDR_Product_or_Service_Type__c": "",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
         "type": "Product2",
         "referenceId": "Product2Ref169"
       },
-      "Name": "OneAnswer Frontier",
+      "Name": "ANZ Shield",
       "IsActive": true,
-      "ANZ_Product_Code__c": "171",
-      "IDR_Product_or_Service_Category__c": "32",
-      "IDR_Product_or_Service_Line__c": "9",
-      "IDR_Product_or_Service_Type__c": "195"
+      "ANZ_Product_Code__c": "174",
+      "IDR_Product_or_Service_Category__c": "20",
+      "IDR_Product_or_Service_Line__c": "6",
+      "IDR_Product_or_Service_Type__c": "138",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
         "type": "Product2",
         "referenceId": "Product2Ref170"
       },
-      "Name": "Self Managed Super Fund (SMSF)",
+      "Name": "Phone Banking",
       "IsActive": true,
-      "ANZ_Product_Code__c": "172",
-      "IDR_Product_or_Service_Category__c": "32",
-      "IDR_Product_or_Service_Line__c": "9",
-      "IDR_Product_or_Service_Type__c": "195"
+      "ANZ_Product_Code__c": "175",
+      "IDR_Product_or_Service_Category__c": "20",
+      "IDR_Product_or_Service_Line__c": "6",
+      "IDR_Product_or_Service_Type__c": "138",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
         "type": "Product2",
         "referenceId": "Product2Ref171"
       },
-      "Name": "Open Banking/Data Sharing",
+      "Name": "Deceased Estates",
       "IsActive": true,
-      "ANZ_Product_Code__c": "173"
+      "ANZ_Product_Code__c": "176",
+      "IDR_Product_or_Service_Category__c": "21",
+      "IDR_Product_or_Service_Line__c": "7",
+      "IDR_Product_or_Service_Type__c": "143",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
         "type": "Product2",
         "referenceId": "Product2Ref172"
       },
-      "Name": "N/A",
+      "Name": "IVR",
       "IsActive": true,
-      "ANZ_Product_Code__c": "999"
+      "ANZ_Product_Code__c": "177",
+      "IDR_Product_or_Service_Category__c": "",
+      "IDR_Product_or_Service_Line__c": "",
+      "IDR_Product_or_Service_Type__c": "",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
         "type": "Product2",
         "referenceId": "Product2Ref173"
       },
-      "Name": "ANZ Shield",
+      "Name": "Business One",
       "IsActive": true,
-      "ANZ_Product_Code__c": "174",
-      "IDR_Product_or_Service_Category__c": "20",
-      "IDR_Product_or_Service_Line__c": "6",
-      "IDR_Product_or_Service_Type__c": "138"
+      "ANZ_Product_Code__c": "178",
+      "IDR_Product_or_Service_Category__c": "1",
+      "IDR_Product_or_Service_Line__c": "1",
+      "IDR_Product_or_Service_Type__c": "1",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
         "type": "Product2",
         "referenceId": "Product2Ref174"
       },
-      "Name": "Phone Banking",
+      "Name": "Salary Packaging Card",
       "IsActive": true,
-      "ANZ_Product_Code__c": "175",
-      "IDR_Product_or_Service_Category__c": "20",
-      "IDR_Product_or_Service_Line__c": "6",
-      "IDR_Product_or_Service_Type__c": "138"
+      "ANZ_Product_Code__c": "179",
+      "IDR_Product_or_Service_Category__c": "1",
+      "IDR_Product_or_Service_Line__c": "1",
+      "IDR_Product_or_Service_Type__c": "1",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
         "type": "Product2",
         "referenceId": "Product2Ref175"
       },
-      "Name": "Deceased Estates",
+      "Name": "Business Overdraft",
       "IsActive": true,
-      "ANZ_Product_Code__c": "176",
-      "IDR_Product_or_Service_Category__c": "21",
-      "IDR_Product_or_Service_Line__c": "7",
-      "IDR_Product_or_Service_Type__c": "143"
+      "ANZ_Product_Code__c": "180",
+      "IDR_Product_or_Service_Category__c": "1",
+      "IDR_Product_or_Service_Line__c": "1",
+      "IDR_Product_or_Service_Type__c": "2",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
         "type": "Product2",
         "referenceId": "Product2Ref176"
       },
-      "Name": "IVR",
-      "IsActive": true,
-      "ANZ_Product_Code__c": "177"
-    },
-    {
-      "attributes": {
-        "type": "Product2",
-        "referenceId": "Product2Ref178"
-      },
-      "Name": "Business One",
-      "IsActive": true,
-      "ANZ_Product_Code__c": "178",
-      "IDR_Product_or_Service_Category__c": "1",
-      "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "1"
-    },
-    {
-      "attributes": {
-        "type": "Product2",
-        "referenceId": "Product2Ref179"
-      },
-      "Name": "Salary Packaging Card",
-      "IsActive": true,
-      "ANZ_Product_Code__c": "179",
-      "IDR_Product_or_Service_Category__c": "1",
-      "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "1"
-    },
-    {
-      "attributes": {
-        "type": "Product2",
-        "referenceId": "Product2Ref180"
-      },
-      "Name": "Business Overdraft",
-      "IsActive": true,
-      "ANZ_Product_Code__c": "180",
-      "IDR_Product_or_Service_Category__c": "1",
-      "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "2"
-    },
-    {
-      "attributes": {
-        "type": "Product2",
-        "referenceId": "Product2Ref181"
-      },
       "Name": "Business Select Package",
       "IsActive": true,
       "ANZ_Product_Code__c": "181",
       "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "2"
+      "IDR_Product_or_Service_Type__c": "2",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref182"
+        "referenceId": "Product2Ref177"
       },
       "Name": "Residential Property Investment Loan",
       "IsActive": true,
       "ANZ_Product_Code__c": "182",
       "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "2"
+      "IDR_Product_or_Service_Type__c": "2",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref183"
+        "referenceId": "Product2Ref178"
       },
       "Name": "Documentary Credit Facility",
       "IsActive": true,
       "ANZ_Product_Code__c": "183",
       "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "2"
+      "IDR_Product_or_Service_Type__c": "2",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref184"
+        "referenceId": "Product2Ref179"
       },
       "Name": "Import Credit & Trade Facility",
       "IsActive": true,
       "ANZ_Product_Code__c": "184",
       "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "2"
+      "IDR_Product_or_Service_Type__c": "2",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref185"
+        "referenceId": "Product2Ref180"
       },
       "Name": "Trade Finance Loan",
       "IsActive": true,
       "ANZ_Product_Code__c": "185",
       "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "2"
+      "IDR_Product_or_Service_Type__c": "2",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref186"
+        "referenceId": "Product2Ref181"
       },
       "Name": "Export Trade Facility",
       "IsActive": true,
       "ANZ_Product_Code__c": "186",
       "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "2"
+      "IDR_Product_or_Service_Type__c": "2",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref187"
+        "referenceId": "Product2Ref182"
       },
       "Name": "Encashment Facility",
       "IsActive": true,
       "ANZ_Product_Code__c": "187",
       "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "2"
+      "IDR_Product_or_Service_Type__c": "2",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref188"
+        "referenceId": "Product2Ref183"
       },
       "Name": "Commercial Bills",
       "IsActive": true,
       "ANZ_Product_Code__c": "188",
       "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "3"
+      "IDR_Product_or_Service_Type__c": "3",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref189"
+        "referenceId": "Product2Ref184"
       },
       "Name": "Asset Finance - Car Loans",
       "IsActive": true,
       "ANZ_Product_Code__c": "189",
       "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "4"
+      "IDR_Product_or_Service_Type__c": "4",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref190"
+        "referenceId": "Product2Ref185"
       },
       "Name": "Asset Finance - Esanda Business Equipment finance",
       "IsActive": true,
       "ANZ_Product_Code__c": "190",
       "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "4"
+      "IDR_Product_or_Service_Type__c": "4",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref191"
+        "referenceId": "Product2Ref186"
       },
       "Name": "Asset Finance - Hire purchase",
       "IsActive": true,
       "ANZ_Product_Code__c": "191",
       "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "4"
+      "IDR_Product_or_Service_Type__c": "4",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref192"
+        "referenceId": "Product2Ref187"
       },
       "Name": "Letter of Credit",
       "IsActive": true,
       "ANZ_Product_Code__c": "192",
       "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "5"
+      "IDR_Product_or_Service_Type__c": "5",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref193"
+        "referenceId": "Product2Ref188"
       },
       "Name": "Standby Letter of Credit",
       "IsActive": true,
       "ANZ_Product_Code__c": "193",
       "IDR_Product_or_Service_Category__c": "1",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "5"
+      "IDR_Product_or_Service_Type__c": "5",
+      "IDR_Workbasket__c": "IDR_Business_Owners"
     },
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref194"
+        "referenceId": "Product2Ref189"
       },
       "Name": "ANZ Frequent Flyer Visa Gold",
       "IsActive": true,
       "ANZ_Product_Code__c": "194",
       "IDR_Product_or_Service_Category__c": "2",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "9"
+      "IDR_Product_or_Service_Type__c": "9",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref195"
+        "referenceId": "Product2Ref190"
       },
       "Name": "ANZ Prepaid Card",
       "IsActive": true,
       "ANZ_Product_Code__c": "195",
       "IDR_Product_or_Service_Category__c": "2",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "9"
+      "IDR_Product_or_Service_Type__c": "9",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref196"
+        "referenceId": "Product2Ref191"
       },
       "Name": "ANZ Rewards Visa Gold",
       "IsActive": true,
       "ANZ_Product_Code__c": "196",
       "IDR_Product_or_Service_Category__c": "2",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "9"
+      "IDR_Product_or_Service_Type__c": "9",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref197"
+        "referenceId": "Product2Ref192"
       },
       "Name": "Aussie Mastercard",
       "IsActive": true,
       "ANZ_Product_Code__c": "197",
       "IDR_Product_or_Service_Category__c": "2",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "9"
+      "IDR_Product_or_Service_Type__c": "9",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref198"
+        "referenceId": "Product2Ref193"
       },
-      "Name": "Balance Visa",
+      "Name": "ANZ Balance Visa",
       "IsActive": true,
       "ANZ_Product_Code__c": "198",
       "IDR_Product_or_Service_Category__c": "2",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "9"
+      "IDR_Product_or_Service_Type__c": "9",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
     },
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref199"
+        "referenceId": "Product2Ref194"
       },
       "Name": "Verified by Visa",
       "IsActive": true,
       "ANZ_Product_Code__c": "199",
       "IDR_Product_or_Service_Category__c": "2",
       "IDR_Product_or_Service_Line__c": "1",
-      "IDR_Product_or_Service_Type__c": "9"
+      "IDR_Product_or_Service_Type__c": "9",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref195"
+      },
+      "Name": "ANZ Easy Start Residential Investment Loan",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "200",
+      "IDR_Product_or_Service_Category__c": "2",
+      "IDR_Product_or_Service_Line__c": "1",
+      "IDR_Product_or_Service_Type__c": "13",
+      "IDR_Workbasket__c": "IDR_Home_Owners"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref196"
+      },
+      "Name": "ANZ Easy Start Home Loan",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "201",
+      "IDR_Product_or_Service_Category__c": "2",
+      "IDR_Product_or_Service_Line__c": "1",
+      "IDR_Product_or_Service_Type__c": "13",
+      "IDR_Workbasket__c": "IDR_Home_Owners"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref197"
+      },
+      "Name": "Equity Release Fixed Rate Loan",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "202",
+      "IDR_Product_or_Service_Category__c": "2",
+      "IDR_Product_or_Service_Line__c": "1",
+      "IDR_Product_or_Service_Type__c": "13",
+      "IDR_Workbasket__c": "IDR_Home_Owners"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref198"
+      },
+      "Name": "Equity Release Variable Rate Loan",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "203",
+      "IDR_Product_or_Service_Category__c": "2",
+      "IDR_Product_or_Service_Line__c": "1",
+      "IDR_Product_or_Service_Type__c": "13",
+      "IDR_Workbasket__c": "IDR_Home_Owners"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref199"
+      },
+      "Name": "Fixed Rate",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "204",
+      "IDR_Product_or_Service_Category__c": "2",
+      "IDR_Product_or_Service_Line__c": "1",
+      "IDR_Product_or_Service_Type__c": "13",
+      "IDR_Workbasket__c": "IDR_Home_Owners"
     }
   ]
 }

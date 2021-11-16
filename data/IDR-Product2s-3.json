@@ -1,0 +1,2136 @@
+{
+    "records": [
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref400"
+            },
+            "Name": "Dynamic Managed 30",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "405",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "89",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref401"
+            },
+            "Name": "Dynamic Managed 50",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "406",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "89",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref402"
+            },
+            "Name": "Dynamic Managed 70",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "407",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "89",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref403"
+            },
+            "Name": "Dynamic Managed 100",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "408",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "89",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref404"
+            },
+            "Name": "Vanguard Conservative Index",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "409",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "91",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref405"
+            },
+            "Name": "Vanguard Balanced Index Fund",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "410",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "91",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref406"
+            },
+            "Name": "Vanguard Growth Index",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "411",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "91",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref407"
+            },
+            "Name": "Vanguard High Growth Index",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "412",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "91",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref408"
+            },
+            "Name": "OnePath Wholesale - Balanced Trust",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "413",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "91",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref409"
+            },
+            "Name": "OnePath Wholesale - Capital Stable Trust",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "414",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "91",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref410"
+            },
+            "Name": "OnePath Wholesale - Managed Growth",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "415",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "91",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref411"
+            },
+            "Name": "Pendal Active Growth",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "416",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "91",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref412"
+            },
+            "Name": "Pendal Balanced Returns",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "417",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "91",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref413"
+            },
+            "Name": "Perpetual Wholesale Balanced Growth",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "418",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "91",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref414"
+            },
+            "Name": "First Sentier Investors Wholesale Conservative",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "419",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "91",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref415"
+            },
+            "Name": "First Sentier Investors Wholesale High Growth",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "420",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "91",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref416"
+            },
+            "Name": "Generation Life DFA World Allocation 50/50 Trust",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "421",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "91",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref417"
+            },
+            "Name": "Generation Dimensional World Allocation 70/30 Trust",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "422",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "91",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref418"
+            },
+            "Name": "Generation Life MLC Horizon 2 Income",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "423",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "91",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref419"
+            },
+            "Name": "Generation Life MLC Horizon 3 Conservative Growth",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "424",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "91",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref420"
+            },
+            "Name": "Generation MLC Horizon 4 Balanced Portfolio",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "425",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "91",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref421"
+            },
+            "Name": "Generation Life Pendal Sustainability Balanced Fund",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "426",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "91",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref422"
+            },
+            "Name": "Generation Perpetual Wholesale Balanced Growth",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "427",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "91",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref423"
+            },
+            "Name": "Generation Perpetual Wholesale Conservative Growth",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "428",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "91",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref424"
+            },
+            "Name": "Generation Life Sectoral Blend",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "429",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "91",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref425"
+            },
+            "Name": "Generation Life Investment Bonds Vanguard Balance Portfolio",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "430",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "91",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref426"
+            },
+            "Name": "Generation Life Investment Bonds Vanguard Conservative Portfolio",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "431",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "91",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref427"
+            },
+            "Name": "Generation Life Investment Bonds Vanguard Growth Portolio",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "432",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "91",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref428"
+            },
+            "Name": "Generation Life Investment Bonds Vanguard High Growth Portfolio",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "433",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "91",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref429"
+            },
+            "Name": "Generation Life MLC Horizon 6 Share",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "434",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "91",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref430"
+            },
+            "Name": "Ironbark GCM Global Macro",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "435",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "91",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref431"
+            },
+            "Name": "AQR WS DELTA 1F",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "436",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "91",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref432"
+            },
+            "Name": "Fulcrum Diversified Investments Fund",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "437",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "91",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref433"
+            },
+            "Name": "Pendal Pure Alpha Fixed Income",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "438",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "91",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref434"
+            },
+            "Name": "Aviva Inv Mlt-Stgy Tgt Ret Fh AUD Inc",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "439",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "91",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref435"
+            },
+            "Name": "OnePath OA FR IP-OnePath Alts Gr",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "440",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "91",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref436"
+            },
+            "Name": "Schroder Real Return Fnd -WC",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "441",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "91",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref437"
+            },
+            "Name": "Generation Schroder Rl Rt CPI Plus 5%",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "442",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "91",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref438"
+            },
+            "Name": "Kilter Murray-Darling Basin Balanced Water Fund",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "443",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "93",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref439"
+            },
+            "Name": "Australian Unity Specialist Disability Accommodation Fund",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "444",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "94",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref440"
+            },
+            "Name": "Synergis Fund",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "445",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "13",
+            "IDR_Product_or_Service_Type__c": "94",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref441"
+            },
+            "Name": "Vanguard Australian Property Securities Index",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "446",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "14",
+            "IDR_Product_or_Service_Type__c": "97",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref442"
+            },
+            "Name": "iShares Australian Listed Property Index",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "447",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "14",
+            "IDR_Product_or_Service_Type__c": "97",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref443"
+            },
+            "Name": "APN Australian Real Estate Investment Trusts Fund",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "448",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "14",
+            "IDR_Product_or_Service_Type__c": "97",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref444"
+            },
+            "Name": "OnePath Wholesale - Property Securities Trust",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "449",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "14",
+            "IDR_Product_or_Service_Type__c": "97",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref445"
+            },
+            "Name": "Pendal Property Investment",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "450",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "14",
+            "IDR_Product_or_Service_Type__c": "97",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref446"
+            },
+            "Name": "Ironbark Paladin Property Securities",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "451",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "14",
+            "IDR_Product_or_Service_Type__c": "97",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref447"
+            },
+            "Name": "Zurich Investments Aus Property Securities",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "452",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "14",
+            "IDR_Product_or_Service_Type__c": "97",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref448"
+            },
+            "Name": "Optimix Wholesale - Property Securities B",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "453",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "14",
+            "IDR_Product_or_Service_Type__c": "97",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref449"
+            },
+            "Name": "SG Hiscock Property",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "454",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "14",
+            "IDR_Product_or_Service_Type__c": "97",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref450"
+            },
+            "Name": "Vanguard International Property Securities Index Hedged",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "455",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "14",
+            "IDR_Product_or_Service_Type__c": "97",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref451"
+            },
+            "Name": "Vanguard International Property Securities Index",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "456",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "14",
+            "IDR_Product_or_Service_Type__c": "97",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref452"
+            },
+            "Name": "iShares Global Listed Property Index Fund - Hedged S Class Units",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "457",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "14",
+            "IDR_Product_or_Service_Type__c": "97",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref453"
+            },
+            "Name": "OnePath OneAnswer Frontier Investment Portfolio - OnePath Global Property Securities Index",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "458",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "14",
+            "IDR_Product_or_Service_Type__c": "97",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref454"
+            },
+            "Name": "Resolution Capital Global Property Securities",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "459",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "14",
+            "IDR_Product_or_Service_Type__c": "97",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref455"
+            },
+            "Name": "AMP Capital Global Property Securities A",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "460",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "14",
+            "IDR_Product_or_Service_Type__c": "97",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref456"
+            },
+            "Name": "First Sentier Global Listed Infrastructure Fund",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "461",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "14",
+            "IDR_Product_or_Service_Type__c": "97",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref457"
+            },
+            "Name": "Lazard Global Listed Infrastructure",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "462",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "14",
+            "IDR_Product_or_Service_Type__c": "97",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref458"
+            },
+            "Name": "Magellan Infrastructure",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "463",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "14",
+            "IDR_Product_or_Service_Type__c": "97",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref459"
+            },
+            "Name": "Ironbark Global (ex-Aus) Property Securities",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "464",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "14",
+            "IDR_Product_or_Service_Type__c": "97",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref460"
+            },
+            "Name": "Generation iShares Wholesale Australian Listed Property Index",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "465",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "14",
+            "IDR_Product_or_Service_Type__c": "97",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref461"
+            },
+            "Name": "Generation Mason Martin Currie Rl Inc",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "466",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "14",
+            "IDR_Product_or_Service_Type__c": "97",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref462"
+            },
+            "Name": "Generation AMP Capital Global Property Securities",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "467",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "14",
+            "IDR_Product_or_Service_Type__c": "97",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref463"
+            },
+            "Name": "Generation Magellan Infrastructure",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "468",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "14",
+            "IDR_Product_or_Service_Type__c": "97",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref464"
+            },
+            "Name": "Kilter Australian Farmland Funds",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "469",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "14",
+            "IDR_Product_or_Service_Type__c": "97",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref465"
+            },
+            "Name": "Infrastructure Access Fund",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "470",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "14",
+            "IDR_Product_or_Service_Type__c": "97",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref466"
+            },
+            "Name": "The Impact Fund",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "471",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "14",
+            "IDR_Product_or_Service_Type__c": "97",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref467"
+            },
+            "Name": "Infradebt Ethical Investment Fund 2",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "472",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "14",
+            "IDR_Product_or_Service_Type__c": "97",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref468"
+            },
+            "Name": "Kapstream Absolute Return Income",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "473",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "15",
+            "IDR_Product_or_Service_Type__c": "99",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref469"
+            },
+            "Name": "Bentham Global Income",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "474",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "15",
+            "IDR_Product_or_Service_Type__c": "99",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref470"
+            },
+            "Name": "Franklin Templeton Multisector Bond W",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "475",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "15",
+            "IDR_Product_or_Service_Type__c": "99",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref471"
+            },
+            "Name": "Janus Henderson Glb Fixed Intst Ttl Ret",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "476",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "15",
+            "IDR_Product_or_Service_Type__c": "99",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref472"
+            },
+            "Name": "Yarra Enhanced Income Fund",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "477",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "15",
+            "IDR_Product_or_Service_Type__c": "99",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref473"
+            },
+            "Name": "Macquarie Income Opportunities",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "478",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "15",
+            "IDR_Product_or_Service_Type__c": "99",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref474"
+            },
+            "Name": "State Street Floating Rate Fund",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "479",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "15",
+            "IDR_Product_or_Service_Type__c": "99",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref475"
+            },
+            "Name": "Ardea Real Outcome Fund",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "480",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "15",
+            "IDR_Product_or_Service_Type__c": "99",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref476"
+            },
+            "Name": "Schroder Absolute Return Income Fund -WC",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "481",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "15",
+            "IDR_Product_or_Service_Type__c": "99",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref477"
+            },
+            "Name": "OnePath WS-Dvrs Crdt",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "482",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "15",
+            "IDR_Product_or_Service_Type__c": "99",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref478"
+            },
+            "Name": "Generation Life Schroder Abs Rtrn Income",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "483",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "15",
+            "IDR_Product_or_Service_Type__c": "99",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref479"
+            },
+            "Name": "iShares Australian Bond Index",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "484",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "15",
+            "IDR_Product_or_Service_Type__c": "99",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref480"
+            },
+            "Name": "Vanguard Australian Fixed Interest Index",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "485",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "15",
+            "IDR_Product_or_Service_Type__c": "99",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref481"
+            },
+            "Name": "PIMCO Australian Bond W",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "486",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "15",
+            "IDR_Product_or_Service_Type__c": "99",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref482"
+            },
+            "Name": "Schroder Fixed Income Fund - Wholesale",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "487",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "15",
+            "IDR_Product_or_Service_Type__c": "99",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref483"
+            },
+            "Name": "Janus Henderson Australian Fxd Intst",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "488",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "15",
+            "IDR_Product_or_Service_Type__c": "99",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref484"
+            },
+            "Name": "Janus Henderson Tactical Income",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "489",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "15",
+            "IDR_Product_or_Service_Type__c": "99",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref485"
+            },
+            "Name": "Vanguard International Fxd Intr Idx Hdg",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "490",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "15",
+            "IDR_Product_or_Service_Type__c": "99",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref486"
+            },
+            "Name": "PIMCO Global Bond W",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "491",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "15",
+            "IDR_Product_or_Service_Type__c": "99",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref487"
+            },
+            "Name": "OnePath WS-Diversified Fixed Interest",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "492",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "15",
+            "IDR_Product_or_Service_Type__c": "99",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref488"
+            },
+            "Name": "PIMCO Diversified Fixed Interest W",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "493",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "15",
+            "IDR_Product_or_Service_Type__c": "99",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref489"
+            },
+            "Name": "Vanguard Diversified Bond Index",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "494",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "15",
+            "IDR_Product_or_Service_Type__c": "99",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref490"
+            },
+            "Name": "UBS Diversified Fixed Income Fund",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "495",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "15",
+            "IDR_Product_or_Service_Type__c": "99",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref491"
+            },
+            "Name": "Generation iShares Wholesale AUS Bd Idx",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "496",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "15",
+            "IDR_Product_or_Service_Type__c": "99",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref492"
+            },
+            "Name": "Generation PIMCO Wholesale Australian Bd",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "497",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "15",
+            "IDR_Product_or_Service_Type__c": "99",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref493"
+            },
+            "Name": "Generation PIMCO Wholesale Global Bond",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "498",
+            "IDR_Product_or_Service_Line__c": "4",
+            "IDR_Product_or_Service_Category__c": "15",
+            "IDR_Product_or_Service_Type__c": "99",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref494"
+            },
+            "Name": "Zurich Ezicover Income Protection",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "499",
+            "IDR_Product_or_Service_Line__c": "5",
+            "IDR_Product_or_Service_Category__c": "17",
+            "IDR_Product_or_Service_Type__c": "118",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref495"
+            },
+            "Name": "OneCare Income Protection",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "500",
+            "IDR_Product_or_Service_Line__c": "5",
+            "IDR_Product_or_Service_Category__c": "17",
+            "IDR_Product_or_Service_Type__c": "118",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref496"
+            },
+            "Name": "Zurich Income Protection",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "501",
+            "IDR_Product_or_Service_Line__c": "5",
+            "IDR_Product_or_Service_Category__c": "17",
+            "IDR_Product_or_Service_Type__c": "118",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref497"
+            },
+            "Name": "TAL Income Protection",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "502",
+            "IDR_Product_or_Service_Line__c": "5",
+            "IDR_Product_or_Service_Category__c": "17",
+            "IDR_Product_or_Service_Type__c": "118",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref498"
+            },
+            "Name": "AIA Income Protection",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "503",
+            "IDR_Product_or_Service_Line__c": "5",
+            "IDR_Product_or_Service_Category__c": "17",
+            "IDR_Product_or_Service_Type__c": "118",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref499"
+            },
+            "Name": "BT Life Income Protection",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "504",
+            "IDR_Product_or_Service_Line__c": "5",
+            "IDR_Product_or_Service_Category__c": "17",
+            "IDR_Product_or_Service_Type__c": "118",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref500"
+            },
+            "Name": "AMP Income Protection",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "505",
+            "IDR_Product_or_Service_Line__c": "5",
+            "IDR_Product_or_Service_Category__c": "17",
+            "IDR_Product_or_Service_Type__c": "118",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref501"
+            },
+            "Name": "Asteron Income Protection",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "506",
+            "IDR_Product_or_Service_Line__c": "5",
+            "IDR_Product_or_Service_Category__c": "17",
+            "IDR_Product_or_Service_Type__c": "118",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref502"
+            },
+            "Name": "Challenger Annuity",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "507",
+            "IDR_Product_or_Service_Line__c": "5",
+            "IDR_Product_or_Service_Category__c": "18",
+            "IDR_Product_or_Service_Type__c": "119",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref503"
+            },
+            "Name": "Challenger SIV Annuity ",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "508",
+            "IDR_Product_or_Service_Line__c": "5",
+            "IDR_Product_or_Service_Category__c": "18",
+            "IDR_Product_or_Service_Type__c": "119",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref504"
+            },
+            "Name": "Zurich Ezicover Life Insurance",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "509",
+            "IDR_Product_or_Service_Line__c": "5",
+            "IDR_Product_or_Service_Category__c": "18",
+            "IDR_Product_or_Service_Type__c": "123",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref505"
+            },
+            "Name": "OneCare Life Insurance",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "510",
+            "IDR_Product_or_Service_Line__c": "5",
+            "IDR_Product_or_Service_Category__c": "18",
+            "IDR_Product_or_Service_Type__c": "123",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref506"
+            },
+            "Name": "Zurich Life Insurance",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "511",
+            "IDR_Product_or_Service_Line__c": "5",
+            "IDR_Product_or_Service_Category__c": "18",
+            "IDR_Product_or_Service_Type__c": "123",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref507"
+            },
+            "Name": "TAL Life Insurance",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "512",
+            "IDR_Product_or_Service_Line__c": "5",
+            "IDR_Product_or_Service_Category__c": "18",
+            "IDR_Product_or_Service_Type__c": "123",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref508"
+            },
+            "Name": "AIA Life Insurance",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "513",
+            "IDR_Product_or_Service_Line__c": "5",
+            "IDR_Product_or_Service_Category__c": "18",
+            "IDR_Product_or_Service_Type__c": "123",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref509"
+            },
+            "Name": "BT Life Life Insurance",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "514",
+            "IDR_Product_or_Service_Line__c": "5",
+            "IDR_Product_or_Service_Category__c": "18",
+            "IDR_Product_or_Service_Type__c": "123",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref510"
+            },
+            "Name": "AMP Life Insurance",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "515",
+            "IDR_Product_or_Service_Line__c": "5",
+            "IDR_Product_or_Service_Category__c": "18",
+            "IDR_Product_or_Service_Type__c": "123",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref511"
+            },
+            "Name": "Asteron Life Insurance",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "516",
+            "IDR_Product_or_Service_Line__c": "5",
+            "IDR_Product_or_Service_Category__c": "18",
+            "IDR_Product_or_Service_Type__c": "123",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref512"
+            },
+            "Name": "OneCare TPD",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "517",
+            "IDR_Product_or_Service_Line__c": "5",
+            "IDR_Product_or_Service_Category__c": "18",
+            "IDR_Product_or_Service_Type__c": "124",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref513"
+            },
+            "Name": "Zurich TPD",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "518",
+            "IDR_Product_or_Service_Line__c": "5",
+            "IDR_Product_or_Service_Category__c": "18",
+            "IDR_Product_or_Service_Type__c": "124",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref514"
+            },
+            "Name": "TAL TPD",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "519",
+            "IDR_Product_or_Service_Line__c": "5",
+            "IDR_Product_or_Service_Category__c": "18",
+            "IDR_Product_or_Service_Type__c": "124",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref515"
+            },
+            "Name": "AIA TPD",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "520",
+            "IDR_Product_or_Service_Line__c": "5",
+            "IDR_Product_or_Service_Category__c": "18",
+            "IDR_Product_or_Service_Type__c": "124",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref516"
+            },
+            "Name": "BT Life TPD",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "521",
+            "IDR_Product_or_Service_Line__c": "5",
+            "IDR_Product_or_Service_Category__c": "18",
+            "IDR_Product_or_Service_Type__c": "124",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref517"
+            },
+            "Name": "AMP TPD",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "522",
+            "IDR_Product_or_Service_Line__c": "5",
+            "IDR_Product_or_Service_Category__c": "18",
+            "IDR_Product_or_Service_Type__c": "124",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref518"
+            },
+            "Name": "Asteron TPD",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "523",
+            "IDR_Product_or_Service_Line__c": "5",
+            "IDR_Product_or_Service_Category__c": "18",
+            "IDR_Product_or_Service_Type__c": "124",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref519"
+            },
+            "Name": "OneCare Trauma Insurance",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "524",
+            "IDR_Product_or_Service_Line__c": "5",
+            "IDR_Product_or_Service_Category__c": "18",
+            "IDR_Product_or_Service_Type__c": "125",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref520"
+            },
+            "Name": "Zurich Trauma Insurance",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "525",
+            "IDR_Product_or_Service_Line__c": "5",
+            "IDR_Product_or_Service_Category__c": "18",
+            "IDR_Product_or_Service_Type__c": "125",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref521"
+            },
+            "Name": "TAL Trauma Insurance",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "526",
+            "IDR_Product_or_Service_Line__c": "5",
+            "IDR_Product_or_Service_Category__c": "18",
+            "IDR_Product_or_Service_Type__c": "125",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref522"
+            },
+            "Name": "AIA Trauma Insurance",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "527",
+            "IDR_Product_or_Service_Line__c": "5",
+            "IDR_Product_or_Service_Category__c": "18",
+            "IDR_Product_or_Service_Type__c": "125",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref523"
+            },
+            "Name": "BT Life Trauma Insurance",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "528",
+            "IDR_Product_or_Service_Line__c": "5",
+            "IDR_Product_or_Service_Category__c": "18",
+            "IDR_Product_or_Service_Type__c": "125",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref524"
+            },
+            "Name": "AMP Trauma Insurance",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "529",
+            "IDR_Product_or_Service_Line__c": "5",
+            "IDR_Product_or_Service_Category__c": "18",
+            "IDR_Product_or_Service_Type__c": "125",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref525"
+            },
+            "Name": "Asteron Trauma Insurance",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "530",
+            "IDR_Product_or_Service_Line__c": "5",
+            "IDR_Product_or_Service_Category__c": "18",
+            "IDR_Product_or_Service_Type__c": "125",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref526"
+            },
+            "Name": "International Visa Debit",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "531",
+            "IDR_Product_or_Service_Line__c": "6",
+            "IDR_Product_or_Service_Category__c": "19",
+            "IDR_Product_or_Service_Type__c": "134",
+            "IDR_Workbasket__c": "IDR_Everyday_Banking"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref527"
+            },
+            "Name": "Credit Transaction",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "532",
+            "IDR_Product_or_Service_Line__c": "6",
+            "IDR_Product_or_Service_Category__c": "19",
+            "IDR_Product_or_Service_Type__c": "134",
+            "IDR_Workbasket__c": "IDR_Everyday_Banking"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref528"
+            },
+            "Name": "International Telegraphic Transfer",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "533",
+            "IDR_Product_or_Service_Line__c": "6",
+            "IDR_Product_or_Service_Category__c": "19",
+            "IDR_Product_or_Service_Type__c": "136",
+            "IDR_Workbasket__c": "IDR_Everyday_Banking"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref529"
+            },
+            "Name": "Domestic Telegraphic Transfer",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "534",
+            "IDR_Product_or_Service_Line__c": "6",
+            "IDR_Product_or_Service_Category__c": "19",
+            "IDR_Product_or_Service_Type__c": "136",
+            "IDR_Workbasket__c": "IDR_Everyday_Banking"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref530"
+            },
+            "Name": "Challenger Pension",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "535",
+            "IDR_Product_or_Service_Line__c": "8",
+            "IDR_Product_or_Service_Category__c": "22",
+            "IDR_Product_or_Service_Type__c": "146",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref531"
+            },
+            "Name": "ANZ Staff Super - Life cover",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "536",
+            "IDR_Product_or_Service_Line__c": "8",
+            "IDR_Product_or_Service_Category__c": "24",
+            "IDR_Product_or_Service_Type__c": "152",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref532"
+            },
+            "Name": "ANZ Staff Super Retirement Income",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "537",
+            "IDR_Product_or_Service_Line__c": "8",
+            "IDR_Product_or_Service_Category__c": "24",
+            "IDR_Product_or_Service_Type__c": "153",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref533"
+            },
+            "Name": "ANZ Smart Choice Super for Employers and their Employees",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "538",
+            "IDR_Product_or_Service_Line__c": "8",
+            "IDR_Product_or_Service_Category__c": "24",
+            "IDR_Product_or_Service_Type__c": "154",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref534"
+            },
+            "Name": "ANZ Staff Super Scheme",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "539",
+            "IDR_Product_or_Service_Line__c": "8",
+            "IDR_Product_or_Service_Category__c": "24",
+            "IDR_Product_or_Service_Type__c": "154",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref535"
+            },
+            "Name": "ANZ Staff Super - TPD",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "540",
+            "IDR_Product_or_Service_Line__c": "8",
+            "IDR_Product_or_Service_Category__c": "24",
+            "IDR_Product_or_Service_Type__c": "156",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref536"
+            },
+            "Name": "ANZ Staff Super - Income Protection",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "541",
+            "IDR_Product_or_Service_Line__c": "8",
+            "IDR_Product_or_Service_Category__c": "24",
+            "IDR_Product_or_Service_Type__c": "157",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref537"
+            },
+            "Name": "OneAnswer Frontier Pension",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "542",
+            "IDR_Product_or_Service_Line__c": "8",
+            "IDR_Product_or_Service_Category__c": "28",
+            "IDR_Product_or_Service_Type__c": "177",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref538"
+            },
+            "Name": "ANZ OneAnswer Pension",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "543",
+            "IDR_Product_or_Service_Line__c": "8",
+            "IDR_Product_or_Service_Category__c": "28",
+            "IDR_Product_or_Service_Type__c": "177",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref539"
+            },
+            "Name": "OneAnswer Frontier Super",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "544",
+            "IDR_Product_or_Service_Line__c": "8",
+            "IDR_Product_or_Service_Category__c": "28",
+            "IDR_Product_or_Service_Type__c": "178",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref540"
+            },
+            "Name": "ANZ OneAnswer Super",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "545",
+            "IDR_Product_or_Service_Line__c": "8",
+            "IDR_Product_or_Service_Category__c": "28",
+            "IDR_Product_or_Service_Type__c": "178",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref541"
+            },
+            "Name": "ANZ OneAnswer Superannuation",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "546",
+            "IDR_Product_or_Service_Line__c": "9",
+            "IDR_Product_or_Service_Category__c": "32",
+            "IDR_Product_or_Service_Type__c": "195",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref542"
+            },
+            "Name": "ANZ OneAnswer Investment Portfolio",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "547",
+            "IDR_Product_or_Service_Line__c": "9",
+            "IDR_Product_or_Service_Category__c": "32",
+            "IDR_Product_or_Service_Type__c": "195",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref543"
+            },
+            "Name": "OneAnswer Frontier Superannuation",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "548",
+            "IDR_Product_or_Service_Line__c": "9",
+            "IDR_Product_or_Service_Category__c": "32",
+            "IDR_Product_or_Service_Type__c": "195",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref544"
+            },
+            "Name": "OneAnswer Frontier Investment Portfolio",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "549",
+            "IDR_Product_or_Service_Line__c": "9",
+            "IDR_Product_or_Service_Category__c": "32",
+            "IDR_Product_or_Service_Type__c": "195",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref545"
+            },
+            "Name": "BT Wrap - Investment",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "550",
+            "IDR_Product_or_Service_Line__c": "9",
+            "IDR_Product_or_Service_Category__c": "32",
+            "IDR_Product_or_Service_Type__c": "195",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref546"
+            },
+            "Name": "BT Wrap - Super/Pension",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "551",
+            "IDR_Product_or_Service_Line__c": "9",
+            "IDR_Product_or_Service_Category__c": "32",
+            "IDR_Product_or_Service_Type__c": "195",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref547"
+            },
+            "Name": "Netwealth Accelerator Plus - Investments",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "552",
+            "IDR_Product_or_Service_Line__c": "9",
+            "IDR_Product_or_Service_Category__c": "32",
+            "IDR_Product_or_Service_Type__c": "195",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref548"
+            },
+            "Name": "Netwealth Accelerator Plus - Super",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "553",
+            "IDR_Product_or_Service_Line__c": "9",
+            "IDR_Product_or_Service_Category__c": "32",
+            "IDR_Product_or_Service_Type__c": "195",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref549"
+            },
+            "Name": "Netwealth Accelerator Core - Investments",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "554",
+            "IDR_Product_or_Service_Line__c": "9",
+            "IDR_Product_or_Service_Category__c": "32",
+            "IDR_Product_or_Service_Type__c": "195",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref550"
+            },
+            "Name": "Netwealth Accelerator Core - Super",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "555",
+            "IDR_Product_or_Service_Line__c": "9",
+            "IDR_Product_or_Service_Category__c": "32",
+            "IDR_Product_or_Service_Type__c": "195",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref551"
+            },
+            "Name": "Praemium Wrap",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "556",
+            "IDR_Product_or_Service_Line__c": "9",
+            "IDR_Product_or_Service_Category__c": "32",
+            "IDR_Product_or_Service_Type__c": "195",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref552"
+            },
+            "Name": "Panorama Wrap",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "557",
+            "IDR_Product_or_Service_Line__c": "9",
+            "IDR_Product_or_Service_Category__c": "32",
+            "IDR_Product_or_Service_Type__c": "195",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref553"
+            },
+            "Name": "Challenger Guaranteed Annuity",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "558",
+            "IDR_Product_or_Service_Line__c": "9",
+            "IDR_Product_or_Service_Category__c": "32",
+            "IDR_Product_or_Service_Type__c": "195",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref554"
+            },
+            "Name": "Challenger Guaranteed Annuity - Liquid Lifetime",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "559",
+            "IDR_Product_or_Service_Line__c": "9",
+            "IDR_Product_or_Service_Category__c": "32",
+            "IDR_Product_or_Service_Type__c": "195",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref555"
+            },
+            "Name": "GenerationLife Investment Bond",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "560",
+            "IDR_Product_or_Service_Line__c": "9",
+            "IDR_Product_or_Service_Category__c": "32",
+            "IDR_Product_or_Service_Type__c": "195",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref556"
+            },
+            "Name": "(Retail Insurance) OneCare",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "561",
+            "IDR_Product_or_Service_Line__c": "9",
+            "IDR_Product_or_Service_Category__c": "32",
+            "IDR_Product_or_Service_Type__c": "195",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref557"
+            },
+            "Name": "(Retail Insurance) Zurich",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "562",
+            "IDR_Product_or_Service_Line__c": "9",
+            "IDR_Product_or_Service_Category__c": "32",
+            "IDR_Product_or_Service_Type__c": "195",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref558"
+            },
+            "Name": "(Retail Insurance) TAL",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "563",
+            "IDR_Product_or_Service_Line__c": "9",
+            "IDR_Product_or_Service_Category__c": "32",
+            "IDR_Product_or_Service_Type__c": "195",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref559"
+            },
+            "Name": "(Retail Insurance) AIA",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "564",
+            "IDR_Product_or_Service_Line__c": "9",
+            "IDR_Product_or_Service_Category__c": "32",
+            "IDR_Product_or_Service_Type__c": "195",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref560"
+            },
+            "Name": "(Retail Insurance) BTLife",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "565",
+            "IDR_Product_or_Service_Line__c": "9",
+            "IDR_Product_or_Service_Category__c": "32",
+            "IDR_Product_or_Service_Type__c": "195",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref561"
+            },
+            "Name": "(Retail Insurance) AMP",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "566",
+            "IDR_Product_or_Service_Line__c": "9",
+            "IDR_Product_or_Service_Category__c": "32",
+            "IDR_Product_or_Service_Type__c": "195",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref562"
+            },
+            "Name": "(Retail Insurance) Asteron",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "567",
+            "IDR_Product_or_Service_Line__c": "9",
+            "IDR_Product_or_Service_Category__c": "32",
+            "IDR_Product_or_Service_Type__c": "195",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product2",
+                "referenceId": "Product2Ref563"
+            },
+            "Name": "Residential Investment Property Loan (Commercial Regulated Loan)",
+            "IsActive": true,
+            "ANZ_Product_Code__c": "568",
+            "IDR_Product_or_Service_Line__c": "1",
+            "IDR_Product_or_Service_Category__c": "2",
+            "IDR_Product_or_Service_Type__c": "13",
+            "IDR_Workbasket__c": "IDR_Home_Owners"
+        }
+    ]
+}
