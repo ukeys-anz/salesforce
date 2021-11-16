@@ -561,15 +561,23 @@ export default class CreateComplaintLWC extends NavigationMixin(
       }
       return isValidSoFar;
     }, true);
-    if (this.accountOrPolicyNumber === "") {
+    if (this.isCustomerComplaint && this.accountOrPolicyNumber === "") {
       isFieldValid = false;
       this.missingDataFields += "Account/Policy Number, ";
     }
-    if (this.hasSecondIssue && this.accountOrPolicyNumber2 === "") {
+    if (
+      this.isCustomerComplaint &&
+      this.hasSecondIssue &&
+      this.accountOrPolicyNumber2 === ""
+    ) {
       isFieldValid = false;
       this.missingDataFields += "Account/Policy Number 2, ";
     }
-    if (this.hasThirdIssue && this.accountOrPolicyNumber3 === "") {
+    if (
+      this.isCustomerComplaint &&
+      this.hasThirdIssue &&
+      this.accountOrPolicyNumber3 === ""
+    ) {
       isFieldValid = false;
       this.missingDataFields += "Account/Policy Number 3, ";
     }
