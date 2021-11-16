@@ -3214,6 +3214,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Product2.IDR_Workbasket__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Release__c.Additions__c</field>
         <readable>true</readable>
     </fieldPermissions>

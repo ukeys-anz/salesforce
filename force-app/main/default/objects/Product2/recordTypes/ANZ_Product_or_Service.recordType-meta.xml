@@ -981,6 +981,25 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>IDR_Workbasket__c</picklist>
+        <values>
+            <fullName>IDR_Business_Owners</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IDR_Everyday_Banking</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IDR_Home_Owners</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IDR_Wealth</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>QuantityUnitOfMeasure</picklist>
         <values>
             <fullName>Each</fullName>
