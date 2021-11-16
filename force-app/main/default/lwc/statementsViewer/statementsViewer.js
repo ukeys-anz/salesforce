@@ -108,9 +108,17 @@ export default class StatementsViewer extends LightningElement {
 
       if (statements.length === 0) {
         this.statements = [];
+        this.showLoadMoreButton = false;
       } else if (statements.length > 0) {
+        // if returned data size no greater than default size, hide load more button
+        if (statements.length < DEFAULT_PAGE_SIZE) {
+          this.showLoadMoreButton = false;
+        }
         // if no more statements, hide load more button and no need to process data
-        if (this.statements && this.statements.length === statements.length) {
+        else if (
+          this.statements &&
+          this.statements.length === statements.length
+        ) {
           this.showLoadMoreButton = false;
           this.isLoading = false;
           return;
