@@ -78,10 +78,6 @@
                 <field>Dispute_Reason__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Required</behavior>
-                <field>Dispute_Subtype__c</field>
-            </layoutItems>
-            <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>NPP_Subtype__c</field>
             </layoutItems>
