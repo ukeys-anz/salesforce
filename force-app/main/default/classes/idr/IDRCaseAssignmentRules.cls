@@ -20,7 +20,7 @@ public with sharing class IDRCaseAssignmentRules {
       if (IDRCaseActions.isIDRComplaintType(c)) {
         Case oldCase = (oldMap != null ? oldMap.get(c.Id) : null);
         String productWorkbasketName = c.Product__c != null
-          ? (productMap.get(c.Product__c)).IDR_Workbasket
+          ? (productMap.get(c.Product__c)).IDR_Workbasket__c
           : null;
         c.OwnerId = IDRCaseAssignmentRules.getOwnerId(
           c,
@@ -130,7 +130,7 @@ public with sharing class IDRCaseAssignmentRules {
     for (Case c : cases) {
       productIds.add(c.Product__c);
     }
-    Map<Id, String> productMap = new Map<Id, String>();
+    Map<Id, Product2> productMap = new Map<Id, Product2>();
     if (Product2.sObjectType.getDescribe().isQueryable()) {
       for (Product2 p : [
         SELECT Name, IDR_Workbasket__c
