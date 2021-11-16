@@ -122,7 +122,15 @@ const prepopulateFieldsValues = (
     defaultFieldValuesObj[key] = !keyString.includes(".") // If this key does not contain nested value
       ? transaction[keyString] // extract the value using the native way
       : getNestedValue(transaction, keyString); // otherwise call getNestedValue
+
+    //Check if the value is unknown so we don't prepopulate the field
+    //to avoid validation rules preventing case creation
+    //ie BSB being prepopulated with unknown triggers VR
+    if (defaultFieldValuesObj[key] === "Unknown") {
+      defaultFieldValuesObj[key] = null;
+    }
   });
+
   return defaultFieldValuesObj;
 };
 
