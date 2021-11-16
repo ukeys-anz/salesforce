@@ -133,7 +133,7 @@ public with sharing class IDRCaseAssignmentRules {
     Map<Id, String> productMap = new Map<Id, String>();
     if (Product2.sObjectType.getDescribe().isQueryable()) {
       for (Product2 p : [
-        SELECT Name, IDR_Workbasket
+        SELECT Name, IDR_Workbasket__c
         FROM Product2
         WHERE Id IN :productIds
       ]) {
