@@ -62,6 +62,14 @@ public with sharing class IDRCollectionActions {
   public static void validateAccNumberPattern(Case record, Case oldRecord) {
     if (record.recordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID) {
       if (
+        record.IDR_Account_Card_Policy_Number__c !=
+        oldRecord.IDR_Account_Card_Policy_Number__c &&
+        record.IDR_Account_Card_Policy_Number__c != ACC_NUMBER_NA &&
+        !isAccountNumberRegexValid(record.IDR_Account_Card_Policy_Number__c)
+      ) {
+        record.addError(IDRConstants.INVALID_ACC_NO_MESSAGE);
+      }
+      if (
         record.IDR_Account_Card_Policy_Number_2__c !=
         oldRecord.IDR_Account_Card_Policy_Number_2__c &&
         record.IDR_Account_Card_Policy_Number_2__c != ACC_NUMBER_NA &&
