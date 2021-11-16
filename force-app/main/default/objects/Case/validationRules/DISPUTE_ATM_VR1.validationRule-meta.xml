@@ -8,9 +8,8 @@ RecordType.DeveloperName = &apos;ATM_Dispute&apos;,
 ISPICKVAL(Dispute_Reason__c, &quot;Cash Dispensing Error&quot;),
 OR(
 ISBLANK(Description),
-ISBLANK(Received_Amount__c),
-ISBLANK(Refund_Request_Date__c)
+ISBLANK(Received_Amount__c)
 )
 )</errorConditionFormula>
-    <errorMessage>These fields are required: Description of Issue, Received Amount,  Refund Request Date.</errorMessage>
+    <errorMessage>These fields are required: Description of Issue, Received Amount.</errorMessage>
 </ValidationRule>

@@ -123,10 +123,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Refund_Request_Date__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>Received_Amount__c</field>
             </layoutItems>
             <layoutItems>
