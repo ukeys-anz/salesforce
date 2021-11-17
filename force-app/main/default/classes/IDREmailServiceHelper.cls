@@ -183,7 +183,7 @@ public with sharing class IDREmailServiceHelper {
     for (ContentVersion cv : contentVersionList) {
       contentVerIds.add(cv.Id);
     }
-    FileUtil.linkContentWithRecord(contentVerIds, caseId, 'C');
+    FileUtil.linkContentWithRecord(contentVerIds, caseId, 'I');
   }
 
   /**
