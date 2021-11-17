@@ -34,7 +34,7 @@ public with sharing class IDRCaseAssignmentRules {
   /**
    * @description method to run the Case assignment rules conditions
    * @param rec case record
-   * @param product name of the product the case relates to
+   * @param productWorkbasketName name of the product the case relates to
    * @param oldCase old record of case
    * @return Queue Id
    */
