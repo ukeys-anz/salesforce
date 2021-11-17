@@ -110,11 +110,11 @@
       }
     },
     {
-      "name": "Al Pacino",
-      "tokenizedCardNumber": "746377948",
-      "last4Digits": "9874",
-      "status": "Replace Status",
-      "expiryDate": "9/12",
+      "name": "Quentin Tarantino",
+      "tokenizedCardNumber": "23572357",
+      "last4Digits": "1113",
+      "status": "Block CNP",
+      "expiryDate": "9/22",
       "accountNumber": "",
       "eligibilities": [
         "ELIGIBILITY_APPLE_PAY",
@@ -127,7 +127,15 @@
         "ELIGIBILITY_CARD_REPLACEMENT_DAMAGED",
         "ELIGIBILITY_CARD_CONTROLS",
         "ELIGIBILITY_BLOCK"
-      ]
+      ],
+      "wallets": {
+        "applePay": 0,
+        "googlePay": 0,
+        "samsungPay": 0,
+        "fitness": 0,
+        "eCommerce": 0,
+        "other": 0
+      }
     }
   ]
 }
