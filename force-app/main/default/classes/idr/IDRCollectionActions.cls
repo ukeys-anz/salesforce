@@ -62,6 +62,14 @@ public with sharing class IDRCollectionActions {
   public static void validateAccNumberPattern(Case record, Case oldRecord) {
     if (record.recordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID) {
       if (
+        record.IDR_Account_Card_Policy_Number__c !=
+        oldRecord.IDR_Account_Card_Policy_Number__c &&
+        record.IDR_Account_Card_Policy_Number__c != ACC_NUMBER_NA &&
+        !isAccountNumberRegexValid(record.IDR_Account_Card_Policy_Number__c)
+      ) {
+        record.addError(IDRConstants.INVALID_ACC_NO_MESSAGE);
+      }
+      if (
         record.IDR_Account_Card_Policy_Number_2__c !=
         oldRecord.IDR_Account_Card_Policy_Number_2__c &&
         record.IDR_Account_Card_Policy_Number_2__c != ACC_NUMBER_NA &&
@@ -481,10 +489,12 @@ public with sharing class IDRCollectionActions {
             AND WhatId IN (
               SELECT id
               FROM case
-              WHERE isClosed = FALSE OR Id IN :caseIds
+              WHERE isClosed = false OR Id IN :caseIds
             )
         ]) {
-          if (!startCollectionMap.containsKey(taskRec.IDR_Collection_Number__c)) {
+          if (
+            !startCollectionMap.containsKey(taskRec.IDR_Collection_Number__c)
+          ) {
             startCollectionMap.put(
               taskRec.IDR_Collection_Number__c,
               new Set<Id>{ taskRec.WhatId }
@@ -508,13 +518,31 @@ public with sharing class IDRCollectionActions {
     Case rec,
     Map<String, Set<Id>> startCollecMap
   ) {
-    if (String.isNotBlank(rec.IDR_Collection_Number__c)) {
+    if (
+      String.isNotBlank(rec.IDR_Collection_Number__c) &&
+      IDRConstants.ISSUE_TYPE_COLLECTIONS.contains(rec.Type) &&
+      IDRConstants.SUB_ISSUE_TYPE_COLLECTIONS.contains(
+        rec.IDR_Subsequent_Issue__c
+      )
+    ) {
       startCollectionForIssueOne(rec, startCollecMap);
     }
-    if (String.isNotBlank(rec.IDR_Collection_Number_2__c)) {
+    if (
+      String.isNotBlank(rec.IDR_Collection_Number_2__c) &&
+      IDRConstants.ISSUE_TYPE_COLLECTIONS.contains(rec.IDR_Issue_Type_2__c) &&
+      IDRConstants.SUB_ISSUE_TYPE_COLLECTIONS.contains(
+        rec.IDR_Subsequent_Issue_2__c
+      )
+    ) {
       startCollectionForIssueTwo(rec, startCollecMap);
     }
-    if (String.isNotBlank(rec.IDR_Collection_Number_3__c)) {
+    if (
+      String.isNotBlank(rec.IDR_Collection_Number_3__c) &&
+      IDRConstants.ISSUE_TYPE_COLLECTIONS.contains(rec.IDR_Issue_Type_3__c) &&
+      IDRConstants.SUB_ISSUE_TYPE_COLLECTIONS.contains(
+        rec.IDR_Subsequent_Issue_3__c
+      )
+    ) {
       startCollectionForIssueThree(rec, startCollecMap);
     }
   }
