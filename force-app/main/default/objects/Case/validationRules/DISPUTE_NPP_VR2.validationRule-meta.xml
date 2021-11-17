@@ -13,5 +13,5 @@ ISPICKVAL(Intended_Pay_Id_Type__c,&apos;&apos;),
 ISBLANK(Intended_Pay_Id_Value__c)
 )
 )</errorConditionFormula>
-    <errorMessage>These fields are required: Description of Issue, Intended Pay Id Type, Intended Pay Id Value.</errorMessage>
+    <errorMessage>These fields are required: Description of Issue, Intended PayID Type, Intended PayID Details.</errorMessage>
 </ValidationRule>

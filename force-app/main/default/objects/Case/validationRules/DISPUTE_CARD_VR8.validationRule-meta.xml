@@ -20,5 +20,5 @@
         ISBLANK(Merchant_Description__c)
     )
 )</errorConditionFormula>
-    <errorMessage>These fields are required: Description of Issue, Goods Or Services Returned, Goods Returned or Service Cancelled Date, Merchant Description.</errorMessage>
+    <errorMessage>These fields are required: Description of Issue, Goods Or Services Returned, Goods Returned or Service Cancelled Date, What Happened with Merchant?</errorMessage>
 </ValidationRule>

@@ -14,5 +14,5 @@ ISPICKVAL(Customer_Contacted_Merchant__c, &apos;NA&apos;)),
 ISBLANK(Merchant_Description__c)
 )
 )</errorConditionFormula>
-    <errorMessage>These fields are required: Description of Issue, Amount of Credit Due,  Customer Contacted Merchant, Merchant Description.</errorMessage>
+    <errorMessage>These fields are required: Description of Issue, Amount of Credit Due,  Customer Contacted Merchant, What Happened with Merchant?</errorMessage>
 </ValidationRule>

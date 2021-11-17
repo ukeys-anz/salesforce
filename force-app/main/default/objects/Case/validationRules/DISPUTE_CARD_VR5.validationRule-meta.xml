@@ -14,5 +14,5 @@ OR(ISPICKVAL(Customer_Contacted_Merchant__c, &apos;&apos;),
 ISPICKVAL(Customer_Contacted_Merchant__c, &apos;NA&apos;))
 )
 )</errorConditionFormula>
-    <errorMessage>These fields are required: Description of Issue, Regular Payment Cancellation Date,  Customer Contacted Merchant, Merchant Description.</errorMessage>
+    <errorMessage>These fields are required: Description of Issue, Regular Payment Cancellation Date,  Customer Contacted Merchant, What Happened with Merchant?</errorMessage>
 </ValidationRule>
