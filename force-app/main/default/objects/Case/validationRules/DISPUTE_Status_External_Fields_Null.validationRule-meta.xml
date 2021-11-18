@@ -4,22 +4,20 @@
     <active>true</active>
     <description>Throws an error when the Status changes and External System or External Case ID is null.</description>
     <errorConditionFormula>AND(
-$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
-OR(
-RecordType.DeveloperName = &apos;ATM_Dispute&apos;,
-RecordType.DeveloperName = &apos;Card_Dispute&apos;,
-RecordType.DeveloperName = &apos;Direct_Debit_Dispute&apos;,
-RecordType.DeveloperName = &apos;Direct_Entry_Dispute&apos;,
-RecordType.DeveloperName = &apos;NPP_Dispute&apos;),
-AND(
-ISCHANGED(Status),
-NOT(ISPICKVAL(Status,&apos;Open&apos;))),
-OR(
-NOT(ISPICKVAL(External_System__c,&apos;&apos;)) &amp;&amp; ISBLANK(External_Case_ID__c),
-ISPICKVAL(External_System__c,&apos;NA&apos;) &amp;&amp; ISBLANK(External_Case_ID__c),
-ISPICKVAL(External_System__c,&apos;NA&apos;) &amp;&amp; NOT(ISBLANK(External_Case_ID__c)),
-ISPICKVAL(External_System__c,&apos;&apos;) &amp;&amp; ISBLANK(External_Case_ID__c),
-ISPICKVAL(External_System__c,&apos;&apos;) &amp;&amp; NOT(ISBLANK(External_Case_ID__c)))
+    $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+    OR(
+        RecordType.DeveloperName = &quot;ATM_Dispute&quot;,
+        RecordType.DeveloperName = &quot;Card_Dispute&quot;,
+        RecordType.DeveloperName = &quot;Direct_Debit_Dispute&quot;,
+        RecordType.DeveloperName = &quot;Direct_Entry_Dispute&quot;,
+        RecordType.DeveloperName = &quot;NPP_Dispute&quot;
+    ),
+    NOT(ISPICKVAL(Status,&quot;Open&quot;)),
+    OR(
+        ISPICKVAL(External_System__c,&quot;&quot;),
+        ISPICKVAL(External_System__c,&quot;NA&quot;),
+        ISBLANK(External_Case_ID__c)
+    )
 )</errorConditionFormula>
     <errorDisplayField>External_System__c</errorDisplayField>
     <errorMessage>These fields are required in order to change Status from open - External System and External Case ID.</errorMessage>

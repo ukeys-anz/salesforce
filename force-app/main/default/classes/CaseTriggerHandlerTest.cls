@@ -2117,7 +2117,9 @@ private class CaseTriggerHandlerTest {
       Transaction_Id__c = transactionId,
       Status = 'Closed',
       Description = 'Sample description',
-      Amount_Of_Credit_Due__c = 50
+      Amount_Of_Credit_Due__c = 50,
+      External_System__c = 'CARBe',
+      External_Case_Id__c = 'ABC123'
     );
 
     insert openDispute1;
