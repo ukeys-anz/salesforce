@@ -12,7 +12,7 @@
     <filters>
         <field>CASES.RECORDTYPE</field>
         <operation>equals</operation>
-        <value>Case.ATM_Dispute,Case.Card_Dispute,Case.Direct_Debit_Dispute,Case.Direct_Entry_Dispute,Case.Urgent_Dishonour_Request_Dispute,Case.NPP_Dispute</value>
+        <value>Case.ATM_Dispute,Case.Card_Dispute,Case.Direct_Debit_Dispute,Case.Direct_Entry_Dispute,Case.NPP_Dispute</value>
     </filters>
     <label>All Disputes</label>
     <sharedTo>

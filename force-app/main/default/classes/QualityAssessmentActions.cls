@@ -14,7 +14,6 @@ public with sharing class QualityAssessmentActions {
     GetHelpConstants.CARD_DISPUTE_RT_ID,
     GetHelpConstants.DIRECT_DEBIT_DISPUTE_RT_ID,
     GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID,
-    GetHelpConstants.URGENT_DISHONOUR_DISPUTE_RT_ID,
     GetHelpConstants.COMPLAINT_RT_ID
   };
 

@@ -6,8 +6,8 @@
     <description>Name of customer who holds the account</description>
     <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
     <externalId>false</externalId>
-    <inlineHelpText>Name of customer who holds the account</inlineHelpText>
-    <label>Account Name</label>
+    <inlineHelpText>Account name of the recipient where the money was meant to go.</inlineHelpText>
+    <label>Intended Account Name</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

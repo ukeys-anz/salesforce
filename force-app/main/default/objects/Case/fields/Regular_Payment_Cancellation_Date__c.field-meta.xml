@@ -6,8 +6,7 @@
     <description>Date customer cancelled regular payment arrangement with merchant</description>
     <encryptionScheme>ProbabilisticEncryption</encryptionScheme>
     <externalId>false</externalId>
-    <inlineHelpText>Only applicable for dispute reason:
-·         Cancellation of regular payment arrangement was unsuccessful</inlineHelpText>
+    <inlineHelpText>Date customer cancelled regular payment arrangement with merchant. Please enter today&apos;s date if customer can&apos;t provide one.</inlineHelpText>
     <label>Regular Payment Cancellation Date</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

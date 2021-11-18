@@ -6,7 +6,7 @@
     <description>The date of the last direct debit which transacted on the account.</description>
     <encryptionScheme>ProbabilisticEncryption</encryptionScheme>
     <externalId>false</externalId>
-    <inlineHelpText> Date of the last debited transaction</inlineHelpText>
+    <inlineHelpText>Date of the last debited transaction</inlineHelpText>
     <label>Date Account Last Debited</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
