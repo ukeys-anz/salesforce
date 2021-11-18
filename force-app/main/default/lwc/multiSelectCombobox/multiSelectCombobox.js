@@ -155,7 +155,7 @@ export default class MultiSelectCombobox extends LightningElement {
       this.showDropdown = false;
     }
   }
-  selectItemKey = chosen => {
+  selectItemKey = (chosen) => {
     var selectedVal = chosen.value;
     if (selectedVal) {
       let count = 0;
