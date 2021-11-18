@@ -15,6 +15,8 @@ export default class MultiSelectCombobox extends LightningElement {
   @track showDropdown = false;
   optionIndex = -1;
   optionBackground = [];
+  filterOptionsData = [];
+  filterFlag = false;
 
   connectedCallback() {
     this.showDropdown = false;
@@ -69,10 +71,15 @@ export default class MultiSelectCombobox extends LightningElement {
   }
 
   resetOptionBackground = () => {
-    for (let i = 0; i < this.optionData.length; i++) {
-      this.optionData[i].background =
+    let data =
+      this.filterOptionsData.length > 0
+        ? this.filterOptionsData
+        : this.optionData;
+
+    for (let i = 0; i < data.length; i++) {
+      data[i].background =
         "slds-listbox__item slds-scrollable eachItem outOfKey";
-      this.optionData[i].isVisible = true;
+      data[i].isVisible = true;
     }
   };
 
@@ -89,25 +96,33 @@ export default class MultiSelectCombobox extends LightningElement {
     ) {
       this.filterOptions(event);
     }
+    if (keyCode === "Escape") {
+      this.showDropdown = false;
+      this.filterOptionsData = [];
+    }
+    let ul = this.template.querySelector(".multiDropDown");
     if (keyCode === "ArrowUp") {
+      ul.scrollTop = ul.scrollTop - 24;
       this.optionIndex--;
     } else if (keyCode === "ArrowDown") {
+      ul.scrollTop = ul.scrollTop + 24;
       this.optionIndex++;
     }
+    let data =
+      this.filterOptionsData.length > 0
+        ? this.filterOptionsData
+        : this.optionData;
     if (this.optionIndex < 0) {
       this.optionIndex = 0;
-    } else if (this.optionIndex > this.optionData.length - 1) {
-      this.optionIndex = this.optionData.length - 1;
+    } else if (this.optionIndex > data.length - 1) {
+      this.optionIndex = data.length - 1;
     }
     if (keyCode === "Enter") {
       event.preventDefault();
-      this.selectItemKey(this.optionData[this.optionIndex]);
+      this.selectItemKey(data[this.optionIndex]);
+      this.filterOptionsData = [];
     }
-    if (keyCode === "Escape") {
-      this.showDropdown = false;
-    }
-    this.optionData[this.optionIndex].background =
-      "slds-listbox__item eachItem keyOn";
+    data[this.optionIndex].background = "slds-listbox__item eachItem keyOn";
   }
 
   filterOptions(event) {
@@ -124,6 +139,8 @@ export default class MultiSelectCombobox extends LightningElement {
               .startsWith(this.searchString.toLowerCase().trim())
           ) {
             this.optionData[i].isVisible = true;
+            this.filterOptionsData.push(this.optionData[i]);
+            this.filterFlag = true;
             flag = false;
           } else {
             this.optionData[i].isVisible = false;

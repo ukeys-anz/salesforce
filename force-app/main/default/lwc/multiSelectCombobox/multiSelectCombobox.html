@@ -11,14 +11,20 @@
   </template>
   <div class="slds-combobox_container">
     <div
-      class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open"
+      class="
+        slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click
+        slds-is-open
+      "
       aria-expanded="true"
       aria-haspopup="listbox"
       role="combobox"
     >
       <!-- Search Input-->
       <div
-        class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right"
+        class="
+          slds-combobox__form-element
+          slds-input-has-icon slds-input-has-icon_right
+        "
         role="none"
       >
         <lightning-input
@@ -44,7 +50,10 @@
       <template if:true={showDropdown}>
         <div
           id="listbox-id-1"
-          class="slds-dropdown slds-dropdown_length-10 slds-dropdown_fluid"
+          class="
+            slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid
+            multiDropDown
+          "
         >
           <ul
             class="slds-listbox slds-listbox_vertical recordListBox"
@@ -67,7 +76,12 @@
                       ></lightning-icon>
                     </template>
                     <span
-                      class="slds-media slds-listbox__option_entity verticalAlign slds-truncate"
+                      class="
+                        slds-media
+                        slds-listbox__option_entity
+                        verticalAlign
+                        slds-truncate
+                      "
                       >{option.label}</span
                     >
                   </li>
@@ -77,7 +91,12 @@
             <template if:true={message}>
               <li class="slds-listbox__item">
                 <span
-                  class="slds-media slds-listbox__option_entity verticalAlign slds-truncate"
+                  class="
+                    slds-media
+                    slds-listbox__option_entity
+                    verticalAlign
+                    slds-truncate
+                  "
                   >{message}</span
                 >
               </li>
