@@ -15,5 +15,6 @@
     <permissionSets>Quality_Workbench</permissionSets>
     <permissionSets>Record_Access_Log</permissionSets>
     <permissionSets>TwilioSF__Twilio_User</permissionSets>
+    <permissionSets>View_Statements</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

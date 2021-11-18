@@ -8,5 +8,5 @@
     <recordTypeName>Customer_Complaint</recordTypeName>
     <sobjectType>Case</sobjectType>
     <targetField>Status</targetField>
-    <targetFieldChangeToValues>Resolved</targetFieldChangeToValues>
+    <targetFieldChangeToValues>Closed</targetFieldChangeToValues>
 </AnimationRule>

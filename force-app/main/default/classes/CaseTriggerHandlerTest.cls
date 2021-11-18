@@ -504,26 +504,6 @@ private class CaseTriggerHandlerTest {
   }
 
   @istest
-  static void testCFMSEscalation() {
-    Case[] newCases = new List<Case>();
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
-        new Case(
-          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
-          Status = 'Escalated',
-          IDR_Escalated_to__c = '1',
-          IDR_Escalation_Reason__c = '1'
-        )
-      );
-    }
-    insert newCases;
-    System.assert(
-      IDRCaseActions.idrCaseEscalations.size() ==
-      Integer.valueOf(Label.Test_Bulk_Size),
-      'Matching no of events'
-    );
-  }
-  @istest
   static void testIDRCaseDelete() {
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
@@ -1025,6 +1005,10 @@ private class CaseTriggerHandlerTest {
       'Failed to autopopulate Subject on Fraud cases as expected, while updating'
     );
   }
+
+  // Note: this test class only tests the create scenario, not the update scenario.
+  // A separate test method was created for update scenario, insufficient permissions cause it to fail
+  // Code is now consolidated in here, to only create caseList2 code is required
   @isTest
   static void testPSITaskCreation() {
     // GIVEN complaint cases which are possibly systemic issues
@@ -1037,7 +1021,13 @@ private class CaseTriggerHandlerTest {
           RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
           IDR_Is_Common__c = 'Yes',
           IDR_Systemic_Issue_Description__c = 'Test Description',
-          IDR_Systemic_Issue_Category__c = '1'
+          IDR_Systemic_Issue_Category__c = '1',
+          Status = 'Closed',
+          IDR_Complaint_Outcome__c = '1',
+          IDR_Complaint_Remedy__c = '2',
+          IDR_Non_Financial_Remedy__c = '5',
+          IDR_Description_of_Outcome__c = 'Test',
+          Priority = 'Medium'
         )
       );
     }
@@ -1045,17 +1035,19 @@ private class CaseTriggerHandlerTest {
     System.runAs(level1User) {
       // WHEN they are inserted or updated by L1 User
       insert caseList1;
+      // When they are Escalated then Resolved by L1 User
+      insert caseList2;
     }
-    // When they are Escalated and Resolved by any user
-    insert caseList2;
     for (Case updateCase : caseList2) {
-      updateCase.Status = 'Resolved';
+      updateCase.Status = 'Closed';
       updateCase.IDR_Complaint_Outcome__c = '1';
       updateCase.IDR_Complaint_Remedy__c = '2';
       updateCase.IDR_Non_Financial_Remedy__c = '5';
       updateCase.IDR_Description_of_Outcome__c = 'Test';
     }
-    update caseList2;
+    System.runAs(level1User) {
+      update caseList2;
+    }
     test.stopTest();
     // THEN new tasks are created and assigned to PSI queue
     List<Task> psiTasks = [SELECT Id, Subject, OwnerId FROM Task];
@@ -1569,6 +1561,60 @@ private class CaseTriggerHandlerTest {
 
     Test.stopTest();
   }
+
+  //test IDRCollectionAction getStartCollectionMap method
+  //This test method verifies if the returned startCollection map contains IDR Collection Number from Task record and its related caseId/whatId
+  @isTest
+  static void testGetStartCollectionMap() {
+    //Create a customer complaint
+    Case custCompCase = new Case(
+      RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+      Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
+      IDR_Customer_Number__c = '1234567890',
+      Priority = 'Standard',
+      Type = '5',
+      IDR_Subsequent_Issue__c = '38',
+      IDR_Collection_Number__c = '1234567890'
+    );
+    insert custCompCase;
+    Set<String> collectionAcctsList = new Set<String>();
+    collectionAcctsList.add(custCompCase.IDR_Collection_Number__c);
+    List<Id> caseIds = new List<Id>();
+    caseIds.add(custCompCase.Id);
+    List<Task> taskList = new List<Task>();
+    for (Integer i = 0; i < 2; i++) {
+      Task t = new Task();
+      t.WhatId = custCompCase.Id;
+      t.IDR_Collection_Number__c = custCompCase.IDR_Collection_Number__c;
+      t.RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID;
+      t.Status = 'Open';
+      t.Priority = 'High';
+      t.ActivityDate = system.today();
+      t.Subject =
+        IDRTaskActions.STOP_COLLECTIONS_SUBJECT +
+        '- Account with 3rd Party/Asset Finance';
+      taskList.add(t);
+    }
+    insert taskList;
+    Test.startTest();
+    Map<String, Set<Id>> startCollecMap = IDRCollectionActions.getStartCollectionMap(
+      collectionAcctsList,
+      caseIds
+    );
+    Test.stopTest();
+    System.assertEquals(
+      startCollecMap.containsKey(custCompCase.IDR_Collection_Number__c),
+      true,
+      'Collection map must contain IDR Collection Number as key'
+    );
+    System.assertEquals(
+      startCollecMap.get(custCompCase.IDR_Collection_Number__c),
+      new Set<Id>{ custCompCase.Id },
+      'Incorrect caseId/whatId mapping in starCollectionMap for :' +
+      custCompCase.IDR_Collection_Number__c
+    );
+  }
+
   // Test when a dispute is created with an active financial account that is not associated with its customer account,
   // the dispute should not be created
   @isTest
