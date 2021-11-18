@@ -314,7 +314,6 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       CoachBankingAPIRepository coachAPI = new CoachBankingAPIRepository();
       CardListModel cardsModel = coachAPI.getCardList('1111');
       Test.stopTest();
-
       System.assertEquals(5, cardsModel.cards.size());
     }
   }

@@ -38,6 +38,15 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentName>statementsViewer</componentName>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-d0b96d0b-ee76-4317-932a-50616dcabc98</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
                 <componentInstanceProperties>
                     <name>active</name>
                     <value>true</value>
@@ -49,6 +58,19 @@
                 <componentInstanceProperties>
                     <name>title</name>
                     <value>Transaction History</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-d0b96d0b-ee76-4317-932a-50616dcabc98</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Statements</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
             </componentInstance>

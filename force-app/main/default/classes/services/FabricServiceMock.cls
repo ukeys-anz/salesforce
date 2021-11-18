@@ -37,7 +37,14 @@ public with sharing class FabricServiceMock extends Service {
   private static final String REPLACE_CARD = getStaticResource(
     'mock_replaceCard'
   );
-
+  @TestVisible
+  private static final String GET_STATEMENT = getStaticResource(
+    'mock_statement'
+  );
+  @TestVisible
+  private static final String GET_STATEMENTURL = getStaticResource(
+    'mock_statementUrl'
+  );
   /**
    * @param ocvId customer id to retrieve accounts and goals for
    * @return `HttpCalloutResponse` the api response
@@ -72,7 +79,38 @@ public with sharing class FabricServiceMock extends Service {
     }
     return response;
   }
-
+  /**
+   * @param ocvId customer id
+   * @param accountNumber to retrieve statements for the specific account
+   * @param pageSize number of statement records to be returned from Fabric
+   * @return `HttpCalloutResponse` the api response
+   * @description fetches statement list fake response
+   */
+  public override HttpCalloutResponse getStatements(
+    String ocvId,
+    String accountNumber,
+    String pageSize
+  ) {
+    if (!preset) {
+      response.body = FabricServiceMock.GET_STATEMENT;
+    }
+    return response;
+  }
+  /**
+   * @param ocvId customer id
+   * @param statementId to retrieve statement url for the specific statement record
+   * @return `HttpCalloutResponse` the api response
+   * @description fetches statement list fake response
+   */
+  public override HttpCalloutResponse getStatementUrl(
+    String ocvId,
+    String statementId
+  ) {
+    if (!preset) {
+      response.body = FabricServiceMock.GET_STATEMENTURL;
+    }
+    return response;
+  }
   /**
    * @param ocvId ocv id
    * @param idToken id token as the bearer token
