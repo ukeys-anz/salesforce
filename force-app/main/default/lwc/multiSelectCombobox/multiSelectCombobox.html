@@ -27,7 +27,7 @@
           placeholder="Select an Option"
           onblur={blurEvent}
           onclick={showOptions}
-          onkeyup={filterOptions}
+          onkeydown={showOptionsKey}
           value={searchString}
           variant="label-hidden"
           id="combobox-id-1"
@@ -44,7 +44,7 @@
       <template if:true={showDropdown}>
         <div
           id="listbox-id-1"
-          class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid"
+          class="slds-dropdown slds-dropdown_length-10 slds-dropdown_fluid"
         >
           <ul
             class="slds-listbox slds-listbox_vertical recordListBox"
@@ -57,7 +57,7 @@
                     key={option.value}
                     data-id={option.value}
                     onmousedown={selectItem}
-                    class="slds-listbox__item eachItem"
+                    class={option.background}
                   >
                     <template if:true={option.selected}>
                       <lightning-icon
