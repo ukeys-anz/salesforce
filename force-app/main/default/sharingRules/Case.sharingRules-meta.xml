@@ -421,8 +421,8 @@
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>Fraud_RTs_CardDisputeAgents_RO</fullName>
-        <accessLevel>Read</accessLevel>
+        <fullName>Fraud_RTs_CardDisputeAgents_RW</fullName>
+        <accessLevel>Edit</accessLevel>
         <description>All Cases having Fraud related record types are to be shared with Card Dispute Agents with Read access.</description>
         <label>Fraud_RTs_CardDisputeAgents_RO</label>
         <sharedTo>
