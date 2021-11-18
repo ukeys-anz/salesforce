@@ -1,0 +1,112 @@
+{
+  "statements": [
+    {
+      "statement_id": "0000000-1111111",
+      "account_number": "00000000",
+      "bsb": "1111111",
+      "statement_from": {
+        "year": {
+          "value": 2021
+        },
+        "month": {
+          "value": 8
+        },
+        "day": {
+          "value": 5
+        }
+      },
+      "statement_to": {
+        "year": {
+          "value": 2021
+        },
+        "month": {
+          "value": 9
+        },
+        "day": {
+          "value": 4
+        }
+      }
+    },
+    {
+      "statement_id": "22222222-1111111",
+      "account_number": "010101010101",
+      "bsb": "000000",
+      "statement_from": {
+        "year": {
+          "value": 2021
+        },
+        "month": {
+          "value": 8
+        },
+        "day": {
+          "value": 5
+        }
+      },
+      "statement_to": {
+        "year": {
+          "value": 2021
+        },
+        "month": {
+          "value": 9
+        },
+        "day": {
+          "value": 4
+        }
+      }
+    },
+    {
+      "statement_id": "33333-444444",
+      "account_number": "0000000",
+      "bsb": "00000",
+      "statement_from": {
+        "year": {
+          "value": 2021
+        },
+        "month": {
+          "value": 7
+        },
+        "day": {
+          "value": 6
+        }
+      },
+      "statement_to": {
+        "year": {
+          "value": 2021
+        },
+        "month": {
+          "value": 8
+        },
+        "day": {
+          "value": 5
+        }
+      }
+    },
+    {
+      "statement_id": "555555555-4444444",
+      "account_number": "000000000",
+      "bsb": "333333",
+      "statement_from": {
+        "year": {
+          "value": 2021
+        },
+        "month": {
+          "value": 7
+        },
+        "day": {
+          "value": 6
+        }
+      },
+      "statement_to": {
+        "year": {
+          "value": 2021
+        },
+        "month": {
+          "value": 8
+        },
+        "day": {
+          "value": 5
+        }
+      }
+    }
+  ]
+}

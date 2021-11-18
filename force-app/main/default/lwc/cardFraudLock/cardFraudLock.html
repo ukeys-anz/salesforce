@@ -1,0 +1,103 @@
+<template>
+  <template if:true={displayFraudOptions}>
+    <section class="slds-modal slds-fade-in-open">
+      <div class="slds-modal__container">
+        <article class="slds-card dialogBox">
+          <div class="slds-card__header slds-grid header-div headerBorder">
+            <header class="slds-has-flexi-truncate card-header">
+              <h2>Select Fraud Block</h2>
+            </header>
+          </div>
+          <div class="slds-card__body slds-p-horizontal--small btnDiv">
+            <div class="body-wording-section">
+              <p>Please select one fraud block to place on the card.</p>
+              <p>
+                If a block is already active, it will be a selected blue button.
+              </p>
+              <br />
+              <div class="btnGroup">
+                <template for:each={fraudLockOptions} for:item="opt">
+                  <p key={opt.status} class="btnWidth">
+                    <lightning-button
+                      class="btn"
+                      label={opt.label}
+                      data-status={opt.status}
+                      variant={opt.variantSituation}
+                      onclick={fraudLockStatusSelectHandler}
+                    ></lightning-button>
+                  </p>
+                </template>
+              </div>
+            </div>
+          </div>
+
+          <footer class="slds-modal__footer">
+            <button
+              class="slds-button slds-button--brand submit-button"
+              onclick={handleFraudLock}
+              data-id="submit-button"
+            >
+              Submit
+            </button>
+
+            <button
+              class="slds-button slds-button--neutral"
+              onclick={closeAction}
+            >
+              Cancel
+            </button>
+          </footer>
+        </article>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+  </template>
+  <template if:false={displayFraudOptions}>
+    <section class="slds-modal slds-fade-in-open">
+      <div class="slds-modal__container">
+        <article class="slds-card messageBox">
+          <div class="slds-card__header slds-grid header-div headerBorder">
+            <header class="slds-has-flexi-truncate card-header">
+              <h2>{message.title}</h2>
+            </header>
+          </div>
+          <div class="slds-card__body slds-p-horizontal--small messageDiv">
+            <div class="body-wording-section-submission">
+              <p><strong>{message.firstMessage}</strong></p>
+              <br />
+
+              <p>{message.secondMessage}</p>
+              <br />
+
+              <p if:true={message.thirdMessage}>
+                <Strong if:true={message.strongText}
+                  ><em>Please note: </em></Strong
+                >
+                {message.thirdMessage}
+              </p>
+            </div>
+          </div>
+
+          <footer class="slds-modal__footer">
+            <lightning-button
+              class="confirm-button slds-float_left"
+              onclick={submitHandler}
+              data-id="confirm-button"
+              label={message.label}
+              variant={message.variant}
+              disabled={confirmButtonTriggered}
+            ></lightning-button>
+
+            <button
+              class="slds-button slds-button--neutral"
+              onclick={closeAction}
+            >
+              Cancel
+            </button>
+          </footer>
+        </article>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+  </template>
+</template>
