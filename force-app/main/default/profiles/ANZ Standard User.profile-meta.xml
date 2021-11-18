@@ -2648,10 +2648,6 @@
     <visibility>DefaultOff</visibility>
   </tabVisibilities>
   <tabVisibilities>
-    <tab>standard-ListEmail</tab>
-    <visibility>DefaultOff</visibility>
-  </tabVisibilities>
-  <tabVisibilities>
     <tab>standard-LoanApplicant</tab>
     <visibility>DefaultOff</visibility>
   </tabVisibilities>
