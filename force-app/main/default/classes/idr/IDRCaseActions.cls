@@ -212,11 +212,7 @@ public with sharing class IDRCaseActions {
       ) {
         escalationCases.add(c.Id);
       }
-      if (
-        (oldCase != null &&
-        (!oldCase.isClosed &&
-        (c.isClosed || c.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS)))
-      ) {
+      if ((oldCase != null && (!oldCase.isClosed && c.isClosed))) {
         maxTimeFrameCases.add(c.Id);
       }
     }
