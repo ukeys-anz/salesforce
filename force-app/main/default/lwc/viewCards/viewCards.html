@@ -11,6 +11,7 @@
       </div>
     </article>
   </template>
+
   <template if:false={loading}>
     <template if:true={hasError}>
       <template if:true={hasPermissionIssue}>
@@ -20,6 +21,7 @@
         <c-error message={errorMsg}></c-error>
       </template>
     </template>
+
     <template if:false={hasError}>
       <div class="slds-m-bottom_xx-small">
         <lightning-card>
@@ -38,6 +40,7 @@
               slot="actions"
               data-id="get-cards-button"
             ></lightning-button>
+
             <div class="slds-card__body slds-card__body_inner">
               <div class="slds-col slds-size_1-of-3">
                 <img
@@ -47,6 +50,7 @@
               </div>
             </div>
           </template>
+
           <template if:true={noCards}>
             <article class="slds-card">
               <h1 class="slds-card__header-title main-title">
@@ -54,6 +58,7 @@
               </h1>
             </article>
           </template>
+
           <template if:true={showDetails}>
             <template if:true={showExpandCollapse}>
               <lightning-button
@@ -63,173 +68,80 @@
                 data-id="collapse-expand-button"
               ></lightning-button>
             </template>
-            <div class="slds-m-bottom_xx-small">
-              <lightning-card>
-                <template if:false={initialCardDetails.hideTempLock}>
-                  <lightning-button
-                    label="Lock Card"
-                    slot="actions"
-                    onclick={handleShowLock}
-                    data-id={initialCardDetails.cardId}
-                    data-button="initial-lock-card-button"
-                    disabled={initialCardDetails.preventLock}
-                    class="slds-m-left_small"
-                  ></lightning-button>
-                </template>
-                <template if:false={initialCardDetails.hideReplaceCard}>
-                  <lightning-button
-                    label="Replace Card"
-                    slot="actions"
-                    onclick={handleShowReplace}
-                    data-id={initialCardDetails.cardId}
-                    data-button="initial-replace-card-button"
-                    disabled={initialCardDetails.preventReplace}
-                    class="slds-m-left_small"
-                  ></lightning-button>
-                </template>
-                <div
-                  class="slds-card__body slds-card__body_inner"
-                  data-id="first-card-details"
-                >
-                  <article class="card-container">
-                    <div class="slds-grid slds-gutters">
-                      <div class="slds-col slds-size_1-of-3">
-                        <img
-                          src={initialCardDetails.image}
-                          class="slds-carousel__image"
-                        />
-                      </div>
-                      <div class="slds-col slds-size_1-of-3">
-                        <div class="slds-col slds-size_1-of-1">
-                          <div class="slds-p-bottom_medium">
-                            <p class="slds-text-title_bold">Cardholder</p>
-                            <p class="slds-text-body_regular">
-                              {initialCardDetails.name}
-                            </p>
-                          </div>
-                        </div>
-                        <div class="slds-col slds-size_1-of-1">
-                          <div class="slds-p-bottom_medium">
-                            <p class="slds-text-title_bold">Last 4 Digits</p>
-                            <p class="slds-text-body_regular">
-                              {initialCardDetails.last4Digits}
-                            </p>
-                          </div>
-                        </div>
-                        <div class="slds-col slds-size_1-of-1">
-                          <div class="slds-p-bottom_medium dig-wallet-initial">
-                            <p class="slds-text-title_bold">Digital Wallet</p>
-                            <template if:true={initialCardDetails.hasWallet}>
-                              <template
-                                for:each={initialCardDetails.walletList}
-                                for:item="wallet"
-                              >
-                                <p
-                                  class="slds-text-body_regular wallet-detail"
-                                  key={wallet}
-                                >
-                                  {wallet}
-                                </p>
-                              </template>
-                            </template>
-                            <template if:false={initialCardDetails.hasWallet}>
-                              <p class="slds-text-body_regular">N/A</p>
-                            </template>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="slds-col slds-size_1-of-3">
-                        <div class="slds-col slds-size_1-of-1">
-                          <div class="slds-p-bottom_medium">
-                            <p class="slds-text-title_bold">Expiry Date</p>
-                            <p class="slds-text-body_regular">
-                              {initialCardDetails.expiryDate}
-                            </p>
-                          </div>
-                        </div>
-                        <div class="slds-col slds-size_1-of-1">
-                          <div class="slds-p-bottom_medium">
-                            <p class="slds-text-title_bold">
-                              Status
-                              <template if:true={initialCardDetails.isLocked}>
-                                <lightning-helptext
-                                  class="tooltip"
-                                  content="Coaches don't have the ability to remove a temporary lock. Customers can unlock their card anytime on their mobile app."
-                                ></lightning-helptext>
-                              </template>
-                            </p>
-                            <p
-                              class="slds-text-body_regular"
-                              data-id="initial-status"
-                            >
-                              {initialCardDetails.status}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </article>
-                </div>
-              </lightning-card>
-            </div>
 
-            <template if:true={viewAllCards}>
-              <template for:each={cardDetails} for:item="card">
-                <div
-                  class="slds-m-bottom_xx-small slds-border_top"
-                  key={card.name}
-                >
-                  <lightning-card>
-                    <template if:false={card.hideTempLock}>
-                      <lightning-button
-                        label="Lock Card"
-                        slot="actions"
-                        onclick={handleShowLock}
-                        data-id={card.cardId}
-                        disabled={card.preventLock}
-                        class="slds-m-left_small"
-                      ></lightning-button>
-                    </template>
-                    <template if:false={card.hideReplaceCard}>
-                      <lightning-button
-                        label="Replace Card"
-                        slot="actions"
-                        onclick={handleShowReplace}
-                        data-id={card.cardId}
-                        disabled={card.preventReplace}
-                        class="slds-m-left_small"
-                      ></lightning-button>
-                    </template>
-                    <div
-                      class="slds-card__body slds-card__body_inner"
-                      data-id="loaded-card-details"
+            <template for:each={cardDetails} for:item="card">
+              <div
+                class="slds-m-bottom_xx-small slds-border_top"
+                key={card.name}
+              >
+                <lightning-card>
+                  <div class="buttonsContainer">
+                    <template
+                      if:true={card.buttons}
+                      for:each={card.buttons}
+                      for:item="btn"
                     >
-                      <article class="card-container">
-                        <div class="slds-grid slds-gutters">
-                          <div class="slds-col slds-size_1-of-3">
-                            <img
-                              src={card.image}
-                              class="slds-carousel__image"
-                            />
-                          </div>
-                          <div class="slds-col slds-size_1-of-3">
-                            <div class="slds-col slds-size_1-of-1">
-                              <div class="slds-p-bottom_medium">
-                                <p class="slds-text-title_bold">Cardholder</p>
-                                <p class="slds-text-body_regular">
-                                  {card.name}
-                                </p>
-                              </div>
+                      <lightning-button
+                        key={btn.label}
+                        class="btn"
+                        label={btn.label}
+                        slot="actions"
+                        data-button="card-button"
+                        data-card-number={card.tokenizedCardNumber}
+                        disabled={btn.disable}
+                        onclick={handleActionAccordingClickedButton}
+                        variant={btn.variant}
+                      >
+                      </lightning-button>
+                    </template>
+                  </div>
+
+                  <div
+                    class="slds-card__body slds-card__body_inner"
+                    data-id="loaded-card-details"
+                  >
+                    <article class="card-container">
+                      <div class="cardDetail">
+                        <div class="slds-col slds-size_1-of-3">
+                          <img src={card.image} class="slds-carousel__image" />
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-3">
+                          <div class="slds-col slds-size_1-of-1">
+                            <div class="slds-p-bottom_medium">
+                              <p class="slds-text-title_bold">Cardholder</p>
+                              <p class="slds-text-body_regular">{card.name}</p>
                             </div>
-                            <div class="slds-col slds-size_1-of-1">
-                              <div class="slds-p-bottom_medium">
-                                <p class="slds-text-title_bold">
-                                  Last 4 Digits
-                                </p>
-                                <p class="slds-text-body_regular">
-                                  {card.last4Digits}
-                                </p>
-                              </div>
+                          </div>
+
+                          <div class="slds-col slds-size_1-of-1">
+                            <div class="slds-p-bottom_medium">
+                              <p class="slds-text-title_bold">Last 4 Digits</p>
+                              <p class="slds-text-body_regular">
+                                {card.last4Digits}
+                              </p>
+                            </div>
+                          </div>
+
+                          <div class="slds-col slds-size_1-of-1">
+                            <div class="slds-p-bottom_medium dig-wallet">
+                              <p class="slds-text-title_bold">Digital Wallet</p>
+                              <template if:true={card.hasWallet}>
+                                <template
+                                  for:each={card.walletList}
+                                  for:item="wallet"
+                                >
+                                  <p
+                                    class="slds-text-body_regular wallet-detail"
+                                    key={wallet}
+                                  >
+                                    {wallet}
+                                  </p>
+                                </template>
+                              </template>
+                              <template if:false={card.hasWallet}>
+                                <p class="slds-text-body_regular">N/A</p>
+                              </template>
                             </div>
                             <div class="slds-col slds-size_1-of-1">
                               <div class="slds-p-bottom_medium">
@@ -255,39 +167,42 @@
                               </div>
                             </div>
                           </div>
-                          <div class="slds-col slds-size_1-of-3">
-                            <div class="slds-col slds-size_1-of-1">
-                              <div class="slds-p-bottom_medium">
-                                <p class="slds-text-title_bold">Expiry Date</p>
-                                <p class="slds-text-body_regular">
-                                  {card.expiryDate}
-                                </p>
-                              </div>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-3">
+                          <div class="slds-col slds-size_1-of-1">
+                            <div class="slds-p-bottom_medium">
+                              <p class="slds-text-title_bold">Expiry Date</p>
+                              <p class="slds-text-body_regular">
+                                {card.expiryDate}
+                              </p>
                             </div>
-                            <div class="slds-col slds-size_1-of-1">
-                              <div class="slds-p-bottom_medium">
-                                <p class="slds-text-title_bold">
-                                  Status
-                                  <template if:true={card.isLocked}>
-                                    <lightning-helptext
-                                      class="tooltip"
-                                      content="Coaches don't have the ability to remove a temporary lock. Customers can unlock their card anytime on their mobile app."
-                                    ></lightning-helptext>
-                                  </template>
-                                </p>
-                                <p class="slds-text-body_regular">
-                                  {card.status}
-                                </p>
-                              </div>
+                          </div>
+
+                          <div class="slds-col slds-size_1-of-1">
+                            <div class="slds-p-bottom_medium">
+                              <p class="slds-text-title_bold">
+                                Status
+                                <template if:true={card.isLocked}>
+                                  <lightning-helptext
+                                    class="tooltip"
+                                    content="Coaches don't have the ability to remove a temporary lock. Customers can unlock their card anytime on their mobile app."
+                                  ></lightning-helptext>
+                                </template>
+                              </p>
+                              <p class="slds-text-body_regular status">
+                                {card.statusToShow}
+                              </p>
                             </div>
                           </div>
                         </div>
-                      </article>
-                    </div>
-                  </lightning-card>
-                </div>
-              </template>
+                      </div>
+                    </article>
+                  </div>
+                </lightning-card>
+              </div>
             </template>
+
             <template if:true={showLock}>
               <c-card-temp-lock
                 show-modal={showLock}
@@ -295,6 +210,7 @@
                 record-id={recordId}
               ></c-card-temp-lock>
             </template>
+
             <template if:true={showReplace}>
               <c-replace-card
                 show-modal={showReplace}
@@ -306,7 +222,20 @@
                 replace-lock-unavailable={replaceLockUnavailable}
               ></c-replace-card>
             </template>
+
+            <template if:true={showFraudLock}>
+              <c-card-fraud-lock
+                card-status={cardFraudLockStatus}
+                show-modal={showFraudLock}
+                card-number={tokenizedCardNumber}
+                record-id={recordId}
+                button-clicked={buttonClicked}
+                last-4-digits={last4Digits}
+                onstatuschange={changeStatusHadnler}
+              ></c-card-fraud-lock>
+            </template>
           </template>
+
           <template if:true={showViewAllButton}>
             <button
               class="slds-button slds-align_absolute-center"
