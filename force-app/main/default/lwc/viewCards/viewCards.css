@@ -51,3 +51,33 @@
   position: relative;
   bottom: 3px;
 }
+.buttonsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.cardDetail {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  padding-bottom: 10px;
+}
+.cardDetail > * {
+  padding: 5px 5px 15px 5px;
+}
+
+.btn {
+  margin-right: 15px;
+}
+
+@media only screen and (min-width: 767px) and (max-width: 1580px) {
+  .buttonsContainer {
+    justify-content: center;
+  }
+  .btn {
+    display: grid;
+    width: 80%;
+    margin: 0 0 5px 0;
+  }
+}

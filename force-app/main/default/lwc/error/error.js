@@ -8,7 +8,7 @@ export default class Error extends LightningElement {
 
   connectedCallback() {
     if (this.permissionIssue) {
-      this.errorMessage = `Don’t worry, it's not broken. To view this you need a higher permission level.`;
+      this.errorMessage = `Don’t worry, it's not broken. You need an extra permission level to view this.`;
     }
     if (this.code && this.message) {
       this.errorMessage = `${this.code.toUpperCase()} - ${this.message}`;
