@@ -6,14 +6,6 @@
     <picklistValues>
         <picklist>IDR_Issue_Type__c</picklist>
         <values>
-            <fullName>About Us</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Account Takeover</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Account set-up %26 maintenance</fullName>
             <default>false</default>
         </values>
@@ -22,51 +14,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>App Support</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Assisted PIN Recovery</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Assisted Verification</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Awaiting Details</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Bug Report %26 Feature</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Business Email Compromise</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Cards</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Channel accessibility</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Civil</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Claimed no Knowledge</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Closure process</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Coaching</fullName>
             <default>false</default>
         </values>
         <values>
@@ -82,31 +34,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer Feedback %28NPS%29</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Customer Update %26 Details</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Dating %26 Romance</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Deceased Estate</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Disclosure</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Dispute</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Fake Charity</fullName>
             <default>false</default>
         </values>
         <values>
@@ -114,15 +42,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Financial Wellbeing</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Financial difficulty %26 hardship</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Fraud</fullName>
             <default>false</default>
         </values>
         <values>
@@ -130,31 +50,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>ID Takeover Mule</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Insurance Claims</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Investment</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Jobs %26 Employment</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Join %2F KYC</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>KYC QA Sample</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Legal Name Update</fullName>
             <default>false</default>
         </values>
         <values>
@@ -162,59 +58,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Malware</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Mobile Number Dispute</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Money</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>My Security</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Not Fraud</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Not a Recipient</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Not a Scam</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Organisational Structure %26 Marketing</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other Enquiries</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Payments</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Phishing</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Phone Porting</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Potential Recipient</fullName>
             <default>false</default>
         </values>
         <values>
@@ -222,15 +66,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Product Information</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Product features%2C offers%2C sales</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Profile</fullName>
             <default>false</default>
         </values>
         <values>
@@ -238,19 +74,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Remote Access</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Service quality</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Threats %26 Extortion</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Transaction %26 Savings enquiry</fullName>
             <default>false</default>
         </values>
         <values>
@@ -259,14 +83,6 @@
         </values>
         <values>
             <fullName>Transactions %26 payments</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Unable to Contact</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Unexpected Money%2FWinnings</fullName>
             <default>false</default>
         </values>
     </picklistValues>
