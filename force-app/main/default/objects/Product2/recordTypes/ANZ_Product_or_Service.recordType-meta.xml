@@ -983,7 +983,19 @@
     <picklistValues>
         <picklist>IDR_Workbasket__c</picklist>
         <values>
+            <fullName>EDR_Early_Resolution</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>IDR_Business_Owners</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IDR_CEO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IDR_Early_Resolution</fullName>
             <default>false</default>
         </values>
         <values>
@@ -991,11 +1003,27 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>IDR_Hardship</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>IDR_Home_Owners</fullName>
             <default>false</default>
         </values>
         <values>
+            <fullName>IDR_Responsible_Lending</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>IDR_Wealth</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Specialised_EarlyRes_Responsible_Lending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Specialised_Early_Resolution_Hardship</fullName>
             <default>false</default>
         </values>
     </picklistValues>
