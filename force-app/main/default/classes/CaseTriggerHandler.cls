@@ -30,6 +30,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
   public override void onBeforeInsert() {
     GetHelpCaseActions.validateAdditionalTypes(records, null);
     GetHelpCaseActions.handlePopulateCaseSubject(records, null);
+    GetHelpCaseActions.setPriority(records);
     GetHelpCaseActions.updateEntitlement(records);
     GetHelpCaseActionsHelper.populateContactLookupForANZPlus(records);
     GetHelpCaseActions.checkOpenDisputeOnTransaction(records);
@@ -92,6 +93,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       records,
       (Map<Id, Case>) oldMap
     );
+    GetHelpCaseActions.handleSLANotifications(records, (Map<Id, Case>) oldMap);
   }
 
   /**

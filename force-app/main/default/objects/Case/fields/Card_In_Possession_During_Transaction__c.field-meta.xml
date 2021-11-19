@@ -6,10 +6,6 @@
     <defaultValue>&quot;NA&quot;</defaultValue>
     <description>To check whether the card was in possession of the customer during the time of transaction</description>
     <externalId>false</externalId>
-    <inlineHelpText>Only applicable for dispute reasons:
-·         Cardholder does not recognise transaction
-·         Cardholder did not authorise transaction (Fraud)
-·         Additional transactions for an existing lost/stolen/fraud case</inlineHelpText>
     <label>Card In Possession During Transaction?</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
