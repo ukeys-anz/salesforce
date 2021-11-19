@@ -793,14 +793,14 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
       const recordInput = { apiName: CASE_OBJECT.objectApiName, fields };
       createRecord(recordInput)
-        .then(response => {
+        .then((response) => {
           if (response) {
             let caseId = response.id;
             this.template.querySelector(".saveButton").disabled = false;
             this.handleCaseSuccess(caseId);
           }
         })
-        .catch(error => {
+        .catch((error) => {
           if (
             error.body.enhancedErrorType === "RecordError" &&
             error.body.output.errors[0].errorCode === "INSUFFICIENT_ACCESS" &&
@@ -953,7 +953,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       msg = error.replace(/\.\s?/gm, ".<br><br>");
     } else if (error.body) {
       if (Array.isArray(error.body)) {
-        msg = error.body.map(e => e.message).join(", ");
+        msg = error.body.map((e) => e.message).join(", ");
       } else if (typeof error.body.message === "string") {
         msg = error.body.message;
       }

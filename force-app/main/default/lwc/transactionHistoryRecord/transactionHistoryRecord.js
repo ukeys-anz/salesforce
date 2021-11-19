@@ -61,7 +61,7 @@ export default class TransactionHistoryRecord extends NavigationMixin(
     this.subscription = subscribe(
       this.messageContext,
       ExpandCollapseAll,
-      message => {
+      (message) => {
         if (message.expand) {
           this.showTransactionDetails = true;
         } else if (!message.expand) {
@@ -214,7 +214,7 @@ export default class TransactionHistoryRecord extends NavigationMixin(
 
   // Filter the list of dispute types that will be displayed on the modal
   handleFilterModalDisputeTypes(disputeTypesFromParent, allowedDisputeTypes) {
-    return disputeTypesFromParent.filter(disputeType =>
+    return disputeTypesFromParent.filter((disputeType) =>
       allowedDisputeTypes.includes(disputeType.developerName)
     );
   }
@@ -222,7 +222,7 @@ export default class TransactionHistoryRecord extends NavigationMixin(
   // Get this dispute type from record type Id
   handleGetDisputeTypeFromRecordTypeId(recordTypeId) {
     let disputeType = this.disputeRecordTypesFromParent.filter(
-      disputeRecordType => disputeRecordType.value === recordTypeId
+      (disputeRecordType) => disputeRecordType.value === recordTypeId
     )[0].label;
     return disputeType;
   }
