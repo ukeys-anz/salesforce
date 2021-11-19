@@ -374,4 +374,34 @@ public with sharing class GetHelpCaseActionsHelper {
     }
     return financialRolesMap;
   }
+
+  /**
+   * @description Gett a list of financial account roles based on financial account id, account ids and if the role should be active
+   * @param accountIds List of account Ids
+   * @param financialAccIds Set of financial account Ids
+   * @param isActive If the financial account role is active
+   * @return Map<Id, FinServ__FinancialAccountRole__c> a map of financial account roles and their Ids
+   */
+  public static Map<Id, FinServ__FinancialAccountRole__c> getFinancialAccountRolesMap(
+    Set<Id> accountIds,
+    Set<Id> financialAccIds,
+    Boolean isActive
+  ) {
+    Map<Id, FinServ__FinancialAccountRole__c> financialRolesMap = new Map<Id, FinServ__FinancialAccountRole__c>();
+    if (
+      FinServ__FinancialAccountRole__c.SObjectType.getDescribe().isAccessible()
+    ) {
+      financialRolesMap = new Map<Id, FinServ__FinancialAccountRole__c>(
+        [
+          SELECT Id, FinServ__FinancialAccount__c, FinServ__RelatedAccount__c
+          FROM FinServ__FinancialAccountRole__c
+          WHERE
+            FinServ__FinancialAccount__c IN :financialAccIds
+            AND FinServ__RelatedAccount__c IN :accountIds
+            AND FinServ__Active__c = :isActive
+        ]
+      );
+    }
+    return financialRolesMap;
+  }
 }

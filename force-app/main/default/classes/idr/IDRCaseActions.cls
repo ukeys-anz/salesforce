@@ -132,6 +132,7 @@ public with sharing class IDRCaseActions {
         populateSuppliedEmail(record, oldRecord);
         validateCaseNumber(record, oldRecord);
         IDRCollectionActions.populateCollectionNumber(record);
+        IDRCollectionActions.validateAccNumberPattern(record, oldRecord);
         CommonUtil.handleMasking(
           record,
           oldRecord,
@@ -211,13 +212,17 @@ public with sharing class IDRCaseActions {
       ) {
         escalationCases.add(c.Id);
       }
-      if ((oldCase != null && (!oldCase.isClosed && c.isClosed))) {
+      if (
+        (oldCase != null &&
+        (!oldCase.isClosed &&
+        (c.isClosed || c.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS)))
+      ) {
         maxTimeFrameCases.add(c.Id);
       }
     }
 
     if (!escalationCases.isEmpty()) {
-      MilestoneUtils.completeMilestones(
+      MilestoneUtils.completeMilestone(
         escalationCases,
         new List<String>{ 'Open_Escalation_Time' },
         System.now()
@@ -225,7 +230,7 @@ public with sharing class IDRCaseActions {
     }
 
     if (!maxTimeFrameCases.isEmpty()) {
-      MilestoneUtils.completeMilestones(
+      MilestoneUtils.completeMilestone(
         maxTimeFrameCases,
         new List<String>{
           '21-day IDR Response Due',

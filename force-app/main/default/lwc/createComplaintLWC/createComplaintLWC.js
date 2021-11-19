@@ -345,13 +345,23 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.hasThirdIssue = event.target.checked;
   }
   handleAccountNumberChange(event) {
-    this.accountOrPolicyNumber = event.target.value;
+    var myArray = event.detail.payload.values;
+    let myString = myArray.toString();
+    let final = myString.replace(/,/g, ";");
+    this.accountOrPolicyNumber = final;
   }
+
   handleAccountNumber2Change(event) {
-    this.accountOrPolicyNumber2 = event.target.value;
+    var myArray = event.detail.payload.values;
+    let myString = myArray.toString();
+    let final = myString.replace(/,/g, ";");
+    this.accountOrPolicyNumber2 = final;
   }
   handleAccountNumber3Change(event) {
-    this.accountOrPolicyNumber3 = event.target.value;
+    var myArray = event.detail.payload.values;
+    let myString = myArray.toString();
+    let final = myString.replace(/,/g, ";");
+    this.accountOrPolicyNumber3 = final;
   }
   handleCommonComplaint(event) {
     this.isCommonComplaintYesNo = event.target.value;
@@ -551,7 +561,26 @@ export default class CreateComplaintLWC extends NavigationMixin(
       }
       return isValidSoFar;
     }, true);
-
+    if (this.isCustomerComplaint && this.accountOrPolicyNumber === "") {
+      isFieldValid = false;
+      this.missingDataFields += "Account/Policy Number, ";
+    }
+    if (
+      this.isCustomerComplaint &&
+      this.hasSecondIssue &&
+      this.accountOrPolicyNumber2 === ""
+    ) {
+      isFieldValid = false;
+      this.missingDataFields += "Account/Policy Number 2, ";
+    }
+    if (
+      this.isCustomerComplaint &&
+      this.hasThirdIssue &&
+      this.accountOrPolicyNumber3 === ""
+    ) {
+      isFieldValid = false;
+      this.missingDataFields += "Account/Policy Number 3, ";
+    }
     if (!this.isCustomerComplaint && !this.showSections) {
       isFieldValid = false;
       this.missingDataFields += "Customer Decision";
@@ -606,6 +635,18 @@ export default class CreateComplaintLWC extends NavigationMixin(
       isFieldValid = false;
       this.missingDataFields +=
         "Customer number is not valid or has not been validated, check the number and try again. ";
+    }
+
+    if (
+      this.accountOrPolicyNumber.includes("N/A;") ||
+      this.accountOrPolicyNumber.includes(";N/A") ||
+      this.accountOrPolicyNumber2.includes("N/A;") ||
+      this.accountOrPolicyNumber2.includes(";N/A") ||
+      this.accountOrPolicyNumber3.includes("N/A;") ||
+      this.accountOrPolicyNumber3.includes(";N/A")
+    ) {
+      isFieldValid = false;
+      this.missingDataFields += "Please select only account numbers or N/A";
     }
     // validate the data in email address fields is correct.
     let isEmailValid = [
@@ -752,14 +793,14 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
       const recordInput = { apiName: CASE_OBJECT.objectApiName, fields };
       createRecord(recordInput)
-        .then((response) => {
+        .then(response => {
           if (response) {
             let caseId = response.id;
             this.template.querySelector(".saveButton").disabled = false;
             this.handleCaseSuccess(caseId);
           }
         })
-        .catch((error) => {
+        .catch(error => {
           if (
             error.body.enhancedErrorType === "RecordError" &&
             error.body.output.errors[0].errorCode === "INSUFFICIENT_ACCESS" &&
@@ -875,6 +916,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
         this.isCustomerDetails = true;
         this.accountNumberOptions = [{ label: "N/A", value: "N/A" }];
         let x;
+        this.accountNumberOptions = [];
         for (x in event.detail.accounts) {
           if (event.detail.accounts[x] != null) {
             this.accountNumberOptions.push({
@@ -883,6 +925,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
             });
           }
         }
+        this.accountNumberOptions.push({ label: "N/A", value: "N/A" });
+        this.template
+          .querySelectorAll("c-multi-select-combobox")[0]
+          .processMyData(this.accountNumberOptions);
       }
     }
   }
@@ -907,7 +953,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       msg = error.replace(/\.\s?/gm, ".<br><br>");
     } else if (error.body) {
       if (Array.isArray(error.body)) {
-        msg = error.body.map((e) => e.message).join(", ");
+        msg = error.body.map(e => e.message).join(", ");
       } else if (typeof error.body.message === "string") {
         msg = error.body.message;
       }

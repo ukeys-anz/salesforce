@@ -41,7 +41,7 @@ describe("c-view-cards", () => {
 
   function flushPromises() {
     // eslint-disable-next-line no-undef
-    return new Promise((resolve) => setImmediate(resolve));
+    return new Promise(resolve => setImmediate(resolve));
   }
 
   it("1. tests if view cards button visible", () => {
@@ -85,7 +85,7 @@ describe("c-view-cards", () => {
       );
       expect(initialWallets.length).toBe(2);
 
-      let walletList = initialWallets.map((p) => p.textContent);
+      let walletList = initialWallets.map(p => p.textContent);
       expect(walletList[0]).toBe("SamsungPay - 1");
     });
   });
@@ -216,7 +216,7 @@ describe("c-view-cards", () => {
         "lightning-button[data-button='card-button']"
       );
       let lockButton;
-      buttons.forEach((btn) => {
+      buttons.forEach(btn => {
         if (btn.label === "Lock Card") {
           lockButton = btn;
         }
@@ -247,7 +247,7 @@ describe("c-view-cards", () => {
       );
 
       let lockButton;
-      buttons.forEach((btn) => {
+      buttons.forEach(btn => {
         if (btn.label === "Lock Card") {
           lockButton = btn;
         }
@@ -279,7 +279,7 @@ describe("c-view-cards", () => {
       );
 
       let replaceButton;
-      buttons.forEach((btn) => {
+      buttons.forEach(btn => {
         if (btn.label === "Replace Card") {
           replaceButton = btn;
         }
@@ -311,7 +311,7 @@ describe("c-view-cards", () => {
       );
 
       let replaceButton;
-      buttons.forEach((btn) => {
+      buttons.forEach(btn => {
         if (btn.label === "Replace Card") {
           replaceButton = btn;
         }
@@ -342,7 +342,7 @@ describe("c-view-cards", () => {
       );
 
       let fraudLockButton;
-      buttons.forEach((btn) => {
+      buttons.forEach(btn => {
         if (btn.label === "Fraud Lock") {
           fraudLockButton = btn;
         }
@@ -373,7 +373,7 @@ describe("c-view-cards", () => {
       );
 
       let fraudUnlockButton;
-      buttons.forEach((btn) => {
+      buttons.forEach(btn => {
         if (btn.label === "Fraud Unlock") {
           fraudUnlockButton = btn;
         }
@@ -404,7 +404,7 @@ describe("c-view-cards", () => {
       );
 
       let fraudUnlockButton;
-      buttons.forEach((btn) => {
+      buttons.forEach(btn => {
         if (btn.label === "Fraud Unlock") {
           fraudUnlockButton = btn;
         }
@@ -437,7 +437,7 @@ describe("c-view-cards", () => {
       );
 
       let cancelCardButton;
-      buttons.forEach((btn) => {
+      buttons.forEach(btn => {
         if (btn.label === "Cancel Card") {
           cancelCardButton = btn;
         }
@@ -470,7 +470,7 @@ describe("c-view-cards", () => {
       );
 
       let removeTempLockButton;
-      buttons.forEach((btn) => {
+      buttons.forEach(btn => {
         if (btn.label === "Remove Temporary Lock") {
           removeTempLockButton = btn;
         }
@@ -502,7 +502,7 @@ describe("c-view-cards", () => {
       );
 
       let removeTempLockButton;
-      buttons.forEach((btn) => {
+      buttons.forEach(btn => {
         if (btn.label === "Remove Temporary Lock") {
           removeTempLockButton = btn;
         }
@@ -534,7 +534,7 @@ describe("c-view-cards", () => {
 
       let fraudLockButton;
       let fraudUnlockButton;
-      buttons.forEach((btn) => {
+      buttons.forEach(btn => {
         if (btn.label === "Fraud Lock") {
           fraudLockButton = btn;
         } else if (btn.label === "Fraud Unlock") {
@@ -585,7 +585,7 @@ describe("c-view-cards", () => {
           "lightning-button[data-button='card-button']"
         );
         let fraudLockButton;
-        cardButtons.forEach((btn) => {
+        cardButtons.forEach(btn => {
           if (btn.label === "Fraud Lock") {
             fraudLockButton = btn;
           }
@@ -619,7 +619,7 @@ describe("c-view-cards", () => {
           "lightning-button[data-button='card-button']"
         );
         let lockButton;
-        cardButtons.forEach((btn) => {
+        cardButtons.forEach(btn => {
           if (btn.label === "Lock Card") {
             lockButton = btn;
           }
@@ -653,7 +653,7 @@ describe("c-view-cards", () => {
           "lightning-button[data-button='card-button']"
         );
         let replaceButton;
-        cardButtons.forEach((btn) => {
+        cardButtons.forEach(btn => {
           if (btn.label === "Replace Card") {
             replaceButton = btn;
           }
@@ -709,7 +709,7 @@ describe("c-view-cards", () => {
         expect(handler).toHaveBeenCalled();
       }
     };
-    const payloadMaker = (name) => {
+    const payloadMaker = name => {
       return {
         update: true,
         name: name,
@@ -738,7 +738,7 @@ describe("c-view-cards | wire", () => {
 
   function flushPromises() {
     // eslint-disable-next-line no-undef
-    return new Promise((resolve) => setImmediate(resolve));
+    return new Promise(resolve => setImmediate(resolve));
   }
   it("1. check wire OCV_ID", () => {
     getRecordAdapter.emit(mockOcvId);
