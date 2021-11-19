@@ -39,14 +39,6 @@
                 <field>Transaction_Amount__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Transaction_UUID__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Transaction_Description__c</field>
-            </layoutItems>
-            <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Transaction_Currency__c</field>
             </layoutItems>
@@ -61,10 +53,6 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Location__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Customer_Description__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

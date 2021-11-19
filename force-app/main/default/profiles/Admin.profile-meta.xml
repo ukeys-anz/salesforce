@@ -3817,7 +3817,6 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <default>true</default>
-        <personAccountDefault>true</personAccountDefault>
         <recordType>ContentVersion.File</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
