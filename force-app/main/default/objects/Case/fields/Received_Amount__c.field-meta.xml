@@ -5,7 +5,7 @@
     <complianceGroup>Source_Salesforce;Integrity_Trusted;Privacy_Non_Personal_Information</complianceGroup>
     <description>Amount dispensed by the ATM which the customer received</description>
     <externalId>false</externalId>
-    <inlineHelpText>Amount Received by the customer</inlineHelpText>
+    <inlineHelpText>Amount received by the customer.</inlineHelpText>
     <label>Received Amount</label>
     <precision>12</precision>
     <required>false</required>

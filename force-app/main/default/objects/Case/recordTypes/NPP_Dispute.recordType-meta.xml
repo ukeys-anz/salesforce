@@ -177,19 +177,27 @@
     <picklistValues>
         <picklist>Dispute_Reason__c</picklist>
         <values>
-            <fullName>Final Destination - Did my money get to where I sent it%3F</fullName>
+            <fullName>Unauthorised Transaction</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Remittance - Where did this money come from%3F</fullName>
+            <fullName>Incorrect Account Details</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Solicited - I want to return this money%3F</fullName>
+            <fullName>Incorrect Amount Transferred</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Unsolicited</fullName>
+            <fullName>Duplicate Transaction</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Return money received from an unknown person</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Amount not received by payee</fullName>
             <default>false</default>
         </values>
     </picklistValues>

@@ -6,10 +6,7 @@
     <description>Date customer authorized the transaction</description>
     <encryptionScheme>ProbabilisticEncryption</encryptionScheme>
     <externalId>false</externalId>
-    <inlineHelpText>This is the date the customer authorised the transaction.
- 
-Only applicable for dispute reasons:
-·         Purchase was charged more than once</inlineHelpText>
+    <inlineHelpText>This is the date the customer says they authorised the transaction.</inlineHelpText>
     <label>Date Of Authorised Transaction</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

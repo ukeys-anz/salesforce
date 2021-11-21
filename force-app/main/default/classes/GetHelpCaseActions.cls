@@ -19,18 +19,25 @@ public with sharing class GetHelpCaseActions {
     GetHelpConstants.CARD_DISPUTE_RT_ID,
     GetHelpConstants.DIRECT_DEBIT_DISPUTE_RT_ID,
     GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID,
-    GetHelpConstants.URGENT_DISHONOUR_DISPUTE_RT_ID,
     GetHelpConstants.NPP_DISPUTE_RT_ID
   };
 
   public static final String DUPLICATE_DISPUTE_ERROR = 'Error occurred while creating dispute. An open dispute already exists for this transaction. Case number: ';
 
   private static Map<String, String> caseTypeLabelByValue = new Map<String, String>();
-  private static Map<String, String> caseSubtypeLabelByValue = new Map<String, String>();
 
-  public static final String MILESTONE_NAME = 'Resolution Time';
+  private static Map<String, String> caseSubtypeLabelByValue = new Map<String, String>();
+  @TestVisible
+  public static final String RESOLUTION_TIME_MILESTONE = 'Resolution Time';
+  @TestVisible
+  public static final String INVESTIGATION_TIME_MILESTONE = 'Investigation Time';
 
   public static final String MISALIGNED_FINANCIAL_ACCOUNT_ERROR = 'Error occurred while create dispute.  There is a misalignment between customer\'s OCV ID and Financial Account';
+
+  public static final String SLA_BREACH = 'Breached';
+  public static final String SLA_WARNING = 'Warning';
+  public static final String SLA_BREACH_NOTIFICATION_BODY = 'Please review and ensure case is being managed by Customer Resolution Centre.';
+  public static final String SLA_WARNING_NOTIFICATION_BODY = 'Please review and action this case.';
 
   /**
    * @description beforeUpdate(oldMap, records) method handles the following
@@ -45,7 +52,7 @@ public with sharing class GetHelpCaseActions {
   public static void beforeUpdate(Map<Id, SObject> oldMap, List<Case> records) {
     List<Id> caseIds = new List<Id>();
     List<Case> validateCaseList = new List<Case>();
-    List<Id> milestoneIds = new List<Id>();
+    Set<Id> milestoneCaseIds = new Set<Id>();
 
     for (Case record : (List<Case>) records) {
       Case oldRecord = (Case) oldMap.get(record.id);
@@ -69,7 +76,7 @@ public with sharing class GetHelpCaseActions {
           oldRecord.Status != GetHelpConstants.CLOSED_STATUS &&
           record.Status == GetHelpConstants.CLOSED_STATUS
         ) {
-          milestoneIds.add(record.Id);
+          milestoneCaseIds.add(record.Id);
         }
       } else if (record.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID) {
         if (
@@ -82,7 +89,28 @@ public with sharing class GetHelpCaseActions {
           record.Status == GetHelpConstants.WITHDRAWN_STATUS ||
           record.Status == GetHelpConstants.RESOLVED_STATUS)
         ) {
-          milestoneIds.add(record.Id);
+          milestoneCaseIds.add(record.Id);
+        }
+      } else if (GetHelpCaseActionsHelper.isDispute(record)) {
+        if (
+          oldRecord.Status == GetHelpConstants.OPEN_STATUS &&
+          record.Status != GetHelpConstants.OPEN_STATUS
+        ) {
+          milestoneCaseIds.add(record.Id);
+        }
+        if (
+          oldRecord.Status == GetHelpConstants.UNDER_INVESTIGATION_STATUS &&
+          record.Status == GetHelpConstants.CLOSED_STATUS
+        ) {
+          milestoneCaseIds.add(record.Id);
+        }
+
+        // Reset case SLA Status on Dispute cases to blank/none when switching case status.
+        // This would aid notifications based on SLA_Status__c to work correctly;
+        //    * when "Resolution Time" mielstone resulted in a SLA Status change before entering "Investigation Time" milestone
+        //    * if/when the same case enters "Investigation Time" milestone more than once
+        if (oldRecord.Status != record.Status) {
+          record.SLA_Status__c = '';
         }
       }
     }
@@ -93,8 +121,16 @@ public with sharing class GetHelpCaseActions {
     if (!caseIds.isEmpty()) {
       GetHelpCaseActionsHelper.validateParentCase(caseIds, validateCaseList);
     }
-    if (!milestoneIds.isEmpty()) {
-      completeCaseMilestone(milestoneIds);
+
+    if (!milestoneCaseIds.isEmpty()) {
+      MilestoneUtils.completeMilestones(
+        milestoneCaseIds,
+        new List<String>{
+          RESOLUTION_TIME_MILESTONE,
+          INVESTIGATION_TIME_MILESTONE
+        },
+        System.now()
+      );
     }
   }
 
@@ -260,15 +296,47 @@ public with sharing class GetHelpCaseActions {
   }
 
   /**
+   * @description Sets default values on Priority based on different Case record types
+   * @param caseList list of cases from the trigger
+   */
+  public static void setPriority(List<Case> caseList) {
+    for (Case c : caseList) {
+      if (
+        (c.RecordTypeId == GetHelpConstants.DIRECT_DEBIT_DISPUTE_RT_ID ||
+        c.RecordTypeId == GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID) &&
+        c.Effective_Date__c != null
+      ) {
+        if (System.Today().isSameDay(c.Effective_Date__c)) {
+          c.Priority = 'High';
+        } else {
+          Datetime currentDate = System.Today();
+          Datetime previousWorkingDay = DateTimeUtils.substractBusinessDays(
+            c.BusinessHoursId,
+            currentDate,
+            1
+          );
+          if (
+            previousWorkingDay.isSameDay(c.Effective_Date__c) &&
+            (Datetime.now().hour() <= 15 &&
+            Datetime.now().minute() <= 30)
+          ) {
+            c.Priority = 'High';
+          }
+        }
+      }
+    }
+  }
+
+  /**
    * @description This method updates the entitlement field on the case
-   * if the case is of General Inquiry or ANZX Complaint record type
+   * if the case is of General Inquiry, ANZX Complaint, or any of the Dispute record types
    * @param caseList list of cases from the trigger
    */
   public static void updateEntitlement(List<Case> caseList) {
     List<Id> accountIds = new List<Id>();
     Map<Id, Id> entMap = new Map<Id, Id>();
 
-    accountIds = GetHelpCaseActionsHelper.getGeneralEnquiryAccountIds(caseList);
+    accountIds = GetHelpCaseActionsHelper.getEntitlementAccountIds(caseList);
 
     if (Entitlement.sObjectType.getDescribe().isQueryable()) {
       List<Entitlement> entList;
@@ -349,16 +417,6 @@ public with sharing class GetHelpCaseActions {
   }
 
   /**
-   * @description This method updates the milestone to closed when
-   * the case status is updated to clsoed
-   * @param caseIds list of case ids from the trigger
-   */
-  public static void completeCaseMilestone(List<Id> caseIds) {
-    //Mark milestones as completed
-    MilestoneUtils.completeMilestone(caseIds, MILESTONE_NAME, System.now());
-  }
-
-  /**
    * @description This method updates the case duration hours field for EA for further usage
    * when the case status is updated to closed
    * @param record case from the trigger
@@ -415,7 +473,10 @@ public with sharing class GetHelpCaseActions {
     Set<String> transactionIds = new Set<String>();
     List<Case> disputeCases = new List<Case>();
     for (Case c : records) {
-      if (GetHelpCaseActionsHelper.isDispute(c)) {
+      if (
+        String.isNotBlank(c.Transaction_Id__c) &&
+        GetHelpCaseActionsHelper.isDispute(c)
+      ) {
         transactionIds.add(c.Transaction_Id__c);
         disputeCases.add(c);
       }
@@ -429,20 +490,6 @@ public with sharing class GetHelpCaseActions {
         c.addError(DUPLICATE_DISPUTE_ERROR + caseNumber);
       }
     }
-  }
-
-  /**
-   * @description Disable the milestone on cases that are Closed upon creation to avoid breaching SLA
-   * @param records The list of cases that will check if they are closed and complete milestone accordingly
-   */
-  public static void disableClosedCasesMilestone(List<Case> records) {
-    List<Id> closedCaseIds = new List<Id>();
-    for (Case c : records) {
-      if (GetHelpCaseActionsHelper.isClosed(c)) {
-        closedCaseIds.add(c.Id);
-      }
-    }
-    GetHelpCaseActionsHelper.completeMilestoneOnClosedCases(closedCaseIds);
   }
 
   /**
@@ -497,6 +544,62 @@ public with sharing class GetHelpCaseActions {
       ) {
         caseByIndexMap.get(caseIndex)
           .addError(MISALIGNED_FINANCIAL_ACCOUNT_ERROR); // The case will not be created
+      }
+    }
+  }
+
+  /**
+   * @description handle SLA related notifications
+   * @param records New record instances to process
+   * @param oldMap Map of the old values of the records to process
+   */
+  public static void handleSLANotifications(
+    List<Case> records,
+    Map<Id, Case> oldMap
+  ) {
+    if (!oldMap.isEmpty()) {
+      CustomNotificationType type = CommonUtil.getCustomNotificationTypeByName(
+        'Case_SLA'
+      );
+
+      for (Case newCase : records) {
+        if (
+          newCase.SLA_Status__c != null &&
+          !newCase.SLA_Status__c.Equals(oldMap.get(newCase.Id).SLA_Status__c)
+        ) {
+          String messageBody = '';
+
+          if (newCase.SLA_Status__c == SLA_WARNING) {
+            messageBody = SLA_WARNING_NOTIFICATION_BODY;
+          } else if (newCase.SLA_Status__c == SLA_BREACH) {
+            messageBody = SLA_BREACH_NOTIFICATION_BODY;
+          }
+
+          if (!String.isBlank(messageBody)) {
+            String messageTitle =
+              'SLA status for ' +
+              Schema.getGlobalDescribe()
+                .get('Case')
+                .getDescribe()
+                .getRecordTypeInfosById()
+                .get(newCase.RecordTypeId)
+                .getName() +
+              ' ' +
+              newCase.CaseNumber +
+              ' has changed to ' +
+              newCase.SLA_Status__c;
+
+            InAppNotificationWrapper notificationWrapper = new InAppNotificationWrapper(
+              type.Id,
+              newCase.Id,
+              newCase.OwnerId,
+              messageTitle,
+              messageBody
+            );
+
+            CommonUtil.sendInAppNotification(notificationWrapper);
+          }
+        }
       }
     }
   }
