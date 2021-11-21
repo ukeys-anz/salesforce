@@ -79,20 +79,6 @@
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>Complaint_RTs_CRPUsers_RO</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>Grant edit access to CFMS migrated complaint records for Customer Resolution Users</description>
-        <label>Complaint_RTs_CRPUsers_RO</label>
-        <sharedTo>
-            <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>CFMS Migrated Case</value>
-        </criteriaItems>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
         <fullName>Complaint_RTs_CRPUsers_RW</fullName>
         <accessLevel>Edit</accessLevel>
         <description>Great Read write access to complaint records and General Inquiry CMOS records for Customer Resolution Users</description>
@@ -133,7 +119,7 @@
         <sharedTo>
             <role>Coach_Lead</role>
         </sharedTo>
-        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8</booleanFilter>
+        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -153,11 +139,6 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Direct Entry</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Urgent Dishonour Request</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -207,17 +188,17 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Urgent Dishonour Request</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
             <value>ANZ Plus Complaint</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>General Enquiry</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>NPP</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -257,17 +238,17 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Urgent Dishonour Request</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
             <value>ANZ Plus Complaint</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>General Enquiry</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>NPP</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -306,12 +287,46 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Urgent Dishonour Request</value>
+            <value>ANZ Plus Complaint</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>ANZ Plus Complaint</value>
+            <value>General Enquiry</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>NPP</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Dispute_RTs_Card_Dispute_Agent_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Dispute_RTs_Card_Dispute_Agent_RW</label>
+        <sharedTo>
+            <role>Card_Dispute_Agent</role>
+        </sharedTo>
+        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6</booleanFilter>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>ATM</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Card</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Direct Debit</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Direct Entry</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -355,12 +370,12 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Urgent Dishonour Request</value>
+            <value>General Enquiry</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>General Enquiry</value>
+            <value>NPP</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -421,6 +436,40 @@
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>Fraud_RTs_CardDisputeAgents_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All Cases having Fraud related record types are to be shared with Card Dispute Agents with Read access.</description>
+        <label>Fraud_RTs_CardDisputeAgents_RO</label>
+        <sharedTo>
+            <role>Card_Dispute_Agent</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Recipient/Mule</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Fraud</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>KYC QA</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Scam</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Identity</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>Fraud_RTs_FraudXAgents_RW</fullName>
         <accessLevel>Edit</accessLevel>
         <description>All Cases having Fraud related record types are to be shared with FraudX Agents with Read/Write access.</description>
@@ -431,7 +480,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Direct Debit,Recipient/Mule,Direct Entry,ATM,Fraud,General Enquiry,KYC QA,Scam,Identity,Urgent Dishonour Request,Card,NPP</value>
+            <value>Direct Debit,Recipient/Mule,Direct Entry,ATM,Fraud,General Enquiry,KYC QA,Scam,Identity,Card,NPP</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>

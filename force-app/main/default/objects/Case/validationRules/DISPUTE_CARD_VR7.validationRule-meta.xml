@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DISPUTE_CARD_VR7</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+RecordType.DeveloperName = &apos;Card_Dispute&apos;,
+ISPICKVAL(Dispute_Reason__c, &quot;Product Didn&apos;t Arrive&quot;),
+OR(
+ISBLANK(Description),
+ISBLANK(Date_Of_Expected_Delivery_Service__c),
+OR(ISPICKVAL(Customer_Contacted_Merchant__c, &apos;&apos;),
+ISPICKVAL(Customer_Contacted_Merchant__c, &apos;NA&apos;)),
+ISBLANK(Merchant_Description__c)
+)
+)</errorConditionFormula>
+    <errorMessage>These fields are required: Description of Issue, Date of Expected Delivery/Service,  Customer Contacted Merchant, What Happened with Merchant?</errorMessage>
+</ValidationRule>

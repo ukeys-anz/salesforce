@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>AuxDomId__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Trusted;Source_Salesforce;Privacy_Personal_Information</complianceGroup>
+    <complianceGroup>Source_Fabric;Integrity_Trusted;Privacy_Non_Personal_Information</complianceGroup>
     <description>Each merchant will have a unique identification code. When a customer has multiple direct debits set up to their account, this debit user ID will help them identify which merchant has debited them and if debited with an incorrect amount or unknown to them, it helps them report it accordingly</description>
     <externalId>false</externalId>
     <inlineHelpText>Merchant unique identification number</inlineHelpText>

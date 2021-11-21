@@ -9,6 +9,7 @@
     <permissionSets>Coaches_Workbench</permissionSets>
     <permissionSets>Customer_Feedback_Read_Only</permissionSets>
     <permissionSets>Customer_Read_Only</permissionSets>
+    <permissionSets>Case_Read_Write_Dispute</permissionSets>
     <permissionSets>Export_Reports</permissionSets>
     <permissionSets>FinServ__FinancialServicesCloudStandard</permissionSets>
     <permissionSets>Knowledge_User</permissionSets>
@@ -18,6 +19,7 @@
     <permissionSets>Record_Access_Log</permissionSets>
     <permissionSets>TwilioSF__Twilio_User</permissionSets>
     <permissionSets>View_Card_Details</permissionSets>
+    <permissionSets>View_Statements</permissionSets>
     <permissionSets>force__EinsteinAnalyticsPlusUser</permissionSets>
     <permissionSets>force__FSCInsurance</permissionSets>
     <status>Updated</status>

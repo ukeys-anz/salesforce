@@ -13,11 +13,11 @@
       </div>
       <div class="slds-col slds-size--1-of-7">
         <div class="slds-grid slds-form-element__label">Name</div>
-        <div class="slds-grid">{transactionRecord.name}</div>
+        <div class="slds-grid">{transactionRecord.title}</div>
       </div>
       <div class="slds-col slds-size--1-of-7">
         <div class="slds-grid slds-form-element__label">Transaction Type</div>
-        <div class="slds-grid">{transactionRecord.transactionType}</div>
+        <div class="slds-grid">{transactionRecord.formatted_type}</div>
       </div>
       <div class="slds-col slds-size--1-of-7">
         <div class="slds-grid slds-form-element__label">Transaction Time</div>
@@ -26,7 +26,7 @@
       <div class="slds-col slds-size--1-of-7">
         <div class="slds-grid slds-form-element__label">Short Description</div>
         <div class="slds-grid slds-hyphenate">
-          {transactionRecord.enrichmentId}
+          {transactionRecord.enrichment_id}
         </div>
       </div>
       <div class="slds-col slds-size--1-of-7">
@@ -74,6 +74,16 @@
             disabled={disableRaiseDisputeBtn}
           >
           </lightning-menu-item>
+          <template if:true={disableRaiseDisputeBtn}>
+            <div
+              class="slds-popover slds-popover_tooltip slds-nubbin_left-top"
+              role="tooltip"
+              id="help"
+              style="position: absolute; top: 20px; left: 120px; width: 150px"
+            >
+              <div class="slds-popover__body">{disputeButtonTooltip}</div>
+            </div>
+          </template>
         </lightning-button-menu>
       </div>
     </div>
@@ -86,13 +96,13 @@
         </div>
         <div class="slds-col slds-size--1-of-7">
           <div class="slds-grid slds-form-element__label">Long Description</div>
-          <div class="slds-grid description">{transactionRecord.longDesc}</div>
-          <div class="description-tooltip">{transactionRecord.longDesc}</div>
+          <div class="slds-grid description">{transactionRecord.long_desc}</div>
+          <div class="description-tooltip">{transactionRecord.long_desc}</div>
         </div>
         <div class="slds-col slds-size--1-of-7">
           <div class="slds-grid slds-form-element__label">Transaction ID</div>
           <div class="slds-grid" data-id="transactionId">
-            {transactionRecord.transactionId}
+            {transactionRecord.transaction_id}
           </div>
         </div>
         <div class="slds-col slds-size--1-of-7">
@@ -103,9 +113,7 @@
         </div>
         <div class="slds-col slds-size--1-of-7">
           <div class="slds-grid slds-form-element__label">Currency Code</div>
-          <div class="slds-grid">
-            {transactionRecord.amount.charged.currencyCode}
-          </div>
+          <div class="slds-grid">{transactionRecord.amount.currency_code}</div>
         </div>
       </div>
 
@@ -116,7 +124,7 @@
             <div class="slds-col slds-size--1-of-7"></div>
             <div class="slds-col slds-size--1-of-7">
               <div class="slds-grid slds-form-element__label">Name</div>
-              <div class="slds-grid">{transactionRecord.merchant.name}</div>
+              <div class="slds-grid">{transactionRecord.merchantName}</div>
             </div>
             <div class="slds-col slds-size--1-of-7">
               <div class="slds-grid slds-form-element__label">Address</div>
@@ -125,18 +133,20 @@
             <div class="slds-col slds-size--1-of-7">
               <div class="slds-grid slds-form-element__label">Phone</div>
               <div class="slds-grid">
-                <template if:true={transactionRecord.merchant.phone_number}>
-                  {merchantPhoneNumber}
+                <template if:true={transactionRecord.merchantPhoneNumber}>
+                  {transactionRecord.merchantPhoneNumber}
                 </template>
               </div>
             </div>
             <div class="slds-col slds-size--1-of-7">
               <div class="slds-grid slds-form-element__label">Website</div>
-              <div class="slds-grid word-fix">{merchantWebsiteUrl}</div>
+              <div class="slds-grid word-fix">
+                {transactionRecord.merchantWebsiteUrl}
+              </div>
             </div>
             <div class="slds-col slds-size--1-of-7">
               <div class="slds-grid slds-form-element__label">Email</div>
-              <div class="slds-grid">{transactionRecord.merchant.email}</div>
+              <div class="slds-grid">{transactionRecord.merchantEmail}</div>
             </div>
           </div>
         </div>
@@ -181,7 +191,9 @@
             <div class="slds-col slds-size--1-of-7"></div>
             <div class="slds-col slds-size--1-of-7">
               <div class="slds-grid slds-form-element__label">Card Scheme</div>
-              <div class="slds-grid">{transactionRecord.card.scheme}</div>
+              <div class="slds-grid">
+                {transactionRecord.card.formatted_scheme}
+              </div>
             </div>
             <div class="slds-col slds-size--1-of-7">
               <div class="slds-grid slds-form-element__label">
@@ -189,6 +201,97 @@
               </div>
               <div class="slds-grid">
                 {transactionRecord.card.last_four_digits}
+              </div>
+            </div>
+          </div>
+        </div>
+      </template>
+
+      <template if:true={transactionRecord.transfer}>
+        <div class="transaction-section">
+          <h3 class="section-title">Transfer Details</h3>
+          <div class="slds-grid slds-m-bottom_small">
+            <div class="slds-col slds-size--1-of-7"></div>
+            <div class="slds-col slds-size--1-of-7">
+              <div class="slds-grid slds-form-element__label">
+                Payer Account Number
+              </div>
+              <div class="slds-grid">
+                {transactionRecord.transfer.source_account.account.transactionAccountNumber}
+              </div>
+            </div>
+            <div class="slds-col slds-size--1-of-7">
+              <div class="slds-grid slds-form-element__label">
+                Payer BSB Number
+              </div>
+              <div class="slds-grid">
+                {transactionRecord.transfer.source_account.account.bsb}
+              </div>
+            </div>
+            <div class="slds-col slds-size--1-of-7">
+              <div class="slds-grid slds-form-element__label">Message</div>
+              <div class="slds-grid">{transactionRecord.transfer.message}</div>
+            </div>
+          </div>
+        </div>
+      </template>
+
+      <template if:true={transactionRecord.bpay}>
+        <div class="transaction-section">
+          <h3 class="section-title">BPAY Details</h3>
+          <div class="slds-grid slds-m-bottom_small">
+            <div class="slds-col slds-size--1-of-7"></div>
+            <div class="slds-col slds-size--1-of-7">
+              <div class="slds-grid slds-form-element__label">Biller Name</div>
+              <div class="slds-grid">{transactionRecord.bpay.biller_name}</div>
+            </div>
+            <div class="slds-col slds-size--1-of-7">
+              <div class="slds-grid slds-form-element__label">Biller Code</div>
+              <div class="slds-grid">{transactionRecord.bpay.biller_code}</div>
+            </div>
+            <div class="slds-col slds-size--1-of-7">
+              <div class="slds-grid slds-form-element__label">
+                Biller Reference Number
+              </div>
+              <div class="slds-grid">
+                {transactionRecord.bpay.customer_reference_number}
+              </div>
+            </div>
+          </div>
+        </div>
+      </template>
+
+      <template if:true={transactionRecord.pay_anyone}>
+        <div class="transaction-section">
+          <h3 class="section-title">Pay Anyone Details</h3>
+          <div class="slds-grid slds-m-bottom_small">
+            <div class="slds-col slds-size--1-of-7"></div>
+            <div class="slds-col slds-size--1-of-7">
+              <div class="slds-grid slds-form-element__label">
+                Payer Account Number
+              </div>
+              <div class="slds-grid">
+                {transactionRecord.pay_anyone.other_entity.account.transactionAccountNumber}
+              </div>
+            </div>
+            <div class="slds-col slds-size--1-of-7">
+              <div class="slds-grid slds-form-element__label">
+                Payer BSB Number
+              </div>
+              <div class="slds-grid">
+                {transactionRecord.pay_anyone.other_entity.account.bsb}
+              </div>
+            </div>
+            <div class="slds-col slds-size--1-of-7">
+              <div class="slds-grid slds-form-element__label">Alias Name</div>
+              <div class="slds-grid">
+                {transactionRecord.pay_anyone.other_entity.alias_name}
+              </div>
+            </div>
+            <div class="slds-col slds-size--1-of-7">
+              <div class="slds-grid slds-form-element__label">Alias ID</div>
+              <div class="slds-grid">
+                {transactionRecord.pay_anyone.other_entity.alias_id}
               </div>
             </div>
           </div>

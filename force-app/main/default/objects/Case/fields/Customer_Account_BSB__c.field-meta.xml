@@ -2,16 +2,14 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Customer_Account_BSB__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Trusted;Source_Salesforce;Privacy_Non_Personal_Information</complianceGroup>
+    <complianceGroup>Source_Salesforce;Privacy - Personal Information;Integrity - Accurate</complianceGroup>
     <description>Unique branch code where the customer account is held.</description>
-    <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
     <externalId>false</externalId>
-    <inlineHelpText>Branch code</inlineHelpText>
-    <label>BSB</label>
-    <length>6</length>
+    <formula>FinServ__FinancialAccount__r.BSB__c</formula>
+    <inlineHelpText>Six digital branch code.</inlineHelpText>
+    <label>Customer Account BSB</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

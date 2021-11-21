@@ -4,7 +4,7 @@
  * @description Holds common util functions
  * @group Utils
  */
-@SuppressWarnings('PMD.ApexCRUDViolation')
+@SuppressWarnings('PMD.ApexCRUDViolation, PMD.CyclomaticComplexity')
 public with sharing class CommonUtil {
   /**
    * @description Get a picklist labels by values (API names).
@@ -89,7 +89,7 @@ public with sharing class CommonUtil {
   }
 
   /**
-   * @description handleMasking method is used to mask free text fields as we dont want to store e.g. card numbers in SF.
+   * @description handleMasking method is used to validate free text fields for masking as we dont want to store e.g. card numbers in SF.
    * So, we mask the number and store only last 4 digits unmasked.
    * @param record The actual record from Trigger.new
    * @param oldRecord The actual record from Trigger.old, null if in a before insert trigger
@@ -102,20 +102,41 @@ public with sharing class CommonUtil {
   ) {
     for (Schema.FieldSetMember fsm : fieldsToMask) {
       String fieldName = fsm.getFieldPath();
-      //System.debug(fieldName + ': ' + String.valueOf(fsm.getType()));
       if (
         (String.valueOf(fsm.getType()) == 'STRING' ||
         String.valueOf(fsm.getType()) == 'COMBOBOX' ||
         String.valueOf(fsm.getType()) == 'TEXTAREA') &&
         (oldRecord == null ||
         String.valueOf(record.get(fieldName)) !=
-        String.valueOf(oldRecord.get(fieldName)))
+        String.valueOf(oldRecord.get(fieldName))) &&
+        String.isNotBlank(String.valueOf(record.get(fieldName)))
       ) {
-        record.put(
-          fieldName,
-          TextUtils.maskData((String) record.get(fieldName))
-        );
+        maskAccountNumbers(fieldName, record);
       }
+    }
+  }
+
+  /**
+   * @description maskAccountNumbers method is used to mask free text fields as we dont want to store e.g. card numbers in SF.
+   * So, we mask the number and store only last 4 digits unmasked.
+   * @param fieldName name of the field to mask
+   * @param record The actual record from Trigger.new
+   */
+  private static void maskAccountNumbers(String fieldName, sObject record) {
+    if (
+      fieldName == 'IDR_Account_Card_Policy_Number__c' ||
+      fieldName == 'IDR_Account_Card_Policy_Number_2__c' ||
+      fieldName == 'IDR_Account_Card_Policy_Number_3__c'
+    ) {
+      List<String> maskedAccList = new List<String>();
+      for (
+        String accNumber : String.valueOf(record.get(fieldName)).split(';')
+      ) {
+        maskedAccList.add(TextUtils.maskData(accNumber));
+      }
+      record.put(fieldName, String.join(maskedAccList, ';'));
+    } else {
+      record.put(fieldName, TextUtils.maskData((String) record.get(fieldName)));
     }
   }
 
@@ -263,6 +284,53 @@ public with sharing class CommonUtil {
       ];
     } else {
       return null;
+    }
+  }
+
+  /**
+   * @description Get CustomNotificationType by name
+   * @param notificationName developer name of the CustomNotificationType
+   * @return `CustomNotificationType`
+   */
+  public static CustomNotificationType getCustomNotificationTypeByName(
+    String notificationName
+  ) {
+    CustomNotificationType notificationType;
+    if (Schema.sObjectType.CustomNotificationType.isQueryable()) {
+      notificationType = [
+        SELECT Id
+        FROM CustomNotificationType
+        WHERE DeveloperName = :notificationName
+      ];
+    }
+
+    return notificationType;
+  }
+
+  /**
+   * @description Send the in app notification
+   * @param wrapperRecord wrapper reccord
+   */
+  public static void sendInAppNotification(
+    InAppNotificationWrapper wrapperRecord
+  ) {
+    Messaging.CustomNotification notification = new Messaging.CustomNotification();
+    notification.setBody(wrapperRecord.msgBody);
+    notification.setTitle(wrapperRecord.msgTitle);
+    notification.setNotificationTypeId(wrapperRecord.notificationTypeId);
+    notification.setTargetId(wrapperRecord.targetObjectId);
+    try {
+      notification.send(wrapperRecord.recipientList);
+    } catch (Exception e) {
+      lib_systemLog log = new lib_systemLog(
+        CommonUtil.class.getName(),
+        'sendInAppNotification'
+      );
+      log.error(
+        'Problem sending in app notification: ' + wrapperRecord.recipientList,
+        e.getMessage()
+      );
+      log.publishEvent();
     }
   }
 }

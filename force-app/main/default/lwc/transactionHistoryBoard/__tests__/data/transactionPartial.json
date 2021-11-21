@@ -1,11 +1,36 @@
 {
-  "total": {},
-  "transactions": [
-    {
-      "TransactionID": "123",
-      "amount": { "charged": { "value": "50.00" } },
-      "transactionType": "TRANSACTION_TYPE_CARD",
-      "transactionDate": "2020-10-06T15:19:43Z"
+  "count": "1",
+  "embedded": {
+    "transactions": [
+      {
+        "transaction_id": "4313ds-51d2-4ve2-ba7e-0b339p157da1",
+        "account": {
+          "bsb": "014111",
+          "number": "210433904"
+        },
+        "transaction_time": "2021-08-20T20:57:58Z",
+        "status": "TRANSACTION_STATUS_POSTED",
+        "long_desc": "Payment with card at some place",
+        "amount": {
+          "currency_code": "AUD",
+          "units": "-19",
+          "nanos": -1200000
+        },
+        "enrichment_id": "Payment to place with card",
+        "type": "TRANSACTION_TYPE_CARD",
+        "title": "$2 Shop Purchase"
+      }
+    ]
+  },
+  "links": {
+    "first": {
+      "href": "mockresponsebeta1/transactions?page_size=20&cursor.value=bbb"
+    },
+    "prev": {
+      "href": "mockresponsebeta1/transactions?page_size=20&cursor.value=ccc"
+    },
+    "next": {
+      "href": "mockresponsebeta1/transactions?page_size=20&cursor.value=ddd"
     }
-  ]
+  }
 }

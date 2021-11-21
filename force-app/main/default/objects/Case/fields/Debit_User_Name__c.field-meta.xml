@@ -6,7 +6,7 @@
     <description>The name of the merchant which has performed the direct debit as derived from the transaction description</description>
     <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
     <externalId>false</externalId>
-    <inlineHelpText>The name of the merchant which has performed the direct debit as derived from the transaction description</inlineHelpText>
+    <inlineHelpText>Merchant name from transaction description who made the direct debit.</inlineHelpText>
     <label>Debit User Name</label>
     <length>255</length>
     <required>false</required>
