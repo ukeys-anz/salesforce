@@ -107,7 +107,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Case.Customer_Account_BSB__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -117,7 +117,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Case.Customer_Account_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -644,6 +644,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Received_Amount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Received_Currency__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

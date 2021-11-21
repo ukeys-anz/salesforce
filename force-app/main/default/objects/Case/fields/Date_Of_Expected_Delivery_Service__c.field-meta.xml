@@ -6,8 +6,6 @@
     <description>Date customer expects the delivery/service to be completed</description>
     <encryptionScheme>ProbabilisticEncryption</encryptionScheme>
     <externalId>false</externalId>
-    <inlineHelpText>Only applicable for dispute reason:
-·         Goods or services purchased but not received</inlineHelpText>
     <label>Date Of Expected Delivery/Service</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

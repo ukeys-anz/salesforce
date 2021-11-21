@@ -20,6 +20,10 @@
         <apexClass>CaseLogCallController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>SubmitDisputeController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <description>Should only have required/minimum permissions to Read/Write Case related information.</description>
     <fieldPermissions>
         <editable>false</editable>
@@ -172,7 +176,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Case.Customer_Account_BSB__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -182,7 +186,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Case.Customer_Account_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -194,6 +198,15 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Customer_Notification_Consent__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <field>Case.Customer_Description__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Date_Account_Last_Debited__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -613,6 +626,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Received_Currency__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Refund_Request_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -689,6 +707,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Transaction_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Transaction_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -780,10 +803,6 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>Case.NPP_Dispute</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
-        <recordType>Case.Urgent_Dishonour_Request_Dispute</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <tabSettings>

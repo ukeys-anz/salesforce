@@ -5,6 +5,7 @@
     <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Fabric</complianceGroup>
     <description>Date customer requested a refund for the transaction</description>
     <externalId>false</externalId>
+    <inlineHelpText>Date customer requested a refund for the transaction. Please enter today&apos;s date if the customer can&apos;t provide one.</inlineHelpText>
     <label>Refund Request Date</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

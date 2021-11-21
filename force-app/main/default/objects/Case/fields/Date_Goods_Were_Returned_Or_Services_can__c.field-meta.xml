@@ -6,9 +6,7 @@
     <description>Cancellation date of goods or services for the transaction which the customer wishes to dispute</description>
     <encryptionScheme>ProbabilisticEncryption</encryptionScheme>
     <externalId>false</externalId>
-    <inlineHelpText>Only applicable for dispute reasons:
-·         Credit has not been processed or processed incorrectly
-·         Goods or services defective or not as described</inlineHelpText>
+    <inlineHelpText>Date when the goods were returned or service cancelled. Enter today&apos;s date if customer can&apos;t provide one.</inlineHelpText>
     <label>Good Returned Or Service Cancelled Date</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

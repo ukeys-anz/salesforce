@@ -16,6 +16,10 @@
         <apexClass>CaseHistoryObject</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>SubmitDisputeController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <description>Should only have required/minimum permissions to Read/Write Case related information for FraudX Agents.</description>
     <fieldPermissions>
         <editable>false</editable>
@@ -163,7 +167,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Case.Customer_Account_BSB__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -173,7 +177,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Case.Customer_Account_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -185,6 +189,15 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Customer_Notification_Consent__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <field>Case.Customer_Description__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Date_Account_Last_Debited__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -465,6 +478,21 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Fraud_Total_Falcon_Recalled__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Goods_Or_Services_Returned__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_NC_Email__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Has_The_Card_Been_Stopped__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -789,6 +817,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Received_Currency__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Refund_Request_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -860,6 +893,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Transaction_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Transaction_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Transaction_UUID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -966,10 +1009,6 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>Case.Scam</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
-        <recordType>Case.Urgent_Dishonour_Request_Dispute</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <tabSettings>

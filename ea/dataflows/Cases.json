@@ -83,7 +83,7 @@
           {
             "label": "FilterTitle",
             "name": "FilterTitle",
-            "saqlExpression": "case 'Record.Name' \nwhen \"ATM\" then \"Transaction Dispute\"\nwhen \"Card\" then \"Transaction Dispute\"\nwhen \"Direct Debit\" then \"Transaction Dispute\"\nwhen \"Direct Entry\" then \"Transaction Dispute\"\nwhen \"Urgent Dishonour Request\" then \"Transaction Dispute\"\nelse 'Record.Name'\nend\n",
+            "saqlExpression": "case 'Record.Name' \nwhen \"ATM\" then \"Transaction Dispute\"\nwhen \"Card\" then \"Transaction Dispute\"\nwhen \"Direct Debit\" then \"Transaction Dispute\"\nwhen \"Direct Entry\" then \"Transaction Dispute\"\nwhen \"Urgent Dishonour Request\" then \"Transaction Dispute\"\nwhen \"NPP\" then \"Transaction Dispute\"\nelse 'Record.Name'\nend\n",
             "type": "Text"
           }
         ],

@@ -63,6 +63,16 @@
         <reevaluateOnChange>false</reevaluateOnChange>
     </fieldUpdates>
     <fieldUpdates>
+        <fullName>SLA_Status_None_Update</fullName>
+        <description>Updating SLA status back to &quot;None&quot;</description>
+        <field>SLA_Status__c</field>
+        <name>SLA Status None Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>SLA_Status_Violation_Update</fullName>
         <field>SLA_Status__c</field>
         <literalValue>Breached</literalValue>

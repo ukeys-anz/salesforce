@@ -734,7 +734,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Case.Customer_Account_BSB__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -821,6 +821,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.EntitlementId</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.External_Case_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.External_System__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1305,6 +1315,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.NPP_Subtype__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Provided_details_to_Product_Manufacturer__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1614,6 +1629,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Reason_Code__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Refund_Request_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1910,6 +1930,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Subject</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Submitted__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3378,10 +3403,6 @@
         <recordType>Case.Systemic_Issue</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Case-Urgent Dishonour Request Layout</layout>
-        <recordType>Case.Urgent_Dishonour_Request_Dispute</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
         <layout>Case_Product__c-Relevant Product Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -3668,15 +3689,6 @@
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
-        <object>Quality_Assessment__c</object>
-        <viewAllRecords>true</viewAllRecords>
-    </objectPermissions>
-    <objectPermissions>
-        <allowCreate>true</allowCreate>
-        <allowDelete>true</allowDelete>
-        <allowEdit>true</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>true</modifyAllRecords>
         <object>Privileged_Access_Request__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
@@ -3770,11 +3782,6 @@
     <recordTypeVisibilities>
         <default>false</default>
         <recordType>Case.Systemic_Issue</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
-        <default>false</default>
-        <recordType>Case.Urgent_Dishonour_Request_Dispute</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
