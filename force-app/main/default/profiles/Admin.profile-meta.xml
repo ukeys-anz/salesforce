@@ -745,11 +745,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.Customer_Account_Number__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Case.Customer_Contacted_Merchant__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3235,6 +3230,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Product2.IDR_Product_or_Service_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Product2.IDR_Workbasket__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
