@@ -13,7 +13,7 @@ describe("c-create-complaint-l-w-c", () => {
 
   function flushPromises() {
     // eslint-disable-next-line no-undef
-    return new Promise((resolve) => setImmediate(resolve));
+    return new Promise(resolve => setImmediate(resolve));
   }
 
   it("display all sections in the form", () => {
@@ -296,7 +296,7 @@ describe("c-create-complaint-l-w-c", () => {
     );
     //Populate user input - Account Number
     const accNumber = element.shadowRoot.querySelector(
-      "lightning-combobox[data-id=accPolicyNum-id]"
+      "c-multi-select-combobox[data-id=accPolicyNum-id]"
     );
     accNumber.dispatchEvent(
       new CustomEvent("change", {

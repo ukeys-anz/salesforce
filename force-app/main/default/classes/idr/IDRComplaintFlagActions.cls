@@ -92,7 +92,6 @@ public with sharing class IDRComplaintFlagActions {
           IDRCollectionActions.populateSystemTask(
             rec,
             ADD_COMPLAINT_TASK_SUBJECT,
-            '',
             ''
           )
         );
@@ -102,7 +101,6 @@ public with sharing class IDRComplaintFlagActions {
           IDRCollectionActions.populateSystemTask(
             rec,
             REMOVE_COMPLAINT_TASK_SUBJECT,
-            '',
             ''
           )
         );
