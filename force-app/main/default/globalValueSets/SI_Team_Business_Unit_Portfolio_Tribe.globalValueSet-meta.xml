@@ -1,59 +1,364 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <customValue>
-        <fullName>AMU &amp; Collections</fullName>
-        <default>false</default>
-        <label>AMU &amp; Collections</label>
-    </customValue>
-    <customValue>
-        <fullName>APRA Home Loans</fullName>
-        <default>false</default>
-        <label>APRA Home Loans</label>
-    </customValue>
-    <customValue>
-        <fullName>Business Lending Tribe</fullName>
-        <default>false</default>
-        <label>Business Lending Tribe</label>
-    </customValue>
-    <customValue>
         <fullName>Business Owners Portfolio</fullName>
         <default>false</default>
-        <label>Business Owners Portfolio</label>
+        <label>Business Owners (AR&amp;C)</label>
     </customValue>
     <customValue>
         <fullName>Commercial</fullName>
         <default>false</default>
-        <label>Commercial</label>
-    </customValue>
-    <customValue>
-        <fullName>Commercial &amp; Consumer Cards and Personal Lending (CCPL) Tribe</fullName>
-        <default>false</default>
-        <label>Commercial &amp; Consumer Cards and Personal Lending (CCPL) Tribe</label>
+        <label>Commercial (AR&amp;C)</label>
     </customValue>
     <customValue>
         <fullName>Customer Resolution Portfolio (CRP)</fullName>
         <default>false</default>
-        <label>Customer Resolution Portfolio (CRP)</label>
+        <label>Customer Resolution Portfolio (AR&amp;C)</label>
     </customValue>
     <customValue>
         <fullName>Customer Service Operations (CSO)</fullName>
         <default>false</default>
-        <label>Customer Service Operations (CSO)</label>
-    </customValue>
-    <customValue>
-        <fullName>Deposits Tribe</fullName>
-        <default>false</default>
-        <label>Deposits Tribe</label>
+        <label>Customer Service Operations Portfolio (AR&amp;C)</label>
     </customValue>
     <customValue>
         <fullName>Digital Portfolio</fullName>
         <default>false</default>
-        <label>Digital Portfolio</label>
+        <label>Digital Portfolio (AR&amp;C)</label>
     </customValue>
     <customValue>
-        <fullName>Digital Sales Experience Tribe</fullName>
+        <fullName>Responsible Banking Portfolio</fullName>
         <default>false</default>
-        <label>Digital Sales Experience Tribe</label>
+        <label>Responsible Banking Portfolio (AR&amp;C)</label>
+    </customValue>
+    <customValue>
+        <fullName>Data (Digital &amp; Transformation Australia)</fullName>
+        <default>false</default>
+        <label>Data (Digital &amp; Transformation Australia)</label>
+    </customValue>
+    <customValue>
+        <fullName>Group Services (AR&amp;C)</fullName>
+        <default>false</default>
+        <label>Group Services (AR&amp;C)</label>
+    </customValue>
+    <customValue>
+        <fullName>Home Owners Portfolio (AR&amp;C)</fullName>
+        <default>false</default>
+        <label>Home Owners Portfolio (AR&amp;C)</label>
+    </customValue>
+    <customValue>
+        <fullName>Retail (AR&amp;C)</fullName>
+        <default>false</default>
+        <label>Retail (AR&amp;C)</label>
+    </customValue>
+    <customValue>
+        <fullName>Wealth (AR&amp;C)</fullName>
+        <default>false</default>
+        <label>Wealth (AR&amp;C)</label>
+    </customValue>
+    <customValue>
+        <fullName>Risk Australia (Group Risk)</fullName>
+        <default>false</default>
+        <label>Risk Australia (Group Risk)</label>
+    </customValue>
+    <customValue>
+        <fullName>SMADS (AR&amp;C)</fullName>
+        <default>false</default>
+        <label>SMADS (AR&amp;C)</label>
+    </customValue>
+    <customValue>
+        <fullName>Banking Services Portfolio (Institutional)</fullName>
+        <default>false</default>
+        <label>Banking Services Portfolio (Institutional)</label>
+    </customValue>
+    <customValue>
+        <fullName>Business Owner Engagement Tribe</fullName>
+        <default>false</default>
+        <label>Business Owner Engagement Tribe</label>
+    </customValue>
+    <customValue>
+        <fullName>Digital Orientation &amp; Innovation Tribe</fullName>
+        <default>false</default>
+        <label>Digital Orientation &amp; Innovation Tribe</label>
+    </customValue>
+    <customValue>
+        <fullName>Business Banking</fullName>
+        <default>false</default>
+        <label>Business Banking</label>
+    </customValue>
+    <customValue>
+        <fullName>Business Execution</fullName>
+        <default>false</default>
+        <label>Business Execution</label>
+    </customValue>
+    <customValue>
+        <fullName>Commercial Broker</fullName>
+        <default>false</default>
+        <label>Commercial Broker</label>
+    </customValue>
+    <customValue>
+        <fullName>Risk Engagement</fullName>
+        <default>false</default>
+        <label>Risk Engagement</label>
+    </customValue>
+    <customValue>
+        <fullName>Small Business Banking</fullName>
+        <default>false</default>
+        <label>Small Business Banking</label>
+    </customValue>
+    <customValue>
+        <fullName>Specialised Distribution</fullName>
+        <default>false</default>
+        <label>Specialised Distribution</label>
+    </customValue>
+    <customValue>
+        <fullName>Specialist Product Sales</fullName>
+        <default>false</default>
+        <label>Specialist Product Sales</label>
+    </customValue>
+    <customValue>
+        <fullName>Accessibility</fullName>
+        <default>false</default>
+        <label>Accessibility</label>
+    </customValue>
+    <customValue>
+        <fullName>Complaint Resolution</fullName>
+        <default>false</default>
+        <label>Complaint Resolution</label>
+    </customValue>
+    <customValue>
+        <fullName>Complaint Transformation</fullName>
+        <default>false</default>
+        <label>Complaint Transformation</label>
+    </customValue>
+    <customValue>
+        <fullName>Complaints Insights</fullName>
+        <default>false</default>
+        <label>Complaints Insights</label>
+    </customValue>
+    <customValue>
+        <fullName>Customer Advocate</fullName>
+        <default>false</default>
+        <label>Customer Advocate</label>
+    </customValue>
+    <customValue>
+        <fullName>Portfolio Performance</fullName>
+        <default>false</default>
+        <label>Portfolio Performance</label>
+    </customValue>
+    <customValue>
+        <fullName>Project Augur</fullName>
+        <default>false</default>
+        <label>Project Augur</label>
+    </customValue>
+    <customValue>
+        <fullName>Business Governance</fullName>
+        <default>false</default>
+        <label>Business Governance</label>
+    </customValue>
+    <customValue>
+        <fullName>Customer Collections &amp; Service Centre</fullName>
+        <default>false</default>
+        <label>Customer Collections &amp; Service Centre</label>
+    </customValue>
+    <customValue>
+        <fullName>Retail Customer Lending</fullName>
+        <default>false</default>
+        <label>Retail Customer Lending</label>
+    </customValue>
+    <customValue>
+        <fullName>Customer Protection</fullName>
+        <default>false</default>
+        <label>Customer Protection</label>
+    </customValue>
+    <customValue>
+        <fullName>Customer Servicing</fullName>
+        <default>false</default>
+        <label>Customer Servicing</label>
+    </customValue>
+    <customValue>
+        <fullName>Hardship and Vulnerable Customers</fullName>
+        <default>false</default>
+        <label>Hardship and Vulnerable Customers</label>
+    </customValue>
+    <customValue>
+        <fullName>Home Owners &amp; Service Centres</fullName>
+        <default>false</default>
+        <label>Home Owners &amp; Service Centres</label>
+    </customValue>
+    <customValue>
+        <fullName>Performance</fullName>
+        <default>false</default>
+        <label>Performance</label>
+    </customValue>
+    <customValue>
+        <fullName>Retail Credit Control &amp; Quality</fullName>
+        <default>false</default>
+        <label>Retail Credit Control &amp; Quality</label>
+    </customValue>
+    <customValue>
+        <fullName>Transformation and Transforming Customer Service Tribe</fullName>
+        <default>false</default>
+        <label>Transformation and Transforming Customer Service Tribe</label>
+    </customValue>
+    <customValue>
+        <fullName>Data</fullName>
+        <default>false</default>
+        <label>Data</label>
+    </customValue>
+    <customValue>
+        <fullName>ANZi</fullName>
+        <default>false</default>
+        <label>ANZi</label>
+    </customValue>
+    <customValue>
+        <fullName>ANZx</fullName>
+        <default>false</default>
+        <label>ANZx</label>
+    </customValue>
+    <customValue>
+        <fullName>Capabilities (Human-Centred Design and Group Marketing)</fullName>
+        <default>false</default>
+        <label>Capabilities (Human-Centred Design and Group Marketing)</label>
+    </customValue>
+    <customValue>
+        <fullName>Office of the Chief Operations Officer</fullName>
+        <default>false</default>
+        <label>Office of the Chief Operations Officer</label>
+    </customValue>
+    <customValue>
+        <fullName>Banker Experience Tribe</fullName>
+        <default>false</default>
+        <label>Banker Experience Tribe</label>
+    </customValue>
+    <customValue>
+        <fullName>Customer Authentication Tribe</fullName>
+        <default>false</default>
+        <label>Customer Authentication Tribe</label>
+    </customValue>
+    <customValue>
+        <fullName>Customer Self-Service Adoption Tribe</fullName>
+        <default>false</default>
+        <label>Customer Self-Service Adoption Tribe</label>
+    </customValue>
+    <customValue>
+        <fullName>Digital Customer Experience Tribe</fullName>
+        <default>false</default>
+        <label>Digital Customer Experience Tribe</label>
+    </customValue>
+    <customValue>
+        <fullName>Digital Customer Self Service Tribe</fullName>
+        <default>false</default>
+        <label>Digital Customer Self Service Tribe</label>
+    </customValue>
+    <customValue>
+        <fullName>Digital Cash Solutions</fullName>
+        <default>false</default>
+        <label>Digital Cash Solutions</label>
+    </customValue>
+    <customValue>
+        <fullName>ANZ Command Centre</fullName>
+        <default>false</default>
+        <label>ANZ Command Centre</label>
+    </customValue>
+    <customValue>
+        <fullName>Assurance</fullName>
+        <default>false</default>
+        <label>Assurance</label>
+    </customValue>
+    <customValue>
+        <fullName>Enablement</fullName>
+        <default>false</default>
+        <label>Enablement</label>
+    </customValue>
+    <customValue>
+        <fullName>Payment Operations</fullName>
+        <default>false</default>
+        <label>Payment Operations</label>
+    </customValue>
+    <customValue>
+        <fullName>Reconciliations</fullName>
+        <default>false</default>
+        <label>Reconciliations</label>
+    </customValue>
+    <customValue>
+        <fullName>Remove Image Capture (RIC)</fullName>
+        <default>false</default>
+        <label>Remove Image Capture (RIC)</label>
+    </customValue>
+    <customValue>
+        <fullName>Credit Cards and Personal Lending (CCPL) Tribe</fullName>
+        <default>false</default>
+        <label>Credit Cards and Personal Lending (CCPL) Tribe</label>
+    </customValue>
+    <customValue>
+        <fullName>Everyday Banking Tribe</fullName>
+        <default>false</default>
+        <label>Everyday Banking Tribe</label>
+    </customValue>
+    <customValue>
+        <fullName>PACE</fullName>
+        <default>false</default>
+        <label>PACE</label>
+    </customValue>
+    <customValue>
+        <fullName>Remediation</fullName>
+        <default>false</default>
+        <label>Remediation</label>
+    </customValue>
+    <customValue>
+        <fullName>Prevention and Detection</fullName>
+        <default>false</default>
+        <label>Prevention and Detection</label>
+    </customValue>
+    <customValue>
+        <fullName>Australian Branch Network</fullName>
+        <default>false</default>
+        <label>Australian Branch Network</label>
+    </customValue>
+    <customValue>
+        <fullName>Customer Contact Centre</fullName>
+        <default>false</default>
+        <label>Customer Contact Centre</label>
+    </customValue>
+    <customValue>
+        <fullName>Mobile Lending</fullName>
+        <default>false</default>
+        <label>Mobile Lending</label>
+    </customValue>
+    <customValue>
+        <fullName>Retail Broker Distribution</fullName>
+        <default>false</default>
+        <label>Retail Broker Distribution</label>
+    </customValue>
+    <customValue>
+        <fullName>Retail Business Execution</fullName>
+        <default>false</default>
+        <label>Retail Business Execution</label>
+    </customValue>
+    <customValue>
+        <fullName>Retail Transformation</fullName>
+        <default>false</default>
+        <label>Retail Transformation</label>
+    </customValue>
+    <customValue>
+        <fullName>Wealth Customer Resolution</fullName>
+        <default>false</default>
+        <label>Wealth Customer Resolution</label>
+    </customValue>
+    <customValue>
+        <fullName>Wealth Operations</fullName>
+        <default>false</default>
+        <label>Wealth Operations</label>
+    </customValue>
+    <customValue>
+        <fullName>Wealth Technology</fullName>
+        <default>false</default>
+        <label>Wealth Technology</label>
+    </customValue>
+    <customValue>
+        <fullName>Retail Risk</fullName>
+        <default>false</default>
+        <label>Retail Risk</label>
     </customValue>
     <customValue>
         <fullName>Group Payments</fullName>
@@ -61,19 +366,39 @@
         <label>Group Payments</label>
     </customValue>
     <customValue>
-        <fullName>Group Payments Tribe</fullName>
-        <default>false</default>
-        <label>Group Payments Tribe</label>
-    </customValue>
-    <customValue>
         <fullName>Home Loans Tribe</fullName>
         <default>false</default>
         <label>Home Loans Tribe</label>
     </customValue>
     <customValue>
+        <fullName>Business Lending Tribe</fullName>
+        <default>false</default>
+        <label>Business Lending Tribe</label>
+    </customValue>
+    <customValue>
+        <fullName>Deposits Tribe</fullName>
+        <default>false</default>
+        <label>Deposits Tribe</label>
+    </customValue>
+    <customValue>
+        <fullName>Group Payments Tribe</fullName>
+        <default>false</default>
+        <label>Group Payments Tribe</label>
+    </customValue>
+    <customValue>
         <fullName>Home Owners Tribe</fullName>
         <default>false</default>
         <label>Home Owners Tribe</label>
+    </customValue>
+    <customValue>
+        <fullName>Wealth Tribe</fullName>
+        <default>false</default>
+        <label>Wealth Tribe</label>
+    </customValue>
+    <customValue>
+        <fullName>Systemic Issues</fullName>
+        <default>false</default>
+        <label>Systemic Issues</label>
     </customValue>
     <customValue>
         <fullName>Payments &amp; Merchant Tribe</fullName>
@@ -86,24 +411,53 @@
         <label>Private Banking &amp; Advice (PB&amp;A)</label>
     </customValue>
     <customValue>
-        <fullName>Responsible Banking Portfolio</fullName>
-        <default>false</default>
-        <label>Responsible Banking Portfolio</label>
-    </customValue>
-    <customValue>
         <fullName>Retail Governance &amp; Operational Governance</fullName>
         <default>false</default>
         <label>Retail Governance &amp; Operational Governance</label>
     </customValue>
     <customValue>
-        <fullName>Systemic Issues</fullName>
+        <fullName>Home Lending Tribe</fullName>
         <default>false</default>
-        <label>Systemic Issues</label>
+        <label>Home Lending Tribe</label>
     </customValue>
     <customValue>
-        <fullName>Wealth Tribe</fullName>
+        <fullName>Responsible Lending Tribe</fullName>
         <default>false</default>
-        <label>Wealth Tribe</label>
+        <label>Responsible Lending Tribe</label>
+    </customValue>
+    <customValue>
+        <fullName>Business Owners</fullName>
+        <default>false</default>
+        <label>Business Owners</label>
+    </customValue>
+    <customValue>
+        <fullName>Digital Sales Experience</fullName>
+        <default>false</default>
+        <label>Digital Sales Experience</label>
+    </customValue>
+    <customValue>
+        <fullName>AMU &amp; Collections</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>AMU &amp; Collections</label>
+    </customValue>
+    <customValue>
+        <fullName>Digital Sales Experience Tribe</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Digital Sales Experience Tribe</label>
+    </customValue>
+    <customValue>
+        <fullName>Commercial &amp; Consumer Cards and Personal Lending (CCPL) Tribe</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Commercial &amp; Consumer Cards and Personal Lending (CCPL) Tribe</label>
+    </customValue>
+    <customValue>
+        <fullName>APRA Home Loans</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>APRA Home Loans</label>
     </customValue>
     <description>List of Teams/Business Units/Portfolios/Tribes potentially relevant to, or impacted by a systemic issue.</description>
     <masterLabel>Teams/Business Units/Portfolios/Tribes</masterLabel>

@@ -8150,10 +8150,6 @@
     <recordType>Case.Scam</recordType>
   </layoutAssignments>
   <layoutAssignments>
-      <layout>Case-Urgent Dishonour Request Layout</layout>
-      <recordType>Case.Urgent_Dishonour_Request_Dispute</recordType>
-    </layoutAssignments>
-  <layoutAssignments>
     <layout>PersonAccount-Customer View Layout</layout>
     <recordType>PersonAccount.PersonAccount</recordType>
   </layoutAssignments>
@@ -9592,10 +9588,6 @@
   </tabVisibilities>
   <tabVisibilities>
     <tab>standard-LightningQuickText</tab>
-    <visibility>DefaultOff</visibility>
-  </tabVisibilities>
-  <tabVisibilities>
-    <tab>standard-ListEmail</tab>
     <visibility>DefaultOff</visibility>
   </tabVisibilities>
   <tabVisibilities>

@@ -6,8 +6,8 @@
     <description>Unique account number provided to the customer</description>
     <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
     <externalId>false</externalId>
-    <inlineHelpText>Customer&apos;s account number</inlineHelpText>
-    <label>Account Number</label>
+    <inlineHelpText>The recipient&apos;s account number where the money was meant to go.</inlineHelpText>
+    <label>Intended Account Number</label>
     <length>10</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

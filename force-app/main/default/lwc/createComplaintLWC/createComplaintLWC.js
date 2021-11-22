@@ -561,15 +561,23 @@ export default class CreateComplaintLWC extends NavigationMixin(
       }
       return isValidSoFar;
     }, true);
-    if (this.accountOrPolicyNumber === "") {
+    if (this.isCustomerComplaint && this.accountOrPolicyNumber === "") {
       isFieldValid = false;
       this.missingDataFields += "Account/Policy Number, ";
     }
-    if (this.hasSecondIssue && this.accountOrPolicyNumber2 === "") {
+    if (
+      this.isCustomerComplaint &&
+      this.hasSecondIssue &&
+      this.accountOrPolicyNumber2 === ""
+    ) {
       isFieldValid = false;
       this.missingDataFields += "Account/Policy Number 2, ";
     }
-    if (this.hasThirdIssue && this.accountOrPolicyNumber3 === "") {
+    if (
+      this.isCustomerComplaint &&
+      this.hasThirdIssue &&
+      this.accountOrPolicyNumber3 === ""
+    ) {
       isFieldValid = false;
       this.missingDataFields += "Account/Policy Number 3, ";
     }
@@ -908,6 +916,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
         this.isCustomerDetails = true;
         this.accountNumberOptions = [{ label: "N/A", value: "N/A" }];
         let x;
+        this.accountNumberOptions = [];
         for (x in event.detail.accounts) {
           if (event.detail.accounts[x] != null) {
             this.accountNumberOptions.push({
@@ -916,6 +925,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
             });
           }
         }
+        this.accountNumberOptions.push({ label: "N/A", value: "N/A" });
+        this.template
+          .querySelectorAll("c-multi-select-combobox")[0]
+          .processMyData(this.accountNumberOptions);
       }
     }
   }

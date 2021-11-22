@@ -64,4 +64,26 @@ public with sharing class CommonUtilTest {
     }
     Test.stopTest();
   }
+
+  @isTest
+  static void testGetCustomNotifTypeByName() {
+    // GIVEN
+    // an engineer wants to get the Id of a particular CustomNotificationType
+    String caseSLANotificationName = 'Case_SLA';
+    CustomNotificationType type = new CustomNotificationType();
+
+    // WHEN
+    // getCustomNotificationTypeByName() method is called by passing the DeveloperName of the CustomNotificationType
+    Test.startTest();
+    type = CommonUtil.getCustomNotificationTypeByName(caseSLANotificationName);
+    Test.stopTest();
+
+    // THEN
+    // it should return a valid Id
+    System.assert(
+      type != null &&
+      type.Id != null,
+      'Failed to get CustomNotificationType by DeveloperName.'
+    );
+  }
 }

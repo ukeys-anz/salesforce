@@ -1,50 +1,64 @@
 {
-  "transactionId": "123",
+  "transaction_id": "4313ds-51d2-4ve2-ba7e-0b339p157da1",
+  "account": {
+    "bsb": "014111",
+    "number": "210433904"
+  },
+  "transaction_time": "2021-08-20T20:57:58Z",
+  "last_update_time": "2021-08-23T11:49:14.025984Z",
+  "status": "TRANSACTION_STATUS_POSTED",
+  "long_desc": "test Description",
+  "short_desc": "Card payment somewhere",
   "amount": {
-    "charged": { "value": "50" },
-    "converted": { "value": "50" },
-    "exchangeRate": { "value": "50.00" }
+    "currency_code": "AUD",
+    "units": "-19",
+    "nanos": -1200000,
+    "value": 50
   },
-  "type": "Card",
-  "status": "Pending",
-  "card": { "scheme": "Visa" },
-  "date": "2020-01-01d18:19",
-  "longDesc": "test Description",
-  "tags": [{ "name": "test" }, { "name": "testsuperloooo..." }],
-  "merchant": {
-    "name": "test",
-    "chain_name": { "value": "test" },
-    "phone_number": { "value": "123456" },
-    "website_url": { "value": "wwww.test.com" },
-    "address": {
-      "line_one": {
-        "value": "test street"
-      },
-      "suburb": {
-        "value": "test suburb"
-      },
-      "state": {
-        "value": "test state"
-      },
-      "postcode": {
-        "value": "4000"
-      },
-      "coordinates": {
-        "latitude": 51,
-        "longitude": 47
-      }
+  "international_amount": {
+    "charged": {
+      "currency_code": "AUD",
+      "units": "-18",
+      "nanos": -1300000
     },
-    "image_details": { "light_url": ["Object"] },
-    "email": "test@test.com"
+    "exchange_rate": {
+      "value": 1
+    }
   },
-  "TransactionDate": "2020-01-01",
-  "TransactionTime": "18:19",
-  "showDateTitle": true,
-  "rowColour": "slds-card slds-m-bottom_small transaction-item even",
-  "tagList": ["test", "testsuperloooo..."],
-  "merchantDetails": true,
-  "name": "test",
-  "merchantLocation": "test street, test suburb test state 4000",
-  "logo": "test url",
+  "enrichment_id": "Payment to place with card",
+  "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
+  "merchantId": { "value": "M12345" },
+  "tags": ["T12345"],
+  "type": "TRANSACTION_TYPE_CARD",
+  "card": {
+    "last_four_digits": "7265",
+    "scheme": "CARD_SCHEME_EFTPOS",
+    "method": "CARD_METHOD_SWIPE",
+    "wallet": "CARD_WALLET_EFTPOS_MTR"
+  },
+  "primary_anzx_category": "329db79d-9093-5ce4-b9f2-dc533bc559d3",
+  "transaction_posted_time": "2021-08-22T00:00:00Z",
+  "transaction_value_time": "2021-08-22T14:00:00Z",
+  "is_npp_details_available": false,
+  "traceId": "trace-id-12345",
+  "origination_id": "CT5M000000244034",
+  "ob_transaction_type": {
+    "value": "ob-transaction-type"
+  },
+  "ob_extension_u_type": {
+    "value": "ob-extension-u-type"
+  },
+  "payment_crn": {
+    "value": "payment-crn"
+  },
+  "merchant_category_code": {
+    "value": "merchant-category-code"
+  },
+  "de_user_id": {
+    "value": "0000000"
+  },
+  "aux_dom": { "value": "aux-dom" },
+  "original_anzx_category": "329db79d-9093-5ce4-b9f2-dc533bc559d3",
+  "title": "$2 Shop Purchase",
   "Error": "test error"
 }

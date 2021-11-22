@@ -5,7 +5,8 @@
     <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Fabric</complianceGroup>
     <description>The pay id value where the fund was supposed to go</description>
     <externalId>false</externalId>
-    <label>Intended Pay Id Value</label>
+    <inlineHelpText>Details of the PayID eg mobile, ABN/ACN number or email address.</inlineHelpText>
+    <label>Intended PayID Details</label>
     <length>12</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

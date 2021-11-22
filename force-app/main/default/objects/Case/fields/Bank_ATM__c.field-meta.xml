@@ -6,7 +6,7 @@
     <description>Name of the Bank which the ATM belongs to.</description>
     <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
     <externalId>false</externalId>
-    <inlineHelpText>Bank ATM details</inlineHelpText>
+    <inlineHelpText>Name of the bank which the ATM belongs to.</inlineHelpText>
     <label>Bank ATM</label>
     <length>255</length>
     <required>false</required>

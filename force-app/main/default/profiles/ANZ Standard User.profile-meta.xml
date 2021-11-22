@@ -2648,10 +2648,6 @@
     <visibility>DefaultOff</visibility>
   </tabVisibilities>
   <tabVisibilities>
-    <tab>standard-ListEmail</tab>
-    <visibility>DefaultOff</visibility>
-  </tabVisibilities>
-  <tabVisibilities>
     <tab>standard-LoanApplicant</tab>
     <visibility>DefaultOff</visibility>
   </tabVisibilities>
@@ -2883,6 +2879,14 @@
     <userPermissions>
         <enabled>true</enabled>
         <name>ChatterInternalUser</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>false</enabled>
+        <name>ChatterInviteExternalUsers</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>false</enabled>
+        <name>ChatterOwnGroups</name>
     </userPermissions>
     <userPermissions>
         <enabled>false</enabled>

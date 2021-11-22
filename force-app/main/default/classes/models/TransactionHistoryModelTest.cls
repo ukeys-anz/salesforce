@@ -14,7 +14,10 @@ public class TransactionHistoryModelTest {
     TransactionHistoryModel obj = TransactionHistoryModel.parse(
       sr.body.toString()
     );
-    System.assert(obj.transactions != null);
-    System.assert(obj.count == '20');
+    System.assert(obj.embedded.transactions != null);
+    System.assert(obj.embedded.tags != null);
+    System.assert(obj.embedded.merchants != null);
+    System.assert(obj.embedded.categories != null);
+    System.assert(obj.count == '14');
   }
 }
