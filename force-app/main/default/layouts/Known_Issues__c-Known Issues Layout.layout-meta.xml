@@ -22,6 +22,10 @@
                 <behavior>Edit</behavior>
                 <field>Sub_Issue_Type__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Description_of_Issue__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
