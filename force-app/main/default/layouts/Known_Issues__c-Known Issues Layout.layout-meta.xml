@@ -46,6 +46,10 @@
                 <behavior>Edit</behavior>
                 <field>IDR_Possible_Systemic_Issue__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_Status__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
