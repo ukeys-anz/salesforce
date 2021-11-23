@@ -3,6 +3,8 @@
     <fullName>DISPUTE_CARD_VR9</fullName>
     <active>true</active>
     <errorConditionFormula>AND(
+    ISNEW(),
+    Submitted__c != true,
     $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
     RecordType.DeveloperName = &apos;Card_Dispute&apos;,
     ISPICKVAL(Dispute_Reason__c, &quot;Product Defective or Unsatisfactory&quot;),
@@ -10,11 +12,7 @@
     OR(
         ISBLANK(Description),
         OR(
-            AND(
-               ISPICKVAL(Goods_Or_Services_Returned__c, &apos;&apos;),
-               NOT(ISNEW()),
-               Submitted__c != true
-            ),
+            ISPICKVAL(Goods_Or_Services_Returned__c, &apos;&apos;),
             ISPICKVAL(Goods_Or_Services_Returned__c, &apos;NA&apos;)
         ),
         ISBLANK(Merchant_Description__c)
