@@ -38,6 +38,10 @@
                 <behavior>Edit</behavior>
                 <field>IDR_Written_Response_Required__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_REAL_Form_Required__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
