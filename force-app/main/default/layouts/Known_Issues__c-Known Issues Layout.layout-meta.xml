@@ -30,6 +30,10 @@
                 <behavior>Edit</behavior>
                 <field>IDR_Customer_Desired_Outcome__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_Is_there_another_issue__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
