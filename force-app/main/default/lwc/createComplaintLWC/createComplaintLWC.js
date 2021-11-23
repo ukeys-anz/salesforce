@@ -709,10 +709,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
         fields[CP_ID.fieldApiName] = this.cpId;
         fields[RM_COMPLAINT.fieldApiName] = this.isRmComplaint;
         fields[EMAIL_FIELD.fieldApiName] = this.email;
-        fields[
-          CUS_IDENTIFIER_FIELD.fieldApiName
-        ] = this.customerIdentifierValue;
       }
+      fields[CUS_IDENTIFIER_FIELD.fieldApiName] = this.customerIdentifierValue;
       fields[DESCRIPTION_FIELD.fieldApiName] = this.description;
       fields[PRODUCT_LOOKUP_FIELD.fieldApiName] = this.productValue;
       fields[CAP_CIS_ID_FIELD.fieldApiName] = this.customerIdValue.replace(
