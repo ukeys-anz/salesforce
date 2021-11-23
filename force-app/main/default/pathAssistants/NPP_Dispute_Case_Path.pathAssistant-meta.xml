@@ -3,6 +3,6 @@
     <active>true</active>
     <entityName>Case</entityName>
     <fieldName>Status</fieldName>
-    <masterLabel>Urgent Dishonour Request Case Path</masterLabel>
-    <recordTypeName>Urgent_Dishonour_Request_Dispute</recordTypeName>
+    <masterLabel>NPP Dispute Case Path</masterLabel>
+    <recordTypeName>NPP_Dispute</recordTypeName>
 </PathAssistant>

@@ -37,7 +37,7 @@ public with sharing class TransactionHistoryControllerTest {
    * @description test method for getPersonContactId
    */
   @isTest
-  public static void testGetPersonContactId() {
+  public static void testGetPersonAccounttId() {
     String recTypeId = [
       SELECT Id
       FROM RecordType
@@ -61,15 +61,14 @@ public with sharing class TransactionHistoryControllerTest {
     );
     insert finAcc;
     Test.startTest();
-    String personContactId = TransactionHistoryController.getPersonContactId(
+    String personAccountId = TransactionHistoryController.getPersonAccountId(
       finAcc.Id
     );
     Test.stopTest();
     System.assertEquals(
-      [SELECT Id FROM Contact WHERE AccountId = :acc.Id LIMIT 1][0]
-      .Id,
-      personContactId,
-      'Person Contact Id was retrieved'
+      acc.Id,
+      personAccountId,
+      'Person Account Id was retrieved'
     );
   }
 }

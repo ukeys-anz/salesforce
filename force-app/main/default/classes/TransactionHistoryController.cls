@@ -15,48 +15,26 @@ public with sharing class TransactionHistoryController {
   @AuraEnabled
   public static String getDisputeRecordTypeMap() {
     if (Schema.sObjectType.Case.isAccessible()) {
-      Map<String, RecordType> disputeRecordTypeMap = new Map<String, RecordType>();
-      for (RecordType rt : [
-        SELECT Id, Name, DeveloperName
-        FROM RecordType
-        WHERE SobjectType = 'Case' AND DeveloperName LIKE '%Dispute%'
-      ]) {
-        disputeRecordTypeMap.put(rt.DeveloperName, rt);
-      }
-      return JSON.serialize(disputeRecordTypeMap);
-    }
-    return null;
-  }
-
-  /**
-   * @author Jasmine Nguyen
-   * @since 02/2021
-   * @description Get the contact Id of the person account that will linked to the case
-   * @param financialAccountId Financial Account Id
-   * @return Person Contact Id
-   */
-  @AuraEnabled
-  public static String getPersonContactId(String financialAccountId) {
-    Id personAccountId = getPersonAccountId(financialAccountId);
-    Lib_SystemLog log = new Lib_SystemLog(
-      'TransactionHistoryController',
-      'getPersonContactId'
-    );
-    if (Account.SObjectType.getDescribe().isAccessible()) {
-      for (Account personAccount : [
-        SELECT Id, PersonContactId
-        FROM Account
-        WHERE Id = :personAccountId AND isPersonAccount = TRUE
-      ]) {
-        log.trace(
-          'Person Contact retrieved with Id: ' + personAccount.PersonContactId
+      if (!Cache.Org.contains('local.Utility.disputeRecordTypeMap')) {
+        Map<String, RecordType> disputeRecordTypeMap = new Map<String, RecordType>();
+        for (RecordType rt : [
+          SELECT Id, Name, DeveloperName
+          FROM RecordType
+          WHERE SobjectType = 'Case' AND DeveloperName LIKE '%Dispute%'
+          ORDER BY DeveloperName DESC
+        ]) {
+          disputeRecordTypeMap.put(rt.DeveloperName, rt);
+        }
+        Cache.Org.put(
+          'local.Utility.disputeRecordTypeMap',
+          JSON.serialize(disputeRecordTypeMap)
         );
-        log.insertLogAsync();
-        return personAccount.PersonContactId;
+        return JSON.serialize(disputeRecordTypeMap);
       }
+      return String.valueOf(
+        Cache.Org.get('local.Utility.disputeRecordTypeMap')
+      );
     }
-    log.trace('Unable to retrieve person contact');
-    log.insertLogAsync();
     return null;
   }
 
@@ -90,5 +68,33 @@ public with sharing class TransactionHistoryController {
     log.trace('Unable to retrieve person account');
     log.insertLogAsync();
     return null;
+  }
+
+  /**
+   * @description Add a log for when a record type isn't automatically inferred when raising a dispute
+   * @param logDetails map containing information for log
+   */
+  @AuraEnabled
+  public static void logMissedTransaction(Map<String, String> logDetails) {
+    //Get the developer name of the record type
+    String recordTypeName = Schema.SObjectType.Case.getRecordTypeInfosById()
+      .get(logDetails.get('selectedRecordType'))
+      .getName();
+    Lib_SystemLog.createSingleLog(
+      TransactionHistoryController.class.getName(),
+      'logMissedTransaction',
+      '',
+      'Failed to automatically infer dispute type for transaction ' +
+      logDetails.get('transactionId') +
+      ' of type ' +
+      logDetails.get('transactionType') +
+      '. Using ' +
+      recordTypeName +
+      ' as a result. Financial account: ' +
+      logDetails.get('financialAccountId') +
+      ' | User Id: ' +
+      UserInfo.getUserId(),
+      Lib_SystemLog.Severity.ERROR
+    );
   }
 }

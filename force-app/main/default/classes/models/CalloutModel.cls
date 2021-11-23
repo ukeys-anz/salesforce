@@ -16,9 +16,9 @@ public virtual class CalloutModel {
     'expires_in' => 'expiresIn',
     'expires_on' => 'expiresOn',
     'number' => 'transactionAccountNumber',
-    'type' => 'transactionType',
     'date' => 'transactionDate',
-    '_links' => 'links'
+    '_links' => 'links',
+    'set' => 'category_set'
   };
 
   /**

@@ -5,6 +5,40 @@ import ExpandCollapseAll from "@salesforce/messageChannel/ListCollapseExpandAll_
 
 import { NavigationMixin } from "lightning/navigation";
 import canRaiseDispute from "@salesforce/customPermission/ANZx_Raise_Dispute";
+
+import { prepopulateDisputesFields } from "./helper/disputes-fields-mapping";
+import { encodeDefaultFieldValues } from "lightning/pageReferenceUtils";
+import logMissedTransaction from "@salesforce/apex/TransactionHistoryController.logMissedTransaction";
+
+import {
+  TRANSACTION_STATUSES,
+  TRANSACTION_TYPES
+} from "c/transactionHistoryService";
+
+const ALLOWED_TRANSACTION_TYPES = [
+  TRANSACTION_TYPES.BSB_ACC,
+  TRANSACTION_TYPES.Card,
+  TRANSACTION_TYPES.Direct_Debit,
+  TRANSACTION_TYPES.Deposit_Withdrawal,
+  TRANSACTION_TYPES.Unknown,
+  TRANSACTION_TYPES.Salary,
+  TRANSACTION_TYPES.Payment,
+  TRANSACTION_TYPES.Interest,
+  TRANSACTION_TYPES.PAYID
+]; // Transaction types that a coach can raise a dispute for, as specified in ANZX-5492
+
+const ALLOWED_DISPUTE_TYPES_FOR_SALARY = [
+  "NPP_Dispute",
+  "Direct_Entry_Dispute"
+]; //Allowed dispute types for salary transaction
+
+const BPAY_AND_TRANSFER_MESSAGE =
+  "You can't raise a transaction dispute for a transfer between the ANZ Plus and ANZ Save accounts. Please let the customer know they can amend the payment themselves in the app.";
+const PENDING_TRANSACTION_MESSAGE =
+  "You can’t raise a dispute on a pending transaction. Please try again once payment has cleared.";
+const UNKNOWN_TRANSACTION_MESSAGE =
+  "You can’t raise a dispute on a transaction with unknown status.";
+
 export default class TransactionHistoryRecord extends NavigationMixin(
   LightningElement
 ) {
@@ -17,9 +51,10 @@ export default class TransactionHistoryRecord extends NavigationMixin(
   messageContext;
   subscription = null;
   showRecordTypeSelection = false;
-  @api disputeRecordTypes;
+  @api disputeRecordTypesFromParent;
+  disputeRecordTypes;
   selectedDisputeRecordType;
-  @api personContactId;
+  @api personAccountId;
   @api financialAccountId;
 
   connectedCallback() {
@@ -38,52 +73,57 @@ export default class TransactionHistoryRecord extends NavigationMixin(
     if (this.expandAll) {
       this.showTransactionDetails = true;
     }
+
+    // Process the dispute type that will show up on the modal based on the transaction type, as specified in ANZX-5492
+    this.disputeRecordTypes =
+      this.transactionRecord.formatted_type === TRANSACTION_TYPES.Salary
+        ? this.handleFilterModalDisputeTypes(
+            this.disputeRecordTypesFromParent,
+            ALLOWED_DISPUTE_TYPES_FOR_SALARY
+          )
+        : this.disputeRecordTypesFromParent;
   }
 
+  // Tooltip for Raise Dispute button if disabled
+  get disputeButtonTooltip() {
+    switch (true) {
+      case [TRANSACTION_TYPES.BPAY, TRANSACTION_TYPES.Transfer].includes(
+        this.transactionRecord.formatted_type
+      ):
+        return BPAY_AND_TRANSFER_MESSAGE;
+      case this.transactionRecord.status === TRANSACTION_STATUSES.Pending:
+        return PENDING_TRANSACTION_MESSAGE;
+      case this.transactionRecord.status === TRANSACTION_STATUSES.Unspecified:
+        return UNKNOWN_TRANSACTION_MESSAGE;
+      default:
+        return "";
+    }
+  }
+
+  // Check if user should be able to raise a dispute, including the Raise Dispute custom permisison and
+  // other conditions specified in ANZX-5492
   get disableRaiseDisputeBtn() {
-    return !canRaiseDispute;
-  }
-
-  get merchantPhoneNumber() {
-    let merPhoneNumber;
-    if (
-      this.transactionRecord.merchant &&
-      this.transactionRecord.merchant.phone_number
-    ) {
-      merPhoneNumber = this.transactionRecord.merchant.phone_number.value;
-    } else {
-      merPhoneNumber = "Unknown";
-    }
-    return merPhoneNumber;
-  }
-
-  get merchantWebsiteUrl() {
-    let merWebsiteUrl;
-    if (
-      this.transactionRecord.merchant &&
-      this.transactionRecord.merchant.website_url
-    ) {
-      merWebsiteUrl = this.transactionRecord.merchant.website_url.value;
-    } else {
-      merWebsiteUrl = "Unknown";
-    }
-    return merWebsiteUrl;
+    return (
+      !canRaiseDispute ||
+      !(this.transactionRecord.status === TRANSACTION_STATUSES.Posted) ||
+      !ALLOWED_TRANSACTION_TYPES.includes(this.transactionRecord.formatted_type)
+    );
   }
 
   get amountConvertedValue() {
-    return this.transactionRecord.amount.converted.value;
+    return this.transactionRecord.international_amount.charged.value;
   }
 
   get amountConvertedCurrency() {
-    return this.transactionRecord.amount.converted.currencyCode;
+    return this.transactionRecord.international_amount.charged.currency_code;
   }
 
   get amountExchangeRateValue() {
-    return this.transactionRecord.amount.exchangeRate.value;
+    return this.transactionRecord.international_amount.exchange_rate.value;
   }
 
   get amountNumber() {
-    let relatedAmount = this.transactionRecord.amount.charged.value;
+    let relatedAmount = this.transactionRecord.amount.value;
     if (relatedAmount < 0) {
       relatedAmount = -relatedAmount;
     }
@@ -91,11 +131,11 @@ export default class TransactionHistoryRecord extends NavigationMixin(
   }
 
   get positiveAmount() {
-    return this.transactionRecord.amount.charged.value >= 0;
+    return this.transactionRecord.amount.value >= 0;
   }
 
   get negativeAmount() {
-    return this.transactionRecord.amount.charged.value < 0;
+    return this.transactionRecord.amount.value < 0;
   }
 
   get transactionDate() {
@@ -103,7 +143,7 @@ export default class TransactionHistoryRecord extends NavigationMixin(
   }
 
   get transactionTime() {
-    return this.transactionRecord.TransactionTime;
+    return this.transactionRecord.transaction_time;
   }
 
   handleDetailsToggle() {
@@ -112,7 +152,7 @@ export default class TransactionHistoryRecord extends NavigationMixin(
 
   // Handle raising dispute
   handleRaiseDispute() {
-    if (typeof this.transactionRecord.disputeRecordTypeId === "undefined") {
+    if (this.transactionRecord.disputeRecordTypeId === "") {
       this.showRecordTypeSelection = true;
     } else {
       this.selectedDisputeRecordType = this.transactionRecord.disputeRecordTypeId;
@@ -132,27 +172,29 @@ export default class TransactionHistoryRecord extends NavigationMixin(
 
   // Navigating to dispute capture form
   handleNavigateToDisputeForm() {
-    let defaultFieldValues = "Subject=To be generated by the system";
-    // Only pre-populate fields that have a value, to avoid error when loading the form
-    if (this.personContactId)
-      defaultFieldValues += ",ContactId=" + this.personContactId;
-    if (this.financialAccountId)
-      defaultFieldValues +=
-        ",FinServ__FinancialAccount__c=" + this.financialAccountId;
-    if (this.transactionRecord.transactionId)
-      defaultFieldValues +=
-        ",Transaction_Id__c=" + this.transactionRecord.transactionId;
-    if (this.transactionRecord.transactionDate)
-      defaultFieldValues +=
-        ",Effective_Date__c=" +
-        this.transactionRecord.transactionDate.split("T")[0]; // Get the date only to prevent SF from converting this date to local timezone in the Date field
-    if (this.transactionRecord.amount.charged.value)
-      defaultFieldValues +=
-        ",Transaction_Amount__c=" +
-        Math.abs(this.transactionRecord.amount.charged.value); // Return the absolute value of amount
-    // Explicitly set the Origin to null so on the layout it's not defaulted to Phone
-    // The reason is because if the user is a call center user, and the record type does not have a default value for Case Origin, it will be defaulted to Phone
-    defaultFieldValues += ",Origin=";
+    let disputeType = this.handleGetDisputeTypeFromRecordTypeId(
+      this.selectedDisputeRecordType
+    );
+    let defaultFieldValuesObj = prepopulateDisputesFields(
+      this.personAccountId,
+      this.financialAccountId,
+      disputeType,
+      this.transactionRecord
+    );
+
+    //If we fail to automatically infer record type, log error
+    if (this.transactionRecord.disputeRecordTypeId === "") {
+      let logDetails = {
+        transactionType: this.transactionRecord.formatted_type,
+        selectedRecordType: this.selectedDisputeRecordType,
+        transactionId: this.transactionRecord.transaction_id,
+        financialAccountId: this.financialAccountId
+      };
+
+      logMissedTransaction({
+        logDetails: logDetails
+      });
+    }
 
     this[NavigationMixin.Navigate]({
       type: "standard__objectPage",
@@ -161,12 +203,27 @@ export default class TransactionHistoryRecord extends NavigationMixin(
         actionName: "new"
       },
       state: {
-        defaultFieldValues: defaultFieldValues,
+        defaultFieldValues: encodeDefaultFieldValues(defaultFieldValuesObj),
         nooverride: "1",
         recordTypeId: this.selectedDisputeRecordType
       }
     });
     // Close modal after user clicks Next
     this.showRecordTypeSelection = false;
+  }
+
+  // Filter the list of dispute types that will be displayed on the modal
+  handleFilterModalDisputeTypes(disputeTypesFromParent, allowedDisputeTypes) {
+    return disputeTypesFromParent.filter((disputeType) =>
+      allowedDisputeTypes.includes(disputeType.developerName)
+    );
+  }
+
+  // Get this dispute type from record type Id
+  handleGetDisputeTypeFromRecordTypeId(recordTypeId) {
+    let disputeType = this.disputeRecordTypesFromParent.filter(
+      (disputeRecordType) => disputeRecordType.value === recordTypeId
+    )[0].label;
+    return disputeType;
   }
 }

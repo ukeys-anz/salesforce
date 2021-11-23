@@ -101,6 +101,10 @@
     <picklistValues>
         <picklist>Dispute_Reason__c</picklist>
         <values>
+            <fullName>Claim not for value</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Fraudulent transaction</fullName>
             <default>false</default>
         </values>

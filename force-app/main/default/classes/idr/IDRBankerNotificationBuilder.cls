@@ -14,15 +14,9 @@ public with sharing class IDRBankerNotificationBuilder {
   public static void sendNotification(
     List<IDRBankerNotificationWrapper> wrapperList
   ) {
-    CustomNotificationType type = new CustomNotificationType();
-
-    if (Schema.sObjectType.CustomNotificationType.isQueryable()) {
-      type = [
-        SELECT Id
-        FROM CustomNotificationType
-        WHERE DeveloperName = 'IDR_Banker_Notification'
-      ];
-    }
+    CustomNotificationType type = CommonUtil.getCustomNotificationTypeByName(
+      'IDR_Banker_Notification'
+    );
 
     populateUserPreference(wrapperList);
 
