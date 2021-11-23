@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_Non_Financial_Remedy__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <securityClassification>Internal</securityClassification>
     <externalId>false</externalId>
     <label>Non-Financial Remedy</label>
     <required>false</required>
