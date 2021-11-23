@@ -3,6 +3,7 @@
     <fullName>IDR_Customer_Desired_Outcome__c</fullName>
     <description>Free text explaining the desired outcome of the complaint raised</description>
     <externalId>false</externalId>
+    <inlineHelpText>Provide a detailed, accurate and grammatically correct description of the customer&apos;s desired outcome - regardless of whether ANZ is able to achieve this outcome</inlineHelpText>
     <label>Customer Desired Outcome</label>
     <length>32768</length>
     <trackTrending>false</trackTrending>

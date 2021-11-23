@@ -3,6 +3,7 @@
     <fullName>IDR_Description_of_Issue__c</fullName>
     <description>Description of issue</description>
     <externalId>false</externalId>
+    <inlineHelpText>Provide a detailed, accurate and grammatically correct description of the customer&apos;s concern, from Customer&apos;s perspective. This field should not display subjective comments from your, or ANZ&apos;s perspective.</inlineHelpText>
     <label>Description of Issue</label>
     <length>32000</length>
     <trackTrending>false</trackTrending>

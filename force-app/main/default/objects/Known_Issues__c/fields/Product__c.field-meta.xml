@@ -4,6 +4,7 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Foreign key to Product2 table</description>
     <externalId>false</externalId>
+    <inlineHelpText>Start typing the ANZ product or Service the complaint relates to for available options to appear</inlineHelpText>
     <label>Product or Service Name</label>
     <referenceTo>Product2</referenceTo>
     <relationshipLabel>Known Issues</relationshipLabel>
