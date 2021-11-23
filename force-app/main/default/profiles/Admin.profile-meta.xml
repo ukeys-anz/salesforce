@@ -3184,7 +3184,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Known_Issues__c.Issue_Type__c</field>
+        <field>Known_Issues__c.IDR_Issue_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3194,17 +3194,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Known_Issues__c.Sub_Issue_Type__c</field>
+        <field>Known_Issues__c.IDR_Sub_Issue_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Known_Issues__c.Description_of_Issue__c</field>
+        <field>Known_Issues__c.IDR_Description_of_Issue__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Known_Issues__c.Customer_Desired_Outcome__c</field>
+        <field>Known_Issues__c.IDR_Customer_Desired_Outcome__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

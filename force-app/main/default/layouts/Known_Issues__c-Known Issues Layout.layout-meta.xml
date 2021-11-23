@@ -16,19 +16,19 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Issue_Type__c</field>
+                <field>IDR_Issue_Type__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Sub_Issue_Type__c</field>
+                <field>IDR_Sub_Issue_Type__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Description_of_Issue__c</field>
+                <field>IDR_Description_of_Issue__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Customer_Desired_Outcome__c</field>
+                <field>IDR_Customer_Desired_Outcome__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
