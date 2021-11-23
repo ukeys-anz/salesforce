@@ -10,7 +10,11 @@
     OR(
         ISBLANK(Description),
         OR(
-            ISPICKVAL(Goods_Or_Services_Returned__c, &apos;&apos;),
+            AND(
+               ISPICKVAL(Goods_Or_Services_Returned__c, &apos;&apos;),
+               NOT(ISNEW()),
+               Submitted__c != true
+            ),
             ISPICKVAL(Goods_Or_Services_Returned__c, &apos;NA&apos;)
         ),
         ISBLANK(Merchant_Description__c)
