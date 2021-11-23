@@ -14,6 +14,10 @@
                 <behavior>Edit</behavior>
                 <field>IDR_Restriction_Level__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_Known_Issues__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
