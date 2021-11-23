@@ -26,6 +26,10 @@
                 <behavior>Edit</behavior>
                 <field>Description_of_Issue__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Customer_Desired_Outcome__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
