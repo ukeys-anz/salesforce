@@ -22,7 +22,7 @@ class ButtonFactory {
 // functions according to each button - will be passed to parent
 function lockCardAction(inputInfo) {
   return {
-    tokenizedCardNumber: inputInfo.tokenizedCardNumber,
+    tokenizedCardNumber: inputInfo.card.tokenizedCardNumber,
     showLock: !inputInfo.showLock
   };
 }
