@@ -3224,6 +3224,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Known_Issues__c.IDR_Possible_Systemic_Issue__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Privileged_Access_Request__c.Previous_Profile_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
