@@ -6,7 +6,7 @@
     <description>Unique branch code, where customer account is held branch details.</description>
     <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
     <externalId>false</externalId>
-    <inlineHelpText>Branch code</inlineHelpText>
+    <inlineHelpText>Six digit branch code.</inlineHelpText>
     <label>BSB</label>
     <length>6</length>
     <required>false</required>

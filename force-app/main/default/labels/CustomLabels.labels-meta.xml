@@ -49,6 +49,14 @@
         <value>/account-details-api-sandbox/api/accountbalance?ocvid=</value>
     </labels>
     <labels>
+        <fullName>MS_Fraud_Lock_Card</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Fraud_Lock_Card</shortDescription>
+        <value>/card-management/v1/cards/</value>
+    </labels>
+    <labels>
         <fullName>MS_Forge_Token</fullName>
         <categories>MS</categories>
         <language>en_US</language>
@@ -102,7 +110,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Transactions</shortDescription>
-        <value>/anz-exp-sfdc-coach-banking-api/api/transactions</value>
+        <value>/coach-banking/v1beta1/transactions</value>
     </labels>
     <labels>
         <fullName>MS_Replace_Card</fullName>
@@ -119,6 +127,22 @@
         <protected>false</protected>
         <shortDescription>MS_Temp_Block_Card</shortDescription>
         <value>/anz-exp-sfdc-coach-banking-api/api/cards/</value>
+    </labels>
+    <labels>
+        <fullName>MS_Get_StatementList</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_StatementList</shortDescription>
+        <value>/document-management/v1beta2/statements/list</value>
+    </labels>
+    <labels>
+        <fullName>MS_Get_StatementUrl</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_StatementUrl</shortDescription>
+        <value>/document-management/v1beta2/statements/signed_url/</value>
     </labels>
     <labels>
         <fullName>Test_Bulk_Size</fullName>

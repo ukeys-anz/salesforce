@@ -4,11 +4,9 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Trusted;Source_Salesforce;Privacy_Non_Personal_Information</complianceGroup>
     <defaultValue>&quot;NA&quot;</defaultValue>
-    <description>To check whether the card was stopped by the customer before lodging dispute case</description>
+    <description>To check whether the card was stopped by the customer before lodging dispute case.</description>
     <externalId>false</externalId>
-    <inlineHelpText>Only applicable for dispute reason:
-·         Cardholder did not authorise transaction 
-·         Additional transactions for an existing lost/stolen/fraud case</inlineHelpText>
+    <inlineHelpText>To check whether the card was stopped (locked) by the customer before raising the dispute.</inlineHelpText>
     <label>Has The Card Been Stopped?</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

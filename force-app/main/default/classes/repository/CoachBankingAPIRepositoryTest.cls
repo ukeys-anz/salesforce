@@ -244,7 +244,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
     );
     Test.stopTest();
 
-    System.assertEquals(20, transactionModel.transactions.size());
+    System.assertEquals(14, transactionModel.embedded.transactions.size());
   }
 
   /**
@@ -299,7 +299,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
     );
     Test.stopTest();
 
-    System.assertEquals(20, transactionModel.transactions.size());
+    System.assertEquals(14, transactionModel.embedded.transactions.size());
   }
 
   /**
@@ -314,7 +314,6 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       CoachBankingAPIRepository coachAPI = new CoachBankingAPIRepository();
       CardListModel cardsModel = coachAPI.getCardList('1111');
       Test.stopTest();
-
       System.assertEquals(5, cardsModel.cards.size());
     }
   }

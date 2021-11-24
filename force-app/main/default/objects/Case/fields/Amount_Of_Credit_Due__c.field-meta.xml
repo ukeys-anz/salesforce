@@ -5,10 +5,7 @@
     <complianceGroup>Integrity_Trusted;Source_Salesforce;Privacy_Non_Personal_Information</complianceGroup>
     <description>Amount which the merchant owes to the customer</description>
     <externalId>false</externalId>
-    <inlineHelpText>The pending amount which the merchant owes to the customer.
- 
-Only applicable for dispute reason:
-·         Credit has not been processed or processed incorrectly</inlineHelpText>
+    <inlineHelpText>The pending amount which the merchant owes to the customer.</inlineHelpText>
     <label>Amount Of Credit Due</label>
     <precision>12</precision>
     <required>false</required>
