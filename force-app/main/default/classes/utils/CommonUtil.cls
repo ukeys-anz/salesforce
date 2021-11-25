@@ -4,7 +4,7 @@
  * @description Holds common util functions
  * @group Utils
  */
-@SuppressWarnings('PMD.ApexCRUDViolation')
+@SuppressWarnings('PMD.ApexCRUDViolation, PMD.CyclomaticComplexity')
 public with sharing class CommonUtil {
   /**
    * @description Get a picklist labels by values (API names).
@@ -284,6 +284,53 @@ public with sharing class CommonUtil {
       ];
     } else {
       return null;
+    }
+  }
+
+  /**
+   * @description Get CustomNotificationType by name
+   * @param notificationName developer name of the CustomNotificationType
+   * @return `CustomNotificationType`
+   */
+  public static CustomNotificationType getCustomNotificationTypeByName(
+    String notificationName
+  ) {
+    CustomNotificationType notificationType;
+    if (Schema.sObjectType.CustomNotificationType.isQueryable()) {
+      notificationType = [
+        SELECT Id
+        FROM CustomNotificationType
+        WHERE DeveloperName = :notificationName
+      ];
+    }
+
+    return notificationType;
+  }
+
+  /**
+   * @description Send the in app notification
+   * @param wrapperRecord wrapper reccord
+   */
+  public static void sendInAppNotification(
+    InAppNotificationWrapper wrapperRecord
+  ) {
+    Messaging.CustomNotification notification = new Messaging.CustomNotification();
+    notification.setBody(wrapperRecord.msgBody);
+    notification.setTitle(wrapperRecord.msgTitle);
+    notification.setNotificationTypeId(wrapperRecord.notificationTypeId);
+    notification.setTargetId(wrapperRecord.targetObjectId);
+    try {
+      notification.send(wrapperRecord.recipientList);
+    } catch (Exception e) {
+      lib_systemLog log = new lib_systemLog(
+        CommonUtil.class.getName(),
+        'sendInAppNotification'
+      );
+      log.error(
+        'Problem sending in app notification: ' + wrapperRecord.recipientList,
+        e.getMessage()
+      );
+      log.publishEvent();
     }
   }
 }

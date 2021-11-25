@@ -6,8 +6,8 @@
     <description>Unique branch code where the customer account is held.</description>
     <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
     <externalId>false</externalId>
-    <inlineHelpText>Branch code</inlineHelpText>
-    <label>BSB</label>
+    <inlineHelpText>Branch code of the recipient&apos;s bank where the money was meant to go.</inlineHelpText>
+    <label>Intended Account BSB</label>
     <length>6</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

@@ -7,7 +7,7 @@
     <externalId>false</externalId>
     <formula>Transaction_Amount__c -  Received_Amount__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-    <inlineHelpText>Pending amount owed by the customer</inlineHelpText>
+    <inlineHelpText>Amount claimed to be owed by the customer.</inlineHelpText>
     <label>Claimed Amount</label>
     <precision>18</precision>
     <required>false</required>

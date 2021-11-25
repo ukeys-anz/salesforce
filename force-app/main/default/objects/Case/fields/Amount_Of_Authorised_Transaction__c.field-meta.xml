@@ -5,11 +5,7 @@
     <complianceGroup>Source_Salesforce;Integrity_Trusted;Privacy_Non_Personal_Information</complianceGroup>
     <description>Expected amount which should have been debited from customer&apos;s account</description>
     <externalId>false</externalId>
-    <inlineHelpText>The expected amount which should have been debited from customer&apos;s account.
- 
-Only applicable for dispute reasons:
-·         Purchase was charged more than once
-·         Purchase was charged incorrectly</inlineHelpText>
+    <inlineHelpText>The expected amount which should have been debited from customer&apos;s account.</inlineHelpText>
     <label>Amount Of Authorised Transaction</label>
     <precision>12</precision>
     <required>false</required>

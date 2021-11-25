@@ -25,10 +25,6 @@ public with sharing class GetHelpConstants {
     .get('Direct_Entry_Dispute')
     .getRecordTypeId();
 
-  public static final Id URGENT_DISHONOUR_DISPUTE_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get('Urgent_Dishonour_Request_Dispute')
-    .getRecordTypeId();
-
   public static final Id NPP_DISPUTE_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('NPP_Dispute')
     .getRecordTypeId();
@@ -78,6 +74,7 @@ public with sharing class GetHelpConstants {
   public static final String RESOLVED_STATUS = 'Resolved';
   public static final String WITHDRAWN_STATUS = 'Withdrawn';
   public static final String ESCALATED_STATUS = 'Escalated';
+  public static final String UNDER_INVESTIGATION_STATUS = 'Under Investigation';
   public static final String CLOSED_STATUS_EDUCATED = 'Closed - Customer Educated';
   public static final String CLOSED_STATUS_FUTURE_RELEASE = 'Closed - Future Release';
   public static final String CLOSED_STATUS_RESOLVED = 'Closed - Resolved';

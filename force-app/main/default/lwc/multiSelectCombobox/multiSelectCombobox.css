@@ -33,3 +33,10 @@
   border-radius: 10px;
   background: rgba(0, 0, 0, 0.4);
 }
+
+.outOfKey {
+  background: none;
+}
+.keyOn {
+  background: rgb(237, 237, 237);
+}
