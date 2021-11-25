@@ -8,7 +8,7 @@
     $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
     RecordType.DeveloperName = &apos;Card_Dispute&apos;,
     ISPICKVAL(Dispute_Reason__c, &quot;Product Defective or Unsatisfactory&quot;),
-    ISPICKVAL(Goods_Or_Services_Returned__c,&apos;Y&apos;),
+    ISPICKVAL(Goods_Or_Services_Returned__c,&apos;Yes&apos;),
     OR(
         ISBLANK(Description),
         OR(
@@ -16,7 +16,7 @@
             ISPICKVAL(Goods_Or_Services_Returned__c, &apos;NA&apos;)
         ),
         AND(
-            ISPICKVAL(Goods_Or_Services_Returned__c,&apos;Y&apos;),
+            ISPICKVAL(Goods_Or_Services_Returned__c,&apos;Yes&apos;),
             ISBLANK(Date_Goods_Were_Returned_Or_Services_can__c)
         ),
         ISBLANK(Merchant_Description__c)
