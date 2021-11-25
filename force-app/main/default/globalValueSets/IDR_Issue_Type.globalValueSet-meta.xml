@@ -46,102 +46,102 @@
         <label>Deceased Estate</label>
     </customValue>
     <customValue>
-        <fullName>Service quality</fullName>
+        <fullName>9</fullName>
         <default>false</default>
         <label>Service quality</label>
     </customValue>
     <customValue>
-        <fullName>Channel accessibility</fullName>
+        <fullName>13</fullName>
         <default>false</default>
         <label>Channel accessibility</label>
     </customValue>
     <customValue>
-        <fullName>Account set-up &amp; maintenance</fullName>
+        <fullName>18</fullName>
         <default>false</default>
         <label>Account set-up &amp; maintenance</label>
     </customValue>
     <customValue>
-        <fullName>Fees, interest, rewards</fullName>
+        <fullName>2</fullName>
         <default>false</default>
         <label>Fees, interest, rewards</label>
     </customValue>
     <customValue>
-        <fullName>Financial difficulty &amp; hardship</fullName>
+        <fullName>4</fullName>
         <default>false</default>
         <label>Financial difficulty &amp; hardship</label>
     </customValue>
     <customValue>
-        <fullName>Collections</fullName>
+        <fullName>17</fullName>
         <default>false</default>
         <label>Collections</label>
     </customValue>
     <customValue>
-        <fullName>Lending fulfilment</fullName>
+        <fullName>6</fullName>
         <default>false</default>
         <label>Lending fulfilment</label>
     </customValue>
     <customValue>
-        <fullName>Product features, offers, sales</fullName>
+        <fullName>15</fullName>
         <default>false</default>
         <label>Product features, offers, sales</label>
     </customValue>
     <customValue>
-        <fullName>Closure process</fullName>
+        <fullName>16</fullName>
         <default>false</default>
         <label>Closure process</label>
     </customValue>
     <customValue>
-        <fullName>Credit assessment</fullName>
+        <fullName>5</fullName>
         <default>false</default>
         <label>Credit assessment</label>
     </customValue>
     <customValue>
-        <fullName>Credit reporting</fullName>
+        <fullName>19</fullName>
         <default>false</default>
         <label>Credit reporting</label>
     </customValue>
     <customValue>
-        <fullName>Transactions &amp; payments</fullName>
+        <fullName>10</fullName>
         <default>false</default>
         <label>Transactions &amp; payments</label>
     </customValue>
     <customValue>
-        <fullName>Fraud &amp; Scams</fullName>
+        <fullName>14</fullName>
         <default>false</default>
         <label>Fraud &amp; Scams</label>
     </customValue>
     <customValue>
-        <fullName>Transaction Disputes</fullName>
+        <fullName>20</fullName>
         <default>false</default>
         <label>Transaction Disputes</label>
     </customValue>
     <customValue>
-        <fullName>Privacy and Confidentiality</fullName>
+        <fullName>8</fullName>
         <default>false</default>
         <label>Privacy and Confidentiality</label>
     </customValue>
     <customValue>
-        <fullName>Advice</fullName>
+        <fullName>1</fullName>
         <default>false</default>
         <label>Advice</label>
     </customValue>
     <customValue>
-        <fullName>Insurance Claims</fullName>
+        <fullName>7</fullName>
         <default>false</default>
         <label>Insurance Claims</label>
     </customValue>
     <customValue>
-        <fullName>Disclosure</fullName>
+        <fullName>3</fullName>
         <default>false</default>
         <label>Disclosure</label>
     </customValue>
     <customValue>
-        <fullName>Organisational Structure &amp; Marketing</fullName>
+        <fullName>12</fullName>
         <default>false</default>
         <label>Organisational Structure &amp; Marketing</label>
     </customValue>
     <customValue>
-        <fullName>Remediation</fullName>
+        <fullName>21</fullName>
         <default>false</default>
         <label>Remediation</label>
     </customValue>
@@ -326,7 +326,7 @@
         <label>Potential Recipient</label>
     </customValue>
     <customValue>
-        <fullName>Other</fullName>
+        <fullName>11</fullName>
         <default>false</default>
         <label>Other</label>
     </customValue>
