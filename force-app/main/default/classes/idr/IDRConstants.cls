@@ -133,6 +133,9 @@ public with sharing class IDRConstants {
   public static final String TASK_TYPE_PEND_CASE = 'Pend Case';
   public static final String SUBJECT_PEND_CASE_TASK = 'Case Pended - provide update in case comment';
   public static final String TASK_TYPE_SYSTEMIC_ISSUE = 'Systemic Issue';
+  public static final String TASK_TYPE_COLLECTION = 'Collection';
+  public static final String TASK_TYPE_COMPLIANTS_FLAG = 'Complaints Flag';
+  public static final String TASK_TYPE_NOTIFICATION = 'Notification';
 
   //Migrated Document
   public static final String DELETION_NOT_ALLOWED = 'You may not delete CFMS migrated documents.';
