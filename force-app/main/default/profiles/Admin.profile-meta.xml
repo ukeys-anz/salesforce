@@ -734,7 +734,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Case.Customer_Account_BSB__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3059,6 +3059,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Task.IDR_Tribe__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Task.IDR_Collection_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

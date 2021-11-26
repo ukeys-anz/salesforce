@@ -119,6 +119,21 @@ public with sharing virtual class Service {
   }
 
   /**
+   * @param fraudLockInformation `Map<String,String>` which contains:
+   * - cardNumber card number to send to api
+   * - ocvId customer id
+   * - status chosen by fraud agent
+   * - reason for fraud action. If chosen to cancel the card, this will be "Fraud"
+   * @return `HttpCalloutResponse` the api response
+   * @description fraud lock/unlock/cancel cards api
+   */
+  public virtual HttpCalloutResponse setFraudCardStatus(
+    Map<String, String> fraudLockInformation
+  ) {
+    return null;
+  }
+
+  /**
    * @param response HttpCalloutResponse to test various error codes
    * @description setter method for response property
    */
@@ -132,15 +147,15 @@ public with sharing virtual class Service {
    * @param ocvID customer id
    * @param headers key value pairs of headers to set
    * @return `Map<String, String>` header map
-   * @description sets all headers required for a fabric callout
+   * @description sets Authorization required for a callout
    */
-  public Map<String, String> setFabricCommonHeaders(
+  public Map<String, String> setAuthorizationCommonHeaders(
     String ocvID,
     Map<String, String> headers
   ) {
     String serializedToken = AuthTokenCacheUtil.getStaffToken(ocvID);
     headers.put('Authorization', 'Bearer ' + serializedToken);
-    return setMuleCommonHeaders(headers);
+    return headers;
   }
 
   /**
@@ -167,6 +182,21 @@ public with sharing virtual class Service {
   }
 
   /**
+   * @param ocvID customer id
+   * @param headers key value pairs of headers to set
+   * @return `Map<String, String>` header map
+   * @description sets all headers required for a callout
+   */
+  public Map<String, String> setCalloutCommonHeaders(
+    String ocvID,
+    Map<String, String> headers
+  ) {
+    headers = setAuthorizationCommonHeaders(ocvID, headers);
+    headers = setMuleCommonHeaders(headers);
+    return headers;
+  }
+
+  /**
    * @param resourceName the name of the static resource to fetch
    * @return `String` body of static resource
    * @description returns the body of the static resource as a string used for mock data
@@ -188,6 +218,32 @@ public with sharing virtual class Service {
   public virtual HttpCalloutResponse getCustomerInformation(
     String customerId,
     String customerIdentifier
+  ) {
+    return null;
+  }
+  /**
+   * @param ocvId required to make the callout to Mulesoft
+   * @param accountNumber used to fetch the statements from Mulesoft related to the Account Number
+   * @param pageSize number of statement records to be returned from Fabric
+   * @return `HttpCalloutResponse` api response
+   * @description virtual statement callout
+   */
+  public virtual HttpCalloutResponse getStatements(
+    String ocvId,
+    String accountNumber,
+    String pageSize
+  ) {
+    return null;
+  }
+  /**
+   * @param ocvId required to make the callout to Mulesoft
+   * @param statementId  used to fetch the statements from Mulesoft related to the Account Number
+   * @return `HttpCalloutResponse` api response
+   * @description virtual statement callout
+   */
+  public virtual HttpCalloutResponse getStatementUrl(
+    String ocvId,
+    String statementId
   ) {
     return null;
   }

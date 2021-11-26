@@ -19,6 +19,7 @@
     <permissionSets>Record_Access_Log</permissionSets>
     <permissionSets>TwilioSF__Twilio_User</permissionSets>
     <permissionSets>View_Card_Details</permissionSets>
+    <permissionSets>View_Statements</permissionSets>
     <permissionSets>force__EinsteinAnalyticsPlusUser</permissionSets>
     <permissionSets>force__FSCInsurance</permissionSets>
     <status>Updated</status>

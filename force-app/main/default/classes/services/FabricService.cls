@@ -13,7 +13,7 @@ public with sharing class FabricService extends Service {
   public override HttpCalloutResponse getAccountsAndGoals(String ocvId) {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
-    setFabricCommonHeaders(ocvID, headers);
+    setCalloutCommonHeaders(ocvID, headers);
     HttpCalloutResponse response = calloutService.makeRestCallout(
       'callout:SF_MS_Fabric' + Label.MS_Get_Accounts_Goals,
       HTTP_METHOD.HTTP_GET,
@@ -80,7 +80,7 @@ public with sharing class FabricService extends Service {
   ) {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
-    setFabricCommonHeaders(ocvID, headers);
+    setCalloutCommonHeaders(ocvID, headers);
 
     String endPointParams = String.isNotBlank(paramUrl)
       ? paramUrl
@@ -105,7 +105,7 @@ public with sharing class FabricService extends Service {
   public override HttpCalloutResponse getCardList(String ocvId) {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
-    setFabricCommonHeaders(ocvID, headers);
+    setCalloutCommonHeaders(ocvID, headers);
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
       'callout:SF_MS_Fabric' + Label.MS_Get_Cards,
@@ -128,10 +128,9 @@ public with sharing class FabricService extends Service {
   ) {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
-    setFabricCommonHeaders(ocvID, headers);
+    setCalloutCommonHeaders(ocvID, headers);
     headers.put('Content-Type', 'application/json');
 
-    //Actions accepted found here: https://github.com/anzx/fabricapis/blob/28e579f0a95a94ff45eaf667197f81c0a3b0d7a6/proto/fabric/service/cardcontrols/v1beta1/card_control_api.proto#L245
     HttpCalloutResponse response = calloutService.makeRestCallout(
       'callout:SF_MS_Fabric' +
       Label.MS_Temp_Block_Card +
@@ -158,7 +157,7 @@ public with sharing class FabricService extends Service {
   ) {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
-    setFabricCommonHeaders(ocvID, headers);
+    setCalloutCommonHeaders(ocvID, headers);
     headers.put('Content-Type', 'application/json');
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
@@ -171,6 +170,59 @@ public with sharing class FabricService extends Service {
       '{"reason":"REASON_' +
       reason.toUpperCase() +
       '"}'
+    );
+    return response;
+  }
+  /**
+   * @param ocvId required to make the callout to Mulesoft
+   * @param accountNumber Account number for which we want to fetch the statements
+   * @param pageSize number of statement records to be returned from Fabric
+   * @return `HttpCalloutResponse` the api response
+   * @description fetches statements from the fabric API
+   */
+  public override HttpCalloutResponse getStatements(
+    String ocvId,
+    String accountNumber,
+    String pageSize
+  ) {
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    Map<String, String> headers = new Map<String, String>();
+    setCalloutCommonHeaders(ocvID, headers);
+    headers.put('Content-Type', 'application/json');
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      'callout:SF_MS_Fabric' + Label.MS_Get_StatementList,
+      HTTP_METHOD.HTTP_POST,
+      headers,
+      '{"page_size":' +
+      pageSize +
+      ',' +
+      '"account_numbers": ["' +
+      accountNumber +
+      '"]}'
+    );
+    return response;
+  }
+  /**
+   * @param ocvId required to make the callout to Mulesoft
+   * @param statementId for which we want to fetch the statement url
+   * @return `HttpCalloutResponse` the api response
+   * @description fetches statement URL from the fabric API against the statement url mentioned
+   */
+  public override HttpCalloutResponse getStatementUrl(
+    String ocvId,
+    String statementId
+  ) {
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    Map<String, String> headers = new Map<String, String>();
+    setCalloutCommonHeaders(ocvID, headers);
+    headers.put('cache-control', 'no-store');
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      'callout:SF_MS_Fabric' +
+      Label.MS_Get_StatementUrl +
+      statementId,
+      HTTP_METHOD.HTTP_GET,
+      headers,
+      null
     );
     return response;
   }

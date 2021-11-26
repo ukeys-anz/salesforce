@@ -4,15 +4,15 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_Salesforce;Integrity_Trusted;Privacy_Personal_Information</complianceGroup>
     <description>Account/Card/Policy the complaint relates to. Contents will be automatically masked leaving last 4 digits identifiable.</description>
-    <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
+    <encryptionScheme>ProbabilisticEncryption</encryptionScheme>
     <externalId>false</externalId>
     <inlineHelpText>Account/Policy the complaint relates to. Contents will be automatically masked leaving last 4 digits identifiable.</inlineHelpText>
     <label>Account/Policy Number</label>
-    <length>42</length>
+    <length>131072</length>
     <securityClassification>Confidential</securityClassification>
-    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
-    <type>Text</type>
-    <unique>false</unique>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
 </CustomField>
