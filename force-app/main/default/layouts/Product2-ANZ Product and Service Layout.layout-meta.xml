@@ -19,6 +19,10 @@
                 <behavior>Edit</behavior>
                 <field>ANZ_Product_Code__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_Workbasket__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

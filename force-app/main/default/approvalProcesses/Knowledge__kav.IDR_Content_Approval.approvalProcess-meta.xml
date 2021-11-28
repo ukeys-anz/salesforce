@@ -14,47 +14,45 @@
     </approvalPageFields>
     <approvalStep>
         <allowDelegate>false</allowDelegate>
-        <approvalActions>
-            <action>
-                <name>Update_Status_to_Approved</name>
-                <type>FieldUpdate</type>
-            </action>
-        </approvalActions>
         <assignedApprover>
             <approver>
-                <name>Content_Approver_Queue</name>
+                <name>IDR_Content_Owner_Queue</name>
                 <type>queue</type>
             </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
         </assignedApprover>
-        <description>Approval step for content writers</description>
         <label>Peer Review</label>
-        <name>Content_Manager_Approval</name>
-        <rejectionActions>
-            <action>
-                <name>Update_Status_to_Rejected</name>
-                <type>FieldUpdate</type>
-            </action>
-        </rejectionActions>
+        <name>IDR_Content_Writer_Approval</name>
     </approvalStep>
-    <description>Approval process for content users to review and approve knowledge articles</description>
+    <description>Approval process for content users to review and approve knowledge articles for CMOS</description>
     <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
     <entryCriteria>
         <criteriaItems>
             <field>Knowledge__kav.Body__c</field>
             <operation>notEqual</operation>
         </criteriaItems>
+        <criteriaItems>
+            <field>Knowledge__kav.RecordType</field>
+            <operation>equals</operation>
+            <value>IDR Knowledge</value>
+        </criteriaItems>
     </entryCriteria>
+    <finalApprovalActions>
+        <action>
+            <name>IDR_Update_Status_to_Approved</name>
+            <type>FieldUpdate</type>
+        </action>
+    </finalApprovalActions>
     <finalApprovalRecordLock>false</finalApprovalRecordLock>
     <finalRejectionRecordLock>false</finalRejectionRecordLock>
     <initialSubmissionActions>
         <action>
-            <name>Update_Status_to_Submitted</name>
+            <name>IDR_Update_Status_to_Submitted</name>
             <type>FieldUpdate</type>
         </action>
     </initialSubmissionActions>
-    <label>Staff Content Approval</label>
-    <processOrder>2</processOrder>
+    <label>IDR Content Approval</label>
+    <processOrder>1</processOrder>
     <recordEditability>AdminOnly</recordEditability>
     <showApprovalHistory>false</showApprovalHistory>
 </ApprovalProcess>
