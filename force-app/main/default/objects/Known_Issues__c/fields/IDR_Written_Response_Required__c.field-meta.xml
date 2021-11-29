@@ -7,7 +7,7 @@
     <description>Is a Written Response to the Complaint Required under regulations/policy? Yes or No response</description>
     <externalId>false</externalId>
     <inlineHelpText>Is the complaint relating to hardship, a declined insurance claim, the value of an insurance claim or a decision of a superannuation trustee?</inlineHelpText>
-    <label>Written Response Required</label>
+    <label>Hardship/Declined Insurance</label>
     <required>false</required>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
