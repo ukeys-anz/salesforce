@@ -218,17 +218,25 @@ private with sharing class IDRCollectionActionsTest {
 
     // THEN STOP AND START collection tasks must created
     List<Task> collectionTasks = [
-      SELECT Id
+      SELECT Id, Type
       FROM Task
       WHERE Subject LIKE '%Collection%'
     ];
     // THEN Add AND Remove Complaints tasks must created
     List<Task> complaintTasks = [
-      SELECT Id
+      SELECT Id, Type
       FROM Task
       WHERE Subject LIKE '%Complaint%'
     ];
     System.assertEquals(6, collectionTasks.size());
     System.assertEquals(4, complaintTasks.size());
+    System.assertEquals(
+      IDRConstants.TASK_TYPE_COLLECTION,
+      collectionTasks[0].Type
+    );
+    System.assertEquals(
+      IDRConstants.TASK_TYPE_COMPLIANTS_FLAG,
+      complaintTasks[0].Type
+    );
   }
 }
