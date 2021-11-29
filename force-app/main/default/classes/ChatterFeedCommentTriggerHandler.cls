@@ -20,8 +20,24 @@ public with sharing class ChatterFeedCommentTriggerHandler extends Lib_TriggerHa
    * @description  Mask the comments where applicable.
    */
   public override void onApplyDefaults() {
+    List<Id> caseIdList = new List<Id>();
     for (FeedComment record : (List<FeedComment>) records) {
-      record.CommentBody = TextUtils.maskData(record.CommentBody);
+      caseIdList.add(record.parentId);
+    }
+    Map<Id, Case> relatedCaseMap = new Map<Id, Case>(
+      [SELECT Id, RecordTypeId FROM Case WHERE Id IN :caseIdList]
+    );
+
+    for (FeedComment record : (List<FeedComment>) records) {
+      Case relatedCase = relatedCaseMap.get(record.parentId);
+      if (
+        relatedCase != null &&
+        GetHelpCaseActionsHelper.isANZPlusCaseType(relatedCase)
+      ) {
+        record.CommentBody = TextUtils.maskDataAnzx(record.CommentBody);
+      } else {
+        record.CommentBody = TextUtils.maskData(record.CommentBody);
+      }
       if (
         record.CommentType == 'ContentPost' &&
         record.RelatedRecordId != null

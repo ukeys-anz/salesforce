@@ -20,8 +20,24 @@ public with sharing class ChatterFeedItemTriggerHandler extends Lib_TriggerHandl
    * @description  Mask the comments where applicable.
    */
   public override void onApplyDefaults() {
+    List<Id> caseIdList = new List<Id>();
     for (FeedItem record : (List<FeedItem>) records) {
-      record.Body = TextUtils.maskData(record.Body);
+      caseIdList.add(record.parentId);
+    }
+    Map<Id, Case> relatedCaseMap = new Map<Id, Case>(
+      [SELECT Id, RecordTypeId FROM Case WHERE Id IN :caseIdList]
+    );
+
+    for (FeedItem record : (List<FeedItem>) records) {
+      Case relatedCase = relatedCaseMap.get(record.parentId);
+      if (
+        relatedCase != null &&
+        GetHelpCaseActionsHelper.isANZPlusCaseType(relatedCase)
+      ) {
+        record.Body = TextUtils.maskDataAnzx(record.Body);
+      } else {
+        record.Body = TextUtils.maskData(record.Body);
+      }
       if (record.type == 'ContentPost' && record.RelatedRecordId != null) {
         record.addError(FILE_ERROR);
       }
