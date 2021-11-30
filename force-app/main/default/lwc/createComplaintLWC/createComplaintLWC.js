@@ -803,8 +803,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
         .catch((error) => {
           if (
             error.body.enhancedErrorType === "RecordError" &&
-            error.body.output.errors[0].errorCode === "INSUFFICIENT_ACCESS" &&
-            this.restrictionLevelValue === "Restricted Case"
+            this.restrictionLevelValue === "Restricted Case" &&
+            error.body.output.errors[0].errorCode === "INSUFFICIENT_ACCESS"
           ) {
             this.handleRestrictedCase(error);
           } else {
