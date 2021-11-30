@@ -3269,6 +3269,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Known_Issues__c.IDR_Express_CMOS_Complaint__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Privileged_Access_Request__c.Previous_Profile_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
