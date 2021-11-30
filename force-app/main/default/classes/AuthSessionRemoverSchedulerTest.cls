@@ -10,7 +10,10 @@ public with sharing class AuthSessionRemoverSchedulerTest {
     Test.startTest();
     String cronExp = '0 0 */8 ? * *';
 
-    String jobId = AuthSessionRemoverScheduler.schedule(cronExp);
+    String jobId = AuthSessionRemoverScheduler.schedule(
+      'AuthSessionRemoverScheduler Test Job',
+      cronExp
+    );
 
     // Get the information from the CronTrigger API object
     CronTrigger ct = [

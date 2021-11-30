@@ -15,16 +15,17 @@ public with sharing class AuthSessionRemoverScheduler implements Schedulable {
 
   /**
    * @description schedule method to invoke schedule job
+   * @param jobName
    * @param cronExp
    * @return String job Id
    */
-  public static String schedule(String cronExp) {
-    AuthSessionRemoverScheduler job = new AuthSessionRemoverScheduler();
-
-    if (String.isBlank(cronExp)) {
+  public static String schedule(String jobName, String cronExp) {
+    if (String.isBlank(jobName) || String.isBlank(cronExp)) {
       return null;
     }
 
-    return System.schedule('Batch Delete Long Lived AuthSession', cronExp, job);
+    AuthSessionRemoverScheduler job = new AuthSessionRemoverScheduler();
+
+    return System.schedule(jobName, cronExp, job);
   }
 }
