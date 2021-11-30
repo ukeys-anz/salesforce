@@ -311,13 +311,18 @@ public with sharing class IDRCollectionActions {
     String subject,
     String accountNumber
   ) {
+    String taskType = '';
+    taskType = subject.contains('Collection')
+      ? IDRConstants.TASK_TYPE_COLLECTION
+      : IDRConstants.TASK_TYPE_COMPLIANTS_FLAG;
     return new Task(
       RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID,
       IDR_Collection_Number__c = accountNumber,
       WhatId = c.Id,
       Subject = subject + accountNumber,
       Status = 'Completed',
-      Priority = 'High'
+      Priority = 'High',
+      Type = taskType
     );
   }
 

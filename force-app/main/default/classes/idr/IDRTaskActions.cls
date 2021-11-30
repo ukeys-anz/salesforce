@@ -221,6 +221,7 @@ public without sharing class IDRTaskActions {
         record.subject == IDRConstants.TASK_SUBJECT_DAY1
       ) {
         record.RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID;
+        record.Type = IDRConstants.TASK_TYPE_NOTIFICATION;
         idrMaximumTimeTasks.add(record);
         taskCaseMap.put(record.Id, record.WhatId);
         caseIds.add(record.whatId);
@@ -655,6 +656,7 @@ public without sharing class IDRTaskActions {
           whatId IN :cases
           AND RecordTypeId = :IDRConstants.IDR_SYSTEM_TASK_RT_ID
           AND isClosed = FALSE
+          AND Type = 'Notification'
       ];
       for (Task task : tasksToClose) {
         task.Status = IDRConstants.TASK_STATUS_COMPLETED;
