@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingCriteriaRules>
+        <fullName>ANZPlus_Complaints_RT_Card_Dispute_Agent_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>All ANZ Plus Complaint cases are to be shared with Card Dispute Agents with Read access.</description>
+        <label>ANZPlus_Complaints_RT_Card_Dispute_Agent_RO</label>
+        <sharedTo>
+            <role>Card_Dispute_Agent</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>ANZ Plus Complaint</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>AllExceptARC_RTs_SSA_RO</fullName>
         <accessLevel>Edit</accessLevel>
         <description>All cases record types except AR&amp;C are to be shared with Super Support Admin users with Read-Only access.</description>
