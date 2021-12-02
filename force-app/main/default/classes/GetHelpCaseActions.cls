@@ -449,6 +449,24 @@ public with sharing class GetHelpCaseActions {
    * @param record the record we are updating
    */
   private static void maskTaxNumbers(Case record) {
+    if (
+      TextUtils.reactiveLogging(record.Description) ||
+      TextUtils.reactiveLogging(record.Comments)
+    ) {
+      lib_systemLog log = new lib_systemLog(
+        'GetHelpCaseActions',
+        'maskTaxNumbers'
+      );
+      log.info(
+        'CaseNumber: ' +
+        record.CaseNumber +
+        '; Description: ' +
+        record.Description +
+        'Notes: ' +
+        record.Comments
+      );
+      log.insertLogAsync();
+    }
     record.Description = TextUtils.maskDataAnzx(record.Description);
     record.Comments = TextUtils.maskDataAnzx(record.Comments);
   }

@@ -20,9 +20,19 @@ public with sharing class TextUtilsTest {
   static void testMaskingAnzx() {
     String inputData = 'A sample text with card 1234-5678-9812-1324 , second card 1234-5678-984567 and a third 1234-5678 9876 4567 card and a unmasked one too 12345 6789';
     System.assertEquals(
-      'A sample text with card ************1324 , second card ************4567 and a third ************4567 card and a unmasked one too 12345 6789',
+      'A sample text with card ************1324 , second card 1234-5678-984567 and a third ************4567 card and a unmasked one too 12345 6789',
       TextUtils.maskDataAnzx(inputData),
       'The data is masked correctly'
     );
+  }
+
+  @isTest
+  static void testReactiveLogging() {
+    String keywordStr = 'test TFN test 1234-678-90';
+    System.assertEquals(true, TextUtils.reactiveLogging(keywordStr));
+    String nonKeywordStr = 'test abc 1234-678-90';
+    System.assertEquals(false, TextUtils.reactiveLogging(nonKeywordStr));
+    String nonKeywordLongStr = 'test abc 1234-678-90-1234';
+    System.assertEquals(true, TextUtils.reactiveLogging(nonKeywordLongStr));
   }
 }

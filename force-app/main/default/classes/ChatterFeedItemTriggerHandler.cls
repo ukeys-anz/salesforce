@@ -25,7 +25,7 @@ public with sharing class ChatterFeedItemTriggerHandler extends Lib_TriggerHandl
       caseIdList.add(record.parentId);
     }
     Map<Id, Case> relatedCaseMap = new Map<Id, Case>(
-      [SELECT Id, RecordTypeId FROM Case WHERE Id IN :caseIdList]
+      [SELECT Id, CaseNumber, RecordTypeId FROM Case WHERE Id IN :caseIdList]
     );
 
     for (FeedItem record : (List<FeedItem>) records) {
@@ -34,6 +34,19 @@ public with sharing class ChatterFeedItemTriggerHandler extends Lib_TriggerHandl
         relatedCase != null &&
         GetHelpCaseActionsHelper.isANZPlusCaseType(relatedCase)
       ) {
+        if (TextUtils.reactiveLogging(record.Body)) {
+          lib_systemLog log = new lib_systemLog(
+            'ChatterFeedItemTriggerHandler',
+            'onApplyDefaults'
+          );
+          log.info(
+            'CaseNumber: ' +
+            relatedCase.CaseNumber +
+            '; Body: ' +
+            record.Body
+          );
+          log.insertLogAsync();
+        }
         record.Body = TextUtils.maskDataAnzx(record.Body);
       } else {
         record.Body = TextUtils.maskData(record.Body);

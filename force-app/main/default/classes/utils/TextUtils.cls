@@ -7,12 +7,17 @@
 public with sharing class TextUtils {
   private static final String ACCOUNT_OR_CARD_REGEX_PATTERN = '[0-9][^a-zA-Z]{6,}[0-9]';
   private static final String TAX_REGEX_PATTERN = '[0-9][^a-zA-Z]{13,}[0-9]';
+  private static final String LOG_REGEX_PATTERN = '[0-9][^a-zA-Z]{10,}[0-9]';
+  private static final String LOG_KEYWORD_REGEX_PATTERN = '[0-9][^a-zA-Z]{7,}[0-9]';
   private static final Integer UNMASK_LENGTH = 4;
   private static Pattern accountOrCardPattern = Pattern.compile(
     ACCOUNT_OR_CARD_REGEX_PATTERN
   );
   private static Pattern taxPattern = Pattern.compile(TAX_REGEX_PATTERN);
-
+  private static Pattern logPattern = Pattern.compile(LOG_REGEX_PATTERN);
+  private static Pattern logKeywordPattern = Pattern.compile(
+    LOG_KEYWORD_REGEX_PATTERN
+  );
   /**
    * @description general method to mask certain data with a specific pattern and length
    * @param input Input string that needs to be masked if needed
@@ -36,7 +41,7 @@ public with sharing class TextUtils {
             masked = masked + '*';
           }
           masked = masked + digits.substring(digits.length() - UNMASK_LENGTH);
-          input = input.replaceFirst(ACCOUNT_OR_CARD_REGEX_PATTERN, masked);
+          input = input.replaceFirst(stringToMask, masked);
           matchingPattern = patToCompile.matcher(input);
         }
       }
@@ -61,5 +66,52 @@ public with sharing class TextUtils {
    */
   public static String maskDataAnzx(String input) {
     return maskData(input, taxPattern, 15);
+  }
+
+  /**
+   * @description This method determines whether we need to log the content
+   * Criteria is if it contains digits of more than 12 digits
+   * Or contains keywords like TFN or Tax and has more than 9 digits
+   * @param input Input string that we need to verify
+   * @return `Boolean` whether we need to log this input
+   */
+  public static Boolean reactiveLogging(String input) {
+    if (String.isBlank(input)) {
+      return false;
+    }
+    String inputUpper = input.toUpperCase();
+    List<String> keywords = new List<String>{
+      'TAX',
+      'TFN',
+      'FILE',
+      'ATO',
+      'TIN',
+      'SUPER',
+      'SUPERANNUATION',
+      'EMPLOYMENT'
+    };
+    Boolean hasKeyword = false;
+    for (String keyword : keywords) {
+      if (inputUpper.contains(keyword)) {
+        hasKeyword = true;
+        break;
+      }
+    }
+    Pattern patToCompile = logPattern;
+    Integer digLength = 12;
+    if (hasKeyword) {
+      patToCompile = logKeywordPattern;
+      digLength = 9;
+    }
+
+    Matcher matchingPattern = patToCompile.matcher(input);
+    while (matchingPattern.find()) {
+      String stringToMask = matchingPattern.group(0).trim();
+      String digits = stringToMask.replaceAll('[^0-9]', '');
+      if (digits.length() >= digLength) {
+        return true;
+      }
+    }
+    return false;
   }
 }
