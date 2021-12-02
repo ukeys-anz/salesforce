@@ -9,14 +9,9 @@
     <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
     <columns>CORE.USERS.ALIAS</columns>
     <filterScope>Queue</filterScope>
-    <filters>
-        <field>CASES.CLOSED</field>
-        <operation>equals</operation>
-        <value>0</value>
-    </filters>
     <label>Card Dispute - General Queue</label>
     <queue>Card_Dispute_General_Queue</queue>
     <sharedTo>
-        <allInternalUsers></allInternalUsers>
+        <role>FraudX_Agent</role>
     </sharedTo>
 </ListView>
