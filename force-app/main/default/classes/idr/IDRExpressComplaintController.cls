@@ -1,4 +1,16 @@
+/**
+ *
+ * @author Adnan
+ * @since Dec 2021
+ * @description Controller class for express CMOS lwc component
+ */
 public with sharing class IDRExpressComplaintController {
+  /**
+   * @description retrieves all active known issue records
+   * Suppressed 'ApexCRUDViolation' as AccessCheckUtil covers the access check
+   * @return List<Known_Issues__c> list of known issue records from query
+   */
+  @SuppressWarnings('PMD.ApexCRUDViolation')
   @AuraEnabled(cacheable=true)
   public static List<Known_Issues__c> getAllKnownIssues() {
     List<Known_Issues__c> knownIssuesList = [
