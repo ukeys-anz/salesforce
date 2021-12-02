@@ -62,6 +62,7 @@ public with sharing class IDRCaseActions {
         record.EntitlementId = entitlementId;
         record.IDR_Milestone_Sla__c = IDRConstants.MILESTONE_SLA_NORMAL;
         populateSuppliedEmail(record, null);
+        updateKnowledgeKeyWordCaseFields(records, null);
         IDRCollectionActions.populateCollectionNumber(record);
         CommonUtil.handleMasking(
           record,
@@ -130,6 +131,7 @@ public with sharing class IDRCaseActions {
       if (isIDRComplaintType(record)) {
         Case oldRecord = (case) oldMap.get(record.id);
         populateSuppliedEmail(record, oldRecord);
+        updateKnowledgeKeyWordCaseFields(records, (Map<Id, Case>) OldMap);
         validateCaseNumber(record, oldRecord);
         IDRCollectionActions.populateCollectionNumber(record);
         IDRCollectionActions.validateAccNumberPattern(record, oldRecord);
@@ -697,6 +699,53 @@ public with sharing class IDRCaseActions {
         if (caseTaskMap.containskey(c.id)) {
           c.addError(CANNOT_CLOSE_CASE_WITH_PENDING_TASK_ERROR);
         }
+      }
+    }
+  }
+  /**
+   * @description Updates both Knowledge Keyword fields if the fields they are tracking has changed. The Knowledge keyword fields are there to help recommend the correct Knowledge articles for CMOS
+   * @param records  List of cases from the trigger
+   * @param oldMap Map of pre-update cases supplied from the trigger as well, will be null on beforeInsert
+   */
+  private static void updateKnowledgeKeyWordCaseFields(
+    List<Case> records,
+    Map<Id, Case> oldMap
+  ) {
+    Map<String, String> issueTypeMap = new Map<String, String>();
+    Map<String, String> subsequentIssueTypeMap = new Map<String, String>();
+    Schema.DescribeFieldResult field = Case.Type.getDescribe();
+    for (Schema.PicklistEntry f : field.getPicklistValues()) {
+      issueTypeMap.put(f.getValue(), f.getLabel());
+    }
+    field = Case.IDR_Subsequent_Issue__c.getDescribe();
+    for (Schema.PicklistEntry f : field.getPicklistValues()) {
+      subsequentIssueTypeMap.put(f.getValue(), f.getLabel());
+    }
+
+    for (Case c : records) {
+      if (
+        oldMap == null ||
+        c.IDR_Knowledge_Keyword_1__c == null ||
+        (c.IDR_Issue_Type_2__c != oldMap.get(c.Id).IDR_Issue_Type_2__c ||
+        c.IDR_Subsequent_Issue_2__c !=
+        oldMap.get(c.Id).IDR_Subsequent_Issue_2__c)
+      ) {
+        c.IDR_Knowledge_Keyword_1__c =
+          issueTypeMap.get(c.IDR_Issue_Type_2__c) +
+          ' ' +
+          subsequentIssueTypeMap.get(c.IDR_Subsequent_Issue_2__c);
+      }
+      if (
+        oldMap == null ||
+        c.IDR_Knowledge_Keyword_2__c == null ||
+        (c.IDR_Issue_Type_3__c != oldMap.get(c.Id).IDR_Issue_Type_3__c ||
+        c.IDR_Subsequent_Issue_3__c !=
+        oldMap.get(c.Id).IDR_Subsequent_Issue_3__c)
+      ) {
+        c.IDR_Knowledge_Keyword_2__c =
+          issueTypeMap.get(c.IDR_Issue_Type_3__c) +
+          ' ' +
+          subsequentIssueTypeMap.get(c.IDR_Subsequent_Issue_3__c);
       }
     }
   }

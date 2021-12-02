@@ -390,4 +390,97 @@ private with sharing class IDRCaseActionsTest {
       'Expected update to Closed status to be allowed, however Status update was prevented, throwing an error'
     );
   }
+
+  @isTest
+  static void testUpdateKnowledgeKeyWordCaseFields() {
+    //data setup
+    Product2 p = new Product2(
+      Name = 'Test',
+      IsActive = true,
+      IDR_Product_or_Service_Line__c = '1',
+      IDR_Product_or_Service_Category__c = '1',
+      IDR_Product_or_Service_Type__c = '1'
+    );
+    insert p;
+    Case[] newCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
+          Status = 'Open',
+          isEscalated = false,
+          IDR_Second_Issue__c = true,
+          IDR_Third_Issue__c = true,
+          IDR_Issue_Type_2__c = '9',
+          IDR_Issue_Type_3__c = '2',
+          IDR_Subsequent_Issue_2__c = '57',
+          IDR_Subsequent_Issue_3__c = '14',
+          IDR_Product_2__c = p.Id,
+          IDR_Product_3__c = p.Id
+        )
+      );
+    }
+    insert newCases;
+    Case c = [
+      SELECT
+        Id,
+        toLabel(IDR_Issue_Type_2__c),
+        toLabel(IDR_Subsequent_Issue_2__c),
+        toLabel(IDR_Issue_Type_3__c),
+        toLabel(IDR_Subsequent_Issue_3__c),
+        IDR_Knowledge_Keyword_1__c,
+        IDR_Knowledge_Keyword_2__c
+      FROM Case
+      LIMIT 1
+    ];
+    System.assertEquals(
+      c.IDR_Issue_Type_2__c +
+      ' ' +
+      c.IDR_Subsequent_Issue_2__c,
+      c.IDR_Knowledge_Keyword_1__c,
+      'Expected Knowledge Keyword 1 to complete on case create, however it did not'
+    );
+    System.assertEquals(
+      c.IDR_Issue_Type_3__c +
+      ' ' +
+      c.IDR_Subsequent_Issue_3__c,
+      c.IDR_Knowledge_Keyword_2__c,
+      'Expected Knowledge Keyword 2 to complete on case create, however it did not'
+    );
+
+    for (Case cs : newCases) {
+      cs.IDR_Issue_Type_2__c = '18';
+      cs.IDR_Issue_Type_3__c = '16';
+      cs.IDR_Subsequent_Issue_2__c = '63';
+      cs.IDR_Subsequent_Issue_3__c = '78';
+    }
+    update newCases;
+    c = [
+      SELECT
+        Id,
+        toLabel(IDR_Issue_Type_2__c),
+        toLabel(IDR_Subsequent_Issue_2__c),
+        toLabel(IDR_Issue_Type_3__c),
+        toLabel(IDR_Subsequent_Issue_3__c),
+        IDR_Knowledge_Keyword_1__c,
+        IDR_Knowledge_Keyword_2__c
+      FROM Case
+      LIMIT 1
+    ];
+
+    System.assertEquals(
+      c.IDR_Issue_Type_2__c +
+      ' ' +
+      c.IDR_Subsequent_Issue_2__c,
+      c.IDR_Knowledge_Keyword_1__c,
+      'Expected Knowledge Keyword 1 on update, however it did not'
+    );
+    System.assertEquals(
+      c.IDR_Issue_Type_3__c +
+      ' ' +
+      c.IDR_Subsequent_Issue_3__c,
+      c.IDR_Knowledge_Keyword_2__c,
+      'Expected Knowledge Keyword 2 on update, however it did not'
+    );
+  }
 }
