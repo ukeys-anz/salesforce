@@ -33,9 +33,6 @@ export default class ViewCards extends LightningElement {
   replaceLostUnavailable;
   replaceStolenUnavailable;
   replaceDamagedUnavailable;
-  buttonContainerClass = userPermission.hasViewFraudAndCoachPermissions
-    ? "allButtonsContainer"
-    : "buttonsContainer";
 
   loading = false;
   noCards = false;

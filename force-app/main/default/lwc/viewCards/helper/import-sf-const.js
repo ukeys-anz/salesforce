@@ -15,6 +15,5 @@ export const USER_PERMISSION = {
     hasLockPermission: hasLockCardsPermission,
     hasFraudPermission: hasFraudLockCardsPermission,
     hasReplacePermission: hasReplaceCardsPermission,
-    hasViewPermission: hasViewCardsPermission,
-    hasViewFraudAndCoachPermissions: (hasFraudLockCardsPermission && hasLockCardsPermission && hasReplaceCardsPermission) || false
+    hasViewPermission: hasViewCardsPermission
 };
