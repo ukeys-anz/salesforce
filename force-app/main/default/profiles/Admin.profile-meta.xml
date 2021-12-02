@@ -1999,6 +1999,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.IDR_Express_CMOS_Complaint__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Customer_Feedback__c.Account_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3265,11 +3270,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Known_Issues__c.IDR_Written_Response_Requested__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Known_Issues__c.IDR_Express_CMOS_Complaint__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
