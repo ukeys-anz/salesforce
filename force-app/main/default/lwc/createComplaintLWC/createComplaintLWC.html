@@ -339,6 +339,14 @@
             >
             </lightning-input>
 
+            <!--Express CMOS Case Creation Section-->
+            <c-idr-express-complaint
+              class="slds-var-p-around_medium"
+              onselected={knownIssueChangeHandler}
+              ontogglechecked={expressToggleCheckedHandler}
+            ></c-idr-express-complaint>
+            <!---->
+
             <!-- Nominated Third party details -->
             <template if:true={consentValue}>
               <lightning-input

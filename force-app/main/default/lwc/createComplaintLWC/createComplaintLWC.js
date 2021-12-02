@@ -95,6 +95,10 @@ import SUBSEQUENT_ISSUE_TYPE_3 from "@salesforce/schema/Case.IDR_Subsequent_Issu
 import PRODUCT_LOOKUP_FIELD_3 from "@salesforce/schema/Case.IDR_Product_3__c";
 import ACCOUNT_POLICY_FIELD_3 from "@salesforce/schema/Case.IDR_Account_Card_Policy_Number_3__c";
 
+//Express CMOS fields
+import KNOWN_ISSUES from "@salesforce/schema/Case.IDR_Known_Issues__c";
+import EXPRESS_CMOS from "@salesforce/schema/Case.IDR_Express_CMOS_Complaint__c";
+
 const ERROR_REQUIRED_TITLE = "Please complete all required fields:\n";
 const ERROR_UNKNOWN_TITLE = "An error has occurred.";
 const SUCCESS = "success";
@@ -201,6 +205,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
   subsequentIssue3 = SUBSEQUENT_ISSUE_TYPE_3;
   productValue3 = PRODUCT_LOOKUP_FIELD_3;
   accountOrPolicyNumber3 = "";
+
+  // Express CMOS fields
+  knownIssue = KNOWN_ISSUES;
+  expressCMOS = EXPRESS_CMOS;
 
   @api recordTypeId;
   @api recordTypeDevName;
@@ -791,6 +799,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
         ] = this.accountOrPolicyNumber3;
       }
 
+      fields[KNOWN_ISSUES.fieldApiName] = this.knownIssue;
+      fields[EXPRESS_CMOS.fieldApiName] = this.expressCMOS;
+
       const recordInput = { apiName: CASE_OBJECT.objectApiName, fields };
       createRecord(recordInput)
         .then((response) => {
@@ -991,5 +1002,162 @@ export default class CreateComplaintLWC extends NavigationMixin(
   closeModal() {
     this.template.querySelector(".slds-hide").classList.remove("slds-hide");
     this.showModal = false;
+  }
+
+  expressToggleCheckedHandler(event) {
+    console.log("expressToggleCheckedHandler ---");
+    this.isComplaintResolved = true;
+    console.log("toggle complaint resolved ---" + this.isComplaintResolved);
+    this.isNonFinancialComplaintRemedy = true;
+    console.log(
+      "toggle complaint isNonFinancialComplaintRemedy ---" +
+        this.isNonFinancialComplaintRemedy
+    );
+    const issueTypeElement = this.template.querySelector(
+      '[data-id="issueType-id"]'
+    );
+    issueTypeElement.dispatchEvent(new CustomEvent("change"));
+  }
+
+  knownIssueChangeHandler(event) {
+    console.log("Back to parent component --- " + JSON.stringify(event.detail));
+    const issueTypeElement = this.template.querySelector(
+      '[data-id="issueType-id"]'
+    );
+    console.log("issueTypeElement--" + issueTypeElement);
+    console.log("Issue Type--" + event.detail.IDR_Issue_Type__c);
+    console.log("You are here 1 ----" + issueTypeElement);
+    issueTypeElement.value = event.detail.IDR_Issue_Type__c;
+    issueTypeElement.dispatchEvent(new CustomEvent("change"));
+
+    const subIssueTypeElement = this.template.querySelector(
+      '[data-id="subsequentIssue-id"]'
+    );
+    subIssueTypeElement.value = event.detail.IDR_Sub_Issue_Type__c;
+    console.log("You are here 2 ----" + subIssueTypeElement);
+    const productElement = this.template.querySelector(
+      '[data-id="product-id"]'
+    );
+    productElement.value = event.detail.Product__c;
+    console.log("You are here 3 ----" + productElement);
+
+    //Check needed for non customer complaint
+    if (this.isCustomerComplaint) {
+      const accountPolicyNoElement = this.template.querySelector(
+        '[data-id="accPolicyNum-id"]'
+      );
+      //accountPolicyNoElement.value = "N/A";
+      //this.template.querySelector("c-multi-select-combobox").handleExpressCase();
+      accountPolicyNoElement.handleExpressCase();
+      console.log("You are here 4 ----" + accountPolicyNoElement);
+    }
+    const descriptionElement = this.template.querySelector(
+      '[data-id="descOfIssue-id"]'
+    );
+    descriptionElement.value = event.detail.IDR_Description_of_Issue__c;
+    console.log("You are here 5 ----" + descriptionElement);
+    const custDesiredOutElement = this.template.querySelector(
+      '[data-id="custOutCome"]'
+    );
+    custDesiredOutElement.value = event.detail.IDR_Customer_Desired_Outcome__c;
+    console.log("You are here 6 ----" + custDesiredOutElement);
+    const anotherIssueElement = this.template.querySelector(
+      '[data-id="issue2-id"]'
+    );
+    anotherIssueElement.checked = event.detail.IDR_Is_there_another_issue__c;
+    anotherIssueElement.dispatchEvent(new CustomEvent("change"));
+    console.log("You are here 7 ----" + anotherIssueElement);
+
+    const writtenRequestedElement = this.template.querySelector(
+      '[data-id="writtenResponseGroup-id"]'
+    );
+    writtenRequestedElement.value =
+      event.detail.IDR_Written_Response_Requested__c;
+    writtenRequestedElement.dispatchEvent(
+      new CustomEvent("change", {
+        detail: {
+          value: writtenRequestedElement.value
+        }
+      })
+    );
+    console.log("You are here 8 ----" + writtenRequestedElement);
+
+    const writtenRespElement = this.template.querySelector(
+      '[data-id="writtenRequiredGroup-id"]'
+    );
+    writtenRespElement.value = event.detail.IDR_Written_Response_Required__c;
+    writtenRespElement.dispatchEvent(
+      new CustomEvent("change", {
+        detail: {
+          value: writtenRespElement.value
+        }
+      })
+    );
+
+    console.log("You are here 9 ----" + writtenRespElement);
+
+    const realFormElement = this.template.querySelector(
+      '[data-id="realFormRequiredGroup-id"]'
+    );
+    if (event.detail.IDR_REAL_Form_Required__c) {
+      realFormElement.value = "Yes";
+      realFormElement.dispatchEvent(
+        new CustomEvent("change", {
+          detail: {
+            value: "Yes"
+          }
+        })
+      );
+    } else {
+      realFormElement.value = "No";
+      realFormElement.dispatchEvent(
+        new CustomEvent("change", {
+          detail: {
+            value: "No"
+          }
+        })
+      );
+    }
+    //realFormElement.value = event.detail.IDR_REAL_Form_Required__c;
+
+    console.log("You are here 10 ----" + realFormElement);
+
+    const possibleSysIssueElement = this.template.querySelector(
+      '[data-id="commoncomplaintGroup-id"]'
+    );
+    possibleSysIssueElement.value = event.detail.IDR_Possible_Systemic_Issue__c;
+    possibleSysIssueElement.dispatchEvent(new CustomEvent("change"));
+    console.log("You are here 11 ----" + possibleSysIssueElement);
+    const statusElement = this.template.querySelector(
+      '[data-id="caseStatus-id"]'
+    );
+    statusElement.value = event.detail.IDR_Status__c;
+    statusElement.dispatchEvent(new CustomEvent("change"));
+    console.log("isComplaintResolved---" + this.isComplaintResolved);
+    console.log("You are here 12 ----" + statusElement);
+    const complaintOutcomeElement = this.template.querySelector(
+      '[data-id="compOutCome-id"]'
+    );
+    console.log("complaintOutcomeElement---" + complaintOutcomeElement);
+    complaintOutcomeElement.value = event.detail.IDR_Complaint_Outcome__c;
+    console.log("You are here 13 ----" + complaintOutcomeElement);
+    const descOfOutcomeElement = this.template.querySelector(
+      '[data-id="descOutcome-id"]'
+    );
+    descOfOutcomeElement.value = event.detail.IDR_Description_of_Outcome__c;
+    console.log("You are here 14 ----" + descOfOutcomeElement);
+    const complaintRemedyElement = this.template.querySelector(
+      '[data-id="compRemedy-id"]'
+    );
+    complaintRemedyElement.value = event.detail.IDR_Complaint_Remedy__c;
+    console.log("You are here 15 ----" + complaintRemedyElement);
+    const nonFinancialRemedyElement = this.template.querySelector(
+      '[data-id="nonFinancialRemedy-id"]'
+    );
+    nonFinancialRemedyElement.value = event.detail.IDR_Non_Financial_Remedy__c;
+    console.log("You are here 16 ----" + nonFinancialRemedyElement);
+
+    this.knownIssue = event.detail.Id;
+    this.expressCMOS = true;
   }
 }
