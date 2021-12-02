@@ -40,6 +40,7 @@ public with sharing class CaseCommentsTriggerHandler extends Lib_TriggerHandler 
         relatedCase != null &&
         GetHelpCaseActionsHelper.isANZPlusCaseType(relatedCase)
       ) {
+        record.CommentBody = TextUtils.maskDataAnzx(record.CommentBody);
         if (TextUtils.reactiveLogging(record.CommentBody)) {
           lib_systemLog log = new lib_systemLog(
             'CaseCommentTriggerHandler',
@@ -53,7 +54,6 @@ public with sharing class CaseCommentsTriggerHandler extends Lib_TriggerHandler 
           );
           log.insertLogAsync();
         }
-        record.CommentBody = TextUtils.maskDataAnzx(record.CommentBody);
       } else {
         record.CommentBody = TextUtils.maskData(record.CommentBody);
       }

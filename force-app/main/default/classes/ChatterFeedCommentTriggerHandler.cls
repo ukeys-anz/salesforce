@@ -34,6 +34,7 @@ public with sharing class ChatterFeedCommentTriggerHandler extends Lib_TriggerHa
         relatedCase != null &&
         GetHelpCaseActionsHelper.isANZPlusCaseType(relatedCase)
       ) {
+        record.CommentBody = TextUtils.maskDataAnzx(record.CommentBody);
         if (TextUtils.reactiveLogging(record.CommentBody)) {
           lib_systemLog log = new lib_systemLog(
             'ChatterFeedCommentTriggerHandler',
@@ -47,7 +48,6 @@ public with sharing class ChatterFeedCommentTriggerHandler extends Lib_TriggerHa
           );
           log.insertLogAsync();
         }
-        record.CommentBody = TextUtils.maskDataAnzx(record.CommentBody);
       } else {
         record.CommentBody = TextUtils.maskData(record.CommentBody);
       }
