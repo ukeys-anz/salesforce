@@ -274,6 +274,6 @@ export default class MultiSelectCombobox extends LightningElement {
 
   @api handleExpressCase() {
     this.searchString = "1 Option(s) Selected";
-    this.optionData = [{ label: 'N/A', value: 'N/A', selected: true }];
+    this.optionData = [{ label: "N/A", value: "N/A", selected: true }];
   }
 }

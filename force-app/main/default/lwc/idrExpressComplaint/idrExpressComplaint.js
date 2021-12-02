@@ -48,9 +48,8 @@ export default class IdrExpressComplaint extends LightningElement {
   handleExpressCaseToggle(event) {
     this.showKnownOutageSelect = event.detail.checked;
     if (event.detail.checked) {
-      console.log('You are in trigger toggle event---')
-      const toggleEvent = new CustomEvent("togglechecked",{
-        detail:true
+      const toggleEvent = new CustomEvent("togglechecked", {
+        detail: true
       });
       this.dispatchEvent(toggleEvent);
     }
