@@ -272,6 +272,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.IDR_Express_CMOS_Complaint__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.IDR_Feedback_Category__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -313,6 +318,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.IDR_Issue_Type_3__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_Known_Issues__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -848,6 +858,86 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>IDR_Template_Detail__c.IDR_sort_order__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Known_Issues__c.IDR_Complaint_Outcome__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Known_Issues__c.IDR_Complaint_Remedy__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Known_Issues__c.IDR_Customer_Desired_Outcome__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Known_Issues__c.IDR_Description_of_Issue__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Known_Issues__c.IDR_Description_of_Outcome__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Known_Issues__c.IDR_Is_there_another_issue__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Known_Issues__c.IDR_Issue_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Known_Issues__c.IDR_Non_Financial_Remedy__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Known_Issues__c.IDR_Possible_Systemic_Issue__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Known_Issues__c.IDR_REAL_Form_Required__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Known_Issues__c.IDR_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Known_Issues__c.IDR_Sub_Issue_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Known_Issues__c.IDR_Written_Response_Requested__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Known_Issues__c.IDR_Written_Response_Required__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Known_Issues__c.Is_Active__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Known_Issues__c.Product__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
