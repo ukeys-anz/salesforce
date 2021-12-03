@@ -34,7 +34,7 @@ export default class IdrExpressComplaint extends LightningElement {
   handleKnownIssueChange(event) {
     for (let knownIssue of this.allKnownIssues) {
       if (
-        JSON.stringify(knownIssue.Name) == JSON.stringify(event.detail.value)
+        JSON.stringify(knownIssue.Name) === JSON.stringify(event.detail.value)
       ) {
         this.selectedKnownIssue = knownIssue;
       }

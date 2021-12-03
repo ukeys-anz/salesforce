@@ -1004,7 +1004,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.showModal = false;
   }
 
-  expressToggleCheckedHandler(event) {
+  expressToggleCheckedHandler() {
     this.isComplaintResolved = true;
     this.isNonFinancialComplaintRemedy = true;
     const issueTypeElement = this.template.querySelector(
