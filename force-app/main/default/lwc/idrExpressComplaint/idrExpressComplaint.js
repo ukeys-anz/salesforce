@@ -15,7 +15,7 @@ export default class IdrExpressComplaint extends LightningElement {
   wiredKnownIssues({ error, data }) {
     if (data) {
       this.allKnownIssues = data;
-      for (var i = 0; i < data.length; i++) {
+      for (let i = 0; i < data.length; i++) {
         this.knownIssueItems = [
           ...this.knownIssueItems,
           { value: data[i].Name, label: data[i].Name }
