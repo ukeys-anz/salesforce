@@ -26,10 +26,19 @@
     <suggestedArticles>
         <caseFields>
             <field>
-                <name>Subject</name>
+                <name>Type</name>
             </field>
             <field>
-                <name>Type</name>
+                <name>IDR_Subsequent_Issue__c</name>
+            </field>
+            <field>
+                <name>IDR_Knowledge_Keyword_1__c</name>
+            </field>
+            <field>
+                <name>IDR_Knowledge_Keyword_2__c</name>
+            </field>
+            <field>
+                <name>Subject</name>
             </field>
         </caseFields>
         <useSuggestedArticlesForCase>true</useSuggestedArticlesForCase>
