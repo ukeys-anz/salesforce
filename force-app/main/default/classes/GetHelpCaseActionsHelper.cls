@@ -22,6 +22,13 @@ public with sharing class GetHelpCaseActionsHelper {
     GetHelpConstants.NPP_DISPUTE_RT_ID
   };
 
+  // Set of record type Ids that will be sent to PEGA
+  public static final Set<Id> DISPUTE_PEGA_RT_IDS = new Set<Id>{
+    GetHelpConstants.ATM_DISPUTE_RT_ID,
+    GetHelpConstants.CARD_DISPUTE_RT_ID,
+    GetHelpConstants.NPP_DISPUTE_RT_ID
+  };
+
   // Parent Case validation error message
   private static final String PARENT_CASE_ERROR = 'You cannot add parent case. This case is associated with child cases';
 
@@ -373,5 +380,43 @@ public with sharing class GetHelpCaseActionsHelper {
       );
     }
     return financialRolesMap;
+  }
+
+  /**
+   * @description Checks if a case is a valid PEGA dispute
+   * @param record The case record
+   * @return Boolean if a case is a valid PEGA dispute
+   */
+  public static Boolean isValidPegaDispute(Case record) {
+    return DISPUTE_PEGA_RT_IDS.contains(record.RecordTypeId) &&
+      record.Submitted__c &&
+      record.Status == 'Open';
+  }
+
+  /**
+   * @description Build a list of platform events from the dispute cases' details
+   * @param records New record instances to process
+   * @return List<sObject> List of platform events to publish
+   */
+  public static List<sObject> buildPegaPlatformEvents(List<Case> records) {
+    List<sObject> peList = new List<sObject>();
+    for (Case record : records) {
+      // Create a list of platform events
+      Disputes_PEGA_Integration_Event__e pe = new Disputes_PEGA_Integration_Event__e(
+        Case_Id__c = record.Id,
+        Transaction_Id__c = record.Transaction_Id__c,
+        Original_Case_Number__c = record.CaseNumber__c,
+        Record_Type_Name__c = Schema.getGlobalDescribe()
+          .get('Case')
+          .getDescribe()
+          .getRecordTypeInfosById()
+          .get(record.RecordTypeId)
+          .getName(),
+        Span_Id__c = UniqueIdUtil.getParentId(),
+        Correlation_Id__c = UniqueIdUtil.getTraceId()
+      );
+      peList.add(pe);
+    }
+    return peList;
   }
 }

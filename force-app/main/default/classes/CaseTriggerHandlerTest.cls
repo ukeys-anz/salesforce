@@ -2496,4 +2496,136 @@ private class CaseTriggerHandlerTest {
       'Failed to reset SLA Status to blank when Dispute case Status is changed.'
     );
   }
+
+  // Test checking if a case is a valid PEGA dispute
+  @isTest
+  static void testIsValidPegaDispute() {
+    Case disputeCase = new Case(
+      Dispute_Reason__c = 'Duplicate Transactions',
+      Submitted__c = true,
+      Transaction_Id__c = 'abc48-fasjd-342sdfsa-jlj',
+      CaseNumber__c = 'abc123',
+      RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+        .get('ATM_Dispute')
+        .getRecordTypeId(),
+      Description = 'ATM Dispute',
+      Status = 'Open'
+    );
+    Test.startTest();
+    System.assertEquals(
+      true,
+      GetHelpCaseActionsHelper.isValidPegaDispute(disputeCase),
+      'Test result should match.'
+    );
+    Test.stopTest();
+  }
+
+  // Test building PEGA platform events
+  @isTest
+  static void testBuildPegaPlatformEvents() {
+    Case disputeCase = new Case(
+      Dispute_Reason__c = 'Duplicate Transactions',
+      Submitted__c = true,
+      Transaction_Id__c = 'abc48-fasjd-342sdfsa-jlj',
+      CaseNumber__c = 'abc123',
+      RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+        .get('ATM_Dispute')
+        .getRecordTypeId(),
+      Description = 'ATM Dispute'
+    );
+    List<Case> cases = new List<Case>();
+    cases.add(disputeCase);
+
+    Test.startTest();
+    List<sObject> platFormEventList = GetHelpCaseActionsHelper.buildPegaPlatformEvents(
+      cases
+    );
+    Test.stopTest();
+
+    System.assertEquals(
+      'abc123',
+      platFormEventList[0].get('Original_Case_Number__c'),
+      'Case Number should match.'
+    );
+    System.assertEquals(
+      'abc48-fasjd-342sdfsa-jlj',
+      platFormEventList[0].get('Transaction_Id__c'),
+      'Transaction Id should match.'
+    );
+    System.assertEquals(
+      'ATM',
+      platFormEventList[0].get('Record_Type_Name__c'),
+      'Record Type Name should match.'
+    );
+  }
+
+  // Test when an ATM dispute is submitted on insert, a platform event is published
+  @SuppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts')
+  @isTest
+  static void testDisputesPEGAIntegrationOnInsert() {
+    // GIVEN
+    // an valid ATM dispute is submitted
+    List<Case> records = new List<Case>();
+    Case disputeCase = new Case(
+      Dispute_Reason__c = 'Duplicate Transactions',
+      Submitted__c = true,
+      Transaction_Id__c = 'abc48-fasjd-342sdfsa-jlj',
+      CaseNumber__c = 'abc123',
+      RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+        .get('ATM_Dispute')
+        .getRecordTypeId(),
+      Description = 'ATM Dispute'
+    );
+    records.add(disputeCase);
+
+    // WHEN
+    // the ATM dispute is inserted
+    Test.startTest();
+    insert records;
+    Test.stopTest();
+
+    // THEN
+    // a platform event should be published
+    // since we cannot query on platform events and big object logs are not created in text context (Database.ImmediateInsert does not support uni tests)
+    // we cannot assert here, however event publishing is already asserted in PlatformEventUtilsTest
+    // this function is to cover the code in GetHelpCaseActions
+  }
+
+  // Test when an ATM dispute is submitted on Update, a platform event is published
+  @SuppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts')
+  @isTest
+  static void testDisputesPEGAIntegrationOnUpdate() {
+    // GIVEN
+    // an valid ATM dispute is submitted
+    List<Case> records = new List<Case>();
+    Case disputeCase = new Case(
+      Dispute_Reason__c = 'Duplicate Transactions',
+      Submitted__c = false,
+      Transaction_Id__c = 'abc48-fasjd-342sdfsa-jlj',
+      CaseNumber__c = 'abc123',
+      RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+        .get('ATM_Dispute')
+        .getRecordTypeId(),
+      Description = 'ATM Dispute'
+    );
+    insert disputeCase;
+
+    // WHEN
+    // the ATM dispute is updated
+    Test.startTest();
+    Case caseToUpdate = [
+      SELECT Id, Submitted__c
+      FROM Case
+      WHERE Transaction_Id__c = 'abc48-fasjd-342sdfsa-jlj'
+    ];
+    caseToUpdate.Submitted__c = true;
+    update caseToUpdate;
+    Test.stopTest();
+
+    // THEN
+    // a platform event should be published
+    // since we cannot query on platform events and big object logs are not created in text context (Database.ImmediateInsert does not support uni tests)
+    // we cannot assert here, however event publishing is already asserted in PlatformEventUtilsTest
+    // this function is to cover the code in GetHelpCaseActions
+  }
 }

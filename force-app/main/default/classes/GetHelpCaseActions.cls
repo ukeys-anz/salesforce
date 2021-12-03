@@ -603,4 +603,47 @@ public with sharing class GetHelpCaseActions {
       }
     }
   }
+
+  /**
+   * @description Check if a case should be sent to PEGA, these includes
+   * submitted disputes with record types: Card, NPP, ATM. If yes, generate a platform event.
+   * @param records New record instances to process
+   * @param oldMap Map of the old values of the records to process
+   */
+  public static void handleDisputesPEGAIntegration(
+    List<Case> records,
+    Map<Id, Case> oldMap
+  ) {
+    List<Case> casesToProcess = new List<Case>();
+    if (Trigger.isAfter && Trigger.isUpdate) {
+      // Process cases for AFTER UPDATE
+      for (Case c : records) {
+        if (
+          c.Submitted__c != oldMap.get(c.Id).Submitted__c &&
+          GetHelpCaseActionsHelper.isValidPegaDispute(c)
+        ) {
+          casesToProcess.add(c);
+        }
+      }
+    } else {
+      // Process cases for AFTER INSERT
+      for (Case c : records) {
+        if (GetHelpCaseActionsHelper.isValidPegaDispute(c)) {
+          casesToProcess.add(c);
+        }
+      }
+    }
+
+    if (casesToProcess.size() > 0) {
+      // Get a list of platform events
+      List<sObject> peList = GetHelpCaseActionsHelper.buildPegaPlatformEvents(
+        casesToProcess
+      );
+
+      // Publish platform events
+      if (peList.size() > 0) {
+        PlatformEventUtils.publishEvents(peList);
+      }
+    }
+  }
 }
