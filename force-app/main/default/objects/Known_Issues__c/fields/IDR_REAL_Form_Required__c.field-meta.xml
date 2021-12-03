@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <securityClassification>Internal</securityClassification>
+    <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
     <defaultValue>false</defaultValue>
     <description>Is a REAL form required? Yes or No response required.
 Checkbox for: &quot;Does this complaint relate/create a COR event/Compliance Incident&quot;</description>
