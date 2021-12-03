@@ -20,6 +20,10 @@
         <apexClass>NewCaseFlowWrapperController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>IDRExpressComplaintController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <customSettingAccesses>
         <enabled>true</enabled>
         <name>IDR_Notification_Hours__c</name>
