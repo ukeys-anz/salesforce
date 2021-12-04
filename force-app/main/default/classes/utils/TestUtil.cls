@@ -62,6 +62,23 @@ public with sharing class TestUtil {
   }
 
   /**
+   * @description Create PermissionSetAssignment record
+   * @param assigneeId user id of the assignee
+   * @param psGroupId permission set group Id
+   * @return PermissionSetAssignment
+   */
+  public static PermissionSetAssignment createPSGroupAssignment(
+    String assigneeId,
+    String psGroupId
+  ) {
+    PermissionSetAssignment psGroupAssignment = new PermissionSetAssignment(
+      PermissionSetGroupId = psGroupId,
+      AssigneeId = assigneeId
+    );
+    return psGroupAssignment;
+  }
+
+  /**
    * @description Get user record by FirstName
    * @param firstName given first name of the user
    * @return User
