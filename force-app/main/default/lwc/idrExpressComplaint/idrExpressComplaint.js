@@ -39,6 +39,9 @@ export default class IdrExpressComplaint extends LightningElement {
         this.selectedKnownIssue = knownIssue;
       }
     }
+    let toggle = this.template.querySelector(".expressToggle");
+    toggle.checked = true;
+    toggle.disabled = true;
     const selectedEvent = new CustomEvent("selected", {
       detail: this.selectedKnownIssue
     });
