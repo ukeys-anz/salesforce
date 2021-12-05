@@ -30,7 +30,6 @@ export default class IdrExpressComplaint extends LightningElement {
         variant: "error"
       });
       this.dispatchEvent(toastEvent);
-      console.error(error);
     }
   }
 

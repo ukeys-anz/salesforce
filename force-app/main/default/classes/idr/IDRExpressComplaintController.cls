@@ -55,9 +55,10 @@ public with sharing class IDRExpressComplaintController {
           acw.inAccessibleFields
         );
         log.publishEvent();
-        throw new AuraHandledException(
-          'You dont have enough permission to read CMOS Known Outages'
-        );
+        String m = 'You dont have enough permission to read CMOS Known Outages, Please contact system administrator.';
+        AuraHandledException e = new AuraHandledException(m);
+        e.setMessage(m);
+        throw e;
       } else {
         return knownIssuesList;
       }
