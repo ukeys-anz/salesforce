@@ -1,4 +1,5 @@
 import { LightningElement, wire, track } from "lwc";
+import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import getAllKnownIssues from "@salesforce/apex/IDRExpressComplaintController.getAllKnownIssues";
 export default class IdrExpressComplaint extends LightningElement {
   @track
@@ -23,6 +24,12 @@ export default class IdrExpressComplaint extends LightningElement {
       }
     }
     if (error) {
+      const toastEvent = new ShowToastEvent({
+        title: "Error fetching known issues",
+        message: error.body.message,
+        variant: "error"
+      });
+      this.dispatchEvent(toastEvent);
       console.error(error);
     }
   }
