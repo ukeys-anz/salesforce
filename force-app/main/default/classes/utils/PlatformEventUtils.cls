@@ -19,13 +19,18 @@ public with sharing class PlatformEventUtils {
     if (events != null) {
       List<sObject> publishedEvents = new List<sObject>();
 
-      // Creat logs before sending events
-      Lib_SystemLog.createSingleLog(
+      // Creat logs before sending events, using logAPIError as this method is async to avoid DML on sObject and Big Objects
+      // in the same transaction, which will throw DML error
+      Lib_SystemLog.logAPIError(
         PlatformEventUtils.class.getName(),
         'publishEvents',
+        'Publishing PEGA Integration platform events',
         null,
-        'Publishing events: ' + JSON.serialize(events),
-        Lib_SystemLog.Severity.DEBUG
+        JSON.serialize(events),
+        null,
+        null,
+        null,
+        null
       );
 
       // Call method to publish events
