@@ -1,3 +1,9 @@
+/**
+ *
+ * @author Adnan
+ * @since Dec 2021
+ * @description Test class for IDRExpressComplaintController (Express complaint functionality)
+ */
 public with sharing class IDRExpressComplaintControllerTest {
   @TestSetup
   static void makeData() {
@@ -21,6 +27,10 @@ public with sharing class IDRExpressComplaintControllerTest {
     insert knownIssue;
   }
 
+  /**
+   * @description creates cmos user, with level1 permission
+   * @return User record
+   */
   public static User createCMOSUser() {
     //Create CMOS User
     Profile profile = CommonUtil.getProfileByName('ANZ Standard User');
@@ -50,6 +60,10 @@ public with sharing class IDRExpressComplaintControllerTest {
     return cmosUser;
   }
 
+  /**
+   * @description creates cmos user, without any permission
+   * @return User record
+   */
   public static User createCMOSUserWithoutPermission() {
     //Create CMOS User
     Profile profile = CommonUtil.getProfileByName('ANZ Standard User');
