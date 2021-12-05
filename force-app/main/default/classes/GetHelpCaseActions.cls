@@ -465,7 +465,8 @@ public with sharing class GetHelpCaseActions {
         '; Description: ' +
         record.Description +
         '; Notes: ' +
-        record.Comments
+        record.Comments +
+        '; Reason for logging: User entered long digits without needing to mask'
       );
       log.insertLogAsync();
     }

@@ -41,7 +41,13 @@ public with sharing class TextUtils {
             masked = masked + '*';
           }
           masked = masked + digits.substring(digits.length() - UNMASK_LENGTH);
-          input = input.replaceFirst(stringToMask, masked);
+          Integer index = input.indexOf(stringToMask);
+          if (index != -1) {
+            input =
+              input.subString(0, index) +
+              masked +
+              input.subString(index + stringToMask.length());
+          }
           matchingPattern = patToCompile.matcher(input);
         }
       }
