@@ -6,7 +6,7 @@
  */
 public with sharing class TextUtils {
   private static final String ACCOUNT_OR_CARD_REGEX_PATTERN = '[0-9][^a-zA-Z]{6,}[0-9]';
-  private static final String TAX_REGEX_PATTERN = '[0-9][^a-zA-Z]{13,}[0-9]';
+  private static final String TAX_REGEX_PATTERN = '[0-9][^a-zA-Z]{14,}[0-9]';
   private static final String LOG_REGEX_PATTERN = '[0-9][^a-zA-Z]{10,}[0-9]';
   private static final String LOG_KEYWORD_REGEX_PATTERN = '[0-9][^a-zA-Z]{7,}[0-9]';
   private static final Integer UNMASK_LENGTH = 4;
@@ -71,7 +71,7 @@ public with sharing class TextUtils {
    * @return `String` masked string
    */
   public static String maskDataAnzx(String input) {
-    return maskData(input, taxPattern, 15);
+    return maskData(input, taxPattern, 16);
   }
 
   /**
