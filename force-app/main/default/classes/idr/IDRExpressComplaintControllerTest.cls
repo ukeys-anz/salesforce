@@ -45,18 +45,23 @@ public with sharing class IDRExpressComplaintControllerTest {
     );
     insert cmosUser;
 
-    //Query permission set group
-    PermissionSetGroup psetGroup = [
-      SELECT Id, DeveloperName
-      FROM PermissionSetGroup
-      WHERE DeveloperName = 'IDR_Level_1'
+    List<String> level1PSs = new List<String>{
+      'IDR_User',
+      'IDR_User_Level_1',
+      'Product_Read_Only'
+    };
+
+    List<PermissionSet> psList = [
+      SELECT Id
+      FROM PermissionSet
+      WHERE Name IN :level1PSs
     ];
-    //Assign permission set group to user
-    PermissionSetAssignment psAssignment = TestUtil.createPSGroupAssignment(
-      cmosUser.id,
-      psetGroup.Id
-    );
-    insert psAssignment;
+
+    List<PermissionSetAssignment> psaList = new List<PermissionSetAssignment>();
+    for (PermissionSet ps : psList) {
+      psaList.add(TestUtil.createPSAssignment(cmosUser.id, ps.Id));
+    }
+    insert psaList;
 
     return cmosUser;
   }
