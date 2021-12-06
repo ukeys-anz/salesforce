@@ -2971,7 +2971,7 @@
       "groups": [],
       "label": "lens_5",
       "numbers": [],
-      "query": "q = load \"CMOS_Cases\";\nq = group q by ('CaseNumber', 'Origin', 'Status', 'UserInfo.FirstName', 'UserInfo.LastName');\nq = foreach q generate 'CaseNumber' as 'CaseNumber', 'Origin' as 'Origin', 'Status' as 'Status', 'UserInfo.FirstName' + \" \" + 'UserInfo.LastName' as 'Created By', date_to_string(toDate(max(CreatedDate_sec_epoch)), \"dd/MM/yy\") as 'Date Received'; \n",
+      "query": "q = load \"CMOS_Cases\";\nq = group q by ('CaseNumber', 'Channel.Label', 'Status', 'UserInfo.FirstName', 'UserInfo.LastName', 'Picklist.IDR_Sub_type.Label');\nq = foreach q generate 'CaseNumber' as 'CaseNumber', 'Channel.Label' as 'Origin', 'Picklist.IDR_Sub_type.Label' as 'Issue Subtype', 'Status' as 'Status', 'UserInfo.FirstName' + \" \" + 'UserInfo.LastName' as 'Created By', date_to_string(toDate(max(CreatedDate_sec_epoch)), \"dd/MM/yy\") as 'Date Received'; \n",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
