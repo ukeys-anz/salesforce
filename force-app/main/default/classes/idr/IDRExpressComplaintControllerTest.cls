@@ -4,6 +4,7 @@
  * @since Dec 2021
  * @description Test class for IDRExpressComplaintController (Express complaint functionality)
  */
+@isTest
 public with sharing class IDRExpressComplaintControllerTest {
   @TestSetup
   static void makeData() {
