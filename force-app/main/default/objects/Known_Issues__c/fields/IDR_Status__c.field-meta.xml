@@ -15,19 +15,9 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Action Required</fullName>
-                <default>false</default>
-                <label>Action Required</label>
-            </value>
-            <value>
                 <fullName>Open</fullName>
                 <default>false</default>
                 <label>Open</label>
-            </value>
-            <value>
-                <fullName>Working</fullName>
-                <default>false</default>
-                <label>Working</label>
             </value>
             <value>
                 <fullName>Under Investigation</fullName>
@@ -35,94 +25,14 @@
                 <label>Under Investigation</label>
             </value>
             <value>
-                <fullName>On Hold</fullName>
-                <default>false</default>
-                <label>On Hold</label>
-            </value>
-            <value>
                 <fullName>Escalated</fullName>
                 <default>false</default>
                 <label>Escalated</label>
             </value>
             <value>
-                <fullName>Withdrawn</fullName>
-                <default>false</default>
-                <label>Withdrawn</label>
-            </value>
-            <value>
-                <fullName>Resolved</fullName>
-                <default>false</default>
-                <label>Resolved</label>
-            </value>
-            <value>
                 <fullName>Closed</fullName>
                 <default>false</default>
                 <label>Closed</label>
-            </value>
-            <value>
-                <fullName>Re-opened</fullName>
-                <default>false</default>
-                <label>Re-opened</label>
-            </value>
-            <value>
-                <fullName>Customer Education</fullName>
-                <default>false</default>
-                <label>Customer Education</label>
-            </value>
-            <value>
-                <fullName>Awaiting Recovery</fullName>
-                <default>false</default>
-                <label>Awaiting Recovery</label>
-            </value>
-            <value>
-                <fullName>Pend 14 Days</fullName>
-                <default>false</default>
-                <label>Pend 14 Days</label>
-            </value>
-            <value>
-                <fullName>Return Funds</fullName>
-                <default>false</default>
-                <label>Return Funds</label>
-            </value>
-            <value>
-                <fullName>Reimbursement</fullName>
-                <default>false</default>
-                <label>Reimbursement</label>
-            </value>
-            <value>
-                <fullName>Closed - Customer Educated</fullName>
-                <default>false</default>
-                <label>Closed - Customer Educated</label>
-            </value>
-            <value>
-                <fullName>Closed - Future Release</fullName>
-                <default>false</default>
-                <label>Closed - Future Release</label>
-            </value>
-            <value>
-                <fullName>Closed - Resolved</fullName>
-                <default>false</default>
-                <label>Closed - Resolved</label>
-            </value>
-            <value>
-                <fullName>Closed - Won&apos;t Be Fixed</fullName>
-                <default>false</default>
-                <label>Closed - Won&apos;t Be Fixed</label>
-            </value>
-            <value>
-                <fullName>Under Review</fullName>
-                <default>false</default>
-                <label>Under Review</label>
-            </value>
-            <value>
-                <fullName>Rectify Defect</fullName>
-                <default>false</default>
-                <label>Rectify Defect</label>
-            </value>
-            <value>
-                <fullName>Pending Documents</fullName>
-                <default>false</default>
-                <label>Pending Documents</label>
             </value>
             <value>
                 <fullName>Provisionally Closed</fullName>
