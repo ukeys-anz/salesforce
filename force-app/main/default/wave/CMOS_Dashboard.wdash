@@ -21,22 +21,6 @@
         {
           "dataSourceName": "CMOS_Historic_User_Data",
           "dataSourceType": "dataset",
-          "fieldName": "Onboard.Team_Branch"
-        },
-        {
-          "dataSourceName": "CMOS_Cases",
-          "dataSourceType": "dataset",
-          "fieldName": "Onboarding.Team_Branch"
-        }
-      ],
-      "label": "User <Team> Complaints",
-      "name": "Link_961"
-    },
-    {
-      "fields": [
-        {
-          "dataSourceName": "CMOS_Historic_User_Data",
-          "dataSourceType": "dataset",
           "fieldName": "Onboard.Division"
         },
         {
@@ -69,7 +53,7 @@
         {
           "dataSourceName": "CMOS_Cases",
           "dataSourceType": "dataset",
-          "fieldName": "UserInfo.EmployeeNumber"
+          "fieldName": "Creator_UserInfo.EmployeeNumber"
         },
         {
           "dataSourceName": "CMOS_Historic_User_Data",
@@ -108,7 +92,7 @@
               }
             },
             {
-              "colspan": 6,
+              "colspan": 7,
               "column": 11,
               "name": "container_3",
               "row": 6,
@@ -122,7 +106,7 @@
               }
             },
             {
-              "colspan": 6,
+              "colspan": 7,
               "column": 11,
               "name": "chart_7",
               "row": 7,
@@ -130,7 +114,7 @@
               "widgetStyle": { "borderEdges": [] }
             },
             {
-              "colspan": 6,
+              "colspan": 7,
               "column": 11,
               "name": "chart_9",
               "row": 17,
@@ -314,8 +298,8 @@
               }
             },
             {
-              "colspan": 7,
-              "column": 17,
+              "colspan": 6,
+              "column": 18,
               "name": "listselector_1",
               "row": 6,
               "rowspan": 28,
@@ -551,9 +535,9 @@
           "widgets": [
             {
               "colspan": 6,
-              "column": 2,
+              "column": 1,
               "name": "chart_12",
-              "row": 38,
+              "row": 44,
               "rowspan": 11,
               "widgetStyle": { "borderEdges": [] }
             },
@@ -567,17 +551,17 @@
             },
             {
               "colspan": 6,
-              "column": 9,
+              "column": 7,
               "name": "chart_13",
-              "row": 40,
+              "row": 44,
               "rowspan": 11,
               "widgetStyle": { "borderEdges": [] }
             },
             {
               "colspan": 6,
-              "column": 16,
+              "column": 13,
               "name": "chart_14",
-              "row": 39,
+              "row": 44,
               "rowspan": 11,
               "widgetStyle": { "borderEdges": [] }
             },
@@ -587,6 +571,14 @@
               "name": "chart_2",
               "row": 21,
               "rowspan": 11,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 13,
+              "column": 2,
+              "name": "text_13",
+              "row": 36,
+              "rowspan": 5,
               "widgetStyle": { "borderEdges": [] }
             }
           ]
@@ -613,7 +605,7 @@
       "groups": [],
       "label": "HasBeenAutoEscalated%",
       "numbers": [],
-      "query": "-- Collect total Cases.\nq = load \"CMOS_Cases\";\nq = filter q by {{ column(Onboard_Team_Branch_2.selection, [\"Onboard.Team_Branch\"]).asEquality(\"IDR_Office__c\") }};\nq1 = group q by Id;\nq1 = foreach q1 generate Id, 1 as 'C';\nq1 = group q1 by all;\ntotal = foreach q1 generate sum('C') as 'Total';\n\n\n--Filter cases that are not auto esclated\nesc = foreach q generate case when 'IDR_Escalation_Reason__c' is null \nthen \"None\" else 'IDR_Escalation_Reason__c' end\nas 'IDR_Escalation_Reason__c', 'Id' as 'Id';\nesc = group esc by ('IDR_Escalation_Reason__c');\nesc = foreach esc generate 'IDR_Escalation_Reason__c', count() as 'C';\nesc = filter esc by 'IDR_Escalation_Reason__c' like \"%auto%\";\nesc = foreach esc generate 'IDR_Escalation_Reason__c', sum('C') as 'Filter';\nesc = group esc by all;\nesc = foreach esc generate sum('Filter') as 'Filter';\n\n\n--Compare the total cases against the filtered cases\ncombine = union total, esc;\ncombine = group combine by all;\nresult = foreach combine generate number_to_string( (sum(Filter)/sum(Total)) , \"#.00%\") as 'perc';",
+      "query": "-- Collect total Cases.\nq = load \"CMOS_Cases\";\nq = filter q by {{ column(Onboard_Team_Branch_2.selection, [\"Onboard.Team_Branch\"]).asEquality(\"IDR_Office__c\") }};\nq = filter q by {{row(min_max_dates_1.result, [0], [\"min_epoch\", \"max_epoch\"]).asDateRange(\"date('CreatedDate_Year', 'CreatedDate_Month', 'CreatedDate_Day')\")}};\nq1 = group q by Id;\nq1 = foreach q1 generate Id, 1 as 'C';\nq1 = group q1 by all;\ntotal = foreach q1 generate sum('C') as 'Total';\n\n\n--Filter cases that are not auto esclated\nesc = foreach q generate case when 'IDR_Escalation_Reason__c' is null \nthen \"None\" else 'IDR_Escalation_Reason__c' end\nas 'IDR_Escalation_Reason__c', 'Id' as 'Id';\nesc = group esc by ('IDR_Escalation_Reason__c');\nesc = foreach esc generate 'IDR_Escalation_Reason__c', count() as 'C';\nesc = filter esc by 'IDR_Escalation_Reason__c' like \"%auto%\";\nesc = foreach esc generate 'IDR_Escalation_Reason__c', sum('C') as 'Filter';\nesc = group esc by all;\nesc = foreach esc generate sum('Filter') as 'Filter';\n\n\n--Compare the total cases against the filtered cases\ncombine = union total, esc;\ncombine = group combine by all;\nresult = foreach combine generate case when coalesce((sum(Filter)/sum(Total)),0) == 0 then \"0%\" else  number_to_string( coalesce((sum(Filter)/sum(Total)),0) , \"#.00%\") end as 'perc';",
       "receiveFacetSource": {
         "mode": "exclude",
         "steps": ["Onboard_Team_Branch_2", "Onboard_Division_1"]
@@ -706,7 +698,7 @@
       "groups": [],
       "label": "Picklist_Type_Label_1",
       "numbers": [],
-      "query": "q = load \"CMOS_Cases\";\nq = group q by ('Id', 'Picklist.Type.Label');\nq = foreach q generate 'Id', 'Picklist.Type.Label' as 'Picklist.Type.Label', count() as 'count';\n\nq = group q by 'Picklist.Type.Label';\nq = foreach q generate 'Picklist.Type.Label' as 'Picklist.Type.Label', count() as 'count';\nq = order q by 'Picklist.Type.Label' asc;\n",
+      "query": "q = load \"CMOS_Cases\";\nq = filter q by {{row(min_max_dates_1.result, [0], [\"min_epoch\", \"max_epoch\"]).asDateRange(\"date('CreatedDate_Year', 'CreatedDate_Month', 'CreatedDate_Day')\")}};\nq = group q by ('Id', 'Picklist.Type.Label');\nq = foreach q generate 'Id', 'Picklist.Type.Label' as 'Picklist.Type.Label', count() as 'count';\n\nq = group q by 'Picklist.Type.Label';\nq = foreach q generate 'Picklist.Type.Label' as 'Picklist.Type.Label', count() as 'count';\nq = order q by 'Picklist.Type.Label' asc;\n",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "start": "[]",
@@ -798,12 +790,55 @@
         "type": "chart"
       }
     },
+    "Creator_UserInfo_Fir_1": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "Creator_UserInfo_Fir_1",
+      "numbers": [],
+      "query": "q = load \"CMOS_Cases\";\nq = group q by ('Id', 'CaseNumber', 'Creator_UserInfo.LastName');\nq = foreach q generate 'Id', 'CaseNumber', 'Creator_UserInfo.LastName';\nq = limit q 100;",
+      "receiveFacetSource": { "mode": "exclude", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "borderColor": "#e0e5ee",
+          "borderWidth": 1,
+          "cell": {
+            "backgroundColor": "#ffffff",
+            "fontColor": "#16325c",
+            "fontSize": 12
+          },
+          "columnProperties": {},
+          "columns": [],
+          "customBulkActions": [],
+          "header": {
+            "backgroundColor": "#f4f6f9",
+            "fontColor": "#16325c",
+            "fontSize": 12
+          },
+          "innerMajorBorderColor": "#a8b7c7",
+          "innerMinorBorderColor": "#e0e5ee",
+          "maxColumnWidth": 300,
+          "minColumnWidth": 40,
+          "mode": "variable",
+          "numberOfLines": 1,
+          "pivoted": false,
+          "showActionMenu": true,
+          "showRowIndexColumn": true,
+          "totals": true,
+          "verticalPadding": 8
+        },
+        "type": "table"
+      }
+    },
     "Number_of_Escalated__1": {
       "broadcastFacet": true,
       "groups": [],
       "label": "Number of Escalated Cases%",
       "numbers": [],
-      "query": "-- Collect total Cases.\nq = load \"CMOS_Cases\";\nq = filter q by {{ column(Onboard_Team_Branch_2.selection, [\"Onboard.Team_Branch\"]).asEquality(\"IDR_Office__c\") }};\nq1 = group q by Id;\nq1 = foreach q1 generate Id, 1 as 'C';\nq1 = group q1 by all;\ntotal = foreach q1 generate sum('C') as 'Total';\n\n--Filter cases that are not auto esclated\nesc = foreach q generate case when 'IDR_Escalation_Reason__c' is null \nthen \"None\" else 'IDR_Escalation_Reason__c' end\nas 'IDR_Escalation_Reason__c', 'Id' as 'Id';\nesc = group esc by ('Id', 'IDR_Escalation_Reason__c');\nesc = foreach esc generate 'IDR_Escalation_Reason__c', count() as 'C';\nesc = group esc by 'IDR_Escalation_Reason__c';\nesc = filter esc by 'IDR_Escalation_Reason__c' != \"None\";\nesc = foreach esc generate 'IDR_Escalation_Reason__c', count() as 'C';\nesc = group esc by all;\nesc = foreach esc generate sum('C') as 'Filter';\n\n\n--Compare the total cases against the filtered cases\ncombine = union total, esc;\ncombine = group combine by all;\nresult = foreach combine generate \n(sum(sum(Filter)) over([..] partition by all) / sum(sum(Total)) over([..] partition by all) ) as 'percentile';\n\n\nresult = foreach result generate number_to_string(percentile, \"#%\") as 'perc';\n\n",
+      "query": "-- Collect total Cases.\nq = load \"CMOS_Cases\";\nq = filter q by {{row(min_max_dates_1.result, [0], [\"min_epoch\", \"max_epoch\"]).asDateRange(\"date('CreatedDate_Year', 'CreatedDate_Month', 'CreatedDate_Day')\")}};\nq = filter q by {{ column(Onboard_Team_Branch_2.selection, [\"Onboard.Team_Branch\"]).asEquality(\"IDR_Office__c\") }};\nq1 = group q by Id;\nq1 = foreach q1 generate Id, 1 as 'C';\nq1 = group q1 by all;\ntotal = foreach q1 generate sum('C') as 'Total';\n\n--Filter cases that are not auto esclated\nesc = foreach q generate case when 'IDR_Escalation_Reason__c' is null \nthen \"None\" else 'IDR_Escalation_Reason__c' end\nas 'IDR_Escalation_Reason__c', 'Id' as 'Id';\nesc = group esc by ('Id', 'IDR_Escalation_Reason__c');\nesc = foreach esc generate 'IDR_Escalation_Reason__c', count() as 'C';\nesc = group esc by 'IDR_Escalation_Reason__c';\nesc = filter esc by 'IDR_Escalation_Reason__c' != \"None\";\nesc = foreach esc generate 'IDR_Escalation_Reason__c', count() as 'C';\nesc = group esc by all;\nesc = foreach esc generate sum('C') as 'Filter';\n\n\n--Compare the total cases against the filtered cases\ncombine = union total, esc;\ncombine = group combine by all;\nresult = foreach combine generate \n(sum(sum(Filter)) over([..] partition by all) / sum(sum(Total)) over([..] partition by all) ) as 'percentile';\n\n\nresult = foreach result generate number_to_string(percentile, \"#%\") as 'perc';\n\n",
       "receiveFacetSource": {
         "mode": "exclude",
         "steps": ["Onboard_Team_Branch_2", "Onboard_Division_1"]
@@ -1206,7 +1241,7 @@
       "groups": [],
       "label": "min-max-dates",
       "numbers": [],
-      "query": "q = load \"CMOS_Historic_User_Data\";\nq = group q by all;\nq = foreach q generate toString(toDate(min('Snapshot_Date_sec_epoch')),\"dd-MM-yyyy\") as 'min', toString(toDate(max('Snapshot_Date_sec_epoch')),\"dd-MM-yyyy\") as 'max';\n",
+      "query": "q = load \"CMOS_Historic_User_Data\";\nq = group q by all;\nq = foreach q generate \ntoString(toDate(min('Snapshot_Date_sec_epoch')),\"dd-MM-yyyy\") as 'min', \ntoString(toDate(max('Snapshot_Date_sec_epoch')),\"dd-MM-yyyy\") as 'max',\nmin('Snapshot_Date_sec_epoch')*1000 as 'min_epoch',\nmax('Snapshot_Date_sec_epoch')*1000 as 'max_epoch';\n",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -1702,7 +1737,7 @@
       "groups": [],
       "label": "all_2",
       "numbers": [],
-      "query": "q = load \"CMOS_Cases\";\nq = group q by 'Id';\nq = foreach q generate count() as 'count';\nq = group q by all;\nq = foreach q generate count() as 'count';",
+      "query": "q = load \"CMOS_Cases\";\nq = filter q by {{row(min_max_dates_1.result, [0], [\"min_epoch\", \"max_epoch\"]).asDateRange(\"date('CreatedDate_Year', 'CreatedDate_Month', 'CreatedDate_Day')\")}};\nq = group q by 'Id';\nq = foreach q generate count() as 'count';\nq = group q by all;\nq = foreach q generate count() as 'count';",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -2552,6 +2587,7 @@
       },
       "label": "",
       "selectMode": "singlerequired",
+      "start": "{\"Display\":[\"Name\"]}",
       "type": "staticflex",
       "values": [
         "{\"Display\":\"Name\",\"Text2\":\"'Name' asc\"}",
@@ -2560,20 +2596,19 @@
     },
     "IDR_Complaint_Remedy_1": {
       "broadcastFacet": true,
-      "groups": ["Picklist.Remedy.Label"],
+      "groups": [],
       "label": "Complaint Remedy %",
-      "numbers": ["A", "Perc", "%"],
-      "query": "q = load \"CMOS_Cases\";\nresult = group q by 'Picklist.Remedy.Label';\nresult = foreach result generate q.'Picklist.Remedy.Label' as 'Picklist.Remedy.Label', count(q) as 'A';\nresult = group result by 'Picklist.Remedy.Label';\nresult = foreach result generate 'Picklist.Remedy.Label', first(A) as 'A', sum(A)/sum(sum(A)) over ([..] partition by all) as 'Perc';\n\nresult = foreach result generate 'Picklist.Remedy.Label', A, Perc, round('Perc',3)*100 as '%';\n\n\nresult = limit result 2000;",
+      "numbers": [],
+      "query": "q = load \"CMOS_Cases\";\nq = filter q by {{row(min_max_dates_1.result, [0], [\"min_epoch\", \"max_epoch\"]).asDateRange(\"date('CreatedDate_Year', 'CreatedDate_Month', 'CreatedDate_Day')\")}};\nq = group q by 'Id';\nq = foreach q generate 'Id', first('Picklist.Remedy.Label') as 'Picklist.Remedy.Label';\nresult = group q by 'Picklist.Remedy.Label';\nresult = foreach result generate q.'Picklist.Remedy.Label' as 'Picklist.Remedy.Label', count(q) as 'A';\nresult = group result by 'Picklist.Remedy.Label';\nresult = foreach result generate 'Picklist.Remedy.Label', first(A) as 'A', sum(A)/sum(sum(A)) over ([..] partition by all) as 'Perc';\n\nresult = foreach result generate 'Picklist.Remedy.Label', A, Perc, round('Perc',3)*100 as '%';\n\n\nresult = limit result 2000;",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
-      "start": "[]",
-      "strings": ["Picklist.Remedy.Label"],
+      "strings": [],
       "type": "saql",
       "useGlobal": true,
       "visualizationParameters": {
         "parameters": {
           "autoFitMode": "keepLabels",
-          "centerText": "{{cell(IDR_Complaint_Remedy_1.result, 0, \"%\").asString()}}",
+          "centerText": "{{cell(IDR_Complaint_Remedy_1.result, 0, \"%\").asString()}}%",
           "legend": {
             "descOrder": false,
             "showHeader": false,
@@ -2582,7 +2617,7 @@
             "position": "bottom-center",
             "inside": false
           },
-          "showMeasureTitle": true,
+          "showMeasureTitle": false,
           "tooltip": {
             "showBinLabel": true,
             "measures": "",
@@ -2599,7 +2634,7 @@
             "subtitleFontSize": 11,
             "label": "",
             "align": "center",
-            "subtitleLabel": ""
+            "subtitleLabel": "% Resolved with Financial Remedy"
           },
           "trellis": {
             "flipLabels": false,
@@ -2609,11 +2644,11 @@
             "type": "x",
             "chartsPerLine": 4
           },
-          "inner": 50,
+          "inner": 60,
           "columnMap": {
             "trellis": [],
             "dimension": ["Picklist.Remedy.Label"],
-            "plots": ["Perc"]
+            "plots": ["%"]
           },
           "showActionMenu": true,
           "centerValueType": "text",
@@ -2735,10 +2770,9 @@
       "groups": [],
       "label": "Onboard_Team_Branch_2",
       "numbers": [],
-      "query": "q = load \"CMOS_Historic_User_Data\";\nq = group q by 'Onboard.Team_Branch';\nq = foreach q generate 'Onboard.Team_Branch' as 'Onboard.Team_Branch', count() as 'count';\nq = order q by 'Onboard.Team_Branch' asc;\nq = limit q 2000;",
+      "query": "q = load \"CMOS_Historic_User_Data\";\nq = group q by ('Onboard.Salary_ID', 'Onboard.Team_Branch');\nq = foreach q generate 'Onboard.Salary_ID', 'Onboard.Team_Branch', count() as 'c';\nq = group q by ('Onboard.Team_Branch');\nq = foreach q generate 'Onboard.Team_Branch', count() as 'c';\nq = order q by 'Onboard.Team_Branch' asc",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "multi",
-      "start": "[]",
       "strings": [],
       "type": "saql",
       "useGlobal": true,
@@ -2790,11 +2824,6 @@
             "type": "x",
             "chartsPerLine": 4
           },
-          "columnMap": {
-            "trellis": [],
-            "dimensionAxis": ["Onboard.Team_Branch"],
-            "plots": ["count"]
-          },
           "showActionMenu": true,
           "measureAxis2": {
             "sqrtScale": false,
@@ -2831,7 +2860,7 @@
       "groups": [],
       "label": "CreatedDate_Year_Cre_2",
       "numbers": [],
-      "query": "q = load \"CMOS_Cases\";\nq = group q by ('CreatedDate_Year', 'CreatedDate_Month', 'CreatedDate_Day');\nq = foreach q generate 'CreatedDate_Year' + \"~~~\" + 'CreatedDate_Month' + \"~~~\" + 'CreatedDate_Day' as 'CreatedDate_Year~~~CreatedDate_Month~~~CreatedDate_Day', count() as 'count';\nq = order q by 'CreatedDate_Year~~~CreatedDate_Month~~~CreatedDate_Day' asc;\nq = limit q 2000;",
+      "query": "q = load \"CMOS_Cases\";\nq = filter q by {{row(min_max_dates_1.result, [0], [\"min_epoch\", \"max_epoch\"]).asDateRange(\"date('CreatedDate_Year', 'CreatedDate_Month', 'CreatedDate_Day')\")}};\nq = group q by ('Id','CreatedDate_Year', 'CreatedDate_Month', 'CreatedDate_Day');\nq = foreach q generate 'Id', 'CreatedDate_Year' + \"~~~\" + 'CreatedDate_Month' + \"~~~\" + 'CreatedDate_Day' as 'CreatedDate_Year~~~CreatedDate_Month~~~CreatedDate_Day', count() as 'count';\nq = group q by ('CreatedDate_Year~~~CreatedDate_Month~~~CreatedDate_Day');\nq = foreach q generate 'CreatedDate_Year~~~CreatedDate_Month~~~CreatedDate_Day', count() as 'count';\nq = order q by 'CreatedDate_Year~~~CreatedDate_Month~~~CreatedDate_Day' asc;\n",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -2942,7 +2971,7 @@
       "groups": [],
       "label": "lens_5",
       "numbers": [],
-      "query": "q = load \"CMOS_Cases\";\nq = group q by ('CaseNumber', 'Origin', 'Status', 'UserInfo.FirstName', 'UserInfo.LastName', 'Picklist.IDR_Sub_type.Label');\nq = foreach q generate 'CaseNumber' as 'CaseNumber', 'Origin' as 'Origin', 'Picklist.IDR_Sub_type.Label' as 'Issue Subtype', 'Status' as 'Status', 'UserInfo.FirstName' + \" \" + 'UserInfo.LastName' as 'Created By', date_to_string(toDate(max(CreatedDate_sec_epoch)), \"dd/MM/yy\") as 'Date Received'; \n",
+      "query": "q = load \"CMOS_Cases\";\nq = group q by ('CaseNumber', 'Origin', 'Status', 'UserInfo.FirstName', 'UserInfo.LastName');\nq = foreach q generate 'CaseNumber' as 'CaseNumber', 'Origin' as 'Origin', 'Status' as 'Status', 'UserInfo.FirstName' + \" \" + 'UserInfo.LastName' as 'Created By', date_to_string(toDate(max(CreatedDate_sec_epoch)), \"dd/MM/yy\") as 'Date Received'; \n",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -2978,12 +3007,55 @@
         "type": "table"
       }
     },
+    "lens_6": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "lens_6",
+      "numbers": [],
+      "query": "q = load \"CMOS_Historic_User_Data\";\nq = group q by ('Onboard.Salary_ID', 'Onboard.Team_Branch');\nq = foreach q generate 'Onboard.Salary_ID', 'Onboard.Team_Branch', count() as 'c';\n\nq = group q by ('Onboard.Team_Branch');\nq = foreach q generate 'Onboard.Team_Branch', count() as 'c';\nq = order q by 'Onboard.Team_Branch' asc",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "borderColor": "#e0e5ee",
+          "borderWidth": 1,
+          "cell": {
+            "backgroundColor": "#ffffff",
+            "fontColor": "#16325c",
+            "fontSize": 12
+          },
+          "columnProperties": {},
+          "columns": [],
+          "customBulkActions": [],
+          "header": {
+            "backgroundColor": "#f4f6f9",
+            "fontColor": "#16325c",
+            "fontSize": 12
+          },
+          "innerMajorBorderColor": "#a8b7c7",
+          "innerMinorBorderColor": "#e0e5ee",
+          "maxColumnWidth": 300,
+          "minColumnWidth": 40,
+          "mode": "variable",
+          "numberOfLines": 1,
+          "pivoted": false,
+          "showActionMenu": true,
+          "showRowIndexColumn": true,
+          "totals": true,
+          "verticalPadding": 8
+        },
+        "type": "table"
+      }
+    },
     "lens_3": {
       "broadcastFacet": true,
       "groups": [],
       "label": "lens_3",
       "numbers": [],
-      "query": "q = load \"CMOS_Cases\";\nq = filter q by IsClosed == \"true\";\nq = group q by Id;\nq = foreach q generate Id, ((( (min(ClosedDate_sec_epoch) - min(CreatedDate_sec_epoch)) / 60) /60 ) / 24) as 'avg_CaseDuration_Hours';\n\nq = group q by all;\nq = foreach q generate sum('avg_CaseDuration_Hours') / count() as 'avg_CaseDuration_Hours';\n\n\n--( max(ClosedDate_sec_epoch) - max(CreatedDate_sec_epoch) )/60/24 as 'avg_CaseDuration_Hours';\n\n",
+      "query": "q = load \"CMOS_Cases\";\nq = filter q by IsClosed == \"true\";\nq = filter q by {{row(min_max_dates_1.result, [0], [\"min_epoch\", \"max_epoch\"]).asDateRange(\"date('CreatedDate_Year', 'CreatedDate_Month', 'CreatedDate_Day')\")}};\nq = group q by Id;\nq = foreach q generate Id, ((( (min(ClosedDate_sec_epoch) - min(CreatedDate_sec_epoch)) / 60) /60 ) / 24) as 'avg_CaseDuration_Hours';\n\nq = group q by all;\nq = foreach q generate sum('avg_CaseDuration_Hours') / count() as 'avg_CaseDuration_Hours';\n\n\n--( max(ClosedDate_sec_epoch) - max(CreatedDate_sec_epoch) )/60/24 as 'avg_CaseDuration_Hours';\n\n",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -3052,6 +3124,7 @@
       "query": "q = load \"CMOS_Cases\";\nq = group q by 'Creator_UserInfo.EmployeeNumber';\nq = group q by ('Id', 'CreatedById', 'Creator_UserInfo.FirstName', 'Creator_UserInfo.LastName');\nq = foreach q generate 'Id', 'CreatedById', 'Creator_UserInfo.EmployeeNumber', 'Creator_UserInfo.FirstName' + \" \" + 'Creator_UserInfo.LastName' as 'Name', count() as 'count';\nq = group q by ('Creator_UserInfo.EmployeeNumber', 'Creator_UserInfo.EmployeeNumber', 'Name');\nq = foreach q generate 'Creator_UserInfo.EmployeeNumber', 'Name', count() as 'count';\nq = order q by {{cell(static_2.selection, 0, \"Text2\").asString()}};",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
+      "start": "[]",
       "strings": [],
       "type": "saql",
       "useGlobal": true,
@@ -3226,7 +3299,7 @@
       "groups": [],
       "label": "ResolvedFirstPointContact%",
       "numbers": [],
-      "query": "-- Collect total Cases.\nq = load \"CMOS_Cases\";\nq = filter q by {{ column(Onboard_Team_Branch_2.selection, [\"Onboard.Team_Branch\"]).asEquality(\"IDR_Office__c\") }};\nq = filter q by 'IDR_Office__c' in all;\nq1 = group q by Id;\nq1 = foreach q1 generate Id, 1 as 'C';\nq1 = group q1 by all;\ntotal = foreach q1 generate sum('C') as 'Total';\n\n--Filter cases that are not auto esclated\nesc = foreach q generate case when 'IDR_Escalation_Reason__c' is null \nthen \"None\" else 'IDR_Escalation_Reason__c' end\nas 'IDR_Escalation_Reason__c', 'Id' as 'Id';\nesc = group esc by ('Id', 'IDR_Escalation_Reason__c');\nesc = foreach esc generate 'IDR_Escalation_Reason__c', count() as 'C';\nesc = group esc by 'IDR_Escalation_Reason__c';\nesc = filter esc by 'IDR_Escalation_Reason__c' != \"None\";\nesc = foreach esc generate 'IDR_Escalation_Reason__c', count() as 'C';\nesc = group esc by all;\nesc = foreach esc generate sum('C') as 'Filter';\n\n\n--Compare the total cases against the filtered cases\ncombine = union total, esc;\ncombine = group combine by all;\nresult = foreach combine generate \n1-(sum(sum(Filter)) over([..] partition by all) / sum(sum(Total)) over([..] partition by all) ) as 'percentile';\n\n\nresult = foreach result generate number_to_string(percentile, \"#%\") as 'perc';\n\n",
+      "query": "-- Collect total Cases.\nq = load \"CMOS_Cases\";\nq = filter q by {{row(min_max_dates_1.result, [0], [\"min_epoch\", \"max_epoch\"]).asDateRange(\"date('CreatedDate_Year', 'CreatedDate_Month', 'CreatedDate_Day')\")}};\nq = filter q by {{ column(Onboard_Team_Branch_2.selection, [\"Onboard.Team_Branch\"]).asEquality(\"IDR_Office__c\") }};\nq = filter q by 'IDR_Office__c' in all;\nq1 = group q by Id;\nq1 = foreach q1 generate Id, 1 as 'C';\nq1 = group q1 by all;\ntotal = foreach q1 generate sum('C') as 'Total';\n\n--Filter cases that are not auto esclated\nesc = foreach q generate case when 'IDR_Escalation_Reason__c' is null \nthen \"None\" else 'IDR_Escalation_Reason__c' end\nas 'IDR_Escalation_Reason__c', 'Id' as 'Id';\nesc = group esc by ('Id', 'IDR_Escalation_Reason__c');\nesc = foreach esc generate 'IDR_Escalation_Reason__c', count() as 'C';\nesc = group esc by 'IDR_Escalation_Reason__c';\nesc = filter esc by 'IDR_Escalation_Reason__c' != \"None\";\nesc = foreach esc generate 'IDR_Escalation_Reason__c', count() as 'C';\nesc = group esc by all;\nesc = foreach esc generate sum('C') as 'Filter';\n\n\n--Compare the total cases against the filtered cases\ncombine = union total, esc;\ncombine = group combine by all;\nresult = foreach combine generate \n1-(sum(sum(Filter)) over([..] partition by all) / sum(sum(Total)) over([..] partition by all) ) as 'percentile';\n\n\nresult = foreach result generate number_to_string(percentile, \"#%\") as 'perc';\n\n",
       "receiveFacetSource": {
         "mode": "exclude",
         "steps": ["Onboard_Team_Branch_2", "Onboard_Division_1"]
@@ -3414,20 +3487,10 @@
     "borderWidth": 1
   },
   "widgets": {
-    "text_10": {
-      "parameters": {
-        "content": { "displayTemplate": "Cases Auto Escalated\n" },
-        "fontSize": 16,
-        "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#091A3E"
-      },
-      "type": "text"
-    },
-    "text_12": {
+    "text_13": {
       "parameters": {
         "content": {
-          "displayTemplate": "The below metrics will only update when a team is selected\n"
+          "displayTemplate": "Author: Mouhamed Assafiri\nDate: Nov 2021\n"
         },
         "fontSize": 16,
         "showActionMenu": true,
@@ -3436,10 +3499,32 @@
       },
       "type": "text"
     },
+    "text_10": {
+      "parameters": {
+        "content": { "displayTemplate": "Cases Auto Escalated\n" },
+        "fontSize": 16,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#FFFFFF"
+      },
+      "type": "text"
+    },
+    "text_12": {
+      "parameters": {
+        "content": {
+          "displayTemplate": "The below metrics will only update when a team is selected"
+        },
+        "fontSize": 12,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#ffffff"
+      },
+      "type": "text"
+    },
     "text_11": {
       "parameters": {
         "content": {
-          "displayTemplate": "[perc_1]\n",
+          "displayTemplate": "[perc_1]",
           "values": {
             "perc_1": {
               "field": "perc",
@@ -3448,10 +3533,10 @@
             }
           }
         },
-        "fontSize": 16,
+        "fontSize": 24,
         "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#091A3E"
+        "textAlignment": "center",
+        "textColor": "#ffffff"
       },
       "type": "text"
     },
@@ -3579,7 +3664,7 @@
     "text_3": {
       "parameters": {
         "content": {
-          "displayTemplate": "[perc]\n",
+          "displayTemplate": "[perc]",
           "values": {
             "perc": {
               "field": "perc",
@@ -3588,10 +3673,10 @@
             }
           }
         },
-        "fontSize": 16,
+        "fontSize": 24,
         "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#091A3E"
+        "textAlignment": "center",
+        "textColor": "#ffffff"
       },
       "type": "text"
     },
@@ -3671,7 +3756,7 @@
         "columnMap": {
           "trellis": [],
           "dimension": ["Picklist.Remedy.Label"],
-          "plots": ["Perc"]
+          "plots": ["A"]
         },
         "showActionMenu": true,
         "centerValueType": "text",
@@ -3685,7 +3770,7 @@
     "text_5": {
       "parameters": {
         "content": {
-          "displayTemplate": "[perc]\n",
+          "displayTemplate": "[perc]",
           "values": {
             "perc": {
               "field": "perc",
@@ -3694,10 +3779,10 @@
             }
           }
         },
-        "fontSize": 16,
+        "fontSize": 24,
         "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#091A3E"
+        "textAlignment": "center",
+        "textColor": "#ffffff"
       },
       "type": "text"
     },
@@ -3889,22 +3974,22 @@
     "text_4": {
       "parameters": {
         "content": {
-          "displayTemplate": "Complaints resolved at First Point of Contact:\n"
+          "displayTemplate": "Complaints resolved at First Point of Contact:"
         },
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
-        "textColor": "#091A3E"
+        "textColor": "#FFFFFF"
       },
       "type": "text"
     },
     "text_7": {
       "parameters": {
-        "content": { "displayTemplate": "User Adoption\n\n" },
+        "content": { "displayTemplate": "User Adoption" },
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
-        "textColor": "#091A3E"
+        "textColor": "#111111"
       },
       "type": "text"
     },
@@ -3958,7 +4043,7 @@
     },
     "text_6": {
       "parameters": {
-        "content": { "displayTemplate": "Case Details\n\n" },
+        "content": { "displayTemplate": "Case Details" },
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
@@ -4016,7 +4101,7 @@
     "text_9": {
       "parameters": {
         "content": {
-          "displayTemplate": "Calculates the number of users who have logged in within the last [Days] day(s)\n",
+          "displayTemplate": "Calculates the number of users who have logged in within the last [Days] day(s)",
           "values": {
             "Days": {
               "field": "Days",
@@ -4025,21 +4110,21 @@
             }
           }
         },
-        "fontSize": 16,
+        "fontSize": 9,
         "showActionMenu": false,
-        "textAlignment": "left",
-        "textColor": "#091A3E",
+        "textAlignment": "center",
+        "textColor": "#444444",
         "tooltip": ""
       },
       "type": "text"
     },
     "text_8": {
       "parameters": {
-        "content": { "displayTemplate": "Cases that have been escalated\n" },
+        "content": { "displayTemplate": "Cases that have been escalated" },
         "fontSize": 16,
         "showActionMenu": false,
         "textAlignment": "left",
-        "textColor": "#091A3E"
+        "textColor": "#ffffff"
       },
       "type": "text"
     },
@@ -4147,11 +4232,11 @@
     },
     "text_1": {
       "parameters": {
-        "content": { "displayTemplate": "Complaints\n\n" },
+        "content": { "displayTemplate": "Complaints" },
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
-        "textColor": "#091A3E"
+        "textColor": "#ffffff"
       },
       "type": "text"
     },
@@ -4193,7 +4278,7 @@
     },
     "text_65": {
       "parameters": {
-        "content": { "displayTemplate": "Sort by:\n" },
+        "content": { "displayTemplate": "Sort by:" },
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
@@ -4322,11 +4407,10 @@
       "parameters": {
         "compact": false,
         "displayMode": "filter",
-        "displayTemplate": "[Onboard.Team_Branch]",
         "exploreLink": false,
         "filterStyle": { "titleColor": "#54698D", "valueColor": "#16325C" },
         "instant": true,
-        "measureField": "count",
+        "measureField": "c",
         "showActionMenu": true,
         "step": "Onboard_Team_Branch_2",
         "title": "Search your Team"
@@ -4612,7 +4696,7 @@
           "subtitleFontSize": 11,
           "label": "",
           "align": "center",
-          "subtitleLabel": "Cases Created Per Team Member"
+          "subtitleLabel": "Cases Created Per Team Member (All Time)"
         },
         "trellis": {
           "flipLabels": false,
