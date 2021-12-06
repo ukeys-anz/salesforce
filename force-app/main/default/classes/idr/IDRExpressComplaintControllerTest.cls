@@ -90,9 +90,11 @@ public with sharing class IDRExpressComplaintControllerTest {
   static void testGetAllKnownIssues() {
     User contextUser = createCMOSUser();
     List<Known_Issues__c> knownIssueList = new List<Known_Issues__c>();
+    /*
     System.runAs(contextUser) {
       knownIssueList = IDRExpressComplaintController.getAllKnownIssues();
-    }
+    }*/
+    knownIssueList = IDRExpressComplaintController.getAllKnownIssues();
     System.assertEquals(
       knownIssueList.size() > 0,
       true,
