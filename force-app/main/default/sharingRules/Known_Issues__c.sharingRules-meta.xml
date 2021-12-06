@@ -6,7 +6,7 @@
         <description>Sharing known issues records, read only for creating express cmos complaints</description>
         <label>Share Known Issues with ANZ Users</label>
         <sharedTo>
-            <roleAndSubordinatesInternal>ANZ</roleAndSubordinatesInternal>
+            <roleAndSubordinates>ANZ</roleAndSubordinates>
         </sharedTo>
         <criteriaItems>
             <field>Is_Active__c</field>
