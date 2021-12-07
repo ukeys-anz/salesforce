@@ -1028,6 +1028,13 @@ export default class CreateComplaintLWC extends NavigationMixin(
       '[data-id="product-id"]'
     );
     productElement.value = event.detail.Product__c;
+    productElement.dispatchEvent(
+      new CustomEvent("change", {
+        detail: {
+          value: [productElement.value]
+        }
+      })
+    );
 
     //Check needed for non customer complaint
     if (this.isCustomerComplaint) {
@@ -1040,6 +1047,13 @@ export default class CreateComplaintLWC extends NavigationMixin(
       '[data-id="descOfIssue-id"]'
     );
     descriptionElement.value = event.detail.IDR_Description_of_Issue__c;
+    descriptionElement.dispatchEvent(
+      new CustomEvent("change", {
+        detail: {
+          value: descriptionElement.value
+        }
+      })
+    );
     const custDesiredOutElement = this.template.querySelector(
       '[data-id="custOutCome"]'
     );
