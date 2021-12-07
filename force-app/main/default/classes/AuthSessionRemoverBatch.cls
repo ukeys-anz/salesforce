@@ -1,14 +1,21 @@
 /**
  * @author Victor
  * @since  11/2021
- * @description Batch class to delete AuthSession records for Ocvintegration user
- *              can be refactored to be more reusable when need to expire AuthSession tokens for other users
+ * @description Batch class to delete AuthSession records for integration users
  */
 public with sharing class AuthSessionRemoverBatch implements Database.Batchable<sObject> {
   private static final String OCV_INTEGRATION_USERNAME_PREFIX = 'ocvintegration.user';
+  private static final String DISPUTES_INTEGRATION_USERNAME_PREFIX = 'disputesintegration.user';
+  private static final String PEGA_INTEGRATION_USERNAME_PREFIX = 'pegaintegration.user';
+
+  private static final List<String> USERNAMES_PREFIX = new List<String>{
+    OCV_INTEGRATION_USERNAME_PREFIX,
+    DISPUTES_INTEGRATION_USERNAME_PREFIX,
+    PEGA_INTEGRATION_USERNAME_PREFIX
+  };
 
   // set default reserve session time for 1 hour so current active sessions won't be affected
-  private static final Integer OCV_INTEGRATION_TOKEN_RESERVE_HOURS = 1;
+  private static final Integer TOKEN_RESERVED_HOURS = 1;
 
   /**
    * @description Get all the authSession records in which users username is like 'ocvintegration.user'
@@ -16,19 +23,9 @@ public with sharing class AuthSessionRemoverBatch implements Database.Batchable<
    * @return Database.QueryLocator scope
    */
   public Database.QueryLocator start(Database.BatchableContext bc) {
-    Datetime comparedDT = Datetime.now()
-      .addHours(-OCV_INTEGRATION_TOKEN_RESERVE_HOURS);
-    String comparedDTFormat = comparedDT.format('yyyy-MM-dd\'T\'hh:mm:ss\'Z\'');
+    String queryStr = buildQueryStr();
 
-    return Database.getQueryLocator(
-      'SELECT Id ' +
-      'FROM AuthSession ' +
-      'WHERE Users.username LIKE \'' +
-      OCV_INTEGRATION_USERNAME_PREFIX +
-      '%\'' +
-      'AND CreatedDate < ' +
-      comparedDTFormat
-    );
+    return Database.getQueryLocator(queryStr);
   }
 
   /**
@@ -52,5 +49,27 @@ public with sharing class AuthSessionRemoverBatch implements Database.Batchable<
   @SuppressWarnings('PMD.EmptyStatementBlock')
   public void finish(Database.BatchableContext bc) {
     //No post processing steps as of now
+  }
+
+  /**
+   * @description  method which is used to build query string for Database.getQueryLocator
+   * @return String query string
+   */
+  private static String buildQueryStr() {
+    Datetime comparedDT = Datetime.now().addHours(-TOKEN_RESERVED_HOURS);
+    String comparedDTFormat = comparedDT.format('yyyy-MM-dd\'T\'hh:mm:ss\'Z\'');
+
+    String queryStr = 'SELECT Id ' + 'FROM AuthSession ' + 'WHERE (';
+
+    for (String usernamePrefix : USERNAMES_PREFIX) {
+      queryStr += 'Users.username LIKE \'' + usernamePrefix + '%\'' + ' OR ';
+    }
+
+    // remove last ' OR ', 4 chars
+    queryStr = queryStr.substring(0, queryStr.length() - 4);
+
+    queryStr += ') AND CreatedDate < ' + comparedDTFormat;
+
+    return queryStr;
   }
 }
