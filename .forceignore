@@ -98,5 +98,4 @@ force-app/main/default/objects/Case/recordTypes/Urgent_Dishonour_Request_Dispute
 # Below line can be removed once it's removed from prod.
 force-app/main/default/flows/Case_SLA_Notification.flow-meta.xml
 
-force-app/main/default/layouts/Known_Issues__c-Known Issues Layout.layout-meta.xml
-force-app/main/default/sharingRules/Known_Issues__c.sharingRules-meta.xml
+force-app/main/default/objects/Known_Issues__c/Known_Issues__c.object-meta.xml
