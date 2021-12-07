@@ -527,7 +527,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Systemic Issue</value>
+            <value>Systemic Issue,CFMS Migrated Case</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>

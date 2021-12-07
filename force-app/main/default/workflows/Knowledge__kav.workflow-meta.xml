@@ -21,6 +21,26 @@
         <template>unfiled$public/Knowledge_Article_Rejection_Email</template>
     </alerts>
     <fieldUpdates>
+        <fullName>IDR_Update_Status_to_Approved</fullName>
+        <field>ValidationStatus</field>
+        <literalValue>Approved</literalValue>
+        <name>Update Status to Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>IDR_Update_Status_to_Submitted</fullName>
+        <field>ValidationStatus</field>
+        <literalValue>Submitted</literalValue>
+        <name>Update Status to Submitted</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>Update_Status_to_Approved</fullName>
         <description>Update validation status to Approved when the article is approved by content manager</description>
         <field>ValidationStatus</field>
