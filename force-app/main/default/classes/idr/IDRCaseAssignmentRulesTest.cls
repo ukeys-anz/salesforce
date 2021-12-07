@@ -172,4 +172,37 @@ private with sharing class IDRCaseAssignmentRulesTest {
       );
     }
   }
+
+  @isTest
+  static void validateProductWorkbasketAndQueues() {
+    Schema.DescribeFieldResult productWorkbasketList = Product2.IDR_Workbasket__c.getDescribe();
+    List<Schema.PicklistEntry> workbasketPicklistValues = productWorkbasketList.getPicklistValues();
+
+    List<SelectOption> workbasketOptions = new List<SelectOption>();
+
+    for (Schema.PicklistEntry workbasket : workbasketPicklistValues) {
+      workbasketOptions.add(
+        new SelectOption(workbasket.getLabel(), workbasket.getValue())
+      );
+    }
+
+    List<String> queueNames = new List<String>();
+
+    for (Group queue : [
+      SELECT id, developername
+      FROM Group
+      WHERE
+        developername IN :IDRConstants.workBasketNames
+        AND Type = :IDRCaseActions.QUEUE_TYPE
+    ]) {
+      queueNames.add(queue.developername);
+    }
+
+    for (SelectOption so : workbasketOptions) {
+      System.assert(
+        queueNames.contains(so.getLabel()),
+        'Queue does not exist for the workbasket option :' + so.getValue()
+      );
+    }
+  }
 }
