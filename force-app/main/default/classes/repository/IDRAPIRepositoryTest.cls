@@ -15,7 +15,7 @@ public with sharing class IDRAPIRepositoryTest {
 
     // Verify response received contains fake values
     System.assertEquals(
-      'TestFirstName',
+      'PATRICK ABBISOGNI',
       info.profile.firstName,
       'Matches the first name'
     );
