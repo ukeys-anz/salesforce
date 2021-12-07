@@ -275,7 +275,7 @@ export default class MultiSelectCombobox extends LightningElement {
   @api handleExpressCase() {
     this.searchString = "1 Option(s) Selected";
     for (let i = 0; i < this.optionData.length; i++) {
-      if (this.optionData[i].value == "N/A") {
+      if (this.optionData[i].value === "N/A") {
         this.optionData[i].selected = true;
         this.values.push(this.optionData[i].value);
       }
