@@ -52,13 +52,9 @@
     <tabs>Restricted_Cases</tabs>
     <tabs>standard-Task</tabs>
     <tabs>standard-Product2</tabs>
-    <tabs>Known_Issues__c</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>IDR_Console_UtilityBar</utilityBar>
     <workspaceConfig>
-        <mappings>
-            <tab>Known_Issues__c</tab>
-        </mappings>
         <mappings>
             <tab>Restricted_Cases</tab>
         </mappings>
