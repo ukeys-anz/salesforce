@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>All_Open_Cases</fullName>
+    <fullName>MyCases</fullName>
     <columns>CASES.CASE_NUMBER</columns>
     <columns>ACCOUNT.NAME</columns>
     <columns>CASES.TYPE</columns>
@@ -10,13 +10,8 @@
     <columns>OWNER_NAME</columns>
     <columns>CASES.RECORDTYPE</columns>
     <columns>CASES.PRIORITY</columns>
-    <filterScope>Everything</filterScope>
-    <filters>
-        <field>CASES.STATUS</field>
-        <operation>equals</operation>
-        <value>Open</value>
-    </filters>
-    <label>All Open Cases</label>
+    <filterScope>Mine</filterScope>
+    <label>My Cases</label>
     <sharedTo>
         <roleAndSubordinates>ANZ</roleAndSubordinates>
         <roleAndSubordinates>ANZx</roleAndSubordinates>
