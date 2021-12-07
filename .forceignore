@@ -97,5 +97,3 @@ force-app/main/default/objects/Case/recordTypes/Urgent_Dishonour_Request_Dispute
 #Temporarily ignoring deleted Process/Flow 'Case_SLA_Notification' until it's removed form source code and prod.
 # Below line can be removed once it's removed from prod.
 force-app/main/default/flows/Case_SLA_Notification.flow-meta.xml
-
-force-app/main/default/objects/Known_Issues__c/Known_Issues__c.object-meta.xml
