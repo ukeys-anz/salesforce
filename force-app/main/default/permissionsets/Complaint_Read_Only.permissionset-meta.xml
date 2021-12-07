@@ -113,6 +113,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.IDR_AFCA_EDR_impact__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.IDR_3rdParty_Suburb__c</field>
         <readable>true</readable>
     </fieldPermissions>
