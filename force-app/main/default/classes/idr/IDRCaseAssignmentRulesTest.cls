@@ -8,6 +8,162 @@
 private with sharing class IDRCaseAssignmentRulesTest {
   @TestSetup
   static void makeData() {
+    Product2[] products = new List<Product2>();
+
+    products.add(
+      new Product2(
+        Name = 'Test Product 1',
+        RecordTypeId = IDRConstants.ANZ_PRODUCT_RT_ID,
+        isActive = true,
+        IDR_Workbasket__c = 'IDR_Business_Owners'
+      )
+    );
+
+    products.add(
+      new Product2(
+        Name = 'Test Product 2',
+        RecordTypeId = IDRConstants.ANZ_PRODUCT_RT_ID,
+        isActive = true,
+        IDR_Workbasket__c = 'IDR_Everyday_Banking'
+      )
+    );
+
+    products.add(
+      new Product2(
+        Name = 'Test Product 3',
+        RecordTypeId = IDRConstants.ANZ_PRODUCT_RT_ID,
+        isActive = true,
+        IDR_Workbasket__c = 'IDR_Home_Owners'
+      )
+    );
+
+    products.add(
+      new Product2(
+        Name = 'Test Product 4',
+        RecordTypeId = IDRConstants.ANZ_PRODUCT_RT_ID,
+        isActive = true,
+        IDR_Workbasket__c = 'IDR_Wealth'
+      )
+    );
+
+    products.add(
+      new Product2(
+        Name = 'Test Product 5',
+        RecordTypeId = IDRConstants.ANZ_PRODUCT_RT_ID,
+        isActive = true,
+        IDR_Workbasket__c = 'Specialised_Early_Resolution_Hardship'
+      )
+    );
+
+    products.add(
+      new Product2(
+        Name = 'Test Product 6',
+        RecordTypeId = IDRConstants.ANZ_PRODUCT_RT_ID,
+        isActive = true,
+        IDR_Workbasket__c = 'Specialised_EarlyRes_Responsible_Lending'
+      )
+    );
+
+    products.add(
+      new Product2(
+        Name = 'Test Product 7',
+        RecordTypeId = IDRConstants.ANZ_PRODUCT_RT_ID,
+        isActive = true,
+        IDR_Workbasket__c = 'EDR_Early_Resolution'
+      )
+    );
+
+    products.add(
+      new Product2(
+        Name = 'Test Product 8',
+        RecordTypeId = IDRConstants.ANZ_PRODUCT_RT_ID,
+        isActive = true,
+        IDR_Workbasket__c = 'IDR_Hardship'
+      )
+    );
+
+    products.add(
+      new Product2(
+        Name = 'Test Product 9',
+        RecordTypeId = IDRConstants.ANZ_PRODUCT_RT_ID,
+        isActive = true,
+        IDR_Workbasket__c = 'IDR_Responsible_Lending'
+      )
+    );
+    products.add(
+      new Product2(
+        Name = 'Test Product 10',
+        RecordTypeId = IDRConstants.ANZ_PRODUCT_RT_ID,
+        isActive = true,
+        IDR_Workbasket__c = 'IDR_CEO'
+      )
+    );
+
+    products.add(
+      new Product2(
+        Name = 'Test Product 11',
+        RecordTypeId = IDRConstants.ANZ_PRODUCT_RT_ID,
+        isActive = true,
+        IDR_Workbasket__c = 'IDR_Early_Resolution'
+      )
+    );
+
+    insert products;
+  }
+
+  /**
+   * @description : This is to test if cases are being assigned to the Products queue defined on the product record
+   */
+
+  @isTest
+  static void testProductAssignmentRulesOnInsert() {
+    //WHEN complaints are created as escalated
+    Case[] cases = new List<Case>();
+    Product2[] products = [SELECT Id FROM Product2];
+    for (Product2 p : products) {
+      cases.add(
+        new Case(
+          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
+          Product__c = p.Id,
+          Status = 'Escalated',
+          IDR_Escalation_Reason__c = '8',
+          Origin = 'Phone',
+          Priority = 'Standard',
+          Type = '13',
+          IDR_Subsequent_Issue__c = '9'
+        )
+      );
+    }
+
+    Test.startTest();
+    insert cases;
+    Test.stopTest();
+
+    Map<ID, Group> queueNameById = new Map<ID, Group>(
+      [
+        SELECT id, developername
+        FROM Group
+        WHERE
+          developername IN :IDRConstants.workBasketNames
+          AND Type = :IDRCaseActions.QUEUE_TYPE
+      ]
+    );
+    cases = [SELECT Id, Product__r.IDR_Workbasket__c, Owner.Name FROM Case];
+    for (case c : cases) {
+      System.assertEquals(
+        c.Product__r.IDR_Workbasket__c,
+        queueNameById.get(c.OwnerId).DeveloperName,
+        'Case Should be assigned to the workbasket defined at the Product'
+      );
+    }
+  }
+
+  /**
+   * @description : This is to test if cases are being assigned to the queues based on Priority, Subsequent Issue Type and Channel Recieved.
+   */
+  @isTest
+  static void testNonProductAssignmentRulesOnUpdate() {
+    //GIVEN open complaints
     Case[] cases = new List<Case>();
     cases.add(
       new Case(
@@ -66,83 +222,6 @@ private with sharing class IDRCaseAssignmentRulesTest {
       )
     );
     insert cases;
-  }
-
-  @isTest
-  static void testProductAssignmentRulesOnInsert() {
-    //WHEN complaints are created as escalated
-    Case[] cases = new List<Case>();
-    Product2[] products = [SELECT Id FROM Product2];
-    for (Product2 p : products) {
-      cases.add(
-        new Case(
-          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
-          Product__c = p.Id,
-          IsEscalated = true
-        )
-      );
-    }
-    insert cases;
-
-    //THEN they're auto-assigned to workbaskets
-    Case[] assignedCases = [
-      SELECT Id
-      FROM Case
-      WHERE Owner.Type = :IDRCaseActions.QUEUE_TYPE
-    ];
-    System.assertEquals(
-      cases.size(),
-      assignedCases.size(),
-      'All cases should have been assigned to a queue'
-    );
-
-    //assert one product per workbasket
-    Map<ID, Group> queueNameById = new Map<ID, Group>(
-      [
-        SELECT id, developername
-        FROM Group
-        WHERE
-          developername IN :IDRConstants.workBasketNames
-          AND Type = :IDRCaseActions.QUEUE_TYPE
-      ]
-    );
-    cases = [SELECT Id, Product__r.Name FROM Case];
-    for (case c : cases) {
-      if (c.Product__r.Name == 'ANZ Business Black Credit Card') {
-        System.assertEquals(
-          'IDR_Business_Owners',
-          queueNameById.get(c.OwnerId).DeveloperName,
-          'Case should be reassigned as per product-dependent assignment rules'
-        );
-      } else if (c.Product__r.Name == 'ANZ First Credit Card') {
-        System.assertEquals(
-          'IDR_Everyday_Banking',
-          queueNameById.get(c.OwnerId).DeveloperName,
-          'Case should be reassigned as per product-dependent assignment rules'
-        );
-      } else if (c.Product__r.Name == 'ANZ Breakfree Package') {
-        System.assertEquals(
-          'IDR_Home_Owners',
-          queueNameById.get(c.OwnerId).DeveloperName,
-          'Case should be reassigned as per product-dependent assignment rules'
-        );
-      } else if (c.Product__r.Name == 'Margin Lending') {
-        System.assertEquals(
-          'IDR_Wealth',
-          queueNameById.get(c.OwnerId).DeveloperName,
-          'Case should be reassigned as per product-dependent assignment rules'
-        );
-      }
-    }
-  }
-
-  @isTest
-  static void testNonProductAssignmentRulesOnUpdate() {
-    //GIVEN open complaints
-    Case[] cases = [
-      SELECT Id, Status, IDR_Escalated_to__c, IDR_Escalation_Reason__c
-      FROM Case
-    ];
 
     Test.startTest();
     //WHEN escalated
@@ -173,6 +252,9 @@ private with sharing class IDRCaseAssignmentRulesTest {
     }
   }
 
+  /**
+   * @description : This is to test if Queues are present for all teh workbasket option present on the products
+   */
   @isTest
   static void validateProductWorkbasketAndQueues() {
     Schema.DescribeFieldResult productWorkbasketList = Product2.IDR_Workbasket__c.getDescribe();
