@@ -139,7 +139,7 @@
       "action": "augment",
       "parameters": {
         "leftKey": ["CreatedById"],
-        "operation": "LookupSingleValue",
+        "operation": "LookupMultiValue",
         "relationship": "User",
         "rightKey": ["Id"],
         "rightSelect": ["FirstName", "LastName"]
