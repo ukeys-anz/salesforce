@@ -8,105 +8,30 @@
 private with sharing class IDRCaseAssignmentRulesTest {
   @TestSetup
   static void makeData() {
-    Product2[] products = new List<Product2>();
+    Schema.DescribeFieldResult productWorkbasketList = Product2.IDR_Workbasket__c.getDescribe();
+    List<Schema.PicklistEntry> workbasketPicklistValues = productWorkbasketList.getPicklistValues();
+    List<SelectOption> workbasketOptions = new List<SelectOption>();
 
-    products.add(
-      new Product2(
-        Name = 'Test Product 1',
-        RecordTypeId = IDRConstants.ANZ_PRODUCT_RT_ID,
-        isActive = true,
-        IDR_Workbasket__c = 'IDR_Business_Owners'
-      )
-    );
+    for (Schema.PicklistEntry workbasket : workbasketPicklistValues) {
+      workbasketOptions.add(
+        new SelectOption(workbasket.getLabel(), workbasket.getValue())
+      );
+    }
 
-    products.add(
-      new Product2(
-        Name = 'Test Product 2',
-        RecordTypeId = IDRConstants.ANZ_PRODUCT_RT_ID,
-        isActive = true,
-        IDR_Workbasket__c = 'IDR_Everyday_Banking'
-      )
-    );
+    List<Product2> products = new List<Product2>();
+    Integer productNumber = 1;
 
-    products.add(
-      new Product2(
-        Name = 'Test Product 3',
-        RecordTypeId = IDRConstants.ANZ_PRODUCT_RT_ID,
-        isActive = true,
-        IDR_Workbasket__c = 'IDR_Home_Owners'
-      )
-    );
-
-    products.add(
-      new Product2(
-        Name = 'Test Product 4',
-        RecordTypeId = IDRConstants.ANZ_PRODUCT_RT_ID,
-        isActive = true,
-        IDR_Workbasket__c = 'IDR_Wealth'
-      )
-    );
-
-    products.add(
-      new Product2(
-        Name = 'Test Product 5',
-        RecordTypeId = IDRConstants.ANZ_PRODUCT_RT_ID,
-        isActive = true,
-        IDR_Workbasket__c = 'Specialised_Early_Resolution_Hardship'
-      )
-    );
-
-    products.add(
-      new Product2(
-        Name = 'Test Product 6',
-        RecordTypeId = IDRConstants.ANZ_PRODUCT_RT_ID,
-        isActive = true,
-        IDR_Workbasket__c = 'Specialised_EarlyRes_Responsible_Lending'
-      )
-    );
-
-    products.add(
-      new Product2(
-        Name = 'Test Product 7',
-        RecordTypeId = IDRConstants.ANZ_PRODUCT_RT_ID,
-        isActive = true,
-        IDR_Workbasket__c = 'EDR_Early_Resolution'
-      )
-    );
-
-    products.add(
-      new Product2(
-        Name = 'Test Product 8',
-        RecordTypeId = IDRConstants.ANZ_PRODUCT_RT_ID,
-        isActive = true,
-        IDR_Workbasket__c = 'IDR_Hardship'
-      )
-    );
-
-    products.add(
-      new Product2(
-        Name = 'Test Product 9',
-        RecordTypeId = IDRConstants.ANZ_PRODUCT_RT_ID,
-        isActive = true,
-        IDR_Workbasket__c = 'IDR_Responsible_Lending'
-      )
-    );
-    products.add(
-      new Product2(
-        Name = 'Test Product 10',
-        RecordTypeId = IDRConstants.ANZ_PRODUCT_RT_ID,
-        isActive = true,
-        IDR_Workbasket__c = 'IDR_CEO'
-      )
-    );
-
-    products.add(
-      new Product2(
-        Name = 'Test Product 11',
-        RecordTypeId = IDRConstants.ANZ_PRODUCT_RT_ID,
-        isActive = true,
-        IDR_Workbasket__c = 'IDR_Early_Resolution'
-      )
-    );
+    for (SelectOption workbasket : workbasketOptions) {
+      products.add(
+        new Product2(
+          Name = 'Test Product ' + productNumber,
+          RecordTypeId = IDRConstants.ANZ_PRODUCT_RT_ID,
+          isActive = true,
+          IDR_Workbasket__c = workbasket.getLabel()
+        )
+      );
+      productNumber++;
+    }
 
     insert products;
   }
@@ -248,42 +173,6 @@ private with sharing class IDRCaseAssignmentRulesTest {
         c.Description,
         queueNameById.get(c.OwnerId).DeveloperName,
         'Case should have been reassigned to the appropriate queue'
-      );
-    }
-  }
-
-  /**
-   * @description : This is to test if Queues are present for all teh workbasket option present on the products
-   */
-  @isTest
-  static void validateProductWorkbasketAndQueues() {
-    Schema.DescribeFieldResult productWorkbasketList = Product2.IDR_Workbasket__c.getDescribe();
-    List<Schema.PicklistEntry> workbasketPicklistValues = productWorkbasketList.getPicklistValues();
-
-    List<SelectOption> workbasketOptions = new List<SelectOption>();
-
-    for (Schema.PicklistEntry workbasket : workbasketPicklistValues) {
-      workbasketOptions.add(
-        new SelectOption(workbasket.getLabel(), workbasket.getValue())
-      );
-    }
-
-    List<String> queueNames = new List<String>();
-
-    for (Group queue : [
-      SELECT id, developername
-      FROM Group
-      WHERE
-        developername IN :IDRConstants.workBasketNames
-        AND Type = :IDRCaseActions.QUEUE_TYPE
-    ]) {
-      queueNames.add(queue.developername);
-    }
-
-    for (SelectOption so : workbasketOptions) {
-      System.assert(
-        queueNames.contains(so.getLabel()),
-        'Queue does not exist for the workbasket option :' + so.getValue()
       );
     }
   }
