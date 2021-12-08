@@ -47,7 +47,7 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
 
     for (Task record : (List<Task>) records) {
       if (
-        record.RecordTypeId == IDRConstants.IDR_TASK_RT_ID &&
+        record.RecordTypeId == IDRConstants.IDR_SYSTEM_TASK_RT_ID &&
         record.Subject == IDRTaskActions.IDR_TASK_SUBJECT &&
         record.OwnerId == IDRTaskActions.siQueue.id
       ) {

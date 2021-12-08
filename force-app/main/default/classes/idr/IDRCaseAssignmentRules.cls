@@ -15,14 +15,18 @@ public with sharing class IDRCaseAssignmentRules {
    * @param oldMap old map of case record in current trigger context
    */
   public static void assignCases(Case[] cases, Map<Id, Case> oldMap) {
-    Map<Id, String> productMap = getProductNames(cases);
+    Map<Id, Product2> productMap = getProductNames(cases);
     for (Case c : cases) {
       if (IDRCaseActions.isIDRComplaintType(c)) {
         Case oldCase = (oldMap != null ? oldMap.get(c.Id) : null);
-        String productName = c.Product__c != null
-          ? productMap.get(c.Product__c)
+        String productWorkbasketName = c.Product__c != null
+          ? (productMap.get(c.Product__c)).IDR_Workbasket__c
           : null;
-        c.OwnerId = IDRCaseAssignmentRules.getOwnerId(c, productName, oldCase);
+        c.OwnerId = IDRCaseAssignmentRules.getOwnerId(
+          c,
+          productWorkbasketName,
+          oldCase
+        );
       }
     }
   }
@@ -30,11 +34,15 @@ public with sharing class IDRCaseAssignmentRules {
   /**
    * @description method to run the Case assignment rules conditions
    * @param rec case record
-   * @param product name of the product the case relates to
+   * @param productWorkbasketName name of the product the case relates to
    * @param oldCase old record of case
    * @return Queue Id
    */
-  private static ID getOwnerId(Case rec, String product, Case oldCase) {
+  private static ID getOwnerId(
+    Case rec,
+    String productWorkbasketName,
+    Case oldCase
+  ) {
     //rules to run only on escalation
     if (
       rec.Status == IDRConstants.ESCALATED_STATUS &&
@@ -73,11 +81,9 @@ public with sharing class IDRCaseAssignmentRules {
       //Product-based rules
       if (
         rec.Origin != IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED &&
-        IDRConstants.caseAssignmentProductMap.containsKey(product)
+        productWorkbasketName != null
       ) {
-        return QUEUE_MAP.get(
-          IDRConstants.caseAssignmentProductMap.get(product)
-        );
+        return QUEUE_MAP.get(productWorkbasketName);
       }
       //Default workbasket
       if (rec.Origin == IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED) {
@@ -119,17 +125,21 @@ public with sharing class IDRCaseAssignmentRules {
    * @param cases List of cases in context, with or without a parent product
    * @return A map of product names by product Ids
    */
-  private static Map<Id, String> getProductNames(Case[] cases) {
+  private static Map<Id, Product2> getProductNames(Case[] cases) {
     Id[] productIds = new List<Id>();
     for (Case c : cases) {
       productIds.add(c.Product__c);
     }
-    Map<Id, String> productNamesMap = new Map<Id, String>();
+    Map<Id, Product2> productMap = new Map<Id, Product2>();
     if (Product2.sObjectType.getDescribe().isQueryable()) {
-      for (Product2 p : [SELECT Name FROM PRoduct2 WHERE Id IN :productIds]) {
-        productNamesMap.put(p.Id, p.Name);
+      for (Product2 p : [
+        SELECT Name, IDR_Workbasket__c
+        FROM Product2
+        WHERE Id IN :productIds
+      ]) {
+        productMap.put(p.Id, p);
       }
     }
-    return productNamesMap;
+    return productMap;
   }
 }

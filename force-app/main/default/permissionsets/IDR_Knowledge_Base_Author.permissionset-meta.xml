@@ -4,10 +4,19 @@
         <application>Content_Workbench</application>
         <visible>true</visible>
     </applicationVisibilities>
-    <description>Grants access to maintain Knowledge Articles</description>
     <fieldPermissions>
         <editable>true</editable>
         <field>Knowledge__kav.Body__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Knowledge__kav.IDR_Issue_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Knowledge__kav.IDR_Subsequent_Issue_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -16,7 +25,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
-    <label>Knowledge Base Author</label>
+    <label>IDR Knowledge Base Author</label>
     <objectPermissions>
         <allowCreate>true</allowCreate>
         <allowDelete>true</allowDelete>
@@ -26,18 +35,10 @@
         <object>Knowledge__kav</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
-    <tabSettings>
-        <tab>Knowledge__kav</tab>
-        <visibility>Available</visibility>
-    </tabSettings>
-    <tabSettings>
-        <tab>standard-Knowledge</tab>
-        <visibility>Available</visibility>
-    </tabSettings>
-    <userPermissions>
-        <enabled>true</enabled>
-        <name>AllowUniversalSearch</name>
-    </userPermissions>
+    <recordTypeVisibilities>
+        <recordType>Knowledge__kav.IDR_Knowledge</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
     <userPermissions>
         <enabled>true</enabled>
         <name>AllowViewKnowledge</name>
