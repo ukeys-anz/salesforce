@@ -10,24 +10,17 @@ private with sharing class IDRCaseAssignmentRulesTest {
   static void makeData() {
     Schema.DescribeFieldResult productWorkbasketList = Product2.IDR_Workbasket__c.getDescribe();
     List<Schema.PicklistEntry> workbasketPicklistValues = productWorkbasketList.getPicklistValues();
-    List<SelectOption> workbasketOptions = new List<SelectOption>();
-
-    for (Schema.PicklistEntry workbasket : workbasketPicklistValues) {
-      workbasketOptions.add(
-        new SelectOption(workbasket.getLabel(), workbasket.getValue())
-      );
-    }
 
     List<Product2> products = new List<Product2>();
     Integer productNumber = 1;
 
-    for (SelectOption workbasket : workbasketOptions) {
+    for (Schema.PicklistEntry workbasket : workbasketPicklistValues) {
       products.add(
         new Product2(
           Name = 'Test Product ' + productNumber,
           RecordTypeId = IDRConstants.ANZ_PRODUCT_RT_ID,
           isActive = true,
-          IDR_Workbasket__c = workbasket.getLabel()
+          IDR_Workbasket__c = workbasket.getValue()
         )
       );
       productNumber++;
