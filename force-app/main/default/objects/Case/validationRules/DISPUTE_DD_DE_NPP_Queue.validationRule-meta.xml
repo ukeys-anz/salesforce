@@ -13,10 +13,12 @@ RecordType.DeveloperName = &apos;NPP_Dispute&apos;),
 AND(
 NOT(Owner:Queue.QueueName = &apos;Support Coach Queue&apos;),
 NOT(Owner:Queue.QueueName = &apos;Digital Fraud Queue&apos;),
+NOT(Owner:Queue.QueueName = &apos;ID Ops Queue&apos;),
+NOT(Owner:Queue.QueueName = &apos;Coach Queue&apos;),
 NOT(Owner:User.UserRole.Name = &apos;Coach&apos;),
 NOT(Owner:User.UserRole.Name = &apos;Support Coach&apos;),
 NOT(Owner:User.UserRole.Name = &apos;Card Dispute Agent&apos;),
 NOT(Owner:User.UserRole.Name = &apos;FraudX Agent&apos;))
 )</errorConditionFormula>
-    <errorMessage>For Direct Debit, Direct Entry or NPP record types, please select either Support Coach Queue or Digital Fraud Queue or the User must have a Coach, Support Coach, Card Dispute Agent or FraudX Agent Role.</errorMessage>
+    <errorMessage>For Direct Debit, Direct Entry or NPP record types, please select either Support Coach Queue, Digital Fraud Queue , ID Ops Queue or Coach Queue. Or the Case Owner User must have a Coach, Support Coach, Card Dispute Agent or FraudX Agent Role.</errorMessage>
 </ValidationRule>
