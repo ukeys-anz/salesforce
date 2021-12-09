@@ -448,7 +448,7 @@ public with sharing class GetHelpCaseActions {
    * to be ANZ Plus specific
    * @param record the record we are updating
    */
-  private static void maskTaxNumbers(Case record) {
+  public static void maskTaxNumbers(Case record) {
     record.Description = TextUtils.maskDataAnzx(record.Description);
     record.Comments = TextUtils.maskDataAnzx(record.Comments);
     if (
