@@ -4,7 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Privacy - Non Personal Information;Integrity - Trusted;Source - Fabric</complianceGroup>
     <description>Transaction ID as provided by CTM/Core system</description>
-    <externalId>false</externalId>
+    <externalId>true</externalId>
     <label>Transaction Id</label>
     <length>255</length>
     <required>false</required>
