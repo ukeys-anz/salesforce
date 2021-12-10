@@ -2930,6 +2930,21 @@
             <default>false</default>
         </values>
     </picklistValues>
+     <picklistValues>
+        <picklist>IDR_AFCA_EDR_impact__c</picklist>
+        <values>
+            <fullName>Enhance the IDR resolution</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Overturn the IDR resolution</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reinstate the IDR resolution</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
     <picklistValues>
         <picklist>IDR_AFCA_Status__c</picklist>
         <values>

@@ -1040,6 +1040,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.IDR_AFCA_EDR_impact__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.IDR_AFCA_Reference_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
