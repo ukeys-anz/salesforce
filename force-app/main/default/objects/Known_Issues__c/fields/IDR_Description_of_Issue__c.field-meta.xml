@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <securityClassification>Internal</securityClassification>
+    <encryptionScheme>ProbabilisticEncryption</encryptionScheme>
     <description>Description of issue</description>
     <externalId>false</externalId>
     <inlineHelpText>Provide a detailed, accurate and grammatically correct description of the customer&apos;s concern, from Customer&apos;s perspective. This field should not display subjective comments from your, or ANZ&apos;s perspective.</inlineHelpText>
