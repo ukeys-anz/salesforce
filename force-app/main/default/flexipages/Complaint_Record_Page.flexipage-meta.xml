@@ -252,10 +252,20 @@
             <componentInstance>
                 <componentName>customerInformation</componentName>
                 <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Customer_Complaint</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>General_Inquiry_CMOS</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Customer_Number__c}</leftValue>
+                        <operator>NE</operator>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
