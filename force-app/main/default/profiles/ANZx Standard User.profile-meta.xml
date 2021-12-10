@@ -2,6 +2,16 @@
 <Profile xmlns="http://soap.sforce.com/2006/04/metadata">
   <fullName>ANZx Standard User</fullName>
   <description>This will have all generic profile configuration that needs to be auto deployed. To be used by all ANZx standard users.</description>
+  <loginIpRanges>
+    <description>Security Policy - First Range</description>
+    <endAddress>203.110.235.31</endAddress>
+    <startAddress>203.110.235.0</startAddress>
+  </loginIpRanges>
+  <loginIpRanges>
+    <description>Security Policy - Second Range</description>
+    <endAddress>203.110.235.159</endAddress>
+    <startAddress>203.110.235.128</startAddress>
+  </loginIpRanges>
   <applicationVisibilities>
         <application>standard__Insights</application>
         <default>false</default>

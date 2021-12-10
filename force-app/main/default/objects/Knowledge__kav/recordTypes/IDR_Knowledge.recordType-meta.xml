@@ -6,206 +6,462 @@
     <picklistValues>
         <picklist>IDR_Issue_Type__c</picklist>
         <values>
-            <fullName>Account set-up %26 maintenance</fullName>
+            <fullName>1</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Advice</fullName>
+            <fullName>10</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Channel accessibility</fullName>
+            <fullName>12</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Closure process</fullName>
+            <fullName>13</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Collections</fullName>
+            <fullName>14</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Credit assessment</fullName>
+            <fullName>15</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Credit reporting</fullName>
+            <fullName>16</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Disclosure</fullName>
+            <fullName>17</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Fees%2C interest%2C rewards</fullName>
+            <fullName>18</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Financial difficulty %26 hardship</fullName>
+            <fullName>19</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Fraud %26 Scams</fullName>
+            <fullName>2</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Insurance Claims</fullName>
+            <fullName>20</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Lending fulfilment</fullName>
+            <fullName>21</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Organisational Structure %26 Marketing</fullName>
+            <fullName>3</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Privacy and Confidentiality</fullName>
+            <fullName>4</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Product features%2C offers%2C sales</fullName>
+            <fullName>5</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Remediation</fullName>
+            <fullName>6</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Service quality</fullName>
+            <fullName>7</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Transaction Disputes</fullName>
+            <fullName>8</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Transactions %26 payments</fullName>
+            <fullName>9</fullName>
             <default>false</default>
         </values>
     </picklistValues>
     <picklistValues>
         <picklist>IDR_Subsequent_Issue_Type__c</picklist>
         <values>
-            <fullName>ATM Disputes</fullName>
+            <fullName>1</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>About ANZ organisational structure</fullName>
+            <fullName>10</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Account%2FProfile Maintenance</fullName>
+            <fullName>11</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Account%2FProfile set up</fullName>
+            <fullName>12</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Application outcome</fullName>
+            <fullName>13</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Appointment not made%2Fupheld</fullName>
+            <fullName>14</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Arrangement considered unsuitable</fullName>
+            <fullName>15</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Branch queues %2F wait time</fullName>
+            <fullName>16</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Breach of account T%26Cs</fullName>
+            <fullName>17</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Calculation Dispute</fullName>
+            <fullName>18</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Call queues %2F wait time</fullName>
+            <fullName>19</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Call transferred%2C disconnected or not returned</fullName>
+            <fullName>2</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Card Scheme Disputes</fullName>
+            <fullName>20</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Card stop%2Fcancellation issue or error</fullName>
+            <fullName>21</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Card%2FPIN not issued%2C received or delayed</fullName>
+            <fullName>22</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Change to fees%2Frates%2Frewards structure</fullName>
+            <fullName>23</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Cheque dishonour%2Fhonour process or policy</fullName>
+            <fullName>24</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Closed in error</fullName>
+            <fullName>25</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Collector%2Fagent conduct</fullName>
+            <fullName>26</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Comprehensive Credit Reporting</fullName>
+            <fullName>27</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Credit file enquiry dispute</fullName>
+            <fullName>28</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer Authentication</fullName>
+            <fullName>29</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Deceased Estates processing</fullName>
+            <fullName>3</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Declines financial assistance</fullName>
+            <fullName>30</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Default listing dispute</fullName>
+            <fullName>31</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Delayed or incomplete lodgement of documents</fullName>
+            <fullName>32</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Deposit or withdrawal incorrect or not actioned</fullName>
+            <fullName>33</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Design%2Flayout%2Fcontent</fullName>
+            <fullName>34</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Difficulty completing%2Fsubmitting application</fullName>
+            <fullName>35</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Digital</fullName>
+            <fullName>36</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>37</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>38</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>39</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>40</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>41</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>42</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>43</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>44</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>45</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>46</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>47</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>48</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>49</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>50</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>51</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>52</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>53</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>54</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>55</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>56</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>57</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>58</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>59</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>6</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>60</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>61</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>62</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>63</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>64</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>65</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>66</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>67</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>68</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>69</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>7</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>70</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>71</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>72</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>73</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>74</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>75</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>76</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>77</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>78</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>79</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>80</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>81</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>82</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>83</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>84</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>85</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>86</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>87</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>88</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>89</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>9</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>90</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>91</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>92</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>93</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>94</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>95</fullName>
             <default>false</default>
         </values>
         <values>
@@ -213,143 +469,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Direct Debit%2FCredit set up%2C change or cancellation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Disputed Account Balance</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Disputed debt</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Dormant or transferred to unclaimed monies</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Failure to properly respond to complaint</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Failure to respond or process request for assistance</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Failure to respond to customer request for info</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Fee or interest dispute</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Fee waiver or interest benefit not received</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Foreign exchange amount%2Frate dispute</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Fraud %2F Falcon block placed</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Fraud not detected</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Garnishee order</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Guarantee Issue%2FError</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Inappropriate lending%2Fmaladministration</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Inappropriate or excessive contact</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Inappropriate%2Funsuitable sales approach</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Incorrect Advice</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Incorrect or incomplete product disclosure</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Incorrect or insufficient explanation or disclosure</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Incorrect set up</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Information%2Fcorrespondence incorrect%2Fnot provided</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Loan disbursement issue%2Ferror</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Loan repayment set up error</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Lost%2Fincomplete documents</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Marketing campaigns</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Marketing contact not requested%2Frequired</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Media releases</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Merchant terminal issue</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Mistaken Internet Payment</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>NPP%2FPay Anyone Disputes</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>No Advice</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>No direct phone line</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>None</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Not closed %2F remains open</fullName>
             <default>false</default>
         </values>
         <values>
@@ -361,131 +481,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Outcome not in customer%27s favour</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Payment clearance timeframe</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Payment system fault%2Foutage</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Payout figure %2F credit balance dispute</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Phishing%2Fhoax contact</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Pledged or blocked account</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Product applied without knowledge%2Fauthorisation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Product considered unsuitable</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Product features %2F Terms and Conditions</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Rate not competitive</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Reimbursement process%2Fpolicy</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Request for financial assistance</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Request for refund breakdown</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Request won%27t be actioned</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Response inconsistent%2C incomplete%2C delayed or unactioned</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Response not provided%2C delayed%2C incomplete or inconsistent</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Response not provided%2C delayed%2C incomplete%2C inconsistent</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Response timeframe%2FSLAs not met or inadequate</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Rewards points not applied %2F unable to be redeemed</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Statement Issue</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Statement features%2Faccessibility</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Stores are cashless</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>System fault%2Foutage</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Telegraphic Transfer failed%2Frejected%2Fdelayed</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Third Party receiving mail</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Title%2Fencumbrance lodgement or release issue</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Tone or manner of response</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Trading hours%2Flocation%2Fclosures</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Unauthorised Information disclosure</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Unexpected%2Funadvised shortfall</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Valuation outcome or delay</fullName>
             <default>false</default>
         </values>
     </picklistValues>

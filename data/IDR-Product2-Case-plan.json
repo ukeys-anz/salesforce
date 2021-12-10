@@ -12,6 +12,12 @@
     "files": ["IDR-Product2s-2.json"]
   },
   {
+    "sobject": "Product2",
+    "saveRefs": true,
+    "resolveRefs": false,
+    "files": ["IDR-Product2s-3.json"]
+  },
+  {
     "sobject": "Case",
     "saveRefs": false,
     "resolveRefs": true,

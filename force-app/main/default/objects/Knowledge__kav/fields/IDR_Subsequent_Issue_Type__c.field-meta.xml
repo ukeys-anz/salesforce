@@ -15,407 +15,407 @@
         <restricted>true</restricted>
         <valueSetName>IDR_Subsequent_Issue_Type</valueSetName>
         <valueSettings>
-            <controllingFieldValue>Service quality</controllingFieldValue>
-            <valueName>Tone or manner of response</valueName>
+            <controllingFieldValue>9</controllingFieldValue>
+            <valueName>57</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Service quality</controllingFieldValue>
-            <valueName>Call transferred, disconnected or not returned</valueName>
+            <controllingFieldValue>9</controllingFieldValue>
+            <valueName>59</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Service quality</controllingFieldValue>
-            <valueName>Appointment not made/upheld</valueName>
+            <controllingFieldValue>9</controllingFieldValue>
+            <valueName>60</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Service quality</controllingFieldValue>
-            <valueName>Failure to properly respond to complaint</valueName>
+            <controllingFieldValue>9</controllingFieldValue>
+            <valueName>61</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Service quality</controllingFieldValue>
-            <valueName>Failure to respond to customer request for info</valueName>
+            <controllingFieldValue>9</controllingFieldValue>
+            <valueName>62</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Service quality</controllingFieldValue>
+            <controllingFieldValue>9</controllingFieldValue>
             <valueName>Request won&apos;t be actioned</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Service quality</controllingFieldValue>
+            <controllingFieldValue>9</controllingFieldValue>
             <valueName>Stores are cashless</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Channel accessibility</controllingFieldValue>
-            <valueName>Branch queues / wait time</valueName>
+            <controllingFieldValue>13</controllingFieldValue>
+            <valueName>2</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Channel accessibility</controllingFieldValue>
-            <valueName>Call queues / wait time</valueName>
+            <controllingFieldValue>13</controllingFieldValue>
+            <valueName>3</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Channel accessibility</controllingFieldValue>
-            <valueName>Trading hours/location/closures</valueName>
+            <controllingFieldValue>13</controllingFieldValue>
+            <valueName>4</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Channel accessibility</controllingFieldValue>
-            <valueName>Design/layout/content</valueName>
+            <controllingFieldValue>13</controllingFieldValue>
+            <valueName>5</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Channel accessibility</controllingFieldValue>
-            <valueName>System fault/outage</valueName>
+            <controllingFieldValue>13</controllingFieldValue>
+            <valueName>6</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Channel accessibility</controllingFieldValue>
-            <valueName>Merchant terminal issue</valueName>
+            <controllingFieldValue>13</controllingFieldValue>
+            <valueName>7</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Channel accessibility</controllingFieldValue>
-            <valueName>Digital</valueName>
+            <controllingFieldValue>13</controllingFieldValue>
+            <valueName>9</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Channel accessibility</controllingFieldValue>
+            <controllingFieldValue>13</controllingFieldValue>
             <valueName>Not working on device</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Channel accessibility</controllingFieldValue>
+            <controllingFieldValue>13</controllingFieldValue>
             <valueName>No direct phone line</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Channel accessibility</controllingFieldValue>
+            <controllingFieldValue>13</controllingFieldValue>
             <valueName>Not enough stores</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Channel accessibility</controllingFieldValue>
+            <controllingFieldValue>13</controllingFieldValue>
             <valueName>Digital only service</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Account set-up &amp; maintenance</controllingFieldValue>
-            <valueName>Account/Profile set up</valueName>
+            <controllingFieldValue>18</controllingFieldValue>
+            <valueName>11</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Account set-up &amp; maintenance</controllingFieldValue>
-            <valueName>Account/Profile Maintenance</valueName>
+            <controllingFieldValue>18</controllingFieldValue>
+            <valueName>12</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Account set-up &amp; maintenance</controllingFieldValue>
-            <valueName>Statement Issue</valueName>
+            <controllingFieldValue>18</controllingFieldValue>
+            <valueName>63</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Account set-up &amp; maintenance</controllingFieldValue>
-            <valueName>Card/PIN not issued, received or delayed</valueName>
+            <controllingFieldValue>18</controllingFieldValue>
+            <valueName>64</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Account set-up &amp; maintenance</controllingFieldValue>
-            <valueName>Card stop/cancellation issue or error</valueName>
+            <controllingFieldValue>18</controllingFieldValue>
+            <valueName>65</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Account set-up &amp; maintenance</controllingFieldValue>
-            <valueName>Disputed Account Balance</valueName>
+            <controllingFieldValue>18</controllingFieldValue>
+            <valueName>66</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Fees, interest, rewards</controllingFieldValue>
-            <valueName>Incorrect or insufficient explanation or disclosure</valueName>
+            <controllingFieldValue>2</controllingFieldValue>
+            <valueName>13</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Fees, interest, rewards</controllingFieldValue>
-            <valueName>Fee or interest dispute</valueName>
+            <controllingFieldValue>2</controllingFieldValue>
+            <valueName>14</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Fees, interest, rewards</controllingFieldValue>
-            <valueName>Fee waiver or interest benefit not received</valueName>
+            <controllingFieldValue>2</controllingFieldValue>
+            <valueName>15</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Fees, interest, rewards</controllingFieldValue>
-            <valueName>Rewards points not applied / unable to be redeemed</valueName>
+            <controllingFieldValue>2</controllingFieldValue>
+            <valueName>16</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Fees, interest, rewards</controllingFieldValue>
-            <valueName>Foreign exchange amount/rate dispute</valueName>
+            <controllingFieldValue>2</controllingFieldValue>
+            <valueName>17</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Fees, interest, rewards</controllingFieldValue>
-            <valueName>Rate not competitive</valueName>
+            <controllingFieldValue>2</controllingFieldValue>
+            <valueName>18</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Fees, interest, rewards</controllingFieldValue>
-            <valueName>Change to fees/rates/rewards structure</valueName>
+            <controllingFieldValue>2</controllingFieldValue>
+            <valueName>19</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Financial difficulty &amp; hardship</controllingFieldValue>
-            <valueName>Request for financial assistance</valueName>
+            <controllingFieldValue>4</controllingFieldValue>
+            <valueName>20</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Financial difficulty &amp; hardship</controllingFieldValue>
-            <valueName>Failure to respond or process request for assistance</valueName>
+            <controllingFieldValue>4</controllingFieldValue>
+            <valueName>21</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Financial difficulty &amp; hardship</controllingFieldValue>
-            <valueName>Declines financial assistance</valueName>
+            <controllingFieldValue>4</controllingFieldValue>
+            <valueName>22</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Financial difficulty &amp; hardship</controllingFieldValue>
-            <valueName>Arrangement considered unsuitable</valueName>
+            <controllingFieldValue>4</controllingFieldValue>
+            <valueName>23</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Collections</controllingFieldValue>
-            <valueName>Inappropriate or excessive contact</valueName>
+            <controllingFieldValue>17</controllingFieldValue>
+            <valueName>24</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Collections</controllingFieldValue>
-            <valueName>Pledged or blocked account</valueName>
+            <controllingFieldValue>17</controllingFieldValue>
+            <valueName>25</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Collections</controllingFieldValue>
-            <valueName>Disputed debt</valueName>
+            <controllingFieldValue>17</controllingFieldValue>
+            <valueName>26</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Collections</controllingFieldValue>
-            <valueName>Collector/agent conduct</valueName>
+            <controllingFieldValue>17</controllingFieldValue>
+            <valueName>27</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Collections</controllingFieldValue>
-            <valueName>Information/correspondence incorrect/not provided</valueName>
+            <controllingFieldValue>17</controllingFieldValue>
+            <valueName>28</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Lending fulfilment</controllingFieldValue>
-            <valueName>Incorrect set up</valueName>
+            <controllingFieldValue>6</controllingFieldValue>
+            <valueName>29</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Lending fulfilment</controllingFieldValue>
-            <valueName>Title/encumbrance lodgement or release issue</valueName>
+            <controllingFieldValue>6</controllingFieldValue>
+            <valueName>30</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Lending fulfilment</controllingFieldValue>
-            <valueName>Valuation outcome or delay</valueName>
+            <controllingFieldValue>6</controllingFieldValue>
+            <valueName>31</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Lending fulfilment</controllingFieldValue>
-            <valueName>Loan disbursement issue/error</valueName>
+            <controllingFieldValue>6</controllingFieldValue>
+            <valueName>32</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Lending fulfilment</controllingFieldValue>
-            <valueName>Response not provided, delayed, incomplete or inconsistent</valueName>
+            <controllingFieldValue>6</controllingFieldValue>
+            <valueName>33</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Lending fulfilment</controllingFieldValue>
-            <valueName>Delayed or incomplete lodgement of documents</valueName>
+            <controllingFieldValue>6</controllingFieldValue>
+            <valueName>34</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Lending fulfilment</controllingFieldValue>
-            <valueName>Unexpected/unadvised shortfall</valueName>
+            <controllingFieldValue>6</controllingFieldValue>
+            <valueName>35</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Lending fulfilment</controllingFieldValue>
-            <controllingFieldValue>Remediation</controllingFieldValue>
-            <valueName>Response timeframe/SLAs not met or inadequate</valueName>
+            <controllingFieldValue>6</controllingFieldValue>
+            <controllingFieldValue>21</controllingFieldValue>
+            <valueName>36</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Lending fulfilment</controllingFieldValue>
-            <valueName>Loan repayment set up error</valueName>
+            <controllingFieldValue>6</controllingFieldValue>
+            <valueName>37</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Lending fulfilment</controllingFieldValue>
-            <valueName>Guarantee Issue/Error</valueName>
+            <controllingFieldValue>6</controllingFieldValue>
+            <valueName>95</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Product features, offers, sales</controllingFieldValue>
-            <valueName>Product features / Terms and Conditions</valueName>
+            <controllingFieldValue>15</controllingFieldValue>
+            <valueName>67</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Product features, offers, sales</controllingFieldValue>
-            <valueName>Statement features/accessibility</valueName>
+            <controllingFieldValue>15</controllingFieldValue>
+            <valueName>68</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Product features, offers, sales</controllingFieldValue>
-            <valueName>Incorrect or incomplete product disclosure</valueName>
+            <controllingFieldValue>15</controllingFieldValue>
+            <valueName>69</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Product features, offers, sales</controllingFieldValue>
-            <valueName>Product considered unsuitable</valueName>
+            <controllingFieldValue>15</controllingFieldValue>
+            <valueName>70</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Product features, offers, sales</controllingFieldValue>
-            <valueName>Product applied without knowledge/authorisation</valueName>
+            <controllingFieldValue>15</controllingFieldValue>
+            <valueName>71</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Product features, offers, sales</controllingFieldValue>
-            <valueName>Inappropriate/unsuitable sales approach</valueName>
+            <controllingFieldValue>15</controllingFieldValue>
+            <valueName>72</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Product features, offers, sales</controllingFieldValue>
-            <valueName>Marketing contact not requested/required</valueName>
+            <controllingFieldValue>15</controllingFieldValue>
+            <valueName>73</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Product features, offers, sales</controllingFieldValue>
-            <valueName>Difficulty completing/submitting application</valueName>
+            <controllingFieldValue>15</controllingFieldValue>
+            <valueName>74</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Closure process</controllingFieldValue>
-            <valueName>Breach of account T&amp;Cs</valueName>
+            <controllingFieldValue>16</controllingFieldValue>
+            <valueName>75</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Closure process</controllingFieldValue>
-            <valueName>Dormant or transferred to unclaimed monies</valueName>
+            <controllingFieldValue>16</controllingFieldValue>
+            <valueName>76</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Closure process</controllingFieldValue>
-            <valueName>Not closed / remains open</valueName>
+            <controllingFieldValue>16</controllingFieldValue>
+            <valueName>77</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Closure process</controllingFieldValue>
-            <valueName>Closed in error</valueName>
+            <controllingFieldValue>16</controllingFieldValue>
+            <valueName>78</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Closure process</controllingFieldValue>
-            <valueName>Payout figure / credit balance dispute</valueName>
+            <controllingFieldValue>16</controllingFieldValue>
+            <valueName>79</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Closure process</controllingFieldValue>
-            <valueName>Deceased Estates processing</valueName>
+            <controllingFieldValue>16</controllingFieldValue>
+            <valueName>80</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Credit assessment</controllingFieldValue>
-            <valueName>Inappropriate lending/maladministration</valueName>
+            <controllingFieldValue>5</controllingFieldValue>
+            <valueName>38</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Credit assessment</controllingFieldValue>
-            <valueName>Application outcome</valueName>
+            <controllingFieldValue>5</controllingFieldValue>
+            <valueName>39</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Credit assessment</controllingFieldValue>
-            <valueName>Response not provided, delayed, incomplete, inconsistent</valueName>
+            <controllingFieldValue>5</controllingFieldValue>
+            <valueName>40</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Credit assessment</controllingFieldValue>
-            <valueName>Lost/incomplete documents</valueName>
+            <controllingFieldValue>5</controllingFieldValue>
+            <valueName>41</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Credit reporting</controllingFieldValue>
-            <valueName>Default listing dispute</valueName>
+            <controllingFieldValue>19</controllingFieldValue>
+            <valueName>42</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Credit reporting</controllingFieldValue>
-            <valueName>Credit file enquiry dispute</valueName>
+            <controllingFieldValue>19</controllingFieldValue>
+            <valueName>43</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Credit reporting</controllingFieldValue>
-            <valueName>Comprehensive Credit Reporting</valueName>
+            <controllingFieldValue>19</controllingFieldValue>
+            <valueName>81</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Transactions &amp; payments</controllingFieldValue>
-            <valueName>Telegraphic Transfer failed/rejected/delayed</valueName>
+            <controllingFieldValue>10</controllingFieldValue>
+            <valueName>46</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Transactions &amp; payments</controllingFieldValue>
-            <valueName>Cheque dishonour/honour process or policy</valueName>
+            <controllingFieldValue>10</controllingFieldValue>
+            <valueName>45</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Transactions &amp; payments</controllingFieldValue>
-            <valueName>Payment clearance timeframe</valueName>
+            <controllingFieldValue>10</controllingFieldValue>
+            <valueName>44</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Transactions &amp; payments</controllingFieldValue>
-            <valueName>Deposit or withdrawal incorrect or not actioned</valueName>
+            <controllingFieldValue>10</controllingFieldValue>
+            <valueName>58</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Transactions &amp; payments</controllingFieldValue>
-            <valueName>Garnishee order</valueName>
+            <controllingFieldValue>10</controllingFieldValue>
+            <valueName>48</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Transactions &amp; payments</controllingFieldValue>
-            <valueName>Payment system fault/outage</valueName>
+            <controllingFieldValue>10</controllingFieldValue>
+            <valueName>50</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Transactions &amp; payments</controllingFieldValue>
-            <valueName>Direct Debit/Credit set up, change or cancellation</valueName>
+            <controllingFieldValue>10</controllingFieldValue>
+            <valueName>47</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Fraud &amp; Scams</controllingFieldValue>
-            <valueName>Response inconsistent, incomplete, delayed or unactioned</valueName>
+            <controllingFieldValue>14</controllingFieldValue>
+            <valueName>82</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Fraud &amp; Scams</controllingFieldValue>
-            <valueName>Reimbursement process/policy</valueName>
+            <controllingFieldValue>14</controllingFieldValue>
+            <valueName>83</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Fraud &amp; Scams</controllingFieldValue>
-            <valueName>Fraud not detected</valueName>
+            <controllingFieldValue>14</controllingFieldValue>
+            <valueName>84</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Fraud &amp; Scams</controllingFieldValue>
-            <valueName>Fraud / Falcon block placed</valueName>
+            <controllingFieldValue>14</controllingFieldValue>
+            <valueName>85</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Fraud &amp; Scams</controllingFieldValue>
-            <valueName>Phishing/hoax contact</valueName>
+            <controllingFieldValue>14</controllingFieldValue>
+            <valueName>86</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Fraud &amp; Scams</controllingFieldValue>
-            <valueName>Outcome not in customer&apos;s favour</valueName>
+            <controllingFieldValue>14</controllingFieldValue>
+            <valueName>87</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Other</controllingFieldValue>
-            <controllingFieldValue>Organisational Structure &amp; Marketing</controllingFieldValue>
-            <valueName>Other</valueName>
+            <controllingFieldValue>11</controllingFieldValue>
+            <controllingFieldValue>12</controllingFieldValue>
+            <valueName>10</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Transaction Disputes</controllingFieldValue>
-            <valueName>Card Scheme Disputes</valueName>
+            <controllingFieldValue>20</controllingFieldValue>
+            <valueName>89</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Transaction Disputes</controllingFieldValue>
-            <valueName>ATM Disputes</valueName>
+            <controllingFieldValue>20</controllingFieldValue>
+            <valueName>90</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Transaction Disputes</controllingFieldValue>
-            <valueName>NPP/Pay Anyone Disputes</valueName>
+            <controllingFieldValue>20</controllingFieldValue>
+            <valueName>91</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Transaction Disputes</controllingFieldValue>
-            <valueName>Mistaken Internet Payment</valueName>
+            <controllingFieldValue>20</controllingFieldValue>
+            <valueName>92</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Privacy and Confidentiality</controllingFieldValue>
-            <valueName>Unauthorised Information disclosure</valueName>
+            <controllingFieldValue>8</controllingFieldValue>
+            <valueName>49</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Privacy and Confidentiality</controllingFieldValue>
-            <valueName>Customer Authentication</valueName>
+            <controllingFieldValue>8</controllingFieldValue>
+            <valueName>51</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Privacy and Confidentiality</controllingFieldValue>
-            <valueName>Third Party receiving mail</valueName>
+            <controllingFieldValue>8</controllingFieldValue>
+            <valueName>88</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Advice</controllingFieldValue>
-            <valueName>Incorrect Advice</valueName>
+            <controllingFieldValue>1</controllingFieldValue>
+            <valueName>52</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Advice</controllingFieldValue>
-            <valueName>No Advice</valueName>
+            <controllingFieldValue>1</controllingFieldValue>
+            <valueName>53</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Insurance Claims</controllingFieldValue>
-            <controllingFieldValue>Disclosure</controllingFieldValue>
-            <valueName>None</valueName>
+            <controllingFieldValue>7</controllingFieldValue>
+            <controllingFieldValue>3</controllingFieldValue>
+            <valueName>1</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Organisational Structure &amp; Marketing</controllingFieldValue>
-            <valueName>About ANZ organisational structure</valueName>
+            <controllingFieldValue>12</controllingFieldValue>
+            <valueName>54</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Organisational Structure &amp; Marketing</controllingFieldValue>
-            <valueName>Media releases</valueName>
+            <controllingFieldValue>12</controllingFieldValue>
+            <valueName>55</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Organisational Structure &amp; Marketing</controllingFieldValue>
-            <valueName>Marketing campaigns</valueName>
+            <controllingFieldValue>12</controllingFieldValue>
+            <valueName>56</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Remediation</controllingFieldValue>
-            <valueName>Request for refund breakdown</valueName>
+            <controllingFieldValue>21</controllingFieldValue>
+            <valueName>93</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Remediation</controllingFieldValue>
-            <valueName>Calculation Dispute</valueName>
+            <controllingFieldValue>21</controllingFieldValue>
+            <valueName>94</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>

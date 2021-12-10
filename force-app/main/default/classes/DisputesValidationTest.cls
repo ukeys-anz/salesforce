@@ -260,7 +260,7 @@ public with sharing class DisputesValidationTest {
       Dispute_Reason__c = 'Product Defective or Unsatisfactory',
       AccountId = acc.Id,
       Description = 'Sample Customer Description',
-      Goods_Or_Services_Returned__c = 'Y',
+      Goods_Or_Services_Returned__c = 'Yes',
       Merchant_Description__c = 'Sample Merchant Description',
       Transaction_Id__c = 'CT5M00000024404234',
       Transaction_UUID__c = '4313ds-51d2-4ve2-ba7e-0b339p157da1'
@@ -302,7 +302,7 @@ public with sharing class DisputesValidationTest {
       Dispute_Reason__c = 'Product Defective or Unsatisfactory',
       AccountId = acc.Id,
       Description = 'Sample Customer Description',
-      Goods_Or_Services_Returned__c = 'Y',
+      Goods_Or_Services_Returned__c = 'Yes',
       Date_Goods_Were_Returned_Or_Services_can__c = Date.valueOf('2021-11-10'),
       Merchant_Description__c = 'Sample Merchant Description',
       Transaction_Id__c = 'CT5M00000024404234',

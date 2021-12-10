@@ -9,6 +9,11 @@
     </shares>
     <shares>
         <accessLevel>View</accessLevel>
+        <sharedTo>Card_Dispute_Agent</sharedTo>
+        <sharedToType>Role</sharedToType>
+    </shares>
+    <shares>
+        <accessLevel>View</accessLevel>
         <sharedTo>FraudX_Agent</sharedTo>
         <sharedToType>Role</sharedToType>
     </shares>

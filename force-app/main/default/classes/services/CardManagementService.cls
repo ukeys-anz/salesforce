@@ -24,8 +24,8 @@ public with sharing class CardManagementService extends Service {
     String reason = fraudLockInformation.get('reason');
 
     String callBody = String.isBlank(reason)
-      ? '{"status":"' + status + '"}'
-      : '{"status":"' + status + '", "reason":"' + reason + '"}';
+      ? '{"status":"' + status + '","cardNumber":"' + cardNumber +'"}'
+      : '{"status":"' + status + '","cardNumber":"' + cardNumber +'","reason":"' + reason + '"}';
 
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
@@ -37,10 +37,8 @@ public with sharing class CardManagementService extends Service {
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
       'callout:SF_MS_Fabric' +
-      Label.MS_Fraud_Lock_Card +
-      cardNumber +
-      '/status',
-      HTTP_METHOD.HTTP_PATCH,
+      Label.MS_Fraud_Lock_Card,
+      HTTP_METHOD.HTTP_POST,
       headers,
       callBody
     );
