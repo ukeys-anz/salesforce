@@ -1,5 +1,5 @@
 .total-amounts {
-  border: 1px solid #dddbda !important;
+  min-height: 150px;
   user-select: none;
   /* iOS Safari */
   -webkit-touch-callout: none;
@@ -42,4 +42,13 @@
 .modal-header {
   background: #014486;
   color: #fff;
+}
+
+.card-title {
+  background: #eef1f5;
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 0.25em;
+  font-weight: bold;
 }
