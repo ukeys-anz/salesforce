@@ -3401,6 +3401,10 @@
         <recordType>Case.Fraud</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-General Inquiry CMOS Layout</layout>
+        <recordType>Case.General_Inquiry_CMOS</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case-General Inquiry Layout</layout>
         <recordType>Case.General_Inquiry</recordType>
     </layoutAssignments>
