@@ -19,9 +19,56 @@ public with sharing class ChatterFeedItemTriggerHandler extends Lib_TriggerHandl
   /**
    * @description  Mask the comments where applicable.
    */
+  @SuppressWarnings('PMD.CyclomaticComplexity')
   public override void onApplyDefaults() {
+    List<Id> parentIdList = new List<Id>();
     for (FeedItem record : (List<FeedItem>) records) {
-      record.Body = TextUtils.maskData(record.Body);
+      parentIdList.add(record.parentId);
+    }
+    Map<Id, Case> relatedCaseMap = new Map<Id, Case>(
+      [SELECT Id, CaseNumber, RecordTypeId FROM Case WHERE Id IN :parentIdList]
+    );
+    Map<Id, Account> relatedAccMap = new Map<Id, Account>(
+      [SELECT Id, Name, ANZx_Customer__c FROM Account WHERE Id IN :parentIdList]
+    );
+
+    for (FeedItem record : (List<FeedItem>) records) {
+      Case relatedCase = relatedCaseMap.get(record.parentId);
+      Account relatedAcc = relatedAccMap.get(record.parentId);
+      if (
+        (relatedCase != null &&
+        GetHelpCaseActionsHelper.isANZPlusCaseType(relatedCase)) ||
+        (relatedAcc != null &&
+        relatedAcc.ANZx_Customer__c == true)
+      ) {
+        record.Body = TextUtils.maskDataAnzx(record.Body);
+        if (TextUtils.reactiveLogging(record.Body)) {
+          lib_systemLog log = new lib_systemLog(
+            'ChatterFeedItemTriggerHandler',
+            'onApplyDefaults'
+          );
+          if (relatedCase != null) {
+            log.info(
+              'CaseNumber: ' +
+              relatedCase.CaseNumber +
+              '; Body: ' +
+              record.Body +
+              '; Reason for logging: User entered long digits without needing to mask'
+            );
+          } else {
+            log.info(
+              'Account Name: ' +
+              relatedAcc.Name +
+              '; Body: ' +
+              record.Body +
+              '; Reason for logging: User entered long digits without needing to mask'
+            );
+          }
+          log.insertLogAsync();
+        }
+      } else {
+        record.Body = TextUtils.maskData(record.Body);
+      }
       if (record.type == 'ContentPost' && record.RelatedRecordId != null) {
         record.addError(FILE_ERROR);
       }

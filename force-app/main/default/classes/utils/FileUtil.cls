@@ -63,10 +63,12 @@ public with sharing class FileUtil {
    * @description method to link attachment with case records
    * @param contentVerIds Content Version Ids
    * @param recordId The case Id that needs to be related to
+   * @param shareType The permission granted to the user of the shared file in a library
    */
   public static void linkContentWithRecord(
     List<Id> contentVerIds,
-    Id recordId
+    Id recordId,
+    String shareType
   ) {
     List<ContentDocumentLink> contentDocLinkList = new List<ContentDocumentLink>();
     List<ContentVersion> contentVersionList;
@@ -82,7 +84,7 @@ public with sharing class FileUtil {
         ContentDocumentLink contentLink = new ContentDocumentLink();
         contentLink.LinkedEntityId = recordId;
         contentLink.ContentDocumentId = cv.ContentDocumentId;
-        contentLink.ShareType = 'V';
+        contentLink.ShareType = shareType;
         contentDocLinkList.add(contentLink);
       }
     }

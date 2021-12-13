@@ -56,6 +56,15 @@
   flex-wrap: wrap;
   justify-content: flex-end;
 }
+.buttonsContainer > * {
+  margin-right: 15px;
+}
+
+.allButtonsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
 
 .cardDetail {
   height: 100%;
@@ -67,17 +76,31 @@
   padding: 5px 5px 15px 5px;
 }
 
-.btn {
-  margin-right: 15px;
-}
-
 @media only screen and (min-width: 767px) and (max-width: 1580px) {
-  .buttonsContainer {
+  .buttonsContainer,
+  .allButtonsContainer {
     justify-content: center;
   }
-  .btn {
+  .buttonsContainer > * {
     display: grid;
     width: 80%;
     margin: 0 0 5px 0;
+  }
+  .allButtonsContainer > * {
+    display: grid;
+    width: 80%;
+    margin: 0 0 5px 0;
+  }
+}
+
+@media only screen and (min-width: 1580px) and (max-width: 1685px) {
+  .allButtonsContainer {
+    display: grid;
+    justify-content: center;
+    grid-template-areas: ". btn btn btn btn btn";
+  }
+
+  .allButtonsContainer > * {
+    margin: 0 5%;
   }
 }

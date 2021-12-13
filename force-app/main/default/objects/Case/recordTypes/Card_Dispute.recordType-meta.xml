@@ -2183,7 +2183,7 @@
     <picklistValues>
         <picklist>Goods_Or_Services_Returned__c</picklist>
         <values>
-            <fullName>N</fullName>
+            <fullName>No</fullName>
             <default>false</default>
         </values>
         <values>
@@ -2191,7 +2191,7 @@
             <default>true</default>
         </values>
         <values>
-            <fullName>Y</fullName>
+            <fullName>Yes</fullName>
             <default>false</default>
         </values>
     </picklistValues>

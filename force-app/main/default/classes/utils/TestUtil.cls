@@ -45,6 +45,48 @@ public with sharing class TestUtil {
   }
 
   /**
+   * @description createTestUserWithProfile to make a test user with a specific profile
+   * @param profileName profile name for different test scenarios.
+   * @return `User` return a user.
+   */
+  public static User createTestUserWithProfile(String profileName) {
+    Profile profile = CommonUtil.getProfileByName(profileName);
+
+    Map<String, String> info = new Map<String, String>{
+      'Alias' => 'test',
+      'Email' => 'fakeUserTest@testorg.com',
+      'EmailEncodingKey' => 'UTF-8',
+      'LastName' => 'Testing',
+      'LanguageLocaleKey' => 'en_US',
+      'LocaleSidKey' => 'en_US',
+      'TimeZoneSidKey' => 'Australia/Sydney',
+      'UserName' => 'FakeUser@Test.com',
+      'ProfileId' => profile.Id
+    };
+
+    User user = TestUtil.createTestUser(info);
+    return user;
+  }
+
+  /**
+   * @description createTestUserWithProfile to make a test user with a specific profile
+   * @param profileName profile name for different test scenarios.
+   * @param userInformations to have specific user informations
+   * @return `User` return a user.
+   */
+
+  public static User createTestUserWithProfile(
+    String profileName,
+    Map<String, String> userInformations
+  ) {
+    Profile profile = CommonUtil.getProfileByName(profileName);
+
+    User user = TestUtil.createTestUser(userInformations);
+    user.put('ProfileId', profile.Id);
+    return user;
+  }
+
+  /**
    * @description Create PermissionSetAssignment record
    * @param assigneeId user id of the assignee
    * @param psId permission set Id
