@@ -43,32 +43,24 @@ public without sharing class AccessRequestCommonActions {
   }
 
   /**
-   * @description Calculates PAM request approvers based on requesting user and global PAM approvers defined in custom settings
-   * Note:  Approver will be calculated based on the currently executing user, and not based on the user mentioned as the 'Requester'.
-   *        Incase if the global approver creates an Access Request onbehalf of another user, the request would be automatically assigned to approver's manager.
-   *        Team + TPO agreed on above points based on following assumptions;
-   *          1) Access Request creator would most probably be the 'Requester' himself.
-   *          2) Only Engineers (same level) would be initially allowed to raise PAM requests, so that the approver would always be the global approver.
-   *          3) Only the record owner/creator would have permissions to edit, which means updates does not affect the approver.
+   * @description Checks to see if the approver is not the same as the requestor and throws an error otherwise
    * @param records list of new Access Request records being inserted or updated
-   */
-  public static void calculateApprover(List<Access_Request__c> records) {
-    String approverId = getApproverId();
-
+   *
+   **/
+  public static void checkApprovers(List<Access_Request__c> records) {
     for (Access_Request__c record : records) {
-      if (!String.isBlank(approverId)) {
-        // Make sure the Status is blank to prevent re-setting approver for already processed requests
-        if (String.isEmpty(record.Status__c)) {
-          record.Approver__c = approverId;
-        }
-      } else {
-        String errorMessage = 'Error occured while trying to automatically assign approvers for PAM requests. Please contact your System Administrator for assistance.';
-        record.addError(errorMessage);
+      if (record.Approver_ID__c == record.Requestor__c) {
+        record.addError(
+          'You cannot approve your own request. Please get another user from the PAM Approval Group to approve your Access Request'
+        );
+
         Lib_SystemLog.createSingleLogAsync(
           AccessRequestCommonActions.class.getName(),
-          'calculateApprover',
-          'PAM002',
-          errorMessage
+          'CheckApprovers',
+          'PAM005',
+          'User ' +
+          record.Requestor__c +
+          ' attempted to self-approve their PAM request'
         );
       }
     }
