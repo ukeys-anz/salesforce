@@ -224,6 +224,7 @@ public with sharing class TransactionHistoryModel extends CalloutModel {
   public class Source_account {
     @AuraEnabled
     public Account account;
+    public FieldValue bucket_id;
   }
 
   /**
