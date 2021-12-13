@@ -5294,7 +5294,6 @@
             <default>false</default>
         </values>
     </picklistValues>
-</picklistValues>
 <picklistValues>
     <picklist>IDR_Product_Manufacturer__c</picklist>
     <values>
