@@ -43,18 +43,14 @@ public with sharing class IDRExpressComplaintController {
         AccessType.READABLE,
         knownIssuesList
       );
-
-      if (acw.inAccessibleFields != null) {
-        Lib_SystemLog log = new Lib_SystemLog(
+      if (acw.inAccessibleFields != null || acw.records.isEmpty()) {
+        Lib_SystemLog.createSingleLogAsync(
           IDRExpressComplaintController.class.getName(),
-          'getAllKnownIssues'
-        );
-        log.error(
+          'getAllKnownIssues',
           'CMOS Express Case Creation Exception',
           'User does not have read access to fields -- ' +
           acw.inAccessibleFields
         );
-        log.publishEvent();
         String m = 'You dont have enough permission to read CMOS Known Outages, Please contact system administrator.';
         AuraHandledException e = new AuraHandledException(m);
         e.setMessage(m);

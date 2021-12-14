@@ -88,7 +88,16 @@ public with sharing class IDRExpressComplaintControllerTest {
 
   @isTest
   static void testGetAllKnownIssues() {
-    User contextUser = createCMOSUser();
+    User contextUser = new User();
+    User thisUser = [
+      SELECT Id, Name
+      FROM User
+      WHERE Id = :UserInfo.getUserId()
+    ];
+    System.runAs(thisUser) {
+      contextUser = createCMOSUser();
+    }
+
     List<Known_Issues__c> knownIssueList = new List<Known_Issues__c>();
     Known_Issues__Share knownIssueShare = new Known_Issues__Share();
     knownIssueShare.ParentId = [
@@ -141,6 +150,11 @@ public with sharing class IDRExpressComplaintControllerTest {
       System.assert(
         knownIssueList.size() == 0,
         'a user without the permission set cannot see any records'
+      );
+      System.assertEquals(
+        true,
+        exceptionOccured,
+        'Exception should have occured'
       );
     }
   }
