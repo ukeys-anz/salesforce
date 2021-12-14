@@ -98,7 +98,7 @@ public with sharing class IDRExpressComplaintControllerTest {
       LIMIT 1
     ]
     .Id;
-    knownIssueShare.UserOrGroupId = contextUser;
+    knownIssueShare.UserOrGroupId = contextUser.Id;
     knownIssueShare.AccessLevel = 'Read';
     knownIssueShare.RowCause = Schema.Known_Issues__Share.RowCause.Manual;
     insert knownIssueShare;
