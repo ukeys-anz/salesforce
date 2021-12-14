@@ -29,6 +29,44 @@ public with sharing class IDRExpressComplaintControllerTest {
   }
 
   /**
+   * @description creates cmos user, with level1 permission
+   * @return User record
+   */
+  public static User createCMOSUser() {
+    //Create CMOS User
+    Profile profile = CommonUtil.getProfileByName('ANZ Standard User');
+    UserRole role = CommonUtil.getUserRoleByDevName('Customer_Resolution');
+    User cmosUser = TestUtil.createTestUser(
+      new Map<String, Object>{
+        'FirstName' => 'cmosUser',
+        'ProfileId' => profile.Id,
+        'UserRoleId' => role.Id
+      }
+    );
+    insert cmosUser;
+
+    List<String> level1PSs = new List<String>{
+      'IDR_User',
+      'IDR_User_Level_1',
+      'Product_Read_Only'
+    };
+
+    List<PermissionSet> psList = [
+      SELECT Id
+      FROM PermissionSet
+      WHERE Name IN :level1PSs
+    ];
+
+    List<PermissionSetAssignment> psaList = new List<PermissionSetAssignment>();
+    for (PermissionSet ps : psList) {
+      psaList.add(TestUtil.createPSAssignment(cmosUser.id, ps.Id));
+    }
+    insert psaList;
+
+    return cmosUser;
+  }
+
+  /**
    * @description creates cmos user, without any permission
    * @return User record
    */
@@ -50,12 +88,27 @@ public with sharing class IDRExpressComplaintControllerTest {
 
   @isTest
   static void testGetAllKnownIssues() {
+    User contextUser = createCMOSUser();
     List<Known_Issues__c> knownIssueList = new List<Known_Issues__c>();
-    // GIVEN known issue records present in system
-    Test.startTest();
-    // WHEN we try to access the known issues through CMOS complaint creation screen
-    knownIssueList = IDRExpressComplaintController.getAllKnownIssues();
-    Test.stopTest();
+    Known_Issues__Share knownIssueShare = new Known_Issues__Share();
+    knownIssueShare.ParentId = [
+      SELECT Id
+      FROM Known_Issues__c
+      WHERE Name = 'Long Wait Times'
+      LIMIT 1
+    ]
+    .Id;
+    knownIssueShare.UserOrGroupId = contextUser;
+    knownIssueShare.AccessLevel = 'Read';
+    knownIssueShare.RowCause = Schema.Known_Issues__Share.RowCause.Manual;
+    insert knownIssueShare;
+    System.runAs(contextUser) {
+      // GIVEN known issue records present in system
+      Test.startTest();
+      // WHEN we try to access the known issues through CMOS complaint creation screen
+      knownIssueList = IDRExpressComplaintController.getAllKnownIssues();
+      Test.stopTest();
+    }
     // THEN we should be able to access the known issue records
     System.assertEquals(
       knownIssueList.size() > 0,
