@@ -49,6 +49,17 @@
       },
       "sources": ["FilterComplaintsOnly", "CalcCountOfTransfers"]
     },
+    "MergeOriginPicklist": {
+      "action": "augment",
+      "parameters": {
+        "leftKey": ["Origin"],
+        "operation": "LookupSingleValue",
+        "relationship": "Channel",
+        "rightKey": ["Value"],
+        "rightSelect": ["Label"]
+      },
+      "sources": ["MergeEsclationList", "FilterOrigin"]
+    },
     "CaseDuration": {
       "action": "computeExpression",
       "parameters": {
@@ -167,7 +178,7 @@
         "rightKey": ["Id"],
         "rightSelect": ["EmployeeNumber", "FirstName", "LastName"]
       },
-      "sources": ["MergeEsclationList", "digest_User"]
+      "sources": ["MergeOriginPicklist", "digest_User"]
     },
     "RecordType": {
       "action": "sobjectDigest",
@@ -185,6 +196,11 @@
       "parameters": {
         "filter": "EntityParticleId:EQ:Case.00N2N00000AA4RW|Case.00N5m000000PSfy"
       },
+      "sources": ["PullPicklistValues"]
+    },
+    "FilterOrigin": {
+      "action": "filter",
+      "parameters": { "filter": "EntityParticleId:EQ:Case.Origin" },
       "sources": ["PullPicklistValues"]
     },
     "CountOfTransfers": {
@@ -395,7 +411,7 @@
           { "name": "EntityParticleId" }
         ],
         "object": "PicklistValueInfo",
-        "passthroughFilter": "EntityParticleId = 'Case.Type' OR \nEntityParticleId = 'Case.IDR_Escalation_Reason__c' \nOR EntityParticleId = 'Case.00N2N00000AA4RW' \nOR EntityParticleId = 'Case.00N2N00000CJHhy'\nOR EntityParticleId = 'Case.00N5m000000PSfy'\nOR EntityParticleId = 'Case.IDR_Complaint_Remedy__c'\nOR EntityParticleId = 'Case.00N5m000000PSfr'\nOR EntityParticleId = 'Case.IDR_Subsequent_Issue__c'\nOR EntityParticleId = 'Case.00N2O000008555A'\nOR EntityParticleId = 'Case.00N5m000000Pdov'",
+        "passthroughFilter": "EntityParticleId = 'Case.Type' OR \nEntityParticleId = 'Case.Origin' OR \nEntityParticleId = 'Case.IDR_Escalation_Reason__c' \nOR EntityParticleId = 'Case.00N2N00000AA4RW' \nOR EntityParticleId = 'Case.00N2N00000CJHhy'\nOR EntityParticleId = 'Case.00N5m000000PSfy'\nOR EntityParticleId = 'Case.IDR_Complaint_Remedy__c'\nOR EntityParticleId = 'Case.00N5m000000PSfr'\nOR EntityParticleId = 'Case.IDR_Subsequent_Issue__c'\nOR EntityParticleId = 'Case.00N2O000008555A'\nOR EntityParticleId = 'Case.00N5m000000Pdov'",
         "runtime": { "enablePKChunking": false }
       }
     },
