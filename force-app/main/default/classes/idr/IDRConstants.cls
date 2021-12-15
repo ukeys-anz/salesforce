@@ -85,7 +85,10 @@ public with sharing class IDRConstants {
     '27',
     '28',
     '38',
-    '42'
+    '42',
+    '96',
+    '97',
+    '98'
   };
 
   //NotificationHandler Status

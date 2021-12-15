@@ -31,18 +31,18 @@ private with sharing class IDRCollectionActionsTest {
           IDR_Customer_Number__c = '1234567890',
           IDR_Account_Card_Policy_Number__c = '111111111;2222222222;333333333;444444444;555555555;666666666;777777777;888888888;999999999;1234567890',
           Type = '4',
-          IDR_Subsequent_Issue__c = '20',
+          IDR_Subsequent_Issue__c = '96',
           Status = 'Open',
           Product__c = p.Id,
           IDR_Second_Issue__c = true,
           IDR_Account_Card_Policy_Number_2__c = '2134565778;283273273;4393483833;823748237;8423742374;672354763;273647234;678263478;463724622;234324324',
-          IDR_Issue_Type_2__c = '4',
-          IDR_Subsequent_Issue_2__c = '21',
+          IDR_Issue_Type_2__c = '17',
+          IDR_Subsequent_Issue_2__c = '97',
           IDR_Product_2__c = p.Id,
           IDR_Third_Issue__c = true,
           IDR_Account_Card_Policy_Number_3__c = '132342343;534764565;645656456;678765665;3422323423;645676556;896875567;432241244;565423545;432431211',
-          IDR_Issue_Type_3__c = '4',
-          IDR_Subsequent_Issue_3__c = '21',
+          IDR_Issue_Type_3__c = '17',
+          IDR_Subsequent_Issue_3__c = '98',
           IDR_Product_3__c = p.Id
         )
       );
