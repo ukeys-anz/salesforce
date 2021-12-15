@@ -41,7 +41,11 @@ CASE(Text(PRIORVALUE(Status)),
      &quot;Withdrawn&quot;,1,
      &quot;Provisionally Closed&quot;,1,
      &quot;Closed&quot;,1,
-     0),     
+     0),
+&quot;Provisionally Closed&quot;, CASE(Text(Status),
+     &quot;Re-opened&quot;, 1,
+     &quot;Closed&quot;,1,
+     0),
 1)=0, true, false)</errorConditionFormula>
     <errorDisplayField>Status</errorDisplayField>
     <errorMessage>This is not a valid status in complaint process.</errorMessage>

@@ -164,7 +164,7 @@
         <sharedTo>
             <role>Coach</role>
         </sharedTo>
-        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8</booleanFilter>
+        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -194,11 +194,6 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>General Enquiry</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>NPP</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -214,7 +209,7 @@
         <sharedTo>
             <role>Quality_Analyst</role>
         </sharedTo>
-        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8</booleanFilter>
+        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -250,11 +245,6 @@
             <operation>equals</operation>
             <value>NPP</value>
         </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>NPP</value>
-        </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Dispute_RTs_Support_Coaches_RW</fullName>
@@ -263,7 +253,7 @@
         <sharedTo>
             <role>Support_Coach</role>
         </sharedTo>
-        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8</booleanFilter>
+        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -346,7 +336,7 @@
         <sharedTo>
             <role>Support_Staff_ARC</role>
         </sharedTo>
-        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7</booleanFilter>
+        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -371,11 +361,6 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>General Enquiry</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>NPP</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -542,7 +527,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Systemic Issue</value>
+            <value>Systemic Issue,CFMS Migrated Case</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>

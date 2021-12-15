@@ -9,8 +9,7 @@ export default class CaseDuration extends LightningElement {
   @track durationTime;
   @api recordId;
   @track caseStatus;
-  @track caseOnHold = false;
-  pulseClass;
+  @track durationStop = false;
   timeIntervalInstance;
   totalSeconds = 0;
   hours;
@@ -43,7 +42,7 @@ export default class CaseDuration extends LightningElement {
           this.durationStop = true;
           this.handleDate(this.durationTime.hours, this.durationTime.minutes);
         } else {
-          this.pulseClass = "pulsate";
+          this.durationStop = false;
           let parentThis = this;
 
           // eslint-disable-next-line @lwc/lwc/no-async-operation
