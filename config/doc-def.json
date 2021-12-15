@@ -89,8 +89,16 @@
     {
       "name": "EDW Integration User",
       "profile": "Integration User",
-      "permissionsetgroups": [],
-      "permissionsets": ["Enforce_mTLS", "IDR_EDW_Integration"],
+      "permissionsetgroups": ["IDR_EDW_User"],
+      "permissionsets": [
+        "Enforce_mTLS",
+        "IDR_EDW_Integration",
+        "API_Only",
+        "Complaint_Read_Only",
+        "Product_Read_Only",
+        "Systemic_Issue_Read_Only",
+        "View_All_Files"
+      ],
       "type": "system"
     },
     {
