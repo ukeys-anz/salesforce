@@ -52,6 +52,9 @@
         <aggregateTypes>Sum</aggregateTypes>
         <field>CDF1</field>
     </columns>
+    <columns>
+        <field>User$UserRole</field>
+    </columns>
     <customDetailFormulas>
         <calculatedFormula>IF( (NOT(ISBLANK(User.LastLoginDate)) &amp;&amp; DATEVALUE(User.LastLoginDate) = TODAY()), 1, 0)</calculatedFormula>
         <dataType>Double</dataType>
@@ -63,30 +66,16 @@
         <criteriaItems>
             <column>User$IsActive</column>
             <columnToColumn>false</columnToColumn>
-            <isUnlocked>true</isUnlocked>
+            <isUnlocked>false</isUnlocked>
             <operator>equals</operator>
             <value>1</value>
         </criteriaItems>
         <criteriaItems>
-            <column>User*User$Business_Function__c</column>
+            <column>User$UserRole</column>
             <columnToColumn>false</columnToColumn>
-            <isUnlocked>true</isUnlocked>
+            <isUnlocked>false</isUnlocked>
             <operator>equals</operator>
-            <value>CMOS</value>
-        </criteriaItems>
-        <criteriaItems>
-            <column>User*User$Business_Role__c</column>
-            <columnToColumn>false</columnToColumn>
-            <isUnlocked>true</isUnlocked>
-            <operator>notEqual</operator>
-            <value>Tech Support</value>
-        </criteriaItems>
-        <criteriaItems>
-            <column>User$Division</column>
-            <columnToColumn>false</columnToColumn>
-            <isUnlocked>true</isUnlocked>
-            <operator>contains</operator>
-            <value>IDR,Digital Servicing,CCC AU Sales - SLWS04,ANZ Direct Manila Service,Card Solutions,Acquiring &amp; Issuing Disputes,CSO Financial Resolution,ROYAL BANK,BAIRNSDALE,ARMADALE,BUNBURY,MORTG SOLUTION FRANCHISEES WA,MORTG SOLUTION FRANCHISEES VIC,Wetherill Park Business Centre,CARINGBAH LENDING,BB - Taren Point,NBC SBM,South West Sydney,BPB AF Desk</value>
+            <value>Banker Line Manager,Banker,Customer Resolution Leadership,Customer Resolution Team Leaders,Customer Resolution,Data Analyst,Systemic Issue Team,Tech Support</value>
         </criteriaItems>
     </filter>
     <format>Summary</format>
