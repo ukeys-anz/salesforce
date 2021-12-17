@@ -97,8 +97,3 @@ force-app/main/default/objects/Case/recordTypes/Urgent_Dishonour_Request_Dispute
 #Temporarily ignoring deleted Process/Flow 'Case_SLA_Notification' until it's removed form source code and prod.
 # Below line can be removed once it's removed from prod.
 force-app/main/default/flows/Case_SLA_Notification.flow-meta.xml
-
-#ignore pushing harness stuffs for making a scratchOrg
-force-app/main/default/duplicateRules/
-force-app/main/default/matchingRules/
-force-app/main/default/entitlementProcesses/
