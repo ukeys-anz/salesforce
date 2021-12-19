@@ -67,6 +67,48 @@ public without sharing class AccessRequestCommonActions {
   }
 
   /**
+   * @description Checks to see if this new PAR is going to overlap with other PARs in the system.
+   * If so, throw an error to prevent any unexpected issues during Privilaged Access
+   * @param records list of new Access Request records being inserted or updated
+   **/
+  @SuppressWarnings('PMD.OperationWithLimitsInLoop')
+  public static void checkIfRecordsOverlap(List<Access_Request__c> records) {
+    for (Access_Request__c record : records) {
+      if (Schema.sObjectType.Privileged_Access_Request__c.isQueryable()) {
+        //Create a dummy PAR
+        List<Id> requesterIdList = new List<Id>();
+        Map<Id, User> requesterUserMap = new Map<Id, User>();
+        requesterIdList.add(record.Requestor__c);
+        requesterUserMap = getRequestingUserMap(requesterIdList);
+        Privileged_Access_Request__c dummyPAR = generatePARRecord(
+          record,
+          requesterUserMap
+        );
+
+        // Note: Informed decision to compromise the Golden Rule of no DMLs/Qeries inside for loops.
+        // Because it is very unlikely that there will be many PARs at one time
+        // See if this Dummy PAR will overlap with any other PARs
+        List<Privileged_Access_Request__c> overlappingRequests = [
+          SELECT Id, Name, Access_Request__r.Name
+          FROM Privileged_Access_Request__c
+          WHERE
+            Access_Request__r.Requestor__c = :record.Requestor__c
+            AND Start_Date_Time__c <= :dummyPAR.Revoke_Time__c
+            AND Revoke_Time__c >= :dummyPAR.Start_Date_Time__c
+        ];
+
+        if (!overlappingRequests.isEmpty()) {
+          record.addError(
+            'The request overlaps with an existing Privilaged Access Request: ' +
+            overlappingRequests[0].Access_Request__r.Name +
+            '. Please double check the start time and duration to ensure they do not overlap'
+          );
+        }
+      }
+    }
+  }
+
+  /**
    * @description creates a PAR record when Access Request gets Approved
    * Suppressed 'ApexCRUDViolation' warning as PAR record creation should happen regardless of the executing user permissions
    * @param newRecords list of new Access Request records

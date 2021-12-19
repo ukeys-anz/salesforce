@@ -14,11 +14,19 @@ public with sharing class AccessRequestTriggerHandler extends Lib_TriggerHandler
   }
 
   /**
+   * @description onBeforeInsert to handle before insert trigger actions
+   */
+  public override void onBeforeInsert() {
+    AccessRequestCommonActions.checkIfRecordsOverlap(records);
+  }
+
+  /**
    * @description onBeforeUpdate to handle before update trigger actions.
    * @param oldMap old trigger values
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     AccessRequestCommonActions.logSubmission(records, oldMap);
+    AccessRequestCommonActions.checkIfRecordsOverlap(records);
     AccessRequestCommonActions.checkApprovers(records);
   }
 
