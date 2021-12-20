@@ -1,4 +1,5 @@
 #!/bin/bash
+# harness file this was copied from : https://github.com/anzx/platform-harness-delegates/commit/f4ff83a6436ce12e28569445e528a83cba8707ad
 
 echo ""
 echo "************************************************"
