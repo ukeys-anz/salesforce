@@ -207,8 +207,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
   accountOrPolicyNumber3 = "";
 
   // Express CMOS fields
-  knownIssue = KNOWN_ISSUES;
-  expressCMOS = EXPRESS_CMOS;
+  knownIssue;
+  expressCMOS;
 
   @api recordTypeId;
   @api recordTypeDevName;
@@ -799,8 +799,13 @@ export default class CreateComplaintLWC extends NavigationMixin(
         ] = this.accountOrPolicyNumber3;
       }
 
-      fields[KNOWN_ISSUES.fieldApiName] = this.knownIssue;
-      fields[EXPRESS_CMOS.fieldApiName] = this.expressCMOS;
+      if (this.knownIssue) {
+        fields[KNOWN_ISSUES.fieldApiName] = this.knownIssue;
+      }
+
+      if (this.expressCMOS) {
+        fields[EXPRESS_CMOS.fieldApiName] = this.expressCMOS;
+      }
 
       const recordInput = { apiName: CASE_OBJECT.objectApiName, fields };
       createRecord(recordInput)
