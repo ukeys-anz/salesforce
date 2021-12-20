@@ -129,6 +129,14 @@
         <value>/anz-exp-sfdc-coach-banking-api/api/cards/</value>
     </labels>
     <labels>
+        <fullName>MS_Get_Financial_Accounts</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_Financial_Accounts</shortDescription>
+        <value>https://replaceme</value>
+    </labels>
+    <labels>
         <fullName>MS_Get_StatementList</fullName>
         <categories>MS</categories>
         <language>en_US</language>

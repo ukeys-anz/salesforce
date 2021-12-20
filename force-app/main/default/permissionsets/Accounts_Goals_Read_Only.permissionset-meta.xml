@@ -20,10 +20,6 @@
         <apexClass>TransactionHistoryController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
-    <classAccesses>
-        <apexClass>UpdateFinancialAccounts</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
     <customPermissions>
         <enabled>true</enabled>
         <name>ANZx_Accounts_and_Goals</name>

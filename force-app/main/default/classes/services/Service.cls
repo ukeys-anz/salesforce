@@ -24,9 +24,9 @@ public with sharing virtual class Service {
   /**
    * @param ocvId customer id
    * @return `HttpCalloutResponse` api response
-   * @description virtual accounts and goals callout
+   * @description virtual financial accounts callout
    */
-  public virtual HttpCalloutResponse getAccountsAndGoals(String ocvId) {
+  public virtual HttpCalloutResponse getFinancialAccounts(String ocvId) {
     return null;
   }
 

@@ -20,8 +20,8 @@ public with sharing class FabricServiceMock extends Service {
   private static final String LOCK_CARD_RESPONSE = '{"status": true,"eligibilities": ["ELIGIBILITY_CARD_REPLACEMENT_LOST","ELIGIBILITY_CARD_REPLACEMENT_STOLEN","ELIGIBILITY_CARD_REPLACEMENT_DAMAGED","ELIGIBILITY_UNBLOCK"]}';
 
   @TestVisible
-  private static final String ACCOUNTS_AND_GOALS_SUCCESS_RESPONSE = getStaticResource(
-    'mock_accountsAndGoals'
+  private static final String FINANCIAL_ACCOUNTS_SUCCESS_RESPONSE = getStaticResource(
+    'mock_financialAccounts'
   );
   @TestVisible
   private static final String TRANSACTION_HISTORY_SUCCESS_RESPONSE = getStaticResource(
@@ -50,9 +50,9 @@ public with sharing class FabricServiceMock extends Service {
    * @return `HttpCalloutResponse` the api response
    * @description fetches accounts and goals fake response
    */
-  public override HttpCalloutResponse getAccountsAndGoals(String ocvId) {
+  public override HttpCalloutResponse getFinancialAccounts(String ocvId) {
     if (!preset) {
-      response.body = FabricServiceMock.ACCOUNTS_AND_GOALS_SUCCESS_RESPONSE;
+      response.body = FabricServiceMock.FINANCIAL_ACCOUNTS_SUCCESS_RESPONSE;
     }
     return response;
   }
