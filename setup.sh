@@ -66,20 +66,6 @@ echoMessageCreator "" $stepNo false
 
 ALL_START_TIME=$(date +%s)
 
-# create scratch org
-# echoMessageCreator "Create scratch org" $stepNo true
-# if [ -n "$scratchorgalias" ]; then
-#     sfdx force:org:create -f config/snapshot-scratch-def-template.json -d 30 --setdefaultusername -w 10 --setalias "$scratchorgalias" 2>&1 | tee stderr
-# else
-#     sfdx force:org:create -f config/snapshot-scratch-def-template.json -d 30 --setdefaultusername -w 10 2>&1 | tee stderr
-# fi
-# if [[ ($(cat stderr) == *'ERROR'*) && ($(cat stderr) != *'Some commands may not work as expected until the My Domain DNS propagation'*) ]]; then
-#     exit 1
-# fi
-# echoMessageCreator "" $stepNo false
-###########################
-
-
 # check if the scratchOrg has been created out of th snapshot
 echoMessageCreator "check if the scratchOrg has been created out of th snapshot" $stepNo true
 sfdx force:org:list
