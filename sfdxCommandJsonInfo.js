@@ -6,7 +6,7 @@
 const { exec } = require("child_process");
 const fs = require("fs");
 
-const numberOfSnapshots = (command, whichInfo, whatproperty) => {
+const executeInfoFromACommand = (command, whichInfo, whatproperty) => {
   exec(command, (err, stdout, stderr) => {
     if (err) {
       console.log(`error: ${err.message}`);
@@ -21,4 +21,8 @@ const numberOfSnapshots = (command, whichInfo, whatproperty) => {
     }
   });
 };
-numberOfSnapshots("sfdx force:org:snapshot:list --json", "result", "length");
+executeInfoFromACommand(
+  "sfdx force:org:snapshot:list --json",
+  "result",
+  "length"
+);
