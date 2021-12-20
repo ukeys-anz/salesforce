@@ -56,9 +56,11 @@ echoMessageCreator "" $stepNo false
 echoMessageCreator "Input: Scratch org alias and Data" $stepNo true
 echo "* please run the below command in another terminal tab"
 echo ""
+echo "--------------------------------------"
 echo "sfdx force:org:create -f config/snapshot-scratch-def-template.json -d 30 --setdefaultusername -w 10 --setalias "$scratchorgalias" 2>&1 | tee stderr"
+echo "--------------------------------------"
 echo ""
-echo "* do not worry about the tunnelSucket error."
+echo "* do not worry about the tunnelSocket error."
 echo ""
 read -rp "when it has been finished, just type (y/Y): " nextStepFlag
 echoMessageCreator "" $stepNo false
@@ -67,7 +69,7 @@ echoMessageCreator "" $stepNo false
 ALL_START_TIME=$(date +%s)
 
 # check if the scratchOrg has been created out of th snapshot
-echoMessageCreator "check if the scratchOrg has been created out of th snapshot" $stepNo true
+echoMessageCreator "check if the scratchOrg has been created out of the snapshot" $stepNo true
 sfdx force:org:list
 echo ""
 read -rp "check if the scratchOrg with $scratchorgalias alias has been made(y/n)? " scratchMade
