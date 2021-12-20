@@ -20,8 +20,7 @@ function ctrl_c() {
     echo ""
     echo "Making scracthOrg has been stopped."
 }
-
-stepNo=0
+stepNo=$(($stepNo+1))
 JOB_START_TIME=""
 JOB_END_TIME=""
 # first argument: description of the step
@@ -33,7 +32,7 @@ function echoMessageCreator(){
         echo ""
         echo "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
         echo ""
-        echo "Step 7-$2 : $1"
+        echo "Step $2 : $1"
         echo ""
         echo "Start time and date: $(date)"
         echo ""
@@ -110,17 +109,34 @@ echoMessageCreator "" $stepNo false
 
 # push metadata
 echoMessageCreator "Push metadata" $stepNo true
-sfdx force:source:push -f 2>&1 | tee stderr
+tryDeploying=true
+while [[ $tryDeploying == true ]]; do
+    sfdx force:source:push -f 2>&1 | tee stderr
 
-if [[ ($(cat stderr) == *'ERROR'*)  || ($(cat stderr) == *'statusCode=502'*) ]]; then
-    f=force-app/main/default/objects/Case/fields/IDR_Restriction_Level__c.field-meta.xml
-    cp IDRRestriction.txt $f
-    f=force-app/main/default/objects/Case/fields/SI_Workflow_Step__c.field-meta.xml    
-    cp SIWorkflow.txt $f
-    rm -rf IDRRestriction.txt
-    rm -rf SIWorkflow.txt
-    exit 1
-fi
+    if [[ ($(cat stderr) == *'ERROR'*)  || ($(cat stderr) == *'statusCode=502'*) ]]; then
+        echo ""
+        echo "Maybe you need to do some manual steps."
+        echo "Please check the stderr file."
+        echo ""
+        read -rp "Do you want to retry push the metadata (y/n)? " retryFlag
+        if [[ $retryFlag == n || $retryFlag == N ]]; then
+            echo ""
+            echo "The job has been skipped."
+            echo ""
+            f=force-app/main/default/objects/Case/fields/IDR_Restriction_Level__c.field-meta.xml
+            cp IDRRestriction.txt $f
+            f=force-app/main/default/objects/Case/fields/SI_Workflow_Step__c.field-meta.xml    
+            cp SIWorkflow.txt $f
+            rm -rf IDRRestriction.txt
+            rm -rf SIWorkflow.txt
+            exit 1
+        else
+            tryDeploying=true
+        fi
+    else
+        tryDeploying=false
+    fi 
+done
 echoMessageCreator "" $stepNo false
 ###########################
 
