@@ -15,7 +15,7 @@ META_DIR=(classes components pages triggers 'email/unfiled$public' staticresourc
 BUNDLE_DIR=(aura lwc waveTemplates)
 # ignore shellcheck on harness variable reference
 # shellcheck disable=SC2154
-BRANCH_NAME='snapshot-summer22'
+BRANCH_NAME='snapshot-latest'
 
 function convertSourceFormat() {
     CONVERSION_DIR=$1
