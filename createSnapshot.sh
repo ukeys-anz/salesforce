@@ -96,7 +96,8 @@ source ./snapshotScratch.sh
 echoMessageCreator "" $stepNo false
 ########################
 
-# check if you need to delete any existed snapshot
+# check if you need to delete any existed snapshot 
+# if there are 5 snapshots, it will ask the engineer to delete on of them
 scratchOrgsCount=$(node ./sfdxCommandJsonInfo);
 if [[ $scratchOrgsCount > 4 ]]; then
 
