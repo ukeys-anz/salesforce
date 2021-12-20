@@ -157,12 +157,18 @@ echoMessageCreator "" $stepNo false
 
 # import post-deployment plan
 echoMessageCreator "Import post-deployment plan" $stepNo true
-sfdx force:data:tree:import -p data/Post-Plan.json 2>&1 | tee stderr
-sfdx force:data:tree:import -p data/IDR-CustomSetting.json 2>&1 | tee stderr
-node createCmosEntitlment.js 2>&1 | tee stderr
-sfdx force:data:tree:import -f data/Non_Prod_Settings__c.json 2>&1 | tee stderr
-if [[ ($(cat stderr) == *'ERROR'*)  || ($(cat stderr) == *'statusCode=502'*) ]]; then
-    exit 1
+read -rp "Do you want to import post-deployment plan(y/n)? " importPlan
+echo ""
+if [[ $importPlan == Y || $importPlan == y ]];then
+    sfdx force:data:tree:import -p data/Post-Plan.json 2>&1 | tee stderr
+    sfdx force:data:tree:import -p data/IDR-CustomSetting.json 2>&1 | tee stderr
+    node createCmosEntitlment.js 2>&1 | tee stderr
+    sfdx force:data:tree:import -f data/Non_Prod_Settings__c.json 2>&1 | tee stderr
+    if [[ ($(cat stderr) == *'ERROR'*)  || ($(cat stderr) == *'statusCode=502'*) ]]; then
+        exit 1
+    fi
+else
+    echo "Importing post-deployment plan has been skipped."
 fi
 echoMessageCreator "" $stepNo false
 ###########################
