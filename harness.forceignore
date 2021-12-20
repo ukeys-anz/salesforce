@@ -1,5 +1,7 @@
 # .forceignore v2
 
+# This forceignore is only used by harness CI/CD, not when making scratch org
+
 *.md
 package.xml
 
