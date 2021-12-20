@@ -120,7 +120,8 @@ fi
 # create a new snapshot
 echoMessageCreator "creating a new snapshot" $stepNo true
 read -rp "Name for a snapshot: " name
-sfdx force:org:snapshot:create -n $name -d "Test Snapshot from Scratch org" -o $scratchorgalias -v $prodname
+developCommitSHA=$(git log develop --oneline --pretty=format:'%h' -1)
+sfdx force:org:snapshot:create -n $name -d "Snapshot from $developCommitSHA" -o $scratchorgalias -v $prodname
 echoMessageCreator "" $stepNo false
 #######################
 
