@@ -165,9 +165,6 @@ esac
 case ${testdata:0:1} in
 y | Y)
     echoMessageCreator "Import test data and users" $stepNo true
-    tsc --project webdriverIO
-    cp webdriverIO/.env.example webdriverIO/.env
-    node webdriverIO/setup-scripts/envSetup.js
     #below will fetch the latest changes from the remote master branch as its the branch specified in salesforce-scripts submodule
     git submodule update --init --remote
     #Add all the scripts to load data below
