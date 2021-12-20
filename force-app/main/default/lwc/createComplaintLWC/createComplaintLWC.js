@@ -1009,9 +1009,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.showModal = false;
   }
 
-  expressToggleCheckedHandler() {
+  expressToggleCheckedHandler(event) {
     this.isComplaintResolved = true;
     this.isNonFinancialComplaintRemedy = true;
+    this.expressCMOS = event.detail.value;
     const issueTypeElement = this.template.querySelector(
       '[data-id="issueType-id"]'
     );
@@ -1144,6 +1145,5 @@ export default class CreateComplaintLWC extends NavigationMixin(
     nonFinancialRemedyElement.value = event.detail.IDR_Non_Financial_Remedy__c;
 
     this.knownIssue = event.detail.Id;
-    this.expressCMOS = true;
   }
 }
