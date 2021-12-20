@@ -35,11 +35,10 @@ function echoMessageCreator(){
 scratchorgalias='ANZxScratchOrg'
 
 # input your email, to make sure that the defualt devhub is the production
-echoMessageCreator "enter your username" $stepNo true
-sfdx force:auth:web:login -r https://anz.my.salesforce.com -d -a ANZxDevHub
-prodname=ANZxDevHub
+echoMessageCreator "enter your dev hub alias" $stepNo true
+read -rp "Please enter your devhub alias (production): " prodname
 echoMessageCreator "" $stepNo false
-
+########################
 
 # creating the scratchOrg
 echoMessageCreator "creating the scratchOrg" $stepNo true
