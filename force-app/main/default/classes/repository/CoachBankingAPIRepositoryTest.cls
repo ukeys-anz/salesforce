@@ -312,4 +312,56 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
     response.successful = false;
     return response;
   }
+
+  /**
+   * @description fetch valid account buckets, mocked values in force-app/main/default/staticresources/mock_accountBuckets.json
+   * called in force-app/main/default/classes/services/FabricServiceMock.cls
+   */
+  @isTest
+  static void accountBucketsValidResponse() {
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      Test.startTest();
+      CoachBankingAPIRepository coachAPI = new CoachBankingAPIRepository();
+      AccountBucketsModel response = coachAPI.getAccountBuckets('1111');
+      Test.stopTest();
+
+      System.assertEquals(3, response.account_buckets.size());
+    }
+  }
+
+  /**
+   * @description fetch invalid account buckets
+   */
+  @isTest
+  static void accountBucketsInvalidResponse() {
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      AccountBucketsModel accountBucketsModel;
+      HttpCalloutResponse res = getAccountBucketsInvalidResponse();
+      Service s = ServiceProvider.getService(FabricService.class);
+      s.setCalloutResponse(res);
+      Exception resultException;
+      Test.startTest();
+      CoachBankingAPIRepository coachAPI = new CoachBankingAPIRepository();
+      try {
+        accountBucketsModel = coachAPI.getAccountBuckets('1111');
+      } catch (Exception e) {
+        resultException = e;
+      }
+      Test.stopTest();
+      System.assertEquals(
+        'Get account buckets failed',
+        resultException.getMessage()
+      );
+    }
+  }
+
+  private static HttpCalloutResponse getAccountBucketsInvalidResponse() {
+    HttpCalloutResponse response = new HttpCalloutResponse();
+    response.error = new CalloutException('Get account buckets failed');
+    response.statusCode = 500;
+    response.successful = false;
+    return response;
+  }
 }

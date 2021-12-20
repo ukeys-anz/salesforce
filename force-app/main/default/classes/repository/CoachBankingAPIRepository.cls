@@ -242,6 +242,37 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
   }
 
   /**
+   * @param ocvId customer id
+   * @return `AccountBucketsModel` model class constructed from api response
+   * @description fetches account buckets from fabric, deserialized to a model
+   */
+  public AccountBucketsModel getAccountBuckets(String ocvId) {
+    AccountBucketsModel result;
+    if (FeatureManagement.checkPermission('ANZx_Accounts_and_Goals')) {
+      Service s = ServiceProvider.getService(FabricService.class);
+      HttpCalloutResponse response = s.getAccountBuckets(ocvId);
+      if (response.successful) {
+        try {
+          result = AccountBucketsModel.parse(response.body);
+        } catch (Exception e) {
+          handleErrors(null, e, CoachBankingAPIRepository.class);
+        }
+      } else {
+        handleErrors(response, null, CoachBankingAPIRepository.class);
+      }
+    } else {
+      handleErrors(
+        null,
+        new PermissionException(
+          'User does not have the ANZx Accounts and Goals permission'
+        ),
+        CoachBankingAPIRepository.class
+      );
+    }
+    return result;
+  }
+
+  /**
    * @author Lance
    * @since April 2021
    * @description invaid information exception

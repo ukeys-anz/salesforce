@@ -65,6 +65,14 @@
         <value>/anz-sys-forge-oauth-api/api/v1/token</value>
     </labels>
     <labels>
+        <fullName>MS_Get_Account_Buckets</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_Account_Buckets</shortDescription>
+        <value>https://replaceme</value>
+    </labels>
+    <labels>
         <fullName>MS_Get_Accounts_Goals</fullName>
         <categories>MS</categories>
         <language>en_US</language>

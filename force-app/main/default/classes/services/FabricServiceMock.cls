@@ -23,6 +23,7 @@ public with sharing class FabricServiceMock extends Service {
   private static final String FINANCIAL_ACCOUNTS_SUCCESS_RESPONSE = getStaticResource(
     'mock_financialAccounts'
   );
+
   @TestVisible
   private static final String TRANSACTION_HISTORY_SUCCESS_RESPONSE = getStaticResource(
     'mock_transactionHistory'
@@ -37,14 +38,22 @@ public with sharing class FabricServiceMock extends Service {
   private static final String REPLACE_CARD = getStaticResource(
     'mock_replaceCard'
   );
+
   @TestVisible
   private static final String GET_STATEMENT = getStaticResource(
     'mock_statement'
   );
+
   @TestVisible
   private static final String GET_STATEMENTURL = getStaticResource(
     'mock_statementUrl'
   );
+
+  @TestVisible
+  private static final String ACCOUNT_BUCKETS_RESPONSE = getStaticResource(
+    'mock_accountBuckets'
+  );
+
   /**
    * @param ocvId customer id to retrieve accounts and goals for
    * @return `HttpCalloutResponse` the api response
@@ -160,6 +169,18 @@ public with sharing class FabricServiceMock extends Service {
   ) {
     if (!preset) {
       response.body = FabricServiceMock.REPLACE_CARD;
+    }
+    return response;
+  }
+
+  /**
+   * @param ocvId customer id to retrieve account buckets for
+   * @return `HttpCalloutResponse` the api response
+   * @description fetches mock account buckets response
+   */
+  public override HttpCalloutResponse getAccountBuckets(String ocvId) {
+    if (!preset) {
+      response.body = FabricServiceMock.ACCOUNT_BUCKETS_RESPONSE;
     }
     return response;
   }

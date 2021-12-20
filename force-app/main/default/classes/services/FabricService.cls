@@ -226,4 +226,22 @@ public with sharing class FabricService extends Service {
     );
     return response;
   }
+
+  /**
+   * @param ocvId customer id used to fetch account buckets
+   * @return `HttpCalloutResponse` the api response
+   * @description fetches account buckets from fabric api
+   */
+  public override HttpCalloutResponse getAccountBuckets(String ocvId) {
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    Map<String, String> headers = new Map<String, String>();
+    setCalloutCommonHeaders(ocvID, headers);
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      'callout:SF_MS_Fabric' + Label.MS_Get_Account_Buckets,
+      HTTP_METHOD.HTTP_GET,
+      headers,
+      null
+    );
+    return response;
+  }
 }
