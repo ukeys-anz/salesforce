@@ -116,6 +116,10 @@
             <fullName>Payee has not received funds</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>Unauthorised Transaction</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>Fraud_Assisted_ID_Event_Type__c</picklist>
