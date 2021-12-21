@@ -5,7 +5,7 @@ set -e
 green=`tput setaf 2`
 red=`tput setaf 1`
 reset=`tput sgr0`
-source ./snapshotScratch.sh
+
 stepNo=0
 JOB_START_TIME=""
 JOB_END_TIME=""
