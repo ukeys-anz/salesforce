@@ -2,6 +2,9 @@
 
 # Any subsequent(*) commands which fail will cause the shell script to exit immediately
 set -e
+green=`tput setaf 2`
+red=`tput setaf 1`
+reset=`tput sgr0`
 
 stepNo=0
 JOB_START_TIME=""
@@ -13,20 +16,20 @@ function echoMessageCreator(){
     if [ $3 = true ]; then
         JOB_START_TIME=$(date +%s)
         echo ""
-        echo "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+        echo "${red}-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
         echo ""
-        echo "Step $2 : $1"
+        echo "${green}Step $2 : $1"
         echo ""
         echo "Start time and date: $(date)"
-        echo ""
+        echo "${reset}"
     else
         JOB_END_TIME=$(date +%s)
         echo ""
-        echo "Finish time and date: $(date)"
+        echo "${green}Finish time and date: $(date)"
         echo ""
         echo "Job finished in $((JOB_END_TIME - JOB_START_TIME)) s."
         echo ""
-        echo "*****************************************"
+        echo "${red}*****************************************"
         echo ""
         stepNo=$(($stepNo+1))
     fi
@@ -35,9 +38,10 @@ function echoMessageCreator(){
 rm -rf ./artefact
 rm -rf ./tmp
 
+echo "${red}"
 echo "WARNING: Disable ANZ Proxy to run this script"
 echo "You can leave alpaca running and proxy variables set to localhost:3128"
-echo ""
+echo "${reset}"
 # Using SOAP over REST is much faster for scratch org creations while pushing content.
 sfdx config:set restDeploy=false
 # Bypass the Lightning Experience custom domain check entirely, wich takes very long when connected to ANZ network
@@ -46,7 +50,7 @@ export SFDX_DOMAIN_RETRY=0
 
 # user input
 echoMessageCreator "Input: Scratch org alias and Data" $stepNo true
-read -rp "Enter scratch org alias (optional): " scratchorgalias
+read -rp "${green}Enter scratch org alias (optional): " scratchorgalias
 read -rp "Is test data needed for this scratch org (y/n)? " testdata
 read -rp "Preload ANZ Plus test data (y/n)? " preloadANZPlusData
 echoMessageCreator "" $stepNo false
@@ -57,13 +61,13 @@ echoMessageCreator "Making scratchOrg out of the snapshot" $stepNo true
 sfdx force:org:create -f config/snapshot-scratch-def-template.json -d 30 --setdefaultusername -w 10 --setalias "$scratchorgalias" 2>&1 | tee stderr
 if [[ ($(cat stderr) == *'ERROR'*) && ($(cat stderr) != *'Some commands may not work as expected until the My Domain DNS propagation'*) || ($(cat stderr) == *'statusCode=502'*) ]]; then
     echo ""
-    echo "* please run the below command in another terminal tab"
+    echo "${green}* please run the below command in another terminal tab"
     echo ""
-    echo "--------------------------------------"
-    echo "sfdx force:org:create -f config/snapshot-scratch-def-template.json -d 30 --setdefaultusername -w 10 --setalias "$scratchorgalias" 2>&1 | tee stderr"
-    echo "--------------------------------------"
+    echo "${red}--------------------------------------"
+    echo "${green}sfdx force:org:create -f config/snapshot-scratch-def-template.json -d 30 --setdefaultusername -w 10 --setalias "$scratchorgalias" 2>&1 | tee stderr"
+    echo "${red}--------------------------------------"
     echo ""
-    echo "* do not worry about the tunnelSocket error."
+    echo "${green}* do not worry about the tunnelSocket error."
     echo ""
     read -rp "when it has been finished, just type (y/Y): " nextStepFlag
 fi
@@ -76,10 +80,10 @@ ALL_START_TIME=$(date +%s)
 echoMessageCreator "check if the scratchOrg has been created out of the snapshot" $stepNo true
 sfdx force:org:list
 echo ""
-read -rp "check if the scratchOrg with $scratchorgalias alias has been made(y/n)? " scratchMade
+read -rp "${green}check if the scratchOrg with $scratchorgalias alias has been made(y/n)? " scratchMade
 if [[ $scratchMade == n || $scratchMade == N ]];then
     echo ""
-    echo "exit and re-run it again"
+    echo "${red}exit and re-run it again"
     exit 1
 fi
 echoMessageCreator "" $stepNo false
@@ -94,13 +98,14 @@ echoMessageCreator "" $stepNo false
 
 # manual steps
 echoMessageCreator "manual steps" $stepNo true
-read -rp "Do you want to open the scratch org (y/n)? " openOrg
+read -rp "${green}Do you want to open the scratch org (y/n)? " openOrg
+echo "${reset}"
 if [[ $openOrg == y || $openOrg == Y ]]; then
     sfdx force:org:open -u $scratchorgalias 
 fi
 
 echo ""
-echo "************************"
+echo "${green}************************"
 echo ""
 echo "Waiting while the job in scratchOrg is finished."
 echo ""
@@ -132,7 +137,7 @@ if [ -d "./artefact/" ]; then
         if [[ ($(cat stderr) == *'ERROR'*) || ($(cat stderr) == *'Error'*) || ($(cat stderr) == *'statusCode=502'*) ]]; then
             
         # step: to if it is faild, make it to re-run, or try again, and you can check the stderr one
-            echo ""
+            echo "${green}"
             echo "Maybe you need to do some manual steps."
             echo "Please check the stderr file."
             echo ""
@@ -182,7 +187,7 @@ y | Y)
         exit 1
     fi
     
-    echo ""
+    echo "${green}"
     echo "-=- Creating Coach user -=-"
     echo ""
     node webdriverIO/setup-scripts/createUser.js --profile "coach"
@@ -201,14 +206,14 @@ y | Y)
 
     echoMessageCreator "" $stepNo false
     ;;
-*) echo "Skipping test data creation" ;;
+*) echo "${green}Skipping test data creation" ;;
 esac
 ###########################
 
 
 
 ALL_END_TIME=$(date +%s)
-echo ""
+echo "${green}"
 echo "$(date): All done in $((ALL_END_TIME - ALL_START_TIME)) s."
 
 # reset source tracking

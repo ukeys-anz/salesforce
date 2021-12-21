@@ -2,6 +2,9 @@
 
 # Any subsequent(*) commands which fail will cause the shell script to exit immediately
 set -e
+green=`tput setaf 2`
+red=`tput setaf 1`
+reset=`tput sgr0`
 
 # trap ctrl-c and call ctrl_c()
 trap ctrl_c INT
@@ -17,8 +20,9 @@ function ctrl_c() {
         cp SIWorkflow.txt $f
         rm -rf SIWorkflow.txt
     fi
-    echo ""
+    echo "${red}"
     echo "Making scracthOrg has been stopped."
+    echo "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
 }
 stepNo=$(($stepNo+1))
 JOB_START_TIME=""
@@ -29,20 +33,20 @@ JOB_END_TIME=""
 function echoMessageCreator(){
     if [ $3 = true ]; then
         JOB_START_TIME=$(date +%s)
-        echo ""
+        echo "${red}"
         echo "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
-        echo ""
+        echo "${green}"
         echo "Step $2 : $1"
         echo ""
         echo "Start time and date: $(date)"
-        echo ""
+        echo "${reset}"
     else
         JOB_END_TIME=$(date +%s)
-        echo ""
+        echo "${green}"
         echo "Finish time and date: $(date)"
         echo ""
         echo "Job finished in $((JOB_END_TIME - JOB_START_TIME)) s."
-        echo ""
+        echo "${red}"
         echo "*****************************************"
         echo ""
         stepNo=$(($stepNo+1))
@@ -111,10 +115,11 @@ echoMessageCreator "" $stepNo false
 echoMessageCreator "Push metadata" $stepNo true
 tryDeploying=true
 while [[ $tryDeploying == true ]]; do
+    echo "${reset}"
     sfdx force:source:push -f 2>&1 | tee stderr
 
     if [[ ($(cat stderr) == *'ERROR'*)  || ($(cat stderr) == *'statusCode=502'*) ]]; then
-        echo ""
+        echo "${green}"
         echo "Maybe you need to do some manual steps."
         echo "Please check the stderr file."
         echo ""
@@ -157,8 +162,8 @@ echoMessageCreator "" $stepNo false
 
 # import post-deployment plan
 echoMessageCreator "Import post-deployment plan" $stepNo true
-read -rp "Do you want to import post-deployment plan(y/n)? " importPlan
-echo ""
+read -rp "${green}Do you want to import post-deployment plan(y/n)? " importPlan
+echo "${reset}"
 if [[ $importPlan == Y || $importPlan == y ]];then
     sfdx force:data:tree:import -p data/Post-Plan.json 2>&1 | tee stderr
     sfdx force:data:tree:import -p data/IDR-CustomSetting.json 2>&1 | tee stderr
@@ -168,7 +173,7 @@ if [[ $importPlan == Y || $importPlan == y ]];then
         exit 1
     fi
 else
-    echo "Importing post-deployment plan has been skipped."
+    echo "${green}Importing post-deployment plan has been skipped."
 fi
 echoMessageCreator "" $stepNo false
 ###########################
@@ -181,10 +186,11 @@ echoMessageCreator "" $stepNo false
 
 ALL_END_TIME=$(date +%s)
 echo ""
-echo "$(date): All done in $((ALL_END_TIME - ALL_START_TIME)) s."
+echo "${green}$(date): All done in $((ALL_END_TIME - ALL_START_TIME)) s.${reset}"
 
 rm -rf ./artefact
 rm -rf ./tmp
+
 # reset source tracking
 echoMessageCreator "Resetting source tracking" $stepNo true
 sfdx force:source:tracking:reset -p
