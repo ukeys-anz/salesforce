@@ -173,6 +173,12 @@ fi
 echoMessageCreator "" $stepNo false
 ###########################
 
+# creating a user with "anzx.user@anzx.com" username
+echoMessageCreator "creating a breakglass user" $stepNo true
+sfdx force:user:create username="anzx.user@anzx.com" --targetusername $scratchorgalias
+echoMessageCreator "" $stepNo false
+###########################
+
 ALL_END_TIME=$(date +%s)
 echo ""
 echo "$(date): All done in $((ALL_END_TIME - ALL_START_TIME)) s."
