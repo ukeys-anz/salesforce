@@ -53,16 +53,19 @@ echoMessageCreator "" $stepNo false
 ###########################
 
 # make a new scratchOrg step
-echoMessageCreator "Input: Scratch org alias and Data" $stepNo true
-echo "* please run the below command in another terminal tab"
-echo ""
-echo "--------------------------------------"
-echo "sfdx force:org:create -f config/snapshot-scratch-def-template.json -d 30 --setdefaultusername -w 10 --setalias "$scratchorgalias" 2>&1 | tee stderr"
-echo "--------------------------------------"
-echo ""
-echo "* do not worry about the tunnelSocket error."
-echo ""
-read -rp "when it has been finished, just type (y/Y): " nextStepFlag
+echoMessageCreator "Making scratchOrg out of the snapshot" $stepNo true
+sfdx force:org:create -f config/snapshot-scratch-def-template.json -d 30 --setdefaultusername -w 10 --setalias "$scratchorgalias" 2>&1 | tee stderr
+if [[ ($(cat stderr) == *'ERROR'*) && ($(cat stderr) != *'Some commands may not work as expected until the My Domain DNS propagation'*) || ($(cat stderr) == *'statusCode=502'*) ]]; then
+    echo "* please run the below command in another terminal tab"
+    echo ""
+    echo "--------------------------------------"
+    echo "sfdx force:org:create -f config/snapshot-scratch-def-template.json -d 30 --setdefaultusername -w 10 --setalias "$scratchorgalias" 2>&1 | tee stderr"
+    echo "--------------------------------------"
+    echo ""
+    echo "* do not worry about the tunnelSocket error."
+    echo ""
+    read -rp "when it has been finished, just type (y/Y): " nextStepFlag
+fi
 echoMessageCreator "" $stepNo false
 ###########################
 
@@ -74,6 +77,7 @@ sfdx force:org:list
 echo ""
 read -rp "check if the scratchOrg with $scratchorgalias alias has been made(y/n)? " scratchMade
 if [[ $scratchMade == n || $scratchMade == N ]];then
+    echo ""
     echo "exit and re-run it again"
     exit 1
 fi
@@ -91,7 +95,16 @@ echoMessageCreator "" $stepNo false
 echoMessageCreator "manual steps" $stepNo true
 read -rp "Do you want to open the scratch org (y/n)? " openOrg
 if [[ $openOrg == y || $openOrg == Y ]]; then
-    sfdx force:org:open -u $scratchorgalias
+    openScratchFlag=true
+    while [[ $openScratchFlag == true ]]; do
+        sfdx force:org:open -u $scratchorgalias | tee stderr
+        if [[ ($(cat stderr) == *'ERROR'*) || ($(cat stderr) == *'statusCode=502'*) ]]; then
+            echo ""
+            echo "Please be sure that the vpn is off"
+        else
+            openScratchFlag=false
+        fi
+    done        
 fi
 
 echo ""
