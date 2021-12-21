@@ -95,16 +95,7 @@ echoMessageCreator "" $stepNo false
 echoMessageCreator "manual steps" $stepNo true
 read -rp "Do you want to open the scratch org (y/n)? " openOrg
 if [[ $openOrg == y || $openOrg == Y ]]; then
-    openScratchFlag=true
-    while [[ $openScratchFlag == true ]]; do
-        sfdx force:org:open -u $scratchorgalias | tee stderr
-        if [[ ($(cat stderr) == *'ERROR'*) || ($(cat stderr) == *'statusCode=502'*) ]]; then
-            echo ""
-            echo "Please be sure that the vpn is off"
-        else
-            openScratchFlag=false
-        fi
-    done        
+    sfdx force:org:open -u $scratchorgalias 
 fi
 
 echo ""
