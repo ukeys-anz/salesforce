@@ -13,7 +13,7 @@ describe("c-create-complaint-l-w-c", () => {
 
   function flushPromises() {
     // eslint-disable-next-line no-undef
-    return new Promise(resolve => setImmediate(resolve));
+    return new Promise((resolve) => setImmediate(resolve));
   }
 
   it("display all sections in the form", () => {
@@ -501,7 +501,9 @@ describe("c-create-complaint-l-w-c", () => {
       "c-idr-express-complaint"
     );
     expect(expressCMOSElement).not.toBe(null);
-    expressCMOSElement.dispatchEvent(new CustomEvent("togglechecked"));
+    expressCMOSElement.dispatchEvent(
+      new CustomEvent("togglechecked", { detail: { value: true } })
+    );
     return Promise.resolve().then(() => {
       const issueTypeElement = element.shadowRoot.querySelector(
         '[data-id="issueType-id"]'
@@ -519,7 +521,9 @@ describe("c-create-complaint-l-w-c", () => {
     const expressCMOSElement = element.shadowRoot.querySelector(
       "c-idr-express-complaint"
     );
-    expressCMOSElement.dispatchEvent(new CustomEvent("togglechecked"));
+    expressCMOSElement.dispatchEvent(
+      new CustomEvent("togglechecked", { detail: { value: true } })
+    );
     return Promise.resolve().then(() => {
       expressCMOSElement.dispatchEvent(
         new CustomEvent("selected", {

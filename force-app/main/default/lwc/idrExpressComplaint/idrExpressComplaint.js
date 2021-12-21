@@ -45,9 +45,6 @@ export default class IdrExpressComplaint extends LightningElement {
         this.selectedKnownIssue = knownIssue;
       }
     }
-    let toggle = this.template.querySelector(".expressToggle");
-    toggle.checked = true;
-    toggle.disabled = true;
     const selectedEvent = new CustomEvent("selected", {
       detail: this.selectedKnownIssue
     });
@@ -55,12 +52,14 @@ export default class IdrExpressComplaint extends LightningElement {
   }
 
   handleExpressCaseToggle(event) {
-    this.showKnownOutageSelect = event.detail.checked;
     if (event.detail.checked) {
-      const toggleEvent = new CustomEvent("togglechecked", {
-        detail: true
-      });
-      this.dispatchEvent(toggleEvent);
+      this.showKnownOutageSelect = true;
     }
+    const toggleEvent = new CustomEvent("togglechecked", {
+      detail: {
+        value: event.detail.checked
+      }
+    });
+    this.dispatchEvent(toggleEvent);
   }
 }
