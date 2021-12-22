@@ -2586,7 +2586,7 @@ private class CaseTriggerHandlerTest {
 
     // THEN
     // a platform event should be published
-    // since we cannot query on platform events and big object logs are not created in text context (Database.ImmediateInsert does not support uni tests)
+    // since we cannot query on platform events and big object logs are not created in text context (Database.ImmediateInsert does not support unit tests)
     // we cannot assert here, however event publishing is already asserted in PlatformEventUtilsTest
     // this function is to cover the code in GetHelpCaseActions
   }
@@ -2597,7 +2597,6 @@ private class CaseTriggerHandlerTest {
   static void testDisputesPEGAIntegrationOnUpdate() {
     // GIVEN
     // an valid ATM dispute is submitted
-    List<Case> records = new List<Case>();
     Case disputeCase = new Case(
       Dispute_Reason__c = 'Duplicate Transactions',
       Submitted__c = false,
@@ -2624,7 +2623,7 @@ private class CaseTriggerHandlerTest {
 
     // THEN
     // a platform event should be published
-    // since we cannot query on platform events and big object logs are not created in text context (Database.ImmediateInsert does not support uni tests)
+    // since we cannot query on platform events and big object logs are not created in text context (Database.ImmediateInsert does not support unit tests)
     // we cannot assert here, however event publishing is already asserted in PlatformEventUtilsTest
     // this function is to cover the code in GetHelpCaseActions
   }
