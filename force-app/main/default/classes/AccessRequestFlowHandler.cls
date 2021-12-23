@@ -80,6 +80,8 @@ public without sharing class AccessRequestFlowHandler {
             .Id;
 
             users[0].ProfileId = profileId;
+            update users[0];
+            isSuccess = true;
           } else {
             //If the Profile ID is the same do nothing.
             if (users[0].ProfileId == flowInstance.profileId) {
