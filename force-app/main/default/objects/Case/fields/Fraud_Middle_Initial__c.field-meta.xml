@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Fraud_Security_Features__c</fullName>
-    <businessStatus>Active</businessStatus>
-    <complianceGroup>Privacy_Non_Personal_Information;Integrity_Trusted;Source_Salesforce</complianceGroup>
-    <description>Check:
+    <fullName>Fraud_Middle_Initial__c</fullName>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Check: 
 
-The identity document has holographic and other security features with judgement given to the amount of light that was present at the time the document was captured</description>
+If a middle name initial exists on the identity document then the full form of the middle name is recorded on the customer profile in Fenergo starting with the same letter.</description>
     <externalId>false</externalId>
-    <inlineHelpText>Check:
+    <inlineHelpText>Check: 
 
-The identity document has holographic and other security features with judgement given to the amount of light that was present at the time the document was captured</inlineHelpText>
-    <label>Security Features Visible</label>
+If a middle name initial exists on the identity document then the full form of the middle name is recorded on the customer profile in Fenergo starting with the same letter.</inlineHelpText>
+    <label>Middle Name Initial</label>
     <required>false</required>
-    <securityClassification>Confidential</securityClassification>
+    <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
