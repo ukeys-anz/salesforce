@@ -142,8 +142,9 @@ if [ -d "./artefact/" ]; then
             echo "Please check the stderr file."
             echo ""
             read -rp "Do you want to retry deploying (y/n)? " retryFlag
+            echo "${reset}"
             if [[ $retryFlag == n || $retryFlag == N ]]; then
-                echo ""
+                echo "${green}"
                 echo "The job has been skipped."
                 echo ""
                 exit 1
