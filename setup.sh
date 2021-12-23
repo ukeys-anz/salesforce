@@ -158,7 +158,7 @@ if [ -d "./artefact/" ]; then
 fi 
 
 # assign a role to default user of scratchOrg
-echoMessageCreator "deploy the diff metadata" $stepNo true
+echoMessageCreator "assign a role to default user of scratchOrg" $stepNo true
 sfdx force:apex:execute -f ./apex-scripts/assignUserRole.apex
 echoMessageCreator "" $stepNo false
 ###########################
@@ -174,7 +174,7 @@ y | Y)
     sfdx force:apex:execute -f ./apex-scripts/createTestUsers.apex
     echoMessageCreator "" $stepNo false
     ;;
-*) echo "Skipping ANZ plus test data preload" ;;
+*) echo "${green}Skipping ANZ plus test data preload${reset}" ;;
 esac
 ###########################
 
@@ -213,7 +213,7 @@ y | Y)
 
     echoMessageCreator "" $stepNo false
     ;;
-*) echo "${green}Skipping test data creation" ;;
+*) echo "${green}Skipping test data creation${reset}" ;;
 esac
 ###########################
 
