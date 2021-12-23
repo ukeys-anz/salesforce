@@ -28,10 +28,16 @@ export default class CaseDuration extends LightningElement {
   wiredProject({ data }) {
     if (data) {
       this.caseStatus = data.fields.Status.value;
+      this.handleGetCaseDurationTime();
     }
   }
 
   connectedCallback() {
+    // Get case duration time
+    this.handleGetCaseDurationTime();
+  }
+
+  handleGetCaseDurationTime() {
     getCaseDurationTime({
       caseId: this.recordId
     })
