@@ -5,8 +5,7 @@
     <errorConditionFormula>AND(
 $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
 RecordType.DeveloperName = &apos;ATM_Dispute&apos;,
-OR(ISPICKVAL(Dispute_Reason__c, &quot;Duplicate Transactions&quot;),
-ISPICKVAL(Dispute_Reason__c, &apos;Unauthorised Transaction&apos;)),
+ISPICKVAL(Dispute_Reason__c, &quot;Duplicate Transactions&quot;),
 ISBLANK(Description)
 )</errorConditionFormula>
     <errorDisplayField>Description</errorDisplayField>
