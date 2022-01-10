@@ -11,7 +11,7 @@ public with sharing class GetHelpTaskActions {
     .getRecordTypeId();
 
   @TestVisible
-  public static final String TASK_SUBTYPE_CALL = 'Call';
+  public static final String TASK_SUBTYPE_CALL = 'Task';
   public static final String CALL_SID_IDENTIFIER = 'Call Sid: CA';
   public static final Integer CALL_SID_PREFIX_LENGTH = 10; // 'Call Sid: '
   public static final Integer CALL_SID_LENGTH = 34;
