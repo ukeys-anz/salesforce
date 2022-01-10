@@ -133,10 +133,10 @@ if [ -d "./artefact/" ]; then
     tryDeploying=true
     while [[ $tryDeploying == true ]]; do
         tryDeploying=false
-        sfdx force:source:deploy -u $scratchorgalias -p artefact | tee stderr
+        sfdx force:mdapi:deploy -u $scratchorgalias -d artefact -w 10 | tee stderr
         if [[ ($(cat stderr) == *'ERROR'*) || ($(cat stderr) == *'Error'*) || ($(cat stderr) == *'statusCode=502'*) ]]; then
             
-        # step: to if it is faild, make it to re-run, or try again, and you can check the stderr one
+        # step: to if it is failed, make it to re-run, or try again, and you can check the stderr one
             echo "${green}"
             echo "Maybe you need to do some manual steps."
             echo "Please check the stderr file."
