@@ -9,6 +9,7 @@
     <permissionSets>Customer_Feedback_Read_Only</permissionSets>
     <permissionSets>Customer_Read_Only</permissionSets>
     <permissionSets>FinServ__FinancialServicesCloudStandard</permissionSets>
+    <permissionSets>Product_Read_Only</permissionSets>
     <permissionSets>Record_Access_Log</permissionSets>
     <permissionSets>Release_Read_Only</permissionSets>
     <permissionSets>View_Statements</permissionSets>
