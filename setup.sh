@@ -51,8 +51,8 @@ export SFDX_DOMAIN_RETRY=0
 # user input
 echoMessageCreator "Input: Scratch org alias and Data" $stepNo true
 read -rp "${green}Enter scratch org alias (optional): " scratchorgalias
-read -rp "Is test data needed for this scratch org (y/n)? " testdata
 read -rp "Preload ANZ Plus test data (y/n)? " preloadANZPlusData
+read -rp "Preload CMOS test data (y/n)? " preloadCMOSData
 echoMessageCreator "" $stepNo false
 ###########################
 
@@ -163,10 +163,16 @@ sfdx force:apex:execute -f ./apex-scripts/assignUserRole.apex
 echoMessageCreator "" $stepNo false
 ###########################
 
+# apply perm sets
+echoMessageCreator "apply customer details perm set" $stepNo true
+sfdx force:user:permset:assign -n Read_Write_Customer_Details 
+echoMessageCreator "" $stepNo false
+###########################
+
 # load data, create test user
 case ${preloadANZPlusData:0:1} in
 y | Y)
-    echoMessageCreator "Pre-loading sample data" $stepNo true
+    echoMessageCreator "Pre-loading sample anzx data" $stepNo true
     sfdx force:apex:execute -f ./apex-scripts/createTestData.apex
     echoMessageCreator "" $stepNo false
 
@@ -178,42 +184,20 @@ y | Y)
 esac
 ###########################
 
-# import test data and users
-case ${testdata:0:1} in
+# import cmos test data
+case ${preloadCMOSData:0:1} in
 y | Y)
-    echoMessageCreator "Import test data and users" $stepNo true
-    #below will fetch the latest changes from the remote master branch as its the branch specified in salesforce-scripts submodule
-    git submodule update --init --remote
-    #Add all the scripts to load data below
-    sfdx force:user:permset:assign -n Read_Write_Customer_Details    
-    node salesforce-scripts/generateTestData/loadFinancialGoals.js 2>&1 | tee stderr
+    echoMessageCreator "Pre-loading sample cmos data" $stepNo true
     # Uncomment the next line (and comment the next) to import products without their related cases
     #sfdx force:data:bulk:upsert --sobjecttype Product2 --csvfile data/IDR-ANZ-Products.csv --externalid ANZ_Product_Code__c --wait 2 2>&1 | tee stderr
     sfdx force:data:tree:import -p data/IDR-Product2-Case-plan.json 2>&1 | tee stderr
     if [[ ($(cat stderr) == *'ERROR'*)  || ($(cat stderr) == *'statusCode=502'*) ]]; then
         exit 1
     fi
-    
-    echo "${green}"
-    echo "-=- Creating Coach user -=-"
-    echo ""
-    node webdriverIO/setup-scripts/createUser.js --profile "coach"
-    echo ""
-    echo "-=- Creating IDR user -=-"
-    echo ""
-    node webdriverIO/setup-scripts/createUser.js --profile "idr level 3"
-    echo ""
-    echo "-=- Assigning user roles -=-"
-    echo ""
-    sfdx force:apex:execute -f ./apex-scripts/assignUserRole.apex
-    echo ""
-    echo "-=- Create users json for webdriverIO -=-"
-    echo ""
-    node webdriverIO/setup-scripts/createUserJsonList.js
 
     echoMessageCreator "" $stepNo false
     ;;
-*) echo "${green}Skipping test data creation${reset}" ;;
+*) echo "${green}Skipping CMOS test data preload${reset}" ;;
 esac
 ###########################
 
