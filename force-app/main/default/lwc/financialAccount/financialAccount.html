@@ -45,10 +45,8 @@
                         class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-var-p-around_small"
                       >
                         <div class="header-column">
-                          <p class="field-title slds-text-color_weak">
-                            Account Number
-                          </p>
-                          <p class="slds-text-heading_medium">
+                          <p class="slds-text-color_weak">Account Number</p>
+                          <p class="slds-text-heading_large">
                             {finAccount.FinServ__FinancialAccountNumber__c}
                           </p>
                         </div>
@@ -57,7 +55,7 @@
                         class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-var-p-around_small balance-padding"
                       >
                         <div class="header-column slds-float_right">
-                          <p class="field-title slds-text-color_weak">
+                          <p class="slds-text-color_weak">
                             {balanceTitle}
                             <lightning-icon
                               icon-name="utility:info"
@@ -66,7 +64,7 @@
                               onclick={handleInfoModal}
                             ></lightning-icon>
                           </p>
-                          <p class="slds-text-heading_medium">
+                          <p class="slds-text-heading_large">
                             <lightning-formatted-number
                               value={finAccount.FinServ__Balance__c}
                               format-style="currency"
@@ -78,6 +76,46 @@
                     </div>
                   </div>
                 </div>
+                <template if:true={savingsJar}>
+                  <div class="slds-grid slds-wrap slds-border_top">
+                    <div
+                      class="slds-col slds-grid slds-size_1-of-1 slds-p-top_medium"
+                    >
+                      <div class="slds-grid slds-wrap slds-size_1-of-1">
+                        <div
+                          class="slds-col slds-large-size_1-of-3 slds-var-p-around_small slds-text-align_center"
+                        >
+                          <p class="slds-text-color_weak">
+                            {savingsJar.goal.name}
+                          </p>
+                          <img src={goalImage} width="85" />
+                        </div>
+                        <div
+                          class="slds-col slds-large-size_2-of-3 slds-var-p-around_small balance-padding vertical-align"
+                        >
+                          <div class="header-column slds-float_right">
+                            <p class="slds-text-color_weak">
+                              Total Saved
+                              <lightning-icon
+                                icon-name="utility:info"
+                                size="xx-small"
+                                class="tooltip"
+                                onclick={handleInfoModal}
+                              ></lightning-icon>
+                            </p>
+                            <p class="slds-text-heading_large">
+                              <lightning-formatted-number
+                                value={savingsJar.balance.value}
+                                format-style="currency"
+                                data-id="amount"
+                              ></lightning-formatted-number>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </template>
                 <footer class="slds-card__footer account-footer">
                   <span class="lastUpdated">Last Updated {timestamp}</span>
                 </footer>

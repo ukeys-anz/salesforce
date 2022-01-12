@@ -9,17 +9,22 @@ const ACCOUNT_TYPES = {
   savings: "Savings - ANZ Save Account"
 };
 
+import goal_themes from "@salesforce/resourceUrl/mock_goalThemes";
+
 export default class EverydayAccount extends NavigationMixin(LightningElement) {
   @api recordId;
   @api accountType;
   //Account details received through personAccountFinancialDetails LWC
   @api accountDetails;
   @api error;
+  //Savings jar details received through personAccountFinancialDetails LWC
+  @api savingsJar;
   componentTitle;
   balanceTitle;
   showInfoModal = false;
   productTitle;
   titleIcon;
+  goalImage;
 
   get displayContent() {
     return hasAccountsGoalsPermission;
@@ -27,7 +32,11 @@ export default class EverydayAccount extends NavigationMixin(LightningElement) {
 
   get timestamp() {
     //Create timestamp for last updated
-    let updated = new Date(this.accountDetails[0].LastModifiedDate);
+    //Use last modified date if the data is fetched from SF, otherwise,
+    //the data is directly from fabric so we can use current time
+    let updated = this.accountDetails[0].LastModifiedDate
+      ? new Date(this.accountDetails[0].LastModifiedDate)
+      : new Date();
 
     let lastUpdated =
       updated.getDate() +
@@ -57,6 +66,12 @@ export default class EverydayAccount extends NavigationMixin(LightningElement) {
       this.balanceTitle = "Total Saved";
       this.productTitle = "ANZ Save";
       this.titleIcon = "custom:custom17";
+      //Check if goal has theme otherwise use default
+      if (this.savingsJar?.goal?.theme) {
+        this.goalImage = `${goal_themes}/${this.savingsJar.goal.theme}.png`;
+      } else {
+        this.goalImage = `${goal_themes}/GOAL_THEME_UNSPECIFIED.png`;
+      }
     }
   }
 

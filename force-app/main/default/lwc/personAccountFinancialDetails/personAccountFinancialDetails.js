@@ -8,6 +8,7 @@ import getTotalBalance from "@salesforce/apex/TotalBalanceController.getTotalBal
 import getTotalSaved from "@salesforce/apex/TotalBalanceController.getTotalSaved";
 import getFinancialAccountFabric from "@salesforce/apex/FinancialAccountController.getFinancialAccountFabric";
 import getFinancialAccountDB from "@salesforce/apex/FinancialAccountController.getFinancialAccountDB";
+import getAccountBuckets from "@salesforce/apex/AccountBucketsController.getAccountBuckets";
 
 /* IMPORT PERMISSIONS */
 import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
@@ -17,7 +18,6 @@ import ACCOUNT_OCV_ID_FIELD from "@salesforce/schema/Account.OCV_ID__c";
 
 export default class PersonAccountFinancialDetails extends LightningElement {
   @api recordId;
-  @api objectName;
   goalDetails = [];
   ocvId;
   loading;
@@ -27,6 +27,7 @@ export default class PersonAccountFinancialDetails extends LightningElement {
     checking: [],
     savings: []
   };
+  savingsJar = [];
 
   @wire(getRecord, {
     recordId: "$recordId",
@@ -53,6 +54,7 @@ export default class PersonAccountFinancialDetails extends LightningElement {
       checking: [],
       savings: []
     };
+    this.savingsJar = [];
     try {
       //Attempt to get the latest account details from fabric
       let accountDetails = await getFinancialAccountFabric({
@@ -94,6 +96,23 @@ export default class PersonAccountFinancialDetails extends LightningElement {
           "Failed To Retrieve Total Balance Details",
           error,
           this.totalBalanceError,
+          "pester"
+        );
+      }
+
+      try {
+        this.goalDetails = await getAccountBuckets({ ocvId: this.ocvId });
+        //Savings jar will always be default, so retrieve it
+        //to pass through to other components that need it
+        this.savingsJar = this.goalDetails.account_buckets.filter((obj) => {
+          return obj.is_default === true;
+        })[0];
+      } catch (error) {
+        handleErrorShowToast(
+          this,
+          "Failed To Retrieve Goal Details",
+          error,
+          "Failed to retrieve latest goal details. Please refresh and try again. If issue persists please contact your System Administrator",
           "pester"
         );
       }

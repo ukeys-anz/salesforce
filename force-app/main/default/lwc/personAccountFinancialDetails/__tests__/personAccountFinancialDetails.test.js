@@ -24,14 +24,10 @@ describe("c-person-account-financial-details", () => {
     let savingsAccount = element.shadowRoot.querySelector(
       "c-financial-account[data-id='savings-account']"
     );
-    let financialGoals = element.shadowRoot.querySelector(
-      "c-financial-goals[data-id='financial-goals']"
-    );
 
     expect(totalBalance).toBeTruthy();
     expect(checkingAccount).toBeTruthy();
     expect(savingsAccount).toBeTruthy();
-    expect(financialGoals).toBeTruthy();
   });
 
   it("tests refresh button is clicked", () => {
@@ -48,14 +44,10 @@ describe("c-person-account-financial-details", () => {
     const savingsAccount = element.shadowRoot.querySelector(
       "c-financial-account[data-id='savings-account']"
     );
-    const financialGoals = element.shadowRoot.querySelector(
-      "c-financial-goals[data-id='financial-goals']"
-    );
 
     expect(totalBalance).toBeTruthy();
     expect(checkingAccount).toBeTruthy();
     expect(savingsAccount).toBeTruthy();
-    expect(financialGoals).toBeTruthy();
 
     let refreshButton = element.shadowRoot.querySelector(
       "button[data-id='refresh']"
@@ -74,7 +66,6 @@ describe("c-person-account-financial-details", () => {
         expect(totalBalance).toBeTruthy();
         expect(checkingAccount).toBeTruthy();
         expect(savingsAccount).toBeTruthy();
-        expect(financialGoals).toBeTruthy();
       });
   });
 });

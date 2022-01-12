@@ -11,10 +11,6 @@
   -webkit-user-select: none;
 }
 
-.slds-card__footer {
-  border: unset;
-}
-
 .lastUpdated {
   font-size: 12px;
   float: right;
@@ -68,4 +64,10 @@
   font-size: 16px;
   border-radius: 0.25em;
   font-weight: bold;
+}
+
+.vertical-align {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }

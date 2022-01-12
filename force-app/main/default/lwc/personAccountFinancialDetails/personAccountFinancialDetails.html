@@ -34,18 +34,12 @@
       account-type="savings"
       record-id={recordId}
       account-details={accountData.savings}
+      savings-jar={savingsJar}
       error={savingsError}
       data-id="savings-account"
     ></c-financial-account>
 
     <div class="slds-m-top_small"></div>
-
-    <c-financial-goals
-      record-id={recordId}
-      goal-data={goalDetails}
-      error={goalError}
-      data-id="financial-goals"
-    ></c-financial-goals>
   </template>
   <template if:true={loading}>
     <div
