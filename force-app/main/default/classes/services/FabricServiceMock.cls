@@ -56,10 +56,14 @@ public with sharing class FabricServiceMock extends Service {
 
   /**
    * @param ocvId customer id to retrieve accounts and goals for
+   * @param accountNumbers contains account numbers to provide as parameters for account filtering
    * @return `HttpCalloutResponse` the api response
    * @description fetches accounts and goals fake response
    */
-  public override HttpCalloutResponse getFinancialAccounts(String ocvId) {
+  public override HttpCalloutResponse getFinancialAccounts(
+    String ocvId,
+    List<String> accountNumbers
+  ) {
     if (!preset) {
       response.body = FabricServiceMock.FINANCIAL_ACCOUNTS_SUCCESS_RESPONSE;
     }

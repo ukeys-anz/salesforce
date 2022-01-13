@@ -17,7 +17,10 @@ public inherited sharing class FabricServiceTest {
 
     Test.startTest();
     FabricService service = new FabricService();
-    HttpCalloutResponse response = service.getFinancialAccounts('1111');
+    HttpCalloutResponse response = service.getFinancialAccounts(
+      '1111',
+      new List<String>()
+    );
     Test.stopTest();
 
     System.assertEquals(201, response.statusCode);

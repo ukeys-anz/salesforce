@@ -25,7 +25,10 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
     System.runAs(thisUser) {
       Test.startTest();
       CoachBankingAPIRepository coachapi = new CoachBankingAPIRepository();
-      FinancialAccountModel model = coachapi.getAccounts('1111');
+      FinancialAccountModel model = coachapi.getAccounts(
+        '1111',
+        new List<String>()
+      );
       Test.stopTest();
 
       System.assertEquals(2, model.account_list.size());
@@ -48,7 +51,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       Test.startTest();
       CoachBankingAPIRepository coachapi = new CoachBankingAPIRepository();
       try {
-        model = coachapi.getAccounts('1111');
+        model = coachapi.getAccounts('1111', new List<String>());
       } catch (Exception e) {
         resultException = e;
       }

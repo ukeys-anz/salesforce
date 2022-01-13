@@ -23,10 +23,14 @@ public with sharing virtual class Service {
 
   /**
    * @param ocvId customer id
+   * @param accountNumbers contains account numbers to provide as parameters for account filtering
    * @return `HttpCalloutResponse` api response
    * @description virtual financial accounts callout
    */
-  public virtual HttpCalloutResponse getFinancialAccounts(String ocvId) {
+  public virtual HttpCalloutResponse getFinancialAccounts(
+    String ocvId,
+    List<String> accountNumbers
+  ) {
     return null;
   }
 

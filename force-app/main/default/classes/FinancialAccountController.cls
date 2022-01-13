@@ -2,7 +2,7 @@
  *
  * @author Peter Charalambous
  * @since 2020
- * @description FinancialAccountController retrieves account details for the EverydayAccount LWC and the FinancialGoals LWC
+ * @description FinancialAccountController retrieves account details for the financialAccount LWC and the FinancialGoals LWC
  */
 public with sharing class FinancialAccountController {
   /**
@@ -10,11 +10,13 @@ public with sharing class FinancialAccountController {
    * This makes the callout to fabric to fetch data
    *
    * @param ocvId the ocv id of the customer
+   * @param accountNumbers contains account numbers to provide as parameters for account filtering
    * @return List<FinServ__FinancialAccount__c>
    */
   @AuraEnabled
   public static List<FinServ__FinancialAccount__c> getFinancialAccountFabric(
-    String ocvId
+    String ocvId,
+    List<String> accountNumbers
   ) {
     //Map of fabric statuses and user friendly names to map them to
     Map<String, String> fabricStatuses = new Map<String, String>{
@@ -32,7 +34,10 @@ public with sharing class FinancialAccountController {
     );
     try {
       CoachBankingAPIRepository coachapi = new CoachBankingAPIRepository();
-      FinancialAccountModel result = coachapi.getAccounts(ocvId);
+      FinancialAccountModel result = coachapi.getAccounts(
+        ocvId,
+        accountNumbers
+      );
 
       for (FinancialAccountModel.AccountList finAccount : result.account_list) {
         financialAccounts.add(

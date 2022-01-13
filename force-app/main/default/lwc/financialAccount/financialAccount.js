@@ -11,7 +11,9 @@ const ACCOUNT_TYPES = {
 
 import goal_themes from "@salesforce/resourceUrl/mock_goalThemes";
 
-export default class EverydayAccount extends NavigationMixin(LightningElement) {
+export default class FinancialAccount extends NavigationMixin(
+  LightningElement
+) {
   @api recordId;
   @api accountType;
   //Account details received through personAccountFinancialDetails LWC
@@ -57,20 +59,22 @@ export default class EverydayAccount extends NavigationMixin(LightningElement) {
   }
 
   connectedCallback() {
-    this.componentTitle = ACCOUNT_TYPES[this.accountType.toLowerCase()];
-    if (this.accountType.toLowerCase() === "checking") {
-      this.balanceTitle = "Everyday Funds";
-      this.productTitle = "ANZ Plus";
-      this.titleIcon = "custom:custom51";
-    } else {
-      this.balanceTitle = "Total Saved";
-      this.productTitle = "ANZ Save";
-      this.titleIcon = "custom:custom17";
-      //Check if goal has theme otherwise use default
-      if (this.savingsJar?.goal?.theme) {
-        this.goalImage = `${goal_themes}/${this.savingsJar.goal.theme}.png`;
+    if (this.accountType) {
+      this.componentTitle = ACCOUNT_TYPES[this.accountType.toLowerCase()];
+      if (this.accountType.toLowerCase() === "checking") {
+        this.balanceTitle = "Everyday Funds";
+        this.productTitle = "ANZ Plus";
+        this.titleIcon = "custom:custom51";
       } else {
-        this.goalImage = `${goal_themes}/GOAL_THEME_UNSPECIFIED.png`;
+        this.balanceTitle = "Total Saved";
+        this.productTitle = "ANZ Save";
+        this.titleIcon = "custom:custom17";
+        //Check if goal has theme otherwise use default
+        if (this.savingsJar?.goal?.theme) {
+          this.goalImage = `${goal_themes}/${this.savingsJar.goal.theme}.png`;
+        } else {
+          this.goalImage = `${goal_themes}/GOAL_THEME_UNSPECIFIED.png`;
+        }
       }
     }
   }

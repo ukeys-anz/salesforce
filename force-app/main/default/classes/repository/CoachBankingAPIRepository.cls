@@ -7,14 +7,21 @@
 public with sharing class CoachBankingAPIRepository extends RepositoryBase {
   /**
    * @param ocvId customer id
+   * @param accountNumbers contains account numbers to provide as parameters for account filtering
    * @return `FinancialAccountModel` model class constructed from api response
    * @description fetches financial accounts from fabric, deserialized to a model
    */
-  public FinancialAccountModel getAccounts(String ocvId) {
+  public FinancialAccountModel getAccounts(
+    String ocvId,
+    List<String> accountNumbers
+  ) {
     FinancialAccountModel result;
     if (FeatureManagement.checkPermission('ANZx_Accounts_and_Goals')) {
       Service s = ServiceProvider.getService(FabricService.class);
-      HttpCalloutResponse response = s.getFinancialAccounts(ocvId);
+      HttpCalloutResponse response = s.getFinancialAccounts(
+        ocvId,
+        accountNumbers
+      );
       if (response.successful) {
         try {
           result = FinancialAccountModel.parse(response.body);

@@ -29,10 +29,10 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentName>transactionHistoryBoard</componentName>
+                <componentName>financialAccountParent</componentName>
             </componentInstance>
         </itemInstances>
-        <name>Facet-f78f919c-8d07-4f57-9664-9d71df4c1062</name>
+        <name>Facet-1b16acd5-4f93-479f-afda-07d8826e3338</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -41,7 +41,7 @@
                 <componentName>statementsViewer</componentName>
             </componentInstance>
         </itemInstances>
-        <name>Facet-d0b96d0b-ee76-4317-932a-50616dcabc98</name>
+        <name>Facet-b9a693ff-d38f-48c1-9c05-e92b6c23ac9b</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -53,11 +53,11 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>body</name>
-                    <value>Facet-f78f919c-8d07-4f57-9664-9d71df4c1062</value>
+                    <value>Facet-1b16acd5-4f93-479f-afda-07d8826e3338</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>
-                    <value>Transaction History</value>
+                    <value>Account</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
             </componentInstance>
@@ -66,7 +66,7 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>body</name>
-                    <value>Facet-d0b96d0b-ee76-4317-932a-50616dcabc98</value>
+                    <value>Facet-b9a693ff-d38f-48c1-9c05-e92b6c23ac9b</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>
@@ -75,8 +75,7 @@
                 <componentName>flexipage:tab</componentName>
             </componentInstance>
         </itemInstances>
-        <mode>Replace</mode>
-        <name>maintabs</name>
+        <name>Facet-7188c568-afd4-48b9-a8df-672656f1f07a</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -84,7 +83,7 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>tabs</name>
-                    <value>maintabs</value>
+                    <value>Facet-7188c568-afd4-48b9-a8df-672656f1f07a</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
             </componentInstance>
@@ -152,11 +151,6 @@
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentName>accountBalances</componentName>
-            </componentInstance>
-        </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentName>force:detailPanel</componentName>

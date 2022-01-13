@@ -58,7 +58,8 @@ export default class PersonAccountFinancialDetails extends LightningElement {
     try {
       //Attempt to get the latest account details from fabric
       let accountDetails = await getFinancialAccountFabric({
-        ocvId: this.ocvId
+        ocvId: this.ocvId,
+        accountNumbers: []
       });
       this.handleAccountInformation(accountDetails);
     } catch (error) {
