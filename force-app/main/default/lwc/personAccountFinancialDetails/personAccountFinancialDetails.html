@@ -40,6 +40,11 @@
     ></c-financial-account>
 
     <div class="slds-m-top_small"></div>
+    <c-financial-goals-person-account
+      goal-data={goalDetails}
+      savings-account={savingsId}
+    >
+    </c-financial-goals-person-account>
   </template>
   <template if:true={loading}>
     <div

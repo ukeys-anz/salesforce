@@ -16,6 +16,9 @@ import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accoun
 /* IMPORT SCHEMA FIELDS */
 import ACCOUNT_OCV_ID_FIELD from "@salesforce/schema/Account.OCV_ID__c";
 
+//Import goal images
+import goal_themes from "@salesforce/resourceUrl/mock_goalThemes";
+
 export default class PersonAccountFinancialDetails extends LightningElement {
   @api recordId;
   goalDetails = [];
@@ -28,6 +31,9 @@ export default class PersonAccountFinancialDetails extends LightningElement {
     savings: []
   };
   savingsJar = [];
+  //Pass this to the goals lwc so we can navigate to the
+  //savings financial account
+  savingsId;
 
   @wire(getRecord, {
     recordId: "$recordId",
@@ -102,12 +108,17 @@ export default class PersonAccountFinancialDetails extends LightningElement {
       }
 
       try {
-        this.goalDetails = await getAccountBuckets({ ocvId: this.ocvId });
+        let goalData = await getAccountBuckets({ ocvId: this.ocvId });
+        goalData = this.handleGoalThemes(goalData);
         //Savings jar will always be default, so retrieve it
         //to pass through to other components that need it
-        this.savingsJar = this.goalDetails.account_buckets.filter((obj) => {
-          return obj.is_default === true;
+        this.savingsJar = goalData.account_buckets.filter((obj) => {
+          return obj.is_default;
         })[0];
+        //Remove savings jar as its not displayed on goals component
+        this.goalDetails = goalData.account_buckets.filter((obj) => {
+          return !obj.is_default;
+        });
       } catch (error) {
         handleErrorShowToast(
           this,
@@ -117,7 +128,6 @@ export default class PersonAccountFinancialDetails extends LightningElement {
           "pester"
         );
       }
-
       this.loading = false;
     }
   }
@@ -136,9 +146,34 @@ export default class PersonAccountFinancialDetails extends LightningElement {
         this.accountData.checking.push(account);
       } else {
         this.accountData.savings.push(account);
+        this.savingsId = account.Id;
       }
     });
 
     return finAccounts;
+  }
+
+  handleGoalThemes(goalList) {
+    goalList.account_buckets.forEach((goal) => {
+      //Check if goal has theme otherwise use default
+      if (goal?.goal?.theme) {
+        goal.image = `${goal_themes}/${goal.goal.theme}.png`;
+      } else if (goal?.goal?.emoji?.value) {
+        goal.emoji = goal.goal.emoji.value;
+      } else {
+        goal.image = `${goal_themes}/GOAL_THEME_UNSPECIFIED.png`;
+      }
+      //Determine percentage for goal
+      if (goal?.goal?.target_amount) {
+        //Work out percentage for fill
+        goal.fillPercent = Math.floor(
+          (goal.balance.value / goal.goal.target_amount) * 100
+        );
+      } else {
+        goal.fillPercent = goal.balance.value > 0 ? 100 : 0;
+      }
+    });
+
+    return goalList;
   }
 }

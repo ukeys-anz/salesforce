@@ -9,8 +9,6 @@ const ACCOUNT_TYPES = {
   savings: "Savings - ANZ Save Account"
 };
 
-import goal_themes from "@salesforce/resourceUrl/mock_goalThemes";
-
 export default class FinancialAccount extends NavigationMixin(
   LightningElement
 ) {
@@ -26,7 +24,6 @@ export default class FinancialAccount extends NavigationMixin(
   showInfoModal = false;
   productTitle;
   titleIcon;
-  goalImage;
 
   get displayContent() {
     return hasAccountsGoalsPermission;
@@ -69,12 +66,6 @@ export default class FinancialAccount extends NavigationMixin(
         this.balanceTitle = "Total Saved";
         this.productTitle = "ANZ Save";
         this.titleIcon = "custom:custom17";
-        //Check if goal has theme otherwise use default
-        if (this.savingsJar?.goal?.theme) {
-          this.goalImage = `${goal_themes}/${this.savingsJar.goal.theme}.png`;
-        } else {
-          this.goalImage = `${goal_themes}/GOAL_THEME_UNSPECIFIED.png`;
-        }
       }
     }
   }

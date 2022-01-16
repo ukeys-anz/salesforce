@@ -88,7 +88,12 @@
                           <p class="slds-text-color_weak">
                             {savingsJar.goal.name}
                           </p>
-                          <img src={goalImage} width="85" />
+                          <template if:true={savingsJar.image}>
+                            <img src={savingsJar.image} width="65" />
+                          </template>
+                          <template if:false={savingsJar.image}>
+                            <span class="emoji">{savingsJar.emoji}</span>
+                          </template>
                         </div>
                         <div
                           class="slds-col slds-large-size_2-of-3 slds-var-p-around_small balance-padding vertical-align"
