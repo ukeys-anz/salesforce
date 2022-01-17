@@ -2,9 +2,6 @@
 
 # Any subsequent(*) commands which fail will cause the shell script to exit immediately
 set -e
-green=`tput setaf 2`
-red=`tput setaf 1`
-reset=`tput sgr0`
 
 # trap ctrl-c and call ctrl_c()
 trap ctrl_c INT
@@ -24,39 +21,15 @@ function ctrl_c() {
     echo "Making scracthOrg has been stopped."
     echo "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
 }
-stepNo=$(($stepNo+1))
+
+stepNum=$(($stepNo+1))
+source ./bash-scripts/commonFunctions.sh
+stepNo=$(($stepNum))
+
 JOB_START_TIME=""
 JOB_END_TIME=""
-# first argument: description of the step
-# second argument: step number
-# third argument: start of a step?
-function echoMessageCreator(){
-    if [ $3 = true ]; then
-        JOB_START_TIME=$(date +%s)
-        echo "${red}"
-        echo "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
-        echo "${green}"
-        echo "Step $2 : $1"
-        echo ""
-        echo "Start time and date: $(date)"
-        echo "${reset}"
-    else
-        JOB_END_TIME=$(date +%s)
-        echo "${green}"
-        echo "Finish time and date: $(date)"
-        echo ""
-        echo "Job finished in $((JOB_END_TIME - JOB_START_TIME)) s."
-        echo "${red}"
-        echo "*****************************************"
-        echo ""
-        stepNo=$(($stepNo+1))
-    fi
-}
 
 
-echo "WARNING: Disable ANZ Proxy to run this script"
-echo "You can leave alpaca running and proxy variables set to localhost:3128"
-echo ""
 # Using SOAP over REST is much faster for scratch org creations while pushing content.
 sfdx config:set restDeploy=false
 # Bypass the Lightning Experience custom domain check entirely, wich takes very long when connected to ANZ network

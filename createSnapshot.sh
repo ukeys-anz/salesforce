@@ -2,38 +2,9 @@
 
 # Any subsequent(*) commands which fail will cause the shell script to exit immediately
 set -e
-green=`tput setaf 2`
-red=`tput setaf 1`
-reset=`tput sgr0`
 
-stepNo=0
-JOB_START_TIME=""
-JOB_END_TIME=""
-# first argument: description of the step
-# second argument: step number
-# third argument: start of a step?
-function echoMessageCreator(){
-    if [ $3 = true ]; then
-        JOB_START_TIME=$(date +%s)
-        echo "${red}"
-        echo "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
-        echo "${green}"
-        echo "Step $2 : $1"
-        echo ""
-        echo "Start time and date: $(date)"
-        echo "${reset}"
-    else
-        JOB_END_TIME=$(date +%s)
-        echo "${green}"
-        echo "Finish time and date: $(date)"
-        echo ""
-        echo "Job finished in $((JOB_END_TIME - JOB_START_TIME)) s."
-        echo "${red}"
-        echo "*****************************************"
-        echo ""
-        stepNo=$(($stepNo+1))
-    fi
-}
+# to use all the functions that we need and do not repeat the code
+source ./bash-scripts/commonFunctions.sh
 
 scratchorgalias='ANZxScratchOrg'
 
