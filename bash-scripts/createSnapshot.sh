@@ -23,7 +23,7 @@ echoMessageCreator "" $stepNo false
 ########################
 
 # check if the scratch org has been created
-echoMessageCreator "check if the scrach org has been created" $stepNo true
+echoMessageCreator "check if the scratch org has been created" $stepNo true
 sfdx force:org:list
 echoMessageCreator "" $stepNo false
 ########################
