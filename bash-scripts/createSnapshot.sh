@@ -4,7 +4,7 @@
 set -e
 
 # to use all the functions that we need and do not repeat the code
-source ./bash-scripts/commonFunctions.sh
+source ./commonFunctions.sh
 
 scratchorgalias='ANZxScratchOrg'
 
@@ -13,6 +13,8 @@ echoMessageCreator "enter your dev hub alias" $stepNo true
 read -rp "${green}Please enter your devhub alias (production): " prodname
 echoMessageCreator "" $stepNo false
 ########################
+
+cd ..
 
 # creating the scratchOrg
 echoMessageCreator "creating the scratchOrg" $stepNo true
@@ -68,13 +70,13 @@ echoMessageCreator "" $stepNo false
 
 # checkout to develop and push all the metadata into the scratchOrg
 echoMessageCreator "push all the metadata into the scratchOrg" $stepNo true
-source ./snapshotScratch.sh
+source ./bash-scripts/snapshotScratch.sh
 echoMessageCreator "" $stepNo false
 ########################
 
 # check if you need to delete any existed snapshot 
 # if there are 5 snapshots, it will ask the engineer to delete on of them
-scratchOrgsCount=$(node ./sfdxCommandJsonInfo);
+scratchOrgsCount=$(node ./bash-scripts/sfdxCommandJsonInfo);
 if [[ $scratchOrgsCount > 4 ]]; then
 
     echoMessageCreator "check if you want to delete an existed snapshot" $stepNo true
