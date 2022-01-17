@@ -84,10 +84,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Fraud_Restraint_Status__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>Fraud_Selfie_Comparison_Match__c</field>
             </layoutItems>
             <layoutItems>
@@ -97,6 +93,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Fraud_Address_Valid__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Fraud_Restraint_Status__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -241,7 +241,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>true</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2O000001M3pv</masterLabel>
+        <masterLabel>00h2O000001nBrC</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>
