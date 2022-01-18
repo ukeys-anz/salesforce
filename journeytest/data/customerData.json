@@ -1,0 +1,14 @@
+{
+  "customers": [
+    {
+      "customerDataId": "001",
+      "ocv": "1000978982",
+      "name": "LonnyANZx Abshire"
+    },
+    {
+      "customerDataId": "002",
+      "ocv": "223232323",
+      "name": "test"
+    }
+  ]
+}
