@@ -28,6 +28,11 @@
         <field>Task.IDR_Collection_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>User.Start_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <tabSettings>
         <tab>standard-Case</tab>
         <visibility>Visible</visibility>
