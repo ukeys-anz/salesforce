@@ -113,7 +113,6 @@
       "IDR_3rdParty_Country__c": "Australia",
       "IDR_AFCA_Date__c": "2019-12-18",
       "IDR_AFCA_Number__c": "76543",
-      "IDR_AFCA_Status__c": "1",
       "IDR_AuthRep_Is_Related_to_Representative__c": false,
       "IDR_Complainant_Desired_Outcome__c": "Customer wants points allocated immediately and an additional 100,000 points for the inconvenience.",
       "IDR_Complainant_Type__c": "9",
