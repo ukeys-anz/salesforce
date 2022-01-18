@@ -13,6 +13,31 @@
         <enabled>true</enabled>
     </classAccesses>
     <description>Permissions for CMOS Data analyst user to access complaint mgt app and export data from salesforce.</description>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.IDR_DEH_Current_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.IDR_DEH_Date_information_due__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.IDR_DEH_Date_information_request_sent__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.IDR_DEH_Response_Due__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.IDR_DEH_Date_information_received__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>IDR Reporting Analyst</label>
     <license>Salesforce</license>
