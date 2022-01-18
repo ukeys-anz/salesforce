@@ -1,12 +1,27 @@
-// This js file will run the "sfdx force:org:snapshot:list --json" command
-// This will execute the number of existed snapshots
-// In snapshotScratch.sh, we have a step that will check the number of snapshots and if --
-// -- it we have 5 snapshots, then it will ask the engineer to delete one of them.
+// This js file will execute some sfdx command --json to check some info out of that
+// The `executeInfoFromACommand` function will give us the output that we need.
+// The `executeOutput` function will give us the output according to the command that we want
+// There are two place in `createSnapshot.sh` that we use this js file: 
+//     1- to check how many snapshots do we have | command: sfdx force:org:snapshot:list --json
+//     2- to chech if the installation of manage packages has been finished or not | command: sfdx force:mdapi:deploy:report --json
+
 
 const { exec } = require("child_process");
-const fs = require("fs");
 
-const executeInfoFromACommand = (command, whichInfo, whatproperty) => {
+function executeFunctionArgs(actionName) {
+  let command, property;
+  if (actionName === "snapshot"){
+    command = "sfdx force:org:snapshot:list --json"
+    property = "length"
+    return executeInfoFromACommand(command,"result", property)
+  }else{
+    command = "sfdx force:mdapi:deploy:report --json"
+    property = "done"
+    return executeInfoFromACommand(command, "result", property)
+  };
+}
+
+function executeInfoFromACommand(command, whichInfo, whatproperty) {
   exec(command, (err, stdout, stderr) => {
     if (err) {
       console.log(`error: ${err.message}`);
@@ -21,8 +36,3 @@ const executeInfoFromACommand = (command, whichInfo, whatproperty) => {
     }
   });
 };
-executeInfoFromACommand(
-  "sfdx force:org:snapshot:list --json",
-  "result",
-  "length"
-);

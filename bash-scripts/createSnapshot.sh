@@ -3,6 +3,17 @@
 # Any subsequent(*) commands which fail will cause the shell script to exit immediately
 set -e
 
+trap ctrl_c INT
+
+function ctrl_c() {
+    if [ -f ./bash-scripts/snapshot.js ];then
+        rm -rf ./bash-scripts/snapshot.js
+    fi
+    if [ -f ./bash-scripts/managedPackages.js ]; then
+        rm -rf ./bash-scripts/managedPackages.js
+    fi
+}
+
 # to use all the functions that we need and do not repeat the code
 source ./commonFunctions.sh
 
@@ -34,27 +45,27 @@ sfdx force:mdapi:deploy -d mdapi-source/packages/
 echoMessageCreator "" $stepNo false
 ########################
 
-# the install managed packages will take a while to be finished, this will ask to 
-# check if a user need to wait more
+# the install managed packages will take a while to be finished, this will make a copy of 
+# `sfdxCommandJsonInfo.js`, then will add a command to that copy file to execute a function to check
+# if the installation has been finished or not. 
+# every 3 mins, it will check it again, until it is finished and then will remove the copy file
+cp ./bash-scripts/sfdxCommandJsonInfo.js ./bash-scripts/managedPackages.js
+echo -e "executeOutput('managedPackages')" >> ./bash-scripts/managedPackages.js
+waitToInstallPackages=false;
+
 echoMessageCreator "waiting step for a command" $stepNo true
-newCommand=true
-while [[ $newCommand == true ]]; do
+while [[ $waitToInstallPackages == false ]]; do
     echo ""
     sfdx force:mdapi:deploy:report
-    echo "${green}"
-    read -rp "Do you want to continue waiting (y/n)? " manualSteps
-    case ${manualSteps:0:1} in
-    n | N)        
-        echo ""
-        newCommand=false
-        ;;
-    *) 
+    waitToInstallPackages=$(node ./bash-scripts/managedPackages.js);
+    if [[ $waitToInstallPackages == false ]]; then
+        sleep 180
         echo "${green}"
         echo "wait for another 3 mins"
-        sleep 180 
-        ;;
-    esac
+        echo "${reset}"
+    fi
 done
+rm -rf ./bash-scripts/managedPackages.js
 echoMessageCreator "" $stepNo false
 ########################
 
@@ -76,8 +87,15 @@ echoMessageCreator "" $stepNo false
 
 # check if you need to delete any existed snapshot 
 # if there are 5 snapshots, it will ask the engineer to delete on of them
-scratchOrgsCount=$(node ./bash-scripts/sfdxCommandJsonInfo);
-if [[ $scratchOrgsCount > 4 ]]; then
+# this will make a copy of `sfdxCommandJsonInfo.js`, then will add a command to that copy file to execute a function to check
+# how many snapshots do we have. if it is 5, then user is needed to delete one.
+# after executing the number of snapshots, the copy file will be removed.
+cp ./bash-scripts/sfdxCommandJsonInfo.js ./bash-scripts/snapshot.js
+echo -e "executeOutput('snapshot')" >> ./bash-scripts/snapshot.js
+scratchOrgsCount=$(node ./bash-scripts/snapshot.js);
+rm -rf ./bash-scripts/snapshot.js
+
+if [[ $scratchOrgsCount == 5 ]]; then
 
     echoMessageCreator "check if you want to delete an existed snapshot" $stepNo true
     sfdx force:org:snapshot:list
