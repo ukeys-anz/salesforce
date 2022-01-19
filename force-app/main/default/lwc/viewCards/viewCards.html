@@ -75,7 +75,7 @@
                 key={card.name}
               >
                 <lightning-card>
-                  <div class="buttonsContainer">
+                  <div class={card.className}>
                     <template
                       if:true={card.buttons}
                       for:each={card.buttons}

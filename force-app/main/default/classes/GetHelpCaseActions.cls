@@ -444,6 +444,35 @@ public with sharing class GetHelpCaseActions {
   }
 
   /**
+   * @description This method masks case notes and description of issue fields
+   * to be ANZ Plus specific
+   * @param record the record we are updating
+   */
+  private static void maskTaxNumbers(Case record) {
+    record.Description = TextUtils.maskDataAnzx(record.Description);
+    record.Comments = TextUtils.maskDataAnzx(record.Comments);
+    if (
+      TextUtils.reactiveLogging(record.Description) ||
+      TextUtils.reactiveLogging(record.Comments)
+    ) {
+      lib_systemLog log = new lib_systemLog(
+        'GetHelpCaseActions',
+        'maskTaxNumbers'
+      );
+      log.info(
+        'CaseNumber: ' +
+        record.CaseNumber +
+        '; Description: ' +
+        record.Description +
+        '; Notes: ' +
+        record.Comments +
+        '; Reason for logging: User entered long digits without needing to mask'
+      );
+      log.insertLogAsync();
+    }
+  }
+
+  /**
    * @description Escalates the Record to CMOS IDR Everyday Banking Queue
    * @param records The record list to which we escalate
    */
@@ -454,12 +483,14 @@ public with sharing class GetHelpCaseActions {
   /**
    * @description applyDefaults is called onBeforeInsert to set the following values as defaults
    * 1. Update business hours field to match ANZ Plus business hours
+   * 2. Mask description and comments fields if it contains sensitive information
    * @param records The record list form which we need to apply defaults
    */
   public static void applyDefaults(List<Case> records) {
     for (Case record : records) {
       if (GetHelpCaseActionsHelper.isANZPlusCaseType(record)) {
         setBusinessHours(record);
+        maskTaxNumbers(record);
       }
     }
   }

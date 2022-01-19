@@ -7,69 +7,90 @@
             <assignedTo>Digital_Fraud_Queue</assignedTo>
             <assignedToType>Queue</assignedToType>
             <formula>
-                AND(
-                    ISCHANGED(Submitted__c) &amp;&amp; Submitted__c = true,
-                    RecordType.DeveloperName = &quot;NPP_Dispute&quot;,
-                    ISPICKVAL(Dispute_Reason__c, &quot;Unauthorised Transaction&quot;)
-                    )
+            AND(                  
+                OR(
+                    ISNEW(),
+                    ISCHANGED(Submitted__c)
+                  )
+                &amp;&amp; Submitted__c = true,
+                RecordType.DeveloperName = &quot;NPP_Dispute&quot;,
+                ISPICKVAL(Dispute_Reason__c, &quot;Unauthorised Transaction&quot;)
+                )
             </formula>
         </ruleEntry>
         <ruleEntry>
             <assignedTo>Support_Coach_Queue</assignedTo>
             <assignedToType>Queue</assignedToType>
             <formula>
-                AND(
-                    ISCHANGED(Submitted__c) &amp;&amp; Submitted__c = true,
-                    RecordType.DeveloperName = &quot;NPP_Dispute&quot;,
-                    NOT(ISPICKVAL(Dispute_Reason__c, &quot;Unauthorised Transaction&quot;))
-                    )
+            AND(
+                OR(
+                    ISNEW(),
+                    ISCHANGED(Submitted__c)
+                   )
+                &amp;&amp; Submitted__c = true,
+                RecordType.DeveloperName = &quot;NPP_Dispute&quot;,
+                NOT(ISPICKVAL(Dispute_Reason__c, &quot;Unauthorised Transaction&quot;))
+               )
             </formula>
         </ruleEntry>
         <ruleEntry>
             <assignedTo>Support_Coach_Queue</assignedTo>
             <assignedToType>Queue</assignedToType>
             <formula>
-                AND(
-                    ISCHANGED(Submitted__c) &amp;&amp; Submitted__c = true,
-                    OR(
-                        RecordType.DeveloperName = &quot;Direct_Debit_Dispute&quot;,
-                        RecordType.DeveloperName = &quot;Direct_Entry_Dispute&quot;
-                        )
-                    )
+            AND(                     
+                OR(
+                    ISNEW(),
+                    ISCHANGED(Submitted__c)
+                   )
+                &amp;&amp; Submitted__c = true,
+                OR(
+                    RecordType.DeveloperName = &quot;Direct_Debit_Dispute&quot;,
+                    RecordType.DeveloperName = &quot;Direct_Entry_Dispute&quot;
+                  )
+                )
             </formula>
         </ruleEntry>
         <ruleEntry>
             <assignedTo>Card_Dispute_General_Queue</assignedTo>
             <assignedToType>Queue</assignedToType>
             <formula>
-                AND(
-                    ISCHANGED(Submitted__c) &amp;&amp; Submitted__c = true,
-                    OR(
-                        RecordType.DeveloperName = &quot;ATM_Dispute&quot;, RecordType.DeveloperName = &quot;Card_Dispute&quot;
-                        ),
-                    NOT(ISPICKVAL(Dispute_Reason__c, &quot;Didn&apos;t authorise transaction&quot;)),
-                    NOT(ISPICKVAL(Dispute_Reason__c, &quot;Fraudulent transaction&quot;)),
-                    NOT(ISPICKVAL(Dispute_Reason__c, &quot;Unauthorised transaction&quot;))
-                    )
-                </formula>
+            AND(
+                OR(
+                    ISNEW(),
+                    ISCHANGED(Submitted__c)
+                  )
+                &amp;&amp; Submitted__c = true,
+                OR(
+                    RecordType.DeveloperName = &quot;ATM_Dispute&quot;,
+                    RecordType.DeveloperName = &quot;Card_Dispute&quot;
+                  ),
+                NOT(ISPICKVAL(Dispute_Reason__c, &quot;Didn&apos;t authorise transaction&quot;)),
+                NOT(ISPICKVAL(Dispute_Reason__c, &quot;Fraudulent transaction&quot;)),
+                NOT(ISPICKVAL(Dispute_Reason__c, &quot;Unauthorised transaction&quot;))
+                )
+            </formula>
         </ruleEntry>
         <ruleEntry>
             <assignedTo>Card_Dispute_Fraud_Queue</assignedTo>
             <assignedToType>Queue</assignedToType>
             <formula>
-                AND(
-                    ISCHANGED(Submitted__c) &amp;&amp; Submitted__c = true,
-                    OR(
-                        RecordType.DeveloperName = &quot;ATM_Dispute&quot;,
-                        RecordType.DeveloperName = &quot;Card_Dispute&quot;
-                        ),
-                    OR(
-                        ISPICKVAL(Dispute_Reason__c, &quot;Didn&apos;t authorise transaction&quot;),
-                        ISPICKVAL(Dispute_Reason__c, &quot;Fraudulent transaction&quot;),
-                        ISPICKVAL(Dispute_Reason__c, &quot;Unauthorised transaction&quot;)
-                        )
+            AND(
+                OR(
+                    ISNEW(),
+                    ISCHANGED(Submitted__c)
                     )
-                </formula>
+                &amp;&amp; Submitted__c = true,
+                OR(
+                    RecordType.DeveloperName = &quot;ATM_Dispute&quot;,
+                    RecordType.DeveloperName = &quot;Card_Dispute&quot;
+                  ),
+                OR(
+                    ISPICKVAL(Dispute_Reason__c, &quot;Didn&apos;t authorise transaction&quot;),
+                    ISPICKVAL(Dispute_Reason__c, &quot;Fraudulent transaction&quot;),
+                    ISPICKVAL(Dispute_Reason__c, &quot;Unauthorised transaction&quot;)
+                  )
+                )
+            </formula>
         </ruleEntry>
     </assignmentRule>
 </AssignmentRules>

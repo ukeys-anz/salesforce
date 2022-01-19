@@ -54,7 +54,7 @@
         </action>
     </initialSubmissionActions>
     <label>Staff Content Approval</label>
-    <processOrder>1</processOrder>
+    <processOrder>2</processOrder>
     <recordEditability>AdminOnly</recordEditability>
     <showApprovalHistory>false</showApprovalHistory>
 </ApprovalProcess>
