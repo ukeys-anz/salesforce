@@ -1069,30 +1069,32 @@ export default class CreateComplaintLWC extends NavigationMixin(
     );
     anotherIssueElement.checked = event.detail.IDR_Is_there_another_issue__c;
     anotherIssueElement.dispatchEvent(new CustomEvent("change"));
-    const writtenRequestedElement = this.template.querySelector(
-      '[data-id="writtenResponseGroup-id"]'
-    );
-    writtenRequestedElement.value =
-      event.detail.IDR_Written_Response_Requested__c;
-    writtenRequestedElement.dispatchEvent(
-      new CustomEvent("change", {
-        detail: {
-          value: writtenRequestedElement.value
-        }
-      })
-    );
+    if (this.showComplianceFields) {
+      const writtenRequestedElement = this.template.querySelector(
+        '[data-id="writtenResponseGroup-id"]'
+      );
+      writtenRequestedElement.value =
+        event.detail.IDR_Written_Response_Requested__c;
+      writtenRequestedElement.dispatchEvent(
+        new CustomEvent("change", {
+          detail: {
+            value: writtenRequestedElement.value
+          }
+        })
+      );
 
-    const writtenRespElement = this.template.querySelector(
-      '[data-id="writtenRequiredGroup-id"]'
-    );
-    writtenRespElement.value = event.detail.IDR_Written_Response_Required__c;
-    writtenRespElement.dispatchEvent(
-      new CustomEvent("change", {
-        detail: {
-          value: writtenRespElement.value
-        }
-      })
-    );
+      const writtenRespElement = this.template.querySelector(
+        '[data-id="writtenRequiredGroup-id"]'
+      );
+      writtenRespElement.value = event.detail.IDR_Written_Response_Required__c;
+      writtenRespElement.dispatchEvent(
+        new CustomEvent("change", {
+          detail: {
+            value: writtenRespElement.value
+          }
+        })
+      );
+    }
 
     const realFormElement = this.template.querySelector(
       '[data-id="realFormRequiredGroup-id"]'
