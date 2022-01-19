@@ -239,4 +239,37 @@ private with sharing class IDRCollectionActionsTest {
       complaintTasks[0].Type
     );
   }
+
+  @isTest
+  static void testAccountNumberNA() {
+    Product2 p = [SELECT Id FROM Product2 LIMIT 1];
+    // GIVEN customer complaint cases with collection issue type and account number selected as N/A
+    Case[] collectionCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      collectionCases.add(
+        new Case(
+          RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+          IDR_Customer_Number__c = '1234567890',
+          IDR_Account_Card_Policy_Number__c = 'N/A',
+          Type = '4',
+          IDR_Subsequent_Issue__c = '20',
+          Status = 'Withdrawn',
+          Product__c = p.Id
+        )
+      );
+    }
+
+    Test.startTest();
+    // WHEN they are inserted
+    insert collectionCases;
+    Test.stopTest();
+
+    // THEN STOP AND START collection tasks will not get created
+    List<Task> collectionTasks = [
+      SELECT Id, Type
+      FROM Task
+      WHERE Subject LIKE '%Collection%'
+    ];
+    System.assertEquals(0, collectionTasks.size());
+  }
 }
