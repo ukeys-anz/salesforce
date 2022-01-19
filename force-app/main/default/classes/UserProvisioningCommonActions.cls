@@ -52,28 +52,6 @@ public with sharing class UserProvisioningCommonActions {
 
     return businessFunctionKey;
   }
-
-  /**
-   * @description This method is called to get manager user records using manager UUID from UPR record.
-   * @param managerUUIDs manager UUIDs from User Provisioning Request record
-   * @return `Map<String, String>` returns combination of manager's Federation id and user id
-   */
-
-  public static Map<String, String> getManagerRecords(
-    Set<String> managerUUIDs
-  ) {
-    Map<String, String> managerMap = new Map<String, String>();
-
-    for (User managerUser : [
-      SELECT Id, FederationIdentifier
-      FROM User
-      WHERE FederationIdentifier IN :managerUUIDs AND isActive = TRUE
-    ]) {
-      managerMap.put(managerUser.FederationIdentifier, managerUser.Id);
-    }
-    return managerMap;
-  }
-
   /**
    * @description This method is called to get user permission API names from User Provisioning Setting Metadata based on Business function and role key from user record.
    * @param businessFuncAndRoles Set of Business Function and Roles key values combinations from trigger

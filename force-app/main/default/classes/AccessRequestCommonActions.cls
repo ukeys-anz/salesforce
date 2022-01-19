@@ -43,33 +43,67 @@ public without sharing class AccessRequestCommonActions {
   }
 
   /**
-   * @description Calculates PAM request approvers based on requesting user and global PAM approvers defined in custom settings
-   * Note:  Approver will be calculated based on the currently executing user, and not based on the user mentioned as the 'Requester'.
-   *        Incase if the global approver creates an Access Request onbehalf of another user, the request would be automatically assigned to approver's manager.
-   *        Team + TPO agreed on above points based on following assumptions;
-   *          1) Access Request creator would most probably be the 'Requester' himself.
-   *          2) Only Engineers (same level) would be initially allowed to raise PAM requests, so that the approver would always be the global approver.
-   *          3) Only the record owner/creator would have permissions to edit, which means updates does not affect the approver.
+   * @description Checks to see if the approver is not the same as the requestor and throws an error otherwise
    * @param records list of new Access Request records being inserted or updated
-   */
-  public static void calculateApprover(List<Access_Request__c> records) {
-    String approverId = getApproverId();
-
+   *
+   **/
+  public static void checkApprovers(List<Access_Request__c> records) {
     for (Access_Request__c record : records) {
-      if (!String.isBlank(approverId)) {
-        // Make sure the Status is blank to prevent re-setting approver for already processed requests
-        if (String.isEmpty(record.Status__c)) {
-          record.Approver__c = approverId;
-        }
-      } else {
-        String errorMessage = 'Error occured while trying to automatically assign approvers for PAM requests. Please contact your System Administrator for assistance.';
-        record.addError(errorMessage);
+      if (record.Approver_ID__c == record.Requestor__c) {
+        record.addError(
+          'You cannot approve your own request. Please get another user from the PAM Approval Group to approve your Access Request'
+        );
+
         Lib_SystemLog.createSingleLogAsync(
           AccessRequestCommonActions.class.getName(),
-          'calculateApprover',
-          'PAM002',
-          errorMessage
+          'CheckApprovers',
+          'PAM005',
+          'User ' +
+          record.Requestor__c +
+          ' attempted to self-approve their PAM request'
         );
+      }
+    }
+  }
+
+  /**
+   * @description Checks to see if this new PAR is going to overlap with other PARs in the system.
+   * If so, throw an error to prevent any unexpected issues during Privilaged Access
+   * @param records list of new Access Request records being inserted or updated
+   **/
+  @SuppressWarnings('PMD.OperationWithLimitsInLoop')
+  public static void checkIfRecordsOverlap(List<Access_Request__c> records) {
+    for (Access_Request__c record : records) {
+      if (Schema.sObjectType.Privileged_Access_Request__c.isQueryable()) {
+        //Create a dummy PAR
+        List<Id> requesterIdList = new List<Id>();
+        Map<Id, User> requesterUserMap = new Map<Id, User>();
+        requesterIdList.add(record.Requestor__c);
+        requesterUserMap = getRequestingUserMap(requesterIdList);
+        Privileged_Access_Request__c dummyPAR = generatePARRecord(
+          record,
+          requesterUserMap
+        );
+
+        // Note: Informed decision to compromise the Golden Rule of no DMLs/Qeries inside for loops.
+        // Because it is very unlikely that there will be many PARs at one time
+        // See if this Dummy PAR will overlap with any other PARs
+        List<Privileged_Access_Request__c> overlappingRequests = [
+          SELECT Id, Name, Access_Request__r.Name
+          FROM Privileged_Access_Request__c
+          WHERE
+            Access_Request__r.Requestor__c = :record.Requestor__c
+            AND Start_Date_Time__c <= :dummyPAR.Revoke_Time__c
+            AND Revoke_Time__c >= :dummyPAR.Start_Date_Time__c
+        ];
+
+        if (!overlappingRequests.isEmpty()) {
+          record.addError(
+            'The request overlaps with an existing Privilaged Access Request: ' +
+            overlappingRequests[0].Access_Request__r.Name +
+            '. Please double check the start time and duration to ensure they do not overlap'
+          );
+        }
       }
     }
   }
