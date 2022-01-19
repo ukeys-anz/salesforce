@@ -278,6 +278,7 @@ export default class MultiSelectCombobox extends LightningElement {
       if (this.optionData[i].value === "N/A") {
         this.optionData[i].selected = true;
         this.values.push(this.optionData[i].value);
+        this.values = [...new Set(this.values)];
       }
     }
     this.dispatchEvent(
