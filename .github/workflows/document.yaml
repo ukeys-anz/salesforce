@@ -18,7 +18,7 @@ jobs:
         with:
           repository: anzx/salesforce-docs
           token: ${{ secrets.SALESFORCE_DOCS_TOKEN }}
-          
+
       - name: Checkout doc plugin
         uses: actions/checkout@v2
         with:

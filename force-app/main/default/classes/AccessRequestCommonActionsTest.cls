@@ -8,6 +8,7 @@ public with sharing class AccessRequestCommonActionsTest {
   /**
    * @description Setup common test data
    */
+
   @testSetup
   public static void setup() {
     List<User> testUserList = new List<User>();
@@ -117,70 +118,45 @@ public with sharing class AccessRequestCommonActionsTest {
   }
 
   /**
-   * @description Test happy path when an Engineer submits a PAM request
+   * @description Test preventing a user approving their own PAM request
    */
   @isTest
-  static void pamRequestByEngineer() {
+  static void testSelfRequestGranting() {
     // GIVEN
-    // an Engineer user has necessary permissions to PAM related objects
+    // an PAM Queue Engineer creates a PAM Request
     User engineerUser = TestUtil.getUserByFirstName('PAM_Engineer');
 
     // WHEN
-    // an Engineer user requests Privileged Access
+    // an Engineer requests a PAM
     Access_Request__c pamRequest = getAccessRequest(engineerUser.Id);
 
+    pamRequest.Requestor__c = engineerUser.Id;
     System.runAs(engineerUser) {
       Test.startTest();
+
+      //Insert
       insert pamRequest;
+
+      //THEN Trigger Update, expect a failure becuase the approver is the requestor
+      try {
+        pamRequest.Approver_ID__c = engineerUser.Id;
+        update pamRequest;
+
+        //IF we reach this then our trigger did not apply successfully.
+        System.assert(
+          false,
+          'Failed to protect against user granting their own PAM request'
+        );
+      } catch (DmlException error) {
+        System.assert(
+          true,
+          'This Exception was expected and is preventing self-elevation of PAM'
+        );
+      }
+
       Test.stopTest();
     }
 
-    // THEN
-    // the global PAM approver should be set as the Approver
-    Access_Request__c updatedPAM = [
-      SELECT Approver__r.UserName
-      FROM Access_Request__c
-      WHERE Id = :pamRequest.Id
-      LIMIT 1
-    ];
-    System.assertEquals(
-      PAM_Global_Approver__c.getOrgDefaults()
-        .PAM_Approver_Username__c.toLowerCase(),
-      updatedPAM.Approver__r.UserName,
-      'Failed to auto populate global approver for PAM requests'
-    );
-  }
-
-  /**
-   * @description Test the scenario where global PAM approver submits a PAM request for himself
-   */
-  @isTest
-  static void pamRequestByApprover() {
-    // GIVEN
-    // the global Approver wishes to make a PAM request
-    User approverUser = TestUtil.getUserByFirstName('PAM_Global_Approver');
-    Access_Request__c pamRequest = getAccessRequest(approverUser.Id);
-
-    // WHEN
-    // the the Global Approver creates an Access Request record
-    Test.startTest();
-
-    System.runAs(approverUser) {
-      AccessRequestCommonActions.calculateApprover(
-        new List<Access_Request__c>{ pamRequest }
-      );
-    }
-
-    Test.stopTest();
-
-    // THEN
-    // the global PAM approver's manager should be set as the Approver
-    User managerUser = TestUtil.getUserByFirstName('PAM_Global_Manager');
-    System.assertEquals(
-      managerUser.Id,
-      pamRequest.Approver__c,
-      'Failed to correctly populate PAM approver, when the global approver raises a request'
-    );
   }
 
   /**
@@ -197,16 +173,6 @@ public with sharing class AccessRequestCommonActionsTest {
     pamRequest.Approver__c = Lib_FakeIdGenerator.getMockId(
       User.getSObjectType()
     );
-
-    // WHEN
-    // calculateApprover() method is called
-    Test.startTest();
-
-    AccessRequestCommonActions.calculateApprover(
-      new List<Access_Request__c>{ pamRequest }
-    );
-
-    Test.stopTest();
 
     // THEN
     // the PAM approver should not be re-calculated
@@ -241,10 +207,6 @@ public with sharing class AccessRequestCommonActionsTest {
 
     User engineerUser = TestUtil.getUserByFirstName('PAM_Engineer');
     Access_Request__c pamRequest = getAccessRequest(engineerUser.Id);
-
-    AccessRequestCommonActions.calculateApprover(
-      new List<Access_Request__c>{ pamRequest }
-    );
 
     Test.stopTest();
 

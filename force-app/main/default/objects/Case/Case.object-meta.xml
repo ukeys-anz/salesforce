@@ -201,30 +201,6 @@
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <enableFeeds>true</enableFeeds>
     <externalSharingModel>Private</externalSharingModel>
-    <profileSearchLayouts>
-        <fields>CASES.CASE_NUMBER</fields>
-        <fields>CASES.RECORDTYPE</fields>
-        <fields>CASES.SUBJECT</fields>
-        <fields>CASES.STATUS</fields>
-        <fields>CASES.CREATED_DATE</fields>
-        <fields>CORE.USERS.ALIAS</fields>
-        <fields>SLA_Status__c</fields>
-        <fields>IDR_NC_First_Name__c</fields>
-        <fields>IDR_NC_Last_Name__c</fields>
-        <profileName>ANZ Standard User</profileName>
-    </profileSearchLayouts>
-    <profileSearchLayouts>
-        <fields>CASES.CASE_NUMBER</fields>
-        <fields>CASES.RECORDTYPE</fields>
-        <fields>CASES.SUBJECT</fields>
-        <fields>CASES.STATUS</fields>
-        <fields>CASES.CREATED_DATE</fields>
-        <fields>CORE.USERS.ALIAS</fields>
-        <fields>SLA_Status__c</fields>
-        <fields>IDR_NC_First_Name__c</fields>
-        <fields>IDR_NC_Last_Name__c</fields>
-        <profileName>System Administrator</profileName>
-    </profileSearchLayouts>
     <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
     <recordTypeTrackHistory>true</recordTypeTrackHistory>
     <searchLayouts>
@@ -245,11 +221,14 @@
         <lookupPhoneDialogsAdditionalFields>IDR_NC_Mobile__c</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>IDR_NC_Phone__c</lookupPhoneDialogsAdditionalFields>
         <searchResultsAdditionalFields>CASES.CASE_NUMBER</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>CASES.SUBJECT</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ACCOUNT.NAME</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CASES.TYPE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Sub_Type__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>CASES.STATUS</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>CASES.CREATED_DATE</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>CORE.USERS.ALIAS</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>SLA_Status__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>OWNER_NAME</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CASES.RECORDTYPE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CASES.PRIORITY</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>Private</sharingModel>
 </CustomObject>

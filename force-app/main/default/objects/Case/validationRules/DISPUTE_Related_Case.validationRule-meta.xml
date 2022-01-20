@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DISPUTE_Related_Case</fullName>
+    <active>true</active>
+    <description>User roles that do not have access to FraudX type case cannot relate a FraudX case to current Dispute case.</description>
+    <errorConditionFormula>AND(
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+OR(
+RecordType.DeveloperName = &apos;ATM_Dispute&apos;,
+RecordType.DeveloperName = &apos;Card_Dispute&apos;,
+RecordType.DeveloperName = &apos;Direct_Debit_Dispute&apos;,
+RecordType.DeveloperName = &apos;Direct_Entry_Dispute&apos;,
+RecordType.DeveloperName = &apos;NPP_Dispute&apos;
+),
+ISCHANGED( ParentId ),
+OR(
+Parent.RecordType.DeveloperName = &apos;Fraud&apos;,
+Parent.RecordType.DeveloperName = &apos;Identity&apos;,
+Parent.RecordType.DeveloperName = &apos;KYC_QA&apos;,
+Parent.RecordType.DeveloperName = &apos;Recipient_Mule&apos;,
+Parent.RecordType.DeveloperName = &apos;Scam&apos;
+),
+OR(
+$UserRole.DeveloperName = &apos;Coach&apos;,
+$UserRole.DeveloperName = &apos;Coach_Lead&apos;,
+$UserRole.DeveloperName = &apos;Content_Writer&apos;,
+$UserRole.DeveloperName = &apos;Quality_Analyst&apos;,
+$UserRole.DeveloperName = &apos;Support_Coach&apos;,
+$UserRole.DeveloperName = &apos;Support_Staff_ARC&apos;
+)
+)</errorConditionFormula>
+    <errorDisplayField>ParentId</errorDisplayField>
+    <errorMessage>You are not allowed to link this Dispute case to a FraudX case.</errorMessage>
+</ValidationRule>

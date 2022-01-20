@@ -5,11 +5,16 @@
     <masterLabel>Dashboards for Coaches</masterLabel>
     <shares>
         <accessLevel>View</accessLevel>
+        <sharedTo>Card_Dispute_Agent</sharedTo>
+        <sharedToType>Role</sharedToType>
+    </shares>
+    <shares>
+        <accessLevel>View</accessLevel>
         <sharedTo>Coach</sharedTo>
         <sharedToType>Role</sharedToType>
     </shares>
     <shares>
-        <accessLevel>EditAllContents</accessLevel>
+        <accessLevel>View</accessLevel>
         <sharedTo>Super_Support_Admin</sharedTo>
         <sharedToType>Role</sharedToType>
     </shares>

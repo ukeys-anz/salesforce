@@ -27,8 +27,37 @@ public with sharing class CaseCommentsTriggerHandler extends Lib_TriggerHandler 
    * This is implemented for project Augur however as this is APRA requirements this will be same for ANZx.
    */
   public override void onApplyDefaults() {
+    List<Id> caseIdList = new List<Id>();
     for (CaseComment record : (List<CaseComment>) records) {
-      record.CommentBody = TextUtils.maskData(record.CommentBody);
+      caseIdList.add(record.parentId);
+    }
+    Map<Id, Case> relatedCaseMap = new Map<Id, Case>(
+      [SELECT Id, CaseNumber, RecordTypeId FROM Case WHERE Id IN :caseIdList]
+    );
+    for (CaseComment record : (List<CaseComment>) records) {
+      Case relatedCase = relatedCaseMap.get(record.parentId);
+      if (
+        relatedCase != null &&
+        GetHelpCaseActionsHelper.isANZPlusCaseType(relatedCase)
+      ) {
+        record.CommentBody = TextUtils.maskDataAnzx(record.CommentBody);
+        if (TextUtils.reactiveLogging(record.CommentBody)) {
+          lib_systemLog log = new lib_systemLog(
+            'CaseCommentTriggerHandler',
+            'onApplyDefaults'
+          );
+          log.info(
+            'CaseNumber: ' +
+            relatedCase.CaseNumber +
+            '; Comment Body: ' +
+            record.CommentBody +
+            '; Reason for logging: User entered long digits without needing to mask'
+          );
+          log.insertLogAsync();
+        }
+      } else {
+        record.CommentBody = TextUtils.maskData(record.CommentBody);
+      }
     }
   }
 

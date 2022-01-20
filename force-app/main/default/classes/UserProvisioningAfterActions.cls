@@ -548,33 +548,4 @@ public with sharing class UserProvisioningAfterActions {
       Lib_SystemLog.Severity.ERROR
     );
   }
-
-  /**
-   * @description This method is called after all the user provisioning process to update UPR status and log errors.
-   * @param records user records from trigger
-   */
-  public static void updateUPRStatus(List<User> records) {
-    Map<String, User_Provisioning_Request__c> uprMap = new Map<String, User_Provisioning_Request__c>();
-    Map<String, String> userIdMap = new Map<String, String>();
-
-    for (User record : records) {
-      userIdMap.put(record.FederationIdentifier, record.Id);
-    }
-
-    //Check if there is any UPR record and Queue the status update
-    uprMap = UserProvisioningBeforeActions.getUPRRecords(userIdMap.keySet());
-
-    for (User_Provisioning_Request__c upr : uprMAP.values()) {
-      upr.Requestor__c = userIdMap.get(upr.Requestor_UUID__c);
-      upr.Status__c = (failedRecordIds.contains(
-          userIdMap.get(upr.Requestor_UUID__c)
-        )
-        ? 'Error'
-        : 'Completed');
-    }
-
-    if (!uprMap.isEmpty() || !log.logList.isEmpty()) {
-      system.enqueueJob(new QueueUPRStatusUpdate(uprMAP.values(), log));
-    }
-  }
 }

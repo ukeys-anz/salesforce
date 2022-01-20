@@ -9,16 +9,16 @@
 ISPICKVAL (Status, &quot;Closed&quot;),
 OR(
 ISPICKVAL (Fraud_Defects_Rectified__c, &quot;&quot; ),
-ISPICKVAL (Fraud_ID_True_Document__c, &quot;&quot;),
 ISPICKVAL (Fraud_ID_Not_Picture__c , &quot;&quot;),
 ISPICKVAL (Fraud_Customer_Photo_Modified__c , &quot;&quot;),
 ISPICKVAL (Fraud_Security_Features__c , &quot;&quot;),
 ISPICKVAL (Fraud_ID_Legible__c , &quot;&quot;),
 ISPICKVAL (Fraud_Customer_Details__c , &quot;&quot;),
-ISPICKVAL (Fraud_EV_Match__c, &quot;&quot;),
-ISPICKVAL (Fraud_PO_Box__c, &quot;&quot;),
-ISPICKVAL (Fraud_Middle_Name__c, &quot;&quot;),
-ISPICKVAL (Fraud_Citizenship_Updated__c, &quot;&quot;),
-ISPICKVAL (Fraud_Address_Valid__c, &quot;&quot;)))</errorConditionFormula>
+ISPICKVAL (Fraud_Restraint_Status__c, &quot;&quot;),
+ISPICKVAL (Fraud_Selfie_Comparison_Match__c , &quot;&quot;),
+ISPICKVAL (Fraud_Middle_Initial__c , &quot;&quot;),
+ISPICKVAL (Fraud_PO_Box__c , &quot;&quot;),
+ISPICKVAL (Fraud_Middle_Name__c , &quot;&quot;),
+ISPICKVAL (Fraud_Address_Valid__c , &quot;&quot;)))</errorConditionFormula>
     <errorMessage>You are attempting to close this KYC QA case however have not answered all checks. Please ensure all checks are completed prior to case closure.</errorMessage>
 </ValidationRule>

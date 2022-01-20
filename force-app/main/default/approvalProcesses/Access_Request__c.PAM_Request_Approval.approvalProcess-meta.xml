@@ -22,14 +22,18 @@
         <allowDelegate>false</allowDelegate>
         <approvalActions>
             <action>
+                <name>Approver_ID</name>
+                <type>FieldUpdate</type>
+            </action>
+            <action>
                 <name>Set_Status_to_Approved</name>
                 <type>FieldUpdate</type>
             </action>
         </approvalActions>
         <assignedApprover>
             <approver>
-                <name>Approver__c</name>
-                <type>relatedUserField</type>
+                <name>PAM_Approvers</name>
+                <type>queue</type>
             </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
         </assignedApprover>
@@ -43,10 +47,10 @@
             </action>
         </rejectionActions>
     </approvalStep>
-    <description>Approval process for PAM requests</description>
+    <description>Approval process for PAM requests with PAM Approvers Queue</description>
     <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
     <entryCriteria>
-        <formula>AND(ISBLANK(TEXT( Status__c )), NOT(ISNULL(Approver__c)))</formula>
+        <formula>ISBLANK(TEXT( Status__c ))</formula>
     </entryCriteria>
     <finalApprovalRecordLock>true</finalApprovalRecordLock>
     <finalRejectionRecordLock>true</finalRejectionRecordLock>
