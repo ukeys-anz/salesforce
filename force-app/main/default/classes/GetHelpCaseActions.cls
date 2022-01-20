@@ -650,6 +650,10 @@ public with sharing class GetHelpCaseActions {
       // Process cases for AFTER UPDATE
       for (Case c : records) {
         if (
+          c.OwnerId ==
+          oldMap.get(c.Id)
+            .OwnerId /* Don't process cases that were updated by case assignment rule, this is to prevent 2 platform events
+           being generated when case submission and case assignement rule execute in the same transaction */ &&
           c.Submitted__c != oldMap.get(c.Id).Submitted__c &&
           GetHelpCaseActionsHelper.isValidPegaDispute(c)
         ) {
