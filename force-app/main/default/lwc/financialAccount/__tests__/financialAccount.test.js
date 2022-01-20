@@ -68,19 +68,4 @@ describe("c-financialAccount", () => {
     expect(componentTitle.textContent).toMatch("Savings - ANZ Save Account");
     expect(finAccount).toBeFalsy();
   });
-
-  it("tests error showed", () => {
-    const element = createElement("c-financialAccount", {
-      is: financialAccount
-    });
-    element.accountType = "Savings";
-    element.error = "An error has occurred";
-    document.body.appendChild(element);
-    let error = element.shadowRoot.querySelector("c-error[data-id='error']");
-    let finAccount = element.shadowRoot.querySelector(
-      "div[data-id='fin-account']"
-    );
-    expect(error).toBeTruthy();
-    expect(finAccount).toBeFalsy();
-  });
 });

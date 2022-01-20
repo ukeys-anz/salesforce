@@ -9,87 +9,93 @@
       Savings Goals
     </h1>
     <template if:true={displayContent}>
-      <template if:true={hasGoals}>
-        <div class="slds-grid slds-wrap slds-m-left_medium" data-id="goal-body">
-          <template for:each={goalDetails} for:item="goal">
-            <div class="slds-col slds-size_1-of-3" key={goal.id}>
-              <div class="slds-text-align_center">
-                <p class="ellipsis slds-text-heading_small">
-                  <a
-                    onclick={navigateToRecordViewPageFilter}
-                    class="slds-truncate"
-                    data-id={goal.id}
+      <template if:true={error}>
+        <c-error message={error}></c-error>
+      </template>
+      <template if:false={error}>
+        <template if:true={hasGoals}>
+          <div class="slds-grid slds-wrap" data-id="goal-body">
+            <template for:each={goalDetails} for:item="goal">
+              <div
+                class="slds-col slds-size_1-of-3 slds-border_right"
+                key={goal.id}
+              >
+                <div class="slds-text-align_center">
+                  <p
+                    class="slds-text-color_weak ellipsis slds-text-heading_small"
                   >
                     {goal.goal.name}
-                  </a>
-                </p>
-                <div class="description-tooltip">{goal.goal.name}</div>
-                <template if:true={goal.image}>
-                  <img src={goal.image} width="65" class="slds-m-top_medium" />
-                </template>
-                <template if:false={goal.image}>
-                  <span class="emoji">{goal.emoji}</span>
-                </template>
-              </div>
-              <div class="slds-m-top_x-large slds-m-left_small">
-                <p class="slds-text-body_small slds-text-color_weak">
-                  Total
-                  <lightning-icon
-                    icon-name="utility:info"
-                    size="xx-small"
-                    class="tooltip-modal"
-                    onclick={handleInfoModal}
-                    data-id="total-info"
-                  ></lightning-icon>
-                </p>
-                <div class="slds-grid slds-gutters">
-                  <div class="slds-col slds-size_2-of-3">
-                    <lightning-formatted-number
-                      value={goal.balance.value}
-                      format-style="currency"
-                      data-id="amount"
-                      class="slds-text-heading_small ellipsis"
-                    ></lightning-formatted-number>
-                    <div class="description-tooltip slds-text-align_center">
+                  </p>
+                  <div class="description-tooltip">{goal.goal.name}</div>
+                  <template if:true={goal.image}>
+                    <img src={goal.image} class="slds-m-top_medium" />
+                  </template>
+                  <template if:false={goal.image}>
+                    <div class="emoji">
+                      <span>{goal.emoji}</span>
+                    </div>
+                  </template>
+                </div>
+                <div class="slds-m-top_x-large slds-m-left_small">
+                  <p class="slds-text-body_small slds-text-color_weak">
+                    Total Saved
+                    <lightning-icon
+                      icon-name="utility:info"
+                      size="xx-small"
+                      class="tooltip-modal"
+                      onclick={handleInfoModal}
+                      data-id="total-info"
+                    ></lightning-icon>
+                  </p>
+                  <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_2-of-3">
                       <lightning-formatted-number
                         value={goal.balance.value}
                         format-style="currency"
                         data-id="amount"
+                        class="slds-text-heading_small ellipsis"
                       ></lightning-formatted-number>
+                      <div class="description-tooltip slds-text-align_center">
+                        <lightning-formatted-number
+                          value={goal.balance.value}
+                          format-style="currency"
+                          data-id="amount"
+                        ></lightning-formatted-number>
+                      </div>
                     </div>
-                  </div>
-                  <div class="slds-col slds-size_1-of-3">
-                    <lightning-progress-ring
-                      class="progress-ring"
-                      value={goal.fillPercent}
-                    ></lightning-progress-ring>
-                    <div class="progress-tooltip slds-text-align_center">
-                      {goal.fillPercent}%
+                    <div class="slds-col slds-size_1-of-3">
+                      <lightning-progress-ring
+                        class="progress-ring"
+                        value={goal.fillPercent}
+                      ></lightning-progress-ring>
+                      <div class="progress-tooltip slds-text-align_center">
+                        {goal.fillPercent}%
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
+            </template>
+          </div>
+          <template if:true={viewAll}>
+            <div
+              class="slds-border_top slds-text-align_center slds-m-top_large slds-p-top_small"
+            >
+              <a
+                onclick={navigateToRecordViewPage}
+                class="slds-truncate"
+                title="View All"
+              >
+                View All
+              </a>
             </div>
           </template>
-        </div>
-        <template if:true={viewAll}>
-          <div
-            class="slds-border_top slds-text-align_center slds-m-top_large slds-p-top_small"
-          >
-            <a
-              onclick={navigateToRecordViewPage}
-              class="slds-truncate"
-              title="View All"
-            >
-              View All
-            </a>
-          </div>
         </template>
-      </template>
-      <template if:false={hasGoals}>
-        <h1 class="slds-card__header-title slds-text-align_center">
-          <span class="no-goals" data-id="no-goals">No Savings Goals</span>
-        </h1>
+        <template if:false={hasGoals}>
+          <h1 class="slds-card__header-title slds-text-align_center">
+            <span class="no-goals" data-id="no-goals">No Savings Goals</span>
+          </h1>
+        </template>
       </template>
     </template>
     <template if:false={displayContent}>

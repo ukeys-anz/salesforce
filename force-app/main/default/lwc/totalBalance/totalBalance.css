@@ -52,3 +52,7 @@
   border-radius: 0.25em;
   font-weight: bold;
 }
+
+.balance-padding {
+  padding-right: 48px;
+}

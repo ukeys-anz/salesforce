@@ -1,7 +1,7 @@
 <template>
   <article class="slds-card slds-m-bottom_small slds-text-align_center">
     <template if:true={displayContent}>
-      <button class="slds-button" onclick={getFinancialData} data-id="refresh">
+      <button class="slds-button" onclick={refreshData} data-id="refresh">
         Refresh Balances
       </button>
     </template>
@@ -25,7 +25,6 @@
       record-id={recordId}
       account-details={accountData.checking}
       data-id="checking-account"
-      error={checkingError}
     ></c-financial-account>
 
     <div class="slds-m-top_small"></div>
@@ -35,7 +34,6 @@
       record-id={recordId}
       account-details={accountData.savings}
       savings-jar={savingsJar}
-      error={savingsError}
       data-id="savings-account"
     ></c-financial-account>
 
@@ -43,6 +41,7 @@
     <c-financial-goals-person-account
       goal-data={goalDetails}
       savings-account={savingsId}
+      error={goalError}
     >
     </c-financial-goals-person-account>
   </template>

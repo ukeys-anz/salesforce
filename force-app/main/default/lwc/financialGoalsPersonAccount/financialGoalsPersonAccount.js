@@ -10,6 +10,7 @@ export default class FinancialGoalsPersonAccount extends NavigationMixin(
   viewAll = false;
   showInfoModal = false;
   hasGoals;
+  @api error;
 
   @api
   get goalData() {
@@ -50,7 +51,7 @@ export default class FinancialGoalsPersonAccount extends NavigationMixin(
     if (this.goalDetails && this.goalDetails.length > 0) {
       this.hasGoals = true;
       //Only need to display 3 goals
-      if (this.goalDetails.length > 3) {
+      if (this.goalDetails.length >= 3) {
         this.goalDetails = this.goalDetails.slice(0, 3);
         this.viewAll = true;
       }

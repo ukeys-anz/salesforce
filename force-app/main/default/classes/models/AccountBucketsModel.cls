@@ -16,9 +16,9 @@ public with sharing class AccountBucketsModel extends CalloutModel {
     @AuraEnabled
     public String name;
     @AuraEnabled
-    public Object target_amount;
+    public Balance target_amount;
     @AuraEnabled
-    public Object target_date;
+    public String target_date;
     @AuraEnabled
     public String theme;
     @AuraEnabled
@@ -28,7 +28,7 @@ public with sharing class AccountBucketsModel extends CalloutModel {
     @AuraEnabled
     public Boolean is_open;
     @AuraEnabled
-    public Object closed_at;
+    public String closed_at;
     @AuraEnabled
     public String updated_at;
   }

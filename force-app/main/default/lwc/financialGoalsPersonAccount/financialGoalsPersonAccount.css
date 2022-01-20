@@ -39,6 +39,7 @@
   position: absolute;
   color: #ffffff;
   z-index: 1;
+  word-break: break-word;
 }
 
 .progress-tooltip {
@@ -91,7 +92,18 @@
 }
 
 .emoji {
-  font-size: 54px;
+  font-size: 80px;
+  margin-top: 44px;
   position: relative;
-  top: 10px;
+  bottom: 15px;
+}
+
+.slds-size_1-of-3,
+.slds-size--1-of-3 {
+  width: 32%;
+  margin: 3px;
+}
+
+.slds-border_right:last-child {
+  border-right: none;
 }

@@ -17,7 +17,7 @@ import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accoun
 import ACCOUNT_OCV_ID_FIELD from "@salesforce/schema/Account.OCV_ID__c";
 
 //Import goal images
-import goal_themes from "@salesforce/resourceUrl/mock_goalThemes";
+import goal_themes from "@salesforce/resourceUrl/goal_themes";
 
 export default class PersonAccountFinancialDetails extends LightningElement {
   @api recordId;
@@ -39,28 +39,27 @@ export default class PersonAccountFinancialDetails extends LightningElement {
     recordId: "$recordId",
     fields: [ACCOUNT_OCV_ID_FIELD]
   })
-  wiredRecord({ data }) {
+  async wiredRecord({ data }) {
+    this.loading = true;
     if (data && hasAccountsGoalsPermission) {
       this.ocvId = data.fields.OCV_ID__c.value;
       if (this.ocvId) {
-        this.getFinancialData();
+        await this.getFinancialAccount();
+        await this.getGoals();
       }
     }
+    this.loading = false;
   }
 
   get displayContent() {
     return hasAccountsGoalsPermission;
   }
 
-  async getFinancialData() {
-    //Reset values to avoid duplicates
-    this.loading = true;
-    this.goalDetails = [];
+  async getFinancialAccount() {
     this.accountData = {
       checking: [],
       savings: []
     };
-    this.savingsJar = [];
     try {
       //Attempt to get the latest account details from fabric
       let accountDetails = await getFinancialAccountFabric({
@@ -106,29 +105,34 @@ export default class PersonAccountFinancialDetails extends LightningElement {
           "pester"
         );
       }
+    }
+  }
 
-      try {
-        let goalData = await getAccountBuckets({ ocvId: this.ocvId });
-        goalData = this.handleGoalThemes(goalData);
-        //Savings jar will always be default, so retrieve it
-        //to pass through to other components that need it
-        this.savingsJar = goalData.account_buckets.filter((obj) => {
-          return obj.is_default;
-        })[0];
-        //Remove savings jar as its not displayed on goals component
-        this.goalDetails = goalData.account_buckets.filter((obj) => {
-          return !obj.is_default;
-        });
-      } catch (error) {
-        handleErrorShowToast(
-          this,
-          "Failed To Retrieve Goal Details",
-          error,
-          "Failed to retrieve latest goal details. Please refresh and try again. If issue persists please contact your System Administrator",
-          "pester"
-        );
-      }
-      this.loading = false;
+  async getGoals() {
+    this.goalDetails = [];
+    this.savingsJar = null;
+    try {
+      let goalData = await getAccountBuckets({ ocvId: this.ocvId });
+      goalData = this.handleGoalThemes(goalData);
+      //Savings jar will always be default, so retrieve it
+      //to pass through to other components that need it
+      this.savingsJar = goalData.account_buckets.filter((obj) => {
+        return obj.is_default;
+      })[0];
+      //Remove savings jar as its not displayed on goals component
+      this.goalDetails = goalData.account_buckets.filter((obj) => {
+        return !obj.is_default;
+      });
+    } catch (error) {
+      this.goalError =
+        "Failed to retrieve latest goal details. Please refresh and try again. If issue persists please contact your System Administrator";
+      handleErrorShowToast(
+        this,
+        "Failed To Retrieve Goal Details",
+        error,
+        this.goalError,
+        "pester"
+      );
     }
   }
 
@@ -155,19 +159,31 @@ export default class PersonAccountFinancialDetails extends LightningElement {
 
   handleGoalThemes(goalList) {
     goalList.account_buckets.forEach((goal) => {
-      //Check if goal has theme otherwise use default
-      if (goal?.goal?.theme) {
-        goal.image = `${goal_themes}/${goal.goal.theme}.png`;
-      } else if (goal?.goal?.emoji?.value) {
-        goal.emoji = goal.goal.emoji.value;
+      if (goal.is_default) {
+        goal.image = `${goal_themes}/SAVINGS_JAR.png`;
       } else {
-        goal.image = `${goal_themes}/GOAL_THEME_UNSPECIFIED.png`;
+        //Check if goal has theme otherwise use default
+        if (goal?.goal?.theme) {
+          //If goal is unspecified, assign the image of "something else"
+          if (
+            goal.goal.theme === "GOAL_THEME_UNSPECIFIED" ||
+            goal.goal.theme === "GOAL_THEME_CUSTOM"
+          ) {
+            goal.image = `${goal_themes}/GOAL_THEME_SOMETHING_ELSE.png`;
+          } else {
+            goal.image = `${goal_themes}/${goal.goal.theme}.png`;
+          }
+        } else if (goal?.goal?.emoji?.value) {
+          goal.emoji = goal.goal.emoji.value;
+        } else {
+          goal.image = `${goal_themes}/GOAL_THEME_SOMETHING_ELSE.png`;
+        }
       }
       //Determine percentage for goal
-      if (goal?.goal?.target_amount) {
+      if (goal?.goal?.target_amount?.value) {
         //Work out percentage for fill
         goal.fillPercent = Math.floor(
-          (goal.balance.value / goal.goal.target_amount) * 100
+          (goal.balance.value / goal.goal.target_amount.value) * 100
         );
       } else {
         goal.fillPercent = goal.balance.value > 0 ? 100 : 0;
@@ -175,5 +191,12 @@ export default class PersonAccountFinancialDetails extends LightningElement {
     });
 
     return goalList;
+  }
+
+  async refreshData() {
+    this.loading = true;
+    await this.getFinancialAccount();
+    await this.getGoals();
+    this.loading = false;
   }
 }
