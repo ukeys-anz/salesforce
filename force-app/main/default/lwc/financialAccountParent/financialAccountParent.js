@@ -1,6 +1,6 @@
 import { LightningElement, api, wire } from "lwc";
 import { getRecord } from "lightning/uiRecordApi";
-import { handleErrorShowToast } from "c/utils";
+import { handleErrorShowToast, showToast } from "c/utils";
 
 import getFinancialAccountFabric from "@salesforce/apex/FinancialAccountController.getFinancialAccountFabric";
 import getFinancialAccountDB from "@salesforce/apex/FinancialAccountController.getFinancialAccountDB";
@@ -11,6 +11,7 @@ import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accoun
 import FIN_ACCOUNT_NUMBER from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__FinancialAccountNumber__c";
 import FIN_ACCOUNT_OCV_ID from "@salesforce/schema/FinServ__FinancialAccount__c.OCV_ID__c";
 import FIN_ACCOUNT_TYPE from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__FinancialAccountType__c";
+import TRANSACTION_HISTORY_RETRIEVE_ERROR from "c/transactionHistoryService";
 
 import { CurrentPageReference } from "lightning/navigation";
 
@@ -20,12 +21,13 @@ export default class FinancialAccountParent extends LightningElement {
   financialAccountError;
   financialAccountNumber;
   financialAccountType;
-  goalDetails = [];
+  goalData = [];
   goalError;
+  hasError = false;
   isSavings;
   loading;
   ocvId;
-  transactionDetails = [];
+  transactionData;
   transactionError;
 
   @wire(CurrentPageReference)
@@ -52,7 +54,7 @@ export default class FinancialAccountParent extends LightningElement {
       this.getFinancialData();
       // will be part of #5557 & #5559
       // this.getGoalData();
-      // this.getTransactionData();
+      this.getTransactionData();
     }
     this.loading = false;
   }
@@ -97,10 +99,10 @@ export default class FinancialAccountParent extends LightningElement {
   }
 
   getGoalData() {
-    this.goalDetails = [];
+    this.goalData = [];
     if (this.isSavings)
       try {
-        this.goalDetails = getAccountBuckets({
+        this.goalData = getAccountBuckets({
           ocvId: this.ocvId
         });
       } catch (error) {
@@ -116,10 +118,13 @@ export default class FinancialAccountParent extends LightningElement {
       }
   }
 
-  getTransactionData() {
-    this.transactionDetails = [];
+  async getTransactionData(
+    paramUrl = "",
+    startDateString = "",
+    endDateString = ""
+  ) {
     try {
-      this.transactionDetails = getTransactionHistoryAura({
+      this.transactionData = await getTransactionHistoryAura({
         ocvId: this.ocvId,
         accountNumber: this.financialAccountNumber,
         startDate: startDateString,
@@ -127,17 +132,19 @@ export default class FinancialAccountParent extends LightningElement {
         paramUrl: paramUrl
       });
     } catch (error) {
-      this.transactionError =
-        "Failed to retrieve transaction details. Please refresh and try again. If issue persists please contact your System Administrator";
-      handleErrorShowToast(
-        this,
-        "Failed To Retrieve Transaction Details",
-        error,
-        this.transactionError,
-        "pester"
-      );
+      this.transactionError = TRANSACTION_HISTORY_RETRIEVE_ERROR;
+      if (error.body && error.body.message) {
+        let message = this.handleError(error.body.message);
+        //Catch any system error messages (most readable errors wont be a single word)
+        if (message && message.split(" ").length > 1) {
+          this.transactionError = message;
+        }
+      }
+      this.hasError = true;
+      showToast("Transaction History Load Failed", this.errorMessage, error);
     }
   }
+
   handleAccountInformation(finAccounts) {
     finAccounts.forEach((finAccount) => {
       finAccount.badgeClass =
@@ -148,4 +155,36 @@ export default class FinancialAccountParent extends LightningElement {
 
     return finAccounts;
   }
+  //This function is required as some errors are returned
+  //as stringified json
+  handleError(error) {
+    try {
+      JSON.parse(error);
+    } catch (e) {
+      return error;
+    }
+    return JSON.parse(error).message;
+  }
+
+  handleLoadMore(event) {
+    this.getTransactionData(event.detail);
+  }
+
+  handleSearchDates(event) {
+    this.getTransactionData(
+      "",
+      event.detail.startDateString,
+      event.detail.endDateString
+    );
+  }
+
+  //   handleTransactionGoals(transactions){
+  //     //if (transactions){
+  //       //loop through transactions to check for bucket_id
+  //       transactions.embedded.transactions.transfer.destination_account.bucket_id;
+  //       transactions.embedded.transactions.transfer.source_account.bucket_id;
+  //       //map id from ths.goalData and append image to transaction dataset }
+  //       //ensure getTransactionData is refactored to be run after getGoalData
+  //   }
+  // }
 }

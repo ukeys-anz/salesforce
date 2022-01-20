@@ -2,8 +2,8 @@
   <template if:true={displayContent}>
     <template if:false={loading}>
       <c-financial-account
-        account-type={financialAccountType}
         record-id={recordId}
+        account-type={financialAccountType}
         account-details={financialAccountData}
         error={financialAccountError}
         data-id="financial-account"
@@ -13,7 +13,7 @@
        <template if:true={isSavings}>
         <c-financial-goals
           record-id={recordId}
-          goal-data={goalDetails}
+          goal-details={goalData}
           data-id="financial-goals"
           error={goalError}
         ></c-financial-goals>
@@ -21,9 +21,11 @@
       </template> -->
       <c-transaction-history-board
         record-id={recordId}
-        transaction-data={transactionDetails}
-        data-id="transaction-history-board"
+        transaction-details={transactionData}
         error={transactionError}
+        onloadmore={handleLoadMore}
+        onsearch={handleSearchDates}
+        data-id="transaction-history"
       ></c-transaction-history-board>
     </template>
   </template>
