@@ -12,6 +12,8 @@ import FIN_ACCOUNT_NUMBER from "@salesforce/schema/FinServ__FinancialAccount__c.
 import FIN_ACCOUNT_OCV_ID from "@salesforce/schema/FinServ__FinancialAccount__c.OCV_ID__c";
 import FIN_ACCOUNT_TYPE from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__FinancialAccountType__c";
 
+import { CurrentPageReference } from "lightning/navigation";
+
 export default class FinancialAccountParent extends LightningElement {
   @api recordId;
   financialAccountData = [];
@@ -25,6 +27,9 @@ export default class FinancialAccountParent extends LightningElement {
   ocvId;
   transactionDetails = [];
   transactionError;
+
+  @wire(CurrentPageReference)
+  pageRef;
 
   @wire(getRecord, {
     recordId: "$recordId",
@@ -51,7 +56,10 @@ export default class FinancialAccountParent extends LightningElement {
     }
     this.loading = false;
   }
-
+  connectedCallback() {
+    //get url param here for goal filtering
+    console.log(this.pageRef.state);
+  }
   get displayContent() {
     return hasAccountsGoalsPermission;
   }

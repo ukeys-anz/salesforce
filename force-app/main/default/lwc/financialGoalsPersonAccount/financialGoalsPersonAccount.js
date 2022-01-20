@@ -72,4 +72,17 @@ export default class FinancialGoalsPersonAccount extends NavigationMixin(
       }
     });
   }
+
+  navigateToRecordViewPageFilter(event) {
+    this[NavigationMixin.Navigate]({
+      type: "standard__recordPage",
+      attributes: {
+        recordId: this.savingsAccount,
+        actionName: "view"
+      },
+      state: {
+        c__goalId: event.currentTarget.dataset.id
+      }
+    });
+  }
 }

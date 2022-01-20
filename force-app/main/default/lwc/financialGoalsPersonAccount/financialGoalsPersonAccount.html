@@ -14,10 +14,14 @@
           <template for:each={goalDetails} for:item="goal">
             <div class="slds-col slds-size_1-of-3" key={goal.id}>
               <div class="slds-text-align_center">
-                <p
-                  class="slds-text-color_weak ellipsis slds-text-heading_small"
-                >
-                  {goal.goal.name}
+                <p class="ellipsis slds-text-heading_small">
+                  <a
+                    onclick={navigateToRecordViewPageFilter}
+                    class="slds-truncate"
+                    data-id={goal.id}
+                  >
+                    {goal.goal.name}
+                  </a>
                 </p>
                 <div class="description-tooltip">{goal.goal.name}</div>
                 <template if:true={goal.image}>
