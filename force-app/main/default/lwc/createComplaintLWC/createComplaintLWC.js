@@ -1013,6 +1013,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.isComplaintResolved = true;
     this.isNonFinancialComplaintRemedy = true;
     this.expressCMOS = event.detail.value;
+    if (!this.expressCMOS) {
+      this.knownIssue = null;
+    }
     const issueTypeElement = this.template.querySelector(
       '[data-id="issueType-id"]'
     );
