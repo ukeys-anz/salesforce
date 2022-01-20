@@ -2,173 +2,186 @@
 
 # Any subsequent(*) commands which fail will cause the shell script to exit immediately
 set -e
+# to use all the functions that we need and do not repeat the code
+source ./bash-scripts/commonFunctions.sh
 
-stepNo=0
-# first argument: description of the step
-# second argument: step number
-# third argument: start of a step of end of that
-function echoMessageCreator(){
-    if [ $3 = true ]; then
-        echo ""
-        echo "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
-        echo ""
-        if [ $2 = 0 ]; then    
-            echo "Step 0 : Input scratch org alias and data"
-        else
-            echo ""
-            echo "Step $2 : $1"
-            echo ""
-            echo "Start time and date: $(date)"
-        fi
-        echo ""
-    else
-        if [ $2 != 0 ]; then
-            echo ""
-            echo "Finish time and date: $(date)"
-            echo ""
-            echo "Job finished in $((JOB_END_TIME - JOB_START_TIME)) s."
-        fi
-        echo ""
-        echo "*****************************************"
-        echo ""
-        stepNo=$(($stepNo+1))
-    fi
-}
+# to clean the artefact and tmp folders
+rm -rf ./artefact
+rm -rf ./tmp
 
-echo "WARNING: Disable ANZ Proxy to run this script\n(You can leave alpaca running and proxy variables set to localhost:3128)"
 # Using SOAP over REST is much faster for scratch org creations while pushing content.
 sfdx config:set restDeploy=false
 # Bypass the Lightning Experience custom domain check entirely, wich takes very long when connected to ANZ network
 # TODO Consider a switch to bypass it when connected elsewhere (e.g. from GCB)
 export SFDX_DOMAIN_RETRY=0
 
+# user input
 echoMessageCreator "Input: Scratch org alias and Data" $stepNo true
-read -rp "Enter scratch org alias (optional): " scratchorgalias
-read -rp "Is test data needed for this scratch org (y/n)? " testdata
+read -rp "${green}Enter scratch org alias (optional): " scratchorgalias
 read -rp "Preload ANZ Plus test data (y/n)? " preloadANZPlusData
+read -rp "Preload CMOS test data (y/n)? " preloadCMOSData
 echoMessageCreator "" $stepNo false
+###########################
+
+# make a new scratchOrg step
+echoMessageCreator "Making scratchOrg out of the snapshot" $stepNo true
+sfdx force:org:create -f config/snapshot-scratch-def-template.json -d 30 --setdefaultusername -w 10 --setalias "$scratchorgalias" 2>&1 | tee stderr
+if [[ ($(cat stderr) == *'ERROR'*) && ($(cat stderr) != *'Some commands may not work as expected until the My Domain DNS propagation'*) || ($(cat stderr) == *'statusCode=502'*) ]]; then
+    echo ""
+    echo "${green}* please run the below command in another terminal tab"
+    echo ""
+    echo "${red}--------------------------------------"
+    echo "${green}sfdx force:org:create -f config/snapshot-scratch-def-template.json -d 30 --setdefaultusername -w 10 --setalias "$scratchorgalias" 2>&1 | tee stderr"
+    echo "${red}--------------------------------------"
+    echo ""
+    echo "${green}* do not worry about the tunnelSocket error."
+    echo ""
+    read -rp "when it has been finished, just type (y/Y): " nextStepFlag
+fi
+echoMessageCreator "" $stepNo false
+###########################
 
 ALL_START_TIME=$(date +%s)
 
-echoMessageCreator "Create scratch org" $stepNo true
-JOB_START_TIME=$(date +%s)
-if [ -n "$scratchorgalias" ]; then
-    sfdx force:org:create -f config/snapshot-scratch-def-template.json -d 30 --setdefaultusername -w 10 --setalias "$scratchorgalias" 2>&1 | tee stderr
-else
-    sfdx force:org:create -f config/snapshot-scratch-def-template.json -d 30 --setdefaultusername -w 10 2>&1 | tee stderr
-fi
-if [[ ($(cat stderr) == *'ERROR'*) && ($(cat stderr) != *'Some commands may not work as expected until the My Domain DNS propagation'*) ]]; then
+# check if the scratchOrg has been created out of th snapshot
+echoMessageCreator "check if the scratchOrg has been created out of the snapshot" $stepNo true
+sfdx force:org:list
+echo ""
+read -rp "${green}check if the scratchOrg with $scratchorgalias alias has been made(y/n)? " scratchMade
+if [[ $scratchMade == n || $scratchMade == N ]];then
+    echo ""
+    echo "${red}exit and re-run it again"
     exit 1
 fi
-JOB_END_TIME=$(date +%s)
 echoMessageCreator "" $stepNo false
+###########################
 
-echoMessageCreator "Assign Permission sets" $stepNo true
-JOB_START_TIME=$(date +%s)
-sfdx force:user:permset:assign -n "FinancialServicesCloudStandard,EinsteinAnalyticsPlusAdmin" 2>&1 | tee stderr
-if [[ ($(cat stderr) == *'ERROR'*) && ($(cat stderr) != *'Duplicate PermissionSetAssignment'*)]]; then
+# build the artifact 
+echoMessageCreator "making artifact folder" $stepNo true
+# to make the artifact from the diff
+source ./ci/build-artifact.sh
+echoMessageCreator "" $stepNo false
+###########################
+
+# manual steps
+echoMessageCreator "manual steps" $stepNo true
+read -rp "${green}Do you want to open the scratch org (y/n)? " openOrg
+echo "${reset}"
+if [[ $openOrg == y || $openOrg == Y ]]; then
+    sfdx force:org:open -u $scratchorgalias 
+fi
+
+echo ""
+echo "${green}************************"
+echo ""
+echo "Waiting while the job in scratchOrg is finished."
+echo ""
+echo "************************"
+echo ""
+
+echo "You can run your manual commands in another terminal window and then continue the other steps"
+echo ""
+read -rp "Do you want to continue (y/n)? " continueFlag
+if [[ $continueFlag == n || $continueFlag == N ]]; then
+    echo ""
+    echo "The diff metadata has not been deployed."
+    echo "You can run: sfdx force:source:deploy -u $scratchorgalias -p ./artefact/ | tee stderr"
+    echo ""
     exit 1
 fi
-JOB_END_TIME=$(date +%s)
 echoMessageCreator "" $stepNo false
+###########################
 
-echoMessageCreator "Deploy settings and content assets" $stepNo true
-JOB_START_TIME=$(date +%s)
-sfdx force:source:deploy -p force-app/main/default/settings/BusinessHours.settings-meta.xml,force-app/main/default/settings/Quote.settings-meta.xml,force-app/main/default/settings/Forecasting.settings-meta.xml,force-app/main/default/contentassets 2>&1 | tee stderr
-if [[ ($(cat stderr) == *'ERROR'*) ]]; then
-    exit 1
-fi
-JOB_END_TIME=$(date +%s)
+if [ -d "./artefact/" ]; then
+
+    # push metadata
+    echoMessageCreator "deploy the diff metadata" $stepNo true
+
+    tryDeploying=true
+    while [[ $tryDeploying == true ]]; do
+        tryDeploying=false
+        sfdx force:mdapi:deploy -u $scratchorgalias -d artefact -w 10 | tee stderr
+        if [[ ($(cat stderr) == *'ERROR'*) || ($(cat stderr) == *'Error'*) || ($(cat stderr) == *'statusCode=502'*) ]]; then
+            
+        # step: to if it is failed, make it to re-run, or try again, and you can check the stderr one
+            echo "${green}"
+            echo "Maybe you need to do some manual steps."
+            echo "Please check the stderr file."
+            echo ""
+            read -rp "Do you want to retry deploying (y/n)? " retryFlag
+            echo "${reset}"
+            if [[ $retryFlag == n || $retryFlag == N ]]; then
+                echo "${green}"
+                echo "The job has been skipped."
+                echo ""
+                exit 1
+            else
+                tryDeploying=true
+            fi
+        fi
+    done
+    echoMessageCreator "" $stepNo false
+    #########################
+fi 
+
+# assign a role to default user of scratchOrg
+echoMessageCreator "assign a role to default user of scratchOrg" $stepNo true
+sfdx force:apex:execute -f ./apex-scripts/assignUserRole.apex
 echoMessageCreator "" $stepNo false
+###########################
 
-echoMessageCreator "Push metadata" $stepNo true
-JOB_START_TIME=$(date +%s)
-sfdx force:source:push -f 2>&1 | tee stderr
-if [[ ($(cat stderr) == *'ERROR'*) ]]; then
-    exit 1
-fi
-JOB_END_TIME=$(date +%s)
+# apply perm sets
+echoMessageCreator "apply customer details perm set" $stepNo true
+sfdx force:user:permset:assign -n Read_Write_Customer_Details 
 echoMessageCreator "" $stepNo false
+###########################
 
-echoMessageCreator "Import post-deployment plan" $stepNo true
-JOB_START_TIME=$(date +%s)
-sfdx force:data:tree:import -p data/Post-Plan.json 2>&1 | tee stderr
-sfdx force:data:tree:import -p data/IDR-CustomSetting.json 2>&1 | tee stderr
-node createCmosEntitlment.js 2>&1 | tee stderr
-sfdx force:data:tree:import -f data/Non_Prod_Settings__c.json 2>&1 | tee stderr
-if [[ ($(cat stderr) == *'ERROR'*) ]]; then
-    exit 1
-fi
-JOB_END_TIME=$(date +%s)
-echoMessageCreator "" $stepNo false
-
+# load data, create test user
 case ${preloadANZPlusData:0:1} in
 y | Y)
-    echoMessageCreator "Pre-loading sample data" $stepNo true
-    JOB_START_TIME=$(date +%s)
+    echoMessageCreator "Pre-loading sample anzx data" $stepNo true
     sfdx force:apex:execute -f ./apex-scripts/createTestData.apex
-    JOB_END_TIME=$(date +%s)
     echoMessageCreator "" $stepNo false
 
     echoMessageCreator "Creating test users (inactive by default) with different roles" $stepNo true
-    JOB_START_TIME=$(date +%s)
     sfdx force:apex:execute -f ./apex-scripts/createTestUsers.apex
-    JOB_END_TIME=$(date +%s)
     echoMessageCreator "" $stepNo false
     ;;
-*) echo "Skipping ANZ plus test data preload" ;;
+*) echo "${green}Skipping ANZ plus test data preload${reset}" ;;
 esac
+###########################
 
-case ${testdata:0:1} in
+# import cmos test data
+case ${preloadCMOSData:0:1} in
 y | Y)
-    echoMessageCreator "Import test data and users" $stepNo true
-    JOB_START_TIME=$(date +%s)
-    tsc --project webdriverIO
-    cp webdriverIO/.env.example webdriverIO/.env
-    node webdriverIO/setup-scripts/envSetup.js
-    #below will fetch the latest changes from the remote master branch as its the branch specified in salesforce-scripts submodule
-    git submodule update --init --remote
-    #Add all the scripts to load data below
-    sfdx force:user:permset:assign -n Read_Write_Customer_Details    
-    node salesforce-scripts/generateTestData/loadFinancialGoals.js 2>&1 | tee stderr
+    echoMessageCreator "Pre-loading sample cmos data" $stepNo true
     # Uncomment the next line (and comment the next) to import products without their related cases
     #sfdx force:data:bulk:upsert --sobjecttype Product2 --csvfile data/IDR-ANZ-Products.csv --externalid ANZ_Product_Code__c --wait 2 2>&1 | tee stderr
     sfdx force:data:tree:import -p data/IDR-Product2-Case-plan.json 2>&1 | tee stderr
-    if [[ ($(cat stderr) == *'ERROR'*) ]]; then
+    if [[ ($(cat stderr) == *'ERROR'*)  || ($(cat stderr) == *'statusCode=502'*) ]]; then
         exit 1
     fi
-    
-    echo ""
-    echo "-=- Creating Coach user -=-"
-    echo ""
-    node webdriverIO/setup-scripts/createUser.js --profile "coach"
-    echo ""
-    echo "-=- Creating IDR user -=-"
-    echo ""
-    node webdriverIO/setup-scripts/createUser.js --profile "idr level 3"
-    echo ""
-    echo "-=- Assigning user roles -=-"
-    echo ""
-    sfdx force:apex:execute -f ./apex-scripts/assignUserRole.apex
-    echo ""
-    echo "-=- Create users json for webdriverIO -=-"
-    echo ""
-    node webdriverIO/setup-scripts/createUserJsonList.js
 
-    JOB_END_TIME=$(date +%s)
     echoMessageCreator "" $stepNo false
     ;;
-*) echo "Skipping test data creation" ;;
+*) echo "${green}Skipping CMOS test data preload${reset}" ;;
 esac
+###########################
+
+
 
 ALL_END_TIME=$(date +%s)
-echo ""
+echo "${green}"
 echo "$(date): All done in $((ALL_END_TIME - ALL_START_TIME)) s."
 
+# reset source tracking
 echoMessageCreator "Resetting source tracking" $stepNo true
 sfdx force:source:tracking:reset -p
 echoMessageCreator "" $stepNo false
+###########################
 
+# open scratch org
 echoMessageCreator "Open scratch org" $stepNo true
 sfdx force:org:open
 echoMessageCreator "" $stepNo false
+###########################
