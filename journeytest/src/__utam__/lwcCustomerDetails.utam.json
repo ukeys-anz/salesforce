@@ -1,0 +1,181 @@
+{
+  "root": true,
+  "selector": {
+    "css": "body"
+  },
+  "elements": [
+    {
+      "name": "searchBox",
+      "selector": {
+        "css": "input[title='Search...']"
+      },
+      "public": true,
+      "type": "editable"
+    },
+    {
+      "name": "navigationShow",
+      "selector": {
+        "css": "button[title='Show Navigation Menu']"
+      },
+      "public": true,
+      "type": "clickable"
+    },
+    {
+      "name": "menuSelect",
+      "selector": {
+        "css": "li a[data-label='%s']",
+        "args": [
+          {
+            "name": "menuItem",
+            "type": "string"
+          }
+        ]
+      },
+      "public": true,
+      "type": "clickable"
+    },
+    {
+      "name": "homeSearchBox",
+      "selector": {
+        "css": "div[class='forceSearchAssistantDialog'] input[type='search']"
+      },
+      "public": true,
+      "type": "editable"
+    },
+    {
+      "name": "searchBoxBtn",
+      "selector": {
+        "css": "button[aria-label='Search']"
+      },
+      "public": true,
+      "type": "editable"
+    },
+    {
+      "name": "searchMoreBox",
+      "selector": {
+        "css": "input[title='Search Accounts and more...']"
+      },
+      "public": true,
+      "type": "editable"
+    },
+    {
+      "name": "connectClose",
+      "selector": {
+        "css": "lightning-button[data-id='close-button']"
+      },
+      "public": true,
+      "type": "clickable"
+    },
+    {
+      "name": "cases",
+      "selector": {
+        "css": "a span[title='Cases']"
+      },
+      "public": true,
+      "type": "clickable"
+    },
+    {
+      "name": "searchItem",
+      "selector": {
+        "css": "div span[title='%s']",
+        "args": [
+          {
+            "name": "customerNumber",
+            "type": "string"
+          }
+        ]
+      },
+      "public": true,
+      "type": "clickable"
+    },
+    {
+      "name": "appLauncher",
+      "selector": {
+        "css": "div[role='navigation'] button"
+      },
+      "public": true,
+      "type": "clickable"
+    },
+    {
+      "name": "searchAccount",
+      "selector": {
+        "css": "a[title='Accounts']"
+      },
+      "public": true,
+      "elements": [
+        {
+          "name": "customerNameLink",
+          "selector": {
+            "css": "a[title='%s']",
+            "args": [
+              {
+                "name": "titleString",
+                "type": "string"
+              }
+            ]
+          },
+          "public": true
+        }
+      ]
+    },
+    {
+      "name": "closeCustomer",
+      "selector": {
+        "css": "button[title='Close %s']",
+        "args": [
+          {
+            "name": "customerName",
+            "type": "string"
+          }
+        ]
+      },
+      "public": true,
+      "type": "clickable"
+    },
+    {
+      "name": "accountDetails",
+      "selector": {
+        "css": "section[role='tabpanel'] section article[class='everydayAccount slds-card']",
+        "returnAll": true
+      },
+      "public": true,
+      "type": "clickable"
+    },
+    {
+      "name": "cardDetailButton",
+      "selector": {
+        "css": "lightning-button[data-id='get-cards-button'] button",
+        "returnAll": true
+      },
+      "public": true,
+      "type": "clickable"
+    },
+    {
+      "name": "cardDetailsSection",
+      "selector": {
+        "css": "article[class='card-container'] p",
+        "returnAll": true
+      },
+      "public": true,
+      "type": "actionable"
+    },
+    {
+      "name": "tabHeader",
+      "selector": {
+        "css": "flexipage-component2[data-component-id='accountsAndGoalsRefresh']",
+        "returnAll": true
+      },
+      "public": true,
+      "type": "actionable"
+    },
+    {
+      "name": "accountSection",
+      "selector": {
+        "css": "a[class='tabHeader']",
+        "returnAll": true
+      },
+      "public": true,
+      "type": "clickable"
+    }
+  ]
+}

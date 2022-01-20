@@ -1,5 +1,5 @@
 /**
- * @author Shermal Warnakula
+ * @author Shermal Warnakula, Mouhamed "Mo" Assafiri
  * @since June 2021
  * @description Handler class related to 'PAM - Grant/Revoke Access' flow invocable actions
  */
@@ -54,16 +54,48 @@ public without sharing class AccessRequestFlowHandler {
     try {
       if (Schema.sObjectType.User.isQueryable()) {
         List<User> users = [
-          SELECT Id, ProfileId
+          SELECT Id, ProfileId, UserRole.Name
           FROM User
-          WHERE
-            Id = :flowInstance.userId
-            AND ProfileId != :flowInstance.profileId
+          WHERE Id = :flowInstance.userId
         ];
+
         if (!users.isEmpty()) {
-          users[0].ProfileId = flowInstance.profileId;
-          update users[0];
-          isSuccess = true;
+          //If the Process is Revoke, restore the default Profile for the user's Role.
+          //EG: A Engineer will be mapped on the Metadata to 'Minimum Access'
+
+          if (flowInstance.processType == 'revoke') {
+            String profileName = [
+              SELECT Profile_Name__c
+              FROM User_Provisioning_Setting__mdt
+              WHERE Role_Name__c = :users[0].UserRole.Name
+              LIMIT 1
+            ][0]
+            .Profile_Name__c;
+            String profileId = [
+              SELECT Id
+              FROM Profile
+              WHERE Name = :profileName
+              LIMIT 1
+            ][0]
+            .Id;
+
+            users[0].ProfileId = profileId;
+            update users[0];
+            isSuccess = true;
+          } else {
+            //If the Profile ID is the same do nothing.
+            if (users[0].ProfileId == flowInstance.profileId) {
+              logFailures(
+                flowInstance,
+                'Tried to change user profile that already had the same profile.'
+              );
+              isSuccess = false;
+            } else {
+              users[0].ProfileId = flowInstance.profileId;
+              update users[0];
+              isSuccess = true;
+            }
+          }
         } else {
           logFailures(
             flowInstance,

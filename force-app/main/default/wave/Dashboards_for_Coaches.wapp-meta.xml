@@ -14,7 +14,7 @@
         <sharedToType>Role</sharedToType>
     </shares>
     <shares>
-        <accessLevel>EditAllContents</accessLevel>
+        <accessLevel>View</accessLevel>
         <sharedTo>Super_Support_Admin</sharedTo>
         <sharedToType>Role</sharedToType>
     </shares>
