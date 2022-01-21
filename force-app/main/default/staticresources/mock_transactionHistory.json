@@ -717,12 +717,18 @@
             "account": {
               "bsb": "246800",
               "number": "1111111111"
+            },
+            "bucket_id": {
+              "value": "ajdfa8-21231fd-kx9a8f-0lod-624019f07ae7"
             }
           },
           "destination_account": {
             "account": {
               "bsb": "135799",
               "number": "9999999999"
+            },
+            "bucket_id": {
+              "value": "df645c0a-2ffd-508f-b86d-69e092a07ae7"
             }
           }
         },
