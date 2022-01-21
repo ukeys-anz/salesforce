@@ -33,7 +33,7 @@ export default class IdrExpressComplaint extends LightningElement {
     }
   }
 
-  get knownIssueOptions() {
+  get knownIssueOptions() { 
     return this.knownIssueItems;
   }
 
