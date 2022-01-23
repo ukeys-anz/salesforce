@@ -185,6 +185,12 @@ const buttonConfigObject = {
   }
 };
 
+// CSS class for button div according to the number of buttons on a card
+const cardButtonContainerClassName = (card) => {
+  card.className = card.buttons.length > 3 ? "allButtonsContainer" : "buttonsContainer";
+  return card;
+}
+
 // for each card: will make a buttons array according to button schema and make the cards to have new schema with cards.buttons
 export function createButtonsFromArray(cards, userPermission) {
   for (let i = 0; i < cards.length; i++) {
@@ -200,6 +206,7 @@ export function createButtonsFromArray(cards, userPermission) {
       }
     }
     cards[i].buttons = buttonArray;
+    cards[i] = cardButtonContainerClassName(cards[i]);
     cards[i] = mappingStatusOnACard(cards[i]);
   }
   cards = sortCardsHandler(cards, STATUS.Issued);

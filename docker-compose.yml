@@ -1,0 +1,10 @@
+version: "3.9" # optional since v1.27.0
+services:
+  journeytest:
+    image: "journeytest:latest"
+    build: .
+    command: "./journeytest.sh"
+    volumes:
+      - "${PWD:-.}:/app"
+    env_file:
+      - journeytest/.env

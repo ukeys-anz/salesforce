@@ -66,6 +66,11 @@
                 <label>Fraud Agent</label>
             </value>
             <value>
+                <fullName>Card Dispute Agent</fullName>
+                <default>false</default>
+                <label>Card Dispute Agent</label>
+            </value>
+            <value>
                 <fullName>Support Staff ARC</fullName>
                 <default>false</default>
                 <label>Support Staff AR&amp;C</label>

@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Goods_Or_Services_Returned__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <complianceGroup>Privacy - Non Personal Information;Source - Salesforce;Integrity - Trusted</complianceGroup>
     <description>Did the customer attempt to return the goods or services?</description>
     <externalId>false</externalId>
     <label>Goods Or Services Returned</label>
@@ -17,12 +17,12 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Y</fullName>
+                <fullName>Yes</fullName>
                 <default>false</default>
                 <label>Yes</label>
             </value>
             <value>
-                <fullName>N</fullName>
+                <fullName>No</fullName>
                 <default>false</default>
                 <label>No</label>
             </value>

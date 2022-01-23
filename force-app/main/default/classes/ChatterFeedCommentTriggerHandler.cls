@@ -19,9 +19,57 @@ public with sharing class ChatterFeedCommentTriggerHandler extends Lib_TriggerHa
   /**
    * @description  Mask the comments where applicable.
    */
+  @SuppressWarnings('PMD.CyclomaticComplexity')
   public override void onApplyDefaults() {
+    List<Id> parentIdList = new List<Id>();
     for (FeedComment record : (List<FeedComment>) records) {
-      record.CommentBody = TextUtils.maskData(record.CommentBody);
+      parentIdList.add(record.parentId);
+    }
+    Map<Id, Case> relatedCaseMap = new Map<Id, Case>(
+      [SELECT Id, CaseNumber, RecordTypeId FROM Case WHERE Id IN :parentIdList]
+    );
+    Map<Id, Account> relatedAccMap = new Map<Id, Account>(
+      [SELECT Id, Name, ANZx_Customer__c FROM Account WHERE Id IN :parentIdList]
+    );
+
+    for (FeedComment record : (List<FeedComment>) records) {
+      Case relatedCase = relatedCaseMap.get(record.parentId);
+      Account relatedAcc = relatedAccMap.get(record.parentId);
+      if (
+        (relatedCase != null &&
+        GetHelpCaseActionsHelper.isANZPlusCaseType(relatedCase)) ||
+        (relatedAcc != null &&
+        relatedAcc.ANZx_Customer__c == true)
+      ) {
+        record.CommentBody = TextUtils.maskDataAnzx(record.CommentBody);
+        if (TextUtils.reactiveLogging(record.CommentBody)) {
+          lib_systemLog log = new lib_systemLog(
+            'ChatterFeedCommentTriggerHandler',
+            'onApplyDefaults'
+          );
+          if (relatedCase != null) {
+            log.info(
+              'CaseNumber: ' +
+              relatedCase.CaseNumber +
+              '; Comment Body: ' +
+              record.CommentBody +
+              '; Reason for logging: User entered long digits without needing to mask'
+            );
+          } else {
+            log.info(
+              'CaseNumber: ' +
+              relatedAcc.Name +
+              '; Comment Body: ' +
+              record.CommentBody +
+              '; Reason for logging: User entered long digits without needing to mask'
+            );
+          }
+
+          log.insertLogAsync();
+        }
+      } else {
+        record.CommentBody = TextUtils.maskData(record.CommentBody);
+      }
       if (
         record.CommentType == 'ContentPost' &&
         record.RelatedRecordId != null

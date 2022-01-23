@@ -1,0 +1,106 @@
+# .forceignore v2
+
+# This forceignore is only used by harness CI/CD, not when making scratch org
+
+*.md
+package.xml
+
+# LWC configuration files
+**/jsconfig.json
+**/.eslintrc.json
+
+# LWC Jest
+**/__tests__/**
+
+# Avoid weird conflicts and deployment errors
+**appMenu
+**appSwitcher
+**profileSessionSettings
+**profilePasswordPolicies
+
+# Profiles not to pull nor push
+# 2 entries per profile as per https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_exclude_source.htm
+force-app/main/default/profiles/Trial Customer Portal User.profile-meta.xml
+Trial Customer Portal User.profile
+#force-app/main/default/profiles/Admin.profile-meta.xml
+
+# SFDX based permissions that are only available in Production
+force-app/main/default/permissionsets/SFDX_Full_Dev_Hub_Access.permissionset-meta.xml
+
+# Ignoring sharing rules for now until the dx issue is fixed https://github.com/forcedotcom/cli/issues/136
+# The sharing rule calculations makes scratch org creation to timeout with error sharing operation already in progress
+force-app/main/default/sharingRules/Access_Request__c.sharingRules-meta.xml
+force-app/main/default/sharingRules/Account.sharingRules-meta.xml
+force-app/main/default/sharingRules/Case.sharingRules-meta.xml
+force-app/main/default/sharingRules/User.sharingRules-meta.xml
+
+# Don't pull because delegated authenticaton (and therefore IsSsoEnabled permission) cannot currently be enabled in scratch orgs
+Enforce_SSO.permissionset
+
+# Add this report because this will cause unexpected error in scratch orgs
+force-app/main/default/reports/Knowledge_Reports/New_Knowledge_Article_with_Votes_I9l.report-meta.xml
+
+# Obscure setting that is introduced each time a Health Check (Baseline Hardening) is run and actioned
+SingleSignOn.settings
+
+#auth provider to make the build pass and we do the manual deployment later
+force-app/main/default/authproviders/Azure_AD_Custom_OIDC.authprovider-meta.xml
+
+# Ignoring PSL that does not exist in scratch org (not yet supported in scratch definition)
+force-app/main/default/permissionsets/myTrailhead_PSL.permissionset-meta.xml
+
+#Ignoring Jest tests as per https://developer.salesforce.com/docs/component-library/documentation/en/lwc/lwc.unit_testing_using_jest_create_tests
+**/__tests__/**
+
+#Ignoring these objects/fields as they aren't used. Ignored as per https://jira.service.anz/browse/ABT-27699
+force-app/main/default/objects/ServiceAppointment/
+force-app/main/default/objects/ServiceResource/
+force-app/main/default/objects/ServiceTerritory/
+force-app/main/default/objects/WorkTypeGroup/
+force-app/main/default/objects/Location/
+force-app/main/default/objects/Opportunity/
+force-app/main/default/objects/Individual/
+force-app/main/default/objects/FinServ__Securities__c/
+force-app/main/default/objects/FinServ__ReciprocalRole__c/
+force-app/main/default/objects/FinServ__RollupByLookupConfig__c/
+force-app/main/default/objects/SocialPost/
+force-app/main/default/objects/Campaign/
+force-app/main/default/objects/ContactRequest/
+force-app/main/default/objects/FinServ__FinancialAccountRole__c/fields/FinServ__RelatedContact__c.field-meta.xml
+force-app/main/default/objects/FinServ__FinancialAccountRole__c/fields/FinServ__SourceSystemId__c.field-meta.xml
+force-app/main/default/objects/FinServ__FinancialGoal__c/fields/FinServ__Household__c.field-meta.xml
+force-app/main/default/objects/FinServ__FinancialGoal__c/fields/FinServ__SourceSystemId__c.field-meta.xml
+force-app/main/default/flows/Outbound_New_Appointment.flow-meta.xml
+force-app/main/default/quickActions/Account.New_Appointment.quickAction-meta.xml
+force-app/main/default/objects/FinServ__FinancialGoal__c
+force-app/main/default/layouts/FinServ__FinancialGoal__c-FinServ__Financial Goal Layout.layout-meta.xml
+
+#Ignoring apex classes below as they have been renamed
+force-app/main/default/classes/EverydayAccountController.cls
+force-app/main/default/classes/FinancialGoalsComponentController.cls
+force-app/main/default/classes/UpdateAccountsAndGoals.cls
+force-app/main/default/messageChannels/FinancialAccountsGoalsUpdate.messageChannel-meta.xml
+force-app/main/default/classes/GetAccountsAndGoals.cls
+force-app/main/default/classes/utils/CommonUtils.cls
+
+#Ignore Knowledge validation status field as it is not supported in metadata API
+KnowledgeValidationStatus
+type:DataCategoryGroup
+
+#Ignoring deleted platform event for Nov 10 develop merge - CMOS
+force-app/main/default/objects/IDR_CRC_Escalation_Event__e
+
+force-app/main/default/permissionsets/SFDX_Deploy.permissionset-meta.xml
+
+#Ignore Urgent Dishonour Request dispute type, the deletion will be done as a pre-deployment step 
+#as metadata API does not support deleting record type, to avoid destructive change error
+force-app/main/default/objects/Case/recordTypes/Urgent_Dishonour_Request_Dispute.recordType-meta.xml
+
+#Temporarily ignoring deleted Process/Flow 'Case_SLA_Notification' until it's removed form source code and prod.
+# Below line can be removed once it's removed from prod.
+force-app/main/default/flows/Case_SLA_Notification.flow-meta.xml
+force-app/main/default/flows/Send_Notification_to_New_User.flow-meta.xml
+
+#ANZX-29577 Ignoring Knowledge Process to force engineers to deploy this manually and do a post deployment step
+#to re-reference the queue otherwise the flow will not pick up the correct Queue Id in the destination environment
+force-app/main/default/flows/Knowledge_Process.flow-meta.xml

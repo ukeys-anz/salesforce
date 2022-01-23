@@ -10,8 +10,9 @@ OR(
 ISPICKVAL(Card_In_Possession_During_Transaction__c,&apos;&apos;),
 ISPICKVAL(Has_The_Card_Been_Stopped__c,&apos;&apos;),
 ISPICKVAL(Card_In_Possession_During_Transaction__c,&apos;NA&apos;),
-ISPICKVAL(Has_The_Card_Been_Stopped__c,&apos;NA&apos;)
+ISPICKVAL(Has_The_Card_Been_Stopped__c,&apos;NA&apos;),
+ISBLANK(Description)
 )
 )</errorConditionFormula>
-    <errorMessage>These fields are required: Card In Possession During Transaction, Has The Card Been Stopped.</errorMessage>
+    <errorMessage>These fields are required: Description of Issue, Card In Possession During Transaction, Has The Card Been Stopped.</errorMessage>
 </ValidationRule>

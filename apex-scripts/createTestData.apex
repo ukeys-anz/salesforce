@@ -23,7 +23,8 @@ for (Integer i = 0; i < personAccount_count; i++) {
     OCV_ID__c = faker.randomString(10) + String.valueOf(i),
     ANZx_Customer__c = true,
     RecordTypeId = presonAccountRTId,
-    External_Id__c = faker.randomString(15) + String.valueOf(i)
+    External_Id__c = faker.randomString(15) + String.valueOf(i),
+    PPID__C = 'CHc6ad9b34eb3e4788a12eb1caa07aefd5'
   );
   personAccounts.add(acc);
 }

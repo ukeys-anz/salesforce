@@ -43,7 +43,7 @@
       "name": "CFMS Integration User",
       "profile": "Integration User",
       "permissionsetgroups": [],
-      "permissionsets": ["Enforce_mTLS", "IDR_CFMS_Integration"],
+      "permissionsets": ["Enforce_mTLS", "IDR_CFMS_Migration"],
       "type": "system"
     },
     {
@@ -82,7 +82,7 @@
         "API_Only",
         "Key_Manager",
         "SFDX_GCB",
-        "EinsteinAnalyticsPlusAdmin",
+        "force__EinsteinAnalyticsPlusAdmin",
         "SFDX_Deploy"
       ],
       "type": "system"
@@ -167,6 +167,7 @@
     {
       "name": "PEGA Integration User",
       "profile": "Integration User",
+      "permissionsetgroups": [],
       "permissionsets": ["API_Only", "Enforce_mTLS", "PEGA_Integration"],
       "type": "system"
     },
