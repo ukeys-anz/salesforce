@@ -31,6 +31,16 @@
                 <default>false</default>
                 <label>Reinstate the IDR resolution</label>
             </value>
+            <value>
+                <fullName>Incomplete IDR Resolution</fullName>
+                <default>false</default>
+                <label>Incomplete IDR Resolution</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
