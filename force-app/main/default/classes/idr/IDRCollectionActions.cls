@@ -62,6 +62,7 @@ public with sharing class IDRCollectionActions {
   public static void validateAccNumberPattern(Case record, Case oldRecord) {
     if (record.recordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID) {
       if (
+        String.isNotBlank(record.IDR_Account_Card_Policy_Number__c) &&
         record.IDR_Account_Card_Policy_Number__c !=
         oldRecord.IDR_Account_Card_Policy_Number__c &&
         record.IDR_Account_Card_Policy_Number__c != ACC_NUMBER_NA &&
@@ -70,6 +71,7 @@ public with sharing class IDRCollectionActions {
         record.addError(IDRConstants.INVALID_ACC_NO_MESSAGE);
       }
       if (
+        String.isNotBlank(record.IDR_Account_Card_Policy_Number_2__c) &&
         record.IDR_Account_Card_Policy_Number_2__c !=
         oldRecord.IDR_Account_Card_Policy_Number_2__c &&
         record.IDR_Account_Card_Policy_Number_2__c != ACC_NUMBER_NA &&
@@ -78,6 +80,7 @@ public with sharing class IDRCollectionActions {
         record.addError(IDRConstants.INVALID_ACC_NO_MESSAGE);
       }
       if (
+        String.isNotBlank(record.IDR_Account_Card_Policy_Number_3__c) &&
         record.IDR_Account_Card_Policy_Number_3__c !=
         oldRecord.IDR_Account_Card_Policy_Number_3__c &&
         record.IDR_Account_Card_Policy_Number_3__c != ACC_NUMBER_NA &&
@@ -311,13 +314,18 @@ public with sharing class IDRCollectionActions {
     String subject,
     String accountNumber
   ) {
+    String taskType = '';
+    taskType = subject.contains('Collection')
+      ? IDRConstants.TASK_TYPE_COLLECTION
+      : IDRConstants.TASK_TYPE_COMPLIANTS_FLAG;
     return new Task(
       RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID,
       IDR_Collection_Number__c = accountNumber,
       WhatId = c.Id,
       Subject = subject + accountNumber,
       Status = 'Completed',
-      Priority = 'High'
+      Priority = 'High',
+      Type = taskType
     );
   }
 
@@ -489,7 +497,7 @@ public with sharing class IDRCollectionActions {
             AND WhatId IN (
               SELECT id
               FROM case
-              WHERE isClosed = false OR Id IN :caseIds
+              WHERE isClosed = FALSE OR Id IN :caseIds
             )
         ]) {
           if (

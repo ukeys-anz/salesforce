@@ -3,6 +3,7 @@
     <fullName>IDR_Account_Card_Policy_Number_3__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_Salesforce;Integrity_Trusted;Privacy_Personal_Information</complianceGroup>
+    <defaultValue>&quot;N/A&quot;</defaultValue>
     <description>Account/Policy the issue relates to. Contents will be automatically masked leaving last 4 digits identifiable.</description>
     <encryptionScheme>ProbabilisticEncryption</encryptionScheme>
     <externalId>false</externalId>

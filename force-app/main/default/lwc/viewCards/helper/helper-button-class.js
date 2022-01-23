@@ -187,9 +187,10 @@ const buttonConfigObject = {
 
 // CSS class for button div according to the number of buttons on a card
 const cardButtonContainerClassName = (card) => {
-  card.className = card.buttons.length > 3 ? "allButtonsContainer" : "buttonsContainer";
+  card.className =
+    card.buttons.length > 3 ? "allButtonsContainer" : "buttonsContainer";
   return card;
-}
+};
 
 // for each card: will make a buttons array according to button schema and make the cards to have new schema with cards.buttons
 export function createButtonsFromArray(cards, userPermission) {

@@ -404,6 +404,10 @@
                 <behavior>Edit</behavior>
                 <field>IDR_AFCA_Due_Date__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_AFCA_EDR_impact__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>

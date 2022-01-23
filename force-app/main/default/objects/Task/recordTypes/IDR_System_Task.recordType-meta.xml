@@ -897,5 +897,21 @@
             <fullName>Pend Case</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>Systemic Issue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Collections</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Complaints Flag</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Notification</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
 </RecordType>
