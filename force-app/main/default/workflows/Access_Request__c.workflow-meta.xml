@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
     <fieldUpdates>
+        <fullName>Approver_ID</fullName>
+        <description>Sets the Approver ID on the original PAM Access approved from the PAM Queue Approver</description>
+        <field>Approver_ID__c</field>
+        <formula>$User.Id</formula>
+        <name>Set Approver ID</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>Set_Status_to_Approved</fullName>
         <description>Set record &apos;Status&apos; to &quot;Approved&quot;</description>
         <field>Status__c</field>

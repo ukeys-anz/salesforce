@@ -411,5 +411,4 @@ describe("c-idr-restricted-cases suite", () => {
       });  
     });
   });
-
 });

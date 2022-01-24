@@ -1,0 +1,43 @@
+{
+  "cases": {
+    "create": [
+      {
+        "create_dataId": "001",
+        "type": "General_Enquiry",
+        "accountName": "default",
+        "channelReceived": "Email",
+        "issueType": "Cards",
+        "issueSubType": "Lost or stolen card"
+      },
+      {
+        "create_dataId": "002",
+        "type": "General_Enquiry",
+        "accountName": "default",
+        "channelReceived": "Email",
+        "issueType": "Cards",
+        "issueSubType": "Damaged card"
+      }
+    ],
+    "edit": [
+      {
+        "edit_dataId": "001",
+        "caseNumber": "10009090",
+        "type": "General_Enquiry",
+        "accountName": "default",
+        "channelReceived": "Email",
+        "issueType": "Cards",
+        "status": "Closed",
+        "issueSubType": "Lost or stolen card"
+      }
+    ],
+    "verify": [
+      {
+        "verify_dataId": "001",
+        "caseNumber": "10009090",
+        "type": "General_Enquiry",
+        "issueType": "Cards",
+        "issueSubType": "Lost or stolen card"
+      }
+    ]
+  }
+}

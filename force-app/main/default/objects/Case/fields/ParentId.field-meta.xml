@@ -4,12 +4,13 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_Salesforce;Integrity_Accurate;Privacy_Non_Personal_Information</complianceGroup>
     <description>Identification number of case that was first initiated and relates to this case.</description>
+    <inlineHelpText>Check the Related Cases section in the Related tab for any other cases linked to this case.</inlineHelpText>
     <lookupFilter>
         <active>true</active>
         <filterItems>
             <field>Case.ParentId</field>
             <operation>equals</operation>
-            <value/>
+            <value></value>
         </filterItems>
         <infoMessage>To stop creating grand parent or grand child cases</infoMessage>
         <isOptional>false</isOptional>
