@@ -232,7 +232,7 @@ public with sharing class TransactionHistoryModel extends CalloutModel {
    */
   public class Exchange_rate {
     @AuraEnabled
-    public Integer value;
+    public Double value;
   }
 
   /**

@@ -338,15 +338,7 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>UserProvisioningRequestTest</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>UserTriggerHandlerTest</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>UPRAfterActions</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -359,14 +351,6 @@
     </classAccesses>
     <classAccesses>
         <apexClass>UserProvisioningCommonActions</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>UserProvisioningRequestHandler</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>UserProvisioningRestService</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>

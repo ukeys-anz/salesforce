@@ -19,6 +19,10 @@ if (!users.isEmpty() && !roles.isEmpty()) {
       updateUser.add(
         new User(Id = u.Id, UserRoleId = roleNameToId.get('Banker'))
       );
+    } else if (u.Alias.contains('UUser')) {
+      updateUser.add(
+        new User(Id = u.Id, UserRoleId = roleNameToId.get('Coach'))
+      );
     }
   }
   Database.update(updateUser);

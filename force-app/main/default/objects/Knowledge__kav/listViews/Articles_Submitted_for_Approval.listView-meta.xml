@@ -16,6 +16,8 @@
     </filters>
     <label>Articles Submitted for Approval</label>
     <sharedTo>
+        <role>Coach_Lead</role>
         <role>Content_Writer</role>
+        <role>IDR_Content_Writer</role>
     </sharedTo>
 </ListView>

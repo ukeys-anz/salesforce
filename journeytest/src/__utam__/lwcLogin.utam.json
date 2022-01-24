@@ -1,0 +1,78 @@
+{
+  "root": true,
+  "selector": {
+    "css": "body"
+  },
+  "elements": [
+    {
+      "name": "loginForm",
+      "selector": {
+        "css": "[id='theloginform']"
+      },
+      "public": true,
+      "elements": [
+        {
+          "name": "username",
+          "selector": {
+            "css": "[name='username']"
+          },
+          "public": true,
+          "type": "editable"
+        },
+        {
+          "name": "password",
+          "selector": {
+            "css": "[id='password']"
+          },
+          "public": true,
+          "type": "editable"
+        },
+        {
+          "name": "loginButton",
+          "selector": {
+            "css": "[name='Login']"
+          },
+          "public": true,
+          "type": "clickable"
+        }
+      ]
+    },
+    {
+      "name": "rightBody",
+      "selector": {
+        "css": "[id='right']"
+      }
+    }
+  ],
+  "methods": [
+    {
+      "name": "submitForm",
+      "compose": [
+        {
+          "element": "username",
+          "apply": "setText",
+          "args": [
+            {
+              "type": "string",
+              "name": "userName"
+            }
+          ]
+        },
+        {
+          "element": "password",
+          "apply": "setText",
+          "args": [
+            {
+              "type": "string",
+              "name": "passWord"
+            }
+          ]
+        },
+        {
+          "element": "loginButton",
+          "apply": "click"
+        }
+      ]
+    }
+  ]
+}

@@ -45,6 +45,7 @@ public with sharing class GetHelpCaseActions {
    * 2. Handle Populate Case Subject- Check the case type and populate its subject accordingly.
    * 3. Validate Parent Case - Validates the case record and throws an error if the record is having child cases
    * 4. Complete milestones - updates the milestone to closed when the case status is updated to clsoed
+   * 5. Automatically assign dispute cases to relevant queues
    * @param oldMap This Map<Id, SObject> contains the map which holds the previous values which can be used to check what value has changed in onBeforeUpdate. Example to check if the Case Status value has changed we use the following to check record.Status != ((Case) oldMap.get(record.id)).Status
    * @param records from the trigger
    */
@@ -132,6 +133,10 @@ public with sharing class GetHelpCaseActions {
         System.now()
       );
     }
+    GetHelpCaseAssignmentRules.assignDisputeCases(
+      records,
+      (Map<Id, Case>) oldMap
+    );
   }
 
   /**
@@ -444,6 +449,35 @@ public with sharing class GetHelpCaseActions {
   }
 
   /**
+   * @description This method masks case notes and description of issue fields
+   * to be ANZ Plus specific
+   * @param record the record we are updating
+   */
+  public static void maskTaxNumbers(Case record) {
+    record.Description = TextUtils.maskDataAnzx(record.Description);
+    record.Comments = TextUtils.maskDataAnzx(record.Comments);
+    if (
+      TextUtils.reactiveLogging(record.Description) ||
+      TextUtils.reactiveLogging(record.Comments)
+    ) {
+      lib_systemLog log = new lib_systemLog(
+        'GetHelpCaseActions',
+        'maskTaxNumbers'
+      );
+      log.info(
+        'CaseNumber: ' +
+        record.CaseNumber +
+        '; Description: ' +
+        record.Description +
+        '; Notes: ' +
+        record.Comments +
+        '; Reason for logging: User entered long digits without needing to mask'
+      );
+      log.insertLogAsync();
+    }
+  }
+
+  /**
    * @description Escalates the Record to CMOS IDR Everyday Banking Queue
    * @param records The record list to which we escalate
    */
@@ -454,14 +488,18 @@ public with sharing class GetHelpCaseActions {
   /**
    * @description applyDefaults is called onBeforeInsert to set the following values as defaults
    * 1. Update business hours field to match ANZ Plus business hours
+   * 2. Mask description and comments fields if it contains sensitive information
+   * 3. Automatically assign dispute cases to relevant queues
    * @param records The record list form which we need to apply defaults
    */
   public static void applyDefaults(List<Case> records) {
     for (Case record : records) {
       if (GetHelpCaseActionsHelper.isANZPlusCaseType(record)) {
         setBusinessHours(record);
+        maskTaxNumbers(record);
       }
     }
+    GetHelpCaseAssignmentRules.assignDisputeCases(records, null);
   }
 
   /**

@@ -1,0 +1,32 @@
+{
+  "root": true,
+  "selector": {
+    "css": "body"
+  },
+  "elements": [
+    {
+      "name": "username",
+      "selector": {
+        "css": "[id='username']"
+      },
+      "public": true,
+      "type": "editable"
+    },
+    {
+      "name": "login",
+      "selector": {
+        "css": "[id='login']"
+      },
+      "public": true,
+      "type": "clickable"
+    },
+    {
+      "name": "password",
+      "selector": {
+        "css": "[id='password']"
+      },
+      "public": true,
+      "type": "editable"
+    }
+  ]
+}

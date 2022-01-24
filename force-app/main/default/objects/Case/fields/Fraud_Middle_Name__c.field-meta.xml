@@ -5,12 +5,12 @@
     <complianceGroup>Privacy_Non_Personal_Information;Integrity_Trusted;Source_Salesforce</complianceGroup>
     <description>Check:
 
-If a middle name or initial exists on the document it is recorded on customer profile as a matching name AND if a middle initial exists in SalesForce then obtain the full middle name. </description>
+If a middle name exists on the identity document then the full form of the middle name is recorded on the customer profile in Fenergo </description>
     <externalId>false</externalId>
     <inlineHelpText>Check:
 
-If a middle name or initial exists on the document it is recorded on customer profile as a matching name AND if a middle initial exists in SalesForce then obtain the full middle name. </inlineHelpText>
-    <label>Middle Name Matches</label>
+If a middle name exists on the identity document then the full form of the middle name is recorded on the customer profile in Fenergo </inlineHelpText>
+    <label>Middle Name Missing</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
