@@ -3,6 +3,7 @@
     <fullName>Party_who_sent_created_file__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Details of the party who sent or created the file</description>
     <externalId>false</externalId>
     <label>Party who sent/created file</label>
     <required>false</required>

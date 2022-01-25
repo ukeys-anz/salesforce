@@ -62,6 +62,11 @@
         <label>Source - CTM</label>
     </standardValue>
     <standardValue>
+        <fullName>Source_EDRM</fullName>
+        <default>false</default>
+        <label>Source - EDRM</label>
+    </standardValue>
+    <standardValue>
         <fullName>Source_Fabric</fullName>
         <default>false</default>
         <label>Source - Fabric</label>
@@ -90,5 +95,10 @@
         <fullName>Source_Zafin</fullName>
         <default>false</default>
         <label>Source - Zafin</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Source_ANZPlusWebsite</fullName>
+        <default>false</default>
+        <label>Source - ANZ Plus Website</label>
     </standardValue>
 </StandardValueSet>
