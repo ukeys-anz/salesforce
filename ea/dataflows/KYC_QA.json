@@ -27,6 +27,14 @@
             "saqlExpression": "daysBetween(toDate(CreatedDate_sec_epoch) , now())",
             "scale": 1,
             "type": "Numeric"
+          },
+          {
+            "defaultValue": "0",
+            "label": "CaseDurationEpoch",
+            "name": "CaseDurationEpoch",
+            "precision": 10,
+            "saqlExpression": "(ClosedDate_sec_epoch - CreatedDate_sec_epoch)",
+            "type": "Text"
           }
         ],
         "mergeWithSource": true
@@ -81,7 +89,9 @@
           { "name": "IsClosed" },
           { "name": "Fraud_Citizenship_Updated__c" },
           { "name": "Fraud_Address_Valid__c" },
-          { "name": "AccountId" }
+          { "name": "AccountId" },
+          { "name": "Fraud_Selfie_Match__c" },
+          { "name": "Case_Hour_Duration__c" }
         ],
         "object": "Case"
       }
