@@ -13,7 +13,7 @@ describe("c-create-complaint-l-w-c", () => {
 
   function flushPromises() {
     // eslint-disable-next-line no-undef
-    return new Promise(resolve => setImmediate(resolve));
+    return new Promise((resolve) => setImmediate(resolve));
   }
 
   it("display all sections in the form", () => {
@@ -486,6 +486,71 @@ describe("c-create-complaint-l-w-c", () => {
           const saveButton = element.shadowRoot.querySelector(".saveButton");
           saveButton.click();
         });
+      });
+    });
+  });
+
+  it("check express cmos functionality", () => {
+    const element = createElement("c-create-complaint-l-w-c", {
+      is: CreateComplaintForm
+    });
+    element.recordTypeDevName = "Customer_Complaint";
+    document.body.appendChild(element);
+
+    const expressCMOSElement = element.shadowRoot.querySelector(
+      "c-idr-express-complaint"
+    );
+    expect(expressCMOSElement).not.toBe(null);
+    expressCMOSElement.dispatchEvent(
+      new CustomEvent("togglechecked", { detail: { value: true } })
+    );
+    return Promise.resolve().then(() => {
+      const issueTypeElement = element.shadowRoot.querySelector(
+        '[data-id="issueType-id"]'
+      );
+      expect(issueTypeElement).not.toBe(null);
+    });
+  });
+
+  it("check express cmos data load", () => {
+    const element = createElement("c-create-complaint-l-w-c", {
+      is: CreateComplaintForm
+    });
+    element.recordTypeDevName = "Customer_Complaint";
+    document.body.appendChild(element);
+    const expressCMOSElement = element.shadowRoot.querySelector(
+      "c-idr-express-complaint"
+    );
+    expressCMOSElement.dispatchEvent(
+      new CustomEvent("togglechecked", { detail: { value: true } })
+    );
+    return Promise.resolve().then(() => {
+      expressCMOSElement.dispatchEvent(
+        new CustomEvent("selected", {
+          detail: {
+            IDR_Issue_Type__c: "13",
+            IDR_Sub_Issue_Type__c: "9",
+            Product__c: "01t2O000000vtZMQAY",
+            IDR_Description_of_Issue__c: "Test",
+            IDR_Customer_Desired_Outcome__c: "Test",
+            IDR_Is_there_another_issue__c: false,
+            IDR_Written_Response_Requested__c: "No",
+            IDR_Written_Response_Required__c: "No",
+            IDR_REAL_Form_Required__c: false,
+            IDR_Possible_Systemic_Issue__c: "No",
+            IDR_Status__c: "Closed",
+            IDR_Complaint_Outcome__c: "1",
+            IDR_Description_of_Outcome__c: "Test",
+            IDR_Complaint_Remedy__c: "2",
+            IDR_Non_Financial_Remedy__c: "1"
+          }
+        })
+      );
+      return Promise.resolve().then(() => {
+        const descriptionElement = element.shadowRoot.querySelector(
+          '[data-id="descOfIssue-id"]'
+        );
+        expect(descriptionElement.value).toBe("Test");
       });
     });
   });

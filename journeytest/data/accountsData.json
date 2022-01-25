@@ -1,0 +1,16 @@
+{
+  "accounts": [
+    {
+      "accountDataId": "001",
+      "type": "EVERYDAY",
+      "name": "default",
+      "number": "210406252"
+    },
+    {
+      "accountDataId": "002",
+      "type": "SAVINGS",
+      "name": "default",
+      "number": "210406252"
+    }
+  ]
+}
