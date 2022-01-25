@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "outDir": "./build",
+    "moduleResolution": "Node",
+    "strict": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "baseUrl": "src",
+    "types": [
+      "node",
+      "utam",
+      "@wdio/mocha-framework",
+      "webdriverio",
+      "wdio-utam-service",
+      "expect-webdriverio",
+      "webdriverio/sync"
+    ],
+    "paths": {
+      "@pageObjects/*": ["pageObjects/*"]
+    },
+    "target": "es6"
+  },
+  "include": [
+    "./src/**/*.ts",
+    "./src/**/*.js",
+    "./src/**/*.d.ts"
+  ]
+}

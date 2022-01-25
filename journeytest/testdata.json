@@ -1,0 +1,32 @@
+{
+  "envToTest": "testsandbox",
+  "environments": [
+    {
+      "testsandbox": {
+        "url": "https://anz--test.my.salesforce.com/",
+        "username": "***@anz.com.test",
+        "password": "***"
+      }
+    }
+  ],
+  "accounts": [
+    {
+      "case_creation": {
+        "ocv": "1000978982",
+        "name": "LonnyANZx Abshire"
+      }
+    },
+    {
+      "case_creation": {
+        "ocv": "1000755186",
+        "name": "SNOWS JOHNS JOSHUA"
+      }
+    }
+  ],
+  "twilio": [
+    {
+      "user": "***@anznp.com",
+      "pwd": "***"
+    }
+  ]
+}
