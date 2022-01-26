@@ -1357,7 +1357,7 @@
     },
     "text_3": {
       "parameters": {
-        "content": { "displayTemplate": "Current Ticket Status\n\n" },
+        "content": { "displayTemplate": "Current Ticket Status\n" },
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
@@ -1523,7 +1523,7 @@
     },
     "text_7": {
       "parameters": {
-        "content": { "displayTemplate": "\n\n\n" },
+        "content": { "displayTemplate": "\n\n\n\n" },
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
@@ -1669,7 +1669,7 @@
     },
     "text_1": {
       "parameters": {
-        "content": { "displayTemplate": "Total Cases: \n\n" },
+        "content": { "displayTemplate": "Total Cases: \n" },
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",

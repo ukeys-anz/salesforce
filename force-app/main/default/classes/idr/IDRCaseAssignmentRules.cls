@@ -97,10 +97,27 @@ public with sharing class IDRCaseAssignmentRules {
   }
 
   /**
-   * @description method to get a map of workbasket queues, API names and Ids
+   * @description method to get a map of Cmos workbasket queues, API names and Ids
    * @return a map of workbasket queues, API names and Ids
    */
-  private static Map<String, Id> getWorkbaskets() {
+  public static Map<String, Id> getWorkbaskets() {
+    return getWorkbaskets(IDRConstants.workBasketNames);
+  }
+
+  /**
+   * @description method to get a map of ANZx workbasket queues, API names and Ids
+   * @return a map of workbasket queues, API names and Ids
+   */
+  public static Map<String, Id> getAnzxWorkbaskets() {
+    return getWorkbaskets(GetHelpConstants.workBasketNames);
+  }
+
+  /**
+   * @description method to get a map of workbasket queues, API names and Ids
+   * @param workBasketNames list of work basket names that can be included in the list
+   * @return a map of workbasket queues, API names and Ids
+   */
+  public static Map<String, Id> getWorkbaskets(List<String> workBasketNames) {
     Map<String, Id> queueMap = new Map<String, Id>();
     Group[] queueList = new List<Group>();
     if (Group.sObjectType.getDescribe().isQueryable()) {
@@ -108,7 +125,7 @@ public with sharing class IDRCaseAssignmentRules {
         SELECT id, developername
         FROM Group
         WHERE
-          developername IN :IDRConstants.workBasketNames
+          developername IN :workBasketNames
           AND Type = :IDRCaseActions.QUEUE_TYPE
       ];
     }

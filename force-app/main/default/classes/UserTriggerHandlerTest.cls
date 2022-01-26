@@ -15,12 +15,6 @@ public class UserTriggerHandlerTest {
   static void testUserInsert() {
     Profile p = CommonUtil.getProfileByName('ANZ Standard User');
 
-    User_Provisioning_Request__c upr = new User_Provisioning_Request__c();
-    upr.Requestor_UUID__c = 'Test1';
-    upr.Type__c = 'Grant';
-
-    insert upr;
-
     for (Integer i = 0; i < 3; i++) {
       testUsers.add(TestUtil.createTestUser());
     }
@@ -30,8 +24,6 @@ public class UserTriggerHandlerTest {
       usr.Business_Function__c = 'Test Business Function ';
       usr.Business_Role__c = 'Business Role';
     }
-
-    testUsers[2].FederationIdentifier = upr.Requestor_UUID__c;
 
     Test.startTest();
 

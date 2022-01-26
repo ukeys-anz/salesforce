@@ -1,0 +1,30 @@
+{
+  "root": true,
+  "selector": {
+    "css": "slot"
+  },
+  "shadow": {
+    "elements": [
+      {
+        "name": "buttonsByText",
+        "public": true,
+        "selector": {
+          "css": "button",
+          "returnAll": true
+        },
+        "filter": {
+          "apply": "getText",
+          "matcher": {
+            "type": "stringEquals",
+            "args": [
+              {
+                "name": "text",
+                "type": "string"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

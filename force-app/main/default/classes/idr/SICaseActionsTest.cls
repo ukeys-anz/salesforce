@@ -179,6 +179,8 @@ private with sharing class SICaseActionsTest {
     }
     update newComplaints;
 
+    Test.startTest();
+
     //THEN rollup count has updated
     newSIs = [
       SELECT SI_Complaint_Count__c
@@ -225,6 +227,7 @@ private with sharing class SICaseActionsTest {
       newSIs[0].SI_Complaint_Count__c,
       'Counter should have been updated'
     );
+    Test.stopTest();
   }
 
   @isTest

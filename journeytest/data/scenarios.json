@@ -1,0 +1,46 @@
+{
+  "scenarios": [
+    {
+      "id": "scenario_001",
+      "name": "Case Verification",
+      "description": "Verify an existing case based on case number",
+      "customer": "001",
+      "cases": {
+        "action": "create",
+        "id": "001"
+      },
+      "accounts": [
+        {
+          "type": "EVERYDAY",
+          "id": "001"
+        },
+        {
+          "type": "SAVINGS",
+          "id": "001"
+        }
+      ],
+      "card": "001"
+    },
+    {
+      "id": "scenarioCardVerification",
+      "name": "Card Verification",
+      "description": "Verify an existing card details of a customer",
+      "customer": "001",
+      "cases": {
+        "action": "verify",
+        "id": "002"
+      },
+      "accounts": [
+        {
+          "type": "EVERYDAY",
+          "id": "001"
+        },
+        {
+          "type": "SAVINGS",
+          "id": "001"
+        }
+      ],
+      "card": "003"
+    }
+  ]
+}
