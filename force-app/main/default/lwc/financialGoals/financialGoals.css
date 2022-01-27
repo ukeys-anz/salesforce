@@ -1,19 +1,11 @@
 .ring {
   position: relative;
-  margin-top: 50px;
+  margin-top: 40px;
   margin-bottom: 110px;
 }
 
 .field-padding {
   padding: 20px;
-}
-
-.goals {
-  user-select: none;
-  /* iOS Safari */
-  -webkit-touch-callout: none;
-  /* Safari */
-  -webkit-user-select: none;
 }
 
 .slds-card__footer {
@@ -59,12 +51,8 @@
   bottom: 3px;
 }
 
-.in-progress {
+.goal-container {
   min-height: 418px;
-}
-
-.completed {
-  min-height: 195px;
 }
 
 .not-found {
@@ -103,4 +91,20 @@
   font-size: 16px;
   border-radius: 0.25em;
   font-weight: bold;
+}
+
+.goal {
+  cursor: pointer;
+}
+
+.goal:nth-child(n + 4) {
+  margin-top: 10px;
+}
+
+.active {
+  background-color: #eef4ff;
+}
+
+.slds-size_1-of-3 {
+  width: 30%;
 }

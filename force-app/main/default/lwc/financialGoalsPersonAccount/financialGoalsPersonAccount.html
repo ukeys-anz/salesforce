@@ -24,11 +24,17 @@
                   <p
                     class="slds-text-color_weak ellipsis slds-text-heading_small"
                   >
-                    {goal.goal.name}
+                    <a
+                      onclick={navigateToRecordViewPageFilter}
+                      class="slds-truncate"
+                      data-id={goal.id}
+                    >
+                      {goal.goal.name}
+                    </a>
                   </p>
                   <div class="description-tooltip">{goal.goal.name}</div>
                   <template if:true={goal.image}>
-                    <img src={goal.image} class="slds-m-top_medium" />
+                    <img src={goal.image} />
                   </template>
                   <template if:false={goal.image}>
                     <div class="emoji">
@@ -67,6 +73,7 @@
                       <lightning-progress-ring
                         class="progress-ring"
                         value={goal.fillPercent}
+                        size="large"
                       ></lightning-progress-ring>
                       <div class="progress-tooltip slds-text-align_center">
                         {goal.fillPercent}%

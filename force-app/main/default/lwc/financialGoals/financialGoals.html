@@ -1,5 +1,5 @@
 <template>
-  <article class="goals slds-card">
+  <article class="slds-card">
     <h1 class="card-title">
       <lightning-icon
         icon-name="standard:goals"
@@ -14,123 +14,108 @@
       </template>
       <template if:false={error}>
         <div class="slds-card__body slds-card__body_inner padded-card">
-          <article class="slds-card in-progress">
-            <template if:true={goals}>
-              <div class="slds-card__body slds-card__body_inner">
-                <ul class="slds-grid slds-wrap slds-grid_pull-padded">
-                  <template for:each={goals} for:item="finGoal">
-                    <li
-                      class="slds-p-horizontal_small slds-size_1-of-1 slds-medium-size_1-of-1"
-                      key={finGoal.Id}
-                    >
-                      <div
-                        class="slds-card__body slds-card__body_inner"
-                        data-id="goal-body"
-                      >
-                        <article class="slds-card slds-card_boundary">
-                          <div class="slds-card__header slds-grid">
-                            <header class="slds-has-flexi-truncate">
-                              <h2 class="slds-card__header-title">
-                                <a
-                                  onclick={navigateToRecordViewPage}
-                                  data-id={finGoal.Id}
-                                  title={finGoal.name}
-                                >
-                                  <span>{finGoal.name}</span>
-                                </a>
-                              </h2>
-                            </header>
-                          </div>
-                          <div class="slds-grid slds-wrap">
-                            <div class="slds-col slds-grid slds-size_1-of-1">
-                              <div class="slds-grid slds-wrap slds-size_1-of-1">
-                                <div
-                                  class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 field-padding"
-                                >
-                                  <div>
-                                    <p class="field-title slds-text-color_weak">
-                                      Target Value
-                                    </p>
-                                    <p class="slds-text-title_bold">
-                                      {finGoal.targetAmount}
-                                    </p>
-                                  </div>
-                                </div>
-                                <div
-                                  class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 field-padding"
-                                >
-                                  <div>
-                                    <p class="field-title slds-text-color_weak">
-                                      Total Saved
-                                      <lightning-icon
-                                        icon-name="utility:info"
-                                        size="xx-small"
-                                        class="tooltip-modal"
-                                        onclick={handleInfoModal}
-                                        data-id="total-saved-info"
-                                      ></lightning-icon>
-                                    </p>
-                                    <p class="slds-text-title_bold">
-                                      {finGoal.currentBalance}
-                                    </p>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="slds-grid slds-wrap">
-                            <div class="slds-col slds-grid slds-size_1-of-1">
-                              <div class="slds-grid slds-wrap slds-size_1-of-1">
-                                <div
-                                  class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 field-padding"
-                                >
-                                  <div>
-                                    <p class="field-title slds-text-color_weak">
-                                      Target Date
-                                      <lightning-helptext
-                                        class="tooltip"
-                                        content={finGoal.daysRemainingText}
-                                      >
-                                      </lightning-helptext>
-                                    </p>
-                                    <p class="slds-text-title_bold">
-                                      {finGoal.targetDate}
-                                    </p>
-                                  </div>
-                                </div>
-                                <div
-                                  class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 field-padding"
-                                >
-                                  <div>
-                                    <p class="field-title slds-text-color_weak">
-                                      Recommended Savings Amount per Week
-                                      <lightning-helptext
-                                        class="tooltip"
-                                        content="Savings amount is calculated to per week to achieve the goal by the target date."
-                                      >
-                                      </lightning-helptext>
-                                    </p>
-                                    <p class="slds-text-title_bold">
-                                      {finGoal.recommendedSavings}
-                                    </p>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="ring">
-                            <c-progress-ring
-                              progress={finGoal.fillPercent}
-                              emoticon={finGoal.icon}
-                            >
-                            </c-progress-ring>
-                          </div>
-                        </article>
+          <article class="slds-card goal-container">
+            <template if:true={goalList}>
+              <div class="slds-grid slds-wrap" data-id="goal-container">
+                <template for:each={goalList} for:item="goal">
+                  <div
+                    class="slds-col slds-size_1-of-3 slds-box slds-box_small goal slds-p-top_small slds-m-left_small"
+                    key={goal.id}
+                    data-id={goal.id}
+                    onclick={handleFilter}
+                  >
+                    <div class="slds-text-align_center">
+                      <a>{goal.goal.name}</a>
+                      <div class="ring">
+                        <c-progress-ring
+                          progress={goal.fillPercent}
+                          emoticon={goal.emoji}
+                          image={goal.image}
+                        >
+                        </c-progress-ring>
                       </div>
-                    </li>
-                  </template>
-                </ul>
+                    </div>
+                    <div class="slds-grid slds-wrap slds-p-top_small">
+                      <div
+                        class="slds-col slds-size_1-of-2 slds-p-around_x-small"
+                      >
+                        <p class="slds-text-title_bold slds-text-color_weak">
+                          Target Value
+                        </p>
+                        <p class="slds-text-color_weak">
+                          {goal.goal.target_amount.value}
+                        </p>
+                      </div>
+                      <div
+                        class="slds-col slds-size_1-of-2 slds-p-around_x-small"
+                      >
+                        <p class="slds-text-title_bold slds-text-color_weak">
+                          Total Saved
+                          <lightning-icon
+                            icon-name="utility:info"
+                            size="xx-small"
+                            class="tooltip-modal"
+                            onclick={handleInfoModal}
+                            data-id="total-saved-info"
+                          ></lightning-icon>
+                        </p>
+                        <p class="slds-text-color_weak">
+                          <lightning-formatted-number
+                            value={goal.balance.value}
+                            format-style="currency"
+                            data-id="amount"
+                          ></lightning-formatted-number>
+                        </p>
+                      </div>
+                      <div
+                        class="slds-col slds-size_1-of-2 slds-p-around_x-small"
+                      >
+                        <p class="slds-text-title_bold slds-text-color_weak">
+                          Date Started
+                        </p>
+                        <p class="slds-text-color_weak">{goal.created_at}</p>
+                      </div>
+                      <div
+                        class="slds-col slds-size_1-of-2 slds-p-around_x-small"
+                      >
+                        <p class="slds-text-title_bold slds-text-color_weak">
+                          Target Date
+                        </p>
+                        <p class="slds-text-color_weak">
+                          {goal.goal.target_date}
+                        </p>
+                      </div>
+                      <div
+                        class="slds-col slds-size_1-of-1 slds-p-around_x-small"
+                      >
+                        <p class="slds-text-title_bold slds-text-color_weak">
+                          Recommended Weekly Savings
+                          <lightning-helptext
+                            class="tooltip"
+                            content="Savings amount is calculated to per week to achieve the goal by the target date."
+                          >
+                          </lightning-helptext>
+                        </p>
+                        <p class="slds-text-color_weak">
+                          {goal.recommendedSavings}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </template>
               </div>
+              <template if:true={viewMore}>
+                <div
+                  class="slds-grid slds-text-align_center slds-box slds-box_xx-small slds-m-top_large"
+                >
+                  <div class="slds-col">
+                    <button class="slds-button" onclick={handleLoadMore}>
+                      Load More
+                    </button>
+                  </div>
+                </div>
+              </template>
+
               <template if:true={showInfoModal}>
                 <section
                   role="dialog"
@@ -195,7 +180,7 @@
                 <div class="slds-backdrop slds-backdrop_open"></div>
               </template>
             </template>
-            <template if:false={goals}>
+            <template if:false={goalList}>
               <h1 class="slds-card__header-title main-title">
                 <span class="not-found">No Financial Goals</span>
               </h1>

@@ -1,17 +1,7 @@
 import financialGoals from "c/financialGoals";
 import { createElement } from "lwc";
 
-const GOAL_DATA = [
-  {
-    Id: "a0c2O00000197sUQAQ",
-    name: "Savings",
-    accountNumber: "12312312",
-    targetAmount: 50,
-    currentBalance: 50,
-    startDate: "2021-03-05T04:56:48.000+0000",
-    targetDate: "2021-03-05T04:56:48.000+0000"
-  }
-];
+const GOAL_DATA = require("./data/bucketResponse.json");
 
 const EMPTY_GOALS = [];
 
@@ -31,7 +21,9 @@ describe("c-financialGoals", () => {
     element.goalData = GOAL_DATA;
     document.body.appendChild(element);
 
-    let goal = element.shadowRoot.querySelector("div[data-id='goal-body']");
+    let goal = element.shadowRoot.querySelector(
+      "div[data-id='goal-container']"
+    );
 
     expect(goal).toBeTruthy();
   });
@@ -44,7 +36,9 @@ describe("c-financialGoals", () => {
     document.body.appendChild(element);
 
     let error = element.shadowRoot.querySelector("c-error[data-id='error']");
-    let goal = element.shadowRoot.querySelector("div[data-id='goal-body']");
+    let goal = element.shadowRoot.querySelector(
+      "div[data-id='goal-container']"
+    );
 
     expect(error).toBeTruthy();
     expect(goal).toBeFalsy();
@@ -56,7 +50,9 @@ describe("c-financialGoals", () => {
     });
     element.goalData = EMPTY_GOALS;
     document.body.appendChild(element);
-    let goal = element.shadowRoot.querySelector("div[data-id='goal-body']");
+    let goal = element.shadowRoot.querySelector(
+      "div[data-id='goal-container']"
+    );
     expect(goal).toBeFalsy();
   });
 
@@ -66,7 +62,9 @@ describe("c-financialGoals", () => {
     });
     element.goalData = GOAL_DATA;
     document.body.appendChild(element);
-    let goal = element.shadowRoot.querySelector("div[data-id='goal-body']");
+    let goal = element.shadowRoot.querySelector(
+      "div[data-id='goal-container']"
+    );
     let infoButton = element.shadowRoot.querySelector(
       "lightning-icon[data-id='total-saved-info']"
     );

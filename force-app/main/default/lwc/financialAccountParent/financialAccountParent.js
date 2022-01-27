@@ -13,6 +13,7 @@ import FIN_ACCOUNT_OCV_ID from "@salesforce/schema/FinServ__FinancialAccount__c.
 import FIN_ACCOUNT_TYPE from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__FinancialAccountType__c";
 import TRANSACTION_HISTORY_RETRIEVE_ERROR from "c/transactionHistoryService";
 
+import { handleGoalData } from "./helpers/utils";
 import { CurrentPageReference } from "lightning/navigation";
 
 export default class FinancialAccountParent extends LightningElement {
@@ -21,7 +22,7 @@ export default class FinancialAccountParent extends LightningElement {
   financialAccountError;
   financialAccountNumber;
   financialAccountType;
-  goalData = [];
+  goalData = { goalList: [], nextToken: null };
   goalError;
   hasError = false;
   isSavings;
@@ -29,6 +30,8 @@ export default class FinancialAccountParent extends LightningElement {
   ocvId;
   transactionData;
   transactionError;
+  savingsJar;
+  preselectedGoal;
 
   @wire(CurrentPageReference)
   pageRef;
@@ -37,7 +40,8 @@ export default class FinancialAccountParent extends LightningElement {
     recordId: "$recordId",
     fields: [FIN_ACCOUNT_NUMBER, FIN_ACCOUNT_OCV_ID, FIN_ACCOUNT_TYPE]
   })
-  wiredRecord({ data }) {
+  async wiredRecord({ data }) {
+    this.loading = true;
     if (data) {
       this.ocvId = data.fields.OCV_ID__c.value;
       this.financialAccountNumber =
@@ -51,16 +55,17 @@ export default class FinancialAccountParent extends LightningElement {
         this.isSavings = false;
         this.financialAccountType = "checking";
       }
-      this.getFinancialData();
-      // will be part of #5557 & #5559
-      // this.getGoalData();
+      await this.getFinancialData();
+      await this.getGoalData();
       this.getTransactionData();
     }
     this.loading = false;
   }
   connectedCallback() {
     //get url param here for goal filtering
-    console.log(this.pageRef.state);
+    if (this.pageRef?.state?.c__goalId) {
+      this.preselectedGoal = this.pageRef.state.c__goalId;
+    }
   }
   get displayContent() {
     return hasAccountsGoalsPermission;
@@ -98,16 +103,31 @@ export default class FinancialAccountParent extends LightningElement {
     }
   }
 
-  getGoalData() {
+  async getGoalData() {
     this.goalData = [];
-    if (this.isSavings)
+    this.savingsJar = null;
+    if (this.isSavings) {
       try {
-        this.goalData = getAccountBuckets({
-          ocvId: this.ocvId
+        let goalDetails = await getAccountBuckets({ ocvId: this.ocvId });
+        goalDetails = handleGoalData(goalDetails);
+        //Savings jar will always be default, so retrieve it
+        //to pass through to other components that need it
+        this.savingsJar = goalDetails.account_buckets.filter((obj) => {
+          return obj.is_default;
+        })[0];
+        //Remove savings jar as its not displayed on goals component
+        this.goalData.goalList = goalDetails.account_buckets.filter((obj) => {
+          return !obj.is_default;
         });
+        //Check if we have any goals other than savings jar
+        if (this.goalData.goalList.length > 0) {
+          this.goalData.nextToken = goalDetails.next_page_token;
+        } else {
+          this.goalData = null;
+        }
       } catch (error) {
         this.goalError =
-          "Failed to retrieve goal details. Please refresh and try again. If issue persists please contact your System Administrator";
+          "Failed to retrieve latest goal details. Please refresh and try again. If issue persists please contact your System Administrator";
         handleErrorShowToast(
           this,
           "Failed To Retrieve Goal Details",
@@ -116,6 +136,7 @@ export default class FinancialAccountParent extends LightningElement {
           "pester"
         );
       }
+    }
   }
 
   async getTransactionData(
@@ -187,4 +208,15 @@ export default class FinancialAccountParent extends LightningElement {
   //       //ensure getTransactionData is refactored to be run after getGoalData
   //   }
   // }
+
+  //Pagination for buckets not built yet. When merged,
+  //this will be updated to handle it
+  // handleLoadMoreGoals(event) {
+  // }
+
+  handleGoalFilters(event) {
+    if (event?.detail?.goalFilters?.length > 0) {
+      //Call transactions with filter - to be done in ANZX-30884
+    }
+  }
 }

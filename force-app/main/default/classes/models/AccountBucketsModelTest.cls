@@ -12,6 +12,6 @@ public class AccountBucketsModelTest {
       WHERE Name = 'mock_accountBuckets'
     ];
     AccountBucketsModel obj = AccountBucketsModel.parse(sr.body.toString());
-    System.assert(obj.account_buckets.size() == 4);
+    System.assert(obj.account_buckets.size() == 7);
   }
 }

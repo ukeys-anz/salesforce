@@ -23,7 +23,7 @@ public with sharing class AccountBucketsControllerTest {
       AccountBucketsModel response = AccountBucketsController.getAccountBuckets(
         '123'
       );
-      System.assertEquals(4, response.account_buckets.size());
+      System.assertEquals(7, response.account_buckets.size());
       Test.stopTest();
     }
   }

@@ -329,7 +329,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       AccountBucketsModel response = coachAPI.getAccountBuckets('1111');
       Test.stopTest();
 
-      System.assertEquals(4, response.account_buckets.size());
+      System.assertEquals(7, response.account_buckets.size());
     }
   }
 

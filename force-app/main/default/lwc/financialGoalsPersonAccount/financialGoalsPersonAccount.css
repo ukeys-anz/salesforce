@@ -26,7 +26,7 @@
 
 .progress-ring {
   position: relative;
-  bottom: 6px;
+  bottom: 15px;
 }
 
 .description-tooltip {
@@ -93,7 +93,7 @@
 
 .emoji {
   font-size: 80px;
-  margin-top: 44px;
+  margin-top: 48px;
   position: relative;
   bottom: 15px;
 }
