@@ -14,7 +14,7 @@
     <active>true</active>
     <apexClass>TSPHandler</apexClass>
     <developerName>ReportAnomalyEventNotify</developerName>
-    <eventName>ApiAnomalyEventStore</eventName>
+    <eventName>ReportAnomalyEventStore</eventName>
     <masterLabel>Report Anomaly Event Notify</masterLabel>
     <type>CustomApexPolicy</type>
 </TransactionSecurityPolicy>
