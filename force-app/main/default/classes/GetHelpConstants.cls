@@ -68,6 +68,30 @@ public with sharing class GetHelpConstants {
     .get('Compliance_Task')
     .getRecordTypeId();
 
+  public static final String CARD_DISPUTE_FRAUD_QUEUE = 'Card_Dispute_Fraud_Queue';
+  public static final String CARD_DISPUTE_GENERAL_QUEUE = 'Card_Dispute_General_Queue';
+  public static final String DIGITAL_FRAUD_QUEUE = 'Digital_Fraud_Queue';
+  public static final String SUPPORT_COACH_QUEUE = 'Support_Coach_Queue';
+
+  /**
+   * @description Static variable to list ANZX workbaskets' API names
+   * @return List ANZX workbaskets' API names
+   */
+  public static final List<String> workBasketNames {
+    get {
+      if (workBasketNames == null) {
+        workBasketNames = new List<String>{
+          CARD_DISPUTE_FRAUD_QUEUE,
+          CARD_DISPUTE_GENERAL_QUEUE,
+          SUPPORT_COACH_QUEUE,
+          DIGITAL_FRAUD_QUEUE
+        };
+      }
+      return workBasketNames;
+    }
+    set;
+  }
+
   //ANZx Case Status
   public static final String OPEN_STATUS = 'Open';
   public static final String CLOSED_STATUS = 'Closed';

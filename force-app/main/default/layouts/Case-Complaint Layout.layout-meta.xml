@@ -19,6 +19,14 @@
                 <behavior>Edit</behavior>
                 <field>IDR_Customer_Identifier__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>IDR_Known_Issues__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>IDR_Express_CMOS_Complaint__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -27,7 +35,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>IDR_SwitchOff_Customer_Notification__c</field>   
+                <field>IDR_SwitchOff_Customer_Notification__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -490,6 +498,11 @@
     <platformActionList>
         <actionListContext>Record</actionListContext>
         <platformActionListItems>
+            <actionName>Edit</actionName>
+            <actionType>StandardButton</actionType>
+            <sortOrder>0</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
             <actionName>Case.Escalate_Complaint</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>1</sortOrder>
@@ -498,11 +511,6 @@
             <actionName>Case.Resolve_Complaint</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>2</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
-            <actionName>Edit</actionName>
-            <actionType>StandardButton</actionType>
-            <sortOrder>0</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
             <actionName>Case.Re_open_Complaint</actionName>
@@ -522,7 +530,7 @@
         <platformActionListItems>
             <actionName>Share</actionName>
             <actionType>StandardButton</actionType>
-             <sortOrder>6</sortOrder>
+            <sortOrder>6</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
             <actionName>Case.Send_Notification</actionName>
@@ -635,7 +643,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>true</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2O000001MyHe</masterLabel>
+        <masterLabel>00h2O000001aZ94</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

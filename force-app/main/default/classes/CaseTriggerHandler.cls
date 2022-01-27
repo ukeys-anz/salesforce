@@ -67,6 +67,11 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     GetHelpCaseActions.beforeUpdate(oldMap, records);
     SICaseActions.beforeUpdate((List<Case>) records, (Map<Id, Case>) oldMap);
     GetHelpCaseActions.handlePopulateCaseSubject(records, null);
+    for (Case record : (List<Case>) records) {
+      if (GetHelpCaseActionsHelper.isANZPlusCaseType(record)) {
+        GetHelpCaseActions.maskTaxNumbers(record);
+      }
+    }
     IDRCaseNotificationManager.manageNotification(
       records,
       (Map<Id, Case>) oldMap
