@@ -1,0 +1,32 @@
+<template>
+  <template if:true={displayContent}>
+    <template if:false={loading}>
+      <c-financial-account
+        record-id={recordId}
+        account-type={financialAccountType}
+        account-details={financialAccountData}
+        error={financialAccountError}
+        data-id="financial-account"
+      ></c-financial-account>
+      <div class="slds-m-top_small"></div>
+      <!-- will be added in as part of #5559
+       <template if:true={isSavings}>
+        <c-financial-goals
+          record-id={recordId}
+          goal-details={goalData}
+          data-id="financial-goals"
+          error={goalError}
+        ></c-financial-goals>
+        <div class="slds-m-top_small"></div>
+      </template> -->
+      <c-transaction-history-board
+        record-id={recordId}
+        transaction-details={transactionData}
+        error={transactionError}
+        onloadmore={handleLoadMore}
+        onsearch={handleSearchDates}
+        data-id="transaction-history"
+      ></c-transaction-history-board>
+    </template>
+  </template>
+</template>

@@ -9,7 +9,6 @@
 }
 
 .goals {
-  border: 1px solid #dddbda !important;
   user-select: none;
   /* iOS Safari */
   -webkit-touch-callout: none;
@@ -21,7 +20,6 @@
   border: unset;
 }
 
-.main-title,
 .padded-card {
   padding: 10px !important;
 }
@@ -96,4 +94,13 @@
 .modal-header {
   background: #014486;
   color: #fff;
+}
+
+.card-title {
+  background: #eef1f5;
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 0.25em;
+  font-weight: bold;
 }
