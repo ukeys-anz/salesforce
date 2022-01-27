@@ -24,20 +24,6 @@ public with sharing class UserTriggerHandler extends Lib_TriggerHandler {
    * @description onApplyDefaults method is called before onBeforeInsert to set the default values for the records.
    */
   public override void onApplyDefaults() {
-    Set<String> federationIds = new Set<String>();
-
-    for (User record : (List<User>) records) {
-      if (String.isNotBlank(record.FederationIdentifier)) {
-        federationIds.add(record.FederationIdentifier);
-      }
-    }
-    if (!FederationIds.isEmpty()) {
-      UserProvisioningBeforeActions.checkUserProvisioingRequest(
-        records,
-        federationIds
-      );
-    }
-
     for (User record : (List<User>) records) {
       if (UserProvisioningCommonActions.isValidRecordForProcessing(record)) {
         businessFuncAndRoles.add(
@@ -66,10 +52,10 @@ public with sharing class UserTriggerHandler extends Lib_TriggerHandler {
       }
     }
   }
+
   /**
    * @description onAfterInsert to update the list of records which were identified in onValidate() method
    */
-
   public override void onAfterInsert() {
     if (!businessFuncAndRoles.isEmpty()) {
       UserProvisioningAfterActions.assignMembership(
@@ -77,15 +63,12 @@ public with sharing class UserTriggerHandler extends Lib_TriggerHandler {
         businessFuncAndRoles
       );
     }
-
-    UserProvisioningAfterActions.updateUPRStatus(records);
   }
 
   /**
    * @description onBeforeUpdate to handle after update trigger actions.
    * @param oldMap old trigger values
    */
-
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     for (User record : (List<User>) records) {
       User oldRecord = (User) oldMap.get(record.id);
@@ -152,7 +135,5 @@ public with sharing class UserTriggerHandler extends Lib_TriggerHandler {
         businessFuncAndRoles
       );
     }
-
-    UserProvisioningAfterActions.updateUPRStatus(records);
   }
 }

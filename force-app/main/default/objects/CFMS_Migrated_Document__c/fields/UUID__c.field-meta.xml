@@ -3,7 +3,7 @@
     <fullName>UUID__c</fullName>
     <businessStatus>Active</businessStatus>
     <caseSensitive>false</caseSensitive>
-    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information</complianceGroup>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_EDRM</complianceGroup>
     <description>Unique external Id of the record.</description>
     <externalId>true</externalId>
     <label>UUID</label>

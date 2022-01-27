@@ -3,6 +3,7 @@
     <fullName>Title</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>The title of a document</description>
     <securityClassification>Confidential</securityClassification>
     <trackHistory>true</trackHistory>
 </CustomField>
