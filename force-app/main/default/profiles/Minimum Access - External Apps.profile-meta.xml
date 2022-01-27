@@ -1593,6 +1593,16 @@
         <endAddress>35.238.133.229</endAddress>
         <startAddress>35.238.133.229</startAddress>
     </loginIpRanges>
+    <loginIpRanges>
+        <description>GCP NP2 for Harness</description>
+        <endAddress>34.87.204.119</endAddress>
+        <startAddress>34.87.204.119</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>GCP NP for Harness</description>
+        <endAddress>35.244.65.24</endAddress>
+        <startAddress>35.244.65.24</startAddress>
+    </loginIpRanges>
     <userPermissions>
         <enabled>false</enabled>
         <name>AccessCMC</name>
