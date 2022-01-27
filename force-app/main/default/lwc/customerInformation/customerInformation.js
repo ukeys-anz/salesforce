@@ -104,27 +104,29 @@ export default class CustomerInformation extends LightningElement {
     fields[EMAIL_FIELD.fieldApiName] = this.customerInfo.email;
 
     const recordInput = { fields };
-    updateRecord(recordInput)
-      .then(() => {
-        this.dispatchEvent(
-          new ShowToastEvent({
-            title: "Success",
-            message: "Customer name is updated ",
-            variant: "success"
-          })
-        );
-        // Display fresh data in the form
-        return refreshApex(this.record);
-      })
-      .catch((error) => {
-        this.dispatchEvent(
-          new ShowToastEvent({
-            title: "Error creating record",
-            message: error.body.message,
-            variant: "error"
-          })
-        );
-      });
+    if (this.recordId) {
+      updateRecord(recordInput)
+        .then(() => {
+          this.dispatchEvent(
+            new ShowToastEvent({
+              title: "Success",
+              message: "Customer name is updated ",
+              variant: "success"
+            })
+          );
+          // Display fresh data in the form
+          return refreshApex(this.record);
+        })
+        .catch((error) => {
+          this.dispatchEvent(
+            new ShowToastEvent({
+              title: "Error creating record",
+              message: error.body.message,
+              variant: "error"
+            })
+          );
+        });
+    }
   }
 
   custData(customerId, custIdentifier) {
