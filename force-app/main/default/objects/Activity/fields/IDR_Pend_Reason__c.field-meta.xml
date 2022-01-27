@@ -3,6 +3,7 @@
     <fullName>IDR_Pend_Reason__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_Salesforce;Privacy_Non_Personal_Information;Integrity_Accurate</complianceGroup>
+    <description>Reason why a case is pending</description>
     <externalId>false</externalId>
     <label>Pend Reason</label>
     <required>false</required>
