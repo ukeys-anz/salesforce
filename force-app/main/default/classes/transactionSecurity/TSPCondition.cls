@@ -22,7 +22,7 @@ public with sharing class TSPCondition {
       when ReportEvent reportEvent {
         result = !profileName.contains('ANZ Standard User');
       }
-      when ReportAnomalyEventStore reportAnomalyEvent {
+      when ReportAnomalyEvent reportAnomalyEvent {
         result = reportAnomalyEvent.Score >= 50;
       }
       when else {

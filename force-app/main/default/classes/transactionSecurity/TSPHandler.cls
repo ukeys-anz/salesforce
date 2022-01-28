@@ -24,7 +24,7 @@ global with sharing class TSPHandler implements TxnSecurity.EventCondition {
         eventName = 'Exporting report event';
         uId = reportEvent.UserId;
       }
-      when ReportAnomalyEventStore reportAnomalyEventStore {
+      when ReportAnomalyEvent reportAnomalyEventStore {
         eventName = 'Report Anomaly event';
         uId = reportAnomalyEventStore.UserId;
       }

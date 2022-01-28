@@ -95,20 +95,35 @@ public with sharing class TSPConditionTest {
     * use `@isTest(SeeAllData=true)` that will make some risk. 
 
     * Point: ReportAnomalyEvent for negative case (return false) can be tested, as the testUser does not 
-    * have ReportAnomalyEventStore.score >= 50, and it will give false as the result
+    * have ReportAnomalyEvent.score >= 50, and it will give false as the result
   */
   @isTest
-  static void reportAnomalyEventCondtionANZUserTest() {
-    //GIVEN the user with `ANZ Standard User` profile
+  static void reportAnomalyEventCondtionNotTriggered() {
+    //GIVEN the user with `Integration User` profile
     User thisUser = TestUtil.createTestUserWithProfile('Integration User');
     insert thisUser;
     System.runAs(thisUser) {
-      //WHEN the user want to query ReportAnomalyEventStore
-      ReportAnomalyEventStore testEvent = new ReportAnomalyEventStore();
+      //WHEN the user want to query ReportAnomalyEvent
+      ReportAnomalyEvent testEvent = new ReportAnomalyEvent(Score=0);
 
       //THEN the condition should be false
       Boolean result = TSPCondition.condition('Integration User', testEvent);
-      System.assert(!result, 'Should return false');
+      System.assert(!result, 'Should return false as the score is less than 50');
+    }
+  }
+
+  @isTest
+  static void reportAnomalyEventCondtionTriggered() {
+    //GIVEN the user with `Integration User` profile
+    User thisUser = TestUtil.createTestUserWithProfile('Integration User');
+    insert thisUser;
+    System.runAs(thisUser) {
+      //WHEN the user want to query ReportAnomalyEvent
+      ReportAnomalyEvent testEvent = new ReportAnomalyEvent(Score=99.9);
+
+      //THEN the condition should be false
+      Boolean result = TSPCondition.condition('Integration User', testEvent);
+      System.assert(result, 'Should return true as the score is more than 50');
     }
   }
 }
