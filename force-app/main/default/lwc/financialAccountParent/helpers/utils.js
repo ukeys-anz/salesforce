@@ -19,13 +19,13 @@ export function handleGoalData(goalList) {
 
       goal.balanceRemaining =
         goal.goal.target_amount.value - goal.balance.value;
-      goal.goal.target_amount.value = new Intl.NumberFormat("en-AU", {
+      goal.goal.target_amount = new Intl.NumberFormat("en-AU", {
         style: "currency",
         currency: "AUD"
       }).format(goal.goal.target_amount.value);
     } else {
       goal.fillPercent = goal.balance.value > 0 ? 100 : 0;
-      goal.goal.target_amount.value = "N/A";
+      goal.goal.target_amount = "N/A";
     }
 
     //Format created date to more readable format
