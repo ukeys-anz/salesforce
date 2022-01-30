@@ -37,7 +37,6 @@ export default class FinancialGoals extends NavigationMixin(LightningElement) {
         //If we get more than 3 records, set view more to true and get first 3 records
         if (this.allGoals.length > 3) {
           this.viewMore = true;
-          // this.goalList = this.goalList.slice(0, 3);
           this.goalList = this.allGoals.splice(0, 3);
         } else {
           this.goalList = this.allGoals;
@@ -65,13 +64,7 @@ export default class FinancialGoals extends NavigationMixin(LightningElement) {
           goal.classList.add("active");
           //Add to goal filters
           this.goalFilters = [...this.goalFilters, this.preselectedGoal];
-          this.dispatchEvent(
-            new CustomEvent("filtergoals", {
-              detail: {
-                goalFilters: this.goalFilters
-              }
-            })
-          );
+          this.dispatchFilters();
         }
       }
       //Set has rendered to true so it doesn't run again
@@ -115,13 +108,6 @@ export default class FinancialGoals extends NavigationMixin(LightningElement) {
         return obj !== evt.dataset.id;
       });
     }
-    this.dispatchEvent(
-      new CustomEvent("filtergoals", {
-        detail: {
-          goalFilters: this.goalFilters
-        }
-      })
-    );
   }
 
   handleLoadMore() {
@@ -157,5 +143,25 @@ export default class FinancialGoals extends NavigationMixin(LightningElement) {
     //     "pester"
     //   );
     // }
+  }
+
+  handleClearFilters() {
+    this.goalFilters = [];
+    let activeGoals = this.template.querySelectorAll(".active");
+    activeGoals.forEach((el) => {
+      el.classList.remove("active");
+    });
+    this.dispatchFilters();
+  }
+
+  dispatchFilters() {
+    this.dispatchEvent(
+      new CustomEvent("filtergoals", {
+        bubbles: true,
+        detail: {
+          goalFilters: this.goalFilters
+        }
+      })
+    );
   }
 }

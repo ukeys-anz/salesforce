@@ -32,6 +32,10 @@ export default class FinancialAccountParent extends LightningElement {
   transactionError;
   savingsJar;
   preselectedGoal;
+  transactionStartDate;
+  transactionEndDate;
+  transactionBucketIds = [];
+  transactionLoading;
 
   @wire(CurrentPageReference)
   pageRef;
@@ -139,18 +143,16 @@ export default class FinancialAccountParent extends LightningElement {
     }
   }
 
-  async getTransactionData(
-    paramUrl = "",
-    startDateString = "",
-    endDateString = ""
-  ) {
+  async getTransactionData(paramUrl = "") {
+    this.transactionLoading = true;
     try {
       this.transactionData = await getTransactionHistoryAura({
         ocvId: this.ocvId,
         accountNumber: this.financialAccountNumber,
-        startDate: startDateString,
-        endDate: endDateString,
-        paramUrl: paramUrl
+        startDate: this.transactionStartDate,
+        endDate: this.transactionEndDate,
+        paramUrl: paramUrl,
+        bucketIds: this.transactionBucketIds
       });
     } catch (error) {
       this.transactionError = TRANSACTION_HISTORY_RETRIEVE_ERROR;
@@ -164,6 +166,7 @@ export default class FinancialAccountParent extends LightningElement {
       this.hasError = true;
       showToast("Transaction History Load Failed", this.errorMessage, error);
     }
+    this.transactionLoading = false;
   }
 
   handleAccountInformation(finAccounts) {
@@ -192,11 +195,9 @@ export default class FinancialAccountParent extends LightningElement {
   }
 
   handleSearchDates(event) {
-    this.getTransactionData(
-      "",
-      event.detail.startDateString,
-      event.detail.endDateString
-    );
+    this.transactionStartDate = event.detail.startDateString;
+    this.transactionEndDate = event.detail.endDateString;
+    this.getTransactionData();
   }
 
   //   handleTransactionGoals(transactions){
@@ -215,8 +216,15 @@ export default class FinancialAccountParent extends LightningElement {
   // }
 
   handleGoalFilters(event) {
-    if (event?.detail?.goalFilters?.length > 0) {
-      //Call transactions with filter - to be done in ANZX-30884
-    }
+    this.transactionBucketIds = event.detail.goalFilters;
+    this.getTransactionData();
+  }
+
+  async refreshData() {
+    this.loading = true;
+    await this.getFinancialData();
+    await this.getGoalData();
+    await this.getTransactionData();
+    this.loading = false;
   }
 }

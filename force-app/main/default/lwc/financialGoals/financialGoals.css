@@ -88,9 +88,7 @@
   background: #eef1f5;
   width: 100%;
   padding: 8px;
-  font-size: 16px;
   border-radius: 0.25em;
-  font-weight: bold;
 }
 
 .goal {
@@ -107,4 +105,13 @@
 
 .slds-size_1-of-3 {
   width: 30%;
+}
+
+.title-text {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.filter-buttons {
+  float: right;
 }

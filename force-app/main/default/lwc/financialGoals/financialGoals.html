@@ -1,13 +1,25 @@
 <template>
   <article class="slds-card">
-    <h1 class="card-title">
-      <lightning-icon
-        icon-name="standard:goals"
-        size="medium"
-        class="slds-m-right_small"
-      ></lightning-icon>
-      Savings Goals
-    </h1>
+    <div class="card-title">
+      <span class="title-text">
+        <lightning-icon
+          icon-name="standard:goals"
+          size="medium"
+          class="slds-m-right_small"
+        ></lightning-icon>
+        Savings Goals
+      </span>
+      <lightning-button
+        label="Clear filters"
+        onclick={handleClearFilters}
+        class="filter-buttons"
+      ></lightning-button>
+      <lightning-button
+        label="Apply filters"
+        onclick={dispatchFilters}
+        class="filter-buttons"
+      ></lightning-button>
+    </div>
     <template if:true={displayContent}>
       <template if:true={error}>
         <c-error message={error} data-id="error"></c-error>
@@ -16,6 +28,10 @@
         <div class="slds-card__body slds-card__body_inner padded-card">
           <article class="slds-card goal-container">
             <template if:true={goalList}>
+              <p class="slds-p-around_small">
+                Select one or more goals by clicking on the name and hit 'Apply
+                filters' to see all transactions for that goal(s).
+              </p>
               <div class="slds-grid slds-wrap" data-id="goal-container">
                 <template for:each={goalList} for:item="goal">
                   <div

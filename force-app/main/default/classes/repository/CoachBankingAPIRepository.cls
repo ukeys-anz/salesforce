@@ -90,6 +90,7 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
    * @param accountNumber Account number for which we want to fetch the transactions
    * @param startDate start date of the transaction search filter
    * @param endDate end date of the transaction search filter
+   * @param bucketIds list of bucket ids to filter transactions by
    * @return String
    * @exception CalloutException
    */
@@ -100,11 +101,12 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
     String ocvId,
     String accountNumber,
     String startDate,
-    String endDate
+    String endDate,
+    List<String> bucketIds
   ) {
     CoachBankingAPIRepository coachapi = new CoachBankingAPIRepository();
     paramUrl = String.isBlank(paramUrl)
-      ? getTransactionParamUrl(startDate, endDate, accountNumber)
+      ? getTransactionParamUrl(startDate, endDate, accountNumber, bucketIds)
       : paramUrl;
     try {
       TransactionHistoryModel responseModel = coachapi.getTransactionHistory(
@@ -177,13 +179,17 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
    * @param startDate start date in the transaction search
    * @param endDate end date in the transaction search
    * @param accountNumber account number for which we want to fetch the transactions
+   * @param bucketIds list of bucket ids to filter transactions by
    * @return String the url with params to retrieve transactions
    */
+  @SuppressWarnings('PMD.ExcessiveParameterList')
   private static String getTransactionParamUrl(
     String startDate,
     String endDate,
-    String accountNumber
+    String accountNumber,
+    List<String> bucketIds
   ) {
+    String params = '?';
     if (
       String.isNotBlank(startDate) &&
       String.isNotBlank(endDate) &&
@@ -191,14 +197,22 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
     ) {
       String utcStartDate = DateTimeUtils.getUTCTimeFromString(startDate);
       String utcEndDate = DateTimeUtils.getUTCTimeFromString(endDate);
-      return '?account_number=' +
+      params +=
+        'account_number=' +
         accountNumber +
         '&start_time=' +
         utcStartDate +
         '&end_time=' +
-        utcEndDate;
+        utcEndDate +
+        '&';
     }
-    return null;
+
+    if (!bucketIds.isEmpty()) {
+      for (String bucketId : bucketIds) {
+        params += 'bucket_ids=' + bucketId + '&';
+      }
+    }
+    return params;
   }
 
   /**

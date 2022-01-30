@@ -80,7 +80,8 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       '1111',
       '000000000',
       '2018-07-03 00:00:00',
-      '2018-07-26 23:59:59'
+      '2018-07-26 23:59:59',
+      new List<String>()
     );
     Test.stopTest();
 
@@ -135,7 +136,8 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       '1111',
       '000000000',
       '2018-07-03 00:00:00',
-      '2018-07-26 23:59:59'
+      '2018-07-26 23:59:59',
+      new List<String>()
     );
     Test.stopTest();
 

@@ -1,6 +1,13 @@
 <template>
   <template if:true={displayContent}>
     <template if:false={loading}>
+      <div class="slds-clearfix">
+        <lightning-button
+          label="Refresh all"
+          onclick={refreshData}
+          class="slds-float_right slds-p-bottom_small"
+        ></lightning-button>
+      </div>
       <c-financial-account
         record-id={recordId}
         account-type={financialAccountType}
@@ -23,14 +30,31 @@
           <div class="slds-m-top_small"></div>
         </template>
       </template>
-      <c-transaction-history-board
-        record-id={recordId}
-        transaction-details={transactionData}
-        error={transactionError}
-        onloadmore={handleLoadMore}
-        onsearch={handleSearchDates}
-        data-id="transaction-history"
-      ></c-transaction-history-board>
+      <template if:true={transactionLoading}>
+        <div
+          class="slds-align_absolute-center"
+          style="height: 4rem"
+          data-id="loading-spinner"
+        >
+          <div role="status" class="slds-spinner_inline">
+            <lightning-spinner
+              alternative-text="Loading"
+              variant="brand"
+            ></lightning-spinner>
+          </div>
+        </div>
+      </template>
+      <template if:false={transactionLoading}>
+        <c-transaction-history-board
+          record-id={recordId}
+          transaction-details={transactionData}
+          error={transactionError}
+          onloadmore={handleLoadMore}
+          onsearch={handleSearchDates}
+          data-id="transaction-history"
+          parent-loading={transactionLoading}
+        ></c-transaction-history-board>
+      </template>
     </template>
     <template if:true={loading}>
       <div
