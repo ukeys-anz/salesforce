@@ -28,6 +28,7 @@ public with sharing class FinancialAccountControllerTest {
       finAccount.FinServ__PrimaryOwner__c = accnt.Id;
       finAccount.Account_Key__c = '342490981' + i;
       finAccount.Primary_Owner_Start_Date__c = Date.valueOf('2021-02-11');
+      finAccount.FinServ__FinancialAccountNumber__c = '000000000';
 
       financialAccounts.add(finAccount);
     }
@@ -50,12 +51,12 @@ public with sharing class FinancialAccountControllerTest {
         LIMIT 1
       ];
 
+      List<String> accountTypes = new List<String>{ 'Checking', 'Savings' };
       Test.startTest();
 
-      List<FinServ__FinancialAccount__c> finAccountList = FinancialAccountController.getFinancialAccounts(
+      List<FinServ__FinancialAccount__c> finAccountList = FinancialAccountController.getFinancialAccountDB(
         accnt.Id,
-        3,
-        'Checking'
+        accountTypes
       );
 
       System.assertEquals(3, finAccountList.size());

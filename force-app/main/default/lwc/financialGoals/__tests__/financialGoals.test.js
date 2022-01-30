@@ -1,49 +1,9 @@
 import financialGoals from "c/financialGoals";
 import { createElement } from "lwc";
-import getAccounts from "@salesforce/apex/CoachBankingAPIRepository.getAccountsAura";
 
-import { subscribe } from "lightning/messageService";
+const GOAL_DATA = require("./data/bucketResponse.json");
 
-jest.mock(
-  "@salesforce/apex/CoachBankingAPIRepository.getAccountsAura",
-  () => {
-    return {
-      default: jest.fn()
-    };
-  },
-  { virtual: true }
-);
-
-const APEX_FGOALS_SUCCESS = [
-  {
-    Id: "a0c2O00000197sUQAQ",
-    name: "Savings",
-    accountNumber: "12312312",
-    targetAmount: 50,
-    currentBalance: 50,
-    startDate: "2021-03-05T04:56:48.000+0000",
-    targetDate: "2021-03-05T04:56:48.000+0000"
-  }
-];
-
-const APEX_FGOALS_EMPTY_RECORD = [
-  {
-    Id: null,
-    name: null,
-    accountNumber: null,
-    targetAmount: null,
-    currentBalance: null,
-    startDate: null,
-    targetDate: null
-  }
-];
-
-const APEX_FGOALS_ERROR = {
-  body: { message: "An internal server error has occurred" },
-  ok: false,
-  status: 400,
-  statusText: "Bad Request"
-};
+const EMPTY_GOALS = [];
 
 describe("c-financialGoals", () => {
   //clean the dom and mocks in between test runs
@@ -54,58 +14,70 @@ describe("c-financialGoals", () => {
     jest.clearAllMocks();
   });
 
-  function flushPromises() {
-    return new Promise((resolve) => setImmediate(resolve));
-  }
-
-  it("test loader", () => {
+  it("test goal is visible", () => {
     const element = createElement("c-financialGoals", {
       is: financialGoals
     });
+    element.goalData = GOAL_DATA;
     document.body.appendChild(element);
-    return flushPromises()
-      .then(() => {})
-      .then(() => {
-        const mainEle = element.shadowRoot.querySelector("lightning-spinner");
-        expect(mainEle).not.toBeNull();
-      });
+
+    let goal = element.shadowRoot.querySelector(
+      "div[data-id='goal-container']"
+    );
+
+    expect(goal).toBeTruthy();
   });
 
-  it("test subscribe is invoked", () => {
-    getAccounts.mockResolvedValue(APEX_FGOALS_SUCCESS);
+  it("test error is displayed", () => {
     const element = createElement("c-financialGoals", {
       is: financialGoals
     });
+    element.error = "An error has occurred";
     document.body.appendChild(element);
+
+    let error = element.shadowRoot.querySelector("c-error[data-id='error']");
+    let goal = element.shadowRoot.querySelector(
+      "div[data-id='goal-container']"
+    );
+
+    expect(error).toBeTruthy();
+    expect(goal).toBeFalsy();
+  });
+
+  it("test no goal data", () => {
+    const element = createElement("c-financialGoals", {
+      is: financialGoals
+    });
+    element.goalData = EMPTY_GOALS;
+    document.body.appendChild(element);
+    let goal = element.shadowRoot.querySelector(
+      "div[data-id='goal-container']"
+    );
+    expect(goal).toBeFalsy();
+  });
+
+  it("test total saved modal", () => {
+    const element = createElement("c-financialGoals", {
+      is: financialGoals
+    });
+    element.goalData = GOAL_DATA;
+    document.body.appendChild(element);
+    let goal = element.shadowRoot.querySelector(
+      "div[data-id='goal-container']"
+    );
+    let infoButton = element.shadowRoot.querySelector(
+      "lightning-icon[data-id='total-saved-info']"
+    );
+
+    expect(goal).toBeTruthy();
+    expect(infoButton).toBeTruthy();
+    infoButton.click();
 
     return Promise.resolve().then(() => {
-      expect(subscribe).toHaveBeenCalled();
-    });
-  });
-
-  it("test fetch account with Apex error", () => {
-    getAccounts.mockRejectedValue(APEX_FGOALS_ERROR);
-    const element = createElement("c-financialGoals", {
-      is: financialGoals
-    });
-    document.body.appendChild(element);
-
-    return Promise.resolve().finally(() => {
-      const mainEle = element.shadowRoot.querySelector("article");
-      expect(mainEle).toBeNull();
-    });
-  });
-
-  it("test fetch with empty data", () => {
-    getAccounts.mockResolvedValue(APEX_FGOALS_EMPTY_RECORD);
-    const element = createElement("c-financialGoals", {
-      is: financialGoals
-    });
-    document.body.appendChild(element);
-
-    return Promise.resolve().finally(() => {
-      const mainEle = element.shadowRoot.querySelector("ul");
-      expect(mainEle).toBeNull();
+      let totalSavedModal = element.shadowRoot.querySelector(
+        "section[data-id='total-saved-modal']"
+      );
+      expect(totalSavedModal).toBeTruthy();
     });
   });
 });

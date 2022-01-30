@@ -1,0 +1,109 @@
+.card-title {
+  background: #eef1f5;
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 0.25em;
+  font-weight: bold;
+  position: relative;
+  bottom: 24px;
+}
+
+.last-updated {
+  float: right;
+  font-size: 12px;
+  position: absolute;
+  bottom: 7px;
+  right: 10px;
+}
+
+.ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 178px;
+}
+
+.progress-ring {
+  position: relative;
+  bottom: 15px;
+}
+
+.description-tooltip {
+  visibility: hidden;
+  width: 30%;
+  background-color: #18315c;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  position: absolute;
+  color: #ffffff;
+  z-index: 1;
+  word-break: break-word;
+}
+
+.progress-tooltip {
+  visibility: hidden;
+  background-color: #18315c;
+  padding: 5px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  position: absolute;
+  color: #ffffff;
+  z-index: 1;
+}
+
+.ellipsis:hover + .description-tooltip,
+.progress-ring:hover + .progress-tooltip {
+  visibility: visible;
+  transition: opacity 0.5s ease;
+  opacity: 1;
+}
+
+.tooltip-modal {
+  cursor: pointer;
+  margin-left: 4px;
+}
+
+.tooltip-modal:hover {
+  --sds-c-icon-color-foreground-default: #014486;
+}
+
+.close-modal {
+  cursor: pointer;
+  --sds-c-icon-color-foreground-default: #fff;
+}
+
+.modal-header {
+  background: #014486;
+  color: #fff;
+}
+
+.message-padding {
+  padding: 20px;
+}
+
+.no-goals {
+  margin: 0;
+  position: absolute;
+  top: 56%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.emoji {
+  font-size: 80px;
+  margin-top: 48px;
+  position: relative;
+  bottom: 15px;
+}
+
+.slds-size_1-of-3,
+.slds-size--1-of-3 {
+  width: 32%;
+  margin: 3px;
+}
+
+.slds-border_right:last-child {
+  border-right: none;
+}
