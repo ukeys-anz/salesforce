@@ -51,7 +51,17 @@
           "units": "10",
           "nanos": 100000
         },
-        "target_date": "2022-12-06T02:01:15.786332Z",
+        "target_date": {
+          "year": {
+            "value": 2022
+          },
+          "month": {
+            "value": 12
+          },
+          "day": {
+            "value": 31
+          }
+        },
         "theme": "",
         "emoji": {
           "value": "🥭"
@@ -115,7 +125,17 @@
           "units": "150000",
           "nanos": 100000
         },
-        "target_date": "2022-12-06T02:01:15.786332Z",
+        "target_date": {
+          "year": {
+            "value": 2022
+          },
+          "month": {
+            "value": 12
+          },
+          "day": {
+            "value": 31
+          }
+        },
         "theme": "GOAL_THEME_BUY_A_HOME",
         "emoji": {
           "value": ""
@@ -147,7 +167,17 @@
           "units": "12000",
           "nanos": 100000
         },
-        "target_date": "2022-12-06T02:01:15.786332Z",
+        "target_date": {
+          "year": {
+            "value": 2022
+          },
+          "month": {
+            "value": 12
+          },
+          "day": {
+            "value": 31
+          }
+        },
         "theme": "GOAL_THEME_TRAVEL",
         "emoji": {
           "value": ""
@@ -211,7 +241,27 @@
           "units": "3000",
           "nanos": 100000
         },
-        "target_date": "2022-12-06T02:01:15.786332Z",
+        "target_date": {
+          "year": {
+            "target_date": {
+              "year": {
+                "value": 2022
+              },
+              "month": {
+                "value": 12
+              },
+              "day": {
+                "value": 31
+              }
+            }
+          },
+          "month": {
+            "value": 12
+          },
+          "day": {
+            "value": 31
+          }
+        },
         "theme": "GOAL_THEME_EXPENSES",
         "emoji": {
           "value": ""

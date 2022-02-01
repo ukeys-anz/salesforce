@@ -18,7 +18,7 @@ public with sharing class AccountBucketsModel extends CalloutModel {
     @AuraEnabled
     public Balance target_amount;
     @AuraEnabled
-    public String target_date;
+    public TargetDate target_date;
     @AuraEnabled
     public String theme;
     @AuraEnabled
@@ -92,6 +92,18 @@ public with sharing class AccountBucketsModel extends CalloutModel {
         return unitValue + (nanoValue / 1000000000);
       }
     }
+  }
+
+  /**
+   * @description target date information
+   */
+  public class TargetDate {
+    @AuraEnabled
+    public FieldValue year;
+    @AuraEnabled
+    public FieldValue month;
+    @AuraEnabled
+    public FieldValue day;
   }
 
   /**

@@ -42,7 +42,9 @@ export function handleGoalData(goalList) {
     goal.daysRemainingText = "Days remaining: ";
     // Override potential null values with generic values
     if (goal?.goal?.target_date) {
-      const targetDate = new Date(goal.goal.target_date);
+      const targetDate = new Date(
+        `${goal.goal.target_date.year.value}-${goal.goal.target_date.month.value}-${goal.goal.target_date.day.value}`
+      );
       const today = new Date();
 
       if (targetDate > today) {

@@ -93,9 +93,10 @@
 
 .emoji {
   font-size: 80px;
-  margin-top: 48px;
   position: relative;
-  bottom: 15px;
+  /* Match height of images used */
+  height: 168.94px;
+  top: 25px;
 }
 
 .slds-size_1-of-3,
