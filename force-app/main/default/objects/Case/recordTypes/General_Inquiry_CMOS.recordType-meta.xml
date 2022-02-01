@@ -981,6 +981,17 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>IDR_Customer_Identifier__c</picklist>
+        <values>
+            <fullName>CACHE ID</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer%2FBusiness CAP ID</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>IDR_Existing_ANZ_Customer__c</picklist>
         <values>
             <fullName>No</fullName>
