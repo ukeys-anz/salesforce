@@ -140,7 +140,8 @@ export default class PersonAccountFinancialDetails extends LightningElement {
     finAccounts.forEach((account) => {
       //Set the badge class based on the status
       account.badgeClass =
-        account.FinServ__Status__c === "Active"
+        account.FinServ__Status__c === "Active" ||
+        account.FinServ__Status__c === "Open"
           ? "slds-badge slds-theme_success"
           : "slds-badge slds-theme_error";
       //Determine the type of financial account

@@ -172,7 +172,8 @@ export default class FinancialAccountParent extends LightningElement {
   handleAccountInformation(finAccounts) {
     finAccounts.forEach((finAccount) => {
       finAccount.badgeClass =
-        finAccount.FinServ__Status__c === "Active"
+        finAccount.FinServ__Status__c === "Active" ||
+        finAccount.FinServ__Status__c === "Open"
           ? "slds-badge slds-theme_success"
           : "slds-badge slds-theme_error";
     });
