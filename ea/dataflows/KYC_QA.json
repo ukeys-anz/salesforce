@@ -34,7 +34,8 @@
             "name": "CaseDurationEpoch",
             "precision": 10,
             "saqlExpression": "(ClosedDate_sec_epoch - CreatedDate_sec_epoch)",
-            "type": "Text"
+            "scale": 0,
+            "type": "Numeric"
           }
         ],
         "mergeWithSource": true
@@ -91,7 +92,8 @@
           { "name": "Fraud_Address_Valid__c" },
           { "name": "AccountId" },
           { "name": "Fraud_Selfie_Match__c" },
-          { "name": "Case_Hour_Duration__c" }
+          { "name": "Case_Hour_Duration__c" },
+          { "name": "Fraud_Restraint_Status__c" }
         ],
         "object": "Case"
       }
