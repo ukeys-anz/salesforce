@@ -480,6 +480,7 @@
                   aria-label="Dropdown Issue Type"
                   required
                   field-name={complaintIssue}
+                  onchange={handleAccNoOneSelection}
                   data-id="issueType-id"
                 ></lightning-input-field>
               </div>
@@ -508,6 +509,7 @@
                   <c-multi-select-combobox
                     options={accountNumberOptions}
                     onselect={handleAccountNumberChange}
+                    disabled={disableAccNoOneField}
                     label="Account/Policy Number"
                     data-id="accPolicyNum-id"
                   ></c-multi-select-combobox>
@@ -548,6 +550,7 @@
                     variant="label-stacked"
                     required={hasSecondIssue}
                     field-name={issueType2}
+                    onchange={handleAccNoTwoSelection}
                     data-id="issueType2-id"
                   ></lightning-input-field>
                 </div>
@@ -572,6 +575,7 @@
                     <c-multi-select-combobox
                       options={accountNumberOptions}
                       onselect={handleAccountNumber2Change}
+                      disabled={disableAccNoTwoField}
                       label="Account/Policy Number 2"
                       data-id="accPolicyNum2-id"
                     ></c-multi-select-combobox>
@@ -599,6 +603,7 @@
                     variant="label-stacked"
                     required={hasThirdIssue}
                     field-name={issueType3}
+                    onchange={handleAccNoThreeSelection}
                     data-id="issueType3-id"
                   ></lightning-input-field>
                 </div>
@@ -623,6 +628,7 @@
                     <c-multi-select-combobox
                       options={accountNumberOptions}
                       onselect={handleAccountNumber3Change}
+                      disabled={disableAccNoThreeField}
                       label="Account/Policy Number 3"
                       data-id="accPolicyNum3-id"
                     ></c-multi-select-combobox>
