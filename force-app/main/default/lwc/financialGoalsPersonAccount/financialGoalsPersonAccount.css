@@ -27,6 +27,7 @@
 .progress-ring {
   position: relative;
   bottom: 15px;
+  right: 10px;
 }
 
 .description-tooltip {
@@ -95,14 +96,8 @@
   font-size: 80px;
   position: relative;
   /* Match height of images used */
-  height: 168.94px;
-  top: 25px;
-}
-
-.slds-size_1-of-3,
-.slds-size--1-of-3 {
-  width: 32%;
-  margin: 3px;
+  height: 140.8px;
+  top: 17px;
 }
 
 .slds-border_right:last-child {

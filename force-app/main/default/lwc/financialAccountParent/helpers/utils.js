@@ -1,6 +1,15 @@
 import goal_themes from "@salesforce/resourceUrl/goal_themes";
 
 export function handleGoalData(goalList) {
+  //Sort the goals by oldest
+  //This is only a temporary fix until fabric has pagination
+  //available to us 02/02/22
+  goalList.account_buckets.sort((a, b) => {
+    let dateA = new Date(a.created_at);
+    let dateB = new Date(b.created_at);
+    return dateA - dateB;
+  });
+
   goalList.account_buckets.forEach((goal) => {
     //Check if goal has theme otherwise use default
     if (goal?.goal?.theme) {

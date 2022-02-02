@@ -1,6 +1,6 @@
 import { LightningElement, api, wire } from "lwc";
 import { getRecord } from "lightning/uiRecordApi";
-import { handleErrorShowToast, showToast } from "c/utils";
+import { handleErrorShowToast } from "c/utils";
 
 import getFinancialAccountFabric from "@salesforce/apex/FinancialAccountController.getFinancialAccountFabric";
 import getFinancialAccountDB from "@salesforce/apex/FinancialAccountController.getFinancialAccountDB";
@@ -24,7 +24,6 @@ export default class FinancialAccountParent extends LightningElement {
   financialAccountType;
   goalData = { goalList: [], nextToken: null };
   goalError;
-  hasError = false;
   isSavings;
   loading;
   ocvId;
@@ -69,8 +68,10 @@ export default class FinancialAccountParent extends LightningElement {
     //get url param here for goal filtering
     if (this.pageRef?.state?.c__goalId) {
       this.preselectedGoal = this.pageRef.state.c__goalId;
+      this.transactionBucketIds = [...this.preselectedGoal];
     }
   }
+
   get displayContent() {
     return hasAccountsGoalsPermission;
   }
@@ -156,15 +157,13 @@ export default class FinancialAccountParent extends LightningElement {
       });
     } catch (error) {
       this.transactionError = TRANSACTION_HISTORY_RETRIEVE_ERROR;
-      if (error.body && error.body.message) {
-        let message = this.handleError(error.body.message);
-        //Catch any system error messages (most readable errors wont be a single word)
-        if (message && message.split(" ").length > 1) {
-          this.transactionError = message;
-        }
-      }
-      this.hasError = true;
-      showToast("Transaction History Load Failed", this.errorMessage, error);
+      handleErrorShowToast(
+        this,
+        "Failed To Retrieve Goal Details",
+        error,
+        this.transactionError,
+        "pester"
+      );
     }
     this.transactionLoading = false;
   }
@@ -218,6 +217,10 @@ export default class FinancialAccountParent extends LightningElement {
 
   handleGoalFilters(event) {
     this.transactionBucketIds = event.detail.goalFilters;
+    //Remove preselected goal if we are clearing filters
+    if (this.transactionBucketIds.length === 0) {
+      this.preselectedGoal = null;
+    }
     this.getTransactionData();
   }
 

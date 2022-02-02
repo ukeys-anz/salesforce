@@ -16,8 +16,7 @@ import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accoun
 /* IMPORT SCHEMA FIELDS */
 import ACCOUNT_OCV_ID_FIELD from "@salesforce/schema/Account.OCV_ID__c";
 
-//Import goal images
-import goal_themes from "@salesforce/resourceUrl/goal_themes";
+import { handleGoalData } from "./helpers/utils";
 
 export default class PersonAccountFinancialDetails extends LightningElement {
   @api recordId;
@@ -113,7 +112,7 @@ export default class PersonAccountFinancialDetails extends LightningElement {
     this.savingsJar = null;
     try {
       let goalData = await getAccountBuckets({ ocvId: this.ocvId });
-      goalData = this.handleGoalThemes(goalData);
+      goalData = handleGoalData(goalData);
       //Savings jar will always be default, so retrieve it
       //to pass through to other components that need it
       this.savingsJar = goalData.account_buckets.filter((obj) => {
@@ -156,42 +155,6 @@ export default class PersonAccountFinancialDetails extends LightningElement {
     });
 
     return finAccounts;
-  }
-
-  handleGoalThemes(goalList) {
-    goalList.account_buckets.forEach((goal) => {
-      if (goal.is_default) {
-        goal.image = `${goal_themes}/SAVINGS_JAR.png`;
-      } else {
-        //Check if goal has theme otherwise use default
-        if (goal?.goal?.theme) {
-          //If goal is unspecified, assign the image of "something else"
-          if (
-            goal.goal.theme === "GOAL_THEME_UNSPECIFIED" ||
-            goal.goal.theme === "GOAL_THEME_CUSTOM"
-          ) {
-            goal.image = `${goal_themes}/GOAL_THEME_SOMETHING_ELSE.png`;
-          } else {
-            goal.image = `${goal_themes}/${goal.goal.theme}.png`;
-          }
-        } else if (goal?.goal?.emoji?.value) {
-          goal.emoji = goal.goal.emoji.value;
-        } else {
-          goal.image = `${goal_themes}/GOAL_THEME_SOMETHING_ELSE.png`;
-        }
-      }
-      //Determine percentage for goal
-      if (goal?.goal?.target_amount?.value) {
-        //Work out percentage for fill
-        goal.fillPercent = Math.floor(
-          (goal.balance.value / goal.goal.target_amount.value) * 100
-        );
-      } else {
-        goal.fillPercent = goal.balance.value > 0 ? 100 : 0;
-      }
-    });
-
-    return goalList;
   }
 
   async refreshData() {
