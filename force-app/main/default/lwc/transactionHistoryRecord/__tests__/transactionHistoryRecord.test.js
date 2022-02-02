@@ -47,7 +47,7 @@ describe("c-transactionHistoryRecord", () => {
       expect(amount.value).toEqual(50);
 
       const descriptionDiv = element.shadowRoot.querySelector(
-        "div.description-tooltip"
+        'div[data-id="longDesc"]'
       );
       expect(descriptionDiv).not.toBeNull();
       expect(descriptionDiv.textContent).toBe("test Description");
@@ -83,7 +83,7 @@ describe("c-transactionHistoryRecord", () => {
 
     return Promise.resolve().then(() => {
       const descriptionDiv = element.shadowRoot.querySelector(
-        "div.description-tooltip"
+        'div[data-id="longDesc"]'
       );
       expect(descriptionDiv).not.toBeNull();
       expect(descriptionDiv.textContent).toBe("test Description");
@@ -119,7 +119,7 @@ describe("c-transactionHistoryRecord", () => {
 
     return Promise.resolve().then(() => {
       const descriptionDiv = element.shadowRoot.querySelector(
-        "div.description-tooltip"
+        'div[data-id="longDesc"]'
       );
       expect(descriptionDiv).not.toBeNull();
       expect(descriptionDiv.textContent).toBe("test Description");
@@ -156,7 +156,7 @@ describe("c-transactionHistoryRecord", () => {
 
     return Promise.resolve().then(() => {
       const descriptionDiv = element.shadowRoot.querySelector(
-        "div.description-tooltip"
+        'div[data-id="longDesc"]'
       );
       expect(descriptionDiv).toBeNull();
 

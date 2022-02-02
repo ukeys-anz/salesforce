@@ -10,10 +10,28 @@
         <template if:true={transactionRecord.logo}>
           <img class="logo-image" alt="Logo" src={transactionRecord.logo} />
         </template>
+        <template if:true={transactionRecord.source_emoji}>
+          <div class="source-emoji">{transactionRecord.source_emoji}</div>
+        </template>
+        <template if:true={transactionRecord.source_image}>
+          <img class="source-image" src={transactionRecord.source_image} />
+        </template>
+        <template if:true={transactionRecord.destination_emoji}>
+          <div class="destination-emoji">
+            {transactionRecord.destination_emoji}
+          </div>
+        </template>
+        <template if:true={transactionRecord.destination_image}>
+          <img
+            class="destination-image"
+            src={transactionRecord.destination_image}
+          />
+        </template>
       </div>
       <div class="slds-col slds-size--1-of-7">
         <div class="slds-grid slds-form-element__label">Name</div>
-        <div class="slds-grid">{transactionRecord.title}</div>
+        <div class="slds-grid name">{transactionRecord.title}</div>
+        <div class="description-tooltip">{transactionRecord.title}</div>
       </div>
       <div class="slds-col slds-size--1-of-7">
         <div class="slds-grid slds-form-element__label">Transaction Type</div>
@@ -97,7 +115,9 @@
         <div class="slds-col slds-size--1-of-7">
           <div class="slds-grid slds-form-element__label">Long Description</div>
           <div class="slds-grid description">{transactionRecord.long_desc}</div>
-          <div class="description-tooltip">{transactionRecord.long_desc}</div>
+          <div class="description-tooltip" data-id="longDesc">
+            {transactionRecord.long_desc}
+          </div>
         </div>
         <div class="slds-col slds-size--1-of-7">
           <div class="slds-grid slds-form-element__label">Transaction ID</div>

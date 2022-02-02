@@ -24,98 +24,96 @@
           <template if:true={hasError}>
             <c-error message={error}></c-error>
           </template>
-          <template if:false={hasError}>
-            <div class="search-section">
-              <div class="slds-text-title_bold slds-m-bottom_medium">
-                Transaction History
+          <div class="search-section">
+            <div class="slds-text-title_bold slds-m-bottom_medium">
+              Transaction History
+            </div>
+            <div class="slds-form--inline">
+              <div class="slds-form-element">
+                <lightning-input
+                  type="date"
+                  name="startDate"
+                  data-id="startDateInput"
+                  label="Start Date"
+                  value={startDate}
+                  max={endDate}
+                  onchange={handleStartDateChange}
+                ></lightning-input>
               </div>
-              <div class="slds-form--inline">
-                <div class="slds-form-element">
-                  <lightning-input
-                    type="date"
-                    name="startDate"
-                    data-id="startDateInput"
-                    label="Start Date"
-                    value={startDate}
-                    max={endDate}
-                    onchange={handleStartDateChange}
-                  ></lightning-input>
-                </div>
-                <div class="slds-form-element">
-                  <lightning-input
-                    type="date"
-                    name="endDate"
-                    data-id="endDateInput"
-                    label="End Date"
-                    value={endDate}
-                    max={todayDate}
-                    min={startDate}
-                    onchange={handleEndDateChange}
-                  ></lightning-input>
-                </div>
-                <template if:true={disableSearch}>
-                  <div class="slds-form-element">
-                    <lightning-button
-                      variant="brand"
-                      label="Search"
-                      title="Search"
-                      class="slds-m-left_x-small"
-                      disabled
-                    ></lightning-button>
-                  </div>
-                </template>
-                <template if:false={disableSearch}>
-                  <div class="slds-form-element">
-                    <lightning-button
-                      variant="brand"
-                      label="Search"
-                      title="Search"
-                      onclick={handleSearch}
-                      class="slds-m-left_x-small"
-                    ></lightning-button>
-                  </div>
-                </template>
+              <div class="slds-form-element">
+                <lightning-input
+                  type="date"
+                  name="endDate"
+                  data-id="endDateInput"
+                  label="End Date"
+                  value={endDate}
+                  max={todayDate}
+                  min={startDate}
+                  onchange={handleEndDateChange}
+                ></lightning-input>
               </div>
-
-              <button
-                class="slds-button expand-collapse"
-                onclick={handleExpandAll}
-              >
-                <template if:true={expandAll}>Collapse All</template>
-                <template if:false={expandAll}>Expand All</template>
-              </button>
+              <template if:true={disableSearch}>
+                <div class="slds-form-element">
+                  <lightning-button
+                    variant="brand"
+                    label="Search"
+                    title="Search"
+                    class="slds-m-left_x-small"
+                    disabled
+                  ></lightning-button>
+                </div>
+              </template>
+              <template if:false={disableSearch}>
+                <div class="slds-form-element">
+                  <lightning-button
+                    variant="brand"
+                    label="Search"
+                    title="Search"
+                    onclick={handleSearch}
+                    class="slds-m-left_x-small"
+                  ></lightning-button>
+                </div>
+              </template>
             </div>
 
-            <template if:true={transactionList}>
-              <template for:each={transactionList} for:item="transRecord">
-                <c-transaction-history-record
-                  key={transRecord.transaction_id}
-                  transaction-record={transRecord}
-                  expand-all={expandAll}
-                  dispute-record-types-from-parent={disputeRecordTypes}
-                  person-account-id={personAccountId}
-                  financial-account-id={recordId}
-                >
-                </c-transaction-history-record>
-              </template>
-              <div class="slds-grid">
-                <div class="slds-col">
-                  <template if:true={showLoadMore}>
-                    <button
-                      class="slds-button load-more"
-                      onclick={handleLoadMore}
-                    >
-                      Load More
-                    </button>
-                  </template>
-                </div>
+            <button
+              class="slds-button expand-collapse"
+              onclick={handleExpandAll}
+            >
+              <template if:true={expandAll}>Collapse All</template>
+              <template if:false={expandAll}>Expand All</template>
+            </button>
+          </div>
+
+          <template if:true={transactionList}>
+            <template for:each={transactionList} for:item="transRecord">
+              <c-transaction-history-record
+                key={transRecord.transaction_id}
+                transaction-record={transRecord}
+                expand-all={expandAll}
+                dispute-record-types-from-parent={disputeRecordTypes}
+                person-account-id={personAccountId}
+                financial-account-id={recordId}
+              >
+              </c-transaction-history-record>
+            </template>
+            <div class="slds-grid">
+              <div class="slds-col">
+                <template if:true={showLoadMore}>
+                  <button
+                    class="slds-button load-more"
+                    onclick={handleLoadMore}
+                  >
+                    Load More
+                  </button>
+                </template>
               </div>
-            </template>
-            <template if:false={fullTransactionList}>
-              <h1 class="slds-card__header-title main-title">
-                <span class="not-found">No Transactions Found</span>
-              </h1>
-            </template>
+            </div>
+          </template>
+          <template if:false={fullTransactionList}>
+            <h1 class="slds-card__header-title main-title">
+              <span class="not-found">No Transactions Found</span>
+            </h1>
           </template>
         </template>
       </template>

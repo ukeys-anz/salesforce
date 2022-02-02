@@ -1,4 +1,5 @@
 import goal_themes from "@salesforce/resourceUrl/goal_themes";
+import transaction_logos from "@salesforce/resourceUrl/transaction_logos";
 
 export function handleGoalData(goalList) {
   //Sort the goals by oldest
@@ -95,4 +96,88 @@ export function handleGoalData(goalList) {
   });
 
   return goalList;
+}
+
+export function getImageMap(goals) {
+  let imageMap = new Map(
+    goals.account_buckets.map((goal) => [goal.id, goal.image])
+  );
+  return imageMap;
+}
+
+export function getEmojiMap(goals) {
+  let emojiMap = new Map(
+    goals.account_buckets.map((goal) => [goal.id, goal.emoji])
+  );
+  return emojiMap;
+}
+
+export function handleTransactionGoals(transactions, imageMap, emojiMap) {
+  transactions.embedded.transactions.forEach((t) => {
+    if (t.transfer) {
+      // if there is a bucket value for source account
+      if (t?.transfer?.source_account?.bucket_id?.value) {
+        // if there is a bucket value for source account prioritise image
+        t.source_image = imageMap.get(
+          t.transfer.source_account.bucket_id.value
+        );
+      }
+      // if there is a bucket value for source account and no image, check for emoji
+
+      if (t?.transfer?.source_account?.bucket_id?.value && !t?.source_image) {
+        t.source_emoji = emojiMap.get(
+          t.transfer.source_account.bucket_id.value
+        );
+      }
+      // if there is nothing is mapped for source, use the default
+      if (
+        t?.transfer?.source_account?.bucket_id?.value &&
+        !t?.source_image &&
+        !t?.source_emoji
+      ) {
+        t.source_image = `${transaction_logos}/TRANSACTION_LOGO_DEFAULT.png`;
+      }
+
+      // if there is a transfer with no source bucket id and has a destination bucket id
+      // note: you can only transfer from everyday > savings
+      if (
+        !t?.transfer?.source_account?.bucket_id &&
+        t?.transfer?.destination_account?.bucket_id?.value
+      ) {
+        t.source_image = `${transaction_logos}/EVERYDAY_ACCOUNT.png`;
+      }
+      // if there is a bucket value for destination account prioritise image
+      if (t?.transfer?.destination_account?.bucket_id?.value) {
+        t.destination_image = imageMap.get(
+          t.transfer.destination_account.bucket_id.value
+        );
+      }
+      // if there is a bucket value for destination account and no image, check for emoji
+      if (
+        t?.transfer?.destination_account?.bucket_id?.value &&
+        !t?.destination_image
+      ) {
+        t.destination_emoji = emojiMap.get(
+          t.transfer.destination_account.bucket_id.value
+        );
+      }
+      // if there is nothing is mapped for destination, use the default
+
+      if (
+        t?.transfer?.destination_account?.bucket_id?.value &&
+        !t?.destination_image &&
+        !t?.destination_emoji
+      ) {
+        t.destination_image = `${transaction_logos}/TRANSACTION_LOGO_DEFAULT.png`;
+      }
+    }
+    // if there is interest and the account type is savings
+    if (
+      t?.type === "TRANSACTION_TYPE_INTEREST" &&
+      t?.interest?.sub_type === "INTEREST_SUB_TYPE_CREDIT_PAID"
+    ) {
+      t.logo = `${goal_themes}/SAVINGS_JAR.png`;
+    } else null;
+  });
+  return transactions;
 }

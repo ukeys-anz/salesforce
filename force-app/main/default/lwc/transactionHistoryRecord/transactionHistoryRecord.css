@@ -4,10 +4,86 @@
   background-color: #e5f2e5;
 }
 
+.name {
+  white-space: nowrap;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  max-width: 75px;
+}
+
 .logo-image {
-  max-width: 60%;
+  max-width: 45%;
   position: relative;
-  top: 15%;
+}
+
+.source-emoji {
+  display: inline-flex;
+  width: 50px;
+  height: 50px;
+  border: 1px #e6e7ed;
+  background: white;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 1.5em;
+  position: absolute;
+  left: 2%;
+  top: 10%;
+}
+
+.source-image {
+  display: block;
+  width: 50px;
+  height: 50px;
+  border: 1px #e6e7ed;
+  background: white;
+  text-align: center;
+  align-content: center;
+  align-items: center;
+  border-radius: 50%;
+  position: absolute;
+  left: 2%;
+  top: 10%;
+}
+.source-image > img {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.destination-emoji {
+  display: inline-flex;
+  width: 50px;
+  height: 50px;
+  border: 1px #e6e7ed;
+  background: white;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 1.5em;
+  position: absolute;
+  left: 4%;
+  bottom: 10%;
+}
+
+.destination-image {
+  display: block;
+  width: 50px;
+  height: 50px;
+  border: 1px #e6e7ed;
+  background: white;
+  text-align: center;
+  align-content: center;
+  align-items: center;
+  border-radius: 50%;
+  position: absolute;
+  left: 4%;
+  bottom: 10%;
+}
+.destination-image > img {
+  max-height: 100%;
+  max-width: 100%;
 }
 
 img {
@@ -51,7 +127,8 @@ img {
   max-width: 85%;
 }
 
-.description-tooltip {
+.description-tooltip,
+.name-tooltip {
   visibility: hidden;
   width: 30%;
   background-color: #18315c;
@@ -68,7 +145,8 @@ img {
   left: 42% !important;
 }
 
-.description:hover + .description-tooltip {
+.description:hover + .description-tooltip,
+.name:hover + .description-tooltip {
   visibility: visible;
   transition: opacity 0.5s ease;
   opacity: 1;

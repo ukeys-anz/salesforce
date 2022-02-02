@@ -13,17 +13,27 @@ import FIN_ACCOUNT_OCV_ID from "@salesforce/schema/FinServ__FinancialAccount__c.
 import FIN_ACCOUNT_TYPE from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__FinancialAccountType__c";
 import TRANSACTION_HISTORY_RETRIEVE_ERROR from "c/transactionHistoryService";
 
-import { handleGoalData } from "./helpers/utils";
+import {
+  getEmojiMap,
+  getImageMap,
+  handleGoalData,
+  handleTransactionGoals
+} from "./helpers/utils";
 import { CurrentPageReference } from "lightning/navigation";
 
 export default class FinancialAccountParent extends LightningElement {
   @api recordId;
-  financialAccountData = [];
-  financialAccountError;
-  financialAccountNumber;
-  financialAccountType;
+  accountData = [];
+  accountError;
+  accountNumber;
+  accountType;
+  fullGoalData;
   goalData = { goalList: [], nextToken: null };
   goalError;
+  goalLookup;
+  hasTransactionError = false;
+  emojiMap;
+  imageMap;
   isSavings;
   loading;
   ocvId;
@@ -47,16 +57,14 @@ export default class FinancialAccountParent extends LightningElement {
     this.loading = true;
     if (data) {
       this.ocvId = data.fields.OCV_ID__c.value;
-      this.financialAccountNumber =
-        data.fields.FinServ__FinancialAccountNumber__c.value;
-      if (data.fields.FinServ__FinancialAccountType__c.value === "Savings") {
+      this.accountNumber = data.fields.FinServ__FinancialAccountNumber__c.value;
+      const accType = data.fields.FinServ__FinancialAccountType__c.value;
+      if (accType === "Savings") {
         this.isSavings = true;
-        this.financialAccountType = "savings";
-      } else if (
-        data.fields.FinServ__FinancialAccountType__c.value === "Checking"
-      ) {
+        this.accountType = "savings";
+      } else if (accType === "Checking") {
         this.isSavings = false;
-        this.financialAccountType = "checking";
+        this.accountType = "checking";
       }
       await this.getFinancialData();
       await this.getGoalData();
@@ -77,34 +85,30 @@ export default class FinancialAccountParent extends LightningElement {
   }
 
   async getFinancialData() {
-    this.financialAccountData = [];
+    this.accountData = [];
     try {
-      let financialAccountDetails = await getFinancialAccountFabric({
+      let accountDetails = await getFinancialAccountFabric({
         ocvId: this.ocvId,
-        accountNumbers: [this.financialAccountNumber]
+        accountNumbers: [this.accountNumber]
       });
-      this.financialAccountData = this.handleAccountInformation(
-        financialAccountDetails
-      );
+      this.accountData = this.handleAccountInformation(accountDetails);
     } catch (error) {
-      this.financialAccountError =
+      this.accountError =
         "Failed to retrieve latest account details. Please refresh and try again. If issue persists please contact your System Administrator";
       handleErrorShowToast(
         this,
         "Failed To Retrieve Account Details",
         error,
-        this.financialAccountError,
+        this.accountError,
         "pester"
       );
       // If the API callout fails to fetch latest data, use this as a fallback to fetch
       // the records stored in Salesforce
-      let financialAccountDetails = await getFinancialAccountDB({
+      let accountDetails = await getFinancialAccountDB({
         ownerId: this.recordId,
-        type: [this.financialAccountType]
+        type: [this.accountType]
       });
-      this.financialAccountData = this.handleAccountInformation(
-        financialAccountDetails
-      );
+      this.accountData = this.handleAccountInformation(accountDetails);
     }
   }
 
@@ -115,6 +119,8 @@ export default class FinancialAccountParent extends LightningElement {
       try {
         let goalDetails = await getAccountBuckets({ ocvId: this.ocvId });
         goalDetails = handleGoalData(goalDetails);
+        this.emojiMap = getEmojiMap(goalDetails);
+        this.imageMap = getImageMap(goalDetails);
         //Savings jar will always be default, so retrieve it
         //to pass through to other components that need it
         this.savingsJar = goalDetails.account_buckets.filter((obj) => {
@@ -149,17 +155,25 @@ export default class FinancialAccountParent extends LightningElement {
     try {
       this.transactionData = await getTransactionHistoryAura({
         ocvId: this.ocvId,
-        accountNumber: this.financialAccountNumber,
+        accountNumber: this.accountNumber,
         startDate: this.transactionStartDate,
         endDate: this.transactionEndDate,
         paramUrl: paramUrl,
         bucketIds: this.transactionBucketIds
       });
+      if (this.isSavings) {
+        this.transactionData = handleTransactionGoals(
+          this.transactionData,
+          this.imageMap,
+          this.emojiMap
+        );
+      }
     } catch (error) {
+      this.hasTransactionError = true;
       this.transactionError = TRANSACTION_HISTORY_RETRIEVE_ERROR;
       handleErrorShowToast(
         this,
-        "Failed To Retrieve Goal Details",
+        "Failed To Retrieve Transaction History",
         error,
         this.transactionError,
         "pester"
@@ -179,16 +193,6 @@ export default class FinancialAccountParent extends LightningElement {
 
     return finAccounts;
   }
-  //This function is required as some errors are returned
-  //as stringified json
-  handleError(error) {
-    try {
-      JSON.parse(error);
-    } catch (e) {
-      return error;
-    }
-    return JSON.parse(error).message;
-  }
 
   handleLoadMore(event) {
     this.getTransactionData(event.detail);
@@ -199,16 +203,6 @@ export default class FinancialAccountParent extends LightningElement {
     this.transactionEndDate = event.detail.endDateString;
     this.getTransactionData();
   }
-
-  //   handleTransactionGoals(transactions){
-  //     //if (transactions){
-  //       //loop through transactions to check for bucket_id
-  //       transactions.embedded.transactions.transfer.destination_account.bucket_id;
-  //       transactions.embedded.transactions.transfer.source_account.bucket_id;
-  //       //map id from ths.goalData and append image to transaction dataset }
-  //       //ensure getTransactionData is refactored to be run after getGoalData
-  //   }
-  // }
 
   //Pagination for buckets not built yet. When merged,
   //this will be updated to handle it

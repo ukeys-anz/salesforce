@@ -10,9 +10,9 @@
       </div>
       <c-financial-account
         record-id={recordId}
-        account-type={financialAccountType}
-        account-details={financialAccountData}
-        error={financialAccountError}
+        account-type={accountType}
+        account-details={accountData}
+        error={accountError}
         data-id="financial-account"
       ></c-financial-account>
       <div class="slds-m-top_small"></div>
@@ -47,12 +47,12 @@
       <template if:false={transactionLoading}>
         <c-transaction-history-board
           record-id={recordId}
-          transaction-details={transactionData}
+          transaction-data={transactionData}
+          has-error={hasTransactionError}
           error={transactionError}
           onloadmore={handleLoadMore}
           onsearch={handleSearchDates}
           data-id="transaction-history"
-          parent-loading={transactionLoading}
         ></c-transaction-history-board>
       </template>
     </template>

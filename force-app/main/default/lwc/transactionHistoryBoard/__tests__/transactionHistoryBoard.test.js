@@ -44,7 +44,7 @@ describe("c-transactionHistoryBoard", () => {
       is: TransactionHistoryBoard
     });
     document.body.appendChild(element);
-    element.transactionDetails = APEX_TRANSACTIONS_SUCCESS;
+    element.transactionData = APEX_TRANSACTIONS_SUCCESS;
 
     // Emit data from @wire
     getRecordAdapter.emit(mockGetRecord);
@@ -63,7 +63,7 @@ describe("c-transactionHistoryBoard", () => {
       is: TransactionHistoryBoard
     });
     document.body.appendChild(element);
-    element.transactionDetails = APEX_TRANSACTIONS_SUCCESS_PARTIAL;
+    element.transactionData = APEX_TRANSACTIONS_SUCCESS_PARTIAL;
 
     // Emit data from @wire
     getRecordAdapter.emit(mockGetRecord);
@@ -81,7 +81,7 @@ describe("c-transactionHistoryBoard", () => {
       is: TransactionHistoryBoard
     });
     document.body.appendChild(element);
-    element.transactionDetails = APEX_TRANSACTIONS_SUCCESS;
+    element.transactionData = APEX_TRANSACTIONS_SUCCESS;
 
     // Emit data from @wire
     getRecordAdapter.emit(mockGetRecord);
@@ -112,7 +112,7 @@ describe("c-transactionHistoryBoard", () => {
         );
       })
       .then(() => {
-        element.transactionDetails = APEX_TRANSACTIONS_SUCCESS_SECOND;
+        element.transactionData = APEX_TRANSACTIONS_SUCCESS_SECOND;
         const searchBtn = element.shadowRoot.querySelector("lightning-button");
         searchBtn.click();
 
@@ -129,7 +129,7 @@ describe("c-transactionHistoryBoard", () => {
       is: TransactionHistoryBoard
     });
     document.body.appendChild(element);
-    element.transactionDetails = APEX_TRANSACTIONS_SUCCESS;
+    element.transactionData = APEX_TRANSACTIONS_SUCCESS;
 
     // Emit data from @wire
     getRecordAdapter.emit(mockGetRecord);

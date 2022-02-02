@@ -8,6 +8,7 @@ import ExpandCollapseAll from "@salesforce/messageChannel/ListCollapseExpandAll_
 import { handleErrorShowToast } from "c/utils";
 import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
 import { getOptionalFieldValue, processTransaction } from "./helpers/util";
+import transaction_logos from "@salesforce/resourceUrl/transaction_logos";
 
 import {
   TRANSACTION_STATUSES,
@@ -62,6 +63,7 @@ export default class TransactionHistoryBoard extends LightningElement {
   @api recordId;
   // gets search, error through financialAccountParent LWC
   @api error;
+  @api hasError;
   fullTransactionList = [];
   @track transactionList = [];
   @track showSearchBar = false;
@@ -82,6 +84,7 @@ export default class TransactionHistoryBoard extends LightningElement {
   allTags;
   allMerchants;
   componentTitle;
+  isSavings;
 
   @wire(MessageContext)
   messageContext;
@@ -97,10 +100,12 @@ export default class TransactionHistoryBoard extends LightningElement {
       }
       if (data.fields.FinServ__FinancialAccountType__c.value === "Savings") {
         this.componentTitle = "All Savings Transaction History";
+        this.isSavings = true;
       } else if (
         data.fields.FinServ__FinancialAccountType__c.value === "Checking"
       ) {
         this.componentTitle = "All Everyday Transaction History";
+        this.isSavings = false;
       }
     }
     this.loading = false;
@@ -115,11 +120,11 @@ export default class TransactionHistoryBoard extends LightningElement {
   }
 
   @api
-  get transactionDetails() {
+  get transactionData() {
     return this.fullTransactionList;
   }
 
-  set transactionDetails(transactions) {
+  set transactionData(transactions) {
     if (transactions) {
       this.fullTransactionList = transactions.embedded.transactions;
       this.links = transactions.links;
@@ -189,6 +194,10 @@ export default class TransactionHistoryBoard extends LightningElement {
           //Handle merchant details
           if (currentTransaction.merchantId?.value) {
             currentTransaction = this.handleMerchantDetails(currentTransaction);
+          }
+
+          if (!currentTransaction.logo && this.isSavings === false) {
+            currentTransaction.logo = `${transaction_logos}/TRANSACTION_LOGO_DEFAULT.png`;
           }
 
           //Remap card scheme to be user friendly

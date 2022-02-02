@@ -682,8 +682,8 @@
         "transaction_time": "2021-11-12T06:37:58Z",
         "last_update_time": "2021-08-24T11:49:14.025984Z",
         "status": "TRANSACTION_STATUS_POSTED",
-        "long_desc": "Transfer to some place",
-        "short_desc": "Transfer payment",
+        "long_desc": "Transfer within 014111-210433904",
+        "short_desc": "Transfer to a goal",
         "amount": {
           "currency_code": "AUD",
           "units": "19",
@@ -699,24 +699,20 @@
             "value": 1
           }
         },
-        "enrichment_id": "Transfer from some place",
-        "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
-        "merchantId": { "value": "M12345" },
-        "tags": ["T12345"],
+        "enrichment_id": "Transfer between goals",
         "type": "TRANSACTION_TYPE_TRANSFER",
         "transfer": {
           "payment_id": "1234",
-          "platform": "PAYMENT_PLATFORM_OSKO",
           "message": {
-            "value": "Heres money for food"
+            "value": "Heres money for mangoes"
           },
           "payment_receipt_number": {
             "value": "0987654321123"
           },
           "source_account": {
             "account": {
-              "bsb": "246800",
-              "number": "1111111111"
+              "bsb": "014111",
+              "number": "210456129"
             },
             "bucket_id": {
               "value": "ajdfa8-21231fd-kx9a8f-0lod-624019f07ae7"
@@ -724,11 +720,11 @@
           },
           "destination_account": {
             "account": {
-              "bsb": "135799",
-              "number": "9999999999"
+              "bsb": "014111",
+              "number": "210456129"
             },
             "bucket_id": {
-              "value": "df645c0a-2ffd-508f-b86d-69e092a07ae7"
+              "value": "3096fead-c325-59a4-89a6-a7a7378f0e93"
             }
           }
         },
@@ -967,6 +963,147 @@
         "aux_dom": { "value": "aux-dom" },
         "original_anzx_category": "329db79d-9093-5ce4-b9f2-dc533bc559d3",
         "title": "Direct Debit Today"
+      },
+      {
+        "transaction_id": "0d244f3d-5358-34f8-9fc7-a7142fb27e28",
+        "account": {
+          "bsb": "014111",
+          "number": "210456129"
+        },
+        "transaction_time": "2021-10-29T01:06:30Z",
+        "last_update_time": "2021-11-02T23:18:42.291480Z",
+        "status": "TRANSACTION_STATUS_POSTED",
+        "long_desc": "Transfer within 014111-210456129 #554866",
+        "short_desc": "Transfer within 014111-210456129 #554866",
+        "amount": {
+          "currency_code": "AUD",
+          "units": "20",
+          "nanos": 0
+        },
+        "international_amount": {
+          "charged": {
+            "currency_code": "AUD",
+            "units": "20"
+          },
+          "exchange_rate": {
+            "value": 1
+          }
+        },
+        "enrichment_id": "Transfer between goals",
+        "type": "TRANSACTION_TYPE_TRANSFER",
+        "transfer": {
+          "payment_id": "AX13568579972353",
+          "message": {
+            "value": "forgerock test **^^^^@@$$%%^^****PM"
+          },
+          "payment_receipt_number": {
+            "value": "554866"
+          },
+          "source_account": {
+            "account": {
+              "bsb": "014111",
+              "number": "210456129"
+            },
+            "bucket_id": {
+              "value": "47f557e1-fc57-5974-bc5c-137dd3b050b3"
+            }
+          },
+          "destination_account": {
+            "account": {
+              "bsb": "014111",
+              "number": "210456129"
+            },
+            "bucket_id": {
+              "value": "476e0ac6-5553-5fda-bdd8-b8f87af2d83b"
+            }
+          }
+        },
+        "title": "Savings Transfer"
+      },
+      {
+        "transaction_id": "0d244f3d-5358-34f8-9fc7-a7142fb27e38",
+        "account": {
+          "bsb": "014111",
+          "number": "210456129"
+        },
+        "transaction_time": "2021-10-29T01:09:30Z",
+        "last_update_time": "2021-11-02T23:23:42.291480Z",
+        "status": "TRANSACTION_STATUS_POSTED",
+        "long_desc": "Transfer to savings from everyday",
+        "short_desc": "Transfer to savings",
+        "amount": {
+          "currency_code": "AUD",
+          "units": "20",
+          "nanos": 0
+        },
+        "international_amount": {
+          "charged": {
+            "currency_code": "AUD",
+            "units": "20"
+          },
+          "exchange_rate": {
+            "value": 1
+          }
+        },
+        "enrichment_id": "Transfer to savings",
+        "type": "TRANSACTION_TYPE_TRANSFER",
+        "transfer": {
+          "payment_id": "AX13568579972354",
+          "message": {
+            "value": "savings"
+          },
+          "payment_receipt_number": {
+            "value": "554867"
+          },
+          "source_account": {
+            "account": {
+              "bsb": "014111",
+              "number": "210433904"
+            }
+          },
+          "destination_account": {
+            "account": {
+              "bsb": "014111",
+              "number": "210456129"
+            },
+            "bucket_id": {
+              "value": "47f557e1-fc57-5974-bc5c-137dd3b050c2"
+            }
+          }
+        },
+        "title": "Savings Transfer"
+      },
+      {
+        "transaction_id": "0d244f3d-5358-34f8-9fc7-a7142fb27c72",
+        "account": {
+          "bsb": "014111",
+          "number": "210456129"
+        },
+        "transaction_time": "2021-10-29T01:12:30Z",
+        "last_update_time": "2021-11-02T23:26:42.291480Z",
+        "status": "TRANSACTION_STATUS_POSTED",
+        "long_desc": "Interest accrued on 014111-210456129",
+        "short_desc": "Interest accrued on 014111-210456129",
+        "amount": {
+          "currency_code": "AUD",
+          "units": "2",
+          "nanos": 0
+        },
+        "international_amount": {
+          "charged": {
+            "currency_code": "AUD",
+            "units": "2"
+          },
+          "exchange_rate": {
+            "value": 1
+          }
+        },
+        "enrichment_id": "Interest on savings",
+        "type": "TRANSACTION_TYPE_INTEREST",
+        "interest": {
+          "sub_type": "INTEREST_SUB_TYPE_CREDIT_PAID"
+        },
+        "title": "Interest on savings"
       }
     ],
     "categories": [
