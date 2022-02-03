@@ -56,19 +56,15 @@ public with sharing class FinancialAccountController {
           )
         );
       }
-      List<Database.UpsertResult> results = Database.upsert(
+      SystemModeActions actions = new SystemModeActions(
+        'FinancialAccountController',
+        'getFinancialAccountFabric'
+      );
+      Boolean hasError = actions.upsertRecords(
         financialAccounts,
         FinServ__FinancialAccount__c.FinServ__FinancialAccountNumber__c,
-        false
+        'FinServ__FinancialAccount__c'
       );
-
-      //log errors to application log
-      Boolean hasError = log.addDatabaseUpsertResult(
-        'FinServ__FinancialAccount__c',
-        results,
-        financialAccounts
-      );
-      log.insertLogAsync();
 
       if (hasError) {
         throw new AuraHandledException(

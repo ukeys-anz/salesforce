@@ -72,6 +72,7 @@ export default class FinancialAccountParent extends LightningElement {
     }
     this.loading = false;
   }
+
   connectedCallback() {
     //get url param here for goal filtering
     if (this.pageRef?.state?.c__goalId) {

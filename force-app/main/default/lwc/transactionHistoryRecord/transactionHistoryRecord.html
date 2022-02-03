@@ -6,7 +6,7 @@
   </template>
   <article class={transactionRecord.rowColour}>
     <div class="slds-grid slds-m-bottom_small">
-      <div class="slds-col slds-size--1-of-7">
+      <div class="slds-col slds-size--1-of-7 logo-container">
         <template if:true={transactionRecord.logo}>
           <img class="logo-image" alt="Logo" src={transactionRecord.logo} />
         </template>
@@ -14,7 +14,9 @@
           <div class="source-emoji">{transactionRecord.source_emoji}</div>
         </template>
         <template if:true={transactionRecord.source_image}>
-          <img class="source-image" src={transactionRecord.source_image} />
+          <div class="source-image">
+            <img src={transactionRecord.source_image} />
+          </div>
         </template>
         <template if:true={transactionRecord.destination_emoji}>
           <div class="destination-emoji">
@@ -22,15 +24,16 @@
           </div>
         </template>
         <template if:true={transactionRecord.destination_image}>
-          <img
-            class="destination-image"
-            src={transactionRecord.destination_image}
-          />
+          <div class="destination-image">
+            <img src={transactionRecord.destination_image} />
+          </div>
         </template>
       </div>
       <div class="slds-col slds-size--1-of-7">
         <div class="slds-grid slds-form-element__label">Name</div>
-        <div class="slds-grid name">{transactionRecord.title}</div>
+        <p class="slds-truncate name" title={transactionRecord.title}>
+          {transactionRecord.title}
+        </p>
         <div class="description-tooltip">{transactionRecord.title}</div>
       </div>
       <div class="slds-col slds-size--1-of-7">

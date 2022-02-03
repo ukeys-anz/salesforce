@@ -176,8 +176,11 @@ public with sharing class QualityAssessmentActions {
       qaRecordsWithRelatedCase
     );
 
-    SystemModeActions actions = new SystemModeActions();
-    actions.updateRecords(recordsToUpdate);
+    SystemModeActions actions = new SystemModeActions(
+      'QualityAssessmentActions',
+      'populateFields'
+    );
+    actions.updateRecords(recordsToUpdate, 'Quality_Assessment__c');
   }
 
   /**
@@ -332,33 +335,6 @@ public with sharing class QualityAssessmentActions {
           record.OwnerId = queueMap.get('Quality_Assessor').Id;
         }
       }
-    }
-  }
-
-  /**
-   * @description inner class to run method in system mode / without sharing mode and igonre security settings. Implemented this as the owner will be changed in the trigger context, causing the active/invoking user lose access to the record(s).
-   */
-  public without sharing class SystemModeActions {
-    /**
-     * @description method to update Quality Assessment records, put this mehtod in a without sharing context as the QA records need to get updated regardless the sharing / ownership
-     * @param records quality assessment records to update
-     */
-    private void updateRecords(List<Quality_Assessment__c> records) {
-      if (records == null || records.size() == 0) {
-        return;
-      }
-
-      List<Database.SaveResult> results = Database.Update(records, false);
-
-      //log errors to application log
-      lib_systemLog log = new lib_systemLog(
-        'QualityAssessmentActions',
-        'updateRecords'
-      );
-
-      log.addDatabaseSaveResult('Quality_Assessment__c', results, records);
-
-      log.insertLogAsync();
     }
   }
 }
