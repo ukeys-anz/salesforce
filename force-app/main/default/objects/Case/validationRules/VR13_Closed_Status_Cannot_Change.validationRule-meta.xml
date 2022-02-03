@@ -3,11 +3,12 @@
     <fullName>VR13_Closed_Status_Cannot_Change</fullName>
     <active>true</active>
     <errorConditionFormula>AND(
-    $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
-    NOT($Profile.Name = &quot;System Administrator&quot;),
-    RecordType.DeveloperName = &quot;General_Inquiry&quot;,
-    IsChanged( Status ),
-    ISPICKVAL(PRIORVALUE(Status),&quot;Closed&quot;)
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+NOT($Profile.Name = &quot;System Administrator&quot;),
+NOT($UserRole.DeveloperName = &quot;Coach_Lead&quot;),
+RecordType.DeveloperName = &quot;General_Inquiry&quot;,
+IsChanged( Status ),
+ISPICKVAL(PRIORVALUE(Status),&quot;Closed&quot;)
 )</errorConditionFormula>
     <errorMessage>A case cannot be re-opened once it has been closed. Please create a new case and and relate it to this record via the &apos;Parent Case&apos; field.</errorMessage>
 </ValidationRule>

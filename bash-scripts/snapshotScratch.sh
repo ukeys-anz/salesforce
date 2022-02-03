@@ -96,20 +96,26 @@ while [[ $tryDeploying == true ]]; do
         echo "Maybe you need to do some manual steps."
         echo "Please check the stderr file."
         echo ""
-        read -rp "Do you want to retry push the metadata (y/n)? " retryFlag
-        if [[ $retryFlag == n || $retryFlag == N ]]; then
-            echo ""
-            echo "The job has been skipped."
-            echo ""
-            f=force-app/main/default/objects/Case/fields/IDR_Restriction_Level__c.field-meta.xml
-            cp IDRRestriction.txt $f
-            f=force-app/main/default/objects/Case/fields/SI_Workflow_Step__c.field-meta.xml    
-            cp SIWorkflow.txt $f
-            rm -rf IDRRestriction.txt
-            rm -rf SIWorkflow.txt
-            exit 1
+        read -rp "Do you want to continue without pushing the metadata (y/n)? " withoutPushFlag
+        echo ""
+        if [[ $withoutPushFlag == y || $withoutPushFlag == Y ]]; then
+            tryDeploying=false
         else
-            tryDeploying=true
+            read -rp "Do you want to retry push the metadata (y/n)? " retryFlag
+            if [[ $retryFlag == n || $retryFlag == N ]]; then
+                echo ""
+                echo "The job has been skipped."
+                echo ""
+                f=force-app/main/default/objects/Case/fields/IDR_Restriction_Level__c.field-meta.xml
+                cp IDRRestriction.txt $f
+                f=force-app/main/default/objects/Case/fields/SI_Workflow_Step__c.field-meta.xml    
+                cp SIWorkflow.txt $f
+                rm -rf IDRRestriction.txt
+                rm -rf SIWorkflow.txt
+                exit 1
+            else
+                tryDeploying=true
+            fi
         fi
     else
         tryDeploying=false

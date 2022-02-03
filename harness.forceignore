@@ -13,10 +13,10 @@ package.xml
 **/__tests__/**
 
 # Avoid weird conflicts and deployment errors
-**appMenu
-**appSwitcher
-**profileSessionSettings
-**profilePasswordPolicies
+**/appMenu
+**/appSwitcher
+**/profileSessionSettings
+**/profilePasswordPolicies
 
 # Profiles not to pull nor push
 # 2 entries per profile as per https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_exclude_source.htm
@@ -33,6 +33,7 @@ force-app/main/default/sharingRules/Access_Request__c.sharingRules-meta.xml
 force-app/main/default/sharingRules/Account.sharingRules-meta.xml
 force-app/main/default/sharingRules/Case.sharingRules-meta.xml
 force-app/main/default/sharingRules/User.sharingRules-meta.xml
+force-app/main/default/sharingRules/Known_Issues__c.sharingRules-meta.xml
 
 # Don't pull because delegated authenticaton (and therefore IsSsoEnabled permission) cannot currently be enabled in scratch orgs
 Enforce_SSO.permissionset

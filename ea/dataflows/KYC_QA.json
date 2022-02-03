@@ -27,6 +27,15 @@
             "saqlExpression": "daysBetween(toDate(CreatedDate_sec_epoch) , now())",
             "scale": 1,
             "type": "Numeric"
+          },
+          {
+            "defaultValue": "0",
+            "label": "CaseDurationEpoch",
+            "name": "CaseDurationEpoch",
+            "precision": 10,
+            "saqlExpression": "(ClosedDate_sec_epoch - CreatedDate_sec_epoch)",
+            "scale": 0,
+            "type": "Numeric"
           }
         ],
         "mergeWithSource": true
@@ -43,6 +52,17 @@
         "rightSelect": ["Name"]
       },
       "sources": ["sfdcDigest_Case", "RecordType"]
+    },
+    "AugmentAccountINfo": {
+      "action": "augment",
+      "parameters": {
+        "leftKey": ["AccountId"],
+        "operation": "LookupSingleValue",
+        "relationship": "AccountInfo",
+        "rightKey": ["Id"],
+        "rightSelect": ["OCV_ID__c"]
+      },
+      "sources": ["MergeLastClosedData", "AccountInfo"]
     },
     "sfdcDigest_Case": {
       "action": "sobjectDigest",
@@ -69,7 +89,11 @@
           { "name": "Fraud_Defects_Rectified__c" },
           { "name": "IsClosed" },
           { "name": "Fraud_Citizenship_Updated__c" },
-          { "name": "Fraud_Address_Valid__c" }
+          { "name": "Fraud_Address_Valid__c" },
+          { "name": "AccountId" },
+          { "name": "Fraud_Selfie_Match__c" },
+          { "name": "Case_Hour_Duration__c" },
+          { "name": "Fraud_Restraint_Status__c" }
         ],
         "object": "Case"
       }
@@ -97,7 +121,7 @@
     "register_KYC QA": {
       "action": "register",
       "parameters": { "label": "KYC QA", "name": "KYC_QA" },
-      "sources": ["MergeLastClosedData"]
+      "sources": ["AugmentAccountINfo"]
     },
     "RecordType": {
       "action": "sobjectDigest",
@@ -156,6 +180,13 @@
         "rightSelect": ["ClosedDateBucket", "ClosedDate"]
       },
       "sources": ["TicketAge", "ClosedDateBucket"]
+    },
+    "AccountInfo": {
+      "action": "sobjectDigest",
+      "parameters": {
+        "fields": [{ "name": "Id" }, { "name": "OCV_ID__c" }],
+        "object": "Account"
+      }
     },
     "CaseHistory": {
       "action": "sobjectDigest",
