@@ -60,27 +60,16 @@ echoMessageCreator "" $stepNo false
 
 # pre deploy : change on some files
 echoMessageCreator "Pre Deploy Checking Step" $stepNo true
-f=force-app/main/default/objects/Case/fields/IDR_Restriction_Level__c.field-meta.xml
-context=$(<$f)
-
-cp $f IDRRestriction.txt
-if [[ $context == *'<trackFeedHistory>false</trackFeedHistory>'* ]];then
-    replace=$( sed 's+<trackFeedHistory>false</trackFeedHistory>+<!--<trackFeedHistory>false</trackFeedHistory>-->+g' $f )
-    echo $replace > $f
-    replace=$( sed "s+<trackHistory>true</trackHistory>+<!--<trackHistory>true</trackHistory>-->+g" $f )
-    echo $replace > $f
-    replace=$( sed "s+<trackTrending>false</trackTrending>+<!--<trackTrending>false</trackTrending>-->+g" $f )
-    echo $replace > $f
-fi
-
-f=force-app/main/default/objects/Case/fields/SI_Workflow_Step__c.field-meta.xml
-context=$(<$f)
-cp $f SIWorkflow.txt
-if [[ $context == *'<controllingFieldValue>Open</controllingFieldValue>'* ]];then
-    replace=$( sed "s+<controllingFieldValue>Open</controllingFieldValue>+<!--<controllingFieldValue>Open</controllingFieldValue>-->+g" $f)
-    echo $replace > $f
-fi
-
+changeMetadata force-app/main/default/objects/Case/fields/IDR_Restriction_Level__c.field-meta.xml IDRRestriction true
+changeMetadata force-app/main/default/objects/Case/fields/SI_Workflow_Step__c.field-meta.xml SIWorkflow true
+changeMetadata force-app/main/default/permissionsets/Mvision_Permissions.permissionset-meta.xml Mvision true
+changeMetadata force-app/main/default/permissionsets/Read_Only_Admin.permissionset-meta.xml readOnly true
+changeMetadata force-app/main/default/permissionsets/SFDX_Deploy.permissionset-meta.xml sfdxDeploy true
+changeMetadata force-app/main/default/permissionsets/SFDX_Snapshots.permissionset-meta.xml sfdxSnap true
+changeMetadata force-app/main/default/permissionsets/View_All_Data.permissionset-meta.xml viewAll true
+changeMetadata force-app/main/default/permissionsets/View_All_Files.permissionset-meta.xml viewFiles true
+changeMetadata "force-app/main/default/profiles/Minimum Access - External Apps.profile-meta.xml" minimum true
+changeMetadata "force-app/main/default/profiles/ANZx Standard User.profile-meta.xml" anzxStandard true
 echoMessageCreator "" $stepNo false
 ###########################
 
