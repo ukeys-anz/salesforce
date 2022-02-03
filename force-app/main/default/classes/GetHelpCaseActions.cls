@@ -643,6 +643,11 @@ public with sharing class GetHelpCaseActions {
   }
 
   /**
+   * @description A list of platform events that test class can access for assertion purpose
+   */
+  @TestVisible
+  private static List<sObject> pegaPEList;
+  /**
    * @description Check if a case should be sent to PEGA, these includes
    * submitted disputes with record types: Card, NPP, ATM. If yes, generate a platform event.
    * @param records New record instances to process
@@ -657,10 +662,6 @@ public with sharing class GetHelpCaseActions {
       // Process cases for AFTER UPDATE
       for (Case c : records) {
         if (
-          c.OwnerId ==
-          oldMap.get(c.Id)
-            .OwnerId /* Don't process cases that were updated by case assignment rule, this is to prevent 2 platform events
-           being generated when case submission and case assignement rule execute in the same transaction */ &&
           c.Submitted__c != oldMap.get(c.Id).Submitted__c &&
           GetHelpCaseActionsHelper.isValidPegaDispute(c)
         ) {
@@ -681,6 +682,7 @@ public with sharing class GetHelpCaseActions {
       List<sObject> peList = GetHelpCaseActionsHelper.buildPegaPlatformEvents(
         casesToProcess
       );
+      pegaPEList = peList;
 
       // Publish platform events
       if (peList.size() > 0) {

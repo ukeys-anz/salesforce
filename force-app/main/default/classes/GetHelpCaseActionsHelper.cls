@@ -405,7 +405,9 @@ public with sharing class GetHelpCaseActionsHelper {
       Disputes_PEGA_Integration_Event__e pe = new Disputes_PEGA_Integration_Event__e(
         Case_Id__c = record.Id,
         Transaction_Id__c = record.Transaction_Id__c,
-        Original_Case_Number__c = record.CaseNumber__c,
+        Original_Case_Number__c = (record.CaseNumber__c != null)
+          ? record.CaseNumber__c
+          : record.CaseNumber,
         Record_Type_Name__c = Schema.getGlobalDescribe()
           .get('Case')
           .getDescribe()

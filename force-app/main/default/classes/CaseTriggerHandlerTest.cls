@@ -2502,19 +2502,27 @@ private class CaseTriggerHandlerTest {
     );
   }
 
+  // Static values used for PEGA platform event test data and assertions
+  private static string pegaDisputeReason = 'Duplicate Transactions';
+  private static string pegaTransactionId = 'abc48-fasjd-342sdfsa-jlj';
+  private static string pegaCaseNumber = 'abc123';
+  private static string pegaCaseRecordTypeName = 'ATM';
+  private static string pegaCaseDescription = ' ATM Dispute';
+  private static string pegaCaseStatus = 'Open';
+
   // Test checking if a case is a valid PEGA dispute
   @isTest
   static void testIsValidPegaDispute() {
     Case disputeCase = new Case(
-      Dispute_Reason__c = 'Duplicate Transactions',
+      Dispute_Reason__c = pegaDisputeReason,
       Submitted__c = true,
-      Transaction_Id__c = 'abc48-fasjd-342sdfsa-jlj',
-      CaseNumber__c = 'abc123',
+      Transaction_Id__c = pegaTransactionId,
+      CaseNumber__c = pegaCaseNumber,
       RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
         .get('ATM_Dispute')
         .getRecordTypeId(),
-      Description = 'ATM Dispute',
-      Status = 'Open'
+      Description = pegaCaseDescription,
+      Status = pegaCaseStatus
     );
     Test.startTest();
     System.assertEquals(
@@ -2525,57 +2533,18 @@ private class CaseTriggerHandlerTest {
     Test.stopTest();
   }
 
-  // Test building PEGA platform events
-  @isTest
-  static void testBuildPegaPlatformEvents() {
-    Case disputeCase = new Case(
-      Dispute_Reason__c = 'Duplicate Transactions',
-      Submitted__c = true,
-      Transaction_Id__c = 'abc48-fasjd-342sdfsa-jlj',
-      CaseNumber__c = 'abc123',
-      RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-        .get('ATM_Dispute')
-        .getRecordTypeId(),
-      Description = 'ATM Dispute'
-    );
-    List<Case> cases = new List<Case>();
-    cases.add(disputeCase);
-
-    Test.startTest();
-    List<sObject> platFormEventList = GetHelpCaseActionsHelper.buildPegaPlatformEvents(
-      cases
-    );
-    Test.stopTest();
-
-    System.assertEquals(
-      'abc123',
-      platFormEventList[0].get('Original_Case_Number__c'),
-      'Case Number should match.'
-    );
-    System.assertEquals(
-      'abc48-fasjd-342sdfsa-jlj',
-      platFormEventList[0].get('Transaction_Id__c'),
-      'Transaction Id should match.'
-    );
-    System.assertEquals(
-      'ATM',
-      platFormEventList[0].get('Record_Type_Name__c'),
-      'Record Type Name should match.'
-    );
-  }
-
   // Test when an ATM dispute is submitted on insert, a platform event is published
   @SuppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts')
   @isTest
-  static void testDisputesPEGAIntegrationOnInsert() {
+  static void testDisputesPEGAIntegrationOnInsertWithoutCaseNumber() {
     // GIVEN
     // an valid ATM dispute is submitted
     List<Case> records = new List<Case>();
     Case disputeCase = new Case(
-      Dispute_Reason__c = 'Duplicate Transactions',
+      Dispute_Reason__c = pegaDisputeReason,
       Submitted__c = true,
-      Transaction_Id__c = 'abc48-fasjd-342sdfsa-jlj',
-      CaseNumber__c = 'abc123',
+      Transaction_Id__c = pegaTransactionId,
+      // Deliberately not providing a value for CaseNumber__c, CaseNumber should be used
       RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
         .get('ATM_Dispute')
         .getRecordTypeId(),
@@ -2587,13 +2556,72 @@ private class CaseTriggerHandlerTest {
     // the ATM dispute is inserted
     Test.startTest();
     insert records;
+    List<sObject> platFormEventList = GetHelpCaseActions.pegaPEList;
     Test.stopTest();
 
     // THEN
-    // a platform event should be published
-    // since we cannot query on platform events and big object logs are not created in text context (Database.ImmediateInsert does not support unit tests)
-    // we cannot assert here, however event publishing is already asserted in PlatformEventUtilsTest
-    // this function is to cover the code in GetHelpCaseActions
+    // a platform event is published with details populated from the case
+    System.assertNotEquals(
+      null,
+      platFormEventList[0].get('Original_Case_Number__c'),
+      'Case Number should not be null.'
+    );
+    System.assertEquals(
+      pegaTransactionId,
+      platFormEventList[0].get('Transaction_Id__c'),
+      'Transaction Id should match.'
+    );
+    System.assertEquals(
+      pegaCaseRecordTypeName,
+      platFormEventList[0].get('Record_Type_Name__c'),
+      'Record Type Name should match.'
+    );
+  }
+
+  // Test when an ATM dispute is submitted on insert with CaseNumber__c value provided, a platform event is published
+  // with the provided CaseNumber__c value
+  @SuppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts')
+  @isTest
+  static void testDisputesPEGAIntegrationOnInsertWithCaseNumber() {
+    // GIVEN
+    // an valid ATM dispute is submitted
+    List<Case> records = new List<Case>();
+    Case disputeCase = new Case(
+      Dispute_Reason__c = pegaDisputeReason,
+      Submitted__c = true,
+      Transaction_Id__c = pegaTransactionId,
+      CaseNumber__c = pegaCaseNumber,
+      RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+        .get('ATM_Dispute')
+        .getRecordTypeId(),
+      Description = pegaCaseDescription
+    );
+    records.add(disputeCase);
+
+    // WHEN
+    // the ATM dispute is inserted
+    Test.startTest();
+    insert records;
+    List<sObject> platFormEventList = GetHelpCaseActions.pegaPEList;
+    Test.stopTest();
+
+    // THEN
+    // a platform event is published with details populated from the case
+    System.assertEquals(
+      pegaCaseNumber,
+      platFormEventList[0].get('Original_Case_Number__c'),
+      'Case Number should not be null.'
+    );
+    System.assertEquals(
+      pegaTransactionId,
+      platFormEventList[0].get('Transaction_Id__c'),
+      'Transaction Id should match.'
+    );
+    System.assertEquals(
+      pegaCaseRecordTypeName,
+      platFormEventList[0].get('Record_Type_Name__c'),
+      'Record Type Name should match.'
+    );
   }
 
   // Test when an ATM dispute is submitted on Update, a platform event is published
@@ -2603,14 +2631,13 @@ private class CaseTriggerHandlerTest {
     // GIVEN
     // an valid ATM dispute is submitted
     Case disputeCase = new Case(
-      Dispute_Reason__c = 'Duplicate Transactions',
+      Dispute_Reason__c = pegaDisputeReason,
       Submitted__c = false,
-      Transaction_Id__c = 'abc48-fasjd-342sdfsa-jlj',
-      CaseNumber__c = 'abc123',
+      Transaction_Id__c = pegaTransactionId,
       RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
         .get('ATM_Dispute')
         .getRecordTypeId(),
-      Description = 'ATM Dispute'
+      Description = pegaCaseDescription
     );
     insert disputeCase;
 
@@ -2618,18 +2645,31 @@ private class CaseTriggerHandlerTest {
     // the ATM dispute is updated
     Test.startTest();
     Case caseToUpdate = [
-      SELECT Id, Submitted__c
+      SELECT Id, Submitted__c, CaseNumber__c
       FROM Case
-      WHERE Transaction_Id__c = 'abc48-fasjd-342sdfsa-jlj'
+      WHERE Transaction_Id__c = :pegaTransactionId
     ];
     caseToUpdate.Submitted__c = true;
     update caseToUpdate;
+    List<sObject> platFormEventList = GetHelpCaseActions.pegaPEList;
     Test.stopTest();
 
     // THEN
-    // a platform event should be published
-    // since we cannot query on platform events and big object logs are not created in text context (Database.ImmediateInsert does not support unit tests)
-    // we cannot assert here, however event publishing is already asserted in PlatformEventUtilsTest
-    // this function is to cover the code in GetHelpCaseActions
+    // a platform event is published with details populated from the case
+    System.assertEquals(
+      caseToUpdate.CaseNumber__c,
+      platFormEventList[0].get('Original_Case_Number__c'),
+      'Case Number should match.'
+    );
+    System.assertEquals(
+      pegaTransactionId,
+      platFormEventList[0].get('Transaction_Id__c'),
+      'Transaction Id should match.'
+    );
+    System.assertEquals(
+      pegaCaseRecordTypeName,
+      platFormEventList[0].get('Record_Type_Name__c'),
+      'Record Type Name should match.'
+    );
   }
 }
