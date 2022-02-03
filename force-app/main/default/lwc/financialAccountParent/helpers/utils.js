@@ -117,36 +117,45 @@ export function getEmojiMap(goals) {
 export function handleTransactionGoals(transactions, imageMap, emojiMap) {
   transactions.embedded.transactions.forEach((t) => {
     if (t.transfer) {
-      // if there is a bucket value for source account
+      // if there is a bucket value for source account prioritise image
       if (t?.transfer?.source_account?.bucket_id?.value) {
-        // if there is a bucket value for source account prioritise image
         t.source_image = imageMap.get(
           t.transfer.source_account.bucket_id.value
         );
       }
       // if there is a bucket value for source account and no image, check for emoji
-
       if (t?.transfer?.source_account?.bucket_id?.value && !t?.source_image) {
         t.source_emoji = emojiMap.get(
           t.transfer.source_account.bucket_id.value
         );
       }
-      // if there is nothing is mapped for source, use the default
+      // if there is a bucket value for source account
+      // but nothing is mapped for image and emoji, use the default image
       if (
         t?.transfer?.source_account?.bucket_id?.value &&
         !t?.source_image &&
         !t?.source_emoji
       ) {
-        t.source_image = `${transaction_logos}/TRANSACTION_LOGO_DEFAULT.png`;
+        t.source_image = `${goal_themes}/GOAL_THEME_SOMETHING_ELSE.png`;
       }
-
       // if there is a transfer with no source bucket id and has a destination bucket id
-      // note: you can only transfer from everyday > savings
+      // note: you can only transfer w/ no source bucket from everyday > goal
       if (
         !t?.transfer?.source_account?.bucket_id &&
-        t?.transfer?.destination_account?.bucket_id?.value
+        t?.transfer?.destination_account?.bucket_id?.value &&
+        t?.type === "TRANSACTION_TYPE_TRANSFER"
       ) {
         t.source_image = `${transaction_logos}/EVERYDAY_ACCOUNT.png`;
+      }
+      // if there is no bucket value for source account
+      // but nothing is mapped for image and emoji, use the default image
+      if (
+        !t?.transfer?.source_account?.bucket_id &&
+        t?.transfer?.destination_account?.bucket_id?.value &&
+        !t?.source_image &&
+        !t?.source_emoji
+      ) {
+        t.source_image = `${transaction_logos}/TRANSACTION_LOGO_DEFAULT.png`;
       }
       // if there is a bucket value for destination account prioritise image
       if (t?.transfer?.destination_account?.bucket_id?.value) {
@@ -163,10 +172,29 @@ export function handleTransactionGoals(transactions, imageMap, emojiMap) {
           t.transfer.destination_account.bucket_id.value
         );
       }
-      // if there is nothing is mapped for destination, use the default
-
+      // if there is a bucket value for destination account
+      // but nothing is mapped for image and emoji, use the default image
       if (
         t?.transfer?.destination_account?.bucket_id?.value &&
+        !t?.destination_image &&
+        !t?.destination_emoji
+      ) {
+        t.destination_image = `${goal_themes}/GOAL_THEME_SOMETHING_ELSE.png`;
+      }
+      // if there is a transfer with no source bucket id and has a source bucket id
+      // note: you can only transfer w/ no destiantion bucket from goal > everyday
+      if (
+        !t?.transfer?.destination_account?.bucket_id &&
+        t?.transfer?.source_account?.bucket_id?.value &&
+        t?.type === "TRANSACTION_TYPE_TRANSFER"
+      ) {
+        t.destination_image = `${transaction_logos}/EVERYDAY_ACCOUNT.png`;
+      }
+      // if there is no bucket value for destination account
+      // but nothing is mapped for image and emoji, use the default image
+      if (
+        t?.transfer?.source_account?.bucket_id?.value &&
+        !t?.transfer?.destination_account?.bucket_id &&
         !t?.destination_image &&
         !t?.destination_emoji
       ) {
@@ -175,11 +203,16 @@ export function handleTransactionGoals(transactions, imageMap, emojiMap) {
     }
     // if there is interest and the account type is savings
     if (
+      !t?.transfer &&
       t?.type === "TRANSACTION_TYPE_INTEREST" &&
       t?.interest?.sub_type === "INTEREST_SUB_TYPE_CREDIT_PAID"
     ) {
       t.logo = `${goal_themes}/SAVINGS_JAR.png`;
-    } else null;
+    }
+    // if no transfer set logo as default
+    else if (!t?.transfer && !t?.logo) {
+      t.logo = `${transaction_logos}/TRANSACTION_LOGO_DEFAULT.png`;
+    }
   });
   return transactions;
 }

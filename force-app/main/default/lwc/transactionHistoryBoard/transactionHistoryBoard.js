@@ -275,7 +275,7 @@ export default class TransactionHistoryBoard extends LightningElement {
         ? merchantDetails.image_details.light_url.value
         : merchantDetails.image_details.dark_url.value;
     } else {
-      transaction.logo = null;
+      transaction.logo = `${transaction_logos}/TRANSACTION_LOGO_DEFAULT.png`;
     }
 
     transaction.merchantEmail = getOptionalFieldValue(merchantDetails.email);
