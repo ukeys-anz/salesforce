@@ -45,7 +45,6 @@ function changeMetadata(){
     if [[ $3 == true ]]; then
         echo $1
         context=$(<"$1")
-        cp "$1" "$2".txt
 
         if [[ $2 == 'IDRRestriction' ]];then
             replace=$( sed 's+<trackFeedHistory>false</trackFeedHistory>+<!--<trackFeedHistory>false</trackFeedHistory>-->+g' "$1" )
@@ -70,7 +69,6 @@ function changeMetadata(){
             echo $replace > "$1"
         fi
     else
-        cp "$2".txt "$1"
-        rm -rf "$2".txt
+        git checkout .
     fi
 }

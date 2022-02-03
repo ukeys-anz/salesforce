@@ -86,16 +86,7 @@ while [[ $tryDeploying == true ]]; do
                 echo ""
                 echo "The job has been skipped."
                 echo ""
-                changeMetadata force-app/main/default/objects/Case/fields/IDR_Restriction_Level__c.field-meta.xml IDRRestriction false
-                changeMetadata force-app/main/default/objects/Case/fields/SI_Workflow_Step__c.field-meta.xml SIWorkflow false
-                changeMetadata force-app/main/default/permissionsets/Mvision_Permissions.permissionset-meta.xml Mvision false
-                changeMetadata force-app/main/default/permissionsets/Read_Only_Admin.permissionset-meta.xml readOnly false
-                changeMetadata force-app/main/default/permissionsets/SFDX_Deploy.permissionset-meta.xml sfdxDeploy false
-                changeMetadata force-app/main/default/permissionsets/SFDX_Snapshots.permissionset-meta.xml sfdxSnap false
-                changeMetadata force-app/main/default/permissionsets/View_All_Data.permissionset-meta.xml viewAll false
-                changeMetadata force-app/main/default/permissionsets/View_All_Files.permissionset-meta.xml viewFiles false
-                changeMetadata "force-app/main/default/profiles/Minimum Access - External Apps.profile-meta.xml" minimum false
-                changeMetadata "force-app/main/default/profiles/ANZx Standard User.profile-meta.xml" anzxStandard false
+                changeMetadata "" "" false
                 exit 1
             else
                 tryDeploying=true
@@ -110,16 +101,8 @@ echoMessageCreator "" $stepNo false
 
 # post deploy: to make all the files back to what it was and deploy them
 echoMessageCreator "Post Deploy" $stepNo true
-changeMetadata force-app/main/default/objects/Case/fields/IDR_Restriction_Level__c.field-meta.xml IDRRestriction false
-changeMetadata force-app/main/default/objects/Case/fields/SI_Workflow_Step__c.field-meta.xml SIWorkflow false
-changeMetadata force-app/main/default/permissionsets/Mvision_Permissions.permissionset-meta.xml Mvision false
-changeMetadata force-app/main/default/permissionsets/Read_Only_Admin.permissionset-meta.xml readOnly false
-changeMetadata force-app/main/default/permissionsets/SFDX_Deploy.permissionset-meta.xml sfdxDeploy false
-changeMetadata force-app/main/default/permissionsets/SFDX_Snapshots.permissionset-meta.xml sfdxSnap false
-changeMetadata force-app/main/default/permissionsets/View_All_Data.permissionset-meta.xml viewAll false
-changeMetadata force-app/main/default/permissionsets/View_All_Files.permissionset-meta.xml viewFiles false
-changeMetadata "force-app/main/default/profiles/Minimum Access - External Apps.profile-meta.xml" minimum false
-changeMetadata "force-app/main/default/profiles/ANZx Standard User.profile-meta.xml" anzxStandard false
+changeMetadata "" "" false
+
 f1=force-app/main/default/objects/Case/fields/IDR_Restriction_Level__c.field-meta.xml
 f2=force-app/main/default/objects/Case/fields/SI_Workflow_Step__c.field-meta.xml
 sfdx force:source:deploy -u $scratchorgalias -p $f1,$f2
