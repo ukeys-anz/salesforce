@@ -86,7 +86,7 @@ while [[ $tryDeploying == true ]]; do
                 echo ""
                 echo "The job has been skipped."
                 echo ""
-                changeMetadata "" "" false
+                git checkout .
                 exit 1
             else
                 tryDeploying=true
@@ -101,7 +101,7 @@ echoMessageCreator "" $stepNo false
 
 # post deploy: to make all the files back to what it was and deploy them
 echoMessageCreator "Post Deploy" $stepNo true
-changeMetadata "" "" false
+git checkout .
 
 f1=force-app/main/default/objects/Case/fields/IDR_Restriction_Level__c.field-meta.xml
 f2=force-app/main/default/objects/Case/fields/SI_Workflow_Step__c.field-meta.xml
