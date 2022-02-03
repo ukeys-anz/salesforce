@@ -159,7 +159,7 @@ echoMessageCreator "" $stepNo false
 
 # creating a user with "anzx.user@anzx.com" username
 echoMessageCreator "creating a breakglass user" $stepNo true
-sfdx force:user:create username="anzx.user@anzx.com" --targetusername $scratchorgalias
+sfdx force:user:create username="anzx.user@anzx.com" --targetusername $scratchorgalias | tee stderr
 echoMessageCreator "" $stepNo false
 ###########################
 
