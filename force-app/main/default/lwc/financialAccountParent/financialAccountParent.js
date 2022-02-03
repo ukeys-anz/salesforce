@@ -11,6 +11,7 @@ import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accoun
 import FIN_ACCOUNT_NUMBER from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__FinancialAccountNumber__c";
 import FIN_ACCOUNT_OCV_ID from "@salesforce/schema/FinServ__FinancialAccount__c.OCV_ID__c";
 import FIN_ACCOUNT_TYPE from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__FinancialAccountType__c";
+import FIN_ACCOUNT_INTEREST from "@salesforce/schema/FinServ__FinancialAccount__c.Interest_Accrued__c";
 import TRANSACTION_HISTORY_RETRIEVE_ERROR from "c/transactionHistoryService";
 
 import {
@@ -34,6 +35,7 @@ export default class FinancialAccountParent extends LightningElement {
   hasTransactionError = false;
   emojiMap;
   imageMap;
+  interestAccrued;
   isSavings;
   loading;
   ocvId;
@@ -51,7 +53,12 @@ export default class FinancialAccountParent extends LightningElement {
 
   @wire(getRecord, {
     recordId: "$recordId",
-    fields: [FIN_ACCOUNT_NUMBER, FIN_ACCOUNT_OCV_ID, FIN_ACCOUNT_TYPE]
+    fields: [
+      FIN_ACCOUNT_NUMBER,
+      FIN_ACCOUNT_OCV_ID,
+      FIN_ACCOUNT_TYPE,
+      FIN_ACCOUNT_INTEREST
+    ]
   })
   async wiredRecord({ data }) {
     this.loading = true;
@@ -62,6 +69,7 @@ export default class FinancialAccountParent extends LightningElement {
       if (accType === "Savings") {
         this.isSavings = true;
         this.accountType = "savings";
+        this.interestAccrued = data.fields.Interest_Accrued__c.value;
       } else if (accType === "Checking") {
         this.isSavings = false;
         this.accountType = "checking";

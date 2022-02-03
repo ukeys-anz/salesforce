@@ -8,13 +8,15 @@
           class="slds-float_right slds-p-bottom_small"
         ></lightning-button>
       </div>
-      <c-financial-account
+      <c-financial-account-header
         record-id={recordId}
         account-type={accountType}
         account-details={accountData}
         error={accountError}
+        savings-jar={savingsJar}
+        interest={interestAccrued}
         data-id="financial-account"
-      ></c-financial-account>
+      ></c-financial-account-header>
       <div class="slds-m-top_small"></div>
       <template if:true={isSavings}>
         <template if:true={goalData}>
