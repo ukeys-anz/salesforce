@@ -7,16 +7,7 @@ set -e
 trap ctrl_c INT
 
 function ctrl_c() {
-    if [ -f IDRRestriction.txt ];then
-        f=force-app/main/default/objects/Case/fields/IDR_Restriction_Level__c.field-meta.xml
-        cp IDRRestriction.txt $f
-        rm -rf IDRRestriction.txt
-    fi
-    if [ -f SIWorkflow.txt ]; then
-        f=force-app/main/default/objects/Case/fields/SI_Workflow_Step__c.field-meta.xml    
-        cp SIWorkflow.txt $f
-        rm -rf SIWorkflow.txt
-    fi
+    git checkout .
     echo "${red}"
     echo "Making scracthOrg has been stopped."
     echo "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
