@@ -33,7 +33,7 @@ function echoMessageCreator(){
         echo "Job finished in $((JOB_END_TIME - JOB_START_TIME)) s."
         echo ""
         echo "${red}*****************************************"
-        echo ""
+        echo "${reset}"
         stepNo=$(($stepNo+1))
     fi
 }
