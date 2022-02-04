@@ -96,7 +96,7 @@
                   <div class="slds-col slds-grid slds-size_1-of-1">
                     <div class="slds-grid slds-wrap slds-size_1-of-1">
                       <div
-                        class="slds-col slds-size_1-of-1 slds-large-size_1-of-5 slds-var-p-around_small vertical-align"
+                        class="slds-col slds-size_1-of-1 slds-large-size_1-of-4 slds-var-p-around_small vertical-align"
                       >
                         <div class="header-column">
                           <p class="slds-text-color_weak">Account Number</p>
@@ -106,7 +106,7 @@
                         </div>
                       </div>
                       <div
-                        class="slds-col slds-size_1-of-1 slds-large-size_1-of-5 slds-var-p-around_small balance-padding vertical-align"
+                        class="slds-col slds-size_1-of-1 slds-large-size_1-of-4 slds-var-p-around_small balance-padding vertical-align"
                       >
                         <div class="header-column slds-float_right">
                           <p class="slds-text-color_weak">
@@ -128,19 +128,21 @@
                         </div>
                       </div>
                       <div
-                        class="slds-col slds-size_1-of-1 slds-large-size_1-of-5 slds-var-p-around_small slds-text-align_center"
+                        class="slds-col slds-size_1-of-1 slds-large-size_1-of-4 slds-var-p-around_small slds-border_left slds-text-align_left"
                       >
-                        <p class="slds-text-color_weak">
+                        <p class="slds-text-color_weak savings-jar-title">
                           {savingsJar.goal.name}
                         </p>
                         <template if:true={savingsJar.image}>
-                          <img src={savingsJar.image} width="90%" />
+                          <img
+                            class="savings-jar"
+                            src={savingsJar.image}
+                            width="90%"
+                          />
                         </template>
-                      </div>
-                      <div
-                        class="slds-col slds-size_1-of-1 slds-large-size_1-of-5 slds-var-p-around_small balance-padding vertical-align"
-                      >
-                        <div class="header-column slds-float_right">
+                        <div
+                          class="header-column slds-float_right right-align jar-total-saved"
+                        >
                           <p class="slds-text-color_weak">
                             Total Saved
                             <lightning-icon
@@ -160,13 +162,13 @@
                         </div>
                       </div>
                       <div
-                        class="slds-col slds-size_1-of-1 slds-large-size_1-of-5 slds-var-p-around_small balance-padding vertical-align"
+                        class="slds-col slds-size_1-of-1 slds-large-size_1-of-4 slds-var-p-around_small balance-padding vertical-align"
                       >
                         <div class="header-column slds-float_right">
                           <p class="slds-text-color_weak">
                             Total Interest Earnt
                           </p>
-                          <p class="slds-text-heading_large">
+                          <p class="slds-text-heading_large slds-float_right">
                             <lightning-formatted-number
                               value={interest}
                               format-style="currency"

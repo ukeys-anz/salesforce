@@ -16,9 +16,15 @@
   float: right;
 }
 
-.img {
-  max-width: 60%;
-  height: auto;
+.jar-total-saved {
+  padding-top: 13px;
+}
+
+.savings-jar-title {
+  padding-left: 15px;
+}
+.savings-jar {
+  max-width: 100px;
 }
 
 .not-found {

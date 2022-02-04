@@ -22,7 +22,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  font-size: 1.5em;
+  font-size: 1.8em;
 }
 
 .source-image {
@@ -45,8 +45,10 @@
   height: 50px;
   border: 1px solid #e6e7ed;
   background: white;
+  align-items: center;
+  justify-content: center;
   border-radius: 50%;
-  font-size: 1.5em;
+  font-size: 1.8em;
   position: relative;
   left: 21px;
   bottom: 27px;
@@ -66,10 +68,8 @@
 
 .destination-image > img {
   max-height: 100%;
-  max-width: 79%;
+  max-width: 100%;
   position: absolute;
-  left: 5px;
-  top: 7px;
 }
 
 img {

@@ -16,9 +16,11 @@ import TRANSACTION_HISTORY_RETRIEVE_ERROR from "c/transactionHistoryService";
 
 import {
   getEmojiMap,
+  getGoalMap,
   getImageMap,
   handleGoalData,
-  handleTransactionGoals
+  handleTransactionGoals,
+  handleComponentTitle
 } from "./helpers/utils";
 import { CurrentPageReference } from "lightning/navigation";
 
@@ -28,10 +30,12 @@ export default class FinancialAccountParent extends LightningElement {
   accountError;
   accountNumber;
   accountType;
+  componentTitle;
   fullGoalData;
   goalData = { goalList: [], nextToken: null };
   goalError;
   goalLookup;
+  goalMap;
   hasTransactionError = false;
   emojiMap;
   imageMap;
@@ -130,6 +134,7 @@ export default class FinancialAccountParent extends LightningElement {
         goalDetails = handleGoalData(goalDetails);
         this.emojiMap = getEmojiMap(goalDetails);
         this.imageMap = getImageMap(goalDetails);
+        this.goalMap = getGoalMap(goalDetails);
         //Savings jar will always be default, so retrieve it
         //to pass through to other components that need it
         this.savingsJar = goalDetails.account_buckets.filter((obj) => {
@@ -170,12 +175,21 @@ export default class FinancialAccountParent extends LightningElement {
         paramUrl: paramUrl,
         bucketIds: this.transactionBucketIds
       });
+      this.componentTitle = "All Everyday Transaction History";
       if (this.isSavings) {
         this.transactionData = handleTransactionGoals(
           this.transactionData,
           this.imageMap,
           this.emojiMap
         );
+        if (this.transactionBucketIds.length === 0) {
+          this.componentTitle = "All Savings Transaction History";
+        } else {
+          this.componentTitle = handleComponentTitle(
+            this.transactionBucketIds,
+            this.goalMap
+          );
+        }
       }
     } catch (error) {
       this.hasTransactionError = true;

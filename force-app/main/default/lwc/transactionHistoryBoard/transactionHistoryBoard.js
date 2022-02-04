@@ -61,7 +61,7 @@ const timeOptions = { hour: "2-digit", minute: "2-digit" };
 
 export default class TransactionHistoryBoard extends LightningElement {
   @api recordId;
-  // gets search, error through financialAccountParent LWC
+  // gets component title, search, error through financialAccountParent LWC
   @api error;
   @api hasError;
   fullTransactionList = [];
@@ -83,7 +83,7 @@ export default class TransactionHistoryBoard extends LightningElement {
   lastDateInPayload;
   allTags;
   allMerchants;
-  componentTitle;
+  @api componentTitle;
   isSavings;
 
   @wire(MessageContext)
@@ -99,12 +99,10 @@ export default class TransactionHistoryBoard extends LightningElement {
         this.handleGetDisputeRecordTypeDetails();
       }
       if (data.fields.FinServ__FinancialAccountType__c.value === "Savings") {
-        this.componentTitle = "All Savings Transaction History";
         this.isSavings = true;
       } else if (
         data.fields.FinServ__FinancialAccountType__c.value === "Checking"
       ) {
-        this.componentTitle = "All Everyday Transaction History";
         this.isSavings = false;
       }
     }

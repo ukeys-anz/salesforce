@@ -48,6 +48,7 @@
       </template>
       <template if:false={transactionLoading}>
         <c-transaction-history-board
+          component-title={componentTitle}
           record-id={recordId}
           transaction-data={transactionData}
           has-error={hasTransactionError}

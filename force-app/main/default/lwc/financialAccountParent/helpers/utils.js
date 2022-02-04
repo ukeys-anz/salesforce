@@ -114,6 +114,13 @@ export function getEmojiMap(goals) {
   return emojiMap;
 }
 
+export function getGoalMap(goals) {
+  let goalMap = new Map(
+    goals.account_buckets.map((goal) => [goal.id, goal.goal.name])
+  );
+  return goalMap;
+}
+
 export function handleTransactionGoals(transactions, imageMap, emojiMap) {
   transactions.embedded.transactions.forEach((t) => {
     if (t.transfer) {
@@ -215,4 +222,13 @@ export function handleTransactionGoals(transactions, imageMap, emojiMap) {
     }
   });
   return transactions;
+}
+
+export function handleComponentTitle(goals, goalMap) {
+  var title = "Savings Transaction History - ";
+  goals.forEach((goal) => {
+    title = title + '"' + goalMap.get(goal) + '", ';
+  });
+  title = title.substring(0, title.length - 2);
+  return title;
 }
