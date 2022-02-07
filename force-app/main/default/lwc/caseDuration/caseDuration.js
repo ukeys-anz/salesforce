@@ -44,7 +44,12 @@ export default class CaseDuration extends LightningElement {
       .then((result) => {
         this.durationTime = result;
         this.days = Math.floor(this.durationTime.hours / 24);
-        if (this.caseStatus === "On Hold" || this.caseStatus === "Closed") {
+        if (
+          this.caseStatus === "On Hold" ||
+          this.caseStatus === "Closed" ||
+          this.caseStatus === "Resolved" ||
+          this.caseStatus === "Withdrawn"
+        ) {
           this.durationStop = true;
           this.handleDate(this.durationTime.hours, this.durationTime.minutes);
         } else {
@@ -119,7 +124,10 @@ export default class CaseDuration extends LightningElement {
 
     this.durationString = `${this.dayString} ${this.hourString} ${this.minuteString}`;
 
-    if (this.caseStatus !== "On Hold" && this.caseStatus !== "Closed") {
+    if (
+      (this.caseStatus !== "On Hold" && this.caseStatus !== "Closed") ||
+      (this.caseStatus !== "Resolved" && this.caseStatus !== "Withdrawn")
+    ) {
       if (
         date.getHours() === 23 &&
         date.getMinutes() === 59 &&
