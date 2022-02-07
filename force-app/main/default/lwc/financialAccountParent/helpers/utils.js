@@ -225,7 +225,7 @@ export function handleTransactionGoals(transactions, imageMap, emojiMap) {
 }
 
 export function handleComponentTitle(goals, goalMap) {
-  var title = "Savings Transaction History - ";
+  var title = "Savings Transaction History - Filtered for: ";
   goals.forEach((goal) => {
     title = title + '"' + goalMap.get(goal) + '", ';
   });

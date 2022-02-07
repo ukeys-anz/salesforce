@@ -1,13 +1,19 @@
 <template>
   <article class="transactionHistoryBoard slds-card">
-    <h1 class="card-title" data-id="component-title">
-      <lightning-icon
-        icon-name="standard:product_item_transaction"
-        size="medium"
-        class="slds-m-right_small"
-      ></lightning-icon>
-      {componentTitle}
-    </h1>
+    <div class="card-title" data-id="component-title">
+      <div class="slds-grid">
+        <div class="slds-col slds-size_1-of-11 flex-override">
+          <lightning-icon
+            icon-name="standard:product_item_transaction"
+            size="medium"
+            class="slds-m-right_small"
+          ></lightning-icon>
+        </div>
+        <div class="slds-col slds-size_10-of-11 flex-override">
+          {componentTitle}
+        </div>
+      </div>
+    </div>
     <div class="slds-card__body slds-card__body_inner padded-card">
       <template if:true={displayContent}>
         <template if:true={loading}>

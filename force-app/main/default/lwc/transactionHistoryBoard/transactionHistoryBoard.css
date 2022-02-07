@@ -48,4 +48,9 @@
   font-size: 16px;
   border-radius: 0.25em;
   font-weight: bold;
+  height: 100%;
+}
+
+.flex-override {
+  flex: unset !important;
 }
