@@ -12,7 +12,7 @@ import FIN_ACCOUNT_NUMBER from "@salesforce/schema/FinServ__FinancialAccount__c.
 import FIN_ACCOUNT_OCV_ID from "@salesforce/schema/FinServ__FinancialAccount__c.OCV_ID__c";
 import FIN_ACCOUNT_TYPE from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__FinancialAccountType__c";
 import FIN_ACCOUNT_INTEREST from "@salesforce/schema/FinServ__FinancialAccount__c.Interest_Accrued__c";
-import TRANSACTION_HISTORY_RETRIEVE_ERROR from "c/transactionHistoryService";
+import { TRANSACTION_HISTORY_RETRIEVE_ERROR } from "c/transactionHistoryService";
 
 import {
   getEmojiMap,
@@ -166,6 +166,11 @@ export default class FinancialAccountParent extends LightningElement {
 
   async getTransactionData(paramUrl = "") {
     this.transactionLoading = true;
+    //Set default component title here to ensure theres always a title
+    //even if the try catch fails
+    this.componentTitle = this.isSavings
+      ? "All Savings Transaction History"
+      : "All Everyday Transaction History";
     try {
       this.transactionData = await getTransactionHistoryAura({
         ocvId: this.ocvId,
@@ -175,13 +180,16 @@ export default class FinancialAccountParent extends LightningElement {
         paramUrl: paramUrl,
         bucketIds: this.transactionBucketIds
       });
-      this.componentTitle = "All Everyday Transaction History";
+
       if (this.isSavings) {
         this.transactionData = handleTransactionGoals(
           this.transactionData,
           this.imageMap,
           this.emojiMap
         );
+
+        //If theres no goals filtered, reset transaction title
+        //otherwise append filtered goals
         if (this.transactionBucketIds.length === 0) {
           this.componentTitle = "All Savings Transaction History";
         } else {

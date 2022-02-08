@@ -101,24 +101,17 @@ export function handleGoalData(goalList) {
 }
 
 export function getImageMap(goals) {
-  let imageMap = new Map(
-    goals.account_buckets.map((goal) => [goal.id, goal.image])
-  );
-  return imageMap;
+  return new Map(goals.account_buckets.map((goal) => [goal.id, goal.image]));
 }
 
 export function getEmojiMap(goals) {
-  let emojiMap = new Map(
-    goals.account_buckets.map((goal) => [goal.id, goal.emoji])
-  );
-  return emojiMap;
+  return new Map(goals.account_buckets.map((goal) => [goal.id, goal.emoji]));
 }
 
 export function getGoalMap(goals) {
-  let goalMap = new Map(
+  return new Map(
     goals.account_buckets.map((goal) => [goal.id, goal.goal.name])
   );
-  return goalMap;
 }
 
 export function handleTransactionGoals(transactions, imageMap, emojiMap) {
@@ -229,6 +222,5 @@ export function handleComponentTitle(goals, goalMap) {
   goals.forEach((goal) => {
     title = title + '"' + goalMap.get(goal) + '", ';
   });
-  title = title.substring(0, title.length - 2);
-  return title;
+  return title.substring(0, title.length - 2);
 }
