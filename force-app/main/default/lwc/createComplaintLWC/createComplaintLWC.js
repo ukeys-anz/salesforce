@@ -696,6 +696,12 @@ export default class CreateComplaintLWC extends NavigationMixin(
         "Acknowledgement that the complaint details have been provided to the product manufacturer is required";
     }
 
+    if (this.expressCMOS && !this.knownIssue) {
+      isFieldValid = false;
+      this.missingDataFields +=
+        "Express Case Creation: A known issue must be selected in the This Complaint Is About field (If the complaint is not a 'Known Issue' please deselect the 'Express Case' toggle)";
+    }
+
     return (
       isFieldValid &&
       isEmailValid &&
@@ -1159,14 +1165,19 @@ export default class CreateComplaintLWC extends NavigationMixin(
   }
 
   handleAccNoOneSelection(event) {
-    if (this.isCustNumValidated && event.detail.value === FIN_HARDSHIP_VALUE) {
-      this.disableAccNoOneField = true;
-      const accountPolicyNoElement = this.template.querySelector(
-        '[data-id="accPolicyNum-id"]'
-      );
-      accountPolicyNoElement.selectAllAccounts();
-    } else {
-      this.disableAccNoOneField = false;
+    if (event.detail) {
+      if (
+        this.isCustNumValidated &&
+        event.detail.value === FIN_HARDSHIP_VALUE
+      ) {
+        this.disableAccNoOneField = true;
+        const accountPolicyNoElement = this.template.querySelector(
+          '[data-id="accPolicyNum-id"]'
+        );
+        accountPolicyNoElement.selectAllAccounts();
+      } else {
+        this.disableAccNoOneField = false;
+      }
     }
   }
 

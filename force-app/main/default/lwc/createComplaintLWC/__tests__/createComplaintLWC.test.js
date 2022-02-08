@@ -555,6 +555,44 @@ describe("c-create-complaint-l-w-c", () => {
     });
   });
 
+  //only check express cmos toggle without selecting known isssue
+  it("check express cmos known issue validation", () => {
+    const element = createElement("c-create-complaint-l-w-c", {
+      is: CreateComplaintForm
+    });
+    element.recordTypeDevName = "Customer_Complaint";
+    document.body.appendChild(element);
+
+    const expressCMOSElement = element.shadowRoot.querySelector(
+      "c-idr-express-complaint"
+    );
+    expect(expressCMOSElement).not.toBe(null);
+    expressCMOSElement.dispatchEvent(
+      new CustomEvent("togglechecked", { detail: { value: true } })
+    );
+    return Promise.resolve().then(() => {
+      const submitBtnElement = element.shadowRoot.querySelector(
+        '[data-id="submit-id"]'
+      );
+      submitBtnElement.dispatchEvent(
+        new CustomEvent("click", {
+          detail: {}
+        })
+      );
+
+      return Promise.resolve().then(() => {
+        const modalBox = element.shadowRoot.querySelector(
+          '[data-id="modalMessage-id"]'
+        );
+        const errorMessage = modalBox.value;
+        expect(errorMessage).not.toBe(null);
+        expect(errorMessage).toContain(
+          "Express Case Creation: A known issue must be selected in the This Complaint Is About field (If the complaint is not a 'Known Issue' please deselect the 'Express Case' toggle)"
+        );
+      });
+    });
+  });
+
   it("check if all accounts are selected for financial hardship issue type", () => {
     const element = createElement("c-create-complaint-l-w-c", {
       is: CreateComplaintForm
