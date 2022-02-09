@@ -8,13 +8,13 @@
     <div class="slds-grid slds-m-bottom_small">
       <div class="slds-col slds-size--1-of-7 logo-container">
         <template if:true={transactionRecord.logo}>
-          <img class="logo-image" alt="Logo" src={transactionRecord.logo} />
+          <img class={logoClass} alt="Logo" src={transactionRecord.logo} />
         </template>
         <template if:true={transactionRecord.source_emoji}>
           <div class="source-emoji">{transactionRecord.source_emoji}</div>
         </template>
         <template if:true={transactionRecord.source_image}>
-          <div class="source-image">
+          <div class={sourceClass}>
             <img src={transactionRecord.source_image} />
           </div>
         </template>
@@ -24,7 +24,7 @@
           </div>
         </template>
         <template if:true={transactionRecord.destination_image}>
-          <div class="destination-image">
+          <div class={destinationClass}>
             <img src={transactionRecord.destination_image} />
           </div>
         </template>

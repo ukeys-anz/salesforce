@@ -61,7 +61,7 @@ const timeOptions = { hour: "2-digit", minute: "2-digit" };
 
 export default class TransactionHistoryBoard extends LightningElement {
   @api recordId;
-  // gets component title, search, error through financialAccountParent LWC
+  // gets component title, search, error, startDate & endDate through financialAccountParent LWC
   @api error;
   @api hasError;
   fullTransactionList = [];
@@ -70,8 +70,8 @@ export default class TransactionHistoryBoard extends LightningElement {
   @track filterList = [];
   @track savedMaxIndex = 0;
   expandAll = false;
-  startDate = this.getDefaultDate();
-  endDate = this.getDefaultDate();
+  startDate;
+  endDate;
   todayDate = this.getDefaultDate();
   disableSearch = true;
   links;
@@ -84,7 +84,8 @@ export default class TransactionHistoryBoard extends LightningElement {
   allTags;
   allMerchants;
   @api componentTitle;
-  isSavings;
+  @api tstartDate;
+  @api tendDate;
 
   @wire(MessageContext)
   messageContext;
@@ -94,16 +95,11 @@ export default class TransactionHistoryBoard extends LightningElement {
   })
   wireRecord({ data }) {
     if (data) {
+      this.startDate = this.inputStartDate(this.tstartDate);
+      this.endDate = this.inputEndDate(this.tendDate);
       this.handleGetPersonAccountId();
       if (this.disputeRecordTypes.length === 0) {
         this.handleGetDisputeRecordTypeDetails();
-      }
-      if (data.fields.FinServ__FinancialAccountType__c.value === "Savings") {
-        this.isSavings = true;
-      } else if (
-        data.fields.FinServ__FinancialAccountType__c.value === "Checking"
-      ) {
-        this.isSavings = false;
       }
     }
     this.loading = false;
@@ -194,7 +190,14 @@ export default class TransactionHistoryBoard extends LightningElement {
             currentTransaction = this.handleMerchantDetails(currentTransaction);
           }
 
-          if (!currentTransaction.logo && this.isSavings === false) {
+          //If no image details use default
+          if (
+            !currentTransaction.logo &&
+            !currentTransaction.source_image &&
+            !currentTransaction.source_emoji &&
+            !currentTransaction.destination_image &&
+            !currentTransaction.destination_emoji
+          ) {
             currentTransaction.logo = `${transaction_logos}/TRANSACTION_LOGO_DEFAULT.png`;
           }
 
@@ -509,5 +512,19 @@ export default class TransactionHistoryBoard extends LightningElement {
       default:
         return "";
     }
+  }
+
+  inputStartDate(startDate) {
+    if (!startDate) {
+      startDate = this.getDefaultDate();
+    }
+    return startDate;
+  }
+
+  inputEndDate(endDate) {
+    if (!endDate) {
+      endDate = this.getDefaultDate();
+    }
+    return endDate;
   }
 }

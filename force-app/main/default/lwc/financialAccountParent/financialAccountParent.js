@@ -39,7 +39,6 @@ export default class FinancialAccountParent extends LightningElement {
   hasTransactionError = false;
   emojiMap;
   imageMap;
-  interestAccrued;
   isSavings;
   loading;
   ocvId;
@@ -73,7 +72,6 @@ export default class FinancialAccountParent extends LightningElement {
       if (accType === "Savings") {
         this.isSavings = true;
         this.accountType = "savings";
-        this.interestAccrued = data.fields.Interest_Accrued__c.value;
       } else if (accType === "Checking") {
         this.isSavings = false;
         this.accountType = "checking";

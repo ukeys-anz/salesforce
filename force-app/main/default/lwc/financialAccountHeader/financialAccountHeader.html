@@ -128,9 +128,9 @@
                         </div>
                       </div>
                       <div
-                        class="slds-col slds-size_1-of-1 slds-large-size_1-of-4 slds-var-p-around_small slds-border_left slds-text-align_left"
+                        class="slds-col slds-size_1-of-1 slds-large-size_1-of-4 slds-var-p-around_small slds-border_left slds-text-align_center"
                       >
-                        <p class="slds-text-color_weak savings-jar-title">
+                        <p class="slds-text-color_weak">
                           {savingsJar.goal.name}
                         </p>
                         <template if:true={savingsJar.image}>
@@ -140,9 +140,11 @@
                             width="90%"
                           />
                         </template>
-                        <div
-                          class="header-column slds-float_right right-align jar-total-saved"
-                        >
+                      </div>
+                      <div
+                        class="slds-col slds-size_1-of-1 slds-large-size_1-of-4 slds-var-p-around_small balance-padding vertical-align"
+                      >
+                        <div class="header-column slds-float_right">
                           <p class="slds-text-color_weak">
                             Total Saved
                             <lightning-icon
@@ -157,22 +159,6 @@
                               value={savingsJar.balance.value}
                               format-style="currency"
                               data-id="amount"
-                            ></lightning-formatted-number>
-                          </p>
-                        </div>
-                      </div>
-                      <div
-                        class="slds-col slds-size_1-of-1 slds-large-size_1-of-4 slds-var-p-around_small balance-padding vertical-align"
-                      >
-                        <div class="header-column slds-float_right">
-                          <p class="slds-text-color_weak">
-                            Total Interest Earnt
-                          </p>
-                          <p class="slds-text-heading_large slds-float_right">
-                            <lightning-formatted-number
-                              value={interest}
-                              format-style="currency"
-                              data-id="interest"
                             ></lightning-formatted-number>
                           </p>
                         </div>

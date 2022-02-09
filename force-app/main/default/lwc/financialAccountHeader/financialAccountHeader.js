@@ -14,11 +14,10 @@ export default class FinancialAccount extends NavigationMixin(
 ) {
   @api recordId;
   @api accountType;
-  //Account details, savings jar, error & interest received through financialAccountParent LWC
+  //Account details, savings jar & error received through financialAccountParent LWC
   @api accountDetails;
   @api savingsJar;
   @api error;
-  @api interest;
   componentTitle;
   balanceTitle;
   showInfoModal = false;

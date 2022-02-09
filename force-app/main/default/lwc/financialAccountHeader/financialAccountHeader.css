@@ -15,18 +15,9 @@
   font-size: 12px;
   float: right;
 }
-
-.jar-total-saved {
-  padding-top: 13px;
-}
-
-.savings-jar-title {
-  padding-left: 15px;
-}
 .savings-jar {
   max-width: 100px;
 }
-
 .not-found {
   margin: 0;
   position: absolute;
@@ -80,5 +71,11 @@
 .vertical-align {
   position: relative;
   top: 50%;
+  padding-left: 10px;
   transform: translateY(-50%);
+}
+
+.slds-card__header-title {
+  padding-left: 6px;
+  padding-top: 5px;
 }

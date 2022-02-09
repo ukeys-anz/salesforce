@@ -53,4 +53,5 @@
 
 .flex-override {
   flex: unset !important;
+  align-self: center;
 }

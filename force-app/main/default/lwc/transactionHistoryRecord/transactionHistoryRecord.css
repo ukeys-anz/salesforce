@@ -9,8 +9,9 @@
 }
 
 .logo-image {
-  max-width: 45%;
+  max-width: 60%;
   position: relative;
+  top: 15%;
 }
 
 .source-emoji {
@@ -37,6 +38,9 @@
 .source-image > img {
   max-height: 100%;
   max-width: 100%;
+  top: 2px;
+  left: 0.8px;
+  position: relative;
 }
 
 .destination-emoji {
@@ -69,7 +73,9 @@
 .destination-image > img {
   max-height: 100%;
   max-width: 100%;
-  position: absolute;
+  top: 2px;
+  left: 0.8px;
+  position: relative;
 }
 
 img {
@@ -170,4 +176,47 @@ img {
 
 .logo-container {
   height: 60px !important;
+}
+
+.source-everyday-account {
+  display: block;
+  width: 50px;
+  height: 50px;
+  border: 1px solid #e3e5ed;
+  background: white;
+  border-radius: 50%;
+}
+
+.source-everyday-account > img {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.destination-everyday-account {
+  display: block;
+  width: 50px;
+  height: 50px;
+  border: 1px solid #e3e5ed;
+  background: white;
+  border-radius: 50%;
+  position: relative;
+  left: 21px;
+  bottom: 27px;
+}
+
+.destination-everyday-account > img {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.savings-jar {
+  max-width: 40%;
+  position: relative;
+  bottom: 20%;
+}
+
+.logo-default {
+  max-width: 35%;
+  position: relative;
+  left: 12%;
 }

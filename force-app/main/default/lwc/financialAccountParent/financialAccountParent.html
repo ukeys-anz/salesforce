@@ -14,7 +14,6 @@
         account-details={accountData}
         error={accountError}
         savings-jar={savingsJar}
-        interest={interestAccrued}
         data-id="financial-account"
       ></c-financial-account-header>
       <div class="slds-m-top_small"></div>
@@ -55,6 +54,8 @@
           error={transactionError}
           onloadmore={handleLoadMore}
           onsearch={handleSearchDates}
+          tstart-date={transactionStartDate}
+          tend-date={transactionEndDate}
           data-id="transaction-history"
         ></c-transaction-history-board>
       </template>
