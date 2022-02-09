@@ -5,6 +5,10 @@
         <visible>true</visible>
     </applicationVisibilities>
     <description>Grants access to maintain Knowledge Articles</description>
+    <classAccesses>
+        <apexClass>PublishArticleController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <fieldPermissions>
         <editable>true</editable>
         <field>Knowledge__kav.Body__c</field>

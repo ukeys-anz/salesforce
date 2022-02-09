@@ -4,6 +4,10 @@
         <application>Content_Workbench</application>
         <visible>true</visible>
     </applicationVisibilities>
+    <classAccesses>
+        <apexClass>PublishArticleController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <fieldPermissions>
         <editable>true</editable>
         <field>Knowledge__kav.Body__c</field>
