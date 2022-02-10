@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>This permission set gives the user all the access required to both backup and restore all records in our system</description>
+    <description>This permission set removes the ability to restore. This will need to be removed by an admin via PAM if a restore needs to take place to ensure the Odaseva user has least privilege in order to only backup data.</description>
     <fieldPermissions>
         <editable>false</editable>
         <field>Access_Request__c.Approver__c</field>
