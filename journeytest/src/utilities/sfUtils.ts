@@ -1,5 +1,3 @@
-import LwcCustomerDetails from "@pageObjects/lwcCustomerDetails";
-
 export default class SfPageUtils {
   static closeAllTabsMain = async () => {
     const closableItems = await $$(

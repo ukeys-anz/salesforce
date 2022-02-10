@@ -1,8 +1,8 @@
 import {
   By as _By,
   ShadowRoot as _ShadowRoot,
-  UtamBaseRootPageObject as _UtamBaseRootPageObject,
-  createUtamMixinCtor as _createUtamMixinCtor
+  createUtamMixinCtor as _createUtamMixinCtor,
+  UtamBaseRootPageObject as _UtamBaseRootPageObject
 } from "@utam/core";
 
 async function _utam_filter_buttonsByText(element, text) {

@@ -31,10 +31,10 @@
       "FinServ__RecordTypeName__c": "Record type of the financial account",
       "FinServ__Status__c": "Financial account status of the customer",
       "Name": "The name of the financial account provided to us by Fabric.",
-      "Total_Number_of_Cards__c" : "Total number of cards"
+      "Total_Number_of_Cards__c": "Total number of cards"
     },
     "Known_Issues__c": {
-      "IDR_Non_Financial_Remedy__c" : "Required when Complaint Remedy is chosen as 'Non-Functional Remedy' to capture the appropriate remedy"
+      "IDR_Non_Financial_Remedy__c": "Required when Complaint Remedy is chosen as 'Non-Functional Remedy' to capture the appropriate remedy"
     },
     "Product2": {
       "ProductCode": "Default product code for this record. Your org defines the product code naming pattern."
@@ -804,10 +804,7 @@
         "LastModifiedDate",
         "RecordTypeId"
       ],
-      "IA-2453595": [
-        "IDR_Issue_Type__c",
-        "IDR_Subsequent_Issue_Type__c"
-      ]
+      "IA-2453595": ["IDR_Issue_Type__c", "IDR_Subsequent_Issue_Type__c"]
     },
     "Lead": {
       "IA-2468713": ["SmartphoneOS__c"],
