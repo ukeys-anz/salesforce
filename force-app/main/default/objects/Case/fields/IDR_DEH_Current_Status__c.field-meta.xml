@@ -8,7 +8,7 @@
     <formula>IF( 
  AND( ISBLANK( IDR_DEH_Date_information_request_sent__c ), ISBLANK( IDR_DEH_Date_information_received__c )),
  &apos;New Complaint&apos;,
- IF( AND( ISBLANK(IDR_DEH_Date_information_received__c),  TODAY() &gt; IDR_DEH_Response_Due__c ),
+ IF( AND( ISBLANK(IDR_DEH_Date_information_received__c),  TODAY() &gt; IDR_DEH_Date_information_due__c ),
  &apos;No information received - prepare response&apos;,
   IF( ISBLANK(IDR_DEH_Date_information_received__c),
   &apos;Request for further information sent&apos;,
