@@ -65,6 +65,14 @@
         <value>/anz-sys-forge-oauth-api/api/v1/token</value>
     </labels>
     <labels>
+        <fullName>MS_Get_Account_Buckets</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_Account_Buckets</shortDescription>
+        <value>/coach-banking/v1beta1/accounts/buckets</value>
+    </labels>
+    <labels>
         <fullName>MS_Get_Accounts_Goals</fullName>
         <categories>MS</categories>
         <language>en_US</language>
@@ -127,6 +135,14 @@
         <protected>false</protected>
         <shortDescription>MS_Temp_Block_Card</shortDescription>
         <value>/anz-exp-sfdc-coach-banking-api/api/cards/</value>
+    </labels>
+    <labels>
+        <fullName>MS_Get_Financial_Accounts</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_Financial_Accounts</shortDescription>
+        <value>/coach-banking/v1beta1/accounts</value>
     </labels>
     <labels>
         <fullName>MS_Get_StatementList</fullName>

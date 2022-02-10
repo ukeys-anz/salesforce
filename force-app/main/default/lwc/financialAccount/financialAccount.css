@@ -2,23 +2,13 @@
   margin-left: 10px;
 }
 
-.everydayAccount {
-  border: 1px solid #dddbda !important;
-  min-height: 248px;
+.financialAccount {
+  min-height: 200px;
   user-select: none;
   /* iOS Safari */
   -webkit-touch-callout: none;
   /* Safari */
   -webkit-user-select: none;
-}
-
-.main-title,
-.slds-card__body {
-  padding: 10px !important;
-}
-
-.slds-card__footer {
-  border: unset;
 }
 
 .lastUpdated {
@@ -29,7 +19,7 @@
 .not-found {
   margin: 0;
   position: absolute;
-  top: 50%;
+  top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -65,4 +55,19 @@
 .modal-header {
   background: #014486;
   color: #fff;
+}
+
+.card-title {
+  background: #eef1f5;
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 0.25em;
+  font-weight: bold;
+}
+
+.vertical-align {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }

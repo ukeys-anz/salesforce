@@ -4,10 +4,78 @@
   background-color: #e5f2e5;
 }
 
+.name {
+  max-width: 80%;
+}
+
 .logo-image {
   max-width: 60%;
   position: relative;
   top: 15%;
+}
+
+.source-emoji {
+  display: inline-flex;
+  width: 50px;
+  height: 50px;
+  border: 1px solid #e3e5ed;
+  background: white;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 1.8em;
+}
+
+.source-image {
+  display: block;
+  width: 50px;
+  height: 50px;
+  border: 1px solid #e3e5ed;
+  background: white;
+  border-radius: 50%;
+}
+
+.source-image > img {
+  max-height: 100%;
+  max-width: 100%;
+  top: 2px;
+  left: 0.8px;
+  position: relative;
+}
+
+.destination-emoji {
+  display: inline-flex;
+  width: 50px;
+  height: 50px;
+  border: 1px solid #e6e7ed;
+  background: white;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 1.8em;
+  position: relative;
+  left: 21px;
+  bottom: 27px;
+}
+
+.destination-image {
+  display: block;
+  width: 50px;
+  height: 50px;
+  border: 1px solid #e3e5ed;
+  background: white;
+  border-radius: 50%;
+  position: relative;
+  left: 21px;
+  bottom: 27px;
+}
+
+.destination-image > img {
+  max-height: 100%;
+  max-width: 100%;
+  top: 2px;
+  left: 0.8px;
+  position: relative;
 }
 
 img {
@@ -51,7 +119,8 @@ img {
   max-width: 85%;
 }
 
-.description-tooltip {
+.description-tooltip,
+.name-tooltip {
   visibility: hidden;
   width: 30%;
   background-color: #18315c;
@@ -68,7 +137,8 @@ img {
   left: 42% !important;
 }
 
-.description:hover + .description-tooltip {
+.description:hover + .description-tooltip,
+.name:hover + .description-tooltip {
   visibility: visible;
   transition: opacity 0.5s ease;
   opacity: 1;
@@ -102,4 +172,51 @@ img {
   justify-content: flex-end;
   align-self: center;
   display: flex;
+}
+
+.logo-container {
+  height: 60px !important;
+}
+
+.source-everyday-account {
+  display: block;
+  width: 50px;
+  height: 50px;
+  border: 1px solid #e3e5ed;
+  background: white;
+  border-radius: 50%;
+}
+
+.source-everyday-account > img {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.destination-everyday-account {
+  display: block;
+  width: 50px;
+  height: 50px;
+  border: 1px solid #e3e5ed;
+  background: white;
+  border-radius: 50%;
+  position: relative;
+  left: 21px;
+  bottom: 27px;
+}
+
+.destination-everyday-account > img {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.savings-jar {
+  max-width: 40%;
+  position: relative;
+  bottom: 20%;
+}
+
+.logo-default {
+  max-width: 35%;
+  position: relative;
+  left: 12%;
 }
