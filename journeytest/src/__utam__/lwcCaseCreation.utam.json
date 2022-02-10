@@ -30,6 +30,14 @@
       "type": "clickable"
     },
     {
+      "name": "anzxComplaint",
+      "selector": {
+        "css": "input[name='ANZx_Complaint']"
+      },
+      "public": true,
+      "type": "clickable"
+    },
+    {
       "name": "nextButton",
       "selector": {
         "css": "footer button:nth-of-type(2)"

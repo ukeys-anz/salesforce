@@ -1,5 +1,5 @@
-import LwcCustomerDetails from "@pageObjects/lwcCustomerDetails";
-import LwcAccountsSection from "@pageObjects/lwcAccountsSection";
+import LwcCustomerDetails from "../pageObjects/lwcCustomerDetails";
+import LwcAccountsSection from "../pageObjects/lwcAccountsSection";
 import { ScenarioUtil } from "utilities/scenarioUtil";
 
 export default class SfCustomer {
@@ -35,5 +35,17 @@ export default class SfCustomer {
     let accountsections = await customerPageRoot.getTabHeader();
     await console.log(await accountsections.length);
     // await console.log(await accountSection.getButtonsByText("Get Card Details"));
+  };
+
+  openEverydayAccount = async (scenarioId: string) => {
+    let customerDetails: any = {};
+    customerDetails = await this.getCustomerName(scenarioId);
+    const valueToSelect = customerDetails.accountName;
+
+    const everydayAccLink = await $(
+      `(//article[@class='everydayAccount slds-card']//a[@title='${valueToSelect}'])[1]`
+    );
+    await everydayAccLink.click();
+    await browser.pause(4000);
   };
 }

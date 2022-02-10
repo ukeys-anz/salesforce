@@ -96,13 +96,10 @@ class LwcLogin extends core.UtamBaseRootPageObject {
 
   async submitForm(userName, passWord) {
     const _statement0 = await this.getUsername();
-
     await _statement0.setText(userName);
     const _statement1 = await this.getPassword();
-
     await _statement1.setText(passWord);
     const _statement2 = await this.getLoginButton();
-
     await _statement2.click();
   }
 }

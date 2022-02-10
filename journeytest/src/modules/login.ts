@@ -5,16 +5,26 @@ import data from "../../testdata.json";
 
 export default class SfLogin {
   salesForceLogin = async (env: string, role: string) => {
-    require("dotenv").config();
-
-    await browser.url(process.env.TESTURL || "defaultString");
+    //Open Url and login
+    await browser.url(data.environments.url);
 
     const loginFormRoot = await utam.load(LwcLogin);
 
-    await loginFormRoot.submitForm(
-      process.env.USERNAME || "defaultString",
-      process.env.PASSWORD || "defaultString"
-    );
+    switch (role) {
+      case "coach":
+        await loginFormRoot.submitForm(
+          data.users.coach.username,
+          data.users.coach.password
+        );
+        break;
+
+      case "supportcoach":
+        await loginFormRoot.submitForm(
+          data.users.supportcoach.username,
+          data.users.supportcoach.password
+        );
+        break;
+    }
   };
 
   twilioLogin = async () => {
