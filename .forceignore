@@ -108,3 +108,4 @@ force-app/main/default/flows/Knowledge_Process.flow-meta.xml
 force-app/main/default/duplicateRules/
 force-app/main/default/matchingRules/
 force-app/main/default/entitlementProcesses/
+force-app/main/default/transactionSecurityPolicies

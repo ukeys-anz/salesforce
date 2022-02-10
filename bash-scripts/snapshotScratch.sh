@@ -7,16 +7,7 @@ set -e
 trap ctrl_c INT
 
 function ctrl_c() {
-    if [ -f IDRRestriction.txt ];then
-        f=force-app/main/default/objects/Case/fields/IDR_Restriction_Level__c.field-meta.xml
-        cp IDRRestriction.txt $f
-        rm -rf IDRRestriction.txt
-    fi
-    if [ -f SIWorkflow.txt ]; then
-        f=force-app/main/default/objects/Case/fields/SI_Workflow_Step__c.field-meta.xml    
-        cp SIWorkflow.txt $f
-        rm -rf SIWorkflow.txt
-    fi
+    git checkout .
     echo "${red}"
     echo "Making scracthOrg has been stopped."
     echo "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
@@ -60,27 +51,16 @@ echoMessageCreator "" $stepNo false
 
 # pre deploy : change on some files
 echoMessageCreator "Pre Deploy Checking Step" $stepNo true
-f=force-app/main/default/objects/Case/fields/IDR_Restriction_Level__c.field-meta.xml
-context=$(<$f)
-
-cp $f IDRRestriction.txt
-if [[ $context == *'<trackFeedHistory>false</trackFeedHistory>'* ]];then
-    replace=$( sed 's+<trackFeedHistory>false</trackFeedHistory>+<!--<trackFeedHistory>false</trackFeedHistory>-->+g' $f )
-    echo $replace > $f
-    replace=$( sed "s+<trackHistory>true</trackHistory>+<!--<trackHistory>true</trackHistory>-->+g" $f )
-    echo $replace > $f
-    replace=$( sed "s+<trackTrending>false</trackTrending>+<!--<trackTrending>false</trackTrending>-->+g" $f )
-    echo $replace > $f
-fi
-
-f=force-app/main/default/objects/Case/fields/SI_Workflow_Step__c.field-meta.xml
-context=$(<$f)
-cp $f SIWorkflow.txt
-if [[ $context == *'<controllingFieldValue>Open</controllingFieldValue>'* ]];then
-    replace=$( sed "s+<controllingFieldValue>Open</controllingFieldValue>+<!--<controllingFieldValue>Open</controllingFieldValue>-->+g" $f)
-    echo $replace > $f
-fi
-
+changeMetadata force-app/main/default/objects/Case/fields/IDR_Restriction_Level__c.field-meta.xml IDRRestriction 
+changeMetadata force-app/main/default/objects/Case/fields/SI_Workflow_Step__c.field-meta.xml SIWorkflow 
+changeMetadata force-app/main/default/permissionsets/Mvision_Permissions.permissionset-meta.xml Mvision
+changeMetadata force-app/main/default/permissionsets/Read_Only_Admin.permissionset-meta.xml readOnly
+changeMetadata force-app/main/default/permissionsets/SFDX_Deploy.permissionset-meta.xml sfdxDeploy
+changeMetadata force-app/main/default/permissionsets/SFDX_Snapshots.permissionset-meta.xml sfdxSnap
+changeMetadata force-app/main/default/permissionsets/View_All_Data.permissionset-meta.xml viewAll
+changeMetadata force-app/main/default/permissionsets/View_All_Files.permissionset-meta.xml viewFiles
+changeMetadata "force-app/main/default/profiles/Minimum Access - External Apps.profile-meta.xml" minimum
+changeMetadata "force-app/main/default/profiles/ANZx Standard User.profile-meta.xml" anzxStandard
 echoMessageCreator "" $stepNo false
 ###########################
 
@@ -106,12 +86,7 @@ while [[ $tryDeploying == true ]]; do
                 echo ""
                 echo "The job has been skipped."
                 echo ""
-                f=force-app/main/default/objects/Case/fields/IDR_Restriction_Level__c.field-meta.xml
-                cp IDRRestriction.txt $f
-                f=force-app/main/default/objects/Case/fields/SI_Workflow_Step__c.field-meta.xml    
-                cp SIWorkflow.txt $f
-                rm -rf IDRRestriction.txt
-                rm -rf SIWorkflow.txt
+                git checkout .
                 exit 1
             else
                 tryDeploying=true
@@ -126,16 +101,11 @@ echoMessageCreator "" $stepNo false
 
 # post deploy: to make all the files back to what it was and deploy them
 echoMessageCreator "Post Deploy" $stepNo true
-f=force-app/main/default/objects/Case/fields/IDR_Restriction_Level__c.field-meta.xml
-cp IDRRestriction.txt $f    
-sfdx force:source:deploy -p $f
+git checkout .
 
-f=force-app/main/default/objects/Case/fields/SI_Workflow_Step__c.field-meta.xml    
-cp SIWorkflow.txt $f  
-sfdx force:source:deploy -p $f
-
-rm -rf IDRRestriction.txt
-rm -rf SIWorkflow.txt
+f1=force-app/main/default/objects/Case/fields/IDR_Restriction_Level__c.field-meta.xml
+f2=force-app/main/default/objects/Case/fields/SI_Workflow_Step__c.field-meta.xml
+sfdx force:source:deploy -u $scratchorgalias -p $f1,$f2
 echoMessageCreator "" $stepNo false
 ###########################
 
@@ -154,12 +124,6 @@ if [[ $importPlan == Y || $importPlan == y ]];then
 else
     echo "${green}Importing post-deployment plan has been skipped."
 fi
-echoMessageCreator "" $stepNo false
-###########################
-
-# creating a user with "anzx.user@anzx.com" username
-echoMessageCreator "creating a breakglass user" $stepNo true
-sfdx force:user:create username="anzx.user@anzx.com" --targetusername $scratchorgalias
 echoMessageCreator "" $stepNo false
 ###########################
 
