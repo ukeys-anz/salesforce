@@ -1,4 +1,4 @@
-import LwcCustomerDetails from "../pageObjects/lwcCustomerDetails";
+import LwcCustomerDetails from "pageObjects/lwcCustomerDetails";
 
 export default class SfNavigation {
   selectNavigation = async (menuitem: string) => {

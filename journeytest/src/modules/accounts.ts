@@ -1,4 +1,4 @@
-import LwcAccounsView from "@pageObjects/lwcAccounsView";
+import LwcAccounsView from "../pageObjects/lwcAccounsView";
 import SfCustomer from "modules/customer";
 
 export default class SfAccounts {

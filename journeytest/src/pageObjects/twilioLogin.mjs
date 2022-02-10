@@ -1,7 +1,7 @@
 import {
   By as _By,
-  UtamBaseRootPageObject as _UtamBaseRootPageObject,
   createUtamMixinCtor as _createUtamMixinCtor,
+  UtamBaseRootPageObject as _UtamBaseRootPageObject,
   EditableUtamElement as _EditableUtamElement,
   ClickableUtamElement as _ClickableUtamElement
 } from "@utam/core";

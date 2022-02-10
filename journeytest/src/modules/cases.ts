@@ -1,23 +1,27 @@
-import LwcCaseCreation from "../pageObjects/lwcCaseCreation";
+import LwcCaseCreation from "pageObjects/lwcCaseCreation";
 import data from "../../testdata.json";
+import { ScenarioUtil } from "utilities/scenarioUtil";
 
 export default class SfCases {
-  createCase = async () => {
-    const casePageRoot = await utam.load(LwcCaseCreation);
+  createCase = async (caseType: string) => {
+    const casePageRoot = utam.load(LwcCaseCreation);
 
-    const caseNewCaseElement = await casePageRoot.getNewCase();
-    await caseNewCaseElement.click();
+    //Navigation to new case form
+    this.navigateToNewCase();
 
-    const caseGenEnqChk = await casePageRoot.getGeneralEnquiryChk();
+    //Select the case type
+    this.selectCaseType(caseType);
+
+    const caseGenEnqChk = await (await casePageRoot).getGeneralEnquiryChk();
     //Select case Type - at the moment it is general enquiry
     await caseGenEnqChk.click();
 
-    const caseNextButton = await casePageRoot.getNextButton();
+    const caseNextButton = await (await casePageRoot).getNextButton();
     //Click next button
     await caseNextButton.click();
 
-    const caseInputElement = await casePageRoot.getCustomerInput();
-    const caseDropDown = await casePageRoot.getCustomerDropDown(
+    const caseInputElement = await (await casePageRoot).getCustomerInput();
+    const caseDropDown = await (await casePageRoot).getCustomerDropDown(
       data.accounts[1].case_creation.name
     );
 
@@ -25,26 +29,24 @@ export default class SfCases {
     await caseInputElement.setText(data.accounts[1].case_creation.name);
     await caseDropDown.click();
 
-    const selectElement = await casePageRoot.getSelectElements();
+    const selectElement = await (await casePageRoot).getSelectElements();
 
     await selectElement[0].click();
     await browser.pause(1000);
 
-    const dropdownElement = await casePageRoot.getValueDropDown("Chat");
+    const dropdownElement = await (await casePageRoot).getValueDropDown("Chat");
     await dropdownElement.click();
     await browser.pause(3000);
     await selectElement[1].click();
     await browser.pause(2000);
 
-    // const IssuedropdownElement = await casePageRoot.getValueDropDown(
-    //   "Deceased Estate"
-    // );
-
-    const IssuedropdownElement = await casePageRoot.getValueDropDown("Cards");
+    const IssuedropdownElement = await (await casePageRoot).getValueDropDown(
+      "Cards"
+    );
     await IssuedropdownElement.click();
     await browser.pause(2000);
     // const issueSubType = await $("//span[@title='Lost or stolen card']");
-   /* const issueSubType = await casePageRoot.getDualListLeft(
+    const issueSubType = await (await casePageRoot).getDualListLeft(
       "Lost or stolen card"
     );
     await issueSubType.click();
@@ -53,11 +55,239 @@ export default class SfCases {
     const moveChosenElement = await $(
       "//button[@title='Move selection to Chosen']"
     );
-    await moveChosenElement.click();*/
+    await moveChosenElement.click();
     await browser.pause(3000);
 
-    const saveCaseElement = await casePageRoot.getSaveCase();
+    const saveCaseElement = await (await casePageRoot).getSaveCase();
     await saveCaseElement.click();
     await browser.pause(3000);
+  };
+
+  createAnzxComplaintCase = async (scenarioId: string) => {
+    const casePageRoot = utam.load(LwcCaseCreation);
+    let caseNumber;
+
+    await this.navigateToNewCase();
+    await this.selectCaseType("ANZ Plus Complaint");
+
+    // const casePageRoot = await utam.load(LwcCaseCreation);
+    let casesData: any = {};
+    casesData = await ScenarioUtil.getCaseCreateDetails(scenarioId);
+
+    //Fill ANZ Plus Complaint form
+    //Select Customer details
+    const caseInputElement = await (await casePageRoot).getCustomerInput();
+    const caseDropDown = await (await casePageRoot).getCustomerDropDown(
+      data.accounts[0].case_creation.name
+    );
+    await caseInputElement.setText(data.accounts[0].case_creation.name);
+    await caseDropDown.click();
+
+    //Enter Case Information
+    await this.selectIssueType("New", casesData.issueType);
+    await this.selectIssueSubType("New", casesData.issueSubType);
+
+    const producttxt = await $("(//input[@title='Search Products'])[1]");
+    await producttxt.setValue(casesData.productOrService);
+    const productDdValue = await $(
+      `//a//div[@title='${casesData.productOrService}']`
+    );
+    await productDdValue.click();
+
+    const desctxt = await $(
+      "//label/span[text()='Description of Issue']/../following-sibling::textarea"
+    );
+    await desctxt.setValue(casesData.description);
+
+    const outcometxt = await $(
+      "//label/span[text()='Customer Desired Outcome']/../following-sibling::textarea"
+    );
+    await outcometxt.setValue(casesData.outcome);
+
+    const writtenRespDd = await $(
+      "//span[text()='Is a Written Response Requested?']/../following-sibling::div//a"
+    );
+    await writtenRespDd.click();
+    await browser.pause(1000);
+    await this.selectMenuOption(casesData.writtenResponse);
+
+    //First Issue
+
+    //Second Issue
+
+    //Complaince Information
+
+    //Submit
+    await this.submitCase();
+
+    const caseNumberElement = await $(
+      "//p[@title='Case Number']/following-sibling::p"
+    );
+    caseNumber = await caseNumberElement.getText();
+    return caseNumber;
+  };
+
+  selectCaseType = async (caseType: string) => {
+    const caseTypeRadioElement = await $(
+      `//label/span[text()='${caseType}']/preceding-sibling::span`
+    );
+    await caseTypeRadioElement.click();
+    const nextButton = await $("//button[text()='Next']");
+    await nextButton.click();
+
+    //In this case, xpath takes label text in the UI as arguements to dynamically select the radio button,
+    //but in case of UTAM, it is only possible through name attribute, value of which is but different from label text of corresponding radio button
+    // const casePageRoot = utam.load(LwcCaseCreation);
+    // const caseTypeRadio = await (await casePageRoot).getAnzxComplaint()
+    // await caseTypeRadio.click()
+    // const caseNextButton = await (await casePageRoot).getNextButton()
+    // await caseNextButton.click()
+  };
+
+  navigateToNewCase = async () => {
+    const casePageRoot = await utam.load(LwcCaseCreation);
+    const caseNewCaseElement = await casePageRoot.getNewCase();
+    await caseNewCaseElement.click();
+  };
+
+  selectMenuOption = async (valueToSelect: string) => {
+    const optionsElement = await $(
+      `//div[@class='select-options']//li/a[text()='${valueToSelect}']`
+    );
+    await optionsElement.click();
+  };
+
+  selectLighteningMenuOption = async (valueToSelect: string) => {
+    const optionsElement = await $(
+      `//lightning-base-combobox-item//span[@title='${valueToSelect}']`
+    );
+    await optionsElement.click();
+  };
+
+  changeOwner = async (scenarioId: string) => {
+    const ownerElement = await $("//button[@title='Change Owner']/..");
+    await ownerElement.click();
+    await browser.pause(1000);
+
+    const ownerTypeSelect = await $("//a[contains(@aria-label,'new owner')]");
+    await ownerTypeSelect.click();
+    await browser.pause(2000);
+
+    let casesData: any = {};
+    casesData = await ScenarioUtil.getCaseEditDetails(scenarioId);
+    const ownerType = await $(`//a[@title='${casesData.caseOwnerType}']`);
+    await ownerType.click();
+    const searchBox = await $(
+      `//input[@title='Search ${casesData.caseOwnerType}']`
+    );
+    await searchBox.setValue(casesData.caseOwner);
+    const queueValue = await $(`//a//div[@title='${casesData.caseOwner}']`);
+    await queueValue.click();
+    const changeOwnerbtn = await $("//button[@name='change owner']");
+    await changeOwnerbtn.click();
+    await browser.pause(3000);
+  };
+
+  editIssueType = async (scenarioId: string) => {
+    let casesData: any = {};
+    casesData = await ScenarioUtil.getCaseEditDetails(scenarioId);
+
+    const editIssueType = await $("//button[@title='Edit Issue Type']");
+    await editIssueType.click();
+    await browser.pause(2000);
+
+    //Issue Type
+    await this.selectIssueType("Edit", casesData.issueType);
+
+    //Issue Sub Type
+    await this.selectIssueSubType("Edit", casesData.issueSubType);
+
+    const saveEdit = await $("//button[@name='SaveEdit']");
+    await saveEdit.click();
+    await browser.pause(2000);
+  };
+
+  selectIssueType = async (mode: string, value: string) => {
+    //The Issue type drop down does not contain any unique way of CSS selector identification,
+    //this object is selected using the sibling's label text via xpath - this is more resilient than css selector
+    //this will change only when the DOM is changed due to any CRs in the future
+
+    let issueTypeDd;
+    if (mode == "Edit") {
+      issueTypeDd = await $(
+        "//label[text()='Issue Type']/following-sibling::div//button"
+      );
+      await issueTypeDd.click();
+      await browser.pause(1000);
+      await this.selectLighteningMenuOption(value);
+    } else {
+      issueTypeDd = await $(
+        "//span[text()='Issue Type']/../following-sibling::div//a"
+      );
+      await issueTypeDd.click();
+      await browser.pause(1000);
+      await this.selectMenuOption(value);
+    }
+  };
+
+  selectIssueSubType = async (mode: string, value: string) => {
+    let issueSubTypeDd;
+    if (mode == "Edit") {
+      issueSubTypeDd = await $(
+        "//label[text()='Subsequent Issue Type']/following-sibling::div//button"
+      );
+      await issueSubTypeDd.click();
+      await browser.pause(1000);
+      await this.selectLighteningMenuOption(value);
+    } else {
+      issueSubTypeDd = await $(
+        "//span[text()='Subsequent Issue Type']/../following-sibling::div//a"
+      );
+      await issueSubTypeDd.click();
+      await browser.pause(1000);
+      await this.selectMenuOption(value);
+    }
+  };
+
+  submitCase = async () => {
+    //Submit
+    const saveButton = await $("//button[@title='Save']");
+    await saveButton.click();
+    await browser.pause(3000);
+  };
+
+  closeCase = async (caseNumber: string) => {
+    await this.openCase(caseNumber);
+    const editStatusBtn = await $("//button[@title='Edit Status']");
+    await editStatusBtn.click();
+
+    const statusList = await $(
+      "//label[text()='Status']/following-sibling::div//button"
+    );
+    await statusList.click();
+
+    await this.selectLighteningMenuOption("Closed");
+    const saveEdit = await $("//button[@name='SaveEdit']");
+    await saveEdit.click();
+    await browser.pause(2000);
+    await this.verifyCaseStatus("Closed");
+  };
+
+  openCase = async (caseNumber: string) => {
+    const caseInput = await $("//input[@name='Case-search-input']");
+    await caseInput.setValue(caseNumber);
+
+    const refreshBtn = await $("//button[@name='refreshButton']");
+    await refreshBtn.click();
+
+    const caseLink = await $(`//a[@title='${caseNumber}']`);
+    await caseLink.click();
+  };
+
+  verifyCaseStatus = async (status: string) => {
+    const caseStatuElement = await $(
+      "//p[@title='Status']/following-sibling::p"
+    );
+    await expect(caseStatuElement).toHaveText(status);
   };
 }

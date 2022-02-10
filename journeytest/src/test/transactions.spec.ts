@@ -1,13 +1,14 @@
-import SfCards from "modules/cards";
 import SfLogin from "modules/login";
+import data from "../../testdata.json";
+import SfPageUtils from "utilities/sfUtils";
 import LwcCustomerDetails from "pageObjects/lwcCustomerDetails";
 import SfNavigation from "modules/navigation";
-import data from "../../testdata.json";
 import SfAccounts from "modules/accounts";
-import SfPageUtils from "utilities/sfUtils";
+import SfCustomer from "modules/customer";
+import SfTransactions from "modules/transactions";
 
-describe("Cards verification", () => {
-  it("Login as a Coach User", async () => {
+describe("Transactions verification", () => {
+  it("Login and search for a customer with a valid transactions", async () => {
     //Login
     browser.maximizeWindow();
     let sfLogin = new SfLogin();
@@ -16,9 +17,7 @@ describe("Cards verification", () => {
     //Close all tabs
     await browser.pause(5000);
     await SfPageUtils.closeAllTabsMain();
-  });
 
-  it("Search for a customer with a valid card", async () => {
     //Search for a customer
     const customerPageRoot = await utam.load(LwcCustomerDetails);
     const navigationShowElement = await customerPageRoot.getNavigationShow();
@@ -30,15 +29,16 @@ describe("Cards verification", () => {
     let sfAccountView = new SfAccounts();
 
     await sfAccountView.selectAccountFilter("All Accounts");
-    await sfAccountView.searchAccount("scenarioCardVerification");
+    await sfAccountView.searchAccount("scenarioTransaction001");
   });
 
-  it("Verify the details of a valid card", async () => {
-    //Get card details
-    let sfCards = new SfCards();
-    await sfCards.getCardDetails();
+  it("Verify the details of a Card transaction", async () => {
+    //Open Transactions
+    let sfCustomerView = new SfCustomer();
 
-    //Verify card details
-    await sfCards.verifyCardDetails("scenarioCardVerification");
+    await sfCustomerView.openEverydayAccount("scenarioTransaction001");
+
+    let SfTransactionsView = new SfTransactions();
+    await SfTransactionsView.viewTransactionDetails("PAYID");
   });
 });

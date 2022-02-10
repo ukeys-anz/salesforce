@@ -2,7 +2,7 @@
   "cases": {
     "create": [
       {
-        "create_dataId": "001",
+        "dataId": "001",
         "type": "General_Enquiry",
         "accountName": "default",
         "channelReceived": "Email",
@@ -10,17 +10,31 @@
         "issueSubType": "Lost or stolen card"
       },
       {
-        "create_dataId": "002",
+        "dataId": "002",
         "type": "General_Enquiry",
         "accountName": "default",
         "channelReceived": "Email",
         "issueType": "Cards",
         "issueSubType": "Damaged card"
+      },
+      {
+        "dataId": "003",
+        "type": "ANZ Plus Complaint",
+        "accountName": "default",
+        "channelReceived": "Email",
+        "issueType": "Service quality",
+        "issueSubType": "Tone or manner of response",
+        "productOrService": "ANZ Term Deposit",
+        "status": "Open",
+        "priority": "Standard",
+        "description": "Regression test",
+        "outcome": "Resgression - outcome",
+        "writtenResponse": "No"
       }
     ],
     "edit": [
       {
-        "edit_dataId": "001",
+        "dataId": "001",
         "caseNumber": "10009090",
         "type": "General_Enquiry",
         "accountName": "default",
@@ -28,11 +42,23 @@
         "issueType": "Cards",
         "status": "Closed",
         "issueSubType": "Lost or stolen card"
+      },
+      {
+        "dataId": "003",
+        "issueType": "Service quality",
+        "issueSubType": "Stores are cashless",
+        "caseOwnerType": "Queues",
+        "caseOwner": "Support Coach Queue"
+      },
+      {
+        "dataId": "004",
+        "caseOwnerType": "Users",
+        "caseOwner": "Test Coach1"
       }
     ],
     "verify": [
       {
-        "verify_dataId": "001",
+        "dataId": "001",
         "caseNumber": "10009090",
         "type": "General_Enquiry",
         "issueType": "Cards",

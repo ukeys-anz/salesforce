@@ -1,7 +1,7 @@
 import {
   By as _By,
-  UtamBaseRootPageObject as _UtamBaseRootPageObject,
   createUtamMixinCtor as _createUtamMixinCtor,
+  UtamBaseRootPageObject as _UtamBaseRootPageObject,
   ClickableUtamElement as _ClickableUtamElement,
   EditableUtamElement as _EditableUtamElement
 } from "@utam/core";
@@ -21,6 +21,12 @@ async function _utam_get_selectElementss(driver, root) {
 async function _utam_get_generalEnquiryChk(driver, root) {
   let _element = root;
   const _locator = _By.css(`input[name='General_Inquiry']`);
+  return _element.findElement(_locator);
+}
+
+async function _utam_get_anzxComplaint(driver, root) {
+  let _element = root;
+  const _locator = _By.css(`input[name='ANZx_Complaint']`);
   return _element.findElement(_locator);
 }
 
@@ -120,6 +126,15 @@ export default class LwcCaseCreation extends _UtamBaseRootPageObject {
     const root = await this.getRootElement();
     const ClickableUtamElement = _createUtamMixinCtor(_ClickableUtamElement);
     let element = await _utam_get_generalEnquiryChk(driver, root);
+    element = new ClickableUtamElement(driver, element);
+    return element;
+  }
+
+  async getAnzxComplaint() {
+    const driver = this.driver;
+    const root = await this.getRootElement();
+    const ClickableUtamElement = _createUtamMixinCtor(_ClickableUtamElement);
+    let element = await _utam_get_anzxComplaint(driver, root);
     element = new ClickableUtamElement(driver, element);
     return element;
   }
