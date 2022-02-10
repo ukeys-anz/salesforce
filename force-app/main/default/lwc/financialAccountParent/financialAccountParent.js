@@ -179,7 +179,7 @@ export default class FinancialAccountParent extends LightningElement {
         bucketIds: this.transactionBucketIds
       });
 
-      if (this.isSavings) {
+      if (this.isSavings && this.transactionData?.embedded?.transactions) {
         this.transactionData = handleTransactionGoals(
           this.transactionData,
           this.imageMap,
