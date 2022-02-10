@@ -55,7 +55,7 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
     </milestones>
     <milestones>
         <businessHours>Default</businessHours>
-        <criteriaBooleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8</criteriaBooleanFilter>
+        <criteriaBooleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7</criteriaBooleanFilter>
         <milestoneCriteriaFilterItems>
             <field>Case.Status</field>
             <operation>notEqual</operation>
@@ -75,11 +75,6 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
             <field>Case.Status</field>
             <operation>notEqual</operation>
             <value>Re-opened</value>
-        </milestoneCriteriaFilterItems>
-        <milestoneCriteriaFilterItems>
-            <field>Case.Priority</field>
-            <operation>equals</operation>
-            <value>Standard</value>
         </milestoneCriteriaFilterItems>
         <milestoneCriteriaFilterItems>
             <field>Case.IDR_Subsequent_Issue__c</field>
@@ -118,7 +113,7 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
     </milestones>
     <milestones>
         <businessHours>Default</businessHours>
-        <criteriaBooleanFilter>1 AND 2 AND 3 AND 4 AND (5 OR (6 AND 7) OR (8 AND 9) OR (10 AND 11) OR (12 AND 13) OR (14 AND 15) OR (16 AND 17))</criteriaBooleanFilter>
+        <criteriaBooleanFilter>1 AND 2 AND 3 AND 4 AND ((5 AND 6) OR (7 AND 8) OR (9 AND 10) OR (11 AND 12) OR (13 AND 14) OR (15 AND 16))</criteriaBooleanFilter>
         <milestoneCriteriaFilterItems>
             <field>Case.Status</field>
             <operation>notEqual</operation>
@@ -138,11 +133,6 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
             <field>Case.Status</field>
             <operation>notEqual</operation>
             <value>Provisionally Closed</value>
-        </milestoneCriteriaFilterItems>
-        <milestoneCriteriaFilterItems>
-            <field>Case.Priority</field>
-            <operation>notEqual</operation>
-            <value>Standard</value>
         </milestoneCriteriaFilterItems>
         <milestoneCriteriaFilterItems>
             <field>Case.Type</field>
