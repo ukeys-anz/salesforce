@@ -11,10 +11,10 @@ package.xml
 **/__tests__/**
 
 # Avoid weird conflicts and deployment errors
-**appMenu
-**appSwitcher
-**profileSessionSettings
-**profilePasswordPolicies
+**/appMenu
+**/appSwitcher
+**/profileSessionSettings
+**/profilePasswordPolicies
 
 # Profiles not to pull nor push
 # 2 entries per profile as per https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_exclude_source.htm
@@ -108,7 +108,7 @@ force-app/main/default/flows/Knowledge_Process.flow-meta.xml
 force-app/main/default/duplicateRules/
 force-app/main/default/matchingRules/
 force-app/main/default/entitlementProcesses/
-
+force-app/main/default/transactionSecurityPolicies
 # temporary virtual goals forceignore; remove before merging epic
 force-app/main/default/classes/UpdateFinancialAccounts.cls
 force-app/main/default/classes/UpdateFinancialAccounts.cls-meta.xml

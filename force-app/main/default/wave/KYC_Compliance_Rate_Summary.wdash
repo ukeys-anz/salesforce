@@ -1,0 +1,2670 @@
+{
+  "dataSourceLinks": [],
+  "filters": [
+    {
+      "dataset": { "name": "KYC_QA" },
+      "dependent": true,
+      "fields": ["ClosedDate"],
+      "label": "Reporting Period",
+      "locked": false,
+      "operator": ">=<=",
+      "value": "[[[\"month\",-1],[\"month\",-1]]]"
+    }
+  ],
+  "gridLayouts": [
+    {
+      "maxWidth": 1200,
+      "name": "Default",
+      "numColumns": 24,
+      "pages": [
+        {
+          "label": "Home",
+          "name": "8cc4b844-d033-4377-9944-15e77b743668",
+          "navigationHidden": false,
+          "widgets": [
+            {
+              "colspan": 24,
+              "column": 0,
+              "name": "container_1",
+              "row": 1,
+              "rowspan": 12,
+              "widgetStyle": {
+                "backgroundColor": "rgb(2, 111, 255)",
+                "borderColor": "#E6ECF2",
+                "borderEdges": [],
+                "borderRadius": 16,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 9,
+              "column": 8,
+              "name": "text_1",
+              "row": 1,
+              "rowspan": 12,
+              "widgetStyle": {
+                "backgroundColor": "rgba(255, 255, 255, 0)",
+                "borderColor": "#E6ECF2",
+                "borderEdges": [],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 8,
+              "column": 0,
+              "name": "container_2",
+              "row": 15,
+              "rowspan": 8,
+              "widgetStyle": {
+                "backgroundColor": "rgb(2, 111, 255)",
+                "borderColor": "#E6ECF2",
+                "borderEdges": [],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 16,
+              "column": 8,
+              "name": "container_3",
+              "row": 15,
+              "rowspan": 8,
+              "widgetStyle": {
+                "backgroundColor": "rgb(2, 111, 255)",
+                "borderColor": "#E6ECF2",
+                "borderEdges": [],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 5,
+              "column": 1,
+              "name": "text_3",
+              "row": 8,
+              "rowspan": 3,
+              "widgetStyle": {
+                "backgroundColor": "rgba(255, 255, 255, 0)",
+                "borderColor": "#E6ECF2",
+                "borderEdges": [],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 8,
+              "column": 0,
+              "name": "text_4",
+              "row": 15,
+              "rowspan": 8,
+              "widgetStyle": {
+                "backgroundColor": "rgba(255, 255, 255, 0)",
+                "borderColor": "#E6ECF2",
+                "borderEdges": [],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 15,
+              "column": 8,
+              "name": "text_5",
+              "row": 15,
+              "rowspan": 8,
+              "widgetStyle": {
+                "backgroundColor": "rgba(255, 255, 255, 0)",
+                "borderColor": "#E6ECF2",
+                "borderEdges": [],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 8,
+              "column": 0,
+              "name": "container_4",
+              "row": 23,
+              "rowspan": 37,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "rgb(2, 111, 255)",
+                "borderEdges": ["all"],
+                "borderRadius": 0,
+                "borderWidth": 2
+              }
+            },
+            {
+              "colspan": 6,
+              "column": 0,
+              "name": "number_1",
+              "row": 29,
+              "rowspan": 4,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#7D98B3",
+                "borderEdges": ["bottom"],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 6,
+              "column": 0,
+              "name": "number_2",
+              "row": 34,
+              "rowspan": 4,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#7D98B3",
+                "borderEdges": ["bottom"],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 6,
+              "column": 0,
+              "name": "number_3",
+              "row": 39,
+              "rowspan": 4,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#7D98B3",
+                "borderEdges": ["bottom"],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 6,
+              "column": 0,
+              "name": "number_4",
+              "row": 44,
+              "rowspan": 4,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#7D98B3",
+                "borderEdges": ["bottom"],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 6,
+              "column": 0,
+              "name": "number_5",
+              "row": 49,
+              "rowspan": 4,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#7D98B3",
+                "borderEdges": ["bottom"],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 6,
+              "column": 0,
+              "name": "number_6",
+              "row": 54,
+              "rowspan": 4,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#7D98B3",
+                "borderEdges": ["bottom"],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 16,
+              "column": 8,
+              "name": "container_5",
+              "row": 23,
+              "rowspan": 37,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "rgb(2, 111, 255)",
+                "borderEdges": ["all"],
+                "borderRadius": 0,
+                "borderWidth": 2
+              }
+            },
+            {
+              "colspan": 16,
+              "column": 8,
+              "name": "container_6",
+              "row": 61,
+              "rowspan": 19,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "rgb(2, 111, 255)",
+                "borderEdges": ["all"],
+                "borderRadius": 0,
+                "borderWidth": 2
+              }
+            },
+            {
+              "colspan": 8,
+              "column": 8,
+              "name": "number_15",
+              "row": 50,
+              "rowspan": 8,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#7D98B3",
+                "borderEdges": ["bottom"],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 16,
+              "column": 8,
+              "name": "chart_1",
+              "row": 62,
+              "rowspan": 17,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 4,
+              "column": 19,
+              "name": "filterpanel_1",
+              "row": 4,
+              "rowspan": 4,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#091A3E",
+                "borderEdges": ["all"],
+                "borderRadius": 8,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 8,
+              "column": 16,
+              "name": "chart_2",
+              "row": 24,
+              "rowspan": 24,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 2,
+              "column": 4,
+              "name": "text_2",
+              "row": 25,
+              "rowspan": 3,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 2,
+              "column": 6,
+              "name": "text_6",
+              "row": 25,
+              "rowspan": 3,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 2,
+              "column": 6,
+              "name": "number_7",
+              "row": 29,
+              "rowspan": 4,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#7D98B3",
+                "borderEdges": ["bottom"],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 2,
+              "column": 6,
+              "name": "number_8",
+              "row": 34,
+              "rowspan": 4,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#7D98B3",
+                "borderEdges": ["bottom"],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 2,
+              "column": 6,
+              "name": "number_9",
+              "row": 39,
+              "rowspan": 4,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#7D98B3",
+                "borderEdges": ["bottom"],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 2,
+              "column": 6,
+              "name": "number_10",
+              "row": 44,
+              "rowspan": 4,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#7D98B3",
+                "borderEdges": ["bottom"],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 2,
+              "column": 6,
+              "name": "number_11",
+              "row": 49,
+              "rowspan": 4,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#7D98B3",
+                "borderEdges": ["bottom"],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 2,
+              "column": 6,
+              "name": "number_12",
+              "row": 54,
+              "rowspan": 4,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#7D98B3",
+                "borderEdges": ["bottom"],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 4,
+              "column": 19,
+              "name": "text_7",
+              "row": 9,
+              "rowspan": 3,
+              "widgetStyle": {
+                "backgroundColor": "rgba(255, 255, 255, 0)",
+                "borderEdges": []
+              }
+            },
+            {
+              "colspan": 7,
+              "column": 9,
+              "name": "text_8",
+              "row": 40,
+              "rowspan": 6,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 8,
+              "column": 8,
+              "name": "text_9",
+              "row": 46,
+              "rowspan": 3,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#7D98B3",
+                "borderEdges": ["bottom"],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 4,
+              "column": 1,
+              "name": "image_3",
+              "row": 3,
+              "rowspan": 5,
+              "widgetStyle": {
+                "backgroundColor": "rgba(255, 255, 255, 0)",
+                "borderColor": "#E6ECF2",
+                "borderEdges": [],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 8,
+              "column": 8,
+              "name": "text_10",
+              "row": 32,
+              "rowspan": 3,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 4,
+              "column": 12,
+              "name": "text_11",
+              "row": 25,
+              "rowspan": 6,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 8,
+              "column": 8,
+              "name": "text_12",
+              "row": 35,
+              "rowspan": 3,
+              "widgetStyle": { "borderEdges": [] }
+            }
+          ]
+        },
+        {
+          "label": "Data",
+          "name": "0dd54ff7-698e-4ec2-a335-9a28aa8f7a82",
+          "navigationHidden": false,
+          "widgets": [
+            {
+              "colspan": 10,
+              "column": 2,
+              "name": "table_1",
+              "row": 5,
+              "rowspan": 18,
+              "widgetStyle": { "borderEdges": [] }
+            }
+          ]
+        }
+      ],
+      "rowHeight": "fine",
+      "selectors": [],
+      "style": {
+        "alignmentX": "left",
+        "alignmentY": "top",
+        "backgroundColor": "#FFFFFF",
+        "cellSpacingX": 8,
+        "cellSpacingY": 0,
+        "fit": "original",
+        "gutterColor": "#FFFFFF"
+      },
+      "version": 1.0
+    }
+  ],
+  "layouts": [],
+  "steps": {
+    "Compliance_1": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "Compliance Rate %",
+      "numbers": [],
+      "query": "q = load \"KYC_QA\";\nresult = group q by 'Fraud_Defects_Rectified__c';\nresult = foreach result generate q.'Fraud_Defects_Rectified__c' as 'Fraud_Defects_Rectified__c', count(q) as 'A';\nresult = group result by 'Fraud_Defects_Rectified__c';\n-- Get the percentile of each Rectified Result\nresult = foreach result generate 'Fraud_Defects_Rectified__c', first(A) as 'A', sum(A)/sum(sum(A)) over ([..] partition by all) as 'perc';\nresult = foreach result generate case 'Fraud_Defects_Rectified__c' when \"Not Applicable\" then 'perc' else 0 end as 'percentile';\nresult = group result by all;\n-- Convert to String %\nresult = foreach result generate case when first(percentile) == 0 then \"0%\" else number_to_string(sum(percentile), \"#.0%\") end as 'Perc';",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "borderColor": "#e0e5ee",
+          "borderWidth": 1,
+          "cell": {
+            "backgroundColor": "#ffffff",
+            "fontColor": "#16325c",
+            "fontSize": 12
+          },
+          "columnProperties": {},
+          "columns": [],
+          "customBulkActions": [],
+          "header": {
+            "backgroundColor": "#f4f6f9",
+            "fontColor": "#16325c",
+            "fontSize": 12
+          },
+          "innerMajorBorderColor": "#a8b7c7",
+          "innerMinorBorderColor": "#e0e5ee",
+          "maxColumnWidth": 300,
+          "minColumnWidth": 40,
+          "mode": "variable",
+          "numberOfLines": 1,
+          "showActionMenu": true,
+          "totals": true,
+          "verticalPadding": 8
+        },
+        "type": "table"
+      }
+    },
+    "SLA_Met__1": {
+      "broadcastFacet": false,
+      "groups": [],
+      "label": "Compliance SLA Met? (Yes/No)",
+      "numbers": [],
+      "query": "q = load \"KYC_QA\";\nq = filter q by CreatedDate_Month == \"{{cell(Min_Date_Time_1.result, 0, \"Month_Number\").asString()}}\" and CreatedDate_Year == \"{{cell(Min_Date_Time_1.result, 0, \"Year\").asString()}}\" ;\n\nq = foreach q generate 'Id',\ncase \nwhen Case_Hour_Duration__c is null then \"Red\"\nwhen (Case_Hour_Duration__c <= 16) then \"Green\"\nwhen (Case_Hour_Duration__c > 16 and Case_Hour_Duration__c <= 40) then \"Amber\"\nelse \"Red\" end as 'SLA';\n\nq = group q by 'SLA';\nq = foreach q generate 'SLA', count() as 'A';\n\nq = group q by 'SLA';\nq = foreach q generate 'SLA', first(A) as 'A', sum(A)/sum(sum(A)) over ([..] partition by all) as 'perc';\n\n-- Test for all conditions and return the first one.\nq = foreach q generate last('SLA') as 'SLA', 'perc',\ncase when \n('SLA' == \"Green\" and perc > 80) then \"Yes\"\nwhen \n('SLA' == \"Amber\" and perc < 20) then \"Yes\"\nelse \"No\"\nend as 'SLA Met';\n\nq = order q by 'SLA Met' desc; \nq = limit q 1;\n",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": false,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "Customer_Population_9": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "Defects Resolved  (All)",
+      "numbers": [],
+      "query": "q = load \"KYC_QA\";\nq = filter q by Fraud_Defects_Rectified__c == \"Yes\" and IsClosed == \"true\";\nq = group q by all;\nq = foreach q generate count() as 'count';\n",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": false,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "Customer_Population_4": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "Tests Initiated (All)",
+      "numbers": [],
+      "query": "q = load \"KYC_QA\";\nq = group q by 'AccountInfo.OCV_ID__c';\nq = foreach q generate count() as 'c';\nq = group q by all;\nq = foreach q generate count() as 'c';",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": false,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "all_1": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "Compliance Over Time",
+      "numbers": [],
+      "query": "q = load \"KYC_QA\";\nq = filter q by {{row(Min_Date_Time_1.result, [0], [\"min_epoch_minus_6_month\", \"max_epoch\"]).asDateRange(\"date('CreatedDate_Year', 'CreatedDate_Month', 'CreatedDate_Day')\")}};\n result = foreach q generate 'Fraud_Defects_Rectified__c', ClosedDate_Month + \"~~~\" + ClosedDate_Year as 'Month~~~Year';\nresult = group result by ('Month~~~Year', 'Fraud_Defects_Rectified__c');\nresult = filter result by 'Month~~~Year' is not null;\nresult = foreach result generate 'Month~~~Year', 'Fraud_Defects_Rectified__c' as 'Fraud_Defects_Rectified__c', count() as 'A';\n\nresult = group result by ('Month~~~Year', 'Fraud_Defects_Rectified__c');\nresult = foreach result generate 'Month~~~Year', 'Fraud_Defects_Rectified__c', first(A) as 'A', sum(A)/sum(sum(A)) over ([..] partition by 'Month~~~Year') as 'perc';\nresult = foreach result generate 'Month~~~Year', case 'Fraud_Defects_Rectified__c' when \"Not Applicable\" then 'perc' else 0 end as 'Complaince Rate';\n\nresult = order result by 'Month~~~Year' desc;",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "start": "[]",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": false,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "showPoints": true,
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "line",
+          "dashLine": { "measures": ["A"], "showDashLine": false },
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "fillArea": true,
+          "showActionMenu": true,
+          "showZero": false,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "valueType": "percent",
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true,
+          "drawArea": {
+            "measure": "",
+            "showDrawArea": false,
+            "bounding1": "",
+            "bounding2": ""
+          }
+        },
+        "type": "chart"
+      }
+    },
+    "Customer_Population_11": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "Referred for Exit",
+      "numbers": [],
+      "query": "q = load \"KYC_QA\";\nq = filter q by IsClosed == \"true\" and Fraud_Defects_Rectified__c == \"Referred for Exit\";\nq = group q by all;\nq = foreach q generate count() as 'count';\n",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": false,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "lens_5": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "Restraints (Month)",
+      "numbers": [],
+      "query": "q = load \"KYC_QA\";\nq = filter q by Fraud_Restraint_Status__c != \"N/A\";\nq = group q by all;\nq = foreach q generate count() as 'count';\n",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "columnMap": {
+            "trellis": [],
+            "dimensionAxis": [],
+            "plots": ["count"]
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "Customer_Population_3": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "Defects Identified",
+      "numbers": [],
+      "query": "q = load \"KYC_QA\";\n\nq = foreach q generate \ncase when\n(Fraud_Customer_Photo_Modified__c == \"No\" or\nFraud_EV_Match__c == \"No\" or\nFraud_Defects_Rectified__c == \"No\" or\nFraud_ID_Legible__c == \"No\" or\nFraud_ID_Not_Picture__c == \"No\" or\nFraud_Customer_Details__c == \"No\" or\nFraud_Middle_Name__c == \"No\" or\nFraud_PO_Box__c == \"No\" or\nFraud_Security_Features__c == \"No\" or\nFraud_Selfie_Match__c == \"No\" or\nFraud_ID_True_Document__c == \"No\") then 1 else 0 end as 'Defect';\nq = group q by Defect;\nq = filter q by Defect == 1;\nq = foreach q generate Defect, count() as 'Count';",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "Customer_Population_10": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "Restraints (All)",
+      "numbers": [],
+      "query": "q = load \"KYC_QA\";\nq = filter q by Fraud_Restraint_Status__c != \"N/A\";\nq = group q by all;\nq = foreach q generate count() as 'count';\n",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": false,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "lens_6": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "Referred For Exit (Reporting month)",
+      "numbers": [],
+      "query": "q = load \"KYC_QA\";\nq = filter q by IsClosed == \"true\" and Fraud_Defects_Rectified__c == \"Referred for Exit\";\nq = group q by all;\nq = foreach q generate count() as 'count';\n",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "columnMap": {
+            "trellis": [],
+            "dimensionAxis": [],
+            "plots": ["count"]
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "Customer_Population_6": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "Test in Progress (All)",
+      "numbers": [],
+      "query": "q = load \"KYC_QA\";\nq = filter q by IsClosed == \"false\";\nq = group q by all;\nq = foreach q generate count() as 'count';\n",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": false,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "lens_3": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "Test in Progress (Month)",
+      "numbers": [],
+      "query": "q = load \"KYC_QA\";\nq = filter q by IsClosed == \"false\";\nq = group q by all;\nq = foreach q generate count() as 'count';\n",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "columnMap": {
+            "trellis": [],
+            "dimensionAxis": [],
+            "plots": ["count"]
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "Customer_Population_5": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "Tests Complete (All)",
+      "numbers": [],
+      "query": "q = load \"KYC_QA\";\nq = filter q by IsClosed == \"true\";\nq = group q by all;\nq = foreach q generate count() as 'count",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": false,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "columnMap": {
+            "trellis": [],
+            "dimensionAxis": [],
+            "plots": ["count"]
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "all_2": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "QA completion SLA is Met Pie",
+      "numbers": [],
+      "query": "q = load \"KYC_QA\";\n q = filter q by CreatedDate_Month == \"{{cell(Min_Date_Time_1.result, 0, \"Month_Number\").asString()}}\" and CreatedDate_Year == \"{{cell(Min_Date_Time_1.result, 0, \"Year\").asString()}}\" ;\n q = foreach q generate 'Id',\ncase \nwhen Case_Hour_Duration__c is null then \"Red\"\nwhen (Case_Hour_Duration__c <= 16) then \"Green\"\nwhen (Case_Hour_Duration__c > 16 and Case_Hour_Duration__c <= 40) then \"Amber\"\nelse \"Red\" end as 'SLA';\n\nq = group q by 'SLA';\nq = foreach q generate 'SLA', count() as 'Count';\n",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": false,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "centerText": "",
+          "legend": {
+            "descOrder": true,
+            "showHeader": false,
+            "show": true,
+            "customSize": 10,
+            "position": "bottom-center",
+            "inside": false
+          },
+          "showMeasureTitle": false,
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "pie",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "inner": 40,
+          "showActionMenu": true,
+          "centerValueType": "text",
+          "valueType": "percent",
+          "theme": "wave",
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "lens_4": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "Defects Resolved (Month)",
+      "numbers": [],
+      "query": "q = load \"KYC_QA\";\nq = filter q by Fraud_Defects_Rectified__c == \"Yes\" and IsClosed == \"true\";\nq = group q by all;\nq = foreach q generate count() as 'count';\n",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "columnMap": {
+            "trellis": [],
+            "dimensionAxis": [],
+            "plots": ["count"]
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "Min_Date_Time_1": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "! Reporting Dates",
+      "numbers": [],
+      "query": "q = load \"KYC_QA\";\nq = group q by (ClosedDate_Month, ClosedDate_Year);\nq = foreach q generate case string_to_number(ClosedDate_Month)\nwhen 1 then \"January\"\nwhen 2 then \"February\"\nwhen 3 then \"March\"\nwhen 4 then \"April\" \nwhen 5 then \"May\" \nwhen 6 then \"June\"\nwhen 7 then \"July\"\nwhen 8 then \"August\"\nwhen 9 then \"September\"\nwhen 10 then \"October\"\nwhen 11 then \"November\"\nwhen 12 then \"December\"\nelse \"N/A\"\nend as 'Month',\n'ClosedDate_Year' as 'Year',\n'ClosedDate_Month' as 'Month_Number',\ntoString(toDate(min('ClosedDate_sec_epoch')),\"dd-MM-yyyy\") as 'max',\nmin('ClosedDate_sec_epoch')*1000 as 'min_epoch',\nmax('ClosedDate_sec_epoch')*1000 as 'max_epoch',\n\n-- Remove 6 months for the bottom graph and set it to the first day of that month.\ndate_to_epoch(toDate(\"01-\" + toString(toDate((min('ClosedDate_sec_epoch') - 60*60*24*180)), \"MM-yyyy\"), \"dd-MM-yyyy\"))*1000 as 'min_epoch_minus_6_month';",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "start": "[]",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "borderColor": "#e0e5ee",
+          "borderWidth": 1,
+          "cell": {
+            "backgroundColor": "#ffffff",
+            "fontColor": "#16325c",
+            "fontSize": 12
+          },
+          "columnProperties": {},
+          "columns": [],
+          "customBulkActions": [],
+          "header": {
+            "backgroundColor": "#f4f6f9",
+            "fontColor": "#16325c",
+            "fontSize": 12
+          },
+          "innerMajorBorderColor": "#a8b7c7",
+          "innerMinorBorderColor": "#e0e5ee",
+          "maxColumnWidth": 300,
+          "minColumnWidth": 40,
+          "mode": "variable",
+          "numberOfLines": 1,
+          "showActionMenu": true,
+          "totals": true,
+          "verticalPadding": 8
+        },
+        "type": "table"
+      }
+    },
+    "lens_1": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "Tests Initiated (Month)",
+      "numbers": [],
+      "query": "q = load \"KYC_QA\";\nq = group q by 'AccountInfo.OCV_ID__c';\nq = foreach q generate count() as 'c';\nq = group q by all;\nq = foreach q generate count() as 'c';",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "lens_2": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "Tests Complete (Reporting Month)",
+      "numbers": [],
+      "query": "q = load \"KYC_QA\";\nq = filter q by IsClosed == \"true\";\nq = group q by all;\nq = foreach q generate count() as 'count';\n",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "columnMap": {
+            "trellis": [],
+            "dimensionAxis": [],
+            "plots": ["count"]
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    }
+  },
+  "widgetStyle": {
+    "backgroundColor": "#FFFFFF",
+    "borderColor": "#E6ECF2",
+    "borderEdges": [],
+    "borderRadius": 0,
+    "borderWidth": 1
+  },
+  "widgets": {
+    "number_12": {
+      "parameters": {
+        "compact": true,
+        "exploreLink": false,
+        "measureField": "count",
+        "noResultsLabel": "0",
+        "numberColor": "#091A3E",
+        "numberSize": 20,
+        "showActionMenu": false,
+        "step": "Customer_Population_11",
+        "textAlignment": "right",
+        "title": "",
+        "titleColor": "#335779",
+        "titleSize": 14,
+        "tooltip": { "customizeTooltip": false }
+      },
+      "type": "number"
+    },
+    "number_11": {
+      "parameters": {
+        "compact": true,
+        "exploreLink": false,
+        "measureField": "count",
+        "noResultsLabel": "0",
+        "numberColor": "#091A3E",
+        "numberSize": 20,
+        "showActionMenu": false,
+        "step": "Customer_Population_10",
+        "textAlignment": "right",
+        "title": "",
+        "titleColor": "#335779",
+        "titleSize": 14,
+        "tooltip": { "customizeTooltip": false }
+      },
+      "type": "number"
+    },
+    "number_10": {
+      "parameters": {
+        "compact": true,
+        "exploreLink": false,
+        "measureField": "count",
+        "noResultsLabel": "0",
+        "numberColor": "#091A3E",
+        "numberSize": 20,
+        "showActionMenu": false,
+        "step": "Customer_Population_9",
+        "textAlignment": "right",
+        "title": "",
+        "titleColor": "#335779",
+        "titleSize": 14,
+        "tooltip": { "customizeTooltip": false }
+      },
+      "type": "number"
+    },
+    "number_9": {
+      "parameters": {
+        "compact": true,
+        "exploreLink": false,
+        "measureField": "count",
+        "noResultsLabel": "0",
+        "numberColor": "#091A3E",
+        "numberSize": 20,
+        "showActionMenu": false,
+        "step": "Customer_Population_6",
+        "textAlignment": "right",
+        "title": "",
+        "titleColor": "#335779",
+        "titleSize": 14,
+        "tooltip": { "customizeTooltip": false }
+      },
+      "type": "number"
+    },
+    "text_10": {
+      "parameters": {
+        "content": { "displayTemplate": "Compliance SLA Met?\n" },
+        "fontSize": 16,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#091A3E"
+      },
+      "type": "text"
+    },
+    "number_15": {
+      "parameters": {
+        "compact": false,
+        "exploreLink": true,
+        "measureField": "Count",
+        "noResultsLabel": "0",
+        "numberColor": "#091A3E",
+        "numberSize": 24,
+        "showActionMenu": true,
+        "step": "Customer_Population_3",
+        "textAlignment": "right",
+        "title": "Defects Identified",
+        "titleColor": "#7D98B3",
+        "titleSize": 14,
+        "tooltip": { "customizeTooltip": false }
+      },
+      "type": "number"
+    },
+    "number_8": {
+      "parameters": {
+        "compact": true,
+        "exploreLink": false,
+        "measureField": "count",
+        "noResultsLabel": "0",
+        "numberColor": "#091A3E",
+        "numberSize": 20,
+        "showActionMenu": false,
+        "step": "Customer_Population_5",
+        "textAlignment": "right",
+        "title": "",
+        "titleColor": "#335779",
+        "titleSize": 14,
+        "tooltip": { "customizeTooltip": false }
+      },
+      "type": "number"
+    },
+    "number_7": {
+      "parameters": {
+        "compact": true,
+        "exploreLink": false,
+        "measureField": "c",
+        "noResultsLabel": "0",
+        "numberColor": "#091A3E",
+        "numberSize": 20,
+        "showActionMenu": false,
+        "step": "Customer_Population_4",
+        "textAlignment": "right",
+        "title": "",
+        "titleColor": "#335779",
+        "titleSize": 14,
+        "tooltip": { "customizeTooltip": false }
+      },
+      "type": "number"
+    },
+    "text_12": {
+      "parameters": {
+        "content": {
+          "displayTemplate": "SLA Met when over 80% of Cases created in the reporting month are closed within 16 hours\n"
+        },
+        "fontSize": 16,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#091A3E"
+      },
+      "type": "text"
+    },
+    "number_6": {
+      "parameters": {
+        "compact": true,
+        "exploreLink": false,
+        "measureField": "count",
+        "noResultsLabel": "0",
+        "numberColor": "#091A3E",
+        "numberSize": 20,
+        "showActionMenu": false,
+        "step": "lens_6",
+        "textAlignment": "right",
+        "title": "Customer Exits",
+        "titleColor": "#335779",
+        "titleSize": 14,
+        "tooltip": { "customizeTooltip": false }
+      },
+      "type": "number"
+    },
+    "text_11": {
+      "parameters": {
+        "content": {
+          "displayTemplate": "[SLA_Met]\n",
+          "values": {
+            "SLA_Met": {
+              "field": "SLA Met",
+              "sourceType": "result",
+              "step": "SLA_Met__1"
+            }
+          }
+        },
+        "fontSize": 16,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#091A3E"
+      },
+      "type": "text"
+    },
+    "container_1": {
+      "parameters": {
+        "alignmentX": "left",
+        "alignmentY": "top",
+        "fit": "original"
+      },
+      "type": "container"
+    },
+    "container_2": {
+      "parameters": {
+        "alignmentX": "left",
+        "alignmentY": "top",
+        "fit": "original"
+      },
+      "type": "container"
+    },
+    "container_3": {
+      "parameters": {
+        "alignmentX": "left",
+        "alignmentY": "top",
+        "fit": "original"
+      },
+      "type": "container"
+    },
+    "container_4": {
+      "parameters": {
+        "alignmentX": "left",
+        "alignmentY": "top",
+        "fit": "original"
+      },
+      "type": "container"
+    },
+    "container_5": {
+      "parameters": {
+        "alignmentX": "left",
+        "alignmentY": "top",
+        "fit": "original"
+      },
+      "type": "container"
+    },
+    "text_3": {
+      "parameters": {
+        "content": { "displayTemplate": "JOIN: Identity Operations\n" },
+        "fontSize": 16,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#091A3E"
+      },
+      "type": "text"
+    },
+    "container_6": {
+      "parameters": {
+        "alignmentX": "left",
+        "alignmentY": "top",
+        "fit": "original"
+      },
+      "type": "container"
+    },
+    "text_2": {
+      "parameters": {
+        "content": { "displayTemplate": "Reporting Month\n" },
+        "fontSize": 16,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#091A3E"
+      },
+      "type": "text"
+    },
+    "text_5": {
+      "parameters": {
+        "content": { "displayTemplate": "Monthly Snapshot \n" },
+        "fontSize": 16,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#FFFFFF"
+      },
+      "type": "text"
+    },
+    "text_4": {
+      "parameters": {
+        "content": {
+          "displayTemplate": "Aggregate Snapshot – All Time / Reporting Month\n"
+        },
+        "fontSize": 16,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#FFFFFF"
+      },
+      "type": "text"
+    },
+    "text_7": {
+      "parameters": {
+        "content": {
+          "displayTemplate": "Reporting Month: [Month]\n",
+          "values": {
+            "Month": {
+              "field": "Month",
+              "sourceType": "result",
+              "step": "Min_Date_Time_1"
+            }
+          }
+        },
+        "fontSize": 16,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#FFFFFF"
+      },
+      "type": "text"
+    },
+    "chart_2": {
+      "parameters": {
+        "centerText": "",
+        "autoFitMode": "keepLabels",
+        "legend": {
+          "descOrder": true,
+          "showHeader": false,
+          "show": true,
+          "customSize": 10,
+          "position": "bottom-center",
+          "inside": false
+        },
+        "showMeasureTitle": false,
+        "tooltip": {
+          "showBinLabel": true,
+          "measures": "",
+          "showNullValues": true,
+          "showPercentage": true,
+          "showDimensions": true,
+          "showMeasures": true,
+          "customizeTooltip": false,
+          "dimensions": ""
+        },
+        "visualizationType": "pie",
+        "exploreLink": true,
+        "title": {
+          "fontSize": 14,
+          "subtitleFontSize": 11,
+          "label": "",
+          "align": "center",
+          "subtitleLabel": ""
+        },
+        "trellis": {
+          "flipLabels": false,
+          "showGridLines": true,
+          "size": [100, 100],
+          "enable": false,
+          "type": "x",
+          "chartsPerLine": 4
+        },
+        "inner": 40,
+        "showActionMenu": true,
+        "centerValueType": "text",
+        "valueType": "percent",
+        "theme": "wave",
+        "step": "all_2",
+        "applyConditionalFormatting": true
+      },
+      "type": "chart"
+    },
+    "chart_1": {
+      "parameters": {
+        "autoFitMode": "fit",
+        "showValues": true,
+        "bins": {
+          "breakpoints": { "high": 100, "low": 0 },
+          "bands": {
+            "high": { "color": "#008000", "label": "" },
+            "low": { "color": "#B22222", "label": "" },
+            "medium": { "color": "#ffa500", "label": "" }
+          }
+        },
+        "showPoints": true,
+        "legend": {
+          "descOrder": false,
+          "showHeader": true,
+          "show": false,
+          "customSize": "auto",
+          "position": "right-top",
+          "inside": false
+        },
+        "axisMode": "multi",
+        "tooltip": {
+          "showBinLabel": true,
+          "measures": "",
+          "showNullValues": true,
+          "showPercentage": true,
+          "showDimensions": true,
+          "showMeasures": true,
+          "customizeTooltip": false,
+          "dimensions": ""
+        },
+        "visualizationType": "line",
+        "dashLine": { "measures": ["Complaince Rate"], "showDashLine": false },
+        "exploreLink": true,
+        "title": {
+          "fontSize": 14,
+          "subtitleFontSize": 11,
+          "label": "",
+          "align": "center",
+          "subtitleLabel": ""
+        },
+        "binValues": false,
+        "trellis": {
+          "flipLabels": false,
+          "showGridLines": true,
+          "size": [100, 100],
+          "enable": false,
+          "type": "x",
+          "chartsPerLine": 4
+        },
+        "fillArea": true,
+        "showActionMenu": true,
+        "showZero": true,
+        "measureAxis2": {
+          "sqrtScale": false,
+          "showTitle": true,
+          "showAxis": true,
+          "title": "",
+          "customDomain": { "showDomain": false }
+        },
+        "valueType": "none",
+        "measureAxis1": {
+          "sqrtScale": false,
+          "showTitle": true,
+          "showAxis": true,
+          "title": "",
+          "customDomain": { "showDomain": false }
+        },
+        "theme": "wave",
+        "step": "all_1",
+        "dimensionAxis": {
+          "showTitle": true,
+          "customSize": "auto",
+          "showAxis": true,
+          "title": "",
+          "icons": {
+            "useIcons": false,
+            "iconProps": { "fit": "cover", "column": "", "type": "round" }
+          }
+        },
+        "applyConditionalFormatting": true,
+        "drawArea": {
+          "measure": "",
+          "showDrawArea": false,
+          "bounding1": "",
+          "bounding2": ""
+        }
+      },
+      "type": "chart"
+    },
+    "text_6": {
+      "parameters": {
+        "content": { "displayTemplate": "All Time\n" },
+        "fontSize": 16,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#091A3E"
+      },
+      "type": "text"
+    },
+    "text_9": {
+      "parameters": {
+        "content": { "displayTemplate": "Compliance Rate\n" },
+        "fontSize": 16,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#091A3E"
+      },
+      "type": "text"
+    },
+    "text_8": {
+      "parameters": {
+        "content": {
+          "displayTemplate": "[Perc]\n",
+          "values": {
+            "Perc": {
+              "field": "Perc",
+              "sourceType": "result",
+              "step": "Compliance_1"
+            }
+          }
+        },
+        "fontSize": 16,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#091A3E",
+        "tooltip": "Compliance Rate"
+      },
+      "type": "text"
+    },
+    "text_1": {
+      "parameters": {
+        "content": { "displayTemplate": "KYC Compliance Rate\n" },
+        "fontSize": 16,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#091A3E"
+      },
+      "type": "text"
+    },
+    "filterpanel_1": {
+      "parameters": {
+        "filterItemOptions": {
+          "propertyColor": "#091A3E",
+          "valueColor": "#091A3E"
+        },
+        "filters": [{ "dataset": { "name": "KYC_QA" }, "field": "ClosedDate" }],
+        "showAllFilters": false
+      },
+      "type": "filterpanel"
+    },
+    "number_5": {
+      "parameters": {
+        "compact": true,
+        "exploreLink": false,
+        "measureField": "count",
+        "noResultsLabel": "0",
+        "numberColor": "#091A3E",
+        "numberSize": 20,
+        "showActionMenu": false,
+        "step": "lens_5",
+        "textAlignment": "right",
+        "title": "Restraints Applied",
+        "titleColor": "#335779",
+        "titleSize": 14,
+        "tooltip": { "customizeTooltip": false }
+      },
+      "type": "number"
+    },
+    "table_1": {
+      "parameters": {
+        "borderColor": "#e0e5ee",
+        "borderWidth": 1,
+        "cell": {
+          "backgroundColor": "#ffffff",
+          "fontColor": "#16325c",
+          "fontSize": 12
+        },
+        "columnProperties": {},
+        "columns": [],
+        "customBulkActions": [],
+        "exploreLink": true,
+        "header": {
+          "backgroundColor": "#f4f6f9",
+          "fontColor": "#16325c",
+          "fontSize": 12
+        },
+        "innerMajorBorderColor": "#a8b7c7",
+        "innerMinorBorderColor": "#e0e5ee",
+        "maxColumnWidth": 300,
+        "minColumnWidth": 40,
+        "mode": "variable",
+        "numberOfLines": 1,
+        "pivoted": false,
+        "showActionMenu": true,
+        "step": "Min_Date_Time_1",
+        "totals": true,
+        "verticalPadding": 8
+      },
+      "type": "table"
+    },
+    "number_4": {
+      "parameters": {
+        "compact": true,
+        "exploreLink": false,
+        "measureField": "count",
+        "noResultsLabel": "0",
+        "numberColor": "#091A3E",
+        "numberSize": 20,
+        "showActionMenu": false,
+        "step": "lens_4",
+        "textAlignment": "right",
+        "title": "Defects Resolved ",
+        "titleColor": "#335779",
+        "titleSize": 14,
+        "tooltip": { "customizeTooltip": false }
+      },
+      "type": "number"
+    },
+    "number_3": {
+      "parameters": {
+        "compact": true,
+        "exploreLink": false,
+        "measureField": "count",
+        "noResultsLabel": "0",
+        "numberColor": "#091A3E",
+        "numberSize": 20,
+        "showActionMenu": false,
+        "step": "lens_3",
+        "textAlignment": "right",
+        "title": "Tests in Progress",
+        "titleColor": "#335779",
+        "titleSize": 14,
+        "tooltip": { "customizeTooltip": false }
+      },
+      "type": "number"
+    },
+    "number_2": {
+      "parameters": {
+        "compact": true,
+        "exploreLink": false,
+        "measureField": "count",
+        "noResultsLabel": "0",
+        "numberColor": "#091A3E",
+        "numberSize": 20,
+        "showActionMenu": false,
+        "step": "lens_2",
+        "textAlignment": "right",
+        "title": "Tests Complete",
+        "titleColor": "#335779",
+        "titleSize": 14,
+        "tooltip": { "customizeTooltip": false }
+      },
+      "type": "number"
+    },
+    "number_1": {
+      "parameters": {
+        "compact": false,
+        "exploreLink": true,
+        "measureField": "c",
+        "noResultsLabel": "0",
+        "numberColor": "#091A3E",
+        "numberSize": 20,
+        "showActionMenu": true,
+        "step": "lens_1",
+        "textAlignment": "left",
+        "title": "Tests Initiated",
+        "titleColor": "#091A3E",
+        "titleSize": 16,
+        "tooltip": { "customizeTooltip": false }
+      },
+      "type": "number"
+    },
+    "image_3": {
+      "parameters": {
+        "alignmentX": "left",
+        "alignmentY": "top",
+        "fit": "original",
+        "image": { "name": "anzxpluspng", "namespace": "" }
+      },
+      "type": "image"
+    }
+  }
+}

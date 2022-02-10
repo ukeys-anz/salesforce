@@ -15,7 +15,7 @@ exec(
     }
     if (stdout) {
       let insertResult = JSON.parse(stdout).result;
-      accRecId = insertResult[0].id;
+      if (insertResult.length) { accRecId = insertResult[0].id; }
       //extract the id of SlaProcess (I.e Entitlement Process) for complaint.
       exec(
         "sfdx force:data:soql:query -q \"Select Id from SlaProcess Where Name= 'Complaints'\" --json",
@@ -28,7 +28,7 @@ exec(
           }
 
           let result = JSON.parse(stdout).result;
-          if (result.records) {
+          if (result.records.length) {
             entitlementProcessRec = result.records[0].Id;
           }
           //prepare entitlement record .
