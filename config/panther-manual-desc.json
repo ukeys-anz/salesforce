@@ -708,7 +708,8 @@
         "Total_Number_of_Cards__c",
         "lastUpdatedDateTime__c",
         "Name"
-      ]
+      ],
+      "IA-2415987": ["Interest_Rate_URL__c"]
     },
     "FinServ__FinancialAccountRole__c": {
       "IA-2468715": [
