@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Enable ViewAllForeignKeyNames to give user access to lookup field name even if they don&apos;t have read access to the lookup record.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>View All Foreign Key Names</label>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>ViewAllForeignKeyNames</name>
+    </userPermissions>
+</PermissionSet>
