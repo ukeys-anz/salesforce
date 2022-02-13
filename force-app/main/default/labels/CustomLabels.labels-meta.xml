@@ -41,6 +41,14 @@
         <value>005</value>
     </labels>
     <labels>
+        <fullName>Interest_Rate_ANZ_Plus_URL</fullName>
+        <categories>URL</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Interest Rate ANZ Plus URL</shortDescription>
+        <value>https://www.anz.com.au/plus/pricing</value>
+    </labels>
+    <labels>
         <fullName>MS_Account_Table</fullName>
         <categories>MS</categories>
         <language>en_US</language>
