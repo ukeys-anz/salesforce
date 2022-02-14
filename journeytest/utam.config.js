@@ -1,6 +1,5 @@
 module.exports = {
-  // file mask for utam page objects
-  testMatch: ["**/__utam__/**/*.utam.json"],
-  // output folder for generated page objects
-  outputDir: "journeytest/src/pageObjects"
+  pageObjectsRootDir: "./", // config file directory name
+  pageObjectsFileMask: ["src/__utam__/*.utam.json"],
+  pageObjectsOutputDir: "src/pageObjects"
 };
