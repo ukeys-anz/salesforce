@@ -64,7 +64,7 @@ export default class TransactionHistoryBoard extends LightningElement {
   // gets component title, search, error, startDate & endDate through financialAccountParent LWC
   @api error;
   @api hasError;
-  fullTransactionList = [];
+  @track fullTransactionList = [];
   @track transactionList = [];
   @track showSearchBar = false;
   @track filterList = [];
@@ -75,7 +75,7 @@ export default class TransactionHistoryBoard extends LightningElement {
   todayDate = this.getDefaultDate();
   disableSearch = true;
   links;
-  loading;
+  @api loading;
   disputeRecordTypes = [];
   transactionTypeDisputeIdMap = {};
   personAccountId = "";
@@ -86,6 +86,12 @@ export default class TransactionHistoryBoard extends LightningElement {
   @api componentTitle;
   @api tstartDate;
   @api tendDate;
+  //Used to clear the transactionList value so we dont
+  //append new transactions when trying to filter them
+  @api clearTransactions;
+  //Triggers the load more button to be a spinner so we dont
+  //trigger loading on the whole component to append new data
+  @api transactionLoadMore;
 
   @wire(MessageContext)
   messageContext;
@@ -102,7 +108,6 @@ export default class TransactionHistoryBoard extends LightningElement {
         this.handleGetDisputeRecordTypeDetails();
       }
     }
-    this.loading = false;
   }
 
   get displayContent() {
@@ -119,11 +124,18 @@ export default class TransactionHistoryBoard extends LightningElement {
   }
 
   set transactionData(transactions) {
+    if (this.clearTransactions) {
+      this.transactionList = [];
+    }
     if (transactions) {
       this.fullTransactionList = transactions.embedded.transactions;
       this.links = transactions.links;
-      this.allMerchants = transactions.embedded.merchants;
-      this.allTags = transactions.embedded.tags;
+      this.allMerchants = transactions.embedded?.merchants
+        ? transactions.embedded.merchants
+        : [];
+      this.allTags = transactions.embedded.tags
+        ? transactions.embedded?.tags
+        : [];
       let updatedFullList = [];
 
       if (this.fullTransactionList) {
@@ -228,7 +240,6 @@ export default class TransactionHistoryBoard extends LightningElement {
         this.transactionList.push(e);
       });
     }
-    this.loading = false;
   }
 
   handleMerchantDetails(transaction) {
@@ -329,7 +340,6 @@ export default class TransactionHistoryBoard extends LightningElement {
 
   handleSearch() {
     if (this.startDate && this.endDate) {
-      this.loading = true;
       this.transactionList = [];
       //Create dates based off the user selection
       let startDate = this.startDate + " 00:00:00";

@@ -82,7 +82,6 @@
                   </div>
                 </template>
               </div>
-
               <button
                 class="slds-button expand-collapse"
                 onclick={handleExpandAll}
@@ -91,7 +90,6 @@
                 <template if:false={expandAll}>Expand All</template>
               </button>
             </div>
-
             <template if:true={transactionList}>
               <template for:each={transactionList} for:item="transRecord">
                 <c-transaction-history-record
@@ -104,18 +102,30 @@
                 >
                 </c-transaction-history-record>
               </template>
-              <div class="slds-grid">
-                <div class="slds-col slds-align_absolute-center">
-                  <template if:true={showLoadMore}>
-                    <button
-                      class="slds-button load-more"
-                      onclick={handleLoadMore}
-                    >
-                      Load More
-                    </button>
-                  </template>
+              <template if:true={transactionLoadMore}>
+                <div class="slds-align_absolute-center" style="height: 4rem">
+                  <div role="status" class="slds-spinner_inline">
+                    <lightning-spinner
+                      alternative-text="Loading"
+                      variant="brand"
+                    ></lightning-spinner>
+                  </div>
                 </div>
-              </div>
+              </template>
+              <template if:false={transactionLoadMore}>
+                <div class="slds-grid">
+                  <div class="slds-col slds-align_absolute-center">
+                    <template if:true={showLoadMore}>
+                      <button
+                        class="slds-button load-more"
+                        onclick={handleLoadMore}
+                      >
+                        Load More
+                      </button>
+                    </template>
+                  </div>
+                </div>
+              </template>
             </template>
             <template if:false={fullTransactionList}>
               <h1 class="slds-card__header-title main-title">

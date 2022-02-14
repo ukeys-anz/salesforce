@@ -49,7 +49,14 @@ export default class FinancialAccountParent extends LightningElement {
   transactionStartDate;
   transactionEndDate;
   transactionBucketIds = [];
-  transactionLoading;
+  //Triggers the whole transaction lwc to load
+  transactionLoading = false;
+  //Triggers the bottom of transactions to load for
+  //appending new transactions
+  transactionLoadMore = false;
+  //triggers the transactions to clear, used for
+  //goal filtering
+  clearTransactions = false;
 
   @wire(CurrentPageReference)
   pageRef;
@@ -78,7 +85,7 @@ export default class FinancialAccountParent extends LightningElement {
       }
       await this.getFinancialData();
       await this.getGoalData();
-      this.getTransactionData();
+      await this.getTransactionData();
     }
     this.loading = false;
   }
@@ -87,7 +94,7 @@ export default class FinancialAccountParent extends LightningElement {
     //get url param here for goal filtering
     if (this.pageRef?.state?.c__goalId) {
       this.preselectedGoal = this.pageRef.state.c__goalId;
-      this.transactionBucketIds = [...this.preselectedGoal];
+      this.transactionBucketIds.push(this.preselectedGoal);
     }
   }
 
@@ -163,7 +170,11 @@ export default class FinancialAccountParent extends LightningElement {
   }
 
   async getTransactionData(paramUrl = "") {
-    this.transactionLoading = true;
+    //If we arent loading in new transactions to append,
+    //trigger the whole lwc to load
+    if (!this.transactionLoadMore) {
+      this.transactionLoading = true;
+    }
     //Set default component title here to ensure theres always a title
     //even if the try catch fails
     this.componentTitle = this.isSavings
@@ -179,7 +190,12 @@ export default class FinancialAccountParent extends LightningElement {
         bucketIds: this.transactionBucketIds
       });
 
-      if (this.isSavings && this.transactionData?.embedded?.transactions) {
+      if (
+        this.isSavings &&
+        this.transactionData?.embedded?.transactions &&
+        this.emojiMap &&
+        this.imageMap
+      ) {
         this.transactionData = handleTransactionGoals(
           this.transactionData,
           this.imageMap,
@@ -207,8 +223,12 @@ export default class FinancialAccountParent extends LightningElement {
         this.transactionError,
         "pester"
       );
+    } finally {
+      //reset values
+      this.clearTransactions = false;
+      this.transactionLoading = false;
+      this.transactionLoadMore = false;
     }
-    this.transactionLoading = false;
   }
 
   handleAccountInformation(finAccounts) {
@@ -224,6 +244,7 @@ export default class FinancialAccountParent extends LightningElement {
   }
 
   handleLoadMore(event) {
+    this.transactionLoadMore = true;
     this.getTransactionData(event.detail);
   }
 
@@ -244,6 +265,7 @@ export default class FinancialAccountParent extends LightningElement {
     if (this.transactionBucketIds.length === 0) {
       this.preselectedGoal = null;
     }
+    this.clearTransactions = true;
     this.getTransactionData();
   }
 
