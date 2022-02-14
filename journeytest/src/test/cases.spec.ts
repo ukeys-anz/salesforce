@@ -13,9 +13,11 @@ describe("Case Creation - General Enquiry", () => {
 
     let sfLogin = new SfLogin();
     await sfLogin.salesForceLogin(data.envToTest, "coach");
+    await browser.pause(2000);
+    await SfPageUtils.closeAllTabsMain();
   });
 
-  it("Search for an ANZx Customer", async () => {
+  it("Go to Cases -> New Case", async () => {
     //Load the Customer Details Page
     const customerPageRoot = await utam.load(LwcCustomerDetails);
     const navigationShowElement = await customerPageRoot.getNavigationShow();
@@ -29,7 +31,7 @@ describe("Case Creation - General Enquiry", () => {
 
   it("Create a New Case", async () => {
     let sfCases = new SfCases();
-    await sfCases.createCase("General Enquiry");
+    caseNumber = await sfCases.createGenEnqCase("scenario_001");
   });
 
   it("Change Owner to Support Coach", async () => {
@@ -39,7 +41,7 @@ describe("Case Creation - General Enquiry", () => {
 
   it("Edit Case Type", async () => {
     let sfCases = new SfCases();
-    await sfCases.editIssueType("scenario_002");
+    await sfCases.editIssueType("scenario_001");
   });
 
   it("Change Owner to Another Coach", async () => {
@@ -58,17 +60,9 @@ describe("Case Creation - General Enquiry", () => {
 describe("Case Creation - ANZx Complaints", async () => {
   let caseNumber: string;
 
-  it("Login as a Coach User", async () => {
-    browser.maximizeWindow();
-
-    let sfLogin = new SfLogin();
-    await sfLogin.salesForceLogin(data.envToTest, "coach");
-    await browser.pause(5000);
-    await SfPageUtils.closeAllTabsMain();
-  });
-
-  it("Search for an ANZx Customer", async () => {
+  it("Go to Cases -> New Case", async () => {
     //Load the Customer Details Page
+    await SfPageUtils.closeAllTabsMain();
     const customerPageRoot = await utam.load(LwcCustomerDetails);
     const navigationShowElement = await customerPageRoot.getNavigationShow();
 

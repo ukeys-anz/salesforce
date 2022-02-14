@@ -46,6 +46,7 @@ export default class LwcAccounsView extends _UtamBaseRootPageObject {
   constructor(driver, element, locator = _By.css(`body`)) {
     super(driver, element, locator);
   }
+
   async __getRoot() {
     const driver = this.driver;
     const root = await this.getRootElement();

@@ -3,69 +3,52 @@ import data from "../../testdata.json";
 import { ScenarioUtil } from "utilities/scenarioUtil";
 
 export default class SfCases {
-  createCase = async (caseType: string) => {
+  createGenEnqCase = async (scenarioId: string) => {
     const casePageRoot = utam.load(LwcCaseCreation);
 
     //Navigation to new case form
-    this.navigateToNewCase();
+    await this.navigateToNewCase();
 
     //Select the case type
-    this.selectCaseType(caseType);
+    await this.selectCaseType("General Enquiry");
 
-    const caseGenEnqChk = await (await casePageRoot).getGeneralEnquiryChk();
-    //Select case Type - at the moment it is general enquiry
-    await caseGenEnqChk.click();
-
-    const caseNextButton = await (await casePageRoot).getNextButton();
-    //Click next button
-    await caseNextButton.click();
+    let casesData: any = {};
+    casesData = await ScenarioUtil.getCaseCreateDetails(scenarioId);
 
     const caseInputElement = await (await casePageRoot).getCustomerInput();
     const caseDropDown = await (await casePageRoot).getCustomerDropDown(
-      data.accounts[1].case_creation.name
+      data.accounts[0].case_creation.name
     );
 
     //Enter case creation fields
-    await caseInputElement.setText(data.accounts[1].case_creation.name);
+    await caseInputElement.setText(data.accounts[0].case_creation.name);
     await caseDropDown.click();
 
-    const selectElement = await (await casePageRoot).getSelectElements();
+    //Channel Received
+    await this.selectChannelReceived(casesData.channelReceived);
 
-    await selectElement[0].click();
-    await browser.pause(1000);
+    //Issue Type
+    await this.selectIssueType("New", casesData.issueType);
 
-    const dropdownElement = await (await casePageRoot).getValueDropDown("Chat");
-    await dropdownElement.click();
-    await browser.pause(3000);
-    await selectElement[1].click();
-    await browser.pause(2000);
-
-    const IssuedropdownElement = await (await casePageRoot).getValueDropDown(
-      "Cards"
-    );
-    await IssuedropdownElement.click();
-    await browser.pause(2000);
-    // const issueSubType = await $("//span[@title='Lost or stolen card']");
-    const issueSubType = await (await casePageRoot).getDualListLeft(
-      "Lost or stolen card"
-    );
+    //Subsequent Issue Type
+    const issueSubType = await $(`//span[@title='${casesData.issueSubType}']`);
     await issueSubType.click();
 
-    // const moveChosenElement = await casePageRoot.getMoveChosen();
     const moveChosenElement = await $(
       "//button[@title='Move selection to Chosen']"
     );
     await moveChosenElement.click();
-    await browser.pause(3000);
+    await browser.pause(1000);
 
     const saveCaseElement = await (await casePageRoot).getSaveCase();
     await saveCaseElement.click();
     await browser.pause(3000);
+
+    return this.getCaseNumberCreated();
   };
 
   createAnzxComplaintCase = async (scenarioId: string) => {
     const casePageRoot = utam.load(LwcCaseCreation);
-    let caseNumber;
 
     await this.navigateToNewCase();
     await this.selectCaseType("ANZ Plus Complaint");
@@ -120,10 +103,14 @@ export default class SfCases {
     //Submit
     await this.submitCase();
 
+    return this.getCaseNumberCreated();
+  };
+
+  getCaseNumberCreated = async () => {
     const caseNumberElement = await $(
       "//p[@title='Case Number']/following-sibling::p"
     );
-    caseNumber = await caseNumberElement.getText();
+    const caseNumber = await caseNumberElement.getText();
     return caseNumber;
   };
 
@@ -191,6 +178,8 @@ export default class SfCases {
   editIssueType = async (scenarioId: string) => {
     let casesData: any = {};
     casesData = await ScenarioUtil.getCaseEditDetails(scenarioId);
+    let caseType: any = {};
+    caseType = await ScenarioUtil.getCaseCreateDetails(scenarioId);
 
     const editIssueType = await $("//button[@title='Edit Issue Type']");
     await editIssueType.click();
@@ -200,7 +189,20 @@ export default class SfCases {
     await this.selectIssueType("Edit", casesData.issueType);
 
     //Issue Sub Type
-    await this.selectIssueSubType("Edit", casesData.issueSubType);
+    if (caseType.type == "General Enquiry") {
+      const issueSubType = await $(
+        `//span[@title='${casesData.issueSubType}']`
+      );
+      await issueSubType.click();
+
+      const moveChosenElement = await $(
+        "//button[@title='Move selection to Chosen']"
+      );
+      await moveChosenElement.click();
+      await browser.pause(1000);
+    } else {
+      await this.selectIssueSubType("Edit", casesData.issueSubType);
+    }
 
     const saveEdit = await $("//button[@name='SaveEdit']");
     await saveEdit.click();
@@ -228,6 +230,15 @@ export default class SfCases {
       await browser.pause(1000);
       await this.selectMenuOption(value);
     }
+  };
+
+  selectChannelReceived = async (value: string) => {
+    const channelDd = await $(
+      "//span[text()='Channel Received']/../following-sibling::div//a"
+    );
+    await channelDd.click();
+    await browser.pause(1000);
+    await this.selectMenuOption(value);
   };
 
   selectIssueSubType = async (mode: string, value: string) => {
@@ -289,5 +300,30 @@ export default class SfCases {
       "//p[@title='Status']/following-sibling::p"
     );
     await expect(caseStatuElement).toHaveText(status);
+  };
+
+  shareCaseUpdate = async () => {
+    const shareButton = await $(
+      "//li/a[text()='Case Notes']/ancestor::lightning-tab-bar/following-sibling::slot//button[@title='Share an update...']"
+    );
+    await shareButton.scrollIntoView();
+    await shareButton.click();
+    await browser.pause(2000);
+
+    const textArea = await $("//div[@data-placeholder='Share an update...']/p");
+    await textArea.setValue("Case comments by automation script");
+
+    const submitComment = await $(
+      "//button[@title='Click, or press Ctrl+Enter']"
+    );
+    await submitComment.click();
+    await browser.pause(2000);
+
+    const postTxtElm = await $(
+      "//li/a[text()='Case Notes']/ancestor::lightning-tab-bar/following-sibling::slot//article[@data-type='TextPost']//p"
+    );
+    await expect(await postTxtElm.getText()).toHaveText(
+      "Case comments by automation script"
+    );
   };
 }

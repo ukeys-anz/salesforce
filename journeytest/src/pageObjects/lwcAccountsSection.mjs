@@ -21,6 +21,7 @@ export default class LwcAccountsSection extends _UtamBaseRootPageObject {
   constructor(driver, element, locator = _By.css(`slot`)) {
     super(driver, element, locator);
   }
+
   async __getRoot() {
     const driver = this.driver;
     const root = await this.getRootElement();

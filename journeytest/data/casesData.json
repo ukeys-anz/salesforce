@@ -3,9 +3,9 @@
     "create": [
       {
         "dataId": "001",
-        "type": "General_Enquiry",
+        "type": "General Enquiry",
         "accountName": "default",
-        "channelReceived": "Email",
+        "channelReceived": "Chat",
         "issueType": "Cards",
         "issueSubType": "Lost or stolen card"
       },
@@ -42,6 +42,13 @@
         "issueType": "Cards",
         "status": "Closed",
         "issueSubType": "Lost or stolen card"
+      },
+      {
+        "dataId": "002",
+        "issueType": "Money",
+        "issueSubType": "Using account",
+        "caseOwnerType": "Queues",
+        "caseOwner": "Support Coach Queue"
       },
       {
         "dataId": "003",
