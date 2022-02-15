@@ -1603,6 +1603,11 @@
         <endAddress>35.244.65.24</endAddress>
         <startAddress>35.244.65.24</startAddress>
     </loginIpRanges>
+    <loginIpRanges>
+        <description>IP range restriction for Odaseva</description>
+        <endAddress>13.211.189.52</endAddress>
+        <startAddress>13.211.48.246</startAddress>
+    </loginIpRanges>
     <userPermissions>
         <enabled>false</enabled>
         <name>AccessCMC</name>
