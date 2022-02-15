@@ -271,6 +271,10 @@ export default class FinancialAccountParent extends LightningElement {
 
   async refreshData() {
     this.loading = true;
+    //Reset any preset goals and filters
+    this.transactionBucketIds = [];
+    this.preselectedGoal = this.pageRef.state.c__goalId;
+    this.transactionBucketIds.push(this.preselectedGoal);
     await this.getFinancialData();
     await this.getGoalData();
     await this.getTransactionData();
