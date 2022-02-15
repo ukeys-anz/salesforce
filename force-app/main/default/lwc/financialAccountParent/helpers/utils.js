@@ -12,15 +12,25 @@ export function handleGoalData(goalList) {
   });
 
   goalList.account_buckets.forEach((goal) => {
-    //Check if goal has theme otherwise use default
     if (goal.is_default) {
       goal.image = `${goal_themes}/SAVINGS_JAR.png`;
-    } else if (goal?.goal?.theme) {
-      goal.image = `${goal_themes}/${goal.goal.theme}.png`;
-    } else if (goal?.goal?.emoji?.value) {
-      goal.emoji = goal.goal.emoji.value;
     } else {
-      goal.image = `${goal_themes}/GOAL_THEME_SOMETHING_ELSE.png`;
+      //Check if goal has theme otherwise use default
+      if (goal?.goal?.theme) {
+        //If goal is unspecified, assign the image of "something else"
+        if (
+          goal.goal.theme === "GOAL_THEME_UNSPECIFIED" ||
+          goal.goal.theme === "GOAL_THEME_CUSTOM"
+        ) {
+          goal.image = `${goal_themes}/GOAL_THEME_SOMETHING_ELSE.png`;
+        } else {
+          goal.image = `${goal_themes}/${goal.goal.theme}.png`;
+        }
+      } else if (goal?.goal?.emoji?.value) {
+        goal.emoji = goal.goal.emoji.value;
+      } else {
+        goal.image = `${goal_themes}/GOAL_THEME_SOMETHING_ELSE.png`;
+      }
     }
     //Determine percentage for goal
     if (goal?.goal?.target_amount?.value) {
