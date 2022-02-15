@@ -16,7 +16,7 @@
                 <field>IDR_Customer_Number__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Required</behavior>
                 <field>IDR_Customer_Identifier__c</field>
             </layoutItems>
             <layoutItems>
