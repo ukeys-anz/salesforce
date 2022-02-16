@@ -1,7 +1,7 @@
 /* LWC IMPORTS */
 import { LightningElement, api, wire } from "lwc";
 import { getRecord } from "lightning/uiRecordApi";
-import { handleErrorShowToast } from "c/utils";
+import { handleErrorShowToast, handleGoalData } from "c/utils";
 
 /* IMPORT APEX METHODS */
 import getTotalBalance from "@salesforce/apex/TotalBalanceController.getTotalBalance";
@@ -15,9 +15,6 @@ import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accoun
 
 /* IMPORT SCHEMA FIELDS */
 import ACCOUNT_OCV_ID_FIELD from "@salesforce/schema/Account.OCV_ID__c";
-
-import { handleGoalData } from "./helpers/utils";
-
 export default class PersonAccountFinancialDetails extends LightningElement {
   @api recordId;
   goalDetails = [];

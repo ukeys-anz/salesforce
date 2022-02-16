@@ -18,7 +18,7 @@ import {
   getEmojiMap,
   getGoalMap,
   getImageMap,
-  handleGoalData,
+  handleGoalsParent,
   handleTransactionGoals,
   handleComponentTitle
 } from "./helpers/utils";
@@ -136,7 +136,7 @@ export default class FinancialAccountParent extends LightningElement {
     if (this.isSavings) {
       try {
         let goalDetails = await getAccountBuckets({ ocvId: this.ocvId });
-        goalDetails = handleGoalData(goalDetails);
+        goalDetails = handleGoalsParent(goalDetails);
         this.emojiMap = getEmojiMap(goalDetails);
         this.imageMap = getImageMap(goalDetails);
         this.goalMap = getGoalMap(goalDetails);
@@ -273,8 +273,10 @@ export default class FinancialAccountParent extends LightningElement {
     this.loading = true;
     //Reset any preset goals and filters
     this.transactionBucketIds = [];
-    this.preselectedGoal = this.pageRef.state.c__goalId;
-    this.transactionBucketIds.push(this.preselectedGoal);
+    if (this.pageRef?.state?.c__goalId) {
+      this.preselectedGoal = this.pageRef.state.c__goalId;
+      this.transactionBucketIds.push(this.preselectedGoal);
+    }
     await this.getFinancialData();
     await this.getGoalData();
     await this.getTransactionData();
