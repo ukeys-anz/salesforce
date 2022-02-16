@@ -554,4 +554,123 @@ describe("c-create-complaint-l-w-c", () => {
       });
     });
   });
+
+  //only check express cmos toggle without selecting known isssue
+  it("check express cmos known issue validation", () => {
+    const element = createElement("c-create-complaint-l-w-c", {
+      is: CreateComplaintForm
+    });
+    element.recordTypeDevName = "Customer_Complaint";
+    document.body.appendChild(element);
+
+    const expressCMOSElement = element.shadowRoot.querySelector(
+      "c-idr-express-complaint"
+    );
+    expect(expressCMOSElement).not.toBe(null);
+    expressCMOSElement.dispatchEvent(
+      new CustomEvent("togglechecked", { detail: { value: true } })
+    );
+    return Promise.resolve().then(() => {
+      const submitBtnElement = element.shadowRoot.querySelector(
+        '[data-id="submit-id"]'
+      );
+      submitBtnElement.dispatchEvent(
+        new CustomEvent("click", {
+          detail: {}
+        })
+      );
+
+      return Promise.resolve().then(() => {
+        const modalBox = element.shadowRoot.querySelector(
+          '[data-id="modalMessage-id"]'
+        );
+        const errorMessage = modalBox.value;
+        expect(errorMessage).not.toBe(null);
+        expect(errorMessage).toContain(
+          "Express Case Creation: A known issue must be selected in the This Complaint Is About field (If the complaint is not a 'Known Issue' please deselect the 'Express Case' toggle)"
+        );
+      });
+    });
+  });
+
+  it("check if all accounts are selected for financial hardship issue type", () => {
+    const element = createElement("c-create-complaint-l-w-c", {
+      is: CreateComplaintForm
+    });
+    element.recordTypeDevName = "Customer_Complaint";
+    document.body.appendChild(element);
+
+    //Populate user input - Customer Number
+    const customerNumber = element.shadowRoot.querySelector(
+      "lightning-input[data-id=customerNumber-id]"
+    );
+    customerNumber.value = "0123456789";
+    customerNumber.dispatchEvent(new CustomEvent("change"));
+
+    //Populate user input - Click Search Button
+    const searchButton = element.shadowRoot.querySelector(
+      "lightning-button[data-id=searchButton-id]"
+    );
+    searchButton.dispatchEvent(
+      new CustomEvent("click", {
+        detail: {}
+      })
+    );
+    return Promise.resolve().then(() => {
+      const custInfo = element.shadowRoot.querySelector(
+        "c-customer-information"
+      );
+      custInfo.dispatchEvent(
+        new CustomEvent("custinfochecked", {
+          detail: {}
+        })
+      );
+      return Promise.resolve().then(() => {
+        //Populate user input - Issue Type as Financial Hardship
+        const issueType = element.shadowRoot.querySelector(
+          "lightning-input-field[data-id=issueType-id]"
+        );
+        issueType.dispatchEvent(
+          new CustomEvent("change", {
+            detail: {
+              value: "4"
+            }
+          })
+        );
+        return Promise.resolve().then(() => {
+          //Verify if the Account number field is disabled
+          const accNumber = element.shadowRoot.querySelector(
+            "c-multi-select-combobox[data-id=accPolicyNum-id]"
+          );
+          expect(accNumber.disabled).toBe(true);
+        });
+      });
+    });
+  });
+
+  it("check if no accounts are selected for all issue types except financial hardship", () => {
+    const element = createElement("c-create-complaint-l-w-c", {
+      is: CreateComplaintForm
+    });
+    element.recordTypeDevName = "Customer_Complaint";
+    document.body.appendChild(element);
+
+    const issueType = element.shadowRoot.querySelector(
+      "lightning-input-field[data-id=issueType-id]"
+    );
+    issueType.dispatchEvent(
+      new CustomEvent("change", {
+        detail: {
+          value: "12"
+        }
+      })
+    );
+    return Promise.resolve().then(() => {
+      //Verify if the Account number field is not disabled
+      const accNumber = element.shadowRoot.querySelector(
+        "c-multi-select-combobox[data-id=accPolicyNum-id]"
+      );
+      expect(accNumber.disabled).toBe(false);
+    });
+  });
 });

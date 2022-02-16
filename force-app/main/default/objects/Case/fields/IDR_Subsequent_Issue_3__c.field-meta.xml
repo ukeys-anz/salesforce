@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_Subsequent_Issue_3__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate;Source - Salesforce;Privacy - Non Personal Information</complianceGroup>
+    <complianceGroup>Source - Salesforce;Privacy - Non Personal Information;Integrity - Accurate</complianceGroup>
     <description>Sub categorisation of third issue</description>
     <externalId>false</externalId>
     <label>Subsequent Issue Type 3</label>
@@ -516,6 +516,21 @@
                 <default>false</default>
                 <label>Digital only service</label>
             </value>
+            <value>
+                <fullName>96</fullName>
+                <default>false</default>
+                <label>Delay to assess request for financial assistance</label>
+            </value>
+            <value>
+                <fullName>97</fullName>
+                <default>false</default>
+                <label>Default notices</label>
+            </value>
+            <value>
+                <fullName>98</fullName>
+                <default>false</default>
+                <label>Enforcement proceedings</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>19</controllingFieldValue>
@@ -752,6 +767,10 @@
             <valueName>23</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>4</controllingFieldValue>
+            <valueName>96</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>17</controllingFieldValue>
             <valueName>24</valueName>
         </valueSettings>
@@ -770,6 +789,14 @@
         <valueSettings>
             <controllingFieldValue>17</controllingFieldValue>
             <valueName>28</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>17</controllingFieldValue>
+            <valueName>97</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>17</controllingFieldValue>
+            <valueName>98</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>6</controllingFieldValue>
