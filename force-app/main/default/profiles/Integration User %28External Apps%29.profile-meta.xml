@@ -228,11 +228,6 @@
         <endAddress>162.247.216.22</endAddress>
         <startAddress>162.247.216.0</startAddress>
     </loginIpRanges>
-    <loginIpRanges>
-        <description>IP range restriction for Odaseva</description>
-        <endAddress>13.211.189.52</endAddress>
-        <startAddress>13.211.48.246</startAddress>
-    </loginIpRanges>
     <recordTypeVisibilities>
         <default>true</default>
         <recordType>Account.Business_Account</recordType>
