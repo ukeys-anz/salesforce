@@ -12,6 +12,10 @@ function ctrl_c() {
     if [ -f ./bash-scripts/managedPackages.js ]; then
         rm -rf ./bash-scripts/managedPackages.js
     fi
+    git checkout .
+    echo "${red}"
+    echo "Making scracthOrg has been stopped."
+    echo "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
 }
 
 # to use all the functions that we need and do not repeat the code
@@ -59,9 +63,9 @@ while [[ $waitToInstallPackages == false ]]; do
     sfdx force:mdapi:deploy:report
     waitToInstallPackages=$(node ./bash-scripts/managedPackages.js);
     if [[ $waitToInstallPackages == false ]]; then
-        sleep 180
         echo "${green}"
         echo "wait for another 3 mins"
+        sleep 180
         echo "${reset}"
     fi
 done
@@ -76,6 +80,14 @@ echoMessageCreator "install unmanaged packages" $stepNo true
 # if it is not like below, change it to the new one
 apvId=04t1E000001Iql5
 sfdx force:package:install --package $apvId -w 20 --securitytype AllUsers
+echoMessageCreator "" $stepNo false
+########################
+
+# change forceignore to harness.forceignore as we will have all things in our snapshot
+echoMessageCreator "change the forceignore to the proper one" $stepNo true
+mv .forceignore ci.forceignore
+mv harness.forceignore .forceignore
+echo -e "\nforce-app/main/default/transactionSecurityPolicies" >> .forceignore
 echoMessageCreator "" $stepNo false
 ########################
 
@@ -121,6 +133,26 @@ read -rp "${green}Name for a snapshot: " name
 echo "${reset}"
 developCommitSHA=$(git log develop --oneline --pretty=format:'%h' -1)
 sfdx force:org:snapshot:create -n $name -d "Snapshot from $developCommitSHA" -o $scratchorgalias -v $prodname
+waitTillSnapshotIsActive=false
+while [[ $waitTillSnapshotIsActive == *'false'* ]]; do
+
+    snapshotList=$( sfdx force:org:snapshot:list --json )
+    if [[ $snapshotList == *"InProgress"* ]];then
+        echo "${green}"
+        echo "wait for another 1 mins"
+        sleep 60
+        echo "${reset}"
+    else
+        waitTillSnapshotIsActive=true
+    fi
+done
+echoMessageCreator "" $stepNo false
+#######################
+
+# cleaning the job
+echoMessageCreator "removing all changes made during creating snapshot" $stepNo true
+rm -rf ci.forceignore
+git checkout .
 echoMessageCreator "" $stepNo false
 #######################
 
