@@ -75,7 +75,7 @@
             <columnToColumn>false</columnToColumn>
             <isUnlocked>false</isUnlocked>
             <operator>equals</operator>
-            <value>Banker Line Manager,Banker,Customer Resolution Leadership,Customer Resolution Team Leaders,Customer Resolution,Data Analyst,Systemic Issue Team,Tech Support</value>
+            <value>Banker Line Manager,Banker,Customer Resolution Leadership,Customer Resolution Team Leaders,Customer Resolution,Data Analyst,Systemic Issue Team,Tech Support,IDR Content Writer</value>
         </criteriaItems>
     </filter>
     <format>Summary</format>
