@@ -4,12 +4,10 @@ import LwcCustomerDetails from "pageObjects/lwcCustomerDetails";
 import SfNavigation from "modules/navigation";
 import data from "../../testdata.json";
 import SfAccounts from "modules/accounts";
-import SfCustomer from "modules/customer";
-import { ScenarioUtil } from "utilities/scenarioUtil";
 import SfPageUtils from "utilities/sfUtils";
 
 describe("Cards verification", () => {
-  it("Login and search for a customer with a valid card", async () => {
+  it("Login as a Coach User", async () => {
     //Login
     browser.maximizeWindow();
     let sfLogin = new SfLogin();
@@ -18,7 +16,9 @@ describe("Cards verification", () => {
     //Close all tabs
     await browser.pause(5000);
     await SfPageUtils.closeAllTabsMain();
+  });
 
+  it("Search for a customer with a valid card", async () => {
     //Search for a customer
     const customerPageRoot = await utam.load(LwcCustomerDetails);
     const navigationShowElement = await customerPageRoot.getNavigationShow();

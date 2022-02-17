@@ -52,15 +52,29 @@ public with sharing class TestUtil {
   public static User createTestUserWithProfile(String profileName) {
     Profile profile = CommonUtil.getProfileByName(profileName);
 
+    String orgId = UserInfo.getOrganizationId();
+    String dateString = String.valueof(Datetime.now())
+      .replace(' ', '')
+      .replace(':', '')
+      .replace('-', '');
+    Integer randomInt = Integer.valueOf(math.rint(math.random() * 1000000));
+    String uniqueUser =
+      orgId +
+      dateString +
+      randomInt +
+      '@test' +
+      orgId +
+      '.org';
+
     Map<String, String> info = new Map<String, String>{
       'Alias' => 'test',
-      'Email' => 'fakeUserTest@testorg.com',
+      'Email' => uniqueUser,
       'EmailEncodingKey' => 'UTF-8',
       'LastName' => 'Testing',
       'LanguageLocaleKey' => 'en_US',
       'LocaleSidKey' => 'en_US',
       'TimeZoneSidKey' => 'Australia/Sydney',
-      'UserName' => 'FakeUser@Test.com',
+      'UserName' => uniqueUser,
       'ProfileId' => profile.Id
     };
 

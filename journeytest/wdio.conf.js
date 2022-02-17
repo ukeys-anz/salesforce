@@ -27,7 +27,6 @@ exports.config = {
   //
   // WebdriverIO allows it to run your tests in arbitrary locations (e.g. locally or
   // on a remote machine).
-
   //
   // ==================
   // Specify Test Files
@@ -81,7 +80,7 @@ exports.config = {
         // to run chrome headless the following flags are required
         // (see https://developers.google.com/web/updates/2017/04/headless-chrome)
         args: [
-          "--headless",
+          // "--headless",
           "--disable-gpu",
           "--no-sandbox",
           "--disable-infobars",

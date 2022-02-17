@@ -1,7 +1,7 @@
 import {
   By as _By,
-  UtamBaseRootPageObject as _UtamBaseRootPageObject,
   createUtamMixinCtor as _createUtamMixinCtor,
+  UtamBaseRootPageObject as _UtamBaseRootPageObject,
   EditableUtamElement as _EditableUtamElement,
   ClickableUtamElement as _ClickableUtamElement
 } from "@utam/core";
@@ -40,6 +40,7 @@ export default class LwcLogin extends _UtamBaseRootPageObject {
   constructor(driver, element, locator = _By.css(`body`)) {
     super(driver, element, locator);
   }
+
   async __getRoot() {
     const driver = this.driver;
     const root = await this.getRootElement();
@@ -94,13 +95,10 @@ export default class LwcLogin extends _UtamBaseRootPageObject {
 
   async submitForm(userName, passWord) {
     const _statement0 = await this.getUsername();
-
     await _statement0.setText(userName);
     const _statement1 = await this.getPassword();
-
     await _statement1.setText(passWord);
     const _statement2 = await this.getLoginButton();
-
     await _statement2.click();
   }
 }
