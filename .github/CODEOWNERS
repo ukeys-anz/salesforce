@@ -5,8 +5,8 @@
 # The below will request review from some members of the
 # salesforce team.
 *                                   @anzx/help-crm
-force-app/main/default/workflows/** @pavankumarananta @dawsond1x @patelsu
-force-app/main/default/flows/**     @pavankumarananta @dawsond1x @patelsu
+force-app/main/default/workflows/** @pavankumarananta @dawsond1x @patelsu @aimaj-anz
+force-app/main/default/flows/**     @pavankumarananta @dawsond1x @patelsu @aimaj-anz
 
 # The below will request a review from members of the platform 
 # engineering team for changes to CI/CD files

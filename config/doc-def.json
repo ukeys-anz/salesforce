@@ -40,6 +40,13 @@
   ],
   "usermap": [
     {
+      "name": "3rd Party Mobile Support Team",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["Third_Party_Mobile_Support_Team"],
+      "permissionsets": [],
+      "type": "user"
+    },
+    {
       "name": "CFMS Integration User",
       "profile": "Integration User",
       "permissionsetgroups": [],
@@ -50,6 +57,13 @@
       "name": "Coach",
       "profile": "ANZx Standard User",
       "permissionsetgroups": ["Coach"],
+      "permissionsets": [],
+      "type": "user"
+    },
+    {
+      "name": "Coach Lead",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["Coach_Lead"],
       "permissionsets": [],
       "type": "user"
     },

@@ -3,6 +3,7 @@
     <fullName>IDR_Portfolio_or_Business_Unit__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Party details a case is pending with</description>
     <externalId>false</externalId>
     <inlineHelpText>If Internal Business Unit is selected as Pended to (Party), please select the Portfolio case is pending with.</inlineHelpText>
     <label>Portfolio or Business Unit</label>

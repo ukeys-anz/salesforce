@@ -17,7 +17,7 @@ global with sharing class IDREmailService implements Messaging.InboundEmailHandl
     Messaging.InboundEmail email,
     Messaging.InboundEnvelope envelope
   ) {
-    /***** Variable Declarations Start *****/
+    /***** Variable Declarations Start ******/
     Messaging.InboundEmailResult result = new Messaging.InboundEmailresult();
     Messaging.InboundEmail.Header[] emailHeaders = email.headers;
     Map<String, String> headerMap = new Map<String, String>();

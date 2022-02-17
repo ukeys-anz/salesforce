@@ -1,14 +1,14 @@
 import {
   By as _By,
-  UtamBaseRootPageObject as _UtamBaseRootPageObject,
   createUtamMixinCtor as _createUtamMixinCtor,
+  UtamBaseRootPageObject as _UtamBaseRootPageObject,
   ClickableUtamElement as _ClickableUtamElement,
   EditableUtamElement as _EditableUtamElement
 } from "@utam/core";
 
 async function _utam_get_selectAccountFiler(driver, root) {
   let _element = root;
-  const _locator = _By.css(`button[title='Select List View']`);
+  const _locator = _By.css(`button[title='Select a List View']`);
   return _element.findElement(_locator);
 }
 
@@ -46,6 +46,7 @@ export default class LwcAccounsView extends _UtamBaseRootPageObject {
   constructor(driver, element, locator = _By.css(`body`)) {
     super(driver, element, locator);
   }
+
   async __getRoot() {
     const driver = this.driver;
     const root = await this.getRootElement();
