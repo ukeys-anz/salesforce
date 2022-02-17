@@ -8,6 +8,10 @@
         <apexClass>PublishArticleController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>PublishArticleControllerTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <fieldPermissions>
         <editable>true</editable>
         <field>Knowledge__kav.Body__c</field>

@@ -387,7 +387,7 @@
             <value>Open</value>
         </milestoneCriteriaFilterItems>
         <milestoneName>Resolution Time</milestoneName>
-        <minutesToComplete>960</minutesToComplete>
+        <minutesToComplete>480</minutesToComplete>
         <timeTriggers>
             <actions>
                 <name>SLA_Status_Warning_Update</name>

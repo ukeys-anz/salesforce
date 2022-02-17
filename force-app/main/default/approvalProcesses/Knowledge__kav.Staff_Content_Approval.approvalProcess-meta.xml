@@ -3,7 +3,8 @@
     <active>true</active>
     <allowRecall>true</allowRecall>
     <allowedSubmitters>
-        <type>creator</type>
+        <submitter>Content_Writer</submitter>
+        <type>role</type>
     </allowedSubmitters>
     <approvalPageFields>
         <field>Title</field>

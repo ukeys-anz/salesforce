@@ -19,6 +19,17 @@ class ButtonFactory {
   }
 }
 
+const inactiveStatuses = [
+  STATUS.Closed,
+  STATUS.Delinquent_Retain_Card,
+  STATUS.Replace_Status,
+  STATUS.Card_Status_Invalid,
+  STATUS.Delinquent_Return_Card,
+  STATUS.Lost,
+  STATUS.Stolen,
+  STATUS.Un_Issued
+];
+
 // functions according to each button - will be passed to parent
 function lockCardAction(inputInfo) {
   return {
@@ -141,10 +152,16 @@ function mappingStatusOnACard(card) {
   return card;
 }
 
-function sortCardsHandler(cards, status) {
+function sortCardsHandler(cards) {
   if (cards.length > 1) {
-    cards.sort((card) => {
-      return card.status === status ? -1 : 1;
+    cards.sort((cardA, cardB) => {
+      if (cardA.status === STATUS.Issued) {
+        return -1;
+      }
+      if (inactiveStatuses.includes(cardB.status)) {
+        return -1;
+      }
+      return 1;
     });
   }
   return cards;
@@ -210,6 +227,7 @@ export function createButtonsFromArray(cards, userPermission) {
     cards[i] = cardButtonContainerClassName(cards[i]);
     cards[i] = mappingStatusOnACard(cards[i]);
   }
-  cards = sortCardsHandler(cards, STATUS.Issued);
+
+  cards = sortCardsHandler(cards);
   return cards;
 }

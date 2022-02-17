@@ -4,7 +4,7 @@ var core = require("@utam/core");
 
 async function _utam_get_selectAccountFiler(driver, root) {
   let _element = root;
-  const _locator = core.By.css(`button[title='Select List View']`);
+  const _locator = core.By.css(`button[title='Select a List View']`);
   return _element.findElement(_locator);
 }
 
@@ -42,6 +42,7 @@ class LwcAccounsView extends core.UtamBaseRootPageObject {
   constructor(driver, element, locator = core.By.css(`body`)) {
     super(driver, element, locator);
   }
+
   async __getRoot() {
     const driver = this.driver;
     const root = await this.getRootElement();

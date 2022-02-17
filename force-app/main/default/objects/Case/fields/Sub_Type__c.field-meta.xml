@@ -253,9 +253,9 @@
                 <label>Digital wallet issue</label>
             </value>
             <value>
-                <fullName>Transaction disputes</fullName>
+                <fullName>Transaction Disputes</fullName>
                 <default>false</default>
-                <label>Transaction disputes</label>
+                <label>Transaction Disputes</label>
             </value>
             <value>
                 <fullName>Raising a concern</fullName>
@@ -297,7 +297,7 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Money</controllingFieldValue>
-            <valueName>Transaction disputes</valueName>
+            <valueName>Transaction Disputes</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Payments</controllingFieldValue>
