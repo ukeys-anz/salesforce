@@ -221,6 +221,7 @@ public without sharing class IDRTaskActions {
         record.subject == IDRConstants.TASK_SUBJECT_DAY1
       ) {
         record.RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID;
+        record.Type = IDRConstants.TASK_TYPE_NOTIFICATION;
         idrMaximumTimeTasks.add(record);
         taskCaseMap.put(record.Id, record.WhatId);
         caseIds.add(record.whatId);
@@ -568,14 +569,9 @@ public without sharing class IDRTaskActions {
       IDRCaseActions.isIDRComplaintType(record) && //is it complaint?
       record.IDR_Is_Common__c == 'Yes' && //is case PSI
       FeatureManagement.checkPermission('IDR_Level_1') && //is user level 1 or higher?
-      (oldRec == null ||
-      (record.isEscalated != oldRec.isEscalated &&
-      oldRec.isEscalated == true)) && //if case is updated, has it been escalated?
-      ((oldRec == null &&
-      record.isClosed == true) || //if case is created closed
-      (oldRec != null &&
-      oldRec.isClosed == false &&
-      record.isClosed == true)) //if case is updated from non-closed to closed status
+      record.isClosed &&
+      (oldRec == null || //if case is created closed
+      oldRec.Status != record.Status) //if case is updated from non-closed to closed status
     ) {
       return true;
     } else {
@@ -655,6 +651,7 @@ public without sharing class IDRTaskActions {
           whatId IN :cases
           AND RecordTypeId = :IDRConstants.IDR_SYSTEM_TASK_RT_ID
           AND isClosed = FALSE
+          AND Type = 'Notification'
       ];
       for (Task task : tasksToClose) {
         task.Status = IDRConstants.TASK_STATUS_COMPLETED;

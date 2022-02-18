@@ -31,7 +31,6 @@
           value={searchString}
           variant="label-hidden"
           id="combobox-id-1"
-          required
         ></lightning-input>
         <lightning-icon
           class="slds-input__icon"
@@ -87,16 +86,23 @@
       </template>
     </div>
   </div>
-  <!-- Multi Select Pills -->
-  <template for:each={optionData} for:item="option">
-    <template if:true={option.selected}>
-      <lightning-pill
-        key={option.value}
-        class="slds-m-around_xx-small"
-        name={option.value}
-        label={option.label}
-        onremove={removePill}
-      ></lightning-pill>
+  <template if:false={disabled}>
+    <!-- Multi Select Pills -->
+    <template for:each={optionData} for:item="option">
+      <template if:true={option.selected}>
+        <lightning-pill
+          key={option.value}
+          class="slds-m-around_xx-small"
+          name={option.value}
+          label={option.label}
+          onremove={removePill}
+        ></lightning-pill>
+      </template>
     </template>
+  </template>
+  <template if:true={disabled}>
+    <label class="slds-form-element__label">
+      All accounts have been automatically selected</label
+    >
   </template>
 </template>

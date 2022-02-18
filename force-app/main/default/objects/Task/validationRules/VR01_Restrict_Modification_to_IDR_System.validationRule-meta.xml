@@ -6,8 +6,13 @@
     <errorConditionFormula>AND
 (
 $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
-!ISNEW(),
+NOT(ISNEW()),
 RecordType.DeveloperName = &apos;IDR_System_Task&apos;,
+OR
+(
+NOT($UserRole.DeveloperName = &apos;Systemic_Issue_Team&apos;),
+NOT(ISPICKVAL(Type, &apos;Systemic Issue&apos;))
+),
 OR
 (
 PRIORVALUE(IsClosed),
