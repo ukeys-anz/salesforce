@@ -37,7 +37,7 @@ exports.config = {
   // directory is where your package.json resides, so `wdio` will be called from there.
   //
   //specs: ["./build/src/test/*.js"],
-  specs: ["./build/src/test/cases.spec.js"],
+  specs: ["./build/src/test/transactions.spec.js"],
   /*suites: {
     loginUtam: ["./build/src/test/*.js"]
   },*/

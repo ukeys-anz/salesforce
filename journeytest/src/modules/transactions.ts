@@ -1,6 +1,14 @@
-import { jsonObject } from "expect-webdriverio";
-
 export default class SfTransactions {
+  regExp: any;
+  currRegExp: any;
+  numRegExp: any;
+
+  constructor() {
+    this.regExp = new RegExp("^[ A-Za-z0-9_@.$:/&,+-]*$");
+    this.currRegExp = new RegExp("^$[0-9]+(.[0-9][0-9])?$");
+    this.numRegExp = new RegExp("/^d+$/");
+  }
+
   getFirstTransactionRowNumber = async (type: string) => {
     let rowNumber;
     let trxs;
@@ -10,11 +18,9 @@ export default class SfTransactions {
     );
     rowNumber = 1;
     do {
-      await console.log(await rowNumber);
       trxType = await $(
         `(//article[contains(@class,'transaction-item')]//div[text()='Transaction Type']/following-sibling::div)[${rowNumber}]`
       );
-      await console.log(await trxType.getText());
       trxs = await $$("//article[contains(@class,'transaction-item')]");
 
       if ((await trxs.length) == rowNumber && (await loadMore.isExisting())) {
@@ -53,25 +59,19 @@ export default class SfTransactions {
     await this.verifyTrxDetails(rowNumber, type);
 
     //Merchant Details
-    await this.verifyMerchantDetails();
+    await this.verifyMerchantDetails(rowNumber);
 
     //International Exchange details
-    await this.verifyIntlExchDetails();
+    await this.verifyIntlExchDetails(rowNumber);
 
     //Card details
     if (type == "Card") {
-      await this.verifyCardDetails();
+      await this.verifyCardDetails(rowNumber);
     }
-
-    //Tags
-    await this.verifyTags();
-
-    //Map
-    await this.verifyMap();
   };
 
   verifyTrxDetails = async (rowNumber: number, type: string) => {
-    let trxName, trxType;
+    let trxName, trxType, shrtDesc, status, lngDesc, amount, trxTime, trxId;
 
     trxName = await $(
       `(//article[contains(@class,'transaction-item')]//div[text()='Name']/following-sibling::div)[${rowNumber}]`
@@ -81,51 +81,157 @@ export default class SfTransactions {
     );
 
     //Shop Name
-    let regexp = new RegExp('[w~@#$%^&*+=`|{}:;!.?"()[]-]{0,100}');
-    await expect(await regexp.test(await trxName.getText())).toBe(true);
+    await expect(await this.regExp.test(await trxName.getText())).toBe(true);
 
     //Transaction Type
-    await expect(await regexp.test(await trxType.getText())).toBe(type);
+    await expect(await trxType.getText()).toBe(type);
 
     //Transaction time
+    trxTime = await $(
+      `(//article[contains(@class,'transaction-item')]/div)[${rowNumber}]//div[text()='Transaction Time']/following-sibling::div`
+    );
+    await expect(await this.regExp.test(await trxTime.getText())).toBe(true);
 
     //Short Desc
+    shrtDesc = await $(
+      `(//article[contains(@class,'transaction-item')]//div[text()='Short Description']/following-sibling::div)[${rowNumber}]`
+    );
+    await expect(await this.regExp.test(await shrtDesc.getText())).toBe(true);
 
     //Amount
+    amount = await $(
+      `(//article[contains(@class,'transaction-item')]/div)[${rowNumber}]//div[text()='Amount']/following-sibling::div`
+    );
+
+    await expect(await this.regExp.test(await amount.getText())).toBe(true);
 
     //Status
+    status = await $(
+      `(//article[contains(@class,'transaction-item')]/div)[${
+        rowNumber + 1
+      }]//div[text()='Status']/following-sibling::div`
+    );
+    await expect(await this.regExp.test(await status.getText())).toBe(true);
 
     //Long Description
+    lngDesc = await $(
+      `(//article[contains(@class,'transaction-item')]/div)[${
+        rowNumber + 1
+      }]//div[text()='Status']/following-sibling::div`
+    );
+    await expect(await this.regExp.test(await lngDesc.getText())).toBe(true);
 
     //Transaction ID
-
-    //Error Reason
+    trxId = await $(
+      `(//article[contains(@class,'transaction-item')]/div)[${
+        rowNumber + 1
+      }]//div[text()='Transaction ID']/following-sibling::div`
+    );
+    await expect(await this.regExp.test(await trxId.getText())).toBe(true);
 
     //Currency Code
+    const currCode = await $(
+      `(//article[contains(@class,'transaction-item')]/div)[${
+        rowNumber + 1
+      }]//div[text()='Currency Code']/following-sibling::div`
+    );
+    await expect(await currCode.getText()).toBe("AUD");
   };
 
-  verifyMerchantDetails = async () => {
+  verifyMerchantDetails = async (rowNumber: number) => {
+    let emailRegExp = new RegExp(
+      '/^(([^<>()[]\\.,;:s@"]+(.[^<>()[]\\.,;:s@"]+)*)|(".+"))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$/'
+    );
+    let webRegExp = new RegExp(
+      "(http|ftp|https)://[w-]+(.[w-]+)+([w.,@?^=%&amp;:/~+#-]*[w@?^=%&amp;/~+#-])?"
+    );
+
     //Name
+    const merchName = await $(
+      `(//article[contains(@class,'transaction-item')]/div)[${
+        rowNumber + 2
+      }]//div[text()='Name']/following-sibling::div`
+    );
+    await expect(await this.regExp.test(await merchName.getText())).toBe(true);
+
     //Address
+    const merchAddress = await $(
+      `(//article[contains(@class,'transaction-item')]/div)[${
+        rowNumber + 2
+      }]//div[text()='Address']/following-sibling::div`
+    );
+    await expect(await this.regExp.test(await merchAddress.getText())).toBe(
+      true
+    );
+
     //Phone
+    const phNumber = await $(
+      `(//article[contains(@class,'transaction-item')]/div)[${
+        rowNumber + 2
+      }]//div[text()='Phone']/following-sibling::div`
+    );
+    await expect(await this.regExp.test(await phNumber.getText())).toBe(true);
+
     //Website
+    const website = await $(
+      `(//article[contains(@class,'transaction-item')]/div)[${
+        rowNumber + 2
+      }]//div[text()='Website']/following-sibling::div`
+    );
+    await expect(await webRegExp.test(await website.getText())).toBe(true);
+
     //Email
+    const emailEle = await $(
+      `(//article[contains(@class,'transaction-item')]/div)[${
+        rowNumber + 2
+      }]//div[text()='Email']/following-sibling::div`
+    );
+    await console.log(await emailEle.getText());
+    await expect(await this.regExp.test(await emailEle.getText())).toBe(true);
   };
 
-  verifyIntlExchDetails = async () => {
+  verifyIntlExchDetails = async (rowNumber: number) => {
     //Converted Amount
-    //Coverted Currency Code
+    const convAm = await $(
+      `(//article[contains(@class,'transaction-item')]/div)[${
+        rowNumber + 3
+      }]//div[text()='Converted Amount']/following-sibling::div`
+    );
+    await expect(await this.regExp.test(await convAm.getText())).toBe(true);
+
+    //Converted Currency Code
+    const currCode = await $(
+      `(//article[contains(@class,'transaction-item')]/div)[${
+        rowNumber + 3
+      }]//div[text()='Converted Currency Code']/following-sibling::div`
+    );
+    await expect(await this.regExp.test(await currCode.getText())).toBe(true);
+
     //Exchange Rate
+    const exhRate = await $(
+      `(//article[contains(@class,'transaction-item')]/div)[${
+        rowNumber + 3
+      }]//div[text()='Exchange Rate']/following-sibling::div`
+    );
+    await expect(await this.regExp.test(await exhRate.getText())).toBe(true);
   };
 
-  verifyCardDetails = async () => {
+  verifyCardDetails = async (rowNumber: number) => {
     //Card Scheme
+    const crdScheme = await $(
+      `(//article[contains(@class,'transaction-item')]/div)[${
+        rowNumber + 4
+      }]//div[text()='Card Scheme']/following-sibling::div`
+    );
+    await expect(await this.regExp.test(await crdScheme.getText())).toBe(true);
+
     //Last 4 digits
+    let fourDigRegEx = new RegExp("/^[0-9]{4}$/");
+    const lastDigits = await $(
+      `(//article[contains(@class,'transaction-item')]/div)[${
+        rowNumber + 4
+      }]//div[text()='Card Last 4 Digits']/following-sibling::div`
+    );
+    await expect(await this.regExp.test(await lastDigits.getText())).toBe(true);
   };
-
-  verifyTags = async () => {
-    //Tags
-  };
-
-  verifyMap = async () => {};
 }

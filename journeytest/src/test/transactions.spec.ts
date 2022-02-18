@@ -39,6 +39,6 @@ describe("Transactions verification", () => {
     await sfCustomerView.openEverydayAccount("scenarioTransaction001");
 
     let SfTransactionsView = new SfTransactions();
-    await SfTransactionsView.viewTransactionDetails("PAYID");
+    await SfTransactionsView.verifyTransactions("Card");
   });
 });
