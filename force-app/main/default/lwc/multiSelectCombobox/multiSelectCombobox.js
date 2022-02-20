@@ -293,4 +293,29 @@ export default class MultiSelectCombobox extends LightningElement {
       })
     );
   }
+
+  @api
+  selectAllAccounts() {
+    var count = 0;
+    for (let i = 0; i < this.optionData.length; i++) {
+      if (this.optionData[i].value !== "N/A") {
+        this.optionData[i].selected = true;
+        this.values.push(this.optionData[i].value);
+        this.values = [...new Set(this.values)];
+        count++;
+      }
+    }
+    this.searchString = count + " Option(s) Selected";
+    this.dispatchEvent(
+      new CustomEvent("select", {
+        detail: {
+          payloadType: "multi-select",
+          payload: {
+            value: this.value,
+            values: this.values
+          }
+        }
+      })
+    );
+  }
 }

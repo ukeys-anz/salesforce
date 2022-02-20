@@ -51,4 +51,19 @@
         <default>false</default>
         <label>Systemic Issue</label>
     </standardValue>
+    <standardValue>
+        <fullName>Collections</fullName>
+        <default>false</default>
+        <label>Collections</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Complaints Flag</fullName>
+        <default>false</default>
+        <label>Complaints Flag</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Notification</fullName>
+        <default>false</default>
+        <label>Notification</label>
+    </standardValue>
 </StandardValueSet>

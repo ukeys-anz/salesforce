@@ -5,6 +5,7 @@
     <complianceGroup>Integrity - Accurate;Source - Salesforce;Privacy - Non Personal Information</complianceGroup>
     <description>The categorisation of second issue</description>
     <externalId>false</externalId>
+    <inlineHelpText>If Financial Difficulty and Hardship is selected, ALL the customer accounts must be entered in the Account/Policy Number field</inlineHelpText>
     <label>Issue Type 2</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>

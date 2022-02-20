@@ -117,6 +117,7 @@ const OTHER = "Other";
 
 const CUS_IDENTIFIER_CAPCIS_ID = "Customer/Business CAP ID";
 const CUS_IDENTIFIER_CACHE_ID = "CACHE ID";
+const FIN_HARDSHIP_VALUE = "4";
 
 export default class CreateComplaintLWC extends NavigationMixin(
   LightningElement
@@ -281,6 +282,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
   caseStatus = OPEN_STATUS_API_NAME;
   isCustNumValidated = false;
   searchDisabled = true;
+  disableAccNoOneField = false;
+  disableAccNoTwoField = false;
+  disableAccNoThreeField = false;
   //initialize components
   connectedCallback() {
     this.recordType = this.recordTypeId;
@@ -692,6 +696,12 @@ export default class CreateComplaintLWC extends NavigationMixin(
         "Acknowledgement that the complaint details have been provided to the product manufacturer is required";
     }
 
+    if (this.expressCMOS && !this.knownIssue) {
+      isFieldValid = false;
+      this.missingDataFields +=
+        "Express Case Creation: A known issue must be selected in the This Complaint Is About field (If the complaint is not a 'Known Issue' please deselect the 'Express Case' toggle)";
+    }
+
     return (
       isFieldValid &&
       isEmailValid &&
@@ -717,6 +727,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
         fields[CP_ID.fieldApiName] = this.cpId;
         fields[RM_COMPLAINT.fieldApiName] = this.isRmComplaint;
         fields[EMAIL_FIELD.fieldApiName] = this.email;
+      }
+      if (this.isCustomerComplaint) {
         fields[
           CUS_IDENTIFIER_FIELD.fieldApiName
         ] = this.customerIdentifierValue;
@@ -1150,5 +1162,46 @@ export default class CreateComplaintLWC extends NavigationMixin(
     nonFinancialRemedyElement.value = event.detail.IDR_Non_Financial_Remedy__c;
 
     this.knownIssue = event.detail.Id;
+  }
+
+  handleAccNoOneSelection(event) {
+    if (event.detail) {
+      if (
+        this.isCustNumValidated &&
+        event.detail.value === FIN_HARDSHIP_VALUE
+      ) {
+        this.disableAccNoOneField = true;
+        const accountPolicyNoElement = this.template.querySelector(
+          '[data-id="accPolicyNum-id"]'
+        );
+        accountPolicyNoElement.selectAllAccounts();
+      } else {
+        this.disableAccNoOneField = false;
+      }
+    }
+  }
+
+  handleAccNoTwoSelection(event) {
+    if (this.isCustNumValidated && event.detail.value === FIN_HARDSHIP_VALUE) {
+      this.disableAccNoTwoField = true;
+      const accountPolicyNoElement = this.template.querySelector(
+        '[data-id="accPolicyNum2-id"]'
+      );
+      accountPolicyNoElement.selectAllAccounts();
+    } else {
+      this.disableAccNoTwoField = false;
+    }
+  }
+
+  handleAccNoThreeSelection(event) {
+    if (this.isCustNumValidated && event.detail.value === FIN_HARDSHIP_VALUE) {
+      this.disableAccNoThreeField = true;
+      const accountPolicyNoElement = this.template.querySelector(
+        '[data-id="accPolicyNum3-id"]'
+      );
+      accountPolicyNoElement.selectAllAccounts();
+    } else {
+      this.disableAccNoThreeField = false;
+    }
   }
 }
