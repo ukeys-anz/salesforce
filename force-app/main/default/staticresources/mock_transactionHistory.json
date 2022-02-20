@@ -30,7 +30,7 @@
         },
         "enrichment_id": "Payment to place with card",
         "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
-        "merchantId": { "value": "M12345" },
+        "merchant_id": { "value": "M12345" },
         "tags": ["T12345"],
         "type": "TRANSACTION_TYPE_CARD",
         "card": {
@@ -92,7 +92,7 @@
         },
         "enrichment_id": "Card purchase at some place",
         "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
-        "merchantId": { "value": "M12345" },
+        "merchant_id": { "value": "M12345" },
         "tags": ["T12345"],
         "type": "TRANSACTION_TYPE_CARD",
         "card": {
@@ -154,7 +154,7 @@
         },
         "enrichment_id": "Cash payment",
         "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
-        "merchantId": { "value": "M12345" },
+        "merchant_id": { "value": "M12345" },
         "tags": ["T12345"],
         "type": "TRANSACTION_TYPE_DEPOSIT_WITHDRAWL",
         "cash": {
@@ -215,7 +215,7 @@
         },
         "enrichment_id": "Pay Anyone payment",
         "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
-        "merchantId": { "value": "M12345" },
+        "merchant_id": { "value": "M12345" },
         "tags": ["T12345"],
         "type": "TRANSACTION_TYPE_BSB_ACC_NUM",
         "pay_anyone": {
@@ -298,7 +298,7 @@
         },
         "enrichment_id": "Pay Anyone payment",
         "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
-        "merchantId": { "value": "M12345" },
+        "merchant_id": { "value": "M12345" },
         "tags": ["T12345"],
         "type": "TRANSACTION_TYPE_PAYID",
         "pay_anyone": {
@@ -385,7 +385,7 @@
         },
         "enrichment_id": "Payment via BPAY",
         "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
-        "merchantId": { "value": "M12345" },
+        "merchant_id": { "value": "M12345" },
         "tags": ["T12345"],
         "type": "TRANSACTION_TYPE_DIRECT_DEBIT",
         "empty": {},
@@ -442,7 +442,7 @@
         },
         "enrichment_id": "Pay Anyone payment",
         "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
-        "merchantId": { "value": "M12345" },
+        "merchant_id": { "value": "M12345" },
         "tags": ["T12345"],
         "type": "TRANSACTION_TYPE_UNSPECIFIED",
         "primary_anzx_category": "329db79d-9093-5ce4-b9f2-dc533bc559d3",
@@ -498,7 +498,7 @@
         },
         "enrichment_id": "Pay Anyone payment",
         "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
-        "merchantId": { "value": "M12345" },
+        "merchant_id": { "value": "M12345" },
         "tags": ["T12345"],
         "type": "TRANSACTION_TYPE_PAYMENT",
         "pay_anyone": {
@@ -585,7 +585,7 @@
         },
         "enrichment_id": "Pay Anyone payment",
         "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
-        "merchantId": { "value": "M12345" },
+        "merchant_id": { "value": "M12345" },
         "tags": ["T12345"],
         "type": "TRANSACTION_TYPE_INTEREST",
         "interest": {
@@ -644,7 +644,7 @@
         },
         "enrichment_id": "Transfer from some place",
         "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
-        "merchantId": { "value": "M12345" },
+        "merchant_id": { "value": "M12345" },
         "tags": ["T12345"],
         "type": "TRANSACTION_TYPE_SALARY",
         "empty": {},
@@ -781,7 +781,7 @@
         },
         "enrichment_id": "Payment via BPAY",
         "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
-        "merchantId": { "value": "M12345" },
+        "merchant_id": { "value": "M12345" },
         "tags": ["T12345"],
         "type": "TRANSACTION_TYPE_BPAY",
         "bpay": {
@@ -848,7 +848,7 @@
         },
         "enrichment_id": "Pay Anyone payment",
         "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
-        "merchantId": { "value": "M12345" },
+        "merchant_id": { "value": "M12345" },
         "tags": ["T12345"],
         "type": "TRANSACTION_TYPE_BSB_ACC_NUM",
         "pay_anyone": {
@@ -935,7 +935,7 @@
         },
         "enrichment_id": "Payment via BPAY",
         "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
-        "merchantId": { "value": "M12345" },
+        "merchant_id": { "value": "M12345" },
         "tags": ["T12345"],
         "type": "TRANSACTION_TYPE_DIRECT_DEBIT",
         "empty": {},
@@ -1128,7 +1128,7 @@
     ],
     "merchants": [
       {
-        "merchantId": "M12345",
+        "merchant_id": "M12345",
         "lastUpdateTime": "2021-01-01T11:11:11Z",
         "name": "ANZ Gift Store",
         "alternateName": "Gift Store",

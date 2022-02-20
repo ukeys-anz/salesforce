@@ -198,7 +198,7 @@ export default class TransactionHistoryBoard extends LightningElement {
           }
 
           //Handle merchant details
-          if (currentTransaction.merchantId?.value) {
+          if (currentTransaction.merchant_id?.value) {
             currentTransaction = this.handleMerchantDetails(currentTransaction);
           }
 
@@ -245,7 +245,7 @@ export default class TransactionHistoryBoard extends LightningElement {
   handleMerchantDetails(transaction) {
     //Fetch first response as transactions should only have 1 merchant
     let merchantDetails = this.getMerchantDetails(
-      transaction.merchantId.value
+      transaction.merchant_id.value
     )[0];
     transaction.merchantDetails = true;
 
@@ -477,9 +477,9 @@ export default class TransactionHistoryBoard extends LightningElement {
 
   //This function retrieves the details of the merchant based on the id
   //provided from the list of merchants given in the response.
-  getMerchantDetails(merchantId) {
+  getMerchantDetails(merchant_id) {
     return this.allMerchants.filter((merchant) => {
-      return merchantId === merchant.merchantId;
+      return merchant_id === merchant.merchant_id;
     });
   }
 
