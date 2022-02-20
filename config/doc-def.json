@@ -172,6 +172,13 @@
       "type": "system"
     },
     {
+      "name": "Odaseva  User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": ["Mute_Restore", "Backup_and_Restore", "API_Only", "Password_Never_Expires"],
+      "type": "system"
+    },
+    {
       "name": "Ops Support",
       "profile": "ANZx Standard User",
       "permissionsetgroups": ["Ops_Support"],
