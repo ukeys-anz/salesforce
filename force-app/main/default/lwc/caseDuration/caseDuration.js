@@ -5,6 +5,13 @@ import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { getRecord } from "lightning/uiRecordApi";
 import CASE_STATUS_FIELD from "@salesforce/schema/Case.Status";
 
+const STATUS = {
+  Closed: "Closed",
+  On_Hold: "On Hold",
+  Resolved: "Resolved",
+  Withdrawn: "Withdrawn"
+};
+
 export default class CaseDuration extends LightningElement {
   @track durationTime;
   @api recordId;
@@ -45,10 +52,10 @@ export default class CaseDuration extends LightningElement {
         this.durationTime = result;
         this.days = Math.floor(this.durationTime.hours / 24);
         if (
-          this.caseStatus === "On Hold" ||
-          this.caseStatus === "Closed" ||
-          this.caseStatus === "Resolved" ||
-          this.caseStatus === "Withdrawn"
+          this.caseStatus === STATUS.On_Hold ||
+          this.caseStatus === STATUS.Closed ||
+          this.caseStatus === STATUS.Resolved ||
+          this.caseStatus === STATUS.Withdrawn
         ) {
           this.durationStop = true;
           this.handleDate(this.durationTime.hours, this.durationTime.minutes);
@@ -125,8 +132,10 @@ export default class CaseDuration extends LightningElement {
     this.durationString = `${this.dayString} ${this.hourString} ${this.minuteString}`;
 
     if (
-      (this.caseStatus !== "On Hold" && this.caseStatus !== "Closed") ||
-      (this.caseStatus !== "Resolved" && this.caseStatus !== "Withdrawn")
+      (this.caseStatus !== STATUS.On_Hold &&
+        this.caseStatus !== STATUS.Closed) ||
+      (this.caseStatus !== STATUS.Resolved &&
+        this.caseStatus !== STATUS.Withdrawn)
     ) {
       if (
         date.getHours() === 23 &&

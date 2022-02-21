@@ -27,7 +27,7 @@
     "prettier": "^2.3.2",
     "typescript": "^4.3.5",
     "wdio-chromedriver-service": "~7.2.2",
-    "wdio-utam-service": "^0.0.14"
+    "wdio-utam-service": "^1.0.1"
   },
   "dependencies": {
     "@babel/cli": "^7.14.5",
@@ -43,15 +43,17 @@
     "@wdio/selenium-standalone-service": "^7.7.4",
     "@wdio/spec-reporter": "^7.7.5",
     "@wdio/sync": "~7.7.6",
+    "chromedriver": "^97.0.4",
     "dotenv": "^10.0.0",
     "expect-webdriverio": "^3.1.0",
     "faker": "^5.5.3",
     "force": "0.0.3",
     "jsforce": "^1.10.1",
+    "selenium-webdriver": "^4.0.0-beta.4",
     "ts-node": "^10.1.0",
     "tsconfig-paths": "^3.10.1",
     "tsify": "^5.0.4",
-    "utam": "^0.0.14",
+    "utam": "^1.0.1",
     "wdio-video-reporter": "~3.1.2",
     "webdriverio": "^7.12.0"
   }

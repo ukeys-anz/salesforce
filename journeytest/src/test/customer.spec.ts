@@ -1,5 +1,4 @@
-import LwcCustomerDetails from "../pageObjects/lwcCustomerDetails";
-import LwcAccounsView from "@pageObjects/lwcAccounsView";
+import LwcCustomerDetails from "pageObjects/lwcCustomerDetails";
 import SfNavigation from "../modules/navigation";
 import SfLogin from "../modules/login";
 import SfAccounts from "modules/accounts";
