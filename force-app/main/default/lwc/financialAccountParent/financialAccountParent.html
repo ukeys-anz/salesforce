@@ -18,18 +18,17 @@
       ></c-financial-account-header>
       <div class="slds-m-top_small"></div>
       <template if:true={isSavings}>
-        <template if:true={goalData}>
-          <c-financial-goals
-            record-id={recordId}
-            goal-data={goalData}
-            data-id="financial-goals"
-            error={goalError}
-            onloadmoregoals={handleLoadMoreGoals}
-            onfiltergoals={handleGoalFilters}
-            preselected-goal={preselectedGoal}
-          ></c-financial-goals>
-          <div class="slds-m-top_small"></div>
-        </template>
+        <c-financial-goals
+          record-id={recordId}
+          goal-data={goalData}
+          data-id="financial-goals"
+          error={goalError}
+          onloadmoregoals={handleLoadMoreGoals}
+          onfiltergoals={handleGoalFilters}
+          preselected-goal={preselectedGoal}
+          loading-more={goalsLoading}
+        ></c-financial-goals>
+        <div class="slds-m-top_small"></div>
       </template>
       <c-transaction-history-board
         component-title={componentTitle}

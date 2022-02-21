@@ -21,7 +21,9 @@ public with sharing class AccountBucketsControllerTest {
     System.runAs(thisUser) {
       Test.startTest();
       AccountBucketsModel response = AccountBucketsController.getAccountBuckets(
-        '123'
+        '123',
+        7,
+        ''
       );
       System.assertEquals(7, response.account_buckets.size());
       Test.stopTest();

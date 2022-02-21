@@ -242,15 +242,21 @@ public with sharing class FabricService extends Service {
 
   /**
    * @param ocvId customer id used to fetch account buckets
+   * @param paramUrl url parameters to be sent
    * @return `HttpCalloutResponse` the api response
    * @description fetches account buckets from fabric api
    */
-  public override HttpCalloutResponse getAccountBuckets(String ocvId) {
+  public override HttpCalloutResponse getAccountBuckets(
+    String ocvId,
+    String paramUrl
+  ) {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
     setCalloutCommonHeaders(ocvID, headers);
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' + Label.MS_Get_Account_Buckets,
+      'callout:SF_MS_Fabric' +
+      Label.MS_Get_Account_Buckets +
+      paramUrl,
       HTTP_METHOD.HTTP_GET,
       headers,
       null

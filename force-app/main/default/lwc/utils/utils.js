@@ -67,16 +67,8 @@ export function navigate(cmp, type, attributes) {
   });
 }
 
-export function handleGoalData(goalList) {
-  //Sort the goals by oldest
-  //This is only a temporary fix until fabric has pagination
-  //available to us 02/02/22
-  goalList.account_buckets.sort((a, b) => {
-    let dateA = new Date(a.created_at);
-    let dateB = new Date(b.created_at);
-    return dateA - dateB;
-  });
-
+//Handle goal theme sorting and total percentage calculations
+export function handleGoalThemes(goalList) {
   goalList.account_buckets.forEach((goal) => {
     if (goal.is_default) {
       goal.image = `${goal_themes}/SAVINGS_JAR.png`;

@@ -1,9 +1,9 @@
 import goal_themes from "@salesforce/resourceUrl/goal_themes";
 import transaction_logos from "@salesforce/resourceUrl/transaction_logos";
-import { handleGoalData } from "c/utils";
+import { handleGoalThemes } from "c/utils";
 
-export function handleGoalsParent(goalData) {
-  var goalList = handleGoalData(goalData);
+export function handleGoalData(goalData) {
+  let goalList = handleGoalThemes(goalData);
   goalList.account_buckets.forEach((goal) => {
     //Format created date to more readable format
     const createdDate = new Date(goal.created_at);

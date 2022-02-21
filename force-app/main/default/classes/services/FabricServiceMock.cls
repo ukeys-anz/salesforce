@@ -179,10 +179,14 @@ public with sharing class FabricServiceMock extends Service {
 
   /**
    * @param ocvId customer id to retrieve account buckets for
+   * @param paramUrl customer id to retrieve account buckets for
    * @return `HttpCalloutResponse` the api response
    * @description fetches mock account buckets response
    */
-  public override HttpCalloutResponse getAccountBuckets(String ocvId) {
+  public override HttpCalloutResponse getAccountBuckets(
+    String ocvId,
+    String paramUrl
+  ) {
     if (!preset) {
       response.body = FabricServiceMock.ACCOUNT_BUCKETS_RESPONSE;
     }

@@ -1,7 +1,7 @@
 /* LWC IMPORTS */
 import { LightningElement, api, wire } from "lwc";
 import { getRecord } from "lightning/uiRecordApi";
-import { handleErrorShowToast, handleGoalData } from "c/utils";
+import { handleErrorShowToast, handleGoalThemes } from "c/utils";
 
 /* IMPORT APEX METHODS */
 import getTotalBalance from "@salesforce/apex/TotalBalanceController.getTotalBalance";
@@ -108,8 +108,12 @@ export default class PersonAccountFinancialDetails extends LightningElement {
     this.goalDetails = [];
     this.savingsJar = null;
     try {
-      let goalData = await getAccountBuckets({ ocvId: this.ocvId });
-      goalData = handleGoalData(goalData);
+      let goalData = await getAccountBuckets({
+        ocvId: this.ocvId,
+        pageSize: 4,
+        nextPageToken: ""
+      });
+      goalData = handleGoalThemes(goalData);
       //Savings jar will always be default, so retrieve it
       //to pass through to other components that need it
       this.savingsJar = goalData.account_buckets.filter((obj) => {

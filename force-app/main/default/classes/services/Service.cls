@@ -254,10 +254,14 @@ public with sharing virtual class Service {
 
   /**
    * @param ocvId customer id
+   * @param paramUrl params to be sent to api
    * @return `HttpCalloutResponse` api response
    * @description virtual account buckets callout
    */
-  public virtual HttpCalloutResponse getAccountBuckets(String ocvId) {
+  public virtual HttpCalloutResponse getAccountBuckets(
+    String ocvId,
+    String paramUrl
+  ) {
     return null;
   }
 }

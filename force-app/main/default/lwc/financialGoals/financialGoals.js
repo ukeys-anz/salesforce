@@ -1,4 +1,4 @@
-import { LightningElement, api } from "lwc";
+import { LightningElement, api, track } from "lwc";
 
 import { NavigationMixin } from "lightning/navigation";
 
@@ -7,17 +7,33 @@ import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accoun
 
 export default class FinancialGoals extends NavigationMixin(LightningElement) {
   @api recordId;
-  //Goal details received through personAccountFinancialDetails LWC
-  @api goalData;
   @api error;
   @api preselectedGoal;
-  goalList = [];
-  allGoals = [];
+  @api loadingMore;
+  @track goalList = [];
   timestamp;
   showInfoModal = false;
-  viewMore;
   goalFilters = [];
   hasRendered = false;
+  nextPageToken;
+
+  //Goal details received through personAccountFinancialDetails LWC
+  @api
+  get goalData() {
+    return this.goalList;
+  }
+
+  set goalData(goals) {
+    if (goals.goalList?.length > 0) {
+      this.nextPageToken = goals.nextPageToken;
+      this.goalList = [...this.goalList, ...goals.goalList];
+    }
+
+    //Set to null so the no goals message displays
+    if (this.goalList.length === 0) {
+      this.goalList = null;
+    }
+  }
 
   get displayContent() {
     return hasAccountsGoalsPermission;
@@ -28,27 +44,6 @@ export default class FinancialGoals extends NavigationMixin(LightningElement) {
       //Set timestamp
       if (!this.timestamp) {
         this.setTimestamp();
-      }
-
-      if (this.goalData?.goalList?.length > 1) {
-        this.allGoals = [...this.goalData.goalList];
-        //NOTE FABRIC CURRENTLY DOESNT ALLOW PAGINATION,
-        //AS IT IS BEING BUILT CURRENTLY, SO API RETURNS ALL GOALS
-        //If we get more than 3 records, set view more to true and get first 3 records
-        if (this.allGoals.length > 3) {
-          this.viewMore = true;
-          this.goalList = this.allGoals.splice(0, 3);
-        } else {
-          this.goalList = this.allGoals;
-        }
-
-        if (!this.timestamp && !this.error) {
-          this.setTimestamp();
-        }
-      } else {
-        //If no goals set goals to null as template condition checks
-        //dont seem to mark as false if array empty
-        this.goalList = null;
       }
     }
   }
@@ -111,38 +106,24 @@ export default class FinancialGoals extends NavigationMixin(LightningElement) {
   }
 
   handleLoadMore() {
-    this.goalList.push(...this.allGoals.splice(0, 3));
-    if (this.allGoals.length === 0) {
-      this.viewMore = false;
+    try {
+      this.dispatchEvent(
+        new CustomEvent("loadmoregoals", {
+          bubbles: true,
+          detail: {
+            nextPageToken: this.nextPageToken
+          }
+        })
+      );
+    } catch (error) {
+      handleErrorShowToast(
+        this,
+        "Failed To Load Goals",
+        error,
+        "Failed to retrieve goal details. Please refresh and try again. If issue persists please contact your System Administrator",
+        "pester"
+      );
     }
-
-    //Below will be the code used when we have pagination available to us
-    //via the API
-    //The provided URL doesn't go through MS, so we need
-    //to retrieve the params and pass them to the Apex class
-    //and append it to the request
-    // try {
-    //   let nextSubstring = `${this.goalData.nextToken.substring(
-    //     this.goalData.nextToken.indexOf("?")
-    //   )}`;
-
-    //   this.dispatchEvent(
-    //     new CustomEvent("loadmoregoals", {
-    //       bubbles: true,
-    //       detail: {
-    //         substring: nextSubstring
-    //       }
-    //     })
-    //   );
-    // } catch (error) {
-    //   handleErrorShowToast(
-    //     this,
-    //     "Failed To Load Goals",
-    //     error,
-    //     "Failed to retrieve goal details. Please refresh and try again. If issue persists please contact your System Administrator",
-    //     "pester"
-    //   );
-    // }
   }
 
   handleClearFilters() {

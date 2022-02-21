@@ -120,16 +120,28 @@
                   </div>
                 </template>
               </div>
-              <template if:true={viewMore}>
-                <div
-                  class="slds-grid slds-text-align_center slds-box slds-box_xx-small slds-m-top_large"
-                >
-                  <div class="slds-col">
-                    <button class="slds-button" onclick={handleLoadMore}>
-                      Load More
-                    </button>
+              <template if:true={nextPageToken}>
+                <template if:true={loadingMore}>
+                  <div class="slds-align_absolute-center" style="height: 4rem">
+                    <div role="status" class="slds-spinner_inline">
+                      <lightning-spinner
+                        alternative-text="Loading"
+                        variant="brand"
+                      ></lightning-spinner>
+                    </div>
                   </div>
-                </div>
+                </template>
+                <template if:false={loadingMore}>
+                  <div
+                    class="slds-grid slds-text-align_center slds-box slds-box_xx-small slds-m-top_large"
+                  >
+                    <div class="slds-col">
+                      <button class="slds-button" onclick={handleLoadMore}>
+                        Load More
+                      </button>
+                    </div>
+                  </div>
+                </template>
               </template>
 
               <template if:true={showInfoModal}>
@@ -198,7 +210,9 @@
             </template>
             <template if:false={goalList}>
               <h1 class="slds-card__header-title main-title">
-                <span class="not-found">Customer hasn't set any goals</span>
+                <span class="not-found" data-id="no-goals"
+                  >Customer hasn't set any goals</span
+                >
               </h1>
             </template>
           </article>

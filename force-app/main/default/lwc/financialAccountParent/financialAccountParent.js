@@ -18,7 +18,7 @@ import {
   getEmojiMap,
   getGoalMap,
   getImageMap,
-  handleGoalsParent,
+  handleGoalData,
   handleTransactionGoals,
   handleComponentTitle
 } from "./helpers/utils";
@@ -57,6 +57,9 @@ export default class FinancialAccountParent extends LightningElement {
   //triggers the transactions to clear, used for
   //goal filtering
   clearTransactions = false;
+  //Triggers the bottom of goals to load for
+  //appending new goals
+  goalsLoading = false;
 
   @wire(CurrentPageReference)
   pageRef;
@@ -130,31 +133,37 @@ export default class FinancialAccountParent extends LightningElement {
     }
   }
 
-  async getGoalData() {
-    this.goalData = [];
-    this.savingsJar = null;
+  async getGoalData(paramUrl = "") {
     if (this.isSavings) {
       try {
-        let goalDetails = await getAccountBuckets({ ocvId: this.ocvId });
-        goalDetails = handleGoalsParent(goalDetails);
-        this.emojiMap = getEmojiMap(goalDetails);
-        this.imageMap = getImageMap(goalDetails);
-        this.goalMap = getGoalMap(goalDetails);
+        this.goalData = [];
+        this.goalData = await getAccountBuckets({
+          ocvId: this.ocvId,
+          pageSize: 7,
+          nextPageToken: paramUrl
+        });
+
+        this.goalData = handleGoalData(this.goalData);
+        this.emojiMap = getEmojiMap(this.goalData);
+        this.imageMap = getImageMap(this.goalData);
+        this.goalMap = getGoalMap(this.goalData);
+
         //Savings jar will always be default, so retrieve it
         //to pass through to other components that need it
-        this.savingsJar = goalDetails.account_buckets.filter((obj) => {
-          return obj.is_default;
-        })[0];
+        //Wrap if check so we dont overwrite the value when loading next
+        //set of data
+        if (!paramUrl) {
+          this.savingsJar = this.goalData.account_buckets.filter((obj) => {
+            return obj.is_default;
+          })[0];
+        }
         //Remove savings jar as its not displayed on goals component
-        this.goalData.goalList = goalDetails.account_buckets.filter((obj) => {
+        this.goalData.goalList = this.goalData.account_buckets.filter((obj) => {
           return !obj.is_default;
         });
-        //Check if we have any goals other than savings jar
-        if (this.goalData.goalList.length > 0) {
-          this.goalData.nextToken = goalDetails.next_page_token;
-        } else {
-          this.goalData = null;
-        }
+        this.goalData.nextPageToken = this.goalData.next_page_token
+          ? this.goalData.next_page_token
+          : "";
       } catch (error) {
         this.goalError =
           "Failed to retrieve latest goal details. Please refresh and try again. If issue persists please contact your System Administrator";
@@ -165,6 +174,8 @@ export default class FinancialAccountParent extends LightningElement {
           this.goalError,
           "pester"
         );
+      } finally {
+        this.goalsLoading = false;
       }
     }
   }
@@ -254,10 +265,10 @@ export default class FinancialAccountParent extends LightningElement {
     this.getTransactionData();
   }
 
-  //Pagination for buckets not built yet. When merged,
-  //this will be updated to handle it
-  // handleLoadMoreGoals(event) {
-  // }
+  handleLoadMoreGoals(event) {
+    this.goalsLoading = true;
+    this.getGoalData(event.detail.nextPageToken);
+  }
 
   handleGoalFilters(event) {
     this.transactionBucketIds = event.detail.goalFilters;

@@ -264,14 +264,27 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
 
   /**
    * @param ocvId customer id
+   * @param pageSize amount of goals to return
+   * @param nextPageToken token used to retrieve next page of data
    * @return `AccountBucketsModel` model class constructed from api response
    * @description fetches account buckets from fabric, deserialized to a model
    */
-  public AccountBucketsModel getAccountBuckets(String ocvId) {
+  public AccountBucketsModel getAccountBuckets(
+    String ocvId,
+    Integer pageSize,
+    String nextPageToken
+  ) {
     AccountBucketsModel result;
     if (FeatureManagement.checkPermission('ANZx_Accounts_and_Goals')) {
       Service s = ServiceProvider.getService(FabricService.class);
-      HttpCalloutResponse response = s.getAccountBuckets(ocvId);
+      String paramUrl;
+      if (String.isBlank(nextPageToken)) {
+        paramUrl = '?page_size=' + pageSize;
+      } else {
+        paramUrl = '?page_token=' + nextPageToken;
+      }
+
+      HttpCalloutResponse response = s.getAccountBuckets(ocvId, paramUrl);
       if (response.successful) {
         try {
           result = AccountBucketsModel.parse(response.body);

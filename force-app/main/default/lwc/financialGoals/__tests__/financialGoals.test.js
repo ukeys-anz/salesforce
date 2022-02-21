@@ -50,10 +50,8 @@ describe("c-financialGoals", () => {
     });
     element.goalData = EMPTY_GOALS;
     document.body.appendChild(element);
-    let goal = element.shadowRoot.querySelector(
-      "div[data-id='goal-container']"
-    );
-    expect(goal).toBeFalsy();
+    let goal = element.shadowRoot.querySelector("span[data-id='no-goals']");
+    expect(goal).toBeTruthy();
   });
 
   it("test total saved modal", () => {

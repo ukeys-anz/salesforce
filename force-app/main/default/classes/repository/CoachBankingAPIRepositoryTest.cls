@@ -328,7 +328,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
     System.runAs(thisUser) {
       Test.startTest();
       CoachBankingAPIRepository coachAPI = new CoachBankingAPIRepository();
-      AccountBucketsModel response = coachAPI.getAccountBuckets('1111');
+      AccountBucketsModel response = coachAPI.getAccountBuckets('1111', 7, '');
       Test.stopTest();
 
       System.assertEquals(7, response.account_buckets.size());
@@ -350,7 +350,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       Test.startTest();
       CoachBankingAPIRepository coachAPI = new CoachBankingAPIRepository();
       try {
-        accountBucketsModel = coachAPI.getAccountBuckets('1111');
+        accountBucketsModel = coachAPI.getAccountBuckets('1111', 4, '');
       } catch (Exception e) {
         resultException = e;
       }
