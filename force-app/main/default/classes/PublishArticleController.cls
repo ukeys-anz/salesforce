@@ -6,7 +6,7 @@
 
 public with sharing class PublishArticleController {
   /**
-   * @description Manually Triggers the Case to Escalate to CMOS from Aura component
+   * @description Publish Knowledge Article with validation
    * @param recordId The knowledge version ID
    */
   @AuraEnabled
