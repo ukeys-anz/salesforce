@@ -128,21 +128,23 @@ export default class TransactionHistoryBoard extends LightningElement {
       this.transactionList = [];
     }
     if (transactions) {
-      this.fullTransactionList = transactions.embedded.transactions;
+      //The data is being received proxied, so we stringify it
+      //and parse it to unproxy it
+      this.fullTransactionList = JSON.parse(
+        JSON.stringify(transactions.embedded.transactions)
+      );
       this.links = transactions.links;
       this.allMerchants = transactions.embedded?.merchants
-        ? transactions.embedded.merchants
+        ? JSON.parse(JSON.stringify(transactions.embedded.merchants))
         : [];
-      this.allTags = transactions.embedded.tags
-        ? transactions.embedded?.tags
+      this.allTags = transactions.embedded?.tags
+        ? JSON.parse(JSON.stringify(transactions.embedded.tags))
         : [];
       let updatedFullList = [];
 
       if (this.fullTransactionList) {
         for (let i = 0; i < this.fullTransactionList.length; i++) {
-          let currentTransaction = JSON.parse(
-            JSON.stringify(this.fullTransactionList[i])
-          );
+          let currentTransaction = this.fullTransactionList[i];
 
           //Remap type and status
           currentTransaction.formatted_type = currentTransaction.type
