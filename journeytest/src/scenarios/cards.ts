@@ -1,4 +1,4 @@
-import { ScenarioUtil } from "../utilities/scenarioUtil";
+import { ScenarioUtil } from "../common/scenarioUtil";
 
 export default class SfCards {
   getCardDetails = async () => {

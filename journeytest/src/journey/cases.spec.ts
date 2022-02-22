@@ -1,9 +1,9 @@
-import LwcCustomerDetails from "pageObjects/lwcCustomerDetails";
-import SfNavigation from "modules/navigation";
+import LwcCustomerDetails from "../pageObjects/lwcCustomerDetails";
+import SfNavigation from "../scenarios/navigation";
 import data from "../../testdata.json";
-import SfLogin from "../modules/login";
-import SfCases from "modules/cases";
-import SfPageUtils from "utilities/sfUtils";
+import SfLogin from "../scenarios/login";
+import SfCases from "../scenarios/cases";
+import SfPageUtils from "../common/sfUtils";
 
 describe("Case Creation - General Enquiry", () => {
   let caseNumber: string;

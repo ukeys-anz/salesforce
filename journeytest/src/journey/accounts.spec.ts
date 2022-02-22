@@ -1,24 +1,22 @@
-import SfCards from "modules/cards";
-import SfLogin from "modules/login";
-import LwcCustomerDetails from "pageObjects/lwcCustomerDetails";
-import SfNavigation from "modules/navigation";
+import SfLogin from "../scenarios/login";
+import LwcCustomerDetails from "../pageObjects/lwcCustomerDetails";
+import SfNavigation from "../scenarios/navigation";
 import data from "../../testdata.json";
-import SfAccounts from "modules/accounts";
-import SfPageUtils from "utilities/sfUtils";
+import SfAccounts from "../scenarios/accounts";
+import SfCustomer from "../scenarios/customer";
+import SfPageUtils from "../common/sfUtils";
 
 describe("Cards verification", () => {
-  it("Login as a Coach User", async () => {
+  it("Login and search for a customer with a valid card", async () => {
     //Login
-    browser.maximizeWindow();
+    await browser.maximizeWindow();
     let sfLogin = new SfLogin();
     await sfLogin.salesForceLogin(data.envToTest, "coach");
 
     //Close all tabs
     await browser.pause(5000);
     await SfPageUtils.closeAllTabsMain();
-  });
 
-  it("Search for a customer with a valid card", async () => {
     //Search for a customer
     const customerPageRoot = await utam.load(LwcCustomerDetails);
     const navigationShowElement = await customerPageRoot.getNavigationShow();
@@ -33,12 +31,9 @@ describe("Cards verification", () => {
     await sfAccountView.searchAccount("scenarioCardVerification");
   });
 
-  it("Verify the details of a valid card", async () => {
+  it("Verify the accounts of a customer", async () => {
     //Get card details
-    let sfCards = new SfCards();
-    await sfCards.getCardDetails();
-
-    //Verify card details
-    await sfCards.verifyCardDetails("scenarioCardVerification");
+    let sfCustomer = new SfCustomer();
+    await sfCustomer.getAccounts();
   });
 });

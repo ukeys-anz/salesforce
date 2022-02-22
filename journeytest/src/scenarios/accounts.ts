@@ -1,5 +1,5 @@
 import LwcAccounsView from "../pageObjects/lwcAccounsView";
-import SfCustomer from "modules/customer";
+import SfCustomer from "../scenarios/customer";
 
 export default class SfAccounts {
   selectAccountFilter = async (filterName: string) => {

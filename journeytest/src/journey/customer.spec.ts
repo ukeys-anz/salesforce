@@ -1,9 +1,9 @@
-import LwcCustomerDetails from "pageObjects/lwcCustomerDetails";
-import SfNavigation from "../modules/navigation";
-import SfLogin from "../modules/login";
-import SfAccounts from "modules/accounts";
+import LwcCustomerDetails from "../pageObjects/lwcCustomerDetails";
+import SfNavigation from "../scenarios/navigation";
+import SfLogin from "../scenarios/login";
+import SfAccounts from "../scenarios/accounts";
 import data from "../../testdata.json";
-import SfCustomer from "modules/customer";
+import SfCustomer from "../scenarios/customer";
 
 describe("Customer Verification", () => {
   it("Customer Information", async () => {

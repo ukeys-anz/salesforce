@@ -1,6 +1,6 @@
 import LwcCustomerDetails from "../pageObjects/lwcCustomerDetails";
 import LwcAccountsSection from "../pageObjects/lwcAccountsSection";
-import { ScenarioUtil } from "utilities/scenarioUtil";
+import { ScenarioUtil } from "../common/scenarioUtil";
 
 export default class SfCustomer {
   verifyCustomerAccount = async () => {

@@ -1,11 +1,11 @@
-import SfLogin from "modules/login";
+import SfLogin from "../scenarios/login";
 import data from "../../testdata.json";
-import SfPageUtils from "utilities/sfUtils";
-import LwcCustomerDetails from "pageObjects/lwcCustomerDetails";
-import SfNavigation from "modules/navigation";
-import SfAccounts from "modules/accounts";
-import SfCustomer from "modules/customer";
-import SfTransactions from "modules/transactions";
+import SfPageUtils from "../common/sfUtils";
+import LwcCustomerDetails from "../pageObjects/lwcCustomerDetails";
+import SfNavigation from "../scenarios/navigation";
+import SfAccounts from "../scenarios/accounts";
+import SfCustomer from "../scenarios/customer";
+import SfTransactions from "../scenarios/transactions";
 
 describe("Transactions verification", () => {
   it("Login and search for a customer with a valid transactions", async () => {

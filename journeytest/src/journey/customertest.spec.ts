@@ -1,4 +1,4 @@
-import SfLogin from "modules/login";
+import SfLogin from "../scenarios/login";
 
 describe("Customer Verification", () => {
   it("Login", async () => {

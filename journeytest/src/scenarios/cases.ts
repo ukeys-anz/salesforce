@@ -1,6 +1,6 @@
-import LwcCaseCreation from "pageObjects/lwcCaseCreation";
+import LwcCaseCreation from "../pageObjects/lwcCaseCreation";
 import data from "../../testdata.json";
-import { ScenarioUtil } from "utilities/scenarioUtil";
+import { ScenarioUtil } from "../common/scenarioUtil";
 
 export default class SfCases {
   createGenEnqCase = async (scenarioId: string) => {

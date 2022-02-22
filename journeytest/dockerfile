@@ -1,4 +1,4 @@
-FROM seleniarm/standalone-chromium
+FROM selenium/standalone-chrome
 ENTRYPOINT ["/bin/bash"]
 RUN mkdir /app
 WORKDIR /app
@@ -12,7 +12,8 @@ RUN curl -sL https://deb.nodesource.com/setup_15.x | bash \
 ENV GENERATE_SOURCEMAP=false
 ENV NODE_OPTIONS=--max-old-space-size=4096
 
-COPY ./journeytest/package.json /app
+COPY ./package.json /app
 
 EXPOSE 4444
 RUN npm install
+

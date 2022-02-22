@@ -1,0 +1,14 @@
+# build files
+build/
+
+# logs
+all-logs/
+
+# node_modules
+node_modules/
+
+# env variables
+.env
+
+# pageObjects
+**/pageObjects/
