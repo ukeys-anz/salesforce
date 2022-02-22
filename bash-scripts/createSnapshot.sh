@@ -112,12 +112,10 @@ if [[ $scratchOrgsCount == 5 ]]; then
     echoMessageCreator "check if you want to delete an existed snapshot" $stepNo true
     sfdx force:org:snapshot:list
     echo "${green}"
-    read -rp "Do you want to delete one (y/n)? " deleteSnapshot
+    read -rp "Do you want to delete ReleaseSnapshot snapshot (y/n)? " deleteSnapshot
     case ${deleteSnapshot:0:1} in
         y | Y)        
-            echo "${green}"
-            read -rp "Write the name of the snapshot to be deleted: " snapshotName
-            echo "${reset}"
+            snapshotName=ReleaseSnapshot
             sfdx force:org:snapshot:delete -s $snapshotName
             echo "************************"
             ;;
@@ -129,13 +127,12 @@ fi
 
 # create a new snapshot
 echoMessageCreator "creating a new snapshot" $stepNo true
-read -rp "${green}Name for a snapshot: " name
-echo "${reset}"
+name=ReleaseSnapshot
 developCommitSHA=$(git log develop --oneline --pretty=format:'%h' -1)
 sfdx force:org:snapshot:create -n $name -d "Snapshot from $developCommitSHA" -o $scratchorgalias -v $prodname
 waitTillSnapshotIsActive=false
 while [[ $waitTillSnapshotIsActive == *'false'* ]]; do
-
+    sfdx force:org:snapshot:list
     snapshotList=$( sfdx force:org:snapshot:list --json )
     if [[ $snapshotList == *"InProgress"* ]];then
         echo "${green}"
