@@ -5785,6 +5785,10 @@
             <fullName>Violated</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>Completed</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>Origin</picklist>

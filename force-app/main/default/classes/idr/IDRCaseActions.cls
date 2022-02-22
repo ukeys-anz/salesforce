@@ -209,8 +209,10 @@ public with sharing class IDRCaseActions {
         : null;
       if (
         (oldCase != null &&
-        oldCase.Status != IDRConstants.ESCALATED_STATUS &&
-        c.Status == IDRConstants.ESCALATED_STATUS)
+        ((oldCase.Status != IDRConstants.ESCALATED_STATUS &&
+        c.Status == IDRConstants.ESCALATED_STATUS) ||
+        (oldCase.IDR_Milestone_Sla__c != 'Completed') &&
+        c.IDR_Milestone_Sla__c == 'Completed'))
       ) {
         escalationCases.add(c.Id);
       }
