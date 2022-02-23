@@ -10,7 +10,7 @@ rm -rf ./artefact
 rm -rf ./tmp
 
 # Using SOAP over REST is much faster for scratch org creations while pushing content.
-sfdx config:set restDeploy=false
+sfdx force:config:set restDeploy=false
 # Bypass the Lightning Experience custom domain check entirely, wich takes very long when connected to ANZ network
 # TODO Consider a switch to bypass it when connected elsewhere (e.g. from GCB)
 export SFDX_DOMAIN_RETRY=0
