@@ -2185,7 +2185,7 @@ private class CaseTriggerHandlerTest {
       RecordTypeId = GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID,
       AccountId = acc.Id,
       Auto_Created__c = false,
-      Dispute_Reason__c = 'Duplicate Transactions',
+      Dispute_Reason__c = 'Duplicate Transaction',
       Origin = '1',
       Description = 'Charged more than once for same purchase',
       Priority = 'High',
@@ -2227,7 +2227,7 @@ private class CaseTriggerHandlerTest {
       RecordTypeId = GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID,
       AccountId = acc.Id,
       Auto_Created__c = false,
-      Dispute_Reason__c = 'Duplicate Transactions',
+      Dispute_Reason__c = 'Duplicate Transaction',
       External_System__c = 'CARBe',
       External_Case_Id__c = 'ABC123',
       Origin = '1',
@@ -2276,7 +2276,7 @@ private class CaseTriggerHandlerTest {
       RecordTypeId = GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID,
       AccountId = acc.Id,
       Auto_Created__c = false,
-      Dispute_Reason__c = 'Duplicate Transactions',
+      Dispute_Reason__c = 'Duplicate Transaction',
       External_System__c = 'CARBe',
       External_Case_Id__c = 'ABC123',
       Origin = '1',
@@ -2330,7 +2330,7 @@ private class CaseTriggerHandlerTest {
       RecordTypeId = GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID,
       AccountId = acc.Id,
       Auto_Created__c = false,
-      Dispute_Reason__c = 'Duplicate Transactions',
+      Dispute_Reason__c = 'Duplicate Transaction',
       Origin = '1',
       Priority = 'Medium',
       Description = 'Charged more than once for same purchase',
@@ -2374,7 +2374,7 @@ private class CaseTriggerHandlerTest {
       RecordTypeId = GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID,
       AccountId = acc.Id,
       Auto_Created__c = false,
-      Dispute_Reason__c = 'Duplicate Transactions',
+      Dispute_Reason__c = 'Duplicate Transaction',
       Origin = '1',
       Priority = 'Medium',
       Transaction_Id__c = '9be08660-23bb-4f12-b124-7cfe561ba086',
@@ -2467,7 +2467,7 @@ private class CaseTriggerHandlerTest {
       RecordTypeId = GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID,
       AccountId = acc.Id,
       Auto_Created__c = false,
-      Dispute_Reason__c = 'Duplicate Transactions',
+      Dispute_Reason__c = 'Duplicate Transaction',
       Origin = '1',
       Priority = 'Medium',
       Transaction_Id__c = '9be08660-23bb-4f12-b124-7cfe561ba086',
@@ -2503,7 +2503,7 @@ private class CaseTriggerHandlerTest {
   }
 
   // Static values used for PEGA platform event test data and assertions
-  private static string pegaDisputeReason = 'Duplicate Transactions';
+  private static string pegaDisputeReason = 'Duplicate Transaction';
   private static string pegaTransactionId = 'abc48-fasjd-342sdfsa-jlj';
   private static string pegaCaseNumber = 'abc123';
   private static string pegaCaseRecordTypeName = 'ATM';
