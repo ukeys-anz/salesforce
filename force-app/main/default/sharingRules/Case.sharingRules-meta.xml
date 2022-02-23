@@ -483,6 +483,20 @@
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>GeneralEnquiry_RT_3rdPartyMobileSupport_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Read Write access to General Enquiry record type for 3rd Party Mobile Support Team.</description>
+        <label>GeneralEnquiry_RT_3rdPartyMobileSupport_RW</label>
+        <sharedTo>
+            <role>X3rd_Party_Mobile_Support_Team</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>General Enquiry</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>IDR_RT_Data_Analyst_RO</fullName>
         <accessLevel>Read</accessLevel>
         <description>Grant read only access to Data Analyst for Complaint and SI record types</description>

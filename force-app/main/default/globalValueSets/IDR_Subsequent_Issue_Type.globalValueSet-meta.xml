@@ -500,6 +500,21 @@
         <default>false</default>
         <label>Guarantee Issue/Error</label>
     </customValue>
+    <customValue>
+        <fullName>96</fullName>
+        <default>false</default>
+        <label>Delay to assess request for financial assistance</label>
+    </customValue>
+    <customValue>
+        <fullName>97</fullName>
+        <default>false</default>
+        <label>Default notices</label>
+    </customValue>
+    <customValue>
+        <fullName>98</fullName>
+        <default>false</default>
+        <label>Enforcement proceedings</label>
+    </customValue>
     <masterLabel>Subsequent Issue Type</masterLabel>
     <sorted>false</sorted>
 </GlobalValueSet>

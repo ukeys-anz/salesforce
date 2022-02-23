@@ -101,8 +101,8 @@
             <sortOrder>2</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>PublishKnowledgeArticleVersion</actionName>
-            <actionType>StandardButton</actionType>
+            <actionName>Knowledge__kav.Publish_Article</actionName>
+            <actionType>QuickAction</actionType>
             <sortOrder>3</sortOrder>
         </platformActionListItems>
         <platformActionListItems>

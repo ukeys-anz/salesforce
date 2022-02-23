@@ -84,31 +84,38 @@ export class ScenarioUtil {
    * @param scenarioId - scenario id
    * @returns Return case details based on scenario ID and test type
    */
-  static getCaseDetails = function (scenarioId: string) {
+  static getCaseCreateDetails = function (scenarioId: string) {
     let value;
     let caseId;
 
     scenariosData.scenarios.forEach((element) => {
       if (element.id == scenarioId) {
-        if (element.cases.action.toUpperCase() === "CREATE") {
-          casesData.cases.create.forEach((caseElem) => {
-            if (element.cases.id === caseElem.create_dataId) {
-              value = caseElem;
-            }
-          });
-        } else if (element.cases.action.toUpperCase() === "EDIT") {
-          casesData.cases.edit.forEach((caseElem) => {
-            if (element.cases.id === caseElem.edit_dataId) {
-              value = caseElem;
-            }
-          });
-        } else if (element.cases.action.toUpperCase() === "VERIFY") {
-          casesData.cases.verify.forEach((caseElem) => {
-            if (element.cases.id === caseElem.verify_dataId) {
-              value = caseElem;
-            }
-          });
-        }
+        casesData.cases.create.forEach((caseElem) => {
+          if (element.cases.create === caseElem.dataId) {
+            value = caseElem;
+          }
+        });
+      }
+    });
+
+    return value;
+  };
+
+  /**
+   * @param scenarioId - scenario id
+   * @returns Return case details based on scenario ID and test type
+   */
+  static getCaseEditDetails = function (scenarioId: string) {
+    let value;
+    let caseId;
+
+    scenariosData.scenarios.forEach((element) => {
+      if (element.id == scenarioId) {
+        casesData.cases.edit.forEach((caseElem) => {
+          if (element.cases.edit === caseElem.dataId) {
+            value = caseElem;
+          }
+        });
       }
     });
 

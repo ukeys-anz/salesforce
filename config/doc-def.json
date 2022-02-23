@@ -40,6 +40,13 @@
   ],
   "usermap": [
     {
+      "name": "3rd Party Mobile Support Team",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["Third_Party_Mobile_Support_Team"],
+      "permissionsets": [],
+      "type": "user"
+    },
+    {
       "name": "CFMS Integration User",
       "profile": "Integration User",
       "permissionsetgroups": [],
@@ -50,6 +57,13 @@
       "name": "Coach",
       "profile": "ANZx Standard User",
       "permissionsetgroups": ["Coach"],
+      "permissionsets": [],
+      "type": "user"
+    },
+    {
+      "name": "Coach Lead",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["Coach_Lead"],
       "permissionsets": [],
       "type": "user"
     },
@@ -90,8 +104,16 @@
     {
       "name": "EDW Integration User",
       "profile": "Integration User",
-      "permissionsetgroups": [],
-      "permissionsets": ["Enforce_mTLS", "IDR_EDW_Integration"],
+      "permissionsetgroups": ["IDR_EDW_User"],
+      "permissionsets": [
+        "Enforce_mTLS",
+        "IDR_EDW_Integration",
+        "API_Only",
+        "Complaint_Read_Only",
+        "Product_Read_Only",
+        "Systemic_Issue_Read_Only",
+        "View_All_Files"
+      ],
       "type": "system"
     },
     {
@@ -137,6 +159,41 @@
       "type": "user"
     },
     {
+      "name": "IDR Content Writer",
+      "profile": "ANZ Standard User",
+      "permissionsetgroups": ["IDR_Level_1"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Customer Resolution Leadership",
+      "profile": "ANZ Standard User",
+      "permissionsetgroups": ["IDR_CRP_LT"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Customer Resolution Team Leaders",
+      "profile": "ANZ Standard User",
+      "permissionsetgroups": ["IDR_CRP_Team_Leaders"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Systemic Issue Team",
+      "profile": "ANZ Standard User",
+      "permissionsetgroups": ["IDR_SI_User"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Systemic Issue BU Contacts",
+      "profile": "ANZ Standard User",
+      "permissionsetgroups": ["IDR_SI_Business_Contact"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
       "name": "MVISION Integration User",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
@@ -155,6 +212,13 @@
       "profile": "Integration User",
       "permissionsetgroups": [],
       "permissionsets": ["Read_Write_Customer_Details"],
+      "type": "system"
+    },
+    {
+      "name": "Odaseva  User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": ["Mute_Restore", "Backup_and_Restore", "API_Only", "Password_Never_Expires"],
       "type": "system"
     },
     {
@@ -290,6 +354,47 @@
       "permissionsetgroups": ["Super_Support_Admin"],
       "permissionsets": ["Enforce_SSO"],
       "type": "user"
+    },
+    {
+      "name": "Collections Integration User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": ["API_Only", "Enforce_mTLS", "IDR_Collections_Access"],
+      "type": "system"
+    },
+    {
+      "name": "Complaints Integration User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Enforce_mTLS",
+        "IDR_Complaints_Event_Access"
+      ],
+      "type": "system"
+    },
+    {
+      "name": "System Task Integration User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Enforce_mTLS",
+        "Complaint_Read_Only",
+        "IDR_System_Task_Access"
+      ],
+      "type": "system"
+    },
+    {
+      "name": "Xpression Integration User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Enforce_mTLS",
+        "IDR_Xpression_Integration"
+      ],
+      "type": "system"
     }
   ]
 }

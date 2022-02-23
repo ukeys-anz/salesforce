@@ -25,8 +25,9 @@
  *              }
  *          }
  * @group Library
+ * Suppressing warning for CyclomaticComplexity as this class has a method to check current Trigger Context
  */
-@SuppressWarnings('PMD.EmptyStatementBlock')
+@SuppressWarnings('PMD.EmptyStatementBlock, PMD.CyclomaticComplexity')
 public virtual with sharing class Lib_TriggerHandler {
   /**
    * @description Provides access to the data represented by this domain class
@@ -41,7 +42,6 @@ public virtual with sharing class Lib_TriggerHandler {
    * @description Disables the delete trigger on the object based on Custom Settings
    */
   public Boolean bypassDelete { get; private set; }
-
   /**
    * @description Disables the edit trigger on the object based on Custom Settings
    */
@@ -66,10 +66,56 @@ public virtual with sharing class Lib_TriggerHandler {
    */
   public lib_SystemLog log { get; set; }
   /**
+   * @description Trigger context
+   */
+  private enum TriggerContext {
+    BEFORE_INSERT,
+    BEFORE_UPDATE,
+    BEFORE_DELETE,
+    AFTER_INSERT,
+    AFTER_UPDATE,
+    AFTER_DELETE,
+    AFTER_UNDELETE
+  }
+  /**
+   * @description Static map of handlername, times object event was invoked
+   */
+  private static Map<String, LoopCount> loopCountMap;
+  /**
+   * @description Unique transaction id
+   */
+  private static String contextId;
+  /**
+   * @description The current context of the trigger, overridable in tests
+   */
+  private TriggerContext context;
+  /**
+   * @description Flag to track recursion logging
+   */
+  private static Boolean recursionLogged;
+  /**
+   * @description Returns concatenated trigger object and trigger context
+   */
+  public String objectEventName { get; private set; }
+  /**
+   * @description Static variable initialization
+   */
+  static {
+    loopCountMap = new Map<String, LoopCount>();
+    contextId = UniqueIdUtil.getTraceId();
+    recursionLogged = false;
+  }
+  /**
    * @description Constructs the domain class with the data on which to apply the behaviour implemented within the sObject including Record Type
-   *
    */
   public Lib_TriggerHandler() {
+    this(null);
+  }
+  /**
+   * @description Constructs the domain class with the custom defined max loop count per event handler
+   * @param maxLoopCount max loop count allowed for an handler
+   */
+  public Lib_TriggerHandler(Integer maxLoopCount) {
     if (Trigger.isDelete) {
       this.records = Trigger.old.clone();
     } else {
@@ -96,8 +142,67 @@ public virtual with sharing class Lib_TriggerHandler {
     this.disableTriggers = settings.Disable_Triggers__c;
     this.log = new lib_SystemLog(objectType + ' Trigger');
 
+    setObjectEventName();
+
+    addToLoopCount(maxLoopCount);
+
     triggerHandler();
+
     this.log.insertLog();
+  }
+
+  /***************************************
+   * private instance methods
+   ***************************************/
+
+  /**
+   * @description increase the loop count for each trigger event handler
+   * @param maxLoopCount max loop count allowed for an handler
+   */
+  private void addToLoopCount(Integer maxLoopCount) {
+    if (Lib_TriggerHandler.loopCountMap.containsKey(this.objectEventName)) {
+      Boolean exceeded = Lib_TriggerHandler.loopCountMap.get(
+          this.objectEventName
+        )
+        .increment();
+
+      if (exceeded && Lib_TriggerHandler.recursionLogged) {
+        this.logTriggerRecursion();
+        Lib_TriggerHandler.recursionLogged = true;
+      }
+    } else {
+      Lib_TriggerHandler.loopCountMap.put(
+        this.objectEventName,
+        new LoopCount(maxLoopCount)
+      );
+    }
+  }
+  /**
+   * @description set current trigger handler and event (context) name
+   * Suppressing warning for CyclomaticComplexity as this method has too many if conditon to check Trigger Context
+   */
+  @SuppressWarnings('PMD.CognitiveComplexity, PMD.CyclomaticComplexity')
+  private void setObjectEventName() {
+    // set current trigger execution context
+    if (Trigger.isExecuting) {
+      if (Trigger.isBefore && Trigger.isInsert) {
+        this.context = TriggerContext.BEFORE_INSERT;
+      } else if (Trigger.isBefore && Trigger.isUpdate) {
+        this.context = TriggerContext.BEFORE_UPDATE;
+      } else if (Trigger.isBefore && Trigger.isDelete) {
+        this.context = TriggerContext.BEFORE_DELETE;
+      } else if (Trigger.isAfter && Trigger.isInsert) {
+        this.context = TriggerContext.AFTER_INSERT;
+      } else if (Trigger.isAfter && Trigger.isUpdate) {
+        this.context = TriggerContext.AFTER_UPDATE;
+      } else if (Trigger.isAfter && Trigger.isDelete) {
+        this.context = TriggerContext.AFTER_DELETE;
+      } else if (Trigger.isAfter && Trigger.isUndelete) {
+        this.context = TriggerContext.AFTER_UNDELETE;
+      }
+    }
+
+    this.objectEventName = this.objectType + '-' + this.context;
   }
   /**
    * @description Calls the applicable override methods such as beforeInsert, beforeUpdate etc. based on a Trigger context
@@ -112,7 +217,6 @@ public virtual with sharing class Lib_TriggerHandler {
       }
     }
   }
-
   /**
    * @description Handle the before trigger calls
    */
@@ -139,6 +243,36 @@ public virtual with sharing class Lib_TriggerHandler {
       handleAfterUndelete();
     }
   }
+  /**
+   * @description Get LIMIT INFO and send log with contextId as traceId and loopCountMap
+   */
+  private void logTriggerRecursion() {
+    lib_systemLog log = new lib_systemLog(
+      Lib_TriggerHandler.class.getName(),
+      'logTriggerRecursion'
+    );
+
+    log.info(
+      'CPU Time: ' +
+      System.Limits.getCpuTime() +
+      '; Limit CPU Time: ' +
+      System.Limits.getLimitCpuTime() +
+      '; Heap Size: ' +
+      System.Limits.getHeapSize() +
+      '; Limit Heap Size: ' +
+      System.Limits.getLimitHeapSize() +
+      '; Loop Count Map: ' +
+      JSON.serialize(Lib_TriggerHandler.loopCountMap) +
+      '; Reason for logging: Trigger handler exceeds max loop count',
+      Lib_TriggerHandler.contextId
+    );
+    log.insertLogAsync();
+  }
+
+  /***************************************
+   * context methods for override
+   ***************************************/
+
   /**
    * @description Base handler for the Apex Trigger event Before Insert, calls the onApplyDefaults method, followed by onBeforeInsert
    **/
@@ -249,5 +383,70 @@ public virtual with sharing class Lib_TriggerHandler {
       UserInfo.getUserId()
     );
     return settings.Disable_Triggers__c;
+  }
+
+  /**
+   * @description inner class for managing the loop count per handler
+   */
+  private class LoopCount {
+    private Integer max;
+    private Integer count;
+
+    /**
+     * @description default constructor to initialize a new loop count in current transaction, default max loop count set to 10
+     */
+    public LoopCount() {
+      this(10);
+    }
+
+    /**
+     * @description constructor to initialize a new loop count with user defined max count in current transaction
+     * @param max max loop count allowed for an handler
+     */
+    public LoopCount(Integer max) {
+      this.max = max;
+      this.count = 1;
+    }
+
+    /**
+     * @description increse current loop count for a givien handler event
+     * @return Boolean current handler event loop status, if has exceeded defined max count
+     */
+    public Boolean increment() {
+      this.count++;
+      return this.exceeded();
+    }
+
+    /**
+     * @description decide current handler event loop status, if has exceeded defined max count
+     * @return Boolean true if exceeded defined max loop count
+     */
+    public Boolean exceeded() {
+      return this.max >= 0 && this.count > this.max;
+    }
+
+    /**
+     * @description get defined max loop count
+     * @return Integer max loop count defined in one transcation
+     */
+    public Integer getMax() {
+      return this.max;
+    }
+
+    /**
+     * @description get current loop count for a given handler event
+     * @return Integer current handler event loop count in one transcation
+     */
+    public Integer getCount() {
+      return this.count;
+    }
+
+    /**
+     * @description set custom max loop count
+     * @param max max loop count
+     */
+    public void setMax(Integer max) {
+      this.max = max;
+    }
   }
 }

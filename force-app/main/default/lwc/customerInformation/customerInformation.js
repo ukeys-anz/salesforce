@@ -18,7 +18,6 @@ import CP_ID from "@salesforce/schema/Case.CPID__c";
 import ID_FIELD from "@salesforce/schema/Case.Id";
 
 export default class CustomerInformation extends LightningElement {
-  isCustomerDataBeUpdated = false;
   @track loaded = true;
   @track customerInfo;
   @track showMore = false;
@@ -28,6 +27,9 @@ export default class CustomerInformation extends LightningElement {
   @track rmDetailsError;
   @api showAsGrid;
   @api custIdentifier;
+  firstName;
+  lastName;
+
   @api
   get customerId() {
     return this._customerId;
@@ -75,12 +77,8 @@ export default class CustomerInformation extends LightningElement {
             ? "Individual"
             : "Business";
         this.customerInfo = customerData1;
-        if (
-          customerData1.first_name == null &&
-          customerData1.last_name == null
-        ) {
-          this.isCustomerDataBeUpdated = true;
-        }
+        this.firstName = customerData1.first_name;
+        this.lastName = customerData1.last_name;
       }
     } else if (error) {
       this.handleError(error);
@@ -106,27 +104,29 @@ export default class CustomerInformation extends LightningElement {
     fields[EMAIL_FIELD.fieldApiName] = this.customerInfo.email;
 
     const recordInput = { fields };
-    updateRecord(recordInput)
-      .then(() => {
-        this.dispatchEvent(
-          new ShowToastEvent({
-            title: "Success",
-            message: "Customer name is updated ",
-            variant: "success"
-          })
-        );
-        // Display fresh data in the form
-        return refreshApex(this.record);
-      })
-      .catch((error) => {
-        this.dispatchEvent(
-          new ShowToastEvent({
-            title: "Error creating record",
-            message: error.body.message,
-            variant: "error"
-          })
-        );
-      });
+    if (this.recordId) {
+      updateRecord(recordInput)
+        .then(() => {
+          this.dispatchEvent(
+            new ShowToastEvent({
+              title: "Success",
+              message: "Customer name is updated ",
+              variant: "success"
+            })
+          );
+          // Display fresh data in the form
+          return refreshApex(this.record);
+        })
+        .catch((error) => {
+          this.dispatchEvent(
+            new ShowToastEvent({
+              title: "Error creating record",
+              message: error.body.message,
+              variant: "error"
+            })
+          );
+        });
+    }
   }
 
   custData(customerId, custIdentifier) {
@@ -222,7 +222,12 @@ export default class CustomerInformation extends LightningElement {
         this.loaded = true;
         this.customerInfo = customerData;
         this.showMore = true;
-        if (this.isCustomerDataBeUpdated === true) {
+        if (
+          (customerData.first_name !== undefined &&
+            this.firstName !== customerData.first_name) ||
+          (customerData.last_name !== undefined &&
+            this.lastName !== customerData.last_name)
+        ) {
           this.updateCustomerDetailsonCase();
         }
         this.dispatchEvent(

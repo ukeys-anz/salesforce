@@ -50,7 +50,7 @@ echoMessageCreator "" $stepNo false
 # if the installation has been finished or not. 
 # every 3 mins, it will check it again, until it is finished and then will remove the copy file
 cp ./bash-scripts/sfdxCommandJsonInfo.js ./bash-scripts/managedPackages.js
-echo -e "executeOutput('managedPackages')" >> ./bash-scripts/managedPackages.js
+echo -e "executeFunctionArgs('managedPackages')" >> ./bash-scripts/managedPackages.js
 waitToInstallPackages=false;
 
 echoMessageCreator "waiting step for a command" $stepNo true
@@ -91,7 +91,7 @@ echoMessageCreator "" $stepNo false
 # how many snapshots do we have. if it is 5, then user is needed to delete one.
 # after executing the number of snapshots, the copy file will be removed.
 cp ./bash-scripts/sfdxCommandJsonInfo.js ./bash-scripts/snapshot.js
-echo -e "executeOutput('snapshot')" >> ./bash-scripts/snapshot.js
+echo -e "executeFunctionArgs('snapshot')" >> ./bash-scripts/snapshot.js
 scratchOrgsCount=$(node ./bash-scripts/snapshot.js);
 rm -rf ./bash-scripts/snapshot.js
 
@@ -124,25 +124,29 @@ sfdx force:org:snapshot:create -n $name -d "Snapshot from $developCommitSHA" -o 
 echoMessageCreator "" $stepNo false
 #######################
 
-# make new pr into develop
-echoMessageCreator "make a new pr into develop" $stepNo true
-CURRENT_DATE="$(date +%F)"
-branch=feature/new-snapshot-"${CURRENT_DATE//-}"
-git checkout -b $branch
-snapshotTemplate='{\n\t"orgName": "ANZx",\n\t"snapshot": "'$name'"\n}'
+read -rp "Do you want to make a PR into develop (y/n)? " makePrFlag
+if [[ $makePrFlag == y || $makePrFlag == Y ]]; then
 
-echo -ne $snapshotTemplate > config/snapshot-scratch-def-template.json
-echo "${green}"
+    # make new pr into develop
+    echoMessageCreator "make a new pr into develop" $stepNo true
+    CURRENT_DATE="$(date +%F)"
+    branch=feature/new-snapshot-"${CURRENT_DATE//-}"
+    git checkout -b $branch
+    snapshotTemplate='{\n\t"orgName": "ANZx",\n\t"snapshot": "'$name'"\n}'
 
-read -rp "Do you want to push it (y/n)? " pushPR
-if [[ $pushPR == y || $pushPR == Y ]]; then
-    echo "${reset}"
-    git add .
-    git commit -m "[ANZX-0000] New snapshot"
-    git push origin $branch
-    open https://github.com/anzx/salesforce/compare/develop...$branch || start https://github.com/anzx/salesforce/compare/develop...$branch
-else
-    echo -ne "${green}\nSnapshot has been made, PR has not been pushed."
+    echo -ne $snapshotTemplate > config/snapshot-scratch-def-template.json
+    echo "${green}"
+
+    read -rp "Do you want to push it (y/n)? " pushPR
+    if [[ $pushPR == y || $pushPR == Y ]]; then
+        echo "${reset}"
+        git add .
+        git commit -m "[ANZX-0000] New snapshot"
+        git push origin $branch
+        open https://github.com/anzx/salesforce/compare/develop...$branch || start https://github.com/anzx/salesforce/compare/develop...$branch
+    else
+        echo -ne "${green}\nSnapshot has been made, PR has not been pushed."
+    fi
+    echoMessageCreator "" $stepNo false
+    #########################
 fi
-echoMessageCreator "" $stepNo false
-#########################

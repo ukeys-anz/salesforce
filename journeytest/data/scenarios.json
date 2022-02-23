@@ -6,8 +6,8 @@
       "description": "Verify an existing case based on case number",
       "customer": "001",
       "cases": {
-        "action": "create",
-        "id": "001"
+        "create": "001",
+        "edit": "002"
       },
       "accounts": [
         {
@@ -22,13 +22,64 @@
       "card": "001"
     },
     {
+      "id": "scenario_003",
+      "name": "Case Creation - General Enquiry",
+      "description": "Verify the General Enquiry case creation functionality",
+      "customer": "001",
+      "cases": {
+        "create": "002",
+        "edit": "005"
+      },
+      "accounts": []
+    },
+    {
+      "id": "scenario_002",
+      "name": "Case Creation - ANZx Complaints",
+      "description": "Verify the ANZx Complaints case creation functionality",
+      "customer": "001",
+      "cases": {
+        "create": "003",
+        "edit": "003"
+      },
+      "accounts": []
+    },
+    {
+      "id": "scenario_002_1",
+      "name": "Case Creation - ANZx Complaints",
+      "description": "Verify the ANZx Complaints case creation functionality - Change Owner",
+      "customer": "001",
+      "cases": {
+        "edit": "004"
+      },
+      "accounts": []
+    },
+    {
       "id": "scenarioCardVerification",
       "name": "Card Verification",
       "description": "Verify an existing card details of a customer",
       "customer": "001",
       "cases": {
-        "action": "verify",
-        "id": "002"
+        "verify": "002"
+      },
+      "accounts": [
+        {
+          "type": "EVERYDAY",
+          "id": "001"
+        },
+        {
+          "type": "SAVINGS",
+          "id": "001"
+        }
+      ],
+      "card": "003"
+    },
+    {
+      "id": "scenarioTransaction001",
+      "name": "Card Verification",
+      "description": "Verify an existing card details of a customer",
+      "customer": "001",
+      "cases": {
+        "verify": "002"
       },
       "accounts": [
         {

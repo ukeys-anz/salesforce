@@ -20,6 +20,12 @@ async function _utam_get_generalEnquiryChk(driver, root) {
   return _element.findElement(_locator);
 }
 
+async function _utam_get_anzxComplaint(driver, root) {
+  let _element = root;
+  const _locator = core.By.css(`input[name='ANZx_Complaint']`);
+  return _element.findElement(_locator);
+}
+
 async function _utam_get_nextButton(driver, root) {
   let _element = root;
   const _locator = core.By.css(`footer button:nth-of-type(2)`);
@@ -86,6 +92,7 @@ class LwcCaseCreation extends core.UtamBaseRootPageObject {
   constructor(driver, element, locator = core.By.css(`body`)) {
     super(driver, element, locator);
   }
+
   async __getRoot() {
     const driver = this.driver;
     const root = await this.getRootElement();
@@ -124,6 +131,17 @@ class LwcCaseCreation extends core.UtamBaseRootPageObject {
       core.ClickableUtamElement
     );
     let element = await _utam_get_generalEnquiryChk(driver, root);
+    element = new ClickableUtamElement(driver, element);
+    return element;
+  }
+
+  async getAnzxComplaint() {
+    const driver = this.driver;
+    const root = await this.getRootElement();
+    const ClickableUtamElement = core.createUtamMixinCtor(
+      core.ClickableUtamElement
+    );
+    let element = await _utam_get_anzxComplaint(driver, root);
     element = new ClickableUtamElement(driver, element);
     return element;
   }

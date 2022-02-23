@@ -160,6 +160,57 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>decorate</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>richTextValue</name>
+                    <value>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;color: rgb(238, 13, 13);&quot;&gt;You don&apos;t have access for this tab.&lt;/span&gt;&lt;/p&gt;</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:richText</componentName>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!$Permission.CustomPermission.IDR_Level_1}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>false</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>createQuickActionName</name>
+                    <value>NewCase</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>lookupFieldName</name>
+                    <value>Id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>titleFieldName</name>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>updateQuickActionName</name>
+                    <value>Case.Update_DEH_Complaint_Details</value>
+                </componentInstanceProperties>
+                <componentName>console:relatedRecord</componentName>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!$Permission.CustomPermission.IDR_Level_1}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-7fb1ce69-1196-4983-9c2a-acd7466e68a1</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
                     <name>active</name>
                     <value>true</value>
                 </componentInstanceProperties>
@@ -213,6 +264,19 @@
                 <componentName>flexipage:tab</componentName>
             </componentInstance>
         </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-7fb1ce69-1196-4983-9c2a-acd7466e68a1</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Hardship Complaint Management</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+            </componentInstance>
+        </itemInstances>
         <mode>Replace</mode>
         <name>sidebartabs</name>
         <type>Facet</type>
@@ -252,10 +316,20 @@
             <componentInstance>
                 <componentName>customerInformation</componentName>
                 <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Customer_Complaint</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>General_Inquiry_CMOS</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Customer_Number__c}</leftValue>
+                        <operator>NE</operator>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -267,6 +341,18 @@
                     <value>RECORD</value>
                 </componentInstanceProperties>
                 <componentName>forceChatter:publisher</componentName>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>forceKnowledge:articleSearchDesktop</componentName>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>Customer_Complaint</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
