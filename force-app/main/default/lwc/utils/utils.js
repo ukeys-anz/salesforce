@@ -78,13 +78,10 @@ export function handleGoalThemes(goalList) {
         //If goal is unspecified, assign the image of "something else"
         if (goal.goal.theme === "GOAL_THEME_UNSPECIFIED") {
           goal.image = `${goal_themes}/GOAL_THEME_SOMETHING_ELSE.png`;
-        } else {
+        } else if (goal.goal.theme !== "GOAL_THEME_CUSTOM") {
           goal.image = `${goal_themes}/${goal.goal.theme}.png`;
         }
-      } else if (
-        goal?.goal?.emoji?.value ||
-        goal.goal.theme === "GOAL_THEME_CUSTOM"
-      ) {
+      } else if (goal?.goal?.emoji?.value) {
         goal.emoji = goal.goal.emoji.value;
       } else {
         goal.image = `${goal_themes}/GOAL_THEME_SOMETHING_ELSE.png`;

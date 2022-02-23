@@ -51,7 +51,7 @@ export default class FinancialGoals extends NavigationMixin(LightningElement) {
   renderedCallback() {
     if (!this.hasRendered) {
       //If we get a preselected goal, mark it as active on screen
-      if (this.goalData?.goalList?.length > 1) {
+      if (this.goalList?.length > 1) {
         if (this.preselectedGoal) {
           let goal = this.template.querySelector(
             `div[data-id="${this.preselectedGoal}"]`
