@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR_22_Prevent_3rd_Party_Case_Creation</fullName>
+    <active>true</active>
+    <description>This validation blocks 3rd Party Mobile Support Team from creating general enquiry cases.</description>
+    <errorConditionFormula>AND(
+        $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+        AND(
+            $UserRole.DeveloperName  = &apos;X3rd_Party_Mobile_Support_Team&apos;,
+            ISNEW() = true
+            )
+        )
+    </errorConditionFormula>
+    <errorMessage>You do not have permission to create Cases.</errorMessage>
+</ValidationRule>

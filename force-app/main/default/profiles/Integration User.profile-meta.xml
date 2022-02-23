@@ -287,9 +287,4 @@
         <enabled>false</enabled>
         <name>EnforceMutualAuthentication</name>
     </userPermissions>
-    <loginIpRanges>
-        <description>IP range restriction for Odaseva</description>
-        <endAddress>13.211.189.52</endAddress>
-        <startAddress>13.211.48.246</startAddress>
-    </loginIpRanges>
 </Profile>

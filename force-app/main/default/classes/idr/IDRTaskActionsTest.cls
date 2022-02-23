@@ -187,4 +187,33 @@ private with sharing class IDRTaskActionsTest {
       system.assertEquals(IDRConstants.TASK_STATUS_COMPLETED, task.Status);
     }
   }
+
+  @isTest
+  static void testSystemTaskUpdate() {
+    Task[] newTasks = new List<Task>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newTasks.add(
+        new Task(
+          RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID,
+          Priority = 'Normal',
+          Subject = 'Test Subject',
+          Description = 'Test description '
+        )
+      );
+    }
+    insert newTasks;
+    Test.startTest();
+    for (Task t : newTasks) {
+      t.Subject = 'New Test Subject';
+    }
+    List<Database.SaveResult> results = Database.Update(newTasks, false);
+    Test.stopTest();
+
+    for (Database.SaveResult result : results) {
+      system.assertEquals(
+        'You are not authorized to make updates to this record.',
+        result.errors[0].getMessage()
+      );
+    }
+  }
 }

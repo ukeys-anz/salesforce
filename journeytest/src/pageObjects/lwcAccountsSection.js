@@ -18,6 +18,7 @@ class LwcAccountsSection extends core.UtamBaseRootPageObject {
   constructor(driver, element, locator = core.By.css(`slot`)) {
     super(driver, element, locator);
   }
+
   async __getRoot() {
     const driver = this.driver;
     const root = await this.getRootElement();

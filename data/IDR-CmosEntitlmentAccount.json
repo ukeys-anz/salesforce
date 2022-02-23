@@ -7,7 +7,8 @@
       },
       "Name": "Complaint Entitlement Account",
       "OCV_ID__c": "18234567",
-      "ANZx_Customer__c": false
+      "ANZx_Customer__c": false,
+      "AR_C_Customer__c": true
     }
   ]
 }
