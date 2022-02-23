@@ -27,7 +27,7 @@
   },
   "enrichment_id": "Payment to place with card",
   "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
-  "merchantId": { "value": "M12345" },
+  "merchant_id": { "value": "M12345" },
   "tags": ["T12345"],
   "type": "TRANSACTION_TYPE_CARD",
   "card": {

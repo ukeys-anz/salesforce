@@ -146,6 +146,32 @@ export default class TransactionHistoryRecord extends NavigationMixin(
     return this.transactionRecord.transaction_time;
   }
 
+  get sourceClass() {
+    if (this.transactionRecord?.source_image?.includes("EVERYDAY_ACCOUNT")) {
+      return "source-everyday-account";
+    }
+    return "source-image";
+  }
+
+  get destinationClass() {
+    if (
+      this.transactionRecord?.destination_image?.includes("EVERYDAY_ACCOUNT")
+    ) {
+      return "destination-everyday-account";
+    }
+    return "destination-image";
+  }
+
+  get logoClass() {
+    if (this.transactionRecord?.logo?.includes("SAVINGS_JAR")) {
+      return "savings-jar";
+    }
+    if (this.transactionRecord?.logo?.includes("LOGO_DEFAULT")) {
+      return "logo-default";
+    }
+    return "logo-image";
+  }
+
   handleDetailsToggle() {
     this.showTransactionDetails = !this.showTransactionDetails;
   }

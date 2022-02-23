@@ -109,3 +109,7 @@ force-app/main/default/duplicateRules/
 force-app/main/default/matchingRules/
 force-app/main/default/entitlementProcesses/
 force-app/main/default/transactionSecurityPolicies
+
+# temporary virtual goals forceignore; remove before merging epic
+force-app/main/default/classes/UpdateFinancialAccounts.cls
+force-app/main/default/classes/UpdateFinancialAccounts.cls-meta.xml

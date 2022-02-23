@@ -1,0 +1,250 @@
+<template>
+  <article class="financialAccount slds-card">
+    <h1 class="card-title" data-id="component-title">
+      <lightning-icon
+        icon-name={titleIcon}
+        size="medium"
+        class="slds-m-right_small"
+      ></lightning-icon>
+      {componentTitle}
+    </h1>
+    <template if:true={displayContent}>
+      <template if:true={accountDetails}>
+        <template for:each={accountDetails} for:item="finAccount">
+          <div
+            class="slds-card__body slds-card__body_inner"
+            key={finAccount.Id}
+            data-id="fin-account"
+          >
+            <article class="slds-card">
+              <template if:false={savingsJar}>
+                <div class="slds-grid">
+                  <header class="slds-has-flexi-truncate">
+                    <h2 class="slds-card__header-title">
+                      <a
+                        onclick={navigateToRecordViewPage}
+                        data-id={finAccount.Id}
+                        class="slds-truncate"
+                        title={finAccount.Name}
+                      >
+                        <span>{finAccount.Name}</span>
+                      </a>
+                      <span class={finAccount.badgeClass}
+                        >{finAccount.FinServ__Status__c}</span
+                      >
+                    </h2>
+                  </header>
+                </div>
+                <div class="slds-grid slds-wrap">
+                  <div class="slds-col slds-grid slds-size_1-of-1">
+                    <div class="slds-grid slds-wrap slds-size_1-of-1">
+                      <div
+                        class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-var-p-around_small"
+                      >
+                        <div class="header-column">
+                          <p class="slds-text-color_weak">Account Number</p>
+                          <p class="slds-text-heading_medium">
+                            {finAccount.FinServ__FinancialAccountNumber__c}
+                          </p>
+                        </div>
+                      </div>
+                      <div
+                        class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-var-p-around_small balance-padding"
+                      >
+                        <div class="header-column slds-float_right">
+                          <p class="slds-text-color_weak">
+                            {balanceTitle}
+                            <lightning-icon
+                              icon-name="utility:info"
+                              size="xx-small"
+                              class="tooltip"
+                              onclick={handleInfoModal}
+                            ></lightning-icon>
+                          </p>
+                          <p class="slds-text-heading_large">
+                            <lightning-formatted-number
+                              value={finAccount.FinServ__Balance__c}
+                              format-style="currency"
+                              data-id="amount"
+                            ></lightning-formatted-number>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </template>
+              <template if:true={savingsJar}>
+                <div class="slds-grid">
+                  <header class="slds-has-flexi-truncate">
+                    <h2 class="slds-card__header-title">
+                      <a
+                        onclick={navigateToRecordViewPage}
+                        data-id={finAccount.Id}
+                        class="slds-truncate"
+                        title={finAccount.Name}
+                      >
+                        <span>{finAccount.Name}</span>
+                      </a>
+                      <span class={finAccount.badgeClass}
+                        >{finAccount.FinServ__Status__c}</span
+                      >
+                    </h2>
+                  </header>
+                </div>
+                <div class="slds-grid slds-wrap">
+                  <div class="slds-col slds-grid slds-size_1-of-1">
+                    <div class="slds-grid slds-wrap slds-size_1-of-1">
+                      <div
+                        class="slds-col slds-size_1-of-1 slds-large-size_1-of-4 slds-var-p-around_small vertical-align"
+                      >
+                        <div class="header-column">
+                          <p class="slds-text-color_weak">Account Number</p>
+                          <p class="slds-text-heading_medium">
+                            {finAccount.FinServ__FinancialAccountNumber__c}
+                          </p>
+                        </div>
+                      </div>
+                      <div
+                        class="slds-col slds-size_1-of-1 slds-large-size_1-of-4 slds-var-p-around_small balance-padding vertical-align"
+                      >
+                        <div class="header-column slds-float_right">
+                          <p class="slds-text-color_weak">
+                            {balanceTitle}
+                            <lightning-icon
+                              icon-name="utility:info"
+                              size="xx-small"
+                              class="tooltip"
+                              onclick={handleInfoModal}
+                            ></lightning-icon>
+                          </p>
+                          <p class="slds-text-heading_large">
+                            <lightning-formatted-number
+                              value={finAccount.FinServ__Balance__c}
+                              format-style="currency"
+                              data-id="amount"
+                            ></lightning-formatted-number>
+                          </p>
+                        </div>
+                      </div>
+                      <div
+                        class="slds-col slds-size_1-of-1 slds-large-size_1-of-4 slds-var-p-around_small slds-border_left slds-text-align_center"
+                      >
+                        <p class="slds-text-color_weak">
+                          {savingsJar.goal.name}
+                        </p>
+                        <template if:true={savingsJar.image}>
+                          <img
+                            class="savings-jar"
+                            src={savingsJar.image}
+                            width="90%"
+                          />
+                        </template>
+                      </div>
+                      <div
+                        class="slds-col slds-size_1-of-1 slds-large-size_1-of-4 slds-var-p-around_small balance-padding vertical-align"
+                      >
+                        <div class="header-column slds-float_right">
+                          <p class="slds-text-color_weak">
+                            Total Saved
+                            <lightning-icon
+                              icon-name="utility:info"
+                              size="xx-small"
+                              class="tooltip"
+                              onclick={handleInfoModal}
+                            ></lightning-icon>
+                          </p>
+                          <p class="slds-text-heading_large">
+                            <lightning-formatted-number
+                              value={savingsJar.balance.value}
+                              format-style="currency"
+                              data-id="amount"
+                            ></lightning-formatted-number>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </template>
+              <footer class="slds-card__footer account-footer">
+                <span class="lastUpdated">Last Updated {timestamp}</span>
+              </footer>
+            </article>
+          </div>
+        </template>
+      </template>
+      <template if:false={accountDetails}>
+        <h1 class="slds-card__header-title slds-text-align_center">
+          <span class="not-found" data-id="no-accounts"
+            >No {accountType} Accounts</span
+          >
+        </h1>
+      </template>
+    </template>
+    <template if:false={displayContent}>
+      <div class="slds-grid">
+        <p class="message-padding">
+          Don’t worry, it’s not broken. To view this you need a higher
+          permission level.
+        </p>
+      </div>
+    </template>
+  </article>
+  <template if:true={showInfoModal}>
+    <section role="dialog" class="slds-modal slds-fade-in-open">
+      <div class="slds-modal__container">
+        <header class="slds-modal__header modal-header">
+          <lightning-icon
+            icon-name="utility:close"
+            onclick={handleInfoModal}
+            class="slds-button slds-button_icon slds-modal__close close-modal"
+          ></lightning-icon>
+          <h2 class="slds-modal__title slds-hyphenate">
+            What does {balanceTitle} mean?
+          </h2>
+        </header>
+        <div class="slds-modal__content slds-p-around_medium">
+          <span>
+            <p class="slds-text-title_bold">
+              The amount shown is indicative of the amount you may be able to
+              use but may not be what is actually available.
+            </p>
+            <br />
+            The amount shown is indicative of the amount you may be able to use
+            in your {productTitle} account. This amount, when shown at an ATM or
+            on a receipt, may have a different label such as 'Funds' or
+            'Balance'. Regardless, the amount shown may not be what is actually
+            available because:
+            <ul class="slds-list_dotted slds-m-top_medium slds-m-bottom_medium">
+              <li>
+                some transactions may not have updated the amount shown (e.g.
+                reversals)
+              </li>
+              <li>
+                some transactions may have updated the amount shown but are not
+                yet fully processed (e.g. pending transactions), and/or
+              </li>
+              <li>
+                we may not process transactions at the time, on the day or in
+                the order that they are made.
+              </li>
+            </ul>
+            If you proceed with a transaction when there may be insufficient
+            funds, your account may go overdrawn or the transaction may be
+            declined.
+          </span>
+        </div>
+        <footer class="slds-modal__footer">
+          <button
+            class="slds-button slds-button_neutral"
+            onclick={handleInfoModal}
+          >
+            Close
+          </button>
+        </footer>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+  </template>
+</template>
