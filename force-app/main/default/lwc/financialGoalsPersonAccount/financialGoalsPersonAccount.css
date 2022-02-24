@@ -93,11 +93,10 @@
 }
 
 .emoji {
-  font-size: 80px;
+  font-size: 4.98vw;
   position: relative;
-  /* Match height of images used */
-  height: 140.8px;
   top: 17px;
+  padding-bottom: 15px;
 }
 
 .slds-border_right:last-child {
