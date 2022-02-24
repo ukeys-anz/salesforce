@@ -74,11 +74,11 @@ export function handleGoalThemes(goalList) {
       goal.image = `${goal_themes}/SAVINGS_JAR.png`;
     } else {
       //Check if goal has theme otherwise use default
-      if (goal?.goal?.theme) {
+      if (goal?.goal?.theme && goal.goal.theme !== "GOAL_THEME_CUSTOM") {
         //If goal is unspecified, assign the image of "something else"
         if (goal.goal.theme === "GOAL_THEME_UNSPECIFIED") {
           goal.image = `${goal_themes}/GOAL_THEME_SOMETHING_ELSE.png`;
-        } else if (goal.goal.theme !== "GOAL_THEME_CUSTOM") {
+        } else {
           goal.image = `${goal_themes}/${goal.goal.theme}.png`;
         }
       } else if (goal?.goal?.emoji?.value) {
