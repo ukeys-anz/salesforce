@@ -113,6 +113,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.IDR_AFCA_EDR_impact__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.IDR_3rdParty_Suburb__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -228,6 +233,31 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.IDR_Description_of_Outcome__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.IDR_DEH_Current_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.IDR_DEH_Date_information_due__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.IDR_DEH_Date_information_request_sent__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.IDR_DEH_Response_Due__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.IDR_DEH_Date_information_received__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

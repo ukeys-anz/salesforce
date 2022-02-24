@@ -1032,6 +1032,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.IDR_AFCA_EDR_impact__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.IDR_AFCA_Reference_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1972,6 +1977,31 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.IDR_SwicthOff_3rd_Party_Notification__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_DEH_Date_information_received__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.IDR_DEH_Current_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.IDR_DEH_Date_information_due__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_DEH_Date_information_request_sent__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.IDR_DEH_Response_Due__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3476,6 +3506,10 @@
     <layoutAssignments>
         <layout>Case-Fraud Layout</layout>
         <recordType>Case.Fraud</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-General Inquiry CMOS Layout</layout>
+        <recordType>Case.General_Inquiry_CMOS</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Case-General Inquiry Layout</layout>
