@@ -7,7 +7,7 @@
     {
       "name": "selectAccountFiler",
       "selector": {
-        "css": "button[title='Select List View']"
+        "css": "button[title='Select a List View']"
       },
       "public": true,
       "type": "clickable"

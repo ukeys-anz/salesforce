@@ -24,6 +24,7 @@ class LwcLoginPage extends core.UtamBaseRootPageObject {
   constructor(driver, element, locator = core.By.css(`body`)) {
     super(driver, element, locator);
   }
+
   async __getRoot() {
     const driver = this.driver;
     const root = await this.getRootElement();
