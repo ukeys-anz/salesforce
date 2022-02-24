@@ -531,6 +531,26 @@
                 <default>false</default>
                 <label>Enforcement proceedings</label>
             </value>
+            <value>
+                <fullName>99</fullName>
+                <default>false</default>
+                <label>Service Quality</label>
+            </value>
+            <value>
+                <fullName>100</fullName>
+                <default>false</default>
+                <label>Investment Performance</label>
+            </value>
+             <value>
+                <fullName>101</fullName>
+                <default>false</default>
+                <label>Fees and Charges</label>
+            </value>
+            <value>
+                <fullName>102</fullName>
+                <default>false</default>
+                <label>Not in Customer Best Interest</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>19</controllingFieldValue>
@@ -644,6 +664,22 @@
         <valueSettings>
             <controllingFieldValue>1</controllingFieldValue>
             <valueName>53</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>1</controllingFieldValue>
+            <valueName>99</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>1</controllingFieldValue>
+            <valueName>100</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>1</controllingFieldValue>
+            <valueName>101</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>1</controllingFieldValue>
+            <valueName>102</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>7</controllingFieldValue>
