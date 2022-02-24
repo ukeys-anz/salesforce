@@ -1,17 +1,16 @@
-import SfCards from "../scenarios/cards";
-import SfLogin from "../scenarios/login";
+import SfCards from "../common/cards";
+import SfLogin from "../common/login";
 import LwcCustomerDetails from "../pageObjects/lwcCustomerDetails";
-import SfNavigation from "../scenarios/navigation";
-import data from "../../testdata.json";
-import SfAccounts from "../scenarios/accounts";
-import SfPageUtils from "../common/sfUtils";
+import SfNavigation from "../common/navigation";
+import SfAccounts from "../common/accounts";
+import SfPageUtils from "../utils/sfUtils";
 
 describe("Cards verification", () => {
   it("Login as a Coach User", async () => {
     //Login
     browser.maximizeWindow();
     let sfLogin = new SfLogin();
-    await sfLogin.salesForceLogin(data.envToTest, "coach");
+    await sfLogin.salesForceLogin("coach");
 
     //Close all tabs
     await browser.pause(5000);

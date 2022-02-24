@@ -15,19 +15,49 @@ exports.config = {
   // according to your user and key information. However, if you are using a private Selenium
   // backend you should define the host address, port, and path here.
   //
-  runner: "local",
   hostname: "localhost",
   port: 9515,
   path: "/",
   //
 
+  //
   // ====================
   // Runner Configuration
   // ====================
   //
   // WebdriverIO allows it to run your tests in arbitrary locations (e.g. locally or
   // on a remote machine).
+  runner: "local",
   //
+
+  //
+  // =====================
+  // ts-node Configurations
+  // =====================
+  //
+  // You can write tests using TypeScript to get autocompletion and type safety.
+  // You will need typescript and ts-node installed as devDependencies.
+  // WebdriverIO will automatically detect if these dependencies are installed
+  // and will compile your config and tests for you.
+  // If you need to configure how ts-node runs please use the
+  // environment variables for ts-node or use wdio config's autoCompileOpts section.
+  //
+
+  autoCompileOpts: {
+    autoCompile: true,
+    // see https://github.com/TypeStrong/ts-node#cli-and-programmatic-options
+    // for all available options
+    tsNodeOpts: {
+      transpileOnly: true,
+      project: "tsconfig.json"
+    }
+    // tsconfig-paths is only used if "tsConfigPathsOpts" are provided, if you
+    // do please make sure "tsconfig-paths" is installed as dependency
+    //tsConfigPathsOpts: {
+    //    baseUrl: './'
+    //}
+  },
+
   // ==================
   // Specify Test Files
   // ==================
@@ -37,7 +67,7 @@ exports.config = {
   // directory is where your package.json resides, so `wdio` will be called from there.
   //
   //specs: ["./build/src/test/*.js"],
-  specs: ["./build/src/test/transactions.spec.js"],
+  specs: ["./build/**/transactions.spec.js"],
   /*suites: {
     loginUtam: ["./build/src/test/*.js"]
   },*/
@@ -105,7 +135,7 @@ exports.config = {
   // Define all options that are relevant for the WebdriverIO instance here
   //
   // Level of logging verbosity: trace | debug | info | warn | error | silent
-  logLevel: "info",
+  logLevel: "debug",
   //
   // Set specific log levels per logger
   // loggers:
@@ -129,11 +159,13 @@ exports.config = {
   // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
   // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
   // gets prepended directly.
-  baseUrl: process.env.BASE_URL,
+  baseUrl: process.env.SALESFORCE_LOGIN_URL,
   //
   // Default timeout for all waitFor* commands.
   waitforTimeout: 10000,
   //
+  // optional parameter that sets the polling interval for explicit waits
+  waitforInterval: 200,
   // Default timeout in milliseconds for request
   // if browser driver or grid doesn't send response
   connectionRetryTimeout: 120000,
@@ -145,17 +177,20 @@ exports.config = {
   // Services take over a specific job you don't want to take care of. They enhance
   // your test setup with almost no effort. Unlike plugins, they don't add new
   // commands. Instead, they hook themselves up into the test process.
-  outputDir: "./all-logs",
-  services: [
-    [
-      "chromedriver",
-      {
-        logFileName: "wdio-chromedriver.log",
-        outputDir: "all-logs",
-        args: ["--silent"]
-      }
-    ]
-  ],
+  // services: [
+  //   [
+  //     "chromedriver",
+  //     {
+  //       logFileName: "wdio-chromedriver.log",
+  //       outputDir: "all-logs",
+  //       args: ["--silent"]
+  //     }
+  //   ]
+  // ],
+
+  // WebDriverIO doesn't allow setting an implicit timeout through config
+  // so we set it via UtamWdioService parameters
+  services: ["chromedriver", [UtamWdioService, {}]],
 
   // Framework you want to run your specs with.
   // The following are supported: Mocha, Jasmine, and Cucumber
@@ -193,6 +228,9 @@ exports.config = {
       }
     ]
   ],
+
+  outputDir: "./all-logs",
+  automationProtocol: "webdriver",
 
   //
   // Options to be passed to Mocha.
@@ -289,7 +327,14 @@ exports.config = {
   // afterHook: function (test, context, { error, result, duration, passed, retries }) {
   // },
   /**
-   * Function to be executed after a test (in Mocha/Jasmine).
+   * Function to be executed after a test (in Mocha/Jasmine only)
+   * @param {Object}  test             test object
+   * @param {Object}  context          scope object the test was executed with
+   * @param {Error}   result.error     error object in case the test fails, otherwise `undefined`
+   * @param {Any}     result.result    return object of test function
+   * @param {Number}  result.duration  duration of test
+   * @param {Boolean} result.passed    true if test has passed, otherwise false
+   * @param {Object}  result.retries   informations to spec related retries, e.g. `{ attempts: 0, limit: 0 }`
    */
   afterTest: function (
     test,
@@ -300,27 +345,13 @@ exports.config = {
       browser.takeScreenshot();
     }
   },
-
-  afterSuite: function (suite) {
-    cleanupTestData();
-  },
-  /**
-   * Gets executed after all tests are done. You still have access to all global variables from
-   * the test.
-   * @param {Number} result 0 - test pass, 1 - test fail
-   * @param {Array.<Object>} capabilities list of capabilities details
-   * @param {Array.<String>} specs List of spec file paths that ran
-   */
-
-  //utam config exports
-  services: ["chromedriver", [UtamWdioService, {}]]
-
   /**
    * Hook that gets executed after the suite has ended
    * @param {Object} suite suite details
    */
-  // afterSuite: function (suite) {
-  // },
+  afterSuite: function (suite) {
+    cleanupTestData();
+  }
   /**
    * Runs after a WebdriverIO command gets executed
    * @param {String} commandName hook command name

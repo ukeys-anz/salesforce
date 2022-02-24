@@ -1,27 +1,25 @@
 import LwcLogin from "../pageObjects/lwcLogin";
-import lwcLoginPage from "../pageObjects/lwcLoginPage";
 import TwilioLogin from "../pageObjects/twilioLogin";
-import data from "../../testdata.json";
 
 export default class SfLogin {
-  salesForceLogin = async (env: string, role: string) => {
+  salesForceLogin = async (role: string) => {
     //Open Url and login
-    await browser.url(data.environments.url);
+    await browser.url(process.env.SALESFORCE_LOGIN_URL!);
 
     const loginFormRoot = await utam.load(LwcLogin);
 
     switch (role) {
       case "coach":
         await loginFormRoot.submitForm(
-          data.users.coach.username,
-          data.users.coach.password
+          process.env.COACH_USERNAME!,
+          process.env.COACH_PASSWORD!
         );
         break;
 
       case "supportcoach":
         await loginFormRoot.submitForm(
-          data.users.supportcoach.username,
-          data.users.supportcoach.password
+          process.env.SUPPORT_COACH_USERNAME!,
+          process.env.SUPPORT_COACH_PASSWORD!
         );
         break;
     }
@@ -35,10 +33,10 @@ export default class SfLogin {
     const twilioPassElement = await twilioPageRoot.getPassword();
     const twilioSubmit = await twilioPageRoot.getNext();
 
-    await twilioEmailElement.setText(data.twilio[0].user);
+    await twilioEmailElement.setText(process.env.TWILIO_USERNAME!);
     await twilioSubmit.click();
     await browser.pause(2000);
-    await twilioPassElement.setText(data.twilio[0].pwd);
+    await twilioPassElement.setText(process.env.TWILIO_PASSWORD!);
     await twilioSubmit.click();
     await browser.pause(2000);
     await twilioSubmit.click();

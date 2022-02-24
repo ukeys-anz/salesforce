@@ -1,11 +1,10 @@
-import data from "../../testdata.json";
-import SfLogin from "../scenarios/login";
+import SfLogin from "../common/login";
 
 describe("Case Creation - General Enquiry", () => {
   it("Login as a Coach User", async () => {
     browser.maximizeWindow();
 
     let sfLogin = new SfLogin();
-    await sfLogin.salesForceLogin(data.envToTest, "coach");
+    await sfLogin.salesForceLogin("coach");
   });
 });

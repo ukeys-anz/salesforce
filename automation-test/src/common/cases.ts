@@ -1,6 +1,6 @@
 import LwcCaseCreation from "../pageObjects/lwcCaseCreation";
-import data from "../../testdata.json";
-import { ScenarioUtil } from "../common/scenarioUtil";
+import ScenarioUtil from "../utils/scenarioUtils";
+import customerData from "../data/customerData.json";
 
 export default class SfCases {
   createGenEnqCase = async (scenarioId: string) => {
@@ -17,11 +17,11 @@ export default class SfCases {
 
     const caseInputElement = await (await casePageRoot).getCustomerInput();
     const caseDropDown = await (await casePageRoot).getCustomerDropDown(
-      data.accounts[0].case_creation.name
+      customerData.customers[0].name
     );
 
     //Enter case creation fields
-    await caseInputElement.setText(data.accounts[0].case_creation.name);
+    await caseInputElement.setText(customerData.customers[0].name);
     await caseDropDown.click();
 
     //Channel Received
@@ -61,9 +61,9 @@ export default class SfCases {
     //Select Customer details
     const caseInputElement = await (await casePageRoot).getCustomerInput();
     const caseDropDown = await (await casePageRoot).getCustomerDropDown(
-      data.accounts[0].case_creation.name
+      customerData.customers[0].name
     );
-    await caseInputElement.setText(data.accounts[0].case_creation.name);
+    await caseInputElement.setText(customerData.customers[0].name);
     await caseDropDown.click();
 
     //Enter Case Information

@@ -1,15 +1,15 @@
 import LwcCustomerDetails from "../pageObjects/lwcCustomerDetails";
-import SfNavigation from "../scenarios/navigation";
-import SfLogin from "../scenarios/login";
-import SfAccounts from "../scenarios/accounts";
-import data from "../../testdata.json";
-import SfCustomer from "../scenarios/customer";
+import SfNavigation from "../common/navigation";
+import SfLogin from "../common/login";
+import SfAccounts from "../common/accounts";
+import SfCustomer from "../common/customer";
+import customerData from "../data/customerData.json";
 
 describe("Customer Verification", () => {
   it("Customer Information", async () => {
     browser.maximizeWindow();
     let sfLogin = new SfLogin();
-    await sfLogin.salesForceLogin(data.envToTest, "coach");
+    await sfLogin.salesForceLogin("coach");
 
     const customerPageRoot = await utam.load(LwcCustomerDetails);
     const navigationShowElement = await customerPageRoot.getNavigationShow();
@@ -20,7 +20,7 @@ describe("Customer Verification", () => {
 
     let sfAccountView = new SfAccounts();
     await sfAccountView.selectAccountFilter("All Accounts");
-    await sfAccountView.searchAccount(data.accounts[0].case_creation.name);
+    await sfAccountView.searchAccount(customerData.customers[0].name);
 
     let sfCustomerDetails = new SfCustomer();
     await sfCustomerDetails.verifyCustomerAccount();

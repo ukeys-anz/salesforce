@@ -1,10 +1,10 @@
-import scenariosData from "../../data/scenarios.json";
-import cardsData from "../../data/cardsData.json";
-import casesData from "../../data/casesData.json";
-import accountsData from "../../data/accountsData.json";
-import customerData from "../../data/customerData.json";
+import scenariosData from "../data/scenarios.json";
+import cardsData from "../data/cardsData.json";
+import casesData from "../data/casesData.json";
+import accountsData from "../data/accountsData.json";
+import customerData from "../data/customerData.json";
 
-export class ScenarioUtil {
+export default class ScenarioUtil {
   /**
    * Takes no parameters
    * @returns All the test scenarios

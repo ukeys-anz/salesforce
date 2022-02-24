@@ -1,18 +1,17 @@
-import SfLogin from "../scenarios/login";
-import data from "../../testdata.json";
-import SfPageUtils from "../common/sfUtils";
+import SfLogin from "../common/login";
+import SfPageUtils from "../utils/sfUtils";
 import LwcCustomerDetails from "../pageObjects/lwcCustomerDetails";
-import SfNavigation from "../scenarios/navigation";
-import SfAccounts from "../scenarios/accounts";
-import SfCustomer from "../scenarios/customer";
-import SfTransactions from "../scenarios/transactions";
+import SfNavigation from "../common/navigation";
+import SfAccounts from "../common/accounts";
+import SfCustomer from "../common/customer";
+import SfTransactions from "../common/transactions";
 
 describe("Transactions verification", () => {
   it("Login and search for a customer with a valid transactions", async () => {
     //Login
     browser.maximizeWindow();
     let sfLogin = new SfLogin();
-    await sfLogin.salesForceLogin(data.envToTest, "coach");
+    await sfLogin.salesForceLogin("coach");
 
     //Close all tabs
     await browser.pause(5000);

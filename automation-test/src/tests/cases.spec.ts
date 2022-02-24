@@ -1,9 +1,8 @@
 import LwcCustomerDetails from "../pageObjects/lwcCustomerDetails";
-import SfNavigation from "../scenarios/navigation";
-import data from "../../testdata.json";
-import SfLogin from "../scenarios/login";
-import SfCases from "../scenarios/cases";
-import SfPageUtils from "../common/sfUtils";
+import SfNavigation from "../common/navigation";
+import SfLogin from "../common/login";
+import SfCases from "../common/cases";
+import SfPageUtils from "../utils/sfUtils";
 
 describe("Case Creation - General Enquiry", () => {
   let caseNumber: string;
@@ -12,7 +11,7 @@ describe("Case Creation - General Enquiry", () => {
     browser.maximizeWindow();
 
     let sfLogin = new SfLogin();
-    await sfLogin.salesForceLogin(data.envToTest, "coach");
+    await sfLogin.salesForceLogin("coach");
     await browser.pause(2000);
     await SfPageUtils.closeAllTabsMain();
   });

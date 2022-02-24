@@ -1,9 +1,9 @@
-import SfLogin from "../scenarios/login";
+import SfLogin from "../common/login";
 
 describe("Customer Verification", () => {
   it("Login", async () => {
     const sfLogin = new SfLogin();
-    await sfLogin.salesForceLogin("testsandbox", "");
+    await sfLogin.salesForceLogin("");
   });
 
   it("Select Customer", () => {});

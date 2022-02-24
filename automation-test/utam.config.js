@@ -1,5 +1,5 @@
 module.exports = {
   pageObjectsRootDir: "./", // config file directory name
-  pageObjectsFileMask: ["src/__utam__/*.utam.json"],
+  pageObjectsFileMask: ["src/utam/**/*.utam.json"],
   pageObjectsOutputDir: "src/pageObjects"
 };

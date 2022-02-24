@@ -3,6 +3,8 @@ build/
 
 # logs
 all-logs/
+allure-report/
+allure-results/
 
 # node_modules
 node_modules/
