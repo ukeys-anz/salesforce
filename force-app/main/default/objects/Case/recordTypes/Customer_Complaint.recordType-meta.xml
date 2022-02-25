@@ -2930,6 +2930,29 @@
             <default>false</default>
         </values>
     </picklistValues>
+     <picklistValues>
+        <picklist>IDR_AFCA_EDR_impact__c</picklist>
+        <values>
+            <fullName>Enhance the IDR resolution</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Overturn the IDR resolution</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reinstate the IDR resolution</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incomplete IDR Resolution</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
     <picklistValues>
         <picklist>IDR_AFCA_Status__c</picklist>
         <values>
@@ -4886,6 +4909,18 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>96</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>97</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>98</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Digital only service</fullName>
             <default>false</default>
         </values>
@@ -5284,6 +5319,18 @@
             <fullName>95</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>96</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>97</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>98</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>IDR_Subsequent_Issue__c</picklist>
@@ -5661,6 +5708,18 @@
         </values>
         <values>
             <fullName>95</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>96</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>97</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>98</fullName>
             <default>false</default>
         </values>
         <values>

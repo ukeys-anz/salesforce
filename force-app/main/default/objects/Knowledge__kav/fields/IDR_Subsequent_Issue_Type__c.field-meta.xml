@@ -155,6 +155,10 @@
             <valueName>23</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>4</controllingFieldValue>
+            <valueName>96</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>17</controllingFieldValue>
             <valueName>24</valueName>
         </valueSettings>
@@ -173,6 +177,14 @@
         <valueSettings>
             <controllingFieldValue>17</controllingFieldValue>
             <valueName>28</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>17</controllingFieldValue>
+            <valueName>97</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>17</controllingFieldValue>
+            <valueName>98</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>6</controllingFieldValue>
