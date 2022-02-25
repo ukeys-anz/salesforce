@@ -1,4 +1,4 @@
-import SfLogin from "../common/login";
+import Auth from "../common/Auth";
 import SfPageUtils from "../utils/sfUtils";
 import LwcCustomerDetails from "../pageObjects/lwcCustomerDetails";
 import SfNavigation from "../common/navigation";
@@ -10,8 +10,7 @@ describe("Transactions verification", () => {
   it("Login and search for a customer with a valid transactions", async () => {
     //Login
     browser.maximizeWindow();
-    let sfLogin = new SfLogin();
-    await sfLogin.salesForceLogin("coach");
+    await Auth.loginSalesforce("Coach");
 
     //Close all tabs
     await browser.pause(5000);

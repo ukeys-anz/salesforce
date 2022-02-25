@@ -1,4 +1,4 @@
-import SfLogin from "../common/login";
+import Auth from "../common/Auth";
 import LwcCustomerDetails from "../pageObjects/lwcCustomerDetails";
 import SfNavigation from "../common/navigation";
 import SfAccounts from "../common/accounts";
@@ -7,10 +7,9 @@ import SfPageUtils from "../utils/sfUtils";
 
 describe("Cards verification", () => {
   it("Login and search for a customer with a valid card", async () => {
-    //Login
     await browser.maximizeWindow();
-    let sfLogin = new SfLogin();
-    await sfLogin.salesForceLogin("coach");
+
+    await Auth.loginSalesforce("Coach");
 
     //Close all tabs
     await browser.pause(5000);

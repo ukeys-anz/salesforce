@@ -1,0 +1,54 @@
+{
+  "root": true,
+  "selector": {
+    "css": "body"
+  },
+  "elements": [
+    {
+      "name": "appLauncher",
+      "selector": {
+        "css": "div[class*='appLauncher'][role='navigation']"
+      },
+      "type": "clickable",
+      "public": true
+    },
+    {
+      "name": "menu",
+      "selector": {
+        "css": "one-app-launcher-menu"
+      },
+      "shadow": {
+        "elements": [
+          {
+            "name": "searchBar",
+            "selector": {
+              "css": "one-app-launcher-search-bar"
+            },
+            "shadow": {
+              "elements": [
+                {
+                  "name": "lightningInput",
+                  "selector": {
+                    "css": "lightning-input"
+                  },
+                  "shadow": {
+                    "elements": [
+                      {
+                        "name": "searchInput",
+                        "selector": {
+                          "css": "input"
+                        },
+                        "type": "editable",
+                        "public": true
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

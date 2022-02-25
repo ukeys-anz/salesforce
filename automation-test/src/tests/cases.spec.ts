@@ -1,6 +1,6 @@
+import Auth from "../common/Auth";
 import LwcCustomerDetails from "../pageObjects/lwcCustomerDetails";
 import SfNavigation from "../common/navigation";
-import SfLogin from "../common/login";
 import SfCases from "../common/cases";
 import SfPageUtils from "../utils/sfUtils";
 
@@ -10,9 +10,10 @@ describe("Case Creation - General Enquiry", () => {
   it("Login as a Coach User", async () => {
     browser.maximizeWindow();
 
-    let sfLogin = new SfLogin();
-    await sfLogin.salesForceLogin("coach");
+    await Auth.loginSalesforce("Coach");
+
     await browser.pause(2000);
+
     await SfPageUtils.closeAllTabsMain();
   });
 

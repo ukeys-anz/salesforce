@@ -1,6 +1,6 @@
 import LwcCustomerDetails from "../pageObjects/lwcCustomerDetails";
 import SfNavigation from "../common/navigation";
-import SfLogin from "../common/login";
+import Auth from "../common/Auth";
 import SfAccounts from "../common/accounts";
 import SfCustomer from "../common/customer";
 import customerData from "../data/customerData.json";
@@ -8,8 +8,7 @@ import customerData from "../data/customerData.json";
 describe("Customer Verification", () => {
   it("Customer Information", async () => {
     browser.maximizeWindow();
-    let sfLogin = new SfLogin();
-    await sfLogin.salesForceLogin("coach");
+    await Auth.loginSalesforce("Coach");
 
     const customerPageRoot = await utam.load(LwcCustomerDetails);
     const navigationShowElement = await customerPageRoot.getNavigationShow();

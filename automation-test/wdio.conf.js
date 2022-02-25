@@ -67,7 +67,7 @@ exports.config = {
   // directory is where your package.json resides, so `wdio` will be called from there.
   //
   //specs: ["./build/src/test/*.js"],
-  specs: ["./build/**/transactions.spec.js"],
+  specs: ["./build/tests/cases.spec.js"],
   /*suites: {
     loginUtam: ["./build/src/test/*.js"]
   },*/
@@ -235,15 +235,6 @@ exports.config = {
   //
   // Options to be passed to Mocha.
   // See the full list at http://mochajs.org/
-  // mochaOpts: {
-  //   ui: "bdd",
-  //   timeout: 60000,
-  //   require: 'ts-node/register',
-  //       compilers: [
-  //           // optional
-  //           'tsconfig-paths/register'
-  //       ]
-  // },
   mochaOpts: {
     ui: "bdd",
     timeout: 600000,

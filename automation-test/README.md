@@ -1,18 +1,18 @@
 # Salesforce End-to-End Automation Testing
 
-**Note: To install the NPM packages on the ANZ network, proxy settings need to be configured. The below articles can assist you with this. The top article also handles the setup of Salesforce.**
+## UTAM - UI Test Automation Model
 
-- [Salesforce Setup (Initial Proxy Setup)](https://confluence.service.anz/display/ABT/How+to+get+setup+your+laptop+for+Salesforce+development)
+- UTAM is selected to test ANZx Salesforce practice, more documentation can be found [here](https://utam.dev)
 
-- [NPM Proxy setup](https://confluence.service.anz/display/~yero/NPM+Proxy+Setting)
+- UTAM Flow
+
+   <img src="./file/utam_flow.png" width="500">
 
 ## Project Structure
 
 ```txt
 ├── automation-test
-    ├── all-logs
     ├── build
-    ├── node_modules
     └── src
         ├── common
         ├── data
@@ -26,15 +26,27 @@
 
 ```
 
-- `tests` folder contains the test spec files and test running will look for those files for testing
+- `build` folder manages the complied code. Test runner will pickup code in this folder for running tests.
 
-- `utils` folder groups reusable methods
+- `src` folder contains the source code.
 
 - `common` folder contains specific interaction scnearios used in test spec files. Some of these scenario can be reused in different test spec files.
 
-- `utam` folder will be the place to maintain \*.utam.json and utam compiler will compile these files into page objects in pageObjects folder (git ignored)
+- `data` folder manages test data.
+
+- `tests` folder contains the test spec files and test running will look for those files for testing.
+
+- `utam` folder will be the place to maintain \*.utam.json and utam compiler will compile these files into page objects in pageObjects folder (git ignored).
+
+- `utils` folder groups reusable methods.
 
 ## Prerequisites
+
+**Note: To install the NPM packages on the ANZ network, proxy settings need to be configured. The below articles can assist you with this. The top article also handles the setup of Salesforce.**
+
+- [Salesforce Setup (Initial Proxy Setup)](https://confluence.service.anz/display/ABT/How+to+get+setup+your+laptop+for+Salesforce+development)
+
+- [NPM Proxy setup](https://confluence.service.anz/display/~yero/NPM+Proxy+Setting)
 
 ### chromedriver
 
@@ -44,7 +56,7 @@
   npm install -g chromedriver --detect_chromedriver_version
   ```
 
-OR, if above command does not work, follow below:
+  `OR`, if above command does not work, follow below:
 
 - Download Mac chromedriver from this [website](https://sites.google.com/chromium.org/driver/downloads). Ensure that the driver you downloaded is for the chrome version you have installed on your computer. If the driver and chrome version does not match the automation will fail.
 
@@ -68,26 +80,24 @@ OR, if above command does not work, follow below:
 
 - Before running the test locally, create a .env file under journeytest folder with following entries so the test script can login into the test environment with correct credentials.
 
+- Please update `./src/common/Auth.ts` and below sample with any missing test user credential env variables while contributing.
+
   ```txt
-  SALESFORCE_LOGIN_URL=test.salesforce.com
+  SALESFORCE_LOGIN_URL=https://test.salesforce.com
   SALESFORCE_ENV_BASE=
   COACH_USERNAME=
   COACH_PASSWORD=
-  COACH_LEAD_USERNAME=
-  COACH_LEAD_PASSWORD=
-  FRAUD_AGENT_USERNAME=
-  FRAUD_AGENT_PASSWORD=
-  TWILIO_USERNAME=
-  TWILIO_PASSWORD=
   ```
 
 - **`For now engineers need to get test users' credentials and store in .env file. Please be mindful and DO NOT commit these credentials. This practice will be replaced in the future once the security store integration for automation is ready`**
 
 - In .env file, the `SALESFORCE_ENV_BASE` variable is used to control in which org the test will be running. For now the only supported value is `test` as we will run the automation in test sandbox first.
 
-- The `SALESFORCE_ENV_BASE` also format the testing users' username. For exmaple: if `COACH_USERNAME` is `testusername@anzx.com`, `COACH_USERNAME` + `'.'` + `SALESFORCE_ENV_BASE` will format the username to `testusername@anzx.com.test` during automation auth process.
+- The `SALESFORCE_ENV_BASE` is also used to format the testing users' username at runtime. For exmaple: if `COACH_USERNAME` is `testusername@anzx.com`, the automation auth process will concatenate `COACH_USERNAME` + `'.'` + `SALESFORCE_ENV_BASE` and format the username to `testusername@anzx.com.test`.
 
 ## Run in Local
+
+**`Make sure steps in Prerequisites have been followed`**
 
 1. Switch to jorneytest folder if you are not in
 
@@ -119,22 +129,32 @@ OR, if above command does not work, follow below:
    npm run build
    ```
 
-6. (optional) ReBuild and update pageObjects files if any \*.utam.json files have been edited
+6. (optional) Rebuild and update pageObjects files if any \*.utam.json files have been edited
 
    ```bash
    npm run build:utam
    ```
 
-7. (optional) ReBuild and update test code files if any \*.ts files have been edited
-
-   **note:** You can also use _watch_ mode of TS while coding
+7. (optional) Rebuild and update test code files if any \*.ts files have been edited
 
    ```bash
    npm run build:ts
    ```
 
-8. run locally
+   **note:** You can also use _watch_ mode of TS while coding so no need to rebuild everytime
 
    ```bash
-   ./journeytest.sh
+   tsc -w
+   ```
+
+8. start chromedriver
+
+   ```bash
+   chromedriver
+   ```
+
+9. run test
+
+   ```bash
+   npm run test
    ```
