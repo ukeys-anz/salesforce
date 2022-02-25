@@ -9,21 +9,24 @@
 }
 
 .logo-image {
-  max-width: 60%;
+  max-width: 45%;
   position: relative;
-  bottom: 15px;
+  bottom: 7px;
+  left: 12px;
 }
 
 .source-emoji {
-  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8em;
+  display: block;
   width: 50px;
   height: 50px;
   border: 1px solid #e3e5ed;
   background: white;
-  align-items: center;
-  justify-content: center;
   border-radius: 50%;
-  font-size: 1.8em;
+  text-align: center;
+  line-height: 42px;
 }
 
 .source-image {
