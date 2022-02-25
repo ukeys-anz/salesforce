@@ -232,7 +232,8 @@ public with sharing class IDRConstants {
           'IDR_Everyday_Banking',
           'IDR_Home_Owners',
           'IDR_Wealth',
-          'IDR_Early_Resolution'
+          'IDR_Early_Resolution',
+          'CCR_Complaints'
         };
       }
       return workBasketNames;
