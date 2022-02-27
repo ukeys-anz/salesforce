@@ -1022,33 +1022,39 @@ export default class CreateComplaintLWC extends NavigationMixin(
   }
 
   expressToggleCheckedHandler(event) {
-    this.isComplaintResolved = true;
-    this.isNonFinancialComplaintRemedy = true;
     this.expressCMOS = event.detail.value;
-    if (!this.expressCMOS) {
+    if (this.expressCMOS) {
+      this.isComplaintResolved = true;
+      this.isNonFinancialComplaintRemedy = true;
+      const issueTypeElement = this.template.querySelector(
+        '[data-id="issueType-id"]'
+      );
+      issueTypeElement.dispatchEvent(new CustomEvent("change"));
+    } else {
+      this.isComplaintResolved = false;
+      this.isNonFinancialComplaintRemedy = false;
       this.knownIssue = null;
+      this.knownIssueChangeHandler(undefined);
     }
-    const issueTypeElement = this.template.querySelector(
-      '[data-id="issueType-id"]'
-    );
-    issueTypeElement.dispatchEvent(new CustomEvent("change"));
   }
 
   knownIssueChangeHandler(event) {
     const issueTypeElement = this.template.querySelector(
       '[data-id="issueType-id"]'
     );
-    issueTypeElement.value = event.detail.IDR_Issue_Type__c;
+    issueTypeElement.value =
+      event === undefined ? "" : event.detail.IDR_Issue_Type__c;
     issueTypeElement.dispatchEvent(new CustomEvent("change"));
 
     const subIssueTypeElement = this.template.querySelector(
       '[data-id="subsequentIssue-id"]'
     );
-    subIssueTypeElement.value = event.detail.IDR_Sub_Issue_Type__c;
+    subIssueTypeElement.value =
+      event === undefined ? "" : event.detail.IDR_Sub_Issue_Type__c;
     const productElement = this.template.querySelector(
       '[data-id="product-id"]'
     );
-    productElement.value = event.detail.Product__c;
+    productElement.value = event === undefined ? "" : event.detail.Product__c;
     productElement.dispatchEvent(
       new CustomEvent("change", {
         detail: {
@@ -1062,12 +1068,17 @@ export default class CreateComplaintLWC extends NavigationMixin(
       const accountPolicyNoElement = this.template.querySelector(
         '[data-id="accPolicyNum-id"]'
       );
-      accountPolicyNoElement.handleExpressCase();
+      if (event === undefined) {
+        accountPolicyNoElement.deselectAllAccounts();
+      } else {
+        accountPolicyNoElement.handleExpressCase();
+      }
     }
     const descriptionElement = this.template.querySelector(
       '[data-id="descOfIssue-id"]'
     );
-    descriptionElement.value = event.detail.IDR_Description_of_Issue__c;
+    descriptionElement.value =
+      event === undefined ? "" : event.detail.IDR_Description_of_Issue__c;
     descriptionElement.dispatchEvent(
       new CustomEvent("change", {
         detail: {
@@ -1078,18 +1089,22 @@ export default class CreateComplaintLWC extends NavigationMixin(
     const custDesiredOutElement = this.template.querySelector(
       '[data-id="custOutCome"]'
     );
-    custDesiredOutElement.value = event.detail.IDR_Customer_Desired_Outcome__c;
+    custDesiredOutElement.value =
+      event === undefined ? "" : event.detail.IDR_Customer_Desired_Outcome__c;
     const anotherIssueElement = this.template.querySelector(
       '[data-id="issue2-id"]'
     );
-    anotherIssueElement.checked = event.detail.IDR_Is_there_another_issue__c;
+    anotherIssueElement.checked =
+      event === undefined ? false : event.detail.IDR_Is_there_another_issue__c;
     anotherIssueElement.dispatchEvent(new CustomEvent("change"));
     if (this.showComplianceFields) {
       const writtenRequestedElement = this.template.querySelector(
         '[data-id="writtenResponseGroup-id"]'
       );
       writtenRequestedElement.value =
-        event.detail.IDR_Written_Response_Requested__c;
+        event === undefined
+          ? ""
+          : event.detail.IDR_Written_Response_Requested__c;
       writtenRequestedElement.dispatchEvent(
         new CustomEvent("change", {
           detail: {
@@ -1101,7 +1116,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
       const writtenRespElement = this.template.querySelector(
         '[data-id="writtenRequiredGroup-id"]'
       );
-      writtenRespElement.value = event.detail.IDR_Written_Response_Required__c;
+      writtenRespElement.value =
+        event === undefined
+          ? ""
+          : event.detail.IDR_Written_Response_Required__c;
       writtenRespElement.dispatchEvent(
         new CustomEvent("change", {
           detail: {
@@ -1114,54 +1132,59 @@ export default class CreateComplaintLWC extends NavigationMixin(
     const realFormElement = this.template.querySelector(
       '[data-id="realFormRequiredGroup-id"]'
     );
-    if (event.detail.IDR_REAL_Form_Required__c) {
+    if (event === undefined) {
+      realFormElement.value = "";
+    } else if (event.detail.IDR_REAL_Form_Required__c) {
       realFormElement.value = "Yes";
-      realFormElement.dispatchEvent(
-        new CustomEvent("change", {
-          detail: {
-            value: "Yes"
-          }
-        })
-      );
     } else {
       realFormElement.value = "No";
-      realFormElement.dispatchEvent(
-        new CustomEvent("change", {
-          detail: {
-            value: "No"
-          }
-        })
-      );
     }
+    realFormElement.dispatchEvent(
+      new CustomEvent("change", {
+        detail: {
+          value: realFormElement.value
+        }
+      })
+    );
 
     const possibleSysIssueElement = this.template.querySelector(
       '[data-id="commoncomplaintGroup-id"]'
     );
-    possibleSysIssueElement.value = event.detail.IDR_Possible_Systemic_Issue__c;
+    possibleSysIssueElement.value =
+      event === undefined ? "" : event.detail.IDR_Possible_Systemic_Issue__c;
     possibleSysIssueElement.dispatchEvent(new CustomEvent("change"));
     const statusElement = this.template.querySelector(
       '[data-id="caseStatus-id"]'
     );
-    statusElement.value = event.detail.IDR_Status__c;
+    statusElement.value =
+      event === undefined ? OPEN_STATUS_API_NAME : event.detail.IDR_Status__c;
     statusElement.dispatchEvent(new CustomEvent("change"));
-    const complaintOutcomeElement = this.template.querySelector(
-      '[data-id="compOutCome-id"]'
-    );
-    complaintOutcomeElement.value = event.detail.IDR_Complaint_Outcome__c;
-    const descOfOutcomeElement = this.template.querySelector(
-      '[data-id="descOutcome-id"]'
-    );
-    descOfOutcomeElement.value = event.detail.IDR_Description_of_Outcome__c;
-    const complaintRemedyElement = this.template.querySelector(
-      '[data-id="compRemedy-id"]'
-    );
-    complaintRemedyElement.value = event.detail.IDR_Complaint_Remedy__c;
-    const nonFinancialRemedyElement = this.template.querySelector(
-      '[data-id="nonFinancialRemedy-id"]'
-    );
-    nonFinancialRemedyElement.value = event.detail.IDR_Non_Financial_Remedy__c;
+    if (this.isComplaintResolved) {
+      const complaintOutcomeElement = this.template.querySelector(
+        '[data-id="compOutCome-id"]'
+      );
+      complaintOutcomeElement.value =
+        event === undefined ? "" : event.detail.IDR_Complaint_Outcome__c;
+      const descOfOutcomeElement = this.template.querySelector(
+        '[data-id="descOutcome-id"]'
+      );
+      descOfOutcomeElement.value =
+        event === undefined ? "" : event.detail.IDR_Description_of_Outcome__c;
+      const complaintRemedyElement = this.template.querySelector(
+        '[data-id="compRemedy-id"]'
+      );
+      complaintRemedyElement.value =
+        event === undefined ? "" : event.detail.IDR_Complaint_Remedy__c;
+    }
+    if (this.isNonFinancialComplaintRemedy) {
+      const nonFinancialRemedyElement = this.template.querySelector(
+        '[data-id="nonFinancialRemedy-id"]'
+      );
+      nonFinancialRemedyElement.value =
+        event === undefined ? "" : event.detail.IDR_Non_Financial_Remedy__c;
+    }
 
-    this.knownIssue = event.detail.Id;
+    this.knownIssue = event === undefined ? "" : event.detail.Id;
   }
 
   handleAccNoOneSelection(event) {
