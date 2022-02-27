@@ -33,7 +33,7 @@ cd ..
 
 # creating the scratchOrg
 echoMessageCreator "creating the scratchOrg" $stepNo true
-sfdx force:org:create -f config/project-scratch-def.json -a $scratchorgalias --setdefaultusername --durationdays 30
+sfdx force:org:create -f config/project-scratch-def.json -a $scratchorgalias --setdefaultusername --durationdays 1
 echoMessageCreator "" $stepNo false
 ########################
 
