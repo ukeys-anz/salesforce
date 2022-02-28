@@ -6,7 +6,7 @@
 
 - UTAM Flow
 
-   <img src="./file/utam_flow.png" width="500">
+   <img src="./file/utam_flow.png" width="800">
 
 ## Project Structure
 
@@ -30,15 +30,15 @@
 
 - `src` folder contains the source code.
 
-- `common` folder contains specific interaction scnearios used in test spec files. Some of these scenario can be reused in different test spec files.
+  - `common` folder contains specific interaction scnearios used in test spec files. Some of these scenario can be reused in different test spec files.
 
-- `data` folder manages test data.
+  - `data` folder manages test data.
 
-- `tests` folder contains the test spec files and test running will look for those files for testing.
+  - `tests` folder contains the test spec files and test running will look for those files for testing.
 
-- `utam` folder will be the place to maintain \*.utam.json and utam compiler will compile these files into page objects in pageObjects folder (git ignored).
+  - `utam` folder will be the place to maintain \*.utam.json and utam compiler will compile these files into page objects in pageObjects folder (git ignored).
 
-- `utils` folder groups reusable methods.
+  - `utils` folder groups reusable methods.
 
 ## Prerequisites
 
@@ -87,6 +87,8 @@
   SALESFORCE_ENV_BASE=
   COACH_USERNAME=
   COACH_PASSWORD=
+  FRAUDX_AGENT_USERNAME=
+  FRAUDX_AGENT_PASSWORD=
   ```
 
 - **`For now engineers need to get test users' credentials and store in .env file. Please be mindful and DO NOT commit these credentials. This practice will be replaced in the future once the security store integration for automation is ready`**
@@ -102,7 +104,7 @@
 1. Switch to jorneytest folder if you are not in
 
    ```bash
-   cd journeytest
+   cd automation-test
    ```
 
 2. Turn off ANZ VPN

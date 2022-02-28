@@ -22,6 +22,49 @@
       "type": "clickable"
     },
     {
+      "name": "caseRecordType",
+      "selector": {
+        "css": "article[class*='cNewCaseAuraWrapper'] span",
+        "returnAll": true
+      },
+      "filter": {
+        "apply": "getText",
+        "findFirst": true,
+        "matcher": {
+          "type": "stringEquals",
+          "args": [
+            {
+              "name": "text",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "public": true,
+      "type": "clickable"
+    },
+    {
+      "name": "searchAccounts",
+      "selector": {
+        "css": "input[title='Search Accounts']"
+      },
+      "public": true,
+      "type": "editable"
+    },
+    {
+      "name": "accountSearchResult",
+      "selector": {
+        "css": "ul[class='lookup__list  visible'] li:nth-of-type(%d)",
+        "args": [
+          {
+            "name": "listIndex",
+            "type": "number"
+          }
+        ]
+      },
+      "type": "clickable"
+    },
+    {
       "name": "generalEnquiryChk",
       "selector": {
         "css": "input[name='General_Inquiry']"
@@ -141,6 +184,53 @@
       },
       "public": true,
       "type": "editable"
+    }
+  ],
+  "methods": [
+    {
+      "name": "selectCaseRecordType",
+      "compose": [
+        {
+          "element": "newCase",
+          "apply": "click"
+        },
+        {
+          "element": "caseRecordType",
+          "apply": "click"
+        },
+        {
+          "element": "nextButton",
+          "apply": "click"
+        }
+      ]
+    },
+    {
+      "name": "selectAccount",
+      "compose": [
+        {
+          "element": "searchAccounts",
+          "apply": "clearAndType",
+          "args": [
+            {
+              "name": "accountName",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "element": "accountSearchResult",
+          "apply": "click"
+        }
+      ]
+    },
+    {
+      "name": "saveNew",
+      "compose": [
+        {
+          "element": "saveCase",
+          "apply": "click"
+        }
+      ]
     }
   ]
 }

@@ -46,9 +46,52 @@
                 }
               ]
             }
+          },
+          {
+            "name": "searchItem",
+            "selector": {
+              "css": "one-app-launcher-menu-item"
+            },
+            "shadow": {
+              "elements": [
+                {
+                  "name": "searchItemLink",
+                  "selector": {
+                    "css": "a[role='option']"
+                  },
+                  "type": "clickable",
+                  "public": true
+                }
+              ]
+            }
           }
         ]
       }
+    }
+  ],
+  "methods": [
+    {
+      "name": "redirectToApp",
+      "compose": [
+        {
+          "element": "appLauncher",
+          "apply": "click"
+        },
+        {
+          "element": "searchInput",
+          "apply": "clearAndType",
+          "args": [
+            {
+              "name": "appName",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "element": "searchItemLink",
+          "apply": "click"
+        }
+      ]
     }
   ]
 }

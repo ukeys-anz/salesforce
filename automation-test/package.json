@@ -1,7 +1,7 @@
 {
   "name": "salesforce",
   "version": "1.0.0",
-  "description": "Salesforce development project - Journey tests",
+  "description": "Salesforce development project - Automation Test",
   "scripts": {
     "test": "npx wdio wdio.conf.js",
     "generate-report": "npx allure generate allure-results --clean",
