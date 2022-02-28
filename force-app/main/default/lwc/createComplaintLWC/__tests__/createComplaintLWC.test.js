@@ -542,7 +542,9 @@ describe("c-create-complaint-l-w-c", () => {
             IDR_Complaint_Outcome__c: "1",
             IDR_Description_of_Outcome__c: "Test",
             IDR_Complaint_Remedy__c: "2",
-            IDR_Non_Financial_Remedy__c: "1"
+            IDR_Non_Financial_Remedy__c: "1",
+            IDR_Channel_Received__c: "Phone",
+            IDR_Priority__c: "Standard"
           }
         })
       );

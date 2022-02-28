@@ -1039,6 +1039,16 @@ export default class CreateComplaintLWC extends NavigationMixin(
   }
 
   knownIssueChangeHandler(event) {
+    const priority = this.template.querySelector('[data-id="priority-id"]');
+    priority.value =
+      event === undefined ? "Standard" : event.detail.IDR_Priority__c;
+    priority.dispatchEvent(new CustomEvent("Change"));
+    const channelRecieved = this.template.querySelector(
+      '[data-id="channelReceived-id"]'
+    );
+    channelRecieved.value =
+      event === undefined ? "Phone" : event.detail.IDR_Channel_Received__c;
+    channelRecieved.dispatchEvent(new CustomEvent("Change"));
     const issueTypeElement = this.template.querySelector(
       '[data-id="issueType-id"]'
     );
