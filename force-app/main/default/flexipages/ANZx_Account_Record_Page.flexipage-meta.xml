@@ -86,39 +86,7 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentInstanceProperties>
-                    <name>objectName</name>
-                    <value>Account</value>
-                </componentInstanceProperties>
-                <componentName>accountsAndGoalsRefresh</componentName>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentName>totalBalance</componentName>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>accountType</name>
-                    <value>Checking</value>
-                </componentInstanceProperties>
-                <componentName>everydayAccount</componentName>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>accountType</name>
-                    <value>Savings</value>
-                </componentInstanceProperties>
-                <componentName>everydayAccount</componentName>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentName>financialGoals</componentName>
+                <componentName>personAccountFinancialDetails</componentName>
             </componentInstance>
         </itemInstances>
         <itemInstances>
