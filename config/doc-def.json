@@ -3,6 +3,7 @@
   "objectwhitelist": [
     "Access_Request__c",
     "Account",
+    "Appointment_Commitment__c",
     "Activity",
     "CampaignMember",
     "CaseComment",
