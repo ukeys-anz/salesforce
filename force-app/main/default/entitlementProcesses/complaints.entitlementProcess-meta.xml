@@ -23,7 +23,7 @@ RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
 ),
 $Permission.IDR_Level_1 
 )</milestoneCriteriaFormula>
-        <milestoneName>Open_Escalation_Time</milestoneName>
+        <milestoneName>FPR 5 Business Day Resolution target</milestoneName>
         <minutesToComplete>7680</minutesToComplete>
         <timeTriggers>
             <actions>
