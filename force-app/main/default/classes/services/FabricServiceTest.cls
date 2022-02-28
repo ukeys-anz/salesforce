@@ -7,7 +7,7 @@
 @isTest
 public inherited sharing class FabricServiceTest {
   @isTest
-  static void testGetAccountsAndGoals() {
+  static void testGetFinancialAccounts() {
     Test.setMock(HttpCalloutMock.class, new MockFabricCallout());
     //load forge staff token
     Cache.Session.put(
@@ -17,7 +17,10 @@ public inherited sharing class FabricServiceTest {
 
     Test.startTest();
     FabricService service = new FabricService();
-    HttpCalloutResponse response = service.getAccountsAndGoals('1111');
+    HttpCalloutResponse response = service.getFinancialAccounts(
+      '1111',
+      new List<String>()
+    );
     Test.stopTest();
 
     System.assertEquals(201, response.statusCode);
@@ -100,7 +103,7 @@ public inherited sharing class FabricServiceTest {
       if (req.getEndpoint().endsWith('accounts')) {
         res.setStatusCode(201);
         res.setHeader('Content-Type', 'application/json');
-        res.setBody(FabricServiceMock.ACCOUNTS_AND_GOALS_SUCCESS_RESPONSE);
+        res.setBody(FabricServiceMock.FINANCIAL_ACCOUNTS_SUCCESS_RESPONSE);
       } else {
         res.setStatusCode(201);
         res.setHeader('Content-Type', 'application/json');

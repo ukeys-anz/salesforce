@@ -7,17 +7,24 @@
 public with sharing class CoachBankingAPIRepository extends RepositoryBase {
   /**
    * @param ocvId customer id
-   * @return `AccountsAndGoalsModel` model class constructed from api response
-   * @description fetches financial accounts and goals from fabric, deserialized to a model
+   * @param accountNumbers contains account numbers to provide as parameters for account filtering
+   * @return `FinancialAccountModel` model class constructed from api response
+   * @description fetches financial accounts from fabric, deserialized to a model
    */
-  public AccountsAndGoalsModel getAccounts(String ocvId) {
-    AccountsAndGoalsModel result;
+  public FinancialAccountModel getAccounts(
+    String ocvId,
+    List<String> accountNumbers
+  ) {
+    FinancialAccountModel result;
     if (FeatureManagement.checkPermission('ANZx_Accounts_and_Goals')) {
       Service s = ServiceProvider.getService(FabricService.class);
-      HttpCalloutResponse response = s.getAccountsAndGoals(ocvId);
+      HttpCalloutResponse response = s.getFinancialAccounts(
+        ocvId,
+        accountNumbers
+      );
       if (response.successful) {
         try {
-          result = AccountsAndGoalsModel.parse(response.body);
+          result = FinancialAccountModel.parse(response.body);
         } catch (Exception e) {
           handleErrors(null, e, CoachBankingAPIRepository.class);
         }
@@ -34,28 +41,6 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
       );
     }
     return result;
-  }
-
-  /**
-   * @description  The getAccounts(ocvId) is the method to make the Http callout to Mulesoft to fetch the accounts and goals details from Fabric.
-   * The Namedcredentials used in this method is also temporary and needs to be changed.
-   * {@link Lib_SystemLog.logAPIError} is called when ever the call fails to Fabric to have the logs recorded for monitoring.
-   *
-   * @param ocvId Ocv id for which accounts and goals needs to be fetched
-   * @return String
-   * @exception CalloutException
-   */
-  @AuraEnabled(cacheable=false)
-  public static AccountsAndGoalsModel getAccountsAura(String ocvId) {
-    CoachBankingAPIRepository coachapi = new CoachBankingAPIRepository();
-    try {
-      AccountsAndGoalsModel responseModel = coachapi.getAccounts(ocvId);
-      return responseModel;
-    } catch (Exception e) {
-      AuraHandledException ahe = new AuraHandledException(e.getMessage());
-      ahe.setMessage(e.getMessage());
-      throw ahe;
-    }
   }
 
   /**
@@ -105,6 +90,7 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
    * @param accountNumber Account number for which we want to fetch the transactions
    * @param startDate start date of the transaction search filter
    * @param endDate end date of the transaction search filter
+   * @param bucketIds list of bucket ids to filter transactions by
    * @return String
    * @exception CalloutException
    */
@@ -115,11 +101,12 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
     String ocvId,
     String accountNumber,
     String startDate,
-    String endDate
+    String endDate,
+    List<String> bucketIds
   ) {
     CoachBankingAPIRepository coachapi = new CoachBankingAPIRepository();
     paramUrl = String.isBlank(paramUrl)
-      ? getTransactionParamUrl(startDate, endDate, accountNumber)
+      ? getTransactionParamUrl(startDate, endDate, accountNumber, bucketIds)
       : paramUrl;
     try {
       TransactionHistoryModel responseModel = coachapi.getTransactionHistory(
@@ -192,13 +179,17 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
    * @param startDate start date in the transaction search
    * @param endDate end date in the transaction search
    * @param accountNumber account number for which we want to fetch the transactions
+   * @param bucketIds list of bucket ids to filter transactions by
    * @return String the url with params to retrieve transactions
    */
+  @SuppressWarnings('PMD.ExcessiveParameterList')
   private static String getTransactionParamUrl(
     String startDate,
     String endDate,
-    String accountNumber
+    String accountNumber,
+    List<String> bucketIds
   ) {
+    String params = '?';
     if (
       String.isNotBlank(startDate) &&
       String.isNotBlank(endDate) &&
@@ -206,14 +197,22 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
     ) {
       String utcStartDate = DateTimeUtils.getUTCTimeFromString(startDate);
       String utcEndDate = DateTimeUtils.getUTCTimeFromString(endDate);
-      return '?account_number=' +
+      params +=
+        'account_number=' +
         accountNumber +
         '&start_time=' +
         utcStartDate +
         '&end_time=' +
-        utcEndDate;
+        utcEndDate +
+        '&';
     }
-    return null;
+
+    if (!bucketIds.isEmpty()) {
+      for (String bucketId : bucketIds) {
+        params += 'bucket_ids=' + bucketId + '&';
+      }
+    }
+    return params;
   }
 
   /**
@@ -261,6 +260,50 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
       response.body
     );
     return (String) responseMap.get('newTokenizedCardNumber');
+  }
+
+  /**
+   * @param ocvId customer id
+   * @param pageSize amount of goals to return
+   * @param nextPageToken token used to retrieve next page of data
+   * @return `AccountBucketsModel` model class constructed from api response
+   * @description fetches account buckets from fabric, deserialized to a model
+   */
+  public AccountBucketsModel getAccountBuckets(
+    String ocvId,
+    Integer pageSize,
+    String nextPageToken
+  ) {
+    AccountBucketsModel result;
+    if (FeatureManagement.checkPermission('ANZx_Accounts_and_Goals')) {
+      Service s = ServiceProvider.getService(FabricService.class);
+      String paramUrl;
+      if (String.isBlank(nextPageToken)) {
+        paramUrl = '?page_size=' + pageSize;
+      } else {
+        paramUrl = '?page_token=' + nextPageToken;
+      }
+
+      HttpCalloutResponse response = s.getAccountBuckets(ocvId, paramUrl);
+      if (response.successful) {
+        try {
+          result = AccountBucketsModel.parse(response.body);
+        } catch (Exception e) {
+          handleErrors(null, e, CoachBankingAPIRepository.class);
+        }
+      } else {
+        handleErrors(response, null, CoachBankingAPIRepository.class);
+      }
+    } else {
+      handleErrors(
+        null,
+        new PermissionException(
+          'User does not have the ANZx Accounts and Goals permission'
+        ),
+        CoachBankingAPIRepository.class
+      );
+    }
+    return result;
   }
 
   /**
