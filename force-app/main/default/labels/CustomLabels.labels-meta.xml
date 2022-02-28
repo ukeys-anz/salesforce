@@ -81,14 +81,6 @@
         <value>/coach-banking/v1beta1/accounts/buckets</value>
     </labels>
     <labels>
-        <fullName>MS_Get_Accounts_Goals</fullName>
-        <categories>MS</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>MS_Get_Accounts_Goals</shortDescription>
-        <value>/anz-exp-sfdc-coach-banking-api/api/accounts</value>
-    </labels>
-    <labels>
         <fullName>MS_Get_Cards</fullName>
         <categories>MS</categories>
         <language>en_US</language>

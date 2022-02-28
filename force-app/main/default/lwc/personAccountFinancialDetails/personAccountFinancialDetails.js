@@ -1,7 +1,8 @@
 /* LWC IMPORTS */
 import { LightningElement, api, wire } from "lwc";
 import { getRecord } from "lightning/uiRecordApi";
-import { handleErrorShowToast, handleGoalThemes } from "c/utils";
+import { handleErrorShowToast } from "c/utils";
+import { handleGoalThemes } from "c/accountsGoalsUtils";
 
 /* IMPORT APEX METHODS */
 import getTotalBalance from "@salesforce/apex/TotalBalanceController.getTotalBalance";

@@ -1,6 +1,6 @@
 import goal_themes from "@salesforce/resourceUrl/goal_themes";
 import transaction_logos from "@salesforce/resourceUrl/transaction_logos";
-import { handleGoalThemes } from "c/utils";
+import { handleGoalThemes } from "c/accountsGoalsUtils";
 
 export function handleGoalData(goalData) {
   let goalList = handleGoalThemes(goalData);
