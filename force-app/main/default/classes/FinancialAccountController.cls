@@ -5,6 +5,16 @@
  * @description FinancialAccountController retrieves account details for the financialAccount LWC and the FinancialGoals LWC
  */
 public with sharing class FinancialAccountController {
+  //Map of fabric statuses and user friendly names to map them to
+  private static final Map<String, String> FABRIC_STATUSES = new Map<String, String>{
+    'ACCOUNT_STATUS_UNSPECIFIED' => 'Unspecified', // there is no info about what status the account is in
+    'ACCOUNT_STATUS_OPEN' => 'Open', // the account is open
+    'ACCOUNT_STATUS_ACTIVE' => 'Active', // the account is active
+    'ACCOUNT_STATUS_SUSPENDED' => 'Suspended', // the account is suspended
+    'ACCOUNT_STATUS_DORMANT' => 'Dormant', // the account is dormant
+    'ACCOUNT_STATUS_CLOSED' => 'Closed' // the account is closed
+  };
+
   /**
    * @description The Financial Account component uses this to fetch the records to display.
    * This makes the callout to fabric to fetch data
@@ -18,15 +28,6 @@ public with sharing class FinancialAccountController {
     String ocvId,
     List<String> accountNumbers
   ) {
-    //Map of fabric statuses and user friendly names to map them to
-    Map<String, String> fabricStatuses = new Map<String, String>{
-      'ACCOUNT_STATUS_UNSPECIFIED' => 'Unspecified', // there is no info about what status the account is in
-      'ACCOUNT_STATUS_OPEN' => 'Open', // the account is open
-      'ACCOUNT_STATUS_ACTIVE' => 'Active', // the account is active
-      'ACCOUNT_STATUS_SUSPENDED' => 'Suspended', // the account is suspended
-      'ACCOUNT_STATUS_DORMANT' => 'Dormant', // the account is dormant
-      'ACCOUNT_STATUS_CLOSED' => 'Closed' // the account is closed
-    };
     List<FinServ__FinancialAccount__c> financialAccounts = new List<FinServ__FinancialAccount__c>();
     lib_systemLog log = new lib_systemLog(
       FinancialAccountController.class.getName(),
@@ -48,7 +49,7 @@ public with sharing class FinancialAccountController {
             FinServ__CurrentPostedBalance__c = finAccount.current_balance.value,
             BSB__c = finAccount.bsb,
             FinServ__OpenDate__c = (Date) finAccount.opened_at,
-            FinServ__Status__c = fabricStatuses.get(finAccount.status),
+            FinServ__Status__c = FABRIC_STATUSES.get(finAccount.status),
             FinServ__FinancialAccountType__c = finAccount.marketing_product.code ==
               'TRANSACT01'
               ? 'Checking'
