@@ -2255,7 +2255,17 @@
         <editable>true</editable>
         <field>trailheadapp__User_Trailmix__c.trailheadapp__User__c</field>
         <readable>true</readable>
-    </fieldPermissions>  
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>qualtrics__Survey_Response__c.qualtrics__Account__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>qualtrics__Survey_Response__c.qualtrics__Net_Promoter_Score__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <layoutAssignments>
         <layout>Application_Log__c-Application Log Layout</layout>
     </layoutAssignments>
