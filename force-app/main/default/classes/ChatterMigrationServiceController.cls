@@ -97,6 +97,10 @@ global with sharing class ChatterMigrationServiceController {
 
     log.info('HTTP Code: ' + String.valueOf(statusCode));
 
+    if (response.containsKey('error')) {
+      log.error(response.get('error'));
+    }
+
     log.insertLogAsync();
   }
 }

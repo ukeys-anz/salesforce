@@ -50,18 +50,15 @@ public with sharing class ChatterMigrationService {
 
       log.insertLogAsync();
 
-      List<FeedItem> items = [
-        SELECT
-          Body,
-          BestCommentId,
-          CommentCount,
-          LikeCount,
-          Type,
-          ParentId,
-          CreatedDate
-        FROM FeedItem
-        WHERE ParentId = :victimAccount
-      ];
+      SystemModeActions systemAction = new SystemModeActions(
+        'ChatterMigrationService',
+        'cloneChatterFromVicimToSurvivor'
+      );
+      List<FeedItem> items = systemAction.query(
+        'SELECT Body, BestCommentId, CommentCount, LikeCount, Type, ParentId, CreatedById, CreatedDate FROM FeedItem WHERE ParentId = \'' +
+        victimAccount +
+        '\''
+      );
       List<FeedItem> clonedItems = new List<FeedItem>();
       FeedItem cloned;
 
@@ -128,12 +125,15 @@ public with sharing class ChatterMigrationService {
    * @return Id | The Account Id from the found Account or null if nothing is found
    */
   private static Id getAccountIdFromExternalId(String externalId) {
-    List<Account> account = [
-      SELECT Id
-      FROM Account
-      WHERE External_Id__c = :externalId
-      LIMIT 1
-    ];
+    SystemModeActions systemAction = new SystemModeActions(
+      'ChatterMigrationService',
+      'cloneChatterFromVicimToSurvivor'
+    );
+    List<Account> account = systemAction.query(
+      'SELECT Id FROM Account WHERE External_Id__c = \'' +
+      externalId +
+      '\' LIMIT 1'
+    );
 
     if (account.isEmpty()) {
       return null;
