@@ -9,7 +9,7 @@ trap ctrl_c INT
 function ctrl_c() {
     git checkout .
     echo "${red}"
-    echo "Making scracthOrg has been stopped."
+    echo "Creating snapshot has been stopped."
     echo "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
 }
 
@@ -34,7 +34,7 @@ ALL_START_TIME=$(date +%s)
 echoMessageCreator "Assign Permission sets" $stepNo true
 sfdx force:user:permset:assign -n "FinancialServicesCloudStandard,EinsteinAnalyticsPlusAdmin" 2>&1 | tee stderr
 if [[ ($(cat stderr) == *'ERROR'*) && ($(cat stderr) != *'Duplicate PermissionSetAssignment'*)  || ($(cat stderr) == *'statusCode=502'*) ]]; then
-    renameForceignore false
+    git checkout .
     exit 1
 fi
 echoMessageCreator "" $stepNo false

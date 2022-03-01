@@ -14,7 +14,7 @@ function ctrl_c() {
     fi
     git checkout .
     echo "${red}"
-    echo "Making scracthOrg has been stopped."
+    echo "Creating snapshot has been stopped."
     echo "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
 }
 
