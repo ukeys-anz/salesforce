@@ -39,11 +39,10 @@ public with sharing class FinancialAccountCommonActions {
     for (FinServ__FinancialAccount__c record : records) {
       FinServ__FinancialAccount__c oldRecord = oldMap.get(record.Id);
       if (
-        // Primary owner is updated without updating the primary owner start date
+        // Primary owner is updated and the date isn't set
         (oldRecord.FinServ__PrimaryOwner__c !=
         record.FinServ__PrimaryOwner__c &&
-        oldRecord.Primary_Owner_Start_Date__c ==
-        record.Primary_Owner_Start_Date__c) ||
+        record.Primary_Owner_Start_Date__c == null) ||
         // Primary owner start date is updated without updating primary owner
         (oldRecord.Primary_Owner_Start_Date__c !=
         record.Primary_Owner_Start_Date__c &&

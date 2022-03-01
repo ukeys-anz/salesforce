@@ -66,4 +66,21 @@ public with sharing class UniqueIdUtil {
 
     return traceFlag;
   }
+
+  /**
+   * @description Captures and stores the TraceId and SpanId from Mulesoft into Object for later use
+   * @param request System.RestContext.Request | A System object which is the Request from the API Endpoint
+   */
+  public static void captureTraceAndSpanIdFromRestRequest(
+    System.RestRequest request
+  ) {
+    //Note: Not a typo - SpanId and TraceId come from Mulesoft Lower Case
+    if (request.headers.containsKey('spanid')) {
+      parentId = request.headers.get('spanid');
+    }
+
+    if (request.headers.containsKey('traceid')) {
+      traceId = request.headers.get('traceid');
+    }
+  }
 }
