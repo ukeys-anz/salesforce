@@ -39,6 +39,18 @@
     "Product2": {
       "ProductCode": "Default product code for this record. Your org defines the product code naming pattern."
     },
+    "qualtrics__Survey_Response__c": {
+      "qualtrics__Account__c": "Name of the UUID match",
+      "qualtrics__Contact__c": "Name of the Customer",
+      "qualtrics__Date_Responded__c": "Date created",
+      "qualtrics__Description__c": "Verbatim feedback from the customer",
+      "qualtrics__Net_Promoter_Score__c": "Captures the NPS response from the survey",
+      "qualtrics__Other_Feedback__c": "Question and Answer from qualtrics survey",
+      "qualtrics__Overall_Satisfaction__c": "Customers overall satisfaction with the product/service topic of the survey",
+      "qualtrics__Q_Recipient_ID__c": "The recipient or the customer ID in Qualtrics",
+      "qualtrics__Q_Survey_ID__c": "The original survey ID from Qualtrics",
+      "qualtrics__Survey__c": "The version of the survey eg. Joint/Chat"
+    },
     "Task": {
       "IDR_Pend_Reason__c": "Reason why a case is pending",
       "IDR_Portfolio_or_Business_Unit__c": "Party details a case is pending with"
@@ -142,6 +154,7 @@
     "Privileged_Access_Request__c": "Holds vital information related to user Access Requests which will be used to automatically grant/revoke privileged access from users",
     "Product2": "ANZ or ANZx product",
     "Quality_Assessment__c": "An object that holds all the relative fields and it’s values for a quality analyst to conduct end to end quality assessment.",
+    "qualtrics__Survey_Response__c": "Customers answers to a given Qualtrics Survey",
     "Release__c": "System documentation on a given Salesforce release of features",
     "Reported_Bug__c": "A defect with an ANZx customer facing application, or experience",
     "SkyhighNetworks__SHNEvent__c": "A monitoring event used to record Salesforce system access",
@@ -860,6 +873,30 @@
         "Product_Start_Date__c",
         "IDR_Workbasket__c"
       ],
+      "IA-2468715": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "RecordTypeId"
+      ]
+    },
+    "qualtrics__Survey_Response__c": {
+      "IA-2415840": [
+        "Additional_Feedback__c",
+        "qualtrics__Date_Responsed__c",
+        "qualtrics__Description__c",
+        "qualtrics__Net_Promoter_Score__c",
+        "qualtrics__Other_Feedback__c",
+        "qualtrics__Overall_Satisfaction__c",
+        "qualtrics__Q_Recipient_ID__c",
+        "qualtrics__Q_Survey_ID__c",
+        "qualtrics__Survey__c",
+        "Survey_Response_ID__c",
+        "Survey_Trigger__c"
+      ],
+      "IA-2415984": ["qualtrics__Account__c", "qualtrics__Contact__c"],
       "IA-2468715": [
         "CreatedById",
         "CreatedDate",
