@@ -1,22 +1,19 @@
 import { LightningElement, track, wire, api } from "lwc";
-import getTransactions from "@salesforce/apex/CoachBankingAPIRepository.getTransactionHistoryAura";
 import getDisputeRecordTypeMap from "@salesforce/apex/TransactionHistoryController.getDisputeRecordTypeMap";
 import getPersonAccountId from "@salesforce/apex/TransactionHistoryController.getPersonAccountId";
 import { getRecord } from "lightning/uiRecordApi";
-import { ShowToastEvent } from "lightning/platformShowToastEvent";
-import FIN_ACCOUNT_OCV_ID_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.OCV_ID__c";
-import FIN_ACCOUNT_ACCOUNT_NUMBER_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__FinancialAccountNumber__c";
+import FIN_ACCOUNT_TYPE from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__FinancialAccountType__c";
 import { publish, MessageContext } from "lightning/messageService";
 import ExpandCollapseAll from "@salesforce/messageChannel/ListCollapseExpandAll__c";
 import { handleErrorShowToast } from "c/utils";
 import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
 import { getOptionalFieldValue, processTransaction } from "./helpers/util";
+import transaction_logos from "@salesforce/resourceUrl/transaction_logos";
 
 import {
   TRANSACTION_STATUSES,
   TRANSACTION_TYPES,
   CARD_TYPES,
-  TRANSACTION_HISTORY_RETRIEVE_ERROR,
   DISPUTE_RECORD_TYPES_RETRIEVE_ERROR,
   PERSON_ACCOUNT_ID_RETRIEVE_ERROR,
   PAYMENT_TYPES,
@@ -64,22 +61,21 @@ const timeOptions = { hour: "2-digit", minute: "2-digit" };
 
 export default class TransactionHistoryBoard extends LightningElement {
   @api recordId;
-  fullTransactionList = [];
+  // gets component title, search, error, startDate & endDate through financialAccountParent LWC
+  @api error;
+  @api hasError;
+  @track fullTransactionList = [];
   @track transactionList = [];
   @track showSearchBar = false;
   @track filterList = [];
   @track savedMaxIndex = 0;
   expandAll = false;
-  startDate = this.getDefaultDate();
-  endDate = this.getDefaultDate();
+  startDate;
+  endDate;
   todayDate = this.getDefaultDate();
   disableSearch = true;
-  ocvId;
-  accountNumber;
-  hasError = false;
-  errorMessage;
   links;
-  loading = true;
+  @api loading;
   disputeRecordTypes = [];
   transactionTypeDisputeIdMap = {};
   personAccountId = "";
@@ -87,24 +83,30 @@ export default class TransactionHistoryBoard extends LightningElement {
   lastDateInPayload;
   allTags;
   allMerchants;
+  @api componentTitle;
+  @api tstartDate;
+  @api tendDate;
+  //Used to clear the transactionList value so we dont
+  //append new transactions when trying to filter them
+  @api clearTransactions;
+  //Triggers the load more button to be a spinner so we dont
+  //trigger loading on the whole component to append new data
+  @api transactionLoadMore;
 
   @wire(MessageContext)
   messageContext;
-  //Get the OCVID and Account Number to send to
-  //the API and get the transactions
   @wire(getRecord, {
     recordId: "$recordId",
-    fields: [FIN_ACCOUNT_OCV_ID_FIELD, FIN_ACCOUNT_ACCOUNT_NUMBER_FIELD]
+    fields: [FIN_ACCOUNT_TYPE]
   })
-  wiredProject({ data }) {
-    if (data && hasAccountsGoalsPermission) {
-      this.ocvId = data.fields.OCV_ID__c.value;
-      this.accountNumber = data.fields.FinServ__FinancialAccountNumber__c.value;
+  wireRecord({ data }) {
+    if (data) {
+      this.startDate = this.inputStartDate(this.tstartDate);
+      this.endDate = this.inputEndDate(this.tendDate);
       this.handleGetPersonAccountId();
       if (this.disputeRecordTypes.length === 0) {
         this.handleGetDisputeRecordTypeDetails();
       }
-      this.fetchTransactions();
     }
   }
 
@@ -116,164 +118,139 @@ export default class TransactionHistoryBoard extends LightningElement {
     return this.links && this.links.next && this.links.next.href ? true : false;
   }
 
-  fetchTransactions(
-    paramUrl = "",
-    isSearch = false,
-    startDateString = "",
-    endDateString = ""
-  ) {
-    //This check here is to prevent Salesforce from triggering
-    //the API and appending duplicate transactions into our list
-    //ie: modifying the financial account record triggers the API
-    //and appends the initial transaction results onto our list
-    if (
-      this.transactionList.length > 0 &&
-      !startDateString &&
-      !endDateString &&
-      !paramUrl
-    ) {
-      this.loading = false;
-      return;
+  @api
+  get transactionData() {
+    return this.fullTransactionList;
+  }
+
+  set transactionData(transactions) {
+    if (this.clearTransactions) {
+      this.transactionList = [];
     }
-    getTransactions({
-      ocvId: this.ocvId,
-      accountNumber: this.accountNumber,
-      startDate: startDateString,
-      endDate: endDateString,
-      paramUrl: paramUrl
-    })
-      .then((result) => {
-        if (result) {
-          this.fullTransactionList = result.embedded.transactions;
-          this.links = result.links;
-          this.allMerchants = result.embedded.merchants;
-          this.allTags = result.embedded.tags;
-          let updatedFullList = [];
+    if (transactions) {
+      //The data is being received proxied, so we stringify it
+      //and parse it to unproxy it
+      transactions = JSON.parse(JSON.stringify(transactions));
+      this.fullTransactionList = transactions.embedded?.transactions
+        ? transactions.embedded?.transactions
+        : [];
+      this.links = transactions.links;
+      this.allMerchants = transactions.embedded?.merchants
+        ? transactions.embedded.merchants
+        : [];
+      this.allTags = transactions.embedded?.tags
+        ? transactions.embedded.tags
+        : [];
+      let updatedFullList = [];
 
-          if (this.fullTransactionList) {
-            for (let i = 0; i < this.fullTransactionList.length; i++) {
-              let currentTransaction = { ...this.fullTransactionList[i] };
+      if (this.fullTransactionList.length > 0) {
+        for (let i = 0; i < this.fullTransactionList.length; i++) {
+          let currentTransaction = this.fullTransactionList[i];
 
-              //Remap type and status
-              currentTransaction.formatted_type = currentTransaction.type
-                ? transactionTypeMapping[currentTransaction.type]
-                : "Unknown";
-              currentTransaction.status = currentTransaction.status
-                ? transactionStatusMapping[currentTransaction.status]
-                : "Unknown";
+          //Remap type and status
+          currentTransaction.formatted_type = currentTransaction.type
+            ? transactionTypeMapping[currentTransaction.type]
+            : "Unknown";
+          currentTransaction.status = currentTransaction.status
+            ? transactionStatusMapping[currentTransaction.status]
+            : "Unknown";
 
-              // Set the transaction's dispute record type Id
-              currentTransaction.disputeRecordTypeId = this.getRecordTypeId(
-                currentTransaction
-              );
+          // Set the transaction's dispute record type Id
+          currentTransaction.disputeRecordTypeId = this.getRecordTypeId(
+            currentTransaction
+          );
 
-              //Process date and time, set showDateTitle
-              let currentDate = this.getDateObject(
-                currentTransaction.transactionDateLocal
-              );
-              currentTransaction.transaction_date = new Date(
-                currentTransaction.transactionDateLocal
-              ).toLocaleDateString("en-CA");
-              currentTransaction.transaction_posted_date = new Date(
-                currentTransaction.transaction_posted_date
-              ).toLocaleDateString("en-CA");
-              // Date only value to be passed to default field values, use locale "en-CA" to get YYYY-MM-DD format
-              this.setTransactionDisplayDateTime(currentTransaction);
-              /* 
+          //Process date and time, set showDateTitle
+          let currentDate = this.getDateObject(
+            currentTransaction.transactionDateLocal
+          );
+          currentTransaction.transaction_date = new Date(
+            currentTransaction.transactionDateLocal
+          ).toLocaleDateString("en-CA");
+          currentTransaction.transaction_posted_date = new Date(
+            currentTransaction.transaction_posted_date
+          ).toLocaleDateString("en-CA");
+          // Date only value to be passed to default field values, use locale "en-CA" to get YYYY-MM-DD format
+          this.setTransactionDisplayDateTime(currentTransaction);
+          /* 
               To prevent the issue where the first transaction the next payload has the same date as the last transaction in the previous payload and
               shows its date title again (date title showing twice), we will compare the current date with the previous date
               */
-              currentTransaction.showDateTitle = this.showDateTitle(
-                currentDate,
-                this.lastDateInPayload
-              );
-              this.lastDateInPayload = currentDate;
+          currentTransaction.showDateTitle = this.showDateTitle(
+            currentDate,
+            this.lastDateInPayload
+          );
+          this.lastDateInPayload = currentDate;
 
-              //Apply odd or even for each item to determine background
-              currentTransaction.rowColour =
-                "slds-card slds-m-bottom_small transaction-item ";
-              currentTransaction.rowColour += i % 2 === 0 ? "even" : "odd";
+          //Apply odd or even for each item to determine background
+          currentTransaction.rowColour =
+            "slds-card slds-m-bottom_small transaction-item ";
+          currentTransaction.rowColour += i % 2 === 0 ? "even" : "odd";
 
-              if (
-                currentTransaction.tags &&
-                currentTransaction.tags.length > 0
-              ) {
-                currentTransaction.tagList = [];
-                let tagDetails = this.getTagDetails(currentTransaction.tags);
-                //loop through tags
-                tagDetails.forEach((tag) => {
-                  //Truncate tag name
-                  if (tag.name && tag.name.length > 15) {
-                    tag.name = tag.name.substring(0, 14) + "...";
-                  }
-                  currentTransaction.tagList.push(tag.name);
-                });
+          if (currentTransaction.tags && currentTransaction.tags.length > 0) {
+            currentTransaction.tagList = [];
+            let tagDetails = this.getTagDetails(currentTransaction.tags);
+            //loop through tags
+            tagDetails.forEach((tag) => {
+              //Truncate tag name
+              if (tag.name && tag.name.length > 15) {
+                tag.name = tag.name.substring(0, 14) + "...";
               }
-
-              //Handle merchant details
-              if (currentTransaction.merchantId?.value) {
-                currentTransaction = this.handleMerchantDetails(
-                  currentTransaction
-                );
-              }
-
-              //Remap card scheme to be user friendly
-              if (currentTransaction.card) {
-                currentTransaction.card.formatted_scheme = currentTransaction
-                  .card.scheme
-                  ? cardMapping[currentTransaction.card.scheme]
-                  : "Unknown";
-              }
-
-              //Check if international transaction
-              if (currentTransaction.international_amount) {
-                currentTransaction.internationalDetails = true;
-              }
-
-              currentTransaction.error = currentTransaction.error
-                ? currentTransaction.error
-                : "N/A";
-
-              //Handle processing of transaction optional fields
-              currentTransaction = processTransaction(currentTransaction);
-
-              updatedFullList.push(currentTransaction);
-            }
+              currentTransaction.tagList.push(tag.name);
+            });
           }
 
-          //Clear transaction list to only display search results
-          if (isSearch) {
-            this.transactionList = [];
+          //Handle merchant details
+          if (currentTransaction.merchant_id?.value) {
+            currentTransaction = this.handleMerchantDetails(currentTransaction);
           }
-          updatedFullList.forEach((e) => {
-            this.transactionList.push(e);
-          });
+
+          //If no image details use default
+          if (
+            !currentTransaction.logo &&
+            !currentTransaction.source_image &&
+            !currentTransaction.source_emoji &&
+            !currentTransaction.destination_image &&
+            !currentTransaction.destination_emoji
+          ) {
+            currentTransaction.logo = `${transaction_logos}/TRANSACTION_LOGO_DEFAULT.png`;
+          }
+
+          //Remap card scheme to be user friendly
+          if (currentTransaction.card) {
+            currentTransaction.card.formatted_scheme = currentTransaction.card
+              .scheme
+              ? cardMapping[currentTransaction.card.scheme]
+              : "Unknown";
+          }
+
+          //Check if international transaction
+          if (currentTransaction.international_amount) {
+            currentTransaction.internationalDetails = true;
+          }
+
+          currentTransaction.error = currentTransaction.error
+            ? currentTransaction.error
+            : "N/A";
+
+          //Handle processing of transaction optional fields
+          currentTransaction = processTransaction(currentTransaction);
+
+          updatedFullList.push(currentTransaction);
         }
-        this.loading = false;
-      })
-      .catch((error) => {
-        this.errorMessage = TRANSACTION_HISTORY_RETRIEVE_ERROR;
-        if (error.body && error.body.message) {
-          let message = this.handleError(error.body.message);
-          //Catch any system error messages (most readable errors wont be a single word)
-          if (message && message.split(" ").length > 1) {
-            this.errorMessage = message;
-          }
-        }
-        this.hasError = true;
-        this.loading = false;
-        this.showToast(
-          "Transaction History Load Failed",
-          this.errorMessage,
-          error
-        );
-      });
+        updatedFullList.forEach((e) => {
+          this.transactionList.push(e);
+        });
+      } else {
+        this.transactionList = null;
+      }
+    }
   }
 
   handleMerchantDetails(transaction) {
     //Fetch first response as transactions should only have 1 merchant
     let merchantDetails = this.getMerchantDetails(
-      transaction.merchantId.value
+      transaction.merchant_id.value
     )[0];
     transaction.merchantDetails = true;
 
@@ -315,7 +292,7 @@ export default class TransactionHistoryBoard extends LightningElement {
         ? merchantDetails.image_details.light_url.value
         : merchantDetails.image_details.dark_url.value;
     } else {
-      transaction.logo = null;
+      transaction.logo = `${transaction_logos}/TRANSACTION_LOGO_DEFAULT.png`;
     }
 
     transaction.merchantEmail = getOptionalFieldValue(merchantDetails.email);
@@ -331,15 +308,6 @@ export default class TransactionHistoryBoard extends LightningElement {
     return transaction;
   }
 
-  showToast(theTitle, theMessage, theVariant) {
-    const event = new ShowToastEvent({
-      title: theTitle,
-      message: theMessage,
-      variant: theVariant
-    });
-    this.dispatchEvent(event);
-  }
-
   handleLoadMore() {
     //The provided URL doesn't go through MS, so we need
     //to retrieve the params and pass them to the Apex class
@@ -347,8 +315,12 @@ export default class TransactionHistoryBoard extends LightningElement {
     let nextSubstring = `${this.links.next.href.substring(
       this.links.next.href.indexOf("?")
     )}`;
-
-    this.fetchTransactions(nextSubstring);
+    const event = new CustomEvent("loadmore", {
+      detail: nextSubstring
+    });
+    this.dispatchEvent(event, {
+      bubbles: true
+    });
   }
 
   handleSearchFilterToggle() {
@@ -373,13 +345,19 @@ export default class TransactionHistoryBoard extends LightningElement {
 
   handleSearch() {
     if (this.startDate && this.endDate) {
-      this.loading = true;
-
+      this.transactionList = [];
       //Create dates based off the user selection
       let startDate = this.startDate + " 00:00:00";
       let endDate = this.endDate + " 23:59:59";
-
-      this.fetchTransactions("", true, startDate, endDate);
+      const event = new CustomEvent("search", {
+        detail: {
+          startDateString: startDate,
+          endDateString: endDate
+        }
+      });
+      this.dispatchEvent(event, {
+        bubbles: true
+      });
     }
   }
 
@@ -406,17 +384,6 @@ export default class TransactionHistoryBoard extends LightningElement {
     } else {
       this.disableSearch = true;
     }
-  }
-
-  //This function is required as some errors are returned
-  //as stringified json
-  handleError(error) {
-    try {
-      JSON.parse(error);
-    } catch (e) {
-      return error;
-    }
-    return JSON.parse(error).message;
   }
 
   // Construct a map of transaction type and its corresponding case record type
@@ -515,9 +482,9 @@ export default class TransactionHistoryBoard extends LightningElement {
 
   //This function retrieves the details of the merchant based on the id
   //provided from the list of merchants given in the response.
-  getMerchantDetails(merchantId) {
+  getMerchantDetails(merchant_id) {
     return this.allMerchants.filter((merchant) => {
-      return merchantId === merchant.merchantId;
+      return merchant_id === merchant.merchant_id;
     });
   }
 
@@ -560,5 +527,19 @@ export default class TransactionHistoryBoard extends LightningElement {
       default:
         return "";
     }
+  }
+
+  inputStartDate(startDate) {
+    if (!startDate) {
+      startDate = this.getDefaultDate();
+    }
+    return startDate;
+  }
+
+  inputEndDate(endDate) {
+    if (!endDate) {
+      endDate = this.getDefaultDate();
+    }
+    return endDate;
   }
 }

@@ -7,15 +7,28 @@
 public with sharing class FabricService extends Service {
   /**
    * @param ocvId customer id to retrieve accounts and goals for
+   * @param accountNumbers contains account numbers to provide as parameters for account filtering
    * @return `HttpCalloutResponse` the api response
    * @description fetches accounts and goals from the fabric API
    */
-  public override HttpCalloutResponse getAccountsAndGoals(String ocvId) {
+  public override HttpCalloutResponse getFinancialAccounts(
+    String ocvId,
+    List<String> accountNumbers
+  ) {
+    String urlParam = '';
+    if (!accountNumbers.isEmpty()) {
+      for (String accountNumber : accountNumbers) {
+        urlParam += 'account_numbers=' + accountNumber + '&';
+      }
+    }
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
     setCalloutCommonHeaders(ocvID, headers);
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' + Label.MS_Get_Accounts_Goals,
+      'callout:SF_MS_Fabric' +
+      Label.MS_Get_Financial_Accounts +
+      '?' +
+      urlParam,
       HTTP_METHOD.HTTP_GET,
       headers,
       null
@@ -220,6 +233,30 @@ public with sharing class FabricService extends Service {
       'callout:SF_MS_Fabric' +
       Label.MS_Get_StatementUrl +
       statementId,
+      HTTP_METHOD.HTTP_GET,
+      headers,
+      null
+    );
+    return response;
+  }
+
+  /**
+   * @param ocvId customer id used to fetch account buckets
+   * @param paramUrl url parameters to be sent
+   * @return `HttpCalloutResponse` the api response
+   * @description fetches account buckets from fabric api
+   */
+  public override HttpCalloutResponse getAccountBuckets(
+    String ocvId,
+    String paramUrl
+  ) {
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    Map<String, String> headers = new Map<String, String>();
+    setCalloutCommonHeaders(ocvID, headers);
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      'callout:SF_MS_Fabric' +
+      Label.MS_Get_Account_Buckets +
+      paramUrl,
       HTTP_METHOD.HTTP_GET,
       headers,
       null

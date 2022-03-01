@@ -1,6 +1,6 @@
 .ring {
   position: relative;
-  margin-top: 50px;
+  margin-top: 40px;
   margin-bottom: 110px;
 }
 
@@ -8,20 +8,10 @@
   padding: 20px;
 }
 
-.goals {
-  border: 1px solid #dddbda !important;
-  user-select: none;
-  /* iOS Safari */
-  -webkit-touch-callout: none;
-  /* Safari */
-  -webkit-user-select: none;
-}
-
 .slds-card__footer {
   border: unset;
 }
 
-.main-title,
 .padded-card {
   padding: 10px !important;
 }
@@ -61,12 +51,8 @@
   bottom: 3px;
 }
 
-.in-progress {
+.goal-container {
   min-height: 418px;
-}
-
-.completed {
-  min-height: 195px;
 }
 
 .not-found {
@@ -96,4 +82,36 @@
 .modal-header {
   background: #014486;
   color: #fff;
+}
+
+.card-title {
+  background: #eef1f5;
+  width: 100%;
+  padding: 8px;
+  border-radius: 0.25em;
+}
+
+.goal {
+  cursor: pointer;
+}
+
+.goal:nth-child(n + 4) {
+  margin-top: 10px;
+}
+
+.active {
+  background-color: #eef4ff;
+}
+
+.slds-size_1-of-3 {
+  width: 30%;
+}
+
+.title-text {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.filter-buttons {
+  float: right;
 }

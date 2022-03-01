@@ -1,0 +1,76 @@
+/**
+ * @author Peter Charalambous
+ * @since 02/2022
+ * @description Actions that are required to be run without sharing to be used here
+ */
+public without sharing class SystemModeActions {
+  /**
+   * @description The function name to use with logging.
+   */
+  private String className { get; set; }
+
+  /**
+   * @description The function name to use with logging.
+   */
+  private String methodName { get; set; }
+
+  /**
+   * @description Constructor
+   * @param className Class name used to call method
+   * @param methodName Method name used to call method
+   */
+  public SystemModeActions(String className, String methodName) {
+    this.className = className;
+    this.methodName = methodName;
+  }
+
+  /**
+   * @description method to update records in a without sharing context when needed
+   * @param records records to update
+   * @param objectName object name we're updating
+   */
+  public void updateRecords(List<SObject> records, String objectName) {
+    if (records == null || records.size() == 0) {
+      return;
+    }
+
+    List<Database.SaveResult> results = Database.Update(records, false);
+
+    //log errors to application log
+    lib_systemLog log = new lib_systemLog(className, methodName);
+
+    log.addDatabaseSaveResult(objectName, results, records);
+
+    log.insertLogAsync();
+  }
+
+  /**
+   * @description method to upsert records in a without sharing context when needed
+   * @param records records to update
+   * @param externalId externalId to match against
+   * @param objectName object name we're upserting
+   * @return Boolean
+   */
+  public Boolean upsertRecords(
+    List<SObject> records,
+    Schema.SObjectField externalId,
+    String objectName
+  ) {
+    lib_systemLog log = new lib_systemLog(className, methodName);
+
+    List<Database.UpsertResult> results = Database.upsert(
+      records,
+      externalId,
+      false
+    );
+
+    //log errors to application log
+    Boolean hasError = log.addDatabaseUpsertResult(
+      objectName,
+      results,
+      records
+    );
+    log.insertLogAsync();
+    return hasError;
+  }
+}

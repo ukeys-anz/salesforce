@@ -20,8 +20,8 @@
                 <field>FinServ__FinancialAccountType__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>FinServ__InterestRate__c</field>
+                <behavior>Readonly</behavior>
+                <field>Interest_Rate_URL__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
