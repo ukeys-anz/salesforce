@@ -1169,28 +1169,38 @@ export default class CreateComplaintLWC extends NavigationMixin(
     statusElement.value =
       event === undefined ? OPEN_STATUS_API_NAME : event.detail.IDR_Status__c;
     statusElement.dispatchEvent(new CustomEvent("change"));
+    // AR-7064 The above Status change causes the isComplaintResolved to change but if the Status goes from Open to Closed
+    // The screen doesn't have time to refresh before the below code starts access those screen elements.
     if (this.isComplaintResolved) {
       const complaintOutcomeElement = this.template.querySelector(
         '[data-id="compOutCome-id"]'
       );
-      complaintOutcomeElement.value =
-        event === undefined ? "" : event.detail.IDR_Complaint_Outcome__c;
+      if (complaintOutcomeElement !== undefined) {
+        complaintOutcomeElement.value =
+          event === undefined ? "" : event.detail.IDR_Complaint_Outcome__c;
+      }
       const descOfOutcomeElement = this.template.querySelector(
         '[data-id="descOutcome-id"]'
       );
-      descOfOutcomeElement.value =
-        event === undefined ? "" : event.detail.IDR_Description_of_Outcome__c;
+      if (descOfOutcomeElement !== undefined) {
+        descOfOutcomeElement.value =
+          event === undefined ? "" : event.detail.IDR_Description_of_Outcome__c;
+      }
       const complaintRemedyElement = this.template.querySelector(
         '[data-id="compRemedy-id"]'
       );
-      complaintRemedyElement.value =
-        event === undefined ? "" : event.detail.IDR_Complaint_Remedy__c;
+      if (complaintRemedyElement !== undefined) {
+        complaintRemedyElement.value =
+          event === undefined ? "" : event.detail.IDR_Complaint_Remedy__c;
+      }
       if (this.isNonFinancialComplaintRemedy) {
         const nonFinancialRemedyElement = this.template.querySelector(
           '[data-id="nonFinancialRemedy-id"]'
         );
-        nonFinancialRemedyElement.value =
-          event === undefined ? "" : event.detail.IDR_Non_Financial_Remedy__c;
+        if (nonFinancialRemedyElement !== undefined) {
+          nonFinancialRemedyElement.value =
+            event === undefined ? "" : event.detail.IDR_Non_Financial_Remedy__c;
+        }
       }
     }
 
