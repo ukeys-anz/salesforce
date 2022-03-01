@@ -1,54 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Provides read write access to Customer Feedback object</description>
+    <description>Provides read write access to the Survey Response object and read only to the Accounts UUID field</description>
     <fieldPermissions>
-        <editable>true</editable>
-        <field>Customer_Feedback__c.Account_Name__c</field>
+        <editable>false</editable>
+        <field>Account.UUID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Customer_Feedback__c.Advocacy_Rating__c</field>
+        <field>qualtrics__Survey_Response__c.Additional_Feedback__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>qualtrics__Survey_Response__c.Survey_Response_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Customer_Feedback__c.Coach_Name__c</field>
+        <field>qualtrics__Survey_Response__c.Survey_Trigger__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Customer_Feedback__c.Coach_Type__c</field>
+        <field>qualtrics__Survey_Response__c.qualtrics__Account__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Customer_Feedback__c.Feedback_Received_Date_Time__c</field>
+        <field>qualtrics__Survey_Response__c.qualtrics__Contact__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Customer_Feedback__c.Feedback_Type__c</field>
+        <field>qualtrics__Survey_Response__c.qualtrics__Date_Responded__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Customer_Feedback__c.OCV_ID__c</field>
+        <field>qualtrics__Survey_Response__c.qualtrics__Description__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Customer_Feedback__c.Related_Case__c</field>
+        <field>qualtrics__Survey_Response__c.qualtrics__Net_Promoter_Score__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Customer_Feedback__c.Store_Location__c</field>
+        <field>qualtrics__Survey_Response__c.qualtrics__Other_Feedback__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Customer_Feedback__c.Verbatim__c</field>
+        <field>qualtrics__Survey_Response__c.qualtrics__Overall_Satisfaction__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>qualtrics__Survey_Response__c.qualtrics__Q_Recipient_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>qualtrics__Survey_Response__c.qualtrics__Q_SurveyID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>qualtrics__Survey_Response__c.qualtrics__Survey__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
@@ -87,11 +107,11 @@
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
-        <object>Customer_Feedback__c</object>
+        <object>qualtrics__Survey_Response__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <tabSettings>
-        <tab>Customer_Feedback__c</tab>
+        <tab>qualtrics__Survey_Response__c</tab>
         <visibility>Visible</visibility>
     </tabSettings>
 </PermissionSet>
