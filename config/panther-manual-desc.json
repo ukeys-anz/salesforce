@@ -211,7 +211,8 @@
         "PersonBirthdate",
         "PersonEmail",
         "PersonMobilePhone"
-      ]
+      ],
+      "IA-2415840": ["UUID__c"]
     },
     "Access_Request__c": {
       "IA-2468715": [
