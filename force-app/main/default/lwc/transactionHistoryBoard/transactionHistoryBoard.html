@@ -1,117 +1,151 @@
 <template>
-  <template if:true={displayContent}>
-    <template if:true={loading}>
-      <div class="slds-align_absolute-center" style="height: 4rem">
-        <div role="status" class="slds-spinner_inline">
-          <lightning-spinner
-            alternative-text="Loading"
-            variant="brand"
-          ></lightning-spinner>
+  <article class="transactionHistoryBoard slds-card">
+    <div class="card-title" data-id="component-title">
+      <div class="slds-grid">
+        <div class="slds-col slds-size_1-of-11 flex-override">
+          <lightning-icon
+            icon-name="standard:product_item_transaction"
+            size="medium"
+            class="slds-m-right_small"
+          ></lightning-icon>
+        </div>
+        <div class="slds-col slds-size_10-of-11 flex-override">
+          {componentTitle}
         </div>
       </div>
-    </template>
-    <template if:false={loading}>
-      <template if:true={hasError}>
-        <c-error message={error}></c-error>
-      </template>
-      <template if:false={hasError}>
-        <div class="search-section">
-          <div class="slds-text-title_bold slds-m-bottom_medium">
-            Transaction History
-          </div>
-          <div class="slds-form--inline">
-            <div class="slds-form-element">
-              <lightning-input
-                type="date"
-                name="startDate"
-                data-id="startDateInput"
-                label="Start Date"
-                value={startDate}
-                max={endDate}
-                onchange={handleStartDateChange}
-              ></lightning-input>
+    </div>
+    <div class="slds-card__body slds-card__body_inner padded-card">
+      <template if:true={displayContent}>
+        <template if:true={loading}>
+          <div class="slds-align_absolute-center" style="height: 4rem">
+            <div role="status" class="slds-spinner_inline">
+              <lightning-spinner
+                alternative-text="Loading"
+                variant="brand"
+              ></lightning-spinner>
             </div>
-            <div class="slds-form-element">
-              <lightning-input
-                type="date"
-                name="endDate"
-                data-id="endDateInput"
-                label="End Date"
-                value={endDate}
-                max={todayDate}
-                min={startDate}
-                onchange={handleEndDateChange}
-              ></lightning-input>
-            </div>
-            <template if:true={disableSearch}>
-              <div class="slds-form-element">
-                <lightning-button
-                  variant="brand"
-                  label="Search"
-                  title="Search"
-                  class="slds-m-left_x-small"
-                  disabled
-                ></lightning-button>
-              </div>
-            </template>
-            <template if:false={disableSearch}>
-              <div class="slds-form-element">
-                <lightning-button
-                  variant="brand"
-                  label="Search"
-                  title="Search"
-                  onclick={handleSearch}
-                  class="slds-m-left_x-small"
-                ></lightning-button>
-              </div>
-            </template>
           </div>
-
-          <button class="slds-button expand-collapse" onclick={handleExpandAll}>
-            <template if:true={expandAll}>Collapse All</template>
-            <template if:false={expandAll}>Expand All</template>
-          </button>
-        </div>
-
-        <template if:true={transactionList}>
-          <template for:each={transactionList} for:item="transRecord">
-            <c-transaction-history-record
-              key={transRecord.transaction_id}
-              transaction-record={transRecord}
-              expand-all={expandAll}
-              dispute-record-types-from-parent={disputeRecordTypes}
-              person-account-id={personAccountId}
-              financial-account-id={recordId}
-            >
-            </c-transaction-history-record>
+        </template>
+        <template if:false={loading}>
+          <template if:true={hasError}>
+            <c-error message={error}></c-error>
           </template>
-          <div class="slds-grid">
-            <div class="slds-col">
-              <template if:true={showLoadMore}>
-                <button class="slds-button load-more" onclick={handleLoadMore}>
-                  Load More
-                </button>
-              </template>
+          <template if:false={hasError}>
+            <div class="search-section">
+              <div class="slds-text-title_bold slds-m-bottom_medium">
+                Transaction History
+              </div>
+              <div class="slds-form--inline">
+                <div class="slds-form-element">
+                  <lightning-input
+                    type="date"
+                    name="startDate"
+                    data-id="startDateInput"
+                    label="Start Date"
+                    value={startDate}
+                    max={endDate}
+                    onchange={handleStartDateChange}
+                  ></lightning-input>
+                </div>
+                <div class="slds-form-element">
+                  <lightning-input
+                    type="date"
+                    name="endDate"
+                    data-id="endDateInput"
+                    label="End Date"
+                    value={endDate}
+                    max={todayDate}
+                    min={startDate}
+                    onchange={handleEndDateChange}
+                  ></lightning-input>
+                </div>
+                <template if:true={disableSearch}>
+                  <div class="slds-form-element">
+                    <lightning-button
+                      variant="brand"
+                      label="Search"
+                      title="Search"
+                      class="slds-m-left_x-small"
+                      disabled
+                    ></lightning-button>
+                  </div>
+                </template>
+                <template if:false={disableSearch}>
+                  <div class="slds-form-element">
+                    <lightning-button
+                      variant="brand"
+                      label="Search"
+                      title="Search"
+                      onclick={handleSearch}
+                      class="slds-m-left_x-small"
+                    ></lightning-button>
+                  </div>
+                </template>
+              </div>
+              <button
+                class="slds-button expand-collapse"
+                onclick={handleExpandAll}
+              >
+                <template if:true={expandAll}>Collapse All</template>
+                <template if:false={expandAll}>Expand All</template>
+              </button>
             </div>
-          </div>
-        </template>
-        <template if:false={fullTransactionList}>
-          <h1 class="slds-card__header-title main-title">
-            <span class="not-found">No Transactions Found</span>
-          </h1>
+            <template if:true={transactionList}>
+              <template for:each={transactionList} for:item="transRecord">
+                <c-transaction-history-record
+                  key={transRecord.transaction_id}
+                  transaction-record={transRecord}
+                  expand-all={expandAll}
+                  dispute-record-types-from-parent={disputeRecordTypes}
+                  person-account-id={personAccountId}
+                  financial-account-id={recordId}
+                >
+                </c-transaction-history-record>
+              </template>
+              <template if:true={transactionLoadMore}>
+                <div class="slds-align_absolute-center" style="height: 4rem">
+                  <div role="status" class="slds-spinner_inline">
+                    <lightning-spinner
+                      alternative-text="Loading"
+                      variant="brand"
+                    ></lightning-spinner>
+                  </div>
+                </div>
+              </template>
+              <template if:false={transactionLoadMore}>
+                <div class="slds-grid">
+                  <div class="slds-col slds-align_absolute-center">
+                    <template if:true={showLoadMore}>
+                      <button
+                        class="slds-button load-more"
+                        onclick={handleLoadMore}
+                      >
+                        Load More
+                      </button>
+                    </template>
+                  </div>
+                </div>
+              </template>
+            </template>
+            <template if:false={transactionList}>
+              <h1 class="slds-card__header-title main-title">
+                <span class="not-found">No Transactions Found</span>
+              </h1>
+            </template>
+          </template>
         </template>
       </template>
-    </template>
-  </template>
-  <template if:false={displayContent}>
-    <div class="slds-text-title_bold slds-m-bottom_medium">
-      Transaction History
+      <template if:false={displayContent}>
+        <div class="slds-text-title_bold slds-m-bottom_medium">
+          Transaction History
+        </div>
+        <div class="slds-grid">
+          <p class="field-padding">
+            Don’t worry, it’s not broken. To view this you need a higher
+            permission level.
+          </p>
+        </div>
+      </template>
     </div>
-    <div class="slds-grid">
-      <p class="field-padding">
-        Don’t worry, it’s not broken. To view this you need a higher permission
-        level.
-      </p>
-    </div>
-  </template>
+  </article>
 </template>

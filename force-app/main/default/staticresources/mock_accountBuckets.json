@@ -1,0 +1,279 @@
+{
+  "account_buckets": [
+    {
+      "id": "47f557e1-fc57-5974-bc5c-137dd3b050b3",
+      "account_number": "210454465",
+      "created_at": "2021-09-20T04:55:39.221839Z",
+      "is_default": true,
+      "balance": {
+        "currency_code": "AUD",
+        "units": "10",
+        "nanos": 100000
+      },
+      "balance_valid_at": "2021-12-06T02:01:15.786332Z",
+      "is_balance_current": true,
+      "goal": {
+        "name": "Savings Jar",
+        "target_amount": {
+          "currency_code": "AUD",
+          "units": "10",
+          "nanos": 100000
+        },
+        "target_date": null,
+        "theme": "GOAL_THEME_SOMETHING_ELSE",
+        "emoji": {
+          "value": ""
+        },
+        "color": {
+          "value": ""
+        },
+        "is_open": true,
+        "closed_at": null,
+        "updated_at": "2021-09-20T04:55:39.221839Z"
+      }
+    },
+    {
+      "id": "3096fead-c325-59a4-89a6-a7a7378f0e93",
+      "account_number": "210454465",
+      "created_at": "2021-12-06T01:48:36.114223Z",
+      "is_default": false,
+      "balance": {
+        "currency_code": "AUD",
+        "units": "20",
+        "nanos": 200000
+      },
+      "balance_valid_at": "2021-12-06T02:01:15.786332Z",
+      "is_balance_current": true,
+      "goal": {
+        "name": "Mangoes",
+        "target_amount": {
+          "currency_code": "AUD",
+          "units": "10",
+          "nanos": 100000
+        },
+        "target_date": {
+          "year": {
+            "value": 2022
+          },
+          "month": {
+            "value": 12
+          },
+          "day": {
+            "value": 31
+          }
+        },
+        "theme": "",
+        "emoji": {
+          "value": "🥭"
+        },
+        "color": {
+          "value": ""
+        },
+        "is_open": true,
+        "closed_at": null,
+        "updated_at": "2021-12-06T01:48:36.114223Z"
+      }
+    },
+    {
+      "id": "476e0ac6-5553-5fda-bdd8-b8f87af2d83b",
+      "account_number": "210454465",
+      "created_at": "2021-12-06T01:48:20.975071Z",
+      "is_default": false,
+      "balance": {
+        "currency_code": "AUD",
+        "units": "30",
+        "nanos": 300000
+      },
+      "balance_valid_at": "2021-12-06T02:01:15.786332Z",
+      "is_balance_current": true,
+      "goal": {
+        "name": "Buy a car",
+        "target_amount": {
+          "currency_code": "AUD",
+          "units": "100",
+          "nanos": 100000
+        },
+        "target_date": null,
+        "theme": "GOAL_THEME_BUY_A_CAR",
+        "emoji": {
+          "value": ""
+        },
+        "color": {
+          "value": ""
+        },
+        "is_open": true,
+        "closed_at": null,
+        "updated_at": "2021-12-06T01:48:20.975071Z"
+      }
+    },
+    {
+      "id": "4096fead-c325-59a4-89a6-a7a7378f0e93",
+      "account_number": "210454465",
+      "created_at": "2021-12-06T01:48:36.114223Z",
+      "is_default": false,
+      "balance": {
+        "currency_code": "AUD",
+        "units": "110000",
+        "nanos": 200000
+      },
+      "balance_valid_at": "2021-12-06T02:01:15.786332Z",
+      "is_balance_current": true,
+      "goal": {
+        "name": "Saving for the house to build",
+        "target_amount": {
+          "currency_code": "AUD",
+          "units": "150000",
+          "nanos": 100000
+        },
+        "target_date": {
+          "year": {
+            "value": 2022
+          },
+          "month": {
+            "value": 12
+          },
+          "day": {
+            "value": 31
+          }
+        },
+        "theme": "GOAL_THEME_BUY_A_HOME",
+        "emoji": {
+          "value": ""
+        },
+        "color": {
+          "value": ""
+        },
+        "is_open": true,
+        "closed_at": null,
+        "updated_at": "2021-12-06T01:48:36.114223Z"
+      }
+    },
+    {
+      "id": "3596fead-c325-59a4-89a6-a7a7378f0e93",
+      "account_number": "210454465",
+      "created_at": "2021-12-06T01:48:36.114223Z",
+      "is_default": false,
+      "balance": {
+        "currency_code": "AUD",
+        "units": "9000",
+        "nanos": 200000
+      },
+      "balance_valid_at": "2021-12-06T02:01:15.786332Z",
+      "is_balance_current": true,
+      "goal": {
+        "name": "Holiday in Japan",
+        "target_amount": {
+          "currency_code": "AUD",
+          "units": "12000",
+          "nanos": 100000
+        },
+        "target_date": {
+          "year": {
+            "value": 2022
+          },
+          "month": {
+            "value": 12
+          },
+          "day": {
+            "value": 31
+          }
+        },
+        "theme": "GOAL_THEME_TRAVEL",
+        "emoji": {
+          "value": ""
+        },
+        "color": {
+          "value": ""
+        },
+        "is_open": true,
+        "closed_at": null,
+        "updated_at": "2021-12-06T01:48:36.114223Z"
+      }
+    },
+    {
+      "id": "476e0qc6-5553-5fda-bdd8-b8f87af2d83b",
+      "account_number": "210454465",
+      "created_at": "2021-12-06T01:48:20.975071Z",
+      "is_default": false,
+      "balance": {
+        "currency_code": "AUD",
+        "units": "6000",
+        "nanos": 300000
+      },
+      "balance_valid_at": "2021-12-06T02:01:15.786332Z",
+      "is_balance_current": true,
+      "goal": {
+        "name": "It's raining, it's pouring",
+        "target_amount": {
+          "currency_code": "AUD",
+          "units": "10000",
+          "nanos": 100000
+        },
+        "target_date": null,
+        "theme": "GOAL_THEME_RAINY_DAY",
+        "emoji": {
+          "value": ""
+        },
+        "color": {
+          "value": ""
+        },
+        "is_open": true,
+        "closed_at": null,
+        "updated_at": "2021-12-06T01:48:20.975071Z"
+      }
+    },
+    {
+      "id": "40900ead-c325-59a4-89a6-a7a7378f0e93",
+      "account_number": "210454465",
+      "created_at": "2021-12-06T01:48:36.114223Z",
+      "is_default": false,
+      "balance": {
+        "currency_code": "AUD",
+        "units": "2000",
+        "nanos": 200000
+      },
+      "balance_valid_at": "2021-12-06T02:01:15.786332Z",
+      "is_balance_current": true,
+      "goal": {
+        "name": "I GOT BILLS, I GOTTA PAY",
+        "target_amount": {
+          "currency_code": "AUD",
+          "units": "3000",
+          "nanos": 100000
+        },
+        "target_date": {
+          "year": {
+            "target_date": {
+              "year": {
+                "value": 2022
+              },
+              "month": {
+                "value": 12
+              },
+              "day": {
+                "value": 31
+              }
+            }
+          },
+          "month": {
+            "value": 12
+          },
+          "day": {
+            "value": 31
+          }
+        },
+        "theme": "GOAL_THEME_EXPENSES",
+        "emoji": {
+          "value": ""
+        },
+        "color": {
+          "value": ""
+        },
+        "is_open": true,
+        "closed_at": null,
+        "updated_at": "2021-12-06T01:48:36.114223Z"
+      }
+    }
+  ],
+  "next_page_token": "mockresponsebeta1/account_buckets?&cursor.value=9847yhsnrktyrth48whus"
+}
