@@ -1185,13 +1185,13 @@ export default class CreateComplaintLWC extends NavigationMixin(
       );
       complaintRemedyElement.value =
         event === undefined ? "" : event.detail.IDR_Complaint_Remedy__c;
-    }
-    if (this.isNonFinancialComplaintRemedy) {
-      const nonFinancialRemedyElement = this.template.querySelector(
-        '[data-id="nonFinancialRemedy-id"]'
-      );
-      nonFinancialRemedyElement.value =
-        event === undefined ? "" : event.detail.IDR_Non_Financial_Remedy__c;
+      if (this.isNonFinancialComplaintRemedy) {
+        const nonFinancialRemedyElement = this.template.querySelector(
+          '[data-id="nonFinancialRemedy-id"]'
+        );
+        nonFinancialRemedyElement.value =
+          event === undefined ? "" : event.detail.IDR_Non_Financial_Remedy__c;
+      }
     }
 
     this.knownIssue = event === undefined ? "" : event.detail.Id;
