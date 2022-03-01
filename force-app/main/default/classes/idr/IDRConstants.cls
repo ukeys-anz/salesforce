@@ -213,6 +213,16 @@ public with sharing class IDRConstants {
     set;
   }
 
+  /*
+   *@description static variable to list all the priority issues for cases ingested through anz com
+   */
+  public static final List<String> ANZ_COM_PRIORITY_ISSUES = new List<String>{
+    'Financial difficulty & hardship',
+    'Collections',
+    'Credit reporting',
+    'Credit assessment'
+  };
+
   /**
    * @description Static variable to list CMOS workbaskets' API names
    * @return List CMOS workbaskets' API names

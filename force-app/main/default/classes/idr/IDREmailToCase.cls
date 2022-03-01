@@ -69,6 +69,11 @@ public with sharing class IDREmailToCase {
               IDRConstants.anzComFieldMapping.get(fieldName),
               IDRConstants.anzComIssueTypeMapping.get(fieldValue)
             );
+            c.Priority = IDRConstants.ANZ_COM_PRIORITY_ISSUES.contains(
+                fieldValue
+              )
+              ? ''
+              : 'Standard';
           } else if (fieldName == 'Email') {
             List<String> emailValues = fieldValue.split('<', 2);
             c.put(
