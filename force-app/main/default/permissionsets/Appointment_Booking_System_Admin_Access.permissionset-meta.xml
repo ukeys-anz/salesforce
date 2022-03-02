@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This permission set provides FLS and tab access to all the fields for Appointment Booking Module ( Appointment Commitment , Interaction, Interaction Summary, Contact Request)</description>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Appointment_Commitment__c.Available__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Appointment_Commitment__c.Confirmed__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Appointment_Commitment__c.Date_AEDT__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Appointment_Commitment__c.Slot_Available__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Appointment_Commitment__c.Time__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Appointment_Commitment__c.Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Appointment Booking System Admin Access</label>
+    <license>Salesforce</license>
+    <tabSettings>
+        <tab>Appointment_Commitment__c</tab>
+        <visibility>Available</visibility>
+    </tabSettings>
+</PermissionSet>
