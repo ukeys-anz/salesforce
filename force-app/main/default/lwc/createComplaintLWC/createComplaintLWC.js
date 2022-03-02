@@ -1175,21 +1175,21 @@ export default class CreateComplaintLWC extends NavigationMixin(
       const complaintOutcomeElement = this.template.querySelector(
         '[data-id="compOutCome-id"]'
       );
-      if (complaintOutcomeElement !== undefined) {
+      if (complaintOutcomeElement !== null) {
         complaintOutcomeElement.value =
           event === undefined ? "" : event.detail.IDR_Complaint_Outcome__c;
       }
       const descOfOutcomeElement = this.template.querySelector(
         '[data-id="descOutcome-id"]'
       );
-      if (descOfOutcomeElement !== undefined) {
+      if (descOfOutcomeElement !== null) {
         descOfOutcomeElement.value =
           event === undefined ? "" : event.detail.IDR_Description_of_Outcome__c;
       }
       const complaintRemedyElement = this.template.querySelector(
         '[data-id="compRemedy-id"]'
       );
-      if (complaintRemedyElement !== undefined) {
+      if (complaintRemedyElement !== null) {
         complaintRemedyElement.value =
           event === undefined ? "" : event.detail.IDR_Complaint_Remedy__c;
       }
@@ -1197,7 +1197,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
         const nonFinancialRemedyElement = this.template.querySelector(
           '[data-id="nonFinancialRemedy-id"]'
         );
-        if (nonFinancialRemedyElement !== undefined) {
+        if (nonFinancialRemedyElement !== null) {
           nonFinancialRemedyElement.value =
             event === undefined ? "" : event.detail.IDR_Non_Financial_Remedy__c;
         }
