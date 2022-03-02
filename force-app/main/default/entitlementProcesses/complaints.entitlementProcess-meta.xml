@@ -21,7 +21,11 @@ OR(
 RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
 RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
 ),
-$Permission.IDR_Level_1 
+OR(
+CreatedBy.UserRole.DeveloperName = 'Customer_Resolution_Leadership',
+CreatedBy.UserRole.DeveloperName = 'Customer_Resolution_Team_Leaders',
+CreatedBy.UserRole.DeveloperName = 'Customer_Resolution'
+)
 )</milestoneCriteriaFormula>
         <milestoneName>FPR 5 Business Day Resolution target</milestoneName>
         <minutesToComplete>7680</minutesToComplete>
@@ -46,7 +50,9 @@ OR(
 RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
 RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
 ),
-NOT($Permission.IDR_Level_1)
+NOT(CreatedBy.UserRole.DeveloperName = 'Customer_Resolution_Leadership'),
+NOT(CreatedBy.UserRole.DeveloperName = 'Customer_Resolution_Team_Leaders'),
+NOT(CreatedBy.UserRole.DeveloperName = 'Customer_Resolution')
 )</milestoneCriteriaFormula>
         <milestoneName>Open_Escalation_Time</milestoneName>
         <minutesToComplete>7680</minutesToComplete>
