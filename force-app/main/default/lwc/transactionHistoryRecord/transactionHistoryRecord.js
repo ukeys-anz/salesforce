@@ -209,7 +209,7 @@ export default class TransactionHistoryRecord extends NavigationMixin(
     );
 
     //If we fail to automatically infer record type, log error
-    if (this.transactionRecord.disputeRecordTypeId === "") {
+    if (!this.transactionRecord.disputeRecordTypeId) {
       let logDetails = {
         transactionType: this.transactionRecord.formatted_type,
         selectedRecordType: this.selectedDisputeRecordType,
