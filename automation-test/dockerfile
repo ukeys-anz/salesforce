@@ -1,0 +1,19 @@
+FROM selenium/standalone-chrome
+ENTRYPOINT ["/bin/bash"]
+RUN mkdir /app
+WORKDIR /app
+
+RUN apt-get update -y -qq \
+  && apt-get install -y -qq --no-install-recommends python2.7 make g++ git zip vim 
+RUN curl -sL https://deb.nodesource.com/setup_15.x | bash \
+  && apt-get install nodejs -yq \
+  && apt-get clean
+
+ENV GENERATE_SOURCEMAP=false
+ENV NODE_OPTIONS=--max-old-space-size=4096
+
+COPY ./package.json /app
+
+EXPOSE 4444
+RUN npm install
+

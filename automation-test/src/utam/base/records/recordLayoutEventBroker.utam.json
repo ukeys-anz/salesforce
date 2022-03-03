@@ -1,0 +1,25 @@
+{
+  "elements": [
+    {
+      "type": "container",
+      "public": true,
+      "name": "content"
+    },
+    {
+      "type": "container",
+      "public": true,
+      "name": "contentInsideSlot",
+      "selector": {
+        "css": ":not(slot)"
+      }
+    },
+    {
+      "type": "container",
+      "public": true,
+      "name": "generatedTemplate",
+      "selector": {
+        "css": ".forcegenerated-flexipage-template"
+      }
+    }
+  ]
+}

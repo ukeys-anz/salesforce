@@ -25,6 +25,21 @@ public without sharing class SystemModeActions {
   }
 
   /**
+   * @description method to query and return query result
+   * @param soql | String | The SOQL Query
+   * @return results | List | A list of the returned database results
+   */
+  public List<SObject> query(String soql) {
+    List<SObject> results = Database.query(soql);
+
+    lib_systemLog log = new lib_systemLog(className, methodName);
+    log.info('Query logged without sharing');
+    log.insertLogAsync();
+
+    return results;
+  }
+
+  /**
    * @description method to update records in a without sharing context when needed
    * @param records records to update
    * @param objectName object name we're updating
