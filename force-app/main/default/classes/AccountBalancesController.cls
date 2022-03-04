@@ -2,7 +2,7 @@
  *
  * @author Peter Charalambous
  * @since 2020
- * @description AccountBalancesController is the apex side controller for the everydayAccount LWC
+ * @description AccountBalancesController is the apex side controller for the financialAccount LWC
  */
 public with sharing class AccountBalancesController {
   /**

@@ -39,11 +39,11 @@
 
 .card-title {
   background: #eef1f5;
-  width: 98%;
+  width: 100%;
   padding: 8px;
   font-size: 16px;
-  margin-left: 1%;
   border-radius: 0.25em;
+  font-weight: bold;
 }
 
 .tooltip {
