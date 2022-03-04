@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Interaction_Summary_Coach_Lead_Read_Write_Sharing_Rule</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This sharing rule provides Read/Write access to Interaction Summary records for Coach Lead Role</description>
+        <label>Interaction Summary Coach Lead Read/Write Sharing Rule</label>
+        <sharedTo>
+            <role>Coach_Lead</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>null</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Interaction_Summary_Coach_Read_Write_Sharing_Rule</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This sharing rule provides Read/Write access to Interaction object for Coach users</description>
+        <label>Interaction Summary Coach Read/Write Sharing Rule</label>
+        <sharedTo>
+            <role>Coach</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>null</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Interaction_Summary_QA_Read_Sharing_Rule</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This sharing rule provides Read access to Interaction Summary object for QA users</description>
+        <label>Interaction Summary QA Read Sharing Rule</label>
+        <sharedTo>
+            <role>Quality_Analyst</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>null</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>
