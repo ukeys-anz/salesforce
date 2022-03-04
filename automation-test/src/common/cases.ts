@@ -1,10 +1,10 @@
-import LwcCaseCreation from "../pageObjects/lwcCaseCreation";
+import CaseCreationForm from "../pageObjects/caseCreationForm";
 import ScenarioUtil from "../utils/scenarioUtils";
 import customerData from "../data/customerData.json";
 
 export default class SfCases {
   createGenEnqCase = async (scenarioId: string) => {
-    const casePageRoot = utam.load(LwcCaseCreation);
+    const caseCreationFormRoot = utam.load(CaseCreationForm);
 
     //Navigation to new case form
     await this.navigateToNewCase();
@@ -15,8 +15,10 @@ export default class SfCases {
     let casesData: any = {};
     casesData = await ScenarioUtil.getCaseCreateDetails(scenarioId);
 
-    const caseInputElement = await (await casePageRoot).getCustomerInput();
-    const caseDropDown = await (await casePageRoot).getCustomerDropDown(
+    const caseInputElement = await (
+      await caseCreationFormRoot
+    ).getCustomerInput();
+    const caseDropDown = await (await caseCreationFormRoot).getCustomerDropDown(
       customerData.customers[0].name
     );
 
@@ -40,7 +42,7 @@ export default class SfCases {
     await moveChosenElement.click();
     await browser.pause(1000);
 
-    const saveCaseElement = await (await casePageRoot).getSaveCase();
+    const saveCaseElement = await (await caseCreationFormRoot).getSaveCase();
     await saveCaseElement.click();
     await browser.pause(3000);
 
@@ -48,19 +50,21 @@ export default class SfCases {
   };
 
   createAnzxComplaintCase = async (scenarioId: string) => {
-    const casePageRoot = utam.load(LwcCaseCreation);
+    const caseCreationFormRoot = utam.load(CaseCreationForm);
 
     await this.navigateToNewCase();
     await this.selectCaseType("ANZ Plus Complaint");
 
-    // const casePageRoot = await utam.load(LwcCaseCreation);
+    // const caseCreationFormRoot = await utam.load(CaseCreationForm);
     let casesData: any = {};
     casesData = await ScenarioUtil.getCaseCreateDetails(scenarioId);
 
     //Fill ANZ Plus Complaint form
     //Select Customer details
-    const caseInputElement = await (await casePageRoot).getCustomerInput();
-    const caseDropDown = await (await casePageRoot).getCustomerDropDown(
+    const caseInputElement = await (
+      await caseCreationFormRoot
+    ).getCustomerInput();
+    const caseDropDown = await (await caseCreationFormRoot).getCustomerDropDown(
       customerData.customers[0].name
     );
     await caseInputElement.setText(customerData.customers[0].name);
@@ -124,16 +128,16 @@ export default class SfCases {
 
     //In this case, xpath takes label text in the UI as arguements to dynamically select the radio button,
     //but in case of UTAM, it is only possible through name attribute, value of which is but different from label text of corresponding radio button
-    // const casePageRoot = utam.load(LwcCaseCreation);
-    // const caseTypeRadio = await (await casePageRoot).getAnzxComplaint()
+    // const caseCreationFormRoot = utam.load(CaseCreationForm);
+    // const caseTypeRadio = await (await caseCreationFormRoot).getAnzxComplaint()
     // await caseTypeRadio.click()
-    // const caseNextButton = await (await casePageRoot).getNextButton()
+    // const caseNextButton = await (await caseCreationFormRoot).getNextButton()
     // await caseNextButton.click()
   };
 
   navigateToNewCase = async () => {
-    const casePageRoot = await utam.load(LwcCaseCreation);
-    const caseNewCaseElement = await casePageRoot.getNewCase();
+    const caseCreationFormRoot = await utam.load(CaseCreationForm);
+    const caseNewCaseElement = await caseCreationFormRoot.getNewCase();
     await caseNewCaseElement.click();
   };
 

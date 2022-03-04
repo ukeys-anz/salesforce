@@ -78,7 +78,7 @@
 
 - The ANZ Salesforce End-to-End testing will test different business and feature scenarios with different user roles.
 
-- Before running the test locally, create a .env file under journeytest folder with following entries so the test script can login into the test environment with correct credentials.
+- Before running the test locally, create a .env file under automation-test folder with following entries so the test script can login into the test environment with correct credentials.
 
 - Please update `./src/common/Auth.ts` and below sample with any missing test user credential env variables while contributing.
 
