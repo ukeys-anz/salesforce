@@ -24,15 +24,6 @@ public with sharing class IDREmailToCase {
    */
   public static void parseWebFormEmail(Case c) {
     c.Origin = '8'; // anz.com
-    //Setting some default values for shell case
-    c.IDR_Complainant_Type__c = '9'; //Not stated/unknown
-    c.IDR_Customer_Identifier__c = 'Customer/Business CAP ID';
-    c.Status = 'Escalated';
-    c.IDR_Escalation_Reason__c = '18'; //Indexing
-    c.IDR_Is_Written_Resp_Required__c = 'Yes';
-    c.IDR_Is_Written_Resp_Requested__c = 'Yes';
-    c.IDR_Is_Common__c = 'No';
-    c.IDR_Real_Form_Req__c = false;
     String emailBody = c.Description.trim();
     emailBody = emailBody.removeStart('[');
     emailBody = emailBody.replaceAll(
@@ -73,7 +64,7 @@ public with sharing class IDREmailToCase {
                 fieldValue
               )
               ? ''
-              : 'Standard';
+              : IDRConstants.CASE_PRIORITY_STANDARD;
           } else if (fieldName == 'Email') {
             List<String> emailValues = fieldValue.split('<', 2);
             c.put(
