@@ -8,7 +8,7 @@ import customerData from "../data/customerData.json";
 describe("Customer Verification", () => {
   it("Customer Information", async () => {
     browser.maximizeWindow();
-    await Auth.loginSalesforce("Coach");
+    await Auth.loginSalesforceAsRole("Coach");
 
     const customerPageRoot = await utam.load(LwcCustomerDetails);
     const navigationShowElement = await customerPageRoot.getNavigationShow();

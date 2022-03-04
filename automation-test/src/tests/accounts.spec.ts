@@ -41,7 +41,10 @@ import LwcFinancialAccount from "../pageObjects/lwcFinancialAccount";
 async function initialLoad(skipLogin: boolean) {
   if (!skipLogin) {
     await browser.maximizeWindow();
-    await Auth.loginSalesforce("Coach");
+
+    await Auth.loginSalesforceAsRole("Coach");
+
+    //Close all tabs
     await browser.pause(5000);
   }
 

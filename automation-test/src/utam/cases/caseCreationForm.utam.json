@@ -97,6 +97,42 @@
       "type": "clickable"
     },
     {
+      "name": "channelReceivedItem",
+      "selector": {
+        "css": "div[class*='select-options'] ul[rol='presentation'] > li:nth-of-type(%d)",
+        "args": [
+          {
+            "name": "itemIndex",
+            "type": "number"
+          }
+        ]
+      },
+      "public": true,
+      "type": "clickable"
+    },
+    {
+      "name": "issueType",
+      "selector": {
+        "css": "a[class='select']:nth-of-type(3)"
+      },
+      "public": true,
+      "type": "clickable"
+    },
+    {
+      "name": "issueTypeItem",
+      "selector": {
+        "css": "div[class*='select-options visiable positioned'] ul[rol='presentation'] > li:nth-of-type(%d)",
+        "args": [
+          {
+            "name": "itemIndex",
+            "type": "number"
+          }
+        ]
+      },
+      "public": true,
+      "type": "clickable"
+    },
+    {
       "name": "tabItem",
       "selector": {
         "css": "li[class='tabItem'] button:nth-of-type(%d)",
@@ -219,6 +255,32 @@
         },
         {
           "element": "accountSearchResult",
+          "apply": "click"
+        }
+      ]
+    },
+    {
+      "name": "selectIssueType",
+      "compose": [
+        {
+          "element": "issueType",
+          "apply": "click"
+        },
+        {
+          "element": "issueTypeItem",
+          "apply": "click"
+        }
+      ]
+    },
+    {
+      "name": "selectChannelReceived",
+      "compose": [
+        {
+          "element": "channelReceived",
+          "apply": "click"
+        },
+        {
+          "element": "channelReceivedItem",
           "apply": "click"
         }
       ]

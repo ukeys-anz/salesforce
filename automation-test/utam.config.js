@@ -4,6 +4,7 @@ module.exports = {
   pageObjectsOutputDir: "src/pageObjects",
   // remap custom elements imports
   alias: {
+    "anzx-utam-*/": "./../",
     "utam-*/": "./../"
   }
 };

@@ -37,7 +37,6 @@
       "node",
       "utam",
       "webdriverio",
-      "webdriverio/sync",
       "webdriverio/async",
       "@wdio/mocha-framework",
       "wdio-utam-service",

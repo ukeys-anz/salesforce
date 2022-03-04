@@ -1,8 +1,72 @@
-import CaseCreationForm from "../pageObjects/caseCreationForm";
-import ScenarioUtil from "../utils/scenarioUtils";
-import customerData from "../data/customerData.json";
+import CaseCreationForm from "pageObjects/caseCreationForm";
+import ScenarioUtil from "utils/scenarioUtils";
+import customerData from "data/customerData.json";
+import * as KYCQAHelper from "./kycQaHelper";
+import * as RecipientMuleHelper from "./recipientMuleHelper";
 
-export default class SfCases {
+export default class CasesHandler {
+  recordType?: string;
+
+  constructor(recordType?: string) {
+    this.recordType = recordType;
+  }
+
+  createRecord = async (): Promise<void> => {
+    switch (this.recordType) {
+      case "KYC QA":
+        await KYCQAHelper.createRecord();
+        break;
+      case "Recipient/Mule":
+        await RecipientMuleHelper.createRecord();
+        break;
+      default:
+        console.error("Error: Not a valid Case Record Type name1. Exiting...");
+        process.exit(-1);
+    }
+  };
+
+  assignNewOwner = async (): Promise<void> => {
+    switch (this.recordType) {
+      case "KYC QA":
+        await KYCQAHelper.assignNewOwner();
+        break;
+      case "Recipient/Mule":
+        await RecipientMuleHelper.assignNewOwner();
+        break;
+      default:
+        console.error("Error: Not a valid Case Record Type name. Exiting...");
+        process.exit(-1);
+    }
+  };
+
+  updateRecord = async (): Promise<void> => {
+    switch (this.recordType) {
+      case "KYC QA":
+        await KYCQAHelper.updateRecord();
+        break;
+      case "Recipient/Mule":
+        await RecipientMuleHelper.updateRecord();
+        break;
+      default:
+        console.error("Error: Not a valid Case Record Type name. Exiting...");
+        process.exit(-1);
+    }
+  };
+
+  closeRecord = async (): Promise<void> => {
+    switch (this.recordType) {
+      case "KYC QA":
+        await KYCQAHelper.closeRecord();
+        break;
+      case "Recipient/Mule":
+        await RecipientMuleHelper.closeRecord();
+        break;
+      default:
+        console.error("Error: Not a valid Case Record Type name. Exiting...");
+        process.exit(-1);
+    }
+  };
+
   createGenEnqCase = async (scenarioId: string) => {
     const caseCreationFormRoot = utam.load(CaseCreationForm);
 
@@ -110,7 +174,7 @@ export default class SfCases {
     return this.getCaseNumberCreated();
   };
 
-  getCaseNumberCreated = async () => {
+  getCaseNumberCreated = async (): Promise<string> => {
     const caseNumberElement = await $(
       "//p[@title='Case Number']/following-sibling::p"
     );
@@ -128,6 +192,7 @@ export default class SfCases {
 
     //In this case, xpath takes label text in the UI as arguements to dynamically select the radio button,
     //but in case of UTAM, it is only possible through name attribute, value of which is but different from label text of corresponding radio button
+
     // const caseCreationFormRoot = utam.load(CaseCreationForm);
     // const caseTypeRadio = await (await caseCreationFormRoot).getAnzxComplaint()
     // await caseTypeRadio.click()
