@@ -109,7 +109,3 @@ force-app/main/default/duplicateRules/
 force-app/main/default/matchingRules/
 force-app/main/default/entitlementProcesses/
 force-app/main/default/transactionSecurityPolicies
-
-#igorning lwc for validation to be passed
-force-app/main/default/lwc/everydayAccount/
-force-app/main/default/lwc/accountsAndGoalsRefresh/
