@@ -228,7 +228,10 @@ public with sharing class IDRCaseActions {
     if (!escalationCases.isEmpty()) {
       MilestoneUtils.completeMilestones(
         escalationCases,
-        new List<String>{ 'Open_Escalation_Time' },
+        new List<String>{
+          'Open_Escalation_Time',
+          'FPR 5 Business Day Resolution target'
+        },
         System.now()
       );
     }
