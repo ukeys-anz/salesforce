@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>qualtrics__Contact__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Privacy_Personal_Information</complianceGroup>
+    <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <externalId>false</externalId>
