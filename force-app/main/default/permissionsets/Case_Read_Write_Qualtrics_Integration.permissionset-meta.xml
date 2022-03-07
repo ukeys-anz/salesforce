@@ -1,82 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Provides read write access to the Survey Response object.</description>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>qualtrics__Survey_Response__c.Additional_Feedback__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
+    <description>Read/write to Customer Feedback record types and read only Accounts UUID field.</description>
     <fieldPermissions>
         <editable>false</editable>
-        <field>qualtrics__Survey_Response__c.Survey_Response_ID__c</field>
+        <field>Account.UUID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>qualtrics__Survey_Response__c.Survey_Trigger__c</field>
+        <field>Case.AccountId</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>qualtrics__Survey_Response__c.qualtrics__Account__c</field>
+        <field>Case.Advocacy_Score__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>qualtrics__Survey_Response__c.qualtrics__Contact__c</field>
+        <field>Case.Alerting_Reason__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>qualtrics__Survey_Response__c.qualtrics__Date_Responded__c</field>
+        <field>Case.ContactMobile</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>qualtrics__Survey_Response__c.qualtrics__Description__c</field>
+        <field>Case.Description</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>qualtrics__Survey_Response__c.qualtrics__Net_Promoter_Score__c</field>
+        <field>Case.Origin</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>qualtrics__Survey_Response__c.qualtrics__Other_Feedback__c</field>
+        <field>Case.Original_Feedback_Record__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>qualtrics__Survey_Response__c.qualtrics__Overall_Satisfaction__c</field>
+        <field>Case.ParentId</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>qualtrics__Survey_Response__c.qualtrics__Q_Recipient_ID__c</field>
+        <field>Case.Priority</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>qualtrics__Survey_Response__c.qualtrics__Q_SurveyID__c</field>
+        <field>Case.SLA_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>qualtrics__Survey_Response__c.qualtrics__Survey__c</field>
+        <field>Case.Sub_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Subject</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Type</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Vendor_Record_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Vendor_Record_Link__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
-    <label>Customer Feedback Read/Write</label>
-    <license>Salesforce</license>
+    <label>Case Read/Write - Qualtrics Integration</label>
     <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
         <allowEdit>false</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
-        <object>Case</object>
+        <object>Account</object>
         <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>Case</object>
+        <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
         <allowCreate>false</allowCreate>
@@ -87,17 +110,8 @@
         <object>Contact</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
-    <objectPermissions>
-        <allowCreate>true</allowCreate>
-        <allowDelete>false</allowDelete>
-        <allowEdit>true</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>false</modifyAllRecords>
-        <object>qualtrics__Survey_Response__c</object>
-        <viewAllRecords>true</viewAllRecords>
-    </objectPermissions>
-    <tabSettings>
-        <tab>qualtrics__Survey_Response__c</tab>
-        <visibility>Visible</visibility>
-    </tabSettings>
+    <recordTypeVisibilities>
+        <recordType>Case.Customer_Feedback</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
 </PermissionSet>

@@ -613,7 +613,13 @@
         "SI_PSI_Source_Other__c",
         "SI_PSI_Source__c"
       ],
-      "IA-2415720": ["Date_Account_Last_Debited__c", "IDR_Customer_Number__c"]
+      "IA-2415720": ["Date_Account_Last_Debited__c", "IDR_Customer_Number__c"],
+      "IA-2415840": [
+        "Advocacy_Score__c",
+        "Alerting_Reason__c",
+        "Original_Feedback_Record__c"
+      ],
+      "IA-2415790": ["Vendor_Record_ID__c", "Vendor_Record_Link__c"]
     },
     "CFMS_Migrated_Document__c": {
       "IA-2453595": [

@@ -105,3 +105,6 @@ force-app/main/default/flows/Send_Notification_to_New_User.flow-meta.xml
 #ANZX-29577 Ignoring Knowledge Process to force engineers to deploy this manually and do a post deployment step
 #to re-reference the queue otherwise the flow will not pick up the correct Queue Id in the destination environment
 force-app/main/default/flows/Knowledge_Process.flow-meta.xml
+
+#to prevent issues when deploying looking for depracated process name
+force-app/main/default/entitlementProcesses/anz plus - basic subscription v1.entitlementProcess-meta.xml

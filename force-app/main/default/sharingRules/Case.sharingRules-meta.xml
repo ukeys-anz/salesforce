@@ -572,6 +572,62 @@
             <value>Systemic Issue</value>
         </criteriaItems>
     </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Coach_Customer_Feedback_RT_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Grant read and write access on Customer Feeback record types to Coach</description>
+        <label>Coach_Customer_Feedback_RT_RW</label>
+        <sharedTo>
+            <role>Coach</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Feedback</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Coach_Lead_Customer_Feedback_RT_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Grant read and write access on Customer Feeback record types to Coach Lead</description>
+        <label>Coach_Lead_Customer_Feedback_RT_RW</label>
+        <sharedTo>
+            <role>Coach Lead</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Feedback</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>FraudX_Agent_Customer_Feedback_RT_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Grant read and write access on Customer Feeback record types to FraudX Agent</description>
+        <label>FraudX_Agent_Customer_Feedback_RT_RW</label>
+        <sharedTo>
+            <role>FraudX Agent</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Feedback</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Support_Coach_Customer_Feedback_RT_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Grant read and write access on Customer Feeback record types to Support Coach</description>
+        <label>Support_Coach_Customer_Feedback_RT_RW</label>
+        <sharedTo>
+            <role>Support Coach</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Feedback</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
     <sharingOwnerRules>
         <fullName>Fraud_FraudXAgent_RW</fullName>
         <accessLevel>Edit</accessLevel>

@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Customer_Feedback</fullName>
+    <active>true</active>
+    <businessProcess>ANZx Support Process</businessProcess>
+    <description>Record and track cases auto-populated from survey responses with low NPS scores</description>
+    <label>Customer Feedback</label>
+    <picklistValues>
+        <picklist>Origin</picklist>
+        <values>
+            <fullName>4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>App Store Review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bug</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Feedback</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Survey</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type</picklist>
+        <values>
+            <fullName>1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>10</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>12</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>13</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>14</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>15</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>16</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>17</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>18</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>19</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>20</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>21</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>6</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>7</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>8</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>9</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Sub_Type__c</picklist>
+        <values>
+            <fullName>Add Life Event</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Add%2FEdit Details</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>App Guide</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>App security</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bug Report</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cancel a Dispute</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Card Enquiry</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Card Issue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Card Lost%2FStolen</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Coaching%2FNeeds based Discussion</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Device Support</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Feature Request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fees %26 Charges</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fraud</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hoax Email%2FSMS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>KYC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Dispute</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Overdraft</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product Info</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Re-Identification</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Re-Joining</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Round Ups</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Savings Goals</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transaction</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Priority</picklist>
+        <values>
+            <fullName>Medium</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>SLA_Status__c</picklist>
+        <values>
+            <fullName>Breached</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Warning</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>
