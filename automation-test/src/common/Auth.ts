@@ -1,6 +1,7 @@
-import SalesforceLogin from "../pageObjects/salesforceLogin";
-import SalesforceLogout from "../pageObjects/salesforceLogout";
-import TwilioLogin from "../pageObjects/twilioLogin";
+import SalesforceLogin from "pageObjects/salesforceLogin";
+import SalesforceLogout from "pageObjects/salesforceLogout";
+import TwilioLogin from "pageObjects/twilioLogin";
+import { UserRole } from "constants/enums";
 
 export default class Auth {
   /**
@@ -9,12 +10,12 @@ export default class Auth {
    */
   static loginSalesforceAsRole = async (role: string): Promise<void> => {
     if (!process.env.SALESFORCE_LOGIN_URL) {
-      console.error("\nError: missing SALESFORCE_LOGIN_URL.");
+      console.error("Error: missing SALESFORCE_LOGIN_URL.");
       process.exit(-1);
     }
 
-    if (!process.env.SALESFORCE_ENV_BASE) {
-      console.error("Error: missing SALESFORCE_ENV_BASE.");
+    if (!process.env.SALESFORCE_ENV) {
+      console.error("Error: missing SALESFORCE_ENV.");
       process.exit(-1);
     }
 
@@ -25,7 +26,7 @@ export default class Auth {
     const salesforceLoginRoot = await utam.load(SalesforceLogin);
 
     switch (role) {
-      case "Coach":
+      case UserRole.COACH:
         if (!process.env.COACH_USERNAME || !process.env.COACH_PASSWORD) {
           console.error(
             "Error: Trying to login as Coach but missing COACH_USERNAME or COACH_PASSWORD."
@@ -34,11 +35,11 @@ export default class Auth {
         }
 
         await salesforceLoginRoot.login(
-          `${process.env.COACH_USERNAME}.${process.env.SALESFORCE_ENV_BASE}`,
+          `${process.env.COACH_USERNAME}.${process.env.SALESFORCE_ENV}`,
           process.env.COACH_PASSWORD!
         );
         break;
-      case "FraudX Agent":
+      case UserRole.FRAUDX_AGENT:
         if (
           !process.env.FRAUDX_AGENT_USERNAME ||
           !process.env.FRAUDX_AGENT_PASSWORD
@@ -50,7 +51,7 @@ export default class Auth {
         }
 
         await salesforceLoginRoot.login(
-          `${process.env.FRAUDX_AGENT_USERNAME}.${process.env.SALESFORCE_ENV_BASE}`,
+          `${process.env.FRAUDX_AGENT_USERNAME}.${process.env.SALESFORCE_ENV}`,
           process.env.FRAUDX_AGENT_PASSWORD!
         );
         break;
@@ -67,6 +68,8 @@ export default class Auth {
     await domDocument.waitFor(async () =>
       (await domDocument.getUrl()).includes("/lightning")
     );
+
+    await browser.pause(3000);
   };
 
   /**
@@ -75,7 +78,8 @@ export default class Auth {
   static logoutSalesforce = async (): Promise<void> => {
     // load the page object
     const salesforceLogoutRoot = await utam.load(SalesforceLogout);
-    salesforceLogoutRoot.logout();
+    await salesforceLogoutRoot.logout();
+    await browser.reloadSession();
   };
 
   twilioLogin = async () => {

@@ -37,7 +37,7 @@
   },
   "methods": [
     {
-      "name": "getDetailComponent",
+      "name": "getCaseDetailComponent",
       "compose": [
         {
           "element": "decorator",
@@ -50,18 +50,18 @@
         },
         {
           "chain": true,
-          "returnType": "anzx-utam-flexipage/pageObjects/consoleRecordHomeTemplateDesktop2",
+          "returnType": "anzx-utam-flexipage/pageObjects/coachesWorkbenchCaseRecordHomeTemplateDesktop2",
           "element": "generatedTemplate",
           "args": [
             {
               "type": "pageObject",
-              "value": "anzx-utam-flexipage/pageObjects/consoleRecordHomeTemplateDesktop2"
+              "value": "anzx-utam-flexipage/pageObjects/coachesWorkbenchCaseRecordHomeTemplateDesktop2"
             }
           ]
         },
         {
           "chain": true,
-          "returnType": "anzx-utam-flexipage/pageObjects/consoleTabset2",
+          "returnType": "anzx-utam-flexipage/pageObjects/coaceshWorkbenchCaseTabset2",
           "element": "mainRegionTabset"
         },
         {

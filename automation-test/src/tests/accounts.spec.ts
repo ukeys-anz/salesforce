@@ -1,11 +1,11 @@
-import Auth from "../common/Auth";
-import LwcCustomerDetails from "../pageObjects/lwcCustomerDetails";
-import SfNavigation from "../common/navigation";
-import SfAccounts from "../common/accounts";
+import Auth from "common/Auth";
+import LwcCustomerDetails from "pageObjects/lwcCustomerDetails";
+import SfNavigation from "common/navigation";
+import SfAccounts from "common/accounts";
 // import SfCustomer from "../common/customer";
-import SfPageUtils from "../utils/sfUtils";
+import SfPageUtils from "utils/sfUtils";
 import { describe } from "mocha";
-import LwcFinancialAccount from "../pageObjects/lwcFinancialAccount";
+import LwcFinancialAccount from "pageObjects/lwcFinancialAccount";
 
 // describe("Cards verification", () => {
 //   it("Login and search for a customer with a valid card", async () => {

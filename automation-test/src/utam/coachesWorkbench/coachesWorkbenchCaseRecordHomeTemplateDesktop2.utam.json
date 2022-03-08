@@ -13,7 +13,7 @@
       "selector": {
         "css": ".row-main .region-main flexipage-tabset2:first-child"
       },
-      "type": "anzx-utam-flexipage/pageObjects/consoleTabset2",
+      "type": "anzx-utam-flexipage/pageObjects/coachesWorkbenchCaseTabset2",
       "public": true
     }
   ]

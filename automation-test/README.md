@@ -15,6 +15,7 @@
     ├── build
     └── src
         ├── common
+        ├── constants
         ├── data
         ├── pageObjects
         ├── tests
@@ -31,6 +32,8 @@
 - `src` folder contains the source code.
 
   - `common` folder contains specific interaction scnearios used in test spec files. Some of these scenario can be reused in different test spec files.
+
+  - `constants` folder manages enums and constants etc.
 
   - `data` folder manages test data.
 
@@ -78,24 +81,15 @@
 
 - The ANZ Salesforce End-to-End testing will test different business and feature scenarios with different user roles.
 
-- Before running the test locally, create a .env file under automation-test folder with following entries so the test script can login into the test environment with correct credentials.
+- Before running the test locally, create a `.env` file under automation-test folder so that the test script can login into target test environment with correct credentials. Please refer to `.env.example` as a sample.
 
-- Please update `./src/common/Auth.ts` and below sample with any missing test user credential env variables while contributing.
-
-  ```txt
-  SALESFORCE_LOGIN_URL=https://test.salesforce.com
-  SALESFORCE_ENV_BASE=
-  COACH_USERNAME=
-  COACH_PASSWORD=
-  FRAUDX_AGENT_USERNAME=
-  FRAUDX_AGENT_PASSWORD=
-  ```
+- Please update `./src/common/Auth.ts` and `.env.example` with newly added test user credential env variables while contributing.
 
 - **`For now engineers need to get test users' credentials and store in .env file. Please be mindful and DO NOT commit these credentials. This practice will be replaced in the future once the security store integration for automation is ready`**
 
-- In .env file, the `SALESFORCE_ENV_BASE` variable is used to control in which org the test will be running. For now the only supported value is `test` as we will run the automation in test sandbox first.
+- In .env file, the `SALESFORCE_ENV` variable is used to control in which org the test will be running. For now the only supported value is `test` as we will run the automation in test sandbox first.
 
-- The `SALESFORCE_ENV_BASE` is also used to format the testing users' username at runtime. For exmaple: if `COACH_USERNAME` is `testusername@anzx.com`, the automation auth process will concatenate `COACH_USERNAME` + `'.'` + `SALESFORCE_ENV_BASE` and format the username to `testusername@anzx.com.test`.
+- The `SALESFORCE_ENV` is also used to format the testing users' username at runtime. For exmaple: if `COACH_USERNAME` is `testusername@anzx.com`, the automation auth process will concatenate `COACH_USERNAME` + `'.'` + `SALESFORCE_ENV` and format the username to `testusername@anzx.com.test`.
 
 ## Run in Local
 

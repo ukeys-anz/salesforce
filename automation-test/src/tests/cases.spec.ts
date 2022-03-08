@@ -1,114 +1,20 @@
 import Auth from "common/Auth";
 import AppLauncher from "pageObjects/appLauncher";
 import ConsoleAppNavigation from "pageObjects/consoleAppNavigation";
-import LwcCustomerDetails from "pageObjects/lwcCustomerDetails";
-import SfNavigation from "common/navigation";
-import CaseHandler from "common/cases/CaseHandler";
 import SfPageUtils from "utils/sfUtils";
+import { UserRole } from "constants/enums";
+import GeneralEnquiry from "common/cases/GeneralEnquiry";
+import ANZXComplaint from "common/cases/ANZXComplaint";
+import KYCQA from "common/cases/Fraud";
+import RecipientMule from "common/cases/RecipientMule";
+import Fraud from "common/cases/Fraud";
 
-describe.skip("Case Creation - General Enquiry", () => {
-  let caseNumber: string;
+describe("Case - Coach Creates and Updates General Enquiry Case", async (): Promise<void> => {
+  let generalEnquiryCase = new GeneralEnquiry(UserRole.COACH);
 
-  it("Login as a Coach User", async () => {
-    browser.maximizeWindow();
-
-    await Auth.loginSalesforceAsRole("Coach");
-
-    await browser.pause(2000);
-
-    await SfPageUtils.closeAllTabsMain();
-  });
-
-  it("Go to Cases -> New Case", async () => {
-    //Load the Customer Details Page
-    const customerPageRoot = await utam.load(LwcCustomerDetails);
-    const navigationShowElement = await customerPageRoot.getNavigationShow();
-
-    let sfNavigation = new SfNavigation();
-
-    await navigationShowElement.click();
-    await sfNavigation.selectNavigation("Cases");
-    await browser.pause(2000);
-  });
-
-  it("Create a New Case", async () => {
-    let cases = new CaseHandler();
-    caseNumber = await cases.createGenEnqCase("scenario_001");
-  });
-
-  it("Change Owner to Support Coach", async () => {
-    let cases = new CaseHandler();
-    await cases.changeOwner("scenario_001");
-  });
-
-  it("Edit Case Type", async () => {
-    let cases = new CaseHandler();
-    await cases.editIssueType("scenario_001");
-  });
-
-  it("Change Owner to Another Coach", async () => {
-    let cases = new CaseHandler();
-    await cases.changeOwner("scenario_002_1");
-  });
-
-  it("Close the ANZx Complaint case", async () => {
-    await SfPageUtils.closeAllTabsMain();
-
-    let cases = new CaseHandler();
-    await cases.closeCase(caseNumber);
-  });
-});
-
-describe.skip("Case Creation - ANZx Complaints", async () => {
-  let caseNumber: string;
-
-  it("Go to Cases -> New Case", async () => {
-    //Load the Customer Details Page
-    await SfPageUtils.closeAllTabsMain();
-    const customerPageRoot = await utam.load(LwcCustomerDetails);
-    const navigationShowElement = await customerPageRoot.getNavigationShow();
-
-    let sfNavigation = new SfNavigation();
-
-    await navigationShowElement.click();
-    await sfNavigation.selectNavigation("Cases");
-    await browser.pause(2000);
-  });
-
-  it("Create an ANZx Complaint Case", async () => {
-    let cases = new CaseHandler();
-    caseNumber = await cases.createAnzxComplaintCase("scenario_002");
-  });
-
-  it("Change Owner to Support Coach", async () => {
-    let cases = new CaseHandler();
-    await cases.changeOwner("scenario_002");
-  });
-
-  it("Edit Case Type", async () => {
-    let cases = new CaseHandler();
-    await cases.editIssueType("scenario_002");
-  });
-
-  it("Change Owner to Another Coach", async () => {
-    let cases = new CaseHandler();
-    await cases.changeOwner("scenario_002_1");
-  });
-
-  it("Close the ANZx Complaint case", async () => {
-    await SfPageUtils.closeAllTabsMain();
-
-    let cases = new CaseHandler();
-    await cases.closeCase(caseNumber);
-  });
-});
-
-describe("Case Creation - KYC QA", async (): Promise<void> => {
-  let kycQaCase: CaseHandler = new CaseHandler("KYC QA");
-
-  it("Login as FraudX Agent", async (): Promise<void> => {
-    browser.maximizeWindow();
-    await Auth.loginSalesforceAsRole("FraudX Agent");
+  it("Login as Coach", async (): Promise<void> => {
+    await browser.maximizeWindow();
+    await Auth.loginSalesforceAsRole(UserRole.COACH);
     await SfPageUtils.closeAllTabsMain();
   });
 
@@ -116,6 +22,92 @@ describe("Case Creation - KYC QA", async (): Promise<void> => {
     // redirect user to Coaches Workbench
     const appLauncherRoot = await utam.load(AppLauncher);
     await appLauncherRoot.redirectToApp("Coaches Workbench");
+
+    await browser.pause(2000);
+
+    // redirect user to Case tab
+    const consoleAppNavigationRoot = await utam.load(ConsoleAppNavigation);
+    await consoleAppNavigationRoot.redirectToTab("Cases");
+  });
+
+  it("Create a General Enquiry Case", async (): Promise<void> => {
+    await generalEnquiryCase.createRecord();
+  });
+
+  it("Assign General Enquiry Case to Support Coach Queue", async (): Promise<void> => {
+    await generalEnquiryCase.assignNewOwner();
+  });
+
+  it("Update General Enquiry Case", async (): Promise<void> => {
+    await generalEnquiryCase.updateRecord();
+  });
+
+  it("Close General Enquiry Case", async (): Promise<void> => {
+    await generalEnquiryCase.closeRecord();
+  });
+
+  it("Logout Coach", async (): Promise<void> => {
+    await Auth.logoutSalesforce();
+  });
+});
+
+describe("Case - Coach Creates and Updates ANZx Complaint Case", async (): Promise<void> => {
+  let anzxComplaintCase = new ANZXComplaint(UserRole.COACH);
+
+  it("Login as Coach", async (): Promise<void> => {
+    await browser.maximizeWindow();
+    await Auth.loginSalesforceAsRole(UserRole.COACH);
+    await SfPageUtils.closeAllTabsMain();
+  });
+
+  it("Go to Coaches Workbench and Case tab", async (): Promise<void> => {
+    // redirect user to Coaches Workbench
+    const appLauncherRoot = await utam.load(AppLauncher);
+    await appLauncherRoot.redirectToApp("Coaches Workbench");
+
+    await browser.pause(2000);
+
+    // redirect user to Case tab
+    const consoleAppNavigationRoot = await utam.load(ConsoleAppNavigation);
+    await consoleAppNavigationRoot.redirectToTab("Cases");
+  });
+
+  it("Create a ANZx Complaint Case", async (): Promise<void> => {
+    await anzxComplaintCase.createRecord();
+  });
+
+  it("Assign ANZx Complaint Case to Support Coach Queue", async (): Promise<void> => {
+    await anzxComplaintCase.assignNewOwner();
+  });
+
+  it("Update ANZx Complaint Case", async (): Promise<void> => {
+    await anzxComplaintCase.updateRecord();
+  });
+
+  it("Close ANZx Complaint Case", async (): Promise<void> => {
+    await anzxComplaintCase.closeRecord();
+  });
+
+  it("Logout Coach", async (): Promise<void> => {
+    await Auth.logoutSalesforce();
+  });
+});
+
+describe("Case - FraudX Agent Creates and Updates KYC QA Case", async (): Promise<void> => {
+  let kycQaCase = new KYCQA(UserRole.FRAUDX_AGENT);
+
+  it("Login as FraudX Agent", async (): Promise<void> => {
+    await browser.maximizeWindow();
+    await Auth.loginSalesforceAsRole(UserRole.FRAUDX_AGENT);
+    await SfPageUtils.closeAllTabsMain();
+  });
+
+  it("Go to Coaches Workbench and Case tab", async (): Promise<void> => {
+    // redirect user to Coaches Workbench
+    const appLauncherRoot = await utam.load(AppLauncher);
+    await appLauncherRoot.redirectToApp("Coaches Workbench");
+
+    await browser.pause(2000);
 
     // redirect user to Case tab
     const consoleAppNavigationRoot = await utam.load(ConsoleAppNavigation);
@@ -143,12 +135,12 @@ describe("Case Creation - KYC QA", async (): Promise<void> => {
   });
 });
 
-describe("Case Creation - Recipient/Mule", async (): Promise<void> => {
-  let recipientMuleCase: CaseHandler = new CaseHandler("Recipient/Mule");
+describe("Case - FraudX Agent Creates and Updates Recipient/Mule Case", async (): Promise<void> => {
+  let recipientMuleCase = new RecipientMule(UserRole.FRAUDX_AGENT);
 
   it("Login as FraudX Agent", async (): Promise<void> => {
-    browser.maximizeWindow();
-    await Auth.loginSalesforceAsRole("FraudX Agent");
+    await browser.maximizeWindow();
+    await Auth.loginSalesforceAsRole(UserRole.FRAUDX_AGENT);
     await SfPageUtils.closeAllTabsMain();
   });
 
@@ -156,6 +148,8 @@ describe("Case Creation - Recipient/Mule", async (): Promise<void> => {
     // redirect user to Coaches Workbench
     const appLauncherRoot = await utam.load(AppLauncher);
     await appLauncherRoot.redirectToApp("Coaches Workbench");
+
+    await browser.pause(2000);
 
     // redirect user to Case tab
     const consoleAppNavigationRoot = await utam.load(ConsoleAppNavigation);
@@ -176,6 +170,48 @@ describe("Case Creation - Recipient/Mule", async (): Promise<void> => {
 
   it("Close Recipient/Mule Case", async (): Promise<void> => {
     await recipientMuleCase.closeRecord();
+  });
+
+  it("Logout", async (): Promise<void> => {
+    await Auth.logoutSalesforce();
+  });
+});
+
+describe("Case - FraudX Agent Creates and Updates Fraud Case", async (): Promise<void> => {
+  let fraudCase = new Fraud(UserRole.FRAUDX_AGENT);
+
+  it("Login as FraudX Agent", async (): Promise<void> => {
+    await browser.maximizeWindow();
+    await Auth.loginSalesforceAsRole(UserRole.FRAUDX_AGENT);
+    await SfPageUtils.closeAllTabsMain();
+  });
+
+  it("Go to Coaches Workbench and Case tab", async (): Promise<void> => {
+    // redirect user to Coaches Workbench
+    const appLauncherRoot = await utam.load(AppLauncher);
+    await appLauncherRoot.redirectToApp("Coaches Workbench");
+
+    await browser.pause(1000);
+
+    // redirect user to Case tab
+    const consoleAppNavigationRoot = await utam.load(ConsoleAppNavigation);
+    await consoleAppNavigationRoot.redirectToTab("Cases");
+  });
+
+  it("Create a Fraud Case", async (): Promise<void> => {
+    await fraudCase.createRecord();
+  });
+
+  it("Assign Fraud Case to Another FraudX Agent", async (): Promise<void> => {
+    await fraudCase.assignNewOwner();
+  });
+
+  it("Update Fraud Case", async (): Promise<void> => {
+    await fraudCase.updateRecord();
+  });
+
+  it("Close Fraud Case", async (): Promise<void> => {
+    await fraudCase.closeRecord();
   });
 
   it("Logout", async (): Promise<void> => {

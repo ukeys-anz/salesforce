@@ -32,6 +32,7 @@ export const selectPicklist = async (
 ): Promise<void> => {
   const fieldInlineEditButton = await field.getInlineEditButton();
   await fieldInlineEditButton.click();
+  await browser.pause(2000);
 
   const picklist = await field.getPicklist();
   const combobox = await picklist.getComboBox();

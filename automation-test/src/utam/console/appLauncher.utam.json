@@ -3,6 +3,22 @@
   "selector": {
     "css": "body"
   },
+  "beforeLoad": [
+    {
+      "apply": "waitFor",
+      "args": [
+        {
+          "type": "function",
+          "predicate": [
+            {
+              "element": "root",
+              "apply": "isVisible"
+            }
+          ]
+        }
+      ]
+    }
+  ],
   "elements": [
     {
       "name": "appLauncher",
@@ -78,12 +94,44 @@
           "apply": "click"
         },
         {
+          "apply": "waitFor",
+          "args": [
+            {
+              "type": "function",
+              "predicate": [
+                {
+                  "element": "searchInput",
+                  "matcher": {
+                    "type": "notNull"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
           "element": "searchInput",
           "apply": "clearAndType",
           "args": [
             {
               "name": "appName",
               "type": "string"
+            }
+          ]
+        },
+        {
+          "apply": "waitFor",
+          "args": [
+            {
+              "type": "function",
+              "predicate": [
+                {
+                  "element": "searchItemLink",
+                  "matcher": {
+                    "type": "notNull"
+                  }
+                }
+              ]
             }
           ]
         },
