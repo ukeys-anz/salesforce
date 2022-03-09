@@ -11,7 +11,7 @@ const atmDisputesFieldsMapping = {
   Transaction_Currency__c: "international_amount.charged.currency_code",
   Bank_ATM__c: "long_desc",
   Location__c: "long_desc",
-  Card_Scheme__c: "cash.scheme"
+  Card_Scheme__c: "cash.card_scheme"
 };
 
 const directDebitDisputesFieldsMapping = {

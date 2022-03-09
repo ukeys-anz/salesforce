@@ -1,0 +1,116 @@
+{
+  "account_buckets": [
+    {
+      "id": "4096fead-c325-59a4-89a6-a7a7378f0e93",
+      "account_number": "210454465",
+      "created_at": "2021-12-06T01:48:36.114223Z",
+      "is_default": false,
+      "balance": {
+        "currency_code": "AUD",
+        "units": "20000",
+        "nanos": 200000
+      },
+      "balance_valid_at": "2021-12-06T02:01:15.786332Z",
+      "is_balance_current": true,
+      "goal": {
+        "name": "Holiday in Japan",
+        "target_amount": null,
+        "target_date": null,
+        "theme": "GOAL_THEME_TRAVEL",
+        "emoji": {
+          "value": ""
+        },
+        "color": {
+          "value": ""
+        },
+        "is_open": true,
+        "closed_at": null,
+        "updated_at": "2021-12-06T01:48:36.114223Z"
+      }
+    },
+    {
+      "id": "476e0ac6-5553-5fda-bdd8-b8f87af2d83b",
+      "account_number": "210454465",
+      "created_at": "2021-12-06T01:48:20.975071Z",
+      "is_default": false,
+      "balance": {
+        "currency_code": "AUD",
+        "units": "100000",
+        "nanos": 300000
+      },
+      "balance_valid_at": "2021-12-06T02:01:15.786332Z",
+      "is_balance_current": true,
+      "goal": {
+        "name": "Buy a car",
+        "target_amount": null,
+        "target_date": null,
+        "theme": "GOAL_THEME_BUY_A_CAR",
+        "emoji": {
+          "value": ""
+        },
+        "color": {
+          "value": ""
+        },
+        "is_open": true,
+        "closed_at": null,
+        "updated_at": "2021-12-06T01:48:20.975071Z"
+      }
+    },
+    {
+      "id": "4096fead-c325-59a4-89a6-a7a7378f0e93",
+      "account_number": "210454465",
+      "created_at": "2021-12-06T01:48:36.114223Z",
+      "is_default": false,
+      "balance": {
+        "currency_code": "AUD",
+        "units": "20",
+        "nanos": 200000
+      },
+      "balance_valid_at": "2021-12-06T02:01:15.786332Z",
+      "is_balance_current": true,
+      "goal": {
+        "name": "Holiday in Japan",
+        "target_amount": null,
+        "target_date": null,
+        "theme": "GOAL_THEME_TRAVEL",
+        "emoji": {
+          "value": ""
+        },
+        "color": {
+          "value": ""
+        },
+        "is_open": true,
+        "closed_at": null,
+        "updated_at": "2021-12-06T01:48:36.114223Z"
+      }
+    },
+    {
+      "id": "476e0ac6-5553-5fda-bdd8-b8f87af2d83b",
+      "account_number": "210454465",
+      "created_at": "2021-12-06T01:48:20.975071Z",
+      "is_default": false,
+      "balance": {
+        "currency_code": "AUD",
+        "units": "30",
+        "nanos": 300000
+      },
+      "balance_valid_at": "2021-12-06T02:01:15.786332Z",
+      "is_balance_current": true,
+      "goal": {
+        "name": "Buy a car",
+        "target_amount": null,
+        "target_date": null,
+        "theme": "GOAL_THEME_BUY_A_CAR",
+        "emoji": {
+          "value": ""
+        },
+        "color": {
+          "value": ""
+        },
+        "is_open": true,
+        "closed_at": null,
+        "updated_at": "2021-12-06T01:48:20.975071Z"
+      }
+    }
+  ]
+}

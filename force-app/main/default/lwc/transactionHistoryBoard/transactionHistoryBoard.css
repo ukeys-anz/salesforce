@@ -1,11 +1,14 @@
-.filter-button {
-  cursor: pointer;
+.transactionHistoryBoard {
+  min-height: 200px;
+  user-select: none;
+  /* iOS Safari */
+  -webkit-touch-callout: none;
+  /* Safari */
+  -webkit-user-select: none;
 }
 
-.load-more {
-  margin: 50px 0 10px 0;
-  position: relative;
-  left: 50%;
+.filter-button {
+  cursor: pointer;
 }
 
 .slds-button_icon-small {
@@ -28,4 +31,27 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 35px;
+}
+
+.field-padding {
+  padding: 20px;
+}
+
+.padded-card {
+  padding: 10px !important;
+}
+
+.card-title {
+  background: #eef1f5;
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 0.25em;
+  font-weight: bold;
+  height: 100%;
+}
+
+.flex-override {
+  flex: unset !important;
+  align-self: center;
 }
