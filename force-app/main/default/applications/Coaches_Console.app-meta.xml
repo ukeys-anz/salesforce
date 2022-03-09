@@ -38,11 +38,11 @@
     <actionOverrides>
         <actionName>View</actionName>
         <comment>Action override created by Lightning App Builder during activation.</comment>
-        <content>Customer_Feedback_Record_Page</content>
+        <content>Survey_Response_Record_Page</content>
         <formFactor>Large</formFactor>
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>Flexipage</type>
-        <pageOrSobjectType>Customer_Feedback__c</pageOrSobjectType>
+        <pageOrSobjectType>qualtrics__Survey_Response__c</pageOrSobjectType>
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
@@ -99,13 +99,13 @@
     <tabs>Knowledge__kav</tabs>
     <tabs>standard-report</tabs>
     <tabs>standard-Dashboard</tabs>
-    <tabs>Customer_Feedback__c</tabs>
+    <tabs>qualtrics__Survey_Response__c</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Coaches_Console_UtilityBar</utilityBar>
     <workspaceConfig>
         <mappings>
-            <fieldName>Account_Name__c</fieldName>
-            <tab>Customer_Feedback__c</tab>
+            <fieldName>qualtrics__Account__c</fieldName>
+            <tab>qualtrics__Survey_Response__c</tab>
         </mappings>
         <mappings>
             <tab>Knowledge__kav</tab>
