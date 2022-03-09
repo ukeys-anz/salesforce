@@ -1,0 +1,37 @@
+{
+  "root": true,
+  "selector": {
+    "css": "body"
+  },
+  "elements": [
+    {
+      "name": "userProfile",
+      "selector": {
+        "css": "button[class*='branding-userProfile-button']"
+      },
+      "type": "clickable"
+    },
+    {
+      "name": "logoutLink",
+      "selector": {
+        "css": "a[class*='logout']"
+      },
+      "type": "clickable"
+    }
+  ],
+  "methods": [
+    {
+      "name": "logout",
+      "compose": [
+        {
+          "element": "userProfile",
+          "apply": "click"
+        },
+        {
+          "element": "logoutLink",
+          "apply": "click"
+        }
+      ]
+    }
+  ]
+}

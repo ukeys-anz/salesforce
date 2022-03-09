@@ -1,0 +1,81 @@
+.slds-badge {
+  margin-left: 10px;
+}
+
+.financialAccount {
+  min-height: 200px;
+  user-select: none;
+  /* iOS Safari */
+  -webkit-touch-callout: none;
+  /* Safari */
+  -webkit-user-select: none;
+}
+
+.lastUpdated {
+  font-size: 12px;
+  float: right;
+}
+.savings-jar {
+  max-width: 100px;
+}
+.not-found {
+  margin: 0;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.balance-padding {
+  padding-right: 48px;
+}
+
+.message-padding {
+  padding: 20px;
+}
+
+.account-footer {
+  margin-bottom: 15px;
+}
+
+.tooltip {
+  cursor: pointer;
+  margin-left: 4px;
+  position: relative;
+  bottom: 2px;
+}
+
+.tooltip:hover {
+  --sds-c-icon-color-foreground-default: #014486;
+}
+
+.close-modal {
+  cursor: pointer;
+  --sds-c-icon-color-foreground-default: #fff;
+}
+
+.modal-header {
+  background: #014486;
+  color: #fff;
+}
+
+.card-title {
+  background: #eef1f5;
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 0.25em;
+  font-weight: bold;
+}
+
+.vertical-align {
+  position: relative;
+  top: 50%;
+  padding-left: 10px;
+  transform: translateY(-50%);
+}
+
+.slds-card__header-title {
+  padding-left: 6px;
+  padding-top: 5px;
+}

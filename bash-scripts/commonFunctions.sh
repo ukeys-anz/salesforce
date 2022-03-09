@@ -54,6 +54,9 @@ function changeMetadata(){
     elif [[ $2 == 'SIWorkflow' ]];then
         replace=$( sed "s+<controllingFieldValue>Open</controllingFieldValue>+<!--<controllingFieldValue>Open</controllingFieldValue>-->+g" "$1")
         echo $replace > "$1"
+    elif [[ $2 == 'IsotopeSubscription' ]];then
+        replace=$( sed "s+<excludedStandardButtons>IsotopeSubscription</excludedStandardButtons>+<!-- <excludedStandardButtons>IsotopeSubscription</excludedStandardButtons> -->+g" "$1" )
+        echo $replace > "$1"
     else
         f=$(echo $context | sed 's/\n//g')
         echo $f > "$1"

@@ -1,0 +1,157 @@
+{
+  "account_list": [
+    {
+      "account_number": "000000000",
+      "bsb": "014111",
+      "name": "GRIMES MITCH",
+      "balance": {
+        "currency_code": "AUD",
+        "units": "18",
+        "nanos": 1200000
+      },
+      "current_balance": {
+        "currency_code": "AUD",
+        "units": "19",
+        "nanos": 1200000
+      },
+      "balance_valid_at": "2021-11-16T05:20:38.275032Z",
+      "is_balance_current": true,
+      "created_at": "2021-09-30T00:34:50.488174Z",
+      "bucket_count": 1,
+      "marketing_product": {
+        "code": "TRANSACT01",
+        "name": "ANZ Everyday"
+      },
+      "allowed_transact_options": [
+        "TRANSACT_OPTION_TRANSFER_TO",
+        "TRANSACT_OPTION_TRANSFER_FROM"
+      ],
+      "status": "ACCOUNT_STATUS_ACTIVE",
+      "opened_at": null,
+      "closed_at": null,
+      "interest_rate": 0.15,
+      "tiered_rates": [
+        {
+          "tiers": [
+            {
+              "min": {
+                "currency_code": "AUD",
+                "units": "0",
+                "nanos": 0
+              },
+              "max": {
+                "currency_code": "AUD",
+                "units": "10000",
+                "nanos": 0
+              },
+              "rate": 0.15
+            },
+            {
+              "min": {
+                "currency_code": "AUD",
+                "units": "10000",
+                "nanos": 0
+              },
+              "max": {
+                "currency_code": "AUD",
+                "units": "20000",
+                "nanos": 0
+              },
+              "rate": 0.1
+            },
+            {
+              "min": {
+                "currency_code": "AUD",
+                "units": "20000",
+                "nanos": 0
+              },
+              "max": {
+                "currency_code": "AUD",
+                "units": "1000000000",
+                "nanos": 0
+              },
+              "rate": 0.05
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "account_number": "111111111",
+      "bsb": "014111",
+      "name": "GRIMES MITCH",
+      "balance": {
+        "currency_code": "AUD",
+        "units": "89",
+        "nanos": 3200000
+      },
+      "current_balance": {
+        "currency_code": "AUD",
+        "units": "29",
+        "nanos": 3200000
+      },
+      "balance_valid_at": "2021-11-16T05:20:38.275032Z",
+      "is_balance_current": true,
+      "created_at": "2021-09-30T00:34:50.488174Z",
+      "bucket_count": 16,
+      "marketing_product": {
+        "code": "SAVING01",
+        "name": "ANZ Save"
+      },
+      "allowed_transact_options": [
+        "TRANSACT_OPTION_TRANSFER_TO",
+        "TRANSACT_OPTION_TRANSFER_FROM"
+      ],
+      "status": "ACCOUNT_STATUS_ACTIVE",
+      "opened_at": null,
+      "closed_at": null,
+      "interest_rate": 0.15,
+      "tiered_rates": [
+        {
+          "tiers": [
+            {
+              "min": {
+                "currency_code": "AUD",
+                "units": "0",
+                "nanos": 0
+              },
+              "max": {
+                "currency_code": "AUD",
+                "units": "10000",
+                "nanos": 0
+              },
+              "rate": 0.15
+            },
+            {
+              "min": {
+                "currency_code": "AUD",
+                "units": "10000",
+                "nanos": 0
+              },
+              "max": {
+                "currency_code": "AUD",
+                "units": "20000",
+                "nanos": 0
+              },
+              "rate": 0.1
+            },
+            {
+              "min": {
+                "currency_code": "AUD",
+                "units": "20000",
+                "nanos": 0
+              },
+              "max": {
+                "currency_code": "AUD",
+                "units": "1000000000",
+                "nanos": 0
+              },
+              "rate": 0.05
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "next_page_token": ""
+}
