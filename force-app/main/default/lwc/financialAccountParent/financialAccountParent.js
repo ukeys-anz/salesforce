@@ -63,6 +63,7 @@ export default class FinancialAccountParent extends LightningElement {
   goalsLoading = false;
   transactionTypeDisputeIdMap = {};
   disputeRecordTypes = [];
+  filterGoal = false;
 
   @wire(CurrentPageReference)
   pageRef;
@@ -192,6 +193,12 @@ export default class FinancialAccountParent extends LightningElement {
     if (!this.transactionLoadMore) {
       this.transactionLoading = true;
     }
+
+    if (this.filterGoal) {
+      this.clearTransactions = true;
+    } else {
+      this.clearTransactions = false;
+    }
     //Set default component title here to ensure theres always a title
     //even if the try catch fails
     this.componentTitle = this.isSavings
@@ -242,7 +249,7 @@ export default class FinancialAccountParent extends LightningElement {
       );
     } finally {
       //reset values
-      this.clearTransactions = false;
+      this.filterGoal = false;
       this.transactionLoading = false;
       this.transactionLoadMore = false;
     }
@@ -282,7 +289,7 @@ export default class FinancialAccountParent extends LightningElement {
     if (this.transactionBucketIds.length === 0) {
       this.preselectedGoal = null;
     }
-    this.clearTransactions = true;
+    this.filterGoal = true;
     this.getTransactionData();
   }
 
