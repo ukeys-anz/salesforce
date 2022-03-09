@@ -88,12 +88,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>InteractionSummary.MeetingNotes</field>
+        <field>InteractionSummary.Meeting_Notes__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>InteractionSummary.NextSteps</field>
+        <field>InteractionSummary.Next_Steps__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -264,7 +264,7 @@
       "name": "System Administrator",
       "profile": "Admin",
       "permissionsetgroups": [],
-      "permissionsets": [],
+      "permissionsets": ["Appointment_Booking_System_Admin"],
       "type": "user"
     },
     {
