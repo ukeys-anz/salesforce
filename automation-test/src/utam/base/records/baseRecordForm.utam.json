@@ -59,6 +59,22 @@
       "name": "clickFooterButton",
       "compose": [
         {
+          "apply": "waitFor",
+          "args": [
+            {
+              "type": "function",
+              "predicate": [
+                {
+                  "element": "footer",
+                  "matcher": {
+                    "type": "notNull"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
           "element": "footer"
         },
         {

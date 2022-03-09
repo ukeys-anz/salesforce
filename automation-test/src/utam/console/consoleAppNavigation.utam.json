@@ -34,6 +34,22 @@
           "apply": "click"
         },
         {
+          "apply": "waitFor",
+          "args": [
+            {
+              "type": "function",
+              "predicate": [
+                {
+                  "element": "navMenuItem",
+                  "matcher": {
+                    "type": "notNull"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
           "element": "navMenuItem",
           "apply": "click"
         }

@@ -9,7 +9,7 @@ describe("Cards verification", () => {
   it("Login as a Coach User", async () => {
     //Login
     browser.maximizeWindow();
-    await Auth.loginSalesforce("Coach");
+    await Auth.loginSalesforceAsRole("Coach");
 
     //Close all tabs
     await browser.pause(5000);

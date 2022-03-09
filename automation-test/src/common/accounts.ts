@@ -34,4 +34,18 @@ export default class SfAccounts {
     await accountNameLink.click();
     await browser.pause(4000);
   };
+
+  searchAccountByName = async (customerName: string) => {
+    const accountsPageRoot = await utam.load(LwcAccounsView);
+    const searchBox = await $("//input[@name='Account-search-input']");
+    await searchBox.click();
+
+    await searchBox.setValue(customerName);
+    const refreshButton = await $("//button[@name='refreshButton']");
+    await refreshButton.click();
+    await browser.pause(4000);
+    const accountNameLink = await accountsPageRoot.getAccountItem(customerName);
+    await accountNameLink.click();
+    await browser.pause(4000);
+  };
 }

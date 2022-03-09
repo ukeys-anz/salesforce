@@ -1,6 +1,5 @@
 import scenariosData from "../data/scenarios.json";
 import cardsData from "../data/cardsData.json";
-import casesData from "../data/casesData.json";
 import accountsData from "../data/accountsData.json";
 import customerData from "../data/customerData.json";
 
@@ -61,61 +60,6 @@ export default class ScenarioUtil {
     scenariosData.scenarios.forEach((element) => {
       if (element.id == scenarioId) {
         value = element;
-      }
-    });
-
-    return value;
-  };
-
-  /**
-   * Takes no parameters
-   * @returns All the cases test data details
-   */
-  static getAllCases = function () {
-    let value;
-
-    if (casesData.cases != null) value = cardsData.cards;
-    else value = null;
-
-    return value;
-  };
-
-  /**
-   * @param scenarioId - scenario id
-   * @returns Return case details based on scenario ID and test type
-   */
-  static getCaseCreateDetails = function (scenarioId: string) {
-    let value;
-    let caseId;
-
-    scenariosData.scenarios.forEach((element) => {
-      if (element.id == scenarioId) {
-        casesData.cases.create.forEach((caseElem) => {
-          if (element.cases.create === caseElem.dataId) {
-            value = caseElem;
-          }
-        });
-      }
-    });
-
-    return value;
-  };
-
-  /**
-   * @param scenarioId - scenario id
-   * @returns Return case details based on scenario ID and test type
-   */
-  static getCaseEditDetails = function (scenarioId: string) {
-    let value;
-    let caseId;
-
-    scenariosData.scenarios.forEach((element) => {
-      if (element.id == scenarioId) {
-        casesData.cases.edit.forEach((caseElem) => {
-          if (element.cases.edit === caseElem.dataId) {
-            value = caseElem;
-          }
-        });
       }
     });
 

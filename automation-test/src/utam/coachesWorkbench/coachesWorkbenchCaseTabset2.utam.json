@@ -1,0 +1,30 @@
+{
+  "shadow": {
+    "elements": [
+      {
+        "name": "tabset",
+        "selector": {
+          "css": ".flexipage-tabset"
+        },
+        "elements": [
+          {
+            "name": "activeTab",
+            "selector": {
+              "css": "flexipage-tab2.slds-show"
+            },
+            "elements": [
+              {
+                "name": "detailComponent",
+                "type": "utam-flexipage/pageObjects/component2",
+                "selector": {
+                  "css": "flexipage-component2"
+                },
+                "public": true
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

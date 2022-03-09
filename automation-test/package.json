@@ -33,7 +33,6 @@
     "@wdio/mocha-framework": "^7.16.15",
     "@wdio/selenium-standalone-service": "^7.7.4",
     "@wdio/spec-reporter": "^7.16.14",
-    "@wdio/sync": "~7.7.6",
     "allure-commandline": "^2.13.8",
     "dotenv": "^16.0.0",
     "eslint": "^7.30.0",

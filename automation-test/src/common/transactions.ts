@@ -33,6 +33,7 @@ export default class SfTransactions {
       }
       rowNumber++;
     } while ((await trxType.getText()) != type);
+    return;
   };
 
   viewTransactionDetails = async (type: string) => {

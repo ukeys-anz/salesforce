@@ -10,7 +10,7 @@ describe("Transactions verification", () => {
   it("Login and search for a customer with a valid transactions", async () => {
     //Login
     browser.maximizeWindow();
-    await Auth.loginSalesforce("Coach");
+    await Auth.loginSalesforceAsRole("Coach");
 
     //Close all tabs
     await browser.pause(5000);

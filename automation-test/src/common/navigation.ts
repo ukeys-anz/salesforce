@@ -1,5 +1,4 @@
 import LwcCustomerDetails from "../pageObjects/lwcCustomerDetails";
-
 export default class SfNavigation {
   selectNavigation = async (menuitem: string) => {
     const customerPageRoot = await utam.load(LwcCustomerDetails);

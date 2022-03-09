@@ -9,11 +9,11 @@
       "public": true
     },
     {
-      "name": "tabset2",
+      "name": "mainRegionTabset",
       "selector": {
-        "css": "flexipage-tabset2"
+        "css": ".row-main .region-main flexipage-tabset2:first-child"
       },
-      "type": "utam-flexipage/pageObjects/tabset2",
+      "type": "anzx-utam-flexipage/pageObjects/coachesWorkbenchCaseTabset2",
       "public": true
     }
   ]
