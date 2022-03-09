@@ -901,7 +901,8 @@
         "qualtrics__Q_Survey_ID__c",
         "qualtrics__Survey__c",
         "Survey_Response_ID__c",
-        "Survey_Trigger__c"
+        "Survey_Trigger__c",
+        "UUID__c"
       ],
       "IA-2415984": [
         "qualtrics__Account__c",
