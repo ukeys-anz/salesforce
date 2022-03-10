@@ -7,6 +7,7 @@ import RecipientMule from "common/cases/RecipientMule";
 import Fraud from "common/cases/Fraud";
 import GeneralEnquiry from "common/cases/GeneralEnquiry";
 import Identity from "common/cases/Identity";
+import Scam from "common/cases/Scam";
 
 describe("Case - FraudX Agent Creates and Updates Cases", () => {
   // pre test steps
@@ -161,6 +162,30 @@ describe("Case - FraudX Agent Creates and Updates Cases", () => {
 
     it("Close Identity Case", async (): Promise<void> => {
       await identityCase.closeRecord();
+    });
+  });
+
+  describe("Scam Case", async (): Promise<void> => {
+    let scamCase = new Scam(UserRole.FRAUDX_AGENT);
+
+    it("Go to Coaches Workbench and Case tab", async (): Promise<void> => {
+      await navigateToConsoleAppAndObjectHome("Coaches Workbench", "Cases");
+    });
+
+    it("Create a Scam Case", async (): Promise<void> => {
+      await scamCase.createRecord();
+    });
+
+    it("Assign Scam Case to Another FraudX Agent", async (): Promise<void> => {
+      await scamCase.assignNewOwner();
+    });
+
+    it("Update Scam Case", async (): Promise<void> => {
+      await scamCase.updateRecord();
+    });
+
+    it("Close Scam Case", async (): Promise<void> => {
+      await scamCase.closeRecord();
     });
   });
 

@@ -4,6 +4,7 @@ export enum CaseType {
   GENERAL_ENQUIRY = "General Enquiry",
   KYC_QA = "KYC QA",
   RECIPIENT_MULE = "Recipient/Mule",
+  SCAM = "Scam",
   IDENTITY = "Identity"
 }
 
