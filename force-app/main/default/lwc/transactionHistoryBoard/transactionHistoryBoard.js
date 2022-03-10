@@ -1,5 +1,4 @@
 import { LightningElement, track, wire, api } from "lwc";
-import getDisputeRecordTypeMap from "@salesforce/apex/TransactionHistoryController.getDisputeRecordTypeMap";
 import getPersonAccountId from "@salesforce/apex/TransactionHistoryController.getPersonAccountId";
 import { getRecord } from "lightning/uiRecordApi";
 import FIN_ACCOUNT_TYPE from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__FinancialAccountType__c";
@@ -14,7 +13,6 @@ import {
   TRANSACTION_STATUSES,
   TRANSACTION_TYPES,
   CARD_TYPES,
-  DISPUTE_RECORD_TYPES_RETRIEVE_ERROR,
   PERSON_ACCOUNT_ID_RETRIEVE_ERROR,
   PAYMENT_TYPES,
   PAYMENT_SUB_TYPES
@@ -76,8 +74,8 @@ export default class TransactionHistoryBoard extends LightningElement {
   disableSearch = true;
   links;
   @api loading;
-  disputeRecordTypes = [];
-  transactionTypeDisputeIdMap = {};
+  @api disputeRecordTypesFromParent;
+  @api transactionTypeDisputeIdMapFromParent;
   personAccountId = "";
   showWarning = true;
   lastDateInPayload;
@@ -104,9 +102,6 @@ export default class TransactionHistoryBoard extends LightningElement {
       this.startDate = this.inputStartDate(this.tstartDate);
       this.endDate = this.inputEndDate(this.tendDate);
       this.handleGetPersonAccountId();
-      if (this.disputeRecordTypes.length === 0) {
-        this.handleGetDisputeRecordTypeDetails();
-      }
     }
   }
 
@@ -386,34 +381,6 @@ export default class TransactionHistoryBoard extends LightningElement {
     }
   }
 
-  // Construct a map of transaction type and its corresponding case record type
-  handleGetDisputeRecordTypeDetails() {
-    getDisputeRecordTypeMap()
-      .then((result) => {
-        if (result) {
-          const returnedMap = JSON.parse(result);
-          // Construct a list of dispute record type's label and Id to send to transaction record to construct the modal
-          for (const [key, value] of Object.entries(returnedMap)) {
-            this.transactionTypeDisputeIdMap[key] = value.Id; // This map is used in getRecordTypeId() below to determine which page layout the user should be directed to
-            let recordTypeItem = {};
-            recordTypeItem.developerName = key;
-            recordTypeItem.label = value.Name;
-            recordTypeItem.value = value.Id;
-            this.disputeRecordTypes.push(recordTypeItem);
-          }
-        }
-      })
-      .catch((error) => {
-        handleErrorShowToast(
-          this,
-          "Failed To Retrieve Dispute Record Types",
-          error,
-          DISPUTE_RECORD_TYPES_RETRIEVE_ERROR,
-          "pester"
-        );
-      });
-  }
-
   // Getting person contact Id so we can pre-populated it on the data capture form
   handleGetPersonAccountId() {
     getPersonAccountId({
@@ -501,9 +468,9 @@ export default class TransactionHistoryBoard extends LightningElement {
   getRecordTypeId(transaction) {
     switch (true) {
       case transaction.formatted_type === TRANSACTION_TYPES.Card:
-        return this.transactionTypeDisputeIdMap.Card_Dispute;
+        return this.transactionTypeDisputeIdMapFromParent.Card_Dispute;
       case transaction.formatted_type === TRANSACTION_TYPES.Deposit_Withdrawal:
-        return this.transactionTypeDisputeIdMap.ATM_Dispute;
+        return this.transactionTypeDisputeIdMapFromParent.ATM_Dispute;
       case transaction.formatted_type === TRANSACTION_TYPES.BSB_ACC &&
         transaction.pay_anyone?.clearing_method !==
           PAYMENT_TYPES.PAYMENT_TYPE_FAST &&
@@ -511,7 +478,7 @@ export default class TransactionHistoryBoard extends LightningElement {
           PAYMENT_SUB_TYPES.PAYMENT_SUB_TYPE_ICS1,
           PAYMENT_SUB_TYPES.PAYMENT_SUB_TYPE_ONUS
         ].includes(transaction.pay_anyone?.clearing_sub_method):
-        return this.transactionTypeDisputeIdMap.Direct_Entry_Dispute;
+        return this.transactionTypeDisputeIdMapFromParent.Direct_Entry_Dispute;
       case [TRANSACTION_TYPES.BSB_ACC, TRANSACTION_TYPES.PAYID].includes(
         transaction.formatted_type
       ) &&
@@ -521,9 +488,9 @@ export default class TransactionHistoryBoard extends LightningElement {
           PAYMENT_SUB_TYPES.PAYMENT_SUB_TYPE_ICS1,
           PAYMENT_SUB_TYPES.PAYMENT_SUB_TYPE_ONUS
         ].includes(transaction.pay_anyone?.clearing_sub_method):
-        return this.transactionTypeDisputeIdMap.NPP_Dispute;
+        return this.transactionTypeDisputeIdMapFromParent.NPP_Dispute;
       case transaction.formatted_type === TRANSACTION_TYPES.Direct_Debit:
-        return this.transactionTypeDisputeIdMap.Direct_Debit_Dispute;
+        return this.transactionTypeDisputeIdMapFromParent.Direct_Debit_Dispute;
       default:
         return "";
     }

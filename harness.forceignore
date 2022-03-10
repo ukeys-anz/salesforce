@@ -89,7 +89,6 @@ KnowledgeValidationStatus
 type:DataCategoryGroup
 force-app/main/default/datacategorygroups
 
-
 #Ignoring deleted platform event for Nov 10 develop merge - CMOS
 force-app/main/default/objects/IDR_CRC_Escalation_Event__e
 

@@ -9,6 +9,13 @@ const APEX_TRANSACTIONS_SUCCESS = require("./data/transactionSuccess.json");
 const APEX_TRANSACTIONS_SUCCESS_SECOND = require("./data/transactionSuccessTwo.json");
 const APEX_TRANSACTIONS_SUCCESS_PARTIAL = require("./data/transactionPartial.json");
 const APEX_TRANSACTIONS_FAILURE = require("./data/transactionFailure.json");
+const TRANSACTION_TYPE_RECORD_TYPE_ID_MAP = {
+  ATM_Dispute: "0122O000001VkrVQAS",
+  Card_Dispute: "0122O000001VkrYQAS",
+  Direct_Debit_Dispute: "0122O000001VkrbQAC",
+  Direct_Entry_Dispute: "0122O000001VkrcQAC",
+  NPP_Dispute: "0122O000001VkriQAC"
+};
 
 jest.mock(
   "@salesforce/apex/CoachBankingAPIRepository.getTransactionHistoryAura",
@@ -44,6 +51,7 @@ describe("c-transactionHistoryBoard", () => {
       is: TransactionHistoryBoard
     });
     document.body.appendChild(element);
+    element.transactionTypeDisputeIdMapFromParent = TRANSACTION_TYPE_RECORD_TYPE_ID_MAP;
     element.transactionData = APEX_TRANSACTIONS_SUCCESS;
 
     // Emit data from @wire
@@ -63,6 +71,7 @@ describe("c-transactionHistoryBoard", () => {
       is: TransactionHistoryBoard
     });
     document.body.appendChild(element);
+    element.transactionTypeDisputeIdMapFromParent = TRANSACTION_TYPE_RECORD_TYPE_ID_MAP;
     element.transactionData = APEX_TRANSACTIONS_SUCCESS_PARTIAL;
 
     // Emit data from @wire
@@ -81,6 +90,7 @@ describe("c-transactionHistoryBoard", () => {
       is: TransactionHistoryBoard
     });
     document.body.appendChild(element);
+    element.transactionTypeDisputeIdMapFromParent = TRANSACTION_TYPE_RECORD_TYPE_ID_MAP;
     element.transactionData = APEX_TRANSACTIONS_SUCCESS;
 
     // Emit data from @wire
@@ -129,6 +139,7 @@ describe("c-transactionHistoryBoard", () => {
       is: TransactionHistoryBoard
     });
     document.body.appendChild(element);
+    element.transactionTypeDisputeIdMapFromParent = TRANSACTION_TYPE_RECORD_TYPE_ID_MAP;
     element.transactionData = APEX_TRANSACTIONS_SUCCESS;
 
     // Emit data from @wire
