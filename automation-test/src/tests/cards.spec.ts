@@ -3,7 +3,6 @@ import Auth from "../common/Auth";
 import LwcCustomerDetails from "../pageObjects/lwcCustomerDetails";
 import SfNavigation from "../common/navigation";
 import SfAccounts from "../common/accounts";
-import SfPageUtils from "../utils/sfUtils";
 
 describe("Cards verification", () => {
   it("Login as a Coach User", async () => {
@@ -13,7 +12,6 @@ describe("Cards verification", () => {
 
     //Close all tabs
     await browser.pause(5000);
-    await SfPageUtils.closeAllTabsMain();
   });
 
   it("Search for a customer with a valid card", async () => {

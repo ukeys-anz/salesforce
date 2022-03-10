@@ -1,5 +1,4 @@
 import Auth from "../common/Auth";
-import SfPageUtils from "../utils/sfUtils";
 import LwcCustomerDetails from "../pageObjects/lwcCustomerDetails";
 import SfNavigation from "../common/navigation";
 import SfAccounts from "../common/accounts";
@@ -14,7 +13,7 @@ describe("Transactions verification", () => {
 
     //Close all tabs
     await browser.pause(5000);
-    await SfPageUtils.closeAllTabsMain();
+    // await SfPageUtils.closeAllTabsMain();
 
     //Search for a customer
     const customerPageRoot = await utam.load(LwcCustomerDetails);

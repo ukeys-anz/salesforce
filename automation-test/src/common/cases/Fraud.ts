@@ -1,6 +1,5 @@
 import CaseCreationForm from "pageObjects/coachesWorkbenchCaseCreationForm";
 import CaseRecordHomeFlexipage from "pageObjects/coachesWorkbenchCaseRecordHomeFlexipage";
-import LwcDetailPanel from "pageObjects/lwcDetailPanel";
 import { CaseType } from "constants/enums";
 import Case from "./Case";
 import caseData from "data/caseData";
@@ -66,15 +65,13 @@ export default class Fraud extends Case {
   }
 
   async updateRecord(): Promise<void> {
+    // Coaches Workbench Case Record Page
     const CaseRecordHomeFlexipageRoot = await utam.load(
       CaseRecordHomeFlexipage
     );
 
-    // load Detail Panel container
-    const detailComponent = await CaseRecordHomeFlexipageRoot.getCaseDetailComponent();
-
-    // load Detail Panel into container
-    const detailPanel = await detailComponent.getContent(LwcDetailPanel);
+    // get record layout
+    const detailPanel = await CaseRecordHomeFlexipageRoot.getMainRegionActiveTabDetailPanel();
     const baseRecordForm = await detailPanel.getBaseRecordForm();
     const recordLayout = await baseRecordForm.getRecordLayout();
 
@@ -94,15 +91,13 @@ export default class Fraud extends Case {
   }
 
   async closeRecord(): Promise<void> {
+    // Coaches Workbench Case Record Page
     const CaseRecordHomeFlexipageRoot = await utam.load(
       CaseRecordHomeFlexipage
     );
 
-    // load Detail Panel container
-    const detailComponent = await CaseRecordHomeFlexipageRoot.getCaseDetailComponent();
-
-    // load Detail Panel into container
-    const detailPanel = await detailComponent.getContent(LwcDetailPanel);
+    // get record layout
+    const detailPanel = await CaseRecordHomeFlexipageRoot.getMainRegionActiveTabDetailPanel();
     const baseRecordForm = await detailPanel.getBaseRecordForm();
     const recordLayout = await baseRecordForm.getRecordLayout();
 
@@ -116,5 +111,7 @@ export default class Fraud extends Case {
     );
     await CommonUtils.selectPicklist(statusField, 4);
     await baseRecordForm.clickFooterButton("Save");
+
+    await browser.pause(3000);
   }
 }

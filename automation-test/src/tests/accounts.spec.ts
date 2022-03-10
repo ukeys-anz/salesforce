@@ -3,7 +3,6 @@ import LwcCustomerDetails from "pageObjects/lwcCustomerDetails";
 import SfNavigation from "common/navigation";
 import SfAccounts from "common/accounts";
 // import SfCustomer from "../common/customer";
-import SfPageUtils from "utils/sfUtils";
 import { describe } from "mocha";
 import LwcFinancialAccount from "pageObjects/lwcFinancialAccount";
 
@@ -56,7 +55,7 @@ async function initialLoad(skipLogin: boolean) {
   const sfNavigation = new SfNavigation();
   await sfNavigation.selectNavigation("Accounts");
   //Close all tabs
-  await SfPageUtils.closeAllTabsMain();
+  // await SfPageUtils.closeAllTabsMain();
 
   const sfAccountView = new SfAccounts();
   await sfAccountView.selectAccountFilter("All Accounts");
