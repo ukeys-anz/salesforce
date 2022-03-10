@@ -503,6 +503,7 @@
         "Sub_Type__c",
         "Subject",
         "Submitted__c",
+        "Submitted_Time__c",
         "Type",
         "What_Customer_was_Trying_to_Do__c",
         "Goods_Or_Services_Returned__c"
