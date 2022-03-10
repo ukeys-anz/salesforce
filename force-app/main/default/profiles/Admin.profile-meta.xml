@@ -3534,6 +3534,10 @@
         <recordType>Case.Customer_Complaint</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-Customer Feedback Layout</layout>
+        <recordType>Case.Customer_Feedback</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case-Direct Debit Dispute Layout</layout>
         <recordType>Case.Direct_Debit_Dispute</recordType>
     </layoutAssignments>

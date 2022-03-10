@@ -815,6 +815,10 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
+        <recordType>Case.Customer_Feedback</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
         <recordType>Case.Direct_Debit_Dispute</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
