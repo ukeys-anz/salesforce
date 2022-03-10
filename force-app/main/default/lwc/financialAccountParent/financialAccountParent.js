@@ -75,7 +75,7 @@ export default class FinancialAccountParent extends LightningElement {
   })
   async wiredRecord({ data }) {
     this.loading = true;
-    if (data) {
+    if (data && hasAccountsGoalsPermission) {
       this.ocvId = data.fields.OCV_ID__c.value;
       this.accountNumber = data.fields.FinServ__FinancialAccountNumber__c.value;
       const accType = data.fields.FinServ__FinancialAccountType__c.value;
@@ -86,9 +86,12 @@ export default class FinancialAccountParent extends LightningElement {
         this.isSavings = false;
         this.accountType = "checking";
       }
-      await this.getFinancialData();
-      await this.getGoalData();
-      await this.getTransactionData();
+
+      if (this.ocvId) {
+        await this.getFinancialData();
+        await this.getGoalData();
+        await this.getTransactionData();
+      }
     }
     this.loading = false;
   }
@@ -129,14 +132,16 @@ export default class FinancialAccountParent extends LightningElement {
         ownerId: this.recordId,
         type: [this.accountType]
       });
-      this.accountData = this.handleAccountInformation(accountDetails);
+      if (accountDetails) {
+        this.accountData = this.handleAccountInformation(accountDetails);
+      }
     }
   }
 
   async getGoalData(paramUrl = "") {
+    this.goalData = { goalList: [], nextToken: null };
     if (this.isSavings) {
       try {
-        this.goalData = [];
         this.goalData = await getAccountBuckets({
           ocvId: this.ocvId,
           pageSize: 7,
@@ -181,6 +186,7 @@ export default class FinancialAccountParent extends LightningElement {
   }
 
   async getTransactionData(paramUrl = "") {
+    this.transactionData = [];
     //If we arent loading in new transactions to append,
     //trigger the whole lwc to load
     if (!this.transactionLoadMore) {
