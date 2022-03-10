@@ -23,6 +23,16 @@
         ]
       },
       "type": "clickable"
+    },
+    {
+      "name": "tabBarItems",
+      "nullable": true,
+      "selector": {
+        "css": ".tabsetHeader ul.tabBarItems > li.tabItem",
+        "returnAll": true
+      },
+      "type": "anzx-utam-console/pageObjects/consoleTabBarItem",
+      "public": true
     }
   ],
   "methods": [

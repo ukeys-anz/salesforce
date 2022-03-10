@@ -1,6 +1,5 @@
 import CaseCreationForm from "pageObjects/coachesWorkbenchCaseCreationForm";
 import CaseRecordHomeFlexipage from "pageObjects/coachesWorkbenchCaseRecordHomeFlexipage";
-import LwcDetailPanel from "pageObjects/lwcDetailPanel";
 import { CaseType } from "constants/enums";
 import Case from "./Case";
 import caseData from "data/caseData";
@@ -8,7 +7,7 @@ import * as CommonUtils from "utils/commonUtils";
 import * as faker from "faker";
 
 export default class RecipientMule extends Case {
-  async createRecord() {
+  async createRecord(): Promise<void> {
     const caseCreationFormRoot = await utam.load(CaseCreationForm);
     await caseCreationFormRoot.selectCaseRecordType(CaseType.RECIPIENT_MULE);
 
@@ -59,20 +58,18 @@ export default class RecipientMule extends Case {
     await browser.pause(5000);
   }
 
-  async assignNewOwner() {
+  async assignNewOwner(): Promise<void> {
     const consoleRecordFlexipageRoot = await utam.load(CaseRecordHomeFlexipage);
   }
 
-  async updateRecord() {
+  async updateRecord(): Promise<void> {
+    // Coaches Workbench Case Record Page
     const CaseRecordHomeFlexipageRoot = await utam.load(
       CaseRecordHomeFlexipage
     );
 
-    // load Detail Panel container
-    const detailComponent = await CaseRecordHomeFlexipageRoot.getCaseDetailComponent();
-
-    // load Detail Panel into container
-    const detailPanel = await detailComponent.getContent(LwcDetailPanel);
+    // get record layout
+    const detailPanel = await CaseRecordHomeFlexipageRoot.getMainRegionActiveTabDetailPanel();
     const baseRecordForm = await detailPanel.getBaseRecordForm();
     const recordLayout = await baseRecordForm.getRecordLayout();
 
@@ -92,16 +89,14 @@ export default class RecipientMule extends Case {
     await baseRecordForm.clickFooterButton("Save");
   }
 
-  async closeRecord() {
+  async closeRecord(): Promise<void> {
+    // Coaches Workbench Case Record Page
     const CaseRecordHomeFlexipageRoot = await utam.load(
       CaseRecordHomeFlexipage
     );
 
-    // load Detail Panel container
-    const detailComponent = await CaseRecordHomeFlexipageRoot.getCaseDetailComponent();
-
-    // load Detail Panel into container
-    const detailPanel = await detailComponent.getContent(LwcDetailPanel);
+    // get record layout
+    const detailPanel = await CaseRecordHomeFlexipageRoot.getMainRegionActiveTabDetailPanel();
     const baseRecordForm = await detailPanel.getBaseRecordForm();
     const recordLayout = await baseRecordForm.getRecordLayout();
 
@@ -115,5 +110,7 @@ export default class RecipientMule extends Case {
     );
     await CommonUtils.selectPicklist(statusField, 4);
     await baseRecordForm.clickFooterButton("Save");
+
+    await browser.pause(3000);
   }
 }

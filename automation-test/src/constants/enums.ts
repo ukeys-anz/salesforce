@@ -3,7 +3,8 @@ export enum CaseType {
   FRAUD = "Fraud",
   GENERAL_ENQUIRY = "General Enquiry",
   KYC_QA = "KYC QA",
-  RECIPIENT_MULE = "Recipient/Mule"
+  RECIPIENT_MULE = "Recipient/Mule",
+  IDENTITY = "Identity"
 }
 
 export enum UserRole {

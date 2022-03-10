@@ -1,0 +1,23 @@
+{
+  "elements": [
+    {
+      "name": "closeButton",
+      "selector": {
+        "css": "button[title*='Close']"
+      },
+      "public": true,
+      "type": "clickable"
+    }
+  ],
+  "methods": [
+    {
+      "name": "closeTab",
+      "compose": [
+        {
+          "element": "closeButton",
+          "apply": "click"
+        }
+      ]
+    }
+  ]
+}

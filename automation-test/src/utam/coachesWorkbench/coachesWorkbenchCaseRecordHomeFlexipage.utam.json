@@ -37,7 +37,7 @@
   },
   "methods": [
     {
-      "name": "getCaseDetailComponent",
+      "name": "getCaseRecordPage",
       "compose": [
         {
           "element": "decorator",
@@ -58,16 +58,36 @@
               "value": "anzx-utam-flexipage/pageObjects/coachesWorkbenchCaseRecordHomeTemplateDesktop2"
             }
           ]
+        }
+      ]
+    },
+    {
+      "name": "getMainRegionActiveTabDetailPanel",
+      "compose": [
+        {
+          "apply": "getCaseRecordPage",
+          "returnType": "anzx-utam-coachesWorkbench/pageObjects/coachesWorkbenchCaseRecordHomeTemplateDesktop2"
         },
         {
           "chain": true,
-          "returnType": "anzx-utam-flexipage/pageObjects/coaceshWorkbenchCaseTabset2",
-          "element": "mainRegionTabset"
+          "element": "mainRegionTabset",
+          "returnType": "anzx-utam-coachesWorkbench/pageObjects/coachesWorkbenchCaseTabset2"
         },
         {
           "chain": true,
-          "returnType": "utam-flexipage/pageObjects/component2",
-          "element": "detailComponent"
+          "element": "detailComponent",
+          "returnType": "utam-flexipage/pageObjects/component2"
+        },
+        {
+          "chain": true,
+          "returnType": "utam-records/pageObjects/lwcDetailPanel",
+          "element": "content",
+          "args": [
+            {
+              "type": "pageObject",
+              "value": "utam-records/pageObjects/lwcDetailPanel"
+            }
+          ]
         }
       ]
     }

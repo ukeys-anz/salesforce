@@ -6,15 +6,15 @@ import caseData from "data/caseData";
 import * as CommonUtils from "utils/commonUtils";
 import * as faker from "faker";
 
-export default class GeneralEnquiry extends Case {
+export default class Identity extends Case {
   async createRecord(): Promise<void> {
     const caseCreationFormRoot = await utam.load(CaseCreationForm);
-    await caseCreationFormRoot.selectCaseRecordType(CaseType.GENERAL_ENQUIRY);
+    await caseCreationFormRoot.selectCaseRecordType(CaseType.IDENTITY);
 
     // search and select first account
     await caseCreationFormRoot.searchAndSelectLookup(
       1,
-      1,
+      4,
       1,
       caseData.accountName,
       1
@@ -22,11 +22,11 @@ export default class GeneralEnquiry extends Case {
 
     // Issue Type
     // get field from layout
-    await caseCreationFormRoot.selectPicklist(2, 3, 1);
-    // define a random value index, there are 9 items in picklist, skip --None--, which is 1
+    await caseCreationFormRoot.selectPicklist(1, 3, 1);
+    // define a random value index, there are 8 items in picklist, skip --None--, which is 1
     const issueTypeIndex = faker.datatype.number({
       min: 2,
-      max: 10
+      max: 9
     });
     // get picklist dropdown
     const [
@@ -37,11 +37,11 @@ export default class GeneralEnquiry extends Case {
 
     // Channel Received
     // get field from layout
-    await caseCreationFormRoot.selectPicklist(2, 1, 2);
-    // define a random value index, there are 7 items in picklist, skip --None--, which is 1
+    await caseCreationFormRoot.selectPicklist(1, 2, 2);
+    // define a random value index, there are 2 items in picklist, skip --None--, which is 1
     const channelReceivedIndex = faker.datatype.number({
       min: 2,
-      max: 8
+      max: 3
     });
     // get picklist dropdown
     // get 2nd list from the returned lists and skip first one, which is Issue Type list above
@@ -74,14 +74,14 @@ export default class GeneralEnquiry extends Case {
     // Priority
     const priorityField = await CommonUtils.getFieldFromLayout(
       recordLayout,
-      2,
-      4,
+      1,
+      1,
       2
     );
-    // define a random value index, there are 4 items in picklist, skip --None--, which is 1
+    // define a random value index, there are 8 items in picklist, skip --None--, which is 1
     const priorityIndex = faker.datatype.number({
       min: 2,
-      max: 5
+      max: 9
     });
     await CommonUtils.selectPicklist(priorityField, priorityIndex);
     await baseRecordForm.clickFooterButton("Save");
@@ -102,11 +102,11 @@ export default class GeneralEnquiry extends Case {
     // select Closed status
     const statusField = await CommonUtils.getFieldFromLayout(
       recordLayout,
-      2,
-      3,
+      1,
+      4,
       2
     );
-    await CommonUtils.selectPicklist(statusField, 6);
+    await CommonUtils.selectPicklist(statusField, 4);
     await baseRecordForm.clickFooterButton("Save");
 
     await browser.pause(3000);

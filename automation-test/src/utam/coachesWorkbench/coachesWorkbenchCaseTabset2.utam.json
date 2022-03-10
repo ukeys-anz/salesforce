@@ -4,7 +4,7 @@
       {
         "name": "tabset",
         "selector": {
-          "css": ".flexipage-tabset"
+          "css": "lightning-tabset"
         },
         "elements": [
           {
