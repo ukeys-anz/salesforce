@@ -2,13 +2,13 @@
 <StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <sorted>false</sorted>
     <standardValue>
-        <fullName>Draft</fullName>
-        <default>false</default>
-        <label>Draft</label>
+        <fullName>In Progress</fullName>
+        <default>true</default>
+        <label>In Progress</label>
     </standardValue>
     <standardValue>
-        <fullName>Published</fullName>
+        <fullName>Completed</fullName>
         <default>false</default>
-        <label>Published</label>
+        <label>Completed</label>
     </standardValue>
 </StandardValueSet>
