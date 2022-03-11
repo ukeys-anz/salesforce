@@ -47,7 +47,9 @@ public with sharing class IDRCaseAssignmentRules {
     if (
       rec.Status == IDRConstants.ESCALATED_STATUS &&
       (oldCase == null ||
-      oldCase.Status != IDRConstants.ESCALATED_STATUS)
+      oldCase.Status != IDRConstants.ESCALATED_STATUS ||
+      (oldCase.Status == rec.Status &&
+      oldCase.recordTypeId != rec.recordTypeId))
     ) {
       //CEO or Board
       if (rec.Origin == '9' || rec.Origin == '10') {
