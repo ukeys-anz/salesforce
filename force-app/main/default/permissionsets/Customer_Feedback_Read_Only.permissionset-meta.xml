@@ -8,6 +8,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>qualtrics__Survey_Response__c.Customer_Feedback__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>qualtrics__Survey_Response__c.Other_Feedback__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>qualtrics__Survey_Response__c.Survey_Response_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -34,11 +44,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>qualtrics__Survey_Response__c.qualtrics__Date_Responded__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>qualtrics__Survey_Response__c.qualtrics__Description__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

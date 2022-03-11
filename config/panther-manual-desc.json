@@ -43,9 +43,7 @@
       "qualtrics__Account__c": "Name of the UUID match",
       "qualtrics__Contact__c": "Name of the Customer",
       "qualtrics__Date_Responded__c": "Date created",
-      "qualtrics__Description__c": "Question and Answer from Qualtrics survey",
       "qualtrics__Net_Promoter_Score__c": "Captures the NPS response from the survey",
-      "qualtrics__Other_Feedback__c": "Verbatim feedback from the customer",
       "qualtrics__Overall_Satisfaction__c": "Customers overall satisfaction with the product/service topic of the survey",
       "qualtrics__Q_Recipient_ID__c": "The recipient or the customer ID in Qualtrics",
       "qualtrics__Q_Survey_ID__c": "The original survey ID from Qualtrics",
@@ -617,6 +615,7 @@
       "IA-2415840": [
         "Advocacy_Score__c",
         "Alerting_Reason__c",
+        "Feedback_Type__c",
         "Original_Feedback_Record__c"
       ],
       "IA-2415790": ["Vendor_Record_ID__c", "Vendor_Record_Link__c"]
@@ -893,9 +892,9 @@
       "IA-2415840": [
         "Additional_Feedback__c",
         "qualtrics__Date_Responsed__c",
-        "qualtrics__Description__c",
+        "Customer_Feedback__c",
         "qualtrics__Net_Promoter_Score__c",
-        "qualtrics__Other_Feedback__c",
+        "Other_Feedback__c",
         "qualtrics__Overall_Satisfaction__c",
         "qualtrics__Q_Recipient_ID__c",
         "qualtrics__Q_Survey_ID__c",

@@ -8,19 +8,31 @@
     <picklistValues>
         <picklist>Origin</picklist>
         <values>
-            <fullName>4</fullName>
+            <fullName>Appointment</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>App Store Review</fullName>
+            <fullName>Chat</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Bug</fullName>
+            <fullName>Email</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Feedback</fullName>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Store</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Video Call</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Voice Call</fullName>
             <default>false</default>
         </values>
         <values>

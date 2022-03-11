@@ -177,21 +177,6 @@
         <label>BU identified other</label>
     </standardValue>
     <standardValue>
-        <fullName>App Store Review</fullName>
-        <default>false</default>
-        <label>App Store Review</label>
-    </standardValue>
-    <standardValue>
-        <fullName>Bug</fullName>
-        <default>false</default>
-        <label>Bug</label>
-    </standardValue>
-    <standardValue>
-        <fullName>Feedback</fullName>
-        <default>false</default>
-        <label>Feedback</label>
-    </standardValue>
-    <standardValue>
         <fullName>Survey</fullName>
         <default>false</default>
         <label>Survey</label>

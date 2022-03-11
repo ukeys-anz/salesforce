@@ -2026,6 +2026,16 @@
         <editable>true</editable>
         <field>qualtrics__Survey_Response__c.Additional_Feedback__c</field>
         <readable>true</readable>
+    </fieldPermissions>        
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>qualtrics__Survey_Response__c.Customer_Feedback__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>qualtrics__Survey_Response__c.Other_Feedback__c</field>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -2044,17 +2054,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>qualtrics__Survey_Response__c.qualtrics__Description__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>qualtrics__Survey_Response__c.qualtrics__Net_Promoter_Score__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>qualtrics__Survey_Response__c.qualtrics__Other_Feedback__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2105,6 +2105,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Alerting_Reason__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Feedback_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

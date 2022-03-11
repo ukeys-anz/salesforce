@@ -27,10 +27,6 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>qualtrics__Contact__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>qualtrics__Account__c</field>
             </layoutItems>
         </layoutColumns>
@@ -52,7 +48,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>qualtrics__Description__c</field>
+                <field>Customer_Feedback__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -78,7 +74,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>qualtrics__Other_Feedback__c</field>
+                <field>Other_Feedback__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -125,7 +121,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2N0000038FI6</masterLabel>
+        <masterLabel>00h2O000001xNus</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>
