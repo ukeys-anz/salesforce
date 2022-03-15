@@ -7,11 +7,6 @@
         <label>Call</label>
     </standardValue>
     <standardValue>
-        <fullName>Chat</fullName>
-        <default>false</default>
-        <label>Chat</label>
-    </standardValue>
-    <standardValue>
         <fullName>Store</fullName>
         <default>false</default>
         <label>Store</label>
