@@ -62,6 +62,16 @@ public with sharing class ChatterMigrationService {
       List<FeedItem> clonedItems = new List<FeedItem>();
       FeedItem cloned;
 
+      if (items.size() == 0) {
+        log.info(
+          String.format(
+            'Not chatter items to migrate from {0} to {1}',
+            new List<String>{ victimAccount, survivorAccount }
+          )
+        );
+        return true;
+      }
+
       for (FeedItem item : items) {
         cloned = item.clone(false, true, true, true);
         cloned.ParentId = survivorAccount;
@@ -78,6 +88,16 @@ public with sharing class ChatterMigrationService {
             victimAccount,
             survivorAccount
           }
+        )
+      );
+
+      log.insertLogAsync();
+
+      delete items;
+      log.info(
+        String.format(
+          'Deleted {0} chatter items from: {1}',
+          new List<String>{ String.valueOf(items.size()), victimAccount }
         )
       );
 
@@ -124,6 +144,7 @@ public with sharing class ChatterMigrationService {
    * @param externalId String | The unique external ID you are searching for
    * @return Id | The Account Id from the found Account or null if nothing is found
    */
+  @TestVisible
   private static Id getAccountIdFromExternalId(String externalId) {
     SystemModeActions systemAction = new SystemModeActions(
       'ChatterMigrationService',

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomPermission xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Bypasses the Chatter Trigger blocker which restricts all deletions.</description>
+    <isLicensed>false</isLicensed>
+    <label>Delete Chatter</label>
+</CustomPermission>
