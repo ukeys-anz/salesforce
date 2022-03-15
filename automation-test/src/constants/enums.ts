@@ -12,3 +12,15 @@ export enum UserRole {
   COACH = "Coach",
   FRAUDX_AGENT = "FraudX Agent"
 }
+
+export enum Queue {
+  SUPPORT_COACH_QUEUE = "Support Coach Queue"
+}
+
+export enum App {
+  COACHES_WORKBENCH = "Coaches Workbench"
+}
+
+export enum AppTab {
+  CASES = "Cases"
+}

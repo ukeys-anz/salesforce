@@ -102,6 +102,29 @@
       ]
     },
     {
+      "name": "clickChangeOwnerButton",
+      "compose": [
+        {
+          "returnType": "anzx-utam-force/pageObjects/changeOwner",
+          "element": "outputField",
+          "args": [
+            {
+              "type": "pageObject",
+              "value": "anzx-utam-force/pageObjects/changeOwner"
+            }
+          ]
+        },
+        {
+          "chain": true,
+          "element": "changeOwnerButton"
+        },
+        {
+          "chain": true,
+          "apply": "click"
+        }
+      ]
+    },
+    {
       "name": "getPicklist",
       "compose": [
         {

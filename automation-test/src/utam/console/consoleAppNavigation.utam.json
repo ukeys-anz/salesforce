@@ -33,6 +33,14 @@
       },
       "type": "anzx-utam-console/pageObjects/consoleTabBarItem",
       "public": true
+    },
+    {
+      "name": "currentTab",
+      "selector": {
+        "css": "div[class*='selectedListItem'] a"
+      },
+      "type": "clickable",
+      "public": true
     }
   ],
   "methods": [
@@ -61,6 +69,33 @@
         },
         {
           "element": "navMenuItem",
+          "apply": "click"
+        }
+      ]
+    },
+    {
+      "name": "isCurrentTab",
+      "compose": [
+        {
+          "element": "currentTab",
+          "apply": "getTitle",
+          "matcher": {
+            "type": "stringEquals",
+            "args": [
+              {
+                "name": "tabName",
+                "type": "string"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "redirectToCurrentTabHome",
+      "compose": [
+        {
+          "element": "currentTab",
           "apply": "click"
         }
       ]

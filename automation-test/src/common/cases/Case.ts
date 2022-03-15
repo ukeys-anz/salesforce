@@ -1,3 +1,4 @@
+import { ownerType } from "types/record";
 export default abstract class Case {
   protected readonly userRole: string;
 
@@ -7,6 +8,6 @@ export default abstract class Case {
 
   abstract createRecord(): Promise<void>;
   abstract updateRecord(): Promise<void>;
-  abstract assignNewOwner(): Promise<void>;
+  abstract assignNewOwner(ownerType?: ownerType): Promise<void>;
   abstract closeRecord(): Promise<void>;
 }

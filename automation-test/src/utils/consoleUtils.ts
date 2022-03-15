@@ -1,22 +1,31 @@
 import ConsoleAppNavigation from "pageObjects/consoleAppNavigation";
 import AppLauncher from "pageObjects/appLauncher";
 
-export const navigateToConsoleAppAndObjectHome = async (
+export const navigateToConsoleAppAndTab = async (
   appName: string,
-  objectTabName: string
+  tabName: string
 ): Promise<void> => {
-  // redirect user to console app
   const appLauncherRoot = await utam.load(AppLauncher);
-  await appLauncherRoot.redirectToApp(appName);
-  await browser.pause(2000);
+
+  if (!(await appLauncherRoot.isCurrentApp(appName))) {
+    // redirect user to console app
+    await appLauncherRoot.redirectToApp(appName);
+    await browser.pause(2000);
+  }
 
   await closeConsoleNavMainTabs();
   await browser.pause(1000);
 
-  // redirect user to Object tab
   const consoleAppNavigationRoot = await utam.load(ConsoleAppNavigation);
-  await consoleAppNavigationRoot.redirectToTab(objectTabName);
-  await browser.pause(1000);
+
+  if (!(await consoleAppNavigationRoot.isCurrentTab(tabName))) {
+    // redirect user to tab
+    await consoleAppNavigationRoot.redirectToTab(tabName);
+    await browser.pause(1000);
+  } else {
+    // click to redirect to current tab home
+    await consoleAppNavigationRoot.redirectToCurrentTabHome();
+  }
 };
 
 export const closeConsoleNavMainTabs = async (): Promise<void> => {

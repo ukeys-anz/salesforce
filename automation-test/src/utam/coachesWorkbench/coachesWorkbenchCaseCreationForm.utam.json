@@ -61,11 +61,11 @@
     {
       "name": "lookupResult",
       "selector": {
-        "css": "div[class*='lookup__menu uiAbstractList'] ul[role='presentation'] li[class='lookup__item  default uiAutocompleteOption forceSearchInputLookupDesktopOption']:nth-of-type(%d)",
+        "css": ".listContent li a div[class*='primaryLabel'][title='%s']",
         "args": [
           {
-            "name": "resultIndex",
-            "type": "number"
+            "name": "resultTile",
+            "type": "string"
           }
         ]
       },

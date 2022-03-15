@@ -1,12 +1,16 @@
 import CaseCreationForm from "pageObjects/coachesWorkbenchCaseCreationForm";
 import CaseRecordHomeFlexipage from "pageObjects/coachesWorkbenchCaseRecordHomeFlexipage";
-import LwcRecordLayout from "pageObjects/lwcRecordLayout";
+import RecordLayout from "pageObjects/lwcRecordLayout";
 import BaseRecordForm from "pageObjects/baseRecordForm";
-import { CaseType, UserRole } from "constants/enums";
+import RecordLayoutItem from "pageObjects/recordLayoutItem";
+import { CaseType, UserRole, Queue } from "constants/enums";
+import { ownerType } from "types/record";
+import { fieldSectionIndex } from "types/layout";
 import Case from "./Case";
 import caseData from "data/caseData";
-import * as CommonUtils from "utils/commonUtils";
 import * as faker from "faker";
+import * as commonUtils from "utils/commonUtils";
+import * as caseUtils from "utils/caseUtils";
 
 export default class ANZXComplaint extends Case {
   async createRecord(): Promise<void> {
@@ -33,7 +37,36 @@ export default class ANZXComplaint extends Case {
     await browser.pause(5000);
   }
 
-  async assignNewOwner(): Promise<void> {}
+  async assignNewOwner(ownerType?: ownerType): Promise<void> {
+    const CaseRecordHomeFlexipageRoot = await utam.load(
+      CaseRecordHomeFlexipage
+    );
+
+    // get record layout
+    const detailPanel = await CaseRecordHomeFlexipageRoot.getMainRegionActiveTabDetailPanel();
+    const baseRecordForm = await detailPanel.getBaseRecordForm();
+    const recordLayout = await baseRecordForm.getRecordLayout();
+
+    // Case Owner
+    const caseOwnerField = await commonUtils.getFieldFromRecordLayout(
+      recordLayout,
+      [2, 1, 1]
+    );
+
+    switch (this.userRole) {
+      case UserRole.COACH:
+        await this.assignNewOwnerByCoach(caseOwnerField, ownerType);
+        break;
+      case UserRole.FRAUDX_AGENT:
+        await this.assignNewOwnerByFraudXAgent(caseOwnerField);
+        break;
+      default:
+        console.error(
+          "Error: invalid user role when creating ANZx Complaint Case."
+        );
+        process.exit(-1);
+    }
+  }
 
   async updateRecord(): Promise<void> {
     // Coaches Workbench Case Record Page
@@ -93,25 +126,32 @@ export default class ANZXComplaint extends Case {
   async createRecordByCoach(
     caseCreationFormRoot: CaseCreationForm
   ): Promise<void> {
+    // Account Name
     // search and select first account
     await caseCreationFormRoot.searchAndSelectLookup(
       1,
       1,
       1,
       caseData.accountName,
-      1
+      caseData.accountName
     );
 
     // sequence of selecting fields must be followed due to limitation of page behavior
-    await this.selectChannelReceived(caseCreationFormRoot, 2, 3, 1);
-    await this.selectPriority(caseCreationFormRoot, 2, 3, 2);
-    await this.selectIssueType(caseCreationFormRoot, 2, 5, 1);
-    await this.selectSubsequentIssueType(caseCreationFormRoot, 2, 5, 2);
-    await this.selectWrittenResponse(caseCreationFormRoot, 5, 3, 1);
+    await this.selectChannelReceived(caseCreationFormRoot, [2, 3, 1]);
+    await this.selectPriority(caseCreationFormRoot, [2, 3, 2]);
+    await this.selectIssueType(caseCreationFormRoot, [2, 5, 1]);
+    await this.selectSubsequentIssueType(caseCreationFormRoot, [2, 5, 2]);
+    await this.selectWrittenResponse(caseCreationFormRoot, [5, 3, 1]);
 
     // Product or Service Name
     // search ANZ and select first result
-    await caseCreationFormRoot.searchAndSelectLookup(2, 6, 1, "ANZ ", 1);
+    await caseCreationFormRoot.searchAndSelectLookup(
+      2,
+      6,
+      1,
+      caseData.productName,
+      caseData.productName
+    );
 
     // Description of Issue
     // get field from layout and set text
@@ -127,25 +167,32 @@ export default class ANZXComplaint extends Case {
   async createRecordByFraudXAgent(
     caseCreationFormRoot: CaseCreationForm
   ): Promise<void> {
+    // Account Name
     // search and select first account
     await caseCreationFormRoot.searchAndSelectLookup(
       1,
       1,
       1,
       caseData.accountName,
-      1
+      caseData.accountName
     );
 
     // sequence of selecting fields must be followed due to limitation of page behavior
-    await this.selectChannelReceived(caseCreationFormRoot, 2, 3, 1);
-    await this.selectPriority(caseCreationFormRoot, 2, 2, 2);
-    await this.selectIssueType(caseCreationFormRoot, 2, 5, 1);
-    await this.selectSubsequentIssueType(caseCreationFormRoot, 2, 4, 2);
-    await this.selectWrittenResponse(caseCreationFormRoot, 5, 3, 1);
+    await this.selectChannelReceived(caseCreationFormRoot, [2, 3, 1]);
+    await this.selectPriority(caseCreationFormRoot, [2, 2, 2]);
+    await this.selectIssueType(caseCreationFormRoot, [2, 5, 1]);
+    await this.selectSubsequentIssueType(caseCreationFormRoot, [2, 4, 2]);
+    await this.selectWrittenResponse(caseCreationFormRoot, [5, 3, 1]);
 
     // Product or Service Name
     // search ANZ and select first result
-    await caseCreationFormRoot.searchAndSelectLookup(2, 6, 1, "ANZ ", 1);
+    await caseCreationFormRoot.searchAndSelectLookup(
+      2,
+      6,
+      1,
+      caseData.productName,
+      caseData.productName
+    );
 
     // Description of Issue
     // get field from layout and set text
@@ -158,14 +205,12 @@ export default class ANZXComplaint extends Case {
     await caseCreationFormRoot.editTextarea(2, 10, 1, customerDesiredOutcome);
   }
 
-  async updateRecordByCoach(recordLayout: LwcRecordLayout): Promise<void> {
-    await this.updatePriority(recordLayout, 2, 3, 2);
+  async updateRecordByCoach(recordLayout: RecordLayout): Promise<void> {
+    await this.updatePriority(recordLayout, [2, 3, 2]);
   }
 
-  async updateRecordByFraudXAgent(
-    recordLayout: LwcRecordLayout
-  ): Promise<void> {
-    await this.updatePriority(recordLayout, 2, 2, 2);
+  async updateRecordByFraudXAgent(recordLayout: RecordLayout): Promise<void> {
+    await this.updatePriority(recordLayout, [2, 2, 2]);
   }
 
   async closeRecordByCoach(baseRecordForm: BaseRecordForm): Promise<void> {
@@ -174,13 +219,7 @@ export default class ANZXComplaint extends Case {
 
     // Status
     // select Closed status
-    const statusField = await CommonUtils.getFieldFromLayout(
-      recordLayout,
-      2,
-      2,
-      2
-    );
-    await CommonUtils.selectPicklist(statusField, 7);
+    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [2, 2, 2], 7);
     await baseRecordForm.clickFooterButton("Save");
   }
 
@@ -192,174 +231,115 @@ export default class ANZXComplaint extends Case {
 
     // Status
     // select Closed status
-    const statusField = await CommonUtils.getFieldFromLayout(
-      recordLayout,
-      2,
-      1,
-      2
-    );
-    await CommonUtils.selectPicklist(statusField, 7);
+    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [2, 1, 2], 7);
     await baseRecordForm.clickFooterButton("Save");
   }
 
   // Channel Received
   async selectChannelReceived(
     caseCreationFormRoot: CaseCreationForm,
-    sectionIndex: number,
-    sectionRowIndex: number,
-    sectionRowItemIndex: number
+    fieldSectionIndex: fieldSectionIndex
   ): Promise<void> {
-    // get field from layout
-    await caseCreationFormRoot.selectPicklist(
-      sectionIndex,
-      sectionRowIndex,
-      sectionRowItemIndex
+    await caseUtils.selectPicklistOnCreationForm(
+      caseCreationFormRoot,
+      fieldSectionIndex,
+      [2, 14],
+      0
     );
-    // define a random value index, there are 13 items in picklist, skip --None--, which is 1
-    const channelReceivedIndex = faker.datatype.number({
-      min: 2,
-      max: 14
-    });
-    // get picklist dropdown
-    const [
-      channelReceivedPicklist
-    ] = await caseCreationFormRoot.getPicklistItemsLists();
-    // select a recevied channel
-    await channelReceivedPicklist.selectPicklistItem(channelReceivedIndex);
   }
 
   // Priority
   async selectPriority(
     caseCreationFormRoot: CaseCreationForm,
-    sectionIndex: number,
-    sectionRowIndex: number,
-    sectionRowItemIndex: number
+    fieldSectionIndex: fieldSectionIndex
   ): Promise<void> {
-    // get field from layout
-    await caseCreationFormRoot.selectPicklist(
-      sectionIndex,
-      sectionRowIndex,
-      sectionRowItemIndex
+    await caseUtils.selectPicklistOnCreationForm(
+      caseCreationFormRoot,
+      fieldSectionIndex,
+      [2, 5],
+      1
     );
-    // define a random value index, there are 4 items in picklist, skip --None--, which is 1
-    const priorityIndex = faker.datatype.number({
-      min: 2,
-      max: 4
-    });
-    // get picklist dropdown
-    // get 2nd list from the returned lists and skip first one, which is Channel Received list above
-    const [
-      ,
-      priorityPicklist
-    ] = await caseCreationFormRoot.getPicklistItemsLists();
-    // select a priority
-    await priorityPicklist.selectPicklistItem(priorityIndex);
   }
 
   // Issue Type
   async selectIssueType(
     caseCreationFormRoot: CaseCreationForm,
-    sectionIndex: number,
-    sectionRowIndex: number,
-    sectionRowItemIndex: number
+    fieldSectionIndex: fieldSectionIndex
   ): Promise<void> {
-    // get field from layout
-    await caseCreationFormRoot.selectPicklist(
-      sectionIndex,
-      sectionRowIndex,
-      sectionRowItemIndex
+    await caseUtils.selectPicklistOnCreationForm(
+      caseCreationFormRoot,
+      fieldSectionIndex,
+      [2, 10],
+      2
     );
-    // define a random value index, there are 9 items in picklist, skip --None--, which is 1
-    const issueTypeIndex = faker.datatype.number({
-      min: 2,
-      max: 10
-    });
-    // get picklist dropdown
-    // get 3rd list from the returned lists and skip first one, which is Priority list above
-    const [
-      ,
-      ,
-      issueTypePicklist
-    ] = await caseCreationFormRoot.getPicklistItemsLists();
-    // select a issue type
-    await issueTypePicklist.selectPicklistItem(issueTypeIndex);
   }
 
   // Subsequent Issue Type
   async selectSubsequentIssueType(
     caseCreationFormRoot: CaseCreationForm,
-    sectionIndex: number,
-    sectionRowIndex: number,
-    sectionRowItemIndex: number
+    fieldSectionIndex: fieldSectionIndex
   ): Promise<void> {
-    // get field from layout
-    await caseCreationFormRoot.selectPicklist(
-      sectionIndex,
-      sectionRowIndex,
-      sectionRowItemIndex
+    await caseUtils.selectPicklistOnCreationForm(
+      caseCreationFormRoot,
+      fieldSectionIndex,
+      [2, 2],
+      3
     );
-    // get picklist dropdown
-    // get 4th list from the returned lists and skip first one, which is Issue Type list above
-    const [
-      ,
-      ,
-      ,
-      subsequentIssueTypePicklist
-    ] = await caseCreationFormRoot.getPicklistItemsLists();
-    // select second dependent picklist value to avoid test breaking
-    // this one might fail randomly as there are some sub issue type has 0 item
-    await subsequentIssueTypePicklist.selectPicklistItem(2);
   }
 
   // Is a Written Response Requested?
   async selectWrittenResponse(
     caseCreationFormRoot: CaseCreationForm,
-    sectionIndex: number,
-    sectionRowIndex: number,
-    sectionRowItemIndex: number
+    fieldSectionIndex: fieldSectionIndex
   ): Promise<void> {
-    // get field from layout
-    await caseCreationFormRoot.selectPicklist(
-      sectionIndex,
-      sectionRowIndex,
-      sectionRowItemIndex
+    await caseUtils.selectPicklistOnCreationForm(
+      caseCreationFormRoot,
+      fieldSectionIndex,
+      [2, 3],
+      4
     );
-    // define a random value index, there are 2 items in picklist, skip --None--, which is 1
-    const writtenResponseIndex = faker.datatype.number({
-      min: 2,
-      max: 3
-    });
-    // get picklist dropdown
-    // get 5th list from the returned lists and skip first one, which is Subsequent Issue Type list above
-    const [
-      ,
-      ,
-      ,
-      ,
-      writtenReponsePicklist
-    ] = await caseCreationFormRoot.getPicklistItemsLists();
-    // select a value
-    await writtenReponsePicklist.selectPicklistItem(writtenResponseIndex);
   }
 
   // Priority (used on Record Page, not on Creation Form)
   async updatePriority(
-    recordLayout: LwcRecordLayout,
-    sectionIndex: number,
-    rowIndex: number,
-    fieldIndex: number
+    recordLayout: RecordLayout,
+    fieldSectionIndex: fieldSectionIndex
   ) {
-    const priorityField = await CommonUtils.getFieldFromLayout(
+    await commonUtils.selectPicklistOnRecordLayout(
       recordLayout,
-      sectionIndex,
-      rowIndex,
-      fieldIndex
+      fieldSectionIndex,
+      [2, 5]
     );
-    // define a random value index, there are 4 items in picklist, skip --None--, which is 1
-    const priorityIndex = faker.datatype.number({
-      min: 2,
-      max: 5
-    });
-    await CommonUtils.selectPicklist(priorityField, priorityIndex);
+  }
+
+  async assignNewOwnerByCoach(
+    caseOwnerField: RecordLayoutItem,
+    ownerType?: ownerType
+  ): Promise<void> {
+    // click change owner button
+    await caseOwnerField.clickChangeOwnerButton();
+
+    if (ownerType === "Users") {
+      await commonUtils.searchAndSelectNewOwner(
+        "Users",
+        caseData.newFraudXAgentOwnerName
+      );
+    } else if (ownerType === "Queues") {
+      await commonUtils.searchAndSelectNewOwner(
+        "Queues",
+        Queue.SUPPORT_COACH_QUEUE
+      );
+    }
+  }
+
+  async assignNewOwnerByFraudXAgent(
+    caseOwnerField: RecordLayoutItem
+  ): Promise<void> {
+    // click change owner button
+    await caseOwnerField.clickChangeOwnerButton();
+    await commonUtils.searchAndSelectNewOwner(
+      "Users",
+      caseData.newFraudXAgentOwnerName
+    );
   }
 }

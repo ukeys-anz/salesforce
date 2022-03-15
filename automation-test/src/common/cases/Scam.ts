@@ -1,11 +1,11 @@
 import CaseCreationForm from "pageObjects/coachesWorkbenchCaseCreationForm";
 import CaseRecordHomeFlexipage from "pageObjects/coachesWorkbenchCaseRecordHomeFlexipage";
-import LwcDetailPanel from "pageObjects/lwcDetailPanel";
 import { CaseType } from "constants/enums";
 import Case from "./Case";
 import caseData from "data/caseData";
-import * as CommonUtils from "utils/commonUtils";
 import * as faker from "faker";
+import * as commonUtils from "utils/commonUtils";
+import * as caseUtils from "utils/caseUtils";
 
 export default class Scam extends Case {
   async createRecord(): Promise<void> {
@@ -14,45 +14,30 @@ export default class Scam extends Case {
 
     // search and select first account
     await caseCreationFormRoot.searchAndSelectLookup(
-        1,
-        4,
-        1,
-        caseData.accountName,
-        1
+      1,
+      4,
+      1,
+      caseData.accountName,
+      caseData.accountName
     );
-    
+
     // Issue Type
-    // get field from layout
-    await caseCreationFormRoot.selectPicklist(1, 3, 1);
-    // define a random value index, there are 7 items in picklist, skip --None--, which is 1
-    const issueTypeIndex = faker.datatype.number({
-      min: 2,
-      max: 8
-    });
-    // get picklist dropdown
-    const [
-      issueTypePicklist
-    ] = await caseCreationFormRoot.getPicklistItemsLists();
-    // select a issue type
-    await issueTypePicklist.selectPicklistItem(issueTypeIndex);
+    await caseUtils.selectPicklistOnCreationForm(
+      caseCreationFormRoot,
+      [1, 3, 1],
+      [2, 8],
+      0
+    );
 
     // Channel Received
-    // get field from layout
-    await caseCreationFormRoot.selectPicklist(1, 2, 2);
-    // define a random value index, there are 6 items in picklist, skip --None--, which is 1
-    const channelReceivedIndex = faker.datatype.number({
-      min: 2,
-      max: 7
-    });
-    // get picklist dropdown
-    // get 2nd list from the returned lists and skip first one, which is Issue Type list above
-    const [
-      ,
-      channelReceivedPicklist
-    ] = await caseCreationFormRoot.getPicklistItemsLists();
-    // select a recevied channel
-    await channelReceivedPicklist.selectPicklistItem(channelReceivedIndex);
-    
+
+    await caseUtils.selectPicklistOnCreationForm(
+      caseCreationFormRoot,
+      [1, 2, 2],
+      [2, 7],
+      1
+    );
+
     // click save button
     await caseCreationFormRoot.saveNew();
 
@@ -62,6 +47,24 @@ export default class Scam extends Case {
   async assignNewOwner(): Promise<void> {
     const CaseRecordHomeFlexipageRoot = await utam.load(
       CaseRecordHomeFlexipage
+    );
+
+    // get record layout
+    const detailPanel = await CaseRecordHomeFlexipageRoot.getMainRegionActiveTabDetailPanel();
+    const baseRecordForm = await detailPanel.getBaseRecordForm();
+    const recordLayout = await baseRecordForm.getRecordLayout();
+
+    // Case Owner
+    const caseOwnerField = await commonUtils.getFieldFromRecordLayout(
+      recordLayout,
+      [1, 6, 2]
+    );
+
+    // click change owner button
+    await caseOwnerField.clickChangeOwnerButton();
+    await commonUtils.searchAndSelectNewOwner(
+      "Users",
+      caseData.newFraudXAgentOwnerName
     );
   }
 
@@ -76,15 +79,13 @@ export default class Scam extends Case {
     const recordLayout = await baseRecordForm.getRecordLayout();
 
     // Chat Topic ID
-    const chatTopicField = await CommonUtils.getFieldFromLayout(
+    const chatTopicField = await commonUtils.getFieldFromRecordLayout(
       recordLayout,
-      1,
-      3,
-      2
+      [1, 3, 2]
     );
 
     const chatTopicId = `CH${faker.datatype.string(32)}`;
-    await CommonUtils.inputText(chatTopicField, chatTopicId);
+    await commonUtils.inputText(chatTopicField, chatTopicId);
 
     // click save button
     await baseRecordForm.clickFooterButton("Save");
@@ -102,13 +103,8 @@ export default class Scam extends Case {
 
     // Status
     // select Closed status
-    const statusField = await CommonUtils.getFieldFromLayout(
-      recordLayout,
-      1,
-      4,
-      2
-    );
-    await CommonUtils.selectPicklist(statusField, 4);
+    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [1, 4, 2], 4);
+
     await baseRecordForm.clickFooterButton("Save");
   }
 }

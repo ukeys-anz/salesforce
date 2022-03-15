@@ -1,56 +1,43 @@
 import CaseCreationForm from "pageObjects/coachesWorkbenchCaseCreationForm";
 import CaseRecordHomeFlexipage from "pageObjects/coachesWorkbenchCaseRecordHomeFlexipage";
-import { CaseType } from "constants/enums";
+import RecordLayoutItem from "pageObjects/recordLayoutItem";
+import { CaseType, UserRole, Queue } from "constants/enums";
+import { ownerType } from "types/record";
 import Case from "./Case";
 import caseData from "data/caseData";
-import * as CommonUtils from "utils/commonUtils";
-import * as faker from "faker";
+import * as commonUtils from "utils/commonUtils";
+import * as caseUtils from "utils/caseUtils";
 
 export default class GeneralEnquiry extends Case {
   async createRecord(): Promise<void> {
     const caseCreationFormRoot = await utam.load(CaseCreationForm);
     await caseCreationFormRoot.selectCaseRecordType(CaseType.GENERAL_ENQUIRY);
 
+    // Account Name
     // search and select first account
     await caseCreationFormRoot.searchAndSelectLookup(
       1,
       1,
       1,
       caseData.accountName,
-      1
+      caseData.accountName
     );
 
     // Issue Type
-    // get field from layout
-    await caseCreationFormRoot.selectPicklist(2, 3, 1);
-    // define a random value index, there are 9 items in picklist, skip --None--, which is 1
-    const issueTypeIndex = faker.datatype.number({
-      min: 2,
-      max: 10
-    });
-    // get picklist dropdown
-    const [
-      issueTypePicklist
-    ] = await caseCreationFormRoot.getPicklistItemsLists();
-    // select a issue type
-    await issueTypePicklist.selectPicklistItem(issueTypeIndex);
+    await caseUtils.selectPicklistOnCreationForm(
+      caseCreationFormRoot,
+      [2, 3, 1],
+      [2, 10],
+      0
+    );
 
     // Channel Received
-    // get field from layout
-    await caseCreationFormRoot.selectPicklist(2, 1, 2);
-    // define a random value index, there are 7 items in picklist, skip --None--, which is 1
-    const channelReceivedIndex = faker.datatype.number({
-      min: 2,
-      max: 8
-    });
-    // get picklist dropdown
-    // get 2nd list from the returned lists and skip first one, which is Issue Type list above
-    const [
-      ,
-      channelReceivedPicklist
-    ] = await caseCreationFormRoot.getPicklistItemsLists();
-    // select a recevied channel
-    await channelReceivedPicklist.selectPicklistItem(channelReceivedIndex);
+    await caseUtils.selectPicklistOnCreationForm(
+      caseCreationFormRoot,
+      [2, 1, 2],
+      [2, 8],
+      1
+    );
 
     // click save button
     await caseCreationFormRoot.saveNew();
@@ -58,7 +45,36 @@ export default class GeneralEnquiry extends Case {
     await browser.pause(5000);
   }
 
-  async assignNewOwner(): Promise<void> {}
+  async assignNewOwner(ownerType?: ownerType): Promise<void> {
+    const CaseRecordHomeFlexipageRoot = await utam.load(
+      CaseRecordHomeFlexipage
+    );
+
+    // get record layout
+    const detailPanel = await CaseRecordHomeFlexipageRoot.getMainRegionActiveTabDetailPanel();
+    const baseRecordForm = await detailPanel.getBaseRecordForm();
+    const recordLayout = await baseRecordForm.getRecordLayout();
+
+    // Case Owner
+    const caseOwnerField = await commonUtils.getFieldFromRecordLayout(
+      recordLayout,
+      [2, 1, 1]
+    );
+
+    switch (this.userRole) {
+      case UserRole.COACH:
+        await this.assignNewOwnerByCoach(caseOwnerField, ownerType);
+        break;
+      case UserRole.FRAUDX_AGENT:
+        await this.assignNewOwnerByFraudXAgent(caseOwnerField);
+        break;
+      default:
+        console.error(
+          "Error: invalid user role when creating ANZx Complaint Case."
+        );
+        process.exit(-1);
+    }
+  }
 
   async updateRecord(): Promise<void> {
     // Coaches Workbench Case Record Page
@@ -72,18 +88,11 @@ export default class GeneralEnquiry extends Case {
     const recordLayout = await baseRecordForm.getRecordLayout();
 
     // Priority
-    const priorityField = await CommonUtils.getFieldFromLayout(
+    await commonUtils.selectPicklistOnRecordLayout(
       recordLayout,
-      2,
-      4,
-      2
+      [2, 4, 2],
+      [2, 5]
     );
-    // define a random value index, there are 4 items in picklist, skip --None--, which is 1
-    const priorityIndex = faker.datatype.number({
-      min: 2,
-      max: 5
-    });
-    await CommonUtils.selectPicklist(priorityField, priorityIndex);
     await baseRecordForm.clickFooterButton("Save");
   }
 
@@ -100,15 +109,40 @@ export default class GeneralEnquiry extends Case {
 
     // Status
     // select Closed status
-    const statusField = await CommonUtils.getFieldFromLayout(
-      recordLayout,
-      2,
-      3,
-      2
-    );
-    await CommonUtils.selectPicklist(statusField, 6);
+    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [2, 3, 2], 6);
     await baseRecordForm.clickFooterButton("Save");
 
     await browser.pause(3000);
+  }
+
+  async assignNewOwnerByCoach(
+    caseOwnerField: RecordLayoutItem,
+    ownerType?: ownerType
+  ): Promise<void> {
+    // click change owner button
+    await caseOwnerField.clickChangeOwnerButton();
+
+    if (ownerType === "Users") {
+      await commonUtils.searchAndSelectNewOwner(
+        "Users",
+        caseData.newFraudXAgentOwnerName
+      );
+    } else if (ownerType === "Queues") {
+      await commonUtils.searchAndSelectNewOwner(
+        "Queues",
+        Queue.SUPPORT_COACH_QUEUE
+      );
+    }
+  }
+
+  async assignNewOwnerByFraudXAgent(
+    caseOwnerField: RecordLayoutItem
+  ): Promise<void> {
+    // click change owner button
+    await caseOwnerField.clickChangeOwnerButton();
+    await commonUtils.searchAndSelectNewOwner(
+      "Users",
+      caseData.newFraudXAgentOwnerName
+    );
   }
 }
