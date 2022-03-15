@@ -1,17 +1,17 @@
-name: BlackDuck 🦆 Scan
+name: BlackDuck-Automation-Test 🦆 Scan
 
 on:
   push:
     paths:
-      - .github/workflows/blackduck.yml # Run on change to scan, or packages, in develop
-      - "package.json"
+      - .github/workflows/blackduck-automation-test.yml # Run on change to scan, or packages, in develop
+      - "automation-test/package.json"
     branches:
       - develop
   schedule:
     - cron: "57 2 * * SAT" # Run every Saturday between 2-3am
 
 jobs:
-  blackduck:
+  blackduck-automation-test:
     runs-on: [self-hosted, org]
     steps:
       - uses: actions/setup-node@v2.1.5
@@ -43,5 +43,5 @@ jobs:
             --application-name=secscan \
             --target-name=BlackduckScanCI \
             --target-type=PIPELINE \
-            --variables="GIT_COMMIT_SHA=${GITHUB_SHA};GIT_REF=${REF};REPO=github.com/${GITHUB_REPOSITORY};PULL_REQUEST=${PR_NUMBER}" \
+            --variables="GIT_COMMIT_SHA=${GITHUB_SHA};GIT_REF=${REF};REPO=github.com/${GITHUB_REPOSITORY};PULL_REQUEST=${PR_NUMBER};SUBDIR=automation-test" \
             --wait
