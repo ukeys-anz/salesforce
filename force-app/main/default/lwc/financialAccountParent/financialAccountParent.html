@@ -33,7 +33,6 @@
       <c-transaction-history-board
         component-title={componentTitle}
         record-id={recordId}
-        transaction-data={transactionData}
         has-error={hasTransactionError}
         error={transactionError}
         onloadmore={handleLoadMore}
@@ -44,6 +43,9 @@
         loading={transactionLoading}
         clear-transactions={clearTransactions}
         transaction-load-more={transactionLoadMore}
+        dispute-record-types-from-parent={disputeRecordTypes}
+        transaction-type-dispute-id-map-from-parent={transactionTypeDisputeIdMap}
+        transaction-data={transactionData}
       ></c-transaction-history-board>
     </template>
     <template if:true={loading}>

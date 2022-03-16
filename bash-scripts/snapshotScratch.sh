@@ -9,7 +9,7 @@ trap ctrl_c INT
 function ctrl_c() {
     git checkout .
     echo "${red}"
-    echo "Making scracthOrg has been stopped."
+    echo "Creating snapshot has been stopped."
     echo "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
 }
 
@@ -22,7 +22,7 @@ JOB_END_TIME=""
 
 
 # Using SOAP over REST is much faster for scratch org creations while pushing content.
-sfdx config:set restDeploy=false
+sfdx force:config:set restDeploy=false
 # Bypass the Lightning Experience custom domain check entirely, wich takes very long when connected to ANZ network
 # TODO Consider a switch to bypass it when connected elsewhere (e.g. from GCB)
 export SFDX_DOMAIN_RETRY=0
@@ -34,7 +34,7 @@ ALL_START_TIME=$(date +%s)
 echoMessageCreator "Assign Permission sets" $stepNo true
 sfdx force:user:permset:assign -n "FinancialServicesCloudStandard,EinsteinAnalyticsPlusAdmin" 2>&1 | tee stderr
 if [[ ($(cat stderr) == *'ERROR'*) && ($(cat stderr) != *'Duplicate PermissionSetAssignment'*)  || ($(cat stderr) == *'statusCode=502'*) ]]; then
-    renameForceignore false
+    git checkout .
     exit 1
 fi
 echoMessageCreator "" $stepNo false
@@ -59,6 +59,8 @@ changeMetadata force-app/main/default/permissionsets/SFDX_Deploy.permissionset-m
 changeMetadata force-app/main/default/permissionsets/SFDX_Snapshots.permissionset-meta.xml sfdxSnap
 changeMetadata force-app/main/default/permissionsets/View_All_Data.permissionset-meta.xml viewAll
 changeMetadata force-app/main/default/permissionsets/View_All_Files.permissionset-meta.xml viewFiles
+changeMetadata force-app/main/default/objects/Account/Account.object-meta.xml IsotopeSubscription
+changeMetadata force-app/main/default/objects/Quality_Assessment__c/Quality_Assessment__c.object-meta.xml IsotopeSubscription
 changeMetadata "force-app/main/default/profiles/Minimum Access - External Apps.profile-meta.xml" minimum
 changeMetadata "force-app/main/default/profiles/ANZx Standard User.profile-meta.xml" anzxStandard
 echoMessageCreator "" $stepNo false
