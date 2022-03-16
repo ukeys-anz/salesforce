@@ -20,7 +20,7 @@ public with sharing class ChatterMigrationServiceTest {
 
       User apiUser = TestUtil.createTestUser(
         new Map<String, Object>{
-          'FirstName' => 'APIUserTest',
+          'FirstName' => 'OCVUserTest',
           'ProfileId' => p.Id,
           'UserRoleId' => role.Id
         }
@@ -29,9 +29,9 @@ public with sharing class ChatterMigrationServiceTest {
 
       // Assign Case related PS on API User
       List<String> psNames = new List<String>{
-        'Chat_Read_Write',
-        'API_Access_Twilio',
-        'API_Only',
+        'Enforce_mTLS',
+        'FinancialServicesCloudStandard',
+        'Read_Write_Customer_Details',
         'Moderate_Chatter'
       };
       List<PermissionSet> psList = [
@@ -86,6 +86,21 @@ public with sharing class ChatterMigrationServiceTest {
     posts.add(post2);
 
     insert posts;
+
+    //Insert FeedComments into the above posts
+
+    List<FeedComment> comments = new List<FeedComment>();
+    for (FeedItem createdPost : posts) {
+      comments.add(
+        new FeedComment(
+          CommentBody = 'Testing Comment',
+          FeedItemId = createdPost.Id,
+          CommentType = 'TextComment'
+        )
+      );
+    }
+
+    insert comments;
   }
 
   /* 
@@ -161,7 +176,7 @@ public with sharing class ChatterMigrationServiceTest {
   static void testMigrationAPICall() {
     Test.startTest();
 
-    User usr = TestUtil.getUserByFirstName('APIUserTest');
+    User usr = TestUtil.getUserByFirstName('OCVUserTest');
 
     System.runAs(usr) {
       RestRequest req = new RestRequest();
@@ -180,7 +195,8 @@ public with sharing class ChatterMigrationServiceTest {
       System.assertEquals(
         true,
         ChatterMigrationServiceController.migrate(),
-        'Expecting the migrate controller to migrate successfully and return true'
+        'Expecting the migrate controller to migrate successfully and return true - Response Body:' +
+        RestContext.response.responseBody.toString()
       );
       System.assert(
         (RestContext.response.statusCode == 200),
@@ -205,6 +221,10 @@ public with sharing class ChatterMigrationServiceTest {
         '\''
       );
 
+      List<FeedComment> feedComments = systemAction.query(
+        'SELECT CommentBody, CreatedById, CreatedDate, FeedItemId, CommentType From FeedComment'
+      );
+
       System.assert(
         (feedOld.size() == 0),
         'Expected that the Victim Account to have 0 feed items in the test'
@@ -213,6 +233,11 @@ public with sharing class ChatterMigrationServiceTest {
       System.assert(
         (feedNew.size() == 2),
         'Expected that the Survivor Account to have 2 feed items in the test'
+      );
+
+      System.assert(
+        (feedComments.size() == 2),
+        'Expected that the Feed has 2 comments copied over'
       );
     }
 
