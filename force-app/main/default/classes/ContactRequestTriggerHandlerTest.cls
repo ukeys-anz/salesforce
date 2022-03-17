@@ -3,6 +3,8 @@ private class ContactRequestTriggerHandlerTest {
   //Test data setup
   @testSetup
   static void testDataSetup() {
+    Faker faker = new Faker('AU');
+
     //Insert appointment commitment records
     List<Appointment_Commitment__c> apptCommtRecords = new List<Appointment_Commitment__c>();
 
@@ -20,6 +22,37 @@ private class ContactRequestTriggerHandlerTest {
     apptCommtRecords.add(apptCommt2);
 
     insert apptCommtRecords;
+
+    Account account = new Account(
+      FirstName = faker.person.firstName(),
+      LastName = faker.person.lastName(),
+      OCV_ID__c = faker.randomString(10),
+      ANZx_Customer__c = true
+    );
+
+    insert account;
+
+    List<ContactRequest> contactRequestList = new List<ContactRequest>();
+    List<Interaction> interactionList = new List<Interaction>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      Interaction interaction = new Interaction(
+        AccountId = account.Id,
+        Name = 'Test Interaction' + i,
+        Status__c = 'New'
+      );
+
+      interactionList.add(interaction);
+
+      ContactRequest contactReq = new ContactRequest(
+        PreferredChannel = 'Phone',
+        RequestReason = 'Financial Wellbeing',
+        Status = 'New'
+      );
+
+      contactRequestList.add(contactReq);
+    }
+
+    insert contactRequestList;
   }
 
   @isTest
@@ -111,5 +144,33 @@ private class ContactRequestTriggerHandlerTest {
       1,
       'Confirmed count should be updated after contact request creation'
     );
+  }
+
+  @isTest
+  static void testContactRequestCancellation() {
+    List<ContactRequest> contactRequestList = [
+      SELECT Id, Status
+      FROM ContactRequest
+      WHERE Status = 'New'
+    ];
+
+    List<ContactRequest> updatedRequests = new List<ContactRequest>();
+    for (ContactRequest contactRequest : [
+      SELECT Id, Status
+      FROM ContactRequest
+      WHERE Status = 'New'
+    ]) {
+      contactRequest.Status = 'Cancelled';
+      updatedRequests.add(contactRequest);
+    }
+
+    update updatedRequests;
+
+    List<Interaction> interactionList = [
+      SELECT Id
+      FROM Interaction
+      WHERE Status__c = 'New'
+    ];
+    System.assertEquals(0, interactionList.size());
   }
 }

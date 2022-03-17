@@ -5,6 +5,8 @@
  * all the actions on the ContactRequest object.
  */
 public with sharing class ContactRequestTriggerActions {
+  public static final String STATUS_CANCELLED = 'Cancelled';
+
   /**
    * @description Method which updates the confirmed count on the appointment commitment record
    * when a new Contact request record is created. The appointment commitment is
@@ -84,6 +86,54 @@ public with sharing class ContactRequestTriggerActions {
         'updateAppointmentCommitment',
         'Not enough permissions to update Appointment Commitment.'
       );
+    }
+  }
+
+  /**
+   * @description checks if record has been updated to cancelled and if so,
+   * updates the associated interaction to cancelled
+   * @param oldMap Map of contact requests containing original values prior to update.
+   * @param records The list of updated contact request records.
+   */
+  public static void handleCancelledRequest(
+    Map<Id, SObject> oldMap,
+    List<ContactRequest> records
+  ) {
+    List<Id> interactionIdList = new List<Id>();
+    List<Interaction> interactionCancelList = new List<Interaction>();
+
+    //Loop through contact requests and get records updated to cancel
+    for (ContactRequest contactReq : records) {
+      ContactRequest oldRecord = (ContactRequest) oldMap.get(contactReq.id);
+      if (
+        oldRecord.Status != STATUS_CANCELLED &&
+        contactReq.Status == STATUS_CANCELLED
+      ) {
+        //Add interactions to cancel to list
+        interactionIdList.add(contactReq.Interaction__c);
+      }
+    }
+
+    if (
+      !interactionIdList.isEmpty() &&
+      Schema.sObjectType.Interaction.isQueryable()
+    ) {
+      for (Interaction interaction : [
+        SELECT Id, Status__c
+        FROM Interaction
+        WHERE Id IN :interactionIdList AND Status__c != :STATUS_CANCELLED
+      ]) {
+        interaction.Status__c = STATUS_CANCELLED;
+        interactionCancelList.add(interaction);
+      }
+
+      //Update interactions to cancelled
+      if (
+        !interactionCancelList.isEmpty() &&
+        Interaction.sObjectType.getDescribe().isUpdateable()
+      ) {
+        update interactionCancelList;
+      }
     }
   }
 }

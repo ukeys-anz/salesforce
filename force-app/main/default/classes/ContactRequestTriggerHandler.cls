@@ -19,4 +19,12 @@ public with sharing class ContactRequestTriggerHandler extends Lib_TriggerHandle
   public override void onAfterInsert() {
     ContactRequestTriggerActions.updateConfirmedCount(records);
   }
+
+  /**
+   * @description onAfterUpdate to handle after update trigger actions.
+   * @param oldMap old trigger values
+   */
+  public override void onAfterUpdate(Map<Id, SObject> oldMap) {
+    ContactRequestTriggerActions.handleCancelledRequest(oldMap, records);
+  }
 }
