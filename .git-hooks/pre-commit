@@ -9,10 +9,21 @@ npm run ea:prettier
 
 if [ $? -eq 0 ]
 then
-  echo "${GREEN} ✔ Prettier Auto-commit complete ${NC}"
-  exit 0
+  echo ""
+  echo "${GREEN}✔ Prettier Auto-commit complete ${NC}"
+  echo ""
 else
-  echo "${RED} Prettier did not run successfully ${NC}"
+  echo ""
+  echo "${RED}! Prettier did not run successfully ${NC}"
+  echo ""
+  exit 1
+fi
+
+folders=$( ls )
+if [[ $folders == *"salesforce-scripts"* ]];then
+  echo ""
+  echo "${RED}! You need to delete the salesforce-scripts folder, as it is a submodule and will break the pipelines${NC}"
+  echo ""
   exit 1
 fi
 

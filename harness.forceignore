@@ -86,6 +86,7 @@ force-app/main/default/classes/utils/CommonUtils.cls
 #Ignore Knowledge validation status field as it is not supported in metadata API
 KnowledgeValidationStatus
 type:DataCategoryGroup
+force-app/main/default/datacategorygroups
 
 #Ignoring deleted platform event for Nov 10 develop merge - CMOS
 force-app/main/default/objects/IDR_CRC_Escalation_Event__e

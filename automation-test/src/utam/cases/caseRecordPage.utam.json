@@ -1,0 +1,16 @@
+{
+  "root": true,
+  "selector": {
+    "css": "body"
+  },
+  "elements": [
+    {
+      "name": "activeConsoleTab",
+      "selector": {
+        "css": "section[class='tabContent active oneConsoleTab']"
+      },
+      "type": "clickable",
+      "public": true
+    }
+  ]
+}

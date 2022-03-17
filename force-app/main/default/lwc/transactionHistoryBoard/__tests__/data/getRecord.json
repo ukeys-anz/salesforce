@@ -10,6 +10,10 @@
     "FinServ__FinancialAccountNumber__c": {
       "displayValue": null,
       "value": "facc 321"
+    },
+    "FinServ__FinancialAccountType__c": {
+      "displayValue": null,
+      "value": "Checking"
     }
   },
   "id": "0031700000pHcf8AAC",

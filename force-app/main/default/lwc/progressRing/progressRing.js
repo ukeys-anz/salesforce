@@ -5,6 +5,7 @@ export default class ProgressRing extends LightningElement {
   @api showPercent;
   @api emoticon;
   @api size = "small";
+  @api image;
 
   @track progressStyle;
   @track ringSize = 40;
