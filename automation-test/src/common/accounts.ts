@@ -2,7 +2,7 @@ import LwcAccounsView from "../pageObjects/lwcAccounsView";
 import SfCustomer from "./customer";
 
 export default class SfAccounts {
-  selectAccountFilter = async (filterName: string) => {
+  selectAccountFilter = async () => {
     const accountsPageRoot = await utam.load(LwcAccounsView);
 
     await (await accountsPageRoot.getSelectAccountFiler()).click();
@@ -20,8 +20,8 @@ export default class SfAccounts {
     const searchBox = await $("//input[@name='Account-search-input']");
     await searchBox.click();
 
-    let sfCustomerDetails = new SfCustomer();
-    let customerName = await sfCustomerDetails.getCustomerName(scenarioId);
+    const sfCustomerDetails = new SfCustomer();
+    const customerName = await sfCustomerDetails.getCustomerName(scenarioId);
 
     // await searchBox.setText(customerName.name);
     await searchBox.setValue(customerName.name);

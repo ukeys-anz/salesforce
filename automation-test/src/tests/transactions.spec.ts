@@ -20,22 +20,22 @@ describe("Transactions verification", () => {
     const navigationShowElement = await customerPageRoot.getNavigationShow();
     await navigationShowElement.click();
 
-    let sfNavigation = new SfNavigation();
+    const sfNavigation = new SfNavigation();
     await sfNavigation.selectNavigation("Accounts");
 
-    let sfAccountView = new SfAccounts();
+    const sfAccountView = new SfAccounts();
 
-    await sfAccountView.selectAccountFilter("All Accounts");
+    await sfAccountView.selectAccountFilter();
     await sfAccountView.searchAccount("scenarioTransaction001");
   });
 
   it("Verify the details of a Card transaction", async () => {
     //Open Transactions
-    let sfCustomerView = new SfCustomer();
+    const sfCustomerView = new SfCustomer();
 
     await sfCustomerView.openEverydayAccount("scenarioTransaction001");
 
-    let SfTransactionsView = new SfTransactions();
+    const SfTransactionsView = new SfTransactions();
     await SfTransactionsView.verifyTransactions("Card");
   });
 });

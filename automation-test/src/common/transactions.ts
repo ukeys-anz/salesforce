@@ -37,7 +37,7 @@ export default class SfTransactions {
   };
 
   viewTransactionDetails = async (type: string) => {
-    let rowNumber = await this.getFirstTransactionRowNumber(type);
+    const rowNumber = await this.getFirstTransactionRowNumber(type);
 
     const transactionItem = await $(
       `(//article[contains(@class,'transaction-item')]//button)[${rowNumber}]`
@@ -51,10 +51,10 @@ export default class SfTransactions {
   };
 
   verifyTransactions = async (type: string) => {
-    let rowNumber: any;
+    // let rowNumber: any;
 
     //Open transaction
-    rowNumber = await this.viewTransactionDetails(type);
+    const rowNumber: any = await this.viewTransactionDetails(type);
 
     //transaction details
     await this.verifyTrxDetails(rowNumber, type);
@@ -72,12 +72,12 @@ export default class SfTransactions {
   };
 
   verifyTrxDetails = async (rowNumber: number, type: string) => {
-    let trxName, trxType, shrtDesc, status, lngDesc, amount, trxTime, trxId;
+    // let trxName, trxType, shrtDesc, status, lngDesc, amount, trxTime, trxId;
 
-    trxName = await $(
+    const trxName = await $(
       `(//article[contains(@class,'transaction-item')]//div[text()='Name']/following-sibling::div)[${rowNumber}]`
     );
-    trxType = await $(
+    const trxType = await $(
       `(//article[contains(@class,'transaction-item')]//div[text()='Transaction Type']/following-sibling::div)[${rowNumber}]`
     );
 
@@ -88,26 +88,26 @@ export default class SfTransactions {
     await expect(await trxType.getText()).toBe(type);
 
     //Transaction time
-    trxTime = await $(
+    const trxTime = await $(
       `(//article[contains(@class,'transaction-item')]/div)[${rowNumber}]//div[text()='Transaction Time']/following-sibling::div`
     );
     await expect(await this.regExp.test(await trxTime.getText())).toBe(true);
 
     //Short Desc
-    shrtDesc = await $(
+    const shrtDesc = await $(
       `(//article[contains(@class,'transaction-item')]//div[text()='Short Description']/following-sibling::div)[${rowNumber}]`
     );
     await expect(await this.regExp.test(await shrtDesc.getText())).toBe(true);
 
     //Amount
-    amount = await $(
+    const amount = await $(
       `(//article[contains(@class,'transaction-item')]/div)[${rowNumber}]//div[text()='Amount']/following-sibling::div`
     );
 
     await expect(await this.regExp.test(await amount.getText())).toBe(true);
 
     //Status
-    status = await $(
+    const status = await $(
       `(//article[contains(@class,'transaction-item')]/div)[${
         rowNumber + 1
       }]//div[text()='Status']/following-sibling::div`
@@ -115,7 +115,7 @@ export default class SfTransactions {
     await expect(await this.regExp.test(await status.getText())).toBe(true);
 
     //Long Description
-    lngDesc = await $(
+    const lngDesc = await $(
       `(//article[contains(@class,'transaction-item')]/div)[${
         rowNumber + 1
       }]//div[text()='Status']/following-sibling::div`
@@ -123,7 +123,7 @@ export default class SfTransactions {
     await expect(await this.regExp.test(await lngDesc.getText())).toBe(true);
 
     //Transaction ID
-    trxId = await $(
+    const trxId = await $(
       `(//article[contains(@class,'transaction-item')]/div)[${
         rowNumber + 1
       }]//div[text()='Transaction ID']/following-sibling::div`
@@ -140,10 +140,10 @@ export default class SfTransactions {
   };
 
   verifyMerchantDetails = async (rowNumber: number) => {
-    let emailRegExp = new RegExp(
-      '/^(([^<>()[]\\.,;:s@"]+(.[^<>()[]\\.,;:s@"]+)*)|(".+"))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$/'
-    );
-    let webRegExp = new RegExp(
+    // let emailRegExp = new RegExp(
+    //   '/^(([^<>()[]\\.,;:s@"]+(.[^<>()[]\\.,;:s@"]+)*)|(".+"))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$/'
+    // );
+    const webRegExp = new RegExp(
       "(http|ftp|https)://[w-]+(.[w-]+)+([w.,@?^=%&amp;:/~+#-]*[w@?^=%&amp;/~+#-])?"
     );
 
@@ -227,7 +227,7 @@ export default class SfTransactions {
     await expect(await this.regExp.test(await crdScheme.getText())).toBe(true);
 
     //Last 4 digits
-    let fourDigRegEx = new RegExp("/^[0-9]{4}$/");
+    // let fourDigRegEx = new RegExp("/^[0-9]{4}$/");
     const lastDigits = await $(
       `(//article[contains(@class,'transaction-item')]/div)[${
         rowNumber + 4

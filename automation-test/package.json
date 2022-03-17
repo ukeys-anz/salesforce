@@ -38,7 +38,6 @@
     "eslint": "^7.30.0",
     "expect-webdriverio": "^3.1.0",
     "faker": "^5.5.3",
-    "force": "0.0.3",
     "jsforce": "^1.10.1",
     "mochawesome": "^6.2.2",
     "prettier": "^2.3.2",

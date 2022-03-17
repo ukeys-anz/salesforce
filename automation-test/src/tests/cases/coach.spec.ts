@@ -6,22 +6,20 @@ import ANZXComplaint from "common/cases/ANZXComplaint";
 
 describe("Case - Coach Creates and Updates Cases", () => {
   // pre test steps
-  before(
-    async (): Promise<void> => {
-      // max viewport
-      await browser.maximizeWindow();
+  before(async (): Promise<void> => {
+    // max viewport
+    await browser.maximizeWindow();
 
-      // login as test user
-      await Auth.loginSalesforceAsRole(UserRole.COACH);
-    }
-  );
+    // login as test user
+    await Auth.loginSalesforceAsRole(UserRole.COACH);
+  });
 
   beforeEach(async () => {
     await browser.pause(1000);
   });
 
   describe("General Enquiry Case", async (): Promise<void> => {
-    let generalEnquiryCase = new GeneralEnquiry(UserRole.COACH);
+    const generalEnquiryCase = new GeneralEnquiry(UserRole.COACH);
 
     it("Go to Coaches Workbench and Case tab", async (): Promise<void> => {
       await navigateToConsoleAppAndTab(App.COACHES_WORKBENCH, AppTab.CASES);
@@ -49,7 +47,7 @@ describe("Case - Coach Creates and Updates Cases", () => {
   });
 
   describe("ANZx Complaint Case", async (): Promise<void> => {
-    let anzxComplaintCase = new ANZXComplaint(UserRole.COACH);
+    const anzxComplaintCase = new ANZXComplaint(UserRole.COACH);
 
     it("Go to Coaches Workbench and Case tab", async (): Promise<void> => {
       await navigateToConsoleAppAndTab(App.COACHES_WORKBENCH, AppTab.CASES);
@@ -76,10 +74,8 @@ describe("Case - Coach Creates and Updates Cases", () => {
     });
   });
 
-  after(
-    async (): Promise<void> => {
-      // log out test user
-      await Auth.logoutSalesforce();
-    }
-  );
+  after(async (): Promise<void> => {
+    // log out test user
+    await Auth.logoutSalesforce();
+  });
 });

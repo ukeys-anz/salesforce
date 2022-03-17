@@ -20,18 +20,18 @@ describe("Cards verification", () => {
     const navigationShowElement = await customerPageRoot.getNavigationShow();
     await navigationShowElement.click();
 
-    let sfNavigation = new SfNavigation();
+    const sfNavigation = new SfNavigation();
     await sfNavigation.selectNavigation("Accounts");
 
-    let sfAccountView = new SfAccounts();
+    const sfAccountView = new SfAccounts();
 
-    await sfAccountView.selectAccountFilter("All Accounts");
+    await sfAccountView.selectAccountFilter();
     await sfAccountView.searchAccount("scenarioCardVerification");
   });
 
   it("Verify the details of a valid card", async () => {
     //Get card details
-    let sfCards = new SfCards();
+    const sfCards = new SfCards();
     await sfCards.getCardDetails();
 
     //Verify card details

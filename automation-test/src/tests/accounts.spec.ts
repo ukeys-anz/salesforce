@@ -58,7 +58,7 @@ async function initialLoad(skipLogin: boolean) {
   // await SfPageUtils.closeAllTabsMain();
 
   const sfAccountView = new SfAccounts();
-  await sfAccountView.selectAccountFilter("All Accounts");
+  await sfAccountView.selectAccountFilter();
   await sfAccountView.searchAccountByName("Test Automation");
 }
 
@@ -69,25 +69,25 @@ describe("Verifies balances on the account", () => {
 
   it("Verifies the everyday account balance", async () => {
     const financialAccountRoot = await utam.load(LwcFinancialAccount);
-    let everydayAccount = financialAccountRoot.getEverydayAccount();
+    const everydayAccount = financialAccountRoot.getEverydayAccount();
     expect(everydayAccount).toBeExisting();
-    let checkingAmount = await $("lightning-formatted-number=$18.00");
+    const checkingAmount = await $("lightning-formatted-number=$18.00");
     expect(checkingAmount).toBeExisting();
   });
 
   it("Verifies the savings account balance", async () => {
     const financialAccountRoot = await utam.load(LwcFinancialAccount);
-    let savingsAccount = financialAccountRoot.getSavingsAccount();
+    const savingsAccount = financialAccountRoot.getSavingsAccount();
     expect(savingsAccount).toBeExisting();
-    let savingsAmount = await $("lightning-formatted-number=$89.00");
+    const savingsAmount = await $("lightning-formatted-number=$89.00");
     expect(savingsAmount).toBeExisting();
   });
 
   it("Verifies the total account balance", async () => {
     const financialAccountRoot = await utam.load(LwcFinancialAccount);
-    let totalBalance = financialAccountRoot.getTotalBalance();
+    const totalBalance = financialAccountRoot.getTotalBalance();
     expect(totalBalance).toBeExisting();
-    let totalAmount = await $(
+    const totalAmount = await $(
       "lightning-formatted-number[data-id='total-balance']=$107.00"
     );
     expect(totalAmount).toBeExisting();
@@ -95,11 +95,11 @@ describe("Verifies balances on the account", () => {
 
   it("Verifies the financial goals visible", async () => {
     const financialAccountRoot = await utam.load(LwcFinancialAccount);
-    let financialGoals = financialAccountRoot.getFinancialGoals();
+    const financialGoals = financialAccountRoot.getFinancialGoals();
     expect(financialGoals).toBeExisting();
-    let goalOne = await $("div=Mangoes");
-    let goalTwo = await $("div=Buy a car");
-    let goalThree = await $("div=Saving for the house to build");
+    const goalOne = await $("div=Mangoes");
+    const goalTwo = await $("div=Buy a car");
+    const goalThree = await $("div=Saving for the house to build");
     expect(goalOne).toBeExisting();
     expect(goalTwo).toBeExisting();
     expect(goalThree).toBeExisting();
@@ -112,11 +112,11 @@ describe("Loads savings account", () => {
   });
   it("Loads the savings financial account from goals", async () => {
     const financialAccountRoot = await utam.load(LwcFinancialAccount);
-    let financialGoals = financialAccountRoot.getFinancialGoals();
+    const financialGoals = financialAccountRoot.getFinancialGoals();
     expect(financialGoals).toBeExisting();
-    let viewAll = await $("a=View All");
+    const viewAll = await $("a=View All");
     await viewAll.click();
-    let header = await $("h1=Savings - ANZ Save Account");
+    const header = await $("h1=Savings - ANZ Save Account");
     expect(header).toBeExisting();
   });
 });
@@ -127,11 +127,11 @@ describe("Loads checking account", () => {
   });
   it("Loads checking account from account link", async () => {
     const financialAccountRoot = await utam.load(LwcFinancialAccount);
-    let everydayAccount = financialAccountRoot.getEverydayAccount();
+    const everydayAccount = financialAccountRoot.getEverydayAccount();
     expect(everydayAccount).toBeExisting();
-    let accountLink = await $("a=GRIMES MITCH");
+    const accountLink = await $("a=GRIMES MITCH");
     await accountLink.click();
-    let header = await $("h1=Everyday - ANZ Plus Account");
+    const header = await $("h1=Everyday - ANZ Plus Account");
     expect(header).toBeExisting();
   });
 });

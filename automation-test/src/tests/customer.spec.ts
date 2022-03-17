@@ -14,14 +14,14 @@ describe("Customer Verification", () => {
     const navigationShowElement = await customerPageRoot.getNavigationShow();
     await navigationShowElement.click();
 
-    let sfNavigation = new SfNavigation();
+    const sfNavigation = new SfNavigation();
     await sfNavigation.selectNavigation("Accounts");
 
-    let sfAccountView = new SfAccounts();
-    await sfAccountView.selectAccountFilter("All Accounts");
+    const sfAccountView = new SfAccounts();
+    await sfAccountView.selectAccountFilter();
     await sfAccountView.searchAccount(customerData.customers[0].name);
 
-    let sfCustomerDetails = new SfCustomer();
+    const sfCustomerDetails = new SfCustomer();
     await sfCustomerDetails.verifyCustomerAccount();
   });
 });
