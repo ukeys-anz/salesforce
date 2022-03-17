@@ -4937,10 +4937,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>102</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Digital only service</fullName>
             <default>false</default>
         </values>
@@ -5363,10 +5359,6 @@
             <fullName>101</fullName>
             <default>false</default>
         </values>
-        <values>
-            <fullName>102</fullName>
-            <default>false</default>
-        </values>
     </picklistValues>
     <picklistValues>
         <picklist>IDR_Subsequent_Issue__c</picklist>
@@ -5768,10 +5760,6 @@
         </values>
         <values>
             <fullName>101</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>102</fullName>
             <default>false</default>
         </values>
         <values>

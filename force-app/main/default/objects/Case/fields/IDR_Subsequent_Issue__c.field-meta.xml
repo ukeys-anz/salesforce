@@ -545,11 +545,6 @@
                 <default>false</default>
                 <label>Fees and Charges</label>
             </value>
-            <value>
-                <fullName>102</fullName>
-                <default>false</default>
-                <label>Not in Customer Best Interest</label>
-            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>9</controllingFieldValue>
@@ -947,10 +942,6 @@
         <valueSettings>
             <controllingFieldValue>1</controllingFieldValue>
             <valueName>101</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>1</controllingFieldValue>
-            <valueName>102</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>7</controllingFieldValue>

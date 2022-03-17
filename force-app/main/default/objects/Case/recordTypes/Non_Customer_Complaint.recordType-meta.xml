@@ -4903,10 +4903,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>102</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Digital only service</fullName>
             <default>false</default>
         </values>
@@ -5327,10 +5323,6 @@
         </values>
         <values>
             <fullName>101</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>102</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -5765,10 +5757,6 @@
         </values>
         <values>
             <fullName>101</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>102</fullName>
             <default>false</default>
         </values>
         <values>
