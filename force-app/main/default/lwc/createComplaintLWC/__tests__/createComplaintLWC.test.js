@@ -13,7 +13,7 @@ describe("c-create-complaint-l-w-c", () => {
 
   function flushPromises() {
     // eslint-disable-next-line no-undef
-    return new Promise(resolve => setImmediate(resolve));
+    return new Promise((resolve) => setImmediate(resolve));
   }
 
   it("display all sections in the form", () => {
