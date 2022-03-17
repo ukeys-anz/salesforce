@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Escalated__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Source - Salesforce;Privacy - Non Personal Information;Integrity - Accurate</complianceGroup>
+    <description>If Appointment Time is not accepted within Escalated Time- Visual Indicator</description>
+    <externalId>false</externalId>
+    <formula>IF((Appointment_date_and_Time__c - NOW()) &lt; 2,true, false)</formula>
+    <label>Escalated</label>
+    <securityClassification>Internal</securityClassification>
+    <type>Checkbox</type>
+</CustomField>

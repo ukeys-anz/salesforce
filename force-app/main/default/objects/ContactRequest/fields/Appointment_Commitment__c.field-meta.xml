@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Appointment_Commitment__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Source - Salesforce;Privacy - Non Personal Information;Integrity - Accurate</complianceGroup>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Appointment commitment linked with contact request</description>
+    <externalId>false</externalId>
+    <label>Appointment Commitment</label>
+    <referenceTo>Appointment_Commitment__c</referenceTo>
+    <relationshipLabel>Contact Requests</relationshipLabel>
+    <relationshipName>Contact_Requests_del</relationshipName>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <type>Lookup</type>
+</CustomField>
