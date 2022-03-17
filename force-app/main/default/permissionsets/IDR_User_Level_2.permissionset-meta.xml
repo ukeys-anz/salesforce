@@ -13,6 +13,11 @@
         <name>IDR_Level_2</name>
     </customPermissions>
     <description>The IDR user Level 2 permission which will be used by Team Lead or Area Managers in call centers and branches</description>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_Date_Received__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>IDR User Level 2</label>
     <tabSettings>

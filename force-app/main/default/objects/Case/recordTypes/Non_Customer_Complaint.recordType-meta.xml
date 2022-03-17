@@ -4891,6 +4891,18 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>99</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>100</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>101</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Digital only service</fullName>
             <default>false</default>
         </values>
@@ -5299,6 +5311,18 @@
         </values>
         <values>
             <fullName>98</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>99</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>100</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>101</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -5724,6 +5748,18 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>99</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>100</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>101</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Digital only service</fullName>
             <default>false</default>
         </values>
@@ -5783,6 +5819,10 @@
         </values>
         <values>
             <fullName>Violated</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Completed</fullName>
             <default>false</default>
         </values>
     </picklistValues>
