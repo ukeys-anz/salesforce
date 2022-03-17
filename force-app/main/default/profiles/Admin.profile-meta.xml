@@ -1546,6 +1546,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Fraud_Middle_Initial__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <field>Case.Origin</field>
         <readable>true</readable>
     </fieldPermissions>
