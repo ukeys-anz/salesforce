@@ -56,8 +56,13 @@ public with sharing class FinancialAccountTriggerHandlerTest {
 
     Test.startTest();
     try {
+      finAccount.Primary_Owner_Start_Date__c = null;
       finAccount.FinServ__PrimaryOwner__c = accnt2.Id;
       update finAccount;
+      System.assert(
+        false,
+        'Expected an exception when setting the Primary Owner Start Date to NULL'
+      );
     } catch (Exception e) {
       System.assertNotEquals(
         'Primary Owner and Primary Owner Start Date values should be updated simultaneously. Financial Account Id: ' +
@@ -77,9 +82,15 @@ public with sharing class FinancialAccountTriggerHandlerTest {
       LIMIT 1
     ];
     Test.startTest();
+
     try {
       finAccount.Primary_Owner_Start_Date__c = Date.valueOf('2021-03-04'); // some random date
       update finAccount;
+
+      System.assert(
+        false,
+        'Should have thrown an exception when attempting to updating the start dates without a primary owner update'
+      );
     } catch (Exception e) {
       System.assertNotEquals(
         'Primary Owner and Primary Owner Start Date values should be updated simultaneously. Financial Account Id: ' +
@@ -88,6 +99,7 @@ public with sharing class FinancialAccountTriggerHandlerTest {
         'Error message does not match.'
       );
     }
+
     Test.stopTest();
   }
 

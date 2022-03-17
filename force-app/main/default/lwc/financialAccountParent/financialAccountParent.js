@@ -23,7 +23,8 @@ import {
   handleComponentTitle
 } from "./helpers/utils";
 import { CurrentPageReference } from "lightning/navigation";
-
+import getDisputeRecordTypeMap from "@salesforce/apex/TransactionHistoryController.getDisputeRecordTypeMap";
+import { DISPUTE_RECORD_TYPES_RETRIEVE_ERROR } from "c/transactionHistoryService";
 export default class FinancialAccountParent extends LightningElement {
   @api recordId;
   accountData = [];
@@ -60,6 +61,9 @@ export default class FinancialAccountParent extends LightningElement {
   //Triggers the bottom of goals to load for
   //appending new goals
   goalsLoading = false;
+  transactionTypeDisputeIdMap = {};
+  disputeRecordTypes = [];
+  filterGoal = false;
 
   @wire(CurrentPageReference)
   pageRef;
@@ -85,6 +89,9 @@ export default class FinancialAccountParent extends LightningElement {
       } else if (accType === "Checking") {
         this.isSavings = false;
         this.accountType = "checking";
+      }
+      if (this.disputeRecordTypes.length === 0) {
+        await this.handleGetDisputeRecordTypeDetails();
       }
       await this.getFinancialData();
       await this.getGoalData();
@@ -186,6 +193,12 @@ export default class FinancialAccountParent extends LightningElement {
     if (!this.transactionLoadMore) {
       this.transactionLoading = true;
     }
+
+    if (this.filterGoal) {
+      this.clearTransactions = true;
+    } else {
+      this.clearTransactions = false;
+    }
     //Set default component title here to ensure theres always a title
     //even if the try catch fails
     this.componentTitle = this.isSavings
@@ -236,7 +249,7 @@ export default class FinancialAccountParent extends LightningElement {
       );
     } finally {
       //reset values
-      this.clearTransactions = false;
+      this.filterGoal = false;
       this.transactionLoading = false;
       this.transactionLoadMore = false;
     }
@@ -276,7 +289,7 @@ export default class FinancialAccountParent extends LightningElement {
     if (this.transactionBucketIds.length === 0) {
       this.preselectedGoal = null;
     }
-    this.clearTransactions = true;
+    this.filterGoal = true;
     this.getTransactionData();
   }
 
@@ -292,5 +305,32 @@ export default class FinancialAccountParent extends LightningElement {
     await this.getGoalData();
     await this.getTransactionData();
     this.loading = false;
+  }
+
+  // Construct a map of transaction type and its corresponding case record type
+  async handleGetDisputeRecordTypeDetails() {
+    let result = await getDisputeRecordTypeMap();
+    if (result) {
+      try {
+        const returnedMap = JSON.parse(result);
+        // Construct a list of dispute record type's label and Id to send to transaction record to construct the modal
+        for (const [key, value] of Object.entries(returnedMap)) {
+          this.transactionTypeDisputeIdMap[key] = value.Id; // This map is used in getRecordTypeId() below to determine which page layout the user should be directed to
+          let recordTypeItem = {};
+          recordTypeItem.developerName = key;
+          recordTypeItem.label = value.Name;
+          recordTypeItem.value = value.Id;
+          this.disputeRecordTypes.push(recordTypeItem);
+        }
+      } catch (error) {
+        handleErrorShowToast(
+          this,
+          "Failed To Retrieve Dispute Record Types",
+          error,
+          DISPUTE_RECORD_TYPES_RETRIEVE_ERROR,
+          "pester"
+        );
+      }
+    }
   }
 }
