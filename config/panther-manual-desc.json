@@ -641,6 +641,7 @@
       "IA-2453595":[
         "Appointment_Commitment__c",
         "Appointment_date_and_Time__c",
+        "Channel_Booked__c",
         "Escalated__c",
         "Interaction__c",
         "OwnerId",
@@ -800,6 +801,7 @@
         "Event_Id__c",
         "Interaction_Purpose__c",
         "Interaction_Summary__c",
+        "Channel_Booked__c",
         "InteractionType",
         "Name",
         "OwnerId",
