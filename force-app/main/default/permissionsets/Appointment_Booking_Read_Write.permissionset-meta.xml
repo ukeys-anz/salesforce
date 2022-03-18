@@ -88,7 +88,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>InteractionSummary.MeetingNotes</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>InteractionSummary.Meeting_Notes__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>InteractionSummary.NextSteps</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -133,14 +143,14 @@
     </objectPermissions>
     <tabSettings>
         <tab>standard-ContactRequest</tab>
-        <visibility>Available</visibility>
+        <visibility>Visible</visibility>
     </tabSettings>
     <tabSettings>
         <tab>standard-Interaction</tab>
-        <visibility>Available</visibility>
+        <visibility>Visible</visibility>
     </tabSettings>
     <tabSettings>
         <tab>standard-InteractionSummary</tab>
-        <visibility>Available</visibility>
+        <visibility>Visible</visibility>
     </tabSettings>
 </PermissionSet>
