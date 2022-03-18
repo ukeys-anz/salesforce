@@ -35,6 +35,11 @@
                 <default>false</default>
                 <label>Violated</label>
             </value>
+            <value>
+                <fullName>Completed</fullName>
+                <default>false</default>
+                <label>Completed</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

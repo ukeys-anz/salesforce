@@ -41,11 +41,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.IDR_Date_Received__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Case.IDR_DEH_Date_information_received__c</field>
         <readable>true</readable>
     </fieldPermissions>
