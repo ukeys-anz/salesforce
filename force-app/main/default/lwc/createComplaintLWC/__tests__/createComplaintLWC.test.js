@@ -13,7 +13,7 @@ describe("c-create-complaint-l-w-c", () => {
 
   function flushPromises() {
     // eslint-disable-next-line no-undef
-    return new Promise(resolve => setImmediate(resolve));
+    return new Promise((resolve) => setImmediate(resolve));
   }
 
   it("display all sections in the form", () => {
@@ -512,7 +512,7 @@ describe("c-create-complaint-l-w-c", () => {
     });
   });
 
-  it("check express cmos data load", () => {
+  it("check express cmos data load and unload", () => {
     const element = createElement("c-create-complaint-l-w-c", {
       is: CreateComplaintForm
     });
@@ -542,7 +542,9 @@ describe("c-create-complaint-l-w-c", () => {
             IDR_Complaint_Outcome__c: "1",
             IDR_Description_of_Outcome__c: "Test",
             IDR_Complaint_Remedy__c: "2",
-            IDR_Non_Financial_Remedy__c: "1"
+            IDR_Non_Financial_Remedy__c: "1",
+            IDR_Channel_Received__c: "Phone",
+            IDR_Priority__c: "Standard"
           }
         })
       );
@@ -551,6 +553,28 @@ describe("c-create-complaint-l-w-c", () => {
           '[data-id="descOfIssue-id"]'
         );
         expect(descriptionElement.value).toBe("Test");
+        const issueType = element.shadowRoot.querySelector(
+          "lightning-input-field[data-id=issueType-id]"
+        );
+        expect(issueType.value).toBe("13");
+        const subIssueType = element.shadowRoot.querySelector(
+          "lightning-input-field[data-id=subsequentIssue-id]"
+        );
+        expect(subIssueType.value).toBe("9");
+        const complaintStatus = element.shadowRoot.querySelector(
+          "lightning-combobox[data-id=caseStatus-id]"
+        );
+        expect(complaintStatus.value).toBe("Closed");
+        // AR-6390 now test that data is unloaded if Express Case button is unchecked.
+        expressCMOSElement.dispatchEvent(
+          new CustomEvent("togglechecked", { detail: { value: false } })
+        );
+        return Promise.resolve().then(() => {
+          expect(descriptionElement.value).toBe("");
+          expect(issueType.value).toBe("");
+          expect(subIssueType.value).toBe("");
+          expect(complaintStatus.value).toBe("Open");
+        });
       });
     });
   });

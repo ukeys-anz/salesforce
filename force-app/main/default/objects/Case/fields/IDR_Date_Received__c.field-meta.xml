@@ -8,7 +8,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Datetime received, may not be the record&apos;s created date in SF (data import, replication delays, ...). Leave blank for TODAY.</inlineHelpText>
     <label>Date Received</label>
-    <required>false</required>
+    <required>true</required>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>

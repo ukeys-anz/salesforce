@@ -23,6 +23,16 @@
         <reevaluateOnChange>false</reevaluateOnChange>
     </fieldUpdates>
     <fieldUpdates>
+        <fullName>CompleteMilestone</fullName>
+        <field>IDR_Milestone_Sla__c</field>
+        <literalValue>Completed</literalValue>
+        <name>CompleteMilestone</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>Copy_Case_Number</fullName>
         <description>Copy CaseNumber Auto Number value to CaseNumber__c field</description>
         <field>CaseNumber__c</field>
