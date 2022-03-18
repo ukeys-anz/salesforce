@@ -23,7 +23,7 @@ export function handleGoalThemes(goalList) {
     //Determine percentage for goal
     if (goal?.goal?.target_amount?.value) {
       //Work out percentage for fill
-      goal.fillPercent = Math.floor(
+      goal.fillPercent = Math.ceil(
         (goal.balance.value / goal.goal.target_amount.value) * 100
       );
       goal.fillPercentValue = goal.fillPercent > 100 ? 100 : goal.fillPercent;
