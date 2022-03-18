@@ -51,7 +51,7 @@
         "rightKey": ["Id"],
         "rightSelect": ["Name"]
       },
-      "sources": ["sfdcDigest_Case", "RecordType"]
+      "sources": ["DigestCaseObject", "RecordType"]
     },
     "AugmentAccountINfo": {
       "action": "augment",
@@ -64,7 +64,7 @@
       },
       "sources": ["MergeLastClosedData", "AccountInfo"]
     },
-    "sfdcDigest_Case": {
+    "DigestCaseObject": {
       "action": "sobjectDigest",
       "parameters": {
         "fields": [
@@ -93,7 +93,8 @@
           { "name": "AccountId" },
           { "name": "Fraud_Selfie_Match__c" },
           { "name": "Case_Hour_Duration__c" },
-          { "name": "Fraud_Restraint_Status__c" }
+          { "name": "Fraud_Restraint_Status__c" },
+          { "name": "Fraud_Middle_Initial__c" }
         ],
         "object": "Case"
       }

@@ -23,9 +23,10 @@ export function handleGoalThemes(goalList) {
     //Determine percentage for goal
     if (goal?.goal?.target_amount?.value) {
       //Work out percentage for fill
-      goal.fillPercent = Math.floor(
+      goal.fillPercent = Math.ceil(
         (goal.balance.value / goal.goal.target_amount.value) * 100
       );
+      goal.fillPercentValue = goal.fillPercent > 100 ? 100 : goal.fillPercent;
       goal.balanceRemaining =
         goal.goal.target_amount.value - goal.balance.value;
       goal.goal.target_amount = new Intl.NumberFormat("en-AU", {
@@ -33,7 +34,8 @@ export function handleGoalThemes(goalList) {
         currency: "AUD"
       }).format(goal.goal.target_amount.value);
     } else {
-      goal.fillPercent = goal.balance.value > 0 ? 100 : 0;
+      goal.fillPercent = goal.fillPercentValue =
+        goal.balance.value > 0 ? 100 : 0;
       goal.goal.target_amount = "N/A";
     }
   });

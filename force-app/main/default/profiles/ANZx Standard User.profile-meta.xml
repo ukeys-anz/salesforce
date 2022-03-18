@@ -2,6 +2,61 @@
 <Profile xmlns="http://soap.sforce.com/2006/04/metadata">
   <fullName>ANZx Standard User</fullName>
   <description>This will have all generic profile configuration that needs to be auto deployed. To be used by all ANZx standard users.</description>
+  <loginIpRanges>
+    <description>CIDR range for AU - TM</description>
+    <endAddress>203.110.235.31</endAddress>
+    <startAddress>203.110.235.0</startAddress>
+  </loginIpRanges>
+  <loginIpRanges>
+    <description>CIDR range for AU - MW</description>
+    <endAddress>203.110.235.159</endAddress>
+    <startAddress>203.110.235.128</startAddress>
+  </loginIpRanges>
+  <loginIpRanges>
+    <description>CIDR range for IN - RM</description>
+    <endAddress>202.128.96.143</endAddress>
+    <startAddress>202.128.96.128</startAddress>
+  </loginIpRanges>
+  <loginIpRanges>
+    <description>CIDR range for IN - MN</description>
+    <endAddress>202.128.97.143</endAddress>
+    <startAddress>202.128.97.128</startAddress>
+  </loginIpRanges>
+  <loginIpRanges>
+    <description>CIDR range for NZ - Lady Ruby</description>
+    <endAddress>156.13.220.15</endAddress>
+    <startAddress>156.13.220.0</startAddress>
+  </loginIpRanges>
+  <loginIpRanges>
+    <description>CIDR range for NZ - Aintree Avenue</description>
+    <endAddress>156.13.219.15</endAddress>
+    <startAddress>156.13.219.0</startAddress>
+  </loginIpRanges>
+  <loginIpRanges>
+    <description>CIDR range for SG - KC</description>
+    <endAddress>156.13.71.111</endAddress>
+    <startAddress>156.13.71.96</startAddress>
+  </loginIpRanges>
+  <loginIpRanges>
+    <description>CIDR range for SG - IB</description>
+    <endAddress>156.13.70.111</endAddress>
+    <startAddress>156.13.70.96</startAddress>
+  </loginIpRanges>
+  <loginIpRanges>
+    <description>CIDR range for UK - Bank Street</description>
+    <endAddress>213.161.71.120</endAddress>
+    <startAddress>213.161.71.120</startAddress>
+  </loginIpRanges>
+  <loginIpRanges>
+    <description>CIDR range for UK - Sungard LTC</description>
+    <endAddress>217.20.23.170</endAddress>
+    <startAddress>217.20.23.170</startAddress>
+  </loginIpRanges>
+  <loginIpRanges>
+    <description>CIDR range for GUAM - Hagatna</description>
+    <endAddress>67.98.163.68</endAddress>
+    <startAddress>67.98.163.68</startAddress>
+  </loginIpRanges>
   <applicationVisibilities>
         <application>standard__Insights</application>
         <default>false</default>
