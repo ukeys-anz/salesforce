@@ -13,6 +13,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>qualtrics__Survey_Response__c.OCV_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>qualtrics__Survey_Response__c.Other_Feedback__c</field>
         <readable>true</readable>
     </fieldPermissions>

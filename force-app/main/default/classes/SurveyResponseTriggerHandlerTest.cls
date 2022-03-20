@@ -13,10 +13,9 @@ public with sharing class SurveyResponseTriggerHandlerTest {
     Account accnt = new Account();
     accnt.Name = 'TestAccount';
     accnt.Display_Name__c = 'TestAccount';
-    accnt.OCV_ID__c = faker.randomString(10);
+    accnt.OCV_ID__c = 'QUnLJCCEhB0';
     accnt.ANZx_Customer__c = true;
     accnt.External_Id__c = faker.randomString(10);
-    accnt.UUID__c = '12345';
 
     insert accnt;
 
@@ -58,7 +57,7 @@ public with sharing class SurveyResponseTriggerHandlerTest {
   }
 
   @isTest
-  static void testSurveyResponseMatchingWithValidUUID() {
+  static void testSurveyResponseMatchingWithValidOCVID() {
     User qualtricsIntegrationUser = [
       SELECT Id
       FROM User
@@ -67,7 +66,7 @@ public with sharing class SurveyResponseTriggerHandlerTest {
     System.runAs(qualtricsIntegrationUser) {
       // Run as Qualtrics Integration User as the matching logic will be executed by this user in reality
       qualtrics__Survey_Response__c sr = new qualtrics__Survey_Response__c();
-      sr.UUID__c = '12345';
+      sr.OCV_ID__c = 'QUnLJCCEhB0';
       sr.qualtrics__Net_Promoter_Score__c = 2;
       sr.qualtrics__Description__c = 'Customer Feedback';
       sr.qualtrics__Other_Feedback__c = 'Some other feedback';
@@ -77,11 +76,16 @@ public with sharing class SurveyResponseTriggerHandlerTest {
       insert sr;
       Test.stopTest();
 
-      Account acc = [SELECT Id FROM Account WHERE UUID__c = '12345' LIMIT 1];
+      Account acc = [
+        SELECT Id
+        FROM Account
+        WHERE OCV_ID__c = 'QUnLJCCEhB0'
+        LIMIT 1
+      ];
       qualtrics__Survey_Response__c surveyRes = [
         SELECT qualtrics__Account__c
         FROM qualtrics__Survey_Response__c
-        WHERE UUID__c = '12345'
+        WHERE OCV_ID__c = 'QUnLJCCEhB0'
         LIMIT 1
       ];
       System.assertEquals(
@@ -93,7 +97,7 @@ public with sharing class SurveyResponseTriggerHandlerTest {
   }
 
   @isTest
-  static void testSurveyResponseMatchingWithInvalidUUID() {
+  static void testSurveyResponseMatchingWithInvalidOCVID() {
     User qualtricsIntegrationUser = [
       SELECT Id
       FROM User
@@ -102,7 +106,7 @@ public with sharing class SurveyResponseTriggerHandlerTest {
     System.runAs(qualtricsIntegrationUser) {
       // Run as Qualtrics Integration User as the matching logic will be executed by this user in reality
       qualtrics__Survey_Response__c sr = new qualtrics__Survey_Response__c();
-      sr.UUID__c = '98765';
+      sr.OCV_ID__c = '98765';
       sr.qualtrics__Net_Promoter_Score__c = 2;
       sr.qualtrics__Description__c = 'Customer Feedback';
       sr.qualtrics__Other_Feedback__c = 'Some other feedback';
@@ -114,7 +118,7 @@ public with sharing class SurveyResponseTriggerHandlerTest {
       } catch (DmlException e) {
         System.assertEquals(
           true,
-          e.getMessage().contains(SurveyResponseActions.INVALID_UUID_ERROR),
+          e.getMessage().contains(SurveyResponseActions.INVALID_OCV_ID_ERROR),
           'Error message should match'
         );
       }
