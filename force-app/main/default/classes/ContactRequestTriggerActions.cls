@@ -4,8 +4,10 @@
  * @description  ContactRequestTriggerActions is the helper class for ContactRequestTriggerHandler class which handles
  * all the actions on the ContactRequest object.
  */
+
 public with sharing class ContactRequestTriggerActions {
   public static final String STATUS_CANCELLED = 'Cancelled';
+  public static final String CONTACT_REQUEST_QUEUE = 'Contact Request';
 
   /**
    * @description Method which updates the confirmed count on the appointment commitment record
@@ -13,6 +15,7 @@ public with sharing class ContactRequestTriggerActions {
    * associated with the contact request record.
    * @param records The list of newly created contact request records.
    */
+
   public static void updateConfirmedCount(List<ContactRequest> records) {
     Set<Id> appointmentCommitmentIds = new Set<Id>();
 
@@ -45,7 +48,7 @@ public with sharing class ContactRequestTriggerActions {
       );
     }
     if (apptCommtList.size() > 0) {
-      ContactRequestTriggerActions.updateAppointmentCommitment(apptCommtList);
+      updateAppointmentCommitment(apptCommtList);
     }
   }
 
@@ -90,11 +93,38 @@ public with sharing class ContactRequestTriggerActions {
   }
 
   /**
-   * @description checks if record has been updated to cancelled and if so,
+   * @description Method which updates the owner of the contact request record to the Contact Request Queue
+   * @param records The list of newly created contact request records.
+   */
+
+  public static void assignContactRequestQueue(List<ContactRequest> records) {
+    List<Group> contactRequestQueue = new List<Group>();
+    if (Group.SObjectType.getDescribe().isAccessible()) {
+      contactRequestQueue = [
+        SELECT Id
+        FROM Group
+        WHERE Type = 'Queue' AND Name = :CONTACT_REQUEST_QUEUE
+      ];
+
+      if (contactRequestQueue.size() > 0) {
+        for (ContactRequest contReq : records) {
+          contReq.ownerId = contactRequestQueue[0].Id;
+        }
+      }
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'ContactRequestActions',
+        'assignContactRequestQueue',
+        'Not enough permissions to query Group object.'
+      );
+    }
+  }
+  /** @description checks if record has been updated to cancelled and if so,
    * updates the associated interaction to cancelled
    * @param oldMap Map of contact requests containing original values prior to update.
    * @param records The list of updated contact request records.
    */
+
   public static void handleCancelledRequest(
     Map<Id, SObject> oldMap,
     List<ContactRequest> records

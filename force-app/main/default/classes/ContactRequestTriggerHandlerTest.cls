@@ -1,11 +1,17 @@
 @isTest
 private class ContactRequestTriggerHandlerTest {
-  //Test data setup
+  /*
+    Test data setup 
+  */
+
   @testSetup
   static void testDataSetup() {
+    /*
+      Insert appointment commitment records
+    */
+
     Faker faker = new Faker('AU');
 
-    //Insert appointment commitment records
     List<Appointment_Commitment__c> apptCommtRecords = new List<Appointment_Commitment__c>();
 
     Appointment_Commitment__c apptCommt = new Appointment_Commitment__c();
@@ -66,7 +72,9 @@ private class ContactRequestTriggerHandlerTest {
       WHERE Date_AEDT__c = :dateVal AND Time__c = :timeVal
     ];
 
-    //Check the count of the confirmed field before appointment commitment record is created.
+    /*
+      Check the count of the confirmed field before appointment commitment record is created.
+    */
     System.assertEquals(
       apptCommtRec.Confirmed__c,
       2,
@@ -75,7 +83,10 @@ private class ContactRequestTriggerHandlerTest {
 
     Test.startTest();
 
-    //Insert contact request for that appointment commitment record.
+    /*
+      Insert contact request for that appointment commitment record.
+    */
+
     ContactRequest contReq = new ContactRequest();
     contReq.Appointment_date_and_time__c = DateTime.newInstance(
       2022,
@@ -96,7 +107,10 @@ private class ContactRequestTriggerHandlerTest {
       WHERE Date_AEDT__c = :dateVal AND Time__c = :timeVal
     ];
 
-    //Assert the count of the confirmed field after appointment commitment creation.
+    /*
+      Assert the count of the confirmed field after appointment commitment creation.
+    */
+
     System.assertEquals(
       apptCommtRec2.Confirmed__c,
       3,
@@ -117,7 +131,10 @@ private class ContactRequestTriggerHandlerTest {
 
     Test.startTest();
 
-    //Insert contact request for that appointment commitment record.
+    /*
+      Insert contact request for that appointment commitment record.
+    */
+
     ContactRequest contReq = new ContactRequest();
     contReq.Appointment_date_and_time__c = DateTime.newInstance(
       2022,
@@ -138,7 +155,10 @@ private class ContactRequestTriggerHandlerTest {
       WHERE Date_AEDT__c = :dateVal AND Time__c = :timeVal
     ];
 
-    //Assert the count of the confirmed field after appointment commitment creation.
+    /*
+      Assert the count of the confirmed field after appointment commitment creation.
+    */
+
     System.assertEquals(
       apptCommtRec2.Confirmed__c,
       1,
@@ -147,6 +167,44 @@ private class ContactRequestTriggerHandlerTest {
   }
 
   @isTest
+  static void testContactRequestQueueOwnerAssignment() {
+    DateTime dateTimeVal = DateTime.newInstance(2022, 3, 11, 1, 45, 0);
+
+    Test.startTest();
+
+    /*
+      Insert a new contact request record.
+    */
+
+    ContactRequest contReq = new ContactRequest();
+    contReq.Appointment_date_and_time__c = dateTimeVal;
+    insert contReq;
+
+    Test.stopTest();
+
+    ContactRequest conReq = [
+      SELECT OwnerId
+      FROM ContactRequest
+      WHERE Appointment_date_and_time__c = :dateTimeVal
+    ];
+
+    Group contactRequestQueue = [
+      SELECT Id
+      FROM Group
+      WHERE Type = 'Queue' AND Name = :'Contact Request'
+    ];
+
+    /*
+      Assert the the owner of the new contact request record
+    */
+
+    System.assertEquals(
+      conReq.OwnerId,
+      contactRequestQueue.Id,
+      'Contact request owner should be assigned to Contact Request Queue'
+    );
+  }
+
   static void testContactRequestCancellation() {
     List<ContactRequest> contactRequestList = [
       SELECT Id, Status

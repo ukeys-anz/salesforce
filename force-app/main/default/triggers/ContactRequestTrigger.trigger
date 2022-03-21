@@ -1,3 +1,7 @@
-trigger ContactRequestTrigger on ContactRequest(after insert, after update) {
+trigger ContactRequestTrigger on ContactRequest(
+  before insert,
+  after insert,
+  after update
+) {
   ContactRequestTriggerHandler handler = new ContactRequestTriggerHandler();
 }
