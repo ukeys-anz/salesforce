@@ -100,6 +100,9 @@
     <tabs>standard-report</tabs>
     <tabs>standard-Dashboard</tabs>
     <tabs>Customer_Feedback__c</tabs>
+    <tabs>standard-ContactRequest</tabs>
+    <tabs>standard-Interaction</tabs>
+    <tabs>standard-InteractionSummary</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Coaches_Console_UtilityBar</utilityBar>
     <workspaceConfig>
@@ -118,7 +121,16 @@
             <tab>standard-Case</tab>
         </mappings>
         <mappings>
+            <tab>standard-ContactRequest</tab>
+        </mappings>
+        <mappings>
             <tab>standard-Dashboard</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-Interaction</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-InteractionSummary</tab>
         </mappings>
         <mappings>
             <tab>standard-home</tab>

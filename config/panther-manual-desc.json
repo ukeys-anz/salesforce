@@ -128,11 +128,14 @@
     "Case": "Record of a customer interaction",
     "CFMS_Migrated_Document__c": "Custom object to store migrated CFMS documents, not the documents themselves but links to them in EDRM.",
     "Contact": "Contact details of an individual person. Forms part of a person account",
+    "ContactRequest":"Represents a request made by the customer to connect with the coach",
     "ContentDocumentLink": "Represents the link between a Salesforce CRM Content document, Salesforce file, or ContentNote and where it's shared",
     "ContentVersion": "Represents a specific version of a document in Salesforce CRM Content or Salesforce Files.",
     "EmailMessage": "Represents an email in Salesforce.",
     "FinServ__FinancialAccount__c": "A client's financial account, such as an investment account, bank account, or insurance policy.",
     "FinServ__FinancialAccountRole__c": "Represents the role occupied by a person or organizational entity that is involved with a financial account, such as a beneficiary or trustee.",
+    "Interaction":"Represents the interaction details between the coach and the customer",
+    "InteractionSummary":"Represents the details/conversation summary during the interaction between the coach and the customer",
     "IDR_Letter_Approval_Details__c": "Letter Approval Detail",
     "IDR_Template_Detail__c": "Template Detail",
     "Known_Issues__c": "Known Issues",
@@ -634,6 +637,28 @@
         "OtherAddress"
       ]
     },
+    "ContactRequest":{
+      "IA-2453595":[
+        "Appointment_Commitment__c",
+        "Appointment_date_and_Time__c",
+        "Channel_Booked__c",
+        "Escalated__c",
+        "Interaction__c",
+        "OwnerId",
+        "RequestDescription",
+        "RequestReason",
+        "Status",
+        "WhoId"
+      ],
+      "IA-2468715":[
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "RecordTypeId"
+      ]
+    },
     "ContentDocumentLink": {
       "IA-2468715": ["Id"]
     },
@@ -759,6 +784,47 @@
         "CreatedDate",
         "LastModifiedById",
         "LastModifiedDate"
+      ]
+    },
+    "Interaction":{
+      "IA-2468715": [
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "RecordTypeId",
+        "AccountId",
+        "Description",
+        "Direction__c",
+        "EndTime",
+        "Event_Id__c",
+        "Interaction_Purpose__c",
+        "Interaction_Summary__c",
+        "Channel_Booked__c",
+        "InteractionType",
+        "Name",
+        "OwnerId",
+        "ReferenceIdentifier",
+        "StartTime",
+        "Status__c"
+      ] 
+    },
+    "InteractionSummary":{
+      "IA-2468715":[
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "RecordTypeId",
+        "AccountId",
+        "InteractionId",
+        "Meeting_Notes__c",
+        "Name",
+        "Next_Steps__c",
+        "OwnerId",
+        "Status"
       ]
     },
     "Known_Issues__c": {
