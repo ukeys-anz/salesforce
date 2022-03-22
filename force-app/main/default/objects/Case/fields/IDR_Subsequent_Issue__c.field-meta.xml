@@ -258,7 +258,7 @@
             <value>
                 <fullName>52</fullName>
                 <default>false</default>
-                <label>Incorrect Advice</label>
+                <label>Advice not appropriate</label>
             </value>
             <value>
                 <fullName>53</fullName>
@@ -529,6 +529,21 @@
                 <fullName>98</fullName>
                 <default>false</default>
                 <label>Enforcement proceedings</label>
+            </value>
+            <value>
+                <fullName>99</fullName>
+                <default>false</default>
+                <label>Service Quality</label>
+            </value>
+            <value>
+                <fullName>100</fullName>
+                <default>false</default>
+                <label>Investment Performance</label>
+            </value>
+             <value>
+                <fullName>101</fullName>
+                <default>false</default>
+                <label>Fees and Charges</label>
             </value>
         </valueSetDefinition>
         <valueSettings>
@@ -915,6 +930,18 @@
         <valueSettings>
             <controllingFieldValue>1</controllingFieldValue>
             <valueName>53</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>1</controllingFieldValue>
+            <valueName>99</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>1</controllingFieldValue>
+            <valueName>100</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>1</controllingFieldValue>
+            <valueName>101</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>7</controllingFieldValue>

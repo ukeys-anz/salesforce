@@ -347,6 +347,50 @@ public with sharing class ChatContextServiceTest {
     System.assertEquals('Other Enquiries', responseDto[0].chatLabel);
   }
 
+  @isTest
+  static void testCaseCreatedSubtypeCaseInsensitive() {
+    Faker faker = new Faker('AU');
+    // GIVEN Twilio API user has required access to Salesforce API
+    // Query for API User
+    User usr = TestUtil.getUserByFirstName('APIUserTest');
+
+    // WHEN Twilio API user sends a request with valid OCV ID and Channel SID, but with an case mismatched Case Sub Type (no existing Cases against the same customer and Channel SID).
+    // Prepare request test data
+    List<ChatContextService.ChatContextRequest> contextRequests = prepareRequest(
+      'OCVID887766',
+      'CH' + faker.randomString(32),
+      'UPDATING dETAILS',
+      '1231'
+    );
+
+    Test.startTest();
+    System.runAs(usr) {
+      ChatContextService.doPost(contextRequests);
+    }
+    Test.stopTest();
+
+    // THEN the request must succeed. Value on Account 'External ID' field will be returned.
+    List<Case> newCases = [
+      SELECT Id, CaseNumber, Account.OCV_ID__c, Type
+      FROM Case
+      WHERE Account.OCV_ID__c = 'OCVID887766'
+    ];
+
+    System.assertEquals(200, RestContext.response.statusCode);
+    List<ChatContextService.ChatContextResponse> responseDto = (List<ChatContextService.ChatContextResponse>) JSON.deserialize(
+      RestContext.response.responseBody.toString(),
+      List<ChatContextService.ChatContextResponse>.class
+    );
+    System.assertEquals(true, responseDto[0].success);
+    System.assertEquals('OCVID887766', responseDto[0].ocvId);
+    System.assertEquals(
+      newCases[0].CaseNumber,
+      responseDto[0].sfdcSearchString
+    );
+    System.assertEquals(newCases[0].Type, 'Profile');
+    System.assertEquals('Updating details', responseDto[0].chatLabel);
+  }
+
   /**
    * @description Method to prepare REST requests for test scenarios.
    * @param ocvId OCV Id

@@ -8,7 +8,7 @@
 Capture this only if customer is not found in MAUD/CAP-CIS.</description>
     <externalId>false</externalId>
     <label>Last Name</label>
-    <length>50</length>
+    <length>255</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
