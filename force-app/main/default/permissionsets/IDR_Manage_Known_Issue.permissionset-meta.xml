@@ -3,6 +3,11 @@
     <description>This permission set is provided to user who would need to add or remove known issues records</description>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Known_Issues__c.IDR_Channel_Received__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Known_Issues__c.IDR_Complaint_Outcome__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -44,6 +49,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Known_Issues__c.IDR_Possible_Systemic_Issue__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Known_Issues__c.IDR_Priority__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

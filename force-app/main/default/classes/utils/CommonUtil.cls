@@ -333,4 +333,20 @@ public with sharing class CommonUtil {
       log.publishEvent();
     }
   }
+
+  /**
+   * @description getCaseInsensitiveMap creates a map of lower case values to cased values
+   * @param field the object.field to create the map from
+   * @return caseInsensitiveMap map of all picklist values with a case insensitive key
+   */
+  public static Map<String, String> getCaseInsensitiveMap(
+    Schema.SobjectField field
+  ) {
+    Map<String, String> caseInsensitiveMap = new Map<String, String>();
+    Schema.DescribeFieldResult fieldPicklist = field.getDescribe();
+    for (Schema.PicklistEntry f : fieldPicklist.getPicklistValues()) {
+      caseInsensitiveMap.put(f.getValue().toLowerCase(), f.getValue());
+    }
+    return caseInsensitiveMap;
+  }
 }

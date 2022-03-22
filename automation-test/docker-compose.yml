@@ -1,9 +1,9 @@
 version: "3.9" # optional since v1.27.0
 services:
-  journeytest:
-    image: "journeytest:latest"
+  automationtest:
+    image: "automationtest:latest"
     build: .
-    command: "./journeytest.sh"
+    command: "./automationtest.sh"
     volumes:
       - "${PWD:-.}:/app"
     env_file:
