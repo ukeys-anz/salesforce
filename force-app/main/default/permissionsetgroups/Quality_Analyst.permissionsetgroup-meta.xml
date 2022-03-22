@@ -10,6 +10,7 @@
     <permissionSets>Compliance_Task_R_W</permissionSets>
     <permissionSets>Customer_Feedback_Read_Only</permissionSets>
     <permissionSets>Customer_Read_Only</permissionSets>
+    <permissionSets>FinServ__FinancialServicesCloudStandard</permissionSets>
     <permissionSets>Knowledge_User</permissionSets>
     <permissionSets>Product_Read_Only</permissionSets>
     <permissionSets>Quality_Assessment_Read_Write</permissionSets>
