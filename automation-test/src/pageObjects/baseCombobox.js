@@ -7,8 +7,9 @@ function _interopDefaultLegacy(e) {
   return e && typeof e === "object" && "default" in e ? e : { default: e };
 }
 
-var _BaseComboboxItem__default =
-  /*#__PURE__*/ _interopDefaultLegacy(_BaseComboboxItem);
+var _BaseComboboxItem__default = /*#__PURE__*/ _interopDefaultLegacy(
+  _BaseComboboxItem
+);
 
 async function _utam_get_expandButton(driver, root) {
   let _element = root;

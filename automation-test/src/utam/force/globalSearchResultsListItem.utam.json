@@ -1,0 +1,14 @@
+{
+  "type": "clickable",
+  "methods": [
+    {
+      "name": "selectResult",
+      "compose": [
+        {
+          "element": "root",
+          "apply": "click"
+        }
+      ]
+    }
+  ]
+}

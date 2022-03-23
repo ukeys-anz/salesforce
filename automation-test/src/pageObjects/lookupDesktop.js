@@ -7,8 +7,9 @@ function _interopDefaultLegacy(e) {
   return e && typeof e === "object" && "default" in e ? e : { default: e };
 }
 
-var _GroupedCombobox__default =
-  /*#__PURE__*/ _interopDefaultLegacy(_GroupedCombobox);
+var _GroupedCombobox__default = /*#__PURE__*/ _interopDefaultLegacy(
+  _GroupedCombobox
+);
 
 async function _utam_get_groupedCombobox(driver, root) {
   let _element = root;

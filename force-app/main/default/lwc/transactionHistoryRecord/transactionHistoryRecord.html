@@ -38,7 +38,9 @@
       </div>
       <div class="slds-col slds-size--1-of-7">
         <div class="slds-grid slds-form-element__label">Transaction Type</div>
-        <div class="slds-grid">{transactionRecord.formatted_type}</div>
+        <div class="slds-grid" data-test-id="transaction-type">
+          {transactionRecord.formatted_type}
+        </div>
       </div>
       <div class="slds-col slds-size--1-of-7">
         <div class="slds-grid slds-form-element__label">Transaction Time</div>
@@ -63,12 +65,12 @@
             ></span>
           </template>
           <template if:true={negativeAmount}>
-            <span
-              ><lightning-formatted-number
+            <span>
+              <lightning-formatted-number
                 value={amountNumber}
                 format-style="currency"
-              ></lightning-formatted-number
-            ></span>
+              ></lightning-formatted-number>
+            </span>
           </template>
         </div>
       </div>
@@ -79,14 +81,16 @@
               value="Show Details"
               label="Show Details"
               onclick={handleDetailsToggle}
-            ></lightning-menu-item>
+            >
+            </lightning-menu-item>
           </template>
           <template if:true={showTransactionDetails}>
             <lightning-menu-item
               value="Hide Details"
               label="Hide Details"
               onclick={handleDetailsToggle}
-            ></lightning-menu-item>
+            >
+            </lightning-menu-item>
           </template>
           <lightning-menu-item
             value="Raise Dispute"
@@ -188,7 +192,8 @@
                 <lightning-formatted-number
                   value={amountConvertedValue}
                   format-style="currency"
-                ></lightning-formatted-number>
+                >
+                </lightning-formatted-number>
               </div>
             </div>
             <div class="slds-col slds-size--1-of-7">
@@ -346,7 +351,8 @@
               map-markers={transactionRecord.mapMarkers}
               zoom-level={zoomLevel}
               class="map"
-            ></lightning-map>
+            >
+            </lightning-map>
           </div>
         </div>
       </template>

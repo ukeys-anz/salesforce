@@ -1,8 +1,9 @@
 import { ownerType } from "types/record";
+import { UserRole } from "constants/enums";
 export default abstract class Case {
-  protected readonly userRole: string;
+  protected readonly userRole: UserRole;
 
-  constructor(userRole: string) {
+  constructor(userRole: UserRole) {
     this.userRole = userRole;
   }
 

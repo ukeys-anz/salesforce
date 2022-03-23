@@ -9,8 +9,9 @@ function _interopDefaultLegacy(e) {
 }
 
 var _Button__default = /*#__PURE__*/ _interopDefaultLegacy(_Button);
-var _ExecutorLwcHeadless__default =
-  /*#__PURE__*/ _interopDefaultLegacy(_ExecutorLwcHeadless);
+var _ExecutorLwcHeadless__default = /*#__PURE__*/ _interopDefaultLegacy(
+  _ExecutorLwcHeadless
+);
 
 async function _utam_get_lightningButton(driver, root) {
   let _element = root;
