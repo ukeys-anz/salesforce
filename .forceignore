@@ -110,3 +110,5 @@ force-app/main/default/duplicateRules/
 force-app/main/default/matchingRules/
 force-app/main/default/entitlementProcesses/
 force-app/main/default/transactionSecurityPolicies
+force-app/main/default/customindex/Account.Source_System_ID__c.indx-meta.xml
+force-app/main/default/customindex/Account.Source_System_Name__c.indx-meta.xml
