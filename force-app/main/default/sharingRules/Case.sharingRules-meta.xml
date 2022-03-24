@@ -134,11 +134,6 @@
             <operation>equals</operation>
             <value>Customer Complaint,Non-Customer Complaint,CFMS Migrated Case</value>
         </criteriaItems>
-        <criteriaItems>
-            <field>IDR_Is_Restricted__c</field>
-            <operation>notEqual</operation>
-            <value>True</value>
-        </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Dispute_RTs_Coach_Lead_RW</fullName>
