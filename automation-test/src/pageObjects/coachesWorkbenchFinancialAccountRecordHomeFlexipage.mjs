@@ -4,7 +4,8 @@ import {
   createUtamMixinCtor as _createUtamMixinCtor,
   UtamBaseRootPageObject as _UtamBaseRootPageObject
 } from "@utam/core";
-import _RecordHomeTemplateDesktop2 from "./../pageObjects/recordHomeTemplateDesktop2";
+import _CoachesWorkbenchRecordHomeTemplateDesktop2 from "./../pageObjects/coachesWorkbenchRecordHomeTemplateDesktop2";
+import _LwcFinancialAccountParent from "./../pageObjects/lwcFinancialAccountParent";
 import _RecordPageDecorator from "./../pageObjects/recordPageDecorator";
 
 async function _utam_get_adgRollup(driver, root) {
@@ -77,15 +78,16 @@ export default class CoachesWorkbenchFinancialAccountRecordHomeFlexipage extends
     const _statement0 = await this.getDecorator();
     const _statement1 = await _statement0.getEventBroker();
     const _result2 = await _statement1.getGeneratedTemplate(
-      _RecordHomeTemplateDesktop2
+      _CoachesWorkbenchRecordHomeTemplateDesktop2
     );
     return _result2;
   }
 
-  async getFinancialAccountTabset() {
+  async getFinancialAccount() {
     const _statement0 = await this.getFinancialAccountRecordPage();
-    const _statement1 = await _statement0.getTabset2();
-    const _result2 = await _statement1.getTabset();
-    return _result2;
+    const _statement1 = await _statement0.getMainRegionTabset();
+    const _statement2 = await _statement1.getDetailComponent();
+    const _result3 = await _statement2.getContent(_LwcFinancialAccountParent);
+    return _result3;
   }
 }

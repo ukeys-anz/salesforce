@@ -9,8 +9,9 @@ function _interopDefaultLegacy(e) {
 }
 
 var _Highlights2__default = /*#__PURE__*/ _interopDefaultLegacy(_Highlights2);
-var _RecordLayoutSection__default =
-  /*#__PURE__*/ _interopDefaultLegacy(_RecordLayoutSection);
+var _RecordLayoutSection__default = /*#__PURE__*/ _interopDefaultLegacy(
+  _RecordLayoutSection
+);
 
 async function _utam_get_forcegeneratedRecordLayout2(driver, root) {
   let _element = root;

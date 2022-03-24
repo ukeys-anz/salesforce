@@ -7,8 +7,9 @@ function _interopDefaultLegacy(e) {
   return e && typeof e === "object" && "default" in e ? e : { default: e };
 }
 
-var _AppNavBarItemRoot__default =
-  /*#__PURE__*/ _interopDefaultLegacy(_AppNavBarItemRoot);
+var _AppNavBarItemRoot__default = /*#__PURE__*/ _interopDefaultLegacy(
+  _AppNavBarItemRoot
+);
 
 async function _utam_filter_navItem(element, text) {
   const result = await element.getItemText();

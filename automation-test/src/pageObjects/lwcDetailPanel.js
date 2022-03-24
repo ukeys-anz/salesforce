@@ -7,8 +7,9 @@ function _interopDefaultLegacy(e) {
   return e && typeof e === "object" && "default" in e ? e : { default: e };
 }
 
-var _BaseRecordForm__default =
-  /*#__PURE__*/ _interopDefaultLegacy(_BaseRecordForm);
+var _BaseRecordForm__default = /*#__PURE__*/ _interopDefaultLegacy(
+  _BaseRecordForm
+);
 
 async function _utam_get_baseRecordForm(driver, root) {
   let _element = root;

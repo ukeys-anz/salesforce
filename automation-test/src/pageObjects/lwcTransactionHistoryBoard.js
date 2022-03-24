@@ -11,24 +11,24 @@ var _LwcTransactionHistoryRecord__default = /*#__PURE__*/ _interopDefaultLegacy(
   _LwcTransactionHistoryRecord
 );
 
-async function _utam_filter_transactionHistoryRecords(
+async function _utam_filter_transactionHistoryRecordOfType(
   element,
-  transcationType
+  transactionType
 ) {
   const result = await element.getTransactionType();
-  return result === transcationType;
+  return result === transactionType;
 }
 
 async function _utam_get_boardBody(driver, root) {
   let _element = root;
-  const _locator = core.By.css(`div[test-data-id='board-body']`);
+  const _locator = core.By.css(`[data-test-id='board-body']`);
+  _element = new core.ShadowRoot(driver, _element);
   return _element.findElement(_locator);
 }
 
-async function _utam_get_transactionHistoryRecordss(driver, root) {
+async function _utam_get_transactionHistoryRecordOfTypes(driver, root) {
   let _element = await _utam_get_boardBody(driver, root);
   const _locator = core.By.css(`c-transaction-history-record`);
-  _element = new core.ShadowRoot(driver, _element);
   return _element.findElements(_locator);
 }
 
@@ -53,10 +53,13 @@ class LwcTransactionHistoryBoard extends core.UtamBasePageObject {
     return element;
   }
 
-  async getTransactionHistoryRecords(transcationType) {
+  async getTransactionHistoryRecordOfType(transactionType) {
     const driver = this.driver;
     const root = await this.getRootElement();
-    let elements = await _utam_get_transactionHistoryRecordss(driver, root);
+    let elements = await _utam_get_transactionHistoryRecordOfTypes(
+      driver,
+      root
+    );
     elements = elements.map(function _createElement(element) {
       return new _LwcTransactionHistoryRecord__default[
         "default"
@@ -64,7 +67,7 @@ class LwcTransactionHistoryBoard extends core.UtamBasePageObject {
     });
     const appliedFilter = await Promise.all(
       elements.map((el) =>
-        _utam_filter_transactionHistoryRecords(el, transcationType)
+        _utam_filter_transactionHistoryRecordOfType(el, transactionType)
       )
     );
     elements = elements.find((_, i) => appliedFilter[i]);
@@ -72,14 +75,6 @@ class LwcTransactionHistoryBoard extends core.UtamBasePageObject {
       await elements.__beforeLoad__();
     }
     return elements;
-  }
-
-  async getTransactionHistoryRecordByType(transcationType) {
-    const _statement0 = await this.getTransactionHistoryRecords(
-      transcationType
-    );
-    const _result0 = await _statement0.getRecordType();
-    return _result0;
   }
 }
 

@@ -1,7 +1,7 @@
 "use strict";
 
 var core = require("@utam/core");
-var _CoachesWorkbenchCaseRecordHomeTemplateDesktop2 = require("./../pageObjects/coachesWorkbenchCaseRecordHomeTemplateDesktop2");
+var _CoachesWorkbenchRecordHomeTemplateDesktop2 = require("./../pageObjects/coachesWorkbenchRecordHomeTemplateDesktop2");
 var _LwcDetailPanel = require("./../pageObjects/lwcDetailPanel");
 var _RecordPageDecorator = require("./../pageObjects/recordPageDecorator");
 
@@ -9,14 +9,15 @@ function _interopDefaultLegacy(e) {
   return e && typeof e === "object" && "default" in e ? e : { default: e };
 }
 
-var _CoachesWorkbenchCaseRecordHomeTemplateDesktop2__default =
-  /*#__PURE__*/ _interopDefaultLegacy(
-    _CoachesWorkbenchCaseRecordHomeTemplateDesktop2
-  );
-var _LwcDetailPanel__default =
-  /*#__PURE__*/ _interopDefaultLegacy(_LwcDetailPanel);
-var _RecordPageDecorator__default =
-  /*#__PURE__*/ _interopDefaultLegacy(_RecordPageDecorator);
+var _CoachesWorkbenchRecordHomeTemplateDesktop2__default = /*#__PURE__*/ _interopDefaultLegacy(
+  _CoachesWorkbenchRecordHomeTemplateDesktop2
+);
+var _LwcDetailPanel__default = /*#__PURE__*/ _interopDefaultLegacy(
+  _LwcDetailPanel
+);
+var _RecordPageDecorator__default = /*#__PURE__*/ _interopDefaultLegacy(
+  _RecordPageDecorator
+);
 
 async function _utam_get_adgRollup(driver, root) {
   let _element = root;
@@ -88,7 +89,7 @@ class CoachesWorkbenchCaseRecordHomeFlexipage extends core.UtamBaseRootPageObjec
     const _statement0 = await this.getDecorator();
     const _statement1 = await _statement0.getEventBroker();
     const _result2 = await _statement1.getGeneratedTemplate(
-      _CoachesWorkbenchCaseRecordHomeTemplateDesktop2__default["default"]
+      _CoachesWorkbenchRecordHomeTemplateDesktop2__default["default"]
     );
     return _result2;
   }

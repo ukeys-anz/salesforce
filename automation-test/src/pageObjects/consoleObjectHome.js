@@ -7,8 +7,9 @@ function _interopDefaultLegacy(e) {
   return e && typeof e === "object" && "default" in e ? e : { default: e };
 }
 
-var _ListViewManager__default =
-  /*#__PURE__*/ _interopDefaultLegacy(_ListViewManager);
+var _ListViewManager__default = /*#__PURE__*/ _interopDefaultLegacy(
+  _ListViewManager
+);
 
 async function _utam_get_listView(driver, root) {
   let _element = root;

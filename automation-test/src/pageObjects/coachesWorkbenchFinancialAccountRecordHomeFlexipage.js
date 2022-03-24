@@ -1,18 +1,23 @@
 "use strict";
 
 var core = require("@utam/core");
-var _RecordHomeTemplateDesktop2 = require("./../pageObjects/recordHomeTemplateDesktop2");
+var _CoachesWorkbenchRecordHomeTemplateDesktop2 = require("./../pageObjects/coachesWorkbenchRecordHomeTemplateDesktop2");
+var _LwcFinancialAccountParent = require("./../pageObjects/lwcFinancialAccountParent");
 var _RecordPageDecorator = require("./../pageObjects/recordPageDecorator");
 
 function _interopDefaultLegacy(e) {
   return e && typeof e === "object" && "default" in e ? e : { default: e };
 }
 
-var _RecordHomeTemplateDesktop2__default = /*#__PURE__*/ _interopDefaultLegacy(
-  _RecordHomeTemplateDesktop2
+var _CoachesWorkbenchRecordHomeTemplateDesktop2__default = /*#__PURE__*/ _interopDefaultLegacy(
+  _CoachesWorkbenchRecordHomeTemplateDesktop2
 );
-var _RecordPageDecorator__default =
-  /*#__PURE__*/ _interopDefaultLegacy(_RecordPageDecorator);
+var _LwcFinancialAccountParent__default = /*#__PURE__*/ _interopDefaultLegacy(
+  _LwcFinancialAccountParent
+);
+var _RecordPageDecorator__default = /*#__PURE__*/ _interopDefaultLegacy(
+  _RecordPageDecorator
+);
 
 async function _utam_get_adgRollup(driver, root) {
   let _element = root;
@@ -84,16 +89,19 @@ class CoachesWorkbenchFinancialAccountRecordHomeFlexipage extends core.UtamBaseR
     const _statement0 = await this.getDecorator();
     const _statement1 = await _statement0.getEventBroker();
     const _result2 = await _statement1.getGeneratedTemplate(
-      _RecordHomeTemplateDesktop2__default["default"]
+      _CoachesWorkbenchRecordHomeTemplateDesktop2__default["default"]
     );
     return _result2;
   }
 
-  async getFinancialAccountTabset() {
+  async getFinancialAccount() {
     const _statement0 = await this.getFinancialAccountRecordPage();
-    const _statement1 = await _statement0.getTabset2();
-    const _result2 = await _statement1.getTabset();
-    return _result2;
+    const _statement1 = await _statement0.getMainRegionTabset();
+    const _statement2 = await _statement1.getDetailComponent();
+    const _result3 = await _statement2.getContent(
+      _LwcFinancialAccountParent__default["default"]
+    );
+    return _result3;
   }
 }
 

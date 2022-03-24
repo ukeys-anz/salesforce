@@ -1,6 +1,7 @@
 import RecordLayout from "pageObjects/lwcRecordLayout";
 import RecordLayoutItem from "pageObjects/recordLayoutItem";
 import ChangeOwnerModal from "pageObjects/changeOwnerModal";
+import GlobalSearch from "pageObjects/globalSearch";
 import { ownerType } from "types/record";
 import { fieldSectionIndex, picklistItemIndexRange } from "types/layout";
 import * as faker from "faker";
@@ -100,4 +101,32 @@ export const searchAndSelectNewOwner = async (
 
   // wait for page reload
   await browser.pause(5000);
+};
+
+/**
+ * @description search record in Global Search bar with key words, select 1st result and redirect to record home
+ * @param searchTerm
+ */
+export const searchRecordInGlobalSearchAndRedirect = async (
+  searchTerm: string
+) => {
+  const globalSearchRoot = await utam.load(GlobalSearch);
+  await globalSearchRoot.searchAndRedirectToRecord(searchTerm, 1);
+};
+
+/**
+ * @description generate a random future date formatted string: DD/MM/YYYY
+ * @returns a formatted date string: DD/MM/YYYY
+ */
+export const getRandomFutureDateFormattedString = () => {
+  const today = new Date();
+  let futureDay = new Date();
+  futureDay.setDate(today.getDate() + 7);
+
+  const futureDate = faker.date.between(today, futureDay);
+
+  // format date and return
+  return `${futureDate.getDate()}/${
+    futureDate.getMonth() + 1
+  }/${futureDate.getFullYear()}`;
 };
