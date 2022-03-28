@@ -40,11 +40,24 @@ public with sharing class SurveyResponseActions {
       }
 
       for (String ocvId : ocvIdToSurveyResponseMap.keySet()) {
+        qualtrics__Survey_Response__c sr = ocvIdToSurveyResponseMap.get(ocvid);
         if (String.isNotBlank(ocvIdToAccountIdMap.get(ocvId))) {
-          ocvIdToSurveyResponseMap.get(ocvid)
-            .qualtrics__Account__c = ocvIdToAccountIdMap.get(ocvId);
+          sr.qualtrics__Account__c = ocvIdToAccountIdMap.get(ocvId);
         } else {
-          ocvIdToSurveyResponseMap.get(ocvid).addError(INVALID_OCV_ID_ERROR);
+          sr.addError(INVALID_OCV_ID_ERROR);
+          lib_systemLog log = new lib_systemLog(
+            'SurveyResponseActions',
+            'beforeInsertActions'
+          );
+          log.info(
+            'OCV ID: ' +
+            ocvId +
+            '; Q_SurveyID: ' +
+            sr.qualtrics__Q_SurveyID__c +
+            '; Q_Recipient ID: ' +
+            sr.qualtrics__Q_Recipient_ID__c
+          );
+          log.publishEvent();
         }
       }
     }
