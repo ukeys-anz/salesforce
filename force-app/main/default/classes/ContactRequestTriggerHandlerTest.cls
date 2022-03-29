@@ -1,5 +1,8 @@
 @isTest
 private class ContactRequestTriggerHandlerTest {
+  static string otherPurposeName = 'Other';
+  static Integer otherPurposeDuration = 30;
+  static string contactRequestQueueName = 'Contact Request';
   /*
     Test data setup 
   */
@@ -230,5 +233,209 @@ private class ContactRequestTriggerHandlerTest {
       WHERE Status__c = 'New'
     ];
     System.assertEquals(0, interactionList.size());
+  }
+
+  @isTest
+  static void testAutomaticInteractionCreation() {
+    string otherPurposeName = 'Other';
+    Integer otherPurposeDuration = 30;
+    string contactRequestQueueName = 'Contact Request';
+    Account testAccount = createTestAccounts(1)[0];
+
+    Automated_Request_Purpose__mdt otherPurpose = new Automated_Request_Purpose__mdt();
+    otherPurpose.MasterLabel = otherPurposeName;
+    otherPurpose.Duration__c = otherPurposeDuration;
+    Map<String, Automated_Request_Purpose__mdt> purposeMap = new Map<String, Automated_Request_Purpose__mdt>();
+    purposeMap.put(otherPurposeName, otherPurpose);
+    AutomatedRequestMetadataProvider.getInstance().setMap(purposeMap);
+
+    List<QueueSObject> contactRequestQueue = [
+      SELECT Queue.Id, Queue.Name, Queue.Type
+      FROM QueueSObject
+      WHERE Queue.Type = 'Queue' AND Queue.Name = :contactRequestQueueName
+    ];
+
+    DateTime appointmentDate = DateTime.now();
+
+    ContactRequest request = new ContactRequest();
+    request.OwnerId = contactRequestQueue[0].Queue.Id;
+    request.Appointment_date_and_Time__c = appointmentDate;
+    request.RequestReason = otherPurposeName;
+    request.WhoId = testAccount.PersonContactId;
+    insert request;
+
+    request.OwnerId = UserInfo.getUserId();
+
+    test.startTest();
+    update request;
+    test.stopTest();
+
+    request = [SELECT Id, Status FROM ContactRequest WHERE Id = :request.Id];
+
+    system.assertEquals(
+      'Accepted',
+      request.Status,
+      'The requests status should have been set to Accepted.'
+    );
+
+    List<Interaction> interactions = [SELECT Id FROM Interaction];
+
+    system.assertNotEquals(
+      null,
+      interactions,
+      'Interactions should not be null'
+    );
+    system.assertNotEquals(
+      0,
+      interactions.size(),
+      'At least 1 interaction must be created'
+    );
+
+    List<InteractionSummary> summaries = [SELECT Id FROM InteractionSummary];
+
+    system.assertNotEquals(null, summaries, 'Summaries should not be null');
+    system.assertNotEquals(
+      0,
+      summaries.size(),
+      'At least 1 summary must be created'
+    );
+
+    List<Event> events = [SELECT Id FROM Event];
+
+    system.assertNotEquals(null, events, 'Events should not be null');
+    system.assertNotEquals(
+      0,
+      events.size(),
+      'At least 1 event must be created'
+    );
+  }
+
+  @isTest
+  static void testBulkAutomaticInteractionCreation() {
+    Integer sizeTest = 200;
+    List<Account> accounts = createTestAccounts(sizeTest);
+
+    Automated_Request_Purpose__mdt otherPurpose = new Automated_Request_Purpose__mdt();
+    otherPurpose.MasterLabel = otherPurposeName;
+    otherPurpose.Duration__c = otherPurposeDuration;
+    Map<String, Automated_Request_Purpose__mdt> purposeMap = new Map<String, Automated_Request_Purpose__mdt>();
+    purposeMap.put(otherPurposeName, otherPurpose);
+    AutomatedRequestMetadataProvider.getInstance().setMap(purposeMap);
+
+    List<QueueSObject> contactRequestQueue = [
+      SELECT Queue.Id, Queue.Name, Queue.Type
+      FROM QueueSObject
+      WHERE Queue.Type = 'Queue' AND Queue.Name = :contactRequestQueueName
+    ];
+
+    List<ContactRequest> requests = createContactRequests(
+      accounts,
+      contactRequestQueue[0].Queue.Id
+    );
+    insert requests;
+
+    for (ContactRequest request : requests) {
+      request.OwnerId = UserInfo.getUserId();
+    }
+
+    test.startTest();
+    update requests;
+    test.stopTest();
+
+    List<Interaction> interactions = [SELECT Id FROM Interaction];
+    System.assertEquals(
+      sizeTest,
+      interactions.size(),
+      'Should have created equal number of interactions to Contact Requests'
+    );
+  }
+
+  /**
+   * @description creates a Contact request for each account in a provided list
+   * @param accounts List<Account> list of accounts
+   * @param ownerId Id the Id of the Owner of the Contact Requests
+   * @return List<ContactRequest> resultant contact requests
+   */
+  static List<ContactRequest> createContactRequests(
+    List<Account> accounts,
+    Id ownerId
+  ) {
+    List<ContactRequest> requests = new List<ContactRequest>();
+    Faker faker = new Faker('AU');
+    for (Account currentAccount : accounts) {
+      DateTime appointmentDate = DateTime.newInstance(
+        DateTime.now().year() + 1, //Year
+        faker.randomIntegerBetween(1, 12), //month
+        faker.randomIntegerBetween(1, 28), //date
+        faker.randomIntegerBetween(7, 20), //hour
+        faker.randomIntegerBetween(0, 1) * 30, //minute
+        0 //second
+      );
+
+      ContactRequest request = new ContactRequest();
+      request.OwnerId = ownerId;
+      request.Appointment_date_and_Time__c = appointmentDate;
+      request.RequestReason = otherPurposeName;
+      request.WhoId = currentAccount.PersonContactId;
+      requests.add(request);
+    }
+    return requests;
+  }
+
+  /**
+   * @description creates multiple person accounts (does insert)
+   * @param numberOfAccounts Integer the number of accounts to created
+   * @return List<Account> list of created accounts
+   */
+  static List<Account> createTestAccounts(Integer numberOfAccounts) {
+    List<Account> result = new List<Account>();
+    Faker faker = new Faker('AU');
+    for (Integer i = 0; i < numberOfAccounts; i++) {
+      string firstName = faker.person.firstName();
+      string lastName = faker.person.lastName();
+      string oCVID = faker.randomString(10);
+
+      Account newAccount = createTestAccount(firstName, lastName, oCVID);
+      result.add(newAccount);
+    }
+
+    insert result;
+    Set<Id> accountIds = (new Map<Id, Account>(result)).keySet();
+
+    result = [SELECT Id, PersonContactId FROM Account WHERE Id IN :accountIds];
+
+    return result;
+  }
+
+  /**
+   * @description helper method to create a person account
+   * @return Account a Person Account with Name Fred Smith, OCV ID 123456
+   */
+  static Account createTestAccount() {
+    return createTestAccount('Fred', 'Smith', '123456');
+  }
+
+  /**
+   * @description helper method to create a person account
+   * @param firstName String the first name of the person
+   * @param lastName String the last name of the person
+   * @param ocvId the OCVId
+   * @return Account a Person Account with Name and OCV as provided
+   */
+  static Account createTestAccount(
+    String firstName,
+    String lastName,
+    String ocvId
+  ) {
+    Id personAccountRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
+      .get('PersonAccount')
+      .getRecordTypeId();
+    Account testAccount = new Account();
+    testAccount.FirstName = firstName;
+    testAccount.LastName = lastName;
+    testAccount.OCV_ID__c = ocvId;
+    testAccount.RecordTypeId = personAccountRecordTypeId;
+
+    return testAccount;
   }
 }

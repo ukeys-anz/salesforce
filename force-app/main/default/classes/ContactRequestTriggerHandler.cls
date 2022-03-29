@@ -36,4 +36,28 @@ public with sharing class ContactRequestTriggerHandler extends Lib_TriggerHandle
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
     ContactRequestTriggerActions.handleCancelledRequest(oldMap, records);
   }
+
+  public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    ContactRequestActions actions = new ContactRequestActions();
+
+    List<ContactRequest> requests = actions.findRequestsThatNowBelongToUser(
+      oldMap,
+      records
+    );
+    List<ContactRequest> acceptedRequests = actions.acceptContactRequests(
+      requests
+    );
+    List<Interaction> interactions = actions.createInteractionsFromRequests(
+      acceptedRequests
+    );
+    actions.insertInteractions(interactions);
+
+    List<InteractionSummary> summaries = actions.createInteractionSummariesFromInteractions(
+      interactions
+    );
+    actions.insertSummaries(summaries);
+
+    List<Event> events = actions.createEventsFromInteractions(interactions);
+    actions.insertEvents(events);
+  }
 }
