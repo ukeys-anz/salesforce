@@ -52,9 +52,13 @@ export default class DirectEntry extends Case {
     await browser.pause(5000);
   }
 
-  async assignNewOwner(): Promise<void> {}
+  async assignNewOwner(): Promise<void> {
+    console.log("Skip Assign a new owner | This scenario does not need it.");
+  }
 
-  async updateRecord(): Promise<void> {}
+  async updateRecord(): Promise<void> {
+    console.log("Update a record |  This scenario does not need it.");
+  }
 
   async closeRecord(): Promise<void> {
     // Coaches Workbench Case Record Page

@@ -120,7 +120,7 @@ export const searchRecordInGlobalSearchAndRedirect = async (
  */
 export const getRandomFutureDateFormattedString = () => {
   const today = new Date();
-  let futureDay = new Date();
+  const futureDay = new Date();
   futureDay.setDate(today.getDate() + 7);
 
   const futureDate = faker.date.between(today, futureDay);

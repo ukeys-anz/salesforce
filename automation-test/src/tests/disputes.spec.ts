@@ -2,7 +2,6 @@ import Auth from "common/Auth";
 import { navigateToConsoleAppAndTab } from "utils/consoleUtils";
 import { searchRecordInGlobalSearchAndRedirect } from "utils/commonUtils";
 import { UserRole, App, AppTab, TransactionType } from "constants/enums";
-import Case from "common/cases/Case";
 import ATM from "common/cases/ATM";
 import Card from "common/cases/Card";
 import DirectEntry from "common/cases/DirectEntry";
@@ -33,7 +32,7 @@ describe("Disputes - Coach Creates Disputes from Transaction", () => {
     );
 
     // Deposit Withdrawal Dispute will raise ATM case
-    let atmCase = new ATM(UserRole.COACH);
+    const atmCase = new ATM(UserRole.COACH);
 
     it("Go to Transaction History", async (): Promise<void> => {
       // search financial account in global search and redirect
@@ -56,7 +55,7 @@ describe("Disputes - Coach Creates Disputes from Transaction", () => {
   });
 
   describe("BSB-ACC Dispute Dispute", async (): Promise<void> => {
-    let bsbAccDispute = new Disputes(UserRole.COACH, TransactionType.BSB_ACC);
+    const bsbAccDispute = new Disputes(UserRole.COACH, TransactionType.BSB_ACC);
 
     // BSB-ACC Dispute will raise Direct Entry case
     const directEntryCase = new DirectEntry(UserRole.COACH);
@@ -82,7 +81,7 @@ describe("Disputes - Coach Creates Disputes from Transaction", () => {
   });
 
   describe("Card Dispute Dispute", async (): Promise<void> => {
-    let cardDispute = new Disputes(UserRole.COACH, TransactionType.CARD);
+    const cardDispute = new Disputes(UserRole.COACH, TransactionType.CARD);
 
     // Card Dispute will raise Card case
     const cardCase = new Card(UserRole.COACH);
