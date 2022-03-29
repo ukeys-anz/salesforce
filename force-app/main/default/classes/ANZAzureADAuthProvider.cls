@@ -120,7 +120,10 @@ global class ANZAzureADAuthProvider extends Auth.AuthProviderPluginClass {
     if (idTokenList.size() < 2) {
       return null;
     }
-    String userJson = (EncodingUtil.base64Decode(idTokenList[1])).toString();
+    String userJson = (EncodingUtil.base64Decode(
+        CommonUtil.base64URLToBase64(idTokenList[1])
+      ))
+      .toString();
     Map<String, Object> userJsonMap = (Map<String, Object>) (JSON.deserializeUntyped(
       userJson
     ));
