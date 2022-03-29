@@ -11,18 +11,16 @@ import caseData from "data/caseData";
 
 describe("Disputes - Coach Creates Disputes from Transaction", () => {
   // pre test steps
-  before(
-    async (): Promise<void> => {
-      // max viewport
-      await browser.maximizeWindow();
+  before(async (): Promise<void> => {
+    // max viewport
+    await browser.maximizeWindow();
 
-      // login as test user
-      await Auth.loginSalesforceAsRole(UserRole.COACH);
+    // login as test user
+    await Auth.loginSalesforceAsRole(UserRole.COACH);
 
-      // redirect test user to Coaches Workbench and Account home page
-      await navigateToConsoleAppAndTab(App.COACHES_WORKBENCH, AppTab.ACCOUNTS);
-    }
-  );
+    // redirect test user to Coaches Workbench and Account home page
+    await navigateToConsoleAppAndTab(App.COACHES_WORKBENCH, AppTab.ACCOUNTS);
+  });
 
   beforeEach(async () => {
     await browser.pause(1000);
@@ -109,10 +107,8 @@ describe("Disputes - Coach Creates Disputes from Transaction", () => {
     });
   });
 
-  after(
-    async (): Promise<void> => {
-      // log out test user
-      await Auth.logoutSalesforce();
-    }
-  );
+  after(async (): Promise<void> => {
+    // log out test user
+    await Auth.logoutSalesforce();
+  });
 });

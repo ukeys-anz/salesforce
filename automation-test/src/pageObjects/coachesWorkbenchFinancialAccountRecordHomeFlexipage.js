@@ -9,15 +9,15 @@ function _interopDefaultLegacy(e) {
   return e && typeof e === "object" && "default" in e ? e : { default: e };
 }
 
-var _CoachesWorkbenchRecordHomeTemplateDesktop2__default = /*#__PURE__*/ _interopDefaultLegacy(
-  _CoachesWorkbenchRecordHomeTemplateDesktop2
-);
+var _CoachesWorkbenchRecordHomeTemplateDesktop2__default =
+  /*#__PURE__*/ _interopDefaultLegacy(
+    _CoachesWorkbenchRecordHomeTemplateDesktop2
+  );
 var _LwcFinancialAccountParent__default = /*#__PURE__*/ _interopDefaultLegacy(
   _LwcFinancialAccountParent
 );
-var _RecordPageDecorator__default = /*#__PURE__*/ _interopDefaultLegacy(
-  _RecordPageDecorator
-);
+var _RecordPageDecorator__default =
+  /*#__PURE__*/ _interopDefaultLegacy(_RecordPageDecorator);
 
 async function _utam_get_adgRollup(driver, root) {
   let _element = root;

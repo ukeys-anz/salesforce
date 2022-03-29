@@ -11,9 +11,8 @@ function _interopDefaultLegacy(e) {
 var _RecordHomeTemplateDesktop2__default = /*#__PURE__*/ _interopDefaultLegacy(
   _RecordHomeTemplateDesktop2
 );
-var _RecordPageDecorator__default = /*#__PURE__*/ _interopDefaultLegacy(
-  _RecordPageDecorator
-);
+var _RecordPageDecorator__default =
+  /*#__PURE__*/ _interopDefaultLegacy(_RecordPageDecorator);
 
 async function _utam_get_adgRollup(driver, root) {
   let _element = root;

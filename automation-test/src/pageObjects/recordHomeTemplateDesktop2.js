@@ -8,9 +8,8 @@ function _interopDefaultLegacy(e) {
   return e && typeof e === "object" && "default" in e ? e : { default: e };
 }
 
-var _LwcHighlightsPanel__default = /*#__PURE__*/ _interopDefaultLegacy(
-  _LwcHighlightsPanel
-);
+var _LwcHighlightsPanel__default =
+  /*#__PURE__*/ _interopDefaultLegacy(_LwcHighlightsPanel);
 var _Tabset2__default = /*#__PURE__*/ _interopDefaultLegacy(_Tabset2);
 
 async function _utam_get_highlights(driver, root) {

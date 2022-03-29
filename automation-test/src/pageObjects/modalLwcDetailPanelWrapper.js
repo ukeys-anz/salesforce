@@ -11,9 +11,8 @@ function _interopDefaultLegacy(e) {
 var _RecordLayoutEventBroker__default = /*#__PURE__*/ _interopDefaultLegacy(
   _RecordLayoutEventBroker
 );
-var _LwcDetailPanel__default = /*#__PURE__*/ _interopDefaultLegacy(
-  _LwcDetailPanel
-);
+var _LwcDetailPanel__default =
+  /*#__PURE__*/ _interopDefaultLegacy(_LwcDetailPanel);
 
 async function _utam_get_eventBroker(driver, root) {
   let _element = root;

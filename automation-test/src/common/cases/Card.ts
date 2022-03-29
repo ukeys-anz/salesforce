@@ -65,7 +65,8 @@ export default class Card extends Case {
     await caseCreationFormRoot.editText(3, 10, 1, whatHappenedText);
 
     // Date Of Authorised Transaction
-    const authTransactionDateStr = commonUtils.getRandomFutureDateFormattedString();
+    const authTransactionDateStr =
+      commonUtils.getRandomFutureDateFormattedString();
     await caseCreationFormRoot.editText(3, 11, 1, authTransactionDateStr);
 
     // Amount Of Credit Due
@@ -81,19 +82,23 @@ export default class Card extends Case {
     );
 
     // Good Returned Or Service Cancelled Date
-    const goodReturnedDateStr = commonUtils.getRandomFutureDateFormattedString();
+    const goodReturnedDateStr =
+      commonUtils.getRandomFutureDateFormattedString();
     await caseCreationFormRoot.editText(3, 14, 1, goodReturnedDateStr);
 
     // Date Of Expected Delivery/Service
-    const expectedDeliveryDateStr = commonUtils.getRandomFutureDateFormattedString();
+    const expectedDeliveryDateStr =
+      commonUtils.getRandomFutureDateFormattedString();
     await caseCreationFormRoot.editText(3, 15, 1, expectedDeliveryDateStr);
 
     // Regular Payment Cancellation Date
-    const paymentCancellationDateStr = commonUtils.getRandomFutureDateFormattedString();
+    const paymentCancellationDateStr =
+      commonUtils.getRandomFutureDateFormattedString();
     await caseCreationFormRoot.editText(3, 16, 1, paymentCancellationDateStr);
 
     // Refund Request Date
-    const refundRequestDateStr = commonUtils.getRandomFutureDateFormattedString();
+    const refundRequestDateStr =
+      commonUtils.getRandomFutureDateFormattedString();
     await caseCreationFormRoot.editText(3, 17, 1, refundRequestDateStr);
 
     // Channel Received
@@ -129,7 +134,8 @@ export default class Card extends Case {
     );
 
     // get record layout
-    const detailPanel = await CaseRecordHomeFlexipageRoot.getMainRegionActiveTabDetailPanel();
+    const detailPanel =
+      await CaseRecordHomeFlexipageRoot.getMainRegionActiveTabDetailPanel();
     const baseRecordForm = await detailPanel.getBaseRecordForm();
     const recordLayout = await baseRecordForm.getRecordLayout();
 

@@ -7,9 +7,8 @@ function _interopDefaultLegacy(e) {
   return e && typeof e === "object" && "default" in e ? e : { default: e };
 }
 
-var _LookupDesktop__default = /*#__PURE__*/ _interopDefaultLegacy(
-  _LookupDesktop
-);
+var _LookupDesktop__default =
+  /*#__PURE__*/ _interopDefaultLegacy(_LookupDesktop);
 
 async function _utam_get_lookupDesktop(driver, root) {
   let _element = root;

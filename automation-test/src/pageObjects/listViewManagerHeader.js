@@ -7,9 +7,8 @@ function _interopDefaultLegacy(e) {
   return e && typeof e === "object" && "default" in e ? e : { default: e };
 }
 
-var _ActionsContainer__default = /*#__PURE__*/ _interopDefaultLegacy(
-  _ActionsContainer
-);
+var _ActionsContainer__default =
+  /*#__PURE__*/ _interopDefaultLegacy(_ActionsContainer);
 
 async function _utam_get_picker(driver, root) {
   let _element = root;

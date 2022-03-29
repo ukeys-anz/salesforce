@@ -17,7 +17,8 @@ export default class Disputes {
     );
 
     // load Financial Account Parent lwc component
-    const financialAccount = await financialAccountRecordHomeFlexipageRoot.getFinancialAccount();
+    const financialAccount =
+      await financialAccountRecordHomeFlexipageRoot.getFinancialAccount();
 
     // load Transaction History Board lwc component
     const board = await financialAccount.getTransactionHistoryBoard();
