@@ -68,6 +68,11 @@
                 <label>Coaching/Needs based Discussion</label>
             </value>
             <value>
+                <fullName>Credit Reporting</fullName>
+                <default>false</default>
+                <label>Credit Reporting</label>
+            </value>
+            <value>
                 <fullName>Device Support</fullName>
                 <default>false</default>
                 <label>Device Support</label>
@@ -311,6 +316,10 @@
         <valueSettings>
             <controllingFieldValue>Payments</controllingFieldValue>
             <valueName>Direct Debit or Recurring Payment</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Profile</controllingFieldValue>
+            <valueName>Credit Reporting</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Profile</controllingFieldValue>
