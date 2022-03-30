@@ -11,7 +11,7 @@ public with sharing class SurveyResponseActions {
 
   /**
    * @description beforeInsertActions is called onBeforeInsert. any logic that needs to be executed on before insert is executed from here
-   * @param records The Task record list.
+   * @param records The Survey Response record list.
    */
   public static void beforeInsertActions(
     List<qualtrics__Survey_Response__c> records
@@ -34,7 +34,7 @@ public with sharing class SurveyResponseActions {
       for (Account acc : [
         SELECT Id, OCV_ID__c
         FROM Account
-        WHERE OCV_ID__c IN :ocvidSet
+        WHERE OCV_ID__c IN :ocvidSet AND ANZx_Customer__c = TRUE
       ]) {
         ocvIdToAccountIdMap.put(acc.OCV_ID__c, acc.Id);
       }
@@ -60,6 +60,43 @@ public with sharing class SurveyResponseActions {
           log.publishEvent();
         }
       }
+    }
+  }
+
+  /**
+   * @description createCaseForSurveyResponse creates cases for Survey Responses which have Create_Case__c == true
+   * @param records The Survey Response record list.
+   */
+  public static void createCaseForSurveyResponse(
+    List<qualtrics__Survey_Response__c> records
+  ) {
+    Set<Id> accountIds = new Set<Id>();
+    List<Case> casesToCreate = new List<Case>();
+    List<qualtrics__Survey_Response__c> responsesRequireCase = new List<qualtrics__Survey_Response__c>();
+    for (qualtrics__Survey_Response__c record : records) {
+      if (record.Create_Case__c) {
+        accountIds.add(record.qualtrics__Account__c);
+        responsesRequireCase.add(record);
+      }
+    }
+
+    if (accountIds.size() > 0 && responsesRequireCase.size() > 0) {
+      Map<Id, Account> accountsMap = new Map<Id, Account>(
+        [SELECT Id, PersonContactId FROM Account WHERE Id IN :accountIds]
+      );
+
+      casesToCreate = SurveyResponseActionsHelper.buildCaseList(
+        accountsMap,
+        responsesRequireCase
+      );
+
+      List<Database.SaveResult> results = Database.Insert(casesToCreate, false);
+      lib_systemLog log = new lib_systemLog(
+        'SurveyResponseActions',
+        'createCaseForSurveyResponse'
+      );
+      log.addDatabaseSaveResult('Case', results, new List<Case>());
+      log.insertLog();
     }
   }
 }

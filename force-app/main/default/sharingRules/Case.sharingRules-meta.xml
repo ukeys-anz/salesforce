@@ -592,7 +592,7 @@
         <description>Grant read and write access on Customer Feeback record types to Coach Lead</description>
         <label>Coach_Lead_Customer_Feedback_RT_RW</label>
         <sharedTo>
-            <role>Coach Lead</role>
+            <role>Coach_Lead</role>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -606,7 +606,7 @@
         <description>Grant read and write access on Customer Feeback record types to FraudX Agent</description>
         <label>FraudX_Agent_Customer_Feedback_RT_RW</label>
         <sharedTo>
-            <role>FraudX Agent</role>
+            <role>FraudX_Agent</role>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -620,7 +620,7 @@
         <description>Grant read and write access on Customer Feeback record types to Support Coach</description>
         <label>Support_Coach_Customer_Feedback_RT_RW</label>
         <sharedTo>
-            <role>Support Coach</role>
+            <role>Support_Coach</role>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>

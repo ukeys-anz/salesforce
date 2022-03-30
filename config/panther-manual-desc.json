@@ -306,7 +306,8 @@
         "CreatedDate",
         "Id",
         "LastModifiedById",
-        "LastModifiedDate"
+        "LastModifiedDate",
+        "Survey_Response__c"
       ],
       "IA-2453595": [
         "Actual_Outcome__c",
@@ -891,8 +892,10 @@
     "qualtrics__Survey_Response__c": {
       "IA-2415840": [
         "Additional_Feedback__c",
+        "Alerting_Reason__c",
         "qualtrics__Date_Responsed__c",
         "Customer_Feedback__c",
+        "Create_Case__c",
         "qualtrics__Net_Promoter_Score__c",
         "Other_Feedback__c",
         "qualtrics__Overall_Satisfaction__c",

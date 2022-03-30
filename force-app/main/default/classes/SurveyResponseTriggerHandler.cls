@@ -18,4 +18,11 @@ public with sharing class SurveyResponseTriggerHandler extends Lib_TriggerHandle
   public override void onBeforeInsert() {
     SurveyResponseActions.beforeInsertActions(records);
   }
+
+  /**
+   * @description onAfterInsert to handle after insert trigger actions.
+   */
+  public override void onAfterInsert() {
+    SurveyResponseActions.createCaseForSurveyResponse(records);
+  }
 }

@@ -1914,6 +1914,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Survey_Response__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Submitted__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2026,10 +2031,20 @@
         <editable>true</editable>
         <field>qualtrics__Survey_Response__c.Additional_Feedback__c</field>
         <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>qualtrics__Survey_Response__c.Alerting_Reason__c</field>
+        <readable>true</readable>
     </fieldPermissions>        
     <fieldPermissions>
         <editable>true</editable>
         <field>qualtrics__Survey_Response__c.Customer_Feedback__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>qualtrics__Survey_Response__c.Create_Case__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
