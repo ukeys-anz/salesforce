@@ -199,6 +199,29 @@ public with sharing class ContactRequestActions {
   }
 
   /**
+   * @description goes through a list of interactions and returns the ones that have an automated purpose
+   * @param interactions List<Interaction> list of interactions to search through.
+   * @return List<Interaction> List of interactions that have an automated purpose
+   */
+  public List<Interaction> returnInteractionsWithAutomatedPurpose(
+    List<Interaction> interactions
+  ) {
+    List<Interaction> result = new List<Interaction>();
+    if (!interactions.isEmpty()) {
+      for (Interaction currentInteraction : interactions) {
+        if (
+          AutomatedRequestMetadataProvider.getInstance()
+            .getMap()
+            .containsKey(currentInteraction.Interaction_Purpose__c)
+        ) {
+          result.add(currentInteraction);
+        }
+      }
+    }
+    return result;
+  }
+
+  /**
    * @description goes through a list of ContactRequests and returns a map
    * of ContactId to AccountId based on the WhoId
    * @param requests List<ContactRequest> requests to search through
@@ -327,18 +350,22 @@ public with sharing class ContactRequestActions {
         accountIds.add(currentInteraction.AccountId);
       }
     }
-    if (
-      !accountIds.isEmpty() && Account.SObjectType.getDescribe().isQueryable()
-    ) {
-      result = new Map<Id, Account>(
-        [SELECT Id, Name, PersonContactId FROM Account WHERE Id IN :accountIds]
-      );
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'ContactRequestActions',
-        'getAccountMapFromInteractions',
-        'Not enough permissions to query Accounts.'
-      );
+    if (!accountIds.isEmpty()) {
+      if (Account.SObjectType.getDescribe().isQueryable()) {
+        result = new Map<Id, Account>(
+          [
+            SELECT Id, Name, PersonContactId
+            FROM Account
+            WHERE Id IN :accountIds
+          ]
+        );
+      } else {
+        CommonUtil.logAndThrowIAE(
+          'ContactRequestActions',
+          'getAccountMapFromInteractions',
+          'Not enough permissions to query Accounts.'
+        );
+      }
     }
     return result;
   }

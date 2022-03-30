@@ -464,6 +464,36 @@ public with sharing class ContactRequestActionsTest {
     );
   }
 
+  @isTest
+  static void returnInteractionsWithAutomatedPurpose() {
+    setup();
+    ContactRequestActions contactRequestActionHelper = new ContactRequestActions();
+
+    Interaction automatedInteraction = new Interaction(
+      Interaction_Purpose__c = otherPurposeName
+    );
+    Interaction nonAutomatedInteraction = new Interaction(
+      Interaction_Purpose__c = 'NotAutomated'
+    );
+
+    List<Interaction> interactions = new List<Interaction>{
+      automatedInteraction,
+      nonAutomatedInteraction
+    };
+
+    test.startTest();
+    List<Interaction> automatedInteractions = contactRequestActionHelper.returnInteractionsWithAutomatedPurpose(
+      interactions
+    );
+    test.stopTest();
+
+    system.assertEquals(
+      1,
+      automatedInteractions.size(),
+      'Should only return automated interactions'
+    );
+  }
+
   /**
    * @description helper method to create a person account
    * @return Account a Person Account with Name Fred Smith, OCV ID 123456

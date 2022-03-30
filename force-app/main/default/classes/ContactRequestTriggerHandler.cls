@@ -51,13 +51,5 @@ public with sharing class ContactRequestTriggerHandler extends Lib_TriggerHandle
       acceptedRequests
     );
     actions.insertInteractions(interactions);
-
-    List<InteractionSummary> summaries = actions.createInteractionSummariesFromInteractions(
-      interactions
-    );
-    actions.insertSummaries(summaries);
-
-    List<Event> events = actions.createEventsFromInteractions(interactions);
-    actions.insertEvents(events);
   }
 }
