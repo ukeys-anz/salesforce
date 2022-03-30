@@ -73,6 +73,11 @@
                 <label>Device Support</label>
             </value>
             <value>
+                <fullName>Direct Debit or Recurring Payment</fullName>
+                <default>false</default>
+                <label>Direct Debit or Recurring Payment</label>
+            </value>
+            <value>
                 <fullName>Feature Request</fullName>
                 <default>false</default>
                 <label>Feature Request</label>
@@ -302,6 +307,10 @@
         <valueSettings>
             <controllingFieldValue>Payments</controllingFieldValue>
             <valueName>Making payments</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payments</controllingFieldValue>
+            <valueName>Direct Debit or Recurring Payment</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Profile</controllingFieldValue>
