@@ -3,12 +3,14 @@
   "objectwhitelist": [
     "Access_Request__c",
     "Account",
+    "Appointment_Commitment__c",
     "Activity",
     "CampaignMember",
     "CaseComment",
     "Case",
     "CFMS_Migrated_Document__c",
     "Contact",
+    "ContactRequest",
     "ContentDocumentLink",
     "ContentVersion",
     "EmailMessage",
@@ -16,6 +18,8 @@
     "FinServ__FinancialAccountRole__c",
     "IDR_Letter_Approval_Details__c",
     "IDR_Template_Detail__c",
+    "Interaction",
+    "InteractionSummary",
     "Knowledge__kav",
     "Known_Issues__c",
     "Lead",
@@ -272,7 +276,7 @@
       "name": "System Administrator",
       "profile": "Admin",
       "permissionsetgroups": [],
-      "permissionsets": [],
+      "permissionsets": ["Appointment_Booking_System_Admin"],
       "type": "user"
     },
     {

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Escalated_Appointment_Requests</fullName>
+    <columns>Name</columns>
+    <columns>Account_Name__c</columns>
+    <columns>RequestReason</columns>
+    <columns>PreferredChannel</columns>
+    <columns>Appointment_date_and_Time__c</columns>
+    <columns>Status</columns>
+    <columns>Escalated__c</columns>
+    <columns>Owner</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Escalated__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>Escalated Appointment Requests</label>
+    <sharedTo>
+        <role>Coach</role>
+        <role>Coach_Lead</role>
+    </sharedTo>
+</ListView>
