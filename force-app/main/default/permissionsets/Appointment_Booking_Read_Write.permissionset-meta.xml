@@ -32,6 +32,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>ContactRequest.Account_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>ContactRequest.Appointment_Commitment__c</field>
         <readable>true</readable>
@@ -39,6 +44,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>ContactRequest.Appointment_date_and_Time__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ContactRequest.Channel_Booked__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ContactRequest.Duration__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -54,6 +69,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Interaction.AccountId</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Interaction.Channel_Booked__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -93,12 +113,22 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Interaction.LocationId</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Interaction.Record_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Interaction.ReferenceIdentifier</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Interaction.RelatedRecordId</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -119,6 +149,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>InteractionSummary.InteractionId</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>InteractionSummary.InteractionPurpose</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
