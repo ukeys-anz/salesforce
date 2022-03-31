@@ -224,6 +224,7 @@ public with sharing class SurveyResponseTriggerHandlerTest {
           Description,
           OwnerId,
           Priority,
+          Subject,
           Survey_Response__c
         FROM Case
         WHERE Alerting_Reason__c = 'Some alerting reason'
@@ -307,6 +308,13 @@ public with sharing class SurveyResponseTriggerHandlerTest {
       SurveyResponseActionsHelper.coachQueue.Id,
       caseRec.OwnerId,
       'Owner Id should match.'
+    );
+    System.assertEquals(
+      surveyResponse.Alerting_Reason__c +
+      ' - ' +
+      SurveyResponseActionsHelper.feedbackType,
+      caseRec.Subject,
+      'Subject should match.'
     );
   }
 }

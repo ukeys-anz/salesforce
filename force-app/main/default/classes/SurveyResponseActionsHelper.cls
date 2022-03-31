@@ -10,6 +10,7 @@ public with sharing class SurveyResponseActionsHelper {
   private static Group coachQueue = CommonUtil.getQueueByName(
     GetHelpConstants.COACH_QUEUE
   );
+  public static String feedbackType = 'Survey';
 
   /**
    * @description Build a case record with information from a survey response record
@@ -30,6 +31,7 @@ public with sharing class SurveyResponseActionsHelper {
     newCase.OwnerId = coachQueue.Id;
     newCase.Priority = 'Medium';
     newCase.RecordTypeId = GetHelpConstants.CUSTOMER_FEEDBACK_RT_ID;
+    newCase.Subject = surveyResponse.Alerting_Reason__c + ' - ' + feedbackType;
     newCase.Survey_Response__c = surveyResponse.Id;
 
     return newCase;
